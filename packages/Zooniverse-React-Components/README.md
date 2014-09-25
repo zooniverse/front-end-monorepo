@@ -1,4 +1,4 @@
 Zooniverse-React-Components
 ===========================
 
-That the repo name says
+What the repo name says
