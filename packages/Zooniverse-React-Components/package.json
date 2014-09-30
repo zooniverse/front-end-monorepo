@@ -46,6 +46,7 @@
     "watchify": "^1.0.6"
   },
   "dependencies": {
-    "react": "^0.11.2"
+    "react": "^0.11.2",
+    "react-router": "^0.7.0"
   }
 }
