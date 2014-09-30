@@ -1,0 +1,51 @@
+{
+  "name": "Zooniverse-React-Components",
+  "version": "1.0.0",
+  "description": "Zooniverse-React-Components ===========================",
+  "scripts": {
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zooniverse/Zooniverse-React-Components.git"
+  },
+  "author": "Zooniverse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zooniverse/Zooniverse-React-Components/issues"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "coffee-reactify",
+        {
+          "coffeeout": true
+        }
+      ],
+      "coffeeify"
+    ]
+  },
+  "homepage": "https://github.com/zooniverse/Zooniverse-React-Components",
+  "devDependencies": {
+    "browserify": "^5.12.1",
+    "coffee-reactify": "^1.0.2",
+    "coffeeify": "^0.7.0",
+    "gulp": "^3.8.8",
+    "gulp-browserify": "^0.5.0",
+    "gulp-changed": "^1.0.0",
+    "gulp-notify": "^1.8.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-stylus": "^1.3.3",
+    "gulp-util": "^3.0.1",
+    "nib": "^1.0.3",
+    "node-static": "^0.7.6",
+    "pretty-hrtime": "^0.2.1",
+    "require-dir": "^0.1.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^1.0.6"
+  },
+  "dependencies": {
+    "react": "^0.11.2"
+  }
+}
