@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb",
+    "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "space-before-function-paren": ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
+    "array-callback-return": "off",
+    "react/jsx-boolean-value": ["error","always"],
+    // specify the maximum length of a line in your program
+    // https://github.com/eslint/eslint/blob/master/docs/rules/max-len.md
+    "max-len": [1, 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false
+    }]
+  },
+}

@@ -1,52 +1,50 @@
 {
   "name": "Zooniverse-React-Components",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Zooniverse-React-Components ===========================",
+  "main": "lib/index.js",
   "scripts": {
-    "start": "gulp"
+    "start": "echo 'Nothing to see here yet'",
+    "build": "npm run build-js && npm run build-css",
+    "build-js": "babel src --out-dir lib",
+    "build-css": "stylus src/css/zooniverse-react-components.styl --out lib",
+    "test": "mocha --reporter nyan --compilers js:babel-register --require test/setup.js test/*.test.js",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/zooniverse/Zooniverse-React-Components.git"
   },
   "author": "Zooniverse",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/zooniverse/Zooniverse-React-Components/issues"
   },
-  "browserify": {
-    "transform": [
-      [
-        "coffee-reactify",
-        {
-          "coffeeout": true
-        }
-      ],
-      "coffeeify"
-    ]
-  },
   "homepage": "https://github.com/zooniverse/Zooniverse-React-Components",
   "devDependencies": {
-    "browserify": "^5.12.1",
-    "coffee-reactify": "^1.0.2",
-    "coffeeify": "^0.7.0",
-    "gulp": "^3.8.8",
-    "gulp-browserify": "^0.5.0",
-    "gulp-changed": "^1.0.0",
-    "gulp-notify": "^1.8.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-rimraf": "^0.1.0",
-    "gulp-stylus": "^1.3.3",
-    "gulp-util": "^3.0.1",
-    "nib": "^1.0.3",
-    "node-static": "^0.7.6",
-    "pretty-hrtime": "^0.2.1",
-    "require-dir": "^0.1.0",
-    "vinyl-source-stream": "^1.0.0",
-    "watchify": "^1.0.6"
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.6.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.1",
+    "sinon": "^1.17.6",
+    "stylus": "^0.54.5"
   },
   "dependencies": {
-    "react": "^0.11.2",
-    "react-router": "^0.7.0"
+    "data-uri-to-blob": "0.0.4",
+    "modal-form": "^2.4.3",
+    "panoptes-client": "^2.5.2",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-select": "^1.0.0-rc.2"
   }
 }

@@ -1,4 +1,3 @@
 node_modules
-npm-debug.log
-public/build
-public/build/*
+*.log
+.DS_Store

@@ -1,0 +1,77 @@
+.media-icon-delete-button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+}
+.media-icon-delete-button:disabled,
+.media-icon-delete-button[data-disabled] {
+  cursor: inherit;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.media-icon-delete-button[data-busy]::after {
+  animation: busy-button-animation 1s linear infinite alternate;
+  background: linear-gradient(90deg, rgba(128,128,128,0), rgba(128,128,128,0.2), rgba(128,128,128,0));
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.media-icon {
+  font-size: 12px;
+  text-align: center;
+}
+.media-icon-thumbnail {
+  box-shadow: 0 3px 10px -3px rgba(0,0,0,0.5);
+}
+.media-icon-thumbnail-container {
+  display: inline-block;
+  position: relative;
+}
+.media-icon-delete-button {
+  background: #808080;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  height: 1em;
+  line-height: 1;
+  position: absolute;
+  right: -0.5em;
+  top: -0.3em;
+  width: 1em;
+}
+.media-icon-thumbnail {
+  font-size: 12px;
+}
+.media-icon-markdown {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 10px;
+  height: 4.2em;
+  white-space: pre;
+  width: 100%;
+}
+.file-drop-target {
+  border: 2px dashed transparent;
+  border-radius: 3px;
+}
+.file-drop-target[data-can-drop] {
+  border-color: #43bbfd;
+}
+.zooniverse-logo {
+  position: relative;
+  width: 0.82em;
+  top: 0.14em;
+}
