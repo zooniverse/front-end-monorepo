@@ -17,12 +17,12 @@ export default class UserSearch extends React.Component {
     };
 
     this.clear = this.clear.bind(this);
-    this.value = this.value.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.searchUsers = this.searchUsers.bind(this);
+    this.value = this.value.bind(this);
   }
 
   onChange(users) {
-    console.log('heyo')
     this.setState({ users });
   }
 
@@ -44,21 +44,23 @@ export default class UserSearch extends React.Component {
 
     return new Promise((resolve) => {
       this.queryTimeout = delayBy(this.props.debounce, () => {
-        console.log('hey')
         if (onSearch) {
           onSearch();
         }
 
         return apiClient.type('users').get({ search: value, page_size: 10 })
           .then((users) => {
-            users.map((user) => {
-              return {
+            const results = [];
+            users.forEach((user) => {
+              results.push({
                 value: user.id,
                 label: `@${user.login}: ${user.display_name}`,
-              };
+              });
             });
+
+            return results;
           })
-          .then(options => resolve({ options }))
+          .then((options) => { return resolve({ options }) })
           .catch((err) => { console.error(err); });
       });
 
