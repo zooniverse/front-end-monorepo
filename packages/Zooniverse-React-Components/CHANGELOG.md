@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.2] 2017-02-20
+### Fixed
+- Fixed build
+
 ## [0.1.1] 2017-02-17
 ### Fixed
 - Fixed broken onChange handler and returned values in `UserSearch` component
