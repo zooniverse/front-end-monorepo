@@ -45,15 +45,15 @@ var UserSearch = function (_React$Component) {
     };
 
     _this.clear = _this.clear.bind(_this);
-    _this.value = _this.value.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
     _this.searchUsers = _this.searchUsers.bind(_this);
+    _this.value = _this.value.bind(_this);
     return _this;
   }
 
   _createClass(UserSearch, [{
     key: 'onChange',
     value: function onChange(users) {
-      console.log('heyo');
       this.setState({ users: users });
     }
   }, {
@@ -80,18 +80,20 @@ var UserSearch = function (_React$Component) {
 
       return new Promise(function (resolve) {
         _this2.queryTimeout = delayBy(_this2.props.debounce, function () {
-          console.log('hey');
           if (onSearch) {
             onSearch();
           }
 
           return _apiClient2.default.type('users').get({ search: value, page_size: 10 }).then(function (users) {
-            users.map(function (user) {
-              return {
+            var results = [];
+            users.forEach(function (user) {
+              results.push({
                 value: user.id,
                 label: '@' + user.login + ': ' + user.display_name
-              };
+              });
             });
+
+            return results;
           }).then(function (options) {
             return resolve({ options: options });
           }).catch(function (err) {
