@@ -5,13 +5,12 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "echo 'Nothing to see here yet'",
-    "build": "npm run build-js && npm run build-css",
+    "build": "rm -rf lib && npm run build-js && npm run build-css",
     "build-js": "babel src --out-dir lib",
     "build-css": "stylus src/css/zooniverse-react-components.styl --out lib",
     "test": "mocha --reporter nyan --compilers js:babel-register --require test/setup.js test/*.test.js",
     "lint": "eslint src",
-    "preversion": "rm -rf lib && npm test",
-    "version": "npm run build",
+    "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
   "repository": {
