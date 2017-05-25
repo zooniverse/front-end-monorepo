@@ -11,6 +11,7 @@
     "test": "mocha --reporter nyan --compilers js:babel-register --require test/setup.js test/*.test.js",
     "lint": "eslint src",
     "preversion": "npm test",
+    "version": "npm run build && git add -A lib",
     "postversion": "git push && git push --tags"
   },
   "repository": {
