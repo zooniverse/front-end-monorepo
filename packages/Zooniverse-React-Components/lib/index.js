@@ -67,4 +67,22 @@ Object.defineProperty(exports, 'ZooniverseLogo', {
   }
 });
 
+var _displayNameSlugEditor = require('./components/display-name-slug-editor');
+
+Object.defineProperty(exports, 'DisplayNameSlugEditor', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_displayNameSlugEditor).default;
+  }
+});
+
+var _imageSelector = require('./components/image-selector');
+
+Object.defineProperty(exports, 'ImageSelector', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_imageSelector).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

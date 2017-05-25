@@ -1,8 +1,7 @@
 /* global expect */
-/* eslint-env browser, mocha */
 /* eslint-disable func-names, prefer-arrow-callback */
 /* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 import DragAndDropTarget from '../src/components/drag-and-drop-target';

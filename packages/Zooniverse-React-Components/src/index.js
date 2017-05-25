@@ -5,4 +5,5 @@ export { default as FileButton } from './components/file-button';
 export { default as DragAndDropTarget } from './components/drag-and-drop-target';
 export { default as ZooniverseLogotype } from './components/zooniverse-logotype';
 export { default as ZooniverseLogo } from './components/zooniverse-logo';
-
+export { default as DisplayNameSlugEditor } from './components/display-name-slug-editor';
+export { default as ImageSelector } from './components/image-selector';

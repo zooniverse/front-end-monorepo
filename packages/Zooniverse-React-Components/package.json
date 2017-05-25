@@ -1,5 +1,5 @@
 {
-  "name": "Zooniverse-React-Components",
+  "name": "zooniverse-react-components",
   "version": "0.1.2",
   "description": "Zooniverse-React-Components ===========================",
   "main": "lib/index.js",
@@ -9,7 +9,10 @@
     "build-js": "babel src --out-dir lib",
     "build-css": "stylus src/css/zooniverse-react-components.styl --out lib",
     "test": "mocha --reporter nyan --compilers js:babel-register --require test/setup.js test/*.test.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "preversion": "rm -rf lib && npm test",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
