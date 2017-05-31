@@ -2,7 +2,7 @@
   "name": "zoo-grommet",
   "version": "1.4.0",
   "description": "A fork of grommet with Zooniverse theming",
-  "main": "index.js",
+  "main": "node_modules/grommet/src/js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
