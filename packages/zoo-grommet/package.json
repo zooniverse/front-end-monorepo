@@ -1,0 +1,11 @@
+{
+  "name": "zoo-grommet",
+  "version": "1.4.0",
+  "description": "A fork of grommet with Zooniverse theming",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
+  "license": "Apache-2.0"
+}
