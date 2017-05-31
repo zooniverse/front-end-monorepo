@@ -1,6 +1,6 @@
 {
   "name": "zoo-grommet",
-  "version": "1.4.0",
+  "version": "0.0.1",
   "description": "A fork of grommet with Zooniverse theming",
   "main": "node_modules/grommet/src/js/index.js",
   "scripts": {
@@ -10,5 +10,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "grommet": "^1.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
