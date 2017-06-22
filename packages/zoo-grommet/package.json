@@ -1,10 +1,10 @@
 {
   "name": "zoo-grommet",
   "version": "0.0.1",
-  "description": "A fork of grommet with Zooniverse theming",
+  "description": "A Zooniverse theme for the Grommet React library",
   "main": "node_modules/grommet/src/js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "build": "npm-sass ./src/zoo-grommet.scss > ./dist/zoo-grommet.css"
   },
   "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
   "license": "Apache-2.0",
@@ -13,5 +13,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "npm-sass": "^2.2.1"
   }
 }
