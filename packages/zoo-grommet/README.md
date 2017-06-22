@@ -24,4 +24,4 @@ import Box from 'grommet/components/Box';
 
 ### Publishing to NPM
 
-Run (`npm version`)[https://docs.npmjs.com/cli/version] and push to GitHub. New versions will be deployed via Travis.
+Run (`npm version`)[https://docs.npmjs.com/cli/version] and push to GitHub including tags. New versions will be deployed via Travis.
