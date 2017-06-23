@@ -1,0 +1,39 @@
+$ZOONIVERSE_TEAL: #007482;
+$ZOONIVERSE_NAVY: #0C4881;
+$HIGHLIGHT_COLOR: #F0B200;
+$HIGHLIGHT_DARK: #CC9200;
+$ALERT_COLOR: #E45950;
+$TEAL_LIGHT: #ADDDE0;
+$TEAL_MID: #00979D;
+$TEAL_DARK: #005D69;
+$NAVY_LIGHT: #6D91B3;
+
+$BACKGROUND: #EEF2F5; // off-white
+$GREY_LIGHT: #CBCCCB;
+$GREY_MID: #646464; // in PFE "COPY"
+$FOREGROUND: #404040; // darker grey
+$BLACK_LIGHT: #272727;
+
+// $MAIN_HIGHLIGHT: #43bbfd;
+// $SECOND_HIGHLIGHT: #38b978;
+// $COBOLT_BLUE: #0072ff;
+// $BURNT_ORANGE: #f48a21;
+$SUCCESS: #009E0C;
+
+$brand-color: $ZOONIVERSE_TEAL;
+$brand-color-lighter: #16979C;
+$brand-neutral-colors: ($ZOONIVERSE_NAVY, $NAVY_LIGHT, $HIGHLIGHT_COLOR, $HIGHLIGHT_DARK);
+$brand-accent-colors: ($TEAL_LIGHT, $TEAL_MID, $TEAL_DARK);
+$brand-status-colors: (
+  critical: $ALERT_COLOR,
+  error: $ALERT_COLOR,
+  warning: $HIGHLIGHT_COLOR,
+  ok: $SUCCESS,
+  unknown: #C3C5C8,
+  disabled: #C3C5C8
+);
+// $brand-link-color: $brand-color;
+$brand-grey-colors: ($BLACK_LIGHT, $FOREGROUND, $GREY_MID, $GREY_LIGHT);
+$brand-light-colors: ($BACKGROUND);
+// $brand-graph-colors: (#2E7CBE, #99DAF8, #F1F9F7, #F9F9EC);
+// $focus-border-color: #2E7CBE;
