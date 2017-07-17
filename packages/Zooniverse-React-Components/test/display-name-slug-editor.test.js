@@ -142,6 +142,10 @@ describe('<DisplayNameSlugEditor />', function() {
       expect(button.text()).to.equal('Cancel');
     });
 
+    it('returns the value state when value method called', function() {
+      expect(wrapper.instance().value()).to.equal(value);
+    });
+
     it('resets the value state to the original resource display_name when canceled', function() {
       button.simulate('click');
       expect(undoNameChangeSpy.calledOnce).to.be.true;

@@ -29,6 +29,10 @@ class DisplayNameSlugEditor extends Component {
     this.setState({ value: resource.display_name, url: `/${resourceType}s/${resource.slug}` });
   }
 
+  value() {
+    return this.state.value;
+  }
+
   handleInputChange(event) {
     const value = event.target.value;
     this.setState({ value });
@@ -36,7 +40,7 @@ class DisplayNameSlugEditor extends Component {
   }
 
   undoNameChange() {
-    this.setState({ value: this.props.resource.display_name });
+    this.setState({ value: this.props.resource.display_name, warn: false });
   }
 
   warnURLChange(resource, displayNameInputValue) {

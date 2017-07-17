@@ -12,7 +12,6 @@ const ZooniverseLogo = ({ width, height, title, style }) => {
   return (
     <svg
       role="img"
-      className="zooniverse-logo"
       viewBox="0 0 100 100"
       width={width}
       height={height}
