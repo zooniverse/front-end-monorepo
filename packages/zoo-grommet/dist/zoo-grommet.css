@@ -1,3 +1,35 @@
+@import url("https://fonts.googleapis.com/css?family=Karla");
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Karla"), local("Karla-Regular"), url(https://fonts.gstatic.com/s/karla/v5/S1bXQ0LrY7AzefpgNae9sYDGDUGfDkXyfkzVDelzfFk.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+
+/* latin */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Karla"), local("Karla-Regular"), url(https://fonts.gstatic.com/s/karla/v5/JaMH4jmmzP070-OYo03anaCWcynf_cDxXwCLxiixG1c.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
+
+/* latin-ext */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Karla Bold"), local("Karla-Bold"), url(https://fonts.gstatic.com/s/karla/v5/r3NqIkFHFaF3esZDc3WT5BkAz4rYn47Zy2rvigWQf6w.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+
+/* latin */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Karla Bold"), local("Karla-Bold"), url(https://fonts.gstatic.com/s/karla/v5/suoMYBGv5sGCUIrF9mVTfXYhjbSpvc47ee6xR_80Hnw.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
+
 /*!
  * inuitcss, by @csswizardry
  *
@@ -446,7 +478,7 @@ ul, ol, dd {
 
 .grommet,
 .brand-font {
-  font-family: Arial, sans-serif; }
+  font-family: "Karla", sans-serif; }
 
 .grommet {
   font-size: 16px;
@@ -553,7 +585,7 @@ ul, ol, dd {
   .grommet code {
     font-family: Consolas, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace; }
   .grommet .large-number-font {
-    font-family: Arial, sans-serif; }
+    font-family: "Karla", sans-serif; }
   .grommet .secondary {
     color: #666; }
   .grommet .error {
@@ -583,7 +615,7 @@ ul, ol, dd {
   line-height: 1.5;
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -799,7 +831,7 @@ ul, ol, dd {
   transform: rotate(90deg); }
 
 .grommet a:not(.grommetux-anchor):not(.grommetux-button) {
-  color: #8C50FF;
+  color: #007482;
   text-decoration: none;
   cursor: pointer; }
   .grommet a:not(.grommetux-anchor):not(.grommetux-button).plain .grommet a:not(.grommetux-anchor):not(.grommetux-button).grommetux-button {
@@ -807,7 +839,7 @@ ul, ol, dd {
     .grommet a:not(.grommetux-anchor):not(.grommetux-button).plain .grommet a:not(.grommetux-anchor):not(.grommetux-button).grommetux-button:hover {
       text-decoration: none; }
   .grommet a:not(.grommetux-anchor):not(.grommetux-button):visited {
-    color: #8C50FF; }
+    color: #007482; }
   .grommet a:not(.grommetux-anchor):not(.grommetux-button).active {
     color: #333; }
   .grommet a:not(.grommetux-anchor):not(.grommetux-button):hover {
@@ -820,9 +852,9 @@ ul, ol, dd {
     .grommetux-background-color-index--dark .grommet a:not(.grommetux-anchor):not(.grommetux-button).active, .grommetux-background-color-index--dark .grommet a:not(.grommetux-anchor):not(.grommetux-button):hover, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommet a:not(.grommetux-anchor):not(.grommetux-button).active, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommet a:not(.grommetux-anchor):not(.grommetux-button):hover {
       color: #fff; }
   .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button), .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button) {
-    color: #8C50FF; }
+    color: #007482; }
     .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button):visited, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button):visited {
-      color: #8C50FF; }
+      color: #007482; }
     .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button).active, .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button):hover, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button).active, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommet a:not(.grommetux-anchor):not(.grommetux-button):hover {
       color: #004b54; }
   .grommetux-background-color-index--pending .grommet a:not(.grommetux-anchor):not(.grommetux-button) {
@@ -838,9 +870,9 @@ ul, ol, dd {
     color: #fff; }
 
 .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button), .grommetux-background-color-index--dark .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button) {
-  color: #8C50FF; }
+  color: #007482; }
   .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button):visited, .grommetux-background-color-index--dark .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button):visited {
-    color: #8C50FF; }
+    color: #007482; }
   .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button).active, .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button):hover, .grommetux-background-color-index--dark .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button).active, .grommetux-background-color-index--dark .grommetux-background-color-index--light a:not(.grommetux-anchor):not(.grommetux-button):hover {
     color: #004b54; }
 
@@ -850,7 +882,7 @@ ul, ol, dd {
     color: transparent; }
 
 .grommetux-anchor {
-  color: #8C50FF;
+  color: #007482;
   text-decoration: none;
   cursor: pointer; }
   .grommetux-anchor.plain .grommetux-anchor.grommetux-button {
@@ -858,7 +890,7 @@ ul, ol, dd {
     .grommetux-anchor.plain .grommetux-anchor.grommetux-button:hover {
       text-decoration: none; }
   .grommetux-anchor:visited {
-    color: #8C50FF; }
+    color: #007482; }
   .grommetux-anchor.active {
     color: #333; }
   .grommetux-anchor:hover {
@@ -871,9 +903,9 @@ ul, ol, dd {
     .grommetux-background-color-index--dark .grommetux-anchor.active, .grommetux-background-color-index--dark .grommetux-anchor:hover, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-anchor.active, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-anchor:hover {
       color: #fff; }
   .grommetux-background-color-index--light .grommetux-anchor, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-anchor {
-    color: #8C50FF; }
+    color: #007482; }
     .grommetux-background-color-index--light .grommetux-anchor:visited, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-anchor:visited {
-      color: #8C50FF; }
+      color: #007482; }
     .grommetux-background-color-index--light .grommetux-anchor.active, .grommetux-background-color-index--light .grommetux-anchor:hover, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-anchor.active, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-anchor:hover {
       color: #004b54; }
   .grommetux-background-color-index--pending .grommetux-anchor {
@@ -1040,15 +1072,15 @@ ul, ol, dd {
   .grommetux-anchor--disabled:hover.grommetux-anchor--primary {
     color: #007482; }
   .grommetux-anchor--disabled:hover.grommetux-anchor:not(.grommetux-anchor--primary) {
-    color: #8C50FF; }
+    color: #007482; }
   .grommetux-background-color-index--dark .grommetux-anchor--disabled:hover, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-anchor--disabled:hover {
     fill: rgba(255, 255, 255, 0.7);
     stroke: rgba(255, 255, 255, 0.7); }
     .grommetux-background-color-index--dark .grommetux-anchor--disabled:hover.grommetux-anchor--primary, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-anchor--disabled:hover.grommetux-anchor--primary {
       color: rgba(255, 255, 255, 0.7); }
   .grommetux-background-color-index--light .grommetux-anchor--disabled:hover, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-anchor--disabled:hover {
-    fill: #8C50FF;
-    stroke: #8C50FF; }
+    fill: #007482;
+    stroke: #007482; }
     .grommetux-background-color-index--light .grommetux-anchor--disabled:hover.grommetux-anchor--primary, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-anchor--disabled:hover.grommetux-anchor--primary {
       color: #007482; }
 
@@ -1722,6 +1754,12 @@ ul, ol, dd {
 .grommetux-box--size-large {
   width: 576px; }
 
+.grommetux-box--size-xlarge {
+  width: 720px; }
+
+.grommetux-box--size-xxlarge {
+  width: 960px; }
+
 .grommetux-box--size-auto {
   width: auto; }
 
@@ -2009,7 +2047,7 @@ ul, ol, dd {
 .grommet button:not(.grommetux-button) {
   background-color: transparent;
   border: 2px solid #007482;
-  border-radius: 4px;
+  border-radius: 0px;
   color: #333;
   font-size: 19px;
   font-size: 1.1875rem;
@@ -2055,7 +2093,7 @@ ul, ol, dd {
 .grommetux-button {
   background-color: transparent;
   border: 2px solid #007482;
-  border-radius: 4px;
+  border-radius: 0px;
   color: #333;
   font-size: 19px;
   font-size: 1.1875rem;
@@ -2367,7 +2405,9 @@ ul, ol, dd {
 
 .grommetux-carousel__track {
   display: flex;
-  max-width: none;
+  max-width: none; }
+
+.grommetux-carousel__track--animate {
   transition: all 0.8s; }
 
 .grommetux-carousel__arrow {
@@ -3305,7 +3345,7 @@ _::-webkit-:not(:root:root),
   vertical-align: middle;
   background-color: inherit;
   border: 2px solid #666;
-  border-radius: 4px; }
+  border-radius: 0px; }
   html.rtl .grommetux-check-box__control {
     margin-right: 0;
     margin-left: 12px; }
@@ -3435,9 +3475,21 @@ _::-webkit-:not(:root:root),
 
 .grommetux-background-color-index--dark, .grommetux-background-color-index--light .grommetux-background-color-index--dark {
   color: #fff; }
+  .grommetux-background-color-index--dark input::-webkit-input-placeholder, .grommetux-background-color-index--light .grommetux-background-color-index--dark input::-webkit-input-placeholder {
+    color: #fff; }
+  .grommetux-background-color-index--dark input::-moz-placeholder, .grommetux-background-color-index--light .grommetux-background-color-index--dark input::-moz-placeholder {
+    color: #fff; }
+  .grommetux-background-color-index--dark input:-ms-input-placeholder, .grommetux-background-color-index--light .grommetux-background-color-index--dark input:-ms-input-placeholder {
+    color: #fff; }
 
 .grommetux-background-color-index--light, .grommetux-background-color-index--dark .grommetux-background-color-index--light {
   color: #333; }
+  .grommetux-background-color-index--light input::-webkit-input-placeholder, .grommetux-background-color-index--dark .grommetux-background-color-index--light input::-webkit-input-placeholder {
+    color: #333; }
+  .grommetux-background-color-index--light input::-moz-placeholder, .grommetux-background-color-index--dark .grommetux-background-color-index--light input::-moz-placeholder {
+    color: #333; }
+  .grommetux-background-color-index--light input:-ms-input-placeholder, .grommetux-background-color-index--dark .grommetux-background-color-index--light input:-ms-input-placeholder {
+    color: #333; }
 
 .grommetux-background-color-index-brand {
   background-color: #007482; }
@@ -4140,7 +4192,7 @@ _::-webkit-:not(:root:root),
 .grommetux-date-time__input {
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -4392,7 +4444,7 @@ _::-webkit-:not(:root:root),
 .grommetux-distribution__label {
   position: absolute;
   padding: 6px 12px;
-  font-family: Arial, sans-serif;
+  font-family: "Karla", sans-serif;
   overflow: hidden;
   text-align: left;
   pointer-events: none; }
@@ -4565,9 +4617,9 @@ _::-webkit-:not(:root:root),
     max-width: 100%; }
 
 .grommet.grommetux-drop {
-  position: absolute;
+  position: fixed;
   z-index: 20;
-  border-radius: 4px;
+  border-radius: 0px;
   overflow: auto; }
 
 .grommet.grommetux-drop:not([class*="background-color-index-"]) {
@@ -5220,7 +5272,7 @@ header.grommetux-header--primary .grommetux-header__wrapper {
     top: 0px;
     left: 0px;
     right: 0px;
-    z-index: 3; }
+    z-index: 50; }
     @media screen and (min-width: 45em) {
       .grommetux-header__container--fixed .grommetux-header__wrapper .grommetux-header {
         position: fixed; } }
@@ -6139,7 +6191,7 @@ html.rtl .right-left-icon--right {
         max-width: 100%;
         overflow: auto;
         padding: 0 48px;
-        border-radius: 4px;
+        border-radius: 0px;
         box-shadow: none; } }
   @media screen and (min-width: 45em) and (-ms-high-contrast: active), screen and (min-width: 45em) and (-ms-high-contrast: none) {
     .grommetux-layer .grommetux-layer__container .grommetux-form {
@@ -7818,7 +7870,8 @@ html.rtl .right-left-icon--right {
   font-size: 19px;
   font-size: 1.1875rem;
   line-height: 24px; }
-  .grommetux-notification--status-critical .grommetux-notification__status .grommetux-status-icon__base {
+  .grommetux-notification--status-critical .grommetux-notification__status .grommetux-status-icon__base,
+  .grommetux-notification--status-critical .grommetux-notification__status .grommetux-status-icon__base .grommetux-status-icon__small {
     fill: #fff; }
   .grommetux-notification--status-critical .grommetux-notification__status .grommetux-status-icon__detail {
     stroke: #E45950;
@@ -7829,7 +7882,8 @@ html.rtl .right-left-icon--right {
   .grommetux-notification--status-critical .grommetux-notification__close {
     stroke: #fff;
     fill: #fff; }
-  .grommetux-notification--status-error .grommetux-notification__status .grommetux-status-icon__base {
+  .grommetux-notification--status-error .grommetux-notification__status .grommetux-status-icon__base,
+  .grommetux-notification--status-error .grommetux-notification__status .grommetux-status-icon__base .grommetux-status-icon__small {
     fill: #fff; }
   .grommetux-notification--status-error .grommetux-notification__status .grommetux-status-icon__detail {
     stroke: #E45950;
@@ -7840,7 +7894,8 @@ html.rtl .right-left-icon--right {
   .grommetux-notification--status-error .grommetux-notification__close {
     stroke: #fff;
     fill: #fff; }
-  .grommetux-notification--status-warning .grommetux-notification__status .grommetux-status-icon__base {
+  .grommetux-notification--status-warning .grommetux-notification__status .grommetux-status-icon__base,
+  .grommetux-notification--status-warning .grommetux-notification__status .grommetux-status-icon__base .grommetux-status-icon__small {
     fill: #fff; }
   .grommetux-notification--status-warning .grommetux-notification__status .grommetux-status-icon__detail {
     stroke: #F0B200;
@@ -7851,7 +7906,8 @@ html.rtl .right-left-icon--right {
   .grommetux-notification--status-warning .grommetux-notification__close {
     stroke: #fff;
     fill: #fff; }
-  .grommetux-notification--status-ok .grommetux-notification__status .grommetux-status-icon__base {
+  .grommetux-notification--status-ok .grommetux-notification__status .grommetux-status-icon__base,
+  .grommetux-notification--status-ok .grommetux-notification__status .grommetux-status-icon__base .grommetux-status-icon__small {
     fill: #fff; }
   .grommetux-notification--status-ok .grommetux-notification__status .grommetux-status-icon__detail {
     stroke: #009E0C;
@@ -7862,7 +7918,8 @@ html.rtl .right-left-icon--right {
   .grommetux-notification--status-ok .grommetux-notification__close {
     stroke: #fff;
     fill: #fff; }
-  .grommetux-notification--status-unknown .grommetux-notification__status .grommetux-status-icon__base {
+  .grommetux-notification--status-unknown .grommetux-notification__status .grommetux-status-icon__base,
+  .grommetux-notification--status-unknown .grommetux-notification__status .grommetux-status-icon__base .grommetux-status-icon__small {
     fill: #fff; }
   .grommetux-notification--status-unknown .grommetux-notification__status .grommetux-status-icon__detail {
     stroke: #C3C5C8;
@@ -7873,7 +7930,8 @@ html.rtl .right-left-icon--right {
   .grommetux-notification--status-unknown .grommetux-notification__close {
     stroke: #fff;
     fill: #fff; }
-  .grommetux-notification--status-disabled .grommetux-notification__status .grommetux-status-icon__base {
+  .grommetux-notification--status-disabled .grommetux-notification__status .grommetux-status-icon__base,
+  .grommetux-notification--status-disabled .grommetux-notification__status .grommetux-status-icon__base .grommetux-status-icon__small {
     fill: #fff; }
   .grommetux-notification--status-disabled .grommetux-notification__status .grommetux-status-icon__detail {
     stroke: #C3C5C8;
@@ -7907,7 +7965,7 @@ html.rtl .right-left-icon--right {
 .grommetux-number-input__input {
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -8224,7 +8282,7 @@ html.rtl .right-left-icon--right {
   margin-right: 0px;
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -8419,7 +8477,7 @@ html.rtl .right-left-icon--right {
 .grommetux-search-input__input {
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -8530,7 +8588,7 @@ section:not(.grommetux-section) {
 .grommetux-select__input {
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -8976,7 +9034,7 @@ section:not(.grommetux-section) {
 .grommetux-text-input {
   padding: 11px 23px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border-radius: 0px;
   outline: none;
   background-color: transparent;
   color: inherit;
@@ -10081,64 +10139,115 @@ section:not(.grommetux-section) {
 .grommetux-world-map {
   width: 100%; }
 
-.grommetux-world-map__continent {
-  stroke-width: 6px;
+.grommetux-world-map__continent,
+.grommetux-world-map__place {
   stroke-linecap: round;
   transition: stroke-width 0.3s;
   outline: none; }
-  .grommetux-world-map__continent.grommetux-color-index-loading {
+  .grommetux-world-map__continent.grommetux-color-index-loading,
+  .grommetux-world-map__place.grommetux-color-index-loading {
     stroke: #ddd;
     stroke-dasharray: 1px 10px;
     stroke-dashoffset: 0; }
-  .grommetux-world-map__continent.grommetux-color-index-unset {
+  .grommetux-world-map__continent.grommetux-color-index-unset,
+  .grommetux-world-map__place.grommetux-color-index-unset {
     stroke: #ddd; }
-  .grommetux-world-map__continent.grommetux-color-index-brand {
+  .grommetux-world-map__continent.grommetux-color-index-brand,
+  .grommetux-world-map__place.grommetux-color-index-brand {
     stroke: #007482; }
-  .grommetux-world-map__continent.grommetux-color-index-critical {
+  .grommetux-world-map__continent.grommetux-color-index-critical,
+  .grommetux-world-map__place.grommetux-color-index-critical {
     stroke: #E45950; }
-  .grommetux-world-map__continent.grommetux-color-index-error {
+  .grommetux-world-map__continent.grommetux-color-index-error,
+  .grommetux-world-map__place.grommetux-color-index-error {
     stroke: #E45950; }
-  .grommetux-world-map__continent.grommetux-color-index-warning {
+  .grommetux-world-map__continent.grommetux-color-index-warning,
+  .grommetux-world-map__place.grommetux-color-index-warning {
     stroke: #F0B200; }
-  .grommetux-world-map__continent.grommetux-color-index-ok {
+  .grommetux-world-map__continent.grommetux-color-index-ok,
+  .grommetux-world-map__place.grommetux-color-index-ok {
     stroke: #009E0C; }
-  .grommetux-world-map__continent.grommetux-color-index-unknown {
+  .grommetux-world-map__continent.grommetux-color-index-unknown,
+  .grommetux-world-map__place.grommetux-color-index-unknown {
     stroke: #C3C5C8; }
-  .grommetux-world-map__continent.grommetux-color-index-disabled {
+  .grommetux-world-map__continent.grommetux-color-index-disabled,
+  .grommetux-world-map__place.grommetux-color-index-disabled {
     stroke: #C3C5C8; }
-  .grommetux-world-map__continent.grommetux-color-index-graph-1, .grommetux-world-map__continent.grommetux-color-index-graph-5 {
+  .grommetux-world-map__continent.grommetux-color-index-graph-1, .grommetux-world-map__continent.grommetux-color-index-graph-5,
+  .grommetux-world-map__place.grommetux-color-index-graph-1,
+  .grommetux-world-map__place.grommetux-color-index-graph-5 {
     stroke: #0C4881; }
-  .grommetux-world-map__continent.grommetux-color-index-graph-2, .grommetux-world-map__continent.grommetux-color-index-graph-6 {
+  .grommetux-world-map__continent.grommetux-color-index-graph-2, .grommetux-world-map__continent.grommetux-color-index-graph-6,
+  .grommetux-world-map__place.grommetux-color-index-graph-2,
+  .grommetux-world-map__place.grommetux-color-index-graph-6 {
     stroke: #6D91B3; }
-  .grommetux-world-map__continent.grommetux-color-index-graph-3, .grommetux-world-map__continent.grommetux-color-index-graph-7 {
+  .grommetux-world-map__continent.grommetux-color-index-graph-3, .grommetux-world-map__continent.grommetux-color-index-graph-7,
+  .grommetux-world-map__place.grommetux-color-index-graph-3,
+  .grommetux-world-map__place.grommetux-color-index-graph-7 {
     stroke: #F0B200; }
-  .grommetux-world-map__continent.grommetux-color-index-graph-4, .grommetux-world-map__continent.grommetux-color-index-graph-8 {
+  .grommetux-world-map__continent.grommetux-color-index-graph-4, .grommetux-world-map__continent.grommetux-color-index-graph-8,
+  .grommetux-world-map__place.grommetux-color-index-graph-4,
+  .grommetux-world-map__place.grommetux-color-index-graph-8 {
     stroke: #CC9200; }
-  .grommetux-world-map__continent.grommetux-color-index-grey-1, .grommetux-world-map__continent.grommetux-color-index-grey-5 {
+  .grommetux-world-map__continent.grommetux-color-index-grey-1, .grommetux-world-map__continent.grommetux-color-index-grey-5,
+  .grommetux-world-map__place.grommetux-color-index-grey-1,
+  .grommetux-world-map__place.grommetux-color-index-grey-5 {
     stroke: #272727; }
-  .grommetux-world-map__continent.grommetux-color-index-grey-2, .grommetux-world-map__continent.grommetux-color-index-grey-6 {
+  .grommetux-world-map__continent.grommetux-color-index-grey-2, .grommetux-world-map__continent.grommetux-color-index-grey-6,
+  .grommetux-world-map__place.grommetux-color-index-grey-2,
+  .grommetux-world-map__place.grommetux-color-index-grey-6 {
     stroke: #404040; }
-  .grommetux-world-map__continent.grommetux-color-index-grey-3, .grommetux-world-map__continent.grommetux-color-index-grey-7 {
+  .grommetux-world-map__continent.grommetux-color-index-grey-3, .grommetux-world-map__continent.grommetux-color-index-grey-7,
+  .grommetux-world-map__place.grommetux-color-index-grey-3,
+  .grommetux-world-map__place.grommetux-color-index-grey-7 {
     stroke: #646464; }
-  .grommetux-world-map__continent.grommetux-color-index-grey-4, .grommetux-world-map__continent.grommetux-color-index-grey-8 {
+  .grommetux-world-map__continent.grommetux-color-index-grey-4, .grommetux-world-map__continent.grommetux-color-index-grey-8,
+  .grommetux-world-map__place.grommetux-color-index-grey-4,
+  .grommetux-world-map__place.grommetux-color-index-grey-8 {
     stroke: #CBCCCB; }
-  .grommetux-world-map__continent.grommetux-color-index-accent-1, .grommetux-world-map__continent.grommetux-color-index-accent-4 {
+  .grommetux-world-map__continent.grommetux-color-index-accent-1, .grommetux-world-map__continent.grommetux-color-index-accent-4,
+  .grommetux-world-map__place.grommetux-color-index-accent-1,
+  .grommetux-world-map__place.grommetux-color-index-accent-4 {
     stroke: #ADDDE0; }
-  .grommetux-world-map__continent.grommetux-color-index-accent-2, .grommetux-world-map__continent.grommetux-color-index-accent-5 {
+  .grommetux-world-map__continent.grommetux-color-index-accent-2, .grommetux-world-map__continent.grommetux-color-index-accent-5,
+  .grommetux-world-map__place.grommetux-color-index-accent-2,
+  .grommetux-world-map__place.grommetux-color-index-accent-5 {
     stroke: #00979D; }
-  .grommetux-world-map__continent.grommetux-color-index-accent-3, .grommetux-world-map__continent.grommetux-color-index-accent-6 {
+  .grommetux-world-map__continent.grommetux-color-index-accent-3, .grommetux-world-map__continent.grommetux-color-index-accent-6,
+  .grommetux-world-map__place.grommetux-color-index-accent-3,
+  .grommetux-world-map__place.grommetux-color-index-accent-6 {
     stroke: #005D69; }
-  .grommetux-world-map__continent.grommetux-color-index-neutral-1, .grommetux-world-map__continent.grommetux-color-index-neutral-5 {
+  .grommetux-world-map__continent.grommetux-color-index-neutral-1, .grommetux-world-map__continent.grommetux-color-index-neutral-5,
+  .grommetux-world-map__place.grommetux-color-index-neutral-1,
+  .grommetux-world-map__place.grommetux-color-index-neutral-5 {
     stroke: #0C4881; }
-  .grommetux-world-map__continent.grommetux-color-index-neutral-2, .grommetux-world-map__continent.grommetux-color-index-neutral-6 {
+  .grommetux-world-map__continent.grommetux-color-index-neutral-2, .grommetux-world-map__continent.grommetux-color-index-neutral-6,
+  .grommetux-world-map__place.grommetux-color-index-neutral-2,
+  .grommetux-world-map__place.grommetux-color-index-neutral-6 {
     stroke: #6D91B3; }
-  .grommetux-world-map__continent.grommetux-color-index-neutral-3, .grommetux-world-map__continent.grommetux-color-index-neutral-7 {
+  .grommetux-world-map__continent.grommetux-color-index-neutral-3, .grommetux-world-map__continent.grommetux-color-index-neutral-7,
+  .grommetux-world-map__place.grommetux-color-index-neutral-3,
+  .grommetux-world-map__place.grommetux-color-index-neutral-7 {
     stroke: #F0B200; }
-  .grommetux-world-map__continent.grommetux-color-index-neutral-4, .grommetux-world-map__continent.grommetux-color-index-neutral-8 {
+  .grommetux-world-map__continent.grommetux-color-index-neutral-4, .grommetux-world-map__continent.grommetux-color-index-neutral-8,
+  .grommetux-world-map__place.grommetux-color-index-neutral-4,
+  .grommetux-world-map__place.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-world-map__continent.grommetux-color-index-light-1, .grommetux-world-map__continent.grommetux-color-index-light-2 {
+  .grommetux-world-map__continent.grommetux-color-index-light-1, .grommetux-world-map__continent.grommetux-color-index-light-2,
+  .grommetux-world-map__place.grommetux-color-index-light-1,
+  .grommetux-world-map__place.grommetux-color-index-light-2 {
     stroke: #EEF2F5; }
+
+.grommetux-world-map__continent {
+  stroke-width: 6px; }
+
+.grommetux-world-map__place {
+  stroke-width: 8px; }
 
 .grommetux-world-map__continent--active {
   stroke-width: 8px;
+  cursor: pointer; }
+
+.grommetux-world-map__place--active {
+  stroke-width: 20px;
   cursor: pointer; }

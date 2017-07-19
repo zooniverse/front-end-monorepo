@@ -13,7 +13,14 @@ npm install --save zoo-grommet
 And include the CSS file in your project:
 
 ```
-@import node_modules/zoo-grommet/dist/zoo-grommet
+@import "~zoo-grommet/dist/zoo-grommet.css"
+```
+
+Note for webpack users: make sure you have your css-loaders configured and add to the css-loader options: 
+```
+options: {
+  includePaths: [path.resolve(__dirname, 'node_modules/zoo-grommet/dist')]
+}
 ```
 
 Grommet components are imported from the library as normal, e.g.

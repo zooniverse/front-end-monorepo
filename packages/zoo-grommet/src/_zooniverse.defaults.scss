@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+
+// Colors
 $ZOONIVERSE_TEAL: #007482;
 $ZOONIVERSE_NAVY: #0C4881;
 $HIGHLIGHT_COLOR: #F0B200;
@@ -32,8 +35,114 @@ $brand-status-colors: (
   unknown: #C3C5C8,
   disabled: #C3C5C8
 );
-// $brand-link-color: $brand-color;
+$brand-link-color: $brand-color;
 $brand-grey-colors: ($BLACK_LIGHT, $FOREGROUND, $GREY_MID, $GREY_LIGHT);
 $brand-light-colors: ($BACKGROUND);
 // $brand-graph-colors: (#2E7CBE, #99DAF8, #F1F9F7, #F9F9EC);
 // $focus-border-color: #2E7CBE;
+
+// Typography
+$brand-font-family: 'Karla', sans-serif;
+$brand-large-number-font-family: 'Karla', sans-serif;
+$text-strong-font-weight: 600;
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Karla'), local('Karla-Regular'), url(https://fonts.gstatic.com/s/karla/v5/S1bXQ0LrY7AzefpgNae9sYDGDUGfDkXyfkzVDelzfFk.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Karla'), local('Karla-Regular'), url(https://fonts.gstatic.com/s/karla/v5/JaMH4jmmzP070-OYo03anaCWcynf_cDxXwCLxiixG1c.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Karla Bold'), local('Karla-Bold'), url(https://fonts.gstatic.com/s/karla/v5/r3NqIkFHFaF3esZDc3WT5BkAz4rYn47Zy2rvigWQf6w.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Karla Bold'), local('Karla-Bold'), url(https://fonts.gstatic.com/s/karla/v5/suoMYBGv5sGCUIrF9mVTfXYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+// Other variables we could define....
+
+// Other defaults
+
+// $grommet-namespace: "grommetux-";
+
+$border-radius: 0px !default;
+
+// // header/footer vertical sizing
+// $small-header-height: round($inuit-base-spacing-unit * 2) !default;
+// $header-height: round($inuit-base-spacing-unit * 3) !default;
+// $large-header-height: round($inuit-base-spacing-unit * 4) !default;
+// $small-footer-height: round($inuit-base-spacing-unit) !default;
+// $footer-height: round($inuit-base-spacing-unit * 1.5) !default;
+// $large-footer-height: round($inuit-base-spacing-unit * 4) !default;
+
+// // general layout t-shirt sizing
+// $size-xxsmall: round($inuit-base-spacing-unit * 2) !default; // 48px
+// $size-xsmall: round($inuit-base-spacing-unit * 4) !default; // 96px
+// $size-small: round($inuit-base-spacing-unit * 8) !default; // 192px
+// $size-medium: round($inuit-base-spacing-unit * 16) !default; // 384px
+// $size-large: round($inuit-base-spacing-unit * 24) !default; // 576px
+// $size-xlarge: round($inuit-base-spacing-unit * 30) !default; // 720px
+// $size-xxlarge: round($inuit-base-spacing-unit * 40) !default; // 960px
+
+// $center-column-width: round($inuit-base-spacing-unit * 48) !default; // 1152px;
+// $sidebar-width: round($inuit-base-spacing-unit * 14) !default; // 336px
+// $sidebar-xsmall-width: round($inuit-base-spacing-unit * 6) !default; // 144px
+// $sidebar-small-width: round($inuit-base-spacing-unit * 10) !default; // 240px
+// $sidebar-large-width: round($inuit-base-spacing-unit * 20) !default; // 480px
+// $nav-width: round($inuit-base-spacing-unit * 8) !default; // 192px
+// $form-width: round($inuit-base-spacing-unit * 20) !default; // 480px
+// $compact-form-width: round($inuit-base-spacing-unit * 12) !default; // 288px
+// $readable-text-width: round($inuit-base-spacing-unit * 24) !default; // 576px
+
+// $sparkline-height: $inuit-base-spacing-unit !default; // 24px
+
+// $control-size: $inuit-base-spacing-unit !default; // 24px
+
+// $button-min-width: round($inuit-base-spacing-unit * 5) !default;
+// $button-max-width: round($inuit-base-spacing-unit * 16) !default;
+
+// $input-border-width: 1px !default;
+// $input-focus-border-width: 2px !default;
+// $control-border-width: 2px !default;
+// $button-border-width: 2px !default;
+// $button-hover-border-width: 3px !default;
+// $range-border-radius: 3px !default;
+// $active-border-width: 4px !default;
+
+// $break-palm-max-width: 44.9375em !default;
+// $break-lap-and-up-min-width: 45em !default;
+// $break-portable-max-width: 63.9375em !default;
+
+// $breakpoints: (
+//     "palm"          "screen and (max-width: #{$break-palm-max-width})",
+//     "lap-and-up"    "screen and (min-width: #{$break-lap-and-up-min-width})",
+//     "portable"      "screen and (max-width: #{$break-portable-max-width})"
+// ) !default;
+
+// $brand-link-text-decoration: none !default;
+
+// $button-text-transform: none !default;
+
+// $base-animation-duration: 0.3s;
+
+// $inuit-namespace: 'i-';
+
+
