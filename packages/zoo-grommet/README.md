@@ -31,4 +31,4 @@ import Box from 'grommet/components/Box';
 
 ### Publishing to NPM
 
-Run (`npm version`)[https://docs.npmjs.com/cli/version] and push to GitHub including tags. New versions will be deployed via [Travis](https://travis-ci.org/zooniverse/zoo-grommet).
+Run [`npm version`](https://docs.npmjs.com/cli/version) and push to GitHub including tags. New versions will be deployed via [Travis](https://travis-ci.org/zooniverse/zoo-grommet).
