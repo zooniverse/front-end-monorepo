@@ -5,6 +5,7 @@
   "main": "node_modules/grommet/src/js/index.js",
   "scripts": {
     "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags",
     "build": "npm-sass ./src/zoo-grommet.scss > ./dist/zoo-grommet.css"
   },
   "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
