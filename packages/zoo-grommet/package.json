@@ -1,6 +1,6 @@
 {
   "name": "zoo-grommet",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Zooniverse theme for the Grommet React library",
   "main": "node_modules/grommet/src/js/index.js",
   "scripts": {
