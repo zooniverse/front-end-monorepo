@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Karla");
 @font-face {
   font-family: 'Karla';
   font-style: normal;
@@ -3009,7 +3008,9 @@ _::-webkit-:not(:root:root),
     stroke: #F0B200; }
   .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-neutral-4, .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-neutral-8, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-neutral-4, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-1, .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-2, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-1, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-2 {
+  .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-1, .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-3, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-1, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-2, .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-4, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-2, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-marker.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
   .grommetux-background-color-index--light .grommetux-chart-marker.grommetux-color-index-unset, .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-chart-marker.grommetux-color-index-unset {
     stroke: rgba(221, 221, 221, 0.7); }
@@ -4080,31 +4081,59 @@ _::-webkit-:not(:root:root),
   box-shadow: 0 0 0 24px #C3C5C8; }
 
 .grommetux-background-color-index-light-1,
-.grommetux-background-color-index-light-2 {
-  background-color: #EEF2F5; }
+.grommetux-background-color-index-light-3 {
+  background-color: #fff; }
 
 .grommetux-background-color-index-light-1-a,
-.grommetux-background-color-index-light-2-a {
-  background-color: rgba(238, 242, 245, 0.8); }
+.grommetux-background-color-index-light-3-a {
+  background-color: rgba(255, 255, 255, 0.8); }
 
 .grommetux-border-color-index-light-1,
-.grommetux-border-color-index-light-2 {
-  border-color: #EEF2F5; }
+.grommetux-border-color-index-light-3 {
+  border-color: #fff; }
 
 .grommetux-background-hover-color-index-light-1:hover,
-.grommetux-background-hover-color-index-light-2:hover {
-  background-color: rgba(238, 242, 245, 0.3); }
+.grommetux-background-hover-color-index-light-3:hover {
+  background-color: rgba(255, 255, 255, 0.3); }
 
 .grommetux-border-small-hover-color-index-light-1:hover,
-.grommetux-border-small-hover-color-index-light-2:hover {
-  box-shadow: 0 0 0 1px #EEF2F5; }
+.grommetux-border-small-hover-color-index-light-3:hover {
+  box-shadow: 0 0 0 1px #fff; }
 
 .grommetux-border-medium-hover-color-index-light-1:hover,
-.grommetux-border-medium-hover-color-index-light-2:hover {
-  box-shadow: 0 0 0 12px #EEF2F5; }
+.grommetux-border-medium-hover-color-index-light-3:hover {
+  box-shadow: 0 0 0 12px #fff; }
 
 .grommetux-border-large-hover-color-index-light-1:hover,
-.grommetux-border-large-hover-color-index-light-2:hover {
+.grommetux-border-large-hover-color-index-light-3:hover {
+  box-shadow: 0 0 0 24px #fff; }
+
+.grommetux-background-color-index-light-2,
+.grommetux-background-color-index-light-4 {
+  background-color: #EEF2F5; }
+
+.grommetux-background-color-index-light-2-a,
+.grommetux-background-color-index-light-4-a {
+  background-color: rgba(238, 242, 245, 0.8); }
+
+.grommetux-border-color-index-light-2,
+.grommetux-border-color-index-light-4 {
+  border-color: #EEF2F5; }
+
+.grommetux-background-hover-color-index-light-2:hover,
+.grommetux-background-hover-color-index-light-4:hover {
+  background-color: rgba(238, 242, 245, 0.3); }
+
+.grommetux-border-small-hover-color-index-light-2:hover,
+.grommetux-border-small-hover-color-index-light-4:hover {
+  box-shadow: 0 0 0 1px #EEF2F5; }
+
+.grommetux-border-medium-hover-color-index-light-2:hover,
+.grommetux-border-medium-hover-color-index-light-4:hover {
+  box-shadow: 0 0 0 12px #EEF2F5; }
+
+.grommetux-border-large-hover-color-index-light-2:hover,
+.grommetux-border-large-hover-color-index-light-4:hover {
   box-shadow: 0 0 0 24px #EEF2F5; }
 
 .grommetux-background-color-index-unset {
@@ -4438,7 +4467,10 @@ _::-webkit-:not(:root:root),
 .grommetux-distribution__item-icons.grommetux-color-index-neutral-4, .grommetux-distribution__item-icons.grommetux-color-index-neutral-8 {
   stroke: #CC9200; }
 
-.grommetux-distribution__item-icons.grommetux-color-index-light-1, .grommetux-distribution__item-icons.grommetux-color-index-light-2 {
+.grommetux-distribution__item-icons.grommetux-color-index-light-1, .grommetux-distribution__item-icons.grommetux-color-index-light-3 {
+  stroke: #fff; }
+
+.grommetux-distribution__item-icons.grommetux-color-index-light-2, .grommetux-distribution__item-icons.grommetux-color-index-light-4 {
   stroke: #EEF2F5; }
 
 .grommetux-distribution__label {
@@ -4589,7 +4621,9 @@ _::-webkit-:not(:root:root),
     stroke: #F0B200; }
   .grommetux-distribution__loading-indicator.grommetux-color-index-neutral-4, .grommetux-distribution__loading-indicator.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-distribution__loading-indicator.grommetux-color-index-light-1, .grommetux-distribution__loading-indicator.grommetux-color-index-light-2 {
+  .grommetux-distribution__loading-indicator.grommetux-color-index-light-1, .grommetux-distribution__loading-indicator.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-distribution__loading-indicator.grommetux-color-index-light-2, .grommetux-distribution__loading-indicator.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
 
 .grommetux-distribution--icons .grommetux-distribution__label {
@@ -5635,7 +5669,9 @@ h6.grommetux-heading {
     stroke: #F0B200; }
   .grommetux-control-icon.grommetux-color-index-neutral-4, .grommetux-control-icon.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-control-icon.grommetux-color-index-light-1, .grommetux-control-icon.grommetux-color-index-light-2 {
+  .grommetux-control-icon.grommetux-color-index-light-1, .grommetux-control-icon.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-control-icon.grommetux-color-index-light-2, .grommetux-control-icon.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
   .grommetux-control-icon.grommetux-color-index-unset {
     fill: #ddd; }
@@ -5904,7 +5940,9 @@ h6.grommetux-heading {
     stroke: #F0B200; }
   .grommetux-logo-icon.grommetux-color-index-neutral-4, .grommetux-logo-icon.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-logo-icon.grommetux-color-index-light-1, .grommetux-logo-icon.grommetux-color-index-light-2 {
+  .grommetux-logo-icon.grommetux-color-index-light-1, .grommetux-logo-icon.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-logo-icon.grommetux-color-index-light-2, .grommetux-logo-icon.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
   @media screen and (min-width: 45em) {
     .grommetux-logo-icon path {
@@ -6523,7 +6561,9 @@ html.rtl .right-left-icon--right {
     stroke: #F0B200; }
   .grommetux-legend__item-swatch.grommetux-color-index-neutral-4, .grommetux-legend__item-swatch.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-legend__item-swatch.grommetux-color-index-light-1, .grommetux-legend__item-swatch.grommetux-color-index-light-2 {
+  .grommetux-legend__item-swatch.grommetux-color-index-light-1, .grommetux-legend__item-swatch.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-legend__item-swatch.grommetux-color-index-light-2, .grommetux-legend__item-swatch.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
   html.rtl .grommetux-legend__item-swatch {
     margin-right: 0;
@@ -6636,7 +6676,9 @@ html.rtl .right-left-icon--right {
     stroke: #F0B200; }
   .grommetux-map__path.grommetux-color-index-neutral-4, .grommetux-map__path.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-map__path.grommetux-color-index-light-1, .grommetux-map__path.grommetux-color-index-light-2 {
+  .grommetux-map__path.grommetux-color-index-light-1, .grommetux-map__path.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-map__path.grommetux-color-index-light-2, .grommetux-map__path.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
 
 .grommetux-map__path--active {
@@ -7067,7 +7109,9 @@ html.rtl .right-left-icon--right {
     stroke: #F0B200; }
   .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-neutral-4, .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-1, .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2 {
+  .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-1, .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2, .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
   .grommetux-meter--bar .grommetux-meter__values .grommetux-meter__slice--clickable {
     cursor: pointer; }
@@ -7494,11 +7538,18 @@ html.rtl .right-left-icon--right {
 .grommetux-meter--spiral .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-neutral-8 {
   stroke: #CC9200; }
 
-.grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-1, .grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2,
+.grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-1, .grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-3,
 .grommetux-meter--arc .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-1,
-.grommetux-meter--arc .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2,
+.grommetux-meter--arc .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-3,
 .grommetux-meter--spiral .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-1,
-.grommetux-meter--spiral .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2 {
+.grommetux-meter--spiral .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-3 {
+  stroke: #fff; }
+
+.grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2, .grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-4,
+.grommetux-meter--arc .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2,
+.grommetux-meter--arc .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-4,
+.grommetux-meter--spiral .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-2,
+.grommetux-meter--spiral .grommetux-meter__values .grommetux-meter__slice.grommetux-color-index-light-4 {
   stroke: #EEF2F5; }
 
 .grommetux-meter--circle .grommetux-meter__values .grommetux-meter__slice--clickable,
@@ -8835,7 +8886,9 @@ section:not(.grommetux-section) {
     stroke: #F0B200; }
   .grommetux-sun-burst__slice.grommetux-color-index-neutral-4, .grommetux-sun-burst__slice.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-sun-burst__slice.grommetux-color-index-light-1, .grommetux-sun-burst__slice.grommetux-color-index-light-2 {
+  .grommetux-sun-burst__slice.grommetux-color-index-light-1, .grommetux-sun-burst__slice.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-sun-burst__slice.grommetux-color-index-light-2, .grommetux-sun-burst__slice.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
 
 .grommetux-sun-burst__slice--hot {
@@ -9528,7 +9581,9 @@ section:not(.grommetux-section) {
     stroke: #F0B200; }
   .grommetux-topology__path.grommetux-color-index-neutral-4, .grommetux-topology__path.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-topology__path.grommetux-color-index-light-1, .grommetux-topology__path.grommetux-color-index-light-2 {
+  .grommetux-topology__path.grommetux-color-index-light-1, .grommetux-topology__path.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-topology__path.grommetux-color-index-light-2, .grommetux-topology__path.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
 
 .grommetux-topology__path--active {
@@ -10233,9 +10288,13 @@ section:not(.grommetux-section) {
   .grommetux-world-map__place.grommetux-color-index-neutral-4,
   .grommetux-world-map__place.grommetux-color-index-neutral-8 {
     stroke: #CC9200; }
-  .grommetux-world-map__continent.grommetux-color-index-light-1, .grommetux-world-map__continent.grommetux-color-index-light-2,
+  .grommetux-world-map__continent.grommetux-color-index-light-1, .grommetux-world-map__continent.grommetux-color-index-light-3,
   .grommetux-world-map__place.grommetux-color-index-light-1,
-  .grommetux-world-map__place.grommetux-color-index-light-2 {
+  .grommetux-world-map__place.grommetux-color-index-light-3 {
+    stroke: #fff; }
+  .grommetux-world-map__continent.grommetux-color-index-light-2, .grommetux-world-map__continent.grommetux-color-index-light-4,
+  .grommetux-world-map__place.grommetux-color-index-light-2,
+  .grommetux-world-map__place.grommetux-color-index-light-4 {
     stroke: #EEF2F5; }
 
 .grommetux-world-map__continent {

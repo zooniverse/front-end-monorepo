@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Karla');
-
 // Colors
 $ZOONIVERSE_TEAL: #007482;
 $ZOONIVERSE_NAVY: #0C4881;
@@ -37,7 +35,7 @@ $brand-status-colors: (
 );
 $brand-link-color: $brand-color;
 $brand-grey-colors: ($BLACK_LIGHT, $FOREGROUND, $GREY_MID, $GREY_LIGHT);
-$brand-light-colors: ($BACKGROUND);
+$brand-light-colors: (#fff, $BACKGROUND);
 // $brand-graph-colors: (#2E7CBE, #99DAF8, #F1F9F7, #F9F9EC);
 // $focus-border-color: #2E7CBE;
 
