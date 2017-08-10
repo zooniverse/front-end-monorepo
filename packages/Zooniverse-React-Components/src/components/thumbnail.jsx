@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const MAX_THUMBNAIL_DIMENSION = 999;
 
@@ -58,13 +59,13 @@ Thumbnail.defaultProps = {
   height: MAX_THUMBNAIL_DIMENSION,
   origin: 'https://thumbnails.zooniverse.org',
   src: '',
-  width: MAX_THUMBNAIL_DIMENSION,
+  width: MAX_THUMBNAIL_DIMENSION
 };
 
 Thumbnail.propTypes = {
-  format: React.PropTypes.string,
-  height: React.PropTypes.number,
-  origin: React.PropTypes.string, // eslint-disable-line react/forbid-prop-types, react/no-unused-prop-types
-  src: React.PropTypes.string,
-  width: React.PropTypes.number,
+  format: PropTypes.string,
+  height: PropTypes.number,
+  origin: PropTypes.string,
+  src: PropTypes.string,
+  width: PropTypes.number
 };

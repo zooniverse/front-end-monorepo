@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class FileButton extends React.Component {
   constructor(props) {
@@ -83,16 +84,16 @@ FileButton.defaultProps = {
 };
 
 FileButton.propTypes = {
-  accept: React.PropTypes.string,
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  containerStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  disabled: React.PropTypes.bool,
-  inputStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  multiple: React.PropTypes.bool,
-  onSelect: React.PropTypes.func,
-  rootStyle: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  style: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  tag: React.PropTypes.string,
+  accept: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  containerStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  disabled: PropTypes.bool,
+  inputStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  multiple: PropTypes.bool,
+  onSelect: PropTypes.func,
+  rootStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  tag: PropTypes.string,
 };
 

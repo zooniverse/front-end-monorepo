@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import updateQueryParams from '../lib/update-query-params';
 
 const pageOption = n =>
@@ -22,6 +23,7 @@ const Paginator = ({
   pageSelector,
   previousLabel,
   router,
+  selectionText,
   totalItems,
 }) => {
   let pageChange;
@@ -90,7 +92,7 @@ const Paginator = ({
             onChange={(e) => { pageChange(e.target.value); }}
           >
             {[...Array(pageCount).keys()].map(i => pageOption(i + 1))}
-          </select> OF {pageCount}
+          </select>{selectionText} {pageCount}
         </div>)}
 
       {itemCount && totalItems &&
@@ -134,41 +136,43 @@ Paginator.defaultProps = {
   pageKey: 'page',
   pageSelector: true,
   previousLabel: <span className="paginator-label"><span className="paginator-icon">&lsaquo;</span> previous</span>,
+  selectionText: 'OF'
 };
 
 Paginator.propTypes = {
-  className: React.PropTypes.string,
-  firstAndLast: React.PropTypes.bool,
-  firstLabel: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.string,
+  className: PropTypes.string,
+  firstAndLast: PropTypes.bool,
+  firstLabel: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
   ]),
-  itemCount: React.PropTypes.bool,
-  lastLabel: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.string,
+  itemCount: PropTypes.bool,
+  lastLabel: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
   ]),
-  nextLabel: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.string,
+  nextLabel: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
   ]),
-  onClickNext: React.PropTypes.func,
-  onClickPrev: React.PropTypes.func,
-  onPageChange: React.PropTypes.func,
-  page: React.PropTypes.number,
-  pageCount: React.PropTypes.number,
-  pageKey: React.PropTypes.string,
-  pageSelector: React.PropTypes.bool,
-  previousLabel: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.string,
+  onClickNext: PropTypes.func,
+  onClickPrev: PropTypes.func,
+  onPageChange: PropTypes.func,
+  page: PropTypes.number,
+  pageCount: PropTypes.number,
+  pageKey: PropTypes.string,
+  pageSelector: PropTypes.bool,
+  previousLabel: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
   ]),
-  router: React.PropTypes.shape({
-    push: React.PropTypes.func,
+  router: PropTypes.shape({
+    push: PropTypes.func,
   }),
-  totalItems: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.string,
+  selectionText: PropTypes.string,
+  totalItems: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
   ]),
 };
 

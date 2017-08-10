@@ -1,6 +1,8 @@
 Zooniverse-React-Components
 ===========================
 
+Build works against Node 8 and NPM 5.
+
 What the repo name says
 
 `npm i` to install dependencies

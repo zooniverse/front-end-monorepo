@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 import apiClient from 'panoptes-client/lib/api-client';
 
@@ -87,12 +88,12 @@ export default class UserSearch extends React.Component {
 }
 
 UserSearch.propTypes = {
-  className: React.PropTypes.string,
-  debounce: React.PropTypes.number,
-  multi: React.PropTypes.bool,
-  onSearch: React.PropTypes.func,
-  placeholder: React.PropTypes.string,
-  searchPromptText: React.PropTypes.string,
+  className: PropTypes.string,
+  debounce: PropTypes.number,
+  multi: PropTypes.bool,
+  onSearch: PropTypes.func,
+  placeholder: PropTypes.string,
+  searchPromptText: PropTypes.string,
 };
 
 UserSearch.defaultProps = {

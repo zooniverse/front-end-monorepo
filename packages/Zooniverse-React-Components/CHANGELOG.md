@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.0] 2017-08-10
+### Added
+- ZooFooter component, default CSS, and tests
+- AdminCheckbox component and tests
+- AdminLayoutIndicator component and tests
+- Added `dirty-chai` for tests
+- Added `grommet` dependency for ZooFooter and AdminCheckbox components
+- Specified node 8 and npm 5 in package.json and added package-lock.json file
+- Added travis configuration file, so tests will run when a PR is submitted
+
+### Fixed
+- Added className props to ZooniverseLogo and ZooniverseLogotype to better support modifying the SVG styles
+- Updated `jsdom` dependency and setup configuration for testing so it works with later versions of enzyme
+- Fixed how the URL is formed to make sure it uses the origin prop in DisplayNameSlugEditor
+
+### Changed
+- Updated `react` and `react-dom` dependencies
+- Updated to use the `prop-types` dependency for React PropTypes
+- Updated `react-select` dependency
+- Changed Paginator selection text to use a prop and minor default CSS margin change
+
 ## [0.3.0] 2017-07-17
 ### Added
 - Paginator component and tests

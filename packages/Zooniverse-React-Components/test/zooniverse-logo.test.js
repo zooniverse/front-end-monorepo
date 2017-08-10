@@ -8,7 +8,7 @@ import ZooniverseLogo from '../src/components/zooniverse-logo';
 describe('ZooniverseLogo', function() {
   it('mounts ZooniverseLogo', function() {
     const wrapper = mount(<ZooniverseLogo />);
-    expect(wrapper.find(ZooniverseLogo)).to.have.length(1);
+    expect(wrapper.find('ZooniverseLogo')).to.have.length(1);
   });
 
   it('has a unique aria-labelledby for each instance mounted', function() {

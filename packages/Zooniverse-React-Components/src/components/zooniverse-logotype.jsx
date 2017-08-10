@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let nextID = 0;
 
@@ -9,7 +10,7 @@ function generateNextID() {
   return nextID;
 }
 
-const ZooniverseLogotype = ({ width, height, title }) => {
+const ZooniverseLogotype = ({ className, width, height, title }) => {
   const logotypeID = generateNextID();
   return (
     <svg
@@ -18,6 +19,7 @@ const ZooniverseLogotype = ({ width, height, title }) => {
       width={width}
       height={height}
       aria-labelledby={`zooniverse-logotype_${logotypeID}`}
+      className={className}
     >
       <title id={`zooniverse-logotype_${logotypeID}`}>{title}</title>
       <g fill="currentColor" stroke="none">
@@ -27,18 +29,19 @@ const ZooniverseLogotype = ({ width, height, title }) => {
   );
 };
 
-const PropTypes = React.PropTypes;
 
 ZooniverseLogotype.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   title: PropTypes.string,
+  className: PropTypes.string
 };
 
 ZooniverseLogotype.defaultProps = {
   width: '178px',
   height: '18px',
   title: 'Zooniverse Logotype',
+  className: ''
 };
 
 export default ZooniverseLogotype;

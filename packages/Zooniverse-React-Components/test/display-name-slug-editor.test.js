@@ -63,8 +63,10 @@ describe('<DisplayNameSlugEditor />', function() {
   describe('component lifecycle', function() {
     const getResourceUrlSpy = sinon.spy(DisplayNameSlugEditor.prototype, 'getResourceUrl');
 
+    const origin = 'https://www.test.com';
+
     before(function() {
-      wrapper = mount(<DisplayNameSlugEditor resource={resource} resourceType="project" />);
+      wrapper = mount(<DisplayNameSlugEditor origin={origin} resource={resource} resourceType="project" />);
     });
 
     describe('componentDidMount', function() {
@@ -85,7 +87,7 @@ describe('<DisplayNameSlugEditor />', function() {
       it('should set url to a concatenated string with the display_name and resourceType', function() {
         const url = `/projects/${resource.slug}`;
         expect(wrapper.state().url).to.equal(url);
-        expect(wrapper.find('a').text()).to.equal(url);
+        expect(wrapper.find('a').text()).to.equal(`${origin + url}`);
       });
     });
 
@@ -102,7 +104,7 @@ describe('<DisplayNameSlugEditor />', function() {
       it('updates the value and url state', function() {
         const url = `/projects/${orgResource.slug}`;
         expect(wrapper.state().url).to.equal(url);
-        expect(wrapper.find('a').text()).to.equal(url);
+        expect(wrapper.find('a').text()).to.equal(`${origin + url}`);
         expect(wrapper.state().value).to.equal(orgResource.display_name);
         expect(wrapper.find('input[type="text"]').props().value).to.equal(orgResource.display_name);
       });
