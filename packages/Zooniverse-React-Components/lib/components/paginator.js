@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _updateQueryParams = require('../lib/update-query-params');
 
 var _updateQueryParams2 = _interopRequireDefault(_updateQueryParams);
@@ -40,6 +44,7 @@ var Paginator = function Paginator(_ref) {
       pageSelector = _ref.pageSelector,
       previousLabel = _ref.previousLabel,
       router = _ref.router,
+      selectionText = _ref.selectionText,
       totalItems = _ref.totalItems;
 
   var pageChange = void 0;
@@ -122,7 +127,8 @@ var Paginator = function Paginator(_ref) {
           return pageOption(i + 1);
         })
       ),
-      ' OF ',
+      selectionText,
+      ' ',
       pageCount
     ),
     itemCount && totalItems && _react2.default.createElement(
@@ -205,28 +211,30 @@ Paginator.defaultProps = {
       '\u2039'
     ),
     ' previous'
-  )
+  ),
+  selectionText: 'OF'
 };
 
 Paginator.propTypes = {
-  className: _react2.default.PropTypes.string,
-  firstAndLast: _react2.default.PropTypes.bool,
-  firstLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.string]),
-  itemCount: _react2.default.PropTypes.bool,
-  lastLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.string]),
-  nextLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.string]),
-  onClickNext: _react2.default.PropTypes.func,
-  onClickPrev: _react2.default.PropTypes.func,
-  onPageChange: _react2.default.PropTypes.func,
-  page: _react2.default.PropTypes.number,
-  pageCount: _react2.default.PropTypes.number,
-  pageKey: _react2.default.PropTypes.string,
-  pageSelector: _react2.default.PropTypes.bool,
-  previousLabel: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.string]),
-  router: _react2.default.PropTypes.shape({
-    push: _react2.default.PropTypes.func
+  className: _propTypes2.default.string,
+  firstAndLast: _propTypes2.default.bool,
+  firstLabel: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]),
+  itemCount: _propTypes2.default.bool,
+  lastLabel: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]),
+  nextLabel: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]),
+  onClickNext: _propTypes2.default.func,
+  onClickPrev: _propTypes2.default.func,
+  onPageChange: _propTypes2.default.func,
+  page: _propTypes2.default.number,
+  pageCount: _propTypes2.default.number,
+  pageKey: _propTypes2.default.string,
+  pageSelector: _propTypes2.default.bool,
+  previousLabel: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]),
+  router: _propTypes2.default.shape({
+    push: _propTypes2.default.func
   }),
-  totalItems: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.node, _react2.default.PropTypes.string])
+  selectionText: _propTypes2.default.string,
+  totalItems: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])
 };
 
 exports.default = Paginator;

@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _dataUriToBlob = require('data-uri-to-blob');
 
 var _dataUriToBlob2 = _interopRequireDefault(_dataUriToBlob);
@@ -190,19 +194,19 @@ var ImageSelector = function (_React$Component) {
 }(_react2.default.Component);
 
 ImageSelector.propTypes = {
-  allowDelete: _react2.default.PropTypes.bool,
-  baseExpansion: _react2.default.PropTypes.number,
-  deleting: _react2.default.PropTypes.bool,
-  label: _react2.default.PropTypes.string,
-  loading: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.node]),
-  minArea: _react2.default.PropTypes.number,
-  maxSize: _react2.default.PropTypes.number,
-  onChange: _react2.default.PropTypes.func.isRequired,
-  onDelete: _react2.default.PropTypes.func,
-  ratio: _react2.default.PropTypes.number,
-  reductionPerPass: _react2.default.PropTypes.number,
-  resourceSrc: _react2.default.PropTypes.string.isRequired,
-  resourceType: _react2.default.PropTypes.string
+  allowDelete: _propTypes2.default.bool,
+  baseExpansion: _propTypes2.default.number,
+  deleting: _propTypes2.default.bool,
+  label: _propTypes2.default.string,
+  loading: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.node]),
+  minArea: _propTypes2.default.number,
+  maxSize: _propTypes2.default.number,
+  onChange: _propTypes2.default.func.isRequired,
+  onDelete: _propTypes2.default.func,
+  ratio: _propTypes2.default.number,
+  reductionPerPass: _propTypes2.default.number,
+  resourceSrc: _propTypes2.default.string.isRequired,
+  resourceType: _propTypes2.default.string
 };
 
 ImageSelector.defaultProps = {

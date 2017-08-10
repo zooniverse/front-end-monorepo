@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -120,10 +124,10 @@ DragAndDropTarget.defaultProps = {
 };
 
 DragAndDropTarget.propTypes = {
-  children: _react2.default.PropTypes.node,
-  className: _react2.default.PropTypes.string,
-  onDragEnter: _react2.default.PropTypes.func,
-  onDragOver: _react2.default.PropTypes.func,
-  onDragLeave: _react2.default.PropTypes.func,
-  onDrop: _react2.default.PropTypes.func
+  children: _propTypes2.default.node,
+  className: _propTypes2.default.string,
+  onDragEnter: _propTypes2.default.func,
+  onDragOver: _propTypes2.default.func,
+  onDragLeave: _propTypes2.default.func,
+  onDrop: _propTypes2.default.func
 };

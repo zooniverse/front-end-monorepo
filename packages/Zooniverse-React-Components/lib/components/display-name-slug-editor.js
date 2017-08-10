@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -145,7 +149,7 @@ var DisplayNameSlugEditor = function (_Component) {
           _react2.default.createElement(
             'a',
             { href: this.props.origin + state.url },
-            state.url
+            this.props.origin + state.url
           )
         ) : null
       );
@@ -156,14 +160,14 @@ var DisplayNameSlugEditor = function (_Component) {
 }(_react.Component);
 
 DisplayNameSlugEditor.propTypes = {
-  className: _react.PropTypes.string,
-  origin: _react2.default.PropTypes.string,
-  resource: _react.PropTypes.shape({
-    display_name: _react.PropTypes.string,
-    listed_at: _react.PropTypes.string,
-    live: _react.PropTypes.bool
+  className: _propTypes2.default.string,
+  origin: _propTypes2.default.string,
+  resource: _propTypes2.default.shape({
+    display_name: _propTypes2.default.string,
+    listed_at: _propTypes2.default.string,
+    live: _propTypes2.default.bool
   }),
-  resourceType: _react.PropTypes.string
+  resourceType: _propTypes2.default.string
 };
 
 DisplayNameSlugEditor.defaultProps = {

@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _triggered = require('modal-form/triggered');
 
 var _triggered2 = _interopRequireDefault(_triggered);
@@ -121,12 +125,12 @@ MediaIcon.defaultProps = {
 };
 
 MediaIcon.propTypes = {
-  height: _react2.default.PropTypes.number,
-  onDelete: _react2.default.PropTypes.func,
-  resource: _react2.default.PropTypes.shape({
-    delete: _react2.default.PropTypes.func,
-    id: _react2.default.PropTypes.string,
-    metadata: _react2.default.PropTypes.object,
-    src: _react2.default.PropTypes.string
+  height: _propTypes2.default.number,
+  onDelete: _propTypes2.default.func,
+  resource: _propTypes2.default.shape({
+    delete: _propTypes2.default.func,
+    id: _propTypes2.default.string,
+    metadata: _propTypes2.default.object,
+    src: _propTypes2.default.string
   }).isRequired
 };

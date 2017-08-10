@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var nextID = 0;
@@ -20,7 +24,8 @@ function generateNextID() {
 }
 
 var ZooniverseLogotype = function ZooniverseLogotype(_ref) {
-  var width = _ref.width,
+  var className = _ref.className,
+      width = _ref.width,
       height = _ref.height,
       title = _ref.title;
 
@@ -32,7 +37,8 @@ var ZooniverseLogotype = function ZooniverseLogotype(_ref) {
       viewBox: '0 0 178 18',
       width: width,
       height: height,
-      'aria-labelledby': 'zooniverse-logotype_' + logotypeID
+      'aria-labelledby': 'zooniverse-logotype_' + logotypeID,
+      className: className
     },
     _react2.default.createElement(
       'title',
@@ -47,18 +53,18 @@ var ZooniverseLogotype = function ZooniverseLogotype(_ref) {
   );
 };
 
-var PropTypes = _react2.default.PropTypes;
-
 ZooniverseLogotype.propTypes = {
-  width: PropTypes.string,
-  height: PropTypes.string,
-  title: PropTypes.string
+  width: _propTypes2.default.string,
+  height: _propTypes2.default.string,
+  title: _propTypes2.default.string,
+  className: _propTypes2.default.string
 };
 
 ZooniverseLogotype.defaultProps = {
   width: '178px',
   height: '18px',
-  title: 'Zooniverse Logotype'
+  title: 'Zooniverse Logotype',
+  className: ''
 };
 
 exports.default = ZooniverseLogotype;

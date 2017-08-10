@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactSelect = require('react-select');
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
@@ -129,12 +133,12 @@ exports.default = UserSearch;
 
 
 UserSearch.propTypes = {
-  className: _react2.default.PropTypes.string,
-  debounce: _react2.default.PropTypes.number,
-  multi: _react2.default.PropTypes.bool,
-  onSearch: _react2.default.PropTypes.func,
-  placeholder: _react2.default.PropTypes.string,
-  searchPromptText: _react2.default.PropTypes.string
+  className: _propTypes2.default.string,
+  debounce: _propTypes2.default.number,
+  multi: _propTypes2.default.bool,
+  onSearch: _propTypes2.default.func,
+  placeholder: _propTypes2.default.string,
+  searchPromptText: _propTypes2.default.string
 };
 
 UserSearch.defaultProps = {

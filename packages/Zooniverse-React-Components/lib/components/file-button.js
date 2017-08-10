@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -124,15 +128,15 @@ FileButton.defaultProps = {
 };
 
 FileButton.propTypes = {
-  accept: _react2.default.PropTypes.string,
-  children: _react2.default.PropTypes.node,
-  className: _react2.default.PropTypes.string,
-  containerStyle: _react2.default.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  disabled: _react2.default.PropTypes.bool,
-  inputStyle: _react2.default.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  multiple: _react2.default.PropTypes.bool,
-  onSelect: _react2.default.PropTypes.func,
-  rootStyle: _react2.default.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  style: _react2.default.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  tag: _react2.default.PropTypes.string
+  accept: _propTypes2.default.string,
+  children: _propTypes2.default.node,
+  className: _propTypes2.default.string,
+  containerStyle: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  disabled: _propTypes2.default.bool,
+  inputStyle: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  multiple: _propTypes2.default.bool,
+  onSelect: _propTypes2.default.func,
+  rootStyle: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  style: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  tag: _propTypes2.default.string
 };
