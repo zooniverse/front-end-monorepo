@@ -112,4 +112,13 @@ Object.defineProperty(exports, 'AdminCheckbox', {
   }
 });
 
+var _adminLayoutIndicator = require('./components/layout/admin-layout-indicator');
+
+Object.defineProperty(exports, 'AdminLayoutIndicator', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_adminLayoutIndicator).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

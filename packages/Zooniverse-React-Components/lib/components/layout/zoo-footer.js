@@ -178,7 +178,7 @@ var ZooFooter = function ZooFooter(props) {
         'div',
         null,
         props.adminContainer,
-        _react2.default.createElement(_Image2.default, { className: 'footer__easter-egg', src: '/images/penguin.png', alt: '' })
+        _react2.default.createElement(_Image2.default, { className: 'footer__easter-egg', src: 'https://s3.amazonaws.com/zooniverse-static/assets/penguin.png', alt: '' })
       )
     )
   );
