@@ -83,7 +83,7 @@ const ZooFooter = (props) => {
         </Menu>
         <div>
           {props.adminContainer}
-          <Image className="footer__easter-egg" src="/images/penguin.png" alt="" />
+          <Image className="footer__easter-egg" src="https://s3.amazonaws.com/zooniverse-static/assets/penguin.png" alt="" />
         </div>
       </Section>
     </Footer>

@@ -10,4 +10,4 @@ export { default as ImageSelector } from './components/image-selector';
 export { default as Paginator } from './components/paginator';
 export { default as ZooFooter } from './components/layout/zoo-footer';
 export { default as AdminCheckbox } from './components/layout/admin-checkbox';
-
+export { default as AdminLayoutIndicator } from './components/layout/admin-layout-indicator';
