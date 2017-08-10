@@ -8,3 +8,6 @@ export { default as ZooniverseLogo } from './components/zooniverse-logo';
 export { default as DisplayNameSlugEditor } from './components/display-name-slug-editor';
 export { default as ImageSelector } from './components/image-selector';
 export { default as Paginator } from './components/paginator';
+export { default as ZooFooter } from './components/layout/zoo-footer';
+export { default as AdminCheckbox } from './components/layout/admin-checkbox';
+
