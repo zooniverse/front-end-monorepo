@@ -126,7 +126,8 @@
   margin: 0 0.5em;
 }
 .footer {
-  border-top: 5px solid TEAL_DARK;
+  border-top: 5px solid #005d69;
+  font-size: 16px;
 }
 .footer__nav {
   font-size: 1em;
