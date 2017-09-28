@@ -19,8 +19,8 @@ const UserNavigation = (props) => {
 
 UserNavigation.defaultProps = {
   userNavigationNavList: [
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/notifications" label="Notifications" />,
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/inbox" label="Messages" />
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/notifications" label="Notifications" />,
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/inbox" label="Messages" />
   ]
 };
 

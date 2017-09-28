@@ -9,7 +9,7 @@ const LoginButton = ({ className, label, login, plain, toggleModal }) => {
 };
 
 LoginButton.defaultProps = {
-  className: 'site-header__button--as-link',
+  className: 'zoo-header__button--as-link',
   label: 'Sign in',
   login: null,
   plain: true,

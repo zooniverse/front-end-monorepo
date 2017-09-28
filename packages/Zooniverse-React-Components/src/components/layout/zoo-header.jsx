@@ -11,9 +11,9 @@ const ZooHeader = (props) => {
       <Menu align="center" direction="row" size="small" responsive={false} inline={true}>
         {props.logoHomeLink &&
           props.logoHomeLink}
-        <ul className="site-header__nav-list">
+        <ul className="zoo-header__nav-list">
           {props.mainHeaderNavList.map((navItem, i) =>
-            <li key={`navItem-${i}`} className="site-header__nav-list-item" style={{ display: 'inline-block' }}>{navItem}</li>)}
+            <li key={`navItem-${i}`} className="zoo-header__nav-list-item" style={{ display: 'inline-block' }}>{navItem}</li>)}
         </ul>
       </Menu>
       {props.authContainer &&
@@ -24,13 +24,13 @@ const ZooHeader = (props) => {
 
 ZooHeader.defaultProps = {
   authContainer: null,
-  logoHomeLink: <Anchor className="site-header__link" href="http://www.zooniverse.org"><ZooniverseLogo height="1.25em" width="1.25em" /></Anchor>,
+  logoHomeLink: <Anchor className="zoo-header__link" href="http://www.zooniverse.org"><ZooniverseLogo height="1.25em" width="1.25em" /></Anchor>,
   mainHeaderNavList: [
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/projects" label="Projects" />,
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/about" label="About" />,
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/get-involved" label="Get Involved" />,
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/talk" label="Talk" />,
-    <Anchor className="site-header__link--small" href="http://www.zooniverse.org/lab" label="Build A Project" />
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/projects" label="Projects" />,
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/about" label="About" />,
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/get-involved" label="Get Involved" />,
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/talk" label="Talk" />,
+    <Anchor className="zoo-header__link--small" href="http://www.zooniverse.org/lab" label="Build A Project" />
   ]
 };
 

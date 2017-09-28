@@ -140,7 +140,7 @@ Login button using Grommet. Pass either a `login` function prop or a `toggleModa
 
 | prop     | propType        | default      | notes |
 |----------|-----------------|--------------|-------|
-| className  | PropTypes.string  | 'site-header__button--as-link'        | The default Zoo Header style is like a link rather than a button |
+| className  | PropTypes.string  | 'zoo-header__button--as-link'        | The default Zoo Header style is like a link rather than a button |
 | label    | PropTypes.oneOfType([PropTypes.node, PropTypes.string]) | 'Sign in' | Text or node label of the button |
 | login | PropTypes.func  | null     | If you wish to only use the LoginButton, define the `login` function |
 | plain    | PropTypes.bool | true | Whether or not it is a Grommet styled button or plain |
@@ -154,7 +154,7 @@ Logout button using Grommet.
 
 | prop     | propType        | default      | notes |
 |----------|-----------------|--------------|-------|
-| classname  | PropTypes.string  | 'site-header__button--as-link'        | The default Zoo Header style is like a link rather than a button |
+| classname  | PropTypes.string  | 'zoo-header__button--as-link'        | The default Zoo Header style is like a link rather than a button |
 | label    | PropTypes.oneOfType([PropTypes.node, PropTypes.string]) | 'Logout' | Text or node label of the button |
 | logout | PropTypes.func.isRequired  | () => {}     |       |
 

@@ -9,7 +9,7 @@ const LogoutButton = ({ className, label, logout }) => {
 };
 
 LogoutButton.defaultProps = {
-  className: 'site-header__button--as-link',
+  className: 'zoo-header__button--as-link',
   label: 'Logout',
   logout: () => {}
 };

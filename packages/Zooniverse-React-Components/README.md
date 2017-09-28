@@ -9,7 +9,7 @@ What the repo name says
 
 Components should be added to the `src/components` folder and an export to `src/index.js`
 
-Any default styles can be added as a stylus file in `src/css`. The require for the stylus file should be added to `zooniverse-react-components.styl`
+Any default styles can be added as a stylus file in `src/css`.
 
 `npm version [semver new version]` will run helper preversion and postversion scripts. `preversion` will run the tests. `version` will run `npm run build` which will build the production css and js. `postversion` will push the updated repo and the updated git tag to github.
 
