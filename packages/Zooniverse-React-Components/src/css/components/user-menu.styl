@@ -1,0 +1,49 @@
+.user-menu, .grommetux-menu__drop
+  font-size: 1em
+
+  .grommetux-button
+    @extends .site-header__link--small
+
+    &__label
+      line-height: 2em
+      margin: 0 0.5em 0 0
+
+    &__icon
+      padding: 0
+      vertical-align: bottom
+
+      .grommetux-control-icon
+        fill: GREY_2 !important
+        stroke: GREY_2 !important
+
+
+.grommetux-menu__drop // this is not fantastic
+  .grommetux-button
+    &:hover, &:focus
+      border-bottom-color: transparent
+
+  .grommetux-menu__control
+    background-color: black
+    padding-bottom: 9px
+
+  .grommetux-menu__contents
+    background-color: TEAL_MID
+
+    a, button
+      color: white !important
+      font-size: 0.75em
+      font-weight: bold
+      letter-spacing: 0.15em
+      margin: 0
+      padding: 10px
+      text-align: right
+      text-transform: uppercase
+
+    .grommetux-button
+      border: none
+
+      &__label
+        line-height: 1.2em
+
+      &:hover, &:focus
+        background-color: rgba(221, 221, 221, 0.5)

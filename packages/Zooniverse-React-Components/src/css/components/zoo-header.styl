@@ -1,0 +1,57 @@
+GREY_2 = #B2B2B2;
+TEAL_MID = #00979D;
+
+.zoo-header
+  color: GREY_2
+  background: black
+  font-size: 1em
+  padding: 0.5em 1em
+
+  &__link
+    border-bottom: 2px solid transparent
+    color: GREY_2 !important // For some reason grommet's anchor tag styles were taking precedence :-(
+    display: inline-block
+    font-weight: 700
+    letter-spacing: 0.15em
+    line-height: 1em
+    text-decoration: none !important
+    text-transform: uppercase
+    white-space: nowrap
+
+    &:visited
+      color: GREY_2
+
+    &:hover, &:focus
+      border-bottom-color: TEAL_MID
+      position: relative
+      z-index: 1
+
+    &--small
+      @extends .site-header__link
+      font-size: 0.75em
+
+    .active // Use class applied by React Router
+      color: TEAL_MID
+
+  &__nav-list
+    margin: 0
+    padding: 0
+
+  &__nav-list-item
+    list-style: none
+
+    .site-header__link, .site-header__link--small
+      line-height: 2em
+      margin-right: 2em
+
+  .zooniverse-logo
+    vertical-align: text-bottom
+
+  &__button
+    &--as-link
+      @extends .site-header__link--small
+      line-height: 2em
+      margin-right: 2em
+
+      .grommetux-button__label
+        margin: 0

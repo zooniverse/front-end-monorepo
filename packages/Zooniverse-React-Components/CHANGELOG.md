@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.0] 2017-09-28
+### Added
+- ZooHeader component and tests
+- OauthModal component and tests
+- LoginButton component and tests
+- LogoutButton component and tests
+- UserMenu component and tests
+- UserNavigation component and tests
+- Default CSS for ZooHeader and child components
+
+### Changed
+- Reorganized css folder and imports
+
 ## [0.4.4] 2017-08-16
 ### Fixed
 - Add missing default styles for AdminLayoutIndicator
