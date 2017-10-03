@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "data-uri-to-blob": "0.0.4",
-    "grommet": "^1.6.0",
+    "grommet": "^1.8.2",
     "modal-form": "^2.4.3",
     "panoptes-client": "^2.5.2",
     "prop-types": "~15.5.10",
