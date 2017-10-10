@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - ZooHeader component and tests
 - OauthModal component and tests
+- OauthGoogleIcon component and tests
 - LoginButton component and tests
 - LogoutButton component and tests
 - UserMenu component and tests
