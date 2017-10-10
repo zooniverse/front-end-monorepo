@@ -1,0 +1,373 @@
+.logout-button,
+.media-icon-delete-button,
+.paginator .paginator-button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+}
+.logout-button:disabled,
+.media-icon-delete-button:disabled,
+.paginator .paginator-button:disabled,
+.logout-button[data-disabled],
+.media-icon-delete-button[data-disabled],
+.paginator .paginator-button[data-disabled] {
+  cursor: inherit;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.logout-button[data-busy]::after,
+.media-icon-delete-button[data-busy]::after,
+.paginator .paginator-button[data-busy]::after {
+  animation: busy-button-animation 1s linear infinite alternate;
+  background: linear-gradient(90deg, rgba(128,128,128,0), rgba(128,128,128,0.2), rgba(128,128,128,0));
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.admin-layout-indicator {
+  border: 0.3em solid;
+  border-image: repeating-linear-gradient(45deg, #000, #000 1%, #ff0 1%, #ff0 2%) 5;
+  box-sizing: border-box;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+.slug-editor__form-help {
+  color: inherit;
+  font: inherit;
+}
+.slug-editor__form-label {
+  color: inherit;
+  font: inherit;
+}
+.slug-editor__form-input {
+  border: 1px solid;
+  border-radius: 2px;
+  box-shadow: 1px 2px 5px -1px rgba(0,0,0,0.2) inset;
+  box-sizing: border-box;
+  color: inherit;
+  display: block;
+  font: inherit;
+  padding: 0.5em 1vw;
+  width: 100%;
+}
+.file-drop-target {
+  border: 2px dashed transparent;
+  border-radius: 3px;
+}
+.file-drop-target[data-can-drop] {
+  border-color: #43bbfd;
+}
+.logout-button {
+  display: inline-block;
+}
+.media-icon {
+  font-size: 12px;
+  text-align: center;
+}
+.media-icon-thumbnail {
+  box-shadow: 0 3px 10px -3px rgba(0,0,0,0.5);
+}
+.media-icon-thumbnail-container {
+  display: inline-block;
+  position: relative;
+}
+.media-icon-delete-button {
+  background: #808080;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  height: 1em;
+  line-height: 1;
+  position: absolute;
+  right: -0.5em;
+  top: -0.3em;
+  width: 1em;
+}
+.media-icon-thumbnail {
+  font-size: 12px;
+}
+.media-icon-markdown {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 10px;
+  height: 4.2em;
+  white-space: pre;
+  width: 100%;
+}
+.paginator {
+  font-size: 0.86em;
+  line-height: 1.37em;
+  text-align: center;
+}
+.paginator .paginator-button {
+  margin: 5px;
+}
+.paginator .paginator-button:focus,
+.paginator .paginator-button:hover {
+  background: #43bbfd;
+  color: #fff;
+}
+.paginator .paginator-label {
+  text-transform: capitalize;
+}
+.paginator .paginator-icon {
+  font-size: 24px;
+  font-weight: lighter;
+  padding: 0.1em;
+  position: relative;
+  top: 0.1em;
+}
+.paginator .paginator-page-selector {
+  display: inline-block;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  white-space: nowrap;
+}
+.paginator .paginator-page-selector select {
+  margin: 0 0.5em;
+}
+.footer {
+  border-top: 5px solid #005d69;
+  font-size: 16px;
+}
+.footer__nav {
+  font-size: 1em;
+}
+.footer__nav .nav__list-header {
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+.footer__nav .nav__list-item {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.footer__nav .nav__list-item--social-media svg:hover,
+.footer__nav .nav__list-item--social-media svg:focus {
+  fill: #004b54 !important;
+}
+.footer__section,
+.footer__section--small {
+  position: relative;
+  width: 100%;
+}
+.footer__section .nav__list-item,
+.footer__section--small .nav__list-item {
+  color: #5c5c5c !important;
+}
+.footer__section .nav__list-item:hover,
+.footer__section--small .nav__list-item:hover,
+.footer__section .nav__list-item:focus,
+.footer__section--small .nav__list-item:focus {
+  color: #252525 !important;
+}
+.footer__section--small,
+.footer__section--small--small {
+  font-size: 0.8em;
+}
+.footer__divider {
+  border: 0;
+  border-top: 1px solid #979797;
+  display: block;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.footer__easter-egg {
+  bottom: 0;
+  display: inline-block;
+  height: 74px;
+  margin: 0 !important;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  transition: opacity 0.5s ease;
+  transition-delay: 0.25s;
+  width: 62px;
+  z-index: 1;
+}
+.footer__easter-egg:hover {
+  opacity: 1;
+}
+.zoo-header {
+  color: #b2b2b2;
+  background: #000;
+  font-size: 1em;
+  padding: 0.5em 1em;
+}
+.zoo-header__link,
+.zoo-header__link--small,
+.zoo-header__button--as-link,
+.user-menu .grommetux-button,
+.user-menu__drop .grommetux-button {
+  border-bottom: 2px solid transparent;
+  color: #b2b2b2 !important;
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1em;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.zoo-header__link:visited,
+.zoo-header__link--small:visited,
+.zoo-header__button--as-link:visited,
+.user-menu .grommetux-button:visited,
+.user-menu__drop .grommetux-button:visited {
+  color: #b2b2b2;
+}
+.zoo-header__link:hover,
+.zoo-header__link--small:hover,
+.zoo-header__button--as-link:hover,
+.user-menu .grommetux-button:hover,
+.user-menu__drop .grommetux-button:hover,
+.zoo-header__link:focus,
+.zoo-header__link--small:focus,
+.zoo-header__button--as-link:focus,
+.user-menu .grommetux-button:focus,
+.user-menu__drop .grommetux-button:focus {
+  border-bottom-color: #00979d;
+  position: relative;
+  z-index: 1;
+}
+.zoo-header__link--small,
+.zoo-header__link--small--small,
+.zoo-header__button--as-link--small,
+.user-menu .grommetux-button--small,
+.user-menu__drop .grommetux-button--small,
+.zoo-header__button--as-link,
+.user-menu .grommetux-button,
+.user-menu__drop .grommetux-button {
+  font-size: 0.75em;
+}
+.zoo-header__link .active,
+.zoo-header__link--small .active,
+.zoo-header__button--as-link .active,
+.user-menu .grommetux-button .active,
+.user-menu__drop .grommetux-button .active {
+  color: #00979d;
+}
+.zoo-header__nav-list {
+  margin: 0;
+  padding: 0;
+}
+.zoo-header__nav-list-item {
+  list-style: none;
+}
+.zoo-header__nav-list-item .zoo-header__link,
+.zoo-header__nav-list-item .zoo-header__link--small {
+  line-height: 2em;
+  margin-right: 2em;
+}
+.zoo-header .zooniverse-logo {
+  vertical-align: text-bottom;
+}
+.zoo-header__button--as-link {
+  line-height: 2em;
+  margin-right: 2em;
+}
+.zoo-header__button--as-link .grommetux-button__label {
+  margin: 0;
+}
+.oauth-modal .oauth-modal__button--panoptes {
+  margin-bottom: 1em;
+}
+.oauth-modal .oauth-modal__button--google {
+  background: #4285f4;
+  border: none;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+.oauth-modal .oauth-modal__button--google:hover,
+.oauth-modal .oauth-modal__button--googlefocus {
+  background: #689df6;
+}
+.oauth-modal .oauth-modal__button--google .oauth-modal__google-icon {
+  vertical-align: middle;
+}
+.oauth-modal .oauth-modal__button--google .oauth-modal__google-label {
+  padding-left: 0.5em;
+}
+.user-menu,
+.user-menu__drop {
+  font-size: 1em;
+}
+.user-menu .grommetux-button__label,
+.user-menu__drop .grommetux-button__label {
+  line-height: 2em;
+  margin: 0 0.5em 0 0;
+}
+.user-menu .grommetux-button__icon,
+.user-menu__drop .grommetux-button__icon {
+  padding: 0;
+  vertical-align: bottom;
+}
+.user-menu .grommetux-button__icon .grommetux-control-icon,
+.user-menu__drop .grommetux-button__icon .grommetux-control-icon {
+  fill: #b2b2b2 !important;
+  stroke: #b2b2b2 !important;
+}
+.user-menu__drop .grommetux-button:hover,
+.user-menu__drop .grommetux-button:focus {
+  border-bottom-color: transparent;
+}
+.user-menu__drop .grommetux-menu__control {
+  background-color: #000;
+  padding-bottom: 9px;
+}
+.user-menu__drop .grommetux-menu__contents {
+  background-color: #00979d;
+}
+.user-menu__drop .grommetux-menu__contents a,
+.user-menu__drop .grommetux-menu__contents button {
+  color: #fff !important;
+  font-size: 0.75em;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  margin: 0;
+  padding: 10px;
+  text-align: right;
+  text-transform: uppercase;
+}
+.user-menu__drop .grommetux-menu__contents .grommetux-button {
+  border: none;
+}
+.user-menu__drop .grommetux-menu__contents .grommetux-button__label {
+  line-height: 1.2em;
+}
+.user-menu__drop .grommetux-menu__contents .grommetux-button:hover,
+.user-menu__drop .grommetux-menu__contents .grommetux-button:focus {
+  background-color: rgba(221,221,221,0.5);
+}
+.user-navigation {
+  display: inline-block;
+}
+.user-navigation .zoo-header__link--small {
+  padding-bottom: 0.5em;
+}
+.user-navigation .zoo-header__link--small:last-child {
+  margin-right: 1.5em !important;
+}
