@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Anchor from 'grommet/components/Anchor';
 import Menu from 'grommet/components/Menu';
-import LogoutButton from './logout-button';
 
 const UserMenu = (props) => {
   const createKeyedAnchorItem = (navItem, i) => {

@@ -4,6 +4,7 @@ import Box from 'grommet/components/Box';
 import Heading from 'grommet/components/Heading';
 import Button from 'grommet/components/Button';
 import Layer from 'grommet/components/Layer';
+import OauthGoogleIcon from './oauth-google-icon';
 
 const OauthModal = (props) => {
   if (props.showOauthModal) {
@@ -13,8 +14,8 @@ const OauthModal = (props) => {
           <Heading tag="h2">{props.heading}</Heading>
           <Button className="oauth-modal__button--panoptes" label={props.signInLabel} onClick={props.login} primary={true} />
           <Button className="oauth-modal__button--google" onClick={props.loginWithGoogle} plain={true}>
-            <img className="oauth-modal__google-logo" src="../images/btn_google_dark_normal_ios.svg" alt="" />
-            {props.signInGoogleLabel}
+            <OauthGoogleIcon className="oauth-modal__google-icon" />
+            <span className="oauth-modal__google-label">{props.signInGoogleLabel}</span>
           </Button>
         </Box>
       </Layer>

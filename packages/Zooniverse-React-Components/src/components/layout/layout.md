@@ -125,7 +125,7 @@ export class AuthContainer extends React.Component {
           <UserMenu user={this.props.user} userMenuNavList={userMenuNavList} />
         </div>
       : <div>
-          <LoginButton toggleForm={this.toggleOauthModal} />
+          <LoginButton toggleModal={this.toggleOauthModal} />
           <OauthModal login={this.login} loginWithGoogle={this.loginWithGoogle} onClose={this.toggleOauthModal} showOauthModal={this.props.showOauthModal} />
         </div>;
   }
@@ -173,6 +173,16 @@ A modal for presenting options for oauth authentication with Panoptes. This will
 | showOauthModal    | PropTypes.bool | false | Boolean visibility state of the modal |
 | signInGoogleLabel | PropTypes.string  | 'Sign in with Google'     |       |
 | signInLabel | PropTypes.string  | 'Sign in or Register'     |       |
+
+## OauthGoogleIcon
+
+The Google icon as specified in their [branding guidelines](https://developers.google.com/identity/branding-guidelines). The SVG provided is wrapped as a functional component and used in the OauthModal component.
+
+### Props
+
+| prop     | propType        | default      | notes |
+|----------|-----------------|--------------|-------|
+| className  | PropTypes.string  |          |       |
 
 ## UserNavigation
 
