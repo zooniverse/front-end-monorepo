@@ -20,3 +20,4 @@ export { default as OauthModal } from './components/layout/oauth-modal';
 export { default as OauthGoogleIcon } from './components/layout/oauth-google-icon';
 export { default as UserMenu } from './components/layout/user-menu';
 export { default as UserNavigation } from './components/layout/user-navigation';
+export { default as Tutorial } from './components/tutorial';

@@ -1,8 +1,18 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [0.6.0] 2017-10-12
+### Added
+- MediaCard component and tests
+- StepThrough component and tests
+- Tutorial component and tests
+- Default CSS for Tutorial and child components
+- Added `animated-scrollto` dependency for StepThrough component
+- Added `markdownz` dependency for Tutorial component
+- Added `react-swipe` dependency for StepThrough component
 
 ## [0.5.0] 2017-10-10
 ### Added
