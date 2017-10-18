@@ -21,3 +21,5 @@ export { default as OauthGoogleIcon } from './components/layout/oauth-google-ico
 export { default as UserMenu } from './components/layout/user-menu';
 export { default as UserNavigation } from './components/layout/user-navigation';
 export { default as Tutorial } from './components/tutorial';
+export { default as MediaCard } from './components/media-card';
+export { default as StepThrough } from './components/step-through';
