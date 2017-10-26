@@ -48,18 +48,17 @@ if (window.tutorialsCompletedThisSession) {
 var Tutorial = function (_React$Component) {
   _inherits(Tutorial, _React$Component);
 
-  function Tutorial() {
+  function Tutorial(props) {
     _classCallCheck(this, Tutorial);
 
-    return _possibleConstructorReturn(this, (Tutorial.__proto__ || Object.getPrototypeOf(Tutorial)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Tutorial.__proto__ || Object.getPrototypeOf(Tutorial)).call(this, props));
+
+    _this.previousActiveElement = document.activeElement;
+    _this.handleNextClick = _this.handleNextClick.bind(_this);
+    return _this;
   }
 
   _createClass(Tutorial, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.previousActiveElement = document.activeElement;
-    }
-  }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.handleUnmount();
@@ -87,7 +86,7 @@ var Tutorial = function (_React$Component) {
           projectPreferences.preferences.tutorials_completed_at = {};
         };
         var changes = {};
-        changes['preferences.tutorials_completed_at' + this.props.tutorial.id] = now;
+        changes['preferences.tutorials_completed_at.' + this.props.tutorial.id] = now;
         projectPreferences.update(changes);
         projectPreferences.save();
       }
