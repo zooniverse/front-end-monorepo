@@ -16,10 +16,15 @@ export { default as AdminLayoutIndicator } from './components/layout/admin-layou
 export { default as ZooHeader } from './components/layout/zoo-header';
 export { default as LoginButton } from './components/layout/login-button';
 export { default as LogoutButton } from './components/layout/logout-button';
+export { default as MobileNavigationMenu } from './components/layout/mobile-navigation-menu';
 export { default as OauthModal } from './components/layout/oauth-modal';
 export { default as OauthGoogleIcon } from './components/layout/oauth-google-icon';
+export { default as SignedInUserNavigation } from './components/layout/signed-in-user-navigation';
+export { default as SignedOutUserNavigation } from './components/layout/signed-out-user-navigation';
 export { default as UserMenu } from './components/layout/user-menu';
 export { default as UserNavigation } from './components/layout/user-navigation';
+export { default as withMobileView } from './components/layout/with-mobile-view';
+
 export { default as Tutorial } from './components/tutorial';
 export { default as MediaCard } from './components/media-card';
 export { default as StepThrough } from './components/step-through';

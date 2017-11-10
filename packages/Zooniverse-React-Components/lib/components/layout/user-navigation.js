@@ -20,28 +20,38 @@ var _Menu = require('grommet/components/Menu');
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
+var _withMobileView = require('./with-mobile-view');
+
+var _withMobileView2 = _interopRequireDefault(_withMobileView);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UserNavigation = function UserNavigation(props) {
-  var createKeyedAnchorItem = function createKeyedAnchorItem(navItem, i) {
-    return _react2.default.cloneElement(navItem, { key: 'navItem-' + i });
-  };
+  var messagesLabel = props.isMobile ? _react2.default.createElement('i', { className: 'fa fa-bell-o fa-fw', 'aria-hidden': 'true', 'aria-label': props.messagesLabel }) : props.messagesLabel;
+  var notificationsLabel = props.isMobile ? _react2.default.createElement('i', { className: 'fa fa-envelope-o fa-fw', 'aria-hidden': 'true', 'aria-label': props.notificationsLabel }) : props.notificationsLabel;
 
   return _react2.default.createElement(
     _Menu2.default,
     { className: 'user-navigation', align: 'center', direction: 'row', size: 'small', responsive: false, inline: true },
-    props.userNavigationNavList.map(function (navItem, i) {
-      return createKeyedAnchorItem(navItem, i);
-    })
+    _react2.default.cloneElement(props.notificationsLink, { label: notificationsLabel }),
+    _react2.default.cloneElement(props.messagesLink, { label: messagesLabel })
   );
 };
 
 UserNavigation.defaultProps = {
-  userNavigationNavList: [_react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/notifications', label: 'Notifications' }), _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/inbox', label: 'Messages' })]
+  isMobile: false,
+  messagesLabel: "Messages",
+  notificationsLabel: "Notifications",
+  messagesLink: _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/inbox' }),
+  notificationsLink: _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/notifications' })
 };
 
 UserNavigation.propTypes = {
-  userNavigationNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired
+  isMobile: _propTypes2.default.bool,
+  messagesLabel: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]).isRequired,
+  messagesLink: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]).isRequired,
+  notificationsLabel: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]).isRequired,
+  notificationsLink: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]).isRequired
 };
 
-exports.default = UserNavigation;
+exports.default = (0, _withMobileView2.default)(UserNavigation);

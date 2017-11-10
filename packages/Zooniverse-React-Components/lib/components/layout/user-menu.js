@@ -25,7 +25,7 @@ var UserMenu = function UserMenu(props) {
 
   return _react2.default.createElement(
     _Menu2.default,
-    { className: 'user-menu', label: props.user.display_name, dropAlign: { right: 'right', top: 'top' } },
+    { className: 'zoo-header-menu', label: props.user.display_name, dropAlign: { right: 'right', top: 'top' } },
     props.userMenuNavList.map(function (navItem, i) {
       return createKeyedAnchorItem(navItem, i);
     })

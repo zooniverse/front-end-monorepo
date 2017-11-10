@@ -6,7 +6,7 @@ import Button from 'grommet/components/Button';
 import Layer from 'grommet/components/Layer';
 import OauthGoogleIcon from './oauth-google-icon';
 
-const OauthModal = (props) => {
+export default function OauthModal(props) {
   if (props.showOauthModal) {
     return (
       <Layer className="oauth-modal" align="center" closer={true} onClose={props.onClose}>
@@ -44,5 +44,3 @@ OauthModal.propTypes = {
   signInGoogleLabel: PropTypes.string,
   signInLabel: PropTypes.string
 };
-
-export default OauthModal;

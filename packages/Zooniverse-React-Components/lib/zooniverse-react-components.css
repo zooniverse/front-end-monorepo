@@ -376,6 +376,93 @@
 .footer__easter-egg:hover {
   opacity: 1;
 }
+.zoo-header-menu,
+.zoo-header-menu__drop,
+.mobile-navigation-menu,
+.mobile-navigation-menu__drop {
+  font-size: 1em;
+}
+.zoo-header-menu .grommetux-button,
+.zoo-header-menu__drop .grommetux-button,
+.mobile-navigation-menu .grommetux-button,
+.mobile-navigation-menu__drop .grommetux-button {
+  border-bottom: 2px solid transparent;
+  color: #b2b2b2 !important;
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1em;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.zoo-header-menu .grommetux-button__label,
+.zoo-header-menu__drop .grommetux-button__label,
+.mobile-navigation-menu .grommetux-button__label,
+.mobile-navigation-menu__drop .grommetux-button__label {
+  line-height: 2em;
+  margin: 0 0.5em 0 0;
+}
+.zoo-header-menu .grommetux-button__icon,
+.zoo-header-menu__drop .grommetux-button__icon,
+.mobile-navigation-menu .grommetux-button__icon,
+.mobile-navigation-menu__drop .grommetux-button__icon {
+  padding: 0 5px;
+  vertical-align: bottom;
+}
+.zoo-header-menu .grommetux-button__icon .grommetux-control-icon,
+.zoo-header-menu__drop .grommetux-button__icon .grommetux-control-icon,
+.mobile-navigation-menu .grommetux-button__icon .grommetux-control-icon,
+.mobile-navigation-menu__drop .grommetux-button__icon .grommetux-control-icon {
+  fill: #b2b2b2 !important;
+  stroke: #b2b2b2 !important;
+}
+.zoo-header-menu__drop .grommetux-button:hover,
+.mobile-navigation-menu__drop .grommetux-button:hover,
+.zoo-header-menu__drop .grommetux-button:focus,
+.mobile-navigation-menu__drop .grommetux-button:focus {
+  border-bottom-color: transparent;
+}
+.zoo-header-menu__drop .grommetux-menu__control,
+.mobile-navigation-menu__drop .grommetux-menu__control {
+  background-color: #000;
+  padding-bottom: 9px;
+}
+.zoo-header-menu__drop .grommetux-menu__contents,
+.mobile-navigation-menu__drop .grommetux-menu__contents {
+  background-color: #00979d;
+}
+.zoo-header-menu__drop .grommetux-menu__contents a,
+.mobile-navigation-menu__drop .grommetux-menu__contents a,
+.zoo-header-menu__drop .grommetux-menu__contents button,
+.mobile-navigation-menu__drop .grommetux-menu__contents button {
+  color: #fff !important;
+  font-size: 0.75em;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  margin: 0;
+  padding: 10px;
+  text-align: right;
+  text-transform: uppercase;
+}
+.zoo-header-menu__drop .grommetux-menu__contents .grommetux-button,
+.mobile-navigation-menu__drop .grommetux-menu__contents .grommetux-button {
+  border: none;
+}
+.zoo-header-menu__drop .grommetux-menu__contents .grommetux-button__label,
+.mobile-navigation-menu__drop .grommetux-menu__contents .grommetux-button__label {
+  line-height: 1.2em;
+}
+.zoo-header-menu__drop .grommetux-menu__contents .grommetux-button:hover,
+.mobile-navigation-menu__drop .grommetux-menu__contents .grommetux-button:hover,
+.zoo-header-menu__drop .grommetux-menu__contents .grommetux-button:focus,
+.mobile-navigation-menu__drop .grommetux-menu__contents .grommetux-button:focus {
+  background-color: rgba(221,221,221,0.5);
+}
+.mobile-navigation-menu__drop .grommetux-menu__control {
+  padding-bottom: 19px;
+}
 .zoo-header {
   color: #b2b2b2;
   background: #000;
@@ -384,9 +471,7 @@
 }
 .zoo-header__link,
 .zoo-header__link--small,
-.zoo-header__button--as-link,
-.user-menu .grommetux-button,
-.user-menu__drop .grommetux-button {
+.zoo-header__button--as-link {
   border-bottom: 2px solid transparent;
   color: #b2b2b2 !important;
   display: inline-block;
@@ -399,21 +484,15 @@
 }
 .zoo-header__link:visited,
 .zoo-header__link--small:visited,
-.zoo-header__button--as-link:visited,
-.user-menu .grommetux-button:visited,
-.user-menu__drop .grommetux-button:visited {
+.zoo-header__button--as-link:visited {
   color: #b2b2b2;
 }
 .zoo-header__link:hover,
 .zoo-header__link--small:hover,
 .zoo-header__button--as-link:hover,
-.user-menu .grommetux-button:hover,
-.user-menu__drop .grommetux-button:hover,
 .zoo-header__link:focus,
 .zoo-header__link--small:focus,
-.zoo-header__button--as-link:focus,
-.user-menu .grommetux-button:focus,
-.user-menu__drop .grommetux-button:focus {
+.zoo-header__button--as-link:focus {
   border-bottom-color: #00979d;
   position: relative;
   z-index: 1;
@@ -421,18 +500,12 @@
 .zoo-header__link--small,
 .zoo-header__link--small--small,
 .zoo-header__button--as-link--small,
-.user-menu .grommetux-button--small,
-.user-menu__drop .grommetux-button--small,
-.zoo-header__button--as-link,
-.user-menu .grommetux-button,
-.user-menu__drop .grommetux-button {
+.zoo-header__button--as-link {
   font-size: 0.75em;
 }
 .zoo-header__link .active,
 .zoo-header__link--small .active,
-.zoo-header__button--as-link .active,
-.user-menu .grommetux-button .active,
-.user-menu__drop .grommetux-button .active {
+.zoo-header__button--as-link .active {
   color: #00979d;
 }
 .zoo-header__nav-list {
@@ -441,6 +514,9 @@
 }
 .zoo-header__nav-list-item {
   list-style: none;
+}
+.zoo-header__nav-list-item--main {
+  display: inline-block;
 }
 .zoo-header__nav-list-item .zoo-header__link,
 .zoo-header__nav-list-item .zoo-header__link--small {
@@ -477,57 +553,6 @@
 }
 .oauth-modal .oauth-modal__button--google .oauth-modal__google-label {
   padding-left: 0.5em;
-}
-.user-menu,
-.user-menu__drop {
-  font-size: 1em;
-}
-.user-menu .grommetux-button__label,
-.user-menu__drop .grommetux-button__label {
-  line-height: 2em;
-  margin: 0 0.5em 0 0;
-}
-.user-menu .grommetux-button__icon,
-.user-menu__drop .grommetux-button__icon {
-  padding: 0;
-  vertical-align: bottom;
-}
-.user-menu .grommetux-button__icon .grommetux-control-icon,
-.user-menu__drop .grommetux-button__icon .grommetux-control-icon {
-  fill: #b2b2b2 !important;
-  stroke: #b2b2b2 !important;
-}
-.user-menu__drop .grommetux-button:hover,
-.user-menu__drop .grommetux-button:focus {
-  border-bottom-color: transparent;
-}
-.user-menu__drop .grommetux-menu__control {
-  background-color: #000;
-  padding-bottom: 9px;
-}
-.user-menu__drop .grommetux-menu__contents {
-  background-color: #00979d;
-}
-.user-menu__drop .grommetux-menu__contents a,
-.user-menu__drop .grommetux-menu__contents button {
-  color: #fff !important;
-  font-size: 0.75em;
-  font-weight: bold;
-  letter-spacing: 0.15em;
-  margin: 0;
-  padding: 10px;
-  text-align: right;
-  text-transform: uppercase;
-}
-.user-menu__drop .grommetux-menu__contents .grommetux-button {
-  border: none;
-}
-.user-menu__drop .grommetux-menu__contents .grommetux-button__label {
-  line-height: 1.2em;
-}
-.user-menu__drop .grommetux-menu__contents .grommetux-button:hover,
-.user-menu__drop .grommetux-menu__contents .grommetux-button:focus {
-  background-color: rgba(221,221,221,0.5);
 }
 .user-navigation {
   display: inline-block;

@@ -12,17 +12,21 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Header = require('grommet/components/Header');
-
-var _Header2 = _interopRequireDefault(_Header);
-
 var _Anchor = require('grommet/components/Anchor');
 
 var _Anchor2 = _interopRequireDefault(_Anchor);
 
+var _Header = require('grommet/components/Header');
+
+var _Header2 = _interopRequireDefault(_Header);
+
 var _Menu = require('grommet/components/Menu');
 
 var _Menu2 = _interopRequireDefault(_Menu);
+
+var _withMobileView = require('./with-mobile-view');
+
+var _withMobileView2 = _interopRequireDefault(_withMobileView);
 
 var _zooniverseLogo = require('../zooniverse-logo');
 
@@ -30,32 +34,42 @@ var _zooniverseLogo2 = _interopRequireDefault(_zooniverseLogo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ZooHeader = function ZooHeader(props) {
+function ZooHeader(props) {
   return _react2.default.createElement(
     _Header2.default,
-    { justify: 'between', className: 'zoo-header', direction: 'row', size: 'small', responsive: true },
+    { justify: 'between', className: 'zoo-header', direction: 'row', size: 'small' },
     _react2.default.createElement(
       _Menu2.default,
       { align: 'center', direction: 'row', size: 'small', responsive: false, inline: true },
       props.logoHomeLink && props.logoHomeLink,
-      _react2.default.createElement(
+      !props.isMobile && _react2.default.createElement(
         'ul',
         { className: 'zoo-header__nav-list' },
         props.mainHeaderNavList.map(function (navItem, i) {
           return _react2.default.createElement(
             'li',
-            { key: 'navItem-' + i, className: 'zoo-header__nav-list-item', style: { display: 'inline-block' } },
+            {
+              key: 'navItem-' + i,
+              className: 'zoo-header__nav-list-item zoo-header__nav-list-item--main'
+            },
             navItem
           );
-        })
+        }),
+        props.isAdmin && _react2.default.createElement(
+          'li',
+          { className: 'zoo-header__nav-list-item zoo-header__nav-list-item--main' },
+          props.adminNavLink
+        )
       )
     ),
     props.authContainer && props.authContainer
   );
-};
+}
 
 ZooHeader.defaultProps = {
+  adminNavLink: _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/admin', label: 'Admin' }),
   authContainer: null,
+  isAdmin: false,
   logoHomeLink: _react2.default.createElement(
     _Anchor2.default,
     { className: 'zoo-header__link', href: 'http://www.zooniverse.org' },
@@ -65,9 +79,11 @@ ZooHeader.defaultProps = {
 };
 
 ZooHeader.propTypes = {
+  adminNavLink: _propTypes2.default.node,
   authContainer: _propTypes2.default.node,
+  isAdmin: _propTypes2.default.bool,
   logoHomeLink: _propTypes2.default.node.isRequired,
   mainHeaderNavList: _propTypes2.default.arrayOf(_propTypes2.default.node).isRequired
 };
 
-exports.default = ZooHeader;
+exports.default = (0, _withMobileView2.default)(ZooHeader);

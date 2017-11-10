@@ -5,6 +5,23 @@ These are only functional view components. It is up to you to implement containe
 These components are built using [grommet](https://grommet.github.io/). You will need to install the [zoo-grommet](https://github.com/zooniverse/zoo-grommet) theme to get the correct colors and fonts. You must also import the default css from this repository as well.
 
 TODO: Add layout components that do not use grommet.
+TODO: Add register button
+
+Current list of components:
+- [ZooFooter](#zoofooter)
+- [AdminCheckbox](#admincheckbox)
+- [AdminLayoutIndicator](#adminlayoutindicator)
+- [ZooHeader](#zooheader)
+- [LoginButton](#loginbutton)
+- [LogoutButton](#logoutbutton)
+- [MobileNavigationMenu](#mobilenavigationmenu)
+- [OauthModal](#oauthmodal)
+- [OauthGoogleIcon](#oauthgoogleicon)
+- [SignedInUserNavigation](#signedinusernavigation)
+- [SignedOutUserNavigation](#signedoutusernavigation)
+- [UserMenu](#usermenu)
+- [UserNavigation](#usernavigation)
+- [WithMobileView](#withmobileview)
 
 ## ZooFooter
 
@@ -123,13 +140,29 @@ export class AuthContainer extends React.Component {
       ? <div>
           <UserNavigation />
           <UserMenu user={this.props.user} userMenuNavList={userMenuNavList} />
+          <MobileNavigationMenu isAdmin={props.isAdmin} />
         </div>
       : <div>
           <LoginButton toggleModal={this.toggleOauthModal} />
           <OauthModal login={this.login} loginWithGoogle={this.loginWithGoogle} onClose={this.toggleOauthModal} showOauthModal={this.props.showOauthModal} />
+          <MobileNavigationMenu />
         </div>;
   }
 }
+```
+
+or alternatively use the convenience [SignedInUserNavigation](#signedinusernavigation) and/or [SignedOutUserNavigation](#signedoutusernavigation) in the render:
+
+```
+return (this.props.user && this.props.initialised) ?
+  <SignedInUserNavigation isAdmin={this.props.admin} user={this.props.user} userMenuNavList={userMenuNavList} /> :
+  <SignedOutUserNavigation
+    login={this.login}
+    loginWithGoogle={this.loginWithGoogle}
+    showOauthModal={this.props.showOauthModal}
+    toggleModal={this.toggleOauthModal}
+    useOauth={true}
+  />;
 ```
 
 ## LoginButton
@@ -158,6 +191,19 @@ Logout button using Grommet.
 | label    | PropTypes.oneOfType([PropTypes.node, PropTypes.string]) | 'Logout' | Text or node label of the button |
 | logout | PropTypes.func.isRequired  | () => {}     |       |
 
+## MobileNavigationMenu
+
+The navigation menu collapsed into a dropdown menu using Grommet's Menu component. Only displays when `props.isMobile` is true using the HOC [WithMobileView](#withmobileview)
+
+### Props
+
+| prop     | propType        | default      | notes |
+|----------|-----------------|--------------|-------|
+| adminNavLink  | PropTypes.node  | Grommet Anchor linking back to zooniverse.org/admin |  |
+| isAdmin    | PropTypes.bool | false | |
+| isMobile | PropTypes.bool  | false | |
+| mobileNavList | PropTypes.arrayOf(PropTypes.node).isRequired  | An array of Grommet Anchors |  |
+
 ## OauthModal
 
 A modal for presenting options for oauth authentication with Panoptes. This will show a button either to sign in or register to Panoptes which links to Panoptes devise sign in view or a button that links directly to the sign in with Google via Panoptes.
@@ -184,15 +230,19 @@ The Google icon as specified in their [branding guidelines](https://developers.g
 |----------|-----------------|--------------|-------|
 | className  | PropTypes.string  |          |       |
 
-## UserNavigation
+## SignedInUserNavigation
 
-The notifications and messages links for signed in users. These are static links only at the moment and this is not built to handle the Sugar websockets to show the number of notifications like PFE currently does. The `userNavigationNavList` default props absolute link to zooniverse.org notification and inbox pages.
+A convience component which just combines [MobileNavigationMenu](#mobilenavigationmenu), [UserNavigation](#usernavigation), and [UserMenu](#usermenu) within a div. It supports the same props that any of those child components use and passes it along. See the child components to know what props it supports.
+
+## SignedOutUserNavigation
+
+A convience component which just combines [LoginButton](#loginbutton), [OauthModal](#oauthmodal), and [MobileNavigationMenu](#mobilenavigationmenu) within a div. It supports the same props that any of those child components use and passes it along. See the child components to know what props it supports. It has one additional prop for setting whether or not the oauth flow is being used. The true/false state of this props determines whether or not the OauthModal or RegisterButton (TODO still needs to be added) will show.
 
 ### Props
 
 | prop     | propType        | default      | notes |
 |----------|-----------------|--------------|-------|
-| userNavigationNavList  | PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string])).isRequired  | An array of Grommet Anchors        |       |
+| useOauth  | PropTypes.bool  | false |       |
 
 ## UserMenu
 
@@ -219,3 +269,22 @@ if (this.props.user && this.props.initialised) {
 |----------|-----------------|--------------|-------|
 | user  | PropTypes.shape({ display_name: PropTypes.string }).isRequired  | user: { display_name: '' } |       |
 | userMenuNavList    | PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string])).isRequired | none | A default prop is not provided. You must supply the navigation list because the link hrefs are dynamically created based on the signed in user's login |
+
+## UserNavigation
+
+The notifications and messages links for signed in users. These are static links only at the moment and this is not built to handle the Sugar websockets to show the number of notifications like PFE currently does. The `userNavigationNavList` default props absolute link to zooniverse.org notification and inbox pages.
+
+### Props
+
+| prop     | propType        | default      | notes |
+|----------|-----------------|--------------|-------|
+| isMobile | PropTypes.bool  | false        | Injected as a prop by the HOC [WithMobileView](#withmobileview) |
+| messagesLabel | PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired  | "Messages" | The `isMobile` prop determines if the string label is used directly or if it is an envelope icon and uses the string label as the aria-label |
+| messagesLink  | PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired  | A Grommet Anchor |  |
+| notificationsLabel  | PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired | "Notifications" | The `isMobile` prop determines if the string label is used directly or if it is a bell icon and uses the string label as the aria-label |
+| notificationsLink | PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired  | A Grommet Anchor | |
+
+
+## WithMobileView
+
+This is a higher order functional component to manage the state of whether or not the header should display the mobile navigation or not. It listens to the window resize event and sets the `isMobile` state accordingly. It is currently a HOC function applied to the `MobileNavigationMenu`, `UserNavigation`, and `ZooHeader` components. It is available to you if you need to use this HOC independently.

@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.0] Unreleased
+### Added
+- SignedInUserNavigation component and tests
+- SignedOutUserNavigation component and tests
+- MobileNavigationMenu component, default styles, and tests
+- Higher order component function withMobileView and tests
+
+### Changed
+- ZooHeader is now wrapped by withMobileView which toggles hiding the desktop navigation menu
+- ZooHeader now supports prop.isAdmin which determines whether or not to show the Anchor component that links to the admin page
+- UserNavigation is now wrapped by withMobileView which determines what kind of label to use for the Anchor components.
+- UserNavigation navigation props changed to separate props for the notifications and messages links so that they could be targeted by the mobile view state for the label change.
+- Updated shared default styles between UserMenu and MobileNavigationMenu
+
 ## [0.6.3] 2017-10-26
 ### Fixed
 - Fixed Tutorial function binding and missing period in preferences query

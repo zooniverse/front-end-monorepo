@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from 'grommet/components/Menu';
 
-const UserMenu = (props) => {
+export default function UserMenu(props) {
   const createKeyedAnchorItem = (navItem, i) => {
     return (React.cloneElement(navItem, { key: `navItem-${i}` }));
   };
 
   return (
-    <Menu className="user-menu" label={props.user.display_name} dropAlign={{ right: 'right', top: 'top' }}>
+    <Menu className="zoo-header-menu" label={props.user.display_name} dropAlign={{ right: 'right', top: 'top' }}>
       {props.userMenuNavList.map((navItem, i) => {
         return createKeyedAnchorItem(navItem, i);
       })}
@@ -29,5 +29,3 @@ UserMenu.propTypes = {
     PropTypes.string
   ])).isRequired
 };
-
-export default UserMenu;

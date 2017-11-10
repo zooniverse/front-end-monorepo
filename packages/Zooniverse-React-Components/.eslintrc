@@ -31,6 +31,7 @@
     "react/jsx-boolean-value": "off",
     "keyword-spacing": 2,
     "no-console": 1,
+    "no-underscore-dangle": "allow",
     // specify the maximum length of a line in your program
     // https://github.com/eslint/eslint/blob/master/docs/rules/max-len.md
     'max-len': [1, 120, 2, {

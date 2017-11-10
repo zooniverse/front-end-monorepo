@@ -1,15 +1,24 @@
-.user-menu, .user-menu__drop
+.zoo-header-menu, .zoo-header-menu__drop
   font-size: 1em
 
   .grommetux-button
-    @extends .zoo-header__link--small
+    border-bottom: 2px solid transparent
+    color: GREY_2 !important // For some reason grommet's anchor tag styles were taking precedence :-(
+    display: inline-block
+    font-size: 0.75em
+    font-weight: 700
+    letter-spacing: 0.15em
+    line-height: 1em
+    text-decoration: none !important
+    text-transform: uppercase
+    white-space: nowrap
 
     &__label
       line-height: 2em
       margin: 0 0.5em 0 0
 
     &__icon
-      padding: 0
+      padding: 0 5px
       vertical-align: bottom
 
       .grommetux-control-icon
@@ -17,7 +26,7 @@
         stroke: GREY_2 !important
 
 
-.user-menu__drop
+.zoo-header-menu__drop
   .grommetux-button
     &:hover, &:focus
       border-bottom-color: transparent
@@ -47,3 +56,12 @@
 
       &:hover, &:focus
         background-color: rgba(221, 221, 221, 0.5)
+
+.mobile-navigation-menu
+  @extends .zoo-header-menu
+
+.mobile-navigation-menu__drop
+  @extends .zoo-header-menu__drop
+
+  .grommetux-menu__control
+    padding-bottom: 19px

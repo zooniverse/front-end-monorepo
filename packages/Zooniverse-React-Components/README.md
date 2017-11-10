@@ -16,3 +16,19 @@ Any default styles can be added as a stylus file in `src/css`.
 For now, we will git tag and install via github. 
 
 `npm test` to run mocha tests
+
+## Contributing
+
+If you're using `npm link` to test the library with your app, then you may need to adjust your webpack configuration for compiling of your javascript files in development. Webpack docs do provide a cautionary note about using symlink packages with Webpack: https://webpack.js.org/configuration/module/#rule-conditions. An example webpack configuration:
+
+```
+{
+  test: /\.jsx?$/,
+  include: path.resolve(__dirname, 'src'),
+  exclude: path.resolve(__dirname, 'node_modules'),
+  use: [
+    'babel-loader'
+    // 'eslint-loader' uncomment if you want to use eslint while compiling
+  ]
+}
+```
