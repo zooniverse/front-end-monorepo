@@ -213,7 +213,7 @@ Object.defineProperty(exports, 'UserNavigation', {
 
 var _withMobileView = require('./components/layout/with-mobile-view');
 
-Object.defineProperty(exports, 'WithMobileView', {
+Object.defineProperty(exports, 'withMobileView', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_withMobileView).default;

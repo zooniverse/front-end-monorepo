@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ZooHeader = ZooHeader;
 
 var _react = require('react');
 

@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.UserNavigation = UserNavigation;
 
 var _react = require('react');
 
@@ -26,7 +27,7 @@ var _withMobileView2 = _interopRequireDefault(_withMobileView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UserNavigation = function UserNavigation(props) {
+function UserNavigation(props) {
   var messagesLabel = props.isMobile ? _react2.default.createElement('i', { className: 'fa fa-bell-o fa-fw', 'aria-hidden': 'true', 'aria-label': props.messagesLabel }) : props.messagesLabel;
   var notificationsLabel = props.isMobile ? _react2.default.createElement('i', { className: 'fa fa-envelope-o fa-fw', 'aria-hidden': 'true', 'aria-label': props.notificationsLabel }) : props.notificationsLabel;
 
@@ -36,7 +37,7 @@ var UserNavigation = function UserNavigation(props) {
     _react2.default.cloneElement(props.notificationsLink, { label: notificationsLabel }),
     _react2.default.cloneElement(props.messagesLink, { label: messagesLabel })
   );
-};
+}
 
 UserNavigation.defaultProps = {
   isMobile: false,

@@ -8,7 +8,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-exports.default = WithMobileView;
+exports.default = withMobileView;
 
 var _react = require('react');
 
@@ -24,14 +24,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var MAX_MOBILE_WIDTH = 1080;
 
-function WithMobileView(WrappedComponent) {
-  return function (_React$Component) {
-    _inherits(_class, _React$Component);
+function withMobileView(WrappedComponent) {
+  var WithMobileView = function (_React$Component) {
+    _inherits(WithMobileView, _React$Component);
 
-    function _class() {
-      _classCallCheck(this, _class);
+    function WithMobileView() {
+      _classCallCheck(this, WithMobileView);
 
-      var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
+      var _this = _possibleConstructorReturn(this, (WithMobileView.__proto__ || Object.getPrototypeOf(WithMobileView)).call(this));
 
       _this.state = {
         isMobile: false
@@ -43,15 +43,15 @@ function WithMobileView(WrappedComponent) {
       return _this;
     }
 
-    _createClass(_class, [{
+    _createClass(WithMobileView, [{
       key: 'componentDidMount',
       value: function componentDidMount() {
-        addEventListener('resize', this.handleResize);
+        if (window) window.addEventListener('resize', this.handleResize);
       }
     }, {
       key: 'componentWillUnmount',
       value: function componentWillUnmount() {
-        removeEventListener('resize', this.handleResize);
+        if (window) window.removeEventListener('resize', this.handleResize);
         clearTimeout(this._resizeTimeout);
       }
     }, {
@@ -63,13 +63,15 @@ function WithMobileView(WrappedComponent) {
           clearTimeout(this._resizeTimeout);
         }
 
-        this._resizeTimeout = setTimeout(function () {
-          _this2.setState({
-            isMobile: innerWidth <= MAX_MOBILE_WIDTH
-          }, function () {
-            _this2._resizeTimeout = NaN;
-          });
-        }, 100);
+        if (window) {
+          this._resizeTimeout = setTimeout(function () {
+            _this2.setState({
+              isMobile: window.innerWidth <= MAX_MOBILE_WIDTH
+            }, function () {
+              _this2._resizeTimeout = NaN;
+            });
+          }, 100);
+        }
       }
     }, {
       key: 'render',
@@ -78,6 +80,13 @@ function WithMobileView(WrappedComponent) {
       }
     }]);
 
-    return _class;
+    return WithMobileView;
   }(_react2.default.Component);
+
+  WithMobileView.displayName = 'WithMobileView(' + getDisplayName(WrappedComponent) + ')';
+  return WithMobileView;
+}
+
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }

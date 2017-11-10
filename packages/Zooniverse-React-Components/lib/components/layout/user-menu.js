@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = UserMenu;
 
 var _react = require('react');
 
@@ -18,7 +19,7 @@ var _Menu2 = _interopRequireDefault(_Menu);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UserMenu = function UserMenu(props) {
+function UserMenu(props) {
   var createKeyedAnchorItem = function createKeyedAnchorItem(navItem, i) {
     return _react2.default.cloneElement(navItem, { key: 'navItem-' + i });
   };
@@ -42,5 +43,3 @@ UserMenu.propTypes = {
   }).isRequired,
   userMenuNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired
 };
-
-exports.default = UserMenu;

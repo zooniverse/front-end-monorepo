@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = OauthModal;
 
 var _react = require('react');
 
@@ -34,7 +35,7 @@ var _oauthGoogleIcon2 = _interopRequireDefault(_oauthGoogleIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var OauthModal = function OauthModal(props) {
+function OauthModal(props) {
   if (props.showOauthModal) {
     return _react2.default.createElement(
       _Layer2.default,
@@ -84,5 +85,3 @@ OauthModal.propTypes = {
   signInGoogleLabel: _propTypes2.default.string,
   signInLabel: _propTypes2.default.string
 };
-
-exports.default = OauthModal;

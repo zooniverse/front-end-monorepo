@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = LoginButton;
 
 var _react = require('react');
 
@@ -18,7 +19,7 @@ var _Button2 = _interopRequireDefault(_Button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var LoginButton = function LoginButton(_ref) {
+function LoginButton(_ref) {
   var className = _ref.className,
       label = _ref.label,
       login = _ref.login,
@@ -43,5 +44,3 @@ LoginButton.propTypes = {
   plain: _propTypes2.default.bool,
   toggleModal: _propTypes2.default.func
 };
-
-exports.default = LoginButton;

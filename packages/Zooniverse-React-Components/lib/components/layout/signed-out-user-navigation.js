@@ -27,7 +27,7 @@ var _oauthModal2 = _interopRequireDefault(_oauthModal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// TO DO: Add registration button if not oauth
+// TO DO: Add registration button if useOauth is false
 
 function SignedOutUserNavigation(props) {
   return _react2.default.createElement(
@@ -40,6 +40,22 @@ function SignedOutUserNavigation(props) {
       onClose: props.toggleModal,
       showOauthModal: props.showOauthModal
     }),
-    _react2.default.createElement(_mobileNavigationMenu2.default, null)
+    _react2.default.createElement(_mobileNavigationMenu2.default, { adminNavLink: props.adminNavLink, mobileNavList: props.mobileNavList })
   );
 }
+
+SignedOutUserNavigation.defaultProps = {
+  login: function login() {},
+  loginWithGoogle: function loginWithGoogle() {},
+  showOauthModal: false,
+  toggleModal: function toggleModal() {},
+  useOauth: false
+};
+
+SignedOutUserNavigation.propTypes = {
+  login: _propTypes2.default.func,
+  loginWithGoogle: _propTypes2.default.func,
+  showOauthModal: _propTypes2.default.bool,
+  toggleModal: _propTypes2.default.func,
+  useOauth: _propTypes2.default.bool
+};
