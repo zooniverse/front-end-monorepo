@@ -607,6 +607,7 @@ ul, ol, dd {
     color: #E45950; }
 
 .grommet input:not(.grommetux-input),
+.grommet input:not(.grommetux-check-box__input),
 .grommet select,
 .grommet textarea {
   font-size: 16px;
@@ -621,29 +622,35 @@ ul, ol, dd {
   font: inherit;
   margin: 0; }
   .grommet input:not(.grommetux-input):focus,
+  .grommet input:not(.grommetux-check-box__input):focus,
   .grommet select:focus,
   .grommet textarea:focus {
     border-width: 2px;
     border-color: #ADDDE0;
     padding: 10px 22px; }
   .grommet input:not(.grommetux-input)::-moz-focus-inner,
+  .grommet input:not(.grommetux-check-box__input)::-moz-focus-inner,
   .grommet select::-moz-focus-inner,
   .grommet textarea::-moz-focus-inner {
     border: none;
     outline: none; }
   .grommet input:not(.grommetux-input)::-webkit-input-placeholder,
+  .grommet input:not(.grommetux-check-box__input)::-webkit-input-placeholder,
   .grommet select::-webkit-input-placeholder,
   .grommet textarea::-webkit-input-placeholder {
     color: #aaa; }
   .grommet input:not(.grommetux-input)::-moz-placeholder,
+  .grommet input:not(.grommetux-check-box__input)::-moz-placeholder,
   .grommet select::-moz-placeholder,
   .grommet textarea::-moz-placeholder {
     color: #aaa; }
   .grommet input:not(.grommetux-input):-ms-input-placeholder,
+  .grommet input:not(.grommetux-check-box__input):-ms-input-placeholder,
   .grommet select:-ms-input-placeholder,
   .grommet textarea:-ms-input-placeholder {
     color: #aaa; }
   .grommet input:not(.grommetux-input).error,
+  .grommet input:not(.grommetux-check-box__input).error,
   .grommet select.error,
   .grommet textarea.error {
     border-color: #E45950; }
@@ -1805,6 +1812,9 @@ ul, ol, dd {
 .grommetux-box--justify-between {
   justify-content: space-between; }
 
+.grommetux-box--justify-around {
+  justify-content: space-around; }
+
 .grommetux-box--justify-end {
   justify-content: flex-end; }
 
@@ -2835,7 +2845,8 @@ _::-webkit-:not(:root:root),
   border: 1px solid rgba(0, 0, 0, 0.15);
   padding: 6px 0;
   height: 36px;
-  cursor: col-resize; }
+  cursor: col-resize;
+  outline: none; }
   .grommetux-background-color-index--dark .grommetux-chart-range__start, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-chart-range__start, .grommetux-background-color-index--dark
   .grommetux-chart-range__end, .grommetux-background-color-index--light .grommetux-background-color-index--dark
   .grommetux-chart-range__end {
@@ -2879,6 +2890,11 @@ _::-webkit-:not(:root:root),
 .grommetux-chart-range__end--edge {
   left: -26px; }
 
+.grommetux-chart-range__start--focus,
+.grommetux-chart-range__end--focus {
+  border-color: #ADDDE0;
+  box-shadow: 0 0 1px 1px #ADDDE0; }
+
 .grommetux-chart-range--vertical {
   flex-direction: column; }
   .grommetux-chart-range--vertical .grommetux-chart-range__active {
@@ -2893,6 +2909,8 @@ _::-webkit-:not(:root:root),
     border-style: solid none none; }
   .grommetux-chart-range--vertical .grommetux-chart-range__start,
   .grommetux-chart-range--vertical .grommetux-chart-range__end {
+    top: auto;
+    transform: none;
     padding: 0 6px;
     height: 26px;
     cursor: row-resize; }
@@ -3333,7 +3351,8 @@ _::-webkit-:not(:root:root),
 
 .grommetux-check-box__input {
   opacity: 0;
-  position: absolute; }
+  width: 0;
+  height: 0; }
   .grommetux-check-box__input:checked + .grommetux-check-box__control {
     border-color: #007482; }
     .grommetux-background-color-index--dark .grommetux-check-box__input:checked + .grommetux-check-box__control, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-check-box__input:checked + .grommetux-check-box__control {
@@ -4380,65 +4399,48 @@ _::-webkit-:not(:root:root),
   cursor: pointer;
   outline: none; }
 
-.grommetux-distribution__item-box.grommetux-color-index-unset {
-  fill: #ddd; }
-
-.grommetux-distribution__item-box.grommetux-color-index-brand {
-  fill: #007482; }
-
-.grommetux-distribution__item-box.grommetux-color-index-critical {
-  fill: #E45950; }
-
-.grommetux-distribution__item-box.grommetux-color-index-error {
-  fill: #E45950; }
-
-.grommetux-distribution__item-box.grommetux-color-index-warning {
-  fill: #F0B200; }
-
-.grommetux-distribution__item-box.grommetux-color-index-ok {
-  fill: #009E0C; }
-
-.grommetux-distribution__item-box.grommetux-color-index-unknown {
-  fill: #C3C5C8; }
-
-.grommetux-distribution__item-box.grommetux-color-index-disabled {
-  fill: #C3C5C8; }
-
-.grommetux-distribution__item-box.grommetux-color-index-graph-1, .grommetux-distribution__item-box.grommetux-color-index-graph-5 {
-  fill: #0C4881; }
-
-.grommetux-distribution__item-box.grommetux-color-index-graph-2, .grommetux-distribution__item-box.grommetux-color-index-graph-6 {
-  fill: #6D91B3; }
-
-.grommetux-distribution__item-box.grommetux-color-index-graph-3, .grommetux-distribution__item-box.grommetux-color-index-graph-7 {
-  fill: #F0B200; }
-
-.grommetux-distribution__item-box.grommetux-color-index-graph-4, .grommetux-distribution__item-box.grommetux-color-index-graph-8 {
-  fill: #CC9200; }
-
-.grommetux-distribution__item-box.grommetux-color-index-accent-1, .grommetux-distribution__item-box.grommetux-color-index-accent-4 {
-  fill: #ADDDE0; }
-
-.grommetux-distribution__item-box.grommetux-color-index-accent-2, .grommetux-distribution__item-box.grommetux-color-index-accent-5 {
-  fill: #00979D; }
-
-.grommetux-distribution__item-box.grommetux-color-index-accent-3, .grommetux-distribution__item-box.grommetux-color-index-accent-6 {
-  fill: #005D69; }
-
-.grommetux-distribution__item-box.grommetux-color-index-grey-1, .grommetux-distribution__item-box.grommetux-color-index-grey-6 {
-  fill: #272727; }
-
-.grommetux-distribution__item-box.grommetux-color-index-grey-2, .grommetux-distribution__item-box.grommetux-color-index-grey-7 {
-  fill: #404040; }
-
-.grommetux-distribution__item-box.grommetux-color-index-grey-3, .grommetux-distribution__item-box.grommetux-color-index-grey-8 {
-  fill: #646464; }
-
-.grommetux-distribution__item-box.grommetux-color-index-grey-4, .grommetux-distribution__item-box.grommetux-color-index-grey-9 {
-  fill: #CBCCCB; }
-
-.grommetux-distribution__item-box.grommetux-color-index-grey-5, .grommetux-distribution__item-box.grommetux-color-index-grey-10 {
-  fill: #F1F1F1; }
+.grommetux-distribution__item-box {
+  transition: all 0.2s ease; }
+  .grommetux-distribution__item-box.grommetux-color-index-unset {
+    fill: #ddd; }
+  .grommetux-distribution__item-box.grommetux-color-index-brand {
+    fill: #007482; }
+  .grommetux-distribution__item-box.grommetux-color-index-critical {
+    fill: #E45950; }
+  .grommetux-distribution__item-box.grommetux-color-index-error {
+    fill: #E45950; }
+  .grommetux-distribution__item-box.grommetux-color-index-warning {
+    fill: #F0B200; }
+  .grommetux-distribution__item-box.grommetux-color-index-ok {
+    fill: #009E0C; }
+  .grommetux-distribution__item-box.grommetux-color-index-unknown {
+    fill: #C3C5C8; }
+  .grommetux-distribution__item-box.grommetux-color-index-disabled {
+    fill: #C3C5C8; }
+  .grommetux-distribution__item-box.grommetux-color-index-graph-1, .grommetux-distribution__item-box.grommetux-color-index-graph-5 {
+    fill: #0C4881; }
+  .grommetux-distribution__item-box.grommetux-color-index-graph-2, .grommetux-distribution__item-box.grommetux-color-index-graph-6 {
+    fill: #6D91B3; }
+  .grommetux-distribution__item-box.grommetux-color-index-graph-3, .grommetux-distribution__item-box.grommetux-color-index-graph-7 {
+    fill: #F0B200; }
+  .grommetux-distribution__item-box.grommetux-color-index-graph-4, .grommetux-distribution__item-box.grommetux-color-index-graph-8 {
+    fill: #CC9200; }
+  .grommetux-distribution__item-box.grommetux-color-index-accent-1, .grommetux-distribution__item-box.grommetux-color-index-accent-4 {
+    fill: #ADDDE0; }
+  .grommetux-distribution__item-box.grommetux-color-index-accent-2, .grommetux-distribution__item-box.grommetux-color-index-accent-5 {
+    fill: #00979D; }
+  .grommetux-distribution__item-box.grommetux-color-index-accent-3, .grommetux-distribution__item-box.grommetux-color-index-accent-6 {
+    fill: #005D69; }
+  .grommetux-distribution__item-box.grommetux-color-index-grey-1, .grommetux-distribution__item-box.grommetux-color-index-grey-6 {
+    fill: #272727; }
+  .grommetux-distribution__item-box.grommetux-color-index-grey-2, .grommetux-distribution__item-box.grommetux-color-index-grey-7 {
+    fill: #404040; }
+  .grommetux-distribution__item-box.grommetux-color-index-grey-3, .grommetux-distribution__item-box.grommetux-color-index-grey-8 {
+    fill: #646464; }
+  .grommetux-distribution__item-box.grommetux-color-index-grey-4, .grommetux-distribution__item-box.grommetux-color-index-grey-9 {
+    fill: #CBCCCB; }
+  .grommetux-distribution__item-box.grommetux-color-index-grey-5, .grommetux-distribution__item-box.grommetux-color-index-grey-10 {
+    fill: #F1F1F1; }
 
 .grommetux-distribution__item-icons.grommetux-color-index-loading {
   stroke: #ddd;
@@ -4525,11 +4527,13 @@ _::-webkit-:not(:root:root),
 
 .grommetux-distribution__label {
   position: absolute;
+  background-color: transparent;
   padding: 6px 12px;
   font-family: "Karla", sans-serif;
   overflow: hidden;
   text-align: left;
-  pointer-events: none; }
+  pointer-events: none;
+  transition: all 0.2s ease; }
   .grommetux-distribution__label.grommetux-background-color-index-brand {
     color: #fff; }
   .grommetux-distribution__label.grommetux-background-color-index-critical {
@@ -4986,9 +4990,12 @@ _::-webkit-:not(:root:root),
   .grommetux-form-field__contents > .grommetux-box .grommetux-anchor {
     color: #007482;
     text-decoration: none; }
+  .grommetux-form-field__contents > input:not([type]),
   .grommetux-form-field__contents > input[type=text],
   .grommetux-form-field__contents > input[type=range],
   .grommetux-form-field__contents > input[type=email],
+  .grommetux-form-field__contents > input[type=tel],
+  .grommetux-form-field__contents > input[type=url],
   .grommetux-form-field__contents > input[type=password],
   .grommetux-form-field__contents > input[type=number],
   .grommetux-form-field__contents > input[type=file],
@@ -4998,7 +5005,8 @@ _::-webkit-:not(:root:root),
   .grommetux-form-field__contents > .grommetux-calendar input,
   .grommetux-form-field__contents > .grommetux-date-time input,
   .grommetux-form-field__contents > .grommetux-text-input,
-  .grommetux-form-field__contents > .grommetux-select input,
+  .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input,
+  .grommetux-form-field__contents > .grommetux-password-input input,
   .grommetux-form-field__contents > textarea {
     display: block;
     width: 100%;
@@ -5008,11 +5016,17 @@ _::-webkit-:not(:root:root),
     font-size: 1rem;
     line-height: 1.5;
     padding-left: 22px; }
-    .grommetux-background-color-index--dark .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--dark
+    .grommetux-background-color-index--dark .grommetux-form-field__contents > input:not([type]), .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-form-field__contents > input:not([type]), .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--light .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=range], .grommetux-background-color-index--light .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=range], .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=email], .grommetux-background-color-index--light .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=email], .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > input[type=tel], .grommetux-background-color-index--light .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > input[type=tel], .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > input[type=url], .grommetux-background-color-index--light .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > input[type=url], .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=password], .grommetux-background-color-index--light .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=password], .grommetux-background-color-index--dark
     .grommetux-form-field__contents > input[type=number], .grommetux-background-color-index--light .grommetux-background-color-index--dark
@@ -5031,16 +5045,24 @@ _::-webkit-:not(:root:root),
     .grommetux-form-field__contents > .grommetux-date-time input, .grommetux-background-color-index--dark
     .grommetux-form-field__contents > .grommetux-text-input, .grommetux-background-color-index--light .grommetux-background-color-index--dark
     .grommetux-form-field__contents > .grommetux-text-input, .grommetux-background-color-index--dark
-    .grommetux-form-field__contents > .grommetux-select input, .grommetux-background-color-index--light .grommetux-background-color-index--dark
-    .grommetux-form-field__contents > .grommetux-select input, .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input, .grommetux-background-color-index--light .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input, .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > .grommetux-password-input input, .grommetux-background-color-index--light .grommetux-background-color-index--dark
+    .grommetux-form-field__contents > .grommetux-password-input input, .grommetux-background-color-index--dark
     .grommetux-form-field__contents > textarea, .grommetux-background-color-index--light .grommetux-background-color-index--dark
     .grommetux-form-field__contents > textarea {
       color: #fff; }
-    .grommetux-background-color-index--light .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--light
+    .grommetux-background-color-index--light .grommetux-form-field__contents > input:not([type]), .grommetux-background-color-index--dark .grommetux-background-color-index--light .grommetux-form-field__contents > input:not([type]), .grommetux-background-color-index--light
+    .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--dark .grommetux-background-color-index--light
+    .grommetux-form-field__contents > input[type=text], .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=range], .grommetux-background-color-index--dark .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=range], .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=email], .grommetux-background-color-index--dark .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=email], .grommetux-background-color-index--light
+    .grommetux-form-field__contents > input[type=tel], .grommetux-background-color-index--dark .grommetux-background-color-index--light
+    .grommetux-form-field__contents > input[type=tel], .grommetux-background-color-index--light
+    .grommetux-form-field__contents > input[type=url], .grommetux-background-color-index--dark .grommetux-background-color-index--light
+    .grommetux-form-field__contents > input[type=url], .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=password], .grommetux-background-color-index--dark .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=password], .grommetux-background-color-index--light
     .grommetux-form-field__contents > input[type=number], .grommetux-background-color-index--dark .grommetux-background-color-index--light
@@ -5059,18 +5081,24 @@ _::-webkit-:not(:root:root),
     .grommetux-form-field__contents > .grommetux-date-time input, .grommetux-background-color-index--light
     .grommetux-form-field__contents > .grommetux-text-input, .grommetux-background-color-index--dark .grommetux-background-color-index--light
     .grommetux-form-field__contents > .grommetux-text-input, .grommetux-background-color-index--light
-    .grommetux-form-field__contents > .grommetux-select input, .grommetux-background-color-index--dark .grommetux-background-color-index--light
-    .grommetux-form-field__contents > .grommetux-select input, .grommetux-background-color-index--light
+    .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input, .grommetux-background-color-index--dark .grommetux-background-color-index--light
+    .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input, .grommetux-background-color-index--light
+    .grommetux-form-field__contents > .grommetux-password-input input, .grommetux-background-color-index--dark .grommetux-background-color-index--light
+    .grommetux-form-field__contents > .grommetux-password-input input, .grommetux-background-color-index--light
     .grommetux-form-field__contents > textarea, .grommetux-background-color-index--dark .grommetux-background-color-index--light
     .grommetux-form-field__contents > textarea {
       color: #333; }
   .grommetux-form-field__contents > .grommetux-search-input input,
   .grommetux-form-field__contents > .grommetux-calendar input,
   .grommetux-form-field__contents > .grommetux-date-time input,
-  .grommetux-form-field__contents > .grommetux-select input {
+  .grommetux-form-field__contents > .grommetux-select input,
+  .grommetux-form-field__contents > .grommetux-password-input input {
     padding-left: 24px; }
+  .grommetux-form-field__contents > input:not([type]),
   .grommetux-form-field__contents > input[type=text],
   .grommetux-form-field__contents > input[type=email],
+  .grommetux-form-field__contents > input[type=tel],
+  .grommetux-form-field__contents > input[type=url],
   .grommetux-form-field__contents > input[type=password],
   .grommetux-form-field__contents > input[type=number],
   .grommetux-form-field__contents > input[type=file],
@@ -5078,8 +5106,11 @@ _::-webkit-:not(:root:root),
   .grommetux-form-field__contents > select,
   .grommetux-form-field__contents > textarea {
     padding: 0 24px; }
+    .grommetux-form-field__contents > input:not([type]):focus,
     .grommetux-form-field__contents > input[type=text]:focus,
     .grommetux-form-field__contents > input[type=email]:focus,
+    .grommetux-form-field__contents > input[type=tel]:focus,
+    .grommetux-form-field__contents > input[type=url]:focus,
     .grommetux-form-field__contents > input[type=password]:focus,
     .grommetux-form-field__contents > input[type=number]:focus,
     .grommetux-form-field__contents > input[type=file]:focus,
@@ -5087,9 +5118,12 @@ _::-webkit-:not(:root:root),
     .grommetux-form-field__contents > select:focus,
     .grommetux-form-field__contents > textarea:focus {
       padding: 0 24px; }
+  .grommetux-form-field__contents > input:not([type]),
   .grommetux-form-field__contents > input[type=text],
   .grommetux-form-field__contents > input[type=range],
   .grommetux-form-field__contents > input[type=email],
+  .grommetux-form-field__contents > input[type=tel],
+  .grommetux-form-field__contents > input[type=url],
   .grommetux-form-field__contents > input[type=password],
   .grommetux-form-field__contents > input[type=number],
   .grommetux-form-field__contents > input[type=file],
@@ -5099,12 +5133,16 @@ _::-webkit-:not(:root:root),
   .grommetux-form-field__contents > .grommetux-calendar input,
   .grommetux-form-field__contents > .grommetux-date-time input,
   .grommetux-form-field__contents > .grommetux-text-input,
-  .grommetux-form-field__contents > .grommetux-select input {
+  .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input,
+  .grommetux-form-field__contents > .grommetux-password-input input {
     height: 36px; }
     @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      .grommetux-form-field__contents > input:not([type]),
       .grommetux-form-field__contents > input[type=text],
       .grommetux-form-field__contents > input[type=range],
       .grommetux-form-field__contents > input[type=email],
+      .grommetux-form-field__contents > input[type=tel],
+      .grommetux-form-field__contents > input[type=url],
       .grommetux-form-field__contents > input[type=password],
       .grommetux-form-field__contents > input[type=number],
       .grommetux-form-field__contents > input[type=file],
@@ -5114,7 +5152,8 @@ _::-webkit-:not(:root:root),
       .grommetux-form-field__contents > .grommetux-calendar input,
       .grommetux-form-field__contents > .grommetux-date-time input,
       .grommetux-form-field__contents > .grommetux-text-input,
-      .grommetux-form-field__contents > .grommetux-select input {
+      .grommetux-form-field__contents > .grommetux-select:not(.grommetux-select--inline) input,
+      .grommetux-form-field__contents > .grommetux-password-input input {
         line-height: normal; } }
   .grommetux-form-field__contents > input[type=range] {
     width: calc(100% - 48px);
@@ -5304,10 +5343,12 @@ _::-webkit-:not(:root:root),
 
 .grommetux-form-field--size-large {
   font-size: 24px; }
+  .grommetux-form-field--size-large input:not([type]),
   .grommetux-form-field--size-large input[type="text"] {
     font-size: 24px;
     height: auto; }
 
+.grommetux-form-field--strong input:not([type]),
 .grommetux-form-field--strong input[type="text"] {
   font-weight: 600; }
 
@@ -5659,9 +5700,11 @@ h6.grommetux-heading {
     fill: inherit; }
   .grommetux-control-icon:not([class*="color-index-plain"]) *:not([stroke])[fill="none"] {
     stroke-width: 0; }
-  .grommetux-control-icon:not([class*="color-index-plain"]) *[stroke*="#"] {
+  .grommetux-control-icon:not([class*="color-index-plain"]) *[stroke*="#"],
+  .grommetux-control-icon:not([class*="color-index-plain"]) *[STROKE*="#"] {
     stroke: inherit; }
-  .grommetux-control-icon:not([class*="color-index-plain"]) *[fill*="#"] {
+  .grommetux-control-icon:not([class*="color-index-plain"]) *[fill*="#"],
+  .grommetux-control-icon:not([class*="color-index-plain"]) *[FILL*="#"] {
     fill: inherit; }
   .grommetux-control-icon:not([class*="color-index-plain"]) *[fill-rule] {
     stroke: none; }
@@ -5815,8 +5858,7 @@ h6.grommetux-heading {
   .grommetux-status-icon .grommetux-status-icon__base {
     fill: #C3C5C8; }
     .grommetux-background-color-index--dark .grommetux-status-icon .grommetux-status-icon__base, .grommetux-background-color-index--light .grommetux-background-color-index--dark .grommetux-status-icon .grommetux-status-icon__base {
-      fill: rgba(255, 255, 255, 0.9);
-      stroke: rgba(255, 255, 255, 0.9); }
+      fill: icon-color(rgba(255, 255, 255, 0.9)); }
   .grommetux-status-icon .grommetux-status-icon__detail {
     fill: #fff;
     stroke: #fff; }
@@ -5896,6 +5938,26 @@ h6.grommetux-heading {
   100% {
     stroke-dashoffset: -131px; } }
 
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg); }
+  50% {
+    opacity: 0.75; }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg); } }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg); }
+  50% {
+    opacity: 0.75; }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg); } }
+
 .grommetux-icon-spinning {
   width: 24px;
   height: 24px;
@@ -5904,6 +5966,12 @@ h6.grommetux-heading {
   transform: rotate(90deg);
   -webkit-animation: drawAndReverse 4s alternate infinite ease-in-out;
   animation: drawAndReverse 4s alternate infinite ease-in-out; }
+  @media all and (-ms-high-contrast: none) {
+    .grommetux-icon-spinning {
+      transform: rotate(0deg);
+      stroke-dashoffset: 50;
+      -webkit-animation: fadeOut 3s infinite linear;
+      animation: fadeOut 3s infinite linear; } }
 
 .grommetux-icon-spinning--xsmall {
   width: 12px;
@@ -7091,14 +7159,6 @@ html.rtl .right-left-icon--right {
   display: inline-block;
   white-space: nowrap; }
 
-.grommetux-meter--small .grommetux-meter__slice,
-.grommetux-meter--xsmall .grommetux-meter__slice {
-  stroke-width: 8px; }
-
-.grommetux-meter--small .grommetux-meter__values .grommetux-meter__slice.grommetux-meter__slice--active,
-.grommetux-meter--xsmall .grommetux-meter__values .grommetux-meter__slice.grommetux-meter__slice--active {
-  stroke-width: 24px; }
-
 .grommetux-meter--active .grommetux-meter__values .grommetux-meter__slice {
   stroke-width: 12px; }
 
@@ -8242,6 +8302,47 @@ html.rtl .right-left-icon--right {
     .grommetux-paragraph--width-large {
       width: 720px; } }
 
+.grommetux-password-input {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden; }
+
+.grommetux-password-input__input {
+  padding: 11px 23px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0px;
+  outline: none;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  width: 100%;
+  padding-right: 60px; }
+  .grommetux-password-input__input:focus {
+    border-width: 2px;
+    border-color: #ADDDE0;
+    padding: 10px 22px; }
+  .grommetux-password-input__input::-moz-focus-inner {
+    border: none;
+    outline: none; }
+  .grommetux-password-input__input::-webkit-input-placeholder {
+    color: #aaa; }
+  .grommetux-password-input__input::-moz-placeholder {
+    color: #aaa; }
+  .grommetux-password-input__input:-ms-input-placeholder {
+    color: #aaa; }
+  .grommetux-password-input__input.error {
+    border-color: #E45950; }
+
+.grommetux-password-input__input:focus {
+  padding-right: 58px; }
+
+.grommetux-password-input__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px; }
+
 @keyframes scale-up-fade-out {
   0% {
     -webkit-transform: scale(1);
@@ -8771,6 +8872,8 @@ section:not(.grommetux-section) {
   top: 50%;
   transform: translateY(-50%);
   right: 6px; }
+  .grommetux-select__control svg {
+    background-color: #fff; }
 
 .grommetux-select__search {
   width: 100%; }
@@ -10285,6 +10388,15 @@ section:not(.grommetux-section) {
 
 .grommetux-world-map {
   width: 100%; }
+
+.grommetux-world-map__container {
+  position: relative;
+  width: 100%; }
+
+.grommetux-world-map__flag {
+  position: absolute;
+  top: 0px;
+  left: 0px; }
 
 .grommetux-world-map__continent,
 .grommetux-world-map__place {
