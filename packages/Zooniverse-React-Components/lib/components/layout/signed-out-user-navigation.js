@@ -46,7 +46,7 @@ function SignedOutUserNavigation(props) {
 
 SignedOutUserNavigation.defaultProps = {
   login: function login() {},
-  loginWithGoogle: function loginWithGoogle() {},
+  loginWithGoogle: null,
   showOauthModal: false,
   toggleModal: function toggleModal() {},
   useOauth: false

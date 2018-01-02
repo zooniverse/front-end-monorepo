@@ -49,7 +49,7 @@ function OauthModal(props) {
           props.heading
         ),
         _react2.default.createElement(_Button2.default, { className: 'oauth-modal__button--panoptes', label: props.signInLabel, onClick: props.login, primary: true }),
-        _react2.default.createElement(
+        props.loginWithGoogle && _react2.default.createElement(
           _Button2.default,
           { className: 'oauth-modal__button--google', onClick: props.loginWithGoogle, plain: true },
           _react2.default.createElement(_oauthGoogleIcon2.default, { className: 'oauth-modal__google-icon' }),
@@ -69,7 +69,7 @@ function OauthModal(props) {
 OauthModal.defaultProps = {
   heading: 'Sign In',
   login: function login() {},
-  loginWithGoogle: function loginWithGoogle() {},
+  loginWithGoogle: null,
   onClose: function onClose() {},
   showOauthModal: false,
   signInGoogleLabel: 'Sign in with Google',
