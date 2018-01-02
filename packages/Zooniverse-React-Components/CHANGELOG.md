@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.1] 2018-01-02
+### Fixed
+- Only show the Google sign in button if props.loginWithGoogle function is defined
+
 ## [0.7.0] 2017-11-10
 ### Added
 - SignedInUserNavigation component and tests
