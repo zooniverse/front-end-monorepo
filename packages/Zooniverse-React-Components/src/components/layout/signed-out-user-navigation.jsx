@@ -25,7 +25,7 @@ export default function SignedOutUserNavigation(props) {
 
 SignedOutUserNavigation.defaultProps = {
   login: () => {},
-  loginWithGoogle: () => {},
+  loginWithGoogle: null,
   showOauthModal: false,
   toggleModal: () => {},
   useOauth: false

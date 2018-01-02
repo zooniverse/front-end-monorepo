@@ -214,7 +214,7 @@ A modal for presenting options for oauth authentication with Panoptes. This will
 |----------|-----------------|--------------|-------|
 | heading  | PropTypes.string  | 'Sign In'        |       |
 | login    | PropTypes.func | () => {} | Define a function to oauth sign in with Panoptes which should redirect to Panoptes devise view. Using the panoptes-javascript-client, this funciton will probably be `oauth.signIn(computeRedirectURL(window))`. An example is in zoo-reduxify |
-| loginWithGoogle | PropTypes.func  | () => {}     | Define a function to redirect Panoptes sign in with Google page directly |
+| loginWithGoogle | PropTypes.func  | null | Define a function to redirect Panoptes sign in with Google page directly. If none is defined, then the button is hidden on the OauthModal |
 | onClose  | PropTypes.func  | () => {}        | Define a function to close the modal (Set state to false) |
 | showOauthModal    | PropTypes.bool | false | Boolean visibility state of the modal |
 | signInGoogleLabel | PropTypes.string  | 'Sign in with Google'     |       |

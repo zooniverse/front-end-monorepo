@@ -42,4 +42,9 @@ describe('<OauthModal />', function() {
     loginWithGoogleButton.simulate('click');
     expect(loginWithGoogleSpy.calledOnce).to.be.true;
   });
+
+  it('hides the Google sign in button if props.loginWithGoogle is not defined', function() {
+    wrapper.setProps({ loginWithGoogle: null });
+    expect(wrapper.find('Button')).to.have.lengthOf(1);
+  })
 });

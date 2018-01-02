@@ -13,10 +13,11 @@ export default function OauthModal(props) {
         <Box pad="medium" justify="between">
           <Heading tag="h2">{props.heading}</Heading>
           <Button className="oauth-modal__button--panoptes" label={props.signInLabel} onClick={props.login} primary={true} />
-          <Button className="oauth-modal__button--google" onClick={props.loginWithGoogle} plain={true}>
-            <OauthGoogleIcon className="oauth-modal__google-icon" />
-            <span className="oauth-modal__google-label">{props.signInGoogleLabel}</span>
-          </Button>
+          {props.loginWithGoogle &&
+            <Button className="oauth-modal__button--google" onClick={props.loginWithGoogle} plain={true}>
+              <OauthGoogleIcon className="oauth-modal__google-icon" />
+              <span className="oauth-modal__google-label">{props.signInGoogleLabel}</span>
+            </Button>}
         </Box>
       </Layer>
     );
@@ -28,7 +29,7 @@ export default function OauthModal(props) {
 OauthModal.defaultProps = {
   heading: 'Sign In',
   login: () => {},
-  loginWithGoogle: () => {},
+  loginWithGoogle: null,
   onClose: () => {},
   showOauthModal: false,
   signInGoogleLabel: 'Sign in with Google',
