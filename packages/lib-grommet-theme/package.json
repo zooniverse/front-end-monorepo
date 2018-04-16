@@ -1,22 +1,26 @@
 {
   "name": "@zooniverse/grommet-theme",
-  "version": "0.3.0",
+  "version": "2.0.0",
   "description": "A Zooniverse theme for the Grommet React library",
-  "main": "node_modules/grommet/src/js/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "version": "npm run build && git add -A dist",
-    "postversion": "git push && git push --tags",
-    "build": "npm-sass ./src/zoo-grommet.scss > ./dist/zoo-grommet.css"
+    "build": "neutrino build",
+    "lint": "neutrino lint"
   },
-  "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
+  "author": "Roger Hutchings <roger@zooniverse.org> (https://www.zooniverse.org/)",
   "license": "Apache-2.0",
+  "peerDependencies": {
+    "grommet": "^2.0.0-beta.1"
+  },
   "dependencies": {
-    "grommet": "^1.9.0"
+    "deep-freeze": "0.0.1"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "npm-sass": "^2.2.1"
+    "@neutrinojs/airbnb-base": "^8.2.2",
+    "@neutrinojs/library": "^8.2.2",
+    "neutrino": "^8.2.2"
   }
 }
