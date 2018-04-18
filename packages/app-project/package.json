@@ -1,0 +1,17 @@
+{
+  "name": "create-next-example-app",
+  "scripts": {
+    "dev": "check-engines && next",
+    "build": "check-engines && next build",
+    "start": "check-engines && next start"
+  },
+  "dependencies": {
+    "check-engines": "^1.5.0",
+    "next": "5.1.0",
+    "react": "16.3.2",
+    "react-dom": "16.3.2"
+  },
+  "engines": {
+    "node": "8"
+  }
+}
