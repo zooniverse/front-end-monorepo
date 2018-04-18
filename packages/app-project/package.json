@@ -1,5 +1,6 @@
 {
-  "name": "create-next-example-app",
+  "name": "@zooniverse/fe-project",
+  "description": "Zooniverse front end app handling projects and classification",
   "scripts": {
     "dev": "check-engines && next",
     "build": "check-engines && next build",
@@ -13,5 +14,6 @@
   },
   "engines": {
     "node": "8"
-  }
+  },
+  "license": "Apache-2.0"
 }
