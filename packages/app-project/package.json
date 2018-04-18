@@ -2,9 +2,10 @@
   "name": "@zooniverse/fe-project",
   "description": "Zooniverse front end app handling projects and classification",
   "scripts": {
-    "dev": "check-engines && next",
+    "_serve": "node server",
+    "dev": "check-engines && npm run _serve",
     "build": "check-engines && next build",
-    "start": "check-engines && next start"
+    "start": "check-engines && NODE_ENV=production npm run _serve"
   },
   "dependencies": {
     "check-engines": "^1.5.0",

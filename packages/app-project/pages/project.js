@@ -8,7 +8,7 @@ export default () => (
     <Nav />
 
     <div>
-      Index
+      Project
     </div>
   </div>
 )
