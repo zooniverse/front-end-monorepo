@@ -1,0 +1,6 @@
+--require babel-register
+--reporter spec
+--ui bdd
+
+./pages/**/*.spec.js
+./components/**/*.spec.js
