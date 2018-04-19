@@ -36,3 +36,5 @@ See [Testing](#testing) for more details.
 ## <a name="testing"></a> Testing
 
 Tests are run by [Mocha](https://mochajs.org/), using the [BDD](https://mochajs.org/#bdd) interface.
+
+Assertions are provided by the [Chai](http://www.chaijs.com/) assertion library.

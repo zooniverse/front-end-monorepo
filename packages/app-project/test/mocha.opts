@@ -1,6 +1,9 @@
 --require babel-register
+--require chai/register-expect
+--require chai/register-should
 --reporter spec
 --ui bdd
+--file ./test/enzyme-config.js
 
 ./pages/**/*.spec.js
 ./components/**/*.spec.js
