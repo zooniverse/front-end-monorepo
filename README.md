@@ -14,7 +14,7 @@ Libraries for publishing to NPM should have their directory names prefixed with 
 
 Apps should have their directory names prefixed with `app-`, e.g. `/project` becomes `/app-project`.
 
-===
+---
 
 ## License
 
