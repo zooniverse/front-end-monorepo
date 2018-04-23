@@ -1,5 +1,19 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
+import { injectGlobal, ServerStyleSheet } from 'styled-components'
+
+injectGlobal`
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    font-size: 1.4rem;
+    line-height: 1.214285714;
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+`
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {
