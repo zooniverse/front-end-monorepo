@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Nav from './nav';
+import Head from './head';
 
-describe('Component > Nav', function () {
+describe('Component > Head', function () {
   it('should render without crashing', function () {
-    shallow(<Nav />);
+    shallow(<Head />);
   });
 });
