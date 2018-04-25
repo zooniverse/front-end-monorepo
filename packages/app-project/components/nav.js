@@ -10,7 +10,7 @@ const Nav = () => (
         </Link>
       </li>
       <li>
-        <Link prefetch href="/projects/foo/bar">
+        <Link prefetch href="/project" as="/projects/foo/bar">
           <a>Dummy project</a>
         </Link>
       </li>
