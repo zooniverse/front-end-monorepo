@@ -8,6 +8,7 @@
     "start": "check-engines && NODE_ENV=production npm run _serve"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.5.1",
     "check-engines": "^1.5.0",
     "grommet": "^2.0.0-beta.1",
     "next": "5.1.0",
