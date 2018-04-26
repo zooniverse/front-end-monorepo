@@ -6,7 +6,7 @@ import React from 'react'
 
 export default () => (
   <Grommet>
-    <Head title="Home" />
+    <Head title='Home' />
     <Nav />
 
     <div>
