@@ -2,10 +2,12 @@
   "name": "@zooniverse/fe-project",
   "description": "Zooniverse front end app handling projects and classification",
   "scripts": {
+    "_check": "check-engines && check-dependencies",
     "_serve": "node server",
-    "dev": "check-engines && npm run _serve",
-    "build": "check-engines && next build",
-    "start": "check-engines && NODE_ENV=production npm run _serve"
+    "build": "npm run _check && next build",
+    "dev": "npm run _check && npm run _serve",
+    "start": "npm run _check && NODE_ENV=production npm run _serve",
+    "test": "npm run _check && BABEL_ENV=test mocha || true"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.5.1",
@@ -20,5 +22,23 @@
   "engines": {
     "node": "8"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "check-dependencies": "^1.1.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jsdom": "^11.8.0",
+    "mocha": "^5.1.1",
+    "sinon": "^4.5.0",
+    "standard": "^11.0.1",
+    "standard-loader": "^6.0.1"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it"
+    ]
+  }
 }
