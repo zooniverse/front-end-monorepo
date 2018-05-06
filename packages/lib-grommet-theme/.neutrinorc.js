@@ -3,7 +3,7 @@ module.exports = {
     output: 'dist'
   },
   use: [
-    '@neutrinojs/airbnb-base',
+    '@neutrinojs/standardjs',
     [
       '@neutrinojs/library',
       {

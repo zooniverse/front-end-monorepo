@@ -19,7 +19,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@neutrinojs/airbnb-base": "^8.2.2",
+    "@neutrinojs/standardjs": "^8.2.2",
     "@neutrinojs/library": "^8.2.2",
     "neutrino": "^8.2.2"
   }
