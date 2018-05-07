@@ -1,0 +1,14 @@
+{
+  "name": "@zooniverse/panoptes-js",
+  "version": "0.0.1",
+  "description": "A Javascript client for Panoptes API using Superagent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "superagent": "^3.8.3"
+  }
+}
