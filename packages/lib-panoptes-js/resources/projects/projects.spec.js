@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const superagent = require('superagent');
 const mockSuperagent = require('superagent-mock');
-const { projects } = require('./projects');
+const { projects, PROJECTS_ENDPOINT } = require('./projects');
 const config = require('../../config');
 
 const NEW_PROJECT_RESPONSE = {
@@ -55,7 +55,7 @@ describe('Projects resource requests', function() {
     const expectedResponse = NEW_PROJECT_RESPONSE;
     before(function() {
       superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}`,
+        pattern: `${config.host}${PROJECTS_ENDPOINT}`,
         fixtures: (match, params) => {
           actualParams = params;
           return expectedResponse;
@@ -70,8 +70,8 @@ describe('Projects resource requests', function() {
 
     it('should return the expected response', function() {
       return projects.create().then(response => {
-        expect(response).to.equal({ body: expectedResponse });
-      }).catch(error => console.error(error));
+        expect(response).to.eql({ body: expectedResponse }); // deep equality
+      });
     });
   });
 });
