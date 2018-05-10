@@ -4,11 +4,22 @@
   "description": "A Javascript client for Panoptes API using Superagent",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "_check": "check-engines && check-dependencies",
+    "test": "npm run _check && NODE_ENV=test mocha;"
   },
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "check-dependencies": "^1.1.0",
+    "check-engines": "^1.5.0",
     "superagent": "^3.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "superagent-mock": "^3.7.0"
+  },
+  "engines": {
+    "node": "8"
   }
 }

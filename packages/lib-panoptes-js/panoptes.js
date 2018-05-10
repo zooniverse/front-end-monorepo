@@ -64,6 +64,4 @@ const requests = {
   del
 }
 
-window.panoptesAPI = requests;
-
-module.exports(requests);
+module.exports = requests;

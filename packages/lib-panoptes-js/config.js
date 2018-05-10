@@ -26,12 +26,16 @@ const envFromBrowser = locationMatch(/\W?env=(\w+)/);
 const envFromShell = process.env.NODE_ENV;
 const env = envFromBrowser || envFromShell || DEFAULT_ENV;
 
-if (!env.match(/^(production|staging|development)$/)) {
+if (!env.match(/^(production|staging|test|development)$/)) {
   throw new Error(`Error: Invalid Environment - ${envFromShell}`);
 }
 
 const baseConfig = {
   development: {
+    host: 'https://panoptes-staging.zooniverse.org/api',
+    oauth: 'https://panoptes-staging.zooniverse.org'
+  },
+  test: {
     host: 'https://panoptes-staging.zooniverse.org/api',
     oauth: 'https://panoptes-staging.zooniverse.org'
   },
@@ -48,4 +52,4 @@ const baseConfig = {
 const config = baseConfig[env];
 // TODO: Should there be default params?
 
-module.exports({ env, config });
+module.exports = { env, config };
