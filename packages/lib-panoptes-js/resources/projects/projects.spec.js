@@ -3,56 +3,13 @@ const superagent = require('superagent');
 const mockSuperagent = require('superagent-mock');
 const { projects, PROJECTS_ENDPOINT } = require('./projects');
 const config = require('../../config');
-
-const NEW_PROJECT_RESPONSE = {
-  linked: {},
-  links: {},
-  meta: {},
-  projects: [{
-    activity: 0,
-    available_languages: ["en"],
-    beta_approved: false,
-    beta_requested: false,
-    classifications_count: 0,
-    classifiers_count: 0,
-    completeness: 0,
-    configuration: {},
-    created_at: "2018-05-10T16:53:33.328Z",
-    description: "A short description of the project",
-    display_name: "Untitled project",
-    experimental_tools: [],
-    featured: false,
-    href: "/projects/1844",
-    id: "1",
-    introduction: "A more in-depth introduction to your science...",
-    launch_approved: false,
-    launch_date: null,
-    launch_requested: false,
-    links: {},
-    live: false,
-    migrated: false,
-    mobile_friendly: false,
-    primary_language: "en",
-    private: true,
-    redirect: "",
-    researcher_quote: "",
-    retired_subjects_count: 0,
-    slug: "user/untitled-project",
-    state: "development",
-    subjects_count: 0,
-    tags: [],
-    title: "Untitled project",
-    updated_at: "2018-05-10T16:53:33.328Z",
-    urls: [],
-    workflow_description: ""
-  }]
-};
+const projectMocks = require('./mocks');
 
 describe('Projects resource requests', function() {
   describe('create', function() {
     let superagentMock;
     let actualParams;
-    const expectedResponse = NEW_PROJECT_RESPONSE;
+    const expectedResponse = projectMocks.newProjectResponse;
     before(function() {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${PROJECTS_ENDPOINT}`,
@@ -73,5 +30,71 @@ describe('Projects resource requests', function() {
         expect(response).to.eql({ body: expectedResponse }); // deep equality
       });
     });
+
+    it('should have sent the expected data params with an added { private: true }', function() {
+      const projectDisplayName = { display_name: 'My project' };
+      return projects.create(projectDisplayName).then(response => {
+        expect(actualParams).to.eql(Object.assign({}, { private: true }, projectDisplayName));
+      });
+    });
   });
+
+  describe('get', function() {
+    let superagentMock;
+    let actualParams;
+    const expectedGetAllResponse = projectMocks.getProjectsResponse;
+    const expectedGetSingleResponse = projectMocks.getSingleProjectResponse;
+
+    after(function () {
+      superagentMock.unset();
+    });
+
+    it('should return the expected response without a defined id argument', function() {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: `${config.host}${PROJECTS_ENDPOINT}`,
+        fixtures: (match, params) => {
+          actualParams = params;
+          return expectedGetAllResponse;
+        },
+        get: (match, data) => ({ body: data })
+      }]);
+
+      return projects.get().then(response => {
+        expect(response).to.eql({ body: expectedGetAllResponse });
+      });
+    });
+
+    it('should return the expected response with a defined id argument', function () {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: `${config.host}${PROJECTS_ENDPOINT}/(\\d+)`, // this is a weird way of doing regex
+        fixtures: (match, params) => {
+          actualParams = params;
+          return expectedGetSingleResponse;
+        },
+        get: (match, data) => ({ body: data })
+      }]);
+
+      return projects.get('2').then(response => {
+        expect(response).to.eql({ body: expectedGetSingleResponse });
+      });
+    });
+
+    it.only('should error if id arugment is not a string', function() {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: `${config.host}${PROJECTS_ENDPOINT}/(\\d+)`, // this is a weird way of doing regex
+        fixtures: (match, params) => {
+          actualParams = params;
+          return expectedGetSingleResponse;
+        },
+        get: (match, data) => ({ body: data })
+      }]);
+
+      return projects.get(2).catch(error => {
+        console.log(error)
+        expect(error).to.equal('Projects: Get request id must be a string.');
+      });
+    });
+  });
+
+  // describe('update')
 });

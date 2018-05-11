@@ -19,8 +19,6 @@ function get(endpoint, query, host) {
       if (typeof object === 'object') request.query(obj);
       if (typeof object !== 'object') throw new Error('Query must be an object');
     });
-  } else {
-    throw new Error('Queries must be in an array or array is empty');
   }
   return request.then(response => response).catch(handleErrors);
 }
