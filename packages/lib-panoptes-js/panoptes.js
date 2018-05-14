@@ -14,11 +14,10 @@ function get(endpoint, query, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
   // .set('Authorization', apiClient.headers.Authorization);
-  if (query && query.length > 0) {
-    query.forEach((object) => {
-      if (typeof object === 'object') request.query(obj);
-      if (typeof object !== 'object') throw new Error('Query must be an object');
-    });
+  if (query && typeof query !== 'object') throw new Error('Query must be an object');
+
+  if (query && Object.keys(query).length > 0) {
+    request.query(query);
   }
   return request.then(response => response).catch(handleErrors);
 }

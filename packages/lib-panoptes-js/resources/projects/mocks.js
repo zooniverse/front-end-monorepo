@@ -90,17 +90,25 @@ const getProjectsResponse = {
   projects: [projectOne, projectTwo]
 };
 
-getSingleProjectResponse = {
+const getSingleProjectResponse = {
   linked: {},
   links: {},
   meta: {},
   projects: [projectTwo]
 };
 
+const putProjectResponse = {
+  linked: {},
+  links: {},
+  meta: {},
+  projects: [Object.assign({}, projectTwo, { researcher_quote: 'Try my project!' })]
+}
+
 module.exports = {
   projectOne,
   projectTwo,
   newProjectResponse,
   getProjectsResponse,
-  getSingleProjectResponse
+  getSingleProjectResponse,
+  putProjectResponse
 };
