@@ -10,9 +10,13 @@
     "test": "npm run _check && BABEL_ENV=test mocha || true"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-styled-components": "^1.5.1",
     "check-engines": "^1.5.0",
-    "grommet": "2.0.0-beta.3",
+    "grommet": "^2.0.0-beta.3",
+    "mobx": "^4.2.1",
+    "mobx-react": "^5.1.2",
+    "mobx-state-tree": "^2.0.5",
     "next": "5.1.0",
     "next-routes": "^1.4.1",
     "react": "16.3.2",
@@ -24,6 +28,8 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "check-dependencies": "^1.1.0",

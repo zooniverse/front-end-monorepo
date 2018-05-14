@@ -9,6 +9,9 @@ module.exports = {
       test: /\.js?$/,
       loader: 'standard-loader',
       exclude: /(node_modules)/,
+      options: {
+        parser: 'babel-eslint'
+      }
     })
     return config
   }

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '../config/routes'
 import React from 'react'
 
 const Nav = () => (
@@ -10,8 +10,27 @@ const Nav = () => (
         </Link>
       </li>
       <li>
-        <Link prefetch href='/project' as='/projects/foo/bar'>
-          <a>Dummy project</a>
+        <Link
+          prefetch
+          route='project'
+          params={{
+            owner: 'emammal',
+            project: 'emammal'
+          }}
+        >
+          <a>Emammal</a>
+        </Link>
+      </li>
+      <li>
+        <Link
+          prefetch
+          route='project'
+          params={{
+            owner: 'dwright04',
+            project: 'supernova-hunters'
+          }}
+        >
+          <a>Supernova Hunters</a>
         </Link>
       </li>
     </ul>
