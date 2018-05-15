@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const superagent = require('superagent');
 const mockSuperagent = require('superagent-mock');
-const { projects, PROJECTS_ENDPOINT } = require('./projects');
+const { projects, projectsEndpoint } = require('./projects');
 const { config } = require('../../config');
 const projectMocks = require('./mocks');
 
@@ -12,9 +12,8 @@ describe('Projects resource requests', function() {
     const expectedResponse = projectMocks.newProjectResponse;
     before(function() {
       superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${PROJECTS_ENDPOINT}`,
-        fixtures: (match, params) => {
-          console.log('pattern, match, params', `${config.host}${PROJECTS_ENDPOINT}`, match, params)
+        pattern: `${config.host}${projectsEndpoint}`,
+        fixtures: (match, params, header, context) => {
           actualParams = params;
           return expectedResponse;
         },
@@ -26,9 +25,9 @@ describe('Projects resource requests', function() {
       superagentMock.unset();
     });
 
-    it.only('should return the expected response', function() {
+    it('should return the expected response', function() {
       return projects.create().then(response => {
-        // expect(response).to.eql({ body: expectedResponse }); // deep equality
+        expect(response).to.eql({ body: expectedResponse }); // deep equality
       }).catch(err => console.error('error', err));
     });
 
@@ -41,77 +40,77 @@ describe('Projects resource requests', function() {
   });
 
   describe('get', function() {
-    let superagentMock;
-    let actualParams;
-    const expectedGetAllResponse = projectMocks.getProjectsResponse;
-    const expectedGetSingleResponse = projectMocks.getSingleProjectResponse;
+    describe('many projects', function() {
+      let superagentMock;
+      const expectedGetAllResponse = projectMocks.getProjectsResponse;
 
-    after(function () {
-      superagentMock.unset();
-    });
+      before(function() {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${projectsEndpoint}`, // this is a weird way of doing regex
+          fixtures: (match, params, headers, context) => {
+            return expectedGetAllResponse;
+          },
+          get: (match, data) => {
+            return { body: data }
+          }
+        }]);
+      })
 
-    it('should return the expected response without a defined id argument', function() {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${PROJECTS_ENDPOINT}`,
-        fixtures: (match, params) => {
-          actualParams = params;
-          return expectedGetAllResponse;
-        },
-        get: (match, data) => ({ body: data })
-      }]);
-
-      return projects.get().then(response => {
-        expect(response).to.eql({ body: expectedGetAllResponse });
+      after(function () {
+        superagentMock.unset();
       });
-    });
 
-    it('should return the expected response with a defined id argument', function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${PROJECTS_ENDPOINT}/(\\d+)`, // this is a weird way of doing regex
-        fixtures: (match, params) => {
-          actualParams = params;
-          return expectedGetSingleResponse;
-        },
-        get: (match, data) => ({ body: data })
-      }]);
-
-      return projects.get({ id: '2' }).then(response => {
-        expect(response).to.eql({ body: expectedGetSingleResponse });
+      it('should return the expected response without a defined id argument', function () {
+        return projects.get().then(response => {
+          expect(response).to.eql({ body: expectedGetAllResponse });
+        });
       });
-    });
+    })
 
-    // it('should include query params with the request if defined', function() {
-    //   const queryParams = { page: '2' };
-    //   superagentMock = mockSuperagent(superagent, [{
-    //     pattern: `${config.host}${PROJECTS_ENDPOINT}/(\\d+)`, // this is a weird way of doing regex
-    //     fixtures: (match, params) => {
-    //       console.log('match, params', match, params)
-    //       actualParams = params;
-    //       return expectedGetSingleResponse;
-    //     },
-    //     get: (match, data) => ({ body: data })
-    //   }]);
 
-    //   return projects.get({ id: '2', query: queryParams }).then(response => {
-    //     console.log(actualParams)
-    //     // expect(actualParams).to.eql('');
-    //   });
-    // });
+    describe('a single project', function() {
+      let superagentMock;
+      let actualMatch;
+      const expectedGetSingleResponse = projectMocks.getSingleProjectResponse;
 
-    it('should error if id arugment is not a string', function() {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${PROJECTS_ENDPOINT}/(\\d+)`, // this is a weird way of doing regex
-        fixtures: (match, params) => {
-          actualParams = params;
-          return expectedGetSingleResponse;
-        },
-        get: (match, data) => ({ body: data })
-      }]);
-
-      return projects.get({ id: 2 }).catch(error => {
-        expect(error).to.equal('Projects: Get request id must be a string.');
+      before(function() {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${projectsEndpoint}/(\\d+)`,
+          fixtures: (match, params, headers, context) => {
+            actualMatch = match;            
+            return expectedGetSingleResponse;
+          },
+          get: (match, data) => {
+            return { body: data }
+          }
+        }]);
       });
-    });
+
+      after(function() {
+        superagentMock.unset();
+      });
+
+      it('should return the expected response with a defined id argument', function () {
+        return projects.get({ id: '2' }).then(response => {
+          expect(response).to.eql({ body: expectedGetSingleResponse });
+        });
+      });
+
+      it('should include query params with the request if defined', function () {
+        const queryParams = { page: '2' };
+
+        return projects.get({ id: '2', query: queryParams }).then(response => {
+          expect(actualMatch.input.includes('?page=2')).to.be.true;
+        });
+      });
+
+      it('should error if id arugment is not a string', function () {
+        return projects.get({ id: 2 }).catch(error => {
+          expect(error).to.equal('Projects: Get request id must be a string.');
+        });
+      });
+    })
+
   });
 
   describe('update', function() {
@@ -122,7 +121,7 @@ describe('Projects resource requests', function() {
 
     before(function() {
       superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${PROJECTS_ENDPOINT}/(\\d+)`, // this is a weird way of doing regex
+        pattern: `${config.host}${projectsEndpoint}/(\\d+)`,
         fixtures: (match, params) => {
           actualParams = params;
           return expectedPutResponse;
@@ -155,7 +154,7 @@ describe('Projects resource requests', function() {
 
     it('should return the expected response', function() {
       return projects.update({ id: '2', data: update }).then((response) => {
-        expect(response).to.equal(expectedPutResponse);
+        expect(response).to.eql({ body: expectedPutResponse });
       });
     });
   })

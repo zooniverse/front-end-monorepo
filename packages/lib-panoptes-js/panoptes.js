@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const config = require('./config');
+const { config } = require('./config');
 
 function handleErrors(error) {
   if (console) console.error(error);
@@ -14,9 +14,8 @@ function get(endpoint, query, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
   // .set('Authorization', apiClient.headers.Authorization);
-  if (query && typeof query !== 'object') throw new Error('Query must be an object');
-
   if (query && Object.keys(query).length > 0) {
+    if (typeof query !== 'object') throw new Error('Query must be an object');
     request.query(query);
   }
   return request.then(response => response).catch(handleErrors);

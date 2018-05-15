@@ -1,3 +1,4 @@
-const { projects } = require('./projects');
+const { projects, projectsEndpoint } = require('./projects');
+const { mocks } = require('./mocks');
 
-module.exports = { projects };
+module.exports = { projects, projectsEndpoint, projectMocks: mocks };
