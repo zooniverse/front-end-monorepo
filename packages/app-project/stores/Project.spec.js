@@ -4,7 +4,7 @@ import nock from 'nock'
 // Required until we swap out axios for the panoptesjs transport lib
 import axios from 'axios'
 import httpAdapter from 'axios/lib/adapters/http'
-axios.defaults.adapter = httpAdapter;
+axios.defaults.adapter = httpAdapter
 
 describe('Stores > Project', function () {
   it('should export an object', function () {
@@ -47,7 +47,7 @@ describe('Stores > Project', function () {
           .get('/api/projects')
           .query({ slug: 'foo/bar' })
           .delayBody(500)
-          .reply(200, data);
+          .reply(200, data)
 
         const store = Project.create(defaultProjectState)
 

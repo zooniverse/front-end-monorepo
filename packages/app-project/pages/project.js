@@ -1,17 +1,17 @@
-import React from 'react'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import PropTypes from 'prop-types'
 import { getSnapshot } from 'mobx-state-tree'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import Head from '../components/head'
 import Nav from '../components/nav'
 import ProjectHome from '../components/ProjectHome'
-import initStore from '../stores'
 import getProjectSlugFromURL from '../helpers/getProjectSlugFromURL'
+import initStore from '../stores'
 
 class ProjectPage extends React.Component {
-  static async getInitialProps ({ asPath, req }) {
+  static async getInitialProps ({ req }) {
     const props = {
       isServer: !!req
     }
@@ -53,13 +53,15 @@ class ProjectPage extends React.Component {
 }
 
 ProjectPage.propTypes = {
+  initialState: PropTypes.object,
+  isServer: PropTypes.bool,
   store: PropTypes.shape({
     project: PropTypes.shape({
       fetch: PropTypes.func
     })
   }),
   url: PropTypes.shape({
-    asPath: PropTypes.string,
+    asPath: PropTypes.string
   })
 }
 

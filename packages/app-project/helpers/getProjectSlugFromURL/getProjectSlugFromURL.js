@@ -1,6 +1,6 @@
 function getProjectSlugFromURL (url) {
   const relativeUrl = (url.startsWith('http'))
-    ? url.replace(/^(?:\/\/|[^\/]+)*\//, '')
+    ? url.replace(/^(?:\/\/|[^/]+)*\//, '')
     : url
 
   const parts = relativeUrl.split('/').filter(Boolean)
