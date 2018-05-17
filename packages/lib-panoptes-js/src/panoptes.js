@@ -8,6 +8,7 @@ function handleErrors(error) {
 }
 
 // TODO: Write auth client
+// TODO: Consider how to integrate a GraphQL option
 function get(endpoint, query, host) {
   const apiHost = host || config.host;
   const request = superagent.get(`${apiHost}${endpoint}`)
@@ -15,7 +16,7 @@ function get(endpoint, query, host) {
     .set('Accept', 'application/vnd.api+json; version=1')
   // .set('Authorization', apiClient.headers.Authorization);
   if (query && Object.keys(query).length > 0) {
-    if (typeof query !== 'object') throw new Error('Query must be an object');
+    if (typeof query !== 'object') return Promise.reject('Query must be an object');
     request.query(query);
   }
   return request.then(response => response).catch(handleErrors);

@@ -1,5 +1,64 @@
 const { expect } = require('chai');
 const superagent = require('superagent');
 const mockSuperagent = require('superagent-mock');
+const { config } = require('./config');
+const panoptes = require('./panoptes');
 
-xdescribe('panoptes.js')
+describe('panoptes.js', function() {
+  describe('get', function() {
+    let superagentMock;
+    let actualMatch;
+    let actualParams;
+    let actualHeader;
+    const endpoint = `${config.host}/projects`;
+    const expectedResponse = { id: 2 };
+    before(function () {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: endpoint,
+        fixtures: (match, params, header, context) => {
+          actualMatch = match;
+          actualParams = params;
+          actualHeader = header;
+          return expectedResponse;
+        },
+        get: (match, data) => ({ body: data })
+      }]);
+    });
+
+    after(function () {
+      superagentMock.unset();
+    });
+
+    it('should return the expected response', function() {
+      return panoptes.get(endpoint).then((response) => {
+        expect(response).to.eql({ body: expectedResponse });
+      });
+    });
+
+    it('should add Content-Type header to the request', function() {
+      return panoptes.get(endpoint).then((response) => {
+        expect(actualHeader["Content-Type"]).to.exist;
+        expect(actualHeader["Content-Type"]).to.equal('application/json');
+      });
+    });
+
+    it('should add Accept header to the request', function() {
+      return panoptes.get(endpoint).then((response) => {
+        expect(actualHeader["Accept"]).to.exist;
+        expect(actualHeader["Accept"]).to.equal('application/vnd.api+json; version=1');        
+      });
+    });
+
+    it('should add the query object to the URL if defined', function() {
+      return panoptes.get(endpoint, { page: '2', page_size: '30' }).then((response) => {
+        expect(actualMatch.input.includes('?page=2&page_size=30')).to.be.true;
+      });
+    });
+
+    it('should error if query params are defined but are not an object', function() {
+      return panoptes.get(endpoint, '?foo=bar').catch((error) => {
+        expect(error).to.equal('Query must be an object');
+      });
+    });
+  });
+});
