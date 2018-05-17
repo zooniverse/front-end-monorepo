@@ -37,6 +37,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "jsdom": "^11.8.0",
     "mocha": "^5.1.1",
+    "nock": "^9.2.6",
     "sinon": "^4.5.0",
     "standard": "^11.0.1",
     "standard-loader": "^6.0.1"

@@ -7,7 +7,6 @@ function transformResponse (response) {
 }
 
 function fetchProjectData (slug) {
-  console.info('Fetching project', slug)
   return axios({
     url: 'https://www.zooniverse.org/api/projects',
     params: { slug },
