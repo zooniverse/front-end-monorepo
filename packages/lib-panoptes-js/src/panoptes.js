@@ -7,14 +7,14 @@ function handleErrors(error) {
   return error;
 }
 
-function handleMissingParameter() {
-  return Promise.reject();
+function handleMissingParameter(message) {
+  return Promise.reject(message);
 }
 
 // TODO: Write auth client
 // TODO: Consider how to integrate a GraphQL option
 function get(endpoint, query, host) {
-  if (!endpoint) handleMissingParameter('Request needs a defined resource endpoint');
+  if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint');
   const apiHost = host || config.host;
   const request = superagent.get(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
@@ -28,7 +28,7 @@ function get(endpoint, query, host) {
 }
 
 function post(endpoint, data, host) {
-  if (!endpoint) handleMissingParameter('Request needs a defined resource endpoint');
+  if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint');
   const apiHost = host || config.host;
 
   return superagent.post(`${apiHost}${endpoint}`)
@@ -40,8 +40,8 @@ function post(endpoint, data, host) {
 }
 
 function put(endpoint, data, host) {
-  if (!endpoint) handleMissingParameter('Request needs a defined resource endpoint');
-  if (!data) handleMissingParameter('Request needs a defined data for update');  
+  if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint');
+  if (!data) return handleMissingParameter('Request needs a defined data for update');  
   const apiHost = host || config.host;
 
   return superagent.put(`${apiHost}${endpoint}`)
@@ -53,7 +53,7 @@ function put(endpoint, data, host) {
 }
 
 function del(endpoint, host) {
-  if (!endpoint) handleMissingParameter('Request needs a defined resource endpoint');
+  if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint');
   const apiHost = host || config.host;
 
   return superagent.delete(`${apiHost}${endpoint}`)

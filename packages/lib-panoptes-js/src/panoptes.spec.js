@@ -25,7 +25,7 @@ describe('panoptes.js', function() {
       }]);
     });
 
-    after(function () {
+    after(function() {
       superagentMock.unset();
     });
 
