@@ -41,7 +41,7 @@ const projects = {
   },
 
   delete: (params) => {
-    const { id } = params;
+    const id = (params) ? params.id : '';
     if (id && typeof id !== 'string') return handleError('Projects: Delete request id must be a string.');
     if (id) return panoptes.del(`${projectsEndpoint}/${id}`);
     return handleError('Projects: Delete request missing project id.');

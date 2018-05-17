@@ -46,7 +46,7 @@ describe('Projects resource requests', function() {
 
       before(function() {
         superagentMock = mockSuperagent(superagent, [{
-          pattern: `${config.host}${projectsEndpoint}`, // this is a weird way of doing regex
+          pattern: `${config.host}${projectsEndpoint}`,
           fixtures: (match, params, headers, context) => {
             return expectedGetAllResponse;
           },
@@ -115,7 +115,6 @@ describe('Projects resource requests', function() {
 
   describe('update', function() {
     let superagentMock;
-    let actualParams;
     const expectedPutResponse = projectMocks.putProjectResponse;
     const update = { researcher_quote: 'Try my project!' };
 
@@ -123,7 +122,6 @@ describe('Projects resource requests', function() {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${projectsEndpoint}/(\\d+)`,
         fixtures: (match, params) => {
-          actualParams = params;
           return expectedPutResponse;
         },
         put: (match, data) => ({ body: data })
@@ -157,5 +155,40 @@ describe('Projects resource requests', function() {
         expect(response).to.eql({ body: expectedPutResponse });
       });
     });
-  })
+  });
+
+  describe('delete', function() {
+    const responseStatus = { status: 204 };
+    before(function () {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: `${config.host}${projectsEndpoint}/(\\d+)`,
+        fixtures: (match, params) => {
+          return responseStatus;
+        },
+        delete: (match, data) => { return data }
+      }]);
+    });
+
+    after(function () {
+      superagentMock.unset();
+    });
+
+    it('should error if the request is missing a project id', function() {
+      return projects.delete().catch((error) => {
+        expect(error).to.equal('Projects: Delete request missing project id.');
+      });
+    });
+
+    it('should error if the request\'s project id is not a string', function () {
+      return projects.delete({ id: 2 }).catch((error) => {
+        expect(error).to.equal('Projects: Delete request id must be a string.');
+      });
+    });
+
+    it('should return the expected response', function () {
+      return projects.delete({ id: '2' }).then((response) => {
+        expect(response).to.equal(responseStatus);
+      });
+    });
+  });
 });
