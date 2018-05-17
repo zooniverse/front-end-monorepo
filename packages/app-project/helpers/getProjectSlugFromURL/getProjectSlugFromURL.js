@@ -1,5 +1,9 @@
-function getProjectSlugFromURL (asPath) {
-  const parts = asPath.split('/').filter(Boolean)
+function getProjectSlugFromURL (url) {
+  const relativeUrl = (url.startsWith('http'))
+    ? url.replace(/^(?:\/\/|[^\/]+)*\//, '')
+    : url
+
+  const parts = relativeUrl.split('/').filter(Boolean)
   return `${parts[1]}/${parts[2]}`
 }
 

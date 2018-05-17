@@ -12,16 +12,16 @@ const absoluteUrls = [
   'https://www.zooniverse.org/projects/foo/bar/classify'
 ]
 
-describe.only('Helper > getProjectSlugFromURL', function () {
+describe('Helper > getProjectSlugFromURL', function () {
   it('should return the correct slug from a relative URL', function () {
-    relativeUrls.forEach(function (asPath) {
-      getProjectSlugFromAsPath(asPath).should.equal('foo/bar')
+    relativeUrls.forEach(function (url) {
+      getProjectSlugFromURL(url).should.equal('foo/bar')
     })
   })
 
   it('should return the correct slug from an absolute URL', function () {
-    absoluteUrls.forEach(function (asPath) {
-      getProjectSlugFromAsPath(asPath).should.equal('foo/bar')
+    absoluteUrls.forEach(function (url) {
+      getProjectSlugFromURL(url).should.equal('foo/bar')
     })
   })
 })

@@ -7,5 +7,6 @@
 --file ./test/enzyme-setup.js
 
 ./components/**/*.spec.js
+./helpers/**/*.spec.js
 ./pages/**/*.spec.js
 ./stores/**/*.spec.js
