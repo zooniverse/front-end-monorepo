@@ -222,4 +222,68 @@ describe('panoptes.js', function() {
       });
     });
   });
+
+  describe('delete', function() {
+    let superagentMock;
+    let actualMatch;
+    let actualParams;
+    let actualHeader;
+    const endpoint = '/projects';
+    const expectedResponse = { status: 204 };
+    before(function () {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: endpoint,
+        fixtures: (match, params, header, context) => {
+          actualMatch = match;
+          actualParams = params;
+          actualHeader = header;
+          return expectedResponse;
+        },
+        delete: (match, data) => { return data }
+      }]);
+    });
+
+    after(function () {
+      superagentMock.unset();
+    });
+
+    it('should return the expected response', function() {
+      return panoptes.del(endpoint).then((response) => {
+        expect(response).to.equal(expectedResponse);
+      });
+    });
+
+    it('should use the host from the function call if defined', function () {
+      const mockAPIHost = 'https://my-api.com';
+      return panoptes.del(endpoint, mockAPIHost).then((response) => {
+        expect(actualMatch.input.includes(mockAPIHost)).to.be.true;
+      });
+    });
+
+    it('should use the host defined in the config if a host parameter isn\'t defined', function () {
+      return panoptes.del(endpoint).then((response) => {
+        expect(actualMatch.input.includes(config.host)).to.be.true;
+      });
+    });
+
+    it('should add Content-Type header to the request', function () {
+      return panoptes.del(endpoint).then((response) => {
+        expect(actualHeader["Content-Type"]).to.exist;
+        expect(actualHeader["Content-Type"]).to.equal('application/json');
+      });
+    });
+
+    it('should add Accept header to the request', function () {
+      return panoptes.del(endpoint).then((response) => {
+        expect(actualHeader["Accept"]).to.exist;
+        expect(actualHeader["Accept"]).to.equal('application/vnd.api+json; version=1');
+      });
+    });
+
+    it('should error if request is called without a defined resource endpoint', function () {
+      return panoptes.del().catch((error) => {
+        expect(error).to.equal('Request needs a defined resource endpoint');
+      });
+    });
+  });
 });
