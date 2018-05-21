@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
-    "test": "npm run _check && NODE_ENV=test mocha;"
+    "test": "npm run _check && NODE_ENV=test mocha test/setup.js"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "jsdom": "^11.10.0",
     "mocha": "^5.1.1",
     "superagent-mock": "^3.7.0"
   },

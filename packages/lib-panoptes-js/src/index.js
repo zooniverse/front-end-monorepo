@@ -1,4 +1,4 @@
-const config = require('./config');
+const { config } = require('./config');
 const panoptes = require('./panoptes');
 const projects = require('./resources/projects');
 
