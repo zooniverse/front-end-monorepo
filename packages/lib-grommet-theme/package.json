@@ -10,7 +10,7 @@
   "author": "Roger Hutchings <roger@zooniverse.org> (https://www.zooniverse.org/)",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "grommet": "^2.0.0-beta.1"
+    "grommet": "2.0.0-beta.3"
   },
   "dependencies": {
     "deep-freeze": "0.0.1"
