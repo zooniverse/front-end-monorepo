@@ -21,20 +21,16 @@ function locationMatch(regex) {
   return (match && match[1]) ? match[1] : undefined;
 }
 
-const DEFAULT_ENV = 'development';
+const DEFAULT_ENV = 'staging';
 const envFromBrowser = locationMatch(/\W?env=(\w+)/);
 const envFromShell = process.env.NODE_ENV;
 const env = envFromBrowser || envFromShell || DEFAULT_ENV;
 
-if (!env.match(/^(production|staging|test|development)$/)) {
+if (!env.match(/^(production|staging|test)$/)) {
   throw new Error(`Error: Invalid Environment - ${envFromShell}`);
 }
 
 const baseConfig = {
-  development: {
-    host: 'https://panoptes-staging.zooniverse.org/api',
-    oauth: 'https://panoptes-staging.zooniverse.org'
-  },
   test: {
     host: 'https://panoptes-staging.zooniverse.org/api',
     oauth: 'https://panoptes-staging.zooniverse.org'

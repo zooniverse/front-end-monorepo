@@ -33,7 +33,7 @@ function post(endpoint, data, host) {
 
   return superagent.post(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
-    .set('Accept', 'application/vnd.api+json; version=1')    
+    .set('Accept', 'application/vnd.api+json; version=1')
     // .set('Authorization', apiClient.headers.Authorization)
     .send(data)
     .then(response => response).catch(handleErrors);
