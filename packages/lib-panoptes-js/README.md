@@ -52,15 +52,7 @@ Browser web standard emulation is provided by [JSDOM](https://github.com/jsdom/j
 
 ## Contributing
 
-See the [contributing documentation]() for more information. This package should be cloned as part of the [front-end-monorepo](https://github.com/zooniverse/front-end-monorepo). Generally, create a fork, push your changes to a branch, and open a pull request for review.
-
-### Conventions
-
-This project adheres to Semantic Versioning, and follows the changelog format set out at Keep a CHANGELOG.
-
-### Publishing
-
-TODO: write docs about publishing to NPM 
+See the [contributing documentation](docs/CONTRIBUTING.md) for more information.
 
 ## License
 

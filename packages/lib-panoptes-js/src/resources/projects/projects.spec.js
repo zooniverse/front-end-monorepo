@@ -179,6 +179,12 @@ describe('Projects resource requests', function() {
       });
     });
 
+    it('should error if the request project id is an empty string', function() {
+      return projects.delete({ id: '' }).catch((error) => {
+        expect(error).to.equal('Projects: Delete request missing project id.');
+      });
+    });
+
     it('should error if the request\'s project id is not a string', function () {
       return projects.delete({ id: 2 }).catch((error) => {
         expect(error).to.equal('Projects: Delete request id must be a string.');

@@ -1,6 +1,6 @@
 {
   "name": "@zooniverse/panoptes-js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Javascript client for Panoptes API using Superagent",
   "main": "index.js",
   "scripts": {
