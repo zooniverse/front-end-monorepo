@@ -21,8 +21,19 @@ http://localhost:3000?env=production
 If you're running an app using hash history, you'll need to add ?env= before the #, like this:
 
 http://localhost:3000?env=production#/classify
+```
 
-### Setting the environment via NODE_ENV
+### Setting the environment via `PANOPTES_ENV`
+
+This lets you choose a Panoptes environment in isolation from your Node environment, so you can use the production Panoptes API in development, for example.
+
+```
+PANOPTES_ENV=production npm run dev
+```
+
+This supersedes the `NODE_ENV` environment variable.
+
+### Setting the environment via `NODE_ENV`
 
 This is usually used for build processes before deployment.
 

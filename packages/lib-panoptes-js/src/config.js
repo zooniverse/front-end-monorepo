@@ -23,7 +23,7 @@ function locationMatch(regex) {
 
 const DEFAULT_ENV = 'staging';
 const envFromBrowser = locationMatch(/\W?env=(\w+)/);
-const envFromShell = process.env.NODE_ENV;
+const envFromShell = process.env.PANOPTES_ENV || process.env.NODE_ENV;
 const env = envFromBrowser || envFromShell || DEFAULT_ENV;
 
 if (!env.match(/^(production|staging|test)$/)) {
