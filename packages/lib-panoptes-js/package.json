@@ -2,7 +2,7 @@
   "name": "@zooniverse/panoptes-js",
   "version": "0.1.0",
   "description": "A Javascript client for Panoptes API using Superagent",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
     "test": "npm run _check && NODE_ENV=test mocha test/setup.js"

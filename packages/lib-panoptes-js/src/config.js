@@ -13,21 +13,21 @@ By default, this is the development environment, but this can be changed either 
 
 // Try and match the location.search property against a regex. Basically mimics
 // the CoffeeScript existential operator, in case we're not in a browser.
-function locationMatch(regex) {
-  let match;
+function locationMatch (regex) {
+  let match
   if (typeof location !== 'undefined' && location !== null) {
-    match = location.search.match(regex);
+    match = location.search.match(regex)
   }
-  return (match && match[1]) ? match[1] : undefined;
+  return (match && match[1]) ? match[1] : undefined
 }
 
-const DEFAULT_ENV = 'staging';
-const envFromBrowser = locationMatch(/\W?env=(\w+)/);
-const envFromShell = process.env.NODE_ENV;
-const env = envFromBrowser || envFromShell || DEFAULT_ENV;
+const DEFAULT_ENV = 'staging'
+const envFromBrowser = locationMatch(/\W?env=(\w+)/)
+const envFromShell = process.env.PANOPTES_ENV || process.env.NODE_ENV
+const env = envFromBrowser || envFromShell || DEFAULT_ENV
 
 if (!env.match(/^(production|staging|test)$/)) {
-  throw new Error(`Error: Invalid Environment - ${envFromShell}`);
+  throw new Error(`Error: Invalid Environment - ${envFromShell}`)
 }
 
 const baseConfig = {
@@ -43,9 +43,9 @@ const baseConfig = {
     host: 'https://www.zooniverse.org/api',
     oauth: 'https://panoptes.zooniverse.org'
   }
-};
+}
 
-const config = baseConfig[env];
+const config = baseConfig[env]
 // TODO: Should there be default params?
 
-module.exports = { env, config, locationMatch };
+module.exports = { env, config, locationMatch }
