@@ -1,0 +1,6 @@
+--require chai/register-expect
+--require chai/register-should
+--reporter spec
+--ui bdd
+
+./src/**/**/*.spec.js
