@@ -1,6 +1,7 @@
 import { flow, types } from 'mobx-state-tree'
 import _ from 'lodash'
 import axios from 'axios'
+import asyncStates from './asyncStates'
 
 function transformResponse (response) {
   return _.get(response, 'data.projects[0]')
@@ -19,26 +20,25 @@ function fetchProjectData (slug) {
 
 const Project = types
   .model('Project', {
-    isLoading: types.boolean,
     data: types.optional(types.frozen, {})
   })
+  .volatile(self => ({
+    state: types.enumeration('state', asyncStates)
+  }))
   .actions(self => ({
+    afterCreate () {
+      self.state = 'initialised'
+    },
     fetch: flow(function * fetch (slug) {
+      self.state = 'loading'
       try {
-        self.isLoading = true
         self.data = yield fetchProjectData(slug)
+        self.state = 'success'
       } catch (error) {
         console.error('Failed to fetch project', error)
+        self.state = 'error'
       }
-      self.isLoading = false
     })
   }))
 
-const defaultProjectState = {
-  isLoading: false
-}
-
-export {
-  Project as default,
-  defaultProjectState
-}
+export default Project
