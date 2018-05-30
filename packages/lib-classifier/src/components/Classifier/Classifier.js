@@ -1,5 +1,5 @@
 import { Grommet } from 'grommet'
-import makeInspectable from 'mobx-devtools-mst';
+import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -13,7 +13,7 @@ class Classifier extends React.Component {
   constructor (props) {
     super(props)
     this.classifierStore = RootStore.create({ project: props.project }, { client: panoptes })
-    makeInspectable(this.classifierStore);
+    makeInspectable(this.classifierStore)
   }
 
   render () {

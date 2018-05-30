@@ -1,5 +1,4 @@
 import { addDisposer, getRoot, onPatch, flow, types } from 'mobx-state-tree'
-import request from 'superagent'
 import Subject from './Subject'
 
 const Subjects = types
@@ -8,7 +7,7 @@ const Subjects = types
   })
 
   .views(self => ({
-    get current() {
+    get current () {
       return self.queue.length ? self.queue[0] : null
     }
   }))
@@ -31,7 +30,7 @@ const Subjects = types
       }
     },
 
-    afterAttach() {
+    afterAttach () {
       self.addActiveWorkflowListener()
     },
 

@@ -3,7 +3,6 @@ import RootStore from './RootStore'
 import SubjectsModel from './Subjects'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 import projectFixture from '../../test/fixtures/project'
-import subjectsFixture from '../../test/fixtures/subjects'
 
 let rootStore
 let subjects

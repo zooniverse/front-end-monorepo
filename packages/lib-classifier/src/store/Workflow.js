@@ -1,8 +1,8 @@
-import { flow, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 const Workflow = types
   .model('Workflow', {
-    id: types.identifier(types.string),
+    id: types.identifier(types.string)
   })
 
 export default Workflow

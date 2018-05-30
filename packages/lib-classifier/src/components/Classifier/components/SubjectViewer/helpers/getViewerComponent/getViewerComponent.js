@@ -1,6 +1,5 @@
 import React from 'react'
 import RasterViewer from '../../components/RasterViewer'
-import isRaster from './isRaster'
 import convertLocationToObject from './convertLocationToObject'
 
 const viewers = {

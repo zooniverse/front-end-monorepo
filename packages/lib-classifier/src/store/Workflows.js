@@ -1,5 +1,4 @@
 import { getRoot, flow, types } from 'mobx-state-tree'
-import { panoptes } from '@zooniverse/panoptes-js'
 import Workflow from './Workflow'
 
 const Workflows = types

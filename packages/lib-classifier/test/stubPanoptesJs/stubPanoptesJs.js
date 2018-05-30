@@ -15,5 +15,4 @@ const stubPanoptesJs = {
   }
 }
 
-
 export default stubPanoptesJs
