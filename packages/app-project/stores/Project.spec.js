@@ -1,77 +1,73 @@
-import Project, { defaultProjectState } from './Project'
-import nock from 'nock'
+import Project from './Project'
+import Store from './Store'
+import stubPanoptesJs from '../test/stubPanoptesJs'
+import projectFixture, { initialState } from '../test/fixtures/project'
 
-// Required until we swap out axios for the panoptesjs transport lib
-import axios from 'axios'
-import httpAdapter from 'axios/lib/adapters/http'
-axios.defaults.adapter = httpAdapter
+let rootStore
+let projectStore
 
-describe('Stores > Project', function () {
-  it('should export an object', function () {
-    Project.should.be.an('object')
+describe.only('Stores > Project', function () {
+  it('should exist', function () {
+    rootStore = Store.create()
+    projectStore = rootStore.project
+    projectStore.should.not.be.undefined
   })
 
-  describe('model', function () {
-    describe('data property', function () {
-      it('should exist', function () {
-        const store = Project.create(defaultProjectState)
-        store.data.should.be.an('object')
-      })
+  describe('default model properties', function () {
+    before(function () {
+      rootStore = Store.create()
+      projectStore = rootStore.project
     })
 
-    describe('isLoading property', function () {
-      it('should exist', function () {
-        const store = Project.create(defaultProjectState)
-        store.isLoading.should.be.a('boolean')
-      })
+    it('should have a displayName property', function () {
+      projectStore.displayName.should.equal('')
     })
-  })
 
-  describe('actions', function () {
-    describe('fetch', function () {
-      it('should exist', function () {
-        const store = Project.create(defaultProjectState)
-        store.fetch.should.be.a('function')
-      })
+    it('should have an error property', function () {
+      expect(projectStore.error).to.equal(null)
+    })
 
-      it('should correctly request a project when passed a slug', function (done) {
-        const data = {
-          projects: [{
-            baz: 'beep'
-          }]
-        }
+    it('should have an id property', function () {
+      projectStore.id.should.equal('')
+    })
 
-        // Here we introduce a delay before the response ends. This allows us
-        // to test whether the store.isLoading property is updating correctly.
-        nock('https://www.zooniverse.org')
-          .get('/api/projects')
-          .query({ slug: 'foo/bar' })
-          .delayBody(500)
-          .reply(200, data)
+    it('should have a state property', function () {
+      projectStore.state.should.equal('initialised')
+    })
 
-        const store = Project.create(defaultProjectState)
-
-        store.fetch('foo/bar')
-          .then(function () {
-            store.data.should.deep.equal(data.projects[0])
-            store.isLoading.should.equal(false)
-            done()
-          })
-
-        // Since this is run before fetch's thenable resolves, it should test
-        // correctly during the request.
-        store.isLoading.should.equal(true)
-      })
+    after(function () {
+      rootStore = null
+      projectStore = null
     })
   })
 
-  describe('defaultProjectState', function () {
+  describe('fetch method', function () {
+    before(function () {
+      rootStore = Store.create({}, { client: stubPanoptesJs })
+      projectStore = rootStore.project
+    })
+
     it('should exist', function () {
-      defaultProjectState.should.be.an('object')
+      projectStore.fetch.should.be.a('function')
     })
 
-    it('should provide an isLoading value', function () {
-      defaultProjectState.isLoading.should.equal(false)
+    it('should fetch a valid project resource', function (done) {
+      projectStore.fetch('foo/bar')
+        .then(function () {
+          projectStore.id.should.equal(projectFixture.body.projects[0].id)
+          projectStore.state.should.equal('success')
+          done()
+        })
+
+      // Since this is run before fetch's thenable resolves, it should test
+      // correctly during the request.
+      projectStore.state.should.equal('loading')
+    })
+
+    after(function () {
+      rootStore = null
+      projectStore = null
     })
   })
+
 })
