@@ -2,10 +2,13 @@
   "name": "@zooniverse/grommet-theme",
   "version": "2.0.0",
   "description": "A Zooniverse theme for the Grommet React library",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "scripts": {
-    "build": "neutrino build",
-    "lint": "neutrino lint"
+    "build": "webpack --config webpack.dist.js",
+    "dev": "webpack --config webpack.dev.js",
+    "dev:watch": "npm run dev -- --watch",
+    "lint": "standard --fix",
+    "start": "npm run dev:watch"
   },
   "author": "Roger Hutchings <roger@zooniverse.org> (https://www.zooniverse.org/)",
   "license": "Apache-2.0",
@@ -19,8 +22,12 @@
     "access": "public"
   },
   "devDependencies": {
-    "@neutrinojs/standardjs": "^8.2.2",
-    "@neutrinojs/library": "^8.2.2",
-    "neutrino": "^8.2.2"
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
   }
 }

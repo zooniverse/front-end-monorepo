@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze'
 
-export default deepFreeze({
+const theme = deepFreeze({
   global: {
     colors: {
       black: '#000',
@@ -10,7 +10,8 @@ export default deepFreeze({
       gold: '#f0b200',
       lightGold: '#f6d885',
       tomato: '#e45950',
-      lightGrey: '#eff2f5',
+      lightGrey: '#e2e5e9',
+      lighterGrey: '#eff2f5',
       midGrey: '#a6a7a9',
       green: '#078f52',
       darkTeal: '#005D69',
@@ -41,28 +42,8 @@ export default deepFreeze({
           unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
       `
-    },
-    heading: {
-      level: {
-        1: {
-          color: 'darkGrey',
-          fontWeight: 'bold'
-        },
-        2: {
-          color: 'white',
-          fontWeight: 'bold'
-        },
-        3: {
-          color: 'darkGrey',
-          fontWeight: 'bold'
-        },
-        4: {
-          color: 'darkGrey'
-        },
-        5: {
-          color: 'black'
-        }
-      }
     }
   }
 })
+
+export default theme
