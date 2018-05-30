@@ -17,6 +17,6 @@ describe('Helper > getViewerComponent', function () {
     const result1 = shallow(getViewerComponent({ 'image/jpg': 'baz' }))
     result1.length.should.equal(1)
     const result2 = shallow(getViewerComponent({ 'image/jpeg': 'baz' }))
-    result1.length.should.equal(1)
+    result2.length.should.equal(1)
   })
 })

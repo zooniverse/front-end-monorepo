@@ -38,6 +38,6 @@ module.exports = {
   },
   plugins: [
     EnvironmentWebpackPlugin,
-    HtmlWebpackPluginConfig,
+    HtmlWebpackPluginConfig
   ]
 }

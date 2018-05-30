@@ -13,7 +13,7 @@ describe('Component > RasterViewer', function () {
   })
 
   it('should render an img if passed a url', function () {
-    const wrapper = shallow(<RasterViewer url="http://foo.bar/baz" />)
+    const wrapper = shallow(<RasterViewer url='http://foo.bar/baz' />)
     const viewers = wrapper.find('img')
     viewers.length.should.equal(1)
   })

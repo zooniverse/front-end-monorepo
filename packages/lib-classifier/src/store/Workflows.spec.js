@@ -1,7 +1,6 @@
 import RootStore from './RootStore'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 import projectFixture from '../../test/fixtures/project'
-import workflowsFixture from '../../test/fixtures/workflows'
 import { when } from 'mobx'
 
 let rootStore
