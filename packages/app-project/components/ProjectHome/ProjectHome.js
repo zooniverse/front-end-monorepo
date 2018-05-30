@@ -1,13 +1,19 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
-@inject('store')
+function storeMapper (stores) {
+  return {
+    project: stores.store.project
+  }
+}
+
+@inject(storeMapper)
 @observer
 class ProjectHome extends React.Component {
   render () {
     return (
       <div>
-        {this.props.store.project.data.display_name}
+        {this.props.project.displayName}
       </div>
     )
   }

@@ -4,13 +4,13 @@
   "scripts": {
     "_check": "check-engines && check-dependencies",
     "_serve": "node server",
-    "build": "npm run _check && next build",
-    "dev": "npm run _check && npm run _serve",
+    "build": "npm run _check && PANOPTES_ENV=production next build",
+    "dev": "npm run _check && PANOPTES_ENV=production npm run _serve",
     "test": "npm run _check && BABEL_ENV=test mocha || true",
     "start": "npm run _check && NODE_ENV=production npm run _serve"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "@zooniverse/panoptes-js": "^0.1.0",
     "babel-plugin-styled-components": "^1.5.1",
     "check-engines": "^1.5.0",
     "grommet": "^2.0.0-beta.3",

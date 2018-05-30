@@ -22,7 +22,6 @@ class ProjectPage extends React.Component {
       await store.project.fetch(slug)
       props.initialState = getSnapshot(store)
     }
-
     return props
   }
 

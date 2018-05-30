@@ -1,41 +1,28 @@
-import { flow, types } from 'mobx-state-tree'
+import { flow, getRoot, types } from 'mobx-state-tree'
 import _ from 'lodash'
-import axios from 'axios'
+import { panoptes } from '@zooniverse/panoptes-js'
 import asyncStates from './asyncStates'
-
-function transformResponse (response) {
-  return _.get(response, 'data.projects[0]')
-}
-
-function fetchProjectData (slug) {
-  return axios({
-    url: 'https://www.zooniverse.org/api/projects',
-    params: { slug },
-    headers: {
-      'Accept': 'application/vnd.api+json; version=1',
-      'Content-Type': 'application/json'
-    }
-  }).then(transformResponse)
-}
 
 const Project = types
   .model('Project', {
-    data: types.optional(types.frozen, {})
+    displayName: types.optional(types.string, ''),
+    error: types.optional(types.frozen, null),
+    id: types.optional(types.string, ''),
+    state: types.optional(types.enumeration('state', asyncStates), 'initialised')
   })
-  .volatile(self => ({
-    state: types.enumeration('state', asyncStates)
-  }))
+
   .actions(self => ({
-    afterCreate () {
-      self.state = 'initialised'
-    },
     fetch: flow(function * fetch (slug) {
       self.state = 'loading'
+      const { client } = getRoot(self)
       try {
-        self.data = yield fetchProjectData(slug)
+        const project = yield client.get('/projects', { slug })
+          .then(response => _.get(response, 'body.projects[0]'))
+        self.displayName = project.display_name
+        self.id = project.id
         self.state = 'success'
       } catch (error) {
-        console.error('Failed to fetch project', error)
+        self.error = error
         self.state = 'error'
       }
     })
