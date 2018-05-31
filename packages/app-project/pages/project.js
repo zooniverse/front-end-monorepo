@@ -11,6 +11,8 @@ import getProjectSlugFromURL from '../helpers/getProjectSlugFromURL'
 import initStore from '../stores'
 
 class ProjectPage extends React.Component {
+  // getInitialProps looks like a React lifecycle method, but is actually a
+  // Next.js method only called in page components. See https://git.io/vhZz9
   static async getInitialProps ({ req }) {
     const props = {
       isServer: !!req
