@@ -8,7 +8,7 @@ function RasterViewer ({ url }) {
 
   return (
     <img
-      src={this.props.url}
+      src={url}
     />
   )
 }
