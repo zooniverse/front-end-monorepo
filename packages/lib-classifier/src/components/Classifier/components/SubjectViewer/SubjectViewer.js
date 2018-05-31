@@ -2,6 +2,7 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import getViewerComponent from './helpers/getViewerComponent'
+import composeViewers from './helpers/composeViewers'
 
 function storeMapper (stores) {
   return {
@@ -22,14 +23,7 @@ class SubjectViewer extends React.Component {
     }
 
     const Viewers = this.getViewerComponents()
-
-    return (
-      <React.Fragment>
-        {Viewers.map(Viewer =>
-          React.cloneElement(Viewer, { key: Viewer.props.url })
-        )}
-      </React.Fragment>
-    )
+    return composeViewers(Viewers)
   }
 }
 

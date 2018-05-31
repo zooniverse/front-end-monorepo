@@ -1,20 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function RasterViewer ({ url }) {
+function ImageViewer ({ url }) {
   if (!url) {
     return null
   }
 
   return (
-    <img
-      src={url}
+    <image
+      xlinkHref={url}
     />
   )
 }
 
-RasterViewer.propTypes = {
+ImageViewer.propTypes = {
   url: PropTypes.string
 }
 
-export default RasterViewer
+export default ImageViewer

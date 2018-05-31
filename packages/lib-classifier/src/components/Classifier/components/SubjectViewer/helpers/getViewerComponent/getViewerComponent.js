@@ -1,13 +1,9 @@
 import React from 'react'
-import RasterViewer from '../../components/RasterViewer'
+import ImageViewer from '../../components/ImageViewer'
 import convertLocationToObject from './convertLocationToObject'
 
 const viewers = {
-  image: {
-    jpeg: RasterViewer,
-    jpg: RasterViewer,
-    png: RasterViewer
-  }
+  image: ImageViewer
 }
 
 function getViewerComponent (location) {
@@ -15,7 +11,7 @@ function getViewerComponent (location) {
   let Viewer
 
   try {
-    Viewer = viewers[mimeType][mimeSubType]
+    Viewer = viewers[mimeType]
   } catch (error) {
     if (error.name === 'TypeError') {
       console.error('No subject viewer found for', location)
