@@ -8,7 +8,7 @@ const Project = types
     displayName: types.optional(types.string, ''),
     error: types.optional(types.frozen, null),
     id: types.optional(types.string, ''),
-    state: types.optional(types.enumeration('state', asyncStates), 'initialised')
+    state: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 
   .actions(self => ({
@@ -20,10 +20,10 @@ const Project = types
           .then(response => _.get(response, 'body.projects[0]'))
         self.displayName = project.display_name
         self.id = project.id
-        self.state = 'success'
+        self.state = asyncStates.success
       } catch (error) {
         self.error = error
-        self.state = 'error'
+        self.state = asyncStates.error
       }
     })
   }))

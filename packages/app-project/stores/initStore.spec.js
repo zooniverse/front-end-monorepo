@@ -1,4 +1,5 @@
 import initStore from './initStore'
+import asyncStates from './asyncStates'
 
 describe('Stores > initStore', function () {
   it('should export a function', function () {
@@ -25,7 +26,7 @@ describe('Stores > initStore', function () {
   it('should apply a snapshot when provided', function () {
     const snapshot = {
       project: {
-        isLoading: false,
+        state: asyncStates.initialized,
         data: {
           foo: 'bar'
         }

@@ -1,7 +1,9 @@
 import Project from './Project'
 import Store from './Store'
+import asyncStates from './asyncStates'
 import stubPanoptesJs from '../test/stubPanoptesJs'
 import projectFixture, { initialState } from '../test/fixtures/project'
+
 
 let rootStore
 let projectStore
@@ -32,7 +34,7 @@ describe.only('Stores > Project', function () {
     })
 
     it('should have a state property', function () {
-      projectStore.state.should.equal('initialised')
+      projectStore.state.should.equal(asyncStates.initialized)
     })
 
     after(function () {
@@ -55,13 +57,13 @@ describe.only('Stores > Project', function () {
       projectStore.fetch('foo/bar')
         .then(function () {
           projectStore.id.should.equal(projectFixture.body.projects[0].id)
-          projectStore.state.should.equal('success')
+          projectStore.state.should.equal(asyncStates.success)
           done()
         })
 
       // Since this is run before fetch's thenable resolves, it should test
       // correctly during the request.
-      projectStore.state.should.equal('loading')
+      projectStore.state.should.equal(asyncStates.loading)
     })
 
     after(function () {
