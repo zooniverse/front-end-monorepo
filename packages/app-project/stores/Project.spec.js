@@ -4,7 +4,6 @@ import asyncStates from './asyncStates'
 import stubPanoptesJs from '../test/stubPanoptesJs'
 import projectFixture, { initialState } from '../test/fixtures/project'
 
-
 let rootStore
 let projectStore
 
@@ -43,7 +42,7 @@ describe.only('Stores > Project', function () {
     })
   })
 
-  describe('fetch method', function () {
+  describe.only('fetch method', function () {
     before(function () {
       rootStore = Store.create({}, { client: stubPanoptesJs })
       projectStore = rootStore.project
@@ -54,6 +53,9 @@ describe.only('Stores > Project', function () {
     })
 
     it('should fetch a valid project resource', function (done) {
+      projectStore.state.should.equal(asyncStates.initialized)
+
+
       projectStore.fetch('foo/bar')
         .then(function () {
           projectStore.id.should.equal(projectFixture.body.projects[0].id)

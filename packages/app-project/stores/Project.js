@@ -1,6 +1,5 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
 import _ from 'lodash'
-import { panoptes } from '@zooniverse/panoptes-js'
 import asyncStates from './asyncStates'
 
 const Project = types
@@ -13,10 +12,10 @@ const Project = types
 
   .actions(self => ({
     fetch: flow(function * fetch (slug) {
-      self.state = 'loading'
+      self.state = asyncStates.loading
       const { client } = getRoot(self)
       try {
-        const project = yield client.get('/projects', { slug })
+        const project = yield client.projects.get({ query: { slug }})
           .then(response => _.get(response, 'body.projects[0]'))
         self.displayName = project.display_name
         self.id = project.id
