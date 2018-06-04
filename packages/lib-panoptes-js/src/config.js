@@ -46,6 +46,5 @@ const baseConfig = {
 }
 
 const config = baseConfig[env]
-// TODO: Should there be default params?
 
-module.exports = { env, config, locationMatch }
+module.exports = { config, env, locationMatch }

@@ -62,6 +62,21 @@ describe('panoptes.js', function () {
       })
     })
 
+    it('should add the http_cache default query params to the request', function () {
+      return panoptes.get(endpoint).then(() => {
+        expect(actualMatch.input.includes('?http_cache=true')).to.be.true
+      })
+    })
+
+    it('should add the admin default query param if flag is found in local storage', function() {
+      localStorage.setItem('adminFlag', true)
+
+      return panoptes.get(endpoint).then(() => {
+        expect(actualMatch.input.includes('?admin=true')).to.be.true
+        localStorage.removeItem('adminFlag')
+      })
+    })
+
     it('should add the query object to the URL if defined', function () {
       return panoptes.get(endpoint, { page: '2', page_size: '30' }).then((response) => {
         expect(actualMatch.input.includes('?page=2&page_size=30')).to.be.true
@@ -138,6 +153,21 @@ describe('panoptes.js', function () {
       })
     })
 
+    it('should add the http_cache default query params to the request', function () {
+      return panoptes.post(endpoint).then(() => {
+        expect(actualMatch.input.includes('?http_cache=true')).to.be.true
+      })
+    })
+
+    it('should add the admin default query param if flag is found in local storage', function () {
+      localStorage.setItem('adminFlag', true)
+
+      return panoptes.post(endpoint).then(() => {
+        expect(actualMatch.input.includes('?admin=true')).to.be.true
+        localStorage.removeItem('adminFlag')
+      })
+    })
+
     it('should send any data params if defined', function () {
       const params = { display_name: 'My project' }
       return panoptes.post(endpoint, params).then((response) => {
@@ -210,6 +240,21 @@ describe('panoptes.js', function () {
       })
     })
 
+    it('should add the http_cache default query params to the request', function () {
+      return panoptes.put(endpoint, update).then(() => {
+        expect(actualMatch.input.includes('?http_cache=true')).to.be.true
+      })
+    })
+
+    it('should add the admin default query param if flag is found in local storage', function () {
+      localStorage.setItem('adminFlag', true)
+
+      return panoptes.put(endpoint, update).then(() => {
+        expect(actualMatch.input.includes('?admin=true')).to.be.true
+        localStorage.removeItem('adminFlag')
+      })
+    })
+
     it('should send any data params if defined', function () {
       return panoptes.put(endpoint, update).then((response) => {
         expect(actualParams).to.eql(update)
@@ -277,6 +322,21 @@ describe('panoptes.js', function () {
       return panoptes.del(endpoint).then((response) => {
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+      })
+    })
+
+    it('should add the http_cache default query params to the request', function () {
+      return panoptes.del(endpoint).then(() => {
+        expect(actualMatch.input.includes('?http_cache=true')).to.be.true
+      })
+    })
+
+    it('should add the admin default query param if flag is found in local storage', function () {
+      localStorage.setItem('adminFlag', true)
+
+      return panoptes.del(endpoint).then(() => {
+        expect(actualMatch.input.includes('?admin=true')).to.be.true
+        localStorage.removeItem('adminFlag')
       })
     })
 

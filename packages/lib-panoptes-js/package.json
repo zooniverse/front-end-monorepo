@@ -18,6 +18,7 @@
     "chai": "^4.1.2",
     "jsdom": "^11.10.0",
     "mocha": "^5.1.1",
+    "mock-local-storage": "^1.0.5",
     "superagent-mock": "^3.7.0"
   },
   "engines": {
