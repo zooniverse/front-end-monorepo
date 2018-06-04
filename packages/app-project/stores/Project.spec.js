@@ -7,7 +7,7 @@ import projectFixture, { initialState } from '../test/fixtures/project'
 let rootStore
 let projectStore
 
-describe.only('Stores > Project', function () {
+describe('Stores > Project', function () {
   it('should exist', function () {
     rootStore = Store.create()
     projectStore = rootStore.project
@@ -42,7 +42,7 @@ describe.only('Stores > Project', function () {
     })
   })
 
-  describe.only('fetch method', function () {
+  describe('fetch method', function () {
     before(function () {
       rootStore = Store.create({}, { client: stubPanoptesJs })
       projectStore = rootStore.project

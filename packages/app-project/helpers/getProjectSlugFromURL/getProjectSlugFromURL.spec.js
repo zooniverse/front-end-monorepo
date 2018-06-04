@@ -12,7 +12,7 @@ const invalidUrls = [
   '//projects/foo/bar'
 ]
 
-describe.only('Helper > getProjectSlugFromURL', function () {
+describe('Helper > getProjectSlugFromURL', function () {
   it('should return the correct slug from a URL', function () {
     validUrls.forEach(function (url) {
       getProjectSlugFromURL(url).should.equal('foo/bar')
