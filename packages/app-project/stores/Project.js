@@ -1,5 +1,5 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
-import _ from 'lodash'
+import { get } from 'lodash'
 import asyncStates from './asyncStates'
 
 const Project = types
@@ -10,13 +10,20 @@ const Project = types
     state: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 
+  .volatile(self => ({
+    client: {}
+  }))
+
   .actions(self => ({
+    afterAttach () {
+      self.client = getRoot(self).client.projects
+    },
+
     fetch: flow(function * fetch (slug) {
       self.state = asyncStates.loading
-      const { client } = getRoot(self)
       try {
-        const project = yield client.projects.get({ query: { slug }})
-          .then(response => _.get(response, 'body.projects[0]'))
+        const project = yield self.client.get({ query: { slug }})
+          .then(response => get(response, 'projects[0]'))
         self.displayName = project.display_name
         self.id = project.id
         self.state = asyncStates.success

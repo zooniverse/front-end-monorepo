@@ -1,11 +1,12 @@
 import Project from './Project'
 import Store from './Store'
 import asyncStates from './asyncStates'
-import stubPanoptesJs from '../test/stubPanoptesJs'
-import projectFixture, { initialState } from '../test/fixtures/project'
+// import stubPanoptesJs from '../test/stubPanoptesJs'
+import { projectMocks as mocks } from '@zooniverse/panoptes-js'
 
-let rootStore
+let clientStub
 let projectStore
+let rootStore
 
 describe('Stores > Project', function () {
   it('should exist', function () {
@@ -22,6 +23,7 @@ describe('Stores > Project', function () {
 
     it('should have a displayName property', function () {
       projectStore.displayName.should.equal('')
+
     })
 
     it('should have an error property', function () {
@@ -44,7 +46,14 @@ describe('Stores > Project', function () {
 
   describe('fetch method', function () {
     before(function () {
-      rootStore = Store.create({}, { client: stubPanoptesJs })
+      clientStub = {
+        projects: {
+          get: function () {
+            return Promise.resolve(mocks.getSingleProjectResponse)
+          }
+        }
+      }
+      rootStore = Store.create({}, { client: clientStub })
       projectStore = rootStore.project
     })
 
@@ -52,13 +61,12 @@ describe('Stores > Project', function () {
       projectStore.fetch.should.be.a('function')
     })
 
-    it('should fetch a valid project resource', function (done) {
+    it.only('should fetch a valid project resource', function (done) {
       projectStore.state.should.equal(asyncStates.initialized)
 
-
       projectStore.fetch('foo/bar')
-        .then(function () {
-          projectStore.id.should.equal(projectFixture.body.projects[0].id)
+        .then(function (res) {
+          projectStore.id.should.equal(mocks.projectTwo.id)
           projectStore.state.should.equal(asyncStates.success)
           done()
         })
