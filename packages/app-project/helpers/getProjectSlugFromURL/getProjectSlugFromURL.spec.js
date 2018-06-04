@@ -1,31 +1,27 @@
 import getProjectSlugFromURL from './getProjectSlugFromURL'
 
-const relativeUrls = [
+const validUrls = [
   '/projects/foo/bar',
-  '/projects/foo/bar/classify',
-  '/projects/foo//bar/classify',
-  '//projects/foo//bar/classify'
+  '/projects/foo/bar/baz',
+  '/projects/foo/bar?baz=bing',
+  '/projects/foo//bar'
 ]
 
-const absoluteUrls = [
-  'http://www.zooniverse.org/projects/foo/bar',
-  'http://www.zooniverse.org/projects/foo/bar/classify',
-  'https://www.zooniverse.org/projects/foo/bar',
-  'https://www.zooniverse.org/projects/foo/bar/classify',
-  'https://www.zooniverse.org/projects/foo//bar/classify',
-  'https://www.zooniverse.org/projects//foo//bar/classify'
+const invalidUrls = [
+  '/foobar/foo/bar',
+  '//projects/foo/bar'
 ]
 
 describe.only('Helper > getProjectSlugFromURL', function () {
-  it('should return the correct slug from a relative URL', function () {
-    relativeUrls.forEach(function (url) {
+  it('should return the correct slug from a URL', function () {
+    validUrls.forEach(function (url) {
       getProjectSlugFromURL(url).should.equal('foo/bar')
     })
   })
 
-  it('should return the correct slug from an absolute URL', function () {
-    absoluteUrls.forEach(function (url) {
-      getProjectSlugFromURL(url).should.equal('foo/bar')
+  it('should throw if passed an invalid URL', function () {
+    invalidUrls.forEach(function (url) {
+      (function () { getProjectSlugFromURL(url) }).should.throw()
     })
   })
 })

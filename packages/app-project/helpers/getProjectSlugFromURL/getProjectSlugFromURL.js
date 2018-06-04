@@ -1,10 +1,15 @@
-function getProjectSlugFromURL (url) {
-  const relativeUrl = (url.startsWith('http'))
-    ? url.replace(/^(?:\/\/|[^/]+)*\//, '')
-    : url
+import URL from 'url-parse'
 
-  const parts = relativeUrl.split('/').filter(Boolean)
-  return `${parts[1]}/${parts[2]}`
+function getProjectSlugFromURL (urlArg) {
+  const parsed = new URL(urlArg)
+  const [projectPath, owner, project] = parsed.pathname.split('/')
+    .filter(Boolean)
+
+  if (projectPath === 'projects' && owner && project) {
+    return `${owner}/${project}`
+  } else {
+    throw `Couldn't match a slug from ${urlArg}`
+  }
 }
 
 export default getProjectSlugFromURL
