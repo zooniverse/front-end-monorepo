@@ -15,11 +15,11 @@ function Nav () {
             prefetch
             route='project'
             params={{
-              owner: 'emammal',
-              project: 'emammal'
+              owner: 'stephenserjeant',
+              project: 'what-is-beauty'
             }}
           >
-            <a>Emammal</a>
+            <a>Am I Hot or Not</a>
           </Link>
         </li>
         <li>
@@ -27,11 +27,11 @@ function Nav () {
             prefetch
             route='project'
             params={{
-              owner: 'dwright04',
-              project: 'supernova-hunters'
+              owner: 'markb-panoptes',
+              project: 'miniature-fossils-magnified'
             }}
           >
-            <a>Supernova Hunters</a>
+            <a>Miniature Fossils</a>
           </Link>
         </li>
       </ul>

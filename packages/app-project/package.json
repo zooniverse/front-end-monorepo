@@ -5,7 +5,7 @@
     "_check": "check-engines && check-dependencies",
     "_serve": "node server",
     "build": "npm run _check && PANOPTES_ENV=production next build",
-    "dev": "npm run _check && PANOPTES_ENV=production npm run _serve",
+    "dev": "npm run _check && PANOPTES_ENV=staging npm run _serve",
     "test": "npm run _check && BABEL_ENV=test mocha || true",
     "start": "npm run _check && NODE_ENV=production npm run _serve"
   },
