@@ -1,7 +1,6 @@
 import Project from './Project'
 import Store from './Store'
 import asyncStates from './asyncStates'
-// import stubPanoptesJs from '../test/stubPanoptesJs'
 import { projectMocks as mocks } from '@zooniverse/panoptes-js'
 
 let clientStub
@@ -61,11 +60,11 @@ describe('Stores > Project', function () {
       projectStore.fetch.should.be.a('function')
     })
 
-    it.only('should fetch a valid project resource', function (done) {
+    it('should fetch a valid project resource', function (done) {
       projectStore.state.should.equal(asyncStates.initialized)
 
       projectStore.fetch('foo/bar')
-        .then(function (res) {
+        .then(function () {
           projectStore.id.should.equal(mocks.projectTwo.id)
           projectStore.state.should.equal(asyncStates.success)
           done()
