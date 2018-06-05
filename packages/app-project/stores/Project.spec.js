@@ -49,7 +49,7 @@ describe('Stores > Project', function () {
       clientStub = {
         projects: {
           get: function () {
-            return Promise.resolve(mocks.getSingleProjectResponse)
+            return Promise.resolve({ body: mocks.getSingleProjectResponse })
           }
         }
       }

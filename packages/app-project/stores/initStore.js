@@ -9,7 +9,7 @@ let store = null
 
 const client = {
   panoptes: panoptesClient,
-  projects: projectsClient.projects
+  projects: projectsClient
 }
 
 function initStore (isServer, snapshot = null) {
