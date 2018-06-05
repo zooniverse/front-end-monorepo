@@ -2,6 +2,7 @@ import Project from './Project'
 import Store from './Store'
 import asyncStates from './asyncStates'
 import { projectMocks as mocks } from '@zooniverse/panoptes-js'
+import placeholderEnv from './helpers/placeholderEnv'
 
 let clientStub
 let projectStore
@@ -9,20 +10,19 @@ let rootStore
 
 describe('Stores > Project', function () {
   it('should exist', function () {
-    rootStore = Store.create()
+    rootStore = Store.create({}, placeholderEnv)
     projectStore = rootStore.project
     projectStore.should.not.be.undefined
   })
 
   describe('default model properties', function () {
     before(function () {
-      rootStore = Store.create()
+      rootStore = Store.create({}, placeholderEnv)
       projectStore = rootStore.project
     })
 
     it('should have a displayName property', function () {
-      projectStore.displayName.should.equal('')
-
+      expect(projectStore.displayName).to.equal(null)
     })
 
     it('should have an error property', function () {
@@ -30,7 +30,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have an id property', function () {
-      projectStore.id.should.equal('')
+      expect(projectStore.id).to.equal(null)
     })
 
     it('should have a state property', function () {

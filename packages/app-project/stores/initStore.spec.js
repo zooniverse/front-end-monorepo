@@ -27,9 +27,9 @@ describe('Stores > initStore', function () {
     const snapshot = {
       project: {
         state: asyncStates.initialized,
-        data: {
-          foo: 'bar'
-        }
+        displayName: 'foobar',
+        error: null,
+        id: '12345'
       }
     }
     const store = initStore(true, snapshot)
