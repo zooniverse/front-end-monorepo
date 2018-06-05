@@ -11,6 +11,12 @@ function storeMapper (stores) {
 @observer
 class ProjectHome extends React.Component {
   render () {
+    if (this.props.project.state === 'loading') {
+      return (
+        <div>Loading</div>
+      )
+    }
+
     return (
       <div>
         {this.props.project.displayName}

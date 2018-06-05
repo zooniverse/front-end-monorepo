@@ -33,11 +33,18 @@ class ProjectPage extends React.Component {
     this.store = initStore(props.isServer, props.initialState)
   }
 
+  componentDidMount () {
+    if (!this.props.initialState) {
+      const slug = getProjectSlugFromURL(this.props.url.asPath)
+      this.store.project.fetch(slug)
+    }
+  }
+
   componentDidUpdate (prevProps) {
     const slug = getProjectSlugFromURL(this.props.url.asPath)
     const prevSlug = getProjectSlugFromURL(prevProps.url.asPath)
     if (slug !== prevSlug) {
-      this.store.project.fetch(slug).then(() => console.info(this.store))
+      this.store.project.fetch(slug)
     }
   }
 

@@ -1,4 +1,4 @@
-import { flow, getEnv, getRoot, types } from 'mobx-state-tree'
+import { flow, getRoot, types } from 'mobx-state-tree'
 import { get } from 'lodash'
 import asyncStates from './asyncStates'
 import numberString from './types/numberString'
@@ -16,7 +16,7 @@ const Project = types
 
     return {
       afterAttach () {
-        client = getEnv(self).client.projects
+        client = getRoot(self).client.projects
       },
 
       fetch: flow(function * fetch (slug) {
