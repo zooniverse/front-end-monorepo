@@ -1,5 +1,6 @@
 import initStore from './initStore'
 import asyncStates from './asyncStates'
+import { panoptes, projects } from '@zooniverse/panoptes-js'
 
 describe('Stores > initStore', function () {
   it('should export a function', function () {
@@ -26,7 +27,7 @@ describe('Stores > initStore', function () {
   it('should apply a snapshot when provided', function () {
     const snapshot = {
       project: {
-        state: asyncStates.initialized,
+        loadingState: asyncStates.initialized,
         displayName: 'foobar',
         error: null,
         id: '12345'
@@ -34,5 +35,17 @@ describe('Stores > initStore', function () {
     }
     const store = initStore(true, snapshot)
     store.should.deep.equal(snapshot)
+  })
+
+  it('should use PanoptesJS if there is no client argument', function () {
+    const store = initStore()
+    store.client.panoptes.should.deep.equal(panoptes)
+    store.client.projects.should.deep.equal(projects)
+  })
+
+  it('should use the client argument if defined', function () {
+    const client = {}
+    const store = initStore({}, {}, client)
+    store.client.should.equal(client)
   })
 })

@@ -7,12 +7,12 @@ import Store from './Store'
 
 let store = null
 
-const client = {
+const defaultClient = {
   panoptes: panoptesClient,
   projects: projectsClient
 }
 
-function initStore (isServer, snapshot = null) {
+function initStore (isServer, snapshot = null, client = defaultClient) {
   if (isServer) {
     store = Store.create({}, { client })
   }
