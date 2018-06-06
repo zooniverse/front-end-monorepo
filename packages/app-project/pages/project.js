@@ -30,7 +30,7 @@ class ProjectPage extends React.Component {
 
   constructor (props) {
     super(props)
-    this.store = initStore(props.isServer, props.initialState)
+    this.store = initStore(props.isServer, props.initialState, props.client)
   }
 
   componentDidMount () {
