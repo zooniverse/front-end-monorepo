@@ -8,7 +8,7 @@ const Project = types
     displayName: types.maybe(types.string),
     error: types.optional(types.frozen, null),
     id: types.maybe(numberString),
-    state: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 
   .actions(self => {
@@ -20,16 +20,16 @@ const Project = types
       },
 
       fetch: flow(function * fetch (slug) {
-        self.state = asyncStates.loading
+        self.loadingState = asyncStates.loading
         try {
           const project = yield client.get({ query: { slug }})
             .then(response => get(response, 'body.projects[0]'))
           self.displayName = project.display_name
           self.id = project.id
-          self.state = asyncStates.success
+          self.loadingState = asyncStates.success
         } catch (error) {
           self.error = error.message
-          self.state = asyncStates.error
+          self.loadingState = asyncStates.error
         }
       })
     }

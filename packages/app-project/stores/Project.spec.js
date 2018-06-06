@@ -34,7 +34,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have a state property', function () {
-      projectStore.state.should.equal(asyncStates.initialized)
+      projectStore.loadingState.should.equal(asyncStates.initialized)
     })
 
     after(function () {
@@ -61,18 +61,18 @@ describe('Stores > Project', function () {
     })
 
     it('should fetch a valid project resource', function (done) {
-      projectStore.state.should.equal(asyncStates.initialized)
+      projectStore.loadingState.should.equal(asyncStates.initialized)
 
       projectStore.fetch('foo/bar')
         .then(function () {
           projectStore.id.should.equal(mocks.projectTwo.id)
-          projectStore.state.should.equal(asyncStates.success)
+          projectStore.loadingState.should.equal(asyncStates.success)
           done()
         })
 
       // Since this is run before fetch's thenable resolves, it should test
       // correctly during the request.
-      projectStore.state.should.equal(asyncStates.loading)
+      projectStore.loadingState.should.equal(asyncStates.loading)
     })
 
     after(function () {
