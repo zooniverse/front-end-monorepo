@@ -22,7 +22,7 @@ const Project = types
       fetch: flow(function * fetch (slug) {
         self.loadingState = asyncStates.loading
         try {
-          const project = yield client.get({ query: { slug }})
+          const project = yield client.get({ query: { slug } })
             .then(response => get(response, 'body.projects[0]'))
           self.displayName = project.display_name
           self.id = project.id

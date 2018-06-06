@@ -8,7 +8,7 @@ function getProjectSlugFromURL (urlArg) {
   if (projectPath === 'projects' && owner && project) {
     return `${owner}/${project}`
   } else {
-    throw `Couldn't match a slug from ${urlArg}`
+    throw new Error(`Couldn't match a slug from ${urlArg}`)
   }
 }
 

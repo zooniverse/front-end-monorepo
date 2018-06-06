@@ -1,8 +1,8 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-import Project from './project'
 import sinon from 'sinon'
 import { projectMocks as mocks } from '@zooniverse/panoptes-js'
+import Project from './project'
 
 const stubGet = sinon.stub()
   .onFirstCall().returns(Promise.resolve({
@@ -34,7 +34,7 @@ const stubUrl = {
 
 describe('Page > Project', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<Project url={stubUrl} />)
+    shallow(<Project url={stubUrl} />)
   })
 
   it('should load a snapshot into the store if passed as a prop', function () {
