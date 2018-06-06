@@ -1,6 +1,6 @@
 import Project from './Project'
 import Store from './Store'
-import asyncStates from './asyncStates'
+import asyncStates from '../helpers/asyncStates'
 import { projectMocks as mocks } from '@zooniverse/panoptes-js'
 import placeholderEnv from './helpers/placeholderEnv'
 
@@ -80,5 +80,4 @@ describe('Stores > Project', function () {
       projectStore = null
     })
   })
-
 })

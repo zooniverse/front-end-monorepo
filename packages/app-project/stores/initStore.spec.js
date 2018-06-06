@@ -1,5 +1,5 @@
 import initStore from './initStore'
-import asyncStates from './asyncStates'
+import asyncStates from '../helpers/asyncStates'
 import { panoptes, projects } from '@zooniverse/panoptes-js'
 
 describe('Stores > initStore', function () {

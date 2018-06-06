@@ -1,6 +1,6 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
 import { get } from 'lodash'
-import asyncStates from './asyncStates'
+import asyncStates from '../helpers/asyncStates'
 import numberString from './types/numberString'
 
 const Project = types
