@@ -1,6 +1,8 @@
 const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
+const { JSDOM } = require('jsdom')
+
 const { projects, projectsEndpoint } = require('./projects')
 const { config } = require('../../config')
 const projectMocks = require('./mocks')
@@ -107,6 +109,76 @@ describe('Projects resource requests', function () {
       it('should error if id arugment is not a string', function () {
         return projects.get({ id: 2 }).catch(error => {
           expect(error).to.equal('Projects: Get request id must be a string.')
+        })
+      })
+    })
+  })
+
+  describe('getBySlug', function() {
+    let superagentMock;
+    const expectedGetResponse = projectMocks.getSingleProjectResponse
+
+    before(function () {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: `${config.host}${projectsEndpoint}`,
+        fixtures: (match, params) => {
+          return expectedGetResponse
+        },
+        get: (match, data) => ({ body: data })
+      }])
+    })
+
+    after(function () {
+      superagentMock.unset()
+    })
+
+    describe('in node', function () {
+      it('should error if slug param is not defined', function () {
+        return projects.getBySlug().catch((error) => {
+          expect(error).to.equal('Projects: Get by slug request missing required parameter while running in a node environment: slug string.')
+        });
+      });
+
+      it('should return the expected response if the slug is defined', function () {
+        const slug = 'user/untitled-project-2'
+        return projects.getBySlug(slug).then((response) => {
+          expect(response).to.eql({ body: expectedGetResponse })
+          expect(response.body.projects[0].slug).to.equal(slug)
+        })
+      });
+    })
+
+    describe('in browser', function() {
+      let jsdom
+      before(function() {
+        jsdom = new JSDOM('<!doctype html><html><body></body></html>')
+        global.window = jsdom.window
+        jsdom.reconfigure({ url: 'https://www.zooniverse.org/projects/user/untitled-project-2' })
+        
+      })
+
+      after(function () {
+        jsdom.reconfigure({ url: 'about:blank' })
+        delete global.location
+      })
+
+      it('should return the expected response if slug param is defined', function () {
+        const slug = 'user/untitled-project-2'
+        return projects.getBySlug(slug).then((response) => {
+          expect(response).to.eql({ body: expectedGetResponse })
+          expect(response.body.projects[0].slug).to.equal(slug)
+        })
+      });
+
+      it('should return the expected response if slug param is not defined', function () {
+        return projects.getBySlug().then((response) => {
+          expect(response).to.eql({ body: expectedGetResponse })
+        })
+      })
+
+      it('should error if the slug is not returned by the utility function', function () {
+        return projects.getBySlug('asdf').catch((error) => {
+          expect(error).to.equal('Couldn\'t match a slug from asdf')
         })
       })
     })

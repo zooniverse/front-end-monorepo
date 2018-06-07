@@ -1,11 +1,8 @@
+const { isBrowser } = require('../../helpers')
 const panoptes = require('../../panoptes')
+const { getProjectSlugFromURL, handleError } = require('./helpers')
 
 const projectsEndpoint = '/projects'
-
-function handleError (error) {
-  if (console && process.env.NODE_ENV !== 'test') console.error(error)
-  return Promise.reject(error)
-}
 
 // TODO: Could add helper functions to request project with expected included resources
 // like project avatar and background
@@ -17,7 +14,7 @@ const projects = {
       private: true
     }, newProjectData)
 
-    return panoptes.post(`${projectsEndpoint}/`, allProjectData)
+    return panoptes.post(projectsEndpoint, allProjectData)
   },
 
   get: (params) => {
@@ -28,6 +25,22 @@ const projects = {
     if (projectId && typeof projectId !== 'string') return handleError('Projects: Get request id must be a string.')
 
     return panoptes.get(`${projectsEndpoint}/${projectId}`, queryParams)
+  },
+
+  getBySlug: (slugParam) => {
+    let slug = ''
+
+    if (slugParam) {
+      slug = slugParam;
+    } else if (isBrowser() || process.env.NODE_ENV === 'test' && global.window) {
+      slug = getProjectSlugFromURL(window.location.pathname)
+    }
+
+    if (slug) {
+      return panoptes.get(projectsEndpoint, { slug })
+    }
+
+    return handleError('Projects: Get by slug request missing required parameter while running in a node environment: slug string.')
   },
 
   update: (params) => {
