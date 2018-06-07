@@ -13,10 +13,10 @@ const Subjects = types
   }))
 
   .actions(self => ({
-    addActiveWorkflowListener () {
+    addCurrentWorkflowListener () {
       const { workflows } = getRoot(self)
       const populateQueueDisposer = onPatch(workflows, call => {
-        if (call.path === '/activeWorkflow') {
+        if (call.path === '/current') {
           return self.populate()
         }
       })
@@ -31,12 +31,12 @@ const Subjects = types
     },
 
     afterAttach () {
-      self.addActiveWorkflowListener()
+      self.addCurrentWorkflowListener()
     },
 
     populate: flow(function * populate () {
       const { client, workflows } = getRoot(self)
-      const workflowId = workflows.activeWorkflow.id
+      const workflowId = workflows.current.id
       try {
         const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId })
         const subjects = response.body.subjects

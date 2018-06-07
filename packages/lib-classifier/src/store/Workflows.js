@@ -3,7 +3,7 @@ import Workflow from './Workflow'
 
 const Workflows = types
   .model('Workflows', {
-    activeWorkflow: types.maybe(types.reference(Workflow)),
+    current: types.maybe(types.reference(Workflow)),
     workflows: types.optional(types.array(Workflow), [])
   })
 
@@ -22,20 +22,17 @@ const Workflows = types
         const responses = yield Promise.all(workflowFetchers)
         responses.forEach(response => {
           const workflow = response.body.workflows[0]
+          console.info('workflow', workflow)
           self.workflows.push(workflow)
         })
 
-        if (!self.activeWorkflow) {
-          self.setActiveWorkflow(self.workflows[0].id)
+        if (!self.current) {
+          self.current = project.configuration.default_workflow
         }
       } catch (error) {
         console.info(error)
       }
-    }),
-
-    setActiveWorkflow (workflowId) {
-      self.activeWorkflow = workflowId
-    }
+    })
   }))
 
 export default Workflows
