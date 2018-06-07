@@ -1,3 +1,4 @@
+
 /* global location */
 const { isBrowser } = require('./helpers')
 
