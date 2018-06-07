@@ -59,5 +59,8 @@
       "expect",
       "it"
     ]
+  },
+  "dependencies": {
+    "@zooniverse/panoptes-js": "^0.1.0"
   }
 }
