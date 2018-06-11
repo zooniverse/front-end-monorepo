@@ -49,14 +49,22 @@ A project get request that automatically looks for and parses the slug from the 
 **Function**
 
 ``` javascript
-const slug = 'zooniverse/galaxy-zoo';
+const params = { slug: 'zooniverse/galaxy-zoo' };
 
-projects.getBySlug(slug)
+projects.getBySlug(params)
+
+// or in browser without slug
+projects.getBySlug()
+
+// or with additional query params
+const params = { slug: 'zooniverse/galaxy-zoo', cards: true }
+
+projects.getBySlug(params)
 ```
 
 **Arguments**
 
-- slug _(string)_ - A string of the project's slug. If undefined and in a browser environment, the get request uses the window's location pathname and transforms it to the correct format. Optional if in browser. Required in node.js.
+- params _(object)_ - An object that should include the project's slug _(string)_ and optionally additional query params. If the slug is undefined and in a browser environment, the get request uses the window's location pathname and transforms it to the correct format. Slug param is optional if in browser, but required in node.js.
 
 **Returns**
 
@@ -66,7 +74,7 @@ projects.getBySlug(slug)
 
 ``` javascript
 // Get request using slug param
-projects.getBySlug('zooniverse/galaxy-zoo').then((response) => {
+projects.getBySlug({ slug: 'zooniverse/galaxy-zoo' }).then((response) => {
   this.setState({ project: response.body.projects[0] });
 }).catch((error) => { 
   if (error.statusCode === 404) return null; // If you don't care about catching a 404

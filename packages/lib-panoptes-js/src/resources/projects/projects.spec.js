@@ -132,6 +132,12 @@ describe('Projects resource requests', function () {
       superagentMock.unset()
     })
 
+    it('should error if slug param is not a string', function () {
+      return projects.getBySlug({ slug: 1234 }).catch((error) => {
+        expect(error).to.equal('Projects: Get request slug must be a string.')
+      });
+    })
+
     describe('in node', function () {
       it('should error if slug param is not defined', function () {
         return projects.getBySlug().catch((error) => {
@@ -141,7 +147,7 @@ describe('Projects resource requests', function () {
 
       it('should return the expected response if the slug is defined', function () {
         const slug = 'user/untitled-project-2'
-        return projects.getBySlug(slug).then((response) => {
+        return projects.getBySlug({ slug }).then((response) => {
           expect(response).to.eql({ body: expectedGetResponse })
           expect(response.body.projects[0].slug).to.equal(slug)
         })
@@ -164,7 +170,7 @@ describe('Projects resource requests', function () {
 
       it('should return the expected response if slug param is defined', function () {
         const slug = 'user/untitled-project-2'
-        return projects.getBySlug(slug).then((response) => {
+        return projects.getBySlug({ slug }).then((response) => {
           expect(response).to.eql({ body: expectedGetResponse })
           expect(response.body.projects[0].slug).to.equal(slug)
         })
@@ -177,7 +183,7 @@ describe('Projects resource requests', function () {
       })
 
       it('should error if the slug is not returned by the utility function', function () {
-        return projects.getBySlug('asdf').catch((error) => {
+        return projects.getBySlug({ slug: 'asdf' }).catch((error) => {
           expect(error).to.equal('Couldn\'t match a slug from asdf')
         })
       })

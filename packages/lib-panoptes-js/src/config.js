@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 /* global location */
-=======
 const { isBrowser } = require('./helpers')
->>>>>>> Add request by slug function. Add url parse helper. Rework jsdom
 
 /*
 Configuration Settings

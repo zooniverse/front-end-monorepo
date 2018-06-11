@@ -27,17 +27,16 @@ const projects = {
     return panoptes.get(`${projectsEndpoint}/${projectId}`, queryParams)
   },
 
-  getBySlug: (slugParam) => {
-    let slug = ''
-
-    if (slugParam) {
-      slug = slugParam;
-    } else if (isBrowser() || process.env.NODE_ENV === 'test' && global.window) {
-      slug = getProjectSlugFromURL(window.location.pathname)
+  getBySlug: (params) => {
+    const queryParams = params || {}
+    
+    if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
+    if (!queryParams.slug && (isBrowser() || process.env.NODE_ENV === 'test' && global.window)) {
+      queryParams.slug = getProjectSlugFromURL(window.location.pathname)
     }
 
-    if (slug) {
-      return panoptes.get(projectsEndpoint, { slug })
+    if (queryParams && queryParams.slug) {
+      return panoptes.get(projectsEndpoint, queryParams)
     }
 
     return handleError('Projects: Get by slug request missing required parameter while running in a node environment: slug string.')
