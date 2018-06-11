@@ -41,6 +41,10 @@ const projects = {
     return handleError('Projects: Get by slug request missing required parameter: slug string.')
   },
 
+  getWithLinkedResources: (params) => {
+
+  },
+
   update: (params) => {
     const { id, data } = params
     if (id && typeof id !== 'string') return handleError('Projects: Update request id must be a string.')

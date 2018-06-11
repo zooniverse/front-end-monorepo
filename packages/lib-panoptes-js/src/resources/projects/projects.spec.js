@@ -170,6 +170,10 @@ describe('Projects resource requests', function () {
     })
   })
 
+  describe('getWithLinkedResources', function () {
+
+  });
+
   describe('update', function () {
     let superagentMock
     const expectedPutResponse = projectMocks.putProjectResponse
