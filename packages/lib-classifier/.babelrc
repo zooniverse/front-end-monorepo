@@ -6,10 +6,13 @@
   "presets": [
     "react",
     ["env", {
-      "modules": false
+      "modules": false,
+      "targets": {
+        "browsers": "last 2 versions"
+      }
     }]
   ],
-  "env":{
+  "env": {
     "test": {
       "presets": [
         "env",
