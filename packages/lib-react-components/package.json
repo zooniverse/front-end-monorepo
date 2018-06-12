@@ -1,7 +1,7 @@
 {
-  "name": "zooniverse-react-components",
+  "name": "@zooniverse/react-components",
   "version": "0.7.1",
-  "description": "Zooniverse-React-Components ===========================",
+  "description": "Zooniverse-React-Components",
   "main": "lib/index.js",
   "scripts": {
     "start": "echo 'Nothing to see here yet'",
@@ -14,16 +14,21 @@
     "version": "npm run build && git add -A lib",
     "postversion": "git push && git push --tags"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zooniverse/Zooniverse-React-Components.git"
-  },
   "author": "Zooniverse",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/zooniverse/Zooniverse-React-Components/issues"
+  "dependencies": {
+    "animated-scrollto": "^1.1.0",
+    "data-uri-to-blob": "0.0.4",
+    "grommet": "^1.8.2",
+    "markdownz": "^7.3.1",
+    "modal-form": "^2.4.3",
+    "panoptes-client": "^2.5.2",
+    "prop-types": "~15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-select": "^1.0.0-rc.5",
+    "react-swipe": "^5.0.8"
   },
-  "homepage": "https://github.com/zooniverse/Zooniverse-React-Components",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
@@ -43,19 +48,6 @@
     "react-addons-test-utils": "^15.4.1",
     "sinon": "^1.17.6",
     "stylus": "^0.54.5"
-  },
-  "dependencies": {
-    "animated-scrollto": "^1.1.0",
-    "data-uri-to-blob": "0.0.4",
-    "grommet": "^1.8.2",
-    "markdownz": "^7.3.1",
-    "modal-form": "^2.4.3",
-    "panoptes-client": "^2.5.2",
-    "prop-types": "~15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-select": "^1.0.0-rc.5",
-    "react-swipe": "^5.0.8"
   },
   "engines": {
     "node": "^8.1.2",
