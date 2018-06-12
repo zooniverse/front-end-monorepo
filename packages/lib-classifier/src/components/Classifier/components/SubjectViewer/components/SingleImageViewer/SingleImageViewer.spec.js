@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import SingleImageViewer from './ImageViewer'
+import SingleImageViewer from './SingleImageViewer'
 
-describe('Component > ImageViewer', function () {
+describe('Component > SingleImageViewer', function () {
   it('should render without crashing', function () {
     shallow(<SingleImageViewer />)
   })
