@@ -14,6 +14,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@zooniverse/grommet-theme": "^2.0.0",
+    "@zooniverse/panoptes-js": "^0.1.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
@@ -59,8 +60,5 @@
       "expect",
       "it"
     ]
-  },
-  "dependencies": {
-    "@zooniverse/panoptes-js": "^0.1.0"
   }
 }
