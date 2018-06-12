@@ -12,7 +12,7 @@ const children = [
   <p>test 3</p>
 ]
 
-describe('StepThrough', function() {
+describe.skip('StepThrough', function() {
   it('shallow renders StepThrough', function() {
     const wrapper = shallow(<StepThrough />);
     expect(wrapper.instance()).to.be.an.instanceof(StepThrough);

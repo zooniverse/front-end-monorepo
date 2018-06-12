@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import ReactSwipe from 'react-swipe';
+// import ReactSwipe from 'react-swipe';
 import animatedScrollTo from 'animated-scrollto';
 
 class StepThrough extends Component {
@@ -18,14 +19,14 @@ class StepThrough extends Component {
     };
   }
 
-  componentDidMount() {
-    addEventListener('keydown', this.handleKeyDown);
-    this.swiper.swipe.setup();
-  }
+  // componentDidMount() {
+  //   addEventListener('keydown', this.handleKeyDown);
+  //   this.swiper.swipe.setup();
+  // }
 
-  componentWillUnmount() {
-    removeEventListener('keydown', this.handleKeyDown);
-  }
+  // componentWillUnmount() {
+  //   removeEventListener('keydown', this.handleKeyDown);
+  // }
 
   goPrevious() {
     this.swiper.swipe.prev();
@@ -125,23 +126,23 @@ class StepThrough extends Component {
       continuous: false,
       callback: this.handleStep.bind(this, childrenCount),
     };
-    return (
-      <div className="step-through" className={this.props.className} style={this.props.style}>
-        <ReactSwipe
-          ref={(el) => { this.swiper = el; }}
-          className="step-through-content"
-          swipeOptions={swipeOptions}
-        >
-          {this.props.children}
-        </ReactSwipe>
-        {this.renderControls(childrenCount)}
-      </div>
-    );
+    // return (
+    //   <div className="step-through" className={this.props.className} style={this.props.style}>
+    //     <ReactSwipe
+    //       ref={(el) => { this.swiper = el; }}
+    //       className="step-through-content"
+    //       swipeOptions={swipeOptions}
+    //     >
+    //       {this.props.children}
+    //     </ReactSwipe>
+    //     {this.renderControls(childrenCount)}
+    //   </div>
+    // );
   }
 }
 
 StepThrough.propTypes = {
-  defaultStep: React.PropTypes.number,
+  defaultStep: PropTypes.number,
 }
 
 StepThrough.defaultProps = {

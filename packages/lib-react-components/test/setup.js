@@ -4,7 +4,8 @@ import React from 'react';
 import chai from 'chai';
 import dirtyChai from 'dirty-chai';
 import { JSDOM } from 'jsdom';
-
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 chai.use(dirtyChai);
 global.React = React;
@@ -26,3 +27,5 @@ global.navigator = {
   userAgent: 'node.js'
 };
 copyProps(window, global);
+
+Enzyme.configure({ adapter: new Adapter() });

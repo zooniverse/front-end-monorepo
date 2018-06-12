@@ -14,7 +14,7 @@ describe('DragAndDropTarget', function() {
 
   it('renders children', function() {
     const wrapper = mount(<DragAndDropTarget><span /></DragAndDropTarget>);
-    expect(wrapper.children('span')).to.have.length(1);
+    expect(wrapper.find('span')).to.have.length(1);
   });
 
   describe('onDragEnter event', function() {

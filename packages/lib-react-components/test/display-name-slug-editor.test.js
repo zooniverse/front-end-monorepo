@@ -71,7 +71,7 @@ describe('<DisplayNameSlugEditor />', function() {
 
     describe('componentDidMount', function() {
       after(function() {
-        getResourceUrlSpy.reset();
+        getResourceUrlSpy.resetHistory();
       });
 
       it('should call getResourceUrl', function() {
@@ -136,7 +136,7 @@ describe('<DisplayNameSlugEditor />', function() {
       expect(warnURLChangeSpy.calledOnce).to.be.true;
       expect(warnURLChangeSpy.calledWith(resource, value)).to.be.true;
       expect(warnURLChangeSpy.calledAfter(onChangeSpy)).to.be.true;
-      warnURLChangeSpy.reset();
+      warnURLChangeSpy.resetHistory();
     });
 
     it('warns the user about URL changes', function() {
@@ -159,7 +159,7 @@ describe('<DisplayNameSlugEditor />', function() {
       input.simulate('change', { target: { value: 'a new name' }});
       expect(warnURLChangeSpy.calledOnce).to.be.true;
       expect(wrapper.state().warn).to.be.false;
-      warnURLChangeSpy.reset();
+      warnURLChangeSpy.resetHistory();
     });
 
     it('does not warn the user about URL changes if the slug includes "untitled-organization"', function() {

@@ -157,12 +157,12 @@ Tutorial.start = (TutorialComponent, tutorial, user, preferences) => {
 
 Tutorial.propTypes = {
   preferences: PropTypes.shape({
-    preferences: React.PropTypes.object
+    preferences: PropTypes.object
   }),
   tutorial: PropTypes.shape({
-    steps: React.PropTypes.array
+    steps: PropTypes.array
   }),
-  user: React.PropTypes.object
+  user: PropTypes.object
 };
 
 Tutorial.defaultProps = {

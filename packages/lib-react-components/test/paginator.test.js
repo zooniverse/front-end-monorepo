@@ -57,7 +57,7 @@ describe('Paginator', function() {
   describe('with className prop provided', function() {
     it('should reflect className\'s styling', function() {
       const wrapper = mount(<Paginator className="customStyle" />);
-      expect(wrapper.find('.customStyle')).to.have.length(1);
+      expect(wrapper.find(Paginator).hasClass('customStyle')).to.equal(true);
     });
   });
 
@@ -107,7 +107,7 @@ describe('Paginator', function() {
     });
 
     afterEach(function() {
-      spy.reset();
+      spy.resetHistory();
     });
 
     it('should start on page', function() {
@@ -148,7 +148,7 @@ describe('Paginator', function() {
     });
 
     afterEach(function() {
-      onPageChange.reset();
+      onPageChange.resetHistory();
     });
 
     it('should go to the next page', function() {
