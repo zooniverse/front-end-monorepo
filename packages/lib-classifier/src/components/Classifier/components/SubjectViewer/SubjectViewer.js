@@ -41,9 +41,12 @@ class SubjectViewer extends React.Component {
   }
 
   render () {
-    if (this.state.viewer) {
-      const Viewer = this.state.viewer
-      return <Viewer />
+    const { subject } = this.props
+    const { viewer } = this.state
+
+    if (viewer) {
+      const Viewer = viewer
+      return <Viewer subject={subject} />
     }
     return null
   }
