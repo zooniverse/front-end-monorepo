@@ -7,7 +7,7 @@ import theme from '@zooniverse/grommet-theme'
 import { panoptes } from '@zooniverse/panoptes-js'
 
 import SubjectViewer from './components/SubjectViewer'
-import RootStore from 'store'
+import RootStore from 'src/store'
 
 class Classifier extends React.Component {
   constructor (props) {

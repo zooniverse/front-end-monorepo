@@ -34,7 +34,7 @@ class SubjectViewer extends React.Component {
   setViewer () {
     const { subject, workflow } = this.props
     const newState = Object.assign({}, this.state)
-    newState.viewer = (subject && workflow) 
+    newState.viewer = (subject && workflow)
       ? getSubjectViewer(subject, workflow)
       : null
     this.setState(newState)
