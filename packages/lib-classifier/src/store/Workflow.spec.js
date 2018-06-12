@@ -1,5 +1,5 @@
 import WorkflowModel from './Workflow'
-import workflowsFixture from '../../test/fixtures/workflows'
+import workflowsFixture from 'test/fixtures/workflows'
 
 const fixture = workflowsFixture.body.workflows[0]
 

@@ -1,5 +1,5 @@
-import workflowsFixture from '../fixtures/workflows'
-import subjectsFixture from '../fixtures/subjects'
+import workflowsFixture from 'test/fixtures/workflows'
+import subjectsFixture from 'test/fixtures/subjects'
 
 const stubPanoptesJs = {
   get: function (url, query) {

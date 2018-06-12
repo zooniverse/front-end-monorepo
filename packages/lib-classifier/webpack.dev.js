@@ -39,5 +39,11 @@ module.exports = {
   plugins: [
     EnvironmentWebpackPlugin,
     HtmlWebpackPluginConfig
-  ]
+  ],
+  resolve: {
+    modules: [
+      path.resolve(__dirname),
+      'node_modules'
+    ]
+  }
 }
