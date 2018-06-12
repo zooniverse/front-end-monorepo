@@ -1,8 +1,8 @@
 import { when } from 'mobx'
 import RootStore from './RootStore'
 import SubjectsModel from './Subjects'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
-import projectFixture from '../../test/fixtures/project'
+import stubPanoptesJs from 'test/stubPanoptesJs'
+import projectFixture from 'test/fixtures/project'
 
 let rootStore
 let subjects

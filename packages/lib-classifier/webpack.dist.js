@@ -28,5 +28,11 @@ module.exports = {
   },
   plugins: [
     EnvironmentWebpackPlugin
-  ]
+  ],
+  resolve: {
+    modules: [
+      path.resolve(__dirname),
+      'node_modules'
+    ]
+  }
 }

@@ -19,10 +19,11 @@ const Workflows = types
       try {
         const workflowFetchers = workflowIds.map(workflowId =>
           client.get(`/workflows/${workflowId}`))
+
         const responses = yield Promise.all(workflowFetchers)
+
         responses.forEach(response => {
           const workflow = response.body.workflows[0]
-          console.info('workflow', workflow)
           self.workflows.push(workflow)
         })
 

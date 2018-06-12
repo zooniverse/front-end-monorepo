@@ -1,6 +1,6 @@
 import RootStore from './RootStore'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
-import projectFixture from '../../test/fixtures/project'
+import stubPanoptesJs from 'test/stubPanoptesJs'
+import projectFixture from 'test/fixtures/project'
 import { when } from 'mobx'
 
 let rootStore
@@ -23,13 +23,13 @@ describe('WorkflowModels model', function () {
   })
 
   describe('model properties', function () {
-    describe('active workflow property', function () {
+    describe('current workflow property', function () {
       it('should exist', function () {
-        workflows.activeWorkflow.should.not.be.undefined
+        workflows.current.should.not.be.undefined
       })
 
       it('should default to the first workflow', function () {
-        workflows.activeWorkflow.should.equal(workflows.workflows[0])
+        workflows.current.should.equal(workflows.workflows[0])
       })
     })
 
