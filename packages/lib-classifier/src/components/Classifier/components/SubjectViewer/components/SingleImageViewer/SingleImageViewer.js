@@ -1,35 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import locationValidator from '../../helpers/locationValidator'
 
-function storeMapper (stores) {
-  return {
-    subject: stores.classifierStore.subjects.current,
-  }
-}
+function SingleImageViewer ({ subject }) {
+  const url = Object.values(subject.locations[0])[0]
 
-@inject(storeMapper)
-@observer
-class SingleImageViewer extends React.Component {
-  getUrl () {
-    const location = this.props.subject.locations[0]
-    return Object.values(location)[0]
-  }
-
-  render () {
-    return (
-      <svg>
-        <image
-          xlinkHref={this.getUrl()}
-        />
-      </svg>
-    )
-  }
+  return (
+    <svg>
+      <image xlinkHref={url} />
+    </svg>
+  )
 }
 
 SingleImageViewer.propTypes = {
   subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(PropTypes.shape({}))
+    locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
