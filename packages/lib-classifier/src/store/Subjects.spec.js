@@ -29,6 +29,20 @@ describe('Subjects model', function () {
     })
   })
 
+  describe('fetch method', function () {
+    it('should throw an error if no current workflow set', function (done) {
+      const noWorkflowStore = RootStore.create({ project: projectFixture }, { client: stubPanoptesJs })
+
+      noWorkflowStore.workflows.reset()
+      noWorkflowStore.subjects.fetch()
+        .catch(error => {
+          expect(error.name).to.equal('ReferenceError')
+          expect(error.message).to.equal('No current workflow available')
+          done()
+        })
+    })
+  })
+
   describe('advance queue method', function () {
     it('should move the current subject to the next in the queue', function () {
       const nextSubjectId = subjects.queue[1].id

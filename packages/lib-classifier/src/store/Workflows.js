@@ -33,7 +33,12 @@ const Workflows = types
       } catch (error) {
         console.info(error)
       }
-    })
+    }),
+
+    reset() {
+      self.current = null
+      self.workflows.clear()
+    }
   }))
 
 export default Workflows
