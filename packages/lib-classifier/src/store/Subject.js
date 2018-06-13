@@ -1,9 +1,9 @@
 import { types } from 'mobx-state-tree'
+import Resource from './Resource'
 
 const Subject = types
   .model('Subject', {
-    id: types.identifier(types.string),
     locations: types.frozen
   })
 
-export default Subject
+export default types.compose(Resource, Subject)

@@ -4,16 +4,37 @@ import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import theme from '@zooniverse/grommet-theme'
-import { panoptes } from '@zooniverse/panoptes-js'
-
+import {
+  panoptes as panoptesClient,
+  projects as projectsClient
+} from '@zooniverse/panoptes-js'
 import SubjectViewer from './components/SubjectViewer'
 import RootStore from 'src/store'
 
 class Classifier extends React.Component {
   constructor (props) {
     super(props)
-    this.classifierStore = RootStore.create({ project: props.project }, { client: panoptes })
+  }
+
+  componentDidMount () {
+    const client = {
+      panoptes: panoptesClient,
+      projects: projectsClient
+    }
+
+    this.classifierStore = RootStore.create({}, { client })
     makeInspectable(this.classifierStore)
+
+    // const { project } = this.props
+    console.info('foo', this.classifierStore)
+    // this.classifierStore.projects.setActive(project.id)
+  }
+
+  componentDidUpdate (prevProps) {
+    const { project } = this.props
+    if (project.id !== prevProps.project.id) {
+      this.classifierStore.projects.set(project.id)
+    }
   }
 
   render () {
@@ -28,7 +49,9 @@ class Classifier extends React.Component {
 }
 
 Classifier.propTypes = {
-  project: PropTypes.object
+  project: PropTypes.shape({
+    id: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default Classifier
