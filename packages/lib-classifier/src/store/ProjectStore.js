@@ -1,11 +1,11 @@
-import { flow, getRoot, types } from 'mobx-state-tree'
-import ResourceStore from './ResourceStore'
+import { types } from 'mobx-state-tree'
 import Project from './Project'
+import ResourceStore from './ResourceStore'
 
 const ProjectStore = types
   .model('ProjectStore', {
-    resources: types.optional(types.map(Project), {}),
-    active: types.maybe(types.reference(Project))
+    active: types.maybe(types.reference(Project)),
+    resources: types.optional(types.map(Project), {})
   })
 
 export default types.compose(ResourceStore, ProjectStore)
