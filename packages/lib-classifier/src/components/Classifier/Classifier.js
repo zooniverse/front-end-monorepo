@@ -11,23 +11,21 @@ import {
 import SubjectViewer from './components/SubjectViewer'
 import RootStore from 'src/store'
 
+const client = {
+  panoptes: panoptesClient,
+  projects: projectsClient
+}
+
 class Classifier extends React.Component {
   constructor (props) {
     super(props)
+    this.classifierStore = RootStore.create({}, { client })
+    makeInspectable(this.classifierStore)
   }
 
   componentDidMount () {
-    const client = {
-      panoptes: panoptesClient,
-      projects: projectsClient
-    }
-
-    this.classifierStore = RootStore.create({}, { client })
-    makeInspectable(this.classifierStore)
-
-    // const { project } = this.props
-    console.info('foo', this.classifierStore)
-    // this.classifierStore.projects.setActive(project.id)
+    const { project } = this.props
+    this.classifierStore.projects.setActive(project.id)
   }
 
   componentDidUpdate (prevProps) {

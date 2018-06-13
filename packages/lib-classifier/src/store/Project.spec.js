@@ -1,7 +1,7 @@
-import ProjectModel from './Project'
+import Project from './Project'
 
-describe('Project model', function () {
+describe('Model > Project', function () {
   it('should exist', function () {
-    ProjectModel.should.not.be.undefined
+    Project.should.not.be.undefined
   })
 })

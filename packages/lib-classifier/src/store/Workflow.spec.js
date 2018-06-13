@@ -1,7 +1,7 @@
-import WorkflowModel from './Workflow'
+import Workflow from './Workflow'
 
-describe('Workflow model', function () {
+describe('Model > Workflow', function () {
   it('should exist', function () {
-    WorkflowModel.should.not.be.undefined
+    Workflow.should.not.be.undefined
   })
 })

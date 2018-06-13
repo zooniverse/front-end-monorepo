@@ -1,13 +1,13 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
 import asyncStates from 'src/helpers/asyncStates'
-import numberString from './types/numberString'
 import Resource from './Resource'
+import numberString from './types/numberString'
 
 const ResourceStore = types
   .model('ResourceStore', {
+    active: types.maybe(types.reference(Resource)),
     resources: types.optional(types.map(Resource), {}),
-    type: types.string,
-    active: types.maybe(types.reference(Resource))
+    type: types.string
   })
 
   .actions(self => ({
@@ -30,6 +30,5 @@ const ResourceStore = types
       self.active = id
     })
   }))
-
 
 export default ResourceStore

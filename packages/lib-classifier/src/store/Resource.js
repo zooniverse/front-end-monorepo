@@ -1,10 +1,9 @@
-import { flow, getRoot, types } from 'mobx-state-tree'
-import asyncStates from 'src/helpers/asyncStates'
+import { types } from 'mobx-state-tree'
 import numberString from './types/numberString'
 
 const Resource = types
   .model('Resource', {
-    id: types.identifier(numberString),
+    id: types.identifier(numberString)
   })
 
 export default Resource

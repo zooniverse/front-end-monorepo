@@ -1,7 +1,7 @@
-import SubjectModel from './Subject'
+import Subject from './Subject'
 
-describe('Subject model', function () {
+describe('Model > Subject', function () {
   it('should exist', function () {
-    SubjectModel.should.not.be.undefined
+    Subject.should.not.be.undefined
   })
 })

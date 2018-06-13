@@ -1,5 +1,4 @@
-import { addDisposer, getRoot, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
+import { types } from 'mobx-state-tree'
 import Resource from './Resource'
 
 const Workflow = types
