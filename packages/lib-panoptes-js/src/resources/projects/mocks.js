@@ -104,11 +104,18 @@ const putProjectResponse = {
   projects: [Object.assign({}, projectTwo, { researcher_quote: 'Try my project!' })]
 }
 
+const notFound = {
+  links: {},
+  meta: {},
+  projects: []
+}
+
 module.exports = {
   projectOne,
   projectTwo,
   newProjectResponse,
   getProjectsResponse,
   getSingleProjectResponse,
-  putProjectResponse
+  putProjectResponse,
+  notFound
 }

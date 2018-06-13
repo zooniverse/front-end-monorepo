@@ -117,12 +117,18 @@ describe('Projects resource requests', function () {
   describe('getBySlug', function() {
     let superagentMock;
     const expectedGetResponse = projectMocks.getSingleProjectResponse
+    const expectedNotFoundResponse = projectMocks.notFound
 
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${projectsEndpoint}`,
         fixtures: (match, params) => {
-          return expectedGetResponse
+          const slugInRequest = match.input.split('=')[1]
+          const [mockOwner, mockProjectName] = expectedGetResponse.projects[0].slug.split('/')
+          const matchSlug = `${mockOwner}%2F${mockProjectName}`
+
+          if (slugInRequest === matchSlug) return expectedGetResponse
+          return expectedNotFoundResponse
         },
         get: (match, data) => ({ body: data })
       }])
@@ -138,6 +144,12 @@ describe('Projects resource requests', function () {
       });
     })
 
+    it('should return the expected response if not found', function() {
+      return projects.getBySlug({ slug: 'zooniverse/my-project' }).then((response) => {
+        expect(response).to.eql({ body: expectedNotFoundResponse })
+      })
+    })
+
     describe('in node', function () {
       it('should error if slug param is not defined', function () {
         return projects.getBySlug().catch((error) => {
@@ -149,7 +161,13 @@ describe('Projects resource requests', function () {
         const slug = 'user/untitled-project-2'
         return projects.getBySlug({ slug }).then((response) => {
           expect(response).to.eql({ body: expectedGetResponse })
-          expect(response.body.projects[0].slug).to.equal(slug)
+        })
+      });
+
+      it('should return the expected response if the slug is defined including "projects" in the pathname', function () {
+        const slug = 'projects/user/untitled-project-2'
+        return projects.getBySlug({ slug }).then((response) => {
+          expect(response).to.eql({ body: expectedGetResponse })
         })
       });
     })
@@ -172,7 +190,6 @@ describe('Projects resource requests', function () {
         const slug = 'user/untitled-project-2'
         return projects.getBySlug({ slug }).then((response) => {
           expect(response).to.eql({ body: expectedGetResponse })
-          expect(response.body.projects[0].slug).to.equal(slug)
         })
       });
 
@@ -181,6 +198,13 @@ describe('Projects resource requests', function () {
           expect(response).to.eql({ body: expectedGetResponse })
         })
       })
+
+      it('should return the expected response if the slug is defined including "projects" in the pathname', function () {
+        const slug = 'projects/user/untitled-project-2'
+        return projects.getBySlug({ slug }).then((response) => {
+          expect(response).to.eql({ body: expectedGetResponse })
+        })
+      });
 
       it('should error if the slug is not returned by the utility function', function () {
         return projects.getBySlug({ slug: 'asdf' }).catch((error) => {

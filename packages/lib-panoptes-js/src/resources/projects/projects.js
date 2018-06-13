@@ -33,6 +33,8 @@ const projects = {
     if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
     if (!queryParams.slug && (isBrowser() || process.env.NODE_ENV === 'test' && global.window)) {
       queryParams.slug = getProjectSlugFromURL(window.location.pathname)
+    } else if (queryParams.slug && queryParams.slug.includes('projects')) {
+      queryParams.slug = getProjectSlugFromURL(queryParams.slug)
     }
 
     if (queryParams && queryParams.slug) {

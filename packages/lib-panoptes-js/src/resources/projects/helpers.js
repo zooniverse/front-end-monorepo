@@ -2,6 +2,7 @@ const URL = require('url-parse')
 
 function getProjectSlugFromURL(urlArg) {
   const parsed = new URL(urlArg)
+
   const [projectPath, owner, project] = parsed.pathname.split('/')
     .filter(Boolean)
 
