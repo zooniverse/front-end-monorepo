@@ -110,6 +110,46 @@ const notFound = {
   projects: []
 }
 
+projectRoleOwner = {
+  href: "/project_roles/1",
+  id: "1",
+  links: { project: "2", owner: {} },
+  roles: ["owner"]
+}
+
+projectRoleMultiple = {
+  href: "/project_roles/2",
+  id: "2",
+  links: { project: "2", owner: {} },
+  roles: ["expert", "scientist"]
+}
+
+projectPage = {
+  content: "",
+  created_at: "2016-12-08T20:34:38.300Z",
+  href: "/projects/2/pages/1",
+  id: "1",
+  language: "en",
+  links: { project: "1" },
+  title: "Team",
+  type: "project_pages",
+  updated_at: "2018-05-17T19:09:11.209Z",
+  url_key: "team"
+}
+
+projectPageTwo = {
+  content: "",
+  created_at: "2016-12-08T20:34:47.085Z",
+  href: "/projects/2/pages/2",
+  id: "2",
+  language: "en",
+  links: { project: "2" },
+  title: "Results",
+  type: "project_pages",
+  updated_at: "2018-05-17T19:16:57.618Z",
+  url_key: "results"
+}
+
 module.exports = {
   projectOne,
   projectTwo,
@@ -117,5 +157,10 @@ module.exports = {
   getProjectsResponse,
   getSingleProjectResponse,
   putProjectResponse,
-  notFound
+  notFound,
+  projectPage,
+  projectPages: [projectPage, projectPageTwo],
+  projectRoleOwner,
+  projectRoleMultiple,
+  projectRoles: [projectRoleOwner, projectRoleMultiple]
 }

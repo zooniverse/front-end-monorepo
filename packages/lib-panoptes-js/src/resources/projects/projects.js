@@ -42,7 +42,20 @@ const projects = {
   },
 
   getWithLinkedResources: (params) => {
+    const include = { include: 'avatar,background,owners,pages' }
 
+    if (params && typeof params !== 'object') return handleError('Projects: Get request params must be an object.')
+
+    const queryParams = params ? Object.assign({}, params, include) : include
+    if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
+    if (queryParams.id && typeof queryParams.id !== 'string') return handleError('Projects: Get request id must be a string.')
+    if (!queryParams.slug && !queryParams.id && !isBrowser()) return handleError('Projects: Get request must have either project id or slug')
+    if (!queryParams.id && isBrowser()) {
+      queryParams.slug = getProjectSlugFromURL(queryParam.slug) || getProjectSlugFromURL(window.location.pathname)
+    }
+
+    if (queryParams.id) return panoptes.get(`${projectsEndpoint}/${queryParams.id}}`, queryParams)
+    return panoptes.get(projectsEndpoint, queryParams)
   },
 
   update: (params) => {
