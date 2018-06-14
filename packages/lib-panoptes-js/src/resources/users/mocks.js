@@ -13,6 +13,8 @@ const user = {
   valid_email: true
 }
 
+const resources = { user }
+
 module.exports = {
-  user
+  resources
 }

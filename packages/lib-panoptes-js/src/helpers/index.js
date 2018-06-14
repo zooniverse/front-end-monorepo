@@ -5,4 +5,27 @@ const isBrowser = new Function('try {return this===window;}catch(e){ return fals
 
 const isNode = new Function('try {return this===global;}catch(e){return false;}')
 
-module.exports = { isBrowser, isNode }
+// For response mocks
+function buildResponse(httpMethod, resourceType, resources, linked, params) {
+  const response = { links: {}, meta: {} }
+
+  if (linked) {
+    response.linked = linked
+  }
+
+  if (httpMethod === 'put' && params) {
+    return {
+      links: {},
+      meta: {},
+      projects: [Object.assign({}, resources[0], params)]
+    }
+  }
+
+  return {
+    links: {},
+    meta: {},
+    [resourceType]: resources
+  }
+}
+
+module.exports = { isBrowser, isNode, buildResponse }

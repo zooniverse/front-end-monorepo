@@ -29,4 +29,6 @@ function handleError(error) {
   return Promise.reject(error)
 }
 
-module.exports = { getProjectSlugFromURL, getProjectSlug, handleError }
+const endpoint = '/projects'
+
+module.exports = { getProjectSlugFromURL, getProjectSlug, handleError, endpoint }
