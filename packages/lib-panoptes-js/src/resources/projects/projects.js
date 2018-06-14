@@ -1,5 +1,5 @@
 const panoptes = require('../../panoptes')
-const { getProjectSlugFromURL, handleError } = require('./helpers')
+const { getProjectSlug, getProjectSlugFromURL, handleError } = require('./helpers')
 
 const projectsEndpoint = '/projects'
 
@@ -30,9 +30,7 @@ const projects = {
     const queryParams = params || {}
 
     if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
-    if (queryParams.slug && queryParams.slug.includes('projects')) {
-      queryParams.slug = getProjectSlugFromURL(queryParams.slug)
-    }
+    queryParams.slug = getProjectSlug(queryParams.slug)
 
     if (queryParams && queryParams.slug) {
       return panoptes.get(projectsEndpoint, queryParams)
@@ -49,12 +47,17 @@ const projects = {
     const queryParams = params ? Object.assign({}, params, include) : include
     if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
     if (queryParams.id && typeof queryParams.id !== 'string') return handleError('Projects: Get request id must be a string.')
-    if (!queryParams.slug && !queryParams.id && !isBrowser()) return handleError('Projects: Get request must have either project id or slug')
-    if (!queryParams.id && isBrowser()) {
-      queryParams.slug = getProjectSlugFromURL(queryParam.slug) || getProjectSlugFromURL(window.location.pathname)
+    if (!queryParams.slug && !queryParams.id && !(isBrowser() || process.env.NODE_ENV === 'test' && global.window)) {
+      return handleError('Projects: Get request must have either project id or slug.')
     }
 
-    if (queryParams.id) return panoptes.get(`${projectsEndpoint}/${queryParams.id}}`, queryParams)
+    if (queryParams.id) {
+      const projectID = queryParams.id
+      delete queryParams.id
+      return panoptes.get(`${projectsEndpoint}/${projectID}`, queryParams)
+    }
+    
+    queryParams.slug = getProjectSlug(queryParams.slug)
     return panoptes.get(projectsEndpoint, queryParams)
   },
 

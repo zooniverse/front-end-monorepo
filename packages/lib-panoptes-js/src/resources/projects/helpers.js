@@ -1,4 +1,5 @@
 const URL = require('url-parse')
+const { isBrowser } = require('../../helpers')
 
 function getProjectSlugFromURL (urlArg) {
   const parsed = new URL(urlArg)
@@ -13,9 +14,19 @@ function getProjectSlugFromURL (urlArg) {
   }
 }
 
-function handleError (error) {
+function getProjectSlug(slug) {
+  if (!slug && (isBrowser() || process.env.NODE_ENV === 'test' && global.window)) {
+    return getProjectSlugFromURL(window.location.pathname)
+  } else if (slug && slug.includes('projects')) {
+    return getProjectSlugFromURL(slug)
+  }
+
+  return slug
+}
+
+function handleError(error) {
   if (console && process.env.NODE_ENV !== 'test') console.error(error)
   return Promise.reject(error)
 }
 
-module.exports = { getProjectSlugFromURL, handleError }
+module.exports = { getProjectSlugFromURL, getProjectSlug, handleError }

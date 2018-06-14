@@ -1,4 +1,10 @@
-const projectOne = {
+const { userMocks } = require('../users')
+const { buildMockedMediumResource } = require('../media')
+
+const projectAvatarResource = buildMockedMediumResource('avatar', 'project')
+const projectBackgroundResource = buildMockedMediumResource('background', 'project')
+
+const projectOneResource = {
   activity: 0,
   available_languages: ['en'],
   beta_approved: false,
@@ -37,7 +43,7 @@ const projectOne = {
   workflow_description: ''
 }
 
-const projectTwo = {
+const projectTwoResource = {
   activity: 100000,
   available_languages: ['en'],
   beta_approved: true,
@@ -80,51 +86,78 @@ const newProjectResponse = {
   linked: {},
   links: {},
   meta: {},
-  projects: [projectOne]
+  projects: [projectOneResource]
 }
 
 const getProjectsResponse = {
   linked: {},
   links: {},
   meta: {},
-  projects: [projectOne, projectTwo]
+  projects: [projectOneResource, projectTwoResource]
 }
 
 const getSingleProjectResponse = {
   linked: {},
   links: {},
   meta: {},
-  projects: [projectTwo]
+  projects: [projectTwoResource]
 }
 
 const putProjectResponse = {
   linked: {},
   links: {},
   meta: {},
-  projects: [Object.assign({}, projectTwo, { researcher_quote: 'Try my project!' })]
+  projects: [Object.assign({}, projectTwoResource, { researcher_quote: 'Try my project!' })]
 }
 
-const notFound = {
+const notFoundResponse = {
   links: {},
   meta: {},
   projects: []
 }
 
-projectRoleOwner = {
-  href: "/project_roles/1",
-  id: "1",
-  links: { project: "2", owner: {} },
-  roles: ["owner"]
+projectRoleOwnerResponse = {
+  links: {},
+  meta: {},
+  project_roles: [
+    { href: "/project_roles/1",
+      id: "1",
+      links: { project: "2", owner: {} },
+      roles: ["owner"]
+    }
+  ]
 }
 
-projectRoleMultiple = {
-  href: "/project_roles/2",
-  id: "2",
-  links: { project: "2", owner: {} },
-  roles: ["expert", "scientist"]
+const projectRolesResponse = {
+  links: {},
+  meta: {},
+  project_roles: [
+    { href: "/project_roles/1",
+      id: "1",
+      links: { project: "2", owner: {} },
+      roles: ["owner"]
+    },
+    { href: "/project_roles/2",
+      id: "2",
+      links: { project: "2", owner: {} },
+      roles: ["expert", "scientist"]
+    }
+  ]
 }
 
-projectPage = {
+const projectRoleMultipleRolesResponse = {
+  links: {},
+  meta: {},
+  project_roles: [
+    { href: "/project_roles/2",
+      id: "2",
+      links: { project: "2", owner: {} },
+      roles: ["expert", "scientist"]
+    }
+  ]
+}
+
+const projectPageResource = {
   content: "",
   created_at: "2016-12-08T20:34:38.300Z",
   href: "/projects/2/pages/1",
@@ -137,30 +170,82 @@ projectPage = {
   url_key: "team"
 }
 
-projectPageTwo = {
-  content: "",
-  created_at: "2016-12-08T20:34:47.085Z",
-  href: "/projects/2/pages/2",
-  id: "2",
-  language: "en",
-  links: { project: "2" },
-  title: "Results",
-  type: "project_pages",
-  updated_at: "2018-05-17T19:16:57.618Z",
-  url_key: "results"
+const projectPageResponse = {
+  links: {},
+  meta: {},
+  project_pages: [
+    { content: "",
+      created_at: "2016-12-08T20:34:38.300Z",
+      href: "/projects/2/pages/1",
+      id: "1",
+      language: "en",
+      links: { project: "1" },
+      title: "Team",
+      type: "project_pages",
+      updated_at: "2018-05-17T19:09:11.209Z",
+      url_key: "team"
+    }
+  ]
+}
+
+const projectPagesResponse = {
+  links: {},
+  meta: {},
+  project_pages: [
+    { content: "",
+      created_at: "2016-12-08T20:34:38.300Z",
+      href: "/projects/2/pages/1",
+      id: "1",
+      language: "en",
+      links: { project: "1" },
+      title: "Team",
+      type: "project_pages",
+      updated_at: "2018-05-17T19:09:11.209Z",
+      url_key: "team"
+    },
+    { content: "",
+      created_at: "2016-12-08T20:34:47.085Z",
+      href: "/projects/2/pages/2",
+      id: "2",
+      language: "en",
+      links: { project: "2" },
+      title: "Results",
+      type: "project_pages",
+      updated_at: "2018-05-17T19:16:57.618Z",
+      url_key: "results"
+    }
+  ]
+}
+
+const getProjectResponseWithLinkedResources = {
+  linked: {
+    avatars: [projectAvatarResource],
+    backgrounds: [projectBackgroundResource],
+    owners: userMocks.user,
+    project_pages: [
+      projectPageResource
+    ]
+  },
+  links: {},
+  meta: {},
+  projects: [projectTwoResource]
 }
 
 module.exports = {
-  projectOne,
-  projectTwo,
+  projectOneResource,
+  projectTwoResource,
   newProjectResponse,
   getProjectsResponse,
   getSingleProjectResponse,
   putProjectResponse,
-  notFound,
-  projectPage,
-  projectPages: [projectPage, projectPageTwo],
-  projectRoleOwner,
-  projectRoleMultiple,
-  projectRoles: [projectRoleOwner, projectRoleMultiple]
+  notFoundResponse,
+  projectPageResource,
+  projectPageResponse,
+  projectPagesResponse,
+  projectRoleOwnerResponse,
+  projectRoleMultipleRolesResponse,
+  projectRolesResponse,
+  projectAvatarResource,
+  projectBackgroundResource,
+  getProjectResponseWithLinkedResources
 }

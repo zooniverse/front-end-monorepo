@@ -1,5 +1,5 @@
-const { user } = require('./mocks')
+const mocks = require('./mocks')
 
 module.exports = {
-  user
+  userMocks: mocks
 }

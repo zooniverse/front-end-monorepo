@@ -31,7 +31,7 @@ function buildMockedMediumResource(resourceType, linkResourceType) {
   const randomID = getRandomID(0, 100)
   const mediaType = `${linkedResource}_${resource}`;
   return Object.assign({}, medium, {
-    href: `/${linkedResource}/${randomID}/${resource}`,
+    href: `/${linkedResource}s/${randomID}/${resource}`,
     id: randomID,
     media_type: mediaType,
     src: `https://panoptes-uploads.zooniverse.org/production/${mediaType}/random-string-example.jpeg`
