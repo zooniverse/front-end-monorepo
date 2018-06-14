@@ -15,9 +15,13 @@ const ResourceStore = types
       const client = getRoot(self).client.panoptes
       const response = yield client.get(`/${self.type}/${id}`)
       const resource = response.body[self.type][0]
-      console.info(resource)
       return resource
     }),
+
+    reset () {
+      self.active = null
+      self.resources.clear()
+    },
 
     setActive: flow(function * setActive (id) {
       const active = self.resources.get(id) || null

@@ -25,11 +25,6 @@ const WorkflowStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function reset () {
-      self.active = null
-      self.resources.clear()
-    }
-
     function selectWorkflow (id) {
       if (id) {
         self.setActive(id)
@@ -41,8 +36,7 @@ const WorkflowStore = types
     }
 
     return {
-      afterAttach,
-      reset
+      afterAttach
     }
   })
 

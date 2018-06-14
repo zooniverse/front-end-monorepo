@@ -2,6 +2,6 @@ import ProjectStore from './ProjectStore'
 
 describe('Model > ProjectStore', function () {
   it('should exist', function () {
-    ProjectStore.should.not.be.undefined
+    expect(ProjectStore).to.not.be.undefined
   })
 })
