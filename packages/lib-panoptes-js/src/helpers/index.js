@@ -14,18 +14,12 @@ function buildResponse(httpMethod, resourceType, resources, linked, params) {
   }
 
   if (httpMethod === 'put' && params) {
-    return {
-      links: {},
-      meta: {},
-      projects: [Object.assign({}, resources[0], params)]
-    }
+    response[resourceType] = [Object.assign({}, resources[0], params)]
+    return response;
   }
 
-  return {
-    links: {},
-    meta: {},
-    [resourceType]: resources
-  }
+  response[resourceType] = resources
+  return response
 }
 
 module.exports = { isBrowser, isNode, buildResponse }

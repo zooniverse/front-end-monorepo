@@ -30,7 +30,6 @@ describe('Helpers', function () {
   })
 
   describe('getProjectSlug', function () {
-    let jsdom
     const getProjectSlugSpy = sinon.spy(getProjectSlug)
     const getProjectSlugFromURLSpy = sinon.spy(getProjectSlugFromURL)
 
