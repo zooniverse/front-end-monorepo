@@ -14,14 +14,17 @@ function getProjectSlugFromURL (urlArg) {
   }
 }
 
-function getProjectSlug(slug) {
-  if (!slug && (isBrowser() || process.env.NODE_ENV === 'test' && global.window)) {
-    return getProjectSlugFromURL(window.location.pathname)
+function getProjectSlug(slug, callback) {
+  callback = callback || getProjectSlugFromURL
+  if (!slug && (isBrowser() || (process.env.NODE_ENV === 'test' && global.window))) {
+    return callback(window.location.pathname)
   } else if (slug && slug.includes('projects')) {
-    return getProjectSlugFromURL(slug)
+    return callback(slug)
   }
 
-  return slug
+  if (slug) return slug
+
+  return null
 }
 
 function handleError(error) {
