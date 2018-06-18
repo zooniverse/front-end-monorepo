@@ -8,6 +8,8 @@ There are currently options for running the client against the staging and produ
 
 Note: There is a test environment specified in the config file, but it is set to use the same API hosts as staging. The test environment is specifically for automated test running.
 
+The currently set environment is available from the config file exported as `env`.
+
 ### Setting the environment via URL parameter
 
 If you're running the client in the browser, you can use the `env` URL parameter to override the current environment, like this:
@@ -207,6 +209,18 @@ panoptes.del('/projects/1104').then((response) => {
 Using helper functions for a defined Panoptes resource in a React component. These resources have functions defined:
 
 - [Projects](projects.md)
+
+The API for resource helpers will include:
+
+- **get** `projects.get()`
+- **create** `projects.create()`
+- **update** `project.update()`
+- **delete** `projects.delete()`
+- **endpoint** - a constant of the resource REST endpoint
+- **mocks** - mocks or factories used for tests, usually including:
+  - **responses** - constants for typical API responses
+  - **resources** - constants for typical API resources
+- Any additional common requests or helper functions. See specific documentation for that resource.
 
 An example in a React component:
 

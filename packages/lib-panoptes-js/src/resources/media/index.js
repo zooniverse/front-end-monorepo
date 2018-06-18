@@ -1,3 +1,5 @@
 const { buildMockedMediumResource } = require('./mocks');
 
-module.exports = { buildMockedMediumResource }
+module.exports = { 
+  mocks: { buildMockedMediumResource }
+}
