@@ -1,23 +1,32 @@
-Zooniverse-React-Components
-===========================
+# Zooniverse React Components
 
-Build works against Node 8 and NPM 5.
+Common React components used throughout the Zooniverse.
 
-What the repo name says
+## Getting Started
 
-`npm i` to install dependencies
+Install the package from NPM:
 
-Components should be added to the `src/components` folder and an export to `src/index.js`
+```
+npm i @zooniverse/react-components
+```
 
-Any default styles can be added as a stylus file in `src/css`.
+and use it
 
-`npm version [semver new version]` will run helper preversion and postversion scripts. `preversion` will run the tests. `version` will run `npm run build` which will build the production css and js. `postversion` will push the updated repo and the updated git tag to github.
+ES5
 
-For now, we will git tag and install via github. 
+```
+var { ZooFooter } = require('@zooniverse/react-components');
+```
+
+ES6
+
+```
+import { ZooFooter } from '@zooniverse/react-components';
+```
+
+## Tests
 
 `npm test` to run mocha tests
-
-## Contributing
 
 If you're using `npm link` to test the library with your app, then you may need to adjust your webpack configuration for compiling of your javascript files in development. Webpack docs do provide a cautionary note about using symlink packages with Webpack: https://webpack.js.org/configuration/module/#rule-conditions. An example webpack configuration:
 
@@ -32,3 +41,13 @@ If you're using `npm link` to test the library with your app, then you may need 
   ]
 }
 ```
+
+## Contributing
+
+Components should be added to the `src/components` folder and an export to `src/index.js`
+
+Any default styles can be added as a stylus file in `src/css`.
+
+`npm version [semver new version]` will run helper preversion and postversion scripts. `preversion` will run the tests. `version` will run `npm run build` which will build the production css and js. `postversion` will push the updated repo and the updated git tag to github.
+
+For now, we will git tag and install via github. 

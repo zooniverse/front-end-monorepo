@@ -1,7 +1,7 @@
 {
   "name": "@zooniverse/react-components",
   "version": "0.7.1",
-  "description": "Zooniverse-React-Components",
+  "description": "Zooniverse React Components",
   "main": "lib/index.js",
   "scripts": {
     "start": "echo 'Nothing to see here yet'",
