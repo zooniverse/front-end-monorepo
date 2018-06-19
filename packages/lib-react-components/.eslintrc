@@ -1,0 +1,45 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "ecmaFeatures": {
+    "modules": true,
+    "jsx": true
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "quotes": [
+      2,
+      "single"
+    ],
+    "eqeqeq": [
+      2,
+      "smart"
+    ],
+    "quote-props": 0,
+    "react/prefer-stateless-function": [1],
+    "react/jsx-no-bind": "off",
+    "react/jsx-boolean-value": "off",
+    "keyword-spacing": 2,
+    "no-console": 1,
+    "no-underscore-dangle": "allow",
+    // specify the maximum length of a line in your program
+    // https://github.com/eslint/eslint/blob/master/docs/rules/max-len.md
+    'max-len': [1, 120, 2, {
+      'ignoreUrls': true,
+      'ignoreComments': false
+    }],
+    "comma-dangle": "off",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+  }
+}

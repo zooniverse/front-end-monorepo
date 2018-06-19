@@ -1,0 +1,60 @@
+.footer
+  border-top: 5px solid #005D69
+  font-size: 16px
+
+  &__nav
+    font-size: 1em
+
+    .nav__list-header
+      font-weight: bold
+      letter-spacing: 1px
+      margin-bottom: 0.5em
+      text-transform: uppercase
+
+    .nav__list-item
+      font-size: 0.8em
+      font-weight: bold
+
+    .nav__list-item--social-media
+      svg
+        &:hover, &:focus
+          fill: #004b54 !important
+
+  &__section
+    position: relative
+    width: 100%
+
+    .nav__list-item
+      color: #5C5C5C !important
+
+      &:hover, &:focus
+        color: darken(#5C5C5C, 60%) !important
+
+    &--small
+      @extends .footer__section
+      font-size: 0.8em
+
+  &__divider
+    border: 0
+    border-top: 1px solid #979797
+    display: block
+    height: 1px
+    margin: 0
+    padding: 0
+    width: 100%
+
+  &__easter-egg
+    bottom: 0
+    display: inline-block
+    height: 74px
+    margin: 0 !important
+    opacity: 0
+    position: absolute
+    right: 0
+    transition: opacity 0.5s ease
+    transition-delay: 0.25s
+    width: 62px
+    z-index: 1
+
+    &:hover
+      opacity: 1

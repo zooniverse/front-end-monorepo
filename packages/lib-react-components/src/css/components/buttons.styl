@@ -1,0 +1,27 @@
+.standard-button
+  @extends $reset-button
+  background: MAIN_HIGHLIGHT
+  border-radius: 3px
+  color: white
+  padding: 0.4em 1.4em
+  text-align: center
+
+  &:focus,
+  &:hover
+    background: lighten(MAIN_HIGHLIGHT, 20%)
+
+  &:disabled
+    pointer-events: none
+
+  &.full
+    display: block
+    width: 100%
+
+.major-button
+  @extends .standard-button
+  background: SECOND_HIGHLIGHT
+  font-weight: bold
+
+  &:focus,
+  &:hover
+    background: lighten(SECOND_HIGHLIGHT, 20%)
