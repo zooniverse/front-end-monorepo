@@ -22,6 +22,6 @@
     "superagent-mock": "^3.7.0"
   },
   "engines": {
-    "node": "8"
+    "node": ">=8"
   }
 }
