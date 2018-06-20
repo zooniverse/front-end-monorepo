@@ -129,7 +129,7 @@ describe('Projects resource common requests', function () {
             pattern: `${config.host}${endpoint}/(\\d+)`,
             fixtures: (match, params) => {
               const projectID = expectedGetResponseWithLinkedResources.projects[0].id
-              const expectedQuery = 'include=avatar%2Cbackground%2Cowners%2Cpages'
+              const expectedQuery = 'include=avatar%2Cbackground%2Cowners%2Cpages&http_cache=true'
               const [url, query] = match.input.split('?')
 
               if (url.includes(projectID) && query === expectedQuery) return expectedGetResponseWithLinkedResources
@@ -215,7 +215,7 @@ describe('Projects resource common requests', function () {
             pattern: `${config.host}${endpoint}/(\\d+)`,
             fixtures: (match, params) => {
               const projectID = expectedGetResponseWithLinkedResources.projects[0].id
-              const expectedQuery = 'include=avatar%2Cbackground%2Cowners%2Cpages'
+              const expectedQuery = 'include=avatar%2Cbackground%2Cowners%2Cpages&http_cache=true'
               const [url, query] = match.input.split('?')
               if (url.includes(projectID) && query === expectedQuery) return expectedGetResponseWithLinkedResources
               throw new Error(404)
