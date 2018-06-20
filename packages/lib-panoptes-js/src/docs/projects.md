@@ -53,12 +53,6 @@ const params = { slug: 'zooniverse/galaxy-zoo' };
 
 projects.getBySlug(params)
 
-<<<<<<< HEAD
-=======
-// or in browser without slug
-projects.getBySlug()
-
->>>>>>> Rework getBySlug function to accept query param object
 // or with additional query params
 const params = { slug: 'zooniverse/galaxy-zoo', cards: true }
 
@@ -67,11 +61,7 @@ projects.getBySlug(params)
 
 **Arguments**
 
-<<<<<<< HEAD
 - params _(object)_ - An object that should include the project's slug _(string)_ and optionally additional query params.
-=======
-- params _(object)_ - An object that should include the project's slug _(string)_ and optionally additional query params. If the slug is undefined and in a browser environment, the get request uses the window's location pathname and transforms it to the correct format. Slug param is optional if in browser, but required in node.js.
->>>>>>> Rework getBySlug function to accept query param object
 
 **Returns**
 
