@@ -1,3 +1,5 @@
+/* global localStorage */
+
 const superagent = require('superagent')
 const { config } = require('./config')
 

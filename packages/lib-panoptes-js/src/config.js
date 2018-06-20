@@ -1,3 +1,5 @@
+/* global location */
+
 /*
 Configuration Settings
 ----------------------
