@@ -31,7 +31,7 @@ describe('panoptes.js', function () {
 
     it('should return the expected response', function () {
       return panoptes.get(endpoint).then((response) => {
-        expect(response).to.eql({ body: expectedResponse })
+        expect(response).to.deep.equal({ body: expectedResponse })
       })
     })
 
@@ -122,7 +122,7 @@ describe('panoptes.js', function () {
 
     it('should return the expected response', function () {
       return panoptes.post(endpoint).then((response) => {
-        expect(response).to.eql({ body: expectedResponse })
+        expect(response).to.deep.equal({ body: expectedResponse })
       })
     })
 
@@ -171,7 +171,7 @@ describe('panoptes.js', function () {
     it('should send any data params if defined', function () {
       const params = { display_name: 'My project' }
       return panoptes.post(endpoint, params).then((response) => {
-        expect(actualParams).to.eql(params)
+        expect(actualParams).to.deep.equal(params)
       })
     })
 
@@ -209,7 +209,7 @@ describe('panoptes.js', function () {
 
     it('should return the expected response', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        expect(response).to.eql({ body: expectedResponse })
+        expect(response).to.deep.equal({ body: expectedResponse })
       })
     })
 
@@ -257,7 +257,7 @@ describe('panoptes.js', function () {
 
     it('should send any data params if defined', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        expect(actualParams).to.eql(update)
+        expect(actualParams).to.deep.equal(update)
       })
     })
 
