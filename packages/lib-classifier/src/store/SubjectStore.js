@@ -13,7 +13,8 @@ const SubjectStore = types
   .actions(self => {
     function advance () {
       if (self.active) {
-        const idToRemove = self.queue.shift()
+        const idToRemove = self.active.id
+        self.queue.shift()
         self.resources.delete(idToRemove)
       }
 
@@ -30,8 +31,8 @@ const SubjectStore = types
 
     function createWorkflowObserver() {
       const workflowDisposer = autorun(() => {
-        const workflow = getRoot(self).workflows.active
-        if (workflow) {
+        const root = getRoot(self)
+        if (root.workflows && root.workflows.active) {
           self.reset()
           self.populateQueue()
         }
@@ -40,8 +41,9 @@ const SubjectStore = types
     }
 
     function * populateQueue () {
-      const client = getRoot(self).client.panoptes
-      const workflowId = getRoot(self).workflows.active.id
+      const root = getRoot(self)
+      const client = root.client.panoptes
+      const workflowId = root.workflows.active.id
 
       const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId })
 

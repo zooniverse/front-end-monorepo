@@ -41,10 +41,15 @@ const clientStub = {
 }
 sinon.spy(clientStub.panoptes, 'get')
 
-describe.only('Model > ResourceStore', function () {
+describe('Model > ResourceStore', function () {
   before(function () {
     resourceStore = ResourceStore.create(resourcesStub)
     rootStore = RootStub.create({ resources: resourceStore }, { client: clientStub })
+  })
+
+  after(function () {
+    resourceStore = null
+    rootStore = null
   })
 
   it('should have a required `type` property corresponding to the resource type', function () {

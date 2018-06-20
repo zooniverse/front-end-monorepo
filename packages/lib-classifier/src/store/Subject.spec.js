@@ -1,32 +1,28 @@
 import Subject from './Subject'
 
-let model
+let subject
 
 const stub = {
   id: '1',
   locations: [
-    {
-      'image/jpg': 'http://foobar.com/image.jpg'
-    }
+    { 'image/jpg': 'http://foobar.com/image.jpg' }
   ]
 }
 
 describe('Model > Subject', function () {
+  before(function () {
+    subject = Subject.create(stub)
+  })
+
+  after(function () {
+    subject = null
+  })
+
   it('should exist', function () {
     expect(Subject).to.not.be.undefined
   })
 
-  describe('properties', function () {
-    before(function () {
-      model = Subject.create(stub)
-    })
-
-    after(function () {
-      model = null
-    })
-
-    it('should have a `locations` property', function () {
-      expect(model.locations).to.deep.equal(stub.locations)
-    })
+  it('should have a `locations` property', function () {
+    expect(subject.locations).to.deep.equal(stub.locations)
   })
 })
