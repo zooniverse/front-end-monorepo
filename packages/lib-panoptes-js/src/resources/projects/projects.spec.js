@@ -27,14 +27,14 @@ describe('Projects resource requests', function () {
 
     it('should return the expected response', function () {
       return projects.create().then(response => {
-        expect(response).to.eql({ body: expectedResponse }) // deep equality
+        expect(response).to.deep.equal({ body: expectedResponse }) // deep equality
       }).catch(err => console.error('error', err))
     })
 
     it('should have sent the expected data params with an added { private: true }', function () {
       const projectDisplayName = { display_name: 'My project' }
       return projects.create({ data: projectDisplayName }).then(response => {
-        expect(actualParams).to.eql(Object.assign({}, { private: true }, projectDisplayName))
+        expect(actualParams).to.deep.equal(Object.assign({}, { private: true }, projectDisplayName))
       })
     })
   })
@@ -62,7 +62,7 @@ describe('Projects resource requests', function () {
 
       it('should return the expected response without a defined id argument', function () {
         return projects.get().then(response => {
-          expect(response).to.eql({ body: expectedGetAllResponse })
+          expect(response).to.deep.equal({ body: expectedGetAllResponse })
         })
       })
     })
@@ -91,7 +91,7 @@ describe('Projects resource requests', function () {
 
       it('should return the expected response with a defined id argument', function () {
         return projects.get({ id: '2' }).then(response => {
-          expect(response).to.eql({ body: expectedGetSingleResponse })
+          expect(response).to.deep.equal({ body: expectedGetSingleResponse })
         })
       })
 
@@ -99,6 +99,7 @@ describe('Projects resource requests', function () {
         const queryParams = { page: '2' }
 
         return projects.get({ id: '2', query: queryParams }).then(response => {
+          // eslint-disable-next-line no-unused-expressions
           expect(actualMatch.input.includes('?page=2')).to.be.true
         })
       })
@@ -150,12 +151,13 @@ describe('Projects resource requests', function () {
 
     it('should return the expected response', function () {
       return projects.update({ id: '2', data: update }).then((response) => {
-        expect(response).to.eql({ body: expectedPutResponse })
+        expect(response).to.deep.equal({ body: expectedPutResponse })
       })
     })
   })
 
   describe('delete', function () {
+    let superagentMock
     const responseStatus = { status: 204 }
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
