@@ -99,6 +99,7 @@ describe('Projects resource requests', function () {
         const queryParams = { page: '2' }
 
         return projects.get({ id: '2', query: queryParams }).then(response => {
+          // eslint-disable-next-line no-unused-expressions
           expect(actualMatch.input.includes('?page=2')).to.be.true
         })
       })
