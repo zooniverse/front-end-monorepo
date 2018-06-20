@@ -68,7 +68,7 @@ describe('panoptes.js', function () {
       })
     })
 
-    it('should add the admin default query param if flag is found in local storage', function() {
+    it('should add the admin default query param if flag is found in local storage', function () {
       localStorage.setItem('adminFlag', true)
 
       return panoptes.get(endpoint).then(() => {

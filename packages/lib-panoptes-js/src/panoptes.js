@@ -11,7 +11,7 @@ function handleMissingParameter (message) {
   return Promise.reject(message)
 }
 
-function checkForAdminFlag() {
+function checkForAdminFlag () {
   if (typeof localStorage !== 'undefined' && localStorage !== null) {
     return !!localStorage.getItem('adminFlag') || undefined
   }
@@ -30,10 +30,10 @@ function get (endpoint, query, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
   // .set('Authorization', apiClient.headers.Authorization);
-  
+
   if (query && Object.keys(query).length > 0) {
     if (typeof query !== 'object') return Promise.reject('Query must be an object')
-    const fullQuery = Object.assign({}, query, defaultParams);
+    const fullQuery = Object.assign({}, query, defaultParams)
     request.query(fullQuery)
   } else {
     request.query(defaultParams)
@@ -43,7 +43,7 @@ function get (endpoint, query, host) {
 
 function post (endpoint, data, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
-  
+
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   const apiHost = host || config.host
 
@@ -58,7 +58,7 @@ function post (endpoint, data, host) {
 
 function put (endpoint, data, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
-  
+
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (!data) return handleMissingParameter('Request needs a defined data for update')
   const apiHost = host || config.host
@@ -74,7 +74,7 @@ function put (endpoint, data, host) {
 
 function del (endpoint, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
-  
+
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   const apiHost = host || config.host
 
