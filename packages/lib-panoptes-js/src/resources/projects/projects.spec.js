@@ -1,7 +1,6 @@
 const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
-const { JSDOM } = require('jsdom')
 
 const { projects, projectsEndpoint } = require('./projects')
 const { config } = require('../../config')
@@ -114,8 +113,8 @@ describe('Projects resource requests', function () {
     })
   })
 
-  describe('getBySlug', function() {
-    let superagentMock;
+  describe('getBySlug', function () {
+    let superagentMock
     const expectedGetResponse = projectMocks.getSingleProjectResponse
     const expectedNotFoundResponse = projectMocks.notFound
 
@@ -140,7 +139,7 @@ describe('Projects resource requests', function () {
     it('should error if slug param is not a string', function () {
       return projects.getBySlug({ slug: 1234 }).catch((error) => {
         expect(error).to.equal('Projects: Get request slug must be a string.')
-      });
+      })
     })
 
     it('should return the expected response if not found', function () {

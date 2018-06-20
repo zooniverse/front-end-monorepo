@@ -6,12 +6,12 @@ const { config, locationMatch } = require('./config')
 
 describe('config.js', function () {
   let jsdom
-  before(function() {
+  before(function () {
     jsdom = new JSDOM('<!doctype html><html><body></body></html>')
     global.location = jsdom.window.location
   })
 
-  after(function() {
+  after(function () {
     delete global.location
   })
 

@@ -1,4 +1,3 @@
-const { isBrowser } = require('../../helpers')
 const panoptes = require('../../panoptes')
 const { getProjectSlugFromURL, handleError } = require('./helpers')
 
@@ -29,7 +28,7 @@ const projects = {
 
   getBySlug: (params) => {
     const queryParams = params || {}
-    
+
     if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
     if (queryParams.slug && queryParams.slug.includes('projects')) {
       queryParams.slug = getProjectSlugFromURL(queryParams.slug)

@@ -1,6 +1,6 @@
 const URL = require('url-parse')
 
-function getProjectSlugFromURL(urlArg) {
+function getProjectSlugFromURL (urlArg) {
   const parsed = new URL(urlArg)
 
   const [projectPath, owner, project] = parsed.pathname.split('/')
@@ -13,7 +13,7 @@ function getProjectSlugFromURL(urlArg) {
   }
 }
 
-function handleError(error) {
+function handleError (error) {
   if (console && process.env.NODE_ENV !== 'test') console.error(error)
   return Promise.reject(error)
 }
