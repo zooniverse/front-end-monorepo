@@ -10,7 +10,6 @@ describe('panoptes.js', function () {
   describe('get', function () {
     let superagentMock
     let actualMatch
-    let actualParams
     let actualHeader
     const endpoint = '/projects'
     const expectedResponse = { id: '2' }
@@ -19,7 +18,6 @@ describe('panoptes.js', function () {
         pattern: endpoint,
         fixtures: (match, params, header, context) => {
           actualMatch = match
-          actualParams = params
           actualHeader = header
           return expectedResponse
         },
@@ -292,7 +290,6 @@ describe('panoptes.js', function () {
   describe('delete', function () {
     let superagentMock
     let actualMatch
-    let actualParams
     let actualHeader
     const endpoint = '/projects'
     const expectedResponse = { status: 204 }
@@ -301,7 +298,6 @@ describe('panoptes.js', function () {
         pattern: endpoint,
         fixtures: (match, params, header, context) => {
           actualMatch = match
-          actualParams = params
           actualHeader = header
           return expectedResponse
         },
