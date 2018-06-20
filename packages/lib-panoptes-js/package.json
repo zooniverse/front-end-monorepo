@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
-    "test": "npm run _check && NODE_ENV=test mocha test/setup.js"
+    "test": "npm run _check && NODE_ENV=test mocha"
   },
   "author": "",
   "license": "Apache-2.0",
