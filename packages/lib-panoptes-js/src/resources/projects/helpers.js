@@ -14,19 +14,6 @@ function getProjectSlugFromURL (urlArg) {
   }
 }
 
-function getProjectSlug(slug, callback) {
-  callback = callback || getProjectSlugFromURL
-  if (!slug && (isBrowser() || (process.env.NODE_ENV === 'test' && global.window))) {
-    return callback(window.location.pathname)
-  } else if (slug && slug.includes('projects')) {
-    return callback(slug)
-  }
-
-  if (slug) return slug
-
-  return null
-}
-
 function handleError(error) {
   if (console && process.env.NODE_ENV !== 'test') console.error(error)
   return Promise.reject(error)
