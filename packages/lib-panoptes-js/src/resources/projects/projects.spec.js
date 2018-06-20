@@ -156,6 +156,7 @@ describe('Projects resource requests', function () {
   })
 
   describe('delete', function () {
+    let superagentMock
     const responseStatus = { status: 204 }
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
