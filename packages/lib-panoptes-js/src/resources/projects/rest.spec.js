@@ -5,7 +5,7 @@ const mockSuperagent = require('superagent-mock')
 const { projects } = require('./index')
 const { endpoint } = require('./helpers')
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 
 describe('Projects resource REST requests', function () {
   describe('create', function () {
@@ -101,6 +101,7 @@ describe('Projects resource REST requests', function () {
         const queryParams = { page: '2' }
 
         return projects.get({ id: '2', query: queryParams }).then(response => {
+          // eslint-disable-next-line no-unused-expressions
           expect(actualMatch.input.includes('?page=2')).to.be.true
         })
       })
@@ -112,8 +113,6 @@ describe('Projects resource REST requests', function () {
       })
     })
   })
-
-
 
   describe('update', function () {
     let superagentMock
@@ -160,6 +159,7 @@ describe('Projects resource REST requests', function () {
   })
 
   describe('delete', function () {
+    let superagentMock
     const responseStatus = { status: 204 }
     before(function () {
       superagentMock = mockSuperagent(superagent, [{

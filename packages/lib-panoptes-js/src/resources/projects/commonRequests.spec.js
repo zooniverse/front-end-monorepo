@@ -9,7 +9,7 @@ const { resources, responses } = require('./mocks')
 
 describe('Projects resource common requests', function () {
   describe('getBySlug', function () {
-    let superagentMock;
+    let superagentMock
     const expectedGetResponse = responses.get.project
     const expectedNotFoundResponse = responses.get.queryNotFound
 
@@ -156,7 +156,7 @@ describe('Projects resource common requests', function () {
         })
       })
 
-      it('should return a 404 if project is not found', function() {
+      it('should return a 404 if project is not found', function () {
         return projects.getWithLinkedResources({ id: '3' }).catch((error) => {
           expect(error).to.equal(404)
         })

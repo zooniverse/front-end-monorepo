@@ -1,3 +1,4 @@
+const { expect } = require('chai')
 const { getProjectSlugFromURL, handleError } = require('./helpers')
 
 const validUrls = [

@@ -1,10 +1,10 @@
 const medium = {
-  content_type: "image/jpeg",
-  created_at: "2016-12-07T23:11:47.452Z",
+  content_type: 'image/jpeg',
+  created_at: '2016-12-07T23:11:47.452Z',
   external_link: false,
   links: {},
   metadata: null,
-  updated_at: "2016-12-07T23:11:47.452Z"
+  updated_at: '2016-12-07T23:11:47.452Z'
 }
 
 const mediaResourceTypes = {
@@ -21,15 +21,15 @@ const resourcesThatCanHaveMedia = {
   users: 'users'
 }
 
-function getRandomID(min, max) {
-  return (Math.floor(Math.random() * (max - min + 1)) + min).toString();
+function getRandomID (min, max) {
+  return (Math.floor(Math.random() * (max - min + 1)) + min).toString()
 }
 
-function buildMockedMediumResource(resourceType, linkResourceType) {
+function buildMockedMediumResource (resourceType, linkResourceType) {
   const resource = mediaResourceTypes[resourceType]
   const linkedResource = resourcesThatCanHaveMedia[linkResourceType]
   const randomID = getRandomID(0, 100)
-  const mediaType = `${linkedResource}_${resource}`;
+  const mediaType = `${linkedResource}_${resource}`
   return Object.assign({}, medium, {
     href: `/${linkedResource}s/${randomID}/${resource}`,
     id: randomID,

@@ -6,7 +6,7 @@ const isBrowser = new Function('try {return this===window;}catch(e){ return fals
 const isNode = new Function('try {return this===global;}catch(e){return false;}')
 
 // For response mocks
-function buildResponse(httpMethod, resourceType, resources, linked, params) {
+function buildResponse (httpMethod, resourceType, resources, linked, params) {
   const response = { links: {}, meta: {} }
 
   if (linked) {
@@ -15,7 +15,7 @@ function buildResponse(httpMethod, resourceType, resources, linked, params) {
 
   if (httpMethod === 'put' && params) {
     response[resourceType] = [Object.assign({}, resources[0], params)]
-    return response;
+    return response
   }
 
   response[resourceType] = resources

@@ -13,7 +13,7 @@ function getProjectSlugFromURL (urlArg) {
   }
 }
 
-function handleError(error) {
+function handleError (error) {
   if (console && process.env.NODE_ENV !== 'test') console.error(error)
   return Promise.reject(error)
 }

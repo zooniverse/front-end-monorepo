@@ -87,43 +87,43 @@ const projectTwo = {
 
 const projectPages = {
   team: {
-    content: "",
-    created_at: "2016-12-08T20:34:38.300Z",
-    href: "/projects/2/pages/1",
-    id: "1",
-    language: "en",
-    links: { project: "1" },
-    title: "Team",
-    type: "project_pages",
-    updated_at: "2018-05-17T19:09:11.209Z",
-    url_key: "team"
+    content: '',
+    created_at: '2016-12-08T20:34:38.300Z',
+    href: '/projects/2/pages/1',
+    id: '1',
+    language: 'en',
+    links: { project: '1' },
+    title: 'Team',
+    type: 'project_pages',
+    updated_at: '2018-05-17T19:09:11.209Z',
+    url_key: 'team'
   },
   results: {
-    content: "",
-    created_at: "2016-12-08T20:34:47.085Z",
-    href: "/projects/2/pages/2",
-    id: "2",
-    language: "en",
-    links: { project: "2" },
-    title: "Results",
-    type: "project_pages",
-    updated_at: "2018-05-17T19:16:57.618Z",
-    url_key: "results"
+    content: '',
+    created_at: '2016-12-08T20:34:47.085Z',
+    href: '/projects/2/pages/2',
+    id: '2',
+    language: 'en',
+    links: { project: '2' },
+    title: 'Results',
+    type: 'project_pages',
+    updated_at: '2018-05-17T19:16:57.618Z',
+    url_key: 'results'
   }
 }
 
 const projectRoles = {
   owner: {
-    href: "/project_roles/1",
-    id: "1",
-    links: { project: "2", owner: {} },
-    roles: ["owner"]
+    href: '/project_roles/1',
+    id: '1',
+    links: { project: '2', owner: {} },
+    roles: ['owner']
   },
   multipleRoles: {
-    href: "/project_roles/2",
-    id: "2",
-    links: { project: "2", owner: {} },
-    roles: ["expert", "scientist"]
+    href: '/project_roles/2',
+    id: '2',
+    links: { project: '2', owner: {} },
+    roles: ['expert', 'scientist']
   }
 }
 
@@ -142,7 +142,7 @@ const createdProject = buildResponse('post', 'projects', [resources.projectOne],
 
 const projects = buildResponse('get', 'projects', [resources.projectOne, resources.projectTwo], {})
 
-const project = buildResponse('get', 'projects', [resources.projectTwo], {}) 
+const project = buildResponse('get', 'projects', [resources.projectTwo], {})
 
 const updatedProject = buildResponse('put', 'projects', [resources.projectTwo], {}, { researcher_quote: 'Try my project!' })
 
@@ -152,7 +152,7 @@ const projectRoleOwner = buildResponse('get', 'project_roles', [resources.projec
 
 const projectRolesResponse = buildResponse('get', 'project_roles', [resources.projectRoles.owner, resources.projectRoles.multipleRoles])
 
-const projectPagesResponse = buildResponse('get', 'project_pages', [resources.projectPages.team, resources, projectPages.results]) 
+const projectPagesResponse = buildResponse('get', 'project_pages', [resources.projectPages.team, resources, projectPages.results])
 
 const projectWithLinkedResources = buildResponse('get', 'projects', [resources.projectTwo], {
   avatars: [resources.projectAvatar],

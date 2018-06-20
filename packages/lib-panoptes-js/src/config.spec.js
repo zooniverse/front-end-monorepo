@@ -7,7 +7,7 @@ const { config, locationMatch } = require('./config')
 describe('config.js', function () {
   let jsdom
   before(function () {
-    jsdom = new JSDOM('<!doctype html><html><body></body></html>')
+    const jsdom = new JSDOM('<!doctype html><html><body></body></html>')
     global.location = jsdom.window.location
   })
 

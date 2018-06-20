@@ -1,10 +1,11 @@
+const { expect } = require('chai')
 const { buildResponse } = require('./index')
 
 describe('Global Helpers', function () {
   describe('buildResponse', function () {
     const resourceType = 'projects'
     const resources = [{}]
-    it('returns a basic resource mock', function() {
+    it('returns a basic resource mock', function () {
       const expectedReturnValue = {
         links: {},
         meta: {},
@@ -24,8 +25,8 @@ describe('Global Helpers', function () {
     })
 
     it('returns a resource with the linked property if defined', function () {
-      linked = { foo: 'bar' }
-      expectedReturnValue = {
+      const linked = { foo: 'bar' }
+      const expectedReturnValue = {
         links: {},
         meta: {},
         [resourceType]: resources
