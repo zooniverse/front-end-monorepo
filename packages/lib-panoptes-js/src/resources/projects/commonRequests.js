@@ -1,4 +1,4 @@
-const { handleError, endpoint } = require('./helpers')
+const { endpoint, handleError, getProjectSlugFromURL } = require('./helpers')
 const panoptes = require('../../panoptes')
 
 function getBySlug(params) {

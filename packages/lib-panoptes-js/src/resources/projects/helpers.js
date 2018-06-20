@@ -1,5 +1,4 @@
 const URL = require('url-parse')
-const { isBrowser } = require('../../helpers')
 
 function getProjectSlugFromURL (urlArg) {
   const parsed = new URL(urlArg)
@@ -21,4 +20,4 @@ function handleError(error) {
 
 const endpoint = '/projects'
 
-module.exports = { getProjectSlugFromURL, getProjectSlug, handleError, endpoint }
+module.exports = { getProjectSlugFromURL, handleError, endpoint }
