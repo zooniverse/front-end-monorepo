@@ -1,4 +1,3 @@
-const { isBrowser } = require('../../helpers')
 const panoptes = require('../../panoptes')
 const { getProjectSlugFromURL, handleError } = require('./helpers')
 
