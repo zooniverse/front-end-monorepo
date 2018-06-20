@@ -1,27 +1,25 @@
 import Resource from './Resource'
 
-let model
+let resource
 
 const stub = {
   id: '1'
 }
 
 describe('Model > Resource', function () {
+  before(function () {
+    resource = Resource.create(stub)
+  })
+
+  after(function () {
+    resource = null
+  })
+
   it('should exist', function () {
     expect(Resource).to.not.be.undefined
   })
 
-  describe('properties', function () {
-    before(function () {
-      model = Resource.create(stub)
-    })
-
-    after(function () {
-      model = null
-    })
-
-    it('should have an `id` property', function () {
-      expect(model.id).to.equal(stub.id)
-    })
+  it('should have an `id` property', function () {
+    expect(resource.id).to.equal(stub.id)
   })
 })
