@@ -1,3 +1,5 @@
+/* global jsdom */
+
 const { expect } = require('chai')
 const { JSDOM } = require('jsdom')
 const { config, locationMatch } = require('./config')
@@ -29,6 +31,7 @@ describe('config.js', function () {
     it('should return undefined if the url does not have an env query param', function () {
       jsdom.reconfigure({ url: 'https://www.zooniverse.org/' })
       const env = locationMatch(/\W?env=(\w+)/)
+      // eslint-disable-next-line no-unused-expressions
       expect(env).to.be.undefined
     })
   })
