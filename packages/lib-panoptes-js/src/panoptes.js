@@ -34,7 +34,7 @@ function get (endpoint, query, host) {
   // .set('Authorization', apiClient.headers.Authorization);
 
   if (query && Object.keys(query).length > 0) {
-    if (typeof query !== 'object') return Promise.reject('Query must be an object')
+    if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
     const fullQuery = Object.assign({}, query, defaultParams)
     request.query(fullQuery)
   } else {

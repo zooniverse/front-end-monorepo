@@ -94,7 +94,7 @@ describe('panoptes.js', function () {
 
     it('should error if query params are defined but are not an object', function () {
       return panoptes.get(endpoint, '?foo=bar').catch((error) => {
-        expect(error).to.equal('Query must be an object')
+        expect(error.message).to.equal('Query must be an object')
       })
     })
 
