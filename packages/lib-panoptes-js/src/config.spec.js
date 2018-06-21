@@ -1,5 +1,3 @@
-/* global jsdom */
-
 const { expect } = require('chai')
 const { JSDOM } = require('jsdom')
 const { config, locationMatch } = require('./config')
