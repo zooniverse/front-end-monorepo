@@ -28,7 +28,7 @@ describe('Projects resource requests', function () {
 
     it('should return the expected response', function () {
       return projects.create().then(response => {
-        expect(response).to.deep.equal({ body: expectedResponse }) // deep equality
+        expect(response).to.deep.equal({ body: expectedResponse })
       }).catch(err => console.error('error', err))
     })
 
