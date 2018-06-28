@@ -225,7 +225,7 @@ class MyComponent extends React.Component {
 
   componentDidMount() {
     projects.get({ id: '1104' }).then((response) => {
-      this.setState({ project: response.projects[0] });
+      this.setState({ project: response.body.projects[0] });
     }).catch((error) => {
       if (error.statusCode === 404) return null; // If you don't care about catching a 404
     });

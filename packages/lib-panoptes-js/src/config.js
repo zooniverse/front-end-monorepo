@@ -1,4 +1,5 @@
 /* global location */
+const { isBrowser } = require('./helpers')
 
 /*
 Configuration Settings
@@ -17,7 +18,7 @@ By default, this is the development environment, but this can be changed either 
 // the CoffeeScript existential operator, in case we're not in a browser.
 function locationMatch (regex) {
   let match
-  if (typeof location !== 'undefined' && location !== null) {
+  if (isBrowser() || (process.env.NODE_ENV === 'test' && global.location)) {
     match = location.search.match(regex)
   }
   return (match && match[1]) ? match[1] : undefined

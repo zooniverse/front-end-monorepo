@@ -1,11 +1,7 @@
 const panoptes = require('../../panoptes')
+const { getProjectSlugFromURL, handleError } = require('./helpers')
 
 const projectsEndpoint = '/projects'
-
-function handleError (error) {
-  if (console && process.env.NODE_ENV !== 'test') console.error(error)
-  return Promise.reject(error)
-}
 
 // TODO: Could add helper functions to request project with expected included resources
 // like project avatar and background
@@ -17,7 +13,7 @@ const projects = {
       private: true
     }, newProjectData)
 
-    return panoptes.post(`${projectsEndpoint}/`, allProjectData)
+    return panoptes.post(projectsEndpoint, allProjectData)
   },
 
   get: (params) => {
@@ -28,6 +24,21 @@ const projects = {
     if (projectId && typeof projectId !== 'string') return handleError('Projects: Get request id must be a string.')
 
     return panoptes.get(`${projectsEndpoint}/${projectId}`, queryParams)
+  },
+
+  getBySlug: (params) => {
+    const queryParams = params || {}
+
+    if (queryParams.slug && typeof queryParams.slug !== 'string') return handleError('Projects: Get request slug must be a string.')
+    if (queryParams.slug && queryParams.slug.includes('projects')) {
+      queryParams.slug = getProjectSlugFromURL(queryParams.slug)
+    }
+
+    if (queryParams && queryParams.slug) {
+      return panoptes.get(projectsEndpoint, queryParams)
+    }
+
+    return handleError('Projects: Get by slug request missing required parameter: slug string.')
   },
 
   update: (params) => {

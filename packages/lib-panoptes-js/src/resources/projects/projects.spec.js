@@ -1,6 +1,7 @@
 const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
+
 const { projects, projectsEndpoint } = require('./projects')
 const { config } = require('../../config')
 const projectMocks = require('./mocks')
@@ -108,6 +109,62 @@ describe('Projects resource requests', function () {
         return projects.get({ id: 2 }).catch(error => {
           expect(error).to.equal('Projects: Get request id must be a string.')
         })
+      })
+    })
+  })
+
+  describe('getBySlug', function () {
+    let superagentMock
+    const expectedGetResponse = projectMocks.getSingleProjectResponse
+    const expectedNotFoundResponse = projectMocks.notFound
+
+    before(function () {
+      superagentMock = mockSuperagent(superagent, [{
+        pattern: `${config.host}${projectsEndpoint}`,
+        fixtures: (match, params) => {
+          const [mockOwner, mockProjectName] = expectedGetResponse.projects[0].slug.split('/')
+          const matchSlug = `${mockOwner}%2F${mockProjectName}`
+
+          if (match.input.includes(matchSlug)) return expectedGetResponse
+          return expectedNotFoundResponse
+        },
+        get: (match, data) => ({ body: data })
+      }])
+    })
+
+    after(function () {
+      superagentMock.unset()
+    })
+
+    it('should error if slug param is not a string', function () {
+      return projects.getBySlug({ slug: 1234 }).catch((error) => {
+        expect(error).to.equal('Projects: Get request slug must be a string.')
+      })
+    })
+
+    it('should return the expected response if not found', function () {
+      return projects.getBySlug({ slug: 'zooniverse/my-project' }).then((response) => {
+        expect(response).to.eql({ body: expectedNotFoundResponse })
+      })
+    })
+
+    it('should error if slug param is not defined', function () {
+      return projects.getBySlug().catch((error) => {
+        expect(error).to.equal('Projects: Get by slug request missing required parameter: slug string.')
+      })
+    })
+
+    it('should return the expected response if the slug is defined', function () {
+      const slug = 'user/untitled-project-2'
+      return projects.getBySlug({ slug }).then((response) => {
+        expect(response).to.eql({ body: expectedGetResponse })
+      })
+    })
+
+    it('should return the expected response if the slug is defined including "projects" in the pathname', function () {
+      const slug = 'projects/user/untitled-project-2'
+      return projects.getBySlug({ slug }).then((response) => {
+        expect(response).to.eql({ body: expectedGetResponse })
       })
     })
   })
