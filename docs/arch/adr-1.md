@@ -14,7 +14,7 @@ We will adopt ADRs to document app or library structure, conventions, dependency
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
