@@ -5,9 +5,9 @@ import WorkflowStore from './WorkflowStore'
 
 const RootStore = types
   .model('RootStore', {
-    projects: types.optional(ProjectStore, ProjectStore.create({ type: 'projects' })),
-    subjects: types.optional(SubjectStore, SubjectStore.create({ type: 'subjects' })),
-    workflows: types.optional(WorkflowStore, WorkflowStore.create({ type: 'workflows' }))
+    projects: types.optional(ProjectStore, ProjectStore.create()),
+    subjects: types.optional(SubjectStore, SubjectStore.create()),
+    workflows: types.optional(WorkflowStore, WorkflowStore.create())
   })
 
   .views(self => ({

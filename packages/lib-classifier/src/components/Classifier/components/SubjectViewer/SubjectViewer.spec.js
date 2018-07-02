@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import SubjectViewer from './SubjectViewer'
-import subjects from '../../../../../test/fixtures/subjects'
 
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {

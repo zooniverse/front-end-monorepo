@@ -47,18 +47,13 @@ describe('Model > ResourceStore', function () {
     rootStore = RootStub.create({ resources: resourceStore }, { client: clientStub })
   })
 
-  after(function () {
-    resourceStore = null
-    rootStore = null
-  })
-
   it('should have a required `type` property corresponding to the resource type', function () {
     expect(resourceStore.type).to.equal(resourcesStub.type)
     expect(function () { ResourceStore.create() }).to.throw()
   })
 
   it('should have a `resources` map to store any resource objects', function () {
-    expect(resourceStore.resources).to.not.be.undefined
+    expect(resourceStore.resources).to.not.equal(undefined)
     expect(resourceStore.resources.size).to.equal(2)
     expect(resourceStore.resources.get('123')).to.deep.equal(resourcesStub.resources['123'])
   })
@@ -74,19 +69,15 @@ describe('Model > ResourceStore', function () {
     expect(resetStore.active).to.equal(null)
   })
 
-  it('should use an existing resources object when `setActive` is called', function () {
-    return resourceStore.setActive('456')
-      .then(function () {
-        expect(resourceStore.active).to.deep.equal(resourcesStub.resources['456'])
-        expect(clientStub.panoptes.get.notCalled).to.equal(true)
-      })
+  it('should use an existing resources object when `setActive` is called', async function () {
+    await resourceStore.setActive('456')
+    expect(resourceStore.active).to.deep.equal(resourcesStub.resources['456'])
+    expect(clientStub.panoptes.get.notCalled).to.equal(true)
   })
 
-  it('should fetch a missing resource object when `setActive` is called', function () {
-    return resourceStore.setActive('789')
-      .then(function () {
-        expect(resourceStore.active).to.deep.equal(otherResourceStub)
-        expect(clientStub.panoptes.get.called).to.equal(true)
-      })
+  it('should fetch a missing resource object when `setActive` is called', async function () {
+    await resourceStore.setActive('789')
+    expect(resourceStore.active).to.deep.equal(otherResourceStub)
+    expect(clientStub.panoptes.get.called).to.equal(true)
   })
 })

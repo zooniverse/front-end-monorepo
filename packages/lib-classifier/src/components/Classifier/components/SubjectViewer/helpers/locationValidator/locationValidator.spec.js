@@ -8,7 +8,7 @@ const invalid = [{ 'foo': 'bar' }]
 describe('Helper > locationValidator', function () {
   it('should return undefined when passed a valid array of locations', function () {
     const result = locationValidator(valid, 0, 'TestComponent', 'prop', 'subject.locations[0]')
-    expect(result).to.be.undefined
+    expect(result).to.equal(undefined)
   })
 
   it('should return an error when passed an invalid array of locations', function () {

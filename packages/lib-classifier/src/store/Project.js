@@ -5,8 +5,7 @@ const Project = types
   .model('Project', {
     configuration: types.frozen,
     display_name: types.string,
-    links: types.frozen,
+    links: types.frozen
   })
-
 
 export default types.compose(Resource, Project)

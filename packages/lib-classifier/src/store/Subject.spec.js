@@ -14,12 +14,8 @@ describe('Model > Subject', function () {
     subject = Subject.create(stub)
   })
 
-  after(function () {
-    subject = null
-  })
-
   it('should exist', function () {
-    expect(Subject).to.not.be.undefined
+    expect(Subject).to.not.equal(undefined)
   })
 
   it('should have a `locations` property', function () {
