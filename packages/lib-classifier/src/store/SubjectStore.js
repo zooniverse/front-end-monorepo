@@ -2,12 +2,14 @@ import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
+import asyncStates from '../helpers/asyncStates'
 
 const SubjectStore = types
   .model('SubjectStore', {
-    resources: types.optional(types.map(Subject), {}),
     active: types.maybe(types.reference(Subject)),
-    queue: types.optional(types.array(types.reference(Subject)), [])
+    resources: types.optional(types.map(Subject), {}),
+    queue: types.optional(types.array(types.reference(Subject)), []),
+    type: types.optional(types.string, 'subjects')
   })
 
   .actions(self => {
@@ -29,7 +31,7 @@ const SubjectStore = types
       createWorkflowObserver()
     }
 
-    function createWorkflowObserver() {
+    function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
         const root = getRoot(self)
         if (root.workflows && root.workflows.active) {
@@ -44,16 +46,24 @@ const SubjectStore = types
       const root = getRoot(self)
       const client = root.client.panoptes
       const workflowId = root.workflows.active.id
+      self.loadingState = asyncStates.loading
 
-      const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId })
+      try {
+        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId })
 
-      response.body.subjects.forEach(subject => {
-        self.resources.put(subject)
-        self.queue.push(subject.id)
-      })
+        response.body.subjects.forEach(subject => {
+          self.resources.put(subject)
+          self.queue.push(subject.id)
+        })
 
-      if (!self.active) {
-        self.advance()
+        self.loadingState = asyncStates.success
+
+        if (!self.active) {
+          self.advance()
+        }
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
       }
     }
 
@@ -73,6 +83,5 @@ const SubjectStore = types
       setActive: undefined
     }
   })
-
 
 export default types.compose(ResourceStore, SubjectStore)

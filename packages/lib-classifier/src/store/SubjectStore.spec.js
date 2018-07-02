@@ -21,8 +21,8 @@ const RootStub = types
     }
   }))
 
-function * subjectGen() {
-  let index = 0;
+function * subjectGen () {
+  let index = 0
   while (index < index + 1) {
     index++
     const id = index.toString()
@@ -41,8 +41,7 @@ const subGen = subjectGen()
 const subjectsStub = {
   active: null,
   queue: [],
-  resources: {},
-  type: 'subjects',
+  resources: {}
 }
 
 const clientStub = {
@@ -58,7 +57,7 @@ const clientStub = {
 }
 sinon.spy(clientStub.panoptes, 'get')
 
-describe.only('Model > SubjectStore', function () {
+describe('Model > SubjectStore', function () {
   before(function () {
     for (let index = 0; index < 6; index++) {
       const obj = subGen.next().value
@@ -74,15 +73,10 @@ describe.only('Model > SubjectStore', function () {
     )
   })
 
-  after(function () {
-    subjectStore = null
-    rootStore = null
-  })
-
   it('should make the next subject in the queue active when calling `advance()`', function () {
     subjectStore.active.id.should.equal(subjectsStub.resources['1'].id)
     subjectStore.advance()
     subjectStore.active.id.should.equal(subjectsStub.resources['2'].id)
-    expect(subjectStore.resources.get('1')).to.be.undefined
+    expect(subjectStore.resources.get('1')).to.equal(undefined)
   })
 })

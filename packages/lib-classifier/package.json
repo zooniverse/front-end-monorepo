@@ -7,6 +7,7 @@
     "_check": "check-dependencies",
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
+    "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "npm run _check && PANOPTES_ENV=production npm run dev",
     "test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha || true"
   },
@@ -40,6 +41,8 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "sinon": "^5.0.10",
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1",
     "styled-components": "^3.2.6",
     "superagent": "^3.8.3",
     "webpack": "^4.8.3",
@@ -54,12 +57,16 @@
     "styled-components": "^3.2.6"
   },
   "standard": {
+    "env": {
+      "mocha": true
+    },
     "globals": [
       "before",
       "describe",
       "expect",
       "it"
-    ]
+    ],
+    "parser": "babel-eslint"
   },
   "dependencies": {
     "valid-url": "^1.0.9"

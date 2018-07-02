@@ -20,12 +20,8 @@ describe('Model > Project', function () {
     model = Project.create(stub)
   })
 
-  after(function () {
-    model = null
-  })
-
   it('should exist', function () {
-    expect(Project).to.not.be.undefined
+    expect(Project).to.not.equal(undefined)
   })
 
   it('should have a `configuration` property', function () {

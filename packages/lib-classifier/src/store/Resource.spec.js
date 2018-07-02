@@ -11,12 +11,8 @@ describe('Model > Resource', function () {
     resource = Resource.create(stub)
   })
 
-  after(function () {
-    resource = null
-  })
-
   it('should exist', function () {
-    expect(Resource).to.not.be.undefined
+    expect(Resource).to.not.equal(undefined)
   })
 
   it('should have an `id` property', function () {

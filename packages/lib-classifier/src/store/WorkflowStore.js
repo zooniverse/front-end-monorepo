@@ -1,12 +1,13 @@
 import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import ResourceStore from './ResourceStore'
 import Workflow from './Workflow'
 
 const WorkflowStore = types
   .model('WorkflowStore', {
     active: types.maybe(types.reference(Workflow)),
-    resources: types.optional(types.map(Workflow), {})
+    resources: types.optional(types.map(Workflow), {}),
+    type: types.optional(types.string, 'workflows')
   })
 
   .actions(self => {
@@ -25,13 +26,26 @@ const WorkflowStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function selectWorkflow (id) {
+    function getDefaultWorkflowId () {
+      const project = getRoot(self).projects.active
+      let id = null
+
+      if (project) {
+        if (project.configuration && project.configuration.default_workflow) {
+          id = project.configuration.default_workflow
+        } else if (project.links && project.links.active_workflows[0]) {
+          id = project.links.active_workflows[0]
+        }
+      }
+
+      return id
+    }
+
+    function selectWorkflow (id = getDefaultWorkflowId()) {
       if (id) {
         self.setActive(id)
       } else {
-        const project = getRoot(self).projects.active
-        const defaultWorkflow = project.configuration.default_workflow
-        self.setActive(defaultWorkflow)
+        throw new ReferenceError('No workflow ID available')
       }
     }
 
