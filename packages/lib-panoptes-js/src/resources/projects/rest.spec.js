@@ -30,7 +30,7 @@ describe('Projects resource REST requests', function () {
     it('should return the expected response', function () {
       return projects.create().then(response => {
         expect(response).to.eql({ body: expectedResponse }) // deep equality
-      }).catch(err => console.error('error', err))
+      })
     })
 
     it('should have sent the expected data params with an added { private: true }', function () {
@@ -108,7 +108,7 @@ describe('Projects resource REST requests', function () {
 
       it('should error if id arugment is not a string', function () {
         return projects.get({ id: 2 }).catch(error => {
-          expect(error).to.equal('Projects: Get request id must be a string.')
+          expect(error.message).to.equal('Projects: Get request id must be a string.')
         })
       })
     })
@@ -135,19 +135,19 @@ describe('Projects resource REST requests', function () {
 
     it('should error if id argument is not a string', function () {
       return projects.update({ id: 2 }).catch((error) => {
-        expect(error).to.equal('Projects: Update request id must be a string.')
+        expect(error.message).to.equal('Projects: Update request id must be a string.')
       })
     })
 
     it('should error if data argument is falsy', function () {
       return projects.update({ data: update }).catch((error) => {
-        expect(error).to.equal('Projects: Update request missing project id.')
+        expect(error.message).to.equal('Projects: Update request missing project id.')
       })
     })
 
     it('should error if data argument is falsy', function () {
       return projects.update({ id: '2' }).catch((error) => {
-        expect(error).to.equal('Projects: Update request missing data to post.')
+        expect(error.message).to.equal('Projects: Update request missing data to post.')
       })
     })
 
@@ -177,19 +177,19 @@ describe('Projects resource REST requests', function () {
 
     it('should error if the request is missing a project id', function () {
       return projects.delete().catch((error) => {
-        expect(error).to.equal('Projects: Delete request missing project id.')
+        expect(error.message).to.equal('Projects: Delete request missing project id.')
       })
     })
 
     it('should error if the request project id is an empty string', function () {
       return projects.delete({ id: '' }).catch((error) => {
-        expect(error).to.equal('Projects: Delete request missing project id.')
+        expect(error.message).to.equal('Projects: Delete request missing project id.')
       })
     })
 
     it('should error if the request\'s project id is not a string', function () {
       return projects.delete({ id: 2 }).catch((error) => {
-        expect(error).to.equal('Projects: Delete request id must be a string.')
+        expect(error.message).to.equal('Projects: Delete request id must be a string.')
       })
     })
 

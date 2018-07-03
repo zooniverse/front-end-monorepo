@@ -40,16 +40,16 @@ const mockedMediuaResource = buildMockedMediumResource('avatar', 'user')
 
 // The return would look like this. Note the ID is a random string number between 1-100
 {
-  content_type: "image/jpeg",
-  created_at: "2016-12-07T23:11:47.452Z",
+  content_type: 'image/jpeg',
+  created_at: '2016-12-07T23:11:47.452Z',
   external_link: false,
-  href: '/users/24/avatar`,
-  id: '24,
+  href: '/users/24/avatar',
+  id: '24',
   links: {},
   media_type: 'users_avatar',
   metadata: null,
-  src: `https://panoptes-uploads.zooniverse.org/production/users_avatar/random-string-example.jpeg`
-  updated_at: "2016-12-07T23:11:47.452Z"
+  src: 'https://panoptes-uploads.zooniverse.org/production/users_avatar/random-string-example.jpeg'
+  updated_at: '2016-12-07T23:11:47.452Z'
 }
 ```
 

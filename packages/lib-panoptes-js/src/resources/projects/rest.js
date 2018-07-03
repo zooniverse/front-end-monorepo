@@ -16,26 +16,26 @@ function get (params) {
   const projectId = (params && params.id) ? params.id : ''
 
   if (!projectId) return panoptes.get(endpoint, queryParams)
-  if (projectId && typeof projectId !== 'string') return handleError('Projects: Get request id must be a string.')
+  if (projectId && typeof projectId !== 'string') return handleError(new TypeError('Projects: Get request id must be a string.'))
 
   return panoptes.get(`${endpoint}/${projectId}`, queryParams)
 }
 
 function update (params) {
   const { id, data } = params
-  if (id && typeof id !== 'string') return handleError('Projects: Update request id must be a string.')
+  if (id && typeof id !== 'string') return handleError(new TypeError('Projects: Update request id must be a string.'))
   if (id && data) return panoptes.put(`${endpoint}/${id}`, data)
-  if (!id) return handleError('Projects: Update request missing project id.')
-  if (!data) return handleError('Projects: Update request missing data to post.')
+  if (!id) return handleError(new Error('Projects: Update request missing project id.'))
+  if (!data) return handleError(new Error('Projects: Update request missing data to post.'))
 
-  return handleError('Projects: Update request missing required parameters: id and data.')
+  return handleError(new Error('Projects: Update request missing required parameters: id and data.'))
 }
 
 function del (params) {
   const id = (params) ? params.id : ''
-  if (id && typeof id !== 'string') return handleError('Projects: Delete request id must be a string.')
+  if (id && typeof id !== 'string') return handleError(new TypeError('Projects: Delete request id must be a string.'))
   if (id) return panoptes.del(`${endpoint}/${id}`)
-  return handleError('Projects: Delete request missing project id.')
+  return handleError(new Error('Projects: Delete request missing project id.'))
 }
 
 module.exports = { create, get, update, del }

@@ -34,7 +34,7 @@ describe('Projects resource common requests', function () {
 
     it('should error if slug param is not a string', function () {
       return projects.getBySlug({ slug: 1234 }).catch((error) => {
-        expect(error).to.equal('Projects: Get request slug must be a string.')
+        expect(error.message).to.equal('Projects: Get request slug must be a string.')
       })
     })
 
@@ -46,7 +46,7 @@ describe('Projects resource common requests', function () {
 
     it('should error if slug param is not defined', function () {
       return projects.getBySlug().catch((error) => {
-        expect(error).to.equal('Projects: Get by slug request missing required parameter: slug string.')
+        expect(error.message).to.equal('Projects: Get by slug request missing required parameter: slug string.')
       })
     })
 
@@ -84,7 +84,7 @@ describe('Projects resource common requests', function () {
       }])
 
       return projects.getWithLinkedResources().catch((error) => {
-        expect(error).to.equal('Projects: Get request must have either project id or slug.')
+        expect(error.message).to.equal('Projects: Get request must have either project id or slug.')
       })
     })
 
@@ -105,13 +105,13 @@ describe('Projects resource common requests', function () {
 
       it('should error if slug is not a string', function () {
         return projects.getWithLinkedResources({ slug: 1234 }).catch((error) => {
-          expect(error).to.equal('Projects: Get request slug must be a string.')
+          expect(error.message).to.equal('Projects: Get request slug must be a string.')
         })
       })
 
       it('should error if the slug is not defined', function () {
         return projects.getWithLinkedResources().catch((error) => {
-          expect(error).to.equal('Projects: Get request must have either project id or slug.')
+          expect(error.message).to.equal('Projects: Get request must have either project id or slug.')
         })
       })
 
@@ -140,13 +140,13 @@ describe('Projects resource common requests', function () {
 
       it('should error if id is not a string', function () {
         return projects.getWithLinkedResources({ id: 1234 }).catch((error) => {
-          expect(error).to.equal('Projects: Get request id must be a string.')
+          expect(error.message).to.equal('Projects: Get request id must be a string.')
         })
       })
 
       it('should error if the id is not defined', function () {
         return projects.getWithLinkedResources().catch((error) => {
-          expect(error).to.equal('Projects: Get request must have either project id or slug.')
+          expect(error.message).to.equal('Projects: Get request must have either project id or slug.')
         })
       })
 
@@ -158,7 +158,7 @@ describe('Projects resource common requests', function () {
 
       it('should return a 404 if project is not found', function () {
         return projects.getWithLinkedResources({ id: '3' }).catch((error) => {
-          expect(error).to.equal(404)
+          expect(error.message).to.equal(404)
         })
       })
     })

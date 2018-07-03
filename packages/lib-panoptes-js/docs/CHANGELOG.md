@@ -9,5 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Base helpers for HTTP requests GET, PUT, POST, and DELETE
 - Client configuration file for which API host to use depending on environment
 - Project resource request helpers
+- Media resource test mocks
+- User resource test mocks
 - Tests
 - Documentation

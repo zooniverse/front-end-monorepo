@@ -3,14 +3,14 @@
 const superagent = require('superagent')
 const { config } = require('./config')
 
-function handleErrors (error) {
+function handleError (error) {
   if (console) console.error(error)
 
-  return error
+  return new Error(error)
 }
 
 function handleMissingParameter (message) {
-  return Promise.reject(message)
+  return Promise.reject(new Error(message))
 }
 
 function checkForAdminFlag () {
@@ -40,7 +40,7 @@ function get (endpoint, query, host) {
   } else {
     request.query(defaultParams)
   }
-  return request.then(response => response).catch(handleErrors)
+  return request.then(response => response).catch(handleError)
 }
 
 function post (endpoint, data, host) {
@@ -55,7 +55,7 @@ function post (endpoint, data, host) {
     // .set('Authorization', apiClient.headers.Authorization)
     .query(defaultParams)
     .send(data)
-    .then(response => response).catch(handleErrors)
+    .then(response => response).catch(handleError)
 }
 
 function put (endpoint, data, host) {
@@ -71,7 +71,7 @@ function put (endpoint, data, host) {
     // .set('Authorization', apiClient.headers.Authorization)
     .query(defaultParams)
     .send(data)
-    .then(response => response).catch(handleErrors)
+    .then(response => response).catch(handleError)
 }
 
 function del (endpoint, host) {
@@ -85,7 +85,7 @@ function del (endpoint, host) {
     .set('Accept', 'application/vnd.api+json; version=1')
     // .set('Authorization', apiClient.headers.Authorization)
     .query(defaultParams)
-    .then(response => response).catch(handleErrors)
+    .then(response => response).catch(handleError)
 }
 
 const requests = {
