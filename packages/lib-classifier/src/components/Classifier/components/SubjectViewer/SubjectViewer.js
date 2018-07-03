@@ -1,7 +1,11 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import getSubjectViewer from './helpers/getSubjectViewer'
+import SingleImageViewer from './components/SingleImageViewer'
+
+const viewers = {
+  singleImage: SingleImageViewer
+}
 
 function storeMapper (stores) {
   const subject = stores.classifierStore.subjects.active
@@ -12,42 +16,15 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class SubjectViewer extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      viewer: null
-    }
-  }
-
-  componentDidMount () {
-    this.setViewer()
-  }
-
-  componentDidUpdate (prevProps) {
-    const { subject, workflow } = this.props
-    if (subject && workflow && subject !== prevProps.subject) {
-      this.setViewer()
-    }
-  }
-
-  setViewer () {
-    const { subject, workflow } = this.props
-    const newState = Object.assign({}, this.state)
-    newState.viewer = (subject && workflow)
-      ? getSubjectViewer(subject, workflow)
-      : null
-    this.setState(newState)
-  }
-
   render () {
-    const { subject } = this.props
-    const { viewer } = this.state
+    console.info(this.props.subject)
 
-    if (viewer) {
-      const Viewer = viewer
-      return <Viewer subject={subject} />
+    if (!this.props.subject) {
+      return (<div>Loading</div>)
     }
-    return null
+
+    const Viewer = viewers[this.props.subject.viewer]
+    return <Viewer subject={this.props.subject} />
   }
 }
 
