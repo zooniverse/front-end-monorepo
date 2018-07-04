@@ -1,12 +1,36 @@
 import React from 'react'
+import { projects } from '@zooniverse/panoptes-js'
 
 import Classifier from '../../../src/components/Classifier'
-import project from './projectFixture'
 
 class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      project: null
+    }
+  }
+
+  async componentDidMount () {
+    const id = '335'
+    try {
+      const response = await projects.get({ id })
+      const project = response.body.projects[0]
+      this.setState({ project })
+    } catch (error) {
+      console.error(`Error fetching project ${id}`, error)
+    }
+  }
+
   render () {
+    if (!this.state.project) {
+      return (
+        <div>Loading project data...</div>
+      )
+    }
+
     return (
-      <Classifier project={project} />
+      <Classifier project={this.state.project} />
     )
   }
 }
