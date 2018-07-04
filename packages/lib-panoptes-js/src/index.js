@@ -1,10 +1,14 @@
-const { config } = require('./config')
+const { config, env } = require('./config')
 const panoptes = require('./panoptes')
-const { projects, projectMocks } = require('./resources/projects')
+const projects = require('./resources/projects')
+const media = require('./resources/media')
+const users = require('./resources/users')
 
 module.exports = {
   config,
+  env,
+  media,
   panoptes,
   projects,
-  projectMocks
+  users
 }

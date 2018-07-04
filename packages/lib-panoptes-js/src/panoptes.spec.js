@@ -98,7 +98,7 @@ describe('panoptes.js', function () {
 
     it('should error if request is called without a defined resource endpoint', function () {
       return panoptes.get().catch((error) => {
-        expect(error).to.equal('Request needs a defined resource endpoint')
+        expect(error.message).to.equal('Request needs a defined resource endpoint')
       })
     })
   })
@@ -190,7 +190,7 @@ describe('panoptes.js', function () {
 
     it('should error if request is called without a defined resource endpoint', function () {
       return panoptes.post().catch((error) => {
-        expect(error).to.equal('Request needs a defined resource endpoint')
+        expect(error.message).to.equal('Request needs a defined resource endpoint')
       })
     })
   })
@@ -282,7 +282,7 @@ describe('panoptes.js', function () {
 
     it('should error if request is called without a defined resource endpoint', function () {
       return panoptes.put().catch((error) => {
-        expect(error).to.equal('Request needs a defined resource endpoint')
+        expect(error.message).to.equal('Request needs a defined resource endpoint')
       })
     })
   })
@@ -365,7 +365,7 @@ describe('panoptes.js', function () {
 
     it('should error if request is called without a defined resource endpoint', function () {
       return panoptes.del().catch((error) => {
-        expect(error).to.equal('Request needs a defined resource endpoint')
+        expect(error.message).to.equal('Request needs a defined resource endpoint')
       })
     })
   })

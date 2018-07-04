@@ -1,3 +1,12 @@
+const users = require('../users')
+const media = require('../media')
+const { buildResponse } = require('../../utilityFunctions')
+const { buildMockedMediumResource } = media.mocks
+
+// Resources
+const projectAvatar = buildMockedMediumResource('avatar', 'project')
+const projectBackground = buildMockedMediumResource('background', 'project')
+
 const projectOne = {
   activity: 0,
   available_languages: ['en'],
@@ -76,46 +85,101 @@ const projectTwo = {
   workflow_description: ''
 }
 
-const newProjectResponse = {
-  linked: {},
-  links: {},
-  meta: {},
-  projects: [projectOne]
+const projectPages = {
+  team: {
+    content: '',
+    created_at: '2016-12-08T20:34:38.300Z',
+    href: '/projects/2/pages/1',
+    id: '1',
+    language: 'en',
+    links: { project: '1' },
+    title: 'Team',
+    type: 'project_pages',
+    updated_at: '2018-05-17T19:09:11.209Z',
+    url_key: 'team'
+  },
+  results: {
+    content: '',
+    created_at: '2016-12-08T20:34:47.085Z',
+    href: '/projects/2/pages/2',
+    id: '2',
+    language: 'en',
+    links: { project: '2' },
+    title: 'Results',
+    type: 'project_pages',
+    updated_at: '2018-05-17T19:16:57.618Z',
+    url_key: 'results'
+  }
 }
 
-const getProjectsResponse = {
-  linked: {},
-  links: {},
-  meta: {},
-  projects: [projectOne, projectTwo]
+const projectRoles = {
+  owner: {
+    href: '/project_roles/1',
+    id: '1',
+    links: { project: '2', owner: {} },
+    roles: ['owner']
+  },
+  multipleRoles: {
+    href: '/project_roles/2',
+    id: '2',
+    links: { project: '2', owner: {} },
+    roles: ['expert', 'scientist']
+  }
 }
 
-const getSingleProjectResponse = {
-  linked: {},
-  links: {},
-  meta: {},
-  projects: [projectTwo]
+const resources = {
+  projectAvatar,
+  projectBackground,
+  projectOne,
+  projectTwo,
+  projectPages,
+  projectRoles
 }
 
-const putProjectResponse = {
-  linked: {},
-  links: {},
-  meta: {},
-  projects: [Object.assign({}, projectTwo, { researcher_quote: 'Try my project!' })]
-}
+// Responses
 
-const notFound = {
-  links: {},
-  meta: {},
-  projects: []
+const createdProject = buildResponse('post', 'projects', [resources.projectOne], {})
+
+const projects = buildResponse('get', 'projects', [resources.projectOne, resources.projectTwo], {})
+
+const project = buildResponse('get', 'projects', [resources.projectTwo], {})
+
+const updatedProject = buildResponse('put', 'projects', [resources.projectTwo], {}, { researcher_quote: 'Try my project!' })
+
+const queryNotFound = buildResponse('get', 'projects', [])
+
+const projectRoleOwner = buildResponse('get', 'project_roles', [resources.projectRoles.owner])
+
+const projectRolesResponse = buildResponse('get', 'project_roles', [resources.projectRoles.owner, resources.projectRoles.multipleRoles])
+
+const projectPagesResponse = buildResponse('get', 'project_pages', [resources.projectPages.team, resources, projectPages.results])
+
+const projectWithLinkedResources = buildResponse('get', 'projects', [resources.projectTwo], {
+  avatars: [resources.projectAvatar],
+  backgrounds: [resources.projectBackground],
+  owners: users.mocks.resources.user,
+  project_pages: [resources.projectPages]
+})
+
+const responses = {
+  get: {
+    project,
+    projects,
+    queryNotFound,
+    projectRoleOwner,
+    projectRoles: projectRolesResponse,
+    projectPages: projectPagesResponse,
+    projectWithLinkedResources
+  },
+  post: {
+    createdProject
+  },
+  put: {
+    updatedProject
+  }
 }
 
 module.exports = {
-  projectOne,
-  projectTwo,
-  newProjectResponse,
-  getProjectsResponse,
-  getSingleProjectResponse,
-  putProjectResponse,
-  notFound
+  resources,
+  responses
 }
