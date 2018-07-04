@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import locationValidator from '../../helpers/locationValidator'
-import asyncStates from '../../../../helpers/asyncStates'
+import asyncStates from 'src/helpers/asyncStates'
 
 class SingleImageViewer extends React.Component {
   constructor (props) {
