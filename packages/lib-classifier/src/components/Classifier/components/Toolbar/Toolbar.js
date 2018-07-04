@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box } from 'grommet'
+import Button from './components/Button'
 
 const toolbarStyles = {
   pad: 'small',
@@ -11,7 +12,10 @@ const toolbarStyles = {
 
 function Toolbar () {
   return (
-    <Box {...toolbarStyles}>Toolbar</Box>
+    <Box {...toolbarStyles}>
+      Toolbar
+      <Button />
+    </Box>
   )
 }
 
