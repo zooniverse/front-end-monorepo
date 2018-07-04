@@ -12,8 +12,8 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class SubjectViewer extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       viewer: null
     }
