@@ -1,6 +1,6 @@
 const users = require('../users')
 const media = require('../media')
-const { buildResponse } = require('../../helpers')
+const { buildResponse } = require('../../utilityFunctions')
 const { buildMockedMediumResource } = media.mocks
 
 // Resources

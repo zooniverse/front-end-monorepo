@@ -13,11 +13,17 @@ function getProjectSlugFromURL (urlArg) {
   }
 }
 
-function handleError (error) {
-  if (console && process.env.NODE_ENV !== 'test') console.error(error)
-  return Promise.reject(error)
+function raiseError (errorMessage, errorClass) {
+  const error = {
+    error: new Error(errorMessage),
+    typeError: new TypeError(errorMessage)
+  }
+
+  if (console && process.env.NODE_ENV !== 'test') console.error(error[errorClass])
+
+  return Promise.reject(error[errorClass])
 }
 
 const endpoint = '/projects'
 
-module.exports = { getProjectSlugFromURL, handleError, endpoint }
+module.exports = { getProjectSlugFromURL, raiseError, endpoint }

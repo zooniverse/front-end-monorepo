@@ -1,5 +1,4 @@
-const { expect } = require('chai')
-const { getProjectSlugFromURL, handleError } = require('./helpers')
+const { getProjectSlugFromURL } = require('./helpers')
 
 const validUrls = [
   '/projects/foo/bar',
@@ -24,14 +23,6 @@ describe('Helpers', function () {
     it('should throw if passed an invalid URL', function () {
       invalidUrls.forEach(function (url) {
         (function () { getProjectSlugFromURL(url) }).should.throw()
-      })
-    })
-  })
-
-  describe('handleError', function () {
-    it('should return a rejected promise with the error message', function () {
-      return handleError('oops').catch((error) => {
-        expect(error).to.equal('oops')
       })
     })
   })

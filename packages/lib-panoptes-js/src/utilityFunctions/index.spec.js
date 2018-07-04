@@ -1,7 +1,7 @@
 const { expect } = require('chai')
-const { buildResponse } = require('./index')
+const { buildResponse, raiseError } = require('./index')
 
-describe('Global Helpers', function () {
+describe('Global Utility Functions', function () {
   describe('buildResponse', function () {
     const resourceType = 'projects'
     const resources = [{}]
@@ -34,6 +34,26 @@ describe('Global Helpers', function () {
 
       expectedReturnValue.linked = linked
       expect(buildResponse('get', resourceType, resources, linked)).to.eql(expectedReturnValue)
+    })
+  })
+
+  describe('raiseError', function () {
+    it('should return a rejected promise with the error message', function () {
+      return raiseError('oops', 'error').catch((error) => {
+        expect(error.message).to.equal('oops')
+      })
+    })
+
+    it('should return an error of the Error class', function () {
+      return raiseError('oops', 'error').catch((error) => {
+        expect(error).to.be.an.instanceof(Error)
+      })
+    })
+
+    it('should return an error of the TypeError class', function () {
+      return raiseError('oops', 'typeError').catch((error) => {
+        expect(error).to.be.an.instanceof(TypeError)
+      })
     })
   })
 })

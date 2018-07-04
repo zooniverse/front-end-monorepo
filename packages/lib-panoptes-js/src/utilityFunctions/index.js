@@ -22,4 +22,15 @@ function buildResponse (httpMethod, resourceType, resources, linked, params) {
   return response
 }
 
-module.exports = { isBrowser, isNode, buildResponse }
+function raiseError(errorMessage, errorClass) {
+  const error = {
+    error: new Error(errorMessage),
+    typeError: new TypeError(errorMessage)
+  }
+
+  if (console && process.env.NODE_ENV !== 'test') console.error(error[errorClass])
+
+  return Promise.reject(error[errorClass])
+}
+
+module.exports = { isBrowser, isNode, buildResponse, raiseError }

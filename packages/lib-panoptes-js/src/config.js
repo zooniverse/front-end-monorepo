@@ -1,5 +1,5 @@
 /* global location */
-const { isBrowser } = require('./helpers')
+const { isBrowser } = require('./utilityFunctions')
 
 /*
 Configuration Settings
