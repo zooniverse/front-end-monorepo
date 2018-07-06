@@ -1,21 +1,36 @@
 import React from 'react'
 import { Box } from 'grommet'
-import Button from './components/Button'
+import FieldGuideButton from './components/FieldGuideButton'
+import FullscreenButton from './components/FullscreenButton'
+import MoveButton from './components/MoveButton'
+import PointerButton from './components/PointerButton'
+import ResetButton from './components/ResetButton'
+import RotateButton from './components/RotateButton'
+import ZoomInButton from './components/ZoomInButton'
+import ZoomOutButton from './components/ZoomOutButton'
 
 const toolbarStyles = {
-  pad: 'small',
   border: {
     color: 'lightGrey',
     side: 'all'
-  }
+  },
+  pad: 'small'
 }
 
 function Toolbar () {
   return (
-    <Box {...toolbarStyles}>
-      Toolbar
-      <Button />
-    </Box>
+    <div>
+      <Box {...toolbarStyles}>
+        <PointerButton />
+        <MoveButton />
+        <ZoomInButton />
+        <ZoomOutButton />
+        <RotateButton />
+        <FullscreenButton />
+        <ResetButton />
+      </Box>
+      <FieldGuideButton />
+    </div>
   )
 }
 
