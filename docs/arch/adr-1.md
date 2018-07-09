@@ -1,6 +1,6 @@
 # ADR 1: Adopting Architecture Decision Records
 
-July 19, 2018
+June 19, 2018
 
 ## Context
 
