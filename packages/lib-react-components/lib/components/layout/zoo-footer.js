@@ -3,6 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.StyledEasterEgg = exports.StyledDivider = exports.StyledNavListItem = exports.StyledNavListHeader = exports.StyledFooterSection = exports.StyledFooterBox = undefined;
+
+var _templateObject = _taggedTemplateLiteral(['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  &.footer__nav {\n    font-size: 1em;\n  }\n'], ['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  &.footer__nav {\n    font-size: 1em;\n  }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  position: relative;\n  width: 100%;\n\n  &.small {\n    font-size: 0.8em;\n  }\n'], ['\n  position: relative;\n  width: 100%;\n\n  &.small {\n    font-size: 0.8em;\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  color: #007482;\n  font-weight: bold;\n  letter-spacing: 1px;\n  margin-bottom: 0.5em;\n  text-transform: uppercase;\n'], ['\n  color: #007482;\n  font-weight: bold;\n  letter-spacing: 1px;\n  margin-bottom: 0.5em;\n  text-transform: uppercase;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  color: #5C5C5C\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg:hover, svg:focus {\n      fill: #004b54\n    }\n  }\n'], ['\n  color: #5C5C5C\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg:hover, svg:focus {\n      fill: #004b54\n    }\n  }\n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
+    _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  :hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  :hover {\n    opacity: 1;\n  }\n']);
 
 var _react = require('react');
 
@@ -12,51 +20,33 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Footer = require('grommet/components/Footer');
+var _grommet = require('grommet');
 
-var _Footer2 = _interopRequireDefault(_Footer);
+var _grommetIcons = require('grommet-icons');
 
-var _Section = require('grommet/components/Section');
+var _styledComponents = require('styled-components');
 
-var _Section2 = _interopRequireDefault(_Section);
-
-var _Columns = require('grommet/components/Columns');
-
-var _Columns2 = _interopRequireDefault(_Columns);
-
-var _Menu = require('grommet/components/Menu');
-
-var _Menu2 = _interopRequireDefault(_Menu);
-
-var _Anchor = require('grommet/components/Anchor');
-
-var _Anchor2 = _interopRequireDefault(_Anchor);
-
-var _Button = require('grommet/components/Button');
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _Image = require('grommet/components/Image');
-
-var _Image2 = _interopRequireDefault(_Image);
-
-var _SocialFacebookOption = require('grommet/components/icons/base/SocialFacebookOption');
-
-var _SocialFacebookOption2 = _interopRequireDefault(_SocialFacebookOption);
-
-var _SocialTwitter = require('grommet/components/icons/base/SocialTwitter');
-
-var _SocialTwitter2 = _interopRequireDefault(_SocialTwitter);
-
-var _SocialInstagram = require('grommet/components/icons/base/SocialInstagram');
-
-var _SocialInstagram2 = _interopRequireDefault(_SocialInstagram);
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _zooniverseLogotype = require('../zooniverse-logotype');
 
 var _zooniverseLogotype2 = _interopRequireDefault(_zooniverseLogotype);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var StyledFooterBox = exports.StyledFooterBox = (0, _styledComponents2.default)(_grommet.Box)(_templateObject);
+
+var StyledFooterSection = exports.StyledFooterSection = (0, _styledComponents2.default)(_grommet.Box)(_templateObject2);
+
+var StyledNavListHeader = exports.StyledNavListHeader = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject3);
+
+var StyledNavListItem = exports.StyledNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4);
+
+var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject5);
+
+var StyledEasterEgg = exports.StyledEasterEgg = (0, _styledComponents2.default)(_grommet.Image)(_templateObject6);
 
 var ZooFooter = function ZooFooter(props) {
   var createKeyedAnchorItem = function createKeyedAnchorItem(navItem, i) {
@@ -68,108 +58,130 @@ var ZooFooter = function ZooFooter(props) {
   };
 
   return _react2.default.createElement(
-    _Footer2.default,
+    StyledFooterBox,
     {
-      className: 'footer',
+      align: 'center',
+      background: props.mainSectionColorIndex,
       direction: 'column',
-      size: 'large',
-      primary: true,
-      colorIndex: props.mainSectionColorIndex,
-      pad: { horizontal: 'none', vertical: 'none' }
+      pad: { horizontal: 'none', vertical: 'none' },
+      tag: 'footer'
     },
     _react2.default.createElement(
-      _Section2.default,
+      StyledFooterSection,
       {
-        className: 'footer__section',
-        full: 'horizontal',
         direction: 'row',
+        fill: 'horizontal',
         justify: 'between',
         pad: { horizontal: 'large', vertical: 'medium' },
-        margin: { horizontal: 'large', vertical: 'none' }
+        margin: { horizontal: 'large', vertical: 'none' },
+        tag: 'section'
       },
       props.homeLogoDiv,
       _react2.default.createElement(
-        _Menu2.default,
-        { className: 'footer__nav', direction: 'row', inline: true, responsive: false },
+        _grommet.Box,
+        {
+          className: 'footer__nav',
+          direction: 'row',
+          gap: 'medium',
+          responsive: false
+        },
         props.socialNavList.map(function (navItem, i) {
           return createKeyedAnchorItem(navItem, i);
         })
       )
     ),
     _react2.default.createElement(
-      _Section2.default,
-      { pad: { horizontal: 'large', vertical: 'none' }, full: 'horizontal' },
-      _react2.default.createElement('hr', { className: 'footer__divider' })
+      _grommet.Box,
+      {
+        fill: 'horizontal',
+        pad: { horizontal: 'large' },
+        tag: 'section'
+      },
+      _react2.default.createElement(StyledDivider, null)
     ),
     _react2.default.createElement(
-      _Section2.default,
+      StyledFooterSection,
       {
         direction: 'row',
-        className: 'footer__section',
         pad: { horizontal: 'large', vertical: 'medium' },
-        margin: { top: 'none', bottom: 'large', left: 'none', right: 'none' }
+        margin: {
+          top: 'none', bottom: 'large', left: 'none', right: 'none'
+        },
+        tag: 'section'
       },
       _react2.default.createElement(
-        _Columns2.default,
-        { maxCount: 6, masonry: true, size: 'small' },
+        _grommet.Box,
+        {
+          direction: 'column',
+          fill: 'horizontal',
+          justify: 'between',
+          height: 'small',
+          wrap: true
+        },
         _react2.default.createElement(
-          _Menu2.default,
+          _grommet.Box,
           { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
           props.projectNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
-          _Menu2.default,
+          _grommet.Box,
+          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
+          props.newsNavList.map(function (navItem, i) {
+            return createKeyedAnchorItem(navItem, i);
+          })
+        ),
+        _react2.default.createElement(
+          _grommet.Box,
           { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
           props.aboutNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
-          _Menu2.default,
+          _grommet.Box,
           { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
           props.getInvolvedNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
-          _Menu2.default,
+          _grommet.Box,
           { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
           props.talkNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
-          _Menu2.default,
+          _grommet.Box,
           { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
           props.buildNavList.map(function (navItem, i) {
-            return createKeyedAnchorItem(navItem, i);
-          })
-        ),
-        _react2.default.createElement(
-          _Menu2.default,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
-          props.newsNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         )
       )
     ),
     _react2.default.createElement(
-      _Section2.default,
+      StyledFooterSection,
       {
         align: 'center',
-        className: 'footer__section--small',
-        colorIndex: props.smallSectionColorIndex,
+        className: 'small',
+        background: props.smallSectionColorIndex,
         direction: 'row',
-        full: 'horizontal',
+        fill: 'horizontal',
         pad: { horizontal: 'large', vertical: 'none' },
-        justify: 'between'
+        justify: 'between',
+        tag: 'section'
       },
       _react2.default.createElement(
-        _Menu2.default,
-        { className: 'footer__nav', direction: 'row', inline: true, responsive: false },
+        _grommet.Box,
+        {
+          className: 'footer__nav',
+          direction: 'row',
+          gap: 'small',
+          responsive: false
+        },
         props.policyNavList.map(function (navItem, i) {
           return createKeyedAnchorItem(navItem, i);
         })
@@ -178,7 +190,7 @@ var ZooFooter = function ZooFooter(props) {
         'div',
         null,
         props.adminContainer,
-        _react2.default.createElement(_Image2.default, { className: 'footer__easter-egg', src: 'https://s3.amazonaws.com/zooniverse-static/assets/penguin.png', alt: '' })
+        _react2.default.createElement(StyledEasterEgg, { src: 'https://s3.amazonaws.com/zooniverse-static/assets/penguin.png', alt: '' })
       )
     )
   );
@@ -186,139 +198,134 @@ var ZooFooter = function ZooFooter(props) {
 
 ZooFooter.defaultProps = {
   aboutNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-header', href: 'https://www.zooniverse.org/about' },
+    StyledNavListHeader,
+    { href: 'https://www.zooniverse.org/about' },
     'About'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/about/publications' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/about/publications' },
     'Publications'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/about/team' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/about/team' },
     'Team'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/about/acknowledgements' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/about/acknowledgements' },
     'Acknowledgements'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/about/contact' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/about/contact' },
     'Contact'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/about/faq' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/about/faq' },
     'FAQ'
   )],
   adminContainer: null,
   buildNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-header', href: 'https://www.zooniverse.org/lab' },
+    StyledNavListHeader,
+    { href: 'https://www.zooniverse.org/lab' },
     'Build a Project'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/help' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/help' },
     'Tutorial'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/help/glossary' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/help/glossary' },
     'Glossary'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/help/lab-policies' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/help/lab-policies' },
     'Policies'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/lab-best-practices/introduction' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/lab-best-practices/introduction' },
     'Best Practices'
   )],
   getInvolvedNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-header', href: 'https://www.zooniverse.org/get-involved' },
+    StyledNavListHeader,
+    { href: 'https://www.zooniverse.org/get-involved' },
     'Get Involved'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/get-involved/education' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/get-involved/education' },
     'Education'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/get-involved/call-for-projects' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/get-involved/call-for-projects' },
     'Call for Projects'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/collections' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/collections' },
     'Collections'
   )],
   homeLogoDiv: _react2.default.createElement(
     'div',
     { className: 'footer__logo' },
     _react2.default.createElement(
-      _Anchor2.default,
+      _grommet.Anchor,
       { href: 'https://www.zooniverse.org' },
       _react2.default.createElement(_zooniverseLogotype2.default, null)
     ),
     _react2.default.createElement('br', null),
     'People Powered Research'
   ),
-  mainSectionColorIndex: "light-1",
+  mainSectionColorIndex: '#fff',
   newsNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-header', href: '#' },
+    StyledNavListHeader,
+    { href: '#' },
     'News'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://daily.zooniverse.org/' },
+    StyledNavListItem,
+    { href: 'https://daily.zooniverse.org/' },
     'Daily Zooniverse'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://blog.zooniverse.org/projects' },
+    StyledNavListItem,
+    { href: 'https://blog.zooniverse.org/projects' },
     'Blog'
   )],
   policyNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/privacy' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/privacy' },
     'Privacy Policy'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'http://jobs.zooniverse.org/' },
+    StyledNavListItem,
+    { href: 'http://jobs.zooniverse.org/' },
     'Jobs'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://status.zooniverse.org/' },
+    StyledNavListItem,
+    { href: 'https://status.zooniverse.org/' },
     'System Status'
   ), _react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-item', href: 'https://www.zooniverse.org/security' },
+    StyledNavListItem,
+    { href: 'https://www.zooniverse.org/security' },
     'Security'
   )],
   projectNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-header', href: 'https://www.zooniverse.org/projects' },
+    StyledNavListHeader,
+    { href: 'https://www.zooniverse.org/projects' },
     'Projects'
   )],
-  smallSectionColorIndex: "light-2",
-  socialNavList: [
-  // Button with an href behaves like an Anchor.
-  // Buttons have to be used because Icons used in Anchors in a Box (or things that are sub-classes of a Box) that has its colorIndex set wiill be opinionated.
-  // The styles for a Box in that case will supercede the colorIndex set on the Icon.
-  // However there is a related bug: https://github.com/grommet/grommet/issues/1513
-  _react2.default.createElement(
-    _Button2.default,
-    { className: 'nav__list-item--social-media', href: 'https://www.facebook.com/therealzooniverse', a11yTitle: 'Facebook' },
-    _react2.default.createElement(_SocialFacebookOption2.default, { colorIndex: 'brand', size: 'small' }),
+  smallSectionColorIndex: '#eef2f5',
+  socialNavList: [_react2.default.createElement(
+    StyledNavListItem,
+    { className: 'social-media', href: 'https://www.facebook.com/therealzooniverse', a11yTitle: 'Facebook' },
+    _react2.default.createElement(_grommetIcons.FacebookOption, { colorIndex: 'brand', size: 'small' }),
     ' '
   ), _react2.default.createElement(
-    _Button2.default,
-    { className: 'nav__list-item--social-media', href: 'https://twitter.com/the_zooniverse', a11yTitle: 'Twitter' },
-    _react2.default.createElement(_SocialTwitter2.default, { colorIndex: 'brand', size: 'small' })
+    StyledNavListItem,
+    { className: 'social-media', href: 'https://twitter.com/the_zooniverse', a11yTitle: 'Twitter' },
+    _react2.default.createElement(_grommetIcons.Twitter, { colorIndex: 'brand', size: 'small' })
   ), _react2.default.createElement(
-    _Button2.default,
-    { className: 'nav__list-item--social-media', href: 'https://www.instagram.com/the.zooniverse/', a11yTitle: 'Instagram' },
-    _react2.default.createElement(_SocialInstagram2.default, { colorIndex: 'brand', size: 'small' })
+    StyledNavListItem,
+    { className: 'social-media', href: 'https://www.instagram.com/the.zooniverse/', a11yTitle: 'Instagram' },
+    _react2.default.createElement(_grommetIcons.Instagram, { colorIndex: 'brand', size: 'small' })
   )],
   talkNavList: [_react2.default.createElement(
-    _Anchor2.default,
-    { className: 'nav__list-header', href: 'https://www.zooniverse.org/talk' },
+    StyledNavListHeader,
+    { href: 'https://www.zooniverse.org/talk' },
     'Talk'
   )]
 };
