@@ -9,6 +9,6 @@ describe('Component > ResetButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = mount(<ResetButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('Reset')
+    expect(wrapper.find('button').prop('aria-label')).to.equal('Reset subject view')
   })
 })

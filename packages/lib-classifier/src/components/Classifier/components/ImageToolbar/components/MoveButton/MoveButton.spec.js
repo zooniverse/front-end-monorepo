@@ -9,6 +9,6 @@ describe('Component > MoveButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = mount(<MoveButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('Move')
+    expect(wrapper.find('button').prop('aria-label')).to.equal('Move subject')
   })
 })

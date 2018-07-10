@@ -1,6 +1,6 @@
 import React from 'react'
 import SubjectViewer from '../../../SubjectViewer'
-import Toolbar from '../../../Toolbar'
+import ImageToolbar from '../../../ImageToolbar'
 import styled from 'styled-components'
 import { Box } from 'grommet'
 
@@ -31,7 +31,7 @@ const StyledSubjectViewer = styled(SubjectViewer)`
   grid-area: subject;
 `
 
-const StyledToolbar = styled(Toolbar)`
+const StyledImageToolbar = styled(ImageToolbar)`
   grid-area: toolbar;
 `
 
@@ -40,7 +40,7 @@ function DefaultLayout () {
     <ContainerGrid>
       <ViewerGrid>
         <StyledSubjectViewer />
-        <StyledToolbar />
+        <StyledImageToolbar />
       </ViewerGrid>
       <Box {...boxStyles}>tasks</Box>
     </ContainerGrid>

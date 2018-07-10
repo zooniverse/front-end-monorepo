@@ -9,6 +9,6 @@ describe('Component > FullscreenButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = mount(<FullscreenButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('Fullscreen')
+    expect(wrapper.find('button').prop('aria-label')).to.equal('View subject in full screen mode')
   })
 })

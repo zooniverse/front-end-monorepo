@@ -9,6 +9,6 @@ describe('Component > ZoomInButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = mount(<ZoomInButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('Zoom in')
+    expect(wrapper.find('button').prop('aria-label')).to.equal('Zoom in on subject')
   })
 })

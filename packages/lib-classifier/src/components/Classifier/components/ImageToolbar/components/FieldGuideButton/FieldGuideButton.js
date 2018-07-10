@@ -1,9 +1,14 @@
+import counterpart from 'counterpart'
+import { Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+import en from './locales/en'
 import helpIcon from './helpIcon'
-import { Box } from 'grommet'
 import WithHoverOrFocusProp from '../WithHoverOrFocusProp'
+
+counterpart.registerTranslations('en', en)
 
 const StyledButton = styled.button`
   background: #00979D;
@@ -45,13 +50,13 @@ class FieldGuideButton extends React.Component {
     return (
       <StyledButton
         {...eventHandlers}
-        aria-label='Open Field Guide'
+        aria-label={counterpart('FieldGuideButton.ariaLabel')}
         hoverOrFocus={hoverOrFocus}
         onClick={this.onClick}
       >
         <Box align='center' pad='small'>
-          <div>Field</div>
-          <div>Guide</div>
+          <div>{counterpart('FieldGuideButton.buttonLabel.field')}</div>
+          <div>{counterpart('FieldGuideButton.buttonLabel.guide')}</div>
           {helpIcon}
         </Box>
       </StyledButton>
