@@ -5,7 +5,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ZooHeader } from '../src/components/layout/zoo-header';
-import grommetIcons from '../node_modules/grommet-icons';
 
 const mainHeaderNavList = [
   <a href="#">a link</a>
