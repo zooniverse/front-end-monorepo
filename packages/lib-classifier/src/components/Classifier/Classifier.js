@@ -17,8 +17,8 @@ const client = {
 }
 
 class Classifier extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.classifierStore = RootStore.create({}, { client })
     makeInspectable(this.classifierStore)
   }
