@@ -17,7 +17,7 @@ const toolbarStyles = {
   pad: 'small'
 }
 
-function Toolbar (props) {
+function ImageToolbar (props) {
   return (
     <aside {...props}>
       <Box {...toolbarStyles}>
@@ -34,4 +34,4 @@ function Toolbar (props) {
   )
 }
 
-export default Toolbar
+export default ImageToolbar
