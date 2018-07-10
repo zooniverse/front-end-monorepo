@@ -1,5 +1,6 @@
 const { create, get, update, del } = require('./rest')
 const { endpoint } = require('./helpers')
+const mocks = require('./mocks')
 
 const tutorials = {
   create,
