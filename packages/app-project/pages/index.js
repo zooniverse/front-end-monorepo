@@ -1,15 +1,17 @@
+import React from 'react'
+import { Grommet } from 'grommet'
+import { ZooFooter } from '@zooniverse/react-components'
 import Head from '../components/head'
 import Nav from '../components/nav'
-import { Grommet } from 'grommet'
-import React from 'react'
+
 
 export default () => (
   <Grommet>
     <Head title='Home' />
     <Nav />
-
     <div>
       Index
     </div>
+    <ZooFooter />
   </Grommet>
 )
