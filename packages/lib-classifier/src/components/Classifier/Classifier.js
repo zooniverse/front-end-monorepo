@@ -8,7 +8,7 @@ import {
   panoptes as panoptesClient,
   projects as projectsClient
 } from '@zooniverse/panoptes-js'
-import SubjectViewer from './components/SubjectViewer'
+import Layout from './components/Layout'
 import RootStore from 'src/store'
 
 const client = {
@@ -17,8 +17,8 @@ const client = {
 }
 
 class Classifier extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.classifierStore = RootStore.create({}, { client })
     makeInspectable(this.classifierStore)
   }
@@ -39,7 +39,7 @@ class Classifier extends React.Component {
     return (
       <Provider classifierStore={this.classifierStore}>
         <Grommet theme={theme}>
-          <SubjectViewer />
+          <Layout />
         </Grommet>
       </Provider>
     )
