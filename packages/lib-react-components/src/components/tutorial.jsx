@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'modal-form/dialog';
-import MediaCard from './media-card'
+import MediaCard from './media-card';
 import { Markdown } from 'markdownz';
 import apiClient from 'panoptes-client/lib/api-client';
 import StepThrough from '../components/step-through';
 
-
 const completedThisSession = {};
-if (window.tutorialsCompletedThisSession) {
-  window.tutorialsCompletedThisSession = completedThisSession;
-}
+// TODO fix [window is undefined](https://github.com/zeit/next.js/wiki/FAQ) issue
+// if (window && window.tutorialsCompletedThisSession) {
+//   window.tutorialsCompletedThisSession = completedThisSession;
+// }
 
-class Tutorial extends React.Component {
+class Tutorial extends Component {
   constructor(props) {
     super(props);
 

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from 'grommet/components/Box';
-import Heading from 'grommet/components/Heading';
-import Button from 'grommet/components/Button';
-import Layer from 'grommet/components/Layer';
+import { Box, Heading, Button, Layer } from 'grommet';
 import OauthGoogleIcon from './oauth-google-icon';
 
 export default function OauthModal(props) {

@@ -35,8 +35,9 @@ var DisplayNameSlugEditor = function (_Component) {
     _this.undoNameChange = _this.undoNameChange.bind(_this);
     _this.warnURLChange = _this.warnURLChange.bind(_this);
     _this.state = {
-      value: '',
+      origin: '',
       url: null,
+      value: '',
       warn: false
     };
     return _this;
@@ -46,6 +47,7 @@ var DisplayNameSlugEditor = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.getResourceUrl(this.props.resource);
+      this.setState({ origin: window.location.origin });
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -161,7 +163,6 @@ var DisplayNameSlugEditor = function (_Component) {
 
 DisplayNameSlugEditor.propTypes = {
   className: _propTypes2.default.string,
-  origin: _propTypes2.default.string,
   resource: _propTypes2.default.shape({
     display_name: _propTypes2.default.string,
     listed_at: _propTypes2.default.string,
@@ -172,7 +173,6 @@ DisplayNameSlugEditor.propTypes = {
 
 DisplayNameSlugEditor.defaultProps = {
   className: 'slug-editor',
-  origin: window.location.origin,
   resource: {},
   resourceType: ''
 };

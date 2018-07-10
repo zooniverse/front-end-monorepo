@@ -13,9 +13,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Button = require('grommet/components/Button');
-
-var _Button2 = _interopRequireDefault(_Button);
+var _grommet = require('grommet');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,7 +24,7 @@ function LoginButton(_ref) {
       plain = _ref.plain,
       toggleModal = _ref.toggleModal;
 
-  return _react2.default.createElement(_Button2.default, { type: 'button', className: className, onClick: login || toggleModal, label: label, plain: plain });
+  return _react2.default.createElement(_grommet.Button, { type: 'button', className: className, onClick: login || toggleModal, label: label, plain: plain });
 };
 
 LoginButton.defaultProps = {

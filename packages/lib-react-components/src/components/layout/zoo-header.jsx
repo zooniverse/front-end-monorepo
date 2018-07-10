@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Anchor from 'grommet/components/Anchor';
-import Header from 'grommet/components/Header';
-import Menu from 'grommet/components/Menu';
+import { Anchor, Header, Menu } from 'grommet';
 
 import withMobileView from './with-mobile-view';
 import ZooniverseLogo from '../zooniverse-logo';

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Anchor from 'grommet/components/Anchor';
-import Menu from 'grommet/components/Menu';
-import MenuIcon from 'grommet/components/icons/base/Menu';
+import { Anchor, Menu } from 'grommet';
+import { Menu as MenuIcon } from 'grommet-icons';
 
 import withMobileView from './with-mobile-view';
 

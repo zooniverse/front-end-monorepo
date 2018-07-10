@@ -16,10 +16,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _dataUriToBlob = require('data-uri-to-blob');
-
-var _dataUriToBlob2 = _interopRequireDefault(_dataUriToBlob);
-
 var _fileButton = require('./file-button');
 
 var _fileButton2 = _interopRequireDefault(_fileButton);
@@ -35,6 +31,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// TODO: [window is undefined](https://github.com/zeit/next.js/wiki/FAQ) issue with data-uri-to-blob, commenting out, needs proper fix
+// import toBlob from 'data-uri-to-blob';
+
 
 var ImageSelector = function (_React$Component) {
   _inherits(ImageSelector, _React$Component);
@@ -104,8 +103,8 @@ var ImageSelector = function (_React$Component) {
           this.setState({ working: false });
 
           img.title = srcFile.name;
-          if (window.navigator) {
-            this.props.onChange(this.props.resourceType, (0, _dataUriToBlob2.default)(dataURL), img);
+          if (window && window.navigator) {
+            // this.props.onChange(this.props.resourceType, toBlob(dataURL), img);
           } else {
             this.props.onChange(this.props.resourceType, img);
           }

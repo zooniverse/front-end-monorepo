@@ -41,12 +41,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var completedThisSession = {};
-if (window.tutorialsCompletedThisSession) {
-  window.tutorialsCompletedThisSession = completedThisSession;
-}
+// TODO fix [window is undefined](https://github.com/zeit/next.js/wiki/FAQ) issue
+// if (window && window.tutorialsCompletedThisSession) {
+//   window.tutorialsCompletedThisSession = completedThisSession;
+// }
 
-var Tutorial = function (_React$Component) {
-  _inherits(Tutorial, _React$Component);
+var Tutorial = function (_Component) {
+  _inherits(Tutorial, _Component);
 
   function Tutorial(props) {
     _classCallCheck(this, Tutorial);
@@ -153,7 +154,7 @@ var Tutorial = function (_React$Component) {
   }]);
 
   return Tutorial;
-}(_react2.default.Component);
+}(_react.Component);
 
 ;
 
@@ -219,12 +220,12 @@ Tutorial.start = function (TutorialComponent, tutorial, user, preferences) {
 
 Tutorial.propTypes = {
   preferences: _propTypes2.default.shape({
-    preferences: _react2.default.PropTypes.object
+    preferences: _propTypes2.default.object
   }),
   tutorial: _propTypes2.default.shape({
-    steps: _react2.default.PropTypes.array
+    steps: _propTypes2.default.array
   }),
-  user: _react2.default.PropTypes.object
+  user: _propTypes2.default.object
 };
 
 Tutorial.defaultProps = {
