@@ -27,7 +27,12 @@ const StyledButton = styled.button`
 `
 
 class FieldGuideButton extends React.Component {
-  onClick = () => {
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+  }
+
+  onClick () {
     console.info('Open field guide')
   }
 
@@ -40,7 +45,7 @@ class FieldGuideButton extends React.Component {
     return (
       <StyledButton
         {...eventHandlers}
-        aria-label="Open the Field Guide"
+        aria-label="Open Field Guide"
         hoverOrFocus={hoverOrFocus}
         onClick={this.onClick}
       >

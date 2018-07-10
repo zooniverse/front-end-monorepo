@@ -6,7 +6,7 @@ import Button from '../Button'
 
 function ResetButton () {
   return (
-    <Button>
+    <Button aria-label="Reset">
       {resetIcon}
     </Button>
   )

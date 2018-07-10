@@ -3,24 +3,31 @@ import PropTypes from 'prop-types'
 
 function WithHoverOrFocusProp (WrappedComponent) {
   return class extends React.Component {
-    state = {
-      focus: false,
-      hover: false
+    constructor () {
+      super()
+      this.setFocusActive = this.setFocusActive.bind(this)
+      this.setFocusInactive = this.setFocusInactive.bind(this)
+      this.setHoverActive = this.setHoverActive.bind(this)
+      this.setHoverInactive = this.setHoverInactive.bind(this)
+      this.state = {
+        focus: false,
+        hover: false
+      }
     }
 
-    setFocusActive = () => {
+    setFocusActive () {
       this.setState({ focus: true })
     }
 
-    setFocusInactive = () => {
+    setFocusInactive () {
       this.setState({ focus: false })
     }
 
-    setHoverActive = () => {
+    setHoverActive () {
       this.setState({ hover: true })
     }
 
-    setHoverInactive = () => {
+    setHoverInactive () {
       this.setState({ hover: false })
     }
 

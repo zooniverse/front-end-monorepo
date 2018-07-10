@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import pointerIcon from './pointerIcon'
+import moveIcon from './moveIcon'
 import Button from '../Button'
 
-function PointerButton () {
+function MoveButton () {
   return (
-    <Button adjustments={{ x: '1', y: '4' }}>
-      {pointerIcon}
+    <Button size="46" aria-label="Move">
+      {moveIcon}
     </Button>
   )
 }
 
-export default PointerButton
+export default MoveButton

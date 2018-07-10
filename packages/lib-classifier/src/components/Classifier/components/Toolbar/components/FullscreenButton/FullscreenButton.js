@@ -8,7 +8,7 @@ import Button from '../Button'
 function FullscreenButton () {
   const icon = fullscreenIcon
   return (
-    <Button>
+    <Button aria-label="Fullscreen">
       {icon}
     </Button>
   )

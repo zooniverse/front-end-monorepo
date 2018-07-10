@@ -6,7 +6,7 @@ import Button from '../Button'
 
 function RotateButton () {
   return (
-    <Button adjustments={{ y: '2' }}>
+    <Button adjustments={{ y: '2' }} aria-label="Rotate">
       {rotateIcon}
     </Button>
   )

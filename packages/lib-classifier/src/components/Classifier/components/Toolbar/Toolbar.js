@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box } from 'grommet'
+import AnnotateButton from './components/AnnotateButton'
 import FieldGuideButton from './components/FieldGuideButton'
 import FullscreenButton from './components/FullscreenButton'
 import MoveButton from './components/MoveButton'
-import PointerButton from './components/PointerButton'
 import ResetButton from './components/ResetButton'
 import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
@@ -21,7 +21,7 @@ function Toolbar () {
   return (
     <div>
       <Box {...toolbarStyles}>
-        <PointerButton />
+        <AnnotateButton />
         <MoveButton />
         <ZoomInButton />
         <ZoomOutButton />

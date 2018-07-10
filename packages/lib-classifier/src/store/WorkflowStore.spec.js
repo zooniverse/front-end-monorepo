@@ -1,6 +1,6 @@
 import WorkflowStore from './WorkflowStore'
 
-describe.only('Model > WorkflowStore', function () {
+describe('Model > WorkflowStore', function () {
   it('should exist', function () {
     expect(WorkflowStore).to.not.equal(undefined)
   })

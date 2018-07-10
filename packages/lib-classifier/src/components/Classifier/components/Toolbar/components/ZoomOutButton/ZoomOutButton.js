@@ -6,7 +6,7 @@ import Button from '../Button'
 
 function ZoomOutButton () {
   return (
-    <Button>
+    <Button aria-label="Zoom out">
       {zoomOutIcon}
     </Button>
   )

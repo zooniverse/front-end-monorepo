@@ -6,7 +6,7 @@ import Button from '../Button'
 
 function ZoomInButton () {
   return (
-    <Button>
+    <Button aria-label="Zoom in">
       {zoomInIcon}
     </Button>
   )
