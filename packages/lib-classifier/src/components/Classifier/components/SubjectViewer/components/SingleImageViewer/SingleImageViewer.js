@@ -32,33 +32,32 @@ class SingleImageViewer extends React.Component {
     })
   }
 
-   async handleSubject () {
-     const { subject } = this.props
-     const imageUrl = Object.values(subject.locations[0])[0]
-     this.setState({ loading: asyncStates.loading })
-     try {
-       const img = await this.fetchImage(imageUrl)
-       this.setState({
-         height: img.height,
-         width: img.width,
-         loading: asyncStates.loading
-       })
-     } catch (error) {
-       console.error(error)
-       this.setState({ loading: asyncStates.error })
-     }
+  async handleSubject () {
+    const { subject } = this.props
+    const imageUrl = Object.values(subject.locations[0])[0]
+    this.setState({ loading: asyncStates.loading })
+    try {
+      const img = await this.fetchImage(imageUrl)
+      this.setState({
+        height: img.height,
+        width: img.width,
+        loading: asyncStates.loading
+      })
+    } catch (error) {
+      console.error(error)
+      this.setState({ loading: asyncStates.error })
+    }
   }
 
   render () {
     const { subject } = this.props
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
-      <svg width="100%" height="100%">
+      <svg width='100%' height='100%'>
         <image xlinkHref={imageUrl} />
       </svg>
     )
   }
-
 }
 
 SingleImageViewer.propTypes = {

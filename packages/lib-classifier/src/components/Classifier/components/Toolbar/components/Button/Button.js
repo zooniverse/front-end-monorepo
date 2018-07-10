@@ -16,7 +16,7 @@ const Background = styled.circle`
 `
 
 const IconSVG = styled.svg`
-  fill: ${props => (props.hoverOrFocus || props.active) ? 'white' : 'black' };
+  fill: ${props => (props.hoverOrFocus || props.active) ? 'white' : 'black'};
 `
 
 class Button extends React.Component {
@@ -26,7 +26,7 @@ class Button extends React.Component {
       x: `${position}%`,
       y: `${position}%`,
       height: `${sizeInPercent}%`,
-      width: `${sizeInPercent}%`,
+      width: `${sizeInPercent}%`
     }
   }
 
@@ -48,13 +48,13 @@ class Button extends React.Component {
 
     return (
       <StyledButton {...eventHandlers} {...buttonProps}>
-        <svg viewBox="0 0 100 100">
+        <svg viewBox='0 0 100 100'>
           <Background
             active={active}
             hoverOrFocus={hoverOrFocus}
-            cx="50"
-            cy="50"
-            r="50"
+            cx='50'
+            cy='50'
+            r='50'
           />
           <IconSVG
             active={active}

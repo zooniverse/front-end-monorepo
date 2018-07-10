@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 function WithHoverOrFocusProp (WrappedComponent) {
   return class extends React.Component {

@@ -1,7 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import SingleImageViewer from './components/SingleImageViewer'
 import asyncStates from '../../../../helpers/asyncStates'
 import getViewer from './helpers/getViewer'
 

@@ -39,17 +39,17 @@ class FieldGuideButton extends React.Component {
   render () {
     const {
       eventHandlers,
-      hoverOrFocus,
+      hoverOrFocus
     } = this.props
 
     return (
       <StyledButton
         {...eventHandlers}
-        aria-label="Open Field Guide"
+        aria-label='Open Field Guide'
         hoverOrFocus={hoverOrFocus}
         onClick={this.onClick}
       >
-        <Box align="center" pad="small">
+        <Box align='center' pad='small'>
           <div>Field</div>
           <div>Guide</div>
           {helpIcon}
@@ -57,6 +57,11 @@ class FieldGuideButton extends React.Component {
       </StyledButton>
     )
   }
+}
+
+FieldGuideButton.propTypes = {
+  eventHandlers: PropTypes.object,
+  hoverOrFocus: PropTypes.bool
 }
 
 export default WithHoverOrFocusProp(FieldGuideButton)
