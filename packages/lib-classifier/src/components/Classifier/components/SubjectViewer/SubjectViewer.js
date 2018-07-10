@@ -21,13 +21,17 @@ class SubjectViewer extends React.Component {
     const { subjects } = this.props
     const { loadingState } = subjects
 
-    if (loadingState === asyncStates.error) {
-      console.error('There was an error loading the subjects')
+    if (loadingState === asyncStates.initialized) {
       return null
     }
 
-    if (loadingState !== asyncStates.success) {
+    if (loadingState === asyncStates.loading) {
       return (<div>Loading</div>)
+    }
+
+    if (loadingState === asyncStates.error) {
+      console.error('There was an error loading the subjects')
+      return null
     }
 
     const Viewer = getViewer(subjects.active.viewer)
@@ -43,6 +47,12 @@ SubjectViewer.propTypes = {
     })
   }),
   workflow: PropTypes.object
+}
+
+SubjectViewer.defaultProps = {
+  subjects: {
+    loadingState: asyncStates.initialized
+  }
 }
 
 export default SubjectViewer
