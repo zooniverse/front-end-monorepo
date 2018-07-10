@@ -29,7 +29,7 @@ describe('Tutorials resource REST requests', function () {
         superagentMock.unset()
       })
 
-      it('should error if the tutorial id or the workflow id is not defined', function () {
+      it('should error if the workflow id is not defined', function () {
         return tutorials.get().catch((error) => {
           expect(error).to.equal('Tutorials: Get request must include a workflow id or a tutorial id.')
         })
@@ -46,6 +46,8 @@ describe('Tutorials resource REST requests', function () {
           expect(error).to.equal('Tutorials: Get request workflow id must be a string.')
         })
       })
+
+      it('should return the expected response')
     })
 
     describe('a single tutorial', function () {

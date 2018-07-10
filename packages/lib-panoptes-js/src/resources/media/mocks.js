@@ -14,11 +14,11 @@ const mediaResourceTypes = {
 }
 
 const resourcesThatCanHaveMedia = {
-  field_guides: 'field_guides',
-  organizations: 'organizations',
-  projects: 'projects',
-  tutorials: 'tutorials',
-  users: 'users'
+  field_guide: 'field_guide',
+  organization: 'organization',
+  project: 'project',
+  tutorial: 'tutorial',
+  user: 'user'
 }
 
 function getRandomID (min, max) {
