@@ -10,6 +10,11 @@ function getAttachedImages(params) {
 }
 
 function getWithImages (params) {
+  // We probably always want the attached_images when requesting a tutorial.
+  // There is a known Panoptes bug with the include param returning unrelated attached_images
+  // https://github.com/zooniverse/Panoptes/issues/2279
+  // include request doesn't go past page one
+  // tutorials shoudn't have more than 20 steps, so, this is a way to enforce that.
   const defaultInclude = { include: 'attached_images' }
   const queryParams = (params && params.query) ? Object.assign({}, params.query, defaultInclude) : defaultInclude
 

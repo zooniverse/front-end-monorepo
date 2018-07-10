@@ -33,4 +33,10 @@ function raiseError(errorMessage, errorClass) {
   return Promise.reject(error[errorClass])
 }
 
-module.exports = { isBrowser, isNode, buildResponse, raiseError }
+function isParamTypeInvalid(param, type) {
+  if (param && typeof param !== type) return true
+
+  return false
+}
+
+module.exports = { isBrowser, isNode, buildResponse, isParamTypeInvalid, raiseError }
