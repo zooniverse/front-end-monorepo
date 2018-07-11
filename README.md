@@ -2,6 +2,12 @@
 
 This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
+```
+npm install -g lerna
+cd packages/whatever
+lerna bootstrap
+```
+
 ## Conventions
 
 ### NPM
