@@ -4,8 +4,8 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       project: null
     }
