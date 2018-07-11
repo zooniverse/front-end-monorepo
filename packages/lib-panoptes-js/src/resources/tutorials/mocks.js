@@ -52,13 +52,16 @@ const minicourse = {
   updated_at: "2017-03-27T18:34:24.488Z"
 }
 
-const attachedImage = buildMockedMediumResource('attached_images', 'tutorial')
+const attachedImageOne = buildMockedMediumResource('attached_images', 'tutorial')
+
+const attachedImageTwo = buildMockedMediumResource('attached_image', 'tutorial')
 
 const resources = {
   tutorialOne,
   tutorialTwo,
   minicourse,
-  attachedImage
+  attachedImageOne,
+  attachedImageTwo
 }
 
 // Responses
@@ -69,7 +72,11 @@ const tutorials = buildResponse('get', 'tutorials', [resources.tutorialOne, reso
 
 const minicourseResponse = buildResponse('get', 'tutorials', [resources.minicourse], {})
 
-const attachedImageResponse = buildResponse('get', 'media', [resources.attachedImage])
+const attachedImageResponse = buildResponse('get', 'media', [resources.attachedImageOne])
+
+const tutorialWithImagesResponse = buildResponse('get', 'tutorials', [resources.tutorialOne], { media: [resources.attachedImageOne] })
+
+const tutorialsWithImagesResponse = buildResponse('get', 'tutorials', [resources.tutorialOne, resources.tutorialTwo], { media: [resources.attachedImageOne, resources.attachedImageTwo] })
 
 const queryNotFound = buildResponse('get', 'tutorials', [])
 
@@ -77,6 +84,8 @@ const responses = {
   get: {
     tutorial: tutorialResponse,
     tutorials,
+    tutorialWithImages: tutorialWithImagesResponse,
+    tutorialsWithImages: tutorialsWithImagesResponse,
     minicourse: minicourseResponse,
     attachedImage: attachedImageResponse,
     queryNotFound

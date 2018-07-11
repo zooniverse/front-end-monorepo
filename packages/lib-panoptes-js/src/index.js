@@ -1,7 +1,9 @@
 const { config, env } = require('./config')
 const panoptes = require('./panoptes')
-const projects = require('./resources/projects')
+
 const media = require('./resources/media')
+const projects = require('./resources/projects')
+const tutorials = require('./resources/tutorials')
 const users = require('./resources/users')
 
 module.exports = {
@@ -10,5 +12,6 @@ module.exports = {
   media,
   panoptes,
   projects,
+  tutorials,
   users
 }

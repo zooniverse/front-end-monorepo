@@ -1,12 +1,19 @@
 const panoptes = require('../../panoptes')
-const { get } = require('./rest')
+const tutorials = require('./index')
 const { endpoint } = require('./helpers')
+const { raiseError } = require('../../utilityFunctions')
 
 function getAttachedImages(params) {
   const tutorialId = (params && params.id) ? params.id : ''
-  const tutorialAttachedImagesEndpoint = `${endpoint}/${tutorialId}/attached_images`
 
-  return panoptes.get(tutorialAttachedImagesEndpoint)
+  if (tutorialId) {
+    const queryParams = (params && params.query) ? params.query : {}
+    const tutorialAttachedImagesEndpoint = `${endpoint}/${tutorialId}/attached_images`
+
+    return panoptes.get(tutorialAttachedImagesEndpoint, queryParams)
+  }
+
+  return raiseError('Tutorials: getAttachedImages request requires a tutorial id.', 'error')
 }
 
 function getWithImages (params) {
@@ -17,18 +24,17 @@ function getWithImages (params) {
   // tutorials shoudn't have more than 20 steps, so, this is a way to enforce that.
   const defaultInclude = { include: 'attached_images' }
   const queryParams = (params && params.query) ? Object.assign({}, params.query, defaultInclude) : defaultInclude
-
-  return get(queryParams)
+  return tutorials.get(queryParams)
 }
 
 function getTutorials (params) {
-  return get(queryParams).then((response) => {
-    const { tutorials } = response.body
+  return tutorials.get(queryParams).then((response) => {
+    const tutorialsResponse = response.body.tutorials
 
-    if (tutorials && tutorials.length > 0) {
+    if (tutorialsResponse && tutorialsResponse.length > 0) {
       // We allow the null value on kind for backwards compatibility
       // These are standard tutorials added prior to the 'kind' field and mini-courses
-      return tutorials.filter((tutorial) => {
+      return tutorialsResponse.filter((tutorial) => {
         return tutorial.kind === 'tutorial' || null;
       })
     }
@@ -39,7 +45,7 @@ function getMinicourses (params) {
   const defaultKindParam = { kind: 'mini-course' }
   const queryParams = (params && params.query) ? Object.assign({}, params.query, defaultKindParam) : defaultKindParam
 
-  return get(queryParams)
+  return tutorials.get(queryParams)
 }
 
 module.exports = { getAttachedImages, getMinicourses, getTutorials, getWithImages }

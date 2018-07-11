@@ -22,7 +22,7 @@ function buildResponse (httpMethod, resourceType, resources, linked, params) {
   return response
 }
 
-function raiseError(errorMessage, errorClass) {
+function raiseError (errorMessage, errorClass) {
   const error = {
     error: new Error(errorMessage),
     typeError: new TypeError(errorMessage)
@@ -33,7 +33,7 @@ function raiseError(errorMessage, errorClass) {
   return Promise.reject(error[errorClass])
 }
 
-function isParamTypeInvalid(param, type) {
+function isParamTypeInvalid (param, type) {
   if (param && typeof param !== type) return true
 
   return false

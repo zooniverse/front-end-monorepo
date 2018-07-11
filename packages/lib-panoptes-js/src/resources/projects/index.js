@@ -3,7 +3,7 @@ const { getBySlug, getWithLinkedResources } = require('./commonRequests')
 const { endpoint } = require('./helpers')
 const mocks = require('./mocks')
 
-const projects = {
+module.exports = {
   create,
   get,
   update,
@@ -13,5 +13,3 @@ const projects = {
   getWithLinkedResources,
   mocks
 }
-
-module.exports = { projects }

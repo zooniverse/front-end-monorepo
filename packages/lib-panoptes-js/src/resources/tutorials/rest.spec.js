@@ -4,9 +4,9 @@ const mockSuperagent = require('superagent-mock')
 const { config } = require('../../config')
 const { resources, responses } = require('./mocks')
 const { endpoint } = require('./helpers')
-const { tutorials } = require('./index')
+const tutorials = require('./index')
 
-describe.only('Tutorials resource REST requests', function () {
+describe('Tutorials resource REST requests', function () {
   describe('get', function () {
     let superagentMock
     const expectedGetAllResponse = responses.get.tutorials
