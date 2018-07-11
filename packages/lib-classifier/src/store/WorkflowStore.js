@@ -28,13 +28,14 @@ const WorkflowStore = types
 
     function getDefaultWorkflowId () {
       const project = getRoot(self).projects.active
+      const { configuration, links } = project
       let id = null
 
       if (project) {
-        if (project.configuration && project.configuration.default_workflow) {
-          id = project.configuration.default_workflow
-        } else if (project.links && project.links.active_workflows[0]) {
-          id = project.links.active_workflows[0]
+        if (configuration && configuration.default_workflow) {
+          id = configuration.default_workflow
+        } else if (links && links.active_workflows[0]) {
+          id = links.active_workflows[0]
         }
       }
 

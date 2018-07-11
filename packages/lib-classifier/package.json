@@ -8,7 +8,7 @@
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
-    "start": "npm run _check && PANOPTES_ENV=production npm run dev",
+    "start": "npm run _check && PANOPTES_ENV=staging npm run dev",
     "test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha || true"
   },
   "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
@@ -69,6 +69,7 @@
     "parser": "babel-eslint"
   },
   "dependencies": {
+    "counterpart": "^0.18.6",
     "valid-url": "^1.0.9"
   }
 }
