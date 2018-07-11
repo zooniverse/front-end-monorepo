@@ -11,7 +11,6 @@ function get (params) {
   const tutorialId = (params && params.id) ? params.id : ''
   const workflowId = (params && params.workflowId) ? params.workflowId : ''
 
-
   if (isParamTypeInvalid(tutorialId, 'string')) return raiseError('Tutorials: Get request id must be a string.', 'typeError')
   if (isParamTypeInvalid(workflowId, 'string')) return raiseError('Tutorials: Get request workflow id must be a string.', 'typeError')
 

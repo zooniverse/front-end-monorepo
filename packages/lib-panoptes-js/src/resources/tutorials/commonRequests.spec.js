@@ -72,7 +72,7 @@ describe('Tutorials resource common requests', function () {
 
       it('should use a default include query param', function () {
         return tutorials.getWithImages({ id: '1' }).then((response) => { 
-          expect(actualMatch.input.include('include=attached_images')).to.be.true
+          expect(actualMatch.input.includes('include=attached_images')).to.be.true
         })
       })
 
@@ -84,6 +84,44 @@ describe('Tutorials resource common requests', function () {
 
       it('should return the expected response', function() {
         return tutorials.getWithImages({ id: '1' }).then((response) => {
+          expect(response.body).to.eql(expectedGetResponse)
+        })
+      })
+    })
+
+    describe('many tutorials', function () {
+      let superagentMock
+      let actualMatch
+      const expectedGetResponse = responses.get.tutorialsWithImages
+      before(function () {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${endpoint}`,
+          fixtures: (match, params) => {
+            actualMatch = match
+            return expectedGetResponse
+          },
+          get: (match, data) => ({ body: data })
+        }])
+      })
+
+      after(function () {
+        superagentMock.unset()
+      })
+
+      it('should use a default include query param', function () {
+        return tutorials.getWithImages({ workflowId: '10' }).then((response) => {
+          expect(actualMatch.input.includes('include=attached_images')).to.be.true
+        })
+      })
+
+      it('should include any other query params if defined', function () {
+        return tutorials.getWithImages({ workflowId: '10', query: { page: '2' } }).then((response) => {
+          expect(actualMatch.input.includes('page=2')).to.be.true
+        })
+      })
+
+      it('should return the expected response', function() {
+        return tutorials.getWithImages({ workflowId: '10' }).then((response) => {
           expect(response.body).to.eql(expectedGetResponse)
         })
       })

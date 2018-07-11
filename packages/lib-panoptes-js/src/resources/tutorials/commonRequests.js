@@ -1,5 +1,5 @@
 const panoptes = require('../../panoptes')
-const tutorials = require('./index')
+const { get } = require('./rest')
 const { endpoint } = require('./helpers')
 const { raiseError } = require('../../utilityFunctions')
 
@@ -23,12 +23,15 @@ function getWithImages (params) {
   // include request doesn't go past page one
   // tutorials shoudn't have more than 20 steps, so, this is a way to enforce that.
   const defaultInclude = { include: 'attached_images' }
-  const queryParams = (params && params.query) ? Object.assign({}, params.query, defaultInclude) : defaultInclude
-  return tutorials.get(queryParams)
+  params.query = (params && params.query) ? Object.assign({}, params.query, defaultInclude) : defaultInclude
+
+  return get(params)
 }
 
 function getTutorials (params) {
-  return tutorials.get(queryParams).then((response) => {
+  const queryParams = (params && params.query) ? params.query : {}
+
+  return get(queryParams).then((response) => {
     const tutorialsResponse = response.body.tutorials
 
     if (tutorialsResponse && tutorialsResponse.length > 0) {
@@ -45,7 +48,7 @@ function getMinicourses (params) {
   const defaultKindParam = { kind: 'mini-course' }
   const queryParams = (params && params.query) ? Object.assign({}, params.query, defaultKindParam) : defaultKindParam
 
-  return tutorials.get(queryParams)
+  return get(queryParams)
 }
 
 module.exports = { getAttachedImages, getMinicourses, getTutorials, getWithImages }
