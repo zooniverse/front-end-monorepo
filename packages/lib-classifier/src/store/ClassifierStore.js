@@ -4,13 +4,25 @@ import subjectViewers from '../helpers/subjectViewers'
 
 const Classifier = types
   .model('Classifier', {
+    annotate: types.optional(types.boolean, true),
+    fullscreen: types.optional(types.boolean, false),
+    move: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
-    fullscreen: types.optional(types.boolean, false)
   })
 
   .actions(self => ({
+    enableAnnotate () {
+      self.annotate = true
+      self.move = false
+    },
+
     enableFullscreen () {
       self.fullscreen = true
+    },
+
+    enableMove () {
+      self.annotate = false
+      self.move = true
     },
 
     disableFullscreen () {
