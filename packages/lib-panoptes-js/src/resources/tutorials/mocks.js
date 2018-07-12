@@ -37,6 +37,23 @@ const tutorialTwo = {
   updated_at: "2017-03-27T19:00:56.369Z"
 }
 
+const tutorialWithNullKind = {
+  created_at: "2016-08-02T17:59:44.132Z",
+  display_name: "Question Task Tutorial",
+  href: "/tutorials/3",
+  id: "3",
+  kind: null,
+  language: "en",
+  links: { workflow_id: '10' },
+  steps: [
+    {
+      content: "Welcome to my survey!",
+      media: "8"
+    }
+  ],
+  updated_at: "2017-03-27T19:00:56.369Z"
+}
+
 const minicourse = {
   created_at: "2016-06-01T20:08:07.898Z",
   display_name: "",
@@ -59,6 +76,7 @@ const attachedImageTwo = buildMockedMediumResource('attached_image', 'tutorial')
 const resources = {
   tutorialOne,
   tutorialTwo,
+  tutorialWithNullKind,
   minicourse,
   attachedImageOne,
   attachedImageTwo
@@ -78,10 +96,13 @@ const tutorialWithImagesResponse = buildResponse('get', 'tutorials', [resources.
 
 const tutorialsWithImagesResponse = buildResponse('get', 'tutorials', [resources.tutorialOne, resources.tutorialTwo], { media: [resources.attachedImageOne, resources.attachedImageTwo] })
 
+const allTutorialsForWorkflowResponse = buildResponse('get', 'tutorials', [resources.tutorialWithNullKind, resources.tutorialOne, resources.tutorialTwo, resources.minicourse], {})
+
 const queryNotFound = buildResponse('get', 'tutorials', [])
 
 const responses = {
   get: {
+    allTutorialsForWorkflow: allTutorialsForWorkflowResponse,
     tutorial: tutorialResponse,
     tutorials,
     tutorialWithImages: tutorialWithImagesResponse,

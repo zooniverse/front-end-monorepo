@@ -29,18 +29,18 @@ function getWithImages (params) {
 }
 
 function getTutorials (params) {
-  const queryParams = (params && params.query) ? params.query : {}
-
-  return get(queryParams).then((response) => {
-    const tutorialsResponse = response.body.tutorials
-
-    if (tutorialsResponse && tutorialsResponse.length > 0) {
+  return get(params).then((response) => {
+    if (response.body.tutorials && response.body.tutorials.length > 0) {
       // We allow the null value on kind for backwards compatibility
       // These are standard tutorials added prior to the 'kind' field and mini-courses
-      return tutorialsResponse.filter((tutorial) => {
+      response.body.tutorials = response.body.tutorials.filter((tutorial) => {
         return tutorial.kind === 'tutorial' || null;
       })
+
+      return response
     }
+
+    return response
   })
 }
 

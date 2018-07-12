@@ -127,4 +127,74 @@ describe('Tutorials resource common requests', function () {
       })
     })
   })
+
+  describe.only('getTutorials', function () {
+    describe('by tutorial id', function () {
+      let superagentMock
+
+      before(function () {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${endpoint}`,
+          fixtures: (match, params) => {
+            if (match.input.includes(resources.tutorialOne.id)) return responses.get.tutorial
+            if (match.input.includes(resources.minicourse.id)) return responses.get.minicourse
+
+            return { status: 404 }
+          },
+          get: (match, data) => ({ body: data })
+        }])
+      })
+
+      after(function () {
+        superagentMock.unset()
+      })
+
+      it('should return the expected response', function () {
+        return tutorials.getTutorials({ id: '1' }).then((response) => {
+          expect(response.body).to.eql(responses.get.tutorial)
+        })
+      })
+
+      it('the expected response should be the tutorial kind', function () {
+        return tutorials.getTutorials({ id: '1' }).then((response) => {
+          const tutorial = response.body.tutorials[0]
+          expect(tutorial.kind).to.equal('tutorial')
+        })
+      })
+
+      it('should not return a minicourse', function () {
+        return tutorials.getTutorials({ id: '52' }).then((response) => {
+          expect(response.body.tutorials).to.have.lengthOf(0)
+        })
+      })
+    })
+
+    describe('by workflow id', function () {
+      let superagentMock
+      let actualMatch
+      const expectedGetResponse = responses.get.allTutorialsForWorkflow
+      before(function () {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${endpoint}`,
+          fixtures: (match, params) => {
+            actualMatch = match
+            if (match.input.includes('workflow_id=10')) return expectedGetResponse
+
+            return { status: 404 }
+          },
+          get: (match, data) => ({ body: data })
+        }])
+      })
+
+      after(function () {
+        superagentMock.unset()
+      })
+
+      it('should return the expected response', function () {
+        return tutorials.getTutorials({ workflowId: '10' }).then((response) => {
+          expect(response.body).to.eql(expectedGetResponse)
+        })
+      })
+    })
+  })
 })
