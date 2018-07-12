@@ -1,5 +1,13 @@
-import { Box } from 'grommet'
 import React from 'react'
+import { Box } from 'grommet'
+import AnnotateButton from './components/AnnotateButton'
+import FieldGuideButton from './components/FieldGuideButton'
+import FullscreenButton from './components/FullscreenButton'
+import MoveButton from './components/MoveButton'
+import ResetButton from './components/ResetButton'
+import RotateButton from './components/RotateButton'
+import ZoomInButton from './components/ZoomInButton'
+import ZoomOutButton from './components/ZoomOutButton'
 
 const toolbarStyles = {
   border: {
@@ -13,8 +21,15 @@ function ImageToolbar (props) {
   return (
     <aside {...props}>
       <Box {...toolbarStyles}>
-        Image toolbar
+        <AnnotateButton />
+        <MoveButton />
+        <ZoomInButton />
+        <ZoomOutButton />
+        <RotateButton />
+        <FullscreenButton />
+        <ResetButton />
       </Box>
+      <FieldGuideButton />
     </aside>
   )
 }
