@@ -18,7 +18,10 @@ class SingleImageViewer extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.subject.id !== this.props.subject.id) {
+    const prevSubject = prevProps.subject
+    const { subject } = this.props
+
+    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
       this.handleSubject()
     }
   }
