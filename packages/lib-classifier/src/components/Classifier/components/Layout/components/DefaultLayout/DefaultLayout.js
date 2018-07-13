@@ -1,16 +1,10 @@
-import React from 'react'
-import SubjectViewer from '../../../SubjectViewer'
-import ImageToolbar from '../../../ImageToolbar'
-import styled from 'styled-components'
 import { Box } from 'grommet'
+import React from 'react'
+import styled from 'styled-components'
 
-const boxStyles = {
-  pad: 'medium',
-  border: {
-    color: 'lightGrey',
-    side: 'all'
-  }
-}
+import ImageToolbar from '../../../ImageToolbar'
+import TaskArea from '../../../TaskArea'
+import SubjectViewer from '../../../SubjectViewer'
 
 const ContainerGrid = styled.div`
   display: grid;
@@ -42,7 +36,7 @@ function DefaultLayout () {
         <StyledSubjectViewer />
         <StyledImageToolbar />
       </ViewerGrid>
-      <Box {...boxStyles}>tasks</Box>
+      <TaskArea />
     </ContainerGrid>
   )
 }
