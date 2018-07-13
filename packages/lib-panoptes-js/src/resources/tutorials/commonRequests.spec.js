@@ -128,7 +128,7 @@ describe('Tutorials resource common requests', function () {
     })
   })
 
-  describe.only('getTutorials', function () {
+  describe('getTutorials', function () {
     describe('by tutorial id', function () {
       let superagentMock
 
@@ -193,6 +193,97 @@ describe('Tutorials resource common requests', function () {
       it('should return the expected response', function () {
         return tutorials.getTutorials({ workflowId: '10' }).then((response) => {
           expect(response.body).to.eql(expectedGetResponse)
+        })
+      })
+
+      it('should use the workflow id as the query param', function () {
+        return tutorials.getTutorials({ workflowId: '10' }).then((response) => {
+          expect(actualMatch.input.includes('workflow_id=10')).to.be.true
+        })
+      })
+
+      it('should not return minicourse kind tutorials', function () {
+        return tutorials.getTutorials({ workflowId: '10' }).then((response) => {
+          const tutorialsResponse = response.body.tutorials
+          tutorialsResponse.forEach((tutorial) => {
+            expect(tutorial.kind).to.not.equal('mini-course')
+          })
+        })
+      })
+    })
+  })
+
+  describe('getMinicourses', function () {
+    describe('by tutorial id', function () {
+      let superagentMock
+      let actualMatch
+      const expectedGetResponse = responses.get.minicourse
+
+      before(function () {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${endpoint}`,
+          fixtures: (match, params) => {
+            actualMatch = match
+            if (match.input.includes(resources.minicourse.id)) return expectedGetResponse
+
+            return { status: 404 }
+          },
+          get: (match, data) => ({ body: data })
+        }])
+      })
+
+      after(function () {
+        superagentMock.unset()
+      })
+
+      it('should return the expected response', function () {
+        return tutorials.getMinicourses({ id: '52' }).then((response) => {
+          expect(response.body).to.eql(expectedGetResponse)
+        })
+      })
+
+      it('should set a default query parameter for kind', function () {
+        return tutorials.getMinicourses({ id: '52' }).then((response) => {
+          expect(actualMatch.input.includes('kind=mini-course')).to.be.true
+        })
+      })
+    })
+
+    describe('by workflow id', function () {
+      let superagentMock
+      let actualMatch
+      const expectedGetResponse = responses.get.minicourse
+
+      before(function () {
+        superagentMock = mockSuperagent(superagent, [{
+          pattern: `${config.host}${endpoint}`,
+          fixtures: (match, params) => {
+            actualMatch = match
+            return expectedGetResponse
+          },
+          get: (match, data) => ({ body: data })
+        }])
+      })
+
+      after(function () {
+        superagentMock.unset()
+      })
+
+      it('should return the expected response', function () {
+        return tutorials.getMinicourses({ workflowId: '10' }).then((response) => {
+          expect(response.body).to.eql(expectedGetResponse)
+        })
+      })
+
+      it('should set a default query parameter for kind', function () {
+        return tutorials.getMinicourses({ workflowId: '10' }).then((response) => {
+          expect(actualMatch.input.includes('kind=mini-course')).to.be.true
+        })
+      })
+
+      it('should use the workflow id as the query param', function () {
+        return tutorials.getTutorials({ workflowId: '10' }).then((response) => {
+          expect(actualMatch.input.includes('workflow_id=10')).to.be.true
         })
       })
     })

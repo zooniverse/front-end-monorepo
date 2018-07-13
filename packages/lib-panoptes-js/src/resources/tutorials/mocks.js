@@ -96,6 +96,9 @@ const tutorialWithImagesResponse = buildResponse('get', 'tutorials', [resources.
 
 const tutorialsWithImagesResponse = buildResponse('get', 'tutorials', [resources.tutorialOne, resources.tutorialTwo], { media: [resources.attachedImageOne, resources.attachedImageTwo] })
 
+// The Lab UI doesn't actually allow project builders to link more than one tutorial of each kind to a workflow
+// But this mock has both a tutorial with `tutorial` and `null` in addition to a `mini-course` kind
+// To test the getTutorials function return value
 const allTutorialsForWorkflowResponse = buildResponse('get', 'tutorials', [resources.tutorialWithNullKind, resources.tutorialOne, resources.tutorialTwo, resources.minicourse], {})
 
 const queryNotFound = buildResponse('get', 'tutorials', [])

@@ -46,9 +46,9 @@ function getTutorials (params) {
 
 function getMinicourses (params) {
   const defaultKindParam = { kind: 'mini-course' }
-  const queryParams = (params && params.query) ? Object.assign({}, params.query, defaultKindParam) : defaultKindParam
+  params.query = (params && params.query) ? Object.assign({}, params.query, defaultKindParam) : defaultKindParam
 
-  return get(queryParams)
+  return get(params)
 }
 
 module.exports = { getAttachedImages, getMinicourses, getTutorials, getWithImages }
