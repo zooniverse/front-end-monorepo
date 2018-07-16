@@ -1,4 +1,5 @@
 import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import AnswerButton from '../AnswerButton'
@@ -39,6 +40,21 @@ class SingleAnswer extends React.Component {
       </React.Fragment>
     )
   }
+}
+
+SingleAnswer.propTypes = {
+  annotation: PropTypes.shape({
+    answer: PropTypes.string,
+    setValue: PropTypes.func
+  }),
+  answers: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string
+  }))
+}
+
+SingleAnswer.defaultProps = {
+  answers: [],
+  annotation: {}
 }
 
 export default SingleAnswer
