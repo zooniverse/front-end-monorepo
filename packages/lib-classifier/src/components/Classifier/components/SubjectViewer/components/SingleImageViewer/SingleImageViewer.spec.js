@@ -11,7 +11,7 @@ function MockImageObject() {
   this.dispatchEvent(new Event('onload'))
 }
 
-describe.only('Component > SingleImageViewer', function () {
+describe('Component > SingleImageViewer', function () {
   it('should render without crashing', function () {
     shallow(<SingleImageViewer />)
   })
