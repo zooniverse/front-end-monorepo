@@ -11,4 +11,11 @@ describe('Component > TaskArea', function () {
     const wrapper = shallow(<TaskArea task={null} />)
     expect(wrapper.children().length).to.equal(0)
   })
+
+  it('should render a question from the active task', function () {
+    const task = {}
+    task.question = 'This is a sample question'
+    const wrapper = shallow(<TaskArea task={task} />)
+    expect(wrapper.text()).to.have.string(task.question)
+  })
 })
