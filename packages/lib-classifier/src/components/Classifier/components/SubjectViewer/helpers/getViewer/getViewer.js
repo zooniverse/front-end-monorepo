@@ -5,7 +5,7 @@ const viewers = {
 }
 
 function getViewer (viewer) {
-  return viewers[viewer]
+  return viewers[viewer] || null
 }
 
 export default getViewer

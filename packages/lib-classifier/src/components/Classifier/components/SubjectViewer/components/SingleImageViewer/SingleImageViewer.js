@@ -14,7 +14,9 @@ class SingleImageViewer extends React.Component {
   }
 
   componentDidMount () {
-    this.handleSubject()
+    if (this.props.subject) {
+      this.handleSubject()
+    }
   }
 
   componentDidUpdate (prevProps) {
@@ -27,8 +29,9 @@ class SingleImageViewer extends React.Component {
   }
 
   fetchImage (url) {
+    const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
-      let img = new Image()
+      let img = new ImageObject()
       img.onload = () => resolve(img)
       img.onerror = reject
       img.src = url
@@ -54,6 +57,10 @@ class SingleImageViewer extends React.Component {
 
   render () {
     const { subject } = this.props
+    if (!subject) {
+      return null
+    }
+
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
       <svg width='100%' height='100%'>
@@ -67,6 +74,10 @@ SingleImageViewer.propTypes = {
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
+}
+
+SingleImageViewer.defaultProps = {
+  ImageObject: Image
 }
 
 export default SingleImageViewer
