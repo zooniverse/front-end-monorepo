@@ -5,12 +5,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StyledEasterEgg = exports.StyledDivider = exports.StyledNavListItem = exports.StyledNavListHeader = exports.StyledFooterSection = exports.StyledFooterBox = undefined;
 
-var _templateObject = _taggedTemplateLiteral(['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  &.footer__nav {\n    font-size: 1em;\n  }\n'], ['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  &.footer__nav {\n    font-size: 1em;\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  position: relative;\n  width: 100%;\n\n  &.small {\n    font-size: 0.8em;\n  }\n'], ['\n  position: relative;\n  width: 100%;\n\n  &.small {\n    font-size: 0.8em;\n  }\n']),
+var _templateObject = _taggedTemplateLiteral(['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  .footer__nav {\n    font-size: 1em;\n    min-width: 192px;\n  }\n\n  .footer__logo {\n    g {\n        fill: #007482;\n    }\n  }\n'], ['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  .footer__nav {\n    font-size: 1em;\n    min-width: 192px;\n  }\n\n  .footer__logo {\n    g {\n        fill: #007482;\n    }\n  }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  position: relative;\n\n  &.small {\n    font-size: 0.8em;\n  }\n'], ['\n  position: relative;\n\n  &.small {\n    font-size: 0.8em;\n  }\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  color: #007482;\n  font-weight: bold;\n  letter-spacing: 1px;\n  margin-bottom: 0.5em;\n  text-transform: uppercase;\n'], ['\n  color: #007482;\n  font-weight: bold;\n  letter-spacing: 1px;\n  margin-bottom: 0.5em;\n  text-transform: uppercase;\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  color: #5C5C5C\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg:hover, svg:focus {\n      fill: #004b54\n    }\n  }\n'], ['\n  color: #5C5C5C\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg:hover, svg:focus {\n      fill: #004b54\n    }\n  }\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  color: #5C5C5C;\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg {\n      fill: #007482;\n    }\n    \n    svg:hover, svg:focus {\n      fill: #004b54;\n    }\n  }\n'], ['\n  color: #5C5C5C;\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg {\n      fill: #007482;\n    }\n    \n    svg:hover, svg:focus {\n      fill: #004b54;\n    }\n  }\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
-    _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  :hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  :hover {\n    opacity: 1;\n  }\n']);
+    _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
 
 var _react = require('react');
 
@@ -103,6 +103,7 @@ var ZooFooter = function ZooFooter(props) {
       StyledFooterSection,
       {
         direction: 'row',
+        fill: 'horizontal',
         pad: { horizontal: 'large', vertical: 'medium' },
         margin: {
           top: 'none', bottom: 'large', left: 'none', right: 'none'
@@ -112,51 +113,50 @@ var ZooFooter = function ZooFooter(props) {
       _react2.default.createElement(
         _grommet.Box,
         {
-          direction: 'column',
+          direction: 'row',
           fill: 'horizontal',
-          justify: 'between',
-          height: 'small',
+          justify: 'start',
           wrap: true
         },
         _react2.default.createElement(
           _grommet.Box,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
+          { className: 'footer__nav', flex: true, margin: { horizontal: 'none', vertical: 'small' } },
           props.projectNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
           _grommet.Box,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
-          props.newsNavList.map(function (navItem, i) {
-            return createKeyedAnchorItem(navItem, i);
-          })
-        ),
-        _react2.default.createElement(
-          _grommet.Box,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
+          { className: 'footer__nav', flex: true, margin: { horizontal: 'none', vertical: 'small' } },
           props.aboutNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
           _grommet.Box,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
+          { className: 'footer__nav', flex: true, margin: { horizontal: 'none', vertical: 'small' } },
           props.getInvolvedNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
           _grommet.Box,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
+          { className: 'footer__nav', flex: true, margin: { horizontal: 'none', vertical: 'small' } },
           props.talkNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         ),
         _react2.default.createElement(
           _grommet.Box,
-          { className: 'footer__nav', margin: { horizontal: 'none', vertical: 'small' } },
+          { className: 'footer__nav', flex: true, margin: { horizontal: 'none', vertical: 'small' } },
           props.buildNavList.map(function (navItem, i) {
+            return createKeyedAnchorItem(navItem, i);
+          })
+        ),
+        _react2.default.createElement(
+          _grommet.Box,
+          { className: 'footer__nav', flex: true, margin: { horizontal: 'none', vertical: 'small' } },
+          props.newsNavList.map(function (navItem, i) {
             return createKeyedAnchorItem(navItem, i);
           })
         )

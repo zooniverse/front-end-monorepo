@@ -9,14 +9,20 @@ export const StyledFooterBox = styled(Box)`
   border-top: 5px solid #005D69;
   font-size: 16px;
 
-  &.footer__nav {
+  .footer__nav {
     font-size: 1em;
+    min-width: 192px;
+  }
+
+  .footer__logo {
+    g {
+        fill: #007482;
+    }
   }
 `;
 
 export const StyledFooterSection = styled(Box)`
   position: relative;
-  width: 100%;
 
   &.small {
     font-size: 0.8em;
@@ -32,7 +38,7 @@ export const StyledNavListHeader = styled(Anchor)`
 `;
 
 export const StyledNavListItem = styled(Anchor)`
-  color: #5C5C5C
+  color: #5C5C5C;
   font-size: 0.8em;
   font-weight: bold;
   &:hover, &:focus {
@@ -40,8 +46,12 @@ export const StyledNavListItem = styled(Anchor)`
   }
 
   &.social-media {
+    svg {
+      fill: #007482;
+    }
+    
     svg:hover, svg:focus {
-      fill: #004b54
+      fill: #004b54;
     }
   }
 `;
@@ -69,7 +79,7 @@ export const StyledEasterEgg = styled(Image)`
   width: 62px;
   z-index: 1;
 
-  :hover {
+  &:hover {
     opacity: 1;
   }
 `;
@@ -112,6 +122,7 @@ const ZooFooter = (props) => {
       </Box>
       <StyledFooterSection
         direction="row"
+        fill="horizontal"
         pad={{ horizontal: 'large', vertical: 'medium' }}
         margin={{
           top: 'none', bottom: 'large', left: 'none', right: 'none'
@@ -119,29 +130,28 @@ const ZooFooter = (props) => {
         tag="section"
       >
         <Box
-          direction="column"
+          direction="row"
           fill="horizontal"
-          justify="between"
-          height="small"
+          justify="start"
           wrap={true}
         >
-          <Box className="footer__nav" margin={{ horizontal: 'none', vertical: 'small' }}>
+          <Box className="footer__nav" flex={true} margin={{ horizontal: 'none', vertical: 'small' }}>
             {props.projectNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
           </Box>
-          <Box className="footer__nav" margin={{ horizontal: 'none', vertical: 'small' }}>
-            {props.newsNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
-          </Box>
-          <Box className="footer__nav" margin={{ horizontal: 'none', vertical: 'small' }}>
+          <Box className="footer__nav" flex={true} margin={{ horizontal: 'none', vertical: 'small' }}>
             {props.aboutNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
           </Box>
-          <Box className="footer__nav" margin={{ horizontal: 'none', vertical: 'small' }}>
+          <Box className="footer__nav" flex={true} margin={{ horizontal: 'none', vertical: 'small' }}>
             {props.getInvolvedNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
           </Box>
-          <Box className="footer__nav" margin={{ horizontal: 'none', vertical: 'small' }}>
+          <Box className="footer__nav" flex={true} margin={{ horizontal: 'none', vertical: 'small' }}>
             {props.talkNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
           </Box>
-          <Box className="footer__nav" margin={{ horizontal: 'none', vertical: 'small' }}>
+          <Box className="footer__nav" flex={true} margin={{ horizontal: 'none', vertical: 'small' }}>
             {props.buildNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
+          </Box>
+          <Box className="footer__nav" flex={true} margin={{ horizontal: 'none', vertical: 'small' }}>
+            {props.newsNavList.map((navItem, i) => createKeyedAnchorItem(navItem, i))}
           </Box>
         </Box>
       </StyledFooterSection>
