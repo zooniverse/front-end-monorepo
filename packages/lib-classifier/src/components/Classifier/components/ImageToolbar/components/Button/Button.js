@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import WithHoverOrFocusProp from '../../../../WithHoverOrFocusProp'
+import WithHoverOrFocusProp from '../../../WithHoverOrFocusProp'
 
 const StyledButton = styled.button`
   background: none;

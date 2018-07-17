@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import en from './locales/en'
 import helpIcon from './helpIcon'
-import WithHoverOrFocusProp from '../../../../WithHoverOrFocusProp'
+import WithHoverOrFocusProp from '../../../WithHoverOrFocusProp'
 
 counterpart.registerTranslations('en', en)
 
