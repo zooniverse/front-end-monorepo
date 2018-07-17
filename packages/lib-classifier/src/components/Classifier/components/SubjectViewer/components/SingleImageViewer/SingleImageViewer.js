@@ -50,11 +50,12 @@ class SingleImageViewer extends React.Component {
   }
 
   render () {
-    const { subject } = this.props
+    const { children, subject } = this.props
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
       <svg width='100%' height='100%'>
         <image xlinkHref={imageUrl} />
+        {children}
       </svg>
     )
   }

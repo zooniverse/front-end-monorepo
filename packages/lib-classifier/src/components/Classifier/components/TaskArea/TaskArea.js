@@ -1,6 +1,7 @@
 import counterpart from 'counterpart'
 import { Box, Text } from 'grommet'
 import { inject, observer } from 'mobx-react'
+import { when } from 'mobx'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -36,7 +37,8 @@ const HelpLink = styled.button`
 
 function storeMapper (stores) {
   const { active: task } = stores.classifierStore.tasks
-  return { task }
+  const { classifier } = stores.classifierStore
+  return { classifier, task }
 }
 
 @inject(storeMapper)
@@ -49,6 +51,21 @@ class TaskArea extends React.Component {
 
   openHelp () {
     console.info('Open Help')
+  }
+
+  componentDidMount () {
+    when(
+      () => this.props.classifier.mouseEventStream,
+      () => this.do()
+    )
+
+    
+  }
+
+  do() {
+    this.props.classifier.mouseEventStream.mouseDowns.forEach(event => {
+      console.log('event', event)
+    })
   }
 
   render () {

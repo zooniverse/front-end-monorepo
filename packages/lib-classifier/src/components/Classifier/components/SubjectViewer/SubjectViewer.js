@@ -1,8 +1,10 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import asyncStates from '../../../../helpers/asyncStates'
+
+import InteractionLayer from './components/InteractionLayer'
 import getViewer from './helpers/getViewer'
+import asyncStates from '../../../../helpers/asyncStates'
 
 function storeMapper (stores) {
   const subjects = stores.classifierStore.subjects
@@ -34,7 +36,11 @@ class SubjectViewer extends React.Component {
     }
 
     const Viewer = getViewer(subjects.active.viewer)
-    return <Viewer subject={subjects.active} {...this.props} />
+    return (
+      <Viewer subject={subjects.active} {...this.props}>
+        <InteractionLayer />
+      </Viewer>
+    )
   }
 }
 

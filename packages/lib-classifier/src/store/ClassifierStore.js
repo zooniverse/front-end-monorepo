@@ -7,10 +7,18 @@ const Classifier = types
     annotate: types.optional(types.boolean, true),
     fullscreen: types.optional(types.boolean, false),
     move: types.optional(types.boolean, false),
-    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
+    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default)
   })
 
+  .volatile(self => ({
+    mouseEventStream: null
+  }))
+
   .actions(self => ({
+    clearStream () {
+      this.mouseEventStream = null
+    },
+
     enableAnnotate () {
       self.annotate = true
       self.move = false
@@ -31,6 +39,10 @@ const Classifier = types
 
     setLayout (layout = layouts.DefaultLayout) {
       self.layout = layout
+    },
+
+    setStream (stream) {
+      self.mouseEventStream = stream
     }
   }))
 
