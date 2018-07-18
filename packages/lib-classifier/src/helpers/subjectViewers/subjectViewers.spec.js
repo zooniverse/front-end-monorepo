@@ -1,8 +1,8 @@
 import subjectViewers from './subjectViewers'
 
-describe.only('Helpers > subjectViewers', function () {
+describe('Helpers > subjectViewers', function () {
   const viewers = [
-    'singleImage',
+    'singleImage'
   ]
 
   viewers.forEach(function (viewer) {

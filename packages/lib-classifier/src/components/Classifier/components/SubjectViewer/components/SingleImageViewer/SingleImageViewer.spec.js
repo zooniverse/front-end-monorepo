@@ -5,7 +5,7 @@ import subjects from 'test/fixtures/subjects'
 
 const subject = subjects.body.subjects[0]
 
-function MockImageObject() {
+function MockImageObject () {
   this.height = 100
   this.width = 100
   this.dispatchEvent(new Event('onload'))
@@ -25,7 +25,7 @@ describe('Component > SingleImageViewer', function () {
     const url = 'http://placekitten.com/200/300'
     const subject = { locations: [{ 'image/jpg': 'http://placekitten.com/200/300' }] }
     const wrapper = shallow(<SingleImageViewer subject={subject} />)
-    expect(wrapper.find('svg').length).to.equal(1)
-    expect(wrapper.find('image').length).to.equal(1)
+    expect(wrapper.find('svg')).to.have.lengthOf(1)
+    expect(wrapper.find('image')).to.have.lengthOf(1)
   })
 })

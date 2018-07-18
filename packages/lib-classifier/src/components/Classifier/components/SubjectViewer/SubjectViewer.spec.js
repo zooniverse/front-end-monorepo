@@ -10,7 +10,7 @@ describe('Component > SubjectViewer', function () {
   })
 
   it('should render nothing if the subject store is initialized', function () {
-    const wrapper = shallow(<SubjectViewer loadingState={ asyncStates.initialized} />)
+    const wrapper = shallow(<SubjectViewer loadingState={asyncStates.initialized} />)
     expect(wrapper.type()).to.equal(null)
   })
 
@@ -26,6 +26,6 @@ describe('Component > SubjectViewer', function () {
 
   it('should render a subject viewer if the subject store successfully loads', function () {
     const wrapper = shallow(<SubjectViewer loadingState={asyncStates.success} subject={{ viewer: 'singleImage' }} />)
-    expect(wrapper.find('SingleImageViewer').length).to.equal(1)
+    expect(wrapper.find('SingleImageViewer')).to.have.lengthOf(1)
   })
 })

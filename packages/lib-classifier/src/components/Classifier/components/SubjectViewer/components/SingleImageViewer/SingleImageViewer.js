@@ -4,8 +4,8 @@ import locationValidator from '../../helpers/locationValidator'
 import asyncStates from 'src/helpers/asyncStates'
 
 class SingleImageViewer extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       height: null,
       width: null,
@@ -61,6 +61,7 @@ class SingleImageViewer extends React.Component {
       return null
     }
 
+    // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
       <svg width='100%' height='100%'>
