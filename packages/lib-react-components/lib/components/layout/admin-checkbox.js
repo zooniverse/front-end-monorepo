@@ -12,14 +12,12 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _CheckBox = require('grommet/components/CheckBox');
-
-var _CheckBox2 = _interopRequireDefault(_CheckBox);
+var _grommet = require('grommet');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AdminCheckbox = function AdminCheckbox(props) {
-  return _react2.default.createElement(_CheckBox2.default, {
+  return _react2.default.createElement(_grommet.CheckBox, {
     checked: props.checked,
     id: 'admin-checkbox',
     name: 'admin-checkbox',

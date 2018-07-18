@@ -9,14 +9,16 @@ class DisplayNameSlugEditor extends Component {
     this.undoNameChange = this.undoNameChange.bind(this);
     this.warnURLChange = this.warnURLChange.bind(this);
     this.state = {
-      value: '',
+      origin: '',
       url: null,
+      value: '',
       warn: false,
     };
   }
 
   componentDidMount() {
     this.getResourceUrl(this.props.resource);
+    this.setState({ origin: window.location.origin });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -109,7 +111,6 @@ class DisplayNameSlugEditor extends Component {
 
 DisplayNameSlugEditor.propTypes = {
   className: PropTypes.string,
-  origin: PropTypes.string,
   resource: PropTypes.shape({
     display_name: PropTypes.string,
     listed_at: PropTypes.string,
@@ -120,7 +121,6 @@ DisplayNameSlugEditor.propTypes = {
 
 DisplayNameSlugEditor.defaultProps = {
   className: 'slug-editor',
-  origin: window.location.origin,
   resource: {},
   resourceType: '',
 };

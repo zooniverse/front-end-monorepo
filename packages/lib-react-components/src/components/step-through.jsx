@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+// TODO fix issue with react-swipe
 // import ReactSwipe from 'react-swipe';
-import animatedScrollTo from 'animated-scrollto';
+// TODO fix issue with animated-scrollto
+// import animatedScrollTo from 'animated-scrollto';
 
 class StepThrough extends Component {
   constructor(props) {
@@ -66,7 +68,7 @@ class StepThrough extends Component {
 
   handleScroll() {
     const reactSwipeNode = this.swiper;
-    setTimeout(animatedScrollTo(reactSwipeNode, reactSwipeNode.offsetTop, 0), 500);
+    // setTimeout(animatedScrollTo(reactSwipeNode, reactSwipeNode.offsetTop, 0), 500);
   }
 
   renderControls(childrenCount) {

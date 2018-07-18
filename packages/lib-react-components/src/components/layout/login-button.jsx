@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'grommet/components/Button';
+import { Button } from 'grommet';
 
 export default function LoginButton({ className, label, login, plain, toggleModal }) {
   return (

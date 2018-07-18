@@ -13,9 +13,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Menu = require('grommet/components/Menu');
-
-var _Menu2 = _interopRequireDefault(_Menu);
+var _grommet = require('grommet');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25,7 +23,7 @@ function UserMenu(props) {
   };
 
   return _react2.default.createElement(
-    _Menu2.default,
+    _grommet.Menu,
     { className: 'zoo-header-menu', label: props.user.display_name, dropAlign: { right: 'right', top: 'top' } },
     props.userMenuNavList.map(function (navItem, i) {
       return createKeyedAnchorItem(navItem, i);

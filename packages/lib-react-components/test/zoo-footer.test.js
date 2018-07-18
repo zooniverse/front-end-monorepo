@@ -5,27 +5,35 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import ZooFooter from '../src/components/layout/zoo-footer';
+import ZooFooter, {
+  StyledFooterBox,
+  StyledFooterSection,
+  StyledDivider,
+  StyledNavListHeader,
+  StyledNavListItem,
+  StyledZooniverseLogotype,
+  StyledEasterEgg
+} from '../src/components/layout/zoo-footer';
 
-describe('<ZooFooter />', function() {
+describe('<ZooFooter />', function () {
   let wrapper;
-  before(function() {
+  before(function () {
     wrapper = shallow(<ZooFooter />);
   });
 
-  it('renders without crashing', function() {});
+  it('renders without crashing', function () {});
 
-  it('renders grommet components', function() {
-    expect(wrapper.find('Footer')).to.have.lengthOf(1);
-    expect(wrapper.find('Section')).to.have.lengthOf(4);
-    expect(wrapper.find('Columns')).to.have.lengthOf(1);
-    expect(wrapper.find('Menu')).to.have.lengthOf(8);
-    expect(wrapper.find('Anchor')).to.have.lengthOf(25);
-    expect(wrapper.find('Button')).to.have.lengthOf(3);
-    expect(wrapper.find('Image')).to.have.lengthOf(1);
+  it('renders grommet components', function () {
+    expect(wrapper.find(StyledFooterBox)).to.have.lengthOf(1);
+    expect(wrapper.find(StyledFooterSection)).to.have.lengthOf(3);
+    expect(wrapper.find(StyledDivider)).to.have.lengthOf(1);
+    expect(wrapper.find(StyledNavListHeader)).to.have.lengthOf(6);
+    expect(wrapper.find(StyledNavListItem)).to.have.lengthOf(21);
+    expect(wrapper.find('.social-media')).to.have.lengthOf(3);
+    expect(wrapper.find(StyledEasterEgg)).to.have.lengthOf(1);
   });
 
-  it('renders <ZooniverseLogotype />', function() {
-    expect(wrapper.find('ZooniverseLogotype')).to.have.lengthOf(1);
+  it('renders <ZooniverseLogotype />', function () {
+    expect(wrapper.find(StyledZooniverseLogotype)).to.have.lengthOf(1);
   });
 });

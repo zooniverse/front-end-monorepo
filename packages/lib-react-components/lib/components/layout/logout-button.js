@@ -12,9 +12,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Button = require('grommet/components/Button');
-
-var _Button2 = _interopRequireDefault(_Button);
+var _grommet = require('grommet');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23,7 +21,7 @@ var LogoutButton = function LogoutButton(_ref) {
       label = _ref.label,
       logout = _ref.logout;
 
-  return _react2.default.createElement(_Button2.default, { className: className, type: 'button', onClick: logout, label: label, plain: true });
+  return _react2.default.createElement(_grommet.Button, { className: className, type: 'button', onClick: logout, label: label, plain: true });
 };
 
 LogoutButton.defaultProps = {

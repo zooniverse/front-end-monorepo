@@ -13,17 +13,9 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Anchor = require('grommet/components/Anchor');
+var _grommet = require('grommet');
 
-var _Anchor2 = _interopRequireDefault(_Anchor);
-
-var _Menu = require('grommet/components/Menu');
-
-var _Menu2 = _interopRequireDefault(_Menu);
-
-var _Menu3 = require('grommet/components/icons/base/Menu');
-
-var _Menu4 = _interopRequireDefault(_Menu3);
+var _grommetIcons = require('grommet-icons');
 
 var _withMobileView = require('./with-mobile-view');
 
@@ -40,10 +32,10 @@ function MobileNavigationMenu(props) {
   // Even if defined it still uses its default prop of none
   if (props.isMobile) {
     return _react2.default.createElement(
-      _Menu2.default,
+      _grommet.Menu,
       {
         className: 'mobile-navigation-menu',
-        icon: _react2.default.createElement(_Menu4.default, { size: 'xsmall' }),
+        icon: _react2.default.createElement(_grommetIcons.Menu, { size: 'xsmall' }),
         dropAlign: { right: 'right', top: 'top' }
       },
       props.mobileNavList.map(function (navItem, i) {
@@ -57,10 +49,10 @@ function MobileNavigationMenu(props) {
 }
 
 MobileNavigationMenu.defaultProps = {
-  adminNavLink: _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/admin', label: 'Admin' }),
+  adminNavLink: _react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/admin', label: 'Admin' }),
   isAdmin: false,
   isMobile: false,
-  mobileNavList: [_react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/', label: 'Zooniverse' }), _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/projects', label: 'Projects' }), _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/about', label: 'About' }), _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/get-involved', label: 'Get Involved' }), _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/talk', label: 'Talk' }), _react2.default.createElement(_Anchor2.default, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/lab', label: 'Build A Project' })]
+  mobileNavList: [_react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/', label: 'Zooniverse' }), _react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/projects', label: 'Projects' }), _react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/about', label: 'About' }), _react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/get-involved', label: 'Get Involved' }), _react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/talk', label: 'Talk' }), _react2.default.createElement(_grommet.Anchor, { className: 'zoo-header__link--small', href: 'http://www.zooniverse.org/lab', label: 'Build A Project' })]
 };
 
 MobileNavigationMenu.propTypes = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Menu from 'grommet/components/Menu';
+import { Menu } from 'grommet';
 
 export default function UserMenu(props) {
   const createKeyedAnchorItem = (navItem, i) => {

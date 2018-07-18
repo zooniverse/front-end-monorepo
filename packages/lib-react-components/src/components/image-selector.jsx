@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import toBlob from 'data-uri-to-blob';
+// TODO: [window is undefined](https://github.com/zeit/next.js/wiki/FAQ) issue with data-uri-to-blob, commenting out, needs proper fix
+// import toBlob from 'data-uri-to-blob';
 import FileButton from './file-button';
 import Thumbnail from './thumbnail';
 
@@ -60,8 +61,8 @@ class ImageSelector extends React.Component {
         this.setState({ working: false });
 
         img.title = srcFile.name;
-        if (window.navigator) {
-          this.props.onChange(this.props.resourceType, toBlob(dataURL), img);
+        if (window && window.navigator) {
+          // this.props.onChange(this.props.resourceType, toBlob(dataURL), img);
         } else {
           this.props.onChange(this.props.resourceType, img);
         }
