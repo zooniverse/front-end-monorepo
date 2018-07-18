@@ -5,6 +5,8 @@ import { when } from 'mobx'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import { switchMap } from 'rxjs'
+
 
 import Answer from './components/Answer'
 import en from './locales/en'
@@ -51,21 +53,6 @@ class TaskArea extends React.Component {
 
   openHelp () {
     console.info('Open Help')
-  }
-
-  componentDidMount () {
-    when(
-      () => this.props.classifier.mouseEventStream,
-      () => this.do()
-    )
-
-    
-  }
-
-  do() {
-    this.props.classifier.mouseEventStream.mouseDowns.forEach(event => {
-      console.log('event', event)
-    })
   }
 
   render () {

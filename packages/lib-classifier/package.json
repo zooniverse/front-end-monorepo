@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "counterpart": "^0.18.6",
+    "mobx-utils": "^5.0.0",
     "rxjs": "^6.2.2",
     "valid-url": "^1.0.9"
   }
