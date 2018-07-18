@@ -40,6 +40,7 @@ class SingleImageViewer extends React.Component {
 
   async handleSubject () {
     const { subject } = this.props
+    // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     this.setState({ loading: asyncStates.loading })
     try {
