@@ -1,59 +1,55 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import getSubjectViewer from './helpers/getSubjectViewer'
+
+import asyncStates from '../../../../helpers/asyncStates'
+import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
-  const subject = stores.classifierStore.subjects.active
-  const workflow = stores.classifierStore.workflows.active
-  return { subject, workflow }
+  const { active: subject, loadingState } = stores.classifierStore.subjects
+  return {
+    loadingState,
+    subject,
+  }
 }
 
 @inject(storeMapper)
 @observer
 class SubjectViewer extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      viewer: null
-    }
+  [asyncStates.initialized] () {
+    return null
   }
 
-  componentDidMount () {
-    this.setViewer()
+  [asyncStates.loading] () {
+    return (<div>Loading</div>)
   }
 
-  componentDidUpdate (prevProps) {
-    const { subject, workflow } = this.props
-    if (subject && workflow && subject !== prevProps.subject) {
-      this.setViewer()
-    }
+  [asyncStates.error] () {
+    console.error('There was an error loading the subjects')
+    return null
   }
 
-  setViewer () {
-    const { subject, workflow } = this.props
-    const newState = Object.assign({}, this.state)
-    newState.viewer = (subject && workflow)
-      ? getSubjectViewer(subject, workflow)
-      : null
-    this.setState(newState)
+  [asyncStates.success] () {
+    const { subject } = this.props
+    const Viewer = getViewer(subject.viewer)
+    return <Viewer subject={subject} {...this.props} />
   }
 
   render () {
-    const { subject } = this.props
-    const { viewer } = this.state
-
-    if (viewer) {
-      const Viewer = viewer
-      return <Viewer subject={subject} />
-    }
-    return null
+    const { loadingState } = this.props
+    return this[loadingState]() || null
   }
 }
 
 SubjectViewer.propTypes = {
-  subject: PropTypes.object,
-  workflow: PropTypes.object
+  loadingState: PropTypes.oneOf(asyncStates.values),
+  subject: PropTypes.shape({
+    viewer: PropTypes.string
+  })
+}
+
+SubjectViewer.defaultProps = {
+  loadingState: asyncStates.initialized
 }
 
 export default SubjectViewer
