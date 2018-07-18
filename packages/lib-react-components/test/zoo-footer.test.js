@@ -11,6 +11,7 @@ import ZooFooter, {
   StyledDivider,
   StyledNavListHeader,
   StyledNavListItem,
+  StyledZooniverseLogotype,
   StyledEasterEgg
 } from '../src/components/layout/zoo-footer';
 
@@ -33,6 +34,6 @@ describe('<ZooFooter />', function () {
   });
 
   it('renders <ZooniverseLogotype />', function () {
-    expect(wrapper.find('ZooniverseLogotype')).to.have.lengthOf(1);
+    expect(wrapper.find(StyledZooniverseLogotype)).to.have.lengthOf(1);
   });
 });

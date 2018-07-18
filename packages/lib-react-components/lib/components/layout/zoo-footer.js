@@ -3,14 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StyledEasterEgg = exports.StyledDivider = exports.StyledNavListItem = exports.StyledNavListHeader = exports.StyledFooterSection = exports.StyledFooterBox = undefined;
+exports.StyledEasterEgg = exports.StyledDivider = exports.StyledZooniverseLogotype = exports.StyledNavListItem = exports.StyledNavListHeader = exports.StyledFooterSection = exports.StyledFooterBox = undefined;
 
-var _templateObject = _taggedTemplateLiteral(['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  .footer__nav {\n    font-size: 1em;\n    min-width: 192px;\n  }\n\n  .footer__logo {\n    g {\n        fill: #007482;\n    }\n  }\n'], ['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  .footer__nav {\n    font-size: 1em;\n    min-width: 192px;\n  }\n\n  .footer__logo {\n    g {\n        fill: #007482;\n    }\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  position: relative;\n\n  &.small {\n    font-size: 0.8em;\n  }\n'], ['\n  position: relative;\n\n  &.small {\n    font-size: 0.8em;\n  }\n']),
+var _templateObject = _taggedTemplateLiteral(['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  .footer__nav {\n    font-size: 1em;\n    min-width: 192px;\n  }\n'], ['\n  border-top: 5px solid #005D69;\n  font-size: 16px;\n\n  .footer__nav {\n    font-size: 1em;\n    min-width: 192px;\n  }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  position: relative;\n\n  &.small {\n    font-size: 0.8em;\n    line-height: 48px;\n  }\n'], ['\n  position: relative;\n\n  &.small {\n    font-size: 0.8em;\n    line-height: 48px;\n  }\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  color: #007482;\n  font-weight: bold;\n  letter-spacing: 1px;\n  margin-bottom: 0.5em;\n  text-transform: uppercase;\n'], ['\n  color: #007482;\n  font-weight: bold;\n  letter-spacing: 1px;\n  margin-bottom: 0.5em;\n  text-transform: uppercase;\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n  color: #5C5C5C;\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg {\n      fill: #007482;\n    }\n    \n    svg:hover, svg:focus {\n      fill: #004b54;\n    }\n  }\n'], ['\n  color: #5C5C5C;\n  font-size: 0.8em;\n  font-weight: bold;\n  &:hover, &:focus {\n    color: #252525;\n  }\n\n  &.social-media {\n    svg {\n      fill: #007482;\n    }\n    \n    svg:hover, svg:focus {\n      fill: #004b54;\n    }\n  }\n']),
-    _templateObject5 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
-    _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
+    _templateObject5 = _taggedTemplateLiteral(['\n  g {\n    fill: #007482;\n  }\n'], ['\n  g {\n    fill: #007482;\n  }\n']),
+    _templateObject6 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
+    _templateObject7 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
 
 var _react = require('react');
 
@@ -44,9 +45,11 @@ var StyledNavListHeader = exports.StyledNavListHeader = (0, _styledComponents2.d
 
 var StyledNavListItem = exports.StyledNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4);
 
-var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject5);
+var StyledZooniverseLogotype = exports.StyledZooniverseLogotype = (0, _styledComponents2.default)(_zooniverseLogotype2.default)(_templateObject5);
 
-var StyledEasterEgg = exports.StyledEasterEgg = (0, _styledComponents2.default)(_grommet.Image)(_templateObject6);
+var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject6);
+
+var StyledEasterEgg = exports.StyledEasterEgg = (0, _styledComponents2.default)(_grommet.Image)(_templateObject7);
 
 var ZooFooter = function ZooFooter(props) {
   var createKeyedAnchorItem = function createKeyedAnchorItem(navItem, i) {
@@ -76,7 +79,16 @@ var ZooFooter = function ZooFooter(props) {
         margin: { horizontal: 'large', vertical: 'none' },
         tag: 'section'
       },
-      props.homeLogoDiv,
+      _react2.default.createElement(
+        _grommet.Box,
+        null,
+        _react2.default.createElement(
+          _grommet.Anchor,
+          { href: 'https://www.zooniverse.org' },
+          _react2.default.createElement(StyledZooniverseLogotype, null)
+        ),
+        props.zooTagline
+      ),
       _react2.default.createElement(
         _grommet.Box,
         {
@@ -261,17 +273,6 @@ ZooFooter.defaultProps = {
     { href: 'https://www.zooniverse.org/collections' },
     'Collections'
   )],
-  homeLogoDiv: _react2.default.createElement(
-    'div',
-    { className: 'footer__logo' },
-    _react2.default.createElement(
-      _grommet.Anchor,
-      { href: 'https://www.zooniverse.org' },
-      _react2.default.createElement(_zooniverseLogotype2.default, null)
-    ),
-    _react2.default.createElement('br', null),
-    'People Powered Research'
-  ),
   mainSectionColorIndex: '#fff',
   newsNavList: [_react2.default.createElement(
     StyledNavListHeader,
@@ -327,7 +328,8 @@ ZooFooter.defaultProps = {
     StyledNavListHeader,
     { href: 'https://www.zooniverse.org/talk' },
     'Talk'
-  )]
+  )],
+  zooTagline: 'People-Powered Research'
 };
 
 ZooFooter.propTypes = {
@@ -335,14 +337,14 @@ ZooFooter.propTypes = {
   adminContainer: _propTypes2.default.node,
   buildNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
   getInvolvedNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
-  homeLogoDiv: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string]),
   mainSectionColorIndex: _propTypes2.default.string,
   newsNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
   policyNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
   projectNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
   smallSectionColorIndex: _propTypes2.default.string,
   socialNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
-  talkNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired
+  talkNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired,
+  zooTagline: _propTypes2.default.string
 };
 
 exports.default = ZooFooter;

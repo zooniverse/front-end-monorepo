@@ -13,12 +13,6 @@ export const StyledFooterBox = styled(Box)`
     font-size: 1em;
     min-width: 192px;
   }
-
-  .footer__logo {
-    g {
-        fill: #007482;
-    }
-  }
 `;
 
 export const StyledFooterSection = styled(Box)`
@@ -26,6 +20,7 @@ export const StyledFooterSection = styled(Box)`
 
   &.small {
     font-size: 0.8em;
+    line-height: 48px;
   }
 `;
 
@@ -53,6 +48,12 @@ export const StyledNavListItem = styled(Anchor)`
     svg:hover, svg:focus {
       fill: #004b54;
     }
+  }
+`;
+
+export const StyledZooniverseLogotype = styled(ZooniverseLogotype)`
+  g {
+    fill: #007482;
   }
 `;
 
@@ -103,7 +104,12 @@ const ZooFooter = (props) => {
         margin={{ horizontal: 'large', vertical: 'none' }}
         tag="section"
       >
-        {props.homeLogoDiv}
+        <Box>
+          <Anchor href="https://www.zooniverse.org">
+            <StyledZooniverseLogotype />
+          </Anchor>
+          {props.zooTagline}
+        </Box>
         <Box
           className="footer__nav"
           direction="row"
@@ -205,7 +211,6 @@ ZooFooter.defaultProps = {
     <StyledNavListItem href="https://www.zooniverse.org/get-involved/call-for-projects">Call for Projects</StyledNavListItem>,
     <StyledNavListItem href="https://www.zooniverse.org/collections">Collections</StyledNavListItem>
   ],
-  homeLogoDiv: <div className="footer__logo"><Anchor href="https://www.zooniverse.org"><ZooniverseLogotype /></Anchor><br />People Powered Research</div>,
   mainSectionColorIndex: '#fff',
   newsNavList: [
     <StyledNavListHeader href="#">News</StyledNavListHeader>,
@@ -229,7 +234,8 @@ ZooFooter.defaultProps = {
   ],
   talkNavList: [
     <StyledNavListHeader href="https://www.zooniverse.org/talk">Talk</StyledNavListHeader>
-  ]
+  ],
+  zooTagline: 'People-Powered Research'
 };
 
 ZooFooter.propTypes = {
@@ -246,10 +252,6 @@ ZooFooter.propTypes = {
     PropTypes.node,
     PropTypes.string
   ])).isRequired,
-  homeLogoDiv: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string
-  ]),
   mainSectionColorIndex: PropTypes.string,
   newsNavList: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.node,
@@ -271,7 +273,8 @@ ZooFooter.propTypes = {
   talkNavList: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.string
-  ])).isRequired
+  ])).isRequired,
+  zooTagline: PropTypes.string
 };
 
 export default ZooFooter;
