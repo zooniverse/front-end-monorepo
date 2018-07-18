@@ -25,7 +25,7 @@ function get (params) {
     return panoptes.get(endpoint, queryParams)
   }
   
-  return raiseError('Tutorials: Get request must include a workflow id or a tutorial id.', 'typeError')
+  return raiseError('Tutorials: Get request must include a workflow id or a tutorial id.', 'error')
 }
 
 function update () {
