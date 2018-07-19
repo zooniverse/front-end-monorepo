@@ -4,7 +4,10 @@ import SingleImageViewer from '../../components/SingleImageViewer'
 
 describe('Helpers > getViewer', function () {
   it('should return the `SingleImageViewer` component if passed `singleImage`', function () {
-    const single = getViewer('singleImage')
-    expect(single).to.equal(SingleImageViewer)
+    expect(getViewer('singleImage')).to.equal(SingleImageViewer)
+  })
+
+  it('should return null if it can\'t match a viewer', function () {
+    expect(getViewer('foobar')).to.equal(null)
   })
 })
