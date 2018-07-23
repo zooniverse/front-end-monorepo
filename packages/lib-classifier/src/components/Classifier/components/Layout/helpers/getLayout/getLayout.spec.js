@@ -7,7 +7,7 @@ describe('Helpers > getLayout', function () {
     expect(getLayout('default')).to.equal(DefaultLayout)
   })
 
-  it('should return null if it can\'t match a layout', function () {
-    expect(getLayout('foobar')).to.equal(null)
+  it('should return the default layout if it can\'t match a layout', function () {
+    expect(getLayout('foobar')).to.equal(DefaultLayout)
   })
 })

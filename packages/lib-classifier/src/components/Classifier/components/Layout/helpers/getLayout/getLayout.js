@@ -1,11 +1,16 @@
 import DefaultLayout from '../../components/DefaultLayout'
 
-const layouts = {
+const layoutsMap = {
   default: DefaultLayout
 }
 
 function getLayout (layout) {
-  return layouts[layout] || null
+  if (layoutsMap[layout]) {
+    return layoutsMap[layout]
+  } else {
+    console.warn(`Couldn't find a layout for '${layout}', falling back to default`)
+    return layoutsMap.default
+  }
 }
 
 export default getLayout
