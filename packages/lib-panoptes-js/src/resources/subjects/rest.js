@@ -17,8 +17,11 @@ function get(params) {
     return panoptes.get(`${endpoint}/${subjectId}`, queryParams)
   }
 
-  if (console) console.warn('Subjects: Are you trying to request subjects for classification? If so, use the helper `getSubjectsQueue` instead.')
-  return panoptes.get(endpoint, queryParams)
+  if (console && !subjectId && process.env.NODE_ENV !== 'test') {
+    console.warn('Subjects: Are you trying to request subjects for classification? If so, use the helper `getSubjectsQueue` instead.')
+    console.warn('Subjects: To request a page of subjects linked to a subject set, use the SetMemberSubjects Panoptes resource instead.')
+  }
+  return raiseError('Subjects: Get request must include a subject id.', 'error')
 }
 
 function update() {
