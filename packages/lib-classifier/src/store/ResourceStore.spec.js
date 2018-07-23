@@ -72,12 +72,12 @@ describe('Model > ResourceStore', function () {
   it('should use an existing resources object when `setActive` is called', async function () {
     await resourceStore.setActive('456')
     expect(resourceStore.active).to.deep.equal(resourcesStub.resources['456'])
-    expect(clientStub.panoptes.get.notCalled).to.equal(true)
+    expect(clientStub.panoptes.get.notCalled).to.be.true
   })
 
   it('should fetch a missing resource object when `setActive` is called', async function () {
     await resourceStore.setActive('789')
     expect(resourceStore.active).to.deep.equal(otherResourceStub)
-    expect(clientStub.panoptes.get.called).to.equal(true)
+    expect(clientStub.panoptes.get.called).to.be.true
   })
 })

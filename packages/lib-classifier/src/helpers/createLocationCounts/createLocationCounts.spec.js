@@ -22,7 +22,7 @@ function mockSubject (locations) {
 describe('Helpers > createLocationCounts', function () {
   it('should return an object', function () {
     const result1 = createLocationCounts(mockSubject(mockLocations1))
-    expect(result1 !== null && typeof result1 === 'object').to.equal(true)
+    expect(result1 !== null && typeof result1 === 'object').to.be.true
   })
 
   it('should return a total location count', function () {

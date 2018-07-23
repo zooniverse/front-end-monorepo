@@ -23,7 +23,7 @@ describe('Component > FullscreenButton', function () {
       />
     )
     wrapper.find('button').simulate('click')
-    expect(spy.called).to.equal(true)
+    expect(spy.called).to.be.true
   })
 
   it('should call the disableFullscreen prop function on click if fullscreen is active', function () {
@@ -35,6 +35,6 @@ describe('Component > FullscreenButton', function () {
       />
     )
     wrapper.find('button').simulate('click')
-    expect(spy.called).to.equal(true)
+    expect(spy.called).to.be.true
   })
 })
