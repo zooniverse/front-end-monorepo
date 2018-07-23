@@ -1,5 +1,5 @@
 const { create, get, update, del } = require('./rest')
-const { getBySlug, getWithLinkedResources } = require('./commonRequests')
+const { getAttachedImages, getMinicourses, getTutorials, getWithImages } = require('./commonRequests')
 const { endpoint } = require('./helpers')
 const mocks = require('./mocks')
 
@@ -8,8 +8,10 @@ module.exports = {
   get,
   update,
   delete: del,
+  getAttachedImages,
+  getMinicourses,
+  getTutorials,
+  getWithImages,
   endpoint,
-  getBySlug,
-  getWithLinkedResources,
   mocks
 }

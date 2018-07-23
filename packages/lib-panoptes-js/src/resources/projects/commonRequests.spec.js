@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
 
-const { projects } = require('./index')
+const projects = require('./index')
 const { endpoint } = require('./helpers')
 const { config } = require('../../config')
 const { resources, responses } = require('./mocks')
