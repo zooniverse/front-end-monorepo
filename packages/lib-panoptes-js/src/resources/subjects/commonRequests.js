@@ -19,3 +19,7 @@ function getSubjectsQueue(params) {
 
   return raiseError('Subjects: Get request must include a workflow id.', 'Error')
 }
+
+module.exports = {
+  getSubjectsQueue
+}
