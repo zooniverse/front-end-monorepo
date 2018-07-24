@@ -4,7 +4,7 @@ import sinon from 'sinon'
 
 import FullscreenButton from './FullscreenButton'
 
-describe.only('Component > FullscreenButton', function () {
+describe('Component > FullscreenButton', function () {
   it('should render without crashing', function () {
     shallow(<FullscreenButton />)
   })
