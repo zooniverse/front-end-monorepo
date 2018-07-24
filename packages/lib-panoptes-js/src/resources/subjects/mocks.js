@@ -15,20 +15,20 @@ const subject = {
   zooniverse_id: null
 }
 
-const subjectsQueue = buildSubjectsQueue()
+const subjectQueue = buildSubjectQueue()
 
 const resources = {
   subject,
-  subjectsQueue
+  subjectQueue
 }
 
 const subjectResponse = buildResponse('get', 'subjects', [resources.subject], {})
-const subjectsQueueResponse = buildResponse('get', 'subjects', subjectsQueue, {})
+const subjectQueueResponse = buildResponse('get', 'subjects', subjectQueue, {})
 
 const responses = {
   get: {
     subject: subjectResponse,
-    subjectsQueue: subjectsQueueResponse
+    subjectQueue: subjectQueueResponse
   }
 }
 

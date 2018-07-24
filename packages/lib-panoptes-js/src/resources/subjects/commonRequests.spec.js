@@ -7,7 +7,7 @@ const { endpoint } = require('./helpers')
 const subjects = require('./index')
 
 describe('Subjects resource common requests', function () {
-  describe('getSubjectsQueue', function () {
+  describe('getSubjectQueue', function () {
     let superagentMock
     let actualMatch
     const expectedGetResponse = responses.get.subjectsQueue
@@ -29,31 +29,31 @@ describe('Subjects resource common requests', function () {
     })
 
     it('should return a error if the request does not have a workflow id', function () {
-      subjects.getSubjectsQueue().catch((error) => {
+      subjects.getSubjectQueue().catch((error) => {
         expect(error.message).to.equal('Subjects: Get request must include a workflow id.')
       })
     })
 
     it('should error if the workflow id is not a string', function () {
-      subjects.getSubjectsQueue({ workflowId: 10 }).catch((error) => {
+      subjects.getSubjectQueue({ workflowId: 10 }).catch((error) => {
         expect(error.message).to.equal('Subjects: Get request workflow id must be a string.')
       })
     })
 
     it('should error if the subject set id is not a string', function () {
-      subjects.getSubjectsQueue({ subjectSetId: 40, workflowId: '10' }).catch((error) => {
+      subjects.getSubjectQueue({ subjectSetId: 40, workflowId: '10' }).catch((error) => {
         expect(error.message).to.equal('Subjects: Get request subject set id must be a string.')
       })
     })
 
     it('should return the expected response', function () {
-      subjects.getSubjectsQueue({ workflowId: '10' }).then((response) => {
+      subjects.getSubjectQueue({ workflowId: '10' }).then((response) => {
         expect(response.body).to.eql(expectedGetResponse)
       })
     })
 
     it('should use the subject set id in the request query params if defined', function () {
-      subjects.getSubjectsQueue({ subjectSetId: '40', workflowId: '10' }).then(() => {
+      subjects.getSubjectQueue({ subjectSetId: '40', workflowId: '10' }).then(() => {
         expect(actualMatch.input.includes('subject_set_id=40')).to.be.true
       })
     })

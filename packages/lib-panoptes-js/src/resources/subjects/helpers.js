@@ -27,15 +27,15 @@ function buildQueuedSubjectResource () {
   }
 }
 
-function buildSubjectsQueue () {
+function buildSubjectQueue () {
   const times = 10
-  const subjectsQueue = []
+  const subjectQueue = []
   for (var i = 0; i < times; i++) {
     const subject = buildQueuedSubjectResource()
-    subjectsQueue.push(subject)
+    subjectQueue.push(subject)
   }
 
-  return subjectsQueue
+  return subjectQueue
 }
 
-module.exports = { buildQueuedSubjectResource, buildSubjectsQueue, endpoint, queuedEndpoint }
+module.exports = { buildQueuedSubjectResource, buildSubjectQueue, endpoint, queuedEndpoint }

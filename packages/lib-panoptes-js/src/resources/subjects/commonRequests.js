@@ -2,7 +2,7 @@ const panoptes = require('../../panoptes')
 const { endpoint, queuedEndpoint } = require('./helpers')
 const { isParamTypeInvalid, raiseError } = require('../../utilityFunctions')
 
-function getSubjectsQueue(params) {
+function getSubjectQueue(params) {
   const queryParams = (params && params.query) ? params.query : {}
   const workflowId = (params && params.workflowId) ? params.workflowId : ''
   const subjectSetId = (params && params.subjectSetId) ? params.subjectSetId : ''
@@ -21,5 +21,5 @@ function getSubjectsQueue(params) {
 }
 
 module.exports = {
-  getSubjectsQueue
+  getSubjectQueue
 }

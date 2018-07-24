@@ -1,4 +1,4 @@
-const { buildQueuedSubjectResource, buildSubjectsQueue } = require('./helpers')
+const { buildQueuedSubjectResource, buildSubjectQueue } = require('./helpers')
 
 describe('Subjects Helpers', function () {
   describe('buildQueuedSubjectResource', function () {
@@ -16,7 +16,7 @@ describe('Subjects Helpers', function () {
 
   describe('buildSubjectQueue', function () {
     it('should return an array with ten objects', function () {
-      const queue = buildSubjectsQueue()
+      const queue = buildSubjectQueue()
       expect(queue).to.have.lengthOf(10)
       queue.forEach((subject) => {
         expect(subject).to.be.an.instanceOf(Object)
