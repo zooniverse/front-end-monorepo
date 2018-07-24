@@ -7,12 +7,12 @@ import MoveButton from './MoveButton'
 function storeMapper (stores) {
   const {
     move,
-    enableMove,
+    enableMove
   } = stores.classifierStore.classifier
 
   return {
     move,
-    enableMove,
+    enableMove
   }
 }
 

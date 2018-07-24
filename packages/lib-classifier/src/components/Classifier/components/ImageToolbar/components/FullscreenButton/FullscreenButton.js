@@ -32,7 +32,10 @@ FullscreenButton.propTypes = {
 
 FullscreenButton.defaultProps = {
   active: false,
-  onClick: () => console.log(counterpart(`FullscreenButton.ariaLabel.${labelKey}`))
+  onClick: () => {
+    const labelKey = active ? 'actualSize' : 'fullscreen'
+    console.log(counterpart(`FullscreenButton.ariaLabel.${labelKey}`))
+  }
 }
 
 export default FullscreenButton

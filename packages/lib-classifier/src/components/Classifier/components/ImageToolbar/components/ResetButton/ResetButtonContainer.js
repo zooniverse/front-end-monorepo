@@ -6,7 +6,7 @@ import ResetButton from './ResetButton'
 
 function storeMapper (stores) {
   const {
-    resetView,
+    resetView
   } = stores.classifierStore.classifier
 
   return {
@@ -26,11 +26,11 @@ class ResetButtonContainer extends React.Component {
 }
 
 ResetButtonContainer.propTypes = {
-  resetView: PropTypes.func,
+  resetView: PropTypes.func
 }
 
 ResetButtonContainer.defaultProps = {
-  resetView: () => console.log('reset view'),
+  resetView: () => console.log('reset view')
 }
 
 export default ResetButtonContainer

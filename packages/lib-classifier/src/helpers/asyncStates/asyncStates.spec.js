@@ -5,7 +5,7 @@ describe('Helpers > asyncStates', function () {
     'initialized',
     'loading',
     'success',
-    'error'  ,
+    'error'
   ]
 
   states.forEach(function (state) {

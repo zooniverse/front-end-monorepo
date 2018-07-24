@@ -4,7 +4,6 @@ import React from 'react'
 
 import FullscreenButton from './FullscreenButton'
 
-
 function storeMapper (stores) {
   const {
     fullscreen,

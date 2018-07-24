@@ -6,11 +6,11 @@ import ZoomOutButton from './ZoomOutButton'
 
 function storeMapper (stores) {
   const {
-    zoomOut,
+    zoomOut
   } = stores.classifierStore.classifier
 
   return {
-    zoomOut,
+    zoomOut
   }
 }
 
@@ -25,7 +25,7 @@ class ZoomOutButtonContainer extends React.Component {
   onClick () {
     this.props.zoomOut()
   }
-  
+
   render () {
     return (
       <ZoomOutButton onClick={this.onClick} />
@@ -34,12 +34,11 @@ class ZoomOutButtonContainer extends React.Component {
 }
 
 ZoomOutButtonContainer.propTypes = {
-  zoomOut: PropTypes.func,
+  zoomOut: PropTypes.func
 }
 
 ZoomOutButtonContainer.defaultProps = {
-  zoomOut: () => console.log('zoom out'),
+  zoomOut: () => console.log('zoom out')
 }
-
 
 export default ZoomOutButtonContainer

@@ -6,11 +6,11 @@ import ZoomInButton from './ZoomInButton'
 
 function storeMapper (stores) {
   const {
-    zoomIn,
+    zoomIn
   } = stores.classifierStore.classifier
 
   return {
-    zoomIn,
+    zoomIn
   }
 }
 
@@ -26,11 +26,11 @@ class ZoomInButtonContainer extends React.Component {
 }
 
 ZoomInButtonContainer.propTypes = {
-  zoomIn: PropTypes.func,
+  zoomIn: PropTypes.func
 }
 
 ZoomInButtonContainer.defaultProps = {
-  zoomIn: () => console.log('zoom in'),
+  zoomIn: () => console.log('zoom in')
 }
 
 export default ZoomInButtonContainer

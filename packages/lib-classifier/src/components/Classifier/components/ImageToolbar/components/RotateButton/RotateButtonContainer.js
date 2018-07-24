@@ -6,7 +6,7 @@ import RotateButton from './RotateButton'
 
 function storeMapper (stores) {
   const {
-    rotate,
+    rotate
   } = stores.classifierStore.classifier
 
   return {
@@ -26,11 +26,11 @@ class RotateButtonContainer extends React.Component {
 }
 
 RotateButtonContainer.propTypes = {
-  rotate: PropTypes.func,
+  rotate: PropTypes.func
 }
 
 RotateButtonContainer.defaultProps = {
-  rotate: () => console.log('rotate view'),
+  rotate: () => console.log('rotate view')
 }
 
 export default RotateButtonContainer
