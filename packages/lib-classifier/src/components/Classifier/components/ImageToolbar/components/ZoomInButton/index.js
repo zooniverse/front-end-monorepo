@@ -1,1 +1,1 @@
-export { default } from './ZoomInButton'
+export { default } from './ZoomInButtonContainer'

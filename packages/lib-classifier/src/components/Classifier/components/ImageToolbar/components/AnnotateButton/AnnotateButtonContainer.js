@@ -1,18 +1,18 @@
-import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import AnnotateButton from './AnnotateButton'
 
 function storeMapper (stores) {
   const {
-    annotate: active,
-    enableAnnotate: onClick,
+    annotate,
+    enableAnnotate
   } = stores.classifierStore.classifier
 
   return {
-    active,
-    onClick
+    annotate,
+    enableAnnotate
   }
 }
 
@@ -20,9 +20,21 @@ function storeMapper (stores) {
 @observer
 class AnnotateButtonContainer extends React.Component {
   render () {
-    const { active, onClick } = this.props
-    return <AnnotateButton active={active} onClick={onClick} />
+    const { annotate, enableAnnotate } = this.props
+    return (
+      <AnnotateButton active={annotate} onClick={enableAnnotate} />
+    )
   }
+}
+
+AnnotateButtonContainer.propTypes = {
+  annotate: PropTypes.bool,
+  enableAnnotate: PropTypes.func
+}
+
+AnnotateButtonContainer.defaultProps = {
+  annotate: false,
+  enableAnnotate: () => console.log('Enable annotate')
 }
 
 export default AnnotateButtonContainer

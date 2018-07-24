@@ -1,5 +1,4 @@
 import counterpart from 'counterpart'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -10,65 +9,30 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper (stores) {
-  const {
-    fullscreen,
-    enableFullscreen,
-    disableFullscreen
-  } = stores.classifierStore.classifier
+function FullscreenButton ({ active, onClick }) {
+  const icon = (active) ? actualSizeIcon : fullscreenIcon
+  const labelKey = active ? 'actualSize' : 'fullscreen'
+  const label = counterpart(`FullscreenButton.ariaLabel.${labelKey}`)
 
-  return {
-    fullscreen,
-    enableFullscreen,
-    disableFullscreen
-  }
-}
-
-@inject(storeMapper)
-@observer
-class FullscreenButton extends React.Component {
-  constructor () {
-    super()
-    this.getOnClick = this.getOnClick.bind(this)
-  }
-
-  getIcon (fullscreen) {
-    return fullscreen ? actualSizeIcon : fullscreenIcon
-  }
-
-  getLabel () {
-    const labelKey = this.props.fullscreen ? 'actualSize' : 'fullscreen'
-    return counterpart(`FullscreenButton.ariaLabel.${labelKey}`)
-  }
-
-  getOnClick (fullscreen) {
-    const { disableFullscreen, enableFullscreen } = this.props
-    return fullscreen ? disableFullscreen : enableFullscreen
-  }
-
-  render () {
-    const { fullscreen } = this.props
-
-    return (
-      <Button
-        active={fullscreen}
-        aria-label={this.getLabel(fullscreen)}
-        onClick={this.getOnClick(fullscreen)}
-      >
-        {this.getIcon(fullscreen)}
-      </Button>
-    )
-  }
+  return (
+    <Button
+      active={active}
+      aria-label={label}
+      onClick={onClick}
+    >
+      {icon}
+    </Button>
+  )
 }
 
 FullscreenButton.propTypes = {
-  fullscreen: PropTypes.bool,
-  disableFullscreen: PropTypes.func,
-  enableFullscreen: PropTypes.func
+  active: PropTypes.bool,
+  onClick: PropTypes.func
 }
 
 FullscreenButton.defaultProps = {
-  fullscreen: false
+  active: false,
+  onClick: () => console.log(counterpart(`FullscreenButton.ariaLabel.${labelKey}`))
 }
 
 export default FullscreenButton

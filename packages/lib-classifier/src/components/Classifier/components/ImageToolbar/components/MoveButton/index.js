@@ -1,1 +1,1 @@
-export { default } from './MoveButton'
+export { default } from './MoveButtonContainer'

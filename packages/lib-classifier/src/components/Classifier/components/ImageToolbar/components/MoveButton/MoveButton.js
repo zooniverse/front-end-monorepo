@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import moveIcon from './moveIcon'
@@ -8,33 +8,26 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper (stores) {
-  const {
-    move,
-    enableMove,
-  } = stores.classifierStore.classifier
-
-  return {
-    move,
-    enableMove,
-  }
+function MoveButton ({ active, onClick }) {
+  return (
+    <Button
+      active={active}
+      aria-label={counterpart('MoveButton.ariaLabel')}
+      onClick={onClick}
+    >
+      {moveIcon}
+    </Button>
+  )
 }
 
-@inject(storeMapper)
-@observer
-class MoveButton extends React.Component {
-  render () {
-    const { move, enableMove } = this.props
-    return (
-      <Button
-        active={move}
-        aria-label={counterpart('MoveButton.ariaLabel')}
-        onClick={enableMove}
-      >
-        {moveIcon}
-      </Button>
-    )
-  }
+MoveButton.propTypes = {
+  active: PropTypes.bool,
+  onClick: PropTypes.func
+}
+
+MoveButton.defaultProps = {
+  active: false,
+  onClick: () => console.log(counterpart('MoveButton.ariaLabel'))
 }
 
 export default MoveButton

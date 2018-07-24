@@ -7,7 +7,7 @@ const Classifier = types
     annotate: types.optional(types.boolean, true),
     fullscreen: types.optional(types.boolean, false),
     move: types.optional(types.boolean, false),
-    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
+    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default)
   })
 
   .actions(self => ({
@@ -29,8 +29,24 @@ const Classifier = types
       self.fullscreen = false
     },
 
+    resetView () {
+      console.log('resetting view')
+    },
+
+    rotate () {
+      console.log('rotating subject')
+    },
+
     setLayout (layout = layouts.DefaultLayout) {
       self.layout = layout
+    },
+
+    zoomIn () {
+      console.log('zooming in')
+    },
+
+    zoomOut () {
+      console.log('zooming out')
     }
   }))
 

@@ -1,4 +1,5 @@
 import counterpart from 'counterpart'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import zoomOutIcon from './zoomOutIcon'
@@ -7,12 +8,23 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function ZoomOutButton () {
+function ZoomOutButton ({ onClick }) {
   return (
-    <Button aria-label={counterpart('ZoomOutButton.ariaLabel')}>
+    <Button
+      aria-label={counterpart('ZoomOutButton.ariaLabel')}
+      onClick={onClick}
+    >
       {zoomOutIcon}
     </Button>
   )
+}
+
+ZoomOutButton.propTypes = {
+  onClick: PropTypes.func
+}
+
+ZoomOutButton.defaultProps = {
+  onClick: () => console.log(counterpart('ZoomOutButton.ariaLabel'))
 }
 
 export default ZoomOutButton
