@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import pointerIcon from './pointerIcon'
@@ -8,34 +8,27 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper (stores) {
-  const {
-    annotate,
-    enableAnnotate,
-  } = stores.classifierStore.classifier
-
-  return {
-    annotate,
-    enableAnnotate,
-  }
+function AnnotateButton ({ active, onClick }) {
+  return (
+    <Button
+      active={active}
+      adjustments={{ x: '1', y: '4' }}
+      aria-label={counterpart('AnnotateButton.ariaLabel')}
+      onClick={onClick}
+    >
+      {pointerIcon}
+    </Button>
+  )
 }
 
-@inject(storeMapper)
-@observer
-class AnnotateButton extends React.Component {
-  render () {
-    const { annotate, enableAnnotate } = this.props
-    return (
-      <Button
-        active={annotate}
-        adjustments={{ x: '1', y: '4' }}
-        aria-label={counterpart('AnnotateButton.ariaLabel')}
-        onClick={enableAnnotate}
-        >
-        {pointerIcon}
-      </Button>
-    )
-  }
+AnnotateButton.propTypes = {
+  active: PropTypes.bool,
+  onClick: PropTypes.func
+}
+
+AnnotateButton.defaultProps = {
+  active: false,
+  onClick: () => console.log(counterpart('AnnotateButton.ariaLabel'))
 }
 
 export default AnnotateButton

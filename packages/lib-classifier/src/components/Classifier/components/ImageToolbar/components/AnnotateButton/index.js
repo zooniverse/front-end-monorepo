@@ -1,1 +1,1 @@
-export { default } from './AnnotateButton'
+export { default } from './AnnotateButtonContainer'
