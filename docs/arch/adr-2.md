@@ -16,7 +16,7 @@ There is an [open issue](https://github.com/zeit/next.js/issues/1632) confirming
 
 In addition, Sarah had been recently advised by fellow developers in the Chicago Javascript community that Next.js is difficult to configure which can outweigh any benefits it might provide. 
 
-Roger and Sarah built several prototypes with other libraries, including [react-server](https://react-server.io/), [razzle](https://github.com/jaredpalmer/razzle), and [react-universally](https://github.com/ctrlplusb/react-universally). However, none of these provided the same ease-of-use as Next.js.
+Roger and Sarah built several prototypes with other libraries, including [react-server](https://react-server.io/), [razzle](https://github.com/jaredpalmer/razzle), and [react-universally](https://github.com/ctrlplusb/react-universally). However, none of these provided the same ease-of-use as Next.js. Additionally, react-server doesn't appear to be actively maintained.
 
 ## Decision
 
