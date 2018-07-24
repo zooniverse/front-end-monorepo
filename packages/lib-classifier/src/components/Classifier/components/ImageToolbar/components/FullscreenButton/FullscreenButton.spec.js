@@ -4,7 +4,7 @@ import sinon from 'sinon'
 
 import FullscreenButton from './FullscreenButton'
 
-describe('Component > FullscreenButton', function () {
+describe.only('Component > FullscreenButton', function () {
   it('should render without crashing', function () {
     shallow(<FullscreenButton />)
   })
@@ -14,24 +14,11 @@ describe('Component > FullscreenButton', function () {
     expect(wrapper.find('button').prop('aria-label')).to.equal('View subject in full screen mode')
   })
 
-  it('should call the enableFullscreen prop function on click if fullscreen is not active', function () {
+  it('should call the onClick prop function on click', function () {
     const spy = sinon.spy()
     const wrapper = mount(
       <FullscreenButton
-        fullscreen={false}
-        enableFullscreen={spy}
-      />
-    )
-    wrapper.find('button').simulate('click')
-    expect(spy.called).to.be.true
-  })
-
-  it('should call the disableFullscreen prop function on click if fullscreen is active', function () {
-    const spy = sinon.spy()
-    const wrapper = mount(
-      <FullscreenButton
-        fullscreen
-        disableFullscreen={spy}
+        onClick={spy}
       />
     )
     wrapper.find('button').simulate('click')
