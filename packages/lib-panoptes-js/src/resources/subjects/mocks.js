@@ -1,28 +1,34 @@
 const { buildResponse } = require('../../utilityFunctions')
+const { buildSubjectsQueue } = require('./helpers')
 
 const subject = {
-  created_at: "2015-03-17T13:45:53.402Z",
+  created_at: '2015-03-17T13:45:40.297Z',
   external_id: null,
-  href: "/subjects/10",
-  id: "10",
+  href: "/subjects/1",
+  id: "1",
   links: { project: "1" },
-  locations:[{
+  locations: [{
     'image/png': 'https://placekitten.com/408/287'
   }],
   metadata: {},
-  updated_at: "2015-03-17T13:45:53.402Z",
+  updated_at: '2015-03-17T13:45:40.297Z',
   zooniverse_id: null
 }
 
+const subjectsQueue = buildSubjectsQueue()
+
 const resources = {
-  subject
+  subject,
+  subjectsQueue
 }
 
 const subjectResponse = buildResponse('get', 'subjects', [resources.subject], {})
+const subjectsQueueResponse = buildResponse('get', 'subjects', subjectsQueue, {})
 
 const responses = {
   get: {
-    subject: subjectResponse
+    subject: subjectResponse,
+    subjectsQueue: subjectsQueueResponse
   }
 }
 

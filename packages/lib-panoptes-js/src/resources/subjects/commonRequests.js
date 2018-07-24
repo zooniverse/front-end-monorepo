@@ -17,7 +17,7 @@ function getSubjectsQueue(params) {
     return panoptes.get(queuedEndpoint, queryParams)
   }
 
-  return raiseError('Subjects: Get request must include a workflow id.', 'Error')
+  return raiseError('Subjects: Get request must include a workflow id.', 'error')
 }
 
 module.exports = {
