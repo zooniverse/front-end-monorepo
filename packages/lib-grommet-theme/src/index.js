@@ -1,22 +1,32 @@
 import deepFreeze from 'deep-freeze'
+import light from './light'
+import dark from './dark'
 
 const theme = deepFreeze({
+  dark,
   global: {
     colors: {
+      brand: '#007482',
+      lightBrand: '#16979C',
       black: '#000',
+      lightBlack: '#272727',
       darkGrey: '#5c5c5c',
       teal: '#00979d',
       lightTeal: '#addde0',
+      darkGold: '#CC9200',
       gold: '#f0b200',
       lightGold: '#f6d885',
       tomato: '#e45950',
+      grey: '#CBCCCB',
       lightGrey: '#e2e5e9',
       lighterGrey: '#eff2f5',
       midGrey: '#a6a7a9',
+      darkGrey: '#646464',
       green: '#078f52',
       darkTeal: '#005D69',
-
-      text: '#444444'
+      text: '#444444',
+      navy: '#0C4881',
+      lightNavy: '#6D91B3'
     },
     font: {
       family: "'Karla', Arial, sans-serif",
@@ -43,7 +53,8 @@ const theme = deepFreeze({
         }
       `
     }
-  }
+  },
+  light
 })
 
 export default theme
