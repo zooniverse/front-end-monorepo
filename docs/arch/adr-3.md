@@ -29,3 +29,4 @@ Proposed
 - As a standalone React app, consumers won't be tied in to using React in order to use the front end components.
 - As a separate package, it allows us to keep Panoptes.js as a pure set of functions. However, Panoptes.js does need to perform authenticated requests, which will be implemented as accepting an auth parameter for each one. To simplify that, we'll write a wrapper for Panoptes.js to maintain the auth state and provide it to each request as required.
 - The OAuth flow currently only provides the consumer with a token life in seconds. It would me a lot easier if it had an absolute expiry timestamp that we could measure against instead.
+- We'll need to be able to style the existing Panoptes views for first-party auth - possibly as a React app so we can use our existing Grommet components?
