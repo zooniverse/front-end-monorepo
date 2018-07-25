@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import WithHoverOrFocusProp from '../WithHoverOrFocusProp'
+import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
 
 const StyledButton = styled.button`
   background: none;
@@ -11,14 +11,16 @@ const StyledButton = styled.button`
 `
 
 const Background = styled.circle`
-  fill: ${props => (props.hoverOrFocus || props.active) ? '#00979D' : 'transparent'};
-  opacity: ${props => props.hoverOrFocus ? '0.5' : '1'};
+  fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : 'transparent'};
+  opacity: ${props => props.hoveredOrFocused ? '0.5' : '1'};
 `
 
 const IconSVG = styled.svg`
-  fill: ${props => (props.hoverOrFocus || props.active) ? 'white' : 'black'};
+  fill: ${props => (props.hoveredOrFocused || props.active) ? 'white' : 'black'};
 `
 
+@withHoverProps({ hovered: true })
+@withFocusProps({ focused: true })
 class Button extends React.Component {
   getSize (sizeInPercent) {
     const position = (100 - sizeInPercent) / 2
@@ -35,36 +37,47 @@ class Button extends React.Component {
       active,
       adjustments,
       children,
-      eventHandlers,
-      hoverOrFocus,
-      size,
-      ...buttonProps
+      focused,
+      hovered,
+      onBlur,
+      onFocus,
+      onMouseOver,
+      onMouseOut,
+      size
     } = this.props
+    
+    const hoveredOrFocused = hovered || focused
 
-    const sizeProps = {...this.getSize(size)}
+    const eventHandlers = {
+      onBlur,
+      onFocus,
+      onMouseOver,
+      onMouseOut,
+    }
 
     const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, sizeProps))
+      React.cloneElement(child, { ...this.getSize(size) }))
 
     return (
-      <StyledButton {...eventHandlers} {...buttonProps}>
+      <StyledButton {...eventHandlers}>
         <svg viewBox='0 0 100 100'>
           <Background
             active={active}
-            hoverOrFocus={hoverOrFocus}
+            hoveredOrFocused={hoveredOrFocused}
             cx='50'
             cy='50'
             r='50'
           />
           <IconSVG
             active={active}
-            hoverOrFocus={hoverOrFocus}
+            hoveredOrFocused={hoveredOrFocused}
             {...adjustments}
           >
             {childrenWithProps}
           </IconSVG>
         </svg>
       </StyledButton>
+
     )
   }
 }
@@ -73,15 +86,18 @@ Button.propTypes = {
   active: PropTypes.bool,
   adjustments: PropTypes.object,
   children: PropTypes.node,
-  eventHandlers: PropTypes.object,
-  onClick: PropTypes.func,
-  size: PropTypes.string
+  focused: PropTypes.bool,
+  hovered: PropTypes.bool,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  siz: PropTypes.string,
 }
 
 Button.defaultProps = {
   active: false,
-  hoverOrFocus: false,
   size: '46'
 }
 
-export default WithHoverOrFocusProp(Button)
+export default Button

@@ -3,10 +3,10 @@ import { Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
 
 import en from './locales/en'
 import helpIcon from './helpIcon'
-import WithHoverOrFocusProp from '../WithHoverOrFocusProp'
 
 counterpart.registerTranslations('en', en)
 
@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   color: white;
   cursor: pointer;
   letter-spacing: 1px;
-  opacity: ${props => (props.hoverOrFocus) ? '0.7' : '1'};
+  opacity: ${props => (props.hoveredOrFocused) ? '0.7' : '1'};
   padding: 0;
   text-transform: uppercase;
   width: 100%;
@@ -31,6 +31,8 @@ const StyledButton = styled.button`
   }
 `
 
+@withHoverProps({ hovered: true })
+@withFocusProps({ focused: true })
 class FieldGuideButton extends React.Component {
   constructor () {
     super()
@@ -43,15 +45,28 @@ class FieldGuideButton extends React.Component {
 
   render () {
     const {
-      eventHandlers,
-      hoverOrFocus
+      focused,
+      hovered,
+      onBlur,
+      onFocus,
+      onMouseOver,
+      onMouseOut,
     } = this.props
+
+    const eventHandlers = {
+      onBlur,
+      onFocus,
+      onMouseOver,
+      onMouseOut,
+    }
+
+    const hoveredOrFocused = hovered || focused
 
     return (
       <StyledButton
         {...eventHandlers}
         aria-label={counterpart('FieldGuideButton.ariaLabel')}
-        hoverOrFocus={hoverOrFocus}
+        hoveredOrFocused={hoveredOrFocused}
         onClick={this.onClick}
       >
         <Box align='center' pad='small'>
@@ -69,4 +84,4 @@ FieldGuideButton.propTypes = {
   hoverOrFocus: PropTypes.bool
 }
 
-export default WithHoverOrFocusProp(FieldGuideButton)
+export default FieldGuideButton
