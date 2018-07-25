@@ -14,7 +14,7 @@ The current classifier was based on a few assumptions, that, while accurate at t
 
 We implement the classification process like this:
 
-The classification of a subject will consist of a series of __steps__. A single step consists of a __task hook__, and a __notification hook__. A task hook may consist of a __single workflow task__, or an __array of workflow tasks__. A notification could be an __intervention__, __feedback__, a __Sugar notification__, or some other information conveyed to the volunteer.
+The classification of a subject will consist of a series of __steps__. A single step consists of a __task hook__, and a __notification hook__. A task hook consists of an __array of one or more workflow tasks__. A notification could be an __intervention__, __feedback__, a __Sugar notification__, or some other information conveyed to the volunteer.
 
 In practice, this will probably mean that the current workflow store is only used to store the resources from the Panoptes API. Once the project and workflow are loaded, we will derive a store for the workflow steps and that will drive the user interface.
 
