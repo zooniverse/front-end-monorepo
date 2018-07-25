@@ -35,3 +35,4 @@ Proposed
 
 - Developers will be able to use modern browser technologies and spend more time on writing features.
 - Support for legacy browsers will be curtailed, so we will need to communicate what browsers are supported to our users well in advance of code going live.
+- If we are required to carry on supporting IE11 until its end-of-life in 2023, we will need more developer time both for the rewrite and ongoing maintenance to perform manual testing.
