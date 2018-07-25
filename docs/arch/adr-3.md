@@ -17,8 +17,15 @@ However, the current client has the following drawbacks:
 To write a separate auth library. This will expose:
 
 - the API helpers for the auth process, if the consumer wants/needs to use them.
-- a standalone React app, which will provide a consistent set of login, registration, forgotten password and account deletion forms.
+- a standalone React app, which open an iframe to the Panoptes views for sign in, sign out, registration, profile management inlcuding password reset and account deletion.
 - an observable for getting the user object
+
+For Oauth flows
+- write a wrapper client 
+- prompt for session time out
+- provide a pre-session time out hook for the consumer app
+- the consumer app needs to track session time out
+  - Can Panoptes provide this for us, e.g. with an expiry date?
 
 The library will reuse the existing first-party login code, and wrap another package to provide OAuth support, such as [js-client-oauth2](https://github.com/mulesoft/js-client-oauth2)
 
