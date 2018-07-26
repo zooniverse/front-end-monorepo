@@ -9,7 +9,7 @@ function storeMapper (stores) {
   const { active: subject, loadingState } = stores.classifierStore.subjects
   return {
     loadingState,
-    subject,
+    subject
   }
 }
 
