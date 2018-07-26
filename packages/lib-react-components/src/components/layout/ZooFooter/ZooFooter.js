@@ -1,14 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Anchor, Box, Image, Grommet } from 'grommet';
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons';
 import styled from 'styled-components';
 import zooTheme from '@zooniverse/grommet-theme';
 import ZooniverseLogotype from '../zooniverse-logotype';
-
-export const StyledFooterBox = styled(Box)`
-  border-top: 5px solid #005D69;
-`;
+import FooterContainer from './components/FooterContainer'
 
 export const StyledFooterSection = styled(Box)`
   position: relative;
@@ -89,8 +86,9 @@ const ZooFooter = (props) => {
 
   return (
     <Grommet theme={theme}>
-      <StyledFooterBox
+      <FooterContainer
         align="center"
+        background={props.mainSectionColorIndex}
         direction="column"
         pad={{ horizontal: 'none', vertical: 'none' }}
         tag="footer"
@@ -183,7 +181,7 @@ const ZooFooter = (props) => {
             <StyledEasterEgg src="https://s3.amazonaws.com/zooniverse-static/assets/penguin.png" alt="" />
           </div>
         </StyledFooterSection>
-      </StyledFooterBox>
+      </FooterContainer>
     </Grommet>
   );
 };
@@ -212,6 +210,7 @@ ZooFooter.defaultProps = {
     <StyledNavListItem href="https://www.zooniverse.org/get-involved/call-for-projects">Call for Projects</StyledNavListItem>,
     <StyledNavListItem href="https://www.zooniverse.org/collections">Collections</StyledNavListItem>
   ],
+  mainSectionColorIndex: '#fff',
   newsNavList: [
     <StyledNavListHeader href="#">News</StyledNavListHeader>,
     <StyledNavListItem href="https://daily.zooniverse.org/">Daily Zooniverse</StyledNavListItem>,
@@ -254,6 +253,7 @@ ZooFooter.propTypes = {
     PropTypes.node,
     PropTypes.string
   ])).isRequired,
+  mainSectionColorIndex: PropTypes.string,
   newsNavList: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.string
