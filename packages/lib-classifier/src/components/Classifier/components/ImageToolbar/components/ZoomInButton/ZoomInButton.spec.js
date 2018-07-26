@@ -1,5 +1,6 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 import ZoomInButton from './ZoomInButton'
 
 describe('Component > ZoomInButton', function () {
@@ -8,7 +9,18 @@ describe('Component > ZoomInButton', function () {
   })
 
   it('should have an ARIA label', function () {
-    const wrapper = mount(<ZoomInButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('Zoom in on subject')
+    const wrapper = shallow(<ZoomInButton />)
+    expect(wrapper.find('Button').prop('aria-label')).to.equal('Zoom in on subject')
+  })
+
+  it('should call the onClick prop function on click', function () {
+    const spy = sinon.spy()
+    const wrapper = shallow(
+      <ZoomInButton
+        onClick={spy}
+      />
+    )
+    wrapper.find('Button').simulate('click')
+    expect(spy.called).to.be.true
   })
 })

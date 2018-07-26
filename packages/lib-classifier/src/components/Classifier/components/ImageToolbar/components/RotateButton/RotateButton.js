@@ -11,9 +11,9 @@ counterpart.registerTranslations('en', en)
 function RotateButton ({ onClick }) {
   return (
     <Button
-      adjustments={{ y: '2' }}
       aria-label={counterpart('RotateButton.ariaLabel')}
       onClick={onClick}
+      svgAdjustments={{ y: '2' }}
     >
       {rotateIcon}
     </Button>

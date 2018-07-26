@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
@@ -10,18 +10,18 @@ describe('Component > FullscreenButton', function () {
   })
 
   it('should have an ARIA label', function () {
-    const wrapper = mount(<FullscreenButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('View subject in full screen mode')
+    const wrapper = shallow(<FullscreenButton />)
+    expect(wrapper.find('Button').prop('aria-label')).to.equal('View subject in full screen mode')
   })
 
   it('should call the onClick prop function on click', function () {
     const spy = sinon.spy()
-    const wrapper = mount(
+    const wrapper = shallow(
       <FullscreenButton
         onClick={spy}
       />
     )
-    wrapper.find('button').simulate('click')
+    wrapper.find('Button').simulate('click')
     expect(spy.called).to.be.true
   })
 })
