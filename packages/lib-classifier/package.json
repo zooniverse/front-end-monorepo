@@ -2,7 +2,7 @@
   "name": "@zooniverse/classifier",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "scripts": {
     "_check": "check-dependencies",
     "build": "npm run _check && webpack --config webpack.dist.js",
