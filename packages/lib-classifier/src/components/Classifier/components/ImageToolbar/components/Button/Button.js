@@ -39,6 +39,7 @@ class Button extends React.Component {
       focused,
       hovered,
       onBlur,
+      onClick,
       onFocus,
       onMouseOver,
       onMouseOut,
@@ -50,6 +51,7 @@ class Button extends React.Component {
 
     const eventHandlers = {
       onBlur,
+      onClick,
       onFocus,
       onMouseOver,
       onMouseOut,
