@@ -90,6 +90,7 @@ Button.propTypes = {
   focused: PropTypes.bool,
   hovered: PropTypes.bool,
   onBlur: PropTypes.func,
+  onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
@@ -99,6 +100,11 @@ Button.propTypes = {
 
 Button.defaultProps = {
   active: false,
+  onBlur: () => {},
+  onClick: () => {},
+  onFocus: () => {},
+  onMouseOver: () => {},
+  onMouseOut: () => {},
   size: '46'
 }
 
