@@ -35,7 +35,6 @@ class Button extends React.Component {
   render () {
     const {
       active,
-      adjustments,
       children,
       focused,
       hovered,
@@ -43,7 +42,8 @@ class Button extends React.Component {
       onFocus,
       onMouseOver,
       onMouseOut,
-      size
+      size,
+      svgAdjustments
     } = this.props
     
     const hoveredOrFocused = hovered || focused
@@ -71,7 +71,7 @@ class Button extends React.Component {
           <IconSVG
             active={active}
             hoveredOrFocused={hoveredOrFocused}
-            {...adjustments}
+            {...svgAdjustments}
           >
             {childrenWithProps}
           </IconSVG>
@@ -84,7 +84,6 @@ class Button extends React.Component {
 
 Button.propTypes = {
   active: PropTypes.bool,
-  adjustments: PropTypes.object,
   children: PropTypes.node,
   focused: PropTypes.bool,
   hovered: PropTypes.bool,
@@ -92,7 +91,8 @@ Button.propTypes = {
   onFocus: PropTypes.func,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
-  siz: PropTypes.string,
+  size: PropTypes.string,
+  svgAdjustments: PropTypes.object
 }
 
 Button.defaultProps = {

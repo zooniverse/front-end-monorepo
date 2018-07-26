@@ -1,5 +1,6 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 import ResetButton from './ResetButton'
 
 describe('Component > ResetButton', function () {
@@ -8,7 +9,18 @@ describe('Component > ResetButton', function () {
   })
 
   it('should have an ARIA label', function () {
-    const wrapper = mount(<ResetButton />)
-    expect(wrapper.find('button').prop('aria-label')).to.equal('Reset subject view')
+    const wrapper = shallow(<ResetButton />)
+    expect(wrapper.find('Button').prop('aria-label')).to.equal('Reset subject view')
+  })
+
+  it('should call the onClick prop function on click', function () {
+    const spy = sinon.spy()
+    const wrapper = shallow(
+      <ResetButton
+        onClick={spy}
+      />
+    )
+    wrapper.find('Button').simulate('click')
+    expect(spy.called).to.be.true
   })
 })
