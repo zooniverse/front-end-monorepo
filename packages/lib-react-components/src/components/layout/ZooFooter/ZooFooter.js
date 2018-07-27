@@ -38,10 +38,6 @@ export const StyledLogoAnchor = styled(Anchor)`
     border-bottom: solid thin transparent;
     fill: ${whichTealColorForTheme};
   }
-
-  g {
-    fill: ${whichTealColorForTheme};
-  }
   
   svg:hover, svg:focus {
     border-bottom: solid thin ${whichTealColorForTheme};
@@ -75,6 +71,7 @@ export const StyledEasterEgg = styled(Image)`
     opacity: 1;
   }
 `;
+
 
 const ZooFooter = (props) => {
   const {
