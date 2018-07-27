@@ -45,17 +45,6 @@ The navigation list props are available to you to have flexibility with React Ro
 | socialNavList          | PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string])).isRequired | An array of grommet button components that behave like anchors and social media components that link to Zooniverse Facebook, Twitter, and Instagram. |                                                                                                               |
 | talkNavList            | PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string])).isRequired | An array of a grommet anchor component that link to zooniverse.org talk page                                                                         |                                                                                                               |
 
-## AdminCheckbox
-
-If you're working on a front-end app where being able to toggle admin mode would be useful, then build an AdminCheckboxContainer component using the state management of your choice and use AdminCheckbox as the rendered view. Pass your AdminCheckboxContainer component down as a prop to the ZooFooter and it will be rendered correctly. Be sure to pass down the props that AdminCheckbox is expecting.
-
-### Props
-
-| prop     | propType        | default      | notes |
-|----------|-----------------|--------------|-------|
-| checked  | PropTypes.bool  | false        |       |
-| label    | PropTypes.string | 'Admin Mode' |       |
-| onChange | PropTypes.func  | () => {}     |       |
 
 ## AdminLayoutIndicator
 

@@ -4,8 +4,7 @@ import { Anchor, Box, Image, Grommet } from 'grommet';
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons';
 import styled from 'styled-components';
 import zooTheme from '@zooniverse/grommet-theme';
-import ZooniverseLogotype from '../zooniverse-logotype';
-import FooterContainer from './components/FooterContainer'
+import ZooniverseLogotype from '../../zooniverse-logotype';
 
 export const StyledFooterSection = styled(Box)`
   position: relative;
@@ -34,23 +33,29 @@ export const StyledNavListItem = styled(Anchor)`
   &:hover, &:focus {
     color: #252525;
   }
+`;
 
-  &.social-media {
-    svg {
-      fill: #007482;
-    }
-    
-    svg:hover, svg:focus {
-      fill: #004b54;
-    }
+export const StyledSocialAnchor = styled(Anchor)`
+  padding: 0;
+  svg {
+    border-bottom: solid thin transparent;
+    fill: ${zooTheme.global.colors.brand};
   }
-`;
 
-export const StyledZooniverseLogotype = styled(ZooniverseLogotype)`
-  /* g {
-    fill: #007482;
-  } */
-`;
+  svg:hover, svg:focus {
+    border-bottom: solid thin ${zooTheme.global.colors.brand};
+  }
+`
+
+export const StyledLogoAnchor = styled(Anchor)`
+  svg {
+    border-bottom: solid thin transparent;
+  }
+  
+  svg:hover, svg:focus {
+    border-bottom: solid thin ${zooTheme.global.colors.brand};
+  }
+`
 
 export const StyledDivider = styled.hr`
   border: 0;
@@ -80,15 +85,20 @@ export const StyledEasterEgg = styled(Image)`
   }
 `;
 
+
 const ZooFooter = (props) => {
   const { colorTheme, theme } = props
   const createKeyedAnchorItem = (navItem, i) => (<span key={`navItem-${i}`}>{navItem}</span>);
-
   return (
     <Grommet theme={theme}>
-      <FooterContainer
+      <Box
         align="center"
-        background={props.mainSectionColorIndex}
+        background={(colorTheme === 'light') ? '#fff' : zooTheme.dark.colors.background.default}
+        border={{
+          color: zooTheme.global.colors.brand,
+          side: 'top',
+          size: 'medium'
+        }}
         direction="column"
         pad={{ horizontal: 'none', vertical: 'none' }}
         tag="footer"
@@ -102,9 +112,9 @@ const ZooFooter = (props) => {
           tag="section"
         >
           <Box>
-            <Anchor href="https://www.zooniverse.org">
-              <StyledZooniverseLogotype />
-            </Anchor>
+            <StyledLogoAnchor href="https://www.zooniverse.org">
+              <ZooniverseLogotype />
+            </StyledLogoAnchor>
             {props.zooTagline}
           </Box>
           <StyledNavListContainer
@@ -161,7 +171,10 @@ const ZooFooter = (props) => {
         <StyledFooterSection
           align="center"
           className="small"
-          background={props.smallSectionColorIndex}
+          background={(colorTheme === 'light') ?
+            zooTheme.light.colors.background.default :
+            zooTheme.dark.colors.background.container
+          }
           direction="row"
           fill="horizontal"
           pad={{ horizontal: 'large', vertical: 'none' }}
@@ -181,7 +194,7 @@ const ZooFooter = (props) => {
             <StyledEasterEgg src="https://s3.amazonaws.com/zooniverse-static/assets/penguin.png" alt="" />
           </div>
         </StyledFooterSection>
-      </FooterContainer>
+      </Box>
     </Grommet>
   );
 };
@@ -210,7 +223,6 @@ ZooFooter.defaultProps = {
     <StyledNavListItem href="https://www.zooniverse.org/get-involved/call-for-projects">Call for Projects</StyledNavListItem>,
     <StyledNavListItem href="https://www.zooniverse.org/collections">Collections</StyledNavListItem>
   ],
-  mainSectionColorIndex: '#fff',
   newsNavList: [
     <StyledNavListHeader href="#">News</StyledNavListHeader>,
     <StyledNavListItem href="https://daily.zooniverse.org/">Daily Zooniverse</StyledNavListItem>,
@@ -227,9 +239,9 @@ ZooFooter.defaultProps = {
   ],
   smallSectionColorIndex: '#eef2f5',
   socialNavList: [
-    <StyledNavListItem className="social-media" href="https://www.facebook.com/therealzooniverse" a11yTitle="Facebook"><FacebookOption colorIndex="brand" size="small" /> </StyledNavListItem>,
-    <StyledNavListItem className="social-media" href="https://twitter.com/the_zooniverse" a11yTitle="Twitter"><Twitter colorIndex="brand" size="small" /></StyledNavListItem>,
-    <StyledNavListItem className="social-media" href="https://www.instagram.com/the.zooniverse/" a11yTitle="Instagram"><Instagram colorIndex="brand" size="small" /></StyledNavListItem>
+    <StyledSocialAnchor href="https://www.facebook.com/therealzooniverse" a11yTitle="Facebook" icon={<FacebookOption size="small" />} />,
+    <StyledSocialAnchor href="https://twitter.com/the_zooniverse" a11yTitle="Twitter" icon={<Twitter size="small" />} />,
+    <StyledSocialAnchor href="https://www.instagram.com/the.zooniverse/" a11yTitle="Instagram" icon={<Instagram size="small" />} />
   ],
   talkNavList: [
     <StyledNavListHeader href="https://www.zooniverse.org/talk">Talk</StyledNavListHeader>
@@ -253,7 +265,6 @@ ZooFooter.propTypes = {
     PropTypes.node,
     PropTypes.string
   ])).isRequired,
-  mainSectionColorIndex: PropTypes.string,
   newsNavList: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.string

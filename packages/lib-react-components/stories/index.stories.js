@@ -3,11 +3,20 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-import { ZooFooter } from '../src'
-
+import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react';
+import { withNotes } from '@storybook/addon-notes';
+import { AdminCheckbox, ZooFooter } from '../src'
+import footerDocs from '../src/components/layout/ZooFooter/README.md'
 
 storiesOf('ZooFooter', module)
-  .add('with light theme', () => <ZooFooter />)
-  .add('with dark theme', () => (
-    <ZooFooter />
-  ));
+  .add('With docs', withNotes(footerDocs)(() => <ZooFooter />))
+  .add('Light theme', () => <ZooFooter />)
+  .add('Dark theme', () => (
+    <ZooFooter colorTheme="dark" />
+  ))
+  .add('Light with admin', () => (
+    <ZooFooter adminContainer={<AdminCheckbox onChange={linkTo('AdminCheckbox')} />} />
+  ))
+  .add('Dark with admin', () => (
+    <ZooFooter adminContainer={<AdminCheckbox onChange={linkTo('AdminCheckbox')} colorTheme="dark" />} colorTheme="dark" />
+  ))
