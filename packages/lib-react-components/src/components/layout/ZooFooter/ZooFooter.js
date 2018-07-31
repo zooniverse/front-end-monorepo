@@ -72,7 +72,6 @@ export const StyledEasterEgg = styled(Image)`
   }
 `;
 
-
 const ZooFooter = (props) => {
   const {
     aboutNavListLabels,
