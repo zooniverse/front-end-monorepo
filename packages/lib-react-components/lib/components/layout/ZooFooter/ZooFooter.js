@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+<<<<<<< HEAD
 exports.StyledEasterEgg = exports.StyledDivider = exports.StyledLogoAnchor = exports.StyledSmallNavListItem = exports.StyledNavListContainer = exports.StyledFooterSection = undefined;
 
 var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n'], ['\n  position: relative;\n']),
@@ -11,6 +12,19 @@ var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n'], ['\n
     _templateObject4 = _taggedTemplateLiteral(['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  g {\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  g {\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
+=======
+exports.StyledEasterEgg = exports.StyledDivider = exports.StyledLogoAnchor = exports.StyledSocialAnchor = exports.StyledSmallNavListItem = exports.StyledNavListItem = exports.StyledNavListHeader = exports.StyledNavListContainer = exports.StyledFooterSection = undefined;
+
+var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n\n  &.small {\n\n  }\n'], ['\n  position: relative;\n\n  &.small {\n\n  }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  min-width: 192px;\n'], ['\n  min-width: 192px;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n\n'], ['\n\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  &:first-child {\n    color: ', '\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n'], ['\n  &:first-child {\n    color: ', '\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n'], ['\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n']),
+    _templateObject6 = _taggedTemplateLiteral(['\n  padding: 0;\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  padding: 0;\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
+    _templateObject7 = _taggedTemplateLiteral(['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  g {\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  g {\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
+    _templateObject8 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
+    _templateObject9 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
+>>>>>>> Ran build script
 
 var _react = require('react');
 
@@ -30,10 +44,13 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _styledTheming = require('styled-theming');
 
+<<<<<<< HEAD
 var _styledTheming2 = _interopRequireDefault(_styledTheming);
 
 var _lib = require('./lib');
 
+=======
+>>>>>>> Ran build script
 var _counterpart = require('counterpart');
 
 var _counterpart2 = _interopRequireDefault(_counterpart);
@@ -46,6 +63,7 @@ var _grommetTheme = require('@zooniverse/grommet-theme');
 
 var _grommetTheme2 = _interopRequireDefault(_grommetTheme);
 
+<<<<<<< HEAD
 var _NavListItem = require('./components/NavListItem');
 
 var _NavListItem2 = _interopRequireDefault(_NavListItem);
@@ -54,6 +72,8 @@ var _SocialAnchor = require('./components/SocialAnchor');
 
 var _SocialAnchor2 = _interopRequireDefault(_SocialAnchor);
 
+=======
+>>>>>>> Ran build script
 var _zooniverseLogotype = require('../../zooniverse-logotype');
 
 var _zooniverseLogotype2 = _interopRequireDefault(_zooniverseLogotype);
@@ -64,10 +84,18 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 _counterpart2.default.registerTranslations('en', _en2.default);
 
+<<<<<<< HEAD
+=======
+function whichTealColorForTheme(colorTheme) {
+  return colorTheme === 'light' ? _grommetTheme2.default.global.colors.brand : _grommetTheme2.default.global.colors.lightTeal;
+}
+
+>>>>>>> Ran build script
 var StyledFooterSection = exports.StyledFooterSection = (0, _styledComponents2.default)(_grommet.Box)(_templateObject);
 
 var StyledNavListContainer = exports.StyledNavListContainer = (0, _styledComponents2.default)(_grommet.Box)(_templateObject2);
 
+<<<<<<< HEAD
 var StyledSmallNavListItem = exports.StyledSmallNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject3, _lib.whichTealColorForTheme);
 
 var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4, _lib.whichTealColorForTheme, _lib.whichTealColorForTheme, _lib.whichTealColorForTheme);
@@ -75,6 +103,37 @@ var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default
 var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject5);
 
 var StyledEasterEgg = exports.StyledEasterEgg = (0, _styledComponents2.default)(_grommet.Image)(_templateObject6);
+=======
+var StyledNavListHeader = exports.StyledNavListHeader = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject3);
+
+var StyledNavListItem = exports.StyledNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+}, function (props) {
+  return props.colorTheme === 'light' ? '#5C5C5C' : 'inherit';
+});
+
+var StyledSmallNavListItem = exports.StyledSmallNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject5, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+});
+
+var StyledSocialAnchor = exports.StyledSocialAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject6, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+}, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+});
+
+var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject7, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+}, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+}, function (props) {
+  return whichTealColorForTheme(props.colorTheme);
+});
+
+var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject8);
+
+var StyledEasterEgg = exports.StyledEasterEgg = (0, _styledComponents2.default)(_grommet.Image)(_templateObject9);
+>>>>>>> Ran build script
 
 var ZooFooter = function ZooFooter(props) {
   var aboutNavListLabels = props.aboutNavListLabels,
@@ -129,6 +188,7 @@ var ZooFooter = function ZooFooter(props) {
           _grommet.Box,
           null,
           _react2.default.createElement(
+<<<<<<< HEAD
             _styledComponents.ThemeProvider,
             { theme: { mode: colorTheme } },
             _react2.default.createElement(
@@ -136,6 +196,11 @@ var ZooFooter = function ZooFooter(props) {
               { href: 'https://www.zooniverse.org' },
               _react2.default.createElement(_zooniverseLogotype2.default, null)
             )
+=======
+            StyledLogoAnchor,
+            { colorTheme: colorTheme, href: 'https://www.zooniverse.org' },
+            _react2.default.createElement(_zooniverseLogotype2.default, null)
+>>>>>>> Ran build script
           ),
           props.zooTagline
         ),
@@ -147,9 +212,30 @@ var ZooFooter = function ZooFooter(props) {
             responsive: false,
             tag: 'nav'
           },
+<<<<<<< HEAD
           _react2.default.createElement(_SocialAnchor2.default, { colorTheme: colorTheme, service: 'facebook' }),
           _react2.default.createElement(_SocialAnchor2.default, { colorTheme: colorTheme, service: 'twitter' }),
           _react2.default.createElement(_SocialAnchor2.default, { colorTheme: colorTheme, service: 'instagram' })
+=======
+          _react2.default.createElement(StyledSocialAnchor, {
+            colorTheme: colorTheme,
+            href: socialNavListURLs.facebook,
+            a11yTitle: 'Facebook',
+            icon: _react2.default.createElement(_grommetIcons.FacebookOption, { size: 'small' })
+          }),
+          _react2.default.createElement(StyledSocialAnchor, {
+            colorTheme: colorTheme,
+            href: socialNavListURLs.twitter,
+            a11yTitle: 'Twitter',
+            icon: _react2.default.createElement(_grommetIcons.Twitter, { size: 'small' })
+          }),
+          _react2.default.createElement(StyledSocialAnchor, {
+            colorTheme: colorTheme,
+            href: socialNavListURLs.instagram,
+            a11yTitle: 'Instagram',
+            icon: _react2.default.createElement(_grommetIcons.Instagram, { size: 'small' })
+          })
+>>>>>>> Ran build script
         )
       ),
       _react2.default.createElement(
@@ -179,42 +265,90 @@ var ZooFooter = function ZooFooter(props) {
           StyledNavListContainer,
           { flex: true, margin: { horizontal: 'none', vertical: 'small' }, tag: 'nav' },
           projectNavListURLs.map(function (url, i) {
+<<<<<<< HEAD
             return _react2.default.createElement(_NavListItem2.default, { colorTheme: colorTheme, key: url, label: projectNavListLabels[i], url: url });
+=======
+            return _react2.default.createElement(
+              StyledNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              projectNavListLabels[i]
+            );
+>>>>>>> Ran build script
           })
         ),
         _react2.default.createElement(
           StyledNavListContainer,
           { flex: true, margin: { horizontal: 'none', vertical: 'small' }, tag: 'nav' },
           aboutNavListURLs.map(function (url, i) {
+<<<<<<< HEAD
             return _react2.default.createElement(_NavListItem2.default, { colorTheme: colorTheme, key: url, label: aboutNavListLabels[i], url: url });
+=======
+            return _react2.default.createElement(
+              StyledNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              aboutNavListLabels[i]
+            );
+>>>>>>> Ran build script
           })
         ),
         _react2.default.createElement(
           StyledNavListContainer,
           { flex: true, margin: { horizontal: 'none', vertical: 'small' }, tag: 'nav' },
           getInvolvedNavListURLs.map(function (url, i) {
+<<<<<<< HEAD
             return _react2.default.createElement(_NavListItem2.default, { colorTheme: colorTheme, key: url, label: getInvolvedNavListLabels[i], url: url });
+=======
+            return _react2.default.createElement(
+              StyledNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              getInvolvedNavListLabels[i]
+            );
+>>>>>>> Ran build script
           })
         ),
         _react2.default.createElement(
           StyledNavListContainer,
           { flex: true, margin: { horizontal: 'none', vertical: 'small' }, tag: 'nav' },
           talkNavListURLs.map(function (url, i) {
+<<<<<<< HEAD
             return _react2.default.createElement(_NavListItem2.default, { colorTheme: colorTheme, key: url, label: talkNavListLabels[i], url: url });
+=======
+            return _react2.default.createElement(
+              StyledNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              talkNavListLabels[i]
+            );
+>>>>>>> Ran build script
           })
         ),
         _react2.default.createElement(
           StyledNavListContainer,
           { flex: true, margin: { horizontal: 'none', vertical: 'small' }, tag: 'nav' },
           buildNavListURLs.map(function (url, i) {
+<<<<<<< HEAD
             return _react2.default.createElement(_NavListItem2.default, { colorTheme: colorTheme, key: url, label: buildNavListLabels[i], url: url });
+=======
+            return _react2.default.createElement(
+              StyledNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              buildNavListLabels[i]
+            );
+>>>>>>> Ran build script
           })
         ),
         _react2.default.createElement(
           StyledNavListContainer,
           { flex: true, margin: { horizontal: 'none', vertical: 'small' }, tag: 'nav' },
           newsNavListURLs.map(function (url, i) {
+<<<<<<< HEAD
             return _react2.default.createElement(_NavListItem2.default, { colorTheme: colorTheme, key: url, label: newsNavListLabels[i], url: url });
+=======
+            return _react2.default.createElement(
+              StyledNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              newsNavListLabels[i]
+            );
+>>>>>>> Ran build script
           })
         )
       ),
@@ -240,6 +374,7 @@ var ZooFooter = function ZooFooter(props) {
           },
           policyNavListURLs.map(function (url, i) {
             return _react2.default.createElement(
+<<<<<<< HEAD
               _styledComponents.ThemeProvider,
               { theme: { mode: colorTheme } },
               _react2.default.createElement(
@@ -247,6 +382,11 @@ var ZooFooter = function ZooFooter(props) {
                 { key: url, href: url },
                 policyNavListLabels[i]
               )
+=======
+              StyledSmallNavListItem,
+              { key: url, href: url, colorTheme: colorTheme },
+              policyNavListLabels[i]
+>>>>>>> Ran build script
             );
           })
         ),
@@ -276,10 +416,22 @@ ZooFooter.defaultProps = {
   policyNavListLabels: [(0, _counterpart2.default)('ZooFooter.policyLabels.privacyPolicy'), (0, _counterpart2.default)('ZooFooter.policyLabels.jobs'), (0, _counterpart2.default)('ZooFooter.policyLabels.systemStatus'), (0, _counterpart2.default)('ZooFooter.policyLabels.security')],
   projectNavListURLs: ['https://www.zooniverse.org/projects'],
   projectNavListLabels: [(0, _counterpart2.default)('ZooFooter.projectLabels.projects')],
+<<<<<<< HEAD
   talkNavListURLs: ['https://www.zooniverse.org/talk'],
   talkNavListLabels: [(0, _counterpart2.default)('ZooFooter.talkLabels.talk')],
   theme: _grommetTheme2.default,
   zooTagline: (0, _counterpart2.default)('ZooFooter.tagLine')
+=======
+  socialNavListURLs: {
+    facebook: 'https://www.facebook.com/therealzooniverse',
+    twitter: 'https://twitter.com/the_zooniverse',
+    instagram: 'https://www.instagram.com/the.zooniverse/'
+  },
+  talkNavListURLs: ['https://www.zooniverse.org/talk'],
+  talkNavListLabels: [(0, _counterpart2.default)('ZooFooter.talkLabels.talk')],
+  theme: _grommetTheme2.default,
+  zooTagline: 'People-Powered Research'
+>>>>>>> Ran build script
 };
 
 ZooFooter.propTypes = {
@@ -297,6 +449,10 @@ ZooFooter.propTypes = {
   policyNavListLabels: _propTypes2.default.arrayOf(_propTypes2.default.string),
   projectNavListURLs: _propTypes2.default.arrayOf(_propTypes2.default.string),
   projectNavListLabels: _propTypes2.default.arrayOf(_propTypes2.default.string),
+<<<<<<< HEAD
+=======
+  socialNavListURLs: _propTypes2.default.objectOf(_propTypes2.default.string),
+>>>>>>> Ran build script
   talkNavListURLs: _propTypes2.default.arrayOf(_propTypes2.default.string),
   talkNavListLabels: _propTypes2.default.arrayOf(_propTypes2.default.string),
   theme: _propTypes2.default.object,
