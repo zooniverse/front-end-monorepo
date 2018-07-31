@@ -94,21 +94,21 @@ Object.defineProperty(exports, 'Paginator', {
   }
 });
 
-var _zooFooter = require('./components/layout/zoo-footer');
+var _ZooFooter = require('./components/layout/ZooFooter');
 
 Object.defineProperty(exports, 'ZooFooter', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_zooFooter).default;
+    return _interopRequireDefault(_ZooFooter).default;
   }
 });
 
-var _adminCheckbox = require('./components/layout/admin-checkbox');
+var _AdminCheckbox = require('./components/layout/ZooFooter/components/AdminCheckbox');
 
 Object.defineProperty(exports, 'AdminCheckbox', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_adminCheckbox).default;
+    return _interopRequireDefault(_AdminCheckbox).default;
   }
 });
 
