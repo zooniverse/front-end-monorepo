@@ -2,7 +2,9 @@ export default {
   colors: {
     background: {
       border: '#2D2D2D',
-      default: '#333333'
+      container: '#333333',
+      dark: '#282828',
+      default: '#2D2D2D'
     },
     button: {
       answer: {
