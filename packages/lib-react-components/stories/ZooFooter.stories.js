@@ -1,16 +1,15 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react';
-import { withNotes } from '@storybook/addon-notes';
+import { withInfo } from '@storybook/addon-info';
+import { backgrounds } from './lib'
 import { AdminCheckbox, ZooFooter } from '../src'
 import footerDocs from '../src/components/layout/ZooFooter/README.md'
 
 storiesOf('ZooFooter', module)
-  .add('With docs', withNotes(footerDocs)(() => <ZooFooter />))
-  .add('Light theme', () => <ZooFooter />)
+  .addDecorator(backgrounds)
+  .add('Light theme (default)', withInfo(footerDocs)(() => <ZooFooter />))
   .add('Dark theme', () => (
     <ZooFooter colorTheme="dark" />
   ))
