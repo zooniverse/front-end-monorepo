@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { MobileNavigationMenu } from '../src/components/layout/mobile-navigation-menu';
+import { MobileNavigationMenu } from './mobile-navigation-menu';
 
 describe('<MobileNavigationMenu />', function() {
   let wrapper;

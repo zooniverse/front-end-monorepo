@@ -4,7 +4,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import Tutorial from '../src/components/tutorial';
+import Tutorial from './tutorial';
 
 const tutorial = {
   steps: [

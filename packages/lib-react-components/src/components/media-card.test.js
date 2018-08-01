@@ -4,7 +4,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import MediaCard from '../src/components/media-card';
+import MediaCard from './media-card';
 
 const imageSrc = 'test.png';
 const videoSrc = 'test.mp4';

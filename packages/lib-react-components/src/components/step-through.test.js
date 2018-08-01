@@ -4,7 +4,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import StepThrough from '../src/components/step-through';
+import StepThrough from './step-through';
 
 const children = [
   <p>test 1</p>,

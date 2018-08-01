@@ -5,7 +5,7 @@
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import DisplayNameSlugEditor from '../src/components/display-name-slug-editor';
+import DisplayNameSlugEditor from './display-name-slug-editor';
 
 const resource = {
   id: '3',

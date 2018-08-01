@@ -5,7 +5,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import OauthModal from '../src/components/layout/oauth-modal';
+import OauthModal from './oauth-modal';
 
 describe('<OauthModal />', function() {
   const loginSpy = sinon.spy();

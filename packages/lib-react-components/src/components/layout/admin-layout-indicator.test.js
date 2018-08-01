@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import AdminLayoutIndicator from '../src/components/layout/admin-layout-indicator';
+import AdminLayoutIndicator from './admin-layout-indicator';
 
 describe('<AdminLayoutIndicator />', function() {
   it('renders without crashing', function() {

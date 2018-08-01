@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import withMobileView from '../src/components/layout/with-mobile-view';
+import withMobileView from './with-mobile-view';
 
 describe('withMobileView', function() {
   let wrapper;

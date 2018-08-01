@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ZooHeader } from '../src/components/layout/zoo-header';
+import { ZooHeader } from './zoo-header';
 
 const mainHeaderNavList = [
   <a href="#">a link</a>

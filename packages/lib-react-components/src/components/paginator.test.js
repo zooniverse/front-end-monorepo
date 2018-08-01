@@ -5,7 +5,7 @@
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 import React from 'react';
-import Paginator from '../src/components/paginator';
+import Paginator from './paginator';
 
 describe('Paginator', function() {
   it('mounts Paginator', function() {

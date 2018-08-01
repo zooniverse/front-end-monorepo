@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { UserNavigation } from '../src/components/layout/user-navigation';
+import { UserNavigation } from './user-navigation';
 
 describe('<UserNavigation />', function() {
   let wrapper;

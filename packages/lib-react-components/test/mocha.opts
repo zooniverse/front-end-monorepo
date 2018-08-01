@@ -1,0 +1,4 @@
+--require babel-core/register
+--require mocha-snapshots
+--reporter nyan
+--ui bdd

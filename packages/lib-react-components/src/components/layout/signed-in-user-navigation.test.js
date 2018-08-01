@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import SignedInUserNavigation from '../src/components/layout/signed-in-user-navigation';
+import SignedInUserNavigation from './signed-in-user-navigation';
 
 const userMenuNavList = [
   <a href="#">a link</a>

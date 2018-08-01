@@ -4,7 +4,7 @@
 import { mount, render } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import MediaIcon from '../src/components/media-icon';
+import MediaIcon from './media-icon';
 
 const RESOURCE_WITH_METADATA = {
   delete: () => (new Promise((resolve) => { resolve(true); })),

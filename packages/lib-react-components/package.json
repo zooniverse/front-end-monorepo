@@ -13,7 +13,8 @@
     "postversion": "git push && git push --tags",
     "preversion": "npm test",
     "start": "echo 'Nothing to see here yet'",
-    "test": "mocha --reporter nyan --require babel-core/register test/setup.js test/*.test.js",
+    "test": "mocha test/setup.js $(find src -name *.test.js)",
+    "test-updated-snapshots": "UPDATE=1 npm test",
     "version": "npm run build && git add -A lib",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -63,6 +64,7 @@
     "eslint-plugin-react": "^7.4.0",
     "jsdom": "^11.8.0",
     "mocha": "^5.1.1",
+    "mocha-snapshots": "^4.1.0",
     "sinon": "^4.5.0",
     "stylus": "^0.54.5"
   },

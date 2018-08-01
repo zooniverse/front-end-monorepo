@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import AdminCheckbox from '../src/components/layout/admin-checkbox';
+import AdminCheckbox from './AdminCheckbox';
 
 describe('<AdminCheckbox />', function() {
   let wrapper;

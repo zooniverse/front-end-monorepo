@@ -4,7 +4,7 @@
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import DragAndDropTarget from '../src/components/drag-and-drop-target';
+import DragAndDropTarget from './drag-and-drop-target';
 
 describe('DragAndDropTarget', function() {
   it('mounts DragAndDropTarget', function() {
