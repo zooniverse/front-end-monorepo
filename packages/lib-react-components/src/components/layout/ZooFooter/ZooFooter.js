@@ -2,10 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Anchor, Box, Image, Grommet } from 'grommet';
-import { FacebookOption, Twitter, Instagram } from 'grommet-icons';
 
 import styled, { ThemeProvider } from 'styled-components';
-import theme from 'styled-theming';
 import { whichTealColorForTheme } from './lib';
 
 import counterpart from 'counterpart'
