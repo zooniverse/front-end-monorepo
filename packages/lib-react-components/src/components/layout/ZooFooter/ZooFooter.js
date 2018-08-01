@@ -4,53 +4,30 @@ import PropTypes from 'prop-types'
 import { Anchor, Box, Image, Grommet } from 'grommet';
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons';
 
-import styled from 'styled-components';
-import { ThemeProvider } from 'styled-theming';
+import styled, { ThemeProvider } from 'styled-components';
+import theme from 'styled-theming';
+import { whichTealColorForTheme } from './lib';
 
 import counterpart from 'counterpart'
 import en from './locales/en';
 
 import zooTheme from '@zooniverse/grommet-theme';
+import NavListItem from './components/NavListItem';
+import SocialAnchor from './components/SocialAnchor';
 import ZooniverseLogotype from '../../zooniverse-logotype';
 
 counterpart.registerTranslations('en', en)
 
-function whichTealColorForTheme(colorTheme) {
-  return (colorTheme === 'light') ? zooTheme.global.colors.brand : zooTheme.global.colors.lightTeal
-}
-
 export const StyledFooterSection = styled(Box)`
   position: relative;
-
-  &.small {
-
-  }
 `;
 
 export const StyledNavListContainer = styled(Box)`
   min-width: 192px;
 `
 
-export const StyledNavListHeader = styled(Anchor)`
-
-`;
-
-export const StyledNavListItem = styled(Anchor)`
-  &:first-child {
-    color: ${props => whichTealColorForTheme(props.colorTheme)}
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 0.5em;
-    text-transform: uppercase;
-  }
-
-  color: ${props => (props.colorTheme === 'light') ? '#5C5C5C' : 'inherit' };
-  font-size: 0.8em;
-  font-weight: bold;
-`;
-
 export const StyledSmallNavListItem = styled(Anchor)`
-  color: ${props => whichTealColorForTheme(props.colorTheme)};
+  color: ${whichTealColorForTheme};
   font-size: 0.8em;
   font-weight: bold;
   letter-spacing: 1px;
@@ -58,30 +35,18 @@ export const StyledSmallNavListItem = styled(Anchor)`
   text-transform: uppercase;
 `
 
-export const StyledSocialAnchor = styled(Anchor)`
-  padding: 0;
-  svg {
-    border-bottom: solid thin transparent;
-    fill: ${props => whichTealColorForTheme(props.colorTheme)};
-  }
-
-  svg:hover, svg:focus {
-    border-bottom: solid thin ${props => whichTealColorForTheme(props.colorTheme)};
-  }
-`
-
 export const StyledLogoAnchor = styled(Anchor)`
   svg {
     border-bottom: solid thin transparent;
-    fill: ${props => whichTealColorForTheme(props.colorTheme)};
+    fill: ${whichTealColorForTheme};
   }
 
   g {
-    fill: ${props => whichTealColorForTheme(props.colorTheme)};
+    fill: ${whichTealColorForTheme};
   }
   
   svg:hover, svg:focus {
-    border-bottom: solid thin ${props => whichTealColorForTheme(props.colorTheme)};
+    border-bottom: solid thin ${whichTealColorForTheme};
   }
 `
 
@@ -159,9 +124,11 @@ const ZooFooter = (props) => {
           wrap={true}
         >
           <Box>
-            <StyledLogoAnchor colorTheme={colorTheme} href="https://www.zooniverse.org">
-              <ZooniverseLogotype />
-            </StyledLogoAnchor>
+            <ThemeProvider theme={{ mode: colorTheme }}>
+              <StyledLogoAnchor href="https://www.zooniverse.org">
+                <ZooniverseLogotype />
+              </StyledLogoAnchor>
+            </ThemeProvider>
             {props.zooTagline}
           </Box>
           <StyledNavListContainer
@@ -170,24 +137,9 @@ const ZooFooter = (props) => {
             responsive={false}
             tag='nav'
           >
-            <StyledSocialAnchor
-              colorTheme={colorTheme}
-              href={socialNavListURLs.facebook}
-              a11yTitle="Facebook"
-              icon={<FacebookOption size="small" />}
-            />
-            <StyledSocialAnchor
-              colorTheme={colorTheme}
-              href={socialNavListURLs.twitter}
-              a11yTitle="Twitter"
-              icon={<Twitter size="small" />}
-            />
-            <StyledSocialAnchor
-              colorTheme={colorTheme}
-              href={socialNavListURLs.instagram}
-              a11yTitle="Instagram"
-              icon={<Instagram size="small" />}
-            />
+            <SocialAnchor colorTheme={colorTheme} service="facebook" />
+            <SocialAnchor colorTheme={colorTheme} service="twitter" />
+            <SocialAnchor colorTheme={colorTheme} service="instagram" />
           </StyledNavListContainer>
         </StyledFooterSection>
         <Box
@@ -210,22 +162,47 @@ const ZooFooter = (props) => {
           wrap={true}
         >
           <StyledNavListContainer flex={true} margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {projectNavListURLs.map((url, i) => { return <StyledNavListItem key={url} href={url} colorTheme={colorTheme}>{projectNavListLabels[i]}</StyledNavListItem> })}
+            {projectNavListURLs.map((url, i) => {
+              return (
+                <NavListItem colorTheme={colorTheme} key={url} label={projectNavListLabels[i]} url={url} />
+              )
+            })}
           </StyledNavListContainer>
           <StyledNavListContainer flex={true} margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {aboutNavListURLs.map((url, i) => { return <StyledNavListItem key={url} href={url} colorTheme={colorTheme}>{aboutNavListLabels[i]}</StyledNavListItem> })}
+            {aboutNavListURLs.map((url, i) => {
+              return (
+                <NavListItem colorTheme={colorTheme} key={url} label={aboutNavListLabels[i]} url={url} />
+              )
+            })}
           </StyledNavListContainer>
           <StyledNavListContainer flex={true} margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {getInvolvedNavListURLs.map((url, i) => { return <StyledNavListItem key={url} href={url} colorTheme={colorTheme}>{getInvolvedNavListLabels[i]}</StyledNavListItem> })}
+            {getInvolvedNavListURLs.map((url, i) => {
+              return (
+                <NavListItem colorTheme={colorTheme} key={url} label={getInvolvedNavListLabels[i]} url={url} />
+              )
+            })}
           </StyledNavListContainer>
           <StyledNavListContainer flex={true} margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {talkNavListURLs.map((url, i) => { return <StyledNavListItem key={url} href={url} colorTheme={colorTheme}>{talkNavListLabels[i]}</StyledNavListItem> })}
+            
+            {talkNavListURLs.map((url, i) => {
+              return (
+                <NavListItem colorTheme={colorTheme} key={url} label={talkNavListLabels[i]} url={url} />
+              )
+            })}
           </StyledNavListContainer>
           <StyledNavListContainer flex={true} margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {buildNavListURLs.map((url, i) => { return <StyledNavListItem key={url} href={url} colorTheme={colorTheme}>{buildNavListLabels[i]}</StyledNavListItem> })}
+            {buildNavListURLs.map((url, i) => {
+              return (
+                <NavListItem colorTheme={colorTheme} key={url} label={buildNavListLabels[i]} url={url} />
+              )
+            })}
           </StyledNavListContainer>
           <StyledNavListContainer flex={true} margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {newsNavListURLs.map((url, i) => { return <StyledNavListItem key={url} href={url} colorTheme={colorTheme}>{newsNavListLabels[i]}</StyledNavListItem> })}
+            {newsNavListURLs.map((url, i) => {
+              return (
+                <NavListItem colorTheme={colorTheme} key={url} label={newsNavListLabels[i]} url={url} />
+              )
+            })}
           </StyledNavListContainer>
         </StyledFooterSection>
         <StyledFooterSection
@@ -247,7 +224,15 @@ const ZooFooter = (props) => {
             responsive={false}
             tag='nav'
           >
-            {policyNavListURLs.map((url, i) => { return <StyledSmallNavListItem key={url} href={url} colorTheme={colorTheme}>{policyNavListLabels[i]}</StyledSmallNavListItem> })}
+            {policyNavListURLs.map((url, i) => {
+              return (
+                <ThemeProvider theme={{ mode: colorTheme }}>
+                  <StyledSmallNavListItem key={url} href={url}>
+                    {policyNavListLabels[i]}
+                  </StyledSmallNavListItem>
+                </ThemeProvider>
+              )
+            })}
           </StyledNavListContainer>
           <div>
             {props.adminContainer}
@@ -332,11 +317,6 @@ ZooFooter.defaultProps = {
   projectNavListLabels: [
     counterpart('ZooFooter.projectLabels.projects'),
   ],
-  socialNavListURLs: {
-    facebook: 'https://www.facebook.com/therealzooniverse',
-    twitter: 'https://twitter.com/the_zooniverse',
-    instagram:'https://www.instagram.com/the.zooniverse/'
-  },
   talkNavListURLs: [
     'https://www.zooniverse.org/talk'
   ],
@@ -344,7 +324,7 @@ ZooFooter.defaultProps = {
     counterpart('ZooFooter.talkLabels.talk'),
   ],
   theme: zooTheme,
-  zooTagline: 'People-Powered Research'
+  zooTagline: counterpart('ZooFooter.tagLine')
 };
 
 ZooFooter.propTypes = {
@@ -362,7 +342,6 @@ ZooFooter.propTypes = {
   policyNavListLabels: PropTypes.arrayOf(PropTypes.string),
   projectNavListURLs: PropTypes.arrayOf(PropTypes.string),
   projectNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  socialNavListURLs: PropTypes.objectOf(PropTypes.string),
   talkNavListURLs: PropTypes.arrayOf(PropTypes.string),
   talkNavListLabels: PropTypes.arrayOf(PropTypes.string),
   theme: PropTypes.object,
