@@ -224,8 +224,8 @@ const ZooFooter = (props) => {
           >
             {policyNavListURLs.map((url, i) => {
               return (
-                <ThemeProvider theme={{ mode: colorTheme }}>
-                  <StyledSmallNavListItem key={url} href={url}>
+                <ThemeProvider key={url} theme={{ mode: colorTheme }}>
+                  <StyledSmallNavListItem href={url}>
                     {policyNavListLabels[i]}
                   </StyledSmallNavListItem>
                 </ThemeProvider>
