@@ -5,15 +5,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import ZooFooter, {
-  StyledFooterBox,
-  StyledFooterSection,
-  StyledDivider,
-  StyledNavListHeader,
-  StyledNavListItem,
-  StyledZooniverseLogotype,
-  StyledEasterEgg
-} from './ZooFooter';
+import ZooFooter from './ZooFooter';
 
 describe('<ZooFooter />', function () {
   let wrapper;

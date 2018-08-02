@@ -6,7 +6,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import AdminCheckbox from './AdminCheckbox';
+import zooTheme from '@zooniverse/grommet-theme';
+import AdminCheckbox, { StyledAdminCheckbox } from './AdminCheckbox';
 
 describe('<AdminCheckbox />', function() {
   let wrapper;
@@ -17,12 +18,19 @@ describe('<AdminCheckbox />', function() {
 
   it('renders without crashing', function() {});
 
-  it('renders a grommet <CheckBox />', function() {
-    expect(wrapper.find('CheckBox')).to.have.lengthOf(1);
-  });
+  it('should match snapshot', function () {
+    expect(wrapper).to.matchSnapshot();
+  })
 
   it('calls onChange prop when clicked', function() {
-    wrapper.find('CheckBox').simulate('change');
+    wrapper.find('Styled(CheckBox)').simulate('change');
     expect(onChangeSpy.calledOnce).to.be.true();
   });
+
+  describe('theme styles', function () {
+    it('should use the expected light theme colors', function () {
+      const wrapper = <StyledAdminCheckbox theme="light" />
+
+    })
+  })
 });

@@ -65,7 +65,9 @@
     "jsdom": "^11.8.0",
     "mocha": "^5.1.1",
     "mocha-snapshots": "^4.1.0",
+    "react-test-renderer": "^16.4.2",
     "sinon": "^4.5.0",
+    "styled-components-test-utils": "^0.4.1",
     "stylus": "^0.54.5"
   },
   "engines": {
