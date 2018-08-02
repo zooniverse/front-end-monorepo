@@ -9,7 +9,7 @@ import zooTheme from '@zooniverse/grommet-theme';
 
 import NavListItem, { StyledNavListItem } from './NavListItem';
 
-describe.only('NavListItem', function () {
+describe('NavListItem', function () {
   const label = 'My link';
   const url = 'https://www.zooniverse.org';
   let wrapper;
@@ -22,20 +22,6 @@ describe.only('NavListItem', function () {
 
   it('should match its snapshot', function () {
     expect(wrapper).to.matchSnapshot();
-  });
-
-  it('should apply certain styles only to the first child', function () {
-    manyNavListItems = mount((
-      <div>
-        {[{ label, url }, { label: 'another link', url: 'https://google.com' }].map((link) => {
-          return (<NavListItem key={link.url} label={link.label} url={link.url} />)
-        })}
-      </div>
-    ))
-    const firstNavListItem = manyNavListItems.find(NavListItem).first().dive().find(StyledNavListItem);
-    const secondNavListItem = manyNavListItems.find(NavListItem).at(1).dive().find(StyledNavListItem);
-    console.log(firstNavListItem.props(), secondNavListItem)
-    // expect(firstNavListItem)
   });
 
   xdescribe('light theme')
