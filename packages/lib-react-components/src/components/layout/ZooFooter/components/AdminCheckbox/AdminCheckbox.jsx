@@ -12,12 +12,13 @@ import zooTheme from '@zooniverse/grommet-theme';
 
 counterpart.registerTranslations('en', en)
 
+// This isn't working
+// Reported bug with Grommet v2: https://github.com/grommet/grommet/issues/2140
 export const StyledAdminCheckbox = styled(CheckBox)`
   color: ${theme('mode', {
     light: zooTheme.light.colors.font,
     dark: zooTheme.dark.colors.font
   })};
-  font-weight: bold;
 `
 
 function AdminCheckbox({ checked, colorTheme, label, onChange, theme }) {
