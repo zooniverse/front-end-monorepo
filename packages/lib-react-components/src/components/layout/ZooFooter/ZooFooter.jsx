@@ -87,7 +87,6 @@ const ZooFooter = (props) => {
     policyNavListURLs,
     projectNavListLabels,
     projectNavListURLs,
-    socialNavListURLs,
     talkNavListLabels,
     talkNavListURLs,
     theme

@@ -5,6 +5,8 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import zooTheme from '@zooniverse/grommet-theme';
+
 import ZooFooter from './ZooFooter';
 
 describe('<ZooFooter />', function () {
@@ -18,4 +20,23 @@ describe('<ZooFooter />', function () {
   it('should match snapshot', function () {
     expect(wrapper).to.matchSnapshot();
   });
+
+  describe('light theme', function () {
+    it('should use a white background for its wrapping Box component', function () {
+      const boxWrapper = wrapper.find('Box').first()
+      expect(boxWrapper.props().background).to.equal('#fff')
+    })
+  })
+
+  describe('dark theme', function () {
+    it('should use the dark theme background color for its wrapping Box component', function () {
+      wrapper.setProps({ colorTheme: 'dark' })
+      const boxWrapper = wrapper.find('Box').first()
+      expect(boxWrapper.props().background).to.equal(zooTheme.dark.colors.background.default)
+    })
+
+    after(function() {
+      wrapper.setProps({ colorTheme: 'light' })
+    })
+  })
 });
