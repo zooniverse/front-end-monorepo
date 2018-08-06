@@ -1,8 +1,12 @@
 # Zooniverse Front-End Monorepo
 
-This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
+## Requirements
 
-Why? 
+[Browser support](docs/arch/adr-3.md)
+
+## Monowhat?
+
+This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
 Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally it allows us to track issues, pull requests, and progress for all related packages in one place. 
 
