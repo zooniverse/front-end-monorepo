@@ -31,7 +31,6 @@ function createClient ({
     redirectUri,
     scopes
   })
-  console.info('client', client)
   return client
 }
 
