@@ -12,7 +12,7 @@ const invalidUrls = [
   '//projects/foo/bar'
 ]
 
-describe('Helpers', function () {
+describe('Projects Helpers', function () {
   describe('getProjectSlugFromURL', function () {
     it('should return the correct slug from a URL', function () {
       validUrls.forEach(function (url) {

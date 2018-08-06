@@ -209,6 +209,8 @@ panoptes.del('/projects/1104').then((response) => {
 Using helper functions for a defined Panoptes resource in a React component. These resources have functions defined:
 
 - [Projects](projects.md)
+- [Subjects](subjects.md)
+- [Tutorials](tutorials.md)
 
 The API for resource helpers will include:
 
