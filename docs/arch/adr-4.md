@@ -29,10 +29,12 @@ Of these, we will support the current and last two major versions.
 
 ## Status
 
-Proposed
+Approved
+
+This was discussed with @trouille and @chrislintott prior to approval.
 
 ## Consequences
 
 - Developers will be able to use modern browser technologies and spend more time on writing features.
 - Support for legacy browsers will be curtailed, so we will need to communicate what browsers are supported to our users well in advance of code going live.
-- If we are required to carry on supporting IE11 until its end-of-life in 2023, we will need more developer time both for the rewrite and ongoing maintenance to perform manual testing.
+- There will likely be a period of overlap between the old and new classifiers. This will allow us to let older projects complete or go dormant, and force new projects to be built for the new classifier, so volunteers on existing projects won't get shut out.
