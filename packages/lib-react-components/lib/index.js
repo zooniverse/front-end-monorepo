@@ -121,12 +121,12 @@ Object.defineProperty(exports, 'AdminLayoutIndicator', {
   }
 });
 
-var _zooHeader = require('./components/layout/zoo-header');
+var _ZooHeader = require('./components/layout/ZooHeader');
 
 Object.defineProperty(exports, 'ZooHeader', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_zooHeader).default;
+    return _interopRequireDefault(_ZooHeader).default;
   }
 });
 
