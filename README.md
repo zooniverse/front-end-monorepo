@@ -1,8 +1,12 @@
 # Zooniverse Front-End Monorepo
 
-This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
+## Requirements
 
-Why? 
+[Browser support](docs/arch/adr-3.md)
+
+## Monowhat?
+
+This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
 Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally it allows us to track issues, pull requests, and progress for all related packages in one place. 
 
@@ -22,25 +26,25 @@ If you want to contribute a new package and want to use a package in the monorep
 
 A list of packages and their main dependencies
 
-- @zooniverse/fe-project - Server-side rendered application for a project (anything at /projects/owner/display_name)
+- **@zooniverse/fe-project** - Server-side rendered application for a project (anything at `/projects/owner/display_name`)
   - @zooniverse/panoptes-js - Panoptes API javascript client
   - [Grommet](https://v2.grommet.io/components) - React UI component library
   - [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree/) - App state built on MobX
   - [next.js](https://nextjs.org/) - Server-side rendering and routing framework
   - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
   - [styled-components](https://www.styled-components.com/) - CSS in JS styling library. Used from Grommet theming.
-- @zooniverse/classifier - Classifier view components and state which can be exported modularly or altogether as a working classifier
+- **@zooniverse/classifier** - Classifier view components and state which can be exported modularly or altogether as a working classifier
   - @zooniverse/grommet-theme - Zooniverse's Grommet theme
   - @zooniverse/panoptes-js - Panoptes API javascript client
   - [Grommet](https://v2.grommet.io/components) - React UI component library
   - [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree/) - App state built on MobX
   - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
   - [styled-components](https://www.styled-components.com/) - CSS in JS styling library. Used from Grommet theming.
-- @zooniverse/grommet-theme - The style definitions for a Zooniverse theme to use with Grommet
+- **@zooniverse/grommet-theme** - The style definitions for a Zooniverse theme to use with Grommet
   - [Grommet](https://v2.grommet.io/components) - React UI component library
-- @zooniverse/panoptes-js - Panoptes API javascript client. Functional HTTP request helpers built on top of superagent 
+- **@zooniverse/panoptes-js** - Panoptes API javascript client. Functional HTTP request helpers built on top of superagent 
   - [Superagent](http://visionmedia.github.io/superagent/) - AJAX API that works in the browser or node
-- @zooniverse/react-components - A set of Zooniverse specific React components
+- **@zooniverse/react-components** - A set of Zooniverse specific React components
   - [Grommet](https://v2.grommet.io/components) - React UI component library
   - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
 
