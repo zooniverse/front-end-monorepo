@@ -1,4 +1,4 @@
-import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import CredentialsStore from './CredentialsStore'
 import UIStore from './UIStore'

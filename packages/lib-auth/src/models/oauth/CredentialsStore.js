@@ -1,10 +1,4 @@
-import {
-  addDisposer,
-  applySnapshot,
-  getRoot,
-  onAction,
-  types
-} from 'mobx-state-tree'
+import { applySnapshot, types } from 'mobx-state-tree'
 
 const Credentials = types
   .model('Credentials', {

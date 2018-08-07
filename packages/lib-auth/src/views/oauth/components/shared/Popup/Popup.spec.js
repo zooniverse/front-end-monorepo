@@ -32,7 +32,7 @@ describe('Component > OAuthApp > Popup', function () {
       const wrapper = shallow(<Popup loginFunction={spy} />)
       const button = wrapper.find('Button')
       button.simulate('click')
-      expect(spy.called).to.equal(true)
+      expect(spy.called).to.be.true
     })
   })
 })

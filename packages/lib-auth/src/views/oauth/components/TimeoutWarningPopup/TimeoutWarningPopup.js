@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Clock } from 'grommet'
-import { DateTime, Duration } from 'luxon'
+import { DateTime } from 'luxon'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import React from 'react'

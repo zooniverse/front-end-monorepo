@@ -22,7 +22,7 @@ class OAuthApp extends React.Component {
       showLoginPopup,
       showLogoutPopup,
       showTimeoutPopup,
-      showTimeoutWarningPopup,
+      showTimeoutWarningPopup
     } = this.props.store
 
     if (showLoginPopup) {
@@ -32,11 +32,10 @@ class OAuthApp extends React.Component {
     if (showTimeoutPopup) {
       return <TimeoutPopup closeFn={reset} />
     }
-    
+
     if (showTimeoutWarningPopup) {
       return <TimeoutWarningPopup closeFn={reset} />
     }
-
 
     if (showLogoutPopup) {
       return <LogoutPopup closeFn={reset} />
@@ -52,7 +51,7 @@ OAuthApp.propTypes = {
     showLoginPopup: PropTypes.bool,
     showLogoutPopup: PropTypes.bool,
     showTimeoutPopup: PropTypes.bool,
-    showTimeoutWarningPopup: PropTypes.bool,
+    showTimeoutWarningPopup: PropTypes.bool
   })
 }
 
@@ -61,7 +60,7 @@ OAuthApp.defaultProps = {
     showLoginPopup: false,
     showLogoutPopup: false,
     showTimeoutPopup: false,
-    showTimeoutWarningPopup: false,
+    showTimeoutWarningPopup: false
   }
 }
 

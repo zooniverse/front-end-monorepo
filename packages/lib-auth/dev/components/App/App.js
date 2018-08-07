@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 
 import { createOAuthClient } from '../../../src'
 
@@ -42,7 +41,6 @@ class App extends React.Component {
       </div>
     )
   }
-
 }
 
 export default App

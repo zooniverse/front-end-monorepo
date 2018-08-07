@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Box, Button, Layer } from 'grommet'
+import { Box, Button } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
