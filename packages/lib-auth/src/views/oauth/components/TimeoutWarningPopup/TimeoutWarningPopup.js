@@ -77,6 +77,4 @@ TimeoutWarningPopup.defaultProps = {
   expiresAt: 0
 }
 
-export default WithPopup(TimeoutWarningPopup)
-
-export { TimeoutWarningPopup }
+export default TimeoutWarningPopup

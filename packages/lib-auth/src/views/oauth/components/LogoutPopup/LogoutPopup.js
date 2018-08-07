@@ -14,6 +14,4 @@ function LogoutPopup () {
   )
 }
 
-export default WithPopup(LogoutPopup)
-
-export { LogoutPopup }
+export default LogoutPopup

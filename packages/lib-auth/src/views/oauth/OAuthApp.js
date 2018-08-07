@@ -2,8 +2,10 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+
 import LoginPopup from './components/LoginPopup'
 import LogoutPopup from './components/LogoutPopup'
+import Popup from './components/Popup'
 import TimeoutPopup from './components/TimeoutPopup'
 import TimeoutWarningPopup from './components/TimeoutWarningPopup'
 
@@ -25,23 +27,29 @@ class OAuthApp extends React.Component {
       showTimeoutWarningPopup
     } = this.props.store
 
+    let Component = null
+
     if (showLoginPopup) {
-      return <LoginPopup closeFn={reset} />
+      Component = LoginPopup
     }
 
     if (showTimeoutPopup) {
-      return <TimeoutPopup closeFn={reset} />
+      Component = TimeoutPopup
     }
 
     if (showTimeoutWarningPopup) {
-      return <TimeoutWarningPopup closeFn={reset} />
+      Component = TimeoutWarningPopup
     }
 
     if (showLogoutPopup) {
-      return <LogoutPopup closeFn={reset} />
+      Component = LogoutPopup
     }
 
-    return null
+    if (Component) {
+      return (
+        <
+      )
+    }
   }
 }
 

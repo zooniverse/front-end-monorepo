@@ -14,6 +14,4 @@ function TimeoutPopup () {
   )
 }
 
-export default WithPopup(TimeoutPopup)
-
-export { TimeoutPopup }
+export default TimeoutPopup

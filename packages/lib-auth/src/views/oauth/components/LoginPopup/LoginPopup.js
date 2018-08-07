@@ -14,6 +14,4 @@ function LoginPopup () {
   )
 }
 
-export default WithPopup(LoginPopup)
-
-export { LoginPopup }
+export default LoginPopup
