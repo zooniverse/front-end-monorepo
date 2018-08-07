@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StyledAdminCheckbox = undefined;
 
-var _templateObject = _taggedTemplateLiteral(['\n  color: ', ';\n  font-weight: bold;\n'], ['\n  color: ', ';\n  font-weight: bold;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  color: ', ';\n'], ['\n  color: ', ';\n']);
 
 var _react = require('react');
 
@@ -43,6 +43,8 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 _counterpart2.default.registerTranslations('en', _en2.default);
 
+// This isn't working
+// Reported bug with Grommet v2: https://github.com/grommet/grommet/issues/2140
 var StyledAdminCheckbox = exports.StyledAdminCheckbox = (0, _styledComponents2.default)(_grommet.CheckBox)(_templateObject, (0, _styledTheming2.default)('mode', {
   light: _grommetTheme2.default.light.colors.font,
   dark: _grommetTheme2.default.dark.colors.font
