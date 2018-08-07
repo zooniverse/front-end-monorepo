@@ -9,8 +9,8 @@ export { default as DisplayNameSlugEditor } from './components/display-name-slug
 export { default as ImageSelector } from './components/image-selector';
 export { default as Paginator } from './components/paginator';
 
-export { default as ZooFooter } from './components/layout/zoo-footer';
-export { default as AdminCheckbox } from './components/layout/admin-checkbox';
+export { default as ZooFooter } from './components/layout/ZooFooter';
+export { default as AdminCheckbox } from './components/layout/ZooFooter/components/AdminCheckbox';
 export { default as AdminLayoutIndicator } from './components/layout/admin-layout-indicator';
 
 export { default as ZooHeader } from './components/layout/zoo-header';

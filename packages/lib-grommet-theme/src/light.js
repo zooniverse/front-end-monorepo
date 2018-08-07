@@ -16,6 +16,6 @@ export default {
       nextHover: '#ea9300'
     },
     foreground: '#404040',
-    font: '#000000'    
+    font: '#000000'
   }
 };
