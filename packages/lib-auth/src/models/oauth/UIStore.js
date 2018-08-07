@@ -5,7 +5,7 @@ const UI = types
     showLoginPopup: types.optional(types.boolean, false),
     showLogoutPopup: types.optional(types.boolean, false),
     showTimeoutPopup: types.optional(types.boolean, false),
-    showTimeoutWarningPopup: types.optional(types.boolean, true)
+    showTimeoutWarningPopup: types.optional(types.boolean, false)
   })
 
   .actions(self => ({

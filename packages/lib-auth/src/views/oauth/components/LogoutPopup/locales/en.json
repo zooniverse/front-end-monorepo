@@ -1,5 +1,6 @@
 {
   "LogoutPopup": {
+    "close": "Close",
     "message": "You have been successfully logged out."
   }
 }

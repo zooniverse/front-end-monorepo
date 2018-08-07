@@ -5,7 +5,7 @@ import React from 'react'
 
 import LoginPopup from './components/LoginPopup'
 import LogoutPopup from './components/LogoutPopup'
-import Popup from './components/Popup'
+import Popup from './components/shared/Popup'
 import TimeoutPopup from './components/TimeoutPopup'
 import TimeoutWarningPopup from './components/TimeoutWarningPopup'
 
@@ -47,9 +47,13 @@ class OAuthApp extends React.Component {
 
     if (Component) {
       return (
-        <
+        <Popup closeFn={reset}>
+          <Component closeFn={reset} />
+        </Popup>
       )
     }
+
+    return null
   }
 }
 

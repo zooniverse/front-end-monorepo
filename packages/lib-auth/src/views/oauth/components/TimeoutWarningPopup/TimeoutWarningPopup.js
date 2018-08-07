@@ -6,7 +6,6 @@ import { inject, observer } from 'mobx-react'
 import React from 'react'
 
 import en from './locales/en'
-import WithPopup from '../shared/WithPopup'
 
 counterpart.registerTranslations('en', en)
 
@@ -74,7 +73,7 @@ TimeoutWarningPopup.propTypes = {
 }
 
 TimeoutWarningPopup.defaultProps = {
-  expiresAt: 0
+  expiresAt: Date.now()
 }
 
 export default TimeoutWarningPopup

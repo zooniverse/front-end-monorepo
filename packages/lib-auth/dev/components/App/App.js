@@ -1,3 +1,5 @@
+import { Button, Grommet, Box } from 'grommet'
+import queryString from 'query-string'
 import React from 'react'
 
 import { createOAuthClient } from '../../../src'
@@ -5,40 +7,65 @@ import { createOAuthClient } from '../../../src'
 class App extends React.Component {
   constructor () {
     super()
-    this.login = this.login.bind(this)
-    this.logout = this.logout.bind(this)
     this.auth = createOAuthClient({
-      clientId: '535759b966935c297be11913acee7a9ca17c025f9f15520e7504728e71110a27',
+      clientId: '24ad5676d5d25c6aa850dc5d5f63ec8c03dbc7ae113b6442b8571fce6c5b974c',
       env: 'staging',
       redirectUri: 'http://localhost:3000'
     })
+    this.state = {
+      loading: false
+    }
+    this.logout = this.logout.bind(this)
   }
 
   componentDidMount () {
-    this.auth.completeLogin()
-  }
-
-  login () {
-    this.auth.startLogin()
+    const { access_token, expires_in } = queryString.parse(location.hash)
+    if (access_token && expires_in) {
+      this.setState({ loading: true })
+      this.auth.completeLogin()
+        .then(() => {
+          this.setState({ loading: false })
+          window.location.href = '/'
+        })
+    }
   }
 
   logout () {
     this.auth.logout()
+    this.forceUpdate()
+  }
+
+  renderApp () {
+    return (
+      <Box>
+        <Box direction='row' justify='between' align='between' pad='small'>
+          <div>OAuth Test app</div>
+          {this.auth.getToken()
+            ? <Button onClick={this.logout} label='Logout' />
+            : <Button onClick={this.auth.startLogin} label='Login' />
+          }
+        </Box>
+        <Box>
+          <h2>Auth status:</h2>
+          <pre style={{ whiteSpace: 'pre-line', wordBreak: 'break-all' }}>
+            {JSON.stringify(this.auth.getToken(), null, 2)}
+          </pre>
+        </Box>
+      </Box>
+    )
+  }
+
+  renderLoading () {
+    return (
+      <div>Reticulating splines...</div>
+    )
   }
 
   render () {
     return (
-      <div>
-        <button onClick={this.login}>
-          Login
-        </button>
-        <button onClick={this.logout}>
-          Logout
-        </button>
-        <div>
-          <pre>{JSON.stringify(this.auth.getToken(), undefined, 2)}</pre>
-        </div>
-      </div>
+      <Grommet>
+        {this.state.loading ? this.renderLoading() : this.renderApp()}
+      </Grommet>
     )
   }
 }
