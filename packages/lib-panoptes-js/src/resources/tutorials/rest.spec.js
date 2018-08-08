@@ -57,7 +57,7 @@ describe('Tutorials resource REST requests', function () {
           pattern: `${config.host}${endpoint}`,
           fixtures: (match, params, headers, context) => {
             if (match.input.includes(expectedGetSingleResponse.tutorials[0].id)) return expectedGetSingleResponse
-          
+
             return { status: 404 }
           },
           get: (match, data) => {

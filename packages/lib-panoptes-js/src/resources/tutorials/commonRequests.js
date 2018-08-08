@@ -3,7 +3,7 @@ const { get } = require('./rest')
 const { endpoint } = require('./helpers')
 const { raiseError } = require('../../utilityFunctions')
 
-function getAttachedImages(params) {
+function getAttachedImages (params) {
   const tutorialId = (params && params.id) ? params.id : ''
 
   if (tutorialId) {
@@ -34,7 +34,7 @@ function getTutorials (params) {
       // We allow the null value on kind for backwards compatibility
       // These are standard tutorials added prior to the 'kind' field and mini-courses
       response.body.tutorials = response.body.tutorials.filter((tutorial) => {
-        return tutorial.kind === 'tutorial' || null;
+        return tutorial.kind === 'tutorial' || null
       })
 
       return response

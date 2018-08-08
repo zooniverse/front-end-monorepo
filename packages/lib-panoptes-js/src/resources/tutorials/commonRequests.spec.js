@@ -71,7 +71,7 @@ describe('Tutorials resource common requests', function () {
       })
 
       it('should use a default include query param', function () {
-        return tutorials.getWithImages({ id: '1' }).then((response) => { 
+        return tutorials.getWithImages({ id: '1' }).then((response) => {
           expect(actualMatch.input.includes('include=attached_images')).to.be.true
         })
       })
@@ -82,7 +82,7 @@ describe('Tutorials resource common requests', function () {
         })
       })
 
-      it('should return the expected response', function() {
+      it('should return the expected response', function () {
         return tutorials.getWithImages({ id: '1' }).then((response) => {
           expect(response.body).to.eql(expectedGetResponse)
         })
@@ -120,7 +120,7 @@ describe('Tutorials resource common requests', function () {
         })
       })
 
-      it('should return the expected response', function() {
+      it('should return the expected response', function () {
         return tutorials.getWithImages({ workflowId: '10' }).then((response) => {
           expect(response.body).to.eql(expectedGetResponse)
         })

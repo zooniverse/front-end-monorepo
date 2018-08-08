@@ -2,11 +2,11 @@ const panoptes = require('../../panoptes')
 const { endpoint } = require('./helpers')
 const { isParamTypeInvalid, raiseError } = require('../../utilityFunctions')
 
-function create(params) {
+function create (params) {
   console.log('todo')
 }
 
-function get(params) {
+function get (params) {
   const queryParams = (params && params.query) ? params.query : {}
   const subjectId = (params && params.id) ? params.id : ''
 
@@ -24,11 +24,11 @@ function get(params) {
   return raiseError('Subjects: Get request must include a subject id.', 'error')
 }
 
-function update() {
+function update () {
   console.log('todo')
 }
 
-function del() {
+function del () {
   console.log('todo')
 }
 
