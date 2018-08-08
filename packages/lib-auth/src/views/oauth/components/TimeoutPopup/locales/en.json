@@ -1,5 +1,6 @@
 {
   "TimeoutPopup": {
-    "message": "Your login session has timed out. Click the button to login again."
+    "message": "Your login session has timed out. Click the button to login again.",
+    "button": "Stay logged in"
   }
 }

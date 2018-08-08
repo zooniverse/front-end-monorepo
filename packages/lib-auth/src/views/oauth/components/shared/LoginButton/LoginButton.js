@@ -6,8 +6,6 @@ import Button from '../Button'
 import WithClientContext from './WithClientContext'
 import en from './locales/en'
 
-counterpart.registerTranslations('en', en)
-
 class LoginButton extends React.Component {
   constructor () {
     super()
@@ -19,9 +17,10 @@ class LoginButton extends React.Component {
   }
 
   render () {
+    console.info(this.props)
     return (
       <Button
-        label={counterpart('LoginButton.label')}
+        label={this.props.label}
         onClick={this.login}
       />
     )
@@ -33,7 +32,12 @@ LoginButton.propTypes = {
     token: PropTypes.shape({
       getUri: PropTypes.func.isRequired
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  label: PropTypes.string
+}
+
+LoginButton.defaultProps = {
+  label: counterpart('LoginButton.label')
 }
 
 export default WithClientContext(LoginButton)

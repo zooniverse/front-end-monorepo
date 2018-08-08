@@ -10,7 +10,7 @@ function TimeoutPopup () {
   return (
     <div>
       {counterpart('TimeoutPopup.message')}
-      <LoginButton />
+      <LoginButton label={counterpart('TimeoutPopup.button')} />
     </div>
   )
 }
