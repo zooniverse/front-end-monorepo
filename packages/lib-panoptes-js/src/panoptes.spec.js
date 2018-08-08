@@ -4,11 +4,11 @@ const mockSuperagent = require('superagent-mock')
 const { config } = require('./config')
 const panoptes = require('./panoptes')
 
-describe.only('panoptes.js', function () {
+describe('panoptes.js', function () {
   describe('get', function () {
     let superagentMock
     let actualMatch
-    let actualHeader
+    let actualHeaders
     const endpoint = '/projects'
     const expectedResponse = { id: '2' }
     before(function () {
@@ -16,7 +16,7 @@ describe.only('panoptes.js', function () {
         pattern: endpoint,
         fixtures: (match, params, header, context) => {
           actualMatch = match
-          actualHeader = header
+          actualHeaders = header
           return expectedResponse
         },
         get: (match, data) => ({ body: data })
@@ -48,22 +48,22 @@ describe.only('panoptes.js', function () {
 
     it('should add Content-Type header to the request', function () {
       return panoptes.get(endpoint).then((response) => {
-        expect(actualHeader['Content-Type']).to.exist
-        expect(actualHeader['Content-Type']).to.equal('application/json')
+        expect(actualHeaders['Content-Type']).to.exist
+        expect(actualHeaders['Content-Type']).to.equal('application/json')
       })
     })
 
     it('should add Accept header to the request', function () {
       return panoptes.get(endpoint).then((response) => {
-        expect(actualHeader['Accept']).to.exist
-        expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+        expect(actualHeaders['Accept']).to.exist
+        expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
       })
     })
 
     it('should add the Authorization header to the request if param is defined', function () {
       return panoptes.get(endpoint, null, '12345').then((response) => {
-        expect(actualHeader['Authorization']).to.exist
-        expect(actualHeader['Authorization']).to.equal('12345')
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
 
@@ -105,7 +105,7 @@ describe.only('panoptes.js', function () {
     let superagentMock
     let actualMatch
     let actualParams
-    let actualHeader
+    let actualHeaders
     const endpoint = '/projects'
     const expectedResponse = { id: '3' }
     before(function () {
@@ -114,7 +114,7 @@ describe.only('panoptes.js', function () {
         fixtures: (match, params, header, context) => {
           actualMatch = match
           actualParams = params
-          actualHeader = header
+          actualHeaders = header
           return expectedResponse
         },
         post: (match, data) => ({ body: data })
@@ -146,22 +146,22 @@ describe.only('panoptes.js', function () {
 
     it('should add Content-Type header to the request', function () {
       return panoptes.post(endpoint).then((response) => {
-        expect(actualHeader['Content-Type']).to.exist
-        expect(actualHeader['Content-Type']).to.equal('application/json')
+        expect(actualHeaders['Content-Type']).to.exist
+        expect(actualHeaders['Content-Type']).to.equal('application/json')
       })
     })
 
     it('should add Accept header to the request', function () {
       return panoptes.post(endpoint).then((response) => {
-        expect(actualHeader['Accept']).to.exist
-        expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+        expect(actualHeaders['Accept']).to.exist
+        expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
       })
     })
 
     it('should add the Authorization header to the request if param is defined', function () {
       return panoptes.post(endpoint, null, '12345').then((response) => {
-        expect(actualHeader['Authorization']).to.exist
-        expect(actualHeader['Authorization']).to.equal('12345')
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
 
@@ -198,7 +198,7 @@ describe.only('panoptes.js', function () {
     let superagentMock
     let actualMatch
     let actualParams
-    let actualHeader
+    let actualHeaders
     const endpoint = '/projects/2'
     const update = { display_name: 'My project' }
     const expectedResponse = { id: '3', display_name: 'My project' }
@@ -208,7 +208,7 @@ describe.only('panoptes.js', function () {
         fixtures: (match, params, header, context) => {
           actualMatch = match
           actualParams = params
-          actualHeader = header
+          actualHeaders = header
           return expectedResponse
         },
         put: (match, data) => ({ body: data })
@@ -240,22 +240,22 @@ describe.only('panoptes.js', function () {
 
     it('should add Content-Type header to the request', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        expect(actualHeader['Content-Type']).to.exist
-        expect(actualHeader['Content-Type']).to.equal('application/json')
+        expect(actualHeaders['Content-Type']).to.exist
+        expect(actualHeaders['Content-Type']).to.equal('application/json')
       })
     })
 
     it('should add Accept header to the request', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        expect(actualHeader['Accept']).to.exist
-        expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+        expect(actualHeaders['Accept']).to.exist
+        expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
       })
     })
 
     it('should add the Authorization header to the request if param is defined', function () {
       return panoptes.put(endpoint, update, '12345').then((response) => {
-        expect(actualHeader['Authorization']).to.exist
-        expect(actualHeader['Authorization']).to.equal('12345')
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
 
@@ -290,7 +290,7 @@ describe.only('panoptes.js', function () {
   describe('delete', function () {
     let superagentMock
     let actualMatch
-    let actualHeader
+    let actualHeaders
     const endpoint = '/projects'
     const expectedResponse = { status: 204 }
     before(function () {
@@ -298,7 +298,7 @@ describe.only('panoptes.js', function () {
         pattern: endpoint,
         fixtures: (match, params, header, context) => {
           actualMatch = match
-          actualHeader = header
+          actualHeaders = header
           return expectedResponse
         },
         delete: (match, data) => { return data }
@@ -330,22 +330,22 @@ describe.only('panoptes.js', function () {
 
     it('should add Content-Type header to the request', function () {
       return panoptes.del(endpoint).then((response) => {
-        expect(actualHeader['Content-Type']).to.exist
-        expect(actualHeader['Content-Type']).to.equal('application/json')
+        expect(actualHeaders['Content-Type']).to.exist
+        expect(actualHeaders['Content-Type']).to.equal('application/json')
       })
     })
 
     it('should add Accept header to the request', function () {
       return panoptes.del(endpoint).then((response) => {
-        expect(actualHeader['Accept']).to.exist
-        expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+        expect(actualHeaders['Accept']).to.exist
+        expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
       })
     })
 
     it('should add the Authorization header to the request if param is defined', function () {
       return panoptes.del(endpoint, '12345').then((response) => {
-        expect(actualHeader['Authorization']).to.exist
-        expect(actualHeader['Authorization']).to.equal('12345')
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
 

@@ -9,11 +9,13 @@ const subjects = require('./index')
 describe('Subjects resource REST requests', function () {
   describe('get', function () {
     let superagentMock
+    let actualHeaders
     const expectedGetResponse = responses.get.subject
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
         fixtures: (match, params, headers, context) => {
+          actualHeaders = headers
           if (match.input.includes(resources.subject.id)) return expectedGetResponse
 
           return { status: 404 }
@@ -43,6 +45,13 @@ describe('Subjects resource REST requests', function () {
     it('should return the expected response', function () {
       subjects.get({ id: '10' }).then((response) => {
         expect(response.body).to.eql(expectedGetResponse)
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return subjects.get({ id: '10', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
   })

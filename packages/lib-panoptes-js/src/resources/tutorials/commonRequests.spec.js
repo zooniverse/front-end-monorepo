@@ -1,7 +1,6 @@
 const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
-const { JSDOM } = require('jsdom')
 
 const tutorials = require('./index')
 const { endpoint } = require('./helpers')
@@ -12,13 +11,15 @@ describe('Tutorials resource common requests', function () {
   describe('getAttachedImages', function () {
     let superagentMock
     let actualMatch
+    let actualHeaders
     const expectedGetResponse = responses.get.attachedImage
 
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, header) => {
           actualMatch = match
+          actualHeaders = header
           return expectedGetResponse
         },
         get: (match, data) => ({ body: data })
@@ -44,6 +45,13 @@ describe('Tutorials resource common requests', function () {
     it('should use query params if defined', function () {
       return tutorials.getAttachedImages({ id: '1', query: { page: '2' }}).then((response) => {
         expect(actualMatch.input.includes('page=2')).to.be.true
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return tutorials.getAttachedImages({ id: '1', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
   })

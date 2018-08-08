@@ -10,13 +10,15 @@ const { resources, responses } = require('./mocks')
 describe('Projects resource common requests', function () {
   describe('getBySlug', function () {
     let superagentMock
+    let actualHeaders
     const expectedGetResponse = responses.get.project
     const expectedNotFoundResponse = responses.get.queryNotFound
 
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, headers) => {
+          actualHeaders = headers
           const [mockOwner, mockProjectName] = resources.projectOne.slug.split('/')
           const matchSlug = `${mockOwner}%2F${mockProjectName}`
 
@@ -63,10 +65,18 @@ describe('Projects resource common requests', function () {
         expect(response).to.eql({ body: expectedGetResponse })
       })
     })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.getBySlug({ authorization: '12345', query: { slug: 'zooniverse/my-project' } }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
+      })
+    })
   })
 
   describe('getWithLinkedResources', function () {
     let superagentMock
+    let actualHeaders
     const expectedGetResponseWithLinkedResources = responses.get.projectWithLinkedResources
     const expectedNotFoundResponse = responses.get.queryNotFound
 
@@ -77,7 +87,8 @@ describe('Projects resource common requests', function () {
     it('should error if neither a slug or id is defined in query parameters', function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, headers) => {
+          actualHeaders = headers
           return expectedGetResponseWithLinkedResources
         },
         get: (match, data) => ({ body: data })
@@ -88,11 +99,18 @@ describe('Projects resource common requests', function () {
       })
     })
 
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.getWithLinkedResources({ id: '2', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
+      })
+    })
+
     describe('using project slug query parameter', function () {
       before(function () {
         superagentMock = mockSuperagent(superagent, [{
           pattern: `${config.host}${endpoint}`,
-          fixtures: (match, params) => {
+          fixtures: (match, params, headers) => {
             const [mockOwner, mockProjectName] = expectedGetResponseWithLinkedResources.projects[0].slug.split('/')
             const matchSlug = `${mockOwner}%2F${mockProjectName}`
 

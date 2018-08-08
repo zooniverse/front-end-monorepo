@@ -10,12 +10,14 @@ describe('Subjects resource common requests', function () {
   describe('getSubjectQueue', function () {
     let superagentMock
     let actualMatch
+    let autualHeaders
     const expectedGetResponse = responses.get.subjectsQueue
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
         fixtures: (match, params, headers, context) => {
           actualMatch = match
+          actualHeaders = headers
           return expectedGetResponse
         },
         get: (match, data) => {
@@ -55,6 +57,13 @@ describe('Subjects resource common requests', function () {
     it('should use the subject set id in the request query params if defined', function () {
       subjects.getSubjectQueue({ subjectSetId: '40', workflowId: '10' }).then(() => {
         expect(actualMatch.input.includes('subject_set_id=40')).to.be.true
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return subjects.getSubjectQueue({ workflowId: '10', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
   })

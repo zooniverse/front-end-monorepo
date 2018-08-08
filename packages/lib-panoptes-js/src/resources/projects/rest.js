@@ -4,12 +4,13 @@ const { raiseError } = require('../../utilityFunctions')
 
 function create (params) {
   const newProjectData = (params && params.data) ? params.data : {}
+  const authorization = (params && params.authorization) ? params.authorization : ''
 
   const allProjectData = Object.assign({
     private: true
   }, newProjectData)
 
-  return panoptes.post(endpoint, allProjectData)
+  return panoptes.post(endpoint, allProjectData, authorization)
 }
 
 function get (params) {
@@ -17,7 +18,7 @@ function get (params) {
   const projectId = (params && params.id) ? params.id : ''
   const authorization = (params && params.authorization) ? params.authorization : ''
 
-  if (!projectId) return panoptes.get(endpoint, queryParams)
+  if (!projectId) return panoptes.get(endpoint, queryParams, authorization)
   if (projectId && typeof projectId !== 'string') return raiseError('Projects: Get request id must be a string.', 'typeError')
 
   return panoptes.get(`${endpoint}/${projectId}`, queryParams, authorization)
