@@ -1,5 +1,3 @@
-/* global localStorage */
-
 const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
@@ -37,22 +35,19 @@ describe('panoptes.js', function () {
 
     it('should use the host from the function call if defined', function () {
       const mockAPIHost = 'https://my-api.com'
-      return panoptes.get(endpoint, null, mockAPIHost).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
+      return panoptes.get(endpoint, null, null, mockAPIHost).then((response) => {
         expect(actualMatch.input.includes(mockAPIHost)).to.be.true
       })
     })
 
     it('should use the host defined in the config if a host parameter isn\'t defined', function () {
       return panoptes.get(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes(config.host)).to.be.true
       })
     })
 
     it('should add Content-Type header to the request', function () {
       return panoptes.get(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Content-Type']).to.exist
         expect(actualHeader['Content-Type']).to.equal('application/json')
       })
@@ -60,7 +55,6 @@ describe('panoptes.js', function () {
 
     it('should add Accept header to the request', function () {
       return panoptes.get(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
       })
@@ -68,7 +62,6 @@ describe('panoptes.js', function () {
 
     it('should add the http_cache default query params to the request', function () {
       return panoptes.get(endpoint).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?http_cache=true')).to.be.true
       })
     })
@@ -77,7 +70,6 @@ describe('panoptes.js', function () {
       localStorage.setItem('adminFlag', true)
 
       return panoptes.get(endpoint).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?admin=true')).to.be.true
         localStorage.removeItem('adminFlag')
       })
@@ -85,7 +77,6 @@ describe('panoptes.js', function () {
 
     it('should add the query object to the URL if defined', function () {
       return panoptes.get(endpoint, { page: '2', page_size: '30' }).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?page=2&page_size=30')).to.be.true
       })
     })
@@ -135,22 +126,19 @@ describe('panoptes.js', function () {
 
     it('should use the host from the function call if defined', function () {
       const mockAPIHost = 'https://my-api.com'
-      return panoptes.post(endpoint, null, mockAPIHost).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
+      return panoptes.post(endpoint, null, null, mockAPIHost).then((response) => {
         expect(actualMatch.input.includes(mockAPIHost)).to.be.true
       })
     })
 
     it('should use the host defined in the config if a host parameter isn\'t defined', function () {
       return panoptes.post(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes(config.host)).to.be.true
       })
     })
 
     it('should add Content-Type header to the request', function () {
       return panoptes.post(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Content-Type']).to.exist
         expect(actualHeader['Content-Type']).to.equal('application/json')
       })
@@ -158,7 +146,6 @@ describe('panoptes.js', function () {
 
     it('should add Accept header to the request', function () {
       return panoptes.post(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
       })
@@ -166,7 +153,6 @@ describe('panoptes.js', function () {
 
     it('should add the http_cache default query params to the request', function () {
       return panoptes.post(endpoint).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?http_cache=true')).to.be.true
       })
     })
@@ -175,7 +161,6 @@ describe('panoptes.js', function () {
       localStorage.setItem('adminFlag', true)
 
       return panoptes.post(endpoint).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?admin=true')).to.be.true
         localStorage.removeItem('adminFlag')
       })
@@ -228,22 +213,19 @@ describe('panoptes.js', function () {
 
     it('should use the host from the function call if defined', function () {
       const mockAPIHost = 'https://my-api.com'
-      return panoptes.put(endpoint, update, mockAPIHost).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
+      return panoptes.put(endpoint, update, null, mockAPIHost).then((response) => {
         expect(actualMatch.input.includes(mockAPIHost)).to.be.true
       })
     })
 
     it('should use the host defined in the config if a host parameter isn\'t defined', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes(config.host)).to.be.true
       })
     })
 
     it('should add Content-Type header to the request', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Content-Type']).to.exist
         expect(actualHeader['Content-Type']).to.equal('application/json')
       })
@@ -251,7 +233,6 @@ describe('panoptes.js', function () {
 
     it('should add Accept header to the request', function () {
       return panoptes.put(endpoint, update).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
       })
@@ -259,7 +240,6 @@ describe('panoptes.js', function () {
 
     it('should add the http_cache default query params to the request', function () {
       return panoptes.put(endpoint, update).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?http_cache=true')).to.be.true
       })
     })
@@ -268,7 +248,6 @@ describe('panoptes.js', function () {
       localStorage.setItem('adminFlag', true)
 
       return panoptes.put(endpoint, update).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?admin=true')).to.be.true
         localStorage.removeItem('adminFlag')
       })
@@ -317,22 +296,19 @@ describe('panoptes.js', function () {
 
     it('should use the host from the function call if defined', function () {
       const mockAPIHost = 'https://my-api.com'
-      return panoptes.del(endpoint, mockAPIHost).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
+      return panoptes.del(endpoint, null, mockAPIHost).then((response) => {
         expect(actualMatch.input.includes(mockAPIHost)).to.be.true
       })
     })
 
     it('should use the host defined in the config if a host parameter isn\'t defined', function () {
       return panoptes.del(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes(config.host)).to.be.true
       })
     })
 
     it('should add Content-Type header to the request', function () {
       return panoptes.del(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Content-Type']).to.exist
         expect(actualHeader['Content-Type']).to.equal('application/json')
       })
@@ -340,7 +316,6 @@ describe('panoptes.js', function () {
 
     it('should add Accept header to the request', function () {
       return panoptes.del(endpoint).then((response) => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
       })
@@ -348,7 +323,6 @@ describe('panoptes.js', function () {
 
     it('should add the http_cache default query params to the request', function () {
       return panoptes.del(endpoint).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?http_cache=true')).to.be.true
       })
     })
@@ -357,7 +331,6 @@ describe('panoptes.js', function () {
       localStorage.setItem('adminFlag', true)
 
       return panoptes.del(endpoint).then(() => {
-        // eslint-disable-next-line no-unused-expressions
         expect(actualMatch.input.includes('?admin=true')).to.be.true
         localStorage.removeItem('adminFlag')
       })
