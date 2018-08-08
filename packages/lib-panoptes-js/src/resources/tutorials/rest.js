@@ -18,13 +18,13 @@ function get (params) {
     delete queryParams.id
     return panoptes.get(`${endpoint}/${tutorialId}`, queryParams)
   }
-  
+
   if (workflowId) {
     queryParams.workflow_id = workflowId
     delete queryParams.workflowId
     return panoptes.get(endpoint, queryParams)
   }
-  
+
   return raiseError('Tutorials: Get request must include a workflow id or a tutorial id.', 'error')
 }
 
