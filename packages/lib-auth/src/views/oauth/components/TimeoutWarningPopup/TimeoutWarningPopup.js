@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import React from 'react'
 
 import en from './locales/en'
+import LoginButton from '../shared/LoginButton'
 
 counterpart.registerTranslations('en', en)
 
@@ -60,9 +61,10 @@ class TimeoutWarningPopup extends React.Component {
         <div>
           {counterpart('TimeoutWarningPopup.message')}
         </div>
-        <Box direction='row' justify='center'>
+        <Box direction='row' justify='center' margin={{ vertical: 'small' }}>
           <Clock type='digital' run={false} time={time} size='large' />
         </Box>
+        <LoginButton />
       </div>
     )
   }

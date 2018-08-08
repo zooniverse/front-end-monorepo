@@ -32,6 +32,8 @@ class App extends React.Component {
 
   logout () {
     this.auth.logout()
+
+    // We trigger a forced update to re-render the Auth status content
     this.forceUpdate()
   }
 
