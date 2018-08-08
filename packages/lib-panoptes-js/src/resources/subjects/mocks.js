@@ -1,5 +1,5 @@
 const { buildResponse } = require('../../utilityFunctions')
-const { buildSubjectsQueue } = require('./helpers')
+const { buildSubjectQueue } = require('./helpers')
 
 const subject = {
   created_at: '2015-03-17T13:45:40.297Z',
