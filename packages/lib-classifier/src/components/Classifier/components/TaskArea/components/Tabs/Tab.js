@@ -1,24 +1,20 @@
 import styled from 'styled-components'
 import { Tab } from 'grommet'
 
+import { borderColor } from './colors'
+
 const StyledTab = styled(Tab)`
-  background-color: #EFF2F5
-  border-bottom: 1px solid #E2E5E9
-  border-left: 1px solid #E2E5E9
-  border-top: 1px solid #E2E5E9
-  color: #5C5C5C
+  background-color: ${props => props.active ? 'white' : '#EFF2F5'}
+  border-bottom: 1px solid ${props => props.active ? 'white' : borderColor}
+  border-left: 1px solid ${borderColor}
+  border-top: 1px solid ${borderColor}
+  color: ${props => props.active ? 'black' : '#5C5C5C'}
   flex: 1
   padding: 1rem
   width: 0
 
   &:last-of-type {
-    border-right: 1px solid #E2E5E9
-  }
-
-  &[aria-selected="true"] {
-    background-color: white
-    border-bottom-color: white
-    color: #000
+    border-right: 1px solid ${borderColor}
   }
 
   > div {
