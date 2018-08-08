@@ -16,7 +16,7 @@ function checkForAdminFlag () {
 }
 
 // TODO: Consider how to integrate a GraphQL option
-function get (endpoint, query, authorization = null, host) {
+function get (endpoint, query, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -38,7 +38,7 @@ function get (endpoint, query, authorization = null, host) {
   return request.then(response => response)
 }
 
-function post (endpoint, data, authorization = null, host) {
+function post (endpoint, data, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -55,7 +55,7 @@ function post (endpoint, data, authorization = null, host) {
     .then(response => response)
 }
 
-function put (endpoint, data, authorization = null, host) {
+function put (endpoint, data, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -73,7 +73,7 @@ function put (endpoint, data, authorization = null, host) {
     .then(response => response)
 }
 
-function del (endpoint, authorization = null, host) {
+function del (endpoint, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
