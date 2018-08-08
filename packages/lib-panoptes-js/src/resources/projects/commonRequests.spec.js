@@ -33,13 +33,13 @@ describe('Projects resource common requests', function () {
     })
 
     it('should error if slug param is not a string', function () {
-      return projects.getBySlug({ slug: 1234 }).catch((error) => {
+      return projects.getBySlug({ query: { slug: 1234 }}).catch((error) => {
         expect(error.message).to.equal('Projects: Get request slug must be a string.')
       })
     })
 
     it('should return the expected response if not found', function () {
-      return projects.getBySlug({ slug: 'zooniverse/my-project' }).then((response) => {
+      return projects.getBySlug({ query: { slug: 'zooniverse/my-project' }}).then((response) => {
         expect(response).to.eql({ body: expectedNotFoundResponse })
       })
     })
@@ -52,14 +52,14 @@ describe('Projects resource common requests', function () {
 
     it('should return the expected response if the slug is defined', function () {
       const slug = 'user/untitled-project-2'
-      return projects.getBySlug({ slug }).then((response) => {
+      return projects.getBySlug({ query: { slug }}).then((response) => {
         expect(response).to.eql({ body: expectedGetResponse })
       })
     })
 
     it('should return the expected response if the slug is defined including "projects" in the pathname', function () {
       const slug = 'projects/user/untitled-project-2'
-      return projects.getBySlug({ slug }).then((response) => {
+      return projects.getBySlug({ query: { slug }}).then((response) => {
         expect(response).to.eql({ body: expectedGetResponse })
       })
     })
@@ -104,7 +104,7 @@ describe('Projects resource common requests', function () {
       })
 
       it('should error if slug is not a string', function () {
-        return projects.getWithLinkedResources({ slug: 1234 }).catch((error) => {
+        return projects.getWithLinkedResources({ query: { slug: 1234 }}).catch((error) => {
           expect(error.message).to.equal('Projects: Get request slug must be a string.')
         })
       })
@@ -116,7 +116,7 @@ describe('Projects resource common requests', function () {
       })
 
       it('should return the expected response', function () {
-        return projects.getWithLinkedResources({ slug: 'user/untitled-project-2' }).then((response) => {
+        return projects.getWithLinkedResources({ query: { slug: 'user/untitled-project-2' }}).then((response) => {
           expect(response).to.eql({ body: expectedGetResponseWithLinkedResources })
         })
       })
