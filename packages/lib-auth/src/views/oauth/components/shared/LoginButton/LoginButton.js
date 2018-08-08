@@ -6,6 +6,8 @@ import Button from '../Button'
 import WithClientContext from './WithClientContext'
 import en from './locales/en'
 
+counterpart.registerTranslations('en', en)
+
 class LoginButton extends React.Component {
   constructor () {
     super()

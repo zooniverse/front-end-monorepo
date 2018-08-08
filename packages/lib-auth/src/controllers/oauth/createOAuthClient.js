@@ -91,6 +91,7 @@ function createOAuthClient ({
   function logout () {
     store.credentials.reset()
     store.ui.openLogoutPopup()
+    deleteCredentials()
     clearTimer(warningTimer)
     clearTimer(timeoutTimer)
   }
