@@ -10,9 +10,11 @@ Use this for custom projects, and anything else not running on the zooniverse.or
 import { createOAuthClient } from '@zooniverse/auth'
 
 const auth = createOAuthClient({
+  authorizationUri: 'http://meepmorop.com/oauth/authorize' // (Optional) Sets a custom OAuth endpoint to use. Must be set if `env` is not set
   clientId: '1234567890', // Your client ID from Doorkeeper
-  env: 'staging', // Can be `staging` or `production`. You can also specify `authorizationUri` instead if you prefer
+  env: 'staging', // (Optional) Can be `staging` or `production`. This must be set if `authorizationUri` is not set
   redirectUri: 'http://foobar.com/oauth' // The URI you want the user redirected to on completion
+  scopes: ['public', 'user'] // The scopes you want to grant your app. Defaults to `['public', 'user']`
 })
 
 // Start the login process
