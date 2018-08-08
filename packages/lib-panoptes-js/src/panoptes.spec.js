@@ -4,7 +4,7 @@ const mockSuperagent = require('superagent-mock')
 const { config } = require('./config')
 const panoptes = require('./panoptes')
 
-describe('panoptes.js', function () {
+describe.only('panoptes.js', function () {
   describe('get', function () {
     let superagentMock
     let actualMatch
@@ -57,6 +57,13 @@ describe('panoptes.js', function () {
       return panoptes.get(endpoint).then((response) => {
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return panoptes.get(endpoint, null, '12345').then((response) => {
+        expect(actualHeader['Authorization']).to.exist
+        expect(actualHeader['Authorization']).to.equal('12345')
       })
     })
 
@@ -151,6 +158,13 @@ describe('panoptes.js', function () {
       })
     })
 
+    it('should add the Authorization header to the request if param is defined', function () {
+      return panoptes.post(endpoint, null, '12345').then((response) => {
+        expect(actualHeader['Authorization']).to.exist
+        expect(actualHeader['Authorization']).to.equal('12345')
+      })
+    })
+
     it('should add the http_cache default query params to the request', function () {
       return panoptes.post(endpoint).then(() => {
         expect(actualMatch.input.includes('?http_cache=true')).to.be.true
@@ -238,6 +252,13 @@ describe('panoptes.js', function () {
       })
     })
 
+    it('should add the Authorization header to the request if param is defined', function () {
+      return panoptes.put(endpoint, update, '12345').then((response) => {
+        expect(actualHeader['Authorization']).to.exist
+        expect(actualHeader['Authorization']).to.equal('12345')
+      })
+    })
+
     it('should add the http_cache default query params to the request', function () {
       return panoptes.put(endpoint, update).then(() => {
         expect(actualMatch.input.includes('?http_cache=true')).to.be.true
@@ -318,6 +339,13 @@ describe('panoptes.js', function () {
       return panoptes.del(endpoint).then((response) => {
         expect(actualHeader['Accept']).to.exist
         expect(actualHeader['Accept']).to.equal('application/vnd.api+json; version=1')
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return panoptes.del(endpoint, '12345').then((response) => {
+        expect(actualHeader['Authorization']).to.exist
+        expect(actualHeader['Authorization']).to.equal('12345')
       })
     })
 
