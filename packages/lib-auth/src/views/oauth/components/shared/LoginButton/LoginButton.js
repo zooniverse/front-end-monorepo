@@ -19,7 +19,6 @@ class LoginButton extends React.Component {
   }
 
   render () {
-    console.info(this.props)
     return (
       <Button
         label={this.props.label}
