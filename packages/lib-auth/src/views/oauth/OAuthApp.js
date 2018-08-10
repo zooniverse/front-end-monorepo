@@ -1,6 +1,8 @@
+import { Grommet } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import LoginPopup from './components/LoginPopup'
 import LogoutPopup from './components/LogoutPopup'
@@ -46,9 +48,11 @@ class OAuthApp extends React.Component {
 
     if (Component) {
       return (
-        <Popup closeFn={reset}>
-          <Component closeFn={reset} />
-        </Popup>
+        <Grommet theme={this.props.theme}>
+          <Popup closeFn={reset}>
+            <Component closeFn={reset} />
+          </Popup>
+        </Grommet>
       )
     }
 
@@ -72,7 +76,8 @@ OAuthApp.defaultProps = {
     showLogoutPopup: false,
     showTimeoutPopup: false,
     showTimeoutWarningPopup: false
-  }
+  },
+  theme: zooTheme
 }
 
 export default OAuthApp
