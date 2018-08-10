@@ -15,7 +15,7 @@ class LoginButton extends React.Component {
   }
 
   login () {
-    window.open(this.props.client.token.getUri(), '_self')
+    window.location.href = this.props.client.token.getUri()
   }
 
   render () {
