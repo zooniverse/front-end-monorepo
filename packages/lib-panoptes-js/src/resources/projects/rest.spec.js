@@ -11,12 +11,14 @@ describe('Projects resource REST requests', function () {
   describe('create', function () {
     let superagentMock
     let actualParams
+    let actualHeaders
     const expectedResponse = responses.post.createdProject
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params, header, context) => {
+        fixtures: (match, params, headers, context) => {
           actualParams = params
+          actualHeaders = headers
           return expectedResponse
         },
         post: (match, data) => ({ body: data })
@@ -39,17 +41,26 @@ describe('Projects resource REST requests', function () {
         expect(actualParams).to.eql(Object.assign({}, { private: true }, projectDisplayName))
       })
     })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.create({ authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
+      })
+    })
   })
 
   describe('get', function () {
     describe('many projects', function () {
       let superagentMock
+      let actualHeaders
       const expectedGetAllResponse = responses.get.projects
 
       before(function () {
         superagentMock = mockSuperagent(superagent, [{
           pattern: `${config.host}${endpoint}`,
           fixtures: (match, params, headers, context) => {
+            actualHeaders = headers
             return expectedGetAllResponse
           },
           get: (match, data) => {
@@ -67,11 +78,19 @@ describe('Projects resource REST requests', function () {
           expect(response).to.eql({ body: expectedGetAllResponse })
         })
       })
+
+      it('should add the Authorization header to the request if param is defined', function () {
+        return projects.get({ authorization: '12345' }).then((response) => {
+          expect(actualHeaders['Authorization']).to.exist
+          expect(actualHeaders['Authorization']).to.equal('12345')
+        })
+      })
     })
 
     describe('a single project', function () {
       let superagentMock
       let actualMatch
+      let actualHeaders
       const expectedGetSingleResponse = responses.get.project
 
       before(function () {
@@ -79,6 +98,7 @@ describe('Projects resource REST requests', function () {
           pattern: `${config.host}${endpoint}/(\\d+)`,
           fixtures: (match, params, headers, context) => {
             actualMatch = match
+            actualHeaders = headers
             return expectedGetSingleResponse
           },
           get: (match, data) => {
@@ -91,6 +111,13 @@ describe('Projects resource REST requests', function () {
         superagentMock.unset()
       })
 
+      it('should add the Authorization header to the request if param is defined', function () {
+        return projects.get({ authorization: '12345', id: '2' }).then((response) => {
+          expect(actualHeaders['Authorization']).to.exist
+          expect(actualHeaders['Authorization']).to.equal('12345')
+        })
+      })
+
       it('should return the expected response with a defined id argument', function () {
         return projects.get({ id: '2' }).then(response => {
           expect(response).to.eql({ body: expectedGetSingleResponse })
@@ -101,7 +128,6 @@ describe('Projects resource REST requests', function () {
         const queryParams = { page: '2' }
 
         return projects.get({ id: '2', query: queryParams }).then(response => {
-          // eslint-disable-next-line no-unused-expressions
           expect(actualMatch.input.includes('?page=2')).to.be.true
         })
       })
@@ -116,13 +142,15 @@ describe('Projects resource REST requests', function () {
 
   describe('update', function () {
     let superagentMock
+    let actualHeaders
     const expectedPutResponse = responses.updatedProject
     const update = { researcher_quote: 'Try my project!' }
 
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}/(\\d+)`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, headers) => {
+          actualHeaders = headers
           return expectedPutResponse
         },
         put: (match, data) => ({ body: data })
@@ -151,6 +179,13 @@ describe('Projects resource REST requests', function () {
       })
     })
 
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.update({ id: '2', data: update, authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
+      })
+    })
+
     it('should return the expected response', function () {
       return projects.update({ id: '2', data: update }).then((response) => {
         expect(response).to.eql({ body: expectedPutResponse })
@@ -160,11 +195,13 @@ describe('Projects resource REST requests', function () {
 
   describe('delete', function () {
     let superagentMock
+    let actualHeaders
     const responseStatus = { status: 204 }
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}/(\\d+)`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, headers) => {
+          actualHeaders = headers
           return responseStatus
         },
         delete: (match, data) => { return data }
@@ -190,6 +227,13 @@ describe('Projects resource REST requests', function () {
     it('should error if the request\'s project id is not a string', function () {
       return projects.delete({ id: 2 }).catch((error) => {
         expect(error.message).to.equal('Projects: Delete request id must be a string.')
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.delete({ id: '2', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
 

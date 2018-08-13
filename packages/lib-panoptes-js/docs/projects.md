@@ -23,14 +23,14 @@
 **Function**
 
 ``` javascript
-const params = { id: projectID, query: query };
+const params = { id: projectID, query: query, authorization: authorization };
 
 projects.get(params)
 ```
 
 **Arguments**
 
-- params _(object)_ - An object that should include id _(string)_ and/or query _(object)_ properties. If undefined, the get request defaults to request the first page of the projects resource. Optional.
+- params _(object)_ - An object that should include id _(string)_ and/or query _(object)_ properties. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. If undefined, the get request defaults to request the first page of the projects resource. Optional.
 
 **Returns**
 
@@ -60,14 +60,14 @@ projects.get().then((response) => {
 **Function**
 
 ``` javascript
-const params = { data: data };
+const params = { data: data, authorization: authorization };
 
 projects.post(params)
 ```
 
 **Arguments**
 
-- params _(object)_ - An object with a data _(object)_ property to send as params with the POST request. Optional.
+- params _(object)_ - An object with a data _(object)_ property to send as params with the POST request. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. Optional.
 
 **Returns**
 
@@ -87,14 +87,14 @@ projects.create().then((response) => {
 **Function**
 
 ``` javascript
-const params = { id: projectID, data: data };
+const params = { id: projectID, data: data, authorization: authorization };
 
 projects.post(params)
 ```
 
 **Arguments**
 
-- params _(object)_ - An object with an id _(string)_ to include in the request endpoint and data _(object)_ property to send as params with the PUT request. Required.
+- params _(object)_ - An object with an id _(string)_ to include in the request endpoint and data _(object)_ property to send as params with the PUT request. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. Required.
 
 **Returns**
 
@@ -114,14 +114,14 @@ projects.update({ id: '1104', data: { display_name: 'Super Zoo' } }).then((respo
 **Function**
 
 ``` javascript
-const params = { id: projectID };
+const params = { id: projectID, authorization: authorization };
 
 projects.delete(params);
 ```
 
 **Arguments**
 
-- params _(object)_ - An object with an id _(string)_ property to include in the request endpoint. Required.
+- params _(object)_ - An object with an id _(string)_ property to include in the request endpoint. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. Required.
 
 **Returns**
 
@@ -146,19 +146,19 @@ A project get request that validates for the presence of the slug in the query p
 **Function**
 
 ``` javascript
-const params = { slug: 'zooniverse/galaxy-zoo' };
+const params = { slug: 'zooniverse/galaxy-zoo', authorization: authorization };
 
 projects.getBySlug(params)
 
 // or with additional query params
-const params = { slug: 'zooniverse/galaxy-zoo', cards: true }
+const params = { slug: 'zooniverse/galaxy-zoo', cards: true, authorization: authorization }
 
 projects.getBySlug(params)
 ```
 
 **Arguments**
 
-- params _(object)_ - An object that should include the project's slug _(string)_ and optionally additional query params.
+- params _(object)_ - An object that should include the project's slug _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
 
 **Returns**
 
@@ -189,7 +189,7 @@ The request can be done with either project ID or project slug.
 
 ``` javascript
 // Using project id
-const params = { id: '1' }
+const params = { id: '1', authorization: authorization }
 
 projects.getWithLinkedResources(params)
 
@@ -209,7 +209,7 @@ projects.getWithLinkedResources(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include the project's slug _(string)_ or the project's id _(string)_ and optionally additional query params. If the slug is undefined and in a browser environment, the get request uses the window's location pathname and transforms it to the correct format. Slug param is optional if in browser, but the slug or the project id is required in node.js.
+- params _(object)_ - An object that should include the project's slug _(string)_ or the project's id _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. This helper method uses a private internal function to get the project slug if the location pathname, like `'projects/zooniverse/gravity-spy'` is passed in as the slug into the request call. 
 
 **Returns**
 

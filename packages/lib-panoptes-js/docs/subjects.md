@@ -28,14 +28,14 @@ subjects.endpoint
 
 ``` javascript
 // By subject id
-const params = { id: subjectId, query: query };
+const params = { id: subjectId, query: query, authorization: authorization };
 
 subjects.get(params)
 ```
 
 **Arguments**
 
-- params _(object)_ - An object that should include a subject id _(string)_ and/or query _(object)_ properties. If you're requesting a subject queue for classification, use [subjects.getSubjectQueue](#get-subject-queue). Query params are optional.
+- params _(object)_ - An object that should include a subject id _(string)_ and/or query _(object)_ properties. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. If you're requesting a subject queue for classification, use [subjects.getSubjectQueue](#get-subject-queue). Query params are optional.
 
 **Returns**
 
@@ -61,7 +61,7 @@ A subjects get request that validates for the presence of a workflow id and opti
 **Function**
 
 ``` javascript
-const params = { workflowId: '50' };
+const params = { workflowId: '50', authorization: authorization };
 
 subjects.getSubjectQueue(params)
 
@@ -78,7 +78,7 @@ subjects.getSubjectQueue(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include the workflow id _(string)_, optionally the subject set id _(string)_,and optionally additional query params.
+- params _(object)_ - An object that should include the workflow id _(string)_, optionally the subject set id _(string)_, and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
 
 **Returns**
 

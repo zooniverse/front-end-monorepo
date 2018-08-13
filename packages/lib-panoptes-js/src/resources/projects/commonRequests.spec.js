@@ -10,13 +10,15 @@ const { resources, responses } = require('./mocks')
 describe('Projects resource common requests', function () {
   describe('getBySlug', function () {
     let superagentMock
+    let actualHeaders
     const expectedGetResponse = responses.get.project
     const expectedNotFoundResponse = responses.get.queryNotFound
 
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, headers) => {
+          actualHeaders = headers
           const [mockOwner, mockProjectName] = resources.projectOne.slug.split('/')
           const matchSlug = `${mockOwner}%2F${mockProjectName}`
 
@@ -33,13 +35,13 @@ describe('Projects resource common requests', function () {
     })
 
     it('should error if slug param is not a string', function () {
-      return projects.getBySlug({ slug: 1234 }).catch((error) => {
+      return projects.getBySlug({ query: { slug: 1234 }}).catch((error) => {
         expect(error.message).to.equal('Projects: Get request slug must be a string.')
       })
     })
 
     it('should return the expected response if not found', function () {
-      return projects.getBySlug({ slug: 'zooniverse/my-project' }).then((response) => {
+      return projects.getBySlug({ query: { slug: 'zooniverse/my-project' }}).then((response) => {
         expect(response).to.eql({ body: expectedNotFoundResponse })
       })
     })
@@ -52,21 +54,29 @@ describe('Projects resource common requests', function () {
 
     it('should return the expected response if the slug is defined', function () {
       const slug = 'user/untitled-project-2'
-      return projects.getBySlug({ slug }).then((response) => {
+      return projects.getBySlug({ query: { slug }}).then((response) => {
         expect(response).to.eql({ body: expectedGetResponse })
       })
     })
 
     it('should return the expected response if the slug is defined including "projects" in the pathname', function () {
       const slug = 'projects/user/untitled-project-2'
-      return projects.getBySlug({ slug }).then((response) => {
+      return projects.getBySlug({ query: { slug }}).then((response) => {
         expect(response).to.eql({ body: expectedGetResponse })
+      })
+    })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.getBySlug({ authorization: '12345', query: { slug: 'zooniverse/my-project' } }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
       })
     })
   })
 
   describe('getWithLinkedResources', function () {
     let superagentMock
+    let actualHeaders
     const expectedGetResponseWithLinkedResources = responses.get.projectWithLinkedResources
     const expectedNotFoundResponse = responses.get.queryNotFound
 
@@ -77,7 +87,8 @@ describe('Projects resource common requests', function () {
     it('should error if neither a slug or id is defined in query parameters', function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, headers) => {
+          actualHeaders = headers
           return expectedGetResponseWithLinkedResources
         },
         get: (match, data) => ({ body: data })
@@ -88,11 +99,18 @@ describe('Projects resource common requests', function () {
       })
     })
 
+    it('should add the Authorization header to the request if param is defined', function () {
+      return projects.getWithLinkedResources({ id: '2', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
+      })
+    })
+
     describe('using project slug query parameter', function () {
       before(function () {
         superagentMock = mockSuperagent(superagent, [{
           pattern: `${config.host}${endpoint}`,
-          fixtures: (match, params) => {
+          fixtures: (match, params, headers) => {
             const [mockOwner, mockProjectName] = expectedGetResponseWithLinkedResources.projects[0].slug.split('/')
             const matchSlug = `${mockOwner}%2F${mockProjectName}`
 
@@ -104,7 +122,7 @@ describe('Projects resource common requests', function () {
       })
 
       it('should error if slug is not a string', function () {
-        return projects.getWithLinkedResources({ slug: 1234 }).catch((error) => {
+        return projects.getWithLinkedResources({ query: { slug: 1234 }}).catch((error) => {
           expect(error.message).to.equal('Projects: Get request slug must be a string.')
         })
       })
@@ -116,7 +134,7 @@ describe('Projects resource common requests', function () {
       })
 
       it('should return the expected response', function () {
-        return projects.getWithLinkedResources({ slug: 'user/untitled-project-2' }).then((response) => {
+        return projects.getWithLinkedResources({ query: { slug: 'user/untitled-project-2' }}).then((response) => {
           expect(response).to.eql({ body: expectedGetResponseWithLinkedResources })
         })
       })

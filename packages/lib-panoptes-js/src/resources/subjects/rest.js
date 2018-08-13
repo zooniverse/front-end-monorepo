@@ -9,12 +9,12 @@ function create (params) {
 function get (params) {
   const queryParams = (params && params.query) ? params.query : {}
   const subjectId = (params && params.id) ? params.id : ''
+  const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (isParamTypeInvalid(subjectId, 'string')) return raiseError('Subjects: Get request id must be a string.', 'typeError')
 
   if (subjectId) {
-    delete queryParams.id
-    return panoptes.get(`${endpoint}/${subjectId}`, queryParams)
+    return panoptes.get(`${endpoint}/${subjectId}`, queryParams, authorization)
   }
 
   if (console && !subjectId && process.env.NODE_ENV !== 'test') {
