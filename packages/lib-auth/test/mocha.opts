@@ -1,0 +1,11 @@
+--require babel-register
+--require babel-polyfill
+--require chai/register-expect
+--require chai/register-should
+--reporter spec
+--ui bdd
+--file ./test/enzyme-config.js
+--file ./test/enzyme-setup.js
+--require mock-local-storage
+
+./src/**/*.spec.js
