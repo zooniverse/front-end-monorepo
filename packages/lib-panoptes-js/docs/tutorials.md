@@ -31,7 +31,7 @@ tutorials.endpoint
 
 ``` javascript
 // By tutorial id
-const params = { id: tutorialId, query: query };
+const params = { id: tutorialId, query: query, authorization: authorization };
 
 tutorials.get(params)
 
@@ -43,7 +43,7 @@ tutorials.get(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include a tutorial id _(string)_ or workflow id _(string)_ and/or query _(object)_ properties. The get request requires either a tutorial id or workflow id. Query params are optional.
+- params _(object)_ - An object that should include a tutorial id _(string)_ or workflow id _(string)_ and/or query _(object)_ properties. The get request requires either a tutorial id or workflow id. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`. Query params are optional.
 
 **Returns**
 
@@ -78,7 +78,7 @@ A tutorials get request that validates for the presence of the tutorial id. The 
 **Function**
 
 ``` javascript
-const params = { id: '1' };
+const params = { id: '1', authorization: authorization };
 
 tutorials.getAttachedImages(params)
 
@@ -90,7 +90,7 @@ tutorials.getAttachedImages(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include the tutorial id _(string)_ and optionally additional query params.
+- params _(object)_ - An object that should include the tutorial id _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
 
 **Returns**
 
@@ -116,7 +116,7 @@ https://github.com/zooniverse/Panoptes/issues/2279
 **Function**
 
 ``` javascript
-const params = { id: '1' };
+const params = { id: '1', authorization: authorization };
 
 tutorials.getWithImages(params)
 
@@ -128,7 +128,7 @@ tutorials.getWithImages(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params.
+- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
 
 **Returns**
 
@@ -156,7 +156,7 @@ A tutorials get request that filters the response to only be tutorials with the 
 **Function**
 
 ``` javascript
-const params = { id: '1' };
+const params = { id: '1', authorization: authorization };
 
 tutorials.getTutorials(params)
 
@@ -168,7 +168,7 @@ tutorials.getTutorials(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params.
+- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
 
 **Returns**
 
@@ -192,7 +192,7 @@ A tutorials get request uses a default kind query param for `mini-course`. It th
 **Function**
 
 ``` javascript
-const params = { id: '45' };
+const params = { id: '45', authorization: authorization };
 
 tutorials.getMinicourses(params)
 
@@ -204,7 +204,7 @@ tutorials.getMinicourses(params)
 
 **Arguments**
 
-- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params.
+- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
 
 **Returns**
 
