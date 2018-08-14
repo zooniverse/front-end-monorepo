@@ -19,6 +19,9 @@ export default {
         hover: '#345446'
       }
     },
-    font: '#E2E5E9'
+    font: '#E2E5E9',
+    modal: {
+      background: '#5c5c5c'
+    }
   }
 }
