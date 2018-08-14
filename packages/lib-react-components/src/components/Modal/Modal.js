@@ -7,18 +7,15 @@ import WithLayer from './WithLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
-class Modal extends React.Component {
-  render () {
-    const { children, closeFn, colorTheme, theme, title } = this.props
-    return (
-      <Grommet theme={theme}>
-        <ModalHeading closeFn={closeFn} title={title} />
-        <ModalBody colorTheme={colorTheme}>
-          {children}
-        </ModalBody>
-      </Grommet>
-    )
-  }
+function Modal ({ children, closeFn, colorTheme, theme, title }) {
+  return (
+    <Grommet theme={theme}>
+      <ModalHeading closeFn={closeFn} title={title} />
+      <ModalBody colorTheme={colorTheme}>
+        {children}
+      </ModalBody>
+    </Grommet>
+  )
 }
 
 Modal.propTypes = {
