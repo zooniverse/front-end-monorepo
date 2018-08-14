@@ -5,13 +5,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import LogoutButton from '../src/components/layout/logout-button';
+import LoginButton from './login-button';
 
-describe('<LogoutButton />', function() {
+describe('<LoginButton />', function() {
   let wrapper;
   const onClickSpy = sinon.spy();
   before(function() {
-    wrapper = shallow(<LogoutButton logout={onClickSpy} />);
+    wrapper = shallow(<LoginButton login={onClickSpy} />);
   });
 
   it('renders without crashing', function() {});

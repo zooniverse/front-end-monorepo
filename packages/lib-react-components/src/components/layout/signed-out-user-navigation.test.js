@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import SignedOutUserNavigation from '../src/components/layout/signed-out-user-navigation';
+import SignedOutUserNavigation from './signed-out-user-navigation';
 
 describe('<SignedOutUserNavigation />', function() {
   let wrapper;

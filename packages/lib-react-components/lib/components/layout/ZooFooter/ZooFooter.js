@@ -8,7 +8,7 @@ exports.StyledEasterEgg = exports.StyledDivider = exports.StyledLogoAnchor = exp
 var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n'], ['\n  position: relative;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  min-width: 192px;\n'], ['\n  min-width: 192px;\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n'], ['\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  g {\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n\n  g {\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
 
@@ -22,15 +22,9 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _grommet = require('grommet');
 
-var _grommetIcons = require('grommet-icons');
-
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-var _styledTheming = require('styled-theming');
-
-var _styledTheming2 = _interopRequireDefault(_styledTheming);
 
 var _lib = require('./lib');
 
@@ -70,7 +64,7 @@ var StyledNavListContainer = exports.StyledNavListContainer = (0, _styledCompone
 
 var StyledSmallNavListItem = exports.StyledSmallNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject3, _lib.whichTealColorForTheme);
 
-var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4, _lib.whichTealColorForTheme, _lib.whichTealColorForTheme, _lib.whichTealColorForTheme);
+var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4, _lib.whichTealColorForTheme, _lib.whichTealColorForTheme);
 
 var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject5);
 
@@ -90,7 +84,6 @@ var ZooFooter = function ZooFooter(props) {
       policyNavListURLs = props.policyNavListURLs,
       projectNavListLabels = props.projectNavListLabels,
       projectNavListURLs = props.projectNavListURLs,
-      socialNavListURLs = props.socialNavListURLs,
       talkNavListLabels = props.talkNavListLabels,
       talkNavListURLs = props.talkNavListURLs,
       theme = props.theme;
@@ -241,10 +234,10 @@ var ZooFooter = function ZooFooter(props) {
           policyNavListURLs.map(function (url, i) {
             return _react2.default.createElement(
               _styledComponents.ThemeProvider,
-              { theme: { mode: colorTheme } },
+              { key: url, theme: { mode: colorTheme } },
               _react2.default.createElement(
                 StyledSmallNavListItem,
-                { key: url, href: url },
+                { href: url },
                 policyNavListLabels[i]
               )
             );

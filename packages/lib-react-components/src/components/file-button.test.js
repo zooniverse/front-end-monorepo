@@ -4,7 +4,7 @@
 import { mount, render, shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import FileButton from '../src/components/file-button';
+import FileButton from './file-button';
 
 describe('FileButton', function() {
   it('mounts FileButton', function() {

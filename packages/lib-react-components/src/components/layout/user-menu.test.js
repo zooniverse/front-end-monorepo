@@ -5,8 +5,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Anchor from 'grommet/components/Anchor';
-import UserMenu from '../src/components/layout/user-menu';
-import LogoutButton from '../src/components/layout/logout-button';
+import UserMenu from './user-menu';
+import LogoutButton from './logout-button';
 
 const login = 'zoouser';
 

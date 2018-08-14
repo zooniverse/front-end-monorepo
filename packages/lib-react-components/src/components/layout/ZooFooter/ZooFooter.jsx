@@ -38,10 +38,6 @@ export const StyledLogoAnchor = styled(Anchor)`
     border-bottom: solid thin transparent;
     fill: ${whichTealColorForTheme};
   }
-
-  g {
-    fill: ${whichTealColorForTheme};
-  }
   
   svg:hover, svg:focus {
     border-bottom: solid thin ${whichTealColorForTheme};
@@ -91,7 +87,6 @@ const ZooFooter = (props) => {
     policyNavListURLs,
     projectNavListLabels,
     projectNavListURLs,
-    socialNavListURLs,
     talkNavListLabels,
     talkNavListURLs,
     theme

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import OauthGoogleIcon from '../src/components/layout/oauth-google-icon';
+import OauthGoogleIcon from './oauth-google-icon';
 
 describe('<OauthGoogleIcon />', function() {
   it('renders without crashing', function() {

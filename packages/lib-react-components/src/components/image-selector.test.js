@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import ImageSelector from '../src/components/image-selector';
+import ImageSelector from './image-selector';
 
 const resource = {
   src: 'image.png'

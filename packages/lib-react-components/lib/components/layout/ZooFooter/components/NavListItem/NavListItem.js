@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StyledNavListItem = undefined;
 
-var _templateObject = _taggedTemplateLiteral(['\n  &:first-child {\n    color: ', '\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n'], ['\n  &:first-child {\n    color: ', '\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  &:first-child {\n    color: ', ';\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n'], ['\n  &:first-child {\n    color: ', ';\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n']);
 
 exports.default = NavListItem;
 
