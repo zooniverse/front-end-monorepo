@@ -25,7 +25,10 @@ exports["should match snapshot(0)"] = {
                 "hover": "#345446"
               }
             },
-            "font": "#E2E5E9"
+            "font": "#E2E5E9",
+            "modal": {
+              "background": "#5c5c5c"
+            }
           }
         },
         "global": {
@@ -93,7 +96,10 @@ exports["should match snapshot(0)"] = {
               "nextHover": "#ea9300"
             },
             "foreground": "#404040",
-            "font": "#000000"
+            "font": "#000000",
+            "modal": {
+              "background": "#ffffff"
+            }
           }
         }
       },
@@ -177,7 +183,10 @@ exports["should match snapshot(0)"] = {
               "hover": "#345446"
             }
           },
-          "font": "#E2E5E9"
+          "font": "#E2E5E9",
+          "modal": {
+            "background": "#5c5c5c"
+          }
         }
       },
       "global": {
@@ -245,7 +254,10 @@ exports["should match snapshot(0)"] = {
             "nextHover": "#ea9300"
           },
           "foreground": "#404040",
-          "font": "#000000"
+          "font": "#000000",
+          "modal": {
+            "background": "#ffffff"
+          }
         }
       }
     }
