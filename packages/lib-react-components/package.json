@@ -7,7 +7,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && npm run build-js && npm run build-css",
-    "build-js": "babel src --out-dir lib",
+    "build-js": "babel src --out-dir lib --ignore test.js,test.js.mocha-snapshot",
     "build-css": "stylus src/css/zooniverse-react-components.styl --out lib",
     "lint": "eslint src",
     "postversion": "git push && git push --tags",
