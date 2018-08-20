@@ -20,3 +20,4 @@ var whichTealColorForTheme = (0, _styledTheming2.default)('mode', {
 });
 
 exports.default = whichTealColorForTheme;
+//# sourceMappingURL=whichTealColorForTheme.js.map

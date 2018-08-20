@@ -41,3 +41,4 @@ UserMenu.propTypes = {
   }).isRequired,
   userMenuNavList: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.string])).isRequired
 };
+//# sourceMappingURL=user-menu.js.map

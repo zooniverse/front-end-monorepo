@@ -68,3 +68,4 @@ ZooniverseLogotype.defaultProps = {
 };
 
 exports.default = ZooniverseLogotype;
+//# sourceMappingURL=zooniverse-logotype.js.map

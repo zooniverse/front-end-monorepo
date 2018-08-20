@@ -57,3 +57,4 @@ SignedInUserNavigation.propTypes = {
 };
 
 exports.default = SignedInUserNavigation;
+//# sourceMappingURL=signed-in-user-navigation.js.map

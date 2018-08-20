@@ -238,3 +238,4 @@ Paginator.propTypes = {
 };
 
 exports.default = Paginator;
+//# sourceMappingURL=paginator.js.map

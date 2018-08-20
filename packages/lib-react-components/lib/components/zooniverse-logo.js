@@ -72,3 +72,4 @@ ZooniverseLogo.defaultProps = {
 };
 
 exports.default = ZooniverseLogo;
+//# sourceMappingURL=zooniverse-logo.js.map

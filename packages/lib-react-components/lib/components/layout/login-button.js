@@ -42,3 +42,4 @@ LoginButton.propTypes = {
   plain: _propTypes2.default.bool,
   toggleModal: _propTypes2.default.func
 };
+//# sourceMappingURL=login-button.js.map

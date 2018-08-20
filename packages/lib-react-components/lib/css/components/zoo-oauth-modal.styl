@@ -1,0 +1,23 @@
+google_blue = #4285F4
+
+.oauth-modal
+  .oauth-modal__button
+    &--panoptes
+      margin-bottom: 1em
+
+    &--google
+      background: google_blue
+      border: none
+      color: white
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px
+      font-weight: 500
+
+      &:hover, &focus
+        background: lighten(google_blue, 20%)
+
+      .oauth-modal__google-icon
+        vertical-align: middle
+
+      .oauth-modal__google-label
+        padding-left: 0.5em

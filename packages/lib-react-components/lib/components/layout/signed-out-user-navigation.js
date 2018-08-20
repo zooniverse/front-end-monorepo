@@ -59,3 +59,4 @@ SignedOutUserNavigation.propTypes = {
   toggleModal: _propTypes2.default.func,
   useOauth: _propTypes2.default.bool
 };
+//# sourceMappingURL=signed-out-user-navigation.js.map

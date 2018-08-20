@@ -131,3 +131,4 @@ DragAndDropTarget.propTypes = {
   onDragLeave: _propTypes2.default.func,
   onDrop: _propTypes2.default.func
 };
+//# sourceMappingURL=drag-and-drop-target.js.map

@@ -71,3 +71,4 @@ SocialAnchor.propTypes = {
   hrefs: _propTypes2.default.objectOf(_propTypes2.default.string),
   service: _propTypes2.default.string.isRequired
 };
+//# sourceMappingURL=SocialAnchor.js.map

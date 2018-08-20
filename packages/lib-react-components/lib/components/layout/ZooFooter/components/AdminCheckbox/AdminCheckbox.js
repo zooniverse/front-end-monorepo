@@ -92,3 +92,4 @@ AdminCheckbox.propTypes = {
 };
 
 exports.default = AdminCheckbox;
+//# sourceMappingURL=AdminCheckbox.js.map

@@ -121,12 +121,12 @@ Object.defineProperty(exports, 'AdminLayoutIndicator', {
   }
 });
 
-var _zooHeader = require('./components/layout/zoo-header');
+var _ZooHeader = require('./components/layout/ZooHeader');
 
 Object.defineProperty(exports, 'ZooHeader', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_zooHeader).default;
+    return _interopRequireDefault(_ZooHeader).default;
   }
 });
 
@@ -247,4 +247,14 @@ Object.defineProperty(exports, 'StepThrough', {
   }
 });
 
+var _Modal = require('./components/Modal');
+
+Object.defineProperty(exports, 'Modal', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Modal).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+//# sourceMappingURL=index.js.map
