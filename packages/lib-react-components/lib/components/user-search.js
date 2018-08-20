@@ -149,3 +149,4 @@ UserSearch.defaultProps = {
   placeholder: 'Username:',
   searchPromptText: 'Type to search Users'
 };
+//# sourceMappingURL=user-search.js.map

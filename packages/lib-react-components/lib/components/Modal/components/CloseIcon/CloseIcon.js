@@ -43,3 +43,4 @@ function CloseIcon() {
 }
 
 exports.default = CloseIcon;
+//# sourceMappingURL=CloseIcon.js.map

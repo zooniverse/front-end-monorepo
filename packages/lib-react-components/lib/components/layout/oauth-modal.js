@@ -71,3 +71,4 @@ OauthModal.propTypes = {
   signInGoogleLabel: _propTypes2.default.string,
   signInLabel: _propTypes2.default.string
 };
+//# sourceMappingURL=oauth-modal.js.map

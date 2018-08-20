@@ -134,3 +134,4 @@ MediaIcon.propTypes = {
     src: _propTypes2.default.string
   }).isRequired
 };
+//# sourceMappingURL=media-icon.js.map

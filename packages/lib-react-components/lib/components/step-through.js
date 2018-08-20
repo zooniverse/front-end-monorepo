@@ -206,3 +206,4 @@ StepThrough.defaultProps = {
 };
 
 exports.default = StepThrough;
+//# sourceMappingURL=step-through.js.map

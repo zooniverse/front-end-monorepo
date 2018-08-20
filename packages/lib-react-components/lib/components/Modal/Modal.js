@@ -67,3 +67,4 @@ Modal.defaultProps = {
 
 exports.default = (0, _WithLayer2.default)(Modal);
 exports.Modal = Modal;
+//# sourceMappingURL=Modal.js.map

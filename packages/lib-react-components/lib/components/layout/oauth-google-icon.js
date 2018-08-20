@@ -81,3 +81,4 @@ function OauthGoogleIcon(_ref) {
     )
   );
 }
+//# sourceMappingURL=oauth-google-icon.js.map

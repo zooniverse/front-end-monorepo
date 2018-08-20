@@ -64,3 +64,4 @@ function WithLayer(WrappedComponent) {
 }
 
 exports.default = WithLayer;
+//# sourceMappingURL=WithLayer.js.map

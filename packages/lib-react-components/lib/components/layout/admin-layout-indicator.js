@@ -14,3 +14,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function AdminLayoutIndicator() {
   return _react2.default.createElement("div", { className: "admin-layout-indicator", title: "Admin mode on!" });
 }
+//# sourceMappingURL=admin-layout-indicator.js.map

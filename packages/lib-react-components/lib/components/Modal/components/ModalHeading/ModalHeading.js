@@ -79,3 +79,4 @@ ModalHeading.propTypes = {
 };
 
 exports.default = ModalHeading;
+//# sourceMappingURL=ModalHeading.js.map

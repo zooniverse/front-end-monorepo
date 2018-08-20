@@ -223,3 +223,4 @@ ImageSelector.defaultProps = {
 };
 
 exports.default = ImageSelector;
+//# sourceMappingURL=image-selector.js.map

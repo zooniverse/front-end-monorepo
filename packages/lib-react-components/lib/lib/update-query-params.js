@@ -31,3 +31,4 @@ function parseQuery() {
 
   return params;
 }
+//# sourceMappingURL=update-query-params.js.map

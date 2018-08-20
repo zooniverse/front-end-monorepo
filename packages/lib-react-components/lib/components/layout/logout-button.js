@@ -37,3 +37,4 @@ LogoutButton.propTypes = {
 };
 
 exports.default = LogoutButton;
+//# sourceMappingURL=logout-button.js.map

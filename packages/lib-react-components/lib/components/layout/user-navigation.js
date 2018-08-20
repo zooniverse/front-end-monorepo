@@ -50,3 +50,4 @@ UserNavigation.propTypes = {
 };
 
 exports.default = (0, _withMobileView2.default)(UserNavigation);
+//# sourceMappingURL=user-navigation.js.map

@@ -140,3 +140,4 @@ FileButton.propTypes = {
   style: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   tag: _propTypes2.default.string
 };
+//# sourceMappingURL=file-button.js.map

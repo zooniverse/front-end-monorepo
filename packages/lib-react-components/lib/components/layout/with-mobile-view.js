@@ -90,3 +90,4 @@ function withMobileView(WrappedComponent) {
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
+//# sourceMappingURL=with-mobile-view.js.map

@@ -112,3 +112,4 @@ Thumbnail.propTypes = {
   src: _propTypes2.default.string,
   width: _propTypes2.default.number
 };
+//# sourceMappingURL=thumbnail.js.map

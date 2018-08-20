@@ -45,3 +45,4 @@ ModalBody.defaultProps = {
 };
 
 exports.default = ModalBody;
+//# sourceMappingURL=ModalBody.js.map
