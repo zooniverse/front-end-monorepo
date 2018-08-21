@@ -3,4 +3,8 @@
     "es2015",
     "minify"
   ]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> Just use babel. Remove webpack
