@@ -16,7 +16,6 @@ module.exports = {
     path: path.resolve('dist'),
     filename: 'main.js',
     library: '@zooniverse/grommet-theme',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    libraryTarget: 'commonjs'
   }
 }
