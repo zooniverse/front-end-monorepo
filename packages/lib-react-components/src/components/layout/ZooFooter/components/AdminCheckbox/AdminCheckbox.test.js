@@ -23,7 +23,7 @@ describe('<AdminCheckbox />', function() {
   })
 
   it('calls onChange prop when clicked', function() {
-    wrapper.find('Styled(CheckBox)').simulate('change');
+    wrapper.find('CheckBox').simulate('change');
     expect(onChangeSpy.calledOnce).to.be.true();
   });
 
