@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StyledNavListItem = undefined;
 
-var _templateObject = _taggedTemplateLiteral(['\n  &:first-child {\n    color: ', ';\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n'], ['\n  &:first-child {\n    color: ', ';\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  &:first-child {\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  &:not(:first-child) {\n    color: ', ';\n  }\n  font-size: 0.8em;\n  font-weight: bold;\n'], ['\n  &:first-child {\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  &:not(:first-child) {\n    color: ', ';\n  }\n  font-size: 0.8em;\n  font-weight: bold;\n']);
 
 exports.default = NavListItem;
 
@@ -33,7 +33,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var StyledNavListItem = exports.StyledNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject, _lib.whichTealColorForTheme, (0, _styledTheming2.default)('mode', { light: '#5C5C5C', dark: 'inherit' }));
+var StyledNavListItem = exports.StyledNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject, (0, _styledTheming2.default)('mode', { light: '#5C5C5C', dark: 'inherit' }));
 
 function NavListItem(_ref) {
   var colorTheme = _ref.colorTheme,

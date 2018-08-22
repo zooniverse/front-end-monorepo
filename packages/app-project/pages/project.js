@@ -3,6 +3,7 @@ import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import Head from '../components/head'
 import Nav from '../components/nav'
@@ -51,7 +52,7 @@ class ProjectPage extends React.Component {
   render () {
     return (
       <Provider store={this.store}>
-        <Grommet>
+        <Grommet theme={zooTheme}>
           <Head title='Home' />
           <Nav />
           <ProjectHome />

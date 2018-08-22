@@ -25,7 +25,6 @@ export const StyledNavListContainer = styled(Box)`
 `
 
 export const StyledSmallNavListItem = styled(Anchor)`
-  color: ${whichTealColorForTheme};
   font-size: 0.8em;
   font-weight: bold;
   letter-spacing: 1px;
@@ -36,7 +35,6 @@ export const StyledSmallNavListItem = styled(Anchor)`
 export const StyledLogoAnchor = styled(Anchor)`
   svg {
     border-bottom: solid thin transparent;
-    fill: ${whichTealColorForTheme};
   }
   
   svg:hover, svg:focus {
