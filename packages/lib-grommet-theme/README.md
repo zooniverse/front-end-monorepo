@@ -8,9 +8,9 @@ To use this theme, import it and pass it as a prop to the top-level `Grommet` co
 
 ```javascript
 
+import { Button, Grommet } from 'grommet'
 import React from 'react'
 import grommetTheme from '@zooniverse/grommet-theme'
-import { Button, Grommet } from 'grommet'
 
 class MyComponent extends React.Component {
   render() {
@@ -23,6 +23,10 @@ class MyComponent extends React.Component {
 }
 
 ```
+
+## Development
+
+Run `npm start` to run a script that watches for changes in the source and reruns the babel compiler.
 
 ## License
 

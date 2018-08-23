@@ -22,14 +22,14 @@ const statusColors = {
   warning: darkGold,
   ok: green,
   unknown: grey,
-  disabled: grey,
-};
+  disabled: grey
+}
 
 const colors = {
   brand: '#007482',
   lightBrand: '#16979C',
   darkBackground: {
-    text: dark.colors.font,
+    text: dark.colors.font
   },
   darkGrey,
   darkGold,
@@ -55,8 +55,8 @@ const colors = {
 }
 
 Object.keys(statusColors).forEach((color) => {
-  colors[`status-${color}`] = statusColors[color];
-});
+  colors[`status-${color}`] = statusColors[color]
+})
 
 const theme = deepFreeze({
   dark,
