@@ -3,9 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StyledAdminCheckbox = undefined;
-
-var _templateObject = _taggedTemplateLiteral(['\n  color: ', ';\n'], ['\n  color: ', ';\n']);
 
 var _react = require('react');
 
@@ -18,12 +15,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 var _grommet = require('grommet');
 
 var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-var _styledTheming = require('styled-theming');
-
-var _styledTheming2 = _interopRequireDefault(_styledTheming);
 
 var _counterpart = require('counterpart');
 
@@ -39,16 +30,7 @@ var _grommetTheme2 = _interopRequireDefault(_grommetTheme);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 _counterpart2.default.registerTranslations('en', _en2.default);
-
-// This isn't working
-// Reported bug with Grommet v2: https://github.com/grommet/grommet/issues/2140
-var StyledAdminCheckbox = exports.StyledAdminCheckbox = (0, _styledComponents2.default)(_grommet.CheckBox)(_templateObject, (0, _styledTheming2.default)('mode', {
-  light: _grommetTheme2.default.light.colors.font,
-  dark: _grommetTheme2.default.dark.colors.font
-}));
 
 function AdminCheckbox(_ref) {
   var checked = _ref.checked,
@@ -63,7 +45,7 @@ function AdminCheckbox(_ref) {
     _react2.default.createElement(
       _styledComponents.ThemeProvider,
       { theme: { mode: colorTheme } },
-      _react2.default.createElement(StyledAdminCheckbox, {
+      _react2.default.createElement(_grommet.CheckBox, {
         checked: checked,
         id: 'admin-checkbox',
         name: 'admin-checkbox',

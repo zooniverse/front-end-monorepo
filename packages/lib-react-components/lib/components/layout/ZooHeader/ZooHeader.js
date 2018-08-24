@@ -22,6 +22,10 @@ var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _grommetTheme = require('@zooniverse/grommet-theme');
+
+var _grommetTheme2 = _interopRequireDefault(_grommetTheme);
+
 var _NavListItem = require('./components/NavListItem');
 
 var _NavListItem2 = _interopRequireDefault(_NavListItem);
@@ -44,60 +48,65 @@ var ZooHeader = function ZooHeader(props) {
       authContainer = props.authContainer,
       isAdmin = props.isAdmin,
       mainHeaderNavListLabels = props.mainHeaderNavListLabels,
-      mainHeaderNavListURLs = props.mainHeaderNavListURLs;
+      mainHeaderNavListURLs = props.mainHeaderNavListURLs,
+      theme = props.theme;
 
 
   return _react2.default.createElement(
-    StyledHeader,
-    {
-      background: 'black',
-      direction: 'row',
-      fill: 'horizontal',
-      justify: 'between',
-      pad: { horizontal: 'medium', vertical: 'small' },
-      responsive: false,
-      tag: 'header'
-    },
+    _grommet.Grommet,
+    { theme: theme },
     _react2.default.createElement(
-      _grommet.Box,
+      StyledHeader,
       {
-        align: 'center',
+        background: 'black',
         direction: 'row',
-        responsive: false
+        fill: 'horizontal',
+        justify: 'between',
+        pad: { horizontal: 'medium', vertical: 'small' },
+        responsive: false,
+        tag: 'header'
       },
-      _react2.default.createElement(
-        StyledLogoAnchor,
-        { href: 'http://www.zooniverse.org' },
-        _react2.default.createElement(_zooniverseLogo2.default, { height: '1.25em', width: '1.25em' })
-      ),
       _react2.default.createElement(
         _grommet.Box,
         {
+          align: 'center',
           direction: 'row',
-          justify: 'start',
-          responsive: false,
-          tag: 'nav'
+          responsive: false
         },
-        mainHeaderNavListURLs.map(function (url, i) {
-          return _react2.default.createElement(_NavListItem2.default, {
-            key: url,
-            label: mainHeaderNavListLabels[i],
-            url: url
-          });
-        }),
-        isAdmin && _react2.default.createElement(_NavListItem2.default, {
-          label: adminNavLinkLabel,
-          url: adminNavLinkURL
+        _react2.default.createElement(
+          StyledLogoAnchor,
+          { href: 'http://www.zooniverse.org' },
+          _react2.default.createElement(_zooniverseLogo2.default, { height: '1.25em', width: '1.25em' })
+        ),
+        _react2.default.createElement(
+          _grommet.Box,
+          {
+            direction: 'row',
+            justify: 'start',
+            responsive: false,
+            tag: 'nav'
+          },
+          mainHeaderNavListURLs.map(function (url, i) {
+            return _react2.default.createElement(_NavListItem2.default, {
+              key: url,
+              label: mainHeaderNavListLabels[i],
+              url: url
+            });
+          }),
+          isAdmin && _react2.default.createElement(_NavListItem2.default, {
+            label: adminNavLinkLabel,
+            url: adminNavLinkURL
+          })
+        )
+      ),
+      _react2.default.createElement(_grommet.Menu, {
+        label: 'Menu',
+        items: mainHeaderNavListURLs.map(function (url, i) {
+          return { label: mainHeaderNavListLabels[i], href: url };
         })
-      )
-    ),
-    _react2.default.createElement(_grommet.Menu, {
-      label: 'Menu',
-      items: mainHeaderNavListURLs.map(function (url, i) {
-        return { label: mainHeaderNavListLabels[i], href: url };
-      })
-    }),
-    authContainer && authContainer
+      }),
+      authContainer && authContainer
+    )
   );
 };
 
@@ -107,7 +116,8 @@ ZooHeader.defaultProps = {
   authContainer: null,
   isAdmin: false,
   mainHeaderNavListLabels: ['Projects', 'About', 'Get Involved', 'Talk', 'Build'],
-  mainHeaderNavListURLs: ['http://www.zooniverse.org/projects', 'http://www.zooniverse.org/about', 'http://www.zooniverse.org/get-involved', 'http://www.zooniverse.org/talk', 'http://www.zooniverse.org/lab']
+  mainHeaderNavListURLs: ['http://www.zooniverse.org/projects', 'http://www.zooniverse.org/about', 'http://www.zooniverse.org/get-involved', 'http://www.zooniverse.org/talk', 'http://www.zooniverse.org/lab'],
+  theme: _grommetTheme2.default
 };
 
 ZooHeader.propTypes = {
@@ -116,7 +126,8 @@ ZooHeader.propTypes = {
   authContainer: _propTypes2.default.node,
   isAdmin: _propTypes2.default.bool,
   mainHeaderNavListLabels: _propTypes2.default.arrayOf(_propTypes2.default.string),
-  mainHeaderNavListURLs: _propTypes2.default.arrayOf(_propTypes2.default.string)
+  mainHeaderNavListURLs: _propTypes2.default.arrayOf(_propTypes2.default.string),
+  theme: _propTypes2.default.object
 };
 
 exports.default = ZooHeader;

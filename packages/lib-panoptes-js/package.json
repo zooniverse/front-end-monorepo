@@ -21,9 +21,9 @@
     "jsdom": "^11.10.0",
     "mocha": "^5.1.1",
     "mock-local-storage": "^1.0.5",
+    "sinon": "^6.0.0",
     "snazzy": "^7.1.1",
     "standard": "^11.0.1",
-    "sinon": "^6.0.0",
     "superagent-mock": "^3.7.0"
   },
   "engines": {

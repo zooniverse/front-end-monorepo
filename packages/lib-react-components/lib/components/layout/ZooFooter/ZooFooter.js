@@ -7,8 +7,8 @@ exports.StyledEasterEgg = exports.StyledDivider = exports.StyledLogoAnchor = exp
 
 var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n'], ['\n  position: relative;\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  min-width: 192px;\n'], ['\n  min-width: 192px;\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n'], ['\n  color: ', ';\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  svg {\n    border-bottom: solid thin transparent;\n    fill: ', ';\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n'], ['\n  font-size: 0.8em;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 48px;\n  text-transform: uppercase;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  svg {\n    border-bottom: solid thin transparent;\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n'], ['\n  svg {\n    border-bottom: solid thin transparent;\n  }\n  \n  svg:hover, svg:focus {\n    border-bottom: solid thin ', ';\n  }\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n'], ['\n  border: 0;\n  border-top: 1px solid #979797;\n  display: block;\n  height: 1px;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n'], ['\n  bottom: 0;\n  display: inline-block;\n  height: 74px;\n  margin: 0;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  transition: opacity 0.5s ease;\n  transition-delay: 0.25s;\n  width: 62px;\n  z-index: 1;\n\n  &:hover {\n    opacity: 1;\n  }\n']);
 
@@ -62,9 +62,9 @@ var StyledFooterSection = exports.StyledFooterSection = (0, _styledComponents2.d
 
 var StyledNavListContainer = exports.StyledNavListContainer = (0, _styledComponents2.default)(_grommet.Box)(_templateObject2);
 
-var StyledSmallNavListItem = exports.StyledSmallNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject3, _lib.whichTealColorForTheme);
+var StyledSmallNavListItem = exports.StyledSmallNavListItem = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject3);
 
-var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4, _lib.whichTealColorForTheme, _lib.whichTealColorForTheme);
+var StyledLogoAnchor = exports.StyledLogoAnchor = (0, _styledComponents2.default)(_grommet.Anchor)(_templateObject4, _lib.whichTealColorForTheme);
 
 var StyledDivider = exports.StyledDivider = _styledComponents2.default.hr(_templateObject5);
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Anchor, Box, Menu } from 'grommet';
+import { Anchor, Box, Grommet, Menu } from 'grommet';
 
 import styled from 'styled-components';
+import zooTheme from '@zooniverse/grommet-theme';
 
 import NavListItem from './components/NavListItem';
 import ZooniverseLogo from '../../zooniverse-logo';
@@ -31,57 +32,60 @@ const ZooHeader = (props) => {
     authContainer,
     isAdmin,
     mainHeaderNavListLabels,
-    mainHeaderNavListURLs
+    mainHeaderNavListURLs,
+    theme
   } = props;
 
   return (
-    <StyledHeader
-      background="black"
-      direction="row"
-      fill="horizontal"
-      justify="between"
-      pad={{ horizontal: 'medium', vertical: 'small' }}
-      responsive={false}
-      tag="header"
-    >
-      <Box
-        align="center"
+    <Grommet theme={theme}>
+      <StyledHeader
+        background="black"
         direction="row"
+        fill="horizontal"
+        justify="between"
+        pad={{ horizontal: 'medium', vertical: 'small' }}
         responsive={false}
+        tag="header"
       >
-        <StyledLogoAnchor href="http://www.zooniverse.org">
-          <ZooniverseLogo height="1.25em" width="1.25em" />
-        </StyledLogoAnchor>
         <Box
+          align="center"
           direction="row"
-          justify="start"
           responsive={false}
-          tag="nav"
         >
-          {mainHeaderNavListURLs.map((url, i) => (
-            <NavListItem
-              key={url}
-              label={mainHeaderNavListLabels[i]}
-              url={url}
-            />
-          ))}
-          {isAdmin &&
-            <NavListItem
-              label={adminNavLinkLabel}
-              url={adminNavLinkURL}
-            />
-          }
+          <StyledLogoAnchor href="http://www.zooniverse.org">
+            <ZooniverseLogo height="1.25em" width="1.25em" />
+          </StyledLogoAnchor>
+          <Box
+            direction="row"
+            justify="start"
+            responsive={false}
+            tag="nav"
+          >
+            {mainHeaderNavListURLs.map((url, i) => (
+              <NavListItem
+                key={url}
+                label={mainHeaderNavListLabels[i]}
+                url={url}
+              />
+            ))}
+            {isAdmin &&
+              <NavListItem
+                label={adminNavLinkLabel}
+                url={adminNavLinkURL}
+              />
+            }
+          </Box>
         </Box>
-      </Box>
-      <Menu
-        label="Menu"
-        items={mainHeaderNavListURLs.map((url, i) => (
-          { label: mainHeaderNavListLabels[i], href: url }
-        ))}
-      />
-      {authContainer &&
-        authContainer}
-    </StyledHeader>
+        <Menu
+          label="Menu"
+          items={mainHeaderNavListURLs.map((url, i) => (
+            { label: mainHeaderNavListLabels[i], href: url }
+          ))}
+        />
+        {authContainer &&
+          authContainer}
+      </StyledHeader>
+    </Grommet>
   );
 };
 
@@ -103,7 +107,8 @@ ZooHeader.defaultProps = {
     'http://www.zooniverse.org/get-involved',
     'http://www.zooniverse.org/talk',
     'http://www.zooniverse.org/lab'
-  ]
+  ],
+  theme: zooTheme
 };
 
 ZooHeader.propTypes = {
@@ -112,7 +117,8 @@ ZooHeader.propTypes = {
   authContainer: PropTypes.node,
   isAdmin: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string)
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
+  theme: PropTypes.object
 };
 
 export default ZooHeader;

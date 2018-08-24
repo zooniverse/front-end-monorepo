@@ -88,6 +88,40 @@ const theme = deepFreeze({
       `
     }
   },
+  anchor: {
+    color: {
+      dark: colors.lightTeal,
+      light: colors.brand
+    }
+  },
+  checkBox: {
+    border: {
+      color: {
+        dark: '#2D2D2D',
+        light: colors.lightBlack
+      }
+    },
+    check: {
+      color: {
+        dark: colors.lightTeal,
+        light: colors.brand
+      }
+    },
+    hover: {
+      border: {
+        color: {
+          dark: colors.darkBackground.text,
+          light: colors.text
+        },
+      },
+    },
+    toggle: {
+      color: {
+        dark: colors.lightTeal,
+        light: colors.brand
+      }
+    }
+  },
   light
 })
 
