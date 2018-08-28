@@ -1,6 +1,7 @@
 # ADR 5: Implementing workflows in the new classifier
 
-July 25, 2018
+Created: July 25, 2018
+Updated: August 28, 2018
 
 ## Context
 
@@ -18,6 +19,45 @@ The classification of a subject will consist of a series of __steps__. A single 
 
 In practice, this will probably mean that the current workflow store is only used to store the resources from the Panoptes API. Once the project and workflow are loaded, we will derive a store for the workflow steps and that will drive the user interface.
 
+The workflow resource will need updating to support the new step structure (as discussed in [zooniverse/front-end-monorepo#123](https://github.com/zooniverse/front-end-monorepo/issues/123)):
+
+- `workflow.steps` will be an [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) which can be stored as a [Mobx Observable Map](https://mobx.js.org/refguide/map.html)
+  - Almost all features of ES6 Maps are supported by all major browsers that we will support.
+  - Each value for the key-value pairs will be an object with `taskKeys` that are set to an array of task keys, and optionally a `next` property for a step key.
+  - The optionally defined next step is to support recursive workflows. The order is otherwise assumed to be the order of the steps Map:
+    > The keys in Map are ordered while keys added to object are not. Thus, when iterating over it, a Map object returns keys in order of insertion.
+  - Since the order can be reliably derived from the steps Map, then we can drop `workflow.first_task` from use
+- `workflow.tasks` will remain as is for backwards compatibility
+- Single question task branching will still use `next` properties in the answer object, but will be set to a step key instead of task key. 
+- A step taskKeys property set to `['summary']` will load an optional summary step for the end of the classification, which shifts us to having summaries be opt-in rather than opt-out. If this is not present, then a summary will not display.
+
+An example of what this could look like:
+
+``` javascript
+{
+  id: '1',
+  tasks: {
+    T1: {
+      answers: [
+        { label: 'yes', next: 'S4' }, // Branching single question task
+        { label: 'no', next: 'S2' }
+      ],
+      type: 'single' 
+    },
+    T2: {...},
+    T3: {...},
+    T4: {...}
+  },
+  steps: [
+    ['S1', { taskKeys: ['T1'] }]
+    ['S2', { taskKeys: ['T2', 'T3'] }],
+    ['S3', { taskKeys: ['T4'], next: 'S1' }] // Recursion back to Step 1
+    ['S4', { taskKeys: ['summary'] }]
+  ]
+}
+
+```
+
 ## Status
 
 Proposed
@@ -25,6 +65,6 @@ Proposed
 ## Consequences
 
 - This is a fundamental change to the way we structure the classifier, and devs will need to be educated on the changes.
-- We will need to be able to describe tasks and notifications in a serializable format, such as a plain unique name string, as this is a requirement of [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree#tree-semantics-in-detail).
+- Since the tasks object is not being changed, we should have backwards compatibility with classifier exports and aggregation, but this needs confirmation before implementation.
+- We will need to be able to describe steps, tasks and notifications in a serializable format, such as a plain unique name string, as this is a requirement of [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree#tree-semantics-in-detail). Steps can from the start be ES6 Maps while tasks and notifications can be converted to ES6 Maps as needed programmatically.
 - The Project Builder will need some way of allowing workflow tasks to be grouped similarly to the existing combo task, and that will be parseable as a workflow step.
-- We may need to assume that an array of tasks occurs consecutively in a single workflow step, e.g. `step.task[0]` is a drawing task which triggers `step.task[1]`, a question task, which then triggers `step.task[2]`, a second drawing task.
