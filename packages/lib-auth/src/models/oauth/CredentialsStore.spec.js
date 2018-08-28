@@ -2,14 +2,14 @@ import CredentialsStore from './CredentialsStore'
 
 let credentialsStore
 
-const DEFAULT_CREDENTIALS = {
-  expiresAt: 0,
-  token: null
-}
-
 const CREDENTIALS = {
   expiresAt: 123456789,
   token: 'foobar'
+}
+
+const DEFAULT_CREDENTIALS = {
+  expiresAt: 0,
+  token: null
 }
 
 describe('Model > CredentialsStore', function () {
