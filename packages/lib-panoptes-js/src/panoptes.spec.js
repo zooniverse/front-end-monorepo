@@ -27,77 +27,74 @@ describe('panoptes.js', function () {
       superagentMock.unset()
     })
 
-    it('should return the expected response', function () {
-      return panoptes.get(endpoint).then((response) => {
-        expect(response).to.deep.equal({ body: expectedResponse })
-      })
+    it('should return the expected response', async function () {
+      const response = await panoptes.get(endpoint)
+      expect(response).to.deep.equal({ body: expectedResponse })
     })
 
-    it('should use the host from the function call if defined', function () {
+    it('should use the host from the function call if defined', async function () {
       const mockAPIHost = 'https://my-api.com'
-      return panoptes.get(endpoint, null, null, mockAPIHost).then((response) => {
-        expect(actualMatch.input.includes(mockAPIHost)).to.be.true
-      })
+      const response = await panoptes.get(endpoint, null, null, mockAPIHost)
+      expect(actualMatch.input.includes(mockAPIHost)).to.be.true
     })
 
-    it('should use the host defined in the config if a host parameter isn\'t defined', function () {
-      return panoptes.get(endpoint).then((response) => {
-        expect(actualMatch.input.includes(config.host)).to.be.true
-      })
+    it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
+      await panoptes.get(endpoint)
+      expect(actualMatch.input.includes(config.host)).to.be.true
     })
 
-    it('should add Content-Type header to the request', function () {
-      return panoptes.get(endpoint).then((response) => {
-        expect(actualHeaders['Content-Type']).to.exist
-        expect(actualHeaders['Content-Type']).to.equal('application/json')
-      })
+    it('should add Content-Type header to the request', async function () {
+      await panoptes.get(endpoint)
+      expect(actualHeaders['Content-Type']).to.exist
+      expect(actualHeaders['Content-Type']).to.equal('application/json')
     })
 
-    it('should add Accept header to the request', function () {
-      return panoptes.get(endpoint).then((response) => {
-        expect(actualHeaders['Accept']).to.exist
-        expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
-      })
+    it('should add Accept header to the request', async function () {
+      await panoptes.get(endpoint)
+      expect(actualHeaders['Accept']).to.exist
+      expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
     })
 
-    it('should add the Authorization header to the request if param is defined', function () {
-      return panoptes.get(endpoint, null, '12345').then((response) => {
-        expect(actualHeaders['Authorization']).to.exist
-        expect(actualHeaders['Authorization']).to.equal('12345')
-      })
+    it('should add the Authorization header to the request if param is defined', async function () {
+      await panoptes.get(endpoint, null, '12345')
+      expect(actualHeaders['Authorization']).to.exist
+      expect(actualHeaders['Authorization']).to.equal('12345')
     })
 
-    it('should add the http_cache default query params to the request', function () {
-      return panoptes.get(endpoint).then(() => {
-        expect(actualMatch.input.includes('?http_cache=true')).to.be.true
-      })
+    it('should add the http_cache default query params to the request', async function () {
+      await panoptes.get(endpoint)
+      expect(actualMatch.input.includes('?http_cache=true')).to.be.true
     })
 
-    it('should add the admin default query param if flag is found in local storage', function () {
+    it('should add the admin default query param if flag is found in local storage', async function () {
       localStorage.setItem('adminFlag', true)
 
-      return panoptes.get(endpoint).then(() => {
-        expect(actualMatch.input.includes('?admin=true')).to.be.true
-        localStorage.removeItem('adminFlag')
-      })
+      await panoptes.get(endpoint)
+      expect(actualMatch.input.includes('?admin=true')).to.be.true
+      localStorage.removeItem('adminFlag')
     })
 
-    it('should add the query object to the URL if defined', function () {
-      return panoptes.get(endpoint, { page: '2', page_size: '30' }).then((response) => {
-        expect(actualMatch.input.includes('?page=2&page_size=30')).to.be.true
-      })
+    it('should add the query object to the URL if defined', async function () {
+      await panoptes.get(endpoint, { page: '2', page_size: '30' })
+      expect(actualMatch.input.includes('?page=2&page_size=30')).to.be.true
     })
 
-    it('should error if query params are defined but are not an object', function () {
-      return panoptes.get(endpoint, '?foo=bar').catch((error) => {
+    it('should error if query params are defined but are not an object', async function () {
+      try {
+        await panoptes.get(endpoint, '?foo=bar')
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Query must be an object')
-      })
+      }
     })
 
-    it('should error if request is called without a defined resource endpoint', function () {
-      return panoptes.get().catch((error) => {
+    it('should error if request is called without a defined resource endpoint', async function () {
+      try {
+        await panoptes.get()
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Request needs a defined resource endpoint')
-      })
+      }
     })
   })
 
