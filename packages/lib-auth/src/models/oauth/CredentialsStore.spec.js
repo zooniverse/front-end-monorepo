@@ -18,7 +18,7 @@ describe('Model > CredentialsStore', function () {
   })
 
   it('should exist', function () {
-    expect(CredentialsStore).to.not.equal(undefined)
+    expect(CredentialsStore).to.be.an('object')
   })
 
   it('should have an `expiresAt` property', function () {
