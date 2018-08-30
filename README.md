@@ -1,5 +1,7 @@
 # Zooniverse Front-End Monorepo
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+
 ## Requirements
 
 [Browser support](docs/arch/adr-3.md)
