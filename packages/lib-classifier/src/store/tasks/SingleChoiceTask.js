@@ -3,7 +3,6 @@ import Task from './Task'
 
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
-
 const SingleChoice = types.model('SingleChoice', {
   answers: types.array(types.frozen({
     label: types.string,
