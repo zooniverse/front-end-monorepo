@@ -1,38 +1,8 @@
-import { types } from 'mobx-state-tree'
+export { Task as default } from './Task'
+export { SingleChoiceTask as default } from './SingleChoiceTask'
+export { MultipleChoiceTask as default } from './MultipleChoiceTask'
 
-const Task = types.model('Task', {
-  taskKey: types.identifier
-})
-
-// TODO: should we make question/instruction consistent between task types?
-// What should be it called? I think we should use 'instruction'
-const SingleChoice = types.model('SingleChoice', {
-  answers: types.array(types.frozen({
-    label: types.string,
-    next: types.maybe(types.string)
-  })),
-  help: types.optional(types.string, ''),
-  question: types.string,
-  required: types.boolean,
-  type: types.literal('single')
-})
-
-const MultipleChoice = types.model('MultipleChoice', {
-  answers: types.array(types.frozen({
-    _key: types,
-    label: types.string
-  })),
-  help: types.optional(types.string, ''),
-  question: types.string,
-  required: types.boolean,
-  type: types.literal('multiple')
-})
-
-export const SingleChoiceTask = types.compose(Task, SingleChoice)
-export const MultipleChoiceTask = types.compose(Task, MultipleChoice)
-export default Task
-
-// TODO: Lets have models for all of the task types of these so we know what to expect
+// TODO: Lets have models for all of the task type so we know what to expect
 
 // Current task type conventions
 

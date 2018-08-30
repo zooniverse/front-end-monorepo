@@ -1,7 +1,7 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import Step from './Step'
-import { SingleChoiceTask, MultipleChoiceTask } from './Task'
+import { SingleChoiceTask, MultipleChoiceTask } from './tasks'
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
@@ -12,7 +12,7 @@ const WorkflowStepStore = types
       if (snapshot.type === 'MultipleChoiceTask') return MultipleChoiceTask;
     }, SingleChoiceTask, MultipleChoiceTask)))
   })
-  .views(
+  .views(self => ({
     get activeStepTasks() {
       if (self.active) {
         return self.active.taskKeys.map((taskKey) => {
@@ -22,7 +22,7 @@ const WorkflowStepStore = types
 
       return []
     }
-  )
+  }))
   .actions(self => {
     function afterAttach() {
       createWorkflowObserver()
@@ -40,7 +40,9 @@ const WorkflowStepStore = types
       if (taskKeys.length > 0) {
         taskKeys.forEach((taskKey) => {
           // Set tasks object as a MobX observable JS map in the store
-          self.tasks.set(taskKey, workflow.tasks[taskKey])
+          // put is a MST method, not native to ES Map
+          // the key is inferred from the identifier type of the target model
+          self.tasks.put(Object.assign({}, workflow.tasks[taskKey], { taskKey })
         })
       }
 
