@@ -13,7 +13,7 @@ node {
 
   stage('Deploy') {
     newImage.inside {
-      sh 'lerna run test'
+      sh 'lerna run --no-bail test'
     }
   }
 }
