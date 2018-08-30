@@ -7,4 +7,4 @@ WORKDIR /usr/src/
 COPY . /usr/src/
 
 RUN lerna link
-RUN lerna bootstrap
+RUN lerna bootstrap --no-ci
