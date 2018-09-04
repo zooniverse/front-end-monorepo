@@ -1,6 +1,6 @@
-export { Task as default } from './Task'
-export { SingleChoiceTask as default } from './SingleChoiceTask'
-export { MultipleChoiceTask as default } from './MultipleChoiceTask'
+export { default as Task } from './Task'
+export { default as SingleChoiceTask } from './SingleChoiceTask'
+export { default as MultipleChoiceTask } from './MultipleChoiceTask'
 
 // TODO: Lets have models for all of the task type so we know what to expect
 

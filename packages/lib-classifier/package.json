@@ -34,10 +34,17 @@
     "grommet-icons": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jsdom": "^11.11.0",
+<<<<<<< HEAD
     "mobx": "^5.1.0",
     "mobx-devtools-mst": "^0.9.18",
     "mobx-react": "^5.2.6",
     "mobx-state-tree": "^3.2.4",
+=======
+    "mobx": "^4.2.1",
+    "mobx-devtools-mst": "^0.9.14",
+    "mobx-react": "^5.1.2",
+    "mobx-state-tree": "^2.2.0",
+>>>>>>> Begin tests. Fix naming issues
     "mocha": "^5.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

@@ -8,8 +8,9 @@ const WorkflowStepStore = types
     active: types.maybe(types.reference(Step)),
     steps: types.maybe(types.map(Step)),
     tasks: types.maybe(types.map(types.union((snapshot) => {
-      if (snapshot.type === 'SingleChoiceTask') return SingleChoiceTask;
-      if (snapshot.type === 'MultipleChoiceTask') return MultipleChoiceTask;
+      if (snapshot.type === 'SingleChoiceTask') return SingleChoiceTask
+      if (snapshot.type === 'MultipleChoiceTask') return MultipleChoiceTask
+      return types.undefined
     }, SingleChoiceTask, MultipleChoiceTask)))
   })
   .views(self => ({
@@ -37,14 +38,12 @@ const WorkflowStepStore = types
     function setStepsAndTasks(workflow) {
       const taskKeys = Object.keys(workflow.tasks)
       self.steps = workflow.steps
-      if (taskKeys.length > 0) {
-        taskKeys.forEach((taskKey) => {
-          // Set tasks object as a MobX observable JS map in the store
-          // put is a MST method, not native to ES Map
-          // the key is inferred from the identifier type of the target model
-          self.tasks.put(Object.assign({}, workflow.tasks[taskKey], { taskKey })
-        })
-      }
+      taskKeys.forEach((taskKey) => {
+        // Set tasks object as a MobX observable JS map in the store
+        // put is a MST method, not native to ES Map
+        // the key is inferred from the identifier type of the target model
+        self.tasks.put(Object.assign({}, workflow.tasks[taskKey], { taskKey }))
+      })
 
       self.selectStep()
     }
@@ -54,10 +53,11 @@ const WorkflowStepStore = types
         const workflow = getRoot(self).workflows.active
         if (workflow) {
           self.reset()
-          if (workflow.steps.size > 0) {
+          if (workflow.steps &&
+              workflow.steps.size > 0 && 
+              Object.keys(workflow.tasks).length > 0)
+          {
             self.setStepsAndTasks(workflow)
-          } else {
-            throw new Error('Current active workflow does not have any defined steps with tasks.')
           }
         }
       })
@@ -69,14 +69,12 @@ const WorkflowStepStore = types
       return stepKeys[index]
     }
 
-    function setActive(step, tasks) {
-      self.active = step
-    }
-
     function selectStep(stepKey = getStepKey()) {
       const step = self.steps.get(stepKey)
 
-      self.setActive(step)
+      if (step) {
+        self.active = step
+      }
     }
 
     return {

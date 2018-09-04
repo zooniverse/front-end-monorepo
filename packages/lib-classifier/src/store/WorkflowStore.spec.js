@@ -2,7 +2,8 @@ import WorkflowStore from './WorkflowStore'
 
 describe('Model > WorkflowStore', function () {
   it('should exist', function () {
-    expect(WorkflowStore).to.not.equal(undefined)
+    expect(WorkflowStore).to.exist
+    expect(WorkflowStepStore).to.be.an('object')
   })
 
   it.skip('should fetch a default workflow when the project changes')
