@@ -19,7 +19,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    const { access_token, expires_in } = queryString.parse(location.hash)
+    const { access_token, expires_in } = queryString.parse(window.location.hash)
     if (access_token && expires_in) {
       this.setState({ loading: true })
       this.auth.completeLogin()

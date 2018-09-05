@@ -1,4 +1,3 @@
-import counterpart from 'counterpart'
 import { Box, Layer } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'

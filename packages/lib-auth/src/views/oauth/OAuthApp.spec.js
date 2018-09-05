@@ -8,4 +8,3 @@ describe('Component > OAuthApp > OAuthApp', function () {
     shallow(<OAuthApp />)
   })
 })
-
