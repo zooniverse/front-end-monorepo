@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
   "license": "Apache-2.0",
@@ -14,6 +14,7 @@
     "babel-plugin-styled-components": "^1.6.2",
     "grommet": "^2.0.0-beta.5",
     "next": "^6.1.1",
+    "path-match": "^1.2.4",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "styled-components": "^3.4.5"
