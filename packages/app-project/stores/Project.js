@@ -5,9 +5,9 @@ import numberString from './types/numberString'
 
 const Project = types
   .model('Project', {
-    displayName: types.maybe(types.string),
-    error: types.optional(types.frozen, null),
-    id: types.maybe(numberString),
+    displayName: types.maybeNull(types.string),
+    error: types.maybeNull(types.frozen({})),
+    id: types.maybeNull(numberString),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 
