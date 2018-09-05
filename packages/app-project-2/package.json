@@ -12,6 +12,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "babel-plugin-styled-components": "^1.6.2",
+    "grommet": "^2.0.0-beta.5",
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
