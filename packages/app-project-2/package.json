@@ -23,7 +23,10 @@
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
+    "@babel/register": "7.0.0-beta.42",
     "chai": "^4.1.2",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.4.0",
     "mocha": "^5.2.0"
   }
 }
