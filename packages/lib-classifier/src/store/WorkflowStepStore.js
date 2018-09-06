@@ -30,28 +30,6 @@ const WorkflowStepStore = types
       createWorkflowObserver()
     }
 
-<<<<<<< HEAD
-=======
-    function reset() {
-      self.active = undefined
-      self.steps = undefined
-      self.tasks = undefined
-    }
-
-    function setStepsAndTasks(workflow) {
-      const taskKeys = Object.keys(workflow.tasks)
-      self.steps = workflow.steps
-      taskKeys.forEach((taskKey) => {
-        // Set tasks object as a MobX observable JS map in the store
-        // put is a MST method, not native to ES Map
-        // the key is inferred from the identifier type of the target model
-        self.tasks.put(Object.assign({}, workflow.tasks[taskKey], { taskKey }))
-      })
-
-      self.selectStep()
-    }
-
->>>>>>> Reset to undefined using the newer maybe type
     function createWorkflowObserver() {
       const workflowDisposer = autorun(() => {
         const workflow = getRoot(self).workflows.active
