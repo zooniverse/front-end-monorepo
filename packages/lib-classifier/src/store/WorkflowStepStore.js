@@ -29,9 +29,9 @@ const WorkflowStepStore = types
     }
 
     function reset() {
-      self.active = null
-      self.steps = null
-      self.tasks = null
+      self.active = undefined
+      self.steps = undefined
+      self.tasks = undefined
     }
 
     function setStepsAndTasks(workflow) {
