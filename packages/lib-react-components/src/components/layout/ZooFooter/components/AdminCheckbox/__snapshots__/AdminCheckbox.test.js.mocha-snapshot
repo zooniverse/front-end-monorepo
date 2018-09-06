@@ -28,6 +28,14 @@ exports["should match snapshot(0)"] = {
             "font": "#E2E5E9",
             "modal": {
               "background": "#5c5c5c"
+            },
+            "tabs": {
+              "activeBackground": "#333333",
+              "activeText": "#EFF2F5",
+              "border": "#2D2D2D",
+              "color": "#E2E5E9",
+              "dimmedBackground": "#282828",
+              "dimmedText": "#A6A7A9"
             }
           }
         },
@@ -133,6 +141,14 @@ exports["should match snapshot(0)"] = {
             "font": "#000000",
             "modal": {
               "background": "#ffffff"
+            },
+            "tabs": {
+              "activeBackground": "#fff",
+              "activeText": "#000",
+              "border": "#E2E5E9",
+              "color": "#000",
+              "dimmedBackground": "#EFF2F5",
+              "dimmedText": "#5C5C5C"
             }
           }
         }
@@ -232,6 +248,14 @@ exports["should match snapshot(0)"] = {
           "font": "#E2E5E9",
           "modal": {
             "background": "#5c5c5c"
+          },
+          "tabs": {
+            "activeBackground": "#333333",
+            "activeText": "#EFF2F5",
+            "border": "#2D2D2D",
+            "color": "#E2E5E9",
+            "dimmedBackground": "#282828",
+            "dimmedText": "#A6A7A9"
           }
         }
       },
@@ -337,6 +361,14 @@ exports["should match snapshot(0)"] = {
           "font": "#000000",
           "modal": {
             "background": "#ffffff"
+          },
+          "tabs": {
+            "activeBackground": "#fff",
+            "activeText": "#000",
+            "border": "#E2E5E9",
+            "color": "#000",
+            "dimmedBackground": "#EFF2F5",
+            "dimmedText": "#5C5C5C"
           }
         }
       }

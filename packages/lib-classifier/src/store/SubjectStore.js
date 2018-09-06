@@ -6,7 +6,7 @@ import asyncStates from '../helpers/asyncStates'
 
 const SubjectStore = types
   .model('SubjectStore', {
-    active: types.maybe(types.reference(Subject)),
+    active: types.maybeNull(types.reference(Subject)),
     resources: types.optional(types.map(Subject), {}),
     queue: types.optional(types.array(types.reference(Subject)), []),
     type: types.optional(types.string, 'subjects')
