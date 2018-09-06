@@ -139,4 +139,4 @@ Proposed
   - Manage the type conversion ourselves. We'd have to choose storing as an array, object, or stringifying. Examples on how to do this: http://2ality.com/2015/08/es6-map-json.html or http://exploringjs.com/es6/ch_maps-sets.html#_arbitrary-maps-as-json-via-arrays-of-pairs.
 - Since the tasks object is not being changed, we should have backwards compatibility with classifier exports and aggregation, but this needs confirmation before implementation.
 - We will need to be able to describe steps, tasks and notifications in a serializable format, such as a plain unique name string, as this is a requirement of [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree#tree-semantics-in-detail). Steps, tasks, and notifications can be converted to ES6 Maps as needed programmatically to provide a serializable key for Mobx-state-tree to use.
-- The Project Builder will need a UI update to be able to group tasks into steps.
+- The Project Builder will need a UI update to be able to group tasks into steps. This will need some design time. An early idea is to use a kanban style representation of steps in the new workflow editor. 
