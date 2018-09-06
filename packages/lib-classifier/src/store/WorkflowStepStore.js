@@ -6,11 +6,11 @@ import { SingleChoiceTask, MultipleChoiceTask } from './tasks'
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.maybe(types.reference(Step)),
-    steps: types.maybe(types.map(Step)),
-    tasks: types.maybe(types.map(types.union({ dispatcher: (snapshot) => {
+    steps: types.map(Step),
+    tasks: types.map(types.union({ dispatcher: (snapshot) => {
       if (snapshot.type === 'SingleChoiceTask') return SingleChoiceTask
       if (snapshot.type === 'MultipleChoiceTask') return MultipleChoiceTask
-    }}, SingleChoiceTask, MultipleChoiceTask)))
+    }}, SingleChoiceTask, MultipleChoiceTask))
   })
   .views(self => ({
     get activeStepTasks() {
@@ -30,13 +30,18 @@ const WorkflowStepStore = types
 
     function reset() {
       self.active = undefined
-      self.steps = undefined
-      self.tasks = undefined
+      self.steps.clear()
+      self.tasks.clear()
     }
 
     function setStepsAndTasks(workflow) {
       const taskKeys = Object.keys(workflow.tasks)
-      self.steps = workflow.steps
+      const stepEntries = workflow.steps.entries()
+      console.log('stepEntries', stepEntries)
+      stepEntries.forEach((entry) => {
+        const newStep = Step.create(entry[1])
+        self.steps.put(Object.assign({}, newStep, { stepKey: entry[0] }))
+      })
       taskKeys.forEach((taskKey) => {
         // Set tasks object as a MobX observable JS map in the store
         // put is a MST method, not native to ES Map
@@ -72,7 +77,7 @@ const WorkflowStepStore = types
       const step = self.steps.get(stepKey)
 
       if (step) {
-        self.active = step
+        self.active = stepKey
       }
     }
 
