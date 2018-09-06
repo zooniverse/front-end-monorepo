@@ -1,7 +1,8 @@
---require babel-register
+--require @babel/register
 --require chai/register-expect
 --reporter spec
 --ui bdd
 --file ./test/create-enzyme-adapter.js
+--file ./test/create-global-document.js
 
-pages/*.spec.js
+./pages/*.spec.js

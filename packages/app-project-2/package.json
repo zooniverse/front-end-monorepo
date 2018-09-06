@@ -7,7 +7,7 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha"
   },
   "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
   "license": "Apache-2.0",
@@ -16,6 +16,7 @@
     "babel-plugin-styled-components": "^1.6.2",
     "grommet": "^2.0.0-beta.5",
     "grommet-icons": "^2.0.0",
+    "jsdom": "^12.0.0",
     "next": "^6.1.1",
     "path-match": "^1.2.4",
     "react": "^16.4.2",
@@ -23,7 +24,8 @@
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
-    "@babel/register": "7.0.0-beta.42",
+    "@babel/core": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "chai": "^4.1.2",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.4.0",

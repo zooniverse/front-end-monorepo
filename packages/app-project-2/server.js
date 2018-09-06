@@ -1,7 +1,7 @@
 const { createServer } = require('http')
-const { parse } = require('url')
 const next = require('next')
 const pathMatch = require('path-match')
+const { parse } = require('url')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -15,29 +15,35 @@ app.prepare()
   .then(() => {
     createServer((req, res) => {
       const { pathname, query } = parse(req.url, true)
-      const params = match(pathname)
-      if (params === false) {
-        handle(req, res)
-        return
-      }
 
       // assigning `query` into the params means that we still
       // get the query string passed to our application
       // i.e. /blog/foo?show-comments=true
-      function appRender (path) {
+      function renderPage (path) {
         return app.render(req, res, path, Object.assign(params, query))
       }
 
+      const params = match(pathname)
+
+      if (params === false) {
+        if (dev && req.url === '/') {
+          return renderPage('/Index')
+        }
+
+        handle(req, res)
+        return
+      }
+
       if (!params.subroute) {
-        return appRender('/home')
+        return renderPage('/Home')
       }
 
       if (params.subroute.includes('classify')) {
-        return appRender('/classify')
+        return renderPage('/Classify')
       }
 
       if (params.subroute.includes('about')) {
-        return appRender('/about')
+        return renderPage('/About')
       }
     })
     .listen(port, (err) => {

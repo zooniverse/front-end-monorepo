@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme'
 
-import Home from './Home'
+import Index from './Index'
 
-describe('Page > Home', function () {
+describe('Page > Index', function () {
   it('should render without crashing', function () {
-    shallow(<Home />)
+    shallow(<Index />)
   })
 })
