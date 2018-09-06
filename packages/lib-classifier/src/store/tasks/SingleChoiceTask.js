@@ -3,14 +3,12 @@ import Task from './Task'
 
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
-// We need to upgrade MST. This is the frozen object for answers...
-// {
-//   label: types.string,
-//     next: types.maybe(types.string)
-// }
 
 const SingleChoice = types.model('SingleChoice', {
-  answers: types.array(types.frozen),
+  answers: types.array(types.frozen({
+    label: types.string,
+    next: types.maybe(types.string)
+  })),
   help: types.optional(types.string, ''),
   question: types.string,
   required: types.boolean,

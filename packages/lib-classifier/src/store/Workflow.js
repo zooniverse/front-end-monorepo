@@ -3,7 +3,7 @@ import Resource from './Resource'
 
 const Workflow = types
   .model('Workflow', {
-    configuration: types.frozen,
+    configuration: types.frozen({}),
     display_name: types.string,
   })
 

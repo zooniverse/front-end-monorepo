@@ -7,11 +7,10 @@ const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.maybe(types.reference(Step)),
     steps: types.maybe(types.map(Step)),
-    tasks: types.maybe(types.map(types.union((snapshot) => {
+    tasks: types.maybe(types.map(types.union({ dispatcher: (snapshot) => {
       if (snapshot.type === 'SingleChoiceTask') return SingleChoiceTask
       if (snapshot.type === 'MultipleChoiceTask') return MultipleChoiceTask
-      return types.undefined
-    }, SingleChoiceTask, MultipleChoiceTask)))
+    }}, SingleChoiceTask, MultipleChoiceTask)))
   })
   .views(self => ({
     get activeStepTasks() {
