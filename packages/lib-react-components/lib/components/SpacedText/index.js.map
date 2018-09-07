@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/components/SpacedText/index.js"],"names":["default"],"mappings":";;;;;;;;;;;+CAASA,O","file":"index.js","sourcesContent":["export { default } from './SpacedText'\n"]}
