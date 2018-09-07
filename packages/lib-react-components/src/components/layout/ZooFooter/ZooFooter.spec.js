@@ -4,25 +4,26 @@
 /* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import zooTheme from '@zooniverse/grommet-theme';
 
 import ZooFooter from './ZooFooter';
 
 describe('<ZooFooter />', function () {
   let wrapper;
-  before(function () {
+
+  it('renders without crashing', function () {
     wrapper = shallow(<ZooFooter />);
   });
 
-  it('renders without crashing', function () {});
-
   it('should match snapshot', function () {
+    wrapper = shallow(<ZooFooter />);
     expect(wrapper).to.matchSnapshot();
   });
 
   describe('light theme', function () {
     it('should use a white background for its wrapping Box component', function () {
+      wrapper = mount(<ZooFooter />);
       const boxWrapper = wrapper.find('Box').first()
       expect(boxWrapper.props().background).to.equal('#fff')
     })
@@ -30,13 +31,9 @@ describe('<ZooFooter />', function () {
 
   describe('dark theme', function () {
     it('should use the dark theme background color for its wrapping Box component', function () {
-      wrapper.setProps({ colorTheme: 'dark' })
+      wrapper = mount(<ZooFooter colorTheme="dark" />);
       const boxWrapper = wrapper.find('Box').first()
       expect(boxWrapper.props().background).to.equal(zooTheme.dark.colors.background.default)
-    })
-
-    after(function() {
-      wrapper.setProps({ colorTheme: 'light' })
     })
   })
 });

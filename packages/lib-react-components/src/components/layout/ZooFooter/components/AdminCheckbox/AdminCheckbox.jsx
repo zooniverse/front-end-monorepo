@@ -11,7 +11,6 @@ import zooTheme from '@zooniverse/grommet-theme';
 
 counterpart.registerTranslations('en', en)
 
-
 function AdminCheckbox({ checked, colorTheme, label, onChange, theme }) {
   return (
     <Grommet theme={theme}>

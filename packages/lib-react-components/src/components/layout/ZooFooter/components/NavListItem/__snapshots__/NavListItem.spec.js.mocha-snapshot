@@ -42,7 +42,7 @@ exports["should match its snapshot(0)"] = {
         },
         "rendered": "My link"
       },
-      "type": "Styled(Anchor)",
+      "type": "ForwardRef",
       "props": {
         "href": "https://www.zooniverse.org"
       },
