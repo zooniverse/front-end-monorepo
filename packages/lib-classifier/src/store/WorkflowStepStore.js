@@ -37,7 +37,6 @@ const WorkflowStepStore = types
     function setStepsAndTasks(workflow) {
       const taskKeys = Object.keys(workflow.tasks)
       const stepEntries = workflow.steps.entries()
-      console.log('stepEntries', stepEntries)
       stepEntries.forEach((entry) => {
         const newStep = Step.create(entry[1])
         self.steps.put(Object.assign({}, newStep, { stepKey: entry[0] }))

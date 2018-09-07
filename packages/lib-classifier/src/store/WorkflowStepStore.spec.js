@@ -24,7 +24,7 @@ import WorkflowStepStore from './WorkflowStepStore'
 //   ]
 // }
 
-describe.only('Model > WorkflowStepStore', function () {
+describe('Model > WorkflowStepStore', function () {
   it('should exist', function () {
     expect(WorkflowStepStore).to.exist
     expect(WorkflowStepStore).to.be.an('object')
@@ -45,7 +45,6 @@ describe.only('Model > WorkflowStepStore', function () {
 
     it('should not call setStepsAndTasks if there are not defined steps', function () {
       WorkflowStepStore.create()
-      console.log(getEnv(WorkflowStepStore))
       expect(setStepsAndTaskSpy.notCalled).to.be.true
     })
 
