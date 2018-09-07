@@ -23,8 +23,6 @@ describe('<AdminCheckbox />', function() {
   })
 
   it('calls onChange prop when clicked', function() {
-    // wrapper = mount(<AdminCheckbox onChange={onChangeSpy} />);
-    console.log(wrapper.debug())
     wrapper.find('ForwardRef').simulate('change');
     expect(onChangeSpy.calledOnce).to.be.true();
   });

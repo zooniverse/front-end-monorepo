@@ -28,6 +28,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   colorTheme: 'light',
+  closeFn: () => {},
   theme: zooTheme
 }
 
