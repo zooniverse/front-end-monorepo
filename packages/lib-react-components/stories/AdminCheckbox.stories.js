@@ -9,7 +9,6 @@ import { backgrounds } from './lib'
 import { AdminCheckbox } from '../src'
 import adminDocs from '../src/components/layout/ZooFooter/components/AdminCheckbox/README.md'
 
-
 const stories = storiesOf('AdminCheckbox', module);
 
 stories.addDecorator(withKnobs);
