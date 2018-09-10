@@ -441,11 +441,7 @@ exports["should match snapshot(0)"] = {
               "toggle": true
             }
           },
-          "type": {
-            "render": "[function]",
-            "displayName": "CheckBox",
-            "name": "CheckBox"
-          },
+          "type": "ForwardRef",
           "props": {
             "checked": false,
             "id": "admin-checkbox",

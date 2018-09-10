@@ -1,0 +1,23 @@
+exports["should match snapshot(0)"] = {
+  "node": {
+    "nodeType": "class",
+    "type": "StyledComponent",
+    "props": {
+      "margin": "none",
+      "size": "small",
+      "weight": "normal",
+      "children": "Zooniverse"
+    },
+    "rendered": "Zooniverse"
+  },
+  "type": "ForwardRef",
+  "props": {
+    "margin": "none",
+    "size": "small",
+    "weight": "normal"
+  },
+  "children": [
+    "Zooniverse"
+  ]
+};
+

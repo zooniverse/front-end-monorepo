@@ -4,7 +4,7 @@
 /* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import zooTheme from '@zooniverse/grommet-theme';
 import AdminCheckbox, { StyledAdminCheckbox } from './AdminCheckbox';
@@ -23,7 +23,7 @@ describe('<AdminCheckbox />', function() {
   })
 
   it('calls onChange prop when clicked', function() {
-    wrapper.find('CheckBox').simulate('change');
+    wrapper.find('ForwardRef').simulate('change');
     expect(onChangeSpy.calledOnce).to.be.true();
   });
 

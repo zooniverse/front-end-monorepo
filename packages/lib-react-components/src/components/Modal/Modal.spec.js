@@ -13,8 +13,10 @@ const content = (
 
 describe('Modal', function () {
   it('should render without crashing', function () {
-    shallow(<Modal title={title}>
-      {content}
-    </Modal>)
+    shallow(
+      <Modal title={title} closeFn={() => {}}>
+        {content}
+      </Modal>
+    )
   })
 })

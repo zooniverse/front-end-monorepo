@@ -5019,11 +5019,7 @@ exports["should match snapshot(0)"] = {
           }
         ]
       },
-      "type": {
-        "render": "[function]",
-        "displayName": "Box",
-        "name": "Box"
-      },
+      "type": "ForwardRef",
       "props": {
         "align": "center",
         "background": "#fff",
@@ -5342,7 +5338,7 @@ exports["should match snapshot(0)"] = {
               }
             ]
           },
-          "type": "Styled(Box)",
+          "type": "ForwardRef",
           "props": {
             "direction": "row",
             "fill": "horizontal",
@@ -5455,11 +5451,7 @@ exports["should match snapshot(0)"] = {
                   "People-Powered Research"
                 ]
               },
-              "type": {
-                "render": "[function]",
-                "displayName": "Box",
-                "name": "Box"
-              },
+              "type": "ForwardRef",
               "props": {},
               "children": [
                 {
@@ -5551,7 +5543,7 @@ exports["should match snapshot(0)"] = {
                           }
                         }
                       },
-                      "type": "Styled(Anchor)",
+                      "type": "ForwardRef",
                       "props": {
                         "href": "https://www.zooniverse.org"
                       },
@@ -5675,7 +5667,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "direction": "row",
                 "gap": "medium",
@@ -5788,11 +5780,7 @@ exports["should match snapshot(0)"] = {
               "props": {}
             }
           },
-          "type": {
-            "render": "[function]",
-            "displayName": "Box",
-            "name": "Box"
-          },
+          "type": "ForwardRef",
           "props": {
             "fill": "horizontal",
             "pad": {
@@ -6619,7 +6607,7 @@ exports["should match snapshot(0)"] = {
               }
             ]
           },
-          "type": "Styled(Box)",
+          "type": "ForwardRef",
           "props": {
             "direction": "row",
             "fill": "horizontal",
@@ -6676,7 +6664,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "flex": true,
                 "margin": {
@@ -6844,7 +6832,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "flex": true,
                 "margin": {
@@ -7067,7 +7055,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "flex": true,
                 "margin": {
@@ -7192,7 +7180,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "flex": true,
                 "margin": {
@@ -7340,7 +7328,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "flex": true,
                 "margin": {
@@ -7524,7 +7512,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "flex": true,
                 "margin": {
@@ -7940,7 +7928,7 @@ exports["should match snapshot(0)"] = {
               }
             ]
           },
-          "type": "Styled(Box)",
+          "type": "ForwardRef",
           "props": {
             "align": "center",
             "className": "small",
@@ -8150,7 +8138,7 @@ exports["should match snapshot(0)"] = {
                   }
                 ]
               },
-              "type": "Styled(Box)",
+              "type": "ForwardRef",
               "props": {
                 "direction": "row",
                 "gap": "small",
@@ -8204,7 +8192,7 @@ exports["should match snapshot(0)"] = {
                         },
                         "rendered": "Privacy Policy"
                       },
-                      "type": "Styled(Anchor)",
+                      "type": "ForwardRef",
                       "props": {
                         "href": "https://www.zooniverse.org/privacy"
                       },
@@ -8260,7 +8248,7 @@ exports["should match snapshot(0)"] = {
                         },
                         "rendered": "Jobs"
                       },
-                      "type": "Styled(Anchor)",
+                      "type": "ForwardRef",
                       "props": {
                         "href": "http://jobs.zooniverse.org/"
                       },
@@ -8316,7 +8304,7 @@ exports["should match snapshot(0)"] = {
                         },
                         "rendered": "System Status"
                       },
-                      "type": "Styled(Anchor)",
+                      "type": "ForwardRef",
                       "props": {
                         "href": "https://status.zooniverse.org/"
                       },
@@ -8372,7 +8360,7 @@ exports["should match snapshot(0)"] = {
                         },
                         "rendered": "Security"
                       },
-                      "type": "Styled(Anchor)",
+                      "type": "ForwardRef",
                       "props": {
                         "href": "https://www.zooniverse.org/security"
                       },
@@ -8425,7 +8413,7 @@ exports["should match snapshot(0)"] = {
                       "alt": ""
                     }
                   },
-                  "type": "Styled(Image)",
+                  "type": "ForwardRef",
                   "props": {
                     "src": "https://s3.amazonaws.com/zooniverse-static/assets/penguin.png",
                     "alt": ""
