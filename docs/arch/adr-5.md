@@ -1,7 +1,7 @@
 # ADR 5: Implementing workflows in the new classifier
 
 Created: July 25, 2018
-Updated: August 28, 2018
+Updated: September 11, 2018
 
 ## Context
 
@@ -128,7 +128,7 @@ An example of what this could look like:
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
