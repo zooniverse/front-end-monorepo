@@ -6,16 +6,12 @@
   "version": "0.7.1",
   "main": "src/index.js",
   "scripts": {
-    "build": "rm -rf lib && npm run build-js",
-    "build-js": "babel src --out-dir lib --source-maps --copy-files --ignore spec.js,test.js,test.js.mocha-snapshot,spec.js.mocha-snapshot",
     "build-storybook": "build-storybook",
+    "dev": "start-storybook -p 6006",
+    "lint": "standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy; exit 0",
     "start": "echo 'Nothing to see here yet'",
-    "storybook": "start-storybook -p 6006",
     "test": "mocha",
-    "test-updated-snapshots": "UPDATE=1 npm test",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A lib",
-    "postversion": "git push && git push --tags"
+    "test:snapshots": "UPDATE=1 npm test"
   },
   "dependencies": {
     "counterpart": "^0.18.6",
@@ -60,6 +56,8 @@
     "react-dom": "^16.4.2",
     "react-test-renderer": "^16.4.2",
     "sinon": "^4.5.0",
+    "snazzy": "^8.0.0",
+    "standard": "^12.0.1",
     "styled-components": "^3.2.6",
     "styled-components-test-utils": "^0.4.1",
     "styled-theming": "^2.2.0"
@@ -67,5 +65,13 @@
   "engines": {
     "node": ">=8",
     "npm": ">=5"
+  },
+  "standard": {
+    "envs": [
+      "mocha"
+    ],
+    "global": [
+      "expect"
+    ]
   }
 }
