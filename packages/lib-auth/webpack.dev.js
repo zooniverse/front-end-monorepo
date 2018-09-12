@@ -16,7 +16,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './dev/index.js'
   ],
   mode: 'development',
