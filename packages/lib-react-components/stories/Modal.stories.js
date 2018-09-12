@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react'
 
 import { backgrounds } from './lib'
 import { Modal } from '../src'
-import modalDocs from '../src/components/Modal/README.md'
+import modalDocs from '../src/Modal/README.md'
 
 const closeFn = () => console.info('Close modal')
 

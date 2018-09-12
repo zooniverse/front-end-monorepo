@@ -7,7 +7,7 @@ import { withNotes } from '@storybook/addon-notes';
 
 import { backgrounds } from './lib'
 import { AdminCheckbox } from '../src'
-import adminDocs from '../src/components/layout/ZooFooter/components/AdminCheckbox/README.md'
+import adminDocs from '../src/ZooFooter/components/AdminCheckbox/README.md'
 
 const stories = storiesOf('AdminCheckbox', module);
 
