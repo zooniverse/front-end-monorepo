@@ -4,9 +4,9 @@ import oo from 'json8'
 
 const steps = new Map()
 
-steps.set('S1', { tasks: ['T1'] })
-steps.set('S2', { tasks: ['T2', 'T3'] })
-steps.set('S3', { tasks: ['summary'] })
+steps.set('S1', { taskKeys: ['T1'] })
+steps.set('S2', { taskKeys: ['T2', 'T3'] })
+steps.set('S3', { taskKeys: ['summary'] })
 
 export default new Factory()
   .sequence('id', (id) => { return id.toString() })
