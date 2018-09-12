@@ -8,8 +8,8 @@ import Subject from './Subject'
 const SubjectStore = types
   .model('SubjectStore', {
     active: types.maybeNull(types.reference(Subject)),
-    resources: types.optional(types.map(Subject), {}),
-    queue: types.optional(types.array(types.reference(Subject)), []),
+    resources: types.map(Subject),
+    queue: types.array(types.reference(Subject)),
     type: types.optional(types.string, 'subjects')
   })
 

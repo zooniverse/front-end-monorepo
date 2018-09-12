@@ -6,7 +6,7 @@ import Resource from './Resource'
 const ResourceStore = types
   .model('ResourceStore', {
     active: types.maybeNull(types.reference(Resource)),
-    resources: types.optional(types.map(Resource), {}),
+    resources: types.map(Resource),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     type: types.string
   })
@@ -30,6 +30,10 @@ const ResourceStore = types
     reset () {
       self.active = null
       self.resources.clear()
+    },
+
+    setResource (resource) {
+      self.resources.put(resource)
     },
 
     setActive: flow(function * setActive (id) {
