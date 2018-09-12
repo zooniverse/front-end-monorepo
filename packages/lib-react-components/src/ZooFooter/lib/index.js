@@ -1,1 +1,1 @@
-export { default as whichTealColorForTheme } from './whichTealColorForTheme';
+export { default as whichTealColorForTheme } from './whichTealColorForTheme'

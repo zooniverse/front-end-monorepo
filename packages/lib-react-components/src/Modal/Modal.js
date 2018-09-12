@@ -1,4 +1,4 @@
-import { Box, Button, Grommet, Layer } from 'grommet'
+import { Grommet } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
