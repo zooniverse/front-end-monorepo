@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook",
     "start": "echo 'Nothing to see here yet'",
     "storybook": "start-storybook -p 6006",
-    "test": "mocha test/setup.js $(find src -name *.spec.js)",
+    "test": "mocha",
     "test-updated-snapshots": "UPDATE=1 npm test",
     "preversion": "npm test",
     "version": "npm run build && git add -A lib",
