@@ -6,9 +6,8 @@
   "license": "Apache-2.0",
   "main": "src/index.js",
   "scripts": {
-    "build": "rm -rf lib && npm run build-js && npm run build-css",
+    "build": "rm -rf lib && npm run build-js",
     "build-js": "babel src --out-dir lib --source-maps --copy-files --ignore spec.js,test.js,test.js.mocha-snapshot,spec.js.mocha-snapshot",
-    "build-css": "stylus src/css/zooniverse-react-components.styl --out lib",
     "postversion": "git push && git push --tags",
     "preversion": "npm test",
     "start": "echo 'Nothing to see here yet'",
@@ -20,19 +19,12 @@
   },
   "dependencies": {
     "@zooniverse/grommet-theme": "^2.0.0",
-    "animated-scrollto": "^1.1.0",
     "counterpart": "^0.18.6",
-    "data-uri-to-blob": "0.0.4",
     "grommet": "^2.0.0-beta.5",
     "grommet-icons": "^2.0.0",
-    "markdownz": "^7.6.3",
-    "modal-form": "^2.6.0",
-    "panoptes-client": "^2.11.0",
     "prop-types": "~15.6.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-select": "^1.0.0-rc.10",
-    "react-swipe": "^5.1.1",
     "styled-components": "^3.2.6",
     "styled-theming": "^2.2.0"
   },
@@ -61,8 +53,7 @@
     "mocha-snapshots": "^4.1.0",
     "react-test-renderer": "^16.4.2",
     "sinon": "^4.5.0",
-    "styled-components-test-utils": "^0.4.1",
-    "stylus": "^0.54.5"
+    "styled-components-test-utils": "^0.4.1"
   },
   "engines": {
     "node": ">=8",
