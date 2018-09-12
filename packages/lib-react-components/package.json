@@ -1,28 +1,30 @@
 {
   "name": "@zooniverse/react-components",
-  "version": "0.7.1",
   "description": "Zooniverse React Components",
-  "author": "Zooniverse",
   "license": "Apache-2.0",
+  "author": "Zooniverse",
+  "version": "0.7.1",
   "main": "src/index.js",
   "scripts": {
     "build": "rm -rf lib && npm run build-js",
     "build-js": "babel src --out-dir lib --source-maps --copy-files --ignore spec.js,test.js,test.js.mocha-snapshot,spec.js.mocha-snapshot",
-    "postversion": "git push && git push --tags",
-    "preversion": "npm test",
+    "build-storybook": "build-storybook",
     "start": "echo 'Nothing to see here yet'",
+    "storybook": "start-storybook -p 6006",
     "test": "mocha test/setup.js $(find src -name *.spec.js)",
     "test-updated-snapshots": "UPDATE=1 npm test",
+    "preversion": "npm test",
     "version": "npm run build && git add -A lib",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@zooniverse/grommet-theme": "^2.0.0",
     "counterpart": "^0.18.6",
+    "prop-types": "~15.6.0"
+  },
+  "peerDependencies": {
+    "@zooniverse/grommet-theme": "^2.0.0",
     "grommet": "^2.0.0-beta.5",
     "grommet-icons": "^2.0.0",
-    "prop-types": "~15.6.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "styled-components": "^3.2.6",
@@ -38,6 +40,7 @@
     "@storybook/addon-viewport": "^3.4.8",
     "@storybook/addons": "^3.4.8",
     "@storybook/react": "^3.4.8",
+    "@zooniverse/grommet-theme": "^2.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -48,12 +51,18 @@
     "dirty-chai": "^2.0.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
+    "grommet": "^2.0.0-beta.5",
+    "grommet-icons": "^2.0.0",
     "jsdom": "^11.8.0",
     "mocha": "^5.1.1",
     "mocha-snapshots": "^4.1.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-test-renderer": "^16.4.2",
     "sinon": "^4.5.0",
-    "styled-components-test-utils": "^0.4.1"
+    "styled-components": "^3.2.6",
+    "styled-components-test-utils": "^0.4.1",
+    "styled-theming": "^2.2.0"
   },
   "engines": {
     "node": ">=8",
