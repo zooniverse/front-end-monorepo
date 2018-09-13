@@ -72,6 +72,7 @@ OAuthApp.propTypes = {
 
 OAuthApp.defaultProps = {
   store: {
+    reset: () => {},
     showLoginPopup: false,
     showLogoutPopup: false,
     showTimeoutPopup: false,

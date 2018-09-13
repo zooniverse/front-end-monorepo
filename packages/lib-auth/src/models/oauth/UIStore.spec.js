@@ -2,7 +2,6 @@ import UIStore from './UIStore'
 
 let uiStore
 
-
 describe('Model > UIStore', function () {
   beforeEach(function () {
     uiStore = UIStore.create()
@@ -90,5 +89,4 @@ describe('Model > UIStore', function () {
     expect(uiStore.showTimeoutPopup).to.be.false
     expect(uiStore.showTimeoutWarningPopup).to.be.false
   })
-
 })
