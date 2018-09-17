@@ -1,31 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { CheckBox, Grommet } from 'grommet';
-import { ThemeProvider } from 'styled-components';
+import { CheckBox, Grommet } from 'grommet'
+import { ThemeProvider } from 'styled-components'
 
-import counterpart from 'counterpart';
-import en from './locales/en';
+import counterpart from 'counterpart'
+import en from './locales/en'
 
-import zooTheme from '@zooniverse/grommet-theme';
+import zooTheme from '@zooniverse/grommet-theme'
 
 counterpart.registerTranslations('en', en)
 
-function AdminCheckbox({ checked, colorTheme, label, onChange, theme }) {
+function AdminCheckbox ({ checked, colorTheme, label, onChange, theme }) {
   return (
     <Grommet theme={theme}>
       <ThemeProvider theme={{ mode: colorTheme }}>
         <CheckBox
           checked={checked}
-          id="admin-checkbox"
-          name="admin-checkbox"
+          id='admin-checkbox'
+          name='admin-checkbox'
           label={label}
           onChange={onChange}
-          toggle={true}
+          toggle
         />
       </ThemeProvider>
     </Grommet>
-  );
+  )
 };
 
 AdminCheckbox.defaultProps = {
@@ -34,7 +34,7 @@ AdminCheckbox.defaultProps = {
   label: counterpart('AdminCheckbox.label'),
   onChange: () => {},
   theme: zooTheme
-};
+}
 
 AdminCheckbox.propTypes = {
   checked: PropTypes.bool,
@@ -42,6 +42,6 @@ AdminCheckbox.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.object
-};
+}
 
-export default AdminCheckbox;
+export default AdminCheckbox

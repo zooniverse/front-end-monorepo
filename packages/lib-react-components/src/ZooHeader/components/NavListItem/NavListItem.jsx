@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Anchor } from 'grommet';
+import { Anchor } from 'grommet'
 
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;
@@ -25,17 +25,17 @@ export const StyledNavListItem = styled(Anchor)`
   &:hover, &:focus {
     border-bottom-color: #00979D;
   }
-`;
+`
 
-export default function NavListItem({ label, url }) {
+export default function NavListItem ({ label, url }) {
   return (
     <StyledNavListItem href={url}>
       {label}
     </StyledNavListItem>
-  );
+  )
 }
 
 NavListItem.propTypes = {
   label: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired
-};
+}

@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Anchor, Box, Grommet, Menu } from 'grommet';
+import { Anchor, Box, Grommet, Menu } from 'grommet'
 
-import styled from 'styled-components';
-import zooTheme from '@zooniverse/grommet-theme';
+import styled from 'styled-components'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import NavListItem from './components/NavListItem';
-import ZooniverseLogo from './components/ZooniverseLogo';
+import NavListItem from './components/NavListItem'
+import ZooniverseLogo from './components/ZooniverseLogo'
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
   font-size: 1em;
-`;
+`
 
 export const StyledLogoAnchor = styled(Anchor)`
   border-bottom: 2px solid transparent;
@@ -23,7 +23,7 @@ export const StyledLogoAnchor = styled(Anchor)`
   &:hover, &:focus {
     border-bottom-color: #00979D;
   }
-`;
+`
 
 const ZooHeader = (props) => {
   const {
@@ -34,32 +34,32 @@ const ZooHeader = (props) => {
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
     theme
-  } = props;
+  } = props
 
   return (
     <Grommet theme={theme}>
       <StyledHeader
-        background="black"
-        direction="row"
-        fill="horizontal"
-        justify="between"
+        background='black'
+        direction='row'
+        fill='horizontal'
+        justify='between'
         pad={{ horizontal: 'medium', vertical: 'small' }}
         responsive={false}
-        tag="header"
+        tag='header'
       >
         <Box
-          align="center"
-          direction="row"
+          align='center'
+          direction='row'
           responsive={false}
         >
-          <StyledLogoAnchor href="http://www.zooniverse.org">
-            <ZooniverseLogo height="1.25em" width="1.25em" />
+          <StyledLogoAnchor href='http://www.zooniverse.org'>
+            <ZooniverseLogo height='1.25em' width='1.25em' />
           </StyledLogoAnchor>
           <Box
-            direction="row"
-            justify="start"
+            direction='row'
+            justify='start'
             responsive={false}
-            tag="nav"
+            tag='nav'
           >
             {mainHeaderNavListURLs.map((url, i) => (
               <NavListItem
@@ -77,7 +77,7 @@ const ZooHeader = (props) => {
           </Box>
         </Box>
         <Menu
-          label="Menu"
+          label='Menu'
           items={mainHeaderNavListURLs.map((url, i) => (
             { label: mainHeaderNavListLabels[i], href: url }
           ))}
@@ -86,8 +86,8 @@ const ZooHeader = (props) => {
           authContainer}
       </StyledHeader>
     </Grommet>
-  );
-};
+  )
+}
 
 ZooHeader.defaultProps = {
   adminNavLinkLabel: 'Admin',
@@ -109,7 +109,7 @@ ZooHeader.defaultProps = {
     'http://www.zooniverse.org/lab'
   ],
   theme: zooTheme
-};
+}
 
 ZooHeader.propTypes = {
   adminNavLinkLabel: PropTypes.string,
@@ -119,6 +119,6 @@ ZooHeader.propTypes = {
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
   theme: PropTypes.object
-};
+}
 
-export default ZooHeader;
+export default ZooHeader
