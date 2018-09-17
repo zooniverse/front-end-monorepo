@@ -5,7 +5,7 @@ import { linkTo } from '@storybook/addon-links';
 import { withInfo } from '@storybook/addon-info';
 import { backgrounds } from './lib'
 import { AdminCheckbox, ZooFooter } from '../src'
-import footerDocs from '../src/components/layout/ZooFooter/README.md'
+import footerDocs from '../src/ZooFooter/README.md'
 
 storiesOf('ZooFooter', module)
   .addDecorator(backgrounds)
