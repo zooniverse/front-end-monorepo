@@ -8,7 +8,7 @@ import { withInfo } from '@storybook/addon-info';
 
 import { backgrounds } from './lib'
 import { SpacedText } from '../src'
-import spacedTextDocs from '../src/components/SpacedText/README.md'
+import spacedTextDocs from '../src/SpacedText/README.md'
 
 storiesOf('SpacedText', module)
   .addDecorator(backgrounds)
