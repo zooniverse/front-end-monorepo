@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import { getEnv, getSnapshot } from 'mobx-state-tree'
+import { getEnv } from 'mobx-state-tree'
 
 import RootStore from './RootStore'
 import WorkflowStore from './WorkflowStore'
@@ -14,15 +14,11 @@ describe.only('Model > WorkflowStepStore', function () {
 
   describe('when instantiated', function () {
     it('should not call setStepsAndTasks if there are not defined workflow steps and tasks', function () {
-      const workflow = WorkflowFactory.build({ tasks: undefined, steps: undefined })
-      const workflowStore = WorkflowStore.create({})
-      workflowStore.setResource(workflow)
-      workflowStore.setActive(workflow.id)
-      const workflowStepInstance = WorkflowStepStore.create({}, { setStepsAndTasks: sinon.spy() })
-      const workflowStepInstanceEnv = getEnv(workflowStepInstance)
-
-      RootStore.create({ workflows: workflowStore, steps: workflowStepInstance })
-
+      const rootStore = RootStore.create({
+        steps: WorkflowStepStore.create({}, { setStepsAndTasks: sinon.spy() }),
+        workflows: WorkflowStore.create()
+      })
+      const workflowStepInstanceEnv = getEnv(rootStore.steps)
       expect(workflowStepInstanceEnv.setStepsAndTasks.notCalled).to.be.true
     })
 
