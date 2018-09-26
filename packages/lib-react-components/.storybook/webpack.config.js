@@ -1,5 +1,3 @@
-const {resolve} = require('path');
-
 module.exports = (baseConfig, env, defaultConfig) => {
   // Extend defaultConfig as you need.
 
