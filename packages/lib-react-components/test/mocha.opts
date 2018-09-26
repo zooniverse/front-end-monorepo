@@ -1,3 +1,6 @@
 --require babel-core/register
 --require mocha-snapshots
 --ui bdd
+--file ./test/setup.js
+
+./src/**/*.spec.js
