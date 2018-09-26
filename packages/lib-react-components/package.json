@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "author": "Zooniverse",
   "version": "0.7.1",
-  "main": "src/index.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "export NODE_ENV=production; rm -rf dist && webpack --config ./webpack.dist.js",
     "build-storybook": "build-storybook",
