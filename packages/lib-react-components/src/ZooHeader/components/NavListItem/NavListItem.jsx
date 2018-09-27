@@ -1,21 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { Anchor } from 'grommet'
-
 import styled from 'styled-components'
+import { Anchor } from 'grommet'
+import SpacedText from '../../../SpacedText'
+import zooTheme from '@zooniverse/grommet-theme'
 
 export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;
   color: #B2B2B2;
   display: inline-block;
-  font-size: .75em;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  line-height: 2em;
   margin-right: 2em;
   text-decoration: none !important;
-  text-transform: uppercase;
   white-space: nowrap;
 
   &:visited {
@@ -23,14 +18,19 @@ export const StyledNavListItem = styled(Anchor)`
   }
 
   &:hover, &:focus {
-    border-bottom-color: #00979D;
+    border-bottom-color: ${zooTheme.global.colors.teal};
   }
 `
 
 export default function NavListItem ({ label, url }) {
   return (
     <StyledNavListItem href={url}>
-      {label}
+      <SpacedText
+        size="xsmall"
+        weight="bold"
+      >
+        {label}
+      </SpacedText>
     </StyledNavListItem>
   )
 }

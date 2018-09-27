@@ -1,0 +1,10 @@
+{
+  "UserMenu": {
+    "userNavListLabels": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "collections": "Collections",
+      "favorites": "Favorites"
+    }
+  }
+}
