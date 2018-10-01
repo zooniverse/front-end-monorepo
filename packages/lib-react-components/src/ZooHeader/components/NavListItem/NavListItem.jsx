@@ -9,7 +9,7 @@ export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;
   color: #B2B2B2;
   display: inline-block;
-  margin-right: 2em;
+  margin-right: 1.5em;
   text-decoration: none !important;
   white-space: nowrap;
 

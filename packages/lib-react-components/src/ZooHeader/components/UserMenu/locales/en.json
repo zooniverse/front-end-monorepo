@@ -4,7 +4,8 @@
       "profile": "Profile",
       "settings": "Settings",
       "collections": "Collections",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "signOut": "Sign out"
     }
   }
 }

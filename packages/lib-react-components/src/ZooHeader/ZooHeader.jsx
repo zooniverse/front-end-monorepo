@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Anchor, Button, Box, Menu } from 'grommet'
+import { Anchor, Box, ResponsiveContext } from 'grommet'
 
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import NavListItem from './components/NavListItem'
-import SpacedText from '../SpacedText'
-import UserMenu from './components/UserMenu'
+import SignedInUserNavigation from './components/SignedInUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
 
 export const StyledHeader = styled(Box)`
@@ -30,76 +29,75 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
+const host = (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') ? window.location.origin : 'https://www.zooniverse.org'
+
 const ZooHeader = (props) => {
   const {
     adminNavLinkLabel,
     adminNavLinkURL,
-    authContainer,
     isAdmin,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
     signInButton,
-    signOutButton,
+    signOut,
     user
   } = props
 
   return (
-    <StyledHeader
-      background='black'
-      direction='row'
-      fill='horizontal'
-      justify='between'
-      pad={{ horizontal: 'medium', vertical: 'none' }}
-      responsive={false}
-      tag='header'
-    >
-      <Box
-        align='center'
-        direction='row'
-        responsive={false}
-      >
-        <StyledLogoAnchor href='http://www.zooniverse.org'>
-          <ZooniverseLogo height='1.25em' width='1.25em' />
-        </StyledLogoAnchor>
-        <Box
+    <ResponsiveContext.Consumer>
+      {screenWidth => (
+        <StyledHeader
+          background='black'
           direction='row'
-          justify='start'
-          pad={{ horizontal: 'none', vertical: 'small' }}
+          fill='horizontal'
+          justify='between'
+          pad='none'
           responsive={false}
-          tag='nav'
+          tag='header'
         >
-          {mainHeaderNavListURLs.map((url, i) => (
-            <NavListItem
-              key={url}
-              label={mainHeaderNavListLabels[i]}
-              url={url}
-            />
-          ))}
-          {isAdmin &&
-            <NavListItem
-              label={adminNavLinkLabel}
-              url={adminNavLinkURL}
-            />
-          }
-        </Box>
-      </Box>
-      {Object.keys(user).length === 0 && signInButton &&
-        signInButton}
-      {Object.keys(user).length > 0 && signOutButton &&
-        <UserMenu
-          signOutButton={signOutButton}
-          user={user}
-        />}
-      {authContainer &&
-        authContainer}
-    </StyledHeader>
+          <Box
+            align='center'
+            direction='row'
+            pad={{ left: 'medium', right: 'none', vertical: 'small' }}
+            responsive={false}
+            tag='nav'
+          >
+            <StyledLogoAnchor href='http://www.zooniverse.org'>
+              <ZooniverseLogo height='1.25em' width='1.25em' />
+            </StyledLogoAnchor>
+            {mainHeaderNavListURLs.map((url, i) => (
+              <NavListItem
+                key={url}
+                label={mainHeaderNavListLabels[i]}
+                url={url}
+              />
+            ))}
+            {isAdmin &&
+              <NavListItem
+                label={adminNavLinkLabel}
+                url={adminNavLinkURL}
+              />
+            }
+          </Box>
+          {Object.keys(user).length === 0 && signInButton &&
+            <Box justify="center" pad={{ right: 'medium', vertical: 'small' }}>
+              {signInButton}
+            </Box>}
+          {Object.keys(user).length > 0 && signOut &&
+            <SignedInUserNavigation
+              screenWidth={screenWidth}
+              signOut={signOut}
+              user={user}
+            />}
+        </StyledHeader>)
+      }
+    </ResponsiveContext.Consumer>
   )
 }
 
 ZooHeader.defaultProps = {
   adminNavLinkLabel: 'Admin',
-  adminNavLinkURL: 'http://www.zooniverse.org/admin',
-  authContainer: null,
+  adminNavLinkURL: `${host}/admin`,
   isAdmin: false,
   mainHeaderNavListLabels: [
     'Projects',
@@ -109,23 +107,22 @@ ZooHeader.defaultProps = {
     'Build'
   ],
   mainHeaderNavListURLs: [
-    'http://www.zooniverse.org/projects',
-    'http://www.zooniverse.org/about',
-    'http://www.zooniverse.org/get-involved',
-    'http://www.zooniverse.org/talk',
-    'http://www.zooniverse.org/lab'
+    `${host}/projects`,
+    `${host}/about`,
+    `${host}/get-involved`,
+    `${host}/talk`,
+    `${host}/lab`
   ]
 }
 
 ZooHeader.propTypes = {
   adminNavLinkLabel: PropTypes.string,
   adminNavLinkURL: PropTypes.string,
-  authContainer: PropTypes.node,
   isAdmin: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
   signInButton: PropTypes.node.isRequired,
-  signOutButton: PropTypes.node.isRequired,
+  signOut: PropTypes.func.isRequired,
   user: PropTypes.shape({
     display_name: PropTypes.string
   }).isRequired

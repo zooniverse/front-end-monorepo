@@ -37,38 +37,24 @@ const StyledExampleSignInButton = styled(ExampleSignInButton)`
   }
 `
 
-function ExampleSignOutButtonLabel() {
-  return (
-    <SpacedText size="xsmall" weight="bold">Sign out</SpacedText>
-  )
-}
-
-function ExampleSignOutButton(props) {
-  return (
-    <Button
-      label={<ExampleSignOutButtonLabel />}
-      onClick={props.onClick}
-    />
-  )
-}
-
 const signInButton = <StyledExampleSignInButton onClick={() => { return action('Sign in button clicked') }} />
-const signOutButton = <ExampleSignOutButton onClick={() => {return action('Sign out button clicked')}} />
+const signOut = action('Sign out button clicked')
+
 storiesOf('ZooHeader', module)
   .addDecorator(backgrounds)
   .add('Signed out', withInfo(headerDocs)(() =>
     <Grommet theme={zooTheme}>
-      <ZooHeader signInButton={signInButton} signOutButton={signOutButton} user={{}} />
+      <ZooHeader signInButton={signInButton} signOut={signOut} user={{}} />
     </Grommet>
   ))
   .add('Signed in', () => (
     <Grommet theme={zooTheme}>
-      <ZooHeader signInButton={signInButton} signOutButton={signOutButton} user={{ display_name: 'Zootester1' }} />
+      <ZooHeader signInButton={signInButton} signOut={signOut} user={{ display_name: 'zootester1', login: 'zootester1' }} />
     </Grommet>
   ))
   .add('Signed in as admin', () => (
     <Grommet theme={zooTheme}>
-      <ZooHeader isAdmin={true} signInButton={signInButton} signOutButton={signOutButton} user={{ admin: true, display_name: 'Zootester1' }} />
+      <ZooHeader isAdmin={true} signInButton={signInButton} signOut={signOut} user={{admin: true, display_name: 'zootester1', login: 'zootester1' }} />
     </Grommet>
   ))
 

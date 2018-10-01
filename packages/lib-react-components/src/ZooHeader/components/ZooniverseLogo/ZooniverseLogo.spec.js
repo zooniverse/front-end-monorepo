@@ -1,6 +1,3 @@
-/* global expect */
-/* eslint-disable func-names, prefer-arrow-callback */
-/* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
 import { mount } from 'enzyme'
 import React from 'react'
 import ZooniverseLogo from './ZooniverseLogo'
