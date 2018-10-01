@@ -1,0 +1,160 @@
+exports["should match snapshot(0)"] = {
+  "node": {
+    "nodeType": "class",
+    "type": "StyledComponent",
+    "props": {
+      "dropBackground": "#00979d",
+      "icon": {
+        "type": "StyledComponent",
+        "props": {
+          "color": "#B2B2B2"
+        },
+        "_store": {}
+      },
+      "items": [
+        {
+          "label": {
+            "type": "UserNavListItem",
+            "props": {
+              "color": "#ffffff",
+              "children": "Profile"
+            },
+            "_store": {}
+          },
+          "href": "https://www.zooniverse.org/users/zootester1"
+        },
+        {
+          "label": {
+            "type": "UserNavListItem",
+            "props": {
+              "color": "#ffffff",
+              "children": "Settings"
+            },
+            "_store": {}
+          },
+          "href": "https://www.zooniverse.org/settings"
+        },
+        {
+          "label": {
+            "type": "UserNavListItem",
+            "props": {
+              "color": "#ffffff",
+              "children": "Collections"
+            },
+            "_store": {}
+          },
+          "href": "https://www.zooniverse.org/collections/zootester1"
+        },
+        {
+          "label": {
+            "type": "UserNavListItem",
+            "props": {
+              "color": "#ffffff",
+              "children": "Favorites"
+            },
+            "_store": {}
+          },
+          "href": "https://www.zooniverse.org/favorites/zootester1"
+        },
+        {
+          "label": {
+            "type": "UserNavListItem",
+            "props": {
+              "color": "#ffffff",
+              "children": "Sign out"
+            },
+            "_store": {}
+          },
+          "onClick": "signOut"
+        }
+      ],
+      "label": {
+        "type": "UserNavListItem",
+        "props": {
+          "color": "#B2B2B2",
+          "children": "zootester1"
+        },
+        "_store": {}
+      },
+      "size": "small"
+    }
+  },
+  "type": "ForwardRef",
+  "props": {
+    "dropBackground": "#00979d",
+    "icon": {
+      "type": "StyledComponent",
+      "props": {
+        "color": "#B2B2B2"
+      },
+      "_store": {}
+    },
+    "items": [
+      {
+        "label": {
+          "type": "UserNavListItem",
+          "props": {
+            "color": "#ffffff",
+            "children": "Profile"
+          },
+          "_store": {}
+        },
+        "href": "https://www.zooniverse.org/users/zootester1"
+      },
+      {
+        "label": {
+          "type": "UserNavListItem",
+          "props": {
+            "color": "#ffffff",
+            "children": "Settings"
+          },
+          "_store": {}
+        },
+        "href": "https://www.zooniverse.org/settings"
+      },
+      {
+        "label": {
+          "type": "UserNavListItem",
+          "props": {
+            "color": "#ffffff",
+            "children": "Collections"
+          },
+          "_store": {}
+        },
+        "href": "https://www.zooniverse.org/collections/zootester1"
+      },
+      {
+        "label": {
+          "type": "UserNavListItem",
+          "props": {
+            "color": "#ffffff",
+            "children": "Favorites"
+          },
+          "_store": {}
+        },
+        "href": "https://www.zooniverse.org/favorites/zootester1"
+      },
+      {
+        "label": {
+          "type": "UserNavListItem",
+          "props": {
+            "color": "#ffffff",
+            "children": "Sign out"
+          },
+          "_store": {}
+        },
+        "onClick": "signOut"
+      }
+    ],
+    "label": {
+      "type": "UserNavListItem",
+      "props": {
+        "color": "#B2B2B2",
+        "children": "zootester1"
+      },
+      "_store": {}
+    },
+    "size": "small"
+  }
+};
+
