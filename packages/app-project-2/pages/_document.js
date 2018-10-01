@@ -14,7 +14,6 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>My page</title>
           {this.props.styleTags}
         </Head>
         <body>

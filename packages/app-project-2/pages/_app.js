@@ -4,11 +4,11 @@ import App, { Container } from 'next/app'
 import React from 'react'
 
 export default class MyApp extends App {
-  static async getInitialProps ({ Component, router, ctx }) {
+  static async getInitialProps ({ Component, router, ctx: context }) {
     let pageProps = {}
 
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      pageProps = await Component.getInitialProps(context)
     }
 
     return { pageProps }

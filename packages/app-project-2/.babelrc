@@ -1,35 +1,6 @@
 {
-  "env": {
-    "development": {
-      "plugins": [
-        "babel-plugin-styled-components"
-      ],
-      "presets": [
-        "next/babel"
-      ]
-    },
-    "production": {
-      "plugins": [
-        "babel-plugin-styled-components"
-      ],
-      "presets": [
-        "next/babel"
-      ]
-    },
-    "test": {
-      "plugins": [
-        "babel-plugin-styled-components"
-      ],
-      "presets": [
-        [
-          "next/babel",
-          {
-            "preset-env": {
-              "modules": "commonjs"
-            }
-          }
-        ]
-      ]
-    }
-  }
+  "plugins": [
+    "babel-plugin-styled-components"
+  ],
+  "presets": ["next/babel"]
 }
