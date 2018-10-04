@@ -9,6 +9,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import counterpart from 'counterpart'
 import en from './locales/en'
+import { getHost } from '../../helpers'
 
 import SpacedText from '../../../SpacedText'
 
@@ -36,7 +37,8 @@ export function UserNavListItem({children, color, textAlign }) {
 
 export default function UserMenu({ signOut, user }) {
   // Support staging urls...
-  const host = (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') ? window.location.origin : 'https://www.zooniverse.org'
+  const host = getHost()
+
   const userDisplayName = <UserNavListItem color="#B2B2B2">{user.display_name}</UserNavListItem>
   const profileLabel = <UserNavListItem color="#ffffff">{counterpart('UserMenu.userNavListLabels.profile')}</UserNavListItem>
   const settingsLabel = <UserNavListItem color="#ffffff">{counterpart('UserMenu.userNavListLabels.settings')}</UserNavListItem>
