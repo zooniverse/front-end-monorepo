@@ -1,9 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { Anchor } from 'grommet'
-import SpacedText from '../../../SpacedText'
 import zooTheme from '@zooniverse/grommet-theme'
+import { Anchor } from 'grommet'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+
+import SpacedText from '../../../SpacedText'
 
 export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;
