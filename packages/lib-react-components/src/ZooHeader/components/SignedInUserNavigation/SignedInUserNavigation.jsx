@@ -1,14 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import { Box } from 'grommet'
-import { Mail, MailOption, Notification } from 'grommet-icons'
-
 import counterpart from 'counterpart'
-import en from './locales/en'
+import { Box } from 'grommet'
+import { MailOption, Notification } from 'grommet-icons'
+import PropTypes from 'prop-types'
+import React from 'react'
 
+import en from './locales/en'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
+import { getHost } from '../../helpers'
 
 counterpart.registerTranslations('en', en)
 
@@ -38,12 +37,12 @@ export default function SignedInUserNavigation ({ host, screenWidth, signOut, us
 }
 
 SignedInUserNavigation.defaultProps = {
-  host: (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') ? window.location.origin : 'https://www.zooniverse.org'
+  host: getHost()
 }
 
 SignedInUserNavigation.propTypes = {
   host: PropTypes.string,
-  screenWidth: PropTypes.oneOf('narrow', 'wide').isRequired,
+  screenWidth: PropTypes.oneOf(['narrow', 'wide']).isRequired,
   signOut: PropTypes.func.isRequired,
   user: PropTypes.shape({
     display_name: PropTypes.string,
