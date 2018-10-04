@@ -2,8 +2,8 @@ import { types } from 'mobx-state-tree'
 import layouts from '../helpers/layouts'
 import subjectViewers from '../helpers/subjectViewers'
 
-const Classifier = types
-  .model('Classifier', {
+const SubjectViewer = types
+  .model('SubjectViewer', {
     annotate: types.optional(types.boolean, true),
     fullscreen: types.optional(types.boolean, false),
     move: types.optional(types.boolean, false),
@@ -50,4 +50,4 @@ const Classifier = types
     }
   }))
 
-export default Classifier
+export default SubjectViewer

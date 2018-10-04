@@ -13,10 +13,11 @@ describe('Model > RootStore', function () {
   })
 
   const stores = [
-    'classifier',
     'projects',
     'subjects',
-    'workflows'
+    'subjectViewer',
+    'workflows',
+    'workflowSteps'
   ]
 
   stores.forEach(function (store) {

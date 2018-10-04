@@ -8,7 +8,7 @@ function storeMapper (stores) {
   const {
     annotate,
     enableAnnotate
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     annotate,

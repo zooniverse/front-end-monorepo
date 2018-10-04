@@ -7,7 +7,7 @@ import ZoomInButton from './ZoomInButton'
 function storeMapper (stores) {
   const {
     zoomIn
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     zoomIn

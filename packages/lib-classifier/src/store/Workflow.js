@@ -5,6 +5,7 @@ const Workflow = types
   .model('Workflow', {
     configuration: types.frozen({}),
     display_name: types.string,
+    tasks: types.maybe(types.frozen())
   })
 
 export default types.compose(Resource, Workflow)
