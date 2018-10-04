@@ -16,8 +16,8 @@ exports["should match snapshot(0)"] = {
           "label": {
             "type": "UserNavListItem",
             "props": {
-              "color": "#ffffff",
-              "children": "Profile"
+              "text": "Profile",
+              "color": "#fff"
             },
             "_store": {}
           },
@@ -27,8 +27,8 @@ exports["should match snapshot(0)"] = {
           "label": {
             "type": "UserNavListItem",
             "props": {
-              "color": "#ffffff",
-              "children": "Settings"
+              "text": "Settings",
+              "color": "#fff"
             },
             "_store": {}
           },
@@ -38,8 +38,8 @@ exports["should match snapshot(0)"] = {
           "label": {
             "type": "UserNavListItem",
             "props": {
-              "color": "#ffffff",
-              "children": "Collections"
+              "text": "Collections",
+              "color": "#fff"
             },
             "_store": {}
           },
@@ -49,8 +49,8 @@ exports["should match snapshot(0)"] = {
           "label": {
             "type": "UserNavListItem",
             "props": {
-              "color": "#ffffff",
-              "children": "Favorites"
+              "text": "Favorites",
+              "color": "#fff"
             },
             "_store": {}
           },
@@ -60,8 +60,8 @@ exports["should match snapshot(0)"] = {
           "label": {
             "type": "UserNavListItem",
             "props": {
-              "color": "#ffffff",
-              "children": "Sign out"
+              "text": "Sign out",
+              "color": "#fff"
             },
             "_store": {}
           },
@@ -72,7 +72,7 @@ exports["should match snapshot(0)"] = {
         "type": "UserNavListItem",
         "props": {
           "color": "#B2B2B2",
-          "children": "zootester1"
+          "text": "zootester1"
         },
         "_store": {}
       },
@@ -94,8 +94,8 @@ exports["should match snapshot(0)"] = {
         "label": {
           "type": "UserNavListItem",
           "props": {
-            "color": "#ffffff",
-            "children": "Profile"
+            "text": "Profile",
+            "color": "#fff"
           },
           "_store": {}
         },
@@ -105,8 +105,8 @@ exports["should match snapshot(0)"] = {
         "label": {
           "type": "UserNavListItem",
           "props": {
-            "color": "#ffffff",
-            "children": "Settings"
+            "text": "Settings",
+            "color": "#fff"
           },
           "_store": {}
         },
@@ -116,8 +116,8 @@ exports["should match snapshot(0)"] = {
         "label": {
           "type": "UserNavListItem",
           "props": {
-            "color": "#ffffff",
-            "children": "Collections"
+            "text": "Collections",
+            "color": "#fff"
           },
           "_store": {}
         },
@@ -127,8 +127,8 @@ exports["should match snapshot(0)"] = {
         "label": {
           "type": "UserNavListItem",
           "props": {
-            "color": "#ffffff",
-            "children": "Favorites"
+            "text": "Favorites",
+            "color": "#fff"
           },
           "_store": {}
         },
@@ -138,8 +138,8 @@ exports["should match snapshot(0)"] = {
         "label": {
           "type": "UserNavListItem",
           "props": {
-            "color": "#ffffff",
-            "children": "Sign out"
+            "text": "Sign out",
+            "color": "#fff"
           },
           "_store": {}
         },
@@ -150,7 +150,7 @@ exports["should match snapshot(0)"] = {
       "type": "UserNavListItem",
       "props": {
         "color": "#B2B2B2",
-        "children": "zootester1"
+        "text": "zootester1"
       },
       "_store": {}
     },

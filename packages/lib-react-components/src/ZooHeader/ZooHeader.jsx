@@ -9,6 +9,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import NavListItem from './components/NavListItem'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
+import { getHost } from './helpers'
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
@@ -29,7 +30,7 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
-const host = (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') ? window.location.origin : 'https://www.zooniverse.org'
+const host = getHost()
 
 const ZooHeader = (props) => {
   const {
@@ -80,7 +81,7 @@ const ZooHeader = (props) => {
             }
           </Box>
           {Object.keys(user).length === 0 && signInButton &&
-            <Box justify="center" pad={{ right: 'medium', vertical: 'small' }}>
+            <Box justify='center' pad={{ right: 'medium', vertical: 'small' }}>
               {signInButton}
             </Box>}
           {Object.keys(user).length > 0 && signOut &&
