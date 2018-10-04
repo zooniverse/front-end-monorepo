@@ -24,7 +24,7 @@ app.prepare()
       }
 
       const params = match(pathname)
-
+      console.log('params', params)
       if (params === false) {
         if (dev && req.url === '/') {
           return renderPage('/Index')
@@ -34,7 +34,7 @@ app.prepare()
         return
       }
 
-      if (!params.subroute) {
+      if (params.subroute) {
         return renderPage('/Home')
       }
 
