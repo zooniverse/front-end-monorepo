@@ -14,6 +14,7 @@ const WorkflowStepStore = types
       if (snapshot.type === 'single') return SingleChoiceTask
     }}, DrawingTask, MultipleChoiceTask, SingleChoiceTask))
   })
+
   .views(self => ({
     get activeStepTasks () {
       if (self.active) {
@@ -25,6 +26,7 @@ const WorkflowStepStore = types
       return []
     }
   }))
+
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
