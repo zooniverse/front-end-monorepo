@@ -9,17 +9,14 @@ node {
 
   stage('Build Docker image') {
     newImage = docker.build(dockerImageName)
-    newImage.inside {
-      sh '''
-        lerna link
-        lerna bootstrap --no-ci
-      '''
-    }
   }
 
-  stage('Deploy') {
+  stage('Test') {
     newImage.inside {
-      sh 'lerna run --stream test'
+      sh '''
+        lerna run build
+        lerna run --stream test
+      '''
     }
   }
 }
