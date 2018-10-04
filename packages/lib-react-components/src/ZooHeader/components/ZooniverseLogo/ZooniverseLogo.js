@@ -8,7 +8,7 @@ function generateNextID () {
   return nextID
 }
 
-const ZooniverseLogo = ({ className, width, height, title, style }) => {
+export default function ZooniverseLogo ({ className, width, height, title, style }) {
   const logoID = generateNextID()
   return (
     <svg
@@ -45,5 +45,3 @@ ZooniverseLogo.defaultProps = {
   style: {},
   className: ''
 }
-
-export default ZooniverseLogo

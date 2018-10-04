@@ -1,4 +1,6 @@
 import React from 'react'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
@@ -11,4 +13,9 @@ import spacedTextDocs from '../src/SpacedText/README.md'
 
 storiesOf('SpacedText', module)
   .addDecorator(backgrounds)
-  .add('Light theme (default)', withInfo(spacedTextDocs)(() => <SpacedText>Zooniverse</SpacedText>))
+  .add('Light theme (default)', withInfo(spacedTextDocs)(() =>
+    <Grommet theme={zooTheme}>
+      <SpacedText>Zooniverse</SpacedText>
+    </Grommet>
+  )
+  )

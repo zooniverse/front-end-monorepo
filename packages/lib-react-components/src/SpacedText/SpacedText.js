@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import React from 'react'
 
 const StyledText = styled(Text)`
-  letter-spacing: 0.1em
-  text-transform: uppercase
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 `
 
 function SpacedText ({ children, ...props }) {
