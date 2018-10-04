@@ -26,8 +26,8 @@ export default function NavListItem ({ label, url }) {
   return (
     <StyledNavListItem href={url}>
       <SpacedText
-        size="xsmall"
-        weight="bold"
+        size='xsmall'
+        weight='bold'
       >
         {label}
       </SpacedText>

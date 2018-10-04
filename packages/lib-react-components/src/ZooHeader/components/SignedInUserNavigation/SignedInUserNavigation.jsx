@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Box } from 'grommet';
+import { Box } from 'grommet'
 import { Mail, MailOption, Notification } from 'grommet-icons'
 
 import counterpart from 'counterpart'
@@ -12,20 +12,20 @@ import UserMenu from '../UserMenu'
 
 counterpart.registerTranslations('en', en)
 
-export default function SignedInUserNavigation({ host, screenWidth, signOut, user }) {
-  const notifications = (screenWidth === 'wide') ?
-    <NavListItem label={counterpart('SignedInUserNavigation.navListLabels.notifications')} url={`${host}/notifications`} /> :
-    <Notification />
+export default function SignedInUserNavigation ({ host, screenWidth, signOut, user }) {
+  const notifications = (screenWidth === 'wide')
+    ? <NavListItem label={counterpart('SignedInUserNavigation.navListLabels.notifications')} url={`${host}/notifications`} />
+    : <Notification />
 
-  const messages = (screenWidth === 'wide') ?
-    <NavListItem label={counterpart('SignedInUserNavigation.navListLabels.messages')} url={`${host}/inbox`} /> :
-    <MailOption />
+  const messages = (screenWidth === 'wide')
+    ? <NavListItem label={counterpart('SignedInUserNavigation.navListLabels.messages')} url={`${host}/inbox`} />
+    : <MailOption />
 
   return (
     <Box
-      align="center"
-      direction="row"
-      tag="nav"
+      align='center'
+      direction='row'
+      tag='nav'
     >
       {notifications}
       {messages}

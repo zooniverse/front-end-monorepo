@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Menu } from 'grommet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Menu } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -26,11 +26,11 @@ export const StyledFormDown = styled(FormDown)`
   width: 1em;
 `
 
-export default function UserMenu({ signOut, user }) {
+export default function UserMenu ({ signOut, user }) {
   // Support staging urls...
   const host = getHost()
 
-  const userDisplayName = <UserNavListItem color="#B2B2B2" text={user.display_name} />
+  const userDisplayName = <UserNavListItem color='#B2B2B2' text={user.display_name} />
 
   const profileLabel = <UserNavListItem text={counterpart('UserMenu.userNavListLabels.profile')} />
 
@@ -53,12 +53,12 @@ export default function UserMenu({ signOut, user }) {
   return (
     <StyledUserMenu
       dropBackground={zooTheme.global.colors.teal}
-      icon={<StyledFormDown color="#B2B2B2" />}
+      icon={<StyledFormDown color='#B2B2B2' />}
       items={userMenuNavListItems}
       label={userDisplayName}
-      size="small"
+      size='small'
     />
-  );
+  )
 };
 
 UserMenu.propTypes = {
@@ -67,4 +67,4 @@ UserMenu.propTypes = {
     display_name: PropTypes.string,
     login: PropTypes.string
   }).isRequired
-};
+}

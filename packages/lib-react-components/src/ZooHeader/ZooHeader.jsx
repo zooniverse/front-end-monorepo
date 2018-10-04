@@ -81,7 +81,7 @@ const ZooHeader = (props) => {
             }
           </Box>
           {Object.keys(user).length === 0 && signInButton &&
-            <Box justify="center" pad={{ right: 'medium', vertical: 'small' }}>
+            <Box justify='center' pad={{ right: 'medium', vertical: 'small' }}>
               {signInButton}
             </Box>}
           {Object.keys(user).length > 0 && signOut &&
