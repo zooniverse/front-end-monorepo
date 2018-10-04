@@ -1,5 +1,6 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
+
 import Step from './Step'
 import { SingleChoiceTask, MultipleChoiceTask } from './tasks'
 
@@ -12,6 +13,7 @@ const WorkflowStepStore = types
       if (snapshot.type === 'MultipleChoiceTask') return MultipleChoiceTask
     }}, SingleChoiceTask, MultipleChoiceTask))
   })
+
   .views(self => ({
     get activeStepTasks() {
       if (self.active) {
@@ -23,15 +25,45 @@ const WorkflowStepStore = types
       return []
     }
   }))
+
   .actions(self => {
     function afterAttach() {
       createWorkflowObserver()
+    }
+
+    function createWorkflowObserver() {
+      const workflowDisposer = autorun(() => {
+        const workflow = getRoot(self).workflows.active
+        if (workflow) {
+          self.reset()
+          if (workflow.steps &&
+              workflow.steps.size > 0 &&
+              Object.keys(workflow.tasks).length > 0)
+          {
+            self.setStepsAndTasks(workflow)
+          }
+        }
+      })
+      addDisposer(self, workflowDisposer)
+    }
+
+    function getStepKey(index = 0) {
+      const stepKeys = self.steps.keys()
+      return stepKeys[index]
     }
 
     function reset() {
       self.active = undefined
       self.steps.clear()
       self.tasks.clear()
+    }
+
+    function selectStep(stepKey = getStepKey()) {
+      const step = self.steps.get(stepKey)
+
+      if (step) {
+        self.active = stepKey
+      }
     }
 
     function setStepsAndTasks(workflow) {
@@ -49,35 +81,6 @@ const WorkflowStepStore = types
       })
 
       self.selectStep()
-    }
-
-    function createWorkflowObserver() {
-      const workflowDisposer = autorun(() => {
-        const workflow = getRoot(self).workflows.active
-        if (workflow) {
-          self.reset()
-          if (workflow.steps &&
-              workflow.steps.size > 0 && 
-              Object.keys(workflow.tasks).length > 0)
-          {
-            self.setStepsAndTasks(workflow)
-          }
-        }
-      })
-      addDisposer(self, workflowDisposer)
-    }
-
-    function getStepKey(index = 0) {
-      const stepKeys = self.steps.keys()
-      return stepKeys[index]
-    }
-
-    function selectStep(stepKey = getStepKey()) {
-      const step = self.steps.get(stepKey)
-
-      if (step) {
-        self.active = stepKey
-      }
     }
 
     return {
