@@ -5,7 +5,7 @@ import React from 'react'
 import getLayout from './helpers/getLayout'
 
 function storeMapper (stores) {
-  const { layout } = stores.classifierStore.classifier
+  const { layout } = stores.classifierStore.subjectViewer
   return { layout }
 }
 

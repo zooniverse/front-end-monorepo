@@ -7,7 +7,7 @@ import ResetButton from './ResetButton'
 function storeMapper (stores) {
   const {
     resetView
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     resetView
