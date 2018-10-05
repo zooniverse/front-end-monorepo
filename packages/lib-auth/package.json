@@ -2,7 +2,11 @@
   "name": "@zooniverse/auth",
   "description": "",
   "license": "Apache-2.0",
-  "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
+  "author": {
+    "name": "Zooniverse",
+    "email": "contact@zooniverse.org",
+    "url": "https://www.zooniverse.org"
+  },
   "version": "0.0.1",
   "main": "dist/index.js",
   "scripts": {
@@ -56,6 +60,9 @@
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "standard": {
     "env": {
