@@ -15,8 +15,17 @@ node {
     newImage.inside {
       sh '''
         lerna run build --scope="@zooniverse/react-components"
-        lerna run --stream test
+        lerna run test:ci --stream --since master
       '''
+    }
+  }
+
+  stage('Deploy') {
+    if (BRANCH_NAME == 'master') {
+      newImage.inside {
+        sh '''
+        '''
+      }
     }
   }
 }

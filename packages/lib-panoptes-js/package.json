@@ -1,15 +1,19 @@
 {
   "name": "@zooniverse/panoptes-js",
-  "version": "0.1.0",
   "description": "A Javascript client for Panoptes API using Superagent",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Zooniverse",
+    "email": "contact@zooniverse.org",
+    "url": "https://www.zooniverse.org"
+  },
+  "version": "0.1.0",
   "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
     "test": "npm run _check && NODE_ENV=test mocha"
   },
-  "author": "",
-  "license": "Apache-2.0",
   "dependencies": {
     "check-dependencies": "^1.1.0",
     "check-engines": "^1.5.0",
@@ -28,5 +32,8 @@
   },
   "engines": {
     "node": ">=8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

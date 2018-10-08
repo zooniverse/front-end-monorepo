@@ -2,7 +2,11 @@
   "name": "@zooniverse/react-components",
   "description": "Zooniverse React Components",
   "license": "Apache-2.0",
-  "author": "Zooniverse",
+  "author": {
+    "name": "Zooniverse",
+    "email": "contact@zooniverse.org",
+    "url": "https://www.zooniverse.org"
+  },
   "version": "0.7.1",
   "main": "dist/main.js",
   "scripts": {
@@ -69,6 +73,9 @@
   "engines": {
     "node": ">=8",
     "npm": ">=5"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "standard": {
     "envs": [
