@@ -65,9 +65,7 @@ class SingleImageViewer extends React.Component {
     // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
-      <svg width='100%' height='100%'>
-        <image xlinkHref={imageUrl} />
-      </svg>
+      <image xlinkHref={imageUrl} />
     )
   }
 }
