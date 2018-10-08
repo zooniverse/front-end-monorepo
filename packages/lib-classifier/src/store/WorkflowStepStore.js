@@ -108,7 +108,7 @@ const WorkflowStepStore = types
       taskKeys.forEach((taskKey, index) => {
         if (taskKey !== workflow.first_task &&
             (workflow.tasks[taskKey].type !== 'combo' ||
-            worklfow.tasks[taskKey].type !== 'shortcut'))
+            workflow.tasks[taskKey].type !== 'shortcut'))
         {
           self.steps.put({
             stepKey: `S${index + 1}`,
