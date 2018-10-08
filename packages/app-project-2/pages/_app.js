@@ -3,6 +3,9 @@ import { Grommet } from 'grommet'
 import App, { Container } from 'next/app'
 import React from 'react'
 
+import Head from '../components/Head'
+import Navigation from '../components/Navigation'
+
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
     let pageProps = {}
@@ -19,6 +22,8 @@ export default class MyApp extends App {
     return (
       <Container>
         <Grommet theme={theme}>
+          <Head />
+          <Navigation />
           <Component {...pageProps} />
         </Grommet>
       </Container>
