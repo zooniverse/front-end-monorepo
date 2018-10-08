@@ -21,7 +21,7 @@ let requestState = asyncStates.initialized
 function asyncRequest () {
   requestState = asyncStates.loading
   fetchSomething()
-    .then(() => requestState.success)
-    .catch(() => requestState.error)
+    .then(() => requestState = asyncStates.success)
+    .catch(() => requestState = asyncStates.error)
 }
 ```
