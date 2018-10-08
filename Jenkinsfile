@@ -13,10 +13,22 @@ node {
 
   stage('Test') {
     newImage.inside {
-      sh '''
+      sh '''#!/bin/bash -e
+        while true; do sleep 3; echo -n "."; done &
+        KEEP_ALIVE_ECHO_JOB=\$!
         lerna run build --scope="@zooniverse/react-components"
         lerna run test:ci --stream --since master
+        kill \${KEEP_ALIVE_ECHO_JOB}
       '''
+    }
+  }
+
+  stage('Deploy') {
+    if (BRANCH_NAME == 'master') {
+      newImage.inside {
+        sh '''
+        '''
+      }
     }
   }
 }
