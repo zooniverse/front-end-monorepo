@@ -1,15 +1,18 @@
 {
-  "name": "@zooniverse/app-project-3",
+  "name": "@zooniverse/fe-project",
+  "description": "Zooniverse front end app handling projects and classification",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "dev": "node server/server.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server/server.js",
-    "test": "NODE_ENV=test mocha"
+    "_check": "check-engines && check-dependencies",
+    "_serve": "node server/server.js",
+    "build": "npm run _check && PANOPTES_ENV=production next build",
+    "dev": "npm run _check && PANOPTES_ENV=staging npm run _serve",
+    "start": "npm run _check && NODE_ENV=production npm run _serve",
+    "test": "npm run _check && BABEL_ENV=test mocha || true"
   },
-  "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
-  "license": "Apache-2.0",
   "dependencies": {
     "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.1.0",
