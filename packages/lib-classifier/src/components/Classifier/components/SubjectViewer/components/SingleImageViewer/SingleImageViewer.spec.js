@@ -25,7 +25,6 @@ describe('Component > SingleImageViewer', function () {
     const url = 'http://placekitten.com/200/300'
     const subject = { locations: [{ 'image/jpg': 'http://placekitten.com/200/300' }] }
     const wrapper = shallow(<SingleImageViewer subject={subject} />)
-    expect(wrapper.find('svg')).to.have.lengthOf(1)
     expect(wrapper.find('image')).to.have.lengthOf(1)
   })
 })

@@ -1,25 +1,54 @@
+import { inject, observer } from 'mobx-react'
+import { toStream } from 'mobx-utils'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { from } from 'rxjs'
 
 import InteractionLayer from './InteractionLayer'
 
-class InteractionLayerContainer extends Component {
+function storeMapper (stores) {
+  const { drawing } = stores.classifierStore
+  return {
+    drawing
+  }
+}
 
-  getCoordsFromEvent (event, type) {
-    return {
-      type,
+@inject(storeMapper)
+@observer
+class InteractionLayerContainer extends Component {
+  constructor () {
+    super()
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseMove = this.onMouseMove.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this)
+  }
+
+
+  componentDidMount () {
+    const stream = from(toStream(() => this.props.drawing.mouseEventStream))
+    stream.subscribe(z => console.log(z))
+  }
+
+  addToStream (event, type) {
+    this.props.drawing.addToStream({
+      event: type,
+      target: event.target,
       x: event.clientX,
       y: event.clientY
-    }
+    })
   }
 
-  logEvent (event, type) {
-    console.info(this.getCoordsFromEvent(event, type))
+  onMouseDown (event) {
+    this.addToStream(event, 'mousedown')
   }
 
-  onMouseDown = e => this.logEvent(e, 'mousedown')
-  onMouseMove = e => this.logEvent(e, 'mousemove')
-  onMouseUp = e => this.logEvent(e, 'mouseup')
+  onMouseMove (event) {
+    this.addToStream(event, 'mousemove')
+  }
+
+  onMouseUp (event) {
+    this.addToStream(event, 'mouseup')
+  }
 
   render () {
     return (
@@ -33,9 +62,9 @@ class InteractionLayerContainer extends Component {
 }
 
 InteractionLayerContainer.propTypes = {
-}
-
-InteractionLayerContainer.defaultProps = {
+  drawing: PropTypes.shape({
+    addToStream: PropTypes.func.isRequired
+  })
 }
 
 export default InteractionLayerContainer
