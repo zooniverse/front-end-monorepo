@@ -1,9 +1,7 @@
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 
 import Head from '../components/Head'
 import Nav from '../components/Nav'
@@ -52,11 +50,9 @@ class Home extends React.Component {
   render() {
     return (
       <Provider store={this.store}>
-        <Grommet theme={zooTheme}>
-          <Head title='Home' />
-          <Nav />
-          <ProjectHome />
-        </Grommet>
+        <Head title='Home' />
+        <Nav />
+        <ProjectHome />
       </Provider>
     )
   }
