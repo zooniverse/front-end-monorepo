@@ -30,22 +30,26 @@ module.exports = function (plop) {
         {
           type: 'add',
           templateFile: 'plop/templates/component/locales/en.json.hbs',
-          path: render('{{ path }}/locales/en.json', data)
+          path: render('{{ path }}/locales/en.json', data),
+          data
         },
         {
           type: 'add',
           templateFile: 'plop/templates/component/Component.js.hbs',
-          path: render('{{ path }}/{{ component }}.js', data)
+          path: render('{{ path }}/{{ component }}.js', data),
+          data
         },
         {
           type: 'add',
           templateFile: 'plop/templates/component/Test.js.hbs',
-          path: render('{{ path }}/{{ component }}.spec.js', data)
+          path: render('{{ path }}/{{ component }}.spec.js', data),
+          data
         },
         {
           type: 'add',
           templateFile: 'plop/templates/component/index.js.hbs',
-          path: render('{{ path }}/index.js', data)
+          path: render('{{ path }}/index.js', data),
+          data
         }
       ]
 
@@ -54,12 +58,14 @@ module.exports = function (plop) {
           {
             type: 'add',
             templateFile: 'plop/templates/component/Container.js.hbs',
-            path: render('{{ path }}/{{ container }}.js', data)
+            path: render('{{ path }}/{{ container }}.js', data),
+            data
           },
           {
             type: 'add',
             templateFile: 'plop/templates/component/Test.js.hbs',
-            path: render('{{ path }}/{{ container }}.spec.js', data)
+            path: render('{{ path }}/{{ container }}.spec.js', data),
+            data
           }
         )
       }
