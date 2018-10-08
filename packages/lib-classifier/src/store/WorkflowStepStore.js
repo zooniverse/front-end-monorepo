@@ -18,7 +18,7 @@ const WorkflowStepStore = types
     get activeStepTasks () {
       if (self.active) {
         return self.active.taskKeys.map((taskKey) => {
-          self.tasks.get(taskKey)
+          return self.tasks.get(taskKey)
         })
       }
 
@@ -40,16 +40,18 @@ const WorkflowStepStore = types
               Object.keys(workflow.tasks).length > 0) {
             self.setStepsAndTasks(workflow)
           } else {
-            self.setTasks(workflow) // backwards compatibility
+            // backwards compatibility 
+            self.convertWorkflowToUseSteps(workflow)
+            self.setTasks(workflow)
           }
         }
       })
       addDisposer(self, workflowDisposer)
     }
 
-    function getStepKey (index = 0) {
+    function getStepKey() {
       const stepKeys = self.steps.keys()
-      return stepKeys[index]
+      return stepKeys.next().value
     }
 
     function reset () {
@@ -60,7 +62,6 @@ const WorkflowStepStore = types
 
     function selectStep (stepKey = getStepKey()) {
       const step = self.steps.get(stepKey)
-
       if (step) {
         self.active = stepKey
       }
@@ -92,8 +93,36 @@ const WorkflowStepStore = types
       })
     }
 
+    function convertWorkflowToUseSteps(workflow) {
+      const taskKeys = Object.keys(workflow.tasks)
+
+      if (workflow.first_task) {
+        const firstStep = {
+          stepKey: 'S0',
+          taskKeys: [workflow.first_task]
+        }
+
+        self.steps.put(firstStep)
+      }
+
+      taskKeys.forEach((taskKey, index) => {
+        if (taskKey !== workflow.first_task &&
+            (workflow.tasks[taskKey].type !== 'combo' ||
+            worklfow.tasks[taskKey].type !== 'shortcut'))
+        {
+          self.steps.put({
+            stepKey: `S${index + 1}`,
+            taskKeys: [taskKey]
+          })
+        }
+      })
+
+      self.selectStep()
+    }
+
     return {
       afterAttach,
+      convertWorkflowToUseSteps,
       getStepKey,
       reset,
       selectStep,
