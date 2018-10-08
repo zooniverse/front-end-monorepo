@@ -24,27 +24,28 @@ app.prepare()
       }
 
       const params = match(pathname)
-      console.log('params', params)
+
       if (params === false) {
         if (dev && req.url === '/') {
           return renderPage('/Index')
         }
-
-        handle(req, res)
-        return
       }
 
-      if (params.subroute) {
+      if (!params.subroute) {
         return renderPage('/Home')
       }
 
-      if (params.subroute.includes('classify')) {
+      if (params.subroute && params.subroute[0] === 'classify') {
         return renderPage('/Classify')
       }
 
-      if (params.subroute.includes('about')) {
+      if (params.subroute && params.subroute[0] === 'about') {
         return renderPage('/About')
       }
+
+      // Finally handle any non-matching routes
+      handle(req, res)
+      return
     })
     .listen(port, (err) => {
       if (err) throw err
