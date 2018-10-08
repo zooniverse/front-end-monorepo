@@ -10,8 +10,11 @@
   "version": "0.0.1",
   "main": "src/async-states.js",
   "scripts": {
-    "lint": "standard --fix | snazzy; exit 0",
-    "test": "mocha"
+    "lint": "standard --fix | snazzy",
+    "pretest": "npm run lint",
+    "test": "mocha",
+    "pretest:ci": "npm run lint",
+    "test:ci": "mocha --reporter=min"
   },
   "devDependencies": {
     "chai": "^4.1.2",
