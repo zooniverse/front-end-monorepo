@@ -2,53 +2,44 @@
   "name": "@zooniverse/fe-project",
   "description": "Zooniverse front end app handling projects and classification",
   "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "0.0.1",
+  "main": "index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
-    "_serve": "node server",
+    "_serve": "node server/server.js",
     "build": "npm run _check && PANOPTES_ENV=production next build",
     "dev": "npm run _check && PANOPTES_ENV=staging npm run _serve",
     "start": "npm run _check && NODE_ENV=production npm run _serve",
     "test": "npm run _check && BABEL_ENV=test mocha || true"
   },
   "dependencies": {
+    "@zooniverse/async-states": "^0.0.1",
     "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.1.0",
-    "@zooniverse/react-components": "^0.7.1",
-    "babel-plugin-styled-components": "^1.5.1",
-    "grommet": "^2.0.0-beta.5",
-    "grommet-icons": "^2.0.0",
-    "mobx": "^5.1.0",
-    "mobx-react": "^5.2.6",
-    "mobx-state-tree": "^3.2.4",
-    "next": "5.1.0",
-    "next-routes": "^1.4.1",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "styled-components": "^3.2.6",
+    "grommet": "^2.0.0-beta.6",
+    "grommet-icons": "^3.1.0-beta.1",
+    "lodash": "^4.17.11",
+    "mobx": "^5.5.0",
+    "mobx-react": "^5.2.8",
+    "mobx-state-tree": "^3.5.0",
+    "next": "^7.0.1",
+    "path-match": "^1.2.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "styled-components": "^4.0.0-beta.9",
     "url-parse": "^1.4.3"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
+    "chai": "^4.2.0",
     "check-dependencies": "^1.1.0",
     "check-engines": "^1.5.0",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "jsdom": "^11.8.0",
-    "mocha": "^5.1.1",
-    "sinon": "^4.5.0",
-    "standard": "^11.0.1",
-    "standard-loader": "^6.0.1"
-  },
-  "engines": {
-    "node": "8"
-  },
-  "standard": {
-    "globals": [
-      "describe",
-      "it"
-    ]
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "jsdom": "^12.1.0",
+    "mocha": "^5.2.0"
   }
 }

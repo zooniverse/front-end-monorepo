@@ -1,6 +1,6 @@
+import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
 import { get } from 'lodash'
-import asyncStates from '../helpers/asyncStates'
 import numberString from './types/numberString'
 
 const Project = types
@@ -22,10 +22,11 @@ const Project = types
       fetch: flow(function * fetch (slug) {
         self.loadingState = asyncStates.loading
         try {
-          const project = yield client.get({ query: { slug } })
-            .then(response => get(response, 'body.projects[0]'))
+          const response = yield client.getBySlug({ query: { slug } })
+          const project = get(response, 'body.projects[0]')
           self.displayName = project.display_name
           self.id = project.id
+          self.slug = project.slug
           self.loadingState = asyncStates.success
         } catch (error) {
           self.error = error.message

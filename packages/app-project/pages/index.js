@@ -1,19 +1,9 @@
 import React from 'react'
-import { Grommet } from 'grommet'
-import { ZooFooter, ZooHeader } from '@zooniverse/react-components'
-import Head from '../components/head'
-import zooTheme from '@zooniverse/grommet-theme'
-
-// import Nav from '../components/nav'
-
+import { Heading } from 'grommet'
 
 export default () => (
-  <Grommet theme={zooTheme}>
-    <Head title='Home' />
-    <ZooHeader />
-    <div>
-      Index
-    </div>
-    <ZooFooter />
-  </Grommet>
+  <div>
+    <Heading><code>project</code> app</Heading>
+    <p>This app handles all project-specific routes, i.e. all routes under <code>/projects/[owner]/[project-name]</code>.</p>
+  </div>
 )

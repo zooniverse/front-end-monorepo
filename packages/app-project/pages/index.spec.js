@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
-import React from 'react'
-import Index from './index'
+
+import Index from './Index'
 
 describe('Page > Index', function () {
   it('should render without crashing', function () {
