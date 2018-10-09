@@ -6,7 +6,6 @@ import theme from 'styled-theming'
 // import Translate from 'react-translate-component'
 import { Button } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import { SpacedText } from '@zooniverse/react-components'
 import { pxToRem } from '../../../../../helpers'
 
 export const StyledTaskHelpButton = styled(Button)`
@@ -34,7 +33,7 @@ export function TaskHelpButton(props) {
   return (
     <ThemeProvider theme={{ mode: props.theme }}>
       <StyledTaskHelpButton
-        label={<SpacedText>need some help with this task?</SpacedText>}
+        label="need some help with this task?"
         onClick={props.onClick}
         plain={true}
       />
@@ -54,4 +53,3 @@ TaskHelpButton.propTypes = {
 
 
 export default TaskHelpButton
-
