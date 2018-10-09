@@ -6,13 +6,19 @@ import { doesTheLabelHaveAnImage } from '../../helpers';
 import zooTheme from '@zooniverse/grommet-theme'
 import { pxToRem } from '../../../../../../../helpers';
 
-function howShouldTheLabelBeAligned(label, labelIcon) {
-  if ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon)) {
-    return 'left';
-  }
+// TODO: original design had text only labels center aligned,
+// but labels with icons  left aligned
+// this doesn't appear to actually be working as intended.
+// Check with Becky if the alignment variation is still important to the design
+// We may just be able to have them all left aligned 
+// As it is appearing now.
+// function howShouldTheLabelBeAligned(label, labelIcon) {
+//   if ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon)) {
+//     return 'left';
+//   }
 
-  return 'center';
-}
+//   return 'center';
+// }
 
 export const StyledTaskInputLabelWrapper = styled.div`
   align-items: baseline;
@@ -25,6 +31,7 @@ export const StyledTaskInputLabel = styled(Markdown)`
   align-items: baseline;
   flex-grow: 1;
   flex-wrap: wrap;
+  font-size: ${pxToRem(14)};
 
   &:first-child {
     margin-top: 0;
@@ -47,10 +54,6 @@ export const StyledTaskInputLabel = styled(Markdown)`
     background-color: ${zooTheme.global.colors.teal};
     margin-right: 1ch;
     max-width: ${pxToRem(60)};
-  }
-
-  .markdown {
-    text-align: ${props => howShouldTheLabelBeAligned(props.label, props.labelIcon)};
   }
 `;
 

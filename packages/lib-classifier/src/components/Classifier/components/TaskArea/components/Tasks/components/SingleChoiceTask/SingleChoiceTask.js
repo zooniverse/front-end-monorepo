@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Markdown } from 'grommet'
+import styled from 'styled-components'
+import { Box, Markdown, Text } from 'grommet'
 import TaskInputField from '../TaskInputField'
 import TaskHelpButton from '../TaskHelpButton'
+
+export const StyledFieldset = styled.fieldset`
+  border: none;
+`
 
 export default function SingleChoiceTask({ annotation, task }) {
   return (
     <Box tag="form">
-      <Box tag="fieldset">
-        <legend><Markdown>{task.question}</Markdown></legend>
+      <StyledFieldset>
+        <Text size="small" tag="legend"><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
           return (
             <TaskInputField
@@ -22,7 +27,7 @@ export default function SingleChoiceTask({ annotation, task }) {
             />
           )
         })}
-      </Box>
+      </StyledFieldset>
       {task.help &&
         <TaskHelpButton />}
     </Box>

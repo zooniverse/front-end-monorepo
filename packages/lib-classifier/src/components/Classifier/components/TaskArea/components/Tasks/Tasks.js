@@ -18,7 +18,7 @@ function storeMapper (stores) {
 
 @inject(storeMapper)
 @observer
-class Tasks extends React.Component {
+export class Tasks extends React.Component {
   [asyncStates.initialized] () {
     return null
   }
@@ -52,7 +52,7 @@ class Tasks extends React.Component {
 
 Tasks.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
-  tasks: PropTypes.arrayOf(PropTypes.string)
+  tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
 Tasks.defaultProps = {
