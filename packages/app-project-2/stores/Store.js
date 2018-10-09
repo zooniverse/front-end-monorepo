@@ -3,7 +3,7 @@ import Project from './Project'
 
 const Store = types
   .model('Store', {
-    foo: types.optional(types.string, 'bar')
+    project: types.optional(Project, {})
   })
 
   .views(self => ({
