@@ -16,8 +16,8 @@ const Project = types
 
     return {
       afterAttach () {
-        // client = getRoot(self).client.projects
-        console.log('root store', getRoot(self))
+        client = getRoot(self).client.projects
+        // console.log('root store', getRoot(self))
       },
 
       fetch: flow(function * fetch (slug) {
