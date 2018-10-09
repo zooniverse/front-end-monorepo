@@ -14,6 +14,7 @@
     "test": "npm run _check && BABEL_ENV=test mocha || true"
   },
   "dependencies": {
+    "@zooniverse/async-states": "^0.0.1",
     "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.1.0",
     "grommet": "^2.0.0-beta.6",
