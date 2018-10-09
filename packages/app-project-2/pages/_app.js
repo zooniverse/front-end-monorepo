@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import { isEqual } from 'lodash'
 import { Provider } from 'mobx-react'
 import * as mst from 'mobx-state-tree'
 import App, { Container } from 'next/app'
