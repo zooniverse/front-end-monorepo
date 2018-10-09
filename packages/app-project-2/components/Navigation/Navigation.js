@@ -14,7 +14,7 @@ function Nav () {
           <Link
             prefetch
             href={{
-              pathname: 'projects',
+              pathname: '/Home',
               query: {
                 owner: 'stephenserjeant',
                 project: 'what-is-beauty'
@@ -29,7 +29,7 @@ function Nav () {
           <Link
             prefetch
             href={{
-              pathname: 'projects',
+              pathname: '/Home',
               query: {
                 owner: 'markb-panoptes',
                 project: 'miniature-fossils-magnified'
