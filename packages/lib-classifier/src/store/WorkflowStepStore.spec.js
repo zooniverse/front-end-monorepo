@@ -1,10 +1,26 @@
 import sinon from 'sinon'
-import { getEnv } from 'mobx-state-tree'
+import { getEnv, getSnapshot } from 'mobx-state-tree'
 
+import ProjectFactory from '../../test/factories/ProjectFactory'
 import RootStore from './RootStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import WorkflowFactory from '../../test/factories/WorkflowFactory'
+import ProjectStore from './ProjectStore';
+
+const project = ProjectFactory.build()
+
+const clientStub = {
+  panoptes: {
+    get () {
+      return Promise.resolve({
+        body: {
+          projects: [project]
+        }
+      })
+    }
+  }
+}
 
 describe.only('Model > WorkflowStepStore', function () {
   it('should exist', function () {
@@ -12,25 +28,45 @@ describe.only('Model > WorkflowStepStore', function () {
     expect(WorkflowStepStore).to.be.an('object')
   })
 
-  describe('when instantiated', function () {
+  xdescribe('when instantiated', function () {
     it('should not call setStepsAndTasks if there are not defined workflow steps and tasks', function () {
-      const rootStore = RootStore.create({
-        steps: WorkflowStepStore.create({}, { setStepsAndTasks: sinon.spy() }),
-        workflows: WorkflowStore.create()
+      const setStepsAndTasksSpy = sinon.spy()
+      const workflowStepStore = WorkflowStepStore.create({}, { setStepsAndTasks: setStepsAndTasksSpy })
+      const workflowStepStoreSnapshot = getSnapshot(workflowStepStore)
+      RootStore.create({
+        workflowSteps: workflowStepStoreSnapshot
       })
-      const workflowStepInstanceEnv = getEnv(rootStore.steps)
-      expect(workflowStepInstanceEnv.setStepsAndTasks.notCalled).to.be.true
+
+      expect(setStepsAndTasksSpy.notCalled).to.be.true
     })
 
     xit('should call setStepsAndTasks if there are defined workflow steps and tasks', function () {
+      const setStepsAndTasksSpy = sinon.spy()
       const workflow = WorkflowFactory.build()
-      const workflowStore = WorkflowStore.create({})
-      workflowStore.setResource(workflow)
-      workflowStore.setActive(workflow.id)
+      // const workflowStore = WorkflowStore.create()
+      // workflowStore.setResource(workflow)
+      // workflowStore.setActive(workflow.id)
+      // const workflowStoreSnapshot = getSnapshot(workflowStore)
+      // const workflowStepStore = 
+      // const workflowStepStoreSnapshot = getSnapshot(workflowStepStore)
+      const rootStore = RootStore.create({
+        workflowSteps: WorkflowStepStore.create({}, { setStepsAndTasks: setStepsAndTasksSpy })
+      }, { client: clientStub })
+      const workflowStoreEnv = getEnv(rootStore.workflows)
+      console.log(workflowStoreEnv)
+      expect(setStepsAndTasksSpy.calledOnce).to.be.true
+    })
+  })
 
-      const workflowInstance = WorkflowStepStore.create({}, { setStepsAndTasks: sinon.spy() })
-      const workflowInstanceEnv = getEnv(workflowInstance)
-      expect(workflowInstanceEnv.setStepsAndTasks.called).to.be.true
+  describe('#setStepsAndTasks', function () {
+    it('should call setSteps', function () {
+      const setStepsSpy = sinon.spy()
+      const workflow = WorkflowFactory.build()
+      const workflowStepStore = WorkflowStepStore.create()
+      // const env = getEnv(workflowStepStore)
+      // console.log(env)
+      workflowStepStore.setStepsAndTasks(workflow)
+      console.log(setStepsSpy)
     })
   })
 })
