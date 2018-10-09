@@ -9,7 +9,7 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const route = pathMatch()
 
-const match = route('/projects/:owner/:slug/:subroute*')
+const match = route('/projects/:owner/:project/:subroute*')
 
 app.prepare()
   .then(() => {
