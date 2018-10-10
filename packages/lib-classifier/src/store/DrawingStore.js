@@ -1,19 +1,17 @@
 import { types } from 'mobx-state-tree'
+import { Subject } from 'rxjs';
+
 
 const DrawingStore = types
   .model('DrawingStore')
 
   .volatile(self => ({
-    mouseEventStream: null
+    eventStream: new Subject()
   }))
 
   .actions(self => ({
-    clearStream () {
-      this.mouseEventStream = null
-    },
-
-    addToStream (stream) {
-      self.mouseEventStream = stream
+    addToStream (event) {
+      self.eventStream.next(event)
     }
   }))
 

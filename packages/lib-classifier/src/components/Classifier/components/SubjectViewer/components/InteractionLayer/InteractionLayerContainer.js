@@ -2,7 +2,6 @@ import { inject, observer } from 'mobx-react'
 import { toStream } from 'mobx-utils'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { from } from 'rxjs'
 
 import InteractionLayer from './InteractionLayer'
 
@@ -25,7 +24,7 @@ class InteractionLayerContainer extends Component {
 
 
   componentDidMount () {
-    const stream = from(toStream(() => this.props.drawing.mouseEventStream))
+    const stream = this.props.drawing.eventStream
     stream.subscribe(z => console.log(z))
   }
 
