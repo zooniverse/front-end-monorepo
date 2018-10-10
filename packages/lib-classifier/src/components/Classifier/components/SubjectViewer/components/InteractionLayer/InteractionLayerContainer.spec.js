@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import InteractionLayer from './InteractionLayer'
+import InteractionLayerContainer from './InteractionLayerContainer'
 
-describe('Component > InteractionLayer', function () {
+describe.only('Component > InteractionLayerContainer', function () {
   it('should render without crashing', function () {
-    shallow(<InteractionLayer />)
+    shallow(<InteractionLayerContainer />)
   })
 })
