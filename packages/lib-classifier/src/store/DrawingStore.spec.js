@@ -2,7 +2,7 @@ import DrawingStore from './DrawingStore'
 
 let model
 
-describe.only('Model > DrawingStore', function () {
+describe('Model > DrawingStore', function () {
   before(function () {
     model = DrawingStore.create()
   })

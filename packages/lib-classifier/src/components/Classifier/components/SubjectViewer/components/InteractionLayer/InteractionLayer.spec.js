@@ -10,7 +10,7 @@ const onMouseDown = sinon.stub()
 
 let wrapper
 
-describe.only('Component > InteractionLayer', function () {
+describe('Component > InteractionLayer', function () {
   beforeEach(function () {
     wrapper = shallow(<InteractionLayer onMouseMove={onMouseMove}
       onMouseUp={onMouseUp} onMouseDown={onMouseDown} />)
