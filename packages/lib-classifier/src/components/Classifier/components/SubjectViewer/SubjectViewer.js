@@ -1,16 +1,9 @@
+import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
-import InteractionLayer from './components/InteractionLayer'
 import getViewer from './helpers/getViewer'
-import asyncStates from '../../../../helpers/asyncStates'
-
-const SVGContainer = styled.svg`
-  height: 100%;
-  width: 100%;
-`
 
 function storeMapper (stores) {
   const { active: subject, loadingState } = stores.classifierStore.subjects
@@ -40,10 +33,7 @@ class SubjectViewer extends React.Component {
     const { className, subject } = this.props
     const Viewer = getViewer(subject.viewer)
     return (
-      <SVGContainer className={className} preserveAspectRatio="none">
-        <Viewer subject={subject} />
-        <InteractionLayer />
-      </SVGContainer>
+      <Viewer subject={subject} />
     )
   }
 

@@ -1,83 +1,25 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import locationValidator from '../../helpers/locationValidator'
-import asyncStates from 'src/helpers/asyncStates'
+import React from 'react'
+import styled from 'styled-components'
 
-class SingleImageViewer extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      height: null,
-      width: null,
-      loading: asyncStates.initialized
-    }
-  }
+import InteractionLayer from '../InteractionLayer'
 
-  componentDidMount () {
-    if (this.props.subject) {
-      this.handleSubject()
-    }
-  }
+const SVG = styled.svg`
+  height: 100%;
+  width: 100%;
+`
 
-  componentDidUpdate (prevProps) {
-    const prevSubject = prevProps.subject
-    const { subject } = this.props
-
-    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
-      this.handleSubject()
-    }
-  }
-
-  fetchImage (url) {
-    const { ImageObject } = this.props
-    return new Promise((resolve, reject) => {
-      let img = new ImageObject()
-      img.onload = () => resolve(img)
-      img.onerror = reject
-      img.src = url
-    })
-  }
-
-  async handleSubject () {
-    const { subject } = this.props
-    // TODO: Add polyfill for Object.values for IE
-    const imageUrl = Object.values(subject.locations[0])[0]
-    this.setState({ loading: asyncStates.loading })
-    try {
-      const img = await this.fetchImage(imageUrl)
-      this.setState({
-        height: img.height,
-        width: img.width,
-        loading: asyncStates.loading
-      })
-    } catch (error) {
-      console.error(error)
-      this.setState({ loading: asyncStates.error })
-    }
-  }
-
-  render () {
-    const { subject } = this.props
-    if (!subject) {
-      return null
-    }
-
-    // TODO: Add polyfill for Object.values for IE
-    const imageUrl = Object.values(subject.locations[0])[0]
-    return (
-      <image xlinkHref={imageUrl} />
-    )
-  }
+function SingleImageViewer ({ url }) {
+  return (
+    <SVG>
+      <image xlinkHref={url} />
+      <InteractionLayer />
+    </SVG>
+  )
 }
 
 SingleImageViewer.propTypes = {
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  })
-}
-
-SingleImageViewer.defaultProps = {
-  ImageObject: Image
+  url: PropTypes.string.isRequired
 }
 
 export default SingleImageViewer
