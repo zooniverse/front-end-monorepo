@@ -29,13 +29,13 @@ export const StyledTaskHelpButton = styled(Button)`
   }
 `
 
-export function TaskHelpButton(props) {
+export function TaskHelpButton (props) {
   return (
     <ThemeProvider theme={{ mode: props.theme }}>
       <StyledTaskHelpButton
-        label="need some help with this task?"
+        label='need some help with this task?'
         onClick={props.onClick}
-        plain={true}
+        plain
       />
     </ThemeProvider>
   )
@@ -50,6 +50,5 @@ TaskHelpButton.propTypes = {
   onClick: PropTypes.func,
   theme: PropTypes.string
 }
-
 
 export default TaskHelpButton

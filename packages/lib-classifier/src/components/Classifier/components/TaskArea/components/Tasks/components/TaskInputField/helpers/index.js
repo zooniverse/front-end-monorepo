@@ -1,3 +1,3 @@
-import doesTheLabelHaveAnImage from './doesTheLabelHaveAnImage';
+import doesTheLabelHaveAnImage from './doesTheLabelHaveAnImage'
 
-export { doesTheLabelHaveAnImage };
+export { doesTheLabelHaveAnImage }

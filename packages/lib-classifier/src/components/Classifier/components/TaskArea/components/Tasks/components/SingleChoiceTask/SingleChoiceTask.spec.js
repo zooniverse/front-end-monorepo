@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import SingleChoiceTask from './SingleChoiceTask';
+import React from 'react'
+import { shallow } from 'enzyme'
+import { expect } from 'chai'
+import SingleChoiceTask from './SingleChoiceTask'
 
 // TODO: move this into a factory
 const task = {

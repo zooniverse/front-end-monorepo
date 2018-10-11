@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, Markdown, Text } from 'grommet'
 import TaskInputField from '../TaskInputField'
@@ -9,11 +9,11 @@ export const StyledFieldset = styled.fieldset`
   border: none;
 `
 
-export default function SingleChoiceTask({ annotation, task }) {
+export default function SingleChoiceTask ({ annotation, task }) {
   return (
-    <Box tag="form">
+    <Box tag='form'>
       <StyledFieldset>
-        <Text size="small" tag="legend"><Markdown>{task.question}</Markdown></Text>
+        <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
           return (
             <TaskInputField
@@ -23,7 +23,7 @@ export default function SingleChoiceTask({ annotation, task }) {
               label={answer.label}
               name={`${task._key}`}
               required={task.required}
-              type="radio"
+              type='radio'
             />
           )
         })}

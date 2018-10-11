@@ -1,1 +1,1 @@
-export { default } from './TaskHelpButton';
+export { default } from './TaskHelpButton'

@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import styled, { ThemeProvider } from 'styled-components';
-import theme from 'styled-theming';
-import zooTheme from '@zooniverse/grommet-theme';
+import styled, { ThemeProvider } from 'styled-components'
+import theme from 'styled-theming'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import TaskInputLabel from './components/TaskInputLabel';
-import { doesTheLabelHaveAnImage } from './helpers';
+import TaskInputLabel from './components/TaskInputLabel'
+import { doesTheLabelHaveAnImage } from './helpers'
 import { pxToRem } from '../../../../../helpers'
 
 export const StyledTaskInputField = styled.label`
@@ -27,141 +27,141 @@ export const StyledTaskInputField = styled.label`
   cursor: pointer;
   display: flex;
   margin: ${pxToRem(10)} 0;
-  padding: ${(props) => { return doesTheLabelHaveAnImage(props.label) ? '0' : '1ch 2ch'; }};
+  padding: ${(props) => { return doesTheLabelHaveAnImage(props.label) ? '0' : '1ch 2ch' }};
   position: relative;
 
   &:hover, &:focus, &[data-focus=true] {
     background: ${theme('mode', {
-      dark: `linear-gradient(
+    dark: `linear-gradient(
         ${zooTheme.dark.colors.button.answer.gradient.top},
         ${zooTheme.dark.colors.button.answer.gradient.bottom}
       )`,
-      light: `linear-gradient(
+    light: `linear-gradient(
         ${zooTheme.light.colors.button.answer.gradient.top},
         ${zooTheme.light.colors.button.answer.gradient.bottom}
       )`
-    })};
+  })};
     border-width: 2px;
     border-style: solid;
     border-left-color: transparent;
     border-right-color: transparent;
     border-top-color: ${theme('mode', {
-      dark: zooTheme.dark.colors.button.answer.gradient.top,
-      light: zooTheme.light.colors.button.answer.gradient.top
-    })};
+    dark: zooTheme.dark.colors.button.answer.gradient.top,
+    light: zooTheme.light.colors.button.answer.gradient.top
+  })};
     border-bottom-color: ${theme('mode', {
-      dark: zooTheme.dark.colors.button.answer.gradient.bottom,
-      light: zooTheme.light.colors.button.answer.gradient.bottom
-    })};
+    dark: zooTheme.dark.colors.button.answer.gradient.bottom,
+    light: zooTheme.light.colors.button.answer.gradient.bottom
+  })};
     color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
-      light: 'black'
-    })};
+    dark: zooTheme.dark.colors.font,
+    light: 'black'
+  })};
   }
 
   &:active {
     background: ${theme('mode', {
-      dark: `linear-gradient(
+    dark: `linear-gradient(
         ${zooTheme.dark.colors.button.answer.gradient.top},
         ${zooTheme.dark.colors.button.answer.gradient.bottom}
       )`,
-      light: `linear-gradient(
+    light: `linear-gradient(
         ${zooTheme.light.colors.button.answer.gradient.top},
         ${zooTheme.light.colors.button.answer.gradient.bottom}
       )`
-    })};
+  })};
     border-width: 2px;
     border-style: solid;
     border-color: ${theme('mode', {
-      dark: zooTheme.global.colors.darkTeal,
-      light: zooTheme.global.colors.teal
-    })};
+    dark: zooTheme.global.colors.darkTeal,
+    light: zooTheme.global.colors.teal
+  })};
     color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
-      light: 'black'
-    })};
+    dark: zooTheme.dark.colors.font,
+    light: 'black'
+  })};
   }
 
   &.active {
     background: ${theme('mode', {
-      dark: zooTheme.global.colors.teal,
-      light: zooTheme.global.colors.teal
-    })};
+    dark: zooTheme.global.colors.teal,
+    light: zooTheme.global.colors.teal
+  })};
     border: ${theme('mode', {
-      dark: `2px solid ${zooTheme.global.colors.teal}`,
-      light: '2px solid transparent'
-    })};
+    dark: `2px solid ${zooTheme.global.colors.teal}`,
+    light: '2px solid transparent'
+  })};
     color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
-      light: 'white'
-    })}
+    dark: zooTheme.dark.colors.font,
+    light: 'white'
+  })}
   }
 
   &.active:hover, &.active:focus, &.active[data-focus=true] {
     background: ${theme('mode', {
-      dark: zooTheme.global.colors.teal,
-      light: zooTheme.global.colors.teal
-    })};
+    dark: zooTheme.global.colors.teal,
+    light: zooTheme.global.colors.teal
+  })};
     border: ${theme('mode', {
-      dark: `2px solid ${zooTheme.global.colors.darkTeal}`,
-      light: `2px solid ${zooTheme.global.colors.darkTeal}`
-    })};
+    dark: `2px solid ${zooTheme.global.colors.darkTeal}`,
+    light: `2px solid ${zooTheme.global.colors.darkTeal}`
+  })};
   }
 
   input {
     opacity: 0.01;
     position: absolute;
   }
-`;
+  `
 
-function shouldInputBeChecked(annotation, index, type) {
+function shouldInputBeChecked (annotation, index, type) {
   if (type === 'radio') {
-    const toolIndex = annotation._toolIndex || 0;
+    const toolIndex = annotation._toolIndex || 0
     if (toolIndex) {
-      return index === toolIndex;
+      return index === toolIndex
     }
-    return index === annotation.value;
+    return index === annotation.value
   }
 
   if (type === 'checkbox') {
-    return (annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false;
+    return (annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
   }
 
-  return false;
+  return false
 }
 
-function shouldInputBeAutoFocused(annotation, index, name, type) {
+function shouldInputBeAutoFocused (annotation, index, name, type) {
   if (type === 'radio' && name === 'drawing-tool') {
-    return index === 0;
+    return index === 0
   }
 
-  return index === annotation.value;
+  return index === annotation.value
 }
 
 export class TaskInputField extends React.Component {
-  constructor() {
-    super();
-    this.unFocus = this.unFocus.bind(this);
+  constructor () {
+    super()
+    this.unFocus = this.unFocus.bind(this)
   }
 
-  onChange(e) {
-    this.unFocus();
-    this.props.onChange(e);
+  onChange (e) {
+    this.unFocus()
+    this.props.onChange(e)
   }
 
-  onFocus() {
-    if (this.field) this.field.dataset.focus = true;
+  onFocus () {
+    if (this.field) this.field.dataset.focus = true
   }
 
-  onBlur() {
-    this.unFocus();
+  onBlur () {
+    this.unFocus()
   }
 
-  unFocus() {
-    if (this.field) this.field.dataset.focus = false;
+  unFocus () {
+    if (this.field) this.field.dataset.focus = false
   }
 
-  render() {
+  render () {
     const {
       annotation,
       className,
@@ -175,7 +175,7 @@ export class TaskInputField extends React.Component {
     return (
       <ThemeProvider theme={{ mode: this.props.theme }}>
         <StyledTaskInputField
-          innerRef={(node) => { this.field = node; }}
+          innerRef={(node) => { this.field = node }}
           className={className}
           label={label}
           data-focus={false}
@@ -193,7 +193,7 @@ export class TaskInputField extends React.Component {
           <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
         </StyledTaskInputField>
       </ThemeProvider>
-    );
+    )
   }
 }
 
@@ -205,7 +205,7 @@ TaskInputField.defaultProps = {
   name: '',
   onChange: () => {},
   theme: 'light'
-};
+}
 
 TaskInputField.propTypes = {
   annotation: PropTypes.shape({
@@ -222,11 +222,11 @@ TaskInputField.propTypes = {
   index: PropTypes.number.isRequired,
   label: PropTypes.string,
   labelIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
-  labelStatus: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),  
+  labelStatus: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   name: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
   type: PropTypes.string.isRequired
-};
+}
 
-export default TaskInputField;
+export default TaskInputField

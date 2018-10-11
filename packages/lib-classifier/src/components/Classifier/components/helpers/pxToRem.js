@@ -1,14 +1,14 @@
-import _ from 'lodash';
+import _ from 'lodash'
 
-const BASE_FONT_SIZE = 15;
+const BASE_FONT_SIZE = 15
 
-function pxToRem(px) {
+function pxToRem (px) {
   if (!_.isNumber(px)) {
-    throw new TypeError('Argument for pxToRem must be an integer or float.');
+    throw new TypeError('Argument for pxToRem must be an integer or float.')
   }
 
-  const converted = _.round((px / BASE_FONT_SIZE), 9);
-  return `${converted}rem`;
+  const converted = _.round((px / BASE_FONT_SIZE), 9)
+  return `${converted}rem`
 }
 
-export default pxToRem;
+export default pxToRem

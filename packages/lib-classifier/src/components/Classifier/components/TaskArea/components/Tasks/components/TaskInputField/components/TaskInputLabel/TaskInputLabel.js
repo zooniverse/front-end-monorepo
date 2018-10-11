@@ -1,16 +1,16 @@
-import { Markdown } from 'grommet';
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
-import { doesTheLabelHaveAnImage } from '../../helpers';
+import { Markdown } from 'grommet'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+import { doesTheLabelHaveAnImage } from '../../helpers'
 import zooTheme from '@zooniverse/grommet-theme'
-import { pxToRem } from '../../../../../../../helpers';
+import { pxToRem } from '../../../../../../../helpers'
 
 // TODO: original design had text only labels center aligned,
 // but labels with icons  left aligned
 // this doesn't appear to actually be working as intended.
 // Check with Becky if the alignment variation is still important to the design
-// We may just be able to have them all left aligned 
+// We may just be able to have them all left aligned
 // As it is appearing now.
 // function howShouldTheLabelBeAligned(label, labelIcon) {
 //   if ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon)) {
@@ -25,7 +25,7 @@ export const StyledTaskInputLabelWrapper = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-`;
+`
 
 export const StyledTaskInputLabel = styled(Markdown)`
   align-items: baseline;
@@ -55,9 +55,9 @@ export const StyledTaskInputLabel = styled(Markdown)`
     margin-right: 1ch;
     max-width: ${pxToRem(60)};
   }
-`;
+`
 
-export default function TaskInputLabel({ label, labelIcon, labelStatus }) {
+export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
   return (
     <StyledTaskInputLabelWrapper>
       {labelIcon &&
@@ -68,17 +68,17 @@ export default function TaskInputLabel({ label, labelIcon, labelStatus }) {
       {labelStatus &&
         labelStatus}
     </StyledTaskInputLabelWrapper>
-  );
+  )
 }
 
 TaskInputLabel.defaultProps = {
   label: '',
   labelIcon: null,
   labelStatus: null
-};
+}
 
 TaskInputLabel.propTypes = {
   label: PropTypes.string,
   labelIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   labelStatus: PropTypes.oneOfType([PropTypes.node, PropTypes.object])
-};
+}

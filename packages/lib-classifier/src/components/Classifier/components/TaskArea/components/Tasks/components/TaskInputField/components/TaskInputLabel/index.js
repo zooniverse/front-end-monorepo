@@ -1,1 +1,1 @@
-export { default } from './TaskInputLabel';
+export { default } from './TaskInputLabel'

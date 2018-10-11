@@ -40,7 +40,7 @@ const WorkflowStepStore = types
               Object.keys(workflow.tasks).length > 0) {
             self.setStepsAndTasks(workflow)
           } else {
-            // backwards compatibility 
+            // backwards compatibility
             self.convertWorkflowToUseSteps(workflow)
             self.setTasks(workflow)
           }
@@ -49,7 +49,7 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function getStepKey() {
+    function getStepKey () {
       const stepKeys = self.steps.keys()
       return stepKeys.next().value
     }
@@ -93,7 +93,7 @@ const WorkflowStepStore = types
       })
     }
 
-    function convertWorkflowToUseSteps(workflow) {
+    function convertWorkflowToUseSteps (workflow) {
       const taskKeys = Object.keys(workflow.tasks)
 
       if (workflow.first_task) {
@@ -108,8 +108,7 @@ const WorkflowStepStore = types
       taskKeys.forEach((taskKey, index) => {
         if (taskKey !== workflow.first_task &&
             (workflow.tasks[taskKey].type !== 'combo' ||
-            workflow.tasks[taskKey].type !== 'shortcut'))
-        {
+            workflow.tasks[taskKey].type !== 'shortcut')) {
           self.steps.put({
             stepKey: `S${index + 1}`,
             taskKeys: [taskKey]
