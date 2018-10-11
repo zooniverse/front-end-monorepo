@@ -2,7 +2,7 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import asyncStates from '../../../../../../helpers/asyncStates'
+import asyncStates from '@zooniverse/async-states'
 import getTaskComponent from './helpers/getTaskComponent'
 
 function storeMapper (stores) {
