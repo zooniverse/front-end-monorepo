@@ -4,9 +4,9 @@ import ResourceStore from './ResourceStore'
 import Workflow from './Workflow'
 
 const WorkflowStore = types
-  .model('WorkflowStore', {
+  .model({
     active: types.maybeNull(types.reference(Workflow)),
-    resources: types.optional(types.map(Workflow), {}),
+    resources: types.map(Workflow),
     type: types.optional(types.string, 'workflows')
   })
 
@@ -55,4 +55,4 @@ const WorkflowStore = types
     }
   })
 
-export default types.compose(ResourceStore, WorkflowStore)
+export default types.compose('WorkflowStore', ResourceStore, WorkflowStore)

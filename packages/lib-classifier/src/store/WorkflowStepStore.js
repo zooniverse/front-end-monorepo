@@ -14,6 +14,7 @@ const WorkflowStepStore = types
       if (snapshot.type === 'single') return SingleChoiceTask
     }}, DrawingTask, MultipleChoiceTask, SingleChoiceTask))
   })
+
   .views(self => ({
     get activeStepTasks () {
       if (self.active) {
@@ -25,6 +26,7 @@ const WorkflowStepStore = types
       return []
     }
   }))
+
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
@@ -37,7 +39,8 @@ const WorkflowStepStore = types
           self.reset()
           if (workflow.steps &&
               workflow.steps.size > 0 &&
-              Object.keys(workflow.tasks).length > 0) {
+              Object.keys(workflow.tasks).length > 0)
+          {
             self.setStepsAndTasks(workflow)
           } else {
             self.setTasks(workflow) // backwards compatibility
