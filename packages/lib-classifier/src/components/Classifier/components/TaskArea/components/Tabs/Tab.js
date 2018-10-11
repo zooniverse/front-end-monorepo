@@ -7,11 +7,11 @@ const StyledTab = styled(Tab)`
   background: ${props => props.active
     ? getTabColor('activeBackground')
     : getTabColor('dimmedBackground')
-  }
+}
   border-bottom: 1px solid ${props => props.active
     ? getTabColor('activeBackground')
     : getTabColor('border')
-  }
+}
   border-left: 1px solid ${getTabColor('border')}
   border-top: 1px solid ${getTabColor('border')}
   flex: 1
@@ -33,9 +33,9 @@ const StyledTab = styled(Tab)`
 
     > span {
       color: ${props => props.active
-        ? getTabColor('activeText')
-        : getTabColor('dimmedText')
-      }
+    ? getTabColor('activeText')
+    : getTabColor('dimmedText')
+}
     }
   }
 `

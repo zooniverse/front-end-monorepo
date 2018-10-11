@@ -1,7 +1,9 @@
 import asyncStates from '@zooniverse/async-states'
-import { flow, getRoot, types } from 'mobx-state-tree'
 import counterpart from 'counterpart'
 import cuid from 'cuid'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, types } from 'mobx-state-tree'
+
 import Classification from './Classification'
 import ResourceStore from './ResourceStore'
 
@@ -12,11 +14,11 @@ const ClassificationStore = types
     type: types.optional(types.string, 'classifications')
   })
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createSubjectObserver()
     }
 
-    function createSubjectObserver() {
+    function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
         const subject = getRoot(self).subjects.active
         if (subject) {
@@ -27,12 +29,12 @@ const ClassificationStore = types
       addDisposer(self, subjectDisposer)
     }
 
-    function createClassification(subject) {
+    function createClassification (subject) {
       const tempID = cuid()
       const projectID = getRoot(self).projects.active.id
       const workflow = getRoot(self).workflows.active
       const newClassification = Classification.create({
-        id: tempID,// Generate an id just for serialization in MST. Should be dropped before POST...
+        id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
         links: {
           project: projectID,
           subjects: [subject.id],

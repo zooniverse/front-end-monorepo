@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
+
 import layouts from '../helpers/layouts'
-import subjectViewers from '../helpers/subjectViewers'
 
 const SubjectViewer = types
   .model('SubjectViewer', {

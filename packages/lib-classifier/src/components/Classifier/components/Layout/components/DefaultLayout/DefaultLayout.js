@@ -5,14 +5,6 @@ import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewer from '../../../SubjectViewer'
 import TaskArea from '../../../TaskArea'
 
-const boxStyles = {
-  pad: 'medium',
-  border: {
-    color: 'lightGrey',
-    side: 'all'
-  }
-}
-
 const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 2rem;

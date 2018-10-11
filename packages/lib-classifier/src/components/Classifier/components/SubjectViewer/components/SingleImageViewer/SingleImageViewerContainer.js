@@ -79,7 +79,7 @@ SingleImageViewerContainer.propTypes = {
 }
 
 SingleImageViewerContainer.defaultProps = {
-  ImageObject: Image
+  ImageObject: window.Image
 }
 
 export default SingleImageViewerContainer

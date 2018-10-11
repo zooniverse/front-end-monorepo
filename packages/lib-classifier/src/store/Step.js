@@ -8,7 +8,7 @@ export const BaseStep = types
 
 export const NextStepReference = types
   .model('NextStepReference', {
-    next: types.maybe(types.reference(BaseStep)), // We have this optionally to support recursive workflows
+    next: types.maybe(types.reference(BaseStep)) // We have this optionally to support recursive workflows
   })
 
 const Step = types.compose('Step', BaseStep, NextStepReference)

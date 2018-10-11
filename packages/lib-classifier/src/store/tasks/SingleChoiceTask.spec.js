@@ -2,7 +2,7 @@ import SingleChoiceTask from './SingleChoiceTask'
 
 const singleChoiceTask = {
   answers: [
-    { label: 'yes', next: 'S2'},
+    { label: 'yes', next: 'S2' },
     { label: 'no', next: 'S3' }
   ],
   question: 'Do you exist?',

@@ -39,5 +39,4 @@ describe('Component > InteractionLayer', function () {
     wrapper.simulate('mousedown')
     expect(onMouseDown.called).to.be.true
   })
-
 })

@@ -9,13 +9,13 @@ const WorkflowStepStore = types
     active: types.maybe(types.reference(Step)),
     steps: types.map(Step),
     tasks: types.map(types.union({ dispatcher: (snapshot) => {
-      if (snapshot.type === 'drawing') return DrawingTask 
+      if (snapshot.type === 'drawing') return DrawingTask
       if (snapshot.type === 'multiple') return MultipleChoiceTask
       if (snapshot.type === 'single') return SingleChoiceTask
     }}, DrawingTask, MultipleChoiceTask, SingleChoiceTask))
   })
   .views(self => ({
-    get activeStepTasks() {
+    get activeStepTasks () {
       if (self.active) {
         return self.active.taskKeys.map((taskKey) => {
           self.tasks.get(taskKey)
@@ -26,40 +26,39 @@ const WorkflowStepStore = types
     }
   }))
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createWorkflowObserver()
     }
 
-    function createWorkflowObserver() {
+    function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
         const workflow = getRoot(self).workflows.active
         if (workflow) {
           self.reset()
           if (workflow.steps &&
               workflow.steps.size > 0 &&
-              Object.keys(workflow.tasks).length > 0)
-          {
+              Object.keys(workflow.tasks).length > 0) {
             self.setStepsAndTasks(workflow)
           } else {
-            self.setTasks(workflow) // backwards compatibility 
+            self.setTasks(workflow) // backwards compatibility
           }
         }
       })
       addDisposer(self, workflowDisposer)
     }
 
-    function getStepKey(index = 0) {
+    function getStepKey (index = 0) {
       const stepKeys = self.steps.keys()
       return stepKeys[index]
     }
 
-    function reset() {
+    function reset () {
       self.active = undefined
       self.steps.clear()
       self.tasks.clear()
     }
 
-    function selectStep(stepKey = getStepKey()) {
+    function selectStep (stepKey = getStepKey()) {
       const step = self.steps.get(stepKey)
 
       if (step) {
@@ -67,13 +66,13 @@ const WorkflowStepStore = types
       }
     }
 
-    function setStepsAndTasks(workflow) {
+    function setStepsAndTasks (workflow) {
       self.setSteps(workflow)
       self.setTasks(workflow)
       self.selectStep()
     }
 
-    function setSteps(workflow) {
+    function setSteps (workflow) {
       const stepEntries = workflow.steps.entries()
       stepEntries.forEach((entry) => {
         const newStep = Step.create(entry[1])
@@ -81,7 +80,7 @@ const WorkflowStepStore = types
       })
     }
 
-    function setTasks(workflow) {
+    function setTasks (workflow) {
       const taskKeys = Object.keys(workflow.tasks)
 
       taskKeys.forEach((taskKey) => {

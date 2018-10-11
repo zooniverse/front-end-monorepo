@@ -7,7 +7,7 @@ export { default as Task } from './Task'
 
 // Current task type conventions
 
-// Single answer question task type 
+// Single answer question task type
 
 // {
 //  answers: [

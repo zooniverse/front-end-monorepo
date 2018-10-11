@@ -1,5 +1,4 @@
 import { inject, observer } from 'mobx-react'
-import { toStream } from 'mobx-utils'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -21,7 +20,6 @@ class InteractionLayerContainer extends Component {
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
   }
-
 
   componentDidMount () {
     // TODO: We're simply logging the event stream here for now, but this will
