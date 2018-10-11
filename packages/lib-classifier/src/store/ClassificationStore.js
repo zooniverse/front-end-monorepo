@@ -41,9 +41,9 @@ const ClassificationStore = types
           workflow: workflow.id
         },
         source: subject.metadata.intervention ? 'sugar' : 'api',
-        subject_dimensions: (subject.locations.map(() => null)),
-        user_language: counterpart.getLocale(),
-        workflow_version: workflow.version
+        subjectDimensions: (subject.locations.map(() => null)),
+        userLanguage: counterpart.getLocale(),
+        workflowVersion: workflow.version
       })
 
       self.resources.put(newClassification)
