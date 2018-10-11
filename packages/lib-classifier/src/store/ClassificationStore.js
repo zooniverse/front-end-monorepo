@@ -1,7 +1,7 @@
+import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
 import counterpart from 'counterpart'
 import cuid from 'cuid'
-import asyncStates from '../helpers/asyncStates'
 import Classification from './Classification'
 import ResourceStore from './ResourceStore'
 
