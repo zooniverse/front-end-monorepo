@@ -29,12 +29,16 @@ const envFromBrowser = locationMatch(/\W?env=(\w+)/)
 const envFromShell = process.env.PANOPTES_ENV || process.env.NODE_ENV
 const env = envFromBrowser || envFromShell || DEFAULT_ENV
 
-if (!env.match(/^(production|staging|test)$/)) {
+if (!env.match(/^(production|staging|development|test)$/)) {
   throw new Error(`Error: Invalid Environment - ${envFromShell}`)
 }
 
 const baseConfig = {
   test: {
+    host: 'https://panoptes-staging.zooniverse.org/api',
+    oauth: 'https://panoptes-staging.zooniverse.org'
+  },
+  development: {
     host: 'https://panoptes-staging.zooniverse.org/api',
     oauth: 'https://panoptes-staging.zooniverse.org'
   },

@@ -9,7 +9,7 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const route = pathMatch()
 
-const match = route('/projects/:owner/:slug/:subroute*')
+const match = route('/projects/:owner/:project/:subroute*')
 
 app.prepare()
   .then(() => {
@@ -29,22 +29,23 @@ app.prepare()
         if (dev && req.url === '/') {
           return renderPage('/Index')
         }
-
-        handle(req, res)
-        return
       }
 
       if (!params.subroute) {
         return renderPage('/Home')
       }
 
-      if (params.subroute.includes('classify')) {
+      if (params.subroute && params.subroute[0] === 'classify') {
         return renderPage('/Classify')
       }
 
-      if (params.subroute.includes('about')) {
+      if (params.subroute && params.subroute[0] === 'about') {
         return renderPage('/About')
       }
+
+      // Finally handle any non-matching routes
+      handle(req, res)
+      return
     })
     .listen(port, (err) => {
       if (err) throw err

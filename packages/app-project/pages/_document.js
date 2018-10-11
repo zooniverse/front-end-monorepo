@@ -1,19 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-import { injectGlobal, ServerStyleSheet } from 'styled-components'
-
-injectGlobal`
-  html {
-    font-size: 62.5%;
-  }
-  body {
-    font-size: 1.4rem;
-    line-height: 1.214285714;
-    margin: 0;
-  }
-  p {
-    margin: 0;
-  }
-`
+import React from 'react'
+import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {
@@ -27,7 +14,6 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>My page</title>
           {this.props.styleTags}
         </Head>
         <body>
