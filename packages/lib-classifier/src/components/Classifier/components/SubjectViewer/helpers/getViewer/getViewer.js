@@ -1,4 +1,4 @@
-import SingleImageViewer from '../../components/SingleImageViewer'
+import { default as SingleImageViewer } from '../../components/SingleImageViewer'
 
 const viewers = {
   singleImage: SingleImageViewer

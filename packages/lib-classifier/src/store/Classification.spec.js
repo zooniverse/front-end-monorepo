@@ -14,18 +14,18 @@ describe('Model > Classification', function () {
       metadata: {
         session: 'asdf1324',
         source: 'api',
-        subject_dimensions: {
+        subjectDimensions: {
           clientHeight: 768,
           clientWidth: 1024,
           naturalHeight: 768,
           naturalWidth: 1024
         },
-        user_language: 'en',
+        userLanguage: 'en',
         viewport: {
           height: 1536,
           width: 2048
         },
-        workflow_version: '1.0'
+        workflowVersion: '1.0'
       }
     })
   })
