@@ -13,6 +13,7 @@ describe('Model > RootStore', function () {
   })
 
   const stores = [
+    'drawing',
     'projects',
     'subjects',
     'subjectViewer',

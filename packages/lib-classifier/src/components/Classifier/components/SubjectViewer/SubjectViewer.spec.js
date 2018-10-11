@@ -1,8 +1,8 @@
+import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
 import React from 'react'
 
 import SubjectViewer from './SubjectViewer'
-import asyncStates from '../../../../helpers/asyncStates'
 
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {

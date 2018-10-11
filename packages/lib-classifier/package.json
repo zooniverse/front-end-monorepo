@@ -71,9 +71,12 @@
   },
   "dependencies": {
     "@klarna/higher-order-components": "^6.3.1",
+    "@zooniverse/async-states": "^0.0.1",
     "counterpart": "^0.18.6",
     "cuid": "^2.1.4",
+    "mobx-utils": "^5.0.2",
     "react-context-props": "^2.2.0",
+    "rxjs": "^6.3.3",
     "styled-theming": "^2.2.0",
     "valid-url": "^1.0.9"
   }

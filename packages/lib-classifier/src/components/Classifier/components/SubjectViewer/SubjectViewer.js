@@ -1,8 +1,8 @@
+import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import asyncStates from '../../../../helpers/asyncStates'
 import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
@@ -30,9 +30,11 @@ class SubjectViewer extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { subject } = this.props
+    const { className, subject } = this.props
     const Viewer = getViewer(subject.viewer)
-    return <Viewer subject={subject} {...this.props} />
+    return (
+      <Viewer subject={subject} />
+    )
   }
 
   render () {

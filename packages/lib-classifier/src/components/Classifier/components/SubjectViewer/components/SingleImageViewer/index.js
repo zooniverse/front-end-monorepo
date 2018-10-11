@@ -1,1 +1,1 @@
-export { default } from './SingleImageViewer'
+export { default } from './SingleImageViewerContainer'
