@@ -50,7 +50,7 @@ class SingleImageViewerContainer extends React.Component {
       this.setState({
         height: img.height,
         width: img.width,
-        loading: asyncStates.loading
+        loading: asyncStates.success
       })
     } catch (error) {
       console.error(error)
