@@ -5,7 +5,7 @@ import SingleImageViewerContainer from './SingleImageViewerContainer'
 
 let wrapper
 
-describe.only('Component > SingleImageViewerContainer', function () {
+describe('Component > SingleImageViewerContainer', function () {
   beforeEach(function () {
     wrapper = shallow(<SingleImageViewerContainer />)
   })
