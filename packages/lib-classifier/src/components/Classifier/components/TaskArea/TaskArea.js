@@ -18,15 +18,15 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class TaskArea extends React.Component {
-  render() {
+  render () {
     return (
       <Tabs>
         <Tab title={counterpart('TaskArea.task')}>
           Question area content...
-      </Tab>
+        </Tab>
         <Tab title={counterpart('TaskArea.tutorial')}>
           ...2
-      </Tab>
+        </Tab>
       </Tabs>
     )
   }

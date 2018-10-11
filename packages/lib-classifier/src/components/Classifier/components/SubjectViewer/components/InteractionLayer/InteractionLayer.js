@@ -4,13 +4,13 @@ import React from 'react'
 function InteractionLayer ({ onMouseMove, onMouseDown, onMouseUp }) {
   return (
     <rect
-      id="InteractionLayer"
+      id='InteractionLayer'
       width='100%'
       height='100%'
       onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
-      fill="transparent"
+      fill='transparent'
     />
   )
 }

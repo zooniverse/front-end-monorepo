@@ -46,7 +46,7 @@ class Button extends React.Component {
       size,
       svgAdjustments
     } = this.props
-    
+
     const hoveredOrFocused = hovered || focused
 
     const eventHandlers = {
@@ -54,7 +54,7 @@ class Button extends React.Component {
       onClick,
       onFocus,
       onMouseOver,
-      onMouseOut,
+      onMouseOut
     }
 
     const childrenWithProps = React.Children.map(children, child =>

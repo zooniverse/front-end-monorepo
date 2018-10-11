@@ -30,7 +30,7 @@ class SubjectViewer extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { className, subject } = this.props
+    const { subject } = this.props
     const Viewer = getViewer(subject.viewer)
     return (
       <Viewer subject={subject} />

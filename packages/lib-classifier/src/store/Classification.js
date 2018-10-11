@@ -35,7 +35,7 @@ const Classification = types
         width: types.optional(types.integer, window.innerWidth)
       },
       workflowVersion: types.string
-    }),
+    })
   })
 
 export default types.compose(Resource, Classification)

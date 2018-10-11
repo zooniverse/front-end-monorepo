@@ -1,6 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { Subject } from 'rxjs';
-
+import { Subject } from 'rxjs'
 
 const DrawingStore = types
   .model('DrawingStore')
