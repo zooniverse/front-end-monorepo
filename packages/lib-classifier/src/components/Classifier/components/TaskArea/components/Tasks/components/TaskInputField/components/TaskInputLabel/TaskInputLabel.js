@@ -62,7 +62,7 @@ export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
     <StyledTaskInputLabelWrapper>
       {labelIcon &&
         labelIcon}
-      <StyledTaskInputLabel label={label} labelIcon={labelIcon}>
+      <StyledTaskInputLabel>
         {label}
       </StyledTaskInputLabel>
       {labelStatus &&

@@ -5,8 +5,8 @@ import Resource from './Resource'
 
 const ResourceStore = types
   .model('ResourceStore', {
-    active: types.maybeNull(types.reference(Resource)),
-    resources: types.optional(types.map(Resource), {}),
+    active: types.maybe(types.reference(Resource)),
+    resources: types.map(Resource),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     type: types.string
   })
@@ -28,7 +28,7 @@ const ResourceStore = types
     }),
 
     reset () {
-      self.active = null
+      self.active = undefined
       self.resources.clear()
     },
 

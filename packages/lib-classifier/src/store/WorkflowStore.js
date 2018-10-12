@@ -5,7 +5,7 @@ import Workflow from './Workflow'
 
 const WorkflowStore = types
   .model('WorkflowStore', {
-    active: types.maybeNull(types.reference(Workflow)),
+    active: types.maybe(types.reference(Workflow)),
     resources: types.optional(types.map(Workflow), {}),
     type: types.optional(types.string, 'workflows')
   })

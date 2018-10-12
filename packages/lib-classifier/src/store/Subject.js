@@ -5,7 +5,8 @@ import subjectViewers from '../helpers/subjectViewers'
 
 const Subject = types
   .model('Subject', {
-    locations: types.frozen({})
+    locations: types.frozen(),
+    metadata: types.frozen()
   })
 
   .views(self => ({

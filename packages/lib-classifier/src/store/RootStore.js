@@ -13,7 +13,6 @@ const RootStore = types
     classifications: types.optional(ClassificationStore, ClassificationStore.create()),
     drawing: types.optional(DrawingStore, DrawingStore.create()),
     projects: types.optional(ProjectStore, ProjectStore.create()),
-    steps: types.optional(WorkflowStepStore, WorkflowStepStore.create()),
     subjects: types.optional(SubjectStore, SubjectStore.create()),
     subjectViewer: types.optional(SubjectViewerStore, SubjectViewerStore.create()),
     workflows: types.optional(WorkflowStore, WorkflowStore.create()),

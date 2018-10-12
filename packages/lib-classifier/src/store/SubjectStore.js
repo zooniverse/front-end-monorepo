@@ -7,7 +7,7 @@ import Subject from './Subject'
 
 const SubjectStore = types
   .model('SubjectStore', {
-    active: types.maybeNull(types.reference(Subject)),
+    active: types.maybe(types.reference(Subject)),
     resources: types.optional(types.map(Subject), {}),
     queue: types.optional(types.array(types.reference(Subject)), []),
     type: types.optional(types.string, 'subjects')
@@ -69,7 +69,7 @@ const SubjectStore = types
     }
 
     function reset () {
-      self.active = null
+      self.active = undefined
       self.queue.clear()
       self.resources.clear()
     }

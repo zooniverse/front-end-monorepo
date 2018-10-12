@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, getType } from 'mobx-state-tree'
 import Resource from './Resource'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
 
@@ -6,8 +6,9 @@ const Classification = types
   .model('Classification', {
     annotations: types.map(types.union({
       dispatcher: (snapshot) => {
-        if (snapshot.type === 'SingleChoiceAnnotation') return SingleChoiceAnnotation
-        if (snapshot.type === 'MultipleChoiceAnnotation') return MultipleChoiceAnnotation
+        const snapshotType = getType(snapshot)
+        if (snapshotType.name === 'SingleChoiceAnnotation') return SingleChoiceAnnotation
+        if (snapshotType.name === 'MultipleChoiceAnnotation') return MultipleChoiceAnnotation
       }
     }, SingleChoiceAnnotation, MultipleChoiceAnnotation)),
     completed: types.optional(types.boolean, false),

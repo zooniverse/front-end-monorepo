@@ -112,36 +112,16 @@ export const StyledTaskInputField = styled.label`
     opacity: 0.01;
     position: absolute;
   }
-  `
-
-function shouldInputBeChecked (annotation, index, type) {
-  if (type === 'radio') {
-    const toolIndex = annotation._toolIndex || 0
-    if (toolIndex) {
-      return index === toolIndex
-    }
-    return index === annotation.value
-  }
-
-  if (type === 'checkbox') {
-    return (annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
-  }
-
-  return false
-}
-
-function shouldInputBeAutoFocused (annotation, index, name, type) {
-  if (type === 'radio' && name === 'drawing-tool') {
-    return index === 0
-  }
-
-  return index === annotation.value
-}
+`
 
 export class TaskInputField extends React.Component {
   constructor () {
     super()
     this.unFocus = this.unFocus.bind(this)
+  }
+
+  state = {
+    checked: false
   }
 
   onChange (e) {
@@ -159,6 +139,39 @@ export class TaskInputField extends React.Component {
 
   unFocus () {
     if (this.field) this.field.dataset.focus = false
+  }
+
+  shouldInputBeAutoFocused(annotation, index, name, type) {
+    if (type === 'radio' && name === 'drawing-tool') {
+      return index === 0
+    }
+
+    return index === annotation.value
+  }
+
+  shouldInputBeChecked(annotation, index, type) {
+    let checked
+    if (type === 'radio') {
+      const toolIndex = annotation._toolIndex || 0
+      if (toolIndex) {
+        checked = index === toolIndex
+      }
+      checked = index === annotation.value
+    }
+
+    if (type === 'checkbox') {
+      checked = (annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
+    }
+
+    if (this.field) {
+      if (checked) {
+        this.field.classList.add('active')
+      } else {
+        this.field.classList.remove('active')
+      }
+    }
+
+    return checked
   }
 
   render () {
@@ -181,8 +194,8 @@ export class TaskInputField extends React.Component {
           data-focus={false}
         >
           <input
-            autoFocus={shouldInputBeAutoFocused(annotation, index, name, type)}
-            checked={shouldInputBeChecked(annotation, index, type)}
+            autoFocus={this.shouldInputBeAutoFocused(annotation, index, name, type)}
+            checked={this.shouldInputBeChecked(annotation, index, type)}
             name={name}
             onBlur={this.onBlur.bind(this)}
             onChange={this.onChange.bind(this)}
@@ -198,6 +211,7 @@ export class TaskInputField extends React.Component {
 }
 
 TaskInputField.defaultProps = {
+  annotation: { value: null },
   className: '',
   label: '',
   labelIcon: null,
@@ -217,7 +231,7 @@ TaskInputField.propTypes = {
       PropTypes.arrayOf(PropTypes.object), // drawing task
       PropTypes.object // null
     ])
-  }).isRequired,
+  }),
   className: PropTypes.string,
   index: PropTypes.number.isRequired,
   label: PropTypes.string,
