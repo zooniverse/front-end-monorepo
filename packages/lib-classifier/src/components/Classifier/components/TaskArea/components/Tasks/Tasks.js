@@ -42,13 +42,17 @@ export class Tasks extends React.Component {
         <Box tag='form'>
           {tasks.map((task) => {
             const TaskComponent = getTaskComponent(task.type)
-            return (
-              <Box key={task.taskKey}>
-                <TaskComponent task={task} {...this.props} />
-                {task.help &&
-                  <TaskHelpButton />}
-              </Box>
-            )
+            if (TaskComponent) {
+              return (
+                <Box key={task.taskKey}>
+                  <TaskComponent task={task} {...this.props} />
+                  {task.help &&
+                    <TaskHelpButton />}
+                </Box>
+              )
+            }
+
+            return (<div>Task component could not be rendered.</div>)
           })}
           <TaskNavButtons />
         </Box>
