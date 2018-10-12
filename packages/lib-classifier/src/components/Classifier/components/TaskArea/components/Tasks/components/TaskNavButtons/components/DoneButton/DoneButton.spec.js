@@ -4,7 +4,6 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import DoneButton, { StyledDoneButton } from './DoneButton'
 
-
 describe('DoneButton', function () {
   it('should render without crashing', function () {
     const wrapper = mount(<DoneButton />)

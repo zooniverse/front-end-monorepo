@@ -16,7 +16,7 @@ const task = {
 describe('SingleChoiceTask', function () {
   let wrapper
   let addAnnotationSpy
-  before(function() {
+  before(function () {
     addAnnotationSpy = sinon.spy()
     wrapper = shallow(<SingleChoiceTask addAnnotation={addAnnotationSpy} task={task} />)
   })
