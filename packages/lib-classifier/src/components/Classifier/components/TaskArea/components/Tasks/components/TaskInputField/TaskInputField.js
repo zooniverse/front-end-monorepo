@@ -112,16 +112,12 @@ export const StyledTaskInputField = styled.label`
     opacity: 0.01;
     position: absolute;
   }
-`
+  `
 
 export class TaskInputField extends React.Component {
   constructor () {
     super()
     this.unFocus = this.unFocus.bind(this)
-  }
-
-  state = {
-    checked: false
   }
 
   onChange (e) {
@@ -141,7 +137,7 @@ export class TaskInputField extends React.Component {
     if (this.field) this.field.dataset.focus = false
   }
 
-  shouldInputBeAutoFocused(annotation, index, name, type) {
+  shouldInputBeAutoFocused (annotation, index, name, type) {
     if (type === 'radio' && name === 'drawing-tool') {
       return index === 0
     }
@@ -149,7 +145,7 @@ export class TaskInputField extends React.Component {
     return index === annotation.value
   }
 
-  shouldInputBeChecked(annotation, index, type) {
+  shouldInputBeChecked (annotation, index, type) {
     let checked
     if (type === 'radio') {
       const toolIndex = annotation._toolIndex || 0

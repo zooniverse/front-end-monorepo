@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { ThemeProvider } from 'styled-components';
-import theme from 'styled-theming';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled, { ThemeProvider } from 'styled-components'
+import theme from 'styled-theming'
 import counterpart from 'counterpart'
 import { Button, Text } from 'grommet'
 import { FormNextLink } from 'grommet-icons'
-import zooTheme from '@zooniverse/grommet-theme';
+import zooTheme from '@zooniverse/grommet-theme'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 // TODO: box-shadow, border-radius, and disabled likely can move into the grommet theme.
 export const StyledNextButton = styled(Button)`
-  background: ${theme('mode', { 
+  background: ${theme('mode', {
     dark: zooTheme.dark.colors.background.default,
     light: zooTheme.global.colors.gold
   })};
@@ -31,24 +31,24 @@ export const StyledNextButton = styled(Button)`
 
   svg {
     fill: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: 'black'
+  })};
     stroke: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: 'black'
+  })};
   }
 
   &:hover:not(:disabled), &:focus:not(:disabled) {
     background: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: zooTheme.light.colors.button.nextHover
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: zooTheme.light.colors.button.nextHover
+  })};
     color: ${theme('mode', {
-      dark: 'black',
-      light: 'black'
-    })};;
+    dark: 'black',
+    light: 'black'
+  })};;
   }
 
   &:disabled {
@@ -65,38 +65,37 @@ export const StyledNextButton = styled(Button)`
       light: 'black'
     })}; */}
     cursor: not-allowed;
-    ${'' /* opacity: 0.5; */}
+    ${''}
   }
-`;
+  `
 
-function NextButton({ autoFocus, disabled, classifierTheme, onClick }) {
+function NextButton ({ autoFocus, disabled, classifierTheme, onClick }) {
   return (
     <ThemeProvider theme={{ mode: classifierTheme }}>
       <StyledNextButton
         autoFocus={autoFocus}
         color={zooTheme.global.colors.gold}
-        disabled={disabled}
-        icon={<FormNextLink size="small" />}
-        label={<Text size="small">{counterpart('NextButton.next')}</Text>}
+        icon={<FormNextLink size='small' />}
+        label={<Text size='small'>{counterpart('NextButton.next')}</Text>}
         onClick={(disabled) ? null : onClick}
-        reverse={true}
-        type="button"
+        reverse
+        type='button'
       />
     </ThemeProvider>
-  );
+  )
 }
 
 NextButton.defaultProps = {
   autoFocus: false,
   classifierTheme: 'light',
-  disabled: false,
-};
+  disabled: false
+}
 
 NextButton.propTypes = {
   autoFocus: PropTypes.bool,
   classifierTheme: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func.isRequired
-};
+}
 
-export default NextButton;
+export default NextButton

@@ -9,9 +9,9 @@ export const StyledFieldset = styled.fieldset`
   border: none;
 `
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const {
-    addAnnotation,
+    addAnnotation
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   return {
@@ -23,14 +23,14 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class SingleChoiceTask extends React.Component {
-  render() {
+  render () {
     const {
       addAnnotation,
       annotations,
       task
     } = this.props
     let annotation
-    if (annotations && annotations.size > 0) { 
+    if (annotations && annotations.size > 0) {
       annotation = annotations.get(task.taskKey)
     }
     return (
@@ -54,11 +54,10 @@ class SingleChoiceTask extends React.Component {
       </StyledFieldset>
     )
   }
-
 }
 
-
 SingleChoiceTask.propTypes = {
+  addAnnotation: PropTypes.func.isRequired,
   annotations: PropTypes.object,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({

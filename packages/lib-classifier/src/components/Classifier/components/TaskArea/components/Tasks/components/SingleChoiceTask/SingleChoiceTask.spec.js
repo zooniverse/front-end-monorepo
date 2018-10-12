@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
+import sinon from 'sinon'
 import SingleChoiceTask from './SingleChoiceTask'
 
 // TODO: move this into a factory
@@ -13,24 +14,24 @@ const task = {
 }
 
 describe('SingleChoiceTask', function () {
+  let wrapper
+  let addAnnotationSpy
+  before(function() {
+    addAnnotationSpy = sinon.spy()
+    wrapper = shallow(<SingleChoiceTask addAnnotation={addAnnotationSpy} task={task} />)
+  })
   it('should render without crashing', function () {
-    const wrapper = shallow(<SingleChoiceTask task={task} />)
     expect(wrapper).to.have.lengthOf(1)
   })
 
   it('should render the correct number of answer choices', function () {
-    const wrapper = shallow(<SingleChoiceTask task={task} />)
     expect(wrapper.find('TaskInputField')).to.have.lengthOf(task.answers.length)
   })
 
-  it('should not render a help button if there is no help text', function () {
-    const wrapper = shallow(<SingleChoiceTask task={task} />)
-    expect(wrapper.find('TaskHelpButton')).to.have.lengthOf(0)
-  })
-
-  it('should render a help button if there is help text', function () {
-    const taskWithHelp = { ...task, help: 'Please help!' }
-    const wrapper = shallow(<SingleChoiceTask task={taskWithHelp} />)
-    expect(wrapper.find('TaskHelpButton')).to.have.lengthOf(1)
+  it('should bind `newAnnotation` and `taskKey` to the `addAnnotation` function', function () {
+    wrapper.find('TaskInputField').forEach((node, index) => {
+      node.simulate('change')
+      expect(addAnnotationSpy.calledWith({value: index, task: task.taskKey}, task.type)).to.be.true
+    })
   })
 })

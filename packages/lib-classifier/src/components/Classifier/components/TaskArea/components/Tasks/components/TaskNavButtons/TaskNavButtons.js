@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Box } from 'grommet';
-import NextButton from './components/NextButton';
-import DoneButton from './components/DoneButton';
-import BackButton from './components/BackButton';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { Box } from 'grommet'
+import NextButton from './components/NextButton'
+import DoneButton from './components/DoneButton'
+import BackButton from './components/BackButton'
 
 export const ButtonsWrapper = styled.span`
   display: flex;
@@ -13,12 +13,12 @@ export const ButtonsWrapper = styled.span`
   > a:first-of-type, > div:first-of-type, > span:first-of-type {
     margin-right: 1ch;
   }
-`;
+`
 
-export default function TaskNavButtons(props) {
+export default function TaskNavButtons (props) {
   if (props.showNextButton) {
     return (
-      <Box pad="small">
+      <Box pad='small'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -30,24 +30,24 @@ export default function TaskNavButtons(props) {
           disabled={props.waitingForAnswer}
         />
       </Box>
-    );
+    )
   }
 
   // Shown on summary enabled workflows.
   if (props.completed) {
     return (
-      <Box pad="small">
+      <Box pad='small'>
         <NextButton
           autoFocus={props.autoFocus}
           disabled={false}
           onClick={props.nextSubject}
         />
       </Box>
-    );
+    )
   }
 
   return (
-    <Box pad="small">
+    <Box pad='small'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -61,7 +61,7 @@ export default function TaskNavButtons(props) {
         disabled={props.waitingForAnswer}
       />
     </Box>
-  );
+  )
 }
 
 TaskNavButtons.defaultProps = {
@@ -76,7 +76,7 @@ TaskNavButtons.defaultProps = {
   showNextButton: false,
   showDoneAndTalkLink: false,
   waitingForAnswer: false
-};
+}
 
 TaskNavButtons.propTypes = {
   areAnnotationsNotPersisted: PropTypes.bool,
@@ -90,4 +90,4 @@ TaskNavButtons.propTypes = {
   showNextButton: PropTypes.bool,
   showDoneAndTalkLink: PropTypes.bool,
   waitingForAnswer: PropTypes.bool
-};
+}

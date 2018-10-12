@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import TaskNavButtons from './TaskNavButtons'
 
@@ -9,7 +9,7 @@ function storeMapper (stores) {
     active: step,
     activeStepTasks: tasks,
     isThereANextStep: showNextButton,
-    selectStep,
+    selectStep
   } = stores.classifierStore.workflowSteps
   const { active: classification } = stores.classifierStore.classifications
 
