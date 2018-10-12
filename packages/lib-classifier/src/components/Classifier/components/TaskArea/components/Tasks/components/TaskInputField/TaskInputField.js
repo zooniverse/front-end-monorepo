@@ -112,16 +112,12 @@ export const StyledTaskInputField = styled.label`
     opacity: 0.01;
     position: absolute;
   }
-`
+  `
 
 export class TaskInputField extends React.Component {
   constructor () {
     super()
     this.unFocus = this.unFocus.bind(this)
-  }
-
-  state = {
-    checked: false
   }
 
   onChange (e) {

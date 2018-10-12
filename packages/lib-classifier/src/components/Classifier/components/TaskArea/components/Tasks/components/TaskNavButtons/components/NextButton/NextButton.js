@@ -31,24 +31,24 @@ export const StyledNextButton = styled(Button)`
 
   svg {
     fill: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: 'black'
+  })};
     stroke: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: 'black'
+  })};
   }
 
   &:hover:not(:disabled), &:focus:not(:disabled) {
     background: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: zooTheme.light.colors.button.nextHover
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: zooTheme.light.colors.button.nextHover
+  })};
     color: ${theme('mode', {
-      dark: 'black',
-      light: 'black'
-    })};;
+    dark: 'black',
+    light: 'black'
+  })};;
   }
 
   &:disabled {
@@ -65,11 +65,11 @@ export const StyledNextButton = styled(Button)`
       light: 'black'
     })}; */}
     cursor: not-allowed;
-    ${'' /* opacity: 0.5; */}
+    ${''}
   }
 `
 
-function NextButton({ autoFocus, disabled, classifierTheme, onClick }) {
+function NextButton ({ autoFocus, disabled, classifierTheme, onClick }) {
   return (
     <ThemeProvider theme={{ mode: classifierTheme }}>
       <StyledNextButton

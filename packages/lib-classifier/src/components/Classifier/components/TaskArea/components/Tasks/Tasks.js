@@ -11,10 +11,8 @@ import { default as TaskNavButtons } from './components/TaskNavButtons'
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
   const { active: step } = stores.classifierStore.workflowSteps
-  const { active: classification } = stores.classifierStore.classifications
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
   return {
-    classification,
     loadingState,
     step,
     tasks

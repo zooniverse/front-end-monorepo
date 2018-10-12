@@ -34,38 +34,38 @@ export const StyledDoneButton = styled(Button)`
 
   &:hover, &:focus {
     background: ${theme('mode', {
-      dark: zooTheme.dark.colors.button.done.hover,
-      light: darken(0.15, zooTheme.light.colors.button.done)
-    })};
+    dark: zooTheme.dark.colors.button.done.hover,
+    light: darken(0.15, zooTheme.light.colors.button.done)
+  })};
     border: ${theme('mode', {
-      dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-      light: `solid thin ${darken(0.15, zooTheme.light.colors.button.done)}`
-    })};
+    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
+    light: `solid thin ${darken(0.15, zooTheme.light.colors.button.done)}`
+  })};
     color: 'white';
   }
 
   &:disabled {
     background: ${theme('mode', {
-      dark: lighten(0.05, zooTheme.dark.colors.background.default),
-      light: lighten(0.05, zooTheme.light.colors.button.done)
-    })};
+    dark: lighten(0.05, zooTheme.dark.colors.background.default),
+    light: lighten(0.05, zooTheme.light.colors.button.done)
+  })};
 
     border: ${theme('mode', {
-      dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-      light: `solid thin ${lighten(0.05, zooTheme.light.colors.button.done)}`
-    })};
+    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
+    light: `solid thin ${lighten(0.05, zooTheme.light.colors.button.done)}`
+  })};
     color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
-      light: '#EEF1F4'
-    })};
+    dark: zooTheme.dark.colors.font,
+    light: '#EEF1F4'
+  })};
     cursor: not-allowed;
     opacity: 0.5;
   }
-`;
+  `
 // TODO add back gold standard and demo buttons using grommet Button icon prop
 // {props.demoMode && <i className="fa fa-trash fa-fw" />}
 // {props.goldStandardMode && <i className="fa fa-star fa-fw" />}
-export function DoneButton(props) {
+export function DoneButton (props) {
   if (!props.completed) {
     return (
       <ThemeProvider theme={{ mode: props.theme }}>

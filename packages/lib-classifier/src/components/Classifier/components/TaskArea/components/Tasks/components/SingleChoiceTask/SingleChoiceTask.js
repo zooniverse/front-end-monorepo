@@ -59,9 +59,7 @@ class SingleChoiceTask extends React.Component {
       </StyledFieldset>
     )
   }
-
 }
-
 
 SingleChoiceTask.propTypes = {
   addAnnotation: PropTypes.func,
