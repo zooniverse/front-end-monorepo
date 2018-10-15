@@ -42,7 +42,6 @@ class SingleChoiceTask extends React.Component {
       <StyledFieldset>
         <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
-          const newAnnotation = { value: index, task: task.taskKey }
           return (
             <TaskInputField
               annotation={annotation}
