@@ -23,7 +23,7 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class SingleChoiceTask extends React.Component {
-  onChange(event) {
+  onChange (event) {
     const { addAnnotation, task } = this.props
     const newAnnotation = { value: event.target.value, task: task.taskKey }
     addAnnotation(newAnnotation, task.type)
