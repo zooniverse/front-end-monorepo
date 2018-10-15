@@ -23,9 +23,9 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class SingleChoiceTask extends React.Component {
-  onChange (event) {
+  onChange (index, event) {
     const { addAnnotation, task } = this.props
-    const newAnnotation = { value: event.target.value, task: task.taskKey }
+    const newAnnotation = { value: index, task: task.taskKey }
     addAnnotation(newAnnotation, task.type)
   }
 
@@ -49,7 +49,7 @@ class SingleChoiceTask extends React.Component {
               key={`${task.taskKey}_${index}`}
               label={answer.label}
               name={`${task._key}`}
-              onChange={this.onChange.bind(this)}
+              onChange={this.onChange.bind(this, index)}
               required={task.required}
               type='radio'
             />
