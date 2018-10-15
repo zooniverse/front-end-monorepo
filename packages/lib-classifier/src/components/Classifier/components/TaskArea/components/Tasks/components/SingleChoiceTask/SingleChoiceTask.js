@@ -23,9 +23,14 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class SingleChoiceTask extends React.Component {
+  onChange(event) {
+    const { addAnnotation, task } = this.props
+    const newAnnotation = { value: event.target.value, task: task.taskKey }
+    addAnnotation(newAnnotation, task.type)
+  }
+
   render () {
     const {
-      addAnnotation,
       annotations,
       task
     } = this.props
@@ -37,7 +42,6 @@ class SingleChoiceTask extends React.Component {
       <StyledFieldset>
         <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
-          const newAnnotation = { value: index, task: task.taskKey }
           return (
             <TaskInputField
               annotation={annotation}
@@ -45,7 +49,7 @@ class SingleChoiceTask extends React.Component {
               key={`${task.taskKey}_${index}`}
               label={answer.label}
               name={`${task._key}`}
-              onChange={addAnnotation.bind(this, newAnnotation, task.type)}
+              onChange={this.onChange.bind(this)}
               required={task.required}
               type='radio'
             />
@@ -57,7 +61,7 @@ class SingleChoiceTask extends React.Component {
 }
 
 SingleChoiceTask.propTypes = {
-  addAnnotation: PropTypes.func.isRequired,
+  addAnnotation: PropTypes.func,
   annotations: PropTypes.object,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({

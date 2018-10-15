@@ -16,8 +16,10 @@ const task = {
 describe('SingleChoiceTask', function () {
   let wrapper
   let addAnnotationSpy
+  let onChangeSpy
   before(function () {
     addAnnotationSpy = sinon.spy()
+    onChangeSpy = sinon.spy(SingleChoiceTask.prototype, 'onChange')
     wrapper = shallow(<SingleChoiceTask addAnnotation={addAnnotationSpy} task={task} />)
   })
   it('should render without crashing', function () {
@@ -28,9 +30,10 @@ describe('SingleChoiceTask', function () {
     expect(wrapper.find('TaskInputField')).to.have.lengthOf(task.answers.length)
   })
 
-  it('should bind `newAnnotation` and `taskKey` to the `addAnnotation` function', function () {
+  it('should call addAnnotation in the onChange event handler', function () {
     wrapper.find('TaskInputField').forEach((node, index) => {
-      node.simulate('change')
+      node.simulate('change', { target: { value: index }})
+      expect(onChangeSpy.called).to.be.true
       expect(addAnnotationSpy.calledWith({value: index, task: task.taskKey}, task.type)).to.be.true
     })
   })
