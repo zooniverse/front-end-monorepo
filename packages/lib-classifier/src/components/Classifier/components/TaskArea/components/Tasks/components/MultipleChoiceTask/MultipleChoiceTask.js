@@ -9,7 +9,7 @@ export const StyledFieldset = styled.fieldset`
   border: none;
 `
 
-function storeMapper (stores) {
+function storeMapper(stores) {
   const {
     addAnnotation
   } = stores.classifierStore.classifications
@@ -22,13 +22,21 @@ function storeMapper (stores) {
 
 @inject(storeMapper)
 @observer
-class SingleChoiceTask extends React.Component {
-  onChange (index, event) {
-    const { addAnnotation, task } = this.props
-    addAnnotation(index, task)
+class MultipleChoiceTask extends React.Component {
+  onChange(index, event) {
+    const { addAnnotation, annotations, task } = this.props
+    const annotation = annotations.get(task.taskKey)
+    const newAnnotationValue = (annotation) ? annotation.value.slice(0) : []
+    if (event.target.checked && !newAnnotationValue.includes(index)) {
+      newAnnotationValue.push(index)
+    } else if (!event.target.checked && newAnnotationValue.includes(index)) {
+      const indexInValue = newAnnotationValue.indexOf(index);
+      newAnnotationValue.splice(indexInValue, 1);
+    }
+    addAnnotation(newAnnotationValue, task)
   }
 
-  render () {
+  render() {
     const {
       annotations,
       task
@@ -38,7 +46,7 @@ class SingleChoiceTask extends React.Component {
       annotation = annotations.get(task.taskKey)
     }
     return (
-      <StyledFieldset>
+      <StyledFieldset autoFocus={annotation && annotation.value && annotation.value.length === 0}>
         <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
           return (
@@ -50,7 +58,7 @@ class SingleChoiceTask extends React.Component {
               name={`${task._key}`}
               onChange={this.onChange.bind(this, index)}
               required={task.required}
-              type='radio'
+              type='checkbox'
             />
           )
         })}
@@ -59,7 +67,7 @@ class SingleChoiceTask extends React.Component {
   }
 }
 
-SingleChoiceTask.propTypes = {
+MultipleChoiceTask.propTypes = {
   addAnnotation: PropTypes.func,
   annotations: PropTypes.object,
   task: PropTypes.shape({
@@ -72,4 +80,4 @@ SingleChoiceTask.propTypes = {
   })
 }
 
-export default SingleChoiceTask
+export default MultipleChoiceTask

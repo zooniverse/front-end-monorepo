@@ -6,7 +6,7 @@ import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
 import Classification from './Classification'
 import ResourceStore from './ResourceStore'
-import { SingleChoiceAnnotation } from './annotations'
+import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -61,18 +61,30 @@ const ClassificationStore = types
 
     function getAnnotationType (taskType) {
       const taskTypes = {
-        single: SingleChoiceAnnotation
+        single: SingleChoiceAnnotation,
+        multiple: MultipleChoiceAnnotation
       }
 
       return taskTypes[taskType] || undefined
     }
 
-    function addAnnotation (annotation, taskType) {
-      const currentClassification = self.active
-      const annotationModel = getAnnotationType(taskType)
-      if (currentClassification && annotationModel) {
-        const newAnnotation = annotationModel.create(annotation)
-        currentClassification.annotations.put(newAnnotation)
+    function createDefaultAnnotation (task) {
+      const activeClassification = self.active
+      if (activeClassification) {
+        const annotationModel = getAnnotationType(task.type)
+        const newAnnotation = annotationModel.create({ task: task.taskKey })
+        activeClassification.annotations.put(newAnnotation)
+        return newAnnotation
+      }
+
+      if (!activeClassification) console.error('No active classification. Cannot create default annotations.')
+    }
+
+    function addAnnotation (annotationValue, task) {
+      const activeClassification = self.active
+      if (activeClassification) {
+        const annotation = activeClassification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
+        annotation.value = annotationValue
       }
     }
 
@@ -86,6 +98,7 @@ const ClassificationStore = types
       addAnnotation,
       afterAttach,
       createClassification,
+      createDefaultAnnotation,
       removeAnnotation
     }
   })
