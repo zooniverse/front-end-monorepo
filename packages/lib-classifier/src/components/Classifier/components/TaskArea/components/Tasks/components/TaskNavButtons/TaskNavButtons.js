@@ -6,15 +6,6 @@ import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
 import BackButton from './components/BackButton'
 
-export const ButtonsWrapper = styled.span`
-  display: flex;
-  width: 100%;
-  
-  > a:first-of-type, > div:first-of-type, > span:first-of-type {
-    margin-right: 1ch;
-  }
-`
-
 export default function TaskNavButtons (props) {
   if (props.showNextButton) {
     return (

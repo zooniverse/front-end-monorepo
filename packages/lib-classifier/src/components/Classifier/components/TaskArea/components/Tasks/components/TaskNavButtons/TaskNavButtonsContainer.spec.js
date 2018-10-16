@@ -4,6 +4,11 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
 
+const steps = new Map([
+  ['S0', { taskKeys: ['T0'] }],
+  ['S1', { taskKeys: ['T1'] }]
+])
+
 const tasks = [
   {
     answers: [{ label: 'yes' }, { label: 'no' }],
@@ -76,6 +81,44 @@ describe('TaskNavButtonsContainer', function () {
     it('should call props.selectStep', function () {
       wrapper.instance().goToNextStep()
       expect(selectStepSpy.called).to.be.true
+    })
+  })
+
+  describe('#goToPreviousStep', function () {
+    let wrapper
+    let selectStepSpy
+
+    before(function () {
+      selectStepSpy = sinon.spy()
+
+      wrapper = shallow(
+        <TaskNavButtonsContainer
+          selectStep={selectStepSpy}
+          showBackButton={true}
+          showNextButton={true}
+          steps={steps}
+          tasks={tasks}
+        />
+      )
+    })
+
+    afterEach(function () {
+      selectStepSpy.resetHistory()
+    })
+
+    it('should not call props.selectStep if there is not a previous step', function () {
+      const step = { stepKey: 'S0', taskKeys: ['T0'] }
+      wrapper.setProps({ step })
+      wrapper.instance().goToPreviousStep()
+      expect(selectStepSpy.notCalled).to.be.true
+    })
+
+    it('should call props.selectStep when there is a previous step', function () {
+      const step = { stepKey: 'S1', taskKeys: ['T1'] }
+      wrapper.setProps({ step })
+      wrapper.instance().goToPreviousStep()
+      expect(selectStepSpy.called).to.be.true
+      expect(selectStepSpy.calledWith('S0')).to.be.true
     })
   })
 
