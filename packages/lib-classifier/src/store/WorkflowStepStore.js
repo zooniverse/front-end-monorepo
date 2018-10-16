@@ -23,6 +23,11 @@ const WorkflowStepStore = types
       }
 
       return []
+    },
+
+    get isThereANextStep () {
+      const nextStep = self.steps.keys().next()
+      return !nextStep.done && nextStep.value && nextStep.value !== 'summary'
     }
   }))
   .actions(self => {
@@ -51,7 +56,12 @@ const WorkflowStepStore = types
 
     function getStepKey () {
       const stepKeys = self.steps.keys()
-      return stepKeys.next().value
+      let nextStepKey = stepKeys.next().value
+      if (self.active) {
+        nextStepKey = stepKeys.next(self.active).value
+      }
+
+      return nextStepKey
     }
 
     function reset () {

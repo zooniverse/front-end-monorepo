@@ -1,9 +1,12 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Box } from 'grommet'
 
 import asyncStates from '@zooniverse/async-states'
 import getTaskComponent from './helpers/getTaskComponent'
+import TaskHelpButton from './components/TaskHelpButton'
+import { default as TaskNavButtons } from './components/TaskNavButtons'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
@@ -35,10 +38,25 @@ export class Tasks extends React.Component {
   [asyncStates.success] () {
     const { tasks } = this.props
     if (tasks.length > 0) {
-      return tasks.map((task) => {
-        const TaskComponent = getTaskComponent(task.type)
-        return <TaskComponent key={task.taskKey} task={task} {...this.props} />
-      })
+      return (
+        <Box tag='form'>
+          {tasks.map((task) => {
+            const TaskComponent = getTaskComponent(task.type)
+            if (TaskComponent) {
+              return (
+                <Box key={task.taskKey}>
+                  <TaskComponent task={task} {...this.props} />
+                  {task.help &&
+                    <TaskHelpButton />}
+                </Box>
+              )
+            }
+
+            return (<div>Task component could not be rendered.</div>)
+          })}
+          <TaskNavButtons />
+        </Box>
+      )
     }
 
     return null

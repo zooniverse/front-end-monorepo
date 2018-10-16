@@ -1,17 +1,44 @@
+import { inject, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Markdown, Text } from 'grommet'
+import { Markdown, Text } from 'grommet'
 import TaskInputField from '../TaskInputField'
-import TaskHelpButton from '../TaskHelpButton'
 
 export const StyledFieldset = styled.fieldset`
   border: none;
 `
 
-export default function SingleChoiceTask ({ annotation, task }) {
-  return (
-    <Box tag='form'>
+function storeMapper (stores) {
+  const {
+    addAnnotation
+  } = stores.classifierStore.classifications
+  const annotations = stores.classifierStore.classifications.currentAnnotations
+  return {
+    addAnnotation,
+    annotations
+  }
+}
+
+@inject(storeMapper)
+@observer
+class SingleChoiceTask extends React.Component {
+  onChange (index, event) {
+    const { addAnnotation, task } = this.props
+    const newAnnotation = { value: index, task: task.taskKey }
+    addAnnotation(newAnnotation, task.type)
+  }
+
+  render () {
+    const {
+      annotations,
+      task
+    } = this.props
+    let annotation
+    if (annotations && annotations.size > 0) {
+      annotation = annotations.get(task.taskKey)
+    }
+    return (
       <StyledFieldset>
         <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
@@ -22,28 +49,20 @@ export default function SingleChoiceTask ({ annotation, task }) {
               key={`${task.taskKey}_${index}`}
               label={answer.label}
               name={`${task._key}`}
+              onChange={this.onChange.bind(this, index)}
               required={task.required}
               type='radio'
             />
           )
         })}
       </StyledFieldset>
-      {task.help &&
-        <TaskHelpButton />}
-    </Box>
-  )
-}
-
-SingleChoiceTask.defaultProps = {
-  annotation: {
-    value: null
+    )
   }
 }
 
 SingleChoiceTask.propTypes = {
-  annotation: PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
-  }),
+  addAnnotation: PropTypes.func,
+  annotations: PropTypes.object,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string
@@ -53,3 +72,5 @@ SingleChoiceTask.propTypes = {
     required: PropTypes.bool
   })
 }
+
+export default SingleChoiceTask
