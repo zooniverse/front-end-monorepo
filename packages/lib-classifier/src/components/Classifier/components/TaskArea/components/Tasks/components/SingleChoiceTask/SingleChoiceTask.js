@@ -25,7 +25,7 @@ function storeMapper (stores) {
 class SingleChoiceTask extends React.Component {
   onChange (index, event) {
     const { addAnnotation, task } = this.props
-    addAnnotation(index, task)
+    if (event.target.checked) addAnnotation(index, task)
   }
 
   render () {
@@ -47,7 +47,7 @@ class SingleChoiceTask extends React.Component {
               index={index}
               key={`${task.taskKey}_${index}`}
               label={answer.label}
-              name={`${task._key}`}
+              name={task.taskKey}
               onChange={this.onChange.bind(this, index)}
               required={task.required}
               type='radio'

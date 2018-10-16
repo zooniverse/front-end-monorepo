@@ -4,20 +4,17 @@ import { inject, observer } from 'mobx-react'
 import TaskNavButtons from './TaskNavButtons'
 
 function storeMapper (stores) {
-  const { loadingState } = stores.classifierStore.workflows
   const {
     active: step,
     activeStepTasks: tasks,
     isThereANextStep: showNextButton,
     selectStep
   } = stores.classifierStore.workflowSteps
-  // const tasks = stores.classifierStore.workflowSteps.activeStepTasks
   const { active: classification, createDefaultAnnotation } = stores.classifierStore.classifications
 
   return {
     classification,
     createDefaultAnnotation,
-    loadingState,
     showNextButton,
     selectStep,
     step,
@@ -39,6 +36,7 @@ class TaskNavButtonsContainer extends React.Component {
       }
     })
   }
+
   goToNextStep () {
     const { selectStep } = this.props
     this.createDefaultAnnotationIfThereIsNone()
