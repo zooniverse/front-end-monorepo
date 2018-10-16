@@ -14,11 +14,14 @@ const Subject = types
       const counts = createLocationCounts(self)
       let viewer = null
 
-      if (counts.total === 1) {
-        if (counts.images) {
-          viewer = subjectViewers.singleImage
-        }
-      }
+      //if (counts.total === 1) {
+      //  if (counts.images) {
+      //    viewer = subjectViewers.singleImage
+      //  }
+      //}
+      
+      //TEMP
+      viewer = subjectViewers.lightCurve
 
       return viewer
     }
