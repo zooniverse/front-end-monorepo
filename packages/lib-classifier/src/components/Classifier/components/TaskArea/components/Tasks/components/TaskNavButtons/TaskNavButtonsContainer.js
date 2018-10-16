@@ -5,17 +5,23 @@ import TaskNavButtons from './TaskNavButtons'
 
 function storeMapper (stores) {
   const {
+    active: step,
     activeStepTasks: tasks,
     isThereANextStep: showNextButton,
-    selectStep
+    isThereAPreviousStep: showBackButton,
+    selectStep,
+    steps
   } = stores.classifierStore.workflowSteps
   const { active: classification, createDefaultAnnotation } = stores.classifierStore.classifications
 
   return {
     classification,
     createDefaultAnnotation,
+    showBackButton,
     showNextButton,
     selectStep,
+    step,
+    steps,
     tasks
   }
 }
@@ -36,6 +42,14 @@ class TaskNavButtonsContainer extends React.Component {
     }
   }
 
+  goToPreviousStep () {
+    const { selectStep, step, steps } = this.props
+    const stepsKeys = Array.from(steps.keys())
+    const currentStepIndex = stepsKeys.indexOf(step.stepKey)
+    const previousStep = stepsKeys[currentStepIndex - 1]
+    if (previousStep) selectStep(previousStep)
+  }
+
   goToNextStep () {
     const { selectStep } = this.props
     this.createDefaultAnnotationIfThereIsNone()
@@ -43,14 +57,23 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { showNextButton } = this.props
+    const { showBackButton, showNextButton } = this.props
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
+        goToPreviousStep={this.goToPreviousStep.bind(this)}
+        showBackButton={showBackButton}
         showNextButton={showNextButton}
       />
     )
   }
+}
+
+TaskNavButtons.defaultProps = {
+  classification: {},
+  createDefaultAnnotation: () => {},
+  selectStep: () => {},
+  tasks: []
 }
 
 TaskNavButtonsContainer.propTypes = {
@@ -58,6 +81,7 @@ TaskNavButtonsContainer.propTypes = {
     annotation: MobXPropTypes.observableArrayOf(PropTypes.object)
   }),
   createDefaultAnnotation: PropTypes.func,
+  showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
   selectStep: PropTypes.func,
   tasks: PropTypes.arrayOf(PropTypes.object)

@@ -18,11 +18,11 @@ export const ButtonsWrapper = styled.span`
 export default function TaskNavButtons (props) {
   if (props.showNextButton) {
     return (
-      <Box pad='small'>
+      <Box pad='small' direction='row'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
-            onClick={props.destroyCurrentAnnotation}
+            onClick={props.goToPreviousStep}
           />}
         <NextButton
           autoFocus={false}
@@ -47,16 +47,17 @@ export default function TaskNavButtons (props) {
   }
 
   return (
-    <Box pad='small'>
+    <Box direction='row' pad='small'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
-          onClick={props.destroyCurrentAnnotation}
+          onClick={props.goToPreviousStep}
         />}
       <DoneButton
         completed={props.completed}
         demoMode={props.demoMode}
-        // goldStandardMode={props.classification ? props.classification.gold_standard : false}
+        flex='grow'
+        goldStandardMode={props.classification ? props.classification.goldStandard : false}
         onClick={props.completeClassification}
         disabled={props.waitingForAnswer}
       />
@@ -70,7 +71,7 @@ TaskNavButtons.defaultProps = {
   completeClassification: () => {},
   completed: false,
   demoMode: false,
-  destroyCurrentAnnotation: () => {},
+  goToPreviousStep: () => {},
   nextSubject: () => {},
   showBackButton: false,
   showNextButton: false,
@@ -84,7 +85,7 @@ TaskNavButtons.propTypes = {
   completeClassification: PropTypes.func,
   completed: PropTypes.bool,
   demoMode: PropTypes.bool,
-  destroyCurrentAnnotation: PropTypes.func,
+  goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Button, Drop, Text } from 'grommet'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -9,13 +10,12 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export const StyledBackButtonWrapper = styled.div`
+  margin-right: 1ch;
   position: relative;
   flex: 1 0;
 `
 
-export const StyledBackButton = styled.button.attrs({
-  type: 'button'
-})`
+export const StyledBackButton = styled(Button)`
   background-color: ${theme('mode', {
     dark: zooTheme.dark.colors.background.default,
     light: zooTheme.light.colors.background.default
@@ -24,32 +24,33 @@ export const StyledBackButton = styled.button.attrs({
     dark: `thin solid ${zooTheme.dark.colors.font}`,
     light: 'thin solid transparent'
   })};
-  box-sizing: border-box;
+  border-radius: 0;
   color: ${theme('mode', {
     dark: zooTheme.dark.colors.font,
     light: zooTheme.light.colors.font
   })};
-  cursor: pointer;
-  font-size: 0.9em;
-  padding: 0.9em;
+  height: 100%; /* Why is this needed? */
+  padding: 0;
+  text-transform: capitalize;
   width: 100%;
 
   &:focus, &:hover {
     background: ${theme('mode', {
-    dark: zooTheme.dark.colors.background.default,
-    light: `linear-gradient(
+      dark: zooTheme.dark.colors.background.default,
+      light: `linear-gradient(
         ${zooTheme.light.colors.button.answer.gradient.top},
         ${zooTheme.light.colors.button.answer.gradient.bottom}
       )`
-  })};
+    })};
     border: ${theme('mode', {
-    dark: `thin solid ${zooTheme.dark.colors.button.answer.default}`,
-    light: 'thin solid transparent'
-  })};
+      dark: `thin solid ${zooTheme.dark.colors.button.answer.default}`,
+      light: 'thin solid transparent'
+    })};
+    box-shadow: none;
     color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: 'black'
-  })};
+      dark: zooTheme.dark.colors.font,
+      light: 'black'
+    })};
   }
   `
 
@@ -108,14 +109,14 @@ class BackButton extends React.Component {
         <StyledBackButtonWrapper>
           <StyledBackButton
             aria-label={(this.props.areAnnotationsNotPersisted ? backButtonWarning : '')}
+            focusIndicator={false}
+            label={<Text size='small'>{counterpart('BackButton.back')}</Text>}
             onClick={this.props.onClick}
             onMouseEnter={this.showWarning}
             onFocus={this.showWarning}
             onMouseLeave={this.hideWarning}
             onBlur={this.hideWarning}
-          >
-            {counterpart('BackButton.back')}
-          </StyledBackButton>
+          />
           {this.state.showWarning &&
             <StyledBackButtonToolTip>
               {counterpart('BackButton.tooltip')}

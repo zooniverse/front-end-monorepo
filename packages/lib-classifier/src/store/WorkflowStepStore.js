@@ -26,8 +26,13 @@ const WorkflowStepStore = types
     },
 
     get isThereANextStep () {
-      const nextStep = self.steps.keys().next()
+      const nextStep = self.steps.keys().next(self.active)
       return !nextStep.done && nextStep.value && nextStep.value !== 'summary'
+    },
+
+    get isThereAPreviousStep () {
+      const firstStep = self.steps.keys().next()
+      return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
     }
   }))
   .actions(self => {
@@ -54,7 +59,7 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function getStepKey () {
+    function getNextStepKey () {
       const stepKeys = self.steps.keys()
       let nextStepKey = stepKeys.next().value
       if (self.active) {
@@ -70,7 +75,7 @@ const WorkflowStepStore = types
       self.tasks.clear()
     }
 
-    function selectStep (stepKey = getStepKey()) {
+    function selectStep (stepKey = getNextStepKey()) {
       const step = self.steps.get(stepKey)
       if (step) {
         self.active = stepKey
@@ -132,7 +137,7 @@ const WorkflowStepStore = types
     return {
       afterAttach,
       convertWorkflowToUseSteps,
-      getStepKey,
+      getNextStepKey,
       reset,
       selectStep,
       setSteps,
