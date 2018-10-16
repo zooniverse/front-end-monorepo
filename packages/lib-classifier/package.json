@@ -31,8 +31,8 @@
     "check-dependencies": "^1.1.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "grommet": "^2.0.0-beta.5",
-    "grommet-icons": "^2.0.0",
+    "grommet": "^2.0.0-beta.7",
+    "grommet-icons": "^3.1.0",
     "html-webpack-plugin": "^3.2.0",
     "jsdom": "^11.11.0",
     "mobx": "^5.1.0",
@@ -46,7 +46,7 @@
     "sinon": "^5.0.10",
     "snazzy": "^7.1.1",
     "standard": "^11.0.1",
-    "styled-components": "^3.2.6",
+    "styled-components": "^4.0.0",
     "styled-theming": "^2.2.0",
     "superagent": "^3.8.3",
     "webpack": "^4.8.3",
@@ -57,9 +57,10 @@
     "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.1.0",
     "@zooniverse/react-components": "^0.7.1",
-    "grommet": "^2.0.0-beta.5",
+    "grommet": "^2.0.0-beta.7",
+    "grommet-icons": ">=3.0.0",
     "react": "^16.4.2",
-    "styled-components": "^3.2.6",
+    "styled-components": ">=4.0.0",
     "styled-theming": "^2.2.0"
   },
   "standard": {
@@ -83,7 +84,6 @@
     "mobx-utils": "^5.0.2",
     "react-context-props": "^2.2.0",
     "rxjs": "^6.3.3",
-    "styled-theming": "^2.2.0",
     "valid-url": "^1.0.9"
   }
 }
