@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Anchor, Box, Image, Grommet } from 'grommet'
+import { Anchor, Box, Image } from 'grommet'
 
 import styled, { ThemeProvider } from 'styled-components'
 import { whichTealColorForTheme } from './lib'
@@ -87,151 +87,148 @@ const ZooFooter = (props) => {
     projectNavListURLs,
     talkNavListLabels,
     talkNavListURLs,
-    theme
   } = props
 
   return (
-    <Grommet theme={theme}>
-      <Box
-        align='center'
-        background={(colorTheme === 'light') ? '#fff' : zooTheme.dark.colors.background.default}
-        border={{
-          color: zooTheme.global.colors.brand,
-          side: 'top',
-          size: 'medium'
-        }}
-        direction='column'
-        pad={{ horizontal: 'none', vertical: 'none' }}
-        responsive
-        tag='footer'
+    <Box
+      align='center'
+      background={(colorTheme === 'light') ? '#fff' : zooTheme.dark.colors.background.default}
+      border={{
+        color: zooTheme.global.colors.brand,
+        side: 'top',
+        size: 'medium'
+      }}
+      direction='column'
+      pad={{ horizontal: 'none', vertical: 'none' }}
+      responsive
+      tag='footer'
+    >
+      <StyledFooterSection
+        direction='row'
+        fill='horizontal'
+        justify='between'
+        pad={{ horizontal: 'large', vertical: 'medium' }}
+        margin={{ horizontal: 'large', vertical: 'none' }}
+        tag='section'
+        wrap
       >
-        <StyledFooterSection
-          direction='row'
-          fill='horizontal'
-          justify='between'
-          pad={{ horizontal: 'large', vertical: 'medium' }}
-          margin={{ horizontal: 'large', vertical: 'none' }}
-          tag='section'
-          wrap
-        >
-          <Box>
-            <ThemeProvider theme={{ mode: colorTheme }}>
-              <StyledLogoAnchor href='https://www.zooniverse.org'>
-                <ZooniverseLogotype />
-              </StyledLogoAnchor>
-            </ThemeProvider>
-            {props.zooTagline}
-          </Box>
-          <StyledNavListContainer
-            direction='row'
-            gap='medium'
-            responsive={false}
-            tag='nav'
-          >
-            <SocialAnchor colorTheme={colorTheme} service='facebook' />
-            <SocialAnchor colorTheme={colorTheme} service='twitter' />
-            <SocialAnchor colorTheme={colorTheme} service='instagram' />
-          </StyledNavListContainer>
-        </StyledFooterSection>
-        <Box
-          fill='horizontal'
-          pad={{ horizontal: 'large' }}
-          tag='section'
-        >
-          <StyledDivider />
+        <Box>
+          <ThemeProvider theme={{ mode: colorTheme }}>
+            <StyledLogoAnchor href='https://www.zooniverse.org'>
+              <ZooniverseLogotype />
+            </StyledLogoAnchor>
+          </ThemeProvider>
+          {props.zooTagline}
         </Box>
-        <StyledFooterSection
+        <StyledNavListContainer
           direction='row'
-          fill='horizontal'
-          justify='start'
-          pad={{ horizontal: 'large', vertical: 'medium' }}
-          margin={{
-            top: 'none', bottom: 'large', left: 'none', right: 'none'
-          }}
-          tag='section'
-          responsive
-          wrap
+          gap='medium'
+          responsive={false}
+          tag='nav'
         >
-          <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {projectNavListURLs.map((url, i) => {
-              return (
-                <NavListItem colorTheme={colorTheme} key={url} label={projectNavListLabels[i]} url={url} />
-              )
-            })}
-          </StyledNavListContainer>
-          <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {aboutNavListURLs.map((url, i) => {
-              return (
-                <NavListItem colorTheme={colorTheme} key={url} label={aboutNavListLabels[i]} url={url} />
-              )
-            })}
-          </StyledNavListContainer>
-          <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {getInvolvedNavListURLs.map((url, i) => {
-              return (
-                <NavListItem colorTheme={colorTheme} key={url} label={getInvolvedNavListLabels[i]} url={url} />
-              )
-            })}
-          </StyledNavListContainer>
-          <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-
-            {talkNavListURLs.map((url, i) => {
-              return (
-                <NavListItem colorTheme={colorTheme} key={url} label={talkNavListLabels[i]} url={url} />
-              )
-            })}
-          </StyledNavListContainer>
-          <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {buildNavListURLs.map((url, i) => {
-              return (
-                <NavListItem colorTheme={colorTheme} key={url} label={buildNavListLabels[i]} url={url} />
-              )
-            })}
-          </StyledNavListContainer>
-          <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
-            {newsNavListURLs.map((url, i) => {
-              return (
-                <NavListItem colorTheme={colorTheme} key={url} label={newsNavListLabels[i]} url={url} />
-              )
-            })}
-          </StyledNavListContainer>
-        </StyledFooterSection>
-        <StyledFooterSection
-          align='center'
-          className='small'
-          background={(colorTheme === 'light')
-            ? zooTheme.light.colors.background.default
-            : zooTheme.dark.colors.background.container
-          }
-          direction='row'
-          fill='horizontal'
-          pad={{ horizontal: 'large', vertical: 'none' }}
-          justify='between'
-          tag='section'
-        >
-          <StyledNavListContainer
-            direction='row'
-            gap='small'
-            responsive={false}
-            tag='nav'
-          >
-            {policyNavListURLs.map((url, i) => {
-              return (
-                <ThemeProvider key={url} theme={{ mode: colorTheme }}>
-                  <StyledSmallNavListItem href={url}>
-                    {policyNavListLabels[i]}
-                  </StyledSmallNavListItem>
-                </ThemeProvider>
-              )
-            })}
-          </StyledNavListContainer>
-          <div>
-            {props.adminContainer}
-            <StyledEasterEgg src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png' alt='' />
-          </div>
-        </StyledFooterSection>
+          <SocialAnchor colorTheme={colorTheme} service='facebook' />
+          <SocialAnchor colorTheme={colorTheme} service='twitter' />
+          <SocialAnchor colorTheme={colorTheme} service='instagram' />
+        </StyledNavListContainer>
+      </StyledFooterSection>
+      <Box
+        fill='horizontal'
+        pad={{ horizontal: 'large' }}
+        tag='section'
+      >
+        <StyledDivider />
       </Box>
-    </Grommet>
+      <StyledFooterSection
+        direction='row'
+        fill='horizontal'
+        justify='start'
+        pad={{ horizontal: 'large', vertical: 'medium' }}
+        margin={{
+          top: 'none', bottom: 'large', left: 'none', right: 'none'
+        }}
+        tag='section'
+        responsive
+        wrap
+      >
+        <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
+          {projectNavListURLs.map((url, i) => {
+            return (
+              <NavListItem colorTheme={colorTheme} key={url} label={projectNavListLabels[i]} url={url} />
+            )
+          })}
+        </StyledNavListContainer>
+        <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
+          {aboutNavListURLs.map((url, i) => {
+            return (
+              <NavListItem colorTheme={colorTheme} key={url} label={aboutNavListLabels[i]} url={url} />
+            )
+          })}
+        </StyledNavListContainer>
+        <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
+          {getInvolvedNavListURLs.map((url, i) => {
+            return (
+              <NavListItem colorTheme={colorTheme} key={url} label={getInvolvedNavListLabels[i]} url={url} />
+            )
+          })}
+        </StyledNavListContainer>
+        <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
+
+          {talkNavListURLs.map((url, i) => {
+            return (
+              <NavListItem colorTheme={colorTheme} key={url} label={talkNavListLabels[i]} url={url} />
+            )
+          })}
+        </StyledNavListContainer>
+        <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
+          {buildNavListURLs.map((url, i) => {
+            return (
+              <NavListItem colorTheme={colorTheme} key={url} label={buildNavListLabels[i]} url={url} />
+            )
+          })}
+        </StyledNavListContainer>
+        <StyledNavListContainer flex margin={{ horizontal: 'none', vertical: 'small' }} tag='nav'>
+          {newsNavListURLs.map((url, i) => {
+            return (
+              <NavListItem colorTheme={colorTheme} key={url} label={newsNavListLabels[i]} url={url} />
+            )
+          })}
+        </StyledNavListContainer>
+      </StyledFooterSection>
+      <StyledFooterSection
+        align='center'
+        className='small'
+        background={(colorTheme === 'light')
+          ? zooTheme.light.colors.background.default
+          : zooTheme.dark.colors.background.container
+        }
+        direction='row'
+        fill='horizontal'
+        pad={{ horizontal: 'large', vertical: 'none' }}
+        justify='between'
+        tag='section'
+      >
+        <StyledNavListContainer
+          direction='row'
+          gap='small'
+          responsive={false}
+          tag='nav'
+        >
+          {policyNavListURLs.map((url, i) => {
+            return (
+              <ThemeProvider key={url} theme={{ mode: colorTheme }}>
+                <StyledSmallNavListItem href={url}>
+                  {policyNavListLabels[i]}
+                </StyledSmallNavListItem>
+              </ThemeProvider>
+            )
+          })}
+        </StyledNavListContainer>
+        <div>
+          {props.adminContainer}
+          <StyledEasterEgg src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png' alt='' />
+        </div>
+      </StyledFooterSection>
+    </Box>
   )
 }
 
@@ -314,7 +311,6 @@ ZooFooter.defaultProps = {
   talkNavListLabels: [
     counterpart('ZooFooter.talkLabels.talk')
   ],
-  theme: zooTheme,
   zooTagline: counterpart('ZooFooter.tagLine')
 }
 
@@ -335,7 +331,6 @@ ZooFooter.propTypes = {
   projectNavListLabels: PropTypes.arrayOf(PropTypes.string),
   talkNavListURLs: PropTypes.arrayOf(PropTypes.string),
   talkNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  theme: PropTypes.object,
   zooTagline: PropTypes.string
 }
 

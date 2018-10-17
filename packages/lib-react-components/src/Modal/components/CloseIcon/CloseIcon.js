@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { Box } from 'grommet'
 
 const StyledSVG = styled.svg`
-  display: block
-  fill: white
-  height: 100%
-  width: auto
+  display: block;
+  fill: white;
+  height: 100%;
+  width: auto;
 `
 
 function CloseIcon () {

@@ -3,6 +3,8 @@ import { withInfo } from '@storybook/addon-info'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
 import { linkTo } from '@storybook/addon-links'
 import { storiesOf } from '@storybook/react'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { backgrounds } from './lib'
 import { Modal } from '../src'
@@ -20,21 +22,26 @@ storiesOf('Modal', module)
   .addDecorator(backgrounds)
   .addDecorator(withKnobs)
   .add('Light theme (default)', withInfo(modalDocs)(() => (
-    <Modal
-      active={boolean('Active', true)}
-      closeFn={closeFn}
-      title={text('Title', 'Modal Title')}
-    >
-      {content}
-    </Modal>
+    <Grommet theme={zooTheme}>
+      <Modal
+        active={boolean('Active', true)}
+        closeFn={closeFn}
+        title={text('Title', 'Modal Title')}
+      >
+        {content}
+      </Modal>
+    </Grommet>
   )))
   .add('Dark theme', withInfo(modalDocs)(() => (
-    <Modal
-      active={boolean('Active', true)}
-      closeFn={closeFn}
-      colorTheme='dark'
-      title={text('Title', 'Modal Title')}
-    >
-      {content}
-    </Modal>
+    <Grommet theme={zooTheme}>
+      <Modal
+        active={boolean('Active', true)}
+        closeFn={closeFn}
+        colorTheme='dark'
+        title={text('Title', 'Modal Title')}
+      >
+        {content}
+      </Modal>
+    </Grommet>
   )))
+  

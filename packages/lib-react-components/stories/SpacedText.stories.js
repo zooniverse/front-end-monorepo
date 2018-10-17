@@ -17,5 +17,4 @@ storiesOf('SpacedText', module)
     <Grommet theme={zooTheme}>
       <SpacedText>Zooniverse</SpacedText>
     </Grommet>
-  )
-  )
+  ))

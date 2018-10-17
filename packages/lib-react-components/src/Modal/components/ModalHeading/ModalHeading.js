@@ -10,26 +10,26 @@ import CloseIcon from '../CloseIcon'
 counterpart.registerTranslations('en', en)
 
 const Heading = styled.h5`
-  color: white
-  font-size: 1rem
-  font-weight: bold
-  letter-spacing: 0.18em
-  margin: 0
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.18em;
+  margin: 0;
   text-shadow: 0 2px 2px rgba(0,0,0,0.22);
-  text-transform: uppercase
+  text-transform: uppercase;
 `
 
 const StyledButton = styled(Button)`
-  height: 1rem
-  width: 1rem
+  height: 1rem;
+  width: 1rem;
 
   svg {
-    opacity: 0.7
+    opacity: 0.7;
   }
 
   &:active svg,
   &:hover svg {
-    opacity: 1
+    opacity: 1;
   }
 `
 
