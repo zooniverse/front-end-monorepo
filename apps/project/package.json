@@ -1,6 +1,6 @@
 {
-  "name": "@zooniverse/project",
   "private": true,
+  "name": "@zooniverse/project",
   "description": "Zooniverse front end app handling projects and classification",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
