@@ -1,6 +1,7 @@
 {
   "lerna": "2.9.0",
   "packages": [
+    "apps/*",
     "packages/*"
   ],
   "version": "independent"
