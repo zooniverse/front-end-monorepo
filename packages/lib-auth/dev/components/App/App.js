@@ -1,6 +1,7 @@
 import { Button, Grommet, Box } from 'grommet'
 import queryString from 'query-string'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { createOAuthClient } from '../../../src'
 
@@ -65,7 +66,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <Grommet>
+      <Grommet theme={zooTheme}>
         {this.state.loading ? this.renderLoading() : this.renderApp()}
       </Grommet>
     )
