@@ -86,7 +86,7 @@ const ZooFooter = (props) => {
     projectNavListLabels,
     projectNavListURLs,
     talkNavListLabels,
-    talkNavListURLs,
+    talkNavListURLs
   } = props
 
   return (

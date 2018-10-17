@@ -25,7 +25,7 @@ function WithLayer (WrappedComponent, theme = zooTheme) {
   HOC.propTypes = {
     active: PropTypes.bool,
     closeFn: PropTypes.func,
-    modal: PropTypes.bool,
+    modal: PropTypes.bool
   }
 
   HOC.defaultProps = {

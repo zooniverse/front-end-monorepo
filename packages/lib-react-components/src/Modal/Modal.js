@@ -26,7 +26,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   colorTheme: 'light',
-  closeFn: () => {},
+  closeFn: () => {}
 }
 
 export default WithLayer(Modal)

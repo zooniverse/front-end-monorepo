@@ -6,8 +6,8 @@ const req = require.context('../stories', true, /.stories.js$/)
 
 // addon-info
 setDefaults({
-  inline: true,
-});
+  inline: true
+})
 
 function loadStories () {
   req.keys().forEach(filename => req(filename))
