@@ -2,6 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import * as d3 from 'd3'
+
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 

@@ -14,7 +14,7 @@ function LightCurveViewer ({ url }) {
     <SVG>
       <image xlinkHref={url} />
       <InteractionLayer />
-      <circle cx="100" cy="100" r="100" fill="#3cc" />
+      <circle cx="100" cy="100" r="100" fill="#c33" />
     </SVG>
   )
 }
