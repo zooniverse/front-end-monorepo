@@ -27,6 +27,8 @@ class LightCurveViewerContainer extends React.Component {
     
     this.d3svg = d3.select(this.svgContainer.current)
       .append('svg')
+      //.attr('viewBox', `0 0 ${this.width} ${this.height}`)  //TODO: check
+      //.attr('style', 'width: 100%; height: 100%')  //TODO: check
       .attr('width', this.width)
       .attr('height', this.height)
     
@@ -35,6 +37,8 @@ class LightCurveViewerContainer extends React.Component {
       .attr('width', this.width)
       .attr('height', this.height)
       .attr('fill', '#eff')
+      .attr('stroke', '#066')
+      .attr('stroke-width', '2')
   }
   
   componentWillUnount () {
