@@ -79,7 +79,7 @@ class LightCurveViewerContainer extends React.Component {
         .attr('cx', (d) => d.x)
         .attr('cy', (d) => d.y)
         .attr('r', (d) => 1)
-        .attr('fill', '#3cc')
+        .attr('fill', '#066')
     //--------------------------------
     
     //Add interactive elements for panning and zooming
