@@ -15,8 +15,8 @@ node {
     newImage.inside {
       sh '''
         cd /usr/src/
-        lerna run build --scope="@zooniverse/react-components"
-        lerna run --stream test
+        ./node_modules/.bin/lerna run build --scope="@zooniverse/grommet-theme"
+        ./node_modules/.bin/lerna run --stream test
       '''
     }
   }
