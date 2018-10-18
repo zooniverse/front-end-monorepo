@@ -14,6 +14,7 @@ node {
   stage('Test') {
     newImage.inside {
       sh '''
+        cd /usr/src/
         lerna run build --scope="@zooniverse/react-components"
         lerna run --stream test
       '''
