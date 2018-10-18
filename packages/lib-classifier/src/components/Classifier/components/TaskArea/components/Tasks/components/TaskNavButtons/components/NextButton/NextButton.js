@@ -26,7 +26,7 @@ export const StyledNextButton = styled(Button)`
     dark: zooTheme.global.colors.gold,
     light: 'black'
   })};
-  padding: 0;
+  padding: 0.5em;
   text-transform: capitalize;
 
   svg {

@@ -4,7 +4,7 @@ import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 
 function WithLayer (WrappedComponent, theme = zooTheme) {
-  function HOC ({ active, closeFn, ...props }) {
+  function HOC ({ active, closeFn, modal, ...props }) {
     if (!active) {
       return null
     }
@@ -12,9 +12,9 @@ function WithLayer (WrappedComponent, theme = zooTheme) {
     return (
       <Grommet theme={theme}>
         <Layer
+          modal={modal}
           onClickOutside={closeFn}
           onEsc={closeFn}
-          plain
         >
           <WrappedComponent {...props} closeFn={closeFn} />
         </Layer>
@@ -24,11 +24,13 @@ function WithLayer (WrappedComponent, theme = zooTheme) {
 
   HOC.propTypes = {
     active: PropTypes.bool,
-    closeFn: PropTypes.func
+    closeFn: PropTypes.func,
+    modal: PropTypes.bool
   }
 
   HOC.defaultProps = {
-    active: false
+    active: false,
+    modal: true
   }
 
   return HOC

@@ -1,7 +1,25 @@
 exports["should match snapshot(0)"] = {
   "node": {
-    "nodeType": "class",
-    "type": "StyledComponent",
+    "nodeType": "function",
+    "type": {
+      "render": "[function]",
+      "componentStyle": {
+        "rules": [
+          "\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n"
+        ],
+        "isStatic": true,
+        "componentId": "sc-bxivhb"
+      },
+      "displayName": "Styled(Text)",
+      "styledComponentId": "sc-bxivhb",
+      "target": {
+        "render": "[function]",
+        "displayName": "Text",
+        "name": "Text"
+      },
+      "withComponent": "withComponent",
+      "warnTooManyClasses": "[function]"
+    },
     "props": {
       "margin": "none",
       "size": "small",

@@ -7,7 +7,27 @@ exports["should match its snapshot(0)"] = {
         "mode": "light"
       },
       "children": {
-        "type": "StyledComponent",
+        "type": {
+          "render": "[function]",
+          "componentStyle": {
+            "rules": [
+              "\n  &:first-child {\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  &:not(:first-child) {\n    color: ",
+              "[function]",
+              ";\n  }\n  font-size: 0.8em;\n  font-weight: bold;\n"
+            ],
+            "isStatic": false,
+            "componentId": "sc-EHOje"
+          },
+          "displayName": "Styled(Anchor)",
+          "styledComponentId": "sc-EHOje",
+          "target": {
+            "render": "[function]",
+            "displayName": "Anchor",
+            "name": "Anchor"
+          },
+          "withComponent": "withComponent",
+          "warnTooManyClasses": "[function]"
+        },
         "props": {
           "href": "https://www.zooniverse.org",
           "children": "My link"
@@ -16,8 +36,28 @@ exports["should match its snapshot(0)"] = {
       }
     },
     "rendered": {
-      "nodeType": "class",
-      "type": "StyledComponent",
+      "nodeType": "function",
+      "type": {
+        "render": "[function]",
+        "componentStyle": {
+          "rules": [
+            "\n  &:first-child {\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  &:not(:first-child) {\n    color: ",
+            "[function]",
+            ";\n  }\n  font-size: 0.8em;\n  font-weight: bold;\n"
+          ],
+          "isStatic": false,
+          "componentId": "sc-EHOje"
+        },
+        "displayName": "Styled(Anchor)",
+        "styledComponentId": "sc-EHOje",
+        "target": {
+          "render": "[function]",
+          "displayName": "Anchor",
+          "name": "Anchor"
+        },
+        "withComponent": "withComponent",
+        "warnTooManyClasses": "[function]"
+      },
       "props": {
         "href": "https://www.zooniverse.org",
         "children": "My link"
@@ -34,8 +74,28 @@ exports["should match its snapshot(0)"] = {
   "children": [
     {
       "node": {
-        "nodeType": "class",
-        "type": "StyledComponent",
+        "nodeType": "function",
+        "type": {
+          "render": "[function]",
+          "componentStyle": {
+            "rules": [
+              "\n  &:first-child {\n    font-weight: bold;\n    letter-spacing: 1px;\n    margin-bottom: 0.5em;\n    text-transform: uppercase;\n  }\n\n  &:not(:first-child) {\n    color: ",
+              "[function]",
+              ";\n  }\n  font-size: 0.8em;\n  font-weight: bold;\n"
+            ],
+            "isStatic": false,
+            "componentId": "sc-EHOje"
+          },
+          "displayName": "Styled(Anchor)",
+          "styledComponentId": "sc-EHOje",
+          "target": {
+            "render": "[function]",
+            "displayName": "Anchor",
+            "name": "Anchor"
+          },
+          "withComponent": "withComponent",
+          "warnTooManyClasses": "[function]"
+        },
         "props": {
           "href": "https://www.zooniverse.org",
           "children": "My link"
