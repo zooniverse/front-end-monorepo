@@ -13,18 +13,28 @@ class LightCurveViewerContainer extends React.Component {
     super()
     this.state = {}
     
-    this.d3svg = React.createRef();
+    this.svgContainer = React.createRef();
     
     //TODO: turn into variables?
     this.width = 500
     this.height = 500
+    
+    this.d3svg = null;
+    this.d3dataLayer = null;
   }
 
   componentDidMount () {
-    d3.select(this.d3svg.current)
+    
+    this.d3svg = d3.select(this.svgContainer.current)
       .append('svg')
       .attr('width', this.width)
       .attr('height', this.height)
+    
+    this.d3dataLayer = d3.select(this.d3svg.node())
+      .append('rect')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .attr('fill', '#eff')
   }
   
   componentWillUnount () {
@@ -44,7 +54,7 @@ class LightCurveViewerContainer extends React.Component {
     }
 
     return (
-      <div className="light-curve-viewer" ref={this.d3svg}></div>
+      <div className="light-curve-viewer" ref={this.svgContainer}></div>
     )
   }
 }
