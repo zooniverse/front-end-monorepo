@@ -1,12 +1,13 @@
 import asyncStates from '@zooniverse/async-states'
 import counterpart from 'counterpart'
 import cuid from 'cuid'
-import { autorun } from 'mobx'
+import { autorun, toJS } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
 import Classification from './Classification'
 import ResourceStore from './ResourceStore'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
+import { convertMapToArray } from './utils'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -95,13 +96,36 @@ const ClassificationStore = types
       if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
     }
 
-    function submitClassification () {
-      console.log('submit')
+    function completeClassification() {
+      const classification = self.active
+      const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false }) // Convert from observables
+      delete classificationToSubmit.id  // remove temp id
+      classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
+      // Why isn't this converting the metadata observable object to a plain object?
+      classificationToSubmit.metadata = toJS(classificationToSubmit.metadata)
+
+      console.log(classificationToSubmit)
+    }
+
+    function * submitClassification () {
+      const root = getRoot(self)
+      const client = root.client.panoptes
+      self.loadingState = asyncStates.posting
+
+      try {
+        const response = yield client.post()
+
+        self.loadingState = asyncStates.success
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
+      }
     }
 
     return {
       addAnnotation,
       afterAttach,
+      completeClassification,
       createClassification,
       createDefaultAnnotation,
       removeAnnotation,

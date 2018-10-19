@@ -14,12 +14,14 @@ function storeMapper (stores) {
   } = stores.classifierStore.workflowSteps
   const {
     active: classification,
+    completeClassification,
     createDefaultAnnotation,
     removeAnnotation
   } = stores.classifierStore.classifications
 
   return {
     classification,
+    completeClassification,
     createDefaultAnnotation,
     getPreviousStepKey,
     isThereANextStep,
@@ -72,13 +74,14 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { isThereANextStep, isThereAPreviousStep } = this.props
+    const { isThereANextStep, isThereAPreviousStep, completeClassification } = this.props
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
         showBackButton={isThereAPreviousStep()}
         showNextButton={isThereANextStep()}
+        completeClassification={completeClassification}
       />
     )
   }
@@ -86,6 +89,7 @@ class TaskNavButtonsContainer extends React.Component {
 
 TaskNavButtons.defaultProps = {
   classification: {},
+  completeClassification: () => {},
   createDefaultAnnotation: () => {},
   selectStep: () => {},
   tasks: []
@@ -95,6 +99,7 @@ TaskNavButtonsContainer.propTypes = {
   classification: PropTypes.shape({
     annotation: MobXPropTypes.observableArrayOf(PropTypes.object)
   }),
+  completeClassification: PropTypes.func,
   createDefaultAnnotation: PropTypes.func,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
