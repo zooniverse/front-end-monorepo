@@ -5,8 +5,8 @@ import UIStore from './UIStore'
 
 const OAuthStore = types
   .model('OAuthStore', {
-    credentials: types.optional(CredentialsStore, CredentialsStore.create()),
-    ui: types.optional(UIStore, UIStore.create())
+    credentials: types.optional(CredentialsStore, {}),
+    ui: types.optional(UIStore, {})
   })
 
   .views(self => ({
