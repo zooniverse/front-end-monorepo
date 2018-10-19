@@ -7,8 +7,8 @@ function storeMapper (stores) {
   const {
     active: step,
     activeStepTasks: tasks,
-    isThereANextStep: showNextButton,
-    isThereAPreviousStep: showBackButton,
+    isThereANextStep,
+    isThereAPreviousStep,
     selectStep,
     steps
   } = stores.classifierStore.workflowSteps
@@ -17,8 +17,8 @@ function storeMapper (stores) {
   return {
     classification,
     createDefaultAnnotation,
-    showBackButton,
-    showNextButton,
+    isThereANextStep,
+    isThereAPreviousStep,
     selectStep,
     step,
     steps,
@@ -57,13 +57,14 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { showBackButton, showNextButton } = this.props
+    const { isThereANextStep, isThereAPreviousStep } = this.props
+    const showBackButton = isThereANextStep
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
-        showBackButton={showBackButton}
-        showNextButton={showNextButton}
+        showBackButton={isThereAPreviousStep()}
+        showNextButton={isThereANextStep()}
       />
     )
   }
