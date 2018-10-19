@@ -7,21 +7,26 @@ function storeMapper (stores) {
   const {
     active: step,
     activeStepTasks: tasks,
+    getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
     selectStep,
-    steps
   } = stores.classifierStore.workflowSteps
-  const { active: classification, createDefaultAnnotation } = stores.classifierStore.classifications
+  const {
+    active: classification,
+    createDefaultAnnotation,
+    removeAnnotation
+  } = stores.classifierStore.classifications
 
   return {
     classification,
     createDefaultAnnotation,
+    getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
+    removeAnnotation,
     selectStep,
     step,
-    steps,
     tasks
   }
 }
@@ -43,11 +48,21 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   goToPreviousStep () {
-    const { selectStep, step, steps } = this.props
-    const stepsKeys = Array.from(steps.keys())
-    const currentStepIndex = stepsKeys.indexOf(step.stepKey)
-    const previousStep = stepsKeys[currentStepIndex - 1]
-    if (previousStep) selectStep(previousStep)
+    const {
+      isThereAPreviousStep,
+      getPreviousStepKey,
+      removeAnnotation,
+      selectStep,
+      step
+    } = this.props
+
+    if (isThereAPreviousStep()) {
+      const previousStep = getPreviousStepKey()
+      step.taskKeys.forEach((taskKey) => {
+        removeAnnotation(taskKey)
+      })
+      selectStep(previousStep)
+    }
   }
 
   goToNextStep () {
@@ -58,7 +73,6 @@ class TaskNavButtonsContainer extends React.Component {
 
   render () {
     const { isThereANextStep, isThereAPreviousStep } = this.props
-    const showBackButton = isThereANextStep
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}

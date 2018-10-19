@@ -70,6 +70,12 @@ const WorkflowStepStore = types
       return stepKeys.next().value
     }
 
+    function getPreviousStepKey () {
+      const stepsKeys = Array.from(self.steps.keys())
+      const currentStepIndex = stepsKeys.indexOf(self.active.stepKey)
+      return stepsKeys[currentStepIndex - 1]
+    }
+
     function reset () {
       self.active = undefined
       self.steps.clear()
@@ -139,6 +145,7 @@ const WorkflowStepStore = types
       afterAttach,
       convertWorkflowToUseSteps,
       getNextStepKey,
+      getPreviousStepKey,
       reset,
       selectStep,
       setSteps,

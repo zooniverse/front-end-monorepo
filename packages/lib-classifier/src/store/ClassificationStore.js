@@ -69,29 +69,34 @@ const ClassificationStore = types
     }
 
     function createDefaultAnnotation (task) {
-      const activeClassification = self.active
-      if (activeClassification) {
+      const classification = self.active
+      if (classification) {
         const annotationModel = getAnnotationType(task.type)
         const newAnnotation = annotationModel.create({ task: task.taskKey })
-        activeClassification.annotations.put(newAnnotation)
+        classification.annotations.put(newAnnotation)
         return newAnnotation
       }
 
-      if (!activeClassification) console.error('No active classification. Cannot create default annotations.')
+      if (!classification) console.error('No active classification. Cannot create default annotations.')
     }
 
     function addAnnotation (annotationValue, task) {
-      const activeClassification = self.active
-      if (activeClassification) {
-        const annotation = activeClassification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
+      const classification = self.active
+      if (classification) {
+        const annotation = classification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
         annotation.value = annotationValue
       }
     }
 
     function removeAnnotation (taskKey) {
-      const currentClassification = self.active
+      const classification = self.active
+      const workflow = getRoot(self).workflows.active
+      const isPersistAnnotationsSet = workflow.configuration.persist_annotations
+      if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
+    }
 
-      if (currentClassification) currentClassification.annotations.delete(taskKey)
+    function submitClassification () {
+      console.log('submit')
     }
 
     return {
@@ -99,7 +104,8 @@ const ClassificationStore = types
       afterAttach,
       createClassification,
       createDefaultAnnotation,
-      removeAnnotation
+      removeAnnotation,
+      submitClassification
     }
   })
 
