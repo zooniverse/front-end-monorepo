@@ -36,21 +36,21 @@ export const StyledBackButton = styled(Button)`
 
   &:focus, &:hover {
     background: ${theme('mode', {
-      dark: zooTheme.dark.colors.background.default,
-      light: `linear-gradient(
+    dark: zooTheme.dark.colors.background.default,
+    light: `linear-gradient(
         ${zooTheme.light.colors.button.answer.gradient.top},
         ${zooTheme.light.colors.button.answer.gradient.bottom}
       )`
-    })};
+  })};
     border: ${theme('mode', {
-      dark: `thin solid ${zooTheme.dark.colors.button.answer.default}`,
-      light: 'thin solid transparent'
-    })};
+    dark: `thin solid ${zooTheme.dark.colors.button.answer.default}`,
+    light: 'thin solid transparent'
+  })};
     box-shadow: none;
     color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
-      light: 'black'
-    })};
+    dark: zooTheme.dark.colors.font,
+    light: 'black'
+  })};
   }
   `
 

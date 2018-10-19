@@ -45,8 +45,8 @@ describe('MultipleChoiceTask', function () {
           addAnnotation={addAnnotationSpy}
           annotations={new Map()}
           task={task}
-          />
-        )
+        />
+      )
     })
 
     afterEach(function () {
@@ -69,7 +69,6 @@ describe('MultipleChoiceTask', function () {
       const node = wrapper.find('TaskInputField').first()
       node.simulate('change', { target: { checked: true } })
       expect(addAnnotationSpy.calledWith([0], task)).to.be.true
-
     })
 
     it('should push the index to the value array if the event target is checked and the existing annotations array does not include the index', function () {

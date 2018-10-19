@@ -31,7 +31,7 @@ describe('TaskNavButtonsContainer', function () {
     before(function () {
       wrapper = shallow(
         <TaskNavButtonsContainer
-          showNextButton={true}
+          showNextButton
           tasks={tasks}
         />
       )
@@ -58,7 +58,7 @@ describe('TaskNavButtonsContainer', function () {
       wrapper = shallow(
         <TaskNavButtonsContainer
           selectStep={selectStepSpy}
-          showNextButton={true}
+          showNextButton
           tasks={tasks}
         />
       )
@@ -94,8 +94,8 @@ describe('TaskNavButtonsContainer', function () {
       wrapper = shallow(
         <TaskNavButtonsContainer
           selectStep={selectStepSpy}
-          showBackButton={true}
-          showNextButton={true}
+          showBackButton
+          showNextButton
           steps={steps}
           tasks={tasks}
         />
@@ -132,7 +132,7 @@ describe('TaskNavButtonsContainer', function () {
       wrapper = shallow(
         <TaskNavButtonsContainer
           createDefaultAnnotation={createDefaultAnnotationSpy}
-          showNextButton={true}
+          showNextButton
           tasks={tasks}
         />
       )

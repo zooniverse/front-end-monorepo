@@ -9,7 +9,7 @@ export const StyledFieldset = styled.fieldset`
   border: none;
 `
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const {
     addAnnotation
   } = stores.classifierStore.classifications
@@ -23,20 +23,20 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class MultipleChoiceTask extends React.Component {
-  onChange(index, event) {
+  onChange (index, event) {
     const { addAnnotation, annotations, task } = this.props
     const annotation = annotations.get(task.taskKey)
     const newAnnotationValue = (annotation) ? annotation.value.slice(0) : []
     if (event.target.checked && !newAnnotationValue.includes(index)) {
       newAnnotationValue.push(index)
     } else if (!event.target.checked && newAnnotationValue.includes(index)) {
-      const indexInValue = newAnnotationValue.indexOf(index);
-      newAnnotationValue.splice(indexInValue, 1);
+      const indexInValue = newAnnotationValue.indexOf(index)
+      newAnnotationValue.splice(indexInValue, 1)
     }
     addAnnotation(newAnnotationValue, task)
   }
 
-  render() {
+  render () {
     const {
       annotations,
       task

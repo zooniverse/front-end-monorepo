@@ -32,29 +32,29 @@ export const StyledNextButton = styled(Button)`
 
   svg {
     fill: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: 'black'
+  })};
     stroke: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: 'black'
+  })};
   }
 
   &:hover:not(:disabled), &:focus:not(:disabled) {
     background: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: zooTheme.light.colors.button.nextHover
-    })};
+    dark: zooTheme.global.colors.gold,
+    light: zooTheme.light.colors.button.nextHover
+  })};
     border: ${theme('mode', {
-      dark: `solid thin ${zooTheme.global.colors.gold}`,
-      light: `solid thin ${zooTheme.light.colors.button.nextHover}`
-    })};
+    dark: `solid thin ${zooTheme.global.colors.gold}`,
+    light: `solid thin ${zooTheme.light.colors.button.nextHover}`
+  })};
     box-shadow: none;
     color: ${theme('mode', {
-      dark: 'black',
-      light: 'black'
-    })};
+    dark: 'black',
+    light: 'black'
+  })};
   }
 
   &:disabled {
@@ -72,7 +72,7 @@ export const StyledNextButton = styled(Button)`
     })}; */}
     cursor: not-allowed;
   }
-`
+  `
 
 function NextButton ({ autoFocus, disabled, classifierTheme, onClick }) {
   return (

@@ -29,7 +29,7 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class TaskNavButtonsContainer extends React.Component {
-  createDefaultAnnotationIfThereIsNone() {
+  createDefaultAnnotationIfThereIsNone () {
     const { classification, createDefaultAnnotation, tasks } = this.props
     if (classification) {
       tasks.forEach((task) => {

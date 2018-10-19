@@ -43,7 +43,7 @@ describe('SingleChoiceTask', function () {
       wrapper = shallow(<SingleChoiceTask addAnnotation={addAnnotationSpy} task={task} />)
     })
 
-    afterEach(function() {
+    afterEach(function () {
       addAnnotationSpy.resetHistory()
       onChangeSpy.resetHistory()
     })
