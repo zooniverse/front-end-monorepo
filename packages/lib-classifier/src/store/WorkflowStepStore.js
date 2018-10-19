@@ -61,12 +61,13 @@ const WorkflowStepStore = types
 
     function getNextStepKey () {
       const stepKeys = self.steps.keys()
-      let nextStepKey = stepKeys.next().value
       if (self.active) {
-        nextStepKey = stepKeys.next(self.active).value
+        const stepKeysArray = Array.from(stepKeys)
+        const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
+        return stepKeysArray[currentStepIndex + 1]
       }
 
-      return nextStepKey
+      return stepKeys.next().value
     }
 
     function reset () {
