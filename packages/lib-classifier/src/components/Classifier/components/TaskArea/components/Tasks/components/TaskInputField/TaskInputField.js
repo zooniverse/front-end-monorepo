@@ -184,7 +184,7 @@ export class TaskInputField extends React.Component {
     return (
       <ThemeProvider theme={{ mode: this.props.theme }}>
         <StyledTaskInputField
-          innerRef={(node) => { this.field = node }}
+          ref={(node) => { this.field = node }}
           className={className}
           label={label}
           data-focus={false}
