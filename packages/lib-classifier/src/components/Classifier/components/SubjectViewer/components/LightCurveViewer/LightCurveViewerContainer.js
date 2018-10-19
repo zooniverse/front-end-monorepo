@@ -53,24 +53,28 @@ class LightCurveViewerContainer extends React.Component {
       .attr('height', this.height)
     //--------------------------------
     
-    //Convert example data into something that we can see on the chart
-    //WARNING: we need to find out how the TESS data looks like soon so we know
-    //the upper/lower limits of the axes.
+    //WIP: Scale and Axis layer
     //--------------------------------
-    let minX = Math.min(...exampleData.x), maxX = Math.max(...exampleData.x)
-    let minY = Math.min(...exampleData.y), maxY = Math.max(...exampleData.y)
-    console.log(`+++ Example Data X range: ${minX},${maxX}, Y-range: ${minY},${maxY}`);
-    const data = exampleData.x.map((x, index) => {
-      const y = exampleData.y[index]
-      return {
-        x: (x - minX) / (maxX - minX) * this.width,
-        y: this.height - (y - minY) / (maxY - minY) * this.height
-      }
-    })
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(exampleData.x))
+      .range([0, this.width])
+    const xAxis = d3.axisBottom(xScale)
+    const yScale = d3.scaleLinear()
+      .domain(d3.extent(exampleData.y))
+      .range([this.height, 0])  //REVERSE!
+    const yAxis = d3.axisLeft(yScale)
     //--------------------------------
     
     //Insert the data
     //--------------------------------
+    const data = exampleData.x.map((x, index) => {
+      const y = exampleData.y[index]
+      return {
+        x: xScale(x),
+        y: yScale(y)
+      }
+    })
+    
     this.d3dataLayer.selectAll('circle')
       .data(data)
       .enter()
