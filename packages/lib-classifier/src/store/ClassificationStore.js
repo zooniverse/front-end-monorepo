@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, getRoot, types, getSnapshot } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -134,14 +134,15 @@ const ClassificationStore = types
       self.submitClassification(classificationToSubmit)
     }
 
-    async function submitClassification (classification) {
+    // TODO: add submission queue
+    function* submitClassification (classification) {
       console.log('Saving classification')
       const root = getRoot(self)
       const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
       try {
-        const response = await client.post(`/${self.type}`, { classifications: classification })
+        const response = yield client.post(`/${self.type}`, { classifications: classification })
         if (response.ok) {
           console.log(`Saved classification ${response.body.classifications[0].id}`)
           self.loadingState = asyncStates.success
@@ -159,7 +160,7 @@ const ClassificationStore = types
       createClassification,
       createDefaultAnnotation,
       removeAnnotation,
-      submitClassification,
+      submitClassification: flow(submitClassification),
       updateClassificationMetadata
     }
   })
