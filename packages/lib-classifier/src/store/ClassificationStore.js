@@ -8,7 +8,7 @@ import { addDisposer, flow, getRoot, onAction, types } from 'mobx-state-tree'
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
-import { convertMapToArray, getSessionID } from './utils'
+import { convertMapToArray, sessionUtils } from './utils'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -109,7 +109,7 @@ const ClassificationStore = types
       const classification = self.active
       // TODO store intervention metadata if we have a user...
       self.updateClassificationMetadata({
-        session: getSessionID(),
+        session: sessionUtils.getSessionID(),
         finishedAt: (new Date()).toISOString(),
         viewport: {
           width: window.innerWidth,

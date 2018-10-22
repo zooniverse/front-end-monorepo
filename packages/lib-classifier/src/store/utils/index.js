@@ -1,2 +1,2 @@
 export { default as convertMapToArray } from './convertMapToArray'
-export { generateSessionID, getSessionID } from './session'
+export { default as sessionUtils } from './session'

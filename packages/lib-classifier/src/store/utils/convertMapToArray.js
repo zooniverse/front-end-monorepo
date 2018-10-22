@@ -4,5 +4,5 @@ export default function (map, options = { pairs: false }) {
   }
   const values = map.values()
 
-  return Array.from(values) // or just return a flat array of the map's values
+  return Array.from(values) // or just return an array of the map's values
 }
