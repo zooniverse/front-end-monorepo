@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
 import { DrawingTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
@@ -38,6 +38,7 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
+      createClassificationObserver()
     }
 
     function createWorkflowObserver () {
@@ -59,6 +60,16 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
+    function createClassificationObserver () {
+      const classificationDisposer = autorun(() => {
+        const classificationStore = getRoot(self).classifications
+        onAction(classificationStore, (call) => {
+          if (call.name === 'completeClassification') self.resetSteps()
+        })
+      })
+      addDisposer(self, classificationDisposer)
+    }
+
     function getNextStepKey () {
       const stepKeys = self.steps.keys()
       if (self.active) {
@@ -74,6 +85,11 @@ const WorkflowStepStore = types
       const stepsKeys = Array.from(self.steps.keys())
       const currentStepIndex = stepsKeys.indexOf(self.active.stepKey)
       return stepsKeys[currentStepIndex - 1]
+    }
+
+    function resetSteps () {
+      self.active = undefined
+      self.selectStep()
     }
 
     function reset () {
@@ -147,6 +163,7 @@ const WorkflowStepStore = types
       getNextStepKey,
       getPreviousStepKey,
       reset,
+      resetSteps,
       selectStep,
       setSteps,
       setStepsAndTasks,
