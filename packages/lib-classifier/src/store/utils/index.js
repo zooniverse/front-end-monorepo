@@ -1,2 +1,2 @@
 export { default as convertMapToArray } from './convertMapToArray'
-export { default as convertCamelCaseToSnake } from './convertCamelCaseToSnakeCase'
+export { generateSessionID, getSessionID } from './session'

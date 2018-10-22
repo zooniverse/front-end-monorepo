@@ -30,6 +30,9 @@ class SingleImageViewerContainer extends React.Component {
     }
   }
 
+  // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
+  // in the classification metadata
+  // Using SVG image might need to be rethought
   fetchImage (url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
@@ -47,6 +50,7 @@ class SingleImageViewerContainer extends React.Component {
     this.setState({ loading: asyncStates.loading })
     try {
       const img = await this.fetchImage(imageUrl)
+
       this.setState({
         height: img.height,
         width: img.width,

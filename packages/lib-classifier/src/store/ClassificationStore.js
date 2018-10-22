@@ -1,13 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
 import counterpart from 'counterpart'
 import cuid from 'cuid'
+import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, types, getSnapshot } from 'mobx-state-tree'
 
-import Classification from './Classification'
+import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
-import { convertMapToArray } from './utils'
+import { convertMapToArray, getSessionID } from './utils'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -42,6 +43,7 @@ const ClassificationStore = types
       const tempID = cuid()
       const projectID = getRoot(self).projects.active.id
       const workflow = getRoot(self).workflows.active
+
       const newClassification = Classification.create({
         id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
         links: {
@@ -49,15 +51,21 @@ const ClassificationStore = types
           subjects: [subject.id],
           workflow: workflow.id
         },
-        source: subject.metadata.intervention ? 'sugar' : 'api',
-        subjectDimensions: (subject.locations.map(() => null)),
-        userLanguage: counterpart.getLocale(),
-        workflowVersion: workflow.version
+        metadata: ClassificationMetadata.create({
+          source: subject.metadata.intervention ? 'sugar' : 'api',
+          userLanguage: counterpart.getLocale(),
+          workflowVersion: workflow.version
+        })
       })
 
       self.resources.put(newClassification)
       self.setActive(tempID)
       self.loadingState = asyncStates.success
+    }
+
+    function updateClassificationMetadata (newMetadata) {
+      const classification = self.active
+      classification.metadata = Object.assign({}, classification.metadata, newMetadata)
     }
 
     function getAnnotationType (taskType) {
@@ -96,26 +104,48 @@ const ClassificationStore = types
       if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
     }
 
-    function completeClassification() {
+    function completeClassification(event) {
+      event.preventDefault()
       const classification = self.active
-      const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false }) // Convert from observables
+      // TODO store intervention metadata if we have a user...
+      self.updateClassificationMetadata({
+        session: getSessionID(),
+        finishedAt: (new Date()).toISOString(),
+        viewport: {
+          width: window.innerWidth,
+          height: window.innerHeight
+        }
+      })
+
+      classification.completed = true
+      // Convert from observables
+      const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
       delete classificationToSubmit.id  // remove temp id
       classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
-      // Why isn't this converting the metadata observable object to a plain object?
-      classificationToSubmit.metadata = toJS(classificationToSubmit.metadata)
 
-      console.log(classificationToSubmit)
+      const convertedMetadata = {}
+      Object.entries(classificationToSubmit.metadata).forEach((entry) => {
+        const key = _.snakeCase(entry[0])
+        convertedMetadata[key] = entry[1]
+      })
+      classificationToSubmit.metadata = convertedMetadata
+
+      console.log('Completed classification', classificationToSubmit)
+      self.submitClassification(classificationToSubmit)
     }
 
-    function * submitClassification () {
+    async function submitClassification (classification) {
+      console.log('Saving classification')
       const root = getRoot(self)
       const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
       try {
-        const response = yield client.post()
-
-        self.loadingState = asyncStates.success
+        const response = await client.post(`/${self.type}`, { classifications: classification })
+        if (response.ok) {
+          console.log(`Saved classification ${response.body.classifications[0].id}`)
+          self.loadingState = asyncStates.success
+        }
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
@@ -129,7 +159,8 @@ const ClassificationStore = types
       createClassification,
       createDefaultAnnotation,
       removeAnnotation,
-      submitClassification
+      submitClassification,
+      updateClassificationMetadata
     }
   })
 
