@@ -31,7 +31,8 @@ describe('TaskNavButtonsContainer', function () {
     before(function () {
       wrapper = shallow(
         <TaskNavButtonsContainer
-          showNextButton
+          isThereAPreviousStep={() => {}}
+          isThereANextStep={() => {}}
           tasks={tasks}
         />
       )
@@ -57,8 +58,9 @@ describe('TaskNavButtonsContainer', function () {
 
       wrapper = shallow(
         <TaskNavButtonsContainer
+          isThereAPreviousStep={() => {}}
+          isThereANextStep={() => {}}
           selectStep={selectStepSpy}
-          showNextButton
           tasks={tasks}
         />
       )
@@ -86,16 +88,21 @@ describe('TaskNavButtonsContainer', function () {
 
   describe('#goToPreviousStep', function () {
     let wrapper
+    let getPreviousStepKeyStub
+    let removeAnnotationSpy
     let selectStepSpy
 
     before(function () {
+      getPreviousStepKeyStub = sinon.stub().callsFake(() => { return 'S0' })
       selectStepSpy = sinon.spy()
+      removeAnnotationSpy = sinon.spy()
 
       wrapper = shallow(
         <TaskNavButtonsContainer
+          isThereAPreviousStep={() => {}}
+          isThereANextStep={() => {}}
+          removeAnnotation={removeAnnotationSpy}
           selectStep={selectStepSpy}
-          showBackButton
-          showNextButton
           steps={steps}
           tasks={tasks}
         />
@@ -104,6 +111,7 @@ describe('TaskNavButtonsContainer', function () {
 
     afterEach(function () {
       selectStepSpy.resetHistory()
+      removeAnnotationSpy.resetHistory()
     })
 
     it('should not call props.selectStep if there is not a previous step', function () {
@@ -115,10 +123,18 @@ describe('TaskNavButtonsContainer', function () {
 
     it('should call props.selectStep when there is a previous step', function () {
       const step = { stepKey: 'S1', taskKeys: ['T1'] }
-      wrapper.setProps({ step })
+      wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, isThereAPreviousStep: () => { return true }, step })
       wrapper.instance().goToPreviousStep()
       expect(selectStepSpy.called).to.be.true
       expect(selectStepSpy.calledWith('S0')).to.be.true
+    })
+
+    it('should call props.removeAnnotation when there is a previous step', function () {
+      const step = { stepKey: 'S1', taskKeys: ['T1'] }
+      wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, isThereAPreviousStep: () => { return true }, step })
+      wrapper.instance().goToPreviousStep()
+      expect(removeAnnotationSpy.called).to.be.true
+      expect(removeAnnotationSpy.calledWith('T1')).to.be.true
     })
   })
 
@@ -132,7 +148,8 @@ describe('TaskNavButtonsContainer', function () {
       wrapper = shallow(
         <TaskNavButtonsContainer
           createDefaultAnnotation={createDefaultAnnotationSpy}
-          showNextButton
+          isThereAPreviousStep={() => {}}
+          isThereANextStep={() => {}}
           tasks={tasks}
         />
       )
