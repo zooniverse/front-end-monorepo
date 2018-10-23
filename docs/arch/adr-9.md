@@ -75,7 +75,7 @@ tess-data-12345.json = {
 
 ## Status
 
-Discussed between @srallen and @shaun.a.noordin.
+Discussed by @shaun.a.noordin and @srallen.
 
 ## Consequences
 
