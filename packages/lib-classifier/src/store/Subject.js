@@ -14,13 +14,14 @@ const Subject = types
       const counts = createLocationCounts(self)
       
       const subject = getRoot(self).subjects.active
+      const workflow = getRoot(self).workflows.active
+      const configuration = workflow && workflow.configuration || {}
       let viewer = null
-      const configuration = getRoot(self).workflows.active && getRoot(self).workflows.active.configuration
 
       //If the Workflow configuration specifies a subject viewer, use that.
       //Otherwise, take a guess using the Subject.
       
-      if (configuration && configuration.subject_viewer === 'lightcurve') {
+      if (configuration.subject_viewer === 'lightcurve') {
         viewer = subjectViewers.lightCurve
       } else if (counts.total === 1) {
         if (counts.images) {
