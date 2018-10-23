@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { getRoot, types } from 'mobx-state-tree'
 import Resource from './Resource'
 import createLocationCounts from '../helpers/createLocationCounts'
 import subjectViewers from '../helpers/subjectViewers'
@@ -12,16 +12,21 @@ const Subject = types
   .views(self => ({
     get viewer () {
       const counts = createLocationCounts(self)
-      let viewer = null
-
-      //if (counts.total === 1) {
-      //  if (counts.images) {
-      //    viewer = subjectViewers.singleImage
-      //  }
-      //}
       
-      //TEMP
-      viewer = subjectViewers.lightCurve
+      const subject = getRoot(self).subjects.active
+      let viewer = null
+      const configuration = getRoot(self).workflows.active && getRoot(self).workflows.active.configuration
+
+      //If the Workflow configuration specifies a subject viewer, use that.
+      //Otherwise, take a guess using the Subject.
+      
+      if (configuration && configuration.subject_viewer === 'lightcurve') {
+        viewer = subjectViewers.lightCurve
+      } else if (counts.total === 1) {
+        if (counts.images) {
+          viewer = subjectViewers.singleImage
+        }
+      }
 
       return viewer
     }
