@@ -2,7 +2,7 @@ import sinon from 'sinon'
 import hash from 'hash.js'
 import sessionUtils from './session'
 
-describe.only('Store utils > sessionUtils', function () {
+describe('Store utils > sessionUtils', function () {
   describe('fiveMinutesFromNow', function () {
     it('should return a Date object', function () {
       const time = sessionUtils.fiveMinutesFromNow()
@@ -25,48 +25,69 @@ describe.only('Store utils > sessionUtils', function () {
   })
 
   describe('getSessionID', function () {
-    after(function () {
+    let generateSessionIDSpy
+    let fiveMinutesFromNowSpy
+    beforeEach(function () {
+      generateSessionIDSpy = sinon.spy(sessionUtils, 'generateSessionID')
+      fiveMinutesFromNowSpy = sinon.spy(sessionUtils, 'fiveMinutesFromNow')
+    })
+
+    afterEach(function () {
+      generateSessionIDSpy.restore()
+      fiveMinutesFromNowSpy.restore()
       sessionStorage.removeItem('session_id')
     })
 
+    it('should return the generated id', function () {
+      const id = sessionUtils.getSessionID()
+      expect(id).to.a('string')
+    })
+
     it('it should call generateSessionID if there is not a stored id in session or local storage', function () {
-      const generateSessionIDSpy = sinon.spy(sessionUtils, 'generateSessionID')
       sessionUtils.getSessionID()
       expect(generateSessionIDSpy.called).to.be.true
-      generateSessionIDSpy.restore()
     })
 
     it('it should retrieve id from session or local storage if it exists', function () {
-      const generateSessionIDSpy = sinon.spy(sessionUtils, 'generateSessionID')
       sessionUtils.generateSessionID() // just setting up for test
       generateSessionIDSpy.resetHistory()
       sessionUtils.getSessionID()
       expect(generateSessionIDSpy.notCalled).to.be.true
-      generateSessionIDSpy.restore()
-    })
-
-    xit('should call generateSessionID if the ttl property is less than Date.now()', function () {
-      const generateSessionIDStub = sinon.stub(sessionUtils, 'generateSessionID')
-        .callsFake(() => { return { id: 'foobar', ttl: (Date.now() - 1) }})
-      sessionUtils.getSessionID()
-      expect(generateSessionIDStub.calledTwice).to.be.true
-      generateSessionIDStub.restore()
     })
 
     it('should call fiveMinutesFromNow if the ttl property is greater than Date.now()', function () {
-      const fiveMinutesFromNowSpy = sinon.spy(sessionUtils, 'fiveMinutesFromNow')
       sessionUtils.getSessionID()
       expect(fiveMinutesFromNowSpy.called).to.be.true
-      fiveMinutesFromNowSpy.restore()
     })
 
-    it.only('should update sessionStorage', function () {
-      const fiveMinutesFromNowSpy = sinon.spy(sessionUtils, 'fiveMinutesFromNow')
+    it('should update sessionStorage', function () {
       sessionUtils.getSessionID()
-      const stored = sessionStorage.getItem('session_id')
-      console.log(stored.ttl, fiveMinutesFromNowSpy.returnValues[0])
-      expect(stored.ttl).to.equal(fiveMinutesFromNowSpy.returnValues[0])
-      fiveMinutesFromNowSpy.restore()
+      const stored = JSON.parse(sessionStorage.getItem('session_id'))
+
+      // Dates are a second off from each other in ISO format,
+      // but equal when starting as Date objects and converted to Date strings
+      // Unsure of the minor discrepency
+      expect(new Date(stored.ttl).toString()).to.equal(fiveMinutesFromNowSpy.returnValues[0].toString())
+    })
+  })
+
+  describe('getSessionID > when the ttl property is less than Date.now()', function () {
+    // Can't wrap the same method in a spy and a stub in the same describe block
+    // So this test is isolated here.
+    let generateSessionIDStub
+    before(function () {
+      generateSessionIDStub = sinon.stub(sessionUtils, 'generateSessionID')
+        .callsFake(() => { return { id: 'foobar', ttl: (Date.now() - 1) } })
+    })
+
+    after(function () {
+      generateSessionIDStub.restore()
+      sessionStorage.removeItem('session_id')
+    })
+
+    it('should call generateSessionID', function () {
+      sessionUtils.getSessionID()
+      expect(generateSessionIDStub.calledTwice).to.be.true
     })
   })
 
