@@ -1,4 +1,4 @@
-# ADR 6: Building the TESS Light Curve Viewer
+# ADR 8: Building the TESS Light Curve Viewer
 
 October 15, 2018
 
