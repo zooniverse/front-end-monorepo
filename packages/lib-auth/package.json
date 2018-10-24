@@ -14,8 +14,8 @@
     "test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha || true"
   },
   "dependencies": {
-    "@zooniverse/grommet-theme": "^2.0.0",
-    "@zooniverse/panoptes-js": "^0.1.0",
+    "@zooniverse/grommet-theme": "^0.0.1",
+    "@zooniverse/panoptes-js": "^0.0.1",
     "client-oauth2": "^4.2.1",
     "counterpart": "^0.18.6",
     "grommet": "^2.0.0-beta.7",

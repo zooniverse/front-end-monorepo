@@ -11,7 +11,7 @@
     "dev": "start-storybook -p 6006",
     "lint": "standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy; exit 0",
     "start": "echo 'Nothing to see here yet'",
-    "test": "mocha",
+    "test:local": "mocha",
     "test:snapshots": "UPDATE=1 npm test"
   },
   "dependencies": {
@@ -19,7 +19,7 @@
     "prop-types": "~15.6.0"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "^2.0.0",
+    "@zooniverse/grommet-theme": "^0.0.1",
     "grommet": "^2.0.0-beta.7",
     "grommet-icons": ">=3.0.0",
     "react": "^16.4.2",
@@ -37,7 +37,7 @@
     "@storybook/addon-viewport": "^3.4.8",
     "@storybook/addons": "^3.4.8",
     "@storybook/react": "^3.4.8",
-    "@zooniverse/grommet-theme": "^2.0.0",
+    "@zooniverse/grommet-theme": "^0.0.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",

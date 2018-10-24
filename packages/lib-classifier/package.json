@@ -14,8 +14,8 @@
   "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@zooniverse/grommet-theme": "^2.0.0",
-    "@zooniverse/panoptes-js": "^0.1.0",
+    "@zooniverse/grommet-theme": "^0.0.1",
+    "@zooniverse/panoptes-js": "^0.0.1",
     "@zooniverse/react-components": "^0.7.1",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -55,8 +55,8 @@
     "webpack-dev-server": "^3.1.4"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "^2.0.0",
-    "@zooniverse/panoptes-js": "^0.1.0",
+    "@zooniverse/grommet-theme": "^0.0.1",
+    "@zooniverse/panoptes-js": "^0.0.1",
     "@zooniverse/react-components": "^0.7.1",
     "grommet": "^2.0.0-beta.7",
     "grommet-icons": ">=3.0.0",
