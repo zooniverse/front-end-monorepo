@@ -12,4 +12,4 @@ const Workflow = types
     version: types.string
   })
 
-export default types.compose(Resource, Workflow)
+export default types.compose('WorkflowResource', Resource, Workflow)

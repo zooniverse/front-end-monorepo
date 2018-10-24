@@ -166,4 +166,4 @@ const ClassificationStore = types
     }
   })
 
-export default types.compose(ResourceStore, ClassificationStore)
+export default types.compose('ClassificationResourceStore', ResourceStore, ClassificationStore)

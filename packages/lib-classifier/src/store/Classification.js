@@ -42,4 +42,4 @@ const Classification = types
   })
   
 export { ClassificationMetadata }
-export default types.compose(Resource, Classification)
+export default types.compose('ClassificationResource', Resource, Classification)

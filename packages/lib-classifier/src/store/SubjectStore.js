@@ -85,4 +85,4 @@ const SubjectStore = types
     }
   })
 
-export default types.compose(ResourceStore, SubjectStore)
+export default types.compose('SubjectResourceStore', ResourceStore, SubjectStore)
