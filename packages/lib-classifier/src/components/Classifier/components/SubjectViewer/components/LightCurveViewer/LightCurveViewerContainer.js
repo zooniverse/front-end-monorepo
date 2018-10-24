@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import PropTypes from 'prop-types'
+import request from 'superagent'
 
 import * as d3 from 'd3'
 import exampleData from './example-planet-hunters-data.json'
@@ -11,19 +12,82 @@ import locationValidator from '../../helpers/locationValidator'
 class LightCurveViewerContainer extends React.Component {
   constructor () {
     super()
-    this.state = {}
+    this.state = {
+      loading: asyncStates.initialized
+    }
     
+    //React reference to the DOM.
+    //See: https://reactjs.org/docs/refs-and-the-dom.html
     this.svgContainer = React.createRef();
     
     //TODO: turn into variables?
     this.width = 500
     this.height = 500
     
+    //D3 bits
     this.d3svg = null;
     this.d3dataLayer = null;
   }
-
+  
   componentDidMount () {
+    if (this.props.subject) {
+      this.handleSubject()
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    const prevSubject = prevProps.subject
+    const { subject } = this.props
+
+    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
+      this.handleSubject()
+    }
+  }
+
+  async handleSubject () {
+    const { subject } = this.props
+    
+    //Sanity check
+    //TODO: error handling - what if there's no subject?
+    if (!subject) return
+    
+    //Find the first location that has a JSON MIME type.
+    //NOTE: we also temporarily accept plain text, due to quirks with the Panoptes CLI uploading wonky MIME types (@shaun 20181024)
+    const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain'])
+
+    //TODO: error handling - what if there's no JSON url?
+    if (!jsonLocation) return
+    
+    this.setState({ loading: asyncStates.loading })
+    try {
+      
+      request.get(jsonLocation['application/json'] || jsonLocation['text/plain'])
+        .then(res => {
+          if (res.ok) {
+            //Get the JSON data, or (as a failsafe) parse the JSON data if the response is returned as a string
+            const jsonData = res.body || JSON.parse(res.text)
+            this.d3init(jsonData);
+          } else {
+            throw 'ERROR: invalid response'
+          }
+        })
+        .catch(err => {
+          throw(err)
+        })
+      
+      //const img = await this.fetchImage(imageUrl)
+      //this.setState({
+      //  height: img.height,
+      //  width: img.width,
+      //  loading: asyncStates.success
+      //})
+    } catch (err) {
+      console.error(err)
+      this.setState({ loading: asyncStates.error })
+    }
+  }
+
+  d3init (dataJson) {
     //Prepare the main SVG
     //--------------------------------
     this.d3svg = d3.select(this.svgContainer.current).append('svg')
@@ -56,19 +120,19 @@ class LightCurveViewerContainer extends React.Component {
     //WIP: Scale and Axis layer
     //--------------------------------
     const xScale = d3.scaleLinear()
-      .domain(d3.extent(exampleData.x))
+      .domain(d3.extent(dataJson.x))
       .range([0, this.width])
     const xAxis = d3.axisBottom(xScale)
     const yScale = d3.scaleLinear()
-      .domain(d3.extent(exampleData.y))
+      .domain(d3.extent(dataJson.y))
       .range([this.height, 0])  //REVERSE!
     const yAxis = d3.axisLeft(yScale)
     //--------------------------------
     
     //Insert the data
     //--------------------------------
-    const data = exampleData.x.map((x, index) => {
-      const y = exampleData.y[index]
+    const data = dataJson.x.map((x, index) => {
+      const y = dataJson.y[index]
       return {
         x: xScale(x),
         y: yScale(y)
@@ -107,12 +171,6 @@ class LightCurveViewerContainer extends React.Component {
     //TODO: check if we need to unregister the D3 SVG element
   }
 
-  componentDidUpdate (prevProps) {
-  }
-
-  async handleSubject () {
-  }
-
   render () {
     const { subject } = this.props
     if (!subject) {
@@ -125,7 +183,12 @@ class LightCurveViewerContainer extends React.Component {
   }
 }
 
-LightCurveViewerContainer.propTypes = {}
+LightCurveViewerContainer.propTypes = {
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  })
+}
+
 LightCurveViewerContainer.defaultProps = {}
 
 export default LightCurveViewerContainer
