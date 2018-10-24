@@ -62,8 +62,7 @@ const WorkflowStepStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
-        const classificationStore = getRoot(self).classifications
-        onAction(classificationStore, (call) => {
+        onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') self.resetSteps()
         })
       })
