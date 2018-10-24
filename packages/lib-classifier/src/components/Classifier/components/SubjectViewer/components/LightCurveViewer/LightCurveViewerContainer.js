@@ -72,6 +72,8 @@ class LightCurveViewerContainer extends React.Component {
           }
         })
         .catch(err => {
+          //Possible errors:
+          // - 
           throw(err)
         })
       
@@ -97,9 +99,6 @@ class LightCurveViewerContainer extends React.Component {
       .attr('width', this.width)
       .attr('height', this.height)
     
-    //Note: an alternative way to later select this node is
-    //`d3.select(this.d3svg.node())`. Don't use `d3.select(this.d3svg)`.
-    
     //Deco: Background layer
     this.d3svg.append('rect')
       .attr('width', this.width)
@@ -113,8 +112,6 @@ class LightCurveViewerContainer extends React.Component {
     //--------------------------------
     this.d3dataLayer = this.d3svg.append('g')
       .attr('class', 'data-layer')
-      .attr('width', this.width)
-      .attr('height', this.height)
     //--------------------------------
     
     //WIP: Scale and Axis layer
