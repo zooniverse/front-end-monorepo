@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -146,7 +146,6 @@ const ClassificationStore = types
         if (response.ok) {
           console.log(`Saved classification ${response.body.classifications[0].id}`)
           self.loadingState = asyncStates.success
-          root.subjects.advance()
         }
       } catch (error) {
         console.error(error)

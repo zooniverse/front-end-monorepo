@@ -40,6 +40,7 @@
     "mobx-react": "^5.2.6",
     "mobx-state-tree": "^3.2.4",
     "mocha": "^5.2.0",
+    "mst-middlewares": "^3.7.1",
     "polished": "^2.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

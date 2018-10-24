@@ -22,8 +22,10 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const prevSubject = prevProps.subject
-    const { subject } = this.props
+    // Casting to JSON fixes reference issue from MST store
+    // A more robust solution might be to have a getter view function defined on the model
+    const prevSubject = prevProps.subject.toJSON()
+    const subject = this.props.subject.toJSON()
 
     if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
       this.handleSubject()
@@ -63,7 +65,14 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
+    const { loadingState } = this.state
     const { subject } = this.props
+    if (loadingState === asyncStates.error) {
+      return (
+        <div>Something went wrong.</div>
+      )
+    }
+
     if (!subject) {
       return null
     }

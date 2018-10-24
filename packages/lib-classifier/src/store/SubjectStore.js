@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, onPatch, types } from 'mobx-state-tree'
 
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
@@ -9,7 +9,6 @@ const SubjectStore = types
   .model('SubjectStore', {
     active: types.maybe(types.reference(Subject)),
     resources: types.optional(types.map(Subject), {}),
-    queue: types.optional(types.array(types.reference(Subject)), []),
     type: types.optional(types.string, 'subjects')
   })
 
@@ -17,19 +16,21 @@ const SubjectStore = types
     function advance () {
       if (self.active) {
         const idToRemove = self.active.id
-        self.queue.shift()
         self.resources.delete(idToRemove)
+        self.active = undefined
       }
 
-      if (self.queue.length < 3) {
+      if (self.resources.size < 3) {
+        console.log('Fetching more subjects')
         self.populateQueue()
       }
 
-      self.active = self.queue[0]
+      self.active = self.resources.values().next().value.id
     }
 
     function afterAttach () {
       createWorkflowObserver()
+      createClassificationObserver()
     }
 
     function createWorkflowObserver () {
@@ -43,6 +44,16 @@ const SubjectStore = types
       addDisposer(self, workflowDisposer)
     }
 
+    function createClassificationObserver() {
+      const classificationDisposer = autorun(() => {
+        onPatch(getRoot(self), (patch) => {
+          const { path, value } = patch
+          if (path === '/classifications/loadingState' && value === 'posting') self.advance()
+        })
+      })
+      addDisposer(self, classificationDisposer)
+    }
+
     function * populateQueue () {
       const root = getRoot(self)
       const client = root.client.panoptes
@@ -54,7 +65,6 @@ const SubjectStore = types
 
         response.body.subjects.forEach(subject => {
           self.resources.put(subject)
-          self.queue.push(subject.id)
         })
 
         self.loadingState = asyncStates.success
@@ -70,7 +80,6 @@ const SubjectStore = types
 
     function reset () {
       self.active = undefined
-      self.queue.clear()
       self.resources.clear()
     }
 
