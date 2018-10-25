@@ -80,8 +80,6 @@ class LightCurveViewerContainer extends React.Component {
       return null
     }
     
-    console.log('+++ Container.RENDER! ', this.state.jsonData)
-
     return (
       <LightCurveViewer
         jsonData={this.state.jsonData}

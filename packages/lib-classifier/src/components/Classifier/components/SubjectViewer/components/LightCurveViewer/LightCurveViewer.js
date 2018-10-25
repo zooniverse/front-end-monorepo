@@ -1,13 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 import * as d3 from 'd3'
-
-const SVG = styled.svg`
-  height: 100%;
-  width: 100%;
-`
 
 class LightCurveViewer extends React.Component {
   
@@ -33,7 +27,7 @@ class LightCurveViewer extends React.Component {
   }
   
   componentWillUnmount () {
-    //TODO: unregister all D3 event listeners
+    this.d3exit()
   }
   
   d3init () {
@@ -77,16 +71,25 @@ class LightCurveViewer extends React.Component {
     //--------------------------------
   }
   
+  d3exit () {
+    //Sanity check
+    if (!this.d3svg || !this.d3interfaceLayer) return
+    
+    //Remove event listeners
+    this.d3interfaceLayer.call
+      .on('zoom', null)
+  }
+  
   d3resetData () {
     //Sanity check
-    if (!this.d3svg) return
+    if (!this.d3svg || !this.d3dataLayer) return
     
     this.d3dataLayer.selectAll('.data-point').exit()
   }
   
   d3loadData () {
     //Sanity check
-    if (!this.d3svg) return
+    if (!this.d3svg || !this.d3dataLayer) return
     
     //Start with a clean slate
     this.d3resetData()
