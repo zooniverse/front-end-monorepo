@@ -2,7 +2,8 @@ import subjectViewers from './subjectViewers'
 
 describe('Helpers > subjectViewers', function () {
   const viewers = [
-    'singleImage'
+    'singleImage',
+    'lightCurve'
   ]
 
   viewers.forEach(function (viewer) {
