@@ -1,24 +1,7 @@
 {
   "plugins": [
-    [
-      "transform-decorators-legacy",
-      "styled-components",
-      {
-        "ssr": true,
-        "displayName": true,
-        "preprocess": false
-      }
-    ]
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "babel-plugin-styled-components"
   ],
-  "presets": [
-    "next/babel"
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        "env",
-        "react"
-      ]
-    }
-  }
+  "presets": ["next/babel"]
 }

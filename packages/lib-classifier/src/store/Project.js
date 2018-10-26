@@ -3,9 +3,9 @@ import Resource from './Resource'
 
 const Project = types
   .model('Project', {
-    configuration: types.frozen,
+    configuration: types.frozen({}),
     display_name: types.string,
-    links: types.frozen
+    links: types.frozen({})
   })
 
-export default types.compose(Resource, Project)
+export default types.compose('ProjectResource', Resource, Project)

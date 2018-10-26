@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 
 import Button from './Button'
@@ -13,4 +13,3 @@ describe('Component > OAuthApp > Button', function () {
     shallow(<Button {...mockProps} />)
   })
 })
-

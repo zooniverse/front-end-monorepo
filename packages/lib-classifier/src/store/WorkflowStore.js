@@ -34,6 +34,7 @@ const WorkflowStore = types
         if (project.configuration && project.configuration.default_workflow) {
           id = project.configuration.default_workflow
         } else if (project.links && project.links.active_workflows[0]) {
+          // TODO: This should be changed to select an id randomly out of the active workflows array
           id = project.links.active_workflows[0]
         }
       }
@@ -54,4 +55,4 @@ const WorkflowStore = types
     }
   })
 
-export default types.compose(ResourceStore, WorkflowStore)
+export default types.compose('WorkflowResourceStore', ResourceStore, WorkflowStore)

@@ -1,4 +1,3 @@
-import counterpart from 'counterpart'
 import { Box, Button as GrommetButton } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'

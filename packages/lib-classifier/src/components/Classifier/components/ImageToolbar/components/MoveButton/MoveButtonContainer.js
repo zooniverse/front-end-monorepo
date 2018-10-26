@@ -8,7 +8,7 @@ function storeMapper (stores) {
   const {
     move,
     enableMove
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     move,

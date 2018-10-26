@@ -3,5 +3,5 @@ module.exports = (baseConfig, env, defaultConfig) => {
 
   defaultConfig.node = { fs: 'empty' }
 
-  return defaultConfig;
-};
+  return defaultConfig
+}

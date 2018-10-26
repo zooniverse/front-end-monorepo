@@ -8,4 +8,3 @@ describe('Component > OAuthApp > LoginPopup', function () {
     shallow(<LoginPopup />)
   })
 })
-

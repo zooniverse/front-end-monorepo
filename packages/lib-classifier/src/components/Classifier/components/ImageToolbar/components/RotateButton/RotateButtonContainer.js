@@ -7,7 +7,7 @@ import RotateButton from './RotateButton'
 function storeMapper (stores) {
   const {
     rotate
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     rotate

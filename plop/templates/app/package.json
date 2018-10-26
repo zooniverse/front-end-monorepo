@@ -1,0 +1,34 @@
+{
+  "name": "@zooniverse/app-{{ name }}",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server/server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server/server.js",
+    "test": "NODE_ENV=test mocha"
+  },
+  "author": "Zooniverse (https://www.zooniverse.org/)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@zooniverse/grommet-theme": "^2.0.0",
+    "grommet": "^2.0.0-beta.6",
+    "grommet-icons": "^3.1.0-beta.1",
+    "next": "^7.0.1",
+    "path-match": "^1.2.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "styled-components": "^4.0.0-beta.9"
+  },
+  "devDependencies": {
+    "@babel/register": "^7.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
+    "chai": "^4.2.0",
+    "check-dependencies": "^1.1.0",
+    "check-engines": "^1.5.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "jsdom": "^12.1.0",
+    "mocha": "^5.2.0"
+  }
+}

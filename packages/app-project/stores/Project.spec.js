@@ -1,12 +1,13 @@
 import Project from './Project'
 import Store from './Store'
 import asyncStates from '../helpers/asyncStates'
-import { projectMocks as mocks } from '@zooniverse/panoptes-js'
+import { projects } from '@zooniverse/panoptes-js'
 import placeholderEnv from './helpers/placeholderEnv'
 
 let clientStub
 let projectStore
 let rootStore
+const { mocks } = projects
 
 describe('Stores > Project', function () {
   it('should exist', function () {
@@ -22,15 +23,15 @@ describe('Stores > Project', function () {
     })
 
     it('should have a displayName property', function () {
-      expect(projectStore.displayName).to.equal(null)
+      expect(projectStore.displayName).to.be.null
     })
 
     it('should have an error property', function () {
-      expect(projectStore.error).to.equal(null)
+      expect(projectStore.error).to.be.an('object')
     })
 
     it('should have an id property', function () {
-      expect(projectStore.id).to.equal(null)
+      expect(projectStore.id).to.be.null
     })
 
     it('should have a state property', function () {
@@ -48,7 +49,7 @@ describe('Stores > Project', function () {
       clientStub = {
         projects: {
           get: function () {
-            return Promise.resolve({ body: mocks.getSingleProjectResponse })
+            return Promise.resolve({ body: mocks.responses.get.project })
           }
         }
       }
@@ -65,7 +66,7 @@ describe('Stores > Project', function () {
 
       projectStore.fetch('foo/bar')
         .then(function () {
-          projectStore.id.should.equal(mocks.projectTwo.id)
+          projectStore.id.should.equal(mocks.resources.projectTwo.id)
           projectStore.loadingState.should.equal(asyncStates.success)
           done()
         })

@@ -3,7 +3,7 @@ import light from './light'
 import dark from './dark'
 
 const lightBlack = '#272727'
-
+const lightBrand = '#16979C'
 const darkGold = '#CC9200'
 
 const green = '#078F52'
@@ -27,13 +27,14 @@ const statusColors = {
 
 const colors = {
   brand: '#007482',
-  lightBrand: '#16979C',
+  lightBrand: lightBrand,
   darkBackground: {
     text: dark.colors.font
   },
   darkGrey,
   darkGold,
   darkTeal: '#005D69',
+  focus: lightBrand,
   lightBackground: {
     text: light.colors.font
   },
@@ -50,7 +51,10 @@ const colors = {
   navy: '#0C4881',
   statusColors,
   teal: '#00979d',
-  text: light.colors.font,
+  text: {
+    dark: dark.colors.font,
+    light: light.colors.font
+  },
   tomato
 }
 
@@ -94,11 +98,16 @@ const theme = deepFreeze({
       light: colors.brand
     }
   },
+  button: {
+    border: {
+      radius: '0px'
+    }
+  },
   checkBox: {
     border: {
       color: {
-        dark: '#2D2D2D',
-        light: colors.lightBlack
+        dark: colors.darkBackground.text,
+        light: colors.lightBackground.text
       }
     },
     check: {
@@ -110,16 +119,33 @@ const theme = deepFreeze({
     hover: {
       border: {
         color: {
-          dark: colors.darkBackground.text,
-          light: colors.text
+          dark: colors.lightTeal,
+          light: colors.brand
         },
       },
     },
-    toggle: {
+    knob: {
       color: {
         dark: colors.lightTeal,
         light: colors.brand
       }
+    },
+    toggle: {
+      border: {
+        color: {
+          dark: colors.darkBackground.text,
+          light: colors.lightBackground.text
+        }
+      },
+      color: {
+        dark: colors.darkBackground.text,
+        light: colors.lightBackground.text
+      }
+    }
+  },
+  layer: {
+    border: {
+      radius: '0px'
     }
   },
   light
