@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "lerna": "^2.9.0"
+    "lerna": "^3.1.4",
+    "plop": "^2.1.0"
   }
 }

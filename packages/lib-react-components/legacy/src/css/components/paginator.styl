@@ -1,0 +1,32 @@
+.paginator
+  font-size: .86em
+  line-height: 1.37em
+  text-align: center
+
+  .paginator-button
+    @extends $reset-button
+    margin: 5px
+
+    &:focus,
+    &:hover
+      background: #43bbfd
+      color: white
+
+  .paginator-label
+    text-transform: capitalize
+
+  .paginator-icon
+    font-size: 24px
+    font-weight: lighter
+    padding: .1em
+    position: relative
+    top: .1em
+
+  .paginator-page-selector
+    display: inline-block
+    margin-left: .25em
+    margin-right: .25em
+    white-space: nowrap
+
+  .paginator-page-selector select
+    margin 0 .5em

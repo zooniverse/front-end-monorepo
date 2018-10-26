@@ -50,14 +50,14 @@ class FieldGuideButton extends React.Component {
       onBlur,
       onFocus,
       onMouseOver,
-      onMouseOut,
+      onMouseOut
     } = this.props
 
     const eventHandlers = {
       onBlur,
       onFocus,
       onMouseOver,
-      onMouseOut,
+      onMouseOut
     }
 
     const hoveredOrFocused = hovered || focused

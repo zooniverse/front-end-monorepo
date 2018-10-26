@@ -2,19 +2,19 @@ const panoptes = require('../../panoptes')
 const { endpoint } = require('./helpers')
 const { isParamTypeInvalid, raiseError } = require('../../utilityFunctions')
 
-function create(params) {
+function create (params) {
   console.log('todo')
 }
 
-function get(params) {
+function get (params) {
   const queryParams = (params && params.query) ? params.query : {}
   const subjectId = (params && params.id) ? params.id : ''
+  const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (isParamTypeInvalid(subjectId, 'string')) return raiseError('Subjects: Get request id must be a string.', 'typeError')
 
   if (subjectId) {
-    delete queryParams.id
-    return panoptes.get(`${endpoint}/${subjectId}`, queryParams)
+    return panoptes.get(`${endpoint}/${subjectId}`, queryParams, authorization)
   }
 
   if (console && !subjectId && process.env.NODE_ENV !== 'test') {
@@ -24,11 +24,11 @@ function get(params) {
   return raiseError('Subjects: Get request must include a subject id.', 'error')
 }
 
-function update() {
+function update () {
   console.log('todo')
 }
 
-function del() {
+function del () {
   console.log('todo')
 }
 

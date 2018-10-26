@@ -14,7 +14,7 @@ function buildQueuedSubjectResource () {
     favorite: false,
     finished_workflow: false,
     href: `/subjects/${randomId}`,
-    id:  `${randomId}`,
+    id: `${randomId}`,
     locations: [{
       'image/jpeg': 'https://placekitten.com/408/287'
     }],
@@ -38,4 +38,9 @@ function buildSubjectQueue () {
   return subjectQueue
 }
 
-module.exports = { buildQueuedSubjectResource, buildSubjectQueue, endpoint, queuedEndpoint }
+module.exports = {
+  buildQueuedSubjectResource,
+  buildSubjectQueue,
+  endpoint,
+  queuedEndpoint
+}

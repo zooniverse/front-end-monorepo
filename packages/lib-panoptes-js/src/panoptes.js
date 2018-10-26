@@ -15,9 +15,8 @@ function checkForAdminFlag () {
   return undefined
 }
 
-// TODO: Write auth client
 // TODO: Consider how to integrate a GraphQL option
-function get (endpoint, query, host) {
+function get (endpoint, query, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -25,7 +24,8 @@ function get (endpoint, query, host) {
   const request = superagent.get(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
-  // .set('Authorization', apiClient.headers.Authorization);
+
+  if (authorization) request.set('Authorization', authorization)
 
   if (query && Object.keys(query).length > 0) {
     if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
@@ -34,51 +34,58 @@ function get (endpoint, query, host) {
   } else {
     request.query(defaultParams)
   }
+
   return request.then(response => response)
 }
 
-function post (endpoint, data, host) {
+function post (endpoint, data, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   const apiHost = host || config.host
 
-  return superagent.post(`${apiHost}${endpoint}`)
+  const request = superagent.post(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
-    // .set('Authorization', apiClient.headers.Authorization)
-    .query(defaultParams)
+
+  if (authorization) request.set('Authorization', authorization)
+
+  return request.query(defaultParams)
     .send(data)
     .then(response => response)
 }
 
-function put (endpoint, data, host) {
+function put (endpoint, data, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (!data) return handleMissingParameter('Request needs a defined data for update')
   const apiHost = host || config.host
 
-  return superagent.put(`${apiHost}${endpoint}`)
+  const request = superagent.put(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
-    // .set('Authorization', apiClient.headers.Authorization)
-    .query(defaultParams)
+
+  if (authorization) request.set('Authorization', authorization)
+
+  return request.query(defaultParams)
     .send(data)
     .then(response => response)
 }
 
-function del (endpoint, host) {
+function del (endpoint, authorization = '', host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   const apiHost = host || config.host
 
-  return superagent.delete(`${apiHost}${endpoint}`)
+  const request = superagent.delete(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
-    // .set('Authorization', apiClient.headers.Authorization)
-    .query(defaultParams)
+
+  if (authorization) request.set('Authorization', authorization)
+
+  return request.query(defaultParams)
     .then(response => response)
 }
 

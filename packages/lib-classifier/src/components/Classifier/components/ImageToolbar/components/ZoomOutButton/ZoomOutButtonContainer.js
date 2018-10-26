@@ -7,7 +7,7 @@ import ZoomOutButton from './ZoomOutButton'
 function storeMapper (stores) {
   const {
     zoomOut
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     zoomOut

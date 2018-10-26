@@ -5,3 +5,4 @@
 - [ADR 3: Designing a new auth client](adr-3.md)
 - [ADR 4: Browser support](adr-4.md)
 - [ADR 5: Implementing workflows in the new classifier](adr-5.md)
+- [ADR 8: Building the TESS Light Curve Viewer](adr-8.md)

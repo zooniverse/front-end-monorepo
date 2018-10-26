@@ -1,4 +1,4 @@
-# ADR 3: Browser support
+# ADR 4: Browser support
 
 July 18, 2018
 

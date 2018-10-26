@@ -1,7 +1,6 @@
 const { expect } = require('chai')
 const superagent = require('superagent')
 const mockSuperagent = require('superagent-mock')
-const { JSDOM } = require('jsdom')
 
 const tutorials = require('./index')
 const { endpoint } = require('./helpers')
@@ -12,13 +11,15 @@ describe('Tutorials resource common requests', function () {
   describe('getAttachedImages', function () {
     let superagentMock
     let actualMatch
+    let actualHeaders
     const expectedGetResponse = responses.get.attachedImage
 
     before(function () {
       superagentMock = mockSuperagent(superagent, [{
         pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params) => {
+        fixtures: (match, params, header) => {
           actualMatch = match
+          actualHeaders = header
           return expectedGetResponse
         },
         get: (match, data) => ({ body: data })
@@ -46,6 +47,13 @@ describe('Tutorials resource common requests', function () {
         expect(actualMatch.input.includes('page=2')).to.be.true
       })
     })
+
+    it('should add the Authorization header to the request if param is defined', function () {
+      return tutorials.getAttachedImages({ id: '1', authorization: '12345' }).then((response) => {
+        expect(actualHeaders['Authorization']).to.exist
+        expect(actualHeaders['Authorization']).to.equal('12345')
+      })
+    })
   })
 
   describe('getWithImages', function () {
@@ -71,7 +79,7 @@ describe('Tutorials resource common requests', function () {
       })
 
       it('should use a default include query param', function () {
-        return tutorials.getWithImages({ id: '1' }).then((response) => { 
+        return tutorials.getWithImages({ id: '1' }).then((response) => {
           expect(actualMatch.input.includes('include=attached_images')).to.be.true
         })
       })
@@ -82,7 +90,7 @@ describe('Tutorials resource common requests', function () {
         })
       })
 
-      it('should return the expected response', function() {
+      it('should return the expected response', function () {
         return tutorials.getWithImages({ id: '1' }).then((response) => {
           expect(response.body).to.eql(expectedGetResponse)
         })
@@ -120,7 +128,7 @@ describe('Tutorials resource common requests', function () {
         })
       })
 
-      it('should return the expected response', function() {
+      it('should return the expected response', function () {
         return tutorials.getWithImages({ workflowId: '10' }).then((response) => {
           expect(response.body).to.eql(expectedGetResponse)
         })

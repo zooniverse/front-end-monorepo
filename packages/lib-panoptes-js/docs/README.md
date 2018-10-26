@@ -74,7 +74,7 @@ A base set of HTTP request functions are available from the `panoptes.js` file t
 - `Content-Type: application/json`
 - `Accept: application/vnd.api+json; version=1`
 
-TODO: Add doc about Authentication header.
+All of the base helpers will take an `authorization` string parameter that will set as the `Authorization` header. This string should include the type and token, i.e. `Bearer 12345abcde`. See the docs for the specific helper you want to use for exact usage. The resource specific helpers may or may not take an `authorization` parameter depending on if it should or could be an authenticated request.
 
 Request functions available:
 
@@ -90,13 +90,14 @@ This library also provides a set of helper functions per Panoptes resource, so i
 **Function**
 
 ``` javascript
-panoptes.get(endpoint, query, host)
+panoptes.get(endpoint, query, authorization, host)
 ```
 
 **Arguments**
 
 - endpoint _(string)_ - the API endpoint for the request. Required.
 - query _(object)_ - an object of request query parameters. Optional.
+- authorization _(string)_ - a string of the authorization type and token, i.e. `'Bearer 12345abcde'`. Optional.
 - host _(string)_ - available to specifiy a different API host. Defaults to the hosts defined in the `config.js` file. Optional.
 
 **Returns**
@@ -126,13 +127,14 @@ panoptes.get('/projects/1104', { include: 'avatar,background,owners' }).then((re
 **Function**
 
 ``` javascript
-panoptes.post(endpoint, data, host)
+panoptes.post(endpoint, data, authorization, host)
 ```
 
 **Arguments**
 
 - endpoint _(string)_ - the API endpoint for the request. Required.
 - data _(object)_ - an object of data to send with the request. Optional.
+- authorization _(string)_ - a string of the authorization type and token, i.e. `'Bearer 12345abcde'`. Optional.
 - host _(string)_ - available to specify a different API host. Defaults to the hosts defined in the `config.js` file. Optional.
 
 **Returns**
@@ -154,13 +156,14 @@ panoptes.get('/projects', { private: true }).then((response) => {
 **Function**
 
 ``` javascript
-panoptes.post(endpoint, data, host)
+panoptes.post(endpoint, data, authorization, host)
 ```
 
 **Arguments**
 
 - endpoint _(string)_ - the API endpoint for the request. Required.
 - data _(object)_ - an object of data to send with the request. Optional.
+- authorization _(string)_ - a string of the authorization type and token, i.e. `'Bearer 12345abcde'`. Optional.
 - host _(string)_ - available to specify a different API host. Defaults to the hosts defined in the `config.js` file. Optional.
 
 **Returns**
@@ -182,12 +185,13 @@ panoptes.put('/projects/1104', { display_name: 'Super Zoo' }).then((response) =>
 **Function**
 
 ``` javascript
-panoptes.del(endpoint, host)
+panoptes.del(endpoint, authorization, host)
 ```
 
 **Arguments**
 
 - endpoint _(string)_ - the API endpoint for the request. Required.
+- authorization _(string)_ - a string of the authorization type and token, i.e. `'Bearer 12345abcde'`. Optional.
 - host _(string)_ - available to specify a different API host. Defaults to the hosts defined in the `config.js` file. Optional.
 
 **Returns**

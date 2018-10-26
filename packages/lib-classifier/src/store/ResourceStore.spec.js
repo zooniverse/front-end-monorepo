@@ -53,7 +53,7 @@ describe('Model > ResourceStore', function () {
   })
 
   it('should have a `resources` map to store any resource objects', function () {
-    expect(resourceStore.resources).to.not.equal(undefined)
+    expect(resourceStore.resources).to.exist
     expect(resourceStore.resources.size).to.equal(2)
     expect(resourceStore.resources.get('123')).to.deep.equal(resourcesStub.resources['123'])
   })
@@ -66,7 +66,7 @@ describe('Model > ResourceStore', function () {
     const resetStore = ResourceStore.create(resourcesStub)
     resetStore.reset()
     expect(resetStore.resources.size).to.equal(0)
-    expect(resetStore.active).to.equal(null)
+    expect(resetStore.active).to.be.undefined
   })
 
   it('should use an existing resources object when `setActive` is called', async function () {

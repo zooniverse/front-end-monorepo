@@ -1,0 +1,183 @@
+exports["should match snapshot(0)"] = {
+  "node": {
+    "nodeType": "class",
+    "type": "ThemeProvider",
+    "props": {
+      "theme": {
+        "mode": "light"
+      },
+      "children": {
+        "type": {
+          "render": "[function]",
+          "displayName": "CheckBox",
+          "name": "CheckBox"
+        },
+        "props": {
+          "checked": false,
+          "id": "admin-checkbox",
+          "name": "admin-checkbox",
+          "label": {
+            "type": {
+              "render": "[function]",
+              "componentStyle": {
+                "rules": [
+                  "\n  color: ",
+                  "[function]",
+                  "\n"
+                ],
+                "isStatic": false,
+                "componentId": "sc-ifAKCX"
+              },
+              "displayName": "Styled(Text)",
+              "styledComponentId": "sc-ifAKCX",
+              "target": {
+                "render": "[function]",
+                "displayName": "Text",
+                "name": "Text"
+              },
+              "withComponent": "withComponent",
+              "warnTooManyClasses": "[function]"
+            },
+            "props": {
+              "children": "Admin Mode"
+            },
+            "_store": {}
+          },
+          "onChange": "proxy",
+          "toggle": true
+        },
+        "_store": {}
+      }
+    },
+    "rendered": {
+      "nodeType": "function",
+      "type": {
+        "render": "[function]",
+        "displayName": "CheckBox",
+        "name": "CheckBox"
+      },
+      "props": {
+        "checked": false,
+        "id": "admin-checkbox",
+        "name": "admin-checkbox",
+        "label": {
+          "type": {
+            "render": "[function]",
+            "componentStyle": {
+              "rules": [
+                "\n  color: ",
+                "[function]",
+                "\n"
+              ],
+              "isStatic": false,
+              "componentId": "sc-ifAKCX"
+            },
+            "displayName": "Styled(Text)",
+            "styledComponentId": "sc-ifAKCX",
+            "target": {
+              "render": "[function]",
+              "displayName": "Text",
+              "name": "Text"
+            },
+            "withComponent": "withComponent",
+            "warnTooManyClasses": "[function]"
+          },
+          "props": {
+            "children": "Admin Mode"
+          },
+          "_store": {}
+        },
+        "onChange": "proxy",
+        "toggle": true
+      }
+    }
+  },
+  "type": "ThemeProvider",
+  "props": {
+    "theme": {
+      "mode": "light"
+    }
+  },
+  "children": [
+    {
+      "node": {
+        "nodeType": "function",
+        "type": {
+          "render": "[function]",
+          "displayName": "CheckBox",
+          "name": "CheckBox"
+        },
+        "props": {
+          "checked": false,
+          "id": "admin-checkbox",
+          "name": "admin-checkbox",
+          "label": {
+            "type": {
+              "render": "[function]",
+              "componentStyle": {
+                "rules": [
+                  "\n  color: ",
+                  "[function]",
+                  "\n"
+                ],
+                "isStatic": false,
+                "componentId": "sc-ifAKCX"
+              },
+              "displayName": "Styled(Text)",
+              "styledComponentId": "sc-ifAKCX",
+              "target": {
+                "render": "[function]",
+                "displayName": "Text",
+                "name": "Text"
+              },
+              "withComponent": "withComponent",
+              "warnTooManyClasses": "[function]"
+            },
+            "props": {
+              "children": "Admin Mode"
+            },
+            "_store": {}
+          },
+          "onChange": "proxy",
+          "toggle": true
+        }
+      },
+      "type": "ForwardRef",
+      "props": {
+        "checked": false,
+        "id": "admin-checkbox",
+        "name": "admin-checkbox",
+        "label": {
+          "type": {
+            "render": "[function]",
+            "componentStyle": {
+              "rules": [
+                "\n  color: ",
+                "[function]",
+                "\n"
+              ],
+              "isStatic": false,
+              "componentId": "sc-ifAKCX"
+            },
+            "displayName": "Styled(Text)",
+            "styledComponentId": "sc-ifAKCX",
+            "target": {
+              "render": "[function]",
+              "displayName": "Text",
+              "name": "Text"
+            },
+            "withComponent": "withComponent",
+            "warnTooManyClasses": "[function]"
+          },
+          "props": {
+            "children": "Admin Mode"
+          },
+          "_store": {}
+        },
+        "onChange": "proxy",
+        "toggle": true
+      }
+    }
+  ]
+};
+

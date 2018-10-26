@@ -9,7 +9,7 @@ function storeMapper (stores) {
     fullscreen,
     enableFullscreen,
     disableFullscreen
-  } = stores.classifierStore.classifier
+  } = stores.classifierStore.subjectViewer
 
   return {
     fullscreen,

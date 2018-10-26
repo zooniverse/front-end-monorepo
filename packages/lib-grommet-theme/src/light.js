@@ -16,6 +16,17 @@ export default {
       nextHover: '#ea9300'
     },
     foreground: '#404040',
-    font: '#000000'
+    font: '#5C5C5C',
+    modal: {
+      background: '#ffffff'
+    },
+    tabs: {
+      activeBackground: '#fff',
+      activeText: '#000',
+      border: '#E2E5E9',
+      color: '#000',
+      dimmedBackground: '#EFF2F5',
+      dimmedText: '#5C5C5C'
+    }
   }
-};
+}

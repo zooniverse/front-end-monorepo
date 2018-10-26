@@ -1,5 +1,7 @@
 # Zooniverse Front-End Monorepo
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+
 ## Requirements
 
 [Browser support](docs/arch/adr-3.md)
@@ -8,7 +10,7 @@
 
 This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
-Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally it allows us to track issues, pull requests, and progress for all related packages in one place. 
+Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally it allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## How to get started
 
@@ -42,11 +44,18 @@ A list of packages and their main dependencies
   - [styled-components](https://www.styled-components.com/) - CSS in JS styling library. Used from Grommet theming.
 - **@zooniverse/grommet-theme** - The style definitions for a Zooniverse theme to use with Grommet
   - [Grommet](https://v2.grommet.io/components) - React UI component library
-- **@zooniverse/panoptes-js** - Panoptes API javascript client. Functional HTTP request helpers built on top of superagent 
+- **@zooniverse/panoptes-js** - Panoptes API javascript client. Functional HTTP request helpers built on top of superagent
   - [Superagent](http://visionmedia.github.io/superagent/) - AJAX API that works in the browser or node
 - **@zooniverse/react-components** - A set of Zooniverse specific React components
   - [Grommet](https://v2.grommet.io/components) - React UI component library
   - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
+
+## Helpers
+
+If you have [`plop`](https://plopjs.com/) installed globally, you can use it to quickly scaffold new apps and components. You can use the following generators:
+
+- `App` - creates a new app in the `packages` folder, based on a simple Next.js 7 build, with Styled Components and Mocha included.
+- `Component` - creates a new component in the current folder, including tests and an optional container.
 
 ## Conventions
 

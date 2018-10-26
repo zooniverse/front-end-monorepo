@@ -4,69 +4,69 @@ const { buildMockedMediumResource } = media.mocks
 
 // Resources
 const tutorialOne = {
-  created_at: "2016-08-02T17:59:44.132Z",
-  display_name: "Survey Task Tutorial",
-  href: "/tutorials/1",
-  id: "1",
-  kind: "tutorial",
-  language: "en",
+  created_at: '2016-08-02T17:59:44.132Z',
+  display_name: 'Survey Task Tutorial',
+  href: '/tutorials/1',
+  id: '1',
+  kind: 'tutorial',
+  language: 'en',
   links: { workflow_id: '10' },
   steps: [
     {
-      content: "Welcome to Animal Snapshots!",
-      media: "1"
+      content: 'Welcome to Animal Snapshots!',
+      media: '1'
     }
   ],
-  updated_at: "2017-03-27T19:00:56.369Z"
+  updated_at: '2017-03-27T19:00:56.369Z'
 }
 
 const tutorialTwo = {
-  created_at: "2016-08-02T17:59:44.132Z",
-  display_name: "Drawing Task Tutorial",
-  href: "/tutorials/2",
-  id: "2",
-  kind: "tutorial",
-  language: "en",
+  created_at: '2016-08-02T17:59:44.132Z',
+  display_name: 'Drawing Task Tutorial',
+  href: '/tutorials/2',
+  id: '2',
+  kind: 'tutorial',
+  language: 'en',
   links: { workflow_id: '10' },
   steps: [
     {
-      content: "Welcome to Draw a Square!",
-      media: "3"
+      content: 'Welcome to Draw a Square!',
+      media: '3'
     }
   ],
-  updated_at: "2017-03-27T19:00:56.369Z"
+  updated_at: '2017-03-27T19:00:56.369Z'
 }
 
 const tutorialWithNullKind = {
-  created_at: "2016-08-02T17:59:44.132Z",
-  display_name: "Question Task Tutorial",
-  href: "/tutorials/3",
-  id: "3",
+  created_at: '2016-08-02T17:59:44.132Z',
+  display_name: 'Question Task Tutorial',
+  href: '/tutorials/3',
+  id: '3',
   kind: null,
-  language: "en",
+  language: 'en',
   links: { workflow_id: '10' },
   steps: [
     {
-      content: "Welcome to my survey!",
-      media: "8"
+      content: 'Welcome to my survey!',
+      media: '8'
     }
   ],
-  updated_at: "2017-03-27T19:00:56.369Z"
+  updated_at: '2017-03-27T19:00:56.369Z'
 }
 
 const minicourse = {
-  created_at: "2016-06-01T20:08:07.898Z",
-  display_name: "",
-  href: "/tutorials/52",
-  id: "52",
-  kind: "mini-course",
-  language: "en",
+  created_at: '2016-06-01T20:08:07.898Z',
+  display_name: '',
+  href: '/tutorials/52',
+  id: '52',
+  kind: 'mini-course',
+  language: 'en',
   links: { workflow_id: '10' },
   steps: [{
     content: "Here's a fun fact",
-    media: "50"
+    media: '50'
   }],
-  updated_at: "2017-03-27T18:34:24.488Z"
+  updated_at: '2017-03-27T18:34:24.488Z'
 }
 
 const attachedImageOne = buildMockedMediumResource('attached_images', 'tutorial')

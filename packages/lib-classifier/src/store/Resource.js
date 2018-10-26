@@ -1,9 +1,8 @@
 import { types } from 'mobx-state-tree'
-import numberString from './types/numberString'
 
 const Resource = types
   .model('Resource', {
-    id: types.identifier(numberString)
+    id: types.identifier
   })
 
 export default Resource

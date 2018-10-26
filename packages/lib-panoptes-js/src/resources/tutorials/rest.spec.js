@@ -9,15 +9,17 @@ const tutorials = require('./index')
 describe('Tutorials resource REST requests', function () {
   describe('get', function () {
     let superagentMock
+    let actualHeaders
     const expectedGetAllResponse = responses.get.tutorials
     const expectedGetSingleResponse = responses.get.tutorial
     const queryNotFound = responses.get.queryNotFound
 
-    describe('many tutorials', function () {
+    describe('by workflow id', function () {
       before(function () {
         superagentMock = mockSuperagent(superagent, [{
           pattern: `${config.host}${endpoint}`,
           fixtures: (match, params, headers, context) => {
+            actualHeaders = headers
             if (match.input.includes('?workflow_id=10')) return expectedGetAllResponse
 
             return queryNotFound
@@ -49,15 +51,24 @@ describe('Tutorials resource REST requests', function () {
           expect(response.body).to.eql(expectedGetAllResponse)
         })
       })
+
+      it('should add the Authorization header to the request if param is defined', function () {
+        return tutorials.get({ workflowId: '1', authorization: '12345' }).then((response) => {
+          expect(actualHeaders['Authorization']).to.exist
+          expect(actualHeaders['Authorization']).to.equal('12345')
+        })
+      })
     })
 
-    describe('a single tutorial', function () {
+    describe('by tutorial id', function () {
+      let actualHeaders
       before(function () {
         superagentMock = mockSuperagent(superagent, [{
           pattern: `${config.host}${endpoint}`,
           fixtures: (match, params, headers, context) => {
+            actualHeaders = headers
             if (match.input.includes(expectedGetSingleResponse.tutorials[0].id)) return expectedGetSingleResponse
-          
+
             return { status: 404 }
           },
           get: (match, data) => {
@@ -85,6 +96,13 @@ describe('Tutorials resource REST requests', function () {
       it('should return the expected response', function () {
         return tutorials.get({ id: '1' }).then((response) => {
           expect(response.body).to.eql(expectedGetSingleResponse)
+        })
+      })
+
+      it('should add the Authorization header to the request if param is defined', function () {
+        return tutorials.get({ id: '1', authorization: '12345' }).then((response) => {
+          expect(actualHeaders['Authorization']).to.exist
+          expect(actualHeaders['Authorization']).to.equal('12345')
         })
       })
     })

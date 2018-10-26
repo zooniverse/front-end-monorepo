@@ -3,14 +3,15 @@ const { get } = require('./rest')
 const { endpoint } = require('./helpers')
 const { raiseError } = require('../../utilityFunctions')
 
-function getAttachedImages(params) {
+function getAttachedImages (params) {
   const tutorialId = (params && params.id) ? params.id : ''
+  const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (tutorialId) {
     const queryParams = (params && params.query) ? params.query : {}
     const tutorialAttachedImagesEndpoint = `${endpoint}/${tutorialId}/attached_images`
 
-    return panoptes.get(tutorialAttachedImagesEndpoint, queryParams)
+    return panoptes.get(tutorialAttachedImagesEndpoint, queryParams, authorization)
   }
 
   return raiseError('Tutorials: getAttachedImages request requires a tutorial id.', 'error')
@@ -34,7 +35,7 @@ function getTutorials (params) {
       // We allow the null value on kind for backwards compatibility
       // These are standard tutorials added prior to the 'kind' field and mini-courses
       response.body.tutorials = response.body.tutorials.filter((tutorial) => {
-        return tutorial.kind === 'tutorial' || null;
+        return tutorial.kind === 'tutorial' || null
       })
 
       return response

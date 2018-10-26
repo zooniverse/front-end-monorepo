@@ -1,12 +1,12 @@
 const { buildResponse } = require('../../utilityFunctions')
-const { buildSubjectsQueue } = require('./helpers')
+const { buildSubjectQueue } = require('./helpers')
 
 const subject = {
   created_at: '2015-03-17T13:45:40.297Z',
   external_id: null,
-  href: "/subjects/1",
-  id: "1",
-  links: { project: "1" },
+  href: '/subjects/1',
+  id: '1',
+  links: { project: '1' },
   locations: [{
     'image/png': 'https://placekitten.com/408/287'
   }],

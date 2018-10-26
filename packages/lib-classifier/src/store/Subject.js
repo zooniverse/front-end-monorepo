@@ -5,7 +5,8 @@ import subjectViewers from '../helpers/subjectViewers'
 
 const Subject = types
   .model('Subject', {
-    locations: types.frozen
+    locations: types.frozen(),
+    metadata: types.frozen()
   })
 
   .views(self => ({
@@ -23,4 +24,4 @@ const Subject = types
     }
   }))
 
-export default types.compose(Resource, Subject)
+export default types.compose('SubjectResource', Resource, Subject)
