@@ -4,4 +4,4 @@
 --reporter spec
 --ui bdd
 
-./src/**/**/*.spec.js
+./src/**/*.spec.js
