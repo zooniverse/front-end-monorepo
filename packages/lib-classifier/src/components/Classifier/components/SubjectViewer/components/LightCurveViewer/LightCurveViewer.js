@@ -3,6 +3,14 @@ import React from 'react'
 
 import * as d3 from 'd3'
 
+//TODO: allow styles to be configurable
+const VIEWER_STYLE = {
+  background: '#f8f8f8',
+  border: '#333',
+  border_size: '2',
+  data_point: '#3cc',
+}
+
 class LightCurveViewer extends React.Component {
   
   constructor() {
@@ -44,9 +52,9 @@ class LightCurveViewer extends React.Component {
     this.d3svg.append('rect')
       .attr('width', this.props.width)
       .attr('height', this.props.height)
-      .attr('fill', '#f8f8f8')
-      .attr('stroke', '#333')
-      .attr('stroke-width', '2')
+      .attr('fill', VIEWER_STYLE.background)
+      .attr('stroke', VIEWER_STYLE.border)
+      .attr('stroke-width', VIEWER_STYLE.border_size)
     //--------------------------------
     
     //Prepare the data layer
@@ -129,7 +137,7 @@ class LightCurveViewer extends React.Component {
         .attr('cx', (d) => d.x)
         .attr('cy', (d) => d.y)
         .attr('r', (d) => 1)
-        .attr('fill', '#066')
+        .attr('fill', VIEWER_STYLE.data_point)
     //--------------------------------
   }
   
