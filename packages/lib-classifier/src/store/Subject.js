@@ -24,4 +24,4 @@ const Subject = types
     }
   }))
 
-export default types.compose(Resource, Subject)
+export default types.compose('SubjectResource', Resource, Subject)

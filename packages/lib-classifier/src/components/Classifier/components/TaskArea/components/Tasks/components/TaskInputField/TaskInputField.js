@@ -114,6 +114,8 @@ export const StyledTaskInputField = styled.label`
   }
   `
 
+// TODO: Check to see if focus is working as it should
+// TODO: Try new ref API
 export class TaskInputField extends React.Component {
   constructor () {
     super()
@@ -159,14 +161,6 @@ export class TaskInputField extends React.Component {
       checked = (annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
     }
 
-    if (this.field) {
-      if (checked) {
-        this.field.classList.add('active')
-      } else {
-        this.field.classList.remove('active')
-      }
-    }
-
     return checked
   }
 
@@ -181,17 +175,18 @@ export class TaskInputField extends React.Component {
       name,
       type
     } = this.props
+    const checked = this.shouldInputBeChecked(annotation, index, type)
     return (
       <ThemeProvider theme={{ mode: this.props.theme }}>
         <StyledTaskInputField
-          innerRef={(node) => { this.field = node }}
-          className={className}
+          ref={(node) => { this.field = node }}
+          className={(checked) ? `active ${className}` : className}
           label={label}
           data-focus={false}
         >
           <input
             autoFocus={this.shouldInputBeAutoFocused(annotation, index, name, type)}
-            checked={this.shouldInputBeChecked(annotation, index, type)}
+            checked={checked}
             name={name}
             onBlur={this.onBlur.bind(this)}
             onChange={this.onChange.bind(this)}

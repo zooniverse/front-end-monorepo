@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import Classification from './Classification'
+import Classification, { ClassificationMetadata } from './Classification'
 
 describe('Model > Classification', function () {
   let model
@@ -11,26 +11,16 @@ describe('Model > Classification', function () {
         subjects: ['4567'],
         workflow: '5678'
       },
-      metadata: {
-        session: 'asdf1324',
+      metadata: ClassificationMetadata.create({
         source: 'api',
-        subjectDimensions: {
-          clientHeight: 768,
-          clientWidth: 1024,
-          naturalHeight: 768,
-          naturalWidth: 1024
-        },
         userLanguage: 'en',
-        viewport: {
-          height: 1536,
-          width: 2048
-        },
         workflowVersion: '1.0'
-      }
+      })
     })
   })
 
   it('should exist', function () {
-    expect(Classification).to.exist
+    expect(model).to.exist
+    expect(model).to.be.an('object')
   })
 })
