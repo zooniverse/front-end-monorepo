@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Box, Drop } from 'grommet'
 
-export default function Tooltip(props) {
+export default function Tooltip (props) {
   const { align, boxAlign, boxAnimation, boxBackgroundColor, boxPad, children, target } = props
   return (
     <Drop
@@ -25,7 +25,7 @@ export default function Tooltip(props) {
 Tooltip.defaultProps = {
   boxAlign: 'center',
   boxBackgroundColor: 'white',
-  boxPad: { vertical: "xsmall", horizontal: "small" }
+  boxPad: { vertical: 'xsmall', horizontal: 'small' }
 }
 
 Tooltip.propTypes = {
@@ -33,7 +33,7 @@ Tooltip.propTypes = {
     top: PropTypes.oneOf(['top', 'bottom']),
     bottom: PropTypes.oneOf(['top', 'bottom']),
     right: PropTypes.oneOf(['left', 'right']),
-    left: PropTypes.oneOf(['left', 'right']),
+    left: PropTypes.oneOf(['left', 'right'])
   }),
   boxAlign: PropTypes.string,
   boxAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -42,4 +42,3 @@ Tooltip.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   target: PropTypes.object.isRequired
 }
-
