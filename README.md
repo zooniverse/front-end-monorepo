@@ -24,6 +24,10 @@ lerna bootstrap
 
 If you want to contribute a new package and want to use a package in the monorepo, use `lerna add package-name` in the new package folder to get that package added to the `package.json`
 
+## Helpful Guides
+
+- [Troubleshooting guide](docs/troubleshooting-guide.md) for developers encountering issues installing or running the Front-End Monorepo.
+
 ## Packages
 
 A list of packages and their main dependencies
