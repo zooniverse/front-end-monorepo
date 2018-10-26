@@ -1,4 +1,4 @@
-# ADR 6: Managing changes to classification tools
+# ADR 7: Managing changes to classification tools
 
 September 3, 2018
 
