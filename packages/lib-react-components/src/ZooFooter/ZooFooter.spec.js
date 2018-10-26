@@ -1,8 +1,3 @@
-/* global expect */
-/* eslint-env browser, mocha */
-/* eslint-disable func-names, prefer-arrow-callback */
-/* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
-
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import zooTheme from '@zooniverse/grommet-theme'
