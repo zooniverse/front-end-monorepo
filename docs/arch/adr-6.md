@@ -1,4 +1,4 @@
-# ADR 5: Organizing translations to be volunteer and dev friendly
+# ADR 6: Organizing translations to be volunteer and dev friendly
 
 August 7, 2018
 
