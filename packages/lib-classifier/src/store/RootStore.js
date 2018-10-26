@@ -1,4 +1,4 @@
-import { getEnv, types } from 'mobx-state-tree'
+import { getEnv, types, setLivelynessChecking } from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
 import DrawingStore from './DrawingStore'
@@ -24,5 +24,9 @@ const RootStore = types
       return getEnv(self).client
     }
   }))
+
+// Forces MST warnings to throw as errors instead with full stack trace
+// Easier for debugging...
+if (process.env.NODE_ENV === 'development') setLivelynessChecking("error")
 
 export default RootStore

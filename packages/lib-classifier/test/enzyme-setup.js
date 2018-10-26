@@ -1,6 +1,8 @@
 const { JSDOM } = require('jsdom')
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>')
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
+  url: 'https://example.org/'
+})
 const { window } = jsdom
 
 function copyProps (src, target) {
