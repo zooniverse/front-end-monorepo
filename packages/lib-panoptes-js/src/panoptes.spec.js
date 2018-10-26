@@ -109,7 +109,6 @@ describe('panoptes.js', function () {
     testNoEndpoint('put')
 
     it('should send any data params if defined', async function () {
-      const params = { display_name: 'My project' }
       const response = await panoptes.put(endpoint, update)
       expect(response.body).to.deep.equal(expectedResponse)
     })
