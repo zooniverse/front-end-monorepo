@@ -55,4 +55,4 @@ const WorkflowStore = types
     }
   })
 
-export default types.compose(ResourceStore, WorkflowStore)
+export default types.compose('WorkflowResourceStore', ResourceStore, WorkflowStore)

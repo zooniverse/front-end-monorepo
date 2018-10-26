@@ -59,7 +59,6 @@ export default function TaskNavButtons (props) {
 TaskNavButtons.defaultProps = {
   areAnnotationsNotPersisted: false,
   autoFocus: false,
-  completeClassification: () => {},
   completed: false,
   demoMode: false,
   goToPreviousStep: () => {},
@@ -67,13 +66,13 @@ TaskNavButtons.defaultProps = {
   showBackButton: false,
   showNextButton: false,
   showDoneAndTalkLink: false,
+  completeClassification: () => {},
   waitingForAnswer: false
 }
 
 TaskNavButtons.propTypes = {
   areAnnotationsNotPersisted: PropTypes.bool,
   autoFocus: PropTypes.bool,
-  completeClassification: PropTypes.func,
   completed: PropTypes.bool,
   demoMode: PropTypes.bool,
   goToPreviousStep: PropTypes.func,
@@ -81,5 +80,6 @@ TaskNavButtons.propTypes = {
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
   showDoneAndTalkLink: PropTypes.bool,
+  completeClassification: PropTypes.func,
   waitingForAnswer: PropTypes.bool
 }

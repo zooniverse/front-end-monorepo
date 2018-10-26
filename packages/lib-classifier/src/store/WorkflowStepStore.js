@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
 import { DrawingTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
@@ -25,12 +25,12 @@ const WorkflowStepStore = types
       return []
     },
 
-    get isThereANextStep () {
-      const nextStep = self.steps.keys().next(self.active)
-      return !nextStep.done && nextStep.value && nextStep.value !== 'summary'
+    isThereANextStep () {
+      const nextStep = self.getNextStepKey()
+      return nextStep && nextStep !== 'summary'
     },
 
-    get isThereAPreviousStep () {
+    isThereAPreviousStep () {
       const firstStep = self.steps.keys().next()
       return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
     }
@@ -38,6 +38,7 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
+      createClassificationObserver()
     }
 
     function createWorkflowObserver () {
@@ -59,14 +60,35 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
+    function createClassificationObserver () {
+      const classificationDisposer = autorun(() => {
+        onAction(getRoot(self), (call) => {
+          if (call.name === 'completeClassification') self.resetSteps()
+        })
+      })
+      addDisposer(self, classificationDisposer)
+    }
+
     function getNextStepKey () {
       const stepKeys = self.steps.keys()
-      let nextStepKey = stepKeys.next().value
       if (self.active) {
-        nextStepKey = stepKeys.next(self.active).value
+        const stepKeysArray = Array.from(stepKeys)
+        const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
+        return stepKeysArray[currentStepIndex + 1]
       }
 
-      return nextStepKey
+      return stepKeys.next().value
+    }
+
+    function getPreviousStepKey () {
+      const stepsKeys = Array.from(self.steps.keys())
+      const currentStepIndex = stepsKeys.indexOf(self.active.stepKey)
+      return stepsKeys[currentStepIndex - 1]
+    }
+
+    function resetSteps () {
+      self.active = undefined
+      self.selectStep()
     }
 
     function reset () {
@@ -138,7 +160,9 @@ const WorkflowStepStore = types
       afterAttach,
       convertWorkflowToUseSteps,
       getNextStepKey,
+      getPreviousStepKey,
       reset,
+      resetSteps,
       selectStep,
       setSteps,
       setStepsAndTasks,

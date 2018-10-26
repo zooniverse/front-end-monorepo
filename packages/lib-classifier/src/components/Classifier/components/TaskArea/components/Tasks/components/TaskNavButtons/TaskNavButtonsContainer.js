@@ -7,21 +7,28 @@ function storeMapper (stores) {
   const {
     active: step,
     activeStepTasks: tasks,
-    isThereANextStep: showNextButton,
-    isThereAPreviousStep: showBackButton,
+    getPreviousStepKey,
+    isThereANextStep,
+    isThereAPreviousStep,
     selectStep,
-    steps
   } = stores.classifierStore.workflowSteps
-  const { active: classification, createDefaultAnnotation } = stores.classifierStore.classifications
+  const {
+    active: classification,
+    completeClassification,
+    createDefaultAnnotation,
+    removeAnnotation
+  } = stores.classifierStore.classifications
 
   return {
     classification,
+    completeClassification,
     createDefaultAnnotation,
-    showBackButton,
-    showNextButton,
+    getPreviousStepKey,
+    isThereANextStep,
+    isThereAPreviousStep,
+    removeAnnotation,
     selectStep,
     step,
-    steps,
     tasks
   }
 }
@@ -43,11 +50,21 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   goToPreviousStep () {
-    const { selectStep, step, steps } = this.props
-    const stepsKeys = Array.from(steps.keys())
-    const currentStepIndex = stepsKeys.indexOf(step.stepKey)
-    const previousStep = stepsKeys[currentStepIndex - 1]
-    if (previousStep) selectStep(previousStep)
+    const {
+      isThereAPreviousStep,
+      getPreviousStepKey,
+      removeAnnotation,
+      selectStep,
+      step
+    } = this.props
+
+    if (isThereAPreviousStep()) {
+      const previousStep = getPreviousStepKey()
+      step.taskKeys.forEach((taskKey) => {
+        removeAnnotation(taskKey)
+      })
+      selectStep(previousStep)
+    }
   }
 
   goToNextStep () {
@@ -57,13 +74,14 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { showBackButton, showNextButton } = this.props
+    const { isThereANextStep, isThereAPreviousStep, completeClassification } = this.props
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
-        showBackButton={showBackButton}
-        showNextButton={showNextButton}
+        showBackButton={isThereAPreviousStep()}
+        showNextButton={isThereANextStep()}
+        completeClassification={completeClassification}
       />
     )
   }
@@ -71,6 +89,7 @@ class TaskNavButtonsContainer extends React.Component {
 
 TaskNavButtons.defaultProps = {
   classification: {},
+  completeClassification: () => {},
   createDefaultAnnotation: () => {},
   selectStep: () => {},
   tasks: []
@@ -80,6 +99,7 @@ TaskNavButtonsContainer.propTypes = {
   classification: PropTypes.shape({
     annotation: MobXPropTypes.observableArrayOf(PropTypes.object)
   }),
+  completeClassification: PropTypes.func,
   createDefaultAnnotation: PropTypes.func,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,

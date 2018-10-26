@@ -77,6 +77,7 @@ export function DoneButton (props) {
           disabled={props.disabled}
           label={<Text size='small'>{counterpart('DoneButton.done')}</Text>}
           onClick={props.onClick}
+          type='submit'
         />
       </ThemeProvider>
     )
