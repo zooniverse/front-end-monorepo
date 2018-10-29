@@ -22,14 +22,19 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const prevSubject = prevProps.subject
-    const { subject } = this.props
+    // Casting to JSON fixes reference issue from MST store
+    // A more robust solution might be to have a getter view function defined on the model
+    const prevSubject = prevProps.subject.toJSON()
+    const subject = this.props.subject.toJSON()
 
     if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
       this.handleSubject()
     }
   }
 
+  // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
+  // in the classification metadata
+  // Using SVG image might need to be rethought
   fetchImage (url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
@@ -47,6 +52,7 @@ class SingleImageViewerContainer extends React.Component {
     this.setState({ loading: asyncStates.loading })
     try {
       const img = await this.fetchImage(imageUrl)
+
       this.setState({
         height: img.height,
         width: img.width,
@@ -59,7 +65,14 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
+    const { loadingState } = this.state
     const { subject } = this.props
+    if (loadingState === asyncStates.error) {
+      return (
+        <div>Something went wrong.</div>
+      )
+    }
+
     if (!subject) {
       return null
     }

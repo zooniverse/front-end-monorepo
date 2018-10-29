@@ -1,6 +1,5 @@
 const { expect } = require('chai')
-const superagent = require('superagent')
-const mockSuperagent = require('superagent-mock')
+const nock = require('nock')
 
 const projects = require('./index')
 const { endpoint } = require('./helpers')
@@ -8,239 +7,220 @@ const { config } = require('../../config')
 const { responses } = require('./mocks')
 
 describe('Projects resource REST requests', function () {
+  let scope
+
   describe('create', function () {
-    let superagentMock
-    let actualParams
-    let actualHeaders
     const expectedResponse = responses.post.createdProject
+
+    // We save the request body here in order to make assertions on the
+    // content _without_ accessing a private property in Nock.
+    let reqBody
+
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${endpoint}`,
-        fixtures: (match, params, headers, context) => {
-          actualParams = params
-          actualHeaders = headers
-          return expectedResponse
-        },
-        post: (match, data) => ({ body: data })
-      }])
+      scope = nock(config.host)
+        .persist()
+        .post(
+          uri => uri.includes(endpoint),
+          body => { reqBody = body; return body }
+        )
+        .query(true)
+        .reply(200, expectedResponse)
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
-    it('should return the expected response', function () {
-      return projects.create().then(response => {
-        expect(response).to.eql({ body: expectedResponse }) // deep equality
-      })
+    it('should return the expected response', async function () {
+      const response = await projects.create()
+      expect(response.body).to.eql(expectedResponse)
     })
 
-    it('should have sent the expected data params with an added { private: true }', function () {
+    it('should have sent the expected data params with an added { private: true }', async function () {
       const projectDisplayName = { display_name: 'My project' }
-      return projects.create({ data: projectDisplayName }).then(response => {
-        expect(actualParams).to.eql(Object.assign({}, { private: true }, projectDisplayName))
-      })
+      const response = await projects.create({ data: projectDisplayName })
+      expect(reqBody).to.eql(Object.assign({}, { private: true }, projectDisplayName))
     })
 
-    it('should add the Authorization header to the request if param is defined', function () {
-      return projects.create({ authorization: '12345' }).then((response) => {
-        expect(actualHeaders['Authorization']).to.exist
-        expect(actualHeaders['Authorization']).to.equal('12345')
-      })
+    it('should add the Authorization header to the request if param is defined', async function () {
+      const response = await projects.create({ authorization: '12345' })
+      expect(response.req.headers.authorization).to.equal('12345')
     })
   })
 
   describe('get', function () {
     describe('many projects', function () {
-      let superagentMock
-      let actualHeaders
       const expectedGetAllResponse = responses.get.projects
 
       before(function () {
-        superagentMock = mockSuperagent(superagent, [{
-          pattern: `${config.host}${endpoint}`,
-          fixtures: (match, params, headers, context) => {
-            actualHeaders = headers
-            return expectedGetAllResponse
-          },
-          get: (match, data) => {
-            return { body: data }
-          }
-        }])
+        scope = nock(config.host)
+          .persist()
+          .get(uri => uri.includes(endpoint))
+          .query(true)
+          .reply(200, expectedGetAllResponse)
       })
 
       after(function () {
-        superagentMock.unset()
+        nock.cleanAll()
       })
 
-      it('should return the expected response without a defined id argument', function () {
-        return projects.get().then(response => {
-          expect(response).to.eql({ body: expectedGetAllResponse })
-        })
+      it('should return the expected response without a defined id argument', async function () {
+        const response = await projects.get()
+        expect(response.body).to.eql(expectedGetAllResponse)
       })
 
-      it('should add the Authorization header to the request if param is defined', function () {
-        return projects.get({ authorization: '12345' }).then((response) => {
-          expect(actualHeaders['Authorization']).to.exist
-          expect(actualHeaders['Authorization']).to.equal('12345')
-        })
+      it('should add the Authorization header to the request if param is defined', async function () {
+        const response = await projects.get({ authorization: '12345' })
+        expect(response.req.headers.authorization).to.equal('12345')
       })
     })
 
     describe('a single project', function () {
-      let superagentMock
-      let actualMatch
-      let actualHeaders
       const expectedGetSingleResponse = responses.get.project
 
       before(function () {
-        superagentMock = mockSuperagent(superagent, [{
-          pattern: `${config.host}${endpoint}/(\\d+)`,
-          fixtures: (match, params, headers, context) => {
-            actualMatch = match
-            actualHeaders = headers
-            return expectedGetSingleResponse
-          },
-          get: (match, data) => {
-            return { body: data }
-          }
-        }])
+        scope = nock(config.host)
+          .persist()
+          .get(uri => uri.includes(endpoint))
+          .query(true)
+          .reply(200, expectedGetSingleResponse)
       })
 
       after(function () {
-        superagentMock.unset()
+        nock.cleanAll()
       })
 
-      it('should add the Authorization header to the request if param is defined', function () {
-        return projects.get({ authorization: '12345', id: '2' }).then((response) => {
-          expect(actualHeaders['Authorization']).to.exist
-          expect(actualHeaders['Authorization']).to.equal('12345')
-        })
+      it('should add the Authorization header to the request if param is defined', async function () {
+        const response = await projects.get({ authorization: '12345', id: '2' })
+        expect(response.req.headers.authorization).to.equal('12345')
       })
 
-      it('should return the expected response with a defined id argument', function () {
-        return projects.get({ id: '2' }).then(response => {
-          expect(response).to.eql({ body: expectedGetSingleResponse })
-        })
+      it('should return the expected response with a defined id argument', async function () {
+        const response = await projects.get({ id: '2' })
+        expect(response.body).to.eql(expectedGetSingleResponse)
       })
 
-      it('should include query params with the request if defined', function () {
+      it('should include query params with the request if defined', async function () {
         const queryParams = { page: '2' }
-
-        return projects.get({ id: '2', query: queryParams }).then(response => {
-          expect(actualMatch.input.includes('?page=2')).to.be.true
-        })
+        const response = await projects.get({ id: '2', query: queryParams })
+        expect(response.req.path.includes('?page=2')).to.be.true
       })
 
-      it('should error if id arugment is not a string', function () {
-        return projects.get({ id: 2 }).catch(error => {
+      it('should error if id arugment is not a string', async function () {
+        try {
+          await projects.get({ id: 2 })
+          expect.fail()
+        } catch (error) {
           expect(error.message).to.equal('Projects: Get request id must be a string.')
-        })
+        }
       })
     })
   })
 
   describe('update', function () {
-    let superagentMock
-    let actualHeaders
-    const expectedPutResponse = responses.updatedProject
+    const expectedPutResponse = responses.put.updatedProject
     const update = { researcher_quote: 'Try my project!' }
 
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${endpoint}/(\\d+)`,
-        fixtures: (match, params, headers) => {
-          actualHeaders = headers
-          return expectedPutResponse
-        },
-        put: (match, data) => ({ body: data })
-      }])
+      scope = nock(config.host)
+        .persist()
+        .put(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedPutResponse)
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
-    it('should error if id argument is not a string', function () {
-      return projects.update({ id: 2 }).catch((error) => {
+    it('should error if id argument is not a string', async function () {
+      try {
+        await projects.update({ id: 2 })
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Projects: Update request id must be a string.')
-      })
+      }
     })
 
-    it('should error if data argument is falsy', function () {
-      return projects.update({ data: update }).catch((error) => {
+    it('should error if data argument is falsy', async function () {
+      try {
+        await projects.update({ data: update })
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Projects: Update request missing project id.')
-      })
+      }
     })
 
-    it('should error if data argument is falsy', function () {
-      return projects.update({ id: '2' }).catch((error) => {
+    it('should error if data argument is falsy', async function () {
+      try {
+        await projects.update({ id: '2' })
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Projects: Update request missing data to post.')
-      })
+      }
     })
 
-    it('should add the Authorization header to the request if param is defined', function () {
-      return projects.update({ id: '2', data: update, authorization: '12345' }).then((response) => {
-        expect(actualHeaders['Authorization']).to.exist
-        expect(actualHeaders['Authorization']).to.equal('12345')
-      })
+    it('should add the Authorization header to the request if param is defined', async function () {
+      const response = await projects.update({ id: '2', data: update, authorization: '12345' })
+      expect(response.req.headers.authorization).to.equal('12345')
     })
 
-    it('should return the expected response', function () {
-      return projects.update({ id: '2', data: update }).then((response) => {
-        expect(response).to.eql({ body: expectedPutResponse })
-      })
+    it('should return the expected response', async function () {
+      const response = await projects.update({ id: '2', data: update })
+      expect(response.body).to.eql(expectedPutResponse)
     })
   })
 
   describe('delete', function () {
-    let superagentMock
-    let actualHeaders
-    const responseStatus = { status: 204 }
+    const responseStatus = 204
+
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: `${config.host}${endpoint}/(\\d+)`,
-        fixtures: (match, params, headers) => {
-          actualHeaders = headers
-          return responseStatus
-        },
-        delete: (match, data) => { return data }
-      }])
+      scope = nock(config.host)
+        .persist()
+        .delete(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(responseStatus)
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
-    it('should error if the request is missing a project id', function () {
-      return projects.delete().catch((error) => {
+    it('should error if the request is missing a project id', async function () {
+      try {
+        await projects.delete()
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Projects: Delete request missing project id.')
-      })
+      }
     })
 
-    it('should error if the request project id is an empty string', function () {
-      return projects.delete({ id: '' }).catch((error) => {
+    it('should error if the request project id is an empty string', async function () {
+      try {
+        await projects.delete({ id: '' })
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Projects: Delete request missing project id.')
-      })
+      }
     })
 
-    it('should error if the request\'s project id is not a string', function () {
-      return projects.delete({ id: 2 }).catch((error) => {
+    it('should error if the request\'s project id is not a string', async function () {
+      try {
+        await projects.delete({ id: 2 })
+        expect.fail()
+      } catch (error) {
         expect(error.message).to.equal('Projects: Delete request id must be a string.')
-      })
+      }
     })
 
-    it('should add the Authorization header to the request if param is defined', function () {
-      return projects.delete({ id: '2', authorization: '12345' }).then((response) => {
-        expect(actualHeaders['Authorization']).to.exist
-        expect(actualHeaders['Authorization']).to.equal('12345')
-      })
+    it('should add the Authorization header to the request if param is defined', async function () {
+      const response = await projects.delete({ id: '2', authorization: '12345' })
+      expect(response.req.headers.authorization).to.equal('12345')
     })
 
-    it('should return the expected response', function () {
-      return projects.delete({ id: '2' }).then((response) => {
-        expect(response).to.equal(responseStatus)
-      })
+    it('should return the expected response', async function () {
+      const response = await projects.delete({ id: '2' })
+      expect(response.status).to.equal(responseStatus)
     })
   })
 })

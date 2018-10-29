@@ -8,4 +8,4 @@ const Project = types
     links: types.frozen({})
   })
 
-export default types.compose(Resource, Project)
+export default types.compose('ProjectResource', Resource, Project)

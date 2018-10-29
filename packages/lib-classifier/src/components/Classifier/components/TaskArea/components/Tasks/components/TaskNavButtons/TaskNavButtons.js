@@ -6,23 +6,14 @@ import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
 import BackButton from './components/BackButton'
 
-export const ButtonsWrapper = styled.span`
-  display: flex;
-  width: 100%;
-  
-  > a:first-of-type, > div:first-of-type, > span:first-of-type {
-    margin-right: 1ch;
-  }
-`
-
 export default function TaskNavButtons (props) {
   if (props.showNextButton) {
     return (
-      <Box pad='small'>
+      <Box pad='small' direction='row'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
-            onClick={props.destroyCurrentAnnotation}
+            onClick={props.goToPreviousStep}
           />}
         <NextButton
           autoFocus={false}
@@ -47,16 +38,17 @@ export default function TaskNavButtons (props) {
   }
 
   return (
-    <Box pad='small'>
+    <Box direction='row' pad='small'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
-          onClick={props.destroyCurrentAnnotation}
+          onClick={props.goToPreviousStep}
         />}
       <DoneButton
         completed={props.completed}
         demoMode={props.demoMode}
-        // goldStandardMode={props.classification ? props.classification.gold_standard : false}
+        flex='grow'
+        goldStandardMode={props.classification ? props.classification.goldStandard : false}
         onClick={props.completeClassification}
         disabled={props.waitingForAnswer}
       />
@@ -67,27 +59,27 @@ export default function TaskNavButtons (props) {
 TaskNavButtons.defaultProps = {
   areAnnotationsNotPersisted: false,
   autoFocus: false,
-  completeClassification: () => {},
   completed: false,
   demoMode: false,
-  destroyCurrentAnnotation: () => {},
+  goToPreviousStep: () => {},
   nextSubject: () => {},
   showBackButton: false,
   showNextButton: false,
   showDoneAndTalkLink: false,
+  completeClassification: () => {},
   waitingForAnswer: false
 }
 
 TaskNavButtons.propTypes = {
   areAnnotationsNotPersisted: PropTypes.bool,
   autoFocus: PropTypes.bool,
-  completeClassification: PropTypes.func,
   completed: PropTypes.bool,
   demoMode: PropTypes.bool,
-  destroyCurrentAnnotation: PropTypes.func,
+  goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
   showDoneAndTalkLink: PropTypes.bool,
+  completeClassification: PropTypes.func,
   waitingForAnswer: PropTypes.bool
 }

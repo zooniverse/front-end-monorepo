@@ -9,4 +9,4 @@ const ProjectStore = types
     type: types.optional(types.string, 'projects')
   })
 
-export default types.compose(ResourceStore, ProjectStore)
+export default types.compose('ProjectResourceStore', ResourceStore, ProjectStore)

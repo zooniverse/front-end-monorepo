@@ -1,82 +1,41 @@
 const { expect } = require('chai')
-const superagent = require('superagent')
-const mockSuperagent = require('superagent-mock')
+const nock = require('nock')
+
 const { config } = require('./config')
 const panoptes = require('./panoptes')
 
 describe('panoptes.js', function () {
+  let scope
+
   describe('get', function () {
-    let superagentMock
-    let actualMatch
-    let actualHeaders
     const endpoint = '/projects'
     const expectedResponse = { id: '2' }
+
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: endpoint,
-        fixtures: (match, params, header, context) => {
-          actualMatch = match
-          actualHeaders = header
-          return expectedResponse
-        },
-        get: (match, data) => ({ body: data })
-      }])
+      scope = nock(config.host)
+        .persist()
+        .get(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedResponse)
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
-    it('should return the expected response', async function () {
-      const response = await panoptes.get(endpoint)
-      expect(response).to.deep.equal({ body: expectedResponse })
-    })
-
-    it('should use the host from the function call if defined', async function () {
-      const mockAPIHost = 'https://my-api.com'
-      const response = await panoptes.get(endpoint, null, null, mockAPIHost)
-      expect(actualMatch.input.includes(mockAPIHost)).to.be.true
-    })
-
-    it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
-      await panoptes.get(endpoint)
-      expect(actualMatch.input.includes(config.host)).to.be.true
-    })
-
-    it('should add Content-Type header to the request', async function () {
-      await panoptes.get(endpoint)
-      expect(actualHeaders['Content-Type']).to.exist
-      expect(actualHeaders['Content-Type']).to.equal('application/json')
-    })
-
-    it('should add Accept header to the request', async function () {
-      await panoptes.get(endpoint)
-      expect(actualHeaders['Accept']).to.exist
-      expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
-    })
-
-    it('should add the Authorization header to the request if param is defined', async function () {
-      await panoptes.get(endpoint, null, '12345')
-      expect(actualHeaders['Authorization']).to.exist
-      expect(actualHeaders['Authorization']).to.equal('12345')
-    })
-
-    it('should add the http_cache default query params to the request', async function () {
-      await panoptes.get(endpoint)
-      expect(actualMatch.input.includes('?http_cache=true')).to.be.true
-    })
-
-    it('should add the admin default query param if flag is found in local storage', async function () {
-      localStorage.setItem('adminFlag', true)
-
-      await panoptes.get(endpoint)
-      expect(actualMatch.input.includes('?admin=true')).to.be.true
-      localStorage.removeItem('adminFlag')
-    })
+    testExpectedResponse('get', endpoint, expectedResponse)
+    testHostArg('get', endpoint, expectedResponse)
+    testConfigHost('get', endpoint)
+    testContentTypeHeader('get', endpoint)
+    testAcceptHeader('get', endpoint)
+    testAuthHeader('get', endpoint)
+    testHttpCache('get', endpoint)
+    testAdminParam('get', endpoint)
+    testNoEndpoint('get')
 
     it('should add the query object to the URL if defined', async function () {
-      await panoptes.get(endpoint, { page: '2', page_size: '30' })
-      expect(actualMatch.input.includes('?page=2&page_size=30')).to.be.true
+      const response = await panoptes.get(endpoint, { page: '2', page_size: '30' })
+      expect(response.req.path.includes('?page=2&page_size=30')).to.be.true
     })
 
     it('should error if query params are defined but are not an object', async function () {
@@ -87,267 +46,188 @@ describe('panoptes.js', function () {
         expect(error.message).to.equal('Query must be an object')
       }
     })
-
-    it('should error if request is called without a defined resource endpoint', async function () {
-      try {
-        await panoptes.get()
-        expect.fail()
-      } catch (error) {
-        expect(error.message).to.equal('Request needs a defined resource endpoint')
-      }
-    })
   })
 
   describe('post', function () {
-    let superagentMock
-    let actualMatch
-    let actualParams
-    let actualHeaders
     const endpoint = '/projects'
     const expectedResponse = { id: '3' }
+
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: endpoint,
-        fixtures: (match, params, header, context) => {
-          actualMatch = match
-          actualParams = params
-          actualHeaders = header
-          return expectedResponse
-        },
-        post: (match, data) => ({ body: data })
-      }])
+      scope = nock(config.host)
+        .persist()
+        .post(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedResponse)
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
-    it('should return the expected response', async function () {
-      const response = await panoptes.post(endpoint)
-      expect(response).to.deep.equal({ body: expectedResponse })
-    })
-
-    it('should use the host from the function call if defined', async function () {
-      const mockAPIHost = 'https://my-api.com'
-      const response = panoptes.post(endpoint, null, null, mockAPIHost)
-      expect(actualMatch.input.includes(mockAPIHost)).to.be.true
-    })
-
-    it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
-      await panoptes.post(endpoint)
-      expect(actualMatch.input.includes(config.host)).to.be.true
-    })
-
-    it('should add Content-Type header to the request', async function () {
-      await panoptes.post(endpoint)
-      expect(actualHeaders['Content-Type']).to.exist
-      expect(actualHeaders['Content-Type']).to.equal('application/json')
-    })
-
-    it('should add Accept header to the request', async function () {
-      await panoptes.post(endpoint)
-      expect(actualHeaders['Accept']).to.exist
-      expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
-    })
-
-    it('should add the Authorization header to the request if param is defined', async function () {
-      await panoptes.post(endpoint, null, '12345')
-      expect(actualHeaders['Authorization']).to.exist
-      expect(actualHeaders['Authorization']).to.equal('12345')
-    })
-
-    it('should add the http_cache default query params to the request', async function () {
-      await panoptes.post(endpoint)
-      expect(actualMatch.input.includes('?http_cache=true')).to.be.true
-    })
-
-    it('should add the admin default query param if flag is found in local storage', async function () {
-      localStorage.setItem('adminFlag', true)
-
-      await panoptes.post(endpoint)
-      expect(actualMatch.input.includes('?admin=true')).to.be.true
-      localStorage.removeItem('adminFlag')
-    })
+    testExpectedResponse('post', endpoint, expectedResponse)
+    testHostArg('post', endpoint, expectedResponse)
+    testConfigHost('post', endpoint)
+    testContentTypeHeader('post', endpoint)
+    testAcceptHeader('post', endpoint)
+    testAuthHeader('post', endpoint)
+    testHttpCache('post', endpoint)
+    testAdminParam('post', endpoint)
+    testNoEndpoint('post')
 
     it('should send any data params if defined', async function () {
       const params = { display_name: 'My project' }
-      await panoptes.post(endpoint, params)
-      expect(actualParams).to.deep.equal(params)
-    })
-
-    it('should error if request is called without a defined resource endpoint', async function () {
-      try {
-        await panoptes.post()
-        expect.fail()
-      } catch (error) {
-        expect(error.message).to.equal('Request needs a defined resource endpoint')
-      }
+      const response = await panoptes.post(endpoint, params)
+      expect(response.request._data).to.deep.equal(params)
     })
   })
 
   describe('put', function () {
-    let superagentMock
-    let actualMatch
-    let actualParams
-    let actualHeaders
     const endpoint = '/projects/2'
     const update = { display_name: 'My project' }
     const expectedResponse = { id: '3', display_name: 'My project' }
+
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: '/projects/(\\d+)',
-        fixtures: (match, params, header, context) => {
-          actualMatch = match
-          actualParams = params
-          actualHeaders = header
-          return expectedResponse
-        },
-        put: (match, data) => ({ body: data })
-      }])
+      scope = nock(config.host)
+        .persist()
+        .put(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedResponse)
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
-    it('should return the expected response', async function () {
-      const response = await panoptes.put(endpoint, update)
-      expect(response).to.deep.equal({ body: expectedResponse })
-    })
-
-    it('should use the host from the function call if defined', async function () {
-      const mockAPIHost = 'https://my-api.com'
-      await panoptes.put(endpoint, update, null, mockAPIHost)
-      expect(actualMatch.input.includes(mockAPIHost)).to.be.true
-    })
-
-    it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
-      await panoptes.put(endpoint, update)
-      expect(actualMatch.input.includes(config.host)).to.be.true
-    })
-
-    it('should add Content-Type header to the request', async function () {
-      await panoptes.put(endpoint, update)
-      expect(actualHeaders['Content-Type']).to.exist
-      expect(actualHeaders['Content-Type']).to.equal('application/json')
-    })
-
-    it('should add Accept header to the request', async function () {
-      await panoptes.put(endpoint, update)
-      expect(actualHeaders['Accept']).to.exist
-      expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
-    })
-
-    it('should add the Authorization header to the request if param is defined', async function () {
-      await panoptes.put(endpoint, update, '12345')
-      expect(actualHeaders['Authorization']).to.exist
-      expect(actualHeaders['Authorization']).to.equal('12345')
-    })
-
-    it('should add the http_cache default query params to the request', async function () {
-      await panoptes.put(endpoint, update)
-      expect(actualMatch.input.includes('?http_cache=true')).to.be.true
-    })
-
-    it('should add the admin default query param if flag is found in local storage', async function () {
-      localStorage.setItem('adminFlag', true)
-
-      await panoptes.put(endpoint, update)
-      expect(actualMatch.input.includes('?admin=true')).to.be.true
-      localStorage.removeItem('adminFlag')
-    })
+    testExpectedResponse('put', endpoint, expectedResponse, update)
+    testHostArg('put', endpoint, expectedResponse, update)
+    testConfigHost('put', endpoint, update)
+    testContentTypeHeader('put', endpoint, update)
+    testAcceptHeader('put', endpoint, update)
+    testAuthHeader('put', endpoint, update)
+    testHttpCache('put', endpoint, update)
+    testAdminParam('put', endpoint, update)
+    testNoEndpoint('put')
 
     it('should send any data params if defined', async function () {
-      await panoptes.put(endpoint, update)
-      expect(actualParams).to.deep.equal(update)
-    })
-
-    it('should error if request is called without a defined resource endpoint', async function () {
-      try {
-        await panoptes.put()
-        expect.fail()
-      } catch (error) {
-        expect(error.message).to.equal('Request needs a defined resource endpoint')
-      }
+      const response = await panoptes.put(endpoint, update)
+      expect(response.body).to.deep.equal(expectedResponse)
     })
   })
 
   describe('delete', function () {
-    let superagentMock
-    let actualMatch
-    let actualHeaders
     const endpoint = '/projects'
     const expectedResponse = { status: 204 }
+
     before(function () {
-      superagentMock = mockSuperagent(superagent, [{
-        pattern: endpoint,
-        fixtures: (match, params, header, context) => {
-          actualMatch = match
-          actualHeaders = header
-          return expectedResponse
-        },
-        delete: (match, data) => { return data }
-      }])
+      scope = nock(config.host)
+        .persist()
+        .delete(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(204, { status: 204 })
     })
 
     after(function () {
-      superagentMock.unset()
+      nock.cleanAll()
     })
 
+    testExpectedResponse('del', endpoint, expectedResponse)
+    testHostArg('del', endpoint, expectedResponse)
+    testConfigHost('del', endpoint)
+    testContentTypeHeader('del', endpoint)
+    testAcceptHeader('del', endpoint)
+    testAuthHeader('del', endpoint)
+    testHttpCache('del', endpoint)
+    testAdminParam('del', endpoint)
+    testNoEndpoint('del')
+  })
+
+  function testExpectedResponse (method, endpoint, expectedResponse, update = null) {
     it('should return the expected response', async function () {
-      const response = await panoptes.del(endpoint)
-      expect(response).to.equal(expectedResponse)
+      const response = await panoptes[method](endpoint, update)
+      expect(response.body).to.deep.equal(expectedResponse)
     })
+  }
 
+  function testHostArg (method, endpoint, expectedResponse, update = null) {
     it('should use the host from the function call if defined', async function () {
       const mockAPIHost = 'https://my-api.com'
-      await panoptes.del(endpoint, null, mockAPIHost)
-      expect(actualMatch.input.includes(mockAPIHost)).to.be.true
-    })
 
+      const isDel = method === 'del'
+      // Nock calls it 'delete', panoptes-js calls it 'del'
+      const nockMethod = isDel ? 'delete' : method
+      // There is one less argument for `del`, so to set the correct order we
+      // `apply` an array of arguments
+      const methodArgs = isDel
+        ? [endpoint, null, mockAPIHost]
+        : [endpoint, update, null, mockAPIHost]
+
+      const mockAPIHostScope = nock(mockAPIHost)
+        [nockMethod](uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedResponse)
+
+      const response = await panoptes[method].apply(this, methodArgs)
+      expect(response.request.url.includes(mockAPIHost)).to.be.true
+    })
+  }
+
+  function testConfigHost (method, endpoint, update = null) {
     it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
-      await panoptes.del(endpoint)
-      expect(actualMatch.input.includes(config.host)).to.be.true
+      const response = await panoptes[method](endpoint, update)
+      expect(response.request.url.includes(config.host)).to.be.true
     })
+  }
 
-    it('should add Content-Type header to the request', async function () {
-      await panoptes.del(endpoint)
-      expect(actualHeaders['Content-Type']).to.exist
-      expect(actualHeaders['Content-Type']).to.equal('application/json')
+  function testContentTypeHeader (method, endpoint, update = null) {
+    it('should add the `Content-Type` header to the request', async function () {
+      const response = await panoptes[method](endpoint, update)
+      expect(response.req.headers['content-type']).to.equal('application/json')
     })
+  }
 
-    it('should add Accept header to the request', async function () {
-      await panoptes.del(endpoint)
-      expect(actualHeaders['Accept']).to.exist
-      expect(actualHeaders['Accept']).to.equal('application/vnd.api+json; version=1')
+  function testAcceptHeader (method, endpoint, update = null) {
+    it('should add the `Accept` header to the request', async function () {
+      const response = await panoptes[method](endpoint, update)
+      expect(response.req.headers['accept']).to.equal('application/vnd.api+json; version=1')
     })
+  }
 
-    it('should add the Authorization header to the request if param is defined', async function () {
-      await panoptes.del(endpoint, '12345')
-      expect(actualHeaders['Authorization']).to.exist
-      expect(actualHeaders['Authorization']).to.equal('12345')
+  function testAuthHeader (method, endpoint, update = null) {
+    it('should add the `Authorization` header to the request if param is defined', async function () {
+      const isDel = method === 'del'
+      const methodArgs = isDel
+        ? [endpoint, '12345']
+        : [endpoint, update, '12345']
+
+      const response = await panoptes[method].apply(this, methodArgs)
+      expect(response.req.headers['authorization']).to.equal('12345')
     })
+  }
 
+  function testHttpCache (method, endpoint, update = null) {
     it('should add the http_cache default query params to the request', async function () {
-      await panoptes.del(endpoint)
-      expect(actualMatch.input.includes('?http_cache=true')).to.be.true
+      const response = await panoptes[method](endpoint, update)
+      expect(response.req.path.includes('?http_cache=true')).to.be.true
     })
+  }
 
+  function testAdminParam (method, endpoint, update = null) {
     it('should add the admin default query param if flag is found in local storage', async function () {
       localStorage.setItem('adminFlag', true)
-
-      await panoptes.del(endpoint)
-      expect(actualMatch.input.includes('?admin=true')).to.be.true
+      const response = await panoptes[method](endpoint, update)
+      expect(response.req.path.includes('?admin=true')).to.be.true
       localStorage.removeItem('adminFlag')
     })
+  }
 
+  function testNoEndpoint (method) {
     it('should error if request is called without a defined resource endpoint', async function () {
       try {
-        await panoptes.del()
+        await panoptes[method]()
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Request needs a defined resource endpoint')
       }
     })
-  })
+  }
 })

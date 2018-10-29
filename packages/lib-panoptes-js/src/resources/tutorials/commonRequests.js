@@ -35,7 +35,7 @@ function getTutorials (params) {
       // We allow the null value on kind for backwards compatibility
       // These are standard tutorials added prior to the 'kind' field and mini-courses
       response.body.tutorials = response.body.tutorials.filter((tutorial) => {
-        return tutorial.kind === 'tutorial' || null
+        return tutorial.kind === 'tutorial' || tutorial.kind === null
       })
 
       return response

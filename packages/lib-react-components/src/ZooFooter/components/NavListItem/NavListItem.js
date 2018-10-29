@@ -9,6 +9,7 @@ import { whichTealColorForTheme } from '../../lib'
 
 export const StyledNavListItem = styled(Anchor)`
   &:first-child {
+    color: ${whichTealColorForTheme};
     font-weight: bold;
     letter-spacing: 1px;
     margin-bottom: 0.5em;
