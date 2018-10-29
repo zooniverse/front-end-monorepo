@@ -10,6 +10,7 @@ import {
   projects as projectsClient
 } from '@zooniverse/panoptes-js'
 
+import { registerWorkers } from '../../workers'
 import RootStore from 'src/store'
 import Layout from './components/Layout'
 
@@ -17,6 +18,8 @@ const client = {
   panoptes: panoptesClient,
   projects: projectsClient
 }
+
+registerWorkers()
 
 class Classifier extends React.Component {
   constructor () {

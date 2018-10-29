@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
