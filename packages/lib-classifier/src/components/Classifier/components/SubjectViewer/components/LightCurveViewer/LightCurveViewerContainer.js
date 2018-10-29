@@ -37,7 +37,7 @@ class LightCurveViewerContainer extends React.Component {
   
   componentWillUnmount () {}
 
-  async handleSubject () {
+  handleSubject () {
     const { subject } = this.props
     
     //Sanity check

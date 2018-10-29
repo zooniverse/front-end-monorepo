@@ -35,7 +35,7 @@ class LightCurveViewer extends React.Component {
   }
   
   componentWillUnmount () {
-    this.d3exit()
+    this.d3finish()
   }
   
   d3init () {
@@ -79,7 +79,7 @@ class LightCurveViewer extends React.Component {
     //--------------------------------
   }
   
-  d3exit () {
+  d3finish () {
     //Sanity check
     if (!this.d3svg || !this.d3interfaceLayer) return
     
