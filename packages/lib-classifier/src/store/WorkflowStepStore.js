@@ -47,7 +47,7 @@ const WorkflowStepStore = types
         if (workflow) {
           self.reset()
           if (workflow.steps &&
-              workflow.steps.size > 0 &&
+              workflow.steps.length > 0 &&
               Object.keys(workflow.tasks).length > 0) {
             self.setStepsAndTasks(workflow)
           } else {
@@ -111,10 +111,10 @@ const WorkflowStepStore = types
     }
 
     function setSteps (workflow) {
-      const stepEntries = workflow.steps.entries()
-      stepEntries.forEach((entry) => {
-        const newStep = Step.create(entry[1])
-        self.steps.put(Object.assign({}, newStep, { stepKey: entry[0] }))
+      // const stepEntries = workflow.steps.entries()
+      workflow.steps.forEach((entry) => {
+        const newStep = Step.create({ stepKey: entry[0], taskKeys: entry[1].taskKeys, next: entry[1].next })
+        self.steps.put(newStep)
       })
     }
 
