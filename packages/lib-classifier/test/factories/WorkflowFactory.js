@@ -10,4 +10,3 @@ export default new Factory()
   .attr('tasks', {})
   .attr('steps', [])
   .attr('version', '1.0')
-

@@ -21,10 +21,9 @@ const workflowWithSteps = WorkflowFactory.build({
   ]
 })
 const workflowWithoutSteps = WorkflowFactory.build({
-  tasks: { T1: SingleChoiceTaskFactory.build(), T2: MultipleChoiceTaskFactory.build()  },
+  tasks: { T1: SingleChoiceTaskFactory.build(), T2: MultipleChoiceTaskFactory.build() }
 })
 const subject = SubjectFactory.build()
-
 
 describe('Model > WorkflowStepStore', function () {
   it('should exist', function () {

@@ -9,4 +9,3 @@ export default new Factory()
     })
   })
   .attr('metadata', {})
-

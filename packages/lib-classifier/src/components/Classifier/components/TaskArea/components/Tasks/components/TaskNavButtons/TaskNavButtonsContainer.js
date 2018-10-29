@@ -10,7 +10,7 @@ function storeMapper (stores) {
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
-    selectStep,
+    selectStep
   } = stores.classifierStore.workflowSteps
   const {
     active: classification,

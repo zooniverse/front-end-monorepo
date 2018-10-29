@@ -44,7 +44,7 @@ const SubjectStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function createClassificationObserver() {
+    function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch

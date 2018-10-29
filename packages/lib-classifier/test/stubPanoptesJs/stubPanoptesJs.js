@@ -1,7 +1,6 @@
 
-
-export default function stubPanoptesJs(factories) {
-  return { 
+export default function stubPanoptesJs (factories) {
+  return {
     panoptes: {
       get: function (url, query) {
         // Assuming url is in the format '/resource_type/resource_id'
@@ -13,4 +12,3 @@ export default function stubPanoptesJs(factories) {
     }
   }
 }
-
