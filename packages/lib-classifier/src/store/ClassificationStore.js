@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getType, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -91,7 +91,6 @@ const ClassificationStore = types
 
     function addAnnotation (annotationValue, task) {
       const classification = self.active
-      console.log(getType(classification.metadata))
       if (classification) {
         const annotation = classification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
         annotation.value = annotationValue
