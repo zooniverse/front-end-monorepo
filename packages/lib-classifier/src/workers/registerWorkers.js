@@ -8,11 +8,11 @@ export default function registerWorkers () {
       navigator.serviceWorker.register('/queue.js')
         .then(function (registration) {
           // Successful registration
-          console.log('Hooray. Registration successful, scope is:', registration.scope);
+          console.log('Hooray. Registration successful, scope is:', registration.scope)
         }).catch(function (error) {
           // Failed registration, service worker won’t be installed
-          console.error('Whoops. Service worker registration failed, error:', error);
+          console.error('Whoops. Service worker registration failed, error:', error)
         })
-    });
+    })
   }
 }
