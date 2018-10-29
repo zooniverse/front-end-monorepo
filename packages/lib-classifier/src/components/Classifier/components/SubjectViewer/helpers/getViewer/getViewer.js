@@ -1,7 +1,9 @@
 import { default as SingleImageViewer } from '../../components/SingleImageViewer'
+import { default as LightCurveViewer } from '../../components/LightCurveViewer'
 
 const viewers = {
-  singleImage: SingleImageViewer
+  singleImage: SingleImageViewer,
+  lightCurve: LightCurveViewer
 }
 
 function getViewer (viewer) {
