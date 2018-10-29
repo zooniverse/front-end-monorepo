@@ -46,14 +46,15 @@ class LightCurveViewerContainer extends React.Component {
     
     //Find the first location that has a JSON MIME type.
     //NOTE: we also temporarily accept plain text, due to quirks with the Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-    const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain'])
+    let jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain'])
+    jsonLocation = jsonLocation && (jsonLocation['application/json'] || jsonLocation['text/plain'])
 
     //TODO: error handling - what if there's no JSON url?
     if (!jsonLocation) return
     
     this.setState({ loading: asyncStates.loading })
     try {
-      request.get(jsonLocation['application/json'] || jsonLocation['text/plain'])
+      request.get(jsonLocation)
         .then(res => {
           if (res.ok) {
             //Get the JSON data, or (as a failsafe) parse the JSON data if the response is returned as a string
