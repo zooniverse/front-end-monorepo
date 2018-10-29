@@ -1,4 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
+import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import * as mst from 'mobx-state-tree'
@@ -67,6 +68,7 @@ export default class MyApp extends App {
             <Head />
             <Navigation />
             <Component {...pageProps} />
+            <ZooFooter />
           </Grommet>
         </Provider>
       </Container>
