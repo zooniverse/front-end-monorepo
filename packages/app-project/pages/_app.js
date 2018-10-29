@@ -4,14 +4,20 @@ import { Provider } from 'mobx-react'
 import * as mst from 'mobx-state-tree'
 import App, { Container } from 'next/app'
 import React from 'react'
+import { createGlobalStyle } from 'styled-components'
 
 import Head from '../components/Head'
 import Navigation from '../components/Navigation'
 import initStore from '../stores'
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+`
+
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
-
     let pageProps = {
       isServer: !!context.req
     }
@@ -19,7 +25,6 @@ export default class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(context)
     }
-
 
     if (pageProps.isServer) {
       const { owner, project } = context.query
@@ -56,6 +61,7 @@ export default class MyApp extends App {
     const { Component, pageProps, theme } = this.props
     return (
       <Container>
+        <GlobalStyle />
         <Provider store={this.store}>
           <Grommet theme={theme}>
             <Head />
