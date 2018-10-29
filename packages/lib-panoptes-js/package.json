@@ -9,7 +9,7 @@
   "scripts": {
     "_check": "check-engines && check-dependencies",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
-    "test:local": "npm run _check && NODE_ENV=test mocha"
+    "test": "npm run _check && NODE_ENV=test mocha"
   },
   "dependencies": {
     "check-dependencies": "^1.1.0",
