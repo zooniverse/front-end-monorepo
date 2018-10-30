@@ -22,7 +22,6 @@ if (workbox) {
         .then((response) => {
           if (!response.ok) {
             if (response.status !== 422) {
-              console.log('hey', response, response.body)
               manageFailure(response, request)
             } else {
               console.error('Dropping malformed classification permanently', request, response)
