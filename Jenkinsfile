@@ -44,5 +44,17 @@ timeout(20) {
       }
     }
 
+    stage('Deploy to Swarm') {
+      if (BRANCH_NAME == 'master') {
+        sh """
+          cd "/var/jenkins_home/jobs/Zooniverse GitHub/jobs/operations/branches/master/workspace" && \
+          ./hermes_wrapper.sh exec StandaloneAppsSwarm -- \
+              docker stack deploy --prune \
+              -c /opt/infrastructure/stacks/fe-project-staging.yml \
+              fe-project-staging
+        """
+      }
+    }
+
   }
 }
