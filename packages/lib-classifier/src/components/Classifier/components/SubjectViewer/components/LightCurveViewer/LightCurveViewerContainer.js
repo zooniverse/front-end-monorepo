@@ -1,25 +1,26 @@
 import asyncStates from '@zooniverse/async-states'
-import React from 'react'
+import * as d3 from 'd3'
+import { get, zip } from 'lodash'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import request from 'superagent'
 
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 
-class LightCurveViewerContainer extends React.Component {
+class LightCurveViewerContainer extends Component {
   constructor () {
     super()
-    
     this.state = {
       loading: asyncStates.initialized,
-      jsonData: null,
+      extent: {
+        x: [],
+        y: []
+      },
+      points: []
     }
-    
-    //TODO: turn into variables?
-    this.width = 500
-    this.height = 500
   }
-  
+
   componentDidMount () {
     if (this.props.subject) {
       this.handleSubject()
@@ -34,44 +35,55 @@ class LightCurveViewerContainer extends React.Component {
       this.handleSubject()
     }
   }
-  
-  componentWillUnmount () {}
 
-  handleSubject () {
-    const { subject } = this.props
-    
-    //Sanity check
-    //TODO: error handling - what if there's no subject?
-    if (!subject) return
-    
-    //Find the first location that has a JSON MIME type.
-    //NOTE: we also temporarily accept plain text, due to quirks with the Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-    let jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain'])
-    jsonLocation = jsonLocation && (jsonLocation['application/json'] || jsonLocation['text/plain'])
+  getSubjectUrl () {
+    // Find the first location that has a JSON MIME type.
+    // NOTE: we also temporarily accept plain text, due to quirks with the
+    // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
+    const locations = get(this, 'props.subject.locations', [])
+    const jsonLocation = locations.find(l => l['application/json'] || l['text/plain']) || {}
+    const url = Object.values(jsonLocation)[0]
+    if (url) {
+      return url
+    } else {
+      throw new Error('No JSON url found for this subject')
+    }
+  }
 
-    //TODO: error handling - what if there's no JSON url?
-    if (!jsonLocation) return
-    
-    this.setState({ loading: asyncStates.loading })
+  async requestData () {
     try {
-      request.get(jsonLocation)
-        .then(res => {
-          if (res.ok) {
-            //Get the JSON data, or (as a failsafe) parse the JSON data if the response is returned as a string
-            const jsonData = res.body || JSON.parse(res.text)
-            
-            this.setState({ jsonData })
-          } else {
-            throw 'ERROR: invalid response'
-          }
-        })
-        .catch(err => {
-          //Possible errors:
-          throw(err)
-        })
-    } catch (err) {
-      console.error(err)
-      this.setState({ loading: asyncStates.error, jsonData: null })
+      this.setState({ loading: asyncStates.loading })
+      const url = this.getSubjectUrl()
+      const response = await request.get(url)
+      if (!response.ok) {
+        throw new Error('Invalid response')
+      } else {
+        // Get the JSON data, or (as a failsafe) parse the JSON data if the
+        // response is returned as a string
+        this.setState({ loading: asyncStates.success })
+        return response.body || JSON.parse(response.text)
+      }
+    } catch (error) {
+      this.setState({
+        loading: asyncStates.error,
+        data: null
+      })
+      return error
+    }
+  }
+
+  async handleSubject () {
+    try {
+      const rawData = await this.requestData()
+      this.setState({
+        extent: {
+          x: d3.extent(rawData.x),
+          y: d3.extent(rawData.y)
+        },
+        points: zip(rawData.x, rawData.y)
+       })
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -80,12 +92,10 @@ class LightCurveViewerContainer extends React.Component {
     if (!subject) {
       return null
     }
-    
     return (
       <LightCurveViewer
-        jsonData={this.state.jsonData}
-        width={this.width}
-        width={this.height}
+        extent={this.state.extent}
+        points={this.state.points}
       />
     )
   }
