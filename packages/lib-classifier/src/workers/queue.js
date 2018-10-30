@@ -1,6 +1,5 @@
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`)
-  localStorage.setItem('workboxLoaded', true)
   const queue = new workbox.backgroundSync.Queue('ClassificationQueue')
 
   const manageFailure = function (error, request) {
@@ -39,5 +38,4 @@ if (workbox) {
   })
 } else {
   console.log(`Boo! Workbox didn't load 😬`)
-  localStorage.setItem('workboxLoaded', false)
 }
