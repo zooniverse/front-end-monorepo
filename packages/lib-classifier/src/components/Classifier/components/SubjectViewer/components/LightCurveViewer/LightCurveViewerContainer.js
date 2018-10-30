@@ -10,15 +10,10 @@ import locationValidator from '../../helpers/locationValidator'
 class LightCurveViewerContainer extends React.Component {
   constructor () {
     super()
-
     this.state = {
       loading: asyncStates.initialized,
       jsonData: null,
     }
-
-    //TODO: turn into variables?
-    this.width = 500
-    this.height = 500
   }
 
   componentDidMount () {
@@ -36,8 +31,6 @@ class LightCurveViewerContainer extends React.Component {
     }
   }
 
-  componentWillUnmount () {}
-
   getSubjectUrl () {
     // Find the first location that has a JSON MIME type.
     // NOTE: we also temporarily accept plain text, due to quirks with the
@@ -53,50 +46,32 @@ class LightCurveViewerContainer extends React.Component {
     return url
   }
 
-  handleSubject () {
-    const { subject } = this.props
-
+  async handleSubject () {
     //Sanity check
     //TODO: error handling - what if there's no subject?
-    if (!subject) return
+    if (!this.props.subject) return
 
     this.setState({ loading: asyncStates.loading })
     try {
       const jsonLocation = this.getSubjectUrl()
-      request.get(jsonLocation)
-        .then(res => {
-          if (res.ok) {
-            //Get the JSON data, or (as a failsafe) parse the JSON data if the response is returned as a string
-            const jsonData = res.body || JSON.parse(res.text)
+      const response = await request.get(jsonLocation)
 
-            this.setState({ jsonData })
-          } else {
-            throw 'ERROR: invalid response'
-          }
-        })
-        .catch(err => {
-          //Possible errors:
-          throw(err)
-        })
-    } catch (err) {
-      console.error(err)
+      if (!response.ok) {
+        throw new Error('Invalid response')
+      }
+
+      const jsonData = response.body || JSON.parse(response.text)
+      this.setState({ jsonData })
+    } catch (error) {
+      console.error(error)
       this.setState({ loading: asyncStates.error, jsonData: null })
     }
   }
 
   render () {
-    const { subject } = this.props
-    if (!subject) {
-      return null
-    }
-
-    return (
-      <LightCurveViewer
-        jsonData={this.state.jsonData}
-        width={this.width}
-        width={this.height}
-      />
-    )
+    return (this.props.subject)
+      ? <LightCurveViewer jsonData={this.state.jsonData} />
+      : null
   }
 }
 
