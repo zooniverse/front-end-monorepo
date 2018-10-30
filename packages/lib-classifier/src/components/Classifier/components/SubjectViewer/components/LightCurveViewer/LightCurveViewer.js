@@ -110,4 +110,12 @@ class LightCurveViewer extends Component {
   }
 }
 
+LightCurveViewer.propTypes = {
+  extent: PropTypes.shape({
+    x: PropTypes.arrayOf(PropTypes.number),
+    y: PropTypes.arrayOf(PropTypes.number)
+  }),
+  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
+}
+
 export default LightCurveViewer

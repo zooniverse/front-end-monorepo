@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import * as d3 from 'd3'
-import { zip } from 'lodash'
+import { get, zip } from 'lodash'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
@@ -40,8 +40,8 @@ class LightCurveViewerContainer extends Component {
     // Find the first location that has a JSON MIME type.
     // NOTE: we also temporarily accept plain text, due to quirks with the
     // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-    const { subject } = this.props
-    const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain'])
+    const locations = get(this, 'props.subject.locations', [])
+    const jsonLocation = locations.find(l => l['application/json'] || l['text/plain']) || {}
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
