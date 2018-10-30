@@ -4,11 +4,17 @@ import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
 import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
-import { convertMapToArray, sessionUtils } from './utils'
+import {
+  ClassificationQueue,
+  convertMapToArray,
+  isServiceWorkerAvailable,
+  sessionUtils
+} from './utils'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -21,6 +27,11 @@ const ClassificationStore = types
       if (self.active) {
         return self.active.annotations
       }
+    },
+
+    get classificationQueue () {
+      const client = getRoot(self).client.panoptes
+      return new ClassificationQueue(client, self.onClassificationSaved)
     }
   }))
   .actions(self => {
@@ -134,22 +145,33 @@ const ClassificationStore = types
       self.submitClassification(classificationToSubmit)
     }
 
-    // TODO: add submission queue
+    function onClassificationSaved (savedClassification) {
+      Split.classificationCreated(savedClassification) // Metric log needs classification id
+    }
+
     function * submitClassification (classification) {
       console.log('Saving classification')
       const root = getRoot(self)
       const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
-      try {
-        const response = yield client.post(`/${self.type}`, { classifications: classification })
-        if (response.ok) {
-          console.log(`Saved classification ${response.body.classifications[0].id}`)
-          self.loadingState = asyncStates.success
+      if (!isServiceWorkerAvailable()) {
+        // Use fallback queuing class
+        self.classificationQueue.add(classification)
+      } else {
+        try {
+          const response = yield client.post(`/${self.type}`, { classifications: classification })
+          if (response.ok) {
+            const savedClassification = response.body.classifications[0]
+            console.log(`Saved classification ${savedClassification.id}`)
+            // TODO: instead of callback here, let's add a Split store that uses an observer
+            self.onClassificationSaved(savedClassification)
+            self.loadingState = asyncStates.success
+          }
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
         }
-      } catch (error) {
-        console.error(error)
-        self.loadingState = asyncStates.error
       }
     }
 
@@ -159,6 +181,7 @@ const ClassificationStore = types
       completeClassification,
       createClassification,
       createDefaultAnnotation,
+      onClassificationSaved,
       removeAnnotation,
       submitClassification: flow(submitClassification),
       updateClassificationMetadata
