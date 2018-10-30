@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
-import React from 'react'
+import { get } from 'lodash'
 import PropTypes from 'prop-types'
+import React from 'react'
 import request from 'superagent'
 
 import LightCurveViewer from './LightCurveViewer'
@@ -9,17 +10,17 @@ import locationValidator from '../../helpers/locationValidator'
 class LightCurveViewerContainer extends React.Component {
   constructor () {
     super()
-    
+
     this.state = {
       loading: asyncStates.initialized,
       jsonData: null,
     }
-    
+
     //TODO: turn into variables?
     this.width = 500
     this.height = 500
   }
-  
+
   componentDidMount () {
     if (this.props.subject) {
       this.handleSubject()
@@ -34,32 +35,40 @@ class LightCurveViewerContainer extends React.Component {
       this.handleSubject()
     }
   }
-  
+
   componentWillUnmount () {}
+
+  getSubjectUrl () {
+    // Find the first location that has a JSON MIME type.
+    // NOTE: we also temporarily accept plain text, due to quirks with the
+    // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
+    const locations = get(this, 'props.subject.locations', [])
+    const jsonLocation = locations.find(l => l['application/json'] || l['text/plain']) || {}
+    const url = Object.values(jsonLocation)[0]
+
+    if (!url) {
+      throw new Error('No JSON url found for this subject')
+    }
+
+    return url
+  }
 
   handleSubject () {
     const { subject } = this.props
-    
+
     //Sanity check
     //TODO: error handling - what if there's no subject?
     if (!subject) return
-    
-    //Find the first location that has a JSON MIME type.
-    //NOTE: we also temporarily accept plain text, due to quirks with the Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-    let jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain'])
-    jsonLocation = jsonLocation && (jsonLocation['application/json'] || jsonLocation['text/plain'])
 
-    //TODO: error handling - what if there's no JSON url?
-    if (!jsonLocation) return
-    
     this.setState({ loading: asyncStates.loading })
     try {
+      const jsonLocation = this.getSubjectUrl()
       request.get(jsonLocation)
         .then(res => {
           if (res.ok) {
             //Get the JSON data, or (as a failsafe) parse the JSON data if the response is returned as a string
             const jsonData = res.body || JSON.parse(res.text)
-            
+
             this.setState({ jsonData })
           } else {
             throw 'ERROR: invalid response'
@@ -80,7 +89,7 @@ class LightCurveViewerContainer extends React.Component {
     if (!subject) {
       return null
     }
-    
+
     return (
       <LightCurveViewer
         jsonData={this.state.jsonData}
