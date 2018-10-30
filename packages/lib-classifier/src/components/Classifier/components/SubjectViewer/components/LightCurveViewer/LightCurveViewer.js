@@ -34,6 +34,10 @@ class LightCurveViewer extends Component {
     }
   }
 
+  componentWillUnmount () {
+    this.d3interfaceLayer.on('.zoom', null)
+  }
+
   drawChart (width, height, isFirstDraw = false) {
     if (!height || !width) {
       return false
