@@ -12,10 +12,20 @@ import setPointStyle from './d3/setPointStyle'
 class LightCurveViewer extends Component {
   constructor () {
     super()
+    
     this.svgContainer = React.createRef()
     this.d3dataLayer = null
     this.d3interfaceLayer = null
     this.d3svg = null
+    
+    /*
+    The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
+    <svg> to the x-y values of the data points.
+    
+    IMPORTANT: the y-axis in an <svg> increases as you go downwards, while the
+    y-axis in most scientific charts increases as you go upwards. We must
+    reverse the mapping accordingly when setting up this.yScale.
+     */
     this.xScale = null
     this.yScale = null
   }
@@ -35,21 +45,26 @@ class LightCurveViewer extends Component {
   }
 
   componentWillUnmount () {
-    this.d3interfaceLayer.on('.zoom', null)
+    this.d3interfaceLayer && this.d3interfaceLayer.on('.zoom', null)
   }
 
+  /*
+  Updates the D3 chart to fit the size of the container, and adds/updates the
+  data points. Called when new data (points) is received, and when chart
+  is resized.
+   */
   drawChart (width, height, isFirstDraw = false) {
     if (!height || !width) {
       return false
     }
 
+    //Update x-y scales to fit current size of container
     this.xScale
       .domain(this.props.extent.x)
       .range([0, width])
-
     this.yScale
       .domain(this.props.extent.y)
-      .range([height, 0])
+      .range([height, 0])  //Note that this is reversed
 
     const points = this.d3dataLayer.selectAll('circle')
       .data(this.props.points)
@@ -74,6 +89,12 @@ class LightCurveViewer extends Component {
     }
   }
 
+  /*
+  Initialises the D3 scatterplot chart.
+  The chart is divided into multiple layers: several visual deco layers, the
+  data layer, and the interface layer.
+  IMPORTANT: note the order these layers are added.
+   */
   initChart () {
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
@@ -81,17 +102,34 @@ class LightCurveViewer extends Component {
         .attr('class', 'light-curve-viewer')
         .attr('height', '100%')
         .attr('width', '100%')
-
+    this.xScale = d3.scaleLinear()
+    this.yScale = d3.scaleLinear()
+    
+    // Deco layer
     this.d3svg.call(addBackgroundLayer)
+    
+    /*
+    Data layer: data points are added here in drawChart()
+    */
     this.d3dataLayer = this.d3svg
       .append('g')
         .attr('class', 'data-layer')
+    
+    // Deco layer
     this.d3svg.call(addBorderLayer)
-    this.xScale = d3.scaleLinear()
-    this.yScale = d3.scaleLinear()
 
+    /*
+    The Interface Layer is the last (i.e. top-most) layer added, capturing all
+    mouse input but making it impossible to directly interact with any layer
+    elements beneath it.
+     */
     this.d3interfaceLayer = this.d3svg.call(addInterfaceLayer)
     this.d3interfaceLayer.call(d3.zoom()
+      /*
+      Zoom range of 1x to 10x.
+      Minimum zoom prevent users from "zooming out" (< 1x zoom) beyond
+      reasonable subject area, maximum zoom is arbitrary.
+       */
       .scaleExtent([1, 10])
       .on('zoom', () => {
         this.d3dataLayer.attr('transform', d3.event.transform)
