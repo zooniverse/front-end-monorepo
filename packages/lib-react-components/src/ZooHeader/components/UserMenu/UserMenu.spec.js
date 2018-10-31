@@ -10,8 +10,4 @@ describe('UserMenu', function () {
   })
 
   it('renders without crashing', function () {})
-
-  it('should match snapshot', function () {
-    expect(wrapper).to.matchSnapshot()
-  })
 })

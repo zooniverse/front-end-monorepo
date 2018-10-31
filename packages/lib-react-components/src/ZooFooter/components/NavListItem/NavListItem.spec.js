@@ -19,10 +19,6 @@ describe('NavListItem', function () {
 
   it('should render without crashing', function () {})
 
-  it('should match its snapshot', function () {
-    expect(wrapper).to.matchSnapshot()
-  })
-
   // Testing styled-components requires mount to work, but it currently isn't
   // Patch in enzyme React 16 adapter may be coming soon:
   // https://github.com/airbnb/enzyme/pull/1592

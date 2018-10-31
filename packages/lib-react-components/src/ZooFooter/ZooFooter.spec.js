@@ -11,11 +11,6 @@ describe('<ZooFooter />', function () {
     wrapper = shallow(<ZooFooter />)
   })
 
-  it('should match snapshot', function () {
-    wrapper = shallow(<ZooFooter />)
-    expect(wrapper).to.matchSnapshot()
-  })
-
   describe('light theme', function () {
     it('should use a white background for its wrapping Box component', function () {
       wrapper = mount(<ZooFooter />)

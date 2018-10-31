@@ -1,7 +1,5 @@
 import React from 'react'
-import { withInfo } from '@storybook/addon-info'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
-import { linkTo } from '@storybook/addon-links'
 import { storiesOf } from '@storybook/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -21,7 +19,10 @@ const content = (
 storiesOf('Modal', module)
   .addDecorator(backgrounds)
   .addDecorator(withKnobs)
-  .add('Light theme (default)', withInfo(modalDocs)(() => (
+  .addParameters({
+    info: modalDocs
+  })
+  .add('Light theme (default)', () => (
     <Grommet theme={zooTheme}>
       <Modal
         active={boolean('Active', true)}
@@ -31,8 +32,8 @@ storiesOf('Modal', module)
         {content}
       </Modal>
     </Grommet>
-  )))
-  .add('Dark theme', withInfo(modalDocs)(() => (
+  ))
+  .add('Dark theme', () => (
     <Grommet theme={zooTheme}>
       <Modal
         active={boolean('Active', true)}
@@ -43,5 +44,5 @@ storiesOf('Modal', module)
         {content}
       </Modal>
     </Grommet>
-  )))
+  ))
   
