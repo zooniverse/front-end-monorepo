@@ -8,6 +8,7 @@
   "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
+    "install": "lerna bootstrap --scope=@zooniverse/panoptes-js",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
     "test": "npm run _check && NODE_ENV=test mocha"
   },

@@ -9,6 +9,7 @@
     "build": "export NODE_ENV=production; rm -rf dist && webpack --config ./webpack.dist.js",
     "build-storybook": "build-storybook",
     "dev": "start-storybook -p 6006",
+    "install": "lerna bootstrap --scope=@zooniverse/react-components",
     "lint": "standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy; exit 0",
     "start": "echo 'Nothing to see here yet'",
     "test:local": "mocha",
