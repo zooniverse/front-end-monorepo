@@ -79,7 +79,10 @@ storiesOf('Tooltip', module)
       align={{
         right: 'left'
       }}
-      animation='slideLeft'
+      animation={{
+        "type": "slideLeft",
+        "delay": 20
+      }}
       backgroundColor={zooTheme.global.colors.brand}
       icon={<Add />}
       pad={{ horizontal: 'small', vertical: 'small' }}

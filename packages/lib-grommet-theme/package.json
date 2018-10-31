@@ -21,7 +21,7 @@
     "deep-freeze": "0.0.1"
   },
   "peerDependencies": {
-    "grommet": "2.0.0-beta.7"
+    "grommet": "2.0.0-rc"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
