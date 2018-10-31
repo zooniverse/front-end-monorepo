@@ -1,7 +1,9 @@
+import { isServiceWorkerAvailable } from '../helpers/featureDetection'
+
 export default function registerWorkers () {
   // Check that service workers are registered
   console.log('Checking for service worker support')
-  if ('serviceWorker' in navigator) {
+  if (isServiceWorkerAvailable()) {
     // Use the window load event to keep the page load performant
     console.log('Service workers are supported')
     window.addEventListener('load', () => {

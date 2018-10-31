@@ -12,9 +12,9 @@ import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
 import {
   ClassificationQueue,
   convertMapToArray,
-  isServiceWorkerAvailable,
   sessionUtils
 } from './utils'
+import { isServiceWorkerAvailable, isBackgroundSyncAvailable } from '../helpers/featureDetection'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -155,7 +155,7 @@ const ClassificationStore = types
       const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
-      if (!isServiceWorkerAvailable()) {
+      if (!isServiceWorkerAvailable() && !isBackgroundSyncAvailable()) {
         // Use fallback queuing class
         self.classificationQueue.add(classification)
       } else {
