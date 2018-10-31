@@ -1,5 +1,6 @@
 export { default as AdminCheckbox } from './ZooFooter/components/AdminCheckbox'
 export { default as Modal } from './Modal'
 export { default as SpacedText } from './SpacedText'
+export { default as Tooltip } from './Tooltip'
 export { default as ZooFooter } from './ZooFooter'
 export { default as ZooHeader } from './ZooHeader'
