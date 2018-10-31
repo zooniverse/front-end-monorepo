@@ -14,6 +14,8 @@ class LightCurveViewer extends Component {
     super()
     
     this.svgContainer = React.createRef()
+    
+    this.d3axisLabelsLayer = null
     this.d3dataLayer = null
     this.d3interfaceLayer = null
     this.d3svg = null
@@ -58,14 +60,21 @@ class LightCurveViewer extends Component {
       return false
     }
 
-    //Update x-y scales to fit current size of container
+    // Update x-y scales to fit current size of container
     this.xScale
       .domain(this.props.extent.x)
       .range([0, width])
     this.yScale
       .domain(this.props.extent.y)
       .range([height, 0])  //Note that this is reversed
-
+    
+    //WIP //TODO: move to /D3 folder
+    const yAxisLabel = d3.axisRight(this.yScale)
+    this.d3axisLabelsLayer
+      .call(yAxisLabel)
+      
+    
+    // Add the data points
     const points = this.d3dataLayer.selectAll('circle')
       .data(this.props.points)
 
@@ -91,8 +100,7 @@ class LightCurveViewer extends Component {
 
   /*
   Initialises the D3 scatterplot chart.
-  The chart is divided into multiple layers: several visual deco layers, the
-  data layer, and the interface layer.
+  The chart is divided into multiple layers (both functional and decorative).
   IMPORTANT: note the order these layers are added.
    */
   initChart () {
@@ -115,6 +123,11 @@ class LightCurveViewer extends Component {
       .append('g')
         .attr('class', 'data-layer')
     
+    // Axis Label layer
+    this.d3axisLabelsLayer = this.d3svg
+      .append('g')
+        .attr('class', 'axis-label-layer')
+    
     // Deco layer
     this.d3svg.call(addBorderLayer)
 
@@ -132,6 +145,10 @@ class LightCurveViewer extends Component {
        */
       .scaleExtent([1, 10])
       .on('zoom', () => {
+      
+        //WIP
+        console.log('+++ d3.event.transform: ', d3.event.transform)
+      
         this.d3dataLayer.attr('transform', d3.event.transform)
       })
     )
