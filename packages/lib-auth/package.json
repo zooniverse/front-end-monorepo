@@ -57,7 +57,7 @@
     "snazzy": "^7.1.1",
     "standard": "^11.0.1",
     "webpack": "^4.8.3",
-    "webpack-cli": "^2.1.3",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.4"
   },
   "standard": {
