@@ -2,7 +2,7 @@
   "name": "@zooniverse/grommet-theme",
   "description": "A Zooniverse theme for the Grommet React library",
   "license": "Apache-2.0",
-  "author": "Roger Hutchings <roger@zooniverse.org> (https://www.zooniverse.org/)",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "main": "dist/index.js",
   "files": [
