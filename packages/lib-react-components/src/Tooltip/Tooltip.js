@@ -36,7 +36,7 @@ Tooltip.propTypes = {
     left: PropTypes.oneOf(['left', 'right'])
   }),
   boxAlign: PropTypes.string,
-  boxAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  boxAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.arrayOf(PropTypes.string)]),
   boxBackgroundColor: PropTypes.string,
   boxPad: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,

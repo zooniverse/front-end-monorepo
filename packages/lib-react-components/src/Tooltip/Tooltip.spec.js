@@ -12,8 +12,4 @@ describe('<Tooltip />', function () {
   it('renders without crashing', function () {
     expect(wrapper).to.be.ok
   })
-
-  it('should match snapshot', function () {
-    expect(wrapper).to.matchSnapshot()
-  })
 })

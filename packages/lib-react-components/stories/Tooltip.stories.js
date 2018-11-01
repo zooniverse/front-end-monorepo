@@ -1,8 +1,6 @@
 import React from 'react'
-import { withInfo } from '@storybook/addon-info'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
-import styled from 'styled-components'
 import { Box, Button, Grommet, Text } from 'grommet'
 import { Add } from 'grommet-icons'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -55,7 +53,10 @@ class TooltipStoryExample extends React.Component {
 storiesOf('Tooltip', module)
   .addDecorator(backgrounds)
   .addDecorator(withKnobs)
-  .add('Light theme (default)', withInfo(toolTipDocs)(() => (
+  .addParameters({
+    info: toolTipDocs
+  })
+  .add('Light theme (default)', () => (
     <TooltipStoryExample 
       align={{
         top: 'bottom'
@@ -63,8 +64,8 @@ storiesOf('Tooltip', module)
       backgroundColor={zooTheme.light.colors.background.default}
       label='Hover over me'
     />
-  )))
-  .add('Dark theme', withInfo(toolTipDocs)(() => (
+  ))
+  .add('Dark theme', () => (
     <TooltipStoryExample
       align={{
         top: 'bottom'
@@ -72,16 +73,19 @@ storiesOf('Tooltip', module)
       backgroundColor={zooTheme.dark.colors.background.default}
       label='Hover over me'
     />
-  )))
-  .add('Subject Image Viewer toolbar tooltip', withInfo(toolTipDocs)(() => (
+  ))
+  .add('Subject Image Viewer toolbar tooltip', () => (
     <TooltipStoryExample
       align={{
         right: 'left'
       }}
-      animation='slideLeft'
+      animation={{
+        "type": "slideLeft",
+        "delay": 20
+      }}
       backgroundColor={zooTheme.global.colors.brand}
       icon={<Add />}
       pad={{ horizontal: 'small', vertical: 'small' }}
     />
-  )))
+  ))
 

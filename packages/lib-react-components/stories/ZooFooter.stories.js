@@ -3,14 +3,16 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { storiesOf } from '@storybook/react'
 import { linkTo } from '@storybook/addon-links'
-import { withInfo } from '@storybook/addon-info'
 import { backgrounds } from './lib'
 import { AdminCheckbox, ZooFooter } from '../src'
 import footerDocs from '../src/ZooFooter/README.md'
 
 storiesOf('ZooFooter', module)
   .addDecorator(backgrounds)
-  .add('Light theme (default)', withInfo(footerDocs)(() =>
+  .addParameters({
+    info: footerDocs
+  })
+  .add('Light theme (default)', () => (
     <Grommet theme={zooTheme}>
       <ZooFooter />
     </Grommet>

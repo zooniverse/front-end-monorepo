@@ -1,5 +1,4 @@
---require babel-core/register
---require mocha-snapshots
+--require @babel/register
 --ui bdd
 --file ./test/setup.js
 
