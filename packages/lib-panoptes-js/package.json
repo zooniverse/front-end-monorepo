@@ -8,9 +8,11 @@
   "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
+    "_test": "npm run _check && NODE_ENV=test mocha",
     "install": "lerna bootstrap --scope=@zooniverse/panoptes-js",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
-    "test": "npm run _check && NODE_ENV=test mocha"
+    "test": "npm run _test && exit 0",
+    "test:ci": "npm run _test"
   },
   "dependencies": {
     "check-dependencies": "^1.1.0",

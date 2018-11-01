@@ -13,7 +13,7 @@ timeout(20) {
         sh '''
           cd /usr/src/
           ./node_modules/.bin/lerna run build --scope="@zooniverse/grommet-theme"
-          ./node_modules/.bin/lerna run --stream test
+          ./node_modules/.bin/lerna run --stream test:ci
         '''
       }
     }

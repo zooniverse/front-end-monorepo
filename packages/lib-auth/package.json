@@ -7,12 +7,14 @@
   "main": "dist/index.js",
   "scripts": {
     "_check": "check-dependencies",
+    "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --port 3000 --config webpack.dev.js",
     "install": "lerna bootstrap --scope=@zooniverse/auth",
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "npm run _check && PANOPTES_ENV=production npm run dev",
-    "test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha || true"
+    "test": "npm run _test && exit 0",
+    "test:ci": "npm run _test"
   },
   "dependencies": {
     "@zooniverse/grommet-theme": "^0.0.1",
