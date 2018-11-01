@@ -7,6 +7,7 @@
   "main": "dist/main.js",
   "scripts": {
     "_check": "check-dependencies",
+    "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
@@ -27,7 +28,9 @@
     "react-resize-detector": "~3.2.0",
     "rosie": "^2.0.1",
     "rxjs": "~6.3.3",
-    "valid-url": "~1.0.9"
+    "seven-ten": "^3.3.2",
+    "valid-url": "~1.0.9",
+    "workbox-webpack-plugin": "^3.6.3"
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "~2.0.0",
@@ -36,6 +39,7 @@
     "grommet": "~2.0.0-rc",
     "grommet-icons": "~3.1.0",
     "react": "~16.4.2",
+    "seven-ten": "^3.3.2",
     "styled-components": "~4.0.0",
     "styled-theming": "~2.2.0"
   },
