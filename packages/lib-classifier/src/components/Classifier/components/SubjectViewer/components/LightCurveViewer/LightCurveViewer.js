@@ -20,7 +20,7 @@ class LightCurveViewer extends Component {
     this.d3interfaceLayer = null
     this.d3svg = null
     
-    // D3 Zoom object: manipulates and stores scale/translate values
+    // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
     
     /*
@@ -80,7 +80,8 @@ class LightCurveViewer extends Component {
       .domain(this.props.extent.x)
       .range([0, width])
     this.yScale
-      .domain(this.props.extent.y)
+      //.domain(this.props.extent.y)
+      .domain([-50, 50])  //TODO  //IMPORTANT: Do we need to lock the domain of the y-axis? Otherwise it becomes night impossible to compare how bright one star is compared to another
       .range([height, 0])  //Note that this is reversed
     
     this.updateAxes()
@@ -155,7 +156,8 @@ class LightCurveViewer extends Component {
     // Deco layer
     this.d3svg.call(addBorderLayer)
 
-    // Zoom object
+    // Zoom controller
+    //TODO: move to /d3 folder
     this.zoom = d3.zoom()
       /*
       Zoom range of 1x to 10x.
@@ -165,7 +167,6 @@ class LightCurveViewer extends Component {
       .scaleExtent([1, 10])
       .on('zoom', () => {
         this.d3dataLayer.attr('transform', d3.event.transform)
-        
         this.updateAxes(d3.event.transform)
       })
     
@@ -179,9 +180,9 @@ class LightCurveViewer extends Component {
   }
   
   updateAxes(transform) {
-    
     const t = transform || d3.zoomIdentity
-    //TODO: instead of using d3.zoomIdentity as the default, pull the current zoom from the Zoom object.
+    //TODO: instead of using d3.zoomIdentity as the default, pull the current
+    //zoom from the Zoom object.
     
     this.xAxis.scale(t.rescaleX(this.xScale))
     this.d3axisX.call(this.xAxis)
