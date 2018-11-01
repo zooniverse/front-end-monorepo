@@ -10,6 +10,7 @@
     "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
+    "install": "lerna bootstrap --scope=@zooniverse/classifier",
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "npm run _check && PANOPTES_ENV=production npm run dev",
     "test": "npm run _test && exit 0",
@@ -30,10 +31,10 @@
     "valid-url": "^1.0.9"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "^0.0.1",
+    "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.0.1",
     "@zooniverse/react-components": "^0.7.1",
-    "grommet": "^2.0.0-beta.7",
+    "grommet": "^2.0.0-rc",
     "grommet-icons": ">=3.0.0",
     "react": "^16.4.2",
     "styled-components": ">=4.0.0",
@@ -41,7 +42,7 @@
   },
   "devDependencies": {
     "@zooniverse/grommet-theme": "^2.0.0",
-    "@zooniverse/panoptes-js": "^0.1.0",
+    "@zooniverse/panoptes-js": "^0.0.1",
     "@zooniverse/react-components": "^0.7.1",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -57,7 +58,7 @@
     "check-dependencies": "^1.1.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "grommet": "^2.0.0-beta.7",
+    "grommet": "^2.0.0-rc",
     "grommet-icons": "^3.1.0",
     "html-webpack-plugin": "^3.2.0",
     "jsdom": "^12.2.0",
@@ -81,10 +82,10 @@
     "webpack-dev-server": "^3.1.4"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "^0.0.1",
+    "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.0.1",
     "@zooniverse/react-components": "^0.7.1",
-    "grommet": "^2.0.0-beta.7",
+    "grommet": "^2.0.0-rc",
     "grommet-icons": ">=3.0.0",
     "react": "^16.4.2",
     "styled-components": ">=4.0.0",
