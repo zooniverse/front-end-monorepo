@@ -1,6 +1,6 @@
 export default function setPointStyle (selection) {
   return selection
-    .attr('r', 1)
+    .attr('r', 1.25)
     .attr('class', 'data-point')
-    .attr('fill', '#3cc')
+    .attr('fill', '#488')
 }
