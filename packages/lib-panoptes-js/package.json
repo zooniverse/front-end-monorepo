@@ -37,8 +37,5 @@
     "env": {
       "mocha": true
     }
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

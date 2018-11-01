@@ -1,6 +1,5 @@
 #!groovy
 
-
 timeout(20) {
   node {
     checkout scm

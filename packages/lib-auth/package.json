@@ -17,7 +17,7 @@
     "test:ci": "npm run _test"
   },
   "dependencies": {
-    "@zooniverse/grommet-theme": "^0.0.1",
+    "@zooniverse/grommet-theme": "^2.0.0",
     "@zooniverse/panoptes-js": "^0.0.1",
     "client-oauth2": "^4.2.1",
     "counterpart": "^0.18.6",
