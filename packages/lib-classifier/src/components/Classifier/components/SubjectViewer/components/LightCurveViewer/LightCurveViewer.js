@@ -90,8 +90,10 @@ class LightCurveViewer extends Component {
     const points = this.d3dataLayer.selectAll('circle')
       .data(this.props.points)
 
+    const t = (d3.event && d3.event.transform) || d3.zoomIdentity
     const setPointCoords = selection => selection
-      .attr('cx', d => this.xScale(d[0]))
+      // users can only zoom & pan in the x-direction
+      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
       .attr('cy', d => this.yScale(d[1]))
 
     if (isFirstDraw) {
@@ -157,7 +159,6 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addBorderLayer)
 
     // Zoom controller
-    //TODO: move to /d3 folder
     this.zoom = d3.zoom()
       /*
       Zoom range of 1x to 10x.
@@ -166,8 +167,16 @@ class LightCurveViewer extends Component {
        */
       .scaleExtent([1, 10])
       .on('zoom', () => {
-        this.d3dataLayer.attr('transform', d3.event.transform)
-        this.updateAxes(d3.event.transform)
+        //this.d3dataLayer.attr('transform', d3.event.transform)
+        
+        const t = d3.event.transform
+        
+        // Re-draw the data points to fit the new view
+        // Note: users can only zoom & pan in the x-direction
+        this.d3dataLayer.selectAll('circle')
+          .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        
+        this.updateAxes(t)
       })
     
     /*
@@ -179,6 +188,10 @@ class LightCurveViewer extends Component {
     this.d3interfaceLayer.call(this.zoom)
   }
   
+  /*
+  Update the x-axis and y-axis to fit the new zoom/pan view.
+  Note that for light curves, we only allow panning & zooming in the x-direction
+   */
   updateAxes(transform) {
     const t = transform || d3.zoomIdentity
     //TODO: instead of using d3.zoomIdentity as the default, pull the current
@@ -187,7 +200,7 @@ class LightCurveViewer extends Component {
     this.xAxis.scale(t.rescaleX(this.xScale))
     this.d3axisX.call(this.xAxis)
     
-    this.yAxis.scale(t.rescaleY(this.yScale))
+    this.yAxis.scale(this.yScale)
     this.d3axisY.call(this.yAxis)
   }
 
