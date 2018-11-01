@@ -15,7 +15,7 @@ class LightCurveViewer extends Component {
     
     this.svgContainer = React.createRef()
     
-    this.d3axisLabelsLayer = null
+    // D3 Selection elements
     this.d3dataLayer = null
     this.d3interfaceLayer = null
     this.d3svg = null
@@ -30,6 +30,18 @@ class LightCurveViewer extends Component {
      */
     this.xScale = null
     this.yScale = null
+    
+    /*
+    The "D3 axis" represents the visual axis and the axis labels.
+    Not to be confused with x-scales and y-scales.
+    Note the naming: d3axisX and d3axisY are used for the D3 selection (i.e. the
+    actual elements in the SVG) whereas xAxis and yAxis represent the data
+    model.
+     */
+    this.d3axisX = null
+    this.d3axisY = null
+    this.xAxis = null
+    this.yAxis = null
   }
 
   componentDidMount () {
@@ -68,11 +80,7 @@ class LightCurveViewer extends Component {
       .domain(this.props.extent.y)
       .range([height, 0])  //Note that this is reversed
     
-    //WIP //TODO: move to /D3 folder
-    const yAxisLabel = d3.axisRight(this.yScale)
-    this.d3axisLabelsLayer
-      .call(yAxisLabel)
-      
+    this.updateAxes()
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('circle')
@@ -123,10 +131,23 @@ class LightCurveViewer extends Component {
       .append('g')
         .attr('class', 'data-layer')
     
-    // Axis Label layer
-    this.d3axisLabelsLayer = this.d3svg
+    /*
+    Axis layer
+    Actual scaling done in updateAxes()
+     */
+    this.xAxis = d3.axisBottom(this.yScale)
+    this.yAxis = d3.axisRight(this.yScale)
+    const axisLayer = this.d3svg
       .append('g')
-        .attr('class', 'axis-label-layer')
+        .attr('class', 'axis-layer')
+    this.d3axisX = axisLayer
+      .append('g')
+        .attr('class', 'x-axis')  // Transforms are added in updateAxes()
+        .call(this.xAxis)
+    this.d3axisY = axisLayer
+      .append('g')
+        .attr('class', 'y-axis')  // Transforms are added in updateAxes()
+        .call(this.yAxis)
     
     // Deco layer
     this.d3svg.call(addBorderLayer)
@@ -145,13 +166,21 @@ class LightCurveViewer extends Component {
        */
       .scaleExtent([1, 10])
       .on('zoom', () => {
-      
-        //WIP
-        console.log('+++ d3.event.transform: ', d3.event.transform)
-      
         this.d3dataLayer.attr('transform', d3.event.transform)
+        
+        this.updateAxes()
       })
     )
+  }
+  
+  updateAxes(width, height) {
+    this.xAxis.scale(this.xScale)
+    this.d3axisX.call(this.xAxis)
+    
+    this.yAxis.scale(this.yScale)
+    this.d3axisY.call(this.yAxis)
+    
+    //TODO: add transforms to d3axis
   }
 
   render () {
