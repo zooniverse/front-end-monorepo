@@ -2,6 +2,10 @@
 # Lerna
 lerna-debug.log
 
+# Lerna doesn't support `package-lock.json` - see
+# https://github.com/lerna/lerna/issues/913
+packages/**/package-lock.json
+
 # Logs
 logs
 *.log

@@ -4,6 +4,7 @@
   "description": "Provides a handy immutable object for describing the state of an asynchronous request.",
   "main": "src/async-states.js",
   "scripts": {
+    "install": "lerna bootstrap --scope=@zooniverse/async-states",
     "lint": "standard --fix | snazzy; exit 0",
     "test": "mocha"
   },

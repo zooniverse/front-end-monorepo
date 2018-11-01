@@ -4,10 +4,11 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "repository": "github:zooniverse/front-end-monorepo",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
+    "install": "lerna bootstrap --scope=@zooniverse/panoptes-js",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
     "test": "npm run _check && NODE_ENV=test mocha"
   },
@@ -34,5 +35,8 @@
     "env": {
       "mocha": true
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
