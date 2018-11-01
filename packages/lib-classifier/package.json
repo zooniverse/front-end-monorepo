@@ -27,6 +27,7 @@
     "mobx-utils": "~5.0.2",
     "react-context-props": "~2.2.0",
     "react-resize-detector": "~3.2.0",
+    "rosie": "^2.0.1",
     "rxjs": "~6.3.3",
     "valid-url": "~1.0.9"
   },
