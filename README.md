@@ -10,48 +10,19 @@
 
 This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
-Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally, it allows us to track issues, pull requests, and progress for all related packages in one place.
+Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally it allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## How to get started
 
-You'll need to install `lerna` globally:
+Installing dependencies for a particular package:
 
-```sh
+```
 npm install -g lerna
-```
-
-### Installing and symlinking packages
-
-Run `npm install` in the root directory. This will run `lerna bootstrap` as a post-install script, which will take care of installing package dependencies and symlinking local packages.
-
-### Installing dependencies for a particular package
-
-Use the `install` script in the package:
-
-```sh
 cd packages/whatever
-npm run install
+lerna bootstrap
 ```
 
-This is different to the normal `npm install`; it's an alias for a `lerna bootstrap` scoped to that package.
-
-### Adding a dependency to an existing package
-
-Instead of using `npm install package` use `lerna add`:
-
-```sh
-lerna add your-dependency --scope=@zooniverse/whatever
-```
-
-Accidentally using `npm install` will break package symlinks, which can be fixed by running a `lerna bootstrap`.
-
-### Adding a new package
-
-If you want to contribute a new package and want to use a package in the monorepo, use `lerna add package-name` in the new package folder to get that package added to the `package.json`.
-
-#### A note on `package-lock.json` files
-
-Lerna [doesn't currently support these](https://github.com/lerna/lerna/issues/913), so we're not adding them to the repo.
+If you want to contribute a new package and want to use a package in the monorepo, use `lerna add package-name` in the new package folder to get that package added to the `package.json`
 
 ## Helpful Guides
 

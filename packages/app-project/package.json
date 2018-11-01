@@ -11,15 +11,15 @@
     "_test": "npm run _check && BABEL_ENV=test mocha",
     "build": "npm run _check && PANOPTES_ENV=production next build",
     "dev": "npm run _check && PANOPTES_ENV=staging npm run _serve",
-    "install": "lerna bootstrap --scope=@zooniverse/fe-project",
     "start": "npm run _check && NODE_ENV=production npm run _serve",
     "test": "npm run _test && exit 0",
     "test:ci": "npm run _test"
   },
   "dependencies": {
     "@zooniverse/async-states": "^0.0.1",
-    "@zooniverse/grommet-theme": "^0.0.1",
-    "@zooniverse/panoptes-js": "^0.0.1",
+    "@zooniverse/grommet-theme": "^2.0.0",
+    "@zooniverse/panoptes-js": "^0.1.0",
+    "@zooniverse/react-components": "^0.7.1",
     "grommet": "^2.0.0-beta.7",
     "grommet-icons": "^3.1.0",
     "lodash": "^4.17.11",
