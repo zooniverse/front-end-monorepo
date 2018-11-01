@@ -20,6 +20,9 @@ class LightCurveViewer extends Component {
     this.d3interfaceLayer = null
     this.d3svg = null
     
+    // D3 Zoom object: manipulates and stores scale/translate values
+    this.zoom = null
+    
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
     <svg> to the x-y values of the data points.
@@ -142,23 +145,18 @@ class LightCurveViewer extends Component {
         .attr('class', 'axis-layer')
     this.d3axisX = axisLayer
       .append('g')
-        .attr('class', 'x-axis')  // Transforms are added in updateAxes()
+        .attr('class', 'x-axis')
         .call(this.xAxis)
     this.d3axisY = axisLayer
       .append('g')
-        .attr('class', 'y-axis')  // Transforms are added in updateAxes()
+        .attr('class', 'y-axis')
         .call(this.yAxis)
     
     // Deco layer
     this.d3svg.call(addBorderLayer)
 
-    /*
-    The Interface Layer is the last (i.e. top-most) layer added, capturing all
-    mouse input but making it impossible to directly interact with any layer
-    elements beneath it.
-     */
-    this.d3interfaceLayer = this.d3svg.call(addInterfaceLayer)
-    this.d3interfaceLayer.call(d3.zoom()
+    // Zoom object
+    this.zoom = d3.zoom()
       /*
       Zoom range of 1x to 10x.
       Minimum zoom prevent users from "zooming out" (< 1x zoom) beyond
@@ -168,19 +166,28 @@ class LightCurveViewer extends Component {
       .on('zoom', () => {
         this.d3dataLayer.attr('transform', d3.event.transform)
         
-        this.updateAxes()
+        this.updateAxes(d3.event.transform)
       })
-    )
+    
+    /*
+    The Interface Layer is the last (i.e. top-most) layer added, capturing all
+    mouse input but making it impossible to directly interact with any layer
+    elements beneath it.
+     */
+    this.d3interfaceLayer = this.d3svg.call(addInterfaceLayer)
+    this.d3interfaceLayer.call(this.zoom)
   }
   
-  updateAxes(width, height) {
-    this.xAxis.scale(this.xScale)
+  updateAxes(transform) {
+    
+    const t = transform || d3.zoomIdentity
+    //TODO: instead of using d3.zoomIdentity as the default, pull the current zoom from the Zoom object.
+    
+    this.xAxis.scale(t.rescaleX(this.xScale))
     this.d3axisX.call(this.xAxis)
     
-    this.yAxis.scale(this.yScale)
+    this.yAxis.scale(t.rescaleY(this.yScale))
     this.d3axisY.call(this.yAxis)
-    
-    //TODO: add transforms to d3axis
   }
 
   render () {
