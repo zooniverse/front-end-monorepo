@@ -9,7 +9,7 @@ import mockData from './mockData'
 let d3svg
 let wrapper
 
-describe.only('Component > LightCurveViewer', function () {
+describe('Component > LightCurveViewer', function () {
   before(function () {
     const points = zip(mockData.x, mockData.y)
     const extent = {
