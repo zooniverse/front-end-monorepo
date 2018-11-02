@@ -22,7 +22,7 @@ const StyledParagraph = styled(Paragraph)`
 function FinishedForTheDay ({ imageSrc, projectName }) {
   const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
   return (
-    <Grid columns={columns} margin="medium">
+    <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
       <Box border='all' pad='medium'>
         <Heading level='3' margin='none' color='#5C5C5C'>
