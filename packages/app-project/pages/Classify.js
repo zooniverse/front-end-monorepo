@@ -1,3 +1,5 @@
 import React from 'react'
 
-export default () => <div>Project classify</div>
+import ClassifyPage from '../components/ClassifyPage'
+
+export default () => <ClassifyPage />
