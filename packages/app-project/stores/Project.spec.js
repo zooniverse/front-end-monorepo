@@ -1,7 +1,8 @@
+import asyncStates from '@zooniverse/async-states'
+import { projects } from '@zooniverse/panoptes-js'
+
 import Project from './Project'
 import Store from './Store'
-import asyncStates from '../helpers/asyncStates'
-import { projects } from '@zooniverse/panoptes-js'
 import placeholderEnv from './helpers/placeholderEnv'
 
 let clientStub
