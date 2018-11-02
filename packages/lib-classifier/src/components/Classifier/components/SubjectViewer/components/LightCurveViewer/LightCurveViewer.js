@@ -9,15 +9,6 @@ import addDataLayer from './d3/addDataLayer'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
-/*
-Constraints for Light Curve Data:
-While we could calculate the min/max values of the data when we receive it, in
-practice we want users to compare different Subjects with the same frame of
-reference, i.e. we need to constrain the light curve data's x-y domains to a
-common set of values.
-Otherwise, it becomes night impossible to compare how bright one star is
-compared to another.
- */
 //TODO: move into props or some other configurable
 const LIGHTCURVE_DATA_CONSTRAINTS = {
   /*
@@ -26,17 +17,7 @@ const LIGHTCURVE_DATA_CONSTRAINTS = {
   reasonable subject area, maximum zoom is arbitrary.
    */
   minScale: 1,
-  maxScale: 10,
-  
-  /*
-  TESS (2019) Subjects have data that goes from:
-  - x: [0,27.8]
-  - y: [-50,50] (approx, to be confirmed)
-   */
-  minX: 0, 
-  maxX: 28, 
-  minY: -50,
-  maxY: 50,
+  maxScale: 10,  
 }
 
 class LightCurveViewer extends Component {
@@ -97,22 +78,22 @@ class LightCurveViewer extends Component {
 
   /*
   Updates the D3 chart to fit the size of the container, and adds/updates the
-  data points. Called when new data (points) is received, and when chart
-  is resized.
+  data points.
+  Called when new data (points) is received, and when chart is resized.
    */
   drawChart (width, height, isFirstDraw = false) {
     if (!height || !width) {
       return false
     }
     
-    this.zoom.translateExtent([[0, 0], [width, 0]])  // Limit translation
+    this.zoom.translateExtent([[0, 0], [width, 0]])  // Limit zoom panning to x-direction
 
     // Update x-y scales to fit current size of container
     this.xScale
-      .domain([LIGHTCURVE_DATA_CONSTRAINTS.minX, LIGHTCURVE_DATA_CONSTRAINTS.maxX])
+      .domain(this.props.extent.x)
       .range([0, width])
     this.yScale
-      .domain([LIGHTCURVE_DATA_CONSTRAINTS.minY, LIGHTCURVE_DATA_CONSTRAINTS.maxY])
+      .domain(this.props.extent.y)
       .range([height, 0])  //Note that this is reversed
     
     this.updateAxes()
@@ -197,8 +178,6 @@ class LightCurveViewer extends Component {
         //this.d3dataLayer.attr('transform', d3.event.transform)
         
         const t = d3.event.transform
-        
-        console.log('+++ x,y: ', t.x, t.y)
         
         // Re-draw the data points to fit the new view
         // Note: users can only zoom & pan in the x-direction
