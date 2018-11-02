@@ -1,9 +1,10 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import Nav from './nav'
 
-describe('Component > Nav', function () {
+import Navigation from './Navigation'
+
+describe('Component > Navigation', function () {
   it('should render without crashing', function () {
-    shallow(<Nav />)
+    shallow(<Navigation />)
   })
 })
