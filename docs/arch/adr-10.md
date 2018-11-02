@@ -17,11 +17,16 @@ We decided to instead implement our own [type conversion utility function](https
 ``` js
 const workflow = {
   id: '1',
-  steps: [['S1', { taskKeys: ['T1', 'T2'] }], ['S2', { taskKeys: 'T3' }]] // How they will be stored on Panoptes
+  steps: [['S1', { taskKeys: ['T1', 'T2'] }], ['S2', { taskKeys: ['T3'] }]] // How they will be stored on Panoptes
 }
 ```
 
 And when a workflow request is received by the classifier store, it is converted by Mobx-State-Tree into an observable map when added to the store.
+
+**A note about the use of arrays for the key-value pairs**
+Subject locations are an array of objects. It would make sense to do an array of objects here too, however the array of two values is closest to the format expected by maps when you instantiate them: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
+So there's less type conversion happening if we store it this way. MobX will take objects too when setting an observable map, but if we ever want to instantiate an ES6 map independent of the store we would have to do another conversion from object to array of the key-value pair.
 
 ## Status
 
