@@ -86,7 +86,11 @@ class LightCurveViewer extends Component {
       return false
     }
     
-    this.zoom.translateExtent([[0, 0], [width, 0]])  // Limit zoom panning to x-direction
+    /*
+    Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
+    beyond the start (xMin=0) or end (xMax=width) of the light curve.
+    */
+    this.zoom.translateExtent([[0, 0], [width, 0]])
 
     // Update x-y scales to fit current size of container
     this.xScale
@@ -175,8 +179,6 @@ class LightCurveViewer extends Component {
       .scaleExtent([LIGHTCURVE_DATA_CONSTRAINTS.minScale, LIGHTCURVE_DATA_CONSTRAINTS.maxScale])  // Limit zoom scale
     
       .on('zoom', () => {
-        //this.d3dataLayer.attr('transform', d3.event.transform)
-        
         const t = d3.event.transform
         
         // Re-draw the data points to fit the new view
@@ -198,7 +200,7 @@ class LightCurveViewer extends Component {
   
   /*
   Update the x-axis and y-axis to fit the new zoom/pan view.
-  Note that for light curves, we only allow panning & zooming in the x-direction
+  Note that for light curves, we only allow panning & zooming in the x-direction.
    */
   updateAxes(transform) {
     const t = transform || d3.zoomIdentity
