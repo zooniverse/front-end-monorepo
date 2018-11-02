@@ -24,7 +24,7 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
   return (
     <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
-      <Box border='all' pad='medium'>
+      <Box background='white' border='all' pad='medium'>
         <Heading level='3' margin='none' color='#5C5C5C'>
           {counterpart('FinishedForTheDay.title')}
         </Heading>
