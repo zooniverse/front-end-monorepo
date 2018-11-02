@@ -106,7 +106,7 @@ class LightCurveViewer extends Component {
     const points = this.d3dataLayer.selectAll('circle')
       .data(this.props.points)
 
-    const t = (d3.event && d3.event.transform) || d3.zoomIdentity
+    const t = this.getCurrentTransform()
     const setPointCoords = selection => selection
       // users can only zoom & pan in the x-direction
       .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
@@ -126,6 +126,12 @@ class LightCurveViewer extends Component {
           .transition()
           .call(setPointCoords)
     }
+  }
+  
+  getCurrentTransform () {
+    return (d3.event && d3.event.transform)
+      || d3.zoomTransform(this.d3interfaceLayer.node())
+      || d3.zoomIdentity
   }
 
   /*
@@ -186,7 +192,7 @@ class LightCurveViewer extends Component {
         this.d3dataLayer.selectAll('circle')
           .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
         
-        this.updateAxes(t)
+        this.updateAxes()
       })
     
     /*
@@ -202,10 +208,8 @@ class LightCurveViewer extends Component {
   Update the x-axis and y-axis to fit the new zoom/pan view.
   Note that for light curves, we only allow panning & zooming in the x-direction.
    */
-  updateAxes(transform) {
-    const t = transform || d3.zoomIdentity
-    //TODO: instead of using d3.zoomIdentity as the default, pull the current
-    //zoom from the Zoom object.
+  updateAxes() {
+    const t = this.getCurrentTransform()
     
     this.xAxis.scale(t.rescaleX(this.xScale))
     this.d3axisX.call(this.xAxis)
