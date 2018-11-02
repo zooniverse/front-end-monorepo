@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
+import ClassifyBox from '../ClassifyBox'
 
 counterpart.registerTranslations('en', en)
 
@@ -24,7 +25,7 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
   return (
     <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
-      <Box background='white' border='all' pad='medium'>
+      <ClassifyBox>
         <Heading level='3' margin='none' color='#5C5C5C'>
           {counterpart('FinishedForTheDay.title')}
         </Heading>
@@ -42,7 +43,7 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
             label={counterpart('FinishedForTheDay.buttons.anotherProject')}
           />
         </Box>
-      </Box>
+      </ClassifyBox>
     </Grid>
   )
 }
