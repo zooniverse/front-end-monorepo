@@ -1,4 +1,5 @@
-import { inject, observer } from 'mobx-react'
+import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { observable } from 'mobx'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -67,9 +68,15 @@ class MultipleChoiceTask extends React.Component {
   }
 }
 
-MultipleChoiceTask.propTypes = {
+MultipleChoiceTask.wrappedComponent.defaultProps = {
+  addAnnotation: () => {},
+  annotations: observable.map(),
+  task: {}
+}
+
+MultipleChoiceTask.wrappedComponent.propTypes = {
   addAnnotation: PropTypes.func,
-  annotations: PropTypes.object,
+  annotations: MobXPropTypes.observableMap,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string

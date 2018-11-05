@@ -11,7 +11,8 @@ describe('Component > FullscreenButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = shallow(<FullscreenButton />)
-    expect(wrapper.find('Button').prop('aria-label')).to.equal('View subject in full screen mode')
+    const button = wrapper.dive().dive()
+    expect(button.prop('aria-label')).to.equal('View subject in full screen mode')
   })
 
   it('should call the onClick prop function on click', function () {
@@ -21,7 +22,8 @@ describe('Component > FullscreenButton', function () {
         onClick={spy}
       />
     )
-    wrapper.find('Button').simulate('click')
+    const button = wrapper.dive().dive()
+    button.simulate('click')
     expect(spy.called).to.be.true
   })
 })

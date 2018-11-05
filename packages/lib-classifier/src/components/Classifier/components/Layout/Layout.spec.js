@@ -5,6 +5,6 @@ import Layout from './Layout'
 
 describe('Component > Layout', function () {
   it('should render without crashing', function () {
-    shallow(<Layout />)
+    shallow(<Layout.wrappedComponent />)
   })
 })

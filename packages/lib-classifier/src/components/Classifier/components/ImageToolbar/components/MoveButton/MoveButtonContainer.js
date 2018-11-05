@@ -30,12 +30,12 @@ class MoveButtonContainer extends React.Component {
   }
 }
 
-MoveButtonContainer.propTypes = {
+MoveButtonContainer.wrappedComponent.propTypes = {
   enableMove: PropTypes.func,
   move: PropTypes.bool
 }
 
-MoveButtonContainer.defaultProps = {
+MoveButtonContainer.wrappedComponent.defaultProps = {
   enableMove: () => console.log('toggle move'),
   move: false
 }

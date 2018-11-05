@@ -19,11 +19,11 @@ class Layout extends React.Component {
   }
 }
 
-Layout.propTypes = {
+Layout.wrappedComponent.propTypes = {
   layout: PropTypes.string
 }
 
-Layout.defaultProps = {
+Layout.wrappedComponent.defaultProps = {
   layout: 'default'
 }
 

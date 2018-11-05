@@ -6,6 +6,7 @@ import React from 'react'
 import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
+  console.log('stores', stores)
   const { active: subject, loadingState } = stores.classifierStore.subjects
   return {
     loadingState,
@@ -43,14 +44,14 @@ class SubjectViewer extends React.Component {
   }
 }
 
-SubjectViewer.propTypes = {
+SubjectViewer.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
   subject: PropTypes.shape({
     viewer: PropTypes.string
   })
 }
 
-SubjectViewer.defaultProps = {
+SubjectViewer.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized
 }
 

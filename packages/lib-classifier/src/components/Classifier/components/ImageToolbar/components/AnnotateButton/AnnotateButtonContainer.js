@@ -27,12 +27,12 @@ class AnnotateButtonContainer extends React.Component {
   }
 }
 
-AnnotateButtonContainer.propTypes = {
+AnnotateButtonContainer.wrappedComponent.propTypes = {
   annotate: PropTypes.bool,
   enableAnnotate: PropTypes.func
 }
 
-AnnotateButtonContainer.defaultProps = {
+AnnotateButtonContainer.wrappedComponent.defaultProps = {
   annotate: false,
   enableAnnotate: () => console.log('Enable annotate')
 }

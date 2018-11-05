@@ -60,7 +60,7 @@ class InteractionLayerContainer extends Component {
   }
 }
 
-InteractionLayerContainer.propTypes = {
+InteractionLayerContainer.wrappedComponent.propTypes = {
   drawing: PropTypes.shape({
     addToStream: PropTypes.func.isRequired
   })

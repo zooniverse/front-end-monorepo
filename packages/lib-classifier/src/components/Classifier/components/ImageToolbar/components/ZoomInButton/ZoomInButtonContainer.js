@@ -25,11 +25,11 @@ class ZoomInButtonContainer extends React.Component {
   }
 }
 
-ZoomInButtonContainer.propTypes = {
+ZoomInButtonContainer.wrappedComponent.propTypes = {
   zoomIn: PropTypes.func
 }
 
-ZoomInButtonContainer.defaultProps = {
+ZoomInButtonContainer.wrappedComponent.defaultProps = {
   zoomIn: () => console.log('zoom in')
 }
 

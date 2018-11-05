@@ -68,12 +68,12 @@ export class Tasks extends React.Component {
   }
 }
 
-Tasks.propTypes = {
+Tasks.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
   tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
-Tasks.defaultProps = {
+Tasks.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized,
   tasks: []
 }

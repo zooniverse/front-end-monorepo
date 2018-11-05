@@ -25,11 +25,11 @@ class ResetButtonContainer extends React.Component {
   }
 }
 
-ResetButtonContainer.propTypes = {
+ResetButtonContainer.wrappedComponent.propTypes = {
   resetView: PropTypes.func
 }
 
-ResetButtonContainer.defaultProps = {
+ResetButtonContainer.wrappedComponent.defaultProps = {
   resetView: () => console.log('reset view')
 }
 
