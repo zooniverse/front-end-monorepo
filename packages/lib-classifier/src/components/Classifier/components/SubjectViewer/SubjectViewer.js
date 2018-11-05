@@ -6,7 +6,6 @@ import React from 'react'
 import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
-  console.log('stores', stores)
   const { active: subject, loadingState } = stores.classifierStore.subjects
   return {
     loadingState,

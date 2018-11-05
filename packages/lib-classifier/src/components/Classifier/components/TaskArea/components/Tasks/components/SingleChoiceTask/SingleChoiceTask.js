@@ -68,7 +68,7 @@ SingleChoiceTask.wrappedComponent.defaultProps = {
 
 SingleChoiceTask.wrappedComponent.propTypes = {
   addAnnotation: PropTypes.func,
-  annotations: MobXPropTypes.object,
+  annotations: MobXPropTypes.observableMap,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string
