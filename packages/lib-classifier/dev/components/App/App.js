@@ -12,16 +12,16 @@ class App extends React.Component {
   }
 
   async componentDidMount () {
-    let id = '335'  //Example project: I Fancy Cats (staging)
-    
-    //Optional project override, e.g. localhost:8080?project_id=1862
+    let id = '335' // Example project: I Fancy Cats (staging)
+
+    // Optional project override, e.g. localhost:8080?project_id=1862
     if (window.location && window.location.search) {
-      const searchResults = /(?:^\?|&)(?:project=)(\d+)/.exec(window.location.search)  //Search the query string for the 'project='
+      const searchResults = /(?:^\?|&)(?:project=)(\d+)/.exec(window.location.search) // Search the query string for the 'project='
       if (searchResults[1]) {
         id = searchResults[1]
       }
     }
-    
+
     try {
       const response = await panoptes.get(`/projects/${id}`)
       const project = response.body.projects[0]

@@ -61,16 +61,16 @@ class LightCurveViewer extends Component {
     if (isFirstDraw) {
       points.enter()
         .append('circle')
-          .call(setPointStyle)
+        .call(setPointStyle)
         .merge(points)
-          .call(setPointCoords)
+        .call(setPointCoords)
     } else {
       points.enter()
         .append('circle')
-          .call(setPointStyle)
+        .call(setPointStyle)
         .merge(points)
-          .transition()
-          .call(setPointCoords)
+        .transition()
+        .call(setPointCoords)
     }
   }
 
@@ -78,14 +78,14 @@ class LightCurveViewer extends Component {
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
       .append('svg')
-        .attr('class', 'light-curve-viewer')
-        .attr('height', '100%')
-        .attr('width', '100%')
+      .attr('class', 'light-curve-viewer')
+      .attr('height', '100%')
+      .attr('width', '100%')
 
     this.d3svg.call(addBackgroundLayer)
     this.d3dataLayer = this.d3svg
       .append('g')
-        .attr('class', 'data-layer')
+      .attr('class', 'data-layer')
     this.d3svg.call(addBorderLayer)
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()

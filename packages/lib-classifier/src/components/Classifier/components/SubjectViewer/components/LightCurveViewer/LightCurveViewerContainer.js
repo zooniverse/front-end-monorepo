@@ -81,7 +81,7 @@ class LightCurveViewerContainer extends Component {
           y: d3.extent(rawData.y)
         },
         points: zip(rawData.x, rawData.y)
-       })
+      })
     } catch (error) {
       console.error(error)
     }

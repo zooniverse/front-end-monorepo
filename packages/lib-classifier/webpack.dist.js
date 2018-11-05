@@ -1,10 +1,15 @@
 const path = require('path')
 const webpack = require('webpack')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
-  NODE_ENV: 'development',
-  PANOPTES_ENV: 'staging'
+  NODE_ENV: 'production',
+  PANOPTES_ENV: 'production'
+})
+
+const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
+  swSrc: './src/workers/queue.js'
 })
 
 module.exports = {
@@ -27,7 +32,8 @@ module.exports = {
     umdNamedDefine: true
   },
   plugins: [
-    EnvironmentWebpackPlugin
+    EnvironmentWebpackPlugin,
+    WorkboxPluginConfig
   ],
   resolve: {
     modules: [

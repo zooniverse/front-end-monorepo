@@ -17,7 +17,7 @@ describe('Component > LightCurveViewer', function () {
       y: d3.extent(mockData.y)
     }
 
-    //Use mount() instead of shallow() since d3 logic exists outside of render()
+    // Use mount() instead of shallow() since d3 logic exists outside of render()
     wrapper = render(<LightCurveViewer points={points} extent={extent} />)
   })
 
