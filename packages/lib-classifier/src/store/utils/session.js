@@ -11,7 +11,7 @@ const sessionUtils = {
 
   generateSessionID () {
     const sha2 = hash.sha256()
-    const id = sha2.update(`${Math.random() * 10000 }${Date.now()}${Math.random() * 1000}`).digest('hex')
+    const id = sha2.update(`${Math.random() * 10000}${Date.now()}${Math.random() * 1000}`).digest('hex')
     const ttl = this.fiveMinutesFromNow()
     const stored = { id, ttl }
     try {
@@ -41,4 +41,3 @@ const sessionUtils = {
 }
 
 export default sessionUtils
-

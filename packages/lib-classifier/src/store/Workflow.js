@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { getType, types } from 'mobx-state-tree'
 import Resource from './Resource'
 import Step from './Step'
 
@@ -7,7 +7,9 @@ const Workflow = types
     configuration: types.frozen({}),
     display_name: types.string,
     first_task: types.maybe(types.string),
-    steps: types.map(Step),
+    steps: types.array(types.array(
+      types.union(types.string, types.frozen())
+    )),
     tasks: types.maybe(types.frozen()),
     version: types.string
   })

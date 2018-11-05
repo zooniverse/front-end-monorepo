@@ -104,7 +104,7 @@ const ClassificationStore = types
       if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
     }
 
-    function completeClassification(event) {
+    function completeClassification (event) {
       event.preventDefault()
       const classification = self.active
       // TODO store intervention metadata if we have a user...
@@ -120,7 +120,7 @@ const ClassificationStore = types
       classification.completed = true
       // Convert from observables
       const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
-      delete classificationToSubmit.id  // remove temp id
+      delete classificationToSubmit.id // remove temp id
       classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
 
       const convertedMetadata = {}
@@ -135,7 +135,7 @@ const ClassificationStore = types
     }
 
     // TODO: add submission queue
-    function* submitClassification (classification) {
+    function * submitClassification (classification) {
       console.log('Saving classification')
       const root = getRoot(self)
       const client = root.client.panoptes

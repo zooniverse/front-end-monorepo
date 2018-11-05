@@ -1,21 +1,18 @@
 import Subject from './Subject'
+import { SubjectFactory } from '../../test/factories'
 
-let subject
-
-const stub = {
-  id: '1',
-  locations: [
-    { 'image/jpg': 'http://foobar.com/image.jpg' }
-  ]
-}
+const stub = SubjectFactory.build()
 
 describe('Model > Subject', function () {
+  let subject
+
   before(function () {
     subject = Subject.create(stub)
   })
 
   it('should exist', function () {
-    expect(Subject).to.not.equal(undefined)
+    expect(Subject).to.exist
+    expect(Subject).to.be.an('object')
   })
 
   it('should have a `locations` property', function () {
