@@ -53,8 +53,8 @@ class ClassificationQueue {
     const failedClassifications = []
     this._saveQueue(failedClassifications)
     if (this.flushTimeout) {
-      clearTimeout(this.flushTimeout);
-      this.flushTimeout = null;
+      clearTimeout(this.flushTimeout)
+      this.flushTimeout = null
     }
 
     if (process.env.NODE_ENV !== 'test') console.log('Saving queued classifications:', pendingClassifications.length)
