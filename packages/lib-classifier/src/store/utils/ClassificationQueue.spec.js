@@ -46,6 +46,12 @@ describe('ClassificationQueue', function () {
       postSpy = sinon.spy(apiClient, 'post')
       classificationData = { annotations: [], metadata: {} }
       classificationQueue = new ClassificationQueue(apiClient)
+      sinon.stub(global, 'setTimeout').callsFake(() => 100)
+      sinon.stub(global, 'clearTimeout')
+    })
+    afterEach(function () {
+      global.setTimeout.restore();
+      global.clearTimeout.restore();
     })
     it('should not save failed classifications', async function () {
       try {
@@ -68,6 +74,21 @@ describe('ClassificationQueue', function () {
         expect(classificationQueue.recents).to.have.lengthOf(0)
       } catch (e) {}
     })
+    it('should set a timer to retry failed classifications', async function () {
+      sinon.stub(classificationQueue.flushToBackend, 'bind').callsFake(() => classificationQueue.flushToBackend);
+      try {
+      await classificationQueue.add(classificationData)
+        expect(global.setTimeout.calledWith(classificationQueue.flushToBackend)).to.be.true;
+        expect(classificationQueue.flushTimeout).to.equal(100);
+      } catch (e) {}
+      classificationQueue.flushToBackend.bind.restore();
+    })
+    it('should cancel any existing timer before flushing the queue', function () {
+      classificationQueue.flushTimeout = 100;
+      classificationQueue.add(classificationData);
+      expect(global.clearTimeout.calledWith(100)).to.be.true;
+      expect(classificationQueue.flushTimeout).to.be.null;
+    });
   })
   describe('with a slow network connection', function () {
     let apiClient

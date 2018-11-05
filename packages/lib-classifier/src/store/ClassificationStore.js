@@ -155,7 +155,7 @@ const ClassificationStore = types
       const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
-      if (!isServiceWorkerAvailable() && !isBackgroundSyncAvailable()) {
+      if (!isServiceWorkerAvailable() || !isBackgroundSyncAvailable()) {
         // Use fallback queuing class
         self.classificationQueue.add(classification)
       } else {
