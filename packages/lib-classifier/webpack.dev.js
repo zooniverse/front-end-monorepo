@@ -21,7 +21,7 @@ const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
 
 module.exports = {
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './dev/index.js'
   ],
   mode: 'development',

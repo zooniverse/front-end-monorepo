@@ -33,11 +33,11 @@ class ZoomOutButtonContainer extends React.Component {
   }
 }
 
-ZoomOutButtonContainer.propTypes = {
+ZoomOutButtonContainer.wrappedComponent.propTypes = {
   zoomOut: PropTypes.func
 }
 
-ZoomOutButtonContainer.defaultProps = {
+ZoomOutButtonContainer.wrappedComponent.defaultProps = {
   zoomOut: () => console.log('zoom out')
 }
 

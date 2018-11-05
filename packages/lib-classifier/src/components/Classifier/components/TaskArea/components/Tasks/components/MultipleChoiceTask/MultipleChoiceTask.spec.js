@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
+import { observable } from 'mobx'
 import MultipleChoiceTask from './MultipleChoiceTask'
 
 // TODO: move this into a factory
@@ -17,7 +18,7 @@ describe('MultipleChoiceTask', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<MultipleChoiceTask addAnnotation={() => { }} task={task} />)
+      wrapper = shallow(<MultipleChoiceTask.wrappedComponent addAnnotation={() => { }} task={task} />)
     })
 
     it('should render without crashing', function () {
@@ -39,11 +40,11 @@ describe('MultipleChoiceTask', function () {
     let onChangeSpy
     before(function () {
       addAnnotationSpy = sinon.spy()
-      onChangeSpy = sinon.spy(MultipleChoiceTask.prototype, 'onChange')
+      onChangeSpy = sinon.spy(MultipleChoiceTask.wrappedComponent.prototype, 'onChange')
       wrapper = shallow(
-        <MultipleChoiceTask
+        <MultipleChoiceTask.wrappedComponent
           addAnnotation={addAnnotationSpy}
-          annotations={new Map()}
+          annotations={observable.map()}
           task={task}
         />
       )
@@ -77,7 +78,7 @@ describe('MultipleChoiceTask', function () {
       firstNode.simulate('change', { target: { checked: true } })
       expect(addAnnotationSpy.calledWith([0], task)).to.be.true
 
-      const annotations = new Map([['T1', { value: [0], task: 'T1' }]])
+      const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
       wrapper.setProps({ annotations })
       lastNode.simulate('change', { target: { checked: true } })
       expect(addAnnotationSpy.calledWith([0, 2], task)).to.be.true
@@ -86,7 +87,7 @@ describe('MultipleChoiceTask', function () {
     it('should splice the index from the value array if the event target is unchecked and the existing annotations value array includes the index', function () {
       const firstNode = wrapper.find('TaskInputField').first()
       firstNode.simulate('change', { target: { checked: true } })
-      const annotations = new Map([['T1', { value: [0], task: 'T1' }]])
+      const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
       wrapper.setProps({ annotations })
       firstNode.simulate('change', { target: { checked: false } })
       expect(addAnnotationSpy.secondCall.calledWith([], task)).to.be.true

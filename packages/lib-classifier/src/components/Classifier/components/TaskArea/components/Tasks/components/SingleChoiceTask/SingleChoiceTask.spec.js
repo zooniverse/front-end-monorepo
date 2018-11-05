@@ -17,7 +17,7 @@ describe('SingleChoiceTask', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<SingleChoiceTask addAnnotation={() => {}} task={task} />)
+      wrapper = shallow(<SingleChoiceTask.wrappedComponent addAnnotation={() => {}} task={task} />)
     })
 
     it('should render without crashing', function () {
@@ -39,8 +39,8 @@ describe('SingleChoiceTask', function () {
     let onChangeSpy
     before(function () {
       addAnnotationSpy = sinon.spy()
-      onChangeSpy = sinon.spy(SingleChoiceTask.prototype, 'onChange')
-      wrapper = shallow(<SingleChoiceTask addAnnotation={addAnnotationSpy} task={task} />)
+      onChangeSpy = sinon.spy(SingleChoiceTask.wrappedComponent.prototype, 'onChange')
+      wrapper = shallow(<SingleChoiceTask.wrappedComponent addAnnotation={addAnnotationSpy} task={task} />)
     })
 
     afterEach(function () {

@@ -6,28 +6,28 @@ import asyncStates from '@zooniverse/async-states'
 
 describe('Tasks', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<Tasks />)
-    expect(wrapper).to.have.lengthOf(1)
+    const wrapper = shallow(<Tasks.wrappedComponent />)
+    expect(wrapper).to.be.ok
   })
 
   it('should render null on initialization', function () {
-    const wrapper = shallow(<Tasks />)
-    expect(wrapper.html()).to.be.null
+    const wrapper = shallow(<Tasks.wrappedComponent />)
+    expect(wrapper.type()).to.be.null
   })
 
   it('should render a loading UI when the workflow loading', function () {
-    const wrapper = shallow(<Tasks loadingState={asyncStates.loading} />)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.loading} />)
     expect(wrapper.text()).to.equal('Loading')
   })
 
   it('should render an error message when there is a loading error', function () {
-    const wrapper = shallow(<Tasks loadingState={asyncStates.error} />)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.error} />)
     expect(wrapper.text()).to.equal('Something went wrong')
   })
 
   it('should render null if the workflow is load but has no tasks', function () {
-    const wrapper = shallow(<Tasks loadingState={asyncStates.success} />)
-    expect(wrapper.html()).to.be.null
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} />)
+    expect(wrapper.type()).to.be.null
   })
 
   it('should render the correct task component if the workflow is loaded', function () {
@@ -39,7 +39,8 @@ describe('Tasks', function () {
       type: 'single'
     }]
 
-    const wrapper = shallow(<Tasks loadingState={asyncStates.success} tasks={tasks} />)
-    expect(wrapper.find('SingleChoiceTask')).to.have.lengthOf(1)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} tasks={tasks} />)
+    // Is there a better way to do this?
+    expect(wrapper.find('inject-SingleChoiceTask')).to.have.lengthOf(1)
   })
 })

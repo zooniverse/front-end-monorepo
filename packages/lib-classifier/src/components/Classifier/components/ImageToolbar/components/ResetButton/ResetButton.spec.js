@@ -10,7 +10,8 @@ describe('Component > ResetButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = shallow(<ResetButton />)
-    expect(wrapper.find('Button').prop('aria-label')).to.equal('Reset subject view')
+    const button = wrapper.dive().dive()
+    expect(button.prop('aria-label')).to.equal('Reset subject view')
   })
 
   it('should call the onClick prop function on click', function () {
@@ -20,7 +21,8 @@ describe('Component > ResetButton', function () {
         onClick={spy}
       />
     )
-    wrapper.find('Button').simulate('click')
+    const button = wrapper.dive().dive()
+    button.simulate('click')
     expect(spy.called).to.be.true
   })
 })

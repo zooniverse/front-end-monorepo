@@ -4,6 +4,6 @@ import RotateButtonContainer from './RotateButtonContainer'
 
 describe('Component > RotateButtonContainer', function () {
   it('should render without crashing', function () {
-    shallow(<RotateButtonContainer />)
+    shallow(<RotateButtonContainer.wrappedComponent />)
   })
 })
