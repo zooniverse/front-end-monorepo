@@ -9,7 +9,7 @@ const CREDENTIALS = {
 
 const DEFAULT_CREDENTIALS = {
   expiresAt: 0,
-  token: null
+  token: undefined
 }
 
 describe('Model > CredentialsStore', function () {

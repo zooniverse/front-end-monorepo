@@ -1,5 +1,6 @@
 import { DateTime, Duration } from 'luxon'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
+import makeInspectable from 'mobx-devtools-mst'
 import ReactDOM from 'react-dom'
 
 import clearTimer from './helpers/clearTimer'
@@ -34,9 +35,9 @@ function createOAuthClient ({
   let element = createElement()
   let timeoutTimer = -1
   let warningTimer = -1
-
   // Functions
   function completeLogin () {
+    console.log('Getting bearer token')
     return client.token.getToken(window.location.href)
       .then(credentials => {
         const expiresAt = DateTime.fromJSDate(credentials.expires)
@@ -73,6 +74,11 @@ function createOAuthClient ({
     return (snapshot.expiresAt && snapshot.token)
       ? snapshot
       : null
+  }
+
+  function getUser () {
+    const snapshot = getSnapshot(store.user)
+    return snapshot.active || null
   }
 
   function loadCredentials () {
@@ -146,6 +152,7 @@ function createOAuthClient ({
     completeLogin,
     destroy,
     getToken,
+    getUser,
     logout,
     startLogin
   })

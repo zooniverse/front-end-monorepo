@@ -1,17 +1,15 @@
-import { Grommet } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import theme from '@zooniverse/grommet-theme'
 import {
   panoptes as panoptesClient,
   projects as projectsClient
 } from '@zooniverse/panoptes-js'
 
 import { registerWorkers } from '../../workers'
-import RootStore from 'src/store'
+import RootStore, { UserStore } from 'src/store'
 import Layout from './components/Layout'
 import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
@@ -25,9 +23,14 @@ const client = {
 if (isBackgroundSyncAvailable()) registerWorkers()
 
 class Classifier extends React.Component {
-  constructor () {
-    super()
-    this.classifierStore = RootStore.create({}, { client })
+  constructor (props) {
+    super(props)
+
+    const initStore = (props.user) ?
+      { users: UserStore.create({ active: user.id, resources: [[user.id, user]] }) } :
+      {}
+
+    this.classifierStore = RootStore.create(initStore, { authClient: props.authClient, client })
     makeInspectable(this.classifierStore)
   }
 
@@ -52,9 +55,7 @@ class Classifier extends React.Component {
     return (
       <Provider classifierStore={this.classifierStore}>
         <ThemeProvider theme={{ mode: this.props.mode }}>
-          <Grommet theme={theme}>
-            <Layout />
-          </Grommet>
+          <Layout />
         </ThemeProvider>
       </Provider>
     )
@@ -62,14 +63,17 @@ class Classifier extends React.Component {
 }
 
 Classifier.defaultProps = {
-  mode: 'light'
+  mode: 'light',
+  user: null
 }
 
 Classifier.propTypes = {
+  authClient: PropTypes.object.isRequired,
   mode: PropTypes.string,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  user: PropTypes.object
 }
 
 export default Classifier

@@ -7,6 +7,7 @@ import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
+import UserStore from './UserStore'
 
 const RootStore = types
   .model('RootStore', {
@@ -16,10 +17,15 @@ const RootStore = types
     subjects: types.optional(SubjectStore, SubjectStore.create()),
     subjectViewer: types.optional(SubjectViewerStore, SubjectViewerStore.create()),
     workflows: types.optional(WorkflowStore, WorkflowStore.create()),
-    workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create())
+    workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create()),
+    users: types.optional(UserStore, UserStore.create())
   })
 
   .views(self => ({
+    get authClient () {
+      return getEnv(self).authClient
+    },
+
     get client () {
       return getEnv(self).client
     }

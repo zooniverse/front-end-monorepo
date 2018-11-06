@@ -3,13 +3,13 @@ import { applySnapshot, types } from 'mobx-state-tree'
 const Credentials = types
   .model('Credentials', {
     expiresAt: types.optional(types.number, 0),
-    token: types.maybeNull(types.string)
+    token: types.maybe(types.string)
   })
 
   .actions(self => ({
     reset () {
       self.expiresAt = 0
-      self.token = null
+      self.token = undefined
     },
 
     set (credentialsObject) {
