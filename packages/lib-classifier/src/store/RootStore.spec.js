@@ -9,10 +9,11 @@ describe('Model > RootStore', function () {
   })
 
   it('should exist', function () {
-    expect(RootStore).to.not.equal(undefined)
+    expect(RootStore).to.exist
   })
 
   const stores = [
+    'classifications',
     'drawing',
     'projects',
     'subjects',
@@ -23,7 +24,7 @@ describe('Model > RootStore', function () {
 
   stores.forEach(function (store) {
     it(`should have a \`${store}\` property`, function () {
-      expect(model[store]).to.not.equal(undefined)
+      expect(model[store]).to.exist
     })
   })
 

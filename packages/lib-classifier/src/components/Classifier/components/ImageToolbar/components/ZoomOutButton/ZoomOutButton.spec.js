@@ -10,7 +10,8 @@ describe('Component > ZoomOutButton', function () {
 
   it('should have an ARIA label', function () {
     const wrapper = shallow(<ZoomOutButton />)
-    expect(wrapper.find('Button').prop('aria-label')).to.equal('Zoom out from subject')
+    const button = wrapper.dive().dive()
+    expect(button.prop('aria-label')).to.equal('Zoom out from subject')
   })
 
   it('should call the onClick prop function on click', function () {
@@ -20,7 +21,8 @@ describe('Component > ZoomOutButton', function () {
         onClick={spy}
       />
     )
-    wrapper.find('Button').simulate('click')
+    const button = wrapper.dive().dive()
+    button.simulate('click')
     expect(spy.called).to.be.true
   })
 })

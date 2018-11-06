@@ -43,14 +43,14 @@ class SubjectViewer extends React.Component {
   }
 }
 
-SubjectViewer.propTypes = {
+SubjectViewer.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
   subject: PropTypes.shape({
     viewer: PropTypes.string
   })
 }
 
-SubjectViewer.defaultProps = {
+SubjectViewer.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized
 }
 

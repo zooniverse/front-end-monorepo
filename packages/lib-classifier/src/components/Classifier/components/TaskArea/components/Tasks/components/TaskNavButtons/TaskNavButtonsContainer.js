@@ -10,7 +10,7 @@ function storeMapper (stores) {
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
-    selectStep,
+    selectStep
   } = stores.classifierStore.workflowSteps
   const {
     active: classification,
@@ -42,7 +42,8 @@ class TaskNavButtonsContainer extends React.Component {
       tasks.forEach((task) => {
         // User didn't submit annotation and task is not required
         // Create the default annotation before going to the next step
-        if (!classification.annotations.get(task.taskKey)) {
+        // console.log(classification.annotations, task.taskKey, classification.annotations.get(task.taskKey))
+        if (classification.annotations && !(classification.annotations.get(task.taskKey))) {
           createDefaultAnnotation(task)
         }
       })
@@ -87,17 +88,16 @@ class TaskNavButtonsContainer extends React.Component {
   }
 }
 
-TaskNavButtons.defaultProps = {
-  classification: {},
+TaskNavButtonsContainer.wrappedComponent.defaultProps = {
   completeClassification: () => {},
   createDefaultAnnotation: () => {},
   selectStep: () => {},
   tasks: []
 }
 
-TaskNavButtonsContainer.propTypes = {
+TaskNavButtonsContainer.wrappedComponent.propTypes = {
   classification: PropTypes.shape({
-    annotation: MobXPropTypes.observableArrayOf(PropTypes.object)
+    annotations: MobXPropTypes.observableMap
   }),
   completeClassification: PropTypes.func,
   createDefaultAnnotation: PropTypes.func,

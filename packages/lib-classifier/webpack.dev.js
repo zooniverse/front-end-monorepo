@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
@@ -14,9 +15,13 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
+const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
+  swSrc: './src/workers/queue.js'
+})
+
 module.exports = {
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     './dev/index.js'
   ],
   mode: 'development',
@@ -41,7 +46,8 @@ module.exports = {
   },
   plugins: [
     EnvironmentWebpackPlugin,
-    HtmlWebpackPluginConfig
+    HtmlWebpackPluginConfig,
+    WorkboxPluginConfig
   ],
   resolve: {
     modules: [

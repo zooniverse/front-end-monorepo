@@ -42,13 +42,13 @@ class FullscreenButtonContainer extends React.Component {
   }
 }
 
-FullscreenButtonContainer.propTypes = {
+FullscreenButtonContainer.wrappedComponent.propTypes = {
   fullscreen: PropTypes.bool,
   disableFullscreen: PropTypes.func,
   enableFullscreen: PropTypes.func
 }
 
-FullscreenButtonContainer.defaultProps = {
+FullscreenButtonContainer.wrappedComponent.defaultProps = {
   fullscreen: false
 }
 

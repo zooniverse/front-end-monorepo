@@ -25,11 +25,11 @@ class RotateButtonContainer extends React.Component {
   }
 }
 
-RotateButtonContainer.propTypes = {
+RotateButtonContainer.wrappedComponent.propTypes = {
   rotate: PropTypes.func
 }
 
-RotateButtonContainer.defaultProps = {
+RotateButtonContainer.wrappedComponent.defaultProps = {
   rotate: () => console.log('rotate view')
 }
 

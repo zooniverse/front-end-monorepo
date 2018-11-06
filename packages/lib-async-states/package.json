@@ -1,18 +1,21 @@
 {
   "name": "@zooniverse/async-states",
-  "version": "0.0.1",
   "description": "Provides a handy immutable object for describing the state of an asynchronous request.",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "0.0.1",
   "main": "src/async-states.js",
   "scripts": {
+    "_test": "mocha",
+    "install": "lerna bootstrap --scope=@zooniverse/async-states",
     "lint": "standard --fix | snazzy; exit 0",
-    "test": "mocha"
+    "test": "npm run _test && exit 0",
+    "test:ci": "npm run _test"
   },
-  "author": "Roger Hutchings <roger@hutchin.gs> (https://www.rogerhutchin.gs/)",
-  "license": "Apache-2.0",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "snazzy": "^8.0.0",
-    "standard": "^12.0.1"
+    "chai": "~4.1.2",
+    "mocha": "~5.2.0",
+    "snazzy": "~8.0.0",
+    "standard": "~12.0.1"
   }
 }

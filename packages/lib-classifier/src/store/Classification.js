@@ -40,6 +40,6 @@ const Classification = types
     }),
     metadata: types.maybe(ClassificationMetadata)
   })
-  
+
 export { ClassificationMetadata }
 export default types.compose('ClassificationResource', Resource, Classification)

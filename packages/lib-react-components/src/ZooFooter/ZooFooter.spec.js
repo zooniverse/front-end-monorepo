@@ -1,8 +1,3 @@
-/* global expect */
-/* eslint-env browser, mocha */
-/* eslint-disable func-names, prefer-arrow-callback */
-/* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
-
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -14,11 +9,6 @@ describe('<ZooFooter />', function () {
 
   it('renders without crashing', function () {
     wrapper = shallow(<ZooFooter />)
-  })
-
-  it('should match snapshot', function () {
-    wrapper = shallow(<ZooFooter />)
-    expect(wrapper).to.matchSnapshot()
   })
 
   describe('light theme', function () {

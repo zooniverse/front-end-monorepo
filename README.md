@@ -10,7 +10,7 @@
 
 This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
-Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally it allows us to track issues, pull requests, and progress for all related packages in one place.
+Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally, it allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## How to get started
 

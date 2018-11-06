@@ -1,8 +1,8 @@
 const path = require('path')
-const webpack = require('webpack')
 
 module.exports = {
   entry: './src/index.js',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -19,12 +19,6 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    new webpack.optimize.UglifyJsPlugin()
-  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [

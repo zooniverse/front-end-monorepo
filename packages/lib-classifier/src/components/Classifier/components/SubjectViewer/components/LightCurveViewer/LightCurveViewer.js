@@ -115,16 +115,16 @@ class LightCurveViewer extends Component {
     if (isFirstDraw) {
       points.enter()
         .append('circle')
-          .call(setPointStyle)
+        .call(setPointStyle)
         .merge(points)
-          .call(setPointCoords)
+        .call(setPointCoords)
     } else {
       points.enter()
         .append('circle')
-          .call(setPointStyle)
+        .call(setPointStyle)
         .merge(points)
-          .transition()
-          .call(setPointCoords)
+        .transition()
+        .call(setPointCoords)
     }
   }
   

@@ -1,10 +1,11 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
+import { observable } from 'mobx'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
 
-const steps = new Map([
+const steps = observable.map([
   ['S0', { taskKeys: ['T0'] }],
   ['S1', { taskKeys: ['T1'] }]
 ])
@@ -30,7 +31,7 @@ describe('TaskNavButtonsContainer', function () {
     let wrapper
     before(function () {
       wrapper = shallow(
-        <TaskNavButtonsContainer
+        <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
           tasks={tasks}
@@ -53,11 +54,13 @@ describe('TaskNavButtonsContainer', function () {
     let selectStepSpy
 
     before(function () {
-      createDefaultAnnotationIfThereIsNoneSpy = sinon.spy(TaskNavButtonsContainer.prototype, 'createDefaultAnnotationIfThereIsNone')
+      createDefaultAnnotationIfThereIsNoneSpy = sinon.spy(
+        TaskNavButtonsContainer.wrappedComponent.prototype, 'createDefaultAnnotationIfThereIsNone'
+      )
       selectStepSpy = sinon.spy()
 
       wrapper = shallow(
-        <TaskNavButtonsContainer
+        <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
           selectStep={selectStepSpy}
@@ -98,7 +101,7 @@ describe('TaskNavButtonsContainer', function () {
       removeAnnotationSpy = sinon.spy()
 
       wrapper = shallow(
-        <TaskNavButtonsContainer
+        <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
           removeAnnotation={removeAnnotationSpy}
@@ -146,7 +149,7 @@ describe('TaskNavButtonsContainer', function () {
       createDefaultAnnotationSpy = sinon.spy()
 
       wrapper = shallow(
-        <TaskNavButtonsContainer
+        <TaskNavButtonsContainer.wrappedComponent
           createDefaultAnnotation={createDefaultAnnotationSpy}
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
@@ -165,7 +168,7 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     it('should call props.createDefaultAnnotation if there is a props.classification and there aren\'t annotations for the tasks', function () {
-      const classification = { annotations: new Map() }
+      const classification = { annotations: observable.map() }
       wrapper.setProps({ classification })
       wrapper.instance().createDefaultAnnotationIfThereIsNone()
       tasks.forEach((task) => {
@@ -175,7 +178,7 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     it('should not call props.createDefaultAnnotation if props.classification has matching annotations for the tasks', function () {
-      const annotations = new Map()
+      const annotations = observable.map()
       tasks.forEach(task => annotations.set(task.taskKey, task))
       wrapper.setProps({ classification: { annotations }})
       wrapper.instance().createDefaultAnnotationIfThereIsNone()

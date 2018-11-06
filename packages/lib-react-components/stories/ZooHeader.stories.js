@@ -5,9 +5,6 @@ import styled from 'styled-components'
 
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { linkTo } from '@storybook/addon-links'
-import { withInfo } from '@storybook/addon-info'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
 import { backgrounds } from './lib'
 import { SpacedText, ZooHeader } from '../src'
 import headerDocs from '../src/ZooHeader/README.md'
@@ -42,7 +39,10 @@ const signOut = action('Sign out button clicked')
 
 storiesOf('ZooHeader', module)
   .addDecorator(backgrounds)
-  .add('Signed out', withInfo(headerDocs)(() =>
+  .addParameters({
+    info: headerDocs
+  })
+  .add('Signed out', () => (
     <Grommet theme={zooTheme}>
       <ZooHeader signInButton={signInButton} signOut={signOut} user={{}} />
     </Grommet>

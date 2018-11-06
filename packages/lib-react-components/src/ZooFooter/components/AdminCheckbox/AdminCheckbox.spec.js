@@ -18,10 +18,6 @@ describe('<AdminCheckbox />', function () {
 
   it('renders without crashing', function () {})
 
-  it('should match snapshot', function () {
-    expect(wrapper).to.matchSnapshot()
-  })
-
   it('calls onChange prop when clicked', function () {
     wrapper.find('ForwardRef').simulate('change')
     expect(onChangeSpy.calledOnce).to.be.true()

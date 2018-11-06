@@ -1,32 +1,32 @@
 {
   "name": "@zooniverse/grommet-theme",
-  "version": "2.0.0",
   "description": "A Zooniverse theme for the Grommet React library",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
+    "clean": "rm -rf dist",
     "lint": "standard --fix",
-    "prebuild": "npm run clean",
     "start": "npm run build:watch"
   },
-  "author": "Roger Hutchings <roger@zooniverse.org> (https://www.zooniverse.org/)",
-  "license": "Apache-2.0",
-  "peerDependencies": {
-    "grommet": "2.0.0-beta.7"
-  },
   "dependencies": {
-    "deep-freeze": "0.0.1"
+    "deep-freeze": "~0.0.1"
+  },
+  "peerDependencies": {
+    "grommet": "~2.0.0-rc"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.26.0",
+    "babel-core": "~6.26.3",
+    "babel-preset-es2015": "~6.24.1",
+    "babel-preset-minify": "~0.5.0",
+    "standard": "~11.0.1"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-minify": "^0.5.0",
-    "standard": "^11.0.1"
   }
 }

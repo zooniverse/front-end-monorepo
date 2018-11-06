@@ -9,7 +9,7 @@ import mockData from './mockData'
 let d3svg
 let wrapper
 
-describe.only('Component > LightCurveViewer', function () {
+describe('Component > LightCurveViewer', function () {
   before(function () {
     const points = zip(mockData.x, mockData.y)
     const extent = {
@@ -17,7 +17,7 @@ describe.only('Component > LightCurveViewer', function () {
       y: d3.extent(mockData.y)
     }
 
-    //Use mount() instead of shallow() since d3 logic exists outside of render()
+    // Use mount() instead of shallow() since d3 logic exists outside of render()
     wrapper = render(<LightCurveViewer points={points} extent={extent} />)
   })
 
