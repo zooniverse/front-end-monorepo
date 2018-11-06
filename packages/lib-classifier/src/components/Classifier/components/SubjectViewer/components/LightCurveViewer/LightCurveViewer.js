@@ -103,7 +103,7 @@ class LightCurveViewer extends Component {
     this.updateAxes()
     
     // Add the data points
-    const points = this.d3dataLayer.selectAll('circle')
+    const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.points)
 
     const t = this.getCurrentTransform()
@@ -114,7 +114,7 @@ class LightCurveViewer extends Component {
 
     if (isFirstDraw) {
       points.enter()
-        .append('circle')
+        .append('circle')  // Note: all circles are of class '.data-point'
         .call(setPointStyle)
         .merge(points)
         .call(setPointCoords)
@@ -155,9 +155,7 @@ class LightCurveViewer extends Component {
     /*
     Data layer: data points are added here in drawChart()
     */
-    this.d3dataLayer = this.d3svg
-      .append('g')
-        .attr('class', 'data-layer')
+    this.d3dataLayer = this.d3svg.call(addDataLayer)
     
     /*
     Axis layer
@@ -189,7 +187,7 @@ class LightCurveViewer extends Component {
         
         // Re-draw the data points to fit the new view
         // Note: users can only zoom & pan in the x-direction
-        this.d3dataLayer.selectAll('circle')
+        this.d3dataLayer.selectAll('.data-point')
           .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
         
         this.updateAxes()
