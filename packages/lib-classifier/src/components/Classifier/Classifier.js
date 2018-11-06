@@ -33,14 +33,19 @@ class Classifier extends React.Component {
 
   componentDidMount () {
     const { project } = this.props
-    this.classifierStore.projects.setActive(project.id)
+    this.setProject(project)
   }
 
   componentDidUpdate (prevProps) {
     const { project } = this.props
     if (project.id !== prevProps.project.id) {
-      this.classifierStore.projects.set(project.id)
+      this.setProject(project)
     }
+  }
+
+  setProject (project) {
+    this.classifierStore.projects.setResource(project)
+    this.classifierStore.projects.setActive(project.id)
   }
 
   render () {
