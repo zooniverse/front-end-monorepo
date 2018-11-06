@@ -36,7 +36,7 @@
     "@babel/preset-env": "~7.0.0",
     "@babel/preset-react": "~7.0.0",
     "@babel/register": "~7.0.0",
-    "@babel/runtime": "~7.0.0",
+    "@babel/runtime": "~7.1.2",
     "@storybook/addon-actions": "~4.0.2",
     "@storybook/addon-backgrounds": "~4.0.2",
     "@storybook/addon-info": "~4.0.2",
