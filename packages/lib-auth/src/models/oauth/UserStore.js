@@ -39,9 +39,16 @@ const UserStore = types
         try {
           const response = yield panoptes.get('/me', {}, `Bearer ${token}`)
           const user = response.body[type][0]
-          self.setUser(user)
-          self.loadingState = asyncStates.success
-          console.log('Got user', user.display_name, user.id)
+          if (response.ok) {
+            self.setUser(user)
+            self.loadingState = asyncStates.success
+            console.log('Got user', user.display_name, user.id)
+          } else {
+            console.log('Could not get user:', response)
+            console.log('Resetting auth store and localStorage')
+            const credentials = getRoot(self).credentials
+            credentials.reset()
+          }
         } catch (error) {
           console.error(error)
           self.loadingState = asyncStates.error
