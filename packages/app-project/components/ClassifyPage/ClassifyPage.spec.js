@@ -11,4 +11,10 @@ describe('Component > ClassifyPage', function () {
   })
 
   it('should render without crashing', function () {})
+
+  it('should render the `FinishedForTheDay` component', function () {
+    // `FinishedForTheDay` is wrapped in a HOC, so we're just asserting on the
+    // text to include the component name.
+    expect(wrapper.text()).to.contain('FinishedForTheDay')
+  })
 })
