@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
+import { inject, observer } from 'mobx-react'
 
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
@@ -20,6 +21,15 @@ const LIGHTCURVE_DATA_CONSTRAINTS = {
   maxScale: 10,  
 }
 
+function storeMapper (stores) {
+  const { setOnZoom } = stores.classifierStore.subjectViewer
+  return {
+    setOnZoom
+  }
+}
+
+@inject(storeMapper)
+@observer
 class LightCurveViewer extends Component {
   constructor () {
     super()
@@ -60,6 +70,7 @@ class LightCurveViewer extends Component {
 
   componentDidMount () {
     this.initChart()
+    this.props.setOnZoom(this.handleToolbarZoom.bind(this))
   }
 
   componentDidUpdate (prevProps) {
@@ -142,6 +153,14 @@ class LightCurveViewer extends Component {
     return (d3.event && d3.event.transform)
       || d3.zoomTransform(this.d3interfaceLayer.node())
       || d3.zoomIdentity
+  }
+  
+  /*
+  Event Handler: Zoom (from Classifier's ImageToolbar)
+  Responds to zoom actions initiated by components outside the D3 model.
+   */
+  handleToolbarZoom (type, n) {
+    console.log('+++ TOOLBAR ZOOM ', type, n)
   }
 
   /*
@@ -241,12 +260,17 @@ class LightCurveViewer extends Component {
   }
 }
 
-LightCurveViewer.propTypes = {
+LightCurveViewer.wrappedComponent.propTypes = {
   extent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
-  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
+  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  setOnZoom: PropTypes.func.isRequired
+}
+
+LightCurveViewer.wrappedComponent.defaultProps = {
+  setOnZoom: (type, n) => {}
 }
 
 export default LightCurveViewer
