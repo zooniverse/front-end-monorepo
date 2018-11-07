@@ -89,7 +89,7 @@ class LightCurveViewer extends Component {
   }
 
   componentWillUnmount () {
-    this.d3interfaceLayer && this.d3interfaceLayer.on('.zoom', null)
+    this.zoom && this.zoom.on('zoom', null)
   }
 
   clearChart () {
