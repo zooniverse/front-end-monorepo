@@ -160,7 +160,18 @@ class LightCurveViewer extends Component {
   Responds to zoom actions initiated by components outside the D3 model.
    */
   handleToolbarZoom (type, n) {
-    console.log('+++ TOOLBAR ZOOM ', type, n)
+    // The following are arbitrary as all heck, numbers are chosen for what "feels good"
+    const ZOOM_IN_VALUE = 1.2
+    const ZOOM_OUT_VALUE = 0.8
+    const ZOOMING_TIME = 100  // milliseconds
+    
+    if (type === 'zoomin') {
+      this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
+    } else if (type === 'zoomout') {
+      this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
+    } else if (type === 'zoomto') {
+      this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), n)
+    }    
   }
 
   /*
