@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ProgressiveImage from 'react-progressive-image'
 import posed from 'react-pose'
-import styled from 'styled-components'
 import { Stack } from 'grommet'
 
 import en from './locales/en'

@@ -45,10 +45,9 @@ app.prepare()
 
       // Finally handle any non-matching routes
       handle(req, res)
-      return
     })
-    .listen(port, (err) => {
-      if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
-    })
+      .listen(port, (err) => {
+        if (err) throw err
+        console.log(`> Ready on http://localhost:${port}`)
+      })
   })

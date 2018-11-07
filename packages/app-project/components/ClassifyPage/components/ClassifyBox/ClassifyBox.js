@@ -11,6 +11,7 @@ function ClassifyBox ({ children }) {
 }
 
 ClassifyBox.propTypes = {
+  children: PropTypes.node
 }
 
 export default ClassifyBox
