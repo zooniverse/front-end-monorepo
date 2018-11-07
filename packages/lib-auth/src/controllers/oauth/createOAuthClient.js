@@ -8,7 +8,6 @@ import mountReactApp from './helpers/mountReactApp'
 import { oauth as OAuthApp } from '../../views'
 import OAuthStore from '../../models/oauth'
 
-
 function createOAuthClient ({
   authorizationUri,
   clientId,

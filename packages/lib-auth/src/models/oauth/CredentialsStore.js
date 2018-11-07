@@ -14,7 +14,7 @@ const defaultCredentials = {
 
 const warningDuration = Duration.fromObject({ minutes: 5 })
 
-function loadCredentials(key) {
+function loadCredentials (key) {
   const loaded = JSON.parse(localStorage.getItem(storageKey))
 
   if (!loaded || (loaded.expiresAt && loaded.expiresAt <= Date.now())) {
@@ -68,7 +68,7 @@ const Credentials = types
       self.logout()
     },
 
-    setTimers(expiresAt) {
+    setTimers (expiresAt) {
       const jsExpiresAt = new Date(toJS(expiresAt)) // convert from observable
       const luxonExpiresAt = DateTime.fromJSDate(jsExpiresAt)
 

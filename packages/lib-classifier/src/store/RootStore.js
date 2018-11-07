@@ -7,7 +7,7 @@ import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
-import UserStore from './UserStore'
+import UserProjectPreferencesStore from './UserProjectPreferencesStore';
 
 const RootStore = types
   .model('RootStore', {
@@ -18,7 +18,7 @@ const RootStore = types
     subjectViewer: types.optional(SubjectViewerStore, SubjectViewerStore.create()),
     workflows: types.optional(WorkflowStore, WorkflowStore.create()),
     workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create()),
-    users: types.optional(UserStore, UserStore.create())
+    userProjectPreferences: types.optional(UserProjectPreferencesStore, UserProjectPreferencesStore.create())
   })
 
   .views(self => ({

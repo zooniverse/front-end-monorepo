@@ -9,7 +9,7 @@ import {
 } from '@zooniverse/panoptes-js'
 
 import { registerWorkers } from '../../workers'
-import RootStore, { UserStore } from 'src/store'
+import RootStore from 'src/store'
 import Layout from './components/Layout'
 import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
@@ -26,11 +26,7 @@ class Classifier extends React.Component {
   constructor (props) {
     super(props)
 
-    const initStore = (props.user) ?
-      { users: UserStore.create({ active: user.id, resources: [[user.id, user]] }) } :
-      {}
-
-    this.classifierStore = RootStore.create(initStore, { authClient: props.authClient, client })
+    this.classifierStore = RootStore.create({}, { authClient: props.authClient, client })
     makeInspectable(this.classifierStore)
   }
 

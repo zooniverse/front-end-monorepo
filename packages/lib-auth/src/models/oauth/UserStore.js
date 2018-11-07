@@ -13,11 +13,11 @@ const UserStore = types
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createCredentialsObserver()
     }
 
-    function createCredentialsObserver() {
+    function createCredentialsObserver () {
       const credentialsDisposer = autorun(() => {
         const { token } = getRoot(self).credentials
         if (token) {
@@ -65,7 +65,6 @@ const UserStore = types
     function setUser (user) {
       self.resources.put(user)
       self.active = user.id
-
     }
 
     return {
