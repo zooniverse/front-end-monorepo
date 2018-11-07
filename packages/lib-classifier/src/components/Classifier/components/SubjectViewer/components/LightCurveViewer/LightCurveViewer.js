@@ -25,20 +25,31 @@ class LightCurveViewer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const isFirstDraw = !prevProps.points.length && this.props.points.length
-    if (isFirstDraw) {
-      const container = this.svgContainer.current
-      const height = container.offsetHeight || 0
-      const width = container.offsetWidth || 0
-      this.drawChart(width, height, isFirstDraw)
+    const points = this.props.points
+    const prevPoints = prevProps.points
+    const sameSubject = (points === prevPoints)
+
+    if (!sameSubject) {
+      this.clearChart()
     }
+
+    const container = this.svgContainer.current
+    const height = container.offsetHeight || 0
+    const width = container.offsetWidth || 0
+    this.drawChart(width, height, sameSubject)
   }
 
   componentWillUnmount () {
     this.d3interfaceLayer.on('.zoom', null)
   }
 
-  drawChart (width, height, isFirstDraw = false) {
+  clearChart () {
+    console.info('clearing')
+    this.d3dataLayer.selectAll('circle')
+      .remove()
+  }
+
+  drawChart (width, height, shouldAnimate = false) {
     if (!height || !width) {
       return false
     }
@@ -58,18 +69,18 @@ class LightCurveViewer extends Component {
       .attr('cx', d => this.xScale(d[0]))
       .attr('cy', d => this.yScale(d[1]))
 
-    if (isFirstDraw) {
+    if (shouldAnimate) {
       points.enter()
         .append('circle')
         .call(setPointStyle)
         .merge(points)
+        .transition()
         .call(setPointCoords)
     } else {
       points.enter()
         .append('circle')
         .call(setPointStyle)
         .merge(points)
-        .transition()
         .call(setPointCoords)
     }
   }

@@ -28,9 +28,9 @@ class LightCurveViewerContainer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const prevSubject = prevProps.subject
-    const { subject } = this.props
-
+    const prevSubject = prevProps.subject.toJSON()
+    const subject = this.props.subject.toJSON()
+    console.info(prevSubject.id, subject.id)
     if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
       this.handleSubject()
     }
@@ -92,6 +92,7 @@ class LightCurveViewerContainer extends Component {
     if (!subject) {
       return null
     }
+
     return (
       <LightCurveViewer
         extent={this.state.extent}
