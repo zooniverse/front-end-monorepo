@@ -31,7 +31,7 @@ const UserProjectPreferencesStore = types
       const project = getRoot(self).projects.active
       const { authClient } = getRoot(self)
       const authToken = authClient.getToken() || {}
-      console.log('authToken', authToken.expiresAt)
+      console.log('authToken', authToken)
       const user = authClient.getUser()
       if (authToken.token && user) {
         self.fetchUPP(project, user)
