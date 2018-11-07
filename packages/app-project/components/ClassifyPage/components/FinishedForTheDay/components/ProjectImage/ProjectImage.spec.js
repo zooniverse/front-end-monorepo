@@ -26,4 +26,11 @@ describe('Component > ProjectImage', function () {
     expect(noscriptWrapper.length).to.equal(1)
     expect(imageWrapper.length).to.equal(1)
   })
+
+  it('should have an alt', function () {
+    const imgsWrapper = wrapper.find('img')
+    imgsWrapper.forEach(imgWrapper =>
+      expect(imgWrapper.prop('alt')).to.equal(`Image for ${projectName}`)
+    )
+  })
 })

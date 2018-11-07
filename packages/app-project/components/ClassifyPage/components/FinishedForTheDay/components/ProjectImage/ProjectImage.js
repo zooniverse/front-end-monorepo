@@ -1,3 +1,4 @@
+import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 import ProgressiveImage from 'react-progressive-image'
@@ -8,12 +9,15 @@ import { Stack } from 'grommet'
 import en from './locales/en'
 import Placeholder from './components/Placeholder'
 
+counterpart.registerTranslations('en', en)
+
 const Img = posed.img({
   hidden: { opacity: 0 },
   visible: { opacity: 1 }
 })
 
 function ProjectImage ({ imageSrc, projectName }) {
+  const alt = counterpart('ProjectImage.alt', { projectName })
   return (
     <ProgressiveImage
       src={imageSrc}
@@ -31,12 +35,12 @@ function ProjectImage ({ imageSrc, projectName }) {
                 objectFit: 'cover'
               }}
               src={src}
-              alt={`Background image for ${projectName}`}
+              alt={alt}
               pose={loading ? 'hidden' : 'visible'}
             />
           </Stack>
           <noscript>
-            <img src={imageSrc} />
+            <img src={imageSrc} alt={alt} />
           </noscript>
         </>
       )}
