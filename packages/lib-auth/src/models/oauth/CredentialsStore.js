@@ -50,7 +50,7 @@ const Credentials = types
       if (!credentialsObject.expiresAt || !credentialsObject.token) {
         throw new ReferenceError('You must pass an object with both an `expiresAt` and a `token` property')
       }
-      console.log('credentialsObject', credentialsObject)
+
       self.saveCredentials(credentialsObject)
       self.setTimers(credentialsObject.expiresAt)
       applySnapshot(self, credentialsObject)

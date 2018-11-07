@@ -46,7 +46,7 @@ class App extends React.Component {
       this.setState({ loading: true })
       return this.authClient.completeLogin()
         .then(() => {
-          this.setState({ authenticated: true, loading: false })
+          this.setState({ authenticated: !!this.authClient.getUser(), loading: false })
           history.replaceState(null, document.title, location.pathname + location.search)
         })
     }
