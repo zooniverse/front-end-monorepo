@@ -3,10 +3,12 @@ const webpack = require('webpack')
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
-  NODE_ENV: 'development',
-  PANOPTES_ENV: 'staging'
+  NODE_ENV: 'production',
+  PANOPTES_ENV: 'production'
 })
 
+// TODO: get optimization config working
+// Current it causes the exported initialization function to be undefined (createOAuthClient)
 module.exports = {
   entry: './src/index.js',
   mode: 'production',
@@ -19,10 +21,23 @@ module.exports = {
       }
     ]
   },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         name: 'vendor',
+  //         test: /[\\/]node_modules[\\/]/,
+  //         chunks: 'all',
+  //         enforce: true
+  //       }
+  //     }
+  //   }
+  // },
   output: {
     path: path.resolve('dist'),
     filename: 'main.js',
-    library: '@zooniverse/classifier',
+    // chunkFilename: '[name].js',
+    library: '@zooniverse/auth',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
