@@ -6,6 +6,5 @@
 --ui bdd
 --file ./test/enzyme-config.js
 --file ./test/enzyme-setup.js
---require mock-local-storage
 
 ./src/**/*.spec.js

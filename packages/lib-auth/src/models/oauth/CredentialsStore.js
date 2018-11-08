@@ -1,6 +1,6 @@
 import { DateTime, Duration } from 'luxon'
 import { toJS } from 'mobx'
-import { applySnapshot, getRoot, getType, types } from 'mobx-state-tree'
+import { applySnapshot, getRoot, types } from 'mobx-state-tree'
 import setTimer from './helpers/setTimer'
 import clearTimer from './helpers/clearTimer'
 
