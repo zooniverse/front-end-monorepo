@@ -17,7 +17,6 @@ const DEFAULT_CREDENTIALS = {
 describe('Model > CredentialsStore', function () {
   let credentialsStore
   let oauthStore
-  let openTimeoutWarningPopupStub
   before(function () {
     credentialsStore = CredentialsStore.create()
     oauthStore = OAuthStore.create({
