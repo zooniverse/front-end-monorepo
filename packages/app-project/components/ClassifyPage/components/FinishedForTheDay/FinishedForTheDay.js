@@ -12,7 +12,6 @@ counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   border-width: 1px;
-  font-size: 14px;
   min-width: 300px;
 `
 
@@ -34,13 +33,21 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
         </StyledParagraph>
         <Box gap='small' direction='row-responsive'>
           <StyledButton
-            label={counterpart('FinishedForTheDay.buttons.stats')}
+            label={(
+              <Text size='small'>
+                {counterpart('FinishedForTheDay.buttons.stats')}
+              </Text>
+            )}
             onClick={() => console.info('click')}
             primary
           />
           <StyledButton
             onClick={() => console.info('click')}
-            label={counterpart('FinishedForTheDay.buttons.anotherProject')}
+            label={(
+              <Text size='small'>
+                {counterpart('FinishedForTheDay.buttons.anotherProject')}
+              </Text>
+            )}
           />
         </Box>
       </ClassifyBox>
