@@ -14,7 +14,7 @@ const DEFAULT_CREDENTIALS = {
   token: ''
 }
 
-describe.only('Model > CredentialsStore', function () {
+describe('Model > CredentialsStore', function () {
   let credentialsStore
   let oauthStore
   let openTimeoutWarningPopupStub
