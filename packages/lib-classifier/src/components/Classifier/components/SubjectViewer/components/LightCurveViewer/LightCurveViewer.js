@@ -10,14 +10,17 @@ import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
 //TODO: move into props or some other configurable
-const LIGHTCURVE_DATA_CONSTRAINTS = {
+const LIGHTCURVE_CONFIG = {
   /*
   Zoom range of 1x to 10x.
   Minimum zoom prevent users from "zooming out" (< 1x zoom) beyond
   reasonable subject area, maximum zoom is arbitrary.
    */
   minScale: 1,
-  maxScale: 10,  
+  maxScale: 10,
+  
+  axisMargin: 40,  // Distance of axes from container edges. Should be less than dataMargin
+  dataMargin: 50,  // Distance of data points from container edges.
 }
 
 class LightCurveViewer extends Component {
@@ -105,12 +108,12 @@ class LightCurveViewer extends Component {
     // Update x-y scales to fit current size of container
     this.xScale
       .domain(this.props.extent.x)
-      .range([0, width])
+      .range([0 + LIGHTCURVE_CONFIG.dataMargin, width - LIGHTCURVE_CONFIG.dataMargin])
     this.yScale
       .domain(this.props.extent.y)
-      .range([height, 0])  //Note that this is reversed
+      .range([height - LIGHTCURVE_CONFIG.dataMargin, 0 + LIGHTCURVE_CONFIG.dataMargin])  //Note that this is reversed
     
-    this.updateAxes()
+    this.updateAxes(width, height)
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
@@ -172,7 +175,7 @@ class LightCurveViewer extends Component {
     Actual scaling done in updateAxes()
      */
     this.xAxis = d3.axisBottom(this.yScale)
-    this.yAxis = d3.axisRight(this.yScale)
+    this.yAxis = d3.axisLeft(this.yScale)
     const axisLayer = this.d3svg
       .append('g')
         .attr('class', 'axis-layer')
@@ -190,7 +193,7 @@ class LightCurveViewer extends Component {
 
     // Zoom controller
     this.zoom = d3.zoom()
-      .scaleExtent([LIGHTCURVE_DATA_CONSTRAINTS.minScale, LIGHTCURVE_DATA_CONSTRAINTS.maxScale])  // Limit zoom scale
+      .scaleExtent([LIGHTCURVE_CONFIG.minScale, LIGHTCURVE_CONFIG.maxScale])  // Limit zoom scale
     
       .on('zoom', () => {
         const t = d3.event.transform
@@ -216,14 +219,20 @@ class LightCurveViewer extends Component {
   Update the x-axis and y-axis to fit the new zoom/pan view.
   Note that for light curves, we only allow panning & zooming in the x-direction.
    */
-  updateAxes() {
+  updateAxes(width, height) {
     const t = this.getCurrentTransform()
     
     this.xAxis.scale(t.rescaleX(this.xScale))
     this.d3axisX.call(this.xAxis)
+    if (height) {  // Only update axis position if container size changes.
+      this.d3axisX.attr('transform', `translate(0, ${height - LIGHTCURVE_CONFIG.axisMargin})`)
+    }
     
     this.yAxis.scale(this.yScale)
     this.d3axisY.call(this.yAxis)
+    if (width) {  // Only update axis position if container size changes.
+      this.d3axisY.attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin}, 0)`)
+    }
   }
 
   render () {
