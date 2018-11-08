@@ -28,10 +28,11 @@ class LightCurveViewerContainer extends Component {
   }
 
   componentDidUpdate (prevProps) {
+    const { subject, subjectId } = this.props
     const prevSubject = prevProps.subject
-    const { subject } = this.props
+    const prevSubjectId = prevProps.subjectId
 
-    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
+    if (subject && (!prevSubject || prevSubjectId !== subjectId)) {
       this.handleSubject()
     }
   }
@@ -92,6 +93,7 @@ class LightCurveViewerContainer extends Component {
     if (!subject) {
       return null
     }
+
     return (
       <LightCurveViewer
         extent={this.state.extent}
@@ -104,9 +106,8 @@ class LightCurveViewerContainer extends Component {
 LightCurveViewerContainer.propTypes = {
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  })
+  }),
+  subjectId: PropTypes.string
 }
-
-LightCurveViewerContainer.defaultProps = {}
 
 export default LightCurveViewerContainer
