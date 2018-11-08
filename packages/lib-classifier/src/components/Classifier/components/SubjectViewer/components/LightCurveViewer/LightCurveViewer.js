@@ -44,7 +44,6 @@ class LightCurveViewer extends Component {
   }
 
   clearChart () {
-    console.info('clearing')
     this.d3dataLayer.selectAll('circle')
       .remove()
   }
