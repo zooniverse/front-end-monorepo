@@ -39,7 +39,8 @@ const SubjectViewer = types
     },
 
     resetView () {
-      console.log('resetting view')
+      console.log('resetting view')      
+      self.onZoom && self.onZoom('zoomto', 1.0)
     },
 
     rotate () {
