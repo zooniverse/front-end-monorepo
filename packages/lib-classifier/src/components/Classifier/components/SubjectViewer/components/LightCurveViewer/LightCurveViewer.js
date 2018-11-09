@@ -21,6 +21,12 @@ const LIGHTCURVE_CONFIG = {
   
   axisMargin: 40,  // Distance of axes from container edges. Should be less than dataMargin
   dataMargin: 50,  // Distance of data points from container edges.
+  
+  axisXLabel: 'Time',
+  axisYLabel: 'Brightness',
+  
+  axisLabelFontFamily: 'inherit',
+  axisLabelFontSize: '0.75rem',
 }
 
 class LightCurveViewer extends Component {
@@ -58,6 +64,8 @@ class LightCurveViewer extends Component {
      */
     this.d3axisX = null
     this.d3axisY = null
+    this.d3axisXLabel = null
+    this.d3axisYLabel = null
     this.xAxis = null
     this.yAxis = null
   }
@@ -114,7 +122,7 @@ class LightCurveViewer extends Component {
       .domain(this.props.extent.y)
       .range([height - LIGHTCURVE_CONFIG.dataMargin, 0 + LIGHTCURVE_CONFIG.dataMargin])  //Note that this is reversed
     
-    this.updateAxesAndDataMask(width, height)
+    this.updatePresentation(width, height)
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
@@ -168,13 +176,14 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addBackgroundLayer)
     
     /*
-    Data layer: data points are added here in drawChart()
+    Data layer
+    Data points are added to this layer in drawChart().
+    The supplementary data mask is a "window" or clipping path that prevents the
+    data points from appearing outside of the 'middle' of the chart, i.e.
+    prevents <circle>s from appearing in the margins of the container.
     */
     this.d3svg.call(addDataLayer)
     this.d3dataLayer = this.d3svg.select('.data-layer')
-    
-    console.log('+++', this.d3dataLayer)
-    
     this.d3dataMask = this.d3svg
       .append('clipPath')
         .attr('id', 'data-mask')
@@ -185,13 +194,14 @@ class LightCurveViewer extends Component {
     
     /*
     Axis layer
-    Actual scaling done in updateAxesAndDataMask()
+    Actual scaling done in updatePresentation()
      */
     this.xAxis = d3.axisBottom(this.yScale)
     this.yAxis = d3.axisLeft(this.yScale)
     const axisLayer = this.d3svg
       .append('g')
         .attr('class', 'axis-layer')
+    
     this.d3axisX = axisLayer
       .append('g')
         .attr('class', 'x-axis')
@@ -200,6 +210,19 @@ class LightCurveViewer extends Component {
       .append('g')
         .attr('class', 'y-axis')
         .call(this.yAxis)
+    
+    this.d3axisXLabel = axisLayer
+      .append('text')
+        .attr('class', 'x-axis-label')
+        .style('font-size', LIGHTCURVE_CONFIG.axisLabelFontSize)
+        .style('font-family', LIGHTCURVE_CONFIG.axisLabelFontFamily)
+        .text(LIGHTCURVE_CONFIG.axisXLabel)
+    this.d3axisYLabel = axisLayer
+      .append('text')
+        .attr('class', 'y-axis-label')
+        .style('font-size', LIGHTCURVE_CONFIG.axisLabelFontSize)
+        .style('font-family', LIGHTCURVE_CONFIG.axisLabelFontFamily)
+        .text(LIGHTCURVE_CONFIG.axisYLabel)
     
     // Deco layer
     this.d3svg.call(addBorderLayer)
@@ -216,7 +239,7 @@ class LightCurveViewer extends Component {
         this.d3dataLayer.selectAll('.data-point')
           .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
         
-        this.updateAxesAndDataMask()
+        this.updatePresentation()
       })
     
     /*
@@ -230,26 +253,35 @@ class LightCurveViewer extends Component {
   }
   
   /*
-  Update the x-axis and y-axis to fit the new zoom/pan view.
-  Note that for light curves, we only allow panning & zooming in the x-direction.
+  Update the x-axis, y-axis, and other presentation elements to fit the new
+  zoom/pan view.
+  width and height are only defined if the container size changes.
    */
-  updateAxesAndDataMask(width, height) {
+  updatePresentation(width, height) {
     const t = this.getCurrentTransform()
     
-    this.xAxis.scale(t.rescaleX(this.xScale))
+    this.xAxis.scale(t.rescaleX(this.xScale))  // Rescale the x-axis to fit zoom
     this.d3axisX.call(this.xAxis)
     
-    this.yAxis.scale(this.yScale)
+    this.yAxis.scale(this.yScale)  // Do NOT rescale the y-axis
     this.d3axisY.call(this.yAxis)
     
-    if (width && height) {  // Update axis position and data mask if container size changes.
+    if (width && height) {  // Update if container size changes.
+      // Reposition x-axis
       this.d3axisX.attr('transform', `translate(0, ${height - LIGHTCURVE_CONFIG.axisMargin})`)
       this.d3axisY.attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin}, 0)`)
+      
+      // Reposition axis labels
+      this.d3axisXLabel
+        .attr('transform', `translate(${width - LIGHTCURVE_CONFIG.axisMargin * 1.5}, ${height - LIGHTCURVE_CONFIG.axisMargin * 0.25})`)
+      this.d3axisYLabel
+        .attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin * 0.25}, ${LIGHTCURVE_CONFIG.axisMargin * 0.75})`)
+      
+      // Resize the data mask, so data-points remain in view 
       this.d3dataMask
         .attr('width', width - LIGHTCURVE_CONFIG.axisMargin * 2)
         .attr('height', height - LIGHTCURVE_CONFIG.axisMargin * 2)
     }
-    
   }
 
   render () {
