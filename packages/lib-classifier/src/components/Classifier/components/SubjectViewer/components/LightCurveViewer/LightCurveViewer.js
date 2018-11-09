@@ -160,6 +160,7 @@ class LightCurveViewer extends Component {
         .attr('class', 'light-curve-viewer')
         .attr('height', '100%')
         .attr('width', '100%')
+        .style('cursor', 'grab')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
     
