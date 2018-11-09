@@ -2,6 +2,10 @@ const path = require('path')
 
 module.exports = {
   entry: './src/index.js',
+  externals: {
+    react: 'react',
+    'react-dom': 'react-dom'
+  },
   mode: 'production',
   module: {
     rules: [
@@ -27,5 +31,5 @@ module.exports = {
       path.resolve(__dirname),
       'node_modules'
     ]
-  },
+  }
 }
