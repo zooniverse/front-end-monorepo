@@ -17,7 +17,9 @@ module.exports = {
     filename: 'main.js',
     library: '@zooniverse/react-components',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+
+    // Workaround for webpack/webpack#6522
+    globalObject: `typeof self !== 'undefined' ? self : this`
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
@@ -25,5 +27,5 @@ module.exports = {
       path.resolve(__dirname),
       'node_modules'
     ]
-  }
+  },
 }
