@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Box, Button, Grid, Heading, Paragraph } from 'grommet'
+import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'

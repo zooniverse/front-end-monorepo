@@ -1,5 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+
+import FinishedForTheDay from './FinishedForTheDay'
 import FinishedForTheDayContainer from './FinishedForTheDayContainer'
 
 const mockStore = {
@@ -23,7 +25,7 @@ describe('Component > FinishedForTheDayContainer', function () {
   it('should render without crashing', function () {})
 
   it('should render the `FinishedForTheDay` component', function () {
-    expect(wrapper.find('FinishedForTheDay').first().length).to.equal(1)
+    expect(wrapper.find(FinishedForTheDay).length).to.equal(1)
   })
 
   it('should pass the correct props to the `FinishedForTheDay` component', function () {

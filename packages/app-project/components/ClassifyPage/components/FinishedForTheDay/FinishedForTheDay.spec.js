@@ -1,6 +1,8 @@
 import { shallow, render } from 'enzyme'
 import React from 'react'
+
 import FinishedForTheDay from './FinishedForTheDay'
+import ProjectImage from './components/ProjectImage'
 
 const projectName = 'Foobar'
 const imageSrc = 'foobar.jpg'
@@ -33,13 +35,13 @@ describe('Component > FinishedForTheDay', function () {
   })
 
   it('should not contain a `ProjectImage` if there\'s no `imgSrc` prop', function () {
-    const image = wrapper.find('ProjectImage')
+    const image = wrapper.find(ProjectImage)
     expect(image.length).to.equal(0)
   })
 
   it('should contain a `ProjectImage` if an `imageSrc` prop is present', function () {
     const wrapper = shallow(<FinishedForTheDay projectName={projectName} imageSrc={imageSrc} />)
-    const projectImageWrapper = wrapper.find('ProjectImage')
+    const projectImageWrapper = wrapper.find(ProjectImage)
     expect(projectImageWrapper.length).to.equal(1)
     expect(projectImageWrapper.prop('imageSrc')).to.equal(imageSrc)
   })

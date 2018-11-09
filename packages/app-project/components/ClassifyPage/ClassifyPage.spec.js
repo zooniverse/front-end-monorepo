@@ -2,6 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import ClassifyPage from './ClassifyPage'
+import FinishedForTheDay from './components/FinishedForTheDay'
 
 let wrapper
 
@@ -13,8 +14,6 @@ describe('Component > ClassifyPage', function () {
   it('should render without crashing', function () {})
 
   it('should render the `FinishedForTheDay` component', function () {
-    // `FinishedForTheDay` is wrapped in a HOC, so we're just asserting on the
-    // text to include the component name.
-    expect(wrapper.text()).to.contain('FinishedForTheDay')
+    expect(wrapper.find(FinishedForTheDay).length).to.equal(1)
   })
 })
