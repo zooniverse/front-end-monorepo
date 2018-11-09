@@ -30,6 +30,7 @@ class LightCurveViewer extends Component {
     this.svgContainer = React.createRef()
     
     // D3 Selection elements
+    this.d3dataMask = null
     this.d3dataLayer = null
     this.d3interfaceLayer = null
     this.d3svg = null
@@ -113,7 +114,7 @@ class LightCurveViewer extends Component {
       .domain(this.props.extent.y)
       .range([height - LIGHTCURVE_CONFIG.dataMargin, 0 + LIGHTCURVE_CONFIG.dataMargin])  //Note that this is reversed
     
-    this.updateAxes(width, height)
+    this.updateAxesAndDataMask(width, height)
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
@@ -168,11 +169,22 @@ class LightCurveViewer extends Component {
     /*
     Data layer: data points are added here in drawChart()
     */
-    this.d3dataLayer = this.d3svg.call(addDataLayer)
+    this.d3svg.call(addDataLayer)
+    this.d3dataLayer = this.d3svg.select('.data-layer')
+    
+    console.log('+++', this.d3dataLayer)
+    
+    this.d3dataMask = this.d3svg
+      .append('clipPath')
+        .attr('id', 'data-mask')
+        .append('rect')
+          .attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin}, ${LIGHTCURVE_CONFIG.axisMargin})`)
+          .attr('width', 0)
+          .attr('height', 0)
     
     /*
     Axis layer
-    Actual scaling done in updateAxes()
+    Actual scaling done in updateAxesAndDataMask()
      */
     this.xAxis = d3.axisBottom(this.yScale)
     this.yAxis = d3.axisLeft(this.yScale)
@@ -203,7 +215,7 @@ class LightCurveViewer extends Component {
         this.d3dataLayer.selectAll('.data-point')
           .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
         
-        this.updateAxes()
+        this.updateAxesAndDataMask()
       })
     
     /*
@@ -211,7 +223,8 @@ class LightCurveViewer extends Component {
     mouse input but making it impossible to directly interact with any layer
     elements beneath it.
      */
-    this.d3interfaceLayer = this.d3svg.call(addInterfaceLayer)
+    this.d3svg.call(addInterfaceLayer)
+    this.d3interfaceLayer = this.d3svg.select('.interface-layer')
     this.d3interfaceLayer.call(this.zoom)
   }
   
@@ -219,20 +232,23 @@ class LightCurveViewer extends Component {
   Update the x-axis and y-axis to fit the new zoom/pan view.
   Note that for light curves, we only allow panning & zooming in the x-direction.
    */
-  updateAxes(width, height) {
+  updateAxesAndDataMask(width, height) {
     const t = this.getCurrentTransform()
     
     this.xAxis.scale(t.rescaleX(this.xScale))
     this.d3axisX.call(this.xAxis)
-    if (height) {  // Only update axis position if container size changes.
-      this.d3axisX.attr('transform', `translate(0, ${height - LIGHTCURVE_CONFIG.axisMargin})`)
-    }
     
     this.yAxis.scale(this.yScale)
     this.d3axisY.call(this.yAxis)
-    if (width) {  // Only update axis position if container size changes.
+    
+    if (width && height) {  // Update axis position and data mask if container size changes.
+      this.d3axisX.attr('transform', `translate(0, ${height - LIGHTCURVE_CONFIG.axisMargin})`)
       this.d3axisY.attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin}, 0)`)
+      this.d3dataMask
+        .attr('width', width - LIGHTCURVE_CONFIG.axisMargin * 2)
+        .attr('height', height - LIGHTCURVE_CONFIG.axisMargin * 2)
     }
+    
   }
 
   render () {
