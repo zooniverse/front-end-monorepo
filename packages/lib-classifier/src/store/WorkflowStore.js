@@ -12,18 +12,18 @@ const WorkflowStore = types
 
   .actions(self => {
     function afterAttach () {
-      createProjectObserver()
+      createUPPObserver()
     }
 
-    function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const project = getRoot(self).projects.active
-        if (project) {
+    function createUPPObserver () {
+      const uppDisposer = autorun(() => {
+        const upp = getRoot(self).userProjectPreferences.active
+        if (upp) {
           self.reset()
           selectWorkflow()
         }
       })
-      addDisposer(self, projectDisposer)
+      addDisposer(self, uppDisposer)
     }
 
     function getDefaultWorkflowId () {
