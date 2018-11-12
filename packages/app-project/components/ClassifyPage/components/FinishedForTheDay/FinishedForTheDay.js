@@ -21,6 +21,7 @@ const StyledParagraph = styled(Paragraph)`
 
 function FinishedForTheDay ({ imageSrc, projectName }) {
   const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
+
   return (
     <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}

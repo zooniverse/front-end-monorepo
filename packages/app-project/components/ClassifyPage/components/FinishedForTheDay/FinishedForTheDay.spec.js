@@ -17,12 +17,12 @@ describe('Component > FinishedForTheDay', function () {
   it('should render without crashing', function () {})
 
   it('should contain a title', function () {
-    expect(wrapper.find('h3').first().length).to.equal(1)
+    expect(wrapper.find('h3')).to.have.lengthOf(1)
   })
 
   it('should contain some text', function () {
-    const para = wrapper.find('p').first()
-    expect(para.length).to.equal(1)
+    const para = wrapper.find('p')
+    expect(para).to.have.lengthOf(1)
     expect(para.text().length).to.be.ok
   })
 
@@ -35,14 +35,13 @@ describe('Component > FinishedForTheDay', function () {
   })
 
   it('should not contain a `ProjectImage` if there\'s no `imgSrc` prop', function () {
-    const image = wrapper.find(ProjectImage)
-    expect(image.length).to.equal(0)
+    expect(wrapper.find(ProjectImage)).to.have.lengthOf(0)
   })
 
   it('should contain a `ProjectImage` if an `imageSrc` prop is present', function () {
     const wrapper = shallow(<FinishedForTheDay projectName={projectName} imageSrc={imageSrc} />)
     const projectImageWrapper = wrapper.find(ProjectImage)
-    expect(projectImageWrapper.length).to.equal(1)
+    expect(projectImageWrapper).to.have.lengthOf(1)
     expect(projectImageWrapper.prop('imageSrc')).to.equal(imageSrc)
   })
 })

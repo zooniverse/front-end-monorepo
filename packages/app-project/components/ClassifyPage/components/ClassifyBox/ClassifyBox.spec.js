@@ -18,6 +18,6 @@ describe('Component > ClassifyBox', function () {
   it('should render without crashing', function () {})
 
   it('should render its children', function () {
-    expect(wrapper.find(Foobar).length).to.equal(1)
+    expect(wrapper.find(Foobar)).to.have.lengthOf(1)
   })
 })

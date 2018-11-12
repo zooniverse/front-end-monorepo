@@ -14,6 +14,6 @@ describe('Component > ClassifyPage', function () {
   it('should render without crashing', function () {})
 
   it('should render the `FinishedForTheDay` component', function () {
-    expect(wrapper.find(FinishedForTheDay).length).to.equal(1)
+    expect(wrapper.find(FinishedForTheDay)).to.have.lengthOf(1)
   })
 })
