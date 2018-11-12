@@ -94,7 +94,7 @@ class LightCurveViewer extends Component {
   }
 
   clearChart () {
-    this.d3dataLayer.selectAll('circle')
+    this.d3dataLayer.selectAll('.data-point')
       .remove()
   }
 
@@ -159,7 +159,7 @@ class LightCurveViewer extends Component {
   /*
   Initialises the D3 scatterplot chart.
   The chart is divided into multiple layers (both functional and decorative).
-  IMPORTANT: note the order these layers are added.
+  IMPORTANT: layers are added in z-index order, lowest first.
    */
   initChart () {
     const container = this.svgContainer.current
@@ -223,14 +223,13 @@ class LightCurveViewer extends Component {
         .style('font-size', LIGHTCURVE_CONFIG.axisLabelFontSize)
         .style('font-family', LIGHTCURVE_CONFIG.axisLabelFontFamily)
         .text(LIGHTCURVE_CONFIG.axisYLabel)
-    
+
     // Deco layer
     this.d3svg.call(addBorderLayer)
 
     // Zoom controller
     this.zoom = d3.zoom()
       .scaleExtent([LIGHTCURVE_CONFIG.minScale, LIGHTCURVE_CONFIG.maxScale])  // Limit zoom scale
-    
       .on('zoom', () => {
         const t = d3.event.transform
         

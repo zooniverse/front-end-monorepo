@@ -38,7 +38,6 @@ class Countdown extends React.Component {
   setTime () {
     // TODO: fix this so if expiresAt is falsy, it doesn't break
     const timeLeft = DateTime.fromMillis(this.props.expiresAt).diffNow()
-
     if (timeLeft >= 0) {
       const [hours, minutes, seconds] = timeLeft.toFormat('hh mm ss').split(' ')
       const isoDuration = `PT${hours}H${minutes}M${seconds}S`

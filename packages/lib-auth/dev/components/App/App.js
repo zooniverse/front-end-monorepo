@@ -26,7 +26,7 @@ class App extends React.Component {
       this.auth.completeLogin()
         .then(() => {
           this.setState({ loading: false })
-          window.location.href = '/'
+          history.replaceState(null, document.title, location.pathname + location.search)
         })
     }
   }
@@ -41,7 +41,7 @@ class App extends React.Component {
   renderApp () {
     return (
       <Box>
-        <Box direction='row' justify='between' align='between' pad='small'>
+        <Box direction='row' justify='between' pad='small'>
           <div>OAuth Test app</div>
           {this.auth.getToken()
             ? <Button onClick={this.logout} label='Logout' />

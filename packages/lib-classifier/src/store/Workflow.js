@@ -1,6 +1,5 @@
-import { getType, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Resource from './Resource'
-import Step from './Step'
 
 const Workflow = types
   .model('Workflow', {
