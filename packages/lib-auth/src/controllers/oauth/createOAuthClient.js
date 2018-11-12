@@ -28,7 +28,7 @@ function createOAuthClient ({
   let element = createElement()
 
   // Functions
-  function initialize() {
+  function initialize () {
     const { expiresAt, token } = store.credentials
     const { access_token, expires_in } = queryString.parse(window.location.hash)
 
@@ -89,7 +89,7 @@ function createOAuthClient ({
     return snapshot.active || null
   }
 
-  function logout(onLogout) {
+  function logout (onLogout) {
     return Promise.resolve(store.credentials.logout())
       .then(() => {
         if (onLogout) onLogout()
@@ -101,7 +101,6 @@ function createOAuthClient ({
       .then(() => {
         if (onStartLogin) onStartLogin()
       })
-
   }
 
   // Init
