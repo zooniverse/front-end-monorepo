@@ -1,27 +1,26 @@
-import { get } from 'lodash'
+import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
 
 import FinishedForTheDay from './FinishedForTheDay'
 
 @inject('store')
 @observer
 class FinishedForTheDayContainer extends Component {
-  getComponentProps () {
-    const { props } = this
-    const projectName = get(props, 'store.project.displayName', '')
-    const imageSrc = get(props, 'store.project.backgrounds[0].src', '')
-    return {
-      imageSrc,
-      projectName
-    }
+  getProjectName () {
+    return this.props.store.project?.displayName || ''
+  }
+
+  getImageSrc () {
+    return this.props.store.project?.backgrounds[0].src || ''
   }
 
   render () {
-    const componentProps = this.getComponentProps()
     return (
-      <FinishedForTheDay {...componentProps} />
+      <FinishedForTheDay
+        projectName={this.getProjectName()}
+        imageSrc={this.getImageSrc()}
+      />
     )
   }
 }
