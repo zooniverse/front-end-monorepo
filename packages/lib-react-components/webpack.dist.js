@@ -2,10 +2,6 @@ const path = require('path')
 
 module.exports = {
   entry: './src/index.js',
-  externals: {
-    react: 'react',
-    'react-dom': 'react-dom'
-  },
   mode: 'production',
   module: {
     rules: [
@@ -15,17 +11,6 @@ module.exports = {
         use: 'babel-loader'
       }
     ]
-  },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
   },
   output: {
     path: path.resolve('dist'),
