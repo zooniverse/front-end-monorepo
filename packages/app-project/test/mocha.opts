@@ -5,4 +5,4 @@
 --file ./test/create-enzyme-adapter.js
 --file ./test/create-global-document.js
 
-./pages/*.spec.js
+./{components,pages}/**/*.spec.js
