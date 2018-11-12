@@ -93,7 +93,7 @@ class LightCurveViewer extends Component {
   }
 
   clearChart () {
-    this.d3dataLayer.selectAll('circle')
+    this.d3dataLayer.selectAll('.data-point')
       .remove()
   }
 
@@ -177,7 +177,7 @@ class LightCurveViewer extends Component {
   /*
   Initialises the D3 scatterplot chart.
   The chart is divided into multiple layers (both functional and decorative).
-  IMPORTANT: note the order these layers are added.
+  IMPORTANT: layers are added in z-index order, lowest first.
    */
   initChart () {
     const container = this.svgContainer.current
