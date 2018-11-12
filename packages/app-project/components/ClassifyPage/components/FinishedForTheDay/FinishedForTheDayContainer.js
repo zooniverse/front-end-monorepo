@@ -8,11 +8,11 @@ import FinishedForTheDay from './FinishedForTheDay'
 @observer
 class FinishedForTheDayContainer extends Component {
   getProjectName () {
-    return this.props.store.project?.displayName || ''
+    return this.props.store.project?.displayName
   }
 
   getImageSrc () {
-    return this.props.store.project?.backgrounds[0].src || ''
+    return this.props.store.project?.backgrounds?[0]?.src
   }
 
   render () {

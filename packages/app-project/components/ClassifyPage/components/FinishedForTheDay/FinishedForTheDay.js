@@ -61,4 +61,8 @@ FinishedForTheDay.propTypes = {
   projectName: PropTypes.string.isRequired
 }
 
+FinishedForTheDay.defaultProps = {
+  imageSrc: ''
+}
+
 export default FinishedForTheDay
