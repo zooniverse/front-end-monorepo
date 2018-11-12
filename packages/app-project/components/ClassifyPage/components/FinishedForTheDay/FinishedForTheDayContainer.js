@@ -12,7 +12,7 @@ class FinishedForTheDayContainer extends Component {
   }
 
   getImageSrc () {
-    return this.props.store.project?.backgrounds?[0]?.src
+    return this.props.store.project?.backgrounds[0]?.src
   }
 
   render () {
