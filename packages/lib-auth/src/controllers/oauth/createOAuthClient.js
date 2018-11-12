@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { getSnapshot } from 'mobx-state-tree'
+import queryString from 'query-string'
 import ReactDOM from 'react-dom'
 
 import createClient from './helpers/createClient'
@@ -27,8 +28,29 @@ function createOAuthClient ({
   let element = createElement()
 
   // Functions
+  function initialize() {
+    const { expiresAt, token } = store.credentials
+    const { access_token, expires_in } = queryString.parse(window.location.hash)
+
+    if (expiresAt && token) {
+      console.log('Getting bearer token from storage')
+      return store.user.fetchResource(token)
+        .catch((error) => { console.error(error) })
+    } else if (access_token && expires_in) {
+      return completeLogin()
+        .then((credentials) => {
+          if (credentials && credentials.token) {
+            return store.user.fetchResource(credentials.token)
+          }
+        }).catch((error) => { console.error(error) })
+    }
+
+    console.log('No user')
+    return Promise.resolve(null)
+  }
+
   function completeLogin () {
-    console.log('Getting bearer token')
+    console.log('Getting bearer token from hash fragment')
     return client.token.getToken(window.location.href)
       .then(credentials => {
         if (credentials) {
@@ -40,6 +62,7 @@ function createOAuthClient ({
           }
 
           store.credentials.set(credentialsObject)
+          return credentialsObject
         }
       })
       .catch(error => {
@@ -66,12 +89,19 @@ function createOAuthClient ({
     return snapshot.active || null
   }
 
-  function logout () {
-    store.credentials.logout()
+  function logout(onLogout) {
+    return Promise.resolve(store.credentials.logout())
+      .then(() => {
+        if (onLogout) onLogout()
+      })
   }
 
-  function startLogin () {
-    store.ui.openLoginPopup()
+  function startLogin (onStartLogin) {
+    return Promise.resolve(store.ui.openLoginPopup())
+      .then(() => {
+        if (onStartLogin) onStartLogin()
+      })
+
   }
 
   // Init
@@ -88,6 +118,7 @@ function createOAuthClient ({
     destroy,
     getToken,
     getUser,
+    initialize,
     logout,
     startLogin
   })

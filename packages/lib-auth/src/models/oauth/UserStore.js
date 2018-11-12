@@ -1,5 +1,4 @@
-import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { flow, getRoot, types } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
 import UserResource from './UserResource'
@@ -13,23 +12,6 @@ const UserStore = types
   })
 
   .actions(self => {
-    function afterAttach () {
-      createCredentialsObserver()
-    }
-
-    function createCredentialsObserver () {
-      const credentialsDisposer = autorun(() => {
-        const { token } = getRoot(self).credentials
-        if (token) {
-          self.reset()
-          self.fetchResource(token)
-        }
-
-        self.reset()
-      })
-      addDisposer(self, credentialsDisposer)
-    }
-
     function * fetchResource (token) {
       console.log('Getting user')
 
@@ -43,6 +25,7 @@ const UserStore = types
           if (user) {
             self.setUser(user)
             self.loadingState = asyncStates.success
+            return user
           }
           console.log('Got user', user.display_name, user.id)
         } catch (error) {
@@ -67,7 +50,6 @@ const UserStore = types
     }
 
     return {
-      afterAttach,
       fetchResource: flow(fetchResource),
       reset,
       setUser
