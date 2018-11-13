@@ -296,6 +296,18 @@ LightCurveViewer.propTypes = {
   
   innerMargin: PropTypes.number,  // Defines space where data-points appear at 1x zoom
   outerMargin: PropTypes.number,  // Any data-points outside these margins (i.e. when zoomed in) are cropped
+  
+  axisXLabel: PropTypes.string,
+  axisYLabel: PropTypes.string,
+  
+  axisLabelStyle: PropTypes.shape({
+    fontFamily: PropTypes.string,
+    fontSize: PropTypes.string,
+    xOffsetX: PropTypes.number,
+    xOffsetY: PropTypes.number,
+    yOffsetX: PropTypes.number,
+    yOffsetY: PropTypes.number,
+  })
 }
 
 LightCurveViewer.defaultProps = {
