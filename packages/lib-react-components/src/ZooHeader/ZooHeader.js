@@ -40,6 +40,8 @@ const ZooHeader = (props) => {
     isAdmin,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
+    messages,
+    notifications,
     signIn,
     signOut,
     user
@@ -47,7 +49,7 @@ const ZooHeader = (props) => {
 
   return (
     <ResponsiveContext.Consumer>
-      {screenWidth => (
+      {size => (
         <StyledHeader
           background='black'
           direction='row'
@@ -87,7 +89,8 @@ const ZooHeader = (props) => {
             </Box>}
           {Object.keys(user).length > 0 && signOut &&
             <SignedInUserNavigation
-              screenWidth={screenWidth}
+              messages={messages}
+              notifications={notifications}
               signOut={signOut}
               user={user}
             />}
@@ -114,7 +117,9 @@ ZooHeader.defaultProps = {
     `${host}/get-involved`,
     `${host}/talk`,
     `${host}/lab`
-  ]
+  ],
+  messages: false,
+  notifications: false,
 }
 
 ZooHeader.propTypes = {
@@ -123,6 +128,8 @@ ZooHeader.propTypes = {
   isAdmin: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
+  messages: PropTypes.bool,
+  notifications: PropTypes.bool,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   user: PropTypes.shape({

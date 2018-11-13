@@ -8,32 +8,6 @@ import { backgrounds } from './lib'
 import { ZooHeader } from '../src'
 import headerDocs from '../src/ZooHeader/README.md'
 
-// function ExampleSignInButtonLabel() {
-//   return (
-//     <SpacedText color="#B2B2B2" weight="bold" size="xsmall">Sign in</SpacedText>
-//   )
-// }
-
-// function ExampleSignInButton(props) {
-//   return (
-//     <Button
-//       label={<ExampleSignInButtonLabel />}
-//       plain={true}
-//       onClick={props.onClick}
-//     />
-//   )
-// }
-
-// Why don't these styles work?
-// const StyledExampleSignInButton = styled(ExampleSignInButton)`
-//   border-bottom: 2px solid transparent !important;
-
-//   &:hover, &:focus {
-//     border-bottom-color: ${zooTheme.global.colors.teal} !important;
-//   }
-// `
-
-// const signInButton = <StyledExampleSignInButton onClick={() => { return action('Sign in button clicked') }} />
 const signIn = action('Sign in button clicked')
 const signOut = action('Sign out button clicked')
 

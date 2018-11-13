@@ -37,6 +37,6 @@ export default function NavListItem ({ label, url }) {
 }
 
 NavListItem.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   url: PropTypes.string.isRequired
 }
