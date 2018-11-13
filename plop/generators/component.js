@@ -20,11 +20,12 @@ module.exports = function (plop) {
 
       const data = {
         component: render('{{ properCase name }}', answers),
-        container: render('{{ properCase name }}Container', answers),
         shouldCreateContainer: answers.shouldCreateContainer,
       }
       data.path = render('{{ cwd }}/{{ component }}', data)
-      data.entryPoint = data.shouldCreateContainer ? data.container : data.component
+      data.entryPoint = data.shouldCreateContainer
+        ? `${data.component}Container`
+        : data.component
 
       let actions = [
         {
@@ -41,7 +42,7 @@ module.exports = function (plop) {
         },
         {
           type: 'add',
-          templateFile: 'plop/templates/component/Test.js.hbs',
+          templateFile: 'plop/templates/component/Component.spec.js.hbs',
           path: render('{{ path }}/{{ component }}.spec.js', data),
           data
         },
@@ -58,13 +59,13 @@ module.exports = function (plop) {
           {
             type: 'add',
             templateFile: 'plop/templates/component/Container.js.hbs',
-            path: render('{{ path }}/{{ container }}.js', data),
+            path: render('{{ path }}/{{ component }}Container.js', data),
             data
           },
           {
             type: 'add',
-            templateFile: 'plop/templates/component/Test.js.hbs',
-            path: render('{{ path }}/{{ container }}.spec.js', data),
+            templateFile: 'plop/templates/component/Container.spec.js.hbs',
+            path: render('{{ path }}/{{ component }}Container.spec.js', data),
             data
           }
         )

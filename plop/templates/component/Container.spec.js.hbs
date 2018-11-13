@@ -1,0 +1,19 @@
+import { shallow } from 'enzyme'
+import React from 'react'
+
+import {{ properCase name }}Container from './{{ properCase name }}Container'
+import {{ properCase name }} from './{{ properCase name }}'
+
+let wrapper
+
+describe('Component > {{ properCase name }}Container', function () {
+  before(function () {
+    wrapper = shallow(<{{ properCase name }}Container />)
+  })
+
+  it('should render without crashing', function () {})
+
+  it('should render the `{{ properCase name }}` component', function () {
+    expect(wrapper.find({{ properCase name }})).to.have.lengthOf(1)
+  })
+})
