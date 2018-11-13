@@ -9,7 +9,7 @@ let componentWrapper
 
 describe('Component > {{ properCase name }}Container', function () {
   before(function () {
-    wrapper = shallow(<{{ properCase name }}Container />)
+    wrapper = shallow(<{{ properCase name }}Container.wrappedComponent />)
     componentWrapper = wrapper.find({{ properCase name }})
   })
 

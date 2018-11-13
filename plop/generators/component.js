@@ -13,6 +13,12 @@ module.exports = function (plop) {
         name: 'shouldCreateContainer',
         message: 'Create a container?'
       },
+      {
+        type: 'confirm',
+        name: 'shouldUseMST',
+        message: 'Connect the container to `mobx-state-tree`?',
+        when: (answers) => answers.shouldCreateContainer
+      }
     ],
 
     actions: function (answers) {
@@ -22,7 +28,9 @@ module.exports = function (plop) {
         component: render('{{ properCase name }}', answers),
         shouldCreateContainer: answers.shouldCreateContainer,
       }
+
       data.path = render('{{ cwd }}/{{ component }}', data)
+
       data.entryPoint = data.shouldCreateContainer
         ? `${data.component}Container`
         : data.component
@@ -54,7 +62,7 @@ module.exports = function (plop) {
         }
       ]
 
-      if (answers.shouldCreateContainer) {
+      if (answers.shouldCreateContainer && !answers.shouldUseMST) {
         actions.push(
           {
             type: 'add',
@@ -65,6 +73,23 @@ module.exports = function (plop) {
           {
             type: 'add',
             templateFile: 'plop/templates/component/Container.spec.js.hbs',
+            path: render('{{ path }}/{{ component }}Container.spec.js', data),
+            data
+          }
+        )
+      }
+
+      if (answers.shouldCreateContainer && answers.shouldUseMST) {
+        actions.push(
+          {
+            type: 'add',
+            templateFile: 'plop/templates/component/MSTContainer.js.hbs',
+            path: render('{{ path }}/{{ component }}Container.js', data),
+            data
+          },
+          {
+            type: 'add',
+            templateFile: 'plop/templates/component/MSTContainer.spec.js.hbs',
             path: render('{{ path }}/{{ component }}Container.spec.js', data),
             data
           }
