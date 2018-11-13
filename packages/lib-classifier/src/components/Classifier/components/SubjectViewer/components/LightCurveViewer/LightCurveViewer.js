@@ -233,28 +233,40 @@ class LightCurveViewer extends Component {
     const props = this.props
     const t = this.getCurrentTransform()
     
-    this.xAxis.scale(t.rescaleX(this.xScale))  // Rescale the x-axis to fit zoom
+    this.updateScales(t)
+    
+    if (width && height) {  // Update if container size changes.
+      this.repositionAxes(width, height)
+      this.repositionAxisLabels(width, height, props.axisLabelStyle)
+      this.resizeDataMask(width, height, props.outerMargin)
+    }
+  }
+  
+  updateScales (transform) {
+    this.xAxis.scale(transform.rescaleX(this.xScale))  // Rescale the x-axis to fit zoom
     this.d3axisX.call(this.xAxis)
     
     this.yAxis.scale(this.yScale)  // Do NOT rescale the y-axis
     this.d3axisY.call(this.yAxis)
-    
-    if (width && height) {  // Update if container size changes.
-      // Reposition x-axis
-      this.d3axisX.attr('transform', `translate(0, ${height})`)
-      this.d3axisY.attr('transform', `translate(0, 0)`)
-      
-      // Reposition axis labels
-      this.d3axisXLabel
-        .attr('transform', `translate(${width + props.axisLabelStyle.xOffsetX}, ${height + props.axisLabelStyle.xOffsetY})`)
-      this.d3axisYLabel
-        .attr('transform', `translate(${props.axisLabelStyle.yOffsetX}, ${props.axisLabelStyle.yOffsetY})`)
-      
-      // Resize the data mask, so data-points remain in view 
-      this.d3dataMask
-        .attr('width', width - props.outerMargin * 2)
-        .attr('height', height - props.outerMargin * 2)
-    }
+  }
+  
+  repositionAxes (width, height) {
+    this.d3axisX.attr('transform', `translate(0, ${height})`)
+    this.d3axisY.attr('transform', `translate(0, 0)`)
+  }
+  
+  repositionAxisLabels (width, height, labelStyle) {
+    this.d3axisXLabel
+      .attr('transform', `translate(${width + labelStyle.xOffsetX}, ${height + labelStyle.xOffsetY})`)
+    this.d3axisYLabel
+      .attr('transform', `translate(${labelStyle.yOffsetX}, ${labelStyle.yOffsetY})`)
+  }
+
+  // Resize the data mask, so data-points remain in view 
+  resizeDataMask (width, height, margin) {
+    this.d3dataMask
+      .attr('width', width - margin * 2)
+      .attr('height', height - margin * 2)
   }
 
   render () {
