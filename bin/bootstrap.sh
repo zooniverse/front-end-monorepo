@@ -13,9 +13,13 @@ printf 'Installing root dependencies...'
 printf 'Bootstrapping `lib-react-components`...'
 $LERNA bootstrap --scope="@zooniverse/react-components"
 printf '\n'
-
-printf 'Building `lib-react-components`...'
 $LERNA exec --scope="@zooniverse/react-components" -- npm run build
+printf '\n'
+
+printf 'Bootstrapping `lib-auth`...'
+$LERNA bootstrap --scope="@zooniverse/auth"
+printf '\n'
+$LERNA exec --scope="@zooniverse/auth" -- npm run build
 printf '\n'
 
 printf 'Bootstrapping remaining packages...'
