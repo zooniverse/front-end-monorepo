@@ -6,4 +6,4 @@ The standard Zooniverse header to be used on Zooniverse sites. Built using:
 
 The header does not have light and dark theme variants. It remains black for both. 
 
-The sign in button shown in the storybook preview is only an example. The header component expects that you provide...
+The `signIn` (function), `signOut` (function), and `user` (object) props are required. These props can be defined using the API from @zooniverse/auth. See the development mini-app in the lib-auth folder for an example of using its API.
