@@ -17,10 +17,8 @@ class AnimatedNumber extends Component {
       .data([this.props.value])
       .transition()
       .duration(this.props.duration)
-      .tween('text', (d, i, elements) => {
-        // `this` _should_ be bound to the element, but in React is already
-        // bound to the component instance, so we define it here as `node`.
-        const node = d3.select(elements[i])
+      .tween('text', function (d, i, elements) {
+        const node = d3.select(this)
         const interpolator = d3.interpolate(0, d)
         return t => {
           const value = interpolator(t)
