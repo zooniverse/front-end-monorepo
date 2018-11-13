@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
+import addAxisLabel from './d3/addAxisLabel'
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
@@ -190,19 +191,12 @@ class LightCurveViewer extends Component {
         .attr('class', 'y-axis')
         .call(this.yAxis)
     
-    this.d3axisXLabel = axisLayer
-      .append('text')
-        .attr('class', 'x-axis-label')
-        .style('font-size', props.axisLabelStyle.fontSize)
-        .style('font-family', props.axisLabelStyle.fontFamily)
-        .text(props.axisXLabel)
-    this.d3axisYLabel = axisLayer
-      .append('text')
-        .attr('class', 'y-axis-label')
-        .style('font-size', props.axisLabelStyle.fontSize)
-        .style('font-family', props.axisLabelStyle.fontFamily)
-        .text(props.axisYLabel)
-
+    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.axisLabelStyle)
+    this.d3axisXLabel = axisLayer.select('.x-axis-label')
+    
+    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.axisLabelStyle)
+    this.d3axisYLabel = axisLayer.select('.y-axis-label')
+      
     // Deco layer
     this.d3svg.call(addBorderLayer)
 
