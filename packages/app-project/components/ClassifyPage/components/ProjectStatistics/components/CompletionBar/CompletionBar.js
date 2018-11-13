@@ -2,20 +2,21 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import theme from '@zooniverse/grommet-theme'
+import styled from 'styled-components'
 
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import createBar from './d3/createBar'
 import createLabel from './d3/createLabel'
 
+const SVG = styled.svg`
+  display: block;
+`
+
 class CompletionBar extends Component {
   constructor () {
     super()
-    this.svgContainer = React.createRef()
+    this.svgRef = React.createRef()
     this.d3svg = null
-  }
-
-  getData () {
-    return [this.props.completeness]
   }
 
   componentDidMount () {
@@ -24,18 +25,11 @@ class CompletionBar extends Component {
   }
 
   initChart () {
-    const container = this.svgContainer.current
-    this.d3svg = d3.select(container)
-      .append('svg')
-      .attr('class', 'completion-bar')
-      .attr('height', '40px')
-      .attr('width', '100%')
-      .style('display', 'block')
-      .call(addBackgroundLayer, theme.global.colors.lightTeal)
+    this.d3svg = d3.select(this.svgRef.current)
 
     this.d3svg
       .selectAll('.bar')
-      .data(this.getData())
+      .data([this.props.completeness])
       .enter()
       .append('g')
       .attr('class', 'bar')
@@ -77,7 +71,9 @@ class CompletionBar extends Component {
 
   render () {
     return (
-      <div ref={this.svgContainer} />
+      <SVG ref={this.svgRef} height='40px' width='100%'>
+        <rect height='100%' width='100%' fill={theme.global.colors.lightTeal} />
+      </SVG>
     )
   }
 }
