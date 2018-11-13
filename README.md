@@ -12,20 +12,19 @@ This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
 
 Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally, it allows us to track issues, pull requests, and progress for all related packages in one place.
 
-## How to get started
+## Getting started
 
-Installing dependencies for a particular package:
-
-```
-npm install -g lerna
-cd packages/whatever
-lerna bootstrap
+```sh
+git clone git@github.com:zooniverse/front-end-monorepo.git
+cd front-end-monorepo
+./bin/bootstrap.sh
 ```
 
-If you want to contribute a new package and want to use a package in the monorepo, use `lerna add package-name` in the new package folder to get that package added to the `package.json`
+The `bootstrap.sh` script will install the top-level dependencies, build any packages used as dependencies, and finally bootstrap the remaining packages.
 
 ## Helpful Guides
 
+- [Lerna docs](https://github.com/lerna/lerna)
 - [Troubleshooting guide](docs/troubleshooting-guide.md) for developers encountering issues installing or running the Front-End Monorepo.
 
 ## Packages
