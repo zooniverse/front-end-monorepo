@@ -9,31 +9,6 @@ import addDataLayer from './d3/addDataLayer'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
-//TODO: move into props or some other configurable
-const LIGHTCURVE_CONFIG = {
-  /*
-  Zoom range of 1x to 10x.
-  Minimum zoom prevent users from "zooming out" (< 1x zoom) beyond
-  reasonable subject area, maximum zoom is arbitrary.
-   */
-  minScale: 1,
-  maxScale: 10,
-  
-  outerMargin: 10,
-  innerMargin: 30,
-  
-  axisXLabel: 'Day',
-  axisYLabel: 'Brightness',
-  
-  axisLabelFontFamily: 'inherit',
-  axisLabelFontSize: '0.75rem',
-  
-  axisXLabelOffsetX: -40,
-  axisXLabelOffsetY: -20,
-  axisYLabelOffsetX: 20,
-  axisYLabelOffsetY: 20,
-}
-
 class LightCurveViewer extends Component {
   constructor () {
     super()
@@ -109,6 +84,7 @@ class LightCurveViewer extends Component {
   Called when new data (points) is received, and when chart is resized.
    */
   drawChart (width, height, shouldAnimate = false) {
+    const props =  this.props
     if (!height || !width) {
       return false
     }
@@ -122,10 +98,10 @@ class LightCurveViewer extends Component {
     // Update x-y scales to fit current size of container
     this.xScale
       .domain(this.props.extent.x)
-      .range([0 + LIGHTCURVE_CONFIG.innerMargin, width - LIGHTCURVE_CONFIG.innerMargin])
+      .range([0 + props.innerMargin, width - props.innerMargin])
     this.yScale
       .domain(this.props.extent.y)
-      .range([height - LIGHTCURVE_CONFIG.innerMargin, 0 + LIGHTCURVE_CONFIG.innerMargin])  //Note that this is reversed
+      .range([height - props.innerMargin, 0 + props.innerMargin])  //Note that this is reversed
     
     this.updatePresentation(width, height)
     
@@ -167,6 +143,8 @@ class LightCurveViewer extends Component {
   IMPORTANT: layers are added in z-index order, lowest first.
    */
   initChart () {
+    const props = this.props
+    
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
       .append('svg')
@@ -193,7 +171,7 @@ class LightCurveViewer extends Component {
       .append('clipPath')
         .attr('id', 'data-mask')
         .append('rect')
-          .attr('transform', `translate(${LIGHTCURVE_CONFIG.outerMargin}, ${LIGHTCURVE_CONFIG.outerMargin})`)
+          .attr('transform', `translate(${props.outerMargin}, ${props.outerMargin})`)
           .attr('width', 0)
           .attr('height', 0)
     
@@ -219,22 +197,22 @@ class LightCurveViewer extends Component {
     this.d3axisXLabel = axisLayer
       .append('text')
         .attr('class', 'x-axis-label')
-        .style('font-size', LIGHTCURVE_CONFIG.axisLabelFontSize)
-        .style('font-family', LIGHTCURVE_CONFIG.axisLabelFontFamily)
-        .text(LIGHTCURVE_CONFIG.axisXLabel)
+        .style('font-size', props.axisLabelStyle.fontSize)
+        .style('font-family', props.axisLabelStyle.fontFamily)
+        .text(props.axisXLabel)
     this.d3axisYLabel = axisLayer
       .append('text')
         .attr('class', 'y-axis-label')
-        .style('font-size', LIGHTCURVE_CONFIG.axisLabelFontSize)
-        .style('font-family', LIGHTCURVE_CONFIG.axisLabelFontFamily)
-        .text(LIGHTCURVE_CONFIG.axisYLabel)
+        .style('font-size', props.axisLabelStyle.fontSize)
+        .style('font-family', props.axisLabelStyle.fontFamily)
+        .text(props.axisYLabel)
 
     // Deco layer
     this.d3svg.call(addBorderLayer)
 
     // Zoom controller
     this.zoom = d3.zoom()
-      .scaleExtent([LIGHTCURVE_CONFIG.minScale, LIGHTCURVE_CONFIG.maxScale])  // Limit zoom scale
+      .scaleExtent([props.minZoom, props.maxZoom])  // Limit zoom scale
       .on('zoom', () => {
         const t = d3.event.transform
         
@@ -262,6 +240,7 @@ class LightCurveViewer extends Component {
   width and height are only defined if the container size changes.
    */
   updatePresentation(width, height) {
+    const props = this.props
     const t = this.getCurrentTransform()
     
     this.xAxis.scale(t.rescaleX(this.xScale))  // Rescale the x-axis to fit zoom
@@ -277,14 +256,14 @@ class LightCurveViewer extends Component {
       
       // Reposition axis labels
       this.d3axisXLabel
-        .attr('transform', `translate(${width + LIGHTCURVE_CONFIG.axisXLabelOffsetX}, ${height + LIGHTCURVE_CONFIG.axisXLabelOffsetY})`)
+        .attr('transform', `translate(${width + props.axisLabelStyle.xOffsetX}, ${height + props.axisLabelStyle.xOffsetY})`)
       this.d3axisYLabel
-        .attr('transform', `translate(${LIGHTCURVE_CONFIG.axisYLabelOffsetX}, ${LIGHTCURVE_CONFIG.axisYLabelOffsetY})`)
+        .attr('transform', `translate(${props.axisLabelStyle.yOffsetX}, ${props.axisLabelStyle.yOffsetY})`)
       
       // Resize the data mask, so data-points remain in view 
       this.d3dataMask
-        .attr('width', width - LIGHTCURVE_CONFIG.outerMargin * 2)
-        .attr('height', height - LIGHTCURVE_CONFIG.outerMargin * 2)
+        .attr('width', width - props.outerMargin * 2)
+        .attr('height', height - props.outerMargin * 2)
     }
   }
 
@@ -304,11 +283,43 @@ class LightCurveViewer extends Component {
 }
 
 LightCurveViewer.propTypes = {
+  // Data values
   extent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
-  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
+  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  
+  // Zoom (scale) range
+  minZoom: PropTypes.number,
+  maxZoom: PropTypes.number,
+  
+  innerMargin: PropTypes.number,  // Defines space where data-points appear at 1x zoom
+  outerMargin: PropTypes.number,  // Any data-points outside these margins (i.e. when zoomed in) are cropped
+}
+
+LightCurveViewer.defaultProps = {
+  extent: { x: [-1,1], y: [-1,1] },
+  points: [[]],
+
+  minZoom: 1,
+  maxZoom: 10,
+  
+  innerMargin: 30,
+  outerMargin: 10,
+  
+  axisXLabel: 'Day',
+  axisYLabel: 'Brightness',
+  
+  axisLabelStyle: {
+    fontFamily: 'inherit',
+    fontSize: '0.75rem',
+
+    xOffsetX: -40,
+    xOffsetY: -20,
+    yOffsetX: 20,
+    yOffsetY: 20,
+  }
 }
 
 export default LightCurveViewer
