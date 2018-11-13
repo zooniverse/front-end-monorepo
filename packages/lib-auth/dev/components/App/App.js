@@ -49,7 +49,9 @@ class App extends React.Component {
         <Box>
           <h2>Auth status:</h2>
           <pre style={{ whiteSpace: 'pre-line', wordBreak: 'break-all' }}>
-            {JSON.stringify(this.auth.getToken(), null, 2)}
+            {this.state.user && this.auth.getToken()
+              ? <Text>Token exists</Text>
+              : <Text>No token</Text>}
           </pre>
           <hr />
           {this.state.user

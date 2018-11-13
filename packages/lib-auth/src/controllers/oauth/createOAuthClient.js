@@ -70,11 +70,20 @@ function createOAuthClient ({
       })
   }
 
-  function destroy () {
-    store.credentials.logout()
-    ReactDOM.unmountComponentAtNode(element)
-    element.parentNode.removeChild(element)
-    element = null
+  function destroy (beforeDestroy, afterDestroy) {
+    return Promise.resolve(() => {
+        if (beforeDestroy) beforeDestroy()
+      })
+      .then(() => {
+        store.credentials.logout()
+        ReactDOM.unmountComponentAtNode(element)
+        element.parentNode.removeChild(element)
+        element = null
+      })
+      .then(() => {
+        if (afterDestroy) afterDestroy()
+      })
+
   }
 
   function getToken () {
@@ -89,17 +98,23 @@ function createOAuthClient ({
     return snapshot.active || null
   }
 
-  function logout (onLogout) {
-    return Promise.resolve(store.credentials.logout())
+  function logout (beforeLogout, afterLogout) {
+    return Promise.resolve(() => {
+        if (beforeLogout) beforeLogout()
+      })
+      .then(() => store.credentials.logout())
       .then(() => {
-        if (onLogout) onLogout()
+        if (afterLogout) afterLogout()
       })
   }
 
-  function startLogin (onStartLogin) {
-    return Promise.resolve(store.ui.openLoginPopup())
+  function startLogin (beforeStartLogin, afterStartLogin) {
+    return Promise.resolve(() => {
+        if (beforeStartLoging) beforeStartLogin()
+      })
+      .then(() => store.ui.openLoginPopup())
       .then(() => {
-        if (onStartLogin) onStartLogin()
+        if (afterStartLogin) afterStartLogin()
       })
   }
 
