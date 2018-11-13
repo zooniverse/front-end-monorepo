@@ -6,19 +6,16 @@ import FinishedForTheDayContainer from './FinishedForTheDayContainer'
 
 let wrapper
 let finishedForTheDayWrapper
-const mockStore = {
-  project: {
-    background: {
-      src: 'foobar.jpg'
-    },
-    displayName: 'Foobar'
-  }
-}
+const IMAGE_SRC = 'foobar.jpg'
+const PROJECT_NAME = 'Foobar'
 
 describe('Component > FinishedForTheDayContainer', function () {
 
   before(function () {
-    wrapper = shallow(<FinishedForTheDayContainer.wrappedComponent store={mockStore} />)
+    wrapper = shallow(<FinishedForTheDayContainer.wrappedComponent
+      imageSrc={IMAGE_SRC}
+      projectName={PROJECT_NAME}
+    />)
     finishedForTheDayWrapper = wrapper.find(FinishedForTheDay)
   })
 
@@ -29,7 +26,7 @@ describe('Component > FinishedForTheDayContainer', function () {
   })
 
   it('should pass the correct props to the `FinishedForTheDay` component', function () {
-    expect(finishedForTheDayWrapper.prop('imageSrc')).to.equal(mockStore.project.background.src)
-    expect(finishedForTheDayWrapper.prop('projectName')).to.equal(mockStore.project.displayName)
+    expect(finishedForTheDayWrapper.prop('imageSrc')).to.equal(IMAGE_SRC)
+    expect(finishedForTheDayWrapper.prop('projectName')).to.equal(PROJECT_NAME)
   })
 })
