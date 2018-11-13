@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
+import Tutorial from './components/Tutorial'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -16,7 +17,7 @@ class TaskArea extends React.Component {
           <Tasks />
         </Tab>
         <Tab title={counterpart('TaskArea.tutorial')}>
-          ...2
+          <Tutorial />
         </Tab>
       </Tabs>
     )
