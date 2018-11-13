@@ -6,6 +6,7 @@ import ReactResizeDetector from 'react-resize-detector'
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
+import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
@@ -167,13 +168,8 @@ class LightCurveViewer extends Component {
     */
     this.d3svg.call(addDataLayer)
     this.d3dataLayer = this.d3svg.select('.data-layer')
-    this.d3dataMask = this.d3svg
-      .append('clipPath')
-        .attr('id', 'data-mask')
-        .append('rect')
-          .attr('transform', `translate(${props.outerMargin}, ${props.outerMargin})`)
-          .attr('width', 0)
-          .attr('height', 0)
+    this.d3svg.call(addDataMask, props.outerMargin)
+    this.d3dataMask = this.d3svg.select('.data-mask')
     
     /*
     Axis layer
@@ -326,7 +322,6 @@ LightCurveViewer.defaultProps = {
   axisLabelStyle: {
     fontFamily: 'inherit',
     fontSize: '0.75rem',
-
     xOffsetX: -40,
     xOffsetY: -20,
     yOffsetX: 20,
