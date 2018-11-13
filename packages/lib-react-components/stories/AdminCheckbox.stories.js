@@ -12,8 +12,8 @@ import adminDocs from '../src/ZooFooter/components/AdminCheckbox/README.md'
 
 storiesOf('ZooFooter/AdminCheckbox', module)
   .addDecorator(withKnobs)
-  .addDecorator(backgrounds)
   .addParameters({
+    backgrounds,
     info: adminDocs
   })
   .add('Light theme (default)', () => (

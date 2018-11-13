@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import NavListItem from './components/NavListItem'
+import SignInButton from './components/SignInButton'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
 import { getHost } from './helpers'
@@ -39,7 +40,7 @@ const ZooHeader = (props) => {
     isAdmin,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
-    signInButton,
+    signIn,
     signOut,
     user
   } = props
@@ -59,7 +60,7 @@ const ZooHeader = (props) => {
           <Box
             align='center'
             direction='row'
-            pad={{ left: 'medium', right: 'none', vertical: 'small' }}
+            pad={{ horizontal: 'medium', vertical: 'small' }}
             responsive={false}
             tag='nav'
           >
@@ -80,9 +81,9 @@ const ZooHeader = (props) => {
               />
             }
           </Box>
-          {Object.keys(user).length === 0 && signInButton &&
+          {Object.keys(user).length === 0 && signIn &&
             <Box justify='center' pad={{ right: 'medium', vertical: 'small' }}>
-              {signInButton}
+              <SignInButton onClick={signIn} />
             </Box>}
           {Object.keys(user).length > 0 && signOut &&
             <SignedInUserNavigation
@@ -122,7 +123,7 @@ ZooHeader.propTypes = {
   isAdmin: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
-  signInButton: PropTypes.node.isRequired,
+  signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   user: PropTypes.shape({
     display_name: PropTypes.string

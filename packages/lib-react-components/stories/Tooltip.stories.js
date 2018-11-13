@@ -51,9 +51,9 @@ class TooltipStoryExample extends React.Component {
 }
 
 storiesOf('Tooltip', module)
-  .addDecorator(backgrounds)
   .addDecorator(withKnobs)
   .addParameters({
+    backgrounds,
     info: toolTipDocs
   })
   .add('Light theme (default)', () => (

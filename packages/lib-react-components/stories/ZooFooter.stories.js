@@ -8,8 +8,8 @@ import { AdminCheckbox, ZooFooter } from '../src'
 import footerDocs from '../src/ZooFooter/README.md'
 
 storiesOf('ZooFooter', module)
-  .addDecorator(backgrounds)
   .addParameters({
+    backgrounds,
     info: footerDocs
   })
   .add('Light theme (default)', () => (

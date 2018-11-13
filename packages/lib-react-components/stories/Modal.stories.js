@@ -17,9 +17,9 @@ const content = (
 )
 
 storiesOf('Modal', module)
-  .addDecorator(backgrounds)
   .addDecorator(withKnobs)
   .addParameters({
+    backgrounds,
     info: modalDocs
   })
   .add('Light theme (default)', () => (
