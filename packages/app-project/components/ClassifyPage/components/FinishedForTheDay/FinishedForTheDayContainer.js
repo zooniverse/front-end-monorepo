@@ -12,7 +12,7 @@ class FinishedForTheDayContainer extends Component {
   }
 
   getImageSrc () {
-    return this.props.store.project?.backgrounds[0]?.src
+    return this.props.store.project?.background?.src
   }
 
   render () {
@@ -28,9 +28,9 @@ class FinishedForTheDayContainer extends Component {
 FinishedForTheDayContainer.propTypes = {
   store: PropTypes.shape({
     project: PropTypes.shape({
-      backgrounds: PropTypes.arrayOf(PropTypes.shape({
+      background: PropTypes.shape({
         src: PropTypes.string
-      })),
+      }),
       displayName: PropTypes.string
     })
   })

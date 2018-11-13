@@ -1,11 +1,11 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
-import { get } from 'lodash'
+
 import numberString from './types/numberString'
 
 const Project = types
   .model('Project', {
-    backgrounds: types.frozen([]),
+    background: types.frozen({}),
     displayName: types.maybeNull(types.string),
     error: types.maybeNull(types.frozen({})),
     id: types.maybeNull(numberString),
@@ -25,13 +25,13 @@ const Project = types
         try {
           const query = { slug }
           const response = yield client.getWithLinkedResources({ query })
-          const project = get(response, 'body.projects[0]')
-          const linked = get(response, 'body.linked')
+          const project = response.body.projects[0]
+          const linked = response.body.linked
 
           self.displayName = project.display_name
           self.id = project.id
           self.slug = project.slug
-          self.backgrounds = linked.backgrounds
+          self.background = linked.backgrounds[0] || {}
 
           self.loadingState = asyncStates.success
         } catch (error) {
