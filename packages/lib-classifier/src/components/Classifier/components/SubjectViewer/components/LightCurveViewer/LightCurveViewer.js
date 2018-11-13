@@ -19,14 +19,19 @@ const LIGHTCURVE_CONFIG = {
   minScale: 1,
   maxScale: 10,
   
-  axisMargin: 40,  // Distance of axes from container edges. Should be less than dataMargin
-  dataMargin: 50,  // Distance of data points from container edges.
+  outerMargin: 10,
+  innerMargin: 30,
   
-  axisXLabel: 'Time',
+  axisXLabel: 'Day',
   axisYLabel: 'Brightness',
   
   axisLabelFontFamily: 'inherit',
   axisLabelFontSize: '0.75rem',
+  
+  axisXLabelOffsetX: -40,
+  axisXLabelOffsetY: -20,
+  axisYLabelOffsetX: 20,
+  axisYLabelOffsetY: 20,
 }
 
 class LightCurveViewer extends Component {
@@ -117,10 +122,10 @@ class LightCurveViewer extends Component {
     // Update x-y scales to fit current size of container
     this.xScale
       .domain(this.props.extent.x)
-      .range([0 + LIGHTCURVE_CONFIG.dataMargin, width - LIGHTCURVE_CONFIG.dataMargin])
+      .range([0 + LIGHTCURVE_CONFIG.innerMargin, width - LIGHTCURVE_CONFIG.innerMargin])
     this.yScale
       .domain(this.props.extent.y)
-      .range([height - LIGHTCURVE_CONFIG.dataMargin, 0 + LIGHTCURVE_CONFIG.dataMargin])  //Note that this is reversed
+      .range([height - LIGHTCURVE_CONFIG.innerMargin, 0 + LIGHTCURVE_CONFIG.innerMargin])  //Note that this is reversed
     
     this.updatePresentation(width, height)
     
@@ -188,7 +193,7 @@ class LightCurveViewer extends Component {
       .append('clipPath')
         .attr('id', 'data-mask')
         .append('rect')
-          .attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin}, ${LIGHTCURVE_CONFIG.axisMargin})`)
+          .attr('transform', `translate(${LIGHTCURVE_CONFIG.outerMargin}, ${LIGHTCURVE_CONFIG.outerMargin})`)
           .attr('width', 0)
           .attr('height', 0)
     
@@ -196,8 +201,8 @@ class LightCurveViewer extends Component {
     Axis layer
     Actual scaling done in updatePresentation()
      */
-    this.xAxis = d3.axisBottom(this.yScale)
-    this.yAxis = d3.axisLeft(this.yScale)
+    this.xAxis = d3.axisTop(this.yScale)
+    this.yAxis = d3.axisRight(this.yScale)
     const axisLayer = this.d3svg
       .append('g')
         .attr('class', 'axis-layer')
@@ -267,19 +272,19 @@ class LightCurveViewer extends Component {
     
     if (width && height) {  // Update if container size changes.
       // Reposition x-axis
-      this.d3axisX.attr('transform', `translate(0, ${height - LIGHTCURVE_CONFIG.axisMargin})`)
-      this.d3axisY.attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin}, 0)`)
+      this.d3axisX.attr('transform', `translate(0, ${height})`)
+      this.d3axisY.attr('transform', `translate(0, 0)`)
       
       // Reposition axis labels
       this.d3axisXLabel
-        .attr('transform', `translate(${width - LIGHTCURVE_CONFIG.axisMargin * 1.5}, ${height - LIGHTCURVE_CONFIG.axisMargin * 0.25})`)
+        .attr('transform', `translate(${width + LIGHTCURVE_CONFIG.axisXLabelOffsetX}, ${height + LIGHTCURVE_CONFIG.axisXLabelOffsetY})`)
       this.d3axisYLabel
-        .attr('transform', `translate(${LIGHTCURVE_CONFIG.axisMargin * 0.25}, ${LIGHTCURVE_CONFIG.axisMargin * 0.75})`)
+        .attr('transform', `translate(${LIGHTCURVE_CONFIG.axisYLabelOffsetX}, ${LIGHTCURVE_CONFIG.axisYLabelOffsetY})`)
       
       // Resize the data mask, so data-points remain in view 
       this.d3dataMask
-        .attr('width', width - LIGHTCURVE_CONFIG.axisMargin * 2)
-        .attr('height', height - LIGHTCURVE_CONFIG.axisMargin * 2)
+        .attr('width', width - LIGHTCURVE_CONFIG.outerMargin * 2)
+        .attr('height', height - LIGHTCURVE_CONFIG.outerMargin * 2)
     }
   }
 
