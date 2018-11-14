@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ZooHeader from './ZooHeader'
 
 export default class ZooHeaderContainer extends React.Component {
-  constructor() {
+  constructor () {
     super()
 
     this.state = {
@@ -11,16 +11,16 @@ export default class ZooHeaderContainer extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.handleResize();
-    addEventListener('resize', this.handleResize);
+  componentDidMount () {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize)
   }
 
-  componentWillUnmount() {
-    removeEventListener('resize', this.handleResize);
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleResize)
   }
 
-  handleResize() {
+  handleResize () {
     const { breakpoint } = this.props
 
     this.setState({ isNarrow: window.innerWidth < breakpoint })
@@ -40,4 +40,3 @@ ZooHeaderContainer.defaultProps = {
 ZooHeaderContainer.propTypes = {
   breakpoint: PropTypes.number
 }
-
