@@ -18,9 +18,16 @@ const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100  // milliseconds
 
 function storeMapper (stores) {
-  const { setOnZoom } = stores.classifierStore.subjectViewer
+  const {
+    annotate,
+    move,
+    setOnZoom,
+  } = stores.classifierStore.subjectViewer
+  
   return {
-    setOnZoom
+    annotate,
+    move,
+    setOnZoom,
   }
 }
 
@@ -40,6 +47,8 @@ class LightCurveViewer extends Component {
     
     // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
+    
+    this.savedTransform = this.getCurrentTransform()
     
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
@@ -85,6 +94,7 @@ class LightCurveViewer extends Component {
     const height = container.offsetHeight || 0
     const width = container.offsetWidth || 0
     this.drawChart(width, height, sameSubject)
+    this.updateInteractionMode(this.props.annotate, this.props.move)
   }
 
   componentWillUnmount () {
@@ -151,7 +161,7 @@ class LightCurveViewer extends Component {
   
   getCurrentTransform () {
     return (d3.event && d3.event.transform)
-      || d3.zoomTransform(this.d3interfaceLayer.node())
+      || (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node()))
       || d3.zoomIdentity
   }
   
@@ -247,16 +257,6 @@ class LightCurveViewer extends Component {
     // Zoom controller
     this.zoom = d3.zoom()
       .scaleExtent([props.minZoom, props.maxZoom])  // Limit zoom scale
-      .on('zoom', () => {
-        const t = d3.event.transform
-        
-        // Re-draw the data points to fit the new view
-        // Note: users can only zoom & pan in the x-direction
-        this.d3dataLayer.selectAll('.data-point')
-          .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
-        
-        this.updatePresentation()
-      })
     
     /*
     The Interface Layer is the last (i.e. top-most) layer added, capturing all
@@ -266,6 +266,45 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addInterfaceLayer)
     this.d3interfaceLayer = this.d3svg.select('.interface-layer')
     this.d3interfaceLayer.call(this.zoom)
+    this.updateInteractionMode(props.annotate, props.move)
+  }
+  
+  /*
+  Updates interaction logic, switching between navigation and annotation.
+   */
+  updateInteractionMode(annotate = false, move = false) {
+    if (!this.zoom || !this.d3interfaceLayer) return
+    
+    if (annotate && !move) {  // Annotate mode
+      // HACK: Prevent zoom by "running in place"
+      // this.zoom.on('zoom', null) doesn't work, because transforms are just
+      // "deferred" until Move Mode is reinstated.
+      this.savedTransform = this.getCurrentTransform()
+      this.zoom.on('zoom', () => {
+        if (d3.event.transform.x !== this.savedTransform.x
+            || d3.event.transform.y !== this.savedTransform.y
+            || d3.event.transform.k !== this.savedTransform.k) {
+          this.zoom.transform(this.d3interfaceLayer, this.savedTransform)
+        }
+      })
+    
+    } else if (!annotate && move) {  // Move Mode
+      this.zoom.on('zoom', this.doZoom.bind(this))
+      
+    } else {  // Users should never reach this point
+      console.error('LightCurveViewer: illogical move/annotate state detected.')
+    }
+  }
+  
+  doZoom () {
+    const t = this.getCurrentTransform()
+
+    // Re-draw the data points to fit the new view
+    // Note: users can only zoom & pan in the x-direction
+    this.d3dataLayer.selectAll('.data-point')
+      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+
+    this.updatePresentation()
   }
   
   /*
