@@ -119,9 +119,17 @@ class LightCurveViewer extends Component {
     
     /*
     Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
-    beyond the start (xMin=0) or end (xMax=width) of the light curve.
+    beyond the start-ish (xMin=0-margin) or end-ish (xMax=width+margin) of the
+    light curve.
+    
+    UX: the +/-margins add some "give" to chart that lets users see _some_
+    interactivity at 1.0x zoom. Without this give, users won't see any feedback
+    to drag/move actions in Move mode at 1.0x zoom, possibly causing them to
+    incorrectly think they're in Annotate Mode. Feel free to remove these
+    margins if we can find a better way to communicate when a user is in Move
+    Mode but cannot actually pan the image.
     */
-    this.zoom.translateExtent([[0, 0], [width, 0]])
+    this.zoom.translateExtent([[-props.outerMargin, 0], [width + props.outerMargin, 0]])
 
     // Update x-y scales to fit current size of container
     this.xScale
