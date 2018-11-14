@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Menu as MenuIcon } from 'grommet-icons'
 import styled from 'styled-components'
-import zooTheme from '@zooniverse/grommet-theme'
-import counterpart from 'counterpart'
+import { Menu } from 'grommet-icons'
 import NarrowMenu from '../NarrowMenu'
 import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
+
+const StyledMenuIcon = styled(Menu)`
+  width: 1em;
+`
 
 export default function NarrowMainNavMenu (props) {
   const {
@@ -15,27 +17,25 @@ export default function NarrowMainNavMenu (props) {
     mainHeaderNavListLabels,
     mainHeaderNavListURLs
   } = props
-  
-  const menuListItems = mainHeaderNavListLabels.map((label) => {
-    return mainHeaderNavListURLs.forEach((url) => {
-      return {
-        label: <NarrowMenuNavListItem text={label} />,
-        url
-      }
-    })
+
+  const menuListItems = mainHeaderNavListLabels.map((label, index) => {
+    return {
+      label: <NarrowMenuNavListItem text={label} />,
+      href: mainHeaderNavListURLs[index]
+    }
   })
 
   if (isAdmin) {
     menuListItems.push({
       label: <NarrowMenuNavListItem text={adminNavLinkLabel} />,
-      url: adminNavLinkURL
+      href: adminNavLinkURL
     })
   }
 
   return (
     <NarrowMenu
       items={menuListItems}
-      icon={<MenuIcon color='#B2B2B2' />}  
+      icon={<StyledMenuIcon color='#B2B2B2' />}
     />
   )
 }

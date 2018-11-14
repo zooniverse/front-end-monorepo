@@ -11,13 +11,28 @@ import { faBell as farBell, faEnvelope as farEnvelope } from '@fortawesome/free-
 import counterpart from 'counterpart'
 import en from './locales/en'
 
+import NarrowMainNavMenu from '../NarrowMainNavMenu'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
 
 counterpart.registerTranslations('en', en)
 
-export default function SignedInUserNavigation ({ breakpoint, host, unreadMessages, unreadNotifications, signOut, user }) {
+export default function SignedInUserNavigation (props) {
+  const {
+    adminNavLinkLabel,
+    adminNavLinkURL,
+    host,
+    isAdmin,
+    isNarrow,
+    mainHeaderNavListLabels,
+    mainHeaderNavListURLs,
+    unreadMessages,
+    unreadNotifications,
+    signOut,
+    user
+  } = props
+
   const notificationLabelString = (unreadNotifications)
     ? `${counterpart('SignedInUserNavigation.navListLabels.notifications')} (${unreadNotifications})`
     : counterpart('SignedInUserNavigation.navListLabels.notifications')
@@ -26,50 +41,69 @@ export default function SignedInUserNavigation ({ breakpoint, host, unreadMessag
     ? `${counterpart('SignedInUserNavigation.navListLabels.messages')} (${unreadMessages})`
     : counterpart('SignedInUserNavigation.navListLabels.messages')
   
-  const notificationLabel = (window.innerWidth < breakpoint)
+  const notificationLabel = (isNarrow)
     ? <FontAwesomeIcon icon={(unreadNotifications) ? fasBell : farBell} />
     : notificationLabelString
 
-  const messagesLabel = (window.innerWidth < breakpoint)
+  const messagesLabel = (isNarrow)
     ? <FontAwesomeIcon icon={(unreadMessages) ? fasEnvelope : farEnvelope} />
     : messagesLabelString
 
-  return (
-    <Box
-      align='center'
-      direction='row'
-      tag='nav'
-    >
-      <NavListItem
-        color={unreadNotifications ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
-        label={notificationLabel}
-        unread={unreadNotifications}
-        url={`${host}/notifications`}
-      />
-      <NavListItem
-        color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
-        label={messagesLabel}
-        unread={unreadMessages}
-        url={`${host}/inbox`}
-      />
-      <UserMenu
-        signOut={signOut}
-        user={user}
-      />
-    </Box>
-  )
+  if (Object.keys(user).length > 0 && signOut) {
+    return (
+      <Box
+        align='center'
+        direction='row'
+        tag='nav'
+      >
+        <NavListItem
+          color={unreadNotifications ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+          label={notificationLabel}
+          unread={unreadNotifications}
+          url={`${host}/notifications`}
+        />
+        <NavListItem
+          color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+          label={messagesLabel}
+          marginRight='0.75em'
+          unread={unreadMessages}
+          url={`${host}/inbox`}
+        />
+        <UserMenu
+          signOut={signOut}
+          user={user}
+        />
+        {isNarrow &&
+          <NarrowMainNavMenu
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            isAdmin={isAdmin}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+          />}
+      </Box>
+    )
+  }
+
+  return null
 }
 
 SignedInUserNavigation.defaultProps = {
-  breakpoint: 960,
+  isAdmin: false,
+  isNarrow: false,
   host: getHost(),
   unreadMessages: 0,
   unreadNotifications: 0
 }
 
 SignedInUserNavigation.propTypes = {
-  breakpoint: PropTypes.number,
+  adminNavLinkLabel: PropTypes.string,
+  adminNavLinkURL: PropTypes.string,
+  isAdmin: PropTypes.bool,
+  isNarrow: PropTypes.bool,
   host: PropTypes.string,
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
   signOut: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,

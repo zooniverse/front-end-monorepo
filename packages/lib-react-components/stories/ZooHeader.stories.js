@@ -19,9 +19,19 @@ storiesOf('ZooHeader', module)
       <ZooHeader signIn={signIn} signOut={signOut} user={{}} />
     </Grommet>
   ))
+  .add('Signed out narrow window view', () => (
+    <Grommet theme={zooTheme}>
+      <ZooHeader isNarrow={true} signIn={signIn} signOut={signOut} user={{}} />
+    </Grommet>
+  ))
   .add('Signed in', () => (
     <Grommet theme={zooTheme}>
       <ZooHeader signIn={signIn} signOut={signOut} user={{ display_name: 'zootester1', login: 'zootester1' }} />
+    </Grommet>
+  ))
+  .add('Signed in narrow window view', () => (
+    <Grommet theme={zooTheme}>
+      <ZooHeader isNarrow={true} signIn={signIn} signOut={signOut} user={{ admin: true, display_name: 'zootester1', login: 'zootester1' }} />
     </Grommet>
   ))
   .add('Signed in as admin', () => (

@@ -7,8 +7,8 @@ import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import MainNavList from './components/MainNavList'
-import SignInButton from './components/SignInButton'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
+import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
 import { getHost } from './helpers'
 
@@ -33,12 +33,12 @@ export const StyledLogoAnchor = styled(Anchor)`
 
 const host = getHost()
 
-const ZooHeader = (props) => {
+export default function ZooHeader (props) {
   const {
     adminNavLinkLabel,
     adminNavLinkURL,
-    breakpoint,
     isAdmin,
+    isNarrow,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
     signIn,
@@ -61,6 +61,7 @@ const ZooHeader = (props) => {
       <Box
         align='center'
         direction='row'
+        flex='grow'
         pad={{ horizontal: 'medium', vertical: 'small' }}
         responsive={false}
         tag='nav'
@@ -68,34 +69,36 @@ const ZooHeader = (props) => {
         <StyledLogoAnchor href='http://www.zooniverse.org'>
           <ZooniverseLogo height='1.25em' width='1.25em' />
         </StyledLogoAnchor>
-        {window.innerWidth >= breakpoint &&
-          <MainNavList
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-          />}
-      </Box>
-      {Object.keys(user).length === 0 && signIn &&
-        <Box justify='center' pad={{ right: 'medium', vertical: 'small' }}>
-          <SignInButton onClick={signIn} />
-        </Box>}
-      {Object.keys(user).length > 0 && signOut &&
-        <SignedInUserNavigation
-          unreadMessages={unreadMessages}
-          unreadNotifications={unreadNotifications}
-          signOut={signOut}
-          user={user}
-        />}
-      {window.innerWidth < breakpoint &&
-        <NarrowMainNavMenu
+        <MainNavList
           adminNavLinkLabel={adminNavLinkLabel}
           adminNavLinkURL={adminNavLinkURL}
           isAdmin={isAdmin}
+          isNarrow={isNarrow}
           mainHeaderNavListLabels={mainHeaderNavListLabels}
           mainHeaderNavListURLs={mainHeaderNavListURLs}
-        />}
+        />
+      </Box>
+      <SignedOutUserNavigation
+        adminNavLinkLabel={adminNavLinkLabel}
+        adminNavLinkURL={adminNavLinkURL}
+        isAdmin={isAdmin}
+        isNarrow={isNarrow}
+        mainHeaderNavListLabels={mainHeaderNavListLabels}
+        mainHeaderNavListURLs={mainHeaderNavListURLs}
+        signIn={signIn}
+        user={user}
+      />
+      <SignedInUserNavigation
+        adminNavLinkLabel={adminNavLinkLabel}
+        adminNavLinkURL={adminNavLinkURL}
+        isNarrow={isNarrow}
+        mainHeaderNavListLabels={mainHeaderNavListLabels}
+        mainHeaderNavListURLs={mainHeaderNavListURLs}
+        unreadMessages={unreadMessages}
+        unreadNotifications={unreadNotifications}
+        signOut={signOut}
+        user={user}
+      />
     </StyledHeader>
   )
 }
@@ -105,6 +108,7 @@ ZooHeader.defaultProps = {
   adminNavLinkURL: `${host}/admin`,
   breakpoint: 960,
   isAdmin: false,
+  isNarrow: false,
   mainHeaderNavListLabels: [
     'Projects',
     'About',
@@ -120,14 +124,14 @@ ZooHeader.defaultProps = {
     `${host}/lab`
   ],
   unreadMessages: 0,
-  unreadNotifications: 0,
+  unreadNotifications: 0
 }
 
 ZooHeader.propTypes = {
   adminNavLinkLabel: PropTypes.string,
   adminNavLinkURL: PropTypes.string,
-  breakpoint: PropTypes.number,
   isAdmin: PropTypes.bool,
+  isNarrow: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
   signIn: PropTypes.func.isRequired,
@@ -138,5 +142,3 @@ ZooHeader.propTypes = {
     display_name: PropTypes.string
   }).isRequired
 }
-
-export default ZooHeader

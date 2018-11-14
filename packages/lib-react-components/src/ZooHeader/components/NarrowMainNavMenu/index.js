@@ -1,1 +1,1 @@
-export { default } from './NarrowNavMenu'
+export { default } from './NarrowMainNavMenu'

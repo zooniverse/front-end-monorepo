@@ -5,12 +5,13 @@ import { Button } from 'grommet'
 import counterpart from 'counterpart'
 import zooTheme from '@zooniverse/grommet-theme'
 import en from './locales/en'
-import SpacedText from '../../../SpacedText'
+import SpacedText from '../../../../../SpacedText'
 
 counterpart.registerTranslations('en', en)
 
 const StyledSignInButton = styled(Button)`
   border-bottom: 2px solid transparent;
+  white-space: nowrap;
 
   &:hover, &:focus {
     border-bottom-color: ${zooTheme.global.colors.teal};

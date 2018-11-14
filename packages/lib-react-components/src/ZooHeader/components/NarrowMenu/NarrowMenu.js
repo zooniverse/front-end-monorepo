@@ -1,21 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
-import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
-
-export const StyledMenu = styled(Menu)`
-  > div:first-child {
-    padding-left: 0;
-    padding-right: 24px;
-  }
-`
 
 export default function NarrowMenu (props) {
   const { dropBackground, icon, items, label, size } = props
 
   return (
-    <StyledMenu
+    <Menu
       dropBackground={dropBackground}
       icon={icon}
       items={items}

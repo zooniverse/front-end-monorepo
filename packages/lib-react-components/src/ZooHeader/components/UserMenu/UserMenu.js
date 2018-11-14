@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
-import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 
 import NarrowMenu from '../NarrowMenu'
@@ -13,15 +12,6 @@ import { getHost } from '../../helpers'
 
 counterpart.registerTranslations('en', en)
 
-// Grommet v2 components currently can't extend their inner Box styles...
-// https://github.com/grommet/grommet/issues/2004
-// Manually adjust the inner Box div's padding using styled-components
-export const StyledUserMenu = styled(Menu)`
-  > div:first-child {
-    padding-left: 0;
-    padding-right: 24px;
-  }
-`
 // The standard xsmall size in the theme isn't small enough
 export const StyledFormDown = styled(FormDown)`
   width: 1em;
