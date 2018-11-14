@@ -48,7 +48,7 @@ class LightCurveViewer extends Component {
     // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
     
-    this.savedTransform = this.getCurrentTransform()
+    this.savedTransform = null  // "Freezes" the transform in Annotate mode.
     
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
@@ -207,7 +207,6 @@ class LightCurveViewer extends Component {
         .attr('class', 'light-curve-viewer')
         .attr('height', '100%')
         .attr('width', '100%')
-        .style('cursor', 'grab')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
     
@@ -287,9 +286,11 @@ class LightCurveViewer extends Component {
           this.zoom.transform(this.d3interfaceLayer, this.savedTransform)
         }
       })
+      this.d3svg.style('cursor', 'crosshair')
     
     } else if (!annotate && move) {  // Move Mode
       this.zoom.on('zoom', this.doZoom.bind(this))
+      this.d3svg.style('cursor', 'move')
       
     } else {  // Users should never reach this point
       console.error('LightCurveViewer: illogical move/annotate state detected.')
