@@ -6,11 +6,16 @@ import { Anchor, Box } from 'grommet'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
+import counterpart from 'counterpart'
+import en from './locales/en'
+
 import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
 import { getHost } from './helpers'
+
+counterpart.registerTranslations('en', en)
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
@@ -110,11 +115,11 @@ ZooHeader.defaultProps = {
   isAdmin: false,
   isNarrow: false,
   mainHeaderNavListLabels: [
-    'Projects',
-    'About',
-    'Get Involved',
-    'Talk',
-    'Build'
+    counterpart('ZooHeader.mainHeaderNavListLabels.projects'),
+    counterpart('ZooHeader.mainHeaderNavListLabels.about'),
+    counterpart('ZooHeader.mainHeaderNavListLabels.getInvolved'),
+    counterpart('ZooHeader.mainHeaderNavListLabels.talk'),
+    counterpart('ZooHeader.mainHeaderNavListLabels.build')
   ],
   mainHeaderNavListURLs: [
     `${host}/projects`,

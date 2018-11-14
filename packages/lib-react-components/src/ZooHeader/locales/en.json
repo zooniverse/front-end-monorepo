@@ -1,0 +1,11 @@
+{
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projects",
+      "about": "About",
+      "getInvolved": "Get Involved",
+      "talk": "Talk",
+      "build": "Build"
+    }
+  }
+}
