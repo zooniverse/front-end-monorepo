@@ -1,26 +1,38 @@
-import counterpart from 'counterpart'
-import { Box } from 'grommet'
-import { MailOption, Notification } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Box } from 'grommet'
+
+import zooTheme from '@zooniverse/grommet-theme'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell as fasBell, faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faBell as farBell, faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons'
+
+import counterpart from 'counterpart'
 import en from './locales/en'
+
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
 
 counterpart.registerTranslations('en', en)
 
-export default function SignedInUserNavigation ({ breakpoint, host, messages, notifications, signOut, user }) {
-  const notificationLabel = (window.innerWidth < breakpoint)
-    ? <FontAwesomeIcon icon={(notifications) ? fasBell : farBell} />
+export default function SignedInUserNavigation ({ breakpoint, host, unreadMessages, unreadNotifications, signOut, user }) {
+  const notificationLabelString = (unreadNotifications)
+    ? `${counterpart('SignedInUserNavigation.navListLabels.notifications')} (${unreadNotifications})`
     : counterpart('SignedInUserNavigation.navListLabels.notifications')
 
-  const messagesLabel = (window.innerWidth < breakpoint)
-    ? <FontAwesomeIcon icon={(messages) ? fasEnvelope : farEnvelope} />
+  const messagesLabelString = (unreadMessages)
+    ? `${counterpart('SignedInUserNavigation.navListLabels.messages')} (${unreadMessages})`
     : counterpart('SignedInUserNavigation.navListLabels.messages')
+  
+  const notificationLabel = (window.innerWidth < breakpoint)
+    ? <FontAwesomeIcon icon={(unreadNotifications) ? fasBell : farBell} />
+    : notificationLabelString
+
+  const messagesLabel = (window.innerWidth < breakpoint)
+    ? <FontAwesomeIcon icon={(unreadMessages) ? fasEnvelope : farEnvelope} />
+    : messagesLabelString
 
   return (
     <Box
@@ -28,8 +40,18 @@ export default function SignedInUserNavigation ({ breakpoint, host, messages, no
       direction='row'
       tag='nav'
     >
-      <NavListItem label={notificationLabel} url={`${host}/notifications`} />
-      <NavListItem label={messagesLabel} url={`${host}/inbox`} />
+      <NavListItem
+        color={unreadNotifications ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+        label={notificationLabel}
+        unread={unreadNotifications}
+        url={`${host}/notifications`}
+      />
+      <NavListItem
+        color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+        label={messagesLabel}
+        unread={unreadMessages}
+        url={`${host}/inbox`}
+      />
       <UserMenu
         signOut={signOut}
         user={user}
@@ -41,16 +63,16 @@ export default function SignedInUserNavigation ({ breakpoint, host, messages, no
 SignedInUserNavigation.defaultProps = {
   breakpoint: 960,
   host: getHost(),
-  messages: false,
-  notifications: false
+  unreadMessages: 0,
+  unreadNotifications: 0
 }
 
 SignedInUserNavigation.propTypes = {
   breakpoint: PropTypes.number,
   host: PropTypes.string,
-  messages: PropTypes.bool,
-  notifications: PropTypes.bool,
   signOut: PropTypes.func.isRequired,
+  unreadMessages: PropTypes.number,
+  unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
     display_name: PropTypes.string,
     login: PropTypes.string

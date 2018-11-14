@@ -6,14 +6,12 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
 
-import { backgrounds } from './lib'
 import { AdminCheckbox } from '../src'
 import adminDocs from '../src/ZooFooter/components/AdminCheckbox/README.md'
 
 storiesOf('ZooFooter/AdminCheckbox', module)
   .addDecorator(withKnobs)
   .addParameters({
-    backgrounds,
     info: adminDocs
   })
   .add('Light theme (default)', () => (

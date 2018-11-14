@@ -6,7 +6,8 @@ import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 
-import UserNavListItem from './components/UserNavListItem'
+import NarrowMenu from '../NarrowMenu'
+import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
 import en from './locales/en'
 import { getHost } from '../../helpers'
 
@@ -30,17 +31,17 @@ export default function UserMenu ({ signOut, user }) {
   // Support staging urls...
   const host = getHost()
 
-  const userDisplayName = <UserNavListItem color='#B2B2B2' text={user.display_name} />
+  const userDisplayName = <NarrowMenuNavListItem color='#B2B2B2' text={user.display_name} />
 
-  const profileLabel = <UserNavListItem text={counterpart('UserMenu.userNavListLabels.profile')} />
+  const profileLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.profile')} />
 
-  const settingsLabel = <UserNavListItem text={counterpart('UserMenu.userNavListLabels.settings')} />
+  const settingsLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.settings')} />
 
-  const collectionsLabel = <UserNavListItem text={counterpart('UserMenu.userNavListLabels.collections')} />
+  const collectionsLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.collections')} />
 
-  const favoritesLabel = <UserNavListItem text={counterpart('UserMenu.userNavListLabels.favorites')} />
+  const favoritesLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.favorites')} />
 
-  const signOutLabel = <UserNavListItem text={counterpart('UserMenu.userNavListLabels.signOut')} />
+  const signOutLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.signOut')} />
 
   const userMenuNavListItems = [
     { label: profileLabel, href: `${host}/users/${user.login}` },
@@ -51,12 +52,10 @@ export default function UserMenu ({ signOut, user }) {
   ]
 
   return (
-    <StyledUserMenu
-      dropBackground={zooTheme.global.colors.teal}
+    <NarrowMenu
       icon={<StyledFormDown color='#B2B2B2' />}
       items={userMenuNavListItems}
       label={userDisplayName}
-      size='small'
     />
   )
 };

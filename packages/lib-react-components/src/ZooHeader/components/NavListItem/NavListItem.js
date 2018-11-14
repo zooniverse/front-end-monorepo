@@ -8,14 +8,14 @@ import SpacedText from '../../../SpacedText'
 
 export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;
-  color: #B2B2B2;
+  color: ${props => props.color};
   display: inline-block;
   margin-right: 1.5em;
   text-decoration: none !important;
   white-space: nowrap;
 
   &:visited {
-    color: #B2B2B2;
+    color: ${props => props.color};
   }
 
   &:hover, &:focus {
@@ -23,9 +23,9 @@ export const StyledNavListItem = styled(Anchor)`
   }
 `
 
-export default function NavListItem ({ label, url }) {
+export default function NavListItem ({ color, label, url }) {
   return (
-    <StyledNavListItem href={url}>
+    <StyledNavListItem color={color} href={url}>
       <SpacedText
         size='xsmall'
         weight='bold'
@@ -36,7 +36,12 @@ export default function NavListItem ({ label, url }) {
   )
 }
 
+NavListItem.defaultProps = {
+  color: '#B2B2B2'
+}
+
 NavListItem.propTypes = {
+  color: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   url: PropTypes.string.isRequired
 }
