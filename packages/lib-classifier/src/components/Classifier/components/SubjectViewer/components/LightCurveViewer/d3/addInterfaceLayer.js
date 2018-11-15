@@ -6,4 +6,5 @@ export default function addInterfaceLayer (selection) {
       .attr('height', '100%')
       .style('fill', 'none')
       .style('pointer-events', 'all')
+      .style('cursor', 'move')
 }
