@@ -40,10 +40,14 @@ export default function NarrowMainNavMenu (props) {
   )
 }
 
+NarrowMainNavMenu.defaultProps = {
+  isAdmin: false
+}
+
 NarrowMainNavMenu.propTypes = {
-  adminNavLinkLabel: PropTypes.string,
-  adminNavLinkURL: PropTypes.string,
+  adminNavLinkLabel: PropTypes.string.isRequired,
+  adminNavLinkURL: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
-  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string)
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired
 }

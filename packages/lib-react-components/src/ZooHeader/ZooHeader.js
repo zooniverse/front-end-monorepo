@@ -6,16 +6,16 @@ import { Anchor, Box } from 'grommet'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import counterpart from 'counterpart'
-import en from './locales/en'
-
 import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
-import { getHost } from './helpers'
-
-counterpart.registerTranslations('en', en)
+import {
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs,
+} from './helpers'
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
@@ -35,8 +35,6 @@ export const StyledLogoAnchor = styled(Anchor)`
     vertical-align: text-bottom;
   }
 `
-
-const host = getHost()
 
 export default function ZooHeader (props) {
   const {
@@ -112,25 +110,13 @@ export default function ZooHeader (props) {
 
 // TODO: remove default prop for register once we add that functionality to auth client
 ZooHeader.defaultProps = {
-  adminNavLinkLabel: 'Admin',
-  adminNavLinkURL: `${host}/admin`,
+  adminNavLinkLabel,
+  adminNavLinkURL,
   breakpoint: 960,
   isAdmin: false,
   isNarrow: false,
-  mainHeaderNavListLabels: [
-    counterpart('ZooHeader.mainHeaderNavListLabels.projects'),
-    counterpart('ZooHeader.mainHeaderNavListLabels.about'),
-    counterpart('ZooHeader.mainHeaderNavListLabels.getInvolved'),
-    counterpart('ZooHeader.mainHeaderNavListLabels.talk'),
-    counterpart('ZooHeader.mainHeaderNavListLabels.build')
-  ],
-  mainHeaderNavListURLs: [
-    `${host}/projects`,
-    `${host}/about`,
-    `${host}/get-involved`,
-    `${host}/talk`,
-    `${host}/lab`
-  ],
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs,
   register: () => {},
   unreadMessages: 0,
   unreadNotifications: 0

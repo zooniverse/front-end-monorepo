@@ -3,30 +3,42 @@ import PropTypes from 'prop-types'
 import ZooHeader from './ZooHeader'
 
 export default class ZooHeaderContainer extends React.Component {
-  constructor () {
+  constructor() {
     super()
 
     this.state = {
       isNarrow: false
     }
+
+    this.resizeTimeout = NaN
+    this.handleResize = this.handleResize.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.handleResize()
     window.addEventListener('resize', this.handleResize)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize)
   }
 
-  handleResize () {
+  handleResize() {
     const { breakpoint } = this.props
 
-    this.setState({ isNarrow: window.innerWidth < breakpoint })
+    if (!isNaN(this.resizeTimeout)) {
+      window.clearTimeout(this.resizeTimeout);
+    }
+    this.resizeTimeout = window.setTimeout(() => {
+      this.setState({
+        isNarrow: window.innerWidth <= breakpoint
+      }, () => {
+        this.resizeTimeout = NaN;
+      });
+    }, 100);
   }
 
-  render () {
+  render() {
     return (
       <ZooHeader isNarrow={this.state.isNarrow} {...this.props} />
     )

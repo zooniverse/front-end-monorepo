@@ -37,7 +37,7 @@ MainNavList.defaultProps = {
   isNarrow: false
 }
 
-MainNavList.PropTypes = {
+MainNavList.propTypes = {
   adminNavLinkLabel: PropTypes.string.isRequired,
   adminNavLinkURL: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
