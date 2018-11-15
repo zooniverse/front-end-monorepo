@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import NavListItem from '../NavListItem'
-import { faLeaf, faHourglassEnd } from '@fortawesome/free-solid-svg-icons';
 
 export default function MainNavList (props) {
   const {
@@ -39,10 +38,10 @@ MainNavList.defaultProps = {
 }
 
 MainNavList.PropTypes = {
-  adminNavLinkLabel: PropTypes.string,
-  adminNavLinkURL: PropTypes.string,
+  adminNavLinkLabel: PropTypes.string.isRequired,
+  adminNavLinkURL: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
-  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
 }

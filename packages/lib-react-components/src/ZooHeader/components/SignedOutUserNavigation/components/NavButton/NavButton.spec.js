@@ -1,14 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import SignInButton from './SignInButton'
+import NavButton from './NavButton'
 
-describe('<SignInButton />', function () {
+describe('<NavButton />', function () {
   let wrapper
   let onClickSpy
   before(function () {
     onClickSpy = sinon.spy()
-    wrapper = shallow(<SignInButton onClick={onClickSpy} />)
+    wrapper = shallow(<NavButton onClick={onClickSpy} />)
   })
 
   afterEach(function () {

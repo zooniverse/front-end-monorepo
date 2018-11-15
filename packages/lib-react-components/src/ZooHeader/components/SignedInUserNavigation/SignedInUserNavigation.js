@@ -97,13 +97,13 @@ SignedInUserNavigation.defaultProps = {
 }
 
 SignedInUserNavigation.propTypes = {
-  adminNavLinkLabel: PropTypes.string,
-  adminNavLinkURL: PropTypes.string,
+  adminNavLinkLabel: PropTypes.string.isRequired,
+  adminNavLinkURL: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
   host: PropTypes.string,
-  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
   signOut: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,

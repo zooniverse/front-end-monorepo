@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
-import SignInButton from './components/SignInButton'
+import NavButton from './components/NavButton'
 import NarrowMainNavMenu from '../NarrowMainNavMenu'
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 export default function SignedOutUserNavigation (props) {
   const {
@@ -12,6 +16,7 @@ export default function SignedOutUserNavigation (props) {
     isNarrow,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
+    register,
     signIn,
     user
   } = props
@@ -22,9 +27,10 @@ export default function SignedOutUserNavigation (props) {
         <Box
           direction='row'
           justify='center'
-          pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+          pad={{ horizontal: 'medium', vertical: 'small' }}
         >
-          <SignInButton onClick={signIn} />
+          <NavButton label={counterpart('SignedOutUserNavigation.signIn')} onClick={signIn} />
+          <NavButton label={counterpart('SignedOutUserNavigation.register')} onClick={register} />
         </Box>
         {isNarrow &&
           <NarrowMainNavMenu
@@ -47,12 +53,13 @@ SignedOutUserNavigation.defaultProps = {
 }
 
 SignedOutUserNavigation.propTypes = {
-  adminNavLinkLabel: PropTypes.string,
-  adminNavLinkURL: PropTypes.string,
+  adminNavLinkLabel: PropTypes.string.isRequired,
+  adminNavLinkURL: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
-  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
-  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  register: PropTypes.func.isRequired,
   signIn: PropTypes.func.isRequired,
   user: PropTypes.shape({
     display_name: PropTypes.string

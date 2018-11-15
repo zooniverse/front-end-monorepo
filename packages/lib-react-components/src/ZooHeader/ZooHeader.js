@@ -46,6 +46,7 @@ export default function ZooHeader (props) {
     isNarrow,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
+    register,
     signIn,
     signOut,
     unreadMessages,
@@ -90,6 +91,7 @@ export default function ZooHeader (props) {
         isNarrow={isNarrow}
         mainHeaderNavListLabels={mainHeaderNavListLabels}
         mainHeaderNavListURLs={mainHeaderNavListURLs}
+        register={register}
         signIn={signIn}
         user={user}
       />
@@ -108,6 +110,7 @@ export default function ZooHeader (props) {
   )
 }
 
+// TODO: remove default prop for register once we add that functionality to auth client
 ZooHeader.defaultProps = {
   adminNavLinkLabel: 'Admin',
   adminNavLinkURL: `${host}/admin`,
@@ -128,6 +131,7 @@ ZooHeader.defaultProps = {
     `${host}/talk`,
     `${host}/lab`
   ],
+  register: () => {},
   unreadMessages: 0,
   unreadNotifications: 0
 }
@@ -139,6 +143,7 @@ ZooHeader.propTypes = {
   isNarrow: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
+  register: PropTypes.func,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number,

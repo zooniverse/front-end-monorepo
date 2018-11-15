@@ -23,7 +23,7 @@ storiesOf('ZooHeader', module)
     <Grommet theme={zooTheme}>
       <ZooHeader isNarrow={true} signIn={signIn} signOut={signOut} user={{}} />
     </Grommet>
-  ))
+  ), { viewport: 'iphone5' })
   .add('Signed in', () => (
     <Grommet theme={zooTheme}>
       <ZooHeader signIn={signIn} signOut={signOut} user={{ display_name: 'zootester1', login: 'zootester1' }} />
@@ -33,7 +33,7 @@ storiesOf('ZooHeader', module)
     <Grommet theme={zooTheme}>
       <ZooHeader isNarrow={true} signIn={signIn} signOut={signOut} user={{ admin: true, display_name: 'zootester1', login: 'zootester1' }} />
     </Grommet>
-  ))
+  ), { viewport: 'iphone5' })
   .add('Signed in as admin', () => (
     <Grommet theme={zooTheme}>
       <ZooHeader isAdmin={true} signIn={signIn} signOut={signOut} user={{admin: true, display_name: 'zootester1', login: 'zootester1' }} />

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Menu } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
 import counterpart from 'counterpart'
