@@ -35,6 +35,7 @@ class LightCurveViewer extends Component {
     this.svgContainer = React.createRef()
     
     // D3 Selection elements
+    this.d3annotationsLayer = null
     this.d3dataMask = null
     this.d3dataLayer = null
     this.d3interfaceLayer = null
@@ -260,6 +261,22 @@ class LightCurveViewer extends Component {
     this.d3interfaceLayer = this.d3svg.select('.interface-layer')
     this.d3interfaceLayer.call(this.zoom)
     this.updateInteractionMode(props.annotate, props.move)
+    
+    // Annotations/markings layer
+    this.d3svg
+      .append('g')
+        .attr('class', 'annotations-layer')
+    this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
+    
+    //TEST: Can we stop event propagation on clicks?
+    //ANSWER: YES
+    this.d3annotationsLayer
+      .append('rect')
+        .attr('transform', 'translate(50,50)')
+        .attr('width', 50)
+        .attr('height', 100)
+        .attr('fill', '#c44')
+        .on('click', () => {  })
   }
   
   /*
