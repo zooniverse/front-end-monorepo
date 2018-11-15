@@ -18,14 +18,17 @@ function storeMapper (stores) {
     setOnZoom,  // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
   
+  let interactionMode = ''
+  if (annotate && !move) interactionMode = 'annotate'
+  if (!annotate && move) interactionMode = 'move'
+  
   const {
     addAnnotation
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   
   return {
-    annotate,
-    move,
+    interactionMode,
     setOnZoom,
     
     addAnnotation,
@@ -94,7 +97,7 @@ class LightCurveViewer extends Component {
     const height = container.offsetHeight || 0
     const width = container.offsetWidth || 0
     this.drawChart(width, height, sameSubject)
-    this.updateInteractionMode(this.props.annotate, this.props.move)
+    this.updateInteractionMode(this.props.interactionMode)
   }
 
   componentWillUnmount () {
@@ -274,19 +277,21 @@ class LightCurveViewer extends Component {
         .attr('fill-opacity', '0.5')
         .style('cursor', 'pointer')
         .on('click', () => { console.log('+++ xxx') })
+        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
+        .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
     
     // Set up interactions
     this.d3svg.call(this.zoom)
-    this.updateInteractionMode(props.annotate, props.move)
+    this.updateInteractionMode(props.interactionMode)
   }
   
   /*
   Updates interaction logic, switching between navigation and annotation.
    */
-  updateInteractionMode(annotate = false, move = false) {
+  updateInteractionMode(interactionMode = '') {
     if (!this.zoom || !this.d3svg) return
     
-    if (annotate && !move) {  // Annotate mode
+    if (interactionMode === 'annotate') {
       // HACK: Prevent zoom by "running in place"
       // this.zoom.on('zoom', null) doesn't work, because transforms are just
       // "deferred" until Move Mode is reinstated.
@@ -300,7 +305,7 @@ class LightCurveViewer extends Component {
       })
       this.d3svg.style('cursor', 'crosshair')
       
-    } else if (!annotate && move) {  // Move Mode
+    } else if (interactionMode === 'move') {
       this.zoom.on('zoom', this.doZoom.bind(this))
       this.d3svg.style('cursor', 'move')
       
@@ -408,8 +413,7 @@ LightCurveViewer.wrappedComponent.propTypes = {
   }),
   
   // Store-mapped Properties
-  annotate: PropTypes.bool,
-  move: PropTypes.bool,
+  interactionMode: PropTypes.string,
   setOnZoom: PropTypes.func.isRequired,
 }
 
@@ -435,8 +439,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
     yOffsetY: 20,
   },
   
-  annotate: false,
-  move: false,
+  interactionMode: '',
   setOnZoom: (type, n) => {},
 }
 
