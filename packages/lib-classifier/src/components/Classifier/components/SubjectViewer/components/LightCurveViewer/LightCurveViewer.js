@@ -9,7 +9,6 @@ import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
 import addDataMask from './d3/addDataMask'
-import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
 function storeMapper (stores) {
@@ -46,7 +45,6 @@ class LightCurveViewer extends Component {
     this.d3annotationsLayer = null
     this.d3dataMask = null
     this.d3dataLayer = null
-    this.d3interfaceLayer = null
     this.d3svg = null
     
     // D3 Zoom controller: manipulates and stores scale/translate values
@@ -101,7 +99,7 @@ class LightCurveViewer extends Component {
 
   componentWillUnmount () {
     this.zoom && this.zoom.on('zoom', null)
-    this.d3interfaceLayer && this.d3interfaceLayer.on('zoom', null)
+    this.d3svg && this.d3svg.on('zoom', null)
   }
 
   clearChart () {
@@ -172,7 +170,7 @@ class LightCurveViewer extends Component {
   
   getCurrentTransform () {
     return (d3.event && d3.event.transform)
-      || (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node()))
+      || (this.d3svg && d3.zoomTransform(this.d3svg.node()))
       || d3.zoomIdentity
   }
   
@@ -187,11 +185,11 @@ class LightCurveViewer extends Component {
     const ZOOMING_TIME = 100  // milliseconds
     
     if (type === 'zoomin') {
-      this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
+      this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
     } else if (type === 'zoomout') {
-      this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
+      this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
     } else if (type === 'zoomto') {
-      this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), n)
+      this.zoom.scaleTo(this.d3svg.transition().duration(ZOOMING_TIME), n)
     }    
   }
 
@@ -258,7 +256,6 @@ class LightCurveViewer extends Component {
     // Zoom controller
     this.zoom = d3.zoom()
       .scaleExtent([props.minZoom, props.maxZoom])  // Limit zoom scale
-      .on('zoom', this.doZoom.bind(this))
     
     // Annotations/markings layer
     this.d3svg
@@ -278,14 +275,8 @@ class LightCurveViewer extends Component {
         .style('cursor', 'pointer')
         .on('click', () => { console.log('+++ xxx') })
     
-    /*
-    The Interface Layer is the last (i.e. top-most) layer added, capturing all
-    mouse input but making it impossible to directly interact with any layer
-    elements beneath it.
-     */
-    this.d3svg.call(addInterfaceLayer)
-    this.d3interfaceLayer = this.d3svg.select('.interface-layer')
-    this.d3interfaceLayer.call(this.zoom)
+    // Set up interactions
+    this.d3svg.call(this.zoom)
     this.updateInteractionMode(props.annotate, props.move)
   }
   
@@ -293,13 +284,25 @@ class LightCurveViewer extends Component {
   Updates interaction logic, switching between navigation and annotation.
    */
   updateInteractionMode(annotate = false, move = false) {
-    if (!this.zoom || !this.d3interfaceLayer) return
+    if (!this.zoom || !this.d3svg) return
     
     if (annotate && !move) {  // Annotate mode
-      
+      // HACK: Prevent zoom by "running in place"
+      // this.zoom.on('zoom', null) doesn't work, because transforms are just
+      // "deferred" until Move Mode is reinstated.
+      this.savedTransform = this.getCurrentTransform()
+      this.zoom.on('zoom', () => {
+        if (d3.event.transform.x !== this.savedTransform.x
+            || d3.event.transform.y !== this.savedTransform.y
+            || d3.event.transform.k !== this.savedTransform.k) {
+          this.zoom.transform(this.d3svg, this.savedTransform)
+        }
+      })
+      this.d3svg.style('cursor', 'crosshair')
       
     } else if (!annotate && move) {  // Move Mode
-      
+      this.zoom.on('zoom', this.doZoom.bind(this))
+      this.d3svg.style('cursor', 'move')
       
     } else {  // Users should never reach this point
       console.error('LightCurveViewer: illogical move/annotate state detected.')
