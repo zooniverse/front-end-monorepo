@@ -13,11 +13,11 @@ class LightCurveViewerContainer extends Component {
     super()
     this.state = {
       loading: asyncStates.initialized,
-      extent: {
+      dataExtent: {
         x: [],
         y: []
       },
-      points: []
+      dataPoints: []
     }
   }
 
@@ -77,11 +77,11 @@ class LightCurveViewerContainer extends Component {
     try {
       const rawData = await this.requestData()
       this.setState({
-        extent: {
+        dataExtent: {
           x: d3.extent(rawData.x),
           y: d3.extent(rawData.y)
         },
-        points: zip(rawData.x, rawData.y)
+        dataPoints: zip(rawData.x, rawData.y)
       })
     } catch (error) {
       console.error(error)
@@ -96,8 +96,8 @@ class LightCurveViewerContainer extends Component {
 
     return (
       <LightCurveViewer
-        extent={this.state.extent}
-        points={this.state.points}
+        dataExtent={this.state.dataExtent}
+        dataPoints={this.state.dataPoints}
       />
     )
   }

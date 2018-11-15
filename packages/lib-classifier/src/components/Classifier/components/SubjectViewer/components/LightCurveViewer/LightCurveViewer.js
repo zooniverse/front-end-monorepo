@@ -83,8 +83,8 @@ class LightCurveViewer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const points = this.props.points
-    const prevPoints = prevProps.points
+    const points = this.props.dataPoints
+    const prevPoints = prevProps.dataPoints
     const sameSubject = (points === prevPoints)
 
     if (!sameSubject) {
@@ -135,17 +135,17 @@ class LightCurveViewer extends Component {
 
     // Update x-y scales to fit current size of container
     this.xScale
-      .domain(this.props.extent.x)
+      .domain(this.props.dataExtent.x)
       .range([0 + props.innerMargin, width - props.innerMargin])
     this.yScale
-      .domain(this.props.extent.y)
+      .domain(this.props.dataExtent.y)
       .range([height - props.innerMargin, 0 + props.innerMargin])  //Note that this is reversed
     
     this.updatePresentation(width, height)
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
-      .data(this.props.points)
+      .data(this.props.dataPoints)
 
     const t = this.getCurrentTransform()
     const setPointCoords = selection => selection
@@ -385,11 +385,11 @@ class LightCurveViewer extends Component {
 
 LightCurveViewer.wrappedComponent.propTypes = {
   // Data values
-  extent: PropTypes.shape({
+  dataExtent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
-  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  dataPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   
   // Event Handlers
   setOnZoom: PropTypes.func.isRequired,
@@ -415,8 +415,8 @@ LightCurveViewer.wrappedComponent.propTypes = {
 }
 
 LightCurveViewer.wrappedComponent.defaultProps = {
-  extent: { x: [-1,1], y: [-1,1] },
-  points: [[]],
+  dataExtent: { x: [-1,1], y: [-1,1] },
+  dataPoints: [[]],
   
   setOnZoom: (type, zoomValue) => {},
 
