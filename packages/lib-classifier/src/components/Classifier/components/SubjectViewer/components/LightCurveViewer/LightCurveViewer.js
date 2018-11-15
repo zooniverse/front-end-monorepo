@@ -19,15 +19,23 @@ const ZOOMING_TIME = 100  // milliseconds
 
 function storeMapper (stores) {
   const {
-    annotate,
-    move,
-    setOnZoom,
+    annotate,  // bool: Indicates if the Classifier is in Annotate mode
+    move,  // bool: Indicates if the Classifier is in Annotate mode
+    setOnZoom,  // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
+  
+  const {
+    addAnnotation
+  } = stores.classifierStore.classifications
+  const annotations = stores.classifierStore.classifications.currentAnnotations
   
   return {
     annotate,
     move,
     setOnZoom,
+    
+    addAnnotation,
+    annotations,
   }
 }
 
@@ -48,8 +56,6 @@ class LightCurveViewer extends Component {
     
     // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
-    
-    this.savedTransform = null  // "Freezes" the transform in Annotate mode.
     
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
@@ -304,9 +310,11 @@ class LightCurveViewer extends Component {
     if (!this.zoom || !this.d3interfaceLayer) return
     
     if (annotate && !move) {  // Annotate mode
-      this.d3interfaceLayer.style('display', 'none')
+      
+      
     } else if (!annotate && move) {  // Move Mode
-      this.d3interfaceLayer.style('display', null)      
+      
+      
     } else {  // Users should never reach this point
       console.error('LightCurveViewer: illogical move/annotate state detected.')
     }
@@ -390,9 +398,6 @@ LightCurveViewer.wrappedComponent.propTypes = {
     y: PropTypes.arrayOf(PropTypes.number)
   }),
   dataPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-  
-  // Event Handlers
-  setOnZoom: PropTypes.func.isRequired,
 
   // Zoom (scale) range
   minZoom: PropTypes.number,
@@ -411,7 +416,12 @@ LightCurveViewer.wrappedComponent.propTypes = {
     xOffsetY: PropTypes.number,
     yOffsetX: PropTypes.number,
     yOffsetY: PropTypes.number,
-  })
+  }),
+  
+  // Store-mapped Properties
+  annotate: PropTypes.bool,
+  move: PropTypes.bool,
+  setOnZoom: PropTypes.func.isRequired,
 }
 
 LightCurveViewer.wrappedComponent.defaultProps = {
@@ -436,7 +446,11 @@ LightCurveViewer.wrappedComponent.defaultProps = {
     xOffsetY: -20,
     yOffsetX: 20,
     yOffsetY: 20,
-  }
+  },
+  
+  annotate: false,
+  move: false,
+  setOnZoom: (type, n) => {},
 }
 
 export default LightCurveViewer

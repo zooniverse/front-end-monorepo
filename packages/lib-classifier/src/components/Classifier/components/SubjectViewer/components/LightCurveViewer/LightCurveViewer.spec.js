@@ -11,8 +11,8 @@ let wrapper
 
 describe('Component > LightCurveViewer', function () {
   before(function () {
-    const points = zip(mockData.x, mockData.y)
-    const extent = {
+    const dataPoints = zip(mockData.x, mockData.y)
+    const dataExtent = {
       x: d3.extent(mockData.x),
       y: d3.extent(mockData.y)
     }
