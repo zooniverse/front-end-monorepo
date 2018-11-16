@@ -1,9 +1,14 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+
 import {{ properCase name }} from './{{ properCase name }}'
 
+let wrapper
+
 describe('Component > {{ properCase name }}', function () {
-  it('should render without crashing', function () {
-    shallow(<{{ properCase name }} />)
+  before(function () {
+    wrapper = shallow(<{{ properCase name }} />)
   })
+
+  it('should render without crashing', function () {})
 })
