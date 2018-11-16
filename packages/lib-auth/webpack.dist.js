@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
   NODE_ENV: 'production',
-  PANOPTES_ENV: 'production'
+  PANOPTES_ENV: process.env.PANOPTES_ENV || 'production'
 })
 
 // TODO: get optimization config working

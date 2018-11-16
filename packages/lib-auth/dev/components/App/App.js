@@ -1,5 +1,4 @@
-import { Button, Grommet, Box } from 'grommet'
-import queryString from 'query-string'
+import { Button, Grommet, Box, Text } from 'grommet'
 import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 
@@ -14,28 +13,27 @@ class App extends React.Component {
       redirectUri: 'http://localhost:3000'
     })
     this.state = {
-      loading: false
+      loading: true,
+      user: null
     }
     this.logout = this.logout.bind(this)
   }
 
   componentDidMount () {
-    const { access_token, expires_in } = queryString.parse(window.location.hash)
-    if (access_token && expires_in) {
-      this.setState({ loading: true })
-      this.auth.completeLogin()
-        .then(() => {
-          this.setState({ loading: false })
-          history.replaceState(null, document.title, location.pathname + location.search)
-        })
-    }
+    this.auth.initialize()
+      .then((user) => {
+        this.setState({ loading: false, user })
+        if (location.hash) history.replaceState(null, document.title, location.pathname + location.search)
+      })
+      .catch((error) => {
+        console.error(error)
+        this.setState({ loading: false })
+      })
   }
 
   logout () {
     this.auth.logout()
-
-    // We trigger a forced update to re-render the Auth status content
-    this.forceUpdate()
+      .then(this.setState({ user: null }))
   }
 
   renderApp () {
@@ -43,7 +41,7 @@ class App extends React.Component {
       <Box>
         <Box direction='row' justify='between' pad='small'>
           <div>OAuth Test app</div>
-          {this.auth.getToken()
+          {this.state.user
             ? <Button onClick={this.logout} label='Logout' />
             : <Button onClick={this.auth.startLogin} label='Login' />
           }
@@ -51,8 +49,14 @@ class App extends React.Component {
         <Box>
           <h2>Auth status:</h2>
           <pre style={{ whiteSpace: 'pre-line', wordBreak: 'break-all' }}>
-            {JSON.stringify(this.auth.getToken(), null, 2)}
+            {this.state.user && this.auth.getToken()
+              ? <Text>Token exists</Text>
+              : <Text>No token</Text>}
           </pre>
+          <hr />
+          {this.state.user
+            ? <Text>User: {this.state.user.display_name}</Text>
+            : <Text>No user</Text>}
         </Box>
       </Box>
     )

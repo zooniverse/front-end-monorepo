@@ -53,7 +53,7 @@ describe('Model > CredentialsStore', function () {
     it('should be a function', function () {
       expect(credentialsStore.set).to.be.a('function')
     })
-    
+
     it('should set the expiresAt and token properties', function () {
       credentialsStore.set(CREDENTIALS)
       expect(credentialsStore.expiresAt).to.equal(CREDENTIALS.expiresAt)
@@ -131,7 +131,6 @@ describe('Model > CredentialsStore', function () {
     afterEach(function () {
       credentialsStore.reset() // Make sure timeouts and localStorage are cleared
     })
-
 
     it('should be a function', function () {
       expect(credentialsStore.logout).to.be.a('function')

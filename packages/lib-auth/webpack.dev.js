@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
   NODE_ENV: 'development',
-  PANOPTES_ENV: 'staging'
+  PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging'
 })
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
