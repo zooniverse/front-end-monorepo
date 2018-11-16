@@ -23,19 +23,27 @@ describe('Stores > Project', function () {
       projectStore = rootStore.project
     })
 
-    it('should have a displayName property', function () {
+    it('should have a `displayName` property', function () {
       expect(projectStore.displayName).to.be.null
     })
 
-    it('should have an error property', function () {
+    it('should have a `background` property', function () {
+      expect(projectStore.background).to.be.an('object')
+    })
+
+    it('should have an `error` property', function () {
       expect(projectStore.error).to.be.an('object')
     })
 
-    it('should have an id property', function () {
+    it('should have an `id` property', function () {
       expect(projectStore.id).to.be.null
     })
 
-    it('should have a state property', function () {
+    it('should have a `slug` property', function () {
+      projectStore.slug.should.equal('')
+    })
+
+    it('should have a `state` property', function () {
       projectStore.loadingState.should.equal(asyncStates.initialized)
     })
 
@@ -50,7 +58,7 @@ describe('Stores > Project', function () {
       clientStub = {
         projects: {
           get: function () {
-            return Promise.resolve({ body: mocks.responses.get.project })
+            return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
           }
         }
       }
@@ -67,8 +75,14 @@ describe('Stores > Project', function () {
 
       projectStore.fetch('foo/bar')
         .then(function () {
-          projectStore.id.should.equal(mocks.resources.projectTwo.id)
+          const { projectBackground, projectTwo } = mocks.resources
+
+          projectStore.background.should.eql(projectTwo.projectBackground)
+          projectStore.displayName.should.equal(projectTwo.display_name)
+          projectStore.id.should.equal(projectTwo.id)
           projectStore.loadingState.should.equal(asyncStates.success)
+          projectStore.slug.should.equal(projectTwo.slug)
+
           done()
         })
 

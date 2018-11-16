@@ -4,32 +4,29 @@ import React from 'react'
 import FinishedForTheDay from './FinishedForTheDay'
 import FinishedForTheDayContainer from './FinishedForTheDayContainer'
 
-const mockStore = {
-  project: {
-    backgrounds: [
-      {
-        src: 'foobar.jpg'
-      }
-    ],
-    displayName: 'Foobar'
-  }
-}
+let wrapper
+let finishedForTheDayWrapper
+const IMAGE_SRC = 'foobar.jpg'
+const PROJECT_NAME = 'Foobar'
 
 describe('Component > FinishedForTheDayContainer', function () {
-  let wrapper
 
   before(function () {
-    wrapper = shallow(<FinishedForTheDayContainer.wrappedComponent store={mockStore} />)
+    wrapper = shallow(<FinishedForTheDayContainer.wrappedComponent
+      imageSrc={IMAGE_SRC}
+      projectName={PROJECT_NAME}
+    />)
+    finishedForTheDayWrapper = wrapper.find(FinishedForTheDay)
   })
 
   it('should render without crashing', function () {})
 
   it('should render the `FinishedForTheDay` component', function () {
-    expect(wrapper.find(FinishedForTheDay)).to.have.lengthOf(1)
+    expect(finishedForTheDayWrapper).to.have.lengthOf(1)
   })
 
   it('should pass the correct props to the `FinishedForTheDay` component', function () {
-    expect(wrapper.prop('imageSrc')).to.equal(mockStore.project.backgrounds[0].src)
-    expect(wrapper.prop('projectName')).to.equal(mockStore.project.displayName)
+    expect(finishedForTheDayWrapper.prop('imageSrc')).to.equal(IMAGE_SRC)
+    expect(finishedForTheDayWrapper.prop('projectName')).to.equal(PROJECT_NAME)
   })
 })

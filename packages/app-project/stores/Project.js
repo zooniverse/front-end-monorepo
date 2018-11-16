@@ -1,10 +1,11 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
+
 import numberString from './types/numberString'
 
 const Project = types
   .model('Project', {
-    backgrounds: types.frozen([]),
+    background: types.frozen({}),
     classificationsCount: types.optional(types.number, 0),
     classifiersCount: types.optional(types.number, 0),
     completeness: types.optional(types.number, 0),
@@ -32,14 +33,14 @@ const Project = types
           const project = response.body.projects[0]
           const linked = response.body.linked
 
-          self.backgrounds = linked.backgrounds
+          self.background = linked.backgrounds[0] || {}
           self.classificationsCount = project.classifications_count
           self.classifiersCount = project.classifiers_count
           self.completeness = project.completeness
           self.displayName = project.display_name
           self.id = project.id
-          self.slug = project.slug
           self.retiredSubjectsCount = project.retired_subjects_count
+          self.slug = project.slug
           self.subjectsCount = project.subjects_count
 
           self.loadingState = asyncStates.success

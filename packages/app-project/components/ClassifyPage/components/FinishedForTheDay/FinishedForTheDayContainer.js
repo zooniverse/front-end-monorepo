@@ -4,36 +4,38 @@ import React, { Component } from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
 
-@inject('store')
+function storeMapper (stores) {
+  const { background, displayName } = stores.store.project
+  return {
+    imageSrc: background.src || '',
+    projectName: displayName
+  }
+}
+
+@inject(storeMapper)
 @observer
 class FinishedForTheDayContainer extends Component {
-  getProjectName () {
-    return this.props.store.project?.displayName
-  }
-
-  getImageSrc () {
-    return this.props.store.project?.backgrounds[0]?.src
-  }
-
   render () {
+    const { imageSrc, projectName } = this.props
     return (
       <FinishedForTheDay
-        projectName={this.getProjectName()}
-        imageSrc={this.getImageSrc()}
+        imageSrc={imageSrc}
+        projectName={projectName}
       />
     )
   }
 }
 
 FinishedForTheDayContainer.propTypes = {
-  store: PropTypes.shape({
-    project: PropTypes.shape({
-      backgrounds: PropTypes.arrayOf(PropTypes.shape({
-        src: PropTypes.string
-      })),
-      displayName: PropTypes.string
-    })
-  })
+  imageSrc: PropTypes.string,
+  projectName: PropTypes.string.isRequired
+}
+
+// We wouldn't normally have a `defaultProp` for a required prop, but there's
+// something going on with the store execution order which leaves it undefined
+// without one.
+FinishedForTheDayContainer.defaultProps = {
+  projectName: ''
 }
 
 export default FinishedForTheDayContainer
