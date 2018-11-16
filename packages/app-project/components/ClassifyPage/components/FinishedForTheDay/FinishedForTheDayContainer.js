@@ -31,6 +31,9 @@ FinishedForTheDayContainer.propTypes = {
   projectName: PropTypes.string.isRequired
 }
 
+// We wouldn't normally have a `defaultProp` for a required prop, but there's
+// something going on with the store execution order which leaves it undefined
+// without one.
 FinishedForTheDayContainer.defaultProps = {
   projectName: ''
 }
