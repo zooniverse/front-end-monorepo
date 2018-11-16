@@ -1,6 +1,7 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
+
 import UserResource from './UserResource'
 
 const UserStore = types
@@ -31,8 +32,7 @@ const UserStore = types
         } catch (error) {
           console.error('Could not get user:', error)
           console.log('Resetting auth store and localStorage')
-          const credentials = getRoot(self).credentials
-          credentials.reset()
+          getRoot(self).credentials.reset()
           self.loadingState = asyncStates.error
         }
       }
