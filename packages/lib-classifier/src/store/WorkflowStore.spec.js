@@ -17,7 +17,7 @@ const subject = SubjectFactory.build()
 const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
 
-describe('Model > WorkflowStore', function () {
+xdescribe('Model > WorkflowStore', function () {
   it('should exist', function () {
     expect(WorkflowStore).to.be.an('object')
   })
