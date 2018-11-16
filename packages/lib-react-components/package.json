@@ -30,7 +30,7 @@
     "styled-theming": "~2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "~7.0.0",
+    "@babel/cli": "~7.1.5",
     "@babel/core": "~7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "~7.0.0",
     "@babel/preset-env": "~7.0.0",
