@@ -1,6 +1,8 @@
-import { flow, getRoot, types } from 'mobx-state-tree'
+import { flow, getRoot, getType, types } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
+import { forOwn } from 'lodash'
+
 import UserResource from './UserResource'
 
 const UserStore = types
@@ -31,8 +33,7 @@ const UserStore = types
         } catch (error) {
           console.error('Could not get user:', error)
           console.log('Resetting auth store and localStorage')
-          const credentials = getRoot(self).credentials
-          credentials.reset()
+          getRoot(self).credentials.reset()
           self.loadingState = asyncStates.error
         }
       }
@@ -45,8 +46,22 @@ const UserStore = types
     }
 
     function setUser (user) {
-      self.resources.put(user)
-      self.active = user.id
+      const clonedUser = Object.assign({}, user)
+
+      // We need to convert some values to fit the model
+      forOwn(clonedUser, (value, key) => {
+        const modelProperty = UserResource.properties[key]
+        if (modelProperty && modelProperty.name === 'boolean') {
+          clonedUser[key] = !!value
+        }
+
+        if (modelProperty && modelProperty.name === 'string' && !value) {
+          clonedUser[key] = ''
+        }
+      })
+
+      self.resources.put(clonedUser)
+      self.active = clonedUser.id
     }
 
     return {
