@@ -26,9 +26,9 @@ const UserStore = types
           if (user) {
             self.setUser(user)
             self.loadingState = asyncStates.success
+            console.log('Got user', user.display_name, user.id)
             return user
           }
-          console.log('Got user', user.display_name, user.id)
         } catch (error) {
           console.error('Could not get user:', error)
           console.log('Resetting auth store and localStorage')

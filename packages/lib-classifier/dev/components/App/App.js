@@ -85,8 +85,8 @@ class App extends React.Component {
 
   logout() {
     this.authClient.logout()
-      .then(() => {
-        this.setState({ user: null })
+      .then((user) => {
+        this.setState({ user })
       })
   }
 
