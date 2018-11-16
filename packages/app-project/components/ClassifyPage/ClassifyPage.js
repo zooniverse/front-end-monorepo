@@ -1,12 +1,15 @@
+import { Grid } from 'grommet'
 import React from 'react'
 
 import FinishedForTheDay from './components/FinishedForTheDay'
+import ProjectStatistics from './components/ProjectStatistics'
 
 function ClassifyPage () {
   return (
-    <div>
+    <Grid gap='medium' margin='medium'>
       <FinishedForTheDay />
-    </div>
+      <ProjectStatistics />
+    </Grid>
   )
 }
 
