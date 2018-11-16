@@ -36,10 +36,12 @@ class Classifier extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { project } = this.props
+    const { project, user } = this.props
     if (project.id !== prevProps.project.id) {
       this.setProject(project)
     }
+
+    if (!user) this.classifierStore.userProjectPreferences.reset()
   }
 
   setProject (project) {
