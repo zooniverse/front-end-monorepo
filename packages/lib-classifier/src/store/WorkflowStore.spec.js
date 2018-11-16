@@ -19,7 +19,6 @@ const projectWithoutDefault = ProjectFactory.build({ configuration: { default_wo
 
 describe('Model > WorkflowStore', function () {
   it('should exist', function () {
-    expect(WorkflowStore).to.exist
     expect(WorkflowStore).to.be.an('object')
   })
 
@@ -27,16 +26,19 @@ describe('Model > WorkflowStore', function () {
     describe('when there is a project default', function () {
       let clientStub
       let rootStore
+
       before(function () {
         clientStub = stubPanoptesJs({
           projects: projectWithDefault,
           subjects: subject,
           workflows: workflow
         })
+
         rootStore = RootStore.create({
           projects: ProjectStore.create(),
           workflows: WorkflowStore.create()
         }, { client: clientStub })
+
         rootStore.projects.setActive(projectWithDefault.id)
       })
 
