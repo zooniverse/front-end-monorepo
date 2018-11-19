@@ -5,7 +5,6 @@ import { Box, Button, Grommet, Text } from 'grommet'
 import { Add } from 'grommet-icons'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { backgrounds } from './lib'
 import { Tooltip } from '../src'
 import toolTipDocs from '../src/Tooltip/README.md'
 
@@ -51,7 +50,6 @@ class TooltipStoryExample extends React.Component {
 }
 
 storiesOf('Tooltip', module)
-  .addDecorator(backgrounds)
   .addDecorator(withKnobs)
   .addParameters({
     info: toolTipDocs

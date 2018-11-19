@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Anchor, Box, ResponsiveContext } from 'grommet'
+import { Anchor, Box } from 'grommet'
 
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import NavListItem from './components/NavListItem'
+import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
+import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import ZooniverseLogo from './components/ZooniverseLogo'
-import { getHost } from './helpers'
+import {
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs,
+} from './helpers'
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
@@ -30,103 +36,105 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
-const host = getHost()
-
-const ZooHeader = (props) => {
+export default function ZooHeader (props) {
   const {
     adminNavLinkLabel,
     adminNavLinkURL,
     isAdmin,
+    isNarrow,
     mainHeaderNavListLabels,
     mainHeaderNavListURLs,
-    signInButton,
+    register,
+    signIn,
     signOut,
+    unreadMessages,
+    unreadNotifications,
     user
   } = props
 
   return (
-    <ResponsiveContext.Consumer>
-      {screenWidth => (
-        <StyledHeader
-          background='black'
-          direction='row'
-          fill='horizontal'
-          justify='between'
-          pad='none'
-          responsive={false}
-          tag='header'
-        >
-          <Box
-            align='center'
-            direction='row'
-            pad={{ left: 'medium', right: 'none', vertical: 'small' }}
-            responsive={false}
-            tag='nav'
-          >
-            <StyledLogoAnchor href='http://www.zooniverse.org'>
-              <ZooniverseLogo height='1.25em' width='1.25em' />
-            </StyledLogoAnchor>
-            {mainHeaderNavListURLs.map((url, i) => (
-              <NavListItem
-                key={url}
-                label={mainHeaderNavListLabels[i]}
-                url={url}
-              />
-            ))}
-            {isAdmin &&
-              <NavListItem
-                label={adminNavLinkLabel}
-                url={adminNavLinkURL}
-              />
-            }
-          </Box>
-          {Object.keys(user).length === 0 && signInButton &&
-            <Box justify='center' pad={{ right: 'medium', vertical: 'small' }}>
-              {signInButton}
-            </Box>}
-          {Object.keys(user).length > 0 && signOut &&
-            <SignedInUserNavigation
-              screenWidth={screenWidth}
-              signOut={signOut}
-              user={user}
-            />}
-        </StyledHeader>)
-      }
-    </ResponsiveContext.Consumer>
+    <StyledHeader
+      background='black'
+      direction='row'
+      fill='horizontal'
+      justify='between'
+      pad='none'
+      responsive={false}
+      tag='header'
+    >
+      <Box
+        align='center'
+        direction='row'
+        flex='grow'
+        pad={{ horizontal: 'medium', vertical: 'small' }}
+        responsive={false}
+        tag='nav'
+      >
+        <StyledLogoAnchor href='http://www.zooniverse.org'>
+          <ZooniverseLogo height='1.25em' width='1.25em' />
+        </StyledLogoAnchor>
+        <MainNavList
+          adminNavLinkLabel={adminNavLinkLabel}
+          adminNavLinkURL={adminNavLinkURL}
+          isAdmin={isAdmin}
+          isNarrow={isNarrow}
+          mainHeaderNavListLabels={mainHeaderNavListLabels}
+          mainHeaderNavListURLs={mainHeaderNavListURLs}
+        />
+      </Box>
+      <SignedOutUserNavigation
+        adminNavLinkLabel={adminNavLinkLabel}
+        adminNavLinkURL={adminNavLinkURL}
+        isAdmin={isAdmin}
+        isNarrow={isNarrow}
+        mainHeaderNavListLabels={mainHeaderNavListLabels}
+        mainHeaderNavListURLs={mainHeaderNavListURLs}
+        register={register}
+        signIn={signIn}
+        user={user}
+      />
+      <SignedInUserNavigation
+        adminNavLinkLabel={adminNavLinkLabel}
+        adminNavLinkURL={adminNavLinkURL}
+        isNarrow={isNarrow}
+        mainHeaderNavListLabels={mainHeaderNavListLabels}
+        mainHeaderNavListURLs={mainHeaderNavListURLs}
+        unreadMessages={unreadMessages}
+        unreadNotifications={unreadNotifications}
+        signOut={signOut}
+        user={user}
+      />
+    </StyledHeader>
   )
 }
 
+// TODO: remove default prop for register once we add that functionality to auth client
 ZooHeader.defaultProps = {
-  adminNavLinkLabel: 'Admin',
-  adminNavLinkURL: `${host}/admin`,
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  breakpoint: 960,
   isAdmin: false,
-  mainHeaderNavListLabels: [
-    'Projects',
-    'About',
-    'Get Involved',
-    'Talk',
-    'Build'
-  ],
-  mainHeaderNavListURLs: [
-    `${host}/projects`,
-    `${host}/about`,
-    `${host}/get-involved`,
-    `${host}/talk`,
-    `${host}/lab`
-  ]
+  isNarrow: false,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs,
+  register: () => {},
+  unreadMessages: 0,
+  unreadNotifications: 0
 }
 
 ZooHeader.propTypes = {
   adminNavLinkLabel: PropTypes.string,
   adminNavLinkURL: PropTypes.string,
   isAdmin: PropTypes.bool,
+  isNarrow: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
-  signInButton: PropTypes.node.isRequired,
+  register: PropTypes.func,
+  signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+  unreadMessages: PropTypes.number,
+  unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
     display_name: PropTypes.string
   }).isRequired
 }
-
-export default ZooHeader
