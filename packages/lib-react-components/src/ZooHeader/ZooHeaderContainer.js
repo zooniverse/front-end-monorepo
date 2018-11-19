@@ -1,48 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import ReactResizeDetector from 'react-resize-detector'
+
 import ZooHeader from './ZooHeader'
 
-export default class ZooHeaderContainer extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      isNarrow: false
-    }
-
-    this.resizeTimeout = NaN
-    this.handleResize = this.handleResize.bind(this)
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
-  }
-
-  handleResize() {
-    const { breakpoint } = this.props
-
-    if (!isNaN(this.resizeTimeout)) {
-      window.clearTimeout(this.resizeTimeout);
-    }
-    this.resizeTimeout = window.setTimeout(() => {
-      this.setState({
-        isNarrow: window.innerWidth <= breakpoint
-      }, () => {
-        this.resizeTimeout = NaN;
-      });
-    }, 100);
-  }
-
-  render() {
-    return (
-      <ZooHeader isNarrow={this.state.isNarrow} {...this.props} />
-    )
-  }
+export default function ZooHeaderContainer (props) {
+  return (
+    <ReactResizeDetector handleWidth>
+      {width => (
+        <ZooHeader isNarrow={width <= props.breakpoint} {...props} />
+      )}
+    </ReactResizeDetector>
+  )
 }
 
 ZooHeaderContainer.defaultProps = {
