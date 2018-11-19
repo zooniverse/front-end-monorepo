@@ -21,18 +21,30 @@ function storeMapper (stores) {
   let interactionMode = ''
   if (annotate && !move) interactionMode = 'annotate'
   if (!annotate && move) interactionMode = 'move'
-  
+
+  //WIP
   const {
     addAnnotation
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
+  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+  const currentTask = (tasks && tasks[0]) || {
+    type: 'range-selector',
+    taskKey: 'T1',
+  }
+  console.log('+++ Component Update --')
+  console.log('+++ Tasks: ', tasks)
+  console.log('+++ Current Task: ', currentTask)
+  console.log('+++ Annotations: ', annotations)
   
   return {
     interactionMode,
     setOnZoom,
     
+    //WIP
     addAnnotation,
     annotations,
+    tasks,
   }
 }
 
@@ -193,7 +205,7 @@ class LightCurveViewer extends Component {
       this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
     } else if (type === 'zoomto') {
       this.zoom.scaleTo(this.d3svg.transition().duration(ZOOMING_TIME), n)
-    }    
+    }
   }
 
   /*
@@ -270,13 +282,14 @@ class LightCurveViewer extends Component {
     //ANSWER: YES
     this.d3annotationsLayer
       .append('rect')
+        .attr('class', 'example-annotation')
         .attr('transform', 'translate(50,50)')
         .attr('width', 50)
         .attr('height', 100)
         .attr('fill', '#c44')
         .attr('fill-opacity', '0.5')
         .style('cursor', 'pointer')
-        .on('click', () => { console.log('+++ xxx') })
+        .on('click', () => { console.log('+++ Example Annotation clicked') })
         .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
         .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
     
@@ -304,10 +317,12 @@ class LightCurveViewer extends Component {
         }
       })
       this.d3svg.style('cursor', 'crosshair')
+      this.d3svg.on('click', this.doInsertAnnotation.bind(this))
       
     } else if (interactionMode === 'move') {
       this.zoom.on('zoom', this.doZoom.bind(this))
       this.d3svg.style('cursor', 'move')
+      this.d3svg.on('click', null)
       
     } else {  // Users should never reach this point
       console.error('LightCurveViewer: illogical move/annotate state detected.')
@@ -323,6 +338,10 @@ class LightCurveViewer extends Component {
       .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
 
     this.updatePresentation()
+  }
+  
+  doInsertAnnotation () {
+    console.log('+++ CLICK', d3.event)
   }
   
   /*
