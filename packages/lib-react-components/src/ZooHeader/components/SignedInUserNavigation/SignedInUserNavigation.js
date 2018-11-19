@@ -54,6 +54,7 @@ export default function SignedInUserNavigation (props) {
       <Box
         align='center'
         direction='row'
+        gap='small'
         tag='nav'
       >
         <NavListItem
@@ -65,7 +66,6 @@ export default function SignedInUserNavigation (props) {
         <NavListItem
           color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
           label={messagesLabel}
-          marginRight='0.75em'
           unread={unreadMessages}
           url={`${host}/inbox`}
         />
