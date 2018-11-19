@@ -12,6 +12,11 @@ import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
+// The following are arbitrary as all heck, numbers are chosen for what "feels good"
+const ZOOM_IN_VALUE = 1.2
+const ZOOM_OUT_VALUE = 0.8
+const ZOOMING_TIME = 100  // milliseconds
+
 function storeMapper (stores) {
   const { setOnZoom } = stores.classifierStore.subjectViewer
   return {
@@ -154,19 +159,28 @@ class LightCurveViewer extends Component {
   Event Handler: Zoom (from Classifier's ImageToolbar)
   Responds to zoom actions initiated by components outside the D3 model.
    */
-  handleToolbarZoom (type, n) {
-    // The following are arbitrary as all heck, numbers are chosen for what "feels good"
-    const ZOOM_IN_VALUE = 1.2
-    const ZOOM_OUT_VALUE = 0.8
-    const ZOOMING_TIME = 100  // milliseconds
+  handleToolbarZoom (type, zoomValue) {
+    const doZoom = {
+      'zoomin': this.zoomIn.bind(this),
+      'zoomout': this.zoomOut.bind(this),
+      'zoomto': this.zoomTo.bind(this)
+    }
     
-    if (type === 'zoomin') {
-      this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
-    } else if (type === 'zoomout') {
-      this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
-    } else if (type === 'zoomto') {
-      this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), n)
-    }    
+    if (doZoom[type]) {
+      doZoom[type](zoomValue)
+    }
+  }
+  
+  zoomIn() {
+    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
+  }
+  
+  zoomOut() {
+    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
+  }
+  
+  zoomTo(zoomValue) {
+    this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
   }
 
   /*
@@ -349,7 +363,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   extent: { x: [-1,1], y: [-1,1] },
   points: [[]],
   
-  setOnZoom: (type, n) => {},
+  setOnZoom: (type, zoomValue) => {},
 
   minZoom: 1,
   maxZoom: 10,

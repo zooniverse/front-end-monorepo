@@ -14,9 +14,9 @@ const SubjectViewer = types
     /*
     Callback function for subject viewers with custom zoom handlers.
     - 'type': 'zoomin', 'zoomout', 'zoomto'
-    - 'n' defines amount zoomed in/out, or current zoom value of 'zoomto'.
+    - 'zoomValue' defines amount zoomed in/out, or current zoom value of 'zoomto'.
      */
-    onZoom: function (type, n) {},
+    onZoom: function (type, zoomValue) {},
   }))
 
   .actions(self => ({
