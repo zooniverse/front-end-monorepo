@@ -10,6 +10,15 @@ const SubjectViewer = types
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default)
   })
 
+  .volatile(self => ({
+    /*
+    Callback function for subject viewers with custom zoom handlers.
+    - 'type': 'zoomin', 'zoomout', 'zoomto'
+    - 'zoomValue' defines amount zoomed in/out, or current zoom value of 'zoomto'.
+     */
+    onZoom: function (type, zoomValue) {},
+  }))
+
   .actions(self => ({
     enableAnnotate () {
       self.annotate = true
@@ -30,7 +39,8 @@ const SubjectViewer = types
     },
 
     resetView () {
-      console.log('resetting view')
+      console.log('resetting view')      
+      self.onZoom && self.onZoom('zoomto', 1.0)
     },
 
     rotate () {
@@ -40,13 +50,19 @@ const SubjectViewer = types
     setLayout (layout = layouts.DefaultLayout) {
       self.layout = layout
     },
+    
+    setOnZoom (callback) {
+      self.onZoom = callback
+    },
 
     zoomIn () {
       console.log('zooming in')
+      self.onZoom && self.onZoom('zoomin', 1)
     },
 
     zoomOut () {
       console.log('zooming out')
+      self.onZoom && self.onZoom('zoomout', -1)
     }
   }))
 

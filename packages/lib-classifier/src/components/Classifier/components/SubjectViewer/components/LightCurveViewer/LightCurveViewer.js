@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
+import { inject, observer } from 'mobx-react'
 
 import addAxisLabel from './d3/addAxisLabel'
 import addBackgroundLayer from './d3/addBackgroundLayer'
@@ -11,6 +12,20 @@ import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import setPointStyle from './d3/setPointStyle'
 
+// The following are arbitrary as all heck, numbers are chosen for what "feels good"
+const ZOOM_IN_VALUE = 1.2
+const ZOOM_OUT_VALUE = 0.8
+const ZOOMING_TIME = 100  // milliseconds
+
+function storeMapper (stores) {
+  const { setOnZoom } = stores.classifierStore.subjectViewer
+  return {
+    setOnZoom
+  }
+}
+
+@inject(storeMapper)
+@observer
 class LightCurveViewer extends Component {
   constructor () {
     super()
@@ -54,6 +69,7 @@ class LightCurveViewer extends Component {
 
   componentDidMount () {
     this.initChart()
+    this.props.setOnZoom(this.handleToolbarZoom.bind(this))
   }
 
   componentDidUpdate (prevProps) {
@@ -72,7 +88,7 @@ class LightCurveViewer extends Component {
   }
 
   componentWillUnmount () {
-    this.d3interfaceLayer && this.d3interfaceLayer.on('.zoom', null)
+    this.zoom && this.zoom.on('zoom', null)
   }
 
   clearChart () {
@@ -137,6 +153,34 @@ class LightCurveViewer extends Component {
     return (d3.event && d3.event.transform)
       || d3.zoomTransform(this.d3interfaceLayer.node())
       || d3.zoomIdentity
+  }
+  
+  /*
+  Event Handler: Zoom (from Classifier's ImageToolbar)
+  Responds to zoom actions initiated by components outside the D3 model.
+   */
+  handleToolbarZoom (type, zoomValue) {
+    const doZoom = {
+      'zoomin': this.zoomIn.bind(this),
+      'zoomout': this.zoomOut.bind(this),
+      'zoomto': this.zoomTo.bind(this)
+    }
+    
+    if (doZoom[type]) {
+      doZoom[type](zoomValue)
+    }
+  }
+  
+  zoomIn() {
+    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
+  }
+  
+  zoomOut() {
+    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
+  }
+  
+  zoomTo(zoomValue) {
+    this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
   }
 
   /*
@@ -284,7 +328,7 @@ class LightCurveViewer extends Component {
   }
 }
 
-LightCurveViewer.propTypes = {
+LightCurveViewer.wrappedComponent.propTypes = {
   // Data values
   extent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
@@ -292,6 +336,9 @@ LightCurveViewer.propTypes = {
   }),
   points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   
+  // Event Handlers
+  setOnZoom: PropTypes.func.isRequired,
+
   // Zoom (scale) range
   minZoom: PropTypes.number,
   maxZoom: PropTypes.number,
@@ -312,9 +359,11 @@ LightCurveViewer.propTypes = {
   })
 }
 
-LightCurveViewer.defaultProps = {
+LightCurveViewer.wrappedComponent.defaultProps = {
   extent: { x: [-1,1], y: [-1,1] },
   points: [[]],
+  
+  setOnZoom: (type, zoomValue) => {},
 
   minZoom: 1,
   maxZoom: 10,
