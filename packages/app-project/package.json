@@ -33,7 +33,7 @@
     "path-match": "~1.2.4",
     "react": "~16.5.2",
     "react-dom": "~16.5.2",
-    "react-pose": "^3.4.0",
+    "react-pose": "^4.0.2",
     "react-progressive-image": "^0.6.0",
     "styled-components": "~4.0.0",
     "url-parse": "~1.4.3"
