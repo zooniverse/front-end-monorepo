@@ -9,6 +9,7 @@ import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
 import addDataMask from './d3/addDataMask'
+import getClickCoords from './d3/getClickCoords'
 import setPointStyle from './d3/setPointStyle'
 
 function storeMapper (stores) {
@@ -211,15 +212,15 @@ class LightCurveViewer extends Component {
   }
   
   zoomIn() {
-    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
+    this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
   }
   
   zoomOut() {
-    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
+    this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
   }
   
   zoomTo(zoomValue) {
-    this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
+    this.zoom.scaleTo(this.d3svg.transition().duration(ZOOMING_TIME), zoomValue)
   }
 
   /*
@@ -355,7 +356,19 @@ class LightCurveViewer extends Component {
   }
   
   doInsertAnnotation () {
-    console.log('+++ CLICK', d3.event)
+    //WARNING: MouseEvent.offsetX and offsetY are 'experimental' as of 2018.11
+    //console.log('+++ CLICK: offset ', d3.event.offsetX, d3.event.offsetY)
+    
+    //TEST
+    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale)
+    
+    console.log('+++ click coords: ', clickCoords)
+    
+    this.d3annotationsLayer.append('circle')
+      .attr('r', 10)
+      .attr('fill', '#c44')
+      .attr('cx', this.xScale(clickCoords[0]))
+      .attr('cy', this.yScale(clickCoords[1]))
   }
   
   /*
