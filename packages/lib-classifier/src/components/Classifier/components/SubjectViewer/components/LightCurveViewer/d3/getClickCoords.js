@@ -8,5 +8,5 @@ import * as d3 from 'd3'
 
 export default function getClickCoords (svgNode, xScale, yScale) {
   const coords = d3.mouse(svgNode)
-  return [ Math.round(xScale.invert(coords[0])), Math.round(yScale.invert(coords[1])) ]
+  return [ xScale.invert(coords[0]), yScale.invert(coords[1]) ]
 }
