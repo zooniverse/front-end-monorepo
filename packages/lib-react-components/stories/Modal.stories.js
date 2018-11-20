@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { backgrounds } from './lib'
 import { Modal } from '../src'
 import modalDocs from '../src/Modal/README.md'
 
@@ -17,7 +16,6 @@ const content = (
 )
 
 storiesOf('Modal', module)
-  .addDecorator(backgrounds)
   .addDecorator(withKnobs)
   .addParameters({
     info: modalDocs

@@ -48,6 +48,11 @@ function storeMapper (stores) {
   }
 }
 
+// The following are arbitrary as all heck, numbers are chosen for what "feels good"
+const ZOOM_IN_VALUE = 1.2
+const ZOOM_OUT_VALUE = 0.8
+const ZOOMING_TIME = 100  // milliseconds
+
 @inject(storeMapper)
 @observer
 class LightCurveViewer extends Component {
@@ -193,19 +198,28 @@ class LightCurveViewer extends Component {
   Event Handler: Zoom (from Classifier's ImageToolbar)
   Responds to zoom actions initiated by components outside the D3 model.
    */
-  handleToolbarZoom (type, n) {
-    // The following are arbitrary as all heck, numbers are chosen for what "feels good"
-    const ZOOM_IN_VALUE = 1.2
-    const ZOOM_OUT_VALUE = 0.8
-    const ZOOMING_TIME = 100  // milliseconds
-    
-    if (type === 'zoomin') {
-      this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
-    } else if (type === 'zoomout') {
-      this.zoom.scaleBy(this.d3svg.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
-    } else if (type === 'zoomto') {
-      this.zoom.scaleTo(this.d3svg.transition().duration(ZOOMING_TIME), n)
+  handleToolbarZoom (type, zoomValue) {
+    const doZoom = {
+      'zoomin': this.zoomIn.bind(this),
+      'zoomout': this.zoomOut.bind(this),
+      'zoomto': this.zoomTo.bind(this)
     }
+    
+    if (doZoom[type]) {
+      doZoom[type](zoomValue)
+    }
+  }
+  
+  zoomIn() {
+    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_IN_VALUE)
+  }
+  
+  zoomOut() {
+    this.zoom.scaleBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), ZOOM_OUT_VALUE)
+  }
+  
+  zoomTo(zoomValue) {
+    this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
   }
 
   /*
@@ -411,6 +425,9 @@ LightCurveViewer.wrappedComponent.propTypes = {
     y: PropTypes.arrayOf(PropTypes.number)
   }),
   dataPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  
+  // Event Handlers
+  setOnZoom: PropTypes.func.isRequired,
 
   // Zoom (scale) range
   minZoom: PropTypes.number,
@@ -439,6 +456,8 @@ LightCurveViewer.wrappedComponent.propTypes = {
 LightCurveViewer.wrappedComponent.defaultProps = {
   dataExtent: { x: [-1,1], y: [-1,1] },
   dataPoints: [[]],
+  
+  setOnZoom: (type, zoomValue) => {},
 
   minZoom: 1,
   maxZoom: 10,

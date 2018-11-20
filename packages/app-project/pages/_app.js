@@ -1,10 +1,11 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import * as mst from 'mobx-state-tree'
+import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
+import { ZooHeader, ZooFooter } from '@zooniverse/react-components'
 
 import Head from '../components/Head'
 import Navigation from '../components/Navigation'
@@ -32,7 +33,7 @@ export default class MyApp extends App {
         const projectSlug = `${owner}/${project}`
         const store = initStore(pageProps.isServer)
         await store.project.fetch(projectSlug)
-        pageProps.initialState = mst.getSnapshot(store)
+        pageProps.initialState = getSnapshot(store)
       }
     }
 
@@ -65,8 +66,10 @@ export default class MyApp extends App {
         <Provider store={this.store}>
           <Grommet theme={theme}>
             <Head />
+            <ZooHeader signIn={() => {}} signOut={() => {}} user={{}} />
             <Navigation />
             <Component {...pageProps} />
+            <ZooFooter />
           </Grommet>
         </Provider>
       </Container>

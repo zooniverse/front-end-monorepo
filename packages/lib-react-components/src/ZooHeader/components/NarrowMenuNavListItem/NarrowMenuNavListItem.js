@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SpacedText from '../../../../../SpacedText'
+import SpacedText from '../../../SpacedText'
 
-export default function UserNavListItem ({ color, text }) {
+export default function NarrowMenuNavListItem ({ color, text }) {
   return (
     <SpacedText
       color={color}
@@ -15,11 +15,11 @@ export default function UserNavListItem ({ color, text }) {
   )
 }
 
-UserNavListItem.defaultProps = {
+NarrowMenuNavListItem.defaultProps = {
   color: '#fff'
 }
 
-UserNavListItem.propTypes = {
+NarrowMenuNavListItem.propTypes = {
   color: PropTypes.string,
   text: PropTypes.string.isRequired
 }

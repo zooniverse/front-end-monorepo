@@ -1,0 +1,23 @@
+import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+
+import {{ properCase name }} from './{{ properCase name }}'
+
+@inject('store')
+@observer
+class {{ properCase name }}Container extends Component {
+  render () {
+    return (
+      <{{ properCase name }} />
+    )
+  }
+}
+
+{{ properCase name }}Container.propTypes = {
+}
+
+{{ properCase name }}Container.defaultProps = {
+}
+
+export default {{ properCase name }}Container

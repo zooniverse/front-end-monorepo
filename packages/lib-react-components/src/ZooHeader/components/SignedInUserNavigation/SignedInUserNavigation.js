@@ -1,49 +1,112 @@
-import counterpart from 'counterpart'
-import { Box } from 'grommet'
-import { MailOption, Notification } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Box } from 'grommet'
 
+import zooTheme from '@zooniverse/grommet-theme'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell as fasBell, faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faBell as farBell, faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons'
+
+import counterpart from 'counterpart'
 import en from './locales/en'
+
+import NarrowMainNavMenu from '../NarrowMainNavMenu'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
 
 counterpart.registerTranslations('en', en)
 
-export default function SignedInUserNavigation ({ host, screenWidth, signOut, user }) {
-  const notifications = (screenWidth === 'wide')
-    ? <NavListItem label={counterpart('SignedInUserNavigation.navListLabels.notifications')} url={`${host}/notifications`} />
-    : <Notification />
+export default function SignedInUserNavigation (props) {
+  const {
+    adminNavLinkLabel,
+    adminNavLinkURL,
+    host,
+    isAdmin,
+    isNarrow,
+    mainHeaderNavListLabels,
+    mainHeaderNavListURLs,
+    unreadMessages,
+    unreadNotifications,
+    signOut,
+    user
+  } = props
 
-  const messages = (screenWidth === 'wide')
-    ? <NavListItem label={counterpart('SignedInUserNavigation.navListLabels.messages')} url={`${host}/inbox`} />
-    : <MailOption />
+  const notificationLabelString = (unreadNotifications)
+    ? `${counterpart('SignedInUserNavigation.navListLabels.notifications')} (${unreadNotifications})`
+    : counterpart('SignedInUserNavigation.navListLabels.notifications')
 
-  return (
-    <Box
-      align='center'
-      direction='row'
-      tag='nav'
-    >
-      {notifications}
-      {messages}
-      <UserMenu
-        signOut={signOut}
-        user={user}
-      />
-    </Box>
-  )
+  const messagesLabelString = (unreadMessages)
+    ? `${counterpart('SignedInUserNavigation.navListLabels.messages')} (${unreadMessages})`
+    : counterpart('SignedInUserNavigation.navListLabels.messages')
+  
+  const notificationLabel = (isNarrow)
+    ? <FontAwesomeIcon icon={(unreadNotifications) ? fasBell : farBell} />
+    : notificationLabelString
+
+  const messagesLabel = (isNarrow)
+    ? <FontAwesomeIcon icon={(unreadMessages) ? fasEnvelope : farEnvelope} />
+    : messagesLabelString
+
+  if (Object.keys(user).length > 0 && signOut) {
+    return (
+      <Box
+        align='center'
+        direction='row'
+        tag='nav'
+      >
+        <NavListItem
+          color={unreadNotifications ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+          label={notificationLabel}
+          unread={unreadNotifications}
+          url={`${host}/notifications`}
+        />
+        <NavListItem
+          color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+          label={messagesLabel}
+          marginRight='0.75em'
+          unread={unreadMessages}
+          url={`${host}/inbox`}
+        />
+        <UserMenu
+          signOut={signOut}
+          user={user}
+        />
+        {isNarrow &&
+          <NarrowMainNavMenu
+            adminNavLinkLabel={adminNavLinkLabel}
+            adminNavLinkURL={adminNavLinkURL}
+            isAdmin={isAdmin}
+            mainHeaderNavListLabels={mainHeaderNavListLabels}
+            mainHeaderNavListURLs={mainHeaderNavListURLs}
+          />}
+      </Box>
+    )
+  }
+
+  return null
 }
 
 SignedInUserNavigation.defaultProps = {
-  host: getHost()
+  isAdmin: false,
+  isNarrow: false,
+  host: getHost(),
+  unreadMessages: 0,
+  unreadNotifications: 0
 }
 
 SignedInUserNavigation.propTypes = {
+  adminNavLinkLabel: PropTypes.string.isRequired,
+  adminNavLinkURL: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool,
+  isNarrow: PropTypes.bool,
   host: PropTypes.string,
-  screenWidth: PropTypes.oneOf(['narrow', 'wide']).isRequired,
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
   signOut: PropTypes.func.isRequired,
+  unreadMessages: PropTypes.number,
+  unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
     display_name: PropTypes.string,
     login: PropTypes.string

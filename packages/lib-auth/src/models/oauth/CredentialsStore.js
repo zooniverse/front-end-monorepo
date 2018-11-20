@@ -14,28 +14,32 @@ const defaultCredentials = {
 
 const warningDuration = Duration.fromObject({ minutes: 5 })
 
-function loadCredentials (key) {
-  const loaded = JSON.parse(localStorage.getItem(storageKey))
-
-  if (!loaded || (loaded.expiresAt && loaded.expiresAt <= Date.now())) {
-    return defaultCredentials[key]
-  }
-
-  return loaded[key]
-}
-
 let timeoutTimer = -1
 let warningTimer = -1
 
 const Credentials = types
   .model('Credentials', {
-    expiresAt: types.optional(types.number, loadCredentials('expiresAt')),
-    token: types.optional(types.string, loadCredentials('token'))
+    expiresAt: types.optional(types.number, defaultCredentials.expiresAt),
+    token: types.optional(types.string, defaultCredentials.token)
   })
 
   .actions(self => ({
     afterCreate () {
-      if (self.expiresAt) self.setTimers(DateTime.fromMillis(self.expiresAt))
+      self.loadCredentials()
+    },
+
+    loadCredentials () {
+      const loaded = JSON.parse(localStorage.getItem(storageKey))
+
+      if (loaded && loaded.expiresAt && loaded.expiresAt <= Date.now()) {
+        console.log('returning default')
+        self.deleteCredentials()
+      }
+
+      if (loaded) {
+        self.set(loaded)
+        self.setTimers(DateTime.fromMillis(loaded.expiresAt))
+      }
     },
 
     reset () {
