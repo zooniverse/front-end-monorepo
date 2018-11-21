@@ -374,8 +374,8 @@ class LightCurveViewer extends Component {
     //console.log('+++ CLICK: offset ', d3.event.offsetX, d3.event.offsetY)
     
     //TEST
-    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale)
-    
+    const t = this.getCurrentTransform()
+    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
     console.log('+++ click coords: ', clickCoords)
     
     this.d3annotationsLayer.append('circle')
