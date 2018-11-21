@@ -23,10 +23,32 @@ function storeMapper (stores) {
   let interactionMode = ''
   if (annotate && !move) interactionMode = 'annotate'
   if (!annotate && move) interactionMode = 'move'
+
+  //WIP
+  const {
+    addAnnotation
+  } = stores.classifierStore.classifications
+  const annotations = stores.classifierStore.classifications.currentAnnotations
+  const { active: step } = stores.classifierStore.workflowSteps
+  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+  const currentTask = (tasks && tasks[0]) || {
+    type: 'range-selector',
+    taskKey: 'T1',
+  }
+  console.log('+++ Component Update --')
+  console.log('+++ Tasks: ', tasks)
+  console.log('+++ Current Task: ', currentTask)
+  console.log('+++ Annotations: ', annotations)
   
   return {
     interactionMode,
     setOnZoom,
+    
+    //WIP
+    addAnnotation,
+    annotations,
+    currentTask,
+    tasks,
   }
 }
 
@@ -350,6 +372,7 @@ class LightCurveViewer extends Component {
   }
   
   doInsertAnnotation () {
+    const props = this.props
     const t = this.getCurrentTransform()
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
     console.log('+++ click coords: ', clickCoords)
@@ -360,6 +383,8 @@ class LightCurveViewer extends Component {
       .attr('fill', '#c44')
       .attr('cx', this.xScale(clickCoords[0]))
       .attr('cy', this.yScale(clickCoords[1]))
+    
+    props.addAnnotation({ x: clickCoords[0], width: 10 }, props.currentTask)
   }
   
   /*
