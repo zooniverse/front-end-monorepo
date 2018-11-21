@@ -1,3 +1,3 @@
 export default function isServiceWorkerAvailable () {
-  return 'serviceWorker' in navigator
+  return (navigator !== undefined) && 'serviceWorker' in navigator
 }

@@ -8,10 +8,10 @@ import {
   projects as projectsClient
 } from '@zooniverse/panoptes-js'
 
-import { registerWorkers } from '../../workers'
+// import { registerWorkers } from '../../workers'
 import RootStore from 'src/store'
 import Layout from './components/Layout'
-import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
+// import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
 const client = {
   panoptes: panoptesClient,
@@ -20,7 +20,7 @@ const client = {
 
 // We don't register the queue service worker if background sync API is not available
 // We might want to move this check elsewhere once we add other service workers for other tasks
-if (isBackgroundSyncAvailable()) registerWorkers()
+// if (isBackgroundSyncAvailable()) registerWorkers()
 
 class Classifier extends React.Component {
   constructor (props) {

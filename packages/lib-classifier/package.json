@@ -5,6 +5,7 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "main": "dist/main.js",
+  "module": "src/components/index.js",
   "scripts": {
     "_check": "check-dependencies",
     "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
@@ -16,6 +17,8 @@
     "test:ci": "npm run _test"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/runtime": "^7.1.5",
     "@klarna/higher-order-components": "~6.3.1",
     "@zooniverse/async-states": "~0.0.1",
     "counterpart": "~0.18.6",

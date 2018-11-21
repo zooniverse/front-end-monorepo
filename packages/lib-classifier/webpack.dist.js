@@ -14,6 +14,11 @@ const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
 
 module.exports = {
   entry: './src/components/Classifier/index.js',
+  externals : {
+    PropTypes: 'prop-types',
+    react: 'react',
+    reactDOM: 'react-dom'
+  },
   mode: 'production',
   module: {
     rules: [
@@ -29,7 +34,8 @@ module.exports = {
     filename: 'main.js',
     library: '@zooniverse/classifier',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: `(typeof self !== 'undefined' ? self : this)`
   },
   plugins: [
     EnvironmentWebpackPlugin,
