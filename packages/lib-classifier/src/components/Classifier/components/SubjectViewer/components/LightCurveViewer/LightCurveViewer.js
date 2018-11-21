@@ -308,7 +308,7 @@ class LightCurveViewer extends Component {
         .attr('fill', '#c44')
         .attr('fill-opacity', '0.5')
         .style('cursor', 'pointer')
-        .on('click', () => { console.log('+++ Example Annotation clicked') })
+        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })
         .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
         .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
     
@@ -370,14 +370,11 @@ class LightCurveViewer extends Component {
   }
   
   doInsertAnnotation () {
-    //WARNING: MouseEvent.offsetX and offsetY are 'experimental' as of 2018.11
-    //console.log('+++ CLICK: offset ', d3.event.offsetX, d3.event.offsetY)
-    
-    //TEST
     const t = this.getCurrentTransform()
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
     console.log('+++ click coords: ', clickCoords)
     
+    //TEST
     this.d3annotationsLayer.append('circle')
       .attr('r', 10)
       .attr('fill', '#c44')
