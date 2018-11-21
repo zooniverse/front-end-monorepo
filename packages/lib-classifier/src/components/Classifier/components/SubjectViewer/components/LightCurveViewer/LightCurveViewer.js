@@ -23,30 +23,10 @@ function storeMapper (stores) {
   let interactionMode = ''
   if (annotate && !move) interactionMode = 'annotate'
   if (!annotate && move) interactionMode = 'move'
-
-  //WIP
-  const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications.currentAnnotations
-  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
-  const currentTask = (tasks && tasks[0]) || {
-    type: 'range-selector',
-    taskKey: 'T1',
-  }
-  console.log('+++ Component Update --')
-  console.log('+++ Tasks: ', tasks)
-  console.log('+++ Current Task: ', currentTask)
-  console.log('+++ Annotations: ', annotations)
   
   return {
     interactionMode,
     setOnZoom,
-    
-    //WIP
-    addAnnotation,
-    annotations,
-    tasks,
   }
 }
 
@@ -297,8 +277,8 @@ class LightCurveViewer extends Component {
         .attr('class', 'annotations-layer')
     this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
     
-    //TEST: Can we stop event propagation on clicks?
-    //ANSWER: YES
+    // TEST: Can we stop event propagation on clicks?
+    // ANSWER: YES
     this.d3annotationsLayer
       .append('rect')
         .attr('class', 'example-annotation')
@@ -308,8 +288,8 @@ class LightCurveViewer extends Component {
         .attr('fill', '#c44')
         .attr('fill-opacity', '0.5')
         .style('cursor', 'pointer')
-        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })
-        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
+        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
+        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents "drag selection"
         .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
     
     /*
@@ -374,7 +354,7 @@ class LightCurveViewer extends Component {
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
     console.log('+++ click coords: ', clickCoords)
     
-    //TEST
+    // TEST
     this.d3annotationsLayer.append('circle')
       .attr('r', 10)
       .attr('fill', '#c44')
