@@ -58,8 +58,6 @@ const WorkflowStore = types
     function selectWorkflow (id = getDefaultWorkflowId()) {
       if (id) {
         self.setActive(id)
-      } else {
-        console.warn('No workflow ID available')
       }
     }
 

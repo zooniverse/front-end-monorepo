@@ -38,6 +38,12 @@ function createConfig (options) {
     devtool: options.preferredDevTool,
     entry: ['./src/index.', target.targetEnv, '.js'].join(''),
     externals: {
+      mobx: {
+        root: 'Mobx',
+        commonjs2: 'mobx',
+        commonjs: 'mobx',
+        amd: 'mobx'
+      },
       react: {
         root: 'React',
         commonjs2: 'react',

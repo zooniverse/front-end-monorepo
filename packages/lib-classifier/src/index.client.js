@@ -65,7 +65,7 @@ Classifier.defaultProps = {
 }
 
 Classifier.propTypes = {
-  authClient: PropTypes.object.isRequired,
+  authClient: PropTypes.object,
   mode: PropTypes.string,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
