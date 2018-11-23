@@ -12,7 +12,9 @@ const WorkflowStore = types
 
   .actions(self => {
     function afterAttach () {
-      createUPPObserver()
+      // createUPPObserver()
+      createProjectObserver()
+      selectWorkflow()
     }
 
     function createUPPObserver () {
@@ -24,6 +26,17 @@ const WorkflowStore = types
         }
       })
       addDisposer(self, uppDisposer)
+    }
+
+    function createProjectObserver () {
+      const projectObserver = autorun(() => {
+        const project = getRoot(self).projects.active
+        if (project) {
+          self.reset()
+          selectWorkflow()
+        }
+      })
+      addDisposer(self, projectObserver)
     }
 
     function getDefaultWorkflowId () {
@@ -46,7 +59,7 @@ const WorkflowStore = types
       if (id) {
         self.setActive(id)
       } else {
-        throw new ReferenceError('No workflow ID available')
+        console.warn('No workflow ID available')
       }
     }
 

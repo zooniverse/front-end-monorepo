@@ -4,7 +4,7 @@ import Resource from './Resource'
 const Project = types
   .model('Project', {
     configuration: types.frozen({}),
-    display_name: types.string,
+    displayName: types.string,
     links: types.frozen({})
   })
 

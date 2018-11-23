@@ -7,7 +7,7 @@ const stub = {
   configuration: {
     foo: 'bar'
   },
-  'display_name': 'Foobar',
+  'displayName': 'Foobar',
   links: {
     arrayLink: [
       'foobar'
@@ -28,8 +28,8 @@ describe('Model > Project', function () {
     expect(model.configuration).to.deep.equal(stub.configuration)
   })
 
-  it('should have a `display_name` property', function () {
-    expect(model.display_name).to.equal(stub.display_name)
+  it('should have a `displayName` property', function () {
+    expect(model.displayName).to.equal(stub.displayName)
   })
 
   it('should have a `links` property', function () {

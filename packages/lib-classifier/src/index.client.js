@@ -9,9 +9,10 @@ import {
 } from '@zooniverse/panoptes-js'
 
 // import { registerWorkers } from '../../workers'
-import RootStore from 'src/store'
-import Layout from './components/Layout'
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
+
+import RootStore from './store'
+import Layout from './components/Layout'
 
 const client = {
   panoptes: panoptesClient,
@@ -26,7 +27,7 @@ class Classifier extends React.Component {
   constructor (props) {
     super(props)
 
-    this.classifierStore = RootStore.create({}, { authClient: props.authClient, client })
+    this.classifierStore = RootStore.create({}, { client })
     makeInspectable(this.classifierStore)
   }
 

@@ -30,6 +30,12 @@ const UserProjectPreferencesStore = types
     function createTempUPPOrFetchUPP () {
       const project = getRoot(self).projects.active
       const { authClient } = getRoot(self)
+
+      if (!authClient || !authClient.getToken) {
+        self.createTempUPP()
+        return null
+      }
+
       const authToken = authClient.getToken() || {}
       console.log('authToken', authToken)
       const user = authClient.getUser()
