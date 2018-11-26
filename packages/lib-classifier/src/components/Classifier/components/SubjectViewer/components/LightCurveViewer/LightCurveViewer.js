@@ -35,10 +35,10 @@ function storeMapper (stores) {
     type: 'graphRanges',
     taskKey: 'T100',
   }
-  console.log('+++ Component Update --')
-  console.log('+++ Tasks: ', tasks)
-  console.log('+++ Current Task: ', currentTask)
-  console.log('+++ Annotations: ', annotations)
+  //console.log('+++ Component Update --')
+  //console.log('+++ Tasks: ', tasks)
+  //console.log('+++ Current Task: ', currentTask)
+  //console.log('+++ Annotations: ', annotations.toJSON())
   
   return {
     interactionMode,
@@ -384,8 +384,13 @@ class LightCurveViewer extends Component {
       .attr('cx', this.xScale(clickCoords[0]))
       .attr('cy', this.yScale(clickCoords[1]))
     
-    props.addAnnotation([{ x: clickCoords[0], width: 10 }], props.currentTask)
-    //props.addAnnotation([ clickCoords[0] ], props.currentTask)
+    const annotations = (props.annotations && props.annotations.toJSON()) || {}
+    const values = (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
+    
+    console.log('+++ VALUES: ', values)
+    values.push({ x: clickCoords[0], width: 10 })
+    
+    props.addAnnotation(values, props.currentTask)
   }
   
   /*
