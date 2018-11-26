@@ -33,14 +33,14 @@ export default function SignedInUserNavigation (props) {
     user
   } = props
 
-  const notificationLabelString = (unreadNotifications)
-    ? `${counterpart('SignedInUserNavigation.navListLabels.notifications')} (${unreadNotifications})`
-    : counterpart('SignedInUserNavigation.navListLabels.notifications')
+  const notificationLabelString = counterpart('SignedInUserNavigation.navListLabels.notifications', {
+    count: unreadNotifications
+  })
 
-  const messagesLabelString = (unreadMessages)
-    ? `${counterpart('SignedInUserNavigation.navListLabels.messages')} (${unreadMessages})`
-    : counterpart('SignedInUserNavigation.navListLabels.messages')
-  
+  const messagesLabelString = counterpart('SignedInUserNavigation.navListLabels.messages', {
+    count: unreadMessages
+  })
+
   const notificationLabel = (isNarrow)
     ? <FontAwesomeIcon icon={(unreadNotifications) ? fasBell : farBell} />
     : notificationLabelString
