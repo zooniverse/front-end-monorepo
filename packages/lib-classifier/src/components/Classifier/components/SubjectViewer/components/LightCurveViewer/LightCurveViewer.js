@@ -31,9 +31,9 @@ function storeMapper (stores) {
   const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active: step } = stores.classifierStore.workflowSteps
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
-  const currentTask = (tasks && tasks[0]) || {
-    type: 'range-selector',
-    taskKey: 'T1',
+  const currentTask = /*(tasks && tasks[0]) ||*/ {
+    type: 'graphRanges',
+    taskKey: 'T100',
   }
   console.log('+++ Component Update --')
   console.log('+++ Tasks: ', tasks)
@@ -384,7 +384,8 @@ class LightCurveViewer extends Component {
       .attr('cx', this.xScale(clickCoords[0]))
       .attr('cy', this.yScale(clickCoords[1]))
     
-    props.addAnnotation({ x: clickCoords[0], width: 10 }, props.currentTask)
+    props.addAnnotation([{ x: clickCoords[0], width: 10 }], props.currentTask)
+    //props.addAnnotation([ clickCoords[0] ], props.currentTask)
   }
   
   /*
