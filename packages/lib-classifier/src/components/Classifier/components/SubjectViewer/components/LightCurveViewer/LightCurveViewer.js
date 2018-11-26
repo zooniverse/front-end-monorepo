@@ -176,6 +176,8 @@ class LightCurveViewer extends Component {
       // users can only zoom & pan in the x-direction
       .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
       .attr('cy', d => this.yScale(d[1]))
+    
+    console.log('+++ A: ', points)
 
     if (shouldAnimate) {
       points.enter()
@@ -191,6 +193,29 @@ class LightCurveViewer extends Component {
         .merge(points)
         .call(setPointCoords)
     }
+    
+    // Add the user annotations
+    const annotationValues = this.getAnnotationValues()
+    const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
+      .data(annotationValues)
+    
+    console.log('+++ B: ', annotations)
+    
+    annotations.enter()
+      .append('rect')  // Note: all rects are of class '.user-annotation'
+        .attr('class', 'user-annotation')
+        .attr('fill', '#488')
+      .merge(annotations)
+        .attr('x', d => t.rescaleX(this.xScale)(d.x))
+        .attr('width', d => t.rescaleX(this.xScale)(d.width))
+        .attr('y', d => 0)
+        .attr('height', d => 100)
+  }
+  
+  getAnnotationValues () {
+    const props = this.props
+    const annotations = (props.annotations && props.annotations.toJSON()) || {}
+    return (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
   }
   
   getCurrentTransform () {
@@ -384,8 +409,7 @@ class LightCurveViewer extends Component {
       .attr('cx', this.xScale(clickCoords[0]))
       .attr('cy', this.yScale(clickCoords[1]))
     
-    const annotations = (props.annotations && props.annotations.toJSON()) || {}
-    const values = (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
+    const values = this.getAnnotationValues()
     
     console.log('+++ VALUES: ', values)
     values.push({ x: clickCoords[0], width: 10 })
