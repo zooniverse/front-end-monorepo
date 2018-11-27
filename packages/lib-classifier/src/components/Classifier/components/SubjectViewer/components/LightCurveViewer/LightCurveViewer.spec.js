@@ -18,7 +18,7 @@ describe('Component > LightCurveViewer', function () {
     }
 
     // Use mount() instead of shallow() since d3 logic exists outside of render()
-    wrapper = render(<LightCurveViewer points={points} extent={extent} />)
+    wrapper = render(<LightCurveViewer.wrappedComponent points={points} extent={extent} />)
   })
 
   it('should render without crashing', function () {})
