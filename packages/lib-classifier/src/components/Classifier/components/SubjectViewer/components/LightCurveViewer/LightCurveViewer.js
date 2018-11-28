@@ -35,10 +35,6 @@ function storeMapper (stores) {
     type: 'graphRanges',
     taskKey: 'T100',
   }
-  //console.log('+++ Component Update --')
-  //console.log('+++ Tasks: ', tasks)
-  //console.log('+++ Current Task: ', currentTask)
-  //console.log('+++ Annotations: ', annotations.toJSON())
   
   return {
     interactionMode,
@@ -165,8 +161,6 @@ class LightCurveViewer extends Component {
       .domain(this.props.dataExtent.y)
       .range([height - props.innerMargin, 0 + props.innerMargin])  //Note that this is reversed
     
-    this.updatePresentation(width, height)
-    
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.dataPoints)
@@ -177,8 +171,6 @@ class LightCurveViewer extends Component {
       .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
       .attr('cy', d => this.yScale(d[1]))
     
-    console.log('+++ A: ', points)
-
     if (shouldAnimate) {
       points.enter()
         .append('circle')  // Note: all circles are of class '.data-point'
@@ -194,22 +186,10 @@ class LightCurveViewer extends Component {
         .call(setPointCoords)
     }
     
-    // Add the user annotations
-    const annotationValues = this.getAnnotationValues()
-    const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
-      .data(annotationValues)
-    
-    console.log('+++ B: ', annotations)
-    
-    annotations.enter()
-      .append('rect')  // Note: all rects are of class '.user-annotation'
-        .attr('class', 'user-annotation')
-        .attr('fill', '#488')
-      .merge(annotations)
-        .attr('x', d => t.rescaleX(this.xScale)(d.x))
-        .attr('width', d => t.rescaleX(this.xScale)(d.width))
-        .attr('y', d => 0)
-        .attr('height', d => 100)
+    // Update visual elements
+    this.updateDataPoints()
+    this.updateUserAnnotations()
+    this.updatePresentation(width, height)
   }
   
   getAnnotationValues () {
@@ -357,26 +337,10 @@ class LightCurveViewer extends Component {
     if (!this.zoom || !this.d3interfaceLayer) return
     
     if (interactionMode === 'annotate') {
-      // HACK: Prevent zoom by "running in place"
-      // this.zoom.on('zoom', null) doesn't work, because transforms are just
-      // "deferred" until Move Mode is reinstated.
-      /*this.savedTransform = this.getCurrentTransform()
-      this.zoom.on('zoom', () => {
-        if (d3.event.transform.x !== this.savedTransform.x
-            || d3.event.transform.y !== this.savedTransform.y
-            || d3.event.transform.k !== this.savedTransform.k) {
-          this.zoom.transform(this.d3interfaceLayer, this.savedTransform)
-        }
-      })
-      this.d3interfaceLayer.style('cursor', 'crosshair')
-      this.d3interfaceLayer.on('click', this.doInsertAnnotation.bind(this))*/
-      
       this.d3svg.on('click', this.doInsertAnnotation.bind(this))
       this.d3interfaceLayer.style('display', 'none')
       
     } else if (interactionMode === 'move') {
-      //this.zoom.on('zoom', this.doZoom.bind(this))
-      
       this.d3svg.on('click', null)
       this.d3interfaceLayer.style('display', null)
       
@@ -386,35 +350,35 @@ class LightCurveViewer extends Component {
   }
   
   doZoom () {
-    const t = this.getCurrentTransform()
-
-    // Re-draw the data points to fit the new view
-    // Note: users can only zoom & pan in the x-direction
-    this.d3dataLayer.selectAll('.data-point')
-      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
-
+    this.updateDataPoints()
+    this.updateUserAnnotations()
     this.updatePresentation()
   }
   
   doInsertAnnotation () {
+    const STARTING_WIDTH = 1
     const props = this.props
     const t = this.getCurrentTransform()
+    
+    // Figure out where the user clicked on the graph, then add a new annotation
+    // to the array of annotations.
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
-    console.log('+++ click coords: ', clickCoords)
-    
-    // TEST
-    this.d3annotationsLayer.append('circle')
-      .attr('r', 10)
-      .attr('fill', '#c44')
-      .attr('cx', this.xScale(clickCoords[0]))
-      .attr('cy', this.yScale(clickCoords[1]))
-    
     const values = this.getAnnotationValues()
-    
-    console.log('+++ VALUES: ', values)
-    values.push({ x: clickCoords[0], width: 10 })
+    values.push({ x: clickCoords[0], width: STARTING_WIDTH })
     
     props.addAnnotation(values, props.currentTask)
+    
+    this.updateUserAnnotations()
+  }
+  
+  /*
+  Re-draw the data points to fit the new view
+  Note: users can only zoom & pan in the x-direction
+   */
+  updateDataPoints () {
+    const t = this.getCurrentTransform()
+    this.d3dataLayer.selectAll('.data-point')
+      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
   }
   
   /*
@@ -441,6 +405,30 @@ class LightCurveViewer extends Component {
     
     this.yAxis.scale(this.yScale)  // Do NOT rescale the y-axis
     this.d3axisY.call(this.yAxis)
+  }
+  
+  /*
+  Re-draw the user annotations to fit the new view
+  Note: users can only zoom & pan in the x-direction
+   */
+  updateUserAnnotations () {
+    const t = this.getCurrentTransform()
+    
+    // Add the user annotations
+    const annotationValues = this.getAnnotationValues()
+    const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
+      .data(annotationValues)
+    
+    annotations.enter()
+      .append('rect')  // Note: all rects are of class '.user-annotation'
+        .attr('class', 'user-annotation')
+        .attr('fill', '#c44')
+        .attr('fill-opacity', '0.5')
+      .merge(annotations)
+        .attr('x', d => t.rescaleX(this.xScale)(d.x))
+        .attr('width', d => d.width)
+        .attr('y', d => 0)
+        .attr('height', d => '100%')
   }
   
   repositionAxes (width, height) {
