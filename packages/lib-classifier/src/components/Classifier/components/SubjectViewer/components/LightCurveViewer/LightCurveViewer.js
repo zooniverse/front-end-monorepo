@@ -126,6 +126,8 @@ class LightCurveViewer extends Component {
   clearChart () {
     this.d3dataLayer.selectAll('.data-point').remove()
     this.d3annotationsLayer.selectAll('.user-annotation').remove()
+    this.zoomTo(1.0)
+    // TODO/Optional: reset view pan/translate to 0,0?
   }
 
   /*
@@ -133,7 +135,7 @@ class LightCurveViewer extends Component {
   data points.
   Called when new data (points) is received, and when chart is resized.
    */
-  drawChart (width, height, shouldAnimate = false) {
+  drawChart (width, height, shouldAnimate = true) {
     const props =  this.props
     if (!height || !width) {
       return false
