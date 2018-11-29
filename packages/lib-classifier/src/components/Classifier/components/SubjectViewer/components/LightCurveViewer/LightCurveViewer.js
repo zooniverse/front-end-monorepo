@@ -24,13 +24,20 @@ function storeMapper (stores) {
   if (annotate && !move) interactionMode = 'annotate'
   if (!annotate && move) interactionMode = 'move'
 
-  //WIP
   const {
     addAnnotation
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active: step } = stores.classifierStore.workflowSteps
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+  
+  // WIP
+  // We currently have no corresponding "graphRanges" task in the Panoptes
+  // Project Builder, so this is jimmied in.
+  // NOTE: There are two things that need to be done:
+  // - We need to create a workflow with the custom "graphRanges" task
+  // - We need to consider how the LCV reacts when the current active task is
+  //   NOT a graphRanges task.
   const currentTask = /*(tasks && tasks[0]) ||*/ {
     type: 'graphRanges',
     taskKey: 'T100',
@@ -40,7 +47,6 @@ function storeMapper (stores) {
     interactionMode,
     setOnZoom,
     
-    //WIP
     addAnnotation,
     annotations,
     currentTask,
@@ -161,7 +167,7 @@ class LightCurveViewer extends Component {
       .range([0 + props.innerMargin, width - props.innerMargin])
     this.yScale
       .domain(this.props.dataExtent.y)
-      .range([height - props.innerMargin, 0 + props.innerMargin])  //Note that this is reversed
+      .range([height - props.innerMargin, 0 + props.innerMargin])  // Note that this is reversed
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
@@ -293,21 +299,6 @@ class LightCurveViewer extends Component {
         .attr('class', 'annotations-layer')
     this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
     
-    // TEST: Can we stop event propagation on clicks?
-    // ANSWER: YES
-    this.d3annotationsLayer
-      .append('rect')
-        .attr('class', 'example-annotation')
-        .attr('transform', 'translate(50,50)')
-        .attr('width', 50)
-        .attr('height', 100)
-        .attr('fill', '#c44')
-        .attr('fill-opacity', '0.5')
-        .style('cursor', 'pointer')
-        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
-        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents "drag selection"
-        .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
-    
     /*
     The Interface Layer is the last (i.e. top-most) layer added, capturing all
     mouse input but making it impossible to directly interact with any layer
@@ -420,7 +411,6 @@ class LightCurveViewer extends Component {
     const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
       .data(annotationValues)
     
-    
     const getLeftEdgeOfAnnotation = (x, width = 0, xScale, transform) => {
       return transform.rescaleX(this.xScale)(x - width / 2)
     }
@@ -442,6 +432,10 @@ class LightCurveViewer extends Component {
         .attr('class', 'user-annotation')
         .attr('fill', '#c44')
         .attr('fill-opacity', '0.5')
+        .style('cursor', 'pointer')
+        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
+        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents "drag selection"
+        .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
     
       // And for all current annotations, update their annotation SVG element
       .merge(annotations)
