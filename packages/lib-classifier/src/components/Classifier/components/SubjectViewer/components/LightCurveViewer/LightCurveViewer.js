@@ -345,7 +345,7 @@ class LightCurveViewer extends Component {
   }
   
   doInsertAnnotation () {
-    const STARTING_WIDTH = 0.5
+    const STARTING_WIDTH = 0.4
     const props = this.props
     const t = this.getCurrentTransform()
     
