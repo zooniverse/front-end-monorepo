@@ -419,11 +419,21 @@ class LightCurveViewer extends Component {
     const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
       .data(annotationValues)
     
+    const getLeftEdgeOfRange = (x, width, xScale, transform) => {
+      return x
+    }
+    
+    // For each old/deleted annotation value, remove the corresponding annotation SVG element.
+    annotations.exit().remove()
+    
+    // For each newly added annotation value, create a new corresponding annotation SVG element.
     annotations.enter()
-      .append('rect')  // Note: all rects are of class '.user-annotation'
+      .append('rect')  // Class: '.user-annotation'
         .attr('class', 'user-annotation')
         .attr('fill', '#c44')
         .attr('fill-opacity', '0.5')
+    
+      // And for all current annotations, update their annotation SVG element
       .merge(annotations)
         .attr('x', d => t.rescaleX(this.xScale)(d.x))
         .attr('width', d => d.width)
