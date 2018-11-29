@@ -56,7 +56,7 @@
     "babel-loader": "~8.0.0",
     "chai": "~4.1.2",
     "dirty-chai": "~2.0.1",
-    "enzyme": "~3.6.0",
+    "enzyme": "~3.7.0",
     "enzyme-adapter-react-16": "~1.5.0",
     "grommet": "~2.0.0-rc",
     "grommet-icons": "~3.1.0",
