@@ -164,30 +164,18 @@ class LightCurveViewer extends Component {
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.dataPoints)
-
-    const t = this.getCurrentTransform()
-    const setPointCoords = selection => selection
-      // users can only zoom & pan in the x-direction
-      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
-      .attr('cy', d => this.yScale(d[1]))
+        
+    // For each new and existing data point, add (append) a new SVG circle.
+    points.enter()
+      .append('circle')  // Note: all circles are of class '.data-point'
+      .call(setPointStyle)
     
-    if (shouldAnimate) {
-      points.enter()
-        .append('circle')  // Note: all circles are of class '.data-point'
-        .call(setPointStyle)
-        .merge(points)
-        .transition()
-        .call(setPointCoords)
-    } else {
-      points.enter()
-        .append('circle')
-        .call(setPointStyle)
-        .merge(points)
-        .call(setPointCoords)
-    }
+    // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
+    points.exit().remove()
+
     
     // Update visual elements
-    this.updateDataPoints()
+    this.updateDataPoints(shouldAnimate)
     this.updateUserAnnotations()
     this.updatePresentation(width, height)
   }
@@ -373,12 +361,24 @@ class LightCurveViewer extends Component {
   
   /*
   Re-draw the data points to fit the new view
+  We don't don't add/remove data points at this step (no enter() or exit())
+  because new data points are only added/removed at the drawChart() step.
   Note: users can only zoom & pan in the x-direction
    */
-  updateDataPoints () {
+  updateDataPoints (shouldAnimate = false) {
     const t = this.getCurrentTransform()
-    this.d3dataLayer.selectAll('.data-point')
-      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+    const dataPoints = this.d3dataLayer.selectAll('.data-point')
+    
+    if (shouldAnimate) {
+      dataPoints
+        .transition()
+        .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        .attr('cy', d => this.yScale(d[1]))
+    } else {
+      dataPoints
+        .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        .attr('cy', d => this.yScale(d[1]))
+    }
   }
   
   /*
@@ -419,13 +419,6 @@ class LightCurveViewer extends Component {
     const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
       .data(annotationValues)
     
-    const getLeftEdgeOfRange = (x, width, xScale, transform) => {
-      return x
-    }
-    
-    // For each old/deleted annotation value, remove the corresponding annotation SVG element.
-    annotations.exit().remove()
-    
     // For each newly added annotation value, create a new corresponding annotation SVG element.
     annotations.enter()
       .append('rect')  // Class: '.user-annotation'
@@ -439,6 +432,11 @@ class LightCurveViewer extends Component {
         .attr('width', d => d.width)
         .attr('y', d => 0)
         .attr('height', d => '100%')
+    
+    // For each annotation SVG element that no longer has an annotation value
+    // (e.g. the annotation value was deleted, or this is a fresh new Subject)
+    // clean it up.
+    annotations.exit().remove()
   }
   
   repositionAxes (width, height) {
