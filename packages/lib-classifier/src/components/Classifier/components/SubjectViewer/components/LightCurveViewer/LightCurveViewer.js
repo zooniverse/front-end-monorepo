@@ -175,7 +175,6 @@ class LightCurveViewer extends Component {
     // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
     points.exit().remove()
 
-    
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
     this.updateUserAnnotations()
@@ -346,7 +345,7 @@ class LightCurveViewer extends Component {
   }
   
   doInsertAnnotation () {
-    const STARTING_WIDTH = 1
+    const STARTING_WIDTH = 0.5
     const props = this.props
     const t = this.getCurrentTransform()
     
@@ -421,6 +420,22 @@ class LightCurveViewer extends Component {
     const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
       .data(annotationValues)
     
+    
+    const getLeftEdgeOfAnnotation = (x, width = 0, xScale, transform) => {
+      return transform.rescaleX(this.xScale)(x - width / 2)
+    }
+    
+    const getRightEdgeOfAnnotation = (x, width, xScale, transform) => {
+      return transform.rescaleX(this.xScale)(x + width / 2)
+    }
+    
+    const getWidthOfAnnotation = (x, width, xScale, transform) => {
+      const left = getLeftEdgeOfAnnotation(x, width, xScale, transform)
+      const right = getRightEdgeOfAnnotation(x, width, xScale, transform)
+      return Math.max(right - left, 0)
+    }
+    
+    
     // For each newly added annotation value, create a new corresponding annotation SVG element.
     annotations.enter()
       .append('rect')  // Class: '.user-annotation'
@@ -430,8 +445,10 @@ class LightCurveViewer extends Component {
     
       // And for all current annotations, update their annotation SVG element
       .merge(annotations)
-        .attr('x', d => t.rescaleX(this.xScale)(d.x))
-        .attr('width', d => d.width)
+        //.attr('x', d => t.rescaleX(this.xScale)(d.x))
+        //.attr('width', d => d.width)
+        .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, t))
+        .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, t))
         .attr('y', d => 0)
         .attr('height', d => '100%')
     
