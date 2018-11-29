@@ -125,7 +125,7 @@ class LightCurveViewer extends Component {
 
   clearChart () {
     this.d3dataLayer.selectAll('.data-point').remove()
-    this.d3dataLayer.selectAll('.user-annotation').remove()
+    this.d3annotationsLayer.selectAll('.user-annotation').remove()
   }
 
   /*
