@@ -12,6 +12,16 @@ const SubjectStore = types
     type: types.optional(types.string, 'subjects')
   })
 
+  .views(self => ({
+    get isThereMetadata() {
+      if (self.active) {
+        return Object.keys(self.active.metadata).length > 0
+      }
+
+      return false
+    }
+  }))
+
   .actions(self => {
     function advance () {
       if (self.active) {
