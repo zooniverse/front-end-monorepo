@@ -11,7 +11,8 @@ import addDataLayer from './d3/addDataLayer'
 import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import getClickCoords from './d3/getClickCoords'
-import setPointStyle from './d3/setPointStyle'
+import setDataPointStyle from './d3/setDataPointStyle'
+import setUserAnnotationAttr from './d3/setUserAnnotationAttr'
 
 function storeMapper (stores) {
   const {
@@ -176,7 +177,7 @@ class LightCurveViewer extends Component {
     // For each new and existing data point, add (append) a new SVG circle.
     points.enter()
       .append('circle')  // Note: all circles are of class '.data-point'
-      .call(setPointStyle)
+      .call(setDataPointStyle)
     
     // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
     points.exit().remove()
@@ -429,18 +430,10 @@ class LightCurveViewer extends Component {
     // For each newly added annotation value, create a new corresponding annotation SVG element.
     annotations.enter()
       .append('rect')  // Class: '.user-annotation'
-        .attr('class', 'user-annotation')
-        .attr('fill', '#c44')
-        .attr('fill-opacity', '0.5')
-        .style('cursor', 'pointer')
-        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
-        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents "drag selection"
-        .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
+        .call(setUserAnnotationAttr)
     
       // And for all current annotations, update their annotation SVG element
       .merge(annotations)
-        //.attr('x', d => t.rescaleX(this.xScale)(d.x))
-        //.attr('width', d => d.width)
         .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, t))
         .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, t))
         .attr('y', d => 0)
