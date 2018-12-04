@@ -6,7 +6,6 @@ import React from 'react'
 import LightCurveViewer from './LightCurveViewer'
 import mockData from './mockData'
 
-let d3svg
 let wrapper
 
 describe('Component > LightCurveViewer', function () {
@@ -18,7 +17,7 @@ describe('Component > LightCurveViewer', function () {
     }
 
     // Use mount() instead of shallow() since d3 logic exists outside of render()
-    wrapper = render(<LightCurveViewer.wrappedComponent points={points} extent={extent} />)
+    wrapper = render(<LightCurveViewer.wrappedComponent dataPoints={dataPoints} dataExtent={dataExtent} />)
   })
 
   it('should render without crashing', function () {})
