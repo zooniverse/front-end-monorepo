@@ -34,30 +34,29 @@ export const StyledDoneButton = styled(Button)`
 
   &:hover, &:focus {
     background: ${theme('mode', {
-    dark: zooTheme.dark.colors.button.done.hover,
-    light: darken(0.15, zooTheme.light.colors.button.done)
-  })};
+      dark: zooTheme.dark.colors.button.done.hover,
+      light: darken(0.15, zooTheme.light.colors.button.done)
+    })};
     border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-    light: `solid thin ${darken(0.15, zooTheme.light.colors.button.done)}`
-  })};
+      dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
+      light: `solid thin ${darken(0.15, zooTheme.light.colors.button.done)}`
+    })};
     color: 'white';
   }
 
   &:disabled {
     background: ${theme('mode', {
-    dark: lighten(0.05, zooTheme.dark.colors.background.default),
-    light: lighten(0.05, zooTheme.light.colors.button.done)
-  })};
-
+      dark: lighten(0.05, zooTheme.dark.colors.background.default),
+      light: lighten(0.05, zooTheme.light.colors.button.done)
+    })};
     border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-    light: `solid thin ${lighten(0.05, zooTheme.light.colors.button.done)}`
-  })};
+      dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
+      light: `solid thin ${lighten(0.05, zooTheme.light.colors.button.done)}`
+    })};
     color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: '#EEF1F4'
-  })};
+      dark: zooTheme.dark.colors.font,
+      light: '#EEF1F4'
+    })};
     cursor: not-allowed;
     opacity: 0.5;
   }
@@ -70,10 +69,6 @@ export function DoneButton (props) {
     return (
       <ThemeProvider theme={{ mode: props.theme }}>
         <StyledDoneButton
-          color={theme('mode', {
-            dark: zooTheme.dark.colors.background.default,
-            light: zooTheme.light.colors.button.done
-          })}
           disabled={props.disabled}
           label={<Text size='small'>{counterpart('DoneButton.done')}</Text>}
           onClick={props.onClick}

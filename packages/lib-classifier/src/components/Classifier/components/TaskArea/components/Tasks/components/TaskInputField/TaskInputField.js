@@ -9,200 +9,157 @@ import TaskInputLabel from './components/TaskInputLabel'
 import { doesTheLabelHaveAnImage } from './helpers'
 import { pxToRem } from '../../../../../helpers'
 
-export const StyledTaskInputField = styled.label`
-  align-items: baseline;
-  background-color: ${theme('mode', {
+const DEFAULT = {
+  backgroundColor: theme('mode', {
     dark: zooTheme.dark.colors.container,
     light: zooTheme.light.colors.background.default
-  })};
-  border: ${theme('mode', {
+  }),
+  border: theme('mode', {
     dark: `2px solid ${zooTheme.dark.colors.font}`,
     light: '2px solid transparent'
-  })};
-  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
-  color: ${theme('mode', {
+  }),
+  color: theme('mode', {
     dark: zooTheme.dark.colors.font,
     light: zooTheme.light.colors.font
-  })};
+  })
+};
+
+const HOVER = {
+  gradientTop: theme('mode', {
+    dark: zooTheme.dark.colors.button.answer.gradient.top,
+    light: zooTheme.light.colors.button.answer.gradient.top
+  }),
+  gradientBottom: theme('mode', {
+    dark: zooTheme.dark.colors.button.answer.gradient.bottom,
+    light: zooTheme.light.colors.button.answer.gradient.bottom
+  }),
+  color: theme('mode', {
+    dark: zooTheme.dark.colors.font,
+    light: 'black'
+  })
+};
+
+const CHECKED = {
+  background: theme('mode', {
+    dark: zooTheme.global.colors.teal,
+    light: zooTheme.global.colors.teal
+  }),
+  border: theme('mode', {
+    dark: `2px solid ${zooTheme.global.colors.teal}`,
+    light: '2px solid transparent'
+  }),
+  color: theme('mode', {
+    dark: zooTheme.dark.colors.font,
+    light: 'white'
+  })
+};
+
+export const StyledTaskLabel = styled.span`
+  align-items: baseline;
+  background-color: ${DEFAULT.backgroundColor};
+  border: ${DEFAULT.border};
+  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
+  color: ${DEFAULT.color};
   cursor: pointer;
   display: flex;
   margin: ${pxToRem(10)} 0;
-  padding: ${(props) => { return doesTheLabelHaveAnImage(props.label) ? '0' : '1ch 2ch' }};
-  position: relative;
-
-  &:hover, &:focus, &[data-focus=true] {
-    background: ${theme('mode', {
-    dark: `linear-gradient(
-        ${zooTheme.dark.colors.button.answer.gradient.top},
-        ${zooTheme.dark.colors.button.answer.gradient.bottom}
-      )`,
-    light: `linear-gradient(
-        ${zooTheme.light.colors.button.answer.gradient.top},
-        ${zooTheme.light.colors.button.answer.gradient.bottom}
-      )`
-  })};
+  padding: ${props => (doesTheLabelHaveAnImage(props.label) ? '0' : '1ch 2ch')};
+  
+  &:hover {
+    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
     border-width: 2px;
     border-style: solid;
     border-left-color: transparent;
     border-right-color: transparent;
-    border-top-color: ${theme('mode', {
-    dark: zooTheme.dark.colors.button.answer.gradient.top,
-    light: zooTheme.light.colors.button.answer.gradient.top
-  })};
-    border-bottom-color: ${theme('mode', {
-    dark: zooTheme.dark.colors.button.answer.gradient.bottom,
-    light: zooTheme.light.colors.button.answer.gradient.bottom
-  })};
-    color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: 'black'
-  })};
+    border-top-color: ${HOVER.gradientTop};
+    border-bottom-color: ${HOVER.gradientBottom};
+    color: ${HOVER.color};
   }
+`;
 
-  &:active {
-    background: ${theme('mode', {
-    dark: `linear-gradient(
-        ${zooTheme.dark.colors.button.answer.gradient.top},
-        ${zooTheme.dark.colors.button.answer.gradient.bottom}
-      )`,
-    light: `linear-gradient(
-        ${zooTheme.light.colors.button.answer.gradient.top},
-        ${zooTheme.light.colors.button.answer.gradient.bottom}
-      )`
-  })};
-    border-width: 2px;
-    border-style: solid;
-    border-color: ${theme('mode', {
-    dark: zooTheme.global.colors.darkTeal,
-    light: zooTheme.global.colors.teal
-  })};
-    color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: 'black'
-  })};
-  }
-
-  &.active {
-    background: ${theme('mode', {
-    dark: zooTheme.global.colors.teal,
-    light: zooTheme.global.colors.teal
-  })};
-    border: ${theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors.teal}`,
-    light: '2px solid transparent'
-  })};
-    color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: 'white'
-  })}
-  }
-
-  &.active:hover, &.active:focus, &.active[data-focus=true] {
-    background: ${theme('mode', {
-    dark: zooTheme.global.colors.teal,
-    light: zooTheme.global.colors.teal
-  })};
-    border: ${theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors.darkTeal}`,
-    light: `2px solid ${zooTheme.global.colors.darkTeal}`
-  })};
-  }
+export const StyledTaskInputField = styled.label`
+  position: relative;
 
   input {
     opacity: 0.01;
     position: absolute;
   }
-  `
 
-// TODO: Check to see if focus is working as it should
-// TODO: Try new ref API
-export class TaskInputField extends React.Component {
-  constructor () {
-    super()
-    this.unFocus = this.unFocus.bind(this)
+  input:focus + ${StyledTaskLabel} {
+    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
+    border-width: 2px;
+    border-style: solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: ${HOVER.gradientTop};
+    border-bottom-color: ${HOVER.gradientBottom};
+    color: ${HOVER.color};
   }
 
-  onChange (e) {
-    this.unFocus()
-    this.props.onChange(e)
+  input:active + ${StyledTaskLabel} {
+    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
+    border-width: 2px;
+    border-style: solid;
+    border-color: ${theme('mode', {
+      dark: zooTheme.global.colors.darkTeal,
+      light: zooTheme.global.colors.teal
+    })};
+    color: ${HOVER.color};
   }
 
-  onFocus () {
-    if (this.field) this.field.dataset.focus = true
+  input:checked + ${StyledTaskLabel} {
+    background: ${CHECKED.background};
+    border: ${CHECKED.border};
+    color: ${CHECKED.color}
   }
 
-  onBlur () {
-    this.unFocus()
+  input:focus:checked + ${StyledTaskLabel},
+  input:checked + ${StyledTaskLabel}:hover {
+    border: ${theme('mode', {
+    dark: `2px solid ${zooTheme.global.colors.darkTeal}`,
+    light: `2px solid ${zooTheme.global.colors.darkTeal}`
+  })};
   }
+`;
 
-  unFocus () {
-    if (this.field) this.field.dataset.focus = false
-  }
-
-  shouldInputBeAutoFocused (annotation, index, name, type) {
-    if (type === 'radio' && name === 'drawing-tool') {
-      return index === 0
-    }
-
-    return index === annotation.value
-  }
-
-  shouldInputBeChecked (annotation, index, type) {
-    let checked
-    if (type === 'radio') {
-      const toolIndex = annotation._toolIndex || 0
-      if (toolIndex) {
-        checked = index === toolIndex
-      }
-      checked = index === annotation.value
-    }
-
-    if (type === 'checkbox') {
-      checked = (annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
-    }
-
-    return checked
-  }
-
-  render () {
-    const {
-      annotation,
-      className,
-      index,
-      label,
-      labelIcon,
-      labelStatus,
-      name,
-      type
-    } = this.props
-    const checked = this.shouldInputBeChecked(annotation, index, type)
-    return (
-      <ThemeProvider theme={{ mode: this.props.theme }}>
-        <StyledTaskInputField
-          ref={(node) => { this.field = node }}
-          className={(checked) ? `active ${className}` : className}
-          label={label}
-          data-focus={false}
-        >
-          <input
-            autoFocus={this.shouldInputBeAutoFocused(annotation, index, name, type)}
-            checked={checked}
-            name={name}
-            onBlur={this.onBlur.bind(this)}
-            onChange={this.onChange.bind(this)}
-            onFocus={this.onFocus.bind(this)}
-            type={type}
-            value={index}
-          />
+export function TaskInputField (props) {
+  const {
+    autoFocus,
+    checked,
+    className,
+    index,
+    label,
+    labelIcon,
+    labelStatus,
+    name,
+    onChange,
+    theme,
+    type
+  } = props
+  return (
+    <ThemeProvider theme={{ mode: theme }}>
+      <StyledTaskInputField
+        className={className}
+      >
+        <input
+          autoFocus={autoFocus}
+          defaultChecked={checked}
+          name={name}
+          onChange={onChange}
+          type={type}
+          value={index}
+        />
+        <StyledTaskLabel>
           <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
-        </StyledTaskInputField>
-      </ThemeProvider>
-    )
-  }
+        </StyledTaskLabel>
+      </StyledTaskInputField>
+    </ThemeProvider>
+  )
 }
 
 TaskInputField.defaultProps = {
-  annotation: { value: null },
+  autoFocus: false,
+  checked: false,
   className: '',
   label: '',
   labelIcon: null,
@@ -213,16 +170,8 @@ TaskInputField.defaultProps = {
 }
 
 TaskInputField.propTypes = {
-  annotation: PropTypes.shape({
-    _key: PropTypes.number,
-    task: PropTypes.string,
-    value: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.number), // mulitple choice
-      PropTypes.number, // single choice
-      PropTypes.arrayOf(PropTypes.object), // drawing task
-      PropTypes.object // null
-    ])
-  }),
+  autoFocus: PropTypes.bool,
+  checked: PropTypes.bool,
   className: PropTypes.string,
   index: PropTypes.number.isRequired,
   label: PropTypes.string,
@@ -234,4 +183,4 @@ TaskInputField.propTypes = {
   type: PropTypes.string.isRequired
 }
 
-export default TaskInputField
+export default React.memo(TaskInputField)
