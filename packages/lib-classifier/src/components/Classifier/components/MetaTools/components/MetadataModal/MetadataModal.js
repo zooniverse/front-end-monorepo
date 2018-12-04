@@ -7,7 +7,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export function filterLabel (label, filters) {
+export function filterByLabel (label, filters) {
   if (label) {
     const firstCharacter = label.trim().charAt(0)
     if (!filters.includes(firstCharacter) && !label.slice(0, 2) !== '//') {
@@ -48,10 +48,10 @@ export default function MetadataModal (props) {
     }
   ]
 
-  const data = Object.entries(metadata).map(
-    (entry) => {
-      const label = filterLabel(entry[0], filters)
-      const value = formatValue(entry[1])
+  const filteredDataLabels = Object.keys(metadata).filter((label) => { return filterByLabel(label, filters) })
+  const data = filteredDataLabels.map(
+    (label) => {
+      const value = formatValue(metadata[label])
 
       return { label: label.replace(RegExp(`^(${prefixes.join('|')})`), ''), value: <Markdownz options={{ forceInline: true }}>{value}</Markdownz> }
     }

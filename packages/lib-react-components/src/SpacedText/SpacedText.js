@@ -1,9 +1,10 @@
 import { Text } from 'grommet'
 import styled from 'styled-components'
 import React from 'react'
+import pxToRem from '../helpers/pxToRem'
 
 const StyledText = styled(Text)`
-  letter-spacing: 0.15em;
+  letter-spacing: ${pxToRem(1)};
   text-transform: uppercase;
 `
 

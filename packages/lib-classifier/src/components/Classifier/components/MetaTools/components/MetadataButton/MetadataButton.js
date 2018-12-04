@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import counterpart from 'counterpart'
 import styled from 'styled-components'
-import { Button } from 'grommet'
-import { SpacedText } from '@zooniverse/react-components'
+import { PlainButton } from '@zooniverse/react-components'
 
 import InfoIcon from './InfoIcon'
 import en from './locales/en'
@@ -17,11 +16,15 @@ const StyledInfoIcon = styled(InfoIcon)`
 export default function MetadataButton (props) {
   const { onClick } = props
   return (
-    <Button
+    <PlainButton
       icon={<StyledInfoIcon color='#5C5C5C' />}
-      label={<SpacedText>{counterpart('MetadataButton.label')}</SpacedText>}
-      plain={true}
+      margin={{ vertical: 'small', left: 'none', right: 'medium' }}
+      text={counterpart('MetadataButton.label')}
       onClick={onClick}
     />
   )
+}
+
+MetadataButton.propTypes = {
+  onClick: PropTypes.func
 }
