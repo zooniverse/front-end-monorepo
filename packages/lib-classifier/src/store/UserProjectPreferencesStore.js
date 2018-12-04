@@ -3,6 +3,7 @@ import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import UserProjectPreferences from './UserProjectPreferences'
+import { getBearerToken } from './utils'
 
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
@@ -30,11 +31,10 @@ const UserProjectPreferencesStore = types
     function createTempUPPOrFetchUPP () {
       const project = getRoot(self).projects.active
       const { authClient } = getRoot(self)
-      const authToken = authClient.getToken() || {}
-      console.log('authToken', authToken)
+      const bearerToken = getBearerToken(authClient)
       const user = authClient.getUser()
-      if (authToken.token && user) {
-        self.fetchUPP(project, user)
+      if (bearerToken && user) {
+        self.fetchUPP(bearerToken, project, user)
       } else {
         self.createTempUPP()
       }
@@ -46,15 +46,19 @@ const UserProjectPreferencesStore = types
       self.setUPP(tempUPP)
     }
 
-    function * fetchUPP (project, user) {
+    function * fetchUPP (bearerToken, project, user) {
       let resource
       const { type } = self
       const client = getRoot(self).client.panoptes
-      const bearerToken = `Bearer ${token}`
       self.loadingState = asyncStates.loading
       try {
         const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, bearerToken)
-        resource = response.body[type][0] || self.createUPP(bearerToken)
+          if (response.body[type][0]) {
+            resource = response.body[type][0]
+          } else {
+            resource = yield self.createUPP(bearerToken)
+          }
+
         self.loadingState = asyncStates.success
         self.setUPP(resource)
       } catch (error) {
@@ -65,6 +69,7 @@ const UserProjectPreferencesStore = types
 
     function * createUPP (bearerToken) {
       const { type } = self
+      const client = getRoot(self).client.panoptes
       const project = getRoot(self).projects.active
       const data = {
         links: { project: project.id },
@@ -87,6 +92,7 @@ const UserProjectPreferencesStore = types
 
     return {
       afterAttach,
+      createUPP: flow(createUPP),
       createTempUPPOrFetchUPP,
       createTempUPP,
       fetchUPP: flow(fetchUPP),

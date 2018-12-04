@@ -29,9 +29,9 @@ class App extends React.Component {
     })
 
     this.state = {
-      authenticated: false,
       loading: false,
-      project: null
+      project: null,
+      user: null
     }
   }
 
@@ -41,17 +41,12 @@ class App extends React.Component {
   }
 
   initAuthorization() {
-    const { access_token, expires_in } = queryString.parse(window.location.hash)
-    if (access_token && expires_in) {
-      this.setState({ loading: true })
-      return this.authClient.completeLogin()
-        .then(() => {
-          this.setState({ authenticated: !!this.authClient.getUser(), loading: false })
+    this.setState({ loading: true })
+      return this.authClient.initialize()
+        .then((user) => {
+          this.setState({ loading: false, user })
           history.replaceState(null, document.title, location.pathname + location.search)
         })
-    }
-
-    return Promise.resolve(null)
   }
 
   getBearerToken() {
@@ -90,9 +85,9 @@ class App extends React.Component {
 
   logout() {
     this.authClient.logout()
-
-    // We trigger a forced update to re-render the Auth status content
-    this.setState({ authenticated: false })
+      .then((user) => {
+        this.setState({ user })
+      })
   }
 
   render() {
@@ -105,13 +100,17 @@ class App extends React.Component {
     return (
       <Grommet theme={theme}>
         <Box tag='header' pad='medium' align='end'>
-          {this.state.authenticated
+          {this.state.user
             ? <Button onClick={this.logout.bind(this)} label='Logout' />
             : <Button onClick={this.login.bind(this)} label='Login' />
           }
         </Box>
         <Box tag='section'>
-          <Classifier authClient={this.authClient} project={this.state.project} />
+          <Classifier 
+            authClient={this.authClient}
+            project={this.state.project}
+            user={this.state.user}
+          />
         </Box>
       </Grommet>
 
