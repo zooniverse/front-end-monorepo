@@ -50,9 +50,11 @@ class MultipleChoiceTask extends React.Component {
       <StyledFieldset autoFocus={(annotation && annotation.value && annotation.value.length === 0)}>
         <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
+          const checked = (annotation && annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
           return (
             <TaskInputField
-              annotation={annotation}
+              autoFocus={checked}
+              checked={checked}
               index={index}
               key={`${task.taskKey}_${index}`}
               label={answer.label}

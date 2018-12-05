@@ -1,8 +1,16 @@
 {
   "SignedInUserNavigation": {
     "navListLabels": {
-      "messages": "Messages",
-      "notifications": "Notifications"
+      "messages": {
+        "zero": "Messages",
+        "one": "Messages (%(count)s)",
+        "other": "Messages (%(count)s)"
+      },
+      "notifications": {
+        "zero": "Notifications",
+        "one": "Notifications (%(count)s)",
+        "other": "Notifications (%(count)s)"
+      }
     }
   }
 }

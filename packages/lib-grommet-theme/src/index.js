@@ -94,7 +94,7 @@ const theme = deepFreeze({
     drop: {
       background: 'transparent',
       shadowSize: 'none'
-    },
+    }
   },
   anchor: {
     color: {
@@ -125,8 +125,8 @@ const theme = deepFreeze({
         color: {
           dark: colors.lightTeal,
           light: colors.brand
-        },
-      },
+        }
+      }
     },
     knob: {
       color: {

@@ -29,7 +29,9 @@ describe('SingleChoiceTask', function () {
     })
 
     it('should render the correct number of answer choices', function () {
-      expect(wrapper.find('TaskInputField')).to.have.lengthOf(task.answers.length)
+      task.answers.forEach((answer) => {
+        expect(wrapper.find({ label: answer.label })).to.have.lengthOf(1)
+      })
     })
   })
 
@@ -53,21 +55,23 @@ describe('SingleChoiceTask', function () {
     })
 
     it('should bind the array index to the onChange handler', function () {
-      wrapper.find('TaskInputField').forEach((node, index) => {
+      task.answers.forEach((answer, index) => {
+        const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
         expect(onChangeSpy.calledWith(index)).to.be.true
       })
     })
 
-    it('should call addAnnotation in the onChange handler with the array index and task as arguments', function () {
-      wrapper.find('TaskInputField').forEach((node, index) => {
+    it('should call addAnnotation in the onChange handler with the array index and task as arguments if the event target is checked', function () {
+      task.answers.forEach((answer, index) => {
+        const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
         expect(addAnnotationSpy.calledWith(index, task)).to.be.true
       })
     })
 
     it('should not call addAnnotation in the onChange handler if the event target is not checked', function () {
-      const node = wrapper.find('TaskInputField').first()
+      const node = wrapper.find({ label: task.answers[0].label })
       node.simulate('change', { target: { checked: false }})
       expect(addAnnotationSpy.called).to.be.false
     })

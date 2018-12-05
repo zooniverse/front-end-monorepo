@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import NavListItem from '../NavListItem'
+import { Box } from 'grommet'
 
 export default function MainNavList (props) {
   const {
@@ -15,7 +16,7 @@ export default function MainNavList (props) {
   if (isNarrow) return null
 
   return (
-    <React.Fragment>
+    <Box direction='row' gap='small'>
       {mainHeaderNavListURLs.map((url, i) => (
         <NavListItem
           key={url}
@@ -28,7 +29,7 @@ export default function MainNavList (props) {
           label={adminNavLinkLabel}
           url={adminNavLinkURL}
         />}
-    </React.Fragment>
+    </Box>
   )
 }
 

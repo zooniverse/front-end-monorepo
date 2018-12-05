@@ -4,6 +4,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import { observable } from 'mobx'
 import MultipleChoiceTask from './MultipleChoiceTask'
+import TaskInputField from '../TaskInputField'
 
 // TODO: move this into a factory
 const task = {
@@ -30,7 +31,9 @@ describe('MultipleChoiceTask', function () {
     })
 
     it('should render the correct number of answer choices', function () {
-      expect(wrapper.find('TaskInputField')).to.have.lengthOf(task.answers.length)
+      task.answers.forEach((answer) => {
+        expect(wrapper.find({ label: answer.label })).to.have.lengthOf(1)
+      })
     })
   })
 
@@ -60,21 +63,24 @@ describe('MultipleChoiceTask', function () {
     })
 
     it('should bind the array index to the onChange handler', function () {
-      wrapper.find('TaskInputField').forEach((node, index) => {
+      task.answers.forEach((answer, index) => {
+        const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
         expect(onChangeSpy.calledWith(index)).to.be.true
       })
     })
 
     it('should call addAnnotation in the onChange handler with an array of indices and the task as arguments', function () {
-      const node = wrapper.find('TaskInputField').first()
-      node.simulate('change', { target: { checked: true } })
-      expect(addAnnotationSpy.calledWith([0], task)).to.be.true
+      task.answers.forEach((answer, index) => {
+        const node = wrapper.find({ label: answer.label })
+        node.simulate('change', { target: { checked: true } })
+        expect(addAnnotationSpy.calledWith([index], task)).to.be.true
+      })
     })
 
     it('should push the index to the value array if the event target is checked and the existing annotations array does not include the index', function () {
-      const firstNode = wrapper.find('TaskInputField').first()
-      const lastNode = wrapper.find('TaskInputField').last()
+      const firstNode = wrapper.find({ label: task.answers[0].label })
+      const lastNode = wrapper.find({ label: task.answers[2].label })
       firstNode.simulate('change', { target: { checked: true } })
       expect(addAnnotationSpy.calledWith([0], task)).to.be.true
 
@@ -85,7 +91,7 @@ describe('MultipleChoiceTask', function () {
     })
 
     it('should splice the index from the value array if the event target is unchecked and the existing annotations value array includes the index', function () {
-      const firstNode = wrapper.find('TaskInputField').first()
+      const firstNode = wrapper.find({ label: task.answers[0].label })
       firstNode.simulate('change', { target: { checked: true } })
       const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
       wrapper.setProps({ annotations })

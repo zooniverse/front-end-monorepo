@@ -33,14 +33,14 @@ export default function SignedInUserNavigation (props) {
     user
   } = props
 
-  const notificationLabelString = (unreadNotifications)
-    ? `${counterpart('SignedInUserNavigation.navListLabels.notifications')} (${unreadNotifications})`
-    : counterpart('SignedInUserNavigation.navListLabels.notifications')
+  const notificationLabelString = counterpart('SignedInUserNavigation.navListLabels.notifications', {
+    count: unreadNotifications
+  })
 
-  const messagesLabelString = (unreadMessages)
-    ? `${counterpart('SignedInUserNavigation.navListLabels.messages')} (${unreadMessages})`
-    : counterpart('SignedInUserNavigation.navListLabels.messages')
-  
+  const messagesLabelString = counterpart('SignedInUserNavigation.navListLabels.messages', {
+    count: unreadMessages
+  })
+
   const notificationLabel = (isNarrow)
     ? <FontAwesomeIcon icon={(unreadNotifications) ? fasBell : farBell} />
     : notificationLabelString
@@ -54,6 +54,7 @@ export default function SignedInUserNavigation (props) {
       <Box
         align='center'
         direction='row'
+        gap='small'
         tag='nav'
       >
         <NavListItem
@@ -65,7 +66,6 @@ export default function SignedInUserNavigation (props) {
         <NavListItem
           color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
           label={messagesLabel}
-          marginRight='0.75em'
           unread={unreadMessages}
           url={`${host}/inbox`}
         />

@@ -94,8 +94,7 @@ function createOAuthClient ({
   }
 
   function getUser () {
-    const snapshot = getSnapshot(store.user)
-    return snapshot.active || null
+    return (store.user.active) ? getSnapshot(store.user.active) : null
   }
 
   function logout (beforeLogout, afterLogout) {
@@ -103,6 +102,7 @@ function createOAuthClient ({
         if (beforeLogout) beforeLogout()
       })
       .then(() => store.credentials.logout())
+      .then(getUser())
       .then(() => {
         if (afterLogout) afterLogout()
       })
