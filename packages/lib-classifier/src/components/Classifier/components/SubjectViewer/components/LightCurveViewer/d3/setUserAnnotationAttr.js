@@ -1,3 +1,5 @@
+import * as d3 from 'd3'
+
 export default function setUserAnnotationAttr (selection) {
   return selection
     .attr('class', 'user-annotation')
