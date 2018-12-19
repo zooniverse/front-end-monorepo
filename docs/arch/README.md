@@ -9,4 +9,4 @@
 - [ADR 7: Managing changes to classification tools](adr-7.md)
 - [ADR 8: Building the TESS Light Curve Viewer](adr-8.md)
 - [ADR 9: Classifier - Logic for Selecting a Subject Viewer](adr-9.md)
-- [ADR 10: Type conversions from Mobx-State-Tree to JSON API](adr-10.md)
+- [ADR 10: Type conversions from Mobx-State-Tree to JSON API for Javascript Maps](adr-10.md)
