@@ -20,33 +20,37 @@ const client = {
 
 // We don't register the queue service worker if background sync API is not available
 // We might want to move this check elsewhere once we add other service workers for other tasks
-if (isBackgroundSyncAvailable()) registerWorkers()
+// if (isBackgroundSyncAvailable()) registerWorkers()
 
-class Classifier extends React.Component {
+export default class Classifier extends React.Component {
   constructor (props) {
     super(props)
-
-    this.classifierStore = RootStore.create({}, { authClient: props.authClient, client })
+    // console.info(client)
+    this.classifierStore = RootStore.create({}, {
+      authClient: props.authClient,
+      client
+    })
     makeInspectable(this.classifierStore)
   }
 
   componentDidMount () {
-    const { project } = this.props
-    this.setProject(project)
+    const { projectId } = this.props
+    this.setProject(projectId)
   }
 
   componentDidUpdate (prevProps) {
-    const { project, user } = this.props
-    if (project.id !== prevProps.project.id) {
-      this.setProject(project)
+    const { projectId, user } = this.props
+    if (projectId !== prevProps.projectId) {
+      this.setProject(projectId)
     }
 
-    if (!user) this.classifierStore.userProjectPreferences.reset()
+    if (!user) {
+      this.classifierStore.userProjectPreferences.reset()
+    }
   }
 
   setProject (project) {
-    this.classifierStore.projects.setResource(project)
-    this.classifierStore.projects.setActive(project.id)
+    this.classifierStore.projects.setActive(projectId)
   }
 
   render () {
@@ -60,18 +64,13 @@ class Classifier extends React.Component {
   }
 }
 
-Classifier.defaultProps = {
-  mode: 'light',
-  user: null
-}
-
 Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
   mode: PropTypes.string,
-  project: PropTypes.shape({
-    id: PropTypes.string.isRequired
-  }).isRequired,
+  projectId: PropTypes.string.isRequired,
   user: PropTypes.object
 }
 
-export default Classifier
+Classifier.defaultProps = {
+  mode: 'light'
+}

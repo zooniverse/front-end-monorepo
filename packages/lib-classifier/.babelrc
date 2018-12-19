@@ -1,25 +1,22 @@
 {
   "plugins": [
-    [
-      "@babel/plugin-proposal-decorators",
-      {
-        "legacy": true
-      }
-    ],
+    ["@babel/plugin-proposal-decorators", {
+      "legacy": true
+    }],
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    ["@babel/plugin-transform-runtime", {
+      "helpers": false
+    }]
   ],
   "presets": [
     "@babel/preset-react",
-    [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "targets": {
-          "browsers": "last 2 versions"
-        }
+    ["@babel/preset-env", {
+      "modules": false,
+      "targets": {
+        "browsers": "last 2 versions"
       }
-    ]
+    }]
   ],
   "env": {
     "test": {

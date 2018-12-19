@@ -1,15 +1,13 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import React, { Component } from 'react'
 
-import ClassifierWrapper from './ClassifierWrapper'
+import Classifier from '@zooniverse/classifier'
 
 function storeMapper (stores) {
   const { id } = stores.store.project
   return {
-    project: {
-      id
-    }
+    projectId: id
   }
 }
 
@@ -17,17 +15,15 @@ function storeMapper (stores) {
 @observer
 export default class ClassifierWrapperContainer extends Component {
   render () {
-    const { project } = this.props
+    const { projectId } = this.props
     return (
-      <ClassifierWrapper
-        project={project}
+      <Classifier
+        projectId={projectId}
       />
     )
   }
 }
 
 ClassifierWrapperContainer.propTypes = {
-}
-
-ClassifierWrapperContainer.defaultProps = {
+  projectId: string
 }
