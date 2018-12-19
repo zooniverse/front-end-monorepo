@@ -1,6 +1,11 @@
 const path = require('path')
 
 module.exports = {
+  webpack: (config) => {
+    config.resolve.alias['styled-components'] = path.resolve('./node_modules/styled-components')
+    return config
+  },
+
   // Disable file-system routing
   // https://github.com/zeit/next.js#disabling-file-system-routing
   useFileSystemPublicRoutes: false,
