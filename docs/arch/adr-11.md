@@ -10,6 +10,8 @@ Markdown, however, isn't totally free from being exploitable, nor is React. Mark
 
 Now that we've adopted Grommet as general React component library, Grommet also provides a React [markdown](https://v2.grommet.io/markdown) renderer ([code](https://github.com/grommet/grommet/blob/master/src/js/components/Markdown/Markdown.js)). Grommet's markdown component uses [markdown-to-jsx](https://github.com/probablyup/markdown-to-jsx) which instead converts markdown to React components to use instead of relying on `dangerouslySetInnerHTML`. 
 
+TODO: Can markdown-to-jsx do all of the plugins we've setup with markdown-it?
+
 ## Decision
 
 We will make a new `Markdownz` React component that will be a part of the Zooniverse React component library. This new component will be built on top of Grommet's `Markdown` component with the necessary additional markdown customizations passed down as props.
