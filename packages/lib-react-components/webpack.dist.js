@@ -1,7 +1,12 @@
 const path = require('path')
+const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
+  externals: {
+    react: 'react',
+    'react-dom': 'react-dom'
+  },
   mode: 'production',
   module: {
     rules: [
@@ -21,6 +26,9 @@ module.exports = {
     // Workaround for webpack/webpack#6522
     globalObject: `typeof self !== 'undefined' ? self : this`
   },
+  plugins: [
+    new PeerDepsExternalsPlugin(),
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [
