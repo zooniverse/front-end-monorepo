@@ -9,19 +9,18 @@
   "scripts": {
     "_check": "check-engines && check-dependencies",
     "_test": "npm run _check && NODE_ENV=test mocha",
-    "install": "lerna bootstrap --scope=@zooniverse/panoptes-js",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
     "test": "npm run _test && exit 0",
     "test:ci": "npm run _test"
   },
   "dependencies": {
-    "check-dependencies": "~1.1.0",
-    "check-engines": "~1.5.0",
     "superagent": "~3.8.3",
     "url-parse": "~1.4.3"
   },
   "devDependencies": {
     "chai": "~4.1.2",
+    "check-dependencies": "~1.1.0",
+    "check-engines": "~1.5.0",
     "jsdom": "~11.10.0",
     "mocha": "~5.1.1",
     "mock-local-storage": "~1.0.5",
