@@ -115,7 +115,7 @@ const ZooFooter = (props) => {
         <Box>
           <ThemeProvider theme={{ mode: colorTheme }}>
             <StyledLogoAnchor href='https://www.zooniverse.org'>
-              <ZooniverseLogotype />
+              <ZooniverseLogotype id='FooterZooniverseLogo' />
             </StyledLogoAnchor>
           </ThemeProvider>
           {props.zooTagline}

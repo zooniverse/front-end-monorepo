@@ -14,7 +14,7 @@ import {
   adminNavLinkLabel,
   adminNavLinkURL,
   mainHeaderNavListLabels,
-  mainHeaderNavListURLs,
+  mainHeaderNavListURLs
 } from './helpers'
 
 export const StyledHeader = styled(Box)`
@@ -71,7 +71,7 @@ export default function ZooHeader (props) {
         tag='nav'
       >
         <StyledLogoAnchor href='http://www.zooniverse.org'>
-          <ZooniverseLogo height='1.25em' width='1.25em' />
+          <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
         </StyledLogoAnchor>
         <MainNavList
           adminNavLinkLabel={adminNavLinkLabel}
