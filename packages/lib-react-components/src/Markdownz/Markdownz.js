@@ -1,30 +1,59 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Markdown as GrommetMarkdown } from 'grommet'
-import defaultOptions from './defaultOptions'
+import {
+  Anchor,
+  Heading,
+  Paragraph,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  TableHeader,
+  TableFooter,
+  Text,
+  Video
+} from 'grommet'
 
-const { createAnchorForNewTab, sanitizeForMarkdown } = defaultOptions
+import remark from 'remark'
+import remark2react from 'remark-react'
+import emoji from 'remark-emoji'
+import remarkSubSuper from 'remark-sub-super'
+import externalLinks from 'remark-external-links'
+import toc from 'remark-toc'
 
 export default function Markdownz (props) {
-  const { children, options } = props
-  const mergedOptions =  {
-    createElement(type, props, children) {
-      if (type === 'a' && props.href && props.href.startsWith('+tab+')) {
-        return createAnchorForNewTab(type, props, children)
-      }
-
-      return React.createElement(type, props, children)
-    },
-    ...options
+  const remarkReactComponents = {
+    a: Anchor,
+    h1: (props) => <Heading level='1'>{props.children}</Heading>,
+    h2: (props) => <Heading level='2'>{props.children}</Heading>,
+    h3: (props) => <Heading level='3'>{props.children}</Heading>,
+    h4: (props) => <Heading level='4'>{props.children}</Heading>,
+    h5: (props) => <Heading level='5'>{props.children}</Heading>,
+    h6: (props) => <Heading level='6'>{props.children}</Heading>,
+    p: Paragraph,
+    span: Text,
+    table: Table,
+    tfoot: TableFooter,
+    thead: TableHeader,
+    tbody: TableBody,
+    td: TableCell,
+    tr: TableRow,
+    video: Video
   }
-  const sanitizedMarkdownContent = sanitizeForMarkdown(children)
 
-  // Grommet Markdown is not styling anchors correctly to theme
-  // Issue: https://github.com/grommet/grommet/issues/2515
+  const markdown = remark()
+    .data('settings', { footnotes: true })
+    .use(emoji)
+    .use(remarkSubSuper)
+    .use(externalLinks)
+    .use(toc)
+    .use(remark2react, { remarkReactComponents })
+    .processSync(props.children).contents
+
   return (
-    <GrommetMarkdown options={mergedOptions}>
-      {sanitizedMarkdownContent}
-    </GrommetMarkdown>
+    <React.Fragment>
+      {markdown}
+    </React.Fragment>
   )
 }
 
