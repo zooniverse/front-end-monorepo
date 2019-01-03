@@ -27,10 +27,10 @@
     "remark": "~10.0.1",
     "remark-emoji": "~2.0.2",
     "remark-external-links": "~3.1.1",
-    "remark-linkify-regex": "~1.0.0",
     "remark-react": "~5.0.1",
     "remark-sub-super": "~1.0.16",
-    "remark-toc": "~5.1.1"
+    "remark-toc": "~5.1.1",
+    "unist-util-visit": "~1.4.0"
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "~2.0.0",
