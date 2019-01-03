@@ -3,16 +3,25 @@
 |emoji|`:smile: :-)`|:smile: :-)|
 |bold|`**bold**`|**bold**|
 |italicized|`_italicized_`|_italicized_|
-|anchor|`[link](https://www.zooniverse.org/)`|[link](https://www.zooniverse.org/)|[link](https://www.zooniverse.org/)
+|anchor|`[link](https://www.zooniverse.org/)`|[link](https://www.zooniverse.org/)|
 |relative link|`[relative-link](/relative)`|[relative-link](/relative)|
-|tabbed link (legacy)|`[tabbed link](+tab+https://www.zooniverse.org/)`|[tabbed link](+tab+https://www.zooniverse.org/)|
 |image|`![imagealttext](https://via.placeholder.com/350x350)`|![imagealttext](https://via.placeholder.com/350x350)|
 |superscript|`super^script^`|super^script^|
 |subscript|`sub~script~`|sub~script~|
+|Zooniverse user mention|`@srallen @team`|@srallen @team|
+|Zooniverse Talk Tag mention|`#tiger`|#tiger|
+|Zooniverse Subject mention (only works in project context)|`^S1234`|^S1234|
+
+
+> blockquote
+
+Unordered list:
 
 - item one
 - item two
 - item three
+
+Ordered list:
 
 1. item one
 2. item two
@@ -41,3 +50,5 @@ Here is a footnote reference,[^1] and another.[^longnote]
 [^1]: Here is the footnote.
 
 [^longnote]: Here's one with multiple blocks.
+
+  Another note.
