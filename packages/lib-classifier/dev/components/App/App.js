@@ -61,7 +61,7 @@ class App extends React.Component {
   async fetchProject() {
     let id = '335' // Example project: I Fancy Cats (staging)
 
-    // Optional project override, e.g. localhost:8080?project_id=1862
+    // Optional project override, e.g. localhost:8080?project=1862
     if (window.location && window.location.search) {
       const { project } = queryString.parse(window.location.search) // Search the query string for the 'project='
       if (project) {

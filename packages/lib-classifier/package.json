@@ -41,7 +41,7 @@
     "grommet-icons": "~3.2.1",
     "react": "~16.6.3",
     "seven-ten": "~3.3.2",
-    "styled-components": "~4.1.1",
+    "styled-components": "~4.1.2",
     "styled-theming": "~2.2.0"
   },
   "devDependencies": {
@@ -80,7 +80,7 @@
     "sinon": "~7.1.1",
     "snazzy": "~8.0.0",
     "standard": "~12.0.1",
-    "styled-components": "~4.1.1",
+    "styled-components": "~4.1.2",
     "styled-theming": "~2.2.0",
     "superagent": "~3.8.3",
     "webpack": "~4.26.1",

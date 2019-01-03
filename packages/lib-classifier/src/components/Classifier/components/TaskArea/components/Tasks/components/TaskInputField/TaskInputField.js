@@ -7,7 +7,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import TaskInputLabel from './components/TaskInputLabel'
 import { doesTheLabelHaveAnImage } from './helpers'
-import { pxToRem } from '../../../../../helpers'
+import { pxToRem } from '@zooniverse/react-components'
 
 const DEFAULT = {
   backgroundColor: theme('mode', {

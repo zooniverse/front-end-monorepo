@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { doesTheLabelHaveAnImage } from '../../helpers'
 import zooTheme from '@zooniverse/grommet-theme'
-import { pxToRem } from '../../../../../../../helpers'
+import { pxToRem } from '@zooniverse/react-components'
 
 // TODO: original design had text only labels center aligned,
 // but labels with icons  left aligned
