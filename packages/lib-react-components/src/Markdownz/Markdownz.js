@@ -15,6 +15,7 @@ import {
   Video
 } from 'grommet'
 
+import mime from 'mime-types'
 import remark from 'remark'
 import remark2react from 'remark-react'
 import emoji from 'remark-emoji'
@@ -77,6 +78,27 @@ class Markdownz extends React.Component {
     return true
   }
 
+  // Support image resizing, video, and audio using markdown's image syntax
+  renderMedia(nodeProps) {
+    let altText, width, height
+    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
+    let alt = nodeProps.alt
+    const src = nodeProps.src
+    const match = alt.match(imgSizeRegex)
+
+    if (match && match.length > 0) {
+      width = match[1]
+      height = match[3]
+      altText = alt.split(match[0])[0].trim()
+    }
+    const mimeType = mime.lookup(src)
+
+    if (mimeType && mimeType.includes('video')) return <Video a11yTitle={alt} controls preload='metadata' src={src} />
+    if (mimeType && mimeType.includes('audio')) return <audio controls preload='metadata' src={src} /> // Grommet doesn't have an audio component
+
+    return <Image alt={altText || alt} src={src} width={width} height={height} />
+  }
+
   render() {
     const { children, components, settings } = this.props
     const componentMappings = {
@@ -87,7 +109,7 @@ class Markdownz extends React.Component {
       h4: (nodeProps) => <Heading level='4'>{nodeProps.children}</Heading>,
       h5: (nodeProps) => <Heading level='5'>{nodeProps.children}</Heading>,
       h6: (nodeProps) => <Heading level='6'>{nodeProps.children}</Heading>,
-      img: (nodeProps) => { console.log('nodeProps', nodeProps); return <Image />},
+      img: (nodeProps) => this.renderMedia(nodeProps),
       p: Paragraph,
       span: Text,
       table: Table,
@@ -95,15 +117,11 @@ class Markdownz extends React.Component {
       thead: TableHeader,
       tbody: TableBody,
       td: TableCell,
-      tr: TableRow,
-      video: Video
+      tr: TableRow
     }
 
     const remarkReactComponents = Object.assign({}, components, componentMappings)
     const remarkSettings = Object.assign({}, { footnotes: true }, settings)
-
-    // Support image resizing
-
 
     const markdown = remark()
       .data('settings', remarkSettings)
