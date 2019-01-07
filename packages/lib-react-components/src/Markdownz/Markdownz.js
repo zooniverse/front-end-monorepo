@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Anchor,
   Heading,
+  Image,
   Paragraph,
   Table,
   TableBody,
@@ -51,7 +52,7 @@ class Markdownz extends React.Component {
     return ''
   }
 
-  buildPingUrl(resource, symbol) {
+  buildResourceUrl(resource, symbol) {
     const { baseURI, projectSlug } = this.props
     const uri = baseURI || ''
     let owner, name, projectURLSection
@@ -86,6 +87,7 @@ class Markdownz extends React.Component {
       h4: (nodeProps) => <Heading level='4'>{nodeProps.children}</Heading>,
       h5: (nodeProps) => <Heading level='5'>{nodeProps.children}</Heading>,
       h6: (nodeProps) => <Heading level='6'>{nodeProps.children}</Heading>,
+      img: (nodeProps) => { console.log('nodeProps', nodeProps); return <Image />},
       p: Paragraph,
       span: Text,
       table: Table,
@@ -100,6 +102,9 @@ class Markdownz extends React.Component {
     const remarkReactComponents = Object.assign({}, components, componentMappings)
     const remarkSettings = Object.assign({}, { footnotes: true }, settings)
 
+    // Support image resizing
+
+
     const markdown = remark()
       .data('settings', remarkSettings)
       .use(emoji)
@@ -108,7 +113,7 @@ class Markdownz extends React.Component {
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBePingable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
-        resourceUrl: (resource, symbol) => this.buildPingUrl(resource, symbol),
+        resourceUrl: (resource, symbol) => this.buildResourceUrl(resource, symbol),
         matchRegex: /(@[A-Za-z0-9]+)|(#[A-Za-z0-9]+)|(\^S[0-9]+)/
       })
       .use(toc)
