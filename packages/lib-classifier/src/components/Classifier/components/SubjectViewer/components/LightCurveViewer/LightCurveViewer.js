@@ -91,12 +91,12 @@ class LightCurveViewer extends Component {
 
     if (!sameSubject) {
       this.clearChart()
+      
+      const container = this.svgContainer.current
+      const height = container.offsetHeight || 0
+      const width = container.offsetWidth || 0
+      this.drawChart(width, height, sameSubject)
     }
-
-    const container = this.svgContainer.current
-    const height = container.offsetHeight || 0
-    const width = container.offsetWidth || 0
-    this.drawChart(width, height, sameSubject)
     
     if (prevProps.interactionMode !== this.props.interactionMode) {
       this.updateInteractionMode(this.props.interactionMode)
