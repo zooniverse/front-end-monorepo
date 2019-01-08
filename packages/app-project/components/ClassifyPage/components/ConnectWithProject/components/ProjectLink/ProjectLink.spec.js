@@ -7,7 +7,7 @@ let wrapper
 const URL_OBJECT = {
   label: 'Foobar',
   path: '',
-  url: 'https://foobar.com',
+  url: 'https://foobar.com'
 }
 
 describe('Component > ProjectLink', function () {

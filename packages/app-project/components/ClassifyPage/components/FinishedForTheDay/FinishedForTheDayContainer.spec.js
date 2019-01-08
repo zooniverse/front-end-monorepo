@@ -10,7 +10,6 @@ const IMAGE_SRC = 'foobar.jpg'
 const PROJECT_NAME = 'Foobar'
 
 describe('Component > FinishedForTheDayContainer', function () {
-
   before(function () {
     wrapper = shallow(<FinishedForTheDayContainer.wrappedComponent
       imageSrc={IMAGE_SRC}

@@ -21,7 +21,7 @@ export default function formatUrlObject (obj) {
     IconComponent: GlobeIcon,
     label: obj.label || obj.path,
     type: counterpart('ProjectLink.types.website'),
-    url: obj.url,
+    url: obj.url
   }
 
   if (obj.site && obj.site.includes('bitbucket')) {
