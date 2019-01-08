@@ -19,6 +19,15 @@ const SubjectViewer = types
     onZoom: function (type, zoomValue) {},
   }))
 
+  .views(self => ({
+    get interactionMode () {
+      if (self.annotate && !self.move) return 'annotate'
+      if (!self.annotate && self.move) return 'move'
+      
+      return 'annotate'  // Default interaction mode
+    }
+  }))
+
   .actions(self => ({
     enableAnnotate () {
       self.annotate = true

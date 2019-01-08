@@ -20,14 +20,9 @@ const ZOOMING_TIME = 100  // milliseconds
 
 function storeMapper (stores) {
   const {
-    annotate,  // bool: Indicates if the Classifier is in Annotate mode
-    move,  // bool: Indicates if the Classifier is in Annotate mode
+    interactionMode,  // strong: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
     setOnZoom,  // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
-  
-  let interactionMode = ''
-  if (annotate && !move) interactionMode = 'annotate'
-  if (!annotate && move) interactionMode = 'move'
   
   return {
     interactionMode,
