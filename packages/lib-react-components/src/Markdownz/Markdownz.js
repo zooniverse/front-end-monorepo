@@ -30,41 +30,16 @@ const subjectSymbol = '^S'
 
 class Markdownz extends React.Component {
   // Matches @username, #hashtag, or ^S1234 (subject id).
-  // Must be called usernameRegex because of remarkPing's API
   static matchRegex = /[@,#]?(\w+)|(\^S[0-9]+)/
 
-  buildTagSearchURL(tag, projectURLSection, uri) {
-    if (projectURLSection) return `${uri}/${projectURLSection}/talk/tag/${tag}`
-
-    return `${uri}/talk/search?query=${tag}`
-  }
-
-  buildUserURL(username, projectURLSection, uri) {
-    if (projectURLSection) {
-      return `${uri}/${projectURLSection}/users/${username}`
-    }
-
-    return `${uri}/users/${username}`
-  }
-
-  buildSubjectURL(subjectId, projectURLSection, uri) {
-    if (projectURLSection) return `${uri}/${projectURLSection}/talk/subjects/${subjectId}`
-
-    return ''
-  }
-
-  buildResourceUrl(resource, symbol) {
+  buildResourceURL(resource, symbol) {
+    if (!resource) return ''
     const { baseURI, projectSlug } = this.props
-    const uri = baseURI || ''
-    let owner, name, projectURLSection
-    if (projectSlug) {
-      [owner, name] = projectSlug.split('/')
-      projectURLSection = `projects/${owner}/${name}`
-    }
+    const baseURL = (projectSlug) ? `${baseURI}/projects/${projectSlug}` : baseURI
 
-    if (symbol === hashtag) return this.buildTagSearchURL(resource, projectURLSection, uri)
-    if (symbol === at) return this.buildUserURL(resource, projectURLSection, uri)
-    if (symbol === subjectSymbol) return this.buildSubjectURL(resource, projectURLSection, uri)
+    if (symbol === hashtag) return (projectSlug) ? `${baseURL}/talk/tag/${resource}` : `${baseURL}/talk/search?query=${resource}`
+    if (symbol === at) return `${baseURL}/users/${resource}`
+    if (symbol === subjectSymbol && projectSlug) return `${baseURL}/talk/subjects/${resource}`
 
     return ''
   }
@@ -73,7 +48,7 @@ class Markdownz extends React.Component {
     const { projectSlug, restrictedUserNames } = this.props
 
     if (symbol === at) return !restrictedUserNames.includes(resource)
-    if (symbol === subjectSymbol) return projectSlug
+    if (symbol === subjectSymbol) return !!projectSlug
 
     return true
   }
@@ -93,7 +68,7 @@ class Markdownz extends React.Component {
     }
     const mimeType = mime.lookup(src)
 
-    if (mimeType && mimeType.includes('video')) return <Video a11yTitle={alt} controls preload='metadata' src={src} />
+    if (mimeType && mimeType.includes('video')) return <Video a11yTitle={alt} controls="below" preload='metadata' src={src} />
     if (mimeType && mimeType.includes('audio')) return <audio controls preload='metadata' src={src} /> // Grommet doesn't have an audio component
 
     return <Image alt={altText || alt} src={src} width={width} height={height} />
@@ -101,6 +76,13 @@ class Markdownz extends React.Component {
 
   render() {
     const { children, components, settings } = this.props
+
+    if (!children) return null
+
+    if (Object.keys(components).includes('img')) {
+      console.warn('Overriding the rendering function for the img tag may break the syntax support for image resizing and using image markup for video and audio. Are you sure you want to do this?')
+    }
+
     const componentMappings = {
       a: Anchor,
       h1: (nodeProps) => <Heading level='1'>{nodeProps.children}</Heading>,
@@ -131,8 +113,8 @@ class Markdownz extends React.Component {
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBePingable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
-        resourceUrl: (resource, symbol) => this.buildResourceUrl(resource, symbol),
-        matchRegex: /(@[A-Za-z0-9]+)|(#[A-Za-z0-9]+)|(\^S[0-9]+)/
+        resourceUrl: (resource, symbol) => this.buildResourceURL(resource, symbol),
+        matchRegex: this.matchRegex
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
