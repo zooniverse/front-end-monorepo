@@ -97,7 +97,10 @@ class LightCurveViewer extends Component {
     const height = container.offsetHeight || 0
     const width = container.offsetWidth || 0
     this.drawChart(width, height, sameSubject)
-    this.updateInteractionMode(this.props.interactionMode)
+    
+    if (prevProps.interactionMode !== this.props.interactionMode) {
+      this.updateInteractionMode(this.props.interactionMode)
+    }
   }
 
   componentWillUnmount () {
