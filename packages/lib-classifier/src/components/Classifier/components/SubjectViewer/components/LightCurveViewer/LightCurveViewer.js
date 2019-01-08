@@ -329,7 +329,7 @@ class LightCurveViewer extends Component {
       //this.zoom.on('zoom', this.doZoom.bind(this))
       
       this.d3svg.on('click', null)
-      this.d3interfaceLayer.style('display', null)
+      this.d3interfaceLayer.style('display', 'inline')
       
     } else {  // Users should never reach this point
       console.error('LightCurveViewer: illogical move/annotate state detected.')
