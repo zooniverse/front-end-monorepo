@@ -20,19 +20,19 @@ export default function ProjectLink ({ urlObject }) {
   const { IconComponent, label, type, url } = formatUrlObject(urlObject)
   return (
     <Box direction='row' margin={{ bottom: 'small' }}>
-      <Box margin={{ right: '10px' }} width='30px'>
-        <IconComponent color='#A6A7A9' />
+      <Box margin={{ right: '15px' }}>
+        <IconComponent color='#5c5c5c' size='medium' />
       </Box>
       <Box>
         <SpacedText>
           <Link href={url} passHref>
-            <StyledAnchor color='#ADDDE0' size='small'>
+            <StyledAnchor color='#005D69' size='small'>
               {label}
             </StyledAnchor>
           </Link>
         </SpacedText>
         <Box area='type'>
-          <Text color='#A6A7A9' size='small' weight='bold'>
+          <Text color='#5c5c5c' size='small' weight='bold'>
             {type}
           </Text>
         </Box>
