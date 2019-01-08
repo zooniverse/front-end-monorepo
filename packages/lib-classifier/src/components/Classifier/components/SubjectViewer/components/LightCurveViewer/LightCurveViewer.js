@@ -450,7 +450,7 @@ LightCurveViewer.wrappedComponent.propTypes = {
   }),
   
   // Store-mapped Properties
-  interactionMode: PropTypes.string,
+  interactionMode: PropTypes.oneOf(['annotate', 'move']),
   setOnZoom: PropTypes.func.isRequired,
 }
 
