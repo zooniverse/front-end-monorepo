@@ -1,19 +1,21 @@
 import counterpart from 'counterpart'
+import {
+  Facebook as FacebookIcon,
+  Github as GitHubIcon,
+  Language as GlobeIcon,
+  GooglePlus as GooglePlusIcon,
+  Instagram as InstagramIcon,
+  Medium as MediumIcon,
+  Pinterest as PinterestIcon,
+  Reddit as RedditIcon,
+  Tumblr as TumblrIcon,
+  Twitter as TwitterIcon,
+  Wordpress as WordPressIcon,
+  Youtube as YouTubeIcon,
+} from 'grommet-icons'
 
 import BitbucketIcon from './../../components/BitbucketIcon'
-import FacebookIcon from './../../components/FacebookIcon'
-import GitHubIcon from './../../components/GitHubIcon'
-import GlobeIcon from './../../components/GlobeIcon'
-import GooglePlusIcon from './../../components/GooglePlusIcon'
-import InstagramIcon from './../../components/InstagramIcon'
-import MediumIcon from './../../components/MediumIcon'
-import PinterestIcon from './../../components/PinterestIcon'
-import RedditIcon from './../../components/RedditIcon'
-import TumblrIcon from './../../components/TumblrIcon'
-import TwitterIcon from './../../components/TwitterIcon'
 import WeiboIcon from './../../components/WeiboIcon'
-import WordPressIcon from './../../components/WordPressIcon'
-import YouTubeIcon from './../../components/YouTubeIcon'
 
 export default function formatUrlObject (obj) {
   // Default to external website

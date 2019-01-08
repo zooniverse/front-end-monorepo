@@ -20,8 +20,8 @@ export default function ProjectLink ({ urlObject }) {
   const { IconComponent, label, type, url } = formatUrlObject(urlObject)
   return (
     <Box direction='row' margin={{ bottom: 'small' }}>
-      <Box color='#5c5c5c' margin={{ right: '10px' }} width='30px'>
-        <IconComponent />
+      <Box margin={{ right: '10px' }} width='30px'>
+        <IconComponent color='#A6A7A9' />
       </Box>
       <Box>
         <SpacedText>
