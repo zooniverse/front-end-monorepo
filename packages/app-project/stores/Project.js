@@ -14,6 +14,7 @@ const Project = types
     id: types.maybeNull(numberString),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     retiredSubjectsCount: types.optional(types.number, 0),
+    urls: types.frozen([]),
     subjectsCount: types.optional(types.number, 0)
   })
 
@@ -42,6 +43,7 @@ const Project = types
           self.retiredSubjectsCount = project.retired_subjects_count
           self.slug = project.slug
           self.subjectsCount = project.subjects_count
+          self.urls = project.urls
 
           self.loadingState = asyncStates.success
         } catch (error) {

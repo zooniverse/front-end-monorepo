@@ -27,11 +27,16 @@ const StyledParagraph = styled(Paragraph)`
 function ProjectStatistics ({
   classifications,
   completedSubjects,
+  projectName,
   subjects,
   volunteers
 }) {
   return (
-    <ClassifyBox>
+    <ClassifyBox
+      linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
+      linkUrl='#'
+      title={counterpart('ProjectStatistics.title', { projectName })}
+    >
       <MainGrid>
         <section>
           <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
