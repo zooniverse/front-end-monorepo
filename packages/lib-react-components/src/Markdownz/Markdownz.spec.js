@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
+import { Image, Video } from 'grommet'
 import Markdownz from './Markdownz'
 
 const content = '# Zooniverse'
@@ -141,7 +142,79 @@ describe.only('<Markdownz />', function () {
     })
   })
 
-  xdescribe('#shouldResourceBePingable')
+  describe('#shouldResourceBeLinkable', function () {
+    let shouldResourceBeLinkableSpy
+    before(function () {
+      shouldResourceBeLinkableSpy = sinon.spy(Markdownz.prototype, 'shouldResourceBeLinkable')
+    })
+    afterEach(function () {
+      shouldResourceBeLinkableSpy.resetHistory()
+    })
+    after(function () {
+      shouldResourceBeLinkableSpy.restore()
+    })
 
-  xdescribe('#renderMedia')
+    it('should default to return true', function () {
+      wrapper.instance().shouldResourceBeLinkable('tigers', '#')
+      expect(shouldResourceBeLinkableSpy).to.have.returned(true)
+    })
+
+    it('should return true if the symbol is ^S and props.projectSlug is truthy', function () {
+      wrapper.setProps({ projectSlug: 'zooniverse/snapshot-wakanda' })
+      wrapper.instance().shouldResourceBeLinkable('1234', '^S')
+      expect(shouldResourceBeLinkableSpy).to.have.returned(true)
+      wrapper.setProps({ projectSlug: '' })
+    })
+
+    it('should return true if the symbol is ^S and props.projectSlug is falsey', function () {
+      wrapper.instance().shouldResourceBeLinkable('1234', '^S')
+      expect(shouldResourceBeLinkableSpy).to.have.returned(false)
+    })
+
+    it('should return true if the symbol is @ and the resource is not in the props.restrictedUserNames array', function () {
+      wrapper.instance().shouldResourceBeLinkable('srallen', '@')
+      expect(shouldResourceBeLinkableSpy).to.have.returned(true)
+    })
+
+    it('should return false if the symbol is @ and the resource is in the props.restrictedUserNames array', function () {
+      wrapper.instance().shouldResourceBeLinkable('team', '@')
+      expect(shouldResourceBeLinkableSpy).to.have.returned(false)
+    })
+  })
+
+  describe('#renderMedia', function () {
+    const videoPropsMock = { src: 'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4', alt: 'Video of the Zooniverse', children: undefined }
+    const audioPropsMock = { src: 'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga', alt: 'Street noise', children: undefined }
+    let renderMediaSpy
+    before(function () {
+      renderMediaSpy = sinon.spy(Markdownz.prototype, 'renderMedia')
+    })
+    afterEach(function () {
+      renderMediaSpy.resetHistory()
+    })
+    after(function () {
+      renderMediaSpy.restore()
+    })
+
+    describe('when the media is an image', function () {
+      const imagePropsMock = { src: 'https://via.placeholder.com/350x350', alt: 'image-alt-text', children: undefined }
+      it('should return a Grommet Image component', function () {
+        wrapper.instance().renderMedia(imagePropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.type).to.equal(Image)
+      })
+
+      it('should set the alt attribute with the alt prop', function () {
+        wrapper.instance().renderMedia(imagePropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.alt).to.equal(imagePropsMock.alt)
+      })
+
+      it('should set the src attribute with the src prop', function () {
+        wrapper.instance().renderMedia(imagePropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.src).to.equal(imagePropsMock.src)
+      })
+    })
+  })
 })

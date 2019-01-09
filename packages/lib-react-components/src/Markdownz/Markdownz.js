@@ -44,7 +44,7 @@ class Markdownz extends React.Component {
     return ''
   }
 
-  shouldResourceBePingable(resource, symbol) {
+  shouldResourceBeLinkable(resource, symbol) {
     const { projectSlug, restrictedUserNames } = this.props
 
     if (symbol === at) return !restrictedUserNames.includes(resource)
@@ -102,7 +102,7 @@ class Markdownz extends React.Component {
       tr: TableRow
     }
 
-    const remarkReactComponents = Object.assign({}, components, componentMappings)
+    const remarkReactComponents = Object.assign({},  componentMappings, components)
     const remarkSettings = Object.assign({}, { footnotes: true }, settings)
 
     const markdown = remark()
@@ -111,7 +111,7 @@ class Markdownz extends React.Component {
       .use(remarkSubSuper)
       .use(externalLinks)
       .use(ping, {
-        ping: (resource, symbol) => this.shouldResourceBePingable(resource, symbol), // We could support passing in a prop to call a function here
+        ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
         resourceUrl: (resource, symbol) => this.buildResourceURL(resource, symbol),
         matchRegex: this.matchRegex
