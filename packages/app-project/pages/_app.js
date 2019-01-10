@@ -1,14 +1,16 @@
 import zooTheme from '@zooniverse/grommet-theme'
+import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
+import auth from 'panoptes-client/lib/auth'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import { ZooHeader, ZooFooter } from '@zooniverse/react-components'
 
 import Head from '../components/Head'
 import Navigation from '../components/Navigation'
+import ZooHeaderWrapper from '../components/ZooHeaderWrapper'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -46,6 +48,10 @@ export default class MyApp extends App {
     this.store = initStore(isServer, initialState, props.client)
   }
 
+  componentDidMount () {
+    this.getUser()
+  }
+
   componentDidUpdate () {
     // It looks like Next.js mutates the `router` prop, so if there's a URL
     // change, we check the new slug against the slug for the current project
@@ -58,6 +64,13 @@ export default class MyApp extends App {
     }
   }
 
+  async getUser () {
+    const userResource = await auth.checkCurrent()
+    if (userResource) {
+      this.store.user.setUser(userResource)
+    }
+  }
+
   render () {
     const { Component, pageProps, theme } = this.props
     return (
@@ -66,7 +79,7 @@ export default class MyApp extends App {
         <Provider store={this.store}>
           <Grommet theme={theme}>
             <Head />
-            <ZooHeader signIn={() => {}} signOut={() => {}} user={{}} />
+            <ZooHeaderWrapper />
             <Navigation />
             <Component {...pageProps} />
             <ZooFooter />
