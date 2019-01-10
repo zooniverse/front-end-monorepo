@@ -147,7 +147,7 @@ class LightCurveViewer extends Component {
     const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.dataPoints)
 
-    const t = this.currentTransform()
+    const t = this.getCurrentTransform()
     const setPointCoords = selection => selection
       // users can only zoom & pan in the x-direction
       .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
@@ -169,7 +169,7 @@ class LightCurveViewer extends Component {
     }
   }
   
-  currentTransform () {
+  getCurrentTransform () {
     return (d3.event && d3.event.transform)
       || (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node()))
       || d3.zoomIdentity
@@ -331,13 +331,11 @@ class LightCurveViewer extends Component {
       this.d3svg.on('click', null)
       this.d3interfaceLayer.style('display', 'inline')
       
-    } else {  // Users should never reach this point
-      console.error('LightCurveViewer: illogical move/annotate state detected.')
     }
   }
   
   doZoom () {
-    const t = this.currentTransform()
+    const t = this.getCurrentTransform()
 
     // Re-draw the data points to fit the new view
     // Note: users can only zoom & pan in the x-direction
@@ -348,7 +346,7 @@ class LightCurveViewer extends Component {
   }
   
   doInsertAnnotation () {
-    const t = this.currentTransform()
+    const t = this.getCurrentTransform()
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
     console.log('+++ click coords: ', clickCoords)
     
@@ -367,7 +365,7 @@ class LightCurveViewer extends Component {
    */
   updatePresentation(width, height) {
     const props = this.props
-    const t = this.currentTransform()
+    const t = this.getCurrentTransform()
     
     this.updateScales(t)
     
