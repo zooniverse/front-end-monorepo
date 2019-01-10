@@ -22,7 +22,7 @@ const SubjectViewer = types
   .views(self => ({
     get interactionMode () {
       // Default interaction mode is 'annotate'
-      if (!self.annotate && self.move) ? 'move' : 'annotate'
+      return (!self.annotate && self.move) ? 'move' : 'annotate'
     }
   }))
 
