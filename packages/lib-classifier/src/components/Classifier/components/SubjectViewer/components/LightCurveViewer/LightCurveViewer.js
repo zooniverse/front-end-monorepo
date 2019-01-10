@@ -147,10 +147,10 @@ class LightCurveViewer extends Component {
     const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.dataPoints)
 
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
     const setPointCoords = selection => selection
       // users can only zoom & pan in the x-direction
-      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+      .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
       .attr('cy', d => this.yScale(d[1]))
 
     if (shouldAnimate) {
@@ -335,19 +335,19 @@ class LightCurveViewer extends Component {
   }
   
   doZoom () {
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
 
     // Re-draw the data points to fit the new view
     // Note: users can only zoom & pan in the x-direction
     this.d3dataLayer.selectAll('.data-point')
-      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+      .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
 
     this.updatePresentation()
   }
   
   doInsertAnnotation () {
-    const t = this.getCurrentTransform()
-    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
+    const currentTransform = this.getCurrentTransform()
+    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, currentTransform)
     console.log('+++ click coords: ', clickCoords)
     
     // TEST
@@ -365,9 +365,9 @@ class LightCurveViewer extends Component {
    */
   updatePresentation(width, height) {
     const props = this.props
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
     
-    this.updateScales(t)
+    this.updateScales(currentTransform)
     
     if (width && height) {  // Update if container size changes.
       this.repositionAxes(width, height)
