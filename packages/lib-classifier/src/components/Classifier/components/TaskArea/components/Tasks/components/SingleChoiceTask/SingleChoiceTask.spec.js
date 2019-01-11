@@ -72,7 +72,7 @@ describe('SingleChoiceTask', function () {
 
     it('should not call addAnnotation in the onChange handler if the event target is not checked', function () {
       const node = wrapper.find({ label: task.answers[0].label })
-      node.simulate('change', { target: { checked: false }})
+      node.simulate('change', { target: { checked: false } })
       expect(addAnnotationSpy.called).to.be.false
     })
   })

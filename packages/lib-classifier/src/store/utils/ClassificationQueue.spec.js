@@ -97,8 +97,8 @@ describe('ClassificationQueue', function () {
       apiClient = { post: () => {} }
       postSpy = sinon.stub(apiClient, 'post').callsFake(() => new Promise(function (resolve, reject) { }))
       classificationQueue = new ClassificationQueue(apiClient)
-      classificationQueue.add({annotations: [], metadata: {}})
-      classificationQueue.add({annotations: [], metadata: {}})
+      classificationQueue.add({ annotations: [], metadata: {} })
+      classificationQueue.add({ annotations: [], metadata: {} })
     })
     after(function () {
       postSpy.restore()

@@ -10,6 +10,6 @@ export default function getClickCoords (svgNode, xScale, yScale, transform) {
   const coords = d3.mouse(svgNode)
   return [
     transform.rescaleX(xScale).invert(coords[0]),
-    yScale.invert(coords[1])  // For the LightCurveViewer, only the x-axis is rescaled
+    yScale.invert(coords[1]) // For the LightCurveViewer, only the x-axis is rescaled
   ]
 }

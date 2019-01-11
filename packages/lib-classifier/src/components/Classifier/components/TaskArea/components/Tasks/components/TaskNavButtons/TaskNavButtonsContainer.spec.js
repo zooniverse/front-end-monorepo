@@ -180,7 +180,7 @@ describe('TaskNavButtonsContainer', function () {
     it('should not call props.createDefaultAnnotation if props.classification has matching annotations for the tasks', function () {
       const annotations = observable.map()
       tasks.forEach(task => annotations.set(task.taskKey, task))
-      wrapper.setProps({ classification: { annotations }})
+      wrapper.setProps({ classification: { annotations } })
       wrapper.instance().createDefaultAnnotationIfThereIsNone()
       expect(createDefaultAnnotationSpy.notCalled).to.be.true
     })

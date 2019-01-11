@@ -13,7 +13,7 @@ let WORKFLOW = null
 const ROOT_STORE = types
   .model('RootStore', {
     workflows: types.frozen({}),
-    workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create()),
+    workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create())
   })
 
 describe('Model > WorkflowStepStore', function () {
@@ -31,7 +31,7 @@ describe('Model > WorkflowStepStore', function () {
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build()
-        },
+        }
       })
 
       ROOT_STORE_INSTANCE = ROOT_STORE.create({
@@ -102,7 +102,7 @@ describe('Model > WorkflowStepStore', function () {
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build()
-        },
+        }
       })
 
       ROOT_STORE_INSTANCE = ROOT_STORE.create({

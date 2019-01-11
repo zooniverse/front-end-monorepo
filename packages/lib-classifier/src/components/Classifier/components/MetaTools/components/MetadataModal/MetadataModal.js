@@ -15,7 +15,7 @@ export function filterByLabel (label, filters) {
     }
   }
 
-  return ""
+  return ''
 }
 
 export function formatValue (value) {
@@ -26,7 +26,7 @@ export function formatValue (value) {
     return stringValue
   }
 
-  return ""
+  return ''
 }
 
 export default function MetadataModal (props) {
@@ -39,13 +39,13 @@ export default function MetadataModal (props) {
   } = props
 
   const columns = [{
-      property: 'label',
-      header: <SpacedText>{counterpart('MetadataModal.table.label')}</SpacedText>,
-      primary: true
-    }, {
-      property: 'value',
-      header: <SpacedText>{counterpart('MetadataModal.table.value')}</SpacedText>,
-    }
+    property: 'label',
+    header: <SpacedText>{counterpart('MetadataModal.table.label')}</SpacedText>,
+    primary: true
+  }, {
+    property: 'value',
+    header: <SpacedText>{counterpart('MetadataModal.table.value')}</SpacedText>
+  }
   ]
 
   const filteredDataLabels = Object.keys(metadata).filter((label) => { return filterByLabel(label, filters) })

@@ -7,7 +7,7 @@ import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
-import UserProjectPreferencesStore from './UserProjectPreferencesStore';
+import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
 const RootStore = types
   .model('RootStore', {

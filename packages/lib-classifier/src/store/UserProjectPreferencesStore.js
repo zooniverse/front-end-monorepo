@@ -13,11 +13,11 @@ const UserProjectPreferencesStore = types
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createProjectObserver()
     }
 
-    function createProjectObserver() {
+    function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const project = getRoot(self).projects.active
         if (project) {
@@ -40,7 +40,7 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function createTempUPP() {
+    function createTempUPP () {
       const tempUPP = UserProjectPreferences.create({ id: 'guestPreferencesDoNotPost', preferences: {} })
       self.loadingState = asyncStates.success
       self.setUPP(tempUPP)
@@ -53,11 +53,11 @@ const UserProjectPreferencesStore = types
       self.loadingState = asyncStates.loading
       try {
         const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, bearerToken)
-          if (response.body[type][0]) {
-            resource = response.body[type][0]
-          } else {
-            resource = yield self.createUPP(bearerToken)
-          }
+        if (response.body[type][0]) {
+          resource = response.body[type][0]
+        } else {
+          resource = yield self.createUPP(bearerToken)
+        }
 
         self.loadingState = asyncStates.success
         self.setUPP(resource)
