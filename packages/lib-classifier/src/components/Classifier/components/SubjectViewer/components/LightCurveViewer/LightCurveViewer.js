@@ -10,6 +10,7 @@ import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
 import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
+import getClickCoords from './d3/getClickCoords'
 import setPointStyle from './d3/setPointStyle'
 
 // The following are arbitrary as all heck, numbers are chosen for what "feels good"
@@ -18,9 +19,14 @@ const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100  // milliseconds
 
 function storeMapper (stores) {
-  const { setOnZoom } = stores.classifierStore.subjectViewer
+  const {
+    interactionMode,  // strong: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
+    setOnZoom,  // func: sets onZoom event handler
+  } = stores.classifierStore.subjectViewer
+  
   return {
-    setOnZoom
+    interactionMode,
+    setOnZoom,
   }
 }
 
@@ -33,6 +39,7 @@ class LightCurveViewer extends Component {
     this.svgContainer = React.createRef()
     
     // D3 Selection elements
+    this.d3annotationsLayer = null
     this.d3dataMask = null
     this.d3dataLayer = null
     this.d3interfaceLayer = null
@@ -73,22 +80,27 @@ class LightCurveViewer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const points = this.props.points
-    const prevPoints = prevProps.points
+    const points = this.props.dataPoints
+    const prevPoints = prevProps.dataPoints
     const sameSubject = (points === prevPoints)
 
     if (!sameSubject) {
       this.clearChart()
+      
+      const container = this.svgContainer.current
+      const height = container.offsetHeight || 0
+      const width = container.offsetWidth || 0
+      this.drawChart(width, height, sameSubject)
     }
-
-    const container = this.svgContainer.current
-    const height = container.offsetHeight || 0
-    const width = container.offsetWidth || 0
-    this.drawChart(width, height, sameSubject)
+    
+    if (prevProps.interactionMode !== this.props.interactionMode) {
+      this.updateInteractionMode(this.props.interactionMode)
+    }
   }
 
   componentWillUnmount () {
     this.zoom && this.zoom.on('zoom', null)
+    this.d3svg && this.d3svg.on('zoom', null)
   }
 
   clearChart () {
@@ -109,28 +121,36 @@ class LightCurveViewer extends Component {
     
     /*
     Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
-    beyond the start (xMin=0) or end (xMax=width) of the light curve.
+    beyond the start-ish (xMin=0-margin) or end-ish (xMax=width+margin) of the
+    light curve.
+    
+    UX: the +/-margins add some "give" to chart that lets users see _some_
+    interactivity at 1.0x zoom. Without this give, users won't see any feedback
+    to drag/move actions in Move mode at 1.0x zoom, possibly causing them to
+    incorrectly think they're in Annotate Mode. Feel free to remove these
+    margins if we can find a better way to communicate when a user is in Move
+    Mode but cannot actually pan the image.
     */
-    this.zoom.translateExtent([[0, 0], [width, 0]])
+    this.zoom.translateExtent([[-props.outerMargin, 0], [width + props.outerMargin, 0]])
 
     // Update x-y scales to fit current size of container
     this.xScale
-      .domain(this.props.extent.x)
+      .domain(this.props.dataExtent.x)
       .range([0 + props.innerMargin, width - props.innerMargin])
     this.yScale
-      .domain(this.props.extent.y)
+      .domain(this.props.dataExtent.y)
       .range([height - props.innerMargin, 0 + props.innerMargin])  //Note that this is reversed
     
     this.updatePresentation(width, height)
     
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
-      .data(this.props.points)
+      .data(this.props.dataPoints)
 
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
     const setPointCoords = selection => selection
       // users can only zoom & pan in the x-direction
-      .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+      .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
       .attr('cy', d => this.yScale(d[1]))
 
     if (shouldAnimate) {
@@ -151,7 +171,7 @@ class LightCurveViewer extends Component {
   
   getCurrentTransform () {
     return (d3.event && d3.event.transform)
-      || d3.zoomTransform(this.d3interfaceLayer.node())
+      || (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node()))
       || d3.zoomIdentity
   }
   
@@ -197,7 +217,7 @@ class LightCurveViewer extends Component {
         .attr('class', 'light-curve-viewer')
         .attr('height', '100%')
         .attr('width', '100%')
-        .style('cursor', 'grab')
+        .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
     
@@ -247,16 +267,28 @@ class LightCurveViewer extends Component {
     // Zoom controller
     this.zoom = d3.zoom()
       .scaleExtent([props.minZoom, props.maxZoom])  // Limit zoom scale
-      .on('zoom', () => {
-        const t = d3.event.transform
-        
-        // Re-draw the data points to fit the new view
-        // Note: users can only zoom & pan in the x-direction
-        this.d3dataLayer.selectAll('.data-point')
-          .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
-        
-        this.updatePresentation()
-      })
+      .on('zoom', this.doZoom.bind(this))
+    
+    // Annotations/markings layer
+    this.d3svg
+      .append('g')
+        .attr('class', 'annotations-layer')
+    this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
+    
+    // TEST: Can we stop event propagation on clicks?
+    // ANSWER: YES
+    this.d3annotationsLayer
+      .append('rect')
+        .attr('class', 'example-annotation')
+        .attr('transform', 'translate(50,50)')
+        .attr('width', 50)
+        .attr('height', 100)
+        .attr('fill', '#c44')
+        .attr('fill-opacity', '0.5')
+        .style('cursor', 'pointer')
+        .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
+        .on('mousedown', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents "drag selection"
+        .on('touchstart', () => { d3.event.stopPropagation() ; d3.event.preventDefault() })
     
     /*
     The Interface Layer is the last (i.e. top-most) layer added, capturing all
@@ -266,6 +298,64 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addInterfaceLayer)
     this.d3interfaceLayer = this.d3svg.select('.interface-layer')
     this.d3interfaceLayer.call(this.zoom)
+    this.updateInteractionMode(props.interactionMode)
+  }
+  
+  /*
+  Updates interaction logic, switching between navigation and annotation.
+   */
+  updateInteractionMode(interactionMode = '') {
+    if (!this.zoom || !this.d3interfaceLayer) return
+    
+    if (interactionMode === 'annotate') {
+      // HACK: Prevent zoom by "running in place"
+      // this.zoom.on('zoom', null) doesn't work, because transforms are just
+      // "deferred" until Move Mode is reinstated.
+      /*this.savedTransform = this.getCurrentTransform()
+      this.zoom.on('zoom', () => {
+        if (d3.event.transform.x !== this.savedTransform.x
+            || d3.event.transform.y !== this.savedTransform.y
+            || d3.event.transform.k !== this.savedTransform.k) {
+          this.zoom.transform(this.d3interfaceLayer, this.savedTransform)
+        }
+      })
+      this.d3interfaceLayer.style('cursor', 'crosshair')
+      this.d3interfaceLayer.on('click', this.doInsertAnnotation.bind(this))*/
+      
+      this.d3svg.on('click', this.doInsertAnnotation.bind(this))
+      this.d3interfaceLayer.style('display', 'none')
+      
+    } else if (interactionMode === 'move') {
+      //this.zoom.on('zoom', this.doZoom.bind(this))
+      
+      this.d3svg.on('click', null)
+      this.d3interfaceLayer.style('display', 'inline')
+      
+    }
+  }
+  
+  doZoom () {
+    const currentTransform = this.getCurrentTransform()
+
+    // Re-draw the data points to fit the new view
+    // Note: users can only zoom & pan in the x-direction
+    this.d3dataLayer.selectAll('.data-point')
+      .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
+
+    this.updatePresentation()
+  }
+  
+  doInsertAnnotation () {
+    const currentTransform = this.getCurrentTransform()
+    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, currentTransform)
+    console.log('+++ click coords: ', clickCoords)
+    
+    // TEST
+    this.d3annotationsLayer.append('circle')
+      .attr('r', 10)
+      .attr('fill', '#c44')
+      .attr('cx', this.xScale(clickCoords[0]))
+      .attr('cy', this.yScale(clickCoords[1]))
   }
   
   /*
@@ -275,9 +365,9 @@ class LightCurveViewer extends Component {
    */
   updatePresentation(width, height) {
     const props = this.props
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
     
-    this.updateScales(t)
+    this.updateScales(currentTransform)
     
     if (width && height) {  // Update if container size changes.
       this.repositionAxes(width, height)
@@ -330,14 +420,11 @@ class LightCurveViewer extends Component {
 
 LightCurveViewer.wrappedComponent.propTypes = {
   // Data values
-  extent: PropTypes.shape({
+  dataExtent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
-  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-  
-  // Event Handlers
-  setOnZoom: PropTypes.func.isRequired,
+  dataPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
 
   // Zoom (scale) range
   minZoom: PropTypes.number,
@@ -356,12 +443,16 @@ LightCurveViewer.wrappedComponent.propTypes = {
     xOffsetY: PropTypes.number,
     yOffsetX: PropTypes.number,
     yOffsetY: PropTypes.number,
-  })
+  }),
+  
+  // Store-mapped Properties
+  interactionMode: PropTypes.oneOf(['annotate', 'move']),
+  setOnZoom: PropTypes.func.isRequired,
 }
 
 LightCurveViewer.wrappedComponent.defaultProps = {
-  extent: { x: [-1,1], y: [-1,1] },
-  points: [[]],
+  dataExtent: { x: [-1,1], y: [-1,1] },
+  dataPoints: [[]],
   
   setOnZoom: (type, zoomValue) => {},
 
@@ -381,7 +472,10 @@ LightCurveViewer.wrappedComponent.defaultProps = {
     xOffsetY: -20,
     yOffsetX: 20,
     yOffsetY: 20,
-  }
+  },
+  
+  interactionMode: '',
+  setOnZoom: (type, n) => {},
 }
 
 export default LightCurveViewer
