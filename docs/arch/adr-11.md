@@ -22,7 +22,7 @@ Here is how markdown-it's plugins will map to remark's plugins:
 |markdown-it-sub|remark-sub-super||
 |markdown-it-sup|remark-sub-super||
 |markdown-it-footnote|built in|Remark supports this and can be enabled by passing `footnote: true` into its settings object|
-|markdown-it-imsize|N/A|This has been replaced by leveraging the component customization that remark-react supports. For `img`, we have defined a custom function that will set the `width` and `height` props on the Image component if the sizing syntax is defined in the alt tag of the markup. This is in constract of the sizing syntax originally being defined in the src markup. We do not want to modify the sanitization remark-react does on source urls, so instead we have moved support of this to the alt tag area of the markup|
+|markdown-it-imsize|N/A|This has been replaced by leveraging the component customization that remark-react supports. For `img`, we have defined a custom function that will set the `width` and `height` props on the Image component if the sizing syntax is defined in the alt tag of the markup. This is in contrast to the sizing syntax originally being defined in the src markup. We do not want to modify the sanitization remark-react does on source urls, so instead we have moved support of syntax to the alt tag area of the markup|
 |markdown-it-video|deprecating|We are deprecating this because we don't want project owners embedding youtube videos with ads|
 |markdown-it-table-of-contents|remark-toc|This works instead by looking for a heading that has case insensitive `table of contents`, `toc`, or `table-of-contents`|
 |markdown-it-anchor|N/A|Remark has basic anchor support.|
