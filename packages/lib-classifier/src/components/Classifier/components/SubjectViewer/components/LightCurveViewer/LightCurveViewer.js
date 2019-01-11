@@ -452,8 +452,6 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   dataExtent: { x: [-1, 1], y: [-1, 1] },
   dataPoints: [[]],
 
-  setOnZoom: (type, zoomValue) => {},
-
   minZoom: 1,
   maxZoom: 10,
 
@@ -473,7 +471,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   },
 
   interactionMode: '',
-  setOnZoom: (type, n) => {}
+  setOnZoom: (type, zoomValue) => {}
 }
 
 export default LightCurveViewer
