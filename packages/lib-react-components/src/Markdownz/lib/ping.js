@@ -5,28 +5,27 @@
 import visit from 'unist-util-visit'
 
 const helpMsg = `remark-ping: expected configuration to be passed: {
-  ping: (resourceToPing) => bool,\n  resourceUrl: (resourceToPing) => string\n}`
+  ping: (resourceToPing, pingSymbol) => bool,\n  resourceURL: (resourceToPing, pingSymbol) => string\n}`
 
 export default function plugin({
   ping,
   pingSymbols = ['@'],
-  resourceUrl,
+  resourceURL,
   matchRegex = /@(?:\*\*([^*]+)\*\*|(\w+))/,
 }) {
-  if (typeof ping !== 'function' || typeof resourceUrl !== 'function') {
+  if (typeof ping !== 'function' || typeof resourceURL !== 'function') {
     throw new Error(helpMsg)
   }
 
   function inlineTokenizer(eat, value, silent) {
     const match = matchRegex.exec(value)
     if (!match || match.index > 0) return
-
     const total = match[0]
     const symbol = pingSymbols.find((element) => total.indexOf(element) === 0)
-    const resource = total.split(symbol)[1]
+    const resource = match.find((matchItem) => matchItem && !matchItem.includes(symbol)) || total.split(symbol)[1]
 
     if (ping(resource, symbol) === true) {
-      const url = resourceUrl(resource, symbol)
+      const url = resourceURL(resource, symbol)
 
       return eat(total)({
         type: 'ping',
@@ -93,7 +92,6 @@ export default function plugin({
     const visitors = Compiler.prototype.visitors
     visitors.ping = (node) => {
       if (!node.resource.includes(' ')) {
-        console.log('resource', resource)
         return `${node.symbol}${node.resource}`
       }
       return `${node.symbol}**${node.resource}**`

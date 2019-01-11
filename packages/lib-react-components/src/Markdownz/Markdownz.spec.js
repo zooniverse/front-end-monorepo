@@ -6,7 +6,7 @@ import Markdownz from './Markdownz'
 
 const content = '# Zooniverse'
 
-describe.only('<Markdownz />', function () {
+describe('<Markdownz />', function () {
   let wrapper
   before(function () {
     wrapper = shallow(<Markdownz>{content}</Markdownz>)
@@ -198,6 +198,7 @@ describe.only('<Markdownz />', function () {
 
     describe('when the media is an image', function () {
       const imagePropsMock = { src: 'https://via.placeholder.com/350x350', alt: 'image-alt-text', children: undefined }
+      const imagePropsMockWithSize = { src: 'https://via.placeholder.com/350x350', alt: 'image-alt-text =100x100', children: undefined }
       it('should return a Grommet Image component', function () {
         wrapper.instance().renderMedia(imagePropsMock)
         const returnedValue = renderMediaSpy.returnValues[0]
@@ -214,6 +215,19 @@ describe.only('<Markdownz />', function () {
         wrapper.instance().renderMedia(imagePropsMock)
         const returnedValue = renderMediaSpy.returnValues[0]
         expect(returnedValue.props.src).to.equal(imagePropsMock.src)
+      })
+
+      it('should use the width and height from the alt text if defined', function () {
+        wrapper.instance().renderMedia(imagePropsMockWithSize)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.width).to.equal('100')
+        expect(returnedValue.props.height).to.equal('100')
+      })
+
+      it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
+        wrapper.instance().renderMedia(imagePropsMockWithSize)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.alt).to.equal('image-alt-text')
       })
     })
   })
