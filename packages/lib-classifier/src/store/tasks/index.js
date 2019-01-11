@@ -1,4 +1,5 @@
 export { default as DrawingTask } from './DrawingTask'
+export { default as Graph2dRangeXTask } from './Graph2dRangeXTask'
 export { default as MultipleChoiceTask } from './MultipleChoiceTask'
 export { default as SingleChoiceTask } from './SingleChoiceTask'
 export { default as Task } from './Task'
