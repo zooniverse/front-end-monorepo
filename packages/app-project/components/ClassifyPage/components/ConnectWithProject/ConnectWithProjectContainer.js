@@ -3,6 +3,7 @@ import { arrayOf, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import ConnectWithProject from './ConnectWithProject'
+import isValidUrl from './helpers/isValidUrl'
 
 function storeMapper (stores) {
   const { displayName, urls } = stores.store.project
@@ -17,7 +18,8 @@ function storeMapper (stores) {
 export default class ConnectWithProjectContainer extends Component {
   render () {
     const { projectName, urls } = this.props
-    return (!urls || urls.length > 0)
+    const validUrls = urls.filter(urlObject => isValidUrl(urlObject.url))
+    return (!validUrls || validUrls.length > 0)
       ? <ConnectWithProject projectName={projectName} urls={urls} />
       : null
   }
