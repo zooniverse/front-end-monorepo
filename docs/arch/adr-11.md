@@ -17,20 +17,20 @@ We will make a new `Markdownz` React component that will be a part of the Zooniv
 Here is how markdown-it's plugins will map to remark's plugins:
 
 |markdown-it plugin/custom plugin|remark plugin/custom plugin|notes|
-----------------------------------------
+|--------------------------------|---------------------------|-----|
 |markdown-it-emoji|remark-emoji|remark-emoji does not support emoticons like `:-)` but does gemojis like `:smile:`|
 |markdown-it-sub|remark-sub-super||
 |markdown-it-sup|remark-sub-super||
 |markdown-it-footnote|built in|Remark supports this and can be enabled by passing `footnote: true` into its settings object|
-|markdown-it-imsize|macros||
+|markdown-it-imsize|N/A|This has been replaced by leveraging the component customization that remark-react supports. For `img`, we have defined a custom function that will set the `width` and `height` props on the Image component if the sizing syntax is defined in the alt tag of the markup. This is in constract of the sizing syntax originally being defined in the src markup. We do not want to modify the sanitization remark-react does on source urls, so instead we have moved support of this to the alt tag area of the markup|
 |markdown-it-video|deprecating|We are deprecating this because we don't want project owners embedding youtube videos with ads|
 |markdown-it-table-of-contents|remark-toc|This works instead by looking for a heading that has case insensitive `table of contents`, `toc`, or `table-of-contents`|
 |markdown-it-anchor|N/A|Remark has basic anchor support.|
-|twemoji|N/A|Do we really need to use Twitter's emojis? Unicode support for emojis is fairly ubitiquous now.|
-|markdown-it-html5-embed|||
+|twemoji|N/A|Do we really need to use images of Twitter's emojis? Unicode support for emojis is fairly ubitiquous now.|
+|markdown-it-html5-embed|N/A|This has been replaced by leveraging the component customization that remark-react supports. For `img`, we define a custom function that returns a video instead of an image of the src is a video mime-type|
 |replaceSymbols|our own fork of remark-ping|remark-ping supports our needs for doing at-mentions of users, but it is forked to also support talk hashtags and the subject mentions using `^S`|
 |relNofollow|remark-external-links|This plugin adds nofollow to absolute urls|
-|markdownNewTab|remark-external-links|This plugin adds `target='_blank'` and nofollow, noopener, noreferrer. `+tab+` in front of the url will no longer work because of the sanitization that remark-react does. It may not be a good idea to modify how the sanitization works to allow this and instead just update our users on how this works instead.|
+|markdownNewTab|remark-external-links|remark-external-links plugin adds `target='_blank'` and nofollow, noopener, noreferrer to all absolute urls. `+tab+` in front of the url will no longer work because of the sanitization that remark-react does. It may not be a good idea to modify how the sanitization works to allow this and instead just update our users on how this works instead.|
 
 `remark-react` is added to parse the markdown to jsx which is inherantly safer than using `dangerouslySetInnerHTML` and allows customizing which react components get used for html elements like `markdown-to-jsx`.
 
@@ -42,6 +42,6 @@ Proposed
 
 - Remark's plugin eco-system has more plugins that suit our needs and reduces some of the code we have to maintain.
 - We still need to maintain a fork of `remark-ping` for our customizations for Talk
-- Users will have to learn how to do table of contents and links that open in new tabs differently, but we can post an update with new help to aid when we deploy this. 
-- We'll use `remark-react` which enables us to map Grommet components to HTML tags. Thne the rendered markdown will adopt the theme styles we've set globally in the `Grommet` component.
+- Users will have to learn how to do table of contents, links that open in new tabs, and image sizing differently, but we can post an update with new help to aid when we deploy this. 
+- We'll use `remark-react` which enables us to map Grommet components to HTML tags. Then the rendered markdown will adopt the theme styles we've set globally in the `Grommet` component.
 
