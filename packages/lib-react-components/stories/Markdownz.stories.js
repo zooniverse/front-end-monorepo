@@ -7,6 +7,7 @@ import { storiesOf } from '@storybook/react'
 
 import { Markdownz } from '../src'
 import markdownExample from './lib/example.md'
+import markdownzDocs from '../src/Markdownz/README.md'
 
 const TableRowWithBorder = styled(TableRow)`
   border-top: solid thin black;
@@ -14,9 +15,9 @@ const TableRowWithBorder = styled(TableRow)`
 `
 
 storiesOf('Markdownz', module)
-  // .addParameters({
-  //   info: spacedTextDocs
-  // })
+  .addParameters({
+    info: markdownzDocs
+  })
   .add('Light theme (default)', () =>
     <Grommet theme={zooTheme}>
       <Box>
