@@ -4,7 +4,7 @@ import Task from './Task'
 const Graph2dRangeX = types.model('Graph2dRangeX', {
   help: types.optional(types.string, ''),
   instruction: types.string,
-  required: types.maybe(types.boolean), // Should this be an optional type with the default to true?
+  required: types.optional(types.boolean, false),
   type: types.literal('graph2dRangeX')
 })
 
