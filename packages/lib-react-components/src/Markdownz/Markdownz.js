@@ -29,9 +29,6 @@ const at = '@'
 const subjectSymbol = '^S'
 
 class Markdownz extends React.Component {
-  // Matches @username, #hashtag, or ^S1234 (subject id).
-  static matchRegex = /[@,#]?(\w+)|(\^S[0-9]+)/
-
   buildResourceURL(resource, symbol) {
     if (!resource) return ''
     const { baseURI, projectSlug } = this.props
@@ -113,8 +110,8 @@ class Markdownz extends React.Component {
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
-        resourceUrl: (resource, symbol) => this.buildResourceURL(resource, symbol),
-        matchRegex: this.matchRegex
+        resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
+        matchRegex: /(@[A-Za-z0-9]+)|(#[A-Za-z0-9]+)|(\^S[0-9]+)/
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
