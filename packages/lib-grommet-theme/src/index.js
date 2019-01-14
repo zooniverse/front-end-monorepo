@@ -92,7 +92,8 @@ const theme = deepFreeze({
       `
     },
     drop: {
-      background: 'transparent'
+      background: 'transparent',
+      shadowSize: 'none'
     }
   },
   anchor: {
