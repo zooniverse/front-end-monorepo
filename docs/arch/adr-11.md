@@ -44,4 +44,5 @@ Proposed
 - We still need to maintain a fork of `remark-ping` for our customizations for Talk
 - Users will have to learn how to do table of contents, links that open in new tabs, and image sizing differently, but we can post an update with new help to aid when we deploy this. 
 - We'll use `remark-react` which enables us to map Grommet components to HTML tags. Then the rendered markdown will adopt the theme styles we've set globally in the `Grommet` component.
+- The existing Markdownz library will have a deprecation noticed added to its read me. The new Markdownz component will be part of the @zooniverse/react-components library. Note: As of the writing of this ADR, only the renderer has been migrated and the editor and help docs still need to be migrated. 
 
