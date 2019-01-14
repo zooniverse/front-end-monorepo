@@ -9,6 +9,7 @@ function storeMapper (stores) {
   return {
     classifications: project.classificationsCount,
     completedSubjects: project.retiredSubjectsCount,
+    projectName: project.displayName,
     subjects: project.subjectsCount,
     volunteers: project.classifiersCount
   }
@@ -21,6 +22,7 @@ class ProjectStatisticsContainer extends Component {
     const {
       classifications,
       completedSubjects,
+      projectName,
       subjects,
       volunteers
     } = this.props
@@ -29,6 +31,7 @@ class ProjectStatisticsContainer extends Component {
       <ProjectStatistics
         classifications={classifications}
         completedSubjects={completedSubjects}
+        projectName={projectName}
         subjects={subjects}
         volunteers={volunteers}
       />

@@ -1,17 +1,45 @@
-import { Box } from 'grommet'
-import PropTypes from 'prop-types'
+import { Anchor, Box, Heading } from 'grommet'
+import { node, string } from 'prop-types'
 import React from 'react'
+import { SpacedText } from '@zooniverse/react-components'
+import Link from 'next/link'
 
-function ClassifyBox ({ children }) {
+export default function ClassifyBox ({ children, linkLabel, linkUrl, title }) {
+  const showHeader = title || (linkLabel && linkUrl)
   return (
     <Box background='white' border='all' pad='medium'>
+      {showHeader && (
+        <Box
+          align='center'
+          as='header'
+          direction='row'
+          justify={title ? 'between' : 'end'}
+          margin={{ bottom: 'medium' }}
+        >
+          {title && (
+            <Heading level='4' margin='none'>
+              <SpacedText color='black' weight='bold'>
+                {title}
+              </SpacedText>
+            </Heading>
+          )}
+          {(linkLabel && linkUrl) && (
+            <Link href={linkUrl} passHref>
+              <Anchor>
+                <SpacedText>
+                  {linkLabel}
+                </SpacedText>
+              </Anchor>
+            </Link>
+          )}
+        </Box>
+      )}
       {children}
     </Box>
   )
 }
 
 ClassifyBox.propTypes = {
-  children: PropTypes.node
+  children: node,
+  title: string
 }
-
-export default ClassifyBox

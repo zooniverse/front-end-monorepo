@@ -36,7 +36,8 @@
     "react-pose": "~4.0.2",
     "react-progressive-image": "~0.6.0",
     "styled-components": "~4.1.1",
-    "url-parse": "~1.4.4"
+    "url-parse": "~1.4.4",
+    "validator": "~10.10.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "~7.1.6",
