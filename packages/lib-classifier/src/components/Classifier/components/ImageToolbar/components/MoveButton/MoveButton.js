@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import moveIcon from './moveIcon'
+import MoveIcon from './MoveIcon'
 import en from './locales/en'
 import Button from '../Button'
 
@@ -13,10 +13,9 @@ function MoveButton ({ active, onClick }) {
     <Button
       active={active}
       aria-label={counterpart('MoveButton.ariaLabel')}
+      icon={<MoveIcon />}
       onClick={onClick}
-    >
-      {moveIcon}
-    </Button>
+    />
   )
 }
 

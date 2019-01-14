@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import zoomInIcon from './zoomInIcon'
+import ZoomInIcon from './ZoomInIcon'
 import en from './locales/en'
 import Button from '../Button'
 
@@ -12,10 +12,9 @@ function ZoomInButton ({ onClick }) {
   return (
     <Button
       aria-label={counterpart('ZoomInButton.ariaLabel')}
+      icon={<ZoomInIcon />}
       onClick={onClick}
-    >
-      {zoomInIcon}
-    </Button>
+    />
   )
 }
 

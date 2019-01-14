@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import zoomOutIcon from './zoomOutIcon'
+import ZoomOutIcon from './ZoomOutIcon'
 import en from './locales/en'
 import Button from '../Button'
 
@@ -12,10 +12,9 @@ function ZoomOutButton ({ onClick }) {
   return (
     <Button
       aria-label={counterpart('ZoomOutButton.ariaLabel')}
+      icon={<ZoomOutIcon />}
       onClick={onClick}
-    >
-      {zoomOutIcon}
-    </Button>
+    />
   )
 }
 

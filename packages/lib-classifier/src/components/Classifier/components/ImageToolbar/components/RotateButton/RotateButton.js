@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import rotateIcon from './rotateIcon'
+import RotateIcon from './RotateIcon'
 import en from './locales/en'
 import Button from '../Button'
 
@@ -12,11 +12,9 @@ function RotateButton ({ onClick }) {
   return (
     <Button
       aria-label={counterpart('RotateButton.ariaLabel')}
+      icon={<RotateIcon />}
       onClick={onClick}
-      svgAdjustments={{ y: '2' }}
-    >
-      {rotateIcon}
-    </Button>
+    />
   )
 }
 

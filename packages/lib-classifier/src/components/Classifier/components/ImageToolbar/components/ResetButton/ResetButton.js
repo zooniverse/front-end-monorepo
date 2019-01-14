@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import resetIcon from './resetIcon'
+import ResetIcon from './ResetIcon'
 import en from './locales/en'
 import Button from '../Button'
 
@@ -12,10 +12,9 @@ function ResetButton ({ onClick }) {
   return (
     <Button
       aria-label={counterpart('ResetButton.ariaLabel')}
+      icon={<ResetIcon />}
       onClick={onClick}
-    >
-      {resetIcon}
-    </Button>
+    />
   )
 }
 
