@@ -11,6 +11,7 @@ import { createGlobalStyle } from 'styled-components'
 import Head from '../components/Head'
 import Navigation from '../components/Navigation'
 import ZooHeaderWrapper from '../components/ZooHeaderWrapper'
+import AuthModals from '../components/AuthModals'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -83,6 +84,7 @@ export default class MyApp extends App {
             <Navigation />
             <Component {...pageProps} />
             <ZooFooter />
+            <AuthModals />
           </Grommet>
         </Provider>
       </Container>
