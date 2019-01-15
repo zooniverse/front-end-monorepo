@@ -183,8 +183,6 @@ describe('<Markdownz />', function () {
   })
 
   describe('#renderMedia', function () {
-    const videoPropsMock = { src: 'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4', alt: 'Video of the Zooniverse', children: undefined }
-    const audioPropsMock = { src: 'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga', alt: 'Street noise', children: undefined }
     let renderMediaSpy
     before(function () {
       renderMediaSpy = sinon.spy(Markdownz.prototype, 'renderMedia')
@@ -197,8 +195,9 @@ describe('<Markdownz />', function () {
     })
 
     describe('when the media is an image', function () {
-      const imagePropsMock = { src: 'https://via.placeholder.com/350x350', alt: 'image-alt-text', children: undefined }
-      const imagePropsMockWithSize = { src: 'https://via.placeholder.com/350x350', alt: 'image-alt-text =100x100', children: undefined }
+      const altText = 'A placeholder image.'
+      const imagePropsMock = { src: 'https://via.placeholder.com/350x350', alt: altText, children: undefined }
+      const imagePropsMockWithSize = { src: 'https://via.placeholder.com/350x350', alt: `${altText} =100x100`, children: undefined }
       it('should return a Grommet Image component', function () {
         wrapper.instance().renderMedia(imagePropsMock)
         const returnedValue = renderMediaSpy.returnValues[0]
@@ -227,7 +226,43 @@ describe('<Markdownz />', function () {
       it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
         wrapper.instance().renderMedia(imagePropsMockWithSize)
         const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.alt).to.equal('image-alt-text')
+        expect(returnedValue.props.alt).to.equal(altText)
+      })
+    })
+
+    describe('when the media is a video', function () {
+      const videoPropsMock = { src: 'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4', alt: 'Video of the Zooniverse', children: undefined }
+      it('should return a Grommet Video component', function () {
+        wrapper.instance().renderMedia(videoPropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.type).to.equal(Video)
+      })
+
+      it('should set the a11yTitle prop with the alt text', function () {
+        wrapper.instance().renderMedia(videoPropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.a11yTitle).to.equal(videoPropsMock.alt)
+      })
+
+      it('should set the src attribute', function () {
+        wrapper.instance().renderMedia(videoPropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.src).to.equal(videoPropsMock.src)
+      })
+    })
+
+    describe('when the media is a video', function () {
+      const audioPropsMock = { src: 'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga', alt: 'Street noise', children: undefined }
+      it('should return an audio element', function () {
+        wrapper.instance().renderMedia(audioPropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.type).to.equal('audio')
+      })
+
+      it('should set the src attribute', function () {
+        wrapper.instance().renderMedia(audioPropsMock)
+        const returnedValue = renderMediaSpy.returnValues[0]
+        expect(returnedValue.props.src).to.equal(audioPropsMock.src)
       })
     })
   })
