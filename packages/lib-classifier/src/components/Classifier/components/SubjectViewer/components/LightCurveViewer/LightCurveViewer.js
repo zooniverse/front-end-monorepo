@@ -11,7 +11,8 @@ import addDataLayer from './d3/addDataLayer'
 import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import getClickCoords from './d3/getClickCoords'
-import setPointStyle from './d3/setPointStyle'
+import setDataPointStyle from './d3/setDataPointStyle'
+import setUserAnnotationAttr from './d3/setUserAnnotationAttr'
 
 // The following are arbitrary as all heck, numbers are chosen for what "feels good"
 const ZOOM_IN_VALUE = 1.2
@@ -23,9 +24,32 @@ function storeMapper (stores) {
     interactionMode, // strong: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
     setOnZoom // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
+  
+  const {
+    addAnnotation
+  } = stores.classifierStore.classifications
+  const annotations = stores.classifierStore.classifications.currentAnnotations
+  const { active: step } = stores.classifierStore.workflowSteps
+  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+
+  // WIP
+  // We currently have no corresponding "graphRanges" task in the Panoptes
+  // Project Builder, so this is jimmied in.
+  // NOTE: There are two things that need to be done:
+  // - We need to create a workflow with the custom "graphRanges" task
+  // - We need to consider how the LCV reacts when the current active task is
+  //   NOT a graphRanges task.
+  const currentTask = {
+    type: 'graph2dRangeX',
+    taskKey: 'T100',
+  }
 
   return {
+    addAnnotation,
+    annotations,
+    currentTask,
     interactionMode,
+    tasks,
     setOnZoom
   }
 }
@@ -104,8 +128,10 @@ class LightCurveViewer extends Component {
   }
 
   clearChart () {
-    this.d3dataLayer.selectAll('.data-point')
-      .remove()
+    this.d3dataLayer.selectAll('.data-point').remove()
+    this.d3annotationsLayer.selectAll('.user-annotation').remove()
+    this.zoomTo(1.0)
+    // TODO/Optional: reset view pan/translate to 0,0?
   }
 
   /*
@@ -113,7 +139,7 @@ class LightCurveViewer extends Component {
   data points.
   Called when new data (points) is received, and when chart is resized.
    */
-  drawChart (width, height, shouldAnimate = false) {
+  drawChart (width, height, shouldAnimate = true) {
     const props = this.props
     if (!height || !width) {
       return false
@@ -146,33 +172,31 @@ class LightCurveViewer extends Component {
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.dataPoints)
+    
+    // For each new and existing data point, add (append) a new SVG circle.
+    points.enter()
+      .append('circle')  // Note: all circles are of class '.data-point'
+      .call(setDataPointStyle)
 
-    const currentTransform = this.getCurrentTransform()
-    const setPointCoords = selection => selection
-      // users can only zoom & pan in the x-direction
-      .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
-      .attr('cy', d => this.yScale(d[1]))
-
-    if (shouldAnimate) {
-      points.enter()
-        .append('circle') // Note: all circles are of class '.data-point'
-        .call(setPointStyle)
-        .merge(points)
-        .transition()
-        .call(setPointCoords)
-    } else {
-      points.enter()
-        .append('circle')
-        .call(setPointStyle)
-        .merge(points)
-        .call(setPointCoords)
-    }
+    // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
+    points.exit().remove()
+    
+    // Update visual elements
+    this.updateDataPoints(shouldAnimate)
+    this.updateUserAnnotations()
+    this.updatePresentation(width, height)
+  }
+  
+  getAnnotationValues () {
+    const props = this.props
+    const annotations = (props.annotations && props.annotations.toJSON()) || {}
+    return (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
   }
 
   getCurrentTransform () {
-    return (d3.event && d3.event.transform) ||
-      (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
-      d3.zoomIdentity
+    return (d3.event && d3.event.transform)
+      || (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node()))
+      || d3.zoomIdentity
   }
 
   /*
@@ -272,23 +296,8 @@ class LightCurveViewer extends Component {
     // Annotations/markings layer
     this.d3svg
       .append('g')
-      .attr('class', 'annotations-layer')
+        .attr('class', 'annotations-layer')
     this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
-
-    // TEST: Can we stop event propagation on clicks?
-    // ANSWER: YES
-    this.d3annotationsLayer
-      .append('rect')
-      .attr('class', 'example-annotation')
-      .attr('transform', 'translate(50,50)')
-      .attr('width', 50)
-      .attr('height', 100)
-      .attr('fill', '#c44')
-      .attr('fill-opacity', '0.5')
-      .style('cursor', 'pointer')
-      .on('click', () => { console.log('+++ Example Annotation clicked'); d3.event.stopPropagation(); d3.event.preventDefault() }) // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
-      .on('mousedown', () => { d3.event.stopPropagation(); d3.event.preventDefault() }) // Prevents "drag selection"
-      .on('touchstart', () => { d3.event.stopPropagation(); d3.event.preventDefault() })
 
     /*
     The Interface Layer is the last (i.e. top-most) layer added, capturing all
@@ -308,52 +317,56 @@ class LightCurveViewer extends Component {
     if (!this.zoom || !this.d3interfaceLayer) return
 
     if (interactionMode === 'annotate') {
-      // HACK: Prevent zoom by "running in place"
-      // this.zoom.on('zoom', null) doesn't work, because transforms are just
-      // "deferred" until Move Mode is reinstated.
-      /* this.savedTransform = this.getCurrentTransform()
-      this.zoom.on('zoom', () => {
-        if (d3.event.transform.x !== this.savedTransform.x
-            || d3.event.transform.y !== this.savedTransform.y
-            || d3.event.transform.k !== this.savedTransform.k) {
-          this.zoom.transform(this.d3interfaceLayer, this.savedTransform)
-        }
-      })
-      this.d3interfaceLayer.style('cursor', 'crosshair')
-      this.d3interfaceLayer.on('click', this.doInsertAnnotation.bind(this)) */
-
       this.d3svg.on('click', this.doInsertAnnotation.bind(this))
-      this.d3interfaceLayer.style('display', 'none')
+      this.d3interfaceLayer.style('display', 'none')    
     } else if (interactionMode === 'move') {
-      // this.zoom.on('zoom', this.doZoom.bind(this))
-
       this.d3svg.on('click', null)
       this.d3interfaceLayer.style('display', 'inline')
     }
   }
 
   doZoom () {
-    const currentTransform = this.getCurrentTransform()
-
-    // Re-draw the data points to fit the new view
-    // Note: users can only zoom & pan in the x-direction
-    this.d3dataLayer.selectAll('.data-point')
-      .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
-
+    this.updateDataPoints()
+    this.updateUserAnnotations()
     this.updatePresentation()
   }
 
   doInsertAnnotation () {
-    const currentTransform = this.getCurrentTransform()
-    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, currentTransform)
-    console.log('+++ click coords: ', clickCoords)
+    const STARTING_WIDTH = 0.4
+    const props = this.props
+    const t = this.getCurrentTransform()
 
-    // TEST
-    this.d3annotationsLayer.append('circle')
-      .attr('r', 10)
-      .attr('fill', '#c44')
-      .attr('cx', this.xScale(clickCoords[0]))
-      .attr('cy', this.yScale(clickCoords[1]))
+    // Figure out where the user clicked on the graph, then add a new annotation
+    // to the array of annotations.
+    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
+    const values = this.getAnnotationValues()
+    values.push({ x: clickCoords[0], width: STARTING_WIDTH })
+
+    props.addAnnotation(values, props.currentTask)
+
+    this.updateUserAnnotations()
+  }
+  
+  /*
+  Re-draw the data points to fit the new view
+  We don't don't add/remove data points at this step (no enter() or exit())
+  because new data points are only added/removed at the drawChart() step.
+  Note: users can only zoom & pan in the x-direction
+   */
+  updateDataPoints (shouldAnimate = false) {
+    const t = this.getCurrentTransform()
+    const dataPoints = this.d3dataLayer.selectAll('.data-point')
+
+    if (shouldAnimate) {
+      dataPoints
+        .transition()
+        .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        .attr('cy', d => this.yScale(d[1]))
+    } else {
+      dataPoints
+        .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        .attr('cy', d => this.yScale(d[1]))
+    }
   }
 
   /*
@@ -380,6 +393,50 @@ class LightCurveViewer extends Component {
 
     this.yAxis.scale(this.yScale) // Do NOT rescale the y-axis
     this.d3axisY.call(this.yAxis)
+  }
+  
+    /*
+  Re-draw the user annotations to fit the new view
+  Note: users can only zoom & pan in the x-direction
+   */
+  updateUserAnnotations () {
+    const t = this.getCurrentTransform()
+
+    // Add the user annotations
+    const annotationValues = this.getAnnotationValues()
+    const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
+      .data(annotationValues)
+
+    const getLeftEdgeOfAnnotation = (x, width = 0, xScale, transform) => {
+      return transform.rescaleX(this.xScale)(x - width / 2)
+    }
+
+    const getRightEdgeOfAnnotation = (x, width, xScale, transform) => {
+      return transform.rescaleX(this.xScale)(x + width / 2)
+    }
+    
+    const getWidthOfAnnotation = (x, width, xScale, transform) => {
+      const left = getLeftEdgeOfAnnotation(x, width, xScale, transform)
+      const right = getRightEdgeOfAnnotation(x, width, xScale, transform)
+      return Math.max(right - left, 0)
+    }
+    
+    // For each newly added annotation value, create a new corresponding annotation SVG element.
+    annotations.enter()
+      .append('rect')  // Class: '.user-annotation'
+        .call(setUserAnnotationAttr)
+
+      // And for all current annotations, update their annotation SVG element
+      .merge(annotations)
+        .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, t))
+        .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, t))
+        .attr('y', d => 0)
+        .attr('height', d => '100%')
+
+    // For each annotation SVG element that no longer has an annotation value
+    // (e.g. the annotation value was deleted, or this is a fresh new Subject)
+    // clean it up.
+    annotations.exit().remove()
   }
 
   repositionAxes (width, height) {

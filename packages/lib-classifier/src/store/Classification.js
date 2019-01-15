@@ -1,6 +1,6 @@
 import { types, getType } from 'mobx-state-tree'
 import Resource from './Resource'
-import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
+import { SingleChoiceAnnotation, MultipleChoiceAnnotation, Graph2dRangeXAnnotation } from './annotations'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   finishedAt: types.maybe(types.string),
@@ -30,8 +30,9 @@ const Classification = types
         const snapshotType = getType(snapshot)
         if (snapshotType.name === 'SingleChoiceAnnotation') return SingleChoiceAnnotation
         if (snapshotType.name === 'MultipleChoiceAnnotation') return MultipleChoiceAnnotation
+        if (snapshotType.name === 'Graph2dRangeXAnnotation') return Graph2dRangeXAnnotation
       }
-    }, SingleChoiceAnnotation, MultipleChoiceAnnotation)),
+    }, SingleChoiceAnnotation, MultipleChoiceAnnotation, Graph2dRangeXAnnotation)),
     completed: types.optional(types.boolean, false),
     links: types.frozen({
       project: types.string,
