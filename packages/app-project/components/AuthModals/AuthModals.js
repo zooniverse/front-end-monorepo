@@ -1,23 +1,36 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import en from './locales/en'
+import LoginModal from './components/LoginModal'
 
-counterpart.registerTranslations('en', en)
+export default function AuthModals (props) {
+  const {
+    closeLoginModal,
+    closeRegisterModal,
+    showLoginModal,
+    showRegisterModal
+  } = props
 
-function AuthModals () {
   return (
-    <div>
-      component
-    </div>
+    <>
+      {showLoginModal && (
+        <LoginModal
+          closeLoginModal={closeLoginModal}
+        />
+      )}
+      {showRegisterModal && (
+        <div>showRegisterModal</div>
+      )}
+    </>
   )
 }
 
 AuthModals.propTypes = {
+  showLoginModal: PropTypes.bool,
+  showRegisterModal: PropTypes.bool
 }
 
 AuthModals.defaultProps = {
+  showLoginModal: false,
+  showRegisterModal: false
 }
-
-export default AuthModals

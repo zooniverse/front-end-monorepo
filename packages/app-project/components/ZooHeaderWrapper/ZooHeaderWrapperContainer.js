@@ -1,27 +1,64 @@
+import { ZooHeader } from '@zooniverse/react-components'
 import { inject, observer } from 'mobx-react'
+import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { ZooHeader } from '@zooniverse/react-components'
+import Url from 'url-parse'
 
+@withRouter
 @inject('store')
 @observer
 export default class ZooHeaderWrapperContainer extends Component {
+  constructor () {
+    super()
+    this.openRegisterModal = this.openRegisterModal.bind(this)
+    this.openSignInModal = this.openSignInModal.bind(this)
+  }
+
   createUserProp () {
-    const { user } = this.props.store
-    return (user.isLoggedIn)
-      ? {
-          display_name: user.display_name
-        }
+    const { isLoggedIn, display_name } = this.props.store.user
+    return (isLoggedIn)
+      ? { display_name }
       : {}
   }
 
+  getUrlObject () {
+    const { asPath } = this.props.router
+    return new Url(asPath, true)
+  }
+
+  addUrlQuery (urlObject, propertyToAdd) {
+    const query = Object.assign({}, urlObject.query, {
+      [propertyToAdd]: 'true'
+    })
+    urlObject.set('query', query)
+  }
+
+  redirect (urlObject) {
+    const { pathname, push } = this.props.router
+    const urlString = urlObject.toString().substr(urlObject.origin.length)
+    push(pathname, urlString, { shallow: true })
+  }
+
+  openRegisterModal () {
+    const url = this.getUrlObject()
+    this.addUrlQuery(url, 'register')
+    return this.redirect(url)
+  }
+
+  openSignInModal () {
+    const url = this.getUrlObject()
+    this.addUrlQuery(url, 'login')
+    return this.redirect(url)
+  }
+
   render () {
-    const user = this.createUserProp()
     return (
       <ZooHeader
-        user={user}
-        signIn={() => console.log('signIn')}
+        register={this.openRegisterModal}
+        signIn={this.openSignInModal}
         signOut={() => console.log('signOut')}
+        user={this.createUserProp()}
       />
     )
   }

@@ -1,0 +1,14 @@
+import { shallow } from 'enzyme'
+import React from 'react'
+
+import LoginModal from './LoginModal'
+
+let wrapper
+
+describe('Component > LoginModal', function () {
+  before(function () {
+    wrapper = shallow(<LoginModal />)
+  })
+
+  it('should render without crashing', function () {})
+})
