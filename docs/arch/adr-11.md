@@ -4,7 +4,7 @@ Created: December 19, 2018
 
 ## Context
 
-Markdown can help prevent XSS type security vulnerabilities and is generally safer to use than HTML for user submitted content on the web. Panoptes-Front-End uses markdown through out the entire application. Currently we support an in-house markdown renderer, [markdownz](https://github.com/zooniverse/markdownz), that uses  [markdown-it](https://github.com/markdown-it/markdown-it). The library markdown-it is mature and has several plug-ins available for it that we've added to markdownz as well as some of our own customizations.
+Markdown is generally safer to use than HTML for user submitted content on the web because it limits what a user can submit to predefined allowable strings that can be easily sanitized and then get converted to HTML. Panoptes-Front-End uses markdown through out the entire application. Currently we support an in-house markdown renderer, [markdownz](https://github.com/zooniverse/markdownz), that uses  [markdown-it](https://github.com/markdown-it/markdown-it). The library markdown-it is mature and has several plug-ins available for it that we've added to markdownz as well as some of our own customizations.
 
 Markdown, however, isn't totally free from being exploitable, nor is React. Markdownz relies on a React method, `dangerouslySetInnerHTML` that potentially open us to vulnerabilities (see this line: https://github.com/zooniverse/markdownz/blob/master/src/components/markdown.jsx#L99). 
 
@@ -27,7 +27,7 @@ Here is how markdown-it's plugins will map to remark's plugins:
 |markdown-it-table-of-contents|remark-toc|This works instead by looking for a heading that has case insensitive `table of contents`, `toc`, or `table-of-contents`|
 |markdown-it-anchor|N/A|Remark has basic anchor support.|
 |twemoji|N/A|Do we really need to use images of Twitter's emojis? Unicode support for emojis is fairly ubitiquous now.|
-|markdown-it-html5-embed|N/A|This has been replaced by leveraging the component customization that remark-react supports. For `img`, we define a custom function that returns a video instead of an image of the src is a video mime-type|
+|markdown-it-html5-embed|N/A|This has been replaced by leveraging the component customization that remark-react supports. For `img`, we define a custom function that returns HTML 5 video instead of an image of the src is a video mime-type or returns HTML 5 audio if the src is an audio mime-type|
 |replaceSymbols|our own fork of remark-ping|remark-ping supports our needs for doing at-mentions of users, but it is forked to also support talk hashtags and the subject mentions using `^S`|
 |relNofollow|remark-external-links|This plugin adds nofollow to absolute urls|
 |markdownNewTab|remark-external-links|remark-external-links plugin adds `target='_blank'` and nofollow, noopener, noreferrer to all absolute urls. `+tab+` in front of the url will no longer work because of the sanitization that remark-react does. It may not be a good idea to modify how the sanitization works to allow this and instead just update our users on how this works instead.|
