@@ -13,7 +13,7 @@ const WorkflowStepStore = types
       if (snapshot.type === 'multiple') return MultipleChoiceTask
       if (snapshot.type === 'single') return SingleChoiceTask
       if (snapshot.type === 'graph2dRangeX') return Graph2dRangeXTask
-    }}, DrawingTask, Graph2dRangeXTask, MultipleChoiceTask, SingleChoiceTask))
+    } }, DrawingTask, Graph2dRangeXTask, MultipleChoiceTask, SingleChoiceTask))
   })
   .views(self => ({
     get activeStepTasks () {

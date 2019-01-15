@@ -7,7 +7,7 @@ import theme from '@zooniverse/grommet-theme'
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
-  constructor() {
+  constructor () {
     super()
 
     this.authClient = createOAuthClient({
@@ -40,16 +40,16 @@ class App extends React.Component {
       .then(() => this.fetchProject())
   }
 
-  initAuthorization() {
+  initAuthorization () {
     this.setState({ loading: true })
-      return this.authClient.initialize()
-        .then((user) => {
-          this.setState({ loading: false, user })
-          history.replaceState(null, document.title, location.pathname + location.search)
-        })
+    return this.authClient.initialize()
+      .then((user) => {
+        this.setState({ loading: false, user })
+        history.replaceState(null, document.title, location.pathname + location.search)
+      })
   }
 
-  getBearerToken() {
+  getBearerToken () {
     if (this.authClient && this.authClient.getToken()) {
       const { token } = this.authClient.getToken()
       return `Bearer ${token}`
@@ -58,7 +58,7 @@ class App extends React.Component {
     return ''
   }
 
-  async fetchProject() {
+  async fetchProject () {
     let id = '335' // Example project: I Fancy Cats (staging)
 
     // Optional project override, e.g. localhost:8080?project=1862
@@ -79,18 +79,18 @@ class App extends React.Component {
     }
   }
 
-  login() {
+  login () {
     this.authClient.startLogin()
   }
 
-  logout() {
+  logout () {
     this.authClient.logout()
       .then((user) => {
         this.setState({ user })
       })
   }
 
-  render() {
+  render () {
     if (!this.state.project) {
       return (
         <div>Loading project data...</div>
@@ -106,7 +106,7 @@ class App extends React.Component {
           }
         </Box>
         <Box tag='section'>
-          <Classifier 
+          <Classifier
             authClient={this.authClient}
             project={this.state.project}
             user={this.state.user}

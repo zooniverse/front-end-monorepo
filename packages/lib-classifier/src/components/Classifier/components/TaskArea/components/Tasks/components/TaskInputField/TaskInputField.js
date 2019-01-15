@@ -22,7 +22,7 @@ const DEFAULT = {
     dark: zooTheme.dark.colors.font,
     light: zooTheme.light.colors.font
   })
-};
+}
 
 const HOVER = {
   gradientTop: theme('mode', {
@@ -37,7 +37,7 @@ const HOVER = {
     dark: zooTheme.dark.colors.font,
     light: 'black'
   })
-};
+}
 
 const CHECKED = {
   background: theme('mode', {
@@ -52,7 +52,7 @@ const CHECKED = {
     dark: zooTheme.dark.colors.font,
     light: 'white'
   })
-};
+}
 
 export const StyledTaskLabel = styled.span`
   align-items: baseline;
@@ -75,7 +75,7 @@ export const StyledTaskLabel = styled.span`
     border-bottom-color: ${HOVER.gradientBottom};
     color: ${HOVER.color};
   }
-`;
+`
 
 export const StyledTaskInputField = styled.label`
   position: relative;
@@ -101,9 +101,9 @@ export const StyledTaskInputField = styled.label`
     border-width: 2px;
     border-style: solid;
     border-color: ${theme('mode', {
-      dark: zooTheme.global.colors.darkTeal,
-      light: zooTheme.global.colors.teal
-    })};
+    dark: zooTheme.global.colors.darkTeal,
+    light: zooTheme.global.colors.teal
+  })};
     color: ${HOVER.color};
   }
 
@@ -120,7 +120,7 @@ export const StyledTaskInputField = styled.label`
     light: `2px solid ${zooTheme.global.colors.darkTeal}`
   })};
   }
-`;
+`
 
 export function TaskInputField (props) {
   const {

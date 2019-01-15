@@ -16,7 +16,7 @@ const SubjectViewer = types
     - 'type': 'zoomin', 'zoomout', 'zoomto'
     - 'zoomValue' defines amount zoomed in/out, or current zoom value of 'zoomto'.
      */
-    onZoom: function (type, zoomValue) {},
+    onZoom: function (type, zoomValue) {}
   }))
 
   .views(self => ({
@@ -46,7 +46,7 @@ const SubjectViewer = types
     },
 
     resetView () {
-      console.log('resetting view')      
+      console.log('resetting view')
       self.onZoom && self.onZoom('zoomto', 1.0)
     },
 
@@ -57,7 +57,7 @@ const SubjectViewer = types
     setLayout (layout = layouts.DefaultLayout) {
       self.layout = layout
     },
-    
+
     setOnZoom (callback) {
       self.onZoom = callback
     },

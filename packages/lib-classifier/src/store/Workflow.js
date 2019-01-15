@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 import Resource from './Resource'
 
 // The db type for steps is jsonb which is being serialized as an empty object when not defined.
-// Steps will be stored as an array of pairs to preserve order. 
+// Steps will be stored as an array of pairs to preserve order.
 const Workflow = types
   .model('Workflow', {
     configuration: types.frozen({}),

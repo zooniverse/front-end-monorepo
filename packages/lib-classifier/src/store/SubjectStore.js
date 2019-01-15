@@ -13,7 +13,7 @@ const SubjectStore = types
   })
 
   .views(self => ({
-    get isThereMetadata() {
+    get isThereMetadata () {
       if (self.active) {
         return Object.keys(self.active.metadata).length > 0
       }
