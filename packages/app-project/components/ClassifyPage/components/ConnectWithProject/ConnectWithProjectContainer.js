@@ -18,7 +18,7 @@ function storeMapper (stores) {
 export default class ConnectWithProjectContainer extends Component {
   render () {
     const { projectName, urls } = this.props
-    const validUrls = urls.filter(urlObject => isValidUrl(urlObject.url))
+    const validUrls = urls && urls.filter && urls.filter(urlObject => isValidUrl(urlObject.url))
     return (!validUrls || validUrls.length > 0)
       ? <ConnectWithProject projectName={projectName} urls={urls} />
       : null
