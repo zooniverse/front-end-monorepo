@@ -407,13 +407,11 @@ class LightCurveViewer extends Component {
     const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
       .data(annotationValues)
 
-    const getLeftEdgeOfAnnotation = (x, width = 0, xScale, transform) => {
-      return transform.rescaleX(this.xScale)(x - width / 2)
-    }
+    const getLeftEdgeOfAnnotation = (x, width = 0, xScale, transform) =>
+      transform.rescaleX(this.xScale)(x - width / 2)
 
-    const getRightEdgeOfAnnotation = (x, width, xScale, transform) => {
-      return transform.rescaleX(this.xScale)(x + width / 2)
-    }
+    const getRightEdgeOfAnnotation = (x, width, xScale, transform) =>
+      transform.rescaleX(this.xScale)(x + width / 2)
     
     const getWidthOfAnnotation = (x, width, xScale, transform) => {
       const left = getLeftEdgeOfAnnotation(x, width, xScale, transform)
