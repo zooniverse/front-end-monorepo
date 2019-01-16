@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import preventDefaultAction from './preventDefaultAction'
 
 export default function setUserAnnotationAttr (selection) {
   return selection
@@ -7,12 +8,11 @@ export default function setUserAnnotationAttr (selection) {
     .attr('fill-opacity', '0.5')
     .style('cursor', 'pointer')
     .on('click', function () {
-      console.log('+++ Example Annotation clicked')
+      alert('+++ Example Annotation clicked')
       
       // Prevents clicks on the parent d3annotationsLayer, which add new annotations.
-      d3.event.stopPropagation()
-      d3.event.preventDefault()
+      preventDefaultAction()
     })
-    .on('mousedown', function () { d3.event.stopPropagation() ; d3.event.preventDefault() })  // Prevents "drag selection"
-    .on('touchstart', function () { d3.event.stopPropagation() ; d3.event.preventDefault() })
+    .on('mousedown', preventDefaultAction)  // Prevents "drag selection"
+    .on('touchstart', preventDefaultAction)
 }
