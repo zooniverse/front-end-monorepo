@@ -1,4 +1,3 @@
-import * as d3 from 'd3'
 import preventDefaultAction from './preventDefaultAction'
 
 export default function setUserAnnotationAttr (selection) {
