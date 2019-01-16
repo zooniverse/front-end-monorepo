@@ -4,6 +4,7 @@ import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Url from 'url-parse'
+import auth from 'panoptes-client/lib/auth'
 
 @withRouter
 @inject('store')
@@ -13,13 +14,12 @@ export default class ZooHeaderWrapperContainer extends Component {
     super()
     this.openRegisterModal = this.openRegisterModal.bind(this)
     this.openSignInModal = this.openSignInModal.bind(this)
+    this.signOut = this.signOut.bind(this)
   }
 
   createUserProp () {
     const { isLoggedIn, display_name } = this.props.store.user
-    return (isLoggedIn)
-      ? { display_name }
-      : {}
+    return (isLoggedIn) ? { display_name } : {}
   }
 
   getUrlObject () {
@@ -52,12 +52,17 @@ export default class ZooHeaderWrapperContainer extends Component {
     return this.redirect(url)
   }
 
+  signOut () {
+    auth.signOut()
+      .then(() => this.props.store.user.clear())
+  }
+
   render () {
     return (
       <ZooHeader
         register={this.openRegisterModal}
         signIn={this.openSignInModal}
-        signOut={() => console.log('signOut')}
+        signOut={this.signOut}
         user={this.createUserProp()}
       />
     )

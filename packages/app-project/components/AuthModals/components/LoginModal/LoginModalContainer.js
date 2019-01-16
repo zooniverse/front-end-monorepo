@@ -1,4 +1,5 @@
 import { inject, observer } from 'mobx-react'
+import auth from 'panoptes-client/lib/auth'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -16,7 +17,8 @@ export default class LoginModalContainer extends Component {
         login: '',
         password: ''
       },
-      isBrowser: false
+      isBrowser: false,
+      loading: false
     }
   }
 
@@ -30,7 +32,19 @@ export default class LoginModalContainer extends Component {
   }
 
   submit () {
-    console.info(this.state.form)
+    const { closeLoginModal, store } = this.props
+    this.setState({ loading: true })
+    auth.signIn(this.state.form)
+      .then(userResource => {
+        console.info(userResource)
+        this.setState({ loading: false })
+        store.user.set(userResource)
+        closeLoginModal()
+      })
+      .catch(error => {
+        console.info(error)
+        this.setState({ loading: false })
+      })
   }
 
   updateField (event) {
@@ -41,16 +55,21 @@ export default class LoginModalContainer extends Component {
   }
 
   render () {
+    if (!this.state.isBrowser) {
+      return null
+    }
+
     const loginEnabled = this.canLogin()
     const { closeLoginModal } = this.props
-    return (this.state.isBrowser)
-      ? <LoginModal
-          canLogin={loginEnabled}
-          closeLoginModal={closeLoginModal}
-          formState={this.state.form}
-          submit={this.submit}
-          updateField={this.updateField}
-        />
-      : null
+    return (
+      <LoginModal
+        canLogin={loginEnabled}
+        closeLoginModal={closeLoginModal}
+        formState={this.state.form}
+        loading={this.state.loading}
+        submit={this.submit}
+        updateField={this.updateField}
+      />
+    )
   }
 }

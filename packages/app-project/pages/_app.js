@@ -68,7 +68,7 @@ export default class MyApp extends App {
   async getUser () {
     const userResource = await auth.checkCurrent()
     if (userResource) {
-      this.store.user.setUser(userResource)
+      this.store.user.set(userResource)
     }
   }
 

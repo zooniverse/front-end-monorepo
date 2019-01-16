@@ -7,18 +7,10 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export default function LoginModal (props) {
-  const {
-    canLogin,
-    closeLoginModal,
-    formState,
-    loading,
-    updateField,
-    submit
-  } = props
-
+export default function RegisterModal (props) {
+  const { canLogin, closeRegisterModal, formState, updateField, submit } = props
   return (
-    <Layer onClickOutside={closeLoginModal}>
+    <Layer onClickOutside={closeRegisterModal}>
       <Box pad='medium'>
         <FormField
           htmlFor='login-modal-login'
@@ -26,7 +18,6 @@ export default function LoginModal (props) {
           name='login'
         >
           <TextInput
-            disabled={loading}
             id='login-modal-login'
             name='login'
             onChange={updateField}
@@ -39,7 +30,6 @@ export default function LoginModal (props) {
           name='login'
         >
           <TextInput
-            disabled={loading}
             id='login-modal-password'
             name='password'
             onChange={updateField}
@@ -48,7 +38,7 @@ export default function LoginModal (props) {
           />
         </FormField>
         <Button
-          disabled={!canLogin || loading}
+          disabled={!canLogin}
           label='Login'
           onClick={submit}
         />
@@ -57,7 +47,7 @@ export default function LoginModal (props) {
   )
 }
 
-LoginModal.propTypes = {
+RegisterModal.propTypes = {
   formState: PropTypes.shape({
     login: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,

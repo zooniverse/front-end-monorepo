@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import LoginModal from './components/LoginModal'
+import RegisterModal from './components/RegisterModal'
 
 export default function AuthModals (props) {
   const {
@@ -14,12 +15,10 @@ export default function AuthModals (props) {
   return (
     <>
       {showLoginModal && (
-        <LoginModal
-          closeLoginModal={closeLoginModal}
-        />
+        <LoginModal closeLoginModal={closeLoginModal} />
       )}
       {showRegisterModal && (
-        <div>showRegisterModal</div>
+        <RegisterModal closeRegisterModal={closeRegisterModal} />
       )}
     </>
   )

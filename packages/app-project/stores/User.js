@@ -21,11 +21,11 @@ const User = types
   }))
 
   .actions(self => ({
-    clearUser () {
+    clear () {
       self.id = null
     },
 
-    setUser (user) {
+    set (user) {
       self.id = user.id
       self.display_name = user.display_name
     }
