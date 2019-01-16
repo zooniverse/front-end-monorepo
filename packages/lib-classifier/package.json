@@ -70,7 +70,7 @@
     "mobx": "~5.6.0",
     "mobx-devtools-mst": "~0.9.18",
     "mobx-react": "~5.3.6",
-    "mobx-state-tree": "~3.2.4",
+    "mobx-state-tree": "~3.7.1",
     "mocha": "~5.2.0",
     "mst-middlewares": "~3.7.1",
     "polished": "~2.3.0",

@@ -28,7 +28,7 @@
     "lodash": "~4.17.11",
     "mobx": "~5.6.0",
     "mobx-react": "~5.3.6",
-    "mobx-state-tree": "~3.5.0",
+    "mobx-state-tree": "~3.7.1",
     "next": "~7.0.2",
     "path-match": "~1.2.4",
     "react": "~16.6.3",
