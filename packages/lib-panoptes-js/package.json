@@ -18,7 +18,7 @@
     "url-parse": "~1.4.3"
   },
   "devDependencies": {
-    "chai": "~4.1.2",
+    "chai": "~4.2.0",
     "check-dependencies": "~1.1.0",
     "check-engines": "~1.5.0",
     "jsdom": "~11.10.0",
