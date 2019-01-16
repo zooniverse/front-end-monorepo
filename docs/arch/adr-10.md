@@ -1,4 +1,4 @@
-# ADR 5: Type conversions from Mobx-State-Tree to JSON API
+# ADR 10: Type conversions from Mobx-State-Tree to JSON API for Javascript Maps
 
 Created: November 1, 2018
 
