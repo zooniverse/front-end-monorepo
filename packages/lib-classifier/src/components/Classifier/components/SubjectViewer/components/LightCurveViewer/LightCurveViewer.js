@@ -24,7 +24,7 @@ function storeMapper (stores) {
     interactionMode, // strong: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
     setOnZoom // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
-  
+
   const {
     addAnnotation
   } = stores.classifierStore.classifications
@@ -41,7 +41,7 @@ function storeMapper (stores) {
   //   NOT a graphRanges task.
   const currentTask = {
     type: 'graph2dRangeX',
-    taskKey: 'T100',
+    taskKey: 'T100'
   }
 
   return {
@@ -172,21 +172,21 @@ class LightCurveViewer extends Component {
     // Add the data points
     const points = this.d3dataLayer.selectAll('.data-point')
       .data(this.props.dataPoints)
-    
+
     // For each new and existing data point, add (append) a new SVG circle.
     points.enter()
-      .append('circle')  // Note: all circles are of class '.data-point'
+      .append('circle') // Note: all circles are of class '.data-point'
       .call(setDataPointStyle)
 
     // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
     points.exit().remove()
-    
+
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
     this.updateUserAnnotations()
     this.updatePresentation(width, height)
   }
-  
+
   getAnnotationValues () {
     const props = this.props
     const annotations = (props.annotations && props.annotations.toJSON()) || {}
@@ -194,9 +194,9 @@ class LightCurveViewer extends Component {
   }
 
   getCurrentTransform () {
-    return (d3.event && d3.event.transform)
-      || (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node()))
-      || d3.zoomIdentity
+    return (d3.event && d3.event.transform) ||
+      (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
+      d3.zoomIdentity
   }
 
   /*
@@ -296,7 +296,7 @@ class LightCurveViewer extends Component {
     // Annotations/markings layer
     this.d3svg
       .append('g')
-        .attr('class', 'annotations-layer')
+      .attr('class', 'annotations-layer')
     this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
 
     /*
@@ -318,7 +318,7 @@ class LightCurveViewer extends Component {
 
     if (interactionMode === 'annotate') {
       this.d3svg.on('click', this.doInsertAnnotation.bind(this))
-      this.d3interfaceLayer.style('display', 'none')    
+      this.d3interfaceLayer.style('display', 'none')
     } else if (interactionMode === 'move') {
       this.d3svg.on('click', null)
       this.d3interfaceLayer.style('display', 'inline')
@@ -346,7 +346,7 @@ class LightCurveViewer extends Component {
 
     this.updateUserAnnotations()
   }
-  
+
   /*
   Re-draw the data points to fit the new view
   We don't don't add/remove data points at this step (no enter() or exit())
@@ -394,8 +394,8 @@ class LightCurveViewer extends Component {
     this.yAxis.scale(this.yScale) // Do NOT rescale the y-axis
     this.d3axisY.call(this.yAxis)
   }
-  
-    /*
+
+  /*
   Re-draw the user annotations to fit the new view
   Note: users can only zoom & pan in the x-direction
    */
@@ -412,24 +412,24 @@ class LightCurveViewer extends Component {
 
     const getRightEdgeOfAnnotation = (x, width, xScale, transform) =>
       transform.rescaleX(this.xScale)(x + width / 2)
-    
+
     const getWidthOfAnnotation = (x, width, xScale, transform) => {
       const left = getLeftEdgeOfAnnotation(x, width, xScale, transform)
       const right = getRightEdgeOfAnnotation(x, width, xScale, transform)
       return Math.max(right - left, 0)
     }
-    
+
     // For each newly added annotation value, create a new corresponding annotation SVG element.
     annotations.enter()
-      .append('rect')  // Class: '.user-annotation'
-        .call(setUserAnnotationAttr)
+      .append('rect') // Class: '.user-annotation'
+      .call(setUserAnnotationAttr)
 
       // And for all current annotations, update their annotation SVG element
       .merge(annotations)
-        .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, t))
-        .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, t))
-        .attr('y', d => 0)
-        .attr('height', d => '100%')
+      .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, t))
+      .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, t))
+      .attr('y', d => 0)
+      .attr('height', d => '100%')
 
     // For each annotation SVG element that no longer has an annotation value
     // (e.g. the annotation value was deleted, or this is a fresh new Subject)
