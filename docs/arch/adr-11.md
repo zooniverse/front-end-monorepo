@@ -36,7 +36,7 @@ Here is how markdown-it's plugins will map to remark's plugins:
 
 ## Status
 
-Proposed
+Approved
 
 ## Consequences
 
