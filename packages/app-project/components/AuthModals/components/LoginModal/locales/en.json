@@ -1,4 +1,7 @@
 {
   "LoginModal": {
+    "login": "Login",
+    "password": "Password",
+    "username": "Username or e-mail address"
   }
 }

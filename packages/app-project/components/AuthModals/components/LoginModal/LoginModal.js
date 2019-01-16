@@ -22,7 +22,7 @@ export default function LoginModal (props) {
       <Box pad='medium'>
         <FormField
           htmlFor='login-modal-login'
-          label='Username or e-mail address'
+          label={counterpart('LoginModal.username')}
           name='login'
         >
           <TextInput
@@ -35,7 +35,7 @@ export default function LoginModal (props) {
         </FormField>
         <FormField
           htmlFor='login-modal-password'
-          label='Password'
+          label={counterpart('LoginModal.password')}
           name='login'
         >
           <TextInput
@@ -49,7 +49,7 @@ export default function LoginModal (props) {
         </FormField>
         <Button
           disabled={!canLogin || loading}
-          label='Login'
+          label={counterpart('LoginModal.login')}
           onClick={submit}
         />
       </Box>
