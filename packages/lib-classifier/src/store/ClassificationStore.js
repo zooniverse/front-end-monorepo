@@ -8,7 +8,7 @@ import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
-import { SingleChoiceAnnotation, MultipleChoiceAnnotation } from './annotations'
+import { SingleChoiceAnnotation, MultipleChoiceAnnotation, Graph2dRangeXAnnotation } from './annotations'
 import {
   ClassificationQueue,
   convertMapToArray,
@@ -82,7 +82,8 @@ const ClassificationStore = types
     function getAnnotationType (taskType) {
       const taskTypes = {
         single: SingleChoiceAnnotation,
-        multiple: MultipleChoiceAnnotation
+        multiple: MultipleChoiceAnnotation,
+        graph2dRangeX: Graph2dRangeXAnnotation
       }
 
       return taskTypes[taskType] || undefined
