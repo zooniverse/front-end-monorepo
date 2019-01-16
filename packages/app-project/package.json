@@ -26,7 +26,7 @@
     "grommet": "~2.0.1",
     "grommet-icons": "~3.2.1",
     "lodash": "~4.17.11",
-    "mobx": "~5.5.0",
+    "mobx": "~5.6.0",
     "mobx-react": "~5.2.8",
     "mobx-state-tree": "~3.5.0",
     "next": "~7.0.2",
