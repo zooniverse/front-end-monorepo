@@ -21,7 +21,7 @@
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
-    "counterpart": "^0.18.6",
+    "counterpart": "~0.18.6",
     "d3": "^5.7.0",
     "grommet": "~2.0.1",
     "grommet-icons": "~3.2.1",
