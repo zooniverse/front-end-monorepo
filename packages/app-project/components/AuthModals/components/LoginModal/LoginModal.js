@@ -4,12 +4,19 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import en from './locales/en'
-import withModalFocus from './withModalFocus'
 
 counterpart.registerTranslations('en', en)
 
-@withModalFocus
 export default class LoginModal extends Component {
+  constructor () {
+    super()
+    this.firstInput = React.createRef()
+  }
+
+  componentDidMount () {
+    this.firstInput.current.focus()
+  }
+
   render () {
     const {
       canLogin,
@@ -36,6 +43,7 @@ export default class LoginModal extends Component {
               id='login-modal-login'
               name='login'
               onChange={updateField}
+              ref={this.firstInput}
               value={formState.login}
             />
           </FormField>
