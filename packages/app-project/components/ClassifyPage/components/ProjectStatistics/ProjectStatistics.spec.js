@@ -5,11 +5,19 @@ import ProjectStatistics from './ProjectStatistics'
 import CompletionBar from './components/CompletionBar'
 import Stat from './components/Stat'
 
-let wrapper
-
 describe('Component > ProjectStatistics', function () {
+  let wrapper
+
+  before(function () {
+    wrapper = shallow(
+      <ProjectStatistics
+        projectName="A test project"
+      />
+    )
+  });
+
   it('should render without crashing', function () {
-    wrapper = shallow(<ProjectStatistics />)
+    expect(wrapper).to.be.ok
   })
 
   it('should render the Completion Bar', function () {
