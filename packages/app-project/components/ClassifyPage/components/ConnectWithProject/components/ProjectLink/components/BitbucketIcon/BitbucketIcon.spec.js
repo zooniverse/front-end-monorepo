@@ -10,5 +10,7 @@ describe('Component > BitbucketIcon', function () {
     wrapper = shallow(<BitbucketIcon />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

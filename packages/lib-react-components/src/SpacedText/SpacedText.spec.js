@@ -8,5 +8,7 @@ describe('<SpacedText />', function () {
     wrapper = shallow(<SpacedText>Zooniverse</SpacedText>)
   })
 
-  it('renders without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

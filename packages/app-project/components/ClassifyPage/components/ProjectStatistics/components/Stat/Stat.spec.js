@@ -13,7 +13,9 @@ describe('Component > Stat', function () {
     wrapper = shallow(<Stat value={value} label={label} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should pass the `value` prop to an `AnimatedNumber`', function () {
     const animatedNumber = wrapper.find(AnimatedNumber)

@@ -12,7 +12,9 @@ describe('ZooniverseLogo', function () {
     wrapper = mount(<ZooniverseLogo id={ID} size={SIZE} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should use the `id` prop for `aria-labelledby` and `title`', function () {
     const labelledby = wrapper.find('svg').prop('aria-labelledby')

@@ -15,7 +15,9 @@ describe('Component > ClassifyBox', function () {
     )
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render its children', function () {
     expect(wrapper.find(Foobar)).to.have.lengthOf(1)

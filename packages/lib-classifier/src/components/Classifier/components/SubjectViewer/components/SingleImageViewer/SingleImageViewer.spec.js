@@ -11,7 +11,9 @@ describe('Component > SingleImageViewer', function () {
     wrapper = shallow(<SingleImageViewer url={IMAGE_URL} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render an svg image based on the subject prop', function () {
     const image = wrapper.find('image')

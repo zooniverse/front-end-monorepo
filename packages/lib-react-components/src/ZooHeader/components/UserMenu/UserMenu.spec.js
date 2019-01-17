@@ -9,5 +9,7 @@ describe('UserMenu', function () {
     wrapper = shallow(<UserMenu signOut={() => {}} user={user} />)
   })
 
-  it('renders without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

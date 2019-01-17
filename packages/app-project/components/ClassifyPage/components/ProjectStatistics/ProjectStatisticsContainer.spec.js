@@ -23,7 +23,9 @@ describe('Component > CompletionBarContainer', function () {
     projectStatisticsWrapper = wrapper.find(ProjectStatistics)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render the `ProjectStatistics` component', function () {
     expect(projectStatisticsWrapper).to.have.lengthOf(1)
