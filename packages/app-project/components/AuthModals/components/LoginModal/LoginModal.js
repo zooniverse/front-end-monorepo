@@ -18,7 +18,10 @@ export default function LoginModal (props) {
   } = props
 
   return (
-    <Layer onClickOutside={closeLoginModal}>
+    <Layer
+      onClickOutside={closeLoginModal}
+      onEsc={closeLoginModal}
+    >
       <Box pad='medium'>
         <FormField
           htmlFor='login-modal-login'
