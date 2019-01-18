@@ -52,6 +52,7 @@ export default class LoginModal extends Component {
               disabled={loading}
               label={counterpart('LoginModal.password')}
               name='password'
+              type='password'
               required
             />
             {error && (
