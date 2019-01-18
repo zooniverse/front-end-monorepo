@@ -19,8 +19,8 @@ describe('<AdminCheckbox />', function () {
   it('renders without crashing', function () {})
 
   it('calls onChange prop when clicked', function () {
-    wrapper.find('ForwardRef').simulate('change')
-    expect(onChangeSpy.calledOnce).to.be.true()
+    wrapper.find('CheckBox').simulate('change')
+    expect(onChangeSpy).to.have.been.calledOnce
   })
 
   // Can't test this yet. See comment in component code
