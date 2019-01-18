@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ZooHeaderContainer from './ZooHeaderContainer'
+import { ZooHeaderContainer } from './ZooHeaderContainer'
 import ZooHeader from './ZooHeader'
 
 describe('ZooHeaderContainer', function () {
