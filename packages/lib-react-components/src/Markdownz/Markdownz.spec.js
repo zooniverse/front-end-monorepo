@@ -3,20 +3,22 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Image, Video } from 'grommet'
 import Markdownz from './Markdownz'
+import { jsx, markdown } from './helpers/testExamples'
 
-const content = '# Zooniverse'
-
+// TO DO: Add back working snapshots to test the overall HTML output
+// We have to use snapshots with styled-components becaue of the generated class names
 describe('<Markdownz />', function () {
   let wrapper
   before(function () {
-    wrapper = shallow(<Markdownz>{content}</Markdownz>)
+    wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
   })
 
-  it('renders without crashing', function () { })
+  it('renders without crashing', function () { 
+    expect(wrapper).to.be.ok
+  })
 
-  it('renders markdown', function () {
-    expect(wrapper.find('h1')).to.have.lengthOf(1)
-    expect(wrapper.html().includes('Zooniverse')).to.be.true
+  it('parses markdown to jsx', function () {
+    expect(wrapper.contains(jsx)).to.be.true
   })
 
   describe('#buildResourceURL', function () {
@@ -38,7 +40,7 @@ describe('<Markdownz />', function () {
       expect(url).to.equal('')
     })
 
-    it('should return an empty string if the resource is falsy, but the mention symbol is', function () {
+    it('should return an empty string if the resource is falsy, but the mention symbol is present', function () {
       const url = wrapper.instance().buildResourceURL('', '@')
       expect(url).to.equal('')
     })
@@ -251,7 +253,7 @@ describe('<Markdownz />', function () {
       })
     })
 
-    describe('when the media is a video', function () {
+    describe('when the media is audio', function () {
       const audioPropsMock = { src: 'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga', alt: 'Street noise', children: undefined }
       it('should return an audio element', function () {
         wrapper.instance().renderMedia(audioPropsMock)

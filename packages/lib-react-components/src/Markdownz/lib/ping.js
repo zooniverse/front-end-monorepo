@@ -1,16 +1,17 @@
 // This is basically a fork of https://github.com/zestedesavoir/zmarkdown/tree/master/packages/remark-ping
 // The changes made here make the plugin more flexible for supporting hashtags or other custom mentions
-// remark-ping only supports at-mentions of users
+// remark-ping only supports at-mentions of users. Changes are noted in comments throughout the file.
 
 import visit from 'unist-util-visit'
 
+// Update help message to match the renamed parameters
 const helpMsg = `remark-ping: expected configuration to be passed: {
   ping: (resourceToPing, pingSymbol) => bool,\n  resourceURL: (resourceToPing, pingSymbol) => string\n}`
 
 export default function plugin({
-  ping,
-  pingSymbols = ['@'],
-  resourceURL,
+  ping, // Rename this from pingUsername to ping since we may be pinging more than users
+  pingSymbols = ['@'], // Add a parameter to specify what the ping symbols are to be able to support custom ping symbols and more than one.
+  resourceURL, // Rename from userURL to resourceURL
   matchRegex = /@(?:\*\*([^*]+)\*\*|(\w+))/,
 }) {
   if (typeof ping !== 'function' || typeof resourceURL !== 'function') {
@@ -21,7 +22,12 @@ export default function plugin({
     const match = matchRegex.exec(value)
     if (!match || match.index > 0) return
     const total = match[0]
+     // Add Array find function to match the symbol in the parsed markdown to the symbols specified to use
     const symbol = pingSymbols.find((element) => total.indexOf(element) === 0)
+
+    // Pull the resource out of the matched string.
+    // Either use what is matched in the original output from the regex (supports the default regex)
+    // Or split the string by the ping symbol and grab the resource (supports our supplied regex)
     const resource = match.find((matchItem) => matchItem && !matchItem.includes(symbol)) || total.split(symbol)[1]
 
     if (ping(resource, symbol) === true) {
