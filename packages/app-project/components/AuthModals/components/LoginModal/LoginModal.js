@@ -1,5 +1,6 @@
 import counterpart from 'counterpart'
-import { Box, Button, Form, FormField, Layer, Text } from 'grommet'
+import { Anchor, Box, Button, Form, FormField, Layer, Text } from 'grommet'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -69,6 +70,14 @@ export default class LoginModal extends Component {
               />
             </Box>
           </Form>
+          <Box align='center' pad={{ top: 'medium' }}>
+            <Link href='https://www.zooniverse.org/reset-password' passHref>
+              <Anchor size='small'>
+                {counterpart('LoginModal.forgetPassword')}
+              </Anchor>
+            </Link>
+
+          </Box>
         </Box>
       </Layer>
     )
