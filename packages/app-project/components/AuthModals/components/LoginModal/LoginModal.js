@@ -1,12 +1,14 @@
 import counterpart from 'counterpart'
-import { Box, Button, FormField, Layer, TextInput } from 'grommet'
+import { Box, Button, Form, FormField, Layer, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import en from './locales/en'
+import withOnlyRenderOnBrowser from '../../shared/components/withOnlyRenderOnBrowser'
 
 counterpart.registerTranslations('en', en)
 
+@withOnlyRenderOnBrowser
 export default class LoginModal extends Component {
   constructor () {
     super()
@@ -14,17 +16,21 @@ export default class LoginModal extends Component {
   }
 
   componentDidMount () {
-    this.firstInput.current.focus()
+    this.focusOnInput()
+  }
+
+  focusOnInput () {
+    const firstInputNode = this.firstInput.current.childContainerRef
+    const firstInputElement = firstInputNode.querySelector('input')
+    firstInputElement.focus()
   }
 
   render () {
     const {
-      canLogin,
       closeLoginModal,
-      formState,
+      error,
       loading,
-      updateField,
-      submit
+      onSubmit
     } = this.props
 
     return (
@@ -33,39 +39,36 @@ export default class LoginModal extends Component {
         onEsc={closeLoginModal}
       >
         <Box pad='medium'>
-          <FormField
-            htmlFor='login-modal-login'
-            label={counterpart('LoginModal.username')}
-            name='login'
-          >
-            <TextInput
+          <Form onSubmit={onSubmit}>
+            <FormField
               disabled={loading}
-              id='login-modal-login'
+              label={counterpart('LoginModal.username')}
               name='login'
-              onChange={updateField}
               ref={this.firstInput}
-              value={formState.login}
+              required
             />
-          </FormField>
-          <FormField
-            htmlFor='login-modal-password'
-            label={counterpart('LoginModal.password')}
-            name='login'
-          >
-            <TextInput
+            <FormField
               disabled={loading}
-              id='login-modal-password'
+              label={counterpart('LoginModal.password')}
               name='password'
-              onChange={updateField}
-              type='password'
-              value={formState.password}
+              required
             />
-          </FormField>
-          <Button
-            disabled={!canLogin || loading}
-            label={counterpart('LoginModal.login')}
-            onClick={submit}
-          />
+            {error && (
+              <Box pad='small'>
+                <Text>
+                  {counterpart(`LoginModal.errors.${error}`)}
+                </Text>
+              </Box>
+            )}
+            <Box align='center' margin={{ top: 'medium' }}>
+              <Button
+                disabled={loading}
+                type='submit'
+                label={counterpart('LoginModal.login')}
+                primary
+              />
+            </Box>
+          </Form>
         </Box>
       </Layer>
     )
@@ -73,10 +76,12 @@ export default class LoginModal extends Component {
 }
 
 LoginModal.propTypes = {
-  formState: PropTypes.shape({
-    login: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-  }).isRequired,
-  submit: PropTypes.func.isRequired,
-  updateField: PropTypes.func.isRequired,
+  closeLoginModal: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+}
+
+LoginModal.defaultProps = {
+  error: ''
 }

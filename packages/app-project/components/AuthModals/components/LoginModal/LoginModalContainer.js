@@ -10,31 +10,17 @@ import LoginModal from './LoginModal'
 export default class LoginModalContainer extends Component {
   constructor () {
     super()
-    this.submit = this.submit.bind(this)
-    this.updateField = this.updateField.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
     this.state = {
-      form: {
-        login: '',
-        password: ''
-      },
-      isBrowser: false,
+      error: '',
       loading: false
     }
   }
 
-  componentDidMount () {
-    this.setState({ isBrowser: true })
-  }
-
-  canLogin () {
-    const { login, password } = this.state.form
-    return login.length > 2 && password.length > 2
-  }
-
-  submit () {
+  onSubmit ({ value }) {
     const { closeLoginModal, store } = this.props
     this.setState({ loading: true })
-    auth.signIn(this.state.form)
+    auth.signIn(value)
       .then(userResource => {
         console.info(userResource)
         this.setState({ loading: false })
@@ -42,33 +28,20 @@ export default class LoginModalContainer extends Component {
         closeLoginModal()
       })
       .catch(error => {
-        console.info(error)
-        this.setState({ loading: false })
+        this.setState({
+          error: error.message,
+          loading: false
+        })
       })
   }
 
-  updateField (event) {
-    const { name, value } = event.target
-    const newState = Object.assign({}, this.state)
-    newState.form[name] = value
-    this.setState(newState)
-  }
-
   render () {
-    if (!this.state.isBrowser) {
-      return null
-    }
-
-    const loginEnabled = this.canLogin()
-    const { closeLoginModal } = this.props
     return (
       <LoginModal
-        canLogin={loginEnabled}
-        closeLoginModal={closeLoginModal}
-        formState={this.state.form}
+        closeLoginModal={this.props.closeLoginModal}
+        error={this.state.error}
         loading={this.state.loading}
-        submit={this.submit}
-        updateField={this.updateField}
+        onSubmit={this.onSubmit}
       />
     )
   }

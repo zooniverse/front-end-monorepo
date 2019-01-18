@@ -2,6 +2,9 @@
   "LoginModal": {
     "login": "Login",
     "password": "Password",
-    "username": "Username or e-mail address"
+    "username": "Username or e-mail address",
+    "errors": {
+      "Invalid email or password": "Invalid email or password."
+    }
   }
 }
