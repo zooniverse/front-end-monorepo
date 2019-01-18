@@ -13,7 +13,9 @@ describe('Component > {{ properCase name }}Container', function () {
     componentWrapper = wrapper.find({{ properCase name }})
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render the `{{ properCase name }}` component', function () {
     expect(componentWrapper).to.have.lengthOf(1)
