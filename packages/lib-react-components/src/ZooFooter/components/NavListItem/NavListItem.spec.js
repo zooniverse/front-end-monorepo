@@ -17,7 +17,9 @@ describe('NavListItem', function () {
     wrapper = shallow(<NavListItem label={label} url={url} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   // Testing styled-components requires mount to work, but it currently isn't
   // Patch in enzyme React 16 adapter may be coming soon:

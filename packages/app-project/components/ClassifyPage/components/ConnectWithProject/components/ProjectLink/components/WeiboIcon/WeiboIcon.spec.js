@@ -10,5 +10,7 @@ describe('Component > WeiboIcon', function () {
     wrapper = shallow(<WeiboIcon />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

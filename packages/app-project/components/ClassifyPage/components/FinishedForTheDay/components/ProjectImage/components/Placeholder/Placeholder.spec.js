@@ -10,5 +10,7 @@ describe('Component > Placeholder', function () {
     wrapper = shallow(<Placeholder />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

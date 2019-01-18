@@ -8,5 +8,7 @@ describe('<NavListItem />', function () {
     wrapper = shallow(<NavListItem label='Zooniverse' url='https://www.zooniverse.org' />)
   })
 
-  it('renders without crashing', function () {})
+  it('renders without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

@@ -16,7 +16,9 @@ describe('<AdminCheckbox />', function () {
     wrapper = shallow(<AdminCheckbox onChange={onChangeSpy} />)
   })
 
-  it('renders without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('calls onChange prop when clicked', function () {
     wrapper.find('CheckBox').simulate('change')

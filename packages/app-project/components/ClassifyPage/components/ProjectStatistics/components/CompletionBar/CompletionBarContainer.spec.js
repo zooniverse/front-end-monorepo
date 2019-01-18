@@ -17,7 +17,9 @@ describe('Component > CompletionBarContainer', function () {
     completionBarWrapper = wrapper.find(CompletionBar)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render the `CompletionBar` component', function () {
     expect(completionBarWrapper).to.have.lengthOf(1)

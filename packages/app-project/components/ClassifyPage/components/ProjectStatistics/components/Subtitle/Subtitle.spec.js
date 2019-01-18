@@ -11,7 +11,9 @@ describe('Component > Subtitle', function () {
     wrapper = shallow(<Subtitle text={TEXT} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render the `text` prop', function () {
     expect(wrapper.text()).to.equal(TEXT)

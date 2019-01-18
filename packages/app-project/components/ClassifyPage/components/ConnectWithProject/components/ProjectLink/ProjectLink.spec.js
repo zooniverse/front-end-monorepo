@@ -15,7 +15,9 @@ describe('Component > ProjectLink', function () {
     wrapper = mount(<ProjectLink urlObject={URL_OBJECT} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render a link', function () {
     const link = wrapper.find('a')

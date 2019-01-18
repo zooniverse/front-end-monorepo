@@ -18,7 +18,9 @@ describe('Component > FinishedForTheDayContainer', function () {
     finishedForTheDayWrapper = wrapper.find(FinishedForTheDay)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should render the `FinishedForTheDay` component', function () {
     expect(finishedForTheDayWrapper).to.have.lengthOf(1)

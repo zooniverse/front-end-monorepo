@@ -16,7 +16,9 @@ describe('Component > InteractionLayer', function () {
       onMouseUp={onMouseUp} onMouseDown={onMouseDown} />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 
   it('should return a transparent rect', function () {
     const rect = wrapper.find('rect')
