@@ -183,7 +183,11 @@ class LightCurveViewer extends Component {
   getAnnotationValues () {
     const props = this.props
     const annotations = (props.annotations && props.annotations.toJSON()) || {}
-    return (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
+    if (this.isCurrentTaskValidForAnnotation()) {
+      return (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
+    } else {
+      return []
+    }
   }
 
   getCurrentTransform () {
@@ -329,7 +333,7 @@ class LightCurveViewer extends Component {
     const props = this.props
     const t = this.getCurrentTransform()
     
-    if (props.currentTask && props.currentTask.type !== 'graph2dRangeX') {
+    if (!this.isCurrentTaskValidForAnnotation()) {
       props.enableMove && props.enableMove()
       return
     }
@@ -343,6 +347,10 @@ class LightCurveViewer extends Component {
     props.addAnnotation(values, props.currentTask)
 
     this.updateUserAnnotations()
+  }
+  
+  isCurrentTaskValidForAnnotation () {
+    return !!this.props.currentTask && this.props.currentTask.type === 'graph2dRangeX'
   }
 
   /*
