@@ -3,7 +3,7 @@
 import React from 'react'
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
-import sinonChai from "sinon-chai";
+import sinonChai from 'sinon-chai'
 import { JSDOM } from 'jsdom'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
