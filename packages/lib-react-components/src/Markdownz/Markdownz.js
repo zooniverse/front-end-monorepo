@@ -65,8 +65,13 @@ class Markdownz extends React.Component {
     }
     const mimeType = mime.lookup(src)
 
-    if (mimeType && mimeType.includes('video')) return <Video a11yTitle={alt} controls="below" preload='metadata' src={src} />
-    if (mimeType && mimeType.includes('audio')) return <audio controls preload='metadata' src={src} /> // Grommet doesn't have an audio component
+    if (mimeType && mimeType.includes('video')) {
+      return <Video a11yTitle={alt} controls="below" preload='metadata' src={src}><Paragraph>This video file is not supported</Paragraph></Video>
+    }
+    if (mimeType && mimeType.includes('audio')) {
+      // Grommet doesn't have an audio component right now
+      return <audio aria-title={alt} controls preload='metadata' src={src}><Paragraph>This audio file is not supported</Paragraph></audio>
+     }
 
     return <Image alt={altText || alt} src={src} width={width} height={height} />
   }
