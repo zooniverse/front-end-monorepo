@@ -335,6 +335,11 @@ class LightCurveViewer extends Component {
     const STARTING_WIDTH = 0.4
     const props = this.props
     const t = this.getCurrentTransform()
+    
+    if (props.currentTask && props.currentTask.type !== 'graph2dRangeX') {
+      props.enableMove && props.enableMove()
+      return
+    }
 
     if (!this.isCurrentTaskValidForAnnotation()) {
       props.enableMove && props.enableMove()
