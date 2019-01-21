@@ -1,4 +1,6 @@
 import dedent from 'dedent'
+import React from 'react'
+import { Anchor, Paragraph } from 'grommet'
 
 export const markdown = dedent`
 :smile:
@@ -68,8 +70,8 @@ Here is a footnote reference,[^1] and another.[^longnote]
 
 // Note the video and audio are first put into img tags. This is the expect jsx output before our customization runs.
 // They're then switched to audio or video depending on the mimetype of the source.
-export const jsx = dedent`
-<Fragment>
+export const jsx =
+<>
   <Paragraph>
     😄
   </Paragraph>
@@ -231,6 +233,4 @@ export const jsx = dedent`
       </li>
     </ol>
   </div>
-</Fragment>
-`
-
+</>

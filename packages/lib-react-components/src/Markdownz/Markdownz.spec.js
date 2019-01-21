@@ -9,21 +9,37 @@ import { jsx, markdown } from './helpers/testExamples'
 // We have to use snapshots with styled-components becaue of the generated class names
 describe('<Markdownz />', function () {
   let wrapper
-  before(function () {
-    wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-  })
 
   it('renders without crashing', function () { 
+    wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
     expect(wrapper).to.be.ok
   })
 
   it('parses markdown to jsx', function () {
-    expect(wrapper.contains(jsx)).to.be.true
+    wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
+    expect(wrapper.equals(jsx)).to.be.true
+  })
+
+  it('correctly parses a user at-mention in a sentence', function () {
+    const sentence = `I would like to ping @am.zooni.`
+    wrapper = shallow(<Markdownz>{sentence}</Markdownz>)
+    const pingAnchor = wrapper.find({ href: "/users/am.zooni" })
+    expect(pingAnchor).to.have.lengthOf(1)
+    expect(pingAnchor.text()).to.equal('@am.zooni')
+  })
+
+  it('correctly parses a subject mention in project context', function () {
+    const sentence = `Look at this interesting subject: ^S1234.`
+    wrapper = shallow(<Markdownz projectSlug='zooniverse/snapshot-wakanda'>{sentence}</Markdownz>)
+    const pingAnchor = wrapper.find({ href: "/projects/zooniverse/snapshot-wakanda/talk/subjects/1234" })
+    expect(pingAnchor).to.have.lengthOf(1)
+    expect(pingAnchor.text()).to.equal('^S1234')
   })
 
   describe('#buildResourceURL', function () {
     let buildResourceURLSpy
     before(function () {
+      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
       buildResourceURLSpy = sinon.spy(Markdownz.prototype, 'buildResourceURL')
     })
 
@@ -49,7 +65,7 @@ describe('<Markdownz />', function () {
       it('should return the expected url with a search query param', function () {
         const resource = 'tigers'
         const baseURL = ''
-        const expectedReturnValue = `${baseURL}/talk/search?query=${resource}`
+        const expectedReturnValue = `${baseURL}/talk/search?query=%23${resource}`
         wrapper.instance().buildResourceURL(resource, '#')
         expect(buildResourceURLSpy).to.have.been.calledOnce
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
@@ -69,7 +85,7 @@ describe('<Markdownz />', function () {
       it('should return a url with props.baseURI if defined', function () {
         const resource = 'tigers'
         const baseURI = 'https://classrooms.zooniverse.org'
-        const expectedReturnValue = `${baseURI}/talk/search?query=${resource}`
+        const expectedReturnValue = `${baseURI}/talk/search?query=%23${resource}`
         wrapper.setProps({ baseURI })
         wrapper.instance().buildResourceURL('tigers', '#')
         expect(buildResourceURLSpy).to.have.been.calledOnce
@@ -147,6 +163,7 @@ describe('<Markdownz />', function () {
   describe('#shouldResourceBeLinkable', function () {
     let shouldResourceBeLinkableSpy
     before(function () {
+      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
       shouldResourceBeLinkableSpy = sinon.spy(Markdownz.prototype, 'shouldResourceBeLinkable')
     })
     afterEach(function () {
@@ -187,6 +204,7 @@ describe('<Markdownz />', function () {
   describe('#renderMedia', function () {
     let renderMediaSpy
     before(function () {
+      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
       renderMediaSpy = sinon.spy(Markdownz.prototype, 'renderMedia')
     })
     afterEach(function () {

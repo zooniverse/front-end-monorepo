@@ -34,7 +34,7 @@ class Markdownz extends React.Component {
     const { baseURI, projectSlug } = this.props
     const baseURL = (projectSlug) ? `${baseURI}/projects/${projectSlug}` : baseURI
 
-    if (symbol === hashtag) return (projectSlug) ? `${baseURL}/talk/tag/${resource}` : `${baseURL}/talk/search?query=${resource}`
+    if (symbol === hashtag) return (projectSlug) ? `${baseURL}/talk/tag/${resource}` : `${baseURL}/talk/search?query=%23${resource}`
     if (symbol === at) return `${baseURL}/users/${resource}`
     if (symbol === subjectSymbol && projectSlug) return `${baseURL}/talk/subjects/${resource}`
 
@@ -111,7 +111,7 @@ class Markdownz extends React.Component {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
         resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
-        matchRegex: /(@[\w]+)|(^#[\w]+$)|(^\^S[0-9]+$)/
+        matchRegex: /\@([\w\-.]+)(?<!\.)|#([-\w\d]{3,40})|(\^S[0-9]+)/
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
@@ -123,8 +123,9 @@ class Markdownz extends React.Component {
       </React.Fragment>
     )
   }
-
 }
+
+// (^|\s)@([\w\-.]+\b)|(^|\s)#([-\w\d]{3,40})|(^|\s)\^S([0-9]+)
 
 Markdownz.defaultProps = {
   baseURI: '',
