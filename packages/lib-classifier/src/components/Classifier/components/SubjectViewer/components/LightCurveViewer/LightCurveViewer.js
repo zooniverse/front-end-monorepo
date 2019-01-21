@@ -100,14 +100,21 @@ class LightCurveViewer extends Component {
     const points = this.props.dataPoints
     const prevPoints = prevProps.dataPoints
     const sameSubject = (points === prevPoints)
+    
+    const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
+    const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
+    const sameTask = (currentTaskKey === prevTaskKey)
 
-    if (!sameSubject) {
+    if (!sameSubject) {  // Triggers when changing between Subjects
       this.clearChart()
 
       const container = this.svgContainer.current
       const height = container.offsetHeight || 0
       const width = container.offsetWidth || 0
       this.drawChart(width, height, sameSubject)
+      
+    } else if (!sameTask) {  // Triggers when changing between Workflow tasks.
+      this.updateUserAnnotations()
     }
 
     if (prevProps.interactionMode !== this.props.interactionMode) {
