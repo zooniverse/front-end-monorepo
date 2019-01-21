@@ -21,7 +21,8 @@ const ZOOMING_TIME = 100 // milliseconds
 
 function storeMapper (stores) {
   const {
-    interactionMode, // strong: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
+    enableMove,
+    interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
     setOnZoom // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
 
@@ -30,26 +31,18 @@ function storeMapper (stores) {
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active: step } = stores.classifierStore.workflowSteps
-  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
-
-  // WIP
-  // We currently have no corresponding "graphRanges" task in the Panoptes
-  // Project Builder, so this is jimmied in.
-  // NOTE: There are two things that need to be done:
-  // - We need to create a workflow with the custom "graphRanges" task
-  // - We need to consider how the LCV reacts when the current active task is
-  //   NOT a graphRanges task.
-  const currentTask = {
-    type: 'graph2dRangeX',
-    taskKey: 'T100'
-  }
-
+  
+  const currentTask =
+    (stores.classifierStore.workflowSteps.activeStepTasks
+     && stores.classifierStore.workflowSteps.activeStepTasks[0])
+    || {}
+  
   return {
     addAnnotation,
     annotations,
     currentTask,
+    enableMove,
     interactionMode,
-    tasks,
     setOnZoom
   }
 }
@@ -335,6 +328,11 @@ class LightCurveViewer extends Component {
     const STARTING_WIDTH = 0.4
     const props = this.props
     const t = this.getCurrentTransform()
+    
+    if (props.currentTask && props.currentTask.type !== 'graph2dRangeX') {
+      props.enableMove && props.enableMove()
+      return
+    }
 
     // Figure out where the user clicked on the graph, then add a new annotation
     // to the array of annotations.
