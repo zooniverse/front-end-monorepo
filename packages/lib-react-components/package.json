@@ -24,7 +24,7 @@
     "counterpart": "~0.18.6",
     "mime-types": "~2.1.21",
     "prop-types": "~15.6.2",
-    "react-progressive-image": "^0.6.0",
+    "react-progressive-image": "~0.6.0",
     "react-resize-detector": "~3.2.1",
     "remark": "~10.0.1",
     "remark-emoji": "~2.0.2",
