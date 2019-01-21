@@ -62,7 +62,11 @@ export default class LoginModal extends Component {
                 </Text>
               </Box>
             )}
-            <Box align='center' margin={{ top: 'medium' }}>
+            <Box
+              align='center'
+              margin={{ top: 'medium' }}
+              pad={{ top: 'small' }}
+            >
               <Button
                 disabled={loading}
                 type='submit'
@@ -71,13 +75,12 @@ export default class LoginModal extends Component {
               />
             </Box>
           </Form>
-          <Box align='center' pad={{ top: 'medium' }}>
+          <Box align='center' margin={{ top: 'medium' }}>
             <Link href='https://www.zooniverse.org/reset-password' passHref>
               <Anchor size='small'>
                 {counterpart('LoginModal.forgetPassword')}
               </Anchor>
             </Link>
-
           </Box>
         </Box>
       </Layer>

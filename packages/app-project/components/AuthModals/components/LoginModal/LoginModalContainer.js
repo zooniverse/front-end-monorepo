@@ -19,7 +19,10 @@ export default class LoginModalContainer extends Component {
 
   onSubmit ({ value }) {
     const { closeLoginModal, store } = this.props
-    this.setState({ loading: true })
+    this.setState({
+      error: '',
+      loading: true
+    })
     auth.signIn(value)
       .then(userResource => {
         console.info(userResource)

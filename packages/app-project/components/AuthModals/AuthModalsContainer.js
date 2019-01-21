@@ -66,3 +66,11 @@ export default class AuthModalsContainer extends Component {
     )
   }
 }
+
+AuthModalsContainer.propTypes = {
+  router: PropTypes.shape({
+    asPath: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired,
+    push: PropTypes.func.isRequired,
+  }).isRequired
+}
