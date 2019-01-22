@@ -19,6 +19,6 @@ describe('Audio', function () {
   it('should set the aria-title using the alt prop', function () {
     const alt = "City noise"
     const wrapper = shallow(<Audio alt={alt} src={audio} />)
-    expect(wrapper.find('audio').props()['aria-title']).to.equal(alt)
+    expect(wrapper.find('audio').props()['aria-label']).to.equal(alt)
   })
 })

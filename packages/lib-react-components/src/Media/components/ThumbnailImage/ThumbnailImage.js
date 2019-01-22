@@ -1,13 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, Image } from 'grommet'
 import ProgressiveImage from 'react-progressive-image'
 import zooTheme from '@zooniverse/grommet-theme'
 import getThumbnailSrc from '../../helpers/getThumbnailSrc'
 import pxToRem from '../../../helpers/pxToRem'
-
-const DEFAULT_THUMBNAIL_DIMENSION = 999
+import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 const StyledBox = styled(Box)`
   max-height: ${props => props.maxHeight};
@@ -82,24 +80,9 @@ export default class ThumbnailImage extends React.Component {
 }
 
 ThumbnailImage.propTypes = {
-  alt: PropTypes.string,
-  controls: PropTypes.bool,
-  delay: PropTypes.number,
-  fit: PropTypes.oneOf(['contain', 'cover']),
-  height: PropTypes.number,
-  origin: PropTypes.string,
-  placeholder: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
-  src: PropTypes.string.isRequired,
-  width: PropTypes.number
+  ...propTypes
 }
 
 ThumbnailImage.defaultProps = {
-  alt: '',
-  controls: true,
-  delay: 0,
-  fit: 'cover',
-  height: DEFAULT_THUMBNAIL_DIMENSION,
-  origin: 'https://thumbnails.zooniverse.org',
-  placeholder: null,
-  width: DEFAULT_THUMBNAIL_DIMENSION
+  ...defaultProps
 }

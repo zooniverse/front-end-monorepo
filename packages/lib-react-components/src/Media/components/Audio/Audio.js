@@ -1,24 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Anchor, Box } from 'grommet'
+import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 export default function Audio({ alt, controls, src }) {
   return (
-    <div>
-      <audio aria-title={alt} controls={controls}>
+    <Box>
+      <audio aria-label={alt} controls={controls} preload='metadata'>
         <source src={src} />
+        <Anchor href={src} label={alt} />
       </audio>
-    </div>
+    </Box>
   )
 }
 
 Audio.defaultProps = {
-  alt: '',
-  controls: true
+  ...defaultProps
 }
 
 Audio.propTypes = {
-  alt: PropTypes.string,
-  controls: PropTypes.bool,
-  src: PropTypes.string.isRequired
+  ...propTypes
 }
 

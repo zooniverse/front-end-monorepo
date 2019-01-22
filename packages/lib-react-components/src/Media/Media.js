@@ -1,11 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import mime from 'mime-types'
 import Audio from './components/Audio'
 import ThumbnailImage from './components/ThumbnailImage'
 import Video from './components/Video'
-
-const DEFAULT_THUMBNAIL_DIMENSION = 999
+import { propTypes, defaultProps } from './helpers/mediaPropTypes'
 
 export default function Media(props) {
   const mimeType = mime.lookup(props.src)
@@ -32,24 +30,9 @@ export default function Media(props) {
 }
 
 Media.propTypes = {
-  alt: PropTypes.string,
-  controls: PropTypes.bool,
-  delay: PropTypes.number,
-  fit: PropTypes.oneOf(['contain', 'cover']),
-  height: PropTypes.number,
-  origin: PropTypes.string,
-  placeholder: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
-  src: PropTypes.string.isRequired,
-  width: PropTypes.number
+  ...propTypes
 }
 
 Media.defaultProps = {
-  alt: '',
-  controls: true,
-  delay: 0,
-  fit: 'cover',
-  height: DEFAULT_THUMBNAIL_DIMENSION,
-  origin: 'https://thumbnails.zooniverse.org',
-  placeholder: null,
-  width: DEFAULT_THUMBNAIL_DIMENSION
+  ...defaultProps
 }
