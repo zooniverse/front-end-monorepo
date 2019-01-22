@@ -70,7 +70,7 @@ class Markdownz extends React.Component {
     }
     if (mimeType && mimeType.includes('audio')) {
       // Grommet doesn't have an audio component right now
-      return <audio aria-title={alt} controls preload='metadata' src={src}><Paragraph>This audio file is not supported</Paragraph></audio>
+      return <audio aria-label={alt} controls preload='metadata' src={src}><Paragraph>This audio file is not supported</Paragraph></audio>
      }
 
     return <Image alt={altText || alt} src={src} width={width} height={height} />
@@ -116,7 +116,7 @@ class Markdownz extends React.Component {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
         resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
-        matchRegex: /\@([\w\-.]+)(?<!\.)|#([-\w\d]{3,40})|(\^S[0-9]+)/
+        matchRegex: /\@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
@@ -129,8 +129,6 @@ class Markdownz extends React.Component {
     )
   }
 }
-
-// (^|\s)@([\w\-.]+\b)|(^|\s)#([-\w\d]{3,40})|(^|\s)\^S([0-9]+)
 
 Markdownz.defaultProps = {
   baseURI: '',

@@ -299,10 +299,10 @@ describe('<Markdownz />', function () {
         expect(returnedValue.type).to.equal('audio')
       })
 
-      it('should set the aria-title prop with the alt text', function () {
+      it('should set the aria-label prop with the alt text', function () {
         wrapper.instance().renderMedia(audioPropsMock)
         const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props['aria-title']).to.equal(audioPropsMock.alt)
+        expect(returnedValue.props['aria-label']).to.equal(audioPropsMock.alt)
       })
 
       it('should set the src attribute', function () {
