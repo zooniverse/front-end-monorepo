@@ -19,11 +19,6 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class Graph2dRangeXTask extends React.Component {
-  onChange (index, event) {
-    const { addAnnotation, task } = this.props
-    if (event.target.checked) addAnnotation(index, task)
-  }
-
   render () {
     const {
       annotations,
@@ -53,13 +48,11 @@ class Graph2dRangeXTask extends React.Component {
 }
 
 Graph2dRangeXTask.wrappedComponent.defaultProps = {
-  addAnnotation: () => {},
   annotations: observable.map(),
   task: {}
 }
 
 Graph2dRangeXTask.wrappedComponent.propTypes = {
-  addAnnotation: PropTypes.func,
   annotations: MobXPropTypes.observableMap,
   task: PropTypes.shape({
     help: PropTypes.string,
