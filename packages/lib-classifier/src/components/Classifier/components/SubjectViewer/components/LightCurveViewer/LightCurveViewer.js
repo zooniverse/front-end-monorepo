@@ -189,9 +189,9 @@ class LightCurveViewer extends Component {
 
   getAnnotationValues () {
     const props = this.props
-    const annotations = (props.annotations && props.annotations.toJSON()) || {}
-    if (this.isCurrentTaskValidForAnnotation()) {
-      return (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
+    const annotations = (props.annotations && props.annotations.get(props.currentTask.taskKey))
+    if (annotations && this.isCurrentTaskValidForAnnotation()) {
+      return annotations.toJSON().value || []
     } else {
       return []
     }
@@ -348,7 +348,7 @@ class LightCurveViewer extends Component {
     // Figure out where the user clicked on the graph, then add a new annotation
     // to the array of annotations.
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
-    const values = this.getAnnotationValues()
+    const values = this.getAnnotationValues().slice()  // Create a copy
     values.push({ x: clickCoords[0], width: STARTING_WIDTH })
 
     props.addAnnotation(values, props.currentTask)
@@ -357,7 +357,7 @@ class LightCurveViewer extends Component {
   }
   
   isCurrentTaskValidForAnnotation () {
-    return !!this.props.currentTask && this.props.currentTask.type === 'graph2dRangeX'
+    return this.props.currentTask.type === 'graph2dRangeX'
   }
 
   /*
