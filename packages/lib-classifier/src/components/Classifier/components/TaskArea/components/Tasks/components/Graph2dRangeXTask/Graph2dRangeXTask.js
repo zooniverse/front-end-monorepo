@@ -5,13 +5,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+export const StyledFieldset = styled.fieldset`
+  border: none;
+`
+
 function storeMapper (stores) {
-  const {
-    addAnnotation
-  } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   return {
-    addAnnotation,
     annotations
   }
 }
@@ -33,12 +33,21 @@ class Graph2dRangeXTask extends React.Component {
     if (annotations && annotations.size > 0) {
       annotation = annotations.get(task.taskKey)
     }
+    const numberOfAnnotations = (annotation && annotation.value.length) || 0
+    
     return (
-      <Text size='small' tag='legend'>
-        <Markdown>
-          {task.instruction}
-        </Markdown>
-      </Text>
+      <StyledFieldset>
+        <Text size='small' tag='legend'>
+          <Markdown>
+            {task.instruction}
+          </Markdown>
+        </Text>
+      
+        <Text tag='div' size='small' textAlign='center'>
+          {numberOfAnnotations} marks made
+        </Text>
+      
+      </StyledFieldset>
     )
   }
 }
