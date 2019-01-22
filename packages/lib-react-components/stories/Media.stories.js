@@ -5,12 +5,12 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { storiesOf } from '@storybook/react'
 
 import { Media, ZooniverseLogo } from '../src'
-// import mediaDocs from '../src/Media/README.md'
+import mediaDocs from '../src/Media/README.md'
 
 storiesOf('Media', module)
-  // .addParameters({
-  //   info: mediaDocs
-  // })
+  .addParameters({
+    info: mediaDocs
+  })
   .add('Image', () =>
     <Grommet theme={zooTheme}>
       <Box>
