@@ -1,9 +1,13 @@
+import counterpart from 'counterpart'
 import { Markdown, Text } from 'grommet'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { observable } from 'mobx'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+import en from './locales/en'
+counterpart.registerTranslations('en', en)
 
 export const StyledFieldset = styled.fieldset`
   border: none;
@@ -39,7 +43,7 @@ class Graph2dRangeXTask extends React.Component {
         </Text>
       
         <Text tag='div' size='small' textAlign='center'>
-          {numberOfAnnotations} marks made
+          {counterpart('Graph2dRangeXTask.marksMade')} : {numberOfAnnotations}
         </Text>
       
       </StyledFieldset>
