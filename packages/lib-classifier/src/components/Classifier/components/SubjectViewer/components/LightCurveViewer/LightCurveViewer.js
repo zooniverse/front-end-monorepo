@@ -64,6 +64,9 @@ class LightCurveViewer extends Component {
 
     // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
+    
+    // D3 Brush controller
+    this.brush = null
 
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
@@ -293,7 +296,10 @@ class LightCurveViewer extends Component {
     this.zoom = d3.zoom()
       .scaleExtent([props.minZoom, props.maxZoom]) // Limit zoom scale
       .on('zoom', this.doZoom.bind(this))
-
+    
+    // Brush controller
+    this.brush = d3.brushX()
+    
     // Annotations/markings layer
     this.d3svg
       .append('g')
@@ -318,7 +324,10 @@ class LightCurveViewer extends Component {
     if (!this.zoom || !this.d3interfaceLayer) return
 
     if (interactionMode === 'annotate') {
-      this.d3svg.on('click', this.doInsertAnnotation.bind(this))
+      //this.d3svg.on('click', this.doInsertAnnotation.bind(this))
+      
+      this.d3svg.call(this.brush)
+      
       this.d3interfaceLayer.style('display', 'none')
     } else if (interactionMode === 'move') {
       this.d3svg.on('click', null)
