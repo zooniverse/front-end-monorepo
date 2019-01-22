@@ -5,7 +5,8 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import {
   panoptes as panoptesClient,
-  projects as projectsClient
+  projects as projectsClient,
+  tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
 import { registerWorkers } from '../../workers'
@@ -15,7 +16,8 @@ import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
 const client = {
   panoptes: panoptesClient,
-  projects: projectsClient
+  projects: projectsClient,
+  tutorials: tutorialsClient
 }
 
 // We don't register the queue service worker if background sync API is not available
@@ -32,12 +34,12 @@ export default class Classifier extends React.Component {
     makeInspectable(this.classifierStore)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { project } = this.props
     this.setProject(project)
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { project, user } = this.props
     if (project.id !== prevProps.project.id) {
       this.setProject(project)
@@ -48,12 +50,12 @@ export default class Classifier extends React.Component {
     }
   }
 
-  setProject (project) {
+  setProject(project) {
     this.classifierStore.projects.setResource(project)
     this.classifierStore.projects.setActive(project.id)
   }
 
-  render () {
+  render() {
     return (
       <Provider classifierStore={this.classifierStore}>
         <ThemeProvider theme={{ mode: this.props.mode }}>
