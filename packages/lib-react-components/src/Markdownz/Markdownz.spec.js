@@ -6,7 +6,7 @@ import Markdownz from './Markdownz'
 import { jsx, markdown } from './helpers/testExamples'
 
 // TO DO: Add back working snapshots to test the overall HTML output
-// We have to use snapshots with styled-components becaue of the generated class names
+// We have to use snapshots with styled-components because of the generated class names
 describe('<Markdownz />', function () {
   let wrapper
 
@@ -20,12 +20,32 @@ describe('<Markdownz />', function () {
     expect(wrapper.equals(jsx)).to.be.true
   })
 
-  it('correctly parses a user at-mention in a sentence', function () {
-    const sentence = `I would like to ping @am.zooni.`
-    wrapper = shallow(<Markdownz>{sentence}</Markdownz>)
-    const pingAnchor = wrapper.find({ href: "/users/am.zooni" })
-    expect(pingAnchor).to.have.lengthOf(1)
-    expect(pingAnchor.text()).to.equal('@am.zooni')
+  describe('at-mentions', function () {
+    ['srallen', 'am.zooni', 'a-user'].forEach(function (username) {
+      describe(username, function () {
+        function findMention(sentence) {
+          wrapper = shallow(<Markdownz>{sentence}</Markdownz>)
+          const pingAnchor = wrapper.find({ href: `/users/${username}` })
+          expect(pingAnchor).to.have.lengthOf(1)
+          expect(pingAnchor.text()).to.equal(`@${username}`)
+        }
+
+        it('should be recognised at the beginning of a sentence', function () {
+          const sentence = `@${username} is great!`
+          findMention(sentence)
+        })
+
+        it('should be recognised in the middle of a sentence', function () {
+          const sentence = `I would like to ping @${username} if they're online.`
+          findMention(sentence)
+        })
+
+        it('should be recognised at the end of a sentence', function () {
+          const sentence = `I would like to ping @${username}.`
+          findMention(sentence)
+        })
+      })
+    })
   })
 
   it('correctly parses a subject mention in project context', function () {
