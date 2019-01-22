@@ -359,7 +359,7 @@ class LightCurveViewer extends Component {
   }
   
   isCurrentTaskValidForAnnotation () {
-    return !!this.props.currentTask && this.props.currentTask.type === 'graph2dRangeX'
+    return this.props.currentTask.type === 'graph2dRangeX'
   }
 
   isCurrentTaskValidForAnnotation () {
