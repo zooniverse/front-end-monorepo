@@ -2,8 +2,6 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import React from 'react'
-import ProgressiveImage from 'react-progressive-image'
-import posed from 'react-pose'
 import { Media, ZooniverseLogo } from '@zooniverse/react-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
@@ -21,7 +19,6 @@ function ProjectImage ({ imageSrc, projectName }) {
   return (
     <Media
       alt={alt}
-      delay={3000}
       height={200}
       src={imageSrc}
       placeholder={<StyledZooniverseLogo size="38%" />}
