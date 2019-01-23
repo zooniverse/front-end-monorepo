@@ -250,7 +250,7 @@ class LightCurveViewer extends Component {
       this.updateAnnotationBrushes()
     }
     
-    var brush = d3.brush()
+    var brush = d3.brushX()
       .on('start', brushstart)
       .on('brush', brushed)
       .on('end', brushend.bind(this))
