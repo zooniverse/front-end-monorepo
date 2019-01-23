@@ -65,9 +65,6 @@ class LightCurveViewer extends Component {
     // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
     
-    // D3 Brush controller
-    this.brush = null
-
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
     <svg> to the x-y values of the data points.
@@ -92,6 +89,10 @@ class LightCurveViewer extends Component {
     this.d3axisYLabel = null
     this.xAxis = null
     this.yAxis = null
+    
+    // Chart dimensions, updated on drawChart()
+    this.chartWidth = 100
+    this.chartHeight = 100
   }
 
   componentDidMount () {
@@ -147,6 +148,9 @@ class LightCurveViewer extends Component {
     if (!height || !width) {
       return false
     }
+    
+    this.chartWidth = width
+    this.chartHeight = height
 
     /*
     Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
@@ -188,6 +192,9 @@ class LightCurveViewer extends Component {
     this.updateDataPoints(shouldAnimate)
     this.updateUserAnnotations()
     this.updatePresentation(width, height)
+    
+    // WIP: Brushes
+    this.d3annotationsLayer.call(d3.brushX().extent([[0,0], [this.chartWidth, this.chartHeight]]))
   }
 
   getAnnotationValues () {
@@ -297,15 +304,12 @@ class LightCurveViewer extends Component {
       .scaleExtent([props.minZoom, props.maxZoom]) // Limit zoom scale
       .on('zoom', this.doZoom.bind(this))
     
-    // Brush controller
-    this.brush = d3.brushX()
-    
     // Annotations/markings layer
     this.d3svg
       .append('g')
       .attr('class', 'annotations-layer')
     this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
-
+    
     /*
     The Interface Layer is the last (i.e. top-most) layer added, capturing all
     mouse input but making it impossible to directly interact with any layer
@@ -325,8 +329,6 @@ class LightCurveViewer extends Component {
 
     if (interactionMode === 'annotate') {
       //this.d3svg.on('click', this.doInsertAnnotation.bind(this))
-      
-      this.d3svg.call(this.brush)
       
       this.d3interfaceLayer.style('display', 'none')
     } else if (interactionMode === 'move') {
