@@ -188,13 +188,10 @@ class LightCurveViewer extends Component {
   }
 
   getAnnotationValues () {
-    const props = this.props
-    const annotations = (props.annotations && props.annotations.get(props.currentTask.taskKey))
-    if (annotations && this.isCurrentTaskValidForAnnotation()) {
-      return annotations.toJSON().value || []
-    } else {
-      return []
-    }
+    const { annotations, currentTask } = this.props
+    const annotation = annotations.get(currentTask.taskKey)
+    if (annotation && this.isCurrentTaskValidForAnnotation()) return Array.from(annotation.value) || []
+    return []
   }
 
   getCurrentTransform () {
