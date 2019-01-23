@@ -5,8 +5,8 @@
 |italicized|`_italicized_`|_italicized_|
 |anchor|`[link](https://www.zooniverse.org/)`|[link](https://www.zooniverse.org/)|
 |relative link|`[relative-link](/relative)`|[relative-link](/relative)|
-|image|`![imagealttext](https://via.placeholder.com/350x350)`|![imagealttext](https://via.placeholder.com/350x350)|
-|image resized|`![imagealttext =100x100](https://via.placeholder.com/350x350)`|![imagealttext =100x100](https://via.placeholder.com/350x350)|
+|image|`![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)`|![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)|
+|image resized|`![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)`|![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)|
 |video (using image syntax)|`![alt](https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4)`|![alt](https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4)|
 |audio (using image syntax)|`![alt](https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga)`|![alt](https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga)|
 |superscript|`super^script^`|super^script^|
