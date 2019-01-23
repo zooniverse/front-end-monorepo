@@ -93,6 +93,10 @@ class LightCurveViewer extends Component {
     // Chart dimensions, updated on drawChart()
     this.chartWidth = 100
     this.chartHeight = 100
+    
+    // WIP
+    // Each Annotation is represented as a single D3 Brush
+    this.annotationBrushes = []  // This keeps track of the annotation-brushes in existence, including the DEFAULT brush that exists even when there are no annotations.
   }
 
   componentDidMount () {
@@ -193,9 +197,98 @@ class LightCurveViewer extends Component {
     this.updateUserAnnotations()
     this.updatePresentation(width, height)
     
+    this.initBrushes()
+  }
+  
+  // WIP
+  /*  Initialise D3 brushes
+      One brush needs to be created at all times as an interface for listening
+      for brush events.
+   */
+  initBrushes () {
     // WIP: Brushes
     this.d3annotationsLayer.call(d3.brushX().extent([[0,0], [this.chartWidth, this.chartHeight]]))
+    
+    // TODO:
+    // For each existing annotation (i.e. when moving back/forth between steps) create a new Annotation brush.
+    
+    // TODO: Check for the following scenarios:
+    // - Change of Subject
+    // - Change of step/task
+    // - Canvas redraw (e.g. window resize)
   }
+  
+  /*
+  Mulitple brushes require a special solution
+  http://bl.ocks.org/ludwigschubert/0236fa8594c4b02711b2606a8f95f605
+   */
+  createAnnotationBrush () {
+    function brushstart() {}
+
+    function brushed() {}
+
+    function brushend() {
+      
+      // WIP
+
+      // Figure out if our latest brush has a selection
+      var lastBrushID = (this.annotationBrushes.length) ? this.annotationBrushes[this.annotationBrushes.length - 1].id : 'NOTHING'  //NOTE: we should always have one
+      var lastBrush = document.getElementById('brush-' + lastBrushID)
+      var selection = d3.brushSelection(lastBrush)
+
+      // If it does, that means we need another one
+      if (selection && selection[0] !== selection[1]) {
+        this.createAnnotationBrush()
+      }
+
+      // Always draw brushes
+      this.updateAnnotationBrushes()
+    }
+    
+    var brush = d3.brush()
+      .on('start', brushstart)
+      .on('brush', brushed)
+      .on('end', brushend)
+
+    this.annotationBrushes.push({id: this.annotationBrushes.length, brush: brush})
+  }
+  
+  /*
+  Updates and re-draws the 
+   */  
+  updateAnnotationBrushes () {
+    var brushSelection = this.d3annotationsLayer
+      .selectAll('.brush')
+      .data(this.annotationBrushes, function (d){return d.id});
+
+    // Set up new brushes
+    brushSelection.enter()
+      .insert('g', '.brush')
+      .attr('class', 'brush')
+      .attr('id', function(brush){ return "brush-" + brush.id; })
+      .each(function(brushObject) {
+        //call the brush
+        brushObject.brush(d3.select(this));
+      });
+
+    brushSelection
+      .each(function (brushObject){
+        d3.select(this)
+          .attr('class', 'brush')
+          .selectAll('.overlay')
+          .style('pointer-events', function() {
+            var brush = brushObject.brush;
+            if (brushObject.id === brushes.length-1 && brush !== undefined) {
+              return 'all';
+            } else {
+              return 'none';
+            }
+          });
+      })
+
+    brushSelection.exit()
+      .remove();
+}
 
   getAnnotationValues () {
     const { annotations, currentTask } = this.props
