@@ -13,7 +13,6 @@ const StyledTabs = styled(Tabs)`
   })};
   margin: 0;
   max-height: ${pxToRem(570)};
-  max-width: ${pxToRem(380)};
 
   ~ div[role="tabpanel"] {
     background-color: ${getTabColor('activeBackground')};

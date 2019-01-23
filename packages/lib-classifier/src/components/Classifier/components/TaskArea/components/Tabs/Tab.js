@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Tab } from 'grommet'
-
+import { Box, Tab } from 'grommet'
+import { SpacedText } from '@zooniverse/react-components'
 import getTabColor from './getTabColor'
 
 const StyledTab = styled(Tab)`
@@ -22,13 +23,13 @@ const StyledTab = styled(Tab)`
   }
 
   > div {
-    border: 0;
+    /* border: 0;
     font-weight: bold;
     letter-spacing: 1px;
     padding: 0;
     margin: 0;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: uppercase; */
 
     > span {
       color: ${props => props.active
@@ -41,5 +42,15 @@ const StyledTab = styled(Tab)`
 
 export default function TaskTab(props) {
   const { onClick, title } = props
-  return <StyledTab onClick={onClick} title={title} {...props} />
+  return <StyledTab onClick={onClick} plain title={<SpacedText>{title}</SpacedText>} {...props} />
+}
+
+TaskTab.propTypes = {
+  onClick: PropTypes.func,
+  title: PropTypes.string
+}
+
+TaskTab.defaultProps = {
+  onClick: () => {},
+  title: ''
 }

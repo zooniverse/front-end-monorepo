@@ -5,7 +5,8 @@ import styled from 'styled-components'
 import { FormNext, FormPrevious, Radial, RadialSelected } from 'grommet-icons'
 
 const StyledButton = styled(Button)`
- 
+  background-color: transparent;
+
   &:hover, &:focus {
     > * svg {
       fill: black;
