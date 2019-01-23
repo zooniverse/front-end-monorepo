@@ -97,6 +97,8 @@ class LightCurveViewer extends Component {
     // WIP
     // Each Annotation is represented as a single D3 Brush
     this.annotationBrushes = []  // This keeps track of the annotation-brushes in existence, including the DEFAULT brush that exists even when there are no annotations.
+    
+    console.log('+++ LightCurveViewer ', this.annotationBrushes)
   }
 
   componentDidMount () {
@@ -207,7 +209,10 @@ class LightCurveViewer extends Component {
    */
   initBrushes () {
     // WIP: Brushes
-    this.d3annotationsLayer.call(d3.brushX().extent([[0,0], [this.chartWidth, this.chartHeight]]))
+    //this.d3annotationsLayer.call(d3.brushX().extent([[0,0], [this.chartWidth, this.chartHeight]]))
+    
+    this.createAnnotationBrush()
+    this.updateAnnotationBrushes()
     
     // TODO:
     // For each existing annotation (i.e. when moving back/forth between steps) create a new Annotation brush.
@@ -228,7 +233,7 @@ class LightCurveViewer extends Component {
     function brushed() {}
 
     function brushend() {
-      
+      console.log('+++ brushend ', this.annotationBrushes)
       // WIP
 
       // Figure out if our latest brush has a selection
@@ -248,7 +253,7 @@ class LightCurveViewer extends Component {
     var brush = d3.brush()
       .on('start', brushstart)
       .on('brush', brushed)
-      .on('end', brushend)
+      .on('end', brushend.bind(this))
 
     this.annotationBrushes.push({id: this.annotationBrushes.length, brush: brush})
   }
@@ -257,6 +262,8 @@ class LightCurveViewer extends Component {
   Updates and re-draws the 
    */  
   updateAnnotationBrushes () {
+    console.log('+++ updateAnnotationBrushes ')
+    
     var brushSelection = this.d3annotationsLayer
       .selectAll('.brush')
       .data(this.annotationBrushes, function (d){return d.id});
@@ -265,20 +272,22 @@ class LightCurveViewer extends Component {
     brushSelection.enter()
       .insert('g', '.brush')
       .attr('class', 'brush')
-      .attr('id', function(brush){ return "brush-" + brush.id; })
-      .each(function(brushObject) {
+      .attr('id', (brush) => (`brush-${brush.id}`))
+      .each(function (brushObject) {  // Don't use ()=>{}
         //call the brush
-        brushObject.brush(d3.select(this));
-      });
+        brushObject.brush(d3.select(this))
+      })
 
+    const annotationBrushes = this.annotationBrushes
+    
     brushSelection
-      .each(function (brushObject){
+      .each(function (brushObject) {
         d3.select(this)
           .attr('class', 'brush')
           .selectAll('.overlay')
-          .style('pointer-events', function() {
+          .style('pointer-events', () => {
             var brush = brushObject.brush;
-            if (brushObject.id === brushes.length-1 && brush !== undefined) {
+            if (brushObject.id === annotationBrushes.length-1 && brush !== undefined) {
               return 'all';
             } else {
               return 'none';
