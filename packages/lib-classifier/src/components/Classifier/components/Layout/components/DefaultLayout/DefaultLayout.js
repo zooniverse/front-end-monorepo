@@ -9,6 +9,7 @@ import TaskArea from '../../../TaskArea'
 const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 2rem;
+  position: relative;
 
   @media (min-width: 700px) {
     grid-template-columns: 8fr 5fr;

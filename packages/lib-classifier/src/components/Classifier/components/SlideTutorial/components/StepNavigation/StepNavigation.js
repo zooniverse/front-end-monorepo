@@ -1,7 +1,17 @@
 import React from 'react'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { Button, Box } from 'grommet'
+import styled from 'styled-components'
 import { FormNext, FormPrevious, Radial, RadialSelected } from 'grommet-icons'
+
+const StyledButton = styled(Button)`
+ 
+  &:hover, &:focus {
+    > * svg {
+      fill: black;
+    }
+  }
+`
 
 function storeMapper(stores) {
   const { active: tutorial, activeStep, setTutorialStep } = stores.classifierStore.tutorials
@@ -29,7 +39,7 @@ class StepNavigation extends React.Component {
     if (steps.length > 1) {
       return (
         <Box direction='row' justify='center' tag='nav'>
-          <Button
+          <StyledButton
             a11yTitle='Go to previous step'
             disabled={activeStep === 0}
             icon={<FormPrevious />}
@@ -39,7 +49,7 @@ class StepNavigation extends React.Component {
           {steps.map((step, index) => {
             const active = index === activeStep
             return (
-              <Button
+              <StyledButton
                 active={active}
                 a11yTitle={`Go to step ${index}`}
                 key={`step-${index}`}
@@ -49,7 +59,7 @@ class StepNavigation extends React.Component {
               />
             )
           })}
-          <Button
+          <StyledButton
             a11yTitle='Go to next step'
             disabled={activeStep === steps.length - 1}
             icon={<FormNext />}

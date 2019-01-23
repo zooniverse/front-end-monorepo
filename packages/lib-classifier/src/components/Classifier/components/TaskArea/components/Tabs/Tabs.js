@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import theme from 'styled-theming'
 import zooTheme from '@zooniverse/grommet-theme'
 import getTabColor from './getTabColor'
+import { pxToRem } from '@zooniverse/react-components'
 
 const StyledTabs = styled(Tabs)`
   border: 1px solid;
@@ -11,6 +12,8 @@ const StyledTabs = styled(Tabs)`
     light: zooTheme.light.colors.tabs.border
   })};
   margin: 0;
+  max-height: ${pxToRem(570)};
+  max-width: ${pxToRem(380)};
 
   ~ div[role="tabpanel"] {
     background-color: ${getTabColor('activeBackground')};

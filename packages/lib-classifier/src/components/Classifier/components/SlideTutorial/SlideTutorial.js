@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import styled from 'styled-components'
 import { Box, Image, Paragraph } from 'grommet'
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 
 function storeMapper(stores) {
@@ -23,11 +23,12 @@ class SlideTutorial extends React.Component {
     const { medium, step } = stepWithMedium
     return (
       <Box
+        justify='between'
         pad='medium'
       >
         {medium && medium.src &&
-          <Image alt='' src={medium.src} />}
-        <Markdownz>{step.content}</Markdownz>
+          <Media alt='' fit='contain' height={200} src={medium.src} />}
+        <Box overflow='auto'><Markdownz>{step.content}</Markdownz></Box>
         <StepNavigation />
       </Box>
     )
