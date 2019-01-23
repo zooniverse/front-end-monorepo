@@ -1,7 +1,9 @@
 import counterpart from 'counterpart'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import asyncStates from '@zooniverse/async-states'
+import zooTheme from '@zooniverse/grommet-theme'
+import { SpacedText } from '@zooniverse/react-components'
+
 import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
@@ -30,22 +32,34 @@ class TaskArea extends React.Component {
   }
 
   render () {
-    const { disableTutorialTab } = this.props
-
+    const { colorTheme, disableTutorialTab } = this.props
+    const border = {
+      side: 'all',
+      color: (colorTheme === 'light') ? zooTheme.light.colors.tabs.border : zooTheme.dark.colors.tabs.border,
+      size: 'xsmall'
+    }
     return (
-      <Tabs onActive={this.onTabClick.bind(this)}>
-        <Tab title={counterpart('TaskArea.task')}>
+      <Tabs
+        onActive={this.onTabClick.bind(this)}
+        border={border}
+        margin='none'
+      >
+        <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
           <Tasks />
         </Tab>
         <Tab
           disabled={disableTutorialTab}
-          title={counterpart('TaskArea.tutorial')}
+          title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.tutorial')}</SpacedText>}
         >
           <SlideTutorial />
         </Tab>
       </Tabs>
     )
   }
+}
+
+TaskArea.defaultProps = {
+  colorTheme: 'light'
 }
 
 export default TaskArea
