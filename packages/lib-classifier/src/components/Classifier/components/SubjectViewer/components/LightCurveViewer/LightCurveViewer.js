@@ -227,6 +227,25 @@ class LightCurveViewer extends Component {
     this.annotationBrushes = []
     this.d3annotationsLayer.selectAll('.brush').remove()
   }
+  
+  /*  Save data from Annotation-Brushes to our Annotations (for Classification)
+   */
+  saveBrushesToAnnotations () {
+    const props = this.props
+    if (!this.isCurrentTaskValidForAnnotation()) return  // Sanity check
+    
+    const annotations = this.annotationBrushes
+      .filter((raw) => (raw.minX !== undefined && raw.maxX !== undefined))
+      .map((raw) => {
+        const x = (raw.minX + raw.maxX) / 2
+        const width = (raw.maxX - raw.minX)
+        return { x, width }
+      })
+    
+    console.log('+++ check: ', annotations)
+
+    props.addAnnotation(annotations, props.currentTask)
+  }
 
   /*
   Mulitple brushes require a special solution
@@ -336,6 +355,7 @@ class LightCurveViewer extends Component {
     // Zooniverse annotations.
 
     this.updateAnnotationBrushes()
+    this.saveBrushesToAnnotations()
   }
   
   getAnnotationValues () {
@@ -468,12 +488,11 @@ class LightCurveViewer extends Component {
   updateInteractionMode (interactionMode = '') {
     if (!this.zoom || !this.d3interfaceLayer) return
 
+    // Show or hide the interface layer (which blocks interaction with the
+    // annotations layer)
     if (interactionMode === 'annotate') {
-      // this.d3svg.on('click', this.doInsertAnnotation.bind(this))
-
       this.d3interfaceLayer.style('display', 'none')
     } else if (interactionMode === 'move') {
-      this.d3svg.on('click', null)
       this.d3interfaceLayer.style('display', 'inline')
     }
   }
