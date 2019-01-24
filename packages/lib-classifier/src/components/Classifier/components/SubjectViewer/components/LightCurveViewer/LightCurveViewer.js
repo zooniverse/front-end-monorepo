@@ -21,6 +21,7 @@ const ZOOMING_TIME = 100 // milliseconds
 
 function storeMapper (stores) {
   const {
+    enableAnnotate,
     enableMove,
     interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
     setOnZoom // func: sets onZoom event handler
@@ -41,6 +42,7 @@ function storeMapper (stores) {
     addAnnotation,
     annotations,
     currentTask,
+    enableAnnotate,
     enableMove,
     interactionMode,
     setOnZoom
@@ -234,35 +236,59 @@ class LightCurveViewer extends Component {
     this.annotationBrushes.push({id: this.annotationBrushes.length, brush: brush})
   }
   
-  onAnnotationBrushStart () {}
+  /*
+  Get the most recently used D3 brush, as a DOM node.
+   */
+  getLastBrush () {
+    return (this.annotationBrushes.length) && this.annotationBrushes[this.annotationBrushes.length - 1]
+  }
   
-  onAnnotationBrushBrushed () {}
+  onAnnotationBrushStart () { console.log('+++ brush-START') }
   
-  onAnnotationBrushEnd () {
-    // WIP
+  onAnnotationBrushBrushed () { console.log('+++ brush-BRUSHED') }
+  
+  onAnnotationBrushEnd (a, b, c) {
+    console.log('+++ brush-END', a, b, c)
     
-    console.log('+++ brushend ', this.annotationBrushes)
+    const props = this.props
 
     // Find the last used D3 brush - i.e. the brush that the user just
-    // interacted with.
-    const lastBrushID = (this.annotationBrushes.length) && this.annotationBrushes[this.annotationBrushes.length - 1].id
-    const lastBrush = this.d3annotationsLayer.select('#brush-' + lastBrushID).node()
+    // interacted with - and if that brush selected anything (i.e. see if the
+    // user marked any [xMin, xMax] dimensions).
+    const lastBrush = this.getLastBrush()
+    const brushSelection = d3.event.selection
     
-    //lastBrush should NEVER be null, but if it is, we've got a glitch.
+    // NOTE: Alternative is to use
+    // brushSelection = lastBrush && d3.brushSelection(lastBrush.node)
+    
+    // lastBrush should NEVER be null, but if it is, we've got a glitch.
     if (!lastBrush) {
       console.error('ERROR: /Classifier/SubjectViewer/LightCurveViewer - could not find last used D3 brush')
       return
     }
+    
+    // If the user attempted to make a selection, BUT the current task isn't
+    // a valid task, cancel that last brush.
+    if (brushSelection && !this.isCurrentTaskValidForAnnotation())
+    {
+      this.d3annotationsLayer.select('.brush').call(lastBrush.brush.move, null)  // WARNING: calling brush.move() WILL trigger brush start/brushed/end events.
+      props.enableMove && props.enableMove()
+      return
+    }
+    
+    // NOTE: when MOVE mode is enabled, the d3interfaceLayer appears on top of
+    // the d3annotations layer, essentially blocking any d3 brush interactions.
+    // This means in practice, we don't need to check if we're in Annotate mode
+    // to validate a brush action, we just need to check the current task.
+    
+    // TODO: check if we need to check for interactionMode anyway.
 
     // If the last used brush was used to select something, (i.e., it has a
     // "selection", i.e. a set of dimensions indicating a range of interest)
     // we need to create a NEW one.
-    const brushSelection = d3.brushSelection(lastBrush)
     if (brushSelection && brushSelection[0] !== brushSelection[1]) {
       this.createAnnotationBrush()
     }
-    
-    // TODO: insert
     
     // NOTE: we ALWAYS need one brush as the 'interface' for new brushes,
     // meaning this.annotationBrushes always has one D3 brush more than
