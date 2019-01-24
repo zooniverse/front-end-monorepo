@@ -23,6 +23,7 @@ import remarkSubSuper from 'remark-sub-super'
 import externalLinks from 'remark-external-links'
 import toc from 'remark-toc'
 import ping from './lib/ping'
+import Media from '../Media'
 
 const hashtag = '#'
 const at = '@'
@@ -52,28 +53,20 @@ class Markdownz extends React.Component {
 
   // Support image resizing, video, and audio using markdown's image syntax
   renderMedia(nodeProps) {
-    let altText, width, height
+    let width, height
     const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
     let alt = nodeProps.alt
     const src = nodeProps.src
     const match = alt.match(imgSizeRegex)
 
     if (match && match.length > 0) {
-      width = match[1]
-      height = match[3]
-      altText = alt.split(match[0])[0].trim()
+      width = parseInt(match[1])
+      height = parseInt(match[3])
+      alt = alt.split(match[0])[0].trim()
     }
-    const mimeType = mime.lookup(src)
-
-    if (mimeType && mimeType.includes('video')) {
-      return <Video a11yTitle={alt} controls="below" preload='metadata' src={src}><Paragraph>This video file is not supported</Paragraph></Video>
-    }
-    if (mimeType && mimeType.includes('audio')) {
-      // Grommet doesn't have an audio component right now
-      return <audio aria-label={alt} controls preload='metadata' src={src}><Paragraph>This audio file is not supported</Paragraph></audio>
-     }
-
-    return <Image alt={altText || alt} src={src} width={width} height={height} />
+    
+    if (src) return <Media alt={alt} height={height} src={src} width={width} />
+    return null
   }
 
   render() {

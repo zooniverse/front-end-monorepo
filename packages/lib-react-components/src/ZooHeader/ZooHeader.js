@@ -9,7 +9,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
-import ZooniverseLogo from './components/ZooniverseLogo'
+import ZooniverseLogo from '../ZooniverseLogo'
 import {
   adminNavLinkLabel,
   adminNavLinkURL,

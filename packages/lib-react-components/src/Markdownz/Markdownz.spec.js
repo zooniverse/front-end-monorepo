@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Image, Video } from 'grommet'
+import Media from '../Media'
 import Markdownz from './Markdownz'
 import { jsx, markdown } from './helpers/testExamples'
 
@@ -223,6 +223,10 @@ describe('<Markdownz />', function () {
 
   describe('#renderMedia', function () {
     let renderMediaSpy
+    const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
+    const altText = 'A placeholder image.'
+    const imagePropsMock = { src, alt: altText, children: undefined }
+    const imagePropsMockWithSize = { src, alt: `${altText} =100x100`, children: undefined }
     before(function () {
       wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
       renderMediaSpy = sinon.spy(Markdownz.prototype, 'renderMedia')
@@ -234,82 +238,35 @@ describe('<Markdownz />', function () {
       renderMediaSpy.restore()
     })
 
-    describe('when the media is an image', function () {
-      const altText = 'A placeholder image.'
-      const imagePropsMock = { src: 'https://via.placeholder.com/350x350', alt: altText, children: undefined }
-      const imagePropsMockWithSize = { src: 'https://via.placeholder.com/350x350', alt: `${altText} =100x100`, children: undefined }
-      it('should return a Grommet Image component', function () {
-        wrapper.instance().renderMedia(imagePropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.type).to.equal(Image)
-      })
-
-      it('should set the alt attribute with the alt prop', function () {
-        wrapper.instance().renderMedia(imagePropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.alt).to.equal(imagePropsMock.alt)
-      })
-
-      it('should set the src attribute with the src prop', function () {
-        wrapper.instance().renderMedia(imagePropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.src).to.equal(imagePropsMock.src)
-      })
-
-      it('should use the width and height from the alt text if defined', function () {
-        wrapper.instance().renderMedia(imagePropsMockWithSize)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.width).to.equal('100')
-        expect(returnedValue.props.height).to.equal('100')
-      })
-
-      it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
-        wrapper.instance().renderMedia(imagePropsMockWithSize)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.alt).to.equal(altText)
-      })
+    it('should return a Media component', function () {
+      wrapper.instance().renderMedia(imagePropsMock)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.type).to.equal(Media)
     })
 
-    describe('when the media is a video', function () {
-      const videoPropsMock = { src: 'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4', alt: 'Video of the Zooniverse', children: undefined }
-      it('should return a Grommet Video component', function () {
-        wrapper.instance().renderMedia(videoPropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.type).to.equal(Video)
-      })
-
-      it('should set the a11yTitle prop with the alt text', function () {
-        wrapper.instance().renderMedia(videoPropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.a11yTitle).to.equal(videoPropsMock.alt)
-      })
-
-      it('should set the src attribute', function () {
-        wrapper.instance().renderMedia(videoPropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.src).to.equal(videoPropsMock.src)
-      })
+    it('should set the alt attribute with the alt prop', function () {
+      wrapper.instance().renderMedia(imagePropsMock)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.props.alt).to.equal(imagePropsMock.alt)
     })
 
-    describe('when the media is audio', function () {
-      const audioPropsMock = { src: 'https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga', alt: 'Street noise', children: undefined }
-      it('should return an audio element', function () {
-        wrapper.instance().renderMedia(audioPropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.type).to.equal('audio')
-      })
+    it('should set the src attribute with the src prop', function () {
+      wrapper.instance().renderMedia(imagePropsMock)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.props.src).to.equal(imagePropsMock.src)
+    })
 
-      it('should set the aria-label prop with the alt text', function () {
-        wrapper.instance().renderMedia(audioPropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props['aria-label']).to.equal(audioPropsMock.alt)
-      })
+    it('should use the width and height from the alt text if defined', function () {
+      wrapper.instance().renderMedia(imagePropsMockWithSize)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.props.width).to.equal(100)
+      expect(returnedValue.props.height).to.equal(100)
+    })
 
-      it('should set the src attribute', function () {
-        wrapper.instance().renderMedia(audioPropsMock)
-        const returnedValue = renderMediaSpy.returnValues[0]
-        expect(returnedValue.props.src).to.equal(audioPropsMock.src)
-      })
+    it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
+      wrapper.instance().renderMedia(imagePropsMockWithSize)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.props.alt).to.equal(altText)
     })
   })
 })

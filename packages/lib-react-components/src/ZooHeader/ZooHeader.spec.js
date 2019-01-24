@@ -3,7 +3,7 @@ import React from 'react'
 import MainNavList from './components/MainNavList'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
-import ZooniverseLogo from './components/ZooniverseLogo'
+import ZooniverseLogo from '../ZooniverseLogo'
 import ZooHeader from './ZooHeader'
 
 const user = { display_name: 'zootester1', login: 'zootester1' }
