@@ -207,10 +207,7 @@ class LightCurveViewer extends Component {
       for brush events.
    */
   initBrushes () {
-    // WIP: Brushes
-    //this.d3annotationsLayer.call(d3.brushX().extent([[0,0], [this.chartWidth, this.chartHeight]]))
-    
-    this.createAnnotationBrush()
+    if (!this.annotationBrushes.length) this.createAnnotationBrush()  // Create the initial brush
     this.updateAnnotationBrushes()
     
     // TODO:
@@ -232,7 +229,12 @@ class LightCurveViewer extends Component {
       .on('brush', this.onAnnotationBrushBrushed.bind(this))
       .on('end', this.onAnnotationBrushEnd.bind(this))
 
-    this.annotationBrushes.push({id: this.annotationBrushes.length, brush: brush})
+    this.annotationBrushes.push({
+      id: this.annotationBrushes.length,
+      brush: brush,
+      minX: undefined,  // x, relative to the data range (not the SVG dimensions)
+      maxX: undefined,      
+    })
   }
   
   /*
@@ -246,19 +248,24 @@ class LightCurveViewer extends Component {
   
   onAnnotationBrushBrushed () { console.log('+++ brush-BRUSHED') }
   
-  onAnnotationBrushEnd (a, b, c) {
-    console.log('+++ brush-END', a, b, c)
-    
+  onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
 
     // Find the last used D3 brush - i.e. the brush that the user just
     // interacted with - and if that brush selected anything (i.e. see if the
     // user marked any [xMin, xMax] dimensions).
     const lastBrush = this.getLastBrush()
-    const brushSelection = d3.event.selection
+    const brushSelection = d3.event.selection  // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
     
     // NOTE: Alternative is to use
     // brushSelection = lastBrush && d3.brushSelection(lastBrush.node)
+    
+    console.log('+++ brush-END',
+                '\n 1st arg: ', annotationBrush,
+                '\n 2nd arg: ', index,
+                '\n 3rd arg: ', domElements,
+                '\n selection: ', brushSelection,
+                '\n brushes', this.annotationBrushes)
     
     // lastBrush should NEVER be null, but if it is, we've got a glitch.
     if (!lastBrush) {
@@ -274,6 +281,13 @@ class LightCurveViewer extends Component {
       props.enableMove && props.enableMove()
       return
     }
+    
+    // Update the Annotation-Brush with the data range values that was selected
+    const currentTransform = this.getCurrentTransform()    
+    let dataMinX = brushSelection && brushSelection[0]
+    let dataMaxX = brushSelection && brushSelection[1]
+    annotationBrush.minX = dataMinX && currentTransform.rescaleX(this.xScale).invert((dataMinX))
+    annotationBrush.maxX = dataMaxX && currentTransform.rescaleX(this.xScale).invert((dataMaxX))
     
     // NOTE: when MOVE mode is enabled, the d3interfaceLayer appears on top of
     // the d3annotations layer, essentially blocking any d3 brush interactions.
