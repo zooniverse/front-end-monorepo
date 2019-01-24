@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Anchor, Box, Button, Form, FormField, Layer, Text } from 'grommet'
+import { Anchor, Box, Button, Form, FormField, Layer, Text, TextInput } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -41,20 +41,32 @@ export default class LoginModal extends Component {
       >
         <Box pad='medium'>
           <Form onSubmit={onSubmit}>
+
             <FormField
-              disabled={loading}
               label={counterpart('LoginModal.username')}
-              name='login'
+              htmlFor='auth-modal-login'
               ref={this.firstInput}
-              required
-            />
+            >
+              <TextInput
+                disabled={loading}
+                id='auth-modal-login'
+                name='login'
+                required
+              />
+            </FormField>
+
             <FormField
-              disabled={loading}
               label={counterpart('LoginModal.password')}
-              name='password'
-              type='password'
-              required
-            />
+              htmlFor='auth-modal-password'
+            >
+              <TextInput
+                disabled={loading}
+                id='auth-modal-password'
+                name='password'
+                required
+              />
+            </FormField>
+
             {error && (
               <Box pad='small'>
                 <Text>
