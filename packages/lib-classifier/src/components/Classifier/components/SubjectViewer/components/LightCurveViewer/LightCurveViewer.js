@@ -96,9 +96,8 @@ class LightCurveViewer extends Component {
     this.chartWidth = 100
     this.chartHeight = 100
     
-    // WIP
     // Each Annotation is represented as a single D3 Brush
-    this.annotationBrushes = []  // This keeps track of the annotation-brushes in existence, including the DEFAULT brush that exists even when there are no annotations.
+    this.annotationBrushes = []  // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
   }
 
   componentDidMount () {
