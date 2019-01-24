@@ -239,6 +239,26 @@ class LightCurveViewer extends Component {
     })
   }
   
+  // Helper function to prevent infinite loops
+  disableBrushEvents () {
+    this.annotationBrushes.forEach((annotationBrush) => {
+      annotationBrush.brush
+        .on('start', null)
+        .on('brush', null)
+        .on('end', null)
+    })    
+  }
+  
+  enableBrushEvents () {
+    this.annotationBrushes.forEach((annotationBrush) => {
+      annotationBrush.brush
+      .on('start', this.onAnnotationBrushStart.bind(this))
+      .on('brush', this.onAnnotationBrushBrushed.bind(this))
+      .on('end', this.onAnnotationBrushEnd.bind(this))
+    })
+  }
+  
+  
   /*
   Get the 'default' D3 brush, which is used as an interface to create new brushes.
    */
@@ -264,10 +284,13 @@ class LightCurveViewer extends Component {
     
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
-    if (brushSelection && !this.isCurrentTaskValidForAnnotation())
+    if (!this.isCurrentTaskValidForAnnotation())
     {
-      // WARNING: calling brush.move() WILL trigger brush start/brushed/end events.
+      // WARNING: calling brush.move() WILL trigger brush start/brushed/end
+      // events. Temporarily disable events to prevent recursion.
+      this.disableBrushEvents()
       this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null)  // TODO: this is only valid for the default brush.
+      this.enableBrushEvents()
       
       // TODO: Catch what happens if a user MODIFIES an annotation-brush when it's in the wrong task
       // IDEA: reset the position of the brush.
