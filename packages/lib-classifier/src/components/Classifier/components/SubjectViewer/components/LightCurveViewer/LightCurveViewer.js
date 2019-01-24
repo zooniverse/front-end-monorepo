@@ -31,12 +31,12 @@ function storeMapper (stores) {
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active: step } = stores.classifierStore.workflowSteps
-  
+
   const currentTask =
-    (stores.classifierStore.workflowSteps.activeStepTasks
-     && stores.classifierStore.workflowSteps.activeStepTasks[0])
-    || {}
-  
+    (stores.classifierStore.workflowSteps.activeStepTasks &&
+     stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
+    {}
+
   return {
     addAnnotation,
     annotations,
@@ -65,7 +65,7 @@ class LightCurveViewer extends Component {
 
     // D3 Zoom controller: manipulates and stores scale/translate values
     this.zoom = null
-    
+
     /*
     The D3 x-scales/y-scales is used to map the x-y coordinates on the visual
     <svg> to the x-y values of the data points.
@@ -90,13 +90,13 @@ class LightCurveViewer extends Component {
     this.d3axisYLabel = null
     this.xAxis = null
     this.yAxis = null
-    
+
     // Chart dimensions, updated on drawChart()
     this.chartWidth = 100
     this.chartHeight = 100
-    
+
     // Each Annotation is represented as a single D3 Brush
-    this.annotationBrushes = []  // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
+    this.annotationBrushes = [] // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
   }
 
   componentDidMount () {
@@ -108,20 +108,19 @@ class LightCurveViewer extends Component {
     const points = this.props.dataPoints
     const prevPoints = prevProps.dataPoints
     const sameSubject = (points === prevPoints)
-    
+
     const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
     const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
     const sameTask = (currentTaskKey === prevTaskKey)
 
-    if (!sameSubject) {  // Triggers when changing between Subjects
+    if (!sameSubject) { // Triggers when changing between Subjects
       this.clearChart()
 
       const container = this.svgContainer.current
       const height = container.offsetHeight || 0
       const width = container.offsetWidth || 0
       this.drawChart(width, height, sameSubject)
-      
-    } else if (!sameTask) {  // Triggers when changing between Workflow tasks.
+    } else if (!sameTask) { // Triggers when changing between Workflow tasks.
       // TODO: load annotations when changing tasks.
       // If invalid task, blank out all annotaitons
     }
@@ -139,11 +138,11 @@ class LightCurveViewer extends Component {
   clearChart () {
     // Reset Subject data
     this.d3dataLayer.selectAll('.data-point').remove()
-    
+
     // Reset Annotation (Annotation-Brushes)
     this.annotationBrushes = []
     this.d3annotationsLayer.selectAll('.brush').remove()
-    
+
     // Reset view
     this.zoomTo(1.0)
     // TODO/Optional: reset view pan/translate to 0,0?
@@ -159,7 +158,7 @@ class LightCurveViewer extends Component {
     if (!height || !width) {
       return false
     }
-    
+
     this.chartWidth = width
     this.chartHeight = height
 
@@ -203,36 +202,36 @@ class LightCurveViewer extends Component {
     this.updateDataPoints(shouldAnimate)
     this.updateAnnotationBrushes()
     this.updatePresentation(width, height)
-    
+
     this.initBrushes()
   }
-  
+
   /*  Initialise D3 brushes
       One brush needs to be created at all times as an interface for listening
       for brush events.
    */
   initBrushes () {
-    if (!this.annotationBrushes.length) this.createAnnotationBrush()  // Create the initial brush
+    if (!this.annotationBrushes.length) this.createAnnotationBrush() // Create the initial brush
     this.updateAnnotationBrushes()
-    
+
     // WIP
     // TODO:
     // - Create 'loadBrushesFromAnnotations()'
     // - Create 'saveBrushesToAnnotations()'
-    
+
     // TODO: Check for the following scenarios:
     // - Change of Subject
     // - Change of step/task
     // - Canvas redraw (e.g. window resize)
   }
-  
+
   /*
   Mulitple brushes require a special solution
   http://bl.ocks.org/ludwigschubert/0236fa8594c4b02711b2606a8f95f605
    */
   createAnnotationBrush () {
     console.log('+++ CREATE ANNOTATION BRUSH')
-    
+
     var brush = d3.brushX()
       .on('start', this.onAnnotationBrushStart.bind(this))
       .on('brush', this.onAnnotationBrushBrushed.bind(this))
@@ -241,11 +240,11 @@ class LightCurveViewer extends Component {
     this.annotationBrushes.push({
       id: this.annotationBrushes.length,
       brush: brush,
-      minX: undefined,  // x, relative to the data range (not the SVG dimensions)
-      maxX: undefined,      
+      minX: undefined, // x, relative to the data range (not the SVG dimensions)
+      maxX: undefined
     })
   }
-  
+
   // Helper function to prevent infinite loops
   disableBrushEvents () {
     this.annotationBrushes.forEach((annotationBrush) => {
@@ -253,74 +252,72 @@ class LightCurveViewer extends Component {
         .on('start', null)
         .on('brush', null)
         .on('end', null)
-    })    
+    })
   }
-  
+
   enableBrushEvents () {
     this.annotationBrushes.forEach((annotationBrush) => {
       annotationBrush.brush
-      .on('start', this.onAnnotationBrushStart.bind(this))
-      .on('brush', this.onAnnotationBrushBrushed.bind(this))
-      .on('end', this.onAnnotationBrushEnd.bind(this))
+        .on('start', this.onAnnotationBrushStart.bind(this))
+        .on('brush', this.onAnnotationBrushBrushed.bind(this))
+        .on('end', this.onAnnotationBrushEnd.bind(this))
     })
   }
-  
-  
+
   /*
   Get the 'default' D3 brush, which is used as an interface to create new brushes.
    */
   getDefaultBrush () {
     return (this.annotationBrushes.length) && this.annotationBrushes[this.annotationBrushes.length - 1]
   }
-  
+
   onAnnotationBrushStart () { console.log('+++ brush-START') }
-  
+
   onAnnotationBrushBrushed () { console.log('+++ brush-BRUSHED') }
-  
+
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
-    const brushSelection = d3.event.selection  // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
+    const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
     const defaultBrush = this.getDefaultBrush()
-    
+
     console.log('+++ brush-END',
-                '\n 1st arg: ', annotationBrush,
-                '\n 2nd arg: ', index,
-                '\n 3rd arg: ', domElements,
-                '\n selection: ', brushSelection,
-                '\n brushes', this.annotationBrushes)
-    
+      '\n 1st arg: ', annotationBrush,
+      '\n 2nd arg: ', index,
+      '\n 3rd arg: ', domElements,
+      '\n selection: ', brushSelection,
+      '\n brushes', this.annotationBrushes)
+
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
-    if (!this.isCurrentTaskValidForAnnotation())
-    {
+    if (!this.isCurrentTaskValidForAnnotation()) {
       // WARNING: calling brush.move() WILL trigger brush start/brushed/end
       // events. Temporarily disable events to prevent recursion.
       this.disableBrushEvents()
-      this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null)  // TODO: this is only valid for the default brush.
+      this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null) // TODO: this is only valid for the default brush.
       this.enableBrushEvents()
-      
+
       // TODO: Catch what happens if a user MODIFIES an annotation-brush when it's in the wrong task
       // IDEA: reset the position of the brush.
       // REMINDER: to avoid infinite loops, disable all events on brushes, then move, then re-enable events.
-      
+
       props.enableMove && props.enableMove()
       return
     }
-    
+
     // Update the Annotation-Brush with the data range values that was selected
-    const currentTransform = this.getCurrentTransform()    
+    const currentTransform = this.getCurrentTransform()
     let dataMinX = brushSelection && brushSelection[0]
     let dataMaxX = brushSelection && brushSelection[1]
     annotationBrush.minX = dataMinX && currentTransform.rescaleX(this.xScale).invert((dataMinX))
     annotationBrush.maxX = dataMaxX && currentTransform.rescaleX(this.xScale).invert((dataMaxX))
-    
+
     // NOTE: when MOVE mode is enabled, the d3interfaceLayer appears on top of
     // the d3annotations layer, essentially blocking any d3 brush interactions.
     // This means in practice, we don't need to check if we're in Annotate mode
     // to validate a brush action, we just need to check the current task.
-    
+
     // TODO: check if we need to check for interactionMode anyway.
-    
+
     // If the brush that the user used was the default brush - and that brush
     // has a "selection" (i.e. a data range) - then it means the user wants to
     // create a new annotation.
@@ -330,22 +327,22 @@ class LightCurveViewer extends Component {
     if (userWantsNewAnnotation && brushSelection) {
       this.createAnnotationBrush()
     }
-    
+
     // NOTE: we ALWAYS need one brush as the 'interface' for new brushes,
     // meaning this.annotationBrushes always has one D3 brush more than
     // Zooniverse annotations.
 
     this.updateAnnotationBrushes()
   }
-  
+
   /*
   Updates and re-draws the Annotation Brushes.
-   */  
+   */
   updateAnnotationBrushes () {
     console.log('+++ updateAnnotationBrushes ')
-    
+
     const annotationBrushes = this.annotationBrushes
-    
+
     // Join the D3 brush objects with our internal annotationBrushes array
     var brushSelection = this.d3annotationsLayer
       .selectAll('.brush')
@@ -356,10 +353,10 @@ class LightCurveViewer extends Component {
       .insert('g', '.brush')
       .attr('class', 'brush')
       .attr('id', (brush) => (`brush-${brush.id}`))
-      .each(function applyBrushLogic (brushObject) {  // Don't use ()=>{}
-        brushObject.brush(d3.select(this))  // Apply the brush logic to the <g.brush> element (i.e. 'this')
+      .each(function applyBrushLogic (brushObject) { // Don't use ()=>{}
+        brushObject.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-    
+
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'last brush' -
     // aka the interface for creating new brushes - is the exception
@@ -378,20 +375,20 @@ class LightCurveViewer extends Component {
 
     // Remove unused brushes
     brushSelection.exit()
-      .remove();
-    
+      .remove()
+
     // Reposition/re-draw brushes
     const currentTransform = this.getCurrentTransform()
     this.disableBrushEvents()
     this.annotationBrushes.forEach((annotationBrush) => {
       if (!annotationBrush.minX || !annotationBrush.maxX) return
-      
+
       const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
       const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
-      
+
       console.log('+++ SHIFT TO! : ', minXonScreen, maxXonScreen, ' > ', annotationBrush)
-      
-      this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`).call(annotationBrush.brush.move, [minXonScreen, maxXonScreen]) 
+
+      this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`).call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
     })
     this.enableBrushEvents()
   }
@@ -502,13 +499,13 @@ class LightCurveViewer extends Component {
     this.zoom = d3.zoom()
       .scaleExtent([props.minZoom, props.maxZoom]) // Limit zoom scale
       .on('zoom', this.doZoom.bind(this))
-    
+
     // Annotations/markings layer
     this.d3svg
       .append('g')
       .attr('class', 'annotations-layer')
     this.d3annotationsLayer = this.d3svg.select('.annotations-layer')
-    
+
     /*
     The Interface Layer is the last (i.e. top-most) layer added, capturing all
     mouse input but making it impossible to directly interact with any layer
@@ -527,8 +524,8 @@ class LightCurveViewer extends Component {
     if (!this.zoom || !this.d3interfaceLayer) return
 
     if (interactionMode === 'annotate') {
-      //this.d3svg.on('click', this.doInsertAnnotation.bind(this))
-      
+      // this.d3svg.on('click', this.doInsertAnnotation.bind(this))
+
       this.d3interfaceLayer.style('display', 'none')
     } else if (interactionMode === 'move') {
       this.d3svg.on('click', null)
@@ -541,7 +538,7 @@ class LightCurveViewer extends Component {
     this.updateAnnotationBrushes()
     this.updatePresentation()
   }
-  
+
   isCurrentTaskValidForAnnotation () {
     return this.props.currentTask.type === 'graph2dRangeX'
   }
