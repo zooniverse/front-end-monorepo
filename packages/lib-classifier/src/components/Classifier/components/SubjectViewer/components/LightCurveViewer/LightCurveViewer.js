@@ -137,8 +137,14 @@ class LightCurveViewer extends Component {
   }
 
   clearChart () {
+    // Reset Subject data
     this.d3dataLayer.selectAll('.data-point').remove()
-    this.d3annotationsLayer.selectAll('.user-annotation').remove()
+    
+    // Reset Annotation (Annotation-Brushes)
+    this.annotationBrushes = []
+    this.d3annotationsLayer.selectAll('.brush').remove()
+    
+    // Reset view
     this.zoomTo(1.0)
     // TODO/Optional: reset view pan/translate to 0,0?
   }
@@ -201,7 +207,6 @@ class LightCurveViewer extends Component {
     this.initBrushes()
   }
   
-  // WIP
   /*  Initialise D3 brushes
       One brush needs to be created at all times as an interface for listening
       for brush events.
@@ -210,8 +215,10 @@ class LightCurveViewer extends Component {
     if (!this.annotationBrushes.length) this.createAnnotationBrush()  // Create the initial brush
     this.updateAnnotationBrushes()
     
+    // WIP
     // TODO:
-    // For each existing annotation (i.e. when moving back/forth between steps) create a new Annotation brush.
+    // - Create 'loadBrushesFromAnnotations()'
+    // - Create 'saveBrushesToAnnotations()'
     
     // TODO: Check for the following scenarios:
     // - Change of Subject
