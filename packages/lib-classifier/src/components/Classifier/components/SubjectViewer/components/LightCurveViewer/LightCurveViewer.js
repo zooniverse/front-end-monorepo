@@ -97,8 +97,6 @@ class LightCurveViewer extends Component {
     // WIP
     // Each Annotation is represented as a single D3 Brush
     this.annotationBrushes = []  // This keeps track of the annotation-brushes in existence, including the DEFAULT brush that exists even when there are no annotations.
-    
-    console.log('+++ LightCurveViewer ', this.annotationBrushes)
   }
 
   componentDidMount () {
@@ -228,38 +226,53 @@ class LightCurveViewer extends Component {
   http://bl.ocks.org/ludwigschubert/0236fa8594c4b02711b2606a8f95f605
    */
   createAnnotationBrush () {
-    function brushstart() {}
-
-    function brushed() {}
-
-    function brushend() {
-      console.log('+++ brushend ', this.annotationBrushes)
-      // WIP
-
-      // Figure out if our latest brush has a selection
-      var lastBrushID = (this.annotationBrushes.length) ? this.annotationBrushes[this.annotationBrushes.length - 1].id : 'NOTHING'  //NOTE: we should always have one
-      var lastBrush = document.getElementById('brush-' + lastBrushID)
-      var selection = d3.brushSelection(lastBrush)
-
-      // If it does, that means we need another one
-      if (selection && selection[0] !== selection[1]) {
-        this.createAnnotationBrush()
-      }
-
-      // Always draw brushes
-      this.updateAnnotationBrushes()
-    }
-    
     var brush = d3.brushX()
-      .on('start', brushstart)
-      .on('brush', brushed)
-      .on('end', brushend.bind(this))
+      .on('start', this.onAnnotationBrushStart.bind(this))
+      .on('brush', this.onAnnotationBrushBrushed.bind(this))
+      .on('end', this.onAnnotationBrushEnd.bind(this))
 
     this.annotationBrushes.push({id: this.annotationBrushes.length, brush: brush})
   }
   
+  onAnnotationBrushStart () {}
+  
+  onAnnotationBrushBrushed () {}
+  
+  onAnnotationBrushEnd () {
+    // WIP
+    
+    console.log('+++ brushend ', this.annotationBrushes)
+
+    // Find the last used D3 brush - i.e. the brush that the user just
+    // interacted with.
+    const lastBrushID = (this.annotationBrushes.length) && this.annotationBrushes[this.annotationBrushes.length - 1].id
+    const lastBrush = this.d3annotationsLayer.select('#brush-' + lastBrushID).node()
+    
+    //lastBrush should NEVER be null, but if it is, we've got a glitch.
+    if (!lastBrush) {
+      console.error('ERROR: /Classifier/SubjectViewer/LightCurveViewer - could not find last used D3 brush')
+      return
+    }
+
+    // If the last used brush was used to select something, (i.e., it has a
+    // "selection", i.e. a set of dimensions indicating a range of interest)
+    // we need to create a NEW one.
+    const brushSelection = d3.brushSelection(lastBrush)
+    if (brushSelection && brushSelection[0] !== brushSelection[1]) {
+      this.createAnnotationBrush()
+    }
+    
+    // TODO: insert
+    
+    // NOTE: we ALWAYS need one brush as the 'interface' for new brushes,
+    // meaning this.annotationBrushes always has one D3 brush more than
+    // Zooniverse annotations.
+
+    this.updateAnnotationBrushes()
+  }
+  
   /*
-  Updates and re-draws the 
+  Updates and re-draws the Annotation Brushes.
    */  
   updateAnnotationBrushes () {
     console.log('+++ updateAnnotationBrushes ')
