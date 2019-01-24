@@ -139,9 +139,7 @@ class LightCurveViewer extends Component {
     // Reset Subject data
     this.d3dataLayer.selectAll('.data-point').remove()
 
-    // Reset Annotation (Annotation-Brushes)
-    this.annotationBrushes = []
-    this.d3annotationsLayer.selectAll('.brush').remove()
+    this.resetBrushes()
 
     // Reset view
     this.zoomTo(1.0)
@@ -223,6 +221,11 @@ class LightCurveViewer extends Component {
     // - Change of Subject
     // - Change of step/task
     // - Canvas redraw (e.g. window resize)
+  }
+  
+  resetBrushes () {
+    this.annotationBrushes = []
+    this.d3annotationsLayer.selectAll('.brush').remove()
   }
 
   /*
@@ -334,65 +337,7 @@ class LightCurveViewer extends Component {
 
     this.updateAnnotationBrushes()
   }
-
-  /*
-  Updates and re-draws the Annotation Brushes.
-   */
-  updateAnnotationBrushes () {
-    console.log('+++ updateAnnotationBrushes ')
-
-    const annotationBrushes = this.annotationBrushes
-
-    // Join the D3 brush objects with our internal annotationBrushes array
-    var brushSelection = this.d3annotationsLayer
-      .selectAll('.brush')
-      .data(annotationBrushes, (d) => d.id)
-
-    // Set up new brushes
-    brushSelection.enter()
-      .insert('g', '.brush')
-      .attr('class', 'brush')
-      .attr('id', (brush) => (`brush-${brush.id}`))
-      .each(function applyBrushLogic (brushObject) { // Don't use ()=>{}
-        brushObject.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
-      })
-
-    // Modify brushes so that their invisible overlays don't overlap and
-    // accidentally block events from the brushes below them. The 'last brush' -
-    // aka the interface for creating new brushes - is the exception
-    brushSelection
-      .each(function disableInvisibleBrushOverlay (brushObject) {
-        d3.select(this)
-          .attr('class', 'brush')
-          .selectAll('.overlay')
-          .style('pointer-events', () => {
-            const brush = brushObject.brush
-            const isLastBrush = brushObject.id === annotationBrushes.length - 1
-            if (isLastBrush && brush !== undefined) return 'all'
-            return 'none'
-          })
-      })
-
-    // Remove unused brushes
-    brushSelection.exit()
-      .remove()
-
-    // Reposition/re-draw brushes
-    const currentTransform = this.getCurrentTransform()
-    this.disableBrushEvents()
-    this.annotationBrushes.forEach((annotationBrush) => {
-      if (!annotationBrush.minX || !annotationBrush.maxX) return
-
-      const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
-      const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
-
-      console.log('+++ SHIFT TO! : ', minXonScreen, maxXonScreen, ' > ', annotationBrush)
-
-      this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`).call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
-    })
-    this.enableBrushEvents()
-  }
-
+  
   getAnnotationValues () {
     const { annotations, currentTask } = this.props
     const annotation = annotations.get(currentTask.taskKey)
@@ -541,6 +486,64 @@ class LightCurveViewer extends Component {
 
   isCurrentTaskValidForAnnotation () {
     return this.props.currentTask.type === 'graph2dRangeX'
+  }
+  
+  /*
+  Updates and re-draws the Annotation Brushes.
+   */
+  updateAnnotationBrushes () {
+    console.log('+++ updateAnnotationBrushes ')
+
+    const annotationBrushes = this.annotationBrushes
+
+    // Join the D3 brush objects with our internal annotationBrushes array
+    var brushSelection = this.d3annotationsLayer
+      .selectAll('.brush')
+      .data(annotationBrushes, (d) => d.id)
+
+    // Set up new brushes
+    brushSelection.enter()
+      .insert('g', '.brush')
+      .attr('class', 'brush')
+      .attr('id', (brush) => (`brush-${brush.id}`))
+      .each(function applyBrushLogic (brushObject) { // Don't use ()=>{}
+        brushObject.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
+      })
+
+    // Modify brushes so that their invisible overlays don't overlap and
+    // accidentally block events from the brushes below them. The 'last brush' -
+    // aka the interface for creating new brushes - is the exception
+    brushSelection
+      .each(function disableInvisibleBrushOverlay (brushObject) {
+        d3.select(this)
+          .attr('class', 'brush')
+          .selectAll('.overlay')
+          .style('pointer-events', () => {
+            const brush = brushObject.brush
+            const isLastBrush = brushObject.id === annotationBrushes.length - 1
+            if (isLastBrush && brush !== undefined) return 'all'
+            return 'none'
+          })
+      })
+
+    // Remove unused brushes
+    brushSelection.exit()
+      .remove()
+
+    // Reposition/re-draw brushes
+    const currentTransform = this.getCurrentTransform()
+    this.disableBrushEvents()
+    this.annotationBrushes.forEach((annotationBrush) => {
+      if (!annotationBrush.minX || !annotationBrush.maxX) return
+
+      const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
+      const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
+
+      console.log('+++ SHIFT TO! : ', minXonScreen, maxXonScreen, ' > ', annotationBrush)
+
+      this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`).call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
+    })
+    this.enableBrushEvents()
   }
 
   /*
