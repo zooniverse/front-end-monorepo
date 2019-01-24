@@ -372,6 +372,21 @@ class LightCurveViewer extends Component {
     // Remove unused brushes
     brushSelection.exit()
       .remove();
+    
+    // Reposition/re-draw brushes
+    const currentTransform = this.getCurrentTransform()
+    this.disableBrushEvents()
+    this.annotationBrushes.forEach((annotationBrush) => {
+      if (!annotationBrush.minX || !annotationBrush.maxX) return
+      
+      const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
+      const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
+      
+      console.log('+++ SHIFT TO! : ', minXonScreen, maxXonScreen, ' > ', annotationBrush)
+      
+      this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`).call(annotationBrush.brush.move, [minXonScreen, maxXonScreen]) 
+    })
+    this.enableBrushEvents()
   }
 
   getAnnotationValues () {
@@ -516,7 +531,8 @@ class LightCurveViewer extends Component {
 
   doZoom () {
     this.updateDataPoints()
-    this.updateUserAnnotations()
+    //this.updateUserAnnotations()
+    this.updateAnnotationBrushes()
     this.updatePresentation()
   }
 
@@ -543,7 +559,8 @@ class LightCurveViewer extends Component {
 
     props.addAnnotation(values, props.currentTask)
 
-    this.updateUserAnnotations()
+    //this.updateUserAnnotations()
+    this.updateAnnotationBrushes
   }
   
   isCurrentTaskValidForAnnotation () {
