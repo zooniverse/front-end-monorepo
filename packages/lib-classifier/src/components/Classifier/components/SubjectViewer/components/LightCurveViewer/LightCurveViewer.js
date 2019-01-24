@@ -314,7 +314,7 @@ class LightCurveViewer extends Component {
       .insert('g', '.brush')
       .attr('class', 'brush')
       .attr('id', (brush) => (`brush-${brush.id}`))
-      .each(function (brushObject) {  // Don't use ()=>{}
+      .each(function applyBrushLogic (brushObject) {  // Don't use ()=>{}
         brushObject.brush(d3.select(this))  // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
     
@@ -322,7 +322,7 @@ class LightCurveViewer extends Component {
     // accidentally block events from the brushes below them. The 'last brush' -
     // aka the interface for creating new brushes - is the exceptin
     brushSelection
-      .each(function (brushObject) {
+      .each(function disableInvisibleBrushOverlay (brushObject) {
         d3.select(this)
           .attr('class', 'brush')
           .selectAll('.overlay')
@@ -488,7 +488,7 @@ class LightCurveViewer extends Component {
   doInsertAnnotation () {
     const STARTING_WIDTH = 0.4
     const props = this.props
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
     
     if (!this.isCurrentTaskValidForAnnotation()) {
       props.enableMove && props.enableMove()
@@ -497,7 +497,7 @@ class LightCurveViewer extends Component {
 
     // Figure out where the user clicked on the graph, then add a new annotation
     // to the array of annotations.
-    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
+    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, currentTransform)
     const values = this.getAnnotationValues().slice()  // Create a copy
     values.push({ x: clickCoords[0], width: STARTING_WIDTH })
 
@@ -517,17 +517,17 @@ class LightCurveViewer extends Component {
   Note: users can only zoom & pan in the x-direction
    */
   updateDataPoints (shouldAnimate = false) {
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
     const dataPoints = this.d3dataLayer.selectAll('.data-point')
 
     if (shouldAnimate) {
       dataPoints
         .transition()
-        .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
         .attr('cy', d => this.yScale(d[1]))
     } else {
       dataPoints
-        .attr('cx', d => t.rescaleX(this.xScale)(d[0]))
+        .attr('cx', d => currentTransform.rescaleX(this.xScale)(d[0]))
         .attr('cy', d => this.yScale(d[1]))
     }
   }
@@ -563,7 +563,7 @@ class LightCurveViewer extends Component {
   Note: users can only zoom & pan in the x-direction
    */
   updateUserAnnotations () {
-    const t = this.getCurrentTransform()
+    const currentTransform = this.getCurrentTransform()
 
     // Add the user annotations
     const annotationValues = this.getAnnotationValues()
@@ -589,8 +589,8 @@ class LightCurveViewer extends Component {
 
       // And for all current annotations, update their annotation SVG element
       .merge(annotations)
-      .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, t))
-      .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, t))
+      .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, currentTransform))
+      .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, currentTransform))
       .attr('y', d => 0)
       .attr('height', d => '100%')
 
