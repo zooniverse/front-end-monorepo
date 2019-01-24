@@ -12,7 +12,6 @@ import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import getClickCoords from './d3/getClickCoords'
 import setDataPointStyle from './d3/setDataPointStyle'
-import setUserAnnotationAttr from './d3/setUserAnnotationAttr'
 
 // The following are arbitrary as all heck, numbers are chosen for what "feels good"
 const ZOOM_IN_VALUE = 1.2
@@ -123,7 +122,8 @@ class LightCurveViewer extends Component {
       this.drawChart(width, height, sameSubject)
       
     } else if (!sameTask) {  // Triggers when changing between Workflow tasks.
-      this.updateUserAnnotations()
+      // TODO: load annotations when changing tasks.
+      // If invalid task, blank out all annotaitons
     }
 
     if (prevProps.interactionMode !== this.props.interactionMode) {
@@ -201,7 +201,7 @@ class LightCurveViewer extends Component {
 
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
-    this.updateUserAnnotations()
+    this.updateAnnotationBrushes()
     this.updatePresentation(width, height)
     
     this.initBrushes()
@@ -538,31 +538,8 @@ class LightCurveViewer extends Component {
 
   doZoom () {
     this.updateDataPoints()
-    //this.updateUserAnnotations()
     this.updateAnnotationBrushes()
     this.updatePresentation()
-  }
-
-  doInsertAnnotation () {
-    const STARTING_WIDTH = 0.4
-    const props = this.props
-    const currentTransform = this.getCurrentTransform()
-    
-    if (!this.isCurrentTaskValidForAnnotation()) {
-      props.enableMove && props.enableMove()
-      return
-    }
-
-    // Figure out where the user clicked on the graph, then add a new annotation
-    // to the array of annotations.
-    const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, currentTransform)
-    const values = this.getAnnotationValues().slice()  // Create a copy
-    values.push({ x: clickCoords[0], width: STARTING_WIDTH })
-
-    props.addAnnotation(values, props.currentTask)
-
-    //this.updateUserAnnotations()
-    this.updateAnnotationBrushes
   }
   
   isCurrentTaskValidForAnnotation () {
@@ -615,48 +592,6 @@ class LightCurveViewer extends Component {
 
     this.yAxis.scale(this.yScale) // Do NOT rescale the y-axis
     this.d3axisY.call(this.yAxis)
-  }
-
-  /*
-  Re-draw the user annotations to fit the new view
-  Note: users can only zoom & pan in the x-direction
-   */
-  updateUserAnnotations () {
-    const currentTransform = this.getCurrentTransform()
-
-    // Add the user annotations
-    const annotationValues = this.getAnnotationValues()
-    const annotations = this.d3annotationsLayer.selectAll('.user-annotation')
-      .data(annotationValues)
-
-    const getLeftEdgeOfAnnotation = (x, width = 0, xScale, transform) =>
-      transform.rescaleX(this.xScale)(x - width / 2)
-
-    const getRightEdgeOfAnnotation = (x, width, xScale, transform) =>
-      transform.rescaleX(this.xScale)(x + width / 2)
-
-    const getWidthOfAnnotation = (x, width, xScale, transform) => {
-      const left = getLeftEdgeOfAnnotation(x, width, xScale, transform)
-      const right = getRightEdgeOfAnnotation(x, width, xScale, transform)
-      return Math.max(right - left, 0)
-    }
-
-    // For each newly added annotation value, create a new corresponding annotation SVG element.
-    annotations.enter()
-      .append('rect') // Class: '.user-annotation'
-      .call(setUserAnnotationAttr)
-
-      // And for all current annotations, update their annotation SVG element
-      .merge(annotations)
-      .attr('x', d => getLeftEdgeOfAnnotation(d.x, d.width, this.xScale, currentTransform))
-      .attr('width', d => getWidthOfAnnotation(d.x, d.width, this.xScale, currentTransform))
-      .attr('y', d => 0)
-      .attr('height', d => '100%')
-
-    // For each annotation SVG element that no longer has an annotation value
-    // (e.g. the annotation value was deleted, or this is a fresh new Subject)
-    // clean it up.
-    annotations.exit().remove()
   }
 
   repositionAxes (width, height) {
