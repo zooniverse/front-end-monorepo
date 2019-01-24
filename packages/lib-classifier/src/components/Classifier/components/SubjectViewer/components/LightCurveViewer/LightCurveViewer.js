@@ -302,9 +302,12 @@ class LightCurveViewer extends Component {
   updateAnnotationBrushes () {
     console.log('+++ updateAnnotationBrushes ')
     
+    const annotationBrushes = this.annotationBrushes
+    
+    // Join the D3 brush objects with our internal annotationBrushes array
     var brushSelection = this.d3annotationsLayer
       .selectAll('.brush')
-      .data(this.annotationBrushes, function (d){return d.id});
+      .data(annotationBrushes, (d) => d.id)
 
     // Set up new brushes
     brushSelection.enter()
@@ -312,30 +315,29 @@ class LightCurveViewer extends Component {
       .attr('class', 'brush')
       .attr('id', (brush) => (`brush-${brush.id}`))
       .each(function (brushObject) {  // Don't use ()=>{}
-        //call the brush
-        brushObject.brush(d3.select(this))
+        brushObject.brush(d3.select(this))  // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-
-    const annotationBrushes = this.annotationBrushes
     
+    // Modify brushes so that their invisible overlays don't overlap and
+    // accidentally block events from the brushes below them. The 'last brush' -
+    // aka the interface for creating new brushes - is the exceptin
     brushSelection
       .each(function (brushObject) {
         d3.select(this)
           .attr('class', 'brush')
           .selectAll('.overlay')
           .style('pointer-events', () => {
-            var brush = brushObject.brush;
-            if (brushObject.id === annotationBrushes.length-1 && brush !== undefined) {
-              return 'all';
-            } else {
-              return 'none';
-            }
-          });
+            const brush = brushObject.brush
+            const isLastBrush = brushObject.id === annotationBrushes.length - 1
+            if (isLastBrush && brush !== undefined) return 'all'
+            return 'none'
+          })
       })
 
+    // Remove unused brushes
     brushSelection.exit()
       .remove();
-}
+  }
 
   getAnnotationValues () {
     const { annotations, currentTask } = this.props
