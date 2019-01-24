@@ -240,9 +240,9 @@ class LightCurveViewer extends Component {
   }
   
   /*
-  Get the most recently used D3 brush, as a DOM node.
+  Get the 'default' D3 brush, which is used as an interface to create new brushes.
    */
-  getLastBrush () {
+  getDefaultBrush () {
     return (this.annotationBrushes.length) && this.annotationBrushes[this.annotationBrushes.length - 1]
   }
   
@@ -253,7 +253,7 @@ class LightCurveViewer extends Component {
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
     const brushSelection = d3.event.selection  // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
-    const lastBrush = this.getLastBrush()
+    const defaultBrush = this.getDefaultBrush()
     
     console.log('+++ brush-END',
                 '\n 1st arg: ', annotationBrush,
@@ -266,7 +266,13 @@ class LightCurveViewer extends Component {
     // a valid task, cancel that brush.
     if (brushSelection && !this.isCurrentTaskValidForAnnotation())
     {
-      this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null)  // WARNING: calling brush.move() WILL trigger brush start/brushed/end events.
+      // WARNING: calling brush.move() WILL trigger brush start/brushed/end events.
+      this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null)  // TODO: this is only valid for the default brush.
+      
+      // TODO: Catch what happens if a user MODIFIES an annotation-brush when it's in the wrong task
+      // IDEA: reset the position of the brush.
+      // REMINDER: to avoid infinite loops, disable all events on brushes, then move, then re-enable events.
+      
       props.enableMove && props.enableMove()
       return
     }
@@ -285,12 +291,13 @@ class LightCurveViewer extends Component {
     
     // TODO: check if we need to check for interactionMode anyway.
     
-    // If the last used brush was used to select something, (i.e., it has a
-    // "selection", i.e. a set of dimensions indicating a range of interest)
-    // we need to create a NEW one.
-    
-    const userUsedInterfaceBrushToCreatenewAnnotation = this.getLastBrush() === annotationBrush
-    if (userUsedInterfaceBrushToCreatenewAnnotation && brushSelection) {
+    // If the brush that the user used was the default brush - and that brush
+    // has a "selection" (i.e. a data range) - then it means the user wants to
+    // create a new annotation.
+    // Otherwise, this .onbrushend might have been triggered by the user
+    // modifying an existing annotation-brush.
+    const userWantsNewAnnotation = this.getDefaultBrush() === annotationBrush
+    if (userWantsNewAnnotation && brushSelection) {
       this.createAnnotationBrush()
     }
     
