@@ -224,6 +224,8 @@ class LightCurveViewer extends Component {
   http://bl.ocks.org/ludwigschubert/0236fa8594c4b02711b2606a8f95f605
    */
   createAnnotationBrush () {
+    console.log('+++ CREATE ANNOTATION BRUSH')
+    
     var brush = d3.brushX()
       .on('start', this.onAnnotationBrushStart.bind(this))
       .on('brush', this.onAnnotationBrushBrushed.bind(this))
@@ -250,15 +252,8 @@ class LightCurveViewer extends Component {
   
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
-
-    // Find the last used D3 brush - i.e. the brush that the user just
-    // interacted with - and if that brush selected anything (i.e. see if the
-    // user marked any [xMin, xMax] dimensions).
-    const lastBrush = this.getLastBrush()
     const brushSelection = d3.event.selection  // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
-    
-    // NOTE: Alternative is to use
-    // brushSelection = lastBrush && d3.brushSelection(lastBrush.node)
+    const lastBrush = this.getLastBrush()
     
     console.log('+++ brush-END',
                 '\n 1st arg: ', annotationBrush,
@@ -267,17 +262,11 @@ class LightCurveViewer extends Component {
                 '\n selection: ', brushSelection,
                 '\n brushes', this.annotationBrushes)
     
-    // lastBrush should NEVER be null, but if it is, we've got a glitch.
-    if (!lastBrush) {
-      console.error('ERROR: /Classifier/SubjectViewer/LightCurveViewer - could not find last used D3 brush')
-      return
-    }
-    
     // If the user attempted to make a selection, BUT the current task isn't
-    // a valid task, cancel that last brush.
+    // a valid task, cancel that brush.
     if (brushSelection && !this.isCurrentTaskValidForAnnotation())
     {
-      this.d3annotationsLayer.select('.brush').call(lastBrush.brush.move, null)  // WARNING: calling brush.move() WILL trigger brush start/brushed/end events.
+      this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null)  // WARNING: calling brush.move() WILL trigger brush start/brushed/end events.
       props.enableMove && props.enableMove()
       return
     }
@@ -295,11 +284,13 @@ class LightCurveViewer extends Component {
     // to validate a brush action, we just need to check the current task.
     
     // TODO: check if we need to check for interactionMode anyway.
-
+    
     // If the last used brush was used to select something, (i.e., it has a
     // "selection", i.e. a set of dimensions indicating a range of interest)
     // we need to create a NEW one.
-    if (brushSelection && brushSelection[0] !== brushSelection[1]) {
+    
+    const userUsedInterfaceBrushToCreatenewAnnotation = this.getLastBrush() === annotationBrush
+    if (userUsedInterfaceBrushToCreatenewAnnotation && brushSelection) {
       this.createAnnotationBrush()
     }
     
@@ -334,7 +325,7 @@ class LightCurveViewer extends Component {
     
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'last brush' -
-    // aka the interface for creating new brushes - is the exceptin
+    // aka the interface for creating new brushes - is the exception
     brushSelection
       .each(function disableInvisibleBrushOverlay (brushObject) {
         d3.select(this)
