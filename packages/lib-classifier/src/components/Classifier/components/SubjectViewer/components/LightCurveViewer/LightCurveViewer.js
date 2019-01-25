@@ -508,18 +508,29 @@ class LightCurveViewer extends Component {
       .data(annotationBrushes, (d) => d.id)
     
     function addRemoveAnnotationButton(selection, onClick = null) {
-      const width = 20
-      const height = 20
+      const size = 20  // Width and height
       
       const g = selection.append('g')
         .attr('class', 'remove-button')
         .attr('transform', `translate(0, 0)`)
+        .style('cursor', 'pointer')
+        .on('click', onClick)
       
       g.append('circle')
-        .attr('fill', '#fff')
-        .attr('r', width/2)
+        .attr('fill', '#4cc')
+        .attr('r', size / 2)
         .attr('cx', 0)
-        .attr('cy', height/2)
+        .attr('cy', size / 2)
+      
+      const lx = size * -0.2
+      const rx = size * 0.2
+      const uy = size * 0.3
+      const dy = size * 0.7
+      
+      g.append('path')  // A big ol' X
+        .attr('stroke', '#eee')
+        .attr('stroke-width', '3')
+        .attr('d', `M ${lx} ${uy} L ${rx} ${dy} M ${rx} ${uy} L ${lx} ${dy} `)
       
       return g
     }
