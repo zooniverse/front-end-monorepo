@@ -507,6 +507,23 @@ class LightCurveViewer extends Component {
       .selectAll('.brush')
       .data(annotationBrushes, (d) => d.id)
     
+    function addRemoveAnnotationButton(selection, onClick = null) {
+      const width = 20
+      const height = 20
+      
+      const g = selection.append('g')
+        .attr('class', 'remove-button')
+        .attr('transform', `translate(0, 0)`)
+      
+      g.append('circle')
+        .attr('fill', '#fff')
+        .attr('r', width/2)
+        .attr('cx', 0)
+        .attr('cy', height/2)
+      
+      return g
+    }
+    
     // Set up new brushes
     brushSelection.enter()
       .insert('g', '.brush')
@@ -515,6 +532,7 @@ class LightCurveViewer extends Component {
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
         annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
+      .call(addRemoveAnnotationButton, null)
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
@@ -537,16 +555,30 @@ class LightCurveViewer extends Component {
 
     // Reposition/re-draw brushes
     const currentTransform = this.getCurrentTransform()
-    this.disableBrushEvents()
+    this.disableBrushEvents()  // Temporarily disable brush events to prevent recursion from `annotationBrush.brush.move`
     this.annotationBrushes.forEach((annotationBrush) => {
-      if (!annotationBrush.minX || !annotationBrush.maxX) return
+      const d3brush = this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`)
+      
+      // If the brush has no selection (e.g. the default brush), ignore.
+      if (!annotationBrush.minX || !annotationBrush.maxX) {
+        d3brush.select('.remove-button').attr('visibility', 'hidden')
+        return
+      }
 
       const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
       const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
+      const midXonScreen = currentTransform.rescaleX(this.xScale)((annotationBrush.minX + annotationBrush.maxX) / 2)
 
-      this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`).call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
+      // Reposition the brushes (selected areas)...
+      d3brush.call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
+      
+      // ...and their corresponding 'remove annotation' buttons
+      d3brush.select('.remove-button')
+        .attr('visibility', 'visible')
+        .attr('transform', `translate(${midXonScreen}, 0)`)
+      
     })
-    this.enableBrushEvents()
+    this.enableBrushEvents()  // Re-enable brush events
   }
 
   /*
