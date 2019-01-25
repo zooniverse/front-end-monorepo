@@ -220,18 +220,18 @@ class LightCurveViewer extends Component {
     // - Change of step/task
     // - Canvas redraw (e.g. window resize)
   }
-  
+
   resetBrushes () {
     this.annotationBrushes = []
     this.d3annotationsLayer.selectAll('.brush').remove()
   }
-  
+
   /*  Save data from Annotation-Brushes to our Annotations (for Classification)
    */
   saveBrushesToAnnotations () {
     const props = this.props
-    if (!this.isCurrentTaskValidForAnnotation()) return  // Sanity check
-    
+    if (!this.isCurrentTaskValidForAnnotation()) return // Sanity check
+
     const annotations = this.annotationBrushes
       .filter((raw) => (raw.minX !== undefined && raw.maxX !== undefined))
       .map((raw) => {
@@ -299,16 +299,15 @@ class LightCurveViewer extends Component {
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
     if (!this.isCurrentTaskValidForAnnotation()) {
-      
       // WARNING: calling brush.move() WILL trigger brush start/brushed/end
       // events. Temporarily disable events to prevent recursion.
       this.disableBrushEvents()
-      
+
       this.d3annotationsLayer.select('.brush').call(annotationBrush.brush.move, null) // TODO: this is only valid for the default brush.
-      
+
       // TODO: Catch what happens if a user MODIFIES an annotation-brush when it's in the wrong task
       // IDEA: reset the position of the brush.
-      
+
       this.enableBrushEvents()
       props.enableMove && props.enableMove()
       return
@@ -344,7 +343,7 @@ class LightCurveViewer extends Component {
     this.updateAnnotationBrushes()
     this.saveBrushesToAnnotations()
   }
-  
+
   getAnnotationValues () {
     const { annotations, currentTask } = this.props
     const annotation = annotations.get(currentTask.taskKey)
@@ -493,7 +492,7 @@ class LightCurveViewer extends Component {
   isCurrentTaskValidForAnnotation () {
     return this.props.currentTask.type === 'graph2dRangeX'
   }
-  
+
   /*
   Updates and re-draws the Annotation Brushes.
    */
@@ -519,7 +518,7 @@ class LightCurveViewer extends Component {
     // accidentally block events from the brushes below them. The 'default'
     // brush - aka the interface for creating new brushes - is the exception.
     brushSelection
-      .each(function disableInvisibleBrushOverlay (brushObject) {  // Don't use ()=>{}
+      .each(function disableInvisibleBrushOverlay (brushObject) { // Don't use ()=>{}
         d3.select(this)
           .attr('class', 'brush')
           .selectAll('.overlay')
