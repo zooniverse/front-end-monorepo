@@ -10,7 +10,6 @@ import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
 import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
-import getClickCoords from './d3/getClickCoords'
 import setDataPointStyle from './d3/setDataPointStyle'
 
 // The following are arbitrary as all heck, numbers are chosen for what "feels good"
