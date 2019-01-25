@@ -247,13 +247,16 @@ class LightCurveViewer extends Component {
   http://bl.ocks.org/ludwigschubert/0236fa8594c4b02711b2606a8f95f605
    */
   createAnnotationBrush () {
+    const defaultBrush = this.getDefaultBrush() // a.k.a. the latest brush
+    const nextAvailableId = (defaultBrush && defaultBrush.id + 1) || 0
+    
     const brush = d3.brushX()
       .on('start', this.onAnnotationBrushStart.bind(this))
       .on('brush', this.onAnnotationBrushBrushed.bind(this))
       .on('end', this.onAnnotationBrushEnd.bind(this))
 
     this.annotationBrushes.push({
-      id: this.annotationBrushes.length,
+      id: nextAvailableId,
       brush: brush,
       minX: undefined, // x, relative to the data range (not the SVG dimensions)
       maxX: undefined
@@ -503,27 +506,27 @@ class LightCurveViewer extends Component {
     const brushSelection = this.d3annotationsLayer
       .selectAll('.brush')
       .data(annotationBrushes, (d) => d.id)
-
+    
     // Set up new brushes
     brushSelection.enter()
       .insert('g', '.brush')
       .attr('class', 'brush')
       .attr('id', (brush) => (`brush-${brush.id}`))
-      .each(function applyBrushLogic (brushObject) { // Don't use ()=>{}
-        brushObject.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
+      .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
+        annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
     // brush - aka the interface for creating new brushes - is the exception.
     brushSelection
-      .each(function disableInvisibleBrushOverlay (brushObject) { // Don't use ()=>{}
+      .each(function disableInvisibleBrushOverlay (annotationBrush) { // Don't use ()=>{}
         d3.select(this)
           .attr('class', 'brush')
           .selectAll('.overlay')
           .style('pointer-events', () => {
-            const brush = brushObject.brush
-            if (brushObject.id === defaultBrush.id && brush !== undefined) return 'all'
+            const brush = annotationBrush.brush
+            if (annotationBrush.id === defaultBrush.id && brush !== undefined) return 'all'
             return 'none'
           })
       })
