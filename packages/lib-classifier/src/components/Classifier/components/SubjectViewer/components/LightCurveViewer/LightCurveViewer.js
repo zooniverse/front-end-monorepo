@@ -5,6 +5,7 @@ import ReactResizeDetector from 'react-resize-detector'
 import { inject, observer } from 'mobx-react'
 
 import addAxisLabel from './d3/addAxisLabel'
+import addRemoveAnnotationButton from './d3/addRemoveAnnotationButton'
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
 import addDataLayer from './d3/addDataLayer'
@@ -264,10 +265,7 @@ class LightCurveViewer extends Component {
   }
   
   removeAnnotationBrush (annotationBrush) {
-    console.log('+++ REMOVE: ', annotationBrush)
-    
     this.annotationBrushes = this.annotationBrushes.filter((ab) => ab.id !== annotationBrush.id)
-    
     this.updateAnnotationBrushes()
     this.saveBrushesToAnnotations()
   }
@@ -298,13 +296,11 @@ class LightCurveViewer extends Component {
     return (this.annotationBrushes.length) && this.annotationBrushes[this.annotationBrushes.length - 1]
   }
 
-  onAnnotationBrushStart () { console.log('+++ onAnnotationBrushStart') }
+  onAnnotationBrushStart () {}
 
-  onAnnotationBrushBrushed () { console.log('+++ onAnnotationBrushBrushed') }
+  onAnnotationBrushBrushed () {}
 
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
-    console.log('+++ onAnnotationBrushEnd')
-    
     const props = this.props
     const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
     const defaultBrush = this.getDefaultBrush()
@@ -510,8 +506,6 @@ class LightCurveViewer extends Component {
   Updates and re-draws the Annotation Brushes.
    */
   updateAnnotationBrushes () {
-    console.log('+++ updateAnnotationBrushes')
-    
     const annotationBrushes = this.annotationBrushes
     const defaultBrush = this.getDefaultBrush()
 
@@ -528,7 +522,7 @@ class LightCurveViewer extends Component {
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
         annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this))
+      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this))  // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
@@ -718,34 +712,3 @@ LightCurveViewer.wrappedComponent.defaultProps = {
 }
 
 export default LightCurveViewer
-
-function addRemoveAnnotationButton (selection, onClick = null) {
-  const size = 20  // Width and height
-
-  const g = selection.append('g')
-    .attr('class', 'remove-button')
-    .attr('transform', `translate(0, 0)`)
-    .style('cursor', 'pointer')
-  
-  const lx = size * -0.2
-  const rx = size * 0.2
-  const uy = size * 0.3
-  const dy = size * 0.7
-  
-  g.append('circle')
-    .attr('fill', '#4cc')
-    .attr('r', size / 2)
-    .attr('cx', 0)
-    .attr('cy', size / 2)
-    .style('pointer-events', 'all')
-    .on('mousedown touchstart', () => { d3.event && d3.event.stopPropagation() })  // Prevent parent's brush events from triggering 
-    .on('click', onClick)
-
-  g.append('path')  // A big ol' X
-    .attr('stroke', '#eee')
-    .attr('stroke-width', '3')
-    .attr('d', `M ${lx} ${uy} L ${rx} ${dy} M ${rx} ${uy} L ${lx} ${dy} `)
-    .style('pointer-events', 'none')
-
-  return g
-}
