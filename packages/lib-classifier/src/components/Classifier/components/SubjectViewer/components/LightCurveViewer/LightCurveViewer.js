@@ -265,6 +265,11 @@ class LightCurveViewer extends Component {
   
   removeAnnotationBrush (annotationBrush) {
     console.log('+++ REMOVE: ', annotationBrush)
+    
+    this.annotationBrushes = this.annotationBrushes.filter((ab) => ab.id !== annotationBrush.id)
+    
+    this.updateAnnotationBrushes()
+    this.saveBrushesToAnnotations()
   }
 
   // Helper function to prevent infinite loops
@@ -523,7 +528,7 @@ class LightCurveViewer extends Component {
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
         annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-      .call(addRemoveAnnotationButton, this.removeAnnotationBrush)
+      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this))
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
