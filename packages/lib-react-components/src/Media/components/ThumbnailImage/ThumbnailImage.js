@@ -20,7 +20,7 @@ const StyledImage = styled(Image)`
 
 export function Placeholder(props) {
   return (
-    <Box background={zooTheme.global.colors.brand} justify='center' align='center' {...props}>
+    <Box background={zooTheme.global.colors.brand} flex={props.flex} justify='center' align='center'>
       {props.children}
     </Box>
   )
