@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Tab } from 'grommet'
+import { Tab } from 'grommet'
 import getTabColor from './getTabColor'
 
 const StyledTab = styled(Tab)`
@@ -18,6 +18,8 @@ const StyledTab = styled(Tab)`
     : getTabColor('dimmedText')
   };
   flex: 1;
+  height: 100%;
+  max-height: 55px;
   padding: 1rem;
   text-align: center;
 

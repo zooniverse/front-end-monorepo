@@ -64,7 +64,7 @@ class StepNavigation extends React.Component {
             a11yTitle='Go to next step'
             disabled={activeStep === steps.length - 1}
             icon={<FormNext />}
-            onClick={() => this.setStep(steps.length - 1)}
+            onClick={() => this.setStep(activeStep + 1)}
             plain
           />
         </Box>

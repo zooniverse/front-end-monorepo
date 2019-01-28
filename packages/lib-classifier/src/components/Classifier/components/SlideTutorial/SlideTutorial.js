@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import styled from 'styled-components'
-import { Box, Image, Paragraph } from 'grommet'
+import { Box, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 
@@ -13,6 +13,11 @@ function storeMapper(stores) {
   }
 }
 
+const StyledMarkdownWrapper = styled(Box)`
+  height: 100%;
+  max-height: ${props => props.isThereMedia ? '150px' : '100%'} ;
+`
+
 @inject(storeMapper)
 @observer
 class SlideTutorial extends React.Component {
@@ -21,14 +26,18 @@ class SlideTutorial extends React.Component {
     if (!stepWithMedium) return <Box><Paragraph>Tutorial step could not be loaded.</Paragraph></Box>
 
     const { medium, step } = stepWithMedium
+    const isThereMedia = medium && medium.src
     return (
       <Box
+        height="100%"
         justify='between'
         pad='medium'
       >
-        {medium && medium.src &&
+        {isThereMedia &&
           <Media alt='' fit='contain' height={200} src={medium.src} />}
-        <Box overflow='auto'><Markdownz>{step.content}</Markdownz></Box>
+        <StyledMarkdownWrapper isThereMedia={isThereMedia} overflow='auto'>
+          <Markdownz>{step.content}</Markdownz>
+        </StyledMarkdownWrapper>
         <StepNavigation />
       </Box>
     )

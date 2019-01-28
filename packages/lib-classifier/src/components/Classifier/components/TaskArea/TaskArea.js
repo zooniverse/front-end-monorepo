@@ -42,6 +42,7 @@ class TaskArea extends React.Component {
       <Tabs
         onActive={this.onTabClick.bind(this)}
         border={border}
+        className={this.props.className}
         margin='none'
       >
         <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
