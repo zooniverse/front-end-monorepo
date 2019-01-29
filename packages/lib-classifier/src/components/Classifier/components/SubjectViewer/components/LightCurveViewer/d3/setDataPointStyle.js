@@ -1,6 +1,6 @@
-export default function setDataPointStyle (selection) {
+export default function setDataPointStyle (selection, chartStyle) {
   return selection
     .attr('class', 'data-point')
-    .attr('r', 1.5)
-    .attr('fill', '#fff')
+    .attr('r', chartStyle.dataPointSize)
+    .attr('fill', chartStyle.color)
 }

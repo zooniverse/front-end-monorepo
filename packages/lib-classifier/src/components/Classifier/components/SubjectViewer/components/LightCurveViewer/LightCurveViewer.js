@@ -186,7 +186,7 @@ class LightCurveViewer extends Component {
     // For each new and existing data point, add (append) a new SVG circle.
     points.enter()
       .append('circle') // Note: all circles are of class '.data-point'
-      .call(setDataPointStyle)
+      .call(setDataPointStyle, props.chartStyle)
 
     // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
     points.exit().remove()
@@ -414,7 +414,7 @@ class LightCurveViewer extends Component {
     this.yScale = d3.scaleLinear()
 
     // Deco layer
-    this.d3svg.call(addBackgroundLayer)
+    this.d3svg.call(addBackgroundLayer, props.chartStyle)
 
     /*
     Data layer
@@ -604,10 +604,11 @@ class LightCurveViewer extends Component {
   }
 
   repositionAxisLabels (width, height, chartStyle) {
+    const props = this.props
     this.d3svg.select('.x-axis-label')
-      .attr('transform', `translate(${width + chartStyle.axisXOffsetX}, ${height + chartStyle.axisXOffsetY})`)
+      .attr('transform', `translate(${width + props.axisXOffsetX}, ${height + props.axisXOffsetY})`)
     this.d3svg.select('.y-axis-label')
-      .attr('transform', `translate(${chartStyle.axisYOffsetX}, ${chartStyle.axisYOffsetY})`)
+      .attr('transform', `translate(${props.axisYOffsetX}, ${props.axisYOffsetY})`)
   }
 
   // Resize the data mask, so data-points remain in view
@@ -648,16 +649,19 @@ LightCurveViewer.wrappedComponent.propTypes = {
   outerMargin: PropTypes.number, // Any data-points outside these margins (i.e. when zoomed in) are cropped
 
   axisXLabel: PropTypes.string,
+  axisXOffsetX: PropTypes.number,
+  axisXOffsetY: PropTypes.number,
+  
   axisYLabel: PropTypes.string,
+  axisYOffsetX: PropTypes.number,
+  axisYOffsetY: PropTypes.number,
 
   chartStyle: PropTypes.shape({
     color: PropTypes.string,
+    background: PropTypes.string,
+    dataPointSize: PropTypes.string,
     fontFamily: PropTypes.string,
-    fontSize: PropTypes.string,
-    axisXOffsetX: PropTypes.number,
-    xOffsetY: PropTypes.number,
-    yOffsetX: PropTypes.number,
-    yOffsetY: PropTypes.number
+    fontSize: PropTypes.string
   }),
 
   // Store-mapped Properties
@@ -676,16 +680,19 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   outerMargin: 10,
 
   axisXLabel: 'Days',
+  axisXOffsetX: -40,
+  axisXOffsetY: -20,
+  
   axisYLabel: 'Brightness',
+  axisYOffsetX: 20,
+  axisYOffsetY: 20,
 
   chartStyle: {
     color: '#fff',
+    background: '#02012d',
+    dataPointSize: '1.5',
     fontFamily: 'inherit',
-    fontSize: '0.75rem',
-    axisXOffsetX: -40,
-    axisXOffsetY: -20,
-    axisYOffsetX: 20,
-    axisYOffsetY: 20
+    fontSize: '0.75rem'
   },
 
   interactionMode: '',
