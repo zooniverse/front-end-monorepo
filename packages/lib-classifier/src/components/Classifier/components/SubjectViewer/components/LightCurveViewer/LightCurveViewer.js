@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import { inject, observer } from 'mobx-react'
 
-import addAxisLabel from './d3/addAxisLabel'
+import addAxisLayer from './d3/addAxisLayer'
 import addRemoveAnnotationButton from './d3/addRemoveAnnotationButton'
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
@@ -80,14 +80,9 @@ class LightCurveViewer extends Component {
     /*
     The "D3 axis" represents the visual axis and the axis labels.
     Not to be confused with x-scales and y-scales.
-    Note the naming: d3axisX and d3axisY are used for the D3 selection (i.e. the
-    actual elements in the SVG) whereas xAxis and yAxis represent the data
-    model.
+    Note: xAxis and yAxis represent the data models, not the DOM nodes or visual
+    D3 components.
      */
-    this.d3axisX = null
-    this.d3axisY = null
-    this.d3axisXLabel = null
-    this.d3axisYLabel = null
     this.xAxis = null
     this.yAxis = null
 
@@ -439,26 +434,8 @@ class LightCurveViewer extends Component {
      */
     this.xAxis = d3.axisTop(this.yScale)
     this.yAxis = d3.axisRight(this.yScale)
-    const axisLayer = this.d3svg
-      .append('g')
-      .attr('class', 'axis-layer')
-
-    this.d3axisX = axisLayer
-      .append('g')
-      .attr('class', 'x-axis')
-      .attr('color', props.chartStyle.color)
-      .call(this.xAxis)
-    this.d3axisY = axisLayer
-      .append('g')
-      .attr('class', 'y-axis')
-      .attr('color', props.chartStyle.color)
-      .call(this.yAxis)
-
-    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.chartStyle)
-    this.d3axisXLabel = axisLayer.select('.x-axis-label')
-
-    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.chartStyle)
-    this.d3axisYLabel = axisLayer.select('.y-axis-label')
+    const axisLayer = addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
+    // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
     // Deco layer
     this.d3svg.call(addBorderLayer)
@@ -615,21 +592,21 @@ class LightCurveViewer extends Component {
 
   updateScales (transform) {
     this.xAxis.scale(transform.rescaleX(this.xScale)) // Rescale the x-axis to fit zoom
-    this.d3axisX.call(this.xAxis)
+    this.d3svg.select('.x-axis').call(this.xAxis)
 
     this.yAxis.scale(this.yScale) // Do NOT rescale the y-axis
-    this.d3axisY.call(this.yAxis)
+    this.d3svg.select('.y-axis').call(this.yAxis)
   }
 
   repositionAxes (width, height) {
-    this.d3axisX.attr('transform', `translate(0, ${height})`)
-    this.d3axisY.attr('transform', `translate(0, 0)`)
+    this.d3svg.select('.x-axis').attr('transform', `translate(0, ${height})`)
+    this.d3svg.select('.y-axis').attr('transform', `translate(0, 0)`)
   }
 
   repositionAxisLabels (width, height, chartStyle) {
-    this.d3axisXLabel
+    this.d3svg.select('.x-axis-label')
       .attr('transform', `translate(${width + chartStyle.axisXOffsetX}, ${height + chartStyle.axisXOffsetY})`)
-    this.d3axisYLabel
+    this.d3svg.select('.y-axis-label')
       .attr('transform', `translate(${chartStyle.axisYOffsetX}, ${chartStyle.axisYOffsetY})`)
   }
 
