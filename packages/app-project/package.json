@@ -34,6 +34,7 @@
     "path-match": "~1.2.4",
     "react": "~16.6.3",
     "react-dom": "~16.6.3",
+    "sinon": "^7.2.3",
     "styled-components": "~4.1.1",
     "url-parse": "~1.4.4",
     "validator": "~10.10.0"
