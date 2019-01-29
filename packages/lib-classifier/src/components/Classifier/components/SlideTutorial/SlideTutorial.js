@@ -1,3 +1,4 @@
+import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
@@ -5,6 +6,9 @@ import styled from 'styled-components'
 import { Box, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 function storeMapper(stores) {
   const { stepWithMedium } = stores.classifierStore.tutorials
@@ -23,22 +27,32 @@ const StyledMarkdownWrapper = styled(Box)`
 class SlideTutorial extends React.Component {
   render() {
     const { stepWithMedium } = this.props
-    if (!stepWithMedium) return <Box><Paragraph>Tutorial step could not be loaded.</Paragraph></Box>
+    if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
+      const { medium, step } = stepWithMedium
+      const isThereMedia = medium && medium.src
+      return (
+        <Box
+          height="100%"
+          justify='between'
+          pad='medium'
+        >
+          {isThereMedia &&
+            <Media alt='' fit='contain' height={200} src={medium.src} />}
+          <StyledMarkdownWrapper isThereMedia={isThereMedia} overflow='auto'>
+            <Markdownz>{step.content}</Markdownz>
+          </StyledMarkdownWrapper>
+          <StepNavigation />
+        </Box>
+      )
+    }
 
-    const { medium, step } = stepWithMedium
-    const isThereMedia = medium && medium.src
     return (
       <Box
         height="100%"
         justify='between'
         pad='medium'
       >
-        {isThereMedia &&
-          <Media alt='' fit='contain' height={200} src={medium.src} />}
-        <StyledMarkdownWrapper isThereMedia={isThereMedia} overflow='auto'>
-          <Markdownz>{step.content}</Markdownz>
-        </StyledMarkdownWrapper>
-        <StepNavigation />
+        <Paragraph>{counterpart('SlideTutorial.error')}</Paragraph>
       </Box>
     )
   }
@@ -56,7 +70,7 @@ SlideTutorial.wrappedComponent.propTypes = {
       src: PropTypes.string
     }),
     step: PropTypes.shape({
-      content: PropTypes.string,
+      content: PropTypes.string.isRequired,
       medium: PropTypes.string
     })
   }).isRequired

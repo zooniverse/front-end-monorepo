@@ -1,10 +1,15 @@
+import counterpart from 'counterpart'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { Button, Box } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious, Radial, RadialSelected } from 'grommet-icons'
+import en from './locales/en'
 
-const StyledButton = styled(Button)`
+counterpart.registerTranslations('en', en)
+
+export const StyledButton = styled(Button)`
   background-color: transparent;
 
   &:hover, &:focus {
@@ -37,11 +42,11 @@ class StepNavigation extends React.Component {
 
   render() {
     const { activeStep, steps } = this.props
-    if (steps.length > 1) {
+    if (steps && steps.length > 1) {
       return (
         <Box direction='row' justify='center' tag='nav'>
           <StyledButton
-            a11yTitle='Go to previous step'
+            a11yTitle={counterpart('StepNavigation.previous')}
             disabled={activeStep === 0}
             icon={<FormPrevious />}
             onClick={() => this.setStep(activeStep - 1)}
@@ -52,7 +57,7 @@ class StepNavigation extends React.Component {
             return (
               <StyledButton
                 active={active}
-                a11yTitle={`Go to step ${index}`}
+                a11yTitle={counterpart('StepNavigation.go', { index })}
                 key={`step-${index}`}
                 icon={(active) ? <RadialSelected size='small' /> : <Radial size='small' />}
                 onClick={() => this.setStep(index)}
@@ -61,7 +66,7 @@ class StepNavigation extends React.Component {
             )
           })}
           <StyledButton
-            a11yTitle='Go to next step'
+            a11yTitle={counterpart('StepNavigation.next')}
             disabled={activeStep === steps.length - 1}
             icon={<FormNext />}
             onClick={() => this.setStep(activeStep + 1)}
@@ -73,6 +78,18 @@ class StepNavigation extends React.Component {
 
     return null
   }
+}
+
+StepNavigation.wrappedComponent.defaultProps = {
+  activeStep: 0,
+  setTutorialStep: () => {},
+  steps: []
+}
+
+StepNavigation.wrappedComponent.propTypes = {
+  activeStep: PropTypes.number,
+  setTutorialStep: PropTypes.func,
+  steps: PropTypes.array
 }
 
 export default StepNavigation
