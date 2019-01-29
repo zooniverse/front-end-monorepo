@@ -43,7 +43,6 @@ describe('Component > LoginModalContainer', function () {
     it('should call the authClient signIn method', function () {
       wrapper.instance().onSubmit({})
       expect(fakeSignIn.called).to.be.true
-
     })
   })
 })

@@ -39,7 +39,6 @@ describe('Component > AuthModalsContainer', function () {
     loginRouter.asPath = '/?login=true'
     loginWrapper.setProps({ router: loginRouter })
     expect(getProp(loginWrapper, 'showLoginModal')).to.be.true
-
   })
 
   it('should pass a prop to show the Register modal if there is a matching url query', function () {

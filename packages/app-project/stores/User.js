@@ -7,7 +7,7 @@ const User = types
   .model('User', {
     avatar_src: types.maybeNull(types.string),
     display_name: types.maybeNull(types.string),
-    id: types.maybeNull(numberString),
+    id: types.maybeNull(numberString)
   })
 
   .views(self => ({

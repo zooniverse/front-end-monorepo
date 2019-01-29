@@ -43,7 +43,7 @@ export default class MyApp extends App {
     return { pageProps }
   }
 
-  constructor(props) {
+  constructor (props) {
     super()
     const { isServer, initialState } = props.pageProps
     this.store = initStore(isServer, initialState, props.client)

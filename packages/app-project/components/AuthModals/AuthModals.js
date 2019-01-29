@@ -28,7 +28,7 @@ AuthModals.propTypes = {
   closeLoginModal: func.isRequired,
   closeRegisterModal: func.isRequired,
   showLoginModal: bool,
-  showRegisterModal: bool,
+  showRegisterModal: bool
 }
 
 AuthModals.defaultProps = {

@@ -21,7 +21,7 @@ function ProjectImage ({ imageSrc, projectName }) {
       alt={alt}
       height={200}
       src={imageSrc}
-      placeholder={<StyledZooniverseLogo id={`${alt} placeholder`} size="38%" />}
+      placeholder={<StyledZooniverseLogo id={`${alt} placeholder`} size='38%' />}
     />
   )
 }

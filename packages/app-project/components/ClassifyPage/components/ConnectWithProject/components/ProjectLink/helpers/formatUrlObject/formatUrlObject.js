@@ -11,7 +11,7 @@ import {
   Tumblr as TumblrIcon,
   Twitter as TwitterIcon,
   Wordpress as WordPressIcon,
-  Youtube as YouTubeIcon,
+  Youtube as YouTubeIcon
 } from 'grommet-icons'
 
 import BitbucketIcon from './../../components/BitbucketIcon'
