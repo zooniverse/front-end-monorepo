@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
-import PropTypes from 'prop-types'
+import { func, shape } from 'prop-types'
 import React, { Component } from 'react'
 
 import LoginModal from './LoginModal'
@@ -18,24 +18,21 @@ export default class LoginModalContainer extends Component {
   }
 
   onSubmit ({ value }) {
-    const { closeLoginModal, store } = this.props
+    const { authClient, closeLoginModal, store } = this.props
     this.setState({
       error: '',
       loading: true
     })
-    auth.signIn(value)
+    authClient.signIn(value)
       .then(userResource => {
-        console.info(userResource)
         this.setState({ loading: false })
         store.user.set(userResource)
         closeLoginModal()
       })
-      .catch(error => {
-        this.setState({
-          error: error.message,
-          loading: false
-        })
-      })
+      .catch(error => this.setState({
+        error: error.message,
+        loading: false
+      }))
   }
 
   render () {
@@ -48,4 +45,20 @@ export default class LoginModalContainer extends Component {
       />
     )
   }
+}
+
+LoginModalContainer.propTypes = {
+  authClient: shape({
+    signIn: func,
+  }),
+  closeLoginModal: func,
+  store: shape({
+    user: shape({
+      set: func
+    })
+  })
+}
+
+LoginModalContainer.defaultProps = {
+  authClient: auth
 }

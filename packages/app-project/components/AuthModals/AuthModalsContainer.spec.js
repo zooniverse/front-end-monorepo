@@ -55,14 +55,12 @@ describe('Component > AuthModalsContainer', function () {
   })
 
   it('should pass a function prop to close the login modal', function () {
-
+    expect(getProp(wrapper, 'closeRegisterModal')).to.be.a('function')
   })
 
   it('should pass a function prop to close the register modal', function () {
-
+    expect(getProp(wrapper, 'closeRegisterModal')).to.be.a('function')
   })
-
-
 })
 
 function getProp (wrapper, propName) {

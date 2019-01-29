@@ -17,7 +17,7 @@ export default function withOnlyRenderOnBrowser (WrappedComponent) {
     render () {
       return (this.state.isBrowser)
         ? <WrappedComponent {...this.props} />
-      : null
+        : null
     }
   }
 }

@@ -10,5 +10,7 @@ describe('Component > LoginModal', function () {
     wrapper = shallow(<LoginModal />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

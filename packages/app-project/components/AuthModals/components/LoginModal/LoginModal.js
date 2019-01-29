@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import { Anchor, Box, Button, Form, FormField, Layer, Text, TextInput } from 'grommet'
 import Link from 'next/link'
-import PropTypes from 'prop-types'
+import { bool, func, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import en from './locales/en'
@@ -17,10 +17,6 @@ export default class LoginModal extends Component {
   }
 
   componentDidMount () {
-    this.focusOnFirstInput()
-  }
-
-  focusOnFirstInput () {
     this.firstInput.current.focus()
   }
 
@@ -100,10 +96,10 @@ export default class LoginModal extends Component {
 }
 
 LoginModal.propTypes = {
-  closeLoginModal: PropTypes.func.isRequired,
-  error: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  closeLoginModal: func.isRequired,
+  error: string,
+  loading: bool.isRequired,
+  onSubmit: func.isRequired,
 }
 
 LoginModal.defaultProps = {

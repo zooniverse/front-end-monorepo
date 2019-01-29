@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { bool, func } from 'prop-types'
 import React from 'react'
 
 import LoginModal from './components/LoginModal'
@@ -25,8 +25,10 @@ export default function AuthModals (props) {
 }
 
 AuthModals.propTypes = {
-  showLoginModal: PropTypes.bool,
-  showRegisterModal: PropTypes.bool
+  closeLoginModal: func.isRequired,
+  closeRegisterModal: func.isRequired,
+  showLoginModal: bool,
+  showRegisterModal: bool,
 }
 
 AuthModals.defaultProps = {
