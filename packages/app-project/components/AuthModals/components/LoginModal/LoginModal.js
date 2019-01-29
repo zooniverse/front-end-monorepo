@@ -17,13 +17,11 @@ export default class LoginModal extends Component {
   }
 
   componentDidMount () {
-    this.focusOnInput()
+    this.focusOnFirstInput()
   }
 
-  focusOnInput () {
-    const firstInputNode = this.firstInput.current.childContainerRef
-    const firstInputElement = firstInputNode.querySelector('input')
-    firstInputElement.focus()
+  focusOnFirstInput () {
+    this.firstInput.current.focus()
   }
 
   render () {
@@ -45,12 +43,12 @@ export default class LoginModal extends Component {
             <FormField
               label={counterpart('LoginModal.username')}
               htmlFor='auth-modal-login'
-              ref={this.firstInput}
             >
               <TextInput
                 disabled={loading}
                 id='auth-modal-login'
                 name='login'
+                ref={this.firstInput}
                 required
               />
             </FormField>
@@ -63,6 +61,7 @@ export default class LoginModal extends Component {
                 disabled={loading}
                 id='auth-modal-password'
                 name='password'
+                type='password'
                 required
               />
             </FormField>
@@ -81,9 +80,9 @@ export default class LoginModal extends Component {
             >
               <Button
                 disabled={loading}
-                type='submit'
                 label={counterpart('LoginModal.login')}
                 primary
+                type='submit'
               />
             </Box>
           </Form>
