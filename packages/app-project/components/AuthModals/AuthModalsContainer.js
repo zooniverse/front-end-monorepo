@@ -72,5 +72,5 @@ AuthModalsContainer.propTypes = {
     asPath: PropTypes.string.isRequired,
     pathname: PropTypes.string.isRequired,
     push: PropTypes.func.isRequired,
-  }).isRequired
+  })
 }
