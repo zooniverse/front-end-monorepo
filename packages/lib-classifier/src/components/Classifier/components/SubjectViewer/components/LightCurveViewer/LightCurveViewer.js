@@ -446,18 +446,18 @@ class LightCurveViewer extends Component {
     this.d3axisX = axisLayer
       .append('g')
       .attr('class', 'x-axis')
-      .attr('color', props.axisStyle.color)
+      .attr('color', props.chartStyle.color)
       .call(this.xAxis)
     this.d3axisY = axisLayer
       .append('g')
       .attr('class', 'y-axis')
-      .attr('color', props.axisStyle.color)
+      .attr('color', props.chartStyle.color)
       .call(this.yAxis)
 
-    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.axisStyle)
+    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.chartStyle)
     this.d3axisXLabel = axisLayer.select('.x-axis-label')
 
-    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.axisStyle)
+    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.chartStyle)
     this.d3axisYLabel = axisLayer.select('.y-axis-label')
 
     // Deco layer
@@ -608,7 +608,7 @@ class LightCurveViewer extends Component {
 
     if (width && height) { // Update if container size changes.
       this.repositionAxes(width, height)
-      this.repositionAxisLabels(width, height, props.axisStyle)
+      this.repositionAxisLabels(width, height, props.chartStyle)
       this.resizeDataMask(width, height, props.outerMargin)
     }
   }
@@ -626,11 +626,11 @@ class LightCurveViewer extends Component {
     this.d3axisY.attr('transform', `translate(0, 0)`)
   }
 
-  repositionAxisLabels (width, height, labelStyle) {
+  repositionAxisLabels (width, height, chartStyle) {
     this.d3axisXLabel
-      .attr('transform', `translate(${width + labelStyle.xOffsetX}, ${height + labelStyle.xOffsetY})`)
+      .attr('transform', `translate(${width + chartStyle.axisXOffsetX}, ${height + chartStyle.axisXOffsetY})`)
     this.d3axisYLabel
-      .attr('transform', `translate(${labelStyle.yOffsetX}, ${labelStyle.yOffsetY})`)
+      .attr('transform', `translate(${chartStyle.axisYOffsetX}, ${chartStyle.axisYOffsetY})`)
   }
 
   // Resize the data mask, so data-points remain in view
@@ -673,11 +673,11 @@ LightCurveViewer.wrappedComponent.propTypes = {
   axisXLabel: PropTypes.string,
   axisYLabel: PropTypes.string,
 
-  axisStyle: PropTypes.shape({
+  chartStyle: PropTypes.shape({
     color: PropTypes.string,
     fontFamily: PropTypes.string,
     fontSize: PropTypes.string,
-    xOffsetX: PropTypes.number,
+    axisXOffsetX: PropTypes.number,
     xOffsetY: PropTypes.number,
     yOffsetX: PropTypes.number,
     yOffsetY: PropTypes.number
@@ -698,17 +698,17 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   innerMargin: 30,
   outerMargin: 10,
 
-  axisXLabel: 'Day',
+  axisXLabel: 'Days',
   axisYLabel: 'Brightness',
 
-  axisStyle: {
+  chartStyle: {
     color: '#fff',
     fontFamily: 'inherit',
     fontSize: '0.75rem',
-    xOffsetX: -40,
-    xOffsetY: -20,
-    yOffsetX: 20,
-    yOffsetY: 20
+    axisXOffsetX: -40,
+    axisXOffsetY: -20,
+    axisYOffsetX: 20,
+    axisYOffsetY: 20
   },
 
   interactionMode: '',
