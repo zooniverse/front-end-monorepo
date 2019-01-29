@@ -446,16 +446,18 @@ class LightCurveViewer extends Component {
     this.d3axisX = axisLayer
       .append('g')
       .attr('class', 'x-axis')
+      .attr('color', props.axisStyle.color)
       .call(this.xAxis)
     this.d3axisY = axisLayer
       .append('g')
       .attr('class', 'y-axis')
+      .attr('color', props.axisStyle.color)
       .call(this.yAxis)
 
-    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.axisLabelStyle)
+    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.axisStyle)
     this.d3axisXLabel = axisLayer.select('.x-axis-label')
 
-    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.axisLabelStyle)
+    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.axisStyle)
     this.d3axisYLabel = axisLayer.select('.y-axis-label')
 
     // Deco layer
@@ -606,7 +608,7 @@ class LightCurveViewer extends Component {
 
     if (width && height) { // Update if container size changes.
       this.repositionAxes(width, height)
-      this.repositionAxisLabels(width, height, props.axisLabelStyle)
+      this.repositionAxisLabels(width, height, props.axisStyle)
       this.resizeDataMask(width, height, props.outerMargin)
     }
   }
@@ -671,7 +673,8 @@ LightCurveViewer.wrappedComponent.propTypes = {
   axisXLabel: PropTypes.string,
   axisYLabel: PropTypes.string,
 
-  axisLabelStyle: PropTypes.shape({
+  axisStyle: PropTypes.shape({
+    color: PropTypes.string,
     fontFamily: PropTypes.string,
     fontSize: PropTypes.string,
     xOffsetX: PropTypes.number,
@@ -698,7 +701,8 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   axisXLabel: 'Day',
   axisYLabel: 'Brightness',
 
-  axisLabelStyle: {
+  axisStyle: {
+    color: '#fff',
     fontFamily: 'inherit',
     fontSize: '0.75rem',
     xOffsetX: -40,
