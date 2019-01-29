@@ -14,7 +14,7 @@ const AUTH_CLIENT = {
   signIn: fakeSignIn
 }
 
-describe.only('Component > LoginModalContainer', function () {
+describe('Component > LoginModalContainer', function () {
   before(function () {
     wrapper = shallow(<LoginModalContainer.wrappedComponent
       authClient={AUTH_CLIENT}
