@@ -9,7 +9,7 @@ const steps = [
   { content: '# Thank you'}
 ]
 
-describe.only('StepNavigation', function () {
+describe('StepNavigation', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent />)
     expect(wrapper).to.be.ok
@@ -61,5 +61,60 @@ describe.only('StepNavigation', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent activeStep={1} steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true
+  })
+
+  describe('props.setTutorialStep', function () {
+    let setTutorialStepSpy
+    let wrapper
+    before(function () {
+      setTutorialStepSpy = sinon.spy()
+      wrapper = shallow(<StepNavigation.wrappedComponent setTutorialStep={setTutorialStepSpy} steps={steps} />)
+    })
+
+    afterEach(function () {
+      setTutorialStepSpy.resetHistory()
+    })
+
+    it('should call props.setTutorialStep on click for each button that is not disabled', function () {
+      const buttons = wrapper.find(StyledButton).filterWhere(node => {
+        return !node.props().disabled
+      })
+
+      buttons.forEach(button => {
+        button.simulate('click')
+        expect(setTutorialStepSpy).to.have.been.calledOnce
+        setTutorialStepSpy.resetHistory()
+      })
+    })
+
+    it('should call setTutorialStep when the previous step button is clicked with props.activeStep - 1', function () {
+      wrapper.setProps({ activeStep: 1 })
+      const prevButton = wrapper.find({ icon: <FormPrevious /> })
+      prevButton.simulate('click')
+      expect(setTutorialStepSpy).to.have.been.calledOnce
+      expect(setTutorialStepSpy).to.have.been.calledWith(prevButton.props()['data-index'])
+    })
+
+    it('should call setTutorialStep when a specific step button is clicked with the correct index', function () {
+      wrapper.setProps({ activeStep: 0 })
+      const buttons = wrapper.find(StyledButton).filterWhere(node => {
+        return !!node.key() && node.key().includes('step-')
+      })
+
+      buttons.forEach(button => {
+        const buttonIndex = button.props()['data-index']
+        button.simulate('click')
+        expect(setTutorialStepSpy).to.have.been.calledOnce
+        expect(setTutorialStepSpy).to.have.been.calledWith(buttonIndex)
+        setTutorialStepSpy.resetHistory()
+      })
+    })
+
+    it('should call setTutorialStep when the next step button is clicked with props.activeStep + 1', function () {
+      const nextButton = wrapper.find({ icon: <FormNext /> })
+      nextButton.simulate('click')
+      expect(setTutorialStepSpy).to.have.been.calledOnce
+      expect(setTutorialStepSpy).to.have.been.calledWith(nextButton.props()['data-index'])
+    })
   })
 })

@@ -17,7 +17,7 @@ const TutorialStore = types
 
   .views(self => ({
     get disableTutorialTab() {
-      return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !self.tutorialID)
+      return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !self.tutorial)
     },
 
     get stepWithMedium() {
@@ -28,7 +28,7 @@ const TutorialStore = types
       }
     },
 
-    get tutorialID() {
+    get tutorial() {
       const tutorials = Array.from(self.resources.values())
       // For backwards compatibility, we assume tutorials with a null kind are standard tutorials
       if (tutorials) {
@@ -37,8 +37,19 @@ const TutorialStore = types
         })
       }
 
-      return ''
+      return null
     }
+
+    // Stubbed out getter for returning the linked mini-course if there is one
+    // get miniCourse() {
+      // if (tutorials) {
+      //   return tutorials.find((tutorial) => {
+      //     return tutorial.kind === 'mini-course'
+      //   })
+      // }
+
+      // return null
+    // }
   }))
 
   .actions(self => {

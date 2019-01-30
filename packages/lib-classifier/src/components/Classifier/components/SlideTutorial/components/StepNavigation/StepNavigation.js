@@ -31,25 +31,19 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class StepNavigation extends React.Component {
-  constructor() {
-    super()
-  }
-
-  setStep(index) {
-    const { setTutorialStep } = this.props
-    setTutorialStep(index)
-  }
-
   render() {
-    const { activeStep, steps } = this.props
+    const { activeStep, setTutorialStep, steps } = this.props
     if (steps && steps.length > 1) {
+      const nextStep = activeStep + 1
+      const prevStep = activeStep - 1
       return (
         <Box direction='row' justify='center' tag='nav'>
           <StyledButton
             a11yTitle={counterpart('StepNavigation.previous')}
+            data-index={prevStep}
             disabled={activeStep === 0}
             icon={<FormPrevious />}
-            onClick={() => this.setStep(activeStep - 1)}
+            onClick={() => setTutorialStep(prevStep)}
             plain
           />
           {steps.map((step, index) => {
@@ -58,18 +52,20 @@ class StepNavigation extends React.Component {
               <StyledButton
                 active={active}
                 a11yTitle={counterpart('StepNavigation.go', { index })}
+                data-index={index}
                 key={`step-${index}`}
                 icon={(active) ? <RadialSelected size='small' /> : <Radial size='small' />}
-                onClick={() => this.setStep(index)}
+                onClick={() => setTutorialStep(index)}
                 plain
               />
             )
           })}
           <StyledButton
             a11yTitle={counterpart('StepNavigation.next')}
+            data-index={nextStep}
             disabled={activeStep === steps.length - 1}
             icon={<FormNext />}
-            onClick={() => this.setStep(activeStep + 1)}
+            onClick={() => setTutorialStep(nextStep)}
             plain
           />
         </Box>

@@ -34,5 +34,5 @@ export default function TaskTab(props) {
 }
 
 TaskTab.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired
 }

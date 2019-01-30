@@ -1,5 +1,6 @@
 import counterpart from 'counterpart'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
@@ -13,12 +14,12 @@ counterpart.registerTranslations('en', en)
 
 // TODO: add autofocus for the first tab/task area
 function storeMapper(stores) {
-  const { disableTutorialTab, setActiveTutorial, tutorialID } = stores.classifierStore.tutorials
+  const { disableTutorialTab, setActiveTutorial, tutorial } = stores.classifierStore.tutorials
 
   return {
     disableTutorialTab,
     setActiveTutorial,
-    tutorialID
+    tutorial
   }
 }
 
@@ -26,8 +27,8 @@ function storeMapper(stores) {
 @observer
 class TaskArea extends React.Component {
   onTabClick(activeIndex) {
-    const { setActiveTutorial, tutorialID } = this.props
-    if (activeIndex === 1) setActiveTutorial(tutorialID)
+    const { setActiveTutorial, tutorial } = this.props
+    if (activeIndex === 1) setActiveTutorial(tutorial)
     if (activeIndex === 0) setActiveTutorial()
   }
 
@@ -46,7 +47,7 @@ class TaskArea extends React.Component {
         margin='none'
       >
         <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
-          <Tasks />
+          <Tasks autoFocus />
         </Tab>
         <Tab
           disabled={disableTutorialTab}
@@ -59,8 +60,18 @@ class TaskArea extends React.Component {
   }
 }
 
-TaskArea.defaultProps = {
-  colorTheme: 'light'
+TaskArea.wrappedComponent.propTypes = {
+  colorTheme: PropTypes.oneOf(['light', 'dark']),
+  disableTutorialTab: PropTypes.bool,
+  setActiveTutorial: PropTypes.func,
+  tutorial: PropTypes.object
+}
+
+TaskArea.wrappedComponent.defaultProps = {
+  colorTheme: 'light',
+  disableTutorialTab: true,
+  setActiveTutorial: () => {},
+  tutorial: null
 }
 
 export default TaskArea
