@@ -47,7 +47,7 @@ class TaskArea extends React.Component {
         margin='none'
       >
         <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
-          <Tasks autoFocus />
+          <Tasks />
         </Tab>
         <Tab
           disabled={disableTutorialTab}

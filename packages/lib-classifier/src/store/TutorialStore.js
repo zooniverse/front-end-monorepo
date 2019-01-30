@@ -41,6 +41,7 @@ const TutorialStore = types
     }
 
     // Stubbed out getter for returning the linked mini-course if there is one
+    // Uncomment this to use when minicourse UI is added
     // get miniCourse() {
       // if (tutorials) {
       //   return tutorials.find((tutorial) => {
