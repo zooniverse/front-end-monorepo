@@ -11,10 +11,10 @@ describe('Component > ProjectStatistics', function () {
   before(function () {
     wrapper = shallow(
       <ProjectStatistics
-        projectName="A test project"
+        projectName='A test project'
       />
     )
-  });
+  })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok
