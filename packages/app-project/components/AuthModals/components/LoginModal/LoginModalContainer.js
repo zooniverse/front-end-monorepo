@@ -18,9 +18,11 @@ export default class LoginModalContainer extends Component {
   }
 
   createLoginPayload(formNode) {
-    const inputElements = formNode.querySelectorAll('input')
+    const formData = Array.from(new FormData(formNode))
     const loginPayload = {}
-    inputElements.forEach(node => loginPayload[node.name] = node.value)
+    formData.forEach(([name, value]) => {
+      loginPayload[name] = value
+    })
     return loginPayload
   }
 
