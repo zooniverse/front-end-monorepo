@@ -21,7 +21,8 @@ const ZOOMING_TIME = 100 // milliseconds
 
 function storeMapper (stores) {
   const {
-    interactionMode, // strong: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
+    enableMove,
+    interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
     setOnZoom // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
 
@@ -30,26 +31,18 @@ function storeMapper (stores) {
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active: step } = stores.classifierStore.workflowSteps
-  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
-
-  // WIP
-  // We currently have no corresponding "graphRanges" task in the Panoptes
-  // Project Builder, so this is jimmied in.
-  // NOTE: There are two things that need to be done:
-  // - We need to create a workflow with the custom "graphRanges" task
-  // - We need to consider how the LCV reacts when the current active task is
-  //   NOT a graphRanges task.
-  const currentTask = {
-    type: 'graph2dRangeX',
-    taskKey: 'T100'
-  }
-
+  
+  const currentTask =
+    (stores.classifierStore.workflowSteps.activeStepTasks
+     && stores.classifierStore.workflowSteps.activeStepTasks[0])
+    || {}
+  
   return {
     addAnnotation,
     annotations,
     currentTask,
+    enableMove,
     interactionMode,
-    tasks,
     setOnZoom
   }
 }
@@ -107,14 +100,21 @@ class LightCurveViewer extends Component {
     const points = this.props.dataPoints
     const prevPoints = prevProps.dataPoints
     const sameSubject = (points === prevPoints)
+    
+    const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
+    const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
+    const sameTask = (currentTaskKey === prevTaskKey)
 
-    if (!sameSubject) {
+    if (!sameSubject) {  // Triggers when changing between Subjects
       this.clearChart()
 
       const container = this.svgContainer.current
       const height = container.offsetHeight || 0
       const width = container.offsetWidth || 0
       this.drawChart(width, height, sameSubject)
+      
+    } else if (!sameTask) {  // Triggers when changing between Workflow tasks.
+      this.updateUserAnnotations()
     }
 
     if (prevProps.interactionMode !== this.props.interactionMode) {
@@ -188,9 +188,10 @@ class LightCurveViewer extends Component {
   }
 
   getAnnotationValues () {
-    const props = this.props
-    const annotations = (props.annotations && props.annotations.toJSON()) || {}
-    return (annotations[props.currentTask.taskKey] && [...annotations[props.currentTask.taskKey].value]) || []
+    const { annotations, currentTask } = this.props
+    const annotation = annotations.get(currentTask.taskKey)
+    if (annotation && this.isCurrentTaskValidForAnnotation()) return Array.from(annotation.value) || []
+    return []
   }
 
   getCurrentTransform () {
@@ -335,16 +336,25 @@ class LightCurveViewer extends Component {
     const STARTING_WIDTH = 0.4
     const props = this.props
     const t = this.getCurrentTransform()
+    
+    if (!this.isCurrentTaskValidForAnnotation()) {
+      props.enableMove && props.enableMove()
+      return
+    }
 
     // Figure out where the user clicked on the graph, then add a new annotation
     // to the array of annotations.
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
-    const values = this.getAnnotationValues()
+    const values = this.getAnnotationValues().slice()  // Create a copy
     values.push({ x: clickCoords[0], width: STARTING_WIDTH })
 
     props.addAnnotation(values, props.currentTask)
 
     this.updateUserAnnotations()
+  }
+  
+  isCurrentTaskValidForAnnotation () {
+    return this.props.currentTask.type === 'graph2dRangeX'
   }
 
   /*
