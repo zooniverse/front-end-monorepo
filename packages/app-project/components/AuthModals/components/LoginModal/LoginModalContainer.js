@@ -17,13 +17,24 @@ export default class LoginModalContainer extends Component {
     }
   }
 
-  onSubmit ({ value }) {
+  createLoginPayload(formNode) {
+    const inputElements = formNode.querySelectorAll('input')
+    const loginPayload = {}
+    inputElements.forEach(node => loginPayload[node.name] = node.value)
+    return loginPayload
+  }
+
+  onSubmit (event) {
+    // Grommet `Form`'s `onSubmit` handler is broken, as it returns an empty
+    // object for `event.value` instead of the correct form state. So we work
+    // around it by fetching it directly from the DOM in the meantime.
+    const loginPayload = this.createLoginPayload(event.target)
     const { authClient, closeLoginModal, store } = this.props
     this.setState({
       error: '',
       loading: true
     })
-    authClient.signIn(value)
+    authClient.signIn(loginPayload)
       .then(userResource => {
         this.setState({ loading: false })
         store.user.set(userResource)
