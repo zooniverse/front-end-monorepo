@@ -13,7 +13,7 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 // TODO: add autofocus for the first tab/task area
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { disableTutorialTab, setActiveTutorial, tutorial } = stores.classifierStore.tutorials
 
   return {
@@ -26,7 +26,7 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class TaskArea extends React.Component {
-  onTabClick(activeIndex) {
+  onTabClick (activeIndex) {
     const { setActiveTutorial, tutorial } = this.props
     if (activeIndex === 1) setActiveTutorial(tutorial)
     if (activeIndex === 0) setActiveTutorial()

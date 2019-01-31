@@ -9,7 +9,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { active: tutorial, activeStep, setTutorialStep } = stores.classifierStore.tutorials
   return {
     activeStep,
@@ -21,7 +21,7 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class StepNavigation extends React.Component {
-  render() {
+  render () {
     const { activeStep, setTutorialStep, steps } = this.props
     if (steps && steps.length > 1) {
       const nextStep = activeStep + 1
@@ -45,7 +45,7 @@ class StepNavigation extends React.Component {
                 checked={active}
                 id={key}
                 key={key}
-                name="step-selectors"
+                name='step-selectors'
                 onChange={() => setTutorialStep(index)}
                 value={index}
               />

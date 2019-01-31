@@ -14,7 +14,7 @@ export const TutorialMediumFactory = new Factory()
     href: '/tutorials/20',
     id: '20',
     type: 'tutorials'
-  }})
+  } })
   .attr('media_type', 'tutorial_attached_image')
   .attr('metadata', {})
   .attr('src', 'https://panoptes-uploads.zooniverse.org/staging/tutorial_attached_image/1ab2bd93-b422-4d10-a700-fa34d4e7e716.gif')

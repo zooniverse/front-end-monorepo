@@ -6,8 +6,8 @@ import { FormNext, FormPrevious } from 'grommet-icons'
 import StepNavigation from './StepNavigation'
 
 const steps = [
-  { content: '# Welcome'},
-  { content: '# Thank you'}
+  { content: '# Welcome' },
+  { content: '# Thank you' }
 ]
 
 describe('StepNavigation', function () {
@@ -22,7 +22,7 @@ describe('StepNavigation', function () {
   })
 
   it('should render null if there is not more than one step', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={[{ content: '# Welcome' }]}/>)
+    const wrapper = shallow(<StepNavigation.wrappedComponent steps={[{ content: '# Welcome' }]} />)
     expect(wrapper.html()).to.be.null
   })
 
@@ -51,7 +51,7 @@ describe('StepNavigation', function () {
 
   it('should disable the previous step button when props.activeStep is 0', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
-    expect(wrapper.find({ icon: <FormPrevious />}).props().disabled).to.be.true
+    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.true
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.false
   })
 

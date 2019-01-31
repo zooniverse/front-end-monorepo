@@ -16,11 +16,11 @@ const TutorialStore = types
   })
 
   .views(self => ({
-    get disableTutorialTab() {
+    get disableTutorialTab () {
       return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !self.tutorial)
     },
 
-    get stepWithMedium() {
+    get stepWithMedium () {
       // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
       if (!!self.active && !!self.activeStep.toString()) {
         const step = self.active.steps[self.activeStep]
@@ -28,7 +28,7 @@ const TutorialStore = types
       }
     },
 
-    get tutorial() {
+    get tutorial () {
       const tutorials = Array.from(self.resources.values())
       // For backwards compatibility, we assume tutorials with a null kind are standard tutorials
       if (tutorials) {
@@ -43,22 +43,22 @@ const TutorialStore = types
     // Stubbed out getter for returning the linked mini-course if there is one
     // Uncomment this to use when minicourse UI is added
     // get miniCourse() {
-      // if (tutorials) {
-      //   return tutorials.find((tutorial) => {
-      //     return tutorial.kind === 'mini-course'
-      //   })
-      // }
+    // if (tutorials) {
+    //   return tutorials.find((tutorial) => {
+    //     return tutorial.kind === 'mini-course'
+    //   })
+    // }
 
-      // return null
+    // return null
     // }
   }))
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createWorkflowObserver()
     }
 
-    function createWorkflowObserver() {
+    function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
         const workflow = getRoot(self).workflows.active
         if (workflow) {
@@ -69,7 +69,7 @@ const TutorialStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function * fetchMedia(tutorial) {
+    function * fetchMedia (tutorial) {
       const { tutorials } = getRoot(self).client
       if (tutorial) {
         self.loadingState = asyncStates.loading
@@ -84,13 +84,13 @@ const TutorialStore = types
       }
     }
 
-    function setMediaResources(media) {
+    function setMediaResources (media) {
       media.forEach(medium => self.attachedMedia.put(medium))
     }
 
     // This could use a refactor after Panoptes bug with using include to get attached images is fixed
     // See comments in the commonRequests.js file for tutorials in panoptes.js
-    function * fetchTutorials() {
+    function * fetchTutorials () {
       const { type } = self
       const workflow = getRoot(self).workflows.active
       const { panoptes } = getRoot(self).client
@@ -109,11 +109,11 @@ const TutorialStore = types
       }
     }
 
-    function setTutorials(tutorials) {
+    function setTutorials (tutorials) {
       tutorials.forEach(tutorial => self.resources.put(tutorial))
     }
 
-    function setTutorialStep(stepIndex = 0) {
+    function setTutorialStep (stepIndex = 0) {
       const { steps } = self.active
       self.activeMedium = undefined
       if (!!steps && !!steps[stepIndex]) {
@@ -122,14 +122,14 @@ const TutorialStore = types
       }
     }
 
-    function setActiveTutorial(id, stepIndex) {
+    function setActiveTutorial (id, stepIndex) {
       if (!id) return self.resetActiveTutorial()
 
       self.active = id
       self.setTutorialStep(stepIndex)
     }
 
-    function resetActiveTutorial() {
+    function resetActiveTutorial () {
       self.active = undefined
       self.activeStep = undefined
       self.activeMedium = undefined

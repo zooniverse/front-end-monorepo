@@ -10,7 +10,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { activeStep, stepWithMedium } = stores.classifierStore.tutorials
   return {
     activeStep,
@@ -28,14 +28,14 @@ const StyledMarkdownWrapper = styled(Box)`
 @inject(storeMapper)
 @observer
 class SlideTutorial extends React.Component {
-  render() {
+  render () {
     const { activeStep, stepWithMedium } = this.props
     if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
       const { medium, step } = stepWithMedium
       const isThereMedia = medium && medium.src
       return (
         <Box
-          height="100%"
+          height='100%'
           justify='between'
           pad='medium'
         >
@@ -57,7 +57,7 @@ class SlideTutorial extends React.Component {
 
     return (
       <Box
-        height="100%"
+        height='100%'
         justify='between'
         pad='medium'
       >

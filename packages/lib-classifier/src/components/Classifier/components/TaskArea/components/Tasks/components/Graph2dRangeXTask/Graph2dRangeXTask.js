@@ -33,7 +33,7 @@ class Graph2dRangeXTask extends React.Component {
       annotation = annotations.get(task.taskKey)
     }
     const numberOfAnnotations = (annotation && annotation.value.length) || 0
-    
+
     return (
       <StyledFieldset>
         <Text size='small' tag='legend'>
@@ -41,11 +41,11 @@ class Graph2dRangeXTask extends React.Component {
             {task.instruction}
           </Markdown>
         </Text>
-      
+
         <Text tag='div' size='small' textAlign='center'>
           {counterpart('Graph2dRangeXTask.marksMade')} : {numberOfAnnotations}
         </Text>
-      
+
       </StyledFieldset>
     )
   }

@@ -24,11 +24,11 @@ const RootStore = types
   })
 
   .views(self => ({
-    get authClient() {
+    get authClient () {
       return getEnv(self).authClient
     },
 
-    get client() {
+    get client () {
       return getEnv(self).client
     }
   }))

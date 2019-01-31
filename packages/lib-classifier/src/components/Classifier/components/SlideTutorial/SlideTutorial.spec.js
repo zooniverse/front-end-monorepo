@@ -15,8 +15,8 @@ const medium = {
   href: '/tutorials/20/attached_images/47564',
   id: '47564',
   media_type: 'tutorial_attached_image',
-  metadata: { filename: "card1-hello.gif" },
-  src: "https://panoptes-uploads.zooniverse.org/staging/tutorial_attached_image/1ab2bd93-b422-4d10-a700-fa34d4e7e716.gif"
+  metadata: { filename: 'card1-hello.gif' },
+  src: 'https://panoptes-uploads.zooniverse.org/staging/tutorial_attached_image/1ab2bd93-b422-4d10-a700-fa34d4e7e716.gif'
 }
 
 describe('SlideTutorial', function () {

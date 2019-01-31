@@ -24,7 +24,11 @@ const client = {
 // We might want to move this check elsewhere once we add other service workers for other tasks
 if (isBackgroundSyncAvailable()) registerWorkers()
 
+<<<<<<< HEAD
 export default class Classifier extends React.Component {
+=======
+class Classifier extends React.Component {
+>>>>>>> Lint
   constructor (props) {
     super(props)
     this.classifierStore = RootStore.create({}, {
@@ -34,12 +38,12 @@ export default class Classifier extends React.Component {
     makeInspectable(this.classifierStore)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { project } = this.props
     this.setProject(project)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const { project, user } = this.props
     if (project.id !== prevProps.project.id) {
       this.setProject(project)
@@ -50,12 +54,12 @@ export default class Classifier extends React.Component {
     }
   }
 
-  setProject(project) {
+  setProject (project) {
     this.classifierStore.projects.setResource(project)
     this.classifierStore.projects.setActive(project.id)
   }
 
-  render() {
+  render () {
     return (
       <Provider classifierStore={this.classifierStore}>
         <ThemeProvider theme={{ mode: this.props.mode }}>

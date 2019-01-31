@@ -21,8 +21,8 @@ const get = () => {
 const medium = TutorialMediumFactory.build()
 
 const getAttachedImages = () => {
-  return Promise.resolve({ 
-    body: { 
+  return Promise.resolve({
+    body: {
       media: [medium]
     }
   })
@@ -36,7 +36,7 @@ const ROOT_STORE = types
     workflows: types.frozen({})
   })
   .views(self => ({
-    get client() {
+    get client () {
       return getEnv(self).client
     }
   }))

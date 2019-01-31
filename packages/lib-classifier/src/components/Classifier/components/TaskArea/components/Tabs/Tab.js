@@ -8,15 +8,15 @@ const StyledTab = styled(Tab)`
   background: ${props => props.active
     ? getTabColor('activeBackground')
     : getTabColor('dimmedBackground')
-  };
+};
   border-bottom: 1px solid ${props => props.active
     ? getTabColor('activeBackground')
     : getTabColor('border')
-  };
+};
   color: ${props => props.active
     ? getTabColor('activeText')
     : getTabColor('dimmedText')
-  };
+};
   flex: 1;
   height: 100%;
   max-height: 55px;
@@ -28,7 +28,7 @@ const StyledTab = styled(Tab)`
   }
 `
 
-export default function TaskTab(props) {
+export default function TaskTab (props) {
   const { title } = props
   return <StyledTab plain title={title} {...props} />
 }
