@@ -2,22 +2,12 @@ import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import { Button, Box } from 'grommet'
+import { Button, Box, RadioButton } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious, Radial, RadialSelected } from 'grommet-icons'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-export const StyledButton = styled(Button)`
-  background-color: transparent;
-
-  &:hover, &:focus {
-    > * svg {
-      fill: black;
-    }
-  }
-`
 
 function storeMapper(stores) {
   const { active: tutorial, activeStep, setTutorialStep } = stores.classifierStore.tutorials
@@ -38,7 +28,7 @@ class StepNavigation extends React.Component {
       const prevStep = activeStep - 1
       return (
         <Box direction='row' justify='center' tag='nav'>
-          <StyledButton
+          <Button
             a11yTitle={counterpart('StepNavigation.previous')}
             data-index={prevStep}
             disabled={activeStep === 0}
@@ -48,19 +38,20 @@ class StepNavigation extends React.Component {
           />
           {steps.map((step, index) => {
             const active = index === activeStep
+            const key = `step-${index}`
             return (
-              <StyledButton
-                active={active}
+              <RadioButton
                 a11yTitle={counterpart('StepNavigation.go', { index })}
-                data-index={index}
-                key={`step-${index}`}
-                icon={(active) ? <RadialSelected size='small' /> : <Radial size='small' />}
-                onClick={() => setTutorialStep(index)}
-                plain
+                checked={active}
+                id={key}
+                key={key}
+                name="step-selectors"
+                onChange={() => setTutorialStep(index)}
+                value={index}
               />
             )
           })}
-          <StyledButton
+          <Button
             a11yTitle={counterpart('StepNavigation.next')}
             data-index={nextStep}
             disabled={activeStep === steps.length - 1}

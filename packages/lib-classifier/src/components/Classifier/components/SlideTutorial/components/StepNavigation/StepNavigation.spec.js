@@ -1,8 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { FormNext, FormPrevious, Radial, RadialSelected } from 'grommet-icons'
-import StepNavigation, { StyledButton } from './StepNavigation'
+import { Button, RadioButton } from 'grommet'
+import { FormNext, FormPrevious } from 'grommet-icons'
+import StepNavigation from './StepNavigation'
 
 const steps = [
   { content: '# Welcome'},
@@ -35,20 +36,17 @@ describe('StepNavigation', function () {
     expect(wrapper.find({ icon: <FormNext /> })).to.have.lengthOf(1)
   })
 
-  it('should render a radial icon button for each step', function () {
+  it('should render a radio button for each step', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
-    const buttons = wrapper.find(StyledButton).filterWhere(node => { 
-      return !!node.key() && node.key().includes('step-')
-    })
+    const buttons = wrapper.find(RadioButton)
 
     expect(buttons).to.have.lengthOf(steps.length)
   })
 
-  it('should render a filled in radial icon button', function () {
+  it('should render a radio button with the checked attribute as true if active', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
-    const activeButton = wrapper.find({ icon: <RadialSelected /> })
+    const activeButton = wrapper.find(RadioButton).find({ checked: true })
     expect(activeButton).to.have.lengthOf(1)
-    expect(activeButton.props().active).to.be.true
   })
 
   it('should disable the previous step button when props.activeStep is 0', function () {
@@ -76,12 +74,22 @@ describe('StepNavigation', function () {
     })
 
     it('should call props.setTutorialStep on click for each button that is not disabled', function () {
-      const buttons = wrapper.find(StyledButton).filterWhere(node => {
+      const buttons = wrapper.find(Button).filterWhere(node => {
         return !node.props().disabled
       })
 
       buttons.forEach(button => {
         button.simulate('click')
+        expect(setTutorialStepSpy).to.have.been.calledOnce
+        setTutorialStepSpy.resetHistory()
+      })
+    })
+
+    it('should call props.setTutorialStep on change for each radio button', function () {
+      const buttons = wrapper.find(RadioButton)
+
+      buttons.forEach(button => {
+        button.simulate('change')
         expect(setTutorialStepSpy).to.have.been.calledOnce
         setTutorialStepSpy.resetHistory()
       })
@@ -97,13 +105,11 @@ describe('StepNavigation', function () {
 
     it('should call setTutorialStep when a specific step button is clicked with the correct index', function () {
       wrapper.setProps({ activeStep: 0 })
-      const buttons = wrapper.find(StyledButton).filterWhere(node => {
-        return !!node.key() && node.key().includes('step-')
-      })
+      const buttons = wrapper.find(RadioButton)
 
       buttons.forEach(button => {
-        const buttonIndex = button.props()['data-index']
-        button.simulate('click')
+        const buttonIndex = button.props().value
+        button.simulate('change')
         expect(setTutorialStepSpy).to.have.been.calledOnce
         expect(setTutorialStepSpy).to.have.been.calledWith(buttonIndex)
         setTutorialStepSpy.resetHistory()

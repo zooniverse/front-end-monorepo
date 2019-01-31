@@ -22,6 +22,7 @@ const StyledMarkdownWrapper = styled(Box)`
   max-height: ${props => props.isThereMedia ? '150px' : '100%'} ;
 `
 
+// TODO: Split into container and view components so that view can be exported for external use
 @inject(storeMapper)
 @observer
 class SlideTutorial extends React.Component {
@@ -38,7 +39,8 @@ class SlideTutorial extends React.Component {
         >
           {isThereMedia &&
             <Media alt='' fit='contain' height={200} src={medium.src} />}
-          <StyledMarkdownWrapper isThereMedia={isThereMedia} overflow='auto'>
+          <StyledMarkdownWrapper autoFocus isThereMedia={isThereMedia} overflow='auto'>
+            {/* TODO: translation */}
             <Markdownz>{step.content}</Markdownz>
           </StyledMarkdownWrapper>
           <StepNavigation />
