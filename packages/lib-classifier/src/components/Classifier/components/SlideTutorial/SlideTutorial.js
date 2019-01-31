@@ -11,8 +11,9 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function storeMapper(stores) {
-  const { stepWithMedium } = stores.classifierStore.tutorials
+  const { activeStep, stepWithMedium } = stores.classifierStore.tutorials
   return {
+    activeStep,
     stepWithMedium
   }
 }
@@ -23,11 +24,12 @@ const StyledMarkdownWrapper = styled(Box)`
 `
 
 // TODO: Split into container and view components so that view can be exported for external use
+// Media need to be updated on panoptes to have a description for use as alt text
 @inject(storeMapper)
 @observer
 class SlideTutorial extends React.Component {
   render() {
-    const { stepWithMedium } = this.props
+    const { activeStep, stepWithMedium } = this.props
     if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
       const { medium, step } = stepWithMedium
       const isThereMedia = medium && medium.src
@@ -38,7 +40,12 @@ class SlideTutorial extends React.Component {
           pad='medium'
         >
           {isThereMedia &&
-            <Media alt='' fit='contain' height={200} src={medium.src} />}
+            <Media
+              alt={counterpart('SlideTutorial.alt', { activeStep })}
+              fit='contain'
+              height={200}
+              src={medium.src}
+            />}
           <StyledMarkdownWrapper autoFocus isThereMedia={isThereMedia} overflow='auto'>
             {/* TODO: translation */}
             <Markdownz>{step.content}</Markdownz>
@@ -60,7 +67,12 @@ class SlideTutorial extends React.Component {
   }
 }
 
+SlideTutorial.wrappedComponent.defaultProps = {
+  activeStep: 0
+}
+
 SlideTutorial.wrappedComponent.propTypes = {
+  activeStep: PropTypes.number,
   stepWithMedium: PropTypes.shape({
     medium: PropTypes.shape({
       content_type: PropTypes.string,
