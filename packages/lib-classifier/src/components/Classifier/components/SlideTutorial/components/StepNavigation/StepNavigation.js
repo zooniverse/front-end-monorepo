@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { Button, Box, RadioButton } from 'grommet'
 import styled from 'styled-components'
-import { FormNext, FormPrevious, Radial, RadialSelected } from 'grommet-icons'
+import { FormNext, FormPrevious } from 'grommet-icons'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
