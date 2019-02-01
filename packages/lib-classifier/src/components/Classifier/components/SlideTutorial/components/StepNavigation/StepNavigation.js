@@ -9,6 +9,18 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const HiddenRadioLabel = styled.span`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  ${RadioButton} span {
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+  }
+`
+
 function storeMapper (stores) {
   const { active: tutorial, activeStep, setTutorialStep } = stores.classifierStore.tutorials
   return {
@@ -40,15 +52,17 @@ class StepNavigation extends React.Component {
             const active = index === activeStep
             const key = `step-${index}`
             return (
-              <RadioButton
-                a11yTitle={counterpart('StepNavigation.go', { index })}
-                checked={active}
-                id={key}
-                key={key}
-                name='step-selectors'
-                onChange={() => setTutorialStep(index)}
-                value={index}
-              />
+              <HiddenRadioLabel>
+                <RadioButton
+                  checked={active}
+                  id={key}
+                  key={key}
+                  label={counterpart('StepNavigation.go', { index: index + 1 })}
+                  name='step-selectors'
+                  onChange={() => setTutorialStep(index)}
+                  value={index}
+                />
+              </HiddenRadioLabel>
             )
           })}
           <Button
