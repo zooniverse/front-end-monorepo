@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "~7.1.6",
-    "@babel/plugin-proposal-optional-chaining": "~7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "~7.2.0",
     "@babel/register": "~7.0.0",
     "babel-plugin-styled-components": "~1.10.0",
     "chai": "~4.2.0",
