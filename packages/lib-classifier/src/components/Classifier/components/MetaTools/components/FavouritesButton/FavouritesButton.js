@@ -12,7 +12,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const Favourite = styled(HeartIcon)`
+export const Favourite = styled(HeartIcon)`
   fill: none;
   stroke: ${theme('mode', {
     dark: zooTheme.dark.colors.font,
@@ -21,7 +21,7 @@ const Favourite = styled(HeartIcon)`
   width: 1em;
 `
 
-  const IsFavourite = styled(Favourite)`
+export const IsFavourite = styled(Favourite)`
   fill: #E45950;
 `
 
