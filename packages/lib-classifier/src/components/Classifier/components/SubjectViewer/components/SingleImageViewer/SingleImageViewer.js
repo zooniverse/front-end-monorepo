@@ -12,7 +12,11 @@ const SVG = styled.svg`
 function SingleImageViewer ({ url }) {
   return (
     <SVG>
-      <image xlinkHref={url} />
+      <image
+        height='100%'
+        width='100%'
+        xlinkHref={url}
+      />
       <InteractionLayer />
     </SVG>
   )
