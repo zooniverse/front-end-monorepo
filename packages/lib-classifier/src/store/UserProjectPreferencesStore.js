@@ -28,11 +28,11 @@ const UserProjectPreferencesStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function createTempUPPOrFetchUPP () {
+    function * createTempUPPOrFetchUPP () {
       const project = getRoot(self).projects.active
       const { authClient } = getRoot(self)
-      const bearerToken = getBearerToken(authClient)
-      const user = authClient.getUser()
+      const bearerToken = yield getBearerToken(authClient)
+      const user = yield authClient.getUser()
       if (bearerToken && user) {
         self.fetchUPP(bearerToken, project, user)
       } else {
