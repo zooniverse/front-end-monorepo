@@ -4,6 +4,7 @@ import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import MetadataButton from './components/MetadataButton'
 import MetadataModal from './components/MetadataModal'
+import FavouritesButton from './components/FavouritesButton'
 
 function storeMapper(stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
@@ -20,12 +21,17 @@ export default class MetaTools extends React.Component {
     super()
 
     this.state = {
+      isFavourite: false,
       showMetadataModal: false
     }
   }
 
   toggleMetadataModal () {
     this.setState((prevState) => { return { showMetadataModal: !prevState.showMetadataModal } })
+  }
+
+  toggleFavourites () {
+    this.setState(prevState => ({ isFavourite: !prevState.isFavourite }))
   }
 
   render () {
@@ -42,6 +48,10 @@ export default class MetaTools extends React.Component {
             closeFn={this.toggleMetadataModal.bind(this)}
             metadata={subject.metadata}
           />}
+        <FavouritesButton
+          checked={this.state.isFavourite}
+          onClick={this.toggleFavourites.bind(this)}
+        />
       </Box>
     )
   }
