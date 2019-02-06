@@ -9,41 +9,32 @@
 #   - Install dependencies for `@zooniverse/grommet-theme` and build
 #   - Install dependencies for `@zooniverse/react-components` and build
 #   - Install dependencies for `@zooniverse/auth` and build
+#   - Install dependencies for `@zooniverse/lib-classifier` and build
 #   - Install dependencies for remaining packages
 
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 LERNA=$ROOT_DIR/node_modules/.bin/lerna
 
-printf 'Bootstrapping the monorepo!\n\n'
 
 printf 'Installing root dependencies...\n'
 (cd $ROOT_DIR && npm install)
 printf '\n'
 
-printf 'Bootstrapping `lib-async-states`...\n'
-$LERNA bootstrap --scope="@zooniverse/async-states"
-printf '\n'
+printf 'Bootstrapping the monorepo!\n\n'
+$LERNA bootstrap
 
-printf 'Bootstrapping `lib-panoptes-js`...\n'
-$LERNA bootstrap --scope="@zooniverse/panoptes-js"
-printf '\n'
-
-printf 'Bootstrapping `lib-grommet-theme`...\n'
-$LERNA bootstrap --scope="@zooniverse/grommet-theme"
+printf 'Building `lib-grommet-theme`...\n'
 $LERNA exec --scope="@zooniverse/grommet-theme" -- npm run build
 printf '\n'
 
-printf 'Bootstrapping `lib-react-components`...\n'
-$LERNA bootstrap --scope="@zooniverse/react-components"
+printf 'Building `lib-react-components`...\n'
 $LERNA exec --scope="@zooniverse/react-components" -- npm run build
 printf '\n'
 
-printf 'Bootstrapping `lib-auth`...\n'
-$LERNA bootstrap --scope="@zooniverse/auth"
-printf '\n'
+printf 'Building `lib-auth`...\n'
 $LERNA exec --scope="@zooniverse/auth" -- npm run build
 printf '\n'
 
-printf 'Bootstrapping remaining packages...\n'
+printf 'Building `lib-classifier`...\n'
+$LERNA exec --scope="@zooniverse/classifier" -- npm run build
 printf '\n'
-$LERNA bootstrap
