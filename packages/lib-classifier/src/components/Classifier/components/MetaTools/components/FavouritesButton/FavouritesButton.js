@@ -13,7 +13,7 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export const Favourite = styled(HeartIcon)`
-  fill: none;
+  fill: ${props => props.filled ? '#E45950' : 'none'};
   stroke: ${theme('mode', {
     dark: zooTheme.dark.colors.font,
     light: zooTheme.light.colors.font
@@ -21,18 +21,13 @@ export const Favourite = styled(HeartIcon)`
   width: 1em;
 `
 
-export const IsFavourite = styled(Favourite)`
-  fill: #E45950;
-`
-
 export default function FavouritesButton (props) {
   const { checked, mode, onClick } = props
-  const Icon = checked ? IsFavourite : Favourite
   const label = checked ? 'FavouritesButton.remove' : 'FavouritesButton.add'
   return (
     <PlainButton
       aria-checked={checked}
-      icon={<Icon />}
+      icon={<Favourite filled={checked} />}
       margin={{ vertical: 'small', left: 'none', right: 'medium' }}
       role='checkbox'
       text={counterpart(label)}
