@@ -106,6 +106,8 @@ const ClassificationStore = types
       if (classification) {
         const annotation = classification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
         annotation.value = annotationValue
+        const feedback = getRoot(self).feedback
+        if (feedback.active) feedback.update(annotation)
       }
     }
 
@@ -113,21 +115,31 @@ const ClassificationStore = types
       const classification = self.active
       const workflow = getRoot(self).workflows.active
       const isPersistAnnotationsSet = workflow.configuration.persist_annotations
-      if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
+      if (classification && !isPersistAnnotationsSet) {
+        classification.annotations.delete(taskKey)
+        const feedback = getRoot(self).feedback
+        if (feedback.active) feedback.update({ task: taskKey, value: null })
+      }
     }
 
     function completeClassification (event) {
       event.preventDefault()
       const classification = self.active
-      // TODO store intervention metadata if we have a user...
-      self.updateClassificationMetadata({
+
+      const metadata = {
         session: sessionUtils.getSessionID(),
         finishedAt: (new Date()).toISOString(),
         viewport: {
           width: window.innerWidth,
           height: window.innerHeight
         }
-      })
+      }
+
+      const feedback = getRoot(self).feedback
+      if (feedback && feedback.currentRules) metadata.feedback = feedback.currentRules
+
+      // TODO store intervention metadata if we have a user...
+      self.updateClassificationMetadata(metadata)
 
       classification.completed = true
       // Convert from observables
