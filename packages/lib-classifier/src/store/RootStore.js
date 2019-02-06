@@ -2,6 +2,7 @@ import { getEnv, types, setLivelynessChecking } from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
 import DrawingStore from './DrawingStore'
+import FeedbackStore from './FeedbackStore'
 import ProjectStore from './ProjectStore'
 import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
@@ -13,6 +14,7 @@ const RootStore = types
   .model('RootStore', {
     classifications: types.optional(ClassificationStore, ClassificationStore.create()),
     drawing: types.optional(DrawingStore, DrawingStore.create()),
+    feedback: types.optional(FeedbackStore, FeedbackStore.create()),
     projects: types.optional(ProjectStore, ProjectStore.create()),
     subjects: types.optional(SubjectStore, SubjectStore.create()),
     subjectViewer: types.optional(SubjectViewerStore, SubjectViewerStore.create()),
