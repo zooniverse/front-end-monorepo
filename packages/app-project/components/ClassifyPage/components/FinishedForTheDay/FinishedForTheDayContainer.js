@@ -5,10 +5,10 @@ import React, { Component } from 'react'
 import FinishedForTheDay from './FinishedForTheDay'
 
 function storeMapper (stores) {
-  const { background, displayName } = stores.store.project
+  const { background, display_name } = stores.store.project
   return {
     imageSrc: background.src || '',
-    projectName: displayName
+    projectName: display_name
   }
 }
 

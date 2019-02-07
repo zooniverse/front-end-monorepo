@@ -6,9 +6,9 @@ import ConnectWithProject from './ConnectWithProject'
 import isValidUrl from './helpers/isValidUrl'
 
 function storeMapper (stores) {
-  const { displayName, urls } = stores.store.project
+  const { display_name, urls } = stores.store.project
   return {
-    projectName: displayName,
+    projectName: display_name,
     urls
   }
 }

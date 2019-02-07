@@ -22,16 +22,16 @@ const client = {
 // We might want to move this check elsewhere once we add other service workers for other tasks
 if (isBackgroundSyncAvailable()) registerWorkers()
 
-class Classifier extends React.Component {
+export default class Classifier extends React.Component {
   constructor (props) {
     super(props)
-
     this.classifierStore = RootStore.create({}, { authClient: props.authClient, client })
     makeInspectable(this.classifierStore)
   }
 
   componentDidMount () {
     const { project } = this.props
+    console.info('Classifier', project)
     this.setProject(project)
   }
 
@@ -41,7 +41,9 @@ class Classifier extends React.Component {
       this.setProject(project)
     }
 
-    if (!user) this.classifierStore.userProjectPreferences.reset()
+    if (!user) {
+      this.classifierStore.userProjectPreferences.reset()
+    }
   }
 
   setProject (project) {
@@ -73,5 +75,3 @@ Classifier.propTypes = {
   }).isRequired,
   user: PropTypes.object
 }
-
-export default Classifier
