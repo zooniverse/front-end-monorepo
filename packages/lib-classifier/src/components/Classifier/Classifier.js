@@ -25,13 +25,15 @@ if (isBackgroundSyncAvailable()) registerWorkers()
 export default class Classifier extends React.Component {
   constructor (props) {
     super(props)
-    this.classifierStore = RootStore.create({}, { authClient: props.authClient, client })
+    this.classifierStore = RootStore.create({}, {
+      authClient: props.authClient,
+      client
+    })
     makeInspectable(this.classifierStore)
   }
 
   componentDidMount () {
     const { project } = this.props
-    console.info('Classifier', project)
     this.setProject(project)
   }
 
