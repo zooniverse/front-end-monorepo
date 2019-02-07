@@ -7,11 +7,11 @@ import ProjectStatistics from './ProjectStatistics'
 function storeMapper (stores) {
   const { project } = stores.store
   return {
-    classifications: project.classificationsCount,
-    completedSubjects: project.retiredSubjectsCount,
-    projectName: project.displayName,
-    subjects: project.subjectsCount,
-    volunteers: project.classifiersCount
+    classifications: project.classifications_count,
+    completedSubjects: project.retired_subjects_count,
+    projectName: project.display_name,
+    subjects: project.subjects_count,
+    volunteers: project.classifiers_count
   }
 }
 

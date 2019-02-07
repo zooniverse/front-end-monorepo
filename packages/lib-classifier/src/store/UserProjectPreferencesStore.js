@@ -28,11 +28,17 @@ const UserProjectPreferencesStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function createTempUPPOrFetchUPP () {
+    function createTempUPP () {
+      const tempUPP = UserProjectPreferences.create({ id: 'guestPreferencesDoNotPost', preferences: {} })
+      self.loadingState = asyncStates.success
+      self.setUPP(tempUPP)
+    }
+
+    function * createTempUPPOrFetchUPP () {
       const project = getRoot(self).projects.active
       const { authClient } = getRoot(self)
-      const bearerToken = getBearerToken(authClient)
-      const user = authClient.getUser()
+      const bearerToken = yield getBearerToken(authClient)
+      const user = yield authClient.getUser()
       if (bearerToken && user) {
         self.fetchUPP(bearerToken, project, user)
       } else {
@@ -40,10 +46,22 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function createTempUPP () {
-      const tempUPP = UserProjectPreferences.create({ id: 'guestPreferencesDoNotPost', preferences: {} })
-      self.loadingState = asyncStates.success
-      self.setUPP(tempUPP)
+    function * createUPP (bearerToken) {
+      const { type } = self
+      const client = getRoot(self).client.panoptes
+      const project = getRoot(self).projects.active
+      const data = {
+        links: { project: project.id },
+        preferences: {}
+      }
+      self.loadingState = asyncStates.posting
+      try {
+        const response = yield client.post(`/${type}`, { [type]: data }, bearerToken)
+        return response.body[type][0]
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
+      }
     }
 
     function * fetchUPP (bearerToken, project, user) {
@@ -67,24 +85,6 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function * createUPP (bearerToken) {
-      const { type } = self
-      const client = getRoot(self).client.panoptes
-      const project = getRoot(self).projects.active
-      const data = {
-        links: { project: project.id },
-        preferences: {}
-      }
-      self.loadingState = asyncStates.posting
-      try {
-        const response = yield client.post(`/${type}`, { [type]: data }, bearerToken)
-        return response.body[type][0]
-      } catch (error) {
-        console.error(error)
-        self.loadingState = asyncStates.error
-      }
-    }
-
     function setUPP (userProjectPreferences) {
       self.setResource(userProjectPreferences)
       self.setActive(userProjectPreferences.id)
@@ -93,7 +93,7 @@ const UserProjectPreferencesStore = types
     return {
       afterAttach,
       createUPP: flow(createUPP),
-      createTempUPPOrFetchUPP,
+      createTempUPPOrFetchUPP: flow(createTempUPPOrFetchUPP),
       createTempUPP,
       fetchUPP: flow(fetchUPP),
       setUPP

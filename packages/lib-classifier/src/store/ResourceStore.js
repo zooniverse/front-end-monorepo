@@ -33,18 +33,22 @@ const ResourceStore = types
     },
 
     setResource (resource) {
-      if (resource) self.resources.put(resource)
+      if (resource) {
+        try {
+          self.resources.put(resource)
+          self.loadingState = asyncStates.success
+        } catch (error) {
+          console.error(error)
+        }
+      }
     },
 
-    setActive: flow(function * setActive (id) {
-      // console.info('setActive', id)
-      const active = self.resources.get(id) || null
-
+    setActive: flow(function * setActive (id = null) {
+      const active = self.resources.get(id)
       if (!active) {
         const resource = yield self.fetchResource(id)
         self.setResource(resource)
       }
-
       self.active = id
     })
   }))

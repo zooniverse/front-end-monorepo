@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 
 import Subtitle from './Subtitle'
@@ -8,7 +8,7 @@ const TEXT = 'Foobar'
 
 describe('Component > Subtitle', function () {
   before(function () {
-    wrapper = shallow(<Subtitle text={TEXT} />)
+    wrapper = mount(<Subtitle text={TEXT} />)
   })
 
   it('should render without crashing', function () {

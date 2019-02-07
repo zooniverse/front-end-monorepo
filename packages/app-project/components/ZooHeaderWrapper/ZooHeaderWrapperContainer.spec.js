@@ -2,20 +2,17 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import ZooHeaderWrapperContainer from './ZooHeaderWrapperContainer'
-import ZooHeaderWrapper from './ZooHeaderWrapper'
 
 let wrapper
-let componentWrapper
 
 describe('Component > ZooHeaderWrapperContainer', function () {
   before(function () {
-    wrapper = shallow(<ZooHeaderWrapperContainer.wrappedComponent />)
-    componentWrapper = wrapper.find(ZooHeaderWrapper)
+    wrapper = shallow(<ZooHeaderWrapperContainer.wrappedComponent
+      store={{ user: {} }}
+    />)
   })
 
-  it('should render without crashing', function () {})
-
-  it('should render the `ZooHeaderWrapper` component', function () {
-    expect(componentWrapper).to.have.lengthOf(1)
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok
   })
 })

@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 
 import Stat from './Stat'
@@ -10,7 +10,7 @@ const label = 'Text label'
 
 describe('Component > Stat', function () {
   before(function () {
-    wrapper = shallow(<Stat value={value} label={label} />)
+    wrapper = mount(<Stat value={value} label={label} />)
   })
 
   it('should render without crashing', function () {
