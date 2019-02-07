@@ -45,12 +45,10 @@ const ResourceStore = types
 
     setActive: flow(function * setActive (id = null) {
       const active = self.resources.get(id)
-      console.info('new', active)
       if (!active) {
         const resource = yield self.fetchResource(id)
         self.setResource(resource)
       }
-
       self.active = id
     })
   }))
