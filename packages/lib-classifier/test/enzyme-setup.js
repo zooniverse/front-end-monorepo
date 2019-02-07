@@ -1,4 +1,8 @@
-const { JSDOM } = require('jsdom')
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import { JSDOM } from 'jsdom'
+
+chai.use(sinonChai)
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
   url: 'https://example.org/'
