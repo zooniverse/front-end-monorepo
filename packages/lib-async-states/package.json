@@ -18,7 +18,6 @@
     "_compress": "minify src/async-states.js -d dist",
     "_test": "mocha",
     "build": "npm run _clean && npm run _compress",
-    "install": "lerna bootstrap --scope=@zooniverse/async-states",
     "lint": "standard src --fix | snazzy; exit 0",
     "prepare": "npm run build",
     "test": "npm run _test && exit 0",
