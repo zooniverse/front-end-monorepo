@@ -52,11 +52,10 @@ class StepNavigation extends React.Component {
             const active = index === activeStep
             const key = `step-${index}`
             return (
-              <HiddenRadioLabel>
+              <HiddenRadioLabel key={key}>
                 <RadioButton
                   checked={active}
                   id={key}
-                  key={key}
                   label={counterpart('StepNavigation.go', { index: index + 1 })}
                   name='step-selectors'
                   onChange={() => setTutorialStep(index)}
