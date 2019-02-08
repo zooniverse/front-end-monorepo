@@ -5,6 +5,6 @@
 --reporter spec
 --ui bdd
 --file ./test/enzyme-config.js
---file ./test/enzyme-setup.js
+--file ./test/setup.js
 
 ./src/**/*.spec.js

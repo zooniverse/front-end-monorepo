@@ -8,8 +8,8 @@ import pxToRem from '../../../helpers/pxToRem'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 const StyledBox = styled(Box)`
-  max-height: ${props => props.maxHeight};
-  max-width: ${props => props.maxWidth};
+  max-height: ${props => props.maxHeight}px;
+  max-width: ${props => props.maxWidth}px;
 `
 
 const StyledImage = styled(Image)`
@@ -20,7 +20,7 @@ const StyledImage = styled(Image)`
 
 export function Placeholder(props) {
   return (
-    <Box background={zooTheme.global.colors.brand} justify='center' align='center' {...props}>
+    <Box background={zooTheme.global.colors.brand} flex={props.flex} justify='center' align='center'>
       {props.children}
     </Box>
   )
@@ -40,13 +40,11 @@ export default class ThumbnailImage extends React.Component {
   }
 
   render() {
-    const { alt, delay, fit, height, origin, placeholder, src, width } = this.props
-    const heightInRem = pxToRem(height)
-    const widthInRem = pxToRem(width)
+    const { alt, delay, fit, flex, height, origin, placeholder, src, width } = this.props
     const thumbnailSrc = this.state.failed ? src : getThumbnailSrc({ height, origin, src, width })
     const fallbackStyle = {
-      maxHeight: heightInRem,
-      maxWidth: widthInRem
+      maxHeight: `${height}px`,
+      maxWidth: `${width}px`
     }
 
     return (
@@ -59,8 +57,8 @@ export default class ThumbnailImage extends React.Component {
         {(returnedSrc, loading) => (
           <>
             {loading ?
-              <Placeholder height={heightInRem} width={widthInRem}>{placeholder}</Placeholder> :
-              <StyledBox animation={loading ? undefined : "fadeIn"} maxWidth={widthInRem} maxHeight={heightInRem}>
+              <Placeholder height={height} flex={flex} width={width}>{placeholder}</Placeholder> :
+              <StyledBox animation={loading ? undefined : "fadeIn"} flex={flex} maxWidth={width} maxHeight={height}>
                 <StyledImage
                   alt={alt}
                   fit={fit}
@@ -69,7 +67,7 @@ export default class ThumbnailImage extends React.Component {
               </StyledBox>}
             <noscript>
               <div style={fallbackStyle}>
-                <img src={returnedSrc} alt={alt} height='100%' width='100%' style={{ objectFit: fit }} />
+                <img src={returnedSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
               </div>
             </noscript>
           </>

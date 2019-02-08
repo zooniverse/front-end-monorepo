@@ -31,12 +31,12 @@ function storeMapper (stores) {
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active: step } = stores.classifierStore.workflowSteps
-  
+
   const currentTask =
-    (stores.classifierStore.workflowSteps.activeStepTasks
-     && stores.classifierStore.workflowSteps.activeStepTasks[0])
-    || {}
-  
+    (stores.classifierStore.workflowSteps.activeStepTasks &&
+     stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
+    {}
+
   return {
     addAnnotation,
     annotations,
@@ -100,20 +100,19 @@ class LightCurveViewer extends Component {
     const points = this.props.dataPoints
     const prevPoints = prevProps.dataPoints
     const sameSubject = (points === prevPoints)
-    
+
     const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
     const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
     const sameTask = (currentTaskKey === prevTaskKey)
 
-    if (!sameSubject) {  // Triggers when changing between Subjects
+    if (!sameSubject) { // Triggers when changing between Subjects
       this.clearChart()
 
       const container = this.svgContainer.current
       const height = container.offsetHeight || 0
       const width = container.offsetWidth || 0
       this.drawChart(width, height, sameSubject)
-      
-    } else if (!sameTask) {  // Triggers when changing between Workflow tasks.
+    } else if (!sameTask) { // Triggers when changing between Workflow tasks.
       this.updateUserAnnotations()
     }
 
@@ -336,7 +335,7 @@ class LightCurveViewer extends Component {
     const STARTING_WIDTH = 0.4
     const props = this.props
     const t = this.getCurrentTransform()
-    
+
     if (!this.isCurrentTaskValidForAnnotation()) {
       props.enableMove && props.enableMove()
       return
@@ -345,14 +344,14 @@ class LightCurveViewer extends Component {
     // Figure out where the user clicked on the graph, then add a new annotation
     // to the array of annotations.
     const clickCoords = getClickCoords(this.d3svg.node(), this.xScale, this.yScale, t)
-    const values = this.getAnnotationValues().slice()  // Create a copy
+    const values = this.getAnnotationValues().slice() // Create a copy
     values.push({ x: clickCoords[0], width: STARTING_WIDTH })
 
     props.addAnnotation(values, props.currentTask)
 
     this.updateUserAnnotations()
   }
-  
+
   isCurrentTaskValidForAnnotation () {
     return this.props.currentTask.type === 'graph2dRangeX'
   }

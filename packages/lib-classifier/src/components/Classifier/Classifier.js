@@ -5,7 +5,8 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import {
   panoptes as panoptesClient,
-  projects as projectsClient
+  projects as projectsClient,
+  tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
 import { registerWorkers } from '../../workers'
@@ -15,7 +16,8 @@ import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
 const client = {
   panoptes: panoptesClient,
-  projects: projectsClient
+  projects: projectsClient,
+  tutorials: tutorialsClient
 }
 
 // We don't register the queue service worker if background sync API is not available

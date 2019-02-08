@@ -19,6 +19,7 @@ export const defaultProps = {
   controls: true,
   delay: 0,
   fit: 'cover',
+  flex: 'grow',
   height: DEFAULT_THUMBNAIL_DIMENSION,
   origin: 'https://thumbnails.zooniverse.org',
   placeholder: null,
