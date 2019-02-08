@@ -24,11 +24,7 @@ const client = {
 // We might want to move this check elsewhere once we add other service workers for other tasks
 if (isBackgroundSyncAvailable()) registerWorkers()
 
-<<<<<<< HEAD
 export default class Classifier extends React.Component {
-=======
-class Classifier extends React.Component {
->>>>>>> Lint
   constructor (props) {
     super(props)
     this.classifierStore = RootStore.create({}, {
