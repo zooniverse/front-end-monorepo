@@ -13,7 +13,6 @@
     "build:dev": "export PANOPTES_ENV=staging && npm run build",
     "build:production": "export PANOPTES_ENV=production && npm run build",
     "dev": "npm run _check && webpack-dev-server --port 3000 --config webpack.dev.js",
-    "install": "lerna bootstrap --scope=@zooniverse/auth",
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "export PANOPTES_ENV=production && npm run _check && npm run dev",
     "test": "npm run _test && exit 0",
