@@ -89,4 +89,48 @@ describe('Collections resource REST requests', function () {
       })
     })
   })
+
+  describe('update', function () {
+    const data = {
+      display_name: 'my test collection'
+    }
+    const expectedPutResponse = Object.assign({}, responses.get.collection, data)
+    const requestBody = { collections : data }
+    let scope
+
+    before(function () {
+      scope = nock(config.host)
+        .persist()
+        .put(`${endpoint}/10`, requestBody)
+        .query(true)
+        .reply(200, expectedPutResponse)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    it('should raise an error if a collection is not specified', async function () {
+      try {
+        await collections.update({})
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collections: Update request id must be present.')
+      }
+    })
+
+    it('should raise an error if no changes are specified', async function () {
+      try {
+        await collections.update({ id: '10' })
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collection update: payload not supplied.')
+      }
+    })
+
+    it('should update the specified collection', async function () {
+      const response = await collections.update({ id: '10', data })
+      expect(response.body).to.eql(expectedPutResponse)
+    })
+  })
 })

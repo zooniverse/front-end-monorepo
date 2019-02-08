@@ -31,10 +31,12 @@ function get (params) {
 
 function update (params) {
   const changes = (params && params.data) ? params.data : null
+  const collectionId = params && params.id
   const authorization = (params && params.authorization) ? params.authorization : ''
+  if (!collectionId) return raiseError('Collections: Update request id must be present.', 'typeError')
   if (!changes) return raiseError('Collection update: payload not supplied.', 'error')
 
-  return panoptes.put(endpoint, changes, authorization)
+  return panoptes.put(`${endpoint}/${collectionId}`, { collections: changes }, authorization)
 }
 
 function del (params) {
