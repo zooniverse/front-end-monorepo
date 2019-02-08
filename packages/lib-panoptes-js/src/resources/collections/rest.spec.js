@@ -133,4 +133,35 @@ describe('Collections resource REST requests', function () {
       expect(response.body).to.eql(expectedPutResponse)
     })
   })
+
+  describe('delete', function () {
+    const expectedDeleteResponse = {}
+    let scope
+
+    before(function () {
+      scope = nock(config.host)
+        .persist()
+        .delete(`${endpoint}/10`)
+        .query(true)
+        .reply(200, expectedDeleteResponse)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    it('should raise an error if a collection is not specified', async function () {
+      try {
+        await collections.delete({})
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collections: Delete request id must be present.')
+      }
+    })
+
+    it('should delete the specified collection', async function () {
+      const response = await collections.delete({ id: '10' })
+      expect(response.body).to.eql(expectedDeleteResponse)
+    })
+  })
 })
