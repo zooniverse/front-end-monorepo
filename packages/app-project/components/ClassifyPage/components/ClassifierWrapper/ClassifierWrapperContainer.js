@@ -24,8 +24,6 @@ authInterface.getUser = auth.checkCurrent
 export default class ClassifierWrapperContainer extends Component {
   render () {
     const { authClient, project } = this.props
-    console.info('ClassifierWrapperContainer', project)
-
     if (project.loadingState === 'success') {
       return (
         <Classifier
