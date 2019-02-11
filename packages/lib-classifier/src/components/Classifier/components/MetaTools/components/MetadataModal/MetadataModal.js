@@ -14,7 +14,8 @@ const StyledDataTable = styled(DataTable)`
 `
 
 const DatumWrapper = styled(Box)`
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-break: break-word;
 `
 
 export function filterByLabel (label, filters) {
