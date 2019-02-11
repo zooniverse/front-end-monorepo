@@ -9,6 +9,10 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const StyledDataTable = styled(DataTable)`
+  height: auto;
+`
+
 const DatumWrapper = styled(Box)`
   word-break: break-all;
 `
@@ -73,7 +77,7 @@ export default function MetadataModal (props) {
       closeFn={closeFn}
       title={counterpart('MetadataModal.title')}
     >
-      <DataTable
+      <StyledDataTable
         columns={columns}
         data={data}
         sortable
