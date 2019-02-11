@@ -164,4 +164,85 @@ describe('Collections resource REST requests', function () {
       expect(response.body).to.eql(expectedDeleteResponse)
     })
   })
+
+  describe('add subjects', function () {
+    const expectedAddResponse = responses.get.collection
+    const subjects = ['2']
+    let scope
+
+    before(function () {
+      scope = nock(config.host)
+        .persist()
+        .post(`${endpoint}/10/links/subjects`, { subjects })
+        .query(true)
+        .reply(200, expectedAddResponse)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    it('should raise an error if a collection is not specified', async function () {
+      try {
+        await collections.addSubjects({})
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collections add subject: collections ID is required.')
+      }
+    })
+
+    it('should raise an error if subjects is not an array', async function () {
+      try {
+        await collections.addSubjects({ id: '10', subjects: '2'})
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collections add subjects: subjects array is required.')
+      }
+    })
+
+    it('should add subjects to the specified collection', async function () {
+      const response = await collections.addSubjects({ id: '10', subjects })
+      expect(response).to.be.ok
+    })
+  })
+
+  describe('remove subjects', function () {
+    const expectedDeleteResponse = {}
+    let scope
+
+    before(function () {
+      scope = nock(config.host)
+        .persist()
+        .delete(`${endpoint}/10/links/subjects/2`)
+        .query(true)
+        .reply(200, expectedDeleteResponse)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    it('should raise an error if a collection is not specified', async function () {
+      try {
+        await collections.removeSubjects({})
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collections remove subject: collections ID is required.')
+      }
+    })
+
+    it('should raise an error if subjects is not an array', async function () {
+      try {
+        await collections.removeSubjects({ id: '10', subjects: '2'})
+        expect.fail()
+      } catch (error) {
+        expect(error.message).to.equal('Collections remove subjects: subjects array is required.')
+      }
+    })
+
+    it('should unlink the specified subjects', async function () {
+      const response = await collections.removeSubjects({ id: '10', subjects: ['2'] })
+      expect(response).to.be.ok
+    })
+  })
 })

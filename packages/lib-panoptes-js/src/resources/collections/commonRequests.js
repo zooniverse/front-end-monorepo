@@ -19,7 +19,7 @@ function removeSubjects (params) {
   if (!collectionId) return raiseError('Collections remove subject: collections ID is required.', 'error')
   const authorization = (params && params.authorization) ? params.authorization : ''
   const subjects = params && params.subjects
-  if (!subjects || !Array.isArray(subjects)) return raiseError('Collections removesubjects: subjects array is required.', 'error')
+  if (!subjects || !Array.isArray(subjects)) return raiseError('Collections remove subjects: subjects array is required.', 'error')
 
   if (typeof collectionId !== 'string') return raiseError('Collections remove link: collections id must be a string.', 'typeError')
 
