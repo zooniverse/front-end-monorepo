@@ -31,16 +31,12 @@ export default function AdminCheckbox ({ checked, colorTheme, label, onChange, t
       />
     </ThemeProvider>
   )
-};
+}
 
 AdminCheckbox.defaultProps = {
   checked: false,
   colorTheme: 'light',
-  label: (
-    <SpacedText color='teal' weight='bold'>
-      {counterpart('AdminCheckbox.label')}
-    </SpacedText>
-  ),
+  label: <Label />,
   onChange: () => {},
 }
 
@@ -49,4 +45,12 @@ AdminCheckbox.propTypes = {
   colorTheme: PropTypes.oneOf(['light', 'dark']),
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onChange: PropTypes.func,
+}
+
+function Label () {
+  return (
+    <SpacedText weight='bold'>
+      {counterpart('AdminCheckbox.label')}
+    </SpacedText>
+  )
 }

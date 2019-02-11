@@ -28,5 +28,13 @@ export default {
       dimmedBackground: '#EFF2F5',
       dimmedText: '#5C5C5C'
     }
+  },
+  zooFooter: {
+    background: 'white',
+    logoAndTagline: 'black',
+    linkList: {
+      title: 'brand',
+      item: 'darkGrey'
+    }
   }
 }

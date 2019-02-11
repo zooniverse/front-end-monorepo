@@ -1,10 +1,10 @@
 export default {
   colors: {
     background: {
-      border: '#2D2D2D',
+      border: 'midDarkGrey',
       container: '#333333',
       dark: '#282828',
-      default: '#2D2D2D'
+      default: 'midDarkGrey'
     },
     button: {
       answer: {
@@ -30,6 +30,14 @@ export default {
       color: '#E2E5E9',
       dimmedBackground: '#282828',
       dimmedText: '#A6A7A9'
+    }
+  },
+  zooFooter: {
+    background: 'midDarkGrey',
+    logoAndTagline: 'black',
+    linkList: {
+      title: 'lightTeal',
+      item: 'lightGrey'
     }
   }
 }

@@ -1,41 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import { Anchor } from 'grommet'
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons'
-
+import { objectOf, oneOf, string } from 'prop-types'
+import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { whichTealColorForTheme } from '../../lib'
+import zooTheme from '@zooniverse/grommet-theme'
 
-// Note: I shouldn't have to define the fill color
-// This is a bug in v2: https://github.com/grommet/grommet/issues/2141
-export const StyledSocialAnchor = styled(Anchor)`
-  padding: 0;
-  svg {
-    border-bottom: solid thin transparent;
-    fill: ${whichTealColorForTheme};
-  }
-
-  svg:hover, svg:focus {
-    border-bottom: solid thin ${whichTealColorForTheme};
+const StyledAnchor = styled(Anchor)`
+  &:focus > svg,
+  &:hover > svg {
+    fill: ${zooTheme.global.colors.lightBrand} !important;
   }
 `
 
-export default function SocialAnchor ({ colorTheme, hrefs, service }) {
+export default function SocialAnchor ({ hrefs, service }) {
   const icons = {
-    facebook: <FacebookOption size='small' />,
-    instagram: <Instagram size='small' />,
-    twitter: <Twitter size='small' />
+    facebook: <FacebookOption size='25px' />,
+    instagram: <Instagram size='25px' />,
+    twitter: <Twitter size='25px' />
   }
 
   return (
-    <ThemeProvider theme={{ mode: colorTheme }}>
-      <StyledSocialAnchor
+      <StyledAnchor
         href={hrefs[service]}
         a11yTitle={service}
         icon={icons[service]}
       />
-    </ThemeProvider>
   )
 }
 
@@ -43,13 +32,13 @@ SocialAnchor.defaultProps = {
   colorTheme: 'light',
   hrefs: {
     facebook: 'https://www.facebook.com/therealzooniverse',
+    instagram: 'https://www.instagram.com/the.zooniverse/',
     twitter: 'https://twitter.com/the_zooniverse',
-    instagram: 'https://www.instagram.com/the.zooniverse/'
   }
 }
 
 SocialAnchor.propTypes = {
-  colorTheme: PropTypes.oneOf(['light', 'dark']),
-  hrefs: PropTypes.objectOf(PropTypes.string),
-  service: PropTypes.string.isRequired
+  colorTheme: oneOf(['light', 'dark']),
+  hrefs: objectOf(string),
+  service: string.isRequired
 }

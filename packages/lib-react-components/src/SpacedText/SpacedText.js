@@ -5,10 +5,10 @@ import pxToRem from '../helpers/pxToRem'
 
 const StyledText = styled(Text)`
   letter-spacing: ${pxToRem(1)};
-  text-transform: uppercase;
+  text-transform: ${props => props.uppercase ? 'uppercase' : 'normal'};
 `
 
-function SpacedText ({ children, ...props }) {
+export default function SpacedText ({ children, ...props }) {
   return (
     <StyledText {...props}>
       {children}
@@ -19,7 +19,6 @@ function SpacedText ({ children, ...props }) {
 SpacedText.defaultProps = {
   margin: 'none',
   size: 'small',
+  uppercase: true,
   weight: 'normal'
 }
-
-export default SpacedText
