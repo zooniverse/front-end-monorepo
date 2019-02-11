@@ -1,11 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { DataTable } from 'grommet'
 import { Markdownz, Modal, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
+import { Box, DataTable } from 'grommet'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const DatumWrapper = styled(Box)`
+  word-break: break-all;
+`
 
 export function filterByLabel (label, filters) {
   if (label) {
@@ -22,7 +28,9 @@ export function formatValue (value) {
   if (value) {
     let stringValue = value.toString()
     stringValue.trim()
-    if (stringValue.startsWith('http')) return `[${stringValue}](+tab+${stringValue})`
+    if (stringValue.startsWith('http')) {
+      return `[${stringValue}](+tab+${stringValue})`
+    }
     return stringValue
   }
 
@@ -39,23 +47,25 @@ export default function MetadataModal (props) {
   } = props
 
   const columns = [{
-    property: 'label',
     header: <SpacedText>{counterpart('MetadataModal.table.label')}</SpacedText>,
-    primary: true
+    primary: true,
+    property: 'label',
   }, {
+    header: <SpacedText>{counterpart('MetadataModal.table.value')}</SpacedText>,
     property: 'value',
-    header: <SpacedText>{counterpart('MetadataModal.table.value')}</SpacedText>
-  }
-  ]
+    render: datum => <DatumWrapper>{datum.value}</DatumWrapper>
+  }]
 
-  const filteredDataLabels = Object.keys(metadata).filter((label) => { return filterByLabel(label, filters) })
-  const data = filteredDataLabels.map(
-    (label) => {
-      const value = formatValue(metadata[label])
+  const filteredDataLabels = Object.keys(metadata)
+    .filter((label) => filterByLabel(label, filters))
 
-      return { label: label.replace(RegExp(`^(${prefixes.join('|')})`), ''), value: <Markdownz options={{ forceInline: true }}>{value}</Markdownz> }
+  const data = filteredDataLabels.map(label => {
+    const value = formatValue(metadata[label])
+    return {
+      label: label.replace(RegExp(`^(${prefixes.join('|')})`), ''),
+      value: <Markdownz options={{ forceInline: true }}>{value}</Markdownz>
     }
-  )
+  })
 
   return (
     <Modal
@@ -63,7 +73,11 @@ export default function MetadataModal (props) {
       closeFn={closeFn}
       title={counterpart('MetadataModal.title')}
     >
-      <DataTable columns={columns} data={data} sortable />
+      <DataTable
+        columns={columns}
+        data={data}
+        sortable
+      />
     </Modal>
   )
 }
