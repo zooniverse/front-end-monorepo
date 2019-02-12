@@ -50,13 +50,18 @@ const UserProjectPreferencesStore = types
 
     function * checkForUser () {
       const { authClient } = getRoot(self)
-      const bearerToken = yield getBearerToken(authClient)
-      const user = yield authClient.checkCurrent()
 
-      if (bearerToken && user) {
-        self.fetchUPP(bearerToken, user)
-      } else {
-        self.reset()
+      try {
+        const bearerToken = yield getBearerToken(authClient)
+        const user = yield authClient.checkCurrent()
+        if (bearerToken && user) {
+          self.fetchUPP(bearerToken, user)
+        } else {
+          self.reset()
+        }
+      } catch (e) {
+        console.error(error)
+        self.loadingState = asyncStates.error
       }
     }
 

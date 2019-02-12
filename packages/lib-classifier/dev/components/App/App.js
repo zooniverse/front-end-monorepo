@@ -6,29 +6,9 @@ import { Button, Grommet, Box } from 'grommet'
 import theme from '@zooniverse/grommet-theme'
 import Classifier from '../../../src/components/Classifier'
 
-// checkBearerToken()
-
 class App extends React.Component {
   constructor () {
     super()
-
-    // this.authClient = createOAuthClient({
-    //   clientId: '7532a403edf16f31fb2a210b8a49f59553d45064e6c292679c3eac53631d73d1',
-    //   env: 'staging',
-    //   redirectUri: 'http://localhost:8080/', // The URI you want the user redirected to on completion
-    //   scopes: [
-    //     'classification',
-    //     'collection',
-    //     'group',
-    //     'medium',
-    //     'organization',
-    //     'project',
-    //     'public',
-    //     'subject',
-    //     'translation',
-    //     'user'
-    //   ]
-    // })
 
     this.state = {
       loading: false,
