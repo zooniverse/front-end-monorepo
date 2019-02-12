@@ -4,5 +4,6 @@
 --ui bdd
 --file ./test/create-enzyme-adapter.js
 --file ./test/create-global-document.js
+--file ./test/chai-config.js
 
 ./{components,pages,stores}/**/*.spec.js
