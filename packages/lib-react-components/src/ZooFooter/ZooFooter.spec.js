@@ -15,7 +15,7 @@ describe('<ZooFooter />', function () {
     it('should use a white background for its wrapping Box component', function () {
       wrapper = mount(<ZooFooter />)
       const boxWrapper = wrapper.find('Box').first()
-      expect(boxWrapper.props().background).to.equal('#fff')
+      expect(boxWrapper.props().background).to.equal('white')
     })
   })
 

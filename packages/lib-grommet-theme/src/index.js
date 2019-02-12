@@ -12,6 +12,7 @@ const lighterGrey = '#eff2f5'
 const lightGrey = '#e2e5e9'
 const grey = '#CBCCCB'
 const midGrey = '#a6a7a9'
+const midDarkGrey = '#2D2D2D'
 const darkGrey = '#646464'
 
 const tomato = '#E45950'
@@ -27,7 +28,7 @@ const statusColors = {
 
 const colors = {
   brand: '#007482',
-  lightBrand: lightBrand,
+  lightBrand,
   darkBackground: {
     text: dark.colors.font
   },
@@ -48,6 +49,7 @@ const colors = {
   green,
   grey,
   midGrey,
+  midDarkGrey,
   navy: '#0C4881',
   statusColors,
   teal: '#00979d',
@@ -152,7 +154,10 @@ const theme = deepFreeze({
       radius: '0px'
     }
   },
-  light
+  light,
+  zooFooter: {
+    separator: '#979797'
+  }
 })
 
 export default theme
