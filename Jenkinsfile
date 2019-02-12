@@ -11,8 +11,7 @@ timeout(20) {
       testImage.inside {
         sh '''
           cd /usr/src/
-          ./node_modules/.bin/lerna run build --scope="@zooniverse/grommet-theme"
-          ./node_modules/.bin/lerna run --stream test:ci
+          npx lerna run --stream test:ci
         '''
       }
     }
