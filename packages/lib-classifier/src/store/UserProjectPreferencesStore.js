@@ -59,7 +59,7 @@ const UserProjectPreferencesStore = types
         } else {
           self.reset()
         }
-      } catch (e) {
+      } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
       }
