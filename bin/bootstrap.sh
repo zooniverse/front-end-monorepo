@@ -14,28 +14,26 @@ set -e
 #   - Install dependencies for remaining packages
 
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
-LERNA=$ROOT_DIR/node_modules/.bin/lerna
-
 
 printf 'Installing root dependencies...\n'
 (cd $ROOT_DIR && npm install)
 printf '\n'
 
 printf 'Bootstrapping the monorepo!\n\n'
-$LERNA bootstrap
+npx lerna bootstrap
 
 printf 'Building `lib-grommet-theme`...\n'
-$LERNA exec --scope="@zooniverse/grommet-theme" -- npm run build
+npx lerna exec --scope="@zooniverse/grommet-theme" -- npm run build
 printf '\n'
 
 printf 'Building `lib-react-components`...\n'
-$LERNA exec --scope="@zooniverse/react-components" -- npm run build
+npx lerna exec --scope="@zooniverse/react-components" -- npm run build
 printf '\n'
 
 printf 'Building `lib-auth`...\n'
-$LERNA exec --scope="@zooniverse/auth" -- npm run build
+npx lerna exec --scope="@zooniverse/auth" -- npm run build
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
-$LERNA exec --scope="@zooniverse/classifier" -- npm run build
+npx lerna exec --scope="@zooniverse/classifier" -- npm run build
 printf '\n'
