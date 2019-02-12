@@ -38,6 +38,7 @@ export default {
     linkList: {
       title: 'lightTeal',
       item: 'lightGrey'
-    }
+    },
+    lowerBackground: '#333'
   }
 }

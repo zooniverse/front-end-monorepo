@@ -151,29 +151,28 @@ export default function ZooFooter (props) {
           </Box>
         </Box>
 
-        <Box background='#eff3f6'>
-          <Box
-            align='center'
-            direction='row'
-            fill='horizontal'
-            justify='between'
-            pad={{
-              horizontal: 'large',
-              vertical: 'small'
-            }}
-          >
-            <PolicyLinkSection
-              labels={policyNavListLabels}
-              urls={policyNavListURLs}
+        <Box
+          align='center'
+          background={zooTheme[colorTheme].zooFooter.lowerBackground}
+          direction='row'
+          fill='horizontal'
+          justify='between'
+          pad={{
+            horizontal: 'large',
+            vertical: 'small'
+          }}
+        >
+          <PolicyLinkSection
+            labels={policyNavListLabels}
+            urls={policyNavListURLs}
+          />
+          <RelativeDiv>
+            {adminContainer}
+            <StyledEasterEgg
+              src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png'
+              alt=''
             />
-            <RelativeDiv>
-              {adminContainer}
-              <StyledEasterEgg
-                src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png'
-                alt=''
-              />
-            </RelativeDiv>
-          </Box>
+          </RelativeDiv>
         </Box>
       </>
     </ThemeProvider>

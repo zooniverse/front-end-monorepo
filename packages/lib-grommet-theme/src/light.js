@@ -35,6 +35,7 @@ export default {
     linkList: {
       title: 'brand',
       item: 'darkGrey'
-    }
+    },
+    lowerBackground: '#eff3f6'
   }
 }
