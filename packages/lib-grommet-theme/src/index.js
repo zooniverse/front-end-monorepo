@@ -154,7 +154,10 @@ const theme = deepFreeze({
       radius: '0px'
     }
   },
-  light
+  light,
+  zooFooter: {
+    separator: '#979797'
+  }
 })
 
 export default theme

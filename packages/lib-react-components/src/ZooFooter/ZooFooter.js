@@ -81,7 +81,7 @@ export default function ZooFooter (props) {
 
             <Box
               border={{
-                color: '#979797',
+                color: zooTheme.zooFooter.separator,
                 side: 'bottom',
                 size: 'xsmall'
               }}
