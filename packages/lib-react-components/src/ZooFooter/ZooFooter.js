@@ -110,7 +110,7 @@ export default function ZooFooter (props) {
 
             <Grid
               fill
-              gap='medium'
+              gap='small'
               columns={{
                 'count': 'fit',
                 'size': 'small'
