@@ -35,7 +35,7 @@ docker-compose build
 # Run cmds through docker, e.g. run all tests
 docker-compose run --rm front-end npx lerna run --stream test:ci
 
-# Or you can then run tooling using bash session
+# Or you can then run your dev tooling using a bash session
 docker-compose run --rm front-end bash
 # from within the bash shell
 npx lerna run --stream test:ci
