@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
+import zooTheme from '@zooniverse/grommet-theme'
+import counterpart from 'counterpart'
 import { CheckBox, Text } from 'grommet'
+import PropTypes from 'prop-types'
+import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
-import zooTheme from '@zooniverse/grommet-theme'
 
-import counterpart from 'counterpart'
 import en from './locales/en'
+import SpacedText from '../SpacedText'
 
 counterpart.registerTranslations('en', en)
 
@@ -18,7 +18,7 @@ const StyledText = styled(Text)`
   })}
 `
 
-function AdminCheckbox ({ checked, colorTheme, label, onChange, theme }) {
+export default function AdminCheckbox ({ checked, colorTheme, label, onChange, theme }) {
   return (
     <ThemeProvider theme={{ mode: colorTheme }}>
       <CheckBox
@@ -36,7 +36,11 @@ function AdminCheckbox ({ checked, colorTheme, label, onChange, theme }) {
 AdminCheckbox.defaultProps = {
   checked: false,
   colorTheme: 'light',
-  label: <StyledText>{counterpart('AdminCheckbox.label')}</StyledText>,
+  label: (
+    <SpacedText color='teal' weight='bold'>
+      {counterpart('AdminCheckbox.label')}
+    </SpacedText>
+  ),
   onChange: () => {},
 }
 
@@ -46,5 +50,3 @@ AdminCheckbox.propTypes = {
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onChange: PropTypes.func,
 }
-
-export default AdminCheckbox

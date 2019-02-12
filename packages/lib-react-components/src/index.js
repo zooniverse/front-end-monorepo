@@ -1,4 +1,4 @@
-export { default as AdminCheckbox } from './ZooFooter/components/AdminCheckbox'
+export { default as AdminCheckbox } from './AdminCheckbox'
 export { default as Markdownz } from './Markdownz'
 export { default as Media } from './Media'
 export { default as Modal } from './Modal'
