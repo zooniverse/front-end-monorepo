@@ -8,7 +8,6 @@ const collections = require('./index')
 
 describe('Collections resource REST requests', function () {
   describe('get', function () {
-
     describe('with a collection ID', function () {
       const expectedGetResponse = responses.get.collection
       let scope
@@ -39,7 +38,7 @@ describe('Collections resource REST requests', function () {
         expect(response.body).to.eql(expectedGetResponse)
       })
     })
- 
+
     describe('without a collection ID', function () {
       const expectedGetResponse = responses.get.collections
       const query = {
@@ -95,7 +94,7 @@ describe('Collections resource REST requests', function () {
       display_name: 'my test collection'
     }
     const expectedPutResponse = Object.assign({}, responses.get.collection, data)
-    const requestBody = { collections : data }
+    const requestBody = { collections: data }
     let scope
 
     before(function () {
@@ -131,6 +130,36 @@ describe('Collections resource REST requests', function () {
     it('should update the specified collection', async function () {
       const response = await collections.update({ id: '10', data })
       expect(response.body).to.eql(expectedPutResponse)
+    })
+  })
+
+  describe('create', function () {
+    const expectedCreateResponse = responses.get.collection
+    const data = {
+      display_name: 'test collection'
+    }
+    const links = {
+      projects: [],
+      subjects: []
+    }
+    const payload = Object.assign({}, data, { links })
+    let scope
+
+    before(function () {
+      scope = nock(config.host)
+        .persist()
+        .post(`${endpoint}`, payload)
+        .query(true)
+        .reply(201, expectedCreateResponse)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    it('should create a new collection', async function () {
+      const response = await collections.create({ data })
+      expect(response.body).to.eql(expectedCreateResponse)
     })
   })
 

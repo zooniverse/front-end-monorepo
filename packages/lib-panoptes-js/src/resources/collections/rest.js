@@ -3,12 +3,10 @@ const { endpoint } = require('./helpers')
 const { raiseError } = require('../../utilityFunctions')
 
 function create (params) {
-  const newCollectionData = (params && params.data) ? params.data : {}
+  const newCollectionData = (params && params.data) || {}
   const authorization = (params && params.authorization) ? params.authorization : ''
-  const projects = params && params.projects
-  const subjects = (params && params.subjects) ? params.subjects : []
-  if (!projects || !Array.isArray(projects)) return raiseError('Collection create: projects array is required.', 'error')
-  // TODO: project and subject links
+  const projects = (params && params.projects) || []
+  const subjects = (params && params.subjects) || []
   const links = {
     projects,
     subjects
