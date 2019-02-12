@@ -1,34 +1,39 @@
+import { withKnobs, text } from '@storybook/addon-knobs'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Button } from 'grommet'
+import { func, string } from 'prop-types'
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
 
-import { Button } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
 import SpacedText from '../SpacedText'
 
 // TODO: why isn't styled-theming working?
 function determineColor(theme) {
-  return (theme === 'light') ?
-    zooTheme.global.colors.darkTeal :
-    zooTheme.global.colors.lightTeal
+  return (theme === 'light')
+    ? zooTheme.global.colors.darkTeal
+    : zooTheme.global.colors.lightTeal
 }
 
 export const StyledPlainButton = styled(Button)`
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     color: ${props => determineColor(props.theme)};
     text-decoration: underline;
   }
 `
 
-export default function PlainButton(props) {
+export default function PlainButton (props) {
   const { onClick, text, theme } = props
   const labelColor = determineColor(theme)
 
   return (
     <StyledPlainButton
-      label={<SpacedText color={labelColor}>{text}</SpacedText>}
+      label={(
+        <SpacedText color={labelColor}>
+          {text}
+        </SpacedText>
+      )}
       onClick={onClick}
       plain
       {...props}
@@ -41,7 +46,7 @@ PlainButton.defaultProps = {
 }
 
 PlainButton.propTypes = {
-  onClick: PropTypes.func,
-  label: PropTypes.string,
-  theme: PropTypes.string
+  onClick: func,
+  label: string,
+  theme: string
 }
