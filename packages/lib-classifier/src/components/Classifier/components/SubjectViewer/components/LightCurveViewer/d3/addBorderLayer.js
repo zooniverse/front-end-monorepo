@@ -5,6 +5,6 @@ export default function addBorderLayer (selection) {
     .attr('width', '100%')
     .attr('height', '100%')
     .attr('fill', 'none')
-    .attr('stroke', '#333')
+    .attr('stroke', '#444')
     .attr('stroke-width', '2')
 }
