@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import { inject, observer } from 'mobx-react'
 
-import addAxisLabel from './d3/addAxisLabel'
+import addAxisLayer from './d3/addAxisLayer'
 import addRemoveAnnotationButton from './d3/addRemoveAnnotationButton'
 import addBackgroundLayer from './d3/addBackgroundLayer'
 import addBorderLayer from './d3/addBorderLayer'
@@ -80,14 +80,9 @@ class LightCurveViewer extends Component {
     /*
     The "D3 axis" represents the visual axis and the axis labels.
     Not to be confused with x-scales and y-scales.
-    Note the naming: d3axisX and d3axisY are used for the D3 selection (i.e. the
-    actual elements in the SVG) whereas xAxis and yAxis represent the data
-    model.
+    Note: xAxis and yAxis represent the data models, not the DOM nodes or visual
+    D3 components.
      */
-    this.d3axisX = null
-    this.d3axisY = null
-    this.d3axisXLabel = null
-    this.d3axisYLabel = null
     this.xAxis = null
     this.yAxis = null
 
@@ -191,7 +186,7 @@ class LightCurveViewer extends Component {
     // For each new and existing data point, add (append) a new SVG circle.
     points.enter()
       .append('circle') // Note: all circles are of class '.data-point'
-      .call(setDataPointStyle)
+      .call(setDataPointStyle, props.chartStyle)
 
     // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
     points.exit().remove()
@@ -419,7 +414,7 @@ class LightCurveViewer extends Component {
     this.yScale = d3.scaleLinear()
 
     // Deco layer
-    this.d3svg.call(addBackgroundLayer)
+    this.d3svg.call(addBackgroundLayer, props.chartStyle)
 
     /*
     Data layer
@@ -439,24 +434,8 @@ class LightCurveViewer extends Component {
      */
     this.xAxis = d3.axisTop(this.yScale)
     this.yAxis = d3.axisRight(this.yScale)
-    const axisLayer = this.d3svg
-      .append('g')
-      .attr('class', 'axis-layer')
-
-    this.d3axisX = axisLayer
-      .append('g')
-      .attr('class', 'x-axis')
-      .call(this.xAxis)
-    this.d3axisY = axisLayer
-      .append('g')
-      .attr('class', 'y-axis')
-      .call(this.yAxis)
-
-    axisLayer.call(addAxisLabel, 'x-axis-label', props.axisXLabel, props.axisLabelStyle)
-    this.d3axisXLabel = axisLayer.select('.x-axis-label')
-
-    axisLayer.call(addAxisLabel, 'y-axis-label', props.axisYLabel, props.axisLabelStyle)
-    this.d3axisYLabel = axisLayer.select('.y-axis-label')
+    const axisLayer = addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
+    // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
     // Deco layer
     this.d3svg.call(addBorderLayer)
@@ -606,29 +585,30 @@ class LightCurveViewer extends Component {
 
     if (width && height) { // Update if container size changes.
       this.repositionAxes(width, height)
-      this.repositionAxisLabels(width, height, props.axisLabelStyle)
+      this.repositionAxisLabels(width, height, props.chartStyle)
       this.resizeDataMask(width, height, props.outerMargin)
     }
   }
 
   updateScales (transform) {
     this.xAxis.scale(transform.rescaleX(this.xScale)) // Rescale the x-axis to fit zoom
-    this.d3axisX.call(this.xAxis)
+    this.d3svg.select('.x-axis').call(this.xAxis)
 
     this.yAxis.scale(this.yScale) // Do NOT rescale the y-axis
-    this.d3axisY.call(this.yAxis)
+    this.d3svg.select('.y-axis').call(this.yAxis)
   }
 
   repositionAxes (width, height) {
-    this.d3axisX.attr('transform', `translate(0, ${height})`)
-    this.d3axisY.attr('transform', `translate(0, 0)`)
+    this.d3svg.select('.x-axis').attr('transform', `translate(0, ${height})`)
+    this.d3svg.select('.y-axis').attr('transform', `translate(0, 0)`)
   }
 
-  repositionAxisLabels (width, height, labelStyle) {
-    this.d3axisXLabel
-      .attr('transform', `translate(${width + labelStyle.xOffsetX}, ${height + labelStyle.xOffsetY})`)
-    this.d3axisYLabel
-      .attr('transform', `translate(${labelStyle.yOffsetX}, ${labelStyle.yOffsetY})`)
+  repositionAxisLabels (width, height, chartStyle) {
+    const props = this.props
+    this.d3svg.select('.x-axis-label')
+      .attr('transform', `translate(${width + props.axisXOffsetX}, ${height + props.axisXOffsetY})`)
+    this.d3svg.select('.y-axis-label')
+      .attr('transform', `translate(${props.axisYOffsetX}, ${props.axisYOffsetY})`)
   }
 
   // Resize the data mask, so data-points remain in view
@@ -669,15 +649,19 @@ LightCurveViewer.wrappedComponent.propTypes = {
   outerMargin: PropTypes.number, // Any data-points outside these margins (i.e. when zoomed in) are cropped
 
   axisXLabel: PropTypes.string,
+  axisXOffsetX: PropTypes.number,
+  axisXOffsetY: PropTypes.number,
+  
   axisYLabel: PropTypes.string,
+  axisYOffsetX: PropTypes.number,
+  axisYOffsetY: PropTypes.number,
 
-  axisLabelStyle: PropTypes.shape({
+  chartStyle: PropTypes.shape({
+    color: PropTypes.string,
+    background: PropTypes.string,
+    dataPointSize: PropTypes.string,
     fontFamily: PropTypes.string,
-    fontSize: PropTypes.string,
-    xOffsetX: PropTypes.number,
-    xOffsetY: PropTypes.number,
-    yOffsetX: PropTypes.number,
-    yOffsetY: PropTypes.number
+    fontSize: PropTypes.string
   }),
 
   // Store-mapped Properties
@@ -695,16 +679,20 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   innerMargin: 30,
   outerMargin: 10,
 
-  axisXLabel: 'Day',
+  axisXLabel: 'Days',
+  axisXOffsetX: -40,
+  axisXOffsetY: -20,
+  
   axisYLabel: 'Brightness',
+  axisYOffsetX: 20,
+  axisYOffsetY: 20,
 
-  axisLabelStyle: {
+  chartStyle: {
+    color: '#eff2f5',  // Zooniverse Light Grey
+    background: '#005d69',  // Zooniverse Dark Teal
+    dataPointSize: '1.5',
     fontFamily: 'inherit',
-    fontSize: '0.75rem',
-    xOffsetX: -40,
-    xOffsetY: -20,
-    yOffsetX: 20,
-    yOffsetY: 20
+    fontSize: '0.75rem'
   },
 
   interactionMode: '',
