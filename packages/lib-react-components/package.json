@@ -54,7 +54,6 @@
     "@babel/runtime": "~7.3.1",
     "@storybook/addon-actions": "~4.1.2",
     "@storybook/addon-backgrounds": "~4.1.4",
-    "@storybook/addon-info": "~4.1.4",
     "@storybook/addon-knobs": "~4.1.7",
     "@storybook/addon-links": "~4.1.4",
     "@storybook/addon-notes": "~4.0.8",
