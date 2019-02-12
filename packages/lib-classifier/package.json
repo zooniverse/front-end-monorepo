@@ -34,7 +34,6 @@
     "workbox-webpack-plugin": "~3.6.3"
   },
   "peerDependencies": {
-    "@zooniverse/auth": "~0.0.1",
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
@@ -54,7 +53,6 @@
     "@babel/preset-env": "~7.1.6",
     "@babel/preset-react": "~7.0.0",
     "@babel/register": "~7.0.0",
-    "@zooniverse/auth": "~0.0.1",
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
@@ -74,6 +72,7 @@
     "mobx-state-tree": "~3.2.4",
     "mocha": "~5.2.0",
     "mst-middlewares": "~3.7.1",
+    "panoptes-client": "^2.12.0",
     "polished": "~2.3.0",
     "query-string": "~6.2.0",
     "react": "~16.6.3",

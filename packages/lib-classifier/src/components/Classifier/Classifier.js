@@ -40,13 +40,13 @@ export default class Classifier extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { project, user } = this.props
+    const { authClient, project } = this.props
     if (project.id !== prevProps.project.id) {
       this.setProject(project)
     }
 
-    if (!user) {
-      this.classifierStore.userProjectPreferences.reset()
+    if (authClient) {
+      this.classifierStore.userProjectPreferences.checkForUser()
     }
   }
 
@@ -67,8 +67,7 @@ export default class Classifier extends React.Component {
 }
 
 Classifier.defaultProps = {
-  mode: 'light',
-  user: null
+  mode: 'light'
 }
 
 Classifier.propTypes = {
@@ -76,6 +75,5 @@ Classifier.propTypes = {
   mode: PropTypes.string,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
-  }).isRequired,
-  user: PropTypes.object
+  }).isRequired
 }
