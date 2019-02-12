@@ -85,7 +85,7 @@ export default function ZooFooter (props) {
                 side: 'bottom',
                 size: 'xsmall'
               }}
-              direction='row'
+              direction='row-responsive'
               justify='between'
               margin={{ bottom: 'medium' }}
               pad={{ bottom: 'medium' }}
