@@ -1,0 +1,8 @@
+version: '3'
+services:
+  front-end:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/
