@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Script for bootstrapping the monorepo into a working state for development.
 #
