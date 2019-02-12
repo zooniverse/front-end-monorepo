@@ -16,6 +16,8 @@ Lerna allows us to maintain package modularity for javascript projects that have
 
 ## Getting started
 
+#### With your own node setup
+
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
 cd front-end-monorepo
@@ -23,6 +25,22 @@ cd front-end-monorepo
 ```
 
 The `bootstrap.sh` script will install the top-level dependencies, build any packages used as dependencies, and finally bootstrap the remaining packages.
+
+#### Using docker
+
+```sh
+# Build the image
+docker-compose build
+
+# Run cmds through docker, e.g. run all tests
+docker-compose run --rm front-end npx lerna run --stream test:ci
+
+# Or you can then run tooling using bash session
+docker-compose run --rm front-end bash
+# from within the bash shell
+npx lerna run --stream test:ci
+```
+
 
 ## Helpful Guides
 
