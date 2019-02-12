@@ -688,8 +688,8 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   axisYOffsetY: 20,
 
   chartStyle: {
-    color: '#fff',
-    background: '#02012d',
+    color: '#eff2f5',  // Zooniverse Light Grey
+    background: '#005d69',  // Zooniverse Dark Teal
     dataPointSize: '1.5',
     fontFamily: 'inherit',
     fontSize: '0.75rem'
