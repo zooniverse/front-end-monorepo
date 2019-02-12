@@ -1,3 +1,4 @@
+import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
 
@@ -14,7 +15,7 @@ describe('Stores > Project', function () {
   it('should exist', function () {
     rootStore = Store.create({}, placeholderEnv)
     projectStore = rootStore.project
-    projectStore.should.not.be.undefined
+    expect(projectStore).to.be.ok
   })
 
   describe('default model properties', function () {
@@ -40,11 +41,11 @@ describe('Stores > Project', function () {
     })
 
     it('should have a `slug` property', function () {
-      projectStore.slug.should.equal('')
+      expect(projectStore.slug).to.equal('')
     })
 
     it('should have a `state` property', function () {
-      projectStore.loadingState.should.equal(asyncStates.initialized)
+      expect(projectStore.loadingState).to.equal(asyncStates.initialized)
     })
 
     after(function () {
@@ -67,28 +68,28 @@ describe('Stores > Project', function () {
     })
 
     it('should exist', function () {
-      projectStore.fetch.should.be.a('function')
+      expect(projectStore.fetch).to.be.a('function')
     })
 
     it('should fetch a valid project resource', function (done) {
-      projectStore.loadingState.should.equal(asyncStates.initialized)
+      expect(projectStore.loadingState).to.equal(asyncStates.initialized)
 
       projectStore.fetch('foo/bar')
         .then(function () {
           const { projectBackground, projectTwo } = mocks.resources
 
-          projectStore.background.should.eql(projectTwo.projectBackground)
-          projectStore.displayName.should.equal(projectTwo.display_name)
-          projectStore.id.should.equal(projectTwo.id)
-          projectStore.loadingState.should.equal(asyncStates.success)
-          projectStore.slug.should.equal(projectTwo.slug)
+          expect(projectStore.background).to.eql(projectTwo.projectBackground)
+          expect(projectStore.displayName).to.equal(projectTwo.display_name)
+          expect(projectStore.id).to.equal(projectTwo.id)
+          expect(projectStore.loadingState).to.equal(asyncStates.success)
+          expect(projectStore.slug).to.equal(projectTwo.slug)
 
           done()
         })
 
       // Since this is run before fetch's thenable resolves, it should test
       // correctly during the request.
-      projectStore.loadingState.should.equal(asyncStates.loading)
+      expect(projectStore.loadingState).to.equal(asyncStates.loading)
     })
 
     after(function () {
