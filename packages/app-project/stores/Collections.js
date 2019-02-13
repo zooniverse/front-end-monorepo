@@ -1,6 +1,7 @@
-import asyncStates from '@zooniverse/async-states'
-import { flow, getRoot, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
+import asyncStates from '@zooniverse/async-states'
 
 export const Collection = types
   .model('Collection', {
@@ -20,12 +21,26 @@ const Collections = types
 
   .actions(self => {
     let client
+
+    function createProjectObserver () {
+      const projectDisposer = autorun(() => {
+        const project = getRoot(self).project
+        const user = getRoot(self).user
+        if (project.id && user.id) {
+          self.fetchFavourites()
+        }
+      })
+      addDisposer(self, projectDisposer)
+    }
+
     return {
       afterAttach () {
         client = getRoot(self).client.collections
+        createProjectObserver()
       },
 
-      createFavourites: flow( function * createFavourites (project) {
+      createFavourites: flow( function * createFavourites () {
+        const project = getRoot(self).project
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
@@ -40,7 +55,9 @@ const Collections = types
         self.favourites = Collection.create(favourites)
       }),
 
-      fetchFavourites: flow( function * fetchFavourites (project, user) {
+      fetchFavourites: flow( function * fetchFavourites () {
+        const project = getRoot(self).project
+        const user = getRoot(self).user
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
@@ -55,7 +72,7 @@ const Collections = types
         if (favourites) {
           self.favourites = Collection.create(favourites)
         } else {
-          self.createFavourites(project)
+          self.createFavourites()
         }
       })
     }

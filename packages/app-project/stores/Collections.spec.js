@@ -5,6 +5,7 @@ import asyncStates from '@zooniverse/async-states'
 import { collections } from '@zooniverse/panoptes-js'
 import Collections from './Collections'
 import Store from './Store'
+import initStore from './initStore'
 import placeholderEnv from './helpers/placeholderEnv'
 
 describe('stores > Collections', function () {
@@ -23,6 +24,15 @@ describe('stores > Collections', function () {
 
     describe('with an existing collection', function () {
       before(function () {
+        const project = {
+          id: '2',
+          display_name: 'Hello',
+          slug: 'test/project'
+        }
+        const user = {
+          login: 'test.user'
+        }
+        const snapshot = { project, user }
         const clientStub = {
           collections: {
             get: function () {
@@ -30,14 +40,14 @@ describe('stores > Collections', function () {
             }
           }
         }
-        rootStore = Store.create({}, { client: clientStub })
+        rootStore = initStore(true, snapshot, clientStub)
         collectionsStore = rootStore.collections
       })
 
       it('should fetch a collection', function (done) {
         expect(collectionsStore.loadingState).to.equal(asyncStates.initialized)
 
-        collectionsStore.fetchFavourites({ id: '2', display_name: 'Hello' }, { login: 'test.user' })
+        collectionsStore.fetchFavourites()
           .then(function () {
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)
             expect(collectionsStore.favourites).to.be.ok
@@ -54,6 +64,15 @@ describe('stores > Collections', function () {
       let clientStub
 
       before(function () {
+        const project = {
+          id: '2',
+          display_name: 'Hello',
+          slug: 'test/project'
+        }
+        const user = {
+          login: 'test.user'
+        }
+        const snapshot = { project, user }
         clientStub = {
           collections: {
             create: sinon.stub().callsFake(function (payload) {
@@ -71,14 +90,14 @@ describe('stores > Collections', function () {
             }
           }
         }
-        rootStore = Store.create({}, { client: clientStub })
+        rootStore = initStore(true, snapshot, clientStub)
         collectionsStore = rootStore.collections
       })
 
       it('should create a new collection', function (done) {
         expect(collectionsStore.loadingState).to.equal(asyncStates.initialized)
 
-        collectionsStore.fetchFavourites({ id: '2', display_name: 'Hello', slug: 'test/project' }, { login: 'test.user' })
+        collectionsStore.fetchFavourites()
           .then(function () {
             const favourites = getSnapshot(collectionsStore.favourites)
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)

@@ -69,8 +69,6 @@ export default class MyApp extends App {
     const userResource = await auth.checkCurrent()
     if (userResource) {
       this.store.user.set(userResource)
-      const { project } = getSnapshot(this.store)
-      this.store.collections.fetchFavourites(project, userResource)
     }
   }
 
