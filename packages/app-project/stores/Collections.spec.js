@@ -59,7 +59,7 @@ describe('stores > Collections', function () {
             create: sinon.stub().callsFake(function (payload) {
               const [ favourites ] = collections.mocks.responses.get.collection.collections
               const links = {
-                projects: payload.projects,
+                project: payload.project,
                 subjects: payload.subjects
               }
               const newCollection = Object.assign({}, favourites, payload.data, { links })
@@ -85,7 +85,7 @@ describe('stores > Collections', function () {
             expect(clientStub.collections.create).to.have.been.calledOnce
             expect(collectionsStore.favourites).to.be.ok
             expect(favourites.display_name).to.equal('Favourites test/project')
-            expect(favourites.links.projects).to.eql(['2'])
+            expect(favourites.links.project).to.equal('2')
             expect(favourites.links.subjects).to.eql([])
           })
           .then(done, done)

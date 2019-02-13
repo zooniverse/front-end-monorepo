@@ -33,9 +33,8 @@ const Collections = types
           display_name: `Favourites ${project.slug}`,
           favorite: true
         }
-        const projects = [project.id]
         const subjects = []
-        const response = yield client.create({ authorization, data, projects, subjects })
+        const response = yield client.create({ authorization, data, project : project.id, subjects })
         const [ favourites ] = response.body.collections
         self.loadingState = asyncStates.success
         self.favourites = Collection.create(favourites)
