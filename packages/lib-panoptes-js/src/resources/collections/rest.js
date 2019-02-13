@@ -5,11 +5,12 @@ const { raiseError } = require('../../utilityFunctions')
 function create (params) {
   const newCollectionData = (params && params.data) || {}
   const authorization = (params && params.authorization) ? params.authorization : ''
-  const projects = (params && params.projects) || []
   const subjects = (params && params.subjects) || []
   const links = {
-    projects,
     subjects
+  }
+  if (params && params.project) {
+    links.project = params.project
   }
   const collectionData = Object.assign({}, newCollectionData, { links })
 

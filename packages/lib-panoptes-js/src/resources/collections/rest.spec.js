@@ -139,7 +139,7 @@ describe('Collections resource REST requests', function () {
       display_name: 'test collection'
     }
     const links = {
-      projects: [],
+      project: '2',
       subjects: []
     }
     const payload = Object.assign({}, data, { links })
@@ -158,7 +158,7 @@ describe('Collections resource REST requests', function () {
     })
 
     it('should create a new collection', async function () {
-      const response = await collections.create({ data })
+      const response = await collections.create({ data, project: '2' })
       expect(response.body).to.eql(expectedCreateResponse)
     })
   })
