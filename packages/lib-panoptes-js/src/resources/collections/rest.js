@@ -12,9 +12,9 @@ function create (params) {
   if (params && params.project) {
     links.project = params.project
   }
-  const collectionData = Object.assign({}, newCollectionData, { links })
+  const collections = Object.assign({}, newCollectionData, { links })
 
-  return panoptes.post(endpoint, collectionData, authorization)
+  return panoptes.post(endpoint, { collections }, authorization)
 }
 
 function get (params) {

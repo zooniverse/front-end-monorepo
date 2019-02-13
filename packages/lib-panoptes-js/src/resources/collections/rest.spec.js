@@ -142,7 +142,8 @@ describe('Collections resource REST requests', function () {
       project: '2',
       subjects: []
     }
-    const payload = Object.assign({}, data, { links })
+    const changes = Object.assign({}, data, { links })
+    const payload = { collections: changes }
     let scope
 
     before(function () {
