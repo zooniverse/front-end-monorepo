@@ -54,6 +54,7 @@ const UserProjectPreferencesStore = types
       try {
         const bearerToken = yield getBearerToken(authClient)
         const user = yield authClient.checkCurrent()
+
         if (bearerToken && user) {
           self.fetchUPP(bearerToken, user)
         } else {
