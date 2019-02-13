@@ -74,6 +74,32 @@ const Collections = types
         } else {
           self.createFavourites()
         }
+      }),
+      
+      addFavourites: flow( function * addFavourites (subjectIds) {
+        const token = yield auth.checkBearerToken()
+        const authorization = `Bearer ${token}`
+        const params = {
+          authorization,
+          collectionId: self.favourites.id,
+          subjects: subjectIds
+        }
+        const response = yield client.addSubjects(params)
+        const [ favourites ] = response.body.collections
+        self.favourites = Collection.create(favourites)
+      }),
+
+      removeFavourites: flow( function * removeFavourites (subjectIds) {
+        const token = yield auth.checkBearerToken()
+        const authorization = `Bearer ${token}`
+        const params = {
+          authorization,
+          collectionId: self.favourites.id,
+          subjects: subjectIds
+        }
+        const response = yield client.removeSubjects(params)
+        const [ favourites ] = response.body.collections
+        self.favourites = Collection.create(favourites)
       })
     }
   })

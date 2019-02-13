@@ -10,13 +10,14 @@ import placeholderEnv from './helpers/placeholderEnv'
 
 describe('stores > Collections', function () {
   let rootStore = Store.create({}, placeholderEnv)
+  let collectionsStore = rootStore.collections
+  let clientStub
   
   it('should exist', function () {
     expect(rootStore.collections).to.be.ok
   })
 
   describe('fetchFavourites', function () {
-    let collectionsStore = rootStore.collections
 
     it('should exist', function () {
       expect(collectionsStore.fetchFavourites).to.be.a('function')
@@ -33,7 +34,7 @@ describe('stores > Collections', function () {
           login: 'test.user'
         }
         const snapshot = { project, user }
-        const clientStub = {
+        clientStub = {
           collections: {
             get: function () {
               return Promise.resolve({ body: collections.mocks.responses.get.collection})
@@ -61,7 +62,6 @@ describe('stores > Collections', function () {
     })
 
     describe('without an existing collection', function () {
-      let clientStub
 
       before(function () {
         const project = {
@@ -113,6 +113,102 @@ describe('stores > Collections', function () {
         // correctly during the request.
         expect(collectionsStore.loadingState).to.equal(asyncStates.loading)
       })
+    })
+  })
+
+  describe('add favourites', function () {
+    before(function () {
+      const project = {
+        id: '2',
+        display_name: 'Hello',
+        slug: 'test/project'
+      }
+      const user = {
+        login: 'test.user'
+      }
+      const links = {
+        project: '1',
+        subjects: []
+      }
+      const favourites = Object.assign({}, collections.mocks.resources.collection, { links })
+      const snapshot = { project, user, collections: { favourites } }
+      clientStub = {
+        collections: {
+          addSubjects: sinon.stub().callsFake(function (params) {
+            const links = {
+              project: '1',
+              subjects: ['1', '2']
+            }
+            const newFavourites = Object.assign({}, favourites, { links })
+            return Promise.resolve({ body: { collections: [ newFavourites ]}})
+          })
+        }
+      }
+      rootStore = initStore(true, snapshot, clientStub)
+      collectionsStore = rootStore.collections
+    })
+
+    it('should add subjects to the favourites collection', function (done) {
+      collectionsStore.addFavourites(['1', '2'])
+        .then( function () {
+          const favourites = getSnapshot(collectionsStore.favourites)
+          const params = {
+            authorization: "Bearer ",
+            collectionId: favourites.id,
+            subjects: ['1', '2']
+          }
+          expect(clientStub.collections.addSubjects).to.have.been.calledOnceWith(params)
+          expect(favourites.links.subjects).to.eql(['1', '2'])
+        })
+        .then(done, done)
+    })
+  })
+
+  describe('remove favourites', function () {
+    before(function () {
+      const project = {
+        id: '2',
+        display_name: 'Hello',
+        slug: 'test/project'
+      }
+      const user = {
+        login: 'test.user'
+      }
+      const links = {
+        project: '1',
+        subjects: ['1', '2']
+      }
+      const favourites = Object.assign({}, collections.mocks.resources.collection, { links })
+      const snapshot = { project, user, collections: { favourites } }
+      clientStub = {
+        collections: {
+          removeSubjects: sinon.stub().callsFake(function (params) {
+            const links = {
+              project: '1',
+              subjects: []
+            }
+            const newFavourites = Object.assign({}, favourites, { links })
+            return Promise.resolve({ body: { collections: [ newFavourites ]}})
+          })
+        }
+      }
+      rootStore = initStore(true, snapshot, clientStub)
+      collectionsStore = rootStore.collections
+    })
+
+    it('should remove subjects from the favourites collection', function (done) {
+      collectionsStore.removeFavourites(['1', '2'])
+        .then( function () {
+          const favourites = getSnapshot(collectionsStore.favourites)
+          const params = {
+            authorization: "Bearer ",
+            collectionId: favourites.id,
+            subjects: ['1', '2']
+          }
+          expect(clientStub.collections.removeSubjects).to.have.been.calledOnceWith(params)
+          expect(favourites.links.subjects).to.eql([])
+        })
+        .then(done, done)
     })
   })
 })
