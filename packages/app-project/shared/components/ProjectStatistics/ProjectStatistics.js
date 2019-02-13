@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+import ContentBox from 'components/ContentBox'
+
 import en from './locales/en'
-import ClassifyBox from '../ClassifyBox'
 import CompletionBar from './components/CompletionBar'
 import MainGrid from './components/MainGrid'
 import Stat from './components/Stat'
@@ -32,7 +33,7 @@ function ProjectStatistics ({
   volunteers
 }) {
   return (
-    <ClassifyBox
+    <ContentBox
       linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
       linkUrl='#'
       title={counterpart('ProjectStatistics.title', { projectName })}
@@ -77,7 +78,7 @@ function ProjectStatistics ({
           </NumbersGrid>
         </section>
       </MainGrid>
-    </ClassifyBox>
+    </ContentBox>
   )
 }
 

@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { bool, func, string } from 'prop-types'
 import React, { Component } from 'react'
 
+import withOnlyRenderOnBrowser from 'components/withOnlyRenderOnBrowser'
+
 import en from './locales/en'
-import withOnlyRenderOnBrowser from '../../shared/components/withOnlyRenderOnBrowser'
 
 counterpart.registerTranslations('en', en)
 

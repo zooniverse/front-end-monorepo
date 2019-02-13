@@ -8,8 +8,9 @@ module.exports = {
   webpack: (config) => {
     const modifiedConfig = Object.assign({}, config)
 
+    modifiedConfig.resolve.modules.unshift('shared')
     modifiedConfig.resolve.alias['styled-components'] = path.resolve('.', 'node_modules', 'styled-components')
-
+    console.info(modifiedConfig)
     return modifiedConfig
   }
 }

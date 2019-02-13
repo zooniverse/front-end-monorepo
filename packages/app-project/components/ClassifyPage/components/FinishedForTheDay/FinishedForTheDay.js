@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+import ClassifyBox from 'components/ClassifyBox'
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
-import ClassifyBox from '../ClassifyBox'
 
 counterpart.registerTranslations('en', en)
 

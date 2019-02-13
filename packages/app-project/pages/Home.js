@@ -1,3 +1,5 @@
 import React from 'react'
 
-export default () => <div>Project Home</div>
+import ProjectHomePage from '../components/ProjectHomePage'
+
+export default () => <ProjectHomePage />
