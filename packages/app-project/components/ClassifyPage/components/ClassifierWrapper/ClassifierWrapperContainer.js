@@ -17,8 +17,30 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 export default class ClassifierWrapperContainer extends Component {
+  constructor () {
+    super()
+    this.state = {
+      hasError: false
+    }
+  }
+
+  static getDerivedStateFromError (error) {
+    return {
+      hasError: true
+    }
+  }
+
   render () {
     const { authClient, project } = this.props
+
+    if (this.state.hasError) {
+      return (
+        <Box>
+          There was an error in the classifier :(
+        </Box>
+      )
+    }
+
     if (project.loadingState === 'success') {
       return (
         <Classifier
@@ -29,7 +51,7 @@ export default class ClassifierWrapperContainer extends Component {
     }
 
     return (
-      <div>Loading</div>
+      <div>Loading...</div>
     )
   }
 }
