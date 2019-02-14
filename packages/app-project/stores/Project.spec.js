@@ -58,7 +58,7 @@ describe('Stores > Project', function () {
     before(function () {
       clientStub = {
         projects: {
-          get: function () {
+          getWithLinkedResources: function () {
             return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
           }
         }
@@ -78,14 +78,13 @@ describe('Stores > Project', function () {
         .then(function () {
           const { projectBackground, projectTwo } = mocks.resources
 
-          expect(projectStore.background).to.eql(projectTwo.projectBackground)
+          expect(projectStore.background).to.eql(projectBackground)
           expect(projectStore.displayName).to.equal(projectTwo.display_name)
           expect(projectStore.id).to.equal(projectTwo.id)
           expect(projectStore.loadingState).to.equal(asyncStates.success)
           expect(projectStore.slug).to.equal(projectTwo.slug)
-
-          done()
         })
+        .then(done, done)
 
       // Since this is run before fetch's thenable resolves, it should test
       // correctly during the request.
