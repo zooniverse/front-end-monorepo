@@ -15,9 +15,16 @@ const Project = types
     links: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     retired_subjects_count: types.optional(types.number, 0),
+    slug: types.optional(types.string, ''),
     urls: types.frozen([]),
     subjects_count: types.optional(types.number, 0)
   })
+
+  .views(self => ({
+    get displayName () {
+      return self.display_name
+    }
+  }))
 
   .actions(self => {
     let client
