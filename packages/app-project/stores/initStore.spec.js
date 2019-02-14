@@ -12,13 +12,13 @@ describe('Stores > initStore', function () {
   it('should create a new store when running on the server', function () {
     const store1 = initStore(true)
     const store2 = initStore(true)
-    expect(store2).to.not.eql(store1)
+    expect(store2).to.not.equal(store1)
   })
 
-  it('should reuse a store when running on the server', function () {
-    const store1 = initStore(false)
+  it('should reuse a store when not running on the server', function () {
+    const store1 = initStore(true)
     const store2 = initStore(false)
-    expect(store2).to.eql(store1)
+    expect(store2).to.equal(store1)
   })
 
   it('should contain a project store', function () {
@@ -30,13 +30,14 @@ describe('Stores > initStore', function () {
     const snapshot = {
       project: {
         loadingState: asyncStates.initialized,
-        displayName: 'foobar',
+        display_name: 'foobar',
         error: null,
         id: '12345'
       }
     }
     const store = initStore(true, snapshot)
-    expect(store.project).to.deep.equal(snapshot.project)
+    expect(store.project.displayName).to.equal('foobar')
+    expect(store.project.id).to.equal('12345')
   })
 
   it('should use PanoptesJS if there is no client argument', function () {
