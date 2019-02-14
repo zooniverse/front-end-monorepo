@@ -1,7 +1,7 @@
 import React from 'react'
 import queryString from 'query-string'
 import { panoptes } from '@zooniverse/panoptes-js'
-import { createOAuthClient } from '@zooniverse/auth'
+import oauth from 'panoptes-client/lib/oauth'
 import { Button, Grommet, Box } from 'grommet'
 import theme from '@zooniverse/grommet-theme'
 import Classifier from '../../../src/components/Classifier'
@@ -9,24 +9,6 @@ import Classifier from '../../../src/components/Classifier'
 class App extends React.Component {
   constructor () {
     super()
-
-    this.authClient = createOAuthClient({
-      clientId: '7532a403edf16f31fb2a210b8a49f59553d45064e6c292679c3eac53631d73d1',
-      env: 'staging',
-      redirectUri: 'http://localhost:8080/', // The URI you want the user redirected to on completion
-      scopes: [
-        'classification',
-        'collection',
-        'group',
-        'medium',
-        'organization',
-        'project',
-        'public',
-        'subject',
-        'translation',
-        'user'
-      ]
-    })
 
     this.state = {
       loading: false,
@@ -42,7 +24,7 @@ class App extends React.Component {
 
   initAuthorization () {
     this.setState({ loading: true })
-    return this.authClient.initialize()
+    return oauth.init('7532a403edf16f31fb2a210b8a49f59553d45064e6c292679c3eac53631d73d1')
       .then((user) => {
         this.setState({ loading: false, user })
         history.replaceState(null, document.title, location.pathname + location.search)
@@ -50,8 +32,8 @@ class App extends React.Component {
   }
 
   getBearerToken () {
-    if (this.authClient && this.authClient.getToken()) {
-      const { token } = this.authClient.getToken()
+    const token = oauth.checkBearerToken()
+    if (token) {
       return `Bearer ${token}`
     }
 
@@ -80,11 +62,11 @@ class App extends React.Component {
   }
 
   login () {
-    this.authClient.startLogin()
+    oauth.signIn('http://localhost:8080/')
   }
 
   logout () {
-    this.authClient.logout()
+    oauth.signOut()
       .then((user) => {
         this.setState({ user })
       })
@@ -107,9 +89,8 @@ class App extends React.Component {
         </Box>
         <Box tag='section'>
           <Classifier
-            authClient={this.authClient}
+            authClient={oauth}
             project={this.state.project}
-            user={this.state.user}
           />
         </Box>
       </Grommet>

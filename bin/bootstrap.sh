@@ -8,7 +8,6 @@
 #   - Install dependencies for `@zooniverse/panoptes-js`
 #   - Install dependencies for `@zooniverse/grommet-theme` and build
 #   - Install dependencies for `@zooniverse/react-components` and build
-#   - Install dependencies for `@zooniverse/auth` and build
 #   - Install dependencies for `@zooniverse/lib-classifier` and build
 #   - Install dependencies for remaining packages
 
@@ -29,10 +28,6 @@ printf '\n'
 
 printf 'Building `lib-react-components`...\n'
 $LERNA exec --scope="@zooniverse/react-components" -- npm run build
-printf '\n'
-
-printf 'Building `lib-auth`...\n'
-$LERNA exec --scope="@zooniverse/auth" -- npm run build
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'

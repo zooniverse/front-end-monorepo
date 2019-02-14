@@ -3,7 +3,6 @@ import { shape } from 'prop-types'
 import React, { Component } from 'react'
 import auth from 'panoptes-client/lib/auth'
 import Classifier from '@zooniverse/classifier'
-import { cloneDeep } from 'lodash'
 
 function storeMapper (stores) {
   const { project } = stores.store
@@ -15,10 +14,6 @@ function storeMapper (stores) {
   }
 }
 
-const authInterface = _.cloneDeep(auth)
-authInterface.getBearerToken = auth.checkBearerToken
-authInterface.getUser = auth.checkCurrent
-
 @inject(storeMapper)
 @observer
 export default class ClassifierWrapperContainer extends Component {
@@ -29,7 +24,7 @@ export default class ClassifierWrapperContainer extends Component {
         <Classifier
           authClient={authClient}
           project={project}
-          />
+        />
       )
     }
 
@@ -45,5 +40,5 @@ ClassifierWrapperContainer.propTypes = {
 }
 
 ClassifierWrapperContainer.defaultProps = {
-  authClient: authInterface
+  authClient: auth
 }

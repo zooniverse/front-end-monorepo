@@ -13,7 +13,7 @@ counterpart.registerTranslations('en', en)
 // TODO move what makes sense into theme
 export const StyledDoneButton = styled(Button)`
   background-color: ${theme('mode', {
-    dark: zooTheme.dark.colors.background.default,
+    dark: zooTheme.global.colors.midDarkGrey,
     light: zooTheme.light.colors.button.done
   })};
   border: ${theme('mode', {
@@ -46,7 +46,7 @@ export const StyledDoneButton = styled(Button)`
 
   &:disabled {
     background: ${theme('mode', {
-    dark: lighten(0.05, zooTheme.dark.colors.background.default),
+    dark: lighten(0.05, zooTheme.global.colors.midDarkGrey),
     light: lighten(0.05, zooTheme.light.colors.button.done)
   })};
     border: ${theme('mode', {

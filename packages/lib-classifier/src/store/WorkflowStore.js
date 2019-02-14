@@ -12,13 +12,25 @@ const WorkflowStore = types
 
   .actions(self => {
     function afterAttach () {
+      createProjectObserver()
       createUPPObserver()
+    }
+
+    function createProjectObserver () {
+      const projectDisposer = autorun(() => {
+        const project = getRoot(self).projects.active
+        if (project) {
+          self.reset()
+          selectWorkflow()
+        }
+      })
+      addDisposer(self, projectDisposer)
     }
 
     function createUPPObserver () {
       const uppDisposer = autorun(() => {
         const upp = getRoot(self).userProjectPreferences.active
-        if (upp) {
+        if (upp && !self.active) {
           self.reset()
           selectWorkflow()
         }

@@ -20,30 +20,14 @@ const UserProjectPreferencesStore = types
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const project = getRoot(self).projects.active
+        const { authClient } = getRoot(self)
+
         if (project) {
           self.reset()
-          self.createTempUPPOrFetchUPP()
+          self.checkForUser()
         }
       })
       addDisposer(self, projectDisposer)
-    }
-
-    function createTempUPP () {
-      const tempUPP = UserProjectPreferences.create({ id: 'guestPreferencesDoNotPost', preferences: {} })
-      self.loadingState = asyncStates.success
-      self.setUPP(tempUPP)
-    }
-
-    function * createTempUPPOrFetchUPP () {
-      const project = getRoot(self).projects.active
-      const { authClient } = getRoot(self)
-      const bearerToken = yield getBearerToken(authClient)
-      const user = yield authClient.getUser()
-      if (bearerToken && user) {
-        self.fetchUPP(bearerToken, project, user)
-      } else {
-        self.createTempUPP()
-      }
     }
 
     function * createUPP (bearerToken) {
@@ -64,10 +48,30 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function * fetchUPP (bearerToken, project, user) {
+    function * checkForUser () {
+      const { authClient } = getRoot(self)
+
+      try {
+        const bearerToken = yield getBearerToken(authClient)
+        const user = yield authClient.checkCurrent()
+
+        if (bearerToken && user) {
+          self.fetchUPP(bearerToken, user)
+        } else {
+          self.reset()
+        }
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
+      }
+    }
+
+    function * fetchUPP (bearerToken, user) {
       let resource
       const { type } = self
       const client = getRoot(self).client.panoptes
+      const project = getRoot(self).projects.active
+
       self.loadingState = asyncStates.loading
       try {
         const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, bearerToken)
@@ -92,9 +96,8 @@ const UserProjectPreferencesStore = types
 
     return {
       afterAttach,
+      checkForUser: flow(checkForUser),
       createUPP: flow(createUPP),
-      createTempUPPOrFetchUPP: flow(createTempUPPOrFetchUPP),
-      createTempUPP,
       fetchUPP: flow(fetchUPP),
       setUPP
     }
