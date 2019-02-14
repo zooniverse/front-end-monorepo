@@ -9,7 +9,8 @@ const User = types
     avatar_src: types.maybeNull(types.string),
     display_name: types.maybeNull(types.string),
     id: types.maybeNull(numberString),
-    login: types.maybeNull(types.string)
+    login: types.maybeNull(types.string),
+    pending: true
   })
 
   .views(self => ({
@@ -25,6 +26,7 @@ const User = types
   .actions(self => ({
     checkCurrent: flow(function * checkCurrent () {
       const userResource = yield auth.checkCurrent()
+      self.pending = false
       if (userResource) {
         self.set(userResource)
       }

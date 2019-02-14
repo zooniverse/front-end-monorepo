@@ -7,12 +7,13 @@ import React, { Component } from 'react'
 import ErrorMessage from './components/ErrorMessage'
 
 function storeMapper (stores) {
-  const { project } = stores.store
+  const { project, user } = stores.store
   // We return a POJO here, as the `project` resource is also stored in a
   // `mobx-state-tree` store in the classifier and an MST node can't be in two
   // stores at the same time.
   return {
-    project: project.toJSON()
+    project: project.toJSON(),
+    user
   }
 }
 
@@ -33,12 +34,20 @@ export default class ClassifierWrapperContainer extends Component {
   }
 
   render () {
-    const { authClient, project } = this.props
+    const { authClient, project, user } = this.props
     const { error } = this.state
 
     if (error) {
       return (
         <ErrorMessage error={error} />
+      )
+    }
+
+    if (user.pending) {
+      return (
+        <p>
+          Signing in…
+        </p>
       )
     }
 
