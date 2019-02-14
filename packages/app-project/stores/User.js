@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
+import auth from 'panoptes-client/lib/auth'
 
 import numberString from './types/numberString'
 
@@ -22,6 +23,13 @@ const User = types
   }))
 
   .actions(self => ({
+    checkCurrent: flow(function * checkCurrent () {
+      const userResource = yield auth.checkCurrent()
+      if (userResource) {
+        self.set(userResource)
+      }
+    }),
+
     clear () {
       self.id = null
     },
