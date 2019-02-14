@@ -8,7 +8,7 @@ describe('NextButton', function () {
   describe('rendering', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<NextButton />)
+      wrapper = mount(<NextButton onClick={() => {}} />)
     })
 
     it('should render without crashing', function () {
@@ -37,10 +37,10 @@ describe('NextButton', function () {
     })
   })
 
-  xdescribe('props.disabled', function () {
+  describe('props.disabled', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<NextButton />)
+      wrapper = mount(<NextButton onClick={() => { }} />)
     })
 
     it('should not be disabled if props.disabled is false', function () {
@@ -56,7 +56,7 @@ describe('NextButton', function () {
   describe('props.autoFocus', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<NextButton />)
+      wrapper = mount(<NextButton onClick={() => { }} />)
     })
 
     it('should not be auto-focused if props.autoFocus is false', function () {

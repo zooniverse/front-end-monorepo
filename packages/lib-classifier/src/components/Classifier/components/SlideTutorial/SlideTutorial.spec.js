@@ -21,12 +21,12 @@ const medium = {
 
 describe('SlideTutorial', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<SlideTutorial.wrappedComponent />)
+    const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
     expect(wrapper).to.be.ok
   })
 
   it('should render an error message if props.stepWithMedium is not defined', function () {
-    const wrapper = shallow(<SlideTutorial.wrappedComponent />)
+    const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
     expect(wrapper.text()).to.equal(en.SlideTutorial.error)
   })
 
