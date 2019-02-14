@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { shape } from 'prop-types'
 import React, { Component } from 'react'
-
+import asyncStates from '@zooniverse/async-states'
 import ErrorMessage from './components/ErrorMessage'
 
 function storeMapper (stores) {
@@ -51,12 +51,20 @@ export default class ClassifierWrapperContainer extends Component {
       )
     }
 
-    if (project.loadingState === 'success') {
+    if (project.loadingState === asyncStates.success) {
       return (
         <Classifier
           authClient={authClient}
           project={project}
         />
+      )
+    }
+
+    if (project.loadingState === asyncStates.error) {
+      return (
+        <p>
+          {project.error}
+        </p>
       )
     }
 
