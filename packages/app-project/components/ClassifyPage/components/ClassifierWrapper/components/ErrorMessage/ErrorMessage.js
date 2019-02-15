@@ -13,6 +13,9 @@ const Pre = styled.pre`
 `
 
 export default function ErrorMessage ({ error }) {
+  const { message, name, stack } = error
+  const errorString = stack ? stack : `${name}: ${message}`
+
   return (
     <Box
       background='#FFF2E9'
@@ -27,21 +30,11 @@ export default function ErrorMessage ({ error }) {
         {counterpart('ErrorMessage.title')}
       </Heading>
 
-      {error.stack && (
-        <Text size='small' margin={{ top: 'medium' }}>
-          <Pre>
-            {error.stack}
-          </Pre>
-        </Text>
-      )}
-
-      {!error.stack && (
-        <Text size='small' margin={{ top: 'medium' }}>
-          <Pre>
-            {error.name}: {error.message}
-          </Pre>
-        </Text>
-      )}
+      <Text size='small' margin={{ top: 'medium' }}>
+        <Pre>
+          {errorString}
+        </Pre>
+      </Text>
     </Box>
   )
 }
