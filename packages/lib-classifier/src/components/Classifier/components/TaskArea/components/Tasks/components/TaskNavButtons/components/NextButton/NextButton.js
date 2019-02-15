@@ -80,6 +80,7 @@ function NextButton ({ autoFocus, disabled, classifierTheme, onClick }) {
       <StyledNextButton
         autoFocus={autoFocus}
         color={zooTheme.global.colors.gold}
+        disabled={disabled}
         icon={<FormNextLink size='small' />}
         label={<Text size='small'>{counterpart('NextButton.next')}</Text>}
         onClick={(disabled) ? null : onClick}
