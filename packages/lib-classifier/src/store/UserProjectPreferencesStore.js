@@ -20,7 +20,6 @@ const UserProjectPreferencesStore = types
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const project = getRoot(self).projects.active
-        const { authClient } = getRoot(self)
 
         if (project) {
           self.reset()
