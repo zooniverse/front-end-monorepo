@@ -1,8 +1,10 @@
+import Classifier from '@zooniverse/classifier'
 import { inject, observer } from 'mobx-react'
+import auth from 'panoptes-client/lib/auth'
 import { shape } from 'prop-types'
 import React, { Component } from 'react'
-import auth from 'panoptes-client/lib/auth'
-import Classifier from '@zooniverse/classifier'
+
+import ErrorMessage from './components/ErrorMessage'
 
 function storeMapper (stores) {
   const { project } = stores.store
@@ -20,24 +22,23 @@ export default class ClassifierWrapperContainer extends Component {
   constructor () {
     super()
     this.state = {
-      hasError: false
+      error: null
     }
   }
 
   static getDerivedStateFromError (error) {
     return {
-      hasError: true
+      error
     }
   }
 
   render () {
     const { authClient, project } = this.props
+    const { error } = this.state
 
-    if (this.state.hasError) {
+    if (error) {
       return (
-        <Box>
-          There was an error in the classifier :(
-        </Box>
+        <ErrorMessage error={error} />
       )
     }
 
@@ -51,7 +52,7 @@ export default class ClassifierWrapperContainer extends Component {
     }
 
     return (
-      <div>Loading...</div>
+      <div>Loading…</div>
     )
   }
 }
