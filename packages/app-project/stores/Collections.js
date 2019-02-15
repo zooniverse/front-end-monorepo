@@ -8,7 +8,7 @@ export const Collection = types
     display_name: types.maybeNull(types.string),
     favorite: false,
     id: types.identifier,
-    links: types.maybeNull(types.frozen({})),
+    links: types.frozen({}),
     private: true
   })
 
@@ -40,12 +40,12 @@ const Collections = types
       },
 
       createFavourites: flow( function * createFavourites () {
-        const project = getRoot(self).project
+        const { project } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const data = {
-          display_name: `Favourites ${project.slug}`,
+          display_name: `Favorites ${project.slug}`,
           favorite: true
         }
         const subjects = []
@@ -56,8 +56,7 @@ const Collections = types
       }),
 
       fetchFavourites: flow( function * fetchFavourites () {
-        const project = getRoot(self).project
-        const user = getRoot(self).user
+        const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
