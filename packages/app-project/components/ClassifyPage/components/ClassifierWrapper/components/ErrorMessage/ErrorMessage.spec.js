@@ -24,14 +24,14 @@ describe('Component > ErrorMessage', function () {
     expect(wrapper).to.be.ok
   })
 
-  it.only('should show the full stack trace if available', function () {
+  it('should show the full stack trace if available', function () {
     const text = wrapper.find('Text').render().text()
     expect(text).to.equal(ERROR_WITH_STACK.stack)
   })
 
   it('should show the error name and message if there is no stack trace', function () {
-    const wrapper = shallow(<ErrorMessage error={ERROR_WITHOUT_TRACE} />)
+    const wrapper = shallow(<ErrorMessage error={ERROR_WITHOUT_STACK} />)
     const text = wrapper.find('Text').render().text()
-    expect(text).to.equal(`${ERROR_WITHOUT_TRACE.name}: ${ERROR_WITHOUT_TRACE.essage}`)
+    expect(text).to.equal(`${ERROR_WITHOUT_STACK.name}: ${ERROR_WITHOUT_STACK.message}`)
   })
 })
