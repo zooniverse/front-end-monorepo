@@ -10,7 +10,7 @@ module.exports = {
 
     modifiedConfig.resolve.modules.unshift('shared')
     modifiedConfig.resolve.alias['styled-components'] = path.resolve('.', 'node_modules', 'styled-components')
-    console.info(modifiedConfig)
+
     return modifiedConfig
   }
 }
