@@ -20,7 +20,7 @@ describe('Store utils > getBearerToken', function () {
 
     it('returns an empty string if token returned from auth client is falsey', function () {
       const mockAuthClient = {
-        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(''))
+        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
       }
 
       return getBearerToken(mockAuthClient).then((token) => {
@@ -52,7 +52,7 @@ describe('Store utils > getBearerToken', function () {
 
     it('returns an empty string if token returned from auth client is falsey', function () {
       const mockOAuthClient = {
-        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve({ access_token: '' }))
+        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve({ access_token: null }))
       }
 
       return getBearerToken(mockOAuthClient).then((token) => {
