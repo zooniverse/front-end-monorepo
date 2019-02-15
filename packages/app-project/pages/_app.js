@@ -7,11 +7,12 @@ import App, { Container } from 'next/app'
 import auth from 'panoptes-client/lib/auth'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
+import urlParse from 'url-parse'
 
+import AuthModals from '../components/AuthModals'
 import Head from '../components/Head'
 import Navigation from '../components/Navigation'
 import ZooHeaderWrapper from '../components/ZooHeaderWrapper'
-import AuthModals from '../components/AuthModals'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -54,13 +55,13 @@ export default class MyApp extends App {
   }
 
   componentDidUpdate () {
-    // It looks like Next.js mutates the `router` prop, so if there's a URL
-    // change, we check the new slug against the slug for the current project
-    // in the store.
-    const { owner, project } = this.props.router.query
-    const slugFromUrl = `${owner}/${project}`
+    // Next.js mutates the router, so we can't compare the previous `asPath` to
+    // the current one. Instead, we check the URL against the slug for the
+    // active project in the store.
+    const slugFromUrl = getSlugFromUrl(this.props.router.asPath)
     const currentSlug = this.store.project.slug
-    if (currentSlug !== slugFromUrl) {
+
+    if (slugFromUrl && currentSlug !== slugFromUrl) {
       this.store.project.fetch(slugFromUrl)
     }
   }
@@ -94,4 +95,11 @@ export default class MyApp extends App {
 
 MyApp.defaultProps = {
   theme: zooTheme
+}
+
+function getSlugFromUrl (relativeUrl) {
+  const fragments = new urlParse(relativeUrl).pathname.split('/')
+  return (fragments[2] && fragments[3])
+    ? `${fragments[2]}/${fragments[3]}`
+    : undefined
 }
