@@ -35,9 +35,10 @@ export default class ClassifierWrapperContainer extends Component {
 
   render () {
     const { authClient, project, user } = this.props
-    const { error } = this.state
+    const somethingWentWrong = this.state.error || project.loadingState === asyncStates.error
 
-    if (error) {
+    if (somethingWentWrong) {
+      const { error } = this.state || project
       return (
         <ErrorMessage error={error} />
       )
@@ -57,14 +58,6 @@ export default class ClassifierWrapperContainer extends Component {
           authClient={authClient}
           project={project}
         />
-      )
-    }
-
-    if (project.loadingState === asyncStates.error) {
-      return (
-        <p>
-          {project.error}
-        </p>
       )
     }
 
