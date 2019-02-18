@@ -1,6 +1,7 @@
+import { get } from 'lodash'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
-import { shape, string } from 'prop-types'
+import { arrayOf, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 import urlParse from 'url-parse'
 
@@ -21,8 +22,10 @@ export default class HeadContainer extends Component {
     return this.props.project.description || undefined
   }
 
-  getProjectBackgroundImage () {
-    return this.props.project.background.src || undefined
+  getProjectImage () {
+    return get(this.props.project, 'avatar.src') ||
+      get(this.props.project, 'background.src') ||
+      undefined
   }
 
   getProjectTitle () {
@@ -32,8 +35,8 @@ export default class HeadContainer extends Component {
 
   getProjectTwitterUsername () {
     const { urls } = this.props.project
-    const twitter = urls.find(url => url.site &&
-      url.site.includes('twitter.com'))
+    const twitter = urls.find(({ site }) => site &&
+      site.includes('twitter.com'))
     if (twitter && twitter.path) {
       return (twitter.path.startsWith('@'))
         ? twitter.path
@@ -54,7 +57,7 @@ export default class HeadContainer extends Component {
     return (
       <Head
         description={this.getProjectDescription()}
-        ogImage={this.getProjectBackgroundImage()}
+        ogImage={this.getProjectImage()}
         projectTwitterUsername={this.getProjectTwitterUsername()}
         title={this.getProjectTitle()}
         url={this.getProjectUrl()}
@@ -67,6 +70,10 @@ HeadContainer.propTypes = {
   project: shape({
     description: string,
     display_name: string,
+    urls: arrayOf(shape({
+      path: string.isRequired,
+      site: string.isRequired
+    })),
     slug: string,
   }),
 }

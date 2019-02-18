@@ -5,10 +5,7 @@ import { projects } from '@zooniverse/panoptes-js'
 import HeadContainer from './HeadContainer'
 import Head from './Head'
 
-const MOCK_PROJECT = {
-  ...projects.mocks.resources.projectOne,
-  background: projects.mocks.resources.projectBackground
-}
+const MOCK_PROJECT = createMockProject()
 
 let wrapper
 let componentWrapper
@@ -31,23 +28,31 @@ describe('Component > HeadContainer', function () {
     expect(componentWrapper.prop('description')).to.equal(MOCK_PROJECT.description)
   })
 
-  it('should pass a `ogImage` prop to `Head` if available', function () {
+  it('should pass the project avatar as `ogImage` to `Head` if available', function () {
+    const MOCK_PROJECT_WITH_AVATAR = createMockProject({
+      avatar: projects.mocks.resources.projectAvatar
+    })
+
+    const wrapperWithAvatar = shallow(<HeadContainer.wrappedComponent project={MOCK_PROJECT_WITH_AVATAR} />)
+    const componentWrapperWithAvatar = wrapperWithAvatar.find(Head)
+    expect(componentWrapperWithAvatar.prop('ogImage')).to.equal(MOCK_PROJECT_WITH_AVATAR.avatar.src)
+  })
+
+  it('should pass the project background as `ogImage` to `Head` if avatar is unavailable', function () {
     expect(componentWrapper.prop('ogImage')).to.equal(MOCK_PROJECT.background.src)
   })
 
   it('should pass a `projectTwitterUsername` prop to `Head` if available', function () {
     expect(componentWrapper.prop('projectTwitterUsername')).to.be.undefined
 
-    const MOCK_PROJECT_WITH_TWITTER = {
-      ...MOCK_PROJECT,
-      urls: [
-        {
-          "url": "https://twitter.com/testproject",
-          "path": "testproject",
-          "site": "twitter.com/",
-        }
-      ]
-    }
+    const MOCK_PROJECT_WITH_TWITTER = createMockProject({
+      urls: [{
+        "url": "https://twitter.com/testproject",
+        "path": "testproject",
+        "site": "twitter.com/",
+      }]
+    })
+
     const wrapperWithTwitter = shallow(<HeadContainer.wrappedComponent project={MOCK_PROJECT_WITH_TWITTER} />)
     const componentWrapperWithTwitter = wrapperWithTwitter.find(Head)
     expect(componentWrapperWithTwitter.prop('projectTwitterUsername')).to.equal('@testproject')
@@ -65,3 +70,12 @@ describe('Component > HeadContainer', function () {
     expect(componentWrapper.prop('url')).to.be.ok
   })
 })
+
+function createMockProject (additional = {}) {
+  return Object.assign(
+    {},
+    projects.mocks.resources.projectOne,
+    { background: projects.mocks.resources.projectBackground },
+    additional
+  )
+}
