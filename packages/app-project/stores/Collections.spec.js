@@ -103,7 +103,7 @@ describe('stores > Collections', function () {
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)
             expect(clientStub.collections.create).to.have.been.calledOnce
             expect(collectionsStore.favourites).to.be.ok
-            expect(favourites.display_name).to.equal('Favourites test/project')
+            expect(favourites.display_name).to.equal('Favorites test/project')
             expect(favourites.links.project).to.equal('2')
             expect(favourites.links.subjects).to.eql([])
           })
