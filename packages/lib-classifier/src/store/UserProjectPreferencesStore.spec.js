@@ -62,7 +62,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       .then(() => {
         const uppInStore = rootStore.userProjectPreferences.active
         expect(uppInStore.toJSON()).to.deep.equal(upp)
-      }).then(done())
+      }).then(done, done)
   })
 
   describe('Actions > checkForUser', function () {
@@ -76,7 +76,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
         .then(() => {
           expect(authClientStubWithoutUser.checkBearerToken).to.have.been.called
           expect(authClientStubWithoutUser.checkCurrent).to.have.been.called
-        }).then(done())
+        }).then(done, done)
     })
 
     it('should reset to an initialized state if there is no user', function (done) {
@@ -88,7 +88,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.initialized)
-        }).then(done())
+        }).then(done, done)
     })
 
     it('should set state to error upon error', function (done) {
@@ -103,7 +103,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
-        }).then(done())
+        }).then(done, done)
     })
 
     it('should call fetchUPP if there is a user', function (done) {
@@ -116,7 +116,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(fetchUPPSpy).to.have.been.called
-        }).then(done())
+        }).then(done, done)
     })
   })
 
@@ -143,9 +143,9 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
-        }).then(done())
+        }).then(done, done)
 
-      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.loading)
+      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.initialized)
     })
 
     it('should request for the user project preferences', function (done) {
@@ -156,13 +156,13 @@ describe.only('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(getSpy).to.have.been.calledOnce
+          expect(getSpy).to.have.been.called
           expect(getSpy).to.have.been.calledWith(
             '/project_preferences',
             { project_id: '1', user_id: '1' },
             'Bearer 1234'
           )
-        }).then(done())
+        }).then(done, done)
 
       it('should call createUPP action upon successful request and there is not an existing UPP', function () {
         rootStore = RootStore.create({
@@ -176,7 +176,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
           .then(() => {
             expect(createUPPSpy).to.have.been.calledOnce
             expect(createUPPSpy).to.have.been.calledWith(`Bearer ${token}`)
-          }).then(createUPPSpy.restore()).then(done())
+          }).then(createUPPSpy.restore()).then(done, done)
       })
 
 
@@ -191,7 +191,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
           .then(() => {
             expect(setUPPSpy).to.have.been.calledOnce
             expect(setUPPSpy).to.have.been.calledWith(upp)
-          }).then(setUPPSpy.restore()).then(done())
+          }).then(setUPPSpy.restore()).then(done, done)
       })
     })
   })
@@ -223,10 +223,10 @@ describe.only('Model > UserProjectPreferencesStore', function () {
             }},
             `Bearer ${token}`
           )
-        }).then(done())
+        }).then(done, done)
     })
 
-    xit('should set the loading state to error upon error', function (done) {
+    it('should set the loading state to error upon error', function (done) {
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
@@ -243,7 +243,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
-        }).then(done())
+        }).then(done, done)
     })
   })
 })

@@ -81,7 +81,7 @@ const UserProjectPreferencesStore = types
         }
 
         self.loadingState = asyncStates.success
-        self.setUPP(resource)
+        if (resource) self.setUPP(resource)
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
