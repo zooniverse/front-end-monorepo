@@ -156,7 +156,6 @@ describe.only('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(getSpy).to.have.been.called
           expect(getSpy).to.have.been.calledWith(
             '/project_preferences',
             { project_id: '1', user_id: '1' },
@@ -174,8 +173,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
         const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
         rootStore.projects.createActive(project.id)
           .then(() => {
-            expect(createUPPSpy).to.have.been.calledOnce
-            expect(createUPPSpy).to.have.been.calledWith(`Bearer ${token}`)
+            expect(createUPPSpy).to.have.been.calledOnceWith(`Bearer ${token}`)
           }).then(createUPPSpy.restore()).then(done, done)
       })
 
@@ -189,8 +187,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
         const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
         rootStore.projects.setActive(project.id)
           .then(() => {
-            expect(setUPPSpy).to.have.been.calledOnce
-            expect(setUPPSpy).to.have.been.calledWith(upp)
+            expect(setUPPSpy).to.have.been.calledOnceWith(upp)
           }).then(setUPPSpy.restore()).then(done, done)
       })
     })
@@ -214,8 +211,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(postStub).to.have.been.calledOnce
-          expect(postStub).to.have.been.calledWith(
+          expect(postStub).to.have.been.calledOnceWith(
             '/project_preferences',
             { project_preferences: {
               links: { project: project.id },
