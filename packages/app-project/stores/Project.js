@@ -1,3 +1,4 @@
+import { get } from 'lodash'
 import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
 
@@ -5,6 +6,7 @@ import numberString from './types/numberString'
 
 const Project = types
   .model('Project', {
+    avatar: types.frozen({}),
     background: types.frozen({}),
     classifications_count: types.optional(types.number, 0),
     classifiers_count: types.optional(types.number, 0),
@@ -42,7 +44,8 @@ const Project = types
           const project = response.body.projects[0]
           const linked = response.body.linked
 
-          self.background = linked.backgrounds[0] || {}
+          self.avatar = get(linked, 'avatars[0]', {})
+          self.background = get(linked, 'backgrounds[0]', {})
 
           const properties = [
             'classifications_count',
