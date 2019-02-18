@@ -3,16 +3,17 @@ import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { shape } from 'prop-types'
 import React, { Component } from 'react'
-
+import asyncStates from '@zooniverse/async-states'
 import ErrorMessage from './components/ErrorMessage'
 
 function storeMapper (stores) {
-  const { project } = stores.store
+  const { project, user } = stores.store
   // We return a POJO here, as the `project` resource is also stored in a
   // `mobx-state-tree` store in the classifier and an MST node can't be in two
   // stores at the same time.
   return {
-    project: project.toJSON()
+    project: project.toJSON(),
+    user
   }
 }
 
@@ -33,16 +34,25 @@ export default class ClassifierWrapperContainer extends Component {
   }
 
   render () {
-    const { authClient, project } = this.props
-    const { error } = this.state
+    const { authClient, project, user } = this.props
+    const somethingWentWrong = this.state.error || project.loadingState === asyncStates.error
 
-    if (error) {
+    if (somethingWentWrong) {
+      const { error } = this.state || project
       return (
         <ErrorMessage error={error} />
       )
     }
 
-    if (project.loadingState === 'success') {
+    if (user.loadingState === asyncStates.loading) {
+      return (
+        <p>
+          Signing in…
+        </p>
+      )
+    }
+
+    if (project.loadingState === asyncStates.success) {
       return (
         <Classifier
           authClient={authClient}

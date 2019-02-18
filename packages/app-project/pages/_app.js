@@ -51,7 +51,7 @@ export default class MyApp extends App {
   }
 
   componentDidMount () {
-    this.getUser()
+    this.store.user.checkCurrent()
   }
 
   componentDidUpdate () {
@@ -63,13 +63,6 @@ export default class MyApp extends App {
 
     if (slugFromUrl && currentSlug !== slugFromUrl) {
       this.store.project.fetch(slugFromUrl)
-    }
-  }
-
-  async getUser () {
-    const userResource = await auth.checkCurrent()
-    if (userResource) {
-      this.store.user.set(userResource)
     }
   }
 
