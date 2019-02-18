@@ -1,8 +1,8 @@
 import { Grid } from 'grommet'
 import React from 'react'
 
-import ConnectWithProject from 'components/ConnectWithProject'
-import ProjectStatistics from 'components/ProjectStatistics'
+import ConnectWithProject from '../shared/components/ConnectWithProject'
+import ProjectStatistics from '../shared/components/ProjectStatistics'
 
 export default function ProjectHomePage () {
   return (

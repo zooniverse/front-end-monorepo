@@ -3,8 +3,7 @@ import { Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 
-import ContentBox from 'components/ContentBox'
-
+import ContentBox from '../ContentBox'
 import ProjectLink from './components/ProjectLink'
 import en from './locales/en'
 

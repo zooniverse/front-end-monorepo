@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import ContentBox from 'components/ContentBox'
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
+import ContentBox from '../../../shared/components/ContentBox'
 
 counterpart.registerTranslations('en', en)
 
