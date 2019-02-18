@@ -43,7 +43,7 @@ export default class ClassifierWrapperContainer extends Component {
       )
     }
 
-    if (user.pending) {
+    if (user.loadingState === asyncStates.loading) {
       return (
         <p>
           Signing in…
