@@ -9,10 +9,10 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import urlParse from 'url-parse'
 
-import AuthModals from '../components/AuthModals'
-import Head from '../components/Head'
-import Navigation from '../components/Navigation'
-import ZooHeaderWrapper from '../components/ZooHeaderWrapper'
+import AuthModals from '../src/components/AuthModals'
+import Head from '../src/components/Head'
+import Navigation from '../src/components/Navigation'
+import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`

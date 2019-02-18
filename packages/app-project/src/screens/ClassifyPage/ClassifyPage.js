@@ -2,8 +2,8 @@ import { Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-import ProjectStatistics from '../shared/components/ProjectStatistics'
-import ConnectWithProject from '../shared/components/ConnectWithProject'
+import ProjectStatistics from '../../shared/components/ProjectStatistics'
+import ConnectWithProject from '../../shared/components/ConnectWithProject'
 
 import FinishedForTheDay from './components/FinishedForTheDay'
 
