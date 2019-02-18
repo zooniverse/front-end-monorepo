@@ -1,0 +1,28 @@
+import { Factory } from 'rosie'
+
+export default new Factory()
+  .sequence('id', (id) => { return id.toString() })
+  .attr('admin', false)
+  .attr('avatar_src', '')
+  .attr('banned', false)
+  .attr('beta_email_communication', true)
+  .attr('credited_name', 'Jane Doe')
+  .attr('display_name', 'Jane')
+  .attr('email', 'jane@gmail.com')
+  .attr('global_email_communication', true)
+  .attr('href', ['id'], function (id) {
+    return `/users/${id}`
+  })
+  .attr('intervention_notifications', true)
+  .attr('languages', [])
+  .attr('login', 'janedoe01')
+  .attr('login_prompt', false)
+  .attr('private_profile', true)
+  .attr('project_email_communication', true)
+  .attr('subject_limit', 100)
+  .attr('type', 'users')
+  .attr('upload_whitelist', false)
+  .attr('uploaded_subjects_count', 0)
+  .attr('ux_test_email_communication', false)
+  .attr('valid_email', true)
+  .attr('zooniverse_id', '')

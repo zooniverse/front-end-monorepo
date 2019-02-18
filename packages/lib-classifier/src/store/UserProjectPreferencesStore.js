@@ -20,7 +20,6 @@ const UserProjectPreferencesStore = types
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const project = getRoot(self).projects.active
-        const { authClient } = getRoot(self)
 
         if (project) {
           self.reset()
@@ -82,7 +81,7 @@ const UserProjectPreferencesStore = types
         }
 
         self.loadingState = asyncStates.success
-        self.setUPP(resource)
+        if (resource) self.setUPP(resource)
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
