@@ -76,7 +76,6 @@ export default class MyApp extends App {
           <Grommet theme={theme}>
             <Head />
             <ZooHeaderWrapper />
-            <Navigation />
             <ProjectHeader />
             <Component {...pageProps} />
             <ZooFooter />

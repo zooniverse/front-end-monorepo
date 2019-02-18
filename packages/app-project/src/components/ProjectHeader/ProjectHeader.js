@@ -1,21 +1,28 @@
 import counterpart from 'counterpart'
-import PropTypes from 'prop-types'
+import { Box, Heading } from 'grommet'
+import { string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export default function ProjectHeader () {
+const StyledHeading = styled(Heading)`
+  text-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+`
+
+export default function ProjectHeader (props) {
+  const { title } = props
   return (
-    <div>
-      component
-    </div>
+    <Box pad='medium' background='teal'>
+      <StyledHeading color='white' margin='none' size='small'>
+        {title}
+      </StyledHeading>
+    </Box>
   )
 }
 
 ProjectHeader.propTypes = {
-}
-
-ProjectHeader.defaultProps = {
+  title: string.isRequired
 }

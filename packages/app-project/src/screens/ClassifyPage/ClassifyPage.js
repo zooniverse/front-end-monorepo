@@ -1,4 +1,4 @@
-import { Grid } from 'grommet'
+import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
@@ -15,11 +15,13 @@ const ClassifierWrapper = dynamic(() =>
 
 export default function ClassifyPage () {
   return (
-    <Grid gap='medium' margin='medium'>
-      <ClassifierWrapper />
-      <FinishedForTheDay />
-      <ProjectStatistics />
-      <ConnectWithProject />
-    </Grid>
+    <Box background='lighterGrey' pad={{ top: 'medium' }}>
+      <Grid gap='medium' margin='medium'>
+        <ClassifierWrapper />
+        <FinishedForTheDay />
+        <ProjectStatistics />
+        <ConnectWithProject />
+      </Grid>
+    </Box>
   )
 }

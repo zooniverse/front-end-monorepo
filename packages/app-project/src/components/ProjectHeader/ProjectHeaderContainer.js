@@ -1,23 +1,29 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import ProjectHeader from './ProjectHeader'
 
-@inject('store')
+function storeMapper (stores) {
+  return {
+    project: stores.store.project
+  }
+}
+
+@inject(storeMapper)
 @observer
-class ProjectHeaderContainer extends Component {
+export default class ProjectHeaderContainer extends Component {
   render () {
     return (
-      <ProjectHeader />
+      <ProjectHeader
+        title={this.props.project.display_name}
+      />
     )
   }
 }
 
 ProjectHeaderContainer.propTypes = {
+  project: shape({
+    display_name: string
+  })
 }
-
-ProjectHeaderContainer.defaultProps = {
-}
-
-export default ProjectHeaderContainer

@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import { projects } from '@zooniverse/panoptes-js'
 
 import ProjectHeaderContainer from './ProjectHeaderContainer'
 import ProjectHeader from './ProjectHeader'
@@ -7,9 +8,11 @@ import ProjectHeader from './ProjectHeader'
 let wrapper
 let componentWrapper
 
-describe('Component > ProjectHeaderContainer', function () {
+const PROJECT = projects.mocks.resources.projectOne
+
+describe.only('Component > ProjectHeaderContainer', function () {
   before(function () {
-    wrapper = shallow(<ProjectHeaderContainer.wrappedComponent />)
+    wrapper = shallow(<ProjectHeaderContainer.wrappedComponent project={PROJECT} />)
     componentWrapper = wrapper.find(ProjectHeader)
   })
 
@@ -19,5 +22,9 @@ describe('Component > ProjectHeaderContainer', function () {
 
   it('should render the `ProjectHeader` component', function () {
     expect(componentWrapper).to.have.lengthOf(1)
+  })
+
+  it('should pass down the project title', function () {
+    expect(componentWrapper.prop('title')).to.equal(PROJECT.display_name)
   })
 })
