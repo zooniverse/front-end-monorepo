@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
     let pageProps = {
-      isServer: !!context.req
+      isServer: !!context.req,
     }
 
     if (Component.getInitialProps) {
