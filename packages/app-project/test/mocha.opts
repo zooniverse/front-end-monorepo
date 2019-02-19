@@ -6,4 +6,4 @@
 --file ./test/create-global-document.js
 --file ./test/chai-config.js
 
-./{components,pages,stores}/**/*.spec.js
+./{src,pages,stores}/**/*.spec.js
