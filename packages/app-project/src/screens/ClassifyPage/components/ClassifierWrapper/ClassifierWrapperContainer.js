@@ -53,8 +53,10 @@ export default class ClassifierWrapperContainer extends Component {
     }
 
     if (project.loadingState === asyncStates.success) {
+      const key = user.id || 'no-user'
       return (
         <Classifier
+          key={key}
           authClient={authClient}
           project={project}
         />
