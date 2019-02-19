@@ -54,6 +54,8 @@ const ClassificationStore = types
       const tempID = cuid()
       const projectID = getRoot(self).projects.active.id
       const workflow = getRoot(self).workflows.active
+      
+      console.log('+++ subject: ', subject)
 
       const newClassification = Classification.create({
         id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
@@ -65,11 +67,11 @@ const ClassificationStore = types
         metadata: ClassificationMetadata.create({
           source: subject.metadata.intervention ? 'sugar' : 'api',
           subjectSelectionState: {
-            alreadySeen: subject.alreadySeen,
-            finishedWorkflow: subject.finishedWorkflow,
+            already_seen: subject.already_seen,
+            finished_workflow: subject.finished_workflow,
             retired: subject.retired,
-            selection_state: subject.selectionState,
-            user_has_finished_workflow: subject.userHasFinishedWorkflow,
+            selection_state: subject.selection_state,
+            user_has_finished_workflow: subject.user_has_finished_workflow,
           },
           userLanguage: counterpart.getLocale(),
           workflowVersion: workflow.version

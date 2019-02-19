@@ -5,8 +5,13 @@ import subjectViewers from '../helpers/subjectViewers'
 
 const Subject = types
   .model('Subject', {
+    already_seen: types.optional(types.boolean, false),
+    finished_workflow: types.optional(types.boolean, false),
     locations: types.frozen(),
-    metadata: types.frozen()
+    metadata: types.frozen(),
+    retired: types.optional(types.boolean, false),
+    selection_state: types.maybe(types.string),
+    user_has_finished_workflow: types.optional(types.boolean, false)
   })
 
   .views(self => ({
