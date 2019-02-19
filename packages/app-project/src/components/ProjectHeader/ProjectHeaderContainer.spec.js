@@ -10,7 +10,7 @@ let componentWrapper
 
 const PROJECT = projects.mocks.resources.projectOne
 
-describe.only('Component > ProjectHeaderContainer', function () {
+describe('Component > ProjectHeaderContainer', function () {
   before(function () {
     wrapper = shallow(<ProjectHeaderContainer.wrappedComponent project={PROJECT} />)
     componentWrapper = wrapper.find(ProjectHeader)
