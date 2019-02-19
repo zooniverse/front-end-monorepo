@@ -12,6 +12,7 @@ import urlParse from 'url-parse'
 import AuthModals from '../src/components/AuthModals'
 import Head from '../src/components/Head'
 import Navigation from '../src/components/Navigation'
+import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import initStore from '../stores'
 
@@ -75,7 +76,7 @@ export default class MyApp extends App {
           <Grommet theme={theme}>
             <Head />
             <ZooHeaderWrapper />
-            <Navigation />
+            <ProjectHeader />
             <Component {...pageProps} />
             <ZooFooter />
             <AuthModals />
