@@ -13,6 +13,13 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
     naturalHeight: types.integer,
     naturalWidth: types.integer
   })),
+  subjectSelectionState: types.frozen({
+    alreadySeen: types.optional(types.boolean, false),
+    finishedWorkflow: types.optional(types.boolean, false),
+    retired: types.optional(types.boolean, false),
+    selection_state: types.maybe(types.string),
+    user_has_finished_workflow: types.optional(types.boolean, false),
+  }),
   userAgent: types.optional(types.string, navigator.userAgent),
   userLanguage: types.string,
   utcOffset: types.optional(types.string, ((new Date()).getTimezoneOffset() * 60).toString()),
