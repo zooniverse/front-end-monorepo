@@ -54,8 +54,6 @@ const ClassificationStore = types
       const tempID = cuid()
       const projectID = getRoot(self).projects.active.id
       const workflow = getRoot(self).workflows.active
-      
-      console.log('+++ subject: ', subject)
 
       const newClassification = Classification.create({
         id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
