@@ -5,11 +5,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'
-import ClassifyBox from '../ClassifyBox'
 import CompletionBar from './components/CompletionBar'
 import MainGrid from './components/MainGrid'
 import Stat from './components/Stat'
 import Subtitle from './components/Subtitle'
+import ContentBox from '../ContentBox'
 
 counterpart.registerTranslations('en', en)
 
@@ -32,7 +32,7 @@ function ProjectStatistics ({
   volunteers
 }) {
   return (
-    <ClassifyBox
+    <ContentBox
       linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
       linkUrl='#'
       title={counterpart('ProjectStatistics.title', { projectName })}
@@ -77,7 +77,7 @@ function ProjectStatistics ({
           </NumbersGrid>
         </section>
       </MainGrid>
-    </ClassifyBox>
+    </ContentBox>
   )
 }
 

@@ -3,15 +3,15 @@ import { Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 
+import ContentBox from '../ContentBox'
 import ProjectLink from './components/ProjectLink'
 import en from './locales/en'
-import ClassifyBox from '../ClassifyBox'
 
 counterpart.registerTranslations('en', en)
 
 export default function ConnectWithProject ({ projectName, urls }) {
   return (
-    <ClassifyBox
+    <ContentBox
       title={counterpart('ConnectWithProject.title', { projectName })}
     >
       <Grid columns={['1fr', '1fr']} gap='small' rows={['1fr']}>
@@ -22,7 +22,7 @@ export default function ConnectWithProject ({ projectName, urls }) {
           />
         )}
       </Grid>
-    </ClassifyBox>
+    </ContentBox>
   )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
 
-import ClassifyPage from '../components/ClassifyPage'
+import ClassifyPage from '../src/screens/ClassifyPage'
 
 export default () => <ClassifyPage />

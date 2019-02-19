@@ -1,17 +1,17 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ClassifyBox from './ClassifyBox'
+import ContentBox from './ContentBox'
 
 let wrapper
 const Foobar = () => <div>Foobar</div>
 
-describe('Component > ClassifyBox', function () {
+describe('Component > ContentBox', function () {
   before(function () {
     wrapper = shallow(
-      <ClassifyBox>
+      <ContentBox>
         <Foobar />
-      </ClassifyBox>
+      </ContentBox>
     )
   })
 

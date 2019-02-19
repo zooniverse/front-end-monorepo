@@ -3,7 +3,7 @@ import React from 'react'
 
 import ClassifyPage from './ClassifyPage'
 import FinishedForTheDay from './components/FinishedForTheDay'
-import ProjectStatistics from './components/ProjectStatistics'
+import ProjectStatistics from '../../shared/components/ProjectStatistics'
 
 let wrapper
 
