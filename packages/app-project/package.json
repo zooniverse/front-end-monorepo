@@ -13,7 +13,8 @@
     "dev": "npm run _check && PANOPTES_ENV=staging npm run _serve",
     "start": "npm run _check && NODE_ENV=production npm run _serve",
     "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test"
+    "test:ci": "npm run _test",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
     "@zooniverse/async-states": "~0.0.1",
@@ -44,6 +45,7 @@
     "@babel/plugin-proposal-decorators": "~7.1.6",
     "@babel/plugin-proposal-optional-chaining": "~7.2.0",
     "@babel/register": "~7.0.0",
+    "@storybook/react": "^4.1.12",
     "babel-plugin-styled-components": "~1.10.0",
     "chai": "~4.2.0",
     "check-dependencies": "~1.1.0",
