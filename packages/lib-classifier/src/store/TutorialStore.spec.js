@@ -1,6 +1,9 @@
-import { getEnv, types } from 'mobx-state-tree'
+import sinon from 'sinon'
+import asyncStates from '@zooniverse/async-states'
 
+import RootStore from './RootStore'
 import TutorialStore from './TutorialStore'
+import WorkflowStore from './WorkflowStore'
 import {
   TutorialFactory,
   TutorialMediumFactory,
@@ -8,15 +11,12 @@ import {
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-const tutorial = TutorialFactory.build()
+let rootStore
 
-const get = () => {
-  return Promise.resolve({
-    body: {
-      tutorials: [tutorial]
-    }
-  })
-}
+const tutorial = TutorialFactory.build()
+const workflow = WorkflowFactory.build()
+
+const panoptesClient = stubPanoptesJs({ tutorials: tutorial, workflows: workflow })
 
 const medium = TutorialMediumFactory.build()
 
@@ -28,47 +28,45 @@ const getAttachedImages = () => {
   })
 }
 
-const clientStub = { panoptes: { get }, tutorials: { getAttachedImages } }
+const clientStub = Object.assign({}, panoptesClient,{ tutorials: { getAttachedImages } })
 
-const ROOT_STORE = types
-  .model('RootStore', {
-    tutorials: types.optional(TutorialStore, TutorialStore.create()),
-    workflows: types.frozen({})
-  })
-  .views(self => ({
-    get client () {
-      return getEnv(self).client
-    }
-  }))
+const authClientStubWithoutUser = {
+  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
+  checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
+}
 
-xdescribe('Model > TutorialStore', function () {
+const authClientStubWithUser = {
+  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
+  checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
+}
+
+describe.only('Model > TutorialStore', function () {
   it('should exist', function () {
     expect(TutorialStore).to.be.an('object')
   })
 
-  describe('when the observer observes that there is a workflow', function () {
-    let ROOT_STORE_INSTANCE = null
-    let WORKFLOW = null
-    before(function () {
-      WORKFLOW = WorkflowFactory.build()
+  it('should remain in an initialized state if there is no workflow', function () {
+    rootStore = RootStore.create({
+      tutorials: TutorialStore.create(),
+      workflows: WorkflowStore.create()
+    }, { authClient: authClientStubWithoutUser, client: clientStub })
 
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        workflows: {
-          active: WORKFLOW
-        }
-      }, { client: clientStub })
-    })
+    expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
+  })
 
-    after(function () {
-      ROOT_STORE_INSTANCE = null
-      WORKFLOW = null
-    })
+  it('should set the tutorial if there is a workflow', function (done) {
+    rootStore = RootStore.create({
+      tutorials: TutorialStore.create(),
+      workflows: WorkflowStore.create()
+    }, { authClient: authClientStubWithUser, client: clientStub })
+    rootStore.workflows.setActive(workflow.id)
+      .then(() => {
+        const tutorialInStore = rootStore.tutorials.resources.get(tutorial.id)
+        expect(tutorialInStore.toJSON()).to.deep.equal(tutorial)
+      }).then(done, done)
+  })
 
-    it('should set the resources', function () {
-      console.log('tutorials store', ROOT_STORE_INSTANCE.tutorials.resources)
-      const resources = ROOT_STORE_INSTANCE.tutorials.resources
-      expect(resources).to.have.lengthOf(1)
-      resources.forEach(resource => expect(resource).to.equal(tutorial))
-    })
+  describe('actions', function () {
+
   })
 })
