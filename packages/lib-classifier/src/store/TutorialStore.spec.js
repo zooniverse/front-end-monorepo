@@ -182,22 +182,22 @@ describe.only('Model > TutorialStore', function () {
         setMediaResourcesSpy.restore()
       }).then(done, done)
     })
-  })
 
-  it('should call setMediaResources if there is media in the response', function (done) {
-    rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
-    }, {
-      authClient: authClientStubWithoutUser, client: clientStub
+    it('should call setMediaResources if there is media in the response', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+          authClient: authClientStubWithoutUser, client: clientStub
+        })
+
+      const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
+      rootStore.workflows.setActive(workflow.id).then(() => {
+        expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
+      }).then(() => {
+        setMediaResourcesSpy.restore()
+      }).then(done, done)
     })
-
-    const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
-    rootStore.workflows.setActive(workflow.id).then(() => {
-      expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
-    }).then(() => {
-      setMediaResourcesSpy.restore()
-    }).then(done, done)
   })
 
   describe('Actions > setActiveTutorial', function () {
@@ -217,38 +217,38 @@ describe.only('Model > TutorialStore', function () {
       expect(rootStore.tutorials.activeMedium).to.be.undefined
       resetActiveTutorialSpy.restore()
     })
-  })
 
-  it('should set the active tutorial to the id parameter', function (done) {
-    rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
-    }, {
-      authClient: authClientStubWithoutUser, client: clientStub
+    it('should set the active tutorial to the id parameter', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
+
+      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setActiveTutorial(tutorial.id)
+      }).then(() => {
+        expect(rootStore.tutorials.active.toJSON()).to.deep.equal(tutorial)
+      }).then(done, done)
     })
 
-    rootStore.workflows.setActive(workflow.id).then(() => {
-      rootStore.tutorials.setActiveTutorial(tutorial.id)
-    }).then(() => {
-      expect(rootStore.tutorials.active.toJSON()).to.deep.equal(tutorial)
-    }).then(done, done)
-  })
+    it('should call setTutorialStep if the id parameter is defined', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+          authClient: authClientStubWithoutUser, client: clientStub
+        })
+      const setTutorialStepSpy = sinon.spy(rootStore.tutorials, 'setTutorialStep')
 
-  it('should call setTutorialStep if the id parameter is defined', function (done) {
-    rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
-    }, {
-      authClient: authClientStubWithoutUser, client: clientStub
+      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
+      }).then(() => {
+        expect(setTutorialStepSpy).to.have.been.calledOnceWith(1)
+      }).then(() => {
+        setTutorialStepSpy.restore()
+      }).then(done, done)
     })
-    const setTutorialStepSpy = sinon.spy(rootStore.tutorials, 'setTutorialStep')
-
-    rootStore.workflows.setActive(workflow.id).then(() => {
-      rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-    }).then(() => {
-      expect(setTutorialStepSpy).to.have.been.calledOnceWith(1)
-    }).then(() => {
-      setTutorialStepSpy.restore()
-    }).then(done, done)
   })
 })

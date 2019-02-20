@@ -112,11 +112,13 @@ const TutorialStore = types
     }
 
     function setTutorialStep (stepIndex = 0) {
-      const { steps } = self.active
-      self.activeMedium = undefined
-      if (!!steps && !!steps[stepIndex]) {
-        if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
-        self.activeStep = stepIndex
+      if (self.active) {
+        const { steps } = self.active
+        self.activeMedium = undefined
+        if (steps && steps.length > 0 && steps[stepIndex]) {
+          if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
+          self.activeStep = stepIndex
+        }
       }
     }
 
