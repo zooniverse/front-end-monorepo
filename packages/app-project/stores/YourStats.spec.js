@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
+import auth from 'panoptes-client/lib/auth'
 
 import initStore from './initStore'
 
@@ -112,6 +113,51 @@ describe('Stores > YourStats', function () {
       it('should add 1 to your total count', function () {
         expect(rootStore.yourStats.totalCount).to.equal(1)
       })
+    })
+  })
+
+  describe('when Zooniverse auth is down.', function () {
+    before(function () {
+      rootStore = initStore(true, { project })
+      const user = {
+        id: '123',
+        login: 'test.user'
+      }
+      sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
+      sinon.stub(rootStore.collections, 'fetchFavourites')
+      rootStore.user.set(user)
+      rootStore.yourStats.increment()
+    })
+
+    after(function () {
+      auth.checkBearerToken.restore()
+      rootStore.collections.fetchFavourites.restore()
+    })
+
+    it('should count session classifications from 0', function () {
+      expect(rootStore.yourStats.totalCount).to.equal(1)
+    })
+  })
+
+  describe('on Panoptes API errors', function () {
+    before(function () {
+      rootStore = initStore(true, { project })
+      const user = {
+        id: '123',
+        login: 'test.user'
+      }
+      rootStore.client.panoptes.get.callsFake(() => Promise.reject(new Error('Panoptes is not available')))
+      sinon.stub(rootStore.collections, 'fetchFavourites')
+      rootStore.user.set(user)
+      rootStore.yourStats.increment()
+    })
+
+    after(function () {
+      rootStore.collections.fetchFavourites.restore()
+    })
+
+    it('should count session classifications from 0', function () {
+      expect(rootStore.yourStats.totalCount).to.equal(1)
     })
   })
 })
