@@ -55,7 +55,7 @@ Head.propTypes = {
   projectTwitterUsername: string,
   siteName: string,
   title: string,
-  url: string,
+  url: string
 }
 
 Head.defaultProps = {

@@ -47,9 +47,9 @@ describe('Component > HeadContainer', function () {
 
     const MOCK_PROJECT_WITH_TWITTER = createMockProject({
       urls: [{
-        "url": "https://twitter.com/testproject",
-        "path": "testproject",
-        "site": "twitter.com/",
+        'url': 'https://twitter.com/testproject',
+        'path': 'testproject',
+        'site': 'twitter.com/'
       }]
     })
 

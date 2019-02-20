@@ -16,7 +16,7 @@ const Collections = types
   .model('Collections', {
     error: types.maybeNull(types.frozen({})),
     favourites: types.maybeNull(Collection),
-    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 
   .actions(self => {
@@ -39,7 +39,7 @@ const Collections = types
         createProjectObserver()
       },
 
-      createFavourites: flow( function * createFavourites () {
+      createFavourites: flow(function * createFavourites () {
         const { project } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
@@ -49,13 +49,13 @@ const Collections = types
           favorite: true
         }
         const subjects = []
-        const response = yield client.create({ authorization, data, project : project.id, subjects })
+        const response = yield client.create({ authorization, data, project: project.id, subjects })
         const [ favourites ] = response.body.collections
         self.loadingState = asyncStates.success
         self.favourites = Collection.create(favourites)
       }),
 
-      fetchFavourites: flow( function * fetchFavourites () {
+      fetchFavourites: flow(function * fetchFavourites () {
         const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
@@ -74,8 +74,8 @@ const Collections = types
           self.createFavourites()
         }
       }),
-      
-      addFavourites: flow( function * addFavourites (subjectIds) {
+
+      addFavourites: flow(function * addFavourites (subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
@@ -88,7 +88,7 @@ const Collections = types
         self.favourites = Collection.create(favourites)
       }),
 
-      removeFavourites: flow( function * removeFavourites (subjectIds) {
+      removeFavourites: flow(function * removeFavourites (subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
@@ -104,4 +104,3 @@ const Collections = types
   })
 
 export default Collections
-  

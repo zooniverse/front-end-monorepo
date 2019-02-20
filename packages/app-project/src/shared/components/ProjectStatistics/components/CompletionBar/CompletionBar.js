@@ -4,7 +4,6 @@ import * as d3 from 'd3'
 import theme from '@zooniverse/grommet-theme'
 import styled from 'styled-components'
 
-import addBackgroundLayer from './d3/addBackgroundLayer'
 import createBar from './d3/createBar'
 import createLabel from './d3/createLabel'
 
