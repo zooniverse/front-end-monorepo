@@ -9,7 +9,7 @@ const YourStats = types
     dailyCounts: types.optional(types.array(types.frozen({})), []),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
-    totalCount: 0
+    totalCount: types.optional(types.number, 0)
   })
 
   .views(self => ({
@@ -19,8 +19,6 @@ const YourStats = types
   }))
 
   .actions(self => {
-    let client
-
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const { project, user } = getRoot(self)
@@ -37,7 +35,7 @@ const YourStats = types
         createProjectObserver()
       },
 
-      fetchActivityCount: flow( function * fetchActivityCount () {
+      fetchActivityCount: flow(function * fetchActivityCount () {
         const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
         try {
@@ -49,16 +47,15 @@ const YourStats = types
           }
           const response = yield panoptes.get('/project_preferences', query, authorization)
           const [ preferences ] = response.body.project_preferences
-          self.totalCount = preferences ? preferences.activity_count: 0
-        }
-        catch(error) {
+          self.totalCount = preferences ? preferences.activity_count : 0
+        } catch (error) {
           console.log(error)
           self.error = error
           self.loadingState = asyncStates.error
         }
       }),
 
-      fetchDailyCounts: flow( function * fetchDailyCounts () {
+      fetchDailyCounts: flow(function * fetchDailyCounts () {
         const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
         try {
@@ -75,9 +72,9 @@ const YourStats = types
             }
           }
           const response = yield panoptes.post(endpoint, query, authorization, host)
+          console.log(response && response.body)
           self.loadingState = asyncStates.success
-        }
-        catch(error) {
+        } catch (error) {
           console.log(error)
           self.error = error
           self.loadingState = asyncStates.error
@@ -91,4 +88,3 @@ const YourStats = types
   })
 
 export default YourStats
-  

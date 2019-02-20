@@ -1,12 +1,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { getSnapshot } from 'mobx-state-tree'
-import asyncStates from '@zooniverse/async-states'
-import { panoptes } from '@zooniverse/panoptes-js'
 
-import Store from './Store'
 import initStore from './initStore'
-import placeholderEnv from './helpers/placeholderEnv'
 
 describe('Stores > YourStats', function () {
   let rootStore
@@ -75,13 +70,13 @@ describe('Stores > YourStats', function () {
       const host = 'https://stats.zooniverse.org'
       const endpoint = '/graphql'
       const query = {
-            statsCount: {
-              eventType: 'classification',
-              interval: '1 Day',
-              projectId: '2',
-              userId: '123'
-            }
-          }
+        statsCount: {
+          eventType: 'classification',
+          interval: '1 Day',
+          projectId: '2',
+          userId: '123'
+        }
+      }
       expect(rootStore.client.panoptes.post).to.have.been.calledOnceWith(endpoint, query, token, host)
     })
 
