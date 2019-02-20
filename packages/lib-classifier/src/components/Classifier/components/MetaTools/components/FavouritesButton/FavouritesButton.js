@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import theme from 'styled-theming'
 import { Icon } from 'grommet-icons'
-import zooTheme  from '@zooniverse/grommet-theme'
+import zooTheme from '@zooniverse/grommet-theme'
 import { PlainButton } from '@zooniverse/react-components'
 import HeartIcon from './HeartIcon'
 

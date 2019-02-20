@@ -17,7 +17,7 @@ export default function addAxis (selection, chartStyle, xAxis, yAxis, axisXLabel
   const axisLayer = selection
     .append('g')
     .attr('class', 'axis-layer')
-  
+
   axisLayer
     .append('g')
     .attr('class', 'x-axis')
@@ -29,7 +29,7 @@ export default function addAxis (selection, chartStyle, xAxis, yAxis, axisXLabel
     .attr('class', 'y-axis')
     .attr('color', chartStyle.color)
     .call(yAxis)
-  
+
   axisLayer.call(addAxisLabel, 'x-axis-label', axisXLabel, chartStyle)
   axisLayer.call(addAxisLabel, 'y-axis-label', axisYLabel, chartStyle)
 
