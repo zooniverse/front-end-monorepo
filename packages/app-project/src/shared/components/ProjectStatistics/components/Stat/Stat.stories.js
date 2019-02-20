@@ -1,9 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button } from '@storybook/react/demo';
 import Stat from './Stat'
 
-storiesOf('Shared Components/Stat', module)
+storiesOf('Shared/Components/Project Statistics/Stat', module)
   .add('Default', () => (
     <Stat
       label='Volunteers'
@@ -18,7 +17,7 @@ storiesOf('Shared Components/Stat', module)
   ))
   .add('Zero', () => (
     <Stat
-      label='Zoro'
+      label='Zero'
       value={0}
     />
   ))
