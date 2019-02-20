@@ -1,23 +1,31 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from 'react'
+import { storiesOf } from '@storybook/react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
 import Stat from './Stat'
 
 storiesOf('Shared/Components/Project Statistics/Stat', module)
   .add('Default', () => (
-    <Stat
-      label='Volunteers'
-      value={122}
-    />
+    <Grommet theme={zooTheme}>
+      <Stat
+        label='Volunteers'
+        value={122}
+      />
+    </Grommet>
   ))
   .add('Huge number', () => (
-    <Stat
-      label='Volunteers is a long word'
-      value={122000000}
-    />
+    <Grommet theme={zooTheme}>
+      <Stat
+        label='Volunteers is a long word'
+        value={122000000}
+      />
+    </Grommet >
   ))
   .add('Zero', () => (
-    <Stat
-      label='Zero'
-      value={0}
-    />
+    <Grommet theme={zooTheme}>
+      <Stat
+        label='Zero'
+        value={0}
+      />
+    </Grommet >
   ))
