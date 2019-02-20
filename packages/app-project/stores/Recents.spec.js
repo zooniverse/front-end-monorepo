@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { getSnapshot } from 'mobx-state-tree'
+import auth from 'panoptes-client/lib/auth'
 
 import initStore from './initStore'
 
@@ -129,6 +130,75 @@ describe('Stores > Recents', function () {
           { 'image/jpeg': 'test.jpeg' }
         ])
       })
+    })
+  })
+
+  describe('when Zooniverse auth is down.', function () {
+    const mockRecent = {
+      subjectId: '123',
+      locations: [
+        { 'image/jpeg': 'test.jpeg' }
+      ]
+    }
+
+    before(function () {
+      rootStore = initStore(true, { project })
+      const user = {
+        id: '123',
+        login: 'test.user'
+      }
+      sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
+      sinon.stub(rootStore.collections, 'fetchFavourites')
+      rootStore.user.set(user)
+      rootStore.recents.add(mockRecent)
+    })
+
+    after(function () {
+      auth.checkBearerToken.restore()
+      rootStore.collections.fetchFavourites.restore()
+    })
+
+    it('should record subjects classified this session', function () {
+      expect(rootStore.recents.recents).to.have.lengthOf(1)
+      const recents = getSnapshot(rootStore.recents.recents)
+      expect(recents[0].subjectId).to.equal('123')
+      expect(recents[0].locations).to.eql([
+        { 'image/jpeg': 'test.jpeg' }
+      ])
+    })
+  })
+
+  describe('on Panoptes API errors', function () {
+    const mockRecent = {
+      subjectId: '123',
+      locations: [
+        { 'image/jpeg': 'test.jpeg' }
+      ]
+    }
+
+    before(function () {
+      rootStore = initStore(true, { project })
+      const user = {
+        id: '123',
+        login: 'test.user'
+      }
+      rootStore.client.panoptes.get.callsFake(() => Promise.reject(new Error('Panoptes is not available')))
+      sinon.stub(rootStore.collections, 'fetchFavourites')
+      rootStore.user.set(user)
+      rootStore.recents.add(mockRecent)
+    })
+
+    after(function () {
+      rootStore.collections.fetchFavourites.restore()
+    })
+
+    it('should record subjects classified this session', function () {
+      expect(rootStore.recents.recents).to.have.lengthOf(1)
+      const recents = getSnapshot(rootStore.recents.recents)
+      expect(recents[0].subjectId).to.equal('123')
+      expect(recents[0].locations).to.eql([
+        { 'image/jpeg': 'test.jpeg' }
+      ])
     })
   })
 })
