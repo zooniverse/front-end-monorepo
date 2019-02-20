@@ -245,7 +245,7 @@ class LightCurveViewer extends Component {
   createAnnotationBrush () {
     const defaultBrush = this.getDefaultBrush() // a.k.a. the latest brush
     const nextAvailableId = (defaultBrush && defaultBrush.id + 1) || 0
-    
+
     const brush = d3.brushX()
       .on('start', this.onAnnotationBrushStart.bind(this))
       .on('brush', this.onAnnotationBrushBrushed.bind(this))
@@ -258,7 +258,7 @@ class LightCurveViewer extends Component {
       maxX: undefined
     })
   }
-  
+
   removeAnnotationBrush (annotationBrush) {
     this.annotationBrushes = this.annotationBrushes.filter((ab) => ab.id !== annotationBrush.id)
     this.updateAnnotationBrushes()
@@ -505,7 +505,7 @@ class LightCurveViewer extends Component {
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
         annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this))  // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
+      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this)) // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
@@ -528,10 +528,10 @@ class LightCurveViewer extends Component {
 
     // Reposition/re-draw brushes
     const currentTransform = this.getCurrentTransform()
-    this.disableBrushEvents()  // Temporarily disable brush events to prevent recursion from `annotationBrush.brush.move`
+    this.disableBrushEvents() // Temporarily disable brush events to prevent recursion from `annotationBrush.brush.move`
     this.annotationBrushes.forEach((annotationBrush) => {
       const d3brush = this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`)
-      
+
       // If the brush has no selection (e.g. the default brush), ignore.
       if (!annotationBrush.minX || !annotationBrush.maxX) {
         d3brush.select('.remove-button').attr('visibility', 'hidden')
@@ -544,14 +544,13 @@ class LightCurveViewer extends Component {
 
       // Reposition the brushes (selected areas)...
       d3brush.call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
-      
+
       // ...and their corresponding 'remove annotation' buttons
       d3brush.select('.remove-button')
         .attr('visibility', 'visible')
         .attr('transform', `translate(${midXonScreen}, 0)`)
-      
     })
-    this.enableBrushEvents()  // Re-enable brush events
+    this.enableBrushEvents() // Re-enable brush events
   }
 
   /*
@@ -655,7 +654,7 @@ LightCurveViewer.wrappedComponent.propTypes = {
   axisXLabel: PropTypes.string,
   axisXOffsetX: PropTypes.number,
   axisXOffsetY: PropTypes.number,
-  
+
   axisYLabel: PropTypes.string,
   axisYOffsetX: PropTypes.number,
   axisYOffsetY: PropTypes.number,
@@ -686,14 +685,14 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   axisXLabel: 'Days',
   axisXOffsetX: -40,
   axisXOffsetY: -20,
-  
+
   axisYLabel: 'Brightness',
   axisYOffsetX: 20,
   axisYOffsetY: 20,
 
   chartStyle: {
-    color: '#eff2f5',  // Zooniverse Light Grey
-    background: '#005d69',  // Zooniverse Dark Teal
+    color: '#eff2f5', // Zooniverse Light Grey
+    background: '#005d69', // Zooniverse Dark Teal
     dataPointSize: '1.5',
     fontFamily: 'inherit',
     fontSize: '0.75rem'

@@ -40,13 +40,13 @@ describe('Component > FavouritesButton', function () {
   })
   describe('when checked', function () {
     before(function () {
-      wrapper = shallow(<FavouritesButton checked={true} />)
+      wrapper = shallow(<FavouritesButton checked />)
     })
 
     it('should display a filled icon', function () {
       const button = wrapper.find(PlainButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite filled={true} />)
+      expect(icon).to.deep.equal(<Favourite filled />)
     })
 
     it('should be checked', function () {

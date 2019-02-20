@@ -9,8 +9,8 @@ import FinishedForTheDay from './components/FinishedForTheDay'
 
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), {
-    ssr: false
-  }
+  ssr: false
+}
 )
 
 export default function ClassifyPage () {

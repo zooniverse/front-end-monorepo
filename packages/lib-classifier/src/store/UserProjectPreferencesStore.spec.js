@@ -18,7 +18,6 @@ const upp = UPPFactory.build()
 const user = UserFactory.build()
 const token = '1234'
 
-
 const clientStub = stubPanoptesJs({
   projects: project,
   project_preferences: upp
@@ -39,7 +38,7 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe.only('Model > UserProjectPreferencesStore', function () {
+describe('Model > UserProjectPreferencesStore', function () {
   it('should exist', function () {
     expect(UserProjectPreferencesStore).to.be.an('object')
   })
@@ -98,7 +97,8 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       }, { authClient: {
         checkBearerToken: () => Promise.reject('testing error handling'),
         checkCurrent: () => Promise.reject('testing error handling')
-      }, client: clientStub })
+      },
+      client: clientStub })
 
       rootStore.projects.setActive(project.id)
         .then(() => {
@@ -177,13 +177,12 @@ describe.only('Model > UserProjectPreferencesStore', function () {
           }).then(createUPPSpy.restore()).then(done, done)
       })
 
-
       it('should call setUPP action upon successful request and there is an existing UPP', function () {
         rootStore = RootStore.create({
           projects: ProjectStore.create(),
           userProjectPreferences: UserProjectPreferencesStore.create()
         }, { authClient: authClientStubWithUser, client: clientStub })
-        
+
         const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
         rootStore.projects.setActive(project.id)
           .then(() => {
@@ -199,15 +198,16 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
-      }, { authClient: authClientStubWithUser, client: {
-        panoptes: {
-          get: (url) => {
-            if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] }})
-            return Promise.resolve({ body: { project_preferences: [] }})
-          },
-          post: postStub
-        } 
-      }})
+      }, { authClient: authClientStubWithUser,
+        client: {
+          panoptes: {
+            get: (url) => {
+              if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
+              return Promise.resolve({ body: { project_preferences: [] } })
+            },
+            post: postStub
+          }
+        } })
 
       rootStore.projects.setActive(project.id)
         .then(() => {
@@ -216,7 +216,7 @@ describe.only('Model > UserProjectPreferencesStore', function () {
             { project_preferences: {
               links: { project: project.id },
               preferences: {}
-            }},
+            } },
             `Bearer ${token}`
           )
         }).then(done, done)
@@ -226,15 +226,16 @@ describe.only('Model > UserProjectPreferencesStore', function () {
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
-      }, { authClient: authClientStubWithUser, client: {
-        panoptes: {
-          get: (url) => {
-            if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
-            return Promise.resolve({ body: { project_preferences: [] } })
-          },
-          post: () => Promise.reject('testing error handling')
-        }
-      }})
+      }, { authClient: authClientStubWithUser,
+        client: {
+          panoptes: {
+            get: (url) => {
+              if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
+              return Promise.resolve({ body: { project_preferences: [] } })
+            },
+            post: () => Promise.reject('testing error handling')
+          }
+        } })
 
       rootStore.projects.setActive(project.id)
         .then(() => {

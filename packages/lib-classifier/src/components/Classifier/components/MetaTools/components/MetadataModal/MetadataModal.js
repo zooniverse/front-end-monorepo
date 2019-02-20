@@ -54,7 +54,7 @@ export default function MetadataModal (props) {
   const columns = [{
     header: <SpacedText>{counterpart('MetadataModal.table.label')}</SpacedText>,
     primary: true,
-    property: 'label',
+    property: 'label'
   }, {
     header: <SpacedText>{counterpart('MetadataModal.table.value')}</SpacedText>,
     property: 'value',

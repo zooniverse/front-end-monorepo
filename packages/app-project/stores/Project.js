@@ -58,7 +58,7 @@ const Project = types
             'retired_subjects_count',
             'slug',
             'subjects_count',
-            'urls',
+            'urls'
           ]
           properties.forEach(property => self[property] = project[property])
           self.loadingState = asyncStates.success
