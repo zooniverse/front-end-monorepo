@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
-
+import { Box } from 'grommet'
 import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
@@ -41,19 +41,24 @@ class TaskArea extends React.Component {
     }
     return (
       <Tabs
-        onActive={this.onTabClick.bind(this)}
+        background='white'
         border={border}
         className={this.props.className}
         margin='none'
+        onActive={this.onTabClick.bind(this)}
       >
         <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
-          <Tasks />
+          <Box background='white'>
+            <Tasks />
+          </Box>
         </Tab>
         <Tab
           disabled={disableTutorialTab}
           title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.tutorial')}</SpacedText>}
         >
-          <SlideTutorial />
+          <Box background='white'>
+            <SlideTutorial />
+          </Box>
         </Tab>
       </Tabs>
     )

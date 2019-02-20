@@ -1,5 +1,6 @@
-import React from 'react'
 import { Box } from 'grommet'
+import React from 'react'
+
 import AnnotateButton from './components/AnnotateButton'
 import FieldGuideButton from './components/FieldGuideButton'
 import FullscreenButton from './components/FullscreenButton'
@@ -9,18 +10,17 @@ import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 
-const toolbarStyles = {
-  border: {
-    color: 'lightGrey',
-    side: 'all'
-  },
-  pad: 'small'
-}
-
-function ImageToolbar (props) {
+export default function ImageToolbar (props) {
   return (
     <aside {...props}>
-      <Box {...toolbarStyles}>
+      <Box
+        background='white'
+        border={{
+          color: 'lightGrey',
+          side: 'all'
+        }}
+        pad='small'
+      >
         <AnnotateButton />
         <MoveButton />
         <ZoomInButton />
@@ -33,5 +33,3 @@ function ImageToolbar (props) {
     </aside>
   )
 }
-
-export default ImageToolbar

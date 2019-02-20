@@ -7,7 +7,15 @@ import Link from 'next/link'
 function ContentBox ({ children, linkLabel, linkUrl, title }) {
   const showHeader = title || (linkLabel && linkUrl)
   return (
-    <Box background='white' border='all' pad='medium'>
+    <Box
+      background='white'
+      border={{
+        color: 'lightGrey',
+        side: 'all',
+        size: 'thin'
+      }}
+      pad='medium'
+    >
       {showHeader && (
         <Box
           align='center'
