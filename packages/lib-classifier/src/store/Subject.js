@@ -6,6 +6,7 @@ import subjectViewers from '../helpers/subjectViewers'
 const Subject = types
   .model('Subject', {
     already_seen: types.optional(types.boolean, false),
+    favorite: types.optional(types.boolean, false),
     finished_workflow: types.optional(types.boolean, false),
     locations: types.frozen(),
     metadata: types.frozen(),
