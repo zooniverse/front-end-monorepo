@@ -4,14 +4,12 @@ import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
-import auth from 'panoptes-client/lib/auth'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import urlParse from 'url-parse'
+import UrlParse from 'url-parse'
 
 import AuthModals from '../src/components/AuthModals'
 import Head from '../src/components/Head'
-import Navigation from '../src/components/Navigation'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import initStore from '../stores'
@@ -25,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
     let pageProps = {
-      isServer: !!context.req,
+      isServer: !!context.req
     }
 
     if (Component.getInitialProps) {
@@ -92,7 +90,7 @@ MyApp.defaultProps = {
 }
 
 function getSlugFromUrl (relativeUrl) {
-  const fragments = new urlParse(relativeUrl).pathname.split('/')
+  const fragments = new UrlParse(relativeUrl).pathname.split('/')
   return (fragments[2] && fragments[3])
     ? `${fragments[2]}/${fragments[3]}`
     : undefined

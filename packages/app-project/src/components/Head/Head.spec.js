@@ -37,7 +37,7 @@ describe('Component > Head', function () {
   it('should render a meta `twitter:creator` tag if available', function () {
     let tag = wrapper.find(`meta[name='twitter:creator']`)
     expect(tag).to.have.lengthOf(0)
-    wrapper.setProps({ projectTwitterUsername: 'foobar'})
+    wrapper.setProps({ projectTwitterUsername: 'foobar' })
     tag = wrapper.find(`meta[name='twitter:creator']`)
     expect(tag).to.have.lengthOf(1)
     expect(tag.prop('content')).to.equal('foobar')

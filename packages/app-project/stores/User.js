@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { flow, getRoot, types } from 'mobx-state-tree'
+import { flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import numberString from './types/numberString'
@@ -33,8 +33,7 @@ const User = types
         if (userResource) {
           self.set(userResource)
         }
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error)
         self.loadingState = asyncStates.error
         self.error = error

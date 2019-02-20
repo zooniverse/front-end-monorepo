@@ -12,13 +12,12 @@ describe('stores > Collections', function () {
   let rootStore = Store.create({}, placeholderEnv)
   let collectionsStore = rootStore.collections
   let clientStub
-  
+
   it('should exist', function () {
     expect(rootStore.collections).to.be.ok
   })
 
   describe('fetchFavourites', function () {
-
     it('should exist', function () {
       expect(collectionsStore.fetchFavourites).to.be.a('function')
     })
@@ -37,7 +36,7 @@ describe('stores > Collections', function () {
         clientStub = {
           collections: {
             get: function () {
-              return Promise.resolve({ body: collections.mocks.responses.get.collection})
+              return Promise.resolve({ body: collections.mocks.responses.get.collection })
             }
           }
         }
@@ -62,7 +61,6 @@ describe('stores > Collections', function () {
     })
 
     describe('without an existing collection', function () {
-
       before(function () {
         const project = {
           id: '2',
@@ -140,7 +138,7 @@ describe('stores > Collections', function () {
               subjects: ['1', '2']
             }
             const newFavourites = Object.assign({}, favourites, { links })
-            return Promise.resolve({ body: { collections: [ newFavourites ]}})
+            return Promise.resolve({ body: { collections: [ newFavourites ] } })
           })
         }
       }
@@ -150,10 +148,10 @@ describe('stores > Collections', function () {
 
     it('should add subjects to the favourites collection', function (done) {
       collectionsStore.addFavourites(['1', '2'])
-        .then( function () {
+        .then(function () {
           const favourites = getSnapshot(collectionsStore.favourites)
           const params = {
-            authorization: "Bearer ",
+            authorization: 'Bearer ',
             collectionId: favourites.id,
             subjects: ['1', '2']
           }
@@ -188,7 +186,7 @@ describe('stores > Collections', function () {
               subjects: []
             }
             const newFavourites = Object.assign({}, favourites, { links })
-            return Promise.resolve({ body: { collections: [ newFavourites ]}})
+            return Promise.resolve({ body: { collections: [ newFavourites ] } })
           })
         }
       }
@@ -198,10 +196,10 @@ describe('stores > Collections', function () {
 
     it('should remove subjects from the favourites collection', function (done) {
       collectionsStore.removeFavourites(['1', '2'])
-        .then( function () {
+        .then(function () {
           const favourites = getSnapshot(collectionsStore.favourites)
           const params = {
-            authorization: "Bearer ",
+            authorization: 'Bearer ',
             collectionId: favourites.id,
             subjects: ['1', '2']
           }

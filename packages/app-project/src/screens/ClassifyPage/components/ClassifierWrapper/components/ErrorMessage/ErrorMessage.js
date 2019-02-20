@@ -14,7 +14,7 @@ const Pre = styled.pre`
 
 export default function ErrorMessage ({ error }) {
   const { message, name, stack } = error
-  const errorString = stack ? stack : `${name}: ${message}`
+  const errorString = stack || `${name}: ${message}`
 
   return (
     <Box
