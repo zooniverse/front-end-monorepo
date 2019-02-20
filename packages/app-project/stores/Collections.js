@@ -15,6 +15,7 @@ export const Collection = types
 const Collections = types
   .model('Collections', {
     error: types.maybeNull(types.frozen({})),
+    collections: types.optional(types.array(Collection), []),
     favourites: types.maybeNull(Collection),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
@@ -39,20 +40,47 @@ const Collections = types
         createProjectObserver()
       },
 
-      createFavourites: flow(function * createFavourites () {
+      createCollection: flow(function * createCollection (options) {
         const { project } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
-        const data = {
-          display_name: `Favorites ${project.slug}`,
-          favorite: true
+        const defaults = {
+          display_name: '',
+          favorite: false,
+          private: false
         }
+        const data = Object.assign({}, defaults, options)
         const subjects = []
         const response = yield client.create({ authorization, data, project: project.id, subjects })
-        const [ favourites ] = response.body.collections
+        const [ collection ] = response.body.collections
         self.loadingState = asyncStates.success
-        self.favourites = Collection.create(favourites)
+        if (options.favorite) {
+          self.favourites = Collection.create(collection)
+        } else {
+          self.collections.push(collection)
+        }
+      }),
+
+      createFavourites: flow(function * createFavourites () {
+        const { project } = getRoot(self)
+        const options = {
+          display_name: `Favorites ${project.slug}`,
+          favorite: true,
+          private: true
+        }
+        return self.createCollection(options)
+      }),
+
+      fetchCollections: flow(function * fetchCollections (query) {
+        const { project, user } = getRoot(self)
+        self.loadingState = asyncStates.loading
+        const token = yield auth.checkBearerToken()
+        const authorization = `Bearer ${token}`
+        const response = yield client.get({ authorization, query })
+        const { collections } = response.body
+        self.loadingState = asyncStates.success
+        self.collections = collections
       }),
 
       fetchFavourites: flow(function * fetchFavourites () {
