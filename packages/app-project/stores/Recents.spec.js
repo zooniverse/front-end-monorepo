@@ -1,13 +1,8 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { getSnapshot } from 'mobx-state-tree'
-import asyncStates from '@zooniverse/async-states'
-import { panoptes } from '@zooniverse/panoptes-js'
 
-import Project from './Project'
-import Store from './Store'
 import initStore from './initStore'
-import placeholderEnv from './helpers/placeholderEnv'
 
 describe('Stores > Recents', function () {
   let rootStore
@@ -23,7 +18,7 @@ describe('Stores > Recents', function () {
         recents: [
           {
             locations: [
-              { 'image/jpeg': 'subject.jpeg'}
+              { 'image/jpeg': 'subject.jpeg' }
             ],
             links: {
               subject: '345'
@@ -74,7 +69,7 @@ describe('Stores > Recents', function () {
       const recents = getSnapshot(rootStore.recents.recents)
       expect(recents[0].subjectId).to.equal('345')
       expect(recents[0].locations).to.eql([
-        { 'image/jpeg': 'subject.jpeg'}
+        { 'image/jpeg': 'subject.jpeg' }
       ])
     })
 
@@ -82,7 +77,7 @@ describe('Stores > Recents', function () {
       const mockRecent = {
         subjectId: '123',
         locations: [
-          { 'image/jpeg': 'test.jpeg'}
+          { 'image/jpeg': 'test.jpeg' }
         ]
       }
 
@@ -95,7 +90,7 @@ describe('Stores > Recents', function () {
         const recents = getSnapshot(rootStore.recents.recents)
         expect(recents[0].subjectId).to.equal('123')
         expect(recents[0].locations).to.eql([
-          { 'image/jpeg': 'test.jpeg'}
+          { 'image/jpeg': 'test.jpeg' }
         ])
       })
     })
@@ -118,7 +113,7 @@ describe('Stores > Recents', function () {
       const mockRecent = {
         subjectId: '123',
         locations: [
-          { 'image/jpeg': 'test.jpeg'}
+          { 'image/jpeg': 'test.jpeg' }
         ]
       }
 
@@ -131,7 +126,7 @@ describe('Stores > Recents', function () {
         const recents = getSnapshot(rootStore.recents.recents)
         expect(recents[0].subjectId).to.equal('123')
         expect(recents[0].locations).to.eql([
-          { 'image/jpeg': 'test.jpeg'}
+          { 'image/jpeg': 'test.jpeg' }
         ])
       })
     })

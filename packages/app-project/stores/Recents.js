@@ -13,11 +13,10 @@ const Recents = types
   .model('Recents', {
     error: types.maybeNull(types.frozen({})),
     recents: types.optional(types.array(Recent), []),
-    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 
   .actions(self => {
-
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const { project, user } = getRoot(self)
@@ -33,7 +32,7 @@ const Recents = types
         createProjectObserver()
       },
 
-      fetch: flow( function * fetch () {
+      fetch: flow(function * fetch () {
         const { client, project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
         try {
@@ -51,8 +50,7 @@ const Recents = types
           }))
           self.loadingState = asyncStates.success
           self.recents.map(recent => console.log(recent.subjectId, recent.locations))
-        }
-        catch(error) {
+        } catch (error) {
           console.log(error)
           self.error = error
           self.loadingState = asyncStates.error
@@ -66,4 +64,3 @@ const Recents = types
   })
 
 export default Recents
-  
