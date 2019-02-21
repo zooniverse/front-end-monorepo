@@ -14,6 +14,14 @@ npm run dev
 
 Starts a development server on port 3000 by default.
 
+### Running in Storybook
+
+```sh
+npm run storybook
+```
+
+Starts a Storybook server on port 9001 by default.
+
 ### Running in production
 
 ```sh
