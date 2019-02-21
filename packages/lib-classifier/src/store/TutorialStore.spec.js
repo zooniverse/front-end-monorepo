@@ -13,12 +13,15 @@ import stubPanoptesJs from '../../test/stubPanoptesJs'
 
 let rootStore
 
-const tutorial = TutorialFactory.build()
 const workflow = WorkflowFactory.build()
 
 const panoptesClient = stubPanoptesJs({ workflows: workflow })
 
 const medium = TutorialMediumFactory.build()
+const tutorial = TutorialFactory.build({ steps: [
+  { content: '# Hello', media: medium.id },
+  { content: '# Step 2' }
+]})
 
 const clientStub = Object.assign({}, panoptesClient, {
   tutorials: {
@@ -49,7 +52,7 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe.only('Model > TutorialStore', function () {
+describe('Model > TutorialStore', function () {
   afterEach(function () {
     clientStub.tutorials.get.resetHistory()
     clientStub.tutorials.getAttachedImages.resetHistory()
@@ -238,8 +241,8 @@ describe.only('Model > TutorialStore', function () {
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
       }, {
-          authClient: authClientStubWithoutUser, client: clientStub
-        })
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
       const setTutorialStepSpy = sinon.spy(rootStore.tutorials, 'setTutorialStep')
 
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
@@ -248,6 +251,83 @@ describe.only('Model > TutorialStore', function () {
         expect(setTutorialStepSpy).to.have.been.calledOnceWith(1)
       }).then(() => {
         setTutorialStepSpy.restore()
+      }).then(done, done)
+    })
+  })
+
+  describe('Actions > setTutorialStep', function (done) {
+    it('should not set the active step if there is not an active tutorial', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
+
+      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setTutorialStep(0)
+      }).then(() => {
+        expect(rootStore.tutorials.activeStep).to.be.undefined
+      }).then(done, done)
+    })
+
+    it('should set not the active step if that stepIndex does not exist in the steps array', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
+
+      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setActiveTutorial(tutorial.id, 2)
+      }).then(() => {
+        expect(rootStore.tutorials.activeStep).to.be.undefined
+      }).then(done, done)
+    })
+
+    it('should set the active step with the stepIndex parameter', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
+
+      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
+      }).then(() => {
+        expect(rootStore.tutorials.activeStep).to.equal(1)
+      }).then(done, done)
+    })
+
+    it('should set the active step with the default of 0', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
+
+      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setActiveTutorial(tutorial.id)
+      }).then(() => {
+        expect(rootStore.tutorials.activeStep).to.equal(0)
+      }).then(done, done)
+    })
+
+    it('should set the activeMedium if it exists for the step', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
+
+      rootStore.workflows.setActive(workflow.id).then(() => {
+        rootStore.tutorials.setActiveTutorial(tutorial.id)
+      }).then(() => {
+        expect(rootStore.tutorials.activeMedium).to.deep.equal(medium)
       }).then(done, done)
     })
   })

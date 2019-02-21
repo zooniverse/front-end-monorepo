@@ -115,9 +115,9 @@ const TutorialStore = types
       if (self.active) {
         const { steps } = self.active
         self.activeMedium = undefined
-        if (steps && steps.length > 0 && steps[stepIndex]) {
-          if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
+        if (stepIndex < steps.length) {
           self.activeStep = stepIndex
+          if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
         }
       }
     }
