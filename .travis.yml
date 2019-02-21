@@ -1,0 +1,10 @@
+language: node_js
+
+node_js:
+  - '10'
+
+install:
+  - ./bin/travis-bootstrap.sh
+
+script:
+  - ./bin/travis-test.sh

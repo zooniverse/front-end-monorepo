@@ -14,7 +14,7 @@
     "prepublishOnly": "npm run test:ci && npm run build",
     "start": "echo 'Nothing to see here yet'",
     "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test"
+    "test:ci": "npm run _test -- --reporter=min"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "~1.2.8",

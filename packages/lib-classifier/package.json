@@ -13,7 +13,7 @@
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "npm run _check && PANOPTES_ENV=production npm run dev",
     "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test"
+    "test:ci": "npm run _test -- --reporter=min"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.2.0",

@@ -11,7 +11,7 @@
     "_test": "npm run _check && NODE_ENV=test mocha",
     "lint": "npm run _check && standard --env mocha --fix | snazzy; exit 0",
     "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test"
+    "test:ci": "npm run _test -- --reporter=min"
   },
   "dependencies": {
     "superagent": "~3.8.3",
