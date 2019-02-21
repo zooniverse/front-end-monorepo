@@ -23,7 +23,7 @@ describe('LightCurveViewer > d3 > addBorderLayer', function () {
     expect(attrStub.calledWith('width', '100%')).to.be.true
     expect(attrStub.calledWith('height', '100%')).to.be.true
     expect(attrStub.calledWith('fill', 'none')).to.be.true
-    expect(attrStub.calledWith('stroke', '#333')).to.be.true
+    expect(attrStub.calledWith('stroke', '#444')).to.be.true
     expect(attrStub.calledWith('stroke-width', '2')).to.be.true
   })
 })
