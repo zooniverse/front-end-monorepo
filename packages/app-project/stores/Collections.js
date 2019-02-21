@@ -102,29 +102,39 @@ const Collections = types
         }
       }),
 
-      addFavourites: flow(function * addFavourites (subjectIds) {
+      addSubjects: flow(function * addSubjects (collectionId, subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
           authorization,
-          collectionId: self.favourites.id,
+          collectionId,
           subjects: subjectIds
         }
         const response = yield client.addSubjects(params)
-        const [ favourites ] = response.body.collections
+        const [ collection ] = response.body.collections
+        return collection
+      }),
+
+      addFavourites: flow(function * addFavourites (subjectIds) {
+        const favourites = yield self.addSubjects(self.favourites.id, subjectIds)
         self.favourites = Collection.create(favourites)
       }),
 
-      removeFavourites: flow(function * removeFavourites (subjectIds) {
+      removeSubjects: flow(function * removeSubjects(collectionId, subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
           authorization,
-          collectionId: self.favourites.id,
+          collectionId,
           subjects: subjectIds
         }
         const response = yield client.removeSubjects(params)
-        const [ favourites ] = response.body.collections
+        const [ collection ] = response.body.collections
+        return collection
+      }),
+
+      removeFavourites: flow(function * removeFavourites (subjectIds) {
+        const favourites = yield self.removeSubjects(self.favourites.id, subjectIds)
         self.favourites = Collection.create(favourites)
       })
     }
