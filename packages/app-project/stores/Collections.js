@@ -40,7 +40,7 @@ const Collections = types
         createProjectObserver()
       },
 
-      createCollection: flow(function * createCollection (options) {
+      createCollection: flow(function * createCollection (options, subjectIds=[]) {
         const { project } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
@@ -51,8 +51,7 @@ const Collections = types
           private: false
         }
         const data = Object.assign({}, defaults, options)
-        const subjects = []
-        const response = yield client.create({ authorization, data, project: project.id, subjects })
+        const response = yield client.create({ authorization, data, project: project.id, subjects: subjectIds })
         const [ collection ] = response.body.collections
         self.loadingState = asyncStates.success
         if (options.favorite) {
@@ -62,14 +61,14 @@ const Collections = types
         }
       }),
 
-      createFavourites: flow(function * createFavourites () {
+      createFavourites: flow(function * createFavourites (subjectIds=[]) {
         const { project } = getRoot(self)
         const options = {
           display_name: `Favorites ${project.slug}`,
           favorite: true,
           private: true
         }
-        return self.createCollection(options)
+        return self.createCollection(options, subjectIds)
       }),
 
       fetchCollections: flow(function * fetchCollections (query) {
