@@ -22,7 +22,7 @@ const subjectStub = {
     { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/335/0/44a48dd2-23b3-4bb5-9aa4-0e803ac4fe6d.jpeg' }
   ],
   metadata: {},
-  retired: false,
+  retired: true,
   selection_state: 'normal',
   user_has_finished_workflow: true
 }
