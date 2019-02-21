@@ -1,13 +1,5 @@
-import Classification from './Classification'
 import ClassificationStore from './ClassificationStore'
-import Project from './Project'
-import ProjectStore from './ProjectStore'
 import Subject from './Subject'
-import SubjectStore from './SubjectStore'
-import UserProjectPreferences from './UserProjectPreferences'
-import UserProjectPreferencesStore from './UserProjectPreferencesStore'
-import Workflow from './Workflow'
-import WorkflowStore from './WorkflowStore'
 
 import { types } from 'mobx-state-tree'
 
