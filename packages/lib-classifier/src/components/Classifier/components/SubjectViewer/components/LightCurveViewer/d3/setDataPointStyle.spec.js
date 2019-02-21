@@ -5,6 +5,11 @@ import setDataPointStyle from './setDataPointStyle'
 const selectionFixture = { attr: Function.prototype }
 const attrStub = sinon.stub(selectionFixture, 'attr').returnsThis()
 
+const chartStyle = {
+  color: '#eff2f5', // Zooniverse Light Grey
+  dataPointSize: '1.5',
+}
+
 describe('LightCurveViewer > d3 > setDataPointStyle', function () {
   afterEach(function () {
     attrStub.resetHistory()
@@ -15,9 +20,9 @@ describe('LightCurveViewer > d3 > setDataPointStyle', function () {
   })
 
   it('should add the correct attributes to the selection', function () {
-    setDataPointStyle(selectionFixture)
-    expect(attrStub.calledWith('r', 1.25)).to.be.true
+    setDataPointStyle(selectionFixture, chartStyle)
+    expect(attrStub.calledWith('r', chartStyle.dataPointSize)).to.be.true
     expect(attrStub.calledWith('class', 'data-point')).to.be.true
-    expect(attrStub.calledWith('fill', '#488')).to.be.true
+    expect(attrStub.calledWith('fill', chartStyle.color)).to.be.true
   })
 })
