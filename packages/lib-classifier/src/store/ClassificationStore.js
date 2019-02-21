@@ -64,6 +64,13 @@ const ClassificationStore = types
         },
         metadata: ClassificationMetadata.create({
           source: subject.metadata.intervention ? 'sugar' : 'api',
+          subjectSelectionState: {
+            already_seen: subject.already_seen,
+            finished_workflow: subject.finished_workflow,
+            retired: subject.retired,
+            selection_state: subject.selection_state,
+            user_has_finished_workflow: subject.user_has_finished_workflow,
+          },
           userLanguage: counterpart.getLocale(),
           workflowVersion: workflow.version
         })
