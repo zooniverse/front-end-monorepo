@@ -18,7 +18,8 @@
     "plop": "^2.1.0"
   },
   "scripts": {
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test:ci": "nyc lerna run test:ci"
   },
   "engines": {
     "node": "8"
