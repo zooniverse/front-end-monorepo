@@ -16,6 +16,67 @@ describe('stores > Collections', function () {
     expect(rootStore.collections).to.be.ok()
   })
 
+  describe('searchCollections', function () {
+    before(function () {
+      const project = {
+        id: '2',
+        display_name: 'Hello',
+        slug: 'test/project'
+      }
+      const user = {
+        login: 'test.user'
+      }
+      const snapshot = { project, user }
+      rootStore = initStore(true, snapshot)
+      sinon.stub(rootStore.client.collections, 'get').callsFake(function () {
+        return Promise.resolve({ body: collections.mocks.responses.get.collection })
+      })
+      collectionsStore = rootStore.collections
+    })
+
+    after(function () {
+      rootStore.client.collections.get.restore()
+    })
+
+    it('should query the collections API', function (done) {
+      expect(collectionsStore.loadingState).to.equal(asyncStates.initialized)
+      const query = {
+        favorite: false,
+        search: 'test'
+      }
+
+      collectionsStore.searchCollections(query)
+      .then(function () {
+        const params = {
+          authorization: 'Bearer ',
+          query
+        }
+        expect(collectionsStore.loadingState).to.equal(asyncStates.success)
+        expect(rootStore.client.collections.get).to.have.been.calledOnceWith(params)
+      })
+      .then(done, done)
+
+      expect(collectionsStore.loadingState).to.equal(asyncStates.loading)
+    })
+
+    it('should store the search results', function (done) {
+      const query = {
+        favorite: false,
+        search: 'test'
+      }
+
+      collectionsStore.searchCollections(query)
+      .then(function () {
+        const results = getSnapshot(rootStore.collections.collections)
+        const expectedResult = collections.mocks.resources.collection
+        expect(results).to.have.lengthOf(1)
+        expect(results[0].id).to.eql(expectedResult.id)
+        expect(results[0].display_name).to.eql(expectedResult.display_name)
+      })
+      .then(done, done)
+    })
+  })
+
   describe('fetchFavourites', function () {
     it('should exist', function () {
       expect(collectionsStore.fetchFavourites).to.be.a('function')
@@ -87,6 +148,7 @@ describe('stores > Collections', function () {
         })
         collectionsStore = rootStore.collections
       })
+
       after(function () {
         rootStore.client.collections.create.restore()
         rootStore.client.collections.get.restore()
