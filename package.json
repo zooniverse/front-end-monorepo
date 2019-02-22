@@ -27,12 +27,12 @@
     "exclude": [
       "**/*.spec.js",
       "**/*.spec.jsx",
+      "**/dist/*",
+      "**/test/*",
       "bin",
-      "dist",
       "docs",
       "node_modules",
-      "plop",
-      "test"
+      "plop"
     ],
     "extension": [
       ".jsx"
