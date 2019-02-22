@@ -49,7 +49,8 @@ describe('stores > Collections', function () {
         collectionsStore.fetchFavourites()
           .then(function () {
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)
-            expect(collectionsStore.favourites).to.be.ok()
+            expect(collectionsStore.favourites.id).to.equal('1')
+            expect(collectionsStore.favourites.display_name).to.equal('test collection')
           })
           .then(done, done)
 
