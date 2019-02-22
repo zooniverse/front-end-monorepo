@@ -26,7 +26,7 @@ describe('Component > AuthModals', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the LoginModal if the `showLoginModal` prop is true', function () {

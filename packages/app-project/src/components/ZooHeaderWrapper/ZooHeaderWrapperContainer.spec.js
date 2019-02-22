@@ -8,11 +8,11 @@ let wrapper
 describe('Component > ZooHeaderWrapperContainer', function () {
   before(function () {
     wrapper = shallow(<ZooHeaderWrapperContainer.wrappedComponent
-      store={{ user: {} }}
+      user={{}}
     />)
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 })

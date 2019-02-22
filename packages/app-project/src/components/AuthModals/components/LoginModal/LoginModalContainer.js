@@ -1,3 +1,4 @@
+/* global FormData */
 import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { func, shape } from 'prop-types'
@@ -7,7 +8,7 @@ import LoginModal from './LoginModal'
 
 @inject('store')
 @observer
-export default class LoginModalContainer extends Component {
+class LoginModalContainer extends Component {
   constructor () {
     super()
     this.onSubmit = this.onSubmit.bind(this)
@@ -17,7 +18,7 @@ export default class LoginModalContainer extends Component {
     }
   }
 
-  createLoginPayload(formNode) {
+  createLoginPayload (formNode) {
     const formData = Array.from(new FormData(formNode))
     const loginPayload = {}
     formData.forEach(([name, value]) => {
@@ -62,7 +63,7 @@ export default class LoginModalContainer extends Component {
 
 LoginModalContainer.propTypes = {
   authClient: shape({
-    signIn: func,
+    signIn: func
   }),
   closeLoginModal: func,
   store: shape({
@@ -75,3 +76,5 @@ LoginModalContainer.propTypes = {
 LoginModalContainer.defaultProps = {
   authClient: auth
 }
+
+export default LoginModalContainer

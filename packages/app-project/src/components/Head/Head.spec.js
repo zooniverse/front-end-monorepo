@@ -11,7 +11,7 @@ describe('Component > Head', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a meta `og:url` tag', function () {

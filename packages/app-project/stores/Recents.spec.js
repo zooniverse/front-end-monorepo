@@ -39,7 +39,7 @@ describe('Stores > Recents', function () {
   })
 
   it('should exist', function () {
-    expect(recentsStore).to.be.ok
+    expect(recentsStore).to.be.ok()
   })
 
   describe('with a project and user', function () {
@@ -106,7 +106,7 @@ describe('Stores > Recents', function () {
     })
 
     it('should not request recent subjects from Panoptes', function () {
-      expect(rootStore.client.panoptes.get).to.have.not.been.called
+      expect(rootStore.client.panoptes.get).to.have.not.been.called()
     })
 
     it('should initialise recents with an empty array', function () {

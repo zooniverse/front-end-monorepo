@@ -9,6 +9,6 @@ describe('Stores > Store', function () {
 
   it('should contain a project store', function () {
     const store = Store.create({}, placeholderEnv)
-    expect(store.project).to.be.ok
+    expect(store.project).to.be.ok()
   })
 })

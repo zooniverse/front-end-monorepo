@@ -15,7 +15,7 @@ describe('Component > FinishedForTheDay', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should contain a title', function () {
@@ -25,7 +25,7 @@ describe('Component > FinishedForTheDay', function () {
   it('should contain some text', function () {
     const para = wrapper.find('p')
     expect(para).to.have.lengthOf(1)
-    expect(para.text().length).to.be.ok
+    expect(para.text().length).to.be.ok()
   })
 
   xit('should contain a stats button', function () {

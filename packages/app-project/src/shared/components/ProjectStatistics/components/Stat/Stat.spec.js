@@ -14,7 +14,7 @@ describe('Component > Stat', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should pass the `value` prop to an `AnimatedNumber`', function () {

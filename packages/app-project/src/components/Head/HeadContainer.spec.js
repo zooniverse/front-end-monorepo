@@ -17,7 +17,7 @@ describe('Component > HeadContainer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the `Head` component', function () {
@@ -43,7 +43,7 @@ describe('Component > HeadContainer', function () {
   })
 
   it('should pass a `projectTwitterUsername` prop to `Head` if available', function () {
-    expect(componentWrapper.prop('projectTwitterUsername')).to.be.undefined
+    expect(componentWrapper.prop('projectTwitterUsername')).to.be.undefined()
 
     const MOCK_PROJECT_WITH_TWITTER = createMockProject({
       urls: [{
@@ -59,7 +59,7 @@ describe('Component > HeadContainer', function () {
   })
 
   it('should pass a `siteName` prop to `Head`', function () {
-    expect(componentWrapper.prop('siteName')).to.be.ok
+    expect(componentWrapper.prop('siteName')).to.be.ok()
   })
 
   it('should pass a `title` prop to `Head`', function () {
@@ -67,7 +67,7 @@ describe('Component > HeadContainer', function () {
   })
 
   it('should pass a `url` prop to `Head`', function () {
-    expect(componentWrapper.prop('url')).to.be.ok
+    expect(componentWrapper.prop('url')).to.be.ok()
   })
 })
 

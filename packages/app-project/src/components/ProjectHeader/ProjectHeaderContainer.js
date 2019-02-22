@@ -12,7 +12,7 @@ function storeMapper (stores) {
 
 @inject(storeMapper)
 @observer
-export default class ProjectHeaderContainer extends Component {
+class ProjectHeaderContainer extends Component {
   render () {
     return (
       <ProjectHeader
@@ -27,3 +27,5 @@ ProjectHeaderContainer.propTypes = {
     display_name: string
   })
 }
+
+export default ProjectHeaderContainer

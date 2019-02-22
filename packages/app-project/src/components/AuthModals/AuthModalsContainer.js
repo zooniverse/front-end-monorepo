@@ -9,7 +9,7 @@ import AuthModals from './AuthModals'
 @withRouter
 @inject('store')
 @observer
-export default class AuthModalsContainer extends Component {
+class AuthModalsContainer extends Component {
   constructor () {
     super()
     this.closeLoginModal = this.closeLoginModal.bind(this)
@@ -71,6 +71,8 @@ AuthModalsContainer.propTypes = {
   router: PropTypes.shape({
     asPath: PropTypes.string.isRequired,
     pathname: PropTypes.string.isRequired,
-    push: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   })
 }
+
+export default AuthModalsContainer

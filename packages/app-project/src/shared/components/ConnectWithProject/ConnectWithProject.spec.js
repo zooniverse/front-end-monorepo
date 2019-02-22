@@ -22,7 +22,7 @@ describe('Component > ConnectWithProject', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a `ProjectLink` for each url', function () {

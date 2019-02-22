@@ -21,7 +21,7 @@ describe('Component > ErrorMessage', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should show the full stack trace if available', function () {

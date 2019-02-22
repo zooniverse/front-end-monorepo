@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
 
-import Project from './Project'
 import Store from './Store'
 import placeholderEnv from './helpers/placeholderEnv'
 
@@ -15,7 +14,7 @@ describe('Stores > Project', function () {
   it('should exist', function () {
     rootStore = Store.create({}, placeholderEnv)
     projectStore = rootStore.project
-    expect(projectStore).to.be.ok
+    expect(projectStore).to.be.ok()
   })
 
   describe('default model properties', function () {
@@ -25,7 +24,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have a `displayName` property', function () {
-      expect(projectStore.displayName).to.be.null
+      expect(projectStore.displayName).to.be.null()
     })
 
     it('should have a `background` property', function () {
@@ -37,7 +36,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have an `id` property', function () {
-      expect(projectStore.id).to.be.null
+      expect(projectStore.id).to.be.null()
     })
 
     it('should have a `slug` property', function () {

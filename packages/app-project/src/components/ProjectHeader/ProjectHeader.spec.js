@@ -12,12 +12,12 @@ describe('Component > ProjectHeader', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the title prop as an h1', function () {
     const heading = wrapper.find('h1')
-    expect(heading).to.be.ok
+    expect(heading).to.be.ok()
     expect(heading.text()).to.equal(TITLE)
   })
 })

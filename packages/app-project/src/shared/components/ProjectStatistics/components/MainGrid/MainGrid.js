@@ -1,5 +1,4 @@
 import { base as baseTheme } from 'grommet'
-import theme from '@zooniverse/grommet-theme'
 import styled from 'styled-components'
 
 const { breakpoints } = baseTheme.global
