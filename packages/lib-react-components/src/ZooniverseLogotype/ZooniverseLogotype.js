@@ -1,5 +1,5 @@
 import React from 'react'
-import { number, string} from 'prop-types'
+import { number, string } from 'prop-types'
 
 import SVGContent from './SVGContent'
 

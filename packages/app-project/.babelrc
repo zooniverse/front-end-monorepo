@@ -5,5 +5,18 @@
     "babel-plugin-styled-components",
     "dynamic-import-node"
   ],
-  "presets": ["next/babel"]
+  "presets": ["next/babel"],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "next/babel", {
+            "transform-runtime": {
+              "useESModules": false
+            }
+          }
+        ]
+      ]
+    }
+  }
 }

@@ -14,7 +14,7 @@
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "npm run _check && NODE_ENV=production npm run _serve",
     "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test",
+    "test:ci": "npm run _test -- --reporter=min",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {

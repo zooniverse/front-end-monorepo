@@ -42,15 +42,16 @@ describe('Image', function () {
     expect(wrapper.find(Image)).to.have.lengthOf(0)
   })
 
-  it('should delay loading the image the given time in props.delay', function () {
+  it('should delay loading the image the given time in props.delay', function (done) {
     const delay = 1000
     const wrapper = mount(<ThumbnailImage delay={delay} src={image} />)
     const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
     progressiveImageInstance.onLoad()
-    wrapper.update()
-    setTimeout(() => {
+    setTimeout(function () {
+      wrapper.update()
       expect(wrapper.find(Placeholder)).to.have.lengthOf(0)
       expect(wrapper.find(Image)).to.have.lengthOf(1)
+      done()
     }, delay + 1)
   })
 
