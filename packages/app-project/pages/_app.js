@@ -1,6 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
+import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
@@ -47,6 +48,7 @@ export default class MyApp extends App {
     super()
     const { isServer, initialState } = props.pageProps
     this.store = initStore(isServer, initialState, props.client)
+    makeInspectable(this.store)
   }
 
   componentDidMount () {
