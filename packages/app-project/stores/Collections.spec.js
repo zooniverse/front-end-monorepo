@@ -11,7 +11,6 @@ import placeholderEnv from './helpers/placeholderEnv'
 describe('stores > Collections', function () {
   let rootStore = Store.create({}, placeholderEnv)
   let collectionsStore = rootStore.collections
-  let clientStub
 
   it('should exist', function () {
     expect(rootStore.collections).to.be.ok()
@@ -33,15 +32,15 @@ describe('stores > Collections', function () {
           login: 'test.user'
         }
         const snapshot = { project, user }
-        clientStub = {
-          collections: {
-            get: function () {
-              return Promise.resolve({ body: collections.mocks.responses.get.collection })
-            }
-          }
-        }
-        rootStore = initStore(true, snapshot, clientStub)
+        rootStore = initStore(true, snapshot)
+        sinon.stub(rootStore.client.collections, 'get').callsFake(function () {
+          return Promise.resolve({ body: collections.mocks.responses.get.collection })
+        })
         collectionsStore = rootStore.collections
+      })
+
+      after(function () {
+        rootStore.client.collections.get.restore()
       })
 
       it('should fetch a collection', function (done) {
@@ -71,25 +70,25 @@ describe('stores > Collections', function () {
           login: 'test.user'
         }
         const snapshot = { project, user }
-        clientStub = {
-          collections: {
-            create: sinon.stub().callsFake(function (payload) {
-              const [ favourites ] = collections.mocks.responses.get.collection.collections
-              const links = {
-                project: payload.project,
-                subjects: payload.subjects
-              }
-              const newCollection = Object.assign({}, favourites, payload.data, { links })
-              const body = Object.assign({}, collections.mocks.responses.get.collection, { collections: [newCollection] })
-              return Promise.resolve({ body })
-            }),
-            get: function () {
-              return Promise.resolve({ body: { collections: [] } })
-            }
+        rootStore = initStore(true, snapshot)
+        sinon.stub(rootStore.client.collections, 'create').callsFake(function (payload) {
+          const [ favourites ] = collections.mocks.responses.get.collection.collections
+          const links = {
+            project: payload.project,
+            subjects: payload.subjects
           }
-        }
-        rootStore = initStore(true, snapshot, clientStub)
+          const newCollection = Object.assign({}, favourites, payload.data, { links })
+          const body = Object.assign({}, collections.mocks.responses.get.collection, { collections: [newCollection] })
+          return Promise.resolve({ body })
+        })
+        sinon.stub(rootStore.client.collections, 'get').callsFake(function () {
+          return Promise.resolve({ body: { collections: [] } })
+        })
         collectionsStore = rootStore.collections
+      })
+      after(function () {
+        rootStore.client.collections.create.restore()
+        rootStore.client.collections.get.restore()
       })
 
       it('should create a new collection', function (done) {
@@ -99,8 +98,7 @@ describe('stores > Collections', function () {
           .then(function () {
             const favourites = getSnapshot(collectionsStore.favourites)
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)
-            expect(clientStub.collections.create).to.have.been.calledOnce()
-            expect(collectionsStore.favourites).to.be.ok()
+            expect(rootStore.client.collections.create).to.have.been.calledOnce()
             expect(favourites.display_name).to.equal('Favorites test/project')
             expect(favourites.links.project).to.equal('2')
             expect(favourites.links.subjects).to.eql([])
@@ -130,20 +128,20 @@ describe('stores > Collections', function () {
       }
       const favourites = Object.assign({}, collections.mocks.resources.collection, { links })
       const snapshot = { project, user, collections: { favourites } }
-      clientStub = {
-        collections: {
-          addSubjects: sinon.stub().callsFake(function (params) {
-            const links = {
-              project: '1',
-              subjects: ['1', '2']
-            }
-            const newFavourites = Object.assign({}, favourites, { links })
-            return Promise.resolve({ body: { collections: [ newFavourites ] } })
-          })
+      rootStore = initStore(true, snapshot)
+      sinon.stub(rootStore.client.collections, 'addSubjects').callsFake(function (params) {
+        const links = {
+          project: '1',
+          subjects: ['1', '2']
         }
-      }
-      rootStore = initStore(true, snapshot, clientStub)
+        const newFavourites = Object.assign({}, favourites, { links })
+        return Promise.resolve({ body: { collections: [ newFavourites ] } })
+      })
       collectionsStore = rootStore.collections
+    })
+
+    after(function () {
+      rootStore.client.collections.addSubjects.restore()
     })
 
     it('should add subjects to the favourites collection', function (done) {
@@ -155,7 +153,7 @@ describe('stores > Collections', function () {
             collectionId: favourites.id,
             subjects: ['1', '2']
           }
-          expect(clientStub.collections.addSubjects).to.have.been.calledOnceWith(params)
+          expect(rootStore.client.collections.addSubjects).to.have.been.calledOnceWith(params)
           expect(favourites.links.subjects).to.eql(['1', '2'])
         })
         .then(done, done)
@@ -178,20 +176,20 @@ describe('stores > Collections', function () {
       }
       const favourites = Object.assign({}, collections.mocks.resources.collection, { links })
       const snapshot = { project, user, collections: { favourites } }
-      clientStub = {
-        collections: {
-          removeSubjects: sinon.stub().callsFake(function (params) {
-            const links = {
-              project: '1',
-              subjects: []
-            }
-            const newFavourites = Object.assign({}, favourites, { links })
-            return Promise.resolve({ body: { collections: [ newFavourites ] } })
-          })
+      rootStore = initStore(true, snapshot)
+      sinon.stub(rootStore.client.collections, 'removeSubjects').callsFake(function (params) {
+        const links = {
+          project: '1',
+          subjects: []
         }
-      }
-      rootStore = initStore(true, snapshot, clientStub)
+        const newFavourites = Object.assign({}, favourites, { links })
+        return Promise.resolve({ body: { collections: [ newFavourites ] } })
+      })
       collectionsStore = rootStore.collections
+    })
+
+    after(function () {
+      rootStore.client.collections.removeSubjects.restore()
     })
 
     it('should remove subjects from the favourites collection', function (done) {
@@ -203,7 +201,7 @@ describe('stores > Collections', function () {
             collectionId: favourites.id,
             subjects: ['1', '2']
           }
-          expect(clientStub.collections.removeSubjects).to.have.been.calledOnceWith(params)
+          expect(rootStore.client.collections.removeSubjects).to.have.been.calledOnceWith(params)
           expect(favourites.links.subjects).to.eql([])
         })
         .then(done, done)
