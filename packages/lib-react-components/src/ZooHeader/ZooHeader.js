@@ -65,7 +65,6 @@ export default function ZooHeader (props) {
       <Box
         align='center'
         direction='row'
-        flex='grow'
         pad={{ horizontal: 'medium', vertical: 'small' }}
         responsive={false}
         tag='nav'
