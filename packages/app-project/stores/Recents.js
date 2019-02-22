@@ -12,7 +12,7 @@ export const Recent = types
 const Recents = types
   .model('Recents', {
     error: types.maybeNull(types.frozen({})),
-    recents: types.optional(types.array(Recent), []),
+    recents: types.array(Recent),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
 

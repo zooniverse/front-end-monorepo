@@ -7,6 +7,7 @@ import initStore from './initStore'
 
 describe('Stores > Recents', function () {
   let rootStore
+  let recentsStore
   const project = {
     id: '2',
     display_name: 'Hello',
@@ -29,6 +30,7 @@ describe('Stores > Recents', function () {
       }
     }
     rootStore = initStore(true, { project })
+    recentsStore = rootStore.recents
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
   })
 
@@ -37,7 +39,7 @@ describe('Stores > Recents', function () {
   })
 
   it('should exist', function () {
-    expect(rootStore.recents).to.be.ok
+    expect(recentsStore).to.be.ok
   })
 
   describe('with a project and user', function () {
@@ -66,8 +68,8 @@ describe('Stores > Recents', function () {
     })
 
     it('should store existing recents', function () {
-      expect(rootStore.recents.recents).to.have.lengthOf(1)
-      const recents = getSnapshot(rootStore.recents.recents)
+      expect(recentsStore.recents).to.have.lengthOf(1)
+      const recents = getSnapshot(recentsStore.recents)
       expect(recents[0].subjectId).to.equal('345')
       expect(recents[0].locations).to.eql([
         { 'image/jpeg': 'subject.jpeg' }
@@ -83,12 +85,12 @@ describe('Stores > Recents', function () {
       }
 
       before(function () {
-        rootStore.recents.add(mockRecent)
+        recentsStore.add(mockRecent)
       })
 
       it('should add a new subject to the store', function () {
-        expect(rootStore.recents.recents).to.have.lengthOf(2)
-        const recents = getSnapshot(rootStore.recents.recents)
+        expect(recentsStore.recents).to.have.lengthOf(2)
+        const recents = getSnapshot(recentsStore.recents)
         expect(recents[0].subjectId).to.equal('123')
         expect(recents[0].locations).to.eql([
           { 'image/jpeg': 'test.jpeg' }
@@ -100,6 +102,7 @@ describe('Stores > Recents', function () {
   describe('with a project and anonymous user', function () {
     before(function () {
       rootStore = initStore(true, { project })
+      recentsStore = rootStore.recents
     })
 
     it('should not request recent subjects from Panoptes', function () {
@@ -107,7 +110,7 @@ describe('Stores > Recents', function () {
     })
 
     it('should initialise recents with an empty array', function () {
-      expect(rootStore.recents.recents).to.have.lengthOf(0)
+      expect(recentsStore.recents).to.have.lengthOf(0)
     })
 
     describe('adding a subject', function () {
@@ -119,12 +122,12 @@ describe('Stores > Recents', function () {
       }
 
       before(function () {
-        rootStore.recents.add(mockRecent)
+        recentsStore.add(mockRecent)
       })
 
       it('should add a new subject to the store', function () {
-        expect(rootStore.recents.recents).to.have.lengthOf(1)
-        const recents = getSnapshot(rootStore.recents.recents)
+        expect(recentsStore.recents).to.have.lengthOf(1)
+        const recents = getSnapshot(recentsStore.recents)
         expect(recents[0].subjectId).to.equal('123')
         expect(recents[0].locations).to.eql([
           { 'image/jpeg': 'test.jpeg' }
@@ -143,6 +146,7 @@ describe('Stores > Recents', function () {
 
     before(function () {
       rootStore = initStore(true, { project })
+      recentsStore = rootStore.recents
       const user = {
         id: '123',
         login: 'test.user'
@@ -150,7 +154,7 @@ describe('Stores > Recents', function () {
       sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
       sinon.stub(rootStore.collections, 'fetchFavourites')
       rootStore.user.set(user)
-      rootStore.recents.add(mockRecent)
+      recentsStore.add(mockRecent)
     })
 
     after(function () {
@@ -159,8 +163,8 @@ describe('Stores > Recents', function () {
     })
 
     it('should record subjects classified this session', function () {
-      expect(rootStore.recents.recents).to.have.lengthOf(1)
-      const recents = getSnapshot(rootStore.recents.recents)
+      expect(recentsStore.recents).to.have.lengthOf(1)
+      const recents = getSnapshot(recentsStore.recents)
       expect(recents[0].subjectId).to.equal('123')
       expect(recents[0].locations).to.eql([
         { 'image/jpeg': 'test.jpeg' }
@@ -178,6 +182,7 @@ describe('Stores > Recents', function () {
 
     before(function () {
       rootStore = initStore(true, { project })
+      recentsStore = rootStore.recents
       const user = {
         id: '123',
         login: 'test.user'
@@ -185,7 +190,7 @@ describe('Stores > Recents', function () {
       rootStore.client.panoptes.get.callsFake(() => Promise.reject(new Error('Panoptes is not available')))
       sinon.stub(rootStore.collections, 'fetchFavourites')
       rootStore.user.set(user)
-      rootStore.recents.add(mockRecent)
+      recentsStore.add(mockRecent)
     })
 
     after(function () {
@@ -193,8 +198,8 @@ describe('Stores > Recents', function () {
     })
 
     it('should record subjects classified this session', function () {
-      expect(rootStore.recents.recents).to.have.lengthOf(1)
-      const recents = getSnapshot(rootStore.recents.recents)
+      expect(recentsStore.recents).to.have.lengthOf(1)
+      const recents = getSnapshot(recentsStore.recents)
       expect(recents[0].subjectId).to.equal('123')
       expect(recents[0].locations).to.eql([
         { 'image/jpeg': 'test.jpeg' }
