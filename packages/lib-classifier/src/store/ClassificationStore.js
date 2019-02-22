@@ -69,7 +69,7 @@ const ClassificationStore = types
             finished_workflow: subject.finished_workflow,
             retired: subject.retired,
             selection_state: subject.selection_state,
-            user_has_finished_workflow: subject.user_has_finished_workflow,
+            user_has_finished_workflow: subject.user_has_finished_workflow
           },
           userLanguage: counterpart.getLocale(),
           workflowVersion: workflow.version

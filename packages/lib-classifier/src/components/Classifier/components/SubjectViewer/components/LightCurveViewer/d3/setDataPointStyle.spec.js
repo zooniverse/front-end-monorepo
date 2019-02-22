@@ -7,7 +7,7 @@ const attrStub = sinon.stub(selectionFixture, 'attr').returnsThis()
 
 const chartStyle = {
   color: '#eff2f5', // Zooniverse Light Grey
-  dataPointSize: '1.5',
+  dataPointSize: '1.5'
 }
 
 describe('LightCurveViewer > d3 > setDataPointStyle', function () {

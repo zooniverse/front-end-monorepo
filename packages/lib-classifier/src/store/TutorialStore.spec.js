@@ -21,7 +21,7 @@ const medium = TutorialMediumFactory.build()
 const tutorial = TutorialFactory.build({ steps: [
   { content: '# Hello', media: medium.id },
   { content: '# Step 2' }
-]})
+] })
 
 const clientStub = Object.assign({}, panoptesClient, {
   tutorials: {
@@ -38,8 +38,8 @@ const clientStub = Object.assign({}, panoptesClient, {
           media: [medium]
         }
       })
-    }) 
-  } 
+    })
+  }
 })
 
 const authClientStubWithoutUser = {
@@ -99,7 +99,8 @@ describe('Model > TutorialStore', function () {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithoutUser, client: Object.assign({}, panoptesClient, {
+      }, { authClient: authClientStubWithoutUser,
+        client: Object.assign({}, panoptesClient, {
           tutorials: {
             get: () => { return Promise.resolve({ body: { tutorials: [] } }) }
           }
@@ -152,7 +153,8 @@ describe('Model > TutorialStore', function () {
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
       }, {
-        authClient: authClientStubWithoutUser, client: Object.assign({}, panoptesClient, {
+        authClient: authClientStubWithoutUser,
+        client: Object.assign({}, panoptesClient, {
           tutorials: {
             get: () => { return Promise.reject('testing error state') }
           }
@@ -171,11 +173,12 @@ describe('Model > TutorialStore', function () {
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
       }, {
-      authClient: authClientStubWithoutUser, client: Object.assign({}, panoptesClient, {
-        tutorials: {
-          get: () => { return Promise.resolve({ body: { tutorials: [tutorial] } } )},
-          getAttachedImages: () => { return Promise.resolve({ body: { media: [] }} )}
-        }})
+        authClient: authClientStubWithoutUser,
+        client: Object.assign({}, panoptesClient, {
+          tutorials: {
+            get: () => { return Promise.resolve({ body: { tutorials: [tutorial] } }) },
+            getAttachedImages: () => { return Promise.resolve({ body: { media: [] } }) }
+          } })
       })
 
       const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
@@ -191,8 +194,8 @@ describe('Model > TutorialStore', function () {
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
       }, {
-          authClient: authClientStubWithoutUser, client: clientStub
-        })
+        authClient: authClientStubWithoutUser, client: clientStub
+      })
 
       const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
       rootStore.workflows.setActive(workflow.id).then(() => {

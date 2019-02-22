@@ -10,7 +10,7 @@ const RootStub = types
     classifications: ClassificationStore,
     projects: types.frozen(),
     subjects: types.frozen(),
-    workflows: types.frozen() 
+    workflows: types.frozen()
   })
 
 const subjectStub = {
@@ -40,7 +40,7 @@ describe('Model > ClassificationStore', function () {
   let subject
   before(function () {
     subject = Subject.create(subjectStub)
-    
+
     rootStore = RootStub.create({
       classifications: ClassificationStore.create({
         active: undefined,
@@ -52,28 +52,28 @@ describe('Model > ClassificationStore', function () {
       workflows: { active: workflowStub }
     })
   })
-  
+
   it('should exist', function () {
     expect(ClassificationStore).to.exist
     expect(ClassificationStore).to.be.an('object')
   })
-  
+
   it('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
     rootStore.classifications.createClassification(subject)
-    
+
     const classification = Array.from(rootStore.classifications.resources.values())[0]
-    
+
     expect(classification).to.exist
     expect(classification.links.project).to.equal(projectStub.id)
     expect(classification.links.workflow).to.equal(workflowStub.id)
     expect(classification.links.subjects[0]).to.equal(subjectStub.id)
   })
-  
+
   it('should create an empty Classification with the correct Subject Selection metadata', function () {
     rootStore.classifications.createClassification(subject)
-    
+
     const classification = Array.from(rootStore.classifications.resources.values())[0]
-    
+
     expect(classification.metadata.subjectSelectionState).to.exist
     expect(classification.metadata.subjectSelectionState.already_seen).to.equal(subjectStub.already_seen)
     expect(classification.metadata.subjectSelectionState.finished_workflow).to.equal(subjectStub.finished_workflow)
