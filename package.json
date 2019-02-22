@@ -17,7 +17,25 @@
     "nyc": "^13.3.0",
     "plop": "^2.1.0"
   },
+  "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
   "engines": {
     "node": "8"
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "bin",
+      "dist",
+      "docs",
+      "node_modules",
+      "plop",
+      "test"
+    ],
+    "extension": [
+      ".jsx"
+    ]
   }
 }
