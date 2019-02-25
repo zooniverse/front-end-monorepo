@@ -78,6 +78,8 @@ const TutorialStore = types
           const { media } = response.body
           if (media && media.length > 0) self.setMediaResources(media)
         } catch (error) {
+          // We're not setting the store state to error because
+          // we do not want to prevent the tutorial from rendering
           console.error(error)
         }
       }
