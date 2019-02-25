@@ -53,13 +53,8 @@ const Collections = types
       }
     })
 
-    return {
-      afterAttach () {
-        client = getRoot(self).client.collections
-        createProjectObserver()
-      },
-
-      createCollection: flow(function * createCollection (options, subjectIds=[]) {
+    const newCollection = flow(function * newCollection (options, subjectIds = []) {
+      try {
         const { project } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
@@ -71,13 +66,27 @@ const Collections = types
         }
         const data = Object.assign({}, defaults, options)
         const response = yield client.create({ authorization, data, project: project.id, subjects: subjectIds })
-        const [ collection ] = response.body.collections
         self.loadingState = asyncStates.success
-        if (options.favorite) {
-          self.favourites = Collection.create(collection)
-        } else {
-          self.collections.push(collection)
-        }
+        const [ collection ] = response.body.collections
+        return collection
+      }
+      catch(error) {
+        console.log(error.message)
+        self.error = error
+        self.loadingState = asyncStates.error
+        return null
+      }
+    })
+
+    return {
+      afterAttach () {
+        client = getRoot(self).client.collections
+        createProjectObserver()
+      },
+
+      createCollection: flow(function * createCollection (options, subjectIds=[]) {
+        const collection = yield newCollection(options, subjectIds)
+        return collection
       }),
 
       createFavourites: flow(function * createFavourites (subjectIds=[]) {
@@ -87,7 +96,8 @@ const Collections = types
           favorite: true,
           private: true
         }
-        return self.createCollection(options, subjectIds)
+        const favourites = yield newCollection(options, subjectIds)
+        return favourites
       }),
 
       searchCollections: flow(function * searchCollections (query) {
@@ -101,11 +111,12 @@ const Collections = types
           project_ids: [project.id],
           owner: user.login
         }
-        const [ favourites ] = yield fetchCollections(query)
+        let [ favourites ] = yield fetchCollections(query)
         if (favourites) {
           self.favourites = Collection.create(favourites)
         } else {
-          self.createFavourites()
+          favourites = yield self.createFavourites()
+          self.favourites = Collection.create(favourites)
         }
       }),
 

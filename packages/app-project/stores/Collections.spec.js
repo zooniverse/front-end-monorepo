@@ -77,6 +77,61 @@ describe('stores > Collections', function () {
     })
   })
 
+  describe('createCollection', function () {
+    before(function () {
+      const project = {
+        id: '2',
+        display_name: 'Hello',
+        slug: 'test/project'
+      }
+      const user = {
+        login: 'test.user'
+      }
+      const snapshot = { project, user }
+      rootStore = initStore(true, snapshot)
+      sinon.stub(rootStore.client.collections, 'create').callsFake(function (payload) {
+        const [ collection ] = collections.mocks.responses.get.collection.collections
+        const links = {
+          project: payload.project,
+          subjects: payload.subjects
+        }
+        const newCollection = Object.assign({}, collection, payload.data, { links })
+        const body = Object.assign({}, collections.mocks.responses.get.collection, { collections: [newCollection] })
+        return Promise.resolve({ body })
+      })
+      collectionsStore = rootStore.collections
+    })
+
+    after(function () {
+      rootStore.client.collections.create.restore()
+    })
+
+    it('should create a new collection', function (done) {
+      expect(collectionsStore.loadingState).to.equal(asyncStates.initialized)
+
+      collectionsStore.createCollection({ display_name: 'A new collection'}, [ '1', '2', '3' ])
+        .then(function () {
+          const payload = {
+            authorization: 'Bearer ',
+            data: {
+              display_name: 'A new collection',
+              favorite: false,
+              private: false
+            },
+            project: '2',
+            subjects: [ '1', '2', '3' ]
+          }
+          expect(collectionsStore.loadingState).to.equal(asyncStates.success)
+          expect(rootStore.client.collections.create).to.have.been.calledOnceWith(payload)
+        })
+        .then(done, done)
+
+      // Since this is run before fetch's thenable resolves, it should test
+      // correctly during the request.
+      expect(collectionsStore.loadingState).to.equal(asyncStates.loading)
+    })
+  })
+
   describe('fetchFavourites', function () {
     it('should exist', function () {
       expect(collectionsStore.fetchFavourites).to.be.a('function')
