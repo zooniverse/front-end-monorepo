@@ -6,7 +6,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 
 const YourStats = types
   .model('YourStats', {
-    dailyCounts: types.optional(types.array(types.frozen({})), []),
+    dailyCounts: types.array(types.frozen({})),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     totalCount: types.optional(types.number, 0)
@@ -45,6 +45,7 @@ const YourStats = types
             project_id: project.id,
             user_id: user.id
           }
+          // TODO: this should really share the UPP that's being requested by the classifier.
           const response = yield panoptes.get('/project_preferences', query, authorization)
           const [ preferences ] = response.body.project_preferences
           self.totalCount = preferences ? preferences.activity_count : 0
