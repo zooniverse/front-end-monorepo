@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import UI from './UI'
 
 
-describe.only('Stores > UI', function () {
+describe('Stores > UI', function () {
   let store
 
   beforeEach(function () {
