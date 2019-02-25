@@ -1,21 +1,28 @@
 import { Text } from 'grommet'
-import { string } from 'prop-types'
+import { object, oneOfType, string } from 'prop-types'
 import React from 'react'
 
-function Subtitle ({ text, ...props }) {
+function Subtitle ({ mode, text, ...props }) {
   return (
-    <Text {...props}>
+    <Text
+      color={ mode === 'light' ? 'black' : 'lightGrey' }
+      {...props}
+    >
       {text}
     </Text>
   )
 }
 
 Subtitle.propTypes = {
-  text: string.isRequired
+  margin: oneOfType([object, string]),
+  mode: string,
+  size: string,
+  tag: string,
+  text: string.isRequired,
+  weight: string,
 }
 
 Subtitle.defaultProps = {
-  color: 'black',
   margin: 'none',
   size: 'small',
   tag: 'h5',

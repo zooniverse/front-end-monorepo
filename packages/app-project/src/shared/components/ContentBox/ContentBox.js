@@ -1,19 +1,20 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Heading } from 'grommet'
+import Link from 'next/link'
 import { node, string } from 'prop-types'
 import React from 'react'
-import { SpacedText } from '@zooniverse/react-components'
-import Link from 'next/link'
 
-function ContentBox ({ children, linkLabel, linkUrl, title }) {
+function ContentBox ({ children, linkLabel, linkUrl, mode, title }) {
   const showHeader = title || (linkLabel && linkUrl)
   return (
     <Box
-      background='white'
+      background={ mode === 'light' ? 'white' : '#333' }
       border={{
-        color: 'lightGrey',
+        color: mode === 'light' ? 'lightGrey' : '#333',
         side: 'all',
         size: 'thin'
       }}
+      elevation={ mode === 'light' ? 'none' : 'large' }
       pad='medium'
     >
       {showHeader && (
@@ -24,13 +25,18 @@ function ContentBox ({ children, linkLabel, linkUrl, title }) {
           justify={title ? 'between' : 'end'}
           margin={{ bottom: 'medium' }}
         >
+
           {title && (
             <Heading level='4' margin='none'>
-              <SpacedText color='black' weight='bold'>
+              <SpacedText
+                color={ mode === 'light' ? 'black' : 'lighterGrey' }
+                weight='bold'
+              >
                 {title}
               </SpacedText>
             </Heading>
           )}
+
           {(linkLabel && linkUrl) && (
             <Link href={linkUrl} passHref>
               <Anchor>
@@ -40,8 +46,10 @@ function ContentBox ({ children, linkLabel, linkUrl, title }) {
               </Anchor>
             </Link>
           )}
+
         </Box>
       )}
+
       {children}
     </Box>
   )
@@ -49,7 +57,10 @@ function ContentBox ({ children, linkLabel, linkUrl, title }) {
 
 ContentBox.propTypes = {
   children: node,
-  title: string
+  linkLabel: string,
+  linkUrl: string,
+  title: string,
+  mode: string,
 }
 
 export default ContentBox

@@ -1,1 +1,1 @@
-export { default } from './ClassifyPage'
+export { default } from './ClassifyPageContainer'

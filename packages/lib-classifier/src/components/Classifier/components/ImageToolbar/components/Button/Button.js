@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import theme from 'styled-theming'
 import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
 
 const StyledButton = styled.button`
@@ -10,13 +11,31 @@ const StyledButton = styled.button`
   padding: 0;
 `
 
+const backgroundStyles = theme('mode', {
+  light: css`
+    fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : 'transparent'};
+  `,
+  dark: css`
+    fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : '#2d2d2d'};
+  `,
+})
+
 const Background = styled.circle`
-  fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : 'transparent'};
+  ${backgroundStyles}
   opacity: ${props => props.hoveredOrFocused ? '0.5' : '1'};
 `
 
+const iconSVGStyles = theme('mode', {
+  light: css`
+    fill: ${props => (props.hoveredOrFocused || props.active) ? 'white' : 'black'};
+  `,
+  dark: css`
+    fill: white;
+  `,
+})
+
 const IconSVG = styled.svg`
-  fill: ${props => (props.hoveredOrFocused || props.active) ? 'white' : 'black'};
+  ${iconSVGStyles}
 `
 
 @withHoverProps({ hovered: true })

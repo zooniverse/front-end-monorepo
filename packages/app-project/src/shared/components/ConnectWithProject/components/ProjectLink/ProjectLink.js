@@ -16,7 +16,7 @@ const StyledAnchor = styled(Anchor)`
   text-transform: uppercase;
 `
 
-function ProjectLink ({ urlObject }) {
+function ProjectLink ({ mode, urlObject }) {
   const { IconComponent, label, type, url } = formatUrlObject(urlObject)
   return (
     <Box direction='row' margin={{ bottom: 'small' }}>
@@ -26,13 +26,20 @@ function ProjectLink ({ urlObject }) {
       <Box>
         <SpacedText>
           <Link href={url} passHref>
-            <StyledAnchor color='#005D69' size='small'>
+            <StyledAnchor
+              color={ mode === 'light' ? '#005D69' : 'lightTeal' }
+              size='small'
+            >
               {label}
             </StyledAnchor>
           </Link>
         </SpacedText>
         <Box area='type'>
-          <Text color='#5c5c5c' size='small' weight='bold'>
+          <Text
+            color={ mode === 'light' ? '#5c5c5c' : 'midGrey' }
+            size='small'
+            weight='bold'
+          >
             {type}
           </Text>
         </Box>
@@ -42,6 +49,7 @@ function ProjectLink ({ urlObject }) {
 }
 
 ProjectLink.propTypes = {
+  mode: string,
   urlObject: shape({
     label: string,
     path: string,

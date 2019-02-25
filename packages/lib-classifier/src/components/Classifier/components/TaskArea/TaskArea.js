@@ -1,10 +1,12 @@
-import counterpart from 'counterpart'
-import React from 'react'
-import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
+import counterpart from 'counterpart'
 import { Box } from 'grommet'
+import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { withTheme } from 'styled-components'
+
 import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
@@ -23,6 +25,7 @@ function storeMapper (stores) {
   }
 }
 
+@withTheme
 @inject(storeMapper)
 @observer
 class TaskArea extends React.Component {
@@ -33,22 +36,30 @@ class TaskArea extends React.Component {
   }
 
   render () {
-    const { colorTheme, disableTutorialTab } = this.props
+    const { theme: { mode }, disableTutorialTab } = this.props
+
     const border = {
       side: 'all',
-      color: (colorTheme === 'light') ? zooTheme.light.colors.tabs.border : zooTheme.dark.colors.tabs.border,
+      color: zooTheme[mode].colors.tabs.border,
       size: 'xsmall'
     }
+
     return (
       <Tabs
-        background='white'
+        background={ mode === 'light' ? 'white' : '#2d2d2d' }
         border={border}
         className={this.props.className}
         margin='none'
         onActive={this.onTabClick.bind(this)}
       >
-        <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
-          <Box background='white'>
+        <Tab
+          title={(
+            <SpacedText size='medium' weight='bold'>
+              {counterpart('TaskArea.task')}
+            </SpacedText>
+          )}
+        >
+          <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
             <Tasks />
           </Box>
         </Tab>
@@ -56,7 +67,7 @@ class TaskArea extends React.Component {
           disabled={disableTutorialTab}
           title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.tutorial')}</SpacedText>}
         >
-          <Box background='white'>
+          <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
             <SlideTutorial />
           </Box>
         </Tab>
