@@ -26,4 +26,8 @@ ContentBoxContainer.propTypes = {
   mode: string
 }
 
+ContentBoxContainer.defaultProps = {
+  mode: 'light'
+}
+
 export default ContentBoxContainer
