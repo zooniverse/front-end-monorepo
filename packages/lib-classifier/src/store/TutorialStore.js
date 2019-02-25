@@ -76,10 +76,11 @@ const TutorialStore = types
         try {
           const response = yield tutorials.getAttachedImages({ id: tutorial.id })
           const { media } = response.body
-          self.setMediaResources(media)
+          if (media && media.length > 0) self.setMediaResources(media)
         } catch (error) {
+          // We're not setting the store state to error because
+          // we do not want to prevent the tutorial from rendering
           console.error(error)
-          self.loadingState = asyncStates.error
         }
       }
     }
@@ -91,13 +92,12 @@ const TutorialStore = types
     // This could use a refactor after Panoptes bug with using include to get attached images is fixed
     // See comments in the commonRequests.js file for tutorials in panoptes.js
     function * fetchTutorials () {
-      const { type } = self
       const workflow = getRoot(self).workflows.active
-      const { panoptes } = getRoot(self).client
+      const tutorialsClient = getRoot(self).client.tutorials
       self.loadingState = asyncStates.loading
       try {
-        const response = yield panoptes.get(`/${type}`, { workflow_id: workflow.id })
-        const tutorials = response.body[type]
+        const response = yield tutorialsClient.get({ workflowId: workflow.id })
+        const { tutorials } = response.body
         if (tutorials && tutorials.length > 0) {
           tutorials.forEach(tutorial => self.fetchMedia(tutorial))
           self.setTutorials(tutorials)
@@ -114,11 +114,13 @@ const TutorialStore = types
     }
 
     function setTutorialStep (stepIndex = 0) {
-      const { steps } = self.active
-      self.activeMedium = undefined
-      if (!!steps && !!steps[stepIndex]) {
-        if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
-        self.activeStep = stepIndex
+      if (self.active) {
+        const { steps } = self.active
+        self.activeMedium = undefined
+        if (stepIndex < steps.length) {
+          self.activeStep = stepIndex
+          if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
+        }
       }
     }
 

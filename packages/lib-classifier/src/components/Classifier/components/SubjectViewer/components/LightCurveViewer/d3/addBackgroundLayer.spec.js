@@ -8,7 +8,7 @@ const appendStub = sinon.stub(selectionFixture, 'append')
   .returns({ attr: attrStub })
 
 const chartStyle = {
-  background: '#005d69', // Zooniverse Dark Teal
+  background: '#005d69' // Zooniverse Dark Teal
 }
 
 describe('LightCurveViewer > d3 > addBackgroundLayer', function () {
