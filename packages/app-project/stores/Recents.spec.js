@@ -64,7 +64,7 @@ describe('Stores > Recents', function () {
         project_id: '2',
         sort: '-created_at'
       }
-      expect(rootStore.client.panoptes.get).to.have.been.calledOnceWith(endpoint, query, token)
+      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, token)).to.have.been.calledOnce()
     })
 
     it('should store existing recents', function () {

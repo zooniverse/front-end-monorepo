@@ -59,7 +59,7 @@ describe('Stores > YourStats', function () {
         project_id: '2',
         user_id: '123'
       }
-      expect(rootStore.client.panoptes.get).to.have.been.calledOnceWith(endpoint, query, token)
+      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, token)).to.have.been.calledOnce()
     })
 
     it('should store your activity count', function () {
