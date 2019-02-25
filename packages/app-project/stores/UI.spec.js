@@ -2,7 +2,6 @@ import { expect } from 'chai'
 
 import UI from './UI'
 
-
 describe('Stores > UI', function () {
   let store
 

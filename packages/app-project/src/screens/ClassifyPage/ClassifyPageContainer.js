@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import React, { Component } from 'react'
 
 import ClassifyPage from './ClassifyPage'
@@ -22,9 +22,11 @@ class ClassifyPageContainer extends Component {
 }
 
 ClassifyPageContainer.propTypes = {
+  mode: string
 }
 
 ClassifyPageContainer.defaultProps = {
+  mode: 'light'
 }
 
 export default ClassifyPageContainer

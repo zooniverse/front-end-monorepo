@@ -5,7 +5,7 @@ import React from 'react'
 function Subtitle ({ mode, text, ...props }) {
   return (
     <Text
-      color={ mode === 'light' ? 'black' : 'lightGrey' }
+      color={mode === 'light' ? 'black' : 'lightGrey'}
       {...props}
     >
       {text}
@@ -19,7 +19,7 @@ Subtitle.propTypes = {
   size: string,
   tag: string,
   text: string.isRequired,
-  weight: string,
+  weight: string
 }
 
 Subtitle.defaultProps = {

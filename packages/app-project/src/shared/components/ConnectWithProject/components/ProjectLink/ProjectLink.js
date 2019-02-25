@@ -27,7 +27,7 @@ function ProjectLink ({ mode, urlObject }) {
         <SpacedText>
           <Link href={url} passHref>
             <StyledAnchor
-              color={ mode === 'light' ? '#005D69' : 'lightTeal' }
+              color={mode === 'light' ? '#005D69' : 'lightTeal'}
               size='small'
             >
               {label}
@@ -36,7 +36,7 @@ function ProjectLink ({ mode, urlObject }) {
         </SpacedText>
         <Box area='type'>
           <Text
-            color={ mode === 'light' ? '#5c5c5c' : 'midGrey' }
+            color={mode === 'light' ? '#5c5c5c' : 'midGrey'}
             size='small'
             weight='bold'
           >

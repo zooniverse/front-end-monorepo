@@ -10,14 +10,14 @@ import FinishedForTheDay from './components/FinishedForTheDay'
 
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), {
-    ssr: false
-  }
+  ssr: false
+}
 )
 
 function ClassifyPage ({ mode }) {
   return (
     <Box
-      background={ mode === 'light' ? 'lighterGrey' : 'midDarkGrey' }
+      background={mode === 'light' ? 'lighterGrey' : 'midDarkGrey'}
       pad={{ top: 'medium' }}
     >
       <Grid gap='medium' margin='medium'>
