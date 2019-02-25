@@ -4,7 +4,7 @@ import React from 'react'
 
 import AnimatedNumber from './components/AnimatedNumber'
 
-export default function Stat ({ label, value }) {
+function Stat ({ label, value }) {
   return (
     <div>
       <Text color='#E2E5E9' tag='div' size='xxlarge'>
@@ -21,3 +21,5 @@ Stat.propTypes = {
   label: string.isRequired,
   value: number.isRequired
 }
+
+export default Stat

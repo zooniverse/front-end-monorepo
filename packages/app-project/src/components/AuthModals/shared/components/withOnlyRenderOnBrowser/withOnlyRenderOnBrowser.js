@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default function withOnlyRenderOnBrowser (WrappedComponent) {
+function withOnlyRenderOnBrowser (WrappedComponent) {
   return class extends Component {
     constructor () {
       super()
@@ -20,3 +20,5 @@ export default function withOnlyRenderOnBrowser (WrappedComponent) {
     }
   }
 }
+
+export default withOnlyRenderOnBrowser

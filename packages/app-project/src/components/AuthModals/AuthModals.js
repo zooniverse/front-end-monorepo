@@ -4,7 +4,7 @@ import React from 'react'
 import LoginModal from './components/LoginModal'
 import RegisterModal from './components/RegisterModal'
 
-export default function AuthModals (props) {
+function AuthModals (props) {
   const {
     closeLoginModal,
     closeRegisterModal,
@@ -35,3 +35,5 @@ AuthModals.defaultProps = {
   showLoginModal: false,
   showRegisterModal: false
 }
+
+export default AuthModals

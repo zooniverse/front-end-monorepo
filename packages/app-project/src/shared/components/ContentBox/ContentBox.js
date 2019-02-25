@@ -4,7 +4,7 @@ import React from 'react'
 import { SpacedText } from '@zooniverse/react-components'
 import Link from 'next/link'
 
-export default function ContentBox ({ children, linkLabel, linkUrl, title }) {
+function ContentBox ({ children, linkLabel, linkUrl, title }) {
   const showHeader = title || (linkLabel && linkUrl)
   return (
     <Box background='white' border='all' pad='medium'>
@@ -43,3 +43,5 @@ ContentBox.propTypes = {
   children: node,
   title: string
 }
+
+export default ContentBox
