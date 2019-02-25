@@ -3,7 +3,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { bool, func, object, oneOf, shape } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 
@@ -46,7 +46,7 @@ class TaskArea extends React.Component {
 
     return (
       <Tabs
-        background={ mode === 'light' ? 'white' : '#2d2d2d' }
+        background={mode === 'light' ? 'white' : '#2d2d2d'}
         border={border}
         className={this.props.className}
         margin='none'
@@ -65,7 +65,11 @@ class TaskArea extends React.Component {
         </Tab>
         <Tab
           disabled={disableTutorialTab}
-          title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.tutorial')}</SpacedText>}
+          title={(
+            <SpacedText size='medium' weight='bold'>
+              {counterpart('TaskArea.tutorial')}
+            </SpacedText>
+          )}
         >
           <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
             <SlideTutorial />
@@ -77,16 +81,21 @@ class TaskArea extends React.Component {
 }
 
 TaskArea.wrappedComponent.propTypes = {
-  colorTheme: PropTypes.oneOf(['light', 'dark']),
-  disableTutorialTab: PropTypes.bool,
-  setActiveTutorial: PropTypes.func,
-  tutorial: PropTypes.object
+  disableTutorialTab: bool,
+  setActiveTutorial: func,
+  theme: shape({
+    mode: oneOf(['light', 'dark']),
+  }),
+  tutorial: object
 }
 
 TaskArea.wrappedComponent.defaultProps = {
   colorTheme: 'light',
   disableTutorialTab: true,
   setActiveTutorial: () => {},
+  theme: {
+    mode: 'light'
+  },
   tutorial: null
 }
 
