@@ -13,10 +13,8 @@ const TutorialStore = types
     activeStep: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
-    seen: types.model('TutorialSeen', {
-      tutorial: types.maybe(types.Date),
-      miniCourse: types.maybe(types.Date)
-    }),
+    tutorialSeenTime: types.maybe(types.string),
+    miniCourseSeenTime: types.maybe(types.string),
     type: types.optional(types.string, 'tutorials')
   })
 
@@ -140,8 +138,16 @@ const TutorialStore = types
 
     function setSeenTime () {
       const tutorial = self.active
-      const tutorialKind = _.camelCase(tutorial.kind)
-      self.seen[tutorialKind] = new Date().toISOString()
+      const seen = new Date().toISOString()
+      if (tutorial) {
+        if (tutorial.kind === 'tutorial' || tutorial.kind === null) {
+          self.tutorialSeenTime = seen
+        }
+
+        if (tutorial.kind === 'mini-course') {
+          self.miniCourseSeenTime = seen
+        }
+      }
     }
 
     function resetActiveTutorial () {
@@ -151,10 +157,13 @@ const TutorialStore = types
     }
 
     function resetSeen (type) {
-      if (type) {
-        self.seen[type] = undefined
+      if (type === 'tutorial') {
+        self.tutorialSeenTime = undefined
+      } else if (type === 'mini-course') {
+        self.miniCourseSeenTime = undefined
       } else {
-        self.seen = { tutorial: undefined, miniCourse: undefined }
+        self.tutorialSeenTime = undefined
+        self.miniCourseSeenTime = undefined
       }
     }
 
