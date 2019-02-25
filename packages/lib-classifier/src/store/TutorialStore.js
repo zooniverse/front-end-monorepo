@@ -1,7 +1,6 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
-import _ from 'lodash'
 import ResourceStore from './ResourceStore'
 import Tutorial from './Tutorial'
 import Medium from './Medium'
