@@ -68,10 +68,10 @@ class HeadContainer extends Component {
 HeadContainer.propTypes = {
   project: shape({
     avatar: shape({
-      src: string,
+      src: string
     }),
     background: shape({
-      src: string,
+      src: string
     }),
     description: string,
     projectName: string,
@@ -79,7 +79,7 @@ HeadContainer.propTypes = {
     urls: arrayOf(shape({
       path: string.isRequired,
       site: string.isRequired
-    })),
+    }))
   })
 }
 
