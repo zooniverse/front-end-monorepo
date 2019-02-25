@@ -168,7 +168,7 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > fetchMedia', function () {
-    it('should not call setMediaResources if there is not media in the response', function (done) {
+    it('should not call setMediaResources if there is no media in the response', function (done) {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
