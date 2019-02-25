@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { base as baseTheme, Text, Paragraph } from 'grommet'
+import { Text, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'

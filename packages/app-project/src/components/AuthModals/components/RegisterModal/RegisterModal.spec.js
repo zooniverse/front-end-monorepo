@@ -10,5 +10,7 @@ describe('Component > RegisterModal', function () {
     wrapper = shallow(<RegisterModal />)
   })
 
-  it('should render without crashing', function () {})
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok()
+  })
 })

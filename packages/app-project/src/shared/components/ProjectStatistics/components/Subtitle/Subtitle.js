@@ -2,7 +2,7 @@ import { Text } from 'grommet'
 import { string } from 'prop-types'
 import React from 'react'
 
-export default function Subtitle ({ text, ...props }) {
+function Subtitle ({ text, ...props }) {
   return (
     <Text {...props}>
       {text}
@@ -21,3 +21,5 @@ Subtitle.defaultProps = {
   tag: 'h5',
   weight: 'bold'
 }
+
+export default Subtitle

@@ -17,7 +17,7 @@ import {
 import BitbucketIcon from './../../components/BitbucketIcon'
 import WeiboIcon from './../../components/WeiboIcon'
 
-export default function formatUrlObject (obj) {
+function formatUrlObject (obj) {
   // Default to external website
   const formattedObject = {
     IconComponent: GlobeIcon,
@@ -101,3 +101,5 @@ export default function formatUrlObject (obj) {
 
   return formattedObject
 }
+
+export default formatUrlObject

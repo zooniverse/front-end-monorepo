@@ -60,7 +60,7 @@ const Project = types
             'subjects_count',
             'urls'
           ]
-          properties.forEach(property => self[property] = project[property])
+          properties.forEach(property => { self[property] = project[property] })
           self.loadingState = asyncStates.success
         } catch (error) {
           self.error = error.message

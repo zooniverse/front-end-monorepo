@@ -19,7 +19,7 @@ function storeMapper (stores) {
 
 @inject(storeMapper)
 @observer
-export default class ClassifierWrapperContainer extends Component {
+class ClassifierWrapperContainer extends Component {
   constructor () {
     super()
     this.state = {
@@ -71,9 +71,11 @@ export default class ClassifierWrapperContainer extends Component {
 
 ClassifierWrapperContainer.propTypes = {
   authClient: shape({}),
-  project: shape({}),
+  project: shape({})
 }
 
 ClassifierWrapperContainer.defaultProps = {
   authClient: auth
 }
+
+export default ClassifierWrapperContainer

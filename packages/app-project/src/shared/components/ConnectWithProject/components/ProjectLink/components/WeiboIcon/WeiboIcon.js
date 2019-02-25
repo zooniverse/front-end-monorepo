@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from 'grommet-icons'
 
-export default function WeiboIcon (props) {
+function WeiboIcon (props) {
   return (
     <Icon viewBox='0 0 51 51' {...props}>
       <path d='M50.448,12.132 C50.665,14.946 50.189,18.318 48.331,18.483 C45.298,18.754 46.88,15.413 46.92,13.402 C47.031,7.573 42.055,3.523 37.181,3.523 C35.8,3.523 32.593,4.459 33.087,1.547 C33.309,0.263 34.397,0.281 35.486,0.136 C43.683,-0.957 49.872,4.682 50.448,12.132 L50.448,12.132 Z' />
@@ -11,3 +11,5 @@ export default function WeiboIcon (props) {
     </Icon>
   )
 }
+
+export default WeiboIcon

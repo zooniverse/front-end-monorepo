@@ -1,15 +1,21 @@
 import { ZooHeader } from '@zooniverse/react-components'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
-import PropTypes from 'prop-types'
+import auth from 'panoptes-client/lib/auth'
+import { bool, func, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 import Url from 'url-parse'
-import auth from 'panoptes-client/lib/auth'
 
+function storeMapper (stores) {
+  const { user } = stores.store
+  return {
+    user
+  }
+}
 @withRouter
-@inject('store')
+@inject(storeMapper)
 @observer
-export default class ZooHeaderWrapperContainer extends Component {
+class ZooHeaderWrapperContainer extends Component {
   constructor () {
     super()
     this.openRegisterModal = this.openRegisterModal.bind(this)
@@ -18,8 +24,10 @@ export default class ZooHeaderWrapperContainer extends Component {
   }
 
   createUserProp () {
-    const { isLoggedIn, display_name } = this.props.store.user
-    return (isLoggedIn) ? { display_name } : {}
+    const { user } = this.props
+    return (user.isLoggedIn)
+      ? { 'display_name': user['display_name'] }
+      : {}
   }
 
   getUrlObject () {
@@ -68,3 +76,18 @@ export default class ZooHeaderWrapperContainer extends Component {
     )
   }
 }
+
+ZooHeaderWrapperContainer.propTypes = {
+  router: shape({
+    asPath: string,
+    pathname: string,
+    push: func
+  }),
+  user: shape({
+    clear: func,
+    display_name: string,
+    isLoggedIn: bool
+  })
+}
+
+export default ZooHeaderWrapperContainer

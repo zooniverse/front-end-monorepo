@@ -12,7 +12,7 @@ const Pre = styled.pre`
   margin: 0;
 `
 
-export default function ErrorMessage ({ error }) {
+function ErrorMessage ({ error }) {
   const { message, name, stack } = error
   const errorString = stack || `${name}: ${message}`
 
@@ -46,3 +46,5 @@ ErrorMessage.propTypes = {
     stack: string
   })
 }
+
+export default ErrorMessage

@@ -23,7 +23,7 @@ describe('Stores > initStore', function () {
 
   it('should contain a project store', function () {
     const store = initStore()
-    expect(store.project).to.be.ok
+    expect(store.project).to.be.ok()
   })
 
   it('should apply a snapshot when provided', function () {

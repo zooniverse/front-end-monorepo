@@ -24,7 +24,7 @@ describe('Component > LoginModalContainer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the `LoginModal` component', function () {
@@ -33,7 +33,7 @@ describe('Component > LoginModalContainer', function () {
 
   describe('onSubmit method', function () {
     it('should exist', function () {
-      expect(wrapper.instance().onSubmit).to.be.ok
+      expect(wrapper.instance().onSubmit).to.be.ok()
     })
 
     it('should be passed to the LoginModal component', function () {
@@ -42,7 +42,7 @@ describe('Component > LoginModalContainer', function () {
 
     it('should call the authClient signIn method', function () {
       wrapper.instance().onSubmit({})
-      expect(fakeSignIn.called).to.be.true
+      expect(fakeSignIn.called).to.be.true()
     })
   })
 })

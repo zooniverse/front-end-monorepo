@@ -7,7 +7,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export default function Head (props) {
+function Head (props) {
   const {
     description,
     ogImage,
@@ -64,3 +64,5 @@ Head.defaultProps = {
   title: counterpart('Head.defaultTitle'),
   zooniverseTwitterUsername: '@the_zooniverse'
 }
+
+export default Head

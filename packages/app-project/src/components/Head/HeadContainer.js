@@ -1,9 +1,7 @@
-import { get } from 'lodash'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
 import { arrayOf, shape, string } from 'prop-types'
 import React, { Component } from 'react'
-import urlParse from 'url-parse'
 
 import Head from './Head'
 
@@ -17,26 +15,27 @@ function storeMapper (stores) {
 @withRouter
 @inject(storeMapper)
 @observer
-export default class HeadContainer extends Component {
+class HeadContainer extends Component {
   getProjectDescription () {
     return this.props.project.description || undefined
   }
 
   getProjectImage () {
-    return get(this.props.project, 'avatar.src') ||
-      get(this.props.project, 'background.src') ||
+    const { avatar, background } = this.props.project
+    return (avatar && avatar.src) ||
+      (background && background.src) ||
       undefined
   }
 
   getProjectTitle () {
-    const { display_name, slug } = this.props.project
-    return display_name || slug || undefined
+    const { project } = this.props
+    return project['display_name'] || project.title || project.slug || undefined
   }
 
   getProjectTwitterUsername () {
-    const { urls } = this.props.project
-    const twitter = urls.find(({ site }) => site &&
+    const twitter = this.props.project.urls.find(({ site }) => site &&
       site.includes('twitter.com'))
+
     if (twitter && twitter.path) {
       return (twitter.path.startsWith('@'))
         ? twitter.path
@@ -68,12 +67,20 @@ export default class HeadContainer extends Component {
 
 HeadContainer.propTypes = {
   project: shape({
+    avatar: shape({
+      src: string
+    }),
+    background: shape({
+      src: string
+    }),
     description: string,
-    display_name: string,
+    projectName: string,
+    slug: string,
     urls: arrayOf(shape({
       path: string.isRequired,
       site: string.isRequired
-    })),
-    slug: string,
-  }),
+    }))
+  })
 }
+
+export default HeadContainer

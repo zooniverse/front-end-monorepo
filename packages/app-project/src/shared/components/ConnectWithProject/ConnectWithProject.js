@@ -9,7 +9,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export default function ConnectWithProject ({ projectName, urls }) {
+function ConnectWithProject ({ projectName, urls }) {
   return (
     <ContentBox
       title={counterpart('ConnectWithProject.title', { projectName })}
@@ -32,3 +32,5 @@ ConnectWithProject.propTypes = {
     url: string.isRequired
   }))
 }
+
+export default ConnectWithProject

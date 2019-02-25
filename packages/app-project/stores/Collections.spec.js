@@ -1,9 +1,9 @@
-import { expect } from 'chai'
-import sinon from 'sinon'
-import { getSnapshot } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import { collections } from '@zooniverse/panoptes-js'
-import Collections from './Collections'
+import { expect } from 'chai'
+import { getSnapshot } from 'mobx-state-tree'
+import sinon from 'sinon'
+
 import Store from './Store'
 import initStore from './initStore'
 import placeholderEnv from './helpers/placeholderEnv'
@@ -14,7 +14,7 @@ describe('stores > Collections', function () {
   let clientStub
 
   it('should exist', function () {
-    expect(rootStore.collections).to.be.ok
+    expect(rootStore.collections).to.be.ok()
   })
 
   describe('fetchFavourites', function () {
@@ -50,7 +50,7 @@ describe('stores > Collections', function () {
         collectionsStore.fetchFavourites()
           .then(function () {
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)
-            expect(collectionsStore.favourites).to.be.ok
+            expect(collectionsStore.favourites).to.be.ok()
           })
           .then(done, done)
 
@@ -99,8 +99,8 @@ describe('stores > Collections', function () {
           .then(function () {
             const favourites = getSnapshot(collectionsStore.favourites)
             expect(collectionsStore.loadingState).to.equal(asyncStates.success)
-            expect(clientStub.collections.create).to.have.been.calledOnce
-            expect(collectionsStore.favourites).to.be.ok
+            expect(clientStub.collections.create).to.have.been.calledOnce()
+            expect(collectionsStore.favourites).to.be.ok()
             expect(favourites.display_name).to.equal('Favorites test/project')
             expect(favourites.links.project).to.equal('2')
             expect(favourites.links.subjects).to.eql([])

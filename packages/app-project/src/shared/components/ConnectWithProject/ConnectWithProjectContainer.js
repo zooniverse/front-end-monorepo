@@ -6,16 +6,16 @@ import ConnectWithProject from './ConnectWithProject'
 import isValidUrl from './helpers/isValidUrl'
 
 function storeMapper (stores) {
-  const { display_name, urls } = stores.store.project
+  const { project } = stores.store
   return {
-    projectName: display_name,
-    urls
+    projectName: project['display_name'],
+    urls: project.urls
   }
 }
 
 @inject(storeMapper)
 @observer
-export default class ConnectWithProjectContainer extends Component {
+class ConnectWithProjectContainer extends Component {
   render () {
     const { projectName, urls } = this.props
     const validUrls = urls && urls.filter && urls.filter(urlObject => isValidUrl(urlObject.url))
@@ -32,3 +32,5 @@ ConnectWithProjectContainer.propTypes = {
     url: string.isRequired
   }))
 }
+
+export default ConnectWithProjectContainer

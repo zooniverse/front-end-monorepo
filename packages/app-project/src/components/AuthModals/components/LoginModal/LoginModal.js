@@ -11,7 +11,7 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 @withOnlyRenderOnBrowser
-export default class LoginModal extends Component {
+class LoginModal extends Component {
   constructor () {
     super()
     this.firstInput = React.createRef()
@@ -100,9 +100,11 @@ LoginModal.propTypes = {
   closeLoginModal: func.isRequired,
   error: string,
   loading: bool.isRequired,
-  onSubmit: func.isRequired,
+  onSubmit: func.isRequired
 }
 
 LoginModal.defaultProps = {
   error: ''
 }
+
+export default LoginModal

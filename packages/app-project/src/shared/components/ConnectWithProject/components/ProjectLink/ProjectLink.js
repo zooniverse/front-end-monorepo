@@ -16,7 +16,7 @@ const StyledAnchor = styled(Anchor)`
   text-transform: uppercase;
 `
 
-export default function ProjectLink ({ urlObject }) {
+function ProjectLink ({ urlObject }) {
   const { IconComponent, label, type, url } = formatUrlObject(urlObject)
   return (
     <Box direction='row' margin={{ bottom: 'small' }}>
@@ -49,3 +49,5 @@ ProjectLink.propTypes = {
     url: string
   })
 }
+
+export default ProjectLink

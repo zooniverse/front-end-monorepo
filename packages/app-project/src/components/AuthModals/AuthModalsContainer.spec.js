@@ -22,7 +22,7 @@ describe('Component > AuthModalsContainer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the `AuthModals` component', function () {
@@ -34,11 +34,11 @@ describe('Component > AuthModalsContainer', function () {
     const loginWrapper = shallow(<AuthModalsContainer.wrappedComponent
       router={ROUTER}
     />)
-    expect(getProp(loginWrapper, 'showLoginModal')).to.be.false
+    expect(getProp(loginWrapper, 'showLoginModal')).to.be.false()
 
     loginRouter.asPath = '/?login=true'
     loginWrapper.setProps({ router: loginRouter })
-    expect(getProp(loginWrapper, 'showLoginModal')).to.be.true
+    expect(getProp(loginWrapper, 'showLoginModal')).to.be.true()
   })
 
   it('should pass a prop to show the Register modal if there is a matching url query', function () {
@@ -46,11 +46,11 @@ describe('Component > AuthModalsContainer', function () {
     const registerWrapper = shallow(<AuthModalsContainer.wrappedComponent
       router={ROUTER}
     />)
-    expect(getProp(registerWrapper, 'showRegisterModal')).to.be.false
+    expect(getProp(registerWrapper, 'showRegisterModal')).to.be.false()
 
     registerRouter.asPath = '/?register=true'
     registerWrapper.setProps({ router: registerRouter })
-    expect(getProp(registerWrapper, 'showRegisterModal')).to.be.true
+    expect(getProp(registerWrapper, 'showRegisterModal')).to.be.true()
   })
 
   it('should pass a function prop to close the login modal', function () {

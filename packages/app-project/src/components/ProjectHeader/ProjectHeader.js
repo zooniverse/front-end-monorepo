@@ -12,7 +12,7 @@ const StyledHeading = styled(Heading)`
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 `
 
-export default function ProjectHeader (props) {
+function ProjectHeader (props) {
   const { title } = props
   return (
     <Box pad='medium' background='teal'>
@@ -26,3 +26,5 @@ export default function ProjectHeader (props) {
 ProjectHeader.propTypes = {
   title: string.isRequired
 }
+
+export default ProjectHeader
