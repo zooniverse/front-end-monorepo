@@ -1,6 +1,7 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
+import _ from 'lodash'
 import ResourceStore from './ResourceStore'
 import Tutorial from './Tutorial'
 import Medium from './Medium'
@@ -12,6 +13,10 @@ const TutorialStore = types
     activeStep: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
+    seen: types.model('TutorialSeen', {
+      tutorial: types.maybe(types.Date),
+      miniCourse: types.maybe(types.Date)
+    }),
     type: types.optional(types.string, 'tutorials')
   })
 
@@ -63,6 +68,7 @@ const TutorialStore = types
         const workflow = getRoot(self).workflows.active
         if (workflow) {
           self.reset()
+          self.resetSeen()
           self.fetchTutorials()
         }
       })
@@ -129,6 +135,13 @@ const TutorialStore = types
 
       self.active = id
       self.setTutorialStep(stepIndex)
+      self.setSeenTime()
+    }
+
+    function setSeenTime () {
+      const tutorial = self.active
+      const tutorialKind = _.camelCase(tutorial.kind)
+      self.seen[tutorialKind] = new Date().toISOString()
     }
 
     function resetActiveTutorial () {
@@ -137,13 +150,23 @@ const TutorialStore = types
       self.activeMedium = undefined
     }
 
+    function resetSeen (type) {
+      if (type) {
+        self.seen[type] = undefined
+      } else {
+        self.seen = { tutorial: undefined, miniCourse: undefined }
+      }
+    }
+
     return {
       afterAttach,
       fetchMedia: flow(fetchMedia),
       fetchTutorials: flow(fetchTutorials),
-      setActiveTutorial,
       resetActiveTutorial,
+      resetSeen,
+      setActiveTutorial,
       setMediaResources,
+      setSeenTime,
       setTutorialStep,
       setTutorials
     }
