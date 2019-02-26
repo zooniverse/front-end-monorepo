@@ -75,11 +75,6 @@ const authClientStubWithUser = {
 }
 
 describe('Model > TutorialStore', function () {
-  // afterEach(function () {
-  //   clientStub.tutorials.get.resetHistory()
-  //   clientStub.tutorials.getAttachedImages.resetHistory()
-  // })
-
   it('should exist', function () {
     expect(TutorialStore).to.be.an('object')
   })
@@ -229,7 +224,7 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > setActiveTutorial', function () {
-    it('should call resetActiveTutorial if the id parameter is not defined', function () {
+    it('should reset the active tutorial if the id parameter is not defined', function () {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
@@ -261,7 +256,7 @@ describe('Model > TutorialStore', function () {
       }).then(done, done)
     })
 
-    it('should call setTutorialStep if the id parameter is defined', function (done) {
+    it('should set the tutorial step if the id parameter is defined', function (done) {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
@@ -274,12 +269,13 @@ describe('Model > TutorialStore', function () {
         rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
       }).then(() => {
         expect(setTutorialStepSpy).to.have.been.calledOnceWith(1)
+        expect(rootStore.tutorials.activeStep).to.equal(1)
       }).then(() => {
         setTutorialStepSpy.restore()
       }).then(done, done)
     })
 
-    it('should call setSeenTime if the id parameter is defined', function (done) {
+    it('should set the seen time if the id parameter is defined', function (done) {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
@@ -292,6 +288,7 @@ describe('Model > TutorialStore', function () {
         rootStore.tutorials.setActiveTutorial(tutorial.id)
       }).then(() => {
         expect(setSeenTimeSpy).to.have.been.calledOnce
+        expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
       }).then(() => {
         setSeenTimeSpy.restore()
       }).then(done, done)
@@ -376,7 +373,7 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > resetSeen', function () {
-    it('should reset only the tutorial seen time if tutorial is the kind', function () {
+    it('should reset only the tutorial seen time if the resource is a tutorial', function () {
       const seen = new Date().toISOString()
       rootStore = RootStore.create({
         tutorials: TutorialStore.create({ tutorialSeenTime: seen, miniCourseSeenTime: seen }),
@@ -390,7 +387,7 @@ describe('Model > TutorialStore', function () {
       expect(rootStore.tutorials.miniCourseSeenTime).to.equal(seen)
     })
 
-    it('should reset only the tutorial seen time if mini-course is the kind', function () {
+    it('should reset only the mini-course seen time if the resource is a mini-course', function () {
       const seen = new Date().toISOString()
       rootStore = RootStore.create({
         tutorials: TutorialStore.create({ tutorialSeenTime: seen, miniCourseSeenTime: seen }),
@@ -463,7 +460,7 @@ describe('Model > TutorialStore', function () {
       }).then(done, done)
     })
 
-    it('should set the seen time for the null kind of tutorial resource', function (done) {
+    it('should set the seen time for the mini-course kind of tutorial resource', function (done) {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
