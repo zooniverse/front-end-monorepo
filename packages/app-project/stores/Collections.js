@@ -15,7 +15,7 @@ export const Collection = types
 const Collections = types
   .model('Collections', {
     error: types.maybeNull(types.frozen({})),
-    collections: types.optional(types.array(Collection), []),
+    collections: types.array(Collection),
     favourites: types.maybeNull(Collection),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
   })
