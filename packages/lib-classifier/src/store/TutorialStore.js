@@ -12,6 +12,8 @@ const TutorialStore = types
     activeStep: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
+    tutorialSeenTime: types.maybe(types.string),
+    miniCourseSeenTime: types.maybe(types.string),
     type: types.optional(types.string, 'tutorials')
   })
 
@@ -63,6 +65,7 @@ const TutorialStore = types
         const workflow = getRoot(self).workflows.active
         if (workflow) {
           self.reset()
+          self.resetSeen()
           self.fetchTutorials()
         }
       })
@@ -129,6 +132,21 @@ const TutorialStore = types
 
       self.active = id
       self.setTutorialStep(stepIndex)
+      self.setSeenTime()
+    }
+
+    function setSeenTime () {
+      const tutorial = self.active
+      const seen = new Date().toISOString()
+      if (tutorial) {
+        if (tutorial.kind === 'tutorial' || tutorial.kind === null) {
+          self.tutorialSeenTime = seen
+        }
+
+        if (tutorial.kind === 'mini-course') {
+          self.miniCourseSeenTime = seen
+        }
+      }
     }
 
     function resetActiveTutorial () {
@@ -137,13 +155,26 @@ const TutorialStore = types
       self.activeMedium = undefined
     }
 
+    function resetSeen (type) {
+      if (type === 'tutorial') {
+        self.tutorialSeenTime = undefined
+      } else if (type === 'mini-course') {
+        self.miniCourseSeenTime = undefined
+      } else {
+        self.tutorialSeenTime = undefined
+        self.miniCourseSeenTime = undefined
+      }
+    }
+
     return {
       afterAttach,
       fetchMedia: flow(fetchMedia),
       fetchTutorials: flow(fetchTutorials),
-      setActiveTutorial,
       resetActiveTutorial,
+      resetSeen,
+      setActiveTutorial,
       setMediaResources,
+      setSeenTime,
       setTutorialStep,
       setTutorials
     }
