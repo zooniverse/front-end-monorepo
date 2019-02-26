@@ -10,6 +10,7 @@ function storeMapper (stores) {
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
+    shouldWeShowDoneAndTalkButton,
     selectStep
   } = stores.classifierStore.workflowSteps
   const {
@@ -28,6 +29,7 @@ function storeMapper (stores) {
     isThereAPreviousStep,
     removeAnnotation,
     selectStep,
+    shouldWeShowDoneAndTalkButton,
     step,
     tasks
   }
@@ -81,7 +83,7 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { isThereANextStep, isThereAPreviousStep } = this.props
+    const { isThereANextStep, isThereAPreviousStep, shouldWeShowDoneAndTalkButton, completeClassification } = this.props
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
@@ -89,6 +91,8 @@ class TaskNavButtonsContainer extends React.Component {
         showBackButton={isThereAPreviousStep()}
         showNextButton={isThereANextStep()}
         onSubmit={this.onSubmit.bind(this)}
+        showDoneAndTalkLink={shouldWeShowDoneAndTalkButton()}
+        completeClassification={completeClassification}
       />
     )
   }

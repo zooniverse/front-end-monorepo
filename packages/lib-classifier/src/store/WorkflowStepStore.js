@@ -40,6 +40,10 @@ const WorkflowStepStore = types
       const tasks = self.activeStepTasks
 
       return tasks.some(task => task.help)
+    },
+    
+    shouldWeShowDoneAndTalkButton () {
+      return true  // TEST
     }
   }))
   .actions(self => {
