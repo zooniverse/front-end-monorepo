@@ -2,7 +2,7 @@
 // `mount` method in enzyme.
 import { JSDOM } from 'jsdom'
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>')
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom
 
 function copyProps (src, target) {
