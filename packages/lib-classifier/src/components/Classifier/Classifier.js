@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import {
+  endpoints as panoptesEndpoints,
   panoptes as panoptesClient,
   projects as projectsClient,
   tutorials as tutorialsClient
@@ -27,10 +28,19 @@ if (isBackgroundSyncAvailable()) registerWorkers()
 export default class Classifier extends React.Component {
   constructor (props) {
     super(props)
+
+    if (!props.panoptesEnv || !panoptesEndpoints[props.panoptesEnv]) {
+      throw new Error('Classifier is missing valid `panoptesEnv` prop')
+    }
+
     this.classifierStore = RootStore.create({}, {
+      apiHost: panoptesEndpoints[props.panoptesEnv].host,
       authClient: props.authClient,
       client
     })
+
+    console.info(this.classifierStore)
+
     makeInspectable(this.classifierStore)
   }
 
@@ -63,6 +73,7 @@ export default class Classifier extends React.Component {
         </ThemeProvider>
       </Provider>
     )
+    return (<div>foo</div>)
   }
 }
 

@@ -2,10 +2,14 @@ import RootStore from './RootStore'
 
 let model
 const client = { foo: 'bar' }
+const apiHost = 'https://endpoint.com/api'
 
 describe('Model > RootStore', function () {
   before(function () {
-    model = RootStore.create({}, { client })
+    model = RootStore.create({}, {
+      apiHost,
+      client
+    })
   })
 
   it('should exist', function () {
@@ -31,5 +35,9 @@ describe('Model > RootStore', function () {
 
   it('should expose the client when passed in', function () {
     expect(model.client).to.equal(client)
+  })
+
+  it('should expose the endpoint', function () {
+    expect(model.apiHost).to.equal(apiHost)
   })
 })

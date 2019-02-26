@@ -5,6 +5,8 @@ import ResourceStore from './ResourceStore'
 let rootStore
 let resourceStore
 
+const apiHost = 'https://endpoint.com/api'
+
 const RootStub = types
   .model('RootStore', {
     resources: ResourceStore
@@ -12,6 +14,9 @@ const RootStub = types
   .views(self => ({
     get client () {
       return getEnv(self).client
+    },
+    get apiHost () {
+      return getEnv(self).apiHost
     }
   }))
 
@@ -44,7 +49,7 @@ sinon.spy(clientStub.panoptes, 'get')
 describe('Model > ResourceStore', function () {
   before(function () {
     resourceStore = ResourceStore.create(resourcesStub)
-    rootStore = RootStub.create({ resources: resourceStore }, { client: clientStub })
+    rootStore = RootStub.create({ resources: resourceStore }, { apiHost, client: clientStub })
   })
 
   it('should have a required `type` property corresponding to the resource type', function () {
@@ -79,5 +84,6 @@ describe('Model > ResourceStore', function () {
     await resourceStore.setActive('789')
     expect(resourceStore.active).to.deep.equal(otherResourceStub)
     expect(clientStub.panoptes.get.called).to.be.true
+    expect(clientStub.panoptes.get.calledWith('/foobar/789', undefined, undefined, apiHost)).to.be.true
   })
 })

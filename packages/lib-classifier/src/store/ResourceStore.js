@@ -14,10 +14,11 @@ const ResourceStore = types
   .actions(self => ({
     fetchResource: flow(function * fetchResource (id) {
       const client = getRoot(self).client.panoptes
+      const host = getRoot(self).apiHost
       const { type } = self
       self.loadingState = asyncStates.loading
       try {
-        const response = yield client.get(`/${type}/${id}`)
+        const response = yield client.get(`/${type}/${id}`, undefined, undefined, host)
         const resource = response.body[type][0]
         self.loadingState = asyncStates.success
         return resource

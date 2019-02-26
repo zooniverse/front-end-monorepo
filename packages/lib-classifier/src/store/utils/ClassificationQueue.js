@@ -51,7 +51,9 @@ class ClassificationQueue {
   flushToBackend () {
     const pendingClassifications = this._loadQueue()
     const failedClassifications = []
+    const host = root.apiHost
     this._saveQueue(failedClassifications)
+
     if (this.flushTimeout) {
       clearTimeout(this.flushTimeout)
       this.flushTimeout = null
@@ -59,7 +61,7 @@ class ClassificationQueue {
 
     if (process.env.NODE_ENV !== 'test') console.log('Saving queued classifications:', pendingClassifications.length)
     return Promise.all(pendingClassifications.map((classificationData) => {
-      return this.apiClient.post(this.endpoint, { classifications: classificationData })
+      return this.apiClient.post(this.endpoint, { classifications: classificationData }, undefined, host)
         .then((response) => {
           if (response.ok) {
             const savedClassification = response.body.classifications[0]

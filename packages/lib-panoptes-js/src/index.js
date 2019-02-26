@@ -1,4 +1,4 @@
-const { config, env } = require('./config')
+const { config, endpoints, env } = require('./config')
 const panoptes = require('./panoptes')
 
 const collections = require('./resources/collections')
@@ -11,6 +11,7 @@ const users = require('./resources/users')
 module.exports = {
   collections,
   config,
+  endpoints,
   env,
   media,
   panoptes,

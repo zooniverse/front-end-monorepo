@@ -56,8 +56,9 @@ class ClassifierWrapperContainer extends Component {
       const key = user.id || 'no-user'
       return (
         <Classifier
-          key={key}
           authClient={authClient}
+          key={key}
+          panoptesEnv={process.env.PANOPTES_ENV}
           project={project}
         />
       )

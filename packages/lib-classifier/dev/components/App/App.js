@@ -90,6 +90,7 @@ class App extends React.Component {
         <Box tag='section'>
           <Classifier
             authClient={oauth}
+            panoptesEnv={process.env.PANOPTES_ENV}
             project={this.state.project}
           />
         </Box>

@@ -160,6 +160,7 @@ const ClassificationStore = types
     function * submitClassification (classification) {
       console.log('Saving classification')
       const root = getRoot(self)
+      const host = root.apiHost
       const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
@@ -168,7 +169,7 @@ const ClassificationStore = types
         self.classificationQueue.add(classification)
       } else {
         try {
-          const response = yield client.post(`/${self.type}`, { classifications: classification })
+          const response = yield client.post(`/${self.type}`, { classifications: classification }, undefined, host)
           if (response.ok) {
             const savedClassification = response.body.classifications[0]
             console.log(`Saved classification ${savedClassification.id}`)

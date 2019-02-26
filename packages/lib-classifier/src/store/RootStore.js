@@ -24,6 +24,10 @@ const RootStore = types
   })
 
   .views(self => ({
+    get apiHost () {
+      return getEnv(self).apiHost
+    },
+
     get authClient () {
       return getEnv(self).authClient
     },

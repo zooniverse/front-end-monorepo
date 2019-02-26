@@ -66,12 +66,13 @@ const SubjectStore = types
 
     function * populateQueue () {
       const root = getRoot(self)
+      const host = root.apiHost
       const client = root.client.panoptes
       const workflowId = root.workflows.active.id
       self.loadingState = asyncStates.loading
 
       try {
-        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId })
+        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, undefined, host)
 
         response.body.subjects.forEach(subject => {
           self.resources.put(subject)

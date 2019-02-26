@@ -54,4 +54,9 @@ const baseConfig = {
 
 const config = baseConfig[env]
 
-module.exports = { config, env, locationMatch }
+module.exports = {
+  config,
+  endpoints: baseConfig,
+  env,
+  locationMatch
+}
