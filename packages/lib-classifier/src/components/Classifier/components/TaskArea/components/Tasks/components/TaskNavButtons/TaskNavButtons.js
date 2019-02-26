@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Box } from 'grommet'
 import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
+import DoneAndTalkButton from './components/DoneAndTalkButton'
 import BackButton from './components/BackButton'
 
 export default function TaskNavButtons (props) {
@@ -43,6 +44,15 @@ export default function TaskNavButtons (props) {
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
           onClick={props.goToPreviousStep}
+        />}
+      {props.showDoneAndTalkLink &&
+        <DoneAndTalkButton
+          completed={props.completed}
+          demoMode={props.demoMode}
+          flex='grow'
+          goldStandardMode={props.classification ? props.classification.goldStandard : false}
+          onClick={props.completeClassification}
+          disabled={props.waitingForAnswer}
         />}
       <DoneButton
         completed={props.completed}
