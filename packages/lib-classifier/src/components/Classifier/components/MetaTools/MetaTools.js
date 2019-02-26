@@ -9,8 +9,10 @@ import CollectionsButton from './components/CollectionsButton'
 
 function storeMapper(stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
+  const { onToggleFavourite } = stores.classifierStore
   return {
     isThereMetadata,
+    onToggleFavourite,
     subject
   }
 }
@@ -35,7 +37,12 @@ export default class MetaTools extends React.Component {
   }
 
   toggleFavourites () {
-    this.setState(prevState => ({ isFavourite: !prevState.isFavourite }))
+    const { onToggleFavourite, subject } = this.props
+    this.setState((prevState) => {
+      const isFavourite = !prevState.isFavourite
+      onToggleFavourite(subject.id, isFavourite)
+      return { isFavourite }
+    })
   }
 
   render () {

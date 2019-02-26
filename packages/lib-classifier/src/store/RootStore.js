@@ -23,6 +23,21 @@ const RootStore = types
     userProjectPreferences: types.optional(UserProjectPreferencesStore, UserProjectPreferencesStore.create())
   })
 
+  .volatile(self => {
+    return {
+      onToggleFavourite: () => true
+    }
+  })
+
+  .actions(self => {
+    function setOnToggleFavourite (callback) {
+      self.onToggleFavourite = callback
+    }
+    return {
+      setOnToggleFavourite
+    }
+  })
+
   .views(self => ({
     get authClient () {
       return getEnv(self).authClient

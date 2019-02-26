@@ -44,9 +44,10 @@ export default class Classifier extends React.Component {
   }
 
   componentDidMount () {
-    const { onCompleteClassification, project } = this.props
+    const { onCompleteClassification, onToggleFavourite, project } = this.props
     this.setProject(project)
     this.classifierStore.classifications.setOnComplete(onCompleteClassification)
+    this.classifierStore.setOnToggleFavourite(onToggleFavourite)
   }
 
   componentDidUpdate (prevProps) {
@@ -81,6 +82,7 @@ export default class Classifier extends React.Component {
 Classifier.defaultProps = {
   mode: 'light',
   onCompleteClassification: () => true,
+  onToggleFavourite: () => true,
   theme: zooTheme
 }
 
@@ -88,6 +90,7 @@ Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
   mode: PropTypes.string,
   onCompleteClassification: PropTypes.func,
+  onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
