@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react'
 import MetadataButton from './components/MetadataButton'
 import MetadataModal from './components/MetadataModal'
 import FavouritesButton from './components/FavouritesButton'
+import CollectionsButton from './components/CollectionsButton'
 
 function storeMapper(stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
@@ -55,6 +56,7 @@ export default class MetaTools extends React.Component {
           checked={this.state.isFavourite}
           onClick={this.toggleFavourites}
         />
+        <CollectionsButton />
       </Box>
     )
   }
