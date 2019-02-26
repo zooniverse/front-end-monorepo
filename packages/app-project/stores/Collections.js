@@ -146,14 +146,11 @@ const Collections = types
           id,
           subjects: subjectIds
         }
-        const response = yield client.collections.removeSubjects(params)
-        const [ collection ] = response.body.collections
-        return collection
+        yield client.collections.removeSubjects(params)
       }),
 
       removeFavourites: flow(function * removeFavourites (subjectIds) {
-        const favourites = yield self.removeSubjects(self.favourites.id, subjectIds)
-        self.favourites = Collection.create(favourites)
+        yield self.removeSubjects(self.favourites.id, subjectIds)
       })
     }
   })

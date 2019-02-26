@@ -320,7 +320,6 @@ describe('stores > Collections', function () {
             subjects: ['1', '2']
           }
           expect(rootStore.client.collections.removeSubjects).to.have.been.calledOnceWith(params)
-          expect(favourites.links.subjects).to.eql([])
         })
         .then(done, done)
     })
