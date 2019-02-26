@@ -40,7 +40,7 @@ const Collections = types
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
-        const response = yield client.get({ authorization, query })
+        const response = yield client.collections.get({ authorization, query })
         const { collections } = response.body
         self.loadingState = asyncStates.success
         return collections
@@ -65,7 +65,7 @@ const Collections = types
           private: false
         }
         const data = Object.assign({}, defaults, options)
-        const response = yield client.create({ authorization, data, project: project.id, subjects: subjectIds })
+        const response = yield client.collections.create({ authorization, data, project: project.id, subjects: subjectIds })
         self.loadingState = asyncStates.success
         const [ collection ] = response.body.collections
         return collection
@@ -80,7 +80,7 @@ const Collections = types
 
     return {
       afterAttach () {
-        client = getRoot(self).client.collections
+        client = getRoot(self).client
         createProjectObserver()
       },
 
@@ -128,7 +128,7 @@ const Collections = types
           collectionId,
           subjects: subjectIds
         }
-        const response = yield client.addSubjects(params)
+        const response = yield client.collections.addSubjects(params)
         const [ collection ] = response.body.collections
         return collection
       }),
@@ -146,7 +146,7 @@ const Collections = types
           collectionId,
           subjects: subjectIds
         }
-        const response = yield client.removeSubjects(params)
+        const response = yield client.collections.removeSubjects(params)
         const [ collection ] = response.body.collections
         return collection
       }),
