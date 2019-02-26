@@ -120,12 +120,12 @@ const Collections = types
         }
       }),
 
-      addSubjects: flow(function * addSubjects (collectionId, subjectIds) {
+      addSubjects: flow(function * addSubjects (id, subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
           authorization,
-          collectionId,
+          id,
           subjects: subjectIds
         }
         const response = yield client.collections.addSubjects(params)
@@ -138,12 +138,12 @@ const Collections = types
         self.favourites = Collection.create(favourites)
       }),
 
-      removeSubjects: flow(function * removeSubjects(collectionId, subjectIds) {
+      removeSubjects: flow(function * removeSubjects(id, subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
           authorization,
-          collectionId,
+          id,
           subjects: subjectIds
         }
         const response = yield client.collections.removeSubjects(params)
