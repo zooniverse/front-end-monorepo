@@ -26,6 +26,7 @@ describe('Component > ClassifierWrapperContainer', function () {
 
   describe('with a project and user loaded', function () {
     let recents
+
     before(function () {
       const project = {
         loadingState: asyncStates.success

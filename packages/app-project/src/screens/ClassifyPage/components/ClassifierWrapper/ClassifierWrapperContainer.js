@@ -37,7 +37,7 @@ class ClassifierWrapperContainer extends Component {
     }
   }
 
-  onCompleteClassification(classification, subject) {
+  onCompleteClassification (classification, subject) {
     const { recents } = this.props
     recents.add({
       subjectId: subject.id,
