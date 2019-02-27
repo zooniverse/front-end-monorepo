@@ -24,7 +24,7 @@ const client = {
 // We might want to move this check elsewhere once we add other service workers for other tasks
 // if (isBackgroundSyncAvailable()) registerWorkers()
 
-// TODO: The workbox background sync queue isn't working as expected 
+// TODO: The workbox background sync queue isn't working as expected
 // It doesn't work with superagent/XHR req for interception
 // We need to migrate to fetch API, otherwise the POST will occur twice
 // Once in our store, once in the worker
