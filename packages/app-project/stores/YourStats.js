@@ -1,8 +1,11 @@
 import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
+import { GraphQLClient } from 'graphql-request'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
+
+export const statsClient = new GraphQLClient('https://stats.zooniverse.org/graphql')
 
 const YourStats = types
   .model('YourStats', {
@@ -61,19 +64,23 @@ const YourStats = types
         self.loadingState = asyncStates.loading
         try {
           const token = yield auth.checkBearerToken()
-          const host = 'https://stats.zooniverse.org'
-          const endpoint = '/graphql'
-          const authorization = `Bearer ${token}`
-          const query = {
-            statsCount: {
-              eventType: 'classification',
-              interval: '1 Day',
-              projectId: project.id,
-              userId: user.id
+          const Authorization = `Bearer ${token}`
+          statsClient.setHeaders({
+            Authorization
+          })
+          const query = `{
+            statsCount(
+              eventType: "classification",
+              interval: "1 Day",
+              projectId: "${project.id}",
+              userId: "${user.id}"
+            ){
+              period,
+              count
             }
-          }
-          const response = yield panoptes.post(endpoint, query, authorization, host)
-          console.log(response && response.body)
+          }`
+          const response = yield statsClient.request(query.replace(/\s+/g, ' '))
+          self.dailyCounts = response.statsCount
           self.loadingState = asyncStates.success
         } catch (error) {
           console.log(error.message)

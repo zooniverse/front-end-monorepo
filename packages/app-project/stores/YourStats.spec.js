@@ -1,8 +1,10 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 import auth from 'panoptes-client/lib/auth'
+import { GraphQLClient } from 'graphql-request'
 
 import initStore from './initStore'
+import { statsClient } from './YourStats'
 
 describe('Stores > YourStats', function () {
   let rootStore
@@ -25,11 +27,13 @@ describe('Stores > YourStats', function () {
     rootStore = initStore(true, { project })
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
     sinon.stub(rootStore.client.panoptes, 'post').callsFake(() => Promise.resolve({}))
+    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve([]))
   })
 
   after(function () {
     rootStore.client.panoptes.get.restore()
     rootStore.client.panoptes.post.restore()
+    statsClient.request.restore()
   })
 
   it('should exist', function () {
@@ -67,18 +71,18 @@ describe('Stores > YourStats', function () {
     })
 
     it('should request user statistics', function () {
-      const token = 'Bearer '
-      const host = 'https://stats.zooniverse.org'
-      const endpoint = '/graphql'
-      const query = {
-        statsCount: {
-          eventType: 'classification',
-          interval: '1 Day',
-          projectId: '2',
-          userId: '123'
+      const query = `{
+        statsCount(
+          eventType: "classification",
+          interval: "1 Day",
+          projectId: "2",
+          userId: "123"
+        ){
+          period,
+          count
         }
-      }
-      expect(rootStore.client.panoptes.post).to.have.been.calledOnceWith(endpoint, query, token, host)
+      }`
+      expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
     })
 
     describe('incrementing your classification count', function () {
