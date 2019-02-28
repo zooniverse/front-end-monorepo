@@ -158,28 +158,14 @@ const ClassificationStore = types
     }
 
     function * submitClassification (classification) {
-      console.log('Saving classification')
-      const root = getRoot(self)
-      const client = root.client.panoptes
       self.loadingState = asyncStates.posting
 
-      if (!isServiceWorkerAvailable() || !isBackgroundSyncAvailable()) {
-        // Use fallback queuing class
-        self.classificationQueue.add(classification)
-      } else {
-        try {
-          const response = yield client.post(`/${self.type}`, { classifications: classification })
-          if (response.ok) {
-            const savedClassification = response.body.classifications[0]
-            console.log(`Saved classification ${savedClassification.id}`)
-            // TODO: instead of callback here, let's add a Split store that uses an observer
-            self.onClassificationSaved(savedClassification)
-            self.loadingState = asyncStates.success
-          }
-        } catch (error) {
-          console.error(error)
-          self.loadingState = asyncStates.error
-        }
+      // Service worker isn't working right now, so let's use the fallback queue for all browsers
+      try {
+        yield self.classificationQueue.add(classification)
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
       }
     }
 
