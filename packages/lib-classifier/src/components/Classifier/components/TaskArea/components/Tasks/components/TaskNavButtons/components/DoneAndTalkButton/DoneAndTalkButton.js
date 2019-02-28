@@ -88,6 +88,16 @@ export const StyledDisabledTalkPlaceholder = styled.span`
   opacity: 0.5;
   `
 
+function openTalkLinkAndClick (event, props) {
+  props.onClick(event)
+  
+  const talkUrl = 'https://google.com'
+  if (talkUrl) {
+    const newTab = window.open(talkUrl, '_blank', 'noopener')
+    //newTab.focus()
+  }
+}
+
 export function DoneAndTalkButton (props) {
   if (props.disabled) {
     return (
@@ -105,7 +115,7 @@ export function DoneAndTalkButton (props) {
         <StyledDoneAndTalkButton
           disabled={props.disabled}
           label={<Text size='small'>{counterpart('DoneAndTalkButton.doneAndTalk')}</Text>}
-          onClick={props.onClick}
+          onClick={(e)=>{ openTalkLinkAndClick(e, props) }}
           type='submit'
         />
       </ThemeProvider>
