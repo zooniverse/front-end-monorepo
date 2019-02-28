@@ -30,12 +30,12 @@ export const StyledDoneAndTalkButton = styled(Button)`
   cursor: pointer;
   flex: 3 0;
   font-size: 0.9em;
+  margin-right: 1ch;
   padding: 0.9em;
   text-transform: capitalize;
-
+  
   > i {
     margin-left: 1ch;
-    margin-right: 1ch;
   }
 
   &:hover, &:focus {
@@ -93,8 +93,13 @@ function openTalkLinkAndClick (event, props) {
   
   const talkUrl = 'https://google.com'
   if (talkUrl) {
-    const newTab = window.open(talkUrl, '_blank', 'noopener')
-    //newTab.focus()
+    // Bypasses issue with using window.open(talkUrl, '_blank', 'noopener')
+    const newTab = window.open()
+    newTab.opener = null
+    newTab.location = talkUrl
+    newTab.target = '_blank'
+    newTab.focus()
+    console.log(newTab)
   }
 }
 
