@@ -17,7 +17,9 @@ const Subject = types
 
   .actions(self => {
     function toggleFavorite () {
+      const rootStore = getRoot(self)
       self.favorite = !self.favorite
+      rootStore.onToggleFavourite(self.id, self.favorite)
     }
 
     return {
