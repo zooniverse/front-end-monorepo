@@ -18,4 +18,14 @@ describe('Model > Subject', function () {
   it('should have a `locations` property', function () {
     expect(subject.locations).to.deep.equal(stub.locations)
   })
+
+  describe('toggleFavorite', function () {
+    before(function () {
+      subject.toggleFavorite()
+    })
+
+    it('should toggle subject.favorite', function () {
+      expect(subject.favorite).to.be.true
+    })
+  })
 })

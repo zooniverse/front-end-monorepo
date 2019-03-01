@@ -15,6 +15,16 @@ const Subject = types
     user_has_finished_workflow: types.optional(types.boolean, false)
   })
 
+  .actions(self => {
+    function toggleFavorite () {
+      self.favorite = !self.favorite
+    }
+
+    return {
+      toggleFavorite
+    }
+  })
+
   .views(self => ({
     get viewer () {
       const counts = createLocationCounts(self)
