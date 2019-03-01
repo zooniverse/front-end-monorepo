@@ -25,9 +25,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@withTheme
-@observer
 class TaskArea extends React.Component {
   onTabClick (activeIndex) {
     const { setActiveTutorial, tutorial } = this.props
@@ -80,7 +77,7 @@ class TaskArea extends React.Component {
   }
 }
 
-TaskArea.wrappedComponent.propTypes = {
+TaskArea.propTypes = {
   disableTutorialTab: bool,
   setActiveTutorial: func,
   theme: shape({
@@ -89,7 +86,7 @@ TaskArea.wrappedComponent.propTypes = {
   tutorial: object
 }
 
-TaskArea.wrappedComponent.defaultProps = {
+TaskArea.defaultProps = {
   colorTheme: 'light',
   disableTutorialTab: true,
   setActiveTutorial: () => {},
@@ -99,4 +96,13 @@ TaskArea.wrappedComponent.defaultProps = {
   tutorial: null
 }
 
-export default TaskArea
+/*
+  Enzyme doesn't support the context API properly yet, so using @withTheme as
+  recommended currently doesn't work. So instead, we're exporting the unwrapped
+  component for testing, and using the HOC function syntax to export the wrapped
+  component.
+
+  https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
+*/
+export default inject(storeMapper)(withTheme(observer(TaskArea)))
+export { TaskArea }
