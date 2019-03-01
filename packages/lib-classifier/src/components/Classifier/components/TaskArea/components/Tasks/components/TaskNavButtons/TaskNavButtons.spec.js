@@ -23,7 +23,7 @@ describe('TaskNavButtons', function () {
   describe('when props.showNextButton is true', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<TaskNavButtons classification={classification} project={project} subject={subject} showNextButton />)
+      wrapper = mount(<TaskNavButtons classification={classification} goToNextStep={() => {}} project={project} subject={subject} showNextButton />)
     })
 
     it('should render a NextButton component', function () {

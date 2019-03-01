@@ -143,7 +143,7 @@ export function TaskInputField (props) {
       >
         <input
           autoFocus={autoFocus}
-          defaultChecked={checked}
+          checked={checked}
           name={name}
           onChange={onChange}
           type={type}

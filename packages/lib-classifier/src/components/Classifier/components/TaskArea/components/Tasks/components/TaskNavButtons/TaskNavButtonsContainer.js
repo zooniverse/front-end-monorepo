@@ -42,7 +42,6 @@ class TaskNavButtonsContainer extends React.Component {
       tasks.forEach((task) => {
         // User didn't submit annotation and task is not required
         // Create the default annotation before going to the next step
-        // console.log(classification.annotations, task.taskKey, classification.annotations.get(task.taskKey))
         if (classification.annotations && !(classification.annotations.get(task.taskKey))) {
           createDefaultAnnotation(task)
         }
@@ -74,15 +73,22 @@ class TaskNavButtonsContainer extends React.Component {
     selectStep()
   }
 
+ onSubmit (event) {
+    event.preventDefault()
+    const { completeClassification } = this.props
+    this.createDefaultAnnotationIfThereIsNone()
+    completeClassification()
+  }
+
   render () {
-    const { isThereANextStep, isThereAPreviousStep, completeClassification } = this.props
+    const { isThereANextStep, isThereAPreviousStep } = this.props
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
         showBackButton={isThereAPreviousStep()}
         showNextButton={isThereANextStep()}
-        completeClassification={completeClassification}
+        onSubmit={this.onSubmit.bind(this)}
       />
     )
   }
