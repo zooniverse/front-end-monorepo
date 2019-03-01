@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, onPatch, types } from 'mobx-state-tree'
+import { getBearerToken } from './utils'
 
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
@@ -71,7 +72,9 @@ const SubjectStore = types
       self.loadingState = asyncStates.loading
 
       try {
-        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId })
+        const { authClient } = getRoot(self)
+        const authorization = yield getBearerToken(authClient)
+        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, authorization)
 
         response.body.subjects.forEach(subject => {
           self.resources.put(subject)

@@ -30,7 +30,8 @@ const ClassificationStore = types
 
     get classificationQueue () {
       const client = getRoot(self).client.panoptes
-      return new ClassificationQueue(client, self.onClassificationSaved)
+      const { authClient } = getRoot(self)
+      return new ClassificationQueue(client, self.onClassificationSaved, authClient)
     }
   }))
   .volatile(self => {
