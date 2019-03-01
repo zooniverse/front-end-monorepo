@@ -13,7 +13,7 @@ const Store = types
     project: types.optional(Project, {}),
     recents: types.optional(Recents, {}),
     ui: types.optional(UI, {}),
-    user: types.optional(User, {})
+    user: types.optional(User, {}),
     yourStats: types.optional(YourStats, {})
   })
 
