@@ -1,1 +1,1 @@
-export { default } from './ContentBox'
+export { default } from './ContentBoxContainer'

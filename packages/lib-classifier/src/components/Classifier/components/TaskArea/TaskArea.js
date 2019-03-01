@@ -1,9 +1,11 @@
-import counterpart from 'counterpart'
-import React from 'react'
-import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
+import counterpart from 'counterpart'
+import { Box } from 'grommet'
+import { inject, observer } from 'mobx-react'
+import { bool, func, object, oneOf, shape } from 'prop-types'
+import React from 'react'
+import { withTheme } from 'styled-components'
 
 import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
@@ -23,8 +25,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class TaskArea extends React.Component {
   onTabClick (activeIndex) {
     const { setActiveTutorial, tutorial } = this.props
@@ -33,45 +33,76 @@ class TaskArea extends React.Component {
   }
 
   render () {
-    const { colorTheme, disableTutorialTab } = this.props
+    const { theme: { mode }, disableTutorialTab } = this.props
+
     const border = {
       side: 'all',
-      color: (colorTheme === 'light') ? zooTheme.light.colors.tabs.border : zooTheme.dark.colors.tabs.border,
+      color: zooTheme[mode].colors.tabs.border,
       size: 'xsmall'
     }
+
     return (
       <Tabs
-        onActive={this.onTabClick.bind(this)}
+        background={mode === 'light' ? 'white' : '#2d2d2d'}
         border={border}
         className={this.props.className}
         margin='none'
+        onActive={this.onTabClick.bind(this)}
       >
-        <Tab title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.task')}</SpacedText>}>
-          <Tasks />
+        <Tab
+          title={(
+            <SpacedText size='medium' weight='bold'>
+              {counterpart('TaskArea.task')}
+            </SpacedText>
+          )}
+        >
+          <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
+            <Tasks />
+          </Box>
         </Tab>
         <Tab
           disabled={disableTutorialTab}
-          title={<SpacedText size='medium' weight='bold'>{counterpart('TaskArea.tutorial')}</SpacedText>}
+          title={(
+            <SpacedText size='medium' weight='bold'>
+              {counterpart('TaskArea.tutorial')}
+            </SpacedText>
+          )}
         >
-          <SlideTutorial />
+          <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
+            <SlideTutorial />
+          </Box>
         </Tab>
       </Tabs>
     )
   }
 }
 
-TaskArea.wrappedComponent.propTypes = {
-  colorTheme: PropTypes.oneOf(['light', 'dark']),
-  disableTutorialTab: PropTypes.bool,
-  setActiveTutorial: PropTypes.func,
-  tutorial: PropTypes.object
+TaskArea.propTypes = {
+  disableTutorialTab: bool,
+  setActiveTutorial: func,
+  theme: shape({
+    mode: oneOf(['light', 'dark']),
+  }),
+  tutorial: object
 }
 
-TaskArea.wrappedComponent.defaultProps = {
+TaskArea.defaultProps = {
   colorTheme: 'light',
   disableTutorialTab: true,
   setActiveTutorial: () => {},
+  theme: {
+    mode: 'light'
+  },
   tutorial: null
 }
 
-export default TaskArea
+/*
+  Enzyme doesn't support the context API properly yet, so using @withTheme as
+  recommended currently doesn't work. So instead, we're exporting the unwrapped
+  component for testing, and using the HOC function syntax to export the wrapped
+  component.
+
+  https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
+*/
+export default inject(storeMapper)(withTheme(observer(TaskArea)))
+export { TaskArea }

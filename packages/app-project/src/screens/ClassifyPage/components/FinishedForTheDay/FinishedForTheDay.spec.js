@@ -1,4 +1,4 @@
-import { shallow, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
@@ -11,7 +11,7 @@ let wrapper
 
 describe('Component > FinishedForTheDay', function () {
   before(function () {
-    wrapper = render(<FinishedForTheDay projectName={projectName} />)
+    wrapper = shallow(<FinishedForTheDay projectName={projectName} />)
   })
 
   it('should render without crashing', function () {
@@ -19,11 +19,11 @@ describe('Component > FinishedForTheDay', function () {
   })
 
   it('should contain a title', function () {
-    expect(wrapper.find('h3')).to.have.lengthOf(1)
+    expect(wrapper.find('Heading')).to.have.lengthOf(1)
   })
 
   it('should contain some text', function () {
-    const para = wrapper.find('p')
+    const para = wrapper.find('FinishedForTheDay__StyledParagraph')
     expect(para).to.have.lengthOf(1)
     expect(para.text().length).to.be.ok()
   })
