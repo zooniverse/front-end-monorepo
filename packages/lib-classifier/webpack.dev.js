@@ -20,6 +20,12 @@ const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
 })
 
 module.exports = {
+  devServer: {
+    allowedHosts: [
+      'localhost',
+      '.zooniverse.org'
+    ]
+  },
   entry: [
     '@babel/polyfill',
     './dev/index.js'
