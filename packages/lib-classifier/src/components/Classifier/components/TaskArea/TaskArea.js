@@ -25,8 +25,8 @@ function storeMapper (stores) {
   }
 }
 
-@withTheme
 @inject(storeMapper)
+@withTheme
 @observer
 class TaskArea extends React.Component {
   onTabClick (activeIndex) {
