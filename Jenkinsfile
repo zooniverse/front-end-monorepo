@@ -47,7 +47,7 @@ timeout(20) {
       if (BRANCH_NAME == 'master') {
         sh """
           cd "/var/jenkins_home/jobs/Zooniverse GitHub/jobs/operations/branches/master/workspace" && \
-          ./hermes_wrapper.sh exec StandaloneAppsSwarm -- \
+          ./hermes_wrapper.sh exec swarm19a -- \
               docker stack deploy --prune \
               -c /opt/infrastructure/stacks/fe-project-staging.yml \
               fe-project-staging

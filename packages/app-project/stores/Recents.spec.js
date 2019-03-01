@@ -4,6 +4,7 @@ import { getSnapshot } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import initStore from './initStore'
+import { statsClient } from './YourStats'
 
 describe('Stores > Recents', function () {
   let rootStore
@@ -15,6 +16,7 @@ describe('Stores > Recents', function () {
   }
 
   before(function () {
+    sinon.stub(console, 'error')
     const mockResponse = {
       body: {
         recents: [
@@ -32,10 +34,13 @@ describe('Stores > Recents', function () {
     rootStore = initStore(true, { project })
     recentsStore = rootStore.recents
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
+    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve(null))
   })
 
   after(function () {
+    console.error.restore()
     rootStore.client.panoptes.get.restore()
+    statsClient.request.restore()
   })
 
   it('should exist', function () {
@@ -64,7 +69,7 @@ describe('Stores > Recents', function () {
         project_id: '2',
         sort: '-created_at'
       }
-      expect(rootStore.client.panoptes.get).to.have.been.calledOnceWith(endpoint, query, token)
+      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, token)).to.have.been.calledOnce()
     })
 
     it('should store existing recents', function () {
