@@ -53,7 +53,7 @@ const YourStats = types
           const [ preferences ] = response.body.project_preferences
           self.totalCount = preferences ? preferences.activity_count : 0
         } catch (error) {
-          console.log(error.message)
+          console.error(error)
           self.error = error
           self.loadingState = asyncStates.error
         }
@@ -83,7 +83,7 @@ const YourStats = types
           self.dailyCounts = response.statsCount
           self.loadingState = asyncStates.success
         } catch (error) {
-          console.log(error.message)
+          console.error(error)
           self.error = error
           self.loadingState = asyncStates.error
         }

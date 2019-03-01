@@ -15,6 +15,7 @@ describe('Stores > YourStats', function () {
   }
 
   before(function () {
+    sinon.stub(console, 'error')
     const mockResponse = {
       body: {
         project_preferences: [
@@ -31,6 +32,7 @@ describe('Stores > YourStats', function () {
   })
 
   after(function () {
+    console.error.restore()
     rootStore.client.panoptes.get.restore()
     rootStore.client.panoptes.post.restore()
     statsClient.request.restore()

@@ -16,6 +16,7 @@ describe('Stores > Recents', function () {
   }
 
   before(function () {
+    sinon.stub(console, 'error')
     const mockResponse = {
       body: {
         recents: [
@@ -37,6 +38,7 @@ describe('Stores > Recents', function () {
   })
 
   after(function () {
+    console.error.restore()
     rootStore.client.panoptes.get.restore()
     statsClient.request.restore()
   })
