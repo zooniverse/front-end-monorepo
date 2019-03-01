@@ -91,7 +91,10 @@ export const StyledDisabledTalkPlaceholder = styled.span`
 function openTalkLinkAndClick (event, props) {
   props.onClick(event)
   
-  const talkUrl = 'https://google.com'
+  const talkUrl =
+    props.projectSlug && props.subjectId &&
+    `/projects/${props.projectSlug}/talk/subjects/${props.subjectId}`
+  
   if (talkUrl) {
     // Bypasses issue with using window.open(talkUrl, '_blank', 'noopener')
     const newTab = window.open()
@@ -99,7 +102,6 @@ function openTalkLinkAndClick (event, props) {
     newTab.location = talkUrl
     newTab.target = '_blank'
     newTab.focus()
-    console.log(newTab)
   }
 }
 
@@ -132,10 +134,12 @@ export function DoneAndTalkButton (props) {
 
 DoneAndTalkButton.defaultProps = {
   completed: false,
-  demoMode: false,
+  demoMode: false,  // Holdover from DoneButton pattern - unknown if needed
   disabled: false,
-  goldStandardMode: false,
+  goldStandardMode: false,  // Holdover from DoneButton pattern - unknown if needed
   onClick: () => {},
+  projectSlug: undefined,
+  subjectId: undefined,
   theme: 'light'
 }
 
@@ -145,6 +149,8 @@ DoneAndTalkButton.propTypes = {
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
   onClick: PropTypes.func,
+  projectSlug: PropTypes.string,
+  subjectId: PropTypes.string,
   theme: PropTypes.string
 }
 

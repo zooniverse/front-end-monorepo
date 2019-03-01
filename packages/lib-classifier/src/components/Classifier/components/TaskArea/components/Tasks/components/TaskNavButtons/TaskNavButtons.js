@@ -53,6 +53,8 @@ export default function TaskNavButtons (props) {
           goldStandardMode={props.classification ? props.classification.goldStandard : false}
           onClick={props.completeClassification}
           disabled={props.waitingForAnswer}
+          projectSlug={props.projectSlug}
+          subjectId={props.subjectId}
         />}
       <DoneButton
         completed={props.completed}
@@ -74,9 +76,12 @@ TaskNavButtons.defaultProps = {
   goToPreviousStep: () => {},
   onSubmit: () => {},
   nextSubject: () => {},
+  projectSlug: '',
   showBackButton: false,
   showNextButton: false,
   showDoneAndTalkLink: false,
+  subjectId: '',
+  completeClassification: () => {},
   waitingForAnswer: false
 }
 
@@ -88,8 +93,11 @@ TaskNavButtons.propTypes = {
   goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
   onSubmit: PropTypes.func,
+  projectSlug: PropTypes.string,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
   showDoneAndTalkLink: PropTypes.bool,
+  subjectId: PropTypes.string,
+  completeClassification: PropTypes.func,
   waitingForAnswer: PropTypes.bool
 }

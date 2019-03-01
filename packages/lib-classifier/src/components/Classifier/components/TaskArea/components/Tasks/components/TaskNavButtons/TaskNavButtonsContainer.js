@@ -19,7 +19,13 @@ function storeMapper (stores) {
     createDefaultAnnotation,
     removeAnnotation
   } = stores.classifierStore.classifications
-
+  const {
+    active: subject
+  } = stores.classifierStore.subjects
+  const {
+    active: project
+  } = stores.classifierStore.projects
+  
   return {
     classification,
     completeClassification,
@@ -27,10 +33,12 @@ function storeMapper (stores) {
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
+    project,
     removeAnnotation,
     selectStep,
     shouldWeShowDoneAndTalkButton,
     step,
+    subject,
     tasks
   }
 }
@@ -83,7 +91,11 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { isThereANextStep, isThereAPreviousStep, shouldWeShowDoneAndTalkButton, completeClassification } = this.props
+    const { isThereANextStep, isThereAPreviousStep, shouldWeShowDoneAndTalkButton, completeClassification, project, subject } = this.props
+    
+    const projectSlug = project && project.slug
+    const subjectId = subject && subject.id
+    
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
@@ -93,6 +105,8 @@ class TaskNavButtonsContainer extends React.Component {
         onSubmit={this.onSubmit.bind(this)}
         showDoneAndTalkLink={shouldWeShowDoneAndTalkButton()}
         completeClassification={completeClassification}
+        projectSlug={projectSlug}
+        subjectId={subjectId}
       />
     )
   }
