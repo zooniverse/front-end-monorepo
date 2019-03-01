@@ -35,28 +35,4 @@ describe('DoneAndTalkButton', function () {
       expect(wrapper.find(StyledDoneAndTalkButton)).to.have.lengthOf(1)
     })
   })
-
-  xdescribe('props.goldStandardMode', function () {
-    it('should not render a star icon if props.goldStandardMode is false', function () {
-      const wrapper = mount(<DoneAndTalkButton />)
-      expect(wrapper.find('i.fa-star')).to.have.lengthOf(0)
-    })
-
-    it('should render a star icon if props.goldStandardMode is true', function () {
-      const wrapper = mount(<DoneAndTalkButton goldStandardMode />)
-      expect(wrapper.find('i.fa-star')).to.have.lengthOf(1)
-    })
-  })
-
-  xdescribe('props.demoMode', function () {
-    it('should not render a trash icon if props.demoMode is false', function () {
-      const wrapper = mount(<DoneAndTalkButton />)
-      expect(wrapper.find('i.fa-trash')).to.have.lengthOf(0)
-    })
-
-    it('should render a trash icon if props.demoMode is true', function () {
-      const wrapper = mount(<DoneAndTalkButton demoMode />)
-      expect(wrapper.find('i.fa-trash')).to.have.lengthOf(1)
-    })
-  })
 })

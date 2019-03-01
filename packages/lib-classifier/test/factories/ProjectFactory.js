@@ -14,3 +14,4 @@ export default new Factory()
       workflows: [workflowId]
     }
   })
+  .attr('slug', 'zooniverse/example')

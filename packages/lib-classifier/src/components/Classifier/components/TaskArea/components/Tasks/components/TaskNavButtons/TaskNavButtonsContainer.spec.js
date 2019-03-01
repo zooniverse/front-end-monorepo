@@ -34,6 +34,7 @@ describe('TaskNavButtonsContainer', function () {
         <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
+          shouldWeShowDoneAndTalkButton={() => {}}
           tasks={tasks}
         />
       )
@@ -63,6 +64,7 @@ describe('TaskNavButtonsContainer', function () {
         <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
+          shouldWeShowDoneAndTalkButton={() => {}}
           selectStep={selectStepSpy}
           tasks={tasks}
         />
@@ -104,6 +106,7 @@ describe('TaskNavButtonsContainer', function () {
         <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
+          shouldWeShowDoneAndTalkButton={() => {}}
           removeAnnotation={removeAnnotationSpy}
           selectStep={selectStepSpy}
           steps={steps}
@@ -153,6 +156,7 @@ describe('TaskNavButtonsContainer', function () {
           createDefaultAnnotation={createDefaultAnnotationSpy}
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
+          shouldWeShowDoneAndTalkButton={() => {}}
           tasks={tasks}
         />
       )
