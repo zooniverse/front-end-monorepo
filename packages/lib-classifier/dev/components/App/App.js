@@ -90,6 +90,7 @@ class App extends React.Component {
         <Box tag='section'>
           <Classifier
             authClient={oauth}
+            onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
             project={this.state.project}
           />
         </Box>

@@ -34,6 +34,11 @@ const ClassificationStore = types
       return new ClassificationQueue(client, self.onClassificationSaved)
     }
   }))
+  .volatile(self => {
+    return {
+      onComplete: () => null
+    }
+  })
   .actions(self => {
     function afterAttach () {
       createSubjectObserver()
@@ -149,6 +154,9 @@ const ClassificationStore = types
       })
       classificationToSubmit.metadata = convertedMetadata
 
+      const subject = getRoot(self).subjects.active
+      self.onComplete(classification.toJSON(), subject.toJSON())
+
       console.log('Completed classification', classificationToSubmit)
       self.submitClassification(classificationToSubmit)
     }
@@ -169,6 +177,10 @@ const ClassificationStore = types
       }
     }
 
+    function setOnComplete(onComplete) {
+      self.onComplete = onComplete
+    }
+
     return {
       addAnnotation,
       afterAttach,
@@ -177,6 +189,7 @@ const ClassificationStore = types
       createDefaultAnnotation,
       onClassificationSaved,
       removeAnnotation,
+      setOnComplete,
       submitClassification: flow(submitClassification),
       updateClassificationMetadata
     }

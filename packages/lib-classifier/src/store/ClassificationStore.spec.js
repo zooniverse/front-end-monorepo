@@ -1,7 +1,8 @@
+import sinon from 'sinon'
 import ClassificationStore from './ClassificationStore'
 import Subject from './Subject'
 
-import { types } from 'mobx-state-tree'
+import { getEnv, types } from 'mobx-state-tree'
 
 let rootStore
 
@@ -12,6 +13,11 @@ const RootStub = types
     subjects: types.frozen(),
     workflows: types.frozen()
   })
+  .views(self => ({
+    get client () {
+      return getEnv(self).client
+    }
+  }))
 
 const subjectStub = {
   already_seen: true,
@@ -80,5 +86,51 @@ describe('Model > ClassificationStore', function () {
     expect(classification.metadata.subjectSelectionState.retired).to.equal(subjectStub.retired)
     expect(classification.metadata.subjectSelectionState.selection_state).to.equal(subjectStub.selection_state)
     expect(classification.metadata.subjectSelectionState.user_has_finished_workflow).to.equal(subjectStub.user_has_finished_workflow)
+  })
+
+  describe('on complete classification', function () {
+    let event
+    let onComplete
+
+    before(function () {
+      subject = Subject.create(subjectStub)
+    
+      const clientStub = {
+        panoptes: {
+          post: sinon.stub().callsFake(() => Promise.resolve({ 
+            ok: true,
+            body: {
+              classifications: []
+            }
+          }))
+        }
+      }
+      rootStore = RootStub.create(
+        {
+          classifications: ClassificationStore.create({
+            active: undefined,
+            resources: {},
+            type: 'classifications'
+          }),
+          projects: { active: projectStub },
+          subjects: { active: subject },
+          workflows: { active: workflowStub }
+        },
+        {
+          client: clientStub
+        }
+      )
+      event = {
+        preventDefault: sinon.stub()
+      }
+      onComplete = sinon.stub()
+      rootStore.classifications.setOnComplete(onComplete)
+      rootStore.classifications.completeClassification(event)
+    })
+
+    it('should call the onComplete callback with the classification and subject', function () {
+      const classification = rootStore.classifications.active
+      expect(onComplete).to.have.been.calledOnceWith(classification.toJSON(), subject.toJSON())
+    })
   })
 })

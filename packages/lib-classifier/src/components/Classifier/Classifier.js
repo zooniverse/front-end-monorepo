@@ -44,8 +44,9 @@ export default class Classifier extends React.Component {
   }
 
   componentDidMount () {
-    const { project } = this.props
+    const { onCompleteClassification, project } = this.props
     this.setProject(project)
+    this.classifierStore.classifications.setOnComplete(onCompleteClassification)
   }
 
   componentDidUpdate (prevProps) {
@@ -79,12 +80,14 @@ export default class Classifier extends React.Component {
 
 Classifier.defaultProps = {
   mode: 'light',
+  onCompleteClassification: () => true,
   theme: zooTheme
 }
 
 Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
   mode: PropTypes.string,
+  onCompleteClassification: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
