@@ -1,5 +1,1 @@
-import React from 'react'
-
-import ProjectHomePage from '../src/screens/ProjectHomePage'
-
-export default () => <ProjectHomePage />
+export { default } from '../src/screens/ProjectHomePage'
