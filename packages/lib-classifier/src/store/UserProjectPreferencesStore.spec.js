@@ -78,7 +78,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         }).then(done, done)
     })
 
-    it('should reset to an initialized state if there is no user', function (done) {
+    it('should set to a successful state if there is no user', function (done) {
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
@@ -86,7 +86,8 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.initialized)
+          expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
+          expect(rootStore.userProjectPreferences.active).to.be.undefined
         }).then(done, done)
     })
 
