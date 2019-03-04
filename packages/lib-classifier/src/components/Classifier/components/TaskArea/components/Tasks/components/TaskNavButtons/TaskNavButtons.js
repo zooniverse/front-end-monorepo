@@ -49,7 +49,7 @@ export default function TaskNavButtons (props) {
         demoMode={props.demoMode}
         flex='grow'
         goldStandardMode={props.classification ? props.classification.goldStandard : false}
-        onClick={props.completeClassification}
+        onClick={props.onSubmit}
         disabled={props.waitingForAnswer}
       />
     </Box>
@@ -62,11 +62,11 @@ TaskNavButtons.defaultProps = {
   completed: false,
   demoMode: false,
   goToPreviousStep: () => {},
+  onSubmit: () => {},
   nextSubject: () => {},
   showBackButton: false,
   showNextButton: false,
   showDoneAndTalkLink: false,
-  completeClassification: () => {},
   waitingForAnswer: false
 }
 
@@ -77,9 +77,9 @@ TaskNavButtons.propTypes = {
   demoMode: PropTypes.bool,
   goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
+  onSubmit: PropTypes.func,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
   showDoneAndTalkLink: PropTypes.bool,
-  completeClassification: PropTypes.func,
   waitingForAnswer: PropTypes.bool
 }

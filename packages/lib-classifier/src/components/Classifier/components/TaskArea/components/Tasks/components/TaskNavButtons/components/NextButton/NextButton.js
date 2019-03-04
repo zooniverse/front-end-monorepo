@@ -58,18 +58,6 @@ export const StyledNextButton = styled(Button)`
   }
 
   &:disabled {
-    ${'' /* background: ${theme('mode', {
-      dark: zooTheme.dark.colors.background.default,
-      light: zooTheme.global.colors.lightGold
-    })};
-    border: ${theme('mode', {
-      dark: `solid thin ${zooTheme.global.colors.gold}`,
-      light: `solid thin ${zooTheme.global.colors.gold}`
-    })};
-    color: ${theme('mode', {
-      dark: zooTheme.global.colors.gold,
-      light: 'black'
-    })}; */}
     cursor: not-allowed;
   }
   `

@@ -141,7 +141,7 @@ describe('TaskNavButtonsContainer', function () {
     })
   })
 
-  describe('#createDefaultAnnoationIfThereIsNone', function () {
+  describe('#createDefaultAnnotationIfThereIsNone', function () {
     let wrapper
     let createDefaultAnnotationSpy
 
@@ -183,6 +183,56 @@ describe('TaskNavButtonsContainer', function () {
       wrapper.setProps({ classification: { annotations } })
       wrapper.instance().createDefaultAnnotationIfThereIsNone()
       expect(createDefaultAnnotationSpy.notCalled).to.be.true
+    })
+  })
+
+  describe('#onSubmit', function () {
+    let wrapper
+    let completeClassificationSpy
+    let createDefaultAnnotationIfThereIsNoneSpy
+    let onSubmitSpy
+    const preventDefaultSpy = sinon.spy()
+
+    before(function () {
+      completeClassificationSpy = sinon.spy()
+      createDefaultAnnotationIfThereIsNoneSpy = sinon.spy(TaskNavButtonsContainer.wrappedComponent.prototype, 'createDefaultAnnotationIfThereIsNone')
+      onSubmitSpy = sinon.spy(TaskNavButtonsContainer.wrappedComponent.prototype, 'onSubmit')
+
+      wrapper = shallow(
+        <TaskNavButtonsContainer.wrappedComponent
+          completeClassification={completeClassificationSpy}
+          isThereAPreviousStep={() => { }}
+          isThereANextStep={() => { }}
+          tasks={tasks}
+        />
+      )
+    })
+
+    afterEach(function () {
+      completeClassificationSpy.resetHistory()
+      createDefaultAnnotationIfThereIsNoneSpy.resetHistory()
+      onSubmitSpy.resetHistory()
+      preventDefaultSpy.resetHistory()
+    })
+
+    after(function () {
+      createDefaultAnnotationIfThereIsNoneSpy.restore()
+      onSubmitSpy.restore()
+    })
+
+    it('should prevent the event default', function () {
+      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      expect(preventDefaultSpy).to.have.been.calledOnce
+    })
+
+    it('should call createDefaultAnnotationIfThereIsNone', function () {
+      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      expect(createDefaultAnnotationIfThereIsNoneSpy).to.have.been.calledOnce
+    })
+
+    it('should call completeClassification', function () {
+      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      expect(completeClassificationSpy).to.have.been.calledOnce
     })
   })
 })

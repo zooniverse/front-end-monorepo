@@ -14,7 +14,6 @@ import {
   convertMapToArray,
   sessionUtils
 } from './utils'
-import { isServiceWorkerAvailable, isBackgroundSyncAvailable } from '../helpers/featureDetection'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -128,8 +127,7 @@ const ClassificationStore = types
       if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
     }
 
-    function completeClassification (event) {
-      event.preventDefault()
+    function completeClassification () {
       const classification = self.active
       // TODO store intervention metadata if we have a user...
       self.updateClassificationMetadata({
