@@ -6,7 +6,9 @@ import TaskNavButtons from './TaskNavButtons'
 function storeMapper (stores) {
   const {
     active: feedback,
-    rules: feedbackRules
+    feedbackMessages,
+    modal: feedbackModal,
+    showModal: showFeedbackModal
   } = stores.classifierStore.feedback
   const {
     active: step,
@@ -28,7 +30,9 @@ function storeMapper (stores) {
     completeClassification,
     createDefaultAnnotation,
     feedback,
-    feedbackRules,
+    feedbackMessages,
+    feedbackModal,
+    showFeedbackModal,
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
@@ -80,26 +84,26 @@ class TaskNavButtonsContainer extends React.Component {
     selectStep()
   }
 
-  checkFeedbackThenComplete (event) {
+  checkFeedbackAndComplete (event) {
     event.preventDefault()
-    const { completeClassification, feedback, feedbackRules } = this.props
-    if (feedback) {
-      console.log('feedback rules = ', feedbackRules)
-      completeClassification(event)
+    const { completeClassification, feedback, feedbackMessages, showFeedbackModal } = this.props
+    if (feedback && feedbackMessages) {
+      showFeedbackModal()
     } else {
       completeClassification(event)
     }
   }
 
   render () {
-    const { isThereANextStep, isThereAPreviousStep } = this.props
+    const { feedbackModal, isThereANextStep, isThereAPreviousStep } = this.props
     return (
       <TaskNavButtons
+        feedbackModal
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
         showBackButton={isThereAPreviousStep()}
         showNextButton={isThereANextStep()}
-        completeClassification={this.checkFeedbackThenComplete.bind(this)}
+        completeClassification={this.checkFeedbackAndComplete.bind(this)}
       />
     )
   }

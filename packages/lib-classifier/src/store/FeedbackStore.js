@@ -8,12 +8,38 @@ import strategies from '../features/feedback/shared/strategies'
 const FeedbackStore = types
   .model('FeedbackStore', {
     active: types.optional(types.boolean, false),
-    rules: types.frozen({})
+    rules: types.frozen({}),
+    modal: false
   })
   .views(self => ({
     get currentRules () {
       if (self.active) {
         return self.rules
+      }
+      return null
+    },
+    get currentRulesValues () {
+      const values = _.flatten(_.values(self.rules))
+      if (values.length) {
+        return values
+      }
+      return null
+    },
+    get feedbackMessages () {
+      const messages = _.chain(self.currentRulesValues)
+        .map((item) => {
+          let message = false
+          if (item.success && item.successEnabled) {
+            message = item.successMessage
+          } else if (!item.success && item.failureEnabled) {
+            message = item.failureMessage
+          }
+          return message
+        })
+        .compact()
+        .value()
+      if (messages.length) {
+        return messages
       }
       return null
     }
@@ -45,6 +71,14 @@ const FeedbackStore = types
       }
     }
 
+    function hideModal () {
+      self.modal = false
+    }
+
+    function showModal (event) {
+      self.modal = true
+    }
+
     function update (annotation) {
       const newRules = _.clone(self.rules)
       const { task, value } = annotation
@@ -65,6 +99,8 @@ const FeedbackStore = types
     return {
       afterAttach,
       createFeedbackRules,
+      hideModal,
+      showModal,
       update,
       reset
     }

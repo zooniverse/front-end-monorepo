@@ -5,6 +5,7 @@ import { Box } from 'grommet'
 import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
 import BackButton from './components/BackButton'
+import FeedbackModal from '../../../../../../../../features/feedback/classifier/components/feedback-modal'
 
 export default function TaskNavButtons (props) {
   if (props.showNextButton) {
@@ -52,6 +53,8 @@ export default function TaskNavButtons (props) {
         onClick={props.completeClassification}
         disabled={props.waitingForAnswer}
       />
+      {props.feedbackModal &&
+        <FeedbackModal />}
     </Box>
   )
 }
