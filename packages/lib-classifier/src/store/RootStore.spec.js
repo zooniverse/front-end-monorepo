@@ -1,3 +1,4 @@
+import sinon from 'sinon'
 import RootStore from './RootStore'
 
 let model
@@ -31,5 +32,11 @@ describe('Model > RootStore', function () {
 
   it('should expose the client when passed in', function () {
     expect(model.client).to.equal(client)
+  })
+
+  it('should have an onToggleFavourite callback', function () {
+    const onToggleFavourite = sinon.stub()
+    model.setOnToggleFavourite(onToggleFavourite)
+    expect(model.onToggleFavourite).to.equal(onToggleFavourite)
   })
 })
