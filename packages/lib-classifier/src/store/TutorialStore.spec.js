@@ -91,7 +91,7 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe('Model > TutorialStore', function () {
+describe.only('Model > TutorialStore', function () {
   it('should exist', function () {
     expect(TutorialStore).to.be.an('object')
   })
