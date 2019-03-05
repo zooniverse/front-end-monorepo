@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import theme from 'styled-theming'
-import { Icon } from 'grommet-icons'
 import zooTheme from '@zooniverse/grommet-theme'
 import { PlainButton } from '@zooniverse/react-components'
 import HeartIcon from './HeartIcon'
@@ -27,7 +26,7 @@ export default function FavouritesButton (props) {
   return (
     <PlainButton
       aria-checked={checked}
-      icon={<Favourite filled={checked} />}
+      icon={<Favourite filled={checked ? "true" : undefined} />}
       margin={{ vertical: 'small', left: 'none', right: 'medium' }}
       role='checkbox'
       text={counterpart(label)}

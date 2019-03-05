@@ -14,6 +14,11 @@ const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
 
 module.exports = {
   entry: './src/components/Classifier/index.js',
+  externals: {
+    react: 'react',
+    'react-dom': 'react-dom',
+    "styled-components": 'styled-components'
+  },
   mode: 'production',
   module: {
     rules: [

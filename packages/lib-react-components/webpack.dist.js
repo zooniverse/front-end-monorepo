@@ -3,10 +3,6 @@ const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
-  externals: {
-    react: 'react',
-    'react-dom': 'react-dom'
-  },
   mode: 'production',
   module: {
     rules: [
