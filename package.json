@@ -19,6 +19,7 @@
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "lerna run --parallel test",
     "test:ci": "nyc lerna run --parallel test:ci"
   },
   "engines": {
