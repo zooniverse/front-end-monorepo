@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
-const WorkboxPlugin = require('workbox-webpack-plugin')
+// const WorkboxPlugin = require('workbox-webpack-plugin')
+const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
@@ -8,17 +9,17 @@ const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   PANOPTES_ENV: 'production'
 })
 
-const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
-  swSrc: './src/workers/queue.js'
-})
+// const WorkboxPluginConfig = new WorkboxPlugin.InjectManifest({
+//   swSrc: './src/workers/queue.js'
+// })
 
 module.exports = {
   entry: './src/components/Classifier/index.js',
-  externals: {
-    react: 'react',
-    'react-dom': 'react-dom',
-    "styled-components": 'styled-components'
-  },
+  externals: [
+    /^(@zooniverse\/grommet-theme\/.*)$/i,
+    /^(@zooniverse\/panoptes-js\/.*)$/i,
+    /^(@zooniverse\/react-components\/.*)$/i
+  ],
   mode: 'production',
   module: {
     rules: [
@@ -38,7 +39,8 @@ module.exports = {
   },
   plugins: [
     EnvironmentWebpackPlugin,
-    WorkboxPluginConfig
+    new PeerDepsExternalsPlugin(),
+    // WorkboxPluginConfig
   ],
   resolve: {
     modules: [
