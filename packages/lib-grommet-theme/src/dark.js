@@ -3,7 +3,7 @@ export default {
     background: {
       border: 'midDarkGrey',
       container: '#333333',
-      dark: '#282828',
+      dark: '#272727',
       default: 'midDarkGrey'
     },
     button: {
@@ -26,9 +26,9 @@ export default {
     tabs: {
       activeBackground: '#333333',
       activeText: '#EFF2F5',
-      border: '#2D2D2D',
+      border: '#2D2D2D', // This is slightly lighter than #272727 so use polished's lighten('#272727', 2%)
       color: '#E2E5E9',
-      dimmedBackground: '#282828',
+      dimmedBackground: '#272727',
       dimmedText: '#A6A7A9'
     }
   },

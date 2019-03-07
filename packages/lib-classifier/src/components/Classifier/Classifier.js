@@ -68,11 +68,9 @@ export default class Classifier extends React.Component {
   render () {
     return (
       <Provider classifierStore={this.classifierStore}>
-        <Grommet theme={this.props.theme}>
-          <ThemeProvider theme={{ mode: this.props.mode }}>
-            <Layout />
-          </ThemeProvider>
-        </Grommet>
+        <ThemeProvider theme={{ mode: this.props.mode }}>
+          <Layout />
+        </ThemeProvider>
       </Provider>
     )
   }

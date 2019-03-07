@@ -1,9 +1,10 @@
 import React from 'react'
 import queryString from 'query-string'
+import _ from 'lodash'
 import { panoptes } from '@zooniverse/panoptes-js'
 import oauth from 'panoptes-client/lib/oauth'
-import { Button, Grommet, Box } from 'grommet'
-import theme from '@zooniverse/grommet-theme'
+import { Button, Grommet, Box, base as baseTheme } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
@@ -79,8 +80,10 @@ class App extends React.Component {
       )
     }
 
+    const mergedThemes = _.merge({}, baseTheme, zooTheme)
+
     return (
-      <Grommet theme={theme}>
+      <Grommet theme={mergedThemes}>
         <Box tag='header' pad='medium' align='end'>
           {this.state.user
             ? <Button onClick={this.logout.bind(this)} label='Logout' />
