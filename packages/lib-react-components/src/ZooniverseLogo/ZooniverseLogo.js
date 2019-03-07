@@ -1,10 +1,10 @@
 import React from 'react'
 import { string } from 'prop-types'
-import { Icon } from 'grommet-icons'
+import { Blank } from 'grommet-icons'
 
 export default function ZooniverseLogo ({ id, size, ...rest }) {
   return (
-    <Icon
+    <Blank
       role='img'
       viewBox='0 0 100 100'
       width={size}
@@ -20,7 +20,7 @@ export default function ZooniverseLogo ({ id, size, ...rest }) {
         <path d='M 0 -14 A 14 14 0 0 1 0 14 A 14 14 0 0 1 0 -14 Z' />
         <ellipse cx='0' cy='0' rx='6' ry='65' transform='rotate(50)' />
       </g>
-    </Icon>
+    </Blank>
   )
 }
 
