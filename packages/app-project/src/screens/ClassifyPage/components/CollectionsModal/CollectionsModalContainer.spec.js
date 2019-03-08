@@ -76,9 +76,18 @@ describe('Component > CollectionsModalContainer', function () {
         expect(select.prop('disabled')).to.be.false()
       })
 
-      it('should add subjects to the selected collection', function () {
-        select.simulate('submit')
-        expect(addSubjects).to.have.been.calledOnceWith('1', [])
+      describe('on submit', function () {
+        before(function () {
+          select.simulate('submit')
+        })
+
+        it('should add subjects to the selected collection', function () {
+          expect(addSubjects).to.have.been.calledOnceWith('1', [])
+        })
+
+        it('should close the modal', function () {
+          expect(wrapper.state().active).to.be.false()
+        })
       })
     })
   })
@@ -116,15 +125,24 @@ describe('Component > CollectionsModalContainer', function () {
       before(function () {
         create.simulate('change', query)
         create = wrapper.find(CreateCollection)
-        create.simulate('submit')
       })
 
       it('should not be disabled', function () {
         expect(create.prop('disabled')).to.be.false()
       })
 
-      it('should create a new collection with that name', function () {
-        expect(createCollection).to.have.been.calledOnceWith(query, [])
+      describe('on submit', function () {
+        before(function () {
+          create.simulate('submit')
+        })
+
+        it('should create a new collection with that name', function () {
+          expect(createCollection).to.have.been.calledOnceWith(query, [])
+        })
+
+        it('should close the modal', function () {
+          expect(wrapper.state().active).to.be.false()
+        })
       })
     })
   })

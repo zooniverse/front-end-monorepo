@@ -22,6 +22,7 @@ class CollectionsModalContainer extends Component {
   constructor () {
     super()
     this.addToCollection = this.addToCollection.bind(this)
+    this.close = this.close.bind(this)
     this.createCollection = this.createCollection.bind(this)
     this.onSelect = this.onSelect.bind(this)
     this.updateCollection = this.updateCollection.bind(this)
@@ -42,11 +43,17 @@ class CollectionsModalContainer extends Component {
   addToCollection () {
     const { selectedCollectionId } = this.state
     this.props.addSubjects(selectedCollectionId, [])
+    this.close()
   }
 
   createCollection () {
     const { newCollection } = this.state
     this.props.createCollection(newCollection, [])
+    this.close()
+  }
+
+  close () {
+    this.setState({ active: false })
   }
 
   onSelect (event) {
@@ -68,7 +75,7 @@ class CollectionsModalContainer extends Component {
     return (
       <CollectionsModal
         active={active}
-        closeFn={() => this.setState({ active: false })}
+        closeFn={this.close}
       >
         <SelectCollection
           collections={collections}
