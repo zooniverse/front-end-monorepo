@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import { Button, Drop, Text } from 'grommet'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
+import { darken, lighten } from 'polished'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const lightTeal = zooTheme.global.colors['accent-2']
 
 export const StyledBackButtonWrapper = styled.div`
   margin-right: 1ch;
@@ -17,17 +20,16 @@ export const StyledBackButtonWrapper = styled.div`
 
 export const StyledBackButton = styled(Button)`
   background-color: ${theme('mode', {
-    dark: zooTheme.dark.colors.background.default,
-    light: zooTheme.light.colors.background.default
+    dark: zooTheme.global.colors['dark-1'],
+    light: zooTheme.global.colors['light-1']
   })};
   border: ${theme('mode', {
-    dark: `thin solid ${zooTheme.dark.colors.font}`,
+    dark: `thin solid ${zooTheme.global.colors.text.dark}`,
     light: 'thin solid transparent'
   })};
-  border-radius: 0;
   color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: zooTheme.light.colors.font
+    dark: zooTheme.global.colors.text.dark,
+    light: zooTheme.global.colors.text.light
   })};
   height: 100%; /* Why is this needed? */
   padding: 0;
@@ -36,19 +38,19 @@ export const StyledBackButton = styled(Button)`
 
   &:focus, &:hover {
     background: ${theme('mode', {
-    dark: zooTheme.dark.colors.background.default,
+    dark: zooTheme.global.colors['dark-1'],
     light: `linear-gradient(
-        ${zooTheme.light.colors.button.answer.gradient.top},
-        ${zooTheme.light.colors.button.answer.gradient.bottom}
+        ${lighten(0.05, lightTeal)},
+        ${darken(0.11, lightTeal)}
       )`
   })};
     border: ${theme('mode', {
-    dark: `thin solid ${zooTheme.dark.colors.button.answer.default}`,
+    dark: `thin solid ${zooTheme.global.colors['dark-5']}`,
     light: 'thin solid transparent'
   })};
     box-shadow: none;
     color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
+    dark: zooTheme.global.colors.text.dark,
     light: 'black'
   })};
   }
@@ -61,8 +63,8 @@ export const StyledBackButtonToolTip = styled.span`
   bottom: '-100%';
   box-sizing: border-box;
   color: ${theme('mode', {
-    dark: zooTheme.global.colors.lightTeal,
-    light: zooTheme.global.colors.teal
+    dark: lightTeal,
+    light: zooTheme.global.colors.brand
   })};
   font-size: 0.9em;
   left: 0;
