@@ -3,15 +3,17 @@
 // Also for browsers that do not support Background Sync API
 
 import { panoptes } from '@zooniverse/panoptes-js'
+import { getBearerToken } from './'
 
 const FAILED_CLASSIFICATION_QUEUE_NAME = 'failed-classifications'
 const MAX_RECENTS = 10
 const RETRY_INTERVAL = 5 * 60 * 1000
 
 class ClassificationQueue {
-  constructor (api, onClassificationSaved) {
+  constructor (api, onClassificationSaved, authClient) {
     this.storage = window.localStorage
     this.apiClient = api || panoptes
+    this.authClient = authClient
     this.recents = []
     this.flushTimeout = null
     this.onClassificationSaved = onClassificationSaved || function () { return true }
@@ -58,33 +60,36 @@ class ClassificationQueue {
     }
 
     if (process.env.NODE_ENV !== 'test') console.log('Saving queued classifications:', pendingClassifications.length)
-    return Promise.all(pendingClassifications.map((classificationData) => {
-      return this.apiClient.post(this.endpoint, { classifications: classificationData })
-        .then((response) => {
-          if (response.ok) {
-            const savedClassification = response.body.classifications[0]
-            if (process.env.NODE_ENV !== 'test') console.log('Saved classification', savedClassification.id)
-            this.onClassificationSaved(savedClassification)
-            this.addRecent(savedClassification)
-          }
-        })
-        .catch((error) => {
-          if (process.env.NODE_ENV !== 'test') console.error('Failed to save a queued classification:', error)
-
-          if (error.status !== 422) {
-            try {
-              this.store(classificationData)
-              if (!this.flushTimeout) {
-                this.flushTimeout = setTimeout(this.flushToBackend.bind(this), RETRY_INTERVAL)
+    return getBearerToken(this.authClient)
+      .then((authorization) => {
+        return Promise.all(pendingClassifications.map((classificationData) => {
+          return this.apiClient.post(this.endpoint, { classifications: classificationData }, authorization)
+            .then((response) => {
+              if (response.ok) {
+                const savedClassification = response.body.classifications[0]
+                if (process.env.NODE_ENV !== 'test') console.log('Saved classification', savedClassification.id)
+                this.onClassificationSaved(savedClassification)
+                this.addRecent(savedClassification)
               }
-            } catch (saveQueueError) {
-              console.error('Failed to update classification queue:', saveQueueError)
-            }
-          } else {
-            console.error('Dropping malformed classification permanently', classificationData)
-          }
-        })
-    }))
+            })
+            .catch((error) => {
+              if (process.env.NODE_ENV !== 'test') console.error('Failed to save a queued classification:', error)
+
+              if (error.status !== 422) {
+                try {
+                  this.store(classificationData)
+                  if (!this.flushTimeout) {
+                    this.flushTimeout = setTimeout(this.flushToBackend.bind(this), RETRY_INTERVAL)
+                  }
+                } catch (saveQueueError) {
+                  console.error('Failed to update classification queue:', saveQueueError)
+                }
+              } else {
+                console.error('Dropping malformed classification permanently', classificationData)
+              }
+            })
+        }))
+      })
   }
 
   _loadQueue () {
