@@ -22,9 +22,15 @@ class CollectionsModalContainer extends Component {
   constructor () {
     super()
     this.addToCollection = this.addToCollection.bind(this)
+    this.createCollection = this.createCollection.bind(this)
     this.onSelect = this.onSelect.bind(this)
+    this.updateCollection = this.updateCollection.bind(this)
     this.state = {
       active: false,
+      newCollection: {
+        display_name: '',
+        private: false
+      },
       selectedCollectionId: null
     }
   }
@@ -38,14 +44,26 @@ class CollectionsModalContainer extends Component {
     this.props.addSubjects(selectedCollectionId, [])
   }
 
+  createCollection () {
+    const { newCollection } = this.state
+    this.props.createCollection(newCollection, [])
+  }
+
   onSelect (event) {
     const selectedCollectionId = event.value.id
     this.setState({ selectedCollectionId })
   }
 
+  updateCollection (collectionDetails) {
+    this.setState((prevState) => {
+      const newCollection = Object.assign({}, prevState.newCollection, collectionDetails)
+      return { newCollection }
+    })
+  }
+
   render () {
-    const { collections, createCollection, searchCollections } = this.props
-    const { active, selectedCollectionId } = this.state
+    const { collections, searchCollections } = this.props
+    const { active, newCollection, selectedCollectionId } = this.state
 
     return (
       <CollectionsModal
@@ -61,7 +79,10 @@ class CollectionsModalContainer extends Component {
           selected={selectedCollectionId}
         />
         <CreateCollection
-          onSubmit={createCollection}
+          disabled={!newCollection.display_name}
+          collection={newCollection}
+          onChange={this.updateCollection}
+          onSubmit={this.createCollection}
         />
       </CollectionsModal>
     )

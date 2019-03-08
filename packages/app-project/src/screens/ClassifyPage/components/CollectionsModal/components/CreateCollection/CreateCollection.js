@@ -8,14 +8,21 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function CreateCollection ({
-  disabled
+  collection,
+  disabled,
+  onChange,
+  onSubmit
 }) {
   const checkbox = React.createRef()
-  let isPrivate = false
-  function onTogglePrivate () {
-    isPrivate = !isPrivate
-    checkbox.current.checked = isPrivate
-    console.log(checkbox.current, checkbox.current.checked)
+  const textInput = React.createRef()
+  const { display_name, private: isPrivate } = collection
+  function updateCollection () {
+    const display_name = textInput.current.value
+    const isPrivate = checkbox.current.checked
+    onChange({
+      display_name,
+      private: isPrivate
+    })
   }
   return (
     <React.Fragment>
@@ -25,6 +32,9 @@ function CreateCollection ({
       >
         <TextInput
           id='collectionName'
+          onChange={updateCollection}
+          ref={textInput}
+          value={display_name}
         />
       </FormField>
       <Box
@@ -35,12 +45,13 @@ function CreateCollection ({
         <Button
           disabled={disabled}
           label={counterpart('CreateCollection.createButton')}
+          onClick={onSubmit}
         />
       </Box>
       <CheckBox
         checked={isPrivate}
-        label='Private collection'
-        onChange={onTogglePrivate}
+        label={counterpart('CreateCollection.private')}
+        onChange={updateCollection}
         ref={checkbox}
       />
     </React.Fragment>
@@ -48,9 +59,23 @@ function CreateCollection ({
 }
 
 CreateCollection.propTypes = {
+  collection: PropTypes.shape({
+    display_name: PropTypes.string,
+    private: PropTypes.bool
+  }),
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
 }
 
 CreateCollection.defaultProps = {
+  collection: {
+    display_name: '',
+    private: false
+  },
+  disabled: false,
+  onChange: () => true,
+  onSubmit: () => true
 }
 
 export default CreateCollection

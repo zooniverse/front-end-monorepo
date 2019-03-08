@@ -12,12 +12,14 @@ let componentWrapper
 
 describe('Component > CollectionsModalContainer', function () {
   let addSubjects = sinon.stub()
+  let createCollection = sinon.stub()
   let searchCollections = sinon.stub()
 
   before(function () {
     wrapper = shallow(
       <CollectionsModalContainer.wrappedComponent
         addSubjects={addSubjects}
+        createCollection={createCollection}
         searchCollections={searchCollections}
       />
     )
@@ -81,18 +83,49 @@ describe('Component > CollectionsModalContainer', function () {
     })
   })
 
-  it('should contain a form to create a new collection', function () {
-    const create = wrapper.find(CreateCollection)
-    expect(create).to.have.lengthOf(1)
-  })
+  describe('create a collection form', function () {
+    let create
 
-  describe('with a new collection name', function () {
-    it('should create a new collection with that name', function () {
-
+    before(function () {
+      create = wrapper.find(CreateCollection)
     })
 
-    it('should create a new collection with the supplied subjects', function () {
+    it('should exist', function () {
+      expect(create).to.have.lengthOf(1)
+    })
 
+    it('should be disabled by default', function () {
+      expect(create.prop('disabled')).to.be.true()
+    })
+
+    describe('on change', function () {
+      const query = { private: false, display_name: 'Hello' }
+
+      before(function () {
+        create.simulate('change', query)
+      })
+
+      it('should update collection details', function () {
+        expect(wrapper.state().newCollection).to.eql(query)
+      })
+    })
+
+    describe('with a collection name', function () {
+      const query = { private: false, display_name: 'Hello' }
+
+      before(function () {
+        create.simulate('change', query)
+        create = wrapper.find(CreateCollection)
+        create.simulate('submit')
+      })
+
+      it('should not be disabled', function () {
+        expect(create.prop('disabled')).to.be.false()
+      })
+
+      it('should create a new collection with that name', function () {
+        expect(createCollection).to.have.been.calledOnceWith(query, [])
+      })
     })
   })
 })

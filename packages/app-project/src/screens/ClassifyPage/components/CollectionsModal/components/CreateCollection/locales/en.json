@@ -1,6 +1,7 @@
 {
   "CreateCollection": {
     "label": "Create a new collection",
-    "createButton": "Create and add"
+    "createButton": "Create and add",
+    "private": "Private collection"
   }
 }
