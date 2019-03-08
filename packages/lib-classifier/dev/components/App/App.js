@@ -84,18 +84,20 @@ class App extends React.Component {
 
     return (
       <Grommet theme={mergedThemes}>
-        <Box tag='header' pad='medium' align='end'>
-          {this.state.user
-            ? <Button onClick={this.logout.bind(this)} label='Logout' />
-            : <Button onClick={this.login.bind(this)} label='Login' />
-          }
-        </Box>
-        <Box tag='section'>
-          <Classifier
-            authClient={oauth}
-            onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
-            project={this.state.project}
-          />
+        <Box as='main' background={zooTheme.global.colors['light-1']}>
+          <Box as='header' pad='medium' align='end'>
+            {this.state.user
+              ? <Button onClick={this.logout.bind(this)} label='Logout' />
+              : <Button onClick={this.login.bind(this)} label='Login' />
+            }
+          </Box>
+          <Box as='section'>
+            <Classifier
+              authClient={oauth}
+              onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
+              project={this.state.project}
+            />
+          </Box>
         </Box>
       </Grommet>
 
