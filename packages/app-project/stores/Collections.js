@@ -29,6 +29,7 @@ const Collections = types
         const user = getRoot(self).user
         if (project.id && user.id) {
           self.fetchFavourites()
+          self.searchCollections({ favorite: false })
         }
       })
       addDisposer(self, projectDisposer)
@@ -99,7 +100,9 @@ const Collections = types
       }),
 
       searchCollections: flow(function * searchCollections (query) {
+        console.log(query)
         self.collections = yield fetchCollections(query)
+        console.log(self.collections.length)
       }),
 
       fetchFavourites: flow(function * fetchFavourites () {
@@ -136,7 +139,7 @@ const Collections = types
         self.favourites = Collection.create(favourites)
       }),
 
-      removeSubjects: flow(function * removeSubjects(id, subjectIds) {
+      removeSubjects: flow(function * removeSubjects (id, subjectIds) {
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
         const params = {
