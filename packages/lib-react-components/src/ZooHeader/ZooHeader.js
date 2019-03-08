@@ -28,11 +28,12 @@ export const StyledLogoAnchor = styled(Anchor)`
   margin-right: 2em;
 
   &:hover, &:focus {
-    border-bottom-color: ${zooTheme.global.colors.teal};
+    border-bottom-color: ${zooTheme.global.colors.brand};
   }
 
   > svg {
     vertical-align: text-bottom;
+    width: 1em;
   }
 `
 

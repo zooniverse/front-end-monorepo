@@ -60,9 +60,9 @@ export default function ZooFooter (props) {
       <>
         <Box
           align='center'
-          background={zooTheme[colorTheme].zooFooter.background}
+          background={(colorTheme === 'light') ? 'white' : 'dark-1'}
           border={{
-            color: zooTheme.global.colors.brand,
+            color: 'brand',
             side: 'top',
             size: 'medium'
           }}
@@ -81,7 +81,7 @@ export default function ZooFooter (props) {
 
             <Box
               border={{
-                color: zooTheme.zooFooter.separator,
+                color: 'light-6',
                 side: 'bottom',
                 size: 'xsmall'
               }}
@@ -153,7 +153,7 @@ export default function ZooFooter (props) {
 
         <Box
           align='center'
-          background={zooTheme[colorTheme].zooFooter.lowerBackground}
+          background={(colorTheme === 'light') ? 'light-1' : 'dark-3'}
           direction='row'
           fill='horizontal'
           justify='between'

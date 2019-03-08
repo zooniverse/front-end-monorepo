@@ -1,6 +1,4 @@
 import deepFreeze from 'deep-freeze'
-// import light from './light'
-// import dark from './dark'
 
 const brand = '#00979d'
 
@@ -87,8 +85,8 @@ const colors = {
   placeholder: 'dark-6',
   statusColors,
   text: {
-    dark: 'light-3',
-    light: 'dark-5'
+    dark: lightGrey,
+    light: darkGrey
   }
 }
 
@@ -104,94 +102,6 @@ colorArray(neutralColors, 'neutral');
 Object.keys(statusColors).forEach((color) => {
   colors[`status-${color}`] = statusColors[color]
 })
-
-const light = {
-  colors: {
-    background: {
-      border: '#ebebeb', // light-2
-      default: lightestGrey // light-1
-    },
-    button: {
-      answer: {
-        disabled: midGrey, // light-5
-        gradient: {
-          top: '#C0E3E5', // lighten('#addde0', 5%) accent-2 color aka lightTeal
-          bottom: '#8BCED2' // darken('#addde0', 9%) accent-2 color aka lightTeal
-        }
-      },
-      done: '#078F52', // status.ok color
-      nextHover: '#ea9300' // adjust-hue('#f0b200', -7) neutral-4 color aka gold
-    },
-    foreground: '#404040', // dark-4
-    font: darkGrey, //dark-5
-    modal: {
-      background: 'white'
-    },
-    tabs: {
-      activeBackground: 'white',
-      activeText: 'black',
-      border: lightGrey, // light-3
-      color: 'black',
-      dimmedBackground: lightestGrey, // light-1
-      dimmedText: darkGrey // dark-5
-    }
-  },
-  zooFooter: {
-    background: 'white',
-    logoAndTagline: 'black',
-    linkList: {
-      title: brand,
-      item: darkGrey // dark-5
-    },
-    lowerBackground: lightestGrey // light-1
-  }
-}
-
-
-const dark = {
-  colors: {
-    background: {
-      border: darkBlack, // dark-1
-      container: darkerGrey, // dark-3
-      dark: lightBlack, // dark-2
-      default: darkBlack // dark-1
-    },
-    button: {
-      answer: {
-        default: darkGrey, // dark-5
-        gradient: {
-          top: '#004954', // darken('#005D69', 4%), neutral-2 aka darkTeal
-          bottom: '#002C31' // darken('#005D69', 11%), neutral-2 aka darkTeal
-        }
-      },
-      done: {
-        default: '#B8E986', // accent-1
-        hover: '#345446' // neutral-1
-      }
-    },
-    font: lightGrey, // light-3
-    modal: {
-      background: darkGrey // dark-5
-    },
-    tabs: {
-      activeBackground: darkestGrey, // dark-3
-      activeText: lightestGrey, // light-1
-      border: darkBlack, // dark-1
-      color: lightGrey, // light-3
-      dimmedBackground: lightBlack, // dark-2
-      dimmedText: midGrey // light-5
-    }
-  },
-  zooFooter: {
-    background: darkBlack, // dark-1
-    logoAndTagline: 'black',
-    linkList: {
-      title: lightTeal,
-      item: lightGrey // light-3
-    },
-    lowerBackground: darkestGrey // dark-3
-  }
-}
 
 const theme = deepFreeze({
   global: {
@@ -228,7 +138,7 @@ const theme = deepFreeze({
   },
   anchor: {
     color: {
-      dark: 'accent-2', // accent-2
+      dark: 'accent-2',
       light: 'brand'
     }
   },
@@ -240,40 +150,40 @@ const theme = deepFreeze({
   checkBox: {
     border: {
       color: {
-        dark: 'light-3', // light-3
-        light: 'dark-5' // dark-5
+        dark: 'light-3',
+        light: 'dark-5'
       }
     },
     check: {
       color: {
-        dark: 'accent-2', // accent-2
+        dark: 'accent-2',
         light: 'brand'
       }
     },
     hover: {
       border: {
         color: {
-          dark: 'accent-2', // accent-2
+          dark: 'accent-2',
           light: 'brand'
         }
       }
     },
     knob: {
       color: {
-        dark: 'accent-2', // accent-2
+        dark: 'accent-2',
         light: 'brand'
       }
     },
     toggle: {
       border: {
         color: {
-          dark: 'light-3', // light-3
-          light: 'dark-5' // dark-5
+          dark: 'light-3',
+          light: 'dark-5'
         }
       },
       color: {
-        dark: 'light-3', // light-3
-        light: 'dark-5' // dark-5
+        dark: 'light-3',
+        light: 'dark-5'
       }
     }
   },
@@ -308,9 +218,6 @@ const theme = deepFreeze({
       height: "42px",
       maxWidth: "816px"
     }
-  },
-  zooFooter: {
-    separator: moreMiddleGrey
   }
 })
 

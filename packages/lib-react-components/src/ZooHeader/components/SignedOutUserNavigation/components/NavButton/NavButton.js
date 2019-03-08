@@ -10,7 +10,7 @@ const StyledNavButton = styled(Button)`
   white-space: nowrap;
 
   &:hover, &:focus {
-    border-bottom-color: ${zooTheme.global.colors.teal};
+    border-bottom-color: ${zooTheme.global.colors.brand};
   }
 
   &:first-of-type {

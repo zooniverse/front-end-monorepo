@@ -1,8 +1,6 @@
 import { Anchor, Box } from 'grommet'
 import { arrayOf, string} from 'prop-types'
 import React from 'react'
-import { zipWith } from 'lodash'
-import zooTheme from '@zooniverse/grommet-theme'
 
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'

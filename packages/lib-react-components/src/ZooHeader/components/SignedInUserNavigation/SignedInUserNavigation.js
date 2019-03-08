@@ -58,13 +58,13 @@ export default function SignedInUserNavigation (props) {
         tag='nav'
       >
         <NavListItem
-          color={unreadNotifications ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+          color={unreadNotifications ? 'accent-2' : '#B2B2B2'}
           label={notificationLabel}
           unread={unreadNotifications}
           url={`${host}/notifications`}
         />
         <NavListItem
-          color={unreadMessages ? zooTheme.global.colors.lightTeal : '#B2B2B2'}
+          color={unreadMessages ? 'accent-2' : '#B2B2B2'}
           label={messagesLabel}
           unread={unreadMessages}
           url={`${host}/inbox`}
