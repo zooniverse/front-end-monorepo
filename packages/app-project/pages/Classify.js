@@ -1,5 +1,1 @@
-import React from 'react'
-
-import ClassifyPage from '../src/screens/ClassifyPage'
-
-export default () => <ClassifyPage />
+export { default } from '../src/screens/ClassifyPage'
