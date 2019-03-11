@@ -23,7 +23,7 @@ describe('<ZooFooter />', function () {
     it('should use the dark theme background color for its wrapping Box component', function () {
       wrapper = mount(<ZooFooter colorTheme='dark' />)
       const boxWrapper = wrapper.find('Box').first()
-      expect(boxWrapper.props().background).to.equal(zooTheme.dark.colors.background.default)
+      expect(boxWrapper.props().background).to.equal('dark-1')
     })
   })
 })
