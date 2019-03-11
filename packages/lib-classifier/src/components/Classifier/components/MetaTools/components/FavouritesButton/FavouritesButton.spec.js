@@ -46,7 +46,7 @@ describe('Component > FavouritesButton', function () {
     it('should display a filled icon', function () {
       const button = wrapper.find(PlainButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite filled="true" />)
+      expect(icon).to.deep.equal(<Favourite filled='true' />)
     })
 
     it('should be checked', function () {

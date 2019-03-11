@@ -89,5 +89,5 @@ Classifier.propTypes = {
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
-  theme: PropTypes.object,
+  theme: PropTypes.object
 }

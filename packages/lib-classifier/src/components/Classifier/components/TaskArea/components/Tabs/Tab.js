@@ -6,13 +6,13 @@ import { darken, lighten } from 'polished'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Tab } from 'grommet'
 
-function getTabColor(colorTheme, color) {
+function getTabColor (colorTheme, color) {
   if (colorTheme === 'light') return zooTheme.global.colors[color.light]
 
   return zooTheme.global.colors[color.dark]
 }
 
-function getHoverStyles(which, colorTheme) {
+function getHoverStyles (which, colorTheme) {
   const styles = {
     gradientTop: {
       dark: darken(0.04, zooTheme.global.colors['neutral-2']),
@@ -49,9 +49,9 @@ const StyledTab = styled(Tab)`
 
   &:hover, &:focus {
     background: ${props => props.active
-      ? 'inherit'
-      : `linear-gradient(${getHoverStyles('gradientTop', props.theme.mode)}, ${getHoverStyles('gradientBottom', props.theme.mode)})`
-    };
+    ? 'inherit'
+    : `linear-gradient(${getHoverStyles('gradientTop', props.theme.mode)}, ${getHoverStyles('gradientBottom', props.theme.mode)})`
+};
   }
 `
 
@@ -74,7 +74,7 @@ TaskTab.defaultProps = {
 
 TaskTab.propTypes = {
   theme: PropTypes.shape({
-    mode: PropTypes.oneOf(['light', 'dark']),
+    mode: PropTypes.oneOf(['light', 'dark'])
   }),
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired
 }

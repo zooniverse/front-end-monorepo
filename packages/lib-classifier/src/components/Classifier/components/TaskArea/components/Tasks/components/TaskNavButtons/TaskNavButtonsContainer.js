@@ -73,7 +73,7 @@ class TaskNavButtonsContainer extends React.Component {
     selectStep()
   }
 
- onSubmit (event) {
+  onSubmit (event) {
     event.preventDefault()
     const { completeClassification } = this.props
     this.createDefaultAnnotationIfThereIsNone()

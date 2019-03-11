@@ -20,13 +20,13 @@ class ImageToolbar extends Component {
     return (
       <aside {...props}>
         <Box
-          background={ mode === 'light' ? 'white' : '#333' }
+          background={mode === 'light' ? 'white' : '#333'}
           border={{
             color: mode === 'light' ? 'lightGrey' : '#333',
             side: 'all'
           }}
           pad='small'
-          >
+        >
           <AnnotateButton />
           <MoveButton />
           <ZoomInButton />
@@ -40,7 +40,6 @@ class ImageToolbar extends Component {
     )
   }
 }
-
 
 ImageToolbar.propTypes = {
   theme: shape({

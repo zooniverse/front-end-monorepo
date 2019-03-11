@@ -55,7 +55,7 @@ class TaskArea extends React.Component {
             </SpacedText>
           )}
         >
-          <Box background={ mode === 'light' ? 'white' : 'dark-1' }>
+          <Box background={mode === 'light' ? 'white' : 'dark-1'}>
             <Tasks />
           </Box>
         </Tab>
@@ -67,7 +67,7 @@ class TaskArea extends React.Component {
             </SpacedText>
           )}
         >
-          <Box background={ mode === 'light' ? 'white' : 'dark-1' }>
+          <Box background={mode === 'light' ? 'white' : 'dark-1'}>
             <SlideTutorial />
           </Box>
         </Tab>
@@ -80,7 +80,7 @@ TaskArea.propTypes = {
   disableTutorialTab: bool,
   setActiveTutorial: func,
   theme: shape({
-    mode: oneOf(['light', 'dark']),
+    mode: oneOf(['light', 'dark'])
   }),
   tutorial: object
 }

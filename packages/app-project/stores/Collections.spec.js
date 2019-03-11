@@ -46,15 +46,15 @@ describe('stores > Collections', function () {
       }
 
       collectionsStore.searchCollections(query)
-      .then(function () {
-        const params = {
-          authorization: 'Bearer ',
-          query
-        }
-        expect(collectionsStore.loadingState).to.equal(asyncStates.success)
-        expect(rootStore.client.collections.get).to.have.been.calledOnceWith(params)
-      })
-      .then(done, done)
+        .then(function () {
+          const params = {
+            authorization: 'Bearer ',
+            query
+          }
+          expect(collectionsStore.loadingState).to.equal(asyncStates.success)
+          expect(rootStore.client.collections.get).to.have.been.calledOnceWith(params)
+        })
+        .then(done, done)
 
       expect(collectionsStore.loadingState).to.equal(asyncStates.loading)
     })
@@ -66,14 +66,14 @@ describe('stores > Collections', function () {
       }
 
       collectionsStore.searchCollections(query)
-      .then(function () {
-        const results = getSnapshot(rootStore.collections.collections)
-        const expectedResult = collections.mocks.resources.collection
-        expect(results).to.have.lengthOf(1)
-        expect(results[0].id).to.eql(expectedResult.id)
-        expect(results[0].display_name).to.eql(expectedResult.display_name)
-      })
-      .then(done, done)
+        .then(function () {
+          const results = getSnapshot(rootStore.collections.collections)
+          const expectedResult = collections.mocks.resources.collection
+          expect(results).to.have.lengthOf(1)
+          expect(results[0].id).to.eql(expectedResult.id)
+          expect(results[0].display_name).to.eql(expectedResult.display_name)
+        })
+        .then(done, done)
     })
   })
 
@@ -109,7 +109,7 @@ describe('stores > Collections', function () {
     it('should create a new collection', function (done) {
       expect(collectionsStore.loadingState).to.equal(asyncStates.initialized)
 
-      collectionsStore.createCollection({ display_name: 'A new collection'}, [ '1', '2', '3' ])
+      collectionsStore.createCollection({ display_name: 'A new collection' }, [ '1', '2', '3' ])
         .then(function () {
           const payload = {
             authorization: 'Bearer ',

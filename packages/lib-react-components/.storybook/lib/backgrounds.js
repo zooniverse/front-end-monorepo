@@ -8,7 +8,7 @@ const backgrounds = [
   },
   {
     name: 'light',
-    value: zooTheme.global.colors['light-1'],
+    value: zooTheme.global.colors['light-1']
   },
   {
     name: 'dark',

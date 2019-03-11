@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider }   from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
 import zooTheme from '@zooniverse/grommet-theme'
 import { PlainButton } from '@zooniverse/react-components'
