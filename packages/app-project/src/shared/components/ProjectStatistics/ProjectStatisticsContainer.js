@@ -20,6 +20,7 @@ function storeMapper (stores) {
 class ProjectStatisticsContainer extends Component {
   render () {
     const {
+      className,
       classifications,
       completedSubjects,
       projectName,
@@ -29,6 +30,7 @@ class ProjectStatisticsContainer extends Component {
 
     return (
       <ProjectStatistics
+        className={className}
         classifications={classifications}
         completedSubjects={completedSubjects}
         projectName={projectName}

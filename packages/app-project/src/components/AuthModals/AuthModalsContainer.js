@@ -58,6 +58,7 @@ class AuthModalsContainer extends Component {
   render () {
     return (
       <AuthModals
+        className={this.props.className}
         closeLoginModal={this.closeLoginModal}
         closeRegisterModal={this.closeRegisterModal}
         showLoginModal={this.showLoginModal()}

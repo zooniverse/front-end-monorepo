@@ -68,7 +68,7 @@ class CompletionBar extends Component {
 
   render () {
     return (
-      <SVG ref={this.svgRef} height='40px' width='100%'>
+      <SVG className={this.props.className} ref={this.svgRef} height='40px' width='100%'>
         <rect height='100%' width='100%' fill={theme.global.colors['accent-2']} />
       </SVG>
     )

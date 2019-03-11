@@ -2,12 +2,25 @@
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-proposal-optional-chaining",
-    "babel-plugin-styled-components",
+    // "babel-plugin-styled-components",
     "dynamic-import-node"
   ],
   "presets": ["next/babel"],
   "env": {
+    "dev": {
+      "plugins": [
+        "babel-plugin-styled-components",
+      ]
+    },
+    "production": {
+      "plugins": [
+        "babel-plugin-styled-components",
+      ]
+    },
     "test": {
+      "plugins": [
+        "babel-plugin-styled-components",
+      ],
       "presets": [
         [
           "next/babel", {

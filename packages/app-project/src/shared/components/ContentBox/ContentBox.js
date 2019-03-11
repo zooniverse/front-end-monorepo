@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { node, string } from 'prop-types'
 import React from 'react'
 
-function ContentBox ({ children, linkLabel, linkUrl, mode, title }) {
+function ContentBox ({ className, children, linkLabel, linkUrl, mode, title }) {
   const showHeader = title || (linkLabel && linkUrl)
   return (
     <Box
@@ -14,6 +14,7 @@ function ContentBox ({ children, linkLabel, linkUrl, mode, title }) {
         side: 'all',
         size: 'thin'
       }}
+      className={className}
       elevation={mode === 'light' ? 'none' : 'large'}
       pad='medium'
     >

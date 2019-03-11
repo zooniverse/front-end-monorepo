@@ -4,9 +4,9 @@ import React from 'react'
 
 import AnimatedNumber from './components/AnimatedNumber'
 
-function Stat ({ label, value }) {
+function Stat ({ className, label, value }) {
   return (
-    <div>
+    <div className={className}>
       <Text color='light-3' tag='div' size='xxlarge'>
         <AnimatedNumber value={value} />
       </Text>

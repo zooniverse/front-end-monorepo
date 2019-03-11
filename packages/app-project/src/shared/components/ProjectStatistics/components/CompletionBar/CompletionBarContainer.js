@@ -14,9 +14,10 @@ function storeMapper (stores) {
 @observer
 class CompletionBarContainer extends Component {
   render () {
-    const { completeness } = this.props
+    const { className, completeness } = this.props
     return (
       <CompletionBar
+        className={className}
         completeness={completeness}
       />
     )

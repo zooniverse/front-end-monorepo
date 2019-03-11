@@ -9,9 +9,10 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function ConnectWithProject ({ projectName, urls }) {
+function ConnectWithProject ({ className, projectName, urls }) {
   return (
     <ContentBox
+      className={className}
       title={counterpart('ConnectWithProject.title', { projectName })}
     >
       <Grid columns={['1fr', '1fr']} gap='small' rows={['1fr']}>
