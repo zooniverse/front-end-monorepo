@@ -5,11 +5,11 @@ import React from 'react'
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'
 
-export default function LinkList ({ colorTheme, labels, urls }) {
+export default function LinkList ({ className, colorTheme, labels, urls }) {
   const [title, ...links] = zipLabelsAndUrls(labels, urls)
 
   return (
-    <Box direction='column' gap='xxsmall' tag='nav'>
+    <Box className={className} direction='column' gap='xxsmall' tag='nav'>
 
       <SpacedText weight='bold'>
         <Anchor href={title.url}>

@@ -8,20 +8,11 @@ import zooTheme from '@zooniverse/grommet-theme'
 const StyledAnchor = styled(Anchor)`
   &:focus > svg,
   &:hover > svg {
-    fill: ${(props) => (props.colorTheme === 'light') ?
-      zooTheme.global.colors['neutral-2'] :
-      zooTheme.global.colors['brand']}
-    !important;
+    fill: ${zooTheme.global.colors['accent-2']} !important;
   }
 `
 
-export default function SocialAnchor (props) {
-  const {
-    className,
-    colorTheme,
-    hrefs,
-    service
-  } = props
+export default function SocialAnchor ({ className, hrefs, service }) {
   const icons = {
     facebook: <FacebookOption size='25px' />,
     instagram: <Instagram size='25px' />,
@@ -31,7 +22,6 @@ export default function SocialAnchor (props) {
   return (
       <StyledAnchor
         className={className}
-        colorTheme={colorTheme}
         href={hrefs[service]}
         a11yTitle={service}
         icon={icons[service]}

@@ -1,9 +1,8 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
-import { Anchor, Box, Grid, Image } from 'grommet'
+import { Box, Grid, Image } from 'grommet'
 import { arrayOf, oneOf, node, string } from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 import LinkList from './components/LinkList'
 import PolicyLinkSection from './components/PolicyLinkSection'
@@ -42,6 +41,7 @@ export default function ZooFooter (props) {
     adminContainer,
     buildNavListLabels,
     buildNavListURLs,
+    className,
     colorTheme,
     getInvolvedNavListLabels,
     getInvolvedNavListURLs,
@@ -52,7 +52,8 @@ export default function ZooFooter (props) {
     projectNavListLabels,
     projectNavListURLs,
     talkNavListLabels,
-    talkNavListURLs
+    talkNavListURLs,
+    zooTagline
   } = props
 
   return (
@@ -64,20 +65,18 @@ export default function ZooFooter (props) {
         side: 'top',
         size: 'medium'
       }}
+      className={className}
       direction='column'
       pad={{
-        bottom: 'xlarge',
         top: 'large'
       }}
       responsive
       tag='footer'
-      {...props}
     >
       <Box
-        pad={{ horizontal: 'large' }}
+        pad={{ horizontal: 'large', bottom: 'xlarge' }}
         fill='horizontal'
       >
-
         <Box
           border={{
             color: 'light-6',
@@ -91,7 +90,7 @@ export default function ZooFooter (props) {
         >
           <LogoAndTagline
             colorTheme={colorTheme}
-            tagLine={props.zooTagline}
+            tagLine={zooTagline}
           />
           <Box
             align='end'
@@ -163,13 +162,9 @@ export default function ZooFooter (props) {
           labels={policyNavListLabels}
           urls={policyNavListURLs}
         />
-        <RelativeDiv>
+        <Box>
           {adminContainer}
-          <StyledEasterEgg
-            src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png'
-            alt=''
-          />
-        </RelativeDiv>
+        </Box>
       </Box>
     </Box>
   )
