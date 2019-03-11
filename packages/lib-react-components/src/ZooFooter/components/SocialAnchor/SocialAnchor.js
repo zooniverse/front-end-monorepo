@@ -15,7 +15,13 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-export default function SocialAnchor ({ colorTheme, hrefs, service }) {
+export default function SocialAnchor (props) {
+  const {
+    className,
+    colorTheme,
+    hrefs,
+    service
+  } = props
   const icons = {
     facebook: <FacebookOption size='25px' />,
     instagram: <Instagram size='25px' />,
@@ -24,6 +30,7 @@ export default function SocialAnchor ({ colorTheme, hrefs, service }) {
 
   return (
       <StyledAnchor
+        className={className}
         colorTheme={colorTheme}
         href={hrefs[service]}
         a11yTitle={service}

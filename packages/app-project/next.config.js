@@ -13,6 +13,8 @@ module.exports = {
     const modifiedConfig = Object.assign({}, config)
 
     modifiedConfig.resolve.alias['styled-components'] = path.resolve('.', 'node_modules', 'styled-components')
+    modifiedConfig.resolve.alias['grommet'] = path.resolve('.', 'node_modules', 'grommet')
+    modifiedConfig.resolve.alias['grommet-icons'] = path.resolve('.', 'node_modules', 'grommet-icons')
 
     return modifiedConfig
   }

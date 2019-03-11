@@ -8,9 +8,9 @@ function ContentBox ({ children, linkLabel, linkUrl, mode, title }) {
   const showHeader = title || (linkLabel && linkUrl)
   return (
     <Box
-      background={mode === 'light' ? 'white' : '#333'}
+      background={mode === 'light' ? 'white' : 'dark-3'}
       border={{
-        color: mode === 'light' ? 'lightGrey' : '#333',
+        color: mode === 'light' ? 'light-3' : 'dark-3',
         side: 'all',
         size: 'thin'
       }}
@@ -29,7 +29,7 @@ function ContentBox ({ children, linkLabel, linkUrl, mode, title }) {
           {title && (
             <Heading level='4' margin='none'>
               <SpacedText
-                color={mode === 'light' ? 'black' : 'lighterGrey'}
+                color={mode === 'light' ? 'black' : 'light-1'}
                 weight='bold'
               >
                 {title}

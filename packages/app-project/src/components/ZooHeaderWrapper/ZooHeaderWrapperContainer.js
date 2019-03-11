@@ -68,6 +68,7 @@ class ZooHeaderWrapperContainer extends Component {
   render () {
     return (
       <ZooHeader
+        {...this.props}
         register={this.openRegisterModal}
         signIn={this.openSignInModal}
         signOut={this.signOut}

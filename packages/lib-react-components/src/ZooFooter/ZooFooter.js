@@ -56,126 +56,122 @@ export default function ZooFooter (props) {
   } = props
 
   return (
-    <ThemeProvider theme={{ mode: colorTheme }}>
-      <>
+    <Box
+      align='center'
+      background={(colorTheme === 'light') ? 'white' : 'dark-1'}
+      border={{
+        color: 'brand',
+        side: 'top',
+        size: 'medium'
+      }}
+      direction='column'
+      pad={{
+        bottom: 'xlarge',
+        top: 'large'
+      }}
+      responsive
+      tag='footer'
+      {...props}
+    >
+      <Box
+        pad={{ horizontal: 'large' }}
+        fill='horizontal'
+      >
+
         <Box
-          align='center'
-          background={(colorTheme === 'light') ? 'white' : 'dark-1'}
           border={{
-            color: 'brand',
-            side: 'top',
-            size: 'medium'
+            color: 'light-6',
+            side: 'bottom',
+            size: 'xsmall'
           }}
-          direction='column'
-          pad={{
-            bottom: 'xlarge',
-            top: 'large'
-          }}
-          responsive
-          tag='footer'
+          direction='row-responsive'
+          justify='between'
+          margin={{ bottom: 'medium' }}
+          pad={{ bottom: 'medium' }}
         >
+          <LogoAndTagline
+            colorTheme={colorTheme}
+            tagLine={props.zooTagline}
+          />
           <Box
-            pad={{ horizontal: 'large' }}
-            fill='horizontal'
+            align='end'
+            direction='row'
+            gap='small'
+            justify='end'
+            responsive={false}
+            tag='nav'
           >
-
-            <Box
-              border={{
-                color: 'light-6',
-                side: 'bottom',
-                size: 'xsmall'
-              }}
-              direction='row-responsive'
-              justify='between'
-              margin={{ bottom: 'medium' }}
-              pad={{ bottom: 'medium' }}
-            >
-              <LogoAndTagline
-                colorTheme={colorTheme}
-                tagLine={props.zooTagline}
-              />
-              <Box
-                align='end'
-                direction='row'
-                gap='small'
-                justify='end'
-                responsive={false}
-                tag='nav'
-              >
-                <SocialAnchor colorTheme={colorTheme} service='facebook' />
-                <SocialAnchor colorTheme={colorTheme} service='twitter' />
-                <SocialAnchor colorTheme={colorTheme} service='instagram' />
-              </Box>
-            </Box>
-
-            <Grid
-              fill
-              gap='small'
-              columns={{
-                'count': 'fit',
-                'size': 'small'
-              }}
-              tag='section'
-            >
-              <LinkList
-                colorTheme={colorTheme}
-                labels={projectNavListLabels}
-                urls={projectNavListURLs}
-              />
-              <LinkList
-                colorTheme={colorTheme}
-                labels={aboutNavListLabels}
-                urls={aboutNavListURLs}
-              />
-              <LinkList
-                colorTheme={colorTheme}
-                labels={getInvolvedNavListLabels}
-                urls={getInvolvedNavListURLs}
-              />
-              <LinkList
-                colorTheme={colorTheme}
-                labels={talkNavListLabels}
-                urls={talkNavListURLs}
-              />
-              <LinkList
-                colorTheme={colorTheme}
-                labels={buildNavListLabels}
-                urls={buildNavListURLs}
-              />
-              <LinkList
-                colorTheme={colorTheme}
-                labels={newsNavListLabels}
-                urls={newsNavListURLs}
-              />
-            </Grid>
+            <SocialAnchor colorTheme={colorTheme} service='facebook' />
+            <SocialAnchor colorTheme={colorTheme} service='twitter' />
+            <SocialAnchor colorTheme={colorTheme} service='instagram' />
           </Box>
         </Box>
 
-        <Box
-          align='center'
-          background={(colorTheme === 'light') ? 'light-1' : 'dark-3'}
-          direction='row'
-          fill='horizontal'
-          justify='between'
-          pad={{
-            horizontal: 'large',
-            vertical: 'small'
+        <Grid
+          fill
+          gap='small'
+          columns={{
+            'count': 'fit',
+            'size': 'small'
           }}
+          tag='section'
         >
-          <PolicyLinkSection
-            labels={policyNavListLabels}
-            urls={policyNavListURLs}
+          <LinkList
+            colorTheme={colorTheme}
+            labels={projectNavListLabels}
+            urls={projectNavListURLs}
           />
-          <RelativeDiv>
-            {adminContainer}
-            <StyledEasterEgg
-              src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png'
-              alt=''
-            />
-          </RelativeDiv>
-        </Box>
-      </>
-    </ThemeProvider>
+          <LinkList
+            colorTheme={colorTheme}
+            labels={aboutNavListLabels}
+            urls={aboutNavListURLs}
+          />
+          <LinkList
+            colorTheme={colorTheme}
+            labels={getInvolvedNavListLabels}
+            urls={getInvolvedNavListURLs}
+          />
+          <LinkList
+            colorTheme={colorTheme}
+            labels={talkNavListLabels}
+            urls={talkNavListURLs}
+          />
+          <LinkList
+            colorTheme={colorTheme}
+            labels={buildNavListLabels}
+            urls={buildNavListURLs}
+          />
+          <LinkList
+            colorTheme={colorTheme}
+            labels={newsNavListLabels}
+            urls={newsNavListURLs}
+          />
+        </Grid>
+      </Box>
+      <Box
+        align='center'
+        background={(colorTheme === 'light') ? 'light-1' : 'dark-3'}
+        direction='row'
+        fill='horizontal'
+        justify='between'
+        pad={{
+          horizontal: 'large',
+          vertical: 'small'
+        }}
+      >
+        <PolicyLinkSection
+          labels={policyNavListLabels}
+          urls={policyNavListURLs}
+        />
+        <RelativeDiv>
+          {adminContainer}
+          <StyledEasterEgg
+            src='https://s3.amazonaws.com/zooniverse-static/assets/penguin.png'
+            alt=''
+          />
+        </RelativeDiv>
+      </Box>
+    </Box>
   )
 }
 

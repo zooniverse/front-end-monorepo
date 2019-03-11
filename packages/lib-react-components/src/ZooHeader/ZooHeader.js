@@ -62,6 +62,7 @@ export default function ZooHeader (props) {
       pad='none'
       responsive={false}
       tag='header'
+      {...props}
     >
       <Box
         align='center'
