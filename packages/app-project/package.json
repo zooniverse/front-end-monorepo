@@ -15,7 +15,8 @@
     "start": "npm run _check && NODE_ENV=production npm run _serve",
     "test": "npm run _test && exit 0",
     "test:ci": "npm run _test -- --reporter=min",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "static": "PANOPTES_ENV=production npm run build && next export"
   },
   "dependencies": {
     "@zooniverse/async-states": "~0.0.1",
