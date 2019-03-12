@@ -1,5 +1,5 @@
-import reducer from './reducer';
-import createRule from './create-rule';
+import reducer from './reducer'
+import createRule from './create-rule'
 
 export default {
   createRule,
@@ -8,4 +8,4 @@ export default {
   labComponent: null,
   validations: null,
   reducer
-};
+}

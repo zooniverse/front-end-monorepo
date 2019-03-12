@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import getFeedbackFromTasks from './get-feedback-from-tasks';
+import { expect } from 'chai'
+import getFeedbackFromTasks from './get-feedback-from-tasks'
 
 describe('Feedback: getFeedbackFromTasks', function () {
   const tasks = {
@@ -29,14 +29,14 @@ describe('Feedback: getFeedbackFromTasks', function () {
         }]
       }
     }
-  };
+  }
   it('should include tasks with feedback enabled', function () {
-    expect(getFeedbackFromTasks(tasks)).to.have.property('T0');
-  });
+    expect(getFeedbackFromTasks(tasks)).to.have.property('T0')
+  })
   it('should ignore tasks with feedback disabled', function () {
-    expect(getFeedbackFromTasks(tasks)).not.to.have.property('T1');
-  });
+    expect(getFeedbackFromTasks(tasks)).not.to.have.property('T1')
+  })
   it('should copy rules from tasks with feedback enabled', function () {
-    expect(getFeedbackFromTasks(tasks).T0).to.deep.equal(tasks.T0.feedback.rules);
-  });
-});
+    expect(getFeedbackFromTasks(tasks).T0).to.deep.equal(tasks.T0.feedback.rules)
+  })
+})

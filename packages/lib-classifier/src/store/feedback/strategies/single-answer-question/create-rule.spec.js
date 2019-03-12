@@ -20,7 +20,7 @@ describe('Feedback > Single Answer Question > Rule Creator', function () {
       defaultFailureMessage: 'failure',
       defaultSuccessMessage: 'success',
       strategy: '3',
-      successEnabled: true,
+      successEnabled: true
     }
     const rule = createRule(subjectRule, workflowRule)
     expect(rule.failureEnabled).to.equal(workflowRule.failureEnabled)
@@ -43,7 +43,7 @@ describe('Feedback > Single Answer Question > Rule Creator', function () {
       answer: '1',
       failureMessage: 'failure on subject',
       id: '2',
-      successMessage: 'success on subject',
+      successMessage: 'success on subject'
     }
 
     const workflowRule = {
@@ -51,7 +51,7 @@ describe('Feedback > Single Answer Question > Rule Creator', function () {
       defaultFailureMessage: 'failure',
       defaultSuccessMessage: 'success',
       strategy: '3',
-      successEnabled: true,
+      successEnabled: true
     }
     const rule = createRule(subjectRule, workflowRule)
     expect(rule.failureMessage).to.equal(subjectRule.failureMessage)
@@ -65,7 +65,7 @@ describe('Feedback > Single Answer Question > Rule Creator', function () {
       defaultFailureMessage: 'failure',
       defaultSuccessMessage: 'success',
       strategy: '3',
-      successEnabled: true,
+      successEnabled: true
     }
 
     it('should return an empty object if `answer` is missing', function () {
