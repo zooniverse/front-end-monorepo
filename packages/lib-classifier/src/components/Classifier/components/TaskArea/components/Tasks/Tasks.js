@@ -48,14 +48,13 @@ export class Tasks extends React.Component {
                 return (
                   <Box key={task.taskKey}>
                     <TaskComponent task={task} {...this.props} />
-                    {task.help &&
-                      <TaskHelp />}
                   </Box>
                 )
               }
 
               return (<div>Task component could not be rendered.</div>)
             })}
+            <TaskHelp />
             <TaskNavButtons />
           </Box>
       </ThemeProvider>
