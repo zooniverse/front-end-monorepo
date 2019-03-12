@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, getSnapshot, onAction, types } from 'mobx-state-tree'
 import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
@@ -169,6 +169,7 @@ const ClassificationStore = types
       const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
       delete classificationToSubmit.id // remove temp id
       classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
+      if (classificationToSubmit.metadata.feedback) classificationToSubmit.metadata.feedback = convertMapToArray(classificationToSubmit.metadata.feedback)
 
       const convertedMetadata = {}
       Object.entries(classificationToSubmit.metadata).forEach((entry) => {
