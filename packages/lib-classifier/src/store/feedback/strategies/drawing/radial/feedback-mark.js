@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-function FeedbackMark({ rule }) {
-  const color = (rule.success) ? 'green' : 'red';
+function FeedbackMark ({ rule }) {
+  const color = (rule.success) ? 'green' : 'red'
   return (
     <circle
       cx={rule.x}
@@ -10,10 +10,10 @@ function FeedbackMark({ rule }) {
       r={rule.tolerance}
       stroke={color}
       fill={color}
-      fillOpacity="0.5"
-      strokeOpacity="0.8"
+      fillOpacity='0.5'
+      strokeOpacity='0.8'
     />
-  );
+  )
 }
 
 FeedbackMark.propTypes = {
@@ -22,6 +22,6 @@ FeedbackMark.propTypes = {
     y: PropTypes.string,
     tolerance: PropTypes.string
   }).isRequired
-};
+}
 
-export default FeedbackMark;
+export default FeedbackMark

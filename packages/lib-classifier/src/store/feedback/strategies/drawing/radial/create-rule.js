@@ -1,6 +1,6 @@
-import ruleChecker from '../../../helpers/rule-checker';
+import ruleChecker from '../../../helpers/rule-checker'
 
-function createRule(subjectRule, workflowRule) {
+function createRule (subjectRule, workflowRule) {
   const rule = {
     failureEnabled: workflowRule.failureEnabled || false,
     hideSubjectViewer: workflowRule.hideSubjectViewer || false,
@@ -10,19 +10,19 @@ function createRule(subjectRule, workflowRule) {
     tolerance: subjectRule.tolerance || workflowRule.defaultTolerance,
     x: subjectRule.x,
     y: subjectRule.y
-  };
+  }
 
   if (rule.failureEnabled) {
     rule.failureMessage = subjectRule.failureMessage ||
-      workflowRule.defaultFailureMessage;
+      workflowRule.defaultFailureMessage
   }
 
   if (rule.successEnabled) {
     rule.successMessage = subjectRule.successMessage ||
-      workflowRule.defaultSuccessMessage;
+      workflowRule.defaultSuccessMessage
   }
 
-  return ruleChecker(rule);
+  return ruleChecker(rule)
 }
 
-export default createRule;
+export default createRule
