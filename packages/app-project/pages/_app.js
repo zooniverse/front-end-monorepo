@@ -1,5 +1,4 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
@@ -14,6 +13,8 @@ import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import initStore from '../stores'
+import ZooFooter from '../src/lib/lib-react-components/ZooFooter'
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -66,6 +67,25 @@ export default class MyApp extends App {
       this.store.project.fetch(slugFromUrl)
     }
   }
+
+  // render () {
+  //   const { Component, pageProps, theme } = this.props
+  //   return (
+  //     <Container>
+  //       <GlobalStyle />
+  //       <Provider store={this.store}>
+  //         <Grommet theme={theme}>
+  //           <Head />
+  //           <ZooHeaderWrapper />
+  //           <ProjectHeader />
+  //           <Component {...pageProps} />
+  //           <ZooFooter />
+  //           <AuthModals />
+  //         </Grommet>
+  //       </Provider>
+  //     </Container>
+  //   )
+  // }
 
   render () {
     const { Component, pageProps, theme } = this.props

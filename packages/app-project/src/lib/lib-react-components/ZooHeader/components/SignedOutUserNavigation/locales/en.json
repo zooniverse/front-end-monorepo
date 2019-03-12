@@ -1,0 +1,6 @@
+{
+  "SignedOutUserNavigation": {
+    "register": "Register",
+    "signIn": "Sign In"
+  }
+}

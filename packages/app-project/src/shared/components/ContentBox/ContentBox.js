@@ -1,8 +1,9 @@
-import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Heading } from 'grommet'
 import Link from 'next/link'
 import { node, string } from 'prop-types'
 import React from 'react'
+
+import SpacedText from '../../../lib/lib-react-components/SpacedText'
 
 function ContentBox ({ children, linkLabel, linkUrl, mode, title }) {
   const showHeader = title || (linkLabel && linkUrl)

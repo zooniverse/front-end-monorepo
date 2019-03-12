@@ -1,10 +1,11 @@
-import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Text } from 'grommet'
 import Link from 'next/link'
 import { shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+
+import SpacedText from '../../../../../lib/lib-react-components/SpacedText'
 
 import en from './locales/en'
 import formatUrlObject from './helpers/formatUrlObject'

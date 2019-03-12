@@ -1,0 +1,6 @@
+{
+  "BackButton": {
+    "back": "back",
+    "tooltip": "Going back will clear your work for the current task."
+  }
+}

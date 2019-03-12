@@ -1,10 +1,11 @@
-import { ZooHeader } from '@zooniverse/react-components'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 import Url from 'url-parse'
+
+import ZooHeader from '../../lib/lib-react-components/ZooHeader'
 
 function storeMapper (stores) {
   const { user } = stores.store
