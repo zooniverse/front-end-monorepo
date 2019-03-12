@@ -26,6 +26,7 @@ describe('Component > ClassifierWrapperContainer', function () {
 
   describe('with a project and user loaded', function () {
     let recents
+    let collections
 
     before(function () {
       const project = {
@@ -34,11 +35,16 @@ describe('Component > ClassifierWrapperContainer', function () {
       recents = {
         add: sinon.stub()
       }
+      collections = {
+        addFavourites: sinon.stub(),
+        removeFavourites: sinon.stub()
+      }
       const user = {
         loadingState: asyncStates.success
       }
       wrapper = shallow(
         <ClassifierWrapperContainer.wrappedComponent
+          collections={collections}
           project={project}
           recents={recents}
           user={user}
@@ -63,6 +69,18 @@ describe('Component > ClassifierWrapperContainer', function () {
       }
       wrapper.instance().onCompleteClassification({}, subject)
       expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+    })
+
+    describe('on toggle favourite', function () {
+      it('should add a subject to favourites', function () {
+        wrapper.instance().onToggleFavourite('3', true)
+        expect(collections.addFavourites.withArgs(['3'])).to.have.been.calledOnce()
+      })
+
+      it('should remove a subject from favourites', function () {
+        wrapper.instance().onToggleFavourite('3', false)
+        expect(collections.removeFavourites.withArgs(['3'])).to.have.been.calledOnce()
+      })
     })
   })
 })

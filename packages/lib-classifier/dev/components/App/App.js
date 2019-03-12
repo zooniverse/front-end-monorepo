@@ -91,6 +91,7 @@ class App extends React.Component {
           <Classifier
             authClient={oauth}
             onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
+            onToggleFavourite={(subjectId, isFave) => console.log(subjectId, isFave)}
             project={this.state.project}
           />
         </Box>

@@ -25,7 +25,6 @@ export default class MetaTools extends React.Component {
     this.toggleMetadataModal = this.toggleMetadataModal.bind(this)
 
     this.state = {
-      isFavourite: false,
       showMetadataModal: false
     }
   }
@@ -35,7 +34,8 @@ export default class MetaTools extends React.Component {
   }
 
   toggleFavourites () {
-    this.setState(prevState => ({ isFavourite: !prevState.isFavourite }))
+    const { subject } = this.props
+    subject.toggleFavorite()
   }
 
   render () {
@@ -53,7 +53,7 @@ export default class MetaTools extends React.Component {
             metadata={subject.metadata}
           />}
         <FavouritesButton
-          checked={this.state.isFavourite}
+          checked={subject && subject.favorite}
           onClick={this.toggleFavourites}
         />
         <CollectionsButton />

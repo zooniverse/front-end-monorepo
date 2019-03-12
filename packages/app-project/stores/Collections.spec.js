@@ -268,7 +268,7 @@ describe('stores > Collections', function () {
           const favourites = getSnapshot(collectionsStore.favourites)
           const params = {
             authorization: 'Bearer ',
-            collectionId: favourites.id,
+            id: favourites.id,
             subjects: ['1', '2']
           }
           expect(rootStore.client.collections.addSubjects).to.have.been.calledOnceWith(params)
@@ -316,11 +316,10 @@ describe('stores > Collections', function () {
           const favourites = getSnapshot(collectionsStore.favourites)
           const params = {
             authorization: 'Bearer ',
-            collectionId: favourites.id,
+            id: favourites.id,
             subjects: ['1', '2']
           }
           expect(rootStore.client.collections.removeSubjects).to.have.been.calledOnceWith(params)
-          expect(favourites.links.subjects).to.eql([])
         })
         .then(done, done)
     })
