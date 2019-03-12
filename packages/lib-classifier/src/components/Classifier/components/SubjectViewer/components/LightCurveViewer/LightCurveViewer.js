@@ -235,7 +235,7 @@ class LightCurveViewer extends Component {
         return { x, width }
       })
 
-    props.addAnnotation(annotations, props.currentTask)
+    props.addAnnotation(annotations, props.currentTask.toJSON())
   }
 
   /*

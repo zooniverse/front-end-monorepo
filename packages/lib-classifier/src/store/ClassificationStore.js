@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, onAction, types } from 'mobx-state-tree'
 import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
@@ -42,6 +42,24 @@ const ClassificationStore = types
   .actions(self => {
     function afterAttach () {
       createSubjectObserver()
+
+      onAction(self, (call) => {
+        const feedback = getRoot(self).feedback
+        switch (call.name) {
+          case 'addAnnotation': {
+            const [ value, task ] = call.args
+            return feedback.update({ task: task.taskKey, value })
+          }
+          case 'removeAnnotation': {
+            const [ task ] = call.args
+            const value = null
+            return feedback.update({ task, value })
+          }
+          default: {
+
+          }
+        }
+      })
     }
 
     function createSubjectObserver () {
@@ -118,8 +136,6 @@ const ClassificationStore = types
       if (classification) {
         const annotation = classification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
         annotation.value = annotationValue
-        const feedback = getRoot(self).feedback
-        if (feedback.isActive) feedback.update(annotation)
       }
     }
 
@@ -128,8 +144,6 @@ const ClassificationStore = types
       const workflow = getRoot(self).workflows.active
       const isPersistAnnotationsSet = workflow.configuration.persist_annotations
       if (classification && !isPersistAnnotationsSet) classification.annotations.delete(taskKey)
-      const feedback = getRoot(self).feedback
-      if (feedback.isActive) feedback.update({ task: taskKey, value: null })
     }
 
     function completeClassification () {

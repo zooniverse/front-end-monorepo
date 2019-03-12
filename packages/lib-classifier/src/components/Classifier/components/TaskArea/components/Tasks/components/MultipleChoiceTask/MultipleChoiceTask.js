@@ -34,7 +34,7 @@ class MultipleChoiceTask extends React.Component {
       const indexInValue = newAnnotationValue.indexOf(index)
       newAnnotationValue.splice(indexInValue, 1)
     }
-    addAnnotation(newAnnotationValue, task)
+    addAnnotation(newAnnotationValue, task.toJSON())
   }
 
   render () {

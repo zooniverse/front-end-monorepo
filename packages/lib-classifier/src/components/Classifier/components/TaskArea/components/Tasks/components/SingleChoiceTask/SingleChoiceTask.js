@@ -26,7 +26,7 @@ function storeMapper (stores) {
 class SingleChoiceTask extends React.Component {
   onChange (index, event) {
     const { addAnnotation, task } = this.props
-    if (event.target.checked) addAnnotation(index, task)
+    if (event.target.checked) addAnnotation(index, task.toJSON())
   }
 
   render () {
