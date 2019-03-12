@@ -1,6 +1,5 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
-import _ from 'lodash'
 
 import * as helpers from './feedback/helpers'
 import strategies from './feedback/strategies'
@@ -8,7 +7,7 @@ import strategies from './feedback/strategies'
 const FeedbackStore = types
   .model('FeedbackStore', {
     isActive: types.optional(types.boolean, false),
-    rules: types.frozen({})
+    rules: types.map(types.frozen({}))
   })
   .actions(self => {
     function afterAttach () {
@@ -38,16 +37,14 @@ const FeedbackStore = types
     }
 
     function update (annotation) {
-      const newRules = _.clone(self.rules)
       const { task, value } = annotation
-      const taskRules = newRules[task]
-      const newTaskRules = taskRules.map(rule => {
+      const taskRules = self.rules.get(task)
+      const updatedTaskRules = taskRules.map(rule => {
         const ruleReducer = strategies[rule.strategy].reducer
         return ruleReducer(rule, value)
       })
-      newRules[task] = newTaskRules
-      self.rules = newRules
-      console.log('updated feedback rules: ', newRules)
+      self.rules[task] = updatedTaskRules
+      console.log('updated feedback rules: ', self.rules.get(task))
     }
 
     function reset () {

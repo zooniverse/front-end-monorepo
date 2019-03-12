@@ -145,7 +145,7 @@ const ClassificationStore = types
       }
 
       const feedback = getRoot(self).feedback
-      if (feedback.isActive && feedback.rules) metadata.feedback = feedback.rules
+      if (feedback.isActive && feedback.rules) metadata.feedback = toJS(feedback.rules)
 
       // TODO store intervention metadata if we have a user...
       self.updateClassificationMetadata(metadata)
