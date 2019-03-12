@@ -19,6 +19,7 @@
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "dev": "cd packages/app-project && npm run dev",
     "test": "lerna run --parallel test",
     "test:ci": "nyc lerna run --parallel test:ci"
   },
