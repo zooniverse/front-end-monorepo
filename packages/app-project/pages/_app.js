@@ -8,7 +8,7 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
-import _ from 'lodash'
+import merge from 'lodash/merge'
 
 import AuthModals from '../src/components/AuthModals'
 import Head from '../src/components/Head'
@@ -70,7 +70,7 @@ export default class MyApp extends App {
 
   render () {
     const { Component, pageProps, theme } = this.props
-    const mergedThemes = _.merge({}, base, theme)
+    const mergedThemes = merge({}, base, theme)
     return (
       <Container>
         <GlobalStyle />

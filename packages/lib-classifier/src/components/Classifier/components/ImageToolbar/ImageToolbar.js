@@ -16,13 +16,13 @@ import ZoomOutButton from './components/ZoomOutButton'
 class ImageToolbar extends Component {
   render () {
     const { theme: { mode }, ...props } = this.props
-    // const mode = theme.mode
+
     return (
       <aside {...props}>
         <Box
-          background={mode === 'light' ? 'white' : '#333'}
+          background={mode === 'light' ? 'white' : 'dark-3'}
           border={{
-            color: mode === 'light' ? 'lightGrey' : '#333',
+            color: mode === 'light' ? 'light-3' : 'dark-3',
             side: 'all'
           }}
           pad='small'

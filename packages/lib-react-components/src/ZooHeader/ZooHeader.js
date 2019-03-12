@@ -41,7 +41,6 @@ export default function ZooHeader (props) {
   const {
     adminNavLinkLabel,
     adminNavLinkURL,
-    className,
     isAdmin,
     isNarrow,
     mainHeaderNavListLabels,
@@ -57,7 +56,6 @@ export default function ZooHeader (props) {
   return (
     <StyledHeader
       background='black'
-      className={className}
       direction='row'
       fill='horizontal'
       justify='between'

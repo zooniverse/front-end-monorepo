@@ -1,5 +1,6 @@
 import deepFreeze from 'deep-freeze'
 
+// Zooniverse brand: https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8
 const brand = '#00979d'
 
 // dark colors
