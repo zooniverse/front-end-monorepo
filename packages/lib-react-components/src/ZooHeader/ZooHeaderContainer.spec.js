@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import { ZooHeaderContainer } from './ZooHeaderContainer'
+import ZooHeaderContainer from './ZooHeaderContainer'
 import ZooHeader from './ZooHeader'
 
 describe('ZooHeaderContainer', function () {
@@ -14,6 +14,6 @@ describe('ZooHeaderContainer', function () {
   it('renders without crashing', function () { })
 
   it('renders ZooHeader', function () {
-    expect(wrapper.find(ZooHeader)).to.have.lengthOf(1)
+    expect(wrapper.dive().find(ZooHeader)).to.have.lengthOf(1)
   })
 })
