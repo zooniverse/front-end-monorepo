@@ -2,17 +2,17 @@ import { Anchor } from 'grommet'
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons'
 import { objectOf, oneOf, string } from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
 const StyledAnchor = styled(Anchor)`
   &:focus > svg,
   &:hover > svg {
-    fill: ${zooTheme.global.colors.lightBrand} !important;
+    fill: ${zooTheme.global.colors['accent-2']} !important;
   }
 `
 
-export default function SocialAnchor ({ hrefs, service }) {
+export default function SocialAnchor ({ className, hrefs, service }) {
   const icons = {
     facebook: <FacebookOption size='25px' />,
     instagram: <Instagram size='25px' />,
@@ -21,6 +21,7 @@ export default function SocialAnchor ({ hrefs, service }) {
 
   return (
       <StyledAnchor
+        className={className}
         href={hrefs[service]}
         a11yTitle={service}
         icon={icons[service]}

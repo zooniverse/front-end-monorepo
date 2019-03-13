@@ -19,7 +19,7 @@ export default function NarrowMenu (props) {
 }
 
 NarrowMenu.defaultProps = {
-  dropBackground: zooTheme.global.colors.teal,
+  dropBackground: 'brand',
   label: '',
   size: 'small'
 }

@@ -1,6 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { ZooFooter } from '@zooniverse/react-components'
-import { Grommet } from 'grommet'
+import { Grommet, base } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
@@ -8,6 +8,7 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
+import merge from 'lodash/merge'
 
 import AuthModals from '../src/components/AuthModals'
 import Head from '../src/components/Head'
@@ -69,11 +70,12 @@ export default class MyApp extends App {
 
   render () {
     const { Component, pageProps, theme } = this.props
+    const mergedThemes = merge({}, base, theme)
     return (
       <Container>
         <GlobalStyle />
         <Provider store={this.store}>
-          <Grommet theme={theme}>
+          <Grommet theme={mergedThemes}>
             <Head />
             <ZooHeaderWrapper />
             <ProjectHeader />

@@ -11,8 +11,8 @@ import SpacedText from '../SpacedText'
 // TODO: why isn't styled-theming working?
 function determineColor(theme) {
   return (theme === 'light')
-    ? zooTheme.global.colors.darkTeal
-    : zooTheme.global.colors.lightTeal
+    ? zooTheme.global.colors['neutral-2']
+    : zooTheme.global.colors['accent-2']
 }
 
 export const StyledPlainButton = styled(Button)`

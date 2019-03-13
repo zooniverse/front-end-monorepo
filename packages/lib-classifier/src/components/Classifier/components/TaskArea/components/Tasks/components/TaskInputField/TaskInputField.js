@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
+import { darken, lighten } from 'polished'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import TaskInputLabel from './components/TaskInputLabel'
@@ -11,45 +12,45 @@ import { pxToRem } from '@zooniverse/react-components'
 
 const DEFAULT = {
   backgroundColor: theme('mode', {
-    dark: zooTheme.dark.colors.container,
-    light: zooTheme.light.colors.background.default
+    dark: zooTheme.global.colors['dark-3'],
+    light: zooTheme.global.colors['light-1']
   }),
   border: theme('mode', {
-    dark: `2px solid ${zooTheme.dark.colors.font}`,
+    dark: `2px solid ${zooTheme.global.colors.text.dark}`,
     light: '2px solid transparent'
   }),
   color: theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: zooTheme.light.colors.font
+    dark: zooTheme.global.colors.text.dark,
+    light: zooTheme.global.colors.text.light
   })
 }
 
 const HOVER = {
   gradientTop: theme('mode', {
-    dark: zooTheme.dark.colors.button.answer.gradient.top,
-    light: zooTheme.light.colors.button.answer.gradient.top
+    dark: darken(0.04, zooTheme.global.colors['neutral-2']),
+    light: lighten(0.05, zooTheme.global.colors['accent-2'])
   }),
   gradientBottom: theme('mode', {
-    dark: zooTheme.dark.colors.button.answer.gradient.bottom,
-    light: zooTheme.light.colors.button.answer.gradient.bottom
+    dark: darken(0.11, zooTheme.global.colors['neutral-2']),
+    light: darken(0.11, zooTheme.global.colors['accent-2'])
   }),
   color: theme('mode', {
-    dark: zooTheme.dark.colors.font,
+    dark: zooTheme.global.colors.text.dark,
     light: 'black'
   })
 }
 
 const CHECKED = {
   background: theme('mode', {
-    dark: zooTheme.global.colors.teal,
-    light: zooTheme.global.colors.teal
+    dark: zooTheme.global.colors.brand,
+    light: zooTheme.global.colors.brand
   }),
   border: theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors.teal}`,
+    dark: `2px solid ${zooTheme.global.colors.brand}`,
     light: '2px solid transparent'
   }),
   color: theme('mode', {
-    dark: zooTheme.dark.colors.font,
+    dark: zooTheme.global.colors.text.dark,
     light: 'white'
   })
 }
@@ -64,6 +65,7 @@ export const StyledTaskLabel = styled.span`
   display: flex;
   margin: ${pxToRem(10)} 0;
   padding: ${props => (doesTheLabelHaveAnImage(props.label) ? '0' : '1ch 2ch')};
+  text-align: ${props => (doesTheLabelHaveAnImage(props.label) ? 'left' : 'center')};
   
   &:hover {
     background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
@@ -101,8 +103,8 @@ export const StyledTaskInputField = styled.label`
     border-width: 2px;
     border-style: solid;
     border-color: ${theme('mode', {
-    dark: zooTheme.global.colors.darkTeal,
-    light: zooTheme.global.colors.teal
+    dark: zooTheme.global.colors['neutral-2'],
+    light: zooTheme.global.colors.brand
   })};
     color: ${HOVER.color};
   }
@@ -116,8 +118,8 @@ export const StyledTaskInputField = styled.label`
   input:focus:checked + ${StyledTaskLabel},
   input:checked + ${StyledTaskLabel}:hover {
     border: ${theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors.darkTeal}`,
-    light: `2px solid ${zooTheme.global.colors.darkTeal}`
+    dark: `2px solid ${zooTheme.global.colors['neutral-2']}`,
+    light: `2px solid ${zooTheme.global.colors['neutral-2']}`
   })};
   }
 `

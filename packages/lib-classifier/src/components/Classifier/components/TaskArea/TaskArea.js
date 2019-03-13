@@ -1,4 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
@@ -37,13 +36,13 @@ class TaskArea extends React.Component {
 
     const border = {
       side: 'all',
-      color: zooTheme[mode].colors.tabs.border,
+      color: (mode === 'light') ? 'light-3' : 'dark-1',
       size: 'xsmall'
     }
 
     return (
       <Tabs
-        background={mode === 'light' ? 'white' : '#2d2d2d'}
+        background={mode === 'light' ? 'white' : 'dark-1'}
         border={border}
         className={this.props.className}
         margin='none'
@@ -56,7 +55,7 @@ class TaskArea extends React.Component {
             </SpacedText>
           )}
         >
-          <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
+          <Box background={mode === 'light' ? 'white' : 'dark-1'}>
             <Tasks />
           </Box>
         </Tab>
@@ -68,7 +67,7 @@ class TaskArea extends React.Component {
             </SpacedText>
           )}
         >
-          <Box background={ mode === 'light' ? 'white' : '#2d2d2d' }>
+          <Box background={mode === 'light' ? 'white' : 'dark-1'}>
             <SlideTutorial />
           </Box>
         </Tab>
@@ -81,13 +80,12 @@ TaskArea.propTypes = {
   disableTutorialTab: bool,
   setActiveTutorial: func,
   theme: shape({
-    mode: oneOf(['light', 'dark']),
+    mode: oneOf(['light', 'dark'])
   }),
   tutorial: object
 }
 
 TaskArea.defaultProps = {
-  colorTheme: 'light',
   disableTutorialTab: true,
   setActiveTutorial: () => {},
   theme: {

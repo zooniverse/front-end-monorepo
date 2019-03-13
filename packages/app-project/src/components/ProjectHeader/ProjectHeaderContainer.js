@@ -16,6 +16,7 @@ class ProjectHeaderContainer extends Component {
   render () {
     return (
       <ProjectHeader
+        className={this.props.className}
         title={this.props.project.display_name}
       />
     )

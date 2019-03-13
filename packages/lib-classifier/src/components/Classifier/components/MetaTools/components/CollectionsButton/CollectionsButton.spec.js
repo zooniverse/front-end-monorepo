@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import { PlainButton } from '@zooniverse/react-components'
@@ -24,12 +24,13 @@ describe('Component > CollectionsButton', function () {
 
   it('should call props.onClick on click', function () {
     const onClick = sinon.stub()
-    wrapper = shallow(
+    wrapper = mount(
       <CollectionsButton
         onClick={onClick}
       />
     )
-    wrapper.simulate('click')
+
+    wrapper.find('button').simulate('click')
     expect(onClick).to.have.been.calledOnce
   })
 })

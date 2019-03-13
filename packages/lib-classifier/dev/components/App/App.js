@@ -1,9 +1,10 @@
 import React from 'react'
 import queryString from 'query-string'
+import _ from 'lodash'
 import { panoptes } from '@zooniverse/panoptes-js'
 import oauth from 'panoptes-client/lib/oauth'
-import { Button, Grommet, Box } from 'grommet'
-import theme from '@zooniverse/grommet-theme'
+import { Button, Grommet, Box, base as baseTheme } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
@@ -79,21 +80,24 @@ class App extends React.Component {
       )
     }
 
+    const mergedThemes = _.merge({}, baseTheme, zooTheme)
+
     return (
-      <Grommet theme={theme}>
-        <Box tag='header' pad='medium' align='end'>
-          {this.state.user
-            ? <Button onClick={this.logout.bind(this)} label='Logout' />
-            : <Button onClick={this.login.bind(this)} label='Login' />
-          }
-        </Box>
-        <Box tag='section'>
-          <Classifier
-            authClient={oauth}
-            onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
-            onToggleFavourite={(subjectId, isFave) => console.log(subjectId, isFave)}
-            project={this.state.project}
-          />
+      <Grommet theme={mergedThemes}>
+        <Box as='main' background={zooTheme.global.colors['light-1']}>
+          <Box as='header' pad='medium' align='end'>
+            {this.state.user
+              ? <Button onClick={this.logout.bind(this)} label='Logout' />
+              : <Button onClick={this.login.bind(this)} label='Login' />
+            }
+          </Box>
+          <Box as='section'>
+            <Classifier
+              authClient={oauth}
+              onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
+              project={this.state.project}
+            />
+          </Box>
         </Box>
       </Grommet>
 

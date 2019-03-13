@@ -10,10 +10,12 @@ module.exports = {
   },
 
   webpack: (config) => {
-    const modifiedConfig = Object.assign({}, config)
-
-    modifiedConfig.resolve.alias['styled-components'] = path.resolve('.', 'node_modules', 'styled-components')
-
-    return modifiedConfig
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      grommet: path.resolve('.', 'node_modules', 'grommet'),
+      'grommet-icons': path.resolve('.', 'node_modules', 'grommet-icons'),
+      'styled-components': path.resolve('.', 'node_modules', 'styled-components')
+    }
+    return config
   }
 }

@@ -5,9 +5,9 @@ import { withResizeDetector } from 'react-resize-detector'
 import ZooHeader from './ZooHeader'
 
 function ZooHeaderContainer (props) {
-  const { width, breakpoint } = props
+  const { className, width, breakpoint } = props
   const isNarrow = width <= breakpoint
-  return <ZooHeader isNarrow={isNarrow} {...props} />
+  return <ZooHeader className={className} isNarrow={isNarrow} {...props} />
 }
 
 ZooHeaderContainer.defaultProps = {

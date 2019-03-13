@@ -5,7 +5,6 @@ import React from 'react'
 function Subtitle ({ mode, text, ...props }) {
   return (
     <Text
-      color={mode === 'light' ? 'black' : 'lightGrey'}
       {...props}
     >
       {text}

@@ -13,9 +13,9 @@ const StyledHeading = styled(Heading)`
 `
 
 function ProjectHeader (props) {
-  const { title } = props
+  const { className, title } = props
   return (
-    <Box pad='medium' background='teal'>
+    <Box className={className} pad='medium' background='brand'>
       <StyledHeading color='white' margin='none' size='small'>
         {title}
       </StyledHeading>

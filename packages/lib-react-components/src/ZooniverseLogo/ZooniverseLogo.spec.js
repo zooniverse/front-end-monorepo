@@ -1,6 +1,5 @@
 import { mount } from 'enzyme'
 import React from 'react'
-import { Icon } from 'grommet-icons'
 
 import ZooniverseLogo from './ZooniverseLogo'
 
@@ -18,14 +17,14 @@ describe('ZooniverseLogo', function () {
   })
 
   it('should use the `id` prop for `aria-labelledby` and `title`', function () {
-    const labelledby = wrapper.find(Icon).prop('aria-labelledby')
+    const labelledby = wrapper.find('svg').prop('aria-labelledby')
     const titleId = wrapper.find('title').prop('id')
     expect(labelledby).to.equal(ID)
     expect(titleId).to.equal(ID)
   })
 
   it('should set the height and width from the `size` prop', function () {
-    const svg = wrapper.find(Icon)
+    const svg = wrapper.find('svg')
     expect(svg.prop('height')).to.equal(SIZE)
     expect(svg.prop('width')).to.equal(SIZE)
   })
@@ -40,6 +39,6 @@ describe('ZooniverseLogo', function () {
       />
     )
 
-    expect(wrapperWithProps.find(Icon).prop('foo')).to.equal(FOO)
+    expect(wrapperWithProps.find('svg').prop('foo')).to.equal(FOO)
   })
 })

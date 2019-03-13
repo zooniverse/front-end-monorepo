@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from 'styled-theming'
+import { adjustHue } from 'polished'
 import counterpart from 'counterpart'
 import { Button, Text } from 'grommet'
 import { FormNextLink } from 'grommet-icons'
@@ -10,20 +11,22 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const gold = zooTheme.global.colors['neutral-4']
+
 // TODO: box-shadow, border-radius, and disabled likely can move into the grommet theme.
 export const StyledNextButton = styled(Button)`
   background: ${theme('mode', {
-    dark: zooTheme.dark.colors.background.default,
-    light: zooTheme.global.colors.gold
+    dark: zooTheme.global.colors['dark-1'],
+    light: gold
   })};
   border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.global.colors.gold}`,
-    light: `solid thin ${zooTheme.global.colors.gold}`
+    dark: `solid thin ${gold}`,
+    light: `solid thin ${gold}`
   })};
   border-radius: 0;
   box-shadow: none;
   color: ${theme('mode', {
-    dark: zooTheme.global.colors.gold,
+    dark: gold,
     light: 'black'
   })};
   flex: 3 0 auto;
@@ -32,23 +35,23 @@ export const StyledNextButton = styled(Button)`
 
   svg {
     fill: ${theme('mode', {
-    dark: zooTheme.global.colors.gold,
+    dark: gold,
     light: 'black'
   })};
     stroke: ${theme('mode', {
-    dark: zooTheme.global.colors.gold,
+    dark: gold,
     light: 'black'
   })};
   }
 
   &:hover:not(:disabled), &:focus:not(:disabled) {
     background: ${theme('mode', {
-    dark: zooTheme.global.colors.gold,
-    light: zooTheme.light.colors.button.nextHover
+    dark: gold,
+    light: adjustHue(-7, gold)
   })};
     border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.global.colors.gold}`,
-    light: `solid thin ${zooTheme.light.colors.button.nextHover}`
+    dark: `solid thin ${gold}`,
+    light: `solid thin ${adjustHue(-7, gold)}`
   })};
     box-shadow: none;
     color: ${theme('mode', {
@@ -67,7 +70,7 @@ function NextButton ({ autoFocus, disabled, classifierTheme, onClick }) {
     <ThemeProvider theme={{ mode: classifierTheme }}>
       <StyledNextButton
         autoFocus={autoFocus}
-        color={zooTheme.global.colors.gold}
+        color={gold}
         disabled={disabled}
         icon={<FormNextLink size='small' />}
         label={<Text size='small'>{counterpart('NextButton.next')}</Text>}

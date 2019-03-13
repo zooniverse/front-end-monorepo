@@ -176,7 +176,7 @@ const ClassificationStore = types
       }
     }
 
-    function setOnComplete(onComplete) {
+    function setOnComplete (onComplete) {
       self.onComplete = onComplete
     }
 

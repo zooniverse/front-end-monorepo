@@ -16,7 +16,7 @@ export default function NarrowMenuNavListItem ({ color, text }) {
 }
 
 NarrowMenuNavListItem.defaultProps = {
-  color: '#fff'
+  color: 'white'
 }
 
 NarrowMenuNavListItem.propTypes = {

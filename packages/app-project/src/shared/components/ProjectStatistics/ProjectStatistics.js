@@ -25,6 +25,7 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 function ProjectStatistics ({
+  className,
   classifications,
   completedSubjects,
   projectName,
@@ -33,6 +34,7 @@ function ProjectStatistics ({
 }) {
   return (
     <ContentBox
+      className={className}
       linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
       linkUrl='#'
       title={counterpart('ProjectStatistics.title', { projectName })}

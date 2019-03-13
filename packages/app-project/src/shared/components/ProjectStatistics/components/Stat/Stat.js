@@ -4,13 +4,13 @@ import React from 'react'
 
 import AnimatedNumber from './components/AnimatedNumber'
 
-function Stat ({ label, value }) {
+function Stat ({ className, label, value }) {
   return (
-    <div>
-      <Text color='#E2E5E9' tag='div' size='xxlarge'>
+    <div className={className}>
+      <Text color='light-3' tag='div' size='xxlarge'>
         <AnimatedNumber value={value} />
       </Text>
-      <Text color='#A6A7A9' size='small' tag='div' weight='bold'>
+      <Text color='dark-5' size='small' tag='div' weight='bold'>
         {label}
       </Text>
     </div>
