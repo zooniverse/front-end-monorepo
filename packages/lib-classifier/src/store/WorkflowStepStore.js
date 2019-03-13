@@ -39,11 +39,7 @@ const WorkflowStepStore = types
     get isThereTaskHelp () {
       const tasks = self.activeStepTasks
 
-      if (tasks.length > 0) {
-        return tasks.some(task => task.help)
-      }
-
-      return false
+      return tasks.some(task => task.help)
     }
   }))
   .actions(self => {
