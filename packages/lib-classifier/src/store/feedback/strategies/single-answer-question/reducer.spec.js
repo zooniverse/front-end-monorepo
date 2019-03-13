@@ -23,15 +23,27 @@ describe('Feedback > Single Answer Question > Reducer', function () {
     expect(result.success).to.be.false
   })
 
-  it('should handle a correct empty answer', function () {
+  it('should handle a correct undefined answer', function () {
     const rule = { answer: '-1' }
     const result = reducer(rule, undefined)
     expect(result.success).to.be.true
   })
 
-  it('should handle an incorrect empty answer', function () {
+  it('should handle an incorrect undefined answer', function () {
     const rule = { answer: '0' }
     const result = reducer(rule, undefined)
+    expect(result.success).to.be.false
+  })
+
+  it('should handle a correct null answer', function () {
+    const rule = { answer: '-1' }
+    const result = reducer(rule, null)
+    expect(result.success).to.be.true
+  })
+
+  it('should handle an incorrect null answer', function () {
+    const rule = { answer: '0' }
+    const result = reducer(rule, null)
     expect(result.success).to.be.false
   })
 })

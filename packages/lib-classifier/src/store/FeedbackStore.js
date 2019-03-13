@@ -20,7 +20,7 @@ const FeedbackStore = types
         const subject = getRoot(self).subjects.active
         if (subject) {
           self.reset()
-          self.createFeedbackRules(subject)
+          self.createRules(subject)
         }
       })
       addDisposer(self, subjectDisposer)
@@ -28,7 +28,7 @@ const FeedbackStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
-        onAction(getRoot(self), (call) => {
+        onAction(getRoot(self).classifications, (call) => {
           if (call.name === 'completeClassification') {
             const annotations = getRoot(self).classifications.currentAnnotations
             for (const value of annotations.values()) {
@@ -40,7 +40,7 @@ const FeedbackStore = types
       addDisposer(self, classificationDisposer)
     }
 
-    function createFeedbackRules (subject) {
+    function createRules (subject) {
       const project = getRoot(self).projects.active
       const workflow = getRoot(self).workflows.active
 
@@ -59,17 +59,16 @@ const FeedbackStore = types
         return ruleReducer(rule, value)
       })
       self.rules.set(task, updatedTaskRules)
-      console.log('updated feedback rules: ', self.rules.toJSON())
     }
 
     function reset () {
       self.isActive = false
-      self.rules = {}
+      self.rules.clear()
     }
 
     return {
       afterAttach,
-      createFeedbackRules,
+      createRules,
       update,
       reset
     }

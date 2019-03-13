@@ -37,7 +37,7 @@ describe('Model > FeedbackStore', function () {
     expect(FeedbackStore).to.be.an('object')
   })
 
-  describe('createFeedbackRules', function () {
+  describe('createRules', function () {
     const project = {
       id: '1'
     }
@@ -55,7 +55,7 @@ describe('Model > FeedbackStore', function () {
       feedback.workflows = {
         active: workflow
       }
-      feedback.createFeedbackRules(subject)
+      feedback.createRules(subject)
     })
 
     it('should set active state', function () {

@@ -12,6 +12,7 @@ import TaskHelpButton from './components/TaskHelpButton'
 import { default as TaskNavButtons } from './components/TaskNavButtons'
 
 function storeMapper (stores) {
+  // TODO remove feedback store, added so FeedbackStore afterAttach would run during initial store development
   const { isActive } = stores.classifierStore.feedback
   const { loadingState } = stores.classifierStore.workflows
   const { active: step } = stores.classifierStore.workflowSteps

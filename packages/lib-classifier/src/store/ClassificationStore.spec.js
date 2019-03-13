@@ -133,7 +133,7 @@ describe('Model > ClassificationStore', function () {
         type: 'classifications'
       })
       feedback = FeedbackStore.create(feedbackStub)
-      sinon.stub(feedback, 'createFeedbackRules')
+      sinon.stub(feedback, 'createRules')
       sinon.stub(feedback, 'update')
       sinon.stub(feedback, 'reset')
       const rootStore = RootStub.create(
@@ -167,7 +167,7 @@ describe('Model > ClassificationStore', function () {
     })
 
     after(function () {
-      feedback.createFeedbackRules.restore()
+      feedback.createRules.restore()
       feedback.update.restore()
       feedback.reset.restore()
     })
