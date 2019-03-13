@@ -26,7 +26,10 @@ find $NEW_CLASSIFIER_DIR -type f -name "*.js" | while read fname; do
     sed -i -e "s|${PKG}|${DIFF}|g" "$fname"
 
     # Maybe something's funky with my sed syntax, but it backs up the original
-    # as example.js-e, which we don't need.
-    rm "${fname}-e"
+    # as example.js-e, which we don't need. But only on OSX.
+    if [ -e "${fname}-e" ]
+    then
+      rm "${fname}-e"
+    fi
   fi
 done
