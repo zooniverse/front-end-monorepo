@@ -1,13 +1,22 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { withResizeDetector } from 'react-resize-detector'
+import ResizeDetector from 'react-resize-detector'
 
 import ZooHeader from './ZooHeader'
 
 function ZooHeaderContainer (props) {
-  const { width, breakpoint } = props
-  const isNarrow = width <= breakpoint
-  return <ZooHeader isNarrow={isNarrow} {...props} />
+  const { breakpoint, ...componentProps } = props
+  return (
+    <ResizeDetector
+      handleWidth
+      render={({ width }) => (
+        <ZooHeader
+          isNarrow={width <= breakpoint}
+          {...componentProps}
+        />
+      )}
+    />
+  )
 }
 
 ZooHeaderContainer.defaultProps = {
@@ -18,5 +27,4 @@ ZooHeaderContainer.propTypes = {
   breakpoint: PropTypes.number
 }
 
-export default withResizeDetector(ZooHeaderContainer)
-export { ZooHeaderContainer }
+export default ZooHeaderContainer
