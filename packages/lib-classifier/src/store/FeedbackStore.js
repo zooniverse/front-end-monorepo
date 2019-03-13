@@ -1,7 +1,7 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
 
-import * as helpers from './feedback/helpers'
+import helpers from './feedback/helpers'
 import strategies from './feedback/strategies'
 
 const FeedbackStore = types

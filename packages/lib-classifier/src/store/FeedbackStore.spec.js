@@ -2,6 +2,8 @@ import sinon from 'sinon'
 
 import FeedbackStore from './FeedbackStore'
 import strategies from './feedback/strategies'
+import helpers from './feedback/helpers'
+console.log(helpers)
 
 describe('Model > FeedbackStore', function () {
   let feedback
@@ -22,6 +24,8 @@ describe('Model > FeedbackStore', function () {
         }]
       }
     }
+    sinon.stub(helpers, 'isFeedbackActive').callsFake(() => feedbackStub.isActive)
+    sinon.stub(helpers, 'generateRules').callsFake(() => feedbackStub.rules)
     strategies.testStrategy = {
       reducer: sinon.stub().callsFake(rule => rule)
     }
@@ -31,6 +35,36 @@ describe('Model > FeedbackStore', function () {
   it('should exist', function () {
     expect(FeedbackStore).to.exist
     expect(FeedbackStore).to.be.an('object')
+  })
+
+  describe('createFeedbackRules', function () {
+    const project = {
+      id: '1'
+    }
+    const workflow = {
+      id: '2'
+    }
+    const subject = {
+      id: '3'
+    }
+
+    before(function () {
+      feedback.projects = {
+        active: project
+      }
+      feedback.workflows = {
+        active: workflow
+      }
+      feedback.createFeedbackRules(subject)
+    })
+
+    it('should set active state', function () {
+      expect(helpers.isFeedbackActive).to.have.been.calledOnceWith(project, subject, workflow)
+    })
+
+    it('should generate rules', function () {
+      expect(helpers.generateRules).to.have.been.calledOnceWith(subject, workflow)
+    })
   })
 
   describe('update', function () {
