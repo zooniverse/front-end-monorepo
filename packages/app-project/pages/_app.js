@@ -68,25 +68,6 @@ export default class MyApp extends App {
     }
   }
 
-  // render () {
-  //   const { Component, pageProps, theme } = this.props
-  //   return (
-  //     <Container>
-  //       <GlobalStyle />
-  //       <Provider store={this.store}>
-  //         <Grommet theme={theme}>
-  //           <Head />
-  //           <ZooHeaderWrapper />
-  //           <ProjectHeader />
-  //           <Component {...pageProps} />
-  //           <ZooFooter />
-  //           <AuthModals />
-  //         </Grommet>
-  //       </Provider>
-  //     </Container>
-  //   )
-  // }
-
   render () {
     const { Component, pageProps, theme } = this.props
     return (
