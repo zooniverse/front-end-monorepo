@@ -9,10 +9,6 @@ import DoneAndTalkButton from './components/DoneAndTalkButton'
 
 const classification = { gold_standard: false }
 
-const subject = { id: '1' }
-
-const project = { slug: 'zooniverse/my-project' }
-
 describe('TaskNavButtons', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<TaskNavButtons classification={classification} />)

@@ -24,10 +24,6 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class DoneAndTalkButtonContainer extends React.Component {
-  constructor () {
-    super()
-  }
-
   render () {
     const { 
       completed,
@@ -75,9 +71,13 @@ DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
   onClick: () => {},
-  project: PropTypes.object.isRequired,
+  project: PropTypes.shape({
+    slug: PropTypes.string
+  }).isRequired,
   shouldWeShowDoneAndTalkButton: PropTypes.bool,
-  subject: PropTypes.object.isRequired
+  subject: PropTypes.shape({
+    id: PropTypes.string
+  }).isRequired
 }
 
 export default DoneAndTalkButtonContainer
