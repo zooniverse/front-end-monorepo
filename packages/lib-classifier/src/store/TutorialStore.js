@@ -172,6 +172,7 @@ const TutorialStore = types
 
     function setActiveTutorial (id, stepIndex) {
       if (!id) return self.resetActiveTutorial()
+      console.log('calling setActiveTutorial')
       self.active = id
       self.setTutorialStep(stepIndex)
       self.setSeenTime()
@@ -209,12 +210,15 @@ const TutorialStore = types
     }
 
     function setModalVisibility (boolean) {
+      console.log('calling setModalVisibility')
       self.showModal = boolean
     }
 
     function showTutorialInModal() {
       const { tutorial } = self
+      console.log('tutorial', tutorial)
       if (tutorial && self.hasNotSeenTutorialBefore) {
+        console.log('has not seen before')
         self.setActiveTutorial(tutorial.id)
         self.setModalVisibility(true)
       }
