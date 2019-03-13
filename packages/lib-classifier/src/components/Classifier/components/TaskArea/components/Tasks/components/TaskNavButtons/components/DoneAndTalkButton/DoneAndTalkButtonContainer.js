@@ -62,7 +62,9 @@ DoneAndTalkButtonContainer.wrappedComponent.defaultProps = {
   disabled: false,
   goldStandardMode: false,
   onClick: () => {},
+  project: {},
   shouldWeShowDoneAndTalkButton: false,
+  subject: {}
 }
 
 DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
@@ -73,11 +75,11 @@ DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
   onClick: () => {},
   project: PropTypes.shape({
     slug: PropTypes.string
-  }).isRequired,
+  }),
   shouldWeShowDoneAndTalkButton: PropTypes.bool,
   subject: PropTypes.shape({
     id: PropTypes.string
-  }).isRequired
+  })
 }
 
 export default DoneAndTalkButtonContainer
