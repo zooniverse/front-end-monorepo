@@ -12,6 +12,7 @@ import TaskHelpButton from './components/TaskHelpButton'
 import { default as TaskNavButtons } from './components/TaskNavButtons'
 
 function storeMapper (stores) {
+  const { isActive } = stores.classifierStore.feedback
   const { loadingState } = stores.classifierStore.workflows
   const { active: step } = stores.classifierStore.workflowSteps
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks

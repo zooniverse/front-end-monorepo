@@ -9,6 +9,7 @@ let rootStore
 const RootStub = types
   .model('RootStore', {
     classifications: ClassificationStore,
+    feedback: types.frozen(),
     projects: types.frozen(),
     subjects: types.frozen(),
     workflows: types.frozen()
@@ -53,6 +54,7 @@ describe('Model > ClassificationStore', function () {
         resources: {},
         type: 'classifications'
       }),
+      feedback: { isActive: false },
       projects: { active: projectStub },
       subjects: { active: undefined },
       workflows: { active: workflowStub }
@@ -112,6 +114,7 @@ describe('Model > ClassificationStore', function () {
             resources: {},
             type: 'classifications'
           }),
+          feedback: { isActive: false },
           projects: { active: projectStub },
           subjects: { active: subject },
           workflows: { active: workflowStub }
