@@ -1,14 +1,12 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
-import theme from 'styled-theming'
+import { ThemeProvider } from 'styled-components'
 
 import getTaskComponent from './helpers/getTaskComponent'
-import TaskHelpButton from './components/TaskHelpButton'
+import TaskHelp from './components/TaskHelp'
 import { default as TaskNavButtons } from './components/TaskNavButtons'
 
 function storeMapper (stores) {
@@ -50,14 +48,13 @@ export class Tasks extends React.Component {
                 return (
                   <Box key={task.taskKey}>
                     <TaskComponent task={task} {...this.props} />
-                    {task.help &&
-                      <TaskHelpButton />}
                   </Box>
                 )
               }
 
               return (<div>Task component could not be rendered.</div>)
             })}
+            <TaskHelp />
             <TaskNavButtons />
           </Box>
       </ThemeProvider>
@@ -77,14 +74,12 @@ Tasks.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
   tasks: PropTypes.arrayOf(PropTypes.object),
   theme: PropTypes.string,
-
 }
 
 Tasks.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized,
   tasks: [],
   theme: 'light',
-
 }
 
 export default Tasks

@@ -34,6 +34,12 @@ const WorkflowStepStore = types
     isThereAPreviousStep () {
       const firstStep = self.steps.keys().next()
       return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
+    },
+
+    get isThereTaskHelp () {
+      const tasks = self.activeStepTasks
+
+      return tasks.some(task => task.help)
     }
   }))
   .actions(self => {
