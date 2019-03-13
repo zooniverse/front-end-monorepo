@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 set -ev
 
 relpath() { python -c "import os.path; print os.path.relpath('$1','${2:-$PWD}')" ; }
