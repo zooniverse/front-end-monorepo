@@ -1,4 +1,3 @@
-import { withKnobs, text } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Button } from 'grommet'
 import { func, string } from 'prop-types'
