@@ -42,7 +42,7 @@ const WorkflowStepStore = types
       return tasks.some(task => task.help)
     },
     
-    shouldWeShowDoneAndTalkButton () {
+    get shouldWeShowDoneAndTalkButton () {
       return true  // TEST
     }
   }))

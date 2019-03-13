@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { Box } from 'grommet'
 import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
@@ -8,6 +7,8 @@ import DoneAndTalkButton from './components/DoneAndTalkButton'
 import BackButton from './components/BackButton'
 
 export default function TaskNavButtons (props) {
+  const goldStandardMode = props.classification ? props.classification.goldStandard : false
+
   if (props.showNextButton) {
     return (
       <Box pad='small' direction='row'>
@@ -45,22 +46,21 @@ export default function TaskNavButtons (props) {
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
           onClick={props.goToPreviousStep}
         />}
-      {props.showDoneAndTalkLink &&
-        <DoneAndTalkButton
-          completed={props.completed}
-          demoMode={props.demoMode}
-          flex='grow'
-          goldStandardMode={props.classification ? props.classification.goldStandard : false}
-          onClick={props.completeClassification}
-          disabled={props.waitingForAnswer}
-          projectSlug={props.projectSlug}
-          subjectId={props.subjectId}
-        />}
+      <DoneAndTalkButton
+        completed={props.completed}
+        demoMode={props.demoMode}
+        flex='grow'
+        goldStandardMode={goldStandardMode}
+        onClick={props.onSubmit}
+        disabled={props.waitingForAnswer}
+        projectSlug={props.projectSlug}
+        subjectId={props.subjectId}
+      />
       <DoneButton
         completed={props.completed}
         demoMode={props.demoMode}
         flex='grow'
-        goldStandardMode={props.classification ? props.classification.goldStandard : false}
+        goldStandardMode={goldStandardMode}
         onClick={props.onSubmit}
         disabled={props.waitingForAnswer}
       />
@@ -76,12 +76,9 @@ TaskNavButtons.defaultProps = {
   goToPreviousStep: () => {},
   onSubmit: () => {},
   nextSubject: () => {},
-  projectSlug: '',
   showBackButton: false,
   showNextButton: false,
   showDoneAndTalkLink: false,
-  subjectId: '',
-  completeClassification: () => {},
   waitingForAnswer: false
 }
 
@@ -93,11 +90,7 @@ TaskNavButtons.propTypes = {
   goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
   onSubmit: PropTypes.func,
-  projectSlug: PropTypes.string,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
-  showDoneAndTalkLink: PropTypes.bool,
-  subjectId: PropTypes.string,
-  completeClassification: PropTypes.func,
   waitingForAnswer: PropTypes.bool
 }

@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { Box } from 'grommet'
+import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -28,12 +28,12 @@ export class Tasks extends React.Component {
   }
 
   [asyncStates.loading] () {
-    return (<div>Loading</div>)
+    return (<Paragraph>Loading</Paragraph>)
   }
 
   [asyncStates.error] () {
     console.error('There was an error loading the workflow steps and tasks.')
-    return (<div>Something went wrong</div>)
+    return (<Paragraph>Something went wrong</Paragraph>)
   }
 
   [asyncStates.success] () {
@@ -52,7 +52,7 @@ export class Tasks extends React.Component {
                 )
               }
 
-              return (<div>Task component could not be rendered.</div>)
+              return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
             <TaskHelp />
             <TaskNavButtons />

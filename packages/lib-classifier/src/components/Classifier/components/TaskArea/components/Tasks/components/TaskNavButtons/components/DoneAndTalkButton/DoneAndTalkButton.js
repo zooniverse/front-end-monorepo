@@ -25,7 +25,6 @@ export const StyledDoneAndTalkButton = styled(Button)`
     dark: `solid thin ${TALK_LINK_BLUE}`,
     light: `solid thin transparent`
   })};
-  border-radius: 0;
   color: white;
   cursor: pointer;
   flex: 3 0;
@@ -71,23 +70,6 @@ export const StyledDoneAndTalkButton = styled(Button)`
   }
   `
 
-export const StyledDisabledTalkPlaceholder = styled.span`
-  background: ${theme('mode', {
-    dark: zooTheme.dark.colors.background.default,
-    light: TALK_LINK_BLUE
-  })};
-  border: ${theme('mode', {
-    dark: `thin solid ${TALK_LINK_BLUE}`,
-    light: 'thin solid transparent'
-  })};
-  color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: 'white'
-  })};
-  cursor: not-allowed;
-  opacity: 0.5;
-  `
-
 function openTalkLinkAndClick (event, props) {
   props.onClick(event)
   
@@ -106,23 +88,13 @@ function openTalkLinkAndClick (event, props) {
 }
 
 export function DoneAndTalkButton (props) {
-  if (props.disabled) {
-    return (
-      <ThemeProvider theme={{ mode: props.theme }}>
-        <StyledDisabledTalkPlaceholder>
-          <Text size='small'>{counterpart('DoneAndTalkButton.doneAndTalk')}</Text>
-        </StyledDisabledTalkPlaceholder>
-      </ThemeProvider>
-    )
-  }
-  
   if (!props.completed) {
     return (
       <ThemeProvider theme={{ mode: props.theme }}>
         <StyledDoneAndTalkButton
           disabled={props.disabled}
           label={<Text size='small'>{counterpart('DoneAndTalkButton.doneAndTalk')}</Text>}
-          onClick={(e)=>{ openTalkLinkAndClick(e, props) }}
+          onClick={(e) => { openTalkLinkAndClick(e, props) }}
           type='submit'
         />
       </ThemeProvider>
@@ -134,12 +106,10 @@ export function DoneAndTalkButton (props) {
 
 DoneAndTalkButton.defaultProps = {
   completed: false,
-  demoMode: false,  // Holdover from DoneButton pattern - unknown if needed
+  demoMode: false,  // TODO: add demo mode to classifier
   disabled: false,
-  goldStandardMode: false,  // Holdover from DoneButton pattern - unknown if needed
+  goldStandardMode: false,  // TODO: add gold standard mode to classifier
   onClick: () => {},
-  projectSlug: undefined,
-  subjectId: undefined,
   theme: 'light'
 }
 
@@ -149,8 +119,8 @@ DoneAndTalkButton.propTypes = {
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
   onClick: PropTypes.func,
-  projectSlug: PropTypes.string,
-  subjectId: PropTypes.string,
+  projectSlug: PropTypes.string.isRequired,
+  subjectId: PropTypes.string.isRequired,
   theme: PropTypes.string
 }
 
