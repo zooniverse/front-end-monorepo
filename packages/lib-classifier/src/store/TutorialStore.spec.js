@@ -465,8 +465,8 @@ describe.only('Model > TutorialStore', function () {
     })
   })
 
-  describe('Actions > shouldTutorialBeShown', function (done) {
-    it('should show the tutorial for logged out users', function () {
+  describe.only('Actions > showTutorialInModal', function () {
+    it('should show the tutorial for logged out users', function (done) {
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
         tutorials: TutorialStore.create(),
@@ -474,37 +474,60 @@ describe.only('Model > TutorialStore', function () {
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
+      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id).then(() => {
-        expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-        expect(rootStore.tutorials.showModal).to.be.true
+        expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+        expect(setModalVisibilitySpy).to.have.been.calledOnce
+        // expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+        // expect(rootStore.tutorials.showModal).to.be.true
+      }).then(() => {
+        setActiveTutorialSpy.restore()
+        setModalVisibilitySpy.restore()
       }).then(done, done)
     })
 
-    it('should show the tutorial for logged in users without a seen timestamp for the loaded tutorial', function () {
+    it.only('should show the tutorial for logged in users without a seen timestamp for the loaded tutorial', function (done) {
       rootStore = RootStore.create({}, {
         authClient: authClientStubWithUser, client: clientStub()
       })
+      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
-      Promise.resolve(rootStore.userProjectPreferences.setUPP(upp)).then(() => {
-        expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-        expect(rootStore.tutorials.showModal).to.be.true
-      }).then(done, done)
+      rootStore.userProjectPreferences.setUPP(upp)
+      Promise.resolve()
+        .then(() => {
+          expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+          expect(setModalVisibilitySpy).to.have.been.calledOnce
+          // expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+          // expect(rootStore.tutorials.showModal).to.be.true
+        }).then(() => {
+          setActiveTutorialSpy.restore()
+          setModalVisibilitySpy.restore()
+        }).then(done, done)
     })
 
-    it.only('should not show the tutorial for logged in users with a seen timestamp for the loaded tutorial', function () {
+    it('should not show the tutorial for logged in users with a seen timestamp for the loaded tutorial', function (done) {
       rootStore = RootStore.create({}, {
         authClient: authClientStubWithUser, client: clientStub()
       })
+      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
       Promise.resolve(rootStore.userProjectPreferences.setUPP(uppWithTutorialTimeStamp)).then(() => {
-        expect(rootStore.tutorials.active).to.be.undefined
-        expect(rootStore.tutorials.showModal).to.be.false
+        expect(setActiveTutorialSpy).to.not.have.been.called
+        expect(setModalVisibilitySpy).to.not.have.been.called
+        // expect(rootStore.tutorials.active).to.be.undefined
+        // expect(rootStore.tutorials.showModal).to.be.false
+      }).then(() => {
+        setActiveTutorialSpy.restore()
+        setModalVisibilitySpy.restore()
       }).then(done, done)
     })
   })

@@ -104,7 +104,7 @@ const TutorialStore = types
       const uppDisposer = autorun(() => {
         const upp = getRoot(self).userProjectPreferences
         if (upp.loadingState === asyncStates.success) {
-          self.shouldTutorialBeShown()
+          self.showTutorialInModal()
         }
       })
       addDisposer(self, uppDisposer)
@@ -145,7 +145,7 @@ const TutorialStore = types
           tutorials.forEach(tutorial => self.fetchMedia(tutorial))
           self.setTutorials(tutorials)
           if (upp.loadingState === asyncStates.success) {
-            self.shouldTutorialBeShown()
+            self.showTutorialInModal()
           }
         }
         self.loadingState = asyncStates.success
@@ -172,6 +172,7 @@ const TutorialStore = types
 
     function setActiveTutorial (id, stepIndex) {
       if (!id) return self.resetActiveTutorial()
+      console.log('calling setActiveTutorial')
       self.active = id
       self.setTutorialStep(stepIndex)
       self.setSeenTime()
@@ -209,12 +210,15 @@ const TutorialStore = types
     }
 
     function setModalVisibility (boolean) {
+      console.log('calling setModalVisibility')
       self.showModal = boolean
     }
 
-    function shouldTutorialBeShown() {
+    function showTutorialInModal() {
       const { tutorial } = self
+      console.log('tutorial', tutorial)
       if (tutorial && self.hasNotSeenTutorialBefore) {
+        console.log('has not seen before')
         self.setActiveTutorial(tutorial.id)
         self.setModalVisibility(true)
       }
@@ -232,7 +236,7 @@ const TutorialStore = types
       setTutorialStep,
       setTutorials,
       setModalVisibility,
-      shouldTutorialBeShown
+      showTutorialInModal
     }
   })
 
