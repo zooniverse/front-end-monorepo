@@ -1,7 +1,0 @@
-{
-  "StepNavigation": {
-    "go": "Go to step %(index)s",
-    "next": "Go to next step",
-    "previous": "Go to previous step"
-  }
-}
