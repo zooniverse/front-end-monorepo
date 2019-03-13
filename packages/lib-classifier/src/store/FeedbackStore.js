@@ -53,7 +53,7 @@ const FeedbackStore = types
 
     function update (annotation) {
       const { task, value } = annotation
-      const taskRules = self.rules.get(task)
+      const taskRules = self.rules.get(task) || []
       const updatedTaskRules = taskRules.map(rule => {
         const ruleReducer = strategies[rule.strategy].reducer
         return ruleReducer(rule, value)
