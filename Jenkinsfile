@@ -4,19 +4,6 @@ timeout(20) {
   node {
     checkout scm
 
-    stage('test') {
-      def dockerRepoName = 'zooniverse/front-end-monorepo'
-      def dockerImageName = "${dockerRepoName}:${env.BUILD_ID}"
-      def testImage = docker.build(dockerImageName)
-      testImage.inside {
-        sh '''
-          cd /usr/src/
-          ./node_modules/.bin/lerna run build --scope="@zooniverse/grommet-theme"
-          ./node_modules/.bin/lerna run --stream test:ci
-        '''
-      }
-    }
-
     stage('publish: Docker images') {
       echo 'Publishing Docker images...'
       if (BRANCH_NAME == 'master') {
@@ -52,6 +39,8 @@ timeout(20) {
               -c /opt/infrastructure/stacks/fe-project-staging.yml \
               fe-project-staging
         """
+      } else {
+        echo 'Not on `master` branch, skipping stage'
       }
     }
 
