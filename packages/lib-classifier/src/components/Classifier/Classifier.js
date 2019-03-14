@@ -14,6 +14,7 @@ import {
 import { registerWorkers, unregisterWorkers } from '../../workers'
 import RootStore from 'src/store'
 import Layout from './components/Layout'
+import ModalTutorial from './components/ModalTutorial'
 import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
 const client = {
@@ -70,9 +71,14 @@ export default class Classifier extends React.Component {
   render () {
     return (
       <Provider classifierStore={this.classifierStore}>
-        <ThemeProvider theme={{ mode: this.props.mode }}>
-          <Layout />
-        </ThemeProvider>
+        <Grommet theme={this.props.theme}>
+          <ThemeProvider theme={{ mode: this.props.mode }}>
+            <>
+              <Layout />
+              <ModalTutorial />
+            </>
+          </ThemeProvider>
+        </Grommet>
       </Provider>
     )
   }
