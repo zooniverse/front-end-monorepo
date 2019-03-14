@@ -58,7 +58,7 @@ const uppWithTutorialTimeStamp = UPPFactory.build({
   }
 })
 
-const panoptesClient = stubPanoptesJs({ project_preferences: upp, workflows: workflow })
+const panoptesClient = stubPanoptesJs({ workflows: workflow })
 
 const clientStub = (tutorialResource = tutorial) => {
   return Object.assign({}, panoptesClient, {
@@ -91,7 +91,7 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe.only('Model > TutorialStore', function () {
+describe('Model > TutorialStore', function () {
   it('should exist', function () {
     expect(TutorialStore).to.be.an('object')
   })
@@ -465,7 +465,34 @@ describe.only('Model > TutorialStore', function () {
     })
   })
 
-  describe.only('Actions > showTutorialInModal', function () {
+  describe('Actions > showTutorialInModal', function () {
+    let clientStubWithUPP
+    let clientStubWithUPPTimestamp
+    before(function () {
+      const panoptesClientWithUPP = stubPanoptesJs({ project_preferences: upp, workflows: workflow })
+      const panoptesClientWithUPPTimestamp = stubPanoptesJs({ project_preferences: uppWithTutorialTimeStamp, workflows: workflow })
+      const tutorialsClient = { 
+        tutorials: {
+          get: sinon.stub().callsFake(() => {
+            return Promise.resolve({
+              body: {
+                tutorials: [tutorial]
+              }
+            })
+          }),
+          getAttachedImages: sinon.stub().callsFake(() => {
+            return Promise.resolve({
+              body: {
+                media: [medium]
+              }
+            })
+          })
+        }
+      }
+      clientStubWithUPP = Object.assign({}, tutorialsClient, panoptesClientWithUPP)
+      clientStubWithUPPTimestamp = Object.assign({}, tutorialsClient, panoptesClientWithUPPTimestamp)
+    })
+
     it('should show the tutorial for logged out users', function (done) {
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
@@ -478,33 +505,33 @@ describe.only('Model > TutorialStore', function () {
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
       rootStore.projects.setResource(project)
-      rootStore.projects.setActive(project.id).then(() => {
+      rootStore.projects.setActive(project.id)
+      rootStore.workflows.setActive(workflow.id).then(() => {
         expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
         expect(setModalVisibilitySpy).to.have.been.calledOnce
-        // expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-        // expect(rootStore.tutorials.showModal).to.be.true
+        expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+        expect(rootStore.tutorials.showModal).to.be.true
       }).then(() => {
         setActiveTutorialSpy.restore()
         setModalVisibilitySpy.restore()
       }).then(done, done)
     })
 
-    it.only('should show the tutorial for logged in users without a seen timestamp for the loaded tutorial', function (done) {
+    it('should show the tutorial for logged in users without a seen timestamp for the loaded tutorial', function (done) {
       rootStore = RootStore.create({}, {
-        authClient: authClientStubWithUser, client: clientStub()
+        authClient: authClientStubWithUser, client: clientStubWithUPP
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
-      rootStore.userProjectPreferences.setUPP(upp)
-      Promise.resolve()
+      rootStore.workflows.setActive(workflow.id)
         .then(() => {
           expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
           expect(setModalVisibilitySpy).to.have.been.calledOnce
-          // expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-          // expect(rootStore.tutorials.showModal).to.be.true
+          expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+          expect(rootStore.tutorials.showModal).to.be.true
         }).then(() => {
           setActiveTutorialSpy.restore()
           setModalVisibilitySpy.restore()
@@ -513,18 +540,18 @@ describe.only('Model > TutorialStore', function () {
 
     it('should not show the tutorial for logged in users with a seen timestamp for the loaded tutorial', function (done) {
       rootStore = RootStore.create({}, {
-        authClient: authClientStubWithUser, client: clientStub()
+        authClient: authClientStubWithUser, client: clientStubWithUPPTimestamp
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
-      Promise.resolve(rootStore.userProjectPreferences.setUPP(uppWithTutorialTimeStamp)).then(() => {
+      rootStore.workflows.setActive(workflow.id).then(() => {
         expect(setActiveTutorialSpy).to.not.have.been.called
         expect(setModalVisibilitySpy).to.not.have.been.called
-        // expect(rootStore.tutorials.active).to.be.undefined
-        // expect(rootStore.tutorials.showModal).to.be.false
+        expect(rootStore.tutorials.active).to.be.undefined
+        expect(rootStore.tutorials.showModal).to.be.false
       }).then(() => {
         setActiveTutorialSpy.restore()
         setModalVisibilitySpy.restore()

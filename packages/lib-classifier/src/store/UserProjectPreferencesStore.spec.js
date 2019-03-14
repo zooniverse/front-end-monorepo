@@ -159,7 +159,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         .then(() => {
           expect(getSpy).to.have.been.calledWith(
             '/project_preferences',
-            { project_id: '1', user_id: '1' },
+            { project_id: project.id, user_id: user.id },
             'Bearer 1234'
           )
         }).then(done, done)
