@@ -1,7 +1,8 @@
 import counterpart from 'counterpart'
-import { Box, Button, CheckBox, FormField, TextInput } from 'grommet'
+import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import en from './locales/en'
 
@@ -25,7 +26,11 @@ function CreateCollection ({
     })
   }
   return (
-    <form
+    <Grid
+      as='form'
+      columns={['2fr', '1fr']}
+      gap='small'
+      rows={['1fr']}
       method='post'
       action=''
       onSubmit={onSubmit}
@@ -58,7 +63,7 @@ function CreateCollection ({
         onChange={updateCollection}
         ref={checkbox}
       />
-    </form>
+    </Grid>
   )
 }
 

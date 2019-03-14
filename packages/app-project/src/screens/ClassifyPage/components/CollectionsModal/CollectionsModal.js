@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Grid } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
 
 import en from './locales/en'
@@ -19,9 +18,7 @@ function CollectionsModal ({
       closeFn={closeFn}
       title={counterpart('CollectionsModal.title')}
     >
-      <Grid columns={['2fr', '1fr']} gap='small' rows={['1fr']}>
-        {children}
-      </Grid>
+      {children}
     </Modal>
   )
 }

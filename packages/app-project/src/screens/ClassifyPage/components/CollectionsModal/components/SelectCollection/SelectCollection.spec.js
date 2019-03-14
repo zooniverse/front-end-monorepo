@@ -30,7 +30,7 @@ describe('Component > SelectCollection', function () {
   })
 
   it('should call the onSubmit callback on submit', function () {
-    wrapper.find('form').simulate('submit')
+    wrapper.find('Grid').simulate('submit')
     expect(onSubmit).to.have.been.calledOnce()
   })
 

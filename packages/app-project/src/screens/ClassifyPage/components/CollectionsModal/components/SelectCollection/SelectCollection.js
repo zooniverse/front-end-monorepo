@@ -1,7 +1,8 @@
 import counterpart from 'counterpart'
-import { Box, Button, FormField, Select } from 'grommet'
+import { Box, Button, FormField, Grid, Select } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import en from './locales/en'
 
@@ -16,7 +17,11 @@ function SelectCollection ({
   selected
 }) {
   return (
-    <form
+    <Grid
+      as='form'
+      columns={['2fr', '1fr']}
+      gap='small'
+      rows={['1fr']}
       method='post'
       action=''
       onSubmit={onSubmit}
@@ -51,7 +56,7 @@ function SelectCollection ({
           type='submit'
         />
       </Box>
-    </form>
+    </Grid>
   )
 }
 
