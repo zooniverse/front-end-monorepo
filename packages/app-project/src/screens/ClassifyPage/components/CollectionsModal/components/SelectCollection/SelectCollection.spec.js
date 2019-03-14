@@ -45,6 +45,10 @@ describe('Component > SelectCollection', function () {
       expect(select).to.have.lengthOf(1)
     })
 
+    it('should be empty by default', function () {
+      expect(select.prop('value')).to.eql({})
+    })
+
     it('should list collections', function () {
       expect(select.prop('options')).to.equal(collections)
     })
@@ -57,6 +61,12 @@ describe('Component > SelectCollection', function () {
         current_user_roles: 'owner,collaborator,contributor',
         search: searchText
       })
+    })
+    it('should display the selected collection', function () {
+      const collection = {id: '1', display_name: 'Selected collection'}
+      wrapper.setProps({selected: collection})
+      select = wrapper.find(Select)
+      expect(select.prop('value')).to.eql(collection)
     })
   })
 

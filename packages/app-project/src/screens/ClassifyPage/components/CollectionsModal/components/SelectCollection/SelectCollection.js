@@ -12,7 +12,8 @@ function SelectCollection ({
   disabled,
   onSelect,
   onSearch,
-  onSubmit
+  onSubmit,
+  selected
 }) {
   return (
     <form
@@ -36,6 +37,7 @@ function SelectCollection ({
           })}
           options={collections}
           valueKey='id'
+          value={selected}
         />
       </FormField>
       <Box
@@ -54,11 +56,13 @@ function SelectCollection ({
 }
 
 SelectCollection.propTypes = {
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  selected: PropTypes.shape({})
 }
 
 SelectCollection.defaultProps = {
-  disabled: false
+  disabled: false,
+  selected: {}
 }
 
 export default SelectCollection

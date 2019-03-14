@@ -32,15 +32,15 @@ class CollectionsModalContainer extends Component {
         display_name: '',
         private: false
       },
-      selectedCollectionId: null,
+      selectedCollection: undefined,
       subjectId: null
     }
   }
 
   addToCollection (event) {
     event.preventDefault()
-    const { selectedCollectionId, subjectId } = this.state
-    this.props.addSubjects(selectedCollectionId, [ subjectId ])
+    const { selectedCollection, subjectId } = this.state
+    this.props.addSubjects(selectedCollection.id, [ subjectId ])
     this.close()
   }
 
@@ -57,6 +57,7 @@ class CollectionsModalContainer extends Component {
       subjectId
     })
   }
+
   close () {
     const subjectId = null
     this.setState({
@@ -66,8 +67,8 @@ class CollectionsModalContainer extends Component {
   }
 
   onSelect (event) {
-    const selectedCollectionId = event.value.id
-    this.setState({ selectedCollectionId })
+    const selectedCollection = event.value
+    this.setState({ selectedCollection })
   }
 
   updateCollection (collectionDetails) {
@@ -79,7 +80,7 @@ class CollectionsModalContainer extends Component {
 
   render () {
     const { collections, searchCollections } = this.props
-    const { active, newCollection, selectedCollectionId } = this.state
+    const { active, newCollection, selectedCollection } = this.state
 
     return (
       <CollectionsModal
@@ -88,11 +89,11 @@ class CollectionsModalContainer extends Component {
       >
         <SelectCollection
           collections={collections}
-          disabled={!selectedCollectionId}
+          disabled={!selectedCollection}
           onSelect={this.onSelect}
           onSearch={searchCollections}
           onSubmit={this.addToCollection}
-          selected={selectedCollectionId}
+          selected={selectedCollection}
         />
         <CreateCollection
           disabled={!newCollection.display_name}
