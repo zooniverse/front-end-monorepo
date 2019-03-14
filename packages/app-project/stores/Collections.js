@@ -103,9 +103,7 @@ const Collections = types
       }),
 
       searchCollections: flow(function * searchCollections (query) {
-        console.log(query)
         self.collections = yield fetchCollections(query)
-        console.log(self.collections.length)
       }),
 
       fetchFavourites: flow(function * fetchFavourites () {
