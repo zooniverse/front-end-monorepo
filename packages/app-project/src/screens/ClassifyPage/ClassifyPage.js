@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { string } from 'prop-types'
 import React from 'react'
 
+import CollectionsModal from './components/CollectionsModal'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 
@@ -15,13 +16,22 @@ const ClassifierWrapper = dynamic(() =>
 )
 
 function ClassifyPage ({ mode }) {
+  const collectionsModal = React.createRef()
+  function addToCollection (subjectId) {
+    collectionsModal.current.wrappedInstance.open(subjectId)
+  }
   return (
     <Box
       background={mode === 'light' ? 'lighterGrey' : 'midDarkGrey'}
       pad={{ top: 'medium' }}
     >
+      <CollectionsModal
+        ref={collectionsModal}
+      />
       <Grid gap='medium' margin='medium'>
-        <ClassifierWrapper />
+        <ClassifierWrapper
+          onAddToCollection={addToCollection}
+        />
         <FinishedForTheDay />
         <ProjectStatistics />
         <ConnectWithProject />

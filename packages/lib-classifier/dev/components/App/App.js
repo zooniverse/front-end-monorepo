@@ -94,6 +94,7 @@ class App extends React.Component {
           <Box as='section'>
             <Classifier
               authClient={oauth}
+              onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               project={this.state.project}
             />

@@ -21,12 +21,18 @@ export default class MetaTools extends React.Component {
   constructor () {
     super()
 
+    this.addToCollection = this.addToCollection.bind(this)
     this.toggleFavourites = this.toggleFavourites.bind(this)
     this.toggleMetadataModal = this.toggleMetadataModal.bind(this)
 
     this.state = {
       showMetadataModal: false
     }
+  }
+
+  addToCollection () {
+    const { subject } = this.props
+    subject.addToCollection()
   }
 
   toggleMetadataModal () {
@@ -56,7 +62,9 @@ export default class MetaTools extends React.Component {
           checked={subject && subject.favorite}
           onClick={this.toggleFavourites}
         />
-        <CollectionsButton />
+        <CollectionsButton
+          onClick={this.addToCollection}
+        />
       </Box>
     )
   }

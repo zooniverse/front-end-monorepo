@@ -39,4 +39,10 @@ describe('Model > RootStore', function () {
     model.setOnToggleFavourite(onToggleFavourite)
     expect(model.onToggleFavourite).to.equal(onToggleFavourite)
   })
+
+  it('should have an onAddToCollection callback', function () {
+    const addToCollection = sinon.stub()
+    model.setOnAddToCollection(addToCollection)
+    expect(model.onAddToCollection).to.equal(addToCollection)
+  })
 })

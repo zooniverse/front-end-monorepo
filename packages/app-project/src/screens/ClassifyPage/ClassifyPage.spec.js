@@ -4,6 +4,7 @@ import React from 'react'
 import ClassifyPage from './ClassifyPage'
 import FinishedForTheDay from './components/FinishedForTheDay'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
+import CollectionsModal from './components/CollectionsModal'
 
 let wrapper
 
@@ -22,5 +23,9 @@ describe('Component > ClassifyPage', function () {
 
   it('should render the `ProjectStatistics` component', function () {
     expect(wrapper.find(ProjectStatistics)).to.have.lengthOf(1)
+  })
+
+  it('should render the `CollectionsModal` component', function () {
+    expect(wrapper.find(CollectionsModal)).to.have.lengthOf(1)
   })
 })

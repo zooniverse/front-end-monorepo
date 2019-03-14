@@ -15,9 +15,7 @@ function storeMapper (stores) {
 @observer
 class ClassifyPageContainer extends Component {
   render () {
-    return (
-      <ClassifyPage {...this.props} />
-    )
+    return <ClassifyPage {...this.props} />
   }
 }
 

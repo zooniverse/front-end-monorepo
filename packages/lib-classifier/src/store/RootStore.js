@@ -25,15 +25,22 @@ const RootStore = types
 
   .volatile(self => {
     return {
+      onAddToCollection: () => true,
       onToggleFavourite: () => true
     }
   })
 
   .actions(self => {
+    function setOnAddToCollection (callback) {
+      self.onAddToCollection = callback
+    }
+
     function setOnToggleFavourite (callback) {
       self.onToggleFavourite = callback
     }
+
     return {
+      setOnAddToCollection,
       setOnToggleFavourite
     }
   })
