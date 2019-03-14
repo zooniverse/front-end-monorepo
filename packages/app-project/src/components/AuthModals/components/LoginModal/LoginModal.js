@@ -23,6 +23,7 @@ class LoginModal extends Component {
 
   render () {
     const {
+      className,
       closeLoginModal,
       error,
       loading,
@@ -31,6 +32,7 @@ class LoginModal extends Component {
 
     return (
       <Layer
+        className={className}
         onClickOutside={closeLoginModal}
         onEsc={closeLoginModal}
       >

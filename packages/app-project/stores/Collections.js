@@ -44,8 +44,7 @@ const Collections = types
         const { collections } = response.body
         self.loadingState = asyncStates.success
         return collections
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error.message)
         self.error = error
         self.loadingState = asyncStates.error
@@ -69,8 +68,7 @@ const Collections = types
         self.loadingState = asyncStates.success
         const [ collection ] = response.body.collections
         return collection
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error.message)
         self.error = error
         self.loadingState = asyncStates.error
@@ -84,12 +82,12 @@ const Collections = types
         createProjectObserver()
       },
 
-      createCollection: flow(function * createCollection (options, subjectIds=[]) {
+      createCollection: flow(function * createCollection (options, subjectIds = []) {
         const collection = yield newCollection(options, subjectIds)
         return collection
       }),
 
-      createFavourites: flow(function * createFavourites (subjectIds=[]) {
+      createFavourites: flow(function * createFavourites (subjectIds = []) {
         const { project } = getRoot(self)
         const options = {
           display_name: `Favorites ${project.slug}`,

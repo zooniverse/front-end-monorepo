@@ -1,13 +1,12 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 
 function ModalBody ({
   children,
   colorTheme
 }) {
-  const background = zooTheme[colorTheme].colors.modal.background
+  const background = (colorTheme === 'light') ? 'white' : 'dark-5'
   return (
     <Box
       background={background}

@@ -17,7 +17,7 @@ const backgroundStyles = theme('mode', {
   `,
   dark: css`
     fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : '#2d2d2d'};
-  `,
+  `
 })
 
 const Background = styled.circle`
@@ -31,7 +31,7 @@ const iconSVGStyles = theme('mode', {
   `,
   dark: css`
     fill: white;
-  `,
+  `
 })
 
 const IconSVG = styled.svg`

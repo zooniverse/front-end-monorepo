@@ -23,7 +23,7 @@ storiesOf('Tooltip', module)
       align={{
         top: 'bottom'
       }}
-      backgroundColor={zooTheme.light.colors.background.default}
+      backgroundColor='light-1'
       label={text('Label text', 'Hover over me')}
       showDropKnob={boolean('Show tooltip')}
       tooltipText={text('Tooltip text', 'A helpful tip')}
@@ -34,7 +34,7 @@ storiesOf('Tooltip', module)
       align={{
         top: 'bottom'
       }}
-      backgroundColor={zooTheme.dark.colors.background.default}
+      backgroundColor='dark-1'
       label={text('Label text', 'Hover over me')}
       showDropKnob={boolean('Show tooltip')}
       tooltipText={text('Tooltip text', 'A helpful tip')}
@@ -49,7 +49,7 @@ storiesOf('Tooltip', module)
         "type": "slideLeft",
         "delay": 20
       }}
-      backgroundColor={zooTheme.global.colors.brand}
+      backgroundColor='brand'
       icon={<Add />}
       pad={{ horizontal: 'small', vertical: 'small' }}
       showDropKnob={boolean('Show tooltip')}

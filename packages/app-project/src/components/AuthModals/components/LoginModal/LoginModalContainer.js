@@ -52,6 +52,7 @@ class LoginModalContainer extends Component {
   render () {
     return (
       <LoginModal
+        className={this.props.className}
         closeLoginModal={this.props.closeLoginModal}
         error={this.state.error}
         loading={this.state.loading}

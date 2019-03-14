@@ -1,17 +1,15 @@
 import { Anchor, Box } from 'grommet'
 import { arrayOf, string} from 'prop-types'
 import React from 'react'
-import { zipWith } from 'lodash'
-import zooTheme from '@zooniverse/grommet-theme'
 
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'
 
-export default function PolicyLinkSection ({ labels, urls }) {
+export default function PolicyLinkSection ({ className, labels, urls }) {
   const links = zipLabelsAndUrls(labels, urls)
 
   return (
-    <Box direction='row' gap='medium' tag='nav'>
+    <Box className={className} direction='row' gap='medium' tag='nav'>
 
       {links.length > 0 && links.map(link => (
         <Anchor

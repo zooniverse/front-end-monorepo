@@ -1,21 +1,53 @@
 import deepFreeze from 'deep-freeze'
-import light from './light'
-import dark from './dark'
 
+// Zooniverse brand: https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8
+const brand = '#00979d'
+
+// dark colors
+const darkBlack = '#2D2D2D'
 const lightBlack = '#272727'
-const lightBrand = '#16979C'
-const darkGold = '#CC9200'
+const darkestGrey = '#333333'
+const darkerGrey = '#404040'
+const darkGrey = '#5C5C5C'
 
-const green = '#078F52'
-
-const lighterGrey = '#eff2f5'
+// light colors
+const lightestGrey = '#eff2f5'
+const lighterGrey = '#ebebeb'
 const lightGrey = '#e2e5e9'
 const grey = '#CBCCCB'
 const midGrey = '#a6a7a9'
-const midDarkGrey = '#2D2D2D'
-const darkGrey = '#646464'
+const moreMiddleGrey = '#979797'
 
+// status
 const tomato = '#E45950'
+const darkGold = '#CC9200'
+const green = '#078F52'
+
+// accent colors
+const mint = '#B8E986'
+const lightGold = '#f6d885'
+const lightNavy = '#6D91B3'
+const lightTeal = '#addde0'
+
+// neutral colors
+const darkGreen = '#345446'
+const darkTeal = '#005D69'
+const navy = '#0C4881'
+const gold = '#f0b200'
+
+const accentColors = [
+  mint, // accent-1
+  lightTeal, // accent-2
+  lightNavy, // accent-3
+  lightGold // accent-4
+]
+
+const neutralColors = [
+  darkGreen, // neutral-1
+  darkTeal, // neutral-2
+  navy, // neutral-3
+  gold // neutral-4
+]
 
 const statusColors = {
   critical: tomato,
@@ -26,46 +58,53 @@ const statusColors = {
   disabled: grey
 }
 
+const darkColors = [
+  darkBlack, // dark-1
+  lightBlack, //dark-2
+  darkestGrey, // dark-3
+  darkerGrey, // dark-4
+  darkGrey, // dark-5
+  darkGrey // dark-6 (same as dark-5, could be updated)
+]
+
+const lightColors = [
+  lightestGrey, // light-1
+  lighterGrey, // light-2
+  lightGrey, // light-3
+  grey, // light-4
+  midGrey, // light-5
+  moreMiddleGrey // light-6
+]
+
 const colors = {
-  brand: '#007482',
-  lightBrand,
-  darkBackground: {
-    text: dark.colors.font
+  brand,
+  border: {
+    dark: 'dark-1',
+    light: 'light-2'
   },
-  darkGrey,
-  darkGold,
-  darkTeal: '#005D69',
-  focus: lightBrand,
-  lightBackground: {
-    text: light.colors.font
-  },
-  lightBlack,
-  lightGold: '#f6d885',
-  lightGrey,
-  lightNavy: '#6D91B3',
-  lightTeal: '#addde0',
-  lighterGrey,
-  gold: '#f0b200',
-  green,
-  grey,
-  midGrey,
-  midDarkGrey,
-  navy: '#0C4881',
+  focus: 'accent-2',
+  placeholder: 'dark-6',
   statusColors,
-  teal: '#00979d',
   text: {
-    dark: dark.colors.font,
-    light: light.colors.font
-  },
-  tomato
+    dark: lightGrey,
+    light: darkGrey
+  }
 }
 
+const colorArray = (array, prefix) =>
+  array.forEach((color, index) => {
+    colors[`${prefix}-${index + 1}`] = color;
+  });
+
+colorArray(accentColors, 'accent');
+colorArray(darkColors, 'dark');
+colorArray(lightColors, 'light');
+colorArray(neutralColors, 'neutral');
 Object.keys(statusColors).forEach((color) => {
   colors[`status-${color}`] = statusColors[color]
 })
 
 const theme = deepFreeze({
-  dark,
   global: {
     colors,
     font: {
@@ -100,8 +139,8 @@ const theme = deepFreeze({
   },
   anchor: {
     color: {
-      dark: colors.lightTeal,
-      light: colors.brand
+      dark: 'accent-2',
+      light: 'brand'
     }
   },
   button: {
@@ -112,40 +151,40 @@ const theme = deepFreeze({
   checkBox: {
     border: {
       color: {
-        dark: colors.darkBackground.text,
-        light: colors.lightBackground.text
+        dark: 'light-3',
+        light: 'dark-5'
       }
     },
     check: {
       color: {
-        dark: colors.lightTeal,
-        light: colors.brand
+        dark: 'accent-2',
+        light: 'brand'
       }
     },
     hover: {
       border: {
         color: {
-          dark: colors.lightTeal,
-          light: colors.brand
+          dark: 'accent-2',
+          light: 'brand'
         }
       }
     },
     knob: {
       color: {
-        dark: colors.lightTeal,
-        light: colors.brand
+        dark: 'accent-2',
+        light: 'brand'
       }
     },
     toggle: {
       border: {
         color: {
-          dark: colors.darkBackground.text,
-          light: colors.lightBackground.text
+          dark: 'light-3',
+          light: 'dark-5'
         }
       },
       color: {
-        dark: colors.darkBackground.text,
-        light: colors.lightBackground.text
+        dark: 'light-3',
+        light: 'dark-5'
       }
     }
   },
@@ -154,10 +193,35 @@ const theme = deepFreeze({
       radius: '0px'
     }
   },
-  light,
-  zooFooter: {
-    separator: '#979797'
+  paragraph: {
+    small: {
+      size: "14px",
+      height: "22px",
+      maxWidth: "336px"
+    },
+    medium: {
+      size: "18px",
+      height: "26px",
+      maxWidth: "432px"
+    },
+    large: {
+      size: "22px",
+      height: "30px",
+      maxWidth: "528px"
+    },
+    xlarge: {
+      size: "26px",
+      height: "34px",
+      maxWidth: "624px"
+    },
+    xxlarge: {
+      size: "34px",
+      height: "42px",
+      maxWidth: "816px"
+    }
   }
 })
+
+
 
 export default theme

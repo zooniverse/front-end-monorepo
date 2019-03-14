@@ -9,18 +9,17 @@ import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
+const green = zooTheme.global.colors['status-ok']
 // TODO move what makes sense into theme
 export const StyledDoneButton = styled(Button)`
   background-color: ${theme('mode', {
     dark: zooTheme.global.colors.midDarkGrey,
-    light: zooTheme.light.colors.button.done
+    light: green
   })};
   border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-    light: `solid thin ${zooTheme.light.colors.button.done}`
+    dark: `solid thin ${zooTheme.global.colors['dark-5']}`,
+    light: `solid thin ${green}`
   })};
-  border-radius: 0;
   color: white;
   cursor: pointer;
   flex: 3 0;
@@ -34,28 +33,28 @@ export const StyledDoneButton = styled(Button)`
 
   &:hover, &:focus {
     background: ${theme('mode', {
-    dark: zooTheme.dark.colors.button.done.hover,
-    light: darken(0.15, zooTheme.light.colors.button.done)
+    dark: zooTheme.global.colors['neutral-1'],
+    light: darken(0.15, green)
   })};
     border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-    light: `solid thin ${darken(0.15, zooTheme.light.colors.button.done)}`
+    dark: `solid thin ${zooTheme.global.colors['dark-5']}`,
+    light: `solid thin ${darken(0.15, green)}`
   })};
     color: 'white';
   }
 
   &:disabled {
     background: ${theme('mode', {
-    dark: lighten(0.05, zooTheme.global.colors.midDarkGrey),
-    light: lighten(0.05, zooTheme.light.colors.button.done)
+    dark: lighten(0.05, zooTheme.global.colors['dark-1']),
+    light: lighten(0.05, green)
   })};
     border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.dark.colors.button.done.default}`,
-    light: `solid thin ${lighten(0.05, zooTheme.light.colors.button.done)}`
+    dark: `solid thin ${zooTheme.global.colors['dark-5']}`,
+    light: `solid thin ${lighten(0.05, green)}`
   })};
     color: ${theme('mode', {
-    dark: zooTheme.dark.colors.font,
-    light: '#EEF1F4'
+    dark: zooTheme.global.colors.text.dark,
+    light: zooTheme.global.colors['light-1']
   })};
     cursor: not-allowed;
     opacity: 0.5;

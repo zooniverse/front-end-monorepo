@@ -94,10 +94,10 @@ describe('Model > ClassificationStore', function () {
 
     before(function () {
       subject = Subject.create(subjectStub)
-    
+
       const clientStub = {
         panoptes: {
-          post: sinon.stub().callsFake(() => Promise.resolve({ 
+          post: sinon.stub().callsFake(() => Promise.resolve({
             ok: true,
             body: {
               classifications: []

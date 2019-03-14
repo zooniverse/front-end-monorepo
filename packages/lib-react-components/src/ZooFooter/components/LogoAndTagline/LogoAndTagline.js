@@ -1,7 +1,7 @@
-import { Anchor, Box, Image } from 'grommet'
+import { Anchor, Box } from 'grommet'
 import { string } from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 
 import ZooniverseLogotype from '../../../ZooniverseLogotype'
 import SpacedText from '../../../SpacedText'
@@ -10,10 +10,10 @@ export const StyledLogoAnchor = styled(Anchor)`
   transition: color 0.2s linear;
 `
 
-export default function LogoAndTagline ({ colorTheme, tagLine }) {
-  const color = colorTheme === 'light' ? 'black' : 'lightGrey'
+export default function LogoAndTagline ({ className, colorTheme, tagLine }) {
+  const color = colorTheme === 'light' ? 'black' : 'light-3'
   return (
-    <Box>
+    <Box className={className}>
       <StyledLogoAnchor
         color={color}
         href='https://www.zooniverse.org'
