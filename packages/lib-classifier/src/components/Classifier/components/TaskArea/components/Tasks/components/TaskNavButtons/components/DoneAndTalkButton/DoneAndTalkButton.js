@@ -12,25 +12,24 @@ counterpart.registerTranslations('en', en)
 
 // Taken from PFE on 2019.02.28; these colours aren't part of the current theme.
 const TALK_LINK_BLUE = '#43bbfd';
-const TALK_LINK_BLUE_HOVER = '#69c9fd';
+const TALK_LINK_BLUE_HOVER = darken(0.18, TALK_LINK_BLUE);
 const TALK_LINK_BLUE_HOVER_DARK = '#104A79';
 
 // TODO move what makes sense into theme
 export const StyledDoneAndTalkButton = styled(Button)`
   background-color: ${theme('mode', {
-    dark: zooTheme.global.colors.midDarkGrey,
+    dark: zooTheme.global.colors['dark-1'],
     light: TALK_LINK_BLUE
   })};
   border: ${theme('mode', {
     dark: `solid thin ${TALK_LINK_BLUE}`,
-    light: `solid thin transparent`
+    light: `solid thin ${TALK_LINK_BLUE_HOVER}`
   })};
+  box-shadow: none;
   color: white;
-  cursor: pointer;
   flex: 3 0;
-  font-size: 0.9em;
   margin-right: 1ch;
-  padding: 0.9em;
+  padding: 0.5em;
   text-transform: capitalize;
   
   > i {
@@ -40,33 +39,21 @@ export const StyledDoneAndTalkButton = styled(Button)`
   &:hover, &:focus {
     background: ${theme('mode', {
       dark: TALK_LINK_BLUE_HOVER_DARK,
-      light: darken(0.25, TALK_LINK_BLUE_HOVER)
+      light: TALK_LINK_BLUE_HOVER
     })};
     border: ${theme('mode', {
       dark: `solid thin ${TALK_LINK_BLUE}`,
-      light: `solid thin ${darken(0.15, zooTheme.light.colors.button.done)}`
+      light: `solid thin ${TALK_LINK_BLUE_HOVER}`
     })};
+    box-shadow: none;
     color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
+      dark: zooTheme.global.colors.text.dark,
       light: `white`
     })};
   }
 
   &:disabled {
-    background: ${theme('mode', {
-      dark: lighten(0.05, zooTheme.global.colors.midDarkGrey),
-      light: lighten(0.05, TALK_LINK_BLUE)
-    })};
-    border: ${theme('mode', {
-      dark: `solid thin ${TALK_LINK_BLUE}`,
-      light: `solid thin transparent`
-    })};
-    color: ${theme('mode', {
-      dark: zooTheme.dark.colors.font,
-      light: '#EEF1F4'
-    })};
     cursor: not-allowed;
-    opacity: 0.5;
   }
   `
 
