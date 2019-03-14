@@ -40,13 +40,15 @@ class CollectionsModalContainer extends Component {
     this.setState({ active: true })
   }
 
-  addToCollection () {
+  addToCollection (event) {
+    event.preventDefault()
     const { selectedCollectionId } = this.state
     this.props.addSubjects(selectedCollectionId, [])
     this.close()
   }
 
-  createCollection () {
+  createCollection (event) {
+    event.preventDefault()
     const { newCollection } = this.state
     this.props.createCollection(newCollection, [])
     this.close()

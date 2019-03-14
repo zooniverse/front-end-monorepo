@@ -30,6 +30,11 @@ describe('Component > CreateCollection', function () {
     expect(wrapper).to.be.ok()
   })
 
+  it('should call the onSubmit callback on submit', function () {
+    wrapper.find('form').simulate('submit')
+    expect(onSubmit).to.have.been.calledOnce()
+  })
+
   describe('collection name input', function () {
     let textInput
 
@@ -83,9 +88,8 @@ describe('Component > CreateCollection', function () {
       expect(button).to.have.lengthOf(1)
     })
 
-    it('should call the onSubmit callback', function () {
-      button.simulate('click')
-      expect(onSubmit).to.have.been.calledOnce()
+    it('should submit the form', function () {
+      expect(button.props().type).to.equal('submit')
     })
 
     it('can be disabled', function () {

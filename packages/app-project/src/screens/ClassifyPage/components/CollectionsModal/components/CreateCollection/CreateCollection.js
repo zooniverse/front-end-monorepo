@@ -25,7 +25,11 @@ function CreateCollection ({
     })
   }
   return (
-    <React.Fragment>
+    <form
+      method='post'
+      action=''
+      onSubmit={onSubmit}
+    >
       <FormField
         htmlFor='collectionName'
         label={counterpart('CreateCollection.label')}
@@ -45,7 +49,7 @@ function CreateCollection ({
         <Button
           disabled={disabled}
           label={counterpart('CreateCollection.createButton')}
-          onClick={onSubmit}
+          type='submit'
         />
       </Box>
       <CheckBox
@@ -54,7 +58,7 @@ function CreateCollection ({
         onChange={updateCollection}
         ref={checkbox}
       />
-    </React.Fragment>
+    </form>
   )
 }
 

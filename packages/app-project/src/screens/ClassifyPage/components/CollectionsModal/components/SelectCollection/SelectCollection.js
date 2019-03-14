@@ -15,7 +15,11 @@ function SelectCollection ({
   onSubmit
 }) {
   return (
-    <React.Fragment>
+    <form
+      method='post'
+      action=''
+      onSubmit={onSubmit}
+    >
       <FormField
         htmlFor='collectionsSearch'
         label={counterpart('SelectCollection.label')}
@@ -23,8 +27,13 @@ function SelectCollection ({
         <Select
           id='collectionsSearch'
           labelKey='display_name'
+          name='display_name'
           onChange={onSelect}
-          onSearch={searchText => onSearch({ favorite: false, search: searchText })}
+          onSearch={searchText => onSearch({
+            favorite: false,
+            current_user_roles: 'owner,collaborator,contributor',
+            search: searchText
+          })}
           options={collections}
           valueKey='id'
         />
@@ -37,10 +46,10 @@ function SelectCollection ({
         <Button
           disabled={disabled}
           label={counterpart('SelectCollection.addButton')}
-          onClick={onSubmit}
+          type='submit'
         />
       </Box>
-    </React.Fragment>
+    </form>
   )
 }
 

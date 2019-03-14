@@ -47,7 +47,7 @@ class ClassifierWrapperContainer extends Component {
     })
   }
 
-  onToggleFavourite(subjectId, isFavourite) {
+  onToggleFavourite (subjectId, isFavourite) {
     const { collections } = this.props
     if (isFavourite) {
       collections.addFavourites([subjectId])

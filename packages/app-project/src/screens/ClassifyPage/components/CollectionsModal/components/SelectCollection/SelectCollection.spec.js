@@ -29,6 +29,11 @@ describe('Component > SelectCollection', function () {
     expect(wrapper).to.be.ok()
   })
 
+  it('should call the onSubmit callback on submit', function () {
+    wrapper.find('form').simulate('submit')
+    expect(onSubmit).to.have.been.calledOnce()
+  })
+
   describe('collections search input', function () {
     let select
 
@@ -47,7 +52,11 @@ describe('Component > SelectCollection', function () {
     it('should call the onSearch callback', function () {
       const searchText = 'Hello'
       select.simulate('search', searchText)
-      expect(onSearch).to.have.been.calledOnceWith({ favorite: false, search: searchText })
+      expect(onSearch).to.have.been.calledOnceWith({
+        favorite: false,
+        current_user_roles: 'owner,collaborator,contributor',
+        search: searchText
+      })
     })
   })
 
@@ -62,9 +71,8 @@ describe('Component > SelectCollection', function () {
       expect(button).to.have.lengthOf(1)
     })
 
-    it('should call the onSubmit callback', function () {
-      button.simulate('click')
-      expect(onSubmit).to.have.been.calledOnce()
+    it('should submit the form', function () {
+      expect(button.props().type).to.equal('submit')
     })
 
     it('can be disabled', function () {

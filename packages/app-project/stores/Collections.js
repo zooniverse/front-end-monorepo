@@ -29,7 +29,10 @@ const Collections = types
         const user = getRoot(self).user
         if (project.id && user.id) {
           self.fetchFavourites()
-          self.searchCollections({ favorite: false })
+          self.searchCollections({
+            favorite: false,
+            current_user_roles: 'owner,collaborator,contributor'
+          })
         }
       })
       addDisposer(self, projectDisposer)

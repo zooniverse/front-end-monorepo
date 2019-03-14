@@ -78,7 +78,10 @@ describe('Component > CollectionsModalContainer', function () {
 
       describe('on submit', function () {
         before(function () {
-          select.simulate('submit')
+          const fakeEvent = {
+            preventDefault: sinon.stub()
+          }
+          select.simulate('submit', fakeEvent)
         })
 
         it('should add subjects to the selected collection', function () {
@@ -133,7 +136,10 @@ describe('Component > CollectionsModalContainer', function () {
 
       describe('on submit', function () {
         before(function () {
-          create.simulate('submit')
+          const fakeEvent = {
+            preventDefault: sinon.stub()
+          }
+          create.simulate('submit', fakeEvent)
         })
 
         it('should create a new collection with that name', function () {
