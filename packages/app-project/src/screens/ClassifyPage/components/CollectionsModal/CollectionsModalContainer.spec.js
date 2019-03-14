@@ -14,6 +14,7 @@ describe('Component > CollectionsModalContainer', function () {
   let addSubjects = sinon.stub()
   let createCollection = sinon.stub()
   let searchCollections = sinon.stub()
+  const subjectId = '123'
 
   before(function () {
     wrapper = shallow(
@@ -38,7 +39,12 @@ describe('Component > CollectionsModalContainer', function () {
     let select
 
     before(function () {
+      wrapper.instance().open(subjectId)
       select = wrapper.find(SelectCollection)
+    })
+
+    after(function () {
+      wrapper.instance().close()
     })
 
     it('should exist', function () {
@@ -85,7 +91,7 @@ describe('Component > CollectionsModalContainer', function () {
         })
 
         it('should add subjects to the selected collection', function () {
-          expect(addSubjects).to.have.been.calledOnceWith('1', [])
+          expect(addSubjects).to.have.been.calledOnceWith('1', [ subjectId ])
         })
 
         it('should close the modal', function () {
@@ -99,7 +105,12 @@ describe('Component > CollectionsModalContainer', function () {
     let create
 
     before(function () {
+      wrapper.instance().open(subjectId)
       create = wrapper.find(CreateCollection)
+    })
+
+    after(function () {
+      wrapper.instance().close()
     })
 
     it('should exist', function () {
@@ -143,7 +154,7 @@ describe('Component > CollectionsModalContainer', function () {
         })
 
         it('should create a new collection with that name', function () {
-          expect(createCollection).to.have.been.calledOnceWith(query, [])
+          expect(createCollection).to.have.been.calledOnceWith(query, [ subjectId ])
         })
 
         it('should close the modal', function () {

@@ -1,7 +1,7 @@
 import Classifier from '@zooniverse/classifier'
 import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
-import { shape } from 'prop-types'
+import { func, shape } from 'prop-types'
 import React, { Component } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import ErrorMessage from './components/ErrorMessage'
@@ -57,7 +57,7 @@ class ClassifierWrapperContainer extends Component {
   }
 
   render () {
-    const { authClient, mode, project, user } = this.props
+    const { onAddToCollection, authClient, mode, project, user } = this.props
     const somethingWentWrong = this.state.error || project.loadingState === asyncStates.error
 
     if (somethingWentWrong) {
@@ -82,6 +82,7 @@ class ClassifierWrapperContainer extends Component {
           authClient={authClient}
           key={key}
           mode={mode}
+          onAddToCollection={onAddToCollection}
           onCompleteClassification={this.onCompleteClassification}
           onToggleFavourite={this.onToggleFavourite}
           project={project}
@@ -96,11 +97,13 @@ class ClassifierWrapperContainer extends Component {
 }
 
 ClassifierWrapperContainer.propTypes = {
+  onAddToCollection: func,
   authClient: shape({}),
   project: shape({})
 }
 
 ClassifierWrapperContainer.defaultProps = {
+  onAddToCollection: () => true,
   authClient: auth
 }
 

@@ -10,6 +10,7 @@ describe('Model > Subject', function () {
   before(function () {
     subject = Subject.create(stub)
     subject.onToggleFavourite = sinon.stub()
+    subject.onAddToCollection = sinon.stub()
   })
 
   it('should exist', function () {
@@ -32,6 +33,16 @@ describe('Model > Subject', function () {
 
     it('should call the onToggleFavourite callback', function () {
       expect(subject.onToggleFavourite).to.have.been.calledOnceWith(subject.id, subject.favorite)
+    })
+  })
+
+  describe('addToCollection', function () {
+    before(function () {
+      subject.addToCollection()
+    })
+
+    it('should call the onAddToCollection callback', function () {
+      expect(subject.onAddToCollection).to.have.been.calledOnceWith(subject.id)
     })
   })
 })

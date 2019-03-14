@@ -32,30 +32,37 @@ class CollectionsModalContainer extends Component {
         display_name: '',
         private: false
       },
-      selectedCollectionId: null
+      selectedCollectionId: null,
+      subjectId: null
     }
-  }
-
-  componentDidMount () {
-    this.setState({ active: true })
   }
 
   addToCollection (event) {
     event.preventDefault()
-    const { selectedCollectionId } = this.state
-    this.props.addSubjects(selectedCollectionId, [])
+    const { selectedCollectionId, subjectId } = this.state
+    this.props.addSubjects(selectedCollectionId, [ subjectId ])
     this.close()
   }
 
   createCollection (event) {
     event.preventDefault()
-    const { newCollection } = this.state
-    this.props.createCollection(newCollection, [])
+    const { newCollection, subjectId } = this.state
+    this.props.createCollection(newCollection, [ subjectId ])
     this.close()
   }
 
+  open (subjectId) {
+    this.setState({
+      active: true,
+      subjectId
+    })
+  }
   close () {
-    this.setState({ active: false })
+    const subjectId = null
+    this.setState({
+      active: false,
+      subjectId
+    })
   }
 
   onSelect (event) {

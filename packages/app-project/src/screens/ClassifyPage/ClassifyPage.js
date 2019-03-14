@@ -16,16 +16,22 @@ const ClassifierWrapper = dynamic(() =>
 )
 
 function ClassifyPage ({ mode }) {
+  const collectionsModal = React.createRef()
+  function addToCollection (subjectId) {
+    collectionsModal.current.wrappedInstance.open(subjectId)
+  }
   return (
     <Box
       background={mode === 'light' ? 'lighterGrey' : 'midDarkGrey'}
       pad={{ top: 'medium' }}
     >
       <CollectionsModal
-        subjectId='123'
+        ref={collectionsModal}
       />
       <Grid gap='medium' margin='medium'>
-        <ClassifierWrapper />
+        <ClassifierWrapper
+          onAddToCollection={addToCollection}
+        />
         <FinishedForTheDay />
         <ProjectStatistics />
         <ConnectWithProject />

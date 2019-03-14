@@ -16,6 +16,11 @@ const Subject = types
   })
 
   .actions(self => {
+    function addToCollection () {
+      const rootStore = getRoot(self)
+      rootStore.onAddToCollection(self.id)
+    }
+
     function toggleFavorite () {
       const rootStore = getRoot(self)
       self.favorite = !self.favorite
@@ -23,6 +28,7 @@ const Subject = types
     }
 
     return {
+      addToCollection,
       toggleFavorite
     }
   })
