@@ -3,7 +3,6 @@ import { string } from 'prop-types'
 import React, { Component } from 'react'
 
 import ClassifyPage from './ClassifyPage'
-import CollectionsModal from './components/CollectionsModal'
 
 function storeMapper (stores) {
   const { mode } = stores.store.ui
@@ -16,14 +15,7 @@ function storeMapper (stores) {
 @observer
 class ClassifyPageContainer extends Component {
   render () {
-    return (
-      <React.Fragment>
-        <ClassifyPage {...this.props} />
-        <CollectionsModal
-          subjectId='123'
-        />
-      </React.Fragment>
-    )
+    return <ClassifyPage {...this.props} />
   }
 }
 

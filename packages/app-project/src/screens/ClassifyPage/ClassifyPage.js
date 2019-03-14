@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { string } from 'prop-types'
 import React from 'react'
 
+import CollectionsModal from './components/CollectionsModal'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 
@@ -20,6 +21,9 @@ function ClassifyPage ({ mode }) {
       background={mode === 'light' ? 'lighterGrey' : 'midDarkGrey'}
       pad={{ top: 'medium' }}
     >
+      <CollectionsModal
+        subjectId='123'
+      />
       <Grid gap='medium' margin='medium'>
         <ClassifierWrapper />
         <FinishedForTheDay />
