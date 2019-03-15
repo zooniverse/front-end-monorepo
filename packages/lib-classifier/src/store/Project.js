@@ -5,6 +5,7 @@ const Project = types
   .model('Project', {
     configuration: types.frozen({}),
     display_name: types.string,
+    experimental_tools: types.frozen([]),
     links: types.frozen({})
   })
 

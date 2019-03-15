@@ -130,15 +130,23 @@ const ClassificationStore = types
 
     function completeClassification () {
       const classification = self.active
-      // TODO store intervention metadata if we have a user...
-      self.updateClassificationMetadata({
+
+      const metadata = {
         session: sessionUtils.getSessionID(),
         finishedAt: (new Date()).toISOString(),
         viewport: {
           width: window.innerWidth,
           height: window.innerHeight
         }
-      })
+      }
+
+      const feedback = getRoot(self).feedback
+      if (feedback.isActive && feedback.rules) {
+        metadata.feedback = toJS(feedback.rules)
+      }
+
+      // TODO store intervention metadata if we have a user...
+      self.updateClassificationMetadata(metadata)
 
       classification.completed = true
       // Convert from observables
