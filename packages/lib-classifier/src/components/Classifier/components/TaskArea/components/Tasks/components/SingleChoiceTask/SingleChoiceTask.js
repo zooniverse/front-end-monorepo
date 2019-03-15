@@ -43,7 +43,7 @@ class SingleChoiceTask extends React.Component {
       <StyledFieldset>
         <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
         {task.answers.map((answer, index) => {
-          const checked = (annotation && annotation.value) ? index === annotation.value : false
+          const checked = (annotation && annotation.value + 1) ? index === annotation.value : false
           return (
             <TaskInputField
               autoFocus={checked}
