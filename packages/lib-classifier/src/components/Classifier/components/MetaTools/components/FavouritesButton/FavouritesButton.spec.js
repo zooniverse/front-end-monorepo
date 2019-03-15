@@ -30,11 +30,11 @@ describe('Component > FavouritesButton', function () {
   describe('on click', function () {
     const onClickSpy = sinon.spy()
     before(function () {
-      wrapper = mount(<FavouritesButton checked={false} onClick={onClickSpy} />)
+      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickSpy} />)
     })
 
     it('should call props.onClick', function () {
-      wrapper.find('button').simulate('click')
+      wrapper.find(PlainButton).simulate('click')
       expect(onClickSpy).to.have.been.calledOnce
     })
   })

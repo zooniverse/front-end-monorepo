@@ -24,13 +24,13 @@ describe('Component > CollectionsButton', function () {
 
   it('should call props.onClick on click', function () {
     const onClick = sinon.stub()
-    wrapper = mount(
+    wrapper = shallow(
       <CollectionsButton
         onClick={onClick}
       />
     )
-
-    wrapper.find('button').simulate('click')
+    
+    wrapper.find(PlainButton).simulate('click')
     expect(onClick).to.have.been.calledOnce
   })
 })

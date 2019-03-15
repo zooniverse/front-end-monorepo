@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import sinon from 'sinon'
 import Graph2dRangeXTask from './Graph2dRangeXTask'
 
 // TODO: move this into a factory
@@ -22,8 +21,9 @@ describe('Graph2dRangeXTask', function () {
       expect(wrapper).to.be.ok
     })
 
+    // TODO: component should be using our Markdownz
     it('should have instructions', function () {
-      expect(wrapper.find('GrommetMarkdown').text()).to.equal(task.instruction)
+      expect(wrapper.contains(task.instruction)).to.be.true
     })
   })
 })

@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Markdownz, Media } from '@zooniverse/react-components'
+import { Paragraph } from 'grommet'
 import StepNavigation from './components/StepNavigation'
 import SlideTutorial from './SlideTutorial'
 import en from './locales/en'
@@ -27,12 +28,12 @@ describe('SlideTutorial', function () {
 
   it('should render an error message if props.stepWithMedium is not defined', function () {
     const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
-    expect(wrapper.text()).to.equal(en.SlideTutorial.error)
+    expect(wrapper.contains(<Paragraph>{en.SlideTutorial.error}</Paragraph>)).to.be.true
   })
 
   it('should render an error message if props.stepWithMedium is an empty object', function () {
     const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
-    expect(wrapper.text()).to.equal(en.SlideTutorial.error)
+    expect(wrapper.contains(<Paragraph>{en.SlideTutorial.error}</Paragraph>)).to.be.true
   })
 
   it('should render markdown from the step content', function () {
