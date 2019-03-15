@@ -4,6 +4,7 @@ import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+import Avatar from './components/Avatar'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -15,7 +16,15 @@ const StyledHeading = styled(Heading)`
 function ProjectHeader (props) {
   const { className, title } = props
   return (
-    <Box className={className} pad='medium' background='brand'>
+    <Box
+      align='center'
+      background='brand'
+      className={className}
+      direction='row'
+      gap='medium'
+      pad='medium'
+    >
+      <Avatar />
       <StyledHeading color='white' margin='none' size='small'>
         {title}
       </StyledHeading>

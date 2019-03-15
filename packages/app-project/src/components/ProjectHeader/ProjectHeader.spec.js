@@ -1,4 +1,4 @@
-import { render } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 
 import ProjectHeader from './ProjectHeader'
@@ -8,7 +8,7 @@ let wrapper
 
 describe('Component > ProjectHeader', function () {
   before(function () {
-    wrapper = render(<ProjectHeader title={TITLE} />)
+    wrapper = shallow(<ProjectHeader title={TITLE} />)
   })
 
   it('should render without crashing', function () {
@@ -16,8 +16,7 @@ describe('Component > ProjectHeader', function () {
   })
 
   it('should render the title prop as an h1', function () {
-    const heading = wrapper.find('h1')
-    expect(heading).to.be.ok()
+    const heading = wrapper.find('ProjectHeader__StyledHeading').render()
     expect(heading.text()).to.equal(TITLE)
   })
 })
