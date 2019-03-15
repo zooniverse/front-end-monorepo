@@ -148,6 +148,8 @@ const TutorialStore = types
         if (tutorials && tutorials.length > 0) {
           tutorials.forEach(tutorial => self.fetchMedia(tutorial))
           self.setTutorials(tutorials)
+        } else {
+          self.loadingState = asyncStates.success
         }
       } catch (error) {
         console.error(error)
