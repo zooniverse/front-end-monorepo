@@ -58,6 +58,7 @@ const UserProjectPreferencesStore = types
           self.fetchUPP(bearerToken, user)
         } else {
           self.reset()
+          self.loadingState = asyncStates.success
         }
       } catch (error) {
         console.error(error)
@@ -88,6 +89,10 @@ const UserProjectPreferencesStore = types
       }
     }
 
+    function updateUPP (changes) {
+      console.log('TODO: UPP PUT request', changes)
+    }
+
     function setUPP (userProjectPreferences) {
       self.setResource(userProjectPreferences)
       self.setActive(userProjectPreferences.id)
@@ -98,7 +103,8 @@ const UserProjectPreferencesStore = types
       checkForUser: flow(checkForUser),
       createUPP: flow(createUPP),
       fetchUPP: flow(fetchUPP),
-      setUPP
+      setUPP,
+      updateUPP
     }
   })
 

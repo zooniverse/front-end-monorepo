@@ -13,7 +13,7 @@ const TutorialStore = types
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
     tutorialSeenTime: types.maybe(types.string),
-    miniCourseSeenTime: types.maybe(types.string),
+    showModal: types.optional(types.boolean, false),
     type: types.optional(types.string, 'tutorials')
   })
 
@@ -40,24 +40,52 @@ const TutorialStore = types
       }
 
       return null
+    },
+
+    get miniCourse() {
+      if (tutorials) {
+        return tutorials.find((tutorial) => {
+          return tutorial.kind === 'mini-course'
+        })
+      }
+
+      return null
+    },
+
+    get hasNotSeenTutorialBefore() {
+      const upp = getRoot(self).userProjectPreferences.active
+      const { tutorial } = self
+      if (upp && tutorial) {
+        return !(upp.preferences.tutorials_completed_at && upp.preferences.tutorials_completed_at[tutorial.id])
+      }
+
+      return true
+    },
+
+    get tutorialLastSeen() {
+      const upp = getRoot(self).userProjectPreferences.active
+      const { tutorial } = self
+
+      if (upp && upp.preferences.tutorials_completed_at && tutorial) {
+        return upp.preferences.tutorials_completed_at[tutorial.id]
+      }
+
+      return null
+    },
+
+    isMiniCourseCompleted (lastStepSeen) {
+      const { miniCourse } = self
+
+      if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
+
+      return false
     }
-
-    // Stubbed out getter for returning the linked mini-course if there is one
-    // Uncomment this to use when minicourse UI is added
-    // get miniCourse() {
-    // if (tutorials) {
-    //   return tutorials.find((tutorial) => {
-    //     return tutorial.kind === 'mini-course'
-    //   })
-    // }
-
-    // return null
-    // }
   }))
 
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
+      createUPPObserver()
     }
 
     function createWorkflowObserver () {
@@ -70,6 +98,16 @@ const TutorialStore = types
         }
       })
       addDisposer(self, workflowDisposer)
+    }
+
+    function createUPPObserver() {
+      const uppDisposer = autorun(() => {
+        const upp = getRoot(self).userProjectPreferences
+        if (upp.loadingState === asyncStates.success) {
+          self.showTutorialInModal()
+        }
+      })
+      addDisposer(self, uppDisposer)
     }
 
     function * fetchMedia (tutorial) {
@@ -97,6 +135,8 @@ const TutorialStore = types
     function * fetchTutorials () {
       const workflow = getRoot(self).workflows.active
       const tutorialsClient = getRoot(self).client.tutorials
+      const upp = getRoot(self).userProjectPreferences
+
       self.loadingState = asyncStates.loading
       try {
         const response = yield tutorialsClient.get({ workflowId: workflow.id })
@@ -104,6 +144,9 @@ const TutorialStore = types
         if (tutorials && tutorials.length > 0) {
           tutorials.forEach(tutorial => self.fetchMedia(tutorial))
           self.setTutorials(tutorials)
+          if (upp.loadingState === asyncStates.success) {
+            self.showTutorialInModal()
+          }
         }
         self.loadingState = asyncStates.success
       } catch (error) {
@@ -129,22 +172,28 @@ const TutorialStore = types
 
     function setActiveTutorial (id, stepIndex) {
       if (!id) return self.resetActiveTutorial()
-
       self.active = id
       self.setTutorialStep(stepIndex)
       self.setSeenTime()
     }
 
     function setSeenTime () {
+      const uppStore = getRoot(self).userProjectPreferences
       const tutorial = self.active
       const seen = new Date().toISOString()
       if (tutorial) {
         if (tutorial.kind === 'tutorial' || tutorial.kind === null) {
           self.tutorialSeenTime = seen
-        }
-
-        if (tutorial.kind === 'mini-course') {
-          self.miniCourseSeenTime = seen
+          if (uppStore.active) {
+            const changes = {
+              preferences: {
+                tutorials_completed_at: {
+                  [tutorial.id]: seen
+                }
+              }
+            }
+            uppStore.updateUPP(changes)
+          }
         }
       }
     }
@@ -155,14 +204,19 @@ const TutorialStore = types
       self.activeMedium = undefined
     }
 
-    function resetSeen (type) {
-      if (type === 'tutorial') {
-        self.tutorialSeenTime = undefined
-      } else if (type === 'mini-course') {
-        self.miniCourseSeenTime = undefined
-      } else {
-        self.tutorialSeenTime = undefined
-        self.miniCourseSeenTime = undefined
+    function resetSeen () {
+      self.tutorialSeenTime = undefined
+    }
+
+    function setModalVisibility (boolean) {
+      self.showModal = boolean
+    }
+
+    function showTutorialInModal() {
+      const { tutorial } = self
+      if (tutorial && self.hasNotSeenTutorialBefore) {
+        self.setActiveTutorial(tutorial.id)
+        self.setModalVisibility(true)
       }
     }
 
@@ -176,7 +230,9 @@ const TutorialStore = types
       setMediaResources,
       setSeenTime,
       setTutorialStep,
-      setTutorials
+      setTutorials,
+      setModalVisibility,
+      showTutorialInModal
     }
   })
 

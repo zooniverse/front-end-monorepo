@@ -2,22 +2,28 @@ import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
 import RootStore from './RootStore'
+import ProjectStore from './ProjectStore'
 import TutorialStore from './TutorialStore'
 import WorkflowStore from './WorkflowStore'
 import {
+  ProjectFactory,
   TutorialFactory,
   TutorialMediumFactory,
-  WorkflowFactory
+  WorkflowFactory,
+  UPPFactory,
+  UserFactory
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
 let rootStore
+const seenMock = new Date().toISOString()
+const token = '1235'
 
-const workflow = WorkflowFactory.build()
-
-const panoptesClient = stubPanoptesJs({ workflows: workflow })
-
+const user = UserFactory.build()
+const project = ProjectFactory.build()
+const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
 const medium = TutorialMediumFactory.build()
+
 const tutorial = TutorialFactory.build({ steps: [
   { content: '# Hello', media: medium.id },
   { content: '# Step 2' }
@@ -42,6 +48,17 @@ const tutorialMiniCourseKind = TutorialFactory.build(
     kind: 'mini-course'
   }
 )
+
+const upp = UPPFactory.build()
+const uppWithTutorialTimeStamp = UPPFactory.build({ 
+  preferences: {
+    tutorials_completed_at: {
+      [tutorial.id]: seenMock 
+    }
+  }
+})
+
+const panoptesClient = stubPanoptesJs({ workflows: workflow })
 
 const clientStub = (tutorialResource = tutorial) => {
   return Object.assign({}, panoptesClient, {
@@ -373,46 +390,18 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > resetSeen', function () {
-    it('should reset only the tutorial seen time if the resource is a tutorial', function () {
+    it('should reset the tutorial seen time when a new workflow loads', function (done) {
       const seen = new Date().toISOString()
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create({ tutorialSeenTime: seen, miniCourseSeenTime: seen }),
+        tutorials: TutorialStore.create({ tutorialSeenTime: seen }),
         workflows: WorkflowStore.create()
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
 
-      rootStore.tutorials.resetSeen('tutorial')
-      expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined
-      expect(rootStore.tutorials.miniCourseSeenTime).to.equal(seen)
-    })
-
-    it('should reset only the mini-course seen time if the resource is a mini-course', function () {
-      const seen = new Date().toISOString()
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create({ tutorialSeenTime: seen, miniCourseSeenTime: seen }),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
-      rootStore.tutorials.resetSeen('mini-course')
-      expect(rootStore.tutorials.tutorialSeenTime).to.equal(seen)
-      expect(rootStore.tutorials.miniCourseSeenTime).to.be.undefined
-    })
-
-    it('should reset both seen times if there is no defined kind', function () {
-      const seen = new Date().toISOString()
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create({ tutorialSeenTime: seen, miniCourseSeenTime: seen }),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
-      rootStore.tutorials.resetSeen()
-      expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined
-      expect(rootStore.tutorials.miniCourseSeenTime).to.be.undefined
+      rootStore.workflows.setActive(workflow.id).then(() => {
+        expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined
+      }).then(done, done)
     })
   })
 
@@ -427,7 +416,6 @@ describe('Model > TutorialStore', function () {
 
       rootStore.tutorials.setSeenTime()
       expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined
-      expect(rootStore.tutorials.miniCourseSeenTime).to.be.undefined
     })
 
     it('should set the seen time for the tutorial kind of tutorial resource', function (done) {
@@ -459,19 +447,114 @@ describe('Model > TutorialStore', function () {
         expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
       }).then(done, done)
     })
+  })
 
-    it('should set the seen time for the mini-course kind of tutorial resource', function (done) {
+  describe('Actions > setModalVisibility', function () {
+    it('should set the modal visibility', function () {
       rootStore = RootStore.create({
         tutorials: TutorialStore.create(),
         workflows: WorkflowStore.create()
       }, {
-        authClient: authClientStubWithoutUser, client: clientStub(tutorialMiniCourseKind)
+        authClient: authClientStubWithoutUser, client: clientStub()
       })
 
+      rootStore.tutorials.setModalVisibility(true)
+      expect(rootStore.tutorials.showModal).to.be.true
+      rootStore.tutorials.setModalVisibility(false)
+      expect(rootStore.tutorials.showModal).to.be.false
+    })
+  })
+
+  describe('Actions > showTutorialInModal', function () {
+    let clientStubWithUPP
+    let clientStubWithUPPTimestamp
+    before(function () {
+      const panoptesClientWithUPP = stubPanoptesJs({ project_preferences: upp, workflows: workflow })
+      const panoptesClientWithUPPTimestamp = stubPanoptesJs({ project_preferences: uppWithTutorialTimeStamp, workflows: workflow })
+      const tutorialsClient = { 
+        tutorials: {
+          get: sinon.stub().callsFake(() => {
+            return Promise.resolve({
+              body: {
+                tutorials: [tutorial]
+              }
+            })
+          }),
+          getAttachedImages: sinon.stub().callsFake(() => {
+            return Promise.resolve({
+              body: {
+                media: [medium]
+              }
+            })
+          })
+        }
+      }
+      clientStubWithUPP = Object.assign({}, tutorialsClient, panoptesClientWithUPP)
+      clientStubWithUPPTimestamp = Object.assign({}, tutorialsClient, panoptesClientWithUPPTimestamp)
+    })
+
+    it('should show the tutorial for logged out users', function (done) {
+      rootStore = RootStore.create({
+        projects: ProjectStore.create(),
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, {
+        authClient: authClientStubWithoutUser, client: clientStub()
+      })
+      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+
+      rootStore.projects.setResource(project)
+      rootStore.projects.setActive(project.id)
       rootStore.workflows.setActive(workflow.id).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorialMiniCourseKind.id)
+        expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+        expect(setModalVisibilitySpy).to.have.been.calledOnce
+        expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+        expect(rootStore.tutorials.showModal).to.be.true
       }).then(() => {
-        expect(rootStore.tutorials.miniCourseSeenTime).to.be.a('string')
+        setActiveTutorialSpy.restore()
+        setModalVisibilitySpy.restore()
+      }).then(done, done)
+    })
+
+    it('should show the tutorial for logged in users without a seen timestamp for the loaded tutorial', function (done) {
+      rootStore = RootStore.create({}, {
+        authClient: authClientStubWithUser, client: clientStubWithUPP
+      })
+      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+
+      rootStore.projects.setResource(project)
+      rootStore.projects.setActive(project.id)
+      rootStore.workflows.setActive(workflow.id)
+        .then(() => {
+          expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+          expect(setModalVisibilitySpy).to.have.been.calledOnce
+          expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+          expect(rootStore.tutorials.showModal).to.be.true
+        }).then(() => {
+          setActiveTutorialSpy.restore()
+          setModalVisibilitySpy.restore()
+        }).then(done, done)
+    })
+
+    it('should not show the tutorial for logged in users with a seen timestamp for the loaded tutorial', function (done) {
+      rootStore = RootStore.create({}, {
+        authClient: authClientStubWithUser, client: clientStubWithUPPTimestamp
+      })
+      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+
+      rootStore.projects.setResource(project)
+      rootStore.projects.setActive(project.id)
+      rootStore.workflows.setActive(workflow.id).then(() => {
+        expect(setActiveTutorialSpy).to.not.have.been.called
+        expect(setModalVisibilitySpy).to.not.have.been.called
+        expect(rootStore.tutorials.active).to.be.undefined
+        expect(rootStore.tutorials.showModal).to.be.false
+      }).then(() => {
+        setActiveTutorialSpy.restore()
+        setModalVisibilitySpy.restore()
       }).then(done, done)
     })
   })
