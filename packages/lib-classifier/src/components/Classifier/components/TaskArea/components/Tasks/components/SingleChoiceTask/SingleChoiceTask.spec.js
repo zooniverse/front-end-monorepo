@@ -35,6 +35,29 @@ describe('SingleChoiceTask', function () {
     })
   })
 
+  describe('with an annotation', function () {
+    let wrapper
+
+    before(function () {
+      const annotation = { task: task.taskKey, value: 0 }
+      const annotations = new Map([[task.taskKey, annotation]])
+      const addAnnotation = () => {}
+      wrapper = shallow(
+        <SingleChoiceTask.wrappedComponent
+          annotations={annotations}
+          addAnnotation={addAnnotation}
+          task={task}
+        />
+      )
+    })
+
+    it('should check the selected answer', function () {
+      const answer = task.answers[0]
+      const input = wrapper.find({ label: answer.label })
+      expect(input.prop('checked')).to.be.true
+    })
+  })
+
   describe('onChange event handler', function () {
     let wrapper
     let addAnnotationSpy
