@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
 
+import FeedbackModal from '../../../Feedback'
 import ImageToolbar from '../../../ImageToolbar'
 import MetaTools from '../../../MetaTools'
 import SubjectViewer from '../../../SubjectViewer'
@@ -56,6 +57,7 @@ function DefaultLayout () {
         <StyledMetaTools />
       </ViewerGrid>
       <StyledTaskArea />
+      <FeedbackModal />
     </ContainerGrid>
   )
 }

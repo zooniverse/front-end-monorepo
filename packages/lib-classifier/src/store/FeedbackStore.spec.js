@@ -3,7 +3,6 @@ import sinon from 'sinon'
 import FeedbackStore from './FeedbackStore'
 import strategies from './feedback/strategies'
 import helpers from './feedback/helpers'
-console.log(helpers)
 
 describe('Model > FeedbackStore', function () {
   let feedback
@@ -16,13 +15,14 @@ describe('Model > FeedbackStore', function () {
         T0: [{
           id: 'testRule',
           answer: '0',
-          strategy: "testStrategy",
+          strategy: 'testStrategy',
           successEnabled: true,
           successMessage: 'Yay!',
           failureEnabled: true,
           failureMessage: 'No!'
         }]
-      }
+      },
+      showModal: false
     }
     sinon.stub(helpers, 'isFeedbackActive').callsFake(() => feedbackStub.isActive)
     sinon.stub(helpers, 'generateRules').callsFake(() => feedbackStub.rules)
@@ -90,6 +90,16 @@ describe('Model > FeedbackStore', function () {
 
     it('should reset feedback rules', function () {
       expect(feedback.rules).to.be.empty
+    })
+  })
+
+  describe('messages', function () {
+    xit('should return an array of feedback messages', function () {
+      expect(feedback.messages).to.equal(['Yay!'])
+    })
+
+    xit('should return an empty array if no messages applicable', function () {
+      expect(feedback.messages).to.equal([])
     })
   })
 })

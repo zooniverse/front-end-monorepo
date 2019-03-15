@@ -7,8 +7,24 @@ import strategies from './feedback/strategies'
 const FeedbackStore = types
   .model('FeedbackStore', {
     isActive: types.optional(types.boolean, false),
-    rules: types.map(types.frozen({}))
+    rules: types.map(types.frozen({})),
+    showModal: types.optional(types.boolean, false)
   })
+  .views(self => ({
+    get messages () {
+      const messages = []
+      self.rules.forEach(([item]) => {
+        let message = false
+        if (item.success && item.successEnabled) {
+          message = item.successMessage
+        } else if (!item.success && item.failureEnabled) {
+          message = item.failureMessage
+        }
+        if (message) messages.push(message)
+      })
+      return messages
+    }
+  }))
   .actions(self => {
     function afterAttach () {
       createSubjectObserver()
@@ -51,6 +67,15 @@ const FeedbackStore = types
       }
     }
 
+    function showFeedback () {
+      self.showModal = true
+    }
+
+    function hideFeedback () {
+      self.showModal = false
+      getRoot(self).subjects.advance()
+    }
+
     function update (annotation) {
       const { task, value } = annotation
       const taskRules = self.rules.get(task) || []
@@ -69,6 +94,8 @@ const FeedbackStore = types
     return {
       afterAttach,
       createRules,
+      showFeedback,
+      hideFeedback,
       update,
       reset
     }
