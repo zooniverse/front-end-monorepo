@@ -111,6 +111,7 @@ const TutorialStore = types
     }
 
     function * fetchMedia (tutorial) {
+      const upp = getRoot(self).userProjectPreferences
       const { tutorials } = getRoot(self).client
       if (tutorial) {
         self.loadingState = asyncStates.loading
@@ -118,6 +119,10 @@ const TutorialStore = types
           const response = yield tutorials.getAttachedImages({ id: tutorial.id })
           const { media } = response.body
           if (media && media.length > 0) self.setMediaResources(media)
+          self.loadingState = asyncStates.success
+          if (upp.loadingState === asyncStates.success) {
+            self.showTutorialInModal()
+          }
         } catch (error) {
           // We're not setting the store state to error because
           // we do not want to prevent the tutorial from rendering
@@ -135,7 +140,6 @@ const TutorialStore = types
     function * fetchTutorials () {
       const workflow = getRoot(self).workflows.active
       const tutorialsClient = getRoot(self).client.tutorials
-      const upp = getRoot(self).userProjectPreferences
 
       self.loadingState = asyncStates.loading
       try {
@@ -144,11 +148,7 @@ const TutorialStore = types
         if (tutorials && tutorials.length > 0) {
           tutorials.forEach(tutorial => self.fetchMedia(tutorial))
           self.setTutorials(tutorials)
-          if (upp.loadingState === asyncStates.success) {
-            self.showTutorialInModal()
-          }
         }
-        self.loadingState = asyncStates.success
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error

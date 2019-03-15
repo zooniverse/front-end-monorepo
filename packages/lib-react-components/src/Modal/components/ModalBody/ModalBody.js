@@ -4,12 +4,14 @@ import React from 'react'
 
 function ModalBody ({
   children,
+  className,
   colorTheme
 }) {
   const background = (colorTheme === 'light') ? 'white' : 'dark-5'
   return (
     <Box
       background={background}
+      className={className}
       pad='medium'
     >
       {children}

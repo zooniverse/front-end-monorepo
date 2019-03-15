@@ -1,24 +1,22 @@
-import { Grommet, Layer } from 'grommet'
+import { Layer } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 
-function WithLayer (WrappedComponent, theme = zooTheme) {
-  function HOC ({ active, closeFn, modal, ...props }) {
+function WithLayer (WrappedComponent) {
+  function HOC ({ active, className, closeFn, modal, ...props }) {
     if (!active) {
       return null
     }
 
     return (
-      <Grommet theme={theme}>
-        <Layer
-          modal={modal}
-          onClickOutside={closeFn}
-          onEsc={closeFn}
-        >
-          <WrappedComponent {...props} closeFn={closeFn} />
-        </Layer>
-      </Grommet>
+      <Layer
+        className={className}
+        modal={modal}
+        onClickOutside={closeFn}
+        onEsc={closeFn}
+      >
+        <WrappedComponent {...props} closeFn={closeFn} />
+      </Layer>
     )
   }
 

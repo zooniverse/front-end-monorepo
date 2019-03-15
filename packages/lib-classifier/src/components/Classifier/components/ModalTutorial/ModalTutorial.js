@@ -26,8 +26,13 @@ class ModalTutorial extends React.Component {
     const { loadingState, showModal, setModalVisibility, tutorial } = this.props
     if (loadingState === asyncStates.success && tutorial) {
       return (
-        <Modal active={showModal} closeFn={() => { setModalVisibility(false) }} title={counterpart('ModalTutorial.title')}>
-          <SlideTutorial />
+        <Modal
+          {...this.props}
+          active={showModal}
+          closeFn={() => { setModalVisibility(false) }}
+          title={counterpart('ModalTutorial.title')}
+        >
+          <SlideTutorial pad="none" width="330px" />
         </Modal>
       )
     }
@@ -37,13 +42,16 @@ class ModalTutorial extends React.Component {
 }
 
 ModalTutorial.wrappedComponent.defaultProps = {
-  showModal: false
+  loadingState: asyncStates.initialized,
+  showModal: false,
+  tutorial: {}
 }
 
 ModalTutorial.wrappedComponent.propTypes = {
+  loadingState: PropTypes.string,
   showModal: PropTypes.bool,
   setModalVisibility: PropTypes.func.isRequired,
-  tutorial: PropTypes.object.isRequired
+  tutorial: PropTypes.object
 }
 
 export default ModalTutorial
