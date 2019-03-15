@@ -1,12 +1,7 @@
-FROM node:8-alpine
+FROM zooniverse/front-end-monorepo:latest
 
-RUN mkdir -p /usr/src
-WORKDIR /usr/src
+WORKDIR /usr/src/packages/app-project/
 
-COPY package.json /usr/src
-RUN npm install
-
-COPY . /usr/src
 RUN npm run build
 
 ENV PORT=80

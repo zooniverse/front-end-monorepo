@@ -4,8 +4,20 @@ timeout(20) {
   node {
     checkout scm
 
-    stage('publish: Docker images') {
-      echo 'Publishing Docker images...'
+    stage('publish: Monorepo Docker image') {
+      echo 'Publishing Monorepo Docker image...'
+      if (BRANCH_NAME == 'master') {
+        def dockerRepoName = 'zooniverse/front-end-monorepo'
+        def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+        def newImage = docker.build(dockerImageName)
+        newImage.push('latest')
+      } else {
+        echo 'Not on `master` branch, skipping stage'
+      }
+    }
+
+    stage('publish: App Docker images') {
+      echo 'Publishing app Docker images...'
       if (BRANCH_NAME == 'master') {
         def appFolders = sh(returnStdout: true, script: './bin/get-app-folders.sh').trim().split(',')
 
