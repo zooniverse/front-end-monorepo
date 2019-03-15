@@ -1,4 +1,3 @@
-import { Grommet } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
@@ -71,14 +70,12 @@ export default class Classifier extends React.Component {
   render () {
     return (
       <Provider classifierStore={this.classifierStore}>
-        <Grommet theme={this.props.theme}>
-          <ThemeProvider theme={{ mode: this.props.mode }}>
-            <>
-              <Layout />
-              <ModalTutorial />
-            </>
-          </ThemeProvider>
-        </Grommet>
+        <ThemeProvider theme={{ mode: this.props.mode }}>
+          <>
+            <Layout />
+            <ModalTutorial />
+          </>
+        </ThemeProvider>
       </Provider>
     )
   }
