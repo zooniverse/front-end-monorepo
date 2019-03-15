@@ -25,7 +25,7 @@ describe('SingleChoiceTask', function () {
     })
 
     it('should have a question', function () {
-      expect(wrapper.find('GrommetMarkdown').text()).to.equal(task.question)
+      expect(wrapper.contains(task.question)).to.be.true
     })
 
     it('should render the correct number of answer choices', function () {

@@ -24,12 +24,12 @@ describe('SocialAnchor', function () {
 
     it('should use the service prop as the a11y title', function () {
       wrapper = shallow(<SocialAnchor service='facebook' />)
-      expect(wrapper.find('Styled(Anchor)').props().a11yTitle).to.equal('facebook')
+      expect(wrapper.props().a11yTitle).to.equal('facebook')
     })
 
     it('should use the expected url in the href', function () {
       wrapper = shallow(<SocialAnchor service='facebook' />)
-      expect(wrapper.find('Styled(Anchor)').props().href).to.equal('https://www.facebook.com/therealzooniverse')
+      expect(wrapper.props().href).to.equal('https://www.facebook.com/therealzooniverse')
     })
   })
 
@@ -43,12 +43,12 @@ describe('SocialAnchor', function () {
 
     it('should use the service prop as the a11y title', function () {
       wrapper = shallow(<SocialAnchor service='twitter' />)
-      expect(wrapper.find('Styled(Anchor)').props().a11yTitle).to.equal('twitter')
+      expect(wrapper.props().a11yTitle).to.equal('twitter')
     })
 
     it('should use the expected url in the href', function () {
       wrapper = shallow(<SocialAnchor service='twitter' />)
-      expect(wrapper.find('Styled(Anchor)').props().href).to.equal('https://twitter.com/the_zooniverse')
+      expect(wrapper.props().href).to.equal('https://twitter.com/the_zooniverse')
     })
   })
 
@@ -62,12 +62,12 @@ describe('SocialAnchor', function () {
 
     it('should use the service prop as the a11y title', function () {
       wrapper = shallow(<SocialAnchor service='instagram' />)
-      expect(wrapper.find('Styled(Anchor)').props().a11yTitle).to.equal('instagram')
+      expect(wrapper.props().a11yTitle).to.equal('instagram')
     })
 
     it('should use the expected url in the href', function () {
       wrapper = shallow(<SocialAnchor service='instagram' />)
-      expect(wrapper.find('Styled(Anchor)').props().href).to.equal('https://www.instagram.com/the.zooniverse/')
+      expect(wrapper.props().href).to.equal('https://www.instagram.com/the.zooniverse/')
     })
   })
 })

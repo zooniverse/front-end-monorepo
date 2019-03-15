@@ -8,6 +8,7 @@ import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import AdminCheckbox, { StyledAdminCheckbox } from './AdminCheckbox'
+import { CheckBox } from 'grommet'
 
 describe('<AdminCheckbox />', function () {
   let wrapper
@@ -21,7 +22,7 @@ describe('<AdminCheckbox />', function () {
   })
 
   it('calls onChange prop when clicked', function () {
-    wrapper.find('CheckBox').simulate('change')
+    wrapper.find(CheckBox).simulate('change')
     expect(onChangeSpy).to.have.been.calledOnce
   })
 

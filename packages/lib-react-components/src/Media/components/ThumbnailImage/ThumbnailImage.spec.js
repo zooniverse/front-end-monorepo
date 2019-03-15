@@ -7,7 +7,7 @@ import ThumbnailImage, { Placeholder } from './ThumbnailImage'
 
 const image = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
 
-describe('Image', function () {
+describe('ThumbnailImage', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<ThumbnailImage src={image} />)
     expect(wrapper).to.be.ok
@@ -18,7 +18,7 @@ describe('Image', function () {
     const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
     progressiveImageInstance.onLoad()
     wrapper.update()
-    expect(wrapper.find(Image)).to.have.lengthOf(1)
+    expect(wrapper.find('Styled(Image)')).to.have.lengthOf(1)
   })
 
   it('should set the alt attribute using the alt prop', function () {
@@ -27,7 +27,7 @@ describe('Image', function () {
     const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
     progressiveImageInstance.onLoad()
     wrapper.update()
-    expect(wrapper.find(Image).props().alt).to.equal(alt)
+    expect(wrapper.find('Styled(Image)').props().alt).to.equal(alt)
   })
 
   it('should be wrapped by ProgressiveImage', function () {
@@ -39,7 +39,7 @@ describe('Image', function () {
     const wrapper = mount(<ThumbnailImage src={image} />)
 
     expect(wrapper.find(Placeholder)).to.have.lengthOf(1)
-    expect(wrapper.find(Image)).to.have.lengthOf(0)
+    expect(wrapper.find('Styled(Image)')).to.have.lengthOf(0)
   })
 
   it('should delay loading the image the given time in props.delay', function (done) {
@@ -50,7 +50,7 @@ describe('Image', function () {
     setTimeout(function () {
       wrapper.update()
       expect(wrapper.find(Placeholder)).to.have.lengthOf(0)
-      expect(wrapper.find(Image)).to.have.lengthOf(1)
+      expect(wrapper.find('Styled(Image)')).to.have.lengthOf(1)
       done()
     }, delay + 1)
   })

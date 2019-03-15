@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import TaskNavButtons, { ButtonsWrapper } from './TaskNavButtons'
 
@@ -23,7 +23,7 @@ describe('TaskNavButtons', function () {
   describe('when props.showNextButton is true', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<TaskNavButtons classification={classification} goToNextStep={() => {}} project={project} subject={subject} showNextButton />)
+      wrapper = shallow(<TaskNavButtons classification={classification} goToNextStep={() => {}} project={project} subject={subject} showNextButton />)
     })
 
     it('should render a NextButton component', function () {
@@ -49,7 +49,7 @@ describe('TaskNavButtons', function () {
   describe('when props.completed is true and props.showNextButton is false', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<TaskNavButtons completed classification={classification} project={project} subject={subject} />)
+      wrapper = shallow(<TaskNavButtons completed classification={classification} project={project} subject={subject} />)
     })
 
     it('should render a NextButton component if props.completed is true and props.showNextButton is false', function () {
@@ -60,7 +60,7 @@ describe('TaskNavButtons', function () {
   describe('the default rendering', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<TaskNavButtons classification={classification} project={project} subject={subject} />)
+      wrapper = shallow(<TaskNavButtons classification={classification} project={project} subject={subject} />)
     })
 
     it('should render a DoneButton component', function () {
