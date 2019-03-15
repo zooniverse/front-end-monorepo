@@ -1,4 +1,4 @@
-# !/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Trashes all build folders and `node_modules`
 

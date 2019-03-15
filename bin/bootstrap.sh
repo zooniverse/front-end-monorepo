@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -ev
 
 # Script for bootstrapping the monorepo into a working state for development.

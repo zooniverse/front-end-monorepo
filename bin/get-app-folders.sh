@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Lists all folders starting with `app-` in the `./packages` directory as a
 # comma-separated list of absolute paths.
