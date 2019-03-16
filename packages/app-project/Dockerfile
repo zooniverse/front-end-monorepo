@@ -4,6 +4,6 @@ WORKDIR /usr/src/packages/app-project/
 
 RUN npm run build
 
-ENV PORT=80
-EXPOSE 80
+ENV PORT 3000
+EXPOSE 3000
 CMD [ "npm", "start" ]
