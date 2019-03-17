@@ -1,7 +1,7 @@
+import theme from '@zooniverse/grommet-theme'
+import * as d3 from 'd3'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import * as d3 from 'd3'
-import theme from '@zooniverse/grommet-theme'
 import styled from 'styled-components'
 
 import createBar from './d3/createBar'
@@ -32,8 +32,8 @@ class CompletionBar extends Component {
       .enter()
       .append('g')
       .attr('class', 'bar')
-      .call(createBar, theme.global.colors.teal)
-      .call(createLabel, theme.global.colors.teal)
+      .call(createBar, theme.global.colors.brand)
+      .call(createLabel, theme.global.colors.brand)
   }
 
   drawChart () {
@@ -68,8 +68,16 @@ class CompletionBar extends Component {
 
   render () {
     return (
-      <SVG className={this.props.className} ref={this.svgRef} height='40px' width='100%'>
-        <rect height='100%' width='100%' fill={theme.global.colors['accent-2']} />
+      <SVG
+        className={this.props.className}
+        height='40px'
+        ref={this.svgRef}
+        width='100%'>
+          <rect
+            fill={theme.global.colors['accent-2']}
+            height='100%'
+            width='100%'
+          />
       </SVG>
     )
   }
