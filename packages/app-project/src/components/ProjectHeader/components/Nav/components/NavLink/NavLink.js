@@ -42,3 +42,4 @@ NavLink.propTypes = {
 }
 
 export default withRouter(NavLink)
+export { NavLink }

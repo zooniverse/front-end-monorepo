@@ -16,7 +16,8 @@ function Nav (props) {
     <Box as='nav' direction='row' gap='medium'>
       <NavLink
         href={`${baseUrl}/about`}
-        text={counterpart('Nav.about')} />
+        text={counterpart('Nav.about')}
+      />
       <NavLink
         href={`${baseUrl}/classify`}
         text={counterpart('Nav.classify')}
@@ -47,3 +48,4 @@ Nav.propTypes = {
 }
 
 export default withRouter(Nav)
+export { Nav }
