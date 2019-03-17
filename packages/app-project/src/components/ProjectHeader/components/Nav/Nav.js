@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { shape, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import React from 'react'
 import { Box } from 'grommet'
 import { withRouter } from 'next/router'
@@ -10,7 +10,8 @@ import NavLink from './components/NavLink'
 counterpart.registerTranslations('en', en)
 
 function Nav (props) {
-  const { owner, project } = props.router.query
+  const { isLoggedIn, router } = props
+  const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}`
   return (
     <Box as='nav' direction='row' gap='medium'>
@@ -30,15 +31,16 @@ function Nav (props) {
         href={`${baseUrl}/collections`}
         text={counterpart('Nav.collect')}
       />
-      <NavLink
+      {isLoggedIn && (<NavLink
         href={`${baseUrl}/recents`}
         text={counterpart('Nav.recents')}
-      />
+      />)}
     </Box>
   )
 }
 
 Nav.propTypes = {
+  isLoggedIn: bool,
   router: shape({
     query: shape({
       owner: string,
