@@ -22,9 +22,9 @@ const LINKS = [
   { text: 'Recents', href: `${BASE_URL}/recents` }
 ]
 
-describe('Component > Nav', function () {
+describe.only('Component > Nav', function () {
   before(function () {
-    wrapper = shallow(<Nav router={ROUTER} />)
+    wrapper = shallow(<Nav router={ROUTER} isLoggedIn={true} />)
   })
 
   it('should render without crashing', function () {
@@ -35,9 +35,16 @@ describe('Component > Nav', function () {
     LINKS.map(link => {
       it(`should show a \`${link.text}\` link`, function () {
         const innerWrapper = wrapper.dive().shallow()
-        expect(innerWrapper.find({ text: link.text })).to.have.lengthOf(1)
-        expect(innerWrapper.find({ href: link.href })).to.have.lengthOf(1)
+        expect(innerWrapper.find({ ...link })).to.have.lengthOf(1)
       })
+    })
+
+    it('should hide the `Recents` link if not logged in', function () {
+      let innerWrapper = wrapper.dive().shallow()
+      expect(innerWrapper.find({ ...LINKS[4] })).to.have.lengthOf(1)
+      wrapper.setProps({ isLoggedIn: false })
+      innerWrapper = wrapper.dive().shallow()
+      expect(innerWrapper.find({ ...LINKS[4] })).to.have.lengthOf(0)
     })
   })
 })
