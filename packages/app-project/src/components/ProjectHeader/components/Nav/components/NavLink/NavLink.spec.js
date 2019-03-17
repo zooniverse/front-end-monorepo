@@ -13,9 +13,9 @@ const ROUTER = {
 }
 const BASE_URL = `/projects/${OWNER}/${PROJECT}`
 
-describe.only('Component > NavLink', function () {
+describe('Component > NavLink', function () {
   before(function () {
-    wrapper = shallow(<NavLink router={ROUTER} href={HREF} text={TEXT} />)
+    wrapper = shallow(<NavLink href={HREF} router={ROUTER} text={TEXT} />)
   })
 
   it('should render without crashing', function () {
