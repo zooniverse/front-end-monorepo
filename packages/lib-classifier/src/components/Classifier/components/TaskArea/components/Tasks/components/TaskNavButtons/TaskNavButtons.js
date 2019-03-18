@@ -53,8 +53,6 @@ export default function TaskNavButtons (props) {
         goldStandardMode={goldStandardMode}
         onClick={props.onSubmit}
         disabled={props.waitingForAnswer}
-        projectSlug={props.projectSlug}
-        subjectId={props.subjectId}
       />
       <DoneButton
         completed={props.completed}

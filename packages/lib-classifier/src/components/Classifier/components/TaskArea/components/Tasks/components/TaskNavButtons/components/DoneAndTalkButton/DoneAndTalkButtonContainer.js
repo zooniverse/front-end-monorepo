@@ -49,8 +49,6 @@ class DoneAndTalkButtonContainer extends React.Component {
           goldStandardMode={goldStandardMode}
           onClick={onClick}
           talkURL={talkURL}
-          projectSlug={projectSlug}
-          subjectId={subjectId}
         />
       )
     }
