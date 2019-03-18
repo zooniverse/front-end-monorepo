@@ -160,7 +160,7 @@ describe('Model > UserProjectPreferencesStore', function () {
           expect(getSpy).to.have.been.calledWith(
             '/project_preferences',
             { project_id: project.id, user_id: user.id },
-            'Bearer 1234'
+            { authorization: 'Bearer 1234' }
           )
         }).then(done, done)
 
@@ -218,7 +218,7 @@ describe('Model > UserProjectPreferencesStore', function () {
               links: { project: project.id },
               preferences: {}
             } },
-            `Bearer ${token}`
+            { authorization: `Bearer ${token}` }
           )
         }).then(done, done)
     })
