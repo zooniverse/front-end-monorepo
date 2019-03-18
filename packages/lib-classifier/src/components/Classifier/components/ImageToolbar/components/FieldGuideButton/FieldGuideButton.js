@@ -31,6 +31,7 @@ const StyledHelpIcon = styled(HelpIcon)`
   margin-top: 8px;
   display: block;
   fill: white;
+  width: 25px;
 `
 
 @withHoverProps({ hovered: true })
