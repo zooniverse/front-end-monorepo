@@ -77,7 +77,7 @@ class TaskNavButtonsContainer extends React.Component {
     event.preventDefault()
     const { completeClassification } = this.props
     this.createDefaultAnnotationIfThereIsNone()
-    completeClassification()
+    return completeClassification()
   }
 
   render () {

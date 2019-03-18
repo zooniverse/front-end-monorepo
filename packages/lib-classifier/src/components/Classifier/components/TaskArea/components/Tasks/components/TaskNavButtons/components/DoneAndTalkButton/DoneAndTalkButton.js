@@ -58,11 +58,25 @@ export const StyledDoneAndTalkButton = styled(Button)`
   `
 
 export function DoneAndTalkButton (props) {
-  function openTalkLinkAndClick(event) {
-    if (window && props.talkUrl) {
-      window.location = props.talkUrl
-    }
+  const openTalkLinkAndClick = function (event) {
+    const isCmdClick = event.metaKey
+
     props.onClick(event)
+      .then(() => {
+        if (window && props.talkURL) {
+          const url = `${window.location.origin}${props.talkURL}`
+          if (isCmdClick) {
+            event.preventDefault()
+            const newTab = window.open()
+            newTab.opener = null
+            newTab.location = url
+            newTab.target = '_blank'
+            newTab.focus()
+          } else {
+            window.location.assign(url)
+          }
+        }
+      })
   }
 
   if (!props.completed) {
