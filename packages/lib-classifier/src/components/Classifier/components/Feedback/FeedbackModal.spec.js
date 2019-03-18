@@ -9,8 +9,8 @@ describe('FeedbackModal', function () {
     expect(wrapper).to.be.ok
   })
 
-  it('should return null if showModal false', function () {
+  it('should not render if showModal false', function () {
     const wrapper = shallow(<FeedbackModal.wrappedComponent showModal={false} />)
-    expect(wrapper).to.equal(null)
+    expect(wrapper.html()).to.be.null
   })
 })
