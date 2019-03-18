@@ -9,9 +9,6 @@ import merge from 'lodash/merge'
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
     active: types.maybe(types.reference(UserProjectPreferences)),
-    headers: types.maybe(types.frozen({
-      etag: types.string
-    })),
     resources: types.optional(types.map(UserProjectPreferences), {}),
     type: types.optional(types.string, 'project_preferences')
   })

@@ -6,6 +6,9 @@ import Resource from './Resource'
 const ResourceStore = types
   .model('ResourceStore', {
     active: types.maybe(types.reference(Resource)),
+    headers: types.maybe(types.frozen({
+      etag: types.string
+    })),
     resources: types.map(Resource),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     type: types.string
@@ -28,6 +31,9 @@ const ResourceStore = types
     }),
 
     reset () {
+      if (self.headers) {
+        self.headers = undefined
+      }
       self.active = undefined
       self.resources.clear()
     },
