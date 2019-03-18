@@ -625,7 +625,6 @@ class LightCurveViewer extends Component {
   render () {
     return (
       <Box
-        height='medium'
         className='light-curve-viewer'
         ref={this.svgContainer}
       >
