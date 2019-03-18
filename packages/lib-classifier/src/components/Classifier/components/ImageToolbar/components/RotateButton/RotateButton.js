@@ -8,11 +8,12 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function RotateButton ({ onClick }) {
+function RotateButton ({ disabled, onClick }) {
   return (
     <Button
       aria-label={counterpart('RotateButton.ariaLabel')}
-      onClick={onClick}
+      disabled={disabled}
+      onClick={disabled ? Function.prototype : onClick}
       svgAdjustments={{ y: '2' }}
     >
       {rotateIcon}
@@ -21,10 +22,12 @@ function RotateButton ({ onClick }) {
 }
 
 RotateButton.propTypes = {
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 RotateButton.defaultProps = {
+  disabled: false,
   onClick: () => console.log(counterpart('RotateButton.ariaLabel'))
 }
 

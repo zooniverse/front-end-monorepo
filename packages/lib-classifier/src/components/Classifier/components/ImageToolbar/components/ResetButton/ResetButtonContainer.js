@@ -18,18 +18,20 @@ function storeMapper (stores) {
 @observer
 class ResetButtonContainer extends React.Component {
   render () {
-    const { resetView } = this.props
+    const { disabled, resetView } = this.props
     return (
-      <ResetButton onClick={resetView} />
+      <ResetButton disabled={disabled} onClick={resetView} />
     )
   }
 }
 
 ResetButtonContainer.wrappedComponent.propTypes = {
+  disabled: PropTypes.bool,
   resetView: PropTypes.func
 }
 
 ResetButtonContainer.wrappedComponent.defaultProps = {
+  disabled: false,
   resetView: () => console.log('reset view')
 }
 

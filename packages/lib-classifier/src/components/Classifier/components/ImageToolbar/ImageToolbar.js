@@ -5,7 +5,10 @@ import { withTheme } from 'styled-components'
 
 import AnnotateButton from './components/AnnotateButton'
 import FieldGuideButton from './components/FieldGuideButton'
+import FullscreenButton from './components/FullscreenButton'
 import MoveButton from './components/MoveButton'
+import ResetButton from './components/ResetButton'
+import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 
@@ -30,6 +33,9 @@ class ImageToolbar extends Component {
           <MoveButton />
           <ZoomInButton />
           <ZoomOutButton />
+          <RotateButton disabled />
+          <FullscreenButton disabled />
+          <ResetButton disabled />
         </Box>
         <FieldGuideButton />
       </Box>
