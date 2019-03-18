@@ -21,6 +21,7 @@ const ResourceStore = types
       self.loadingState = asyncStates.loading
       try {
         const response = yield client.get(`/${type}/${id}`)
+        self.headers = response.headers
         const resource = response.body[type][0]
         self.loadingState = asyncStates.success
         return resource
@@ -31,9 +32,7 @@ const ResourceStore = types
     }),
 
     reset () {
-      if (self.headers) {
-        self.headers = undefined
-      }
+      self.headers = undefined
       self.active = undefined
       self.resources.clear()
     },
