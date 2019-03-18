@@ -39,6 +39,8 @@ class DoneAndTalkButtonContainer extends React.Component {
     const subjectId = subject && subject.id
 
     if (shouldWeShowDoneAndTalkButton && projectSlug && subjectId) {
+      const talkURL = `/projects/${projectSlug}/talk/subjects/${subjectId}`
+
       return (
         <DoneAndTalkButton
           completed={completed}
@@ -46,6 +48,7 @@ class DoneAndTalkButtonContainer extends React.Component {
           disabled={disabled}
           goldStandardMode={goldStandardMode}
           onClick={onClick}
+          talkURL={talkURL}
           projectSlug={projectSlug}
           subjectId={subjectId}
         />

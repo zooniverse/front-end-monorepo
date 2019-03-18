@@ -57,31 +57,21 @@ export const StyledDoneAndTalkButton = styled(Button)`
   }
   `
 
-function openTalkLinkAndClick (event, props) {
-  props.onClick(event)
-  
-  const talkUrl =
-    props.projectSlug && props.subjectId &&
-    `/projects/${props.projectSlug}/talk/subjects/${props.subjectId}`
-  
-  if (talkUrl) {
-    // Bypasses issue with using window.open(talkUrl, '_blank', 'noopener')
-    const newTab = window.open()
-    newTab.opener = null
-    newTab.location = talkUrl
-    newTab.target = '_blank'
-    newTab.focus()
-  }
-}
-
 export function DoneAndTalkButton (props) {
+  function openTalkLinkAndClick(event) {
+    if (window && props.talkUrl) {
+      window.location = props.talkUrl
+    }
+    props.onClick(event)
+  }
+
   if (!props.completed) {
     return (
       <ThemeProvider theme={{ mode: props.theme }}>
         <StyledDoneAndTalkButton
           disabled={props.disabled}
           label={<Text size='small'>{counterpart('DoneAndTalkButton.doneAndTalk')}</Text>}
-          onClick={(e) => { openTalkLinkAndClick(e, props) }}
+          onClick={(e) => { openTalkLinkAndClick(e) }}
           type='submit'
         />
       </ThemeProvider>
@@ -106,8 +96,7 @@ DoneAndTalkButton.propTypes = {
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
   onClick: PropTypes.func,
-  projectSlug: PropTypes.string.isRequired,
-  subjectId: PropTypes.string.isRequired,
+  talkURL: PropTypes.string.isRequired,
   theme: PropTypes.string
 }
 

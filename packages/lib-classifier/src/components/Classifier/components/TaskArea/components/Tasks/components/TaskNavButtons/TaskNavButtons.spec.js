@@ -49,7 +49,7 @@ describe('TaskNavButtons', function () {
   describe('when props.completed is true and props.showNextButton is false', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<TaskNavButtons completed classification={classification} />)
+      wrapper = shallow(<TaskNavButtons completed classification={classification} />)
     })
 
     it('should render a NextButton component if props.completed is true and props.showNextButton is false', function () {
