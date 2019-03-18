@@ -53,6 +53,7 @@ class HeadContainer extends Component {
   }
 
   render () {
+    console.info(this.props)
     return (
       <Head
         description={this.getProjectDescription()}

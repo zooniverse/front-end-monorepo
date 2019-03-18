@@ -23,13 +23,18 @@ describe('Stores > Project', function () {
       projectStore = rootStore.project
     })
 
+    it('should have a `background` property', function () {
+      expect(projectStore.background).to.be.an('object')
+    })
+
     it('should have a `displayName` property', function () {
       expect(projectStore.displayName).to.be.null()
     })
 
-    it('should have a `background` property', function () {
-      expect(projectStore.background).to.be.an('object')
+    it('should have a `description` property', function () {
+      expect(projectStore.description).to.be.a('string')
     })
+
 
     it('should have an `error` property', function () {
       expect(projectStore.error).to.be.an('object')
