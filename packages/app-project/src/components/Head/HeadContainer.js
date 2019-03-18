@@ -46,9 +46,7 @@ class HeadContainer extends Component {
   }
 
   getProjectUrl () {
-    // TODO: Set this from an environment variable
-    const host = 'http://localhost:3000'
-    const { slug } = this.props.project
+    const { host, project: { slug } } = this.props
     return `${host}/projects/${slug}`
   }
 
@@ -66,6 +64,7 @@ class HeadContainer extends Component {
 }
 
 HeadContainer.propTypes = {
+  host: string,
   project: shape({
     avatar: shape({
       src: string
