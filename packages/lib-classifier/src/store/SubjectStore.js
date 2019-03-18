@@ -59,14 +59,7 @@ const SubjectStore = types
       const classificationDisposer = autorun(() => {
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
-          if (path === '/classifications/loadingState' && value === 'posting') {
-            const feedback = getRoot(self).feedback
-            if (feedback.isActive && feedback.messages.length > 0) {
-              feedback.showFeedback()
-            } else {
-              self.advance()
-            }
-          }
+          if (path === '/classifications/loadingState' && value === 'posting') self.advance()
         })
       })
       addDisposer(self, classificationDisposer)

@@ -91,8 +91,39 @@ describe('Model > FeedbackStore', function () {
     it('should reset feedback rules', function () {
       expect(feedback.rules).to.be.empty
     })
+
+    it('should reset showModal state', function () {
+      expect(feedback.showModal).to.be.false
+    })
+
+    it('should reset allowSubjectAdvance state', function () {
+      expect(feedback.allowSubjectAdvance).to.be.false
+    })
   })
 
+  describe('showFeedback', function () {
+    it('should set showModal state to true', function () {
+      feedback.showFeedback()
+      expect(feedback.showModal).to.be.true
+    })
+  })
+
+  describe('hideFeedback', function () {
+    // TODO stub getRoot(self).subjects.advance()
+
+    // before(function () {
+    //   feedback.hideFeedback()
+    // })
+
+    it('should set showModal state to false', function () {
+      expect(feedback.showModal).to.be.false
+    })
+
+    it('should set allowSubjectAdvance state to true', function () {
+      expect(feedback.allowSubjectAdvance).to.be.true
+    })
+  })
+  
   describe('messages', function () {
     // TODO set feedback.rules['T0'] to array of 2 rules, both successEnabled => true, one failureEnabled => false and test lengths of returned messages array
     

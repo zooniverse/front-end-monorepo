@@ -1,5 +1,6 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getRoot, onAction, types } from 'mobx-state-tree'
+import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
 import strategies from './feedback/strategies'
@@ -8,7 +9,8 @@ const FeedbackStore = types
   .model('FeedbackStore', {
     isActive: types.optional(types.boolean, false),
     rules: types.map(types.frozen({})),
-    showModal: types.optional(types.boolean, false)
+    showModal: types.optional(types.boolean, false),
+    allowSubjectAdvance: types.optional(types.boolean, false)
   })
   .views(self => ({
     get hideSubjectViewer () {
@@ -22,14 +24,40 @@ const FeedbackStore = types
             return rule.successMessage
           } else if (!rule.success && rule.failureEnabled) {
             return rule.failureMessage
-        }
-      })
+          }
+        })
     }
   }))
   .actions(self => {
     function afterAttach () {
-      createSubjectObserver()
       createClassificationObserver()
+      createSubjectMiddleware()
+      createSubjectObserver()
+    }
+
+    function createClassificationObserver () {
+      const classificationDisposer = autorun(() => {
+        onAction(getRoot(self).classifications, (call) => {
+          if (call.name === 'completeClassification') {
+            const annotations = getRoot(self).classifications.currentAnnotations
+            annotations.forEach(annotation => self.update(annotation))
+          }
+        })
+      })
+      addDisposer(self, classificationDisposer)
+    }
+
+    function createSubjectMiddleware () {
+      const subjectMiddleware = autorun(() => {
+        addMiddleware(getRoot(self).subjects, (call, next, abort) => {
+          if (call.name === 'advance' && self.isActive && self.messages.length && !self.allowSubjectAdvance) {
+            self.showFeedback()
+            return abort()
+          }
+          next(call)
+        })
+      })
+      addDisposer(self, subjectMiddleware)
     }
 
     function createSubjectObserver () {
@@ -41,20 +69,6 @@ const FeedbackStore = types
         }
       })
       addDisposer(self, subjectDisposer)
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(getRoot(self).classifications, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = getRoot(self).classifications.currentAnnotations
-            for (const value of annotations.values()) {
-              self.update(value)
-            }
-          }
-        })
-      })
-      addDisposer(self, classificationDisposer)
     }
 
     function createRules (subject) {
@@ -74,6 +88,7 @@ const FeedbackStore = types
 
     function hideFeedback () {
       self.showModal = false
+      self.allowSubjectAdvance = true
       getRoot(self).subjects.advance()
     }
 
@@ -90,6 +105,8 @@ const FeedbackStore = types
     function reset () {
       self.isActive = false
       self.rules.clear()
+      self.showModal = false
+      self.allowSubjectAdvance = false
     }
 
     return {
