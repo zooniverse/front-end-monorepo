@@ -4,6 +4,7 @@ import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import UserProjectPreferences from './UserProjectPreferences'
 import { getBearerToken } from './utils'
+import merge from 'lodash/merge'
 
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
@@ -89,8 +90,27 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function updateUPP (changes) {
-      console.log('TODO: UPP PUT request', changes)
+    function * updateUPP (changes) {
+      const { authClient } = getRoot(self)
+      const upp = self.resources.get(self.active.id)
+      console.log('upp', upp)
+      if (upp) {
+        const bearerToken = yield getBearerToken(authClient)
+        const { type } = self
+        const client = getRoot(self).client.panoptes
+        self.loadingState = asyncStates.putting
+        try {
+          const data = merge({}, upp, { preferences: changes })
+          console.log(data)
+          const response = yield client.put(`/${type}/${upp.id}`, { [type]: data }, bearerToken)
+          const updatedUPP = response.body[type][0]
+          self.setUPP(updatedUPP)
+          self.loadingState = asyncStates.success
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
+        }
+      }
     }
 
     function setUPP (userProjectPreferences) {
@@ -104,7 +124,7 @@ const UserProjectPreferencesStore = types
       createUPP: flow(createUPP),
       fetchUPP: flow(fetchUPP),
       setUPP,
-      updateUPP
+      updateUPP: flow(updateUPP)
     }
   })
 

@@ -187,11 +187,10 @@ const TutorialStore = types
         if (tutorial.kind === 'tutorial' || tutorial.kind === null) {
           self.tutorialSeenTime = seen
           if (uppStore.active) {
+            console.log('calling upp update')
             const changes = {
-              preferences: {
-                tutorials_completed_at: {
-                  [tutorial.id]: seen
-                }
+              tutorials_completed_at: {
+                [tutorial.id]: seen
               }
             }
             uppStore.updateUPP(changes)

@@ -12,6 +12,12 @@ Object.defineProperty(asyncStates, 'loading', {
   enumerable: true
 })
 
+// remote put in progress
+Object.defineProperty(asyncStates, 'putting', {
+  value: 'putting',
+  enumerable: true
+})
+
 // remote post in progress
 Object.defineProperty(asyncStates, 'posting', {
   value: 'posting',
