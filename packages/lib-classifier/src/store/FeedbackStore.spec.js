@@ -9,6 +9,14 @@ describe('Model > FeedbackStore', function () {
   let feedbackStub
 
   before(function () {
+    sinon.stub(helpers, 'isFeedbackActive').callsFake(() => feedbackStub.isActive)
+    sinon.stub(helpers, 'generateRules').callsFake(() => feedbackStub.rules)
+    strategies.testStrategy = {
+      reducer: sinon.stub().callsFake(rule => rule)
+    }
+  })
+  
+  beforeEach(function () {
     feedbackStub = {
       isActive: true,
       rules: {
@@ -16,18 +24,24 @@ describe('Model > FeedbackStore', function () {
           id: 'testRule',
           answer: '0',
           strategy: 'testStrategy',
+          success: true,
           successEnabled: true,
           successMessage: 'Yay!',
           failureEnabled: true,
           failureMessage: 'No!'
+        }],
+        T1: [{
+          id: 'testRule',
+          answer: '0',
+          strategy: 'testStrategy',
+          success: false,
+          successEnabled: true,
+          successMessage: 'Yippee!',
+          failureEnabled: true,
+          failureMessage: 'Nope!'
         }]
       },
       showModal: false
-    }
-    sinon.stub(helpers, 'isFeedbackActive').callsFake(() => feedbackStub.isActive)
-    sinon.stub(helpers, 'generateRules').callsFake(() => feedbackStub.rules)
-    strategies.testStrategy = {
-      reducer: sinon.stub().callsFake(rule => rule)
     }
     feedback = FeedbackStore.create(feedbackStub)
   })
@@ -48,7 +62,7 @@ describe('Model > FeedbackStore', function () {
       id: '3'
     }
 
-    before(function () {
+    beforeEach(function () {
       feedback.projects = {
         active: project
       }
@@ -56,6 +70,11 @@ describe('Model > FeedbackStore', function () {
         active: workflow
       }
       feedback.createRules(subject)
+    })
+
+    afterEach(function () {
+      helpers.isFeedbackActive.resetHistory()
+      helpers.generateRules.resetHistory()
     })
 
     it('should set active state', function () {
@@ -68,7 +87,7 @@ describe('Model > FeedbackStore', function () {
   })
 
   describe('update', function () {
-    before(function () {
+    beforeEach(function () {
       const annotation = { task: 'T0', value: 0 }
       feedback.update(annotation)
     })
@@ -80,7 +99,7 @@ describe('Model > FeedbackStore', function () {
   })
 
   describe('reset', function () {
-    before(function () {
+    beforeEach(function () {
       feedback.reset()
     })
 
@@ -89,7 +108,7 @@ describe('Model > FeedbackStore', function () {
     })
 
     it('should reset feedback rules', function () {
-      expect(feedback.rules).to.be.empty
+      expect(feedback.rules.toJSON()).to.be.empty
     })
 
     it('should reset showModal state', function () {
@@ -125,14 +144,9 @@ describe('Model > FeedbackStore', function () {
   })
   
   describe('messages', function () {
-    // TODO set feedback.rules['T0'] to array of 2 rules, both successEnabled => true, one failureEnabled => false and test lengths of returned messages array
     
-    it('should return an array of success feedback messages', function () {
-      expect(feedback.messages).to.equal(['Yay!'])
-    })
-
-    it('should return an array of failure messages', function () {
-      expect(feedback.messages).to.equal([])
+    it('should return an array of feedback messages', function () {
+      expect(feedback.messages).to.eql(['Yay!', 'Nope!'])
     })
   })
 
