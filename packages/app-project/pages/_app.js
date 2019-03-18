@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
     let pageProps = {
+      host: generateHostUrl(context),
       isServer: !!context.req
     }
 
@@ -76,7 +77,7 @@ export default class MyApp extends App {
         <GlobalStyle />
         <Provider store={this.store}>
           <Grommet theme={mergedThemes}>
-            <Head />
+            <Head host={pageProps.host} />
             <ZooHeaderWrapper />
             <ProjectHeader />
             <Component {...pageProps} />
@@ -98,4 +99,10 @@ function getSlugFromUrl (relativeUrl) {
   return (fragments[2] && fragments[3])
     ? `${fragments[2]}/${fragments[3]}`
     : undefined
+}
+
+function generateHostUrl (context) {
+  const { connection, headers } = context.req
+  const protocol = connection.encrypted ? 'https' : 'http'
+  return `${protocol}://${context.req.headers.host}`
 }
