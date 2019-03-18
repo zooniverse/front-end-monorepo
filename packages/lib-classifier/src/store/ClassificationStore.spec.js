@@ -1,14 +1,15 @@
 import sinon from 'sinon'
 import ClassificationStore from './ClassificationStore'
+import FeedbackStore from './FeedbackStore'
 import Subject from './Subject'
 
+import { toJS } from 'mobx'
 import { getEnv, types } from 'mobx-state-tree'
-
-let rootStore
 
 const RootStub = types
   .model('RootStore', {
     classifications: ClassificationStore,
+    feedback: FeedbackStore,
     projects: types.frozen(),
     subjects: types.frozen(),
     workflows: types.frozen()
@@ -43,20 +44,24 @@ const workflowStub = {
 }
 
 describe('Model > ClassificationStore', function () {
+  let classifications
   let subject
+
   before(function () {
     subject = Subject.create(subjectStub)
 
-    rootStore = RootStub.create({
+    const rootStore = RootStub.create({
       classifications: ClassificationStore.create({
         active: undefined,
         resources: {},
         type: 'classifications'
       }),
+      feedback: { isActive: false },
       projects: { active: projectStub },
       subjects: { active: undefined },
       workflows: { active: workflowStub }
     })
+    classifications = rootStore.classifications
   })
 
   it('should exist', function () {
@@ -65,9 +70,9 @@ describe('Model > ClassificationStore', function () {
   })
 
   it('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
-    rootStore.classifications.createClassification(subject)
+    classifications.createClassification(subject)
 
-    const classification = Array.from(rootStore.classifications.resources.values())[0]
+    const classification = Array.from(classifications.resources.values())[0]
 
     expect(classification).to.exist
     expect(classification.links.project).to.equal(projectStub.id)
@@ -76,9 +81,9 @@ describe('Model > ClassificationStore', function () {
   })
 
   it('should create an empty Classification with the correct Subject Selection metadata', function () {
-    rootStore.classifications.createClassification(subject)
+    classifications.createClassification(subject)
 
-    const classification = Array.from(rootStore.classifications.resources.values())[0]
+    const classification = Array.from(classifications.resources.values())[0]
 
     expect(classification.metadata.subjectSelectionState).to.exist
     expect(classification.metadata.subjectSelectionState.already_seen).to.equal(subjectStub.already_seen)
@@ -89,11 +94,28 @@ describe('Model > ClassificationStore', function () {
   })
 
   describe('on complete classification', function () {
+    let classifications
     let event
+    let feedback
     let onComplete
+    let feedbackStub
 
     before(function () {
       subject = Subject.create(subjectStub)
+      feedbackStub = {
+        isActive: true,
+        rules: {
+          T0: [{
+            id: 'testRule',
+            answer: '0',
+            strategy: "singleAnswerQuestion",
+            successEnabled: true,
+            successMessage: 'Yay!',
+            failureEnabled: true,
+            failureMessage: 'No!'
+          }]
+        }
+      }
 
       const clientStub = {
         panoptes: {
@@ -105,13 +127,19 @@ describe('Model > ClassificationStore', function () {
           }))
         }
       }
-      rootStore = RootStub.create(
+      classifications = ClassificationStore.create({
+        active: undefined,
+        resources: {},
+        type: 'classifications'
+      })
+      feedback = FeedbackStore.create(feedbackStub)
+      sinon.stub(feedback, 'createRules')
+      sinon.stub(feedback, 'update')
+      sinon.stub(feedback, 'reset')
+      const rootStore = RootStub.create(
         {
-          classifications: ClassificationStore.create({
-            active: undefined,
-            resources: {},
-            type: 'classifications'
-          }),
+          classifications,
+          feedback,
           projects: { active: projectStub },
           subjects: { active: subject },
           workflows: { active: workflowStub }
@@ -124,13 +152,50 @@ describe('Model > ClassificationStore', function () {
         preventDefault: sinon.stub()
       }
       onComplete = sinon.stub()
-      rootStore.classifications.setOnComplete(onComplete)
-      rootStore.classifications.completeClassification(event)
+      classifications.setOnComplete(onComplete)
+    })
+    
+    beforeEach(function () {
+      classifications.createClassification(subject)
+      classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })
+      classifications.completeClassification(event)
+    })
+
+    afterEach(function () {
+      onComplete.resetHistory()
+      feedback.update.resetHistory()
+    })
+
+    after(function () {
+      feedback.createRules.restore()
+      feedback.update.restore()
+      feedback.reset.restore()
+    })
+
+    it('should update feedback', function () {
+      const annotation = {
+        task: 'T0',
+        value: 0
+      }
+      expect(feedback.update).to.have.been.calledOnceWith(annotation)
     })
 
     it('should call the onComplete callback with the classification and subject', function () {
-      const classification = rootStore.classifications.active
+      const classification = classifications.active
       expect(onComplete).to.have.been.calledOnceWith(classification.toJSON(), subject.toJSON())
+    })
+
+    describe('classification metadata', function () {
+      let metadata
+
+      before(function () {
+        metadata = classifications.active.metadata
+      })
+
+      it('should have a feedback key', function () {
+        const { rules } = feedbackStub
+        expect(metadata.feedback).to.eql(rules)
+      })
     })
   })
 })

@@ -35,6 +35,10 @@ describe('Stores > Project', function () {
       expect(projectStore.error).to.be.an('object')
     })
 
+    it('should have an `experimental_tools` property', function () {
+      expect(projectStore.experimental_tools).to.be.an('array')
+    })
+
     it('should have an `id` property', function () {
       expect(projectStore.id).to.be.null()
     })
