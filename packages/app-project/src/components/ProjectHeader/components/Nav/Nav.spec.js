@@ -22,7 +22,7 @@ const LINKS = [
   { text: 'Recents', href: `${BASE_URL}/recents` }
 ]
 
-describe.only('Component > Nav', function () {
+describe('Component > Nav', function () {
   before(function () {
     wrapper = shallow(<Nav router={ROUTER} isLoggedIn={true} />)
   })
