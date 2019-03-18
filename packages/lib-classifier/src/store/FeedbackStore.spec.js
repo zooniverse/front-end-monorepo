@@ -94,12 +94,24 @@ describe('Model > FeedbackStore', function () {
   })
 
   describe('messages', function () {
-    xit('should return an array of feedback messages', function () {
+    // TODO set feedback.rules['T0'] to array of 2 rules, both successEnabled => true, one failureEnabled => false and test lengths of returned messages array
+    
+    it('should return an array of success feedback messages', function () {
       expect(feedback.messages).to.equal(['Yay!'])
     })
 
-    xit('should return an empty array if no messages applicable', function () {
+    it('should return an array of failure messages', function () {
       expect(feedback.messages).to.equal([])
+    })
+  })
+
+  describe('hideSubjectViewer', function () {
+    it('should return true if any rule hides subject viewer', function () {
+      expect(feedback.hideSubjectViewer).to.equal(true)
+    })
+
+    it('should return false if no rule hides subject viewer', function () {
+      expect(feedback.hideSubjectViewer).to.equal(false)
     })
   })
 })

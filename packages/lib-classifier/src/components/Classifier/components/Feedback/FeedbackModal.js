@@ -13,11 +13,13 @@ counterpart.registerTranslations('en', en)
 function storeMapper(stores) {
   const { 
     hideFeedback,
+    hideSubjectViewer,
     messages,
     showModal
   } = stores.classifierStore.feedback
   return {
     hideFeedback,
+    hideSubjectViewer,
     messages,
     showModal
   }
@@ -28,7 +30,7 @@ function storeMapper(stores) {
 class FeedbackModal extends React.Component {
   render () {
     const label = counterpart('FeedbackModal.label')
-    const { hideFeedback, messages, showModal } = this.props
+    const { hideFeedback, hideSubjectViewer, messages, showModal } = this.props
 
     if (showModal) {
       return (
@@ -42,7 +44,7 @@ class FeedbackModal extends React.Component {
               height="medium"
               overflow="auto"
             >
-              <SubjectViewer />
+              {!hideSubjectViewer && <SubjectViewer />}
               <ul>
                 {messages.map(message =>
                   <li key={Math.random()}>

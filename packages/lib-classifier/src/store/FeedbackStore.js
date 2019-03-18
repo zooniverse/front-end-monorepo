@@ -11,18 +11,19 @@ const FeedbackStore = types
     showModal: types.optional(types.boolean, false)
   })
   .views(self => ({
+    get hideSubjectViewer () {
+      return flatten(Array.from(self.rules.values()))
+        .some(rule => rule.hideSubjectViewer)
+    },
     get messages () {
-      const messages = []
-      self.rules.forEach(([item]) => {
-        let message = false
-        if (item.success && item.successEnabled) {
-          message = item.successMessage
-        } else if (!item.success && item.failureEnabled) {
-          message = item.failureMessage
+      return flatten(Array.from(self.rules.values()))
+        .map(rule => {
+          if (rule.success && rule.successEnabled) {
+            return rule.successMessage
+          } else if (!rule.success && rule.failureEnabled) {
+            return rule.failureMessage
         }
-        if (message) messages.push(message)
       })
-      return messages
     }
   }))
   .actions(self => {
