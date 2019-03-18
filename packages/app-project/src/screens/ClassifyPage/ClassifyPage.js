@@ -15,14 +15,14 @@ const ClassifierWrapper = dynamic(() =>
 }
 )
 
-function ClassifyPage ({ mode }) {
+function ClassifyPage (props) {
   const collectionsModal = React.createRef()
   function addToCollection (subjectId) {
     collectionsModal.current.wrappedInstance.open(subjectId)
   }
   return (
     <Box
-      background={mode === 'light' ? 'lighterGrey' : 'midDarkGrey'}
+      background={props.mode === 'light' ? 'light-1' : 'dark-1'}
       pad={{ top: 'medium' }}
     >
       <CollectionsModal
