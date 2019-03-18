@@ -13,7 +13,7 @@ function ResetButton ({ disabled, onClick }) {
     <Button
       aria-label={counterpart('ResetButton.ariaLabel')}
       disabled={disabled}
-      onClick={disabled ? Function.prototype : onClick}
+      onClick={onClick}
     >
       {resetIcon}
     </Button>

@@ -13,7 +13,7 @@ function RotateButton ({ disabled, onClick }) {
     <Button
       aria-label={counterpart('RotateButton.ariaLabel')}
       disabled={disabled}
-      onClick={disabled ? Function.prototype : onClick}
+      onClick={onClick}
       svgAdjustments={{ y: '2' }}
     >
       {rotateIcon}

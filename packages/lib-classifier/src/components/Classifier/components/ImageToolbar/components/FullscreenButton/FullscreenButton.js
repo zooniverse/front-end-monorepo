@@ -19,7 +19,7 @@ function FullscreenButton ({ active, disabled, onClick }) {
       active={active}
       disabled={disabled}
       aria-label={label}
-      onClick={disabled ? Function.prototype : onClick}
+      onClick={onClick}
     >
       {icon}
     </Button>
