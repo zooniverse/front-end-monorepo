@@ -22,6 +22,7 @@ describe('Model > FeedbackStore', function () {
       rules: {
         T0: [{
           id: 'testRule',
+          hideSubjectViewer: true,
           answer: '0',
           strategy: 'testStrategy',
           success: true,
@@ -32,6 +33,7 @@ describe('Model > FeedbackStore', function () {
         }],
         T1: [{
           id: 'testRule',
+          hideSubjectViewer: false,
           answer: '0',
           strategy: 'testStrategy',
           success: false,
@@ -156,6 +158,8 @@ describe('Model > FeedbackStore', function () {
     })
 
     it('should return false if no rule hides subject viewer', function () {
+      const [ rule ] = feedback.rules.get('T0')
+      rule.hideSubjectViewer = false
       expect(feedback.hideSubjectViewer).to.equal(false)
     })
   })
