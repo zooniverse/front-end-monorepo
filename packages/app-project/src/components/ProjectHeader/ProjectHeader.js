@@ -5,6 +5,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Avatar from './components/Avatar'
+import Nav from './components/Nav'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -21,13 +22,16 @@ function ProjectHeader (props) {
       background='brand'
       className={className}
       direction='row'
-      gap='medium'
+      justify='between'
       pad='medium'
     >
-      <Avatar />
-      <StyledHeading color='white' margin='none' size='small'>
-        {title}
-      </StyledHeading>
+      <Box align='center' direction='row' gap='medium'>
+        <Avatar />
+        <StyledHeading color='white' margin='none' size='small'>
+          {title}
+        </StyledHeading>
+      </Box>
+      <Nav />
     </Box>
   )
 }
