@@ -67,7 +67,6 @@ function put (endpoint, data, headers = {}, host) {
 
   if (headers && headers.authorization) request.set('Authorization', headers.authorization)
   if (headers && headers.etag) request.set('If-Match', headers.etag)
-  // This is a fallback method for matching if etag is missing...
   if (headers && headers.lastModified) request.set('If-Unmodified-Since', headers.lastModified)
 
   return request.query(defaultParams)
