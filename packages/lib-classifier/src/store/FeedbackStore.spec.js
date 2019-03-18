@@ -130,11 +130,14 @@ describe('Model > FeedbackStore', function () {
   })
 
   describe('hideFeedback', function () {
-    // TODO stub getRoot(self).subjects.advance()
+    
 
-    // before(function () {
-    //   feedback.hideFeedback()
-    // })
+    beforeEach(function () {
+      feedback.subjects = {
+        advance: () => true
+      }
+      feedback.hideFeedback()
+    })
 
     it('should set showModal state to false', function () {
       expect(feedback.showModal).to.be.false
