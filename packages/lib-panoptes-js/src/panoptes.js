@@ -16,7 +16,7 @@ function checkForAdminFlag () {
 }
 
 // TODO: Consider how to integrate a GraphQL option
-function get (endpoint, query, authorization = '', host) {
+function get (endpoint, query, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -25,7 +25,7 @@ function get (endpoint, query, authorization = '', host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (authorization) request.set('Authorization', authorization)
+  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
 
   if (query && Object.keys(query).length > 0) {
     if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
@@ -38,7 +38,7 @@ function get (endpoint, query, authorization = '', host) {
   return request.then(response => response)
 }
 
-function post (endpoint, data, authorization = '', host) {
+function post (endpoint, data, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -48,16 +48,15 @@ function post (endpoint, data, authorization = '', host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (authorization) request.set('Authorization', authorization)
+  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
 
   return request.query(defaultParams)
     .send(data)
     .then(response => response)
 }
 
-function put (endpoint, data, authorization = '', host) {
+function put (endpoint, data, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
-
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (!data) return handleMissingParameter('Request needs a defined data for update')
   const apiHost = host || config.host
@@ -66,14 +65,17 @@ function put (endpoint, data, authorization = '', host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (authorization) request.set('Authorization', authorization)
+  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  if (headers && headers.etag) request.set('If-Match', headers.etag)
+  // This is a fallback method for matching if etag is missing...
+  if (headers && headers.lastModified) request.set('If-Unmodified-Since', headers.lastModified)
 
   return request.query(defaultParams)
     .send(data)
     .then(response => response)
 }
 
-function del (endpoint, authorization = '', host) {
+function del (endpoint, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -83,7 +85,7 @@ function del (endpoint, authorization = '', host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (authorization) request.set('Authorization', authorization)
+  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
 
   return request.query(defaultParams)
     .then(response => response)

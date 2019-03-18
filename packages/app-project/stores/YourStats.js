@@ -49,7 +49,7 @@ const YourStats = types
             user_id: user.id
           }
           // TODO: this should really share the UPP that's being requested by the classifier.
-          const response = yield panoptes.get('/project_preferences', query, authorization)
+          const response = yield panoptes.get('/project_preferences', query, { authorization })
           const [ preferences ] = response.body.project_preferences
           self.totalCount = preferences ? preferences.activity_count : 0
         } catch (error) {

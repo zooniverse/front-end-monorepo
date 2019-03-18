@@ -16,12 +16,12 @@ function get (params) {
   if (isParamTypeInvalid(workflowId, 'string')) return raiseError('Tutorials: Get request workflow id must be a string.', 'typeError')
 
   if (tutorialId) {
-    return panoptes.get(`${endpoint}/${tutorialId}`, queryParams, authorization)
+    return panoptes.get(`${endpoint}/${tutorialId}`, queryParams, { authorization })
   }
 
   if (workflowId) {
     queryParams.workflow_id = workflowId
-    return panoptes.get(endpoint, queryParams, authorization)
+    return panoptes.get(endpoint, queryParams, { authorization })
   }
 
   return raiseError('Tutorials: Get request must include a workflow id or a tutorial id.', 'error')

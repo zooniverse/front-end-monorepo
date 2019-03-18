@@ -9,6 +9,9 @@ import merge from 'lodash/merge'
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
     active: types.maybe(types.reference(UserProjectPreferences)),
+    headers: types.maybe(types.frozen({
+      etag: types.string
+    })),
     resources: types.optional(types.map(UserProjectPreferences), {}),
     type: types.optional(types.string, 'project_preferences')
   })
@@ -30,7 +33,7 @@ const UserProjectPreferencesStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function * createUPP (bearerToken) {
+    function * createUPP (authorization) {
       const { type } = self
       const client = getRoot(self).client.panoptes
       const project = getRoot(self).projects.active
@@ -40,7 +43,8 @@ const UserProjectPreferencesStore = types
       }
       self.loadingState = asyncStates.posting
       try {
-        const response = yield client.post(`/${type}`, { [type]: data }, bearerToken)
+        const response = yield client.post(`/${type}`, { [type]: data }, { authorization })
+        self.headers = response.headers
         return response.body[type][0]
       } catch (error) {
         console.error(error)
@@ -52,11 +56,11 @@ const UserProjectPreferencesStore = types
       const { authClient } = getRoot(self)
 
       try {
-        const bearerToken = yield getBearerToken(authClient)
+        const authorization = yield getBearerToken(authClient)
         const user = yield authClient.checkCurrent()
 
-        if (bearerToken && user) {
-          self.fetchUPP(bearerToken, user)
+        if (authorization && user) {
+          self.fetchUPP(authorization, user)
         } else {
           self.reset()
           self.loadingState = asyncStates.success
@@ -67,7 +71,7 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function * fetchUPP (bearerToken, user) {
+    function * fetchUPP (authorization, user) {
       let resource
       const { type } = self
       const client = getRoot(self).client.panoptes
@@ -75,11 +79,12 @@ const UserProjectPreferencesStore = types
 
       self.loadingState = asyncStates.loading
       try {
-        const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, bearerToken)
+        const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, { authorization })
         if (response.body[type][0]) {
+          self.headers = response.headers
           resource = response.body[type][0]
         } else {
-          resource = yield self.createUPP(bearerToken)
+          resource = yield self.createUPP(authorization)
         }
 
         self.loadingState = asyncStates.success
@@ -93,16 +98,19 @@ const UserProjectPreferencesStore = types
     function * updateUPP (changes) {
       const { authClient } = getRoot(self)
       const upp = self.resources.get(self.active.id)
-      console.log('upp', upp)
       if (upp) {
-        const bearerToken = yield getBearerToken(authClient)
+        const authorization = yield getBearerToken(authClient)
         const { type } = self
         const client = getRoot(self).client.panoptes
         self.loadingState = asyncStates.putting
         try {
-          const data = merge({}, upp, { preferences: changes })
-          console.log(data)
-          const response = yield client.put(`/${type}/${upp.id}`, { [type]: data }, bearerToken)
+          const newUPP = merge({}, upp, changes)
+          const headers = {
+            authorization,
+            etag: self.headers.etag
+          }
+          if (self.headers['Last-Modified']) headers.lastModified = self.headers['Last-Modified']
+          const response = yield client.put(`/${type}/${upp.id}`, { [type]: { preferences: newUPP.preferences } }, headers)
           const updatedUPP = response.body[type][0]
           self.setUPP(updatedUPP)
           self.loadingState = asyncStates.success

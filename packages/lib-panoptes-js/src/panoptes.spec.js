@@ -108,6 +108,18 @@ describe('panoptes.js', function () {
     testAdminParam('put', endpoint, update)
     testNoEndpoint('put')
 
+    it('should add If-Match header to the request', async function () {
+      const etag = 'W/"8d26cb6718e250b"'
+      const response = await panoptes.put(endpoint, update, { etag })
+      expect(response.req.headers['if-match']).to.equal(etag)
+    })
+
+    it('should add If-Unmodified-Since header to the request', async function () {
+      const lastModified = 'Sun, 17 Mar 2019 23:40:50 GMT'
+      const response = await panoptes.put(endpoint, update, { lastModified })
+      expect(response.req.headers['if-unmodified-since']).to.equal(lastModified)
+    })
+
     it('should send any data params if defined', async function () {
       const response = await panoptes.put(endpoint, update)
       expect(response.body).to.deep.equal(expectedResponse)
@@ -195,12 +207,13 @@ describe('panoptes.js', function () {
   function testAuthHeader (method, endpoint, update = null) {
     it('should add the `Authorization` header to the request if param is defined', async function () {
       const isDel = method === 'del'
+      const headers = { authorization: 'Bearer 12345' }
       const methodArgs = isDel
-        ? [endpoint, '12345']
-        : [endpoint, update, '12345']
+        ? [endpoint, headers]
+        : [endpoint, update, headers]
 
       const response = await panoptes[method].apply(this, methodArgs)
-      expect(response.req.headers['authorization']).to.equal('12345')
+      expect(response.req.headers['authorization']).to.equal('Bearer 12345')
     })
   }
 

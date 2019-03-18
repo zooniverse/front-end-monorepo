@@ -63,7 +63,7 @@ class ClassificationQueue {
     return getBearerToken(this.authClient)
       .then((authorization) => {
         return Promise.all(pendingClassifications.map((classificationData) => {
-          return this.apiClient.post(this.endpoint, { classifications: classificationData }, authorization)
+          return this.apiClient.post(this.endpoint, { classifications: classificationData }, { authorization })
             .then((response) => {
               if (response.ok) {
                 const savedClassification = response.body.classifications[0]
