@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 const StyledBox = styled(Box)`
   height: 100%;
+  overflow: hidden;
   position: absolute;
   width: 100%;
   z-index: -1;
