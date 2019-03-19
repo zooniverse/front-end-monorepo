@@ -32,10 +32,11 @@ class FullscreenButtonContainer extends React.Component {
   }
 
   render () {
-    const { fullscreen } = this.props
+    const { disabled, fullscreen } = this.props
     return (
       <FullscreenButton
         active={fullscreen}
+        disabled={disabled}
         onClick={this.onClick}
       />
     )
@@ -43,12 +44,14 @@ class FullscreenButtonContainer extends React.Component {
 }
 
 FullscreenButtonContainer.wrappedComponent.propTypes = {
-  fullscreen: PropTypes.bool,
+  disabled: PropTypes.bool,
   disableFullscreen: PropTypes.func,
-  enableFullscreen: PropTypes.func
+  enableFullscreen: PropTypes.func,
+  fullscreen: PropTypes.bool,
 }
 
 FullscreenButtonContainer.wrappedComponent.defaultProps = {
+  disabled: false,
   fullscreen: false
 }
 

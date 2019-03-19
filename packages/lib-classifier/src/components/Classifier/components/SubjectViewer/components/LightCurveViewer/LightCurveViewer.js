@@ -1,8 +1,9 @@
 import * as d3 from 'd3'
+import { Box } from 'grommet'
+import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import { inject, observer } from 'mobx-react'
 
 import addAxisLayer from './d3/addAxisLayer'
 import addRemoveAnnotationButton from './d3/addRemoveAnnotationButton'
@@ -623,7 +624,10 @@ class LightCurveViewer extends Component {
 
   render () {
     return (
-      <div className='light-curve-viewer' ref={this.svgContainer}>
+      <Box
+        className='light-curve-viewer'
+        ref={this.svgContainer}
+      >
         <ReactResizeDetector
           handleWidth
           handleHeight
@@ -631,7 +635,7 @@ class LightCurveViewer extends Component {
           refreshMode='debounce'
           refreshRate={500}
         />
-      </div>
+    </Box>
     )
   }
 }

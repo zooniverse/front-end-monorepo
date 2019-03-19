@@ -18,25 +18,27 @@ class ImageToolbar extends Component {
     const { theme: { mode }, ...props } = this.props
 
     return (
-      <aside {...props}>
+      <Box as='aside' {...props}>
         <Box
           background={mode === 'light' ? 'white' : 'dark-3'}
           border={{
             color: mode === 'light' ? 'light-3' : 'dark-3',
             side: 'all'
           }}
+          direction='column'
+          fill
           pad='small'
         >
           <AnnotateButton />
           <MoveButton />
           <ZoomInButton />
           <ZoomOutButton />
-          <RotateButton />
-          <FullscreenButton />
-          <ResetButton />
+          <RotateButton disabled />
+          <FullscreenButton disabled />
+          <ResetButton disabled />
         </Box>
         <FieldGuideButton />
-      </aside>
+      </Box>
     )
   }
 }

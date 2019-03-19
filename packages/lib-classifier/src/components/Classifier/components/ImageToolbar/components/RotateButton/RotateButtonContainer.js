@@ -18,18 +18,20 @@ function storeMapper (stores) {
 @observer
 class RotateButtonContainer extends React.Component {
   render () {
-    const { rotate } = this.props
+    const { disabled, rotate } = this.props
     return (
-      <RotateButton onClick={rotate} />
+      <RotateButton disabled={disabled} onClick={rotate} />
     )
   }
 }
 
 RotateButtonContainer.wrappedComponent.propTypes = {
+  disabled: PropTypes.bool,
   rotate: PropTypes.func
 }
 
 RotateButtonContainer.wrappedComponent.defaultProps = {
+  disabled: false,
   rotate: () => console.log('rotate view')
 }
 

@@ -9,7 +9,7 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function FullscreenButton ({ active, onClick }) {
+function FullscreenButton ({ active, disabled, onClick }) {
   const icon = (active) ? actualSizeIcon : fullscreenIcon
   const labelKey = active ? 'actualSize' : 'fullscreen'
   const label = counterpart(`FullscreenButton.ariaLabel.${labelKey}`)
@@ -17,6 +17,7 @@ function FullscreenButton ({ active, onClick }) {
   return (
     <Button
       active={active}
+      disabled={disabled}
       aria-label={label}
       onClick={onClick}
     >
@@ -27,11 +28,13 @@ function FullscreenButton ({ active, onClick }) {
 
 FullscreenButton.propTypes = {
   active: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 FullscreenButton.defaultProps = {
   active: false,
+  disabled: false,
   onClick: () => console.log('toggle fullscreen')
 }
 

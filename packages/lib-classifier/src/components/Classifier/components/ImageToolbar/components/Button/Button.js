@@ -7,7 +7,8 @@ import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
 const StyledButton = styled.button`
   background: none;
   border: 0;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  opacity: ${props => props.disabled ? '0.3' : '1'};
   padding: 0;
 `
 
@@ -55,6 +56,7 @@ class Button extends React.Component {
     const {
       active,
       children,
+      disabled,
       focused,
       hovered,
       onBlur,
@@ -68,19 +70,21 @@ class Button extends React.Component {
 
     const hoveredOrFocused = hovered || focused
 
-    const eventHandlers = {
-      onBlur,
-      onClick,
-      onFocus,
-      onMouseOver,
-      onMouseOut
-    }
+    const eventHandlers = (disabled)
+      ? {}
+      : {
+          onBlur,
+          onClick,
+          onFocus,
+          onMouseOver,
+          onMouseOut
+        }
 
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { ...this.getSize(size) }))
 
     return (
-      <StyledButton {...eventHandlers}>
+      <StyledButton {...eventHandlers} disabled={disabled}>
         <svg viewBox='0 0 100 100'>
           <Background
             active={active}

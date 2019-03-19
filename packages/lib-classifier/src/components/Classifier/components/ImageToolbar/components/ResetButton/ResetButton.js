@@ -8,10 +8,11 @@ import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
-function ResetButton ({ onClick }) {
+function ResetButton ({ disabled, onClick }) {
   return (
     <Button
       aria-label={counterpart('ResetButton.ariaLabel')}
+      disabled={disabled}
       onClick={onClick}
     >
       {resetIcon}
@@ -20,12 +21,12 @@ function ResetButton ({ onClick }) {
 }
 
 ResetButton.propTypes = {
-  active: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 ResetButton.defaultProps = {
-  active: false,
+  disabled: false,
   onClick: () => console.log(counterpart('ResetButton.ariaLabel'))
 }
 
