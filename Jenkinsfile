@@ -2,14 +2,15 @@
 
 timeout(20) {
   node {
-    checkout scm
+    def scmVars = checkout scm
 
     stage('publish: Monorepo Docker image') {
       echo 'Publishing Monorepo Docker image...'
       if (BRANCH_NAME == 'master') {
         def dockerRepoName = 'zooniverse/front-end-monorepo'
-        def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+        def dockerImageName = "${dockerRepoName}:${scmVars.GIT_COMMIT}"
         def newImage = docker.build(dockerImageName)
+        newImage.push()
         newImage.push('latest')
       } else {
         echo 'Not on `master` branch, skipping stage'
@@ -42,15 +43,10 @@ timeout(20) {
       }
     }
 
-    stage('Deploy to Swarm') {
+    stage('Deploy to Kubernetes') {
       if (BRANCH_NAME == 'master') {
-        sh """
-          cd "/var/jenkins_home/jobs/Zooniverse GitHub/jobs/operations/branches/master/workspace" && \
-          ./hermes_wrapper.sh exec swarm19a -- \
-              docker stack deploy --prune \
-              -c /opt/infrastructure/stacks/fe-project-staging.yml \
-              fe-project-staging
-        """
+        sh "kubectl apply --record -f kubernetes/"
+        sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
       } else {
         echo 'Not on `master` branch, skipping stage'
       }
