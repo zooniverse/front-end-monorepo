@@ -7,6 +7,7 @@ import RootStore from './RootStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 import {
   ProjectFactory,
+  TutorialFactory,
   UPPFactory,
   UserFactory
 } from '../../test/factories'
@@ -242,6 +243,58 @@ describe('Model > UserProjectPreferencesStore', function () {
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
         }).then(done, done)
+    })
+  })
+
+  describe.only('Actions > updateUPP', function () {
+    let rootStore
+    let changes
+    let updatedUPP
+    let putStub
+
+    before(function () {
+      const tutorial = TutorialFactory.build()
+      const seen = new Date().toISOString()
+      changes = {
+        preferences: {
+          tutorials_completed_at: {
+            [tutorial.id]: seen
+          }
+        }
+      }
+      updatedUPP = Object.assign({}, upp, changes)
+      putStub = sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
+      rootStore = RootStore.create({
+        projects: ProjectStore.create(),
+        userProjectPreferences: UserProjectPreferencesStore.create()
+      }, {
+          authClient: authClientStubWithUser,
+          client: {
+            panoptes: {
+              get: (url) => {
+                if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
+                return Promise.resolve({ body: { project_preferences: [upp] } })
+              },
+              put: putStub
+            }
+          }
+        })
+    })
+
+    it('should update user project preferences', async function () {
+      await rootStore.projects.setActive(project.id)
+      await rootStore.userProjectPreferences.updateUPP(changes)
+      expect(putStub).to.have.been.calledOnceWith(
+        '/project_preferences',
+        {
+          project_preferences: {
+            preferences: changes
+          }
+        },
+        { authorization: `Bearer ${token}` }
+      )
+
+      expect(rootStore.active).to.deep.equal(updatedUPP)
     })
   })
 })

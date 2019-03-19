@@ -78,7 +78,8 @@ const UserProjectPreferencesStore = types
       try {
         const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, { authorization })
         if (response.body[type][0]) {
-          self.headers = response.headers
+          // We don't store the headers from this get response because it's by query params
+          // and not for a specific resource, so the etag won't be usable for the later PUT request
           resource = response.body[type][0]
         } else {
           resource = yield self.createUPP(authorization)
@@ -106,10 +107,14 @@ const UserProjectPreferencesStore = types
             authorization,
             etag: self.headers.etag
           }
-          if (self.headers['Last-Modified']) headers.lastModified = self.headers['Last-Modified']
+
           const response = yield client.put(`/${type}/${upp.id}`, { [type]: { preferences: newUPP.preferences } }, headers)
-          const updatedUPP = response.body[type][0]
-          self.setUPP(updatedUPP)
+          if (response.body[type][0]) {
+            self.headers = response.headers
+            const updatedUPP = response.body[type][0]
+            self.setUPP(updatedUPP)
+          }
+
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error(error)

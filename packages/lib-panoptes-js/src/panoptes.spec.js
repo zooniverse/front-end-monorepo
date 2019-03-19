@@ -114,12 +114,6 @@ describe('panoptes.js', function () {
       expect(response.req.headers['if-match']).to.equal(etag)
     })
 
-    it('should add If-Unmodified-Since header to the request', async function () {
-      const lastModified = 'Sun, 17 Mar 2019 23:40:50 GMT'
-      const response = await panoptes.put(endpoint, update, { lastModified })
-      expect(response.req.headers['if-unmodified-since']).to.equal(lastModified)
-    })
-
     it('should send any data params if defined', async function () {
       const response = await panoptes.put(endpoint, update)
       expect(response.body).to.deep.equal(expectedResponse)
