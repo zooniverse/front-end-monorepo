@@ -24,7 +24,7 @@ const FeedbackStore = types
           } else if (!rule.success && rule.failureEnabled) {
             return rule.failureMessage
           }
-        })
+        }).filter(Boolean)
     }
   }))
   .actions(self => {
