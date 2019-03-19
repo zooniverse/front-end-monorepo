@@ -84,7 +84,7 @@ class Button extends React.Component {
       React.cloneElement(child, { ...this.getSize(size) }))
 
     return (
-      <StyledButton {...eventHandlers} disabled={disabled ? 'true' : ''}>
+      <StyledButton {...eventHandlers} disabled={disabled}>
         <svg viewBox='0 0 100 100'>
           <Background
             active={active}
