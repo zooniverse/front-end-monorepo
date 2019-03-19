@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import { string } from 'react'
+import { string } from 'prop-types'
+import React from 'react'
 import { Box } from 'grommet'
 import styled from 'styled-components'
 
