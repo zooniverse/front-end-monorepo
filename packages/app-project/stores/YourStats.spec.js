@@ -58,13 +58,13 @@ describe('Stores > YourStats', function () {
     })
 
     it('should request user preferences', function () {
-      const token = 'Bearer '
+      const authorization = 'Bearer '
       const endpoint = '/project_preferences'
       const query = {
         project_id: '2',
         user_id: '123'
       }
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, token)).to.have.been.calledOnce()
+      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
     })
 
     it('should store your activity count', function () {
