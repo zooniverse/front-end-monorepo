@@ -72,7 +72,7 @@ describe('Model > ResourceStore', function () {
     resetStore.reset()
     expect(resetStore.resources.size).to.equal(0)
     expect(resetStore.active).to.be.undefined
-    // expect(resetStore.headers).to.be.undefined
+    expect(Object.keys(resourceStore.headers)).to.have.lengthOf(0)
   })
 
   it('should use an existing resources object when `setActive` is called', async function () {
@@ -87,12 +87,10 @@ describe('Model > ResourceStore', function () {
     expect(clientStub.panoptes.get.called).to.be.true
   })
 
-  // This test is failing due to a MST error, that might be a bug.
-  // We should try upgrading MST because we're a few minor versions behind...
-  // it('should set the headers object when a successful get request is made', async function () {
-  //   resourceStore.reset()
-  //   expect(resourceStore.headers).to.be.undefined
-  //   await resourceStore.setActive('789')
-  //   expect(resourceStore.headers).to.include({ etag: etagStub })
-  // })
+  it('should set the headers object when a successful get request is made', async function () {
+    resourceStore.reset()
+    expect(Object.keys(resourceStore.headers)).to.have.lengthOf(0)
+    await resourceStore.setActive('789')
+    expect(resourceStore.headers).to.include({ etag: etagStub })
+  })
 })

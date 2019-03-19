@@ -7,7 +7,7 @@ const ResourceStore = types
   .model('ResourceStore', {
     active: types.maybe(types.reference(Resource)),
     headers: types.maybe(types.frozen({
-      etag: types.string
+      // etag: types.string // setting this is causing the store to be set with a MST type and thus defined. Maybe a bug?
     })),
     resources: types.map(Resource),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),

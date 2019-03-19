@@ -1,4 +1,4 @@
-import { autorun } from 'mobx'
+import { autorun, toJS } from 'mobx'
 import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
@@ -13,6 +13,7 @@ const UserProjectPreferencesStore = types
     type: types.optional(types.string, 'project_preferences')
   })
 
+  // TODO: move some of these req into panoptes.js helpers
   .actions(self => {
     function afterAttach () {
       createProjectObserver()
@@ -93,22 +94,64 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function * updateUPP (changes) {
+    function * fetchUPPById (id = '') {
+      const { type } = self
+      const uppId = id || self.active.id
+      const client = getRoot(self).client.panoptes
       const { authClient } = getRoot(self)
-      const upp = self.resources.get(self.active.id)
+      const authorization = yield getBearerToken(authClient)
+      const headers = {
+        authorization
+      }
+      try {
+        const response = yield client.get(`/${type}/${uppId}`, null, headers)
+        const resource = response.body[type][0]
+        if (resource) {
+          self.headers = response.headers
+          self.setUPP(resource)
+          return resource
+        }
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
+      }
+    }
+
+    function * updateUPP (changes) {
+      const upp = self.active
       if (upp) {
-        const authorization = yield getBearerToken(authClient)
-        const { type } = self
-        const client = getRoot(self).client.panoptes
         self.loadingState = asyncStates.putting
         try {
-          const newUPP = merge({}, upp, changes)
-          const headers = {
-            authorization,
-            etag: self.headers.etag
+          if (self.headers.etag) {
+            const mergedUPP = merge({}, upp, changes)
+            yield self.putUPP(mergedUPP)
+          } else {
+            // We re-request for the upp to get a usable etag header
+            const currentUPP = yield self.fetchUPPById(upp.id)
+            const mergedUPP = merge({}, currentUPP, changes)
+            yield self.putUPP(mergedUPP)
           }
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
+        }
+      }
+    }
 
-          const response = yield client.put(`/${type}/${upp.id}`, { [type]: { preferences: newUPP.preferences } }, headers)
+    function * putUPP (upp) {
+      const { type } = self
+      const client = getRoot(self).client.panoptes
+      const { authClient } = getRoot(self)
+      const authorization = yield getBearerToken(authClient)
+
+      if (upp && self.headers.etag) {
+        const headers = {
+          authorization,
+          etag: self.headers.etag
+        }
+        const { id, preferences } = upp
+        try {
+          const response = yield client.put(`/${type}/${id}`, { [type]: { preferences } }, headers)
           if (response.body[type][0]) {
             self.headers = response.headers
             const updatedUPP = response.body[type][0]
@@ -133,6 +176,8 @@ const UserProjectPreferencesStore = types
       checkForUser: flow(checkForUser),
       createUPP: flow(createUPP),
       fetchUPP: flow(fetchUPP),
+      fetchUPPById: flow(fetchUPPById),
+      putUPP: flow(putUPP),
       setUPP,
       updateUPP: flow(updateUPP)
     }

@@ -1,6 +1,7 @@
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 import { getEnv, types } from 'mobx-state-tree'
+import merge from 'lodash/merge'
 
 import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
@@ -18,6 +19,7 @@ const project = ProjectFactory.build()
 const upp = UPPFactory.build()
 const user = UserFactory.build()
 const token = '1234'
+const etag = 'W/"8d26cb6718e250b"'
 
 const clientStub = stubPanoptesJs({
   projects: project,
@@ -246,11 +248,10 @@ describe('Model > UserProjectPreferencesStore', function () {
     })
   })
 
-  describe.only('Actions > updateUPP', function () {
+  describe('Actions > updateUPP', function () {
     let rootStore
     let changes
     let updatedUPP
-    let putStub
 
     before(function () {
       const tutorial = TutorialFactory.build()
@@ -262,8 +263,8 @@ describe('Model > UserProjectPreferencesStore', function () {
           }
         }
       }
-      updatedUPP = Object.assign({}, upp, changes)
-      putStub = sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
+      updatedUPP = merge({}, upp, changes)
+
       rootStore = RootStore.create({
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
@@ -271,30 +272,49 @@ describe('Model > UserProjectPreferencesStore', function () {
           authClient: authClientStubWithUser,
           client: {
             panoptes: {
-              get: (url) => {
-                if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
-                return Promise.resolve({ body: { project_preferences: [upp] } })
+              get: (url, params) => {
+                if (url === `/projects/${project.id}`) {
+                  return Promise.resolve({ body: { projects: [project] } })
+                }
+                if (url === `/project_preferences` && params === { project_id: project.id, user_id: user.id }) {
+                  return Promise.resolve({ body: { project_preferences: [upp] } })
+                }
+                return Promise.resolve({ body: { project_preferences: [upp] }, headers: { etag } })
               },
-              put: putStub
+              put: sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
             }
           }
         })
+      rootStore.projects.setActive(project.id)
+    })
+
+    afterEach(function () {
+      rootStore.userProjectPreferences.reset()
     })
 
     it('should update user project preferences', async function () {
-      await rootStore.projects.setActive(project.id)
       await rootStore.userProjectPreferences.updateUPP(changes)
-      expect(putStub).to.have.been.calledOnceWith(
-        '/project_preferences',
+      expect(rootStore.client.panoptes.put).to.have.been.calledOnceWith(
+        `/project_preferences/${upp.id}`,
         {
-          project_preferences: {
-            preferences: changes
-          }
+          project_preferences: { preferences: updatedUPP.preferences }
         },
-        { authorization: `Bearer ${token}` }
+        { authorization: `Bearer ${token}`, etag }
       )
 
-      expect(rootStore.active).to.deep.equal(updatedUPP)
+      expect(rootStore.userProjectPreferences.active).to.deep.equal(updatedUPP)
+    })
+
+    it('should re-request for the upp if the store does not have a stored etag header', async function () {
+      await rootStore.projects.setActive(project.id)
+      expect(Object.keys(rootStore.userProjectPreferences.headers)).to.have.lengthOf(0)
+      await rootStore.userProjectPreferences.updateUPP(changes)
+      // expect(rootStore.client.panoptes.get).to.have.been.calledOnceWith({
+      //   `/project_preferences/${upp.id}`,
+      //   null,
+      //   { authorization: `Bearer ${token}`, etag }
+      // })
+      expect(rootStore.userProjectPreferences.headers).to.contain({ etag })
     })
   })
 })
