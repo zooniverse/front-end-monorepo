@@ -36,7 +36,7 @@ class FeedbackModal extends React.Component {
       return (
         <Modal
           active={showModal}
-          closeFn={() => hideFeedback()}
+          closeFn={hideFeedback}
           title={label}
         >
           <>
@@ -55,7 +55,7 @@ class FeedbackModal extends React.Component {
             </Box>
             <Box pad={{ top: 'small' }}>
               <Button
-                onClick={() => hideFeedback()}
+                onClick={hideFeedback}
                 label={counterpart('FeedbackModal.close')}
                 primary={true}
               />
