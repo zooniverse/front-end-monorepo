@@ -9,8 +9,7 @@ const FeedbackStore = types
   .model('FeedbackStore', {
     isActive: types.optional(types.boolean, false),
     rules: types.map(types.frozen({})),
-    showModal: types.optional(types.boolean, false),
-    allowSubjectAdvance: types.optional(types.boolean, false)
+    showModal: types.optional(types.boolean, false)
   })
   .views(self => ({
     get hideSubjectViewer () {
@@ -50,7 +49,7 @@ const FeedbackStore = types
     function createSubjectMiddleware () {
       const subjectMiddleware = autorun(() => {
         addMiddleware(getRoot(self).subjects, (call, next, abort) => {
-          if (call.name === 'advance' && self.isActive && self.messages.length && !self.allowSubjectAdvance) {
+          if (call.name === 'advance' && self.isActive && self.messages.length && !self.showModal) {
             self.showFeedback()
             return abort()
           }
@@ -87,9 +86,8 @@ const FeedbackStore = types
     }
 
     function hideFeedback () {
-      self.showModal = false
-      self.allowSubjectAdvance = true
       getRoot(self).subjects.advance()
+      self.showModal = false
     }
 
     function update (annotation) {
@@ -106,7 +104,6 @@ const FeedbackStore = types
       self.isActive = false
       self.rules.clear()
       self.showModal = false
-      self.allowSubjectAdvance = false
     }
 
     return {

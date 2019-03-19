@@ -116,10 +116,6 @@ describe('Model > FeedbackStore', function () {
     it('should reset showModal state', function () {
       expect(feedback.showModal).to.be.false
     })
-
-    it('should reset allowSubjectAdvance state', function () {
-      expect(feedback.allowSubjectAdvance).to.be.false
-    })
   })
 
   describe('showFeedback', function () {
@@ -141,10 +137,6 @@ describe('Model > FeedbackStore', function () {
 
     it('should set showModal state to false', function () {
       expect(feedback.showModal).to.be.false
-    })
-
-    it('should set allowSubjectAdvance state to true', function () {
-      expect(feedback.allowSubjectAdvance).to.be.true
     })
   })
   
