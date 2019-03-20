@@ -56,7 +56,8 @@ const FeedbackStore = types
     function createSubjectMiddleware () {
       const subjectMiddleware = autorun(() => {
         addMiddleware(getRoot(self).subjects, (call, next, abort) => {
-          if (call.name === 'advance' && self.isActive && self.messages.length && !self.showModal) {
+          const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
+          if (call.name === 'advance' && shouldShowFeedback) {
             abort()
             const onHide = getRoot(self).subjects.advance
             self.setOnHide(onHide)
