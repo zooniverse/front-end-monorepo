@@ -7,7 +7,7 @@ const { setAliases } = require('require-control')
 setAliases({
   'styled-components': path.resolve(
     path.join(__dirname, './node_modules/styled-components')
-  ),
+  )
 })
 
 module.exports = {

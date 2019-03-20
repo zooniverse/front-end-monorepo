@@ -44,9 +44,9 @@ Nav.propTypes = {
   router: shape({
     query: shape({
       owner: string,
-      project: string,
-    }),
-  }),
+      project: string
+    })
+  })
 }
 
 export default withRouter(Nav)

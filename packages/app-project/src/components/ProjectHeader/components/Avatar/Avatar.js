@@ -31,7 +31,7 @@ function Avatar (props) {
 
 Avatar.propTypes = {
   isNarrow: bool,
-  src: string,
+  src: string
 }
 
 Avatar.defaultProps = {

@@ -16,7 +16,7 @@ class BackgroundContainer extends Component {
   render () {
     return (
       <Background
-        aria-hidden={true}
+        aria-hidden
         backgroundSrc={this.props.backgroundSrc}
       />
     )
@@ -24,7 +24,7 @@ class BackgroundContainer extends Component {
 }
 
 BackgroundContainer.propTypes = {
-  backgroundSrc: string,
+  backgroundSrc: string
 }
 
 export default BackgroundContainer

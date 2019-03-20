@@ -36,9 +36,9 @@ function NavLink (props) {
 NavLink.propTypes = {
   href: string.isRequired,
   router: shape({
-    asPath: string,
+    asPath: string
   }),
-  text: string.isRequired,
+  text: string.isRequired
 }
 
 export default withRouter(NavLink)

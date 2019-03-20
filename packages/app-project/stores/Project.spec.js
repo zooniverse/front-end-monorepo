@@ -35,7 +35,6 @@ describe('Stores > Project', function () {
       expect(projectStore.description).to.be.a('string')
     })
 
-
     it('should have an `error` property', function () {
       expect(projectStore.error).to.be.an('object')
     })
