@@ -31,12 +31,13 @@ function storeMapper (stores) {
     addAnnotation
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
-  const { active: step } = stores.classifierStore.workflowSteps
 
   const currentTask =
     (stores.classifierStore.workflowSteps.activeStepTasks &&
      stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
     {}
+
+  const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
 
   return {
     addAnnotation,
@@ -45,7 +46,8 @@ function storeMapper (stores) {
     enableAnnotate,
     enableMove,
     interactionMode,
-    setOnZoom
+    setOnZoom,
+    toolIndex
   }
 }
 
@@ -233,9 +235,10 @@ class LightCurveViewer extends Component {
       .map((raw) => {
         const x = (raw.minX + raw.maxX) / 2
         const width = (raw.maxX - raw.minX)
-        return { x, width }
+        const toolType = props.currentTask.tools[props.toolIndex].type
+        return { x, width, tool: props.toolIndex, toolType }
       })
-
+    console.log('annotations', annotations)
     props.addAnnotation(annotations, props.currentTask)
   }
 

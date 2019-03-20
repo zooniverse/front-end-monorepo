@@ -5,8 +5,7 @@ import { Graph2dRangeXAnnotation } from './DataVisToolAnnotations'
 const DataVis = types.model('DataVis', {
   value: types.array(types.union({
     dispatcher: (snapshot) => {
-      const snapshotType = getType(snapshot)
-      if (snapshotType.name === 'Graph2DRangeXAnnotation') return Graph2dRangeXAnnotation
+      if (snapshot.toolType === 'graph2dRangeX') return Graph2dRangeXAnnotation
     }
   }, Graph2dRangeXAnnotation))
 })

@@ -20,30 +20,26 @@ export const StyledFieldset = styled.fieldset`
 
 function storeMapper (stores) {
   const annotations = stores.classifierStore.classifications.currentAnnotations
+  const { active, setActive } = stores.classifierStore.dataVisAnnotating
   return {
-    annotations
+    active,
+    annotations,
+    setActive
   }
 }
 
 @inject(storeMapper)
 @observer
 class DataVisAnnotationTask extends React.Component {
-  constructor () {
-    super()
-
-    this.state = {
-      activeTool: 0
-    }
-  }
-
   onChange(index, event) {
     if (event.target.checked) {
-      this.setState({ activeTool: index })
+      this.props.setActive(index)
     }
   }
 
   render () {
     const {
+      active,
       annotations,
       task
     } = this.props
@@ -62,7 +58,7 @@ class DataVisAnnotationTask extends React.Component {
         </Text>
         
         {task.tools.map((tool, index) => {
-          const checked = (annotation && annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
+          const checked =  active === index
           return (
             <TaskInputField
               checked={checked}

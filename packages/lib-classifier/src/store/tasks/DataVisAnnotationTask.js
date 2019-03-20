@@ -7,12 +7,12 @@ const DataVisAnnotation = types.model('DataVisAnnotation', {
   instruction: types.maybe(types.string),
   tools: types.array(types.union({
     dispatcher: (snapshot) => {
-      console.log('snapshot', snapshot)
       if (snapshot.type === 'graph2dRangeX') return Graph2dRangeXTool
     }
   }, Graph2dRangeXTool)),
   type: types.literal('dataVisAnnotation')
 })
+
 
 const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisAnnotation)
 

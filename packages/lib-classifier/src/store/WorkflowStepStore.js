@@ -9,7 +9,6 @@ const WorkflowStepStore = types
     active: types.maybe(types.reference(Step)),
     steps: types.map(Step),
     tasks: types.map(types.union({ dispatcher: (snapshot) => {
-      console.log(snapshot.type)
       if (snapshot.type === 'drawing') return DrawingTask
       if (snapshot.type === 'multiple') return MultipleChoiceTask
       if (snapshot.type === 'single') return SingleChoiceTask
