@@ -1,3 +1,4 @@
+const { execSync } = require('child_process')
 const path = require('path')
 const { setAliases } = require('require-control')
 
@@ -15,6 +16,7 @@ module.exports = {
   useFileSystemPublicRoutes: false,
 
   env: {
+    COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
     PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging'
   },
 

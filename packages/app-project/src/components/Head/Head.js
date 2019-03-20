@@ -45,6 +45,8 @@ function Head (props) {
       <meta name='twitter:site' content={zooniverseTwitterUsername} />
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:image' content={ogImage} />
+
+      <meta name='zooniverse:deployed_commit' content={process.env.COMMIT_ID} />
     </NextHead>
   )
 }

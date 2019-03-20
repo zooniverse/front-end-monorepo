@@ -54,6 +54,7 @@ export default class MyApp extends App {
   }
 
   componentDidMount () {
+    console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
     this.store.user.checkCurrent()
   }
 
