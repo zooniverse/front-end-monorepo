@@ -48,6 +48,10 @@ describe('Stores > Project', function () {
       expect(projectStore.id).to.be.null()
     })
 
+    it('should have an `launch_approved` property', function () {
+      expect(projectStore.launch_approved).to.be.a('boolean')
+    })
+
     it('should have a `slug` property', function () {
       expect(projectStore.slug).to.equal('')
     })
@@ -89,6 +93,7 @@ describe('Stores > Project', function () {
           expect(projectStore.background).to.eql(projectBackground)
           expect(projectStore.displayName).to.equal(projectTwo.display_name)
           expect(projectStore.id).to.equal(projectTwo.id)
+          expect(projectStore.launch_approved).to.equal(projectTwo.launch_approved)
           expect(projectStore.loadingState).to.equal(asyncStates.success)
           expect(projectStore.slug).to.equal(projectTwo.slug)
         })

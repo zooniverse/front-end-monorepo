@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Avatar from './components/Avatar'
 import Background from './components/Background'
 import Nav from './components/Nav'
+import ApprovedIcon from './components/ApprovedIcon'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -36,6 +37,7 @@ function ProjectHeader (props) {
           <StyledHeading color='white' margin='none' size='small'>
             {title}
           </StyledHeading>
+          <ApprovedIcon />
         </Box>
         <Nav />
       </Box>
