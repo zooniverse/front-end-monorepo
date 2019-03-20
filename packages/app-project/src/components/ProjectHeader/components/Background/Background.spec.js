@@ -17,7 +17,7 @@ describe('Component > Background', function () {
 
   it('should render an image if the `backgroundSrc` prop has been passed', function () {
     const wrapperWithImage = render(<Background backgroundSrc={BACKGROUND_SRC} />)
-    const imageWrapper = wrapperWithImage.find('img')
+    const imageWrapper = wrapperWithImage.find('div')
     expect(imageWrapper).to.have.lengthOf(1)
     expect(imageWrapper.prop('src')).to.equal(BACKGROUND_SRC)
   })
