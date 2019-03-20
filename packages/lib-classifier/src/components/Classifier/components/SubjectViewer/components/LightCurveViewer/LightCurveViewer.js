@@ -238,7 +238,7 @@ class LightCurveViewer extends Component {
         const toolType = props.currentTask.tools[props.toolIndex].type
         return { x, width, tool: props.toolIndex, toolType }
       })
-    console.log('annotations', annotations)
+
     props.addAnnotation(annotations, props.currentTask)
   }
 
