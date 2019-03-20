@@ -131,6 +131,7 @@ const FeedbackStore = types
       setOnHide,
       showFeedback,
       hideFeedback,
+      onSubjectAdvance,
       update,
       reset
     }

@@ -127,9 +127,6 @@ describe('Model > FeedbackStore', function () {
 
   describe('hideFeedback', function () {
     beforeEach(function () {
-      feedback.subjects = {
-        advance: () => true
-      }
       feedback.setOnHide(sinon.stub())
       feedback.hideFeedback()
     })
@@ -158,6 +155,48 @@ describe('Model > FeedbackStore', function () {
       const [ rule ] = feedback.rules.get('T0')
       rule.hideSubjectViewer = false
       expect(feedback.hideSubjectViewer).to.equal(false)
+    })
+  })
+
+  describe('when the subject queue advances', function () {
+    const call = {
+      name: 'advance',
+      args: []
+    }
+    const next = sinon.stub()
+    const abort = sinon.stub()
+
+    describe('when feedback is inactive', function () {
+      beforeEach(function () {
+        feedback = FeedbackStore.create({ isActive: false })
+        feedback.onSubjectAdvance(call, next, abort)
+      })
+
+      it('should continue the action', function () {
+        expect(next.withArgs(call)).to.have.been.calledOnce
+      })
+    })
+
+    describe('when feedback is active', function () {
+      beforeEach(function () {
+        feedback = FeedbackStore.create(feedbackStub)
+        feedback.subjects = {
+          advance: sinon.stub()
+        }
+        feedback.onSubjectAdvance(call, next, abort)
+      })
+
+      it('should abort the action', function () {
+        expect(abort).to.have.been.calledOnce
+      })
+
+      it('should show feedback', function () {
+        expect(feedback.showModal).to.be.true
+      })
+
+      it('should set the onHide callback', function () {
+        expect(feedback.onHide).to.equal(feedback.subjects.advance)
+      })
     })
   })
 })
