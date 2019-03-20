@@ -148,7 +148,6 @@ const WorkflowStepStore = types
         // put is a MST method, not native to ES Map
         // the key is inferred from the identifier type of the target model
         const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
-        console.log('taskToStore', taskToStore)
         self.tasks.put(taskToStore)
       })
     }

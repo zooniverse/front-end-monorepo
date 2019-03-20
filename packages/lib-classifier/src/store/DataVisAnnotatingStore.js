@@ -6,8 +6,21 @@ const DataVisAnnotatingStore = types
   })
 
   .actions(self => {
+    function afterAttach() {
+      createClassificationObserver()
+    }
+
+    function createClassificationObserver() {
+      const classificationDisposer = autorun(() => {
+        onAction(getRoot(self), (call) => {
+          if (call.name === 'completeClassification') self.reset()
+        })
+      })
+      addDisposer(self, classificationDisposer)
+    }
+
     function reset() {
-      self.active = undefined
+      self.active = 0
     }
 
     function setActive(toolIndex) {
@@ -15,6 +28,7 @@ const DataVisAnnotatingStore = types
     }
 
     return {
+      afterAttach,
       reset,
       setActive
     }

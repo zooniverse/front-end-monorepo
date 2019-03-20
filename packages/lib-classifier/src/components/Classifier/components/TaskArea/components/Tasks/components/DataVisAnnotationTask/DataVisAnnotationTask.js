@@ -9,7 +9,7 @@ import { Markdownz } from '@zooniverse/react-components'
 import TaskInputField from '../TaskInputField'
 import InputStatus from '../InputStatus'
 import InputIcon from '../InputIcon'
-import Graph2dXRangeXIcon from './components/Graph2dXRangeXIcon'
+import Graph2dRangeXIcon from './components/Graph2dRangeXIcon'
 
 import en from './locales/en'
 counterpart.registerTranslations('en', en)
@@ -65,7 +65,7 @@ class DataVisAnnotationTask extends React.Component {
               index={index}
               key={`${task.taskKey}_${index}`}
               label={tool.label}
-              labelIcon={<Graph2dXRangeXIcon />}
+              labelIcon={<InputIcon icon={<Graph2dRangeXIcon />} />}
               labelStatus={<InputStatus count={numberOfAnnotations} tool={tool} />}
               name='data-vis-annotation-tool'
               onChange={this.onChange.bind(this, index)}

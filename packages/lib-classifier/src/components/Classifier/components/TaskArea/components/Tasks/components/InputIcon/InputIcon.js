@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import styled from 'styled-components';
-import icons from '../../icons';
 
 export const StyledInputIcon = styled.span`
   color: ${props => props.color};

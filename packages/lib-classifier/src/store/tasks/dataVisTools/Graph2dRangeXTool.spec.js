@@ -1,15 +1,16 @@
-import Graph2dRangeXTask from './Graph2dRangeXTool'
+import Graph2dRangeXTool from './Graph2dRangeXTool'
 
-const graphTask = {
-  instruction: 'Mark an area of the graph that is interesting.',
-  taskKey: 'T101',
+const graph2dRangeTool = {
+  help: '',
+  label: 'Transit?',
+  max: 20,
   type: 'graph2dRangeX'
 }
 
-describe('Model > Graph2dRangeXTask', function () {
+describe('Model > Graph2dRangeXTool', function () {
   it('should exist', function () {
-    const graphTaskInstance = Graph2dRangeXTask.create(graphTask)
-    expect(graphTaskInstance).to.exist
-    expect(graphTaskInstance).to.be.an('object')
+    const graph2dRangeToolInstance = Graph2dRangeXTool.create(graph2dRangeTool)
+    expect(graph2dRangeToolInstance).to.exist
+    expect(graph2dRangeToolInstance).to.be.an('object')
   })
 })

@@ -23,6 +23,35 @@ xdescribe('Model > WorkflowStore', function () {
   })
 
   describe('workflow selection', function () {
+    describe('when there is a url query param', function () {
+      let clientStub
+      let rootStore
+
+      before(function () {
+        clientStub = stubPanoptesJs({
+          projects: projectWithoutDefault,
+          subjects: subject,
+          workflows: workflow
+        })
+
+        rootStore = RootStore.create({
+          projects: ProjectStore.create(),
+          workflows: WorkflowStore.create()
+        }, { client: clientStub })
+
+        rootStore.projects.setActive(projectWithoutDefault.id)
+        // JSDOM doesn't support doing this :(
+        window.location.assign(`https://www.zooniverse.org/projects/${projectWithoutDefault.slug}/classify/?workflow=${workflow.id}`)
+      })
+
+      after(function () {
+        window.location.assign('https://example.org/')
+      })
+
+      xit('should set the active workflow from the query param', function () {
+      })
+    })
+
     describe('when there is a project default', function () {
       let clientStub
       let rootStore
