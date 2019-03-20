@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 import auth from 'panoptes-client/lib/auth'
-import { GraphQLClient } from 'graphql-request'
 
 import initStore from './initStore'
 import { statsClient } from './YourStats'
@@ -39,7 +38,7 @@ describe('Stores > YourStats', function () {
   })
 
   it('should exist', function () {
-    expect(rootStore.yourStats).to.be.ok
+    expect(rootStore.yourStats).to.be.ok()
   })
 
   describe('with a project and user', function () {
@@ -104,7 +103,7 @@ describe('Stores > YourStats', function () {
     })
 
     it('should not request user preferences from Panoptes', function () {
-      expect(rootStore.client.panoptes.get).to.have.not.been.called
+      expect(rootStore.client.panoptes.get).to.have.not.been.called()
     })
 
     it('should start counting from 0', function () {

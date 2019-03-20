@@ -11,7 +11,6 @@ const HREF = `http://www.foobar.com/projects/${OWNER}/${PROJECT}`
 const ROUTER = {
   asPath: `/projects/${OWNER}/${PROJECT}`
 }
-const BASE_URL = `/projects/${OWNER}/${PROJECT}`
 
 describe('Component > NavLink', function () {
   before(function () {

@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { bool, string } from 'prop-types'
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'

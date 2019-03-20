@@ -2,7 +2,6 @@ import counterpart from 'counterpart'
 import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 import en from './locales/en'
 
