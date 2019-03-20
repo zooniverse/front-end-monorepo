@@ -11,6 +11,9 @@ const FeedbackStore = types
     rules: types.map(types.frozen({})),
     showModal: types.optional(types.boolean, false)
   })
+  .volatile(self => ({
+    onHide: () => true
+  }))
   .views(self => ({
     get hideSubjectViewer () {
       return flatten(Array.from(self.rules.values()))
@@ -28,6 +31,10 @@ const FeedbackStore = types
     }
   }))
   .actions(self => {
+    function setOnHide (onHide) {
+      self.onHide = onHide
+    }
+
     function afterAttach () {
       createClassificationObserver()
       createSubjectMiddleware()
@@ -50,10 +57,13 @@ const FeedbackStore = types
       const subjectMiddleware = autorun(() => {
         addMiddleware(getRoot(self).subjects, (call, next, abort) => {
           if (call.name === 'advance' && self.isActive && self.messages.length && !self.showModal) {
+            abort()
+            const onHide = getRoot(self).subjects.advance
+            self.setOnHide(onHide)
             self.showFeedback()
-            return abort()
+          } else {
+            next(call)
           }
-          next(call)
         })
       })
       addDisposer(self, subjectMiddleware)
@@ -86,7 +96,7 @@ const FeedbackStore = types
     }
 
     function hideFeedback () {
-      getRoot(self).subjects.advance()
+      self.onHide()
       self.showModal = false
     }
 
@@ -109,6 +119,7 @@ const FeedbackStore = types
     return {
       afterAttach,
       createRules,
+      setOnHide,
       showFeedback,
       hideFeedback,
       update,

@@ -15,7 +15,7 @@ describe('Model > FeedbackStore', function () {
       reducer: sinon.stub().callsFake(rule => rule)
     }
   })
-  
+
   beforeEach(function () {
     feedbackStub = {
       isActive: true,
@@ -126,22 +126,24 @@ describe('Model > FeedbackStore', function () {
   })
 
   describe('hideFeedback', function () {
-    
-
     beforeEach(function () {
       feedback.subjects = {
         advance: () => true
       }
+      feedback.setOnHide(sinon.stub())
       feedback.hideFeedback()
     })
 
     it('should set showModal state to false', function () {
       expect(feedback.showModal).to.be.false
     })
+
+    it('should call the onHide callback', function () {
+      expect(feedback.onHide).to.have.been.calledOnce
+    })
   })
-  
+
   describe('messages', function () {
-    
     it('should return an array of feedback messages', function () {
       expect(feedback.messages).to.eql(['Yay!', 'Nope!'])
     })
