@@ -15,7 +15,7 @@ function storeMapper (stores) {
 class BackgroundContainer extends Component {
   render () {
     return (
-      <Background backgroundSrc={this.props.backgroundSrc} />
+      <Background aria-hidden={true} backgroundSrc={this.props.backgroundSrc} />
     )
   }
 }
