@@ -3,32 +3,32 @@ import React from 'react'
 import { Box } from 'grommet'
 import styled from 'styled-components'
 
-const StyledBox = styled(Box)`
-  height: 100%;
-  overflow: hidden;
+const BackgroundBox = styled(Box)`
   position: absolute;
-  width: 100%;
   z-index: -1;
 `
 
-const StyledImg = styled.img`
-  filter: blur(4px);
-  object-fit: cover;
-  opacity: 0.5;
+const BackgroundImage = styled.div`
+  background-blend-mode: multiply;
+  background-color: rgba(0,93,105,0.3);
+  background-image: url("${props => props.src}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(5px) brightness(50%);
+  height: 100%;
+  transform: scale(1.15);
 `
 
 function Background ({ backgroundSrc }) {
   return (
-    <StyledBox
-      align='center'
-      background={backgroundSrc ? 'black' : 'brand'}
+    <BackgroundBox
+      background='brand'
       height='100%'
-      justify='center'
+      width='100%'
     >
-      {backgroundSrc && (
-        <StyledImg aria-hidden='true' src={backgroundSrc} />
-      )}
-    </StyledBox>
+      {backgroundSrc && <BackgroundImage src={backgroundSrc} />}
+    </BackgroundBox>
   )
 }
 
