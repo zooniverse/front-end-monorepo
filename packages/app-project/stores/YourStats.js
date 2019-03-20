@@ -5,7 +5,7 @@ import { GraphQLClient } from 'graphql-request'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes } from '@zooniverse/panoptes-js'
 
-export const statsClient = new GraphQLClient('https://stats.zooniverse.org/graphql')
+export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
 
 const YourStats = types
   .model('YourStats', {
