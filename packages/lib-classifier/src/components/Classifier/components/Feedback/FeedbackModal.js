@@ -10,8 +10,8 @@ import SubjectViewer from '../SubjectViewer'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper(stores) {
-  const { 
+function storeMapper (stores) {
+  const {
     hideFeedback,
     hideSubjectViewer,
     messages,
@@ -41,8 +41,8 @@ class FeedbackModal extends React.Component {
         >
           <>
             <Box
-              height="medium"
-              overflow="auto"
+              height='medium'
+              overflow='auto'
             >
               {!hideSubjectViewer && <SubjectViewer />}
               <ul>
@@ -57,7 +57,7 @@ class FeedbackModal extends React.Component {
               <Button
                 onClick={hideFeedback}
                 label={counterpart('FeedbackModal.close')}
-                primary={true}
+                primary
               />
             </Box>
           </>
