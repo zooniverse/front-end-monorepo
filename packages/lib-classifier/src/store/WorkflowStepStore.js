@@ -2,18 +2,19 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
-import { DrawingTask, Graph2dRangeXTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
+import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.maybe(types.reference(Step)),
     steps: types.map(Step),
     tasks: types.map(types.union({ dispatcher: (snapshot) => {
+      console.log(snapshot.type)
       if (snapshot.type === 'drawing') return DrawingTask
       if (snapshot.type === 'multiple') return MultipleChoiceTask
       if (snapshot.type === 'single') return SingleChoiceTask
-      if (snapshot.type === 'graph2dRangeX') return Graph2dRangeXTask
-    } }, DrawingTask, Graph2dRangeXTask, MultipleChoiceTask, SingleChoiceTask))
+      if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
+    } }, DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask))
   })
   .views(self => ({
     get activeStepTasks () {
@@ -148,6 +149,7 @@ const WorkflowStepStore = types
         // put is a MST method, not native to ES Map
         // the key is inferred from the identifier type of the target model
         const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+        console.log('taskToStore', taskToStore)
         self.tasks.put(taskToStore)
       })
     }

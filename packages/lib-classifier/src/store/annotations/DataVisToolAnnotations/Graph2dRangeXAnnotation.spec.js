@@ -4,6 +4,7 @@ const annotation = {
   task: 'T0',
   value: [
     {
+      tool: 0,
       x: 100,
       width: 10
     }

@@ -1,37 +1,23 @@
-import { Markdown } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import { Box } from 'grommet'
 import { doesTheLabelHaveAnImage } from '../../helpers'
 import zooTheme from '@zooniverse/grommet-theme'
-import { pxToRem } from '@zooniverse/react-components'
+import { Markdownz, pxToRem } from '@zooniverse/react-components'
 
 // TODO: original design had text only labels center aligned,
-// but labels with icons  left aligned
+// but labels with icons left aligned
 // this doesn't appear to actually be working as intended.
 // Check with Becky if the alignment variation is still important to the design
 // We may just be able to have them all left aligned
 // As it is appearing now.
-// function howShouldTheLabelBeAligned(label, labelIcon) {
-//   if ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon)) {
-//     return 'left';
-//   }
 
-//   return 'center';
-// }
-
-export const StyledTaskInputLabelWrapper = styled.div`
-  align-items: baseline;
-  display: flex;
-  position: relative;
-  width: 100%;
-`
-
-export const StyledTaskInputLabel = styled(Markdown)`
-  align-items: baseline;
+export const StyledTaskInputLabelWrapper = styled(Box)`
+  /* align-items: baseline;
   flex-grow: 1;
-  flex-wrap: wrap;
-  font-size: ${pxToRem(14)};
+  flex-wrap: wrap; */
+  /* font-size: ${pxToRem(14)}; */
 
   &:first-child {
     margin-top: 0;
@@ -42,29 +28,36 @@ export const StyledTaskInputLabel = styled(Markdown)`
   }
 
   p {
+    flex-grow: 1;
+    font-size: ${pxToRem(14)};
     margin: 0;
+    text-align: ${(props) => props.textAlign};
   }
 
   img, svg {
-    padding: ${pxToRem(5)};
+    padding: 0 ${pxToRem(5)};
     vertical-align: middle;
   }
 
   img:only-child, svg:only-child {
-    background-color: ${zooTheme.global.colors.teal};
+    background-color: ${zooTheme.global.colors.brand};
     margin-right: 1ch;
     max-width: ${pxToRem(60)};
   }
 `
 
 export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
+  const howShouldTheLabelBeAligned = ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon)) ?
+    'left' :
+    'center'
+
   return (
-    <StyledTaskInputLabelWrapper>
+    <StyledTaskInputLabelWrapper align="center" direction="row" fill="horizontal" textAlign={howShouldTheLabelBeAligned}>
       {labelIcon &&
         labelIcon}
-      <StyledTaskInputLabel>
+      <Markdownz>
         {label}
-      </StyledTaskInputLabel>
+      </Markdownz>
       {labelStatus &&
         labelStatus}
     </StyledTaskInputLabelWrapper>

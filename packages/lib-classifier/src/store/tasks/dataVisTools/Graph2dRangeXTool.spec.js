@@ -1,4 +1,4 @@
-import Graph2dRangeXTask from './Graph2dRangeXTask'
+import Graph2dRangeXTask from './Graph2dRangeXTool'
 
 const graphTask = {
   instruction: 'Mark an area of the graph that is interesting.',
