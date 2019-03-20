@@ -53,15 +53,23 @@ const FeedbackStore = types
       addDisposer(self, classificationDisposer)
     }
 
+    function onSubjectAdvance (call, next, abort) {
+      const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
+      if (shouldShowFeedback) {
+        abort()
+        const onHide = getRoot(self).subjects.advance
+        self.setOnHide(onHide)
+        self.showFeedback()
+      } else {
+        next(call)
+      }
+    }
+
     function createSubjectMiddleware () {
       const subjectMiddleware = autorun(() => {
         addMiddleware(getRoot(self).subjects, (call, next, abort) => {
-          const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
-          if (call.name === 'advance' && shouldShowFeedback) {
-            abort()
-            const onHide = getRoot(self).subjects.advance
-            self.setOnHide(onHide)
-            self.showFeedback()
+          if (call.name === 'advance') {
+            onSubjectAdvance(call, next, abort)
           } else {
             next(call)
           }
