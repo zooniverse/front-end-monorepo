@@ -5,10 +5,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Avatar from './components/Avatar'
+import Background from './components/Background'
 import Nav from './components/Nav'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const StyledBox = styled(Box)`
+  position: relative;
+`
 
 const StyledHeading = styled(Heading)`
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
@@ -17,22 +22,25 @@ const StyledHeading = styled(Heading)`
 function ProjectHeader (props) {
   const { className, title } = props
   return (
-    <Box
-      align='center'
-      background='brand'
-      className={className}
-      direction='row'
-      justify='between'
-      pad='medium'
-    >
-      <Box align='center' direction='row' gap='medium'>
-        <Avatar />
-        <StyledHeading color='white' margin='none' size='small'>
-          {title}
-        </StyledHeading>
+    <StyledBox>
+      <Background />
+      <Box
+        align='center'
+        className={className}
+        direction='row'
+        justify='between'
+        pad='medium'
+      >
+        <Box align='center' direction='row' gap='medium'>
+          <Avatar />
+          <StyledHeading color='white' margin='none' size='small'>
+            {title}
+          </StyledHeading>
+        </Box>
+        <Nav />
       </Box>
-      <Nav />
-    </Box>
+    </StyledBox>
+
   )
 }
 
