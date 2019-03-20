@@ -26,7 +26,7 @@ class AvatarContainer extends Component {
 AvatarContainer.propTypes = {
   avatarSrc: string,
   child: node,
-  projectTitle: string,
+  projectTitle: string
 }
 
 AvatarContainer.defaultProps = {

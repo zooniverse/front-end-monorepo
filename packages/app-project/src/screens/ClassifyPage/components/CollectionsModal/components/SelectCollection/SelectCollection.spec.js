@@ -63,8 +63,8 @@ describe('Component > SelectCollection', function () {
       })
     })
     it('should display the selected collection', function () {
-      const collection = {id: '1', display_name: 'Selected collection'}
-      wrapper.setProps({selected: collection})
+      const collection = { id: '1', display_name: 'Selected collection' }
+      wrapper.setProps({ selected: collection })
       select = wrapper.find(Select)
       expect(select.prop('value')).to.eql(collection)
     })

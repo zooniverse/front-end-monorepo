@@ -24,7 +24,7 @@ const LINKS = [
 
 describe('Component > Nav', function () {
   before(function () {
-    wrapper = shallow(<Nav router={ROUTER} isLoggedIn={true} />)
+    wrapper = shallow(<Nav router={ROUTER} isLoggedIn />)
   })
 
   it('should render without crashing', function () {
