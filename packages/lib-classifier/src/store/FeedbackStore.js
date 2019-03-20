@@ -1,5 +1,6 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getRoot, onAction, types } from 'mobx-state-tree'
+import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
 import strategies from './feedback/strategies'
@@ -7,12 +8,74 @@ import strategies from './feedback/strategies'
 const FeedbackStore = types
   .model('FeedbackStore', {
     isActive: types.optional(types.boolean, false),
-    rules: types.map(types.frozen({}))
+    rules: types.map(types.frozen({})),
+    showModal: types.optional(types.boolean, false)
   })
+  .volatile(self => ({
+    onHide: () => true
+  }))
+  .views(self => ({
+    get hideSubjectViewer () {
+      return flatten(Array.from(self.rules.values()))
+        .some(rule => rule.hideSubjectViewer)
+    },
+    get messages () {
+      return flatten(Array.from(self.rules.values()))
+        .map(rule => {
+          if (rule.success && rule.successEnabled) {
+            return rule.successMessage
+          } else if (!rule.success && rule.failureEnabled) {
+            return rule.failureMessage
+          }
+        }).filter(Boolean)
+    }
+  }))
   .actions(self => {
+    function setOnHide (onHide) {
+      self.onHide = onHide
+    }
+
     function afterAttach () {
-      createSubjectObserver()
       createClassificationObserver()
+      createSubjectMiddleware()
+      createSubjectObserver()
+    }
+
+    function createClassificationObserver () {
+      const classificationDisposer = autorun(() => {
+        onAction(getRoot(self).classifications, (call) => {
+          if (call.name === 'completeClassification') {
+            const annotations = getRoot(self).classifications.currentAnnotations
+            annotations.forEach(annotation => self.update(annotation))
+          }
+        })
+      })
+      addDisposer(self, classificationDisposer)
+    }
+
+    function onSubjectAdvance (call, next, abort) {
+      const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
+      if (shouldShowFeedback) {
+        abort()
+        const onHide = getRoot(self).subjects.advance
+        self.setOnHide(onHide)
+        self.showFeedback()
+      } else {
+        next(call)
+      }
+    }
+
+    function createSubjectMiddleware () {
+      const subjectMiddleware = autorun(() => {
+        addMiddleware(getRoot(self).subjects, (call, next, abort) => {
+          if (call.name === 'advance') {
+            onSubjectAdvance(call, next, abort)
+          } else {
+            next(call)
+          }
+        })
+      })
+      addDisposer(self, subjectMiddleware)
     }
 
     function createSubjectObserver () {
@@ -26,20 +89,6 @@ const FeedbackStore = types
       addDisposer(self, subjectDisposer)
     }
 
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(getRoot(self).classifications, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = getRoot(self).classifications.currentAnnotations
-            for (const value of annotations.values()) {
-              self.update(value)
-            }
-          }
-        })
-      })
-      addDisposer(self, classificationDisposer)
-    }
-
     function createRules (subject) {
       const project = getRoot(self).projects.active
       const workflow = getRoot(self).workflows.active
@@ -49,6 +98,15 @@ const FeedbackStore = types
       if (self.isActive) {
         self.rules = helpers.generateRules(subject, workflow)
       }
+    }
+
+    function showFeedback () {
+      self.showModal = true
+    }
+
+    function hideFeedback () {
+      self.onHide()
+      self.showModal = false
     }
 
     function update (annotation) {
@@ -64,11 +122,16 @@ const FeedbackStore = types
     function reset () {
       self.isActive = false
       self.rules.clear()
+      self.showModal = false
     }
 
     return {
       afterAttach,
       createRules,
+      setOnHide,
+      showFeedback,
+      hideFeedback,
+      onSubjectAdvance,
       update,
       reset
     }
