@@ -6,19 +6,7 @@ import { doesTheLabelHaveAnImage } from '../../helpers'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 
-// TODO: original design had text only labels center aligned,
-// but labels with icons left aligned
-// this doesn't appear to actually be working as intended.
-// Check with Becky if the alignment variation is still important to the design
-// We may just be able to have them all left aligned
-// As it is appearing now.
-
 export const StyledTaskInputLabelWrapper = styled(Box)`
-  /* align-items: baseline;
-  flex-grow: 1;
-  flex-wrap: wrap; */
-  /* font-size: ${pxToRem(14)}; */
-
   &:first-child {
     margin-top: 0;
   }
