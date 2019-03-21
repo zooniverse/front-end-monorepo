@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Box, Heading } from 'grommet'
+import { Anchor, Box, Heading } from 'grommet'
 import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -20,8 +20,24 @@ const StyledHeading = styled(Heading)`
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 `
 
+const StyledAnchor = styled(Anchor)`
+  border-bottom: 3px solid transparent;
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    border-color: white;
+  }
+`
+
 function ProjectHeader (props) {
-  const { className, title } = props
+  const { className, href, title } = props
+
+  const Title = () => (
+    <StyledHeading color='white' margin='none' size='small'>
+      {title}
+    </StyledHeading>
+  )
+
   return (
     <StyledBox>
       <Background />
@@ -34,9 +50,10 @@ function ProjectHeader (props) {
       >
         <Box align='center' direction='row' gap='medium'>
           <Avatar />
-          <StyledHeading color='white' margin='none' size='small'>
-            {title}
-          </StyledHeading>
+          {href
+            ? <StyledAnchor href={href}><Title /></StyledAnchor>
+            : <Title />
+          }
           <ApprovedIcon />
         </Box>
         <Nav />
@@ -47,6 +64,8 @@ function ProjectHeader (props) {
 }
 
 ProjectHeader.propTypes = {
+  className: string,
+  href: string,
   title: string.isRequired
 }
 
