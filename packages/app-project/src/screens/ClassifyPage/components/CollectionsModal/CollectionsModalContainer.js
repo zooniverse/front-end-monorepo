@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { array, func } from 'prop-types'
 import React, { Component } from 'react'
 
 import CollectionsModal from './CollectionsModal'
@@ -107,10 +107,13 @@ class CollectionsModalContainer extends Component {
 }
 
 CollectionsModalContainer.propTypes = {
-  subjectId: PropTypes.string.isRequired
+  collections: array.isRequired,
+  searchCollections: func.isRequired
 }
 
 CollectionsModalContainer.defaultProps = {
+  collections: [],
+  searchCollections: Function.prototype
 }
 
 export default CollectionsModalContainer
