@@ -47,6 +47,7 @@ class DataVisAnnotationTask extends React.Component {
     if (annotations && annotations.size > 0) {
       annotation = annotations.get(task.taskKey)
     }
+    // TODO: Add in the status count along with the validations to not go over the max allowed
     const numberOfAnnotations = (annotation && annotation.value.length) || 0
 
     return (
@@ -66,7 +67,6 @@ class DataVisAnnotationTask extends React.Component {
               key={`${task.taskKey}_${index}`}
               label={tool.label}
               labelIcon={<InputIcon icon={<Graph2dRangeXIcon />} />}
-              labelStatus={<InputStatus count={numberOfAnnotations} tool={tool} />}
               name='data-vis-annotation-tool'
               onChange={this.onChange.bind(this, index)}
               required={task.required}
