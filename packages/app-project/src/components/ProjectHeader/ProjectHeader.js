@@ -39,11 +39,10 @@ function ProjectHeader (props) {
   )
 
   return (
-    <StyledBox>
+    <StyledBox className={className}>
       <Background />
       <Box
         align='center'
-        className={className}
         direction='row'
         justify='between'
         pad='medium'
