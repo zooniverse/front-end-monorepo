@@ -20,11 +20,13 @@ function ModalBody ({
 }
 
 ModalBody.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
   colorTheme: PropTypes.oneOf(['light', 'dark'])
 }
 
 ModalBody.defaultProps = {
+  className: '',
   colorTheme: 'light'
 }
 

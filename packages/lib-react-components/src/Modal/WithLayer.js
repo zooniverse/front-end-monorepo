@@ -22,12 +22,14 @@ function WithLayer (WrappedComponent) {
 
   HOC.propTypes = {
     active: PropTypes.bool,
+    className: PropTypes.string,
     closeFn: PropTypes.func,
     modal: PropTypes.bool
   }
 
   HOC.defaultProps = {
     active: false,
+    className: '',
     modal: true
   }
 
