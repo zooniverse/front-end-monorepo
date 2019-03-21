@@ -106,7 +106,6 @@ const ClassificationStore = types
       if (classification) {
         const annotationModel = getAnnotationType(task.type)
         const newAnnotation = annotationModel.create({ task: task.taskKey })
-        console.log('newAnnotation', newAnnotation)
         classification.annotations.put(newAnnotation)
         return newAnnotation
       }
@@ -118,7 +117,6 @@ const ClassificationStore = types
       const classification = self.active
       if (classification) {
         const annotation = classification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
-        console.log('annotation', annotation.toJSON(), annotationValue)
         annotation.value = annotationValue
       }
     }
