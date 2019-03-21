@@ -2,6 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import AvatarContainer from './AvatarContainer'
+import Avatar from './Avatar'
 
 let wrapper
 const avatarSrc = 'https://example.com/image.jpg'
@@ -20,12 +21,12 @@ describe('Component > AvatarContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the `child` component prop', function () {
-    expect(wrapper.find(StubComponent)).to.have.lengthOf(1)
+  it('should render the `Avatar` component', function () {
+    expect(wrapper.find(Avatar)).to.have.lengthOf(1)
   })
 
-  it('should pass the required props to the child component', function () {
-    const child = wrapper.find(StubComponent)
+  it('should pass the required props to the Avatar component', function () {
+    const child = wrapper.find(Avatar)
     expect(child.prop('src')).to.equal(avatarSrc)
     expect(child.prop('projectTitle')).to.equal(projectTitle)
   })

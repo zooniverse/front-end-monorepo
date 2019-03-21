@@ -16,21 +16,16 @@ function storeMapper (stores) {
 @observer
 class AvatarContainer extends Component {
   render () {
-    const { avatarSrc, child: Child, projectTitle } = this.props
+    const { avatarSrc, projectTitle } = this.props
     return (
-      <Child projectTitle={projectTitle} src={avatarSrc} />
+      <Avatar projectTitle={projectTitle} src={avatarSrc} />
     )
   }
 }
 
 AvatarContainer.propTypes = {
   avatarSrc: string,
-  child: node,
   projectTitle: string
-}
-
-AvatarContainer.defaultProps = {
-  child: Avatar
 }
 
 export default AvatarContainer
