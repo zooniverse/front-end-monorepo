@@ -9,3 +9,4 @@ export { default as SingleChoiceTaskFactory } from './tasks/SingleChoiceTaskFact
 export { default as TutorialFactory } from './TutorialFactory'
 export { default as UPPFactory } from './UPPFactory'
 export { default as UserFactory } from './UserFactory'
+export { default as ClassificationFactory } from './ClassificationFactory'

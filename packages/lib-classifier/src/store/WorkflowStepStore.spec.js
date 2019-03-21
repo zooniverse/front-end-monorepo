@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree'
 
 import WorkflowStepStore from './WorkflowStepStore'
 import {
+  ClassificationFactory,
   MultipleChoiceTaskFactory,
   SingleChoiceTaskFactory,
   WorkflowFactory
@@ -12,6 +13,7 @@ let WORKFLOW = null
 
 const ROOT_STORE = types
   .model('RootStore', {
+    classifications: types.frozen({}),
     workflows: types.frozen({}),
     workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create())
   })
@@ -140,6 +142,139 @@ describe('Model > WorkflowStepStore', function () {
       storedStep.taskKeys.forEach(taskKey =>
         expect(taskKey).to.equal(WORKFLOW.first_task)
       )
+    })
+  })
+
+  describe('Views > shouldWeShowDoneAndTalkButton', function () {
+    let classification
+    let flaggedClassification
+    let hiddenSummaryWorkflow
+    before(function () {
+      WORKFLOW = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      hiddenSummaryWorkflow = WorkflowFactory.build({
+        configuration: {
+          hide_classification_summaries: true
+        },
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      classification = ClassificationFactory.build({
+        annotations: [
+          { task: 'T1', value: 0 },
+          { task: 'T2', value: [0, 2]}
+        ]
+      })
+
+      flaggedClassification = ClassificationFactory.build({
+        annotations: [
+          { task: 'T1', value: 0 },
+          { task: 'T2', value: [0, 2] }
+        ],
+        metadata: {
+          subject_flagged: true
+        }
+      })
+    })
+
+    after(function () {
+      ROOT_STORE_INSTANCE = null
+      WORKFLOW = null
+    })
+
+    it('should return false if there is not an active workflow', function () {
+      ROOT_STORE_INSTANCE = ROOT_STORE.create({
+        classifications: {
+          active: undefined
+        },
+        workflows: {
+          active: undefined
+        }
+      })
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+    })
+
+    it('should return false if there is not an active classification', function () {
+      ROOT_STORE_INSTANCE = ROOT_STORE.create({
+        classifications: {
+          active: undefined
+        },
+        workflows: {
+          active: WORKFLOW
+        }
+      })
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+    })
+
+    it('should return false if not on the last step', function () {
+      ROOT_STORE_INSTANCE = ROOT_STORE.create({
+        classifications: {
+          active: classification
+        },
+        workflows: {
+          active: WORKFLOW
+        }
+      })
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+    })
+
+    it('should return false if the workflow is not configured to hide classification summaries', function () {
+      ROOT_STORE_INSTANCE = ROOT_STORE.create({
+        classifications: {
+          active: classification
+        },
+        workflows: {
+          active: WORKFLOW
+        }
+      })
+      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
+      // returns as falsey undefined rather than explicit false
+      // this is because usually the workflow has hide_classification_summaries as undefined in the config
+      // rather than explicitly set as false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined
+    })
+
+    it('should return false if the classification subject has been flagged', function () {
+      ROOT_STORE_INSTANCE = ROOT_STORE.create({
+        classifications: {
+          active: flaggedClassification
+        },
+        workflows: {
+          active: hiddenSummaryWorkflow
+        }
+      })
+
+      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+    })
+
+    it('should return true if the conditions are met', function () {
+      ROOT_STORE_INSTANCE = ROOT_STORE.create({
+        classifications: {
+          active: classification
+        },
+        workflows: {
+          active: hiddenSummaryWorkflow
+        }
+      })
+      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true
     })
   })
 })
