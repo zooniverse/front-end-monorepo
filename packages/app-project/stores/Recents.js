@@ -49,7 +49,6 @@ const Recents = types
             locations: recent.locations
           }))
           self.loadingState = asyncStates.success
-          self.recents.map(recent => console.log(recent.subjectId, recent.locations))
         } catch (error) {
           console.error(error)
           self.error = error
