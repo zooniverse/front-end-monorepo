@@ -58,8 +58,13 @@ function ModalHeading ({ className, closeFn, title }) {
 }
 
 ModalHeading.propTypes = {
+  className: PropTypes.string,
   closeFn: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired
+}
+
+ModalHeading.defaultProps = {
+  className: ''
 }
 
 export default ModalHeading

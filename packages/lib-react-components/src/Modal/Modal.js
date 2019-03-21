@@ -18,6 +18,7 @@ function Modal ({ children, className, closeFn, colorTheme, theme, title }) {
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   closeFn: PropTypes.func,
   colorTheme: PropTypes.oneOf(['light', 'dark']),
   title: PropTypes.string.isRequired,
@@ -26,6 +27,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   colorTheme: 'light',
+  className: '',
   closeFn: () => {}
 }
 
