@@ -10,11 +10,11 @@ let componentWrapper
 
 const PROJECT = projects.mocks.resources.projectOne
 const OWNER = 'foo'
-const PROJECT_SLUG = 'bar'
+const PROJECT_DISPLAY_NAME = 'bar'
 const ROUTER = {
   query: {
     owner: OWNER,
-    project: PROJECT_SLUG,
+    project: PROJECT_DISPLAY_NAME,
     subroute: ['baz']
   }
 }
@@ -41,7 +41,7 @@ describe('Component > ProjectHeaderContainer', function () {
   })
 
   it('should pass down the project homepage href if on another page', function () {
-    expect(componentWrapper.prop('href')).to.equal(`/projects/${OWNER}/${PROJECT_SLUG}`)
+    expect(componentWrapper.prop('href')).to.equal(`/projects/${OWNER}/${PROJECT_DISPLAY_NAME}`)
   })
 
   it(`shouldn't pass down an href if on the home page`, function () {
