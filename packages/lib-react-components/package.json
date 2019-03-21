@@ -87,7 +87,7 @@
     "webpack-cli": "~3.1.2"
   },
   "engines": {
-    "node": ">=8",
+    "node": ">=10",
     "npm": ">=5"
   },
   "publishConfig": {

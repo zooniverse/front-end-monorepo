@@ -13,9 +13,9 @@
     "dev": "npm run _check && npm run _serve",
     "lint": "npm run _check && standard --fix | snazzy; exit 0",
     "start": "npm run _check && NODE_ENV=production npm run _serve",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test -- --reporter=min",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "test:ci": "npm run _test -- --reporter=min"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.1.6",
@@ -65,7 +65,7 @@
     "standard": "~12.0.1"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "standard": {
     "env": [
