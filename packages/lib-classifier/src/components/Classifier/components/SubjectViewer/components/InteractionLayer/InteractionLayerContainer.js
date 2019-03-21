@@ -24,8 +24,8 @@ class InteractionLayerContainer extends Component {
   componentDidMount () {
     // TODO: We're simply logging the event stream here for now, but this will
     // be passed to the active drawing tool for parsing
-    const stream = this.props.drawing.eventStream
-    stream.subscribe(z => console.log(z))
+    // const stream = this.props.drawing.eventStream
+    // stream.subscribe(z => console.log(z))
   }
 
   addToStream (event, type) {
