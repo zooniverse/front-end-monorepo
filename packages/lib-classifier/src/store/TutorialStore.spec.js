@@ -503,6 +503,7 @@ describe('Model > TutorialStore', function () {
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+      sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
@@ -514,6 +515,7 @@ describe('Model > TutorialStore', function () {
       }).then(() => {
         setActiveTutorialSpy.restore()
         setModalVisibilitySpy.restore()
+        rootStore.userProjectPreferences.updateUPP.restore()
       }).then(done, done)
     })
 
@@ -523,7 +525,8 @@ describe('Model > TutorialStore', function () {
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
-
+      sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
+      
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
       rootStore.workflows.setActive(workflow.id)
@@ -535,6 +538,7 @@ describe('Model > TutorialStore', function () {
         }).then(() => {
           setActiveTutorialSpy.restore()
           setModalVisibilitySpy.restore()
+          rootStore.userProjectPreferences.updateUPP.restore()
         }).then(done, done)
     })
 
