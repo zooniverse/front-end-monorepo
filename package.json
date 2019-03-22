@@ -11,17 +11,21 @@
   },
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "version": "0.0.1",
-  "devDependencies": {
-    "coveralls": "^3.0.2",
-    "lerna": "^3.1.4",
-    "nyc": "^13.3.0",
-    "plop": "^2.1.0"
-  },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "dev": "cd packages/app-project && npm run dev",
     "test": "lerna run --parallel test",
     "test:ci": "nyc lerna run --parallel test:ci"
+  },
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.2",
+    "lerna": "^3.1.4",
+    "nyc": "^13.3.0",
+    "plop": "^2.1.0"
   },
   "engines": {
     "node": "10"
