@@ -60,7 +60,7 @@ const statusColors = {
 
 const darkColors = [
   darkBlack, // dark-1
-  lightBlack, //dark-2
+  lightBlack, // dark-2
   darkestGrey, // dark-3
   darkerGrey, // dark-4
   darkGrey, // dark-5
@@ -93,13 +93,13 @@ const colors = {
 
 const colorArray = (array, prefix) =>
   array.forEach((color, index) => {
-    colors[`${prefix}-${index + 1}`] = color;
-  });
+    colors[`${prefix}-${index + 1}`] = color
+  })
 
-colorArray(accentColors, 'accent');
-colorArray(darkColors, 'dark');
-colorArray(lightColors, 'light');
-colorArray(neutralColors, 'neutral');
+colorArray(accentColors, 'accent')
+colorArray(darkColors, 'dark')
+colorArray(lightColors, 'light')
+colorArray(neutralColors, 'neutral')
 Object.keys(statusColors).forEach((color) => {
   colors[`status-${color}`] = statusColors[color]
 })
@@ -195,33 +195,31 @@ const theme = deepFreeze({
   },
   paragraph: {
     small: {
-      size: "14px",
-      height: "22px",
-      maxWidth: "336px"
+      size: '14px',
+      height: '22px',
+      maxWidth: '336px'
     },
     medium: {
-      size: "18px",
-      height: "26px",
-      maxWidth: "432px"
+      size: '18px',
+      height: '26px',
+      maxWidth: '432px'
     },
     large: {
-      size: "22px",
-      height: "30px",
-      maxWidth: "528px"
+      size: '22px',
+      height: '30px',
+      maxWidth: '528px'
     },
     xlarge: {
-      size: "26px",
-      height: "34px",
-      maxWidth: "624px"
+      size: '26px',
+      height: '34px',
+      maxWidth: '624px'
     },
     xxlarge: {
-      size: "34px",
-      height: "42px",
-      maxWidth: "816px"
+      size: '34px',
+      height: '42px',
+      maxWidth: '816px'
     }
   }
 })
-
-
 
 export default theme
