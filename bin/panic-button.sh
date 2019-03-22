@@ -2,6 +2,8 @@
 
 # Trashes all build folders and `node_modules`
 
+printf 'Trashing all build folders and `node_modules` folders...\n'
+
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 
 rm -rf $ROOT_DIR/node_modules
@@ -22,3 +24,5 @@ rm -rf $ROOT_DIR/packages/lib-panoptes-js/node_modules
 
 rm -rf $ROOT_DIR/packages/lib-react-components/node_modules
 rm -rf $ROOT_DIR/packages/lib-react-components/dist
+
+printf 'Done.\n'
