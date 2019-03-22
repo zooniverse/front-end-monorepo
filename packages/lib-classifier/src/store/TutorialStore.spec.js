@@ -110,10 +110,13 @@ describe('Model > TutorialStore', function () {
       tutorials: TutorialStore.create(),
       workflows: WorkflowStore.create()
     }, { authClient: authClientStubWithUser, client: clientStub() })
+    sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
     rootStore.workflows.setActive(workflow.id)
       .then(() => {
         const tutorialInStore = rootStore.tutorials.resources.get(tutorial.id)
         expect(tutorialInStore.toJSON()).to.deep.equal(tutorial)
+      }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
       }).then(done, done)
   })
 
@@ -173,11 +176,13 @@ describe('Model > TutorialStore', function () {
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
 
       const setTutorialsSpy = sinon.spy(rootStore.tutorials, 'setTutorials')
       rootStore.workflows.setActive(workflow.id).then(() => {
         expect(setTutorialsSpy).to.have.been.calledOnceWith([tutorial])
       }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
         setTutorialsSpy.restore()
       }).then(done, done)
     })
@@ -380,11 +385,14 @@ describe('Model > TutorialStore', function () {
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
-
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
       rootStore.workflows.setActive(workflow.id).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id)
+        rootStore.tutorials.setMediaResources([medium])
       }).then(() => {
         expect(rootStore.tutorials.activeMedium).to.deep.equal(medium)
+      }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
       }).then(done, done)
     })
   })
@@ -425,11 +433,13 @@ describe('Model > TutorialStore', function () {
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
-
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
       rootStore.workflows.setActive(workflow.id).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id)
       }).then(() => {
         expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
+      }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
       }).then(done, done)
     })
 
@@ -440,11 +450,13 @@ describe('Model > TutorialStore', function () {
       }, {
         authClient: authClientStubWithoutUser, client: clientStub(tutorialNullKind)
       })
-
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
       rootStore.workflows.setActive(workflow.id).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorialNullKind.id)
       }).then(() => {
         expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
+      }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
       }).then(done, done)
     })
   })
@@ -503,6 +515,7 @@ describe('Model > TutorialStore', function () {
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
@@ -512,6 +525,7 @@ describe('Model > TutorialStore', function () {
         expect(rootStore.tutorials.active).to.deep.equal(tutorial)
         expect(rootStore.tutorials.showModal).to.be.true
       }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
         setActiveTutorialSpy.restore()
         setModalVisibilitySpy.restore()
       }).then(done, done)
@@ -523,6 +537,7 @@ describe('Model > TutorialStore', function () {
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
@@ -533,6 +548,7 @@ describe('Model > TutorialStore', function () {
           expect(rootStore.tutorials.active).to.deep.equal(tutorial)
           expect(rootStore.tutorials.showModal).to.be.true
         }).then(() => {
+          rootStore.tutorials.fetchMedia.restore()
           setActiveTutorialSpy.restore()
           setModalVisibilitySpy.restore()
         }).then(done, done)
@@ -544,6 +560,7 @@ describe('Model > TutorialStore', function () {
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
@@ -553,6 +570,7 @@ describe('Model > TutorialStore', function () {
         expect(rootStore.tutorials.active).to.be.undefined
         expect(rootStore.tutorials.showModal).to.be.false
       }).then(() => {
+        rootStore.tutorials.fetchMedia.restore()
         setActiveTutorialSpy.restore()
         setModalVisibilitySpy.restore()
       }).then(done, done)
