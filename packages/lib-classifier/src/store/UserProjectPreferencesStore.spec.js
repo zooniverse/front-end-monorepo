@@ -272,7 +272,7 @@ describe('Model > UserProjectPreferencesStore', function () {
           authClient: authClientStubWithUser,
           client: {
             panoptes: {
-              get: (url, params) => {
+              get: sinon.stub().callsFake((url, params) => {
                 if (url === `/projects/${project.id}`) {
                   return Promise.resolve({ body: { projects: [project] } })
                 }
@@ -280,7 +280,7 @@ describe('Model > UserProjectPreferencesStore', function () {
                   return Promise.resolve({ body: { project_preferences: [upp] } })
                 }
                 return Promise.resolve({ body: { project_preferences: [upp] }, headers: { etag } })
-              },
+              }),
               put: sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
             }
           }
@@ -306,15 +306,25 @@ describe('Model > UserProjectPreferencesStore', function () {
     })
 
     it('should re-request for the upp if the store does not have a stored etag header', async function () {
-      await rootStore.projects.setActive(project.id)
       expect(Object.keys(rootStore.userProjectPreferences.headers)).to.have.lengthOf(0)
+      await rootStore.projects.setActive(project.id)
       await rootStore.userProjectPreferences.updateUPP(changes)
-      // expect(rootStore.client.panoptes.get).to.have.been.calledOnceWith({
-      //   `/project_preferences/${upp.id}`,
-      //   null,
-      //   { authorization: `Bearer ${token}`, etag }
-      // })
-      expect(rootStore.userProjectPreferences.headers).to.contain({ etag })
+      expect(rootStore.client.panoptes.get.withArgs(
+        `/project_preferences/${upp.id}`,
+        null,
+        { authorization: `Bearer ${token}` })
+      ).to.have.been.calledOnce
+      rootStore.client.panoptes.get.resetHistory()
+    })
+
+    it('should not re-request for the upp if the store has a stored etag header', async function () {
+      await rootStore.userProjectPreferences.updateUPP(changes)
+      expect(rootStore.client.panoptes.get.withArgs(
+        `/project_preferences/${upp.id}`,
+        null,
+        { authorization: `Bearer ${token}` })
+      ).to.not.have.been.called
+      rootStore.client.panoptes.get.resetHistory()
     })
   })
 })
