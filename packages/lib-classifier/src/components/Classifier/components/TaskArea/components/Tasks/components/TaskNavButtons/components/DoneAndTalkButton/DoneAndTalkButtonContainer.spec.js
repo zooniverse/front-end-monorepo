@@ -24,9 +24,9 @@ describe('DoneAndTalkButton', function () {
   it('should render null if there is no project slug', function () {
     const wrapper = shallow(
       <DoneAndTalkButtonContainer.wrappedComponent
-        shouldWeShowDoneAndTalkButton={true}
+        shouldWeShowDoneAndTalkButton
         subject={subject}
-        project={{ id: '1'}}
+        project={{ id: '1' }}
       />)
     expect(wrapper.html()).to.be.null
   })
@@ -34,8 +34,8 @@ describe('DoneAndTalkButton', function () {
   it('should render null if there is no subject id', function () {
     const wrapper = shallow(
       <DoneAndTalkButtonContainer.wrappedComponent
-        shouldWeShowDoneAndTalkButton={true}
-        subject={{ metadata: { myId: 5 }}}
+        shouldWeShowDoneAndTalkButton
+        subject={{ metadata: { myId: 5 } }}
         project={project}
       />)
     expect(wrapper.html()).to.be.null
@@ -44,9 +44,9 @@ describe('DoneAndTalkButton', function () {
   it('should render DoneAndTalkButton component if shouldWeShowDoneAndTalkButton is true', function () {
     const wrapper = shallow(
       <DoneAndTalkButtonContainer.wrappedComponent
-        shouldWeShowDoneAndTalkButton={true}
+        shouldWeShowDoneAndTalkButton
         subject={subject}
-        project={project} 
+        project={project}
       />
     )
     expect(wrapper.find(DoneAndTalkButton)).to.have.lengthOf(1)

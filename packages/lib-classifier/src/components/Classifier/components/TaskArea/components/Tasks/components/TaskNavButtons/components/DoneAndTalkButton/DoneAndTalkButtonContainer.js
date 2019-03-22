@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import DoneAndTalkButton from './DoneAndTalkButton';
+import DoneAndTalkButton from './DoneAndTalkButton'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const {
-    shouldWeShowDoneAndTalkButton,
+    shouldWeShowDoneAndTalkButton
   } = stores.classifierStore.workflowSteps
   const {
     active: subject
@@ -13,9 +13,13 @@ function storeMapper(stores) {
   const {
     active: project
   } = stores.classifierStore.projects
+  const {
+    setOnHide
+  } = stores.classifierStore.feedback
 
   return {
     project,
+    setOnHide,
     shouldWeShowDoneAndTalkButton,
     subject
   }
@@ -25,15 +29,16 @@ function storeMapper(stores) {
 @observer
 class DoneAndTalkButtonContainer extends React.Component {
   render () {
-    const { 
+    const {
       completed,
       demoMode,
       disabled,
       goldStandardMode,
-      onClick, 
-      project, 
-      shouldWeShowDoneAndTalkButton, 
-      subject 
+      onClick,
+      project,
+      setOnHide,
+      shouldWeShowDoneAndTalkButton,
+      subject
     } = this.props
     const projectSlug = project && project.slug
     const subjectId = subject && subject.id
@@ -41,13 +46,34 @@ class DoneAndTalkButtonContainer extends React.Component {
     if (shouldWeShowDoneAndTalkButton && projectSlug && subjectId) {
       const talkURL = `/projects/${projectSlug}/talk/subjects/${subjectId}`
 
+      function openTalkLinkAndClick (event) {
+        const isCmdClick = event.metaKey
+
+        onClick(event)
+          .then(() => {
+            if (window && talkURL) {
+              const url = `${window.location.origin}${talkURL}`
+              if (isCmdClick) {
+                event.preventDefault()
+                const newTab = window.open()
+                newTab.opener = null
+                newTab.location = url
+                newTab.target = '_blank'
+                newTab.focus()
+              } else {
+                setOnHide(() => window.location.assign(url))
+              }
+            }
+          })
+      }
+
       return (
         <DoneAndTalkButton
           completed={completed}
           demoMode={demoMode}
           disabled={disabled}
           goldStandardMode={goldStandardMode}
-          onClick={onClick}
+          onClick={openTalkLinkAndClick}
           talkURL={talkURL}
         />
       )

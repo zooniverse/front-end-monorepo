@@ -18,10 +18,10 @@ describe('DoneAndTalkButton', function () {
   it('should call props.onClick for the onClick event', function () {
     const onClickSpy = sinon.stub().callsFake(() => { return Promise.resolve() })
     const wrapper = shallow(<DoneAndTalkButton onClick={onClickSpy} talkURL={talkURL} />)
-    wrapper.find('Styled(WithTheme(Button))').simulate('click', { event: { metaKey: false }})
+    wrapper.find('Styled(WithTheme(Button))').simulate('click', { event: { metaKey: false } })
     expect(onClickSpy.calledOnce).to.be.true
   })
-  
+
   describe('when props.completed is true', function () {
     it('should render null', function () {
       const wrapper = shallow(<DoneAndTalkButton completed talkURL={talkURL} />)
