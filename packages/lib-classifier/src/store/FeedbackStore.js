@@ -57,8 +57,6 @@ const FeedbackStore = types
       const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
       if (shouldShowFeedback) {
         abort()
-        const onHide = getRoot(self).subjects.advance
-        self.setOnHide(onHide)
         self.showFeedback()
       } else {
         next(call)
@@ -123,6 +121,8 @@ const FeedbackStore = types
       self.isActive = false
       self.rules.clear()
       self.showModal = false
+      const onHide = getRoot(self).subjects.advance
+      self.setOnHide(onHide)
     }
 
     return {
