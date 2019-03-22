@@ -10,7 +10,6 @@ function storeMapper (stores) {
   }
 }
 
-
 @inject(storeMapper)
 @observer
 class ApprovedIconContainer extends Component {

@@ -22,7 +22,7 @@ describe('Component > ApprovedIcon', function () {
 
   describe('for approved projects', function () {
     before(function () {
-      wrapper = shallow(<ApprovedIcon approved={true} />)
+      wrapper = shallow(<ApprovedIcon approved />)
     })
 
     it('should render an icon if `approved` is true', function () {
@@ -34,6 +34,4 @@ describe('Component > ApprovedIcon', function () {
       expect(wrapper.prop('aria-label')).to.equal('Zooniverse Approved')
     })
   })
-
-
 })

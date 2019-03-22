@@ -8,7 +8,6 @@ let wrapper
 let componentWrapper
 const APPROVED = false
 
-
 describe('Component > ApprovedIconContainer', function () {
   before(function () {
     wrapper = shallow(<ApprovedIconContainer.wrappedComponent approved={APPROVED} />)
