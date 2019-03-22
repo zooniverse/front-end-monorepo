@@ -20,11 +20,10 @@ export const StyledDoneButton = styled(Button)`
     dark: `solid thin ${zooTheme.global.colors['dark-5']}`,
     light: `solid thin ${green}`
   })};
+  box-shadow: none;
   color: white;
-  cursor: pointer;
   flex: 3 0;
-  font-size: 0.9em;
-  padding: 0.9em;
+  padding: 0.5em;
   text-transform: capitalize;
 
   > i {
@@ -40,24 +39,12 @@ export const StyledDoneButton = styled(Button)`
     dark: `solid thin ${zooTheme.global.colors['dark-5']}`,
     light: `solid thin ${darken(0.15, green)}`
   })};
+  box-shadow: none;
     color: 'white';
   }
 
   &:disabled {
-    background: ${theme('mode', {
-    dark: lighten(0.05, zooTheme.global.colors['dark-1']),
-    light: lighten(0.05, green)
-  })};
-    border: ${theme('mode', {
-    dark: `solid thin ${zooTheme.global.colors['dark-5']}`,
-    light: `solid thin ${lighten(0.05, green)}`
-  })};
-    color: ${theme('mode', {
-    dark: zooTheme.global.colors.text.dark,
-    light: zooTheme.global.colors['light-1']
-  })};
     cursor: not-allowed;
-    opacity: 0.5;
   }
   `
 // TODO add back gold standard and demo buttons using grommet Button icon prop

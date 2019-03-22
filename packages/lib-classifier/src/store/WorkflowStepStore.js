@@ -40,6 +40,22 @@ const WorkflowStepStore = types
       const tasks = self.activeStepTasks
 
       return tasks.some(task => task.help)
+    },
+    
+    get shouldWeShowDoneAndTalkButton () {
+      const isThereANextStep = self.isThereANextStep()
+      const workflow = getRoot(self).workflows.active
+      const classification = getRoot(self).classifications.active
+
+      if (workflow && classification) {
+        const disableTalk = classification.metadata.subject_flagged
+        return !isThereANextStep &&
+        workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
+        !disableTalk //&&
+        // !completed TODO: implement classification completed validations per task?
+      }
+
+      return false
     }
   }))
   .actions(self => {

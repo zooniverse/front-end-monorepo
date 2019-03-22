@@ -165,7 +165,7 @@ const ClassificationStore = types
       self.onComplete(classification.toJSON(), subject.toJSON())
 
       console.log('Completed classification', classificationToSubmit)
-      self.submitClassification(classificationToSubmit)
+      return self.submitClassification(classificationToSubmit)
     }
 
     function onClassificationSaved (savedClassification) {

@@ -12,7 +12,8 @@ const stub = {
     arrayLink: [
       'foobar'
     ]
-  }
+  },
+  slug: 'zooniverse/foobar'
 }
 
 describe('Model > Project', function () {
@@ -34,5 +35,9 @@ describe('Model > Project', function () {
 
   it('should have a `links` property', function () {
     expect(model.links).to.deep.equal(stub.links)
+  })
+  
+  it('should have a `slug` property', function () {
+    expect(model.slug).to.deep.equal(stub.slug)
   })
 })

@@ -6,7 +6,8 @@ const Project = types
     configuration: types.frozen({}),
     display_name: types.string,
     experimental_tools: types.frozen([]),
-    links: types.frozen({})
+    links: types.frozen({}),
+    slug: types.string
   })
 
 export default types.compose('ProjectResource', Resource, Project)

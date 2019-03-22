@@ -17,12 +17,12 @@ describe('Tasks', function () {
 
   it('should render a loading UI when the workflow loading', function () {
     const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.loading} />)
-    expect(wrapper.text()).to.equal('Loading')
+    expect(wrapper.contains('Loading')).to.be.true
   })
 
   it('should render an error message when there is a loading error', function () {
     const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.error} />)
-    expect(wrapper.text()).to.equal('Something went wrong')
+    expect(wrapper.contains('Something went wrong')).to.be.true
   })
 
   it('should render null if the workflow is load but has no tasks', function () {

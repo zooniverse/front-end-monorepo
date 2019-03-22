@@ -18,7 +18,7 @@ function storeMapper (stores) {
     createDefaultAnnotation,
     removeAnnotation
   } = stores.classifierStore.classifications
-
+  
   return {
     classification,
     completeClassification,
@@ -77,11 +77,12 @@ class TaskNavButtonsContainer extends React.Component {
     event.preventDefault()
     const { completeClassification } = this.props
     this.createDefaultAnnotationIfThereIsNone()
-    completeClassification()
+    return completeClassification()
   }
 
   render () {
     const { isThereANextStep, isThereAPreviousStep } = this.props
+
     return (
       <TaskNavButtons
         goToNextStep={this.goToNextStep.bind(this)}
