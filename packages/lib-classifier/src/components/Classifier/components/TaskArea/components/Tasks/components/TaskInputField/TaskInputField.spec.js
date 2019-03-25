@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { TaskInputField, StyledTaskInputField, StyledTaskLabel } from './TaskInputField'
@@ -15,7 +15,7 @@ describe('TaskInputField', function () {
   describe('render', function () {
     let wrapper
     before(function () {
-      wrapper = mount(<TaskInputField annotation={radioTypeAnnotation} index={0} type='radio' />)
+      wrapper = shallow(<TaskInputField annotation={radioTypeAnnotation} index={0} type='radio' />)
     })
 
     it('should render without crashing', function () {
@@ -40,7 +40,7 @@ describe('TaskInputField', function () {
 
     it('should use props.className in its classlist', function () {
       wrapper.setProps({ className: 'active' })
-      expect(wrapper.props().className).to.include('active')
+      expect(wrapper.find(StyledTaskInputField).props().className).to.include('active')
     })
   })
 
@@ -49,7 +49,7 @@ describe('TaskInputField', function () {
     let wrapper
     before(function () {
       onChangeSpy = sinon.spy()
-      wrapper = mount(<TaskInputField annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />)
+      wrapper = shallow(<TaskInputField annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />)
     })
 
     afterEach(function () {

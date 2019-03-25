@@ -2,7 +2,7 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
-import { DrawingTask, Graph2dRangeXTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
+import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
@@ -12,8 +12,8 @@ const WorkflowStepStore = types
       if (snapshot.type === 'drawing') return DrawingTask
       if (snapshot.type === 'multiple') return MultipleChoiceTask
       if (snapshot.type === 'single') return SingleChoiceTask
-      if (snapshot.type === 'graph2dRangeX') return Graph2dRangeXTask
-    } }, DrawingTask, Graph2dRangeXTask, MultipleChoiceTask, SingleChoiceTask))
+      if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
+    } }, DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask))
   })
   .views(self => ({
     get activeStepTasks () {

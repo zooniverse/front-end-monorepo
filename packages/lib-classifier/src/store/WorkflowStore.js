@@ -2,6 +2,7 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import ResourceStore from './ResourceStore'
 import Workflow from './Workflow'
+import queryString from 'query-string'
 
 const WorkflowStore = types
   .model('WorkflowStore', {
@@ -21,7 +22,8 @@ const WorkflowStore = types
         const project = getRoot(self).projects.active
         if (project) {
           self.reset()
-          selectWorkflow()
+          const queryParamId = getQueryParamId()
+          selectWorkflow(queryParamId)
         }
       })
       addDisposer(self, projectDisposer)
@@ -36,6 +38,19 @@ const WorkflowStore = types
         }
       })
       addDisposer(self, uppDisposer)
+    }
+
+    function getQueryParamId () {
+      if (window.location && window.location.search) {
+        const { workflow } = queryString.parse(window.location.search) // Search the query string for the 'project='
+        if (workflow) {
+          return workflow
+        }
+
+        return undefined
+      }
+
+      return undefined
     }
 
     function getDefaultWorkflowId () {

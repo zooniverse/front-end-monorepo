@@ -7,7 +7,6 @@ import { darken, lighten } from 'polished'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import TaskInputLabel from './components/TaskInputLabel'
-import { doesTheLabelHaveAnImage } from './helpers'
 import { pxToRem } from '@zooniverse/react-components'
 
 const DEFAULT = {
@@ -64,8 +63,7 @@ export const StyledTaskLabel = styled.span`
   cursor: pointer;
   display: flex;
   margin: ${pxToRem(10)} 0;
-  padding: ${props => (doesTheLabelHaveAnImage(props.label) ? '0' : '1ch 2ch')};
-  text-align: ${props => (doesTheLabelHaveAnImage(props.label) ? 'left' : 'center')};
+  padding: 5px 2ch;
   
   &:hover {
     background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});

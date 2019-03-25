@@ -1,13 +1,10 @@
 import Graph2dRangeXAnnotation from './Graph2dRangeXAnnotation'
 
 const annotation = {
-  task: 'T0',
-  value: [
-    {
-      x: 100,
-      width: 10
-    }
-  ]
+  tool: 0,
+  toolType: 'graph2dRangeX',
+  x: 100,
+  width: 10
 }
 
 describe('Model > Graph2dRangeXAnnotation', function () {
