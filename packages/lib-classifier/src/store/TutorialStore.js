@@ -224,7 +224,6 @@ const TutorialStore = types
 
     return {
       afterAttach,
-      fetchMedia: flow(fetchMedia),
       fetchTutorials: flow(fetchTutorials),
       resetActiveTutorial,
       resetSeen,
