@@ -68,6 +68,7 @@ const ClassificationStore = types
           workflow: workflow.id
         },
         metadata: ClassificationMetadata.create({
+          classifier_version: '2.0',
           source: subject.metadata.intervention ? 'sugar' : 'api',
           subjectSelectionState: {
             already_seen: subject.already_seen,

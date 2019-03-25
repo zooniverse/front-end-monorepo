@@ -3,6 +3,7 @@ import Resource from './Resource'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation, Graph2dRangeXAnnotation } from './annotations'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
+  classifier_version: types.literal('2.0'),
   feedback: types.frozen({}),
   finishedAt: types.maybe(types.string),
   session: types.maybe(types.string),
