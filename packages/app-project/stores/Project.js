@@ -10,6 +10,7 @@ const Project = types
     background: types.frozen({}),
     classifications_count: types.optional(types.number, 0),
     classifiers_count: types.optional(types.number, 0),
+    configuration: types.frozen({}),
     completeness: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
     display_name: types.maybeNull(types.string),
