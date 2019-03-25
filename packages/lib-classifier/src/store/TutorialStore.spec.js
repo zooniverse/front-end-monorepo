@@ -540,8 +540,7 @@ describe('Model > TutorialStore', function () {
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
       sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
-      
-      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
+      sinon.stub(rootStore.tutorials, 'fetchMedia')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
@@ -565,7 +564,7 @@ describe('Model > TutorialStore', function () {
       })
       const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
       const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
-      sinon.stub(rootStore.tutorials, 'fetchMedia').callsFake(() => Promise.resolve())
+      sinon.stub(rootStore.tutorials, 'fetchMedia')
 
       rootStore.projects.setResource(project)
       rootStore.projects.setActive(project.id)
