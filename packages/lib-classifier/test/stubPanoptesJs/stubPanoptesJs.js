@@ -11,7 +11,8 @@ export default function stubPanoptesJs (factories) {
   return {
     panoptes: {
       get: (url) => createResponse(url, factories),
-      post: (url) => createResponse(url, factories)
+      post: (url) => createResponse(url, factories),
+      put: (url) => createResponse(url, factories)
     }
   }
 }

@@ -6,6 +6,9 @@ import Resource from './Resource'
 const ResourceStore = types
   .model('ResourceStore', {
     active: types.maybe(types.reference(Resource)),
+    headers: types.maybe(types.frozen({
+      // etag: types.string // setting this is causing the store to be set with a MST type and thus defined. Maybe a bug?
+    })),
     resources: types.map(Resource),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     type: types.string
@@ -18,6 +21,7 @@ const ResourceStore = types
       self.loadingState = asyncStates.loading
       try {
         const response = yield client.get(`/${type}/${id}`)
+        self.headers = response.headers
         const resource = response.body[type][0]
         self.loadingState = asyncStates.success
         return resource
@@ -28,6 +32,7 @@ const ResourceStore = types
     }),
 
     reset () {
+      self.headers = undefined
       self.active = undefined
       self.resources.clear()
     },

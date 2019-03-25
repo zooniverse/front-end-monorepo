@@ -74,7 +74,7 @@ const SubjectStore = types
       try {
         const { authClient } = getRoot(self)
         const authorization = yield getBearerToken(authClient)
-        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, authorization)
+        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
 
         response.body.subjects.forEach(subject => {
           self.resources.put(subject)

@@ -14,7 +14,7 @@ function get (params) {
   if (isParamTypeInvalid(subjectId, 'string')) return raiseError('Subjects: Get request id must be a string.', 'typeError')
 
   if (subjectId) {
-    return panoptes.get(`${endpoint}/${subjectId}`, queryParams, authorization)
+    return panoptes.get(`${endpoint}/${subjectId}`, queryParams, { authorization })
   }
 
   if (console && !subjectId && process.env.NODE_ENV !== 'test') {

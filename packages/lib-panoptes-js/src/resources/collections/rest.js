@@ -14,7 +14,7 @@ function create (params) {
   }
   const collections = Object.assign({}, newCollectionData, { links })
 
-  return panoptes.post(endpoint, { collections }, authorization)
+  return panoptes.post(endpoint, { collections }, { authorization })
 }
 
 function get (params) {
@@ -22,10 +22,10 @@ function get (params) {
   const collectionId = (params && params.id) ? params.id : ''
   const authorization = (params && params.authorization) ? params.authorization : ''
 
-  if (!collectionId) return panoptes.get(endpoint, queryParams, authorization)
+  if (!collectionId) return panoptes.get(endpoint, queryParams, { authorization })
   if (collectionId && typeof collectionId !== 'string') return raiseError('Collections: Get request id must be a string.', 'typeError')
 
-  return panoptes.get(`${endpoint}/${collectionId}`, {}, authorization)
+  return panoptes.get(`${endpoint}/${collectionId}`, {}, { authorization })
 }
 
 function update (params) {
@@ -35,7 +35,7 @@ function update (params) {
   if (!collectionId) return raiseError('Collections: Update request id must be present.', 'typeError')
   if (!changes) return raiseError('Collection update: payload not supplied.', 'error')
 
-  return panoptes.put(`${endpoint}/${collectionId}`, { collections: changes }, authorization)
+  return panoptes.put(`${endpoint}/${collectionId}`, { collections: changes }, { authorization })
 }
 
 function del (params) {
@@ -45,7 +45,7 @@ function del (params) {
   if (!collectionId) return raiseError('Collections: Delete request id must be present.', 'typeError')
   if (collectionId && typeof collectionId !== 'string') return raiseError('Collections: Delete request id must be a string.', 'typeError')
 
-  return panoptes.del(`${endpoint}/${collectionId}`, authorization)
+  return panoptes.del(`${endpoint}/${collectionId}`, { authorization })
 }
 
 module.exports = { create, get, update, del }

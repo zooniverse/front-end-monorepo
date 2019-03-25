@@ -10,7 +10,7 @@ function create (params) {
     private: true
   }, newProjectData)
 
-  return panoptes.post(endpoint, allProjectData, authorization)
+  return panoptes.post(endpoint, allProjectData, { authorization })
 }
 
 function get (params) {
@@ -18,10 +18,10 @@ function get (params) {
   const projectId = (params && params.id) ? params.id : ''
   const authorization = (params && params.authorization) ? params.authorization : ''
 
-  if (!projectId) return panoptes.get(endpoint, queryParams, authorization)
+  if (!projectId) return panoptes.get(endpoint, queryParams, { authorization })
   if (projectId && typeof projectId !== 'string') return raiseError('Projects: Get request id must be a string.', 'typeError')
 
-  return panoptes.get(`${endpoint}/${projectId}`, queryParams, authorization)
+  return panoptes.get(`${endpoint}/${projectId}`, queryParams, { authorization })
 }
 
 function update (params) {
@@ -29,7 +29,7 @@ function update (params) {
   const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (id && typeof id !== 'string') return raiseError('Projects: Update request id must be a string.', 'typeError')
-  if (id && data) return panoptes.put(`${endpoint}/${id}`, data, authorization)
+  if (id && data) return panoptes.put(`${endpoint}/${id}`, data, { authorization })
   if (!id) return raiseError('Projects: Update request missing project id.', 'error')
   if (!data) return raiseError('Projects: Update request missing data to post.', 'error')
 
@@ -41,7 +41,7 @@ function del (params) {
   const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (id && typeof id !== 'string') return raiseError('Projects: Delete request id must be a string.', 'typeError')
-  if (id) return panoptes.del(`${endpoint}/${id}`, authorization)
+  if (id) return panoptes.del(`${endpoint}/${id}`, { authorization })
   return raiseError('Projects: Delete request missing project id.', 'error')
 }
 

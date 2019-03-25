@@ -32,10 +32,10 @@ class App extends React.Component {
       })
   }
 
-  getBearerToken () {
-    const token = oauth.checkBearerToken()
+  async getBearerToken () {
+    const token = await oauth.checkBearerToken()
     if (token) {
-      return `Bearer ${token}`
+      return `Bearer ${token.access_token}`
     }
 
     return ''
@@ -53,8 +53,8 @@ class App extends React.Component {
     }
 
     try {
-      const bearerToken = this.getBearerToken()
-      const response = await panoptes.get(`/projects/${id}`, {}, bearerToken)
+      const bearerToken = await this.getBearerToken()
+      const response = await panoptes.get(`/projects/${id}`, {}, { authorization: bearerToken })
       const project = response.body.projects[0]
       this.setState({ project })
     } catch (error) {
