@@ -14,11 +14,13 @@ function storeMapper (stores) {
     active: project
   } = stores.classifierStore.projects
   const {
+    onHide,
     setOnHide
   } = stores.classifierStore.feedback
 
   return {
     project,
+    onHide,
     setOnHide,
     shouldWeShowDoneAndTalkButton,
     subject
@@ -35,6 +37,7 @@ class DoneAndTalkButtonContainer extends React.Component {
       disabled,
       goldStandardMode,
       onClick,
+      onHide,
       project,
       setOnHide,
       shouldWeShowDoneAndTalkButton,
@@ -54,12 +57,14 @@ class DoneAndTalkButtonContainer extends React.Component {
             if (window && talkURL) {
               const url = `${window.location.origin}${talkURL}`
               if (isCmdClick) {
-                event.preventDefault()
-                const newTab = window.open()
-                newTab.opener = null
-                newTab.location = url
-                newTab.target = '_blank'
-                newTab.focus()
+                setOnHide(() => {
+                  onHide()
+                  const newTab = window.open()
+                  newTab.opener = null
+                  newTab.location = url
+                  newTab.target = '_blank'
+                  newTab.focus()
+                })
               } else {
                 setOnHide(() => window.location.assign(url))
               }

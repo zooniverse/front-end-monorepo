@@ -51,6 +51,7 @@ describe('DoneAndTalkButton', function () {
     )
     expect(wrapper.find(DoneAndTalkButton)).to.have.lengthOf(1)
   })
+
   describe('on click', function () {
     let onClick
     let setOnHide
@@ -68,17 +69,6 @@ describe('DoneAndTalkButton', function () {
       })
       onClick = sinon.stub().callsFake(() => Promise.resolve(null))
       setOnHide = sinon.stub().callsFake(callback => onHide = callback)
-      const wrapper = shallow(
-        <DoneAndTalkButtonContainer.wrappedComponent
-          onClick={onClick}
-          setOnHide={setOnHide}
-          shouldWeShowDoneAndTalkButton
-          subject={subject}
-          project={project}
-        />
-      )
-      const fakeEvent = {}
-      wrapper.simulate('click', fakeEvent)
     })
 
     after(function () {
@@ -88,18 +78,94 @@ describe('DoneAndTalkButton', function () {
       })
     })
 
-    it('should call the onClick handler', function () {
-      expect(onClick).to.have.been.calledOnce
+    describe('without the cmd key modifier', function () {
+      before(function () {
+        const wrapper = shallow(
+          <DoneAndTalkButtonContainer.wrappedComponent
+            onClick={onClick}
+            setOnHide={setOnHide}
+            shouldWeShowDoneAndTalkButton
+            subject={subject}
+            project={project}
+          />
+        )
+        const fakeEvent = {}
+        wrapper.simulate('click', fakeEvent)
+      })
+
+      after(function () {
+        onClick.resetHistory()
+        setOnHide.resetHistory()
+      })
+
+      it('should call the onClick handler', function () {
+        expect(onClick).to.have.been.calledOnce
+      })
+
+      it('should set an onHide callback', function () {
+        expect(setOnHide).to.have.been.calledOnce
+      })
+
+      it('should defer opening a Talk URL', function () {
+        onHide()
+        const url = 'https://example.org/projects/zooniverse/example/talk/subjects/2'
+        expect(window.location.assign).to.have.been.calledOnceWith(url)
+      })
     })
 
-    it('should set an onHide callback', function () {
-      expect(setOnHide).to.have.been.calledOnce
-    })
+    describe('with the cmd key modifier', function () {
+      let newTab = {
+        opener: null,
+        location: null,
+        target: null,
+        focus: sinon.stub()
+      }
 
-    it('should defer opening a Talk URL', function () {
-      onHide()
-      const url = 'https://example.org/projects/zooniverse/example/talk/subjects/2'
-      expect(window.location.assign).to.have.been.calledOnceWith(url)
+      before(function () {
+        window.open = sinon.stub().callsFake(() => newTab)
+
+        const wrapper = shallow(
+          <DoneAndTalkButtonContainer.wrappedComponent
+            onClick={onClick}
+            onHide={() => true}
+            setOnHide={setOnHide}
+            shouldWeShowDoneAndTalkButton
+            subject={subject}
+            project={project}
+          />
+        )
+        const fakeEvent = {
+          metaKey: true
+        }
+        wrapper.simulate('click', fakeEvent)
+      })
+
+      it('should call the onClick handler', function () {
+        expect(onClick).to.have.been.calledOnce
+      })
+
+      it('should set an onHide callback', function () {
+        expect(setOnHide).to.have.been.calledOnce
+      })
+
+      describe('when feedback closes', function () {
+        before(function () {
+          onHide()
+        })
+
+        it('should open a new tab', function () {
+          expect(newTab.target).to.equal('_blank')
+        })
+
+        it('should open a Talk URL', function () {
+          const url = 'https://example.org/projects/zooniverse/example/talk/subjects/2'
+          expect(newTab.location).to.equal(url)
+        })
+
+        it('should switch focus to the new tab', function () {
+          expect(newTab.focus).to.have.been.calledOnce
+        })
+      })
     })
   })
 })
