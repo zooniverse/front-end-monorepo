@@ -8,7 +8,7 @@ timeout(20) {
       echo 'Publishing Monorepo Docker image...'
       if (BRANCH_NAME == 'master') {
         def dockerRepoName = 'zooniverse/front-end-monorepo'
-        def dockerImageName = "${dockerRepoName}:${scmVars.GIT_COMMIT}"
+        def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
         def newImage = docker.build(dockerImageName)
         newImage.push()
         newImage.push('latest')
@@ -27,13 +27,15 @@ timeout(20) {
         if (appFolders.size() > 0) {
           for (appDir in appFolders) {
             dir (appDir) {
+              // get the app's project name - ideally this shell code moves to a package.json script in each app
               def dockerRepoName = sh(returnStdout: true, script: 'grep name package.json | cut -c 13- | rev | cut -c 3- | rev').trim()
-              def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+              def dockerImageName = "${dockerRepoName}:${scmVars.GIT_COMMIT}"
 
               echo "Building image for ${dockerImageName}..."
               def newImage = docker.build(dockerImageName, '--quiet .')
 
               echo "Pushing ${dockerImageName} to Docker Hub..."
+              newImage.push()
               newImage.push('latest')
             }
           }
