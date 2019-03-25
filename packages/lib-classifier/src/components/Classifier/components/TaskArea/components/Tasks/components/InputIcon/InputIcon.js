@@ -22,9 +22,8 @@ export const StyledInputIcon = styled.span`
 `;
 
 export default function InputIcon(props) {
-  const Icon = props.icon
   return (
-    <StyledInputIcon color={props.tool.color}><Icon /></StyledInputIcon>
+    <StyledInputIcon color={props.tool.color}>{props.icon}</StyledInputIcon>
   );
 }
 
