@@ -18,6 +18,9 @@ module.exports = {
     /^(@zooniverse\/panoptes-js\/.*)$/i,
     /^(@zooniverse\/react-components\/.*)$/i
   ],
+  optimization: {
+    minimize: false // disabled for now to make debugging easier
+  },
   mode: 'production',
   module: {
     rules: [
