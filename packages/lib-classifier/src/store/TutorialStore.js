@@ -142,7 +142,7 @@ const TutorialStore = types
         const response = yield tutorialsClient.get({ workflowId: workflow.id })
         const { tutorials } = response.body
         if (tutorials && tutorials.length > 0) {
-          const mediaRequests = tutorials.map(tutorial => fetchMedia(tutorial))
+          const mediaRequests = tutorials.map(fetchMedia)
           yield Promise.all(mediaRequests)
           self.setTutorials(tutorials)
           self.loadingState = asyncStates.success
