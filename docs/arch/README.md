@@ -10,3 +10,5 @@
 - [ADR 8: Building the TESS Light Curve Viewer](adr-8.md)
 - [ADR 9: Classifier - Logic for Selecting a Subject Viewer](adr-9.md)
 - [ADR 10: Type conversions from Mobx-State-Tree to JSON API for Javascript Maps](adr-10.md)
+- [ADR 11: Rewriting Markdownz to use remark](adr-11.md)
+- [ADR 12: Docker setup for monorepo](adr-12.md)

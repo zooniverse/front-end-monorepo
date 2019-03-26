@@ -6,9 +6,25 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/zooniverse/front-end-monorepo/badge.svg?branch=master)](https://coveralls.io/github/zooniverse/front-end-monorepo?branch=master)
 
+**Table of Contents**
+
+- [Requirements](#requirements)
+- [Monowhat?](#monowhat)
+- [Getting started](#getting-started)
+- [Helpful Guides](#helpful-guides)
+- [Packages](#packages)
+- [Helpers](#helpers)
+- [Conventions](#conventions)
+  - [NPM](#npm)
+  - [Packages directory](#packages-directory)
+- [Production deployment](#production-deployment)
+- [License](#license)
+
 ## Requirements
 
-[Browser support](docs/arch/adr-3.md)
+- [Browser support](docs/arch/adr-3.md)
+- Node 8
+- Git
 
 ## Monowhat?
 
@@ -59,9 +75,9 @@ A list of packages and their main dependencies
 
 ## Helpers
 
-If you have [`plop`](https://plopjs.com/) installed globally, you can use it to quickly scaffold new apps and components. You can use the following generators:
+If you have [`plop`](https://plopjs.com/) installed globally (`npm i -g plop`), you can use it to quickly scaffold new apps and components. The following generators are available:
 
-- `App` - creates a new app in the `packages` folder, based on a simple Next.js 7 build, with Styled Components and Mocha included.
+- `App` - creates a new app in the folder, based on a simple Next.js 7 build, with Styled Components and Mocha included.
 - `Component` - creates a new component in the current folder, including tests and an optional container.
 
 ## Conventions
@@ -75,6 +91,12 @@ All packages built from this monorepo should be _scoped_ to `zooniverse`, e.g. `
 Libraries for publishing to NPM should have their directory names prefixed with `lib-`, e.g. `/grommet-theme` becomes `/lib-grommet-theme`.
 
 Apps should have their directory names prefixed with `app-`, e.g. `/project` becomes `/app-project`.
+
+## Production deployment
+
+Deploys to production are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/). Firstly, a base Docker image is created which installs and builds the `lib-` packages, and that's used as a base image for creating `app-` images, which are then deployed to Kubernetes.
+
+More information is available in [ADR 12](docs/arch/adr-12.md).
 
 ---
 
