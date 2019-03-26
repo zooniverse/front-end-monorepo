@@ -27,6 +27,7 @@ module.exports = {
       'grommet-icons': resolveLocal('grommet-icons'),
       'styled-components': resolveLocal('styled-components')
     }
+    config.optimization.minimize = false // temporarily disabled for debugging
     return config
   }
 }
