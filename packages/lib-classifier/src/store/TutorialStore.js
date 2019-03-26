@@ -110,7 +110,7 @@ const TutorialStore = types
       addDisposer(self, uppDisposer)
     }
 
-    function * fetchMedia (tutorial) {
+    const fetchMedia = flow(function * fetchMedia (tutorial) {
       const { tutorials } = getRoot(self).client
       if (tutorial) {
         self.loadingState = asyncStates.loading
@@ -124,7 +124,7 @@ const TutorialStore = types
           console.error(error)
         }
       }
-    }
+    })
 
     function setMediaResources (media) {
       media.forEach(medium => self.attachedMedia.put(medium))
@@ -142,7 +142,7 @@ const TutorialStore = types
         const response = yield tutorialsClient.get({ workflowId: workflow.id })
         const { tutorials } = response.body
         if (tutorials && tutorials.length > 0) {
-          const mediaRequests = tutorials.map(tutorial => flow(fetchMedia)(tutorial))
+          const mediaRequests = tutorials.map(tutorial => fetchMedia(tutorial))
           yield Promise.all(mediaRequests)
           self.setTutorials(tutorials)
           self.loadingState = asyncStates.success
