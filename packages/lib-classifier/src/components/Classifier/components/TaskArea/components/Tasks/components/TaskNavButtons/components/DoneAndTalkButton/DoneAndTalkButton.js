@@ -11,9 +11,9 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 // Taken from PFE on 2019.02.28; these colours aren't part of the current theme.
-const TALK_LINK_BLUE = '#43bbfd';
-const TALK_LINK_BLUE_HOVER = darken(0.18, TALK_LINK_BLUE);
-const TALK_LINK_BLUE_HOVER_DARK = '#104A79';
+const TALK_LINK_BLUE = '#43bbfd'
+const TALK_LINK_BLUE_HOVER = darken(0.18, TALK_LINK_BLUE)
+const TALK_LINK_BLUE_HOVER_DARK = '#104A79'
 
 // TODO move what makes sense into theme
 export const StyledDoneAndTalkButton = styled(Button)`
@@ -38,18 +38,18 @@ export const StyledDoneAndTalkButton = styled(Button)`
 
   &:hover, &:focus {
     background: ${theme('mode', {
-      dark: TALK_LINK_BLUE_HOVER_DARK,
-      light: TALK_LINK_BLUE_HOVER
-    })};
+    dark: TALK_LINK_BLUE_HOVER_DARK,
+    light: TALK_LINK_BLUE_HOVER
+  })};
     border: ${theme('mode', {
-      dark: `solid thin ${TALK_LINK_BLUE}`,
-      light: `solid thin ${TALK_LINK_BLUE_HOVER}`
-    })};
+    dark: `solid thin ${TALK_LINK_BLUE}`,
+    light: `solid thin ${TALK_LINK_BLUE_HOVER}`
+  })};
     box-shadow: none;
     color: ${theme('mode', {
-      dark: zooTheme.global.colors.text.dark,
-      light: `white`
-    })};
+    dark: zooTheme.global.colors.text.dark,
+    light: `white`
+  })};
   }
 
   &:disabled {
@@ -58,34 +58,13 @@ export const StyledDoneAndTalkButton = styled(Button)`
   `
 
 export function DoneAndTalkButton (props) {
-  const openTalkLinkAndClick = function (event) {
-    const isCmdClick = event.metaKey
-
-    props.onClick(event)
-      .then(() => {
-        if (window && props.talkURL) {
-          const url = `${window.location.origin}${props.talkURL}`
-          if (isCmdClick) {
-            event.preventDefault()
-            const newTab = window.open()
-            newTab.opener = null
-            newTab.location = url
-            newTab.target = '_blank'
-            newTab.focus()
-          } else {
-            window.location.assign(url)
-          }
-        }
-      })
-  }
-
   if (!props.completed) {
     return (
       <ThemeProvider theme={{ mode: props.theme }}>
         <StyledDoneAndTalkButton
           disabled={props.disabled}
           label={<Text size='small'>{counterpart('DoneAndTalkButton.doneAndTalk')}</Text>}
-          onClick={(e) => { openTalkLinkAndClick(e) }}
+          onClick={props.onClick}
           type='submit'
         />
       </ThemeProvider>
@@ -97,9 +76,9 @@ export function DoneAndTalkButton (props) {
 
 DoneAndTalkButton.defaultProps = {
   completed: false,
-  demoMode: false,  // TODO: add demo mode to classifier
+  demoMode: false, // TODO: add demo mode to classifier
   disabled: false,
-  goldStandardMode: false,  // TODO: add gold standard mode to classifier
+  goldStandardMode: false, // TODO: add gold standard mode to classifier
   onClick: () => {},
   theme: 'light'
 }

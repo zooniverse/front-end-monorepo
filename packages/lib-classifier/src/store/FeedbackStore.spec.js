@@ -102,6 +102,9 @@ describe('Model > FeedbackStore', function () {
 
   describe('reset', function () {
     beforeEach(function () {
+      feedback.subjects = {
+        advance: sinon.stub()
+      }
       feedback.reset()
     })
 
@@ -115,6 +118,10 @@ describe('Model > FeedbackStore', function () {
 
     it('should reset showModal state', function () {
       expect(feedback.showModal).to.be.false
+    })
+
+    it('should set the onHide callback', function () {
+      expect(feedback.onHide).to.equal(feedback.subjects.advance)
     })
   })
 
@@ -180,9 +187,6 @@ describe('Model > FeedbackStore', function () {
     describe('when feedback is active', function () {
       beforeEach(function () {
         feedback = FeedbackStore.create(feedbackStub)
-        feedback.subjects = {
-          advance: sinon.stub()
-        }
         feedback.onSubjectAdvance(call, next, abort)
       })
 
@@ -192,10 +196,6 @@ describe('Model > FeedbackStore', function () {
 
       it('should show feedback', function () {
         expect(feedback.showModal).to.be.true
-      })
-
-      it('should set the onHide callback', function () {
-        expect(feedback.onHide).to.equal(feedback.subjects.advance)
       })
     })
   })
