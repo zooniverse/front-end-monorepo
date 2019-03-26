@@ -18,7 +18,7 @@ function checkForAdminFlag () {
 function determineHost (query, host) {
   if (host) return host
   if (query && query.env) {
-    return query.env
+    return baseConfig[query.env].host
   }
 
   return config.host
@@ -29,7 +29,6 @@ function get (endpoint, query = {}, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   const apiHost = determineHost(query, host)
-
   const request = superagent.get(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')

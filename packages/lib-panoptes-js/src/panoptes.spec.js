@@ -4,7 +4,7 @@ const nock = require('nock')
 const { config } = require('./config')
 const panoptes = require('./panoptes')
 
-describe.only('panoptes.js', function () {
+describe('panoptes.js', function () {
   let scope
 
   describe('get', function () {
