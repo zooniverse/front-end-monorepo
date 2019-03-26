@@ -37,7 +37,7 @@ class SlideTutorial extends React.Component {
         <Box
           height='100%'
           justify='between'
-          pad='medium'
+          {...this.props}
         >
           {isThereMedia &&
             <Media
@@ -59,7 +59,7 @@ class SlideTutorial extends React.Component {
       <Box
         height='100%'
         justify='between'
-        pad='medium'
+        {...this.props}
       >
         <Paragraph>{counterpart('SlideTutorial.error')}</Paragraph>
       </Box>
@@ -68,7 +68,8 @@ class SlideTutorial extends React.Component {
 }
 
 SlideTutorial.wrappedComponent.defaultProps = {
-  activeStep: 0
+  activeStep: 0,
+  pad: "medium"
 }
 
 SlideTutorial.wrappedComponent.propTypes = {

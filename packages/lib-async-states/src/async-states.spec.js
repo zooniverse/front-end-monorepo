@@ -6,6 +6,7 @@ describe('asyncStates', function () {
   const states = [
     'initialized',
     'loading',
+    'putting',
     'posting',
     'success',
     'error'

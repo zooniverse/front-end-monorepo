@@ -12,7 +12,7 @@ function getBySlug (params) {
   }
 
   if (queryParams.slug) {
-    return panoptes.get(endpoint, queryParams, authorization)
+    return panoptes.get(endpoint, queryParams, { authorization })
   }
 
   return raiseError('Projects: Get by slug request missing required parameter: slug string.', 'error')
@@ -30,13 +30,13 @@ function getWithLinkedResources (params) {
   if (projectId && typeof projectId !== 'string') return raiseError('Projects: Get request id must be a string.', 'typeError')
   if (!queryParams.slug && !projectId) return raiseError('Projects: Get request must have either project id or slug.', 'typeError')
 
-  if (projectId) return panoptes.get(`${endpoint}/${projectId}`, queryParams, authorization)
+  if (projectId) return panoptes.get(`${endpoint}/${projectId}`, queryParams, { authorization })
 
   if (queryParams.slug && queryParams.slug.includes('projects')) {
     queryParams.slug = getProjectSlugFromURL(queryParams.slug)
   }
 
-  return panoptes.get(endpoint, queryParams, authorization)
+  return panoptes.get(endpoint, queryParams, { authorization })
 }
 
 module.exports = { getBySlug, getWithLinkedResources }

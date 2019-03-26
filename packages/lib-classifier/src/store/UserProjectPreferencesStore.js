@@ -1,9 +1,10 @@
-import { autorun } from 'mobx'
+import { autorun, toJS } from 'mobx'
 import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import UserProjectPreferences from './UserProjectPreferences'
 import { getBearerToken } from './utils'
+import merge from 'lodash/merge'
 
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
@@ -12,6 +13,7 @@ const UserProjectPreferencesStore = types
     type: types.optional(types.string, 'project_preferences')
   })
 
+  // TODO: move some of these req into panoptes.js helpers
   .actions(self => {
     function afterAttach () {
       createProjectObserver()
@@ -29,7 +31,7 @@ const UserProjectPreferencesStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function * createUPP (bearerToken) {
+    function * createUPP (authorization) {
       const { type } = self
       const client = getRoot(self).client.panoptes
       const project = getRoot(self).projects.active
@@ -39,7 +41,8 @@ const UserProjectPreferencesStore = types
       }
       self.loadingState = asyncStates.posting
       try {
-        const response = yield client.post(`/${type}`, { [type]: data }, bearerToken)
+        const response = yield client.post(`/${type}`, { [type]: data }, { authorization })
+        self.headers = response.headers
         return response.body[type][0]
       } catch (error) {
         console.error(error)
@@ -51,11 +54,11 @@ const UserProjectPreferencesStore = types
       const { authClient } = getRoot(self)
 
       try {
-        const bearerToken = yield getBearerToken(authClient)
+        const authorization = yield getBearerToken(authClient)
         const user = yield authClient.checkCurrent()
 
-        if (bearerToken && user) {
-          self.fetchUPP(bearerToken, user)
+        if (authorization && user) {
+          self.fetchUPP(authorization, user)
         } else {
           self.reset()
           self.loadingState = asyncStates.success
@@ -66,7 +69,7 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function * fetchUPP (bearerToken, user) {
+    function * fetchUPP (authorization, user) {
       let resource
       const { type } = self
       const client = getRoot(self).client.panoptes
@@ -74,11 +77,13 @@ const UserProjectPreferencesStore = types
 
       self.loadingState = asyncStates.loading
       try {
-        const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, bearerToken)
+        const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, { authorization })
         if (response.body[type][0]) {
+          // We don't store the headers from this get response because it's by query params
+          // and not for a specific resource, so the etag won't be usable for the later PUT request
           resource = response.body[type][0]
         } else {
-          resource = yield self.createUPP(bearerToken)
+          resource = yield self.createUPP(authorization)
         }
 
         self.loadingState = asyncStates.success
@@ -89,8 +94,76 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function updateUPP (changes) {
-      console.log('TODO: UPP PUT request', changes)
+    function * fetchUPPById (id = '') {
+      const { type } = self
+      const uppId = id || self.active.id
+      const client = getRoot(self).client.panoptes
+      const { authClient } = getRoot(self)
+      const authorization = yield getBearerToken(authClient)
+      const headers = {
+        authorization
+      }
+      try {
+        const response = yield client.get(`/${type}/${uppId}`, null, headers)
+        const resource = response.body[type][0]
+        if (resource) {
+          self.headers = response.headers
+          self.setUPP(resource)
+          return resource
+        }
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
+      }
+    }
+
+    function * updateUPP (changes) {
+      const upp = self.active
+      if (upp) {
+        self.loadingState = asyncStates.putting
+        try {
+          if (self.headers.etag) {
+            const mergedUPP = merge({}, upp, changes)
+            yield self.putUPP(mergedUPP)
+          } else {
+            // We re-request for the upp to get a usable etag header
+            const currentUPP = yield self.fetchUPPById(upp.id)
+            const mergedUPP = merge({}, currentUPP, changes)
+            yield self.putUPP(mergedUPP)
+          }
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
+        }
+      }
+    }
+
+    function * putUPP (upp) {
+      const { type } = self
+      const client = getRoot(self).client.panoptes
+      const { authClient } = getRoot(self)
+      const authorization = yield getBearerToken(authClient)
+
+      if (upp && self.headers.etag) {
+        const headers = {
+          authorization,
+          etag: self.headers.etag
+        }
+        const { id, preferences } = upp
+        try {
+          const response = yield client.put(`/${type}/${id}`, { [type]: { preferences } }, headers)
+          if (response.body[type][0]) {
+            self.headers = response.headers
+            const updatedUPP = response.body[type][0]
+            self.setUPP(updatedUPP)
+          }
+
+          self.loadingState = asyncStates.success
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
+        }
+      }
     }
 
     function setUPP (userProjectPreferences) {
@@ -103,8 +176,10 @@ const UserProjectPreferencesStore = types
       checkForUser: flow(checkForUser),
       createUPP: flow(createUPP),
       fetchUPP: flow(fetchUPP),
+      fetchUPPById: flow(fetchUPPById),
+      putUPP: flow(putUPP),
       setUPP,
-      updateUPP
+      updateUPP: flow(updateUPP)
     }
   })
 

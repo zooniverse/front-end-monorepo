@@ -142,13 +142,15 @@ const TutorialStore = types
         const response = yield tutorialsClient.get({ workflowId: workflow.id })
         const { tutorials } = response.body
         if (tutorials && tutorials.length > 0) {
-          tutorials.forEach(tutorial => self.fetchMedia(tutorial))
+          yield Promise.all(tutorials.map(tutorial => self.fetchMedia(tutorial)))
           self.setTutorials(tutorials)
+          self.loadingState = asyncStates.success
           if (upp.loadingState === asyncStates.success) {
             self.showTutorialInModal()
           }
+        } else {
+          self.loadingState = asyncStates.success
         }
-        self.loadingState = asyncStates.success
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error

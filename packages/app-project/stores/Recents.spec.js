@@ -63,13 +63,13 @@ describe('Stores > Recents', function () {
     })
 
     it('should request recent subjects from Panoptes', function () {
-      const token = 'Bearer '
+      const authorization = 'Bearer '
       const endpoint = '/users/123/recents'
       const query = {
         project_id: '2',
         sort: '-created_at'
       }
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, token)).to.have.been.calledOnce()
+      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
     })
 
     it('should store existing recents', function () {

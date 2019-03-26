@@ -5,11 +5,11 @@ import WithLayer from './WithLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
-function Modal ({ children, closeFn, colorTheme, theme, title }) {
+function Modal ({ children, className, closeFn, colorTheme, theme, title }) {
   return (
     <React.Fragment>
-      <ModalHeading closeFn={closeFn} title={title} />
-      <ModalBody colorTheme={colorTheme}>
+      <ModalHeading className={className} closeFn={closeFn} title={title} />
+      <ModalBody className={className} colorTheme={colorTheme}>
         {children}
       </ModalBody>
     </React.Fragment>
@@ -18,6 +18,7 @@ function Modal ({ children, closeFn, colorTheme, theme, title }) {
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   closeFn: PropTypes.func,
   colorTheme: PropTypes.oneOf(['light', 'dark']),
   title: PropTypes.string.isRequired,
@@ -26,6 +27,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   colorTheme: 'light',
+  className: '',
   closeFn: () => {}
 }
 

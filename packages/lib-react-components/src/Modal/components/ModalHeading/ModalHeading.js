@@ -33,11 +33,12 @@ const StyledButton = styled(Button)`
   }
 `
 
-function ModalHeading ({ closeFn, title }) {
+function ModalHeading ({ className, closeFn, title }) {
   return (
     <Box
       align='center'
-      background='teal'
+      background='brand'
+      className={className}
       direction='row'
       gap='large'
       justify='between'
@@ -57,8 +58,13 @@ function ModalHeading ({ closeFn, title }) {
 }
 
 ModalHeading.propTypes = {
+  className: PropTypes.string,
   closeFn: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired
+}
+
+ModalHeading.defaultProps = {
+  className: ''
 }
 
 export default ModalHeading

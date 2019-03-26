@@ -15,7 +15,7 @@ function getSubjectQueue (params) {
     queryParams.workflow_id = workflowId
     if (subjectSetId) queryParams.subject_set_id = subjectSetId
 
-    return panoptes.get(queuedEndpoint, queryParams, authorization)
+    return panoptes.get(queuedEndpoint, queryParams, { authorization })
   }
 
   return raiseError('Subjects: Get request must include a workflow id.', 'error')

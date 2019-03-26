@@ -1,4 +1,3 @@
-import { Grommet } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
@@ -14,6 +13,7 @@ import {
 import { registerWorkers, unregisterWorkers } from '../../workers'
 import RootStore from 'src/store'
 import Layout from './components/Layout'
+import ModalTutorial from './components/ModalTutorial'
 import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
 const client = {
@@ -71,7 +71,10 @@ export default class Classifier extends React.Component {
     return (
       <Provider classifierStore={this.classifierStore}>
         <ThemeProvider theme={{ mode: this.props.mode }}>
-          <Layout />
+          <>
+            <Layout />
+            <ModalTutorial />
+          </>
         </ThemeProvider>
       </Provider>
     )

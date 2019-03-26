@@ -11,7 +11,7 @@ function addSubjects (params) {
 
   if (typeof collectionId !== 'string') return raiseError('Collections add link: collections id must be a string.', 'typeError')
 
-  return panoptes.post(`${endpoint}/${collectionId}/links/subjects`, { subjects }, authorization)
+  return panoptes.post(`${endpoint}/${collectionId}/links/subjects`, { subjects }, { authorization })
 }
 
 function removeSubjects (params) {
@@ -23,7 +23,7 @@ function removeSubjects (params) {
 
   if (typeof collectionId !== 'string') return raiseError('Collections remove link: collections id must be a string.', 'typeError')
 
-  return panoptes.del(`${endpoint}/${collectionId}/links/subjects/${subjects.join(',')}`, authorization)
+  return panoptes.del(`${endpoint}/${collectionId}/links/subjects/${subjects.join(',')}`, { authorization })
 }
 
 module.exports = { addSubjects, removeSubjects }

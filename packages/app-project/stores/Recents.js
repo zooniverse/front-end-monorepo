@@ -42,7 +42,7 @@ const Recents = types
             project_id: project.id,
             sort: '-created_at'
           }
-          const response = yield client.panoptes.get(`/users/${user.id}/recents`, query, authorization)
+          const response = yield client.panoptes.get(`/users/${user.id}/recents`, query, { authorization })
           const { recents } = response.body
           self.recents = recents.map(recent => ({
             subjectId: recent.links.subject,
