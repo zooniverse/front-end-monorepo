@@ -14,7 +14,7 @@ const Project = types
     completeness: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
     display_name: types.maybeNull(types.string),
-    error: types.maybeNull(types.frozen({})),
+    error: types.optional(types.frozen({}), {}),
     experimental_tools: types.frozen([]),
     id: types.maybeNull(numberString),
     launch_approved: types.optional(types.boolean, false),
@@ -40,37 +40,42 @@ const Project = types
         client = getRoot(self).client.projects
       },
 
-      fetch: flow(function * fetch (slug) {
+      fetch: flow(function * fetch (slug, params) {
         self.loadingState = asyncStates.loading
         try {
-          const query = { slug }
+          const query = { ...params, slug }
           const response = yield client.getWithLinkedResources({ query })
           const project = response.body.projects[0]
-          const linked = response.body.linked
+          if (project) {
+            const linked = response.body.linked
 
-          self.avatar = get(linked, 'avatars[0]', {})
-          self.background = get(linked, 'backgrounds[0]', {})
+            self.avatar = get(linked, 'avatars[0]', {})
+            self.background = get(linked, 'backgrounds[0]', {})
 
-          const properties = [
-            'classifications_count',
-            'classifiers_count',
-            'completeness',
-            'configuration',
-            'description',
-            'display_name',
-            'experimental_tools',
-            'id',
-            'launch_approved',
-            'links',
-            'retired_subjects_count',
-            'slug',
-            'subjects_count',
-            'urls'
-          ]
-          properties.forEach(property => { self[property] = project[property] })
-          self.loadingState = asyncStates.success
+            const properties = [
+              'classifications_count',
+              'classifiers_count',
+              'completeness',
+              'configuration',
+              'description',
+              'display_name',
+              'experimental_tools',
+              'id',
+              'launch_approved',
+              'links',
+              'retired_subjects_count',
+              'slug',
+              'subjects_count',
+              'urls'
+            ]
+            properties.forEach(property => { self[property] = project[property] })
+            self.loadingState = asyncStates.success
+          }
+
+          if (!project) throw new Error(`${slug} could not be found`)
         } catch (error) {
-          self.error = error.message
+          console.error('Error loading project:', error)
+          self.error = error
           self.loadingState = asyncStates.error
         }
       })

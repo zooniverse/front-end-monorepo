@@ -29,7 +29,6 @@ function getWithLinkedResources (params) {
   if (queryParams.slug && typeof queryParams.slug !== 'string') return raiseError('Projects: Get request slug must be a string.', 'typeError')
   if (projectId && typeof projectId !== 'string') return raiseError('Projects: Get request id must be a string.', 'typeError')
   if (!queryParams.slug && !projectId) return raiseError('Projects: Get request must have either project id or slug.', 'typeError')
-
   if (projectId) return panoptes.get(`${endpoint}/${projectId}`, queryParams, { authorization })
 
   if (queryParams.slug && queryParams.slug.includes('projects')) {

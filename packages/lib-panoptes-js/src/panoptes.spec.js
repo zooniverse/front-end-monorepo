@@ -4,7 +4,7 @@ const nock = require('nock')
 const { config } = require('./config')
 const panoptes = require('./panoptes')
 
-describe('panoptes.js', function () {
+describe.only('panoptes.js', function () {
   let scope
 
   describe('get', function () {
@@ -161,11 +161,7 @@ describe('panoptes.js', function () {
       const isDel = method === 'del'
       // Nock calls it 'delete', panoptes-js calls it 'del'
       const nockMethod = isDel ? 'delete' : method
-      // There is one less argument for `del`, so to set the correct order we
-      // `apply` an array of arguments
-      const methodArgs = isDel
-        ? [endpoint, null, mockAPIHost]
-        : [endpoint, update, null, mockAPIHost]
+      const methodArgs = [endpoint, update, null, mockAPIHost]
 
       const mockAPIHostScope = nock(mockAPIHost)
         [nockMethod](uri => uri.includes(endpoint))
@@ -200,11 +196,8 @@ describe('panoptes.js', function () {
 
   function testAuthHeader (method, endpoint, update = null) {
     it('should add the `Authorization` header to the request if param is defined', async function () {
-      const isDel = method === 'del'
       const headers = { authorization: 'Bearer 12345' }
-      const methodArgs = isDel
-        ? [endpoint, headers]
-        : [endpoint, update, headers]
+      const methodArgs = [endpoint, update, headers]
 
       const response = await panoptes[method].apply(this, methodArgs)
       expect(response.req.headers['authorization']).to.equal('Bearer 12345')

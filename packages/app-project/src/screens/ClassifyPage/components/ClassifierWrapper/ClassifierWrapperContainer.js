@@ -34,6 +34,7 @@ class ClassifierWrapperContainer extends Component {
   }
 
   static getDerivedStateFromError (error) {
+    console.error('error', error)
     return {
       error
     }
@@ -62,8 +63,9 @@ class ClassifierWrapperContainer extends Component {
 
     if (somethingWentWrong) {
       const { error } = this.state || project
+      const errorToMessage = error || new Error('Something went wrong')
       return (
-        <ErrorMessage error={error} />
+        <ErrorMessage error={errorToMessage} />
       )
     }
 

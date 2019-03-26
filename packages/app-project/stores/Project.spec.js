@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
-
+import sinon from 'sinon'
 import Store from './Store'
 import placeholderEnv from './helpers/placeholderEnv'
 
@@ -69,20 +69,31 @@ describe('Stores > Project', function () {
     before(function () {
       clientStub = {
         projects: {
-          getWithLinkedResources: function () {
+          getWithLinkedResources: sinon.stub().callsFake(() => {
             return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
-          }
+          })
         }
       }
-      rootStore = Store.create({}, { client: clientStub })
-      projectStore = rootStore.project
+    })
+
+    afterEach(function () {
+      clientStub.projects.getWithLinkedResources.resetHistory()
+    })
+
+    after(function () {
+      rootStore = null
+      projectStore = null
     })
 
     it('should exist', function () {
+      rootStore = Store.create({}, { client: clientStub })
+      projectStore = rootStore.project
       expect(projectStore.fetch).to.be.a('function')
     })
 
     it('should fetch a valid project resource', function (done) {
+      rootStore = Store.create({}, { client: clientStub })
+      projectStore = rootStore.project
       expect(projectStore.loadingState).to.equal(asyncStates.initialized)
 
       projectStore.fetch('foo/bar')
@@ -103,9 +114,36 @@ describe('Stores > Project', function () {
       expect(projectStore.loadingState).to.equal(asyncStates.loading)
     })
 
-    after(function () {
-      rootStore = null
-      projectStore = null
+    it('should set an error state if response is an empty array', function (done) {
+      clientStub = {
+        projects: {
+          getWithLinkedResources: sinon.stub().callsFake(() => {
+            return Promise.resolve({ body: { projects: [] }})
+          })
+        }
+      }
+      rootStore = Store.create({}, { client: clientStub })
+      projectStore = rootStore.project
+
+      projectStore.fetch('foo/bar')
+        .then(() => {
+          expect(projectStore.loadingState).to.equal(asyncStates.error)
+          expect(projectStore.error.message).to.equal('foo/bar could not be found')
+        })
+        .then(done, done)
+    })
+
+    it('should request with params if defined', function (done) {
+      rootStore = Store.create({}, { client: clientStub })
+      projectStore = rootStore.project
+
+      projectStore.fetch('foo/bar', { env: 'staging' })
+        .then(() => {
+          expect(rootStore.client.projects.getWithLinkedResources).to.be.calledOnceWith(
+            { query: { slug: 'foo/bar', env: 'staging' } }
+          )
+        })
+        .then(done, done)
     })
   })
 })
