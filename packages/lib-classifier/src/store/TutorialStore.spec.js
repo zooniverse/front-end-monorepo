@@ -50,10 +50,10 @@ const tutorialMiniCourseKind = TutorialFactory.build(
 )
 
 const upp = UPPFactory.build()
-const uppWithTutorialTimeStamp = UPPFactory.build({ 
+const uppWithTutorialTimeStamp = UPPFactory.build({
   preferences: {
     tutorials_completed_at: {
-      [tutorial.id]: seenMock 
+      [tutorial.id]: seenMock
     }
   }
 })
@@ -497,22 +497,17 @@ describe('Model > TutorialStore', function () {
   describe('Actions > showTutorialInModal', function () {
     let clientStubWithUPP
     let clientStubWithUPPTimestamp
+    let tutorialsClient
+
     before(function () {
       const panoptesClientWithUPP = stubPanoptesJs({ project_preferences: upp, workflows: workflow })
       const panoptesClientWithUPPTimestamp = stubPanoptesJs({ project_preferences: uppWithTutorialTimeStamp, workflows: workflow })
-      const tutorialsClient = { 
+      tutorialsClient = {
         tutorials: {
           get: sinon.stub().callsFake(() => {
             return Promise.resolve({
               body: {
                 tutorials: [tutorial]
-              }
-            })
-          }),
-          getAttachedImages: sinon.stub().callsFake(() => {
-            return Promise.resolve({
-              body: {
-                media: [medium]
               }
             })
           })
@@ -521,83 +516,246 @@ describe('Model > TutorialStore', function () {
       clientStubWithUPP = Object.assign({}, tutorialsClient, panoptesClientWithUPP)
       clientStubWithUPPTimestamp = Object.assign({}, tutorialsClient, panoptesClientWithUPPTimestamp)
     })
-    
-    describe('for logged-out users', function () {
-      it('should show the tutorial', function (done) {
-        rootStore = RootStore.create({
-          projects: ProjectStore.create(),
-          tutorials: TutorialStore.create(),
-          workflows: WorkflowStore.create()
-        }, {
-          authClient: authClientStubWithoutUser, client: clientStub()
-        })
-        const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
-        const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
-        sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
 
-        rootStore.projects.setResource(project)
-        rootStore.projects.setActive(project.id)
+    describe('loading attached media', function () {
+      let awaitTutorials
+      let awaitMedia
+      function defer () {
+        // http://lea.verou.me/2016/12/resolve-promises-externally-with-this-one-weird-trick/
+        let res
+        let rej
 
-        fetchTutorials()
-          .then(() => {
-            expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-            expect(setModalVisibilitySpy).to.have.been.calledOnce
-            expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-            expect(rootStore.tutorials.showModal).to.be.true
-          }).then(() => {
-            setActiveTutorialSpy.restore()
-            setModalVisibilitySpy.restore()
-            rootStore.userProjectPreferences.updateUPP.restore()
-          }).then(done, done)
-      })
-    })
+      	const promise = new Promise((resolve, reject) => {
+      		res = resolve
+      		rej = reject
+      	})
 
-    describe('for logged-in users', function () {
-      it('should show the tutorial if it has not been seen', function (done) {
+      	promise.resolve = res
+      	promise.reject = rej
+
+      	return promise
+      }
+
+      beforeEach(function () {
         rootStore = RootStore.create({}, {
-          authClient: authClientStubWithUser, client: clientStubWithUPP
+          authClient: authClientStubWithoutUser, client: clientStubWithUPP
         })
-        const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
-        const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
-        sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
-
-        rootStore.projects.setResource(project)
-        rootStore.projects.setActive(project.id)
-
-        fetchTutorials()
-          .then(() => {
-            expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-            expect(setModalVisibilitySpy).to.have.been.calledOnce
-            expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-            expect(rootStore.tutorials.showModal).to.be.true
-          }).then(() => {
-            setActiveTutorialSpy.restore()
-            setModalVisibilitySpy.restore()
-            rootStore.userProjectPreferences.updateUPP.restore()
-          }).then(done, done)
+        awaitTutorials = defer()
+        awaitMedia = defer()
+        tutorialsClient.tutorials.get = sinon.stub().callsFake(() => awaitTutorials)
+        tutorialsClient.tutorials.getAttachedImages = sinon.stub().callsFake(() => awaitMedia)
       })
-    })
 
-    it('should not show the tutorial if it has been seen', function (done) {
-      rootStore = RootStore.create({}, {
-        authClient: authClientStubWithUser, client: clientStubWithUPPTimestamp
+      describe('while media are loading', function () {
+        it('should wait for media to load', function (done) {
+          let awaitFetch
+          const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+          const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+          sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
+          sinon.stub(rootStore.tutorials, 'fetchTutorials')
+
+          rootStore.projects.setResource(project)
+          rootStore.projects.setActive(project.id)
+          rootStore.workflows.setActive(workflow.id)
+            .then(() => {
+              rootStore.tutorials.fetchTutorials.restore()
+              awaitFetch = rootStore.tutorials.fetchTutorials()
+              return awaitTutorials.resolve({
+                body: {
+                  tutorials: [tutorial]
+                }
+              })
+            })
+            .then(() => {
+              expect(setActiveTutorialSpy).to.not.have.been.called
+              expect(setModalVisibilitySpy).to.not.have.been.called
+              expect(rootStore.tutorials.active).to.be.undefined
+              expect(rootStore.tutorials.showModal).to.be.false
+            })
+            .then(() => {
+              return awaitMedia.resolve({
+                body: {
+                  media: [medium]
+                }
+              })
+            })
+            .then(() => {
+              // awaitFetch should have resolved now so let's test it
+              return awaitFetch
+            })
+            .then(() => {
+              expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+              expect(setModalVisibilitySpy).to.have.been.calledOnce
+              expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+              expect(rootStore.tutorials.showModal).to.be.true
+            }).then(() => {
+              setActiveTutorialSpy.restore()
+              setModalVisibilitySpy.restore()
+            }).then(done, done)
+        })
       })
-      const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
-      const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
 
-      rootStore.projects.setResource(project)
-      rootStore.projects.setActive(project.id)
+      describe('when tutorial media fail to load', function () {
+        it('should show the tutorial', function (done) {
+          const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+          const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+          sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
+          sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
-      fetchTutorials()
-        .then(() => {
-          expect(setActiveTutorialSpy).to.not.have.been.called
-          expect(setModalVisibilitySpy).to.not.have.been.called
-          expect(rootStore.tutorials.active).to.be.undefined
-          expect(rootStore.tutorials.showModal).to.be.false
-        }).then(() => {
-          setActiveTutorialSpy.restore()
-          setModalVisibilitySpy.restore()
-        }).then(done, done)
+          rootStore.projects.setResource(project)
+          rootStore.projects.setActive(project.id)
+          rootStore.workflows.setActive(workflow.id)
+            .then(() => {
+              rootStore.tutorials.fetchTutorials.restore()
+              const awaitFetch = rootStore.tutorials.fetchTutorials()
+              awaitTutorials.resolve({
+                body: {
+                  tutorials: [tutorial]
+                }
+              })
+              awaitMedia.reject('Media failed to load!')
+              return awaitFetch
+            })
+            .then(() => {
+              expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+              expect(setModalVisibilitySpy).to.have.been.calledOnce
+              expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+              expect(rootStore.tutorials.showModal).to.be.true
+            }).then(() => {
+              setActiveTutorialSpy.restore()
+              setModalVisibilitySpy.restore()
+            }).then(done, done)
+        })
+      })
+
+      describe('when media have loaded', function () {
+        describe('for logged-out users', function () {
+          it('should show the tutorial', function (done) {
+            rootStore = RootStore.create({
+              projects: ProjectStore.create(),
+              tutorials: TutorialStore.create(),
+              workflows: WorkflowStore.create()
+            }, {
+              authClient: authClientStubWithoutUser, client: clientStub()
+            })
+            const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+            const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+            sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
+            sinon.stub(rootStore.tutorials, 'fetchTutorials')
+
+            rootStore.projects.setResource(project)
+            rootStore.projects.setActive(project.id)
+            rootStore.workflows.setActive(workflow.id)
+              .then(() => {
+                rootStore.tutorials.fetchTutorials.restore()
+                const awaitFetch = rootStore.tutorials.fetchTutorials()
+                awaitTutorials.resolve({
+                  body: {
+                    tutorials: [tutorial]
+                  }
+                })
+                awaitMedia.resolve({
+                  body: {
+                    media: [medium]
+                  }
+                })
+                return awaitFetch
+              })
+              .then(() => {
+                expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+                expect(setModalVisibilitySpy).to.have.been.calledOnce
+                expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+                expect(rootStore.tutorials.showModal).to.be.true
+              }).then(() => {
+                setActiveTutorialSpy.restore()
+                setModalVisibilitySpy.restore()
+                rootStore.userProjectPreferences.updateUPP.restore()
+              }).then(done, done)
+          })
+        })
+
+        describe('for logged-in users', function () {
+          it('should show the tutorial if it has not been seen', function (done) {
+            rootStore = RootStore.create({}, {
+              authClient: authClientStubWithUser, client: clientStubWithUPP
+            })
+            const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+            const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+            sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
+            sinon.stub(rootStore.tutorials, 'fetchTutorials')
+
+            rootStore.projects.setResource(project)
+            rootStore.projects.setActive(project.id)
+            rootStore.workflows.setActive(workflow.id)
+              .then(() => {
+                rootStore.tutorials.fetchTutorials.restore()
+                const awaitFetch = rootStore.tutorials.fetchTutorials()
+                awaitTutorials.resolve({
+                  body: {
+                    tutorials: [tutorial]
+                  }
+                })
+                awaitMedia.resolve({
+                  body: {
+                    media: [medium]
+                  }
+                })
+                return awaitFetch
+              })
+              .then(() => {
+                expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
+                expect(setModalVisibilitySpy).to.have.been.calledOnce
+                expect(rootStore.tutorials.active).to.deep.equal(tutorial)
+                expect(rootStore.tutorials.showModal).to.be.true
+              })
+              .then(() => {
+                setActiveTutorialSpy.restore()
+                setModalVisibilitySpy.restore()
+                rootStore.userProjectPreferences.updateUPP.restore()
+              })
+              .then(done, done)
+          })
+
+          it('should not show the tutorial if it has been seen', function (done) {
+            rootStore = RootStore.create({}, {
+              authClient: authClientStubWithUser, client: clientStubWithUPPTimestamp
+            })
+            const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
+            const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
+            sinon.stub(rootStore.tutorials, 'fetchTutorials')
+
+            rootStore.projects.setResource(project)
+            rootStore.projects.setActive(project.id)
+            const awaitWorkflows = rootStore.workflows.setActive(workflow.id)
+              .then(() => {
+                rootStore.tutorials.fetchTutorials.restore()
+                const awaitFetch = rootStore.tutorials.fetchTutorials()
+                awaitTutorials.resolve({
+                  body: {
+                    tutorials: [tutorial]
+                  }
+                })
+                awaitMedia.resolve({
+                  body: {
+                    media: [medium]
+                  }
+                })
+                return awaitFetch
+              })
+              .then(() => {
+                expect(setActiveTutorialSpy).to.not.have.been.called
+                expect(setModalVisibilitySpy).to.not.have.been.called
+                expect(rootStore.tutorials.active).to.be.undefined
+                expect(rootStore.tutorials.showModal).to.be.false
+              })
+              .then(() => {
+                setActiveTutorialSpy.restore()
+                setModalVisibilitySpy.restore()
+              })
+              .then(done, done)
+          })
+        })
+      })
     })
   })
 })
