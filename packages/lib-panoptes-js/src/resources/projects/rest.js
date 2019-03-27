@@ -41,7 +41,7 @@ function del (params) {
   const authorization = (params && params.authorization) ? params.authorization : ''
 
   if (id && typeof id !== 'string') return raiseError('Projects: Delete request id must be a string.', 'typeError')
-  if (id) return panoptes.del(`${endpoint}/${id}`, { authorization })
+  if (id) return panoptes.del(`${endpoint}/${id}`, null, { authorization })
   return raiseError('Projects: Delete request missing project id.', 'error')
 }
 

@@ -14,7 +14,7 @@ const Project = types
     completeness: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
     display_name: types.maybeNull(types.string),
-    error: types.maybeNull(types.frozen({})),
+    error: types.optional(types.frozen({}), {}),
     experimental_tools: types.frozen([]),
     id: types.maybeNull(numberString),
     launch_approved: types.optional(types.boolean, false),
@@ -40,12 +40,14 @@ const Project = types
         client = getRoot(self).client.projects
       },
 
-      fetch: flow(function * fetch (slug) {
+      fetch: flow(function * fetch (slug, params) {
         self.loadingState = asyncStates.loading
         try {
-          const query = { slug }
+          const query = { ...params, slug }
           const response = yield client.getWithLinkedResources({ query })
           const project = response.body.projects[0]
+          if (!project) throw new Error(`${slug} could not be found`)
+
           const linked = response.body.linked
 
           self.avatar = get(linked, 'avatars[0]', {})
@@ -70,7 +72,8 @@ const Project = types
           properties.forEach(property => { self[property] = project[property] })
           self.loadingState = asyncStates.success
         } catch (error) {
-          self.error = error.message
+          console.error('Error loading project:', error)
+          self.error = error
           self.loadingState = asyncStates.error
         }
       })

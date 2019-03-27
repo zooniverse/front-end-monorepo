@@ -1,7 +1,7 @@
 /* global localStorage */
 
 const superagent = require('superagent')
-const { config } = require('./config')
+const { baseConfig, config } = require('./config')
 
 function handleMissingParameter (message) {
   return Promise.reject(new Error(message))
@@ -15,12 +15,20 @@ function checkForAdminFlag () {
   return undefined
 }
 
-// TODO: Consider how to integrate a GraphQL option
-function get (endpoint, query, headers = {}, host) {
-  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
+function determineHost (query, host) {
+  if (host) return host
+  if (query && query.env) {
+    return baseConfig[query.env].host
+  }
 
+  return config.host
+}
+
+// TODO: Consider how to integrate a GraphQL option
+function get (endpoint, query = {}, headers = {}, host) {
+  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
-  const apiHost = host || config.host
+  const apiHost = determineHost(query, host)
   const request = superagent.get(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
@@ -29,6 +37,7 @@ function get (endpoint, query, headers = {}, host) {
 
   if (query && Object.keys(query).length > 0) {
     if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
+    if (query && query.env) delete query.env
     const fullQuery = Object.assign({}, query, defaultParams)
     request.query(fullQuery)
   } else {
@@ -38,6 +47,7 @@ function get (endpoint, query, headers = {}, host) {
   return request.then(response => response)
 }
 
+// TODO support env query
 function post (endpoint, data, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
@@ -55,6 +65,8 @@ function post (endpoint, data, headers = {}, host) {
     .then(response => response)
 }
 
+
+// TODO: support env query
 function put (endpoint, data, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
@@ -73,11 +85,11 @@ function put (endpoint, data, headers = {}, host) {
     .then(response => response)
 }
 
-function del (endpoint, headers = {}, host) {
+function del (endpoint, query = {}, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
-  const apiHost = host || config.host
+  const apiHost = determineHost(query, host)
 
   const request = superagent.delete(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')

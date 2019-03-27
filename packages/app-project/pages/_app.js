@@ -38,7 +38,8 @@ export default class MyApp extends App {
       if (owner && project) {
         const projectSlug = `${owner}/${project}`
         const store = initStore(pageProps.isServer)
-        await store.project.fetch(projectSlug)
+        const query = (context.query.env) ? { env: context.query.env } : {}
+        await store.project.fetch(projectSlug, query)
         pageProps.initialState = getSnapshot(store)
       }
     }
