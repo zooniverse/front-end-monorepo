@@ -3,11 +3,16 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
 import { default as TaskNavButtons } from './components/TaskNavButtons'
+
+const StyledBox = styled(Box)`
+  max-height: 600px;
+  min-height: 400px;
+`
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
@@ -41,7 +46,7 @@ export class Tasks extends React.Component {
     if (tasks.length > 0) {
       return (
         <ThemeProvider theme={{ mode: this.props.theme }}>
-          <Box as='form' pad='medium'>
+          <StyledBox as='form' justify='between' pad={{ top: 'medium' }}>
             {tasks.map((task) => {
               const TaskComponent = getTaskComponent(task.type)
               if (TaskComponent) {
@@ -56,7 +61,7 @@ export class Tasks extends React.Component {
             })}
             <TaskHelp />
             <TaskNavButtons />
-          </Box>
+          </StyledBox>
       </ThemeProvider>
       )
     }
