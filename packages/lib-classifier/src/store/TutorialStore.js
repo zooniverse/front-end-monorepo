@@ -122,7 +122,6 @@ const TutorialStore = types
           // We're not setting the store state to error because
           // we do not want to prevent the tutorial from rendering
           console.error(error)
-          self.setMediaResources([])
         }
       }
     })
