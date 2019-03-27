@@ -3,10 +3,15 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { Button, Box } from 'grommet'
 import { Markdownz, Modal, PlainButton } from '@zooniverse/react-components'
+import styled from 'styled-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const StyledPlainButton = styled(PlainButton)`
+  text-align: center;
+`
 
 function storeMapper(stores) {
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
@@ -35,7 +40,7 @@ class TaskHelp extends React.Component {
     if (isThereTaskHelp) {
       return (
         <>
-          <PlainButton
+          <StyledPlainButton
             margin='small'
             onClick={() => this.setState({ showModal: true })}
             text={label}
