@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
+import styled from 'styled-components'
 import MetadataButton from './components/MetadataButton'
 import { MetadataModal } from './components/MetadataModal'
 import FavouritesButton from './components/FavouritesButton'
@@ -47,7 +48,7 @@ export default class MetaTools extends React.Component {
   render () {
     const { className, isThereMetadata, subject } = this.props
     return (
-      <Box className={className} direction="row">
+      <Box className={className} direction="row-responsive" wrap>
         {isThereMetadata &&
           <MetadataButton onClick={this.toggleMetadataModal} />}
         {isThereMetadata &&
