@@ -46,33 +46,31 @@ const Project = types
           const query = { ...params, slug }
           const response = yield client.getWithLinkedResources({ query })
           const project = response.body.projects[0]
-          if (project) {
-            const linked = response.body.linked
-
-            self.avatar = get(linked, 'avatars[0]', {})
-            self.background = get(linked, 'backgrounds[0]', {})
-
-            const properties = [
-              'classifications_count',
-              'classifiers_count',
-              'completeness',
-              'configuration',
-              'description',
-              'display_name',
-              'experimental_tools',
-              'id',
-              'launch_approved',
-              'links',
-              'retired_subjects_count',
-              'slug',
-              'subjects_count',
-              'urls'
-            ]
-            properties.forEach(property => { self[property] = project[property] })
-            self.loadingState = asyncStates.success
-          }
-
           if (!project) throw new Error(`${slug} could not be found`)
+
+          const linked = response.body.linked
+
+          self.avatar = get(linked, 'avatars[0]', {})
+          self.background = get(linked, 'backgrounds[0]', {})
+
+          const properties = [
+            'classifications_count',
+            'classifiers_count',
+            'completeness',
+            'configuration',
+            'description',
+            'display_name',
+            'experimental_tools',
+            'id',
+            'launch_approved',
+            'links',
+            'retired_subjects_count',
+            'slug',
+            'subjects_count',
+            'urls'
+          ]
+          properties.forEach(property => { self[property] = project[property] })
+          self.loadingState = asyncStates.success
         } catch (error) {
           console.error('Error loading project:', error)
           self.error = error
