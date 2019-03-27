@@ -18,3 +18,21 @@ export const TutorialMediumFactory = new Factory()
   .attr('media_type', 'tutorial_attached_image')
   .attr('metadata', {})
   .attr('src', 'https://panoptes-uploads.zooniverse.org/staging/tutorial_attached_image/1ab2bd93-b422-4d10-a700-fa34d4e7e716.gif')
+
+export const FieldGuideMediumFactory = new Factory()
+  .extend(medium)
+  .attr('content_type', 'image/png')
+  .attr('external_link', false)
+  .attr('href', ['id'], function (id) {
+    return `/field_guides/25/attached_images/${id}`
+  })
+  .attr('links', {
+    linked: {
+      href: '/field_guides/25',
+      id: '20',
+      type: 'field_guides'
+    }
+  })
+  .attr('media_type', 'field_guide_attached_image')
+  .attr('metadata', {})
+  .attr('src', 'https://panoptes-uploads.zooniverse.org/staging/field_guide_attached_image/a04dc00f-ef28-4e52-9490-368ba9029aca.png')
