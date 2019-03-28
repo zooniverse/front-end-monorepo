@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import TaskHelp from './TaskHelp'
 import { Button } from 'grommet'
-import { PlainButton } from '@zooniverse/react-components'
 
 const tasks = [{
   taskKey: 'init',
@@ -23,7 +22,7 @@ describe('TaskHelp', function () {
 
   it('should render the modal when the need help button is clicked', function () {
     const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp={true} tasks={tasks} />)
-    wrapper.find(PlainButton).simulate('click')
+    wrapper.find('Styled(PlainButton)').simulate('click')
     expect(wrapper.state('showModal')).to.be.true
   })
 
