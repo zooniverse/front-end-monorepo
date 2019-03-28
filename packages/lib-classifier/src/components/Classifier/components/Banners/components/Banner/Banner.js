@@ -21,7 +21,13 @@ const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0,0,0,0.22);
 `
 
-const PosedBox = posed(Box)({
+
+const StyledBox = styled(Box)`
+  position: absolute;
+  top: 0;
+  width: 100%;
+`
+const PosedBox = posed(StyledBox)({
   show: {
     y: '0%'
   },

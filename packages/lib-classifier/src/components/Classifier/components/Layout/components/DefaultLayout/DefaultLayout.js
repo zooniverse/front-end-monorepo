@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
-import { Stack } from 'grommet'
+import { Box } from 'grommet'
 
 import Banners from '../../../Banners'
 import FeedbackModal from '../../../Feedback'
@@ -47,14 +47,18 @@ const StyledMetaTools = styled(MetaTools)`
   grid-area: metatools;
 `
 
-function DefaultLayout () {
+const StyledBox = styled(Box)`
+  position: relative;
+`
+
+function DefaultLayout (props) {
   return (
-    <ContainerGrid>
+    <ContainerGrid className={props.className}>
       <ViewerGrid>
-        <Stack fill gridArea='subject'>
+        <StyledBox gridArea='subject'>
           <SubjectViewer />
           <Banners />
-        </Stack>
+        </StyledBox>
         <StyledImageToolbar />
         <StyledMetaTools />
       </ViewerGrid>
