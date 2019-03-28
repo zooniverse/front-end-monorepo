@@ -6,7 +6,6 @@ import AlreadySeenBanner from './components/AlreadySeenBanner'
 import RetiredBanner from './components/RetiredBanner'
 
 let wrapper
-let componentWrapper
 
 describe('Component > Banners', function () {
   before(function () {
