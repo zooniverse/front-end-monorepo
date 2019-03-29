@@ -44,7 +44,7 @@ const FieldGuideStore = types
     // TODO: this might need to paginate for field guides that have 20+ items
     const fetchMedia = flow(function * fetchMedia (fieldGuide) {
       const { type } = self
-      const { client } = getRoot(self)
+      const client = getRoot(self).client.panoptes
       if (fieldGuide) {
         self.loadingState = asyncStates.loading
         try {
@@ -68,7 +68,7 @@ const FieldGuideStore = types
     function * fetchFieldGuide () {
       const { type } = self
       const project = getRoot(self).projects.active
-      const { client } = getRoot(self)
+      const client = getRoot(self).client.panoptes
 
       self.loadingState = asyncStates.loading
       try {
