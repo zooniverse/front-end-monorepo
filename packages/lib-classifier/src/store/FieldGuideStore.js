@@ -48,7 +48,7 @@ const FieldGuideStore = types
       if (fieldGuide) {
         self.loadingState = asyncStates.loading
         try {
-          const url = `${type}/${fieldGuide.id}/attached_images`
+          const url = `/${type}/${fieldGuide.id}/attached_images`
           const response = yield client.get(url)
           const { media } = response.body
           if (media && media.length > 0) self.setMediaResources(media)
@@ -72,7 +72,7 @@ const FieldGuideStore = types
 
       self.loadingState = asyncStates.loading
       try {
-        const response = yield client.get(`${type}`, { project_id: project.id })
+        const response = yield client.get(`/${type}`, { project_id: project.id })
         const fieldGuide = response.body[type][0]
         if (fieldGuide) {
           yield fetchMedia(fieldGuide)

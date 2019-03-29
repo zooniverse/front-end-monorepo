@@ -66,8 +66,8 @@ describe('Model > FieldGuideStore', function () {
       client: { 
         panoptes: {
           get: sinon.stub().callsFake((url) => {
-            if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-            if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+            if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
           })
         }
       }
@@ -89,8 +89,8 @@ describe('Model > FieldGuideStore', function () {
         client: {
           panoptes: {
             get: sinon.stub().callsFake((url) => {
-              if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-              if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+              if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
             })
           }
         } 
@@ -98,7 +98,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs('field_guides', { project_id: project.id })).to.have.been.calledOnce          
+          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce          
         }).then(done, done)
     })
 
@@ -110,8 +110,8 @@ describe('Model > FieldGuideStore', function () {
         client: {
           panoptes: {
             get: sinon.stub().callsFake((url) => {
-              if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [] } })
-              if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
+              if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
             })
           }
         } 
@@ -136,8 +136,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-                if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
               })
             }
           }
@@ -152,7 +152,7 @@ describe('Model > FieldGuideStore', function () {
           return rootStore.fieldGuide.fetchFieldGuide()
         })
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs(`field_guides/${fieldGuide.id}/attached_images`)).to.have.been.calledOnce
+          expect(rootStore.client.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)).to.have.been.calledOnce
         }).then(done, done)
     })
 
@@ -164,8 +164,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-                if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
               })
             }
           }
@@ -214,8 +214,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-                if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
               })
             }
           }
@@ -239,8 +239,8 @@ describe('Model > FieldGuideStore', function () {
         client: {
           panoptes: {
             get: sinon.stub().callsFake((url) => {
-              if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-              if (url === `field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
             })
           }
         }
@@ -266,8 +266,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
               })
             }
           }
@@ -289,8 +289,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [] } })
-                if (url === `field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
+                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
               })
             }
           }
@@ -311,8 +311,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
               })
             }
           }
@@ -333,8 +333,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
               })
             }
           }
@@ -355,8 +355,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
               })
             }
           }
@@ -378,8 +378,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithoutIcon] } })
-                if (url === `field_guides/${fieldGuideWithoutIcon.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithoutIcon] } })
+                if (url === `/field_guides/${fieldGuideWithoutIcon.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
               })
             }
           }
@@ -402,8 +402,8 @@ describe('Model > FieldGuideStore', function () {
           client: {
             panoptes: {
               get: sinon.stub().callsFake((url) => {
-                if (url === 'field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
               })
             }
           }
