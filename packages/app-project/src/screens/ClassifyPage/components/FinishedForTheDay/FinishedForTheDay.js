@@ -12,11 +12,17 @@ counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   border-width: 1px;
-  min-width: 300px;
+  flex: 1 1 300px;
+  margin: 0 10px 10px 0;
 `
 
 const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
+`
+
+const StyledBox = styled(Box)`
+  margin: 0 -10px 0 0;
+  max-width: 620px;
 `
 
 function FinishedForTheDay ({ imageSrc, projectName }) {
@@ -32,7 +38,7 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
         <StyledParagraph margin={{ vertical: 'small' }} size='small'>
           {counterpart('FinishedForTheDay.text', { projectName })}
         </StyledParagraph>
-        <Box gap='small' direction='row-responsive'>
+        <StyledBox direction='row' wrap>
           <StyledButton
             label={(
               <Text size='small'>
@@ -50,7 +56,7 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
               </Text>
             )}
           />
-        </Box>
+        </StyledBox>
       </ContentBox>
     </Grid>
   )

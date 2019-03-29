@@ -19,7 +19,7 @@ function ProjectImage ({ imageSrc, projectName }) {
   return (
     <Media
       alt={alt}
-      height={200}
+      height='auto'
       src={imageSrc}
       placeholder={<StyledZooniverseLogo id={`${alt} placeholder`} size='38%' />}
     />
