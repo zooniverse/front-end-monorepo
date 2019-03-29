@@ -7,7 +7,7 @@ import AnimatedNumber from './components/AnimatedNumber'
 function Stat ({ className, label, value }) {
   return (
     <div className={className}>
-      <Text color='light-3' tag='div' size='xxlarge'>
+      <Text color='dark-5' tag='div' size='xxlarge'>
         <AnimatedNumber value={value} />
       </Text>
       <Text color='dark-5' size='small' tag='div' weight='bold'>
