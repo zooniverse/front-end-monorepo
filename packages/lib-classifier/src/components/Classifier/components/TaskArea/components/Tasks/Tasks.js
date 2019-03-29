@@ -10,7 +10,6 @@ import TaskHelp from './components/TaskHelp'
 import { default as TaskNavButtons } from './components/TaskNavButtons'
 
 const StyledBox = styled(Box)`
-  max-height: 600px;
   min-height: 400px;
 `
 
