@@ -29,6 +29,7 @@ function ProjectStatistics ({
   classifications,
   completedSubjects,
   projectName,
+  projectSlug,
   subjects,
   volunteers
 }) {
@@ -36,7 +37,7 @@ function ProjectStatistics ({
     <ContentBox
       className={className}
       linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
-      linkUrl='#'
+      linkUrl={`/projects/${projectSlug}/stats`}
       title={counterpart('ProjectStatistics.title', { projectName })}
     >
       <MainGrid>

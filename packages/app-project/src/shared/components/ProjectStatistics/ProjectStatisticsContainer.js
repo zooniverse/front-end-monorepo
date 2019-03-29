@@ -10,6 +10,7 @@ function storeMapper (stores) {
     classifications: project.classifications_count,
     completedSubjects: project.retired_subjects_count,
     projectName: project.display_name,
+    projectSlug: project.slug,
     subjects: project.subjects_count,
     volunteers: project.classifiers_count
   }
@@ -24,6 +25,7 @@ class ProjectStatisticsContainer extends Component {
       classifications,
       completedSubjects,
       projectName,
+      projectSlug,
       subjects,
       volunteers
     } = this.props
@@ -34,6 +36,7 @@ class ProjectStatisticsContainer extends Component {
         classifications={classifications}
         completedSubjects={completedSubjects}
         projectName={projectName}
+        projectSlug={projectSlug}
         subjects={subjects}
         volunteers={volunteers}
       />
