@@ -19,14 +19,12 @@ const StyledSVG = styled.svg`
 
 function ApprovedIcon ({ approved }) {
   if (approved) {
-    const title = counterpart('ApprovedIcon.title')
     return (
-      <StyledBox
-        aria-label={title}
-        background='white'
-        title={title}
-      >
-        <FormCheckmark color='brand' />
+      <StyledBox background='white'>
+        <FormCheckmark
+          aria-label={counterpart('ApprovedIcon.title')}
+          color='brand'
+        />
       </StyledBox>
     )
   }
