@@ -20,7 +20,7 @@ const COMPONENT = (
   />
 )
 
-describe.only('Component > Banner', function () {
+describe('Component > Banner', function () {
   before(function () {
     wrapper = shallow(COMPONENT)
   })

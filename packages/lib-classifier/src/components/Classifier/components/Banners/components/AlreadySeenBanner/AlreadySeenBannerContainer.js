@@ -11,7 +11,7 @@ counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   return {
-    subject: stores.classifierStore.subjects.active || {}
+    subject: stores.classifierStore.subjects.active
   }
 }
 
@@ -21,7 +21,7 @@ class AlreadySeenBannerContainer extends Component {
   render () {
     const background = zooTheme.global.colors.statusColors.ok
     const { subject } = this.props
-    const show = subject.id && subject.already_seen && !subject.retired
+    const show = !!subject && subject.id && subject.already_seen && !subject.retired
 
     return (
       <Banner
@@ -40,10 +40,6 @@ AlreadySeenBannerContainer.propTypes = {
     id: string,
     retired: bool
   })
-}
-
-AlreadySeenBannerContainer.defaultProps = {
-  subject: {}
 }
 
 export default AlreadySeenBannerContainer

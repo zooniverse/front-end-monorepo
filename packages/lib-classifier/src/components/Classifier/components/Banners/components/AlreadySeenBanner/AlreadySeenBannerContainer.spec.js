@@ -37,18 +37,23 @@ describe('Component > AlreadySeenBannerContainer', function () {
     expect(componentWrapper.prop('tooltipText')).to.deep.equal(expectedText)
   })
 
+  it('shouldn\'t show the banner when there\'s no subject', function () {
+    wrapper.setProps({ subject: null })
+    expect(wrapper.find(Banner).prop('show')).to.be.false
+  })
+
   it('should show the banner if the subject has been seen', function () {
-    wrapper.setProps({ subject: { already_seen: true } })
+    wrapper.setProps({ subject: { already_seen: true, id: '1' } })
     expect(wrapper.find(Banner).prop('show')).to.be.true
   })
 
   it('shouldn\'t show the banner if the subject has been seen, but is also retired', function () {
-    wrapper.setProps({ subject: { already_seen: true, retired: true } })
+    wrapper.setProps({ subject: { already_seen: true, retired: true, id: '1' } })
     expect(wrapper.find(Banner).prop('show')).to.be.false
   })
 
   it('shouldn\'t show the banner when subject hasn\'t already been seen', function () {
-    wrapper.setProps({ subject: { already_seen: false } })
+    wrapper.setProps({ subject: { already_seen: false, id: '1' } })
     expect(wrapper.find(Banner).prop('show')).to.be.false
   })
 })

@@ -11,7 +11,7 @@ counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   return {
-    subject: stores.classifierStore.subjects.active || {}
+    subject: stores.classifierStore.subjects.active
   }
 }
 
@@ -21,7 +21,7 @@ class RetiredBannerContainer extends Component {
   render () {
     const background = zooTheme.global.colors.statusColors.critical
     const { subject } = this.props
-    const show = subject.id && subject.retired
+    const show = !!subject && subject.id && subject.retired
 
     return (
       <Banner
@@ -39,10 +39,6 @@ RetiredBannerContainer.propTypes = {
     id: string,
     retired: bool
   })
-}
-
-RetiredBannerContainer.defaultProps = {
-  subject: {}
 }
 
 export default RetiredBannerContainer

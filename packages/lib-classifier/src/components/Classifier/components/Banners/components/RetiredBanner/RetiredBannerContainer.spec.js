@@ -7,7 +7,7 @@ import Banner from '../Banner'
 let wrapper
 let componentWrapper
 
-describe.only('Component > RetiredBannerContainer', function () {
+describe('Component > RetiredBannerContainer', function () {
   before(function () {
     wrapper = shallow(<RetiredBannerContainer.wrappedComponent />)
     componentWrapper = wrapper.find(Banner)
@@ -37,13 +37,18 @@ describe.only('Component > RetiredBannerContainer', function () {
     expect(componentWrapper.prop('tooltipText')).to.deep.equal(expectedText)
   })
 
+  it('shouldn\'t show the banner when there\'s no subject', function () {
+    wrapper.setProps({ subject: null })
+    expect(wrapper.find(Banner).prop('show')).to.be.false
+  })
+
   it('should show the banner if the subject has been retired', function () {
-    wrapper.setProps({ subject: { retired: true } })
+    wrapper.setProps({ subject: { id: '1', retired: true } })
     expect(wrapper.find(Banner).prop('show')).to.be.true
   })
 
   it('shouldn\'t show the banner when subject hasn\'t been retired', function () {
-    wrapper.setProps({ subject: { retired: false } })
+    wrapper.setProps({ subject: { id: '1', retired: false } })
     expect(wrapper.find(Banner).prop('show')).to.be.false
   })
 })
