@@ -35,6 +35,20 @@ const StyledHelpIcon = styled(HelpIcon)`
   width: 25px;
 `
 
+export function ButtonLabel () {
+ return (
+  <Box as='span' align='center' direction='column'>
+    <StyledSpacedText size='xsmall' color='white'>
+      {counterpart('FieldGuideButton.buttonLabel.field')}
+    </StyledSpacedText>
+    <StyledSpacedText size='xsmall' color='white'>
+      {counterpart('FieldGuideButton.buttonLabel.guide')}
+    </StyledSpacedText>
+    <StyledHelpIcon />
+  </Box>
+ )
+}
+
 function storeMapper(stores) {
   const { active: fieldGuide, setModalVisibility } = stores.classifierStore.fieldGuide
   return {
@@ -57,6 +71,8 @@ class FieldGuideButton extends React.Component {
       fieldGuide,
     } = this.props
     const disabled = !fieldGuide || fieldGuide.items.length === 0
+
+    console.log(disabled, fieldGuide)
     // const eventHandlers = {
     //   onBlur,
     //   onFocus,
@@ -68,20 +84,11 @@ class FieldGuideButton extends React.Component {
 
     return (
       <Button
-        aria-label={counterpart('FieldGuideButton.ariaLabel')}
+        label={<ButtonLabel />}
         disabled={disabled}
         onClick={this.onClick.bind(this)}
-      >
-        <Box as='span' align='center' direction='column'>
-          <StyledSpacedText size='xsmall' color='white'>
-            {counterpart('FieldGuideButton.buttonLabel.field')}
-          </StyledSpacedText>
-          <StyledSpacedText size='xsmall' color='white'>
-            {counterpart('FieldGuideButton.buttonLabel.guide')}
-          </StyledSpacedText>
-          <StyledHelpIcon />
-        </Box>
-      </Button>
+        primary
+      />
     )
   }
 }
