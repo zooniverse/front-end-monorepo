@@ -26,7 +26,7 @@ const FieldGuideStore = types
         const project = getRoot(self).projects.active
         if (project) {
           self.reset()
-          flow(self.fetchFieldGuide)()
+          self.fetchFieldGuide()
         }
       })
       addDisposer(self, projectDisposer)
@@ -42,14 +42,14 @@ const FieldGuideStore = types
     }
 
     // TODO: this might need to paginate for field guides that have 20+ items
-    function * fetchMedia (fieldGuide) {
+    const fetchMedia = flow(function * fetchMedia (fieldGuide) {
       const { type } = self
-      const { panoptes } = getRoot(self).client
+      const { client } = getRoot(self)
       if (fieldGuide) {
         self.loadingState = asyncStates.loading
         try {
           const url = `${type}/${fieldGuide.id}/attached_images`
-          const response = yield panoptes.get(url)
+          const response = yield client.get(url)
           const { media } = response.body
           if (media && media.length > 0) self.setMediaResources(media)
         } catch (error) {
@@ -58,7 +58,7 @@ const FieldGuideStore = types
           console.error(error)
         }
       }
-    }
+    })
 
     function setMediaResources (media) {
       media.forEach(medium => self.attachedMedia.put(medium))
@@ -67,17 +67,17 @@ const FieldGuideStore = types
     // TODO: move req in panoptes.js
     function * fetchFieldGuide () {
       const { type } = self
-      const project = getRoot(self).projectss.active
-      const { panoptes } = getRoot(self).client
+      const project = getRoot(self).projects.active
+      const { client } = getRoot(self)
 
       self.loadingState = asyncStates.loading
       try {
-        const response = yield panoptes.get(`${type}`, { project_id: project.id })
+        const response = yield client.get(`${type}`, { project_id: project.id })
         const fieldGuide = response.body[type][0]
         if (fieldGuide) {
-          yield flow(self.fetchMedia)(fieldGuide)
-          self.resources = fieldGuide
-          self.active = fieldGuide.id
+          yield fetchMedia(fieldGuide)
+          self.setResource(fieldGuide)
+          self.setActive(fieldGuide.id)
           self.loadingState = asyncStates.success
         } else {
           self.loadingState = asyncStates.success
@@ -93,11 +93,16 @@ const FieldGuideStore = types
     }
 
     function setActiveItem (index) {
-      if (fieldGuide && fieldGuide.items[index]) self.activeItem = index
+      const fieldGuide = self.active
+      if (fieldGuide && fieldGuide.items.length === index + 1 && fieldGuide.items[index]) {
+        self.activeItem = index
+        if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
+      }
     }
 
     return {
       afterAttach,
+      fetchFieldGuide: flow(fetchFieldGuide),
       reset,
       setActiveItem,
       setMediaResources,
