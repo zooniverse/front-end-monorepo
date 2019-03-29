@@ -2,10 +2,11 @@ import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
 import { SpacedText } from '@zooniverse/react-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
-import { Box } from 'grommet'
+import { Button, Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { inject, observer } from 'mobx-react'
 
 import en from './locales/en'
 import HelpIcon from './HelpIcon'
@@ -34,44 +35,42 @@ const StyledHelpIcon = styled(HelpIcon)`
   width: 25px;
 `
 
-@withHoverProps({ hovered: true })
-@withFocusProps({ focused: true })
-class FieldGuideButton extends React.Component {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
+function storeMapper(stores) {
+  const { active: fieldGuide, setModalVisibility } = stores.classifierStore.fieldGuide
+  return {
+    fieldGuide,
+    setModalVisibility
   }
+}
 
+@inject(storeMapper)
+@observer
+class FieldGuideButton extends React.Component {
   onClick () {
+    const { setModalVisibility } = this.props
     console.info('Open field guide')
+    setModalVisibility(true)
   }
 
   render () {
     const {
-      focused,
-      hovered,
-      onBlur,
-      onFocus,
-      onMouseOver,
-      onMouseOut
+      fieldGuide,
     } = this.props
+    const disabled = !fieldGuide || fieldGuide.items.length === 0
+    // const eventHandlers = {
+    //   onBlur,
+    //   onFocus,
+    //   onMouseOver,
+    //   onMouseOut
+    // }
 
-    const eventHandlers = {
-      onBlur,
-      onFocus,
-      onMouseOver,
-      onMouseOut
-    }
-
-    const hoveredOrFocused = hovered || focused
+    // const hoveredOrFocused = hovered || focused
 
     return (
-      <StyledButton
-        {...eventHandlers}
+      <Button
         aria-label={counterpart('FieldGuideButton.ariaLabel')}
-        hoveredOrFocused={hoveredOrFocused}
-        onClick={this.onClick}
-
+        disabled={disabled}
+        onClick={this.onClick.bind(this)}
       >
         <Box as='span' align='center' direction='column'>
           <StyledSpacedText size='xsmall' color='white'>
@@ -82,7 +81,7 @@ class FieldGuideButton extends React.Component {
           </StyledSpacedText>
           <StyledHelpIcon />
         </Box>
-      </StyledButton>
+      </Button>
     )
   }
 }
