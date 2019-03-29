@@ -53,6 +53,12 @@ class Banner extends Component {
 
   toggle = () => this.setState(state => ({ tooltipOpen: !state.tooltipOpen }))
 
+  componentDidUpdate () {
+    if (!this.props.show && this.state.tooltipOpen) {
+      this.close()
+    }
+  }
+
   render () {
     const {
       background,
@@ -90,6 +96,7 @@ class Banner extends Component {
         {this.ref.current && this.state.tooltipOpen && (
           <Drop
             align={{ right: 'right', top: 'bottom' }}
+            onEsc={this.close}
             plain
             target={this.ref.current}
           >
