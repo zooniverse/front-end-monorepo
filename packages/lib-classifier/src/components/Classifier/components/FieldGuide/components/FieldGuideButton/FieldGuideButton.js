@@ -1,4 +1,3 @@
-import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
 import { SpacedText } from '@zooniverse/react-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
@@ -6,6 +5,7 @@ import { Button, Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { tint } from 'polished'
 import { inject, observer } from 'mobx-react'
 
 import en from './locales/en'
@@ -13,15 +13,13 @@ import HelpIcon from './HelpIcon'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled.button`
-  height: auto;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background: ${zooTheme.global.colors.brand}
-  border: 0;
+const StyledButton = styled(Button)`
+  background: ${zooTheme.global.colors.brand};
   padding: 15px 10px;
+
+  &:hover, &:focus {
+    background: ${tint(0.5, zooTheme.global.colors.brand)};
+  }
 `
 
 const StyledSpacedText = styled(SpacedText)`
@@ -36,17 +34,17 @@ const StyledHelpIcon = styled(HelpIcon)`
 `
 
 export function ButtonLabel () {
- return (
-  <Box as='span' align='center' direction='column'>
-    <StyledSpacedText size='xsmall' color='white'>
-      {counterpart('FieldGuideButton.buttonLabel.field')}
-    </StyledSpacedText>
-    <StyledSpacedText size='xsmall' color='white'>
-      {counterpart('FieldGuideButton.buttonLabel.guide')}
-    </StyledSpacedText>
-    <StyledHelpIcon />
-  </Box>
- )
+  return (
+    <Box as='span' align='center' direction='column'>
+      <StyledSpacedText size='xsmall' color='white'>
+        {counterpart('FieldGuideButton.buttonLabel.field')}
+      </StyledSpacedText>
+      <StyledSpacedText size='xsmall' color='white'>
+        {counterpart('FieldGuideButton.buttonLabel.guide')}
+      </StyledSpacedText>
+      <StyledHelpIcon />
+    </Box>
+  )
 }
 
 function storeMapper(stores) {
@@ -72,30 +70,20 @@ class FieldGuideButton extends React.Component {
     } = this.props
     const disabled = !fieldGuide || fieldGuide.items.length === 0
 
-    console.log(disabled, fieldGuide)
-    // const eventHandlers = {
-    //   onBlur,
-    //   onFocus,
-    //   onMouseOver,
-    //   onMouseOut
-    // }
-
-    // const hoveredOrFocused = hovered || focused
-
     return (
-      <Button
+      <StyledButton
         label={<ButtonLabel />}
         disabled={disabled}
         onClick={this.onClick.bind(this)}
-        primary
+        plain
       />
     )
   }
 }
 
-FieldGuideButton.propTypes = {
-  eventHandlers: PropTypes.object,
-  hoverOrFocus: PropTypes.bool
+FieldGuideButton.wrappedComponent.propTypes = {
+  fieldGuide: PropTypes.object,
+  setModalVisibility: PropTypes.func.isRequired
 }
 
 export default FieldGuideButton
