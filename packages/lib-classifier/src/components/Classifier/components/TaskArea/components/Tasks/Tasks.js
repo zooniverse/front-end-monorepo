@@ -41,7 +41,7 @@ export class Tasks extends React.Component {
     if (tasks.length > 0) {
       return (
         <ThemeProvider theme={{ mode: this.props.theme }}>
-          <Box tag='form' pad={{ top: 'medium' }}>
+          <Box as='form' pad='medium'>
             {tasks.map((task) => {
               const TaskComponent = getTaskComponent(task.type)
               if (TaskComponent) {

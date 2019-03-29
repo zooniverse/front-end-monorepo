@@ -32,10 +32,16 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
     <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
       <ContentBox>
-        <Heading level='3' margin='none' color='#5C5C5C'>
+        <Heading
+          level='3'
+          margin={{ bottom: 'small', top: 'none' }}
+        >
           {counterpart('FinishedForTheDay.title')}
         </Heading>
-        <StyledParagraph margin={{ vertical: 'small' }} size='small'>
+        <StyledParagraph
+          margin={{ bottom: 'small', top: 'none' }}
+          size='small'
+        >
           {counterpart('FinishedForTheDay.text', { projectName })}
         </StyledParagraph>
         <StyledBox direction='row' wrap>
