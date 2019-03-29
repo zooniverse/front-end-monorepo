@@ -13,10 +13,6 @@ import Triangle from './components/Triangle'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled(Button)`
-  cursor: help;
-`
-
 const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0,0,0,0.22);
 `
@@ -38,7 +34,7 @@ const PosedBox = posed(StyledBox)({
 
 function Label () {
   return (
-    <SpacedText color='accent-2'>
+    <SpacedText color='white'>
       {counterpart('Banner.whyAmISeeingThis')}
     </SpacedText>
   )
@@ -47,7 +43,6 @@ function Label () {
 class Banner extends Component {
   state = {
     tooltipOpen: false,
-    userCanHover: false
   }
 
   ref = createRef()
@@ -56,26 +51,7 @@ class Banner extends Component {
 
   open = () => this.setState({ tooltipOpen: true })
 
-  tapClose = () => {
-    if (!this.state.userCanHover) {
-      this.close()
-    }
-  }
-
-  toggle = () => {
-    if (!this.state.userCanHover) {
-      this.setState(state => ({ tooltipOpen: !state.tooltipOpen }))
-    }
-  }
-
-  componentDidMount () {
-    function onFirstHover () {
-      this.setState({ userCanHover: true })
-    }
-    window.addEventListener('mouseover', onFirstHover.bind(this), {
-      once: true
-    })
-  }
+  toggle = () => this.setState(state => ({ tooltipOpen: !state.tooltipOpen }))
 
   render () {
     const {
@@ -102,14 +78,11 @@ class Banner extends Component {
           {bannerText}
         </StyledSpacedText>
 
-        <StyledButton
+        <Button
           aria-label={counterpart('Banner.whyAmISeeingThis')}
+          disabled={!show}
           label={<Label />}
-          onBlur={this.close}
           onClick={this.toggle}
-          onFocus={this.open}
-          onMouseOut={this.close}
-          onMouseOver={this.open}
           plain
           ref={this.ref}
         />
@@ -120,7 +93,7 @@ class Banner extends Component {
             plain
             target={this.ref.current}
           >
-            <Box direction='column' margin='xsmall' onClick={this.tapClose}>
+            <Box direction='column' margin='xsmall'>
               <Triangle />
               <Box
                 background={mode === 'light' ? 'white' : 'dark-2'}
