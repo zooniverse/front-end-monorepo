@@ -32,7 +32,7 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 
 const project = ProjectFactory.build()
 
-describe.only('Model > FieldGuideStore', function () {
+describe('Model > FieldGuideStore', function () {
   let rootStore
   function fetchFieldGuide () {
     sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
