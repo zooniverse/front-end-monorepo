@@ -17,34 +17,31 @@ function storeMapper (stores) {
 
 @inject(storeMapper)
 @observer
-class RetiredBannerContainer extends Component {
+class UserHasFinishedWorkflowBannerContainer extends Component {
   render () {
-    const background = zooTheme.global.colors.statusColors.critical
+    const background = zooTheme.global.colors.statusColors.warning
     const { subject } = this.props
     const show = !!subject &&
-      subject.id &&
-      subject.retired &&
       !subject.finished_workflow &&
-      !subject.user_has_finished_workflow
+      subject.user_has_finished_workflow
 
     return (
       <Banner
         background={background}
-        bannerText={counterpart('RetiredBanner.bannerText')}
+        bannerText={counterpart('UserHasFinishedWorkflowBanner.bannerText')}
         show={show}
-        tooltipText={counterpart('RetiredBanner.tooltipText')}
+        tooltipText={counterpart('UserHasFinishedWorkflowBanner.tooltipText')}
       />
     )
   }
 }
 
-RetiredBannerContainer.propTypes = {
+UserHasFinishedWorkflowBannerContainer.propTypes = {
   subject: shape({
     finished_workflow: bool,
     id: string,
-    retired: bool,
-    user_has_finished_workflow: bool
+    retired: bool
   })
 }
 
-export default RetiredBannerContainer
+export default UserHasFinishedWorkflowBannerContainer

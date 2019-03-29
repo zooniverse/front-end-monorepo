@@ -21,7 +21,12 @@ class AlreadySeenBannerContainer extends Component {
   render () {
     const background = zooTheme.global.colors.statusColors.ok
     const { subject } = this.props
-    const show = !!subject && subject.id && subject.already_seen && !subject.retired
+    const show = !!subject &&
+      subject.id &&
+      subject.already_seen &&
+      !subject.retired &&
+      !subject.finished_workflow &&
+      !subject.user_has_finished_workflow
 
     return (
       <Banner
@@ -37,8 +42,10 @@ class AlreadySeenBannerContainer extends Component {
 AlreadySeenBannerContainer.propTypes = {
   subject: shape({
     already_seen: bool,
+    finished_workflow: bool,
     id: string,
-    retired: bool
+    retired: bool,
+    user_has_finished_workflow: bool
   })
 }
 

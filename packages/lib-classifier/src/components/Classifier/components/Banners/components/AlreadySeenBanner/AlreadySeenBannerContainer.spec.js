@@ -37,23 +37,67 @@ describe('Component > AlreadySeenBannerContainer', function () {
     expect(componentWrapper.prop('tooltipText')).to.deep.equal(expectedText)
   })
 
-  it('shouldn\'t show the banner when there\'s no subject', function () {
-    wrapper.setProps({ subject: null })
-    expect(wrapper.find(Banner).prop('show')).to.be.false
+  describe('when the banner should show', function () {
+    it('should show the banner if the subject has been seen', function () {
+      wrapper.setProps({
+        subject: {
+          already_seen: true,
+          id: '1'
+        }
+      })
+      expect(wrapper.find(Banner).prop('show')).to.be.true
+    })
   })
 
-  it('should show the banner if the subject has been seen', function () {
-    wrapper.setProps({ subject: { already_seen: true, id: '1' } })
-    expect(wrapper.find(Banner).prop('show')).to.be.true
-  })
+  describe('when the banner shouldn\'t show', function () {
+    it('shouldn\'t show the banner when there\'s no subject', function () {
+      wrapper.setProps({ subject: null })
+      expect(wrapper.find(Banner).prop('show')).to.be.false
+    })
 
-  it('shouldn\'t show the banner if the subject has been seen, but is also retired', function () {
-    wrapper.setProps({ subject: { already_seen: true, retired: true, id: '1' } })
-    expect(wrapper.find(Banner).prop('show')).to.be.false
-  })
+    it('shouldn\'t show the banner if the subject has been seen, but is also retired', function () {
+      wrapper.setProps({
+        subject: {
+          already_seen: true,
+          id: '1',
+          retired: true
+        }
+      })
+      expect(wrapper.find(Banner).prop('show')).to.be.false
+    })
 
-  it('shouldn\'t show the banner when subject hasn\'t already been seen', function () {
-    wrapper.setProps({ subject: { already_seen: false, id: '1' } })
-    expect(wrapper.find(Banner).prop('show')).to.be.false
+    it('shouldn\'t show the banner when subject hasn\'t already been seen', function () {
+      wrapper.setProps({
+        subject: {
+          already_seen: false,
+          id: '1'
+        }
+      })
+      expect(wrapper.find(Banner).prop('show')).to.be.false
+    })
+
+    it('shouldn\'t show the banner if the subject has been seen, but the workflow is finished', function () {
+      wrapper.setProps({
+        subject: {
+          already_seen: true,
+          finished_workflow: true,
+          id: '1',
+          retired: true
+        }
+      })
+      expect(wrapper.find(Banner).prop('show')).to.be.false
+    })
+
+    it('shouldn\'t show the banner if the subject has been seen, but the user has finished the workflow', function () {
+      wrapper.setProps({
+        subject: {
+          already_seen: true,
+          id: '1',
+          retired: true,
+          user_has_finished_workflow: true
+        }
+      })
+      expect(wrapper.find(Banner).prop('show')).to.be.false
+    })
   })
 })

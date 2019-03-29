@@ -21,7 +21,6 @@ const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0,0,0,0.22);
 `
 
-
 const StyledBox = styled(Box)`
   position: absolute;
   top: 0;
@@ -104,6 +103,7 @@ class Banner extends Component {
         </StyledSpacedText>
 
         <StyledButton
+          aria-label={counterpart('Banner.whyAmISeeingThis')}
           label={<Label />}
           onBlur={this.close}
           onClick={this.toggle}
