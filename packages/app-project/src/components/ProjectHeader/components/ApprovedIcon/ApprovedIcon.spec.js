@@ -30,8 +30,7 @@ describe('Component > ApprovedIcon', function () {
     })
 
     it('should have a text equivalent for screen readers', function () {
-      expect(wrapper.prop('title')).to.equal('Zooniverse Approved')
-      expect(wrapper.prop('aria-label')).to.equal('Zooniverse Approved')
+      expect(wrapper.find('FormCheckmark').prop('aria-label')).to.equal('Zooniverse Approved')
     })
   })
 })
