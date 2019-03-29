@@ -9,6 +9,7 @@ let projectStatisticsWrapper
 
 const CLASSIFICATIONS = 1
 const COMPLETEDSUBJECTS = 2
+const SLUG = 'foo/bar'
 const SUBJECTS = 3
 const VOLUNTEERS = 4
 
@@ -17,6 +18,7 @@ describe('Component > CompletionBarContainer', function () {
     wrapper = shallow(<ProjectStatisticsContainer.wrappedComponent
       classifications={CLASSIFICATIONS}
       completedSubjects={COMPLETEDSUBJECTS}
+      projectSlug={SLUG}
       subjects={SUBJECTS}
       volunteers={VOLUNTEERS}
     />)
@@ -37,6 +39,10 @@ describe('Component > CompletionBarContainer', function () {
 
   it('should pass through a `completedSubjects` prop', function () {
     expect(projectStatisticsWrapper.prop('completedSubjects')).to.equal(COMPLETEDSUBJECTS)
+  })
+
+  it('should pass through a `projectSlug` prop', function () {
+    expect(projectStatisticsWrapper.prop('projectSlug')).to.equal(SLUG)
   })
 
   it('should pass through a `subjects` prop', function () {
