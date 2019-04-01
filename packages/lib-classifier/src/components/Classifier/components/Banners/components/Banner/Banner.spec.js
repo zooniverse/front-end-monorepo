@@ -61,7 +61,7 @@ describe('Component > Banner', function () {
         })
       })
 
-      it.only('should toggle the tooltip on tap', function () {
+      it('should toggle the tooltip on tap', function () {
         const button = wrapper.find('button')
         button.simulate('click')
         expect(wrapper.find('Drop')).to.have.lengthOf(1)

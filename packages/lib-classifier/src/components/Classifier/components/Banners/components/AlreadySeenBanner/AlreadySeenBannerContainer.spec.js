@@ -22,7 +22,7 @@ describe('Component > AlreadySeenBannerContainer', function () {
   })
 
   it('should pass a `background` prop to <Banner />', function () {
-    expect(componentWrapper.prop('background')).to.equal('#078F52')
+    expect(componentWrapper.prop('background')).to.equal('status-ok')
   })
 
   it('should pass a `bannerText` prop to <Banner />', function () {

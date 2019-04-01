@@ -1,4 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import { bool, shape, string } from 'prop-types'
@@ -19,7 +18,6 @@ function storeMapper (stores) {
 @observer
 class RetiredBannerContainer extends Component {
   render () {
-    const background = zooTheme.global.colors.statusColors.critical
     const { subject } = this.props
     const show = !!subject &&
       subject.id &&
@@ -29,7 +27,7 @@ class RetiredBannerContainer extends Component {
 
     return (
       <Banner
-        background={background}
+        background='status-critical'
         bannerText={counterpart('RetiredBanner.bannerText')}
         show={show}
         tooltipText={counterpart('RetiredBanner.tooltipText')}

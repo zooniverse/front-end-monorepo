@@ -1,4 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import { bool, shape, string } from 'prop-types'
@@ -19,7 +18,6 @@ function storeMapper (stores) {
 @observer
 class UserHasFinishedWorkflowBannerContainer extends Component {
   render () {
-    const background = zooTheme.global.colors.statusColors.warning
     const { subject } = this.props
     const show = !!subject &&
       !subject.finished_workflow &&
@@ -27,7 +25,7 @@ class UserHasFinishedWorkflowBannerContainer extends Component {
 
     return (
       <Banner
-        background={background}
+        background='status-warning'
         bannerText={counterpart('UserHasFinishedWorkflowBanner.bannerText')}
         show={show}
         tooltipText={counterpart('UserHasFinishedWorkflowBanner.tooltipText')}

@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Button, Drop } from 'grommet'
-import { transparentize } from 'polished'
 import { array, bool, oneOf, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
 import posed from 'react-pose'
@@ -72,7 +71,7 @@ class Banner extends Component {
     return (
       <PosedBox
         align='center'
-        background={transparentize(0.5, background)}
+        background={{ color: background, opacity: 'strong' }}
         className={className}
         direction='row'
         justify='between'

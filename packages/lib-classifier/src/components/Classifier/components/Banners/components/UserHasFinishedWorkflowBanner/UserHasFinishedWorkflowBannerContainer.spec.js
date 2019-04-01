@@ -22,7 +22,7 @@ describe('Component > UserHasFinishedWorkflowBannerContainer', function () {
   })
 
   it('should pass a `background` prop to <Banner />', function () {
-    expect(componentWrapper.prop('background')).to.equal('#CC9200')
+    expect(componentWrapper.prop('background')).to.equal('status-warning')
   })
 
   it('should pass a `bannerText` prop to <Banner />', function () {

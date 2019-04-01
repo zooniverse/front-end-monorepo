@@ -1,4 +1,3 @@
-import { Stack } from 'grommet'
 import React from 'react'
 
 import AlreadySeenBanner from './components/AlreadySeenBanner'
