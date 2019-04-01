@@ -92,11 +92,18 @@ const FieldGuideStore = types
       self.showModal = boolean
     }
 
-    function setActiveItem (index) {
+    function setActiveItem (item) {
       const fieldGuide = self.active
-      if (fieldGuide && fieldGuide.items.length === index + 1 && fieldGuide.items[index]) {
-        self.activeItem = index
-        if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
+      if (fieldGuide) {
+        const items = fieldGuide.items
+        const index = items.indexOf(item)
+        if (items[index]) {
+          const icon = items[index].icon
+          if (icon) self.activeMedium = icon
+          return self.activeItem = index
+        }
+
+        return self.activeItem = undefined
       }
     }
 
