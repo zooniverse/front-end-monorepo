@@ -67,7 +67,7 @@ class FieldGuideItemButton extends React.Component {
         const label = <ButtonLabel icons={icons} item={item} />
         return (
           <StyledButton
-            a11yTitle={counterpart('FieldGuideItem.ariaTitle', { title: item.title })}
+            a11yTitle={counterpart('FieldGuideItemButton.ariaTitle', { title: item.title })}
             className={className}
             key={item.title} // Is this secure?
             label={label}

@@ -3,8 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
-import FieldGuideItems from './FieldGuideItems'
-import FieldGuideItem from './FieldGuideItem'
+import FieldGuideItems from './components/FieldGuideItems'
+import FieldGuideItem from './components/FieldGuideItem'
 
 const StyledBox = styled(Box)`
   max-height: 415px;

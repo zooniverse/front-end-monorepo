@@ -1,18 +1,16 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Button, Box, Heading, Text } from 'grommet'
+import { Button, Box } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import styled from 'styled-components'
 import React from 'react'
-import { observable } from 'mobx'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
+counterpart.registerTranslations('en', en)
+
 const FieldGuideItemHeader = styled(Box)`
-  /* display: flex;
-  flex-direction: row; */
   > h3 {
     margin: 0;
   }
@@ -36,7 +34,7 @@ class FieldGuideItem extends React.Component {
       <Box>
         <FieldGuideItemHeader align='center' direction='row'>
           <Button
-            a11yTitle="Go back to Field Guide items list"
+            a11yTitle={counterpart("FieldGuideItem.ariaTitle")}
             icon={<FormPrevious />}
             onClick={() => setActiveItem()}
             plain

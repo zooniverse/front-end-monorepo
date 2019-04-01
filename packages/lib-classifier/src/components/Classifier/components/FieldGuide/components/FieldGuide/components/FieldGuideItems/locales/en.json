@@ -1,5 +1,5 @@
 {
-  "FieldGuideItem": {
+  "FieldGuideItemButton": {
     "ariaTitle": "Select %(title)s"
   }
 }
