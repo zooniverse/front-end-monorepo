@@ -1,5 +1,5 @@
-import { TutorialMediumFactory } from './MediumFactory'
-export { TutorialMediumFactory }
+import { FieldGuideMediumFactory, TutorialMediumFactory } from './MediumFactory'
+export { FieldGuideMediumFactory, TutorialMediumFactory }
 
 export { default as ProjectFactory } from './ProjectFactory'
 export { default as SubjectFactory } from './SubjectFactory'
@@ -10,3 +10,4 @@ export { default as TutorialFactory } from './TutorialFactory'
 export { default as UPPFactory } from './UPPFactory'
 export { default as UserFactory } from './UserFactory'
 export { default as ClassificationFactory } from './ClassificationFactory'
+export { default as FieldGuideFactory } from './FieldGuideFactory'
