@@ -81,6 +81,7 @@ export default function MetadataModal (props) {
       <StyledDataTable
         columns={columns}
         data={data}
+        size='medium'
         sortable
       />
     </Modal>
