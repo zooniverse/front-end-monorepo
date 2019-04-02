@@ -31,6 +31,7 @@ class FieldGuideItem extends React.Component {
   render () {
     const { className, icons, item, setActiveItem } = this.props
     const icon = icons.get(item.icon)
+
     return (
       <Box className={className}>
         <FieldGuideItemHeader align='center' direction='row'>

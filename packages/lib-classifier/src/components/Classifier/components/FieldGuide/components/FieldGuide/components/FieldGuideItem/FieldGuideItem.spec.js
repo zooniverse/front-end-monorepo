@@ -20,7 +20,7 @@ describe.only('Component > FieldGuideItem', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
-        attachedMedia={attachedMedia}
+        icons={attachedMedia}
         item={item}
         setActiveItem={() => { }}
       />)
@@ -29,21 +29,20 @@ describe.only('Component > FieldGuideItem', function () {
 
   it('should call setActiveItem when the previous button is clicked', function () {
     const setActiveItemSpy = sinon.spy()
-    const wrapper = shallow(
+    const wrapper = mount(
       <FieldGuideItem.wrappedComponent
-        attachedMedia={attachedMedia}
+        icons={attachedMedia}
         item={item}
-        setActiveItem={sinon.spy()}
+        setActiveItem={setActiveItemSpy}
       />)
-
     wrapper.find(Button).simulate('click')
-    expect(setActiveItemSpy).to.have.been.calledOnceWith(undefined)
+    expect(setActiveItemSpy).to.have.been.calledOnceWith()
   })
 
   it('should render the item title as markdown', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
-        attachedMedia={attachedMedia}
+        icons={attachedMedia}
         item={item}
         setActiveItem={() => {}}
       />)
@@ -54,7 +53,7 @@ describe.only('Component > FieldGuideItem', function () {
   it('should render the item content as markdown', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
-        attachedMedia={attachedMedia}
+        icons={attachedMedia}
         item={item}
         setActiveItem={() => { }}
       />)
@@ -65,7 +64,7 @@ describe.only('Component > FieldGuideItem', function () {
   it('should render a Media component for the icon', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
-        attachedMedia={attachedMedia}
+        icons={attachedMedia}
         item={item}
         setActiveItem={() => { }}
       />)
@@ -77,7 +76,7 @@ describe.only('Component > FieldGuideItem', function () {
   it('should not render a Media component if there is no icon', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
-        attachedMedia={observable.map()}
+        icons={observable.map()}
         item={item}
         setActiveItem={() => { }}
       />)
