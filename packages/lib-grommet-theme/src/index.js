@@ -141,7 +141,6 @@ const theme = deepFreeze({
       `
     },
     drop: {
-      background: 'transparent',
       shadowSize: 'none'
     }
   },
