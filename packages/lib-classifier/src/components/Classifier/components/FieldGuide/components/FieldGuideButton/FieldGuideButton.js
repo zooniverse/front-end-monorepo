@@ -60,7 +60,6 @@ function storeMapper(stores) {
 class FieldGuideButton extends React.Component {
   onClick () {
     const { setModalVisibility } = this.props
-    console.info('Open field guide')
     setModalVisibility(true)
   }
 
@@ -79,6 +78,10 @@ class FieldGuideButton extends React.Component {
       />
     )
   }
+}
+
+FieldGuideButton.defaultProps = {
+  fieldGuide: null
 }
 
 FieldGuideButton.wrappedComponent.propTypes = {
