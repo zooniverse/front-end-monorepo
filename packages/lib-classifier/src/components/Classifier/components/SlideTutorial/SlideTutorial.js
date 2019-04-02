@@ -20,7 +20,11 @@ function storeMapper (stores) {
 
 const StyledMarkdownWrapper = styled(Box)`
   height: 100%;
-  max-height: ${props => props.isThereMedia ? '150px' : '100%'} ;
+  max-height: ${props => props.isThereMedia ? '150px' : '100%'};
+
+  > hr {
+    width: 100%; /* Why is this needed? */
+  }
 `
 
 // TODO: Split into container and view components so that view can be exported for external use
@@ -42,7 +46,7 @@ class SlideTutorial extends React.Component {
           {isThereMedia &&
             <Media
               alt={counterpart('SlideTutorial.alt', { activeStep })}
-              fit='contain'
+              fit='cover'
               height={200}
               src={medium.src}
             />}

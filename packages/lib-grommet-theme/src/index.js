@@ -199,29 +199,29 @@ const theme = deepFreeze({
   },
   paragraph: {
     small: {
+      size: '10px',
+      height: '18px',
+      maxWidth: '240px'
+    },
+    medium: {
       size: '14px',
       height: '22px',
       maxWidth: '336px'
     },
-    medium: {
+    large: {
       size: '18px',
       height: '26px',
       maxWidth: '432px'
     },
-    large: {
+    xlarge: {
       size: '22px',
       height: '30px',
       maxWidth: '528px'
     },
-    xlarge: {
+    xxlarge: {
       size: '26px',
       height: '34px',
       maxWidth: '624px'
-    },
-    xxlarge: {
-      size: '34px',
-      height: '42px',
-      maxWidth: '816px'
     }
   }
 })
