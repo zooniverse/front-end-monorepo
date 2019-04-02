@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import React from 'react'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
+import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import counterpart from 'counterpart'
 import en from './locales/en'
@@ -28,10 +29,10 @@ function storeMapper(stores) {
 @observer
 class FieldGuideItem extends React.Component {
   render () {
-    const { icons, item, setActiveItem } = this.props
+    const { className, icons, item, setActiveItem } = this.props
     const icon = icons.get(item.icon)
     return (
-      <Box>
+      <Box className={className}>
         <FieldGuideItemHeader align='center' direction='row'>
           <Button
             a11yTitle={counterpart("FieldGuideItem.ariaTitle")}
@@ -55,8 +56,16 @@ class FieldGuideItem extends React.Component {
   }
 }
 
-FieldGuideItem.propTypes = {
-  item: PropTypes.object.isRequired
+FieldGuideItem.wrappedComponent.defaultProps = {
+  className: '',
+  icons: observable.map()
+}
+
+FieldGuideItem.wrappedComponent.propTypes = {
+  className: PropTypes.string,
+  icons: MobXPropTypes.observableMap,
+  item: PropTypes.object.isRequired,
+  setActiveItem: PropTypes.func.isRequired
 }
 
 export default FieldGuideItem
