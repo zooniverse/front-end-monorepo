@@ -1,9 +1,11 @@
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { Markdownz } from '@zooniverse/react-components'
+import { Text } from 'grommet'
 import { observable } from 'mobx'
+import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Markdown, Text } from 'grommet'
+
 import TaskInputField from '../TaskInputField'
 
 export const StyledFieldset = styled.fieldset`
@@ -48,7 +50,11 @@ class MultipleChoiceTask extends React.Component {
     }
     return (
       <StyledFieldset autoFocus={(annotation && annotation.value && annotation.value.length === 0)}>
-        <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
+        <Text size='small' tag='legend'>
+          <Markdownz>
+            {task.question}
+          </Markdownz>
+        </Text>
         {task.answers.map((answer, index) => {
           const checked = (annotation && annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
           return (
