@@ -2,7 +2,7 @@
 
 Banners are short messages shown at the top of the classifier, with an explanatory tooltip showing more information.
 
-Each banner has its own component, which leverages the generic `Banner` component and includes the logic for when to show the banner, and the content.
+Each banner has its own component, which leverages the generic `Banner` component and includes the logic for when to show the banner, and the content. Note that the because the banner is animated, the logic for showing / hiding is handled within the Banner's `StyledBox`.
 
 Precedence of banners to be shown to the user is:
 
