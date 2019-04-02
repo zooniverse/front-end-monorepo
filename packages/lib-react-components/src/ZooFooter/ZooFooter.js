@@ -74,7 +74,7 @@ export default function ZooFooter (props) {
       tag='footer'
     >
       <Box
-        pad={{ horizontal: 'large', bottom: 'xlarge' }}
+        pad={{ horizontal: 'large', bottom: 'medium' }}
         fill='horizontal'
       >
         <Box
@@ -113,6 +113,7 @@ export default function ZooFooter (props) {
             'count': 'fit',
             'size': 'small'
           }}
+          margin={{ bottom: 'large' }}
           tag='section'
         >
           <LinkList

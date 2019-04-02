@@ -27,7 +27,7 @@ class ImageToolbar extends Component {
           }}
           direction='column'
           fill
-          pad='small'
+          pad='14px'
         >
           <AnnotateButton />
           <MoveButton />

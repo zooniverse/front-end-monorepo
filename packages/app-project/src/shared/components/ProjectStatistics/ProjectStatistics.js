@@ -43,7 +43,7 @@ function ProjectStatistics ({
       <MainGrid>
         <section>
           <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
-          <StyledParagraph margin={{ top: 'none' }} size='small'>
+          <StyledParagraph margin={{ bottom: 'small', top: 'none' }} size='small'>
             {counterpart('ProjectStatistics.text')}
           </StyledParagraph>
           <CompletionBar />

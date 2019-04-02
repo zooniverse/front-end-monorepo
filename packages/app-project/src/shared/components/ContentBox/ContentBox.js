@@ -24,7 +24,7 @@ function ContentBox ({ className, children, linkLabel, linkUrl, mode, title }) {
           as='header'
           direction='row'
           justify={title ? 'between' : 'end'}
-          margin={{ bottom: 'medium' }}
+          margin={{ bottom: 'small' }}
         >
 
           {title && (

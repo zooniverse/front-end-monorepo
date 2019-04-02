@@ -41,8 +41,8 @@ class TaskHelp extends React.Component {
       return (
         <>
           <StyledPlainButton
-            margin='small'
             onClick={() => this.setState({ showModal: true })}
+            margin={{ bottom: 'small' }}
             text={label}
           />
           <Modal

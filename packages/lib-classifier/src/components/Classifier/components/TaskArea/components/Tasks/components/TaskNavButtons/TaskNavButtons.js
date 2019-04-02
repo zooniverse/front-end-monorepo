@@ -11,7 +11,7 @@ export default function TaskNavButtons (props) {
 
   if (props.showNextButton) {
     return (
-      <Box pad='small' direction='row'>
+      <Box direction='row'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -29,7 +29,7 @@ export default function TaskNavButtons (props) {
   // Shown on summary enabled workflows.
   if (props.completed) {
     return (
-      <Box pad='small'>
+      <Box>
         <NextButton
           autoFocus={props.autoFocus}
           disabled={false}
@@ -40,7 +40,7 @@ export default function TaskNavButtons (props) {
   }
 
   return (
-    <Box direction='row' pad='small'>
+    <Box direction='row'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}

@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
 const StyledAnchor = styled(Anchor)`
+  padding: 0;
+
   &:focus > svg,
   &:hover > svg {
     fill: ${zooTheme.global.colors['accent-2']} !important;
@@ -21,10 +23,10 @@ export default function SocialAnchor ({ className, hrefs, service }) {
 
   return (
       <StyledAnchor
-        className={className}
-        href={hrefs[service]}
         a11yTitle={service}
+        className={className}
         icon={icons[service]}
+        href={hrefs[service]}
       />
   )
 }

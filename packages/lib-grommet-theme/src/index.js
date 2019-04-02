@@ -107,6 +107,14 @@ Object.keys(statusColors).forEach((color) => {
 const theme = deepFreeze({
   global: {
     colors,
+    edgeSize: {
+      xxsmall: '5px',
+      xsmall: `10px`,
+      small: `20px`,
+      medium: `30px`,
+      large: `50px`,
+      xlarge: `90px`,
+    },
     font: {
       family: "'Karla', Arial, sans-serif",
       face: `

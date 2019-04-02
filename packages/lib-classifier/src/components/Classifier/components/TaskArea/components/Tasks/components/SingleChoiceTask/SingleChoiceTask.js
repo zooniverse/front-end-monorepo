@@ -1,13 +1,16 @@
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { observable } from 'mobx'
 import React from 'react'
+
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Markdown, Text } from 'grommet'
+import { Box, Markdown, Text } from 'grommet'
 import TaskInputField from '../TaskInputField'
 
-export const StyledFieldset = styled.fieldset`
+export const StyledBox = styled(Box)`
   border: none;
+  margin: 0;
+  padding: 0;
 `
 
 function storeMapper (stores) {
@@ -32,6 +35,7 @@ class SingleChoiceTask extends React.Component {
   render () {
     const {
       annotations,
+      className,
       task
     } = this.props
     let annotation
@@ -40,8 +44,13 @@ class SingleChoiceTask extends React.Component {
     }
 
     return (
-      <StyledFieldset>
-        <Text size='small' tag='legend'><Markdown>{task.question}</Markdown></Text>
+      <StyledBox as='fieldset' className={className}>
+        <Text size='small' tag='legend'>
+          <Markdown>
+            {task.question}
+          </Markdown>
+        </Text>
+
         {task.answers.map((answer, index) => {
           const checked = (annotation && annotation.value + 1) ? index === annotation.value : false
           return (
@@ -58,7 +67,7 @@ class SingleChoiceTask extends React.Component {
             />
           )
         })}
-      </StyledFieldset>
+      </StyledBox>
     )
   }
 }
