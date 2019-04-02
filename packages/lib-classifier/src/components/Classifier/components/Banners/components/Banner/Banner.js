@@ -3,7 +3,6 @@ import counterpart from 'counterpart'
 import { Box, Button, Drop } from 'grommet'
 import { array, bool, oneOf, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
-import posed from 'react-pose'
 import styled, { withTheme } from 'styled-components'
 
 import en from './locales/en'
@@ -18,18 +17,12 @@ const StyledSpacedText = styled(SpacedText)`
 
 const StyledBox = styled(Box)`
   position: absolute;
-  top: 0;
+  top: 0%;
   width: 100%;
+  transform: translateY(-100%);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  ${props => props.show && 'transform: translateY(0%);'}
 `
-const PosedBox = posed(StyledBox)({
-  show: {
-    y: '0%'
-  },
-  hide: {
-    transition: 'tween',
-    y: '-100%'
-  }
-})
 
 function Label () {
   return (
@@ -69,14 +62,14 @@ class Banner extends Component {
     } = this.props
 
     return (
-      <PosedBox
+      <StyledBox
         align='center'
         background={{ color: background, opacity: 'strong' }}
         className={className}
         direction='row'
         justify='between'
         pad='small'
-        pose={show ? 'show' : 'hide'}
+        show={show}
       >
 
         <StyledSpacedText color='white' weight='bold'>
@@ -110,7 +103,7 @@ class Banner extends Component {
             </Box>
           </Drop>
         )}
-      </PosedBox>
+      </StyledBox>
     )
   }
 }

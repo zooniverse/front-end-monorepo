@@ -26,7 +26,6 @@
     "lodash": "~4.17.11",
     "mobx-utils": "~5.0.2",
     "react-context-props": "~2.2.0",
-    "react-pose": "^4.0.8",
     "react-resize-detector": "~3.2.1",
     "rosie": "~2.0.1",
     "rxjs": "~6.3.3",
