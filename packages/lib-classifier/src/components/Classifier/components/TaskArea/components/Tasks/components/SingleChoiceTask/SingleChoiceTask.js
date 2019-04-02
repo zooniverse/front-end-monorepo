@@ -1,10 +1,11 @@
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { Markdownz } from '@zooniverse/react-components'
+import { Box, Text } from 'grommet'
 import { observable } from 'mobx'
-import React from 'react'
-
+import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
-import { Box, Markdown, Text } from 'grommet'
+
 import TaskInputField from '../TaskInputField'
 
 export const StyledBox = styled(Box)`
@@ -46,9 +47,9 @@ class SingleChoiceTask extends React.Component {
     return (
       <StyledBox as='fieldset' className={className}>
         <Text size='small' tag='legend'>
-          <Markdown>
+          <Markdownz>
             {task.question}
-          </Markdown>
+          </Markdownz>
         </Text>
 
         {task.answers.map((answer, index) => {

@@ -1,6 +1,7 @@
-import { Markdown, Text } from 'grommet'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { Markdownz } from '@zooniverse/react-components'
+import { Text } from 'grommet'
 import { observable } from 'mobx'
+import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -35,9 +36,9 @@ class DrawingTask extends React.Component {
     }
     return (
       <Text size='small' tag='legend'>
-        <Markdown>
+        <Markdownz>
           {task.instruction}
-        </Markdown>
+        </Markdownz>
       </Text>
     )
   }
