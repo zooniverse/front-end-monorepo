@@ -17,7 +17,7 @@ const StyledButton = styled(Button)`
   }
 `
 
-function Icon({ className, icon }) {
+export function Icon({ className, icon }) {
   if (icon && Object.keys(icon).length > 0) {
     return (
       <Media className={className} src={icon.src} />
@@ -31,7 +31,7 @@ function Icon({ className, icon }) {
   )
 }
 
-function ButtonLabel({ className, icons, item }) {
+export function ButtonLabel({ className, icons, item }) {
   const icon = icons.get(item.icon)
   return (
     <Box
@@ -69,7 +69,7 @@ class FieldGuideItemButton extends React.Component {
           <StyledButton
             a11yTitle={counterpart('FieldGuideItemButton.ariaTitle', { title: item.title })}
             className={className}
-            key={item.title} // Is this secure?
+            key={item.title}
             label={label}
             onClick={() => { setActiveItem(item) }}
             plain
@@ -88,7 +88,8 @@ FieldGuideItemButton.wrappedComponent.defaultProps = {
 FieldGuideItemButton.wrappedComponent.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
-  row: PropTypes.arrayOf(PropTypes.object).isRequired
+  row: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setActiveItem: PropTypes.func.isRequired
 }
 
 export default FieldGuideItemButton

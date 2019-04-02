@@ -16,7 +16,7 @@ const item = {
   content: 'lorem ipsum'
 }
 
-describe.only('Component > FieldGuideItem', function () {
+describe('Component > FieldGuideItem', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
