@@ -8,7 +8,7 @@ import FieldGuideItem from './components/FieldGuideItem'
 
 const StyledBox = styled(Box)`
   max-height: 415px;
-  max-width: 480px;
+  max-width: 490px;
   overflow: auto;
 `
 

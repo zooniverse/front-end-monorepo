@@ -20,6 +20,12 @@ const StyledButton = styled(Button)`
   &:hover, &:focus {
     background: ${tint(0.5, zooTheme.global.colors.brand)};
   }
+
+  &:disabled {
+    &:hover, &:focus {
+      background: ${zooTheme.global.colors.brand};
+    }
+  }
 `
 
 const StyledSpacedText = styled(SpacedText)`
