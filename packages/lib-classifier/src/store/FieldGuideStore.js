@@ -95,10 +95,10 @@ const FieldGuideStore = types
     function setActiveItem (item) {
       const fieldGuide = self.active
       if (fieldGuide) {
-        const items = fieldGuide.items
+        const { items } = fieldGuide
         const index = items.indexOf(item)
         if (items[index]) {
-          const icon = items[index].icon
+          const { icon } = items[index]
           if (icon) self.activeMedium = icon
           return self.activeItem = index
         }
