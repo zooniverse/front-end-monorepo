@@ -93,6 +93,7 @@ const FieldGuideStore = types
     }
 
     function setActiveItemIndex (item) {
+      console.log('calling')
       const fieldGuide = self.active
       if (fieldGuide) {
         const { items } = fieldGuide

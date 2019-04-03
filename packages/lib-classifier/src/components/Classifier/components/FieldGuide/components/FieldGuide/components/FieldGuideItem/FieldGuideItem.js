@@ -2,14 +2,25 @@ import { Button, Box } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import styled from 'styled-components'
 import React from 'react'
-import { Markdownz, Media } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
+import zooTheme from '@zooniverse/grommet-theme'
 import PropTypes from 'prop-types'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const StyledButton = styled(Button)`
+  padding: 0;
+
+  &:hover > svg, &:focus > svg {
+    fill: ${zooTheme.global.colors['dark-5']};
+    stroke: ${zooTheme.global.colors['dark-5']};
+  }
+`
 
 const FieldGuideItemHeader = styled(Box)`
   > h3 {
@@ -18,10 +29,10 @@ const FieldGuideItemHeader = styled(Box)`
 `
 
 function storeMapper(stores) {
-  const { setActiveItem, attachedMedia: icons } = stores.classifierStore.fieldGuide
+  const { setActiveItemIndex, attachedMedia: icons } = stores.classifierStore.fieldGuide
   return {
     icons,
-    setActiveItem
+    setActiveItemIndex
   }
 }
 
@@ -29,16 +40,17 @@ function storeMapper(stores) {
 @observer
 class FieldGuideItem extends React.Component {
   render () {
-    const { className, icons, item, setActiveItem } = this.props
+    const { className, icons, item, setActiveItemIndex } = this.props
     const icon = icons.get(item.icon)
 
     return (
       <Box className={className}>
-        <FieldGuideItemHeader align='center' direction='row'>
-          <Button
+        <FieldGuideItemHeader align='center' direction='row' margin={{ bottom: 'small' }}>
+          <StyledButton
             a11yTitle={counterpart("FieldGuideItem.ariaTitle")}
-            icon={<FormPrevious />}
-            onClick={() => setActiveItem()}
+            icon={<FormPrevious color='light-5' />}
+            margin={{ right: 'small' }}
+            onClick={() => setActiveItemIndex()}
             plain
           />
           <Markdownz>
@@ -46,8 +58,7 @@ class FieldGuideItem extends React.Component {
           </Markdownz>
         </FieldGuideItemHeader>
         <Box direction='column'>
-          {icon && Object.keys(icon).length > 0 &&
-            <Media fit='contain' height={140} src={icon.src} />}
+          <FieldGuideItemIcon icon={icon} height='140' viewBox='0 0 200 100' />
           <Markdownz>
             {item.content}
           </Markdownz>
@@ -66,7 +77,7 @@ FieldGuideItem.wrappedComponent.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
-  setActiveItem: PropTypes.func.isRequired
+  setActiveItemIndex: PropTypes.func.isRequired
 }
 
 export default FieldGuideItem

@@ -1,22 +1,15 @@
 import { Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { ResponsiveContext } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import FieldGuideItems from './components/FieldGuideItems'
 import FieldGuideItem from './components/FieldGuideItem'
 
-const StyledBox = styled(Box)`
-  max-height: 415px;
-  max-width: 490px;
-  overflow: auto;
-`
-
-
 function storeMapper(stores) {
-  const { active: fieldGuide, activeItem } = stores.classifierStore.fieldGuide
+  const { active: fieldGuide, activeItemIndex } = stores.classifierStore.fieldGuide
   return {
-    activeItem,
+    activeItemIndex,
     items: fieldGuide.items
   }
 }
@@ -25,24 +18,30 @@ function storeMapper(stores) {
 @observer
 class FieldGuide extends React.Component {
   render () {
-    const { activeItem, className, items } = this.props
+    const { activeItemIndex, className, items } = this.props
     return (
-      <StyledBox className={className}>
-        {items[activeItem] ?
-          <FieldGuideItem item={items[activeItem]} /> :
-          <FieldGuideItems items={items} />}
-      </StyledBox>
+      <ResponsiveContext.Consumer>
+        {size => {
+          const height = (size === 'small') ? '100%' : '415px'
+          const width = (size === 'small') ? '100%' : '490px'
+          return (
+            <Box className={className} height={height} overflow='auto' width={width}>
+              {items[activeItemIndex] ?
+                <FieldGuideItem item={items[activeItemIndex]} /> :
+                <FieldGuideItems items={items} />}
+            </Box>)}}
+      </ResponsiveContext.Consumer>
     )
   }
 }
 
 FieldGuide.wrappedComponent.defaultProps = {
-  activeItem: -1,
+  activeItemIndex: -1,
   className: '',
 }
 
 FieldGuide.wrappedComponent.propTypes = {
-  activeItem: PropTypes.number,
+  activeItemIndex: PropTypes.number,
   className: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired
 }

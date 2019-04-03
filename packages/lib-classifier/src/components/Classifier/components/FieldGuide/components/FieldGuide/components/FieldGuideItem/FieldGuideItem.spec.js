@@ -22,21 +22,21 @@ describe('Component > FieldGuideItem', function () {
       <FieldGuideItem.wrappedComponent
         icons={attachedMedia}
         item={item}
-        setActiveItem={() => { }}
+        setActiveItemIndex={() => { }}
       />)
     expect(wrapper).to.be.ok
   })
 
-  it('should call setActiveItem when the previous button is clicked', function () {
-    const setActiveItemSpy = sinon.spy()
+  it('should call setActiveItemIndex when the previous button is clicked', function () {
+    const setActiveItemIndexSpy = sinon.spy()
     const wrapper = mount(
       <FieldGuideItem.wrappedComponent
         icons={attachedMedia}
         item={item}
-        setActiveItem={setActiveItemSpy}
+        setActiveItemIndex={setActiveItemIndexSpy}
       />)
     wrapper.find(Button).simulate('click')
-    expect(setActiveItemSpy).to.have.been.calledOnceWith()
+    expect(setActiveItemIndexSpy).to.have.been.calledOnceWith()
   })
 
   it('should render the item title as markdown', function () {
@@ -44,7 +44,7 @@ describe('Component > FieldGuideItem', function () {
       <FieldGuideItem.wrappedComponent
         icons={attachedMedia}
         item={item}
-        setActiveItem={() => {}}
+        setActiveItemIndex={() => {}}
       />)
 
     expect(wrapper.find(Markdownz).first().contains(`### ${item.title}`)).to.be.true
@@ -55,7 +55,7 @@ describe('Component > FieldGuideItem', function () {
       <FieldGuideItem.wrappedComponent
         icons={attachedMedia}
         item={item}
-        setActiveItem={() => { }}
+        setActiveItemIndex={() => { }}
       />)
 
     expect(wrapper.find(Markdownz).last().contains(item.content)).to.be.true
@@ -66,7 +66,7 @@ describe('Component > FieldGuideItem', function () {
       <FieldGuideItem.wrappedComponent
         icons={attachedMedia}
         item={item}
-        setActiveItem={() => { }}
+        setActiveItemIndex={() => { }}
       />)
 
     expect(wrapper.find(Media)).to.have.lengthOf(1)
@@ -78,7 +78,7 @@ describe('Component > FieldGuideItem', function () {
       <FieldGuideItem.wrappedComponent
         icons={observable.map()}
         item={item}
-        setActiveItem={() => { }}
+        setActiveItemIndex={() => { }}
       />)
 
     expect(wrapper.find(Media)).to.have.lengthOf(0)

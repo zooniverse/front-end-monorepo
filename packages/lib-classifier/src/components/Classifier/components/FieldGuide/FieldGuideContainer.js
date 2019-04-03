@@ -36,6 +36,7 @@ class FieldGuideContainer extends React.Component {
         <Modal
           active={showModal}
           closeFn={this.onClose.bind(this)}
+          pad='small'
           title={counterpart('FieldGuide.title')}
         >
           <FieldGuide />

@@ -1,27 +1,21 @@
-import { Box, Grid } from 'grommet'
+import { Grid } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import chunk from 'lodash/chunk'
 import FieldGuideItemAnchor from './FieldGuideItemAnchor'
 
 export default function FieldGuideItems({ className, items }) {
-  const gridRows = chunk(items, 4)
   return (
-    <Box basis='full' className={className} direction='row' wrap>
-      {gridRows.map((row, index) => {
-        return (
-          <Grid
-            columns={['100px', '100px', '100px', '100px']}
-            key={index}
-            margin={{ bottom: 'small' }}
-            gap='medium'
-            rows={['150px']}
-          >
-            <FieldGuideItemAnchor row={row} />
-          </Grid>
-        )
-      })}
-    </Box>
+    <Grid
+      className={className}
+      columns={{ count: 'fill', size: '100px' }}
+      margin={{ bottom: 'small' }}
+      gap='medium'
+      rows='150px'
+      width='100%'
+    >
+      {items.map((item) => {
+        return (<FieldGuideItemAnchor key={item.title} item={item} />)})}
+    </Grid>
   )
 }
 
