@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 
+import Banners from '../../../Banners'
 import FeedbackModal from '../../../Feedback'
 import ImageToolbar from '../../../ImageToolbar'
 import MetaTools from '../../../MetaTools'
@@ -12,6 +14,7 @@ const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 2rem;
   grid-template-areas: "viewer task";
+  overflow: hidden;
   position: relative;
 
   @media (min-width: 701px) {
@@ -36,10 +39,6 @@ const ViewerGrid = styled.section`
   grid-template-areas: "subject toolbar" "metatools ...";
 `
 
-const StyledSubjectViewer = styled(SubjectViewer)`
-  grid-area: subject;
-`
-
 const StyledImageToolbar = styled(ImageToolbar)`
   grid-area: toolbar;
 `
@@ -48,11 +47,18 @@ const StyledMetaTools = styled(MetaTools)`
   grid-area: metatools;
 `
 
-function DefaultLayout () {
+const StyledBox = styled(Box)`
+  position: relative;
+`
+
+function DefaultLayout (props) {
   return (
-    <ContainerGrid>
+    <ContainerGrid className={props.className}>
       <ViewerGrid>
-        <StyledSubjectViewer />
+        <StyledBox gridArea='subject'>
+          <SubjectViewer />
+          <Banners />
+        </StyledBox>
         <StyledImageToolbar />
         <StyledMetaTools />
       </ViewerGrid>

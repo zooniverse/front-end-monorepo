@@ -33,7 +33,10 @@ class SubjectViewer extends React.Component {
     const { subject } = this.props
     const Viewer = getViewer(subject.viewer)
     return (
-      <Viewer subject={subject} subjectId={subject.id} />
+      <Viewer
+        subject={subject}
+        subjectId={subject.id}
+      />
     )
   }
 
