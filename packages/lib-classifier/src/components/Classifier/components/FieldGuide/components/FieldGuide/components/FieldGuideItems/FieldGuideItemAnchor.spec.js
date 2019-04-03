@@ -21,7 +21,7 @@ describe('Component > FieldGuideItemAnchor', function () {
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
-        setActiveItem={() => {}}
+        setActiveItemIndex={() => {}}
       />)
     expect(wrapper).to.be.ok
   })
@@ -31,7 +31,7 @@ describe('Component > FieldGuideItemAnchor', function () {
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
-        setActiveItem={() => { }}
+        setActiveItemIndex={() => { }}
       />)
     expect(wrapper).to.have.lengthOf(row.length)
   })
@@ -41,22 +41,22 @@ describe('Component > FieldGuideItemAnchor', function () {
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
-        setActiveItem={() => { }}
+        setActiveItemIndex={() => { }}
       />)
     expect(wrapper.props().label.type).to.equal(AnchorLabel)
   })
 
-  it('should call setActiveItem on click', function () {
-    const setActiveItemSpy = sinon.spy()
+  it('should call setActiveItemIndex on click', function () {
+    const setActiveItemIndexSpy = sinon.spy()
     const wrapper = shallow(
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
-        setActiveItem={setActiveItemSpy}
+        setActiveItemIndex={setActiveItemIndexSpy}
       />)
 
     wrapper.simulate('click', { preventDefault: () => {} })
-    expect(setActiveItemSpy).to.have.been.calledOnceWith(row[0])
+    expect(setActiveItemIndexSpy).to.have.been.calledOnceWith(row[0])
   })
 
   describe('Component > AnchorLabel', function () {

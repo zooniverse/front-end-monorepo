@@ -43,10 +43,10 @@ export function AnchorLabel({ className, icons, item }) {
 }
 
 function storeMapper(stores) {
-  const { attachedMedia: icons, setActiveItem } = stores.classifierStore.fieldGuide
+  const { attachedMedia: icons, setActiveItemIndex } = stores.classifierStore.fieldGuide
   return {
     icons,
-    setActiveItem,
+    setActiveItemIndex,
   }
 }
 
@@ -54,13 +54,13 @@ function storeMapper(stores) {
 @observer
 class FieldGuideItemAnchor extends React.Component {
   onClick (event, item) {
-    const { setActiveItem } = this.props
+    const { setActiveItemIndex } = this.props
     event.preventDefault()
-    setActiveItem(item)
+    setActiveItemIndex(item)
   }
 
   render () {
-    const { className, icons, row, setActiveItem } = this.props
+    const { className, icons, row } = this.props
 
     return (
       row.map((item) => {
@@ -90,7 +90,7 @@ FieldGuideItemAnchor.wrappedComponent.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   row: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setActiveItem: PropTypes.func.isRequired
+  setActiveItemIndex: PropTypes.func.isRequired
 }
 
 export default FieldGuideItemAnchor
