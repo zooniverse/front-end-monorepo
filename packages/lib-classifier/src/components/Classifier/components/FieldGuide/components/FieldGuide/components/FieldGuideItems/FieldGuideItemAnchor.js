@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Button, Box } from 'grommet'
+import { Anchor, Box } from 'grommet'
 import styled from 'styled-components'
 import React from 'react'
 import { observable } from 'mobx'
@@ -10,12 +10,6 @@ import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-const StyledButton = styled(Button)`
-  &:hover, &:focus {
-    background: ${zooTheme.global.colors['accent-2']};
-  }
-`
 
 export function Icon({ className, icon }) {
   if (icon && Object.keys(icon).length > 0) {
@@ -31,7 +25,7 @@ export function Icon({ className, icon }) {
   )
 }
 
-export function ButtonLabel({ className, icons, item }) {
+export function AnchorLabel({ className, icons, item }) {
   const icon = icons.get(item.icon)
   return (
     <Box
@@ -58,21 +52,28 @@ function storeMapper(stores) {
 
 @inject(storeMapper)
 @observer
-class FieldGuideItemButton extends React.Component {
+class FieldGuideItemAnchor extends React.Component {
+  onClick (event, item) {
+    const { setActiveItem } = this.props
+    event.preventDefault()
+    setActiveItem(item)
+  }
+
   render () {
     const { className, icons, row, setActiveItem } = this.props
 
     return (
       row.map((item) => {
-        const label = <ButtonLabel icons={icons} item={item} />
+        const label = <AnchorLabel icons={icons} item={item} />
         return (
-          <StyledButton
-            a11yTitle={counterpart('FieldGuideItemButton.ariaTitle', { title: item.title })}
+          <Anchor
+            a11yTitle={counterpart('FieldGuideItemAnchor.ariaTitle', { title: item.title })}
             className={className}
+            color='dark-5'
+            href=''
             key={item.title}
             label={label}
-            onClick={() => { setActiveItem(item) }}
-            plain
+            onClick={(event) => this.onClick(event, item)}
           />
         )
       })
@@ -80,16 +81,16 @@ class FieldGuideItemButton extends React.Component {
   }
 }
 
-FieldGuideItemButton.wrappedComponent.defaultProps = {
+FieldGuideItemAnchor.wrappedComponent.defaultProps = {
   className: '',
   icons: observable.map()
 }
 
-FieldGuideItemButton.wrappedComponent.propTypes = {
+FieldGuideItemAnchor.wrappedComponent.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   row: PropTypes.arrayOf(PropTypes.object).isRequired,
   setActiveItem: PropTypes.func.isRequired
 }
 
-export default FieldGuideItemButton
+export default FieldGuideItemAnchor

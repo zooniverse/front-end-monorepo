@@ -1,9 +1,8 @@
 import { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
 import React from 'react'
 import { Grid } from 'grommet'
 import FieldGuideItems from './FieldGuideItems'
-import FieldGuideItemButton from './FieldGuideItemButton'
+import FieldGuideItemAnchor from './FieldGuideItemAnchor'
 import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
 
 const medium = FieldGuideMediumFactory.build()
@@ -39,11 +38,11 @@ describe('Component > FieldGuideItems', function () {
     expect(wrapper.find(Grid)).to.be.lengthOf(2)
   })
 
-  it('should render a FieldGuideItemButton as a child of the Grid row', function () {
+  it('should render a FieldGuideItemAnchor as a child of the Grid row', function () {
     const wrapper = shallow(
       <FieldGuideItems
         items={items}
       />)
-    expect(wrapper.find(FieldGuideItemButton)).to.be.lengthOf(wrapper.find(Grid).length)
+    expect(wrapper.find(FieldGuideItemAnchor)).to.be.lengthOf(wrapper.find(Grid).length)
   })
 })

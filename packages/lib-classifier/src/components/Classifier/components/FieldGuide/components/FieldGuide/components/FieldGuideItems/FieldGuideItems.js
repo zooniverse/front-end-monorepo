@@ -2,7 +2,7 @@ import { Box, Grid } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import chunk from 'lodash/chunk'
-import FieldGuideItemButton from './FieldGuideItemButton'
+import FieldGuideItemAnchor from './FieldGuideItemAnchor'
 
 export default function FieldGuideItems({ className, items }) {
   const gridRows = chunk(items, 4)
@@ -17,7 +17,7 @@ export default function FieldGuideItems({ className, items }) {
             gap='medium'
             rows={['150px']}
           >
-            <FieldGuideItemButton row={row} />
+            <FieldGuideItemAnchor row={row} />
           </Grid>
         )
       })}

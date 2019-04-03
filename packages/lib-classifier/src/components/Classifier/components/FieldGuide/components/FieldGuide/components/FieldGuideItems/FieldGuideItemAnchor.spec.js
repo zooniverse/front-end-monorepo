@@ -2,9 +2,8 @@ import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import { observable } from 'mobx'
-import { Button } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import FieldGuideItemButton, { Icon, ButtonLabel } from './FieldGuideItemButton'
+import FieldGuideItemAnchor, { Icon, AnchorLabel } from './FieldGuideItemAnchor'
 import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
 
 const medium = FieldGuideMediumFactory.build()
@@ -16,10 +15,10 @@ const row = [{
   content: 'lorem ipsum'
 }]
 
-describe('Component > FieldGuideItemButton', function () {
+describe('Component > FieldGuideItemAnchor', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
-      <FieldGuideItemButton.wrappedComponent
+      <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
         setActiveItem={() => {}}
@@ -29,42 +28,41 @@ describe('Component > FieldGuideItemButton', function () {
 
   it('should render the number of buttons equal to the number of row items', function () {
     const wrapper = shallow(
-      <FieldGuideItemButton.wrappedComponent
+      <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
         setActiveItem={() => { }}
       />)
-    console.log(wrapper.debug())
-    expect(wrapper.find('Styled(WithTheme(Button))')).to.have.lengthOf(row.length)
+    expect(wrapper).to.have.lengthOf(row.length)
   })
 
-  it('should use ButtonLabel as the label', function () {
+  it('should use AnchorLabel as the label', function () {
     const wrapper = shallow(
-      <FieldGuideItemButton.wrappedComponent
+      <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
         setActiveItem={() => { }}
       />)
-    expect(wrapper.find('Styled(WithTheme(Button))').props().label.type).to.equal(ButtonLabel)
+    expect(wrapper.props().label.type).to.equal(AnchorLabel)
   })
 
   it('should call setActiveItem on click', function () {
     const setActiveItemSpy = sinon.spy()
     const wrapper = shallow(
-      <FieldGuideItemButton.wrappedComponent
+      <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         row={row}
         setActiveItem={setActiveItemSpy}
       />)
 
-    wrapper.find('Styled(WithTheme(Button))').simulate('click')
+    wrapper.simulate('click', { preventDefault: () => {} })
     expect(setActiveItemSpy).to.have.been.calledOnceWith(row[0])
   })
 
-  describe('Component > ButtonLabel', function () {
+  describe('Component > AnchorLabel', function () {
     it('should render without crashing', function () {
       const wrapper = shallow(
-        <ButtonLabel
+        <AnchorLabel
           icons={attachedMedia}
           item={row[0]}
         />)
@@ -73,7 +71,7 @@ describe('Component > FieldGuideItemButton', function () {
 
     it('should render the item title as markdown', function () {
       const wrapper = shallow(
-        <ButtonLabel
+        <AnchorLabel
           icons={attachedMedia}
           item={row[0]}
         />)
@@ -82,7 +80,7 @@ describe('Component > FieldGuideItemButton', function () {
 
     it('should render an Icon component', function () {
       const wrapper = shallow(
-        <ButtonLabel
+        <AnchorLabel
           icons={attachedMedia}
           item={row[0]}
         />)
