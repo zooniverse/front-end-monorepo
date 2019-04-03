@@ -1,4 +1,4 @@
-import Tab from './Tab'
+import { Tab } from 'grommet'
 import Tabs from './Tabs'
 
 export {
