@@ -15,6 +15,14 @@ const FeedbackStore = types
     onHide: () => true
   }))
   .views(self => ({
+    get applicableRules () {
+      return flatten(Array.from(self.rules.values()))
+        .map(rule => {
+          if ((rule.success && rule.successEnabled) || (!rule.success && rule.failureEnabled)) {
+            return rule
+          }
+        }).filter(Boolean)
+    },
     get hideSubjectViewer () {
       return flatten(Array.from(self.rules.values()))
         .some(rule => rule.hideSubjectViewer)

@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { Box } from 'grommet'
+import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -39,12 +40,19 @@ function storeMapper (stores) {
 
   const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
 
+  const {
+    applicableRules,
+    showModal: feedback
+  } = stores.classifierStore.feedback
+
   return {
     addAnnotation,
     annotations,
+    applicableRules,
     currentTask,
     enableAnnotate,
     enableMove,
+    feedback,
     interactionMode,
     setOnZoom,
     toolIndex
@@ -196,10 +204,14 @@ class LightCurveViewer extends Component {
 
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
-    this.updateAnnotationBrushes()
     this.updatePresentation(width, height)
-
-    this.initBrushes()
+    
+    if (this.props.feedback) {
+      this.drawFeedbackBrushes()
+    } else {
+      this.updateAnnotationBrushes()
+      this.initBrushes()
+    }
   }
 
   /*  Initialise D3 brushes
@@ -207,8 +219,10 @@ class LightCurveViewer extends Component {
       for brush events.
    */
   initBrushes () {
-    if (!this.annotationBrushes.length) this.createAnnotationBrush() // Create the initial brush
-    this.updateAnnotationBrushes()
+    if (!this.annotationBrushes.length) {
+      this.createAnnotationBrush() // Create the initial brush
+      this.updateAnnotationBrushes()
+    }
 
     // WIP  // TODO
     // - Create 'loadBrushesFromAnnotations()'
@@ -383,8 +397,12 @@ class LightCurveViewer extends Component {
 
   doZoom () {
     this.updateDataPoints()
-    this.updateAnnotationBrushes()
     this.updatePresentation()
+    if (this.props.feedback) {
+      this.drawFeedbackBrushes()
+    } else {
+      this.updateAnnotationBrushes()
+    }
   }
 
   zoomIn () {
@@ -555,6 +573,83 @@ class LightCurveViewer extends Component {
         .attr('transform', `translate(${midXonScreen}, 0)`)
     })
     this.enableBrushEvents() // Re-enable brush events
+  }
+
+  drawFeedbackBrushes () {
+    this.updateInteractionMode('move')
+
+    const annotationBrushes = []
+    this.props.annotations.forEach(annotation => {
+      const { task, value } = toJS(annotation)
+      value.forEach((marking, i) => {
+        const markingBrush = {
+          id: i,
+          brush: d3.brushX(),
+          maxX: (marking.x + (marking.width / 2)),
+          minX: (marking.x - (marking.width / 2))
+        }
+        annotationBrushes.push(markingBrush)
+      })
+    })
+    
+    const ruleBrushes = []
+    this.props.applicableRules.forEach(rule => {
+      const ruleBrush = {
+        id: rule.id,
+        brush: d3.brushX(),
+        maxX: (parseInt(rule.x, 10) + (parseInt(rule.width, 10) / 2) + parseInt(rule.tolerance, 10)),
+        minX: (parseInt(rule.x, 10) - (parseInt(rule.width, 10) / 2) - parseInt(rule.tolerance, 10)),
+        success: rule.success
+      }
+      ruleBrushes.push(ruleBrush)
+    })
+
+    const feedbackBrushes = annotationBrushes.concat(ruleBrushes)
+      
+    // Join the D3 brush objects with our internal annotationBrushes array
+    const brushSelection = this.d3annotationsLayer
+      .selectAll('.brush')
+      .data(feedbackBrushes, (d) => d.id)
+
+    // Set up new brushes
+    brushSelection.enter()
+      .insert('g', '.brush')
+      .attr('class', 'brush')
+      .attr('id', (brush) => (`brush-${brush.id}`))
+      .each(function applyBrushLogic (feedbackBrush) { // Don't use ()=>{}
+        feedbackBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
+      })
+
+    // Modify brush fill color...
+    brushSelection
+      .each(function fill (feedbackBrush) { // Don't use ()=>{}
+        d3.select(this)
+          .attr('class', 'brush')
+          .selectAll('.selection')
+          .style('fill', () => {
+            if (feedbackBrush.success === true) {
+              return 'green'
+            } else if (feedbackBrush.success === false) {
+              return 'red'
+            } else {
+              return 'white'
+            }
+          })
+      })
+
+    // Reposition/re-draw brushes
+    const currentTransform = this.getCurrentTransform()
+    this.disableBrushEvents()
+    feedbackBrushes.forEach((feedbackBrush) => {
+      const d3brush = this.d3annotationsLayer.select(`#brush-${feedbackBrush.id}`)
+
+      const minXonScreen = currentTransform.rescaleX(this.xScale)(feedbackBrush.minX)
+      const maxXonScreen = currentTransform.rescaleX(this.xScale)(feedbackBrush.maxX)
+      const midXonScreen = currentTransform.rescaleX(this.xScale)((feedbackBrush.minX + feedbackBrush.maxX) / 2)
+
+      // Reposition the brushes (selected areas)...
+      d3brush.call(feedbackBrush.brush.move, [minXonScreen, maxXonScreen])
+    })
   }
 
   /*

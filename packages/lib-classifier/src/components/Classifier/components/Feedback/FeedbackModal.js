@@ -43,6 +43,7 @@ class FeedbackModal extends React.Component {
             <Box
               height='medium'
               overflow='auto'
+              width='medium'
             >
               {!hideSubjectViewer && <SubjectViewer />}
               <ul>
