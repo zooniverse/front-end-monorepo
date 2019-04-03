@@ -280,7 +280,7 @@ describe('Model > FieldGuideStore', function () {
     })
   })
 
-  describe('Actions > setActiveItem', function () {
+  describe('Actions > setActiveItemIndex', function () {
     it('should not set the active item if there is no field guide', function (done) {
       rootStore = RootStore.create({
         fieldGuide: FieldGuideStore.create(),
@@ -297,8 +297,8 @@ describe('Model > FieldGuideStore', function () {
         })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem(0)
-        expect(rootStore.fieldGuide.activeItem).to.be.undefined
+        rootStore.fieldGuide.setActiveItemIndex(0)
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -319,8 +319,8 @@ describe('Model > FieldGuideStore', function () {
         })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem()
-        expect(rootStore.fieldGuide.activeItem).to.be.undefined
+        rootStore.fieldGuide.setActiveItemIndex()
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -341,8 +341,8 @@ describe('Model > FieldGuideStore', function () {
         })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem(1)
-        expect(rootStore.fieldGuide.activeItem).to.be.undefined
+        rootStore.fieldGuide.setActiveItemIndex(1)
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -364,8 +364,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItem(fieldGuideWithItems.items[0])
-          expect(rootStore.fieldGuide.activeItem).to.equal(0)
+          rootStore.fieldGuide.setActiveItemIndex(fieldGuideWithItems.items[0])
+          expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
           expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
         }).then(done, done)
     })
@@ -386,8 +386,8 @@ describe('Model > FieldGuideStore', function () {
         })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem(fieldGuideWithoutIcon.items[0])
-        expect(rootStore.fieldGuide.activeItem).to.equal(0)
+        rootStore.fieldGuide.setActiveItemIndex(fieldGuideWithoutIcon.items[0])
+        expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -411,7 +411,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItem(fieldGuideWithItems.items[0])
+          rootStore.fieldGuide.setActiveItemIndex(fieldGuideWithItems.items[0])
           rootStore.fieldGuide.setModalVisibility(true)
         })
         .then(() => {
@@ -419,7 +419,7 @@ describe('Model > FieldGuideStore', function () {
           expect(rootStore.fieldGuide.resources).to.exist
           expect(rootStore.fieldGuide.attachedMedia).to.exist
           expect(rootStore.fieldGuide.activeMedium).to.exist
-          expect(rootStore.fieldGuide.activeItem).to.equal(0)
+          expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
           expect(rootStore.fieldGuide.showModal).to.be.true
           return rootStore.fieldGuide.reset()
         }).then(() => {
@@ -427,7 +427,7 @@ describe('Model > FieldGuideStore', function () {
           expect(rootStore.fieldGuide.resources.size).to.equal(0)
           expect(rootStore.fieldGuide.attachedMedia.size).to.equal(0)
           expect(rootStore.fieldGuide.activeMedium).to.be.undefined
-          expect(rootStore.fieldGuide.activeItem).to.be.undefined
+          expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
           expect(rootStore.fieldGuide.showModal).to.be.false
         }).then(done, done)
     })

@@ -9,7 +9,7 @@ const FieldGuideStore = types
   .model('FieldGuideStore', {
     active: types.maybe(types.reference(FieldGuide)),
     activeMedium: types.maybe(types.reference(Medium)),
-    activeItem: types.maybe(types.integer),
+    activeItemIndex: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(FieldGuide),
     showModal: types.optional(types.boolean, false),
@@ -37,7 +37,7 @@ const FieldGuideStore = types
       self.resources.clear()
       self.activeMedium = undefined
       self.attachedMedia.clear()
-      self.activeItem = undefined
+      self.activeItemIndex = undefined
       self.showModal = false
     }
 
@@ -92,7 +92,7 @@ const FieldGuideStore = types
       self.showModal = boolean
     }
 
-    function setActiveItem (item) {
+    function setActiveItemIndex (item) {
       const fieldGuide = self.active
       if (fieldGuide) {
         const { items } = fieldGuide
@@ -100,10 +100,10 @@ const FieldGuideStore = types
         if (items[index]) {
           const { icon } = items[index]
           if (icon) self.activeMedium = icon
-          return self.activeItem = index
+          return self.activeItemIndex = index
         }
 
-        return self.activeItem = undefined
+        return self.activeItemIndex = undefined
       }
     }
 
@@ -111,7 +111,7 @@ const FieldGuideStore = types
       afterAttach,
       fetchFieldGuide: flow(fetchFieldGuide),
       reset,
-      setActiveItem,
+      setActiveItemIndex,
       setMediaResources,
       setModalVisibility
     }
