@@ -30,19 +30,19 @@ describe('Component > FieldGuideItems', function () {
     expect(wrapper).to.be.ok
   })
 
-  it('should render a Grid row for every 4 items', function () {
+  it('should render a Grid component', function () {
     const wrapper = shallow(
       <FieldGuideItems
         items={items}
       />)
-    expect(wrapper.find(Grid)).to.be.lengthOf(2)
+    expect(wrapper.find(Grid)).to.be.lengthOf(1)
   })
 
-  it('should render a FieldGuideItemAnchor as a child of the Grid row', function () {
+  it('should render a FieldGuideItemAnchor equal to the number of items', function () {
     const wrapper = shallow(
       <FieldGuideItems
         items={items}
       />)
-    expect(wrapper.find(FieldGuideItemAnchor)).to.be.lengthOf(wrapper.find(Grid).length)
+    expect(wrapper.find(FieldGuideItemAnchor)).to.be.lengthOf(items.length)
   })
 })

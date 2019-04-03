@@ -3,44 +3,35 @@ import sinon from 'sinon'
 import React from 'react'
 import { observable } from 'mobx'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import FieldGuideItemAnchor, { Icon, AnchorLabel } from './FieldGuideItemAnchor'
+import FieldGuideItemAnchor, { AnchorLabel } from './FieldGuideItemAnchor'
+import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const attachedMedia = observable.map()
 attachedMedia.set(medium.id, medium)
-const row = [{
+const item = {
   title: 'Cat',
   icon: medium.id,
   content: 'lorem ipsum'
-}]
+}
 
 describe('Component > FieldGuideItemAnchor', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
-        row={row}
+        item={item}
         setActiveItemIndex={() => {}}
       />)
     expect(wrapper).to.be.ok
-  })
-
-  it('should render the number of buttons equal to the number of row items', function () {
-    const wrapper = shallow(
-      <FieldGuideItemAnchor.wrappedComponent
-        icons={attachedMedia}
-        row={row}
-        setActiveItemIndex={() => { }}
-      />)
-    expect(wrapper).to.have.lengthOf(row.length)
   })
 
   it('should use AnchorLabel as the label', function () {
     const wrapper = shallow(
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
-        row={row}
+        item={item}
         setActiveItemIndex={() => { }}
       />)
     expect(wrapper.props().label.type).to.equal(AnchorLabel)
@@ -51,12 +42,12 @@ describe('Component > FieldGuideItemAnchor', function () {
     const wrapper = shallow(
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
-        row={row}
+        item={item}
         setActiveItemIndex={setActiveItemIndexSpy}
       />)
 
     wrapper.simulate('click', { preventDefault: () => {} })
-    expect(setActiveItemIndexSpy).to.have.been.calledOnceWith(row[0])
+    expect(setActiveItemIndexSpy).to.have.been.calledOnceWith(item)
   })
 
   describe('Component > AnchorLabel', function () {
@@ -64,7 +55,7 @@ describe('Component > FieldGuideItemAnchor', function () {
       const wrapper = shallow(
         <AnchorLabel
           icons={attachedMedia}
-          item={row[0]}
+          item={item}
         />)
       expect(wrapper).to.be.ok
     })
@@ -73,44 +64,19 @@ describe('Component > FieldGuideItemAnchor', function () {
       const wrapper = shallow(
         <AnchorLabel
           icons={attachedMedia}
-          item={row[0]}
+          item={item}
         />)
-      expect(wrapper.find(Markdownz).contains(row[0].title)).to.be.true
+      expect(wrapper.find(Markdownz).contains(item.title)).to.be.true
     })
 
-    it('should render an Icon component', function () {
+    it('should render an FieldGuideItemIcon component', function () {
       const wrapper = shallow(
         <AnchorLabel
           icons={attachedMedia}
-          item={row[0]}
+          item={item}
         />)
 
-      expect(wrapper.find(Icon)).to.have.lengthOf(1)
-    })
-  })
-
-  describe('Component > Icon', function () {
-    const icon = attachedMedia.get(medium.id)
-    it('should render without crashing', function () {
-      const wrapper = shallow(
-        <Icon
-          icon={icon}
-        />)
-      expect(wrapper).to.be.ok
-    })
-
-    it('should render a Media component if there is an icon', function () {
-      const wrapper = shallow(
-        <Icon
-          icon={icon}
-        />)
-      expect(wrapper.find(Media)).to.have.lengthOf(1)
-    })
-
-    it('should render a placeholder svg if there is not an icon', function () {
-      const wrapper = shallow(<Icon />)
-      expect(wrapper.find(Media)).to.have.lengthOf(0)
-      expect(wrapper.find('svg')).to.have.lengthOf(1)
+      expect(wrapper.find(FieldGuideItemIcon)).to.have.lengthOf(1)
     })
   })
 })

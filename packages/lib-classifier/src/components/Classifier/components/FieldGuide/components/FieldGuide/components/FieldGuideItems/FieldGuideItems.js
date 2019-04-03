@@ -8,13 +8,11 @@ export default function FieldGuideItems({ className, items }) {
     <Grid
       className={className}
       columns={{ count: 'fill', size: '100px' }}
-      margin={{ bottom: 'small' }}
       gap='medium'
       rows='150px'
       width='100%'
     >
-      {items.map((item) => {
-        return (<FieldGuideItemAnchor key={item.title} item={item} />)})}
+      {items.map(item => <FieldGuideItemAnchor key={item.title} item={item} />)}
     </Grid>
   )
 }

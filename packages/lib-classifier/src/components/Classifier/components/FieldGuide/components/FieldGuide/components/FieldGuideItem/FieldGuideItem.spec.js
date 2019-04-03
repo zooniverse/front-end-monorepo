@@ -5,6 +5,7 @@ import { observable } from 'mobx'
 import { Button } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import FieldGuideItem from './FieldGuideItem'
+import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
 
 const medium = FieldGuideMediumFactory.build()
@@ -61,7 +62,7 @@ describe('Component > FieldGuideItem', function () {
     expect(wrapper.find(Markdownz).last().contains(item.content)).to.be.true
   })
 
-  it('should render a Media component for the icon', function () {
+  it('should render a FieldGuideItemIcon component for the icon', function () {
     const wrapper = shallow(
       <FieldGuideItem.wrappedComponent
         icons={attachedMedia}
@@ -69,18 +70,6 @@ describe('Component > FieldGuideItem', function () {
         setActiveItemIndex={() => { }}
       />)
 
-    expect(wrapper.find(Media)).to.have.lengthOf(1)
-    expect(wrapper.find(Media).props().src).to.equal(medium.src)
-  })
-
-  it('should not render a Media component if there is no icon', function () {
-    const wrapper = shallow(
-      <FieldGuideItem.wrappedComponent
-        icons={observable.map()}
-        item={item}
-        setActiveItemIndex={() => { }}
-      />)
-
-    expect(wrapper.find(Media)).to.have.lengthOf(0)
+    expect(wrapper.find(FieldGuideItemIcon)).to.have.lengthOf(1)
   })
 })
