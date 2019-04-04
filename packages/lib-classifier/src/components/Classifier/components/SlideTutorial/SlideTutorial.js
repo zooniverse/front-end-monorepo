@@ -20,7 +20,7 @@ function storeMapper (stores) {
 
 const StyledMarkdownWrapper = styled(Box)`
   height: 100%;
-  max-height: ${props => props.isThereMedia ? '150px' : '100%'};
+  max-height:'100%';
 
   > hr {
     width: 100%; /* Why is this needed? */
@@ -40,7 +40,7 @@ class SlideTutorial extends React.Component {
       return (
         <ResponsiveContext>
         {size => {
-          const height = (size === 'small') ? '100%' : '510px'
+          const height = (size === 'small') ? '100%' : '465px'
           return (
             <Box
               height={height}
