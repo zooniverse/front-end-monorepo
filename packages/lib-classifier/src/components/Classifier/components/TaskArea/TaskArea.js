@@ -2,14 +2,13 @@ import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
-import { bool, func, object, oneOf, shape } from 'prop-types'
+import { bool, func, object } from 'prop-types'
 import React from 'react'
-import { withTheme } from 'styled-components'
 
 import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
-import SlideTutorial from '../SlideTutorial'
 import en from './locales/en'
+import SlideTutorial from '../SlideTutorial'
 
 counterpart.registerTranslations('en', en)
 
@@ -32,20 +31,11 @@ class TaskArea extends React.Component {
   }
 
   render () {
-    const { theme: { mode }, disableTutorialTab } = this.props
-
-    const border = {
-      side: 'all',
-      color: (mode === 'light') ? 'light-3' : 'dark-1',
-      size: 'xsmall'
-    }
+    const { disableTutorialTab } = this.props
 
     return (
       <Tabs
-        background={mode === 'light' ? 'white' : 'dark-1'}
-        border={border}
         className={this.props.className}
-        margin='none'
         onActive={this.onTabClick.bind(this)}
       >
         <Tab
@@ -55,7 +45,7 @@ class TaskArea extends React.Component {
             </SpacedText>
           )}
         >
-          <Box background={mode === 'light' ? 'white' : 'dark-1'}>
+          <Box>
             <Tasks />
           </Box>
         </Tab>
@@ -67,7 +57,7 @@ class TaskArea extends React.Component {
             </SpacedText>
           )}
         >
-          <Box background={mode === 'light' ? 'white' : 'dark-1'}>
+          <Box>
             <SlideTutorial />
           </Box>
         </Tab>
@@ -79,18 +69,12 @@ class TaskArea extends React.Component {
 TaskArea.propTypes = {
   disableTutorialTab: bool,
   setActiveTutorial: func,
-  theme: shape({
-    mode: oneOf(['light', 'dark'])
-  }),
   tutorial: object
 }
 
 TaskArea.defaultProps = {
   disableTutorialTab: true,
   setActiveTutorial: () => {},
-  theme: {
-    mode: 'light'
-  },
   tutorial: null
 }
 
@@ -102,5 +86,5 @@ TaskArea.defaultProps = {
 
   https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
 */
-export default inject(storeMapper)(withTheme(observer(TaskArea)))
+export default inject(storeMapper)(observer(TaskArea))
 export { TaskArea }
