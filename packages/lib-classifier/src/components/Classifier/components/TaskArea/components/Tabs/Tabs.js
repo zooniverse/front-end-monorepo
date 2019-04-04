@@ -11,13 +11,13 @@ function Tabs (props) {
   const activeBackgroundColor = isLight ? colors['white'] : colors['dark-3']
   const hoverBackgroundColor = isLight
     ? {
-        bottom: darken(0.11, colors['accent-2']),
-        top: lighten(0.05, colors['accent-2'])
-      }
+      bottom: darken(0.11, colors['accent-2']),
+      top: lighten(0.05, colors['accent-2'])
+    }
     : {
-        bottom: darken(0.11, colors['neutral-2']),
-        top: darken(0.04, colors['neutral-2'])
-      }
+      bottom: darken(0.11, colors['neutral-2']),
+      top: darken(0.04, colors['neutral-2'])
+    }
 
   const tabsTheme = Object.assign({}, props.theme, {
     tab: {
@@ -33,12 +33,12 @@ function Tabs (props) {
         },
         color: {
           dark: 'dark-1',
-          light: 'light-3',
+          light: 'light-3'
         },
         hover: {
           color: {
             dark: 'dark-1',
-            light: 'light-3',
+            light: 'light-3'
           }
         },
         size: 'xsmall'
@@ -53,7 +53,6 @@ function Tabs (props) {
             background: linear-gradient(${hoverBackgroundColor.top}, ${hoverBackgroundColor.bottom});
           }
         }
-
       `,
       pad: 'small'
     },
@@ -104,7 +103,7 @@ Tabs.propTypes = {
         'light-3': string,
         'neutral-2': string,
         'neutral-2': string,
-        'white': string,
+        'white': string
       })
     })
   })
