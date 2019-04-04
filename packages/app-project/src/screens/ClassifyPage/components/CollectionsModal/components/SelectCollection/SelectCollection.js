@@ -30,6 +30,7 @@ function SelectCollection ({
         label={counterpart('SelectCollection.label')}
       >
         <Select
+          dropHeight='medium'
           id='collectionsSearch'
           labelKey='display_name'
           name='display_name'
