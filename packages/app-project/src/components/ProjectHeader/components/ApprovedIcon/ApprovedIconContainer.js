@@ -15,7 +15,7 @@ function storeMapper (stores) {
 class ApprovedIconContainer extends Component {
   render () {
     return (
-      <ApprovedIcon approved={this.props.approved} />
+      <ApprovedIcon {...this.props} />
     )
   }
 }
