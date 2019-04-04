@@ -2,6 +2,7 @@ import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
 import SlideTutorial from '../SlideTutorial'
@@ -32,7 +33,14 @@ class ModalTutorial extends React.Component {
           closeFn={() => { setModalVisibility(false) }}
           title={counterpart('ModalTutorial.title')}
         >
-          <SlideTutorial pad="none" width="330px" />
+          <ResponsiveContext>
+            { size => {
+              const width = (size === 'small') ? '100%' : '330px'
+              return (
+                <SlideTutorial pad="none" width={width} />
+              )
+            }}
+          </ResponsiveContext>
         </Modal>
       )
     }

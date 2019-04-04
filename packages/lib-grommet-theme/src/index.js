@@ -223,6 +223,12 @@ const theme = deepFreeze({
       height: '34px',
       maxWidth: '624px'
     }
+  },
+  radioButton: {
+    icon: {
+      size: 'small'
+    },
+    size: '15px'
   }
 })
 

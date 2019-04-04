@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import styled from 'styled-components'
-import { Box, Paragraph } from 'grommet'
+import { Box, Paragraph, ResponsiveContext } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 import en from './locales/en'
@@ -38,24 +38,31 @@ class SlideTutorial extends React.Component {
       const { medium, step } = stepWithMedium
       const isThereMedia = medium && medium.src
       return (
-        <Box
-          height='100%'
-          justify='between'
-          {...this.props}
-        >
-          {isThereMedia &&
-            <Media
-              alt={counterpart('SlideTutorial.alt', { activeStep })}
-              fit='cover'
-              height={200}
-              src={medium.src}
-            />}
-          <StyledMarkdownWrapper aria-live='polite' autoFocus isThereMedia={isThereMedia} overflow='auto'>
-            {/* TODO: translation */}
-            <Markdownz>{step.content}</Markdownz>
-          </StyledMarkdownWrapper>
-          <StepNavigation />
-        </Box>
+        <ResponsiveContext>
+        {size => {
+          const height = (size === 'small') ? '100%' : '510px'
+          return (
+            <Box
+              height={height}
+              justify='between'
+              {...this.props}
+            >
+              {isThereMedia &&
+                <Media
+                  alt={counterpart('SlideTutorial.alt', { activeStep })}
+                  fit='cover'
+                  height={200}
+                  src={medium.src}
+                />}
+              <StyledMarkdownWrapper aria-live='polite' autoFocus isThereMedia={isThereMedia} overflow='auto'>
+                {/* TODO: translation */}
+                <Markdownz>{step.content}</Markdownz>
+              </StyledMarkdownWrapper>
+              <StepNavigation />
+            </Box>
+          )}
+        }
+        </ResponsiveContext>
       )
     }
 
