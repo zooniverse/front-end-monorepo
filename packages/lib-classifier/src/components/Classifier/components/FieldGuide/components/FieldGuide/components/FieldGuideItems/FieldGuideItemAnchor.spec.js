@@ -15,6 +15,7 @@ const item = {
   icon: medium.id,
   content: 'lorem ipsum'
 }
+const itemIndex = 0
 
 describe('Component > FieldGuideItemAnchor', function () {
   it('should render without crashing', function () {
@@ -22,6 +23,7 @@ describe('Component > FieldGuideItemAnchor', function () {
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         item={item}
+        itemIndex={itemIndex}
         setActiveItemIndex={() => {}}
       />)
     expect(wrapper).to.be.ok
@@ -32,6 +34,7 @@ describe('Component > FieldGuideItemAnchor', function () {
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         item={item}
+        itemIndex={itemIndex}
         setActiveItemIndex={() => { }}
       />)
     expect(wrapper.props().label.type).to.equal(AnchorLabel)
@@ -43,11 +46,12 @@ describe('Component > FieldGuideItemAnchor', function () {
       <FieldGuideItemAnchor.wrappedComponent
         icons={attachedMedia}
         item={item}
+        itemIndex={itemIndex}
         setActiveItemIndex={setActiveItemIndexSpy}
       />)
 
     wrapper.simulate('click', { preventDefault: () => {} })
-    expect(setActiveItemIndexSpy).to.have.been.calledOnceWith(item)
+    expect(setActiveItemIndexSpy).to.have.been.calledOnceWith(itemIndex)
   })
 
   describe('Component > AnchorLabel', function () {

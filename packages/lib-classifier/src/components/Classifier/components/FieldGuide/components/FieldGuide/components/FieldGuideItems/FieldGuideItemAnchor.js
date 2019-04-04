@@ -38,14 +38,14 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class FieldGuideItemAnchor extends React.Component {
-  onClick (event, item) {
+  onClick (event, itemIndex) {
     const { setActiveItemIndex } = this.props
     event.preventDefault()
-    setActiveItemIndex(item)
+    setActiveItemIndex(itemIndex)
   }
 
   render () {
-    const { className, icons, item } = this.props
+    const { className, icons, item, itemIndex } = this.props
     const label = <AnchorLabel icons={icons} item={item} />
 
     return (
@@ -53,9 +53,9 @@ class FieldGuideItemAnchor extends React.Component {
         a11yTitle={counterpart('FieldGuideItemAnchor.ariaTitle', { title: item.title })}
         className={className}
         color='dark-5'
-        href=''
+        href={`#field-guide-item-${itemIndex}`}
         label={label}
-        onClick={(event) => this.onClick(event, item)}
+        onClick={(event) => this.onClick(event, itemIndex)}
       />
     )
   }

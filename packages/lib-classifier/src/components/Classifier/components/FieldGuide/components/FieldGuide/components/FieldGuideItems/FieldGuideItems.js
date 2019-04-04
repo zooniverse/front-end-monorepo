@@ -12,7 +12,7 @@ export default function FieldGuideItems({ className, items }) {
       rows='150px'
       width='100%'
     >
-      {items.map(item => <FieldGuideItemAnchor key={item.title} item={item} />)}
+      {items.map((item, index) => <FieldGuideItemAnchor key={item.title} item={item} itemIndex={index} />)}
     </Grid>
   )
 }

@@ -364,7 +364,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItemIndex(fieldGuideWithItems.items[0])
+          rootStore.fieldGuide.setActiveItemIndex(0)
           expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
           expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
         }).then(done, done)
@@ -386,7 +386,7 @@ describe('Model > FieldGuideStore', function () {
         })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItemIndex(fieldGuideWithoutIcon.items[0])
+        rootStore.fieldGuide.setActiveItemIndex(0)
         expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
@@ -411,7 +411,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItemIndex(fieldGuideWithItems.items[0])
+          rootStore.fieldGuide.setActiveItemIndex(0)
           rootStore.fieldGuide.setModalVisibility(true)
         })
         .then(() => {
