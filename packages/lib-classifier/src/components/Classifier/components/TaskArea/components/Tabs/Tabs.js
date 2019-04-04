@@ -6,7 +6,6 @@ import { withTheme } from 'styled-components'
 
 function Tabs (props) {
   const { global: { colors }, mode } = props.theme
-
   const isLight = mode === 'light'
   const borderColor = isLight ? colors['light-3'] : colors['dark-1']
   const activeBackgroundColor = isLight ? colors['white'] : colors['dark-3']
@@ -44,22 +43,17 @@ function Tabs (props) {
         },
         size: 'xsmall'
       },
-      // We use the border color check here as a proxy for the active tab, as
-      // the props don't include the active state prop.
       extend: props => `
         margin: 0;
         padding: 16px 20px;
-        ${props.border.color === 'transparent' && (`
-          border-left: 1px solid ${borderColor};
-          border-right: 1px solid ${borderColor};
-          border-top: 1px solid ${borderColor};
-        `)}
-        ${props.border.color !== 'transparent' && (`
+        border-right: 1px solid ${borderColor};
+        button[aria-selected="false"] & {
           &:focus,
           &:hover {
             background: linear-gradient(${hoverBackgroundColor.top}, ${hoverBackgroundColor.bottom});
           }
-        `)}
+        }
+
       `,
       pad: 'small'
     },
@@ -76,6 +70,8 @@ function Tabs (props) {
         },
         extend: `
           text-align: center;
+          border-left: 1px solid ${borderColor};
+          border-top: 1px solid ${borderColor};
         `
       },
       panel: {
