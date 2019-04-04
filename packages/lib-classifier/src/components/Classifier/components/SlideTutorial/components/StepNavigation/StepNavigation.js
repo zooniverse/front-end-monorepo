@@ -60,7 +60,7 @@ class StepNavigation extends React.Component {
         }
       })
       return (
-        <Box as='nav' align='center' className={className} direction='row' justify='center'>
+        <Box as='nav' align='center' className={className} direction='row' justify='center' margin={{ top: '30px' }}>
           <StyledButton
             a11yTitle={counterpart('StepNavigation.previous')}
             data-index={prevStep}
