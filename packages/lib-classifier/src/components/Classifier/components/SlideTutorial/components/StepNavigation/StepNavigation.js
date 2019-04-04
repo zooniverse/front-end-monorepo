@@ -2,18 +2,17 @@ import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import { Button, Box, RadioButton } from 'grommet'
+import { Button, Box, RadioButtonGroup } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious } from 'grommet-icons'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const HiddenRadioLabel = styled.span`
-  display: flex;
-  flex-direction: row;
+const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   position: relative;
-  ${RadioButton} span {
+
+  > label > span {
     height: 0;
     overflow: hidden;
     position: absolute;
@@ -33,13 +32,30 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class StepNavigation extends React.Component {
+  onChange (event) {
+    const { setTutorialStep } = this.props
+    const indexValue = event.target.value.split('-')[1]
+    setTutorialStep(Number(indexValue))
+  }
+
   render () {
-    const { activeStep, setTutorialStep, steps } = this.props
+    const { activeStep, className, setTutorialStep, steps } = this.props
     if (steps && steps.length > 1) {
       const nextStep = activeStep + 1
       const prevStep = activeStep - 1
+      const options = steps.map((step, index) => {
+        const label = counterpart('StepNavigation.go', { index: index + 1 })
+        // We can't just use index for the value
+        // because Grommet is using indexes internally as keys and this will error with a duplicate key
+        const value = `step-${index}`
+        return {
+          id: value,
+          label,
+          value
+        }
+      })
       return (
-        <Box direction='row' justify='center' tag='nav'>
+        <Box as='nav' className={className} direction='row' justify='center'>
           <Button
             a11yTitle={counterpart('StepNavigation.previous')}
             data-index={prevStep}
@@ -48,22 +64,13 @@ class StepNavigation extends React.Component {
             onClick={() => setTutorialStep(prevStep)}
             plain
           />
-          {steps.map((step, index) => {
-            const active = index === activeStep
-            const key = `step-${index}`
-            return (
-              <HiddenRadioLabel key={key}>
-                <RadioButton
-                  checked={active}
-                  id={key}
-                  label={counterpart('StepNavigation.go', { index: index + 1 })}
-                  name='step-selectors'
-                  onChange={() => setTutorialStep(index)}
-                  value={index}
-                />
-              </HiddenRadioLabel>
-            )
-          })}
+          <StyledRadioButtonGroup
+            direction='row'
+            name='step-selectors'
+            onChange={this.onChange.bind(this)}
+            options={options}
+            value={`step-${activeStep}`}
+          />
           <Button
             a11yTitle={counterpart('StepNavigation.next')}
             data-index={nextStep}
@@ -82,12 +89,14 @@ class StepNavigation extends React.Component {
 
 StepNavigation.wrappedComponent.defaultProps = {
   activeStep: 0,
+  className: '',
   setTutorialStep: () => {},
   steps: []
 }
 
 StepNavigation.wrappedComponent.propTypes = {
   activeStep: PropTypes.number,
+  className: PropTypes.string,
   setTutorialStep: PropTypes.func,
   steps: PropTypes.array
 }
