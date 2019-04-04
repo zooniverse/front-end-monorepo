@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Button, RadioButton } from 'grommet'
+import { Button } from 'grommet'
 import { FormNext, FormPrevious } from 'grommet-icons'
 import StepNavigation from './StepNavigation'
 
@@ -36,17 +36,23 @@ describe('StepNavigation', function () {
     expect(wrapper.find({ icon: <FormNext /> })).to.have.lengthOf(1)
   })
 
-  it('should render a radio button for each step', function () {
+  it('should render a radio button group', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
-    const buttons = wrapper.find(RadioButton)
 
-    expect(buttons).to.have.lengthOf(steps.length)
+    expect(wrapper.find('Styled(RadioButtonGroup)')).to.have.lengthOf(1)
   })
 
-  it('should render a radio button with the checked attribute as true if active', function () {
+  it('should use the steps to set the options on RadioButtonGroup', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
-    const activeButton = wrapper.find(RadioButton).find({ checked: true })
-    expect(activeButton).to.have.lengthOf(1)
+    const options = wrapper.find('Styled(RadioButtonGroup)').props().options
+    expect(Object.keys(options)).to.have.lengthOf(steps.length)
+  })
+
+  it('should set the active value of the RadioButtonGroup', function () {
+    const activeStep = 1
+    const wrapper = shallow(<StepNavigation.wrappedComponent activeStep={activeStep} steps={steps} />)
+    const activeValue = wrapper.find('Styled(RadioButtonGroup)').props().value
+    expect(activeValue).to.equal(`step-${activeStep}`)
   })
 
   it('should disable the previous step button when props.activeStep is 0', function () {
@@ -59,6 +65,22 @@ describe('StepNavigation', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent activeStep={1} steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true
+  })
+
+  describe('#onChange', function () {
+    let setTutorialStepSpy
+    let wrapper
+    const step = 1
+
+    before(function () {
+      setTutorialStepSpy = sinon.spy()
+      wrapper = shallow(<StepNavigation.wrappedComponent setTutorialStep={setTutorialStepSpy} steps={steps} />)
+    })
+
+    it('should call setTutorialStep with the value index as a number', function () {
+      wrapper.instance().onChange({ target: { value: `step-${step}` }})
+      expect(setTutorialStepSpy).to.be.calledOnceWith(step)
+    })
   })
 
   describe('props.setTutorialStep', function () {
@@ -85,35 +107,12 @@ describe('StepNavigation', function () {
       })
     })
 
-    it('should call props.setTutorialStep on change for each radio button', function () {
-      const buttons = wrapper.find(RadioButton)
-
-      buttons.forEach(button => {
-        button.simulate('change')
-        expect(setTutorialStepSpy).to.have.been.calledOnce
-        setTutorialStepSpy.resetHistory()
-      })
-    })
-
     it('should call setTutorialStep when the previous step button is clicked with props.activeStep - 1', function () {
       wrapper.setProps({ activeStep: 1 })
       const prevButton = wrapper.find({ icon: <FormPrevious /> })
       prevButton.simulate('click')
       expect(setTutorialStepSpy).to.have.been.calledOnce
       expect(setTutorialStepSpy).to.have.been.calledWith(prevButton.props()['data-index'])
-    })
-
-    it('should call setTutorialStep when a specific step button is clicked with the correct index', function () {
-      wrapper.setProps({ activeStep: 0 })
-      const buttons = wrapper.find(RadioButton)
-
-      buttons.forEach(button => {
-        const buttonIndex = button.props().value
-        button.simulate('change')
-        expect(setTutorialStepSpy).to.have.been.calledOnce
-        expect(setTutorialStepSpy).to.have.been.calledWith(buttonIndex)
-        setTutorialStepSpy.resetHistory()
-      })
     })
 
     it('should call setTutorialStep when the next step button is clicked with props.activeStep + 1', function () {

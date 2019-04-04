@@ -46,7 +46,7 @@ class SlideTutorial extends React.Component {
               height={200}
               src={medium.src}
             />}
-          <StyledMarkdownWrapper autoFocus isThereMedia={isThereMedia} overflow='auto'>
+          <StyledMarkdownWrapper aria-live='polite' autoFocus isThereMedia={isThereMedia} overflow='auto'>
             {/* TODO: translation */}
             <Markdownz>{step.content}</Markdownz>
           </StyledMarkdownWrapper>
