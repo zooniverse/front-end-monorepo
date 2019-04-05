@@ -33,14 +33,14 @@ class ModalTutorial extends React.Component {
           closeFn={() => { setModalVisibility(false) }}
           title={counterpart('ModalTutorial.title')}
         >
-          <ResponsiveContext>
-            { size => {
+          <ResponsiveContext.Consumer>
+            {size => {
               const width = (size === 'small') ? '100%' : '330px'
               return (
                 <SlideTutorial pad="none" width={width} />
               )
             }}
-          </ResponsiveContext>
+          </ResponsiveContext.Consumer>
         </Modal>
       )
     }

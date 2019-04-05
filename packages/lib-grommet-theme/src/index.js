@@ -264,15 +264,17 @@ const theme = deepFreeze({
           maxWidth: "1008px"
         }
       },
-      4: { // Same font size as h3, but should be regular not bold. How to set this in the theme?
-        // font: {}
+      4: { // Same font size as h3, but should be regular not bold.
+        font: {
+          weight: 'normal'
+        },
         small: {
           size: "18px",
           height: "24px",
           maxWidth: "432px"
         },
         medium: {
-          size: "26x",
+          size: "26px",
           height: "31px",
           maxWidth: "432px"
         },
@@ -335,7 +337,8 @@ const theme = deepFreeze({
       }
     },
     responsiveBreakpoint: "small",
-    weight: 600
+    weight: 600,
+    extend: props => `margin: ${props.margin || '10px 0 10px 0'}`
   },
   layer: {
     border: {
@@ -367,7 +370,8 @@ const theme = deepFreeze({
       size: '26px',
       height: '34px',
       maxWidth: '624px'
-    }
+    },
+    extend: props => `margin: ${props.margin || '1em 0 1em 0'}`
   },
   text: {
     xsmall: {

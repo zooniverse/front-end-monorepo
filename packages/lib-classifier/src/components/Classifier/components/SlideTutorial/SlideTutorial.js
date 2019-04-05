@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import styled from 'styled-components'
-import { Box, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 import en from './locales/en'
@@ -12,18 +12,27 @@ counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const { activeStep, stepWithMedium } = stores.classifierStore.tutorials
+  const { active: project } = stores.classifierStore.projects
   return {
     activeStep,
+    projectDisplayName: project.display_name,
     stepWithMedium
   }
 }
 
 const StyledMarkdownWrapper = styled(Box)`
-  height: 100%;
-  max-height:'100%';
-
   > hr {
     width: 100%; /* Why is this needed? */
+  }
+
+  > h1, h2 {
+    font-size: 26px;
+    line-height: 31px;
+  }
+
+  > p {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `
 
@@ -33,12 +42,12 @@ const StyledMarkdownWrapper = styled(Box)`
 @observer
 class SlideTutorial extends React.Component {
   render () {
-    const { activeStep, stepWithMedium } = this.props
+    const { activeStep, projectDisplayName, stepWithMedium } = this.props
     if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
       const { medium, step } = stepWithMedium
       const isThereMedia = medium && medium.src
       return (
-        <ResponsiveContext>
+        <ResponsiveContext.Consumer>
         {size => {
           const height = (size === 'small') ? '100%' : '465px'
           return (
@@ -54,7 +63,8 @@ class SlideTutorial extends React.Component {
                   height={200}
                   src={medium.src}
                 />}
-              <StyledMarkdownWrapper aria-live='polite' autoFocus isThereMedia={isThereMedia} overflow='auto'>
+              <Heading level='3' margin='20px 0 10px 0'>{counterpart('SlideTutorial.heading', { projectDisplayName })}</Heading>
+              <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow='auto'>
                 {/* TODO: translation */}
                 <Markdownz>{step.content}</Markdownz>
               </StyledMarkdownWrapper>
@@ -62,7 +72,7 @@ class SlideTutorial extends React.Component {
             </Box>
           )}
         }
-        </ResponsiveContext>
+        </ResponsiveContext.Consumer>
       )
     }
 
@@ -80,11 +90,13 @@ class SlideTutorial extends React.Component {
 
 SlideTutorial.wrappedComponent.defaultProps = {
   activeStep: 0,
+  projectDisplayName: '',
   pad: "medium"
 }
 
 SlideTutorial.wrappedComponent.propTypes = {
   activeStep: PropTypes.number,
+  projectDisplayName: PropTypes.string,
   stepWithMedium: PropTypes.shape({
     medium: PropTypes.shape({
       content_type: PropTypes.string,
