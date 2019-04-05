@@ -13,7 +13,7 @@ function ProjectHomePage() {
       <Grid
         fill="horizontal"
         gap="medium"
-        columns={['repeat(auto-fit, minmax(420px, 1fr))']}
+        columns={['repeat(auto-fit, minmax(320px, 1fr))']}
       >
         <MessageFromResearcher />
         <AboutProject />
