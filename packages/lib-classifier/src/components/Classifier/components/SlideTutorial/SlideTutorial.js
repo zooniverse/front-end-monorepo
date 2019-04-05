@@ -26,7 +26,7 @@ const StyledMarkdownWrapper = styled(Box)`
 `
 
 function SlideTutorial (props) {
-  const { activeStep, className, projectDisplayName, height, stepWithMedium } = props
+  const { activeStep, className, projectDisplayName, height, pad, stepWithMedium, width } = props
   const { medium, step } = stepWithMedium
   const isThereMedia = medium && medium.src
   return (
@@ -34,6 +34,8 @@ function SlideTutorial (props) {
       className={className}
       height={height}
       justify='between'
+      pad={pad}
+      width={width}
     >
       {isThereMedia &&
         <Media
