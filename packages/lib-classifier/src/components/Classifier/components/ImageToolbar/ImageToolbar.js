@@ -35,7 +35,7 @@ class ImageToolbar extends Component {
           <ZoomOutButton />
           <RotateButton disabled />
           <FullscreenButton disabled />
-          <ResetButton disabled />
+          <ResetButton />
         </Box>
         <FieldGuideButton />
       </Box>
