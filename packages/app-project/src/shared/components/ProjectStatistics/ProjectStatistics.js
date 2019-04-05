@@ -24,7 +24,7 @@ const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
 `
 
-function ProjectStatistics ({
+function ProjectStatistics({
   className,
   classifications,
   completedSubjects,
@@ -43,15 +43,14 @@ function ProjectStatistics ({
       <MainGrid>
         <section>
           <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
-          <StyledParagraph margin={{ bottom: 'small', top: 'none' }} size='small'>
+          <StyledParagraph
+            margin={{ bottom: 'small', top: 'none' }}
+            size="small"
+          >
             {counterpart('ProjectStatistics.text')}
           </StyledParagraph>
           <CompletionBar />
-          <Text
-            margin={{ top: 'small' }}
-            size='small'
-            weight='bold'
-          >
+          <Text margin={{ top: 'small' }} size="small" weight="bold">
             {counterpart('ProjectStatistics.percentComplete')}
           </Text>
         </section>
