@@ -1,10 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import { Paragraph } from 'grommet'
 import StepNavigation from './components/StepNavigation'
 import SlideTutorial from './SlideTutorial'
-import en from './locales/en'
 
 const step = {
   content: '# Welcome'
@@ -22,40 +20,28 @@ const medium = {
 
 describe('SlideTutorial', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
+    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
     expect(wrapper).to.be.ok
   })
 
-  it('should render an error message if props.stepWithMedium is not defined', function () {
-    const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
-    expect(wrapper.contains(<Paragraph>{en.SlideTutorial.error}</Paragraph>)).to.be.true
+  it('should render markdown from the step content', function () {
+    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    expect(wrapper.find(Markdownz)).to.have.lengthOf(1)
   })
 
-  it('should render an error message if props.stepWithMedium is an empty object', function () {
-    const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{}} />)
-    expect(wrapper.contains(<Paragraph>{en.SlideTutorial.error}</Paragraph>)).to.be.true
+  it('should render StepNavigation component', function () {
+    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    expect(wrapper.find(StepNavigation)).to.have.lengthOf(1)
   })
 
-  // TODO: Enzyme doesn't support React `createContext` yet which Grommet uses
-  // So these tests will be broken until they support that.
-  // it('should render markdown from the step content', function () {
-  //   const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{ step }} />)
-  //   expect(wrapper.find(Markdownz)).to.have.lengthOf(1)
-  // })
+  it('should not render Media if there is not an attached medium', function () {
+    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    expect(wrapper.find(Media)).to.have.lengthOf(0)
+  })
 
-  // it('should render StepNavigation component', function () {
-  //   const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{ step }} />)
-  //   expect(wrapper.find(StepNavigation)).to.have.lengthOf(1)
-  // })
-
-  // it('should not render Media if there is not an attached medium', function () {
-  //   const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{ step }} />)
-  //   expect(wrapper.find(Media)).to.have.lengthOf(0)
-  // })
-
-  // it('should render Media if an attached medium exists', function () {
-  //   step.medium = medium.id
-  //   const wrapper = shallow(<SlideTutorial.wrappedComponent stepWithMedium={{ step, medium }} />)
-  //   expect(wrapper.find(Media)).to.have.lengthOf(1)
-  // })
+  it('should render Media if an attached medium exists', function () {
+    step.medium = medium.id
+    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step, medium }} />)
+    expect(wrapper.find(Media)).to.have.lengthOf(1)
+  })
 })

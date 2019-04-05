@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import styled from 'styled-components'
 import { Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
@@ -9,16 +8,6 @@ import StepNavigation from './components/StepNavigation'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-function storeMapper (stores) {
-  const { activeStep, stepWithMedium } = stores.classifierStore.tutorials
-  const { active: project } = stores.classifierStore.projects
-  return {
-    activeStep,
-    projectDisplayName: project.display_name,
-    stepWithMedium
-  }
-}
 
 const StyledMarkdownWrapper = styled(Box)`
   > hr {
@@ -36,66 +25,43 @@ const StyledMarkdownWrapper = styled(Box)`
   }
 `
 
-// TODO: Split into container and view components so that view can be exported for external use
-// Media need to be updated on panoptes to have a description for use as alt text
-@inject(storeMapper)
-@observer
-class SlideTutorial extends React.Component {
-  render () {
-    const { activeStep, projectDisplayName, stepWithMedium } = this.props
-    if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
-      const { medium, step } = stepWithMedium
-      const isThereMedia = medium && medium.src
-      return (
-        <ResponsiveContext.Consumer>
-        {size => {
-          const height = (size === 'small') ? '100%' : '465px'
-          return (
-            <Box
-              height={height}
-              justify='between'
-              {...this.props}
-            >
-              {isThereMedia &&
-                <Media
-                  alt={counterpart('SlideTutorial.alt', { activeStep })}
-                  fit='cover'
-                  height={200}
-                  src={medium.src}
-                />}
-              <Heading level='3' margin='20px 0 10px 0'>{counterpart('SlideTutorial.heading', { projectDisplayName })}</Heading>
-              <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow='auto'>
-                {/* TODO: translation */}
-                <Markdownz>{step.content}</Markdownz>
-              </StyledMarkdownWrapper>
-              <StepNavigation />
-            </Box>
-          )}
-        }
-        </ResponsiveContext.Consumer>
-      )
-    }
-
-    return (
-      <Box
-        height='100%'
-        justify='between'
-        {...this.props}
-      >
-        <Paragraph>{counterpart('SlideTutorial.error')}</Paragraph>
-      </Box>
-    )
-  }
+function SlideTutorial (props) {
+  const { activeStep, className, projectDisplayName, height, stepWithMedium } = props
+  const { medium, step } = stepWithMedium
+  const isThereMedia = medium && medium.src
+  return (
+    <Box
+      className={className}
+      height={height}
+      justify='between'
+    >
+      {isThereMedia &&
+        <Media
+          alt={counterpart('SlideTutorial.alt', { activeStep })}
+          fit='cover'
+          height={200}
+          src={medium.src}
+        />}
+      <Heading level='3' margin='20px 0 10px 0'>{counterpart('SlideTutorial.heading', { projectDisplayName })}</Heading>
+      <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow='auto'>
+        {/* TODO: translation */}
+        <Markdownz>{step.content}</Markdownz>
+      </StyledMarkdownWrapper>
+      <StepNavigation />
+    </Box>
+  )
 }
 
-SlideTutorial.wrappedComponent.defaultProps = {
+SlideTutorial.defaultProps = {
   activeStep: 0,
+  className: '',
   projectDisplayName: '',
   pad: "medium"
 }
 
-SlideTutorial.wrappedComponent.propTypes = {
+SlideTutorial.propTypes = {
   activeStep: PropTypes.number,
+  className: PropTypes.string,
   projectDisplayName: PropTypes.string,
   stepWithMedium: PropTypes.shape({
     medium: PropTypes.shape({
