@@ -10,7 +10,7 @@ import ApprovedIcon from './components/ApprovedIcon'
 const TITLE = 'Project title'
 let wrapper
 
-describe.only('Component > ProjectHeader', function () {
+describe('Component > ProjectHeader', function () {
   before(function () {
     wrapper = shallow(<ProjectHeader title={TITLE} />)
   })
