@@ -9,7 +9,7 @@ import CloseIcon from '../CloseIcon'
 
 counterpart.registerTranslations('en', en)
 
-const Heading = styled.h5`
+const Heading = styled.h2`
   color: white;
   font-size: 1rem;
   font-weight: bold;
