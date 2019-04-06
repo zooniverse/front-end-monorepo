@@ -12,14 +12,14 @@ const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
 `
 
-function AboutProject({ projectName, description }) {
+function AboutProject ({ projectName, description }) {
   const aboutProjectTitle = `${counterpart(
     'AboutProject.title'
   )} ${projectName}`
 
   return (
     <ContentBox title={aboutProjectTitle}>
-      <StyledParagraph margin={{ bottom: 'none', top: 'none' }} size="small">
+      <StyledParagraph margin={{ bottom: 'none', top: 'none' }} size='small'>
         {description}
       </StyledParagraph>
     </ContentBox>

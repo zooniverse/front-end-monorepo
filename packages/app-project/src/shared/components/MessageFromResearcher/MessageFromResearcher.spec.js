@@ -3,14 +3,14 @@ import React from 'react'
 
 import MessageFromResearcher from './MessageFromResearcher'
 
-describe('Component > MessageFromResearcher', function() {
+describe('Component > MessageFromResearcher', function () {
   let wrapper
 
-  before(function() {
+  before(function () {
     wrapper = shallow(<MessageFromResearcher />)
   })
 
-  it('should render without crashing', function() {
+  it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 })

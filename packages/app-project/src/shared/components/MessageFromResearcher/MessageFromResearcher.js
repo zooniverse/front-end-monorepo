@@ -26,7 +26,7 @@ const StyledAvatar = styled(Image)`
   margin-right: 24px;
 `
 
-function MessageFromResearcher({
+function MessageFromResearcher ({
   message,
   socialUsername,
   socialLink,
@@ -34,14 +34,14 @@ function MessageFromResearcher({
 }) {
   return (
     <ContentBox title={counterpart('MessageFromResearcher.title')}>
-      <Box direction="row">
+      <Box direction='row'>
         <StyledAvatar src={avatar} />
         <Box>
           <StyledParagraph margin={{ bottom: 'tiny', top: 'none' }}>
             {message}
           </StyledParagraph>
           <Link href={socialLink} passHref>
-            <StyledAnchor size="small">{socialUsername}</StyledAnchor>
+            <StyledAnchor size='small'>{socialUsername}</StyledAnchor>
           </Link>
         </Box>
       </Box>

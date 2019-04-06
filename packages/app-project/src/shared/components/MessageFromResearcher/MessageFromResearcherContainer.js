@@ -6,7 +6,7 @@ import MessageFromResearcher from './MessageFromResearcher'
 
 // Right now we're just using dummy data, but message_from_researcher and
 // other props should eventually come from the store.
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { project } = stores.store
   return {
     projectName: project.display_name
@@ -16,7 +16,7 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class MessageFromResearcherContainer extends Component {
-  render() {
+  render () {
     const { message, socialUsername, socialLink, avatar } = this.props
 
     return (

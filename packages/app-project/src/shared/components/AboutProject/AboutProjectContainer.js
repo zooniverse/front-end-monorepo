@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import AboutProject from './AboutProject'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { project } = stores.store
   return {
     projectName: project.display_name
@@ -14,7 +14,7 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class AboutProjectContainer extends Component {
-  render() {
+  render () {
     const { projectName, description } = this.props
 
     return <AboutProject description={description} projectName={projectName} />
