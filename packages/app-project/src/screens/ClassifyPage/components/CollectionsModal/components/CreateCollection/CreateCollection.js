@@ -7,12 +7,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function CreateCollection ({
-  collection,
-  disabled,
-  onChange,
-  onSubmit
-}) {
+function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
   const checkbox = React.createRef()
   const textInput = React.createRef()
   const { display_name, private: isPrivate } = collection
@@ -45,11 +40,7 @@ function CreateCollection ({
           value={display_name}
         />
       </FormField>
-      <Box
-        align='center'
-        margin={{ top: 'medium' }}
-        pad={{ top: 'small' }}
-      >
+      <Box align='center' margin={{ top: 'medium' }} pad={{ top: 'small' }}>
         <Button
           disabled={disabled}
           label={counterpart('CreateCollection.createButton')}

@@ -12,11 +12,6 @@ const StyledBox = styled(Box)`
   border-radius: 100%;
 `
 
-const StyledSVG = styled.svg`
-  height: 24px;
-  width: 24px;
-`
-
 function ApprovedIcon ({ approved }) {
   if (approved) {
     return (

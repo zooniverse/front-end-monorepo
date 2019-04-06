@@ -7,7 +7,12 @@ import SelectCollection from './components/SelectCollection'
 import CreateCollection from './components/CreateCollection'
 
 function storeMapper (stores) {
-  const { addSubjects, collections, createCollection, searchCollections } = stores.store.collections
+  const {
+    addSubjects,
+    collections,
+    createCollection,
+    searchCollections
+  } = stores.store.collections
   return {
     addSubjects,
     collections,
@@ -29,7 +34,7 @@ class CollectionsModalContainer extends Component {
     this.state = {
       active: false,
       newCollection: {
-        display_name: '',
+        displayName: '',
         private: false
       },
       selectedCollection: undefined,
@@ -40,14 +45,14 @@ class CollectionsModalContainer extends Component {
   addToCollection (event) {
     event.preventDefault()
     const { selectedCollection, subjectId } = this.state
-    this.props.addSubjects(selectedCollection.id, [ subjectId ])
+    this.props.addSubjects(selectedCollection.id, [subjectId])
     this.close()
   }
 
   createCollection (event) {
     event.preventDefault()
     const { newCollection, subjectId } = this.state
-    this.props.createCollection(newCollection, [ subjectId ])
+    this.props.createCollection(newCollection, [subjectId])
     this.close()
   }
 
@@ -72,8 +77,12 @@ class CollectionsModalContainer extends Component {
   }
 
   updateCollection (collectionDetails) {
-    this.setState((prevState) => {
-      const newCollection = Object.assign({}, prevState.newCollection, collectionDetails)
+    this.setState(prevState => {
+      const newCollection = Object.assign(
+        {},
+        prevState.newCollection,
+        collectionDetails
+      )
       return { newCollection }
     })
   }
@@ -83,10 +92,7 @@ class CollectionsModalContainer extends Component {
     const { active, newCollection, selectedCollection } = this.state
 
     return (
-      <CollectionsModal
-        active={active}
-        closeFn={this.close}
-      >
+      <CollectionsModal active={active} closeFn={this.close}>
         <SelectCollection
           collections={collections}
           disabled={!selectedCollection}
@@ -96,7 +102,7 @@ class CollectionsModalContainer extends Component {
           selected={selectedCollection}
         />
         <CreateCollection
-          disabled={!newCollection.display_name}
+          disabled={!newCollection.displayName}
           collection={newCollection}
           onChange={this.updateCollection}
           onSubmit={this.createCollection}

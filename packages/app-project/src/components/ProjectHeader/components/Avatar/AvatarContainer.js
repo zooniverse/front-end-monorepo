@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import { node, string } from 'prop-types'
+import { string } from 'prop-types'
 import React, { Component } from 'react'
 
 import Avatar from './Avatar'
@@ -17,9 +17,7 @@ function storeMapper (stores) {
 class AvatarContainer extends Component {
   render () {
     const { avatarSrc, projectTitle } = this.props
-    return (
-      <Avatar projectTitle={projectTitle} src={avatarSrc} />
-    )
+    return <Avatar projectTitle={projectTitle} src={avatarSrc} />
   }
 }
 
