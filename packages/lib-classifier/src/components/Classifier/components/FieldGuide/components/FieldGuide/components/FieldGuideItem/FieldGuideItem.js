@@ -1,0 +1,83 @@
+import { Button, Box } from 'grommet'
+import { FormPrevious } from 'grommet-icons'
+import styled from 'styled-components'
+import React from 'react'
+import { Markdownz } from '@zooniverse/react-components'
+import zooTheme from '@zooniverse/grommet-theme'
+import PropTypes from 'prop-types'
+import { observable } from 'mobx'
+import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import FieldGuideItemIcon from '../FieldGuideItemIcon'
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
+const StyledButton = styled(Button)`
+  padding: 0;
+
+  &:hover > svg, &:focus > svg {
+    fill: ${zooTheme.global.colors['dark-5']};
+    stroke: ${zooTheme.global.colors['dark-5']};
+  }
+`
+
+const FieldGuideItemHeader = styled(Box)`
+  > h3 {
+    margin: 0;
+  }
+`
+
+function storeMapper(stores) {
+  const { setActiveItemIndex, attachedMedia: icons } = stores.classifierStore.fieldGuide
+  return {
+    icons,
+    setActiveItemIndex
+  }
+}
+
+@inject(storeMapper)
+@observer
+class FieldGuideItem extends React.Component {
+  render () {
+    const { className, icons, item, setActiveItemIndex } = this.props
+    const icon = icons.get(item.icon)
+
+    return (
+      <Box className={className}>
+        <FieldGuideItemHeader align='center' direction='row' margin={{ bottom: 'small' }}>
+          <StyledButton
+            a11yTitle={counterpart("FieldGuideItem.ariaTitle")}
+            icon={<FormPrevious color='light-5' />}
+            margin={{ right: 'small' }}
+            onClick={() => setActiveItemIndex()}
+            plain
+          />
+          <Markdownz>
+            {`### ${item.title}`}
+          </Markdownz>
+        </FieldGuideItemHeader>
+        <Box direction='column'>
+          <FieldGuideItemIcon icon={icon} height='140' viewBox='0 0 200 100' />
+          <Markdownz>
+            {item.content}
+          </Markdownz>
+        </Box>
+      </Box>
+    )
+  }
+}
+
+FieldGuideItem.wrappedComponent.defaultProps = {
+  className: '',
+  icons: observable.map()
+}
+
+FieldGuideItem.wrappedComponent.propTypes = {
+  className: PropTypes.string,
+  icons: MobXPropTypes.observableMap,
+  item: PropTypes.object.isRequired,
+  setActiveItemIndex: PropTypes.func.isRequired
+}
+
+export default FieldGuideItem

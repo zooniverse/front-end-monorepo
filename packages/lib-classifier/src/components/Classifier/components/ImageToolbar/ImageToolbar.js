@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { withTheme } from 'styled-components'
 
 import AnnotateButton from './components/AnnotateButton'
-import FieldGuideButton from './components/FieldGuideButton'
+import FieldGuide from '../FieldGuide'
 import FullscreenButton from './components/FullscreenButton'
 import MoveButton from './components/MoveButton'
 import ResetButton from './components/ResetButton'
@@ -40,7 +40,7 @@ class ImageToolbar extends Component {
           <FullscreenButton disabled />
           <ResetButton />
         </Box>
-        <FieldGuideButton />
+        <FieldGuide />
       </Box>
     )
   }
