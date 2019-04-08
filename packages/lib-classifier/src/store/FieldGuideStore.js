@@ -94,7 +94,7 @@ const FieldGuideStore = types
 
     function setActiveItemIndex (index) {
       const fieldGuide = self.active
-      if (fieldGuide && fieldGuide.items.length === index + 1 && fieldGuide.items[index]) {
+      if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
         if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
         return self.activeItemIndex = index
       }

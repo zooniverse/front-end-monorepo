@@ -18,6 +18,10 @@ const fieldGuideWithItems = FieldGuideFactory.build({ items: [
     content: 'All about cats',
     icon: medium.id,
     title: 'Cats'
+  },
+  { 
+    content: 'All about dogs',
+    title: 'Dogs'  
   }
 ]})
 
@@ -32,7 +36,7 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 
 const project = ProjectFactory.build()
 
-describe('Model > FieldGuideStore', function () {
+describe.only('Model > FieldGuideStore', function () {
   let rootStore
   function fetchFieldGuide () {
     sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
@@ -341,7 +345,7 @@ describe('Model > FieldGuideStore', function () {
         })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItemIndex(1)
+        rootStore.fieldGuide.setActiveItemIndex(2)
         expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
@@ -364,10 +368,33 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItemIndex(0)
-          expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
-          expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
+          fieldGuideWithItems.items.forEach((item, index) => {
+            rootStore.fieldGuide.setActiveItemIndex(index)
+            expect(rootStore.fieldGuide.activeItemIndex).to.equal(index)
+          })
         }).then(done, done)
+    })
+
+    it('should set the active medium if the item has an icon', function (done) {
+      rootStore = RootStore.create({
+        fieldGuide: FieldGuideStore.create(),
+        projects: ProjectStore.create()
+      }, {
+          client: {
+            panoptes: {
+              get: sinon.stub().callsFake((url) => {
+                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              })
+            }
+          }
+        })
+
+      fetchFieldGuide()
+        .then(() => {
+          rootStore.fieldGuide.setActiveItemIndex(0)
+          expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
+        }).then(done, done) 
     })
 
     it('should not set the active medium if the item does not have an icon', function (done) {
