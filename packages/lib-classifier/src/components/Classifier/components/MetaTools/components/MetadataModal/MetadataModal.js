@@ -75,11 +75,13 @@ export default function MetadataModal (props) {
       closeFn={closeFn}
       title={counterpart('MetadataModal.title')}
     >
-      <StyledDataTable
-        columns={columns}
-        data={data}
-        sortable
-      />
+      <Box height='medium' overflow='auto'>
+        <StyledDataTable
+          columns={columns}
+          data={data}
+          sortable
+        />
+      </Box>
     </Modal>
   )
 }
