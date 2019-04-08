@@ -21,13 +21,13 @@ describe('TaskHelp', function () {
   })
 
   it('should render the modal when the need help button is clicked', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp={true} tasks={tasks} />)
+    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
     wrapper.find('Styled(PlainButton)').simulate('click')
     expect(wrapper.state('showModal')).to.be.true
   })
 
   it('should no longer render the modal when the close button is clicked', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp={true} tasks={tasks} />)
+    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
     wrapper.setState({ showModal: true })
     wrapper.find(Button).simulate('click')
     expect(wrapper.state('showModal')).to.be.false

@@ -9,8 +9,13 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const StyledButton = styled(Button)`
+  padding: 12px;
+`
+
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   position: relative;
+  margin-left: 20px;
 
   > label > span {
     height: 0;
@@ -55,8 +60,8 @@ class StepNavigation extends React.Component {
         }
       })
       return (
-        <Box as='nav' className={className} direction='row' justify='center'>
-          <Button
+        <Box as='nav' align='center' className={className} direction='row' justify='center' margin={{ top: '30px' }}>
+          <StyledButton
             a11yTitle={counterpart('StepNavigation.previous')}
             data-index={prevStep}
             disabled={activeStep === 0}
@@ -66,12 +71,13 @@ class StepNavigation extends React.Component {
           />
           <StyledRadioButtonGroup
             direction='row'
+            gap='none'
             name='step-selectors'
             onChange={this.onChange.bind(this)}
             options={options}
             value={`step-${activeStep}`}
           />
-          <Button
+          <StyledButton
             a11yTitle={counterpart('StepNavigation.next')}
             data-index={nextStep}
             disabled={activeStep === steps.length - 1}

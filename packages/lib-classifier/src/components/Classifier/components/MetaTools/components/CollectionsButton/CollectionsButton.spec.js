@@ -29,7 +29,7 @@ describe('Component > CollectionsButton', function () {
         onClick={onClick}
       />
     )
-    
+
     wrapper.find(PlainButton).simulate('click')
     expect(onClick).to.have.been.calledOnce
   })

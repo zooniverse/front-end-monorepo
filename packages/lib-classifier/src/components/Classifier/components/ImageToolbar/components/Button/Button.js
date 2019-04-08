@@ -74,12 +74,12 @@ class Button extends React.Component {
     const eventHandlers = (disabled)
       ? {}
       : {
-          onBlur,
-          onClick,
-          onFocus,
-          onMouseOver,
-          onMouseOut
-        }
+        onBlur,
+        onClick,
+        onFocus,
+        onMouseOver,
+        onMouseOut
+      }
 
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { ...this.getSize(size) }))

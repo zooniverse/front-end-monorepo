@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 export const StyledInputStatus = styled.span`
   font-size: 0.8em;
   opacity: 0.7;
   text-align: right;
-`;
+`
 
 // TODO Add Translations
-export default function InputStatus({ count, tool }) {
-  const minStyleColor = (count < tool.min) ? 'red' : '';
-  const maxStyleColor = (count === tool.max) ? 'orange' : '';
+export default function InputStatus ({ count, tool }) {
+  const minStyleColor = (count < tool.min) ? 'red' : ''
+  const maxStyleColor = (count === tool.max) ? 'orange' : ''
   return (
     <StyledInputStatus>
       {count}{' '}
@@ -25,13 +25,13 @@ export default function InputStatus({ count, tool }) {
         <span style={{ color: maxStyleColor }}>{tool.max} maximum</span>}
       {' '}drawn
     </StyledInputStatus>
-  );
+  )
 }
 
 InputStatus.defaultProps = {
   count: 0,
   tool: {}
-};
+}
 
 InputStatus.propTypes = {
   count: PropTypes.number,
@@ -45,4 +45,4 @@ InputStatus.propTypes = {
       PropTypes.string
     ])
   })
-};
+}

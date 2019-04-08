@@ -41,7 +41,7 @@ const WorkflowStepStore = types
 
       return tasks.some(task => task.help)
     },
-    
+
     get shouldWeShowDoneAndTalkButton () {
       const isThereANextStep = self.isThereANextStep()
       const workflow = getRoot(self).workflows.active
@@ -51,7 +51,7 @@ const WorkflowStepStore = types
         const disableTalk = classification.metadata.subject_flagged
         return !isThereANextStep &&
         workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
-        !disableTalk //&&
+        !disableTalk // &&
         // !completed TODO: implement classification completed validations per task?
       }
 

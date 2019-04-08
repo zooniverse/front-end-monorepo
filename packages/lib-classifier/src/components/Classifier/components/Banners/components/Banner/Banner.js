@@ -34,7 +34,7 @@ function Label () {
 
 class Banner extends Component {
   state = {
-    tooltipOpen: false,
+    tooltipOpen: false
   }
 
   ref = createRef()

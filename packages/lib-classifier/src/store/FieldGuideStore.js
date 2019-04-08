@@ -17,11 +17,11 @@ const FieldGuideStore = types
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createProjectObserver()
     }
 
-    function createProjectObserver() {
+    function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const project = getRoot(self).projects.active
         if (project) {

@@ -42,7 +42,7 @@ const TutorialStore = types
       return null
     },
 
-    get miniCourse() {
+    get miniCourse () {
       if (tutorials) {
         return tutorials.find((tutorial) => {
           return tutorial.kind === 'mini-course'
@@ -52,7 +52,7 @@ const TutorialStore = types
       return null
     },
 
-    get hasNotSeenTutorialBefore() {
+    get hasNotSeenTutorialBefore () {
       const upp = getRoot(self).userProjectPreferences.active
       const { tutorial } = self
       if (upp && tutorial) {
@@ -62,7 +62,7 @@ const TutorialStore = types
       return true
     },
 
-    get tutorialLastSeen() {
+    get tutorialLastSeen () {
       const upp = getRoot(self).userProjectPreferences.active
       const { tutorial } = self
 
@@ -100,7 +100,7 @@ const TutorialStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function createUPPObserver() {
+    function createUPPObserver () {
       const uppDisposer = autorun(() => {
         const upp = getRoot(self).userProjectPreferences
         if (upp.loadingState === asyncStates.success) {
@@ -215,7 +215,7 @@ const TutorialStore = types
       self.showModal = boolean
     }
 
-    function showTutorialInModal() {
+    function showTutorialInModal () {
       const { tutorial } = self
       if (tutorial && self.hasNotSeenTutorialBefore) {
         self.setActiveTutorial(tutorial.id)
