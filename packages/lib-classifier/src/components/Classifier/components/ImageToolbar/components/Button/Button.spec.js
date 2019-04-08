@@ -68,7 +68,7 @@ describe('Component > Button', function () {
     expect(spy.called).to.be.true
   })
 
-  it.only('should add an `aria-label` from the `a11yTitle` prop', function () {
+  it('should add an `aria-label` from the `a11yTitle` prop', function () {
     const A11Y_TITLE = 'Foobar'
     const wrapper = mount(
       <Button
