@@ -16,9 +16,9 @@ function FullscreenButton ({ active, disabled, onClick }) {
 
   return (
     <Button
+      a11yTitle={label}
       active={active}
       disabled={disabled}
-      aria-label={label}
       onClick={onClick}
     >
       {icon}

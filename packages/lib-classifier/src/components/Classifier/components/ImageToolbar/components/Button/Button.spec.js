@@ -67,4 +67,14 @@ describe('Component > Button', function () {
     wrapper.find('button').simulate('mouseout')
     expect(spy.called).to.be.true
   })
+
+  it.only('should add an `aria-label` from the `a11yTitle` prop', function () {
+    const A11Y_TITLE = 'Foobar'
+    const wrapper = mount(
+      <Button
+        a11yTitle={A11Y_TITLE}
+      />
+    )
+    expect(wrapper.find('button').prop('aria-label')).to.equal(A11Y_TITLE)
+  })
 })
