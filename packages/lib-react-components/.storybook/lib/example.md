@@ -15,6 +15,8 @@
 |Zooniverse Talk Tag mention|`#tiger`|#tiger|
 |Zooniverse Subject mention (only works in project context)|`^S1234`|^S1234|
 
+---
+
 > blockquote
 
 Unordered list:

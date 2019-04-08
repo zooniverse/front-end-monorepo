@@ -86,6 +86,7 @@ class Markdownz extends React.Component {
       h4: (nodeProps) => <Heading level='4'>{nodeProps.children}</Heading>,
       h5: (nodeProps) => <Heading level='5'>{nodeProps.children}</Heading>,
       h6: (nodeProps) => <Heading level='6'>{nodeProps.children}</Heading>,
+      hr: () => <hr style={{ width: '100%' }} />,
       img: (nodeProps) => this.renderMedia(nodeProps),
       p: Paragraph,
       span: Text,

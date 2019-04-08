@@ -10,10 +10,6 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 const StyledMarkdownWrapper = styled(Box)`
-  > hr {
-    width: 100%; /* Why is this needed? */
-  }
-
   > h1, h2 {
     font-size: 26px;
     line-height: 31px;
