@@ -25,7 +25,6 @@ export default function CollectionsButton (props) {
     <ThemeProvider theme={{ mode: theme }}>
       <PlainButton
         icon={<Collect />}
-        margin={{ vertical: 'small', left: 'none', right: 'medium' }}
         text={counterpart('CollectionsButton.add')}
         onClick={onClick}
       />

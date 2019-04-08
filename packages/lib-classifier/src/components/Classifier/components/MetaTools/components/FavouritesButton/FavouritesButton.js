@@ -29,7 +29,6 @@ export default function FavouritesButton (props) {
       <PlainButton
         aria-checked={checked}
         icon={<Favourite filled={checked ? 'true' : undefined} />}
-        margin={{ vertical: 'small', left: 'none', right: 'medium' }}
         role='checkbox'
         text={counterpart(label)}
         onClick={onClick}

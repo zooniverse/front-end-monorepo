@@ -58,7 +58,7 @@ class TaskArea extends React.Component {
           )}
         >
           <Box>
-            <SlideTutorial />
+            <SlideTutorial pad='none' />
           </Box>
         </Tab>
       </Tabs>
