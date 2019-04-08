@@ -8,10 +8,10 @@ describe('Component > AnnotateButton', function () {
     shallow(<AnnotateButton />)
   })
 
-  it('should have an ARIA label', function () {
+  it('should have an `a11yTitle` prop', function () {
     const wrapper = shallow(<AnnotateButton />)
     const button = wrapper.dive().dive() // Grommet button is wrapped with a couple of HOCs
-    expect(button.prop('aria-label')).to.equal('Annotate')
+    expect(button.prop('a11yTitle')).to.equal('Annotate')
   })
 
   it('should call the onClick prop function on click', function () {

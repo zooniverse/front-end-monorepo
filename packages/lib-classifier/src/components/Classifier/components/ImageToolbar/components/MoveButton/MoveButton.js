@@ -11,8 +11,8 @@ counterpart.registerTranslations('en', en)
 function MoveButton ({ active, onClick }) {
   return (
     <Button
+      a11yTitle={counterpart('MoveButton.ariaLabel')}
       active={active}
-      aria-label={counterpart('MoveButton.ariaLabel')}
       onClick={onClick}
     >
       {moveIcon}

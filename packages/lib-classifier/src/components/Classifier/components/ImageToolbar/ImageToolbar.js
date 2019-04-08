@@ -20,7 +20,10 @@ class ImageToolbar extends Component {
     return (
       <Box as='aside' {...props}>
         <Box
-          background={mode === 'light' ? 'white' : 'dark-3'}
+          background={{
+            dark: 'dark-3',
+            light: 'white'
+          }}
           border={{
             color: mode === 'light' ? 'light-3' : 'dark-3',
             side: 'all'
