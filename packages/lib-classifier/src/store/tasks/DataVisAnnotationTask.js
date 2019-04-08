@@ -13,7 +13,6 @@ const DataVisAnnotation = types.model('DataVisAnnotation', {
   type: types.literal('dataVisAnnotation')
 })
 
-
 const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisAnnotation)
 
 export default DataVisAnnotationTask
