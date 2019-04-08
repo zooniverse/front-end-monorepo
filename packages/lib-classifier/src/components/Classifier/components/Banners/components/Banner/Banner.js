@@ -4,6 +4,8 @@ import { Box, Button, Drop } from 'grommet'
 import { array, bool, oneOf, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
+import posed, { PoseGroup } from 'react-pose'
+
 
 import en from './locales/en'
 import TooltipText from './components/TooltipText'
@@ -17,12 +19,14 @@ const StyledSpacedText = styled(SpacedText)`
 
 const StyledBox = styled(Box)`
   position: absolute;
-  top: 0%;
+  top: 0;
   width: 100%;
-  transform: translateY(-100%);
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  ${props => props.show && 'transform: translateY(0%);'}
 `
+
+const PosedBox = posed(StyledBox)({
+  enter: { y: 0, opacity: 1 },
+  exit: { y: '-100%', opacity: 0 }
+});
 
 function Label () {
   return (
@@ -62,48 +66,53 @@ class Banner extends Component {
     } = this.props
 
     return (
-      <StyledBox
-        align='center'
-        background={{ color: background, opacity: 'strong' }}
-        className={className}
-        direction='row'
-        justify='between'
-        pad='small'
-        show={show}
-      >
-
-        <StyledSpacedText color='white' weight='bold'>
-          {bannerText}
-        </StyledSpacedText>
-
-        <Button
-          aria-label={counterpart('Banner.whyAmISeeingThis')}
-          disabled={!show}
-          label={<Label />}
-          onClick={this.toggle}
-          plain
-          ref={this.ref}
-        />
-
-        {this.ref.current && this.state.tooltipOpen && (
-          <Drop
-            align={{ right: 'right', top: 'bottom' }}
-            onEsc={this.close}
-            plain
-            target={this.ref.current}
+      <PoseGroup>
+        {show && (
+          <PosedBox
+            align='center'
+            background={{ color: background, opacity: 'strong' }}
+            className={className}
+            direction='row'
+            key={bannerText}
+            justify='between'
+            pad='small'
+            show={show}
           >
-            <Box direction='column' margin='xsmall'>
-              <Triangle />
-              <Box
-                background={mode === 'light' ? 'white' : 'dark-2'}
-                pad='small'
+
+            <StyledSpacedText color='white' weight='bold'>
+              {bannerText}
+            </StyledSpacedText>
+
+            <Button
+              aria-label={counterpart('Banner.whyAmISeeingThis')}
+              disabled={!show}
+              label={<Label />}
+              onClick={this.toggle}
+              plain
+              ref={this.ref}
+            />
+
+            {this.ref.current && this.state.tooltipOpen && (
+              <Drop
+                align={{ right: 'right', top: 'bottom' }}
+                onEsc={this.close}
+                plain
+                target={this.ref.current}
               >
-                <TooltipText text={tooltipText} />
-              </Box>
-            </Box>
-          </Drop>
+                <Box direction='column' margin='xsmall'>
+                  <Triangle />
+                  <Box
+                    background={mode === 'light' ? 'white' : 'dark-2'}
+                    pad='small'
+                  >
+                    <TooltipText text={tooltipText} />
+                  </Box>
+                </Box>
+              </Drop>
+            )}
+          </PosedBox>
         )}
-      </StyledBox>
+      </PoseGroup>
     )
   }
 }
