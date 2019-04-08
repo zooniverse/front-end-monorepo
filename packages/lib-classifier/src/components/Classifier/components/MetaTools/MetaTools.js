@@ -46,10 +46,12 @@ export default class MetaTools extends React.Component {
 
   render () {
     const { className, isThereMetadata, subject } = this.props
+    // Grommet's Button determines disabled state by whether or not onClick is defined
+    const onClick = (isThereMetadata) ? this.toggleMetadataModal : undefined
     return (
       <Box className={className} direction="row-responsive" gap='small' wrap>
         {isThereMetadata &&
-          <MetadataButton disabled={!isThereMetadata} onClick={this.toggleMetadataModal.bind(this)} />}
+          <MetadataButton onClick={onClick} />}
         {isThereMetadata &&
           <MetadataModal
             active={this.state.showMetadataModal}
