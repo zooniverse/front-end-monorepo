@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, onPatch, types } from 'mobx-state-tree'
 import { getBearerToken } from './utils'
-
+import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/MetadataModal'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
 
@@ -16,7 +16,9 @@ const SubjectStore = types
   .views(self => ({
     get isThereMetadata () {
       if (self.active) {
-        return Object.keys(self.active.metadata).length > 0
+        const filteredMetadata = Object.keys(self.active.metadata)
+          .filter((label) => filterByLabel(label, filters))
+        return filteredMetadata.length > 0
       }
 
       return false

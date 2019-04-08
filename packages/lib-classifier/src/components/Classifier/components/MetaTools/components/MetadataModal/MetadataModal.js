@@ -1,33 +1,30 @@
 import { Markdownz, Modal, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Box, DataTable } from 'grommet'
+import { Box, DataTable, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-
+import filterByLabel, { filters } from './filterByLabel'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 const StyledDataTable = styled(DataTable)`
   height: auto;
+
+  th > div {
+    padding: 0 20px;
+  }
+
+  td >  div {
+    padding: 0 20px;
+  }
 `
 
-const DatumWrapper = styled(Box)`
+const DatumWrapper = styled(Text)`
   overflow-wrap: break-word;
   word-break: break-word;
 `
-
-export function filterByLabel (label, filters) {
-  if (label) {
-    const firstCharacter = label.trim().charAt(0)
-    if (!filters.includes(firstCharacter) && !label.slice(0, 2) !== '//') {
-      return label
-    }
-  }
-
-  return ''
-}
 
 export function formatValue (value) {
   if (value) {
@@ -81,7 +78,6 @@ export default function MetadataModal (props) {
       <StyledDataTable
         columns={columns}
         data={data}
-        size='medium'
         sortable
       />
     </Modal>
@@ -91,8 +87,8 @@ export default function MetadataModal (props) {
 MetadataModal.defaultProps = {
   active: false,
   closeFn: () => { },
-  filters: ['#', '!'],
-  prefixes: ['#', '!']
+  filters,
+  prefixes: filters
 }
 
 MetadataModal.propTypes = {
