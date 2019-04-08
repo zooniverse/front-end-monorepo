@@ -11,7 +11,7 @@ counterpart.registerTranslations('en', en)
 function ZoomInButton ({ onClick }) {
   return (
     <Button
-      aria-label={counterpart('ZoomInButton.ariaLabel')}
+      a11yTitle={counterpart('ZoomInButton.ariaLabel')}
       onClick={onClick}
     >
       {zoomInIcon}

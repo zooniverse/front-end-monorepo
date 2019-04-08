@@ -31,7 +31,7 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class DataVisAnnotationTask extends React.Component {
-  onChange(index, event) {
+  onChange (index, event) {
     if (event.target.checked) {
       this.props.setActive(index)
     }
@@ -57,9 +57,9 @@ class DataVisAnnotationTask extends React.Component {
             {task.instruction}
           </Markdownz>
         </Text>
-        
+
         {task.tools.map((tool, index) => {
-          const checked =  active === index
+          const checked = active === index
           return (
             <TaskInputField
               checked={checked}

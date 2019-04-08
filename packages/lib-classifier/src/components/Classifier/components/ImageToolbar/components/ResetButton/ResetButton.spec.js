@@ -8,10 +8,10 @@ describe('Component > ResetButton', function () {
     shallow(<ResetButton />)
   })
 
-  it('should have an ARIA label', function () {
+  it('should have an `a11yTitle` label', function () {
     const wrapper = shallow(<ResetButton />)
     const button = wrapper.dive().dive()
-    expect(button.prop('aria-label')).to.equal('Reset subject view')
+    expect(button.prop('a11yTitle')).to.equal('Reset subject view')
   })
 
   it('should call the onClick prop function on click', function () {

@@ -639,7 +639,7 @@ class LightCurveViewer extends Component {
           refreshMode='debounce'
           refreshRate={500}
         />
-    </Box>
+      </Box>
     )
   }
 }

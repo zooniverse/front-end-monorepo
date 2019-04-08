@@ -8,10 +8,10 @@ describe('Component > RotateButton', function () {
     shallow(<RotateButton />)
   })
 
-  it('should have an ARIA label', function () {
+  it('should have an `a11yTitle` prop', function () {
     const wrapper = shallow(<RotateButton />)
     const button = wrapper.dive().dive()
-    expect(button.prop('aria-label')).to.equal('Rotate subject')
+    expect(button.prop('a11yTitle')).to.equal('Rotate subject')
   })
 
   it('should call the onClick prop function on click', function () {

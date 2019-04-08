@@ -5,11 +5,11 @@ import WithLayer from './WithLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
-function Modal ({ children, className, closeFn, colorTheme, theme, title }) {
+function Modal ({ children, className, closeFn, colorTheme, pad, title }) {
   return (
     <React.Fragment>
       <ModalHeading className={className} closeFn={closeFn} title={title} />
-      <ModalBody className={className} colorTheme={colorTheme}>
+      <ModalBody className={className} colorTheme={colorTheme} pad={pad}>
         {children}
       </ModalBody>
     </React.Fragment>

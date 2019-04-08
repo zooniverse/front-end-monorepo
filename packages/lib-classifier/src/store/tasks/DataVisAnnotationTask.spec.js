@@ -8,7 +8,7 @@ const graph2dRangeTool = {
 }
 
 const dataVisAnnotationTask = {
-  instruction: "Do you spot a transit? If so, please mark the lightcurve.",
+  instruction: 'Do you spot a transit? If so, please mark the lightcurve.',
   taskKey: 'T3',
   tools: [graph2dRangeTool],
   type: 'dataVisAnnotation'

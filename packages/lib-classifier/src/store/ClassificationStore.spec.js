@@ -108,7 +108,7 @@ describe('Model > ClassificationStore', function () {
           T0: [{
             id: 'testRule',
             answer: '0',
-            strategy: "singleAnswerQuestion",
+            strategy: 'singleAnswerQuestion',
             successEnabled: true,
             successMessage: 'Yay!',
             failureEnabled: true,
@@ -154,7 +154,7 @@ describe('Model > ClassificationStore', function () {
       onComplete = sinon.stub()
       classifications.setOnComplete(onComplete)
     })
-    
+
     beforeEach(function () {
       classifications.createClassification(subject)
       classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })

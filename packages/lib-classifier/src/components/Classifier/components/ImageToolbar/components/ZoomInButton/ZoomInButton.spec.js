@@ -8,10 +8,10 @@ describe('Component > ZoomInButton', function () {
     shallow(<ZoomInButton />)
   })
 
-  it('should have an ARIA label', function () {
+  it('should have an `a11yTitle` label', function () {
     const wrapper = shallow(<ZoomInButton />)
     const button = wrapper.dive().dive()
-    expect(button.prop('aria-label')).to.equal('Zoom in on subject')
+    expect(button.prop('a11yTitle')).to.equal('Zoom in on subject')
   })
 
   it('should call the onClick prop function on click', function () {

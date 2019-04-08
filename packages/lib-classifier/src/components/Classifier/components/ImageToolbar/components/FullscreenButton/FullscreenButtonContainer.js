@@ -47,7 +47,7 @@ FullscreenButtonContainer.wrappedComponent.propTypes = {
   disabled: PropTypes.bool,
   disableFullscreen: PropTypes.func,
   enableFullscreen: PropTypes.func,
-  fullscreen: PropTypes.bool,
+  fullscreen: PropTypes.bool
 }
 
 FullscreenButtonContainer.wrappedComponent.defaultProps = {

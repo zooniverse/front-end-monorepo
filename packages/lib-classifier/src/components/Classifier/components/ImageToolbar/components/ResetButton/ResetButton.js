@@ -11,7 +11,7 @@ counterpart.registerTranslations('en', en)
 function ResetButton ({ disabled, onClick }) {
   return (
     <Button
-      aria-label={counterpart('ResetButton.ariaLabel')}
+      a11yTitle={counterpart('ResetButton.ariaLabel')}
       disabled={disabled}
       onClick={onClick}
     >

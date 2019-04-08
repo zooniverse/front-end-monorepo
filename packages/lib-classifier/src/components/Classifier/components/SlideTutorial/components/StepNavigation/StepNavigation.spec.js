@@ -78,7 +78,7 @@ describe('StepNavigation', function () {
     })
 
     it('should call setTutorialStep with the value index as a number', function () {
-      wrapper.instance().onChange({ target: { value: `step-${step}` }})
+      wrapper.instance().onChange({ target: { value: `step-${step}` } })
       expect(setTutorialStepSpy).to.be.calledOnceWith(step)
     })
   })
