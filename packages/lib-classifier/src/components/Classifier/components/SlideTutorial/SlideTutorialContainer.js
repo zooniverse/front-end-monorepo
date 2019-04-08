@@ -23,12 +23,13 @@ class SlideTutorialContainer extends React.Component {
     if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
       return (
         <ResponsiveContext.Consumer>
-        {size => {
-          const height = (size === 'small') ? '100%' : '465px'
-          return (
-            <SlideTutorial height={height} {...this.props} />
-          )}
-        }
+          {size => {
+            const height = (size === 'small') ? '100%' : '465px'
+            return (
+              <SlideTutorial height={height} {...this.props} />
+            )
+          }
+          }
         </ResponsiveContext.Consumer>
       )
     }
@@ -48,7 +49,7 @@ class SlideTutorialContainer extends React.Component {
 SlideTutorialContainer.wrappedComponent.defaultProps = {
   activeStep: 0,
   projectDisplayName: '',
-  pad: "medium"
+  pad: 'medium'
 }
 
 SlideTutorialContainer.wrappedComponent.propTypes = {

@@ -10,7 +10,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { active: tutorial, loadingState, setModalVisibility, showModal } = stores.classifierStore.tutorials
   return {
     loadingState,
@@ -23,7 +23,7 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class ModalTutorial extends React.Component {
-  render() {
+  render () {
     const { loadingState, showModal, setModalVisibility, tutorial } = this.props
     if (loadingState === asyncStates.success && tutorial) {
       return (
@@ -37,7 +37,7 @@ class ModalTutorial extends React.Component {
             {size => {
               const width = (size === 'small') ? '100%' : '330px'
               return (
-                <SlideTutorial pad="none" width={width} />
+                <SlideTutorial pad='none' width={width} />
               )
             }}
           </ResponsiveContext.Consumer>

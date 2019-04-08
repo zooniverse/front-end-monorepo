@@ -54,7 +54,7 @@ SlideTutorial.defaultProps = {
   activeStep: 0,
   className: '',
   projectDisplayName: '',
-  pad: "medium"
+  pad: 'medium'
 }
 
 SlideTutorial.propTypes = {

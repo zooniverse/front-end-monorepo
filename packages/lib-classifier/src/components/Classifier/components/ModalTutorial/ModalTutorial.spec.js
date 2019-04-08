@@ -23,11 +23,11 @@ describe('ModalTutorial', function () {
     const wrapper = shallow(
       <ModalTutorial.wrappedComponent
         loadingState={asyncStates.success}
-        setModalVisibility={() => { }} 
+        setModalVisibility={() => { }}
         tutorial={tutorial}
       />
     )
-    
+
     expect(wrapper.find(Modal)).to.have.lengthOf(1)
   })
 
