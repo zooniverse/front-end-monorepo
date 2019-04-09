@@ -9,7 +9,7 @@ We love your input! We want to make contributing to this project as easy and tra
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Contents**
+## Contents
 
 - [Important links](#important-links)
 - [Reporting bugs](#reporting-bugs)
