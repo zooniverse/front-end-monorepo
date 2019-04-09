@@ -28,6 +28,23 @@ const FieldGuideItemHeader = styled(Box)`
   }
 `
 
+const FieldGuideItemContent = styled(Box)`
+  > h1, h2, h3, h4, h5, h6 {
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    line-height: 17px;
+    margin: 5px 0;
+  }
+
+  > p {
+    margin: 5px 0;
+
+    &:last-of-type {
+      margin: 5px 0 20px;
+    }
+  }
+`
+
 function storeMapper(stores) {
   const { setActiveItemIndex, attachedMedia: icons } = stores.classifierStore.fieldGuide
   return {
@@ -45,7 +62,7 @@ class FieldGuideItem extends React.Component {
 
     return (
       <Box className={className}>
-        <FieldGuideItemHeader align='center' direction='row' margin={{ bottom: 'small' }}>
+        <FieldGuideItemHeader align='center' direction='row' flex={{ grow: 1, shrink: 0 }} margin={{ bottom: 'small' }}>
           <StyledButton
             a11yTitle={counterpart("FieldGuideItem.ariaTitle")}
             icon={<FormPrevious color='light-5' />}
@@ -57,12 +74,12 @@ class FieldGuideItem extends React.Component {
             {`### ${item.title}`}
           </Markdownz>
         </FieldGuideItemHeader>
-        <Box direction='column'>
-          <FieldGuideItemIcon icon={icon} height='140' viewBox='0 0 200 100' />
+        <FieldGuideItemContent direction='column'>
+          <FieldGuideItemIcon icon={icon} height='140' margin={{ bottom: '35px' }} viewBox='0 0 200 100' />
           <Markdownz>
             {item.content}
           </Markdownz>
-        </Box>
+        </FieldGuideItemContent>
       </Box>
     )
   }

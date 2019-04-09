@@ -349,27 +349,27 @@ const theme = deepFreeze({
     small: {
       size: '12px',
       height: '18px',
-      maxWidth: '288px'
+      maxWidth: '100%'
     },
     medium: {
       size: '14px',
       height: '22px',
-      maxWidth: '336px'
+      maxWidth: '100%'
     },
     large: {
       size: '18px',
       height: '26px',
-      maxWidth: '432px'
+      maxWidth: '100%'
     },
     xlarge: {
       size: '22px',
       height: '30px',
-      maxWidth: '528px'
+      maxWidth: '100%'
     },
     xxlarge: {
       size: '26px',
       height: '34px',
-      maxWidth: '624px'
+      maxWidth: '100%'
     },
     extend: props => `margin: ${props.margin || '1em 0 1em 0'}`
   },
@@ -377,32 +377,32 @@ const theme = deepFreeze({
     xsmall: {
       size: "12px",
       height: "18px",
-      maxWidth: "288px"
+      maxWidth: "100%"
     },
     small: {
       size: "14px",
       height: "20px",
-      maxWidth: "336px"
+      maxWidth: "100%"
     },
     medium: {
       size: "18px",
       height: "24px",
-      maxWidth: "432px"
+      maxWidth: "100%"
     },
     large: {
       size: "22px",
       height: "28px",
-      maxWidth: "528px"
+      maxWidth: "100%"
     },
     xlarge: {
       size: "26px",
       height: "32px",
-      maxWidth: "624px"
+      maxWidth: "100%"
     },
     xxlarge: {
       size: "34px",
       height: "40px",
-      maxWidth: "816px"
+      maxWidth: "100%"
     }
   },
   radioButton: {
