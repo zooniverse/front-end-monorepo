@@ -38,10 +38,6 @@ const FieldGuideItemContent = styled(Box)`
 
   > p {
     margin: 5px 0;
-
-    &:last-of-type {
-      margin: 5px 0 20px;
-    }
   }
 `
 
