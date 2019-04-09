@@ -15,12 +15,16 @@ let URLS = [
 
 
 
-describe('Component > LinkList', function () {
+describe.only('Component > LinkList', function () {
   before(function () {
-    wrapper = shallow(<LinkList labels={LABELS} urls={URLS}  />)
+    wrapper = shallow(<LinkList labels={LABELS} urls={URLS} />)
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok
+  })
+
+  it('should render as a `ul`', function () {
+    expect(wrapper.render().is('ul')).to.be.true
   })
 })
