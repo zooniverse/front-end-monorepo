@@ -52,13 +52,8 @@ The `bootstrap.sh` script will install the top-level dependencies, build any pac
 A list of apps and packages and their main dependencies. See each package's folder for more specific readme documentation.
 
 - **@zooniverse/fe-project** - Server-side rendered application for a project (anything at `/projects/owner/display_name`)
-  - @zooniverse/panoptes-js - Panoptes API javascript client
-  - [Grommet](https://v2.grommet.io/components) - React UI component library
-  - [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree/) - App state built on MobX
-  - [next.js](https://nextjs.org/) - Server-side rendering and routing framework
-  - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
-  - [styled-components](https://www.styled-components.com/) - CSS in JS styling library. Used from Grommet theming.
 - **@zooniverse/classifier** - Classifier view components and state which can be exported modularly or altogether as a working classifier
+- **@zooniverse/async-states** - Frozen object of async states to use in data stores
 - **@zooniverse/grommet-theme** - The style definitions for a Zooniverse theme to use with Grommet
 - **@zooniverse/panoptes-js** - Panoptes API javascript client. Functional HTTP request helpers built on top of superagent
 - **@zooniverse/react-components** - A set of Zooniverse specific React components
