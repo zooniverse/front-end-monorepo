@@ -26,28 +26,24 @@ import { ZooFooter } from '@zooniverse/react-components';
 
 ## Tests
 
-`npm test` to run mocha tests
-
-If you're using `npm link` to test the library with your app, then you may need to adjust your webpack configuration for compiling of your javascript files in development. Webpack docs do provide a cautionary note about using symlink packages with Webpack: https://webpack.js.org/configuration/module/#rule-conditions. An example webpack configuration:
-
-```
-{
-  test: /\.jsx?$/,
-  include: path.resolve(__dirname, 'src'),
-  exclude: path.resolve(__dirname, 'node_modules'),
-  use: [
-    'babel-loader'
-    // 'eslint-loader' uncomment if you want to use eslint while compiling
-  ]
-}
-```
+`npm test` to run mocha tests.
 
 ## Contributing
 
-Components should be added to the `src/components` folder and an export to `src/index.js`
+Components should be added to the `src/components` folder and an export to `src/index.js`. Each component should be tested, documented readme, and have a storybook example added. 
 
-Any default styles can be added as a stylus file in `src/css`.
+### Technologies and tools we use
 
-`npm version [semver new version]` will run helper preversion and postversion scripts. `preversion` will run the tests. `version` will run `npm run build` which will build the production css and js. `postversion` will push the updated repo and the updated git tag to github.
+  All of our components are written using React, built on top of Grommet, a component UI library, and styled by our custom Grommet style theme (@zooniverse/grommet-theme) and styled-components.
 
-For now, we will git tag and install via github. 
+  - [Grommet](https://v2.grommet.io/components) - React UI component library
+  - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
+  - [styled-components](https://www.styled-components.com/) - CSS in JS for styling and theming
+
+  Testing is done by
+
+  - [Mocha](https://mochajs.org/) - test runner
+  - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
+  - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
+  - [Enzyme](https://airbnb.io/enzyme/) - testing utility for React
+
