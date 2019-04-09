@@ -9,9 +9,9 @@ We love your input! We want to make contributing to this project as easy and tra
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Contents**
 
-
-- [Important Resources](#important-resources)
+- [Important links](#important-links)
 - [Reporting bugs](#reporting-bugs)
   - [Report bugs using Github's issues](#report-bugs-using-githubs-issues)
   - [Write bug reports with detail, background, and sample code](#write-bug-reports-with-detail-background-and-sample-code)
