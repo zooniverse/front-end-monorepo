@@ -105,6 +105,7 @@
     ],
     "global": [
       "expect"
-    ]
+    ],
+    "parser": "babel-eslint"
   }
 }
