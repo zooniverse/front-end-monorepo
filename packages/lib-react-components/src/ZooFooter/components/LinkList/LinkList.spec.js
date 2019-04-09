@@ -15,7 +15,7 @@ let URLS = [
 
 
 
-describe.only('Component > LinkList', function () {
+describe('Component > LinkList', function () {
   before(function () {
     wrapper = shallow(<LinkList labels={LABELS} urls={URLS} />)
   })
