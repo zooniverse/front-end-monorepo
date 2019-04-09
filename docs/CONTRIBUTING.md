@@ -74,7 +74,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 In short, when you submit code changes, your submissions are understood to be under the same [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) that covers the project.
 
-## First bugs for contributors
+### First bugs for contributors
 
 We label issues that are a good place to start for new contributors with [`good first issue`](https://github.com/zooniverse/front-end-monorepo/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 
@@ -85,7 +85,7 @@ We label issues that are a good place to start for new contributors with [`good 
 * We like modular code - lots of small, tested files rather than one big file. [Monoliths](https://github.com/zooniverse/Panoptes-Front-End) are not welcome here! Use inheritance or composition, depending on what you're doing.
 * We use containers and components - containers for handling data, components for how that data is presented to the user (Dan Abramov has [a good article on this concept](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)).
 
-## Testing
+### Testing
 
 1. At a minimum, code you submit should be unit tested - we use Coveralls to measure how much of our code is covered.
 2. Tests should be located alongside the code:
