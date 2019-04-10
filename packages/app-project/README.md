@@ -43,6 +43,22 @@ See [Testing](#testing) for more details.
 
 ## <a name="testing"></a> Testing
 
-Tests are run by [Mocha](https://mochajs.org/), using the [BDD](https://mochajs.org/#bdd) interface.
+  Testing is done by
 
-Assertions are provided by the [Chai](http://www.chaijs.com/) assertion library.
+  - [Mocha](https://mochajs.org/) - test runner
+  - [Chai](https://www.chaijs.com/) - BDD/TDD assertion library
+  - [Sinon](https://sinonjs.org) - test spies, mocks, and stubs
+  - [Enzyme](https://airbnb.io/enzyme/) - testing utility for React
+
+## Technologies
+
+  - @zooniverse/panoptes-js - Panoptes API javascript client
+  - @zooniverse/classifier - Zooniverse's classifier
+  - @zooniverse/react-components - Zooniverse common React components
+  - @zooniverse/grommet-theme - Zooniverse brand Grommet theme
+  - [Grommet](https://v2.grommet.io/components) - React UI component library
+  - [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree/) - App state built on MobX
+  - [mobx-react](https://github.com/mobxjs/mobx-react) - Mobx React bindings
+  - [next.js](https://nextjs.org/) - Server-side rendering and routing framework
+  - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
+  - [styled-components](https://www.styled-components.com/) - CSS in JS styling library.
