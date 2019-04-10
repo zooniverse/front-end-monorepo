@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
 import { Box } from 'grommet'
-import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -40,19 +39,12 @@ function storeMapper (stores) {
 
   const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
 
-  const {
-    applicableRules,
-    showModal: feedback
-  } = stores.classifierStore.feedback
-
   return {
     addAnnotation,
     annotations,
-    applicableRules,
     currentTask,
     enableAnnotate,
     enableMove,
-    feedback,
     interactionMode,
     setOnZoom,
     toolIndex
@@ -207,7 +199,9 @@ class LightCurveViewer extends Component {
     this.updatePresentation(width, height)
     
     if (this.props.feedback) {
-      this.drawFeedbackBrushes()
+      this.updateInteractionMode('move')
+      this.disableBrushEvents()
+      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
     } else {
       this.updateAnnotationBrushes()
       this.initBrushes()
@@ -399,7 +393,9 @@ class LightCurveViewer extends Component {
     this.updateDataPoints()
     this.updatePresentation()
     if (this.props.feedback) {
-      this.drawFeedbackBrushes()
+      this.updateInteractionMode('move')
+      this.disableBrushEvents()
+      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
     } else {
       this.updateAnnotationBrushes()
     }
@@ -549,7 +545,6 @@ class LightCurveViewer extends Component {
       .remove()
 
     // Reposition/re-draw brushes
-    const currentTransform = this.getCurrentTransform()
     this.disableBrushEvents() // Temporarily disable brush events to prevent recursion from `annotationBrush.brush.move`
     this.annotationBrushes.forEach((annotationBrush) => {
       const d3brush = this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`)
@@ -560,96 +555,26 @@ class LightCurveViewer extends Component {
         return
       }
 
-      const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
-      const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
-      const midXonScreen = currentTransform.rescaleX(this.xScale)((annotationBrush.minX + annotationBrush.maxX) / 2)
+      this.repositionBrush(annotationBrush, d3brush)
 
-      // Reposition the brushes (selected areas)...
-      d3brush.call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
-
-      // ...and their corresponding 'remove annotation' buttons
-      d3brush.select('.remove-button')
-        .attr('visibility', 'visible')
-        .attr('transform', `translate(${midXonScreen}, 0)`)
     })
     this.enableBrushEvents() // Re-enable brush events
   }
 
-  drawFeedbackBrushes () {
-    this.updateInteractionMode('move')
-
-    const annotationBrushes = []
-    this.props.annotations.forEach(annotation => {
-      const { task, value } = toJS(annotation)
-      value.forEach((marking, i) => {
-        const markingBrush = {
-          id: i,
-          brush: d3.brushX(),
-          maxX: (marking.x + (marking.width / 2)),
-          minX: (marking.x - (marking.width / 2))
-        }
-        annotationBrushes.push(markingBrush)
-      })
-    })
-    
-    const ruleBrushes = []
-    this.props.applicableRules.forEach(rule => {
-      const ruleBrush = {
-        id: rule.id,
-        brush: d3.brushX(),
-        maxX: (parseInt(rule.x, 10) + (parseInt(rule.width, 10) / 2) + parseInt(rule.tolerance, 10)),
-        minX: (parseInt(rule.x, 10) - (parseInt(rule.width, 10) / 2) - parseInt(rule.tolerance, 10)),
-        success: rule.success
-      }
-      ruleBrushes.push(ruleBrush)
-    })
-
-    const feedbackBrushes = annotationBrushes.concat(ruleBrushes)
-      
-    // Join the D3 brush objects with our internal annotationBrushes array
-    const brushSelection = this.d3annotationsLayer
-      .selectAll('.brush')
-      .data(feedbackBrushes, (d) => d.id)
-
-    // Set up new brushes
-    brushSelection.enter()
-      .insert('g', '.brush')
-      .attr('class', 'brush')
-      .attr('id', (brush) => (`brush-${brush.id}`))
-      .each(function applyBrushLogic (feedbackBrush) { // Don't use ()=>{}
-        feedbackBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
-      })
-
-    // Modify brush fill color...
-    brushSelection
-      .each(function fill (feedbackBrush) { // Don't use ()=>{}
-        d3.select(this)
-          .attr('class', 'brush')
-          .selectAll('.selection')
-          .style('fill', () => {
-            if (feedbackBrush.success === true) {
-              return 'green'
-            } else if (feedbackBrush.success === false) {
-              return 'red'
-            } else {
-              return 'white'
-            }
-          })
-      })
-
-    // Reposition/re-draw brushes
+  repositionBrush(brush, d3brush) {
     const currentTransform = this.getCurrentTransform()
-    this.disableBrushEvents()
-    feedbackBrushes.forEach((feedbackBrush) => {
-      const d3brush = this.d3annotationsLayer.select(`#brush-${feedbackBrush.id}`)
 
-      const minXonScreen = currentTransform.rescaleX(this.xScale)(feedbackBrush.minX)
-      const maxXonScreen = currentTransform.rescaleX(this.xScale)(feedbackBrush.maxX)
-      const midXonScreen = currentTransform.rescaleX(this.xScale)((feedbackBrush.minX + feedbackBrush.maxX) / 2)
+    const minXonScreen = currentTransform.rescaleX(this.xScale)(brush.minX)
+    const maxXonScreen = currentTransform.rescaleX(this.xScale)(brush.maxX)
+    const midXonScreen = currentTransform.rescaleX(this.xScale)((brush.minX + brush.maxX) / 2)
 
-      // Reposition the brushes (selected areas)...
-      d3brush.call(feedbackBrush.brush.move, [minXonScreen, maxXonScreen])
-    })
+    // Reposition the brushes (selected areas)...
+    d3brush.call(brush.brush.move, [minXonScreen, maxXonScreen])
+
+    // ...and their corresponding 'remove annotation' buttons
+    d3brush.select('.remove-button')
+      .attr('visibility', 'visible')
+      .attr('transform', `translate(${midXonScreen}, 0)`)
   }
 
   /*

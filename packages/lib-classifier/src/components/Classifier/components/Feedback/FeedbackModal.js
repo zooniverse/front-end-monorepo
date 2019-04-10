@@ -6,18 +6,20 @@ import { Modal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
-import SubjectViewer from '../SubjectViewer'
+import getFeedbackViewer from './helpers/getFeedbackViewer'
 
 counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const {
+    applicableRules,
     hideFeedback,
     hideSubjectViewer,
     messages,
     showModal
   } = stores.classifierStore.feedback
   return {
+    applicableRules,
     hideFeedback,
     hideSubjectViewer,
     messages,
@@ -30,7 +32,8 @@ function storeMapper (stores) {
 class FeedbackModal extends React.Component {
   render () {
     const label = counterpart('FeedbackModal.label')
-    const { hideFeedback, hideSubjectViewer, messages, showModal } = this.props
+    const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
+    const FeedbackViewer = getFeedbackViewer(applicableRules)
 
     if (showModal) {
       return (
@@ -45,7 +48,7 @@ class FeedbackModal extends React.Component {
               overflow='auto'
               width='medium'
             >
-              {!hideSubjectViewer && <SubjectViewer />}
+              {!hideSubjectViewer && <FeedbackViewer />}
               <ul>
                 {messages.map(message =>
                   <li key={Math.random()}>
@@ -71,7 +74,13 @@ class FeedbackModal extends React.Component {
 }
 
 FeedbackModal.wrappedComponent.propTypes = {
+  applicableRules: PropTypes.arrayOf(
+    PropTypes.shape({
+      strategy: PropTypes.string
+    })
+  ),
   hideFeedback: PropTypes.func,
+  hideSubjectViewer: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
   showModal: PropTypes.bool
 }
