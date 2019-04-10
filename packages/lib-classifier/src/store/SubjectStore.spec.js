@@ -3,7 +3,7 @@ import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
 import SubjectStore from './SubjectStore'
 import WorkflowStore from './WorkflowStore'
-import { ProjectFactory, WorkflowFactory } from '../../test/factories'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
 
 let rootStore
@@ -71,7 +71,7 @@ describe('Model > SubjectStore', function () {
       }).then(done, done)
     })
 
-    it('should false if the active subject does not have metadata', function (done) {
+    it('should return false if the active subject does not have metadata', function (done) {
       rootStore = RootStore.create(
         { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
         { client: clientStub }
@@ -83,6 +83,60 @@ describe('Model > SubjectStore', function () {
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(0)
         expect(rootStore.subjects.isThereMetadata).to.be.false
+      }).then(done, done)
+    })
+
+    it('should return false if the active subject only has hidden metadata', function (done) {
+      const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' }})
+      rootStore = RootStore.create(
+        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
+        {
+          client: {
+            panoptes: {
+              get: () => {
+                return Promise.resolve({
+                  body: { subjects: [subjectWithHiddenMetadata] }
+                })
+              }
+            }
+          }
+        }
+      )
+
+      rootStore.projects.setResource(project)
+      rootStore.workflows.setResource(workflow)
+      rootStore.workflows.setActive(workflow.id)
+      rootStore.subjects.populateQueue().then(() => {
+        const metadataKeys = Object.keys(rootStore.subjects.active.toJSON().metadata)
+        expect(metadataKeys).to.have.lengthOf(1)
+        expect(metadataKeys[0]).to.equal('#foo')
+        expect(rootStore.subjects.isThereMetadata).to.be.false
+      }).then(done, done)
+    })
+
+    it('should return true if the active subject has metadata', function (done) {
+      const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' }})
+      rootStore = RootStore.create(
+        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
+        {
+          client: {
+            panoptes: {
+              get: () => {
+                return Promise.resolve({
+                  body: { subjects: [subjectWithMetadata] }
+                })
+              }
+            }
+          }
+        }
+      )
+
+      rootStore.projects.setResource(project)
+      rootStore.workflows.setResource(workflow)
+      rootStore.workflows.setActive(workflow.id)
+      rootStore.subjects.populateQueue().then(() => {
+        expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
+        expect(rootStore.subjects.isThereMetadata).to.be.true
       }).then(done, done)
     })
   })
