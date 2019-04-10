@@ -6,7 +6,7 @@ function getRandomID (min, max) {
 }
 
 function buildQueuedSubjectResource () {
-  const randomId = getRandomID(0, 100)
+  const randomId = getRandomID(1, 100)
 
   return {
     already_seen: false,
