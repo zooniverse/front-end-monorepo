@@ -78,15 +78,17 @@ const SubjectStore = types
         const authorization = yield getBearerToken(authClient)
         const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
 
-        response.body.subjects.forEach(subject => {
-          self.resources.put(subject)
-        })
+        if (response.body.subjects && response.body.subjects.length > 0) {
+          response.body.subjects.forEach(subject => {
+            self.resources.put(subject)
+          })
+
+          if (!self.active) {
+            self.advance()
+          }
+        }
 
         self.loadingState = asyncStates.success
-
-        if (!self.active) {
-          self.advance()
-        }
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
