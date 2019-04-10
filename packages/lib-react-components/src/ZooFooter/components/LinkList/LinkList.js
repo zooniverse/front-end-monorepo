@@ -1,34 +1,47 @@
 import { Anchor, Box } from 'grommet'
-import { arrayOf, string} from 'prop-types'
+import { arrayOf, string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'
+
+const StyledBox = styled(Box)`
+  list-style-type: none;
+  padding: 0;
+`
 
 export default function LinkList ({ className, colorTheme, labels, urls }) {
   const [title, ...links] = zipLabelsAndUrls(labels, urls)
 
   return (
-    <Box className={className} direction='column' gap='xxsmall' tag='nav'>
+    <StyledBox
+      className={className}
+      direction='column'
+      tag='ul'
+    >
 
-      <SpacedText weight='bold'>
-        <Anchor href={title.url}>
-          {title.label}
-        </Anchor>
-      </SpacedText>
+      <li>
+        <SpacedText weight='bold'>
+          <Anchor href={title.url}>
+            {title.label}
+          </Anchor>
+        </SpacedText>
+      </li>
 
       {links.length > 0 && links.map(link => (
-        <Anchor
-          color={(colorTheme === 'light') ? 'dark-5' : 'light-3'}
-          href={link.url}
-          key={link.url}
-          size='small'
-        >
-          {link.label}
-        </Anchor>
+        <li key={link.url}>
+          <Anchor
+            color={(colorTheme === 'light') ? 'dark-5' : 'light-3'}
+            href={link.url}
+            size='small'
+          >
+            {link.label}
+          </Anchor>
+        </li>
       ))}
 
-    </Box>
+    </StyledBox>
   )
 }
 
