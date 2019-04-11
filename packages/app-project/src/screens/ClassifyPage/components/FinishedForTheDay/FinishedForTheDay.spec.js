@@ -3,6 +3,7 @@ import React from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
+import RelatedProjects from './components/RelatedProjects'
 
 const projectName = 'Foobar'
 const imageSrc = 'foobar.jpg'
@@ -32,8 +33,8 @@ describe('Component > FinishedForTheDay', function () {
     // We'll test this by link, and that link isn't hooked up yet
   })
 
-  xit('should contain an other projects button', function () {
-    // We'll test this by link, and that link isn't hooked up yet
+  it('should contain a related projects button', function () {
+    expect(wrapper.find(RelatedProjects)).to.have.lengthOf(1)
   })
 
   it('should not contain a `ProjectImage` if there\'s no `imgSrc` prop', function () {
