@@ -41,8 +41,9 @@ function ModalHeading ({ className, closeFn, title }) {
       className={className}
       direction='row'
       gap='large'
+      height='30px'
       justify='between'
-      pad={{ horizontal: 'medium', vertical: 'xsmall' }}
+      pad={{ horizontal: 'medium', vertical: 'none' }}
     >
       <Heading>
         {title}
