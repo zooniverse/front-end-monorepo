@@ -10,7 +10,7 @@ const StyledLayer = styled(Layer)`
 `
 
 function WithLayer (WrappedComponent) {
-  function HOC ({ active, className, closeFn, modal, ...props }) {
+  function HOC ({ active, className, closeFn, modal, position, ...props }) {
     if (!active) {
       return null
     }
@@ -19,6 +19,7 @@ function WithLayer (WrappedComponent) {
       <StyledLayer
         className={className}
         modal={modal}
+        position={position}
         onClickOutside={closeFn}
         onEsc={closeFn}
       >
@@ -31,13 +32,15 @@ function WithLayer (WrappedComponent) {
     active: PropTypes.bool,
     className: PropTypes.string,
     closeFn: PropTypes.func,
-    modal: PropTypes.bool
+    modal: PropTypes.bool,
+    position: PropTypes.string
   }
 
   HOC.defaultProps = {
     active: false,
     className: '',
-    modal: true
+    modal: true,
+    position: 'center'
   }
 
   return HOC
