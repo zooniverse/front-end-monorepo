@@ -3,7 +3,7 @@ import React from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
-
+import { Paragraph } from 'grommet'
 const projectName = 'Foobar'
 const imageSrc = 'foobar.jpg'
 
@@ -23,7 +23,7 @@ describe('Component > FinishedForTheDay', function () {
   })
 
   it('should contain some text', function () {
-    const para = wrapper.find('FinishedForTheDay__StyledParagraph')
+    const para = wrapper.find(Paragraph)
     expect(para).to.have.lengthOf(1)
     expect(para.text().length).to.be.ok()
   })
