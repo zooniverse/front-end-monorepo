@@ -42,7 +42,7 @@ function SlideTutorial (props) {
             src={medium.src}
           />}
         {activeStep === 0 &&
-          <Heading level='3' margin='20px 0 10px 0'>
+          <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
             {counterpart('SlideTutorial.heading', { projectDisplayName })}
           </Heading>}
         {/* TODO: translation */}
