@@ -8,10 +8,20 @@ import styled from 'styled-components'
 
 import TaskInputField from '../TaskInputField'
 
-export const StyledBox = styled(Box)`
+export const StyledFieldSet = styled.fieldset`
   border: none;
   margin: 0;
   padding: 0;
+`
+
+const StyledText = styled(Text)`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  > *:first-child {
+    margin-top: 0;
+  }
 `
 
 function storeMapper (stores) {
@@ -45,12 +55,12 @@ class SingleChoiceTask extends React.Component {
     }
 
     return (
-      <StyledBox as='fieldset' className={className}>
-        <Text size='small' tag='legend'>
+      <StyledFieldSet className={className}>
+        <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.question}
           </Markdownz>
-        </Text>
+        </StyledText>
 
         {task.answers.map((answer, index) => {
           const checked = (annotation && annotation.value + 1) ? index === annotation.value : false
@@ -68,7 +78,7 @@ class SingleChoiceTask extends React.Component {
             />
           )
         })}
-      </StyledBox>
+      </StyledFieldSet>
     )
   }
 }

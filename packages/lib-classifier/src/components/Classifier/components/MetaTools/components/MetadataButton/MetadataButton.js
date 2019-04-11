@@ -18,6 +18,7 @@ export default function MetadataButton (props) {
   return (
     <PlainButton
       icon={<StyledInfoIcon color='#5C5C5C' />}
+      margin={{ vertical: '5px', horizontal: 'none' }}
       text={counterpart('MetadataButton.label')}
       onClick={onClick}
     />
