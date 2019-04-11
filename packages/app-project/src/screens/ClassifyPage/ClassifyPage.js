@@ -1,9 +1,8 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
-import { string } from 'prop-types'
+import { func, string } from 'prop-types'
 import React from 'react'
 
-import CollectionsModal from './components/CollectionsModal'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 
@@ -16,18 +15,12 @@ const ClassifierWrapper = dynamic(() =>
 )
 
 function ClassifyPage (props) {
-  const collectionsModal = React.createRef()
-  function addToCollection (subjectId) {
-    collectionsModal.current.wrappedInstance.open(subjectId)
-  }
+  const { addToCollection } = props
   return (
     <Box
       background={props.mode === 'light' ? 'light-1' : 'dark-1'}
       pad={{ top: 'medium' }}
     >
-      <CollectionsModal
-        ref={collectionsModal}
-      />
       <Grid gap='medium' margin='medium'>
         <ClassifierWrapper
           onAddToCollection={addToCollection}
@@ -41,6 +34,7 @@ function ClassifyPage (props) {
 }
 
 ClassifyPage.propTypes = {
+  addToCollection: func,
   mode: string
 }
 
