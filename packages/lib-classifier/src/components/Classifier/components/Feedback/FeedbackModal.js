@@ -33,7 +33,10 @@ class FeedbackModal extends React.Component {
   render () {
     const label = counterpart('FeedbackModal.label')
     const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
-    const FeedbackViewer = getFeedbackViewer(applicableRules)
+    let FeedbackViewer = null
+    if (!hideSubjectViewer && applicableRules && applicableRules.length > 0) {
+      FeedbackViewer = getFeedbackViewer(applicableRules)
+    }
 
     if (showModal) {
       return (
