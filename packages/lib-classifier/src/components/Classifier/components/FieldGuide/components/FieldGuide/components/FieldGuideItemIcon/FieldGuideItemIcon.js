@@ -3,15 +3,24 @@ import React from 'react'
 import { Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 
-export default function FieldGuideItemIcon({ alt, className, height, icon, viewBox, width }) {
+export default function FieldGuideItemIcon(props) {
+  const { alt, className, height, icon, viewBox, width } = props
   if (icon && Object.keys(icon).length > 0) {
     return (
-      <Media alt={alt} className={className} fit='contain' height={height} src={icon.src} width={width} />
+      <Media
+        alt={alt}
+        className={className}
+        fit='contain'
+        height={height}
+        src={icon.src}
+        width={width}
+        {...props}
+      />
     )
   }
 
   return (
-    <svg className={className} viewBox={viewBox}>
+    <svg className={className} viewBox={viewBox} {...props}>
       <rect fill={zooTheme.global.colors['accent-2']} height={height} width={width} />
     </svg>
   )
