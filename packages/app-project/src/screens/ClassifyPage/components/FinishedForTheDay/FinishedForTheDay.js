@@ -17,10 +17,6 @@ const StyledButton = styled(Button)`
   margin: 0 10px 10px 0;
 `
 
-const StyledParagraph = styled(Paragraph)`
-  max-width: 100%;
-`
-
 const StyledBox = styled(Box)`
   margin: 0 -10px 0 0;
   max-width: 620px;
@@ -39,12 +35,11 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
         >
           {counterpart('FinishedForTheDay.title')}
         </Heading>
-        <StyledParagraph
+        <Paragraph
           margin={{ bottom: 'small', top: 'none' }}
-          size='small'
         >
           {counterpart('FinishedForTheDay.text', { projectName })}
-        </StyledParagraph>
+        </Paragraph>
         <StyledBox direction='row' wrap>
           <StyledButton
             label={(
