@@ -10,6 +10,18 @@ import TaskInputField from '../TaskInputField'
 
 export const StyledFieldset = styled.fieldset`
   border: none;
+  margin: 0;
+  padding: 0;
+`
+
+const StyledText = styled(Text)`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  > *:first-child {
+    margin-top: 0;
+  }
 `
 
 function storeMapper (stores) {
@@ -50,11 +62,11 @@ class MultipleChoiceTask extends React.Component {
     }
     return (
       <StyledFieldset autoFocus={(annotation && annotation.value && annotation.value.length === 0)}>
-        <Text size='small' tag='legend'>
+        <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.question}
           </Markdownz>
-        </Text>
+        </StyledText>
         {task.answers.map((answer, index) => {
           const checked = (annotation && annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
           return (

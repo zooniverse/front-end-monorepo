@@ -30,7 +30,7 @@ export default function FavouritesButton (props) {
         aria-checked={checked}
         disabled={disabled}
         icon={<Favourite filled={checked ? 'true' : undefined} />}
-        margin={{ vertical: 'small', left: 'none', right: 'medium' }}
+        margin={{ vertical: '5px', horizontal: 'none' }}
         role='checkbox'
         text={counterpart(label)}
         onClick={disabled ? undefined : onClick}

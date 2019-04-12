@@ -48,10 +48,11 @@ export default class MetaTools extends React.Component {
 
   render () {
     const { className, isThereMetadata, subject, upp } = this.props
+
     return (
-      <Box className={className} direction="row">
+      <Box className={className} direction="row-responsive" gap='small'>
         {isThereMetadata &&
-          <MetadataButton onClick={this.toggleMetadataModal} />}
+          <MetadataButton onClick={onClick} />}
         {isThereMetadata &&
           <MetadataModal
             active={this.state.showMetadataModal}

@@ -40,11 +40,13 @@ class TaskHelp extends React.Component {
     if (isThereTaskHelp) {
       return (
         <>
-          <StyledPlainButton
-            onClick={() => this.setState({ showModal: true })}
-            margin={{ bottom: 'small' }}
-            text={label}
-          />
+          <Box>
+            <StyledPlainButton
+              onClick={() => this.setState({ showModal: true })}
+              margin={{ bottom: 'small' }}
+              text={label}
+            />
+          </Box>
           <Modal
             active={this.state.showModal}
             closeFn={() => this.setState({ showModal: false })}

@@ -16,6 +16,11 @@ function determineColor(theme) {
 }
 
 export const StyledPlainButton = styled(Button)`
+  /* Is there another way to change the gap size between the icon and label? */
+  > div > div {
+    width: 5px;
+  }
+
   &:focus,
   &:hover {
     color: ${props => determineColor(props.theme)};
