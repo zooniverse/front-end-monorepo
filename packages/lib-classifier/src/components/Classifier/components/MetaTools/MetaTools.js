@@ -9,9 +9,11 @@ import CollectionsButton from './components/CollectionsButton'
 
 function storeMapper(stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
+  const upp = stores.classifierStore.userProjectPreferences.active
   return {
     isThereMetadata,
-    subject
+    subject,
+    upp
   }
 }
 
@@ -45,11 +47,12 @@ export default class MetaTools extends React.Component {
   }
 
   render () {
-    const { className, isThereMetadata, subject } = this.props
+    const { className, isThereMetadata, subject, upp } = this.props
+
     return (
-      <Box className={className} direction="row">
+      <Box className={className} direction="row-responsive" gap='small'>
         {isThereMetadata &&
-          <MetadataButton onClick={this.toggleMetadataModal} />}
+          <MetadataButton onClick={onClick} />}
         {isThereMetadata &&
           <MetadataModal
             active={this.state.showMetadataModal}
@@ -58,9 +61,11 @@ export default class MetaTools extends React.Component {
           />}
         <FavouritesButton
           checked={subject && subject.favorite}
+          disabled={!upp}
           onClick={this.toggleFavourites}
         />
         <CollectionsButton
+          disabled={!upp}
           onClick={this.addToCollection}
         />
       </Box>

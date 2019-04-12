@@ -30,7 +30,7 @@ class ImageToolbar extends Component {
           }}
           direction='column'
           fill
-          pad='14px'
+          pad='12px'
         >
           <AnnotateButton />
           <MoveButton />

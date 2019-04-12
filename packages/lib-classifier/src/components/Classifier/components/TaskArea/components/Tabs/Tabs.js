@@ -79,6 +79,7 @@ function Tabs (props) {
           border-left: 1px solid ${borderColor};
           border-right: 1px solid ${borderColor};
           border-bottom: 1px solid ${borderColor};
+          padding: 30px;
         `
       }
     }

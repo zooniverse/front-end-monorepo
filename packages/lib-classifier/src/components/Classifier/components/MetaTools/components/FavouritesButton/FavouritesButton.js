@@ -22,17 +22,18 @@ export const Favourite = styled(HeartIcon)`
 `
 
 export default function FavouritesButton (props) {
-  const { checked, onClick, theme } = props
+  const { checked, disabled, onClick, theme } = props
   const label = checked ? 'FavouritesButton.remove' : 'FavouritesButton.add'
   return (
     <ThemeProvider theme={{ mode: theme }}>
       <PlainButton
         aria-checked={checked}
+        disabled={disabled}
         icon={<Favourite filled={checked ? 'true' : undefined} />}
-        margin={{ vertical: 'small', left: 'none', right: 'medium' }}
+        margin={{ vertical: '5px', horizontal: 'none' }}
         role='checkbox'
         text={counterpart(label)}
-        onClick={onClick}
+        onClick={disabled ? undefined : onClick}
       />
     </ThemeProvider>
   )
@@ -40,12 +41,14 @@ export default function FavouritesButton (props) {
 
 FavouritesButton.propTypes = {
   checked: PropTypes.bool,
+  disabled: PropTypes.bool,
   theme: PropTypes.string,
   onClick: PropTypes.func
 }
 
 FavouritesButton.defaultProps = {
   checked: false,
+  disabled: false,
   onClick: () => false,
   theme: 'light'
 }

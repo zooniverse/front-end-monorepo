@@ -34,11 +34,11 @@ export default class MyDocument extends Document {
   render () {
     return (
       <html>
-        {isProduction && (
-          <Head>
+        <Head>
+          {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
-          </Head>
-        )}
+          )}
+        </Head>
         <body>
           {isProduction && (
             <noscript>
