@@ -700,7 +700,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
 
   chartStyle: {
     color: '#eff2f5', // Zooniverse Light Grey
-    background: '#005d69', // Zooniverse Dark Teal
+    background: '#003941', // Zooniverse Dark Teal
     dataPointSize: '1.5',
     fontFamily: 'inherit',
     fontSize: '0.75rem'
