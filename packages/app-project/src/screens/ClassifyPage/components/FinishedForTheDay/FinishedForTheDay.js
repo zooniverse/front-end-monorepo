@@ -3,6 +3,7 @@ import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
@@ -15,6 +16,7 @@ const StyledButton = styled(Button)`
   border-width: 1px;
   flex: 1 1 300px;
   margin: 0 10px 10px 0;
+  text-align: center;
 `
 
 const StyledBox = styled(Box)`
@@ -22,7 +24,7 @@ const StyledBox = styled(Box)`
   max-width: 620px;
 `
 
-function FinishedForTheDay ({ imageSrc, projectName }) {
+function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
   const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
 
   return (
@@ -41,15 +43,17 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
           {counterpart('FinishedForTheDay.text', { projectName })}
         </Paragraph>
         <StyledBox direction='row' wrap>
-          <StyledButton
-            label={(
-              <Text size='small'>
-                {counterpart('FinishedForTheDay.buttons.stats')}
-              </Text>
-            )}
-            onClick={() => console.info('click')}
-            primary
-          />
+          {isLoggedIn &&
+            <Link href='/#projects' passHref>
+              <StyledButton
+                label={(
+                  <Text size='small'>
+                    {counterpart('FinishedForTheDay.buttons.stats')}
+                  </Text>
+                )}
+                primary
+              />
+            </Link>}
           <RelatedProjects />
         </StyledBox>
       </ContentBox>
@@ -59,11 +63,13 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
 
 FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
-  projectName: PropTypes.string.isRequired
+  isLoggedIn: PropTypes.bool,
+  projectName: PropTypes.string.isRequired,
 }
 
 FinishedForTheDay.defaultProps = {
-  imageSrc: ''
+  imageSrc: '',
+  isLoggedIn: false,
 }
 
 export default FinishedForTheDay

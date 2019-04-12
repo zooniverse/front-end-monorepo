@@ -12,6 +12,7 @@ const StyledButton = styled(Button)`
   border-width: 1px;
   flex: 1 1 300px;
   margin: 0 10px 10px 0;
+  max-width: 300px;
 `
 
 function RelatedProjectsButton (props) {
