@@ -19,7 +19,7 @@ export function AnchorLabel({ className, icons, item }) {
       direction='column'
       width='100px'
     >
-      <FieldGuideItemIcon alt={item.title} height='100' icon={icon} width='100' />
+      <FieldGuideItemIcon alt={item.title} fit='cover' height='100px' icon={icon} width='100px' />
       <Markdownz>
         {item.title}
       </Markdownz>
