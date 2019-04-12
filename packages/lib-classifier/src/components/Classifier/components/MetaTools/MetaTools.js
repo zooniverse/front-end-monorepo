@@ -9,9 +9,11 @@ import CollectionsButton from './components/CollectionsButton'
 
 function storeMapper(stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
+  const upp = stores.classifierStore.userProjectPreferences.active
   return {
     isThereMetadata,
-    subject
+    subject,
+    upp
   }
 }
 
@@ -45,9 +47,8 @@ export default class MetaTools extends React.Component {
   }
 
   render () {
-    const { className, isThereMetadata, subject } = this.props
-    // Grommet's Button determines disabled state by whether or not onClick is defined
-    const onClick = (isThereMetadata) ? this.toggleMetadataModal : undefined
+    const { className, isThereMetadata, subject, upp } = this.props
+
     return (
       <Box className={className} direction="row-responsive" gap='small'>
         {isThereMetadata &&
@@ -60,9 +61,11 @@ export default class MetaTools extends React.Component {
           />}
         <FavouritesButton
           checked={subject && subject.favorite}
+          disabled={!upp}
           onClick={this.toggleFavourites}
         />
         <CollectionsButton
+          disabled={!upp}
           onClick={this.addToCollection}
         />
       </Box>

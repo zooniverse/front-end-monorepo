@@ -20,25 +20,28 @@ export const Collect = styled(CollectionsIcon)`
 `
 
 export default function CollectionsButton (props) {
-  const { onClick, theme } = props
+  const { disabled, onClick, theme } = props
   return (
     <ThemeProvider theme={{ mode: theme }}>
       <PlainButton
+        disabled={disabled}
         icon={<Collect />}
         margin={{ vertical: '5px', horizontal: 'none' }}
         text={counterpart('CollectionsButton.add')}
-        onClick={onClick}
+        onClick={disabled ? undefined : onClick}
       />
     </ThemeProvider>
   )
 }
 
 CollectionsButton.propTypes = {
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   theme: PropTypes.string
 }
 
 CollectionsButton.defaultProps = {
+  disabled: false,
   onClick: () => false,
   theme: 'light'
 }
