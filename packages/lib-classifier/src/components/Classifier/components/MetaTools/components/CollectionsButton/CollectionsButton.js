@@ -26,7 +26,7 @@ export default function CollectionsButton (props) {
       <PlainButton
         disabled={disabled}
         icon={<Collect />}
-        margin={{ vertical: 'small', left: 'none', right: 'medium' }}
+        margin={{ vertical: '5px', horizontal: 'none' }}
         text={counterpart('CollectionsButton.add')}
         onClick={disabled ? undefined : onClick}
       />

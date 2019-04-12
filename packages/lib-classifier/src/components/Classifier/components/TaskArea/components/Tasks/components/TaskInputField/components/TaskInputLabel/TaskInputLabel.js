@@ -19,6 +19,7 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
     flex-grow: 1;
     font-size: ${pxToRem(14)};
     margin: 0;
+    max-width: 100%;
     text-align: ${(props) => props.textAlign};
   }
 
