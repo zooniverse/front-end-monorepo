@@ -11,6 +11,7 @@ const Subject = types
     locations: types.frozen(),
     metadata: types.frozen(),
     retired: types.optional(types.boolean, false),
+    selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     user_has_finished_workflow: types.optional(types.boolean, false)
   })
