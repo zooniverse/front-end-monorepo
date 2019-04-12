@@ -74,6 +74,7 @@ const ClassificationStore = types
             already_seen: subject.already_seen,
             finished_workflow: subject.finished_workflow,
             retired: subject.retired,
+            selected_at: subject.selected_at,
             selection_state: subject.selection_state,
             user_has_finished_workflow: subject.user_has_finished_workflow
           },
