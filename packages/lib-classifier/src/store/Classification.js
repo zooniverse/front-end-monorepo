@@ -19,6 +19,7 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
     already_seen: types.optional(types.boolean, false),
     finished_workflow: types.optional(types.boolean, false),
     retired: types.optional(types.boolean, false),
+    selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     user_has_finished_workflow: types.optional(types.boolean, false)
   }),

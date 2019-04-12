@@ -33,4 +33,19 @@ describe('Component > CollectionsButton', function () {
     wrapper.find(PlainButton).simulate('click')
     expect(onClick).to.have.been.calledOnce
   })
+
+  describe ('when disabled', function () {
+    const onClick = sinon.stub()
+    wrapper = shallow(
+      <CollectionsButton
+        disabled
+        onClick={onClick}
+      />
+    )
+
+    it('should not be clickable', function () {
+      wrapper.find(PlainButton).simulate('click')
+      expect(onClick).to.not.have.been.called
+    })
+  })
 })
