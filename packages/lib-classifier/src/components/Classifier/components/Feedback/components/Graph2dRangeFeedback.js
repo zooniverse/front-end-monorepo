@@ -33,7 +33,6 @@ class Graph2dRangeFeedback extends Component {
   }
 
   drawFeedbackBrushes (d3annotationsLayer, repositionBrush) {
-    console.log('d3annotationsLayer = ', d3annotationsLayer)
     const annotationBrushes = []
     this.props.annotations.forEach(annotation => {
       const { task, value } = toJS(annotation)
