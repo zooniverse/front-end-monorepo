@@ -98,6 +98,8 @@ class LightCurveViewerContainer extends Component {
       <LightCurveViewer
         dataExtent={this.state.dataExtent}
         dataPoints={this.state.dataPoints}
+        drawFeedbackBrushes={this.props.drawFeedbackBrushes}
+        feedback={this.props.feedback}
       />
     )
   }
