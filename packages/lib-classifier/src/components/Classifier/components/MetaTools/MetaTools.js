@@ -51,8 +51,7 @@ export default class MetaTools extends React.Component {
 
     return (
       <Box className={className} direction="row-responsive" gap='small'>
-        {isThereMetadata &&
-          <MetadataButton onClick={onClick} />}
+        <MetadataButton disabled={!isThereMetadata} onClick={this.toggleMetadataModal} />
         {isThereMetadata &&
           <MetadataModal
             active={this.state.showMetadataModal}
