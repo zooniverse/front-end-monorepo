@@ -34,7 +34,7 @@ describe('Component > CollectionsButton', function () {
     expect(onClick).to.have.been.calledOnce
   })
 
-  describe ('when disabled', function () {
+  describe('when disabled', function () {
     const onClick = sinon.stub()
     wrapper = shallow(
       <CollectionsButton

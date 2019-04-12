@@ -51,11 +51,11 @@ describe('Component > FavouritesButton', function () {
 
     it('should be checked', function () {
       const checked = wrapper.childAt(0).prop('aria-checked')
-      expect(checked).to.equal(true)
+      expect(checked).to.be.true
     })
   })
 
-  describe ('when disabled', function () {
+  describe('when disabled', function () {
     const onClick = sinon.stub()
     wrapper = shallow(
       <FavouritesButton
