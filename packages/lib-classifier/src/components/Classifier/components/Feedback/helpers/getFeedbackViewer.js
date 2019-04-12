@@ -15,7 +15,7 @@ function getFeedbackViewer (applicableRules) {
   })
 
   if (uniqStrategies.length > 1) {
-    return <p>More than one feedback strategy is not currently supported</p>
+    return null
   }
 
   return viewers[[uniqStrategies]] || null

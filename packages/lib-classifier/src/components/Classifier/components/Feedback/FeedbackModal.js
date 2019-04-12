@@ -33,9 +33,10 @@ class FeedbackModal extends React.Component {
   render () {
     const label = counterpart('FeedbackModal.label')
     const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
+    const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
     let FeedbackViewer = null
-    if (!hideSubjectViewer && applicableRules && applicableRules.length > 0) {
-      FeedbackViewer = getFeedbackViewer(applicableRules)
+    if (showViewer) {
+      FeedbackViewer = getFeedbackViewer(applicableRules)      
     }
 
     if (showModal) {
@@ -51,7 +52,7 @@ class FeedbackModal extends React.Component {
               overflow='auto'
               width='medium'
             >
-              {!hideSubjectViewer && <FeedbackViewer />}
+              {showViewer && <FeedbackViewer />}
               <ul>
                 {messages.map(message =>
                   <li key={Math.random()}>
