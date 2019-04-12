@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
+import RelatedProjects from './components/RelatedProjects'
 import ContentBox from '../../../../shared/components/ContentBox'
 
 counterpart.registerTranslations('en', en)
@@ -49,14 +50,7 @@ function FinishedForTheDay ({ imageSrc, projectName }) {
             onClick={() => console.info('click')}
             primary
           />
-          <StyledButton
-            onClick={() => console.info('click')}
-            label={(
-              <Text size='small'>
-                {counterpart('FinishedForTheDay.buttons.anotherProject')}
-              </Text>
-            )}
-          />
+          <RelatedProjects />
         </StyledBox>
       </ContentBox>
     </Grid>
