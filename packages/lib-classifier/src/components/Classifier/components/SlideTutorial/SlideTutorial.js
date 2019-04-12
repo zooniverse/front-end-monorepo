@@ -33,15 +33,18 @@ function SlideTutorial (props) {
       pad={pad}
       width={width}
     >
-      {isThereMedia &&
-        <Media
-          alt={counterpart('SlideTutorial.alt', { activeStep })}
-          fit='cover'
-          height={200}
-          src={medium.src}
-        />}
-      <Heading level='3' margin='20px 0 10px 0'>{counterpart('SlideTutorial.heading', { projectDisplayName })}</Heading>
-      <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow='auto'>
+      <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow={{ horizontal: 'hidden', vertical: 'auto' }}>
+        {isThereMedia &&
+          <Media
+            alt={counterpart('SlideTutorial.alt', { activeStep })}
+            fit='cover'
+            height={200}
+            src={medium.src}
+          />}
+        {activeStep === 0 &&
+          <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
+            {counterpart('SlideTutorial.heading', { projectDisplayName })}
+          </Heading>}
         {/* TODO: translation */}
         <Markdownz>{step.content}</Markdownz>
       </StyledMarkdownWrapper>

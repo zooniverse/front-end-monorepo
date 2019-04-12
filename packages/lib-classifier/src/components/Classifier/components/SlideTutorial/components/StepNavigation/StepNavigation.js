@@ -10,18 +10,31 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
-  padding: 12px;
+  &:first-of-type {
+    margin: 0 15px 0 0;
+    padding: 0;
+  }
+
+  &:last-of-type {
+    margin: 0;
+    padding: 0;
+  }
 `
 
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   position: relative;
-  margin-left: 20px;
 
-  > label > span {
-    height: 0;
-    overflow: hidden;
-    position: absolute;
-    width: 0;
+  > label {
+    > span {
+        height: 0;
+        overflow: hidden;
+        position: absolute;
+        width: 0;
+      }
+
+    > div {
+      margin-right: 15px;
+    }
   }
 `
 
@@ -60,7 +73,7 @@ class StepNavigation extends React.Component {
         }
       })
       return (
-        <Box as='nav' align='center' className={className} direction='row' justify='center' margin={{ top: '30px' }}>
+        <Box align='center' className={className} direction='row' justify='center' margin={{ top: 'medium' }}>
           <StyledButton
             a11yTitle={counterpart('StepNavigation.previous')}
             data-index={prevStep}
