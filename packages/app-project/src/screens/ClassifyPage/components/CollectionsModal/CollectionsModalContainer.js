@@ -6,7 +6,7 @@ import CollectionsModal from './CollectionsModal'
 import SelectCollection from './components/SelectCollection'
 import CreateCollection from './components/CreateCollection'
 
-function storeMapper (stores) {
+function storeMapper(stores) {
   const {
     addSubjects,
     collections,
@@ -24,7 +24,7 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class CollectionsModalContainer extends Component {
-  constructor () {
+  constructor() {
     super()
     this.addToCollection = this.addToCollection.bind(this)
     this.close = this.close.bind(this)
@@ -34,7 +34,7 @@ class CollectionsModalContainer extends Component {
     this.state = {
       active: false,
       newCollection: {
-        displayName: '',
+        display_name: '',
         private: false
       },
       selectedCollection: undefined,
@@ -42,28 +42,28 @@ class CollectionsModalContainer extends Component {
     }
   }
 
-  addToCollection (event) {
+  addToCollection(event) {
     event.preventDefault()
     const { selectedCollection, subjectId } = this.state
     this.props.addSubjects(selectedCollection.id, [subjectId])
     this.close()
   }
 
-  createCollection (event) {
+  createCollection(event) {
     event.preventDefault()
     const { newCollection, subjectId } = this.state
     this.props.createCollection(newCollection, [subjectId])
     this.close()
   }
 
-  open (subjectId) {
+  open(subjectId) {
     this.setState({
       active: true,
       subjectId
     })
   }
 
-  close () {
+  close() {
     const subjectId = null
     this.setState({
       active: false,
@@ -71,12 +71,12 @@ class CollectionsModalContainer extends Component {
     })
   }
 
-  onSelect (event) {
+  onSelect(event) {
     const selectedCollection = event.value
     this.setState({ selectedCollection })
   }
 
-  updateCollection (collectionDetails) {
+  updateCollection(collectionDetails) {
     this.setState(prevState => {
       const newCollection = Object.assign(
         {},
@@ -87,7 +87,7 @@ class CollectionsModalContainer extends Component {
     })
   }
 
-  render () {
+  render() {
     const { collections, searchCollections } = this.props
     const { active, newCollection, selectedCollection } = this.state
 
@@ -102,7 +102,7 @@ class CollectionsModalContainer extends Component {
           selected={selectedCollection}
         />
         <CreateCollection
-          disabled={!newCollection.displayName}
+          disabled={!newCollection.display_name}
           collection={newCollection}
           onChange={this.updateCollection}
           onSubmit={this.createCollection}
