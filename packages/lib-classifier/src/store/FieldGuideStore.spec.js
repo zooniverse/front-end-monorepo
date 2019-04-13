@@ -14,12 +14,16 @@ import {
 const medium = FieldGuideMediumFactory.build()
 const fieldGuide = FieldGuideFactory.build()
 const fieldGuideWithItems = FieldGuideFactory.build({ items: [
-  { 
+  {
     content: 'All about cats',
     icon: medium.id,
     title: 'Cats'
+  },
+  { 
+    content: 'All about dogs',
+    title: 'Dogs'  
   }
-]})
+] })
 
 const fieldGuideWithoutIcon = FieldGuideFactory.build({
   items: [
@@ -52,7 +56,7 @@ describe('Model > FieldGuideStore', function () {
     rootStore = RootStore.create({
       fieldGuide: FieldGuideStore.create(),
       projects: ProjectStore.create()
-    }, { client: { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null) )}} })
+    }, { client: { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null)) } } })
 
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
     expect(rootStore.client.panoptes.get).to.not.been.called
@@ -62,8 +66,8 @@ describe('Model > FieldGuideStore', function () {
     rootStore = RootStore.create({
       fieldGuide: FieldGuideStore.create(),
       projects: ProjectStore.create()
-    }, { 
-      client: { 
+    }, {
+      client: {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
             if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
@@ -85,7 +89,7 @@ describe('Model > FieldGuideStore', function () {
       rootStore = RootStore.create({
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
-      }, { 
+      }, {
         client: {
           panoptes: {
             get: sinon.stub().callsFake((url) => {
@@ -93,12 +97,12 @@ describe('Model > FieldGuideStore', function () {
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
             })
           }
-        } 
+        }
       })
 
       fetchFieldGuide()
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce          
+          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce
         }).then(done, done)
     })
 
@@ -106,7 +110,7 @@ describe('Model > FieldGuideStore', function () {
       rootStore = RootStore.create({
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
-      }, { 
+      }, {
         client: {
           panoptes: {
             get: sinon.stub().callsFake((url) => {
@@ -114,7 +118,7 @@ describe('Model > FieldGuideStore', function () {
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
             })
           }
-        } 
+        }
       })
 
       const setResourceSpy = sinon.spy(rootStore.fieldGuide, 'setResource')
@@ -133,15 +137,15 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+              if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            })
           }
-        })
+        }
+      })
       sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
 
       rootStore.projects.setResource(project)
@@ -161,15 +165,15 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+              if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            })
           }
-        })
+        }
+      })
 
       const setResourceSpy = sinon.spy(rootStore.fieldGuide, 'setResource')
       const setActiveSpy = sinon.spy(rootStore.fieldGuide, 'setActive')
@@ -211,15 +215,15 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+              if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            })
           }
-        })
+        }
+      })
 
       const setMediaResourcesSpy = sinon.spy(rootStore.fieldGuide, 'setMediaResources')
 
@@ -263,15 +267,15 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+            })
           }
-        })
+        }
+      })
 
       rootStore.fieldGuide.setModalVisibility(true)
       expect(rootStore.fieldGuide.showModal).to.be.true
@@ -280,25 +284,25 @@ describe('Model > FieldGuideStore', function () {
     })
   })
 
-  describe('Actions > setActiveItem', function () {
+  describe('Actions > setActiveItemIndex', function () {
     it('should not set the active item if there is no field guide', function (done) {
       rootStore = RootStore.create({
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
-                if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
+              if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem(0)
-        expect(rootStore.fieldGuide.activeItem).to.be.undefined
+        rootStore.fieldGuide.setActiveItemIndex(0)
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -308,19 +312,19 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem()
-        expect(rootStore.fieldGuide.activeItem).to.be.undefined
+        rootStore.fieldGuide.setActiveItemIndex()
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -330,24 +334,48 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem(1)
-        expect(rootStore.fieldGuide.activeItem).to.be.undefined
+        rootStore.fieldGuide.setActiveItemIndex(2)
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
 
     it('should set the active item', function (done) {
+      rootStore = RootStore.create({
+        fieldGuide: FieldGuideStore.create(),
+        projects: ProjectStore.create()
+      }, {
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+            })
+          }
+        }
+      })
+
+      fetchFieldGuide()
+        .then(() => {
+          fieldGuideWithItems.items.forEach((item, index) => {
+            rootStore.fieldGuide.setActiveItemIndex(index)
+            expect(rootStore.fieldGuide.activeItemIndex).to.equal(index)
+          })
+        }).then(done, done)
+    })
+
+    it('should set the active medium if the item has an icon', function (done) {
       rootStore = RootStore.create({
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
@@ -364,10 +392,9 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItem(0)
-          expect(rootStore.fieldGuide.activeItem).to.equal(0)
+          rootStore.fieldGuide.setActiveItemIndex(0)
           expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
-        }).then(done, done)
+        }).then(done, done) 
     })
 
     it('should not set the active medium if the item does not have an icon', function (done) {
@@ -375,19 +402,19 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithoutIcon] } })
-                if (url === `/field_guides/${fieldGuideWithoutIcon.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithoutIcon] } })
+              if (url === `/field_guides/${fieldGuideWithoutIcon.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide().then(() => {
-        rootStore.fieldGuide.setActiveItem(0)
-        expect(rootStore.fieldGuide.activeItem).to.equal(0)
+        rootStore.fieldGuide.setActiveItemIndex(0)
+        expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined
       }).then(done, done)
     })
@@ -399,19 +426,19 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide()
         .then(() => {
-          rootStore.fieldGuide.setActiveItem(0)
+          rootStore.fieldGuide.setActiveItemIndex(0)
           rootStore.fieldGuide.setModalVisibility(true)
         })
         .then(() => {
@@ -419,7 +446,7 @@ describe('Model > FieldGuideStore', function () {
           expect(rootStore.fieldGuide.resources).to.exist
           expect(rootStore.fieldGuide.attachedMedia).to.exist
           expect(rootStore.fieldGuide.activeMedium).to.exist
-          expect(rootStore.fieldGuide.activeItem).to.equal(0)
+          expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
           expect(rootStore.fieldGuide.showModal).to.be.true
           return rootStore.fieldGuide.reset()
         }).then(() => {
@@ -427,7 +454,7 @@ describe('Model > FieldGuideStore', function () {
           expect(rootStore.fieldGuide.resources.size).to.equal(0)
           expect(rootStore.fieldGuide.attachedMedia.size).to.equal(0)
           expect(rootStore.fieldGuide.activeMedium).to.be.undefined
-          expect(rootStore.fieldGuide.activeItem).to.be.undefined
+          expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
           expect(rootStore.fieldGuide.showModal).to.be.false
         }).then(done, done)
     })

@@ -5,14 +5,15 @@ import React from 'react'
 function ModalBody ({
   children,
   className,
-  colorTheme
+  colorTheme,
+  pad
 }) {
   const background = (colorTheme === 'light') ? 'white' : 'dark-5'
   return (
     <Box
       background={background}
       className={className}
-      pad='medium'
+      pad={pad}
     >
       {children}
     </Box>
@@ -22,12 +23,13 @@ function ModalBody ({
 ModalBody.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-  colorTheme: PropTypes.oneOf(['light', 'dark'])
+  colorTheme: PropTypes.oneOf(['light', 'dark']),
 }
 
 ModalBody.defaultProps = {
   className: '',
-  colorTheme: 'light'
+  colorTheme: 'light',
+  pad: 'medium'
 }
 
 export default ModalBody

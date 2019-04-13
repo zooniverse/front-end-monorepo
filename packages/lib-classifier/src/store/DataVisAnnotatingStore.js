@@ -3,16 +3,16 @@ import { autorun } from 'mobx'
 
 const DataVisAnnotatingStore = types
   .model('DataVisAnnotatingStore', {
-    active: types.optional(types.number, 0),
+    active: types.optional(types.number, 0)
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createClassificationObserver()
       createWorkflowStepsObserver()
     }
 
-    function createClassificationObserver() {
+    function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
         onAction(getRoot(self).classifications, (call) => {
           if (call.name === 'completeClassification') self.reset()
@@ -31,11 +31,11 @@ const DataVisAnnotatingStore = types
       addDisposer(self, workflowStepsDisposer)
     }
 
-    function reset() {
+    function reset () {
       self.active = 0
     }
 
-    function setActive(toolIndex) {
+    function setActive (toolIndex) {
       self.active = toolIndex
     }
 

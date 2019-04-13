@@ -7,12 +7,13 @@ import Avatar from './Avatar'
 let wrapper
 const avatarSrc = 'https://example.com/image.jpg'
 const projectTitle = 'Example project'
+const isNarrow = true
 
 describe('Component > AvatarContainer', function () {
   before(function () {
     wrapper = shallow(<AvatarContainer.wrappedComponent
       avatarSrc={avatarSrc}
-      child={StubComponent}
+      isNarrow={isNarrow}
       projectTitle={projectTitle}
     />)
   })
@@ -27,11 +28,8 @@ describe('Component > AvatarContainer', function () {
 
   it('should pass the required props to the Avatar component', function () {
     const child = wrapper.find(Avatar)
-    expect(child.prop('src')).to.equal(avatarSrc)
+    expect(child.prop('isNarrow')).to.equal(isNarrow)
     expect(child.prop('projectTitle')).to.equal(projectTitle)
+    expect(child.prop('src')).to.equal(avatarSrc)
   })
 })
-
-function StubComponent (props) {
-  return <div {...props}>stub</div>
-}

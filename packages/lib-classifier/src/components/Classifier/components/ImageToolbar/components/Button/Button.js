@@ -55,6 +55,7 @@ class Button extends React.Component {
   render () {
     const {
       active,
+      a11yTitle,
       children,
       disabled,
       focused,
@@ -73,18 +74,22 @@ class Button extends React.Component {
     const eventHandlers = (disabled)
       ? {}
       : {
-          onBlur,
-          onClick,
-          onFocus,
-          onMouseOver,
-          onMouseOut
-        }
+        onBlur,
+        onClick,
+        onFocus,
+        onMouseOver,
+        onMouseOut
+      }
 
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { ...this.getSize(size) }))
 
     return (
-      <StyledButton {...eventHandlers} disabled={disabled}>
+      <StyledButton
+        aria-label={a11yTitle}
+        disabled={disabled}
+        {...eventHandlers}
+      >
         <svg viewBox='0 0 100 100'>
           <Background
             active={active}

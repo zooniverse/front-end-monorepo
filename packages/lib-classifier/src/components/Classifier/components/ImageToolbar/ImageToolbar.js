@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { withTheme } from 'styled-components'
 
 import AnnotateButton from './components/AnnotateButton'
-import FieldGuideButton from './components/FieldGuideButton'
+import FieldGuide from '../FieldGuide'
 import FullscreenButton from './components/FullscreenButton'
 import MoveButton from './components/MoveButton'
 import ResetButton from './components/ResetButton'
@@ -20,14 +20,17 @@ class ImageToolbar extends Component {
     return (
       <Box as='aside' {...props}>
         <Box
-          background={mode === 'light' ? 'white' : 'dark-3'}
+          background={{
+            dark: 'dark-3',
+            light: 'white'
+          }}
           border={{
             color: mode === 'light' ? 'light-3' : 'dark-3',
             side: 'all'
           }}
           direction='column'
           fill
-          pad='14px'
+          pad='12px'
         >
           <AnnotateButton />
           <MoveButton />
@@ -37,7 +40,7 @@ class ImageToolbar extends Component {
           <FullscreenButton disabled />
           <ResetButton />
         </Box>
-        <FieldGuideButton />
+        <FieldGuide />
       </Box>
     )
   }

@@ -5,9 +5,10 @@ import React, { Component } from 'react'
 import FinishedForTheDay from './FinishedForTheDay'
 
 function storeMapper (stores) {
-  const { project } = stores.store
+  const { project, user } = stores.store
   return {
     imageSrc: project.background.src || '',
+    isLoggedIn: user.isLoggedIn,
     projectName: project['display_name']
   }
 }
@@ -16,10 +17,11 @@ function storeMapper (stores) {
 @observer
 class FinishedForTheDayContainer extends Component {
   render () {
-    const { imageSrc, projectName } = this.props
+    const { imageSrc, isLoggedIn, projectName } = this.props
     return (
       <FinishedForTheDay
         imageSrc={imageSrc}
+        isLoggedIn={isLoggedIn}
         projectName={projectName}
       />
     )
@@ -28,6 +30,7 @@ class FinishedForTheDayContainer extends Component {
 
 FinishedForTheDayContainer.propTypes = {
   imageSrc: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
   projectName: PropTypes.string.isRequired
 }
 
@@ -35,6 +38,8 @@ FinishedForTheDayContainer.propTypes = {
 // something going on with the store execution order which leaves it undefined
 // without one.
 FinishedForTheDayContainer.defaultProps = {
+  imageSrc: '',
+  isLoggedIn: false,
   projectName: ''
 }
 

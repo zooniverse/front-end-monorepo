@@ -12,7 +12,7 @@ describe('Model > Classification', function () {
         workflow: '5678'
       },
       metadata: ClassificationMetadata.create({
-        classifier_version: "2.0",
+        classifier_version: '2.0',
         source: 'api',
         userLanguage: 'en',
         workflowVersion: '1.0'
