@@ -9,7 +9,7 @@ import styled, { withTheme } from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;
-  text-shadow: 0 2px 2px rgba(0,0,0,0.22);
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
   &:focus,
   &:hover {
     background: ${props => props.theme.global.colors['neutral-2']};
@@ -23,14 +23,16 @@ const StyledDropButton = styled(DropButton)`
   border-radius: 2em;
   color: white;
 
-  ${props => props.isOpen && `
+  ${props =>
+    props.isOpen &&
+    `
     background: ${props.theme.global.colors['accent-2']};
   `}
 
   &:focus,
   &:hover {
     background: ${props => props.theme.global.colors['accent-2']};
-    color:  ${props => props.theme.global.colors['brand']};
+    color: ${props => props.theme.global.colors['brand']};
   }
 `
 
@@ -43,34 +45,38 @@ class DropdownNav extends React.Component {
 
   onOpen = () => this.setState({ isOpen: true })
 
-  renderItems () {
+  renderItems() {
     return (
       <Box
-        as='nav'
-        background='brand'
-        elevation='medium'
-        margin={{ top: 'medium '}}
+        as="nav"
+        background="brand"
+        elevation="medium"
+        margin={{ top: 'medium ' }}
       >
-        {this.props.navLinks.map(navLink => (
-          <Link href={navLink.href} key={navLink.href} passHref>
-            <StyledAnchor
-              label={(
-                <SpacedText color='white' weight='bold'>
-                  {navLink.text}
-                </SpacedText>
-              )}
-              theme={this.props.theme}
-            />
-          </Link>
-        ))}
+        <Box as="ul">
+          {this.props.navLinks.map(navLink => (
+            <Box as="li">
+              <Link href={navLink.href} key={navLink.href} passHref>
+                <StyledAnchor
+                  label={
+                    <SpacedText color="white" weight="bold">
+                      {navLink.text}
+                    </SpacedText>
+                  }
+                  theme={this.props.theme}
+                />
+              </Link>
+            </Box>
+          ))}
+        </Box>
       </Box>
     )
   }
 
-  render () {
+  render() {
     return (
       <StyledDropButton
-        alignSelf='center'
+        alignSelf="center"
         className={this.props.className}
         dropContent={this.renderItems()}
         dropAlign={{ top: 'bottom' }}
@@ -79,13 +85,8 @@ class DropdownNav extends React.Component {
         onClose={this.onClose}
         onOpen={this.onOpen}
       >
-        <Box
-          align='center'
-          direction='row'
-          gap='xsmall'
-          justify='center'
-        >
-          <SpacedText weight='bold'>
+        <Box align="center" direction="row" gap="xsmall" justify="center">
+          <SpacedText weight="bold">
             {counterpart('ProjectHeader.nav.exploreProject')}
           </SpacedText>
           <FormDown />
@@ -96,10 +97,12 @@ class DropdownNav extends React.Component {
 }
 
 DropdownNav.propTypes = {
-  navLinks: arrayOf(shape({
-    href: string,
-    text: string,
-  })),
+  navLinks: arrayOf(
+    shape({
+      href: string,
+      text: string
+    })
+  ),
   theme: shape({
     global: shape({
       colors: shape({
