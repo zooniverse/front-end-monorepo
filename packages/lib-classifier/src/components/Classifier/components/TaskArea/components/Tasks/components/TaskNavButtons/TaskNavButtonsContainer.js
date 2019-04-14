@@ -18,7 +18,7 @@ function storeMapper (stores) {
     createDefaultAnnotation,
     removeAnnotation
   } = stores.classifierStore.classifications
-  
+
   return {
     classification,
     completeClassification,

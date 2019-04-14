@@ -20,20 +20,32 @@ describe('Model > FeedbackStore', function () {
     feedbackStub = {
       isActive: true,
       rules: {
-        T0: [{
-          id: 'testRule',
-          hideSubjectViewer: true,
-          answer: '0',
-          strategy: 'testStrategy',
-          success: true,
-          successEnabled: true,
-          successMessage: 'Yay!',
-          failureEnabled: true,
-          failureMessage: 'No!'
-        }],
+        T0: [
+          {
+            id: 'testRule1-1',
+            hideSubjectViewer: false,
+            answer: '0',
+            strategy: 'testStrategy',
+            success: true,
+            successEnabled: true,
+            successMessage: 'Yay! 1-1',
+            failureEnabled: true,
+            failureMessage: 'No!'
+          },
+          {
+            id: 'testRule1-2',
+            hideSubjectViewer: false,
+            answer: '1',
+            strategy: 'testStrategy',
+            success: false,
+            successEnabled: true,
+            successMessage: 'Yay! 1-2',
+            failureEnabled: false
+          }
+        ],
         T1: [{
-          id: 'testRule',
-          hideSubjectViewer: false,
+          id: 'testRule2-1',
+          hideSubjectViewer: true,
           answer: '0',
           strategy: 'testStrategy',
           success: false,
@@ -90,12 +102,12 @@ describe('Model > FeedbackStore', function () {
 
   describe('update', function () {
     beforeEach(function () {
-      const annotation = { task: 'T0', value: 0 }
+      const annotation = { task: 'T1', value: 0 }
       feedback.update(annotation)
     })
 
     it('should reduce the rule and value', function () {
-      const [ rule ] = feedback.rules.get('T0')
+      const [ rule ] = feedback.rules.get('T1')
       expect(strategies.testStrategy.reducer).to.have.been.calledOnceWith(rule, 0)
     })
   })
@@ -147,9 +159,11 @@ describe('Model > FeedbackStore', function () {
     })
   })
 
-  describe('messages', function () {
-    it('should return an array of feedback messages', function () {
-      expect(feedback.messages).to.eql(['Yay!', 'Nope!'])
+  describe('applicableRules', function () {
+    it('should return an array of applicable rules', function () {
+      expect(feedback.applicableRules.length).to.equal(2)
+      expect(feedback.applicableRules.some(rule => rule.id === 'testRule1-1')).to.equal(true)
+      expect(feedback.applicableRules.some(rule => rule.id === 'testRule2-1')).to.equal(true)
     })
   })
 
@@ -159,9 +173,15 @@ describe('Model > FeedbackStore', function () {
     })
 
     it('should return false if no rule hides subject viewer', function () {
-      const [ rule ] = feedback.rules.get('T0')
+      const [ rule ] = feedback.rules.get('T1')
       rule.hideSubjectViewer = false
       expect(feedback.hideSubjectViewer).to.equal(false)
+    })
+  })
+
+  describe('messages', function () {
+    it('should return an array of feedback messages', function () {
+      expect(feedback.messages).to.eql(['Yay! 1-1', 'Nope!'])
     })
   })
 

@@ -6,6 +6,8 @@ Available states are:
 
 - `initialized`
 - `loading`
+- `putting`
+- `posting`
 - `success`
 - `error`
 

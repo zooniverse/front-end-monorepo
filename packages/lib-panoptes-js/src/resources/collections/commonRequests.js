@@ -23,7 +23,7 @@ function removeSubjects (params) {
 
   if (typeof collectionId !== 'string') return raiseError('Collections remove link: collections id must be a string.', 'typeError')
 
-  return panoptes.del(`${endpoint}/${collectionId}/links/subjects/${subjects.join(',')}`, { authorization })
+  return panoptes.del(`${endpoint}/${collectionId}/links/subjects/${subjects.join(',')}`, {}, { authorization })
 }
 
 module.exports = { addSubjects, removeSubjects }

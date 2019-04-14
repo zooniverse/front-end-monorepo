@@ -10,7 +10,7 @@
     "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
-    "lint": "npm run _check && standard --fix | snazzy; exit 0",
+    "lint": "npm run _check && standardx --fix | snazzy; exit 0",
     "start": "npm run _check && PANOPTES_ENV=production npm run dev",
     "test": "npm run _test && exit 0",
     "test:ci": "npm run _test -- --reporter=min"
@@ -26,6 +26,7 @@
     "lodash": "~4.17.11",
     "mobx-utils": "~5.0.2",
     "react-context-props": "~2.2.0",
+    "react-pose": "^4.0.8",
     "react-resize-detector": "~3.2.1",
     "rosie": "~2.0.1",
     "rxjs": "~6.3.3",
@@ -63,6 +64,7 @@
     "check-dependencies": "~1.1.0",
     "enzyme": "~3.9.0",
     "enzyme-adapter-react-16": "~1.11.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
     "grommet": "~2.5.5",
     "grommet-icons": "~4.2.0",
     "html-webpack-plugin": "~3.2.0",
@@ -82,7 +84,7 @@
     "sinon": "~7.1.1",
     "sinon-chai": "~3.3.0",
     "snazzy": "~8.0.0",
-    "standard": "~12.0.1",
+    "standardx": "^3.0.1",
     "styled-components": "~4.1.2",
     "styled-theming": "~2.2.0",
     "superagent": "~3.8.3",
@@ -90,7 +92,12 @@
     "webpack-cli": "~3.1.2",
     "webpack-dev-server": "~3.1.14"
   },
-  "standard": {
+  "eslintConfig": {
+    "extends": [
+      "plugin:jsx-a11y/recommended"
+    ]
+  },
+  "standardx": {
     "env": {
       "mocha": true
     },

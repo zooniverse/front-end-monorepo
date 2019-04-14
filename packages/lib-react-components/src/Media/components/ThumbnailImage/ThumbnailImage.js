@@ -20,7 +20,7 @@ const StyledImage = styled(Image)`
 
 export function Placeholder(props) {
   return (
-    <Box background={zooTheme.global.colors.brand} flex={props.flex} justify='center' align='center'>
+    <Box background={zooTheme.global.colors.brand} flex={props.flex} justify='center' align='center' {...props}>
       {props.children}
     </Box>
   )
@@ -57,8 +57,8 @@ export default class ThumbnailImage extends React.Component {
         {(returnedSrc, loading) => (
           <>
             {loading ?
-              <Placeholder height={height} flex={flex} width={width}>{placeholder}</Placeholder> :
-              <StyledBox animation={loading ? undefined : "fadeIn"} flex={flex} maxWidth={width} maxHeight={height}>
+              <Placeholder height={height} flex={flex} width={width} {...this.props}>{placeholder}</Placeholder> :
+              <StyledBox animation={loading ? undefined : "fadeIn"} flex={flex} maxWidth={width} maxHeight={height} {...this.props}>
                 <StyledImage
                   alt={alt}
                   fit={fit}

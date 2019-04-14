@@ -41,7 +41,7 @@ describe('Component > ProjectHeaderContainer', function () {
   })
 
   it('should pass down the project homepage href if on another page', function () {
-    expect(componentWrapper.prop('href')).to.equal(`/projects/${OWNER}/${PROJECT_DISPLAY_NAME}`)
+    expect(componentWrapper.prop('projectHomeLink')).to.equal(`/projects/${OWNER}/${PROJECT_DISPLAY_NAME}`)
   })
 
   it(`shouldn't pass down an href if on the home page`, function () {
@@ -52,6 +52,6 @@ describe('Component > ProjectHeaderContainer', function () {
       router={HOME_ROUTER}
     />)
     const onHomePageComponentWrapper = onHomePageWrapper.dive().find(ProjectHeader)
-    expect(onHomePageComponentWrapper.prop('href')).to.equal('')
+    expect(onHomePageComponentWrapper.prop('projectHomeLink')).to.equal('')
   })
 })

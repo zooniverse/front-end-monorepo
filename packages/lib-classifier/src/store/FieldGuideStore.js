@@ -9,7 +9,7 @@ const FieldGuideStore = types
   .model('FieldGuideStore', {
     active: types.maybe(types.reference(FieldGuide)),
     activeMedium: types.maybe(types.reference(Medium)),
-    activeItem: types.maybe(types.integer),
+    activeItemIndex: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(FieldGuide),
     showModal: types.optional(types.boolean, false),
@@ -17,11 +17,11 @@ const FieldGuideStore = types
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createProjectObserver()
     }
 
-    function createProjectObserver() {
+    function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const project = getRoot(self).projects.active
         if (project) {
@@ -37,7 +37,7 @@ const FieldGuideStore = types
       self.resources.clear()
       self.activeMedium = undefined
       self.attachedMedia.clear()
-      self.activeItem = undefined
+      self.activeItemIndex = undefined
       self.showModal = false
     }
 
@@ -92,19 +92,21 @@ const FieldGuideStore = types
       self.showModal = boolean
     }
 
-    function setActiveItem (index) {
+    function setActiveItemIndex (index) {
       const fieldGuide = self.active
-      if (fieldGuide && fieldGuide.items.length === index + 1 && fieldGuide.items[index]) {
-        self.activeItem = index
+      if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
         if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
+        return self.activeItemIndex = index
       }
+
+      return self.activeItemIndex = undefined
     }
 
     return {
       afterAttach,
       fetchFieldGuide: flow(fetchFieldGuide),
       reset,
-      setActiveItem,
+      setActiveItemIndex,
       setMediaResources,
       setModalVisibility
     }

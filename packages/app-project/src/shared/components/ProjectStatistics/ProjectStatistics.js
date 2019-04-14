@@ -48,7 +48,7 @@ function ProjectStatistics({
             size="small"
           >
             {counterpart('ProjectStatistics.text')}
-          </StyledParagraph>
+          </Paragraph>
           <CompletionBar />
           <Text margin={{ top: 'small' }} size="small" weight="bold">
             {counterpart('ProjectStatistics.percentComplete')}

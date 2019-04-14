@@ -16,6 +16,18 @@ counterpart.registerTranslations('en', en)
 
 export const StyledFieldset = styled.fieldset`
   border: none;
+  margin: 0;
+  padding: 0;
+`
+
+const StyledText = styled(Text)`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  > *:first-child {
+    margin-top: 0;
+  }
 `
 
 function storeMapper (stores) {
@@ -31,7 +43,7 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class DataVisAnnotationTask extends React.Component {
-  onChange(index, event) {
+  onChange (index, event) {
     if (event.target.checked) {
       this.props.setActive(index)
     }
@@ -52,14 +64,14 @@ class DataVisAnnotationTask extends React.Component {
 
     return (
       <StyledFieldset>
-        <Text size='small' tag='legend'>
+        <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.instruction}
           </Markdownz>
-        </Text>
-        
+        </StyledText>
+
         {task.tools.map((tool, index) => {
-          const checked =  active === index
+          const checked = active === index
           return (
             <TaskInputField
               checked={checked}

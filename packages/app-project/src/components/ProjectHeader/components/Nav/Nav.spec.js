@@ -1,19 +1,12 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import { Nav } from './Nav'
+import Nav from './Nav'
+import NavLink from './components/NavLink'
 
 let wrapper
 
-const OWNER = 'foo'
-const PROJECT = 'bar'
-const ROUTER = {
-  query: {
-    owner: OWNER,
-    project: PROJECT
-  }
-}
-const BASE_URL = `/projects/${OWNER}/${PROJECT}`
+const BASE_URL = `/projects/foo/bar`
 const LINKS = [
   { text: 'About', href: `${BASE_URL}/about` },
   { text: 'Classify', href: `${BASE_URL}/classify` },
@@ -24,27 +17,21 @@ const LINKS = [
 
 describe('Component > Nav', function () {
   before(function () {
-    wrapper = shallow(<Nav router={ROUTER} isLoggedIn />)
+    wrapper = shallow(<Nav navLinks={LINKS} />)
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('Links', function () {
-    LINKS.map(link => {
-      it(`should show a \`${link.text}\` link`, function () {
-        const innerWrapper = wrapper.dive().shallow()
-        expect(innerWrapper.find({ ...link })).to.have.lengthOf(1)
-      })
-    })
-
-    it('should hide the `Recents` link if not logged in', function () {
-      let innerWrapper = wrapper.dive().shallow()
-      expect(innerWrapper.find({ ...LINKS[4] })).to.have.lengthOf(1)
-      wrapper.setProps({ isLoggedIn: false })
-      innerWrapper = wrapper.dive().shallow()
-      expect(innerWrapper.find({ ...LINKS[4] })).to.have.lengthOf(0)
+  it('should render a link for each item passed in the `navLinks` prop', function () {
+    expect(wrapper.find(NavLink).length).to.equal(LINKS.length)
+    LINKS.forEach(function (LINK) {
+      // The `href` property is passed down by Next.js's `<Link />` component,
+      // so we can't assert on it at the same time as `text`.
+      expect(wrapper.find({ href: LINK.href })).to.have.lengthOf(1)
+      expect(wrapper.find({ text: LINK.text })).to.have.lengthOf(1)
     })
   })
+
 })

@@ -15,7 +15,7 @@ const COMPONENT = (
   <Banner
     background='red'
     bannerText={BANNER_TEXT}
-    show={true}
+    show
     theme={THEME}
     tooltipText={TOOLTIP_TEXT}
   />
