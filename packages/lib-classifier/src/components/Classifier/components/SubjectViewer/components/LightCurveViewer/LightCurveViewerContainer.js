@@ -28,11 +28,11 @@ class LightCurveViewerContainer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { subject, subjectId } = this.props
-    const prevSubject = prevProps.subject
-    const prevSubjectId = prevProps.subjectId
+    const { subject } = this.props
+    const prevSubjectId = prevProps.subject && prevProps.subject.id
+    const subjectChanged = subject && (subject.id !== prevSubjectId)
 
-    if (subject && (!prevSubject || prevSubjectId !== subjectId)) {
+    if (subjectChanged) {
       this.handleSubject()
     }
   }

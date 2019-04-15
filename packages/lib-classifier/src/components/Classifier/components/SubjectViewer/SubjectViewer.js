@@ -36,7 +36,6 @@ class SubjectViewer extends React.Component {
       <Viewer
         key={subject.id}
         subject={subject}
-        subjectId={subject.id}
       />
     )
   }
