@@ -52,13 +52,11 @@ function Tabs (props) {
     },
     tabs: {
       extend: `
-        button {
+        button[role="tab"] {
+          flex: 1 1 ${100 / props.children.length}%;
           &:disabled {
             cursor: not-allowed;
             opacity: 1;
-          }
-          &[role="tab"] {
-            flex: 1 1 ${100 / props.children.length}%;
           }
           &:enabled[aria-selected="false"] {
             &:focus,
