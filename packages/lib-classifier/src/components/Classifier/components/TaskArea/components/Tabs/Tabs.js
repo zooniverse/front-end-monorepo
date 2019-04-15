@@ -47,19 +47,25 @@ function Tabs (props) {
         margin: 0;
         padding: 16px 20px;
         border-right: 1px solid ${borderColor};
-        button[aria-selected="false"] & {
-          &:focus,
-          &:hover {
-            background: linear-gradient(${hoverBackgroundColor.top}, ${hoverBackgroundColor.bottom});
-          }
-        }
       `,
       pad: 'small'
     },
     tabs: {
       extend: `
-        button[role="tab"] {
-          flex: 1 1 ${100 / props.children.length}%;
+        button {
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 1;
+          }
+          &[role="tab"] {
+            flex: 1 1 ${100 / props.children.length}%;
+          }
+          &:enabled[aria-selected="false"] {
+            &:focus,
+            &:hover {
+              background: linear-gradient(${hoverBackgroundColor.top}, ${hoverBackgroundColor.bottom});
+            }
+          }
         }
       `,
       header: {
