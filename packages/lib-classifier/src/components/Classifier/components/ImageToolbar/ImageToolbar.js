@@ -46,6 +46,14 @@ function withKeyZoom (WrappedComponent) {
           zoomOut()
           return true
         }
+        case 'ArrowRight': {
+          console.log('pan right')
+          return true
+        }
+        case 'ArrowLeft': {
+          console.log('pan left')
+          return true
+        }
         default: {
           return true
         }
