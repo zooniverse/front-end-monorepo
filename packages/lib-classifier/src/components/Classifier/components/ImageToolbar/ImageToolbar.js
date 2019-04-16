@@ -13,8 +13,6 @@ import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 
-const PLUS = 187
-const MINUS = 189
 
 function storeMapper (stores) {
   const {
@@ -28,29 +26,41 @@ function storeMapper (stores) {
   }
 }
 
-@withTheme
-@inject(storeMapper)
-class ImageToolbar extends Component {
-  render () {
-    const { theme: { mode }, zoomIn, zoomOut, ...props } = this.props
-    function onKeyDown (e) {
-      switch (e.which) {
-        case PLUS: {
-          zoomIn()
-          return true
+function withKeyZoom (WrappedComponent) {
+  return @inject(storeMapper)
+    class extends React.Component {
+      render() {
+        const { zoomIn, zoomOut, ...props } = this.props
+        function onKeyDown (e) {
+          switch (e.key) {
+            case '+':
+            case '=': {
+              zoomIn()
+              return true
+            }
+            case '-':
+            case '_': {
+              zoomOut()
+              return true
+            }
+            default: {
+              return true
+            }
+          }
         }
-        case MINUS: {
-          zoomOut()
-          return true
-        }
-        default: {
-          return true
-        }
+        return <WrappedComponent onKeyDown={onKeyDown} {...props} />;
       }
     }
+}
+
+@withTheme
+@withKeyZoom
+class ImageToolbar extends Component {
+  render () {
+    const { theme: { mode }, ...props } = this.props
 
     return (
-      <Box as='aside' {...props} onKeyDown={onKeyDown}>
+      <Box as='aside' {...props}>
         <Box
           background={{
             dark: 'dark-3',
