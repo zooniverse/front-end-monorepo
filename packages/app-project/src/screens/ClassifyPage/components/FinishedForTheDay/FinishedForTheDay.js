@@ -7,14 +7,14 @@ import Link from 'next/link'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
-import RelatedProjects from './components/RelatedProjects'
+// import RelatedProjects from './components/RelatedProjects'
 import ContentBox from '../../../../shared/components/ContentBox'
 
 counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   border-width: 1px;
-  flex: 1 1 300px;
+  flex: 0 1 300px;
   margin: 0 10px 10px 0;
   text-align: center;
 `
@@ -24,6 +24,7 @@ const StyledBox = styled(Box)`
   max-width: 620px;
 `
 
+// TODO: Add `<RelatedProjects />` back in once API is up
 function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
   const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
 
@@ -43,7 +44,7 @@ function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
           {counterpart('FinishedForTheDay.text', { projectName })}
         </Paragraph>
         <StyledBox direction='row' wrap>
-          {isLoggedIn &&
+          {isLoggedIn && (
             <Link href='/#projects' passHref>
               <StyledButton
                 label={(
@@ -53,8 +54,8 @@ function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
                 )}
                 primary
               />
-            </Link>}
-          <RelatedProjects />
+            </Link>
+          )}
         </StyledBox>
       </ContentBox>
     </Grid>
