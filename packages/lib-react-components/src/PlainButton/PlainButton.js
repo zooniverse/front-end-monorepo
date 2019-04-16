@@ -22,7 +22,7 @@ export const StyledPlainButton = styled(Button)`
   }
 
   &:focus,
-  &:hover {
+  &:enabled:hover {
     color: ${props => determineColor(props.theme)};
     text-decoration: underline;
   }
