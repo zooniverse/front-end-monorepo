@@ -1,5 +1,6 @@
 import { Box } from 'grommet'
-import { shape, string } from 'prop-types'
+import { inject } from 'mobx-react'
+import { func, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 import { withTheme } from 'styled-components'
 
@@ -12,13 +13,41 @@ import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 
+function storeMapper (stores) {
+  const {
+    zoomIn,
+    zoomOut
+  } = stores.classifierStore.subjectViewer
+
+  return {
+    zoomIn,
+    zoomOut
+  }
+}
+
 @withTheme
+@inject(storeMapper)
 class ImageToolbar extends Component {
   render () {
-    const { theme: { mode }, ...props } = this.props
+    const { theme: { mode }, zoomIn, zoomOut, ...props } = this.props
+    function onKeyDown (e) {
+      switch (e.which) {
+        case 187: {
+          zoomIn()
+          return true
+        }
+        case 189: {
+          zoomOut()
+          return true
+        }
+        default: {
+          return true
+        }
+      }
+    }
 
     return (
-      <Box as='aside' {...props}>
+      <Box as='aside' {...props} onKeyDown={onKeyDown}>
         <Box
           background={{
             dark: 'dark-3',
@@ -46,10 +75,16 @@ class ImageToolbar extends Component {
   }
 }
 
+ImageToolbar.defaultProps = {
+  zoomIn: () => true,
+  zoomOut: () => true
+}
 ImageToolbar.propTypes = {
   theme: shape({
     mode: string
-  })
+  }),
+  zoomIn: func,
+  zoomOut: func
 }
 
 export default ImageToolbar
