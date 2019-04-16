@@ -13,6 +13,9 @@ import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 
+const PLUS = 187
+const MINUS = 189
+
 function storeMapper (stores) {
   const {
     zoomIn,
@@ -32,11 +35,11 @@ class ImageToolbar extends Component {
     const { theme: { mode }, zoomIn, zoomOut, ...props } = this.props
     function onKeyDown (e) {
       switch (e.which) {
-        case 187: {
+        case PLUS: {
           zoomIn()
           return true
         }
-        case 189: {
+        case MINUS: {
           zoomOut()
           return true
         }
