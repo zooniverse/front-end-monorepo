@@ -8,6 +8,7 @@ function Tabs (props) {
   const { global: { colors }, mode } = props.theme
   const isLight = mode === 'light'
   const borderColor = isLight ? colors['light-3'] : colors['dark-1']
+  const activeTextColor = isLight ? 'black' : colors['light-1']
   const activeBackgroundColor = isLight ? colors['white'] : colors['dark-3']
   const hoverBackgroundColor = isLight
     ? {
@@ -47,7 +48,16 @@ function Tabs (props) {
         margin: 0;
         padding: 16px 20px;
         border-right: 1px solid ${borderColor};
+        button[aria-selected="true"] & {
+          color: ${activeTextColor};
+        }
       `,
+      hover: {
+        color: {
+          dark: 'dark-1',
+          light: 'dark-1'
+        }
+      },
       pad: 'small'
     },
     tabs: {
@@ -57,6 +67,9 @@ function Tabs (props) {
           &:disabled {
             cursor: not-allowed;
             opacity: 1;
+          }
+          &[aria-selected="true"] {
+            pointer-events: none;
           }
           &:enabled[aria-selected="false"] {
             &:focus,
