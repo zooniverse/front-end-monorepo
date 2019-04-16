@@ -94,16 +94,10 @@ class ImageToolbar extends Component {
   }
 }
 
-ImageToolbar.defaultProps = {
-  zoomIn: () => true,
-  zoomOut: () => true
-}
 ImageToolbar.propTypes = {
   theme: shape({
     mode: string
-  }),
-  zoomIn: func,
-  zoomOut: func
+  })
 }
 
 export default ImageToolbar
