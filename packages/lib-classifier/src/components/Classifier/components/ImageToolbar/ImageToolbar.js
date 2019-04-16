@@ -28,26 +28,33 @@ function storeMapper (stores) {
 function withKeyZoom (WrappedComponent) {
   return @inject(storeMapper)
   class extends React.Component {
-    render () {
-      const { zoomIn, zoomOut, ...props } = this.props
-      function onKeyDown (e) {
-        switch (e.key) {
-          case '+':
-          case '=': {
-            zoomIn()
-            return true
-          }
-          case '-':
-          case '_': {
-            zoomOut()
-            return true
-          }
-          default: {
-            return true
-          }
+    constructor () {
+      super()
+      this.onKeyDown = this.onKeyDown.bind(this)
+    }
+
+    onKeyDown (e) {
+      const { zoomIn, zoomOut } = this.props
+      switch (e.key) {
+        case '+':
+        case '=': {
+          zoomIn()
+          return true
+        }
+        case '-':
+        case '_': {
+          zoomOut()
+          return true
+        }
+        default: {
+          return true
         }
       }
-      return <WrappedComponent onKeyDown={onKeyDown} {...props} />
+    }
+
+    render () {
+      const { zoomIn, zoomOut, ...props } = this.props
+      return <WrappedComponent onKeyDown={this.onKeyDown} {...props} />
     }
   }
 }
