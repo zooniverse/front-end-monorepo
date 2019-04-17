@@ -4,9 +4,7 @@ import React from 'react'
 
 function Subtitle ({ mode, text, ...props }) {
   return (
-    <Text
-      {...props}
-    >
+    <Text {...props}>
       {text}
     </Text>
   )
@@ -14,7 +12,6 @@ function Subtitle ({ mode, text, ...props }) {
 
 Subtitle.propTypes = {
   margin: oneOfType([object, string]),
-  mode: string,
   size: string,
   tag: string,
   text: string.isRequired,

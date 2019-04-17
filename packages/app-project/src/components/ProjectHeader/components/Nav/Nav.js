@@ -23,7 +23,7 @@ function Nav (props) {
 Nav.propTypes = {
   navLinks: arrayOf(shape({
     href: string,
-    text: string,
+    text: string
   }))
 }
 

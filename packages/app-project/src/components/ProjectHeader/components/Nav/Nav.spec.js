@@ -33,5 +33,4 @@ describe('Component > Nav', function () {
       expect(wrapper.find({ text: LINK.text })).to.have.lengthOf(1)
     })
   })
-
 })

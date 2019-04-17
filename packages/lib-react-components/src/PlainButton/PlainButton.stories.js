@@ -27,7 +27,7 @@ storiesOf('PlainButton', module)
 
   .add('Dark theme', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton text={text('Text', 'Click me')} theme='dark' />
+      <PlainButton text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
 

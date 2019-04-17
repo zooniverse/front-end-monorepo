@@ -10,7 +10,7 @@ let componentWrapper
 
 describe('Component > ClassifyPageContainer', function () {
   before(function () {
-    wrapper = shallow(<ClassifyPageContainer.wrappedComponent />)
+    wrapper = shallow(<ClassifyPageContainer />)
     componentWrapper = wrapper.find(ClassifyPage)
   })
 
