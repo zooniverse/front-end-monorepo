@@ -7,7 +7,9 @@ import request from 'superagent'
 
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
+import withKeyZoom from '../../../withKeyZoom'
 
+@withKeyZoom
 class LightCurveViewerContainer extends Component {
   constructor () {
     super()
