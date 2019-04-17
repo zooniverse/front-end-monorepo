@@ -47,12 +47,12 @@ describe('withKeyZoom', function () {
       {
         key: 'ArrowRight',
         name: 'pan right',
-        handler: onPan.withArgs(20)
+        handler: onPan.withArgs(-1,0)
       },
       {
         key: 'ArrowLeft',
         name: 'pan left',
-        handler: onPan.withArgs(-20)
+        handler: onPan.withArgs(1,0)
       }
     ]
 

@@ -38,11 +38,11 @@ function withKeyZoom (WrappedComponent) {
           return true
         }
         case 'ArrowRight': {
-          onPan(20)
+          onPan(-1, 0)
           return true
         }
         case 'ArrowLeft': {
-          onPan(-20)
+          onPan(1, 0)
           return true
         }
         default: {
