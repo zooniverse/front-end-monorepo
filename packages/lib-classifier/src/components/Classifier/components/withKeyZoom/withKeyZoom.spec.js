@@ -20,6 +20,7 @@ describe('withKeyZoom', function () {
   })
 
   describe('on key down', function () {
+    const onPan = sinon.stub()
     const zoomIn = sinon.stub()
     const zoomOut = sinon.stub()
     const bindings = [
@@ -43,11 +44,22 @@ describe('withKeyZoom', function () {
         name: 'zoomOut',
         handler: zoomOut
       },
+      {
+        key: 'ArrowRight',
+        name: 'pan right',
+        handler: onPan.withArgs(20)
+      },
+      {
+        key: 'ArrowLeft',
+        name: 'pan left',
+        handler: onPan.withArgs(-20)
+      }
     ]
 
     before(function () {
       wrapper = shallow(
         <WithZoom.wrappedComponent
+          onPan={onPan}
           zoomIn={zoomIn}
           zoomOut={zoomOut}
         />)

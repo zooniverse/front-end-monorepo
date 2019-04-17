@@ -4,11 +4,13 @@ import React, { Component } from 'react'
 
 function storeMapper (stores) {
   const {
+    onPan,
     zoomIn,
     zoomOut
   } = stores.classifierStore.subjectViewer
 
   return {
+    onPan,
     zoomIn,
     zoomOut
   }
@@ -23,7 +25,7 @@ function withKeyZoom (WrappedComponent) {
     }
 
     onKeyDown (e) {
-      const { zoomIn, zoomOut } = this.props
+      const { onPan, zoomIn, zoomOut } = this.props
       switch (e.key) {
         case '+':
         case '=': {
@@ -36,11 +38,11 @@ function withKeyZoom (WrappedComponent) {
           return true
         }
         case 'ArrowRight': {
-          console.log('pan right')
+          onPan(20)
           return true
         }
         case 'ArrowLeft': {
-          console.log('pan left')
+          onPan(-20)
           return true
         }
         default: {
@@ -50,7 +52,7 @@ function withKeyZoom (WrappedComponent) {
     }
 
     render () {
-      const { zoomIn, zoomOut, ...props } = this.props
+      const { onPan, zoomIn, zoomOut, ...props } = this.props
       return <WrappedComponent onKeyDown={this.onKeyDown} {...props} />
     }
   }
