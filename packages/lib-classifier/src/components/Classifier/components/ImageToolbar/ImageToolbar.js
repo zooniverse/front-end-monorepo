@@ -11,8 +11,10 @@ import ResetButton from './components/ResetButton'
 import RotateButton from './components/RotateButton'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
+import withKeyZoom from '../withKeyZoom'
 
 @withTheme
+@withKeyZoom
 class ImageToolbar extends Component {
   render () {
     const { theme: { mode }, ...props } = this.props
