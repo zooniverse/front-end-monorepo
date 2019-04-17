@@ -17,8 +17,8 @@ function storeMapper (stores) {
 }
 
 function withKeyZoom (WrappedComponent) {
-  return @inject(storeMapper)
-  class extends React.Component {
+  @inject(storeMapper)
+  class KeyZoom extends React.Component {
     constructor () {
       super()
       this.onKeyDown = this.onKeyDown.bind(this)
@@ -56,6 +56,12 @@ function withKeyZoom (WrappedComponent) {
       return <WrappedComponent onKeyDown={this.onKeyDown} {...props} />
     }
   }
+  KeyZoom.defaultProps = {
+    onPan: () => true,
+    zoomIn: () => true,
+    zoomOut: () => true
+  }
+  return KeyZoom
 }
 
 export default withKeyZoom
