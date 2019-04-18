@@ -1,4 +1,4 @@
-import { Box, Grid } from 'grommet'
+import { Box } from 'grommet'
 import dynamic from 'next/dynamic'
 import { func } from 'prop-types'
 import React from 'react'
@@ -14,15 +14,13 @@ const ClassifierWrapper = dynamic(() =>
 function ClassifyPage (props) {
   const { addToCollection } = props
   return (
-    <Box pad={{ top: 'medium' }}>
-      <Grid gap='medium' margin='medium'>
-        <ClassifierWrapper
-          onAddToCollection={addToCollection}
-        />
-        <FinishedForTheDay />
-        <ProjectStatistics />
-        <ConnectWithProject />
-      </Grid>
+    <Box gap='medium' pad={{ bottom: 'medium', left: 'medium', right: 'small', top: 'medium' }}>
+      <ClassifierWrapper
+        onAddToCollection={addToCollection}
+      />
+      <FinishedForTheDay />
+      <ProjectStatistics />
+      <ConnectWithProject />
     </Box>
   )
 }
