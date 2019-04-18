@@ -1,6 +1,6 @@
 FROM zooniverse/front-end-monorepo:latest
 
-WORKDIR /usr/src/packages/app-project/
+WORKDIR /usr/src/packages/app-about/
 
 RUN npm run build
 
