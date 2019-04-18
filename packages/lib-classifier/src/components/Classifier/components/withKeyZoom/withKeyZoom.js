@@ -4,26 +4,28 @@ import React, { Component } from 'react'
 
 function storeMapper (stores) {
   const {
+    onPan,
     zoomIn,
     zoomOut
   } = stores.classifierStore.subjectViewer
 
   return {
+    onPan,
     zoomIn,
     zoomOut
   }
 }
 
 function withKeyZoom (WrappedComponent) {
-  return @inject(storeMapper)
-  class extends React.Component {
+  @inject(storeMapper)
+  class KeyZoom extends React.Component {
     constructor () {
       super()
       this.onKeyDown = this.onKeyDown.bind(this)
     }
 
     onKeyDown (e) {
-      const { zoomIn, zoomOut } = this.props
+      const { onPan, zoomIn, zoomOut } = this.props
       switch (e.key) {
         case '+':
         case '=': {
@@ -36,11 +38,11 @@ function withKeyZoom (WrappedComponent) {
           return true
         }
         case 'ArrowRight': {
-          console.log('pan right')
+          onPan(-1, 0)
           return true
         }
         case 'ArrowLeft': {
-          console.log('pan left')
+          onPan(1, 0)
           return true
         }
         default: {
@@ -50,10 +52,16 @@ function withKeyZoom (WrappedComponent) {
     }
 
     render () {
-      const { zoomIn, zoomOut, ...props } = this.props
+      const { onPan, zoomIn, zoomOut, ...props } = this.props
       return <WrappedComponent onKeyDown={this.onKeyDown} {...props} />
     }
   }
+  KeyZoom.defaultProps = {
+    onPan: () => true,
+    zoomIn: () => true,
+    zoomOut: () => true
+  }
+  return KeyZoom
 }
 
 export default withKeyZoom
