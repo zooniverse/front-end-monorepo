@@ -31,7 +31,7 @@ function ThemeModeToggle (props) {
   )
 
   return (
-    <Box pad={{ top: 'small', right: 'small', bottom: 'small' }}>
+    <Box pad={{ top: 'medium', right: 'small', bottom: 'medium' }}>
       <StyledButton
         a11yTitle={text}
         label={Label}

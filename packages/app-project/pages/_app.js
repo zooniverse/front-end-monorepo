@@ -1,5 +1,5 @@
 import { ZooFooter } from '@zooniverse/react-components'
-import { Box, Grid } from 'grommet'
+import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
@@ -9,11 +9,10 @@ import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
 
 import AuthModals from '../src/components/AuthModals'
+import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
-import ThemeModeToggle from '../src/components/ThemeModeToggle'
-import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -85,10 +84,7 @@ export default class MyApp extends App {
               dark: 'dark-1',
               light: 'light-1'
             }}>
-              <Grid columns={['auto', 'auto']}>
-                <Component {...pageProps} />
-                <ThemeModeToggle />
-              </Grid>
+              <Component {...pageProps} />
             </Box>
             <ZooFooter />
             <AuthModals />
