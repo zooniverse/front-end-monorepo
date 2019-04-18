@@ -3,9 +3,13 @@ import React from 'react'
 import sinon from 'sinon'
 import Button from './Button'
 
+const THEME = {
+  dark: false
+}
+
 describe('Component > Button', function () {
   it('should render without crashing', function () {
-    shallow(<Button />)
+    shallow(<Button theme={THEME} />)
   })
 
   it('should call the onBlur prop function on blur', function () {
@@ -13,6 +17,7 @@ describe('Component > Button', function () {
     const wrapper = mount(
       <Button
         onBlur={spy}
+        theme={THEME}
       />
     )
 
@@ -25,6 +30,7 @@ describe('Component > Button', function () {
     const wrapper = mount(
       <Button
         onClick={spy}
+        theme={THEME}
       />
     )
 
@@ -37,6 +43,7 @@ describe('Component > Button', function () {
     const wrapper = mount(
       <Button
         onFocus={spy}
+        theme={THEME}
       />
     )
 
@@ -49,6 +56,7 @@ describe('Component > Button', function () {
     const wrapper = mount(
       <Button
         onMouseOver={spy}
+        theme={THEME}
       />
     )
 
@@ -61,6 +69,7 @@ describe('Component > Button', function () {
     const wrapper = mount(
       <Button
         onMouseOut={spy}
+        theme={THEME}
       />
     )
 
@@ -73,6 +82,7 @@ describe('Component > Button', function () {
     const wrapper = mount(
       <Button
         a11yTitle={A11Y_TITLE}
+        theme={THEME}
       />
     )
     expect(wrapper.find('button').prop('aria-label')).to.equal(A11Y_TITLE)

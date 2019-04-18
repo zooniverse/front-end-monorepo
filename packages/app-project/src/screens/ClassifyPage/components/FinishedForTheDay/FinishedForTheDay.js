@@ -65,12 +65,12 @@ function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
 FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  projectName: PropTypes.string.isRequired,
+  projectName: PropTypes.string.isRequired
 }
 
 FinishedForTheDay.defaultProps = {
   imageSrc: '',
-  isLoggedIn: false,
+  isLoggedIn: false
 }
 
 export default FinishedForTheDay

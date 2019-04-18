@@ -49,7 +49,7 @@ class DropdownNav extends React.Component {
         as='nav'
         background='brand'
         elevation='medium'
-        margin={{ top: 'medium '}}
+        margin={{ top: 'medium ' }}
       >
         {this.props.navLinks.map(navLink => (
           <Link href={navLink.href} key={navLink.href} passHref>
@@ -98,7 +98,7 @@ class DropdownNav extends React.Component {
 DropdownNav.propTypes = {
   navLinks: arrayOf(shape({
     href: string,
-    text: string,
+    text: string
   })),
   theme: shape({
     global: shape({
