@@ -21,7 +21,6 @@ function storeMapper (stores) {
 class FieldGuide extends React.Component {
   render () {
     const { activeItemIndex, className, items } = this.props
-    console.info(this.props.theme)
     return (
       <ResponsiveContext.Consumer>
         {size => {
