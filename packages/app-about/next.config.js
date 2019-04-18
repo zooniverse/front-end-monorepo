@@ -5,7 +5,6 @@ const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const { setAliases } = require('require-control')
 
-
 // Fixes the FOUC due to SC not collecting styles from symlinked packages
 // https://github.com/styled-components/styled-components/issues/2322
 setAliases({

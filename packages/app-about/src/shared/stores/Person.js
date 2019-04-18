@@ -6,7 +6,7 @@ const Person = types.model('Person', {
   jobTitle: types.string,
   name: types.string,
   team: types.string,
-  twitterId: types.optional(types.string, ''),
+  twitterId: types.optional(types.string, '')
 })
 
 export default Person

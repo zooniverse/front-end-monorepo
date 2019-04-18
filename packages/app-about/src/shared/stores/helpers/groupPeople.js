@@ -7,7 +7,7 @@ function groupPeople (ungroupedPeople) {
     if (teamIndex === -1) {
       acc.push({
         name: person.team,
-        people: [],
+        people: []
       })
       teamIndex = acc.length - 1
     }

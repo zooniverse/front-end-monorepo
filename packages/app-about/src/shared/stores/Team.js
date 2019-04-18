@@ -66,7 +66,7 @@ const Team = types
             bio: item.fields.bio,
             name: item.fields.name,
             twitterId: item.fields.twitterId,
-            jobTitle: item.fields.jobTitle,
+            jobTitle: item.fields.jobTitle
           })
         })
       }),
@@ -77,7 +77,6 @@ const Team = types
         }
       }
     }
-
   })
 
 export default Team
