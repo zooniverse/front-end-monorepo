@@ -21,29 +21,9 @@ describe('Stores > initStore', function () {
     expect(store2).to.equal(store1)
   })
 
-  it('should contain a project store', function () {
-    const store = initStore()
-    expect(store.project).to.be.ok()
-  })
-
-  it('should apply a snapshot when provided', function () {
-    const snapshot = {
-      project: {
-        loadingState: asyncStates.initialized,
-        display_name: 'foobar',
-        error: null,
-        id: '12345'
-      }
-    }
-    const store = initStore(true, snapshot)
-    expect(store.project.displayName).to.equal('foobar')
-    expect(store.project.id).to.equal('12345')
-  })
-
   it('should use PanoptesJS if there is no client argument', function () {
     const store = initStore()
     expect(store.client.panoptes).to.deep.equal(panoptes)
-    expect(store.client.projects).to.deep.equal(projects)
   })
 
   it('should use the client argument if defined', function () {

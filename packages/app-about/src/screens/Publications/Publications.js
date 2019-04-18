@@ -1,5 +1,5 @@
 import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
-import { array, arrayOf, func, string } from 'prop-types'
+import { array, arrayOf, func, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -73,6 +73,9 @@ function Publications (props) {
 Publications.propTypes = {
   activeFilter: string,
   currentView: array,
+  data: arrayOf(shape({ 
+    name: string 
+  })),
   filters: arrayOf(string),
   setActiveFilter: func
 }

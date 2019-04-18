@@ -7,9 +7,16 @@ import Team from './Team'
 let wrapper
 let componentWrapper
 
+const TEAM = {
+  activeFilter: '',
+  currentView: [],
+  filters: [''],
+  setActiveFilter: () => {}
+}
+
 describe('Component > TeamContainer', function () {
   before(function () {
-    wrapper = shallow(<TeamContainer.wrappedComponent />)
+    wrapper = shallow(<TeamContainer.wrappedComponent team={TEAM} />)
     componentWrapper = wrapper.find(Team)
   })
 

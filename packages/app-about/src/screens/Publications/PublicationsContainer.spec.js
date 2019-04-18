@@ -7,9 +7,16 @@ import Publications from './Publications'
 let wrapper
 let componentWrapper
 
+const PUBLICATIONS = {
+  activeFilter: '',
+  currentView: [],
+  filters: [''],
+  setActiveFilter: () => {},
+}
+
 describe('Component > PublicationsContainer', function () {
   before(function () {
-    wrapper = shallow(<PublicationsContainer.wrappedComponent />)
+    wrapper = shallow(<PublicationsContainer.wrappedComponent publications={PUBLICATIONS} />)
     componentWrapper = wrapper.find(Publications)
   })
 

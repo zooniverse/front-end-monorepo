@@ -29,20 +29,6 @@ describe('Component > Head', function () {
     expect(tag).to.have.lengthOf(1)
   })
 
-  it('should render a meta `og:image` tag', function () {
-    const tag = wrapper.find(`meta[property='og:image']`)
-    expect(tag).to.have.lengthOf(1)
-  })
-
-  it('should render a meta `twitter:creator` tag if available', function () {
-    let tag = wrapper.find(`meta[name='twitter:creator']`)
-    expect(tag).to.have.lengthOf(0)
-    wrapper.setProps({ projectTwitterUsername: 'foobar' })
-    tag = wrapper.find(`meta[name='twitter:creator']`)
-    expect(tag).to.have.lengthOf(1)
-    expect(tag.prop('content')).to.equal('foobar')
-  })
-
   it('should render a meta `twitter:site` tag', function () {
     const tag = wrapper.find(`meta[name='twitter:site']`)
     expect(tag).to.have.lengthOf(1)
@@ -51,11 +37,6 @@ describe('Component > Head', function () {
   it('should render a meta `twitter:card` tag', function () {
     const tag = wrapper.find(`meta[name='twitter:card']`)
     expect(tag).to.have.lengthOf(1)
-    expect(tag.prop('content')).to.equal('summary_large_image')
-  })
-
-  it('should render a meta `twitter:image` tag', function () {
-    const tag = wrapper.find(`meta[name='twitter:image']`)
-    expect(tag).to.have.lengthOf(1)
+    expect(tag.prop('content')).to.equal('summary')
   })
 })

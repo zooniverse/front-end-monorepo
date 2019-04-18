@@ -12,9 +12,10 @@ const defaultClient = {
   panoptes: panoptesClient
 }
 
+// These default to 'blank' in order to allow the tests to pass
 const defaultContentfulClient = createContentfulClient({
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-  space: process.env.CONTENTFUL_SPACE
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || 'blank',
+  space: process.env.CONTENTFUL_SPACE || 'blank'
 })
 
 function initStore (isServer, snapshot = null, client = defaultClient, contentfulClient = defaultContentfulClient) {
