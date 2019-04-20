@@ -1,3 +1,5 @@
+const cleanTag = require('./cleanTag')
+
 function getProjectProperties (project) {
   const { id, tags, slug } = project
   return {
@@ -8,9 +10,3 @@ function getProjectProperties (project) {
 }
 
 module.exports = getProjectProperties
-
-function cleanTag (tag) {
-  return tag
-    .toLowerCase()
-    .trim()
-}

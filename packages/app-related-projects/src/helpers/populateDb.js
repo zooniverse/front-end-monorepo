@@ -1,4 +1,4 @@
-const collectionModel = require('../models/collection')
+const projectsModel = require('../models/projects')
 const getProjectProperties = require('./getProjectProperties')
 const panoptesClient = require('./panoptesClient')
 
@@ -6,10 +6,8 @@ async function populateDb (page = 1) {
   const response = await requestProjects(page)
 
   const filteredProjects = response.projects
-    .map(getProjectProperties)
     .filter(project => project.tags.length > 0)
-
-  collectionModel.insert(filteredProjects)
+    .forEach(project => projectsModel.upsert(project))
 
   if (response.meta.next_page) {
     return populateDb(response.meta.next_page)
@@ -18,7 +16,7 @@ async function populateDb (page = 1) {
 
 module.exports = populateDb
 
-async function requestProjects (page = 1) {
+async function requestProjects (page) {
   return panoptesClient.get('/projects', {
     body: {
       beta_approved: true,

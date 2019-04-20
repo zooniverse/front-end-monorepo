@@ -2,11 +2,11 @@ const get = require('lodash/get')
 
 const getProjectProperties = require('./getProjectProperties')
 const panoptesClient = require('./panoptesClient')
-const collectionModel = require('../models/collection')
+const projectsModel = require('../models/projects')
 
 async function getTargetProject (id) {
   // Returns `null` if no project found
-  let project = collectionModel.findOne({ id })
+  let project = projectsModel.getById(id)
 
   if (!project) {
     const result = await panoptesClient.get(`/projects/${id}`)

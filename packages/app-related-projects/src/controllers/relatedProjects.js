@@ -1,9 +1,8 @@
 const express = require('express')
 
-const filterSelf = require('../helpers/filterSelf')
-const sortByMatchingTags = require('../helpers/sortByMatchingTags')
+const generateRelatedProjects = require('../helpers/generateRelatedProjects')
 const getTargetProject = require('../helpers/getTargetProject')
-const collectionModel = require('../models/collection')
+const relatedProjectsModel = require('../models/relatedProjects')
 
 const router = express.Router()
 
@@ -15,24 +14,17 @@ router.get('/:id', async (req, res) => {
     res.status(404).send()
   }
 
-  const boundFilterSelf = record => filterSelf(record, targetProject)
-  const boundSortByMatchingTags = (record1, record2) =>
-    sortByMatchingTags(record1, record2, targetProject)
+  let result = relatedProjectsModel.getById(id)
 
-  const relatedProjects = collectionModel.addDynamicView(id)
-    .applyWhere(boundFilterSelf)
-    .applySort(boundSortByMatchingTags)
-    .data()
-
-  const result = relatedProjects
-    .slice(0, 3)
-    .map(relatedProject => relatedProject.id)
+  if (!result) {
+    const newResult = generateRelatedProjects(targetProject)
+    relatedProjectsModel.upsert({ id, related: newResult })
+    result = newResult
+  }
 
   res.send({
     related_projects: result
   })
-
-  collectionModel.removeDynamicView(id)
 })
 
 module.exports = router

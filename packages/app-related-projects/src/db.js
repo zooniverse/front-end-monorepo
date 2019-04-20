@@ -1,8 +1,9 @@
-const Loki = require('lokijs')
+const low = require('lowdb')
+const Memory = require('lowdb/adapters/Memory')
 
-const db = new Loki('db', {
-  indices: ['id'],
-  unique: ['id']
-})
+const db = low(new Memory())
+
+db.defaults({ projects: [], relatedProjects: [] })
+  .write()
 
 module.exports = db
