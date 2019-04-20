@@ -1,4 +1,3 @@
-const getTargetProject = require('../helpers/getTargetProject')
 const sortByMatchingTags = require('../helpers/sortByMatchingTags')
 const projectsModel = require('../models/projects')
 
@@ -9,6 +8,5 @@ function generateRelatedProjects (targetProject) {
     .slice(0, 3)
     .map(relatedProject => relatedProject.id)
 }
-
 
 module.exports = generateRelatedProjects
