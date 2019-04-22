@@ -24,7 +24,7 @@ class SlideTutorialContainer extends React.Component {
       return (
         <ResponsiveContext.Consumer>
           {size => {
-            const height = (size === 'small') ? '100%' : '465px'
+            const height = (size === 'small') ? '100%' : '53vh'
             return (
               <SlideTutorial height={height} {...this.props} />
             )

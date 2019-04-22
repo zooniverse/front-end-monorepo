@@ -7,7 +7,7 @@ let wrapper
 
 describe('Component > LightCurveViewerContainer', function () {
   beforeEach(function () {
-    wrapper = shallow(<LightCurveViewerContainer />)
+    wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
   })
 
   it('should render without crashing', function () {
@@ -15,6 +15,6 @@ describe('Component > LightCurveViewerContainer', function () {
   })
 
   it('should render null if there is no subject prop', function () {
-    expect(wrapper.type()).to.equal(null)
+    expect(wrapper.dive().type()).to.be.null
   })
 })

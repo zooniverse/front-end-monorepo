@@ -20,7 +20,7 @@ const NumbersGrid = styled.div`
   grid-gap: 12px;
 `
 
-function ProjectStatistics({
+function ProjectStatistics ({
   className,
   classifications,
   completedSubjects,
