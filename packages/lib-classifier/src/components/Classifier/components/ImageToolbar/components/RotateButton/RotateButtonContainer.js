@@ -19,8 +19,11 @@ function storeMapper (stores) {
 class RotateButtonContainer extends React.Component {
   render () {
     const { disabled, rotate } = this.props
+    if (disabled) {
+      return null
+    }
     return (
-      <RotateButton disabled={disabled} onClick={rotate} />
+      <RotateButton onClick={rotate} />
     )
   }
 }
