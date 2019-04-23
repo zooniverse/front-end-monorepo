@@ -1,6 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
+import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
@@ -11,6 +12,15 @@ counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   white-space: nowrap;
+
+  > div {
+    flex-direction: column-reverse;
+  }
+`
+
+const StyledInfo = styled(Info)`
+  transform: rotate(270deg);
+  margin-top: 6px;
 `
 
 const StyledText = styled(SpacedText)`
@@ -34,6 +44,7 @@ function ThemeModeToggle (props) {
     <Box pad={{ top: 'medium', right: 'small', bottom: 'medium' }}>
       <StyledButton
         a11yTitle={text}
+        icon={<StyledInfo />}
         label={Label}
         onClick={onClick}
         plain
