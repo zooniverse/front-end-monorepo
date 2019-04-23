@@ -23,7 +23,6 @@ const StyledAvatar = styled(Image)`
   height: 75px;
   object-fit: cover;
   border-radius: 50%;
-  margin-right: 24px;
 `
 
 function MessageFromResearcher ({
@@ -34,7 +33,7 @@ function MessageFromResearcher ({
 }) {
   return (
     <ContentBox title={counterpart('MessageFromResearcher.title')}>
-      <Box direction='row'>
+      <Box direction='row' gap='24px'>
         <StyledAvatar src={avatar} />
         <Box>
           <StyledParagraph margin={{ bottom: 'xsmall', top: 'none' }}>
