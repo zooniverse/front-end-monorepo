@@ -6,13 +6,13 @@ A [Next.js](https://github.com/zeit/next.js) app for handling the about routes
 
 This package should be cloned as part of the [front-end-monorepo](https://github.com/zooniverse/front-end-monorepo).
 
-You'll need to create a `.env` file containing the secrets for Contentful:
+You'll need to create a `.env` file containing the space ID and access token for Contentful:
 
 ```sh
 cp env-default .env
 ```
 
-...and add the secrets from Passbolt.
+To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api/keys (login credentials are in Passbolt), and copy the Space ID and Content Delivery API token from "Testing".
 
 ### Running in development
 
