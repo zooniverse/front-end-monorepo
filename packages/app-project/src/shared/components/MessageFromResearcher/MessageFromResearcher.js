@@ -37,7 +37,7 @@ function MessageFromResearcher ({
       <Box direction='row'>
         <StyledAvatar src={avatar} />
         <Box>
-          <StyledParagraph margin={{ bottom: 'tiny', top: 'none' }}>
+          <StyledParagraph margin={{ bottom: 'xsmall', top: 'none' }}>
             {message}
           </StyledParagraph>
           <Link href={socialLink} passHref>
