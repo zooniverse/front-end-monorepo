@@ -23,12 +23,12 @@ const StyledAnchor = styled(Anchor)`
   `}
 `
 
-function NavLink(props) {
+function NavLink (props) {
   const { href, router, text } = props
   const isActive = router.asPath.includes(href)
   return (
     <StyledAnchor href={href} isActive={isActive}>
-      <StyledSpacedText color="white" weight="bold">
+      <StyledSpacedText color='white' weight='bold'>
         {text}
       </StyledSpacedText>
     </StyledAnchor>

@@ -45,21 +45,21 @@ class DropdownNav extends React.Component {
 
   onOpen = () => this.setState({ isOpen: true })
 
-  renderItems() {
+  renderItems () {
     return (
       <Box
-        as="nav"
-        background="brand"
-        elevation="medium"
+        as='nav'
+        background='brand'
+        elevation='medium'
         margin={{ top: 'medium ' }}
       >
-        <Box as="ul">
+        <Box as='ul'>
           {this.props.navLinks.map(navLink => (
-            <Box as="li" key={navLink.href}>
+            <Box as='li' key={navLink.href}>
               <Link href={navLink.href} passHref>
                 <StyledAnchor
                   label={
-                    <SpacedText color="white" weight="bold">
+                    <SpacedText color='white' weight='bold'>
                       {navLink.text}
                     </SpacedText>
                   }
@@ -73,10 +73,10 @@ class DropdownNav extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
       <StyledDropButton
-        alignSelf="center"
+        alignSelf='center'
         className={this.props.className}
         dropContent={this.renderItems()}
         dropAlign={{ top: 'bottom' }}
@@ -85,8 +85,8 @@ class DropdownNav extends React.Component {
         onClose={this.onClose}
         onOpen={this.onOpen}
       >
-        <Box align="center" direction="row" gap="xsmall" justify="center">
-          <SpacedText weight="bold">
+        <Box align='center' direction='row' gap='xsmall' justify='center'>
+          <SpacedText weight='bold'>
             {counterpart('ProjectHeader.nav.exploreProject')}
           </SpacedText>
           <FormDown />

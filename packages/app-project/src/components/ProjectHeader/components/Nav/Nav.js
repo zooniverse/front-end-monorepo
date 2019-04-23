@@ -5,13 +5,13 @@ import React from 'react'
 
 import NavLink from './components/NavLink'
 
-function Nav(props) {
+function Nav (props) {
   const { navLinks } = props
   return (
-    <Box as="nav">
-      <Box as="ul" direction="row" gap="medium">
+    <Box as='nav'>
+      <Box as='ul' direction='row' gap='medium'>
         {navLinks.map(navLink => (
-          <Box as="li" key={navLink.href}>
+          <Box as='li' key={navLink.href}>
             <Link href={navLink.href} passHref>
               <NavLink text={navLink.text} />
             </Link>
