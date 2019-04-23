@@ -8,7 +8,7 @@ function SingleColumnLayout (props) {
   return (
     <>
       <AboutHeader />
-      <Box align='center'>
+      <Box align='center' pad={{ horizontal: 'medium', vertical: 'large' }}>
         <Box width='xlarge'>
           {props.children}
         </Box>

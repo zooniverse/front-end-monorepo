@@ -9,19 +9,18 @@ function TwoColumnLayout (props) {
   return (
     <>
       <AboutHeader />
-      <Box align='center'>
+      <Box align='center' pad={{ horizontal: 'medium', vertical: 'large' }}>
         <Box
           direction='row-reverse'
           gap='medium'
           width='xlarge'
         >
-          <Box fill gridArea='main' pad={{ vertical: 'medium' }} >
+          <Box fill gridArea='main'>
             {main}
           </Box>
           <Box
             as='aside'
             gridArea='sidebar'
-            pad={{ vertical: 'medium' }}
             width='medium'
           >
             {sidebar}

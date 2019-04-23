@@ -1,16 +1,31 @@
-import { shallow } from 'enzyme'
+import { render } from 'enzyme'
 import React from 'react'
 
 import NavLink from './NavLink'
 
 let wrapper
+const HREF = '/baz'
+const LABEL = 'Foobar'
 
 describe('Component > NavLink', function () {
   before(function () {
-    wrapper = shallow(<NavLink />)
+    wrapper = render(<NavLink href={HREF} label={LABEL} />)
   })
 
   it('should render without crashing', function () {
+    
     expect(wrapper).to.be.ok()
+  })
+
+  it('should render an anchor tag', function () {
+    expect(wrapper.is('a')).to.be.true()
+  })
+
+  it('should use the `href` prop to set the anchor `href`', function () {
+    expect(wrapper.prop('href')).to.equal(HREF)
+  })
+
+  it('should use the `label` prop to set the anchor body', function () {
+    expect(wrapper.text()).to.equal(LABEL)
   })
 })

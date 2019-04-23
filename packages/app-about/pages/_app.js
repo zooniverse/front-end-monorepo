@@ -56,6 +56,7 @@ export default class MyApp extends App {
         <GlobalStyle />
         <Provider store={this.store}>
           <Grommet theme={mergedThemes}>
+            <ZooHeaderWrapper />
             <Component {...pageProps} />
             <ZooFooter />
             <AuthModals />
