@@ -38,7 +38,7 @@
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
-    "grommet": "~2.5.x",
+    "grommet": "~2.6.x",
     "grommet-icons": "~4.2.x",
     "react": "~16.8.x",
     "react-dom": "~16.8.x",
