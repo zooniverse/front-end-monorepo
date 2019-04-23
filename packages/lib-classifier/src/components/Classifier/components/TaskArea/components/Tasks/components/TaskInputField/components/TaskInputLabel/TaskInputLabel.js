@@ -19,6 +19,7 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
     flex-grow: 1;
     font-size: ${pxToRem(14)};
     margin: 0;
+    max-width: 100%;
     text-align: ${(props) => props.textAlign};
   }
 
@@ -35,12 +36,12 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
 `
 
 export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
-  const howShouldTheLabelBeAligned = ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon)) ?
-    'left' :
-    'center'
+  const howShouldTheLabelBeAligned = ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon))
+    ? 'left'
+    : 'center'
 
   return (
-    <StyledTaskInputLabelWrapper align="center" direction="row" fill="horizontal" textAlign={howShouldTheLabelBeAligned}>
+    <StyledTaskInputLabelWrapper align='center' direction='row' fill='horizontal' textAlign={howShouldTheLabelBeAligned}>
       {labelIcon &&
         labelIcon}
       <Markdownz>

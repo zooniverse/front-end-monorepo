@@ -1,10 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
-import { Button, Box } from 'grommet'
 import { Markdownz, Modal, PlainButton } from '@zooniverse/react-components'
-import styled from 'styled-components'
 import counterpart from 'counterpart'
+import { Button, Box } from 'grommet'
+import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -13,7 +14,7 @@ const StyledPlainButton = styled(PlainButton)`
   text-align: center;
 `
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
   const { isThereTaskHelp } = stores.classifierStore.workflowSteps
   return {
@@ -40,11 +41,13 @@ class TaskHelp extends React.Component {
     if (isThereTaskHelp) {
       return (
         <>
-          <StyledPlainButton
-            onClick={() => this.setState({ showModal: true })}
-            margin={{ bottom: 'small' }}
-            text={label}
-          />
+          <Box>
+            <StyledPlainButton
+              onClick={() => this.setState({ showModal: true })}
+              margin={{ bottom: 'small' }}
+              text={label}
+            />
+          </Box>
           <Modal
             active={this.state.showModal}
             closeFn={() => this.setState({ showModal: false })}
@@ -52,8 +55,8 @@ class TaskHelp extends React.Component {
           >
             <>
               <Box
-                height="medium"
-                overflow="auto"
+                height='medium'
+                overflow='auto'
               >
                 {tasks.map((task) => {
                   if (tasks.length > 1) {
@@ -72,7 +75,7 @@ class TaskHelp extends React.Component {
                 <Button
                   onClick={() => this.setState({ showModal: false })}
                   label={counterpart('TaskHelp.close')}
-                  primary={true}
+                  primary
                 />
               </Box>
             </>

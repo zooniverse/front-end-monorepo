@@ -1,15 +1,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ContentBox from './ContentBox'
+import { ContentBox } from './ContentBox'
 
 let wrapper
-const Foobar = () => <div>Foobar</div>
+const Foobar = () => (<div>Foobar</div>)
 
 describe('Component > ContentBox', function () {
   before(function () {
     wrapper = shallow(
-      <ContentBox>
+      <ContentBox theme={{ dark: false }}>
         <Foobar />
       </ContentBox>
     )

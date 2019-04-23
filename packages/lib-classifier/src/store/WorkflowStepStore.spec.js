@@ -178,7 +178,7 @@ describe('Model > WorkflowStepStore', function () {
       classification = ClassificationFactory.build({
         annotations: [
           { task: 'T1', value: 0 },
-          { task: 'T2', value: [0, 2]}
+          { task: 'T2', value: [0, 2] }
         ]
       })
 

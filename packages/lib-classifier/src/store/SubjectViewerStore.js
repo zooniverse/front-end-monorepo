@@ -16,7 +16,8 @@ const SubjectViewer = types
     - 'type': 'zoomin', 'zoomout', 'zoomto'
     - 'zoomValue' defines amount zoomed in/out, or current zoom value of 'zoomto'.
      */
-    onZoom: function (type, zoomValue) {}
+    onZoom: function (type, zoomValue) {},
+    onPan: function (value) {}
   }))
 
   .views(self => ({
@@ -60,6 +61,10 @@ const SubjectViewer = types
 
     setOnZoom (callback) {
       self.onZoom = callback
+    },
+
+    setOnPan (callback) {
+      self.onPan = callback
     },
 
     zoomIn () {

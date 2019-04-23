@@ -11,7 +11,7 @@ counterpart.registerTranslations('en', en)
 function ZoomOutButton ({ onClick }) {
   return (
     <Button
-      aria-label={counterpart('ZoomOutButton.ariaLabel')}
+      a11yTitle={counterpart('ZoomOutButton.ariaLabel')}
       onClick={onClick}
     >
       {zoomOutIcon}

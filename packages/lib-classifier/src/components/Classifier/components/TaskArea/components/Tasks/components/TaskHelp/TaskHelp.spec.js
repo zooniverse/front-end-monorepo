@@ -1,8 +1,8 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import TaskHelp from './TaskHelp'
 import { Button } from 'grommet'
+import { shallow } from 'enzyme'
+import React from 'react'
+
+import TaskHelp from './TaskHelp'
 
 const tasks = [{
   taskKey: 'init',
@@ -21,13 +21,14 @@ describe('TaskHelp', function () {
   })
 
   it('should render the modal when the need help button is clicked', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp={true} tasks={tasks} />)
-    wrapper.find('Styled(PlainButton)').simulate('click')
+    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
+    console.info(wrapper.debug())
+    wrapper.find('Styled(WithTheme(PlainButton))').simulate('click')
     expect(wrapper.state('showModal')).to.be.true
   })
 
   it('should no longer render the modal when the close button is clicked', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp={true} tasks={tasks} />)
+    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
     wrapper.setState({ showModal: true })
     wrapper.find(Button).simulate('click')
     expect(wrapper.state('showModal')).to.be.false

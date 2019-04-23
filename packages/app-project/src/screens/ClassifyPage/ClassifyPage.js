@@ -1,47 +1,38 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
-import { string } from 'prop-types'
+import { func } from 'prop-types'
 import React from 'react'
 
-import CollectionsModal from './components/CollectionsModal'
-import ProjectStatistics from '../../shared/components/ProjectStatistics'
-import ConnectWithProject from '../../shared/components/ConnectWithProject'
-
 import FinishedForTheDay from './components/FinishedForTheDay'
-
+import ThemeModeToggle from '../../components/ThemeModeToggle'
+import ProjectName from '../../components/ProjectName'
+import ConnectWithProject from '../../shared/components/ConnectWithProject'
+import ProjectStatistics from '../../shared/components/ProjectStatistics'
 const ClassifierWrapper = dynamic(() =>
-  import('./components/ClassifierWrapper'), {
-  ssr: false
-}
+  import('./components/ClassifierWrapper'), { ssr: false }
 )
 
 function ClassifyPage (props) {
-  const collectionsModal = React.createRef()
-  function addToCollection (subjectId) {
-    collectionsModal.current.wrappedInstance.open(subjectId)
-  }
+  const { addToCollection } = props
   return (
-    <Box
-      background={props.mode === 'light' ? 'light-1' : 'dark-1'}
-      pad={{ top: 'medium' }}
-    >
-      <CollectionsModal
-        ref={collectionsModal}
-      />
-      <Grid gap='medium' margin='medium'>
+    <Grid columns={['auto', 'auto', 'auto']}>
+      <ProjectName />
+      <Box gap='medium' pad={{ bottom: 'medium', left: 'small', right: 'small', top: 'medium' }}>
         <ClassifierWrapper
           onAddToCollection={addToCollection}
         />
         <FinishedForTheDay />
         <ProjectStatistics />
         <ConnectWithProject />
-      </Grid>
-    </Box>
+      </Box>
+      <ThemeModeToggle />
+    </Grid>
+
   )
 }
 
 ClassifyPage.propTypes = {
-  mode: string
+  addToCollection: func
 }
 
 export default ClassifyPage

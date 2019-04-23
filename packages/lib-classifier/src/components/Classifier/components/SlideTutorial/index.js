@@ -1,1 +1,1 @@
-export { default } from './SlideTutorial'
+export { default } from './SlideTutorialContainer'

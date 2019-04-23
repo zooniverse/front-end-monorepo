@@ -3,7 +3,7 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
@@ -39,14 +39,19 @@ export class Tasks extends React.Component {
   [asyncStates.success] () {
     const { tasks } = this.props
     if (tasks.length > 0) {
+      // setting the wrapping box of the task component to a basis of 246px feels hacky,
+      // but gets the area to be the same 453px height (or very close) as the subject area
+      // and keeps the task nav buttons at the the bottom area
+      // there has to be a better way
+      // but works for now
       return (
         <ThemeProvider theme={{ mode: this.props.theme }}>
-          <Box as='form' pad='medium'>
+          <Box as='form' justify='between'>
             {tasks.map((task) => {
               const TaskComponent = getTaskComponent(task.type)
               if (TaskComponent) {
                 return (
-                  <Box key={task.taskKey}>
+                  <Box key={task.taskKey} basis='246px'>
                     <TaskComponent task={task} {...this.props} />
                   </Box>
                 )

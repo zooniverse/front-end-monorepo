@@ -14,11 +14,11 @@ const task = {
     max: 20,
     type: 'graph2dRangeX'
   }, {
-      help: '',
-      label: 'Transit?',
-      max: 20,
-      type: 'graph2dRangeX'
-    }],
+    help: '',
+    label: 'Transit?',
+    max: 20,
+    type: 'graph2dRangeX'
+  }],
   type: 'dataVisAnnotation'
 }
 

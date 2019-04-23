@@ -25,6 +25,7 @@ const ContainerGrid = styled.div`
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
     grid-auto-flow: column;
+    grid-template-areas: "viewer" "task";
   }
 `
 

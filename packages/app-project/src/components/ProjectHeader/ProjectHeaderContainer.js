@@ -1,12 +1,14 @@
 import { inject, observer } from 'mobx-react'
-import { array, shape, string } from 'prop-types'
+import { array, bool, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 import { withRouter } from 'next/router'
 
 import ProjectHeader from './ProjectHeader'
+import getNavLinks from './helpers/getNavLinks'
 
 function storeMapper (stores) {
   return {
+    isLoggedIn: stores.store.user.isLoggedIn,
     project: stores.store.project
   }
 }
@@ -15,19 +17,24 @@ function storeMapper (stores) {
 @withRouter
 @observer
 class ProjectHeaderContainer extends Component {
-  getHref () {
+  getBaseUrl () {
     const { query } = this.props.router
-    if (query.subroute) {
-      return `/projects/${query.owner}/${query.project}`
-    }
-    return ''
+    return `/projects/${query.owner}/${query.project}`
+  }
+
+  getProjectHomeLink () {
+    const { query } = this.props.router
+    return (query.subroute) ? this.getBaseUrl() : ''
   }
 
   render () {
+    const navLinks = getNavLinks(this.props.isLoggedIn, this.getBaseUrl())
+
     return (
       <ProjectHeader
         className={this.props.className}
-        href={this.getHref()}
+        navLinks={navLinks}
+        projectHomeLink={this.getProjectHomeLink()}
         title={this.props.project.display_name}
       />
     )
@@ -35,6 +42,7 @@ class ProjectHeaderContainer extends Component {
 }
 
 ProjectHeaderContainer.propTypes = {
+  isLoggedIn: bool,
   project: shape({
     display_name: string
   }),
@@ -42,7 +50,7 @@ ProjectHeaderContainer.propTypes = {
     query: shape({
       subroute: array,
       project: string,
-      owner: string,
+      owner: string
     })
   })
 }

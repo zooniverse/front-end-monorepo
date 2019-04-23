@@ -8,10 +8,9 @@ describe('Component > MoveButton', function () {
     shallow(<MoveButton />)
   })
 
-  it('should have an ARIA label', function () {
+  it('should have an `a11yTitle` label', function () {
     const wrapper = shallow(<MoveButton />)
-    const button = wrapper.dive().dive()
-    expect(button.prop('aria-label')).to.equal('Move subject')
+    expect(wrapper.prop('a11yTitle')).to.equal('Move subject')
   })
 
   it('should call the onClick prop function on click', function () {
@@ -21,8 +20,7 @@ describe('Component > MoveButton', function () {
         onClick={spy}
       />
     )
-    const button = wrapper.dive().dive()
-    button.simulate('click')
+    wrapper.simulate('click')
     expect(spy.called).to.be.true
   })
 })

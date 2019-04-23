@@ -1,9 +1,11 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ProjectHeader from './ProjectHeader'
+import { ProjectHeader } from './ProjectHeader'
+import Avatar from './components/Avatar'
+import ProjectTitle from './components/ProjectTitle'
+import ApprovedIcon from './components/ApprovedIcon'
 
-const HREF = '/foo'
 const TITLE = 'Project title'
 let wrapper
 
@@ -16,16 +18,15 @@ describe('Component > ProjectHeader', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the title prop as an h1', function () {
-    const title = wrapper.find('Title').render()
-    expect(title.is('h1')).to.be.ok()
-    expect(title.text()).to.equal(TITLE)
+  it('should render a `<Avatar />` component', function () {
+    expect(wrapper.find(Avatar)).to.have.lengthOf(1)
   })
 
-  it('should wrap the heading in an anchor if it has an `href` prop', function () {
-    const wrapperWithHref = shallow(<ProjectHeader href={HREF} title={TITLE} />)
-    const linkWrapper = wrapperWithHref.find('ProjectHeader__StyledAnchor')
-    expect(linkWrapper).to.have.lengthOf(1)
-    expect(linkWrapper.prop('href')).to.equal(HREF)
+  it('should render a `<ProjectTitle />` component', function () {
+    expect(wrapper.find(ProjectTitle)).to.have.lengthOf(1)
+  })
+
+  it('should render a `<ApprovedIcon />` component', function () {
+    expect(wrapper.find(ApprovedIcon)).to.have.lengthOf(1)
   })
 })

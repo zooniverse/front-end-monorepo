@@ -269,22 +269,22 @@ describe('Model > UserProjectPreferencesStore', function () {
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
       }, {
-          authClient: authClientStubWithUser,
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url, params) => {
-                if (url === `/projects/${project.id}`) {
-                  return Promise.resolve({ body: { projects: [project] } })
-                }
-                if (url === `/project_preferences` && params === { project_id: project.id, user_id: user.id }) {
-                  return Promise.resolve({ body: { project_preferences: [upp] } })
-                }
-                return Promise.resolve({ body: { project_preferences: [upp] }, headers: { etag } })
-              }),
-              put: sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
-            }
+        authClient: authClientStubWithUser,
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url, params) => {
+              if (url === `/projects/${project.id}`) {
+                return Promise.resolve({ body: { projects: [project] } })
+              }
+              if (url === `/project_preferences` && params === { project_id: project.id, user_id: user.id }) {
+                return Promise.resolve({ body: { project_preferences: [upp] } })
+              }
+              return Promise.resolve({ body: { project_preferences: [upp] }, headers: { etag } })
+            }),
+            put: sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
           }
-        })
+        }
+      })
       rootStore.projects.setActive(project.id)
     })
 

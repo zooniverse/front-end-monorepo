@@ -12,7 +12,7 @@ function AnnotateButton ({ active, onClick }) {
   return (
     <Button
       active={active}
-      aria-label={counterpart('AnnotateButton.ariaLabel')}
+      a11yTitle={counterpart('AnnotateButton.ariaLabel')}
       onClick={onClick}
       svgAdjustments={{ x: '1', y: '4' }}
     >

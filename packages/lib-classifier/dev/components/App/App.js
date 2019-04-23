@@ -1,10 +1,11 @@
-import React from 'react'
-import queryString from 'query-string'
-import _ from 'lodash'
-import { panoptes } from '@zooniverse/panoptes-js'
-import oauth from 'panoptes-client/lib/oauth'
-import { Button, Grommet, Box, base as baseTheme } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import { panoptes } from '@zooniverse/panoptes-js'
+import { Button, Grommet, Box, base as baseTheme } from 'grommet'
+import _ from 'lodash'
+import oauth from 'panoptes-client/lib/oauth'
+import queryString from 'query-string'
+import React from 'react'
+
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
@@ -12,6 +13,7 @@ class App extends React.Component {
     super()
 
     this.state = {
+      dark: false,
       loading: false,
       project: null,
       user: null
@@ -68,9 +70,11 @@ class App extends React.Component {
 
   logout () {
     oauth.signOut()
-      .then((user) => {
-        this.setState({ user })
-      })
+      .then(user => this.setState({ user }))
+  }
+
+  toggleTheme () {
+    this.setState(state => ({ dark: !state.dark }))
   }
 
   render () {
@@ -80,12 +84,16 @@ class App extends React.Component {
       )
     }
 
-    const mergedThemes = _.merge({}, baseTheme, zooTheme)
+    const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
 
     return (
       <Grommet theme={mergedThemes}>
-        <Box as='main' background={zooTheme.global.colors['light-1']}>
-          <Box as='header' pad='medium' align='end'>
+        <Box as='main' background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}>
+          <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
+            <Button onClick={this.toggleTheme.bind(this)} label='Toggle theme' />
             {this.state.user
               ? <Button onClick={this.logout.bind(this)} label='Logout' />
               : <Button onClick={this.login.bind(this)} label='Login' />
@@ -101,7 +109,6 @@ class App extends React.Component {
           </Box>
         </Box>
       </Grommet>
-
     )
   }
 }

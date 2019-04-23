@@ -18,12 +18,14 @@ import setDataPointStyle from './d3/setDataPointStyle'
 const ZOOM_IN_VALUE = 1.2
 const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100 // milliseconds
+const PAN_DISTANCE = 20
 
 function storeMapper (stores) {
   const {
     enableAnnotate,
     enableMove,
     interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
+    setOnPan,
     setOnZoom // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
 
@@ -46,6 +48,7 @@ function storeMapper (stores) {
     enableAnnotate,
     enableMove,
     interactionMode,
+    setOnPan,
     setOnZoom,
     toolIndex
   }
@@ -100,6 +103,7 @@ class LightCurveViewer extends Component {
   componentDidMount () {
     this.initChart()
     this.props.setOnZoom(this.handleToolbarZoom.bind(this))
+    this.props.setOnPan(this.pan.bind(this))
   }
 
   componentDidUpdate (prevProps) {
@@ -196,10 +200,16 @@ class LightCurveViewer extends Component {
 
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
-    this.updateAnnotationBrushes()
     this.updatePresentation(width, height)
-
-    this.initBrushes()
+    
+    if (this.props.feedback) {
+      this.updateInteractionMode('move')
+      this.disableBrushEvents()
+      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
+    } else {
+      this.updateAnnotationBrushes()
+      this.initBrushes()
+    }
   }
 
   /*  Initialise D3 brushes
@@ -207,8 +217,10 @@ class LightCurveViewer extends Component {
       for brush events.
    */
   initBrushes () {
-    if (!this.annotationBrushes.length) this.createAnnotationBrush() // Create the initial brush
-    this.updateAnnotationBrushes()
+    if (!this.annotationBrushes.length) {
+      this.createAnnotationBrush() // Create the initial brush
+      this.updateAnnotationBrushes()
+    }
 
     // WIP  // TODO
     // - Create 'loadBrushesFromAnnotations()'
@@ -383,8 +395,14 @@ class LightCurveViewer extends Component {
 
   doZoom () {
     this.updateDataPoints()
-    this.updateAnnotationBrushes()
     this.updatePresentation()
+    if (this.props.feedback) {
+      this.updateInteractionMode('move')
+      this.disableBrushEvents()
+      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
+    } else {
+      this.updateAnnotationBrushes()
+    }
   }
 
   zoomIn () {
@@ -397,6 +415,10 @@ class LightCurveViewer extends Component {
 
   zoomTo (zoomValue) {
     this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
+  }
+
+  pan (xMultiplier) {
+    this.zoom.translateBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), xMultiplier * PAN_DISTANCE, 0)
   }
 
   /*
@@ -531,7 +553,6 @@ class LightCurveViewer extends Component {
       .remove()
 
     // Reposition/re-draw brushes
-    const currentTransform = this.getCurrentTransform()
     this.disableBrushEvents() // Temporarily disable brush events to prevent recursion from `annotationBrush.brush.move`
     this.annotationBrushes.forEach((annotationBrush) => {
       const d3brush = this.d3annotationsLayer.select(`#brush-${annotationBrush.id}`)
@@ -542,19 +563,26 @@ class LightCurveViewer extends Component {
         return
       }
 
-      const minXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.minX)
-      const maxXonScreen = currentTransform.rescaleX(this.xScale)(annotationBrush.maxX)
-      const midXonScreen = currentTransform.rescaleX(this.xScale)((annotationBrush.minX + annotationBrush.maxX) / 2)
+      this.repositionBrush(annotationBrush, d3brush)
 
-      // Reposition the brushes (selected areas)...
-      d3brush.call(annotationBrush.brush.move, [minXonScreen, maxXonScreen])
-
-      // ...and their corresponding 'remove annotation' buttons
-      d3brush.select('.remove-button')
-        .attr('visibility', 'visible')
-        .attr('transform', `translate(${midXonScreen}, 0)`)
     })
     this.enableBrushEvents() // Re-enable brush events
+  }
+
+  repositionBrush(brush, d3brush) {
+    const currentTransform = this.getCurrentTransform()
+
+    const minXonScreen = currentTransform.rescaleX(this.xScale)(brush.minX)
+    const maxXonScreen = currentTransform.rescaleX(this.xScale)(brush.maxX)
+    const midXonScreen = currentTransform.rescaleX(this.xScale)((brush.minX + brush.maxX) / 2)
+
+    // Reposition the brushes (selected areas)...
+    d3brush.call(brush.brush.move, [minXonScreen, maxXonScreen])
+
+    // ...and their corresponding 'remove annotation' buttons
+    d3brush.select('.remove-button')
+      .attr('visibility', 'visible')
+      .attr('transform', `translate(${midXonScreen}, 0)`)
   }
 
   /*
@@ -639,7 +667,7 @@ class LightCurveViewer extends Component {
           refreshMode='debounce'
           refreshRate={500}
         />
-    </Box>
+      </Box>
     )
   }
 }
@@ -700,7 +728,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
 
   chartStyle: {
     color: '#eff2f5', // Zooniverse Light Grey
-    background: '#005d69', // Zooniverse Dark Teal
+    background: '#003941', // Zooniverse Dark Teal
     dataPointSize: '1.5',
     fontFamily: 'inherit',
     fontSize: '0.75rem'

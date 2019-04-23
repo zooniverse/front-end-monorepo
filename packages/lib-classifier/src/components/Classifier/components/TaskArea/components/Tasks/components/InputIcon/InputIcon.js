@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 export const StyledInputIcon = styled.span`
   color: ${props => props.color};
@@ -19,12 +19,12 @@ export const StyledInputIcon = styled.span`
     vertical-align: bottom;
     width: 1.5em;
   }
-`;
+`
 
-export default function InputIcon(props) {
+export default function InputIcon (props) {
   return (
     <StyledInputIcon color={props.tool.color}>{props.icon}</StyledInputIcon>
-  );
+  )
 }
 
 InputIcon.defaultProps = {
@@ -32,11 +32,11 @@ InputIcon.defaultProps = {
     color: '',
     type: ''
   }
-};
+}
 
 InputIcon.propTypes = {
   tool: PropTypes.shape({
     color: PropTypes.string,
     type: PropTypes.string
   })
-};
+}

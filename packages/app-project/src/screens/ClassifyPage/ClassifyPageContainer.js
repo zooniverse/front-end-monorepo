@@ -1,30 +1,32 @@
-import { inject, observer } from 'mobx-react'
-import { string } from 'prop-types'
 import React, { Component } from 'react'
 
 import ClassifyPage from './ClassifyPage'
+import CollectionsModal from './components/CollectionsModal'
 
-function storeMapper (stores) {
-  const { mode } = stores.store.ui
-  return {
-    mode
-  }
-}
-
-@inject(storeMapper)
-@observer
 class ClassifyPageContainer extends Component {
-  render () {
-    return <ClassifyPage {...this.props} />
+  constructor () {
+    super()
+    this.collectionsModal = React.createRef()
+    this.addToCollection = this.addToCollection.bind(this)
   }
-}
 
-ClassifyPageContainer.propTypes = {
-  mode: string
-}
+  addToCollection (subjectId) {
+    this.collectionsModal.current.wrappedInstance.open(subjectId)
+  }
 
-ClassifyPageContainer.defaultProps = {
-  mode: 'light'
+  render () {
+    return (
+      <>
+        <CollectionsModal
+          ref={this.collectionsModal}
+        />
+        <ClassifyPage
+          addToCollection={this.addToCollection}
+          {...this.props}
+        />
+      </>
+    )
+  }
 }
 
 export default ClassifyPageContainer

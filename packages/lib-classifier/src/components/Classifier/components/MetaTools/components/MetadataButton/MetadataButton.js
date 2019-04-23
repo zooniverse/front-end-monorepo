@@ -14,17 +14,23 @@ const StyledInfoIcon = styled(InfoIcon)`
 `
 
 export default function MetadataButton (props) {
-  const { onClick } = props
+  const { disabled, onClick } = props
   return (
     <PlainButton
+      disabled={disabled}
       icon={<StyledInfoIcon color='#5C5C5C' />}
-      margin={{ vertical: 'small', left: 'none', right: 'medium' }}
+      margin={{ vertical: '5px', horizontal: 'none' }}
       text={counterpart('MetadataButton.label')}
       onClick={onClick}
     />
   )
 }
 
+MetadataButton.defaultProps = {
+  disabled: false,
+}
+
 MetadataButton.propTypes = {
+  disabled: PropTypes.bool, 
   onClick: PropTypes.func
 }

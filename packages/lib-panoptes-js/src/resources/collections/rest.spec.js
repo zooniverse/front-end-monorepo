@@ -242,6 +242,7 @@ describe('Collections resource REST requests', function () {
 
     before(function () {
       scope = nock(config.host)
+        .matchHeader('authorization', 'Bearer 1234')
         .persist()
         .delete(`${endpoint}/10/links/subjects/2`)
         .query(true)
@@ -271,7 +272,7 @@ describe('Collections resource REST requests', function () {
     })
 
     it('should unlink the specified subjects', async function () {
-      const response = await collections.removeSubjects({ id: '10', subjects: ['2'] })
+      const response = await collections.removeSubjects({ id: '10', subjects: ['2'], authorization: 'Bearer 1234' })
       expect(response).to.be.ok
     })
   })

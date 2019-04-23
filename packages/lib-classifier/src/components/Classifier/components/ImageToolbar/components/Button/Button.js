@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import styled, { css } from 'styled-components'
-import theme from 'styled-theming'
 import { withFocusProps, withHoverProps } from '@klarna/higher-order-components'
+import { bool, func, node, object, shape, string } from 'prop-types'
+import React from 'react'
+import styled, { withTheme } from 'styled-components'
 
 const StyledButton = styled.button`
   background: none;
@@ -12,33 +11,22 @@ const StyledButton = styled.button`
   padding: 0;
 `
 
-const backgroundStyles = theme('mode', {
-  light: css`
-    fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : 'transparent'};
-  `,
-  dark: css`
-    fill: ${props => (props.hoveredOrFocused || props.active) ? '#00979D' : '#2d2d2d'};
-  `
-})
-
 const Background = styled.circle`
-  ${backgroundStyles}
+  fill: ${props => props.dark ? '#2d2d2d' : 'transparent'};
+  ${props => (props.hoveredOrFocused || props.active) && `
+    fill: #00979D;
+  `}
   opacity: ${props => props.hoveredOrFocused ? '0.5' : '1'};
 `
 
-const iconSVGStyles = theme('mode', {
-  light: css`
-    fill: ${props => (props.hoveredOrFocused || props.active) ? 'white' : 'black'};
-  `,
-  dark: css`
-    fill: white;
-  `
-})
-
 const IconSVG = styled.svg`
-  ${iconSVGStyles}
+  fill: ${props => props.dark ? 'white' : 'black'};
+  ${props => (!props.dark && (props.hoveredOrFocused || props.active)) && `
+    fill: white;
+  `}
 `
 
+@withTheme
 @withHoverProps({ hovered: true })
 @withFocusProps({ focused: true })
 class Button extends React.Component {
@@ -55,6 +43,7 @@ class Button extends React.Component {
   render () {
     const {
       active,
+      a11yTitle,
       children,
       disabled,
       focused,
@@ -65,7 +54,8 @@ class Button extends React.Component {
       onMouseOver,
       onMouseOut,
       size,
-      svgAdjustments
+      svgAdjustments,
+      theme: { dark }
     } = this.props
 
     const hoveredOrFocused = hovered || focused
@@ -73,21 +63,26 @@ class Button extends React.Component {
     const eventHandlers = (disabled)
       ? {}
       : {
-          onBlur,
-          onClick,
-          onFocus,
-          onMouseOver,
-          onMouseOut
-        }
+        onBlur,
+        onClick,
+        onFocus,
+        onMouseOver,
+        onMouseOut
+      }
 
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { ...this.getSize(size) }))
 
     return (
-      <StyledButton {...eventHandlers} disabled={disabled}>
+      <StyledButton
+        aria-label={a11yTitle}
+        disabled={disabled}
+        {...eventHandlers}
+      >
         <svg viewBox='0 0 100 100'>
           <Background
             active={active}
+            dark={dark}
             hoveredOrFocused={hoveredOrFocused}
             cx='50'
             cy='50'
@@ -95,6 +90,7 @@ class Button extends React.Component {
           />
           <IconSVG
             active={active}
+            dark={dark}
             hoveredOrFocused={hoveredOrFocused}
             {...svgAdjustments}
           >
@@ -102,23 +98,25 @@ class Button extends React.Component {
           </IconSVG>
         </svg>
       </StyledButton>
-
     )
   }
 }
 
 Button.propTypes = {
-  active: PropTypes.bool,
-  children: PropTypes.node,
-  focused: PropTypes.bool,
-  hovered: PropTypes.bool,
-  onBlur: PropTypes.func,
-  onClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseOut: PropTypes.func,
-  size: PropTypes.string,
-  svgAdjustments: PropTypes.object
+  active: bool,
+  children: node,
+  focused: bool,
+  hovered: bool,
+  onBlur: func,
+  onClick: func,
+  onFocus: func,
+  onMouseOver: func,
+  onMouseOut: func,
+  size: string,
+  svgAdjustments: object,
+  theme: shape({
+    dark: bool
+  })
 }
 
 Button.defaultProps = {

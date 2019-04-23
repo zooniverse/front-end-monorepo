@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import ProjectStatistics from './ProjectStatistics'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { project } = stores.store
   return {
     classifications: project.classifications_count,
@@ -19,7 +19,7 @@ function storeMapper(stores) {
 @inject(storeMapper)
 @observer
 class ProjectStatisticsContainer extends Component {
-  render() {
+  render () {
     const {
       className,
       classifications,

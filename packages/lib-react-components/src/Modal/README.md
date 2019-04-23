@@ -7,7 +7,7 @@ A generic modal component. Accepts the following props:
 - `active` (boolean) - determines whether the modal is visible or not
 - `closeFn` (function) - function called when clicking outside the modal, or when the Esc button is pressed
 - `colorTheme` (string) - color theme to use with the modal. Defaults to `light`
-- `theme` (object) - Grommet theme to use. Defaults to `@zooniverse/grommet-theme`
+- `pad` (string or object) - determines Box padding of the modal body. Defaults to `medium`.
 - `title` (string) - string to use as the modal title
 
 ## Example

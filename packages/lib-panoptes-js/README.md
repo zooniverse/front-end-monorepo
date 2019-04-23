@@ -46,7 +46,7 @@ Tests are run by [Mocha](https://mochajs.org/), using the [BDD](https://mochajs.
 
 Assertions are provided by the [Chai](http://www.chaijs.com/) assertion library.
 
-Panoptes API data fixture mocks are built on top of [superagent-mock](https://github.com/M6Web/superagent-mock) plugin.
+Panoptes API data fixture mocks are built on top of [nock](https://github.com/nock/nock) plugin.
 
 Browser web standard emulation is provided by [JSDOM](https://github.com/jsdom/jsdom)
 

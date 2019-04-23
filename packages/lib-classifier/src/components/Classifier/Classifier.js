@@ -70,12 +70,10 @@ export default class Classifier extends React.Component {
   render () {
     return (
       <Provider classifierStore={this.classifierStore}>
-        <ThemeProvider theme={{ mode: this.props.mode }}>
           <>
             <Layout />
             <ModalTutorial />
           </>
-        </ThemeProvider>
       </Provider>
     )
   }

@@ -3,34 +3,34 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Button } from 'grommet'
 import { func, string } from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
-import theme from 'styled-theming'
+import styled, { withTheme } from 'styled-components'
 
 import SpacedText from '../SpacedText'
 
-// TODO: why isn't styled-theming working?
-function determineColor(theme) {
-  return (theme === 'light')
-    ? zooTheme.global.colors['neutral-2']
-    : zooTheme.global.colors['accent-2']
-}
-
 export const StyledPlainButton = styled(Button)`
+  /* Is there another way to change the gap size between the icon and label? */
+  > div > div {
+    width: 5px;
+  }
+
   &:focus,
-  &:hover {
-    color: ${props => determineColor(props.theme)};
+  &:enabled:hover {
     text-decoration: underline;
   }
 `
 
-export default function PlainButton (props) {
-  const { onClick, text, theme } = props
-  const labelColor = determineColor(theme)
-
+function PlainButton (props) {
+  const { onClick, text,  } = props
+  // const labelColor = determineColor(theme)
   return (
     <StyledPlainButton
       label={(
-        <SpacedText color={labelColor}>
+        <SpacedText
+          color={{
+            dark: 'accent-2',
+            light: 'neutral-2'
+          }}
+        >
           {text}
         </SpacedText>
       )}
@@ -42,7 +42,6 @@ export default function PlainButton (props) {
 }
 
 PlainButton.defaultProps = {
-  theme: 'light'
 }
 
 PlainButton.propTypes = {
@@ -50,3 +49,5 @@ PlainButton.propTypes = {
   label: string,
   theme: string
 }
+
+export default withTheme(PlainButton)
