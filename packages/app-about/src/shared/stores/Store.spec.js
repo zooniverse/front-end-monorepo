@@ -17,11 +17,6 @@ describe('Stores > Store', function () {
     expect(store.team).to.be.ok()
   })
 
-  it('should contain a ui store', function () {
-    const store = Store.create({}, placeholderEnv)
-    expect(store.ui).to.be.ok()
-  })
-
   it('should contain a user store', function () {
     const store = Store.create({}, placeholderEnv)
     expect(store.user).to.be.ok()
