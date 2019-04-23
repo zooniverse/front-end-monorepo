@@ -20,6 +20,10 @@ const NumbersGrid = styled.div`
   grid-gap: 12px;
 `
 
+const StyledParagraph = styled(Paragraph)`
+  max-width: 100%;
+`
+
 function ProjectStatistics ({
   className,
   classifications,
@@ -39,9 +43,12 @@ function ProjectStatistics ({
       <MainGrid>
         <section>
           <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
-          <Paragraph margin={{ bottom: 'small', top: 'none' }}>
+          <StyledParagraph
+            margin={{ bottom: 'small', top: 'none' }}
+            size='small'
+          >
             {counterpart('ProjectStatistics.text')}
-          </Paragraph>
+          </StyledParagraph>
           <CompletionBar />
           <Text margin={{ top: 'small' }} size='small' weight='bold'>
             {counterpart('ProjectStatistics.percentComplete')}
