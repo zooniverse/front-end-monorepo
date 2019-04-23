@@ -1,1 +1,1 @@
-export { default } from './ProjectLinkContainer'
+export { default } from './ProjectLink'

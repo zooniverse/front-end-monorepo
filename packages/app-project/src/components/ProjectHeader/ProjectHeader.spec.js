@@ -6,7 +6,6 @@ import Avatar from './components/Avatar'
 import ProjectTitle from './components/ProjectTitle'
 import ApprovedIcon from './components/ApprovedIcon'
 
-
 const TITLE = 'Project title'
 let wrapper
 

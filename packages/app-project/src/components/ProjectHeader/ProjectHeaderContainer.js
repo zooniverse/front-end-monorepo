@@ -50,7 +50,7 @@ ProjectHeaderContainer.propTypes = {
     query: shape({
       subroute: array,
       project: string,
-      owner: string,
+      owner: string
     })
   })
 }

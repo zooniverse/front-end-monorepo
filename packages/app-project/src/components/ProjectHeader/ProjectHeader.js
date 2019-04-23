@@ -58,7 +58,7 @@ ProjectHeader.propTypes = {
   href: string,
   navLinks: arrayOf(shape({
     href: string,
-    text: string,
+    text: string
   })),
   projectHomeLink: string,
   size: string,

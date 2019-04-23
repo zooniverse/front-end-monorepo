@@ -118,7 +118,7 @@ describe('Stores > Project', function () {
       clientStub = {
         projects: {
           getWithLinkedResources: sinon.stub().callsFake(() => {
-            return Promise.resolve({ body: { projects: [] }})
+            return Promise.resolve({ body: { projects: [] } })
           })
         }
       }
