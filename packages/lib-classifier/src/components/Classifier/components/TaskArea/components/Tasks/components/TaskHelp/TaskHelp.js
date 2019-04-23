@@ -1,10 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
-import { Button, Box } from 'grommet'
 import { Markdownz, Modal, PlainButton } from '@zooniverse/react-components'
-import styled from 'styled-components'
 import counterpart from 'counterpart'
+import { Button, Box } from 'grommet'
+import { inject, observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)

@@ -11,9 +11,11 @@ function Nav(props) {
     <Box as="nav">
       <Box as="ul" direction="row" gap="medium">
         {navLinks.map(navLink => (
-          <Link href={navLink.href} key={navLink.href} passHref>
-            <NavLink text={navLink.text} />
-          </Link>
+          <Box as="li" key={navLink.href}>
+            <Link href={navLink.href} passHref>
+              <NavLink text={navLink.text} />
+            </Link>
+          </Box>
         ))}
       </Box>
     </Box>

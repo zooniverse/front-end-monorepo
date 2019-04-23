@@ -27,13 +27,11 @@ function NavLink(props) {
   const { href, router, text } = props
   const isActive = router.asPath.includes(href)
   return (
-    <Box as="li">
-      <StyledAnchor href={href} isActive={isActive}>
-        <StyledSpacedText color="white" weight="bold">
-          {text}
-        </StyledSpacedText>
-      </StyledAnchor>
-    </Box>
+    <StyledAnchor href={href} isActive={isActive}>
+      <StyledSpacedText color="white" weight="bold">
+        {text}
+      </StyledSpacedText>
+    </StyledAnchor>
   )
 }
 

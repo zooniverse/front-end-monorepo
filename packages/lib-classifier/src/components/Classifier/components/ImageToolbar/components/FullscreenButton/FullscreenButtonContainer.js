@@ -33,10 +33,12 @@ class FullscreenButtonContainer extends React.Component {
 
   render () {
     const { disabled, fullscreen } = this.props
+    if (disabled) {
+      return null
+    }
     return (
       <FullscreenButton
         active={fullscreen}
-        disabled={disabled}
         onClick={this.onClick}
       />
     )

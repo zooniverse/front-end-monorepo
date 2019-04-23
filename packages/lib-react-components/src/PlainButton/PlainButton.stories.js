@@ -27,12 +27,18 @@ storiesOf('PlainButton', module)
 
   .add('Dark theme', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton text={text('Text', 'Click me')} theme='dark' />
+      <PlainButton text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
 
   .add('With icon', () => (
     <Grommet theme={zooTheme}>
       <PlainButton icon={<Add />} text={text('Text', 'Click me')} />
+    </Grommet>
+  ), config)
+
+  .add('Disabled', () => (
+    <Grommet theme={zooTheme}>
+      <PlainButton disabled={true} onClick={undefined} text={text('Text', 'Click me')} />
     </Grommet>
   ), config)

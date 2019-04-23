@@ -32,6 +32,6 @@ describe('Component > ZooHeaderWrapperContainer', function () {
     wrapper.instance().signOut().then(function () {
       expect(user.clear).to.have.been.calledOnce()
     })
-    .then(done, done)
+      .then(done, done)
   })
 })

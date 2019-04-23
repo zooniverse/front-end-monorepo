@@ -8,15 +8,15 @@ describe('Helper > getNavLinks', function () {
     expect(links).to.deep.equal([
       {
         href: `${BASE_URL}/about`,
-        text: 'About',
+        text: 'About'
       },
       {
         href: `${BASE_URL}/classify`,
-        text: 'Classify',
+        text: 'Classify'
       },
       {
         href: `${BASE_URL}/talk`,
-        text: 'Talk',
+        text: 'Talk'
       },
       {
         href: `${BASE_URL}/collections`,
@@ -30,19 +30,19 @@ describe('Helper > getNavLinks', function () {
     expect(links).to.deep.equal([
       {
         href: `${BASE_URL}/about`,
-        text: 'About',
+        text: 'About'
       },
       {
         href: `${BASE_URL}/classify`,
-        text: 'Classify',
+        text: 'Classify'
       },
       {
         href: `${BASE_URL}/talk`,
-        text: 'Talk',
+        text: 'Talk'
       },
       {
         href: `${BASE_URL}/collections`,
-        text: 'Collect',
+        text: 'Collect'
       },
       {
         href: `${BASE_URL}/recents`,

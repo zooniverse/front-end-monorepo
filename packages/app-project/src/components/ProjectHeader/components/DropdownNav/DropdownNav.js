@@ -55,8 +55,8 @@ class DropdownNav extends React.Component {
       >
         <Box as="ul">
           {this.props.navLinks.map(navLink => (
-            <Box as="li">
-              <Link href={navLink.href} key={navLink.href} passHref>
+            <Box as="li" key={navLink.href}>
+              <Link href={navLink.href} passHref>
                 <StyledAnchor
                   label={
                     <SpacedText color="white" weight="bold">
