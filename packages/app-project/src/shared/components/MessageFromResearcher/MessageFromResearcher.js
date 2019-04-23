@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import React from 'react'
 import en from './locales/en'
 import ContentBox from '../ContentBox'
@@ -49,10 +49,10 @@ function MessageFromResearcher ({
 }
 
 MessageFromResearcher.propTypes = {
-  message: PropTypes.string,
-  socialUsername: PropTypes.string,
-  socialLink: PropTypes.string,
-  avatar: PropTypes.string
+  message: string,
+  socialUsername: string,
+  socialLink: string,
+  avatar: string
 }
 
 export default MessageFromResearcher

@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import React, { Component } from 'react'
 
 import MessageFromResearcher from './MessageFromResearcher'
@@ -31,10 +31,10 @@ class MessageFromResearcherContainer extends Component {
 }
 
 MessageFromResearcherContainer.propTypes = {
-  message: PropTypes.string,
-  socialUsername: PropTypes.string,
-  socialLink: PropTypes.string,
-  avatar: PropTypes.string
+  message: string,
+  socialUsername: string,
+  socialLink: string,
+  avatar: string
 }
 
 MessageFromResearcherContainer.defaultProps = {

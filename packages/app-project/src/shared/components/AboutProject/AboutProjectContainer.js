@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import React, { Component } from 'react'
 
 import AboutProject from './AboutProject'
@@ -22,8 +22,8 @@ class AboutProjectContainer extends Component {
 }
 
 AboutProjectContainer.propTypes = {
-  description: PropTypes.string,
-  projectName: PropTypes.string
+  description: string,
+  projectName: string
 }
 
 AboutProjectContainer.defaultProps = {

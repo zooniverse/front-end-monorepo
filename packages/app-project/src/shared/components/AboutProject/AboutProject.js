@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Paragraph } from 'grommet'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import React from 'react'
 import en from './locales/en'
 import ContentBox from '../ContentBox'
@@ -23,8 +23,8 @@ function AboutProject ({ projectName, description }) {
 }
 
 AboutProject.propTypes = {
-  projectName: PropTypes.string,
-  description: PropTypes.string
+  projectName: string,
+  description: string
 }
 
 export default AboutProject
