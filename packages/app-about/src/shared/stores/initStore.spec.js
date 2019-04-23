@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import asyncStates from '@zooniverse/async-states'
-import { panoptes, projects } from '@zooniverse/panoptes-js'
+import { panoptes } from '@zooniverse/panoptes-js'
 
 import initStore from './initStore'
 

@@ -1,4 +1,4 @@
-import { Heading, Paragraph } from 'grommet'
+import { Heading } from 'grommet'
 import React from 'react'
 
 import SingleColumnLayout from '../../shared/components/SingleColumnLayout'

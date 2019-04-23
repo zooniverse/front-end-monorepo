@@ -10,10 +10,9 @@ const DATA = [{ name: 'Foobar' }]
 const FILTERS = ['Foo']
 const SET_ACTIVE_FILTER = () => {}
 
-
 describe('Component > Publications', function () {
   before(function () {
-    wrapper = shallow(<Publications 
+    wrapper = shallow(<Publications
       activeFilter={ACTIVE_FILTER}
       currentView={CURRENT_VIEW}
       data={DATA}

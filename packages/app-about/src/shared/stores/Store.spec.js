@@ -11,7 +11,7 @@ describe('Stores > Store', function () {
     const store = Store.create({}, placeholderEnv)
     expect(store.publications).to.be.ok()
   })
-  
+
   it('should contain a team store', function () {
     const store = Store.create({}, placeholderEnv)
     expect(store.team).to.be.ok()

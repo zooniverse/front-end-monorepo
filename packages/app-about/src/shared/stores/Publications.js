@@ -1,5 +1,4 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
-import { createClient } from 'contentful'
 import asyncStates from '@zooniverse/async-states'
 
 import Publication from './Publication'

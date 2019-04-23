@@ -12,7 +12,7 @@ const SET_ACTIVE_FILTER = () => {}
 
 describe('Component > Team', function () {
   before(function () {
-    wrapper = shallow(<Team 
+    wrapper = shallow(<Team
       activeFilter={ACTIVE_FILTER}
       currentView={CURRENT_VIEW}
       data={DATA}

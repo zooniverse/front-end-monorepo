@@ -1,5 +1,5 @@
-import { Box, Heading } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
+import { Box } from 'grommet'
+import { shape, string } from 'prop-types'
 import React from 'react'
 
 function Person (props) {
@@ -12,7 +12,9 @@ function Person (props) {
 }
 
 Person.propTypes = {
-
+  data: shape({
+    name: string
+  })
 }
 
 export default Person

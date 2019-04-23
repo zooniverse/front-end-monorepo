@@ -73,8 +73,8 @@ function Publications (props) {
 Publications.propTypes = {
   activeFilter: string,
   currentView: array,
-  data: arrayOf(shape({ 
-    name: string 
+  data: arrayOf(shape({
+    name: string
   })),
   filters: arrayOf(string),
   setActiveFilter: func

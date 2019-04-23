@@ -1,4 +1,4 @@
-import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
+import { Box, Button, Heading } from 'grommet'
 import { array, arrayOf, func, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'

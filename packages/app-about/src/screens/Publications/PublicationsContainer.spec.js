@@ -11,7 +11,7 @@ const PUBLICATIONS = {
   activeFilter: '',
   currentView: [],
   filters: [''],
-  setActiveFilter: () => {},
+  setActiveFilter: () => {}
 }
 
 describe('Component > PublicationsContainer', function () {
