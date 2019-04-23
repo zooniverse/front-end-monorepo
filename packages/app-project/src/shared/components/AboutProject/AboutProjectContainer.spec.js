@@ -7,33 +7,33 @@ import AboutProjectContainer from './AboutProjectContainer'
 let wrapper
 let AboutProjectWrapper
 
-const PROJECTNAME = 'Project name'
+const PROJECT_NAME = 'Project name'
 const DESCRIPTION = 'This is my description'
 
-describe('Component > CompletionBarContainer', function () {
-  before(function () {
+describe('Component > CompletionBarContainer', function() {
+  before(function() {
     wrapper = shallow(
       <AboutProjectContainer.wrappedComponent
         description={DESCRIPTION}
-        projectName={PROJECTNAME}
+        projectName={PROJECT_NAME}
       />
     )
     AboutProjectWrapper = wrapper.find(AboutProject)
   })
 
-  it('should render without crashing', function () {
+  it('should render without crashing', function() {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the `AboutProject` component', function () {
+  it('should render the `AboutProject` component', function() {
     expect(AboutProjectWrapper).to.have.lengthOf(1)
   })
 
-  it('should pass through a `description` prop', function () {
+  it('should pass through a `description` prop', function() {
     expect(AboutProjectWrapper.prop('description')).to.equal(DESCRIPTION)
   })
 
-  it('should pass through a `projectName` prop', function () {
-    expect(AboutProjectWrapper.prop('projectName')).to.equal(PROJECTNAME)
+  it('should pass through a `projectName` prop', function() {
+    expect(AboutProjectWrapper.prop('projectName')).to.equal(PROJECT_NAME)
   })
 })
