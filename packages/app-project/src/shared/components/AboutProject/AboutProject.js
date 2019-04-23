@@ -13,12 +13,8 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 function AboutProject ({ projectName, description }) {
-  const aboutProjectTitle = `${counterpart(
-    'AboutProject.title'
-  )} ${projectName}`
-
   return (
-    <ContentBox title={aboutProjectTitle}>
+    <ContentBox title={counterpart('AboutProject.title', { projectName })}>
       <StyledParagraph margin={{ bottom: 'none', top: 'none' }} size='small'>
         {description}
       </StyledParagraph>

@@ -1,5 +1,5 @@
 {
   "AboutProject": {
-    "title": "About"
+    "title": "About %(projectName)s"
   }
 }
