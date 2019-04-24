@@ -79,6 +79,23 @@ const TutorialStore = types
       if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
 
       return false
+    },
+
+    get isFirstStep () {
+      if (!!self.active && !!self.activeStep.toString()) {
+        return self.activeStep === 0
+      }
+
+      return false
+    },
+
+    get isLastStep () {
+      if (!!self.active && !!self.activeStep.toString()) {
+        const numOfSteps = self.active.steps.length
+        return self.activeStep === numOfSteps - 1
+      }
+
+      return false
     }
   }))
 
