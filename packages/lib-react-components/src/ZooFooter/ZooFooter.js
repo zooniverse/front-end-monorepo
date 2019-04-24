@@ -199,7 +199,6 @@ ZooFooter.defaultProps = {
     counterpart('ZooFooter.buildLabels.policies'),
     counterpart('ZooFooter.buildLabels.bestPractices')
   ],
-  colorTheme: 'light',
   getInvolvedNavListURLs: [
     'https://www.zooniverse.org/get-involved',
     'https://www.zooniverse.org/get-involved/education',
