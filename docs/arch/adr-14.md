@@ -21,11 +21,11 @@ These are the options we have:
 
 ## Decision
 
-We've decided to use [Contentful](https://www.contentful.com/), an online third party CMS, to host our content. (Or at least, part of our content, such as the often-changing Publications page.)
+We've decided to use [Contentful](https://www.contentful.com/), an online third party CMS, to host our content. (Or at least, part of our content, such as the often-changing Publications page.) There will be two users registered: one admin account with full access to the Content Model editor _and_ content, and an editor account for day-to-day use which only has content editing access.
 
 **Reasons for choosing Contentful**
 
-- @rogerhutchings has used it for projects in the past
+- [@rogerhutchings](https://github.com/rogerhutchings) has used it for projects in the past
 - It has a free tier
 - It has a well-documented API
 - It has an excellent admin interface for editing content and models
@@ -33,13 +33,13 @@ We've decided to use [Contentful](https://www.contentful.com/), an online third 
 
 **Pros**
 
-- CMS makes content management easier and updates faster.
+- CMS makes content management easier and updates faster, especially for non-developers.
 - External platform reduces the need for any sort of code maintenance.
-- We can run our Zooniverse content on the Free Tier (see Note of Caution 3: Database Limits)
+- We can run our Zooniverse content on the Free Tier (see [Note of Caution 3: Database Limits](#note-of-caution-3-database-limits))
 
 **Cons**
 
-- Reliance on external platfrom for storing data introduces the usual third-party risks. (See Note of Caution 1: Exit Strategy) Possible dangers include:
+- Reliance on external platfrom for storing data introduces the usual third-party risks. (See [Note of Caution 1: Exit Strategy](#note-of-caution-1-exit-strategy)) Possible dangers include:
   - external CMS has downtime, shutting down our content by extension.
   - external CMS changes pricing structure, forcing us out of the free tier.
   - external CMS shuts down, forcing us to find an alternative data store.
@@ -55,7 +55,7 @@ Using Contentful will make managing our content much easier and reduce the amoun
 
 The most immediate concern is that **we have set up a Contentful "Space" (i.e. content database) for the Zooniverse, and the admin account login details are available on our Zooniverse Passbolt.** (Note: the admin account is currently registered under Roger's ownership.)
 
-Despite the positives, there are a few potential issues that we should make notes of. (See @shaun.a.noordin and his experiences with the Carto map database.)
+Despite the positives, there are a few potential issues that we should make notes of. (See [@shaun.a.noordin](https://github.com/shaunanoordin) and his experiences with the Carto map database.)
 
 ### Note of Caution 1: Exit Strategy
 
@@ -89,4 +89,3 @@ The Micro Tier currently allows us to create a total of 5000 database entries - 
 ### Misc Considerations 
 
 - As of the time of writing, we haven't fully married ourselves to using Contentful, and may change CMS platforms at a future date if a more better option comes up.
-- Question: should we have one shared admin account to use Contentful, or multiple editor accounts? At the moment, we haven't really settled on an answer, but we'll use a single shared admin account by default. This account shouldn't have access to the content model editor.
