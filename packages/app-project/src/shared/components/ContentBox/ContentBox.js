@@ -12,7 +12,8 @@ function ContentBox (props) {
     linkLabel,
     linkUrl,
     theme: { dark },
-    title
+    title,
+    ...rest
   } = props
 
   const showHeader = title || (linkLabel && linkUrl)
@@ -32,8 +33,9 @@ function ContentBox (props) {
         size: 'thin'
       }}
       className={className}
-      elevation={dark ? 'large' : 'none'}
+      elevation={dark ? 'xlarge' : 'none'}
       pad='medium'
+      {...rest}
     >
       {showHeader && (
         <Box
