@@ -91,7 +91,7 @@ describe('Component > CollectionsModalContainer', function () {
         })
 
         it('should add subjects to the selected collection', function () {
-          expect(addSubjects).to.have.been.calledOnceWith('1', [ subjectId ])
+          expect(addSubjects).to.have.been.calledOnceWith('1', [subjectId])
         })
 
         it('should close the modal', function () {
@@ -154,7 +154,9 @@ describe('Component > CollectionsModalContainer', function () {
         })
 
         it('should create a new collection with that name', function () {
-          expect(createCollection).to.have.been.calledOnceWith(query, [ subjectId ])
+          expect(createCollection).to.have.been.calledOnceWith(query, [
+            subjectId
+          ])
         })
 
         it('should close the modal', function () {
