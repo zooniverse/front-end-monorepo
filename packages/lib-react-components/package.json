@@ -72,6 +72,7 @@
     "grommet": "~2.5.5",
     "grommet-icons": "~4.2.0",
     "jsdom": "~13.0.0",
+    "lodash": "^4.17.11",
     "mocha": "~5.2.0",
     "peer-deps-externals-webpack-plugin": "~1.0.4",
     "react": "~16.8.4",

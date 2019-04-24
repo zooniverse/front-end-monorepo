@@ -42,7 +42,6 @@ export default function ZooFooter (props) {
     buildNavListLabels,
     buildNavListURLs,
     className,
-    colorTheme,
     getInvolvedNavListLabels,
     getInvolvedNavListURLs,
     newsNavListLabels,
@@ -59,7 +58,10 @@ export default function ZooFooter (props) {
   return (
     <Box
       align='center'
-      background={(colorTheme === 'light') ? 'white' : 'dark-1'}
+      background={{
+        dark: 'dark-1',
+        light: 'white'
+      }}
       border={{
         color: 'brand',
         side: 'top',
@@ -88,10 +90,7 @@ export default function ZooFooter (props) {
           margin={{ bottom: 'medium' }}
           pad={{ bottom: 'medium' }}
         >
-          <LogoAndTagline
-            colorTheme={colorTheme}
-            tagLine={zooTagline}
-          />
+          <LogoAndTagline tagLine={zooTagline} />
           <Box
             align='end'
             direction='row'
@@ -100,9 +99,9 @@ export default function ZooFooter (props) {
             responsive={false}
             tag='nav'
           >
-            <SocialAnchor colorTheme={colorTheme} service='facebook' />
-            <SocialAnchor colorTheme={colorTheme} service='twitter' />
-            <SocialAnchor colorTheme={colorTheme} service='instagram' />
+            <SocialAnchor service='facebook' />
+            <SocialAnchor service='twitter' />
+            <SocialAnchor service='instagram' />
           </Box>
         </Box>
 
@@ -117,32 +116,26 @@ export default function ZooFooter (props) {
           tag='section'
         >
           <LinkList
-            colorTheme={colorTheme}
             labels={projectNavListLabels}
             urls={projectNavListURLs}
           />
           <LinkList
-            colorTheme={colorTheme}
             labels={aboutNavListLabels}
             urls={aboutNavListURLs}
           />
           <LinkList
-            colorTheme={colorTheme}
             labels={getInvolvedNavListLabels}
             urls={getInvolvedNavListURLs}
           />
           <LinkList
-            colorTheme={colorTheme}
             labels={talkNavListLabels}
             urls={talkNavListURLs}
           />
           <LinkList
-            colorTheme={colorTheme}
             labels={buildNavListLabels}
             urls={buildNavListURLs}
           />
           <LinkList
-            colorTheme={colorTheme}
             labels={newsNavListLabels}
             urls={newsNavListURLs}
           />
@@ -150,7 +143,10 @@ export default function ZooFooter (props) {
       </Box>
       <Box
         align='center'
-        background={(colorTheme === 'light') ? 'light-1' : 'dark-3'}
+        background={{
+          dark: 'dark-3',
+          light: 'light-1'
+        }}
         direction='row'
         fill='horizontal'
         justify='between'
@@ -259,7 +255,6 @@ ZooFooter.propTypes = {
   adminContainer: node,
   buildNavListURLs: arrayOf(string),
   buildNavListLabels: arrayOf(string),
-  colorTheme: oneOf(['light', 'dark']),
   getInvolvedNavListURLs: arrayOf(string),
   getInvolvedNavListLabels: arrayOf(string),
   newsNavListURLs: arrayOf(string),
