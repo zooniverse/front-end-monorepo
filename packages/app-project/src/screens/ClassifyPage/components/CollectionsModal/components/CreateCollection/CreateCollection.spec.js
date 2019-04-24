@@ -52,7 +52,10 @@ describe('Component > CreateCollection', function () {
 
     it('should call the onChange callback', function () {
       textInput.props().onChange()
-      expect(onChange).to.have.been.calledOnceWith({ display_name: 'Test One', private: true })
+      expect(onChange).to.have.been.calledOnceWith({
+        display_name: 'Test One',
+        private: true
+      })
     })
   })
 
@@ -73,7 +76,10 @@ describe('Component > CreateCollection', function () {
 
     it('should call the onChange callback', function () {
       checkbox.props().onChange()
-      expect(onChange).to.have.been.calledOnceWith({ display_name: 'Test One', private: true })
+      expect(onChange).to.have.been.calledOnceWith({
+        display_name: 'Test One',
+        private: true
+      })
     })
   })
 
