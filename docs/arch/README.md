@@ -12,3 +12,5 @@
 - [ADR 10: Type conversions from Mobx-State-Tree to JSON API for Javascript Maps](adr-10.md)
 - [ADR 11: Rewriting Markdownz to use remark](adr-11.md)
 - [ADR 12: Docker setup for monorepo](adr-12.md)
+- [ADR 13: Contributing Guidelines](adr-13.md)
+- [ADR 14: Using an external CMS for content pages](adr-13.md)
