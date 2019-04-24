@@ -14,7 +14,7 @@ const UI = types
     createModeObserver () {
       const modeDisposer = autorun(() => {
         if (process.browser) {
-          document.cookie = `mode=${self.mode}; path="/"; max-age=31536000`
+          document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
         }
       })
       addDisposer(self, modeDisposer)
