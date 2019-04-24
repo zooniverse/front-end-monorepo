@@ -6,7 +6,7 @@ The standard Zooniverse footer to be used on Zooniverse sites. Built using:
 - [styled-theming](https://github.com/styled-components/styled-theming)
 - @zooniverse/grommet-theme
 
-The `ZooFooter` has two available theme variants with the light and dark themes provide in `@zooniverse/grommet-theme`. The theme defaults to `light` in its `colorTheme` prop. If you want to toggle between the themes, you must update the `colorTheme` prop to `dark`. How to manage the state of which theme is set is up to the consuming app.
+The `ZooFooter` has two available theme variants with the light and dark themes provided in `@zooniverse/grommet-theme`. Like Grommet core, the state is set by the theme `dark` property; how to manage the state of which theme is set is up to the consuming app.
 
 ### Props
 

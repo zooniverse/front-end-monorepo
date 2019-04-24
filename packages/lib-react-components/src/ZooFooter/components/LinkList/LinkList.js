@@ -11,7 +11,7 @@ const StyledBox = styled(Box)`
   padding: 0;
 `
 
-export default function LinkList ({ className, colorTheme, labels, urls }) {
+export default function LinkList ({ className, labels, urls }) {
   const [title, ...links] = zipLabelsAndUrls(labels, urls)
 
   return (
@@ -22,7 +22,7 @@ export default function LinkList ({ className, colorTheme, labels, urls }) {
     >
 
       <li>
-        <SpacedText weight='bold'>
+        <SpacedText size='medium' weight='bold'>
           <Anchor href={title.url}>
             {title.label}
           </Anchor>
@@ -32,9 +32,12 @@ export default function LinkList ({ className, colorTheme, labels, urls }) {
       {links.length > 0 && links.map(link => (
         <li key={link.url}>
           <Anchor
-            color={(colorTheme === 'light') ? 'dark-5' : 'light-3'}
+            color={{
+              dark: 'light-3',
+              light: 'dark-5'
+            }}
             href={link.url}
-            size='small'
+            size='medium'
           >
             {link.label}
           </Anchor>
@@ -46,11 +49,6 @@ export default function LinkList ({ className, colorTheme, labels, urls }) {
 }
 
 LinkList.propTypes = {
-  colorTheme: string,
   labels: arrayOf(string).isRequired,
   urls: arrayOf(string).isRequired
-}
-
-LinkList.defaultProps = {
-  colorTheme: 'light'
 }
