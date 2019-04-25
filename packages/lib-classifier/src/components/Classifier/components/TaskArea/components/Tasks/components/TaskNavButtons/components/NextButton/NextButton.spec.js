@@ -5,7 +5,7 @@ import sinon from 'sinon'
 
 import { NextButton } from './NextButton'
 
-describe('NextButton', function () {
+describe.only('NextButton', function () {
   describe('rendering', function () {
     let wrapper
     before(function () {
@@ -17,7 +17,7 @@ describe('NextButton', function () {
     })
 
     it('should render a `button` element', function () {
-      expect(wrapper.render().find('button')).to.have.lengthOf(1)
+      expect(wrapper.render().is('button')).to.be.true
     })
   })
 

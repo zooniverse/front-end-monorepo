@@ -1,9 +1,7 @@
 import counterpart from 'counterpart'
-import { Button, Grommet, Text } from 'grommet'
-import { merge } from 'lodash'
+import { Button, Text, ThemeContext } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { withTheme } from 'styled-components'
 
 import nextButtonTheme from './theme'
 import en from './locales/en'
@@ -17,21 +15,19 @@ const Label = (
 )
 
 function NextButton (props) {
-  const { autoFocus, disabled, onClick, theme } = props
-  const mergedThemes = merge({}, theme, nextButtonTheme)
+  const { autoFocus, disabled, onClick } = props
   return (
-    <Grommet theme={mergedThemes}>
-      <Button
-        autoFocus={autoFocus}
-        disabled={disabled}
-        fill
-        label={Label}
-        onClick={onClick}
-        primary
-        reverse
-        type='button'
-      />
-    </Grommet>
+    <Button
+      a11yTitle={counterpart('NextButton.next')}
+      autoFocus={autoFocus}
+      disabled={disabled}
+      fill
+      label={Label}
+      onClick={onClick}
+      primary
+      reverse
+      type='button'
+    />
   )
 }
 
@@ -46,5 +42,13 @@ NextButton.propTypes = {
   onClick: PropTypes.func.isRequired
 }
 
-export default withTheme(NextButton)
+function wrappedNextButton (props) {
+  return (
+    <ThemeContext.Extend value={nextButtonTheme}>
+      <NextButton {...props} />
+    </ThemeContext.Extend>
+  )
+}
+
+export default wrappedNextButton
 export { NextButton }
