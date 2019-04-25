@@ -23,7 +23,7 @@ const Icon = (
 
 const Label = (
   <Text size='medium'>
-    {counterpart('NextButton.next')}
+    {counterpart('NextButton.next')} →
   </Text>
 )
 
@@ -36,7 +36,6 @@ function NextButton (props) {
         autoFocus={autoFocus}
         disabled={disabled}
         fill
-        icon={Icon}
         label={Label}
         onClick={onClick}
         primary
