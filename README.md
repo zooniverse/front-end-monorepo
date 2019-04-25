@@ -23,7 +23,7 @@
 ## Requirements
 
 - [Browser support](docs/arch/adr-3.md)
-- Node 8
+- Node 10
 - Git
 
 ## Monowhat?
