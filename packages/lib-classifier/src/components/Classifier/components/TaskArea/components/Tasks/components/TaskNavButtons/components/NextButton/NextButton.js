@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import { Button, Grommet, Text } from 'grommet'
-import { FormNextLink } from 'grommet-icons'
 import { merge } from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -10,16 +9,6 @@ import nextButtonTheme from './theme'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-const Icon = (
-  <FormNextLink
-    color={{
-      dark: 'neutral-4',
-      light: 'black'
-    }}
-    size='medium'
-  />
-)
 
 const Label = (
   <Text size='medium'>
