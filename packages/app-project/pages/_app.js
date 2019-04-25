@@ -4,6 +4,7 @@ import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
+import cookies from 'next-cookies'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
@@ -33,10 +34,15 @@ export default class MyApp extends App {
     }
 
     if (pageProps.isServer) {
+      const store = initStore(pageProps.isServer, {
+        ui: {
+          mode: cookies(context).mode
+        }
+      })
+
       const { owner, project } = context.query
       if (owner && project) {
         const projectSlug = `${owner}/${project}`
-        const store = initStore(pageProps.isServer)
         const query = (context.query.env) ? { env: context.query.env } : {}
         await store.project.fetch(projectSlug, query)
         pageProps.initialState = getSnapshot(store)
