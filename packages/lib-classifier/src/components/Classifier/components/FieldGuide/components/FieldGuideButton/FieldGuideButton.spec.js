@@ -64,7 +64,7 @@ describe('Component > FieldGuideButton', function () {
         fieldGuide={fieldGuide}
         setModalVisibility={() => { }}
       />)
-    
+
     expect(wrapper.props().label.type).to.equal(ButtonLabel)
   })
 

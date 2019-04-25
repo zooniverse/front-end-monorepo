@@ -24,7 +24,7 @@ const TutorialStore = types
 
     get stepWithMedium () {
       // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
-      if (!!self.active && !!self.activeStep.toString()) {
+      if (self.active && !!self.activeStep.toString()) {
         const step = self.active.steps[self.activeStep]
         return { step, medium: self.activeMedium }
       }
@@ -77,6 +77,25 @@ const TutorialStore = types
       const { miniCourse } = self
 
       if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
+
+      return false
+    },
+
+    get isFirstStep () {
+      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
+      if (self.active && !!self.activeStep.toString()) {
+        return self.activeStep === 0
+      }
+
+      return false
+    },
+
+    get isLastStep () {
+      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
+      if (self.active && !!self.activeStep.toString()) {
+        const numOfSteps = self.active.steps.length
+        return self.activeStep === numOfSteps - 1
+      }
 
       return false
     }

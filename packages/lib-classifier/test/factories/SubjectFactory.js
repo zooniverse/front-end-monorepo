@@ -13,7 +13,7 @@ const subject = Factory.define('subject')
   })
   .attr('metadata', {})
   .attr('retired', false)
-  .attr('selected_at', "2019-04-11T11:16:29.063Z")
+  .attr('selected_at', '2019-04-11T11:16:29.063Z')
   .attr('selection_state', '')
   .attr('user_has_finished_workflow', false)
 

@@ -24,10 +24,29 @@ function storeMapper (stores) {
 }
 
 class TaskArea extends React.Component {
+  constructor () {
+    super()
+
+    this.state = {
+      activeIndex: 0
+    }
+  }
+
   onTabClick (activeIndex) {
     const { setActiveTutorial, tutorial } = this.props
     if (activeIndex === 1) setActiveTutorial(tutorial)
     if (activeIndex === 0) setActiveTutorial()
+    this.setActiveIndex(activeIndex)
+  }
+
+  onClose () {
+    const { setActiveTutorial } = this.props
+    setActiveTutorial()
+    this.setActiveIndex(0)
+  }
+
+  setActiveIndex (activeIndex) {
+    this.setState({ activeIndex })
   }
 
   render () {
@@ -35,6 +54,7 @@ class TaskArea extends React.Component {
 
     return (
       <Tabs
+        activeIndex={this.state.activeIndex}
         className={this.props.className}
         onActive={this.onTabClick.bind(this)}
       >
@@ -58,7 +78,7 @@ class TaskArea extends React.Component {
           )}
         >
           <Box>
-            <SlideTutorial pad='none' />
+            <SlideTutorial onClick={this.onClose.bind(this)} pad='none' />
           </Box>
         </Tab>
       </Tabs>

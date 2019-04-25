@@ -27,10 +27,10 @@ export default function MetadataButton (props) {
 }
 
 MetadataButton.defaultProps = {
-  disabled: false,
+  disabled: false
 }
 
 MetadataButton.propTypes = {
-  disabled: PropTypes.bool, 
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }

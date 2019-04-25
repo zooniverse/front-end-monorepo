@@ -23,21 +23,36 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class ModalTutorial extends React.Component {
+  constructor () {
+    super()
+
+    this.onClose = this.onClose.bind(this)
+  }
+
+  onClose () {
+    const { setModalVisibility } = this.props
+    setModalVisibility(false)
+  }
+
   render () {
-    const { loadingState, showModal, setModalVisibility, tutorial } = this.props
+    const { loadingState, showModal, tutorial } = this.props
     if (loadingState === asyncStates.success && tutorial) {
       return (
         <Modal
           {...this.props}
           active={showModal}
-          closeFn={() => { setModalVisibility(false) }}
+          closeFn={this.onClose.bind(this)}
           title={counterpart('ModalTutorial.title')}
         >
           <ResponsiveContext.Consumer>
             {size => {
               const width = (size === 'small') ? '100%' : '330px'
               return (
-                <SlideTutorial pad='none' width={width} />
+                <SlideTutorial
+                  onClick={this.onClose}
+                  pad='none'
+                  width={width}
+                />
               )
             }}
           </ResponsiveContext.Consumer>
