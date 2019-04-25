@@ -2,6 +2,7 @@ import { linkTo } from '@storybook/addon-links'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+import { merge } from 'lodash'
 import React from 'react'
 
 import ZooFooter from './ZooFooter'
@@ -17,19 +18,19 @@ const config = {
 storiesOf('ZooFooter', module)
 
   .add('Light theme (default)', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={mergeThemes({ dark: false })}>
       <ZooFooter />
     </Grommet>
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet theme={zooTheme}>
-      <ZooFooter colorTheme='dark' />
+    <Grommet theme={mergeThemes({ dark: true })}>
+      <ZooFooter />
     </Grommet>
   ), config)
 
   .add('Light with admin', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={mergeThemes({ dark: false })}>
       <ZooFooter
         adminContainer={(
           <AdminCheckbox onChange={linkTo('ZooFooter/AdminCheckbox')} />
@@ -39,15 +40,17 @@ storiesOf('ZooFooter', module)
   ), config)
 
   .add('Dark with admin', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={mergeThemes({ dark: true })}>
       <ZooFooter
         adminContainer={(
           <AdminCheckbox
             onChange={linkTo('ZooFooter/AdminCheckbox')}
-            colorTheme='dark'
           />
         )}
-        colorTheme='dark'
       />
     </Grommet>
   ), config)
+
+function mergeThemes (customTheme) {
+  return merge({}, zooTheme, customTheme)
+}
