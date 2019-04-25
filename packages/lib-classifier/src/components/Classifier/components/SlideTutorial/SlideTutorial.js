@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Button, Heading, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, Button, Heading } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 import en from './locales/en'
@@ -44,7 +44,12 @@ function SlideTutorial (props) {
       pad={pad}
       width={width}
     >
-      <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow={{ horizontal: 'hidden', vertical: 'auto' }}>
+      <StyledMarkdownWrapper
+        aria-live='polite'
+        autoFocus
+        height='100%'
+        overflow={{ horizontal: 'hidden', vertical: 'auto' }}
+      >
         {isThereMedia &&
           <Media
             alt={counterpart('SlideTutorial.alt', { activeStep })}
@@ -61,7 +66,12 @@ function SlideTutorial (props) {
       </StyledMarkdownWrapper>
       <StepNavigation />
       {isLastStep &&
-        <Button label={counterpart('SlideTutorial.getStarted')} onClick={onClick} margin={{ top: 'medium' }} primary />}
+        <Button
+          label={counterpart('SlideTutorial.getStarted')}
+          onClick={onClick}
+          margin={{ top: 'medium' }}
+          primary
+        />}
     </Box>
   )
 }
