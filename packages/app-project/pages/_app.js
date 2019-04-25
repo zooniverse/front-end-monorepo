@@ -1,16 +1,16 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { ZooFooter } from '@zooniverse/react-components'
-import { Grommet, base } from 'grommet'
+import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
+import cookies from 'next-cookies'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
-import merge from 'lodash/merge'
 
 import AuthModals from '../src/components/AuthModals'
+import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
@@ -34,10 +34,15 @@ export default class MyApp extends App {
     }
 
     if (pageProps.isServer) {
+      const store = initStore(pageProps.isServer, {
+        ui: {
+          mode: cookies(context).mode
+        }
+      })
+
       const { owner, project } = context.query
       if (owner && project) {
         const projectSlug = `${owner}/${project}`
-        const store = initStore(pageProps.isServer)
         const query = (context.query.env) ? { env: context.query.env } : {}
         await store.project.fetch(projectSlug, query)
         pageProps.initialState = getSnapshot(store)
@@ -72,28 +77,28 @@ export default class MyApp extends App {
   }
 
   render () {
-    const { Component, pageProps, theme } = this.props
-    const mergedThemes = merge({}, base, theme)
+    const { Component, pageProps } = this.props
     return (
       <Container>
         <GlobalStyle />
         <Provider store={this.store}>
-          <Grommet theme={mergedThemes}>
+          <GrommetWrapper>
             <Head host={pageProps.host} />
             <ZooHeaderWrapper />
             <ProjectHeader />
-            <Component {...pageProps} />
+            <Box background={{
+              dark: 'dark-1',
+              light: 'light-1'
+            }}>
+              <Component {...pageProps} />
+            </Box>
             <ZooFooter />
             <AuthModals />
-          </Grommet>
+          </GrommetWrapper>
         </Provider>
       </Container>
     )
   }
-}
-
-MyApp.defaultProps = {
-  theme: zooTheme
 }
 
 function getSlugFromUrl (relativeUrl) {

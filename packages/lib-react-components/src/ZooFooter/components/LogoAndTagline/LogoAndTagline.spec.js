@@ -7,7 +7,7 @@ let wrapper
 
 describe('Component > LogoAndTagline', function () {
   before(function () {
-    wrapper = shallow(<LogoAndTagline colorTheme='light' tagLine='foobar' />)
+    wrapper = shallow(<LogoAndTagline tagLine='foobar' />)
   })
 
   it('should render without crashing', function () {

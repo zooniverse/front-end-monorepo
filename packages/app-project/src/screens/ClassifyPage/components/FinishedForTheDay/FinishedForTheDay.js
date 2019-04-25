@@ -1,20 +1,20 @@
 import counterpart from 'counterpart'
 import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
+import styled, { withTheme } from 'styled-components'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
-import RelatedProjects from './components/RelatedProjects'
+// import RelatedProjects from './components/RelatedProjects'
 import ContentBox from '../../../../shared/components/ContentBox'
 
 counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   border-width: 1px;
-  flex: 1 1 300px;
+  flex: 0 1 300px;
   margin: 0 10px 10px 0;
   text-align: center;
 `
@@ -24,13 +24,16 @@ const StyledBox = styled(Box)`
   max-width: 620px;
 `
 
-function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
+// TODO: Add `<RelatedProjects />` back in once API is up
+function FinishedForTheDay (props) {
+  const { imageSrc, isLoggedIn, projectName, theme: { dark } } = props
   const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
 
   return (
-    <Grid columns={columns}>
+    <Box elevation={dark ? 'xlarge' : 'none'}>
+      <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
-      <ContentBox>
+      <ContentBox elevation='none'>
         <Heading
           level='3'
           margin={{ bottom: 'small', top: 'none' }}
@@ -43,7 +46,7 @@ function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
           {counterpart('FinishedForTheDay.text', { projectName })}
         </Paragraph>
         <StyledBox direction='row' wrap>
-          {isLoggedIn &&
+          {isLoggedIn && (
             <Link href='/#projects' passHref>
               <StyledButton
                 label={(
@@ -53,23 +56,28 @@ function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
                 )}
                 primary
               />
-            </Link>}
-          <RelatedProjects />
+            </Link>
+          )}
         </StyledBox>
       </ContentBox>
     </Grid>
+    </Box>
   )
 }
 
 FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  projectName: PropTypes.string.isRequired,
+  projectName: PropTypes.string.isRequired
 }
 
 FinishedForTheDay.defaultProps = {
   imageSrc: '',
   isLoggedIn: false,
+  theme: {
+    dark: false
+  }
 }
 
-export default FinishedForTheDay
+export default withTheme(FinishedForTheDay)
+export { FinishedForTheDay }

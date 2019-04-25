@@ -10,8 +10,7 @@ describe('Component > AnnotateButton', function () {
 
   it('should have an `a11yTitle` prop', function () {
     const wrapper = shallow(<AnnotateButton />)
-    const button = wrapper.dive().dive() // Grommet button is wrapped with a couple of HOCs
-    expect(button.prop('a11yTitle')).to.equal('Annotate')
+    expect(wrapper.prop('a11yTitle')).to.equal('Annotate')
   })
 
   it('should call the onClick prop function on click', function () {
@@ -21,8 +20,7 @@ describe('Component > AnnotateButton', function () {
         onClick={spy}
       />
     )
-    const button = wrapper.dive().dive()
-    button.simulate('click')
+    wrapper.simulate('click')
     expect(spy.called).to.be.true
   })
 })

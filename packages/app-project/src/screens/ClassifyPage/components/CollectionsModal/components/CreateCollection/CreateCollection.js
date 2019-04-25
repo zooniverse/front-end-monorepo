@@ -7,17 +7,12 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function CreateCollection ({
-  collection,
-  disabled,
-  onChange,
-  onSubmit
-}) {
+function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
   const checkbox = React.createRef()
   const textInput = React.createRef()
-  const { display_name, private: isPrivate } = collection
+  const { display_name, private: isPrivate } = collection // eslint-disable-line
   function updateCollection () {
-    const display_name = textInput.current.value
+    const display_name = textInput.current.value // eslint-disable-line
     const isPrivate = checkbox.current.checked
     onChange({
       display_name,
@@ -42,14 +37,10 @@ function CreateCollection ({
           id='collectionName'
           onChange={updateCollection}
           ref={textInput}
-          value={display_name}
+          value={display_name} // eslint-disable-line
         />
       </FormField>
-      <Box
-        align='center'
-        margin={{ top: 'medium' }}
-        pad={{ top: 'small' }}
-      >
+      <Box align='center' margin={{ top: 'medium' }} pad={{ top: 'small' }}>
         <Button
           disabled={disabled}
           label={counterpart('CreateCollection.createButton')}

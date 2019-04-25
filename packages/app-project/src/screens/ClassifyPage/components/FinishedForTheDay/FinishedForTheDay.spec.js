@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import { Paragraph } from 'grommet'
 import React from 'react'
 
-import FinishedForTheDay from './FinishedForTheDay'
+import { FinishedForTheDay } from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
 import RelatedProjects from './components/RelatedProjects'
 
@@ -30,7 +30,8 @@ describe('Component > FinishedForTheDay', function () {
     expect(para.text().length).to.be.ok()
   })
 
-  it('should contain a related projects button', function () {
+  // TODO: Add `<RelatedProjects />` back in once API is up
+  xit('should contain a related projects button', function () {
     expect(wrapper.find(RelatedProjects)).to.have.lengthOf(1)
   })
 

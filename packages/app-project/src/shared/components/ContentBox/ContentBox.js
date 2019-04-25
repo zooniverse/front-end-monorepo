@@ -3,20 +3,39 @@ import { Anchor, Box, Heading } from 'grommet'
 import Link from 'next/link'
 import { node, string } from 'prop-types'
 import React from 'react'
+import { withTheme } from 'styled-components'
 
-function ContentBox ({ className, children, linkLabel, linkUrl, mode, title }) {
+function ContentBox (props) {
+  const {
+    children,
+    className,
+    linkLabel,
+    linkUrl,
+    theme: { dark },
+    title,
+    ...rest
+  } = props
+
   const showHeader = title || (linkLabel && linkUrl)
+
   return (
     <Box
-      background={mode === 'light' ? 'white' : 'dark-3'}
+      background={{
+        dark: 'dark-3',
+        light: 'white'
+      }}
       border={{
-        color: mode === 'light' ? 'light-3' : 'dark-3',
+        color: {
+          dark: 'dark-3',
+          light: 'light-3'
+        },
         side: 'all',
         size: 'thin'
       }}
       className={className}
-      elevation={mode === 'light' ? 'none' : 'large'}
+      elevation={dark ? 'xlarge' : 'none'}
       pad='medium'
+      {...rest}
     >
       {showHeader && (
         <Box
@@ -30,7 +49,10 @@ function ContentBox ({ className, children, linkLabel, linkUrl, mode, title }) {
           {title && (
             <Heading level='4' margin='none'>
               <SpacedText
-                color={mode === 'light' ? 'black' : 'light-1'}
+                color={{
+                  dark: 'light-1',
+                  light: 'black'
+                }}
                 weight='bold'
               >
                 {title}
@@ -64,4 +86,5 @@ ContentBox.propTypes = {
   mode: string
 }
 
-export default ContentBox
+export default withTheme(ContentBox)
+export { ContentBox }

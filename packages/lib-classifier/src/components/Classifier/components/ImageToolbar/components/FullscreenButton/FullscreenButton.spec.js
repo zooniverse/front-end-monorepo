@@ -11,8 +11,7 @@ describe('Component > FullscreenButton', function () {
 
   it('should have an `a11yTitle` label', function () {
     const wrapper = shallow(<FullscreenButton />)
-    const button = wrapper.dive().dive()
-    expect(button.prop('a11yTitle')).to.equal('View subject in full screen mode')
+    expect(wrapper.prop('a11yTitle')).to.equal('View subject in full screen mode')
   })
 
   it('should call the onClick prop function on click', function () {
@@ -22,8 +21,7 @@ describe('Component > FullscreenButton', function () {
         onClick={spy}
       />
     )
-    const button = wrapper.dive().dive()
-    button.simulate('click')
+    wrapper.simulate('click')
     expect(spy.called).to.be.true
   })
 })

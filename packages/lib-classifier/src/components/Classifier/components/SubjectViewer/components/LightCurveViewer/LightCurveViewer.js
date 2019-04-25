@@ -18,12 +18,14 @@ import setDataPointStyle from './d3/setDataPointStyle'
 const ZOOM_IN_VALUE = 1.2
 const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100 // milliseconds
+const PAN_DISTANCE = 20
 
 function storeMapper (stores) {
   const {
     enableAnnotate,
     enableMove,
     interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
+    setOnPan,
     setOnZoom // func: sets onZoom event handler
   } = stores.classifierStore.subjectViewer
 
@@ -46,6 +48,7 @@ function storeMapper (stores) {
     enableAnnotate,
     enableMove,
     interactionMode,
+    setOnPan,
     setOnZoom,
     toolIndex
   }
@@ -100,6 +103,7 @@ class LightCurveViewer extends Component {
   componentDidMount () {
     this.initChart()
     this.props.setOnZoom(this.handleToolbarZoom.bind(this))
+    this.props.setOnPan(this.pan.bind(this))
   }
 
   componentDidUpdate (prevProps) {
@@ -411,6 +415,10 @@ class LightCurveViewer extends Component {
 
   zoomTo (zoomValue) {
     this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
+  }
+
+  pan (xMultiplier) {
+    this.zoom.translateBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), xMultiplier * PAN_DISTANCE, 0)
   }
 
   /*
