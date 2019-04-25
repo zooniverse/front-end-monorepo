@@ -31,7 +31,7 @@ describe('Component > FieldGuideContainer', function () {
 
   it('should call setModalVisibility onClose of the modal', function () {
     const setModalVisibilitySpy = sinon.spy()
-    const wrapper = shallow(<FieldGuideContainer.wrappedComponent setModalVisibility={setModalVisibilitySpy} showModal={true} />)
+    const wrapper = shallow(<FieldGuideContainer.wrappedComponent setModalVisibility={setModalVisibilitySpy} showModal />)
     wrapper.instance().onClose()
     expect(setModalVisibilitySpy).to.have.been.calledOnceWith(false)
   })

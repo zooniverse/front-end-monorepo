@@ -10,7 +10,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export function AnchorLabel({ className, icons, item }) {
+export function AnchorLabel ({ className, icons, item }) {
   const icon = icons.get(item.icon)
   return (
     <Box
@@ -27,11 +27,11 @@ export function AnchorLabel({ className, icons, item }) {
   )
 }
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { attachedMedia: icons, setActiveItemIndex } = stores.classifierStore.fieldGuide
   return {
     icons,
-    setActiveItemIndex,
+    setActiveItemIndex
   }
 }
 

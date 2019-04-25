@@ -9,7 +9,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { setModalVisibility, showModal } = stores.classifierStore.fieldGuide
   return {
     setModalVisibility,
@@ -38,7 +38,7 @@ class FieldGuideContainer extends React.Component {
           closeFn={this.onClose.bind(this)}
           modal={false}
           pad='medium'
-          position="right"
+          position='right'
           title={counterpart('FieldGuide.title')}
         >
           <FieldGuide />

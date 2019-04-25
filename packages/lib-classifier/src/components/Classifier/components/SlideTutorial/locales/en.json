@@ -2,6 +2,7 @@
   "SlideTutorial": {
     "alt": "Tutorial step %(activeStep)s",
     "error": "Tutorial step could not be loaded.",
+    "getStarted": "Get Started",
     "heading": "%(projectDisplayName)s Tutorial"
   }
 }

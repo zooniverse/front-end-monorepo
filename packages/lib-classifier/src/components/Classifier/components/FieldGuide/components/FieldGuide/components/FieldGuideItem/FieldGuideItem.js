@@ -41,7 +41,7 @@ const FieldGuideItemContent = styled(Box)`
   }
 `
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { setActiveItemIndex, attachedMedia: icons } = stores.classifierStore.fieldGuide
   return {
     icons,
@@ -60,7 +60,7 @@ class FieldGuideItem extends React.Component {
       <Box className={className}>
         <FieldGuideItemHeader align='center' direction='row' flex={{ grow: 1, shrink: 0 }} margin={{ bottom: 'small' }}>
           <StyledButton
-            a11yTitle={counterpart("FieldGuideItem.ariaTitle")}
+            a11yTitle={counterpart('FieldGuideItem.ariaTitle')}
             icon={<FormPrevious color='light-5' />}
             margin={{ right: 'small' }}
             onClick={() => setActiveItemIndex()}
