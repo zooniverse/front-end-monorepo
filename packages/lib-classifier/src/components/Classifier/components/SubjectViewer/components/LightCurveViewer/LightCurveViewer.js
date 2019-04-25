@@ -201,7 +201,7 @@ class LightCurveViewer extends Component {
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
     this.updatePresentation(width, height)
-    
+
     if (this.props.feedback) {
       this.updateInteractionMode('move')
       this.disableBrushEvents()
@@ -564,12 +564,11 @@ class LightCurveViewer extends Component {
       }
 
       this.repositionBrush(annotationBrush, d3brush)
-
     })
     this.enableBrushEvents() // Re-enable brush events
   }
 
-  repositionBrush(brush, d3brush) {
+  repositionBrush (brush, d3brush) {
     const currentTransform = this.getCurrentTransform()
 
     const minXonScreen = currentTransform.rescaleX(this.xScale)(brush.minX)

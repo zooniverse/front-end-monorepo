@@ -51,7 +51,7 @@ class FieldGuide extends React.Component {
 
 FieldGuide.wrappedComponent.defaultProps = {
   activeItemIndex: -1,
-  className: '',
+  className: ''
 }
 
 FieldGuide.wrappedComponent.propTypes = {

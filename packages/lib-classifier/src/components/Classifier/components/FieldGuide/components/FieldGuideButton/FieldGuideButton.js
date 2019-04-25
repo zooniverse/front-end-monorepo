@@ -53,7 +53,7 @@ export function ButtonLabel () {
   )
 }
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { active: fieldGuide, setModalVisibility } = stores.classifierStore.fieldGuide
   return {
     fieldGuide,
@@ -71,7 +71,7 @@ class FieldGuideButton extends React.Component {
 
   render () {
     const {
-      fieldGuide,
+      fieldGuide
     } = this.props
     const disabled = !fieldGuide || fieldGuide.items.length === 0
 

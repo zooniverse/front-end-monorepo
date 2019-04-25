@@ -24,7 +24,7 @@ function storeMapper (stores) {
 }
 
 class TaskArea extends React.Component {
-  constructor() {
+  constructor () {
     super()
 
     this.state = {
@@ -45,7 +45,7 @@ class TaskArea extends React.Component {
     this.setActiveIndex(0)
   }
 
-  setActiveIndex(activeIndex) {
+  setActiveIndex (activeIndex) {
     this.setState({ activeIndex })
   }
 

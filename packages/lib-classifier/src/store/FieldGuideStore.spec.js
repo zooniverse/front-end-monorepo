@@ -19,9 +19,9 @@ const fieldGuideWithItems = FieldGuideFactory.build({ items: [
     icon: medium.id,
     title: 'Cats'
   },
-  { 
+  {
     content: 'All about dogs',
-    title: 'Dogs'  
+    title: 'Dogs'
   }
 ] })
 
@@ -380,21 +380,21 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide()
         .then(() => {
           rootStore.fieldGuide.setActiveItemIndex(0)
           expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
-        }).then(done, done) 
+        }).then(done, done)
     })
 
     it('should not set the active medium if the item does not have an icon', function (done) {
