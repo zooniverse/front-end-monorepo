@@ -1,5 +1,6 @@
+import { withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Text, ThemeContext } from 'grommet'
+import { Button, Text } from 'grommet'
 import { bool, func } from 'prop-types'
 import React from 'react'
 
@@ -42,13 +43,5 @@ NextButton.propTypes = {
   onClick: func.isRequired
 }
 
-function wrappedNextButton (props) {
-  return (
-    <ThemeContext.Extend value={nextButtonTheme}>
-      <NextButton {...props} />
-    </ThemeContext.Extend>
-  )
-}
-
-export default wrappedNextButton
+export default withThemeContext(NextButton, nextButtonTheme)
 export { NextButton }
