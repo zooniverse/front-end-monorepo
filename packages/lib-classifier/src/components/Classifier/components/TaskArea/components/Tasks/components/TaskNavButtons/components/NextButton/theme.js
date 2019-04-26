@@ -45,11 +45,8 @@ const nextButtonTheme = {
   },
   text: {
     extend: props => `
-      &:before {
-        content: '${props.isRtl ? `← ` : ``}';
-      }
       &:after {
-        content: '${!props.isRtl ? ` →` : ``}';
+        content: ' ${props.isRtl ? '←' : '→'}';
       }
     `
   }
