@@ -6,10 +6,12 @@ import { Box, Paragraph, ResponsiveContext } from 'grommet'
 import SlideTutorial from './SlideTutorial'
 
 function storeMapper (stores) {
-  const { activeStep, stepWithMedium } = stores.classifierStore.tutorials
+  const { activeStep, isFirstStep, isLastStep, stepWithMedium } = stores.classifierStore.tutorials
   const { active: project } = stores.classifierStore.projects
   return {
     activeStep,
+    isFirstStep,
+    isLastStep,
     projectDisplayName: project.display_name,
     stepWithMedium
   }

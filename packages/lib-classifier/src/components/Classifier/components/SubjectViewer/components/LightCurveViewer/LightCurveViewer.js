@@ -201,7 +201,7 @@ class LightCurveViewer extends Component {
     // Update visual elements
     this.updateDataPoints(shouldAnimate)
     this.updatePresentation(width, height)
-    
+
     if (this.props.feedback) {
       this.updateInteractionMode('move')
       this.disableBrushEvents()
@@ -428,6 +428,7 @@ class LightCurveViewer extends Component {
    */
   initChart () {
     const props = this.props
+    const { onKeyDown } = props
 
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
@@ -435,6 +436,9 @@ class LightCurveViewer extends Component {
       .attr('class', 'light-curve-viewer')
       .attr('height', '100%')
       .attr('width', '100%')
+      .attr('focusable', true)
+      .attr('tabindex', 0)
+      .on('keydown', () => onKeyDown(d3.event))
       .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
@@ -564,12 +568,11 @@ class LightCurveViewer extends Component {
       }
 
       this.repositionBrush(annotationBrush, d3brush)
-
     })
     this.enableBrushEvents() // Re-enable brush events
   }
 
-  repositionBrush(brush, d3brush) {
+  repositionBrush (brush, d3brush) {
     const currentTransform = this.getCurrentTransform()
 
     const minXonScreen = currentTransform.rescaleX(this.xScale)(brush.minX)
@@ -705,7 +708,9 @@ LightCurveViewer.wrappedComponent.propTypes = {
 
   // Store-mapped Properties
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
-  setOnZoom: PropTypes.func.isRequired
+  setOnZoom: PropTypes.func.isRequired,
+
+  onKeyDown: PropTypes.func
 }
 
 LightCurveViewer.wrappedComponent.defaultProps = {
@@ -735,7 +740,9 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   },
 
   interactionMode: '',
-  setOnZoom: (type, zoomValue) => {}
+  setOnZoom: (type, zoomValue) => {},
+
+  onKeyDown: () => true
 }
 
 export default LightCurveViewer

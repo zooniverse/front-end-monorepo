@@ -6,7 +6,6 @@ import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 
-
 import en from './locales/en'
 import TooltipText from './components/TooltipText'
 import Triangle from './components/Triangle'
@@ -26,7 +25,7 @@ const StyledBox = styled(Box)`
 const PosedBox = posed(StyledBox)({
   enter: { y: 0, opacity: 1 },
   exit: { y: '-100%', opacity: 0 }
-});
+})
 
 function Label () {
   return (

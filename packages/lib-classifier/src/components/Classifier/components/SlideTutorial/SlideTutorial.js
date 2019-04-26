@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Heading, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, Button, Heading } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 import en from './locales/en'
@@ -22,7 +22,18 @@ const StyledMarkdownWrapper = styled(Box)`
 `
 
 function SlideTutorial (props) {
-  const { activeStep, className, projectDisplayName, height, pad, stepWithMedium, width } = props
+  const {
+    activeStep,
+    className,
+    isFirstStep,
+    isLastStep,
+    projectDisplayName,
+    onClick,
+    height,
+    pad,
+    stepWithMedium,
+    width
+  } = props
   const { medium, step } = stepWithMedium
   const isThereMedia = medium && medium.src
   return (
@@ -33,7 +44,12 @@ function SlideTutorial (props) {
       pad={pad}
       width={width}
     >
-      <StyledMarkdownWrapper aria-live='polite' autoFocus height='100%' overflow={{ horizontal: 'hidden', vertical: 'auto' }}>
+      <StyledMarkdownWrapper
+        aria-live='polite'
+        autoFocus
+        height='100%'
+        overflow={{ horizontal: 'hidden', vertical: 'auto' }}
+      >
         {isThereMedia &&
           <Media
             alt={counterpart('SlideTutorial.alt', { activeStep })}
@@ -41,7 +57,7 @@ function SlideTutorial (props) {
             height={200}
             src={medium.src}
           />}
-        {activeStep === 0 &&
+        {isFirstStep &&
           <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
             {counterpart('SlideTutorial.heading', { projectDisplayName })}
           </Heading>}
@@ -49,6 +65,13 @@ function SlideTutorial (props) {
         <Markdownz>{step.content}</Markdownz>
       </StyledMarkdownWrapper>
       <StepNavigation />
+      {isLastStep &&
+        <Button
+          label={counterpart('SlideTutorial.getStarted')}
+          onClick={onClick}
+          margin={{ top: 'medium' }}
+          primary
+        />}
     </Box>
   )
 }
@@ -56,6 +79,9 @@ function SlideTutorial (props) {
 SlideTutorial.defaultProps = {
   activeStep: 0,
   className: '',
+  isFirstStep: true,
+  isLastStep: false,
+  onClick: () => {},
   projectDisplayName: '',
   pad: 'medium'
 }
@@ -63,7 +89,10 @@ SlideTutorial.defaultProps = {
 SlideTutorial.propTypes = {
   activeStep: PropTypes.number,
   className: PropTypes.string,
+  isFirstStep: PropTypes.bool,
+  isLastStep: PropTypes.bool,
   projectDisplayName: PropTypes.string,
+  onClick: PropTypes.func,
   stepWithMedium: PropTypes.shape({
     medium: PropTypes.shape({
       content_type: PropTypes.string,

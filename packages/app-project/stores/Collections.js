@@ -3,21 +3,23 @@ import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 
-export const Collection = types
-  .model('Collection', {
-    display_name: types.maybeNull(types.string),
-    favorite: false,
-    id: types.identifier,
-    links: types.frozen({}),
-    private: true
-  })
+export const Collection = types.model('Collection', {
+  display_name: types.maybeNull(types.string),
+  favorite: false,
+  id: types.identifier,
+  links: types.frozen({}),
+  private: true
+})
 
 const Collections = types
   .model('Collections', {
     error: types.maybeNull(types.frozen({})),
     collections: types.array(Collection),
     favourites: types.maybeNull(Collection),
-    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized)
+    loadingState: types.optional(
+      types.enumeration('state', asyncStates.values),
+      asyncStates.initialized
+    )
   })
 
   .actions(self => {
@@ -40,7 +42,6 @@ const Collections = types
 
     const fetchCollections = flow(function * fetchCollections (query) {
       try {
-        const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
         const token = yield auth.checkBearerToken()
         const authorization = `Bearer ${token}`
@@ -56,7 +57,10 @@ const Collections = types
       }
     })
 
-    const newCollection = flow(function * newCollection (options, subjectIds = []) {
+    const newCollection = flow(function * newCollection (
+      options,
+      subjectIds = []
+    ) {
       try {
         const { project } = getRoot(self)
         self.loadingState = asyncStates.loading
@@ -68,9 +72,14 @@ const Collections = types
           private: false
         }
         const data = Object.assign({}, defaults, options)
-        const response = yield client.collections.create({ authorization, data, project: project.id, subjects: subjectIds })
+        const response = yield client.collections.create({
+          authorization,
+          data,
+          project: project.id,
+          subjects: subjectIds
+        })
         self.loadingState = asyncStates.success
-        const [ collection ] = response.body.collections
+        const [collection] = response.body.collections
         return collection
       } catch (error) {
         console.log(error.message)
@@ -86,7 +95,10 @@ const Collections = types
         createProjectObserver()
       },
 
-      createCollection: flow(function * createCollection (options, subjectIds = []) {
+      createCollection: flow(function * createCollection (
+        options,
+        subjectIds = []
+      ) {
         const collection = yield newCollection(options, subjectIds)
         return collection
       }),
@@ -113,7 +125,7 @@ const Collections = types
           project_ids: [project.id],
           owner: user.login
         }
-        let [ favourites ] = yield fetchCollections(query)
+        let [favourites] = yield fetchCollections(query)
         if (favourites) {
           self.favourites = Collection.create(favourites)
         } else {
@@ -131,12 +143,15 @@ const Collections = types
           subjects: subjectIds
         }
         const response = yield client.collections.addSubjects(params)
-        const [ collection ] = response.body.collections
+        const [collection] = response.body.collections
         return collection
       }),
 
       addFavourites: flow(function * addFavourites (subjectIds) {
-        const favourites = yield self.addSubjects(self.favourites.id, subjectIds)
+        const favourites = yield self.addSubjects(
+          self.favourites.id,
+          subjectIds
+        )
         self.favourites = Collection.create(favourites)
       }),
 

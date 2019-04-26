@@ -52,14 +52,14 @@ describe('Model > SubjectStore', function () {
       rootStore = RootStore.create(
         { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
         { client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [] }
-                })
-              }
+          panoptes: {
+            get: () => {
+              return Promise.resolve({
+                body: { subjects: [] }
+              })
             }
           }
+        }
         }
       )
 
@@ -87,7 +87,7 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should return false if the active subject only has hidden metadata', function (done) {
-      const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' }})
+      const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
       rootStore = RootStore.create(
         { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
         {
@@ -115,7 +115,7 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should return true if the active subject has metadata', function (done) {
-      const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' }})
+      const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
       rootStore = RootStore.create(
         { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
         {

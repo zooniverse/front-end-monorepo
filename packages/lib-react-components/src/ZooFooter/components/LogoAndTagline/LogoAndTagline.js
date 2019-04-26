@@ -10,8 +10,12 @@ export const StyledLogoAnchor = styled(Anchor)`
   transition: color 0.2s linear;
 `
 
-export default function LogoAndTagline ({ className, colorTheme, tagLine }) {
-  const color = colorTheme === 'light' ? 'black' : 'light-3'
+export default function LogoAndTagline ({ className, tagLine }) {
+  const color = {
+    dark: 'light-3',
+    light: 'black'
+  }
+
   return (
     <Box className={className}>
       <StyledLogoAnchor
@@ -22,6 +26,7 @@ export default function LogoAndTagline ({ className, colorTheme, tagLine }) {
       </StyledLogoAnchor>
       <SpacedText
         color={color}
+        size='medium'
         weight='bold'
       >
         {tagLine}
@@ -31,6 +36,6 @@ export default function LogoAndTagline ({ className, colorTheme, tagLine }) {
 }
 
 LogoAndTagline.propTypes = {
-  colorTheme: string.isRequired,
+  className: string,
   tagLine: string.isRequired
 }

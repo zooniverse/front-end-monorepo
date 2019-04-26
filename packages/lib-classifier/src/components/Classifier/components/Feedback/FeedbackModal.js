@@ -36,7 +36,7 @@ class FeedbackModal extends React.Component {
     const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
     let FeedbackViewer = null
     if (showViewer) {
-      FeedbackViewer = getFeedbackViewer(applicableRules)      
+      FeedbackViewer = getFeedbackViewer(applicableRules)
     }
 
     if (showModal) {

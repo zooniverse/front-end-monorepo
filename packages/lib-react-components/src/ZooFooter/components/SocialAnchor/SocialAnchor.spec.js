@@ -7,28 +7,30 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons'
 
-import SocialAnchor from './SocialAnchor'
+import { SocialAnchor } from './SocialAnchor'
+
+const THEME = { dark: false }
 
 describe('SocialAnchor', function () {
   it('should render without crashing', function () {
-    shallow(<SocialAnchor service='facebook' />)
+    shallow(<SocialAnchor service='facebook' theme={THEME} />)
   })
 
   describe('facebook render', function () {
     let wrapper
 
     it('should render a facebook icon when the service prop is "facebook"', function () {
-      wrapper = mount(<SocialAnchor service='facebook' />)
+      wrapper = mount(<SocialAnchor service='facebook' theme={THEME} />)
       expect(wrapper.find(FacebookOption)).to.have.lengthOf(1)
     })
 
     it('should use the service prop as the a11y title', function () {
-      wrapper = shallow(<SocialAnchor service='facebook' />)
+      wrapper = shallow(<SocialAnchor service='facebook' theme={THEME} />)
       expect(wrapper.props().a11yTitle).to.equal('facebook')
     })
 
     it('should use the expected url in the href', function () {
-      wrapper = shallow(<SocialAnchor service='facebook' />)
+      wrapper = shallow(<SocialAnchor service='facebook' theme={THEME} />)
       expect(wrapper.props().href).to.equal('https://www.facebook.com/therealzooniverse')
     })
   })
@@ -37,17 +39,17 @@ describe('SocialAnchor', function () {
     let wrapper
 
     it('should render a twitter icon when the service prop is "twitter"', function () {
-      wrapper = mount(<SocialAnchor service='twitter' />)
+      wrapper = mount(<SocialAnchor service='twitter' theme={THEME} />)
       expect(wrapper.find(Twitter)).to.have.lengthOf(1)
     })
 
     it('should use the service prop as the a11y title', function () {
-      wrapper = shallow(<SocialAnchor service='twitter' />)
+      wrapper = shallow(<SocialAnchor service='twitter' theme={THEME} />)
       expect(wrapper.props().a11yTitle).to.equal('twitter')
     })
 
     it('should use the expected url in the href', function () {
-      wrapper = shallow(<SocialAnchor service='twitter' />)
+      wrapper = shallow(<SocialAnchor service='twitter' theme={THEME} />)
       expect(wrapper.props().href).to.equal('https://twitter.com/the_zooniverse')
     })
   })
@@ -56,17 +58,17 @@ describe('SocialAnchor', function () {
     let wrapper
 
     it('should render an instagram icon when the service prop is "instagram"', function () {
-      wrapper = mount(<SocialAnchor service='instagram' />)
+      wrapper = mount(<SocialAnchor service='instagram' theme={THEME} />)
       expect(wrapper.find(Instagram)).to.have.lengthOf(1)
     })
 
     it('should use the service prop as the a11y title', function () {
-      wrapper = shallow(<SocialAnchor service='instagram' />)
+      wrapper = shallow(<SocialAnchor service='instagram' theme={THEME} />)
       expect(wrapper.props().a11yTitle).to.equal('instagram')
     })
 
     it('should use the expected url in the href', function () {
-      wrapper = shallow(<SocialAnchor service='instagram' />)
+      wrapper = shallow(<SocialAnchor service='instagram' theme={THEME} />)
       expect(wrapper.props().href).to.equal('https://www.instagram.com/the.zooniverse/')
     })
   })

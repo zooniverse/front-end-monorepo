@@ -3,7 +3,7 @@ import React from 'react'
 import { Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 
-export default function FieldGuideItemIcon(props) {
+export default function FieldGuideItemIcon (props) {
   const { alt, className, height, icon, viewBox, width } = props
   if (icon && Object.keys(icon).length > 0) {
     return (
