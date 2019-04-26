@@ -5,7 +5,7 @@ import sinon from 'sinon'
 
 import { NextButton } from './NextButton'
 
-describe.only('NextButton', function () {
+describe('NextButton', function () {
   describe('rendering', function () {
     let wrapper
     before(function () {

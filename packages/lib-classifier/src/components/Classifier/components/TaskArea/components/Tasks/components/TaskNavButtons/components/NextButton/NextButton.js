@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Button, Text, ThemeContext } from 'grommet'
-import PropTypes from 'prop-types'
+import { bool, func } from 'prop-types'
 import React from 'react'
 
 import nextButtonTheme from './theme'
@@ -8,9 +8,11 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+// TODO: This will need hooking up to counterpart / a helper function to
+// determine whether to use an RTL language or not
 const Label = (
-  <Text size='medium'>
-    {counterpart('NextButton.next')} →
+  <Text size='medium' isRtl={false}>
+    {counterpart('NextButton.next')}
   </Text>
 )
 
@@ -37,9 +39,9 @@ NextButton.defaultProps = {
 }
 
 NextButton.propTypes = {
-  autoFocus: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func.isRequired
+  autoFocus: bool,
+  disabled: bool,
+  onClick: func.isRequired
 }
 
 function wrappedNextButton (props) {

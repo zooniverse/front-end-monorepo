@@ -22,9 +22,9 @@ const nextButtonTheme = {
       &:hover:not(:disabled) {
         box-shadow: none;
         background: ${props.theme.dark
-          ? props.theme.global.colors['neutral-4']
-          : adjustHue(-7, props.theme.global.colors['neutral-4'])
-        };
+    ? props.theme.global.colors['neutral-4']
+    : adjustHue(-7, props.theme.global.colors['neutral-4'])
+};
         color: ${props.theme.dark ? 'white' : 'black'};
 
         svg {
@@ -43,9 +43,14 @@ const nextButtonTheme = {
       }
     }
   },
-  grommet: {
-    extend: `
-      width: 100%;
+  text: {
+    extend: props => `
+      &:before {
+        content: '${props.isRtl ? `← ` : ``}';
+      }
+      &:after {
+        content: '${!props.isRtl ? ` →` : ``}';
+      }
     `
   }
 }
