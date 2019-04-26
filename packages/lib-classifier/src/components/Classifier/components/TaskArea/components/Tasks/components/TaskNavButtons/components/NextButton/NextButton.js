@@ -8,10 +8,8 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-// TODO: This will need hooking up to counterpart / a helper function to
-// determine whether to use an RTL language or not
 const Label = (
-  <Text size='medium' isRtl={false}>
+  <Text size='medium'>
     {counterpart('NextButton.next')}
   </Text>
 )
