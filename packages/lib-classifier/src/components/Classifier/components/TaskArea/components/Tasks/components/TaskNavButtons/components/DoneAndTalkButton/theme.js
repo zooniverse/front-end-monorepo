@@ -16,7 +16,7 @@ const theme = {
         ? props.theme.global.colors['dark-3']
         : BLUE
       };
-      flex: 1 1 auto;
+      flex: 1 1 50%;
       text-transform: capitalize;
 
       &:disabled:hover {
