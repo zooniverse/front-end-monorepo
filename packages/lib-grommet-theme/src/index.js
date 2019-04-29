@@ -168,6 +168,9 @@ const theme = deepFreeze({
   button: {
     border: {
       radius: '0px'
+    },
+    padding: {
+      vertical: '9px'
     }
   },
   checkBox: {
