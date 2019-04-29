@@ -110,7 +110,7 @@ export default function ZooFooter (props) {
           gap='small'
           columns={{
             'count': 'fit',
-            'size': 'small'
+            'size': '100px'
           }}
           margin={{ bottom: 'large' }}
           tag='section'
