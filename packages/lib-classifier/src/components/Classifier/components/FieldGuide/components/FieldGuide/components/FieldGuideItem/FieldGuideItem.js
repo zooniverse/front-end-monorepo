@@ -70,7 +70,7 @@ class FieldGuideItem extends React.Component {
             {`### ${item.title}`}
           </Markdownz>
         </FieldGuideItemHeader>
-        <FieldGuideItemContent direction='column'>
+        <FieldGuideItemContent direction='column' overflow='auto'>
           <FieldGuideItemIcon icon={icon} height='140' margin={{ bottom: '35px' }} viewBox='0 0 200 100' />
           <Markdownz>
             {item.content}
