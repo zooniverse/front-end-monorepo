@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import { Paragraph } from 'grommet'
 import React from 'react'
 
-import FinishedForTheDay from './FinishedForTheDay'
+import { FinishedForTheDay } from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
 import RelatedProjects from './components/RelatedProjects'
 

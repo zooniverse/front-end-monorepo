@@ -758,4 +758,88 @@ describe('Model > TutorialStore', function () {
       })
     })
   })
+
+  describe('Views > isFirstStep', function () {
+    it('should return false if no active tutorial', function () {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, { authClient: authClientStubWithUser, client: clientStub() })
+
+      expect(rootStore.tutorials.active).to.be.undefined
+      expect(rootStore.tutorials.isFirstStep).to.be.false
+    })
+
+    it('should return false if activeStep is not the first step', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, { authClient: authClientStubWithUser, client: clientStub() })
+
+      fetchTutorials()
+        .then(() => {
+          rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
+        }).then(() => {
+          expect(rootStore.tutorials.activeStep).to.equal(1)
+          expect(rootStore.tutorials.isFirstStep).to.be.false
+        }).then(done, done)
+    })
+
+    it('should return true if activeStep is the first step', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, { authClient: authClientStubWithUser, client: clientStub() })
+
+      fetchTutorials()
+        .then(() => {
+          rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
+        }).then(() => {
+          expect(rootStore.tutorials.activeStep).to.equal(0)
+          expect(rootStore.tutorials.isFirstStep).to.be.true
+        }).then(done, done)
+    })
+  })
+
+  describe('Views > isLastStep', function () {
+    it('should return false if no active tutorial', function () {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, { authClient: authClientStubWithUser, client: clientStub() })
+
+      expect(rootStore.tutorials.active).to.be.undefined
+      expect(rootStore.tutorials.isLastStep).to.be.false
+    })
+
+    it('should return false if activeStep is not the last step', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, { authClient: authClientStubWithUser, client: clientStub() })
+
+      fetchTutorials()
+        .then(() => {
+          rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
+        }).then(() => {
+          expect(rootStore.tutorials.activeStep).to.equal(0)
+          expect(rootStore.tutorials.isLastStep).to.be.false
+        }).then(done, done)
+    })
+
+    it('should return true if activeStep is the last step', function (done) {
+      rootStore = RootStore.create({
+        tutorials: TutorialStore.create(),
+        workflows: WorkflowStore.create()
+      }, { authClient: authClientStubWithUser, client: clientStub() })
+
+      fetchTutorials()
+        .then(() => {
+          rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
+        }).then(() => {
+          expect(rootStore.tutorials.activeStep).to.equal(1)
+          expect(rootStore.tutorials.isLastStep).to.be.true
+        }).then(done, done)
+    })
+  })
 })

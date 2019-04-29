@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FieldGuideItemAnchor from './FieldGuideItemAnchor'
 
-export default function FieldGuideItems({ className, items }) {
+export default function FieldGuideItems ({ className, items }) {
   return (
     <Grid
       className={className}
@@ -18,7 +18,7 @@ export default function FieldGuideItems({ className, items }) {
 }
 
 FieldGuideItems.defaultProps = {
-  className: '',
+  className: ''
 }
 
 FieldGuideItems.propTypes = {

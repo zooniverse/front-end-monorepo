@@ -1,9 +1,9 @@
 import counterpart from 'counterpart'
 import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
+import styled, { withTheme } from 'styled-components'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
@@ -25,13 +25,15 @@ const StyledBox = styled(Box)`
 `
 
 // TODO: Add `<RelatedProjects />` back in once API is up
-function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
+function FinishedForTheDay (props) {
+  const { imageSrc, isLoggedIn, projectName, theme: { dark } } = props
   const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
 
   return (
-    <Grid columns={columns}>
+    <Box elevation={dark ? 'xlarge' : 'none'}>
+      <Grid columns={columns}>
       {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
-      <ContentBox>
+      <ContentBox elevation='none'>
         <Heading
           level='3'
           margin={{ bottom: 'small', top: 'none' }}
@@ -59,6 +61,7 @@ function FinishedForTheDay ({ imageSrc, isLoggedIn, projectName }) {
         </StyledBox>
       </ContentBox>
     </Grid>
+    </Box>
   )
 }
 
@@ -70,7 +73,11 @@ FinishedForTheDay.propTypes = {
 
 FinishedForTheDay.defaultProps = {
   imageSrc: '',
-  isLoggedIn: false
+  isLoggedIn: false,
+  theme: {
+    dark: false
+  }
 }
 
-export default FinishedForTheDay
+export default withTheme(FinishedForTheDay)
+export { FinishedForTheDay }

@@ -7,7 +7,7 @@ import LightCurveViewer from '../../SubjectViewer/components/LightCurveViewer'
 
 function storeMapper (stores) {
   const annotations = stores.classifierStore.classifications.currentAnnotations
-  const { 
+  const {
     applicableRules,
     showModal: feedback
   } = stores.classifierStore.feedback
@@ -103,7 +103,7 @@ class Graph2dRangeFeedback extends Component {
   render () {
     const { feedback, subject } = this.props
     return (
-      <LightCurveViewer 
+      <LightCurveViewer
         drawFeedbackBrushes={this.drawFeedbackBrushes}
         feedback={feedback}
         subject={subject}

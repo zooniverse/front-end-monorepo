@@ -115,6 +115,24 @@ const theme = deepFreeze({
       large: `50px`,
       xlarge: `90px`,
     },
+    elevation: {
+      light: {
+        none: 'none',
+        xsmall: '0px 1px 2px rgba(0, 0, 0, 0.30)',
+        small: '0px 2px 4px rgba(0, 0, 0, 0.30)',
+        medium: '0px 4px 8px rgba(0, 0, 0, 0.30)',
+        large: '0px 8px 16px rgba(0, 0, 0, 0.30)',
+        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.30)',
+      },
+      dark: {
+        none: 'none',
+        xsmall: '0px 1px 2px rgba(0, 0, 0, 0.30)',
+        small: '0px 2px 4px rgba(0, 0, 0, 0.30)',
+        medium: '0px 4px 8px rgba(0, 0, 0, 0.30)',
+        large: '0px 8px 16px rgba(0, 0, 0, 0.30)',
+        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.30)',
+      },
+    },
     font: {
       family: "'Karla', Arial, sans-serif",
       face: `
@@ -407,7 +425,8 @@ const theme = deepFreeze({
   },
   radioButton: {
     icon: {
-      size: 'small'
+      size: '15px',
+      extend: 'circle { r: 10px; }'
     },
     size: '15px'
   }
