@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
-import MetadataButton from './components/MetadataButton'
-import { MetadataModal } from './components/MetadataModal'
+import Metadata from './components/Metadata'
 import FavouritesButton from './components/FavouritesButton'
 import CollectionsButton from './components/CollectionsButton'
 
@@ -25,20 +24,11 @@ export default class MetaTools extends React.Component {
 
     this.addToCollection = this.addToCollection.bind(this)
     this.toggleFavourites = this.toggleFavourites.bind(this)
-    this.toggleMetadataModal = this.toggleMetadataModal.bind(this)
-
-    this.state = {
-      showMetadataModal: false
-    }
   }
 
   addToCollection () {
     const { subject } = this.props
     subject.addToCollection()
-  }
-
-  toggleMetadataModal () {
-    this.setState((prevState) => { return { showMetadataModal: !prevState.showMetadataModal } })
   }
 
   toggleFavourites () {
@@ -51,13 +41,7 @@ export default class MetaTools extends React.Component {
 
     return (
       <Box className={className} direction="row-responsive" gap='small'>
-        <MetadataButton disabled={!isThereMetadata} onClick={this.toggleMetadataModal} />
-        {isThereMetadata &&
-          <MetadataModal
-            active={this.state.showMetadataModal}
-            closeFn={this.toggleMetadataModal}
-            metadata={subject.metadata}
-          />}
+        <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
           checked={subject && subject.favorite}
           disabled={!upp}
@@ -70,5 +54,19 @@ export default class MetaTools extends React.Component {
       </Box>
     )
   }
-
 }
+
+MetaTools.defaultProps = {
+  className: '',
+  isThereMetadata: false,
+  subject: null,
+  upp: null
+}
+
+MetaTools.propTypes = {
+  className: PropTypes.string,
+  isThereMetadata: PropTypes.bool,
+  subject: PropTypes.object,
+  upp: PropTypes.object
+}
+

@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, onPatch, types } from 'mobx-state-tree'
 import { getBearerToken } from './utils'
-import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/MetadataModal'
+import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
 
