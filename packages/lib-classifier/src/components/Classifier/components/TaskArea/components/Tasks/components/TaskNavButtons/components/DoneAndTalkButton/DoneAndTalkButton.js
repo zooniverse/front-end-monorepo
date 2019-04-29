@@ -1,73 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Button, Text } from 'grommet'
-import styled, { ThemeProvider } from 'styled-components'
-import theme from 'styled-theming'
-import { darken, lighten } from 'polished'
-import zooTheme from '@zooniverse/grommet-theme'
+import { withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
+import { Button, Text } from 'grommet'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import en from './locales/en'
+import theme from './theme'
 
 counterpart.registerTranslations('en', en)
 
-// Taken from PFE on 2019.02.28; these colours aren't part of the current theme.
-const TALK_LINK_BLUE = '#43bbfd'
-const TALK_LINK_BLUE_HOVER = darken(0.18, TALK_LINK_BLUE)
-const TALK_LINK_BLUE_HOVER_DARK = '#104A79'
+const Label = (
+  <Text size='medium'>
+    {counterpart('DoneAndTalkButton.doneAndTalk')}
+  </Text>
+)
 
-// TODO move what makes sense into theme
-export const StyledDoneAndTalkButton = styled(Button)`
-  background-color: ${theme('mode', {
-    dark: zooTheme.global.colors['dark-1'],
-    light: TALK_LINK_BLUE
-  })};
-  border: ${theme('mode', {
-    dark: `solid thin ${TALK_LINK_BLUE}`,
-    light: `solid thin ${TALK_LINK_BLUE_HOVER}`
-  })};
-  box-shadow: none;
-  color: white;
-  flex: 3 0;
-  margin-right: 1ch;
-  padding: 0.5em;
-  text-transform: capitalize;
-  
-  > i {
-    margin-left: 1ch;
-  }
-
-  &:hover, &:focus {
-    background: ${theme('mode', {
-    dark: TALK_LINK_BLUE_HOVER_DARK,
-    light: TALK_LINK_BLUE_HOVER
-  })};
-    border: ${theme('mode', {
-    dark: `solid thin ${TALK_LINK_BLUE}`,
-    light: `solid thin ${TALK_LINK_BLUE_HOVER}`
-  })};
-    box-shadow: none;
-    color: ${theme('mode', {
-    dark: zooTheme.global.colors.text.dark,
-    light: `white`
-  })};
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-  }
-  `
-
-export function DoneAndTalkButton (props) {
+function DoneAndTalkButton (props) {
   if (!props.completed) {
     return (
-      <ThemeProvider theme={{ mode: props.theme }}>
-        <StyledDoneAndTalkButton
-          disabled={props.disabled}
-          label={<Text size='small'>{counterpart('DoneAndTalkButton.doneAndTalk')}</Text>}
-          onClick={props.onClick}
-          type='submit'
-        />
-      </ThemeProvider>
+      <Button
+        disabled={props.disabled}
+        label={Label}
+        onClick={props.onClick}
+        type='submit'
+      />
     )
   }
 
@@ -79,8 +35,7 @@ DoneAndTalkButton.defaultProps = {
   demoMode: false, // TODO: add demo mode to classifier
   disabled: false,
   goldStandardMode: false, // TODO: add gold standard mode to classifier
-  onClick: () => {},
-  theme: 'light'
+  onClick: () => {}
 }
 
 DoneAndTalkButton.propTypes = {
@@ -89,8 +44,8 @@ DoneAndTalkButton.propTypes = {
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
   onClick: PropTypes.func,
-  talkURL: PropTypes.string.isRequired,
-  theme: PropTypes.string
+  talkURL: PropTypes.string.isRequired
 }
 
-export default DoneAndTalkButton
+export default withThemeContext(DoneAndTalkButton, theme)
+export { DoneAndTalkButton }
