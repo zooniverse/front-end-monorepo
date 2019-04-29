@@ -1,5 +1,5 @@
-import { darken } from 'polished'
-const BLUE = '#44aae5'
+const BLUE = '#43bbfd'
+const DARK_BLUE = '#104a79'
 
 const theme = {
   button: {
@@ -12,12 +12,12 @@ const theme = {
     },
     color: 'white',
     extend: props => `
+      background: ${props.theme.dark
+        ? props.theme.global.colors['dark-3']
+        : BLUE
+      };
       flex: 1 1 auto;
       text-transform: capitalize;
-      background: ${props.theme.dark
-    ? props.theme.global.colors['dark-3']
-    : BLUE
-};
 
       &:disabled:hover {
         cursor: not-allowed;
@@ -25,14 +25,10 @@ const theme = {
 
       &:focus:not(:disabled),
       &:hover:not(:disabled) {
+        background: ${DARK_BLUE};
         box-shadow: none;
-        background: ${darken(0.18, BLUE)};
       }
-    `,
-    padding: {
-      horizontal: props => props.theme.global.edgeSize.small,
-      vertical: props => props.theme.global.edgeSize.xsmall
-    }
+    `
   }
 }
 

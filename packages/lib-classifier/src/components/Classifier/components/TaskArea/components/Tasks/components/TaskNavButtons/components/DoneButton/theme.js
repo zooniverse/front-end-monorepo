@@ -1,4 +1,4 @@
-import { darken } from 'polished'
+const DARK_GREEN = '#034628'
 
 const theme = {
   button: {
@@ -11,12 +11,12 @@ const theme = {
     },
     color: 'white',
     extend: props => `
+      background: ${props.theme.dark
+        ? props.theme.global.colors['dark-3']
+        : props.theme.global.colors['status-ok']
+      };
       flex: 1 1 auto;
       text-transform: capitalize;
-      background: ${props.theme.dark
-    ? props.theme.global.colors['dark-3']
-    : props.theme.global.colors['status-ok']
-};
 
       &:disabled:hover {
         cursor: not-allowed;
@@ -24,18 +24,10 @@ const theme = {
 
       &:focus:not(:disabled),
       &:hover:not(:disabled) {
+        background: ${DARK_GREEN};
         box-shadow: none;
-        background: ${props.theme.dark
-    ? props.theme.global.colors['status-ok']
-    : darken(0.15, props.theme.global.colors['status-ok'])
-};
       }
-    `,
-    padding: {
-      horizontal: props => props.theme.global.edgeSize.small,
-      vertical: props => props.theme.global.edgeSize.xsmall
-    }
-
+    `
   }
 }
 

@@ -28,10 +28,6 @@ const theme = {
         color: ${props.theme.dark ? 'white' : 'black'};
       }
     `,
-    padding: {
-      horizontal: props => props.theme.global.edgeSize.small,
-      vertical: props => props.theme.global.edgeSize.xsmall
-    },
     primary: {
       color: {
         dark: 'dark-3',
