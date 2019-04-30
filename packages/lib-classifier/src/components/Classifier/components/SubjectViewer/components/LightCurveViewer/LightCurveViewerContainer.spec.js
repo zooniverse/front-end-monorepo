@@ -15,6 +15,6 @@ describe('Component > LightCurveViewerContainer', function () {
   })
 
   it('should render null if there is no subject prop', function () {
-    expect(wrapper.dive().type()).to.be.null
+    expect(wrapper.type()).to.be.null
   })
 })
