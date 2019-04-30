@@ -28,7 +28,11 @@ const theme = {
         background: ${DARK_BLUE};
         box-shadow: none;
       }
-    `
+    `,
+    padding: {
+      horizontal: props => props.theme.global.edgeSize.small,
+      vertical: props => props.theme.global.edgeSize.xsmall
+    }
   }
 }
 
