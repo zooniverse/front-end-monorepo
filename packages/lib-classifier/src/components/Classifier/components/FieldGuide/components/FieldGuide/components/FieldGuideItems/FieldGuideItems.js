@@ -3,11 +3,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FieldGuideItemAnchor from './FieldGuideItemAnchor'
 
-export default function FieldGuideItems ({ className, items }) {
+function FieldGuideItems ({ items }) {
   return (
     <Box overflow='auto'>
       <Grid
-        className={className}
         columns={{ count: 'fill', size: '100px' }}
         gap='medium'
         rows='150px'
@@ -19,11 +18,8 @@ export default function FieldGuideItems ({ className, items }) {
   )
 }
 
-FieldGuideItems.defaultProps = {
-  className: ''
-}
-
 FieldGuideItems.propTypes = {
-  className: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired
 }
+
+export default FieldGuideItems

@@ -58,7 +58,13 @@ class FieldGuideItem extends React.Component {
 
     return (
       <Box className={className}>
-        <FieldGuideItemHeader align='center' direction='row' flex={{ grow: 1, shrink: 0 }} margin={{ bottom: 'small' }}>
+        <FieldGuideItemHeader
+          align='center'
+          border={{ color: 'light-5', side: 'bottom' }}
+          direction='row'
+          flex={{ grow: 1, shrink: 0 }}
+          pad={{ bottom: 'small' }}
+        >
           <StyledButton
             a11yTitle={counterpart('FieldGuideItem.ariaTitle')}
             icon={<FormPrevious color='light-5' />}
