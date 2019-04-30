@@ -56,6 +56,7 @@ function withKeyZoom (WrappedComponent) {
       return <WrappedComponent onKeyDown={this.onKeyDown} {...props} />
     }
   }
+  KeyZoom.wrappedComponent = WrappedComponent
   KeyZoom.defaultProps = {
     onPan: () => true,
     zoomIn: () => true,
