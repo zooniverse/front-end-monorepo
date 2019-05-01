@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Box, Button, Grid, Heading, Paragraph, ResponsiveContext, Text } from 'grommet'
+import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -26,48 +26,43 @@ const StyledBox = styled(Box)`
 
 // TODO: Add `<RelatedProjects />` back in once API is up
 function FinishedForTheDay (props) {
-  const { imageSrc, isLoggedIn, projectName, theme: { dark } } = props
+  const { imageSrc, isLoggedIn, projectName, size, theme: { dark } } = props
+  const columns = (imageSrc && size !== 'small') ? ['1/4', 'auto'] : ['auto']
 
   return (
-    <ResponsiveContext.Consumer>
-      {(size) => {
-        const columns = (imageSrc && size !== 'small') ? ['1/4', 'auto'] : ['auto']
-        return (
-          <Box elevation={dark ? 'xlarge' : 'none'}>
-            <Grid columns={columns}>
-              {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
-              <ContentBox elevation='none'>
-                <Heading
-                  level='3'
-                  margin={{ bottom: 'small', top: 'none' }}
-                >
-                  {counterpart('FinishedForTheDay.title')}
-                </Heading>
-                <Paragraph
-                  margin={{ bottom: 'small', top: 'none' }}
-                >
-                  {counterpart('FinishedForTheDay.text', { projectName })}
-                </Paragraph>
-                <StyledBox direction='row' wrap>
-                  {isLoggedIn && (
-                    <Link href='/#projects' passHref>
-                      <StyledButton
-                        label={(
-                          <Text size='medium'>
-                            {counterpart('FinishedForTheDay.buttons.stats')}
-                          </Text>
-                        )}
-                        primary
-                      />
-                    </Link>
+    <Box elevation={dark ? 'xlarge' : 'none'}>
+      <Grid columns={columns}>
+        {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
+        <ContentBox elevation='none'>
+          <Heading
+            level='3'
+            margin={{ bottom: 'small', top: 'none' }}
+          >
+            {counterpart('FinishedForTheDay.title')}
+          </Heading>
+          <Paragraph
+            margin={{ bottom: 'small', top: 'none' }}
+          >
+            {counterpart('FinishedForTheDay.text', { projectName })}
+          </Paragraph>
+          <StyledBox direction='row' wrap>
+            {isLoggedIn && (
+              <Link href='/#projects' passHref>
+                <StyledButton
+                  label={(
+                    <Text size='medium'>
+                      {counterpart('FinishedForTheDay.buttons.stats')}
+                    </Text>
                   )}
-                </StyledBox>
-              </ContentBox>
-            </Grid>
-          </Box>
-        )
-      }}
-    </ResponsiveContext.Consumer>
+                  primary
+                  color='brand'
+                />
+              </Link>
+            )}
+          </StyledBox>
+        </ContentBox>
+      </Grid>
+    </Box>
   )
 }
 

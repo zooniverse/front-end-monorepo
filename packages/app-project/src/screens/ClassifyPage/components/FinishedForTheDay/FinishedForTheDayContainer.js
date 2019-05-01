@@ -1,6 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { ResponsiveContext } from 'grommet'
 
 import FinishedForTheDay from './FinishedForTheDay'
 
@@ -19,11 +20,16 @@ class FinishedForTheDayContainer extends Component {
   render () {
     const { imageSrc, isLoggedIn, projectName } = this.props
     return (
-      <FinishedForTheDay
-        imageSrc={imageSrc}
-        isLoggedIn={isLoggedIn}
-        projectName={projectName}
-      />
+      <ResponsiveContext.Consumer>
+        {(size) => (
+          <FinishedForTheDay
+            imageSrc={imageSrc}
+            isLoggedIn={isLoggedIn}
+            projectName={projectName}
+            size={size}
+          />
+        )}
+      </ResponsiveContext.Consumer>
     )
   }
 }
