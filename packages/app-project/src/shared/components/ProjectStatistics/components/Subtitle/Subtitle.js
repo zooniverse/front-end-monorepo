@@ -1,12 +1,16 @@
-import { Text } from 'grommet'
+import { ResponsiveContext, Text } from 'grommet'
 import { object, oneOfType, string } from 'prop-types'
 import React from 'react'
 
-function Subtitle ({ mode, text, ...props }) {
+function Subtitle ({ margin, mode, text, ...props }) {
   return (
-    <Text {...props}>
-      {text}
-    </Text>
+    <ResponsiveContext.Consumer>
+      {(size) => (
+        <Text {...props} margin={(size === 'small') ? { top: 'none', bottom: 'xsmall' } : margin}>
+          {text}
+        </Text>
+      )}
+    </ResponsiveContext.Consumer>
   )
 }
 
