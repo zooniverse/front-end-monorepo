@@ -10,8 +10,7 @@ counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const { isLoggedIn } = stores.store.user
-  // return { isLoggedIn }
-  return { isLoggedIn: false }
+  return { isLoggedIn }
 }
 
 function withRequireUser (WrappedComponent) {
