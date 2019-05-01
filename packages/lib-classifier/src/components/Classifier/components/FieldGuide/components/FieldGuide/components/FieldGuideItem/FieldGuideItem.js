@@ -63,7 +63,6 @@ class FieldGuideItem extends React.Component {
           border={{ color: 'light-5', side: 'bottom' }}
           direction='row'
           flex={{ grow: 1, shrink: 0 }}
-          margin={{ bottom: 'small' }}
           pad={{ bottom: 'small' }}
         >
           <StyledButton
@@ -78,7 +77,7 @@ class FieldGuideItem extends React.Component {
           </Markdownz>
         </FieldGuideItemHeader>
         <FieldGuideItemContent direction='column' overflow='auto'>
-          <FieldGuideItemIcon icon={icon} height='140' margin={{ bottom: '35px' }} viewBox='0 0 200 100' />
+          <FieldGuideItemIcon icon={icon} height='140' margin={{ top: 'small', bottom: '35px' }} viewBox='0 0 200 100' />
           <Markdownz>
             {item.content}
           </Markdownz>
