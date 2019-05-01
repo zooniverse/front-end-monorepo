@@ -4,10 +4,7 @@ const DARK_BLUE = '#104a79'
 const theme = {
   button: {
     border: {
-      color: {
-        dark: BLUE,
-        light: BLUE
-      },
+      color: BLUE,
       width: '1px'
     },
     color: 'white',
@@ -16,6 +13,7 @@ const theme = {
         ? props.theme.global.colors['dark-3']
         : BLUE
       };
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
       flex: 1 1 50%;
       text-transform: capitalize;
 
