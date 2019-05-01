@@ -63,6 +63,7 @@ class FieldGuideItem extends React.Component {
           border={{ color: 'light-5', side: 'bottom' }}
           direction='row'
           flex={{ grow: 1, shrink: 0 }}
+          margin={{ bottom: 'small' }}
           pad={{ bottom: 'small' }}
         >
           <StyledButton
