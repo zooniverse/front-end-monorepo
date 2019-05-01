@@ -55,6 +55,7 @@ class Button extends React.Component {
         disabled={disabled}
         icon={icon}
         margin={{ bottom: 'xsmall' }}
+        title={a11yTitle}
         {...eventHandlers}
       />
     )
