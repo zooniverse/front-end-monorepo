@@ -13,7 +13,6 @@ counterpart.registerTranslations('en', en)
 const lightTeal = zooTheme.global.colors['accent-2']
 
 export const StyledBackButtonWrapper = styled.div`
-  margin-right: 1ch;
   position: relative;
   flex: 1 0;
 `

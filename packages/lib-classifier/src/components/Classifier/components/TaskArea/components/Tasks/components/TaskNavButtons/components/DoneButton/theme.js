@@ -1,20 +1,18 @@
-import { adjustHue } from 'polished'
+import { darken } from 'polished'
 
 const theme = {
   button: {
     border: {
-      color: 'neutral-4',
+      color: 'status-ok',
       width: '1px'
     },
-    color: {
-      dark: 'neutral-4',
-      light: 'black'
-    },
+    color: 'white',
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
       return `
+        background: ${colors['status-ok']};
         box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
-        flex: 1 1 auto;
+        flex: 1 1 50%;
         text-transform: capitalize;
 
         &:disabled:hover {
@@ -23,35 +21,16 @@ const theme = {
 
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          background: ${dark ? colors['neutral-4'] : adjustHue(-7, colors['neutral-4'])};
+          background: ${darken(0.15, colors['status-ok'])};
+          border-color: ${dark ? colors['accent-1'] : colors['status-ok']};
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
-          color: ${dark ? 'white' : 'black'};
         }
       `
     },
     padding: {
       horizontal: props => props.theme.global.edgeSize.small,
       vertical: props => props.theme.global.edgeSize.xsmall
-    },
-    primary: {
-      color: {
-        dark: 'dark-3',
-        light: 'neutral-4'
-      }
     }
-  },
-  text: {
-    extend: props => `
-      html[lang="ar"],
-      html[lang="he"] {
-        &:after {
-          content: ' ←';
-        }
-      }
-      &:after {
-        content: ' →';
-      }
-    `
   }
 }
 

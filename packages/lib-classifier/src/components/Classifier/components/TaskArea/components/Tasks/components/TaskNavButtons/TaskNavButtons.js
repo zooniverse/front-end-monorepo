@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
+
 import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
 import DoneAndTalkButton from './components/DoneAndTalkButton'
@@ -11,7 +12,7 @@ export default function TaskNavButtons (props) {
 
   if (props.showNextButton) {
     return (
-      <Box direction='row'>
+      <Box direction='row' gap='xsmall'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -40,7 +41,7 @@ export default function TaskNavButtons (props) {
   }
 
   return (
-    <Box direction='row'>
+    <Box direction='row' gap='xsmall'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
