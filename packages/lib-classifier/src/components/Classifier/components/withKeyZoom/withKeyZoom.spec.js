@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
+import { Provider } from 'mobx-react'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
@@ -12,25 +13,27 @@ describe('withKeyZoom', function () {
   const onPan = sinon.stub()
   const zoomIn = sinon.stub()
   const zoomOut = sinon.stub()
-  const context = {
-    mobxStores: {
-      classifierStore: {
-        subjectViewer: {
-          onPan,
-          zoomIn,
-          zoomOut
-        }
-      }
+  const classifierStore = {
+    subjectViewer: {
+      onPan,
+      zoomIn,
+      zoomOut
     }
   }
   let wrapper
+  let wrappedComponent
 
   before(function () {
-    wrapper = mount(<WithZoom />, { context })
+    wrapper = mount(
+      <Provider classifierStore={classifierStore}>
+        <WithZoom />
+      </Provider>
+    )
+    wrappedComponent = wrapper.find(StubComponent)
   })
 
   it('should add an onKeyDown handler to wrapped components', function () {
-    expect(wrapper.find(StubComponent).props().onKeyDown).to.exist
+    expect(wrappedComponent.prop('onKeyDown')).to.exist
   })
 
   describe('on key down', function () {
@@ -77,7 +80,7 @@ describe('withKeyZoom', function () {
         const fakeEvent = {
           key
         }
-        wrapper.find(StubComponent).props().onKeyDown(fakeEvent)
+        wrappedComponent.prop('onKeyDown')(fakeEvent)
         expect(handler).to.have.been.calledOnce
       })
     })
