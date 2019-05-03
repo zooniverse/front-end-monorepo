@@ -37,5 +37,11 @@ describe('Metadata', function () {
     it('should not disable the MetadataButton', function () {
       expect(wrapper.find(MetadataButton).props().disabled).to.be.false
     })
+
+    it('should set showMetadataModel state when the toggle handler is called', function () {
+      expect(wrapper.state().showMetadataModal).to.be.false
+      wrapper.find(MetadataButton).simulate('click')
+      expect(wrapper.state().showMetadataModal).to.be.true
+    })
   })
 })
