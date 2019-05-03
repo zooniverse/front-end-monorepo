@@ -63,31 +63,41 @@ class LightCurveViewerContainer extends Component {
       } else {
         // Get the JSON data, or (as a failsafe) parse the JSON data if the
         // response is returned as a string
-        this.setState({ loading: asyncStates.success })
         return response.body || JSON.parse(response.text)
       }
     } catch (error) {
-      this.setState({
-        loading: asyncStates.error,
-        data: null
-      })
-      return error
+      return this.onError(error)
     }
   }
 
   async handleSubject () {
     try {
       const rawData = await this.requestData()
-      this.setState({
-        dataExtent: {
-          x: d3.extent(rawData.x),
-          y: d3.extent(rawData.y)
-        },
-        dataPoints: zip(rawData.x, rawData.y)
-      })
+      this.onLoad(rawData)
+      
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onLoad (rawData) {
+    this.setState({
+      dataExtent: {
+        x: d3.extent(rawData.x),
+        y: d3.extent(rawData.y)
+      },
+      dataPoints: zip(rawData.x, rawData.y),
+      loading: asyncStates.success
+    })
+    this.props.onReady()
+  }
+
+  onError (error) {
+    this.setState({
+      loading: asyncStates.error,
+      data: null
+    })
+    return error
   }
 
   render () {
@@ -108,7 +118,12 @@ class LightCurveViewerContainer extends Component {
   }
 }
 
+LightCurveViewerContainer.defaultProps = {
+  onReady: () => true
+}
+
 LightCurveViewerContainer.propTypes = {
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }),

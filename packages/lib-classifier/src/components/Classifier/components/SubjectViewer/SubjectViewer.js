@@ -36,6 +36,7 @@ class SubjectViewer extends React.Component {
       <Viewer
         key={subject.id}
         subject={subject}
+        onReady={(event) => console.log('LOADED', event)}
       />
     )
   }
