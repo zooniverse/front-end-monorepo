@@ -19,6 +19,7 @@ const StyledButton = styled(GrommetButton)`
 
   > svg {
     fill: ${props => props.active ? 'white' : (props.theme.dark ? 'white' : 'black')};
+    height: ${pxToRem(18)};
     stroke: transparent;
     width: ${pxToRem(18)};
   }
