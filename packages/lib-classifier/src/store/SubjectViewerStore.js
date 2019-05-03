@@ -63,6 +63,10 @@ const SubjectViewer = types
         self.fullscreen = false
       },
 
+      onSubjectReady () {
+        self.ready = true
+      },
+
       resetSubject () {
         self.ready = false
       },
