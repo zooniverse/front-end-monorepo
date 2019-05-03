@@ -13,8 +13,10 @@ function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
   const { active: step } = stores.classifierStore.workflowSteps
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+  const { ready } = stores.classifierStore.subjectViewer
   return {
     loadingState,
+    ready,
     step,
     tasks
   }
@@ -37,7 +39,10 @@ export class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { tasks } = this.props
+    const { ready, tasks } = this.props
+    if (!ready) {
+      return this[asyncStates.loading]()
+    }
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area
@@ -52,7 +57,7 @@ export class Tasks extends React.Component {
               if (TaskComponent) {
                 return (
                   <Box key={task.taskKey} basis='246px'>
-                    <TaskComponent task={task} {...this.props} />
+                    <TaskComponent disabled={!ready} task={task} {...this.props} />
                   </Box>
                 )
               }
@@ -60,7 +65,7 @@ export class Tasks extends React.Component {
               return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
             <TaskHelp />
-            <TaskNavButtons />
+            <TaskNavButtons disabled={!ready} />
           </Box>
       </ThemeProvider>
       )
@@ -77,12 +82,14 @@ export class Tasks extends React.Component {
 
 Tasks.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
+  ready: PropTypes.bool,
   tasks: PropTypes.arrayOf(PropTypes.object),
   theme: PropTypes.string,
 }
 
 Tasks.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized,
+  ready: false,
   tasks: [],
   theme: 'light',
 }
