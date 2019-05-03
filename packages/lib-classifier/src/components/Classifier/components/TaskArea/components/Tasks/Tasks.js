@@ -40,9 +40,6 @@ export class Tasks extends React.Component {
 
   [asyncStates.success] () {
     const { ready, tasks } = this.props
-    if (!ready) {
-      return this[asyncStates.loading]()
-    }
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area
