@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import pointerIcon from './pointerIcon'
+import PointerIcon from './PointerIcon'
 import en from './locales/en'
 import Button from '../Button'
 
@@ -13,11 +13,9 @@ function AnnotateButton ({ active, onClick }) {
     <Button
       active={active}
       a11yTitle={counterpart('AnnotateButton.ariaLabel')}
+      icon={<PointerIcon />}
       onClick={onClick}
-      svgAdjustments={{ x: '1', y: '4' }}
-    >
-      {pointerIcon}
-    </Button>
+    />
   )
 }
 

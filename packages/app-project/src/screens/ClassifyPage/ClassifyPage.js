@@ -6,6 +6,7 @@ import React from 'react'
 import FinishedForTheDay from './components/FinishedForTheDay'
 import ThemeModeToggle from '../../components/ThemeModeToggle'
 import ProjectName from '../../components/ProjectName'
+import YourStats from './components/YourStats'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
 const ClassifierWrapper = dynamic(() =>
@@ -17,11 +18,19 @@ function ClassifyPage (props) {
   return (
     <Grid columns={['auto', 'auto', 'auto']}>
       <ProjectName />
-      <Box gap='medium' pad={{ bottom: 'medium', left: 'small', right: 'small', top: 'medium' }}>
+      <Box
+        gap='medium'
+        pad={{
+          horizontal: 'small',
+          vertical: 'medium'
+        }}>
         <ClassifierWrapper
           onAddToCollection={addToCollection}
         />
         <FinishedForTheDay />
+        <Grid columns={['auto', 'auto', 'auto']} gap='medium'>
+          <YourStats />
+        </Grid>
         <ProjectStatistics />
         <ConnectWithProject />
       </Box>

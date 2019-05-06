@@ -1,9 +1,11 @@
 import { SpacedText } from '@zooniverse/react-components'
-import { Anchor, Box, Heading } from 'grommet'
+import { Anchor, Box } from 'grommet'
 import Link from 'next/link'
 import { node, string } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
+
+import WidgetHeading from '../WidgetHeading'
 
 function ContentBox (props) {
   const {
@@ -47,17 +49,7 @@ function ContentBox (props) {
         >
 
           {title && (
-            <Heading level='4' margin='none'>
-              <SpacedText
-                color={{
-                  dark: 'light-1',
-                  light: 'black'
-                }}
-                weight='bold'
-              >
-                {title}
-              </SpacedText>
-            </Heading>
+            <WidgetHeading text={title} />
           )}
 
           {(linkLabel && linkUrl) && (
