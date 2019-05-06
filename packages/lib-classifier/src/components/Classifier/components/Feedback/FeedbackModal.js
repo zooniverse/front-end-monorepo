@@ -64,7 +64,7 @@ class FeedbackModal extends React.Component {
             <Box pad={{ top: 'small' }}>
               <Button
                 onClick={hideFeedback}
-                label={counterpart('FeedbackModal.close')}
+                label={counterpart('FeedbackModal.keepClassifying')}
                 primary
               />
             </Box>
