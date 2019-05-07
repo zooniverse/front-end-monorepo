@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import counterpart from 'counterpart'
 import styled from 'styled-components'
-import { PlainButton } from '@zooniverse/react-components'
+import MetaToolsButton from '../../../MetaToolsButton'
 
 import InfoIcon from './InfoIcon'
 import en from './locales/en'
@@ -16,9 +16,9 @@ const StyledInfoIcon = styled(InfoIcon)`
 export default function MetadataButton (props) {
   const { disabled, onClick } = props
   return (
-    <PlainButton
+    <MetaToolsButton
       disabled={disabled}
-      icon={<StyledInfoIcon color='#5C5C5C' />}
+      icon={<StyledInfoIcon color='dark-5' />}
       margin={{ vertical: '5px', horizontal: 'none' }}
       text={counterpart('MetadataButton.label')}
       onClick={onClick}

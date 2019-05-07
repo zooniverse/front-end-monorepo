@@ -40,7 +40,7 @@ export default class MetaTools extends React.Component {
     const { className, isThereMetadata, subject, upp } = this.props
 
     return (
-      <Box align='start' className={className} direction="row-responsive" gap='small'>
+      <Box className={className} direction="row-responsive" gap='small'>
         <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
           checked={subject && subject.favorite}

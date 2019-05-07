@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { PlainButton } from '@zooniverse/react-components'
+import MetaToolsButton from '../../../MetaToolsButton'
 import MetadataButton from './MetadataButton'
 
 describe('MetadataButton', function () {
@@ -14,7 +14,7 @@ describe('MetadataButton', function () {
   it('should call props.onClick when button is clicked', function () {
     const onClickSpy = sinon.spy()
     const wrapper = shallow(<MetadataButton onClick={onClickSpy} />)
-    wrapper.find(PlainButton).simulate('click')
+    wrapper.find(MetaToolsButton).simulate('click')
     expect(onClickSpy.calledOnce).to.be.true
   })
 

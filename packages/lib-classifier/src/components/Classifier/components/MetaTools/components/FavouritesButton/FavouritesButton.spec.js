@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import { PlainButton } from '@zooniverse/react-components'
+import MetaToolsButton from '../MetaToolsButton'
 
 import FavouritesButton, { Favourite } from './FavouritesButton'
 
@@ -17,14 +17,14 @@ describe('Component > FavouritesButton', function () {
   })
 
   it('should display an empty icon', function () {
-    const button = wrapper.find(PlainButton)
+    const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Favourite filled={undefined} />)
+    expect(icon).to.deep.equal(<Favourite color='dark-5' filled={undefined} />)
   })
 
   it('should not be checked', function () {
     const checked = wrapper.prop('aria-checked')
-    expect(checked).to.be.undefined
+    expect(checked).to.be.false
   })
 
   describe('on click', function () {
@@ -34,23 +34,24 @@ describe('Component > FavouritesButton', function () {
     })
 
     it('should call props.onClick', function () {
-      wrapper.find(PlainButton).simulate('click')
+      wrapper.find(MetaToolsButton).simulate('click')
       expect(onClickSpy).to.have.been.calledOnce
     })
   })
+
   describe('when checked', function () {
     before(function () {
       wrapper = shallow(<FavouritesButton checked />)
     })
 
     it('should display a filled icon', function () {
-      const button = wrapper.find(PlainButton)
+      const button = wrapper.find(MetaToolsButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite filled='true' />)
+      expect(icon).to.deep.equal(<Favourite color='dark-5' filled='true' />)
     })
 
     it('should be checked', function () {
-      const checked = wrapper.childAt(0).prop('aria-checked')
+      const checked = wrapper.find(MetaToolsButton).prop('aria-checked')
       expect(checked).to.be.true
     })
   })
@@ -65,7 +66,7 @@ describe('Component > FavouritesButton', function () {
     )
 
     it('should not be clickable', function () {
-      wrapper.find(PlainButton).simulate('click')
+      wrapper.find(MetaToolsButton).simulate('click')
       expect(onClick).to.not.have.been.called
     })
   })
