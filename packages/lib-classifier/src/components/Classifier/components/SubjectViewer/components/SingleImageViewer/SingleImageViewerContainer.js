@@ -8,6 +8,7 @@ import locationValidator from '../../helpers/locationValidator'
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.onError = this.onError.bind(this)
     this.state = {
       height: null,
       width: null,
@@ -16,20 +17,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   componentDidMount () {
-    if (this.props.subject) {
-      this.handleSubject()
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    // Casting to JSON fixes reference issue from MST store
-    // A more robust solution might be to have a getter view function defined on the model
-    const prevSubject = prevProps.subject.toJSON()
-    const subject = this.props.subject.toJSON()
-
-    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
-      this.handleSubject()
-    }
+    this.handleSubject()
   }
 
   // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
@@ -59,14 +47,18 @@ class SingleImageViewerContainer extends React.Component {
         loading: asyncStates.success
       })
     } catch (error) {
-      console.error(error)
-      this.setState({ loading: asyncStates.error })
+      this.onError(error)
     }
+  }
+
+  onError (error) {
+    console.error(error)
+    this.setState({ loading: asyncStates.error })
   }
 
   render () {
     const { loadingState } = this.state
-    const { subject } = this.props
+    const { onReady, subject } = this.props
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
@@ -80,19 +72,25 @@ class SingleImageViewerContainer extends React.Component {
     // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
-      <SingleImageViewer url={imageUrl} />
+      <SingleImageViewer
+        onError={this.onError}
+        onLoad={onReady}
+        url={imageUrl}
+      />
     )
   }
 }
 
 SingleImageViewerContainer.propTypes = {
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
 SingleImageViewerContainer.defaultProps = {
-  ImageObject: window.Image
+  ImageObject: window.Image,
+  onReady: () => true
 }
 
 export default SingleImageViewerContainer

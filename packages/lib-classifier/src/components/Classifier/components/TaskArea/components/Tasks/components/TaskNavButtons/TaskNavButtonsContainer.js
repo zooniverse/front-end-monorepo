@@ -81,10 +81,11 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { isThereANextStep, isThereAPreviousStep } = this.props
+    const { disabled, isThereANextStep, isThereAPreviousStep } = this.props
 
     return (
       <TaskNavButtons
+        disabled={disabled}
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
         showBackButton={isThereAPreviousStep()}
@@ -98,6 +99,7 @@ class TaskNavButtonsContainer extends React.Component {
 TaskNavButtonsContainer.wrappedComponent.defaultProps = {
   completeClassification: () => {},
   createDefaultAnnotation: () => {},
+  disabled: false,
   selectStep: () => {},
   tasks: []
 }
@@ -108,6 +110,7 @@ TaskNavButtonsContainer.wrappedComponent.propTypes = {
   }),
   completeClassification: PropTypes.func,
   createDefaultAnnotation: PropTypes.func,
+  disabled: PropTypes.bool,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
   selectStep: PropTypes.func,
