@@ -1,8 +1,6 @@
+import { Anchor, Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { Anchor, Box } from 'grommet'
-
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 
@@ -41,6 +39,7 @@ export default function ZooHeader (props) {
   const {
     adminNavLinkLabel,
     adminNavLinkURL,
+    className,
     isAdmin,
     isNarrow,
     mainHeaderNavListLabels,
@@ -56,6 +55,7 @@ export default function ZooHeader (props) {
   return (
     <StyledHeader
       background='black'
+      className={className}
       direction='row'
       fill='horizontal'
       justify='between'
@@ -126,6 +126,7 @@ ZooHeader.defaultProps = {
 ZooHeader.propTypes = {
   adminNavLinkLabel: PropTypes.string,
   adminNavLinkURL: PropTypes.string,
+  className: PropTypes.string,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
