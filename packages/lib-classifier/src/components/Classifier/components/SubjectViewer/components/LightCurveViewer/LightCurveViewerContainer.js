@@ -26,7 +26,7 @@ class LightCurveViewerContainer extends Component {
 
   componentDidMount () {
     if (this.props.subject) {
-      this.handleSubject()
+      return this.handleSubject()
     }
   }
 
@@ -36,7 +36,7 @@ class LightCurveViewerContainer extends Component {
     const subjectChanged = subject && (subject.id !== prevSubjectId)
 
     if (subjectChanged) {
-      this.handleSubject()
+      return this.handleSubject()
     }
   }
 
@@ -78,6 +78,7 @@ class LightCurveViewerContainer extends Component {
       
     } catch (error) {
       console.error(error)
+      return error
     }
   }
 
@@ -124,16 +125,20 @@ class LightCurveViewerContainer extends Component {
   }
 }
 
-LightCurveViewerContainer.defaultProps = {
-  onReady: () => true
+LightCurveViewerContainer.wrappedComponent.defaultProps = {
+  onReady: () => true,
+  subject: {
+    id: '',
+    locations: []
+  }
 }
 
-LightCurveViewerContainer.propTypes = {
+LightCurveViewerContainer.wrappedComponent.propTypes = {
   onReady: PropTypes.func,
   subject: PropTypes.shape({
+    id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
-  }),
-  subjectId: PropTypes.string
+  })
 }
 
 export default LightCurveViewerContainer
