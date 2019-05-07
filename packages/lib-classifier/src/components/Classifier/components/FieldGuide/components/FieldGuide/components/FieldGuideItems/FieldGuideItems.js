@@ -12,7 +12,7 @@ function FieldGuideItems ({ items }) {
         rows='150px'
         width='100%'
       >
-          {items.map((item, index) => <FieldGuideItemAnchor key={item.title} item={item} itemIndex={index} />)}
+        {items.map((item, index) => <FieldGuideItemAnchor key={item.title} item={item} itemIndex={index} />)}
       </Grid>
     </Box>
   )

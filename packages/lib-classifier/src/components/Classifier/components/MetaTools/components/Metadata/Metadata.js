@@ -15,7 +15,7 @@ export default class Metadata extends React.Component {
   }
 
   toggleMetadataModal () {
-    this.setState((prevState) => { return { showMetadataModal: !prevState.showMetadataModal }})
+    this.setState((prevState) => { return { showMetadataModal: !prevState.showMetadataModal } })
   }
 
   render () {
