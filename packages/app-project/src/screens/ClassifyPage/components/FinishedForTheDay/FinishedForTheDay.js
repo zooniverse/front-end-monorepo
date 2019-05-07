@@ -4,6 +4,7 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
@@ -80,5 +81,5 @@ FinishedForTheDay.defaultProps = {
   }
 }
 
-export default withTheme(FinishedForTheDay)
+export default withTheme(withResponsiveContext(FinishedForTheDay))
 export { FinishedForTheDay }

@@ -1,7 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { ResponsiveContext } from 'grommet'
 
 import FinishedForTheDay from './FinishedForTheDay'
 
@@ -20,21 +19,16 @@ class FinishedForTheDayContainer extends Component {
   render () {
     const { imageSrc, isLoggedIn, projectName } = this.props
     return (
-      <ResponsiveContext.Consumer>
-        {(size) => (
-          <FinishedForTheDay
-            imageSrc={imageSrc}
-            isLoggedIn={isLoggedIn}
-            projectName={projectName}
-            size={size}
-          />
-        )}
-      </ResponsiveContext.Consumer>
+      <FinishedForTheDay
+        imageSrc={imageSrc}
+        isLoggedIn={isLoggedIn}
+        projectName={projectName}
+      />
     )
   }
 }
 
-FinishedForTheDayContainer.propTypes = {
+FinishedForTheDayContainer.wrappedComponent.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   projectName: PropTypes.string.isRequired
@@ -43,7 +37,7 @@ FinishedForTheDayContainer.propTypes = {
 // We wouldn't normally have a `defaultProp` for a required prop, but there's
 // something going on with the store execution order which leaves it undefined
 // without one.
-FinishedForTheDayContainer.defaultProps = {
+FinishedForTheDayContainer.wrappedComponent.defaultProps = {
   imageSrc: '',
   isLoggedIn: false,
   projectName: ''
