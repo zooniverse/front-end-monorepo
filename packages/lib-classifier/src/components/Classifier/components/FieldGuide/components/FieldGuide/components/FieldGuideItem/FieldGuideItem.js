@@ -58,7 +58,13 @@ class FieldGuideItem extends React.Component {
 
     return (
       <Box className={className}>
-        <FieldGuideItemHeader align='center' direction='row' flex={{ grow: 1, shrink: 0 }} margin={{ bottom: 'small' }}>
+        <FieldGuideItemHeader
+          align='center'
+          border={{ color: 'light-5', side: 'bottom' }}
+          direction='row'
+          flex={{ grow: 1, shrink: 0 }}
+          pad={{ bottom: 'small' }}
+        >
           <StyledButton
             a11yTitle={counterpart('FieldGuideItem.ariaTitle')}
             icon={<FormPrevious color='light-5' />}
@@ -70,8 +76,8 @@ class FieldGuideItem extends React.Component {
             {`### ${item.title}`}
           </Markdownz>
         </FieldGuideItemHeader>
-        <FieldGuideItemContent direction='column'>
-          <FieldGuideItemIcon icon={icon} height='140' margin={{ bottom: '35px' }} viewBox='0 0 200 100' />
+        <FieldGuideItemContent direction='column' overflow='auto'>
+          <FieldGuideItemIcon icon={icon} height='140' margin={{ top: 'small', bottom: '35px' }} viewBox='0 0 200 100' />
           <Markdownz>
             {item.content}
           </Markdownz>
