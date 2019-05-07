@@ -11,7 +11,7 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export const Favourite = styled(HeartIcon)`
-  fill: ${props => props.filled ? zooTheme.global.colors.status.error : 'none'};
+  fill: ${props => props.filled ? zooTheme.global.colors.statusColors.error : 'none'};
   width: 1em;
 `
 
