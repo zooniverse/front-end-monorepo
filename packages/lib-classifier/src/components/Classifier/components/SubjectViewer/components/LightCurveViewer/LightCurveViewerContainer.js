@@ -81,6 +81,7 @@ class LightCurveViewerContainer extends Component {
   }
 
   onLoad (rawData) {
+    const { onReady } = this.props
     this.setState({
       dataExtent: {
         x: d3.extent(rawData.x),
@@ -88,8 +89,8 @@ class LightCurveViewerContainer extends Component {
       },
       dataPoints: zip(rawData.x, rawData.y),
       loading: asyncStates.success
-    })
-    this.props.onReady()
+    },
+    onReady)
   }
 
   onError (error) {
