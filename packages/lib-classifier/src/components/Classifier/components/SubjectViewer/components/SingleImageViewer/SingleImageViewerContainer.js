@@ -8,7 +8,6 @@ import locationValidator from '../../helpers/locationValidator'
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
-    this.onLoad = this.onLoad.bind(this)
     this.onError = this.onError.bind(this)
     this.state = {
       height: null,
@@ -52,10 +51,6 @@ class SingleImageViewerContainer extends React.Component {
     }
   }
 
-  onLoad (event) {
-    this.props.onReady(event)
-  }
-
   onError (error) {
     console.error(error)
     this.setState({ loading: asyncStates.error })
@@ -79,7 +74,7 @@ class SingleImageViewerContainer extends React.Component {
     return (
       <SingleImageViewer
         onError={this.onError}
-        onLoad={this.onLoad}
+        onLoad={onReady}
         url={imageUrl}
       />
     )
