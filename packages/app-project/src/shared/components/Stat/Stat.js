@@ -7,10 +7,19 @@ import AnimatedNumber from './components/AnimatedNumber'
 function Stat ({ className, label, value }) {
   return (
     <div className={className}>
-      <Text color={{ light: 'dark-5', dark: 'light-1' }} tag='div' size='xxlarge'>
+      <Text
+        color={{ light: 'dark-5', dark: 'light-1' }}
+        tag='div'
+        size='xxlarge'
+      >
         <AnimatedNumber value={value} />
       </Text>
-      <Text color={{ light: 'dark-5', dark: 'light-1' }} size='small' tag='div' weight='bold'>
+      <Text
+        color={{ light: 'dark-5', dark: 'light-1' }}
+        size='medium'
+        tag='div'
+        weight='bold'
+      >
         {label}
       </Text>
     </div>
