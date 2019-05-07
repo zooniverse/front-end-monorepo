@@ -23,11 +23,11 @@ describe('Component > FinishedForTheDayContainer', function () {
   })
 
   // Enzyme does not support context correctly yet
-  xit('should render the `FinishedForTheDay` component', function () {
+  it('should render the `FinishedForTheDay` component', function () {
     expect(finishedForTheDayWrapper).to.have.lengthOf(1)
   })
 
-  xit('should pass the correct props to the `FinishedForTheDay` component', function () {
+  it('should pass the correct props to the `FinishedForTheDay` component', function () {
     expect(finishedForTheDayWrapper.prop('imageSrc')).to.equal(IMAGE_SRC)
     expect(finishedForTheDayWrapper.prop('projectName')).to.equal(PROJECT_NAME)
   })
