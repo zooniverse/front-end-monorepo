@@ -22,7 +22,7 @@ describe('TaskNavButtons', function () {
 
   describe('when props.showNextButton is true', function () {
     let wrapper
-    before(function () {
+    beforeEach(function () {
       wrapper = shallow(<TaskNavButtons classification={classification} goToNextStep={() => {}} showNextButton />)
     })
 
@@ -44,6 +44,11 @@ describe('TaskNavButtons', function () {
       wrapper.setProps({ waitingForAnswer: true })
       expect(wrapper.find(NextButton).prop('disabled')).to.be.true
     })
+
+    it('should disable the Next button when disabled.', function () {
+      wrapper.setProps({ disabled: true })
+      expect(wrapper.find(NextButton).prop('disabled')).to.be.true
+    })
   })
 
   describe('when props.completed is true and props.showNextButton is false', function () {
@@ -59,7 +64,7 @@ describe('TaskNavButtons', function () {
 
   describe('the default rendering', function () {
     let wrapper
-    before(function () {
+    beforeEach(function () {
       wrapper = shallow(<TaskNavButtons classification={classification} />)
     })
 
@@ -79,6 +84,21 @@ describe('TaskNavButtons', function () {
     it('should disable the Done button when waiting for a required answer.', function () {
       wrapper.setProps({ waitingForAnswer: true })
       expect(wrapper.find(DoneButton).prop('disabled')).to.be.true
+    })
+
+    it('should disable the Done & Talk button when waiting for a required answer.', function () {
+      wrapper.setProps({ waitingForAnswer: true })
+      expect(wrapper.find(DoneAndTalkButton).prop('disabled')).to.be.true
+    })
+
+    it('should disable the Done button when disabled.', function () {
+      wrapper.setProps({ disabled: true })
+      expect(wrapper.find(DoneButton).prop('disabled')).to.be.true
+    })
+
+    it('should disable the Done & Talk button when disabled.', function () {
+      wrapper.setProps({ disabled: true })
+      expect(wrapper.find(DoneAndTalkButton).prop('disabled')).to.be.true
     })
   })
 })

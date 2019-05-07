@@ -64,17 +64,6 @@ export const StyledTaskLabel = styled.span`
   display: flex;
   margin: ${pxToRem(10)} 0;
   padding: 5px 2ch;
-  
-  &:hover {
-    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
-    border-width: 2px;
-    border-style: solid;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: ${HOVER.gradientTop};
-    border-bottom-color: ${HOVER.gradientBottom};
-    color: ${HOVER.color};
-  }
 `
 
 export const StyledTaskInputField = styled.label`
@@ -83,6 +72,17 @@ export const StyledTaskInputField = styled.label`
   input {
     opacity: 0.01;
     position: absolute;
+  }
+
+  input:enabled + ${StyledTaskLabel}:hover {
+    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
+    border-width: 2px;
+    border-style: solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: ${HOVER.gradientTop};
+    border-bottom-color: ${HOVER.gradientBottom};
+    color: ${HOVER.color};
   }
 
   input:focus + ${StyledTaskLabel} {
@@ -96,7 +96,7 @@ export const StyledTaskInputField = styled.label`
     color: ${HOVER.color};
   }
 
-  input:active + ${StyledTaskLabel} {
+  input:enabled:active + ${StyledTaskLabel} {
     background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
     border-width: 2px;
     border-style: solid;
@@ -127,6 +127,7 @@ export function TaskInputField (props) {
     autoFocus,
     checked,
     className,
+    disabled,
     index,
     label,
     labelIcon,
@@ -144,6 +145,7 @@ export function TaskInputField (props) {
         <input
           autoFocus={autoFocus}
           checked={checked}
+          disabled={disabled}
           name={name}
           onChange={onChange}
           type={type}
@@ -160,6 +162,7 @@ export function TaskInputField (props) {
 TaskInputField.defaultProps = {
   autoFocus: false,
   checked: false,
+  disabled: false,
   className: '',
   label: '',
   labelIcon: null,
@@ -173,6 +176,7 @@ TaskInputField.propTypes = {
   autoFocus: PropTypes.bool,
   checked: PropTypes.bool,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   index: PropTypes.number.isRequired,
   label: PropTypes.string,
   labelIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
