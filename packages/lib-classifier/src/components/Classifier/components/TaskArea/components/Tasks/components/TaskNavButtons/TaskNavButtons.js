@@ -9,6 +9,7 @@ import BackButton from './components/BackButton'
 
 export default function TaskNavButtons (props) {
   const goldStandardMode = props.classification ? props.classification.goldStandard : false
+  const disabled = props.disabled || props.waitingForAnswer
 
   if (props.showNextButton) {
     return (
@@ -21,7 +22,7 @@ export default function TaskNavButtons (props) {
         <NextButton
           autoFocus={false}
           onClick={props.goToNextStep}
-          disabled={props.waitingForAnswer}
+          disabled={disabled}
         />
       </Box>
     )
@@ -53,7 +54,7 @@ export default function TaskNavButtons (props) {
         flex='grow'
         goldStandardMode={goldStandardMode}
         onClick={props.onSubmit}
-        disabled={props.waitingForAnswer}
+        disabled={disabled}
       />
       <DoneButton
         completed={props.completed}
@@ -61,7 +62,7 @@ export default function TaskNavButtons (props) {
         flex='grow'
         goldStandardMode={goldStandardMode}
         onClick={props.onSubmit}
-        disabled={props.waitingForAnswer}
+        disabled={disabled}
       />
     </Box>
   )
@@ -72,6 +73,7 @@ TaskNavButtons.defaultProps = {
   autoFocus: false,
   completed: false,
   demoMode: false,
+  disabled: false,
   goToPreviousStep: () => {},
   onSubmit: () => {},
   nextSubject: () => {},
@@ -86,6 +88,7 @@ TaskNavButtons.propTypes = {
   autoFocus: PropTypes.bool,
   completed: PropTypes.bool,
   demoMode: PropTypes.bool,
+  disabled: PropTypes.bool,
   goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
   onSubmit: PropTypes.func,

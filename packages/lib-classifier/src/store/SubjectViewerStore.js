@@ -1,4 +1,5 @@
-import { types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
 import layouts from '../helpers/layouts'
 
@@ -7,7 +8,8 @@ const SubjectViewer = types
     annotate: types.optional(types.boolean, true),
     fullscreen: types.optional(types.boolean, false),
     move: types.optional(types.boolean, false),
-    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default)
+    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
+    ready: types.optional(types.boolean, false)
   })
 
   .volatile(self => ({
@@ -27,55 +29,79 @@ const SubjectViewer = types
     }
   }))
 
-  .actions(self => ({
-    enableAnnotate () {
-      self.annotate = true
-      self.move = false
-    },
-
-    enableFullscreen () {
-      self.fullscreen = true
-    },
-
-    enableMove () {
-      self.annotate = false
-      self.move = true
-    },
-
-    disableFullscreen () {
-      self.fullscreen = false
-    },
-
-    resetView () {
-      console.log('resetting view')
-      self.onZoom && self.onZoom('zoomto', 1.0)
-    },
-
-    rotate () {
-      console.log('rotating subject')
-    },
-
-    setLayout (layout = layouts.DefaultLayout) {
-      self.layout = layout
-    },
-
-    setOnZoom (callback) {
-      self.onZoom = callback
-    },
-
-    setOnPan (callback) {
-      self.onPan = callback
-    },
-
-    zoomIn () {
-      console.log('zooming in')
-      self.onZoom && self.onZoom('zoomin', 1)
-    },
-
-    zoomOut () {
-      console.log('zooming out')
-      self.onZoom && self.onZoom('zoomout', -1)
+  .actions(self => {
+    function createSubjectObserver () {
+      const subjectDisposer = autorun(() => {
+        const subject = getRoot(self).subjects.active
+        if (subject) {
+          self.resetSubjectReady()
+        }
+      })
+      addDisposer(self, subjectDisposer)
     }
-  }))
+
+    return {
+      afterAttach () {
+        createSubjectObserver()
+      },
+
+      enableAnnotate () {
+        self.annotate = true
+        self.move = false
+      },
+
+      enableFullscreen () {
+        self.fullscreen = true
+      },
+
+      enableMove () {
+        self.annotate = false
+        self.move = true
+      },
+
+      disableFullscreen () {
+        self.fullscreen = false
+      },
+
+      onSubjectReady () {
+        self.ready = true
+      },
+
+      resetSubjectReady () {
+        self.ready = false
+      },
+
+      resetView () {
+        console.log('resetting view')
+        self.onZoom && self.onZoom('zoomto', 1.0)
+      },
+
+      rotate () {
+        console.log('rotating subject')
+      },
+
+      setLayout (layout = layouts.DefaultLayout) {
+        self.layout = layout
+      },
+
+      setOnZoom (callback) {
+        self.onZoom = callback
+      },
+
+      setOnPan (callback) {
+        self.onPan = callback
+      },
+
+      zoomIn () {
+        console.log('zooming in')
+        self.onZoom && self.onZoom('zoomin', 1)
+      },
+
+      zoomOut () {
+        console.log('zooming out')
+        self.onZoom && self.onZoom('zoomout', -1)
+      }
+    }
+  })
 
 export default SubjectViewer
