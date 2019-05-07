@@ -23,7 +23,7 @@ export default function LinkList ({ className, labels, urls }) {
     >
 
       <li>
-        <SpacedText size='medium' weight='bold'>
+        <SpacedText size='small' weight='bold'>
           <Anchor href={title.url}>
             {title.label}
           </Anchor>
@@ -38,7 +38,7 @@ export default function LinkList ({ className, labels, urls }) {
               light: 'dark-5'
             }}
             href={link.url}
-            size='medium'
+            size='small'
           >
             {link.label}
           </Anchor>

@@ -1,6 +1,6 @@
 {
   "FeedbackModal": {
-    "close": "Close",
+    "keepClassifying": "Keep Classifying",
     "label": "Feedback" 
   }
 }

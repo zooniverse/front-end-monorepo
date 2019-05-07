@@ -50,11 +50,12 @@ function FinishedForTheDay (props) {
             <Link href='/#projects' passHref>
               <StyledButton
                 label={(
-                  <Text size='small'>
+                  <Text size='medium'>
                     {counterpart('FinishedForTheDay.buttons.stats')}
                   </Text>
                 )}
                 primary
+                color='brand'
               />
             </Link>
           )}
