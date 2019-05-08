@@ -40,7 +40,7 @@ const SubjectViewer = types
       const subjectDisposer = autorun(() => {
         const subject = getRoot(self).subjects.active
         if (subject) {
-          self.resetSubjectReady()
+          self.resetSubject()
         }
       })
       addDisposer(self, subjectDisposer)
@@ -76,8 +76,9 @@ const SubjectViewer = types
         self.ready = true
       },
 
-      resetSubjectReady () {
+      resetSubject () {
         self.ready = false
+        self.dimensions = []
       },
 
       resetView () {
