@@ -8,10 +8,11 @@ import locationValidator from '../../helpers/locationValidator'
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.onLoad = this.onLoad.bind(this)
     this.onError = this.onError.bind(this)
     this.state = {
-      height: null,
-      width: null,
+      naturalHeight: null,
+      naturalWidth: null,
       loading: asyncStates.initialized
     }
   }
@@ -42,13 +43,22 @@ class SingleImageViewerContainer extends React.Component {
       const img = await this.fetchImage(imageUrl)
 
       this.setState({
-        height: img.height,
-        width: img.width,
+        naturalHeight: img.naturalHeight,
+        naturalWidth: img.naturalWidth,
         loading: asyncStates.success
       })
     } catch (error) {
       this.onError(error)
     }
+  }
+
+  onLoad (event) {
+    const { onReady } = this.props
+    const { naturalHeight, naturalWidth } = this.state
+    const { target } = event || {}
+    const newTarget = Object.assign({}, target, { naturalHeight, naturalWidth })
+    const fakeEvent = Object.assign({}, event, { target: newTarget })
+    onReady(fakeEvent)
   }
 
   onError (error) {
@@ -58,7 +68,7 @@ class SingleImageViewerContainer extends React.Component {
 
   render () {
     const { loadingState } = this.state
-    const { onReady, subject } = this.props
+    const { subject } = this.props
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
@@ -74,7 +84,7 @@ class SingleImageViewerContainer extends React.Component {
     return (
       <SingleImageViewer
         onError={this.onError}
-        onLoad={onReady}
+        onLoad={this.onLoad}
         url={imageUrl}
       />
     )

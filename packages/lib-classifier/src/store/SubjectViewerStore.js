@@ -63,7 +63,9 @@ const SubjectViewer = types
         self.fullscreen = false
       },
 
-      onSubjectReady () {
+      onSubjectReady (event) {
+        const { naturalHeight, naturalWidth } = event.target || {}
+        console.log(naturalHeight, naturalWidth)
         self.ready = true
       },
 
