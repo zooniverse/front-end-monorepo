@@ -19,7 +19,7 @@ const config = {
 storiesOf('ZooHeader', module)
 
   .add('Signed out', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
         signOut={signOut}
@@ -29,9 +29,9 @@ storiesOf('ZooHeader', module)
   ), config)
 
   .add('Signed out narrow window view', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
-        isNarrow={true}
+        isNarrow
         signIn={signIn}
         signOut={signOut}
         user={{}}
@@ -40,7 +40,7 @@ storiesOf('ZooHeader', module)
   ), { viewport: 'iphone5', ...config })
 
   .add('Signed in', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
         signOut={signOut}
@@ -53,9 +53,9 @@ storiesOf('ZooHeader', module)
   ), config)
 
   .add('Signed in narrow window view', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
-        isNarrow={true}
+        isNarrow
         signIn={signIn}
         signOut={signOut}
         user={{
@@ -68,9 +68,9 @@ storiesOf('ZooHeader', module)
   ), { viewport: 'iphone5', ...config })
 
   .add('Signed in as admin', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
-        isAdmin={true}
+        isAdmin
         signIn={signIn}
         signOut={signOut}
         user={{
@@ -83,7 +83,7 @@ storiesOf('ZooHeader', module)
   ), config)
 
   .add('Signed in with notifications', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
         signOut={signOut}
@@ -98,7 +98,7 @@ storiesOf('ZooHeader', module)
   ), config)
 
   .add('Signed in with messages', () => (
-    <Grommet theme={zooTheme} full={true}>
+    <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
         signOut={signOut}

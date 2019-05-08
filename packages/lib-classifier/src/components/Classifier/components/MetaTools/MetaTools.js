@@ -7,7 +7,7 @@ import Metadata from './components/Metadata'
 import FavouritesButton from './components/FavouritesButton'
 import CollectionsButton from './components/CollectionsButton'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
   const upp = stores.classifierStore.userProjectPreferences.active
   return {
@@ -43,7 +43,7 @@ class MetaTools extends React.Component {
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
     return (
-      <Box className={className} direction="row-responsive" gap={gap} margin={margin}>
+      <Box className={className} direction='row-responsive' gap={gap} margin={margin}>
         <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
           checked={subject && subject.favorite}

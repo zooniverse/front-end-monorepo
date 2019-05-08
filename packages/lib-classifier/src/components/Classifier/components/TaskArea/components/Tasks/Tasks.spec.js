@@ -34,12 +34,12 @@ describe('Tasks', function () {
   })
 
   it('should render null if the workflow is load but has no tasks', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready={true} />)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready />)
     expect(wrapper.type()).to.be.null
   })
 
   it('should render the correct task component if the workflow is loaded', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready={true} tasks={tasks} />)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready tasks={tasks} />)
     // Is there a better way to do this?
     expect(wrapper.find('inject-SingleChoiceTask')).to.have.lengthOf(1)
   })
@@ -69,7 +69,7 @@ describe('Tasks', function () {
         const wrapper = shallow(
           <Tasks.wrappedComponent
             loadingState={asyncStates.success}
-            ready={true}
+            ready
             tasks={tasks}
           />
         )

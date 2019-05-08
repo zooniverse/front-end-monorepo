@@ -7,7 +7,7 @@ import FavouritesButton from './components/FavouritesButton'
 import CollectionsButton from './components/CollectionsButton'
 import { Factory } from 'rosie'
 
-const subjectWithMetadata = Factory.build('subject', { metadata: { foo: 'bar' }})
+const subjectWithMetadata = Factory.build('subject', { metadata: { foo: 'bar' } })
 
 const favoriteSubject = Factory.build('subject', { favorite: true })
 
