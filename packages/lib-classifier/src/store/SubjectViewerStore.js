@@ -64,7 +64,8 @@ const SubjectViewer = types
       },
 
       onSubjectReady (event) {
-        const { naturalHeight, naturalWidth } = event.target || {}
+        const { target } = event || {}
+        const { naturalHeight, naturalWidth } = target || {}
         console.log(naturalHeight, naturalWidth)
         self.ready = true
       },
