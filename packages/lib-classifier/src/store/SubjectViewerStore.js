@@ -6,6 +6,12 @@ import layouts from '../helpers/layouts'
 const SubjectViewer = types
   .model('SubjectViewer', {
     annotate: types.optional(types.boolean, true),
+    dimensions: types.array(types.frozen({
+      clientHeight: types.integer,
+      clientWidth: types.integer,
+      naturalHeight: types.integer,
+      naturalWidth: types.integer
+    })),
     fullscreen: types.optional(types.boolean, false),
     move: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
@@ -65,8 +71,8 @@ const SubjectViewer = types
 
       onSubjectReady (event) {
         const { target } = event || {}
-        const { naturalHeight, naturalWidth } = target || {}
-        console.log(naturalHeight, naturalWidth)
+        const { clientHeight = 0, clientWidth = 0, naturalHeight = 0, naturalWidth = 0 } = target || {}
+        self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
         self.ready = true
       },
 
