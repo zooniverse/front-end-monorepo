@@ -42,6 +42,12 @@ describe('TaskInputField', function () {
       wrapper.setProps({ className: 'active' })
       expect(wrapper.find(StyledTaskInputField).props().className).to.include('active')
     })
+
+    it('should disable the form input when disabled', function () {
+      expect(wrapper.find('input').prop('disabled')).to.be.false
+      wrapper.setProps({ disabled: true })
+      expect(wrapper.find('input').prop('disabled')).to.be.true
+    })
   })
 
   describe('onChange method', function () {
