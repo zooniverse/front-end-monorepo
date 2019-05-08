@@ -70,8 +70,13 @@ const SubjectViewer = types
       },
 
       onSubjectReady (event) {
-        const { target } = event || {}
-        const { clientHeight = 0, clientWidth = 0, naturalHeight = 0, naturalWidth = 0 } = target || {}
+        const { target = {} } = event || {}
+        const {
+          clientHeight = 0,
+          clientWidth = 0,
+          naturalHeight = 0,
+          naturalWidth = 0
+        } = target
         self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
         self.ready = true
       },
