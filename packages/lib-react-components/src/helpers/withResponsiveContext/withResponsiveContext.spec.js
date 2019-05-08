@@ -3,7 +3,7 @@ import { mount } from 'enzyme'
 
 import withResponsiveContext from './withResponsiveContext'
 
-describe.only('withResponsiveContext', function () {
+describe('withResponsiveContext', function () {
   function StubComponent() {
     return <p>Hello</p>
   }
