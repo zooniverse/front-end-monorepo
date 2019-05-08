@@ -1,16 +1,13 @@
-import { ResponsiveContext, Text } from 'grommet'
+import { Text } from 'grommet'
+import { withResponsiveContext } from '@zooniverse/react-components'
 import { object, oneOfType, string } from 'prop-types'
 import React from 'react'
 
-function Subtitle ({ margin, mode, text, ...props }) {
+function Subtitle ({ margin, mode, screenSize, text, ...props }) {
   return (
-    <ResponsiveContext.Consumer>
-      {(size) => (
-        <Text {...props} margin={(size === 'small') ? { top: 'none', bottom: 'xsmall' } : margin}>
-          {text}
-        </Text>
-      )}
-    </ResponsiveContext.Consumer>
+    <Text {...props} margin={(screenSize === 'small') ? { top: 'none', bottom: 'xsmall' } : margin}>
+      {text}
+    </Text>
   )
 }
 
@@ -29,4 +26,4 @@ Subtitle.defaultProps = {
   weight: 'bold'
 }
 
-export default Subtitle
+export default withResponsiveContext(Subtitle)

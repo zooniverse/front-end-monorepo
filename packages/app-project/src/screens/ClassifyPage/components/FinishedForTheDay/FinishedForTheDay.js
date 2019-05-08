@@ -27,8 +27,8 @@ const StyledBox = styled(Box)`
 
 // TODO: Add `<RelatedProjects />` back in once API is up
 function FinishedForTheDay (props) {
-  const { imageSrc, isLoggedIn, projectName, size, theme: { dark } } = props
-  const columns = (imageSrc && size !== 'small') ? ['1/4', 'auto'] : ['auto']
+  const { imageSrc, isLoggedIn, projectName, screenSize, theme: { dark } } = props
+  const columns = (imageSrc && screenSize !== 'small') ? ['1/4', 'auto'] : ['auto']
 
   return (
     <Box elevation={dark ? 'xlarge' : 'none'}>
