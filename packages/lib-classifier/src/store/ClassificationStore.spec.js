@@ -2,6 +2,7 @@ import sinon from 'sinon'
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
 import Subject from './Subject'
+import SubjectViewerStore from './SubjectViewerStore'
 
 import { toJS } from 'mobx'
 import { getEnv, types } from 'mobx-state-tree'
@@ -12,6 +13,7 @@ const RootStub = types
     feedback: FeedbackStore,
     projects: types.frozen(),
     subjects: types.frozen(),
+    subjectViewer: SubjectViewerStore,
     workflows: types.frozen()
   })
   .views(self => ({
@@ -59,6 +61,7 @@ describe('Model > ClassificationStore', function () {
       feedback: { isActive: false },
       projects: { active: projectStub },
       subjects: { active: undefined },
+      subjectViewer: {},
       workflows: { active: workflowStub }
     })
     classifications = rootStore.classifications
@@ -142,6 +145,7 @@ describe('Model > ClassificationStore', function () {
           feedback,
           projects: { active: projectStub },
           subjects: { active: subject },
+          subjectViewer: {},
           workflows: { active: workflowStub }
         },
         {
