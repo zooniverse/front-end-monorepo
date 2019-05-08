@@ -132,10 +132,12 @@ const ClassificationStore = types
 
     function completeClassification () {
       const classification = self.active
+      const subjectDimensions = getRoot(self).subjectViewer.dimensions.toJSON()
 
       const metadata = {
-        session: sessionUtils.getSessionID(),
         finishedAt: (new Date()).toISOString(),
+        session: sessionUtils.getSessionID(),
+        subjectDimensions,
         viewport: {
           width: window.innerWidth,
           height: window.innerHeight
