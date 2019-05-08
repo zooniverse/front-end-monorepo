@@ -2,10 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import { PlainButton } from '@zooniverse/react-components'
+import zooTheme from '@zooniverse/grommet-theme'
 
 export const StyledPlainButton = styled(PlainButton)`
   > div {
     justify-content: flex-start;
+    line-height: ${zooTheme.paragraph.small.height};
   }
 `
 
@@ -16,6 +18,8 @@ function MetaToolsButton (props) {
     <StyledPlainButton
       disabled={disabled}
       icon={icon}
+      labelSize='small'
+      margin='none'
       text={text}
       onClick={onClick}
       {...props}

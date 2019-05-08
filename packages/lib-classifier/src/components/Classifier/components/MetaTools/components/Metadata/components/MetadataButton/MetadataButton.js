@@ -19,7 +19,6 @@ export default function MetadataButton (props) {
     <MetaToolsButton
       disabled={disabled}
       icon={<StyledInfoIcon color='dark-5' />}
-      margin={{ vertical: '5px', horizontal: 'none' }}
       text={counterpart('MetadataButton.label')}
       onClick={onClick}
     />

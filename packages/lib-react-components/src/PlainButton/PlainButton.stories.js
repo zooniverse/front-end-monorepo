@@ -39,6 +39,12 @@ storiesOf('PlainButton', module)
 
   .add('Disabled', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton disabled={true} onClick={undefined} text={text('Text', 'Click me')} />
+      <PlainButton disabled={true} text={text('Text', 'Click me')} />
+    </Grommet>
+  ), config)
+
+  .add('Custom label size', () => (
+    <Grommet theme={zooTheme}>
+      <PlainButton disabled={true} labelSize='small' text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
