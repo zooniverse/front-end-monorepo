@@ -13,6 +13,7 @@ import withKeyZoom from '../../../withKeyZoom'
 class LightCurveViewerContainer extends Component {
   constructor () {
     super()
+    this.viewer = React.createRef()
     this.state = {
       loading: asyncStates.initialized,
       dataExtent: {
@@ -82,6 +83,7 @@ class LightCurveViewerContainer extends Component {
 
   onLoad (rawData) {
     const { onReady } = this.props
+    const target = this.viewer.current
     this.setState({
       dataExtent: {
         x: d3.extent(rawData.x),
@@ -90,7 +92,9 @@ class LightCurveViewerContainer extends Component {
       dataPoints: zip(rawData.x, rawData.y),
       loading: asyncStates.success
     },
-    onReady)
+    function () {
+      onReady({ target })
+    })
   }
 
   onError (error) {
@@ -109,6 +113,7 @@ class LightCurveViewerContainer extends Component {
 
     return (
       <LightCurveViewer
+        forwardRef={this.viewer}
         dataExtent={this.state.dataExtent}
         dataPoints={this.state.dataPoints}
         drawFeedbackBrushes={this.props.drawFeedbackBrushes}
