@@ -12,6 +12,7 @@ function storeMapper (stores) {
     user
   }
 }
+
 @withRouter
 @inject(storeMapper)
 @observer
@@ -26,7 +27,7 @@ class ZooHeaderWrapperContainer extends Component {
   createUserProp () {
     const { user } = this.props
     return (user.isLoggedIn)
-      ? { 'display_name': user['display_name'] }
+      ? { display_name: user.display_name, login: user.login }
       : {}
   }
 
@@ -87,6 +88,7 @@ ZooHeaderWrapperContainer.propTypes = {
   user: shape({
     clear: func,
     display_name: string,
+    login: string,
     isLoggedIn: bool
   })
 }
