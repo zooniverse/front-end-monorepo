@@ -38,22 +38,31 @@ describe('Component > LightCurveViewerContainer', function () {
 
   it('should render null if there is no subject prop', function () {
     wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
-    expect(wrapper.type()).to.be.null
+    expect(wrapper.html()).to.be.null
   })
 
   it('should mount with an initialized state', function () {
-    wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
-    expect(wrapper.state().loading).to.equal(asyncStates.initialized)
+    wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />, { disableLifecycleMethods: true })
+    const mockState = {
+      loading: asyncStates.initialized,
+      error: '',
+      dataExtent: { x: [], y: [] },
+      dataPoints: []
+    }
+    expect(wrapper.state()).to.eql(mockState)
   })
 
-  describe.only('when there is a subject', function () {
+  describe('when there is a subject', function () {
     const mockD3XExtent = d3.extent(mockData.x)
     const mockD3YExtent = d3.extent(mockData.y)
     const mockZipData = zip(mockData.x, mockData.y)
     let cdmSpy
+    let nockScope
+
     before(function () {
       cdmSpy = sinon.spy(LightCurveViewerContainer.wrappedComponent.prototype, 'componentDidMount')
-      nock('http://localhost:8080')
+      nockScope = nock('http://localhost:8080')
+        .persist(true)
         .get('/mockData.json')
         .reply(200, mockData)
         .get('/failure.json')
@@ -70,6 +79,7 @@ describe('Component > LightCurveViewerContainer', function () {
     after(function () {
       cdmSpy.restore()
       nock.cleanAll()
+      nockScope.persist(false)
     })
 
     it('should error if a json or text subject location file can\'t be found', function (done) {

@@ -107,7 +107,7 @@ class LightCurveViewerContainer extends Component {
 
   render () {
     const { subject } = this.props
-    if (!subject) {
+    if (!subject.id) {
       return null
     }
 

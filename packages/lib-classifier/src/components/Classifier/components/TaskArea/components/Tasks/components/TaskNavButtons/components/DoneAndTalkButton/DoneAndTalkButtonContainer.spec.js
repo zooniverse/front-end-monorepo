@@ -108,7 +108,7 @@ describe('DoneAndTalkButton', function () {
 
       it('should defer opening a Talk URL', function () {
         onHide()
-        const url = 'https://example.org/projects/zooniverse/example/talk/subjects/2'
+        const url = `https://example.org/projects/zooniverse/example/talk/subjects/${subject.id}`
         expect(window.location.assign).to.have.been.calledOnceWith(url)
       })
     })
@@ -158,7 +158,7 @@ describe('DoneAndTalkButton', function () {
         })
 
         it('should open a Talk URL', function () {
-          const url = 'https://example.org/projects/zooniverse/example/talk/subjects/2'
+          const url = `https://example.org/projects/zooniverse/example/talk/subjects/${subject.id}`
           expect(newTab.location).to.equal(url)
         })
 
