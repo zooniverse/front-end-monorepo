@@ -83,8 +83,7 @@ class LightCurveViewerContainer extends Component {
 
   onLoad (rawData) {
     const { onReady } = this.props
-    // TODO: find a cleaner way to get the container node for the viewer.
-    const target = this.viewer.current.wrappedInstance.svgContainer.current
+    const target = this.viewer.current
     this.setState({
       dataExtent: {
         x: d3.extent(rawData.x),
@@ -114,7 +113,7 @@ class LightCurveViewerContainer extends Component {
 
     return (
       <LightCurveViewer
-        ref={this.viewer}
+        forwardRef={this.viewer}
         dataExtent={this.state.dataExtent}
         dataPoints={this.state.dataPoints}
         drawFeedbackBrushes={this.props.drawFeedbackBrushes}
