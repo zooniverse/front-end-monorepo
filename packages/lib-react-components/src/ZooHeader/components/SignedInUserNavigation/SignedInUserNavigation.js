@@ -108,7 +108,7 @@ SignedInUserNavigation.propTypes = {
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
-    display_name: PropTypes.string,
-    login: PropTypes.string
+    display_name: PropTypes.string.isRequired,
+    login: PropTypes.string.isRequired
   }).isRequired
 }
