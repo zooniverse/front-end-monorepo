@@ -16,6 +16,7 @@ class LightCurveViewerContainer extends Component {
     this.viewer = React.createRef()
     this.state = {
       loading: asyncStates.initialized,
+      error: '',
       dataExtent: {
         x: [],
         y: []
@@ -58,27 +59,25 @@ class LightCurveViewerContainer extends Component {
     try {
       this.setState({ loading: asyncStates.loading })
       const url = this.getSubjectUrl()
-      const response = await request.get(url)
-      if (!response.ok) {
-        throw new Error('Invalid response')
-      } else {
-        // Get the JSON data, or (as a failsafe) parse the JSON data if the
-        // response is returned as a string
-        return response.body || JSON.parse(response.text)
+      if (url) {
+        const response = await request.get(url)
+        if (response.ok) {
+          // Get the JSON data, or (as a failsafe) parse the JSON data if the
+          // response is returned as a string
+          return response.body || JSON.parse(response.text)
+        }
       }
     } catch (error) {
-      return this.onError(error)
+      this.onError(error)
     }
   }
 
   async handleSubject () {
     try {
       const rawData = await this.requestData()
-      this.onLoad(rawData)
-      
+      if (rawData && rawData.x && rawData.y) this.onLoad(rawData)
     } catch (error) {
-      console.error(error)
-      return error
+      this.onError(error)
     }
   }
 
@@ -99,11 +98,11 @@ class LightCurveViewerContainer extends Component {
   }
 
   onError (error) {
+    (process.env.NODE_ENV !== 'test') ? console.error(error) : console.log('expected error console logged')
     this.setState({
       loading: asyncStates.error,
-      data: null
+      error: error.message
     })
-    return error
   }
 
   render () {
