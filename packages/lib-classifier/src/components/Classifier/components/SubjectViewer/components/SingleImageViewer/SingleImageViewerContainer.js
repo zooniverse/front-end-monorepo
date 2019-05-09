@@ -14,8 +14,8 @@ class SingleImageViewerContainer extends React.Component {
     this.state = {
       clientHeight: 0,
       clientWidth: 0,
-      naturalHeight: null,
-      naturalWidth: null,
+      naturalHeight: 0,
+      naturalWidth: 0,
       loading: asyncStates.initialized
     }
   }
