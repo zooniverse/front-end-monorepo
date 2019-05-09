@@ -1,10 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-staging
+  name: front-end-project-staging
 spec:
   selector:
-    app: front-end-staging
+    app: front-end-project-staging
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end-project-production
+spec:
+  selector:
+    app: front-end-project-production
   ports:
     - protocol: TCP
       port: 80

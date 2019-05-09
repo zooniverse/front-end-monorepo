@@ -1,21 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-staging
+  name: front-end-project-staging
   labels:
-    app: front-end-staging
+    app: front-end-project-staging
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: front-end-staging
+      app: front-end-project-staging
   template:
     metadata:
       labels:
-        app: front-end-staging
+        app: front-end-project-staging
     spec:
       containers:
         - name: fe-project-staging
           image: zooniverse/fe-project:__IMAGE_TAG__
           ports:
             - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end-project-production
+  labels:
+    app: front-end-project-production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front-end-project-production
+  template:
+    metadata:
+      labels:
+        app: front-end-project-production
+    spec:
+      containers:
+        - name: fe-project-production
+          image: zooniverse/fe-project:__IMAGE_TAG__
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PANOPTES_ENV
+              value: production
+            - name: NODE_ENV
+              value: production
