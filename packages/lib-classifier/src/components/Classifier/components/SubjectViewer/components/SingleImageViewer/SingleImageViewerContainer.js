@@ -8,9 +8,12 @@ import locationValidator from '../../helpers/locationValidator'
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.imageViewer = React.createRef()
     this.onLoad = this.onLoad.bind(this)
     this.onError = this.onError.bind(this)
     this.state = {
+      clientHeight: 0,
+      clientWidth: 0,
       naturalHeight: null,
       naturalWidth: null,
       loading: asyncStates.initialized
@@ -41,8 +44,11 @@ class SingleImageViewerContainer extends React.Component {
     try {
       const imageUrl = Object.values(subject.locations[0])[0]
       const img = await this.fetchImage(imageUrl)
+      const svg = this.imageViewer.current
 
       this.setState({
+        clientHeight: svg.clientHeight,
+        clientWidth: svg.clientWidth,
         naturalHeight: img.naturalHeight,
         naturalWidth: img.naturalWidth,
         loading: asyncStates.success
@@ -54,9 +60,9 @@ class SingleImageViewerContainer extends React.Component {
 
   onLoad (event) {
     const { onReady } = this.props
-    const { naturalHeight, naturalWidth } = this.state
+    const { clientHeight, clientWidth, naturalHeight, naturalWidth } = this.state
     const { target } = event || {}
-    const newTarget = Object.assign({}, target, { naturalHeight, naturalWidth })
+    const newTarget = Object.assign({}, target, { clientHeight, clientWidth, naturalHeight, naturalWidth })
     const fakeEvent = Object.assign({}, event, { target: newTarget })
     onReady(fakeEvent)
   }
@@ -83,6 +89,7 @@ class SingleImageViewerContainer extends React.Component {
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
       <SingleImageViewer
+        ref={this.imageViewer}
         onError={this.onError}
         onLoad={this.onLoad}
         url={imageUrl}
