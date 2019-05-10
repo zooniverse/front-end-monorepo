@@ -2,6 +2,7 @@ import sinon from 'sinon'
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
 import Subject from './Subject'
+import SubjectViewerStore from './SubjectViewerStore'
 
 import { toJS } from 'mobx'
 import { getEnv, types } from 'mobx-state-tree'
@@ -12,6 +13,7 @@ const RootStub = types
     feedback: FeedbackStore,
     projects: types.frozen(),
     subjects: types.frozen(),
+    subjectViewer: SubjectViewerStore,
     workflows: types.frozen()
   })
   .views(self => ({
@@ -59,6 +61,7 @@ describe('Model > ClassificationStore', function () {
       feedback: { isActive: false },
       projects: { active: projectStub },
       subjects: { active: undefined },
+      subjectViewer: {},
       workflows: { active: workflowStub }
     })
     classifications = rootStore.classifications
@@ -97,6 +100,7 @@ describe('Model > ClassificationStore', function () {
     let classifications
     let event
     let feedback
+    let subjectViewer
     let onComplete
     let feedbackStub
 
@@ -142,6 +146,7 @@ describe('Model > ClassificationStore', function () {
           feedback,
           projects: { active: projectStub },
           subjects: { active: subject },
+          subjectViewer: {},
           workflows: { active: workflowStub }
         },
         {
@@ -153,9 +158,16 @@ describe('Model > ClassificationStore', function () {
       }
       onComplete = sinon.stub()
       classifications.setOnComplete(onComplete)
+      subjectViewer = rootStore.subjectViewer
     })
 
     beforeEach(function () {
+      subjectViewer.onSubjectReady({
+        target: {
+          naturalHeight: 200,
+          naturalWidth: 400
+        }
+      })
       classifications.createClassification(subject)
       classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })
       classifications.completeClassification(event)
@@ -164,6 +176,7 @@ describe('Model > ClassificationStore', function () {
     afterEach(function () {
       onComplete.resetHistory()
       feedback.update.resetHistory()
+      subjectViewer.resetSubject()
     })
 
     after(function () {
@@ -195,6 +208,10 @@ describe('Model > ClassificationStore', function () {
       it('should have a feedback key', function () {
         const { rules } = feedbackStub
         expect(metadata.feedback).to.eql(rules)
+      })
+
+      it('should record subject dimensions', function () {
+        expect(metadata.subjectDimensions).to.eql(subjectViewer.dimensions)
       })
     })
   })

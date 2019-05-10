@@ -5,22 +5,36 @@ import React from 'react'
 import SingleImageViewerContainer from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
 
-let wrapper
-
 describe('Component > SingleImageViewerContainer', function () {
-  beforeEach(function () {
-    wrapper = shallow(<SingleImageViewerContainer />)
-  })
+  let wrapper
+  const height = 200
+  const width = 400
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
-  })
+  // mock an image that loads after a delay of 0.1s
+  class MockImage {
+    constructor() {
+      this.naturalHeight = height
+      this.naturalWidth = width
+      setTimeout(() => this.onload(), 100)
+    }
+  }
 
-  it('should render null if there is no subject prop', function () {
-    expect(wrapper.type()).to.equal(null)
-  })
+  describe('without a subject', function () {
+    beforeEach(function () {
+      wrapper = shallow(<SingleImageViewerContainer />)
+    })
 
-  describe('SingleImageViewer', function () {
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok
+    })
+
+    it('should render null', function () {
+      expect(wrapper.type()).to.equal(null)
+    })
+  })
+  
+
+  describe('with a subject', function () {
     let imageWrapper
     let onReady = sinon.stub()
 
@@ -33,20 +47,49 @@ describe('Component > SingleImageViewerContainer', function () {
       }
       wrapper = shallow(
         <SingleImageViewerContainer
+          ImageObject={MockImage}
           subject={subject}
           onReady={onReady}
         />
       )
       imageWrapper = wrapper.find(SingleImageViewer)
+      wrapper.instance().imageViewer = {
+        current: {
+          clientHeight: 100,
+          clientWidth: 200
+        }
+      }
     })
 
     afterEach(function () {
       onReady.resetHistory()
     })
 
-    it('should call onReady on image load', function () {
-      imageWrapper.simulate('load')
-      expect(onReady).to.have.been.calledOnce
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok
+    })
+
+    it('should record the original image dimensions on load', function (done) {
+      setTimeout(function() {
+        const svg = wrapper.instance().imageViewer.current
+        const fakeEvent = {
+          target: {
+            clientHeight: 0,
+            clientWidth: 0
+          }
+        }
+        const expectedEvent = {
+          target: {
+            clientHeight: svg.clientHeight,
+            clientWidth: svg.clientWidth,
+            naturalHeight: height,
+            naturalWidth: width
+          }
+        }
+        imageWrapper.simulate('load', fakeEvent)
+        expect(onReady).to.have.been.calledOnceWith(expectedEvent)
+        done()
+      }, 150)
     })
   })
 })
