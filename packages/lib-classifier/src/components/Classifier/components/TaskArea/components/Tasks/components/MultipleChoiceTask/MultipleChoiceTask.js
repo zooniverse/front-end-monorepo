@@ -54,6 +54,7 @@ class MultipleChoiceTask extends React.Component {
   render () {
     const {
       annotations,
+      disabled,
       task
     } = this.props
     let annotation
@@ -61,7 +62,10 @@ class MultipleChoiceTask extends React.Component {
       annotation = annotations.get(task.taskKey)
     }
     return (
-      <StyledFieldset autoFocus={(annotation && annotation.value && annotation.value.length === 0)}>
+      <StyledFieldset
+        autoFocus={(annotation && annotation.value && annotation.value.length === 0)}
+        disabled={disabled}
+      >
         <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.question}
@@ -73,6 +77,7 @@ class MultipleChoiceTask extends React.Component {
             <TaskInputField
               autoFocus={checked}
               checked={checked}
+              disabled={disabled}
               index={index}
               key={`${task.taskKey}_${index}`}
               label={answer.label}
@@ -91,12 +96,14 @@ class MultipleChoiceTask extends React.Component {
 MultipleChoiceTask.wrappedComponent.defaultProps = {
   addAnnotation: () => {},
   annotations: observable.map(),
+  disabled: false,
   task: {}
 }
 
 MultipleChoiceTask.wrappedComponent.propTypes = {
   addAnnotation: PropTypes.func,
   annotations: MobXPropTypes.observableMap,
+  disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string

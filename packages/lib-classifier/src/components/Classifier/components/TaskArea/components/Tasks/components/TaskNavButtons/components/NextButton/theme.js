@@ -1,6 +1,6 @@
 import { adjustHue } from 'polished'
 
-const nextButtonTheme = {
+const theme = {
   button: {
     border: {
       color: 'neutral-4',
@@ -10,31 +10,28 @@ const nextButtonTheme = {
       dark: 'neutral-4',
       light: 'black'
     },
-    extend: props => `
-      flex: 3 0 auto;
-      text-transform: capitalize;
+    extend: props => {
+      const { theme: { dark, global: { colors } } } = props
+      return `
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+        flex: 1 1 auto;
+        text-transform: capitalize;
 
-      &:disabled:hover {
-        cursor: not-allowed;
-      }
-
-      &:focus:not(:disabled),
-      &:hover:not(:disabled) {
-        box-shadow: none;
-        background: ${props.theme.dark
-    ? props.theme.global.colors['neutral-4']
-    : adjustHue(-7, props.theme.global.colors['neutral-4'])
-};
-        color: ${props.theme.dark ? 'white' : 'black'};
-
-        svg {
-          fill: ${props.theme.dark ? 'white' : 'black'};
-          stroke: ${props.theme.dark ? 'white' : 'black'};
+        &:disabled:hover {
+          cursor: not-allowed;
         }
-      }
-    `,
+
+        &:focus:not(:disabled),
+        &:hover:not(:disabled) {
+          background: ${dark ? colors['neutral-4'] : adjustHue(-7, colors['neutral-4'])};
+          box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+          color: ${dark ? 'white' : 'black'};
+        }
+      `
+    },
     padding: {
-      vertical: '10px'
+      horizontal: props => props.theme.global.edgeSize.small,
+      vertical: props => props.theme.global.edgeSize.xsmall
     },
     primary: {
       color: {
@@ -58,4 +55,4 @@ const nextButtonTheme = {
   }
 }
 
-export default nextButtonTheme
+export default theme

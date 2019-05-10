@@ -3,7 +3,7 @@ import React from 'react'
 
 import ProjectStatistics from './ProjectStatistics'
 import CompletionBar from './components/CompletionBar'
-import Stat from './components/Stat'
+import Stat from '../Stat'
 
 describe('Component > ProjectStatistics', function () {
   let wrapper

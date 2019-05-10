@@ -57,10 +57,10 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class LightCurveViewer extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
-    this.svgContainer = React.createRef()
+    this.svgContainer = props.forwardRef
 
     // D3 Selection elements
     this.d3annotationsLayer = null
@@ -714,6 +714,8 @@ LightCurveViewer.wrappedComponent.propTypes = {
 }
 
 LightCurveViewer.wrappedComponent.defaultProps = {
+  forwardRef: React.createRef(),
+
   dataExtent: { x: [-1, 1], y: [-1, 1] },
   dataPoints: [[]],
 

@@ -9,6 +9,10 @@ import CloseIcon from '../CloseIcon'
 
 counterpart.registerTranslations('en', en)
 
+const StyledBox = styled(Box)`
+  min-height: 30px;
+`
+
 const Heading = styled.h2`
   color: white;
   font-size: 1rem;
@@ -35,13 +39,12 @@ const StyledButton = styled(Button)`
 
 function ModalHeading ({ className, closeFn, title }) {
   return (
-    <Box
+    <StyledBox
       align='center'
       background='brand'
       className={className}
       direction='row'
       gap='large'
-      height='30px'
       justify='between'
       pad={{ horizontal: 'medium', vertical: 'none' }}
     >
@@ -54,7 +57,7 @@ function ModalHeading ({ className, closeFn, title }) {
       >
         <CloseIcon />
       </StyledButton>
-    </Box>
+    </StyledBox>
   )
 }
 

@@ -8,28 +8,20 @@ import locationValidator from '../../helpers/locationValidator'
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.imageViewer = React.createRef()
+    this.onLoad = this.onLoad.bind(this)
+    this.onError = this.onError.bind(this)
     this.state = {
-      height: null,
-      width: null,
+      clientHeight: 0,
+      clientWidth: 0,
+      naturalHeight: 0,
+      naturalWidth: 0,
       loading: asyncStates.initialized
     }
   }
 
   componentDidMount () {
-    if (this.props.subject) {
-      this.handleSubject()
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    // Casting to JSON fixes reference issue from MST store
-    // A more robust solution might be to have a getter view function defined on the model
-    const prevSubject = prevProps.subject.toJSON()
-    const subject = this.props.subject.toJSON()
-
-    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
-      this.handleSubject()
-    }
+    this.handleSubject()
   }
 
   // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
@@ -38,7 +30,7 @@ class SingleImageViewerContainer extends React.Component {
   fetchImage (url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
-      let img = new ImageObject()
+      const img = new ImageObject()
       img.onload = () => resolve(img)
       img.onerror = reject
       img.src = url
@@ -48,20 +40,36 @@ class SingleImageViewerContainer extends React.Component {
   async handleSubject () {
     const { subject } = this.props
     // TODO: Add polyfill for Object.values for IE
-    const imageUrl = Object.values(subject.locations[0])[0]
     this.setState({ loading: asyncStates.loading })
     try {
+      const imageUrl = Object.values(subject.locations[0])[0]
       const img = await this.fetchImage(imageUrl)
+      const svg = this.imageViewer.current
 
       this.setState({
-        height: img.height,
-        width: img.width,
+        clientHeight: svg.clientHeight,
+        clientWidth: svg.clientWidth,
+        naturalHeight: img.naturalHeight,
+        naturalWidth: img.naturalWidth,
         loading: asyncStates.success
       })
     } catch (error) {
-      console.error(error)
-      this.setState({ loading: asyncStates.error })
+      this.onError(error)
     }
+  }
+
+  onLoad (event) {
+    const { onReady } = this.props
+    const { clientHeight, clientWidth, naturalHeight, naturalWidth } = this.state
+    const { target } = event || {}
+    const newTarget = Object.assign({}, target, { clientHeight, clientWidth, naturalHeight, naturalWidth })
+    const fakeEvent = Object.assign({}, event, { target: newTarget })
+    onReady(fakeEvent)
+  }
+
+  onError (error) {
+    console.error(error)
+    this.setState({ loading: asyncStates.error })
   }
 
   render () {
@@ -80,19 +88,26 @@ class SingleImageViewerContainer extends React.Component {
     // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
-      <SingleImageViewer url={imageUrl} />
+      <SingleImageViewer
+        ref={this.imageViewer}
+        onError={this.onError}
+        onLoad={this.onLoad}
+        url={imageUrl}
+      />
     )
   }
 }
 
 SingleImageViewerContainer.propTypes = {
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
 SingleImageViewerContainer.defaultProps = {
-  ImageObject: window.Image
+  ImageObject: window.Image,
+  onReady: () => true
 }
 
 export default SingleImageViewerContainer

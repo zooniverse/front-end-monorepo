@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
+
 import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
 import DoneAndTalkButton from './components/DoneAndTalkButton'
@@ -8,10 +9,11 @@ import BackButton from './components/BackButton'
 
 export default function TaskNavButtons (props) {
   const goldStandardMode = props.classification ? props.classification.goldStandard : false
+  const disabled = props.disabled || props.waitingForAnswer
 
   if (props.showNextButton) {
     return (
-      <Box direction='row'>
+      <Box direction='row' gap='xsmall'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -20,7 +22,7 @@ export default function TaskNavButtons (props) {
         <NextButton
           autoFocus={false}
           onClick={props.goToNextStep}
-          disabled={props.waitingForAnswer}
+          disabled={disabled}
         />
       </Box>
     )
@@ -40,7 +42,7 @@ export default function TaskNavButtons (props) {
   }
 
   return (
-    <Box direction='row'>
+    <Box direction='row' gap='xsmall'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -52,7 +54,7 @@ export default function TaskNavButtons (props) {
         flex='grow'
         goldStandardMode={goldStandardMode}
         onClick={props.onSubmit}
-        disabled={props.waitingForAnswer}
+        disabled={disabled}
       />
       <DoneButton
         completed={props.completed}
@@ -60,7 +62,7 @@ export default function TaskNavButtons (props) {
         flex='grow'
         goldStandardMode={goldStandardMode}
         onClick={props.onSubmit}
-        disabled={props.waitingForAnswer}
+        disabled={disabled}
       />
     </Box>
   )
@@ -71,6 +73,7 @@ TaskNavButtons.defaultProps = {
   autoFocus: false,
   completed: false,
   demoMode: false,
+  disabled: false,
   goToPreviousStep: () => {},
   onSubmit: () => {},
   nextSubject: () => {},
@@ -85,6 +88,7 @@ TaskNavButtons.propTypes = {
   autoFocus: PropTypes.bool,
   completed: PropTypes.bool,
   demoMode: PropTypes.bool,
+  disabled: PropTypes.bool,
   goToPreviousStep: PropTypes.func,
   nextSubject: PropTypes.func,
   onSubmit: PropTypes.func,

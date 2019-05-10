@@ -34,7 +34,6 @@ class FieldGuide extends React.Component {
               }}
               className={className}
               height={height}
-              overflow='auto'
               width={width}
             >
               {items[activeItemIndex]

@@ -1,7 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
+import { Provider } from 'mobx-react'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
@@ -9,20 +10,33 @@ describe('withKeyZoom', function () {
     return <p>Hello</p>
   }
   const WithZoom = withKeyZoom(StubComponent)
+  const onPan = sinon.stub()
+  const zoomIn = sinon.stub()
+  const zoomOut = sinon.stub()
+  const classifierStore = {
+    subjectViewer: {
+      onPan,
+      zoomIn,
+      zoomOut
+    }
+  }
   let wrapper
+  let wrappedComponent
 
   before(function () {
-    wrapper = shallow(<WithZoom.wrappedComponent />)
+    wrapper = mount(
+      <Provider classifierStore={classifierStore}>
+        <WithZoom />
+      </Provider>
+    )
+    wrappedComponent = wrapper.find(StubComponent)
   })
 
   it('should add an onKeyDown handler to wrapped components', function () {
-    expect(wrapper.props().onKeyDown).to.exist
+    expect(wrappedComponent.prop('onKeyDown')).to.exist
   })
 
   describe('on key down', function () {
-    const onPan = sinon.stub()
-    const zoomIn = sinon.stub()
-    const zoomOut = sinon.stub()
     const bindings = [
       {
         key: '+',
@@ -56,15 +70,6 @@ describe('withKeyZoom', function () {
       }
     ]
 
-    before(function () {
-      wrapper = shallow(
-        <WithZoom.wrappedComponent
-          onPan={onPan}
-          zoomIn={zoomIn}
-          zoomOut={zoomOut}
-        />)
-    })
-
     afterEach(function () {
       zoomIn.resetHistory()
       zoomOut.resetHistory()
@@ -75,7 +80,7 @@ describe('withKeyZoom', function () {
         const fakeEvent = {
           key
         }
-        wrapper.simulate('keydown', fakeEvent)
+        wrappedComponent.prop('onKeyDown')(fakeEvent)
         expect(handler).to.have.been.calledOnce
       })
     })

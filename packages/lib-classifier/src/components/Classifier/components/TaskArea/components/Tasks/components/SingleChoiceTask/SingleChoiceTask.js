@@ -47,6 +47,7 @@ class SingleChoiceTask extends React.Component {
     const {
       annotations,
       className,
+      disabled,
       task
     } = this.props
     let annotation
@@ -55,7 +56,10 @@ class SingleChoiceTask extends React.Component {
     }
 
     return (
-      <StyledFieldSet className={className}>
+      <StyledFieldSet
+        className={className}
+        disabled={disabled}
+      >
         <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.question}
@@ -68,6 +72,7 @@ class SingleChoiceTask extends React.Component {
             <TaskInputField
               autoFocus={checked}
               checked={checked}
+              disabled={disabled}
               index={index}
               key={`${task.taskKey}_${index}`}
               label={answer.label}
@@ -86,12 +91,14 @@ class SingleChoiceTask extends React.Component {
 SingleChoiceTask.wrappedComponent.defaultProps = {
   addAnnotation: () => {},
   annotations: observable.map(),
+  disabled: false,
   task: {}
 }
 
 SingleChoiceTask.wrappedComponent.propTypes = {
   addAnnotation: PropTypes.func,
   annotations: MobXPropTypes.observableMap,
+  disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string

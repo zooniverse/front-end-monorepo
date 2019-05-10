@@ -5,6 +5,14 @@ import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
 
 describe('Tasks', function () {
+  const tasks = [{
+    answers: [{ label: 'yes' }, { label: 'no' }],
+    question: 'Is there a cat?',
+    required: true,
+    taskKey: 'init',
+    type: 'single'
+  }]
+
   it('should render without crashing', function () {
     const wrapper = shallow(<Tasks.wrappedComponent />)
     expect(wrapper).to.be.ok
@@ -26,21 +34,51 @@ describe('Tasks', function () {
   })
 
   it('should render null if the workflow is load but has no tasks', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} />)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready={true} />)
     expect(wrapper.type()).to.be.null
   })
 
   it('should render the correct task component if the workflow is loaded', function () {
-    const tasks = [{
-      answers: [{ label: 'yes' }, { label: 'no' }],
-      question: 'Is there a cat?',
-      required: true,
-      taskKey: 'init',
-      type: 'single'
-    }]
-
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} tasks={tasks} />)
+    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready={true} tasks={tasks} />)
     // Is there a better way to do this?
     expect(wrapper.find('inject-SingleChoiceTask')).to.have.lengthOf(1)
+  })
+
+  describe('task components', function () {
+    let taskWrapper
+
+    describe('while the subject is loading', function () {
+      before(function () {
+        const wrapper = shallow(
+          <Tasks.wrappedComponent
+            loadingState={asyncStates.success}
+            ready={false}
+            tasks={tasks}
+          />
+        )
+        taskWrapper = wrapper.find('inject-SingleChoiceTask')
+      })
+
+      it('should be disabled', function () {
+        expect(taskWrapper.prop('disabled')).to.be.true
+      })
+    })
+
+    describe('when the subject viewer is ready', function () {
+      before(function () {
+        const wrapper = shallow(
+          <Tasks.wrappedComponent
+            loadingState={asyncStates.success}
+            ready={true}
+            tasks={tasks}
+          />
+        )
+        taskWrapper = wrapper.find('inject-SingleChoiceTask')
+      })
+
+      it('should be enabled', function () {
+        expect(taskWrapper.prop('disabled')).to.be.false
+      })
+    })
   })
 })

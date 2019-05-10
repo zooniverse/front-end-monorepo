@@ -168,6 +168,11 @@ const theme = deepFreeze({
   button: {
     border: {
       radius: '0px'
+    },
+    padding: {
+       // Accounting for the border width. Grommet's default border width is 2px
+      horizontal: props => `${parseInt(props.theme.global.edgeSize.small) - 2}px`,
+      vertical: props => `${parseInt(props.theme.global.edgeSize.xsmall) - 1}px`
     }
   },
   checkBox: {
@@ -217,7 +222,7 @@ const theme = deepFreeze({
         // "font": {},
         small: {
           size: "32px",
-          height: "37px",
+          height: "32px",
           maxWidth: "816px"
         },
         medium: {
@@ -240,7 +245,7 @@ const theme = deepFreeze({
         // font: {},
         small: {
           size: "26px",
-          height: "32px",
+          height: "26px",
           maxWidth: "624px"
         },
         medium: {
@@ -263,7 +268,7 @@ const theme = deepFreeze({
         // font: {},
         small: {
           size: "22px",
-          height: "28px",
+          height: "22px",
           maxWidth: "528px"
         },
         medium: {
@@ -288,7 +293,7 @@ const theme = deepFreeze({
         },
         small: {
           size: "18px",
-          height: "24px",
+          height: "18px",
           maxWidth: "432px"
         },
         medium: {
@@ -311,7 +316,7 @@ const theme = deepFreeze({
         // font: {}
         small: {
           size: "14px",
-          height: "17px",
+          height: "14px",
           maxWidth: "384px"
         },
         medium: {
@@ -334,7 +339,7 @@ const theme = deepFreeze({
         // font: {},
         small: {
           size: "14px",
-          height: "17px",
+          height: "14px",
           maxWidth: "336px"
         },
         medium: {
@@ -365,8 +370,8 @@ const theme = deepFreeze({
   },
   paragraph: {
     small: {
-      size: '12px',
-      height: '18px',
+      size: '14px',
+      height: '14px',
       maxWidth: '100%'
     },
     medium: {
@@ -398,8 +403,8 @@ const theme = deepFreeze({
       maxWidth: "100%"
     },
     small: {
-      size: "12px",
-      height: "16px",
+      size: "14px",
+      height: "14px",
       maxWidth: "100%"
     },
     medium: {

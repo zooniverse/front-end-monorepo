@@ -7,8 +7,8 @@ import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'
 
 const StyledBox = styled(Box)`
+  height: 100%;
   list-style-type: none;
-  padding: 0;
 `
 
 export default function LinkList ({ className, labels, urls }) {
@@ -18,11 +18,12 @@ export default function LinkList ({ className, labels, urls }) {
     <StyledBox
       className={className}
       direction='column'
+      pad='none'
       tag='ul'
     >
 
       <li>
-        <SpacedText size='medium' weight='bold'>
+        <SpacedText size='small' weight='bold'>
           <Anchor href={title.url}>
             {title.label}
           </Anchor>
@@ -37,7 +38,7 @@ export default function LinkList ({ className, labels, urls }) {
               light: 'dark-5'
             }}
             href={link.url}
-            size='medium'
+            size='small'
           >
             {link.label}
           </Anchor>

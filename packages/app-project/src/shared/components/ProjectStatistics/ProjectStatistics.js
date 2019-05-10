@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import en from './locales/en'
 import CompletionBar from './components/CompletionBar'
 import MainGrid from './components/MainGrid'
-import Stat from './components/Stat'
 import Subtitle from './components/Subtitle'
 import ContentBox from '../ContentBox'
+import Stat from '../Stat'
 
 counterpart.registerTranslations('en', en)
 
