@@ -27,7 +27,7 @@ class LightCurveViewerContainer extends Component {
 
   componentDidMount () {
     if (this.props.subject) {
-      return this.handleSubject()
+      this.handleSubject()
     }
   }
 
