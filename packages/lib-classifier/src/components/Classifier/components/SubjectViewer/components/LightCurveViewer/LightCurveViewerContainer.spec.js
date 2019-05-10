@@ -56,11 +56,9 @@ describe('Component > LightCurveViewerContainer', function () {
     const mockD3XExtent = d3.extent(mockData.x)
     const mockD3YExtent = d3.extent(mockData.y)
     const mockZipData = zip(mockData.x, mockData.y)
-    let cdmSpy
     let nockScope
 
     before(function () {
-      cdmSpy = sinon.spy(LightCurveViewerContainer.wrappedComponent.prototype, 'componentDidMount')
       nockScope = nock('http://localhost:8080')
         .persist(true)
         .get('/mockData.json')
@@ -72,12 +70,7 @@ describe('Component > LightCurveViewerContainer', function () {
 
     })
 
-    afterEach(function () {
-      cdmSpy.resetHistory()
-    })
-
     after(function () {
-      cdmSpy.restore()
       nock.cleanAll()
       nockScope.persist(false)
     })
@@ -87,11 +80,11 @@ describe('Component > LightCurveViewerContainer', function () {
         <LightCurveViewerContainer.wrappedComponent subject={imageSubject} />
       )
 
-      expect(cdmSpy).to.have.been.calledOnce
-      cdmSpy.returnValues[0].then(() => {
+      setTimeout(() => {
         expect(wrapper.state().loading).to.equal(asyncStates.error)
         expect(wrapper.state().error).to.equal('No JSON url found for this subject')
-      }).then(done, done)
+        done()
+      }, 50)
     })
 
     it('should error if the location request response fails', function (done) {
@@ -99,10 +92,11 @@ describe('Component > LightCurveViewerContainer', function () {
         <LightCurveViewerContainer.wrappedComponent subject={failSubject} />
       )
 
-      cdmSpy.returnValues[0].then(() => {
+      setTimeout(() => {
         expect(wrapper.state().loading).to.equal(asyncStates.error)
         expect(wrapper.state().error).to.equal('Not Found')
-      }).then(done, done)
+        done()
+      }, 50)
     })
 
     it('should set the component state with the json data', function (done) {
@@ -110,7 +104,7 @@ describe('Component > LightCurveViewerContainer', function () {
         <LightCurveViewerContainer.wrappedComponent subject={subject} />
       )
 
-      cdmSpy.returnValues[0].then(() => {
+      setTimeout(() => {
         wrapper.state().dataExtent.x.forEach((xDataPoint, index) => {
           expect(xDataPoint).to.equal(mockD3XExtent[index])
         })
@@ -122,7 +116,8 @@ describe('Component > LightCurveViewerContainer', function () {
         expect(wrapper.state().dataPoints).to.have.lengthOf(mockZipData.length)
 
         expect(wrapper.state().loading).to.equal(asyncStates.success)
-      }).then(done, done)
+        done()
+      }, 50)
     })
 
     it('calls the onReady prop on successful load', function (done) {
@@ -131,10 +126,10 @@ describe('Component > LightCurveViewerContainer', function () {
         <LightCurveViewerContainer.wrappedComponent onReady={onReadySpy} subject={subject} />
       )
       
-      cdmSpy.returnValues[0].then(() => {
+      setTimeout(() => {
         expect(onReadySpy).to.have.been.calledOnceWith({ target: wrapper.instance().viewer.current })
-      })
-      .then(done, done)
+        done()
+      }, 50)
     })
 
     it('should update component state when there is a new valid subject prop', function (done) {
