@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-project-staging
+  name: zooniverse-org-project-staging
   labels:
-    app: front-end-project-staging
+    app: zooniverse-org-project-staging
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: front-end-project-staging
+      app: zooniverse-org-project-staging
   template:
     metadata:
       labels:
-        app: front-end-project-staging
+        app: zooniverse-org-project-staging
     spec:
       containers:
         - name: fe-project-staging
@@ -23,18 +23,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-project-production
+  name: zooniverse-org-project-production
   labels:
-    app: front-end-project-production
+    app: zooniverse-org-project-production
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: front-end-project-production
+      app: zooniverse-org-project-production
   template:
     metadata:
       labels:
-        app: front-end-project-production
+        app: zooniverse-org-project-production
     spec:
       containers:
         - name: fe-project-production

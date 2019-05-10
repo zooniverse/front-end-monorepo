@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-project-staging
+  name: zooniverse-org-project-staging
 spec:
   selector:
-    app: front-end-project-staging
+    app: zooniverse-org-project-staging
   ports:
     - protocol: TCP
       port: 80
@@ -14,10 +14,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-project-production
+  name: zooniverse-org-project-production
 spec:
   selector:
-    app: front-end-project-production
+    app: zooniverse-org-project-production
   ports:
     - protocol: TCP
       port: 80
