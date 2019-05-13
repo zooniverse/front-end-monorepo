@@ -19,7 +19,7 @@ function ClassifyPage (props) {
   const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['1em', 'auto', '1em']
 
   return (
-    <Box gap='medium' pad={{ horizontal: 'small', vertical: 'medium'}}>
+    <Box gap='medium' pad={{ horizontal: 'small', vertical: 'medium' }}>
       <Grid columns={responsiveColumns} gap='small'>
         <ProjectName />
         <ClassifierWrapper
