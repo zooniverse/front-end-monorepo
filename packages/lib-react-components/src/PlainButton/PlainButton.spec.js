@@ -8,5 +8,7 @@ describe('<PlainButton />', function () {
     wrapper = shallow(<PlainButton text='Click me' />)
   })
 
-  it('renders without crashing', function () { })
+  it('renders without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })
