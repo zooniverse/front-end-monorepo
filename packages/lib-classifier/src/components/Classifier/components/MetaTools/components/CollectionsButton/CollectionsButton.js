@@ -17,6 +17,7 @@ export default function CollectionsButton (props) {
   const { className, disabled, onClick } = props
   return (
     <MetaToolsButton
+      className={className}
       disabled={disabled}
       icon={<Collect className={className} color='dark-5' />}
       text={counterpart('CollectionsButton.add')}
