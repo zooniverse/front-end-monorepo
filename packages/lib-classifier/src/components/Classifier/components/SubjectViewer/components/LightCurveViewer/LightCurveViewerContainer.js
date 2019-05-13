@@ -25,19 +25,27 @@ class LightCurveViewerContainer extends Component {
     }
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     if (this.props.subject) {
-      this.handleSubject()
+      try {
+        await this.handleSubject()
+      } catch (error) {
+        this.onError(error)
+      }
     }
   }
 
-  componentDidUpdate (prevProps) {
+  async componentDidUpdate (prevProps) {
     const { subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
 
     if (subjectChanged) {
-      return this.handleSubject()
+      try {
+        await this.handleSubject()
+      } catch (error) {
+        this.onError(error)
+      }
     }
   }
 
