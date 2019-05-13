@@ -9,27 +9,30 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledInfoIcon = styled(InfoIcon)`
+export const StyledInfoIcon = styled(InfoIcon)`
   width: 1em;
 `
 
 export default function MetadataButton (props) {
-  const { disabled, onClick } = props
+  const { className, disabled, onClick } = props
   return (
     <MetaToolsButton
       disabled={disabled}
-      icon={<StyledInfoIcon color='dark-5' />}
+      icon={<StyledInfoIcon className={className} color='dark-5' />}
       text={counterpart('MetadataButton.label')}
       onClick={onClick}
+      {...props}
     />
   )
 }
 
 MetadataButton.defaultProps = {
+  className: '',
   disabled: false
 }
 
 MetadataButton.propTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func
 }

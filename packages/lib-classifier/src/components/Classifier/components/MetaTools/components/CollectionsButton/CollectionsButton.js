@@ -14,11 +14,11 @@ export const Collect = styled(CollectionsIcon)`
 `
 
 export default function CollectionsButton (props) {
-  const { disabled, onClick } = props
+  const { className, disabled, onClick } = props
   return (
     <MetaToolsButton
       disabled={disabled}
-      icon={<Collect color='dark-5' />}
+      icon={<Collect className={className} color='dark-5' />}
       text={counterpart('CollectionsButton.add')}
       onClick={onClick}
     />
@@ -26,11 +26,13 @@ export default function CollectionsButton (props) {
 }
 
 CollectionsButton.propTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 CollectionsButton.defaultProps = {
+  className: '',
   disabled: false,
   onClick: () => false
 }

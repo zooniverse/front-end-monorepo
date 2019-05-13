@@ -2,12 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import { PlainButton } from '@zooniverse/react-components'
-import zooTheme from '@zooniverse/grommet-theme'
 
 export const StyledPlainButton = styled(PlainButton)`
   > div {
     justify-content: flex-start;
-    line-height: ${zooTheme.paragraph.small.height};
+    line-height: ${(props) => props.theme.paragraph.small.height};
   }
 `
 
@@ -33,7 +32,8 @@ MetaToolsButton.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string,
   theme: PropTypes.shape({
-    dark: PropTypes.bool
+    dark: PropTypes.bool,
+    paragraph: PropTypes.object
   })
 }
 
@@ -43,7 +43,12 @@ MetaToolsButton.defaultProps = {
   onClick: () => false,
   text: '',
   theme: {
-    dark: false
+    dark: false,
+    paragraph: {
+      small: {
+        height: ''
+      }
+    }
   }
 }
 

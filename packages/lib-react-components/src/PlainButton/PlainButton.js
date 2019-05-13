@@ -18,10 +18,11 @@ export const StyledPlainButton = styled(Button)`
 `
 
 function PlainButton (props) {
-  const { onClick, labelSize, text } = props
+  const { className, onClick, labelSize, text } = props
 
   return (
     <StyledPlainButton
+      className={className}
       label={(
         <SpacedText
           color={{
@@ -41,6 +42,7 @@ function PlainButton (props) {
 }
 
 PlainButton.defaultProps = {
+  className: '',
   labelSize: 'medium',
   onClick: () => {},
   text: '',
@@ -50,6 +52,7 @@ PlainButton.defaultProps = {
 }
 
 PlainButton.propTypes = {
+  className: string,
   labelSize: string,
   onClick: func,
   text: string,

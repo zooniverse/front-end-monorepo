@@ -19,7 +19,7 @@ describe('Component > FavouritesButton', function () {
   it('should display an empty icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Favourite color='dark-5' filled={undefined} />)
+    expect(icon).to.deep.equal(<Favourite className='' color='dark-5' filled={undefined} />)
   })
 
   it('should not be checked', function () {
@@ -30,7 +30,7 @@ describe('Component > FavouritesButton', function () {
   describe('on click', function () {
     const onClickSpy = sinon.spy()
     before(function () {
-      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickSpy} />)
+      wrapper = shallow(<FavouritesButton checked={false} className='' onClick={onClickSpy} />)
     })
 
     it('should call props.onClick', function () {
@@ -47,7 +47,7 @@ describe('Component > FavouritesButton', function () {
     it('should display a filled icon', function () {
       const button = wrapper.find(MetaToolsButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite color='dark-5' filled='true' />)
+      expect(icon).to.deep.equal(<Favourite className='' color='dark-5' filled='true' />)
     })
 
     it('should be checked', function () {

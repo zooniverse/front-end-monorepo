@@ -25,9 +25,13 @@ function ProjectName (props) {
   )
 }
 
+ProjectName.defaultProps = {
+  screenSize: ''
+}
+
 ProjectName.propTypes = {
   projectName: string.isRequired,
-  screenSize: string.isRequired
+  screenSize: string
 }
 
 export default withResponsiveContext(ProjectName)
