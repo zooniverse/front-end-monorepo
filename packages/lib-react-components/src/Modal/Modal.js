@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Grommet } from 'grommet'
 
 import WithLayer from './WithLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
-function Modal ({ children, className, closeFn, pad, title }) {
+function Modal ({ children, className, closeFn, pad, theme, title }) {
   return (
-    <React.Fragment>
+    <Grommet theme={theme}>
       <ModalHeading className={className} closeFn={closeFn} title={title} />
       <ModalBody className={className} pad={pad}>
         {children}
       </ModalBody>
-    </React.Fragment>
+    </Grommet>
   )
 }
 

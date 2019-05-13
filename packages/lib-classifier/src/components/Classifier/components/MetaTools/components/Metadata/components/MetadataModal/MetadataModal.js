@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import { Box, DataTable, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import filterByLabel, { filters } from './filterByLabel'
 import en from './locales/en'
 
@@ -39,13 +39,14 @@ export function formatValue (value) {
   return ''
 }
 
-export default function MetadataModal (props) {
+export function MetadataModal (props) {
   const {
     active,
     closeFn,
     filters,
     metadata,
-    prefixes
+    prefixes,
+    theme
   } = props
 
   const columns = [{
@@ -73,6 +74,7 @@ export default function MetadataModal (props) {
     <Modal
       active={active}
       closeFn={closeFn}
+      theme={theme}
       title={counterpart('MetadataModal.title')}
     >
       <Box height='medium' overflow='auto'>
@@ -100,3 +102,5 @@ MetadataModal.propTypes = {
   metadata: PropTypes.object.isRequired,
   prefixes: PropTypes.arrayOf(PropTypes.string)
 }
+
+export default withTheme(MetadataModal)

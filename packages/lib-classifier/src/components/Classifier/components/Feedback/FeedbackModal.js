@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { Button, Box } from 'grommet'
+import { withTheme } from 'styled-components'
 import { Modal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
@@ -27,12 +28,13 @@ function storeMapper (stores) {
   }
 }
 
+@withTheme
 @inject(storeMapper)
 @observer
 class FeedbackModal extends React.Component {
   render () {
     const label = counterpart('FeedbackModal.label')
-    const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
+    const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal, theme } = this.props
     const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
     let FeedbackViewer = null
     if (showViewer) {
@@ -44,6 +46,7 @@ class FeedbackModal extends React.Component {
         <Modal
           active={showModal}
           closeFn={hideFeedback}
+          theme={theme}
           title={label}
         >
           <>

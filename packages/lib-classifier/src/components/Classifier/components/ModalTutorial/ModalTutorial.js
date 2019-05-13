@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { ResponsiveContext } from 'grommet'
+import { withTheme } from 'styled-components'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
 import SlideTutorial from '../SlideTutorial'
@@ -20,6 +21,7 @@ function storeMapper (stores) {
   }
 }
 
+@withTheme
 @inject(storeMapper)
 @observer
 class ModalTutorial extends React.Component {
@@ -35,7 +37,7 @@ class ModalTutorial extends React.Component {
   }
 
   render () {
-    const { loadingState, showModal, tutorial } = this.props
+    const { loadingState, showModal, theme, tutorial } = this.props
     if (loadingState === asyncStates.success && tutorial) {
       return (
         <Modal

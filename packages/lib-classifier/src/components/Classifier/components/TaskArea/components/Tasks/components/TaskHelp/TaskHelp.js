@@ -4,7 +4,7 @@ import { Button, Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 import en from './locales/en'
 
@@ -23,6 +23,7 @@ function storeMapper (stores) {
   }
 }
 
+@withTheme
 @inject(storeMapper)
 @observer
 class TaskHelp extends React.Component {
@@ -36,7 +37,7 @@ class TaskHelp extends React.Component {
 
   render () {
     const label = counterpart('TaskHelp.label')
-    const { isThereTaskHelp, tasks } = this.props
+    const { isThereTaskHelp, tasks, theme } = this.props
 
     if (isThereTaskHelp) {
       return (
@@ -51,6 +52,7 @@ class TaskHelp extends React.Component {
           <Modal
             active={this.state.showModal}
             closeFn={() => this.setState({ showModal: false })}
+            theme={theme}
             title={label}
           >
             <>

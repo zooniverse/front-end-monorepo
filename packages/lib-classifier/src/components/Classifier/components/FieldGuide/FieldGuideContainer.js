@@ -3,6 +3,7 @@ import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
+import { withTheme } from 'styled-components'
 import FieldGuideButton from './components/FieldGuideButton'
 import FieldGuide from './components/FieldGuide'
 import en from './locales/en'
@@ -17,6 +18,7 @@ function storeMapper (stores) {
   }
 }
 
+@withTheme
 @inject(storeMapper)
 @observer
 class FieldGuideContainer extends React.Component {
@@ -27,7 +29,8 @@ class FieldGuideContainer extends React.Component {
 
   render () {
     const {
-      showModal
+      showModal,
+      theme
     } = this.props
 
     return (
@@ -39,6 +42,7 @@ class FieldGuideContainer extends React.Component {
           modal={false}
           pad='medium'
           position='right'
+          theme={theme}
           title={counterpart('FieldGuide.title')}
         >
           <FieldGuide />
