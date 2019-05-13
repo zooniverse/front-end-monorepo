@@ -42,8 +42,10 @@ describe('Component > SingleImageViewerContainer', function () {
   })
 
   describe('without a subject', function () {
+    const onError = sinon.stub()
+
     before(function () {
-      wrapper = shallow(<SingleImageViewerContainer />)
+      wrapper = shallow(<SingleImageViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -54,14 +56,15 @@ describe('Component > SingleImageViewerContainer', function () {
       expect(wrapper.type()).to.equal(null)
     })
 
-    it('should log an error in the console', function () {
-      expect(console.error).to.have.been.calledOnce
+    it('should throw an error', function () {
+      expect(onError).to.have.been.calledOnce
     })
   })
 
   describe('with a valid subject', function () {
     let imageWrapper
-    let onReady = sinon.stub()
+    const onReady = sinon.stub()
+    const onError = sinon.stub()
 
     before(function () {
       const subject = {
@@ -74,6 +77,7 @@ describe('Component > SingleImageViewerContainer', function () {
         <SingleImageViewerContainer
           ImageObject={ValidImage}
           subject={subject}
+          onError={onError}
           onReady={onReady}
         />
       )
@@ -113,6 +117,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
         imageWrapper.simulate('load', fakeEvent)
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
+        expect(onError).to.not.have.been.called
         done()
       }, DELAY + 10)
     })
@@ -120,7 +125,8 @@ describe('Component > SingleImageViewerContainer', function () {
 
   describe('with an invalid subject', function () {
     let imageWrapper
-    let onReady = sinon.stub()
+    const onReady = sinon.stub()
+    const onError = sinon.stub()
 
     before(function () {
       const subject = {
@@ -133,6 +139,7 @@ describe('Component > SingleImageViewerContainer', function () {
         <SingleImageViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
+          onError={onError}
           onReady={onReady}
         />
       )
@@ -145,7 +152,8 @@ describe('Component > SingleImageViewerContainer', function () {
       }
     })
 
-    afterEach(function () {
+    after(function () {
+      onError.resetHistory()
       onReady.resetHistory()
     })
 
@@ -160,8 +168,7 @@ describe('Component > SingleImageViewerContainer', function () {
           message: 'the SVG image failed to load'
         }
         imageWrapper.simulate('error', fakeSVGError)
-        expect(wrapper.state('loading')).to.equal(asyncStates.error)
-        expect(console.error.withArgs(fakeSVGError)).to.have.been.calledOnce
+        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
         done()
       }, DELAY + 10)
     })
@@ -173,7 +180,7 @@ describe('Component > SingleImageViewerContainer', function () {
           message: 'the SVG image failed to load'
         }
         imageWrapper.simulate('error', fakeSVGError)
-        expect(console.error.withArgs(HTMLImgError)).to.have.been.calledOnce
+        expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
         done()
       }, DELAY + 10)
     })

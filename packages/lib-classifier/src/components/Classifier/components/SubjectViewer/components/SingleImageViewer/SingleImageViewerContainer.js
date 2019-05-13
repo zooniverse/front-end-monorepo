@@ -10,13 +10,11 @@ class SingleImageViewerContainer extends React.Component {
     super()
     this.imageViewer = React.createRef()
     this.onLoad = this.onLoad.bind(this)
-    this.onError = this.onError.bind(this)
     this.state = {
       clientHeight: 0,
       clientWidth: 0,
       naturalHeight: 0,
-      naturalWidth: 0,
-      loading: asyncStates.initialized
+      naturalWidth: 0
     }
   }
 
@@ -35,7 +33,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   async preloadImage () {
-    const { subject } = this.props
+    const { onError, subject } = this.props
     // TODO: Add polyfill for Object.values for IE
     this.setState({ loading: asyncStates.loading })
     try {
@@ -47,11 +45,10 @@ class SingleImageViewerContainer extends React.Component {
         clientHeight: svg.clientHeight,
         clientWidth: svg.clientWidth,
         naturalHeight: img.naturalHeight,
-        naturalWidth: img.naturalWidth,
-        loading: asyncStates.success
+        naturalWidth: img.naturalWidth
       })
     } catch (error) {
-      this.onError(error)
+      onError(error)
     }
   }
 
@@ -64,14 +61,8 @@ class SingleImageViewerContainer extends React.Component {
     onReady(fakeEvent)
   }
 
-  onError (error) {
-    console.error(error)
-    this.setState({ loading: asyncStates.error })
-  }
-
   render () {
-    const { loadingState } = this.state
-    const { subject } = this.props
+    const { loadingState, onError, subject } = this.props
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
@@ -87,7 +78,7 @@ class SingleImageViewerContainer extends React.Component {
     return (
       <SingleImageViewer
         ref={this.imageViewer}
-        onError={this.onError}
+        onError={onError}
         onLoad={this.onLoad}
         url={imageUrl}
       />
@@ -96,6 +87,8 @@ class SingleImageViewerContainer extends React.Component {
 }
 
 SingleImageViewerContainer.propTypes = {
+  loadingState: PropTypes.string,
+  onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
@@ -104,6 +97,8 @@ SingleImageViewerContainer.propTypes = {
 
 SingleImageViewerContainer.defaultProps = {
   ImageObject: window.Image,
+  loadingState: asyncStates.initialized,
+  onError: () => true,
   onReady: () => true
 }
 
