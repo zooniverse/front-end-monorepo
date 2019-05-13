@@ -21,7 +21,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   componentDidMount () {
-    this.handleSubject()
+    this.preloadImage()
   }
 
   // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
@@ -37,7 +37,7 @@ class SingleImageViewerContainer extends React.Component {
     })
   }
 
-  async handleSubject () {
+  async preloadImage () {
     const { subject } = this.props
     // TODO: Add polyfill for Object.values for IE
     this.setState({ loading: asyncStates.loading })
