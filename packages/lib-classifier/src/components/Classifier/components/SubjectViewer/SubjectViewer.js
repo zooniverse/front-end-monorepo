@@ -7,9 +7,10 @@ import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
   const { active: subject, loadingState } = stores.classifierStore.subjects
-  const { onSubjectReady } = stores.classifierStore.subjectViewer
+  const { onSubjectReady, onError } = stores.classifierStore.subjectViewer
   return {
     loadingState,
+    onError,
     onSubjectReady,
     subject
   }
@@ -32,12 +33,13 @@ class SubjectViewer extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { onSubjectReady, subject } = this.props
+    const { onError, onSubjectReady, subject } = this.props
     const Viewer = getViewer(subject.viewer)
     return (
       <Viewer
         key={subject.id}
         subject={subject}
+        onError={onError}
         onReady={onSubjectReady}
       />
     )
