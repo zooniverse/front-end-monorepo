@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
@@ -9,18 +10,39 @@ describe('Component > SingleImageViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
+  const DELAY = 100
+  const HTMLImgError = {
+    message: 'The HTML img did not load'
+  }
 
   // mock an image that loads after a delay of 0.1s
-  class MockImage {
-    constructor () {
+  class ValidImage {
+    constructor() {
       this.naturalHeight = height
       this.naturalWidth = width
-      setTimeout(() => this.onload(), 100)
+      setTimeout(() => this.onload(), DELAY)
     }
   }
 
+  // mock an image that errors after a delay of 0.1s
+  class InvalidImage {
+    constructor() {
+      this.naturalHeight = height
+      this.naturalWidth = width
+      setTimeout(() => this.onerror(HTMLImgError), DELAY)
+    }
+  }
+
+  before(function () {
+    sinon.stub(console, 'error')
+  })
+
+  after(function () {
+    console.error.restore()
+  })
+
   describe('without a subject', function () {
-    beforeEach(function () {
+    before(function () {
       wrapper = shallow(<SingleImageViewerContainer />)
     })
 
@@ -31,9 +53,13 @@ describe('Component > SingleImageViewerContainer', function () {
     it('should render null', function () {
       expect(wrapper.type()).to.equal(null)
     })
+
+    it('should log an error in the console', function () {
+      expect(console.error).to.have.been.calledOnce
+    })
   })
 
-  describe('with a subject', function () {
+  describe('with a valid subject', function () {
     let imageWrapper
     let onReady = sinon.stub()
 
@@ -46,7 +72,7 @@ describe('Component > SingleImageViewerContainer', function () {
       }
       wrapper = shallow(
         <SingleImageViewerContainer
-          ImageObject={MockImage}
+          ImageObject={ValidImage}
           subject={subject}
           onReady={onReady}
         />
@@ -88,7 +114,80 @@ describe('Component > SingleImageViewerContainer', function () {
         imageWrapper.simulate('load', fakeEvent)
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
         done()
-      }, 150)
+      }, DELAY + 10)
+    })
+  })
+
+  describe('with an invalid subject', function () {
+    let imageWrapper
+    let onReady = sinon.stub()
+
+    before(function () {
+      const subject = {
+        id: 'test',
+        locations: [
+          { 'image/jpeg': ''}
+        ]
+      }
+      wrapper = shallow(
+        <SingleImageViewerContainer
+          ImageObject={InvalidImage}
+          subject={subject}
+          onReady={onReady}
+        />
+      )
+      imageWrapper = wrapper.find(SingleImageViewer)
+      wrapper.instance().imageViewer = {
+        current: {
+          clientHeight: 100,
+          clientWidth: 200
+        }
+      }
+    })
+
+    afterEach(function () {
+      onReady.resetHistory()
+    })
+
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok
+    })
+
+    it('should log an error from the SVG image', function (done) {
+      setTimeout(function() {
+        const svg = wrapper.instance().imageViewer.current
+        const fakeSVGError = {
+          message: 'the SVG image failed to load'
+        }
+        imageWrapper.simulate('error', fakeSVGError)
+        expect(wrapper.state('loading')).to.equal(asyncStates.error)
+        expect(console.error.withArgs(fakeSVGError)).to.have.been.calledOnce
+        done()
+      }, DELAY + 10)
+    })
+
+    it('should log an error from the HTML img', function (done) {
+      setTimeout(function() {
+        const svg = wrapper.instance().imageViewer.current
+        const fakeSVGError = {
+          message: 'the SVG image failed to load'
+        }
+        imageWrapper.simulate('error', fakeSVGError)
+        expect(console.error.withArgs(HTMLImgError)).to.have.been.calledOnce
+        done()
+      }, DELAY + 10)
+    })
+
+    it('should not call onReady', function (done) {
+      setTimeout(function() {
+        const svg = wrapper.instance().imageViewer.current
+        const fakeSVGError = {
+          message: 'the SVG image failed to load'
+        }
+        imageWrapper.simulate('error', fakeSVGError)
+        expect(onReady).to.not.have.been.called
+        done()
+      }, DELAY + 10)
     })
   })
 })
