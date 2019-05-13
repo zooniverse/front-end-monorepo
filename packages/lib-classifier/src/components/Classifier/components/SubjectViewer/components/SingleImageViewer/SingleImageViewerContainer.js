@@ -24,9 +24,6 @@ class SingleImageViewerContainer extends React.Component {
     this.preloadImage()
   }
 
-  // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
-  // in the classification metadata
-  // Using SVG image might need to be rethought
   fetchImage (url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
