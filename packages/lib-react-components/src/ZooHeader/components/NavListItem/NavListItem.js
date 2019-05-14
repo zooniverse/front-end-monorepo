@@ -21,9 +21,10 @@ export const StyledNavListItem = styled(Anchor)`
   }
 `
 
-export default function NavListItem ({ color, label, url }) {
+// TODO: This component is causing a styled-components error and needs a fix
+export default function NavListItem ({ className, color, label, url }) {
   return (
-    <StyledNavListItem color={color} href={url} >
+    <StyledNavListItem className={className} color={color} href={url} >
       <SpacedText
         size='xsmall'
         weight='bold'
