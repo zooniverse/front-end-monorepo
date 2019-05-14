@@ -13,11 +13,11 @@ function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
   const { active: step } = stores.classifierStore.workflowSteps
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
-  const { ready } = stores.classifierStore.subjectViewer
+  const { loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
   return {
     loadingState,
-    ready,
     step,
+    subjectReadyState,
     tasks
   }
 }
@@ -39,7 +39,8 @@ export class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { ready, tasks } = this.props
+    const { subjectReadyState, tasks } = this.props
+    const ready = subjectReadyState === asyncStates.success
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area

@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
@@ -15,7 +16,7 @@ const SubjectViewer = types
     fullscreen: types.optional(types.boolean, false),
     move: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
-    ready: types.optional(types.boolean, false)
+    loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized)
   })
 
   .volatile(self => ({
@@ -69,6 +70,11 @@ const SubjectViewer = types
         self.fullscreen = false
       },
 
+      onError (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
+      },
+
       onSubjectReady (event) {
         const { target = {} } = event || {}
         const {
@@ -78,11 +84,11 @@ const SubjectViewer = types
           naturalWidth = 0
         } = target
         self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
-        self.ready = true
+        self.loadingState = asyncStates.success
       },
 
       resetSubject () {
-        self.ready = false
+        self.loadingState = asyncStates.loading
         self.dimensions = []
       },
 
