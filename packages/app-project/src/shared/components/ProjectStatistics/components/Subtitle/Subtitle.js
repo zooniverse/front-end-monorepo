@@ -25,7 +25,7 @@ Subtitle.defaultProps = {
   margin: 'none',
   screenSize: '',
   size: 'small',
-  tag: 'h5',
+  tag: 'h3',
   weight: 'bold'
 }
 

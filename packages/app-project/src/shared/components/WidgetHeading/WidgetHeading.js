@@ -12,6 +12,7 @@ function WidgetHeading (props) {
           dark: 'light-1',
           light: 'black'
         }}
+        size='medium'
         weight='bold'
       >
         {text}
@@ -26,7 +27,7 @@ WidgetHeading.propTypes = {
 }
 
 WidgetHeading.defaultProps = {
-  level: '4'
+  level: '2'
 }
 
 export default WidgetHeading

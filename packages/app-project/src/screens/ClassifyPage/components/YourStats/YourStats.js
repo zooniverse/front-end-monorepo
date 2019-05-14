@@ -35,6 +35,7 @@ function YourStats (props) {
       <Box pad={{ top: 'small' }}>
         <WidgetHeading
           text={counterpart('YourStats.dailyCount', { projectName })}
+          level='3'
         />
         <DailyClassificationsChart />
       </Box>
