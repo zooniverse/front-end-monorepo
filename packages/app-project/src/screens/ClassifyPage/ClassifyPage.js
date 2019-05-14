@@ -1,7 +1,8 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
-import { func } from 'prop-types'
+import { func, string } from 'prop-types'
 import React from 'react'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
 import FinishedForTheDay from './components/FinishedForTheDay'
 import ThemeModeToggle from '../../components/ThemeModeToggle'
@@ -14,34 +15,34 @@ const ClassifierWrapper = dynamic(() =>
 )
 
 function ClassifyPage (props) {
-  const { addToCollection } = props
+  const { addToCollection, screenSize } = props
+  const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['1em', 'auto', '1em']
+
   return (
-    <Grid columns={['auto', 'auto', 'auto']}>
-      <ProjectName />
-      <Box
-        gap='medium'
-        pad={{
-          horizontal: 'small',
-          vertical: 'medium'
-        }}>
+    <Box gap='medium' pad={{ horizontal: 'small', vertical: 'medium' }}>
+      <Grid columns={responsiveColumns} gap='small'>
+        <ProjectName />
         <ClassifierWrapper
           onAddToCollection={addToCollection}
         />
-        <FinishedForTheDay />
-        <Grid columns={['auto', 'auto', 'auto']} gap='medium'>
-          <YourStats />
-        </Grid>
-        <ProjectStatistics />
-        <ConnectWithProject />
-      </Box>
-      <ThemeModeToggle />
-    </Grid>
+        <ThemeModeToggle />
+      </Grid>
+
+      <FinishedForTheDay />
+      <Grid columns={['auto', 'auto', 'auto']} gap='medium'>
+        <YourStats />
+      </Grid>
+      <ProjectStatistics />
+      <ConnectWithProject />
+    </Box>
 
   )
 }
 
 ClassifyPage.propTypes = {
-  addToCollection: func
+  addToCollection: func,
+  screenSize: string
 }
 
-export default ClassifyPage
+export default withResponsiveContext(ClassifyPage)
+export { ClassifyPage }

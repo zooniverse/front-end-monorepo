@@ -43,5 +43,4 @@ describe('withRequireUser', function () {
       expect(wrapper.children()).to.have.lengthOf(1)
     })
   })
-
 })

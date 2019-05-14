@@ -10,7 +10,7 @@ import { jsx, markdown } from './helpers/testExamples'
 describe('<Markdownz />', function () {
   let wrapper
 
-  it('renders without crashing', function () { 
+  it('renders without crashing', function () {
     wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
     expect(wrapper).to.be.ok
   })
@@ -23,7 +23,7 @@ describe('<Markdownz />', function () {
   describe('at-mentions', function () {
     ['srallen', 'am.zooni', 'a-user'].forEach(function (username) {
       describe(username, function () {
-        function findMention(sentence) {
+        function findMention (sentence) {
           wrapper = shallow(<Markdownz>{sentence}</Markdownz>)
           const pingAnchor = wrapper.find({ href: `/users/${username}` })
           expect(pingAnchor).to.have.lengthOf(1)
@@ -51,7 +51,7 @@ describe('<Markdownz />', function () {
   it('correctly parses a subject mention in project context', function () {
     const sentence = `Look at this interesting subject: ^S1234.`
     wrapper = shallow(<Markdownz projectSlug='zooniverse/snapshot-wakanda'>{sentence}</Markdownz>)
-    const pingAnchor = wrapper.find({ href: "/projects/zooniverse/snapshot-wakanda/talk/subjects/1234" })
+    const pingAnchor = wrapper.find({ href: '/projects/zooniverse/snapshot-wakanda/talk/subjects/1234' })
     expect(pingAnchor).to.have.lengthOf(1)
     expect(pingAnchor.text()).to.equal('^S1234')
   })

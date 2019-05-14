@@ -46,6 +46,7 @@ function ContentBox (props) {
           direction='row'
           justify={title ? 'between' : 'end'}
           margin={{ bottom: 'small' }}
+          wrap
         >
 
           {title && (

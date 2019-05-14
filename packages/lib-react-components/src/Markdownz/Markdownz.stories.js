@@ -19,7 +19,6 @@ const config = {
   }
 }
 
-
 storiesOf('Markdownz', module)
 
   .add('Light theme (default)', () => (

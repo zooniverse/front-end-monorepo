@@ -42,7 +42,7 @@ storiesOf('Media', module)
           alt='A galaxy'
           delay={3000}
           height={250}
-          placeholder={<ZooniverseLogo size="38%" />}
+          placeholder={<ZooniverseLogo size='38%' />}
           src={text('Image URL', IMAGE_URL)}
           width={250}
         />
