@@ -158,7 +158,6 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should log an error from an invalid SVG image', function (done) {
-      const svg = wrapper.instance().imageViewer.current
       const fakeSVGError = {
         message: 'the SVG image failed to load'
       }
@@ -184,7 +183,6 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should not call onReady', function (done) {
-      const svg = wrapper.instance().imageViewer.current
       const fakeSVGError = {
         message: 'the SVG image failed to load'
       }
