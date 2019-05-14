@@ -99,23 +99,23 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function (done) {
-      setTimeout(function () {
-        const svg = wrapper.instance().imageViewer.current
-        const fakeEvent = {
-          target: {
-            clientHeight: 0,
-            clientWidth: 0
-          }
+      const svg = wrapper.instance().imageViewer.current
+      const fakeEvent = {
+        target: {
+          clientHeight: 0,
+          clientWidth: 0
         }
-        const expectedEvent = {
-          target: {
-            clientHeight: svg.clientHeight,
-            clientWidth: svg.clientWidth,
-            naturalHeight: height,
-            naturalWidth: width
-          }
+      }
+      const expectedEvent = {
+        target: {
+          clientHeight: svg.clientHeight,
+          clientWidth: svg.clientWidth,
+          naturalHeight: height,
+          naturalWidth: width
         }
-        imageWrapper.simulate('load', fakeEvent)
+      }
+      imageWrapper.simulate('load', fakeEvent)
+      setTimeout(function() {
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
         expect(onError).to.not.have.been.called
         done()
@@ -162,36 +162,36 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should log an error from the SVG image', function (done) {
+      const svg = wrapper.instance().imageViewer.current
+      const fakeSVGError = {
+        message: 'the SVG image failed to load'
+      }
+      imageWrapper.simulate('error', fakeSVGError)
       setTimeout(function() {
-        const svg = wrapper.instance().imageViewer.current
-        const fakeSVGError = {
-          message: 'the SVG image failed to load'
-        }
-        imageWrapper.simulate('error', fakeSVGError)
         expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
         done()
       }, DELAY + 10)
     })
 
     it('should log an error from the HTML img', function (done) {
+      const svg = wrapper.instance().imageViewer.current
+      const fakeSVGError = {
+        message: 'the SVG image failed to load'
+      }
+      imageWrapper.simulate('error', fakeSVGError)
       setTimeout(function() {
-        const svg = wrapper.instance().imageViewer.current
-        const fakeSVGError = {
-          message: 'the SVG image failed to load'
-        }
-        imageWrapper.simulate('error', fakeSVGError)
         expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
         done()
       }, DELAY + 10)
     })
 
     it('should not call onReady', function (done) {
+      const svg = wrapper.instance().imageViewer.current
+      const fakeSVGError = {
+        message: 'the SVG image failed to load'
+      }
+      imageWrapper.simulate('error', fakeSVGError)
       setTimeout(function() {
-        const svg = wrapper.instance().imageViewer.current
-        const fakeSVGError = {
-          message: 'the SVG image failed to load'
-        }
-        imageWrapper.simulate('error', fakeSVGError)
         expect(onReady).to.not.have.been.called
         done()
       }, DELAY + 10)
