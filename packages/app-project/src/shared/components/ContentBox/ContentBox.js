@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import Link from 'next/link'
-import { node, string } from 'prop-types'
+import { bool, node, shape, string } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 
@@ -10,11 +10,11 @@ import WidgetHeading from '../WidgetHeading'
 function ContentBox (props) {
   const {
     children,
-    className,
     linkLabel,
     linkUrl,
     theme: { dark },
     title,
+    titleLevel,
     ...rest
   } = props
 
@@ -34,7 +34,6 @@ function ContentBox (props) {
         side: 'all',
         size: 'thin'
       }}
-      className={className}
       elevation={dark ? 'xlarge' : 'none'}
       pad='medium'
       {...rest}
@@ -50,7 +49,7 @@ function ContentBox (props) {
         >
 
           {title && (
-            <WidgetHeading text={title} />
+            <WidgetHeading text={title} level={titleLevel} />
           )}
 
           {(linkLabel && linkUrl) && (
@@ -75,8 +74,9 @@ ContentBox.propTypes = {
   children: node,
   linkLabel: string,
   linkUrl: string,
+  theme: shape({ dark: bool }),
   title: string,
-  mode: string
+  titleLevel: string
 }
 
 export default withTheme(ContentBox)
