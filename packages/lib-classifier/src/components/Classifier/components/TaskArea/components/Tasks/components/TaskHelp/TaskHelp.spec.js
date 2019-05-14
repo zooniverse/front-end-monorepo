@@ -9,7 +9,7 @@ const tasks = [{
   help: '# Try this'
 }]
 
-describe.only('TaskHelp', function () {
+describe('TaskHelp', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<TaskHelp.wrappedComponent tasks={tasks} />)
     expect(wrapper).to.be.ok
