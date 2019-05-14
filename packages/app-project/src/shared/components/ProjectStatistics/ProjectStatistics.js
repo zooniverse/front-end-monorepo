@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Text, Paragraph } from 'grommet'
-import PropTypes from 'prop-types'
+import { number, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -84,10 +84,13 @@ function ProjectStatistics ({
 }
 
 ProjectStatistics.propTypes = {
-  classifications: PropTypes.number.isRequired,
-  completedSubjects: PropTypes.number.isRequired,
-  subjects: PropTypes.number.isRequired,
-  volunteers: PropTypes.number.isRequired
+  className: string,
+  classifications: number.isRequired,
+  completedSubjects: number.isRequired,
+  projectName: string,
+  projectSlug: string,
+  subjects: number.isRequired,
+  volunteers: number.isRequired
 }
 
 ProjectStatistics.defaultProps = {
