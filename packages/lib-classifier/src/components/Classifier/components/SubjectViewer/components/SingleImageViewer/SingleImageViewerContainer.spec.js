@@ -110,12 +110,12 @@ describe('Component > SingleImageViewerContainer', function () {
           naturalWidth: width
         }
       }
-      imageWrapper.simulate('load', fakeEvent)
-      setTimeout(function () {
+      onReady.callsFake(function () {
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
         expect(onError).to.not.have.been.called
         done()
-      }, DELAY + 10)
+      })
+      imageWrapper.simulate('load', fakeEvent)
     })
   })
 
@@ -161,11 +161,11 @@ describe('Component > SingleImageViewerContainer', function () {
       const fakeSVGError = {
         message: 'the SVG image failed to load'
       }
-      imageWrapper.simulate('error', fakeSVGError)
-      setTimeout(function () {
+      onError.callsFake(function () {
         expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
         done()
-      }, DELAY + 10)
+      })
+      imageWrapper.simulate('error', fakeSVGError)
     })
 
     it('should log an error from an invalid HTML img', function (done) {
@@ -175,22 +175,22 @@ describe('Component > SingleImageViewerContainer', function () {
           clientWidth: 0
         }
       }
-      imageWrapper.simulate('load', fakeEvent)
-      setTimeout(function () {
+      onError.callsFake(function () {
         expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
         done()
-      }, DELAY + 10)
+      })
+      imageWrapper.simulate('load', fakeEvent)
     })
 
     it('should not call onReady', function (done) {
       const fakeSVGError = {
         message: 'the SVG image failed to load'
       }
-      imageWrapper.simulate('error', fakeSVGError)
-      setTimeout(function () {
+      onError.callsFake(function () {
         expect(onReady).to.not.have.been.called
         done()
-      }, DELAY + 10)
+      })
+      imageWrapper.simulate('error', fakeSVGError)
     })
   })
 })
