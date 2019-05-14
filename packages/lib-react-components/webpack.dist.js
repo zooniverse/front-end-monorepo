@@ -2,6 +2,7 @@ const path = require('path')
 const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/index.js',
   mode: 'production',
   module: {
@@ -12,9 +13,6 @@ module.exports = {
         use: 'babel-loader'
       }
     ]
-  },
-  optimization: {
-    minimize: false // disabled for now to make debugging easier
   },
   output: {
     path: path.resolve('dist'),
