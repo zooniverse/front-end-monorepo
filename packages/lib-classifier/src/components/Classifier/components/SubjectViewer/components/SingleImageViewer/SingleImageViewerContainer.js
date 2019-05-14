@@ -42,8 +42,7 @@ class SingleImageViewerContainer extends React.Component {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
-    }
-    catch (error) {
+    } catch (error) {
       onError(error)
     }
   }

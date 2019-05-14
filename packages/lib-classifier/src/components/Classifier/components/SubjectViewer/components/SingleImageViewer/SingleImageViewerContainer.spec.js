@@ -17,7 +17,7 @@ describe('Component > SingleImageViewerContainer', function () {
 
   // mock an image that loads after a delay of 0.1s
   class ValidImage {
-    constructor() {
+    constructor () {
       this.naturalHeight = height
       this.naturalWidth = width
       setTimeout(() => this.onload(), DELAY)
@@ -26,7 +26,7 @@ describe('Component > SingleImageViewerContainer', function () {
 
   // mock an image that errors after a delay of 0.1s
   class InvalidImage {
-    constructor() {
+    constructor () {
       this.naturalHeight = height
       this.naturalWidth = width
       setTimeout(() => this.onerror(HTMLImgError), DELAY)
@@ -111,7 +111,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
       }
       imageWrapper.simulate('load', fakeEvent)
-      setTimeout(function() {
+      setTimeout(function () {
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
         expect(onError).to.not.have.been.called
         done()
@@ -128,7 +128,7 @@ describe('Component > SingleImageViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
-          { 'image/jpeg': ''}
+          { 'image/jpeg': '' }
         ]
       }
       wrapper = shallow(
@@ -163,7 +163,7 @@ describe('Component > SingleImageViewerContainer', function () {
         message: 'the SVG image failed to load'
       }
       imageWrapper.simulate('error', fakeSVGError)
-      setTimeout(function() {
+      setTimeout(function () {
         expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
         done()
       }, DELAY + 10)
@@ -177,7 +177,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
       }
       imageWrapper.simulate('load', fakeEvent)
-      setTimeout(function() {
+      setTimeout(function () {
         expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
         done()
       }, DELAY + 100)
@@ -189,7 +189,7 @@ describe('Component > SingleImageViewerContainer', function () {
         message: 'the SVG image failed to load'
       }
       imageWrapper.simulate('error', fakeSVGError)
-      setTimeout(function() {
+      setTimeout(function () {
         expect(onReady).to.not.have.been.called
         done()
       }, DELAY + 10)
