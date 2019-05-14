@@ -1,7 +1,5 @@
-import { withKnobs, text } from '@storybook/addon-knobs'
-import zooTheme from '@zooniverse/grommet-theme'
 import { Button } from 'grommet'
-import { func, string } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
@@ -20,16 +18,18 @@ export const StyledPlainButton = styled(Button)`
 `
 
 function PlainButton (props) {
-  const { onClick, text,  } = props
-  // const labelColor = determineColor(theme)
+  const { className, onClick, labelSize, text } = props
+
   return (
     <StyledPlainButton
+      className={className}
       label={(
         <SpacedText
           color={{
             dark: 'accent-2',
             light: 'neutral-2'
           }}
+          size={labelSize}
         >
           {text}
         </SpacedText>
@@ -42,12 +42,23 @@ function PlainButton (props) {
 }
 
 PlainButton.defaultProps = {
+  className: '',
+  labelSize: 'medium',
+  onClick: () => {},
+  text: '',
+  theme: {
+    dark: false
+  }
 }
 
 PlainButton.propTypes = {
+  className: string,
+  labelSize: string,
   onClick: func,
-  label: string,
-  theme: string
+  text: string,
+  theme: shape({
+    dark: bool
+  })
 }
 
 export default withTheme(PlainButton)

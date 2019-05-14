@@ -106,6 +106,18 @@ Object.keys(statusColors).forEach((color) => {
 
 const theme = deepFreeze({
   global: {
+    breakpoints: {
+      small: {
+        edgeSize: {
+          xxsmall: '5px',
+          xsmall: `10px`,
+          small: `15px`,
+          medium: `20px`,
+          large: `25px`,
+          xlarge: `30px`,
+        }
+      }
+    },
     colors,
     edgeSize: {
       xxsmall: '5px',

@@ -28,7 +28,7 @@ class FinishedForTheDayContainer extends Component {
   }
 }
 
-FinishedForTheDayContainer.propTypes = {
+FinishedForTheDayContainer.wrappedComponent.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   projectName: PropTypes.string.isRequired
@@ -37,7 +37,7 @@ FinishedForTheDayContainer.propTypes = {
 // We wouldn't normally have a `defaultProp` for a required prop, but there's
 // something going on with the store execution order which leaves it undefined
 // without one.
-FinishedForTheDayContainer.defaultProps = {
+FinishedForTheDayContainer.wrappedComponent.defaultProps = {
   imageSrc: '',
   isLoggedIn: false,
   projectName: ''

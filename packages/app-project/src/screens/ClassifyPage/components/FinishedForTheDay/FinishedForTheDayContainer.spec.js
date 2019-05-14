@@ -22,6 +22,7 @@ describe('Component > FinishedForTheDayContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
+  // Enzyme does not support context correctly yet
   it('should render the `FinishedForTheDay` component', function () {
     expect(finishedForTheDayWrapper).to.have.lengthOf(1)
   })

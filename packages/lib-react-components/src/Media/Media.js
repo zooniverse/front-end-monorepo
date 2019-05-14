@@ -5,7 +5,7 @@ import ThumbnailImage from './components/ThumbnailImage'
 import Video from './components/Video'
 import { propTypes, defaultProps } from './helpers/mediaPropTypes'
 
-export default function Media(props) {
+export default function Media (props) {
   const mimeType = mime.lookup(props.src)
 
   if (mimeType && mimeType.includes('image')) {

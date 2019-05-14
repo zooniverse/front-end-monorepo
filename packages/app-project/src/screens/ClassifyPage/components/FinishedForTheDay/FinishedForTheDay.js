@@ -4,6 +4,7 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
@@ -26,42 +27,42 @@ const StyledBox = styled(Box)`
 
 // TODO: Add `<RelatedProjects />` back in once API is up
 function FinishedForTheDay (props) {
-  const { imageSrc, isLoggedIn, projectName, theme: { dark } } = props
-  const columns = (imageSrc) ? ['1/4', 'auto'] : ['auto']
+  const { imageSrc, isLoggedIn, projectName, screenSize, theme: { dark } } = props
+  const columns = (imageSrc && screenSize !== 'small') ? ['1/4', 'auto'] : ['auto']
 
   return (
     <Box elevation={dark ? 'xlarge' : 'none'}>
       <Grid columns={columns}>
-      {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
-      <ContentBox elevation='none'>
-        <Heading
-          level='3'
-          margin={{ bottom: 'small', top: 'none' }}
-        >
-          {counterpart('FinishedForTheDay.title')}
-        </Heading>
-        <Paragraph
-          margin={{ bottom: 'small', top: 'none' }}
-        >
-          {counterpart('FinishedForTheDay.text', { projectName })}
-        </Paragraph>
-        <StyledBox direction='row' wrap>
-          {isLoggedIn && (
-            <Link href='/#projects' passHref>
-              <StyledButton
-                label={(
-                  <Text size='medium'>
-                    {counterpart('FinishedForTheDay.buttons.stats')}
-                  </Text>
-                )}
-                primary
-                color='brand'
-              />
-            </Link>
-          )}
-        </StyledBox>
-      </ContentBox>
-    </Grid>
+        {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
+        <ContentBox elevation='none'>
+          <Heading
+            level='3'
+            margin={{ bottom: 'small', top: 'none' }}
+          >
+            {counterpart('FinishedForTheDay.title')}
+          </Heading>
+          <Paragraph
+            margin={{ bottom: 'small', top: 'none' }}
+          >
+            {counterpart('FinishedForTheDay.text', { projectName })}
+          </Paragraph>
+          <StyledBox direction='row' wrap>
+            {isLoggedIn && (
+              <Link href='/#projects' passHref>
+                <StyledButton
+                  label={(
+                    <Text size='medium'>
+                      {counterpart('FinishedForTheDay.buttons.stats')}
+                    </Text>
+                  )}
+                  primary
+                  color='brand'
+                />
+              </Link>
+            )}
+          </StyledBox>
+        </ContentBox>
+      </Grid>
     </Box>
   )
 }
@@ -80,5 +81,5 @@ FinishedForTheDay.defaultProps = {
   }
 }
 
-export default withTheme(FinishedForTheDay)
+export default withTheme(withResponsiveContext(FinishedForTheDay))
 export { FinishedForTheDay }

@@ -1,6 +1,6 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { SpacedText, withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Box } from 'grommet'
+import { Button } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import React from 'react'
@@ -14,42 +14,44 @@ const StyledButton = styled(Button)`
   white-space: nowrap;
 
   > div {
-    flex-direction: column-reverse;
+    flex-direction: ${(props) => (props.screenSize === 'small') ? 'row' : 'column-reverse'};
   }
 `
 
 const StyledInfo = styled(Info)`
-  transform: rotate(270deg);
-  margin-top: 6px;
+  height: 1em;
+  transform: ${(props) => (props.screensize === 'small') ? 'none' : 'rotate(270deg)'};
+  margin-top: ${(props) => (props.screensize === 'small') ? '0' : '6px'};
+  width: 1em;
 `
 
 const StyledText = styled(SpacedText)`
-  transform: rotate(180deg);
-  writing-mode: vertical-lr;
+  transform: ${(props) => (props.screenSize === 'small') ? 'none' : 'rotate(180deg)'};
+  writing-mode: ${(props) => (props.screenSize === 'small') ? 'unset' : 'vertical-lr'};
 `
 
 function ThemeModeToggle (props) {
-  const { onClick, theme: { dark } } = props
+  const { onClick, screenSize, theme: { dark } } = props
   const text = dark
     ? counterpart('ThemeModeToggle.switchToLight')
     : counterpart('ThemeModeToggle.switchToDark')
 
   const Label = (
-    <StyledText color={{ dark: 'accent-2', light: 'neutral-2' }} size='medium'>
+    <StyledText color={{ dark: 'accent-2', light: 'neutral-2' }} screenSize={screenSize} size='medium'>
       {text}
     </StyledText>
   )
 
   return (
-    <Box pad={{ top: 'medium', right: 'small', bottom: 'medium' }}>
-      <StyledButton
-        a11yTitle={text}
-        icon={<StyledInfo />}
-        label={Label}
-        onClick={onClick}
-        plain
-      />
-    </Box>
+    <StyledButton
+      a11yTitle={text}
+      gap='xsmall'
+      icon={<StyledInfo screensize={screenSize} />}
+      label={Label}
+      onClick={onClick}
+      plain
+      screenSize={screenSize}
+    />
   )
 }
 
@@ -58,4 +60,4 @@ ThemeModeToggle.propTypes = {
   onClick: func
 }
 
-export default withTheme(ThemeModeToggle)
+export default withTheme(withResponsiveContext(ThemeModeToggle))

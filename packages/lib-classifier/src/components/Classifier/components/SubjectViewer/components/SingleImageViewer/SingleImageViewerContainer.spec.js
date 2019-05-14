@@ -12,7 +12,7 @@ describe('Component > SingleImageViewerContainer', function () {
 
   // mock an image that loads after a delay of 0.1s
   class MockImage {
-    constructor() {
+    constructor () {
       this.naturalHeight = height
       this.naturalWidth = width
       setTimeout(() => this.onload(), 100)
@@ -32,7 +32,6 @@ describe('Component > SingleImageViewerContainer', function () {
       expect(wrapper.type()).to.equal(null)
     })
   })
-  
 
   describe('with a subject', function () {
     let imageWrapper
@@ -42,7 +41,7 @@ describe('Component > SingleImageViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
-          { 'image/jpeg': 'https://some.domain/image.jpg'}
+          { 'image/jpeg': 'https://some.domain/image.jpg' }
         ]
       }
       wrapper = shallow(
@@ -70,7 +69,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function (done) {
-      setTimeout(function() {
+      setTimeout(function () {
         const svg = wrapper.instance().imageViewer.current
         const fakeEvent = {
           target: {
