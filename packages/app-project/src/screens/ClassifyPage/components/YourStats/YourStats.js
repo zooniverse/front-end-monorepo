@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
-import { string } from 'prop-types'
+import { number, shape, string } from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
@@ -12,7 +12,7 @@ import WidgetHeading from '../../../../shared/components/WidgetHeading'
 counterpart.registerTranslations('en', en)
 
 function YourStats (props) {
-  const { classificationsToday, classificationsTotal, projectName } = props
+  const { counts, projectName } = props
   return (
     <ContentBox
       title={counterpart('YourStats.title', { projectName })}
@@ -23,12 +23,12 @@ function YourStats (props) {
       <Box border={{ color: 'light-5', side: 'bottom' }} pad={{ bottom: 'small' }}>
         <Grid columns={['1fr', '1fr']} gap='small'>
           <Stat
-            value={classificationsToday}
-            label={counterpart('YourStats.classificationsToday')}
+            value={counts.today}
+            label={counterpart('YourStats.todaysCount')}
           />
           <Stat
-            value={classificationsTotal}
-            label={counterpart('YourStats.classificationsTotal')}
+            value={counts.total}
+            label={counterpart('YourStats.totalCount')}
           />
         </Grid>
       </Box>
@@ -44,12 +44,18 @@ function YourStats (props) {
 }
 
 YourStats.propTypes = {
+  counts: shape({
+    today: number,
+    total: number,
+  }),
   projectName: string
 }
 
 YourStats.defaultProps = {
-  classificationsToday: 0,
-  classificationsTotal: 0
+  counts: {
+    today: 0,
+    total: 0
+  }
 }
 
 export default YourStats
