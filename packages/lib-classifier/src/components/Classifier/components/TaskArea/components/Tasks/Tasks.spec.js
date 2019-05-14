@@ -52,7 +52,7 @@ describe('Tasks', function () {
         const wrapper = shallow(
           <Tasks.wrappedComponent
             loadingState={asyncStates.success}
-            ready={false}
+            subjectReadyState={asyncStates.loading}
             tasks={tasks}
           />
         )
@@ -69,7 +69,7 @@ describe('Tasks', function () {
         const wrapper = shallow(
           <Tasks.wrappedComponent
             loadingState={asyncStates.success}
-            ready
+            subjectReadyState={asyncStates.success}
             tasks={tasks}
           />
         )
