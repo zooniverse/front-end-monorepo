@@ -7,16 +7,12 @@ let wrapper
 
 const BANNER_TEXT = 'Foobar'
 const TOOLTIP_TEXT = 'Baz'
-const THEME = {
-  mode: 'light'
-}
 
 const COMPONENT = (
   <Banner
     background='red'
     bannerText={BANNER_TEXT}
     show
-    theme={THEME}
     tooltipText={TOOLTIP_TEXT}
   />
 )

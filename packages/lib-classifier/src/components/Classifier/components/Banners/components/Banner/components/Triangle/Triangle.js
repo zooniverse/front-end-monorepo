@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { oneOf, shape, string } from 'prop-types'
+import { bool, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
@@ -13,8 +13,7 @@ const SVG = styled.svg`
 
 function Triangle (props) {
   const { theme } = props
-  const { colors } = theme.global
-  const fill = (theme.mode === 'light') ? colors.white : colors['dark-2']
+  const fill = theme.dark ? theme.global.colors['dark-2'] : theme.global.colors.white
 
   return (
     <Box
@@ -38,8 +37,20 @@ Triangle.propTypes = {
         white: string
       })
     }),
-    mode: oneOf(['dark', 'light'])
+    dark: bool
   })
+}
+
+Triangle.defaultProps = {
+  theme: {
+    dark: false,
+    global: {
+      colors: {
+        'dark-2': '',
+        white: ''
+      }
+    }
+  }
 }
 
 export default withTheme(Triangle)

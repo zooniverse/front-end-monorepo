@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Button, Drop } from 'grommet'
-import { array, bool, oneOf, oneOfType, shape, string } from 'prop-types'
+import { array, bool, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
@@ -59,7 +59,7 @@ class Banner extends Component {
       background,
       bannerText,
       className,
-      theme: { mode },
+      theme: { dark },
       show,
       tooltipText
     } = this.props
@@ -101,7 +101,7 @@ class Banner extends Component {
                 <Box direction='column' margin='xsmall'>
                   <Triangle />
                   <Box
-                    background={mode === 'light' ? 'white' : 'dark-2'}
+                    background={dark ? 'dark-2' : 'white'}
                     pad='small'
                   >
                     <TooltipText text={tooltipText} />
@@ -121,7 +121,7 @@ Banner.propTypes = {
   bannerText: string.isRequired,
   show: bool,
   theme: shape({
-    mode: oneOf(['dark', 'light'])
+    dark: bool
   }),
   tooltipText: oneOfType([
     array,
@@ -130,7 +130,10 @@ Banner.propTypes = {
 }
 
 Banner.defaultProps = {
-  show: false
+  show: false,
+  theme: {
+    dark: false
+  }
 }
 
 export default withTheme(Banner)
