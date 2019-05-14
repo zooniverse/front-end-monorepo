@@ -376,6 +376,10 @@ const theme = deepFreeze({
     extend: props => `margin: ${props.margin || '10px 0 10px 0'}`
   },
   layer: {
+    background: {
+      dark: 'dark-1',
+      light: 'light-1'
+    },
     border: {
       radius: '0px'
     }
