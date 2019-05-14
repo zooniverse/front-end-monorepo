@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Metadata from './Metadata'
 import MetadataButton from './components/MetadataButton'
+import MetadataModal from './components/MetadataModal'
 
 describe('Metadata', function () {
   it('should render without crashing', function () {
@@ -16,7 +17,7 @@ describe('Metadata', function () {
     })
 
     it('should not render the MetadataModal', function () {
-      expect(wrapper.find('MetadataModal')).to.have.lengthOf(0)
+      expect(wrapper.find(MetadataModal)).to.have.lengthOf(0)
     })
 
     it('should disable the MetadataButton', function () {
@@ -31,7 +32,7 @@ describe('Metadata', function () {
     })
 
     it('should render the MetadataModal', function () {
-      expect(wrapper.find('MetadataModal')).to.have.lengthOf(1)
+      expect(wrapper.find(MetadataModal)).to.have.lengthOf(1)
     })
 
     it('should not disable the MetadataButton', function () {
