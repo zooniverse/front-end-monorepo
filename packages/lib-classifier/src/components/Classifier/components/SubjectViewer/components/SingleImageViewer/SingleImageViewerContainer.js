@@ -10,16 +10,6 @@ class SingleImageViewerContainer extends React.Component {
     super()
     this.imageViewer = React.createRef()
     this.onLoad = this.onLoad.bind(this)
-    this.state = {
-      clientHeight: 0,
-      clientWidth: 0,
-      naturalHeight: 0,
-      naturalWidth: 0
-    }
-  }
-
-  componentDidMount () {
-    this.preloadImage()
   }
 
   fetchImage (url) {
@@ -32,33 +22,30 @@ class SingleImageViewerContainer extends React.Component {
     })
   }
 
-  async preloadImage () {
+  async getImageSize () {
     const { onError, subject } = this.props
     // TODO: Add polyfill for Object.values for IE
-    this.setState({ loading: asyncStates.loading })
-    try {
-      const imageUrl = Object.values(subject.locations[0])[0]
-      const img = await this.fetchImage(imageUrl)
-      const svg = this.imageViewer.current
-
-      this.setState({
-        clientHeight: svg.clientHeight,
-        clientWidth: svg.clientWidth,
-        naturalHeight: img.naturalHeight,
-        naturalWidth: img.naturalWidth
-      })
-    } catch (error) {
-      onError(error)
+    const imageUrl = Object.values(subject.locations[0])[0]
+    const img = await this.fetchImage(imageUrl)
+    const svg = this.imageViewer.current
+    return {
+      clientHeight: svg.clientHeight,
+      clientWidth: svg.clientWidth,
+      naturalHeight: img.naturalHeight,
+      naturalWidth: img.naturalWidth
     }
   }
 
-  onLoad (event) {
-    const { onReady } = this.props
-    const { clientHeight, clientWidth, naturalHeight, naturalWidth } = this.state
-    const { target } = event || {}
-    const newTarget = Object.assign({}, target, { clientHeight, clientWidth, naturalHeight, naturalWidth })
-    const fakeEvent = Object.assign({}, event, { target: newTarget })
-    onReady(fakeEvent)
+  async onLoad () {
+    const { onError, onReady } = this.props
+    try {
+      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      onReady({ target })
+    }
+    catch (error) {
+      onError(error)
+    }
   }
 
   render () {
