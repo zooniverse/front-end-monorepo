@@ -22,7 +22,8 @@ npm run dev
 
 Starts a development server on port 3000 by default.
 
-### Running in Storybook
+**Note:** `PANOPTES_ENV` is set to `production` when running `npm run dev`. This is so the project avatars for publications can be fetched from the production API. If `PANOPTES_ENV` is set to anything else, the fallback image will show.
+
 
 ```sh
 npm run storybook
