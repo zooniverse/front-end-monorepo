@@ -2,6 +2,7 @@ const path = require('path')
 const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/index.js',
   mode: 'production',
   module: {

@@ -2,14 +2,14 @@ import { Button } from 'grommet'
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import TaskHelp from './TaskHelp'
+import TaskHelp, { StyledPlainButton as NeedHelpButton } from './TaskHelp'
 
 const tasks = [{
   taskKey: 'init',
   help: '# Try this'
 }]
 
-describe('TaskHelp', function () {
+describe.only('TaskHelp', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<TaskHelp.wrappedComponent tasks={tasks} />)
     expect(wrapper).to.be.ok
@@ -22,8 +22,7 @@ describe('TaskHelp', function () {
 
   it('should render the modal when the need help button is clicked', function () {
     const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
-    console.info(wrapper.debug())
-    wrapper.find('Styled(WithTheme(PlainButton))').simulate('click')
+    wrapper.find(NeedHelpButton).simulate('click')
     expect(wrapper.state('showModal')).to.be.true
   })
 

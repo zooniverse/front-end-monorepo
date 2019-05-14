@@ -12,6 +12,7 @@ const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
 // so we add them explicitly to webpack's externals config
 // see: https://github.com/Updater/peer-deps-externals-webpack-plugin/issues/5
 module.exports = {
+  devtool: 'source-map',
   entry: './src/components/Classifier/index.js',
   externals: [
     /^(@zooniverse\/grommet-theme\/.*)$/i,
