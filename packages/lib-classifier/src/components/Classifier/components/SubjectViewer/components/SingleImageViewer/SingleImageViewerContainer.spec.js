@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
@@ -9,19 +10,42 @@ describe('Component > SingleImageViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
+  const DELAY = 0
+  const HTMLImgError = {
+    message: 'The HTML img did not load'
+  }
 
   // mock an image that loads after a delay of 0.1s
-  class MockImage {
+  class ValidImage {
     constructor () {
       this.naturalHeight = height
       this.naturalWidth = width
-      setTimeout(() => this.onload(), 100)
+      setTimeout(() => this.onload(), DELAY)
     }
   }
 
+  // mock an image that errors after a delay of 0.1s
+  class InvalidImage {
+    constructor () {
+      this.naturalHeight = height
+      this.naturalWidth = width
+      setTimeout(() => this.onerror(HTMLImgError), DELAY)
+    }
+  }
+
+  before(function () {
+    sinon.stub(console, 'error')
+  })
+
+  after(function () {
+    console.error.restore()
+  })
+
   describe('without a subject', function () {
-    beforeEach(function () {
-      wrapper = shallow(<SingleImageViewerContainer />)
+    const onError = sinon.stub()
+
+    before(function () {
+      wrapper = shallow(<SingleImageViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -33,9 +57,10 @@ describe('Component > SingleImageViewerContainer', function () {
     })
   })
 
-  describe('with a subject', function () {
+  describe('with a valid subject', function () {
     let imageWrapper
-    let onReady = sinon.stub()
+    const onReady = sinon.stub()
+    const onError = sinon.stub()
 
     before(function () {
       const subject = {
@@ -46,8 +71,9 @@ describe('Component > SingleImageViewerContainer', function () {
       }
       wrapper = shallow(
         <SingleImageViewerContainer
-          ImageObject={MockImage}
+          ImageObject={ValidImage}
           subject={subject}
+          onError={onError}
           onReady={onReady}
         />
       )
@@ -69,26 +95,102 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function (done) {
-      setTimeout(function () {
-        const svg = wrapper.instance().imageViewer.current
-        const fakeEvent = {
-          target: {
-            clientHeight: 0,
-            clientWidth: 0
-          }
+      const svg = wrapper.instance().imageViewer.current
+      const fakeEvent = {
+        target: {
+          clientHeight: 0,
+          clientWidth: 0
         }
-        const expectedEvent = {
-          target: {
-            clientHeight: svg.clientHeight,
-            clientWidth: svg.clientWidth,
-            naturalHeight: height,
-            naturalWidth: width
-          }
+      }
+      const expectedEvent = {
+        target: {
+          clientHeight: svg.clientHeight,
+          clientWidth: svg.clientWidth,
+          naturalHeight: height,
+          naturalWidth: width
         }
-        imageWrapper.simulate('load', fakeEvent)
+      }
+      onReady.callsFake(function () {
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
+        expect(onError).to.not.have.been.called
         done()
-      }, 150)
+      })
+      imageWrapper.simulate('load', fakeEvent)
+    })
+  })
+
+  describe('with an invalid subject', function () {
+    let imageWrapper
+    const onReady = sinon.stub()
+    const onError = sinon.stub()
+
+    before(function () {
+      const subject = {
+        id: 'test',
+        locations: [
+          { 'image/jpeg': '' }
+        ]
+      }
+      wrapper = shallow(
+        <SingleImageViewerContainer
+          ImageObject={InvalidImage}
+          subject={subject}
+          onError={onError}
+          onReady={onReady}
+        />
+      )
+      imageWrapper = wrapper.find(SingleImageViewer)
+      wrapper.instance().imageViewer = {
+        current: {
+          clientHeight: 100,
+          clientWidth: 200
+        }
+      }
+    })
+
+    after(function () {
+      onError.resetHistory()
+      onReady.resetHistory()
+    })
+
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok
+    })
+
+    it('should log an error from an invalid SVG image', function (done) {
+      const fakeSVGError = {
+        message: 'the SVG image failed to load'
+      }
+      onError.callsFake(function () {
+        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
+        done()
+      })
+      imageWrapper.simulate('error', fakeSVGError)
+    })
+
+    it('should log an error from an invalid HTML img', function (done) {
+      const fakeEvent = {
+        target: {
+          clientHeight: 0,
+          clientWidth: 0
+        }
+      }
+      onError.callsFake(function () {
+        expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
+        done()
+      })
+      imageWrapper.simulate('load', fakeEvent)
+    })
+
+    it('should not call onReady', function (done) {
+      const fakeSVGError = {
+        message: 'the SVG image failed to load'
+      }
+      onError.callsFake(function () {
+        expect(onReady).to.not.have.been.called
+        done()
+      })
+      imageWrapper.simulate('error', fakeSVGError)
     })
   })
 })

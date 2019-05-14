@@ -11,22 +11,22 @@ describe('Component > SubjectViewer', function () {
   })
 
   it('should render nothing if the subject store is initialized', function () {
-    const wrapper = shallow(<SubjectViewer.wrappedComponent loadingState={asyncStates.initialized} />)
+    const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.initialized} />)
     expect(wrapper.type()).to.be.null
   })
 
   it('should render a loading indicator if the subject store is loading', function () {
-    const wrapper = shallow(<SubjectViewer.wrappedComponent loadingState={asyncStates.loading} />)
+    const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.loading} />)
     expect(wrapper.text()).to.equal('Loading')
   })
 
   it('should render nothing if the subject store errors', function () {
-    const wrapper = shallow(<SubjectViewer.wrappedComponent loadingState={asyncStates.error} />)
+    const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.error} />)
     expect(wrapper.type()).to.be.null
   })
 
   it('should render a subject viewer if the subject store successfully loads', function () {
-    const wrapper = shallow(<SubjectViewer.wrappedComponent loadingState={asyncStates.success} subject={{ viewer: 'singleImage' }} />)
+    const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.success} subject={{ viewer: 'singleImage' }} />)
     expect(wrapper.find('SingleImageViewerContainer')).to.have.lengthOf(1)
   })
 })

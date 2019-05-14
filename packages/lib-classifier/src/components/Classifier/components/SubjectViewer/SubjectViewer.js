@@ -6,12 +6,14 @@ import React from 'react'
 import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
-  const { active: subject, loadingState } = stores.classifierStore.subjects
-  const { onSubjectReady } = stores.classifierStore.subjectViewer
+  const { active: subject, loadingState: subjectQueueState } = stores.classifierStore.subjects
+  const { onSubjectReady, onError, loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
   return {
-    loadingState,
+    onError,
     onSubjectReady,
-    subject
+    subject,
+    subjectQueueState,
+    subjectReadyState
   }
 }
 
@@ -32,32 +34,34 @@ class SubjectViewer extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { onSubjectReady, subject } = this.props
+    const { onError, onSubjectReady, subject, subjectReadyState } = this.props
     const Viewer = getViewer(subject.viewer)
     return (
       <Viewer
         key={subject.id}
         subject={subject}
+        loadingState={subjectReadyState}
+        onError={onError}
         onReady={onSubjectReady}
       />
     )
   }
 
   render () {
-    const { loadingState } = this.props
-    return this[loadingState]() || null
+    const { subjectQueueState } = this.props
+    return this[subjectQueueState]() || null
   }
 }
 
 SubjectViewer.wrappedComponent.propTypes = {
-  loadingState: PropTypes.oneOf(asyncStates.values),
+  subjectQueueState: PropTypes.oneOf(asyncStates.values),
   subject: PropTypes.shape({
     viewer: PropTypes.string
   })
 }
 
 SubjectViewer.wrappedComponent.defaultProps = {
-  loadingState: asyncStates.initialized
+  subjectQueueState: asyncStates.initialized
 }
 
 export default SubjectViewer

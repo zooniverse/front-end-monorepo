@@ -10,23 +10,8 @@ class SingleImageViewerContainer extends React.Component {
     super()
     this.imageViewer = React.createRef()
     this.onLoad = this.onLoad.bind(this)
-    this.onError = this.onError.bind(this)
-    this.state = {
-      clientHeight: 0,
-      clientWidth: 0,
-      naturalHeight: 0,
-      naturalWidth: 0,
-      loading: asyncStates.initialized
-    }
   }
 
-  componentDidMount () {
-    this.handleSubject()
-  }
-
-  // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
-  // in the classification metadata
-  // Using SVG image might need to be rethought
   fetchImage (url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
@@ -37,44 +22,33 @@ class SingleImageViewerContainer extends React.Component {
     })
   }
 
-  async handleSubject () {
-    const { subject } = this.props
+  async getImageSize () {
+    const { onError, subject } = this.props
     // TODO: Add polyfill for Object.values for IE
-    this.setState({ loading: asyncStates.loading })
-    try {
-      const imageUrl = Object.values(subject.locations[0])[0]
-      const img = await this.fetchImage(imageUrl)
-      const svg = this.imageViewer.current
-
-      this.setState({
-        clientHeight: svg.clientHeight,
-        clientWidth: svg.clientWidth,
-        naturalHeight: img.naturalHeight,
-        naturalWidth: img.naturalWidth,
-        loading: asyncStates.success
-      })
-    } catch (error) {
-      this.onError(error)
+    const imageUrl = Object.values(subject.locations[0])[0]
+    const img = await this.fetchImage(imageUrl)
+    const svg = this.imageViewer.current
+    return {
+      clientHeight: svg.clientHeight,
+      clientWidth: svg.clientWidth,
+      naturalHeight: img.naturalHeight,
+      naturalWidth: img.naturalWidth
     }
   }
 
-  onLoad (event) {
-    const { onReady } = this.props
-    const { clientHeight, clientWidth, naturalHeight, naturalWidth } = this.state
-    const { target } = event || {}
-    const newTarget = Object.assign({}, target, { clientHeight, clientWidth, naturalHeight, naturalWidth })
-    const fakeEvent = Object.assign({}, event, { target: newTarget })
-    onReady(fakeEvent)
-  }
-
-  onError (error) {
-    console.error(error)
-    this.setState({ loading: asyncStates.error })
+  async onLoad () {
+    const { onError, onReady } = this.props
+    try {
+      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      onReady({ target })
+    } catch (error) {
+      onError(error)
+    }
   }
 
   render () {
-    const { loadingState } = this.state
-    const { subject } = this.props
+    const { loadingState, onError, subject } = this.props
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
@@ -90,7 +64,7 @@ class SingleImageViewerContainer extends React.Component {
     return (
       <SingleImageViewer
         ref={this.imageViewer}
-        onError={this.onError}
+        onError={onError}
         onLoad={this.onLoad}
         url={imageUrl}
       />
@@ -99,6 +73,8 @@ class SingleImageViewerContainer extends React.Component {
 }
 
 SingleImageViewerContainer.propTypes = {
+  loadingState: PropTypes.string,
+  onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
@@ -107,6 +83,8 @@ SingleImageViewerContainer.propTypes = {
 
 SingleImageViewerContainer.defaultProps = {
   ImageObject: window.Image,
+  loadingState: asyncStates.initialized,
+  onError: () => true,
   onReady: () => true
 }
 
