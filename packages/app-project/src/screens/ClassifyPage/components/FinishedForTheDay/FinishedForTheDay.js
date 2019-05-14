@@ -36,8 +36,9 @@ function FinishedForTheDay (props) {
         {imageSrc && <ProjectImage imageSrc={imageSrc} projectName={projectName} />}
         <ContentBox elevation='none'>
           <Heading
-            level='3'
+            level='2'
             margin={{ bottom: 'small', top: 'none' }}
+            size='medium'
           >
             {counterpart('FinishedForTheDay.title')}
           </Heading>
