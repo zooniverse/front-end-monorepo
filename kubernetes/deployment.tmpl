@@ -46,3 +46,40 @@ spec:
               value: production
             - name: NODE_ENV
               value: production
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zooniverse-org-content-pages-production
+  labels:
+    app: zooniverse-org-content-pages-production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zooniverse-org-content-pages-production
+  template:
+    metadata:
+      labels:
+        app: zooniverse-org-content-pages-production
+    spec:
+      containers:
+        - name: fe-content-pages-production
+          image: zooniverse/fe-content-pages:__IMAGE_TAG__
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PANOPTES_ENV
+              value: production
+            - name: NODE_ENV
+              value: production
+            - name: CONTENTFUL_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: contentful-conf
+                  key: CONTENTFUL_ACCESS_TOKEN
+            - name: CONTENTFUL_SPACE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: contentful-conf
+                  key: CONTENTFUL_SPACE_ID
