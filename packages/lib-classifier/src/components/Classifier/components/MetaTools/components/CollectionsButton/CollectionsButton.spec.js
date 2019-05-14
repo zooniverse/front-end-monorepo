@@ -1,7 +1,7 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import { PlainButton } from '@zooniverse/react-components'
+import MetaToolsButton from '../MetaToolsButton'
 
 import CollectionsButton, { Collect } from './CollectionsButton'
 
@@ -17,9 +17,9 @@ describe('Component > CollectionsButton', function () {
   })
 
   it('should display a Collect icon', function () {
-    const button = wrapper.find(PlainButton)
+    const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Collect />)
+    expect(icon).to.deep.equal(<Collect className='' color='dark-5' />)
   })
 
   it('should call props.onClick on click', function () {
@@ -30,7 +30,7 @@ describe('Component > CollectionsButton', function () {
       />
     )
 
-    wrapper.find(PlainButton).simulate('click')
+    wrapper.find(MetaToolsButton).simulate('click')
     expect(onClick).to.have.been.calledOnce
   })
 
@@ -44,7 +44,7 @@ describe('Component > CollectionsButton', function () {
     )
 
     it('should not be clickable', function () {
-      wrapper.find(PlainButton).simulate('click')
+      wrapper.find(MetaToolsButton).simulate('click')
       expect(onClick).to.not.have.been.called
     })
   })

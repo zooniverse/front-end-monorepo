@@ -46,8 +46,8 @@ storiesOf('Tooltip', module)
         right: 'left'
       }}
       animation={{
-        "type": "slideLeft",
-        "delay": 20
+        'type': 'slideLeft',
+        'delay': 20
       }}
       backgroundColor='brand'
       icon={<Add />}
@@ -58,14 +58,14 @@ storiesOf('Tooltip', module)
   ), config)
 
 class TooltipStoryExample extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       showDrop: false
     }
   }
 
-  render() {
+  render () {
     const { align, animation, backgroundColor, label, icon, pad, showDropKnob, tooltipText } = this.props
     return (
       <Grommet theme={zooTheme}>

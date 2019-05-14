@@ -29,9 +29,9 @@ export default function ZooniverseLogotype (props) {
 
 ZooniverseLogotype.propTypes = {
   id: string.isRequired,
-  width: number,
+  width: number
 }
 
 ZooniverseLogotype.defaultProps = {
-  width: 178,
+  width: 178
 }

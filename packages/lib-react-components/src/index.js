@@ -10,5 +10,6 @@ export { default as ZooHeader } from './ZooHeader'
 export { default as ZooniverseLogo } from './ZooniverseLogo'
 
 export { default as pxToRem } from './helpers/pxToRem'
+export { default as withResponsiveContext } from './helpers/withResponsiveContext'
 export { default as withThemeContext } from './helpers/withThemeContext'
 export { default as getThumbnailSrc } from './Media/helpers/getThumbnailSrc'

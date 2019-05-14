@@ -1,10 +1,12 @@
 import { Text } from 'grommet'
+import { withResponsiveContext } from '@zooniverse/react-components'
 import { object, oneOfType, string } from 'prop-types'
 import React from 'react'
 
-function Subtitle ({ mode, text, ...props }) {
+function Subtitle ({ margin, mode, screenSize, text, ...props }) {
+  const textMargin = (screenSize === 'small') ? { top: 'none', bottom: 'xsmall' } : margin
   return (
-    <Text {...props}>
+    <Text {...props} margin={textMargin}>
       {text}
     </Text>
   )
@@ -12,6 +14,7 @@ function Subtitle ({ mode, text, ...props }) {
 
 Subtitle.propTypes = {
   margin: oneOfType([object, string]),
+  screenSize: string,
   size: string,
   tag: string,
   text: string.isRequired,
@@ -20,9 +23,11 @@ Subtitle.propTypes = {
 
 Subtitle.defaultProps = {
   margin: 'none',
+  screenSize: '',
   size: 'small',
   tag: 'h5',
   weight: 'bold'
 }
 
-export default Subtitle
+export default withResponsiveContext(Subtitle)
+export { Subtitle }

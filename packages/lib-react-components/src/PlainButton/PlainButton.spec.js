@@ -5,8 +5,10 @@ import PlainButton from './PlainButton'
 describe('<PlainButton />', function () {
   let wrapper
   before(function () {
-    wrapper = shallow(<PlainButton text="Click me" />)
+    wrapper = shallow(<PlainButton text='Click me' />)
   })
 
-  it('renders without crashing', function () { })
+  it('renders without crashing', function () {
+    expect(wrapper).to.be.ok
+  })
 })

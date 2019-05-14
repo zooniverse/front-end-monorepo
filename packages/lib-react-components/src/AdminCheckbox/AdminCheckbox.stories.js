@@ -25,7 +25,7 @@ storiesOf('ZooFooter/AdminCheckbox', module)
   ), config)
 
 class AdminCheckboxStoryExample extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.onChange = this.onChange.bind(this)
     this.state = {
@@ -39,7 +39,7 @@ class AdminCheckboxStoryExample extends React.Component {
     }))
   }
 
-  render() {
+  render () {
     return (
       <Grommet theme={zooTheme}>
         <AdminCheckbox

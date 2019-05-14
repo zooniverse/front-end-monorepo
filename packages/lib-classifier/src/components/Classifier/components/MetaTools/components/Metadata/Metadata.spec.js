@@ -27,7 +27,7 @@ describe('Metadata', function () {
   describe('when there is metadata', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<Metadata isThereMetadata={true} />)
+      wrapper = shallow(<Metadata isThereMetadata />)
     })
 
     it('should render the MetadataModal', function () {
