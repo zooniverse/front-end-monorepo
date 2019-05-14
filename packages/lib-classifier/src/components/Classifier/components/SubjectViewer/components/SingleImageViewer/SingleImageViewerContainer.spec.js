@@ -10,7 +10,7 @@ describe('Component > SingleImageViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
-  const DELAY = 100
+  const DELAY = 0
   const HTMLImgError = {
     message: 'The HTML img did not load'
   }
@@ -179,7 +179,7 @@ describe('Component > SingleImageViewerContainer', function () {
       setTimeout(function () {
         expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
         done()
-      }, DELAY + 100)
+      }, DELAY + 10)
     })
 
     it('should not call onReady', function (done) {
