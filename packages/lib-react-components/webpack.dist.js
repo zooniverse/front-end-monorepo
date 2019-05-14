@@ -13,9 +13,6 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    minimize: false // disabled for now to make debugging easier
-  },
   output: {
     path: path.resolve('dist'),
     filename: 'main.js',
