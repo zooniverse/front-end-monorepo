@@ -52,7 +52,7 @@ class FeedbackModal extends React.Component {
               overflow='auto'
               width='medium'
             >
-              {showViewer && <FeedbackViewer />}
+                {showViewer && <FeedbackViewer id="FeedbackViewer"/>}
               <ul>
                 {messages.map(message =>
                   <li key={Math.random()}>
