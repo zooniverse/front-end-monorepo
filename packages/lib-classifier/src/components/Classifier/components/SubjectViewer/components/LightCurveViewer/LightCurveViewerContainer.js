@@ -15,8 +15,6 @@ class LightCurveViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      loading: asyncStates.initialized,
-      error: '',
       dataExtent: {
         x: [],
         y: []
@@ -26,17 +24,18 @@ class LightCurveViewerContainer extends Component {
   }
 
   async componentDidMount () {
-    if (this.props.subject) {
+    const { onError, subject } = this.props
+    if (subject) {
       try {
         await this.handleSubject()
       } catch (error) {
-        this.onError(error)
+        onError(error)
       }
     }
   }
 
   async componentDidUpdate (prevProps) {
-    const { subject } = this.props
+    const { onError, subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
 
@@ -44,7 +43,7 @@ class LightCurveViewerContainer extends Component {
       try {
         await this.handleSubject()
       } catch (error) {
-        this.onError(error)
+        onError(error)
       }
     }
   }
@@ -64,8 +63,9 @@ class LightCurveViewerContainer extends Component {
   }
 
   async requestData () {
+    const { onError } = this.props
     try {
-      this.setState({ loading: asyncStates.loading })
+      // this.setState({ loading: asyncStates.loading })
       const url = this.getSubjectUrl()
       if (url) {
         const response = await request.get(url)
@@ -76,16 +76,17 @@ class LightCurveViewerContainer extends Component {
         }
       }
     } catch (error) {
-      this.onError(error)
+      onError(error)
     }
   }
 
   async handleSubject () {
+    const { onError } = this.props
     try {
       const rawData = await this.requestData()
       if (rawData && rawData.x && rawData.y) this.onLoad(rawData)
     } catch (error) {
-      this.onError(error)
+      onError(error)
     }
   }
 
@@ -98,18 +99,9 @@ class LightCurveViewerContainer extends Component {
         y: d3.extent(rawData.y)
       },
       dataPoints: zip(rawData.x, rawData.y),
-      loading: asyncStates.success
     },
     function () {
       onReady({ target })
-    })
-  }
-
-  onError (error) {
-    (process.env.NODE_ENV !== 'test') ? console.error(error) : console.log('expected error console logged')
-    this.setState({
-      loading: asyncStates.error,
-      error: error.message
     })
   }
 
@@ -133,6 +125,8 @@ class LightCurveViewerContainer extends Component {
 }
 
 LightCurveViewerContainer.wrappedComponent.defaultProps = {
+  loadingState: asyncStates.initialized,
+  onError: () => true,
   onReady: () => true,
   subject: {
     id: '',
@@ -141,6 +135,8 @@ LightCurveViewerContainer.wrappedComponent.defaultProps = {
 }
 
 LightCurveViewerContainer.wrappedComponent.propTypes = {
+  loadingState: PropTypes.string,
+  onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
     id: PropTypes.string,

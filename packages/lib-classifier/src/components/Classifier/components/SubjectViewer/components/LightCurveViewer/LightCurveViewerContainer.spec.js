@@ -30,7 +30,7 @@ const failSubject = Factory.build('subject', {
   ]
 })
 
-describe('Component > LightCurveViewerContainer', function () {
+describe.only('Component > LightCurveViewerContainer', function () {
   it('should render without crashing', function () {
     wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
     expect(wrapper).to.be.ok
@@ -39,8 +39,6 @@ describe('Component > LightCurveViewerContainer', function () {
   it('should mount with an initialized state', function () {
     wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />, { disableLifecycleMethods: true })
     const mockState = {
-      loading: asyncStates.initialized,
-      error: '',
       dataExtent: { x: [], y: [] },
       dataPoints: []
     }
@@ -56,9 +54,12 @@ describe('Component > LightCurveViewerContainer', function () {
 
   describe('with an invalid subject', function () {
     let cdmSpy
+    let onErrorSpy
     let nockScope
     before(function () {
+      sinon.stub(console, 'error')
       cdmSpy = sinon.spy(LightCurveViewerContainer.wrappedComponent.prototype, 'componentDidMount')
+      onErrorSpy = sinon.spy()
       nockScope = nock('http://localhost:8080')
         .persist(true)
         .get('/failure.json')
@@ -67,9 +68,11 @@ describe('Component > LightCurveViewerContainer', function () {
 
     afterEach(function () {
       cdmSpy.resetHistory()
+      onErrorSpy.resetHistory()
     })
 
     after(function () {
+      console.error.restore()
       cdmSpy.restore()
       nock.cleanAll()
       nockScope.persist(false)
@@ -77,23 +80,23 @@ describe('Component > LightCurveViewerContainer', function () {
 
     it('should error if a json or text subject location file can\'t be found', function (done) {
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent subject={imageSubject} />
+        <LightCurveViewerContainer.wrappedComponent onError={onErrorSpy} subject={imageSubject} />
       )
 
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().loading).to.equal(asyncStates.error)
-        expect(wrapper.state().error).to.equal('No JSON url found for this subject')
+        expect(onErrorSpy).to.have.been.calledOnce
+        expect(onErrorSpy.args[0][0].message).to.equal('No JSON url found for this subject')
       }).then(done, done)
     })
 
     it('should error if the location request response fails', function (done) {
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent subject={failSubject} />
+        <LightCurveViewerContainer.wrappedComponent onError={onErrorSpy} subject={failSubject} />
       )
 
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().loading).to.equal(asyncStates.error)
-        expect(wrapper.state().error).to.equal('Not Found')
+        expect(onErrorSpy).to.have.been.calledOnce
+        expect(onErrorSpy.args[0][0].message).to.equal('Not Found')
       }).then(done, done)
     })
   })
@@ -144,8 +147,6 @@ describe('Component > LightCurveViewerContainer', function () {
         })
 
         expect(wrapper.state().dataPoints).to.have.lengthOf(mockZipData.length)
-
-        expect(wrapper.state().loading).to.equal(asyncStates.success)
       }).then(done, done)
     })
 
@@ -170,9 +171,7 @@ describe('Component > LightCurveViewerContainer', function () {
       )
       wrapper.setProps({ subject: nextSubject })
 
-      // componentDidUpdate gets called three times
-      // only the third is the update to the new props we're expecting for this test
-      cduSpy.returnValues[2].then(() => {
+      cduSpy.returnValues[0].then(() => {
         wrapper.state().dataExtent.x.forEach((xDataPoint, index) => {
           expect(xDataPoint).to.equal(nextSubjectD3XExtent[index])
         })
@@ -182,8 +181,6 @@ describe('Component > LightCurveViewerContainer', function () {
         })
 
         expect(wrapper.state().dataPoints).to.have.lengthOf(nextSubjectJSONZip.length)
-
-        expect(wrapper.state().loading).to.equal(asyncStates.success)
       }).then(done, done)
     })
   })
