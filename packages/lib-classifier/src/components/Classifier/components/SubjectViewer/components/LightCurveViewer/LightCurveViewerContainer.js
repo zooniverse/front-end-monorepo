@@ -67,13 +67,11 @@ class LightCurveViewerContainer extends Component {
     try {
       // this.setState({ loading: asyncStates.loading })
       const url = this.getSubjectUrl()
-      if (url) {
-        const response = await request.get(url)
-        if (response.ok) {
-          // Get the JSON data, or (as a failsafe) parse the JSON data if the
-          // response is returned as a string
-          return response.body || JSON.parse(response.text)
-        }
+      const response = await request.get(url)
+      if (response.ok) {
+        // Get the JSON data, or (as a failsafe) parse the JSON data if the
+        // response is returned as a string
+        return response.body || JSON.parse(response.text)
       }
     } catch (error) {
       onError(error)
