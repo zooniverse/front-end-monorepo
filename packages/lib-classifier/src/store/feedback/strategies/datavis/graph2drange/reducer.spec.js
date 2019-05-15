@@ -2,89 +2,164 @@ import { expect } from 'chai'
 import graph2dRangeReducer from './reducer'
 
 describe('feedback drawing graph2dRange reducer', function () {
-  const rule = {
+  const ruleWithStrings = {
     hideSubjectViewer: false,
     id: '1234',
     strategy: 'graph2dRange',
     successEnabled: true,
     successMessage: 'Success!',
-    tolerance: '1',
-    width: '2',
+    tolerance: '0.25',
+    width: '0.1',
     x: '15'
   }
 
+  const ruleWithNums = {
+    hideSubjectViewer: false,
+    id: '1234',
+    strategy: 'graph2dRange',
+    successEnabled: true,
+    successMessage: 'Success!',
+    tolerance: 0.25,
+    width: 0.1,
+    x: 15
+  }
+
   const annotationSuccess = {
-    width: 2,
+    width: 0.1,
     x: 15
   }
 
   const annotationTolerance = {
-    width: 1.2,
-    x: 14.8
+    width: 0.2,
+    x: 14.9
   }
 
   const annotationFailure = {
-    width: 2.2,
-    x: 16
+    width: 0.6,
+    x: 15.1
   }
 
-  it('should return result with failure', function () {
-    expect(graph2dRangeReducer(rule, [annotationFailure])).to.deep.equal({
-      hideSubjectViewer: false,
-      id: '1234',
-      strategy: 'graph2dRange',
-      success: false,
-      successEnabled: true,
-      successMessage: 'Success!',
-      successfulClassifications: [],
-      tolerance: '1',
-      width: '2',
-      x: '15'
+  describe('with rule data as strings', function () {
+    it('should return result with failure', function () {
+      expect(graph2dRangeReducer(ruleWithStrings, [annotationFailure])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: false,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [],
+        tolerance: '0.25',
+        width: '0.1',
+        x: '15'
+      })
+    })
+
+    it('should return result with success', function () {
+      expect(graph2dRangeReducer(ruleWithStrings, [annotationSuccess])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [annotationSuccess],
+        tolerance: '0.25',
+        width: '0.1',
+        x: '15'
+      })
+    })
+
+    it('should return result within tolerance', function () {
+      expect(graph2dRangeReducer(ruleWithStrings, [annotationTolerance])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [annotationTolerance],
+        tolerance: '0.25',
+        width: '0.1',
+        x: '15'
+      })
+    })
+
+    it('should return result with success with successful and failed annotation', function () {
+      expect(graph2dRangeReducer(ruleWithStrings, [annotationSuccess, annotationTolerance, annotationFailure])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [annotationSuccess, annotationTolerance],
+        tolerance: '0.25',
+        width: '0.1',
+        x: '15'
+      })
     })
   })
 
-  it('should return result with success', function () {
-    expect(graph2dRangeReducer(rule, [annotationSuccess])).to.deep.equal({
-      hideSubjectViewer: false,
-      id: '1234',
-      strategy: 'graph2dRange',
-      success: true,
-      successEnabled: true,
-      successMessage: 'Success!',
-      successfulClassifications: [annotationSuccess],
-      tolerance: '1',
-      width: '2',
-      x: '15'
+  describe('with rule data as numbers', function () {
+    it('should return result with failure', function () {
+      expect(graph2dRangeReducer(ruleWithNums, [annotationFailure])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: false,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [],
+        tolerance: 0.25,
+        width: 0.1,
+        x: 15
+      })
     })
-  })
 
-  it('should return result within tolerance', function () {
-    expect(graph2dRangeReducer(rule, [annotationTolerance])).to.deep.equal({
-      hideSubjectViewer: false,
-      id: '1234',
-      strategy: 'graph2dRange',
-      success: true,
-      successEnabled: true,
-      successMessage: 'Success!',
-      successfulClassifications: [annotationTolerance],
-      tolerance: '1',
-      width: '2',
-      x: '15'
+    it('should return result with success', function () {
+      expect(graph2dRangeReducer(ruleWithNums, [annotationSuccess])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [annotationSuccess],
+        tolerance: 0.25,
+        width: 0.1,
+        x: 15
+      })
     })
-  })
 
-  it('should return result with success with successful and failed annotation', function () {
-    expect(graph2dRangeReducer(rule, [annotationSuccess, annotationTolerance, annotationFailure])).to.deep.equal({
-      hideSubjectViewer: false,
-      id: '1234',
-      strategy: 'graph2dRange',
-      success: true,
-      successEnabled: true,
-      successMessage: 'Success!',
-      successfulClassifications: [annotationSuccess, annotationTolerance],
-      tolerance: '1',
-      width: '2',
-      x: '15'
+    it('should return result within tolerance', function () {
+      expect(graph2dRangeReducer(ruleWithNums, [annotationTolerance])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [annotationTolerance],
+        tolerance: 0.25,
+        width: 0.1,
+        x: 15
+      })
+    })
+ 
+    it('should return result with success with successful and failed annotation', function () {
+      expect(graph2dRangeReducer(ruleWithNums, [annotationSuccess, annotationTolerance, annotationFailure])).to.deep.equal({
+        hideSubjectViewer: false,
+        id: '1234',
+        strategy: 'graph2dRange',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Success!',
+        successfulClassifications: [annotationSuccess, annotationTolerance],
+        tolerance: 0.25,
+        width: 0.1,
+        x: 15
+      })
     })
   })
 })
