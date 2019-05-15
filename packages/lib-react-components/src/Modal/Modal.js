@@ -5,15 +5,41 @@ import WithLayer from './WithLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
-function Modal ({ children, className, closeFn, pad, title }) {
-  return (
-    <React.Fragment>
-      <ModalHeading className={className} closeFn={closeFn} title={title} />
-      <ModalBody className={className} pad={pad}>
-        {children}
-      </ModalBody>
-    </React.Fragment>
-  )
+class Modal extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      client: false
+    }
+  }
+
+  componentDidMount () {
+    this.whereIsThisRendering()
+  }
+
+  whereIsThisRendering () {
+    if (typeof document !== 'undefined') {
+      this.setState({ client: true })
+    }
+  }
+
+  render () {
+    const { children, className, closeFn, pad, title } = this.props
+
+    if (!this.state.client) {
+      return null
+    }
+
+    return (
+      <React.Fragment>
+        <ModalHeading className={className} closeFn={closeFn} title={title} />
+        <ModalBody className={className} pad={pad}>
+          {children}
+        </ModalBody>
+      </React.Fragment>
+    )
+  }
 }
 
 Modal.propTypes = {

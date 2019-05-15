@@ -42,9 +42,11 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: PANOPTES_ENV
-              value: production
+            - name: ASSET_PREFIX
+              value: https://fe-project.zooniverse.org
             - name: NODE_ENV
+              value: production
+            - name: PANOPTES_ENV
               value: production
 ---
 apiVersion: apps/v1
@@ -69,10 +71,8 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: PANOPTES_ENV
-              value: production
-            - name: NODE_ENV
-              value: production
+            - name: ASSET_PREFIX
+              value: https://fe-content-pages.zooniverse.org
             - name: CONTENTFUL_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -83,3 +83,7 @@ spec:
                 secretKeyRef:
                   name: contentful-conf
                   key: CONTENTFUL_SPACE_ID
+            - name: NODE_ENV
+              value: production
+            - name: PANOPTES_ENV
+              value: production
