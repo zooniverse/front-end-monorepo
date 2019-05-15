@@ -30,7 +30,7 @@ const failSubject = Factory.build('subject', {
   ]
 })
 
-describe.only('Component > LightCurveViewerContainer', function () {
+describe('Component > LightCurveViewerContainer', function () {
   it('should render without crashing', function () {
     wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
     expect(wrapper).to.be.ok
