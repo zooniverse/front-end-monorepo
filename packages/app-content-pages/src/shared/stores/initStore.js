@@ -13,7 +13,7 @@ const defaultClient = {
 // These default to 'blank' in order to allow the tests to pass
 const defaultContentfulClient = createContentfulClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || 'blank',
-  space: process.env.CONTENTFUL_SPACE || 'blank'
+  space: process.env.CONTENTFUL_SPACE_ID || 'blank'
 })
 
 function initStore (
