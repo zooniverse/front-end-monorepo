@@ -7,9 +7,9 @@ import SpacedText from '../SpacedText'
 
 export const StyledPlainButton = styled(Button)`
   /* Is there another way to change the gap size between the icon and label? */
-  > div > div {
+  /* > div > div {
     width: 5px;
-  }
+  } */
 
   &:focus,
   &:enabled:hover {
@@ -23,6 +23,7 @@ function PlainButton (props) {
   return (
     <StyledPlainButton
       className={className}
+      gap='xxsmall'
       label={(
         <SpacedText
           color={{
