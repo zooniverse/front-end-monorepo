@@ -6,11 +6,6 @@ import styled, { withTheme } from 'styled-components'
 import SpacedText from '../SpacedText'
 
 export const StyledPlainButton = styled(Button)`
-  /* Is there another way to change the gap size between the icon and label? */
-  /* > div > div {
-    width: 5px;
-  } */
-
   &:focus,
   &:enabled:hover {
     text-decoration: underline;
