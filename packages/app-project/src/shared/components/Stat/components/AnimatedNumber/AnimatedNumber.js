@@ -12,14 +12,18 @@ class AnimatedNumber extends Component {
     this.animateValue()
   }
 
-  animateValue () {
+  componentDidUpdate (prevProps) {
+    this.animateValue(prevProps.value)
+  }
+
+  animateValue (prevValue = 0) {
     d3.select(this.ref.current)
       .data([this.props.value])
       .transition()
       .duration(this.props.duration)
-      .tween('text', function (d, i, elements) {
+      .tween('text', function (d) {
         const node = d3.select(this)
-        const interpolator = d3.interpolate(0, d)
+        const interpolator = d3.interpolate(prevValue, d)
         return t => {
           const value = interpolator(t)
           const niceValue = d3.format(',d')(value)
