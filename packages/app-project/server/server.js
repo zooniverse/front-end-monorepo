@@ -3,8 +3,10 @@ const next = require('next')
 const pathMatch = require('path-match')
 const { parse } = require('url')
 
-const port = parseInt(process.env.PORT, 10) || 3000
+const assetPrefix = process.env.ASSET_PREFIX || ''
 const dev = process.env.NODE_ENV !== 'production'
+const port = parseInt(process.env.PORT, 10) || 3000
+
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const route = pathMatch()
@@ -15,6 +17,7 @@ app.prepare()
   .then(() => {
     createServer((req, res) => {
       const { pathname, query } = parse(req.url, true)
+      app.setAssetPrefix(assetPrefix)
 
       // assigning `query` into the params means that we still
       // get the query string passed to our application
