@@ -24,14 +24,8 @@ const FeedbackStore = types
         .some(rule => rule.hideSubjectViewer)
     },
     get messages () {
-      return flatten(Array.from(self.rules.values()))
-        .map(rule => {
-          if (rule.success && rule.successEnabled) {
-            return rule.successMessage
-          } else if (!rule.success && rule.failureEnabled) {
-            return rule.failureMessage
-          }
-        }).filter(Boolean)
+      return self.applicableRules
+        .map(rule => rule.success ? rule.successMessage : rule.failureMessage)
     }
   }))
   .actions(self => {
