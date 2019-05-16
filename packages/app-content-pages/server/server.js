@@ -1,6 +1,9 @@
 const next = require('next')
 const http = require('http')
 
+const DEFAULT_MAX_AGE = process.env.DEFAULT_MAX_AGE || 60 // 1 minute
+const JS_MAX_AGE = process.env.JS_MAX_AGE || 31536000 // 1 year
+
 const assetPrefix = process.env.ASSET_PREFIX || ''
 const dev = process.env.NODE_ENV !== 'production'
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -29,16 +32,16 @@ app.prepare().then(() => {
 })
 
 function setCacheHeaders (req, res) {
-  let maxAge = 60 // 1 minute
+  let maxAge = DEFAULT_MAX_AGE
 
   if (isJsRequest(req)) {
-    maxAge = 31536000 // 1 year
+    maxAge = JS_MAX_AGE
   }
 
   res.setHeader('Cache-Control', `max-age=${maxAge}`)
 }
 
 function isJsRequest(req) {
-  const regex = /\.(?:js)$/i
+  const regex = /\.js$/i
   return regex.test(req.path)
 }
