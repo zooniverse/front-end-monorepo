@@ -53,7 +53,7 @@ class FeedbackModal extends React.Component {
             >
               {showViewer && (
                   <Box height='100%'>
-                    <FeedbackViewer id="FeedbackViewer"/>
+                    <FeedbackViewer />
                   </Box>)}
               <Box overflow='scroll'>
                 <ul>
