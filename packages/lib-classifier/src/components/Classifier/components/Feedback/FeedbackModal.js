@@ -49,17 +49,21 @@ class FeedbackModal extends React.Component {
           <>
             <Box
               height='medium'
-              overflow='auto'
               width='medium'
             >
-              {showViewer && <FeedbackViewer />}
-              <ul>
-                {messages.map(message =>
-                  <li key={Math.random()}>
-                    {message}
-                  </li>
-                )}
-              </ul>
+              {showViewer && (
+                  <Box height='100%'>
+                    <FeedbackViewer />
+                  </Box>)}
+              <Box overflow='scroll'>
+                <ul>
+                  {messages.map(message =>
+                    <li key={Math.random()}>
+                      {message}
+                    </li>
+                  )}
+                </ul>
+              </Box>
             </Box>
             <Box pad={{ top: 'small' }}>
               <Button

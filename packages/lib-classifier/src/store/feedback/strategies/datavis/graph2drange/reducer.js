@@ -1,9 +1,9 @@
 function isAnnotationWithinTolerance (rule, annotation) {
   const annotationX = annotation.x
   const annotationWidth = annotation.width
-  const feedbackX = parseInt(rule.x, 10)
-  const feedbackWidth = parseInt(rule.width, 10)
-  const tolerance = parseInt(rule.tolerance, 10)
+  const feedbackX = parseFloat(rule.x)
+  const feedbackWidth = parseFloat(rule.width)
+  const tolerance = parseFloat(rule.tolerance)
 
   return (
     ((annotationX - (annotationWidth / 2)) > (feedbackX - (feedbackWidth / 2) - tolerance)) &&
