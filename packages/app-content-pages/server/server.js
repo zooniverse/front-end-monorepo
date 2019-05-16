@@ -11,6 +11,11 @@ const handleNextRequests = app.getRequestHandler()
 app.prepare().then(() => {
   const server = new http.Server((req, res) => {
     app.setAssetPrefix(assetPrefix)
+
+    if (!dev) {
+      setCacheHeaders(req, res)
+    }
+
     handleNextRequests(req, res)
   })
 
@@ -22,3 +27,18 @@ app.prepare().then(() => {
     console.log(`> Ready on http://localhost:${port}`)
   })
 })
+
+function setCacheHeaders (req, res) {
+  let maxAge = 60 // 1 minute
+
+  if (isJsRequest(req)) {
+    maxAge = 31536000 // 1 year
+  }
+
+  res.setHeader('Cache-Control', `max-age=${maxAge}`)
+}
+
+function isJsRequest(req) {
+  const regex = /\.(?:js)$/i
+  return regex.test(req.path)
+}
