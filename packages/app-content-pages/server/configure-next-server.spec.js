@@ -10,7 +10,7 @@ const mockApp = {
 
 const setCacheHeaders = sinon.spy()
 
-describe('configureNextServer', function () {
+describe('Server > configureNextServer', function () {
   it('should exist', function () {
     expect(configureNextServer).to.be.a('function')
   })
@@ -19,8 +19,7 @@ describe('configureNextServer', function () {
     it('should default to an empty string', function () {
       const assetPrefix = ''
       configureNextServer(mockApp)
-      const result = mockApp.setAssetPrefix.calledWith(assetPrefix)
-      expect(result).to.be.true()
+      expect(mockApp.setAssetPrefix).to.be.calledWith(assetPrefix)
     })
 
     it('should be set by the `ASSET_PREFIX` environment variable', function () {
@@ -33,8 +32,7 @@ describe('configureNextServer', function () {
         }
       })
       configureNextServer(mockApp)
-      const result = mockApp.setAssetPrefix.calledWith(assetPrefix)
-      expect(result).to.be.true()
+      expect(mockApp.setAssetPrefix).to.be.calledWith(assetPrefix)
     })
   })
 
