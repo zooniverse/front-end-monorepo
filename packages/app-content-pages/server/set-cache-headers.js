@@ -1,3 +1,5 @@
+const process = require('process')
+
 const DEFAULT_MAX_AGE = process.env.DEFAULT_MAX_AGE || 60 // 1 minute
 const JS_MAX_AGE = process.env.JS_MAX_AGE || 31536000 // 1 year
 
