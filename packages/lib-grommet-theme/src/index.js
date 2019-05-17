@@ -179,12 +179,16 @@ const theme = deepFreeze({
   },
   button: {
     border: {
+      color: 'brand',
       radius: '0px'
     },
     padding: {
        // Accounting for the border width. Grommet's default border width is 2px
       horizontal: props => `${parseInt(props.theme.global.edgeSize.small) - 2}px`,
       vertical: props => `${parseInt(props.theme.global.edgeSize.xsmall) - 1}px`
+    },
+    primary: {
+      color: 'brand'
     }
   },
   checkBox: {

@@ -28,10 +28,6 @@ class FieldGuide extends React.Component {
           const width = (size === 'small') ? '100%' : '490px'
           return (
             <Box
-              background={{
-                dark: 'dark-3',
-                light: 'white'
-              }}
               className={className}
               height={height}
               width={width}
