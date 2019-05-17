@@ -52,8 +52,8 @@ class Graph2dRangeFeedback extends Component {
       const ruleBrush = {
         id: rule.id,
         brush: d3.brushX(),
-        maxX: (parseInt(rule.x, 10) + (parseInt(rule.width, 10) / 2) + parseInt(rule.tolerance, 10)),
-        minX: (parseInt(rule.x, 10) - (parseInt(rule.width, 10) / 2) - parseInt(rule.tolerance, 10)),
+        maxX: (parseFloat(rule.x) + (parseFloat(rule.width) / 2) + parseFloat(rule.tolerance)),
+        minX: (parseFloat(rule.x) - (parseFloat(rule.width) / 2) - parseFloat(rule.tolerance)),
         success: rule.success
       }
       ruleBrushes.push(ruleBrush)
