@@ -49,8 +49,8 @@ class FeedbackModal extends React.Component {
         >
           <>
             <Box
-              height='medium'
-              width='medium'
+              height='large'
+              width='large'
             >
               {showViewer && (
                 <Box height='100%'>
