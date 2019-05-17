@@ -38,6 +38,7 @@ class FeedbackModal extends React.Component {
     if (showViewer) {
       FeedbackViewer = getFeedbackViewer(applicableRules)
     }
+    const messageContainerHeight = showViewer ? '200px' : '100%'
 
     if (showModal) {
       return (
@@ -52,10 +53,10 @@ class FeedbackModal extends React.Component {
               width='medium'
             >
               {showViewer && (
-                  <Box height='100%'>
-                    <FeedbackViewer />
-                  </Box>)}
-              <Box overflow='scroll'>
+                <Box height='100%'>
+                  <FeedbackViewer />
+                </Box>)}
+              <Box height={messageContainerHeight} overflow='scroll'>
                 <ul>
                   {messages.map(message =>
                     <li key={Math.random()}>
