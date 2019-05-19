@@ -13,7 +13,7 @@ function setCacheHeaders (req, res) {
   res.setHeader('Cache-Control', `max-age=${maxAge}`)
 }
 
-function isJsRequest(req) {
+function isJsRequest (req) {
   const regex = /\.js$/i
   return regex.test(req.path)
 }
