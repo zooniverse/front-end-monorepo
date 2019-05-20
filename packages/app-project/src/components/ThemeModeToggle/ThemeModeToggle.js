@@ -1,6 +1,6 @@
-import { SpacedText, withResponsiveContext } from '@zooniverse/react-components'
+import { PlainButton, withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button } from 'grommet'
+import { Box } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import React from 'react'
@@ -10,24 +10,22 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(PlainButton)`
   white-space: nowrap;
 
   > div {
     flex-direction: ${(props) => (props.screenSize === 'small') ? 'row' : 'column-reverse'};
+
+    span {
+      transform: ${(props) => (props.screenSize === 'small') ? 'none' : 'rotate(180deg)'};
+      writing-mode: ${(props) => (props.screenSize === 'small') ? 'unset' : 'vertical-lr'};
+    }
   }
 `
 
 const StyledInfo = styled(Info)`
-  height: 1em;
   transform: ${(props) => (props.screensize === 'small') ? 'none' : 'rotate(270deg)'};
   margin-top: ${(props) => (props.screensize === 'small') ? '0' : '6px'};
-  width: 1em;
-`
-
-const StyledText = styled(SpacedText)`
-  transform: ${(props) => (props.screenSize === 'small') ? 'none' : 'rotate(180deg)'};
-  writing-mode: ${(props) => (props.screenSize === 'small') ? 'unset' : 'vertical-lr'};
 `
 
 function ThemeModeToggle (props) {
@@ -36,22 +34,16 @@ function ThemeModeToggle (props) {
     ? counterpart('ThemeModeToggle.switchToLight')
     : counterpart('ThemeModeToggle.switchToDark')
 
-  const Label = (
-    <StyledText color={{ dark: 'accent-2', light: 'neutral-2' }} screenSize={screenSize} size='medium'>
-      {text}
-    </StyledText>
-  )
-
   return (
-    <StyledButton
-      a11yTitle={text}
-      gap='xsmall'
-      icon={<StyledInfo screensize={screenSize} />}
-      label={Label}
-      onClick={onClick}
-      plain
-      screenSize={screenSize}
-    />
+    <Box justify='center'>
+      <StyledButton
+        a11yTitle={text}
+        icon={<StyledInfo color='dark-5' screensize={screenSize} size='1em' />}
+        text={text}
+        onClick={onClick}
+        screenSize={screenSize}
+      />
+    </Box>
   )
 }
 

@@ -3,7 +3,8 @@ import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import MetaToolsButton from '../../../MetaToolsButton'
-import MetadataButton, { StyledInfoIcon } from './MetadataButton'
+import MetadataButton from './MetadataButton'
+import InfoIcon from './InfoIcon'
 
 describe('MetadataButton', function () {
   it('should render without crashing', function () {
@@ -15,7 +16,7 @@ describe('MetadataButton', function () {
     const wrapper = shallow(<MetadataButton />)
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<StyledInfoIcon className='' color='dark-5' />)
+    expect(icon).to.deep.equal(<InfoIcon color='dark-5' size='1em' />)
   })
 
   it('should call props.onClick when button is clicked', function () {

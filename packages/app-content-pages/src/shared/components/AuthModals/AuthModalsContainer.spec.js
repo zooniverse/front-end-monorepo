@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import AuthModalsContainer from './AuthModalsContainer'
+import { AuthModalsContainer } from './AuthModalsContainer'
 import AuthModals from './AuthModals'
 
 let wrapper
@@ -15,7 +15,7 @@ const ROUTER = {
 
 describe('Component > AuthModalsContainer', function () {
   before(function () {
-    wrapper = shallow(<AuthModalsContainer.wrappedComponent
+    wrapper = shallow(<AuthModalsContainer
       router={ROUTER}
     />)
     componentWrapper = wrapper.find(AuthModals)
@@ -31,7 +31,7 @@ describe('Component > AuthModalsContainer', function () {
 
   it('should pass a prop to show the Login modal if there is a matching url query', function () {
     const loginRouter = Object.assign({}, ROUTER)
-    const loginWrapper = shallow(<AuthModalsContainer.wrappedComponent
+    const loginWrapper = shallow(<AuthModalsContainer
       router={ROUTER}
     />)
     expect(getProp(loginWrapper, 'showLoginModal')).to.be.false()
@@ -43,7 +43,7 @@ describe('Component > AuthModalsContainer', function () {
 
   it('should pass a prop to show the Register modal if there is a matching url query', function () {
     const registerRouter = Object.assign({}, ROUTER)
-    const registerWrapper = shallow(<AuthModalsContainer.wrappedComponent
+    const registerWrapper = shallow(<AuthModalsContainer
       router={ROUTER}
     />)
     expect(getProp(registerWrapper, 'showRegisterModal')).to.be.false()

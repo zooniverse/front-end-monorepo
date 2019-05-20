@@ -33,7 +33,7 @@ storiesOf('PlainButton', module)
 
   .add('With icon', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton icon={<Add />} text={text('Text', 'Click me')} />
+      <PlainButton icon={<Add size='1em' />} text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
 
