@@ -5,8 +5,8 @@
       "You need to sign in or sign up before continuing": "You need to sign in or sign up before continuing"
     },
     "forgetPassword": "Forget your password?",
-    "login": "Login",
     "password": "Password",
+    "title": "Sign in",
     "username": "Username or e-mail address"
   }
 }

@@ -10,22 +10,34 @@ const StyledLayer = styled(Layer)`
 `
 
 function WithLayer (WrappedComponent) {
-  function HOC ({ active, className, closeFn, modal, position, ...props }) {
-    if (!active) {
-      return null
+  class HOC extends React.Component {
+    constructor() {
+      super()
+      this.state = {
+        isBrowser: false
+      }
     }
 
-    return (
-      <StyledLayer
-        className={className}
-        modal={modal}
-        position={position}
-        onClickOutside={closeFn}
-        onEsc={closeFn}
-      >
-        <WrappedComponent {...props} closeFn={closeFn} />
-      </StyledLayer>
-    )
+    componentDidMount() {
+      if (typeof document !== 'undefined') this.setState({ isBrowser: true })
+    }
+
+    render() {
+      const { active, className, closeFn, modal, position } = this.props
+      return (this.state.isBrowser && active)
+        ? (
+          <StyledLayer
+            className={className}
+            modal={modal}
+            position={position}
+            onClickOutside={closeFn}
+            onEsc={closeFn}
+          >
+            <WrappedComponent {...this.props} closeFn={closeFn} />
+          </StyledLayer>
+        )
+        : null
+    }
   }
 
   HOC.propTypes = {

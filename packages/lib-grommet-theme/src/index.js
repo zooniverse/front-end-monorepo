@@ -381,7 +381,7 @@ const theme = deepFreeze({
   },
   layer: {
     background: {
-      dark: 'dark-1',
+      dark: 'dark-5',
       light: 'light-1'
     },
     border: {

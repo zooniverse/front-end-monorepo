@@ -1,5 +1,6 @@
 import counterpart from 'counterpart'
 import { Anchor, Box, Button, Form, FormField, Layer, Text, TextInput } from 'grommet'
+import { Modal } from '@zooniverse/react-components'
 import Link from 'next/link'
 import { bool, func, string } from 'prop-types'
 import React, { Component } from 'react'
@@ -10,7 +11,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-@withOnlyRenderOnBrowser
+// @withOnlyRenderOnBrowser
 class LoginModal extends Component {
   constructor () {
     super()
@@ -18,11 +19,12 @@ class LoginModal extends Component {
   }
 
   componentDidMount () {
-    this.firstInput.current.focus()
+    console.log(this.firstInput)
+    // this.firstInput.current.focus()
   }
 
   render () {
-    const {
+    const { 
       className,
       closeLoginModal,
       error,
@@ -31,10 +33,11 @@ class LoginModal extends Component {
     } = this.props
 
     return (
-      <Layer
+      <Modal
+        active
         className={className}
-        onClickOutside={closeLoginModal}
-        onEsc={closeLoginModal}
+        closeFn={closeLoginModal}
+        title={counterpart('LoginModal.title')}
       >
         <Box pad='medium'>
           <Form onSubmit={onSubmit}>
@@ -79,7 +82,7 @@ class LoginModal extends Component {
             >
               <Button
                 disabled={loading}
-                label={counterpart('LoginModal.login')}
+                label={counterpart('LoginModal.title')}
                 primary
                 type='submit'
               />
@@ -93,7 +96,7 @@ class LoginModal extends Component {
             </Link>
           </Box>
         </Box>
-      </Layer>
+      </Modal>
     )
   }
 }
