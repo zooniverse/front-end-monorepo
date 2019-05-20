@@ -11,18 +11,17 @@ counterpart.registerTranslations('en', en)
 
 export const Favourite = styled(HeartIcon)`
   fill: ${props => props.filled ? props.theme.global.colors.statusColors.error : 'none'};
-  width: 1em;
 `
 
 export default function FavouritesButton (props) {
-  const { checked, className, disabled, onClick } = props
+  const { className, checked, disabled, onClick } = props
   const label = checked ? 'FavouritesButton.remove' : 'FavouritesButton.add'
+  const filled = checked ? 'true' : undefined
   return (
     <MetaToolsButton
       aria-checked={checked}
-      className={className}
       disabled={disabled}
-      icon={<Favourite className={className} color='dark-5' filled={checked ? 'true' : undefined} />}
+      icon={<Favourite className={className} color='dark-5' filled={filled} size='1em' />}
       role='checkbox'
       text={counterpart(label)}
       onClick={onClick}

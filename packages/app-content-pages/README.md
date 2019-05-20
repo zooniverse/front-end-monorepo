@@ -55,3 +55,11 @@ See [Testing](#testing) for more details.
 Tests are run by [Mocha](https://mochajs.org/), using the [BDD](https://mochajs.org/#bdd) interface.
 
 Assertions are provided by the [Chai](http://www.chaijs.com/) assertion library.
+
+### Configuration
+
+The following environment variables are available:
+
+- `DEFAULT_MAX_AGE` (int, default: 60) - default max age for asset caching in seconds
+- `ENABLE_CACHE_CONTROL` (boolean, default: false) - toggle setting of the `cache-control` `max-age` header
+- `JS_MAX_AGE` (int, default: 31536000) - default max age for `.js` asset caching in seconds
