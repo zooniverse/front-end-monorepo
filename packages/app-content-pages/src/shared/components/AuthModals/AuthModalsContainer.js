@@ -6,9 +6,6 @@ import Url from 'url-parse'
 
 import AuthModals from './AuthModals'
 
-@withRouter
-@inject('store')
-@observer
 class AuthModalsContainer extends Component {
   constructor () {
     super()
@@ -76,4 +73,10 @@ AuthModalsContainer.propTypes = {
   })
 }
 
-export default AuthModalsContainer
+@withRouter
+@inject('store')
+@observer
+class DecoratedAuthModalsContainer extends AuthModalsContainer { }
+
+export default DecoratedAuthModalsContainer
+export { AuthModalsContainer }
