@@ -7,7 +7,7 @@ let wrapper
 
 describe('Component > ZooHeaderWrapperContainer', function () {
   before(function () {
-    wrapper = shallow(<ZooHeaderWrapperContainer.wrappedComponent
+    wrapper = shallow(<ZooHeaderWrapperContainer
       user={{}}
     />)
   })

@@ -12,9 +12,7 @@ function storeMapper (stores) {
     user
   }
 }
-@withRouter
-@inject(storeMapper)
-@observer
+
 class ZooHeaderWrapperContainer extends Component {
   constructor () {
     super()
@@ -91,4 +89,10 @@ ZooHeaderWrapperContainer.propTypes = {
   })
 }
 
-export default ZooHeaderWrapperContainer
+@withRouter
+@inject(storeMapper)
+@observer
+class DecoratedZooHeaderWrapperContainer extends ZooHeaderWrapperContainer { }
+
+export default DecoratedZooHeaderWrapperContainer
+export { ZooHeaderWrapperContainer }
