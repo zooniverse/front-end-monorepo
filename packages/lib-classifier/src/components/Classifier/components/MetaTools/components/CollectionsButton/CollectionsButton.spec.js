@@ -3,7 +3,8 @@ import React from 'react'
 import sinon from 'sinon'
 import MetaToolsButton from '../MetaToolsButton'
 
-import CollectionsButton, { Collect } from './CollectionsButton'
+import CollectionsButton from './CollectionsButton'
+import CollectionsIcon from './CollectionsIcon'
 
 let wrapper
 
@@ -19,7 +20,7 @@ describe('Component > CollectionsButton', function () {
   it('should display a Collect icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Collect className='' color='dark-5' />)
+    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='1em' />)
   })
 
   it('should call props.onClick on click', function () {
