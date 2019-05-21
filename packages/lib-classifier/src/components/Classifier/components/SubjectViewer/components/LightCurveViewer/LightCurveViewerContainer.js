@@ -24,27 +24,19 @@ class LightCurveViewerContainer extends Component {
   }
 
   async componentDidMount () {
-    const { onError, subject } = this.props
+    const { subject } = this.props
     if (subject) {
-      try {
-        await this.handleSubject()
-      } catch (error) {
-        onError(error)
-      }
+      await this.handleSubject()
     }
   }
 
   async componentDidUpdate (prevProps) {
-    const { onError, subject } = this.props
+    const { subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
 
     if (subjectChanged) {
-      try {
-        await this.handleSubject()
-      } catch (error) {
-        onError(error)
-      }
+      await this.handleSubject()
     }
   }
 
@@ -64,16 +56,14 @@ class LightCurveViewerContainer extends Component {
   async requestData () {
     const { onError } = this.props
     try {
-      // this.setState({ loading: asyncStates.loading })
       const url = this.getSubjectUrl()
       const response = await request.get(url)
-      if (response.ok) {
-        // Get the JSON data, or (as a failsafe) parse the JSON data if the
-        // response is returned as a string
-        return response.body || JSON.parse(response.text)
-      }
+
+      // Get the JSON data, or (as a failsafe) parse the JSON data if the
+      // response is returned as a string
+      return response.body || JSON.parse(response.text)
     } catch (error) {
-      onError(error)
+      return onError(error)
     }
   }
 
@@ -83,7 +73,7 @@ class LightCurveViewerContainer extends Component {
       const rawData = await this.requestData()
       if (rawData) this.onLoad(rawData)
     } catch (error) {
-      onError(error)
+      return onError(error)
     }
   }
 
