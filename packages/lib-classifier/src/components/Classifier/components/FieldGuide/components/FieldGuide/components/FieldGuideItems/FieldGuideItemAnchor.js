@@ -4,6 +4,7 @@ import { observable } from 'mobx'
 import { Markdownz } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import counterpart from 'counterpart'
 import en from './locales/en'
@@ -45,14 +46,14 @@ class FieldGuideItemAnchor extends React.Component {
   }
 
   render () {
-    const { className, icons, item, itemIndex } = this.props
+    const { className, icons, item, itemIndex, theme } = this.props
     const label = <AnchorLabel icons={icons} item={item} />
-
+    const anchorColor = (theme.dark) ? 'light-3' : 'dark-5'
     return (
       <Anchor
         a11yTitle={counterpart('FieldGuideItemAnchor.ariaTitle', { title: item.title })}
         className={className}
-        color='dark-5'
+        color={anchorColor}
         href={`#field-guide-item-${itemIndex}`}
         label={label}
         onClick={(event) => this.onClick(event, itemIndex)}
@@ -63,14 +64,21 @@ class FieldGuideItemAnchor extends React.Component {
 
 FieldGuideItemAnchor.wrappedComponent.defaultProps = {
   className: '',
-  icons: observable.map()
+  icons: observable.map(),
+  theme: {
+    dark: false
+  }
 }
 
 FieldGuideItemAnchor.wrappedComponent.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
-  setActiveItemIndex: PropTypes.func.isRequired
+  setActiveItemIndex: PropTypes.func.isRequired,
+  theme: PropTypes.shape({
+    dark: PropTypes.bool
+  })
 }
 
-export default FieldGuideItemAnchor
+export default withTheme(FieldGuideItemAnchor)
+export { FieldGuideItemAnchor }
