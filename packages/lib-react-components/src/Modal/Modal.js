@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import WithLayer from './WithLayer'
+import withLayer from './withLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
@@ -29,6 +29,6 @@ Modal.defaultProps = {
   closeFn: () => {}
 }
 
-export default WithLayer(Modal)
+export default withLayer(Modal)
 
 export { Modal }

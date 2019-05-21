@@ -5,13 +5,10 @@ import Link from 'next/link'
 import { bool, func, string } from 'prop-types'
 import React, { Component } from 'react'
 
-import withOnlyRenderOnBrowser from '../../shared/components/withOnlyRenderOnBrowser'
-
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-// @withOnlyRenderOnBrowser
 class LoginModal extends Component {
   constructor () {
     super()
@@ -20,6 +17,7 @@ class LoginModal extends Component {
 
   componentDidMount () {
     console.log(this.firstInput)
+    // current is coming back null. Why?
     // this.firstInput.current.focus()
   }
 
