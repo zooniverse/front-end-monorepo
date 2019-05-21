@@ -73,6 +73,7 @@ const SubjectViewer = types
       onError (error) {
         console.error(error)
         self.loadingState = asyncStates.error
+        return error
       },
 
       onSubjectReady (event) {

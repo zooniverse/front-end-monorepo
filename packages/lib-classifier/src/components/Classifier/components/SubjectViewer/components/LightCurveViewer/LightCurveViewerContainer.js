@@ -73,7 +73,7 @@ class LightCurveViewerContainer extends Component {
       const rawData = await this.requestData()
       if (rawData) this.onLoad(rawData)
     } catch (error) {
-      return onError(error)
+      onError(error)
     }
   }
 
