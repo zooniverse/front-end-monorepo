@@ -62,6 +62,26 @@ describe('Modal', function () {
     expect(wrapper.find(ModalBody).props().pad).to.equal(pad)
   })
 
+  it('should use elevation if set to be a modal', function () {
+    const wrapper = shallow(
+      <Modal modal title={title} closeFn={() => { }}>
+        {content}
+      </Modal>
+    )
+
+    expect(wrapper.find(ModalBody).props().elevation).to.equal('medium')
+  })
+
+  it('should not use elevation if set not to be a modal', function () {
+    const wrapper = shallow(
+      <Modal title={title} closeFn={() => { }}>
+        {content}
+      </Modal>
+    )
+
+    expect(wrapper.find(ModalBody).props().elevation).to.equal('none')
+  })
+
   it('should pass along the child content to be the child of ModalBody', function () {
     const wrapper = shallow(
       <Modal title={title} closeFn={() => { }}>

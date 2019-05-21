@@ -5,6 +5,7 @@ import React from 'react'
 function ModalBody ({
   children,
   className,
+  elevation,
   pad
 }) {
   return (
@@ -14,6 +15,7 @@ function ModalBody ({
         light: 'white'
       }}
       className={className}
+      elevation={elevation}
       pad={pad}
     >
       {children}
@@ -24,6 +26,7 @@ function ModalBody ({
 ModalBody.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
+  elevation: PropTypes.string
 }
 
 ModalBody.defaultProps = {

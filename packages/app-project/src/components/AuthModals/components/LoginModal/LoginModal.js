@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Anchor, Box, Button, Form, FormField, Layer, Text, TextInput } from 'grommet'
+import { Anchor, Box, Button, Form, FormField, Text, TextInput } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
 import Link from 'next/link'
 import { bool, func, string } from 'prop-types'
@@ -17,7 +17,6 @@ class LoginModal extends Component {
 
   componentDidMount () {
     console.log(this.firstInput)
-    // current is coming back null. Why?
     // this.firstInput.current.focus()
   }
 

@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-
-import withLayer, { StyledLayer } from './withLayer'
+import { Layer } from 'grommet'
+import withLayer from './withLayer'
 
 function Component () {(
   <div>
@@ -52,14 +52,14 @@ describe('HOC > withLayer', function () {
       expect(wrapper.state().isBrowser).to.be.true()
     })
 
-    it('should render the child component wrapped with a StyledLayer', function () {
+    it('should render the child component wrapped with a Layer', function () {
       const wrapper = shallow(<WrappedComponent active />)
-      const styledLayerWrapper = wrapper.find(StyledLayer)
-      expect(styledLayerWrapper).to.have.lengthOf(1)
-      expect(styledLayerWrapper.find(Component)).to.have.lengthOf(1)
+      const layerWrapper = wrapper.find(Layer)
+      expect(layerWrapper).to.have.lengthOf(1)
+      expect(layerWrapper.find(Component)).to.have.lengthOf(1)
     })
 
-    it('should set the StyledLayer props', function () {
+    it('should set the Layer props', function () {
       const props = {
         active: true,
         closeFn: sinon.spy(),
@@ -68,10 +68,10 @@ describe('HOC > withLayer', function () {
       }
 
       const wrapper = shallow(<WrappedComponent {...props} />)
-      expect(wrapper.find(StyledLayer).props().onClickOutside).to.equal(props.closeFn)
-      expect(wrapper.find(StyledLayer).props().onEsc).to.equal(props.closeFn)
-      expect(wrapper.find(StyledLayer).props().modal).to.equal(props.modal)
-      expect(wrapper.find(StyledLayer).props().position).to.equal(props.position)
+      expect(wrapper.find(Layer).props().onClickOutside).to.equal(props.closeFn)
+      expect(wrapper.find(Layer).props().onEsc).to.equal(props.closeFn)
+      expect(wrapper.find(Layer).props().modal).to.equal(props.modal)
+      expect(wrapper.find(Layer).props().position).to.equal(props.position)
     })
 
     it('should pass props to the wrapped component', function () {
@@ -80,7 +80,7 @@ describe('HOC > withLayer', function () {
         closeFn: sinon.spy()
       }
       const wrapper = shallow(<WrappedComponent {...props} />)
-      expect(wrapper.find(StyledLayer).find(Component).props().closeFn).to.equal(props.closeFn)
+      expect(wrapper.find(Layer).find(Component).props().closeFn).to.equal(props.closeFn)
     })
   })
 })
