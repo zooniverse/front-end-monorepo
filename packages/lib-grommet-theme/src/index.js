@@ -119,6 +119,12 @@ const theme = deepFreeze({
       }
     },
     colors,
+    drop: {
+      background: {
+        dark: 'dark-1',
+        light: 'light-1'
+      }
+    },
     edgeSize: {
       xxsmall: '5px',
       xsmall: `10px`,
