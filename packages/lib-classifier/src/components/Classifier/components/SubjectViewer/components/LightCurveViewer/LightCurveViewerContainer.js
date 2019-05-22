@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import * as d3 from 'd3'
-import { get, zip } from 'lodash'
+import { zip } from 'lodash'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
@@ -15,7 +15,6 @@ class LightCurveViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      loading: asyncStates.initialized,
       dataExtent: {
         x: [],
         y: []
@@ -24,19 +23,20 @@ class LightCurveViewerContainer extends Component {
     }
   }
 
-  componentDidMount () {
-    if (this.props.subject) {
-      this.handleSubject()
+  async componentDidMount () {
+    const { subject } = this.props
+    if (subject) {
+      await this.handleSubject()
     }
   }
 
-  componentDidUpdate (prevProps) {
+  async componentDidUpdate (prevProps) {
     const { subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
 
     if (subjectChanged) {
-      this.handleSubject()
+      await this.handleSubject()
     }
   }
 
@@ -44,8 +44,7 @@ class LightCurveViewerContainer extends Component {
     // Find the first location that has a JSON MIME type.
     // NOTE: we also temporarily accept plain text, due to quirks with the
     // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-    const locations = get(this, 'props.subject.locations', [])
-    const jsonLocation = locations.find(l => l['application/json'] || l['text/plain']) || {}
+    const jsonLocation = this.props.subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -55,28 +54,27 @@ class LightCurveViewerContainer extends Component {
   }
 
   async requestData () {
+    const { onError } = this.props
     try {
-      this.setState({ loading: asyncStates.loading })
       const url = this.getSubjectUrl()
       const response = await request.get(url)
-      if (!response.ok) {
-        throw new Error('Invalid response')
-      } else {
-        // Get the JSON data, or (as a failsafe) parse the JSON data if the
-        // response is returned as a string
-        return response.body || JSON.parse(response.text)
-      }
+
+      // Get the JSON data, or (as a failsafe) parse the JSON data if the
+      // response is returned as a string
+      return response.body || JSON.parse(response.text)
     } catch (error) {
-      return this.onError(error)
+      onError(error)
+      return { x: [], y: [] }
     }
   }
 
   async handleSubject () {
+    const { onError } = this.props
     try {
       const rawData = await this.requestData()
-      this.onLoad(rawData)
+      if (rawData) this.onLoad(rawData)
     } catch (error) {
-      console.error(error)
+      onError(error)
     }
   }
 
@@ -89,24 +87,15 @@ class LightCurveViewerContainer extends Component {
         y: d3.extent(rawData.y)
       },
       dataPoints: zip(rawData.x, rawData.y),
-      loading: asyncStates.success
     },
     function () {
       onReady({ target })
     })
   }
 
-  onError (error) {
-    this.setState({
-      loading: asyncStates.error,
-      data: null
-    })
-    return error
-  }
-
   render () {
     const { subject } = this.props
-    if (!subject) {
+    if (!subject.id) {
       return null
     }
 
@@ -123,16 +112,24 @@ class LightCurveViewerContainer extends Component {
   }
 }
 
-LightCurveViewerContainer.defaultProps = {
-  onReady: () => true
+LightCurveViewerContainer.wrappedComponent.defaultProps = {
+  loadingState: asyncStates.initialized,
+  onError: () => true,
+  onReady: () => true,
+  subject: {
+    id: '',
+    locations: []
+  }
 }
 
-LightCurveViewerContainer.propTypes = {
+LightCurveViewerContainer.wrappedComponent.propTypes = {
+  loadingState: PropTypes.string,
+  onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
+    id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
-  }),
-  subjectId: PropTypes.string
+  })
 }
 
 export default LightCurveViewerContainer
