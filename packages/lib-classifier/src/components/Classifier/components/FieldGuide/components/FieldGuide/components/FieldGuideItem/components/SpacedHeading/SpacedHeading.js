@@ -20,7 +20,6 @@ function SpacedHeading (props) {
   )
 }
 
-
 SpacedHeading.propTypes = {
   children: node,
   className: string,

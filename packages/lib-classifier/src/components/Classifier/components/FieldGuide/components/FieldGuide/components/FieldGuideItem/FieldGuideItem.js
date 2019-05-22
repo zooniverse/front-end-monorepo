@@ -1,4 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { Markdownz } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button, Box, Heading, Paragraph } from 'grommet'
@@ -25,7 +24,7 @@ const StyledButton = styled(Button)`
 `
 
 const markdownTitleComponent = {
-  h3: (nodeProps) => <Heading level='3' margin='none'>{nodeProps.children}</Heading>,
+  h3: (nodeProps) => <Heading level='3' margin='none'>{nodeProps.children}</Heading>
 }
 
 const markdownComponents = {
