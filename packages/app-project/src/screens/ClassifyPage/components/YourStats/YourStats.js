@@ -13,22 +13,21 @@ counterpart.registerTranslations('en', en)
 
 function YourStats (props) {
   const { counts, projectName } = props
+
   return (
-    <ContentBox
-      title={counterpart('YourStats.title', { projectName })}
-    >
+    <ContentBox title={counterpart('YourStats.title', { projectName })}>
       <Paragraph margin={{ top: 'none' }}>
         {counterpart('YourStats.text')}
       </Paragraph>
       <Box border={{ color: 'light-5', side: 'bottom' }} pad={{ bottom: 'small' }}>
         <Grid columns={['1fr', '1fr']} gap='small'>
           <Stat
-            value={counts.today}
             label={counterpart('YourStats.todaysCount')}
+            value={counts.today}
           />
           <Stat
-            value={counts.total}
             label={counterpart('YourStats.totalCount')}
+            value={counts.total}
           />
         </Grid>
       </Box>
