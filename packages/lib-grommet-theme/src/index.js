@@ -204,6 +204,10 @@ const theme = deepFreeze({
         light: 'brand'
       }
     },
+    color: {
+      dark: 'accent-2',
+      light: 'brand'
+    },
     hover: {
       border: {
         color: {
@@ -416,6 +420,27 @@ const theme = deepFreeze({
     },
     extend: props => `margin: ${props.margin || '1em 0 1em 0'}`
   },
+  radioButton: {
+    check: {
+      color: {
+        dark: 'accent-2',
+        light: 'brand',
+      }
+    },
+    color: {
+      dark: 'accent-2',
+      light: 'brand',
+    },
+    icon: {
+      size: '15px',
+      extend: `
+        circle {
+          r: 10px;
+        }
+      `
+    },
+    size: '15px'
+  },
   text: {
     xsmall: {
       size: "12px",
@@ -447,27 +472,6 @@ const theme = deepFreeze({
       height: "38px",
       maxWidth: "100%"
     }
-  },
-  radioButton: {
-    check: {
-      color: {
-        dark: 'accent-2',
-        light: 'brand',
-      }
-    },
-    color: {
-      dark: 'accent-2',
-      light: 'brand',
-    },
-    icon: {
-      size: '15px',
-      extend: `
-        circle {
-          r: 10px;
-        }
-      `
-    },
-    size: '15px'
   }
 })
 
