@@ -1,16 +1,16 @@
-import { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
-import React from 'react'
-import { observable } from 'mobx'
-import { Button } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import FieldGuideItem from './FieldGuideItem'
+import { shallow, mount } from 'enzyme'
+import { Button } from 'grommet'
+import { observable } from 'mobx'
+import React from 'react'
+import sinon from 'sinon'
+
+import { FieldGuideItem } from './FieldGuideItem'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
 
 const medium = FieldGuideMediumFactory.build()
-const attachedMedia = observable.map()
-attachedMedia.set(medium.id, medium)
+const attachedMedia = observable.map().set(medium.id, medium)
 const item = {
   title: 'Cat',
   icon: medium.id,
@@ -20,7 +20,7 @@ const item = {
 describe('Component > FieldGuideItem', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
-      <FieldGuideItem.wrappedComponent
+      <FieldGuideItem
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
@@ -31,7 +31,7 @@ describe('Component > FieldGuideItem', function () {
   it('should call setActiveItemIndex when the previous button is clicked', function () {
     const setActiveItemIndexSpy = sinon.spy()
     const wrapper = mount(
-      <FieldGuideItem.wrappedComponent
+      <FieldGuideItem
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={setActiveItemIndexSpy}
@@ -42,7 +42,7 @@ describe('Component > FieldGuideItem', function () {
 
   it('should render the item title as markdown', function () {
     const wrapper = shallow(
-      <FieldGuideItem.wrappedComponent
+      <FieldGuideItem
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => {}}
@@ -53,7 +53,7 @@ describe('Component > FieldGuideItem', function () {
 
   it('should render the item content as markdown', function () {
     const wrapper = shallow(
-      <FieldGuideItem.wrappedComponent
+      <FieldGuideItem
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
@@ -64,7 +64,7 @@ describe('Component > FieldGuideItem', function () {
 
   it('should render a FieldGuideItemIcon component for the icon', function () {
     const wrapper = shallow(
-      <FieldGuideItem.wrappedComponent
+      <FieldGuideItem
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
