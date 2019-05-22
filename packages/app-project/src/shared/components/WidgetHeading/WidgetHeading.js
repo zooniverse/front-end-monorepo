@@ -1,23 +1,28 @@
 import { SpacedText } from '@zooniverse/react-components'
-import { Box, Heading } from 'grommet'
+import { Heading } from 'grommet'
 import { string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledHeading = styled(Heading)`
+  font-size: 14px;
+  line-height: 22px;
+`
 
 function WidgetHeading (props) {
   const { level, text } = props
   return (
-    <Heading level={level} margin='none'>
+    <StyledHeading level={level} margin='none'>
       <SpacedText
         color={{
           dark: 'light-1',
           light: 'black'
         }}
-        size='medium'
         weight='bold'
       >
         {text}
       </SpacedText>
-    </Heading>
+    </StyledHeading>
   )
 }
 

@@ -19,7 +19,7 @@ describe('Component > Subtitle', function () {
 
   it('should use the margin prop if the screen size is greater than small', function () {
     wrapper = shallow(<Subtitle screenSize='medium' text={TEXT} />)
-    expect(wrapper.props().margin).to.equal('none')
+    expect(wrapper.props().margin).to.equal('0')
   })
 
   it('should set the margin to an object if the screen size is equal or less than small', function () {
