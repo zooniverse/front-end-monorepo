@@ -441,6 +441,14 @@ const theme = deepFreeze({
     },
     size: '15px'
   },
+  select: {
+    icons: {
+      color: {
+        dark: 'accent-2',
+        light: 'brand',
+      }
+    }
+  },
   text: {
     xsmall: {
       size: "12px",
