@@ -63,7 +63,8 @@ class LightCurveViewerContainer extends Component {
       // response is returned as a string
       return response.body || JSON.parse(response.text)
     } catch (error) {
-      return onError(error)
+      onError(error)
+      return { x: [], y: [] }
     }
   }
 
