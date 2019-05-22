@@ -1,14 +1,23 @@
-import { Text } from 'grommet'
+import { Heading } from 'grommet'
 import { withResponsiveContext } from '@zooniverse/react-components'
 import { object, oneOfType, string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledHeading = styled(Heading)`
+  font-size: 14px;
+  line-height: 22px;
+`
 
 function Subtitle ({ margin, mode, screenSize, text, ...props }) {
-  const textMargin = (screenSize === 'small') ? { top: 'none', bottom: 'xsmall' } : margin
+  const textMargin = (screenSize === 'small')
+    ? { bottom: 'xsmall', top: 'none' }
+    : margin
+
   return (
-    <Text {...props} margin={textMargin}>
+    <StyledHeading level='3' margin={textMargin}>
       {text}
-    </Text>
+    </StyledHeading>
   )
 }
 
@@ -16,17 +25,13 @@ Subtitle.propTypes = {
   margin: oneOfType([object, string]),
   screenSize: string,
   size: string,
-  tag: string,
   text: string.isRequired,
-  weight: string
 }
 
 Subtitle.defaultProps = {
-  margin: 'none',
+  margin: '0',
   screenSize: '',
   size: 'small',
-  tag: 'h3',
-  weight: 'bold'
 }
 
 export default withResponsiveContext(Subtitle)

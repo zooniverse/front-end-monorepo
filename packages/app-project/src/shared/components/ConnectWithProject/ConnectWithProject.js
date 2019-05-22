@@ -15,7 +15,7 @@ function ConnectWithProject ({ className, projectName, urls }) {
       className={className}
       title={counterpart('ConnectWithProject.title', { projectName })}
     >
-      <Grid columns={['1fr', '1fr']} gap='small' rows={['1fr']}>
+      <Grid columns={['1fr', '1fr']} gap='medium' rows={['1fr']}>
         {urls.map(urlObject =>
           <ProjectLink
             key={urlObject.url}
