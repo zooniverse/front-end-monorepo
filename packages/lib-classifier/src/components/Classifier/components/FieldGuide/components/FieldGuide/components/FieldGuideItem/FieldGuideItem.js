@@ -24,7 +24,7 @@ const StyledButton = styled(Button)`
 `
 
 const markdownTitleComponent = {
-  h3: (nodeProps) => <Heading level='3' margin='none'>{nodeProps.children}</Heading>
+  h3: (nodeProps) => <SpacedHeading level='3' margin='none'>{nodeProps.children}</SpacedHeading>
 }
 
 const markdownComponents = {
@@ -58,7 +58,7 @@ class FieldGuideItem extends React.Component {
           border={{ color: 'light-5', side: 'bottom' }}
           direction='row'
           flex={{ grow: 1, shrink: 0 }}
-          pad={{ bottom: 'small' }}
+          pad={{ bottom: 'xsmall' }}
         >
           <StyledButton
             a11yTitle={counterpart('FieldGuideItem.ariaTitle')}
