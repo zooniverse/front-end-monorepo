@@ -449,9 +449,23 @@ const theme = deepFreeze({
     }
   },
   radioButton: {
+    check: {
+      color: {
+        dark: 'accent-2',
+        light: 'brand',
+      }
+    },
+    color: {
+      dark: 'accent-2',
+      light: 'brand',
+    },
     icon: {
       size: '15px',
-      extend: 'circle { r: 10px; }'
+      extend: `
+        circle {
+          r: 10px;
+        }
+      `
     },
     size: '15px'
   }
