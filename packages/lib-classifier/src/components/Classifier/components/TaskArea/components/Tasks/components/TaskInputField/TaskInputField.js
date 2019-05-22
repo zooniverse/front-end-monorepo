@@ -1,69 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import styled, { ThemeProvider } from 'styled-components'
-import theme from 'styled-theming'
+import styled, { withTheme } from 'styled-components'
 import { darken, lighten } from 'polished'
-import zooTheme from '@zooniverse/grommet-theme'
+import { Text } from 'grommet'
 
 import TaskInputLabel from './components/TaskInputLabel'
-import { pxToRem } from '@zooniverse/react-components'
 
-const DEFAULT = {
-  backgroundColor: theme('mode', {
-    dark: zooTheme.global.colors['dark-3'],
-    light: zooTheme.global.colors['light-1']
-  }),
-  border: theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors.text.dark}`,
-    light: '2px solid transparent'
-  }),
-  color: theme('mode', {
-    dark: zooTheme.global.colors.text.dark,
-    light: zooTheme.global.colors.text.light
-  })
+
+function getHoverStyles (props, active = false) {
+  if (props.theme.dark) {
+    const borderColor = active ? props.theme.global.colors['accent-2'] : props.theme.global.colors['light-1']
+    return `
+      background: ${darken(0.04, props.theme.global.colors['neutral-2'])};
+      border: 2px solid ${borderColor};
+      color: ${props.theme.global.colors.text.dark};
+    `
+  } else {
+    const gradientTop = lighten(0.05, props.theme.global.colors['accent-2'])
+    const gradientBottom =  darken(0.11, props.theme.global.colors['accent-2'])
+    const borderTopColor = active ? props.theme.global.colors.brand : gradientTop
+    const borderBottomColor = active ? props.theme.global.colors.brand : gradientBottom
+    const borderRightColor = active ? props.theme.global.colors.brand : 'transparent'
+    const borderLeftColor = active ? props.theme.global.colors.brand : 'transparent'
+    return `
+      background: linear-gradient(${gradientTop}, ${gradientBottom});
+      border-width: 2px;
+      border-style: solid;
+      border-left-color: ${borderLeftColor};
+      border-right-color: ${borderRightColor};
+      border-top-color: ${borderTopColor};
+      border-bottom-color: ${borderBottomColor};
+      color: 'black';
+    `
+  }
 }
 
-const HOVER = {
-  gradientTop: theme('mode', {
-    dark: darken(0.04, zooTheme.global.colors['neutral-2']),
-    light: lighten(0.05, zooTheme.global.colors['accent-2'])
-  }),
-  gradientBottom: theme('mode', {
-    dark: darken(0.11, zooTheme.global.colors['neutral-2']),
-    light: darken(0.11, zooTheme.global.colors['accent-2'])
-  }),
-  color: theme('mode', {
-    dark: zooTheme.global.colors.text.dark,
-    light: 'black'
-  })
-}
-
-const CHECKED = {
-  background: theme('mode', {
-    dark: zooTheme.global.colors.brand,
-    light: zooTheme.global.colors.brand
-  }),
-  border: theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors.brand}`,
-    light: '2px solid transparent'
-  }),
-  color: theme('mode', {
-    dark: zooTheme.global.colors.text.dark,
-    light: 'white'
-  })
-}
-
-export const StyledTaskLabel = styled.span`
+export const StyledTaskLabel = styled(Text)`
   align-items: baseline;
-  background-color: ${DEFAULT.backgroundColor};
-  border: ${DEFAULT.border};
+  background: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['light-1']};
+  border: ${props => props.theme.dark ? `2px solid ${props.theme.global.colors['light-1']}` : '2px solid transparent'};
   box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
-  color: ${DEFAULT.color};
   cursor: pointer;
   display: flex;
-  margin: ${pxToRem(10)} 0;
-  padding: 5px 2ch;
 `
 
 export const StyledTaskInputField = styled.label`
@@ -75,50 +54,34 @@ export const StyledTaskInputField = styled.label`
   }
 
   input:enabled + ${StyledTaskLabel}:hover {
-    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
-    border-width: 2px;
-    border-style: solid;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: ${HOVER.gradientTop};
-    border-bottom-color: ${HOVER.gradientBottom};
-    color: ${HOVER.color};
+    ${props => getHoverStyles(props)}
   }
 
   input:focus + ${StyledTaskLabel} {
-    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
-    border-width: 2px;
-    border-style: solid;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: ${HOVER.gradientTop};
-    border-bottom-color: ${HOVER.gradientBottom};
-    color: ${HOVER.color};
+    ${props => getHoverStyles(props)}
   }
 
   input:enabled:active + ${StyledTaskLabel} {
-    background: linear-gradient(${HOVER.gradientTop}, ${HOVER.gradientBottom});
-    border-width: 2px;
-    border-style: solid;
-    border-color: ${theme('mode', {
-    dark: zooTheme.global.colors['neutral-2'],
-    light: zooTheme.global.colors.brand
-  })};
-    color: ${HOVER.color};
+    ${props => getHoverStyles(props, true)}
   }
 
   input:checked + ${StyledTaskLabel} {
-    background: ${CHECKED.background};
-    border: ${CHECKED.border};
-    color: ${CHECKED.color}
+    background: ${props => props.theme.global.colors.brand};
+    border: ${props => props.theme.dark ? `2px solid ${props.theme.global.colors['light-1']}` : '2px solid transparent'};
+    color: ${props => props.theme.dark ? props.theme.global.colors.text.dark : 'white'}
   }
 
   input:focus:checked + ${StyledTaskLabel},
   input:checked + ${StyledTaskLabel}:hover {
-    border: ${theme('mode', {
-    dark: `2px solid ${zooTheme.global.colors['neutral-2']}`,
-    light: `2px solid ${zooTheme.global.colors['neutral-2']}`
-  })};
+    border: ${props => props.theme.dark ? `2px solid ${props.theme.global.colors['light-1']}` : `2px solid ${props.theme.global.colors['neutral-2']}`};
+  
+    > img:only-child, svg:only-child {
+      background-color: inherit !important;
+    }
+  }
+
+  input:checked + ${StyledTaskLabel}:hover {
+    color: ${props => props.theme.dark ? props.theme.global.colors.text.dark : 'black'}
   }
 `
 
@@ -137,25 +100,25 @@ export function TaskInputField (props) {
     theme,
     type
   } = props
+
   return (
-    <ThemeProvider theme={{ mode: theme }}>
-      <StyledTaskInputField
-        className={className}
-      >
-        <input
-          autoFocus={autoFocus}
-          checked={checked}
-          disabled={disabled}
-          name={name}
-          onChange={onChange}
-          type={type}
-          value={index}
-        />
-        <StyledTaskLabel>
-          <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
-        </StyledTaskLabel>
-      </StyledTaskInputField>
-    </ThemeProvider>
+    <StyledTaskInputField
+      className={className}
+      theme={theme}
+    >
+      <input
+        autoFocus={autoFocus}
+        checked={checked}
+        disabled={disabled}
+        name={name}
+        onChange={onChange}
+        type={type}
+        value={index}
+      />
+      <StyledTaskLabel margin={{ vertical: 'small', horizontal: 'none' }} theme={theme}>
+        <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
+      </StyledTaskLabel>
+    </StyledTaskInputField>
   )
 }
 
@@ -169,7 +132,9 @@ TaskInputField.defaultProps = {
   labelStatus: null,
   name: '',
   onChange: () => {},
-  theme: 'light'
+  theme: {
+    dark: false
+  }
 }
 
 TaskInputField.propTypes = {
@@ -183,8 +148,10 @@ TaskInputField.propTypes = {
   labelStatus: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   name: PropTypes.string,
   onChange: PropTypes.func,
-  theme: PropTypes.string,
+  theme: PropTypes.shape({
+    dark: PropTypes.bool
+  }),
   type: PropTypes.string.isRequired
 }
 
-export default React.memo(TaskInputField)
+export default React.memo(withTheme(TaskInputField))

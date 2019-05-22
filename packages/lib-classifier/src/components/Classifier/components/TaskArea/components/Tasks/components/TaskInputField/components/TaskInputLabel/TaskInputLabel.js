@@ -20,17 +20,17 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
     font-size: ${pxToRem(14)};
     margin: 0;
     max-width: 100%;
+    padding: 10px;
     text-align: ${(props) => props.textAlign};
   }
 
   img, svg {
-    padding: 0 ${pxToRem(5)};
+    padding: 10px;
     vertical-align: middle;
   }
 
   img:only-child, svg:only-child {
     background-color: ${zooTheme.global.colors.brand};
-    margin-right: 1ch;
     max-width: ${pxToRem(60)};
   }
 `
@@ -41,7 +41,12 @@ export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
     : 'center'
 
   return (
-    <StyledTaskInputLabelWrapper align='center' direction='row' fill='horizontal' textAlign={howShouldTheLabelBeAligned}>
+    <StyledTaskInputLabelWrapper
+      align='center'
+      direction='row'
+      fill='horizontal'
+      textAlign={howShouldTheLabelBeAligned}
+    >
       {labelIcon &&
         labelIcon}
       <Markdownz>
