@@ -19,11 +19,11 @@ const StyledAnchor = styled(Anchor)`
 function ProjectLink ({ className, urlObject }) {
   const { IconComponent, label, type, url } = formatUrlObject(urlObject)
   return (
-    <Box className={className} direction='row' margin={{ bottom: 'small' }}>
+    <Box className={className} direction='row'>
       <Box margin={{ right: '15px' }}>
         <IconComponent color='dark-5' size='medium' />
       </Box>
-      <Box>
+      <Box gap='xxsmall'>
         <SpacedText>
           <Link href={url} passHref>
             <StyledAnchor size='small'>
