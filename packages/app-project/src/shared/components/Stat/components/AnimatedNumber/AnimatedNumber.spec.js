@@ -25,6 +25,7 @@ describe('Component > AnimatedNumber', function () {
       const animateNumberSpy = sinon.spy(AnimatedNumber.prototype, 'animateValue')
       mount(<AnimatedNumber value={VALUE} />)
       expect(animateNumberSpy).to.have.been.calledWith(0)
+      animateNumberSpy.restore()
     })
 
     it('should animate to the new `value` prop when it changes', function (done) {
@@ -32,8 +33,9 @@ describe('Component > AnimatedNumber', function () {
       const wrapper = mount(<AnimatedNumber duration={DURATION} value={VALUE} />)
       expect(wrapper.render().text()).to.equal(FORMATTED_VALUE)
       wrapper.setProps({ value: NEW_VALUE })
-      setTimeout(function() {
+      setTimeout(function () {
         expect(wrapper.render().text()).to.equal(NEW_FORMATTED_VALUE)
+        animateNumberSpy.restore()
         done()
     }, DURATION)
     })
