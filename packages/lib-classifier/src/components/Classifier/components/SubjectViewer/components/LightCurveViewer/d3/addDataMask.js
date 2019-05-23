@@ -1,4 +1,4 @@
-export default function addDataMask (selection, outerMargin, id = Math.random()) {
+export default function addDataMask (selection, outerMargin, id = 0) {
   return selection
     .append('clipPath')
     .attr('id', `data-mask-${id}`)
