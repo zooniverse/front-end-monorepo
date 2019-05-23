@@ -9,20 +9,21 @@ import TaskInputLabel from './components/TaskInputLabel'
 
 
 function getHoverStyles (props, active = false) {
-  if (props.theme.dark) {
-    const borderColor = active ? props.theme.global.colors['accent-2'] : props.theme.global.colors['light-1']
+  const { theme: { dark, global: { colors } } } = props
+  if (dark) {
+    const borderColor = active ? colors['accent-2'] : colors['light-1']
     return `
-      background: ${darken(0.04, props.theme.global.colors['neutral-2'])};
+      background: ${darken(0.04, colors['neutral-2'])};
       border: 2px solid ${borderColor};
-      color: ${props.theme.global.colors.text.dark};
+      color: ${colors.text.dark};
     `
   } else {
-    const gradientTop = lighten(0.05, props.theme.global.colors['accent-2'])
-    const gradientBottom =  darken(0.11, props.theme.global.colors['accent-2'])
-    const borderTopColor = active ? props.theme.global.colors.brand : gradientTop
-    const borderBottomColor = active ? props.theme.global.colors.brand : gradientBottom
-    const borderRightColor = active ? props.theme.global.colors.brand : 'transparent'
-    const borderLeftColor = active ? props.theme.global.colors.brand : 'transparent'
+    const gradientTop = lighten(0.05, colors['accent-2'])
+    const gradientBottom =  darken(0.11, colors['accent-2'])
+    const borderTopColor = active ? colors.brand : gradientTop
+    const borderBottomColor = active ? colors.brand : gradientBottom
+    const borderRightColor = active ? colors.brand : 'transparent'
+    const borderLeftColor = active ? colors.brand : 'transparent'
     return `
       background: linear-gradient(${gradientTop}, ${gradientBottom});
       border-width: 2px;
