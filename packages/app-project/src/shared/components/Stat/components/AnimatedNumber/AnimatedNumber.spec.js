@@ -35,9 +35,8 @@ describe('Component > AnimatedNumber', function () {
       wrapper.setProps({ value: NEW_VALUE })
       setTimeout(function () {
         expect(wrapper.render().text()).to.equal(NEW_FORMATTED_VALUE)
-        animateNumberSpy.restore()
         done()
-    }, DURATION)
+    }, DURATION + 50)
     })
   })
 })
