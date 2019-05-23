@@ -9,14 +9,15 @@ class AnimatedNumber extends Component {
   }
 
   componentDidMount () {
-    this.animateValue()
+    this.animateValue(0)
   }
 
   componentDidUpdate (prevProps) {
     this.animateValue(prevProps.value)
   }
 
-  animateValue (prevValue = 0) {
+  animateValue (prevValue) {
+    const self = this
     d3.select(this.ref.current)
       .data([this.props.value])
       .transition()
@@ -26,15 +27,23 @@ class AnimatedNumber extends Component {
         const interpolator = d3.interpolate(prevValue, d)
         return t => {
           const value = interpolator(t)
-          const niceValue = d3.format(',d')(value)
+          const niceValue = self.formatValue(value)
           node.text(niceValue)
         }
       })
   }
 
+  formatValue (value) {
+    return d3.format(',d')(value)
+  }
+
   render () {
     return (
-      <span ref={this.ref}>0</span>
+      <>
+        <span ref={this.ref}>
+          {this.formatValue(this.props.value)}
+        </span>
+      </>
     )
   }
 }
