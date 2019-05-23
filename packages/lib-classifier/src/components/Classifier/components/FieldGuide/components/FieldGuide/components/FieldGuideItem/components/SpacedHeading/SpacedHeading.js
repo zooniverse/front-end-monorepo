@@ -13,7 +13,7 @@ function SpacedHeading (props) {
   const { children, className, level } = props
   return (
     <StyledHeading className={className} level={level} size='medium' {...props}>
-      <SpacedText color='black' weight='bold'>
+      <SpacedText color={{ dark: 'white', light: 'black' }} weight='bold'>
         {children}
       </SpacedText>
     </StyledHeading>
