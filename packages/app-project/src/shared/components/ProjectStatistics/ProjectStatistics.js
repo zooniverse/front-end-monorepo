@@ -21,6 +21,7 @@ const NumbersGrid = styled.div`
 `
 
 const StyledParagraph = styled(Paragraph)`
+  line-height: 22px;
   max-width: 100%;
 `
 
@@ -45,9 +46,9 @@ function ProjectStatistics ({
           <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
           <StyledParagraph
             margin={{ bottom: 'small', top: 'none' }}
-            size='small'
+            size='medium'
           >
-            {counterpart('ProjectStatistics.text')}
+            {counterpart('ProjectStatistics.text', { projectName })}
           </StyledParagraph>
           <CompletionBar />
           <Text margin={{ top: 'small' }} size='small' weight='bold'>

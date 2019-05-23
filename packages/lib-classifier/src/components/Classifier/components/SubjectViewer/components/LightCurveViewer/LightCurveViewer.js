@@ -455,7 +455,7 @@ class LightCurveViewer extends Component {
     */
     this.d3svg.call(addDataLayer)
     this.d3dataLayer = this.d3svg.select('.data-layer')
-    this.d3svg.call(addDataMask, props.outerMargin)
+    this.d3svg.call(addDataMask, props.outerMargin, props.id)
     this.d3dataMask = this.d3svg.select('.data-mask')
 
     /*
@@ -706,6 +706,7 @@ LightCurveViewer.wrappedComponent.propTypes = {
     fontSize: PropTypes.string
   }),
 
+  id: PropTypes.number,
   // Store-mapped Properties
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
   setOnZoom: PropTypes.func.isRequired,
@@ -741,6 +742,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
     fontSize: '0.75rem'
   },
 
+  id: Math.random(),
   interactionMode: '',
   setOnZoom: (type, zoomValue) => {},
 
