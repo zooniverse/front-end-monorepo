@@ -4,12 +4,46 @@ import { zip } from 'lodash'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
+import { inject, observer } from 'mobx-react'
+import withKeyZoom from '../../../withKeyZoom'
 
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
-import withKeyZoom from '../../../withKeyZoom'
 
-@withKeyZoom
+function storeMapper(stores) {
+  const {
+    enableAnnotate,
+    enableMove,
+    interactionMode,
+    setOnPan,
+    setOnZoom
+  } = stores.classifierStore.subjectViewer
+
+  const {
+    addAnnotation
+  } = stores.classifierStore.classifications
+  const annotations = stores.classifierStore.classifications.currentAnnotations
+
+  const currentTask =
+    (stores.classifierStore.workflowSteps.activeStepTasks &&
+      stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
+    {}
+
+  const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
+
+  return {
+    addAnnotation,
+    annotations,
+    currentTask,
+    enableAnnotate,
+    enableMove,
+    interactionMode,
+    setOnPan,
+    setOnZoom,
+    toolIndex
+  }
+}
+
 class LightCurveViewerContainer extends Component {
   constructor () {
     super()
@@ -94,42 +128,82 @@ class LightCurveViewerContainer extends Component {
   }
 
   render () {
-    const { subject } = this.props
+    const {
+      addAnnotation,
+      annotations,
+      currentTask,
+      drawFeedbackBrushes,
+      enableAnnotate,
+      enableMove,
+      feedback,
+      interactionMode,
+      onKeyDown,
+      setOnPan,
+      setOnZoom,
+      subject,
+      toolIndex,
+    } = this.props
+
     if (!subject.id) {
       return null
     }
 
     return (
       <LightCurveViewer
-        forwardRef={this.viewer}
+        addAnnotation={addAnnotation}
+        annotations={annotations}
+        currentTask={currentTask}
         dataExtent={this.state.dataExtent}
         dataPoints={this.state.dataPoints}
-        drawFeedbackBrushes={this.props.drawFeedbackBrushes}
-        feedback={this.props.feedback}
-        onKeyDown={this.props.onKeyDown}
+        drawFeedbackBrushes={drawFeedbackBrushes}
+        enableAnnotate={enableAnnotate}
+        enableMove={enableMove}
+        feedback={feedback}
+        forwardRef={this.viewer}
+        interactionMode={interactionMode}
+        onKeyDown={onKeyDown}
+        setOnPan={setOnPan}
+        setOnZoom={setOnZoom}
+        toolIndex={toolIndex}
       />
     )
   }
 }
 
-LightCurveViewerContainer.wrappedComponent.defaultProps = {
+LightCurveViewerContainer.defaultProps = {
+  addAnnotation: () => {},
+  drawFeedbackBrushes: () => {},
+  interactionMode: 'annotate',
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
   subject: {
     id: '',
     locations: []
-  }
+  },
 }
 
-LightCurveViewerContainer.wrappedComponent.propTypes = {
+LightCurveViewerContainer.propTypes = {
+  addAnnotation: PropTypes.func,
+  drawFeedbackBrushes: PropTypes.func,
+  interactionMode: PropTypes.oneOf(['annotate', 'move']),
   loadingState: PropTypes.string,
   onError: PropTypes.func,
+  onKeyDown: PropTypes.func.isRequired,
   onReady: PropTypes.func,
+  setOnPan: PropTypes.func.isRequired,
+  setOnZoom: PropTypes.func.isRequired,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
-  })
+  }),
+  toolIndex: PropTypes.number
 }
 
-export default LightCurveViewerContainer
+@inject(storeMapper)
+@withKeyZoom
+@observer
+class DecoratedLightCurveViewerContainer extends LightCurveViewerContainer { }
+
+export default DecoratedLightCurveViewerContainer
+export { LightCurveViewerContainer }
