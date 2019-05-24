@@ -62,11 +62,11 @@ SubjectViewer.wrappedComponent.propTypes = {
   subjectQueueState: PropTypes.oneOf(asyncStates.values),
   subject: PropTypes.shape({
     viewer: PropTypes.string
-  }),
+  })
 }
 
 SubjectViewer.wrappedComponent.defaultProps = {
-  subjectQueueState: asyncStates.initialized,
+  subjectQueueState: asyncStates.initialized
 }
 
 export default SubjectViewer
