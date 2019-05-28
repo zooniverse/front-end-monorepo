@@ -1,9 +1,10 @@
+import { Tab, Tabs } from '@zooniverse/react-components'
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
+
 import { TaskArea } from './TaskArea'
-import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
 import { TutorialFactory } from '../../../../../test/factories'
