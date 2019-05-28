@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import auth from 'panoptes-client/lib/auth'
 
 import initStore from './initStore'
-import { statsClient } from './YourStats'
+import YourStats, { statsClient } from './YourStats'
 
 describe('Stores > YourStats', function () {
   let rootStore
@@ -163,6 +163,45 @@ describe('Stores > YourStats', function () {
 
     it('should count session classifications from 0', function () {
       expect(rootStore.yourStats.totalCount).to.equal(1)
+    })
+  })
+
+  describe('counts view', function () {
+    it('should return the expected counts with no data', function () {
+      const statsStore = YourStats.create()
+      expect(statsStore.counts).to.deep.equal({
+        today: 0,
+        total: 0
+      })
+    })
+
+    describe('total count', function () {
+      it('should get the total count from the store `totalCount` value', function () {
+        const statsStore = YourStats.create({ totalCount: 42 })
+        expect(statsStore.counts.total).to.equal(42)
+      })
+    })
+
+    describe('today\'s count', function () {
+      it('should get today\'s count from the store\'s `dailyCounts`', function () {
+        const MOCK_DAILY_COUNTS = [
+          { count: 12, period: new Date().toISOString().slice(0,10) },
+          { count: 13, period: '2019-01-02' },
+          { count: 14, period: '2019-01-01' },
+        ]
+        const statsStore = YourStats.create({ dailyCounts: MOCK_DAILY_COUNTS })
+        expect(statsStore.counts.today).to.equal(MOCK_DAILY_COUNTS[0].count)
+      })
+
+      it('should be `0` if there are no classifications today', function () {
+        const MOCK_DAILY_COUNTS = [
+          { count: 12, period: '2019-01-03' },
+          { count: 13, period: '2019-01-02' },
+          { count: 14, period: '2019-01-01' },
+        ]
+        const statsStore = YourStats.create({ dailyCounts: MOCK_DAILY_COUNTS })
+        expect(statsStore.counts.today).to.equal(0)
+      })
     })
   })
 })
