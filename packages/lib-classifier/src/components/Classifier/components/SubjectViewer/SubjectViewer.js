@@ -2,12 +2,16 @@ import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-
 import getViewer from './helpers/getViewer'
 
 function storeMapper (stores) {
   const { active: subject, loadingState: subjectQueueState } = stores.classifierStore.subjects
-  const { onSubjectReady, onError, loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
+  const {
+    onSubjectReady,
+    onError,
+    loadingState: subjectReadyState
+  } = stores.classifierStore.subjectViewer
+
   return {
     onError,
     onSubjectReady,
@@ -36,6 +40,7 @@ class SubjectViewer extends React.Component {
   [asyncStates.success] () {
     const { onError, onSubjectReady, subject, subjectReadyState } = this.props
     const Viewer = getViewer(subject.viewer)
+
     return (
       <Viewer
         key={subject.id}

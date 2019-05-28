@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
 import { Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
@@ -20,42 +19,6 @@ const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100 // milliseconds
 const PAN_DISTANCE = 20
 
-function storeMapper (stores) {
-  const {
-    enableAnnotate,
-    enableMove,
-    interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
-    setOnPan,
-    setOnZoom // func: sets onZoom event handler
-  } = stores.classifierStore.subjectViewer
-
-  const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications.currentAnnotations
-
-  const currentTask =
-    (stores.classifierStore.workflowSteps.activeStepTasks &&
-     stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
-    {}
-
-  const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
-
-  return {
-    addAnnotation,
-    annotations,
-    currentTask,
-    enableAnnotate,
-    enableMove,
-    interactionMode,
-    setOnPan,
-    setOnZoom,
-    toolIndex
-  }
-}
-
-@inject(storeMapper)
-@observer
 class LightCurveViewer extends Component {
   constructor (props) {
     super(props)
@@ -676,7 +639,7 @@ class LightCurveViewer extends Component {
   }
 }
 
-LightCurveViewer.wrappedComponent.propTypes = {
+LightCurveViewer.propTypes = {
   // Data values
   dataExtent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
@@ -708,14 +671,13 @@ LightCurveViewer.wrappedComponent.propTypes = {
   }),
 
   id: PropTypes.number,
-  // Store-mapped Properties
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
   setOnZoom: PropTypes.func.isRequired,
 
   onKeyDown: PropTypes.func
 }
 
-LightCurveViewer.wrappedComponent.defaultProps = {
+LightCurveViewer.defaultProps = {
   forwardRef: React.createRef(),
 
   dataExtent: { x: [-1, 1], y: [-1, 1] },
@@ -744,8 +706,7 @@ LightCurveViewer.wrappedComponent.defaultProps = {
   },
 
   id: undefined,  // Specify a unique ID for each LCV; required to distinguish data-masks. WARNING: do not apply Math.random() here, as the random value will be set at the class level, and therefore be the same for each instance of the LCV.
-  interactionMode: '',
-  setOnZoom: (type, zoomValue) => {},
+  interactionMode: 'annotate',
 
   onKeyDown: () => true
 }

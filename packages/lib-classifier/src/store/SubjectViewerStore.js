@@ -1,7 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
-
 import layouts from '../helpers/layouts'
 
 const SubjectViewer = types
@@ -14,9 +13,9 @@ const SubjectViewer = types
       naturalWidth: types.integer
     })),
     fullscreen: types.optional(types.boolean, false),
-    move: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
-    loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized)
+    loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
+    move: types.optional(types.boolean, false)
   })
 
   .volatile(self => ({
