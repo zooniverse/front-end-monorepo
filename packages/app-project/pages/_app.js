@@ -9,7 +9,7 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
 
-import AuthModals from '../src/components/AuthModals'
+import AuthModal from '../src/components/AuthModal'
 import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
@@ -93,7 +93,7 @@ export default class MyApp extends App {
               <Component {...pageProps} />
             </Box>
             <ZooFooter />
-            <AuthModals />
+            <AuthModal />
           </GrommetWrapper>
         </Provider>
       </Container>

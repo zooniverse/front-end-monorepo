@@ -1,0 +1,61 @@
+import { Modal, Tabs, Tab, withThemeContext } from '@zooniverse/react-components'
+import { Box } from 'grommet'
+import { func, string } from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+
+import authModalsTheme from './theme'
+import LoginForm from './components/LoginForm'
+import withOnlyRenderOnBrowser from './shared/components/withOnlyRenderOnBrowser'
+
+const StyledTabs = styled(Tabs)`
+  div[role="tabpanel"] {
+    background: ${props => props.theme.dark
+      ? props.theme.global.colors['dark-5']
+      : props.theme.global.colors['white']
+    };
+  }
+  button[role="tab"][aria-selected="true"] > div {
+    background: ${props => props.theme.dark
+      ? props.theme.global.colors['dark-5']
+      : props.theme.global.colors['white']
+    };
+  }
+`
+
+function AuthModals (props) {
+  const {
+    activeIndex,
+    className,
+    closeModal,
+    onActive,
+  } = props
+
+  return (
+    <Modal
+      active={activeIndex > -1}
+      className={className}
+      closeFn={closeModal}
+    >
+      <StyledTabs activeIndex={activeIndex} onActive={onActive}>
+        <Tab title='Sign In'>
+          <Box width='medium'>
+            <LoginForm closeModal={closeModal} />
+          </Box>
+        </Tab>
+        <Tab title='Register'>
+          <Box width='large'>
+            bar
+          </Box>
+        </Tab>
+      </StyledTabs>
+    </Modal>
+  )
+}
+
+AuthModals.propTypes = {
+  className: string,
+  closeModal: func.isRequired,
+}
+
+export default withOnlyRenderOnBrowser(withThemeContext(AuthModals, authModalsTheme))

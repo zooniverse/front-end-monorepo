@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import AuthModalsContainer from './AuthModalsContainer'
-import AuthModals from './AuthModals'
+import AuthModalContainer from './AuthModalContainer'
+import AuthModal from './AuthModal'
 
 let wrapper
 let componentWrapper
@@ -13,44 +13,44 @@ const ROUTER = {
   push: Function.prototype
 }
 
-describe('Component > AuthModalsContainer', function () {
+describe('Component > AuthModalContainer', function () {
   before(function () {
-    wrapper = shallow(<AuthModalsContainer.wrappedComponent
+    wrapper = shallow(<AuthModalContainer.wrappedComponent
       router={ROUTER}
     />)
-    componentWrapper = wrapper.find(AuthModals)
+    componentWrapper = wrapper.find(AuthModal)
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the `AuthModals` component', function () {
+  it('should render the `AuthModal` component', function () {
     expect(componentWrapper).to.have.lengthOf(1)
   })
 
   it('should pass a prop to show the Login modal if there is a matching url query', function () {
-    const loginRouter = Object.assign({}, ROUTER)
-    const loginWrapper = shallow(<AuthModalsContainer.wrappedComponent
+    const loginRouter = { ...ROUTER }
+    const loginWrapper = shallow(<AuthModalContainer.wrappedComponent
       router={ROUTER}
     />)
-    expect(getProp(loginWrapper, 'showLoginModal')).to.be.false()
+    expect(getProp(loginWrapper, 'activeIndex')).to.equal(-1)
 
     loginRouter.asPath = '/?login=true'
     loginWrapper.setProps({ router: loginRouter })
-    expect(getProp(loginWrapper, 'showLoginModal')).to.be.true()
+    expect(getProp(loginWrapper, 'activeIndex')).to.equal(0)
   })
 
   it('should pass a prop to show the Register modal if there is a matching url query', function () {
-    const registerRouter = Object.assign({}, ROUTER)
-    const registerWrapper = shallow(<AuthModalsContainer.wrappedComponent
+    const registerRouter = { ...ROUTER }
+    const registerWrapper = shallow(<AuthModalContainer.wrappedComponent
       router={ROUTER}
     />)
-    expect(getProp(registerWrapper, 'showRegisterModal')).to.be.false()
+    expect(getProp(registerWrapper, 'activeIndex')).to.equal(0)
 
     registerRouter.asPath = '/?register=true'
     registerWrapper.setProps({ router: registerRouter })
-    expect(getProp(registerWrapper, 'showRegisterModal')).to.be.true()
+    expect(getProp(registerWrapper, 'activeIndex')).to.equal(1)
   })
 
   it('should pass a function prop to close the login modal', function () {
@@ -63,5 +63,5 @@ describe('Component > AuthModalsContainer', function () {
 })
 
 function getProp (wrapper, propName) {
-  return wrapper.find(AuthModals).prop(propName)
+  return wrapper.find(AuthModal).prop(propName)
 }

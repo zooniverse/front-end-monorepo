@@ -1,18 +1,18 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import AuthModals from './AuthModals'
+import AuthModal from './AuthModal'
 import LoginModal from './components/LoginModal'
 import RegisterModal from './components/RegisterModal'
 
 const CLOSE_LOGIN_MODAL = Function.prototype
 const CLOSE_REGISTER_MODAL = Function.prototype
 
-describe('Component > AuthModals', function () {
+describe('Component > AuthModal', function () {
   let wrapper
 
   before(function () {
-    wrapper = shallow(<AuthModals
+    wrapper = shallow(<AuthModal
       closeLoginModal={CLOSE_LOGIN_MODAL}
       closeRegisterModal={CLOSE_REGISTER_MODAL}
     />)
