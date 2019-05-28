@@ -43,7 +43,7 @@ const theme = {
         &[aria-selected="true"] {
           pointer-events: none;
           > div {
-            border-bottom: 1px solid ${getBackgroundColor(props)};
+            border-bottom: 1px solid transparent;
             color: ${getActiveTabHeaderColor(props)};
           }
         }
