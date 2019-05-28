@@ -1,11 +1,10 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { Tab, Tabs } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import { bool, func, object } from 'prop-types'
 import React from 'react'
 
-import { Tab, Tabs } from './components/Tabs'
 import Tasks from './components/Tasks'
 import en from './locales/en'
 import SlideTutorial from '../SlideTutorial'
@@ -58,24 +57,14 @@ class TaskArea extends React.Component {
         className={this.props.className}
         onActive={this.onTabClick.bind(this)}
       >
-        <Tab
-          title={(
-            <SpacedText size='medium' weight='bold'>
-              {counterpart('TaskArea.task')}
-            </SpacedText>
-          )}
-        >
+        <Tab title={counterpart('TaskArea.task')}>
           <Box>
             <Tasks />
           </Box>
         </Tab>
         <Tab
           disabled={disableTutorialTab}
-          title={(
-            <SpacedText size='medium' weight='bold'>
-              {counterpart('TaskArea.tutorial')}
-            </SpacedText>
-          )}
+          title={counterpart('TaskArea.tutorial')}
         >
           <Box>
             <SlideTutorial onClick={this.onClose.bind(this)} pad='none' />
