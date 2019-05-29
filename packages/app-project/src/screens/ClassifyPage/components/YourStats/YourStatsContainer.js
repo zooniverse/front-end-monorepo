@@ -1,31 +1,40 @@
 import { inject, observer } from 'mobx-react'
-import { string } from 'prop-types'
+import { object, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import YourStats from './YourStats'
 import withRequireUser from '../../../../shared/components/withRequireUser'
 
 function storeMapper (stores) {
+  const { project, yourStats: { counts } } = stores.store
   return {
-    projectName: stores.store.project['display_name']
+    counts,
+    projectName: project['display_name']
   }
 }
 
-@inject(storeMapper)
-@observer
 class YourStatsContainer extends Component {
   render () {
+    const { counts, projectName } = this.props
     return (
       <YourStats
-        projectName={this.props.projectName}
+        counts={counts}
+        projectName={projectName}
       />
     )
   }
 }
 
 YourStatsContainer.propTypes = {
+  counts: object,
   projectName: string
 }
 
-export default withRequireUser(YourStatsContainer)
+@inject(storeMapper)
+@withRequireUser
+@observer
+class DecoratedYourStatsContainer extends YourStatsContainer { }
+
+export default DecoratedYourStatsContainer
+
 export { YourStatsContainer }

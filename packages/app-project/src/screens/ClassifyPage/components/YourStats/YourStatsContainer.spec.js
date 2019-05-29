@@ -6,11 +6,14 @@ import YourStats from './YourStats'
 
 let wrapper
 let componentWrapper
+const COUNTS = {
+  foo: 'bar'
+}
 const PROJECT_NAME = 'Foobar'
 
 describe('Component > YourStatsContainer', function () {
   before(function () {
-    wrapper = shallow(<YourStatsContainer.wrappedComponent projectName={PROJECT_NAME} />)
+    wrapper = shallow(<YourStatsContainer counts={COUNTS} projectName={PROJECT_NAME} />)
     componentWrapper = wrapper.find(YourStats)
   })
 
@@ -24,5 +27,9 @@ describe('Component > YourStatsContainer', function () {
 
   it('should pass down the `projectName` prop', function () {
     expect(componentWrapper.prop('projectName')).to.equal(PROJECT_NAME)
+  })
+
+  it('should pass down the `counts` prop', function () {
+    expect(componentWrapper.prop('counts')).to.equal(COUNTS)
   })
 })

@@ -9,28 +9,41 @@ class AnimatedNumber extends Component {
   }
 
   componentDidMount () {
-    this.animateValue()
+    this.animateValue(0)
   }
 
-  animateValue () {
+  componentDidUpdate (prevProps) {
+    this.animateValue(prevProps.value)
+  }
+
+  animateValue (prevValue) {
+    const self = this
     d3.select(this.ref.current)
       .data([this.props.value])
       .transition()
       .duration(this.props.duration)
-      .tween('text', function (d, i, elements) {
+      .tween('text', function (d) {
         const node = d3.select(this)
-        const interpolator = d3.interpolate(0, d)
+        const interpolator = d3.interpolate(prevValue, d)
         return t => {
           const value = interpolator(t)
-          const niceValue = d3.format(',d')(value)
+          const niceValue = self.formatValue(value)
           node.text(niceValue)
         }
       })
   }
 
+  formatValue (value) {
+    return d3.format(',d')(value)
+  }
+
   render () {
     return (
-      <span ref={this.ref}>0</span>
+      <>
+        <span ref={this.ref}>
+          {this.formatValue(this.props.value)}
+        </span>
+      </>
     )
   }
 }
