@@ -4,9 +4,8 @@ import nock from 'nock'
 import sinon from 'sinon'
 import * as d3 from 'd3'
 import { zip } from 'lodash'
-import asyncStates from '@zooniverse/async-states'
 
-import LightCurveViewerContainer from './LightCurveViewerContainer'
+import { LightCurveViewerContainer } from './LightCurveViewerContainer'
 import mockData from './mockData.json'
 import { Factory } from 'rosie'
 
@@ -32,12 +31,15 @@ const failSubject = Factory.build('subject', {
 
 describe('Component > LightCurveViewerContainer', function () {
   it('should render without crashing', function () {
-    wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
+    wrapper = shallow(<LightCurveViewerContainer onKeyDown={() => {}} setOnPan={() => {}} setOnZoom={() => {}} />)
     expect(wrapper).to.be.ok
   })
 
   it('should mount with an initialized state', function () {
-    wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />, { disableLifecycleMethods: true })
+    wrapper = shallow(
+      <LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />, 
+      { disableLifecycleMethods: true }
+    )
     const mockState = {
       dataExtent: { x: [], y: [] },
       dataPoints: []
@@ -47,7 +49,7 @@ describe('Component > LightCurveViewerContainer', function () {
 
   describe('without a subject', function () {
     it('should render null with the default props', function () {
-      wrapper = shallow(<LightCurveViewerContainer.wrappedComponent />)
+      wrapper = shallow(<LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />)
       expect(wrapper.html()).to.be.null
     })
   })
@@ -58,7 +60,7 @@ describe('Component > LightCurveViewerContainer', function () {
     let nockScope
     before(function () {
       sinon.stub(console, 'error')
-      cdmSpy = sinon.spy(LightCurveViewerContainer.wrappedComponent.prototype, 'componentDidMount')
+      cdmSpy = sinon.spy(LightCurveViewerContainer.prototype, 'componentDidMount')
       onErrorSpy = sinon.spy()
       nockScope = nock('http://localhost:8080')
         .persist(true)
@@ -80,9 +82,15 @@ describe('Component > LightCurveViewerContainer', function () {
 
     it('should error if a json or text subject location file can\'t be found', function (done) {
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent onError={onErrorSpy} subject={imageSubject} />
+        <LightCurveViewerContainer
+          onError={onErrorSpy}
+          subject={imageSubject}
+          onKeyDown={() => { }} 
+          setOnPan={() => { }} 
+          setOnZoom={() => { }}
+        />
       )
-
+      
       cdmSpy.returnValues[0].then(() => {
         expect(onErrorSpy).to.have.been.calledOnce
         expect(onErrorSpy.args[0][0].message).to.equal('No JSON url found for this subject')
@@ -91,7 +99,13 @@ describe('Component > LightCurveViewerContainer', function () {
 
     it('should error if the location request response fails', function (done) {
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent onError={onErrorSpy} subject={failSubject} />
+        <LightCurveViewerContainer
+          onError={onErrorSpy}
+          subject={failSubject}
+          onKeyDown={() => { }}
+          setOnPan={() => { }}
+          setOnZoom={() => { }}
+        />
       )
 
       cdmSpy.returnValues[0].then(() => {
@@ -110,8 +124,8 @@ describe('Component > LightCurveViewerContainer', function () {
     let cduSpy
 
     before(function () {
-      cdmSpy = sinon.spy(LightCurveViewerContainer.wrappedComponent.prototype, 'componentDidMount')
-      cduSpy = sinon.spy(LightCurveViewerContainer.wrappedComponent.prototype, 'componentDidUpdate')
+      cdmSpy = sinon.spy(LightCurveViewerContainer.prototype, 'componentDidMount')
+      cduSpy = sinon.spy(LightCurveViewerContainer.prototype, 'componentDidUpdate')
       nockScope = nock('http://localhost:8080')
         .persist(true)
         .get('/mockData.json')
@@ -134,7 +148,12 @@ describe('Component > LightCurveViewerContainer', function () {
 
     it('should set the component state with the json data', function (done) {
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent subject={subject} />
+        <LightCurveViewerContainer
+          subject={subject}
+          onKeyDown={() => { }}
+          setOnPan={() => { }}
+          setOnZoom={() => { }}
+        />
       )
 
       cdmSpy.returnValues[0].then(() => {
@@ -153,7 +172,13 @@ describe('Component > LightCurveViewerContainer', function () {
     it('should call the onReady prop', function (done) {
       const onReadySpy = sinon.spy()
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent onReady={onReadySpy} subject={subject} />
+        <LightCurveViewerContainer
+          onReady={onReadySpy}
+          subject={subject}
+          onKeyDown={() => { }}
+          setOnPan={() => { }}
+          setOnZoom={() => { }}
+        />
       )
 
       cdmSpy.returnValues[0].then(() => {
@@ -167,7 +192,12 @@ describe('Component > LightCurveViewerContainer', function () {
       const nextSubjectD3YExtent = d3.extent(nextSubjectJSON.y)
 
       wrapper = shallow(
-        <LightCurveViewerContainer.wrappedComponent subject={subject} />
+        <LightCurveViewerContainer
+          subject={subject}
+          onKeyDown={() => { }}
+          setOnPan={() => { }}
+          setOnZoom={() => { }}
+        />
       )
       wrapper.setProps({ subject: nextSubject })
 

@@ -1,4 +1,4 @@
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, Media } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button, Box, Heading, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
@@ -34,6 +34,7 @@ const markdownComponents = {
   h4: (nodeProps) => <SpacedHeading level='4'>{nodeProps.children}</SpacedHeading>,
   h5: (nodeProps) => <SpacedHeading level='5'>{nodeProps.children}</SpacedHeading>,
   h6: (nodeProps) => <SpacedHeading level='6'>{nodeProps.children}</SpacedHeading>,
+  img: (nodeProps) => <Media alt={nodeProps.alt} src={nodeProps.src} height="200px" />,
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 
