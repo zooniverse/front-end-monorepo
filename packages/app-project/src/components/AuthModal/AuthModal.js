@@ -4,7 +4,7 @@ import { func, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import authModalsTheme from './theme'
+import authModalTheme from './theme'
 import LoginForm from './components/LoginForm'
 import withOnlyRenderOnBrowser from './shared/components/withOnlyRenderOnBrowser'
 
@@ -23,7 +23,7 @@ const StyledTabs = styled(Tabs)`
   }
 `
 
-function AuthModals (props) {
+function AuthModal (props) {
   const {
     activeIndex,
     className,
@@ -53,9 +53,9 @@ function AuthModals (props) {
   )
 }
 
-AuthModals.propTypes = {
+AuthModal.propTypes = {
   className: string,
   closeModal: func.isRequired,
 }
 
-export default withOnlyRenderOnBrowser(withThemeContext(AuthModals, authModalsTheme))
+export default withOnlyRenderOnBrowser(withThemeContext(AuthModal, authModalTheme))

@@ -13,7 +13,7 @@ const ROUTER = {
   push: Function.prototype
 }
 
-describe.only('Component > AuthModalContainer', function () {
+describe('Component > AuthModalContainer', function () {
   before(function () {
     wrapper = shallow(<AuthModalContainer
       router={ROUTER}

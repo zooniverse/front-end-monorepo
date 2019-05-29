@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import { Formik } from 'formik'
 import { Anchor, Box, Button, Heading, Text, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
@@ -108,9 +108,7 @@ function LoginForm (props) {
 }
 
 LoginForm.propTypes = {
-}
-
-LoginForm.defaultProps = {
+  onSubmit: func
 }
 
 export default LoginForm
