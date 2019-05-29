@@ -31,7 +31,7 @@
     "check-engines": "~1.5.0",
     "counterpart": "~0.18.6",
     "d3": "~5.9.1",
-    "formik": "^1.5.7",
+    "formik": "~1.5.7",
     "graphql-request": "~1.8.2",
     "grommet": "~2.7.0",
     "grommet-icons": "~4.2.0",
