@@ -43,11 +43,6 @@ function AuthModal (props) {
             <LoginForm closeModal={closeModal} />
           </Box>
         </Tab>
-        <Tab title='Register'>
-          <Box width='large'>
-            bar
-          </Box>
-        </Tab>
       </StyledTabs>
     </Modal>
   )
