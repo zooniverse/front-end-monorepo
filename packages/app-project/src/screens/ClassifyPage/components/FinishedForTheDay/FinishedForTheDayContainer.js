@@ -9,7 +9,8 @@ function storeMapper (stores) {
   return {
     imageSrc: project.background.src || '',
     isLoggedIn: user.isLoggedIn,
-    projectName: project['display_name']
+    projectName: project['display_name'],
+    slug: project.slug
   }
 }
 
@@ -17,12 +18,13 @@ function storeMapper (stores) {
 @observer
 class FinishedForTheDayContainer extends Component {
   render () {
-    const { imageSrc, isLoggedIn, projectName } = this.props
+    const { imageSrc, isLoggedIn, projectName, slug } = this.props
     return (
       <FinishedForTheDay
         imageSrc={imageSrc}
         isLoggedIn={isLoggedIn}
         projectName={projectName}
+        slug={slug}
       />
     )
   }
@@ -31,7 +33,8 @@ class FinishedForTheDayContainer extends Component {
 FinishedForTheDayContainer.wrappedComponent.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  projectName: PropTypes.string.isRequired
+  projectName: PropTypes.string.isRequired,
+  slug: PropTypes.string
 }
 
 // We wouldn't normally have a `defaultProp` for a required prop, but there's

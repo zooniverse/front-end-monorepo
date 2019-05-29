@@ -2,9 +2,9 @@
   "FinishedForTheDay": {
     "buttons": {
       "anotherProject": "Find another project",
-      "stats": "See your stats"
+      "stats": "See the stats"
     },
-    "text": "Your answers are saved for the research team while you're working. See your stats and return to the %(projectName)s home page.",
+    "text": "Your answers are saved for the research team while you're working. See the project stats and return to the %(projectName)s home page.",
     "title": "Finished for the day?"
   }
 }
