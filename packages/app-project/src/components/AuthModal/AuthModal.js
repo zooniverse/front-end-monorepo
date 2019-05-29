@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import authModalTheme from './theme'
 import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 
 const StyledTabs = styled(Tabs)`
   div[role="tabpanel"] {
@@ -13,6 +14,7 @@ const StyledTabs = styled(Tabs)`
       ? props.theme.global.colors['dark-5']
       : props.theme.global.colors['white']
     };
+    overflow: auto;
   }
   button[role="tab"][aria-selected="true"] > div {
     background: ${props => props.theme.dark
@@ -40,6 +42,11 @@ function AuthModal (props) {
         <Tab title='Sign In'>
           <Box width='medium'>
             <LoginForm closeModal={closeModal} />
+          </Box>
+        </Tab>
+        <Tab title='Register'>
+          <Box width='large'>
+            <RegisterForm closeModal={closeModal} />
           </Box>
         </Tab>
       </StyledTabs>

@@ -1,0 +1,23 @@
+{
+  "RegisterForm": {
+    "betaListSignUp": "I'd like to help test new projects and be emailed when they're available",
+    "email": "Email Address",
+    "emailPlaceholder": "e.g. zoofan31@gmail.com",
+    "emailListSignUp": "It's ok to send me an email every once in a while",
+    "forgot": "Forgot your password?",
+    "heading": "Welcome back!",
+    "instruction": "Please create an account to start doing real research.",
+    "username": "Username or email address",
+    "usernameHelp": "This will be shown publicly on message boards, etc.",
+    "usernamePlaceholder": "e.g. ZooniverseFan123",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "privacyAgreement": "You agree to our privacy policy",
+    "privacyLink": "Read our privacy policy",
+    "realName": "Real Name (Optional)",
+    "realNameHelp": "We'll use this to give you credit in scientific papers, posters, etc.",
+    "realNamePlaceholder": "e.g. Maggie Smith",
+    "register": "Register",
+    "underageWithParent": "If you are under 16 years old, tick this box to confirm that you've completed the form with your parent or guardian"
+  }
+}
