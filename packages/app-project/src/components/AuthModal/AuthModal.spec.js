@@ -1,27 +1,25 @@
-import { shallow } from 'enzyme'
+import { mount, shallow} from 'enzyme'
 import React from 'react'
 
 import AuthModal from './AuthModal'
-import LoginModal from './components/LoginModal'
-import RegisterModal from './components/RegisterModal'
 
-const CLOSE_LOGIN_MODAL = Function.prototype
-const CLOSE_REGISTER_MODAL = Function.prototype
+const CLOSE_MODAL = Function.prototype
+const ON_ACTIVE = Function.prototype
 
 describe('Component > AuthModal', function () {
   let wrapper
 
   before(function () {
-    wrapper = shallow(<AuthModal
-      closeLoginModal={CLOSE_LOGIN_MODAL}
-      closeRegisterModal={CLOSE_REGISTER_MODAL}
+    wrapper = mount(<AuthModal
+      activeIndex={-1}
+      closeModal={CLOSE_MODAL}
+      onActive={ON_ACTIVE}
     />)
   })
 
   afterEach(function () {
     wrapper.setProps({
-      showLoginModal: false,
-      showRegisterModal: false
+      activeIndex: -1
     })
   })
 
@@ -29,27 +27,10 @@ describe('Component > AuthModal', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the LoginModal if the `showLoginModal` prop is true', function () {
-    expect(wrapper.find(LoginModal)).to.have.lengthOf(0)
-    wrapper.setProps({ showLoginModal: true })
-    expect(wrapper.find(LoginModal)).to.have.lengthOf(1)
-  })
-
-  it('should should pass through the `closeLoginModal` prop', function () {
-    wrapper.setProps({ showLoginModal: true })
-    const loginModal = wrapper.find(LoginModal)
-    expect(loginModal.prop('closeLoginModal')).to.equal(CLOSE_LOGIN_MODAL)
-  })
-
-  it('should render the Register if the `showRegisterModal` prop is true', function () {
-    expect(wrapper.find(RegisterModal)).to.have.lengthOf(0)
-    wrapper.setProps({ showRegisterModal: true })
-    expect(wrapper.find(RegisterModal)).to.have.lengthOf(1)
-  })
-
-  it('should should pass through the `closeRegisterModal` prop', function () {
-    wrapper.setProps({ showRegisterModal: true })
-    const registerModal = wrapper.find(RegisterModal)
-    expect(registerModal.prop('closeRegisterModal')).to.equal(CLOSE_REGISTER_MODAL)
+  it('should pass through the `activeIndex` and `onActive` props to Tabs', function () {
+    // `Tabs` should be the first component
+    const tabsWrapper = wrapper.children().first()
+    expect(wrapper.prop('activeIndex')).to.equal(-1)
+    expect(wrapper.prop('onActive')).to.equal(ON_ACTIVE)
   })
 })
