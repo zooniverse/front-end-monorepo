@@ -63,6 +63,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "jsdom": "~13.0.0",
     "mocha": "~5.2.0",
+    "nock": "~10.0.6",
     "sinon": "~7.2.3",
     "sinon-chai": "~3.3.0",
     "snazzy": "~8.0.0",

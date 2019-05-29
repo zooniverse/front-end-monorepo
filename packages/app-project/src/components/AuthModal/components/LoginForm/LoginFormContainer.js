@@ -5,8 +5,6 @@ import React, { Component } from 'react'
 
 import LoginForm from './LoginForm'
 
-@inject('store')
-@observer
 class LoginFormContainer extends Component {
   constructor () {
     super()
@@ -47,7 +45,13 @@ LoginFormContainer.propTypes = {
 }
 
 LoginFormContainer.defaultProps = {
-  authClient: auth
+  authClient: auth,
+  closeModal: () => {}
 }
 
-export default LoginFormContainer
+@inject('store')
+@observer
+class DecoratedLoginFormContainer extends LoginFormContainer { }
+
+export default DecoratedLoginFormContainer
+export { LoginFormContainer }

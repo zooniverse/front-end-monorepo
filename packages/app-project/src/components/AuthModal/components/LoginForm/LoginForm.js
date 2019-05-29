@@ -28,10 +28,10 @@ function LoginForm (props) {
   return (
     <Box>
       <Heading size='small' color={textColors} margin={{ bottom: 'xsmall', top: 'none' }}>
-        Welcome back!
+        {counterpart('LoginForm.heading')}
       </Heading>
       <Text color={textColors}>
-        We're glad you're back! Sign in to pick up where you left off.
+        {counterpart('LoginForm.instruction')}
       </Text>
 
       <Formik
@@ -54,15 +54,16 @@ function LoginForm (props) {
             <FormField
               error={errors.login && touched.login && errors.login}
               htmlFor={userNameFieldId}
-              label={<Label>Username or email address</Label>}
+              label={<Label>{counterpart('LoginForm.login')}</Label>}
             >
               <TextInput
+                autoFocus
                 disabled={isSubmitting}
                 id={userNameFieldId}
                 name='login'
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder='e.g. ZooniverseFan123'
+                placeholder={counterpart('LoginForm.placeholder')}
                 type='text'
                 value={values.login}
               />
@@ -71,7 +72,7 @@ function LoginForm (props) {
             <FormField
               error={errors.password && touched.password && errors.password}
               htmlFor={passwordFieldId}
-              label={<Label>Password</Label>}
+              label={<Label>{counterpart('LoginForm.password')}</Label>}
             >
               <TextInput
                 disabled={isSubmitting}
@@ -88,7 +89,7 @@ function LoginForm (props) {
               <Link href='/reset-password' passHref>
                 <Anchor size='small'>
                   <SpacedText>
-                    Forgot your password?
+                    {counterpart('LoginForm.forgot')}
                   </SpacedText>
                 </Anchor>
               </Link>
@@ -96,7 +97,7 @@ function LoginForm (props) {
 
             <Button
               disabled={isSubmitting}
-              label='Sign in'
+              label={counterpart('LoginForm.signIn')}
               primary
               type='submit'
             />
@@ -105,6 +106,10 @@ function LoginForm (props) {
       </Formik>
     </Box>
   )
+}
+
+LoginForm.defaultProps = {
+  onSubmit: () => {}
 }
 
 LoginForm.propTypes = {

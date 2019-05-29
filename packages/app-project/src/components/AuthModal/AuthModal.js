@@ -1,4 +1,4 @@
-import { Modal, Tabs, Tab, withThemeContext } from '@zooniverse/react-components'
+import { Modal, Tabs, Tab, withOnlyRenderOnBrowser, withThemeContext } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { func, string } from 'prop-types'
 import React from 'react'
@@ -6,7 +6,6 @@ import styled from 'styled-components'
 
 import authModalTheme from './theme'
 import LoginForm from './components/LoginForm'
-import withOnlyRenderOnBrowser from './shared/components/withOnlyRenderOnBrowser'
 
 const StyledTabs = styled(Tabs)`
   div[role="tabpanel"] {
