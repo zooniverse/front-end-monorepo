@@ -72,13 +72,13 @@ function RegisterForm (props) {
             <Text>{counterpart('RegisterForm.underageEmail')}</Text> :
             <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
 
-          console.log('validationerrors', errors)
+          console.log('validationerrors', errors, touched)
           return (
             <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
               <Grid columns={['1fr', '1fr']} gap='medium'>
                 <Box>
                   <FormField
-                    error={errors.username && touched.username && errors.username}
+                    error={errors.username}
                     help={userNameFieldHelp}
                     htmlFor={userNameFieldId}
                     label={<FieldLabel>{counterpart('RegisterForm.username')}</FieldLabel>}
@@ -101,7 +101,6 @@ function RegisterForm (props) {
                   </FormField>
 
                   <FormField
-                    error={errors.password && touched.password && errors.password}
                     htmlFor={passwordFieldId}
                     label={<FieldLabel>{counterpart('RegisterForm.password')}</FieldLabel>}
                     required
@@ -120,7 +119,7 @@ function RegisterForm (props) {
                   </FormField>
 
                   <FormField
-                    error={errors.passwordConfirm && touched.passwordConfirm && errors.passwordConfirm}
+                    error={errors.passwordConfirm}
                     htmlFor={passwordConfirmFieldId}
                     label={<FieldLabel>{counterpart('RegisterForm.passwordConfirm')}</FieldLabel>}
                     required
@@ -141,7 +140,7 @@ function RegisterForm (props) {
 
                 <Box>
                   <FormField
-                    error={errors.email && touched.email && errors.email}
+                    error={errors.email}
                     htmlFor={emailFieldId}
                     label={<FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>}
                     required
@@ -160,7 +159,6 @@ function RegisterForm (props) {
                   </FormField>
 
                   <FormField
-                    error={errors.realName && touched.realName && errors.realName}
                     help={counterpart('RegisterForm.realNameHelp')}
                     htmlFor={realNameFieldId}
                     label={<FieldLabel>{counterpart('RegisterForm.realName')}</FieldLabel>}
@@ -181,7 +179,6 @@ function RegisterForm (props) {
 
               <Box margin={{ top: 'xsmall' }}>
                 <FormField
-                  error={errors.privacyAgreement && touched.privacyAgreement && errors.privacyAgreement}
                   htmlFor={privacyAgreementFieldId}
                   required
                 >

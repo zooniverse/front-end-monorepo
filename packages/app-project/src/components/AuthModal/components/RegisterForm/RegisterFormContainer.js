@@ -1,12 +1,15 @@
+import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { debounce } from 'lodash'
 import { func, shape } from 'prop-types'
 import React, { Component } from 'react'
+import en from './locales/en'
 
 import RegisterForm from './RegisterForm'
 
 const REMOTE_CHECK_DELAY = 1000
+counterpart.registerTranslations('en', en)
 
 class RegisterFormContainer extends Component {
   constructor() {
@@ -20,17 +23,11 @@ class RegisterFormContainer extends Component {
   async validate (values) {
     const { email, password, passwordConfirm, username } = values
     let errors = {}
-    let hasNameBeenTaken = false
-    let hasEmailBeenTaken = false
-    hasNameBeenTaken = await this.checkNameForConflict(username)
-    hasEmailBeenTaken = await this.checkEmailForConflict(email)
-    console.log('hasNameBeenTaken', hasNameBeenTaken)
-    if (hasNameBeenTaken) errors.username = counterpart('RegisterForm.nameConflict')
-    if (hasEmailBeenTaken) errors.email = counterpart('RegisterForm.emailConflict')
 
+    errors.username = await this.checkNameForConflict(username)
+    errors.email = await this.checkEmailForConflict(email)
     errors.passwordConfirm = this.validatePassword(password, passwordConfirm)
-    console.log('error', errors)
-    return errors
+    throw errors
   }
 
   validatePassword (password, passwordConfirm) {
@@ -48,11 +45,14 @@ class RegisterFormContainer extends Component {
       try {
         await authClient.register({ login: username })
       } catch (error) {
-        return this.errorTest(error.message, errorRegex)
+        if (this.errorTest(error.message, errorRegex)) {
+          return counterpart('RegisterForm.usernameConflict')
+        }
+        return ''
       }
     }
 
-    return false
+    return ''
   }
 
   async checkEmailForConflict (email) {
@@ -62,11 +62,14 @@ class RegisterFormContainer extends Component {
       try {
         await authClient.register({ email })
       } catch (error) {
-        return this.errorTest(error.message, errorRegex)
+        if (this.errorTest(error.message, errorRegex)) {
+          return counterpart('RegisterForm.emailConflict')
+        }
+        return ''
       }
     }
 
-    return false
+    return ''
   }
 
   errorTest (errorMessage, regex) {
@@ -74,18 +77,39 @@ class RegisterFormContainer extends Component {
   }
 
   onSubmit(values, { setFieldError, setSubmitting }) {
+    // TODO add log event for google analytics
     const { authClient, store } = this.props
-    authClient.register(values)
+    const { betaListSignUp, email, emailListSignUp, password, realName, username } = values
+    const valuesToSubmit = {
+      beta_email_communication: betaListSignUp,
+      credited_name: realName,
+      email,
+      global_email_communication: emailListSignUp,
+      login: username,
+      password,
+      project_email_communication: emailListSignUp
+    }
+
+    if (store && store.project && store.project.id) {
+      valuesToSubmit.project_id = store.project.id
+    }
+
+    authClient.register(valuesToSubmit)
       .then(userResource => {
         setSubmitting(false)
         store.user.set(userResource)
         this.props.closeModal()
       })
       .catch(error => {
-        console.log(error)
-        setFieldError('password', error.message)
+        console.error(error)
+        this.parseErrors(error)
+        // setFieldError('password', error.message)
         setSubmitting(false)
       })
+  }
+
+  parseErrors (error) {
+    console.log(errors.message)
   }
 
   render() {

@@ -8,7 +8,6 @@
     "forgot": "Forgot your password?",
     "heading": "Welcome back!",
     "instruction": "Please create an account to start doing real research.",
-    "nameConclit": "That username is taken",
     "password": "Password (Required)",
     "passwordConfirm": "Confirm Password (Required)",
     "passwordConfirmError": "The passwords do not match, please try again.",
@@ -23,6 +22,7 @@
     "underageNotRealName": "Don’t use your real name.",
     "underageWithParent": "If you are under 16 years old, tick this box to confirm that you've completed the form with your parent or guardian",
     "username": "Username (Required)",
+    "usernameConflict": "That username is taken",
     "usernameHelp": "This will be shown publicly on message boards, etc.",
     "usernamePatternHelp": "Usernames can only contain letters, numbers, '.','-', and '_'",
     "usernamePlaceholder": "e.g. ZooniverseFan123"
