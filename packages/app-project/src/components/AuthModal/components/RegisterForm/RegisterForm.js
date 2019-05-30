@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import React from 'react'
 import { Formik } from 'formik'
-import { Anchor, Box, Button, CheckBox, Heading, Text, FormField, TextInput } from 'grommet'
+import { Anchor, Box, Button, CheckBox, Grid, Heading, Text, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
 
 import en from './locales/en'
@@ -62,96 +62,102 @@ function RegisterForm (props) {
           /* and other goodies */
         }) => (
             <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
+              <Grid columns={['1fr', '1fr']} gap='medium'>
+                <Box>
+                  <FormField
+                    error={errors.username && touched.username && errors.username}
+                    help={counterpart('RegisterForm.usernameHelp')}
+                    htmlFor={userNameFieldId}
+                    label={<FieldLabel>{counterpart('RegisterForm.username')}</FieldLabel>}
+                    required
+                  >
+                    <TextInput
+                      autoFocus
+                      disabled={isSubmitting}
+                      id={userNameFieldId}
+                      name='username'
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      placeholder={counterpart('RegisterForm.usernamePlaceholder')}
+                      type='text'
+                      value={values.username}
+                    />
+                  </FormField>
 
-              <FormField
-                error={errors.username && touched.username && errors.username}
-                help={counterpart('RegisterForm.usernameHelp')}
-                htmlFor={userNameFieldId}
-                label={<FieldLabel>{counterpart('RegisterForm.username')}</FieldLabel>}
-                required
-              >
-                <TextInput
-                  autoFocus
-                  disabled={isSubmitting}
-                  id={userNameFieldId}
-                  name='username'
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  placeholder={counterpart('RegisterForm.usernamePlaceholder')}
-                  type='text'
-                  value={values.username}
-                />
-              </FormField>
+                  <FormField
+                    error={errors.password && touched.password && errors.password}
+                    htmlFor={passwordFieldId}
+                    label={<FieldLabel>{counterpart('RegisterForm.password')}</FieldLabel>}
+                    required
+                  >
+                    <TextInput
+                      disabled={isSubmitting}
+                      id={passwordFieldId}
+                      name='password'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type='password'
+                      value={values.password}
+                    />
+                  </FormField>
 
-              <FormField
-                error={errors.password && touched.password && errors.password}
-                htmlFor={passwordFieldId}
-                label={<FieldLabel>{counterpart('RegisterForm.password')}</FieldLabel>}
-                required
-              >
-                <TextInput
-                  disabled={isSubmitting}
-                  id={passwordFieldId}
-                  name='password'
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  type='password'
-                  value={values.password}
-                />
-              </FormField>
+                  <FormField
+                    error={errors.passwordConfirm && touched.passwordConfirm && errors.passwordConfirm}
+                    htmlFor={passwordConfirmFieldId}
+                    label={<FieldLabel>{counterpart('RegisterForm.passwordConfirm')}</FieldLabel>}
+                    required
+                  >
+                    <TextInput
+                      disabled={isSubmitting}
+                      id={passwordConfirmFieldId}
+                      name='password'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type='password'
+                      value={values.passwordConfirm}
+                    />
+                  </FormField>
+                </Box>
 
-              <FormField
-                error={errors.passwordConfirm && touched.passwordConfirm && errors.passwordConfirm}
-                htmlFor={passwordConfirmFieldId}
-                label={<FieldLabel>{counterpart('RegisterForm.passwordConfirm')}</FieldLabel>}
-                required
-              >
-                <TextInput
-                  disabled={isSubmitting}
-                  id={passwordConfirmFieldId}
-                  name='password'
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  type='password'
-                  value={values.passwordConfirm}
-                />
-              </FormField>
+                <Box>
+                  <FormField
+                    error={errors.email && touched.email && errors.email}
+                    htmlFor={emailFieldId}
+                    label={<FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>}
+                    required
+                  >
+                    <TextInput
+                      disabled={isSubmitting}
+                      id={emailFieldId}
+                      name='email'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder={counterpart('RegisterForm.emailPlaceholder')}
+                      type='email'
+                      value={values.email}
+                    />
+                  </FormField>
 
-              <FormField
-                error={errors.email && touched.email && errors.email}
-                htmlFor={emailFieldId}
-                label={<FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>}
-                required
-              >
-                <TextInput
-                  disabled={isSubmitting}
-                  id={emailFieldId}
-                  name='email'
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder={counterpart('RegisterForm.emailPlaceholder')}
-                  type='email'
-                  value={values.email}
-                />
-              </FormField>
+                  <FormField
+                    error={errors.realName && touched.realName && errors.realName}
+                    help={counterpart('RegisterForm.realNameHelp')}
+                    htmlFor={realNameFieldId}
+                    label={<FieldLabel>{counterpart('RegisterForm.realName')}</FieldLabel>}
+                  >
+                    <TextInput
+                      disabled={isSubmitting}
+                      id={realNameFieldId}
+                      name='realName'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder={counterpart('RegisterForm.realNamePlaceholder')}
+                      type='text'
+                      value={values.realName}
+                    />
+                  </FormField>
+                </Box>
+              </Grid>
 
-              <FormField
-                error={errors.realName && touched.realName && errors.realName}
-                help={counterpart('RegisterForm.realNameHelp')}
-                htmlFor={realNameFieldId}
-                label={<FieldLabel>{counterpart('RegisterForm.realName')}</FieldLabel>}
-              >
-                <TextInput
-                  disabled={isSubmitting}
-                  id={realNameFieldId}
-                  name='realName'
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder={counterpart('RegisterForm.realNamePlaceholder')}
-                  type='text'
-                  value={values.realName}
-                />
-              </FormField>
 
               <FormField
                 error={errors.privacyAgreement && touched.privacyAgreement && errors.privacyAgreement}
