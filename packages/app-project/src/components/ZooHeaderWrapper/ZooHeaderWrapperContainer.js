@@ -76,7 +76,7 @@ class ZooHeaderWrapperContainer extends Component {
     return (
       <ZooHeader
         {...this.props}
-        register={this.redirectToPanoptesRegistration}
+        register={this.openRegisterModal}
         signIn={this.openSignInModal}
         signOut={this.signOut}
         user={this.createUserProp()}

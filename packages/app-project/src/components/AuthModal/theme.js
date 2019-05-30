@@ -21,6 +21,10 @@ export default {
       }
     `,
     help: {
+      color: {
+        light: 'dark-5',
+        dark: 'light-1'
+      },
       margin: {
         left: 'none'
       },

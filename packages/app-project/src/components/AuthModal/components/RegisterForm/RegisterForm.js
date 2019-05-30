@@ -3,7 +3,6 @@ import React from 'react'
 import { Formik } from 'formik'
 import { Anchor, Box, Button, CheckBox, Grid, Heading, Text, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
-
 import en from './locales/en'
 import FieldLabel from '../../shared/components/FieldLabel'
 
@@ -26,7 +25,7 @@ const PrivacyPolicyLink = () => (
 )
 
 function RegisterForm (props) {
-  const { onSubmit } = props
+  const { validate, onSubmit } = props
   const initialValues = {
     betaListSignUp: false,
     email: '',
@@ -38,6 +37,7 @@ function RegisterForm (props) {
     username: '',
     underageWithParent: false
   }
+
   return (
     <Box width='large'>
       <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
@@ -49,6 +49,7 @@ function RegisterForm (props) {
 
       <Formik
         initialValues={initialValues}
+        validate={validate}
         onSubmit={onSubmit}
       >
         {({
@@ -60,13 +61,25 @@ function RegisterForm (props) {
           touched,
           values,
           /* and other goodies */
-        }) => (
+        }) => {
+          const userNameFieldHelp = (values.underageWithParent) ?
+            `${counterpart('RegisterForm.usernameHelp')} ${counterpart('RegisterForm.underageNotRealName')}` :
+            counterpart('RegisterForm.usernameHelp')
+          const privacyAgreementLabel = (values.underageWithParent) ?
+            <Text>{counterpart('RegisterForm.underageConsent')}{' '}(<PrivacyPolicyLink />)</Text> :
+            <Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>
+          const emailListSignUpLabel = (values.underageWithParent) ?
+            <Text>{counterpart('RegisterForm.underageEmail')}</Text> :
+            <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
+
+          console.log('validationerrors', errors)
+          return (
             <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
               <Grid columns={['1fr', '1fr']} gap='medium'>
                 <Box>
                   <FormField
                     error={errors.username && touched.username && errors.username}
-                    help={counterpart('RegisterForm.usernameHelp')}
+                    help={userNameFieldHelp}
                     htmlFor={userNameFieldId}
                     label={<FieldLabel>{counterpart('RegisterForm.username')}</FieldLabel>}
                     required
@@ -78,7 +91,10 @@ function RegisterForm (props) {
                       name='username'
                       onBlur={handleBlur}
                       onChange={handleChange}
+                      pattern='[a-zA-Z0-9_\-.]+'
                       placeholder={counterpart('RegisterForm.usernamePlaceholder')}
+                      required
+                      title={counterpart('RegisterForm.usernamePatternHelp')}
                       type='text'
                       value={values.username}
                     />
@@ -93,9 +109,11 @@ function RegisterForm (props) {
                     <TextInput
                       disabled={isSubmitting}
                       id={passwordFieldId}
+                      minLength={8}
                       name='password'
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      required
                       type='password'
                       value={values.password}
                     />
@@ -110,9 +128,11 @@ function RegisterForm (props) {
                     <TextInput
                       disabled={isSubmitting}
                       id={passwordConfirmFieldId}
-                      name='password'
+                      minLength={8}
+                      name='passwordConfirm'
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      required
                       type='password'
                       value={values.passwordConfirm}
                     />
@@ -133,6 +153,7 @@ function RegisterForm (props) {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder={counterpart('RegisterForm.emailPlaceholder')}
+                      required
                       type='email'
                       value={values.email}
                     />
@@ -168,26 +189,27 @@ function RegisterForm (props) {
                     checked={values.privacyAgreement}
                     disabled={isSubmitting}
                     id={privacyAgreementFieldId}
-                    label={<Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>}
+                    label={privacyAgreementLabel}
+                    name="privacyAgreement"
                     onChange={handleChange}
+                    required
                   />
                 </FormField>
 
                 <FormField
-                  error={errors.emailListSignUp && touched.emailListSignUp && errors.emailListSignUp}
                   htmlFor={emailListSignUpFieldId}
                 >
                   <CheckBox
                     checked={values.emailListSignUp}
                     disabled={isSubmitting}
                     id={emailListSignUpFieldId}
-                    label={<Text>{counterpart('RegisterForm.emailListSignUp')}</Text>}
+                    label={emailListSignUpLabel}
+                    name="emailListSignUp"
                     onChange={handleChange}
                   />
                 </FormField>
 
                 <FormField
-                  error={errors.betaListSignUp && touched.betaListSignUp && errors.betaListSignUp}
                   htmlFor={betaListSignUpFieldId}
                 >
                   <CheckBox
@@ -195,12 +217,12 @@ function RegisterForm (props) {
                     disabled={isSubmitting}
                     id={betaListSignUpFieldId}
                     label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
+                    name="betaListSignUp"
                     onChange={handleChange}
                   />
                 </FormField>
 
                 <FormField
-                  error={errors.underageWithParent && touched.underageWithParent && errors.underageWithParent}
                   htmlFor={underageWithParentFieldId}
                 >
                   <CheckBox
@@ -208,6 +230,7 @@ function RegisterForm (props) {
                     disabled={isSubmitting}
                     id={underageWithParentFieldId}
                     label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
+                    name="underageWithParent"
                     onChange={handleChange}
                   />
                 </FormField>
@@ -220,7 +243,7 @@ function RegisterForm (props) {
                 type='submit'
               />
             </Box>
-          )}
+          )}}
       </Formik>
     </Box>
   )
