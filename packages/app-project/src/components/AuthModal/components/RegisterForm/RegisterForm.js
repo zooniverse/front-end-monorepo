@@ -2,10 +2,10 @@ import counterpart from 'counterpart'
 import React from 'react'
 import { Formik } from 'formik'
 import { Anchor, Box, Button, CheckBox, Heading, Text, FormField, TextInput } from 'grommet'
-import { SpacedText } from '@zooniverse/react-components'
 import Link from 'next/link'
 
 import en from './locales/en'
+import FieldLabel from '../../shared/components/FieldLabel'
 
 counterpart.registerTranslations('en', en)
 
@@ -18,13 +18,6 @@ const privacyAgreementFieldId = 'RegisterForm_privacy_agreement'
 const emailListSignUpFieldId = 'RegisterForm_email_list_sign_up'
 const betaListSignUpFieldId = 'RegisterForm_beta_list_sign_up'
 const underageWithParentFieldId = 'RegisterForm_underage_with_parent'
-
-const Label = (props) => (
-  <SpacedText
-    weight='bold'
-    {...props}
-  />
-)
 
 const PrivacyPolicyLink = () => (
   <Link href='/privacy' passHref>
@@ -74,7 +67,7 @@ function RegisterForm (props) {
                 error={errors.username && touched.username && errors.username}
                 help={counterpart('RegisterForm.usernameHelp')}
                 htmlFor={userNameFieldId}
-                label={<Label>{counterpart('RegisterForm.username')}</Label>}
+                label={<FieldLabel>{counterpart('RegisterForm.username')}</FieldLabel>}
                 required
               >
                 <TextInput
@@ -93,7 +86,7 @@ function RegisterForm (props) {
               <FormField
                 error={errors.password && touched.password && errors.password}
                 htmlFor={passwordFieldId}
-                label={<Label>{counterpart('RegisterForm.password')}</Label>}
+                label={<FieldLabel>{counterpart('RegisterForm.password')}</FieldLabel>}
                 required
               >
                 <TextInput
@@ -110,7 +103,7 @@ function RegisterForm (props) {
               <FormField
                 error={errors.passwordConfirm && touched.passwordConfirm && errors.passwordConfirm}
                 htmlFor={passwordConfirmFieldId}
-                label={<Label>{counterpart('RegisterForm.passwordConfirm')}</Label>}
+                label={<FieldLabel>{counterpart('RegisterForm.passwordConfirm')}</FieldLabel>}
                 required
               >
                 <TextInput
@@ -127,7 +120,7 @@ function RegisterForm (props) {
               <FormField
                 error={errors.email && touched.email && errors.email}
                 htmlFor={emailFieldId}
-                label={<Label>{counterpart('RegisterForm.email')}</Label>}
+                label={<FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>}
                 required
               >
                 <TextInput
@@ -146,7 +139,7 @@ function RegisterForm (props) {
                 error={errors.realName && touched.realName && errors.realName}
                 help={counterpart('RegisterForm.realNameHelp')}
                 htmlFor={realNameFieldId}
-                label={<Label>{counterpart('RegisterForm.realName')}</Label>}
+                label={<FieldLabel>{counterpart('RegisterForm.realName')}</FieldLabel>}
               >
                 <TextInput
                   disabled={isSubmitting}
@@ -169,7 +162,7 @@ function RegisterForm (props) {
                   checked={values.privacyAgreement}
                   disabled={isSubmitting}
                   id={privacyAgreementFieldId}
-                  label={<Label>{counterpart('RegisterForm.privacyAgreement')}{' '}<PrivacyPolicyLink /></Label>}
+                  label={<FieldLabel>{counterpart('RegisterForm.privacyAgreement')}{' '}<PrivacyPolicyLink /></FieldLabel>}
                   onChange={handleChange}
                 />
               </FormField>
@@ -182,7 +175,7 @@ function RegisterForm (props) {
                   checked={values.emailListSignUp}
                   disabled={isSubmitting}
                   id={emailListSignUpFieldId}
-                  label={<Label>{counterpart('RegisterForm.emailListSignUp')}</Label>}
+                  label={<FieldLabel>{counterpart('RegisterForm.emailListSignUp')}</FieldLabel>}
                   onChange={handleChange}
                 />
               </FormField>
@@ -195,7 +188,7 @@ function RegisterForm (props) {
                   checked={values.betaListSignUp}
                   disabled={isSubmitting}
                   id={betaListSignUpFieldId}
-                  label={<Label>{counterpart('RegisterForm.betaListSignUp')}</Label>}
+                  label={<FieldLabel>{counterpart('RegisterForm.betaListSignUp')}</FieldLabel>}
                   onChange={handleChange}
                 />
               </FormField>
@@ -208,7 +201,7 @@ function RegisterForm (props) {
                   checked={values.underageWithParent}
                   disabled={isSubmitting}
                   id={underageWithParentFieldId}
-                  label={<Label>{counterpart('RegisterForm.underageWithParent')}</Label>}
+                  label={<FieldLabel>{counterpart('RegisterForm.underageWithParent')}</FieldLabel>}
                   onChange={handleChange}
                 />
               </FormField>
