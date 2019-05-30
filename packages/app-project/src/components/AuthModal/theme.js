@@ -13,6 +13,18 @@ export default {
     border: {
       side: 'all'
     },
+    extend: `
+      & > span {
+        font-style: italic;
+        margin-top: 5px;
+        order: 1;
+      }
+    `,
+    help: {
+      margin: {
+        left: 'none'
+      },
+    },
     label: {
       margin: {
         horizontal: 'none',
