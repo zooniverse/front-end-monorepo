@@ -38,9 +38,7 @@ function AuthModal (props) {
     >
       <StyledTabs activeIndex={activeIndex} onActive={onActive}>
         <Tab title='Sign In'>
-          <Box width='medium'>
-            <LoginForm closeModal={closeModal} />
-          </Box>
+          <LoginForm closeModal={closeModal} />
         </Tab>
       </StyledTabs>
     </Modal>

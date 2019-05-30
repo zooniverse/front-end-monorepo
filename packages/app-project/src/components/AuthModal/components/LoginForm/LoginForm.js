@@ -19,7 +19,7 @@ const textColors = {  }
 function LoginForm (props) {
   const { onSubmit } = props
   return (
-    <Box>
+    <Box width='medium'>
       <Heading size='small' color={textColors} margin={{ bottom: 'xsmall', top: 'none' }}>
         {counterpart('LoginForm.heading')}
       </Heading>
