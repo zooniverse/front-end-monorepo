@@ -32,7 +32,7 @@ const MOCK_FORMIK = {
   setSubmitting: sinon.spy()
 }
 
-describe.only('Component > LoginFormContainer', function () {
+describe('Component > LoginFormContainer', function () {
   before(function () {
     wrapper = shallow(<LoginFormContainer
       closeModal={CLOSE_MODAL}
