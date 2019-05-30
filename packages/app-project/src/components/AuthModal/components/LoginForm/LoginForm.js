@@ -14,7 +14,7 @@ counterpart.registerTranslations('en', en)
 const userNameFieldId = 'LoginForm_login'
 const passwordFieldId = 'LoginForm_password'
 
-const textColors = { dark: 'white', light: 'black' }
+const textColors = {  }
 
 function LoginForm (props) {
   const { onSubmit } = props
