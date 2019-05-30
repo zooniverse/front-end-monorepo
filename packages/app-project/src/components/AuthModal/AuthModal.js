@@ -29,7 +29,7 @@ function AuthModal (props) {
     activeIndex,
     className,
     closeModal,
-    onActive,
+    onActive
   } = props
 
   return (
@@ -40,9 +40,7 @@ function AuthModal (props) {
     >
       <StyledTabs activeIndex={activeIndex} onActive={onActive}>
         <Tab title='Sign In'>
-          <Box width='medium'>
-            <LoginForm closeModal={closeModal} />
-          </Box>
+          <LoginForm closeModal={closeModal} />
         </Tab>
         <Tab title='Register'>
           <Box width='large'>
@@ -56,7 +54,7 @@ function AuthModal (props) {
 
 AuthModal.propTypes = {
   className: string,
-  closeModal: func.isRequired,
+  closeModal: func.isRequired
 }
 
 export default withOnlyRenderOnBrowser(withThemeContext(AuthModal, authModalTheme))

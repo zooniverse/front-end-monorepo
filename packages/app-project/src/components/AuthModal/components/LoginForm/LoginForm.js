@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Formik } from 'formik'
@@ -11,22 +12,14 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 const userNameFieldId = 'LoginForm_login'
-const passwordFieldId =  'LoginForm_password'
+const passwordFieldId = 'LoginForm_password'
 
-const textColors = { dark: 'white', light: 'black' }
-
-const Label = (props) => (
-  <SpacedText
-    color={textColors}
-    weight='bold'
-    {...props}
-  />
-)
+const textColors = {  }
 
 function LoginForm (props) {
   const { onSubmit } = props
   return (
-    <Box>
+    <Box width='medium'>
       <Heading size='small' color={textColors} margin={{ bottom: 'xsmall', top: 'none' }}>
         {counterpart('LoginForm.heading')}
       </Heading>
@@ -46,8 +39,7 @@ function LoginForm (props) {
           handleSubmit,
           isSubmitting,
           touched,
-          values,
-          /* and other goodies */
+          values
         }) => (
           <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
 
@@ -113,10 +105,20 @@ LoginForm.defaultProps = {
 }
 
 LoginForm.propTypes = {
-  onSubmit: func
+  onSubmit: func.isRequired
 }
 
 export default LoginForm
+
+function Label (props) {
+  return (
+    <SpacedText
+      color={textColors}
+      weight='bold'
+      {...props}
+    />
+  )
+}
 
 function validateLogin (values) {
   let errors = {}

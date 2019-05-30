@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
-import PropTypes from 'prop-types'
+import { func, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 import Url from 'url-parse'
 
@@ -86,11 +86,11 @@ class AuthModalContainer extends Component {
 }
 
 AuthModalContainer.propTypes = {
-  router: PropTypes.shape({
-    asPath: PropTypes.string.isRequired,
-    pathname: PropTypes.string.isRequired,
-    push: PropTypes.func.isRequired
-  })
+  router: shape({
+    asPath: string.isRequired,
+    pathname: string.isRequired,
+    push: func.isRequired
+  }).isRequired
 }
 
 @inject('store')
