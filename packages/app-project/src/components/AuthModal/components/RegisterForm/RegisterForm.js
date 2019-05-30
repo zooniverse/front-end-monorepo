@@ -46,7 +46,7 @@ function RegisterForm (props) {
     underageWithParent: false
   }
   return (
-    <Box>
+    <Box width='large'>
       <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
         {counterpart('RegisterForm.heading')}
       </Heading>
