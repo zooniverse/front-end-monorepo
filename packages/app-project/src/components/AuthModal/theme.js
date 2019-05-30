@@ -1,4 +1,14 @@
 export default {
+  checkBox: {
+    border: {
+      width: '1px'
+    },
+    check: {
+      radius: '0px',
+    },
+    gap: 'xsmall',
+    size: '16px'
+  },
   formField: {
     border: {
       side: 'all'
