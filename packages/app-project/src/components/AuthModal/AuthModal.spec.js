@@ -1,4 +1,4 @@
-import { mount, shallow} from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import { Modal } from '@zooniverse/react-components'
 import AuthModal from './AuthModal'

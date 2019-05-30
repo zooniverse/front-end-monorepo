@@ -10,15 +10,15 @@ import LoginForm from './components/LoginForm'
 const StyledTabs = styled(Tabs)`
   div[role="tabpanel"] {
     background: ${props => props.theme.dark
-      ? props.theme.global.colors['dark-5']
-      : props.theme.global.colors['white']
-    };
+    ? props.theme.global.colors['dark-5']
+    : props.theme.global.colors['white']
+};
   }
   button[role="tab"][aria-selected="true"] > div {
     background: ${props => props.theme.dark
-      ? props.theme.global.colors['dark-5']
-      : props.theme.global.colors['white']
-    };
+    ? props.theme.global.colors['dark-5']
+    : props.theme.global.colors['white']
+};
   }
 `
 
@@ -27,7 +27,7 @@ function AuthModal (props) {
     activeIndex,
     className,
     closeModal,
-    onActive,
+    onActive
   } = props
 
   return (
@@ -49,7 +49,7 @@ function AuthModal (props) {
 
 AuthModal.propTypes = {
   className: string,
-  closeModal: func.isRequired,
+  closeModal: func.isRequired
 }
 
 export default withOnlyRenderOnBrowser(withThemeContext(AuthModal, authModalTheme))

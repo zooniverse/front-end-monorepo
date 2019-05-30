@@ -17,9 +17,9 @@ export default {
   textInput: {
     extend: props => `
       color: ${props.theme.dark
-        ? props.theme.global.colors['white']
-        : props.theme.global.colors['dark-1']
-      };
+    ? props.theme.global.colors['white']
+    : props.theme.global.colors['dark-1']
+};
       font-weight: 400;
     `
   },
