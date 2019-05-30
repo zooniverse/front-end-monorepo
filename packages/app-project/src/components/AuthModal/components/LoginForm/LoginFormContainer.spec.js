@@ -60,11 +60,15 @@ describe('Component > LoginFormContainer', function () {
         store={MOCK_STORE}
       />)
 
-      await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
-      expect(VALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
-      expect(MOCK_FORMIK.setSubmitting).to.have.been.calledWith(false)
-      expect(MOCK_STORE.user.set).to.have.been.calledWith(MOCK_USER_RESOURCE)
-      expect(CLOSE_MODAL).to.have.been.called()
+      try {
+        await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
+        expect(VALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
+        expect(MOCK_FORMIK.setSubmitting).to.have.been.calledWith(false)
+        expect(MOCK_STORE.user.set).to.have.been.calledWith(MOCK_USER_RESOURCE)
+        expect(CLOSE_MODAL).to.have.been.called()
+      } catch (error) {
+        expect.fail(error)
+      }
     })
 
     it('should return feedback when passed an invalid set of credentials', async function () {
@@ -76,6 +80,7 @@ describe('Component > LoginFormContainer', function () {
 
       try {
         await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
+        expect.fail()
       } catch (error) {
         expect(INVALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
         expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('password', INVALID_SIGN_IN_ERROR.message)
