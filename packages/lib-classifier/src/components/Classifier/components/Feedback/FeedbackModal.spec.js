@@ -50,6 +50,12 @@ describe('FeedbackModal', function () {
     expect(list).to.have.lengthOf(3)
   })
 
+  it('should reduce duplicate messages', function () {
+    const wrapper = shallow(<FeedbackModal.wrappedComponent showModal messages={['Yay!', 'Yay!', 'Yay!']} />)
+    const list = wrapper.find('li')
+    expect(list).to.have.lengthOf(1)
+  })
+
   it('should call hideFeedback on close', function () {
     const hideFeedbackStub = sinon.stub()
     const wrapper = shallow(<FeedbackModal.wrappedComponent showModal messages={['Yay!', 'Good Job', 'Try Again']} hideFeedback={hideFeedbackStub} />)
