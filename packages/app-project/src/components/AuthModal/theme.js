@@ -31,8 +31,5 @@ export default {
       };
       font-weight: 400;
     `
-  },
-  global: {
-
   }
 }

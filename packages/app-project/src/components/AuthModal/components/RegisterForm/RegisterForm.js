@@ -158,7 +158,6 @@ function RegisterForm (props) {
                 </Box>
               </Grid>
 
-
               <Box margin={{ top: 'xsmall' }}>
                 <FormField
                   error={errors.privacyAgreement && touched.privacyAgreement && errors.privacyAgreement}
