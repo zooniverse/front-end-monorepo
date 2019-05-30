@@ -168,7 +168,7 @@ function RegisterForm (props) {
                   checked={values.privacyAgreement}
                   disabled={isSubmitting}
                   id={privacyAgreementFieldId}
-                  label={<FieldLabel>{counterpart('RegisterForm.privacyAgreement')}{' '}<PrivacyPolicyLink /></FieldLabel>}
+                  label={<Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>}
                   onChange={handleChange}
                 />
               </FormField>
@@ -181,7 +181,7 @@ function RegisterForm (props) {
                   checked={values.emailListSignUp}
                   disabled={isSubmitting}
                   id={emailListSignUpFieldId}
-                  label={<FieldLabel>{counterpart('RegisterForm.emailListSignUp')}</FieldLabel>}
+                  label={<Text>{counterpart('RegisterForm.emailListSignUp')}</Text>}
                   onChange={handleChange}
                 />
               </FormField>
@@ -194,7 +194,7 @@ function RegisterForm (props) {
                   checked={values.betaListSignUp}
                   disabled={isSubmitting}
                   id={betaListSignUpFieldId}
-                  label={<FieldLabel>{counterpart('RegisterForm.betaListSignUp')}</FieldLabel>}
+                  label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
                   onChange={handleChange}
                 />
               </FormField>
@@ -207,7 +207,7 @@ function RegisterForm (props) {
                   checked={values.underageWithParent}
                   disabled={isSubmitting}
                   id={underageWithParentFieldId}
-                  label={<FieldLabel>{counterpart('RegisterForm.underageWithParent')}</FieldLabel>}
+                  label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
                   onChange={handleChange}
                 />
               </FormField>
