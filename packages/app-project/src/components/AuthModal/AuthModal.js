@@ -1,5 +1,4 @@
 import { Modal, Tabs, Tab, withOnlyRenderOnBrowser, withThemeContext } from '@zooniverse/react-components'
-import { Box } from 'grommet'
 import { func, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -43,9 +42,7 @@ function AuthModal (props) {
           <LoginForm closeModal={closeModal} />
         </Tab>
         <Tab title='Register'>
-          <Box width='large'>
-            <RegisterForm closeModal={closeModal} />
-          </Box>
+          <RegisterForm closeModal={closeModal} />
         </Tab>
       </StyledTabs>
     </Modal>

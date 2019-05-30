@@ -8,13 +8,13 @@ import { func } from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
+import FieldLabel from '../../shared/components/FieldLabel'
 
 counterpart.registerTranslations('en', en)
 
+const textColors = { }
 const userNameFieldId = 'LoginForm_login'
 const passwordFieldId = 'LoginForm_password'
-
-const textColors = {  }
 
 function LoginForm (props) {
   const { onSubmit } = props
@@ -46,7 +46,7 @@ function LoginForm (props) {
             <FormField
               error={errors.login && touched.login && errors.login}
               htmlFor={userNameFieldId}
-              label={<Label>{counterpart('LoginForm.login')}</Label>}
+              label={<FieldLabel>{counterpart('LoginForm.login')}</FieldLabel>}
             >
               <TextInput
                 autoFocus
@@ -64,7 +64,7 @@ function LoginForm (props) {
             <FormField
               error={errors.password && touched.password && errors.password}
               htmlFor={passwordFieldId}
-              label={<Label>{counterpart('LoginForm.password')}</Label>}
+              label={<FieldLabel>{counterpart('LoginForm.password')}</FieldLabel>}
             >
               <TextInput
                 disabled={isSubmitting}
@@ -109,16 +109,6 @@ LoginForm.propTypes = {
 }
 
 export default LoginForm
-
-function Label (props) {
-  return (
-    <SpacedText
-      color={textColors}
-      weight='bold'
-      {...props}
-    />
-  )
-}
 
 function validateLogin (values) {
   let errors = {}
