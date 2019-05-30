@@ -159,58 +159,60 @@ function RegisterForm (props) {
               </Grid>
 
 
-              <FormField
-                error={errors.privacyAgreement && touched.privacyAgreement && errors.privacyAgreement}
-                htmlFor={privacyAgreementFieldId}
-                required
-              >
-                <CheckBox
-                  checked={values.privacyAgreement}
-                  disabled={isSubmitting}
-                  id={privacyAgreementFieldId}
-                  label={<Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>}
-                  onChange={handleChange}
-                />
-              </FormField>
+              <Box margin={{ top: 'xsmall' }}>
+                <FormField
+                  error={errors.privacyAgreement && touched.privacyAgreement && errors.privacyAgreement}
+                  htmlFor={privacyAgreementFieldId}
+                  required
+                >
+                  <CheckBox
+                    checked={values.privacyAgreement}
+                    disabled={isSubmitting}
+                    id={privacyAgreementFieldId}
+                    label={<Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>}
+                    onChange={handleChange}
+                  />
+                </FormField>
 
-              <FormField
-                error={errors.emailListSignUp && touched.emailListSignUp && errors.emailListSignUp}
-                htmlFor={emailListSignUpFieldId}
-              >
-                <CheckBox
-                  checked={values.emailListSignUp}
-                  disabled={isSubmitting}
-                  id={emailListSignUpFieldId}
-                  label={<Text>{counterpart('RegisterForm.emailListSignUp')}</Text>}
-                  onChange={handleChange}
-                />
-              </FormField>
+                <FormField
+                  error={errors.emailListSignUp && touched.emailListSignUp && errors.emailListSignUp}
+                  htmlFor={emailListSignUpFieldId}
+                >
+                  <CheckBox
+                    checked={values.emailListSignUp}
+                    disabled={isSubmitting}
+                    id={emailListSignUpFieldId}
+                    label={<Text>{counterpart('RegisterForm.emailListSignUp')}</Text>}
+                    onChange={handleChange}
+                  />
+                </FormField>
 
-              <FormField
-                error={errors.betaListSignUp && touched.betaListSignUp && errors.betaListSignUp}
-                htmlFor={betaListSignUpFieldId}
-              >
-                <CheckBox
-                  checked={values.betaListSignUp}
-                  disabled={isSubmitting}
-                  id={betaListSignUpFieldId}
-                  label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
-                  onChange={handleChange}
-                />
-              </FormField>
+                <FormField
+                  error={errors.betaListSignUp && touched.betaListSignUp && errors.betaListSignUp}
+                  htmlFor={betaListSignUpFieldId}
+                >
+                  <CheckBox
+                    checked={values.betaListSignUp}
+                    disabled={isSubmitting}
+                    id={betaListSignUpFieldId}
+                    label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
+                    onChange={handleChange}
+                  />
+                </FormField>
 
-              <FormField
-                error={errors.underageWithParent && touched.underageWithParent && errors.underageWithParent}
-                htmlFor={underageWithParentFieldId}
-              >
-                <CheckBox
-                  checked={values.underageWithParent}
-                  disabled={isSubmitting}
-                  id={underageWithParentFieldId}
-                  label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
-                  onChange={handleChange}
-                />
-              </FormField>
+                <FormField
+                  error={errors.underageWithParent && touched.underageWithParent && errors.underageWithParent}
+                  htmlFor={underageWithParentFieldId}
+                >
+                  <CheckBox
+                    checked={values.underageWithParent}
+                    disabled={isSubmitting}
+                    id={underageWithParentFieldId}
+                    label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
+                    onChange={handleChange}
+                  />
+                </FormField>
+              </Box>
 
               <Button
                 disabled={isSubmitting}

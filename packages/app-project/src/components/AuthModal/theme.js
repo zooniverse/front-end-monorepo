@@ -18,6 +18,9 @@ export default {
         horizontal: 'none',
         vertical: 'xsmall'
       }
+    },
+    margin: {
+      bottom: 'xsmall'
     }
   },
   textInput: {
