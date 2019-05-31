@@ -5,7 +5,7 @@ import RegisterForm from './RegisterForm'
 
 let wrapper
 
-describe.only('Component > RegisterForm', function () {
+describe('Component > RegisterForm', function () {
   before(function () {
     wrapper = shallow(<RegisterForm />)
   })
