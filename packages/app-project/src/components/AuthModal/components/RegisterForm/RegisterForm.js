@@ -1,5 +1,6 @@
 import counterpart from 'counterpart'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 import { Anchor, Box, Button, CheckBox, Grid, Heading, Text, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
@@ -25,7 +26,7 @@ const PrivacyPolicyLink = () => (
 )
 
 function RegisterForm (props) {
-  const { validate, onSubmit } = props
+  const { generalError, validate, onSubmit } = props
   const initialValues = {
     betaListSignUp: false,
     email: '',
@@ -58,9 +59,7 @@ function RegisterForm (props) {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          touched,
-          values,
-          /* and other goodies */
+          values
         }) => {
           const userNameFieldHelp = (values.underageWithParent) ?
             `${counterpart('RegisterForm.usernameHelp')} ${counterpart('RegisterForm.underageNotRealName')}` :
@@ -72,9 +71,10 @@ function RegisterForm (props) {
             <Text>{counterpart('RegisterForm.underageEmail')}</Text> :
             <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
 
-          console.log('validationerrors', errors, touched)
           return (
             <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
+              {generalError && 
+                <Text color={{ light: 'status-error', dark: 'status-error' }}>{generalError}</Text>}
               <Grid columns={['1fr', '1fr']} gap='medium'>
                 <Box>
                   <FormField
@@ -247,9 +247,14 @@ function RegisterForm (props) {
 }
 
 RegisterForm.propTypes = {
+  generalError: PropTypes.string,
+  validate: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired
 }
 
 RegisterForm.defaultProps = {
+  generalError: '',
+  validate: () => true,
 }
 
 export default RegisterForm

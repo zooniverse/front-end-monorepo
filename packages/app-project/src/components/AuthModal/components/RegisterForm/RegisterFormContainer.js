@@ -18,6 +18,10 @@ class RegisterFormContainer extends Component {
     this.checkNameForConflict = debounce(this.checkNameForConflict, REMOTE_CHECK_DELAY)
     this.onSubmit = this.onSubmit.bind(this)
     this.validate = this.validate.bind(this)
+
+    this.state = {
+      error: ''
+    }
   }
 
   async validate (values) {
@@ -72,6 +76,8 @@ class RegisterFormContainer extends Component {
     return ''
   }
 
+  // The error handler in the panoptes-javascript-client still doesn't return the vanilla error message
+  // It swallows an error message array into a string, so now we have to do things like this :(
   errorTest (errorMessage, regex) {
     return regex.test(errorMessage)
   }
@@ -102,19 +108,16 @@ class RegisterFormContainer extends Component {
       })
       .catch(error => {
         console.error(error)
-        this.parseErrors(error)
-        // setFieldError('password', error.message)
+        // Something went very wrong to get to this point...
+        this.setState({ error: error.message })
         setSubmitting(false)
       })
-  }
-
-  parseErrors (error) {
-    console.log(errors.message)
   }
 
   render() {
     return (
       <RegisterForm
+        generalError={this.state.error}
         onSubmit={this.onSubmit}
         validate={this.validate}
       />
