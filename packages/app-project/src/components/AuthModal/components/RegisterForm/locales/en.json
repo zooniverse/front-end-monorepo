@@ -2,6 +2,8 @@
   "RegisterForm": {
     "betaListSignUp": "I'd like to help test new projects and be emailed when they're available (optional)",
     "email": "Email Address (Required)",
+    "emailConfirm": "Confirm Email Address (Required)",
+    "emailConfirmError": "The email addresses do not match, please try again.",
     "emailConflict": "An account with this address already exists",
     "emailPlaceholder": "e.g. zoofan31@gmail.com",
     "emailListSignUp": "It's ok to send me an email every once in a while (optional)",

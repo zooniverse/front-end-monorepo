@@ -25,11 +25,12 @@ class RegisterFormContainer extends Component {
   }
 
   async validate (values) {
-    const { email, password, passwordConfirm, username } = values
+    const { email, emailConfirm, password, passwordConfirm, username } = values
     let errors = {}
 
     errors.username = await this.checkNameForConflict(username)
     errors.email = await this.checkEmailForConflict(email)
+    errors.emailConfirm = this.validateEmailConfirmation(email, emailConfirm)
     errors.passwordConfirm = this.validatePassword(password, passwordConfirm)
     throw errors
   }
@@ -37,6 +38,14 @@ class RegisterFormContainer extends Component {
   validatePassword (password, passwordConfirm) {
     if (password !== passwordConfirm) {
       return counterpart('RegisterForm.passwordConfirmError')
+    }
+
+    return ''
+  }
+
+  validateEmailConfirmation (email, emailConfirm) {
+    if (email !== emailConfirm) {
+      return counterpart('RegisterForm.emailConfirmError')
     }
 
     return ''

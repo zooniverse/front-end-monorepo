@@ -41,7 +41,7 @@ describe('Component > RegisterForm', function () {
     })
 
     it('should have a passwordConfirm field', function () {
-      const input = rendered.find('[name="password"]')
+      const input = rendered.find('[name="passwordConfirm"]')
       expect(input).to.have.lengthOf(1)
       expect(input.attr('type')).to.equal('password')
       expect(input.attr('required')).to.equal('required')
@@ -50,6 +50,13 @@ describe('Component > RegisterForm', function () {
 
     it('should have an email field', function () {
       const input = rendered.find('[name="email"]')
+      expect(input).to.have.lengthOf(1)
+      expect(input.attr('type')).to.equal('email')
+      expect(input.attr('required')).to.equal('required')
+    })
+
+    it('should have an emailConfirm field', function () {
+      const input = rendered.find('[name="emailConfirm"]')
       expect(input).to.have.lengthOf(1)
       expect(input.attr('type')).to.equal('email')
       expect(input.attr('required')).to.equal('required')

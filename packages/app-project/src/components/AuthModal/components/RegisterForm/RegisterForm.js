@@ -13,6 +13,7 @@ const userNameFieldId = 'RegisterForm_username'
 const passwordFieldId = 'RegisterForm_password'
 const passwordConfirmFieldId = 'RegisterForm_password_confirm'
 const emailFieldId = 'RegisterForm_email'
+const emailConfirmFieldId = 'RegisterForm_email_confirm'
 const realNameFieldId = 'RegisterForm_real_name'
 const privacyAgreementFieldId = 'RegisterForm_privacy_agreement'
 const emailListSignUpFieldId = 'RegisterForm_email_list_sign_up'
@@ -30,6 +31,7 @@ function RegisterForm (props) {
   const initialValues = {
     betaListSignUp: false,
     email: '',
+    emailConfirm: '',
     emailListSignUp: false,
     password: '',
     passwordConfirm: '',
@@ -155,6 +157,25 @@ function RegisterForm (props) {
                       required
                       type='email'
                       value={values.email}
+                    />
+                  </FormField>
+
+                  <FormField
+                    error={errors.emailConfirm}
+                    htmlFor={emailConfirmFieldId}
+                    label={<FieldLabel>{counterpart('RegisterForm.emailConfirm')}</FieldLabel>}
+                    required
+                  >
+                    <TextInput
+                      disabled={isSubmitting}
+                      id={emailConfirmFieldId}
+                      name='emailConfirm'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder={counterpart('RegisterForm.emailPlaceholder')}
+                      required
+                      type='email'
+                      value={values.emailConfirm}
                     />
                   </FormField>
 
