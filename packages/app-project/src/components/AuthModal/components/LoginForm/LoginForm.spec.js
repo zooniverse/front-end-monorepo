@@ -1,13 +1,13 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import RegisterModal from './RegisterModal'
+import LoginForm from './LoginForm'
 
 let wrapper
 
-describe('Component > RegisterModal', function () {
+describe('Component > LoginForm', function () {
   before(function () {
-    wrapper = shallow(<RegisterModal />)
+    wrapper = shallow(<LoginForm />)
   })
 
   it('should render without crashing', function () {
