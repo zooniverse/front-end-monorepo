@@ -10,7 +10,7 @@
     "build": "rm -rf dist && webpack --config ./webpack.dist.js",
     "build-storybook": "build-storybook",
     "dev": "start-storybook -p 6006",
-    "lint": "standardx --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy; exit 0",
+    "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx}",
     "prepublishOnly": "npm run test:ci && npm run build",
     "start": "echo 'Nothing to see here yet'",
     "test": "npm run _test && exit 0",
@@ -61,14 +61,13 @@
     "@storybook/addons": "~4.1.2",
     "@storybook/react": "~4.0.9",
     "@zooniverse/grommet-theme": "~2.0.0",
-    "babel-eslint": "~10.0.1",
+    "@zooniverse/standard": "^1.0.0",
     "babel-loader": "~8.0.4",
     "chai": "~4.2.0",
     "dedent": "~0.7.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.9.0",
     "enzyme-adapter-react-16": "~1.11.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
     "grommet": "~2.7.0",
     "grommet-icons": "~4.2.0",
     "jsdom": "~13.0.0",
@@ -81,8 +80,6 @@
     "remark-rehype": "~4.0.0",
     "sinon": "~7.1.1",
     "sinon-chai": "~3.3.0",
-    "snazzy": "~8.0.0",
-    "standardx": "^3.0.1",
     "styled-components": "~4.1.1",
     "styled-theming": "~2.2.0",
     "webpack": "~4.26.1",
@@ -92,21 +89,7 @@
     "node": ">=10",
     "npm": ">=5"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:jsx-a11y/recommended"
-    ]
-  },
   "publishConfig": {
     "access": "public"
-  },
-  "standardx": {
-    "envs": [
-      "mocha"
-    ],
-    "global": [
-      "expect"
-    ],
-    "parser": "babel-eslint"
   }
 }
