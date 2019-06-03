@@ -17,12 +17,19 @@ counterpart.registerTranslations('en', en)
 const StyledButton = styled(Button)`
   padding: 0;
 
-  &:hover > svg, &:focus > svg {
-    fill: ${props => props.theme.global.colors['dark-5']};
-    stroke: ${props => props.theme.global.colors['dark-5']};
+
+  &:hover > svg,
+  &:focus > svg {
+    fill: ${props => props.theme.dark
+      ? props.theme.global.colors['light-2']
+      : props.theme.global.colors['dark-5']
+    };
+    stroke: ${props => props.theme.dark
+      ? props.theme.global.colors['light-2']
+      : props.theme.global.colors['dark-5']
+    };
   }
 `
-
 const markdownTitleComponent = {
   h3: (nodeProps) => <SpacedHeading level='3' margin='none'>{nodeProps.children}</SpacedHeading>
 }
