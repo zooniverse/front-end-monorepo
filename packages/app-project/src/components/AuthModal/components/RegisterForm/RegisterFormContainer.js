@@ -14,8 +14,7 @@ counterpart.registerTranslations('en', en)
 class RegisterFormContainer extends Component {
   constructor() {
     super()
-    this.checkEmailForConflict = debounce(this.checkEmailForConflict, REMOTE_CHECK_DELAY)
-    this.checkNameForConflict = debounce(this.checkNameForConflict, REMOTE_CHECK_DELAY)
+    this.onChange = debounce(this.onChange.bind(this), REMOTE_CHECK_DELAY)
     this.onSubmit = this.onSubmit.bind(this)
     this.validate = this.validate.bind(this)
 
@@ -24,15 +23,18 @@ class RegisterFormContainer extends Component {
     }
   }
 
-  async validate (values) {
-    const { email, emailConfirm, password, passwordConfirm, username } = values
+  validate (values) {
+    const { email, emailConfirm, password, passwordConfirm, privacyAgreement } = values
     let errors = {}
-
-    errors.username = await this.checkNameForConflict(username)
-    errors.email = await this.checkEmailForConflict(email)
     errors.emailConfirm = this.validateEmailConfirmation(email, emailConfirm)
     errors.passwordConfirm = this.validatePassword(password, passwordConfirm)
-    throw errors
+    errors.privacyAgreement = this.validatePrivacyAgreement(privacyAgreement)
+    return errors
+  }
+
+  validatePrivacyAgreement (checked) {
+    if (!checked) return counterpart('RegisterForm.privacyAgreementError')
+    return ''
   }
 
   validatePassword (password, passwordConfirm) {
@@ -59,13 +61,13 @@ class RegisterFormContainer extends Component {
         await authClient.register({ login: username })
       } catch (error) {
         if (this.errorTest(error.message, errorRegex)) {
-          return counterpart('RegisterForm.usernameConflict')
+          return Promise.resolve(counterpart('RegisterForm.usernameConflict'))
         }
-        return ''
+        return Promise.resolve('')
       }
     }
 
-    return ''
+    return Promise.resolve('')
   }
 
   async checkEmailForConflict (email) {
@@ -76,13 +78,13 @@ class RegisterFormContainer extends Component {
         await authClient.register({ email })
       } catch (error) {
         if (this.errorTest(error.message, errorRegex)) {
-          return counterpart('RegisterForm.emailConflict')
+          return Promise.resolve(counterpart('RegisterForm.emailConflict'))
         }
-        return ''
+        return Promise.resolve('')
       }
     }
 
-    return ''
+    return Promise.resolve('')
   }
 
   // The error handler in the panoptes-javascript-client still doesn't return the vanilla error message
@@ -91,7 +93,23 @@ class RegisterFormContainer extends Component {
     return regex.test(errorMessage)
   }
 
+  async onChange (event, formErrorHandler) {
+    const { target: { name, value } } = event
+    if (name === 'username') {
+      this.checkNameForConflict(value)
+        .then((errorMessage) => {
+          if (errorMessage) formErrorHandler('username', errorMessage)
+        })
+    }
+
+    if (name === 'email') {
+      const errorMessage = await this.checkEmailForConflict(value)
+      if (errorMessage) formErrorHandler('email', errorMessage)
+    }
+  }
+
   onSubmit(values, { setFieldError, setSubmitting }) {
+    console.log('submitting...')
     // TODO add log event for google analytics
     const { authClient, store } = this.props
     const { betaListSignUp, email, emailListSignUp, password, realName, username } = values
@@ -109,13 +127,12 @@ class RegisterFormContainer extends Component {
       valuesToSubmit.project_id = store.project.id
     }
 
-    authClient.register(valuesToSubmit)
+    return authClient.register(valuesToSubmit)
       .then(userResource => {
         setSubmitting(false)
         store.user.set(userResource)
         this.props.closeModal()
-      })
-      .catch(error => {
+      }).catch(error => {
         console.error(error)
         // Something went very wrong to get to this point...
         this.setState({ error: error.message })
@@ -127,6 +144,7 @@ class RegisterFormContainer extends Component {
     return (
       <RegisterForm
         generalError={this.state.error}
+        onChange={this.onChange}
         onSubmit={this.onSubmit}
         validate={this.validate}
       />

@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 import { Anchor, Box, Button, CheckBox, Grid, Heading, Text, FormField, TextInput } from 'grommet'
+import styled from 'styled-components'
 import Link from 'next/link'
 import en from './locales/en'
 import FieldLabel from '../../shared/components/FieldLabel'
@@ -26,8 +27,14 @@ const PrivacyPolicyLink = () => (
   </Link>
 )
 
+const CheckBoxFormField = styled(FormField)`
+  > div {
+    border-color: transparent;
+  }
+`
+
 function RegisterForm (props) {
-  const { generalError, validate, onSubmit } = props
+  const { generalError, validate, onBlur, onChange, onSubmit } = props
   const initialValues = {
     betaListSignUp: false,
     email: '',
@@ -50,6 +57,9 @@ function RegisterForm (props) {
         {counterpart('RegisterForm.instruction')}
       </Text>
 
+      {generalError &&
+        <Text color={{ light: 'status-critical', dark: 'status-error' }} role="alert">{generalError}</Text>}
+
       <Formik
         initialValues={initialValues}
         validate={validate}
@@ -61,6 +71,7 @@ function RegisterForm (props) {
           handleBlur,
           handleSubmit,
           isSubmitting,
+          setFieldError,
           values
         }) => {
           const userNameFieldHelp = (values.underageWithParent) ?
@@ -75,8 +86,6 @@ function RegisterForm (props) {
 
           return (
             <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
-              {generalError && 
-                <Text color={{ light: 'status-error', dark: 'status-error' }}>{generalError}</Text>}
               <Grid columns={['1fr', '1fr']} gap='medium'>
                 <Box>
                   <FormField
@@ -91,8 +100,8 @@ function RegisterForm (props) {
                       disabled={isSubmitting}
                       id={userNameFieldId}
                       name='username'
-                      onBlur={handleBlur}
-                      onChange={handleChange}
+                      onBlur={(event) => { handleBlur(event); onBlur(event); }}
+                      onChange={(event) => { handleChange(event); onChange(event, setFieldError); }}
                       pattern='[a-zA-Z0-9_\-.]+'
                       placeholder={counterpart('RegisterForm.usernamePlaceholder')}
                       required
@@ -151,7 +160,7 @@ function RegisterForm (props) {
                       disabled={isSubmitting}
                       id={emailFieldId}
                       name='email'
-                      onChange={handleChange}
+                      onChange={(event) => { handleChange(event); onChange(event, setFieldError); }}
                       onBlur={handleBlur}
                       placeholder={counterpart('RegisterForm.emailPlaceholder')}
                       required
@@ -199,7 +208,8 @@ function RegisterForm (props) {
               </Grid>
 
               <Box margin={{ top: 'xsmall' }}>
-                <FormField
+                <CheckBoxFormField
+                  error={errors.privacyAgreement}
                   htmlFor={privacyAgreementFieldId}
                   required
                 >
@@ -212,9 +222,9 @@ function RegisterForm (props) {
                     onChange={handleChange}
                     required
                   />
-                </FormField>
+                </CheckBoxFormField>
 
-                <FormField
+                <CheckBoxFormField
                   htmlFor={emailListSignUpFieldId}
                 >
                   <CheckBox
@@ -225,9 +235,9 @@ function RegisterForm (props) {
                     name="emailListSignUp"
                     onChange={handleChange}
                   />
-                </FormField>
+                </CheckBoxFormField>
 
-                <FormField
+                <CheckBoxFormField
                   htmlFor={betaListSignUpFieldId}
                 >
                   <CheckBox
@@ -238,9 +248,9 @@ function RegisterForm (props) {
                     name="betaListSignUp"
                     onChange={handleChange}
                   />
-                </FormField>
+                </CheckBoxFormField>
 
-                <FormField
+                <CheckBoxFormField
                   htmlFor={underageWithParentFieldId}
                 >
                   <CheckBox
@@ -251,12 +261,12 @@ function RegisterForm (props) {
                     name="underageWithParent"
                     onChange={handleChange}
                   />
-                </FormField>
+                </CheckBoxFormField>
               </Box>
 
               <Button
                 disabled={isSubmitting}
-                label={counterpart('RegisterForm.register')}
+                label={(isSubmitting) ? counterpart('RegisterForm.registering') : counterpart('RegisterForm.register')}
                 primary
                 type='submit'
               />
@@ -269,12 +279,14 @@ function RegisterForm (props) {
 
 RegisterForm.propTypes = {
   generalError: PropTypes.string,
-  validate: PropTypes.func,
-  onSubmit: PropTypes.func.isRequired
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  validate: PropTypes.func
 }
 
 RegisterForm.defaultProps = {
   generalError: '',
+  onChange: () => true,
   validate: () => true,
 }
 

@@ -1,21 +1,35 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
-
+import sinon from 'sinon'
+import { Formik } from 'formik'
 import RegisterForm from './RegisterForm'
 
 let wrapper
 
-describe('Component > RegisterForm', function () {
+describe.only('Component > RegisterForm', function () {
+  let onSubmitStub
   before(function () {
-    wrapper = shallow(<RegisterForm />)
+    onSubmitStub = sinon.stub()
+    wrapper = shallow(<RegisterForm onSubmit={onSubmitStub} />)
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should call the `onSubmit` prop on submission', function () {
-    // https://github.com/jaredpalmer/formik/blob/f5d76609b222ce583663add279ac76e807e2d0ba/README.md#testing-formik
+  it('should call the `onSubmit` prop on submission', function (done) {
+    const form = wrapper.find(Formik).dive().find({ as: 'form' })
+
+    form.simulate('submit', {
+      preventDefault: () => { }
+    })
+
+    // on submit wasn't being called without the timeout
+    window.setTimeout(() => {
+      expect(onSubmitStub).to.have.been.calledOnce
+      console.log(onSubmitStub.callCount)
+      done()
+    }, 0)
   })
 
   describe('fields', function () {

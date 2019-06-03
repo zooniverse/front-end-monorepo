@@ -11,7 +11,20 @@ export default {
   },
   formField: {
     border: {
-      side: 'all'
+      side: 'all',
+      error: {
+        color: {
+          dark: 'status-error',
+          light: 'status-critical',
+        },
+      },
+    },
+    error: {
+      color: {
+        dark: 'status-error',
+        light: 'status-critical',
+      },
+      margin: { top: 'xsmall', bottom: 'none', horizontal: 'none' },
     },
     extend: `
       & > span {

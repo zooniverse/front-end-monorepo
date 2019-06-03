@@ -20,6 +20,7 @@ const moreMiddleGrey = '#979797'
 
 // status
 const tomato = '#E45950'
+const pink = '#FFB6AA'
 const darkGold = '#CC9200'
 const green = '#078F52'
 
@@ -51,7 +52,7 @@ const neutralColors = [
 
 const statusColors = {
   critical: tomato,
-  error: tomato,
+  error: pink,
   warning: darkGold,
   ok: green,
   unknown: grey,
