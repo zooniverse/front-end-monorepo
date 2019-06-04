@@ -25,11 +25,11 @@ describe('Component > RegisterForm', function () {
     })
 
     // on submit wasn't being called without the timeout
-    window.setTimeout(() => {
+    onSubmitStub.callsFake(() => {
       expect(onSubmitStub).to.have.been.calledOnce
       console.log(onSubmitStub.callCount)
       done()
-    }, 0)
+    })
   })
 
   describe('fields', function () {

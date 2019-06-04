@@ -290,7 +290,7 @@ RegisterForm.propTypes = {
 RegisterForm.defaultProps = {
   generalError: '',
   onChange: () => true,
-  validate: () => true,
+  validate: () => {},
 }
 
 export default RegisterForm
