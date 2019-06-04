@@ -74,17 +74,34 @@ function RegisterForm (props) {
           values
         }) => {
           const userNameFieldHelp = (values.underageWithParent) ?
-            `${counterpart('RegisterForm.usernameHelp')} ${counterpart('RegisterForm.underageNotRealName')}` :
+            counterpart('RegisterForm.underageNotRealName') :
             counterpart('RegisterForm.usernameHelp')
           const privacyAgreementLabel = (values.underageWithParent) ?
             <Text>{counterpart('RegisterForm.underageConsent')}{' '}(<PrivacyPolicyLink />)</Text> :
             <Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>
           const emailListSignUpLabel = (values.underageWithParent) ?
-            <Text>{counterpart('RegisterForm.underageEmail')}</Text> :
+            <Text>{counterpart('RegisterForm.underageEmailSignUp')}</Text> :
             <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
+          const emailInputLabel = (values.underageWithParent) ?
+            <FieldLabel>{counterpart('RegisterForm.underageEmail')}</FieldLabel> :
+            <FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>
 
           return (
             <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
+              <Box>
+                <CheckBoxFormField
+                  htmlFor={underageWithParentFieldId}
+                >
+                  <CheckBox
+                    checked={values.underageWithParent}
+                    disabled={isSubmitting}
+                    id={underageWithParentFieldId}
+                    label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
+                    name="underageWithParent"
+                    onChange={handleChange}
+                  />
+                </CheckBoxFormField>
+              </Box>
               <Grid columns={['1fr', '1fr']} gap='medium'>
                 <Box>
                   <FormField
@@ -152,7 +169,7 @@ function RegisterForm (props) {
                   <FormField
                     error={errors.email}
                     htmlFor={emailFieldId}
-                    label={<FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>}
+                    label={emailInputLabel}
                     required
                   >
                     <TextInput
@@ -245,19 +262,6 @@ function RegisterForm (props) {
                     id={betaListSignUpFieldId}
                     label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
                     name="betaListSignUp"
-                    onChange={handleChange}
-                  />
-                </CheckBoxFormField>
-
-                <CheckBoxFormField
-                  htmlFor={underageWithParentFieldId}
-                >
-                  <CheckBox
-                    checked={values.underageWithParent}
-                    disabled={isSubmitting}
-                    id={underageWithParentFieldId}
-                    label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
-                    name="underageWithParent"
                     onChange={handleChange}
                   />
                 </CheckBoxFormField>
