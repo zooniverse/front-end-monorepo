@@ -34,7 +34,7 @@ const CheckBoxFormField = styled(FormField)`
 `
 
 function RegisterForm (props) {
-  const { generalError, validate, onBlur, onChange, onSubmit } = props
+  const { generalError, validate, onSubmit } = props
   const initialValues = {
     betaListSignUp: false,
     email: '',
@@ -71,7 +71,6 @@ function RegisterForm (props) {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          setFieldError,
           values
         }) => {
           const userNameFieldHelp = (values.underageWithParent) ?
@@ -101,7 +100,7 @@ function RegisterForm (props) {
                       id={userNameFieldId}
                       name='username'
                       onBlur={(event) => { handleBlur(event); onBlur(event); }}
-                      onChange={(event) => { handleChange(event); onChange(event, setFieldError); }}
+                      onChange={handleChange}
                       pattern='[a-zA-Z0-9_\-.]+'
                       placeholder={counterpart('RegisterForm.usernamePlaceholder')}
                       required
@@ -160,7 +159,7 @@ function RegisterForm (props) {
                       disabled={isSubmitting}
                       id={emailFieldId}
                       name='email'
-                      onChange={(event) => { handleChange(event); onChange(event, setFieldError); }}
+                      onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder={counterpart('RegisterForm.emailPlaceholder')}
                       required
