@@ -7,6 +7,7 @@ import DoneAndTalkButtonContainer from './DoneAndTalkButtonContainer'
 import DoneAndTalkButton from './DoneAndTalkButton'
 
 const subject = SubjectFactory.build()
+subject.openInTalk = sinon.stub()
 
 describe('DoneAndTalkButtonContainer', function () {
   it('should render without crashing', function () {
@@ -65,6 +66,10 @@ describe('DoneAndTalkButtonContainer', function () {
       it('should call the onClick handler', function () {
         expect(onClick).to.have.been.calledOnce
       })
+
+      it('should open the subject in Talk', function () {
+        expect(subject.openInTalk.withArgs(undefined)).to.have.been.calledOnce
+      })
     })
 
     describe('with the cmd key modifier', function () {
@@ -86,6 +91,10 @@ describe('DoneAndTalkButtonContainer', function () {
 
       it('should call the onClick handler', function () {
         expect(onClick).to.have.been.calledOnce
+      })
+
+      it('should open the subject in Talk', function () {
+        expect(subject.openInTalk.withArgs(true)).to.have.been.calledOnce
       })
     })
   })

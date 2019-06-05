@@ -1,4 +1,5 @@
-import { getRoot, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import Resource from './Resource'
 import createLocationCounts from '../helpers/createLocationCounts'
 import subjectViewers from '../helpers/subjectViewers'
@@ -13,31 +14,21 @@ const Subject = types
     retired: types.optional(types.boolean, false),
     selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
+    shouldDiscuss: types.frozen(),
     user_has_finished_workflow: types.optional(types.boolean, false)
   })
-  .views(self => ({
-    get talkURL () {
-      const projectSlug = getRoot(self).projects.active.slug
-      const { origin } = window.location
-      return `${origin}/projects/${projectSlug}/talk/subjects/${self.id}`
-    }
-  }))
 
   .actions(self => {
+
     function addToCollection () {
       const rootStore = getRoot(self)
       rootStore.onAddToCollection(self.id)
     }
 
     function openInTalk (newTab = false) {
-      if (newTab) {
-        const newTab = window.open()
-        newTab.opener = null
-        newTab.location = self.talkURL
-        newTab.target = '_blank'
-        newTab.focus()
-      } else {
-        window.location.assign(self.talkURL)
+      self.shouldDiscuss = {
+        newTab,
+        url: self.talkURL
       }
     }
 
@@ -55,6 +46,12 @@ const Subject = types
   })
 
   .views(self => ({
+    get talkURL () {
+      const projectSlug = getRoot(self).projects.active.slug
+      const { origin } = window.location
+      return `${origin}/projects/${projectSlug}/talk/subjects/${self.id}`
+    },
+
     get viewer () {
       const counts = createLocationCounts(self)
 

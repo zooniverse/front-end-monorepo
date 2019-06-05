@@ -6,31 +6,15 @@ const stub = SubjectFactory.build()
 const project = ProjectFactory.build()
 
 describe('Model > Subject', function () {
-  let originalLocation
   let subject
 
   before(function () {
-    originalLocation = window.location
-    Object.defineProperty(window, 'location', {
-      value: {
-        origin: 'https://example.org',
-        assign: sinon.stub().callsFake(url => console.log(url))
-      },
-      writable: true
-    })
     subject = Subject.create(stub)
     subject.onToggleFavourite = sinon.stub()
     subject.onAddToCollection = sinon.stub()
     subject.projects = {
       active: project
     }
-  })
-
-  after(function () {
-    window.location = originalLocation
-    Object.defineProperty(window, 'location', {
-      writable: false
-    })
   })
 
   it('should exist', function () {
@@ -91,10 +75,6 @@ describe('Model > Subject', function () {
         feedback.setOnHide.resetHistory()
         window.location.assign.resetHistory()
       })
-
-      it('should open a Talk URL', function () {
-        expect(window.location.assign.withArgs(subject.talkURL)).to.have.been.calledOnce
-      })
     })
 
     describe('in a new tab', function () {
@@ -113,18 +93,6 @@ describe('Model > Subject', function () {
       after(function () {
         feedback.setOnHide.resetHistory()
         window.location.assign.resetHistory()
-      })
-
-      it('should open a new tab', function () {
-        expect(newTab.target).to.equal('_blank')
-      })
-
-      it('should open a Talk URL', function () {
-        expect(newTab.location).to.equal(subject.talkURL)
-      })
-
-      it('should switch focus to the new tab', function () {
-        expect(newTab.focus).to.have.been.calledOnce
       })
     })
   })

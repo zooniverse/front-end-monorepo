@@ -35,12 +35,8 @@ class DoneAndTalkButtonContainer extends React.Component {
       function openTalkLinkAndClick (event) {
         const isCmdClick = event.metaKey
 
+        subject.openInTalk(isCmdClick)
         onClick(event)
-          .then(() => {
-            if (window) {
-              subject.openInTalk(isCmdClick)
-            }
-          })
       }
 
       return (
