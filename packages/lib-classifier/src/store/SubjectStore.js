@@ -1,10 +1,22 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, onPatch, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, onPatch, types } from 'mobx-state-tree'
 import { getBearerToken } from './utils'
 import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
+
+function openTalkPage (talkURL, newTab = false) {
+  if (newTab) {
+    const newTab = window.open()
+    newTab.opener = null
+    newTab.location = talkURL
+    newTab.target = '_blank'
+    newTab.focus()
+  } else {
+    window.location.assign(talkURL)
+  }
+}
 
 const SubjectStore = types
   .model('SubjectStore', {
@@ -44,6 +56,7 @@ const SubjectStore = types
     function afterAttach () {
       createWorkflowObserver()
       createClassificationObserver()
+      createSubjectMiddleware()
     }
 
     function createWorkflowObserver () {
@@ -65,6 +78,30 @@ const SubjectStore = types
         })
       })
       addDisposer(self, classificationDisposer)
+    }
+
+    function onSubjectAdvance (call, next, abort) {
+      const root = getRoot(self)
+      const subject = self.active
+      const shouldShowFeedback = root.feedback.isActive && root.feedback.messages.length && !root.feedback.showModal
+      if (!shouldShowFeedback && subject && subject.shouldDiscuss) {
+        const { url, newTab } = subject.shouldDiscuss
+        openTalkPage(url, newTab)
+      }
+      next(call)
+    }
+
+    function createSubjectMiddleware () {
+      const subjectMiddleware = autorun(() => {
+        addMiddleware(self, (call, next, abort) => {
+          if (call.name === 'advance') {
+            onSubjectAdvance(call, next, abort)
+          } else {
+            next(call)
+          }
+        })
+      })
+      addDisposer(self, subjectMiddleware)
     }
 
     function * populateQueue () {
@@ -112,3 +149,4 @@ const SubjectStore = types
   })
 
 export default types.compose('SubjectResourceStore', ResourceStore, SubjectStore)
+export { openTalkPage }

@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
-import SubjectStore from './SubjectStore'
+import SubjectStore, { openTalkPage } from './SubjectStore'
 import WorkflowStore from './WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
@@ -138,6 +138,69 @@ describe('Model > SubjectStore', function () {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
         expect(rootStore.subjects.isThereMetadata).to.be.true
       }).then(done, done)
+    })
+  })
+
+  describe('openTalkPage', function () {
+    let originalLocation
+    const talkURL = 'https://example.org/projects/zooniverse/test-project/talk/123456'
+
+    before(function () {
+      originalLocation = window.location
+      Object.defineProperty(window, 'location', {
+        value: {
+          origin: 'https://example.org',
+          assign: sinon.stub().callsFake(url => console.log(url))
+        },
+        writable: true
+      })
+    })
+
+    after(function () {
+      window.location = originalLocation
+      Object.defineProperty(window, 'location', {
+        writable: false
+      })
+    })
+
+    describe('in the same tab', function () {
+      before(function () {
+        openTalkPage(talkURL, false)
+      })
+
+      it('should open a Talk URL', function () {
+        expect(window.location.assign.withArgs(talkURL)).to.have.been.calledOnce
+      })
+    })
+
+    describe('in a new tab', function () {
+      let newTab = {
+        opener: null,
+        location: null,
+        target: null,
+        focus: sinon.stub()
+      }
+
+      before(function () {
+        window.open = sinon.stub().callsFake(() => newTab)
+        openTalkPage(talkURL, true)
+      })
+
+      after(function () {
+        window.location.assign.resetHistory()
+      })
+
+      it('should open a new tab', function () {
+        expect(newTab.target).to.equal('_blank')
+      })
+
+      it('should open a Talk URL', function () {
+        expect(newTab.location).to.equal(talkURL)
+      })
+
+      it('should switch focus to the new tab', function () {
+        expect(newTab.focus).to.have.been.calledOnce
+      })
     })
   })
 })
