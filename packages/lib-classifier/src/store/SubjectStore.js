@@ -81,14 +81,14 @@ const SubjectStore = types
     }
 
     function onSubjectAdvance (call, next, abort) {
+      const root = getRoot(self)
       const subject = self.active
-      if (subject && subject.shouldDiscuss) {
-        abort()
+      const shouldShowFeedback = root.feedback.isActive && root.feedback.messages.length && !root.feedback.showModal
+      if (!shouldShowFeedback && subject && subject.shouldDiscuss) {
         const { url, newTab } = subject.shouldDiscuss
         openTalkPage(url, newTab)
-      } else {
-        next(call)
       }
+      next(call)
     }
 
     function createSubjectMiddleware () {
