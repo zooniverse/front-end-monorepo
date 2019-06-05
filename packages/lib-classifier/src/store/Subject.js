@@ -30,19 +30,14 @@ const Subject = types
     }
 
     function openInTalk (newTab = false) {
-      const root = getRoot(self)
-      const { onHide, setOnHide } = root.feedback
       if (newTab) {
-        setOnHide(() => {
-          onHide()
-          const newTab = window.open()
-          newTab.opener = null
-          newTab.location = self.talkURL
-          newTab.target = '_blank'
-          newTab.focus()
-        })
+        const newTab = window.open()
+        newTab.opener = null
+        newTab.location = self.talkURL
+        newTab.target = '_blank'
+        newTab.focus()
       } else {
-        setOnHide(() => window.location.assign(self.talkURL))
+        window.location.assign(self.talkURL)
       }
     }
 

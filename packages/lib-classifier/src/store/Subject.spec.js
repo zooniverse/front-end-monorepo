@@ -91,13 +91,8 @@ describe('Model > Subject', function () {
         feedback.setOnHide.resetHistory()
         window.location.assign.resetHistory()
       })
-      
-      it('should set an onHide callback', function () {
-        expect(feedback.setOnHide).to.have.been.calledOnce
-      })
 
-      it('should defer opening a Talk URL', function () {
-        onHide()
+      it('should open a Talk URL', function () {
         expect(window.location.assign.withArgs(subject.talkURL)).to.have.been.calledOnce
       })
     })
@@ -120,26 +115,16 @@ describe('Model > Subject', function () {
         window.location.assign.resetHistory()
       })
 
-      it('should set an onHide callback', function () {
-        expect(feedback.setOnHide).to.have.been.calledOnce
+      it('should open a new tab', function () {
+        expect(newTab.target).to.equal('_blank')
       })
 
-      describe('when feedback closes', function () {
-        before(function () {
-          onHide()
-        })
+      it('should open a Talk URL', function () {
+        expect(newTab.location).to.equal(subject.talkURL)
+      })
 
-        it('should open a new tab', function () {
-          expect(newTab.target).to.equal('_blank')
-        })
-
-        it('should open a Talk URL', function () {
-          expect(newTab.location).to.equal(subject.talkURL)
-        })
-
-        it('should switch focus to the new tab', function () {
-          expect(newTab.focus).to.have.been.calledOnce
-        })
+      it('should switch focus to the new tab', function () {
+        expect(newTab.focus).to.have.been.calledOnce
       })
     })
   })
