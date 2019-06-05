@@ -15,11 +15,35 @@ const Subject = types
     selection_state: types.maybe(types.string),
     user_has_finished_workflow: types.optional(types.boolean, false)
   })
+  .views(self => ({
+    get talkURL () {
+      const projectSlug = getRoot(self).projects.active.slug
+      const { origin } = window.location
+      return `${origin}/projects/${projectSlug}/talk/subjects/${self.id}`
+    }
+  }))
 
   .actions(self => {
     function addToCollection () {
       const rootStore = getRoot(self)
       rootStore.onAddToCollection(self.id)
+    }
+
+    function openInTalk (newTab = false) {
+      const root = getRoot(self)
+      const { onHide, setOnHide } = root.feedback
+      if (newTab) {
+        setOnHide(() => {
+          onHide()
+          const newTab = window.open()
+          newTab.opener = null
+          newTab.location = self.talkURL
+          newTab.target = '_blank'
+          newTab.focus()
+        })
+      } else {
+        setOnHide(() => window.location.assign(self.talkURL))
+      }
     }
 
     function toggleFavorite () {
@@ -30,6 +54,7 @@ const Subject = types
 
     return {
       addToCollection,
+      openInTalk,
       toggleFavorite
     }
   })
