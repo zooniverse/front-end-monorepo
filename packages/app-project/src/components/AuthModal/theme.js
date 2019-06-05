@@ -1,35 +1,64 @@
 export default {
+  checkBox: {
+    border: {
+      width: '1px'
+    },
+    check: {
+      radius: '0px',
+    },
+    gap: 'xsmall',
+    size: '16px'
+  },
   formField: {
     border: {
-      color: {
-        dark: 'dark-3',
-        light: 'light-4'
+      side: 'all',
+      error: {
+        color: {
+          dark: 'status-error',
+          light: 'status-critical',
+        },
       },
-      side: 'all'
+    },
+    error: {
+      color: {
+        dark: 'status-error',
+        light: 'status-critical',
+      },
+      margin: { top: 'xsmall', bottom: 'none', horizontal: 'none' },
+    },
+    extend: `
+      & > span {
+        font-style: italic;
+        margin-top: 5px;
+        order: 1;
+      }
+    `,
+    help: {
+      color: {
+        light: 'dark-5',
+        dark: 'light-1'
+      },
+      margin: {
+        left: 'none'
+      },
     },
     label: {
       margin: {
         horizontal: 'none',
         vertical: 'xsmall'
       }
+    },
+    margin: {
+      bottom: 'xsmall'
     }
   },
   textInput: {
     extend: props => `
       color: ${props.theme.dark
-    ? props.theme.global.colors['white']
-    : props.theme.global.colors['dark-1']
-};
+        ? props.theme.global.colors['white']
+        : props.theme.global.colors['dark-1']
+      };
       font-weight: 400;
     `
-  },
-  global: {
-    colors: {
-      placeholder: {
-        dark: 'dark-1',
-        light: 'light-4'
-      },
-      text: 'white'
-    }
   }
 }

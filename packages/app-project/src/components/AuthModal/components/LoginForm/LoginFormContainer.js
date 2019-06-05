@@ -45,7 +45,8 @@ LoginFormContainer.propTypes = {
 }
 
 LoginFormContainer.defaultProps = {
-  authClient: auth
+  authClient: auth,
+  closeModal: () => {}
 }
 
 @inject('store')
