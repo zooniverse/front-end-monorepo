@@ -10,7 +10,7 @@
     "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
     "build": "npm run _check && webpack --config webpack.dist.js",
     "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
-    "lint": "zoo-standard --fix",
+    "lint": "zoo-standard --fix | snazzy",
     "start": "npm run _check && PANOPTES_ENV=production npm run dev",
     "test": "npm run _test && exit 0",
     "test:ci": "npm run _test -- --reporter=min"

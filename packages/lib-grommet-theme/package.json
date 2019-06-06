@@ -10,7 +10,7 @@
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
     "clean": "rm -rf dist",
-    "lint": "zoo-standard --fix",
+    "lint": "zoo-standard --fix | snazzy",
     "start": "npm run build:watch"
   },
   "dependencies": {
