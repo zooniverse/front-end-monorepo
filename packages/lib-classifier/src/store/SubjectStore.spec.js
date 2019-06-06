@@ -25,6 +25,11 @@ const clientStub = {
 }
 
 describe('Model > SubjectStore', function () {
+  function setupStores(rootStore) {
+      rootStore.projects.setResource(project)
+      rootStore.workflows.setResource(workflow)
+      rootStore.workflows.setActive(workflow.id)
+  }
   describe('Actions > advance', function () {
     before(function () {
       rootStore = RootStore.create(
@@ -34,9 +39,7 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should make the next subject in the queue active when calling `advance()`', function (done) {
-      rootStore.projects.setResource(project)
-      rootStore.workflows.setResource(workflow)
-      rootStore.workflows.setActive(workflow.id)
+      setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
         rootStore.subjects.advance()
@@ -98,9 +101,7 @@ describe('Model > SubjectStore', function () {
         }
       )
 
-      rootStore.projects.setResource(project)
-      rootStore.workflows.setResource(workflow)
-      rootStore.workflows.setActive(workflow.id)
+      setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         expect(rootStore.subjects.isThereMetadata).to.be.false
       }).then(done, done)
@@ -112,9 +113,7 @@ describe('Model > SubjectStore', function () {
         { client: clientStub }
       )
 
-      rootStore.projects.setResource(project)
-      rootStore.workflows.setResource(workflow)
-      rootStore.workflows.setActive(workflow.id)
+      setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(0)
         expect(rootStore.subjects.isThereMetadata).to.be.false
@@ -138,9 +137,7 @@ describe('Model > SubjectStore', function () {
         }
       )
 
-      rootStore.projects.setResource(project)
-      rootStore.workflows.setResource(workflow)
-      rootStore.workflows.setActive(workflow.id)
+      setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         const metadataKeys = Object.keys(rootStore.subjects.active.toJSON().metadata)
         expect(metadataKeys).to.have.lengthOf(1)
@@ -166,9 +163,7 @@ describe('Model > SubjectStore', function () {
         }
       )
 
-      rootStore.projects.setResource(project)
-      rootStore.workflows.setResource(workflow)
-      rootStore.workflows.setActive(workflow.id)
+      setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
         expect(rootStore.subjects.isThereMetadata).to.be.true
