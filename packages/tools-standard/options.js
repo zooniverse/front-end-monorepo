@@ -12,6 +12,9 @@ var opts = Object.assign({}, stdOpts, {
     envs: [
       'mocha'
     ],
+    extends: [
+      "plugin:jsx-a11y/recommended"
+    ],
     globals: [
       'expect'
     ],
