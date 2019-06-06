@@ -82,6 +82,7 @@ describe('Model > SubjectStore', function () {
 
       it('should leave the active subject empty', function () {
         expect(rootStore.subjects.resources.size).to.equal(0)
+        expect(rootStore.subjects.active).to.be.undefined
       })
     })
   })
