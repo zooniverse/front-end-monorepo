@@ -26,6 +26,7 @@ const clientStub = {
 
 describe('Model > SubjectStore', function () {
   function setupStores(rootStore) {
+      sinon.stub(rootStore.classifications, 'createClassification')
       rootStore.projects.setResource(project)
       rootStore.workflows.setResource(workflow)
       rootStore.workflows.setActive(workflow.id)
