@@ -23,7 +23,6 @@ const clientStub = {
     }
   }
 }
-sinon.spy(clientStub.panoptes, 'get')
 
 describe('Model > SubjectStore', function () {
   describe('Actions > advance', function () {
@@ -44,6 +43,42 @@ describe('Model > SubjectStore', function () {
         expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
         expect(rootStore.subjects.resources.get('1')).to.be.undefined
       }).then(done, done)
+    })
+
+    describe('with less than three subjects in the queue', function () {
+      let populateSpy
+
+      before(function () {
+        populateSpy = sinon.spy(rootStore.subjects, 'populateQueue')
+        while (rootStore.subjects.resources.size > 2) {
+          rootStore.subjects.advance()
+        }
+      })
+
+      after(function () {
+        rootStore.subjects.populateQueue.restore()
+      })
+
+      it('should request more subjects', function () {
+        expect(populateSpy).to.have.been.calledOnce
+      })
+    })
+
+    describe('after emptying the queue', function () {
+      before(function () {
+        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: []}))
+        while (rootStore.subjects.resources.size > 0) {
+          rootStore.subjects.advance()
+        }
+      })
+      
+      after(function () {
+        clientStub.panoptes.get.restore()
+      })
+
+      it('should leave the active subject empty', function () {
+        expect(rootStore.subjects.resources.size).to.equal(0)
+      })
     })
   })
 
