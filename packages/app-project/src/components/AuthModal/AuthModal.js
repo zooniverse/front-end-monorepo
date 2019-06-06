@@ -10,16 +10,16 @@ import RegisterForm from './components/RegisterForm'
 const StyledTabs = styled(Tabs)`
   div[role="tabpanel"] {
     background: ${props => props.theme.dark
-      ? props.theme.global.colors['dark-5']
-      : props.theme.global.colors['white']
-    };
+    ? props.theme.global.colors['dark-5']
+    : props.theme.global.colors['white']
+};
     overflow: auto;
   }
   button[role="tab"][aria-selected="true"] > div {
     background: ${props => props.theme.dark
-      ? props.theme.global.colors['dark-5']
-      : props.theme.global.colors['white']
-    };
+    ? props.theme.global.colors['dark-5']
+    : props.theme.global.colors['white']
+};
   }
 `
 

@@ -15,6 +15,6 @@ describe('Component > RegisterForm', function () {
 
   it('should render a general error message if defined', function () {
     wrapper.setProps({ generalError: 'Something went wrong' })
-    expect(wrapper.find({ role: "alert" })).to.have.lengthOf(1)
+    expect(wrapper.find({ role: 'alert' })).to.have.lengthOf(1)
   })
 })

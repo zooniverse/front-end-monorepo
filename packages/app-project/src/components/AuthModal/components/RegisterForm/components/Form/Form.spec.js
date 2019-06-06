@@ -187,7 +187,7 @@ describe('Component > Form', function () {
 
     it('should show field labels for under 16 registrants when the checkbox is checked', function () {
       const wrapper = shallow(<Form />)
-      wrapper.setProps({ values: { underageWithParent: true }})
+      wrapper.setProps({ values: { underageWithParent: true } })
 
       expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.underageNotRealName)
       expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal(en.RegisterForm.underageConsent)

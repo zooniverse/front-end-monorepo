@@ -33,19 +33,19 @@ const CheckBoxFormField = styled(FormField)`
   }
 `
 
-function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, values}) {
-  const userNameFieldHelp = (values.underageWithParent) ?
-    counterpart('RegisterForm.underageNotRealName') :
-    counterpart('RegisterForm.usernameHelp')
-  const privacyAgreementLabel = (values.underageWithParent) ?
-    <Text>{counterpart('RegisterForm.underageConsent')}{' '}(<PrivacyPolicyLink />)</Text> :
-    <Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>
-  const emailListSignUpLabel = (values.underageWithParent) ?
-    <Text>{counterpart('RegisterForm.underageEmailSignUp')}</Text> :
-    <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
-  const emailInputLabel = (values.underageWithParent) ?
-    <FieldLabel>{counterpart('RegisterForm.underageEmail')}</FieldLabel> :
-    <FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>
+function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, values }) {
+  const userNameFieldHelp = (values.underageWithParent)
+    ? counterpart('RegisterForm.underageNotRealName')
+    : counterpart('RegisterForm.usernameHelp')
+  const privacyAgreementLabel = (values.underageWithParent)
+    ? <Text>{counterpart('RegisterForm.underageConsent')}{' '}(<PrivacyPolicyLink />)</Text>
+    : <Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>
+  const emailListSignUpLabel = (values.underageWithParent)
+    ? <Text>{counterpart('RegisterForm.underageEmailSignUp')}</Text>
+    : <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
+  const emailInputLabel = (values.underageWithParent)
+    ? <FieldLabel>{counterpart('RegisterForm.underageEmail')}</FieldLabel>
+    : <FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>
 
   return (
     <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
@@ -58,7 +58,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             disabled={isSubmitting}
             id={underageWithParentFieldId}
             label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
-            name="underageWithParent"
+            name='underageWithParent'
             onChange={handleChange}
           />
         </CheckBoxFormField>
@@ -195,7 +195,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             disabled={isSubmitting}
             id={privacyAgreementFieldId}
             label={privacyAgreementLabel}
-            name="privacyAgreement"
+            name='privacyAgreement'
             onChange={handleChange}
             required
           />
@@ -209,7 +209,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             disabled={isSubmitting}
             id={emailListSignUpFieldId}
             label={emailListSignUpLabel}
-            name="emailListSignUp"
+            name='emailListSignUp'
             onChange={handleChange}
           />
         </CheckBoxFormField>
@@ -222,7 +222,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             disabled={isSubmitting}
             id={betaListSignUpFieldId}
             label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
-            name="betaListSignUp"
+            name='betaListSignUp'
             onChange={handleChange}
           />
         </CheckBoxFormField>

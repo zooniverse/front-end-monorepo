@@ -4,7 +4,7 @@ export default {
       width: '1px'
     },
     check: {
-      radius: '0px',
+      radius: '0px'
     },
     gap: 'xsmall',
     size: '16px'
@@ -15,16 +15,16 @@ export default {
       error: {
         color: {
           dark: 'status-error',
-          light: 'status-critical',
-        },
-      },
+          light: 'status-critical'
+        }
+      }
     },
     error: {
       color: {
         dark: 'status-error',
-        light: 'status-critical',
+        light: 'status-critical'
       },
-      margin: { top: 'xsmall', bottom: 'none', horizontal: 'none' },
+      margin: { top: 'xsmall', bottom: 'none', horizontal: 'none' }
     },
     extend: `
       & > span {
@@ -40,7 +40,7 @@ export default {
       },
       margin: {
         left: 'none'
-      },
+      }
     },
     label: {
       margin: {
@@ -55,9 +55,9 @@ export default {
   textInput: {
     extend: props => `
       color: ${props.theme.dark
-        ? props.theme.global.colors['white']
-        : props.theme.global.colors['dark-1']
-      };
+    ? props.theme.global.colors['white']
+    : props.theme.global.colors['dark-1']
+};
       font-weight: 400;
     `
   }

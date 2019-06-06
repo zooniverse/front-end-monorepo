@@ -17,7 +17,6 @@ describe('Component > LoginForm', function () {
     expect(wrapper).to.be.ok()
   })
 
-
   it('should call the `onSubmit` prop on submission', function () {
     const form = wrapper.find(Formik).dive().find({ as: 'form' })
 

@@ -10,7 +10,7 @@ import RegisterForm from './RegisterForm'
 counterpart.registerTranslations('en', en)
 
 class RegisterFormContainer extends Component {
-  constructor() {
+  constructor () {
     super()
     this.onSubmit = this.onSubmit.bind(this)
     this.validate = this.validate.bind(this)
@@ -41,7 +41,7 @@ class RegisterFormContainer extends Component {
     return regex.test(errorMessage)
   }
 
-  onSubmit(values, { setFieldError, setSubmitting }) {
+  onSubmit (values, { setFieldError, setSubmitting }) {
     console.log('submitting...')
     // TODO add log event for google analytics
     const { authClient, store } = this.props
@@ -84,7 +84,7 @@ class RegisterFormContainer extends Component {
       })
   }
 
-  render() {
+  render () {
     return (
       <RegisterForm
         generalError={this.state.error}

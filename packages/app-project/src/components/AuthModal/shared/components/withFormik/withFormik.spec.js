@@ -58,7 +58,7 @@ describe('Higher Order Component > withFormik', function () {
     )
     const formikComponent = wrapper.find(Formik)
 
-    expect(formikComponent.props().validate).to.equal(validate)  
+    expect(formikComponent.props().validate).to.equal(validate)
   })
 
   it('should call onChange prop', function () {

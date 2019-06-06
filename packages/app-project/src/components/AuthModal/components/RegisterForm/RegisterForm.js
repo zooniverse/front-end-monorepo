@@ -7,7 +7,7 @@ import Form from './components/Form'
 
 counterpart.registerTranslations('en', en)
 
-function RegisterForm({ generalError, validate, onSubmit }) {
+function RegisterForm ({ generalError, validate, onSubmit }) {
   const initialValues = {
     betaListSignUp: false,
     email: '',
@@ -31,7 +31,7 @@ function RegisterForm({ generalError, validate, onSubmit }) {
       </Text>
 
       {generalError &&
-        <Text color={{ light: 'status-critical', dark: 'status-error' }} role="alert">{generalError}</Text>}
+        <Text color={{ light: 'status-critical', dark: 'status-error' }} role='alert'>{generalError}</Text>}
 
       <Form initialValues={initialValues} onSubmit={onSubmit} validate={validate} />
     </Box>
