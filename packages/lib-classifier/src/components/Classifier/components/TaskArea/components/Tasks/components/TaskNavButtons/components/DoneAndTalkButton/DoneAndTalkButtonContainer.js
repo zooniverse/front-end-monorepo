@@ -10,18 +10,8 @@ function storeMapper (stores) {
   const {
     active: subject
   } = stores.classifierStore.subjects
-  const {
-    active: project
-  } = stores.classifierStore.projects
-  const {
-    onHide,
-    setOnHide
-  } = stores.classifierStore.feedback
 
   return {
-    project,
-    onHide,
-    setOnHide,
     shouldWeShowDoneAndTalkButton,
     subject
   }
@@ -37,39 +27,16 @@ class DoneAndTalkButtonContainer extends React.Component {
       disabled,
       goldStandardMode,
       onClick,
-      onHide,
-      project,
-      setOnHide,
       shouldWeShowDoneAndTalkButton,
       subject
     } = this.props
-    const projectSlug = project && project.slug
-    const subjectId = subject && subject.id
 
-    if (shouldWeShowDoneAndTalkButton && projectSlug && subjectId) {
-      const talkURL = `/projects/${projectSlug}/talk/subjects/${subjectId}`
-
+    if (shouldWeShowDoneAndTalkButton && subject.id) {
       function openTalkLinkAndClick (event) {
         const isCmdClick = event.metaKey
 
+        subject.openInTalk(isCmdClick)
         onClick(event)
-          .then(() => {
-            if (window && talkURL) {
-              const url = `${window.location.origin}${talkURL}`
-              if (isCmdClick) {
-                setOnHide(() => {
-                  onHide()
-                  const newTab = window.open()
-                  newTab.opener = null
-                  newTab.location = url
-                  newTab.target = '_blank'
-                  newTab.focus()
-                })
-              } else {
-                setOnHide(() => window.location.assign(url))
-              }
-            }
-          })
       }
 
       return (
@@ -79,7 +46,6 @@ class DoneAndTalkButtonContainer extends React.Component {
           disabled={disabled}
           goldStandardMode={goldStandardMode}
           onClick={openTalkLinkAndClick}
-          talkURL={talkURL}
         />
       )
     }
@@ -94,7 +60,6 @@ DoneAndTalkButtonContainer.wrappedComponent.defaultProps = {
   disabled: false,
   goldStandardMode: false,
   onClick: () => {},
-  project: {},
   shouldWeShowDoneAndTalkButton: false,
   subject: {}
 }
@@ -105,9 +70,6 @@ DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
   onClick: () => {},
-  project: PropTypes.shape({
-    slug: PropTypes.string
-  }),
   shouldWeShowDoneAndTalkButton: PropTypes.bool,
   subject: PropTypes.shape({
     id: PropTypes.string

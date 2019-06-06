@@ -20,6 +20,7 @@ const moreMiddleGrey = '#979797'
 
 // status
 const tomato = '#E45950'
+const pink = '#FFB6AA'
 const darkGold = '#CC9200'
 const green = '#078F52'
 
@@ -51,7 +52,7 @@ const neutralColors = [
 
 const statusColors = {
   critical: tomato,
-  error: tomato,
+  error: pink,
   warning: darkGold,
   ok: green,
   unknown: grey,
@@ -189,7 +190,7 @@ const theme = deepFreeze({
       radius: '0px'
     },
     padding: {
-       // Accounting for the border width. Grommet's default border width is 2px
+      // Accounting for the border width. Grommet's default border width is 2px
       horizontal: props => `${parseInt(props.theme.global.edgeSize.small) - 2}px`,
       vertical: props => `${parseInt(props.theme.global.edgeSize.xsmall) - 1}px`
     },

@@ -43,8 +43,7 @@ DoneAndTalkButton.propTypes = {
   demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
-  onClick: PropTypes.func,
-  talkURL: PropTypes.string.isRequired
+  onClick: PropTypes.func
 }
 
 export default withThemeContext(DoneAndTalkButton, theme)

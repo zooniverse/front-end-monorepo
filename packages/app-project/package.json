@@ -31,6 +31,7 @@
     "check-engines": "~1.5.0",
     "counterpart": "~0.18.6",
     "d3": "~5.9.1",
+    "formik": "~1.5.7",
     "graphql-request": "~1.8.2",
     "grommet": "~2.7.0",
     "grommet-icons": "~4.2.0",
@@ -62,6 +63,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "jsdom": "~13.0.0",
     "mocha": "~5.2.0",
+    "nock": "~10.0.6",
     "sinon": "~7.2.3",
     "sinon-chai": "~3.3.0"
   },

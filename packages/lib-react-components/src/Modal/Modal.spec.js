@@ -24,37 +24,18 @@ describe('Modal', function () {
   })
 
   describe('when rendering server side', function () {
-    let oldDocument
-    before(function () {
-      oldDocument = global.document
-      global.document = undefined
-    })
-
-    after(function () {
-      global.document = oldDocument
-    })
-
     it('should render null', function () {
+      // componentDidMount is only run client side
       const wrapper = shallow(
         <Modal title={title} closeFn={() => { }}>
           {content}
-        </Modal>
+        </Modal>, { disableLifecycleMethods: true }
       )
-
       expect(wrapper.type()).to.be.null()
     })
   })
 
   describe('when rendering client side', function () {
-    it('should set state.client to be true', function () {
-      const wrapper = shallow(
-        <Modal title={title} closeFn={() => { }}>
-          {content}
-        </Modal>
-      )
-      expect(wrapper.state().client).to.be.true()
-    })
-
     it('should render a ModalHeading component', function () {
       const wrapper = shallow(
         <Modal title={title} closeFn={() => { }}>
@@ -87,7 +68,7 @@ describe('Modal', function () {
     it('should set the ModalBody props', function () {
       const pad = 'medium'
       const wrapper = shallow(
-        <Modal pad={pad} title={title} closeFn={() => {}}>
+        <Modal pad={pad} title={title} closeFn={() => { }}>
           {content}
         </Modal>
       )
@@ -103,4 +84,5 @@ describe('Modal', function () {
       expect(wrapper.find(ModalBody).contains(content)).to.true
     })
   })
+
 })

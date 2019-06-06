@@ -15,13 +15,9 @@ class Modal extends React.Component {
   }
 
   componentDidMount () {
-    this.whereIsThisRendering()
-  }
-
-  whereIsThisRendering () {
-    if (typeof document !== 'undefined') {
-      this.setState({ client: true })
-    }
+    // This seems rendundant when used in conjunction with withOnlyRenderOnBrowser
+    // Yet without it, autoFocus on child components don't work
+    this.setState({ client: true })
   }
 
   render () {
