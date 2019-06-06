@@ -18,6 +18,9 @@ var opts = Object.assign({}, stdOpts, {
     plugins: [
       'jsx-a11y'
     ],
+    rules: {
+      "consistent-return": "error"
+    },
     useEslintrc: false
   },
   homepage: pkg.homepage,
