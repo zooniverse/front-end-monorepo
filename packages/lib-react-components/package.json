@@ -10,7 +10,7 @@
     "build": "rm -rf dist && webpack --config ./webpack.dist.js",
     "build-storybook": "build-storybook",
     "dev": "start-storybook -p 6006",
-    "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx}",
+    "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy",
     "prepublishOnly": "npm run test:ci && npm run build",
     "start": "echo 'Nothing to see here yet'",
     "test": "npm run _test && exit 0",

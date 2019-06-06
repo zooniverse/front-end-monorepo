@@ -15,7 +15,8 @@
     "coveralls": "^3.0.2",
     "lerna": "^3.13.4",
     "nyc": "^14.1.0",
-    "plop": "^2.1.0"
+    "plop": "^2.1.0",
+    "snazzy": "^8.0.0"
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
