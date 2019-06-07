@@ -106,22 +106,41 @@ describe('Component > Form', function () {
   })
 
   describe('when being edited', function () {
-    it('should call handleChange on the inputs', function () {
-      const handleChangeSpy = sinon.spy()
-      const wrapper = shallow(<Form handleChange={handleChangeSpy} />)
+    it('should call onChangeEvent on the inputs', function () {
+      const onChangeEventSpy = sinon.spy()
+      const wrapper = shallow(<Form onChangeEvent={onChangeEventSpy} />)
       const textInputs = wrapper.find(TextInput)
       const checkboxes = wrapper.find(CheckBox)
 
       textInputs.forEach((input) => {
         input.simulate('change')
-        expect(handleChangeSpy).to.have.been.calledOnce
-        handleChangeSpy.resetHistory()
+        expect(onChangeEventSpy).to.have.been.calledOnce
+        onChangeEventSpy.resetHistory()
       })
 
       checkboxes.forEach((checkbox) => {
         checkbox.simulate('change')
-        expect(handleChangeSpy).to.have.been.calledOnce()
-        handleChangeSpy.resetHistory()
+        expect(onChangeEventSpy).to.have.been.calledOnce()
+        onChangeEventSpy.resetHistory()
+      })
+    })
+
+    it('should call onBlurEvent on the inputs', function () {
+      const onBlurEventSpy = sinon.spy()
+      const wrapper = shallow(<Form onBlurEvent={onBlurEventSpy} />)
+      const textInputs = wrapper.find(TextInput)
+      const checkboxes = wrapper.find(CheckBox)
+
+      textInputs.forEach((input) => {
+        input.simulate('blur')
+        expect(onBlurEventSpy).to.have.been.calledOnce
+        onBlurEventSpy.resetHistory()
+      })
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.simulate('blur')
+        expect(onBlurEventSpy).to.have.been.calledOnce()
+        onBlurEventSpy.resetHistory()
       })
     })
 
@@ -197,11 +216,11 @@ describe('Component > Form', function () {
   })
 
   describe('when submitting', function () {
-    it('should call handleSubmit', function () {
-      const handleSubmitSpy = sinon.spy()
-      const wrapper = shallow(<Form handleSubmit={handleSubmitSpy} />)
+    it('should call onSubmitEvent', function () {
+      const onSubmitEventSpy = sinon.spy()
+      const wrapper = shallow(<Form onSubmitEvent={onSubmitEventSpy} />)
       wrapper.simulate('submit')
-      expect(handleSubmitSpy).to.have.been.calledOnce
+      expect(onSubmitEventSpy).to.have.been.calledOnce
     })
 
     it('should disable all of the inputs and the submit button', function () {

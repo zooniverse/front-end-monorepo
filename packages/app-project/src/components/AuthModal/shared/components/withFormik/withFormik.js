@@ -32,13 +32,17 @@ function withFormik (WrappedComponent) {
           {(innerProps) => {
             const {
               handleBlur,
-              handleChange
+              handleChange,
+              handleReset,
+              handleSubmit
             } = innerProps
 
             return (
               <WrappedComponent
-                handleBlur={(event) => this.handleBlurWithCallback(event, handleBlur, innerProps)}
-                handleChange={(event) => this.handleChangeWithCallback(event, handleChange, innerProps)}
+                onBlur={(event) => this.handleBlurWithCallback(event, handleBlur, innerProps)}
+                onChange={(event) => this.handleChangeWithCallback(event, handleChange, innerProps)}
+                onReset={handleReset}
+                onSubmit={handleSubmit}
                 {...innerProps}
               />
             )
