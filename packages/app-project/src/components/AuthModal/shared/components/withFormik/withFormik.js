@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 
 function withFormik (WrappedComponent) {
-  class HOC extends React.Component {
+  class FormikHOC extends React.Component {
     constructor () {
       super()
 
@@ -39,10 +39,10 @@ function withFormik (WrappedComponent) {
 
             return (
               <WrappedComponent
-                onBlur={(event) => this.handleBlurWithCallback(event, handleBlur, innerProps)}
-                onChange={(event) => this.handleChangeWithCallback(event, handleChange, innerProps)}
-                onReset={handleReset}
-                onSubmit={handleSubmit}
+                onBlurEvent={(event) => this.handleBlurWithCallback(event, handleBlur, innerProps)}
+                onChangeEvent={(event) => this.handleChangeWithCallback(event, handleChange, innerProps)}
+                onResetEvent={handleReset}
+                onSubmitEvent={handleSubmit}
                 {...innerProps}
               />
             )
@@ -52,17 +52,17 @@ function withFormik (WrappedComponent) {
     }
   }
 
-  HOC.defaultProps = {
+  FormikHOC.defaultProps = {
     onBlur: () => {},
     onChange: () => {}
   }
 
-  HOC.propTypes = {
+  FormikHOC.propTypes = {
     onBlur: PropTypes.func,
     onChange: PropTypes.func
   }
 
-  return HOC
+  return FormikHOC
 }
 
 export default withFormik
