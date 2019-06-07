@@ -50,7 +50,8 @@ const SubjectStore = types
         self.populateQueue()
       }
 
-      self.active = self.resources.values().next().value.id
+      const nextSubject = self.resources.values().next().value
+      self.active = nextSubject && nextSubject.id
     }
 
     function afterAttach () {
