@@ -5,7 +5,7 @@ import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 
 import styled from 'styled-components'
 import Link from 'next/link'
 import FieldLabel from '../../../../shared/components/FieldLabel'
-import withFormik from '../../../../shared/components/withFormik'
+import withCustomFormik from '../../../../shared/components/withCustomFormik'
 import en from '../../locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -33,7 +33,7 @@ const CheckBoxFormField = styled(FormField)`
   }
 `
 
-function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting, values }) {
+function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, values }) {
   const userNameFieldHelp = (values.underageWithParent)
     ? counterpart('RegisterForm.underageNotRealName')
     : counterpart('RegisterForm.usernameHelp')
@@ -48,7 +48,7 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
     : <FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>
 
   return (
-    <Box as='form' onSubmit={onSubmitEvent} margin={{ top: 'small' }}>
+    <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
       <Box>
         <CheckBoxFormField
           htmlFor={underageWithParentFieldId}
@@ -59,8 +59,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
             id={underageWithParentFieldId}
             label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
             name='underageWithParent'
-            onChange={onChangeEvent}
-            onBlur={onBlurEvent}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
         </CheckBoxFormField>
       </Box>
@@ -78,8 +78,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
               disabled={isSubmitting}
               id={userNameFieldId}
               name='username'
-              onBlur={onBlurEvent}
-              onChange={onChangeEvent}
+              onBlur={handleBlur}
+              onChange={handleChange}
               pattern='[a-zA-Z0-9_\-.]+'
               placeholder={counterpart('RegisterForm.usernamePlaceholder')}
               required
@@ -99,8 +99,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
               id={passwordFieldId}
               minLength={8}
               name='password'
-              onChange={onChangeEvent}
-              onBlur={onBlurEvent}
+              onChange={handleChange}
+              onBlur={handleBlur}
               required
               type='password'
               value={values.password}
@@ -118,8 +118,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
               id={passwordConfirmFieldId}
               minLength={8}
               name='passwordConfirm'
-              onChange={onChangeEvent}
-              onBlur={onBlurEvent}
+              onChange={handleChange}
+              onBlur={handleBlur}
               required
               type='password'
               value={values.passwordConfirm}
@@ -138,8 +138,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
               disabled={isSubmitting}
               id={emailFieldId}
               name='email'
-              onChange={onChangeEvent}
-              onBlur={onBlurEvent}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder={counterpart('RegisterForm.emailPlaceholder')}
               required
               type='email'
@@ -157,8 +157,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
               disabled={isSubmitting}
               id={emailConfirmFieldId}
               name='emailConfirm'
-              onChange={onChangeEvent}
-              onBlur={onBlurEvent}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder={counterpart('RegisterForm.emailPlaceholder')}
               required
               type='email'
@@ -175,8 +175,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
               disabled={isSubmitting}
               id={realNameFieldId}
               name='realName'
-              onChange={onChangeEvent}
-              onBlur={onBlurEvent}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder={counterpart('RegisterForm.realNamePlaceholder')}
               type='text'
               value={values.realName}
@@ -197,8 +197,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
             id={privacyAgreementFieldId}
             label={privacyAgreementLabel}
             name='privacyAgreement'
-            onChange={onChangeEvent}
-            onBlur={onBlurEvent}
+            onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
         </CheckBoxFormField>
@@ -212,8 +212,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
             id={emailListSignUpFieldId}
             label={emailListSignUpLabel}
             name='emailListSignUp'
-            onChange={onChangeEvent}
-            onBlur={onBlurEvent}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
         </CheckBoxFormField>
 
@@ -226,8 +226,8 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
             id={betaListSignUpFieldId}
             label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
             name='betaListSignUp'
-            onChange={onChangeEvent}
-            onBlur={onBlurEvent}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
         </CheckBoxFormField>
       </Box>
@@ -244,9 +244,9 @@ function Form ({ errors, onBlurEvent, onChangeEvent, onSubmitEvent, isSubmitting
 
 Form.defaultProps = {
   errors: {},
-  onBlurEvent: () => {},
-  onChangeEvent: () => {},
-  onSubmitEvent: () => {},
+  handleBlur: () => {},
+  handleChange: () => {},
+  handleSubmit: () => {},
   isSubmitting: false,
   values: {
     betaListSignUp: false,
@@ -264,12 +264,12 @@ Form.defaultProps = {
 
 Form.propTypes = {
   errors: PropTypes.object,
-  onBlurEvent: PropTypes.func,
-  onChangeEvent: PropTypes.func,
-  onSubmitEvent: PropTypes.func,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
   isSubmitting: PropTypes.bool,
   values: PropTypes.object
 }
 
-export default withFormik(Form)
+export default withCustomFormik(Form)
 export { Form }
