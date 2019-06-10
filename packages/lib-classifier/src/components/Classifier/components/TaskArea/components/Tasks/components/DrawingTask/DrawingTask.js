@@ -67,7 +67,7 @@ class DrawingTask extends React.Component {
         {task.tools.map((tool, index) => {
           const checked = active === index
           const Icon = icons[tool.type]
-          TODO add count for min/max
+          // TODO add count for min/max
           return (
             <TaskInputField
               checked={checked}
