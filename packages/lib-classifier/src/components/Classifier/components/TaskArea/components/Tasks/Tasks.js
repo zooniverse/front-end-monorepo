@@ -54,7 +54,7 @@ class Tasks extends React.Component {
               const TaskComponent = getTaskComponent(task.type)
               if (TaskComponent) {
                 return (
-                  <Box key={task.taskKey} basis='246px'>
+                  <Box key={task.taskKey} basis='auto'>
                     <TaskComponent disabled={!ready} task={task} {...this.props} />
                   </Box>
                 )
