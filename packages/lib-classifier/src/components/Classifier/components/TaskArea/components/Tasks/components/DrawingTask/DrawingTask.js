@@ -1,19 +1,38 @@
-import { Markdownz } from '@zooniverse/react-components'
 import { Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
+import { Markdownz } from '@zooniverse/react-components'
+import icons from './icons'
+import InputIcon from '../InputIcon'
+import InputStatus from '../InputStatus'
+import TaskInputField from '../TaskInputField'
+
+export const StyledFieldset = styled.fieldset`
+  border: none;
+  margin: 0;
+  padding: 0;
+`
+
+const StyledText = styled(Text)`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+`
 
 function storeMapper (stores) {
-  const {
-    addAnnotation
-  } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
+  const { active, setActive } = stores.classifierStore.drawing
   return {
-    addAnnotation,
-    annotations
+    active,
+    annotations,
+    setActive
   }
 }
 
@@ -21,12 +40,15 @@ function storeMapper (stores) {
 @observer
 class DrawingTask extends React.Component {
   onChange (index, event) {
-    const { addAnnotation, task } = this.props
-    if (event.target.checked) addAnnotation(index, task)
+    const { setActive } = this.props
+    if (event.target.checked) {
+      setActive(index)
+    }
   }
 
   render () {
     const {
+      active,
       annotations,
       task
     } = this.props
@@ -35,23 +57,43 @@ class DrawingTask extends React.Component {
       annotation = annotations.get(task.taskKey)
     }
     return (
-      <Text size='small' tag='legend'>
-        <Markdownz>
-          {task.instruction}
-        </Markdownz>
-      </Text>
+      <StyledFieldset>
+        <StyledText size='small' tag='legend'>
+          <Markdownz>
+            {task.instruction}
+          </Markdownz>
+        </StyledText>
+
+        {task.tools.map((tool, index) => {
+          const checked = active === index
+          const Icon = icons[tool.type]
+          TODO add count for min/max
+          return (
+            <TaskInputField
+              checked={checked}
+              index={index}
+              key={`${task.taskKey}_${index}`}
+              label={tool.label}
+              labelIcon={<InputIcon icon={<Icon />} tool={tool} />}
+              labelStatus={<InputStatus tool={tool} />}
+              name='drawing-tool'
+              onChange={this.onChange.bind(this, index)}
+              required={task.required}
+              type='radio'
+            />
+          )
+        })}
+      </StyledFieldset>
     )
   }
 }
 
 DrawingTask.wrappedComponent.defaultProps = {
-  addAnnotation: () => {},
   annotations: observable.map(),
   task: {}
 }
 
 DrawingTask.wrappedComponent.propTypes = {
-  addAnnotation: PropTypes.func,
   annotations: MobXPropTypes.observableMap,
   task: PropTypes.shape({
     help: PropTypes.string,
