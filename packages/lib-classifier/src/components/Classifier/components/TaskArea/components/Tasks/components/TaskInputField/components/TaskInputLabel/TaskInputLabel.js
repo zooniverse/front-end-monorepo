@@ -7,6 +7,8 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 
 export const StyledTaskInputLabelWrapper = styled(Box)`
+  margin-right: 10px;
+  
   &:first-child {
     margin-top: 0;
   }
@@ -30,7 +32,6 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
   }
 
   img:only-child, svg:only-child {
-    background-color: ${zooTheme.global.colors.brand};
     max-width: ${pxToRem(60)};
   }
 `
