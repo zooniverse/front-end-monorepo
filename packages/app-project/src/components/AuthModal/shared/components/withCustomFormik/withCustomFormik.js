@@ -7,13 +7,7 @@ function withCustomFormik (WrappedComponent) {
     constructor () {
       super()
 
-      this.handleBlurWithCallback = this.handleBlurWithCallback.bind(this)
       this.handleChangeWithCallback = this.handleChangeWithCallback.bind(this)
-    }
-
-    handleBlurWithCallback (event, formikProps) {
-      formikProps.handleBlur(event)
-      this.props.onBlur(event, formikProps)
     }
 
     handleChangeWithCallback (event, formikProps) {
@@ -22,7 +16,7 @@ function withCustomFormik (WrappedComponent) {
     }
 
     render () {
-      const { initialValues, onSubmit, ...rest } = this.props
+      const { forwardedRef, initialValues, onSubmit, ...rest } = this.props
       return (
         <Formik
           initialValues={initialValues}
@@ -31,17 +25,14 @@ function withCustomFormik (WrappedComponent) {
         >
           {(innerProps) => {
             const {
-              handleBlur,
               handleChange,
-              handleReset,
-              handleSubmit,
               ...restOfInnerProps
             } = innerProps
 
             return (
               <WrappedComponent
-                handleBlur={(event) => this.handleBlurWithCallback(event, innerProps)}
                 handleChange={(event) => this.handleChangeWithCallback(event, innerProps)}
+                ref={forwardedRef}
                 {...restOfInnerProps}
               />
             )
@@ -52,18 +43,24 @@ function withCustomFormik (WrappedComponent) {
   }
 
   FormikHOC.defaultProps = {
-    onBlur: () => {},
+    forwardedRef: null,
     onChange: () => {}
   }
 
   FormikHOC.propTypes = {
     initialValues: PropTypes.object.isRequired,
-    onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func.isRequired
   }
 
-  return FormikHOC
+  const DecoratedFormikHOC = React.forwardRef(function (props, ref) {
+    return <FormikHOC {...props} forwardedRef={ref} />
+  })
+  const name = WrappedComponent.displayName || WrappedComponent.name;
+  DecoratedFormikHOC.displayName = `withCustomFormik(${name})`;
+  DecoratedFormikHOC.wrappedComponent = WrappedComponent
+
+  return DecoratedFormikHOC
 }
 
 export default withCustomFormik

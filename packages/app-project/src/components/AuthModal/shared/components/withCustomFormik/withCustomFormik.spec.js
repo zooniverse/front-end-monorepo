@@ -1,8 +1,7 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import { Box, Button, FormField, TextInput } from 'grommet'
-import { Formik } from 'formik'
 import sinon from 'sinon'
 import withCustomFormik from './withCustomFormik'
 
@@ -29,7 +28,7 @@ const onSubmit = sinon.spy()
 
 describe('Higher Order Component > withCustomFormik', function () {
   it('renders without crashing', function () {
-    const wrapper = shallow(<WrappedMockForm />)
+    const wrapper = shallow(<WrappedMockForm initialValues={initialValues} onSubmit={onSubmit} />)
     expect(wrapper).to.be.ok()
   })
 
@@ -41,10 +40,10 @@ describe('Higher Order Component > withCustomFormik', function () {
       />
     )
 
-    const formikComponent = wrapper.find(Formik)
+    const formikHOC = wrapper.find('FormikHOC')
 
-    expect(formikComponent.props().initialValues).to.equal(initialValues)
-    expect(formikComponent.props().onSubmit).to.equal(onSubmit)
+    expect(formikHOC.props().initialValues).to.equal(initialValues)
+    expect(formikHOC.props().onSubmit).to.equal(onSubmit)
   })
 
   it('should pass Formik optional props', function () {
@@ -56,46 +55,37 @@ describe('Higher Order Component > withCustomFormik', function () {
         validate={validate}
       />
     )
-    const formikComponent = wrapper.find(Formik)
+    const formikHOC = wrapper.find('FormikHOC')
 
-    expect(formikComponent.props().validate).to.equal(validate)
+    expect(formikHOC.props().validate).to.equal(validate)
   })
 
   it('should call onChange prop', function () {
     const onChangeStub = sinon.stub()
-    const eventMock = {}
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <WrappedMockForm
         initialValues={initialValues}
         onChange={onChangeStub}
         onSubmit={onSubmit}
       />
     )
-    const formikProps = wrapper.dive().find(MockForm).props()
-    const mockFormikProps = Object.assign({}, formikProps, { handleChange: sinon.stub() })
+    const formikProps = wrapper.find(MockForm).props()
+    let testInput = wrapper.find('input[name="testInput"]')
+    const eventMock = {
+      target: {
+        name: testInput.props().name,
+        value: 'foo'
+      }
+    }
 
-    wrapper.instance().handleChangeWithCallback(eventMock, mockFormikProps)
-    expect(onChangeStub.withArgs(eventMock, mockFormikProps)).to.have.been.calledOnce
-    expect(mockFormikProps.handleChange.withArgs(eventMock)).to.have.been.calledOnce
-  })
-
-  it('should call onBlur prop', function () {
-    const onBlurStub = sinon.stub()
-    const eventMock = {}
-
-    const wrapper = shallow(
-      <WrappedMockForm
-        initialValues={initialValues}
-        onBlur={onBlurStub}
-        onSubmit={onSubmit}
-      />
-    )
-    const formikProps = wrapper.dive().find(MockForm).props()
-    const mockFormikProps = Object.assign({}, formikProps, { handleBlur: sinon.stub() })
-    
-    wrapper.instance().handleBlurWithCallback(eventMock, mockFormikProps)
-    expect(onBlurStub.withArgs(eventMock, mockFormikProps)).to.have.been.calledOnce
-    expect(mockFormikProps.handleBlur.withArgs(eventMock)).to.have.been.calledOnce
+    expect(testInput.props().value).to.equal('')
+    testInput.simulate('change', eventMock)
+    // diry chai does not work with sinon chai
+    expect(onChangeStub.withArgs(eventMock, formikProps)).to.have.been.calledOnce
+    testInput = wrapper.find('input[name="testInput"]')
+    // Formik's handleChange updates the input value for us based on the name attribute
+    // Test that the internal Formik handleChange has been called and worked
+    expect(testInput.props().value).to.equal('foo')
   })
 })
