@@ -67,6 +67,8 @@ function withKeyZoom (WrappedComponent) {
   const DecoratedKeyZoom = forwardRef(function(props, ref) {
     return <KeyZoom {...props} forwardedRef={ref} />
   })
+  const name = WrappedComponent.displayName || WrappedComponent.name;
+  DecoratedKeyZoom.displayName = `withKeyZoom(${name})`;
   DecoratedKeyZoom.wrappedComponent = WrappedComponent
 
   return DecoratedKeyZoom
