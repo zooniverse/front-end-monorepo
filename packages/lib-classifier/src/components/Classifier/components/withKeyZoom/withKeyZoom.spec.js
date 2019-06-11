@@ -6,9 +6,12 @@ import { Provider } from 'mobx-react'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
-  function StubComponent () {
-    return <p>Hello</p>
+  class StubComponent extends React.Component {
+    render () {
+      return <p>Hello</p>
+    }
   }
+  const zoomStub = React.createRef()
   const WithZoom = withKeyZoom(StubComponent)
   const onPan = sinon.stub()
   const zoomIn = sinon.stub()
@@ -26,14 +29,14 @@ describe('withKeyZoom', function () {
   before(function () {
     wrapper = mount(
       <Provider classifierStore={classifierStore}>
-        <WithZoom />
+        <WithZoom ref={zoomStub} />
       </Provider>
     )
-    wrappedComponent = wrapper.find(StubComponent)
+    wrappedComponent = zoomStub.current
   })
 
   it('should add an onKeyDown handler to wrapped components', function () {
-    expect(wrappedComponent.prop('onKeyDown')).to.exist
+    expect(wrappedComponent.props.onKeyDown).to.exist
   })
 
   describe('on key down', function () {
@@ -80,7 +83,7 @@ describe('withKeyZoom', function () {
         const fakeEvent = {
           key
         }
-        wrappedComponent.prop('onKeyDown')(fakeEvent)
+        wrappedComponent.props.onKeyDown(fakeEvent)
         expect(handler).to.have.been.calledOnce
       })
     })
