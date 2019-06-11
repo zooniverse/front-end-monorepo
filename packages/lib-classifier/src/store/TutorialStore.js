@@ -7,8 +7,8 @@ import Medium from './Medium'
 
 const TutorialStore = types
   .model('TutorialStore', {
-    active: types.maybe(types.reference(Tutorial)),
-    activeMedium: types.maybe(types.reference(Medium)),
+    active: types.safeReference(Tutorial),
+    activeMedium: types.safeReference(Medium),
     activeStep: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
@@ -115,7 +115,7 @@ const TutorialStore = types
           self.resetSeen()
           self.fetchTutorials()
         }
-      })
+      }, { name: 'Tutorial Store Workflow Observer'})
       addDisposer(self, workflowDisposer)
     }
 
@@ -125,7 +125,7 @@ const TutorialStore = types
         if (upp.loadingState === asyncStates.success) {
           self.showTutorialInModal()
         }
-      })
+      }, { name: 'Tutorial Store UPP Observer' })
       addDisposer(self, uppDisposer)
     }
 

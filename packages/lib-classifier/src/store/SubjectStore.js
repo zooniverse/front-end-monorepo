@@ -20,7 +20,7 @@ function openTalkPage (talkURL, newTab = false) {
 
 const SubjectStore = types
   .model('SubjectStore', {
-    active: types.maybe(types.reference(Subject)),
+    active: types.safeReference(Subject),
     resources: types.optional(types.map(Subject), {}),
     type: types.optional(types.string, 'subjects')
   })
@@ -67,7 +67,7 @@ const SubjectStore = types
           self.reset()
           self.populateQueue()
         }
-      })
+      }, { name: 'SubjectStore Workflow Observer'})
       addDisposer(self, workflowDisposer)
     }
 
@@ -77,7 +77,7 @@ const SubjectStore = types
           const { path, value } = patch
           if (path === '/classifications/loadingState' && value === 'posting') self.advance()
         })
-      })
+      }, { name: 'SubjectStore Classification Observer'})
       addDisposer(self, classificationDisposer)
     }
 
@@ -101,7 +101,7 @@ const SubjectStore = types
             next(call)
           }
         })
-      })
+      }, { name: 'SubjectStore Middleware'})
       addDisposer(self, subjectMiddleware)
     }
 
@@ -134,7 +134,6 @@ const SubjectStore = types
     }
 
     function reset () {
-      self.active = undefined
       self.resources.clear()
     }
 

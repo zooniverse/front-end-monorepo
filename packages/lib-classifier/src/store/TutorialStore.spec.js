@@ -91,7 +91,7 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe('Model > TutorialStore', function () {
+describe.only('Model > TutorialStore', function () {
   function fetchTutorials () {
     sinon.stub(rootStore.tutorials, 'fetchTutorials')
     return rootStore.workflows.setActive(workflow.id)
@@ -105,7 +105,7 @@ describe('Model > TutorialStore', function () {
     expect(TutorialStore).to.be.an('object')
   })
 
-  it('should remain in an initialized state if there is no workflow', function () {
+  it.only('should remain in an initialized state if there is no workflow', function () {
     rootStore = RootStore.create({
       tutorials: TutorialStore.create(),
       workflows: WorkflowStore.create()

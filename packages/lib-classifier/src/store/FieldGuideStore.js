@@ -7,8 +7,8 @@ import Medium from './Medium'
 
 const FieldGuideStore = types
   .model('FieldGuideStore', {
-    active: types.maybe(types.reference(FieldGuide)),
-    activeMedium: types.maybe(types.reference(Medium)),
+    active: types.safeReference(FieldGuide),
+    activeMedium: types.safeReference(Medium),
     activeItemIndex: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(FieldGuide),
@@ -28,7 +28,7 @@ const FieldGuideStore = types
           self.reset()
           self.fetchFieldGuide()
         }
-      })
+      }, { name: 'FieldGuideStore Project Observer' })
       addDisposer(self, projectDisposer)
     }
 

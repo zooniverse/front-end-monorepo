@@ -17,7 +17,7 @@ const DataVisAnnotatingStore = types
         onAction(getRoot(self).classifications, (call) => {
           if (call.name === 'completeClassification') self.reset()
         })
-      })
+      }, { name: 'DataVisAnnotatingStore Classification Observer' })
       addDisposer(self, classificationDisposer)
     }
 
@@ -26,7 +26,7 @@ const DataVisAnnotatingStore = types
         onAction(getRoot(self).workflowSteps, (call) => {
           if (call.name === 'selectStep') self.reset()
         })
-      })
+      }, { name: 'DataVisAnnotatingStore Workflow Steps Observer' })
 
       addDisposer(self, workflowStepsDisposer)
     }

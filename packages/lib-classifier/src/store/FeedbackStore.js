@@ -47,7 +47,7 @@ const FeedbackStore = types
             annotations.forEach(annotation => self.update(annotation))
           }
         })
-      })
+      }, { name: 'FeedbackStore Classification Observer' })
       addDisposer(self, classificationDisposer)
     }
 
@@ -70,7 +70,7 @@ const FeedbackStore = types
             next(call)
           }
         })
-      })
+      }, { name: 'FeedbackStore Subject Middleware' })
       addDisposer(self, subjectMiddleware)
     }
 

@@ -5,7 +5,7 @@ import Resource from './Resource'
 
 const ResourceStore = types
   .model('ResourceStore', {
-    active: types.maybe(types.reference(Resource)),
+    active: types.safeReference(Resource),
     headers: types.maybe(types.frozen({
       // etag: types.string // setting this is causing the store to be set with a MST type and thus defined. Maybe a bug?
     })),
@@ -33,7 +33,6 @@ const ResourceStore = types
 
     reset () {
       self.headers = undefined
-      self.active = undefined
       self.resources.clear()
     },
 

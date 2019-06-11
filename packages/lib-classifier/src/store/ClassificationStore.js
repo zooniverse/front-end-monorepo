@@ -17,7 +17,7 @@ import {
 
 const ClassificationStore = types
   .model('ClassificationStore', {
-    active: types.maybe(types.reference(Classification)),
+    active: types.safeReference(Classification),
     resources: types.map(Classification),
     type: types.optional(types.string, 'classifications')
   })
@@ -51,7 +51,7 @@ const ClassificationStore = types
           self.reset()
           self.createClassification(subject)
         }
-      })
+      }, { name: 'ClassificationStore Subject Observer' })
       addDisposer(self, subjectDisposer)
     }
 

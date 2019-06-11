@@ -6,7 +6,7 @@ import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTas
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
-    active: types.maybe(types.reference(Step)),
+    active: types.safeReference(Step),
     steps: types.map(Step),
     tasks: types.map(types.union({ dispatcher: (snapshot) => {
       if (snapshot.type === 'drawing') return DrawingTask
@@ -79,7 +79,7 @@ const WorkflowStepStore = types
             self.setTasks(workflow)
           }
         }
-      })
+      }, { name: 'WorkflowStepStore Workflow Observer'})
       addDisposer(self, workflowDisposer)
     }
 
@@ -88,7 +88,7 @@ const WorkflowStepStore = types
         onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') self.resetSteps()
         })
-      })
+      }, { name: 'WorkflowStepStore Classification Observer' })
       addDisposer(self, classificationDisposer)
     }
 

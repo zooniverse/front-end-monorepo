@@ -6,7 +6,7 @@ import queryString from 'query-string'
 
 const WorkflowStore = types
   .model('WorkflowStore', {
-    active: types.maybe(types.reference(Workflow)),
+    active: types.safeReference(Workflow),
     resources: types.optional(types.map(Workflow), {}),
     type: types.optional(types.string, 'workflows')
   })
@@ -25,7 +25,7 @@ const WorkflowStore = types
           const queryParamId = getQueryParamId()
           selectWorkflow(queryParamId)
         }
-      })
+      }, { name: 'Workflow Store Project Observer' })
       addDisposer(self, projectDisposer)
     }
 
@@ -36,7 +36,7 @@ const WorkflowStore = types
           self.reset()
           selectWorkflow()
         }
-      })
+      }, { name: 'Workflow Store UPP Observer' })
       addDisposer(self, uppDisposer)
     }
 

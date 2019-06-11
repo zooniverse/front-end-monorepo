@@ -8,7 +8,7 @@ import merge from 'lodash/merge'
 
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
-    active: types.maybe(types.reference(UserProjectPreferences)),
+    active: types.safeReference(UserProjectPreferences),
     resources: types.optional(types.map(UserProjectPreferences), {}),
     type: types.optional(types.string, 'project_preferences')
   })
@@ -27,7 +27,7 @@ const UserProjectPreferencesStore = types
           self.reset()
           self.checkForUser()
         }
-      })
+      }, { name: 'UPPStore Project Observer'})
       addDisposer(self, projectDisposer)
     }
 
