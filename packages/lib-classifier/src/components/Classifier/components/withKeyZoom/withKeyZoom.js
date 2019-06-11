@@ -1,6 +1,6 @@
 import { inject } from 'mobx-react'
 import { func, shape, string } from 'prop-types'
-import React, { Component, createRef, forwardRef } from 'react'
+import React, { Component, forwardRef } from 'react'
 
 function storeMapper (stores) {
   const {
