@@ -58,7 +58,7 @@ function withKeyZoom (WrappedComponent) {
   }
 
   KeyZoom.defaultProps = {
-    forwardedRef: createRef(),
+    forwardedRef: null,
     onPan: () => true,
     zoomIn: () => true,
     zoomOut: () => true
