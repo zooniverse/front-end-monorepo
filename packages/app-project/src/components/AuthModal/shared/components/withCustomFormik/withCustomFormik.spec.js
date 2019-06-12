@@ -26,7 +26,7 @@ const WrappedMockForm = withCustomFormik(MockForm)
 const initialValues = { testInput: '' }
 const onSubmit = sinon.spy()
 
-describe.only('Higher Order Component > withCustomFormik', function () {
+describe('Higher Order Component > withCustomFormik', function () {
   it('renders without crashing', function () {
     const wrapper = shallow(<WrappedMockForm initialValues={initialValues} onSubmit={onSubmit} />)
     expect(wrapper).to.be.ok()
