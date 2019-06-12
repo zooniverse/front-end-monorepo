@@ -16,12 +16,12 @@ function withCustomFormik (WrappedComponent) {
     }
 
     render () {
-      const { forwardedRef, initialValues, onSubmit, ...rest } = this.props
+      const { forwardedRef, initialValues, onSubmit, ...optionalProps } = this.props
       return (
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
-          {...rest}
+          {...optionalProps}
         >
           {(innerProps) => {
             const {
