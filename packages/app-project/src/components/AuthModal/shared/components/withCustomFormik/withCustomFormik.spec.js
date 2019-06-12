@@ -86,6 +86,7 @@ describe('Higher Order Component > withCustomFormik', function () {
 
     const mockForm = renderForm(mockInnerProps)
     mockForm.props.handleChange(eventMock)
+    expect(mockInnerProps.handleChange.withArgs(eventMock)).to.have.been.calledOnce()
     expect(onChangeStub.withArgs(eventMock, mockInnerProps)).to.have.been.calledOnce()
   })
 })
