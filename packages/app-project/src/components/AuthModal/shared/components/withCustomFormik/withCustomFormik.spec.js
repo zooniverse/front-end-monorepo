@@ -26,7 +26,7 @@ const WrappedMockForm = withCustomFormik(MockForm)
 const initialValues = { testInput: '' }
 const onSubmit = sinon.spy()
 
-describe('Higher Order Component > withCustomFormik', function () {
+describe.only('Higher Order Component > withCustomFormik', function () {
   it('renders without crashing', function () {
     const wrapper = shallow(<WrappedMockForm initialValues={initialValues} onSubmit={onSubmit} />)
     expect(wrapper).to.be.ok()
@@ -60,32 +60,29 @@ describe('Higher Order Component > withCustomFormik', function () {
     expect(formikHOC.props().validate).to.equal(validate)
   })
 
-  it('should call onChange prop', function () {
-    const onChangeStub = sinon.stub()
+  it('should call the custom change handler on change', function () {
 
+    const onChangeStub = sinon.stub()
     const wrapper = mount(
       <WrappedMockForm
         initialValues={initialValues}
         onChange={onChangeStub}
         onSubmit={onSubmit}
+        ref={mockForm}
       />
     )
-    const formikProps = wrapper.find(MockForm).props()
-    let testInput = wrapper.find('input[name="testInput"]')
+    const mockForm = wrapper.find(MockForm)
+    const formikProps = mockForm.props()
     const eventMock = {
       target: {
-        name: testInput.props().name,
+        name: 'testInput',
         value: 'foo'
       }
     }
+    const changeSpy = onChangeStub.callsFake((event, props) => console.log(event === eventMock, props === formikProps))
 
-    expect(testInput.props().value).to.equal('')
-    testInput.simulate('change', eventMock)
-    // diry chai does not work with sinon chai
-    expect(onChangeStub.withArgs(eventMock, formikProps)).to.have.been.calledOnce
-    testInput = wrapper.find('input[name="testInput"]')
-    // Formik's handleChange updates the input value for us based on the name attribute
-    // Test that the internal Formik handleChange has been called and worked
-    expect(testInput.props().value).to.equal('foo')
+    formikProps.handleChange(eventMock, formikProps)
+    console.log(changeSpy.callCount)
+    expect(changeSpy.withArgs(eventMock, formikProps)).to.have.been.calledOnce()
   })
 })
