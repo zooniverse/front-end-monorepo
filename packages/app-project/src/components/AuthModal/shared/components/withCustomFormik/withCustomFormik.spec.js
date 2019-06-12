@@ -70,18 +70,22 @@ describe.only('Higher Order Component > withCustomFormik', function () {
         onSubmit={onSubmit}
       />
     )
-    const mockForm = wrapper.find(MockForm)
-    const formikProps = mockForm.props()
     const eventMock = {
       target: {
         name: 'testInput',
         value: 'foo'
       }
     }
-    const changeSpy = onChangeStub.callsFake((event, props) => console.log(event === eventMock, props === formikProps))
+    const renderForm = wrapper.find('Formik').props().children
+    const mockInnerProps = {
+      values: {
+        testInput: 'foo'
+      },
+      handleChange: sinon.stub()
+    }
 
-    formikProps.handleChange(eventMock, formikProps)
-    console.log(changeSpy.callCount)
-    expect(changeSpy).to.have.been.calledOnceWith(eventMock, formikProps)
+    const mockForm = renderForm(mockInnerProps)
+    mockForm.props.handleChange(eventMock)
+    expect(onChangeStub.withArgs(eventMock, mockInnerProps)).to.have.been.calledOnce()
   })
 })
