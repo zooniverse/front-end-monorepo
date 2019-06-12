@@ -68,7 +68,6 @@ describe.only('Higher Order Component > withCustomFormik', function () {
         initialValues={initialValues}
         onChange={onChangeStub}
         onSubmit={onSubmit}
-        ref={mockForm}
       />
     )
     const mockForm = wrapper.find(MockForm)
@@ -83,6 +82,6 @@ describe.only('Higher Order Component > withCustomFormik', function () {
 
     formikProps.handleChange(eventMock, formikProps)
     console.log(changeSpy.callCount)
-    expect(changeSpy.withArgs(eventMock, formikProps)).to.have.been.calledOnce()
+    expect(changeSpy).to.have.been.calledOnceWith(eventMock, formikProps)
   })
 })
