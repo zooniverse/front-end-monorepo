@@ -61,10 +61,12 @@ describe('Higher Order Component > withCustomFormik', function () {
   })
 
   describe('the wrapped form', function () {
+    const onBlurStub = sinon.stub()
     const onChangeStub = sinon.stub()
     const wrapper = mount(
       <WrappedMockForm
         initialValues={initialValues}
+        onBlur={onBlurStub}
         onChange={onChangeStub}
         onSubmit={onSubmit}
       />
@@ -83,6 +85,7 @@ describe('Higher Order Component > withCustomFormik', function () {
       values: {
         testInput: 'foo'
       },
+      handleBlur: sinon.stub(),
       handleChange: sinon.stub(),
       handleSubmit: sinon.stub()
     }
@@ -91,7 +94,7 @@ describe('Higher Order Component > withCustomFormik', function () {
     
     Object.keys(mockInnerProps).forEach(function (key) {
       it(`should pass ${key} to the wrapped form`, function () {
-        expect(mockForm.prop(key)).to.exist
+        expect(mockForm.prop(key)).to.exist()
       })
     })
 
@@ -100,7 +103,7 @@ describe('Higher Order Component > withCustomFormik', function () {
     })
 
     it('should have a values object', function () {
-      expect(mockForm.props().values).to.exist
+      expect(mockForm.props().values).to.exist()
       expect(mockForm.props().values).to.equal(mockInnerProps.values)
     })
     
@@ -109,6 +112,11 @@ describe('Higher Order Component > withCustomFormik', function () {
       expect(mockInnerProps.handleChange.withArgs(eventMock)).to.have.been.calledOnce()
       expect(onChangeStub.withArgs(eventMock, mockInnerProps)).to.have.been.calledOnce()
     })
-    
+
+    it('should call the custom blur handler on blur', function () {
+      mockForm.props().handleBlur(eventMock)
+      expect(mockInnerProps.handleBlur.withArgs(eventMock)).to.have.been.calledOnce()
+      expect(onBlurStub.withArgs(eventMock, mockInnerProps)).to.have.been.calledOnce()
+    })
   })
 })
