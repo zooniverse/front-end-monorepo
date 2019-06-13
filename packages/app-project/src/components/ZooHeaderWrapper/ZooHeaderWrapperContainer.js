@@ -21,7 +21,6 @@ class ZooHeaderWrapperContainer extends Component {
     super()
     this.openRegisterModal = this.openRegisterModal.bind(this)
     this.openSignInModal = this.openSignInModal.bind(this)
-    this.redirectToPanoptesRegistration = this.redirectToPanoptesRegistration.bind(this)
     this.signOut = this.signOut.bind(this)
   }
 
@@ -50,11 +49,6 @@ class ZooHeaderWrapperContainer extends Component {
     push(pathname, urlString, { shallow: true })
   }
 
-  redirectToPanoptesRegistration () {
-    const { pathname, push } = this.props.router
-    push('https://panoptes.zooniverse.org/users/sign_up')
-  }
-
   openRegisterModal () {
     const url = this.getUrlObject()
     this.addUrlQuery(url, 'register')
@@ -76,7 +70,7 @@ class ZooHeaderWrapperContainer extends Component {
     return (
       <ZooHeader
         {...this.props}
-        register={this.redirectToPanoptesRegistration}
+        register={this.openRegisterModal}
         signIn={this.openSignInModal}
         signOut={this.signOut}
         user={this.createUserProp()}

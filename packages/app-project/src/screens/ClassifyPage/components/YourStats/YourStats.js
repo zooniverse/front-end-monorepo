@@ -45,7 +45,7 @@ function YourStats (props) {
 YourStats.propTypes = {
   counts: shape({
     today: number,
-    total: number,
+    total: number
   }),
   projectName: string
 }

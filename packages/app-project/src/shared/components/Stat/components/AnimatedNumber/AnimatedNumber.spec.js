@@ -36,7 +36,7 @@ describe('Component > AnimatedNumber', function () {
       setTimeout(function () {
         expect(wrapper.render().text()).to.equal(NEW_FORMATTED_VALUE)
         done()
-    }, DURATION + 50)
+      }, DURATION + 50)
     })
   })
 })

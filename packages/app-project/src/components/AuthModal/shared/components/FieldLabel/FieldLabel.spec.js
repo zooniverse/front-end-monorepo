@@ -1,13 +1,13 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import LoginForm from './LoginForm'
+import FieldLabel from './FieldLabel'
 
 let wrapper
 
-describe('Component > LoginForm', function () {
+describe('Component > FieldLabel', function () {
   before(function () {
-    wrapper = shallow(<LoginForm />)
+    wrapper = shallow(<FieldLabel />)
   })
 
   it('should render without crashing', function () {
