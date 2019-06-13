@@ -15,6 +15,27 @@ function withCustomFormik (WrappedComponent) {
       this.props.onChange(event, formikProps)
     }
 
+    renderForm (props, ref) {
+      // render the wrapped form but override handleChange with a custom callback
+      const {
+        handleChange,
+        ...rest
+      } = props
+      const { handleChangeWithCallback } = this
+
+      function handleCustomChange (event) {
+        handleChangeWithCallback(event, props)
+      }
+
+      return (
+        <WrappedComponent
+          handleChange={handleCustomChange}
+          ref={ref}
+          {...rest}
+        />
+      )
+    }
+
     render () {
       const { forwardedRef, initialValues, onSubmit, ...rest } = this.props
       return (
@@ -23,20 +44,7 @@ function withCustomFormik (WrappedComponent) {
           onSubmit={onSubmit}
           {...rest}
         >
-          {(innerProps) => {
-            const {
-              handleChange,
-              ...restOfInnerProps
-            } = innerProps
-
-            return (
-              <WrappedComponent
-                handleChange={(event) => this.handleChangeWithCallback(event, innerProps)}
-                ref={forwardedRef}
-                {...restOfInnerProps}
-              />
-            )
-          }}
+          {(innerProps) => this.renderForm(innerProps, forwardedRef)}
         </Formik>
       )
     }
