@@ -51,11 +51,12 @@ describe('Component > CreateCollection', function () {
     })
 
     it('should call the onChange callback', function () {
-      textInput.props().onChange()
-      expect(onChange).to.have.been.calledOnceWith({
+      const changeSpy = onChange.withArgs({
         display_name: 'Test One',
         private: true
       })
+      textInput.props().onChange()
+      expect(changeSpy).to.have.been.calledOnce()
     })
   })
 
@@ -75,11 +76,12 @@ describe('Component > CreateCollection', function () {
     })
 
     it('should call the onChange callback', function () {
-      checkbox.props().onChange()
-      expect(onChange).to.have.been.calledOnceWith({
+      const changeSpy = onChange.withArgs({
         display_name: 'Test One',
         private: true
       })
+      checkbox.props().onChange()
+      expect(changeSpy).to.have.been.calledOnce()
     })
   })
 

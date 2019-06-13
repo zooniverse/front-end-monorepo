@@ -55,12 +55,13 @@ describe('Component > SelectCollection', function () {
 
     it('should call the onSearch callback', function () {
       const searchText = 'Hello'
-      select.simulate('search', searchText)
-      expect(onSearch).to.have.been.calledOnceWith({
+      const searchSpy = onSearch.withArgs({
         favorite: false,
         current_user_roles: 'owner,collaborator,contributor',
         search: searchText
       })
+      select.simulate('search', searchText)
+      expect(searchSpy).to.have.been.calledOnce()
     })
     it('should display the selected collection', function () {
       const collection = { id: '1', display_name: 'Selected collection' }
