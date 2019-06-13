@@ -76,7 +76,10 @@ describe('Higher Order Component > withCustomFormik', function () {
         value: 'foo'
       }
     }
-    const renderForm = wrapper.find('Formik').props().children
+
+    // the form's children prop is a render function
+    // ie. a stateless component
+    const InnerForm = wrapper.find('Formik').props().children
     const mockInnerProps = {
       values: {
         testInput: 'foo'
@@ -84,8 +87,8 @@ describe('Higher Order Component > withCustomFormik', function () {
       handleChange: sinon.stub()
     }
 
-    const mockForm = renderForm(mockInnerProps)
-    mockForm.props.handleChange(eventMock)
+    const mockForm = shallow(<InnerForm {...mockInnerProps} />)
+    mockForm.props().handleChange(eventMock)
     expect(mockInnerProps.handleChange.withArgs(eventMock)).to.have.been.calledOnce()
     expect(onChangeStub.withArgs(eventMock, mockInnerProps)).to.have.been.calledOnce()
   })
