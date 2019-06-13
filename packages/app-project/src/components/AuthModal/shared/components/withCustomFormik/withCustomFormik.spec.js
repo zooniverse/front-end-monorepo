@@ -60,9 +60,8 @@ describe('Higher Order Component > withCustomFormik', function () {
     expect(formikHOC.props().validate).to.equal(validate)
   })
 
-  it('should call onChange prop', function () {
+  describe('the wrapped form', function () {
     const onChangeStub = sinon.stub()
-
     const wrapper = mount(
       <WrappedMockForm
         initialValues={initialValues}
@@ -70,22 +69,46 @@ describe('Higher Order Component > withCustomFormik', function () {
         onSubmit={onSubmit}
       />
     )
-    const formikProps = wrapper.find(MockForm).props()
-    let testInput = wrapper.find('input[name="testInput"]')
     const eventMock = {
       target: {
-        name: testInput.props().name,
+        name: 'testInput',
         value: 'foo'
       }
     }
 
-    expect(testInput.props().value).to.equal('')
-    testInput.simulate('change', eventMock)
-    // diry chai does not work with sinon chai
-    expect(onChangeStub.withArgs(eventMock, formikProps)).to.have.been.calledOnce
-    testInput = wrapper.find('input[name="testInput"]')
-    // Formik's handleChange updates the input value for us based on the name attribute
-    // Test that the internal Formik handleChange has been called and worked
-    expect(testInput.props().value).to.equal('foo')
+    // the form's children prop is a render function
+    // ie. a stateless component
+    const InnerForm = wrapper.find('Formik').props().children
+    const mockInnerProps = {
+      values: {
+        testInput: 'foo'
+      },
+      handleChange: sinon.stub(),
+      handleSubmit: sinon.stub()
+    }
+
+    const mockForm = shallow(<InnerForm {...mockInnerProps} />)
+    
+    Object.keys(mockInnerProps).forEach(function (key) {
+      it(`should pass ${key} to the wrapped form`, function () {
+        expect(mockForm.prop(key)).to.exist
+      })
+    })
+
+    it('should have a handleSubmit function', function () {
+      expect(mockForm.props().handleSubmit).to.equal(mockInnerProps.handleSubmit)
+    })
+
+    it('should have a values object', function () {
+      expect(mockForm.props().values).to.exist
+      expect(mockForm.props().values).to.equal(mockInnerProps.values)
+    })
+    
+    it('should call the custom change handler on change', function () {
+      mockForm.props().handleChange(eventMock)
+      expect(mockInnerProps.handleChange.withArgs(eventMock)).to.have.been.calledOnce()
+      expect(onChangeStub.withArgs(eventMock, mockInnerProps)).to.have.been.calledOnce()
+    })
+    
   })
 })
