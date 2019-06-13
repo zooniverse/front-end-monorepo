@@ -6,6 +6,7 @@ describe('Stores > UI', function () {
   let store
 
   beforeEach(function () {
+    document.cookie = 'mode=; max-age=-99999999;'
     store = UI.create()
   })
 
@@ -17,8 +18,14 @@ describe('Stores > UI', function () {
     expect(store.mode).to.be.ok()
   })
 
-  it('should default to the light mode', function () {
+  it('should default to the light mode if there is no stored mode in the cookie', function () {
     expect(store.mode).to.equal('light')
+  })
+
+  it('should default to the stored mode in the cookie', function () {
+    store.setDarkMode()
+    store = UI.create()
+    expect(store.mode).to.equal('dark')
   })
 
   it('should have a `setDarkMode` action', function () {
