@@ -31,7 +31,7 @@ const YourStats = types
     get counts () {
       // `substring(0, 10)` turns an ISO 8601 date into YYYY-MM-DD
       const todaysDate = DateTime.local().toISO().substring(0, 10)
-      const today =  _.chain(self.dailyCounts)
+      const today = _.chain(self.dailyCounts)
         .find(count => count.period.startsWith(todaysDate))
         .get('count', 0)
         .add(self.sessionCount)

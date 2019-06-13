@@ -25,13 +25,13 @@ Subtitle.propTypes = {
   margin: oneOfType([object, string]),
   screenSize: string,
   size: string,
-  text: string.isRequired,
+  text: string.isRequired
 }
 
 Subtitle.defaultProps = {
   margin: '0',
   screenSize: '',
-  size: 'small',
+  size: 'small'
 }
 
 export default withResponsiveContext(Subtitle)
