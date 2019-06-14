@@ -79,7 +79,7 @@ const WorkflowStepStore = types
             self.setTasks(workflow)
           }
         }
-      }, { name: 'WorkflowStepStore Workflow Observer'})
+      }, { name: 'WorkflowStepStore Workflow Observer autorun'})
       addDisposer(self, workflowDisposer)
     }
 
@@ -88,7 +88,7 @@ const WorkflowStepStore = types
         onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') self.resetSteps()
         })
-      }, { name: 'WorkflowStepStore Classification Observer' })
+      }, { name: 'WorkflowStepStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
 

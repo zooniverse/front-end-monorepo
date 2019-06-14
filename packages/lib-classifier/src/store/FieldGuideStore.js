@@ -28,7 +28,7 @@ const FieldGuideStore = types
           self.reset()
           self.fetchFieldGuide()
         }
-      }, { name: 'FieldGuideStore Project Observer' })
+      }, { name: 'FieldGuideStore Project Observer autorun' })
       addDisposer(self, projectDisposer)
     }
 

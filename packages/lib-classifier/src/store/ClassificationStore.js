@@ -51,7 +51,7 @@ const ClassificationStore = types
           self.reset()
           self.createClassification(subject)
         }
-      }, { name: 'ClassificationStore Subject Observer' })
+      }, { name: 'ClassificationStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 

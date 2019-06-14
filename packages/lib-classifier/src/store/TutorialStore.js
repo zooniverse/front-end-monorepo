@@ -115,7 +115,7 @@ const TutorialStore = types
           self.resetSeen()
           self.fetchTutorials()
         }
-      }, { name: 'Tutorial Store Workflow Observer'})
+      }, { name: 'Tutorial Store Workflow Observer autorun'})
       addDisposer(self, workflowDisposer)
     }
 
@@ -125,7 +125,7 @@ const TutorialStore = types
         if (upp.loadingState === asyncStates.success) {
           self.showTutorialInModal()
         }
-      }, { name: 'Tutorial Store UPP Observer' })
+      }, { name: 'Tutorial Store UPP Observer autorun' })
       addDisposer(self, uppDisposer)
     }
 

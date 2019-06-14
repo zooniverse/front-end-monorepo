@@ -42,7 +42,7 @@ const SubjectViewer = types
         if (subject) {
           self.resetSubject()
         }
-      }, { name: 'SubjectViewerStore Subject Observer' })
+      }, { name: 'SubjectViewerStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
