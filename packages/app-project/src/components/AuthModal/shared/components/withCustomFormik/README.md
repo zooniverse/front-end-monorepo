@@ -8,7 +8,7 @@ and
 
 > Since form state is inherently local and ephemeral, Formik does not use external state management libraries like Redux or MobX. This also makes Formik easy to adopt incrementally and keeps bundle size to a minimum.
 
-`withCustomFormik` is the same as the built in `withFormik` except it includes support for custom a onChange handler.
+`withCustomFormik` is the same as the built in `withFormik` except it includes support for custom onChange and onBlur event handlers.
 
 ## Usage
 
@@ -105,11 +105,11 @@ class MyFormContainer extends React.Component {
 }
 ```
 
-These props get passed to the `<Formik>` component inside the `withFormik` HOC. Please read the Formik API docs on more information about these and other props: https://jaredpalmer.com/formik/docs/api/formik
+These props get passed to the `<Formik>` component inside the `withCustomFormik` HOC. Please read the Formik API docs on more information about these and other props: https://jaredpalmer.com/formik/docs/api/formik
 
 ### Customizing the onChange handler
 
-Formik does not directly support customization of the onChange handler. The `withFormik` HOC here supports an `onChange` prop that get passed along and added to a function that will call the Formik's `handleChange` handler as well as the custom `onChange` prop. The prop are called with the DOM event as well as the rest of the Formik props, so you can do something like an async validation on the change event:
+Formik does not directly support customization of the onChange handler. The `withCustomFormik` HOC here supports `onChange` and `onBlur` props that get passed along and added to a function that will call the Formik's `handleChange` and `handleBlur` handlers as well as the custom `onChange` and `onBlur` props. The props are called with the DOM event as well as the rest of the Formik props, so you can do something like an async validation on the change event:
 
 ``` js
 // import of withCustomFormik(MyForm)

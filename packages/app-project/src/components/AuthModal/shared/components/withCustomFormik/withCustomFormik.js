@@ -7,7 +7,13 @@ function withCustomFormik (WrappedComponent) {
     constructor () {
       super()
 
+      this.handleBlurWithCallback = this.handleBlurWithCallback.bind(this)
       this.handleChangeWithCallback = this.handleChangeWithCallback.bind(this)
+    }
+
+    handleBlurWithCallback(event, formikProps) {
+      formikProps.handleBlur(event)
+      this.props.onBlur(event, formikProps)
     }
 
     handleChangeWithCallback (event, formikProps) {
@@ -18,10 +24,15 @@ function withCustomFormik (WrappedComponent) {
     renderForm (props, ref) {
       // render the wrapped form but override handleChange with a custom callback
       const {
+        handleBlur,
         handleChange,
         ...rest
       } = props
-      const { handleChangeWithCallback } = this
+      const { handleBlurWithCallback, handleChangeWithCallback } = this
+
+      function handleCustomBlur (event) {
+        handleBlurWithCallback(event, props)
+      }
 
       function handleCustomChange (event) {
         handleChangeWithCallback(event, props)
@@ -29,6 +40,7 @@ function withCustomFormik (WrappedComponent) {
 
       return (
         <WrappedComponent
+          handleBlur={handleCustomBlur}
           handleChange={handleCustomChange}
           ref={ref}
           {...rest}
@@ -52,11 +64,13 @@ function withCustomFormik (WrappedComponent) {
 
   FormikHOC.defaultProps = {
     forwardedRef: null,
+    onBlur: () => {},
     onChange: () => {}
   }
 
   FormikHOC.propTypes = {
     initialValues: PropTypes.object.isRequired,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func.isRequired
   }
