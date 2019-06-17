@@ -44,6 +44,11 @@ spec:
           env:
             - name: ASSET_PREFIX
               value: https://fe-project.zooniverse.org
+            - name: NEWRELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-license-key
+                  key: key
             - name: NODE_ENV
               value: production
             - name: PANOPTES_ENV
@@ -83,6 +88,11 @@ spec:
                 secretKeyRef:
                   name: contentful-conf
                   key: CONTENTFUL_SPACE_ID
+            - name: NEWRELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-license-key
+                  key: key
             - name: NODE_ENV
               value: production
             - name: PANOPTES_ENV

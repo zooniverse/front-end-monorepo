@@ -9,10 +9,6 @@ const StyledBox = styled(Box)`
   overflow: hidden;
 `
 
-const StyledText = styled(Text)`
-  font-style: italic;
-`
-
 const Placeholder = (
   <Box
     align='center'
@@ -47,11 +43,8 @@ function Publication (props) {
         )}
       </StyledBox>
       <Box direction='column' gap='xxsmall'>
-        <StyledText>
-          {displayString}
-        </StyledText>
         <Anchor size='medium' href={url}>
-          View publication.
+          {displayString}
         </Anchor>
       </Box>
     </Box>
