@@ -1,3 +1,7 @@
+if (process.env.NEWRELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 const http = require('http')
 const next = require('next')
 

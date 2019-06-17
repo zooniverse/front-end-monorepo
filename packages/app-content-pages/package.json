@@ -38,6 +38,7 @@
     "mobx-devtools-mst": "~0.9.18",
     "mobx-react": "~5.2.8",
     "mobx-state-tree": "~3.5.0",
+    "newrelic": "^5.10.0",
     "next": "~8.0.1",
     "panoptes-client": "~2.12.0",
     "path-match": "~1.2.4",
