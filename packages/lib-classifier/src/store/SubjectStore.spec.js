@@ -1,4 +1,5 @@
 import sinon from 'sinon'
+import { types } from 'mobx-state-tree'
 import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
 import SubjectStore, { openTalkPage } from './SubjectStore'
@@ -21,6 +22,11 @@ const clientStub = {
         }
       })
     }
+  },
+  tutorials: {
+    get () {
+      return Promise.resolve({ body: [] })
+    }
   }
 }
 
@@ -33,10 +39,7 @@ describe('Model > SubjectStore', function () {
   }
   describe('Actions > advance', function () {
     before(function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
+      rootStore = RootStore.create({}, { client: clientStub })
     })
 
     it('should make the next subject in the queue active when calling `advance()`', function (done) {
@@ -89,17 +92,21 @@ describe('Model > SubjectStore', function () {
 
   describe('Views > isThereMetadata', function (done) {
     it('should return false when there is not an active queue subject', function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: {
+      rootStore = RootStore.create({}, {
+        client: { 
           panoptes: {
-            get: () => {
-              return Promise.resolve({
-                body: { subjects: [] }
-              })
+              get: () => {
+                return Promise.resolve({
+                  body: { subjects: [] }
+                })
+              }
+            },
+            tutorials: {
+              get() {
+                return Promise.resolve({ body: [] })
+              }
             }
           }
-        }
         }
       )
 
@@ -110,10 +117,7 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should return false if the active subject does not have metadata', function (done) {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
+      rootStore = RootStore.create({ }, { client: clientStub })
 
       setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
@@ -124,15 +128,18 @@ describe('Model > SubjectStore', function () {
 
     it('should return false if the active subject only has hidden metadata', function (done) {
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
+      rootStore = RootStore.create({},
+        { client: {
             panoptes: {
               get: () => {
                 return Promise.resolve({
                   body: { subjects: [subjectWithHiddenMetadata] }
                 })
+              }
+            },
+            tutorials: {
+              get() {
+                return Promise.resolve({ body: [] })
               }
             }
           }
@@ -150,20 +157,22 @@ describe('Model > SubjectStore', function () {
 
     it('should return true if the active subject has metadata', function (done) {
       const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithMetadata] }
-                })
-              }
+      rootStore = RootStore.create({}, { 
+        client: {
+          panoptes: {
+            get: () => {
+              return Promise.resolve({
+                body: { subjects: [subjectWithMetadata] }
+              })
+            }
+          },
+          tutorials: {
+            get () {
+              return Promise.resolve({ body: [] })
             }
           }
         }
-      )
+      })
 
       setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {

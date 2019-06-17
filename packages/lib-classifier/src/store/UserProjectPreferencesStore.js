@@ -1,5 +1,5 @@
 import { autorun, toJS } from 'mobx'
-import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import UserProjectPreferences from './UserProjectPreferences'
@@ -21,9 +21,9 @@ const UserProjectPreferencesStore = types
 
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
-        const project = getRoot(self).projects.active
+        const validProject = isValidReference(() => getRoot(self).projects.active)
 
-        if (project) {
+        if (validProject) {
           self.reset()
           self.checkForUser()
         }

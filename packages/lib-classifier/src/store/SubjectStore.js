@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, flow, getRoot, onPatch, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, types } from 'mobx-state-tree'
 import { getBearerToken } from './utils'
 import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
@@ -38,11 +38,51 @@ const SubjectStore = types
   }))
 
   .actions(self => {
+    function afterAttach() {
+      createWorkflowObserver()
+      createClassificationObserver()
+      createSubjectMiddleware()
+    }
+
+    function createWorkflowObserver() {
+      const workflowDisposer = autorun(() => {
+        const root = getRoot(self)
+        const validWorkflow = isValidReference(() => root.workflows.active)
+        if (validWorkflow) {
+          self.reset()
+          self.populateQueue()
+        }
+      }, { name: 'SubjectStore Workflow Observer autorun' })
+      addDisposer(self, workflowDisposer)
+    }
+
+    function createClassificationObserver() {
+      const classificationDisposer = autorun(() => {
+        onPatch(getRoot(self), (patch) => {
+          const { path, value } = patch
+          if (path === '/classifications/loadingState' && value === 'posting') self.advance()
+        })
+      }, { name: 'SubjectStore Classification Observer autorun' })
+      addDisposer(self, classificationDisposer)
+    }
+
+    function createSubjectMiddleware() {
+      const subjectMiddleware = autorun(() => {
+        addMiddleware(getRoot(self).subjects, (call, next, abort) => {
+          if (call.name === 'advance') {
+            onSubjectAdvance(call, next, abort)
+          } else {
+            next(call)
+          }
+        })
+      }, { name: 'SubjectStore Middleware autorun' })
+      addDisposer(self, subjectMiddleware)
+    }
+
     function advance () {
       if (self.active) {
         const idToRemove = self.active.id
         self.resources.delete(idToRemove)
-        self.active = undefined
       }
 
       if (self.resources.size < 3) {
@@ -52,33 +92,6 @@ const SubjectStore = types
 
       const nextSubject = self.resources.values().next().value
       self.active = nextSubject && nextSubject.id
-    }
-
-    function afterAttach () {
-      createWorkflowObserver()
-      createClassificationObserver()
-      createSubjectMiddleware()
-    }
-
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(() => {
-        const root = getRoot(self)
-        if (root.workflows && root.workflows.active) {
-          self.reset()
-          self.populateQueue()
-        }
-      }, { name: 'SubjectStore Workflow Observer autorun'})
-      addDisposer(self, workflowDisposer)
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onPatch(getRoot(self), (patch) => {
-          const { path, value } = patch
-          if (path === '/classifications/loadingState' && value === 'posting') self.advance()
-        })
-      }, { name: 'SubjectStore Classification Observer autorun'})
-      addDisposer(self, classificationDisposer)
     }
 
     function onSubjectAdvance (call, next, abort) {
@@ -92,59 +105,45 @@ const SubjectStore = types
       next(call)
     }
 
-    function createSubjectMiddleware () {
-      const subjectMiddleware = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'advance') {
-            onSubjectAdvance(call, next, abort)
-          } else {
-            next(call)
-          }
-        })
-      }, { name: 'SubjectStore Middleware autorun'})
-      addDisposer(self, subjectMiddleware)
-    }
-
     function * populateQueue () {
       const root = getRoot(self)
       const client = root.client.panoptes
-      const workflowId = root.workflows.active.id
-      self.loadingState = asyncStates.loading
+      const validWorkflow = isValidReference(() => root.workflows.active)
 
-      try {
-        const { authClient } = getRoot(self)
-        const authorization = yield getBearerToken(authClient)
-        const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
+      if (validWorkflow) {
+        const workflowId = root.workflows.active.id
+        self.loadingState = asyncStates.loading
 
-        if (response.body.subjects && response.body.subjects.length > 0) {
-          response.body.subjects.forEach(subject => {
-            self.resources.put(subject)
-          })
+        try {
+          const { authClient } = getRoot(self)
+          const authorization = yield getBearerToken(authClient)
+          const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
 
-          if (!self.active) {
-            self.advance()
+          if (response.body.subjects && response.body.subjects.length > 0) {
+            response.body.subjects.forEach(subject => {
+              if (subject) self.resources.put(subject)
+            })
+
+            if (!self.active) {
+              self.advance()
+            }
           }
+
+          self.loadingState = asyncStates.success
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
         }
-
-        self.loadingState = asyncStates.success
-      } catch (error) {
-        console.error(error)
-        self.loadingState = asyncStates.error
       }
-    }
-
-    function reset () {
-      self.resources.clear()
     }
 
     // We set ResourceStore methods we don't want to expose as `undefined`
     return {
       advance,
       afterAttach,
-      fetchResource: undefined,
+      // fetchResource: undefined,
       populateQueue: flow(populateQueue),
-      reset,
-      setActive: undefined
+      // setActive: undefined
     }
   })
 

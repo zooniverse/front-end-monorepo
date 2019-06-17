@@ -1,5 +1,6 @@
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
+import { types } from 'mobx-state-tree'
 
 import RootStore from './RootStore'
 import ProjectStore from './ProjectStore'
@@ -107,8 +108,16 @@ describe('Model > TutorialStore', function () {
 
   it('should remain in an initialized state if there is no workflow', function () {
     rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      projects: {},
+      subjects: {},
+      subjectViewer: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
     }, { authClient: authClientStubWithoutUser, client: clientStub() })
 
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
@@ -116,8 +125,16 @@ describe('Model > TutorialStore', function () {
 
   it('should set the tutorial if there is a workflow', function (done) {
     rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      projects: {},
+      subjects: {},
+      subjectViewer: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
     }, { authClient: authClientStubWithUser, client: clientStub() })
 
     fetchTutorials()
@@ -131,8 +148,16 @@ describe('Model > TutorialStore', function () {
     it('should request for tutorials linked to the active workflow', function (done) {
       const client = clientStub()
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithoutUser, client })
 
       fetchTutorials()
@@ -143,9 +168,18 @@ describe('Model > TutorialStore', function () {
 
     it('should not request for media or set the resources if there are no tutorials in the response', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithoutUser,
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
+      }, {
+        authClient: authClientStubWithoutUser,
         client: Object.assign({}, panoptesClient, {
           tutorials: {
             get: () => { return Promise.resolve({ body: { tutorials: [] } }) }
@@ -167,8 +201,16 @@ describe('Model > TutorialStore', function () {
     it('should request for the media if there are tutorials', function (done) {
       const client = clientStub()
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithoutUser, client })
       sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
@@ -185,8 +227,16 @@ describe('Model > TutorialStore', function () {
 
     it('should call setTutorials if there are tutorials', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -203,8 +253,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the loadingState to error if the request errors', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser,
         client: Object.assign({}, panoptesClient, {
@@ -224,8 +282,16 @@ describe('Model > TutorialStore', function () {
   describe('Actions > fetchMedia', function () {
     it('should not call setMediaResources if there is no media in the response', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser,
         client: Object.assign({}, panoptesClient, {
@@ -247,8 +313,16 @@ describe('Model > TutorialStore', function () {
 
     it('should call setMediaResources if there is media in the response', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -267,8 +341,16 @@ describe('Model > TutorialStore', function () {
   describe('Actions > setActiveTutorial', function () {
     it('should reset the active tutorial if the id parameter is not defined', function () {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -284,8 +366,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the active tutorial to the id parameter', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -299,8 +389,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the tutorial step if the id parameter is defined', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -318,8 +416,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the seen time if the id parameter is defined', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -339,8 +445,16 @@ describe('Model > TutorialStore', function () {
   describe('Actions > setTutorialStep', function () {
     it('should not set the active step if there is not an active tutorial', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -354,8 +468,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set not the active step if that stepIndex does not exist in the steps array', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -369,8 +491,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the active step with the stepIndex parameter', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -384,8 +514,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the active step with the default of 0', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -399,8 +537,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the activeMedium if it exists for the step', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -419,8 +565,17 @@ describe('Model > TutorialStore', function () {
     it('should reset the tutorial seen time when a new workflow loads', function (done) {
       const seen = new Date().toISOString()
       rootStore = RootStore.create({
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
         tutorials: TutorialStore.create({ tutorialSeenTime: seen }),
-        workflows: WorkflowStore.create()
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -435,8 +590,16 @@ describe('Model > TutorialStore', function () {
   describe('Actions > setSeenTime', function () {
     it('should not set the seen time if there is not an active tutorial', function () {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -447,8 +610,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the seen time for the tutorial kind of tutorial resource', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -463,8 +634,16 @@ describe('Model > TutorialStore', function () {
 
     it('should set the seen time for the null kind of tutorial resource', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub(tutorialNullKind)
       })
@@ -481,8 +660,16 @@ describe('Model > TutorialStore', function () {
   describe('Actions > setModalVisibility', function () {
     it('should set the modal visibility', function () {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         authClient: authClientStubWithoutUser, client: clientStub()
       })
@@ -537,7 +724,18 @@ describe('Model > TutorialStore', function () {
       }
 
       beforeEach(function () {
-        rootStore = RootStore.create({}, {
+        rootStore = RootStore.create({
+          classifications: {},
+          dataVisAnnotating: {},
+          drawing: {},
+          feedback: {},
+          fieldGuide: {},
+          projects: {},
+          subjects: {},
+          subjectViewer: {},
+          workflowSteps: {},
+          userProjectPreferences: {}
+        }, {
           authClient: authClientStubWithoutUser, client: clientStubWithUPP
         })
         awaitTutorials = defer()
@@ -632,9 +830,15 @@ describe('Model > TutorialStore', function () {
         describe('for logged-out users', function () {
           it('should show the tutorial', function (done) {
             rootStore = RootStore.create({
-              projects: ProjectStore.create(),
-              tutorials: TutorialStore.create(),
-              workflows: WorkflowStore.create()
+              classifications: {},
+              dataVisAnnotating: {},
+              drawing: {},
+              feedback: {},
+              fieldGuide: {},
+              subjects: {},
+              subjectViewer: {},
+              workflowSteps: {},
+              userProjectPreferences: {}
             }, {
               authClient: authClientStubWithoutUser, client: clientStub()
             })
@@ -676,7 +880,18 @@ describe('Model > TutorialStore', function () {
 
         describe('for logged-in users', function () {
           it('should show the tutorial if it has not been seen', function (done) {
-            rootStore = RootStore.create({}, {
+            rootStore = RootStore.create({
+              classifications: {},
+              dataVisAnnotating: {},
+              drawing: {},
+              feedback: {},
+              fieldGuide: {},
+              projects: {},
+              subjects: {},
+              subjectViewer: {},
+              workflowSteps: {},
+              userProjectPreferences: {}
+            }, {
               authClient: authClientStubWithUser, client: clientStubWithUPP
             })
             const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
@@ -717,7 +932,18 @@ describe('Model > TutorialStore', function () {
           })
 
           it('should not show the tutorial if it has been seen', function (done) {
-            rootStore = RootStore.create({}, {
+            rootStore = RootStore.create({
+              classifications: {},
+              dataVisAnnotating: {},
+              drawing: {},
+              feedback: {},
+              fieldGuide: {},
+              projects: {},
+              subjects: {},
+              subjectViewer: {},
+              workflowSteps: {},
+              userProjectPreferences: {}
+            }, {
               authClient: authClientStubWithUser, client: clientStubWithUPPTimestamp
             })
             const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
@@ -762,8 +988,16 @@ describe('Model > TutorialStore', function () {
   describe('Views > isFirstStep', function () {
     it('should return false if no active tutorial', function () {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
       expect(rootStore.tutorials.active).to.be.undefined
@@ -772,8 +1006,16 @@ describe('Model > TutorialStore', function () {
 
     it('should return false if activeStep is not the first step', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
       fetchTutorials()
@@ -787,8 +1029,16 @@ describe('Model > TutorialStore', function () {
 
     it('should return true if activeStep is the first step', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
       fetchTutorials()
@@ -804,8 +1054,16 @@ describe('Model > TutorialStore', function () {
   describe('Views > isLastStep', function () {
     it('should return false if no active tutorial', function () {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
       expect(rootStore.tutorials.active).to.be.undefined
@@ -814,8 +1072,16 @@ describe('Model > TutorialStore', function () {
 
     it('should return false if activeStep is not the last step', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
       fetchTutorials()
@@ -829,8 +1095,16 @@ describe('Model > TutorialStore', function () {
 
     it('should return true if activeStep is the last step', function (done) {
       rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
       fetchTutorials()

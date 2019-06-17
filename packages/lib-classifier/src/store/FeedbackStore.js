@@ -41,7 +41,7 @@ const FeedbackStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
-        onAction(getRoot(self).classifications, (call) => {
+        onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') {
             const annotations = getRoot(self).classifications.currentAnnotations
             annotations.forEach(annotation => self.update(annotation))
@@ -63,7 +63,7 @@ const FeedbackStore = types
 
     function createSubjectMiddleware () {
       const subjectMiddleware = autorun(() => {
-        addMiddleware(getRoot(self).subjects, (call, next, abort) => {
+        addMiddleware(getRoot(self), (call, next, abort) => {
           if (call.name === 'advance') {
             onSubjectAdvance(call, next, abort)
           } else {

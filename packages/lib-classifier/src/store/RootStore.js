@@ -15,18 +15,18 @@ import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
 const RootStore = types
   .model('RootStore', {
-    classifications: types.optional(ClassificationStore, {}),
-    dataVisAnnotating: types.optional(DataVisAnnotatingStore, {}),
-    drawing: types.optional(DrawingStore, {}),
-    feedback: types.optional(FeedbackStore, {}),
-    fieldGuide: types.optional(FieldGuideStore, {}),
-    projects: types.optional(ProjectStore, {}),
-    subjects: types.optional(SubjectStore, {}),
-    subjectViewer: types.optional(SubjectViewerStore, {}),
-    tutorials: types.optional(TutorialStore, {}),
-    workflows: types.optional(WorkflowStore, {}),
-    workflowSteps: types.optional(WorkflowStepStore, {}),
-    userProjectPreferences: types.optional(UserProjectPreferencesStore, {})
+    classifications: types.optional(ClassificationStore, () => ClassificationStore.create({})),
+    dataVisAnnotating: types.optional(DataVisAnnotatingStore, () => DataVisAnnotatingStore.create({})),
+    drawing: types.optional(DrawingStore, () => DrawingStore.create({})),
+    feedback: types.optional(FeedbackStore, () => FeedbackStore.create({})),
+    fieldGuide: types.optional(FieldGuideStore, () => FieldGuideStore.create({})),
+    projects: types.optional(ProjectStore, () => ProjectStore.create({})),
+    subjects: types.optional(SubjectStore, () => SubjectStore.create({})),
+    subjectViewer: types.optional(SubjectViewerStore, () => SubjectViewerStore.create({})),
+    tutorials: types.optional(TutorialStore, () => TutorialStore.create({})),
+    workflows: types.optional(WorkflowStore, () => WorkflowStore.create({})),
+    workflowSteps: types.optional(WorkflowStepStore, () => WorkflowStepStore.create({})),
+    userProjectPreferences: types.optional(UserProjectPreferencesStore, () => UserProjectPreferencesStore.create({}))
   })
 
   .volatile(self => {

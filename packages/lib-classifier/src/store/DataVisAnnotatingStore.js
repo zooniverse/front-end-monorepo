@@ -14,7 +14,7 @@ const DataVisAnnotatingStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
-        onAction(getRoot(self).classifications, (call) => {
+        onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') self.reset()
         })
       }, { name: 'DataVisAnnotatingStore Classification Observer autorun' })
@@ -23,7 +23,7 @@ const DataVisAnnotatingStore = types
 
     function createWorkflowStepsObserver () {
       const workflowStepsDisposer = autorun(() => {
-        onAction(getRoot(self).workflowSteps, (call) => {
+        onAction(getRoot(self), (call) => {
           if (call.name === 'selectStep') self.reset()
         })
       }, { name: 'DataVisAnnotatingStore Workflow Steps Observer autorun' })

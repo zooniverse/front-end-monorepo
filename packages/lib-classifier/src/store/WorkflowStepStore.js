@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
 import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
@@ -66,8 +66,9 @@ const WorkflowStepStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const workflow = getRoot(self).workflows.active
-        if (workflow) {
+        const validWorkflow = isValidReference(() => getRoot(self).workflows.active)
+        if (validWorkflow) {
+          const workflow = getRoot(self).workflows.active
           self.reset()
           if (workflow.steps &&
               workflow.steps.length > 0 &&

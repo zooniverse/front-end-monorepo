@@ -2,7 +2,6 @@ import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
 import RootStore from './RootStore'
-import ProjectStore from './ProjectStore'
 import FieldGuideStore from './FieldGuideStore'
 
 import {
@@ -54,8 +53,16 @@ describe('Model > FieldGuideStore', function () {
 
   it('should remain in an initialized state if there is no project', function () {
     rootStore = RootStore.create({
-      fieldGuide: FieldGuideStore.create(),
-      projects: ProjectStore.create()
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      subjects: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflows: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
     }, { client: { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null)) } } })
 
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
@@ -64,8 +71,16 @@ describe('Model > FieldGuideStore', function () {
 
   it('should set the field guide if there is a project', function (done) {
     rootStore = RootStore.create({
-      fieldGuide: FieldGuideStore.create(),
-      projects: ProjectStore.create()
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      subjects: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflows: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
     }, {
       client: {
         panoptes: {
@@ -87,8 +102,16 @@ describe('Model > FieldGuideStore', function () {
   describe('Actions > fetchFieldGuide', function () {
     it('should request for a field guide linked to the active project', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -108,8 +131,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should not request for media or set the resources if there are not a field guide in the response', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -134,8 +165,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should request for the media if there is a field guide', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -162,8 +201,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should call setResource and setActive if there is a field guide', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -190,8 +237,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should set the loadingState to error if the request errors', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -212,8 +267,16 @@ describe('Model > FieldGuideStore', function () {
   describe('Actions > fetchMedia', function () {
     it('should not call setMediaResources if there is no media in the response', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -237,8 +300,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should call setMediaResources if there is media in the response', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -264,8 +335,16 @@ describe('Model > FieldGuideStore', function () {
   describe('Actions > setModalVisibility', function () {
     it('should set the modal visibility', function () {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -287,8 +366,16 @@ describe('Model > FieldGuideStore', function () {
   describe('Actions > setActiveItemIndex', function () {
     it('should not set the active item if there is no field guide', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -309,8 +396,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should not set the active item if not called with an item index', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -331,8 +426,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should not set the active item if the item does not exist', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -353,8 +456,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should set the active item', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -377,8 +488,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should set the active medium if the item has an icon', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -399,8 +518,16 @@ describe('Model > FieldGuideStore', function () {
 
     it('should not set the active medium if the item does not have an icon', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {
@@ -423,8 +550,16 @@ describe('Model > FieldGuideStore', function () {
   describe('Actions > reset', function () {
     it('should reset the store', function (done) {
       rootStore = RootStore.create({
-        fieldGuide: FieldGuideStore.create(),
-        projects: ProjectStore.create()
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
       }, {
         client: {
           panoptes: {

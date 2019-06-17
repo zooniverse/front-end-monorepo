@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import Tutorial from './Tutorial'
@@ -109,8 +109,8 @@ const TutorialStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const workflow = getRoot(self).workflows.active
-        if (workflow) {
+        const validWorkflow = isValidReference(() => getRoot(self).workflows.active)
+        if (validWorkflow) {
           self.reset()
           self.resetSeen()
           self.fetchTutorials()
@@ -221,6 +221,8 @@ const TutorialStore = types
     }
 
     function resetActiveTutorial () {
+      // we manually set active and activeMedium to undefined
+      // because we are not removing the tutorial from the map
       self.active = undefined
       self.activeStep = undefined
       self.activeMedium = undefined
