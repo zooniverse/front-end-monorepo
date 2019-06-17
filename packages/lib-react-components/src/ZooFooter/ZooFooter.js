@@ -97,6 +97,7 @@ export default function ZooFooter (props) {
             gap='small'
             justify='end'
             responsive={false}
+            role='presentation'
             tag='nav'
           >
             <SocialAnchor service='facebook' />

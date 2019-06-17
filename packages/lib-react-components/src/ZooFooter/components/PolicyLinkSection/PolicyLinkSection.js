@@ -9,7 +9,7 @@ export default function PolicyLinkSection ({ className, labels, urls }) {
   const links = zipLabelsAndUrls(labels, urls)
 
   return (
-    <Box className={className} direction='row' gap='medium' tag='nav'>
+    <Box role='presentation' as='nav' className={className} direction='row' gap='medium'>
 
       {links.length > 0 && links.map(link => (
         <Anchor

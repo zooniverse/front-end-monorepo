@@ -1,5 +1,6 @@
 {
   "ProjectHeader": {
+    "ariaLabel": "Project header",
     "nav": {
       "about": "About",
       "classify": "Classify",

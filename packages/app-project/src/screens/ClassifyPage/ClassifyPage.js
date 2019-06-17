@@ -10,6 +10,7 @@ import ProjectName from '../../components/ProjectName'
 import YourStats from './components/YourStats'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
+
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
@@ -20,20 +21,25 @@ function ClassifyPage (props) {
 
   return (
     <Box gap='medium' pad={{ horizontal: 'small', vertical: 'medium' }}>
-      <Grid columns={responsiveColumns} gap='small'>
-        <ProjectName />
-        <ClassifierWrapper
-          onAddToCollection={addToCollection}
-        />
-        <ThemeModeToggle />
-      </Grid>
 
-      <FinishedForTheDay />
-      {false && <Grid columns={['auto', 'auto', 'auto']} gap='medium'>
-        <YourStats />
-      </Grid>}
-      <ProjectStatistics />
-      <ConnectWithProject />
+      <Box as='main'>
+        <Grid columns={responsiveColumns} gap='small'>
+          <ProjectName />
+          <ClassifierWrapper
+            onAddToCollection={addToCollection}
+          />
+          <ThemeModeToggle />
+        </Grid>
+      </Box>
+
+      <Box as='aside' gap='medium'>
+        <FinishedForTheDay />
+        {false && <Grid columns={['auto', 'auto', 'auto']} gap='medium'>
+          <YourStats />
+        </Grid>}
+        <ProjectStatistics />
+        <ConnectWithProject />
+      </Box>
     </Box>
 
   )

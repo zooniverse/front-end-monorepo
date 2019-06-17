@@ -23,7 +23,7 @@ function ProjectHeader (props) {
   const { className, navLinks, projectHomeLink, size, title } = props
 
   return (
-    <StyledBox className={className}>
+    <StyledBox as='header' className={className} aria-label={counterpart('ProjectHeader.ariaLabel')}>
       <Background />
       <Box
         align='center'

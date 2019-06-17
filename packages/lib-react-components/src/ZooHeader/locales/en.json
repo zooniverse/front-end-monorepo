@@ -1,11 +1,13 @@
 {
   "ZooHeader": {
+    "ariaLabel": "Site header",
     "mainHeaderNavListLabels": {
       "projects": "Projects",
       "about": "About",
       "getInvolved": "Get Involved",
       "talk": "Talk",
       "build": "Build"
-    }
+    },
+    "navAriaLabel": "Site navigation"
   }
 }
