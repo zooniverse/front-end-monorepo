@@ -1,6 +1,11 @@
 # Zooniverse Front End - Content Pages
 
-A [Next.js](https://github.com/zeit/next.js) app for handling the content pages
+A [Next.js](https://github.com/zeit/next.js) app for handling the content pages.
+
+## Ops
+
+- [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/)
+- [New Relic](https://rpm.newrelic.com/accounts/23619/applications/319037799)
 
 ## Getting started
 
