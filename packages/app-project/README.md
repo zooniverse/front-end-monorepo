@@ -2,6 +2,11 @@
 
 A [Next.js](https://github.com/zeit/next.js) app for handling the project routes, including classification.
 
+## Ops
+
+- [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/)
+- [New Relic](https://rpm.newrelic.com/accounts/23619/applications/319037531)
+
 ## Getting started
 
 This package should be cloned as part of the [front-end-monorepo](https://github.com/zooniverse/front-end-monorepo).
