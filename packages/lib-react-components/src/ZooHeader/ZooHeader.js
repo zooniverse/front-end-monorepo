@@ -57,7 +57,6 @@ export default function ZooHeader (props) {
 
   return (
     <StyledHeader
-      aria-label={counterpart('ZooHeader.ariaLabel')}
       background='black'
       direction='row'
       fill='horizontal'
