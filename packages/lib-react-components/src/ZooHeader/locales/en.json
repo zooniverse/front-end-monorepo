@@ -1,5 +1,6 @@
 {
   "ZooHeader": {
+    "ariaLabel": "Site",
     "mainHeaderNavListLabels": {
       "projects": "Projects",
       "about": "About",
