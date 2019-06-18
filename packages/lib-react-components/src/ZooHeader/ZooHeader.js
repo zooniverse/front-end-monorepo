@@ -69,7 +69,7 @@ export default function ZooHeader (props) {
     >
       <Box
         align='center'
-        aria-label={counterpart('ZooHeader.navAriaLabel')}
+        aria-label={counterpart('ZooHeader.ariaLabel')}
         direction='row'
         pad={{ horizontal: 'medium' }}
         responsive={false}

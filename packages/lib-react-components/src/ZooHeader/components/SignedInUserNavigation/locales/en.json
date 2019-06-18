@@ -1,6 +1,6 @@
 {
   "SignedInUserNavigation": {
-    "ariaLabel": "User account links",
+    "ariaLabel": "User account",
     "navListLabels": {
       "messages": {
         "zero": "Messages",
