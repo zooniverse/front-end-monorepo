@@ -1,5 +1,5 @@
 import { Anchor, Box } from 'grommet'
-import { arrayOf, string} from 'prop-types'
+import { arrayOf, string } from 'prop-types'
 import React from 'react'
 
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
@@ -9,7 +9,7 @@ export default function PolicyLinkSection ({ className, labels, urls }) {
   const links = zipLabelsAndUrls(labels, urls)
 
   return (
-    <Box className={className} direction='row' gap='medium' tag='nav'>
+    <Box as='nav' className={className} direction='row' gap='medium' role='presentation'>
 
       {links.length > 0 && links.map(link => (
         <Anchor

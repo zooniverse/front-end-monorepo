@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import { Anchor, Box } from 'grommet'
-
-import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
+import counterpart from 'counterpart'
+import { Anchor, Box } from 'grommet'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
 
+import en from './locales/en'
 import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
@@ -16,6 +16,8 @@ import {
   mainHeaderNavListLabels,
   mainHeaderNavListURLs
 } from './helpers'
+
+counterpart.registerTranslations('en', en)
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
@@ -61,11 +63,13 @@ export default function ZooHeader (props) {
       justify='between'
       pad='none'
       responsive={false}
+      role='presentation'
       tag='header'
       {...props}
     >
       <Box
         align='center'
+        aria-label={counterpart('ZooHeader.ariaLabel')}
         direction='row'
         pad={{ horizontal: 'medium' }}
         responsive={false}
