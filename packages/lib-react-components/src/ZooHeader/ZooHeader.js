@@ -63,6 +63,7 @@ export default function ZooHeader (props) {
       justify='between'
       pad='none'
       responsive={false}
+      role='presentation'
       tag='header'
       {...props}
     >

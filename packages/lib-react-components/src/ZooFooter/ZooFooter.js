@@ -57,6 +57,7 @@ export default function ZooFooter (props) {
 
   return (
     <Box
+      as='footer'
       align='center'
       background={{
         dark: 'dark-1',
@@ -73,7 +74,6 @@ export default function ZooFooter (props) {
         top: 'large'
       }}
       responsive
-      tag='footer'
     >
       <Box
         pad={{ horizontal: 'large', bottom: 'medium' }}
