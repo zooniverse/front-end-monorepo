@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-
+import RootStore from './RootStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import {
   ClassificationFactory,
@@ -8,17 +8,11 @@ import {
   WorkflowFactory
 } from '../../test/factories'
 
-let ROOT_STORE_INSTANCE = null
 let WORKFLOW = null
 
-const ROOT_STORE = types
-  .model('RootStore', {
-    classifications: types.frozen({}),
-    workflows: types.frozen({}),
-    workflowSteps: types.optional(WorkflowStepStore, () => WorkflowStepStore.create())
-  })
+let ROOT_STORE
 
-describe('Model > WorkflowStepStore', function () {
+describe.only('Model > WorkflowStepStore', function () {
   it('should exist', function () {
     expect(WorkflowStepStore).to.be.an('object')
   })
@@ -36,15 +30,25 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
 
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        workflows: {
-          active: WORKFLOW
-        }
+      ROOT_STORE = RootStore.create({
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        userProjectPreferences: {}
       })
+      ROOT_STORE.workflows.setResource(WORKFLOW)
+      ROOT_STORE.workflows.setActive(WORKFLOW.id)
     })
 
     after(function () {
-      ROOT_STORE_INSTANCE = null
+      ROOT_STORE = null
       WORKFLOW = null
     })
 
@@ -52,11 +56,11 @@ describe('Model > WorkflowStepStore', function () {
       let STORE_STEPS
 
       before(function () {
-        STORE_STEPS = ROOT_STORE_INSTANCE.workflows.active.steps
+        STORE_STEPS = ROOT_STORE.workflows.active.steps
       })
 
       it('should have the expected steps set', function () {
-        expect(ROOT_STORE_INSTANCE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
+        expect(ROOT_STORE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
         STORE_STEPS.forEach((step, index) =>
           expect(step[0]).to.equal(WORKFLOW.steps[index][0])
         )
@@ -74,7 +78,7 @@ describe('Model > WorkflowStepStore', function () {
     })
 
     it('should set the tasks', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
+      const { workflowSteps } = ROOT_STORE
       const storeTasks = workflowSteps.tasks.toJSON()
       Object.keys(WORKFLOW.tasks).forEach(taskKey => {
         const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
@@ -86,7 +90,7 @@ describe('Model > WorkflowStepStore', function () {
     })
 
     it('should set the first step to be active', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
+      const { workflowSteps } = ROOT_STORE
       const firstStep = WORKFLOW.steps[0]
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal(firstStep[0])
@@ -107,25 +111,36 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
 
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        workflows: {
-          active: WORKFLOW
-        }
+      ROOT_STORE = RootStore.create({
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        userProjectPreferences: {}
       })
+      ROOT_STORE.workflows.setResource(WORKFLOW)
+      ROOT_STORE.workflows.setActive(WORKFLOW.id)
     })
 
     after(function () {
-      ROOT_STORE_INSTANCE = null
+      ROOT_STORE = null
       WORKFLOW = null
     })
 
     it('should convert the tasks to steps and set the steps', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
-      expect(ROOT_STORE_INSTANCE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
+      const { workflowSteps } = ROOT_STORE
+      expect(ROOT_STORE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
+      expect(workflowSteps.steps).to.have.lengthOf(WORKFLOW.steps.length)
     })
 
     it('should set the tasks', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
+      const { workflowSteps } = ROOT_STORE
       Object.keys(WORKFLOW.tasks).forEach(taskKey => {
         const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
         // `taskKey` is copied from the original object for serialization by MST
@@ -136,7 +151,7 @@ describe('Model > WorkflowStepStore', function () {
     })
 
     it('should set the first step to be active', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
+      const { workflowSteps } = ROOT_STORE
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal('S0')
       storedStep.taskKeys.forEach(taskKey =>
@@ -191,90 +206,70 @@ describe('Model > WorkflowStepStore', function () {
           subject_flagged: true
         }
       })
+      
+    })
+
+    beforeEach(function () {
+      ROOT_STORE = RootStore.create({
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflows: {},
+        userProjectPreferences: {}
+      })
     })
 
     after(function () {
-      ROOT_STORE_INSTANCE = null
+      ROOT_STORE = null
       WORKFLOW = null
     })
 
     it('should return false if there is not an active workflow', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: undefined
-        },
-        workflows: {
-          active: undefined
-        }
-      })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return false if there is not an active classification', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: undefined
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return false if not on the last step', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      ROOT_STORE.workflows.setResource(WORKFLOW)
+      ROOT_STORE.workflows.setActive(WORKFLOW.id)
+      ROOT_STORE.classifications.setResource(classification)
+      ROOT_STORE.classifications.setActive(classification.id)
+      expect(ROOT_STORE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return false if the workflow is not configured to hide classification summaries', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
+      ROOT_STORE.workflowSteps.selectStep('S2')
       // returns as falsey undefined rather than explicit false
       // this is because usually the workflow has hide_classification_summaries as undefined in the config
       // rather than explicitly set as false
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined
+      expect(ROOT_STORE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined
     })
 
     it('should return false if the classification subject has been flagged', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: flaggedClassification
-        },
-        workflows: {
-          active: hiddenSummaryWorkflow
-        }
-      })
-
-      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      ROOT_STORE.workflows.setResource(hiddenSummaryWorkflow)
+      ROOT_STORE.workflows.setActive(hiddenSummaryWorkflow.id)
+      ROOT_STORE.classifications.setResource(flaggedClassification)
+      ROOT_STORE.classifications.setActive(flaggedClassification.id)
+      ROOT_STORE.workflowSteps.selectStep('S2')
+      expect(ROOT_STORE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return true if the conditions are met', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: hiddenSummaryWorkflow
-        }
-      })
-      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true
+      ROOT_STORE.workflows.setResource(hiddenSummaryWorkflow)
+      ROOT_STORE.workflows.setActive(hiddenSummaryWorkflow.id)
+      ROOT_STORE.classifications.setResource(classification)
+      ROOT_STORE.classifications.setActive(classification.id)
+      ROOT_STORE.workflowSteps.selectStep('S2')
+      expect(ROOT_STORE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true
     })
   })
 })
