@@ -19,7 +19,11 @@ const UI = types
       const modeDisposer = autorun(() => {
         // process.browser doesn't exist in the jsdom test environment
         if (process.browser || process.env.BABEL_ENV === 'test') {
-          document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
+          if (process.env.NODE_ENV === 'production') {
+            document.cookie = `mode=${self.mode}; path=/; domain=zooniverse.org; max-age=31536000`
+          } else {
+            document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
+          }
         }
       })
       addDisposer(self, modeDisposer)
