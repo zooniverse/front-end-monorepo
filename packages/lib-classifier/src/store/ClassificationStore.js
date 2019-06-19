@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
@@ -46,8 +46,9 @@ const ClassificationStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const subject = getRoot(self).subjects.active
-        if (subject) {
+        const validSubject = isValidReference(() => getRoot(self).subjects.active)
+        if (validSubject) {
+          const subject = getRoot(self).subjects.active
           self.reset()
           self.createClassification(subject)
         }

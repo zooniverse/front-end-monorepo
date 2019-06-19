@@ -19,8 +19,8 @@ const WorkflowStore = types
 
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
-        const project = getRoot(self).projects.active
-        if (project) {
+        const validProject = isValidReference(() => getRoot(self).projects.active)
+        if (validProject) {
           self.reset()
           const queryParamId = getQueryParamId()
           selectWorkflow(queryParamId)
