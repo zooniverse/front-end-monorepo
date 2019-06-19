@@ -3,6 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import InteractionLayer from '../InteractionLayer'
+import MarkingsInitializer from '../Drawing/markings-initializer'
+import MarkingsRenderer from '../Drawing/markings-renderer'
 
 const SVG = styled.svg`
   height: 100%;
@@ -20,6 +22,8 @@ const SingleImageViewer = React.forwardRef(function SingleImageViewer ({ onError
         onLoad={onLoad}
       />
       <InteractionLayer />
+      <MarkingsInitializer />
+      <MarkingsRenderer />
     </SVG>
   )
 })

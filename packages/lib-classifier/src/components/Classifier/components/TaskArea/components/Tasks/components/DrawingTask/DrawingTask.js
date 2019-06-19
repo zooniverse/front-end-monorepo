@@ -40,9 +40,9 @@ function storeMapper (stores) {
 @observer
 class DrawingTask extends React.Component {
   onChange (index, event) {
-    const { setActive } = this.props
+    const { setActive, task } = this.props
     if (event.target.checked) {
-      setActive(index)
+      setActive(index, task.taskKey)
     }
   }
 

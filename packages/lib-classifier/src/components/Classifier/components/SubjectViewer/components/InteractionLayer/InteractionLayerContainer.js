@@ -5,9 +5,14 @@ import React, { Component } from 'react'
 import InteractionLayer from './InteractionLayer'
 
 function storeMapper (stores) {
-  const { drawing } = stores.classifierStore
+  const {
+    addToStream,
+    eventStream
+  } = stores.classifierStore.drawing
+  
   return {
-    drawing
+    addToStream,
+    eventStream
   }
 }
 
@@ -24,12 +29,12 @@ class InteractionLayerContainer extends Component {
   componentDidMount () {
     // TODO: We're simply logging the event stream here for now, but this will
     // be passed to the active drawing tool for parsing
-    // const stream = this.props.drawing.eventStream
-    // stream.subscribe(z => console.log(z))
+    // const { eventStream } = this.props
+    // eventStream.subscribe(z => console.log(z))
   }
 
   addToStream (event, type) {
-    this.props.drawing.addToStream({
+    this.props.addToStream({
       event: type,
       target: event.target,
       x: event.clientX,
