@@ -18,6 +18,7 @@
     "privacyLink": "Read our privacy policy",
     "realName": "Real Name (Optional)",
     "realNameHelp": "We'll use this to give you credit in scientific papers, posters, etc.",
+    "realNamePatternHelp": "Enter a real name, not an email address", 
     "realNamePlaceholder": "e.g. Maggie Smith",
     "register": "Register",
     "registering": "Registering...",
