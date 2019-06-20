@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { getCookie } from './cookie'
 
 describe('Helper > getCookie', function () {
-  it('should return an empty string if the name matches', function () {
+  it('should return an empty string if the name does not match', function () {
     const value = getCookie('mode')
     expect(value).to.be.a('string')
     expect(value).to.have.lengthOf(0)
