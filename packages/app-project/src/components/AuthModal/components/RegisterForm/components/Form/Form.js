@@ -177,7 +177,9 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
               name='realName'
               onChange={handleChange}
               onBlur={handleBlur}
+              pattern='[^@]+'
               placeholder={counterpart('RegisterForm.realNamePlaceholder')}
+              title={counterpart('RegisterForm.realNamePatternHelp')}
               type='text'
               value={values.realName}
             />
