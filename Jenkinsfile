@@ -1,6 +1,16 @@
 #!groovy
 
-// Uses the Jenkins Declarative Pipeline - https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
+// Uses the Jenkins Declarative Pipeline -
+// https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
+
+// ProTip: If you're debugging changes to this file, use the replay feature in
+// Jenkins rather than the commit/watch/fix cycle:
+//   1. Go to https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/
+//   2. Find your branch and click on it
+//   3. Pick a build from the list in the sidebar
+//   4. Click 'Replay' in the sidebar
+//   5. You should get an editor when you can modify the pipeline and run it
+//      again immediately <3
 
 pipeline {
   agent none
