@@ -1,59 +1,79 @@
 #!groovy
 
-timeout(20) {
-  node {
-    def scmVars = checkout scm
+# Uses the Jenkins Declarative Pipeline - https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
 
-    if (env.BRANCH_NAME != 'master') {
-      echo 'Not on `master` branch, skipping build'
-      currentBuild.result = 'SUCCESS'
-      return
-    }
+pipeline {
+  agent none
 
-    stage('publish: Monorepo Docker image') {
-      echo 'Publishing Monorepo Docker image...'
-      def dockerRepoName = 'zooniverse/front-end-monorepo'
-      def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-      def newImage = docker.build(dockerImageName)
-      newImage.push()
-      newImage.push('latest')
-    }
+  options {
+    quietPeriod(120)
+    disableConcurrentBuilds()
+  }
 
-    stage('publish: App Docker images') {
-      echo 'Publishing app Docker images...'
-      def appFolders = sh(returnStdout: true, script: './bin/get-app-folders.sh').trim().split(',')
+  stages {
 
-      echo "Found ${appFolders.size()} app(s) to deploy."
+    stage('`master` branch') {
+      when { branch 'master' }
+      stages {
 
-      if (appFolders.size() > 0) {
-        for (appDir in appFolders) {
-          dir (appDir) {
-            // get the app's project name - ideally this shell code moves to a package.json script in each app
-            def dockerRepoName = sh(returnStdout: true, script: 'grep name package.json | cut -c 13- | rev | cut -c 3- | rev').trim()
-            def dockerImageName = "${dockerRepoName}:${scmVars.GIT_COMMIT}"
-
-            echo "Building image for ${dockerImageName}..."
-            def newImage = docker.build(dockerImageName, '--quiet .')
-
-            echo "Pushing ${dockerImageName} to Docker Hub..."
-            newImage.push()
-            newImage.push('latest')
+        stage('Build base Docker image') {
+          agent any
+          steps {
+            script {
+              def dockerRepoName = 'zooniverse/front-end-monorepo'
+              def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+              def newImage = docker.build(dockerImageName)
+              newImage.push()
+              newImage.push('latest')
+            }
           }
+        }
+
+        stage('Build app Docker images') {
+          parallel {
+            stage('Build @zooniverse/fe-content-pages') {
+              agent any
+              steps {
+                script {
+                  def dockerRepoName = 'zooniverse/fe-content-pages'
+                  def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+                  def newImage = docker.build(dockerImageName)
+                  newImage.push()
+                  newImage.push('latest')
+                }
+              }
+            }
+            stage('Build @zooniverse/fe-project') {
+              agent any
+              steps {
+                script {
+                  def dockerRepoName = 'zooniverse/fe-project'
+                  def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+                  def newImage = docker.build(dockerImageName)
+                  newImage.push()
+                  newImage.push('latest')
+                }
+              }
+            }
+          }
+        }
+
+        stage('Deploy to Kubernetes') {
+          sh "kubectl apply --record -f kubernetes/"
+          sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+        }
+      }
+
+      post {
+        unsuccessful {
+          slackSend (
+            color: '#FF0000',
+            message: "DEPLOY FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+            channel: "#frontend-rewrite"
+          )
         }
       }
     }
 
-    stage('Deploy to Kubernetes') {
-      sh "kubectl apply --record -f kubernetes/"
-      sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
-    }
-
-    if (currentBuild.currentResult == 'FAILURE') {
-      slackSend (
-        color: '#FF0000',
-        message: "DEPLOY FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
-        channel: "#frontend-rewrite"
-      )
-    }
   }
 }
