@@ -8,6 +8,7 @@ import RelatedProjects from './components/RelatedProjects'
 
 const projectName = 'Foobar'
 const imageSrc = 'foobar.jpg'
+const slug = 'foo/bar'
 
 let wrapper
 
@@ -48,18 +49,13 @@ describe('Component > FinishedForTheDay', function () {
 
   describe('stats link', function () {
     before(function () {
-      wrapper = shallow(<FinishedForTheDay projectName={projectName} />)
+      wrapper = shallow(<FinishedForTheDay projectName={projectName} slug={slug} />)
     })
 
-    it('should not render the link if the user is not logged in', function () {
-      expect(wrapper.find('Link')).to.have.lengthOf(0)
-    })
-
-    it('should render the link if the user is logged in', function () {
-      wrapper.setProps({ isLoggedIn: true })
+    it('should render the link', function () {
       const link = wrapper.find('Link')
       expect(link).to.have.lengthOf(1)
-      expect(link.props().href).to.equal('/#projects')
+      expect(link.props().href).to.equal(`/projects/${slug}/stats`)
     })
   })
 })

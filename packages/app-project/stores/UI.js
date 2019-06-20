@@ -1,23 +1,42 @@
 import { autorun } from 'mobx'
-import { addDisposer, types } from 'mobx-state-tree'
+import { addDisposer, onPatch, types } from 'mobx-state-tree'
+import { getCookie } from './helpers/cookie'
 
 const UI = types
   .model('UI', {
-    mode: types.optional(types.enumeration('mode', ['light', 'dark']), 'light')
+    mode: types.optional(types.enumeration('mode', ['light', 'dark']), () => {
+      const mode = getCookie('mode')
+      return mode || 'light'
+    })
   })
 
   .actions(self => ({
-    afterAttach () {
+    afterCreate () {
       self.createModeObserver()
     },
 
     createModeObserver () {
       const modeDisposer = autorun(() => {
-        if (process.browser) {
-          document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
-        }
+        onPatch(self, (patch) => {
+          const { path } = patch
+          if (path === '/mode') self.setCookie()
+        })
       })
       addDisposer(self, modeDisposer)
+    },
+
+    setCookie () {
+      // process.browser doesn't exist in the jsdom test environment
+      if (process.browser || process.env.BABEL_ENV === 'test') {
+        const storedMode = getCookie('mode')
+        if (self.mode !== storedMode) {
+          if (process.env.NODE_ENV === 'production') {
+            document.cookie = `mode=${self.mode}; path=/; domain=zooniverse.org; max-age=31536000`
+          } else {
+            document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
+          }
+        }
+      }
     },
 
     setDarkMode () {

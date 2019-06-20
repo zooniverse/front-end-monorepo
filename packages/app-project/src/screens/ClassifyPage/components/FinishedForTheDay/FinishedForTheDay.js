@@ -27,7 +27,15 @@ const StyledBox = styled(Box)`
 
 // TODO: Add `<RelatedProjects />` back in once API is up
 function FinishedForTheDay (props) {
-  const { imageSrc, isLoggedIn, projectName, screenSize, theme: { dark } } = props
+  const {
+    imageSrc,
+    isLoggedIn,
+    projectName,
+    screenSize,
+    slug,
+    theme: { dark }
+  } = props
+
   const columns = (imageSrc && screenSize !== 'small') ? ['1/4', 'auto'] : ['auto']
 
   return (
@@ -42,26 +50,27 @@ function FinishedForTheDay (props) {
           >
             {counterpart('FinishedForTheDay.title')}
           </Heading>
+
           <Paragraph
             margin={{ bottom: 'small', top: 'none' }}
           >
             {counterpart('FinishedForTheDay.text', { projectName })}
           </Paragraph>
+
           <StyledBox direction='row' wrap>
-            {isLoggedIn && (
-              <Link href='/#projects' passHref>
-                <StyledButton
-                  label={(
-                    <Text size='medium'>
-                      {counterpart('FinishedForTheDay.buttons.stats')}
-                    </Text>
-                  )}
-                  primary
-                  color='brand'
-                />
-              </Link>
-            )}
+            <Link href={`/projects/${slug}/stats`} passHref>
+              <StyledButton
+                color='brand'
+                label={(
+                  <Text size='medium'>
+                    {counterpart('FinishedForTheDay.buttons.stats')}
+                  </Text>
+                )}
+                primary
+              />
+            </Link>
           </StyledBox>
+
         </ContentBox>
       </Grid>
     </Box>
@@ -71,7 +80,8 @@ function FinishedForTheDay (props) {
 FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  projectName: PropTypes.string.isRequired
+  projectName: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired
 }
 
 FinishedForTheDay.defaultProps = {

@@ -1,4 +1,4 @@
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, Media } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button, Box, Heading, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
@@ -17,12 +17,19 @@ counterpart.registerTranslations('en', en)
 const StyledButton = styled(Button)`
   padding: 0;
 
-  &:hover > svg, &:focus > svg {
-    fill: ${props => props.theme.global.colors['dark-5']};
-    stroke: ${props => props.theme.global.colors['dark-5']};
+
+  &:hover > svg,
+  &:focus > svg {
+    fill: ${props => props.theme.dark
+      ? props.theme.global.colors['light-2']
+      : props.theme.global.colors['dark-5']
+    };
+    stroke: ${props => props.theme.dark
+      ? props.theme.global.colors['light-2']
+      : props.theme.global.colors['dark-5']
+    };
   }
 `
-
 const markdownTitleComponent = {
   h3: (nodeProps) => <SpacedHeading level='3' margin='none'>{nodeProps.children}</SpacedHeading>
 }
@@ -34,6 +41,7 @@ const markdownComponents = {
   h4: (nodeProps) => <SpacedHeading level='4'>{nodeProps.children}</SpacedHeading>,
   h5: (nodeProps) => <SpacedHeading level='5'>{nodeProps.children}</SpacedHeading>,
   h6: (nodeProps) => <SpacedHeading level='6'>{nodeProps.children}</SpacedHeading>,
+  img: (nodeProps) => <Media alt={nodeProps.alt} src={nodeProps.src} height="200px" />,
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 

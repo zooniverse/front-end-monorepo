@@ -22,10 +22,6 @@ describe('TaskInputField', function () {
       expect(wrapper).to.be.ok
     })
 
-    it('should renders a ThemeProvider', function () {
-      expect(wrapper.find('ThemeProvider')).to.have.lengthOf(1)
-    })
-
     it('should render a StyledTaskInputField', function () {
       expect(wrapper.find(StyledTaskInputField)).to.have.lengthOf(1)
     })
