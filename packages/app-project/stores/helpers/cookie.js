@@ -8,9 +8,6 @@ export function getCookie (name) {
 
     const compactMatchArray = compact(match)
     const value = compactMatchArray.pop()
-    if (value) {
-      console.log(`Retrieving ${value} from cookie`, typeof value)
-    }
 
     return value ? value.trim() : ''
   }
