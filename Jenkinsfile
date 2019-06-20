@@ -54,5 +54,17 @@ timeout(20) {
       }
     }
 
+    post {
+      failure {
+        if (env.BRANCH_NAME == 'master') {
+          slackSend (
+            color: '#FF0000',
+            message: "DEPLOY FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+            channel: "#frontend-rewrite"
+          )
+        }
+      }
+    }
+
   }
 }
