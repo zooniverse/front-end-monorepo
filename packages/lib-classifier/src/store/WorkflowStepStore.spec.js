@@ -1,10 +1,13 @@
 import { types } from 'mobx-state-tree'
+import { observable } from 'mobx'
 import ClassificationStore from './ClassificationStore'
+import ProjectStore from './ProjectStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import {
   ClassificationFactory,
   MultipleChoiceTaskFactory,
+  ProjectFactory,
   SingleChoiceTaskFactory,
   SubjectFactory,
   WorkflowFactory
@@ -155,10 +158,9 @@ describe.only('Model > WorkflowStepStore', function () {
     })
   })
 
-  describe.only('Views > shouldWeShowDoneAndTalkButton', function () {
-    let classification
-    let flaggedClassification
+  describe('Views > shouldWeShowDoneAndTalkButton', function () {
     let hiddenSummaryWorkflow
+    let subject
     before(function () {
       WORKFLOW = WorkflowFactory.build({
         steps: [
@@ -185,71 +187,50 @@ describe.only('Model > WorkflowStepStore', function () {
         }
       })
 
-      classification = ClassificationFactory.build({
-        annotations: [
-          { task: 'T1', value: 0 },
-          { task: 'T2', value: [0, 2] }
-        ]
-      })
-
-      flaggedClassification = ClassificationFactory.build({
-        annotations: [
-          { task: 'T1', value: 0 },
-          { task: 'T2', value: [0, 2] }
-        ],
-        metadata: {
-          subject_flagged: true
-        }
-      })
+      subject = SubjectFactory.build()
     })
 
     after(function () {
       ROOT_STORE_INSTANCE = null
+      subject = null
       WORKFLOW = null
     })
 
-    it('should return false if there is not an active workflow', function () {
+    function setupDoneAndTalkTest ({ workflow, createClassification }) {
       ROOT_STORE_INSTANCE = ROOT_STORE.create({
         projects: {},
         subjects: {},
         userProjectPreferences: {}
       })
+
+      if (workflow) {
+        ROOT_STORE_INSTANCE.workflows.setResource(workflow)
+        ROOT_STORE_INSTANCE.workflows.setActive(workflow.id)
+      }
+
+      if (createClassification) {
+        const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+        ROOT_STORE_INSTANCE.classifications.createClassification(subject, workflow, project)
+      }
+    }
+
+    it('should return false if there is not an active workflow', function () {
+      setupDoneAndTalkTest({})
       expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return false if there is not an active classification', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        projects: {},
-        subjects: {},
-        userProjectPreferences: {}
-      })
-      ROOT_STORE_INSTANCE.workflows.setResource(WORKFLOW)
-      ROOT_STORE_INSTANCE.workflows.setActive(WORKFLOW.id)
+      setupDoneAndTalkTest({ workflow: WORKFLOW })
       expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
-    it.only('should return false if not on the last step', function () {
-      const subject = SubjectFactory.build()
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        projects: { active: { id: '1', configuration: { default_workflow: WORKFLOW.id }}},
-        subjects: {},
-        userProjectPreferences: {}
-      })
-      ROOT_STORE_INSTANCE.workflows.setResource(WORKFLOW)
-      ROOT_STORE_INSTANCE.workflows.setActive(WORKFLOW.id)
-      ROOT_STORE_INSTANCE.classifications.createClassification(subject)
+    it('should return false if not on the last step', function () {
+      setupDoneAndTalkTest({ workflow: WORKFLOW })
       expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return false if the workflow is not configured to hide classification summaries', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
+      setupDoneAndTalkTest({ workflow: WORKFLOW, createClassification: true })
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
       // returns as falsey undefined rather than explicit false
       // this is because usually the workflow has hide_classification_summaries as undefined in the config
@@ -258,28 +239,14 @@ describe.only('Model > WorkflowStepStore', function () {
     })
 
     it('should return false if the classification subject has been flagged', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: flaggedClassification
-        },
-        workflows: {
-          active: hiddenSummaryWorkflow
-        }
-      })
-
+      setupDoneAndTalkTest({ workflow: hiddenSummaryWorkflow, createClassification: true })
+      ROOT_STORE_INSTANCE.classifications.updateClassificationMetadata({ subject_flagged: true })
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
       expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
     })
 
     it('should return true if the conditions are met', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: hiddenSummaryWorkflow
-        }
-      })
+      setupDoneAndTalkTest({ workflow: hiddenSummaryWorkflow, createClassification: true })
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
       expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true
     })

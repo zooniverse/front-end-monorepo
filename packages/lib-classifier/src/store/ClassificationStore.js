@@ -46,25 +46,30 @@ const ClassificationStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const validSubject = isValidReference(() => getRoot(self).subjects.active)
-        if (validSubject) {
-          const subject = getRoot(self).subjects.active
+        const subject = getRoot(self).subjects.active
+        const workflow = getRoot(self).workflows.active
+        const project = getRoot(self).projects.active
+        const validSubject = isValidReference(() => subject)
+        const validWorkflow = isValidReference(() => workflow)
+        const validProject = isValidReference(() => project)
+        if (validSubject && validWorkflow && validProject) {
           self.reset()
-          self.createClassification(subject)
+          self.createClassification(subject, workflow, project)
         }
       }, { name: 'ClassificationStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
-    function createClassification (subject) {
-      const tempID = cuid()
-      const projectID = getRoot(self).projects.active.id
-      const workflow = getRoot(self).workflows.active
+    function createClassification(subject, workflow, project) {
+      if (!subject || !workflow || !project) {
+        throw new Error('Cannot create a classification without a subject, workflow, project')
+      }
 
+      const tempID = cuid()
       const newClassification = Classification.create({
         id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
         links: {
-          project: projectID,
+          project: project.id,
           subjects: [subject.id],
           workflow: workflow.id
         },
