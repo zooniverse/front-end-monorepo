@@ -1,6 +1,6 @@
 #!groovy
 
-# Uses the Jenkins Declarative Pipeline - https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
+// Uses the Jenkins Declarative Pipeline - https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
 
 pipeline {
   agent none
