@@ -9,7 +9,7 @@
 //   2. Find your branch and click on it
 //   3. Pick a build from the list in the sidebar
 //   4. Click 'Replay' in the sidebar
-//   5. You should get an editor when you can modify the pipeline and run it
+//   5. You should get an editor where you can modify the pipeline and run it
 //      again immediately <3
 
 pipeline {
@@ -75,9 +75,10 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
+          agent any
           steps {
             sh "kubectl apply --record -f kubernetes/"
-            sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+            sh "sed 's/__IMAGE_TAG__/${env.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
           }
         }
       }
