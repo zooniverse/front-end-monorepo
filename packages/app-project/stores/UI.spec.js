@@ -7,7 +7,6 @@ describe('Stores > UI', function () {
   let store
 
   beforeEach(function () {
-    document.cookie = 'mode=; max-age=-99999999;'
     store = UI.create()
   })
 
