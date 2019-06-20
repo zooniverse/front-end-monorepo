@@ -6,12 +6,14 @@ pipeline {
   agent none
 
   options {
-    quietPeriod(120)
+    quietPeriod(120) // builds happen at least 120 seconds apart
     disableConcurrentBuilds()
   }
 
   stages {
 
+    // Right now, we're *only* building and deploying on the `master` branch;
+    // longer-term, we'll want to deploy feature branches as well.
     stage('`master` branch') {
       when { branch 'master' }
       stages {
