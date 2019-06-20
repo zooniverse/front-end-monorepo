@@ -6,7 +6,6 @@ const UI = types
   .model('UI', {
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), () => {
       const mode = getCookie('mode')
-      console.log(`Instantiating UI store with ${(mode) ? mode : 'light'}`)
       return (mode) ? mode : 'light'
     })
   })
@@ -31,13 +30,11 @@ const UI = types
       if (process.browser || process.env.BABEL_ENV === 'test') {
         const storedMode = getCookie('mode')
         if (self.mode !== storedMode) {
-          console.log(`Color mode ${self.mode} does not match ${storedMode} in cookie`)
           if (process.env.NODE_ENV === 'production') {
             document.cookie = `mode=${self.mode}; path=/; domain=zooniverse.org; max-age=31536000`
           } else {
             document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
           }
-          console.log(`Set ${self.mode} in cookie`)
         }
       }
     },
