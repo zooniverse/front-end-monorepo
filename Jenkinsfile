@@ -36,24 +36,28 @@ pipeline {
             stage('Build @zooniverse/fe-content-pages') {
               agent any
               steps {
-                script {
-                  def dockerRepoName = 'zooniverse/fe-content-pages'
-                  def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-                  def newImage = docker.build(dockerImageName)
-                  newImage.push()
-                  newImage.push('latest')
+                dir ('packages/app-content-pages') {
+                  script {
+                    def dockerRepoName = 'zooniverse/fe-content-pages'
+                    def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+                    def newImage = docker.build(dockerImageName)
+                    newImage.push()
+                    newImage.push('latest')
+                  }
                 }
               }
             }
             stage('Build @zooniverse/fe-project') {
               agent any
               steps {
-                script {
-                  def dockerRepoName = 'zooniverse/fe-project'
-                  def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-                  def newImage = docker.build(dockerImageName)
-                  newImage.push()
-                  newImage.push('latest')
+                dir ('packages/app-project') {
+                  script {
+                    def dockerRepoName = 'zooniverse/fe-project'
+                    def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+                    def newImage = docker.build(dockerImageName)
+                    newImage.push()
+                    newImage.push('latest')
+                  }
                 }
               }
             }
