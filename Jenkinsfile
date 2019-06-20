@@ -59,8 +59,10 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-          sh "kubectl apply --record -f kubernetes/"
-          sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+          steps {
+            sh "kubectl apply --record -f kubernetes/"
+            sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+          }
         }
       }
 
