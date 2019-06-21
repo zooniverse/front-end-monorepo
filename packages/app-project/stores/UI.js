@@ -6,7 +6,7 @@ const UI = types
   .model('UI', {
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), () => {
       const mode = getCookie('mode')
-      return (mode) ? mode : 'light'
+      return mode || 'light'
     })
   })
 
