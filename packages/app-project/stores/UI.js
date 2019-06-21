@@ -1,11 +1,11 @@
 import { autorun } from 'mobx'
 import { addDisposer, onPatch, types } from 'mobx-state-tree'
-import { getCookie } from './helpers/cookie'
+import Cookies from 'js-cookie'
 
 const UI = types
   .model('UI', {
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), () => {
-      const mode = getCookie('mode')
+      const mode = Cookies.get('mode')
       return mode || 'light'
     })
   })
@@ -28,7 +28,7 @@ const UI = types
     setCookie () {
       // process.browser doesn't exist in the jsdom test environment
       if (process.browser || process.env.BABEL_ENV === 'test') {
-        const storedMode = getCookie('mode')
+        const storedMode = Cookies.get('mode')
         if (self.mode !== storedMode) {
           if (process.env.NODE_ENV === 'production') {
             document.cookie = `mode=${self.mode}; path=/; domain=zooniverse.org; max-age=31536000`
