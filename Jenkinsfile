@@ -49,7 +49,7 @@ pipeline {
                 dir ('packages/app-content-pages') {
                   script {
                     def dockerRepoName = 'zooniverse/fe-content-pages'
-                    def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+                    def dockerImageName = "${dockerRepoName}:${env.GIT_COMMIT}"
                     def newImage = docker.build(dockerImageName)
                     newImage.push()
                     newImage.push('latest')
@@ -63,7 +63,7 @@ pipeline {
                 dir ('packages/app-project') {
                   script {
                     def dockerRepoName = 'zooniverse/fe-project'
-                    def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+                    def dockerImageName = "${dockerRepoName}:${env.GIT_COMMIT}"
                     def newImage = docker.build(dockerImageName)
                     newImage.push()
                     newImage.push('latest')
