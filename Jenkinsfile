@@ -49,7 +49,7 @@ pipeline {
                 dir ('packages/app-content-pages') {
                   script {
                     def dockerRepoName = 'zooniverse/fe-content-pages'
-                    def dockerImageName = "${dockerRepoName}:${env.GIT_COMMIT}"
+                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
                     def newImage = docker.build(dockerImageName)
                     newImage.push()
                     newImage.push('latest')
@@ -63,7 +63,7 @@ pipeline {
                 dir ('packages/app-project') {
                   script {
                     def dockerRepoName = 'zooniverse/fe-project'
-                    def dockerImageName = "${dockerRepoName}:${env.GIT_COMMIT}"
+                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
                     def newImage = docker.build(dockerImageName)
                     newImage.push()
                     newImage.push('latest')
@@ -78,7 +78,7 @@ pipeline {
           agent any
           steps {
             sh "kubectl apply --record -f kubernetes/"
-            sh "sed 's/__IMAGE_TAG__/${env.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+            sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
           }
         }
       }
@@ -87,7 +87,7 @@ pipeline {
         unsuccessful {
           slackSend (
             color: '#FF0000',
-            message: "DEPLOY FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+            message: "DEPLOY FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]' (${BUILD_URL})",
             channel: "#frontend-rewrite"
           )
         }
