@@ -75,7 +75,7 @@ describe('Stores > UI', function () {
     })
 
     it('should not update the cookie on instantiation if there is already one', function () {
-      document.cookie = 'mode=light; path=/; domain=zooniverse.org; max-age=31536000'
+      document.cookie = 'mode=light; path=/; max-age=31536000'
       store = UI.create()
       expect(setCookieSpy).to.not.have.been.called()
     })
