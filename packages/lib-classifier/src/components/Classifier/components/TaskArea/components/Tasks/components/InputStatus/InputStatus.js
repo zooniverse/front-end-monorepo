@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Text } from 'grommet'
@@ -19,13 +18,13 @@ export default function InputStatus ({ count, tool }) {
   const maxStyleColor = (count === tool.max) ? 'orange' : ''
   const drawn = counterpart('InputStatus.drawn')
   const maximum = counterpart('InputStatus.maximum')
-  const of = counterpart('InputStatus.of')
+  const ofTranslation = counterpart('InputStatus.of')
   const required = counterpart('InputStatus.required')
   return (
     <StyledInputStatus>
       {count}{' '}
       {(!!tool.min || !!tool.max) &&
-        `${of} `}
+        `${ofTranslation} `}
       {!!tool.min &&
         <Text color={minStyleColor}>{`${tool.min} ${required}`}</Text>}
       {!!tool.min && !!tool.max &&
