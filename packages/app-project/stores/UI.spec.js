@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
+import cookie from 'cookie'
 
 import UI from './UI'
 
@@ -19,7 +20,7 @@ describe('Stores > UI', function () {
     expect(store.mode).to.be.ok()
   })
 
-  it('should default to the light mode if there is no stored mode in the cookie', function () {
+  it('should default to the light mode', function () {
     expect(store.mode).to.equal('light')
   })
 
@@ -69,7 +70,9 @@ describe('Stores > UI', function () {
       store.setDarkMode()
       expect(setCookieSpy).to.have.been.calledOnce()
       setCookieSpy.resetHistory()
-      store = UI.create()
+      store = UI.create({
+        mode: cookie.parse(document.cookie).mode
+      })
       expect(store.mode).to.equal('dark')
       expect(setCookieSpy).to.not.have.been.called()
     })
