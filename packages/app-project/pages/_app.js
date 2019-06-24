@@ -34,6 +34,7 @@ export default class MyApp extends App {
     }
 
     if (pageProps.isServer) {
+      // cookie is in the next.js context req object
       const mode = getCookie(context, 'mode') || ''
       const store = initStore(pageProps.isServer, {
         ui: {

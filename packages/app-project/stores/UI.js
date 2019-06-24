@@ -4,6 +4,7 @@ import cookie from 'cookie'
 
 const UI = types
   .model('UI', {
+    // The mode is retrieved out of the cookie in _app.js during store initialization
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), 'light')
   })
 
