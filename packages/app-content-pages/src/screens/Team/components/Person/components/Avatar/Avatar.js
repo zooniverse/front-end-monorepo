@@ -4,11 +4,6 @@ import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledBox = styled(Box)`
-  border-radius: 5px;
-  overflow: hidden;
-`
-
 const StyledImage = styled(Image)`
   filter: grayscale(100%);
 `
@@ -29,15 +24,22 @@ function Avatar (props) {
   const { avatarSrc, className, name } = props
 
   return (
-    <StyledBox className={className} flex={false} height='80px' width='80px'>
+    <Box
+      flex={false}
+      height='80px'
+      overflow='hidden'
+      round='xxsmall'
+      width='80px'
+    >
       {!avatarSrc ? Placeholder : (
         <StyledImage
           alt={`${name} photo`}
+          className={className}
           fit='cover'
           src={avatarSrc}
         />
       )}
-    </StyledBox>
+    </Box>
   )
 }
 
