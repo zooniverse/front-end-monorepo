@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { Text } from 'grommet'
 import styled from 'styled-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
@@ -25,11 +27,11 @@ export default function InputStatus ({ count, tool }) {
       {(!!tool.min || !!tool.max) &&
         `${of} `}
       {!!tool.min &&
-        <span style={{ color: minStyleColor }}>{`${tool.min} ${required}`}</span>}
+        <Text color={minStyleColor}>{`${tool.min} ${required}`}</Text>}
       {!!tool.min && !!tool.max &&
         ', '}
       {!!tool.max &&
-        <span style={{ color: maxStyleColor }}>{`${tool.max} ${maximum}`}</span>}
+        <Text color={maxStyleColor}>{`${tool.max} ${maximum}`}</Text>}
       {` ${drawn}`}
     </StyledInputStatus>
   )
