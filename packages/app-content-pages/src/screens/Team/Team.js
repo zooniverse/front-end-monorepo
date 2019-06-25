@@ -11,6 +11,10 @@ import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 
 counterpart.registerTranslations('en', en)
 
+const StyledLi = styled.li`
+  list-style-type: none;
+`
+
 const StyledButton = styled(Button)`
   ${props => props.active && `
     background: none;
@@ -38,16 +42,16 @@ function TeamComponent (props) {
   )
 
   const sidebar = (
-    <Box gap='small'>
+    <Box as='ul' gap='small'>
       {filters.map(filter => (
-        <div key={filter.name} >
+        <StyledLi key={filter.name}>
           <StyledButton
             active={filter.active}
             label={filter.name}
             onClick={filter.selectTeam}
             plain
           />
-        </div>
+        </StyledLi>
       ))}
     </Box>
   )

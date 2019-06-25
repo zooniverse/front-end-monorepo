@@ -33,7 +33,7 @@ function Avatar (props) {
     >
       {!avatarSrc ? Placeholder : (
         <StyledImage
-          alt={`${name} photo`}
+          alt={name}
           className={className}
           fit='cover'
           src={avatarSrc}

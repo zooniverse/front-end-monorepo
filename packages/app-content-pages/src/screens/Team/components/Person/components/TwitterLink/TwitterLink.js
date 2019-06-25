@@ -1,18 +1,12 @@
-import counterpart from 'counterpart'
 import { Anchor } from 'grommet'
 import { Twitter } from 'grommet-icons'
 import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
-
 const StyledAnchor = styled(Anchor)`
-  display: inline-flex;
   align-items: center;
-
+  display: inline-flex;
   padding: 0;
 
   svg path {
@@ -29,10 +23,9 @@ const StyledAnchor = styled(Anchor)`
 
 function TwitterLink (props) {
   const { className, name, twitterId } = props
-  const a11yTitle = counterpart('TwitterLink.a11yTitle', { name })
   return (
     <StyledAnchor
-      a11yTitle={a11yTitle}
+      a11yTitle={name}
       className={className}
       href={`https://twitter.com/${twitterId}`}
       icon={<Twitter color='light-5' size='18px' />}
