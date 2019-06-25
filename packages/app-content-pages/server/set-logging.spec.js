@@ -1,7 +1,7 @@
 const proxyquire = require('proxyquire')
 const sinon = require('sinon')
 
-describe.only('Server > setLogging', function () {
+describe('Server > setLogging', function () {
   let setLogging
   const expressInstance = {
     use: Function.prototype
