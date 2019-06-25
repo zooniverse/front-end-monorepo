@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { Box } from 'grommet'
 import { doesTheLabelHaveAnImage } from '../../helpers'
-import zooTheme from '@zooniverse/grommet-theme'
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 
 export const StyledTaskInputLabelWrapper = styled(Box)`
@@ -27,11 +26,6 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
   img, svg {
     padding: 10px;
     vertical-align: middle;
-  }
-
-  img:only-child, svg:only-child {
-    background-color: ${zooTheme.global.colors.brand};
-    max-width: ${pxToRem(60)};
   }
 `
 
