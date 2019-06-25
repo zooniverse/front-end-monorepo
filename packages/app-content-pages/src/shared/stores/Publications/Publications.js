@@ -6,12 +6,12 @@ import Category from './Category'
 import Project from './Project'
 import Publication from './Publication'
 import pluckCategoryData from './helpers/pluckCategoryData'
-import pluckContentType from './helpers/pluckContentType'
 import pluckProjectData from './helpers/pluckProjectData'
 import pluckPublicationData from './helpers/pluckPublicationData'
 import sortEntriesByTitle from './helpers/sortEntriesByTitle'
-import sortEntriesByWeight from './helpers/sortEntriesByWeight'
 import sortEntriesByYear from './helpers/sortEntriesByYear'
+import pluckContentType from '../helpers/pluckContentType'
+import sortEntriesByWeight from '../helpers/sortEntriesByWeight'
 
 const Publications = types
   .model('Publications', {
@@ -69,123 +69,113 @@ const Publications = types
     }
   }))
 
-  .actions(self => {
-    let contentfulClient
-    let panoptesClient
+  .actions(self => ({
+    fetch: flow(function * fetchPublications () {
+      if (self.publications.length > 0 ||
+        self.loadingState === asyncStates.loading ||
+        self.loadingState === asyncStates.success) {
+        return null
+      }
 
-    return {
-      afterAttach () {
-        contentfulClient = getRoot(self).contentfulClient
-        panoptesClient = getRoot(self).panoptesClient
-      },
+      const contentfulClient = getRoot(self).contentfulClient
 
-      fetch: flow(function * fetchPublications () {
-        if (self.publications.length > 0 ||
-          self.loadingState === asyncStates.loading ||
-          self.loadingState === asyncStates.success) {
-          return null
+      self.loadingState = asyncStates.loading
+
+      try {
+        const response = yield contentfulClient.getEntries({
+          content_type: 'publication',
+          include: 2,
+          limit: 500
+        })
+
+        self.processCategories(response)
+        self.processProjects(response)
+        self.processPublications(response)
+
+        if (self.projects.length) {
+          yield self.fetchAvatars()
         }
 
-        const contentfulClient = getRoot(self).contentfulClient
-
-        self.loadingState = asyncStates.loading
-
-        try {
-          const response = yield contentfulClient.getEntries({
-            content_type: 'publication',
-            include: 2,
-            limit: 500
-          })
-
-          self.processCategories(response)
-          self.processProjects(response)
-          self.processPublications(response)
-
-          if (self.projects.length) {
-            yield self.fetchAvatars()
-          }
-
-          self.loadingState = asyncStates.success
-          self.response = response
-        } catch (error) {
-          const servername = get(error, 'response.res.client.servername')
-          if (servername && servername.includes('panoptes')) {
-            console.error('Error fetching avatars from Panoptes,', error.response.statusCode)
-          } else {
-            console.error(error)
-            self.loadingState = asyncStates.error
-          }
+        self.loadingState = asyncStates.success
+        self.response = response
+      } catch (error) {
+        const servername = get(error, 'response.res.client.servername')
+        if (servername && servername.includes('panoptes')) {
+          console.error('Error fetching avatars from Panoptes,', error.response.statusCode)
+        } else {
+          console.error(error)
+          self.loadingState = asyncStates.error
         }
-      }),
+      }
+    }),
 
-      fetchAvatars: flow(function * fetchAvatars () {
-        const panoptesClient = getRoot(self).panoptesClient
-        const panoptesIds = self.panoptesIds.join(',')
+    fetchAvatars: flow(function * fetchAvatars () {
+      const panoptesClient = getRoot(self).panoptesClient
+      const panoptesIds = self.panoptesIds.join(',')
 
-        const params = {
-          query: {
-            cards: true,
-            id: panoptesIds,
-            page_size: 100
-          }
+      const params = {
+        query: {
+          cards: true,
+          id: panoptesIds,
+          page_size: 100
         }
-        const response = yield panoptesClient.projects.get(params)
-        self.processAvatars(response)
-      }),
+      }
+      const response = yield panoptesClient.projects.get(params)
+      self.processAvatars(response)
+    }),
 
-      linkEntryToParent (entry, entryType, parentType) {
-        const entryId = entry.sys.id
-        entry.fields[parentType]
-          .map(value => value.sys.id)
-          .forEach(parentId => {
-            const parent = self[parentType].find(value => value.id === parentId)
-            if (parent) {
-              parent[entryType].push(entryId)
-            }
-          })
-      },
-
-      processAvatars (response) {
-        response.body.projects.forEach(r => {
-          const project = self.projects.find(p => p.title === r.display_name)
-          if (project) {
-            project.avatarSrc = r.avatar_src
+    linkEntryToParent (entry, entryType, parentType) {
+      const entryId = entry.sys.id
+      entry.fields[parentType]
+        .map(value => value.sys.id)
+        .forEach(parentId => {
+          const parent = self[parentType].find(value => value.id === parentId)
+          if (parent) {
+            parent[entryType].push(entryId)
           }
         })
-      },
+    },
 
-      processCategories (response) {
-        const categories = response.includes.Entry
-          .filter(entry => pluckContentType(entry) === 'category')
-          .sort(sortEntriesByWeight)
-          .map(pluckCategoryData)
-        self.categories.replace(categories)
-      },
+    processAvatars (response) {
+      response.body.projects.forEach(r => {
+        const project = self.projects.find(p => p.title === r.display_name)
+        if (project) {
+          project.avatarSrc = r.avatar_src
+        }
+      })
+    },
 
-      processProjects (response) {
-        const projectEntries = response.includes.Entry
-          .filter(entry => pluckContentType(entry) === 'project')
-          .sort(sortEntriesByTitle)
+    processCategories (response) {
+      const categories = response.includes.Entry
+        .filter(entry => pluckContentType(entry) === 'category')
+        .sort(sortEntriesByWeight)
+        .map(pluckCategoryData)
+      self.categories.replace(categories)
+    },
 
-        const projects = projectEntries.map(pluckProjectData)
-        self.projects.replace(projects)
+    processProjects (response) {
+      const projectEntries = response.includes.Entry
+        .filter(entry => pluckContentType(entry) === 'project')
+        .sort(sortEntriesByTitle)
 
-        projectEntries.forEach(entry =>
-          self.linkEntryToParent(entry, 'projects', 'categories'))
-      },
+      const projects = projectEntries.map(pluckProjectData)
+      self.projects.replace(projects)
 
-      processPublications (response) {
-        const publicationEntries = response.items.sort(sortEntriesByYear)
-        const publications = publicationEntries.map(pluckPublicationData)
-        self.publications.replace(publications)
-        publicationEntries.forEach(entry =>
-          self.linkEntryToParent(entry, 'publications', 'projects'))
-      },
+      projectEntries.forEach(entry =>
+        self.linkEntryToParent(entry, 'projects', 'categories'))
+    },
 
-      selectCategory (categoryId) {
-        self.selectedCategory = categoryId
-      }
+    processPublications (response) {
+      const publicationEntries = response.items.sort(sortEntriesByYear)
+      const publications = publicationEntries.map(pluckPublicationData)
+      self.publications.replace(publications)
+      publicationEntries.forEach(entry =>
+        self.linkEntryToParent(entry, 'publications', 'projects'))
+    },
+
+    selectCategory (categoryId) {
+      self.selectedCategory = categoryId
     }
-  })
+  }))
 
 export default Publications
