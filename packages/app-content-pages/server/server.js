@@ -3,10 +3,10 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
 }
 
 const express = require('express')
-const morgan = require('morgan')
 const next = require('next')
 
 const setAssetPrefix = require('./set-asset-prefix')
+const setLogging = require('./set-logging')
 const setCacheHeaders = require('./set-cache-headers')
 
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -18,7 +18,8 @@ setAssetPrefix(app)
 
 app.prepare().then(() => {
   const server = express()
-  server.use(morgan('combined'))
+
+  setLogging(server)
 
   server.get('*', (req, res) => {
     setCacheHeaders(req, res)
