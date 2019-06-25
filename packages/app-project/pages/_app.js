@@ -4,7 +4,6 @@ import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
-import cookies from 'next-cookies'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
@@ -15,6 +14,7 @@ import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import initStore from '../stores'
+import { getCookie } from './helpers/cookies'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -34,9 +34,11 @@ export default class MyApp extends App {
     }
 
     if (pageProps.isServer) {
+      // cookie is in the next.js context req object
+      const mode = getCookie(context, 'mode') || ''
       const store = initStore(pageProps.isServer, {
         ui: {
-          mode: cookies(context).mode
+          mode
         }
       })
 
