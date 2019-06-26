@@ -56,7 +56,6 @@
   "devDependencies": {
     "@babel/register": "~7.0.0",
     "@storybook/react": "~4.1.12",
-    "@zooniverse/standard": "~1.0.0",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.9.0",
