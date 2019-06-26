@@ -7,5 +7,5 @@ COPY ./ .
 RUN chown -R node:node .
 
 USER node
-ENV NODE_ENV production
-RUN ./bin/bootstrap.sh
+
+RUN ./bin/bootstrap-production.sh
