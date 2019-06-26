@@ -19,10 +19,10 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.1.6",
     "@babel/plugin-proposal-optional-chaining": "~7.2.0",
-    "@zooniverse/async-states": "~0.0.1",
-    "@zooniverse/grommet-theme": "~2.0.0",
-    "@zooniverse/panoptes-js": "~0.0.1",
-    "@zooniverse/react-components": "~0.7.1",
+    "@zooniverse/async-states": "*",
+    "@zooniverse/grommet-theme": "*",
+    "@zooniverse/panoptes-js": "*",
+    "@zooniverse/react-components": "*",
     "async": "~2.6.2",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-styled-components": "~1.10.0",
@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/register": "~7.0.0",
     "@storybook/react": "~4.1.12",
-    "@zooniverse/standard": "^1.0.0",
+    "@zooniverse/standard": "*",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.9.0",

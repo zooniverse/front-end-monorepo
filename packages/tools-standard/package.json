@@ -16,8 +16,7 @@
   "bin": {
     "zoo-standard": "./bin/cmd.js"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "babel-eslint": "^10.0.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",

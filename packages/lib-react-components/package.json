@@ -35,7 +35,7 @@
     "unist-util-visit": "~1.4.0"
   },
   "peerDependencies": {
-    "@zooniverse/grommet-theme": "~2.0.0",
+    "@zooniverse/grommet-theme": "*",
     "grommet": "~2.7.x",
     "grommet-icons": "~4.2.x",
     "react": "~16.8.x",
@@ -60,8 +60,8 @@
     "@storybook/addon-viewport": "~4.1.4",
     "@storybook/addons": "~4.1.2",
     "@storybook/react": "~4.0.9",
-    "@zooniverse/grommet-theme": "~2.0.0",
-    "@zooniverse/standard": "^1.0.0",
+    "@zooniverse/grommet-theme": "*",
+    "@zooniverse/standard": "*",
     "babel-loader": "~8.0.4",
     "chai": "~4.2.0",
     "dedent": "~0.7.0",
