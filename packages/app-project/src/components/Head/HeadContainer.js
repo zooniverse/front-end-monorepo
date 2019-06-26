@@ -12,9 +12,6 @@ function storeMapper (stores) {
   }
 }
 
-@withRouter
-@inject(storeMapper)
-@observer
 class HeadContainer extends Component {
   getProjectDescription () {
     return this.props.project.description || undefined
@@ -82,4 +79,10 @@ HeadContainer.propTypes = {
   })
 }
 
-export default HeadContainer
+@inject(storeMapper)
+@withRouter
+@observer
+class DecoratedHeadContainer extends HeadContainer {}
+
+export default DecoratedHeadContainer
+export { HeadContainer }
