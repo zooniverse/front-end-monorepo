@@ -23,7 +23,6 @@
     "test:ci": "npm run _test -- --reporter=min"
   },
   "devDependencies": {
-    "@zooniverse/standard": "^1.0.0",
     "babel-minify": "^0.5.0",
     "chai": "~4.1.2",
     "mocha": "~5.2.0",
