@@ -1,9 +1,15 @@
 import DrawingTask from './DrawingTask'
 
+const pointTool = {
+  help: '',
+  label: 'Point please.',
+  type: 'point'
+}
+
 const drawingTask = {
   instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
   taskKey: 'T3',
-  tools: [{}],
+  tools: [pointTool],
   type: 'drawing'
 }
 
