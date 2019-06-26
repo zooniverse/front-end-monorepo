@@ -2,27 +2,18 @@
 
 # Trashes all build folders and `node_modules`
 
-printf 'Trashing all build folders and `node_modules` folders...\n'
+printf 'Trashing `node_modules` folders and build artifacts...\n'
 
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 
+printf "Cleaning \`$ROOT_DIR\`..."
 rm -rf $ROOT_DIR/node_modules
+printf " done!\n"
 
-rm -rf $ROOT_DIR/packages/app-project/.next
-rm -rf $ROOT_DIR/packages/app-project/node_modules
+for DIR in $(find $ROOT_DIR/packages -mindepth 1 -maxdepth 1 -type d) ; do
+  printf "Cleaning \`$DIR\`..."
+  rm -rf $DIR/node_modules $DIR/.next $DIR/dist
+  printf " done!\n"
+done
 
-rm -rf $ROOT_DIR/packages/lib-async-states/dist
-rm -rf $ROOT_DIR/packages/lib-async-states/node_modules
-
-rm -rf $ROOT_DIR/packages/lib-classifier/dist
-rm -rf $ROOT_DIR/packages/lib-classifier/node_modules
-
-rm -rf $ROOT_DIR/packages/lib-grommet-theme/dist
-rm -rf $ROOT_DIR/packages/lib-grommet-theme/node_modules
-
-rm -rf $ROOT_DIR/packages/lib-panoptes-js/node_modules
-
-rm -rf $ROOT_DIR/packages/lib-react-components/node_modules
-rm -rf $ROOT_DIR/packages/lib-react-components/dist
-
-printf 'Done.\n'
+echo "Finished!"
