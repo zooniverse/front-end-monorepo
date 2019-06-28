@@ -1,4 +1,7 @@
+require('dotenv').config()
+
 const { execSync } = require('child_process')
+const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const { setAliases } = require('require-control')
 
@@ -17,7 +20,7 @@ module.exports = {
 
   env: {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
-    PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging'
+    PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging',
   },
 
   webpack: (config) => {
@@ -27,6 +30,15 @@ module.exports = {
       'grommet-icons': resolveLocal('grommet-icons'),
       'styled-components': resolveLocal('styled-components')
     }
+
+    config.plugins = [
+      ...config.plugins,
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
+    ]
+
     return config
   }
 }

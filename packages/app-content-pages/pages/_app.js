@@ -9,6 +9,7 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
 
+import { initializeLogger, logReactError } from '../src/helpers/logger'
 import AuthModals from '../src/shared/components/AuthModals'
 import ZooHeaderWrapper from '../src/shared/components/ZooHeaderWrapper'
 import initStore from '../src/shared/stores'
@@ -18,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
+initializeLogger()
 
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
@@ -46,6 +48,11 @@ export default class MyApp extends App {
   componentDidMount () {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
     this.store.user.checkCurrent()
+  }
+
+  componentDidCatch (error, errorInfo) {
+    logReactError(error, errorInfo)
+    super.componentDidCatch(error, errorInfo)
   }
 
   render () {

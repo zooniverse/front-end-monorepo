@@ -27,8 +27,6 @@ module.exports = {
       'styled-components': resolveLocal('styled-components')
     }
 
-    config.plugins = config.plugins || []
-
     config.plugins = [
       ...config.plugins,
       new Dotenv({
