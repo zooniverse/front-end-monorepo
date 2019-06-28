@@ -1,9 +1,0 @@
-{
-  "MetadataModal": {
-    "title": "Subject Metadata",
-    "table": {
-      "label": "Label",
-      "value": "Value"
-    }
-  }
-}

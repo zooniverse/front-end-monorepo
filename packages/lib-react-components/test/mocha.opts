@@ -1,5 +1,0 @@
---require @babel/register
---ui bdd
---file ./test/setup.js
-
-./src/**/*.spec.js

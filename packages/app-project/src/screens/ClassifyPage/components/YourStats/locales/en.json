@@ -1,9 +1,0 @@
-{
-  "YourStats": {
-    "todaysCount": "Classifications today",
-    "totalCount": "Classifications total",
-    "dailyCount": "%(projectName)s daily classification count",
-    "text": "Keep up the great work!",
-    "title": "Your %(projectName)s statistics"
-  }
-}

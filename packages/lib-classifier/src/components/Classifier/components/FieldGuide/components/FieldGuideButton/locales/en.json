@@ -1,9 +1,0 @@
-{
-  "FieldGuideButton": {
-    "ariaLabel": "Open Field Guide",
-    "buttonLabel": {
-      "field": "field",
-      "guide": "guide"
-    }
-  }
-}

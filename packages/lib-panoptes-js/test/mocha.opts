@@ -1,7 +1,0 @@
---require chai/register-expect
---require chai/register-should
---require mock-local-storage
---reporter spec
---ui bdd
-
-./src/**/*.spec.js

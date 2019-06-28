@@ -1,5 +1,0 @@
---require chai/register-expect
---reporter spec
---ui bdd
-
-./src/**/*.spec.js
