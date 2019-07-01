@@ -6,5 +6,7 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "repository": "git@github.com:zooniverse/front-end-monorepo.git",
   "version": "1.0.0",
-  "workspaces": []
+  "workspaces": [
+    "src/tools/*"
+  ]
 }
