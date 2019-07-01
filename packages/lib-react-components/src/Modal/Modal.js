@@ -6,7 +6,7 @@ import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
 class Modal extends React.Component {
-  constructor() {
+  constructor () {
     super()
 
     this.state = {
