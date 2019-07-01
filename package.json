@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "@zooniverse/front-end-monorepo",
+  "description": "A monorepo for holding all of the Zooniverse's front-end code.",
+  "license": "Apache-2.0",
+  "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
+  "repository": "git@github.com:zooniverse/front-end-monorepo.git",
+  "version": "1.0.0",
+  "workspaces": []
+}
