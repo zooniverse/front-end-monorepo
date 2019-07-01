@@ -223,7 +223,7 @@ describe('Collections resource REST requests', function () {
 
     it('should raise an error if subjects is not an array', async function () {
       try {
-        await collections.addSubjects({ id: '10', subjects: '2'})
+        await collections.addSubjects({ id: '10', subjects: '2' })
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Collections add subjects: subjects array is required.')
@@ -264,7 +264,7 @@ describe('Collections resource REST requests', function () {
 
     it('should raise an error if subjects is not an array', async function () {
       try {
-        await collections.removeSubjects({ id: '10', subjects: '2'})
+        await collections.removeSubjects({ id: '10', subjects: '2' })
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Collections remove subjects: subjects array is required.')

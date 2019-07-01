@@ -31,7 +31,7 @@ describe('Projects resource common requests', function () {
 
     it('should error if slug param is not a string', async function () {
       try {
-        await projects.getBySlug({ query: { slug: 1234 }})
+        await projects.getBySlug({ query: { slug: 1234 } })
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Projects: Get request slug must be a string.')
@@ -39,7 +39,7 @@ describe('Projects resource common requests', function () {
     })
 
     it('should return the expected response if not found', async function () {
-      const response = await projects.getBySlug({ query: { slug: 'zooniverse/my-project' }})
+      const response = await projects.getBySlug({ query: { slug: 'zooniverse/my-project' } })
       expect(response.body).to.eql(expectedNotFoundResponse)
     })
 
@@ -54,13 +54,13 @@ describe('Projects resource common requests', function () {
 
     it('should return the expected response if the slug is defined', async function () {
       const slug = 'user/untitled-project-2'
-      const response = await projects.getBySlug({ query: { slug }})
+      const response = await projects.getBySlug({ query: { slug } })
       expect(response.body).to.eql(expectedGetResponse)
     })
 
     it('should return the expected response if the slug is defined including "projects" in the pathname', async function () {
       const slug = 'projects/user/untitled-project-2'
-      const response = await projects.getBySlug({ query: { slug }})
+      const response = await projects.getBySlug({ query: { slug } })
       expect(response.body).to.eql(expectedGetResponse)
     })
 
@@ -115,7 +115,7 @@ describe('Projects resource common requests', function () {
 
       it('should error if slug is not a string', async function () {
         try {
-          await projects.getWithLinkedResources({ query: { slug: 1234 }})
+          await projects.getWithLinkedResources({ query: { slug: 1234 } })
           expect.fail()
         } catch (error) {
           expect(error.message).to.equal('Projects: Get request slug must be a string.')
@@ -132,7 +132,7 @@ describe('Projects resource common requests', function () {
       })
 
       it('should return the expected response', async function () {
-        const response = await projects.getWithLinkedResources({ query: { slug: 'user/untitled-project-2' }})
+        const response = await projects.getWithLinkedResources({ query: { slug: 'user/untitled-project-2' } })
         expect(response.body).to.eql(expectedGetResponseWithLinkedResources)
       })
     })
