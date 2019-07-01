@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-const snazzy = require('snazzy')
-
 if (process.version.match(/v(\d+)\./)[1] < 4) {
   console.error('standardx: Node v4 or greater is required. `standardx` did not run.')
 } else {
