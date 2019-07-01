@@ -8,19 +8,22 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
 
+import { getCookie } from './helpers/cookies'
 import AuthModal from '../src/components/AuthModal'
 import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
+import { initializeLogger, logReactError } from '../src/helpers/logger'
 import initStore from '../stores'
-import { getCookie } from './helpers/cookies'
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
   }
 `
+
+initializeLogger()
 
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
@@ -64,6 +67,11 @@ export default class MyApp extends App {
   componentDidMount () {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
     this.store.user.checkCurrent()
+  }
+
+  componentDidCatch (error, errorInfo) {
+    logReactError(error, errorInfo)
+    super.componentDidCatch(error, errorInfo)
   }
 
   componentDidUpdate () {

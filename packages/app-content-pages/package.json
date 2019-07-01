@@ -19,6 +19,7 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.1.6",
     "@babel/plugin-proposal-optional-chaining": "~7.2.0",
+    "@sentry/browser": "^5.4.3",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
