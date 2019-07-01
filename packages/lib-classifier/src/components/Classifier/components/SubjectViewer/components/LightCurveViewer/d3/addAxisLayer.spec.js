@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import addAxisLayer from './addAxisLayer'
 
-describe.only('LightCurveViewer > d3 > addAxisLayer', function () {
+describe('LightCurveViewer > d3 > addAxisLayer', function () {
   const style = {
     color: 'blue',
     fontSize: '12px',
@@ -12,14 +12,13 @@ describe.only('LightCurveViewer > d3 > addAxisLayer', function () {
 
   let body, d3svg, node, xAxis, yAxis
   beforeEach(function () {
-    const xScale = d3.scaleLinear()
-    const yScale = d3.scaleLinear()
-    xAxis = d3.axisTop(yScale)
-    yAxis = d3.axisRight(yScale)
     body = document.getElementsByTagName('body')[0]
     node = document.createElement('svg')
     body.appendChild(node)
     d3svg = d3.select(node)
+    const yScale = d3.scaleLinear()
+    xAxis = d3.axisTop(yScale)
+    yAxis = d3.axisRight(yScale)
   })
 
   afterEach(function () {
@@ -42,18 +41,23 @@ describe.only('LightCurveViewer > d3 > addAxisLayer', function () {
     addAxisLayer(d3svg, style, xAxis, yAxis, axisXLabel, axisYLabel)
     const xAxisNode = node.querySelector('g.x-axis')
     const yAxisNode = node.querySelector('g.y-axis')
-    expect(xAxisNode.attributes.color).to.equal(styles.color)
-    expect(yAxisNode.attributes.color).to.equal(styles.color)
+    expect(xAxisNode.getAttribute('color')).to.equal(style.color)
+    expect(yAxisNode.getAttribute('color')).to.equal(style.color)
   })
 
   it('should add the text labels', function () {
     addAxisLayer(d3svg, style, xAxis, yAxis, axisXLabel, axisYLabel)
-    const axis = node.querySelectorAll('text')
-    console.log('axis', axis)
-    // expect(axis.classList.contains('x-axis-label')).to.be.true
-    // expect(axis.innerHTML).to.equal(text)
-    // expect(axis.style.fill).to.equal(styles.color)
-    // expect(axis.style['font-size']).to.equal(styles.fontSize)
-    // expect(axis.style['font-family']).to.equal(styles.fontFamily)
+    const xAxisLabelNode = node.querySelector('text.x-axis-label')
+    const yAxisLabelNode = node.querySelector('text.y-axis-label')
+
+    expect(xAxisLabelNode.innerHTML).to.equal(axisXLabel)
+    expect(xAxisLabelNode.style.fill).to.equal(style.color)
+    expect(xAxisLabelNode.style['font-size']).to.equal(style.fontSize)
+    expect(xAxisLabelNode.style['font-family']).to.equal(style.fontFamily)
+
+    expect(yAxisLabelNode.innerHTML).to.equal(axisYLabel)
+    expect(yAxisLabelNode.style.fill).to.equal(style.color)
+    expect(yAxisLabelNode.style['font-size']).to.equal(style.fontSize)
+    expect(yAxisLabelNode.style['font-family']).to.equal(style.fontFamily)
   })
 })
