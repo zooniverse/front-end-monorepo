@@ -2,10 +2,6 @@
 
 A Zooniverse theme for the [Grommet 2.0](https://grommet.github.io/) React component library.
 
-## Contributing
-
-Run `npm start` to run a script that watches for changes in the source and reruns the babel compiler. 
-
 ## Usage
 
 To use this theme, import it and pass it as a prop to the top-level `Grommet` component:
@@ -30,7 +26,7 @@ class MyComponent extends React.Component {
 
 ## Development
 
-Run `npm start` to run a script that watches for changes in the source and reruns the babel compiler. The conventions of the theme structure are based on Grommet's base theme: https://github.com/grommet/grommet/blob/master/src/js/themes/base.js 
+The theme structure is based on Grommet's base theme: https://github.com/grommet/grommet/blob/master/src/js/themes/base.js
 
 ## License
 
