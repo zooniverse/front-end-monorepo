@@ -12,12 +12,12 @@ describe('<Markdownz />', function () {
 
   it('renders without crashing', function () {
     wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('parses markdown to jsx', function () {
     wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-    expect(wrapper.equals(jsx)).to.be.true
+    expect(wrapper.equals(jsx)).to.be.true()
   })
 
   describe('at-mentions', function () {
@@ -87,7 +87,7 @@ describe('<Markdownz />', function () {
         const baseURL = ''
         const expectedReturnValue = `${baseURL}/talk/search?query=%23${resource}`
         wrapper.instance().buildResourceURL(resource, '#')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
       })
 
@@ -97,7 +97,7 @@ describe('<Markdownz />', function () {
         const expectedReturnValue = `/projects/${projectSlug}/talk/tag/${resource}`
         wrapper.setProps({ projectSlug })
         wrapper.instance().buildResourceURL('tigers', '#')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
         wrapper.setProps({ projectSlug: '' })
       })
@@ -108,7 +108,7 @@ describe('<Markdownz />', function () {
         const expectedReturnValue = `${baseURI}/talk/search?query=%23${resource}`
         wrapper.setProps({ baseURI })
         wrapper.instance().buildResourceURL('tigers', '#')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
         wrapper.setProps({ baseURI: '' })
       })
@@ -119,7 +119,7 @@ describe('<Markdownz />', function () {
         const resource = 'srallen'
         const expectedReturnValue = `/users/${resource}`
         wrapper.instance().buildResourceURL(resource, '@')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
       })
 
@@ -129,7 +129,7 @@ describe('<Markdownz />', function () {
         const expectedReturnValue = `/projects/${projectSlug}/users/${resource}`
         wrapper.setProps({ projectSlug })
         wrapper.instance().buildResourceURL(resource, '@')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
         wrapper.setProps({ projectSlug: '' })
       })
@@ -140,7 +140,7 @@ describe('<Markdownz />', function () {
         const expectedReturnValue = `${baseURI}/users/${resource}`
         wrapper.setProps({ baseURI })
         wrapper.instance().buildResourceURL(resource, '@')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
         wrapper.setProps({ baseURI: '' })
       })
@@ -151,7 +151,7 @@ describe('<Markdownz />', function () {
         const resource = '1245'
         const expectedReturnValue = ''
         wrapper.instance().buildResourceURL(resource, '^S')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
       })
 
@@ -161,7 +161,7 @@ describe('<Markdownz />', function () {
         const expectedReturnValue = `/projects/${projectSlug}/talk/subjects/${resource}`
         wrapper.setProps({ projectSlug })
         wrapper.instance().buildResourceURL(resource, '^S')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
         wrapper.setProps({ projectSlug: '' })
       })
@@ -173,7 +173,7 @@ describe('<Markdownz />', function () {
         const expectedReturnValue = `${baseURI}/projects/${projectSlug}/talk/subjects/${resource}`
         wrapper.setProps({ baseURI, projectSlug })
         wrapper.instance().buildResourceURL(resource, '^S')
-        expect(buildResourceURLSpy).to.have.been.calledOnce
+        expect(buildResourceURLSpy).to.have.been.calledOnce()
         expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
         wrapper.setProps({ baseURI: '', projectSlug: '' })
       })

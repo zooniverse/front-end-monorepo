@@ -1,6 +1,5 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import zooTheme from '@zooniverse/grommet-theme'
+import { shallow } from 'enzyme'
 
 import ZooFooter from './ZooFooter'
 
@@ -9,5 +8,6 @@ describe('<ZooFooter />', function () {
 
   it('renders without crashing', function () {
     wrapper = shallow(<ZooFooter />)
+    expect(wrapper).to.be.ok()
   })
 })

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
   Anchor,
   Heading,
-  Image,
   Paragraph,
   Table,
   TableBody,
@@ -11,11 +10,9 @@ import {
   TableRow,
   TableHeader,
   TableFooter,
-  Text,
-  Video
+  Text
 } from 'grommet'
 
-import mime from 'mime-types'
 import remark from 'remark'
 import remark2react from 'remark-react'
 import emoji from 'remark-emoji'
@@ -110,7 +107,7 @@ class Markdownz extends React.Component {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
         resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
-        matchRegex: /\@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
+        matchRegex: /@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })

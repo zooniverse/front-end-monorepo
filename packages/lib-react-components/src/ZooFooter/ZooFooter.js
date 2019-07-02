@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Grid, Image } from 'grommet'
-import { arrayOf, oneOf, node, string } from 'prop-types'
+import { arrayOf, node, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -11,10 +11,6 @@ import SocialAnchor from './components/SocialAnchor'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-const RelativeDiv = styled.div`
-  position: relative;
-`
 
 export const StyledEasterEgg = styled(Image)`
   bottom: 100%;

@@ -81,7 +81,7 @@ describe('Modal', function () {
           {content}
         </Modal>
       )
-      expect(wrapper.find(ModalBody).contains(content)).to.true
+      expect(wrapper.find(ModalBody).contains(content)).to.true()
     })
   })
 })

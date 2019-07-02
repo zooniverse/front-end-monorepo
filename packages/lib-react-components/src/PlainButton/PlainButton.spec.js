@@ -9,6 +9,6 @@ describe('<PlainButton />', function () {
   })
 
   it('renders without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 })
