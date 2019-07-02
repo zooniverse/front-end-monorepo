@@ -23,11 +23,13 @@
     "chai": "~4.2.0",
     "check-dependencies": "~1.1.0",
     "check-engines": "~1.5.0",
+    "dirty-chai": "^2.0.1",
     "jsdom": "~15.1.1",
     "mocha": "~6.1.4",
     "mock-local-storage": "~1.1.8",
     "nock": "~10.0.6",
-    "sinon": "~7.3.2"
+    "sinon": "~7.3.2",
+    "sinon-chai": "^3.3.0"
   },
   "engines": {
     "node": ">=10"
