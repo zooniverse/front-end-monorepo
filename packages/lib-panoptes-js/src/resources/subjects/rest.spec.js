@@ -2,17 +2,16 @@ const { expect } = require('chai')
 const nock = require('nock')
 
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 const { endpoint } = require('./helpers')
 const subjects = require('./index')
 
 describe('Subjects resource REST requests', function () {
   describe('get', function () {
     const expectedGetResponse = responses.get.subject
-    let scope
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .get(uri => uri.includes(endpoint))
         .query(true)

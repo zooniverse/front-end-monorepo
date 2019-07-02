@@ -5,14 +5,12 @@ const { config } = require('./config')
 const panoptes = require('./panoptes')
 
 describe('panoptes.js', function () {
-  let scope
-
   describe('get', function () {
     const endpoint = '/projects'
     const expectedResponse = { id: '2' }
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .get(uri => uri.includes(endpoint))
         .query(true)
@@ -53,7 +51,7 @@ describe('panoptes.js', function () {
     const expectedResponse = { id: '3' }
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .post(uri => uri.includes(endpoint))
         .query(true)
@@ -87,7 +85,7 @@ describe('panoptes.js', function () {
     const expectedResponse = { id: '3', display_name: 'My project' }
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .put(uri => uri.includes(endpoint))
         .query(true)
@@ -125,7 +123,7 @@ describe('panoptes.js', function () {
     const expectedResponse = { status: 204 }
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .delete(uri => uri.includes(endpoint))
         .query(true)
@@ -163,8 +161,7 @@ describe('panoptes.js', function () {
       const nockMethod = isDel ? 'delete' : method
       const methodArgs = [endpoint, update, null, mockAPIHost]
 
-      const mockAPIHostScope = nock(mockAPIHost)
-        [nockMethod](uri => uri.includes(endpoint))
+      nock(mockAPIHost)[nockMethod](uri => uri.includes(endpoint))
         .query(true)
         .reply(200, expectedResponse)
 

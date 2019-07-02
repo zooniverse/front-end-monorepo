@@ -7,13 +7,11 @@ const { config } = require('../../config')
 const { resources, responses } = require('./mocks')
 
 describe('Tutorials resource common requests', function () {
-  let scope
-
   describe('getAttachedImages', function () {
     const expectedGetResponse = responses.get.attachedImage
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .get(uri => uri.includes(endpoint))
         .query(true)
@@ -54,7 +52,7 @@ describe('Tutorials resource common requests', function () {
       const expectedGetResponse = responses.get.tutorialWithImages
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -85,7 +83,7 @@ describe('Tutorials resource common requests', function () {
       const expectedGetResponse = responses.get.tutorialsWithImages
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -116,7 +114,7 @@ describe('Tutorials resource common requests', function () {
   describe('getTutorials', function () {
     describe('by tutorial id', function () {
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -127,6 +125,7 @@ describe('Tutorials resource common requests', function () {
             if (uri.includes(resources.minicourse.id)) {
               return responses.get.minicourse
             }
+            return null
           })
       })
 
@@ -155,7 +154,7 @@ describe('Tutorials resource common requests', function () {
       const expectedGetResponse = responses.get.allTutorialsForWorkflow
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -193,7 +192,7 @@ describe('Tutorials resource common requests', function () {
       const expectedGetResponse = responses.get.minicourse
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -219,7 +218,7 @@ describe('Tutorials resource common requests', function () {
       const expectedGetResponse = responses.get.minicourse
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
