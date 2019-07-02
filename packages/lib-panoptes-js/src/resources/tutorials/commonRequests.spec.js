@@ -38,7 +38,7 @@ describe('Tutorials resource common requests', function () {
 
     it('should use query params if defined', async function () {
       const response = await tutorials.getAttachedImages({ id: '1', query: { page: '2' } })
-      expect(response.req.path.includes('page=2')).to.be.true
+      expect(response.req.path.includes('page=2')).to.be.true()
     })
 
     it('should add the Authorization header to the request if param is defined', async function () {
@@ -65,12 +65,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should use a default include query param', async function () {
         const response = await tutorials.getWithImages({ id: '1' })
-        expect(response.req.path.includes('include=attached_images')).to.be.true
+        expect(response.req.path.includes('include=attached_images')).to.be.true()
       })
 
       it('should include any other query params if defined', async function () {
         const response = await tutorials.getWithImages({ id: '1', query: { page: '2' } })
-        expect(response.req.path.includes('page=2')).to.be.true
+        expect(response.req.path.includes('page=2')).to.be.true()
       })
 
       it('should return the expected response', async function () {
@@ -96,12 +96,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should use a default include query param', async function () {
         const response = await tutorials.getWithImages({ workflowId: '10' })
-        expect(response.req.path.includes('include=attached_images')).to.be.true
+        expect(response.req.path.includes('include=attached_images')).to.be.true()
       })
 
       it('should include any other query params if defined', async function () {
         const response = await tutorials.getWithImages({ workflowId: '10', query: { page: '2' } })
-        expect(response.req.path.includes('page=2')).to.be.true
+        expect(response.req.path.includes('page=2')).to.be.true()
       })
 
       it('should return the expected response', async function () {
@@ -174,7 +174,7 @@ describe('Tutorials resource common requests', function () {
 
       it('should use the workflow id as the query param', async function () {
         const response = await tutorials.getTutorials({ workflowId: '10' })
-        expect(response.req.path.includes('workflow_id=10')).to.be.true
+        expect(response.req.path.includes('workflow_id=10')).to.be.true()
       })
 
       it('should not return minicourse kind tutorials', async function () {
@@ -210,7 +210,7 @@ describe('Tutorials resource common requests', function () {
 
       it('should set a default query parameter for kind', async function () {
         const response = await tutorials.getMinicourses({ id: '52' })
-        expect(response.req.path.includes('kind=mini-course')).to.be.true
+        expect(response.req.path.includes('kind=mini-course')).to.be.true()
       })
     })
 
@@ -236,12 +236,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should set a default query parameter for kind', async function () {
         const response = await tutorials.getMinicourses({ workflowId: '10' })
-        expect(response.req.path.includes('kind=mini-course')).to.be.true
+        expect(response.req.path.includes('kind=mini-course')).to.be.true()
       })
 
       it('should use the workflow id as the query param', async function () {
         const response = await tutorials.getTutorials({ workflowId: '10' })
-        expect(response.req.path.includes('workflow_id=10')).to.be.true
+        expect(response.req.path.includes('workflow_id=10')).to.be.true()
       })
     })
   })

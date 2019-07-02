@@ -33,7 +33,7 @@ describe('panoptes.js', function () {
 
     it('should add the query object to the URL if defined', async function () {
       const response = await panoptes.get(endpoint, { page: '2', page_size: '30' })
-      expect(response.req.path.includes('?page=2&page_size=30')).to.be.true
+      expect(response.req.path.includes('?page=2&page_size=30')).to.be.true()
     })
 
     it('should error if query params are defined but are not an object', async function () {
@@ -166,14 +166,14 @@ describe('panoptes.js', function () {
         .reply(200, expectedResponse)
 
       const response = await panoptes[method].apply(this, methodArgs)
-      expect(response.request.url.includes(mockAPIHost)).to.be.true
+      expect(response.request.url.includes(mockAPIHost)).to.be.true()
     })
   }
 
   function testConfigHost (method, endpoint, update = null) {
     it('should use the host defined in the config if a host parameter isn\'t defined', async function () {
       const response = await panoptes[method](endpoint, update)
-      expect(response.request.url.includes(config.host)).to.be.true
+      expect(response.request.url.includes(config.host)).to.be.true()
     })
   }
 
@@ -204,7 +204,7 @@ describe('panoptes.js', function () {
   function testHttpCache (method, endpoint, update = null) {
     it('should add the http_cache default query params to the request', async function () {
       const response = await panoptes[method](endpoint, update)
-      expect(response.req.path.includes('?http_cache=true')).to.be.true
+      expect(response.req.path.includes('?http_cache=true')).to.be.true()
     })
   }
 
@@ -212,7 +212,7 @@ describe('panoptes.js', function () {
     it('should add the admin default query param if flag is found in local storage', async function () {
       localStorage.setItem('adminFlag', true)
       const response = await panoptes[method](endpoint, update)
-      expect(response.req.path.includes('?admin=true')).to.be.true
+      expect(response.req.path.includes('?admin=true')).to.be.true()
       localStorage.removeItem('adminFlag')
     })
   }

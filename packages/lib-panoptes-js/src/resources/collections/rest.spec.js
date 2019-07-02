@@ -225,7 +225,7 @@ describe('Collections resource REST requests', function () {
 
     it('should add subjects to the specified collection', async function () {
       const response = await collections.addSubjects({ id: '10', subjects })
-      expect(response).to.be.ok
+      expect(response).to.be.ok()
     })
   })
 
@@ -265,7 +265,7 @@ describe('Collections resource REST requests', function () {
 
     it('should unlink the specified subjects', async function () {
       const response = await collections.removeSubjects({ id: '10', subjects: ['2'], authorization: 'Bearer 1234' })
-      expect(response).to.be.ok
+      expect(response).to.be.ok()
     })
   })
 })
