@@ -39,7 +39,7 @@ describe('Tutorials resource common requests', function () {
     })
 
     it('should use query params if defined', async function () {
-      const response = await tutorials.getAttachedImages({ id: '1', query: { page: '2' }})
+      const response = await tutorials.getAttachedImages({ id: '1', query: { page: '2' } })
       expect(response.req.path.includes('page=2')).to.be.true
     })
 
@@ -71,7 +71,7 @@ describe('Tutorials resource common requests', function () {
       })
 
       it('should include any other query params if defined', async function () {
-        const response = await tutorials.getWithImages({ id: '1', query: { page: '2' }})
+        const response = await tutorials.getWithImages({ id: '1', query: { page: '2' } })
         expect(response.req.path.includes('page=2')).to.be.true
       })
 
