@@ -65,7 +65,6 @@ function post (endpoint, data, headers = {}, host) {
     .then(response => response)
 }
 
-
 // TODO: support env query
 function put (endpoint, data, headers = {}, host) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
