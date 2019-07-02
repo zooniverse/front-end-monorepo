@@ -84,5 +84,4 @@ describe('Modal', function () {
       expect(wrapper.find(ModalBody).contains(content)).to.true
     })
   })
-
 })

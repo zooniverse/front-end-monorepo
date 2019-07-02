@@ -7,7 +7,6 @@ import Tabs from './Tabs'
 import Tab from '../Tab'
 import readme from './README.md'
 
-
 const config = {
   notes: {
     markdown: readme
