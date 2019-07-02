@@ -4,17 +4,15 @@ const nock = require('nock')
 const projects = require('./index')
 const { endpoint } = require('./helpers')
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 
 describe('Projects resource common requests', function () {
-  let scope
-
   describe('getBySlug', function () {
     const expectedGetResponse = responses.get.project
     const expectedNotFoundResponse = responses.get.queryNotFound
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .get(uri => uri.includes(endpoint))
         .query(true)
@@ -72,10 +70,9 @@ describe('Projects resource common requests', function () {
 
   describe('getWithLinkedResources', function () {
     const expectedGetResponseWithLinkedResources = responses.get.projectWithLinkedResources
-    const expectedNotFoundResponse = responses.get.queryNotFound
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .get(uri => uri.includes(endpoint))
         .query(true)
@@ -102,7 +99,7 @@ describe('Projects resource common requests', function () {
 
     describe('using project slug query parameter', function () {
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -139,7 +136,7 @@ describe('Projects resource common requests', function () {
 
     describe('using project id', function () {
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .get(uri => uri.includes(endpoint))
           .query(true)
           .reply(200, expectedGetResponseWithLinkedResources)
