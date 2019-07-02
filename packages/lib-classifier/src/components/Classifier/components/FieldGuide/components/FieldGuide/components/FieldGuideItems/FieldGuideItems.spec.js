@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import { Grid } from 'grommet'
 import FieldGuideItems from './FieldGuideItems'
@@ -27,7 +27,7 @@ describe('Component > FieldGuideItems', function () {
       <FieldGuideItems
         items={items}
       />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a Grid component', function () {

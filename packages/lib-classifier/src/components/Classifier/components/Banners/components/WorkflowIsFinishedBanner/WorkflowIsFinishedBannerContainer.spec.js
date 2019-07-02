@@ -14,7 +14,7 @@ describe('Component > WorkflowIsFinishedBannerContainer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a <Banner />', function () {
@@ -45,14 +45,14 @@ describe('Component > WorkflowIsFinishedBannerContainer', function () {
           id: '1'
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.true
+      expect(wrapper.find(Banner).prop('show')).to.be.true()
     })
   })
 
   describe('when the banner shouldn\'t show', function () {
     it('shouldn\'t show when there\'s no subject', function () {
       wrapper.setProps({ subject: null })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
 
     it('shouldn\'t show when the workflow isn\'t finished', function () {
@@ -62,7 +62,7 @@ describe('Component > WorkflowIsFinishedBannerContainer', function () {
           id: '1'
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
   })
 })

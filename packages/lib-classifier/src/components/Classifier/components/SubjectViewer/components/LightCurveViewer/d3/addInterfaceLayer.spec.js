@@ -1,4 +1,4 @@
-import sinon from 'sinon'
+(import sinon from 'sinon'
 
 import addInterfaceLayer from './addInterfaceLayer'
 
@@ -23,11 +23,11 @@ describe('LightCurveViewer > d3 > addInterfaceLayer', function () {
 
   it('should append a rect with the correct attributes and style to the selection', function () {
     addInterfaceLayer(selectionFixture)
-    expect(appendStub.calledWith('rect')).to.be.true
-    expect(attrStub.calledWith('class', 'interface-layer')).to.be.true
-    expect(attrStub.calledWith('width', '100%')).to.be.true
-    expect(attrStub.calledWith('height', '100%')).to.be.true
-    expect(styleStub.calledWith('fill', 'none')).to.be.true
-    expect(styleStub.calledWith('pointer-events', 'all')).to.be.true
+    expect(appendStub.calledWith('rect')).to.be.true(
+    expect(attrStub.calledWith('class', 'interface-layer')).to.be.true(
+    expect(attrStub.calledWith('width', '100%')).to.be.true(
+    expect(attrStub.calledWith('height', '100%')).to.be.true(
+    expect(styleStub.calledWith('fill', 'none')).to.be.true(
+    expect(styleStub.calledWith('pointer-events', 'all')).to.be.true(
   })
 })

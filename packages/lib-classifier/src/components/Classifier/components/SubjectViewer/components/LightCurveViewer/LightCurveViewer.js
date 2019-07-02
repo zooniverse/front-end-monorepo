@@ -416,7 +416,7 @@ class LightCurveViewer extends Component {
     data points from appearing outside of the 'middle' of the chart, i.e.
     prevents <circle>s from appearing in the margins of the container.
     */
-    const uniqueId = props.id || Math.floor(Math.random() * 1000000);
+    const uniqueId = props.id || Math.floor(Math.random() * 1000000)
     this.d3svg.call(addDataLayer, uniqueId)
     this.d3dataLayer = this.d3svg.select('.data-layer')
     this.d3svg.call(addDataMask, props.outerMargin, uniqueId)
@@ -705,7 +705,7 @@ LightCurveViewer.defaultProps = {
     fontSize: '0.75rem'
   },
 
-  id: undefined,  // Specify a unique ID for each LCV; required to distinguish data-masks. WARNING: do not apply Math.random() here, as the random value will be set at the class level, and therefore be the same for each instance of the LCV.
+  id: undefined, // Specify a unique ID for each LCV; required to distinguish data-masks. WARNING: do not apply Math.random() here, as the random value will be set at the class level, and therefore be the same for each instance of the LCV.
   interactionMode: 'annotate',
 
   onKeyDown: () => true

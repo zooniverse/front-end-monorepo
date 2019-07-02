@@ -16,7 +16,7 @@ const theme = {
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
       return `
-        background: ${ dark ? colors['dark-1'] : colors['light-1'] };
+        background: ${dark ? colors['dark-1'] : colors['light-1']};
         height: 100%;
         text-transform: capitalize;
         width: 100%;

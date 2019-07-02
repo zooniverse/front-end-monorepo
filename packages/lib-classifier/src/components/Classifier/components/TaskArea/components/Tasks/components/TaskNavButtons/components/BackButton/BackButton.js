@@ -20,10 +20,10 @@ export const StyledBackButtonWrapper = styled.div`
 export const StyledBackButtonToolTip = styled.span`
   bottom: '-100%';
   box-sizing: border-box;
-  color: ${(props) => props.theme.dark ?
-    props.theme.global.colors['accent-2'] :
-    props.theme.global.colors.brand
-  };
+  color: ${(props) => props.theme.dark
+    ? props.theme.global.colors['accent-2']
+    : props.theme.global.colors.brand
+};
   font-size: 0.9em;
   left: 0;
   padding: 1em 0;

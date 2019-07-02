@@ -2,7 +2,6 @@ import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
   panoptes as panoptesClient,
@@ -10,11 +9,11 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { registerWorkers, unregisterWorkers } from '../../workers'
+import { unregisterWorkers } from '../../workers'
 import RootStore from 'src/store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
-import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
+// import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 
 const client = {
   panoptes: panoptesClient,

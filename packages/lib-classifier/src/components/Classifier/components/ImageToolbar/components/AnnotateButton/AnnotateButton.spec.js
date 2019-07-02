@@ -5,7 +5,8 @@ import AnnotateButton from './AnnotateButton'
 
 describe('Component > AnnotateButton', function () {
   it('should render without crashing', function () {
-    shallow(<AnnotateButton />)
+    const wrapper = shallow(<AnnotateButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` prop', function () {
@@ -21,6 +22,6 @@ describe('Component > AnnotateButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy.called).to.be.true()
   })
 })

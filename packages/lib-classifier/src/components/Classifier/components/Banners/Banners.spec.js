@@ -15,7 +15,7 @@ describe('Component > Banners', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the `AlreadySeenBanner` component', function () {

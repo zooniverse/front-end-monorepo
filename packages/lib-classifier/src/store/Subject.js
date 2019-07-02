@@ -19,7 +19,6 @@ const Subject = types
   })
 
   .actions(self => {
-
     function addToCollection () {
       const rootStore = getRoot(self)
       rootStore.onAddToCollection(self.id)

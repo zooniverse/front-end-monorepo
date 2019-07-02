@@ -5,7 +5,8 @@ import MoveButton from './MoveButton'
 
 describe('Component > MoveButton', function () {
   it('should render without crashing', function () {
-    shallow(<MoveButton />)
+    const wrapper = shallow(<MoveButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` label', function () {
@@ -21,6 +22,6 @@ describe('Component > MoveButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy.called).to.be.true()
   })
 })

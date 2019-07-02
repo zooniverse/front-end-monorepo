@@ -1,11 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import InfoIcon from './InfoIcon'
+import ZoomInIcon from './ZoomInIcon'
 
-describe('InfoIcon', function () {
+describe('Component > ZoomInIcon', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<InfoIcon />)
+    const wrapper = shallow(<ZoomInIcon />)
     expect(wrapper).to.be.ok()
   })
 })

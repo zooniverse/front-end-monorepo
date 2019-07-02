@@ -23,7 +23,7 @@ const medium = {
 describe('SlideTutorial', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render markdown from the step content', function () {
@@ -65,6 +65,6 @@ describe('SlideTutorial', function () {
     const onClick = sinon.spy()
     const wrapper = shallow(<SlideTutorial activeStep={1} onClick={onClick} stepWithMedium={{ step, medium }} isLastStep />)
     wrapper.find(Button).simulate('click')
-    expect(onClick).to.have.been.calledOnce
+    expect(onClick).to.have.been.calledOnce()
   })
 })
