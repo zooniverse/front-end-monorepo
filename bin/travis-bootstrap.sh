@@ -17,8 +17,6 @@ LERNA=$TRAVIS_BUILD_DIR/node_modules/.bin/lerna
 
 $LERNA bootstrap
 
-$LERNA run --scope="@zooniverse/async-states" build
-
 $LERNA run --scope="@zooniverse/grommet-theme" build
 
 $LERNA run --scope="@zooniverse/react-components" build
