@@ -22,10 +22,6 @@ printf '\n'
 printf 'Bootstrapping the monorepo!\n\n'
 $LERNA bootstrap
 
-printf 'Building `lib-async-states`...\n'
-$LERNA exec --scope="@zooniverse/async-states" -- npm run build
-printf '\n'
-
 printf 'Building `lib-grommet-theme`...\n'
 $LERNA exec --scope="@zooniverse/grommet-theme" -- npm run build
 printf '\n'
