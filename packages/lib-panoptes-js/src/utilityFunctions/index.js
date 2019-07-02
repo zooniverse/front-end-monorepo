@@ -34,7 +34,7 @@ function raiseError (errorMessage, errorClass) {
 }
 
 function isParamTypeInvalid (param, type) {
-  if (param && typeof param !== type) return true
+  if (param) return (typeof param !== type)
 
   return false
 }

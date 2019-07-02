@@ -7,8 +7,6 @@ const { config } = require('../../config')
 const { responses } = require('./mocks')
 
 describe('Projects resource REST requests', function () {
-  let scope
-
   describe('create', function () {
     const expectedResponse = responses.post.createdProject
 
@@ -17,7 +15,7 @@ describe('Projects resource REST requests', function () {
     let reqBody
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .post(
           uri => uri.includes(endpoint),
@@ -38,7 +36,7 @@ describe('Projects resource REST requests', function () {
 
     it('should have sent the expected data params with an added { private: true }', async function () {
       const projectDisplayName = { display_name: 'My project' }
-      const response = await projects.create({ data: projectDisplayName })
+      await projects.create({ data: projectDisplayName })
       expect(reqBody).to.eql(Object.assign({}, { private: true }, projectDisplayName))
     })
 
@@ -53,7 +51,7 @@ describe('Projects resource REST requests', function () {
       const expectedGetAllResponse = responses.get.projects
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -79,7 +77,7 @@ describe('Projects resource REST requests', function () {
       const expectedGetSingleResponse = responses.get.project
 
       before(function () {
-        scope = nock(config.host)
+        nock(config.host)
           .persist()
           .get(uri => uri.includes(endpoint))
           .query(true)
@@ -103,7 +101,7 @@ describe('Projects resource REST requests', function () {
       it('should include query params with the request if defined', async function () {
         const queryParams = { page: '2' }
         const response = await projects.get({ id: '2', query: queryParams })
-        expect(response.req.path.includes('?page=2')).to.be.true
+        expect(response.req.path.includes('?page=2')).to.be.true()
       })
 
       it('should error if id arugment is not a string', async function () {
@@ -122,7 +120,7 @@ describe('Projects resource REST requests', function () {
     const update = { researcher_quote: 'Try my project!' }
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .put(uri => uri.includes(endpoint))
         .query(true)
@@ -175,7 +173,7 @@ describe('Projects resource REST requests', function () {
     const responseStatus = 204
 
     before(function () {
-      scope = nock(config.host)
+      nock(config.host)
         .persist()
         .delete(uri => uri.includes(endpoint))
         .query(true)
