@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../../src/components/Modal/components/ModalHeading/index.js"],"names":["default"],"mappings":";;;;;;;;;;;iDAASA,O","file":"index.js","sourcesContent":["export { default } from './ModalHeading'\n"]}

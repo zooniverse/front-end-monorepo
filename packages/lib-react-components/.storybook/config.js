@@ -1,19 +1,13 @@
-import { withBackgrounds } from '@storybook/addon-backgrounds'
-import { withNotes } from '@storybook/addon-notes'
-import { withViewport } from '@storybook/addon-viewport'
-import { configure } from '@storybook/react'
-import { addDecorator } from '@storybook/react/dist/client/preview'
+import { addParameters, configure } from '@storybook/react';
 
 import { backgrounds } from './lib'
 
-const componentDirs = require.context('../src', true, /.stories.js$/)
+addParameters({ backgrounds })
 
-addDecorator(withBackgrounds(backgrounds))
-addDecorator(withViewport())
-addDecorator(withNotes)
-
-configure(loadStories.bind(this, componentDirs), module)
-
-function loadStories (context) {
-  context.keys().forEach(filename => context(filename))
+// automatically import all files ending in *.stories.js
+const req = require.context('../src', true, /\.stories\.js$/);
+function loadStories() {
+  req.keys().forEach(filename => req(filename));
 }
+
+configure(loadStories, module);

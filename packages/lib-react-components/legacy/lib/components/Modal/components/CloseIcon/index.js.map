@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../../src/components/Modal/components/CloseIcon/index.js"],"names":["default"],"mappings":";;;;;;;;;;;8CAASA,O","file":"index.js","sourcesContent":["export { default } from './CloseIcon'\n"]}

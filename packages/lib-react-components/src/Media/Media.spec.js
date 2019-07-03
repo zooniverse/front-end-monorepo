@@ -13,7 +13,7 @@ describe('Media', function () {
   let wrapper
   it('should render without crashing', function () {
     wrapper = shallow(<Media src={image} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render ThumbnailImage if the source mimetype is an image', function () {
