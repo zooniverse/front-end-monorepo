@@ -10,7 +10,7 @@ When we first started the rebuild, @rogerhutchings set it up as a monorepo. The 
   - Error boundaries are built-in (if we break one thing, we don't necessarily break everything)
   - To make changes to one thing, we don't need to recompile and rebuild _everything_ in development, at least
 
-...but that working across multiple repos can be pretty tedious: adding a feature which requires changes to more than one package requires multiple pull requests to different repos, for example. So Roger set it up as a monorepo using Lerna. This started out fine, but we hit some issues in the development of Planet Hunters TESS:
+Working across multiple repos can be pretty tedious: adding a feature which requires changes to more than one package requires multiple pull requests to different repos, for example, and publishing updated packages in the correct order. So Roger set this project up as a monorepo using Lerna. This started out fine, but we hit some issues in the development of Planet Hunters TESS:
 
   - `styled-components` wasn't collect styling from symlinked dependencies, causing a FOUC on initial render: https://github.com/zooniverse/front-end-monorepo/issues/327
   - Adding the `@zooniverse/standard` package broke the build because Lerna wasn't correctly linking it up: https://github.com/zooniverse/front-end-monorepo/pull/958
