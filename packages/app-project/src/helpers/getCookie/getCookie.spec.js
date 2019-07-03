@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { getCookie } from './cookies'
+import getCookie from './getCookie'
 
 describe('Helper > getCookie', function () {
   it('should return an empty string if there is not a next.js context', function () {
