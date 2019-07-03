@@ -23,7 +23,7 @@ describe('MetadataButton', function () {
     const onClickSpy = sinon.spy()
     const wrapper = shallow(<MetadataButton onClick={onClickSpy} />)
     wrapper.find(MetaToolsButton).simulate('click')
-    expect(onClickSpy.calledOnce).to.be.true()
+    expect(onClickSpy).to.have.been.calledOnce()
   })
 
   describe('when disabled', function () {
