@@ -9,7 +9,7 @@ import InfoIcon from './InfoIcon'
 describe('MetadataButton', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<MetadataButton />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should display an info icon', function () {
@@ -23,7 +23,7 @@ describe('MetadataButton', function () {
     const onClickSpy = sinon.spy()
     const wrapper = shallow(<MetadataButton onClick={onClickSpy} />)
     wrapper.find(MetaToolsButton).simulate('click')
-    expect(onClickSpy.calledOnce).to.be.true
+    expect(onClickSpy).to.have.been.calledOnce()
   })
 
   describe('when disabled', function () {
@@ -36,7 +36,7 @@ describe('MetadataButton', function () {
         />
       )
       wrapper.find('button').simulate('click')
-      expect(onClickSpy).to.not.have.been.called
+      expect(onClickSpy).to.not.have.been.called()
     })
   })
 })

@@ -13,7 +13,7 @@ let wrapper
 
 const subject = Factory.build('subject', { locations: [
   { 'application/json': 'http://localhost:8080/mockData.json' }
-]})
+] })
 
 const nextSubject = Factory.build('subject', { locations: [
   { 'text/plain': 'http://localhost:8080/nextSubject.json' }
@@ -32,12 +32,12 @@ const failSubject = Factory.build('subject', {
 describe('Component > LightCurveViewerContainer', function () {
   it('should render without crashing', function () {
     wrapper = shallow(<LightCurveViewerContainer onKeyDown={() => {}} setOnPan={() => {}} setOnZoom={() => {}} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should mount with an initialized state', function () {
     wrapper = shallow(
-      <LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />, 
+      <LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />,
       { disableLifecycleMethods: true }
     )
     const mockState = {
@@ -50,7 +50,7 @@ describe('Component > LightCurveViewerContainer', function () {
   describe('without a subject', function () {
     it('should render null with the default props', function () {
       wrapper = shallow(<LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />)
-      expect(wrapper.html()).to.be.null
+      expect(wrapper.html()).to.be.null()
     })
   })
 
@@ -85,14 +85,14 @@ describe('Component > LightCurveViewerContainer', function () {
         <LightCurveViewerContainer
           onError={onErrorSpy}
           subject={imageSubject}
-          onKeyDown={() => { }} 
-          setOnPan={() => { }} 
+          onKeyDown={() => { }}
+          setOnPan={() => { }}
           setOnZoom={() => { }}
         />
       )
-      
+
       cdmSpy.returnValues[0].then(() => {
-        expect(onErrorSpy).to.have.been.calledOnce
+        expect(onErrorSpy).to.have.been.calledOnce()
         expect(onErrorSpy.args[0][0].message).to.equal('No JSON url found for this subject')
       }).then(done, done)
     })
@@ -109,7 +109,7 @@ describe('Component > LightCurveViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        expect(onErrorSpy).to.have.been.calledOnce
+        expect(onErrorSpy).to.have.been.calledOnce()
         expect(onErrorSpy.args[0][0].message).to.equal('Not Found')
       }).then(done, done)
     })

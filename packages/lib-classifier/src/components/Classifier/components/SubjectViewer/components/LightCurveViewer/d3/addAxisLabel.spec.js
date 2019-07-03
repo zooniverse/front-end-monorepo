@@ -26,10 +26,10 @@ describe('LightCurveViewer > d3 > addAxisLabel', function () {
       fontFamily: 'Ariel'
     }
     const d3svg = d3.select(node)
-    
+
     addAxisLabel(d3svg, className, text, styles)
     const axis = node.querySelector('text')
-    expect(axis.classList.contains(className)).to.be.true
+    expect(axis.classList.contains(className)).to.be.true()
     expect(axis.innerHTML).to.equal(text)
     expect(axis.style.fill).to.equal(styles.color)
     expect(axis.style['font-size']).to.equal(styles.fontSize)

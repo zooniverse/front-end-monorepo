@@ -5,7 +5,7 @@ const FEEDBACK_MESSAGES = [
   'foo',
   'foo',
   'bar',
-  'bar',
+  'bar'
 ]
 
 describe('Helpers > reduceFeedbackMessages', function () {
@@ -17,7 +17,7 @@ describe('Helpers > reduceFeedbackMessages', function () {
     const reduced = reduceFeedbackMessages(FEEDBACK_MESSAGES)
     expect(reduced).to.deep.equal([
       { text: 'foo', count: 3 },
-      { text: 'bar', count: 2 },
+      { text: 'bar', count: 2 }
     ])
   })
 })

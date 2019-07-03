@@ -1,8 +1,8 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import { observable } from 'mobx'
-import { Markdownz, Media } from '@zooniverse/react-components'
+import { Markdownz } from '@zooniverse/react-components'
 import FieldGuideItemAnchor, { AnchorLabel } from './FieldGuideItemAnchor'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
@@ -26,7 +26,7 @@ describe('Component > FieldGuideItemAnchor', function () {
         itemIndex={itemIndex}
         setActiveItemIndex={() => {}}
       />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should use AnchorLabel as the label', function () {
@@ -61,7 +61,7 @@ describe('Component > FieldGuideItemAnchor', function () {
           icons={attachedMedia}
           item={item}
         />)
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should render the item title as markdown', function () {
@@ -70,7 +70,7 @@ describe('Component > FieldGuideItemAnchor', function () {
           icons={attachedMedia}
           item={item}
         />)
-      expect(wrapper.find(Markdownz).contains(item.title)).to.be.true
+      expect(wrapper.find(Markdownz).contains(item.title)).to.be.true()
     })
 
     it('should render an FieldGuideItemIcon component', function () {

@@ -1,11 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import InfoIcon from './InfoIcon'
+import RotateIcon from './RotateIcon'
 
-describe('InfoIcon', function () {
+describe('Component > RotateIcon', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<InfoIcon />)
+    const wrapper = shallow(<RotateIcon />)
     expect(wrapper).to.be.ok()
   })
 })

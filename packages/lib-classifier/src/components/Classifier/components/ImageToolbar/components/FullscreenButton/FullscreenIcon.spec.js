@@ -1,11 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import InfoIcon from './InfoIcon'
+import FullscreenIcon from './FullscreenIcon'
 
-describe('InfoIcon', function () {
+describe('Component > FullscreenIcon', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<InfoIcon />)
+    const wrapper = shallow(<FullscreenIcon />)
     expect(wrapper).to.be.ok()
   })
 })

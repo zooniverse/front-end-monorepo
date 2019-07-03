@@ -5,6 +5,7 @@ import MoveButtonContainer from './MoveButtonContainer'
 
 describe('Component > MoveButtonContainer', function () {
   it('should render without crashing', function () {
-    shallow(<MoveButtonContainer.wrappedComponent />)
+    const wrapper = shallow(<MoveButtonContainer.wrappedComponent />)
+    expect(wrapper).to.be.ok()
   })
 })
