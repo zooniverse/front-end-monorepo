@@ -1,9 +1,12 @@
-import { configure } from '@storybook/react';
+import { addParameters, configure } from '@storybook/react'
 
-const req = require.context('../src', true, /\.stories\.js$/);
+import { backgrounds } from './lib'
+
+addParameters({ backgrounds })
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  const req = require.context('../src', true, /\.stories\.js$/)
+  req.keys().forEach(filename => req(filename))
 }
 
-configure(loadStories, module);
+configure(loadStories, module)
