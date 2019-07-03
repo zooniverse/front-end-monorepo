@@ -1,4 +1,4 @@
-(import sinon from 'sinon'
+import sinon from 'sinon'
 
 import addInterfaceLayer from './addInterfaceLayer'
 
