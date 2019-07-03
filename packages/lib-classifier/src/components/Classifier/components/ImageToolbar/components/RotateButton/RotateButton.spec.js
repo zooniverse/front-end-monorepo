@@ -5,7 +5,8 @@ import RotateButton from './RotateButton'
 
 describe('Component > RotateButton', function () {
   it('should render without crashing', function () {
-    shallow(<RotateButton />)
+    const wrapper = shallow(<RotateButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` prop', function () {
@@ -21,6 +22,6 @@ describe('Component > RotateButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy.called).to.be.true()
   })
 })

@@ -12,7 +12,7 @@ describe('Component > SingleImageViewer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render an svg image based on the subject prop', function () {

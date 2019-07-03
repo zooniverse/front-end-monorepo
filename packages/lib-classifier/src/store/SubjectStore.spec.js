@@ -25,11 +25,11 @@ const clientStub = {
 }
 
 describe('Model > SubjectStore', function () {
-  function setupStores(rootStore) {
-      sinon.stub(rootStore.classifications, 'createClassification')
-      rootStore.projects.setResource(project)
-      rootStore.workflows.setResource(workflow)
-      rootStore.workflows.setActive(workflow.id)
+  function setupStores (rootStore) {
+    sinon.stub(rootStore.classifications, 'createClassification')
+    rootStore.projects.setResource(project)
+    rootStore.workflows.setResource(workflow)
+    rootStore.workflows.setActive(workflow.id)
   }
   describe('Actions > advance', function () {
     before(function () {
@@ -70,12 +70,12 @@ describe('Model > SubjectStore', function () {
 
     describe('after emptying the queue', function () {
       before(function () {
-        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: []}))
+        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: [] }))
         while (rootStore.subjects.resources.size > 0) {
           rootStore.subjects.advance()
         }
       })
-      
+
       after(function () {
         clientStub.panoptes.get.restore()
       })

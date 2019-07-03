@@ -13,17 +13,17 @@ const steps = [
 describe('StepNavigation', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render null if there are no steps', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent />)
-    expect(wrapper.html()).to.be.null
+    expect(wrapper.html()).to.be.null()
   })
 
   it('should render null if there is not more than one step', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={[{ content: '# Welcome' }]} />)
-    expect(wrapper.html()).to.be.null
+    expect(wrapper.html()).to.be.null()
   })
 
   it('should render a previous button', function () {
@@ -57,14 +57,14 @@ describe('StepNavigation', function () {
 
   it('should disable the previous step button when props.activeStep is 0', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
-    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.true
-    expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.false
+    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.true()
+    expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.false()
   })
 
   it('should disable the next step button when props.activeStep is the last step', function () {
     const wrapper = shallow(<StepNavigation.wrappedComponent activeStep={1} steps={steps} />)
-    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false
-    expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true
+    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false()
+    expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true()
   })
 
   describe('#onChange', function () {
@@ -102,7 +102,7 @@ describe('StepNavigation', function () {
 
       buttons.forEach(button => {
         button.simulate('click')
-        expect(setTutorialStepSpy).to.have.been.calledOnce
+        expect(setTutorialStepSpy).to.have.been.calledOnce()
         setTutorialStepSpy.resetHistory()
       })
     })
@@ -111,14 +111,14 @@ describe('StepNavigation', function () {
       wrapper.setProps({ activeStep: 1 })
       const prevButton = wrapper.find({ icon: <FormPrevious /> })
       prevButton.simulate('click')
-      expect(setTutorialStepSpy).to.have.been.calledOnce
+      expect(setTutorialStepSpy).to.have.been.calledOnce()
       expect(setTutorialStepSpy).to.have.been.calledWith(prevButton.props()['data-index'])
     })
 
     it('should call setTutorialStep when the next step button is clicked with props.activeStep + 1', function () {
       const nextButton = wrapper.find({ icon: <FormNext /> })
       nextButton.simulate('click')
-      expect(setTutorialStepSpy).to.have.been.calledOnce
+      expect(setTutorialStepSpy).to.have.been.calledOnce()
       expect(setTutorialStepSpy).to.have.been.calledWith(nextButton.props()['data-index'])
     })
   })
