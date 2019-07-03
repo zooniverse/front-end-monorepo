@@ -9,11 +9,11 @@ const subjects = require('./index')
 describe('Subjects resource common requests', function () {
   describe('getSubjectQueue', function () {
     const expectedGetResponse = responses.get.subjectQueue
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .get(uri => uri.includes(queuedEndpoint))
+    beforeEach(function () {
+      scope
+        .get(queuedEndpoint)
         .query(true)
         .reply(200, expectedGetResponse)
     })

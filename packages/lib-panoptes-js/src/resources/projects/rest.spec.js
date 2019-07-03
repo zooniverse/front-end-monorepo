@@ -9,16 +9,16 @@ const { responses } = require('./mocks')
 describe('Projects resource REST requests', function () {
   describe('create', function () {
     const expectedResponse = responses.post.createdProject
+    const scope = nock(config.host)
 
     // We save the request body here in order to make assertions on the
     // content _without_ accessing a private property in Nock.
     let reqBody
 
-    before(function () {
-      nock(config.host)
-        .persist()
+    beforeEach(function () {
+      scope
         .post(
-          uri => uri.includes(endpoint),
+          endpoint,
           body => { reqBody = body; return body }
         )
         .query(true)
@@ -49,11 +49,11 @@ describe('Projects resource REST requests', function () {
   describe('get', function () {
     describe('many projects', function () {
       const expectedGetAllResponse = responses.get.projects
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetAllResponse)
       })
@@ -75,11 +75,11 @@ describe('Projects resource REST requests', function () {
 
     describe('a single project', function () {
       const expectedGetSingleResponse = responses.get.project
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/2`)
           .query(true)
           .reply(200, expectedGetSingleResponse)
       })
@@ -118,11 +118,11 @@ describe('Projects resource REST requests', function () {
   describe('update', function () {
     const expectedPutResponse = responses.put.updatedProject
     const update = { researcher_quote: 'Try my project!' }
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .put(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .put(`${endpoint}/2`)
         .query(true)
         .reply(200, expectedPutResponse)
     })
@@ -171,11 +171,11 @@ describe('Projects resource REST requests', function () {
 
   describe('delete', function () {
     const responseStatus = 204
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .delete(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .delete(`${endpoint}/2`)
         .query(true)
         .reply(responseStatus)
     })
