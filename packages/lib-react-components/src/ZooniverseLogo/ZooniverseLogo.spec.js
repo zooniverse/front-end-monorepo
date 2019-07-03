@@ -13,7 +13,7 @@ describe('ZooniverseLogo', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should use the `id` prop for `aria-labelledby` and `title`', function () {

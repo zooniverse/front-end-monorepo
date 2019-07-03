@@ -7,7 +7,7 @@ import SpacedText from '../SpacedText'
 describe('<Tab />', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<Tab title='Foobar' />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the `title` prop using the SpacedText component if it\'s a string', function () {

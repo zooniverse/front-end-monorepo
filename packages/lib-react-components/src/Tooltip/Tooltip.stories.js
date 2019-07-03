@@ -1,5 +1,5 @@
 import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet, Text } from 'grommet'
@@ -77,7 +77,7 @@ class TooltipStoryExample extends React.Component {
             onMouseOver={() => this.setState({ showDrop: true })}
             onMouseOut={() => this.setState({ showDrop: false })}
             primary
-            ref={ref => this.button = ref}
+            ref={ref => { this.button = ref }}
           />
           {(this.state.showDrop || showDropKnob) &&
             <Tooltip
