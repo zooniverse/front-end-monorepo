@@ -5,10 +5,7 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "homepage": "https://github.com/zooniverse/front-end-monorepo",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:zooniverse/front-end-monorepo.git"
-  },
+  "repository": "git@github.com:zooniverse/front-end-monorepo.git",
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "version": "0.0.1",
   "devDependencies": {
@@ -41,5 +38,6 @@
     "extension": [
       ".jsx"
     ]
-  }
+  },
+  "main": "index.js"
 }
