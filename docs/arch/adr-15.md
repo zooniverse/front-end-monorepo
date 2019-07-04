@@ -9,7 +9,8 @@ The way the drawing tools currently function on Panoptes-Front-End (PFE) have nu
 - Updating the classification annotation on each touch or pointer event which causes unnecessary re-rendering of the DOM
 - The separation concerns are not clear between components and stores. Multiple components can update the annotation making it hard to debug or add new features to. 
   - Example: The `MarkingsRenderer` and the `FrameAnnotator` both call change handlers that update the classification annotation? Can the drawing annotation be updated by both or is one solely responsible? It is unclear by reading the code. Why does something named `MarkingsRenderer` update the annotation?
-
+- Drawing tools have a complex API that involves exposing static methods to be called by their parent component
+- Annotation / classification payloads have no consistent standards for describing data: some tools mark rotation in differing directions, for example.
 
 ## Decision
 
