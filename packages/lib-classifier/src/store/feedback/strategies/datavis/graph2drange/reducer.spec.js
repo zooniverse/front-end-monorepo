@@ -59,7 +59,7 @@ function testFeedbackRule (rule) {
       success: true,
       successfulClassifications: [annotationTolerance],
       ...rule
-      }))
+    }))
   })
 
   it('should return result with success with successful and failed annotation', function () {

@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Provider } from 'mobx-react'
 import ZoomOutButtonContainer from './ZoomOutButtonContainer'
 
 describe('Component > ZoomOutButtonContainer', function () {
   it('should render without crashing', function () {
-    shallow(<ZoomOutButtonContainer.wrappedComponent />)
+    const wrapper = shallow(<ZoomOutButtonContainer.wrappedComponent />)
+    expect(wrapper).to.be.ok()
   })
 })

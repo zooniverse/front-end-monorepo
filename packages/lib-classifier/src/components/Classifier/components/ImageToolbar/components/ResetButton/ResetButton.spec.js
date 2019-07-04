@@ -5,7 +5,8 @@ import ResetButton from './ResetButton'
 
 describe('Component > ResetButton', function () {
   it('should render without crashing', function () {
-    shallow(<ResetButton />)
+    const wrapper = shallow(<ResetButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` label', function () {
@@ -21,6 +22,6 @@ describe('Component > ResetButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy.called).to.be.true()
   })
 })

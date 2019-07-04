@@ -1,6 +1,6 @@
 import { Markdownz, Media } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Box, Heading, Paragraph } from 'grommet'
+import { Button, Box, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
@@ -21,13 +21,13 @@ const StyledButton = styled(Button)`
   &:hover > svg,
   &:focus > svg {
     fill: ${props => props.theme.dark
-      ? props.theme.global.colors['light-2']
-      : props.theme.global.colors['dark-5']
-    };
+    ? props.theme.global.colors['light-2']
+    : props.theme.global.colors['dark-5']
+};
     stroke: ${props => props.theme.dark
-      ? props.theme.global.colors['light-2']
-      : props.theme.global.colors['dark-5']
-    };
+    ? props.theme.global.colors['light-2']
+    : props.theme.global.colors['dark-5']
+};
   }
 `
 const markdownTitleComponent = {
@@ -41,7 +41,7 @@ const markdownComponents = {
   h4: (nodeProps) => <SpacedHeading level='4'>{nodeProps.children}</SpacedHeading>,
   h5: (nodeProps) => <SpacedHeading level='5'>{nodeProps.children}</SpacedHeading>,
   h6: (nodeProps) => <SpacedHeading level='6'>{nodeProps.children}</SpacedHeading>,
-  img: (nodeProps) => <Media alt={nodeProps.alt} src={nodeProps.src} height="200px" />,
+  img: (nodeProps) => <Media alt={nodeProps.alt} src={nodeProps.src} height='200px' />,
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 

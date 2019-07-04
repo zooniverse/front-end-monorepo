@@ -4,6 +4,7 @@ import ResetButtonContainer from './ResetButtonContainer'
 
 describe('Component > ResetButtonContainer', function () {
   it('should render without crashing', function () {
-    shallow(<ResetButtonContainer.wrappedComponent />)
+    const wrapper = shallow(<ResetButtonContainer.wrappedComponent />)
+    expect(wrapper).to.be.ok()
   })
 })

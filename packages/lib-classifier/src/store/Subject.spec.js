@@ -25,7 +25,7 @@ describe('Model > Subject', function () {
   it('should have a `locations` property', function () {
     expect(subject.locations).to.deep.equal(stub.locations)
   })
-  
+
   it('should have a Talk URL', function () {
     expect(subject.talkURL).to.equal(`https://example.org/projects/zooniverse/example/talk/subjects/${subject.id}`)
   })

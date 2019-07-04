@@ -5,7 +5,8 @@ import ZoomInButton from './ZoomInButton'
 
 describe('Component > ZoomInButton', function () {
   it('should render without crashing', function () {
-    shallow(<ZoomInButton />)
+    const wrapper = shallow(<ZoomInButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` label', function () {
@@ -21,6 +22,6 @@ describe('Component > ZoomInButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy.called).to.be.true()
   })
 })

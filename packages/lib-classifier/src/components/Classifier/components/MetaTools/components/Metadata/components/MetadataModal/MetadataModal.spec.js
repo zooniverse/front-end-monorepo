@@ -15,7 +15,7 @@ const metadata = {
 describe('MetadataModal', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<MetadataModal metadata={metadata} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a Modal', function () {
@@ -36,14 +36,14 @@ describe('MetadataModal', function () {
   it('should add the +tab+ prefix to metadata urls', function () {
     const wrapper = shallow(<MetadataModal metadata={metadata} />)
     const href = wrapper.find('Styled(DataTable)').props().data[1]
-    expect(href.value.props.children.includes('+tab+')).to.be.true
+    expect(href.value.props.children.includes('+tab+')).to.be.true()
   })
 
   it('should not render metadata prefixed with # or !', function () {
     const wrapper = shallow(<MetadataModal metadata={metadata} />)
     wrapper.find('Styled(DataTable)').props().data.forEach((datum) => {
-      expect(datum.label.includes('#')).to.be.false
-      expect(datum.label.includes('!')).to.be.false
+      expect(datum.label.includes('#')).to.be.false()
+      expect(datum.label.includes('!')).to.be.false()
     })
   })
 })
