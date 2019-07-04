@@ -70,7 +70,6 @@
     "mst-middlewares": "~3.7.1",
     "nock": "~10.0.6",
     "panoptes-client": "~2.12.0",
-    "peer-deps-externals-webpack-plugin": "~1.0.4",
     "polished": "~3.4.1",
     "query-string": "~6.8.1",
     "react": "~16.8.6",
