@@ -37,4 +37,5 @@ Proposed
 
 ## Consequences
 
-We'll need to help devs get `yarn` installed, and how to work with the monorepo using the new tooling - updated documentation will be needed. There's also the possibility of creating a dev Docker image with `yarn` and some other local tools (like a build watcher/compiler) built in for people to use.
+- We'll need to help devs get `yarn` installed, and how to work with the monorepo using the new tooling - updated documentation will be needed. There's also the possibility of creating a dev Docker image with `yarn` and some other local tools (like a build watcher/compiler) built in for people to use.
+- Yarn is quite noisy, and will complain about missing `peerDependencies`_a lot_ (see https://github.com/yarnpkg/yarn/issues/5347#issuecomment-386288470). This is a conscious decision by the maintainers.
