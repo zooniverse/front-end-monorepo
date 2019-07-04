@@ -10,12 +10,12 @@ describe('Tutorials resource REST requests', function () {
   describe('get', function () {
     const expectedGetAllResponse = responses.get.tutorials
     const expectedGetSingleResponse = responses.get.tutorial
+    const scope = nock(config.host)
 
     describe('by workflow id', function () {
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetAllResponse)
       })
@@ -54,10 +54,11 @@ describe('Tutorials resource REST requests', function () {
     })
 
     describe('by tutorial id', function () {
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      const scope = nock(config.host)
+
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/1`)
           .query(true)
           .reply(200, expectedGetSingleResponse)
       })

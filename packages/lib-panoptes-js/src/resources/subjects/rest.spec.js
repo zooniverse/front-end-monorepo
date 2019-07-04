@@ -9,11 +9,11 @@ const subjects = require('./index')
 describe('Subjects resource REST requests', function () {
   describe('get', function () {
     const expectedGetResponse = responses.get.subject
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .get(`${endpoint}/10`)
         .query(true)
         .reply(200, expectedGetResponse)
     })

@@ -6,13 +6,13 @@ const panoptes = require('./panoptes')
 
 describe('panoptes.js', function () {
   describe('get', function () {
-    const endpoint = '/projects'
+    const endpoint = '/projects/2'
     const expectedResponse = { id: '2' }
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .get(endpoint)
         .query(true)
         .reply(200, expectedResponse)
     })
@@ -49,11 +49,11 @@ describe('panoptes.js', function () {
   describe('post', function () {
     const endpoint = '/projects'
     const expectedResponse = { id: '3' }
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .post(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .post(endpoint)
         .query(true)
         .reply(200, expectedResponse)
     })
@@ -80,14 +80,14 @@ describe('panoptes.js', function () {
   })
 
   describe('put', function () {
-    const endpoint = '/projects/2'
+    const endpoint = '/projects/3'
     const update = { display_name: 'My project' }
     const expectedResponse = { id: '3', display_name: 'My project' }
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .put(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .put(endpoint)
         .query(true)
         .reply(200, expectedResponse)
     })
@@ -119,13 +119,13 @@ describe('panoptes.js', function () {
   })
 
   describe('delete', function () {
-    const endpoint = '/projects'
+    const endpoint = '/projects/2'
     const expectedResponse = { status: 204 }
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .delete(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .delete(endpoint)
         .query(true)
         .reply(204, { status: 204 })
     })
