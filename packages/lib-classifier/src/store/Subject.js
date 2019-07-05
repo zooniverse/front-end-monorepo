@@ -54,7 +54,7 @@ const Subject = types
       const counts = createLocationCounts(self)
 
       const workflow = getRoot(self).workflows.active
-      const configuration = workflow && workflow.configuration || {}
+      const configuration = (workflow && workflow.configuration) || {}
       let viewer = null
 
       // If the Workflow configuration specifies a subject viewer, use that.
