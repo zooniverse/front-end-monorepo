@@ -40,7 +40,7 @@ describe('ClassificationQueue', function () {
     let postSpy
     beforeEach(function () {
       apiClient = { post: () =>
-        Promise.reject('Stubbing error response')
+        Promise.reject(new Error('Stubbing error response'))
           .catch(() => { return { body: {}, ok: false, status: 504 } })
       }
       postSpy = sinon.spy(apiClient, 'post')

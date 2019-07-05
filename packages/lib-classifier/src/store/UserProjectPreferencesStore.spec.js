@@ -98,8 +98,8 @@ describe('Model > UserProjectPreferencesStore', function () {
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
       }, { authClient: {
-        checkBearerToken: () => Promise.reject('testing error handling'),
-        checkCurrent: () => Promise.reject('testing error handling')
+        checkBearerToken: () => Promise.reject(new Error('testing error handling')),
+        checkCurrent: () => Promise.reject(new Error('testing error handling'))
       },
       client: clientStub })
 
@@ -236,7 +236,7 @@ describe('Model > UserProjectPreferencesStore', function () {
               if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
               return Promise.resolve({ body: { project_preferences: [] } })
             },
-            post: () => Promise.reject('testing error handling')
+            post: () => Promise.reject(new Error('testing error handling'))
           }
         } })
 

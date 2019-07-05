@@ -199,7 +199,7 @@ describe('Model > TutorialStore', function () {
         authClient: authClientStubWithoutUser,
         client: Object.assign({}, panoptesClient, {
           tutorials: {
-            get: () => { return Promise.reject('testing error state') }
+            get: () => { return Promise.reject(new Error('testing error state')) }
           }
         })
       })
