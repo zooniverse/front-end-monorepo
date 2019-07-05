@@ -61,7 +61,7 @@ describe('Model > Subject', function () {
     before(function () {
       feedback = {
         onHide,
-        setOnHide: sinon.stub().callsFake(callback => onHide = callback)
+        setOnHide: sinon.stub().callsFake(callback => { onHide = callback })
       }
       subject.feedback = feedback
     })

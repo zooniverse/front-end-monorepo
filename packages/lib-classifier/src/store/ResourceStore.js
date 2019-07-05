@@ -28,6 +28,7 @@ const ResourceStore = types
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
+        return null
       }
     }),
 

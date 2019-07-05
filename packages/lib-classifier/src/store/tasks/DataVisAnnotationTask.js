@@ -8,6 +8,7 @@ const DataVisAnnotation = types.model('DataVisAnnotation', {
   tools: types.array(types.union({
     dispatcher: (snapshot) => {
       if (snapshot.type === 'graph2dRangeX') return Graph2dRangeXTool
+      return Task
     }
   }, Graph2dRangeXTool)),
   type: types.literal('dataVisAnnotation')

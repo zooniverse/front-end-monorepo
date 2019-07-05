@@ -47,6 +47,7 @@ const UserProjectPreferencesStore = types
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
+        return null
       }
     }
 
@@ -114,7 +115,9 @@ const UserProjectPreferencesStore = types
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
+        return null
       }
+      return null
     }
 
     function * updateUPP (changes) {
