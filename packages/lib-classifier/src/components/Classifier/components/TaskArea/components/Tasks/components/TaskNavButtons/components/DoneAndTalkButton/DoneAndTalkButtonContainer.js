@@ -31,14 +31,14 @@ class DoneAndTalkButtonContainer extends React.Component {
       subject
     } = this.props
 
+    function openTalkLinkAndClick (event) {
+      const isCmdClick = event.metaKey
+
+      subject.openInTalk(isCmdClick)
+      onClick(event)
+    }
+
     if (shouldWeShowDoneAndTalkButton && subject.id) {
-      function openTalkLinkAndClick (event) {
-        const isCmdClick = event.metaKey
-
-        subject.openInTalk(isCmdClick)
-        onClick(event)
-      }
-
       return (
         <DoneAndTalkButton
           completed={completed}
