@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import DoneAndTalkButton from './DoneAndTalkButton'
 
 function storeMapper (stores) {
@@ -69,7 +69,7 @@ DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
   demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
-  onClick: () => {},
+  onClick: PropTypes.func,
   shouldWeShowDoneAndTalkButton: PropTypes.bool,
   subject: PropTypes.shape({
     id: PropTypes.string

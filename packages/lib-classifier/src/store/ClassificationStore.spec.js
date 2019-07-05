@@ -4,7 +4,6 @@ import FeedbackStore from './FeedbackStore'
 import Subject from './Subject'
 import SubjectViewerStore from './SubjectViewerStore'
 
-import { toJS } from 'mobx'
 import { getEnv, types } from 'mobx-state-tree'
 
 const RootStub = types

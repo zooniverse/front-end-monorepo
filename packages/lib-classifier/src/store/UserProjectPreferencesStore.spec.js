@@ -1,6 +1,5 @@
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
-import { getEnv, types } from 'mobx-state-tree'
 import merge from 'lodash/merge'
 
 import ProjectStore from './ProjectStore'

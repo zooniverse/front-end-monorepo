@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Blank } from 'grommet-icons'
 
 import Graph2dRangeXIcon from './Graph2dRangeXIcon'
 

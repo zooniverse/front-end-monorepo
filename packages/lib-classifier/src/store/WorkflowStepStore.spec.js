@@ -75,7 +75,6 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should set the tasks', function () {
       const { workflowSteps } = ROOT_STORE_INSTANCE
-      const storeTasks = workflowSteps.tasks.toJSON()
       Object.keys(WORKFLOW.tasks).forEach(taskKey => {
         const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
         // `taskKey` is copied from the original object for serialization by MST
@@ -121,7 +120,8 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should convert the tasks to steps and set the steps', function () {
       const { workflowSteps } = ROOT_STORE_INSTANCE
-      expect(ROOT_STORE_INSTANCE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
+      const numberOfTasks = Object.keys(WORKFLOW.tasks).length
+      expect(workflowSteps.steps).to.have.lengthOf(numberOfTasks)
     })
 
     it('should set the tasks', function () {

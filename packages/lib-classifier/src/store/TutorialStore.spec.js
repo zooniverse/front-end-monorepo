@@ -39,16 +39,6 @@ const tutorialNullKind = TutorialFactory.build(
   }
 )
 
-const tutorialMiniCourseKind = TutorialFactory.build(
-  {
-    steps: [
-      { content: '# Hello', media: medium.id },
-      { content: '# Step 2' }
-    ],
-    kind: 'mini-course'
-  }
-)
-
 const upp = UPPFactory.build()
 const uppWithTutorialTimeStamp = UPPFactory.build({
   preferences: {
@@ -525,15 +515,15 @@ describe('Model > TutorialStore', function () {
         let res
         let rej
 
-      	const promise = new Promise((resolve, reject) => {
-      		res = resolve
-      		rej = reject
-      	})
+        const promise = new Promise((resolve, reject) => {
+          res = resolve
+          rej = reject
+        })
 
-      	promise.resolve = res
-      	promise.reject = rej
+        promise.resolve = res
+        promise.reject = rej
 
-      	return promise
+        return promise
       }
 
       beforeEach(function () {
@@ -726,7 +716,7 @@ describe('Model > TutorialStore', function () {
 
             rootStore.projects.setResource(project)
             rootStore.projects.setActive(project.id)
-            const awaitWorkflows = rootStore.workflows.setActive(workflow.id)
+            rootStore.workflows.setActive(workflow.id)
               .then(() => {
                 rootStore.tutorials.fetchTutorials.restore()
                 const awaitFetch = rootStore.tutorials.fetchTutorials()

@@ -1,4 +1,4 @@
-import { autorun, toJS } from 'mobx'
+import { autorun } from 'mobx'
 import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'

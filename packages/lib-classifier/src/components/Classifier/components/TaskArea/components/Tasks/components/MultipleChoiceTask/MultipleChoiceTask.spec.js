@@ -4,7 +4,6 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import { observable } from 'mobx'
 import MultipleChoiceTask from './MultipleChoiceTask'
-import TaskInputField from '../TaskInputField'
 
 // TODO: move this into a factory
 const task = {

@@ -2,7 +2,6 @@ import sinon from 'sinon'
 import { getEnv, types } from 'mobx-state-tree'
 import ResourceStore from './ResourceStore'
 
-let rootStore
 let resourceStore
 
 const RootStub = types
@@ -49,7 +48,7 @@ sinon.spy(clientStub.panoptes, 'get')
 describe('Model > ResourceStore', function () {
   before(function () {
     resourceStore = ResourceStore.create(resourcesStub)
-    rootStore = RootStub.create({ resources: resourceStore }, { client: clientStub })
+    RootStub.create({ resources: resourceStore }, { client: clientStub })
   })
 
   it('should have a required `type` property corresponding to the resource type', function () {

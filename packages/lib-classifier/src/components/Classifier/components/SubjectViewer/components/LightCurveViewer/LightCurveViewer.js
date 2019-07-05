@@ -277,7 +277,7 @@ class LightCurveViewer extends Component {
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
     const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
-    const defaultBrush = this.getDefaultBrush()
+    this.getDefaultBrush()
 
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
@@ -428,7 +428,7 @@ class LightCurveViewer extends Component {
      */
     this.xAxis = d3.axisTop(this.yScale)
     this.yAxis = d3.axisRight(this.yScale)
-    const axisLayer = addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
+    addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
     // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
     // Deco layer

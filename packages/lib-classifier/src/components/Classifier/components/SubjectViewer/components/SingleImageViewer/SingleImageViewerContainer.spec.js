@@ -1,4 +1,3 @@
-import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'

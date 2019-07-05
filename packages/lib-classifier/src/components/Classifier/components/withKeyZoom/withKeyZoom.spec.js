@@ -23,11 +23,10 @@ describe('withKeyZoom', function () {
       zoomOut
     }
   }
-  let wrapper
   let wrappedComponent
 
   before(function () {
-    wrapper = mount(
+    mount(
       <Provider classifierStore={classifierStore}>
         <WithZoom ref={zoomStub} />
       </Provider>
