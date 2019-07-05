@@ -17,28 +17,28 @@ describe('Component > InteractionLayer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should return a transparent rect', function () {
     const rect = wrapper.find('rect')
-    expect(rect.exists()).to.be.true
+    expect(rect.exists()).to.be.true()
     expect(rect.prop('id')).to.equal('InteractionLayer')
     expect(rect.prop('fill')).to.equal('transparent')
   })
 
   it('should bind the onMouseMove prop', function () {
     wrapper.simulate('mousemove')
-    expect(onMouseMove.called).to.be.true
+    expect(onMouseMove.called).to.be.true()
   })
 
   it('should bind the onMouseUp prop', function () {
     wrapper.simulate('mouseup')
-    expect(onMouseUp.called).to.be.true
+    expect(onMouseUp.called).to.be.true()
   })
 
   it('should bind the onMouseDown prop', function () {
     wrapper.simulate('mousedown')
-    expect(onMouseDown.called).to.be.true
+    expect(onMouseDown.called).to.be.true()
   })
 })

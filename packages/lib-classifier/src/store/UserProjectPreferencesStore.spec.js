@@ -76,8 +76,8 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(authClientStubWithoutUser.checkBearerToken).to.have.been.called
-          expect(authClientStubWithoutUser.checkCurrent).to.have.been.called
+          expect(authClientStubWithoutUser.checkBearerToken).to.have.been.called()
+          expect(authClientStubWithoutUser.checkCurrent).to.have.been.called()
         }).then(done, done)
     })
 
@@ -90,7 +90,7 @@ describe('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
-          expect(rootStore.userProjectPreferences.active).to.be.undefined
+          expect(rootStore.userProjectPreferences.active).to.be.undefined()
         }).then(done, done)
     })
 
@@ -119,7 +119,7 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(fetchUPPSpy).to.have.been.called
+          expect(fetchUPPSpy).to.have.been.called()
         }).then(done, done)
     })
   })
@@ -313,7 +313,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.have.been.calledOnce
+      ).to.have.been.calledOnce()
       rootStore.client.panoptes.get.resetHistory()
     })
 
@@ -323,7 +323,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.not.have.been.called
+      ).to.have.not.been.called()
       rootStore.client.panoptes.get.resetHistory()
     })
   })

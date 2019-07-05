@@ -30,11 +30,11 @@ describe('DataVisAnnotationTask', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should have instructions', function () {
-      expect(wrapper.contains(task.instruction)).to.be.true
+      expect(wrapper.contains(task.instruction)).to.be.true()
     })
 
     it('should render TaskInputField per the number of tools', function () {
@@ -42,8 +42,8 @@ describe('DataVisAnnotationTask', function () {
     })
 
     it('should set the TaskInputField checked prop using the active prop', function () {
-      expect(wrapper.find(TaskInputField).first().props().checked).to.be.true
-      expect(wrapper.find(TaskInputField).last().props().checked).to.be.false
+      expect(wrapper.find(TaskInputField).first().props().checked).to.be.true()
+      expect(wrapper.find(TaskInputField).last().props().checked).to.be.false()
     })
   })
 })

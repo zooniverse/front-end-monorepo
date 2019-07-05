@@ -13,11 +13,11 @@ describe('NextButton', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should render a `button` element', function () {
-      expect(wrapper.render().is('button')).to.be.true
+      expect(wrapper.render().is('button')).to.be.true()
     })
   })
 
@@ -30,7 +30,7 @@ describe('NextButton', function () {
 
     it('should call props.onClick for the onClick event', function () {
       wrapper.find('WithTheme(Button)').simulate('click')
-      expect(onClickSpy.calledOnce).to.be.true
+      expect(onClickSpy.calledOnce).to.be.true()
     })
   })
 
@@ -41,12 +41,12 @@ describe('NextButton', function () {
     })
 
     it('should not be disabled if props.disabled is false', function () {
-      expect(wrapper.find('WithTheme(Button)').props().disabled).to.be.false
+      expect(wrapper.find('WithTheme(Button)').props().disabled).to.be.false()
     })
 
     it('should be disabled if props.disabled is true', function () {
       wrapper.setProps({ disabled: true })
-      expect(wrapper.find('WithTheme(Button)').props().disabled).to.be.true
+      expect(wrapper.find('WithTheme(Button)').props().disabled).to.be.true()
     })
   })
 
@@ -57,12 +57,12 @@ describe('NextButton', function () {
     })
 
     it('should not be auto-focused if props.autoFocus is false', function () {
-      expect(wrapper.find('WithTheme(Button)').props().autoFocus).to.be.false
+      expect(wrapper.find('WithTheme(Button)').props().autoFocus).to.be.false()
     })
 
     it('should be auto-focused if props.autoFocus is true', function () {
       wrapper.setProps({ autoFocus: true })
-      expect(wrapper.find('WithTheme(Button)').props().autoFocus).to.be.true
+      expect(wrapper.find('WithTheme(Button)').props().autoFocus).to.be.true()
     })
   })
 })

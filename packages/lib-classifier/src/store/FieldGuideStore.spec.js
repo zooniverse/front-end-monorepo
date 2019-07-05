@@ -59,7 +59,7 @@ describe('Model > FieldGuideStore', function () {
     }, { client: { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null)) } } })
 
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
-    expect(rootStore.client.panoptes.get).to.not.been.called
+    expect(rootStore.client.panoptes.get).to.have.not.been.called()
   })
 
   it('should set the field guide if there is a project', function (done) {
@@ -102,7 +102,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce
+          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce()
         }).then(done, done)
     })
 
@@ -125,7 +125,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(setResourceSpy).to.have.not.been.called
+          expect(setResourceSpy).to.have.not.been.called()
           expect(rootStore.fieldGuide.loadingState).to.equal(asyncStates.success)
         }).then(() => {
           setResourceSpy.restore()
@@ -156,7 +156,7 @@ describe('Model > FieldGuideStore', function () {
           return rootStore.fieldGuide.fetchFieldGuide()
         })
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)).to.have.been.calledOnce
+          expect(rootStore.client.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)).to.have.been.calledOnce()
         }).then(done, done)
     })
 
@@ -229,7 +229,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called
+          expect(setMediaResourcesSpy).to.have.not.been.called()
         }).then(() => {
           setMediaResourcesSpy.restore()
         }).then(done, done)
@@ -278,9 +278,9 @@ describe('Model > FieldGuideStore', function () {
       })
 
       rootStore.fieldGuide.setModalVisibility(true)
-      expect(rootStore.fieldGuide.showModal).to.be.true
+      expect(rootStore.fieldGuide.showModal).to.be.true()
       rootStore.fieldGuide.setModalVisibility(false)
-      expect(rootStore.fieldGuide.showModal).to.be.false
+      expect(rootStore.fieldGuide.showModal).to.be.false()
     })
   })
 
@@ -302,8 +302,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex(0)
-        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
 
@@ -324,8 +324,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex()
-        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
 
@@ -346,8 +346,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex(2)
-        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
 
@@ -415,7 +415,7 @@ describe('Model > FieldGuideStore', function () {
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex(0)
         expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
   })
@@ -442,20 +442,20 @@ describe('Model > FieldGuideStore', function () {
           rootStore.fieldGuide.setModalVisibility(true)
         })
         .then(() => {
-          expect(rootStore.fieldGuide.active).to.exist
-          expect(rootStore.fieldGuide.resources).to.exist
-          expect(rootStore.fieldGuide.attachedMedia).to.exist
-          expect(rootStore.fieldGuide.activeMedium).to.exist
+          expect(rootStore.fieldGuide.active).to.be.ok()
+          expect(rootStore.fieldGuide.resources).to.be.ok()
+          expect(rootStore.fieldGuide.attachedMedia).to.be.ok()
+          expect(rootStore.fieldGuide.activeMedium).to.be.ok()
           expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
-          expect(rootStore.fieldGuide.showModal).to.be.true
+          expect(rootStore.fieldGuide.showModal).to.be.true()
           return rootStore.fieldGuide.reset()
         }).then(() => {
-          expect(rootStore.fieldGuide.active).to.be.undefined
+          expect(rootStore.fieldGuide.active).to.be.undefined()
           expect(rootStore.fieldGuide.resources.size).to.equal(0)
           expect(rootStore.fieldGuide.attachedMedia.size).to.equal(0)
-          expect(rootStore.fieldGuide.activeMedium).to.be.undefined
-          expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-          expect(rootStore.fieldGuide.showModal).to.be.false
+          expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
+          expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+          expect(rootStore.fieldGuide.showModal).to.be.false()
         }).then(done, done)
     })
   })

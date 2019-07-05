@@ -207,7 +207,7 @@ describe('Model > WorkflowStepStore', function () {
           active: undefined
         }
       })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if there is not an active classification', function () {
@@ -219,7 +219,7 @@ describe('Model > WorkflowStepStore', function () {
           active: WORKFLOW
         }
       })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if not on the last step', function () {
@@ -231,7 +231,7 @@ describe('Model > WorkflowStepStore', function () {
           active: WORKFLOW
         }
       })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if the workflow is not configured to hide classification summaries', function () {
@@ -247,7 +247,7 @@ describe('Model > WorkflowStepStore', function () {
       // returns as falsey undefined rather than explicit false
       // this is because usually the workflow has hide_classification_summaries as undefined in the config
       // rather than explicitly set as false
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined()
     })
 
     it('should return false if the classification subject has been flagged', function () {
@@ -261,7 +261,7 @@ describe('Model > WorkflowStepStore', function () {
       })
 
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return true if the conditions are met', function () {
@@ -274,7 +274,7 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()
     })
   })
 })

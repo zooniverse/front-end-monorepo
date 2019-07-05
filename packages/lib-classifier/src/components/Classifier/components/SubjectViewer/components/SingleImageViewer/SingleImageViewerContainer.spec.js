@@ -162,7 +162,7 @@ describe('Component > SingleImageViewerContainer', function () {
         message: 'the SVG image failed to load'
       }
       onError.callsFake(function () {
-        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
+        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce()
         done()
       })
       imageWrapper.simulate('error', fakeSVGError)

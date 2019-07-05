@@ -31,7 +31,7 @@ describe('feedback: rule checker', function () {
       })
       it('should reject an invalid rule', function () {
         const rule = generateInvalidRule(ruleID)
-        expect(ruleChecker(rule)).to.be.empty
+        expect(ruleChecker(rule)).to.be.empty()
       })
     })
   })

@@ -157,7 +157,7 @@ describe('Model > TutorialStore', function () {
 
       fetchTutorials()
         .then(() => {
-          expect(setTutorialsSpy).to.have.not.been.called
+          expect(setTutorialsSpy).to.have.not.been.called()
           expect(rootStore.tutorials.loadingState).to.equal(asyncStates.success)
         }).then(() => {
           setTutorialsSpy.restore()
@@ -239,7 +239,7 @@ describe('Model > TutorialStore', function () {
 
       fetchTutorials()
         .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called
+          expect(setMediaResourcesSpy).to.have.not.been.called()
         }).then(() => {
           setMediaResourcesSpy.restore()
         }).then(done, done)
@@ -275,10 +275,10 @@ describe('Model > TutorialStore', function () {
 
       const resetActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'resetActiveTutorial')
       rootStore.tutorials.setActiveTutorial()
-      expect(resetActiveTutorialSpy).to.have.been.calledOnce
-      expect(rootStore.tutorials.active).to.be.undefined
-      expect(rootStore.tutorials.activeStep).to.be.undefined
-      expect(rootStore.tutorials.activeMedium).to.be.undefined
+      expect(resetActiveTutorialSpy).to.have.been.calledOnce()
+      expect(rootStore.tutorials.active).to.be.undefined()
+      expect(rootStore.tutorials.activeStep).to.be.undefined()
+      expect(rootStore.tutorials.activeMedium).to.be.undefined()
       resetActiveTutorialSpy.restore()
     })
 
@@ -328,7 +328,7 @@ describe('Model > TutorialStore', function () {
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id)
       }).then(() => {
-        expect(setSeenTimeSpy).to.have.been.calledOnce
+        expect(setSeenTimeSpy).to.have.been.calledOnce()
         expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
       }).then(() => {
         setSeenTimeSpy.restore()
@@ -348,7 +348,7 @@ describe('Model > TutorialStore', function () {
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setTutorialStep(0)
       }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.be.undefined
+        expect(rootStore.tutorials.activeStep).to.be.undefined()
       }).then(done, done)
     })
 
@@ -363,7 +363,7 @@ describe('Model > TutorialStore', function () {
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id, 2)
       }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.be.undefined
+        expect(rootStore.tutorials.activeStep).to.be.undefined()
       }).then(done, done)
     })
 
@@ -427,7 +427,7 @@ describe('Model > TutorialStore', function () {
 
       fetchTutorials()
         .then(() => {
-          expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined
+          expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
         }).then(done, done)
     })
   })
@@ -442,7 +442,7 @@ describe('Model > TutorialStore', function () {
       })
 
       rootStore.tutorials.setSeenTime()
-      expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined
+      expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
     })
 
     it('should set the seen time for the tutorial kind of tutorial resource', function (done) {
@@ -488,9 +488,9 @@ describe('Model > TutorialStore', function () {
       })
 
       rootStore.tutorials.setModalVisibility(true)
-      expect(rootStore.tutorials.showModal).to.be.true
+      expect(rootStore.tutorials.showModal).to.be.true()
       rootStore.tutorials.setModalVisibility(false)
-      expect(rootStore.tutorials.showModal).to.be.false
+      expect(rootStore.tutorials.showModal).to.be.false()
     })
   })
 
@@ -567,10 +567,10 @@ describe('Model > TutorialStore', function () {
               })
             })
             .then(() => {
-              expect(setActiveTutorialSpy).to.not.have.been.called
-              expect(setModalVisibilitySpy).to.not.have.been.called
-              expect(rootStore.tutorials.active).to.be.undefined
-              expect(rootStore.tutorials.showModal).to.be.false
+              expect(setActiveTutorialSpy).to.have.not.been.called()
+              expect(setModalVisibilitySpy).to.have.not.been.called()
+              expect(rootStore.tutorials.active).to.be.undefined()
+              expect(rootStore.tutorials.showModal).to.be.false()
             })
             .then(() => {
               return awaitMedia.resolve({
@@ -585,9 +585,9 @@ describe('Model > TutorialStore', function () {
             })
             .then(() => {
               expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-              expect(setModalVisibilitySpy).to.have.been.calledOnce
+              expect(setModalVisibilitySpy).to.have.been.calledOnce()
               expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-              expect(rootStore.tutorials.showModal).to.be.true
+              expect(rootStore.tutorials.showModal).to.be.true()
             }).then(() => {
               setActiveTutorialSpy.restore()
               setModalVisibilitySpy.restore()
@@ -618,9 +618,9 @@ describe('Model > TutorialStore', function () {
             })
             .then(() => {
               expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-              expect(setModalVisibilitySpy).to.have.been.calledOnce
+              expect(setModalVisibilitySpy).to.have.been.calledOnce()
               expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-              expect(rootStore.tutorials.showModal).to.be.true
+              expect(rootStore.tutorials.showModal).to.be.true()
             }).then(() => {
               setActiveTutorialSpy.restore()
               setModalVisibilitySpy.restore()
@@ -663,9 +663,9 @@ describe('Model > TutorialStore', function () {
               })
               .then(() => {
                 expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-                expect(setModalVisibilitySpy).to.have.been.calledOnce
+                expect(setModalVisibilitySpy).to.have.been.calledOnce()
                 expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-                expect(rootStore.tutorials.showModal).to.be.true
+                expect(rootStore.tutorials.showModal).to.be.true()
               }).then(() => {
                 setActiveTutorialSpy.restore()
                 setModalVisibilitySpy.restore()
@@ -704,9 +704,9 @@ describe('Model > TutorialStore', function () {
               })
               .then(() => {
                 expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-                expect(setModalVisibilitySpy).to.have.been.calledOnce
+                expect(setModalVisibilitySpy).to.have.been.calledOnce()
                 expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-                expect(rootStore.tutorials.showModal).to.be.true
+                expect(rootStore.tutorials.showModal).to.be.true()
               })
               .then(() => {
                 setActiveTutorialSpy.restore()
@@ -743,10 +743,10 @@ describe('Model > TutorialStore', function () {
                 return awaitFetch
               })
               .then(() => {
-                expect(setActiveTutorialSpy).to.not.have.been.called
-                expect(setModalVisibilitySpy).to.not.have.been.called
-                expect(rootStore.tutorials.active).to.be.undefined
-                expect(rootStore.tutorials.showModal).to.be.false
+                expect(setActiveTutorialSpy).to.have.not.been.called()
+                expect(setModalVisibilitySpy).to.have.not.been.called()
+                expect(rootStore.tutorials.active).to.be.undefined()
+                expect(rootStore.tutorials.showModal).to.be.false()
               })
               .then(() => {
                 setActiveTutorialSpy.restore()
@@ -766,8 +766,8 @@ describe('Model > TutorialStore', function () {
         workflows: WorkflowStore.create()
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
-      expect(rootStore.tutorials.active).to.be.undefined
-      expect(rootStore.tutorials.isFirstStep).to.be.false
+      expect(rootStore.tutorials.active).to.be.undefined()
+      expect(rootStore.tutorials.isFirstStep).to.be.false()
     })
 
     it('should return false if activeStep is not the first step', function (done) {
@@ -781,7 +781,7 @@ describe('Model > TutorialStore', function () {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
         }).then(() => {
           expect(rootStore.tutorials.activeStep).to.equal(1)
-          expect(rootStore.tutorials.isFirstStep).to.be.false
+          expect(rootStore.tutorials.isFirstStep).to.be.false()
         }).then(done, done)
     })
 
@@ -796,7 +796,7 @@ describe('Model > TutorialStore', function () {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
         }).then(() => {
           expect(rootStore.tutorials.activeStep).to.equal(0)
-          expect(rootStore.tutorials.isFirstStep).to.be.true
+          expect(rootStore.tutorials.isFirstStep).to.be.true()
         }).then(done, done)
     })
   })
@@ -808,8 +808,8 @@ describe('Model > TutorialStore', function () {
         workflows: WorkflowStore.create()
       }, { authClient: authClientStubWithUser, client: clientStub() })
 
-      expect(rootStore.tutorials.active).to.be.undefined
-      expect(rootStore.tutorials.isLastStep).to.be.false
+      expect(rootStore.tutorials.active).to.be.undefined()
+      expect(rootStore.tutorials.isLastStep).to.be.false()
     })
 
     it('should return false if activeStep is not the last step', function (done) {
@@ -823,7 +823,7 @@ describe('Model > TutorialStore', function () {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
         }).then(() => {
           expect(rootStore.tutorials.activeStep).to.equal(0)
-          expect(rootStore.tutorials.isLastStep).to.be.false
+          expect(rootStore.tutorials.isLastStep).to.be.false()
         }).then(done, done)
     })
 
@@ -838,7 +838,7 @@ describe('Model > TutorialStore', function () {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
         }).then(() => {
           expect(rootStore.tutorials.activeStep).to.equal(1)
-          expect(rootStore.tutorials.isLastStep).to.be.true
+          expect(rootStore.tutorials.isLastStep).to.be.true()
         }).then(done, done)
     })
   })

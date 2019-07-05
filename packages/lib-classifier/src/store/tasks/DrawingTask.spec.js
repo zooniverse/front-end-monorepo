@@ -10,7 +10,7 @@ const drawingTask = {
 describe('Model > DrawingTask', function () {
   it('should exist', function () {
     const drawingTaskInstance = DrawingTask.create(drawingTask)
-    expect(drawingTaskInstance).to.exist
+    expect(drawingTaskInstance).to.be.ok()
     expect(drawingTaskInstance).to.be.an('object')
   })
 })

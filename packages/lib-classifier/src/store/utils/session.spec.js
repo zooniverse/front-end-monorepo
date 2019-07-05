@@ -12,14 +12,14 @@ describe('Store utils > sessionUtils', function () {
     it('should call the Date object getMinutes method', function () {
       const getMinutesSpy = sinon.spy(Date.prototype, 'getMinutes')
       sessionUtils.fiveMinutesFromNow()
-      expect(getMinutesSpy.called).to.be.true
+      expect(getMinutesSpy.called).to.be.true()
       getMinutesSpy.restore()
     })
 
     it('should call the Date object setMinutes method', function () {
       const setMinutesSpy = sinon.spy(Date.prototype, 'setMinutes')
       sessionUtils.fiveMinutesFromNow()
-      expect(setMinutesSpy.called).to.be.true
+      expect(setMinutesSpy.called).to.be.true()
       setMinutesSpy.restore()
     })
   })
@@ -45,19 +45,19 @@ describe('Store utils > sessionUtils', function () {
 
     it('it should call generateSessionID if there is not a stored id in session or local storage', function () {
       sessionUtils.getSessionID()
-      expect(generateSessionIDSpy.called).to.be.true
+      expect(generateSessionIDSpy.called).to.be.true()
     })
 
     it('it should retrieve id from session or local storage if it exists', function () {
       sessionUtils.generateSessionID() // just setting up for test
       generateSessionIDSpy.resetHistory()
       sessionUtils.getSessionID()
-      expect(generateSessionIDSpy.notCalled).to.be.true
+      expect(generateSessionIDSpy.notCalled).to.be.true()
     })
 
     it('should call fiveMinutesFromNow if the ttl property is greater than Date.now()', function () {
       sessionUtils.getSessionID()
-      expect(fiveMinutesFromNowSpy.called).to.be.true
+      expect(fiveMinutesFromNowSpy.called).to.be.true()
     })
 
     it('should update sessionStorage', function () {
@@ -87,7 +87,7 @@ describe('Store utils > sessionUtils', function () {
 
     it('should call generateSessionID', function () {
       sessionUtils.getSessionID()
-      expect(generateSessionIDStub.calledTwice).to.be.true
+      expect(generateSessionIDStub.calledTwice).to.be.true()
     })
   })
 
@@ -99,28 +99,28 @@ describe('Store utils > sessionUtils', function () {
     it('should use the hash.js module\'s sha256 utility for id generation', function () {
       const hashSpy = sinon.spy(hash, 'sha256')
       sessionUtils.generateSessionID()
-      expect(hashSpy.called).to.be.true
+      expect(hashSpy.called).to.be.true()
       hashSpy.restore()
     })
 
     it('should call Math.random() when generating the id', function () {
       const mathSpy = sinon.spy(Math, 'random')
       sessionUtils.generateSessionID()
-      expect(mathSpy.called).to.be.true
+      expect(mathSpy.called).to.be.true()
       mathSpy.restore()
     })
 
     it('should call Date.now() when generating the id', function () {
       const dateSpy = sinon.spy(Date, 'now')
       sessionUtils.generateSessionID()
-      expect(dateSpy.called).to.be.true
+      expect(dateSpy.called).to.be.true()
       dateSpy.restore()
     })
 
     it('should call fiveMinutesFromNow', function () {
       const fiveMinutesFromNowSpy = sinon.spy(sessionUtils, 'fiveMinutesFromNow')
       sessionUtils.generateSessionID()
-      expect(fiveMinutesFromNowSpy.called).to.be.true
+      expect(fiveMinutesFromNowSpy.called).to.be.true()
       fiveMinutesFromNowSpy.restore()
     })
 

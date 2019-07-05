@@ -14,7 +14,7 @@ const multipleChoiceTask = {
 describe('Model > MultipleChoiceTask', function () {
   it('should exist', function () {
     const multipleChoiceTaskInstance = MultipleChoiceTask.create(multipleChoiceTask)
-    expect(multipleChoiceTaskInstance).to.exist
+    expect(multipleChoiceTaskInstance).to.be.ok()
     expect(multipleChoiceTaskInstance).to.be.an('object')
   })
 })

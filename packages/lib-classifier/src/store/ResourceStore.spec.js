@@ -58,7 +58,7 @@ describe('Model > ResourceStore', function () {
   })
 
   it('should have a `resources` map to store any resource objects', function () {
-    expect(resourceStore.resources).to.exist
+    expect(resourceStore.resources).to.be.ok()
     expect(resourceStore.resources.size).to.equal(2)
     expect(resourceStore.resources.get('123')).to.deep.equal(resourcesStub.resources['123'])
   })
@@ -71,20 +71,20 @@ describe('Model > ResourceStore', function () {
     const resetStore = ResourceStore.create(resourcesStub)
     resetStore.reset()
     expect(resetStore.resources.size).to.equal(0)
-    expect(resetStore.active).to.be.undefined
+    expect(resetStore.active).to.be.undefined()
     expect(Object.keys(resourceStore.headers)).to.have.lengthOf(0)
   })
 
   it('should use an existing resources object when `setActive` is called', async function () {
     await resourceStore.setActive('456')
     expect(resourceStore.active).to.deep.equal(resourcesStub.resources['456'])
-    expect(clientStub.panoptes.get.notCalled).to.be.true
+    expect(clientStub.panoptes.get.notCalled).to.be.true()
   })
 
   it('should fetch a missing resource object when `setActive` is called', async function () {
     await resourceStore.setActive('789')
     expect(resourceStore.active).to.deep.equal(otherResourceStub)
-    expect(clientStub.panoptes.get.called).to.be.true
+    expect(clientStub.panoptes.get.called).to.be.true()
   })
 
   it('should set the headers object when a successful get request is made', async function () {

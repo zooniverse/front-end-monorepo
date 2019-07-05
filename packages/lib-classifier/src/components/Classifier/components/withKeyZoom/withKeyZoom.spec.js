@@ -36,7 +36,7 @@ describe('withKeyZoom', function () {
   })
 
   it('should add an onKeyDown handler to wrapped components', function () {
-    expect(wrappedComponent.props.onKeyDown).to.exist
+    expect(wrappedComponent.props.onKeyDown).to.be.ok()
   })
 
   describe('on key down', function () {
@@ -84,7 +84,7 @@ describe('withKeyZoom', function () {
           key
         }
         wrappedComponent.props.onKeyDown(fakeEvent)
-        expect(handler).to.have.been.calledOnce
+        expect(handler).to.have.been.calledOnce()
       })
     })
   })

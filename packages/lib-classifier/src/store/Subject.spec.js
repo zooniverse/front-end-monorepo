@@ -18,7 +18,7 @@ describe('Model > Subject', function () {
   })
 
   it('should exist', function () {
-    expect(Subject).to.exist
+    expect(Subject).to.be.ok()
     expect(Subject).to.be.an('object')
   })
 
@@ -36,7 +36,7 @@ describe('Model > Subject', function () {
     })
 
     it('should toggle subject.favorite', function () {
-      expect(subject.favorite).to.be.true
+      expect(subject.favorite).to.be.true()
     })
 
     it('should call the onToggleFavourite callback', function () {

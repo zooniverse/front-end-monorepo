@@ -68,7 +68,7 @@ describe('Model > ClassificationStore', function () {
   })
 
   it('should exist', function () {
-    expect(ClassificationStore).to.exist
+    expect(ClassificationStore).to.be.ok()
     expect(ClassificationStore).to.be.an('object')
   })
 
@@ -77,7 +77,7 @@ describe('Model > ClassificationStore', function () {
 
     const classification = Array.from(classifications.resources.values())[0]
 
-    expect(classification).to.exist
+    expect(classification).to.be.ok()
     expect(classification.links.project).to.equal(projectStub.id)
     expect(classification.links.workflow).to.equal(workflowStub.id)
     expect(classification.links.subjects[0]).to.equal(subjectStub.id)
@@ -88,7 +88,7 @@ describe('Model > ClassificationStore', function () {
 
     const classification = Array.from(classifications.resources.values())[0]
 
-    expect(classification.metadata.subjectSelectionState).to.exist
+    expect(classification.metadata.subjectSelectionState).to.be.ok()
     expect(classification.metadata.subjectSelectionState.already_seen).to.equal(subjectStub.already_seen)
     expect(classification.metadata.subjectSelectionState.finished_workflow).to.equal(subjectStub.finished_workflow)
     expect(classification.metadata.subjectSelectionState.retired).to.equal(subjectStub.retired)

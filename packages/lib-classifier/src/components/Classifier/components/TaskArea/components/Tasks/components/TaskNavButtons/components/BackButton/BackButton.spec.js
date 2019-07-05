@@ -17,7 +17,7 @@ describe('BackButton', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should render a StyledBackButtonWrapper', function () {
@@ -39,7 +39,7 @@ describe('BackButton', function () {
 
     it('should call props.onClick on the onClick event', function () {
       wrapper.find(Button).simulate('click')
-      expect(onClickSpy.calledOnce).to.be.true
+      expect(onClickSpy.calledOnce).to.be.true()
     })
   })
 
@@ -79,37 +79,37 @@ describe('BackButton', function () {
 
     it('should should call showWarning on the onMouseEnter event', function () {
       wrapper.find(Button).simulate('mouseenter')
-      expect(showWarningSpy.calledOnce).to.be.true
+      expect(showWarningSpy.calledOnce).to.be.true()
     })
 
     it('should call showWarning on the onFocus event', function () {
       wrapper.find(Button).simulate('focus')
-      expect(showWarningSpy.calledOnce).to.be.true
+      expect(showWarningSpy.calledOnce).to.be.true()
     })
 
     it('should call hideWarning on the onMouseLeave event', function () {
       wrapper.find(Button).simulate('mouseleave')
-      expect(hideWarningSpy.calledOnce).to.be.true
+      expect(hideWarningSpy.calledOnce).to.be.true()
     })
 
     it('should call hideWarning on the onBlur event', function () {
       wrapper.find(Button).simulate('blur')
-      expect(hideWarningSpy.calledOnce).to.be.true
+      expect(hideWarningSpy.calledOnce).to.be.true()
     })
 
     it('should not call setState if props.areAnnotationsNotPersisted is false', function () {
       wrapper.find(Button).simulate('mouseenter')
-      expect(setStateSpy.calledOnce).to.be.false
-      expect(wrapper.state().showWarning).to.be.false
+      expect(setStateSpy.calledOnce).to.be.false()
+      expect(wrapper.state().showWarning).to.be.false()
     })
 
     it('should call setState if props.areAnnotationsNotPersisted is true', function () {
       const previousShowWarningState = wrapper.state().showWarning
       wrapper.setProps({ areAnnotationsNotPersisted: true })
       wrapper.find(Button).simulate('mouseenter')
-      expect(setStateSpy.calledOnce).to.be.true
-      expect(previousShowWarningState).to.be.false
-      expect(wrapper.state().showWarning).to.be.true
+      expect(setStateSpy.calledOnce).to.be.true()
+      expect(previousShowWarningState).to.be.false()
+      expect(wrapper.state().showWarning).to.be.true()
       expect(previousShowWarningState).to.not.equal(wrapper.state().showWarning)
     })
   })

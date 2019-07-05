@@ -10,7 +10,7 @@ describe('Model > RootStore', function () {
   })
 
   it('should exist', function () {
-    expect(RootStore).to.exist
+    expect(RootStore).to.be.ok()
   })
 
   const stores = [
@@ -26,7 +26,7 @@ describe('Model > RootStore', function () {
 
   stores.forEach(function (store) {
     it(`should have a \`${store}\` property`, function () {
-      expect(model[store]).to.exist
+      expect(model[store]).to.be.ok()
     })
   })
 
