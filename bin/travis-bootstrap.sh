@@ -5,16 +5,6 @@ set -ev
 #
 # Runs the following tasks in order:
 #   - Install top level dependencies
-#   - Install package dependencies and symlink them together
-#   - Build `@zooniverse/react-components`
-#   - Build `@zooniverse/lib-classifier`
 
-LERNA=$TRAVIS_BUILD_DIR/node_modules/.bin/lerna
+(cd $TRAVIS_BUILD_DIR && yarn install)
 
-(cd $TRAVIS_BUILD_DIR && npm install)
-
-$LERNA bootstrap
-
-$LERNA run --scope="@zooniverse/react-components" build
-
-$LERNA run --scope="@zooniverse/classifier" build
