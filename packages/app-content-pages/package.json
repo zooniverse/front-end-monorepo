@@ -6,15 +6,14 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "_check": "check-engines && check-dependencies",
-    "_test": "npm run _check && BABEL_ENV=test mocha",
-    "build": "npm run _check && PANOPTES_ENV=production next build",
+    "_test": "BABEL_ENV=test mocha",
+    "build": "PANOPTES_ENV=production next build",
     "dev": "PANOPTES_ENV=production node server/server.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=production node server/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test -- --reporter=min"
+    "test": "BABEL_ENV=test mocha",
+    "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.1.6",
@@ -27,8 +26,6 @@
     "async": "~2.6.2",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-styled-components": "~1.10.0",
-    "check-dependencies": "~1.1.0",
-    "check-engines": "~1.5.0",
     "contentful": "~7.5.0",
     "counterpart": "~0.18.6",
     "dotenv-webpack": "~1.7.0",
