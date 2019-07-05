@@ -275,7 +275,6 @@ class LightCurveViewer extends Component {
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
     const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
-    this.getDefaultBrush()
 
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
