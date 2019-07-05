@@ -8,10 +8,9 @@
   "main": "src/index.js",
   "scripts": {
     "_check": "check-engines && check-dependencies",
-    "_test": "npm run _check && NODE_ENV=test mocha",
     "lint": "zoo-standard --fix | snazzy",
-    "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test -- --reporter=min"
+    "test": "NODE_ENV=test mocha",
+    "test:ci": "NODE_ENV=test mocha --reporter=min"
   },
   "dependencies": {
     "@zooniverse/standard": "^1.0.0",
