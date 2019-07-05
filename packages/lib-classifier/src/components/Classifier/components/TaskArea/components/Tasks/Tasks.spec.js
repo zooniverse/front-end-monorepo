@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import { Tasks } from './Tasks'
+import Tasks from './Tasks'
 import asyncStates from '@zooniverse/async-states'
 
 describe('Tasks', function () {
