@@ -3,11 +3,11 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 
 import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
-import { default as TaskNavButtons } from './components/TaskNavButtons'
+import TaskNavButtons from './components/TaskNavButtons'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
