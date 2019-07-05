@@ -20,23 +20,28 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class DoneAndTalkButtonContainer extends React.Component {
+  constructor () {
+    super()
+    this.openTalkLinkAndClick = this.openTalkLinkAndClick.bind(this)
+  }
+
+  openTalkLinkAndClick (event) {
+    const { onClick, subject } = this.props
+    const isCmdClick = event.metaKey
+
+    subject.openInTalk(isCmdClick)
+    onClick(event)
+  }
+
   render () {
     const {
       completed,
       demoMode,
       disabled,
       goldStandardMode,
-      onClick,
       shouldWeShowDoneAndTalkButton,
       subject
     } = this.props
-
-    function openTalkLinkAndClick (event) {
-      const isCmdClick = event.metaKey
-
-      subject.openInTalk(isCmdClick)
-      onClick(event)
-    }
 
     if (shouldWeShowDoneAndTalkButton && subject.id) {
       return (
@@ -45,7 +50,7 @@ class DoneAndTalkButtonContainer extends React.Component {
           demoMode={demoMode}
           disabled={disabled}
           goldStandardMode={goldStandardMode}
-          onClick={openTalkLinkAndClick}
+          onClick={this.openTalkLinkAndClick}
         />
       )
     }
