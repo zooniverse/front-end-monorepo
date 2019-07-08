@@ -25,10 +25,14 @@ What we do want to do:
   - The interactive layer should not allow events to bubble so the events are encapsulated to just the interaction with the subject. This is to help prevent browser scroll during drawing. An attempted fix on PFE for reference: zooniverse/Panoptes-Front-End#5411
   - Events will be observed and be streamed via an observable. We will use rx.js to create an observer/observable event stream.
   - The last state of the event stream will be used to add an annotation to the classification when next or done is clicked.
+  - The interactive layer will have local component state to keep track of which mark is selected for editing as well as handle the delete event. 
 - Have a component, the markings renderer, that manages the rendering of previous annotation marks as read only. It will hide them if hide previous marks is toggled.
 - These two components will initially use separate SVG layers that connect to the same stores. Later any duplicated code will be refactored into a higher order component.
-- Have a multi-image subject viewer that will create an interactive layer and markings renderer for each frame. Each interactive layer will initialize its own event stream. We will have to continue to support the configuration of having drawing marks across all frames and of independent marks for each frame. TODO: example of what these mean and how they will be accomplished.
+- Have a multi-image subject viewer. We will have to support projects that want each frame to have independent drawing annotations and pan/zoom function as well as projects that want each frame to have the same drawing annotations and pan/zoom function. We have two proposed options in implementation:
+  -  Create an interactive layer and markings renderer for each frame. Each interactive layer will initialize its own event stream.
+  - Create a single interactive layer and markings renderer and filter what is rendered by the frame index.
 - Have a schema, or set of schemas, describing annotations.
+
 ## Status
 
 Proposed
