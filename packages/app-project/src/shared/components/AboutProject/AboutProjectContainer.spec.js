@@ -7,14 +7,14 @@ import AboutProjectContainer from './AboutProjectContainer'
 let wrapper
 let AboutProjectWrapper
 
-const PROJECT_NAME = 'Project name'
-const DESCRIPTION = 'This is my description'
+const PROJECT_DESCRIPTION = 'This is a test project'
+const PROJECT_NAME = 'A test project'
 
 describe('Component > CompletionBarContainer', function () {
   before(function () {
     wrapper = shallow(
       <AboutProjectContainer.wrappedComponent
-        description={DESCRIPTION}
+        description={PROJECT_DESCRIPTION}
         projectName={PROJECT_NAME}
       />
     )
@@ -30,7 +30,7 @@ describe('Component > CompletionBarContainer', function () {
   })
 
   it('should pass through a `description` prop', function () {
-    expect(AboutProjectWrapper.prop('description')).to.equal(DESCRIPTION)
+    expect(AboutProjectWrapper.prop('description')).to.equal(PROJECT_DESCRIPTION)
   })
 
   it('should pass through a `projectName` prop', function () {
