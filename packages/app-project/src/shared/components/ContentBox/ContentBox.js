@@ -79,5 +79,11 @@ ContentBox.propTypes = {
   titleLevel: string
 }
 
+ContentBox.defaultProps = {
+  theme: {
+    dark: false
+  }
+}
+
 export default withTheme(ContentBox)
 export { ContentBox }
