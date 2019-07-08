@@ -7,6 +7,7 @@ import AboutProject from './AboutProject'
 function storeMapper (stores) {
   const { project } = stores.store
   return {
+    description: project.introduction,
     projectName: project.display_name
   }
 }
@@ -15,20 +16,19 @@ function storeMapper (stores) {
 @observer
 class AboutProjectContainer extends Component {
   render () {
-    const { projectName, description } = this.props
-
-    return <AboutProject description={description} projectName={projectName} />
+    const { description, projectName } = this.props
+    return (
+      <AboutProject
+        description={description}
+        projectName={projectName}
+      />
+    )
   }
 }
 
 AboutProjectContainer.propTypes = {
   description: string,
   projectName: string
-}
-
-AboutProjectContainer.defaultProps = {
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat quam sed nibh interdum, interdum bibendum nisi commodo. In id dui enim. Etiam euismod leo sit amet eros pharetra ullamcorper. Fusce sed dui tincidunt, lobortis tortor a, gravida magna. Quisque ac ligula tristique, iaculis metus vel, pellentesque nulla.'
 }
 
 export default AboutProjectContainer
