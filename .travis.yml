@@ -4,11 +4,14 @@ node_js:
   - '10'
 
 install:
-  - ./bin/travis-bootstrap.sh
+  - yarn install
+
+before_script:
+  - yarn workspace @zooniverse/react-components build
+  - yarn workspace @zooniverse/classifier build
 
 script:
-  - ./bin/travis-test.sh
+  - yarn test:ci
 
 after_success:
   - yarn coverage
-
