@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Trashes all `node_modules` folders, lockfiles and build artifacts to give you
+# Trashes all `node_modules` folders and build artifacts to give you
 # a clean version of the project.
 
 printf 'Trashing `node_modules` folders and build artifacts...\n'
