@@ -28,7 +28,7 @@ What we do want to do:
 - Have a component, the markings renderer, that manages the rendering of previous annotation marks as read only. It will hide them if hide previous marks is toggled.
 - These two components will initially use separate SVG layers that connect to the same stores. Later any duplicated code will be refactored into a higher order component.
 - Have a multi-image subject viewer that will create an interactive layer and markings renderer for each frame. Each interactive layer will initialize its own event stream. We will have to continue to support the configuration of having drawing marks across all frames and of independent marks for each frame. TODO: example of what these mean and how they will be accomplished.
-
+- Have a schema, or set of schemas, describing annotations.
 ## Status
 
 Proposed
