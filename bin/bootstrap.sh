@@ -6,8 +6,6 @@ set -ev
 # Runs the following tasks in order:
 #   - Install top level dependencies
 #   - Install package dependencies and symlink them together
-#   - Build `@zooniverse/async-states`
-#   - Build `@zooniverse/grommet-theme`
 #   - Build `@zooniverse/react-components`
 #   - Build `@zooniverse/lib-classifier`
 
@@ -21,14 +19,6 @@ printf '\n'
 
 printf 'Bootstrapping the monorepo!\n\n'
 $LERNA bootstrap
-
-printf 'Building `lib-async-states`...\n'
-$LERNA exec --scope="@zooniverse/async-states" -- npm run build
-printf '\n'
-
-printf 'Building `lib-grommet-theme`...\n'
-$LERNA exec --scope="@zooniverse/grommet-theme" -- npm run build
-printf '\n'
 
 printf 'Building `lib-react-components`...\n'
 $LERNA exec --scope="@zooniverse/react-components" -- npm run build

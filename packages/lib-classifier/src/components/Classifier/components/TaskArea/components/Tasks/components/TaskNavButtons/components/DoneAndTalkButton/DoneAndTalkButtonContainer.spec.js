@@ -73,7 +73,6 @@ describe('DoneAndTalkButtonContainer', function () {
     })
 
     describe('with the cmd key modifier', function () {
-
       before(function () {
         const wrapper = shallow(
           <DoneAndTalkButtonContainer.wrappedComponent

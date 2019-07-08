@@ -7,7 +7,6 @@ import { Text } from 'grommet'
 
 import TaskInputLabel from './components/TaskInputLabel'
 
-
 function getHoverStyles (props, active = false) {
   const { theme: { dark, global: { colors } } } = props
   if (dark) {
@@ -19,7 +18,7 @@ function getHoverStyles (props, active = false) {
     `
   } else {
     const gradientTop = lighten(0.05, colors['accent-2'])
-    const gradientBottom =  darken(0.11, colors['accent-2'])
+    const gradientBottom = darken(0.11, colors['accent-2'])
     const borderTopColor = active ? colors.brand : gradientTop
     const borderBottomColor = active ? colors.brand : gradientBottom
     const borderRightColor = active ? colors.brand : 'transparent'

@@ -14,12 +14,12 @@ const applicableRules = [
 describe('FeedbackModal', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<FeedbackModal.wrappedComponent />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should not render if showModal false', function () {
     const wrapper = shallow(<FeedbackModal.wrappedComponent showModal={false} />)
-    expect(wrapper.html()).to.be.null
+    expect(wrapper.html()).to.be.null()
   })
 
   it('should show FeedbackViewer if hideSubjectViewer false and applicableRules', function () {
@@ -60,6 +60,6 @@ describe('FeedbackModal', function () {
     const hideFeedbackStub = sinon.stub()
     const wrapper = shallow(<FeedbackModal.wrappedComponent showModal messages={['Yay!', 'Good Job', 'Try Again']} hideFeedback={hideFeedbackStub} />)
     wrapper.find(Button).simulate('click')
-    expect(hideFeedbackStub).to.have.been.called
+    expect(hideFeedbackStub).to.have.been.called()
   })
 })

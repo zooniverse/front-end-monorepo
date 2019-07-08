@@ -8,8 +8,8 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
 
-import { getCookie } from './helpers/cookies'
 import AuthModal from '../src/components/AuthModal'
+import getCookie from '../src/helpers/getCookie'
 import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
@@ -38,7 +38,7 @@ export default class MyApp extends App {
 
     if (pageProps.isServer) {
       // cookie is in the next.js context req object
-      const mode = getCookie(context, 'mode') || ''
+      const mode = getCookie(context, 'mode') || undefined
       const store = initStore(pageProps.isServer, {
         ui: {
           mode

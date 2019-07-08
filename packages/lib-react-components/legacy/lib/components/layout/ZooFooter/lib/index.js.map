@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../../src/components/layout/ZooFooter/lib/index.js"],"names":["default"],"mappings":";;;;;;;;;;;2DAASA,O","file":"index.js","sourcesContent":["export { default as whichTealColorForTheme } from './whichTealColorForTheme';"]}

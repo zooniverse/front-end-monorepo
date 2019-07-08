@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const nock = require('nock')
 
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 const { endpoint } = require('./helpers')
 const collections = require('./index')
 
@@ -10,11 +10,10 @@ describe('Collections resource REST requests', function () {
   describe('get', function () {
     describe('with a collection ID', function () {
       const expectedGetResponse = responses.get.collection
-      let scope
+      const scope = nock(config.host)
 
       before(function () {
-        scope = nock(config.host)
-          .persist()
+        scope
           .get(`${endpoint}/10`)
           .query(true)
           .reply(200, expectedGetResponse)
@@ -46,11 +45,10 @@ describe('Collections resource REST requests', function () {
         owner: 'test',
         http_cache: 'true'
       }
-      let scope
+      const scope = nock(config.host)
 
       before(function () {
-        scope = nock(config.host)
-          .persist()
+        scope
           .get(`${endpoint}`)
           .query(query)
           .reply(200, expectedGetResponse)
@@ -68,11 +66,10 @@ describe('Collections resource REST requests', function () {
 
     describe('with an authorization param', function () {
       const expectedGetResponse = responses.get.collection
-      let scope
+      const scope = nock(config.host)
 
       before(function () {
-        scope = nock(config.host)
-          .persist()
+        scope
           .get(uri => uri.includes(endpoint))
           .query(true)
           .reply(200, expectedGetResponse)
@@ -95,11 +92,10 @@ describe('Collections resource REST requests', function () {
     }
     const expectedPutResponse = Object.assign({}, responses.get.collection, data)
     const requestBody = { collections: data }
-    let scope
+    const scope = nock(config.host)
 
     before(function () {
-      scope = nock(config.host)
-        .persist()
+      scope
         .put(`${endpoint}/10`, requestBody)
         .query(true)
         .reply(200, expectedPutResponse)
@@ -144,11 +140,10 @@ describe('Collections resource REST requests', function () {
     }
     const changes = Object.assign({}, data, { links })
     const payload = { collections: changes }
-    let scope
+    const scope = nock(config.host)
 
     before(function () {
-      scope = nock(config.host)
-        .persist()
+      scope
         .post(`${endpoint}`, payload)
         .query(true)
         .reply(201, expectedCreateResponse)
@@ -166,11 +161,10 @@ describe('Collections resource REST requests', function () {
 
   describe('delete', function () {
     const expectedDeleteResponse = {}
-    let scope
+    const scope = nock(config.host)
 
     before(function () {
-      scope = nock(config.host)
-        .persist()
+      scope
         .delete(`${endpoint}/10`)
         .query(true)
         .reply(200, expectedDeleteResponse)
@@ -198,11 +192,10 @@ describe('Collections resource REST requests', function () {
   describe('add subjects', function () {
     const expectedAddResponse = responses.get.collection
     const subjects = ['2']
-    let scope
+    const scope = nock(config.host)
 
     before(function () {
-      scope = nock(config.host)
-        .persist()
+      scope
         .post(`${endpoint}/10/links/subjects`, { subjects })
         .query(true)
         .reply(200, expectedAddResponse)
@@ -223,7 +216,7 @@ describe('Collections resource REST requests', function () {
 
     it('should raise an error if subjects is not an array', async function () {
       try {
-        await collections.addSubjects({ id: '10', subjects: '2'})
+        await collections.addSubjects({ id: '10', subjects: '2' })
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Collections add subjects: subjects array is required.')
@@ -232,18 +225,17 @@ describe('Collections resource REST requests', function () {
 
     it('should add subjects to the specified collection', async function () {
       const response = await collections.addSubjects({ id: '10', subjects })
-      expect(response).to.be.ok
+      expect(response).to.be.ok()
     })
   })
 
   describe('remove subjects', function () {
     const expectedDeleteResponse = {}
-    let scope
+    const scope = nock(config.host)
 
     before(function () {
-      scope = nock(config.host)
+      scope
         .matchHeader('authorization', 'Bearer 1234')
-        .persist()
         .delete(`${endpoint}/10/links/subjects/2`)
         .query(true)
         .reply(200, expectedDeleteResponse)
@@ -264,7 +256,7 @@ describe('Collections resource REST requests', function () {
 
     it('should raise an error if subjects is not an array', async function () {
       try {
-        await collections.removeSubjects({ id: '10', subjects: '2'})
+        await collections.removeSubjects({ id: '10', subjects: '2' })
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Collections remove subjects: subjects array is required.')
@@ -273,7 +265,7 @@ describe('Collections resource REST requests', function () {
 
     it('should unlink the specified subjects', async function () {
       const response = await collections.removeSubjects({ id: '10', subjects: ['2'], authorization: 'Bearer 1234' })
-      expect(response).to.be.ok
+      expect(response).to.be.ok()
     })
   })
 })

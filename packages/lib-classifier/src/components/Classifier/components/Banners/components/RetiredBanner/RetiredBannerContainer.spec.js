@@ -14,7 +14,7 @@ describe('Component > RetiredBannerContainer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a <Banner />', function () {
@@ -46,14 +46,14 @@ describe('Component > RetiredBannerContainer', function () {
           retired: true
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.true
+      expect(wrapper.find(Banner).prop('show')).to.be.true()
     })
   })
 
   describe('when the banner shouldn\'t show', function () {
     it('shouldn\'t show when there\'s no subject', function () {
       wrapper.setProps({ subject: null })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
 
     it('shouldn\'t show when subject hasn\'t been retired', function () {
@@ -64,7 +64,7 @@ describe('Component > RetiredBannerContainer', function () {
           retired: false
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
 
     it('shouldn\'t show if the subject has been retired and the workflow is finished', function () {
@@ -75,7 +75,7 @@ describe('Component > RetiredBannerContainer', function () {
           retired: true
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
 
     it('shouldn\'t show the banner if the subject has been retired, but the workflow is finished', function () {
@@ -87,7 +87,7 @@ describe('Component > RetiredBannerContainer', function () {
           retired: true
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
 
     it('shouldn\'t show the banner if the subject has been retired, but the user has finished the workflow', function () {
@@ -99,7 +99,7 @@ describe('Component > RetiredBannerContainer', function () {
           user_has_finished_workflow: true
         }
       })
-      expect(wrapper.find(Banner).prop('show')).to.be.false
+      expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
   })
 })

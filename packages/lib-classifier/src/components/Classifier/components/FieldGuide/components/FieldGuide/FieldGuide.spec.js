@@ -3,7 +3,7 @@ import React from 'react'
 import FieldGuide from './FieldGuide'
 import FieldGuideItem from './components/FieldGuideItem'
 import FieldGuideItems from './components/FieldGuideItems'
-import { FieldGuideFactory, FieldGuideMediumFactory } from '../../../../../../../test/factories'
+import { FieldGuideMediumFactory } from '../../../../../../../test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const items = [
@@ -27,7 +27,7 @@ describe('Component > FieldGuide', function () {
       <FieldGuide.wrappedComponent
         items={items}
       />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   xit('should render FieldGuideItems if there is not an active item', function () {

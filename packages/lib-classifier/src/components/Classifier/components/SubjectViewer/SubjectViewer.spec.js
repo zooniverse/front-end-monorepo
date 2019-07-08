@@ -7,12 +7,12 @@ import SubjectViewer from './SubjectViewer'
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<SubjectViewer.wrappedComponent />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render nothing if the subject store is initialized', function () {
     const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.initialized} />)
-    expect(wrapper.type()).to.be.null
+    expect(wrapper.type()).to.be.null()
   })
 
   it('should render a loading indicator if the subject store is loading', function () {
@@ -22,7 +22,7 @@ describe('Component > SubjectViewer', function () {
 
   it('should render nothing if the subject store errors', function () {
     const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.error} />)
-    expect(wrapper.type()).to.be.null
+    expect(wrapper.type()).to.be.null()
   })
 
   it('should render a subject viewer if the subject store successfully loads', function () {
