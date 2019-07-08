@@ -33,7 +33,7 @@ We're going to switch the monorepo tooling from Lerna to Yarn and Lerna. Yarn wi
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
