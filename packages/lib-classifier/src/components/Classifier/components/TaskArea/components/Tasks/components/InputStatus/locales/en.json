@@ -1,8 +1,8 @@
 {
   "InputStatus": {
-    "drawn": "drawn",
-    "maximum": "maximum",
-    "of": "of",
-    "required": "required"
+    "drawn": "%(count)s drawn",
+    "max": "%(count)s of %(max)s maximum drawn",
+    "min": "%(count)s of %(min)s required drawn",
+    "maxAndMin": "%(count)s of %(min)s required, %(max)s maximum drawn"
   }
 }
