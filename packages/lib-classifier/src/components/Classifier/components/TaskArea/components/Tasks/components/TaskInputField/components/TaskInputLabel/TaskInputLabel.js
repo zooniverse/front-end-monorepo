@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Box, Text } from 'grommet'
 import styled from 'styled-components'
-import { Box } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
 import { doesTheLabelHaveAnImage } from '../../helpers'
-import { Markdownz, pxToRem } from '@zooniverse/react-components'
 
 export const StyledTaskInputLabelWrapper = styled(Box)`
   &:first-child {
@@ -13,16 +13,9 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
   &:last-child {
     margin-bottom: 0;
   }
+`
 
-  p {
-    flex-grow: 1;
-    font-size: ${pxToRem(14)};
-    margin: 0;
-    max-width: 100%;
-    padding: 10px;
-    text-align: ${(props) => props.textAlign};
-  }
-
+export const StyledLabel = styled(Text)`
   img, svg {
     padding: 10px;
     vertical-align: middle;
@@ -31,22 +24,22 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
 
 export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
   const howShouldTheLabelBeAligned = ((label && doesTheLabelHaveAnImage(label)) || (label && labelIcon))
-    ? 'left'
+    ? 'start'
     : 'center'
 
   return (
     <StyledTaskInputLabelWrapper
-      align='center'
       direction='row'
       fill='horizontal'
-      margin={{ right: 'xsmall' }}
-      textAlign={howShouldTheLabelBeAligned}
+      justify={howShouldTheLabelBeAligned}
+      pad={{ horizontal: 'small' }}
     >
       {labelIcon &&
         labelIcon}
-      <Markdownz>
-        {label}
-      </Markdownz>
+      <StyledLabel
+      >
+        <Markdownz>{label}</Markdownz>
+      </StyledLabel>
       {labelStatus &&
         labelStatus}
     </StyledTaskInputLabelWrapper>
