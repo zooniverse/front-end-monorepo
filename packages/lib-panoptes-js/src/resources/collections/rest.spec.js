@@ -10,10 +10,10 @@ describe('Collections resource REST requests', function () {
   describe('get', function () {
     describe('with a collection ID', function () {
       const expectedGetResponse = responses.get.collection
+      const scope = nock(config.host)
 
       before(function () {
-        nock(config.host)
-          .persist()
+        scope
           .get(`${endpoint}/10`)
           .query(true)
           .reply(200, expectedGetResponse)
@@ -45,10 +45,10 @@ describe('Collections resource REST requests', function () {
         owner: 'test',
         http_cache: 'true'
       }
+      const scope = nock(config.host)
 
       before(function () {
-        nock(config.host)
-          .persist()
+        scope
           .get(`${endpoint}`)
           .query(query)
           .reply(200, expectedGetResponse)
@@ -66,10 +66,10 @@ describe('Collections resource REST requests', function () {
 
     describe('with an authorization param', function () {
       const expectedGetResponse = responses.get.collection
+      const scope = nock(config.host)
 
       before(function () {
-        nock(config.host)
-          .persist()
+        scope
           .get(uri => uri.includes(endpoint))
           .query(true)
           .reply(200, expectedGetResponse)
@@ -92,10 +92,10 @@ describe('Collections resource REST requests', function () {
     }
     const expectedPutResponse = Object.assign({}, responses.get.collection, data)
     const requestBody = { collections: data }
+    const scope = nock(config.host)
 
     before(function () {
-      nock(config.host)
-        .persist()
+      scope
         .put(`${endpoint}/10`, requestBody)
         .query(true)
         .reply(200, expectedPutResponse)
@@ -140,10 +140,10 @@ describe('Collections resource REST requests', function () {
     }
     const changes = Object.assign({}, data, { links })
     const payload = { collections: changes }
+    const scope = nock(config.host)
 
     before(function () {
-      nock(config.host)
-        .persist()
+      scope
         .post(`${endpoint}`, payload)
         .query(true)
         .reply(201, expectedCreateResponse)
@@ -161,10 +161,10 @@ describe('Collections resource REST requests', function () {
 
   describe('delete', function () {
     const expectedDeleteResponse = {}
+    const scope = nock(config.host)
 
     before(function () {
-      nock(config.host)
-        .persist()
+      scope
         .delete(`${endpoint}/10`)
         .query(true)
         .reply(200, expectedDeleteResponse)
@@ -192,10 +192,10 @@ describe('Collections resource REST requests', function () {
   describe('add subjects', function () {
     const expectedAddResponse = responses.get.collection
     const subjects = ['2']
+    const scope = nock(config.host)
 
     before(function () {
-      nock(config.host)
-        .persist()
+      scope
         .post(`${endpoint}/10/links/subjects`, { subjects })
         .query(true)
         .reply(200, expectedAddResponse)
@@ -231,11 +231,11 @@ describe('Collections resource REST requests', function () {
 
   describe('remove subjects', function () {
     const expectedDeleteResponse = {}
+    const scope = nock(config.host)
 
     before(function () {
-      nock(config.host)
+      scope
         .matchHeader('authorization', 'Bearer 1234')
-        .persist()
         .delete(`${endpoint}/10/links/subjects/2`)
         .query(true)
         .reply(200, expectedDeleteResponse)

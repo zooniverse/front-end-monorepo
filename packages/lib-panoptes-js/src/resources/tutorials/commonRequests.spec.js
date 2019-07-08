@@ -9,11 +9,11 @@ const { resources, responses } = require('./mocks')
 describe('Tutorials resource common requests', function () {
   describe('getAttachedImages', function () {
     const expectedGetResponse = responses.get.attachedImage
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .get(`${endpoint}/1/attached_images`)
         .query(true)
         .reply(200, expectedGetResponse)
     })
@@ -50,11 +50,11 @@ describe('Tutorials resource common requests', function () {
   describe('getWithImages', function () {
     describe('a single tutorial', function () {
       const expectedGetResponse = responses.get.tutorialWithImages
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/1`)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -81,11 +81,11 @@ describe('Tutorials resource common requests', function () {
 
     describe('many tutorials', function () {
       const expectedGetResponse = responses.get.tutorialsWithImages
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -113,20 +113,16 @@ describe('Tutorials resource common requests', function () {
 
   describe('getTutorials', function () {
     describe('by tutorial id', function () {
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      const scope = nock(config.host)
+
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/1`)
           .query(true)
-          .reply(200, (uri, requestBody) => {
-            if (uri.includes(resources.tutorialOne.id)) {
-              return responses.get.tutorial
-            }
-            if (uri.includes(resources.minicourse.id)) {
-              return responses.get.minicourse
-            }
-            return null
-          })
+          .reply(200, responses.get.tutorial)
+          .get(`${endpoint}/52`)
+          .query(true)
+          .reply(200, responses.get.minicourse)
       })
 
       after(function () {
@@ -152,11 +148,11 @@ describe('Tutorials resource common requests', function () {
 
     describe('by workflow id', function () {
       const expectedGetResponse = responses.get.allTutorialsForWorkflow
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -190,11 +186,11 @@ describe('Tutorials resource common requests', function () {
   describe('getMinicourses', function () {
     describe('by tutorial id', function () {
       const expectedGetResponse = responses.get.minicourse
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/52`)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -216,11 +212,11 @@ describe('Tutorials resource common requests', function () {
 
     describe('by workflow id', function () {
       const expectedGetResponse = responses.get.minicourse
+      const scope = nock(config.host)
 
-      before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponse)
       })

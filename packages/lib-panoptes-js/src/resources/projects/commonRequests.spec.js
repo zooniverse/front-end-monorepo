@@ -10,11 +10,11 @@ describe('Projects resource common requests', function () {
   describe('getBySlug', function () {
     const expectedGetResponse = responses.get.project
     const expectedNotFoundResponse = responses.get.queryNotFound
+    const scope = nock(config.host)
 
-    before(function () {
-      nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .get(endpoint)
         .query(true)
         .reply(200, (uri, requestBody) =>
           uri.includes(encodeURIComponent('zooniverse/my-project'))
@@ -70,11 +70,11 @@ describe('Projects resource common requests', function () {
 
   describe('getWithLinkedResources', function () {
     const expectedGetResponseWithLinkedResources = responses.get.projectWithLinkedResources
+    const scope = nock(config.host)
 
     before(function () {
-      nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+      scope
+        .get(`${endpoint}/2`)
         .query(true)
         .reply(200, expectedGetResponseWithLinkedResources)
     })
@@ -99,9 +99,8 @@ describe('Projects resource common requests', function () {
 
     describe('using project slug query parameter', function () {
       before(function () {
-        nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponseWithLinkedResources)
       })
@@ -136,11 +135,11 @@ describe('Projects resource common requests', function () {
 
     describe('using project id', function () {
       before(function () {
-        nock(config.host)
-          .get(uri => uri.includes(endpoint))
+        scope
+          .get(`${endpoint}/2`)
           .query(true)
           .reply(200, expectedGetResponseWithLinkedResources)
-          .get(uri => uri.includes(endpoint))
+          .get(endpoint)
           .query(true)
           .reply(404)
       })
