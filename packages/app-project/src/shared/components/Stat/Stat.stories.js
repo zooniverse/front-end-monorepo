@@ -4,7 +4,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import Stat from './Stat'
 
-storiesOf('Shared/Components/Project Statistics/Stat', module)
+storiesOf('Project App / Shared / Stat', module)
   .add('Default', () => (
     <Grommet theme={zooTheme}>
       <Stat
