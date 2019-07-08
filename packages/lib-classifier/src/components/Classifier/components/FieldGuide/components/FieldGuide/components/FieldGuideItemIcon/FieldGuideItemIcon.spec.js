@@ -16,7 +16,7 @@ describe('Component > FieldGuideItemIcon', function () {
       <FieldGuideItemIcon
         icon={icon}
       />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a Media component if there is an icon', function () {

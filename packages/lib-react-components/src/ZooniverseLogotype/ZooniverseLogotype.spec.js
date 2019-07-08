@@ -13,7 +13,7 @@ describe('ZooniverseLogotype', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should use the `id` prop for `aria-labelledby` and `title`', function () {
@@ -30,7 +30,7 @@ describe('ZooniverseLogotype', function () {
 
   it('should calculate the height', function () {
     const svg = wrapper.find('svg')
-    expect(svg.prop('height')).to.be.ok
+    expect(svg.prop('height')).to.be.ok()
   })
 
   it('should pass through any other props to the SVG', function () {

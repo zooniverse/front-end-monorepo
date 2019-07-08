@@ -49,11 +49,11 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should render null', function () {
-      expect(wrapper.type()).to.equal(null)
+      expect(wrapper.type()).to.be.null()
     })
   })
 
@@ -91,7 +91,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should record the original image dimensions on load', function (done) {
@@ -112,7 +112,7 @@ describe('Component > SingleImageViewerContainer', function () {
       }
       onReady.callsFake(function () {
         expect(onReady).to.have.been.calledOnceWith(expectedEvent)
-        expect(onError).to.not.have.been.called
+        expect(onError).to.not.have.been.called()
         done()
       })
       imageWrapper.simulate('load', fakeEvent)
@@ -154,7 +154,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should log an error from an invalid SVG image', function (done) {
@@ -176,7 +176,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
       }
       onError.callsFake(function () {
-        expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce
+        expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
         done()
       })
       imageWrapper.simulate('load', fakeEvent)
@@ -187,7 +187,7 @@ describe('Component > SingleImageViewerContainer', function () {
         message: 'the SVG image failed to load'
       }
       onError.callsFake(function () {
-        expect(onReady).to.not.have.been.called
+        expect(onReady).to.not.have.been.called()
         done()
       })
       imageWrapper.simulate('error', fakeSVGError)

@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-/* global expect */
 const asyncStates = require('./async-states')
 
 describe('asyncStates', function () {

@@ -27,7 +27,7 @@ describe('Component > Banner', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should show the banner text', function () {
