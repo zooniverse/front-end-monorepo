@@ -1,16 +1,16 @@
 # Zooniverse Classifier
 
-A standalone library for the Zooniverse project classifier including state management and UI component views.
+A standalone library for the Zooniverse project classifier, including state management and UI component views.
 
 ## Contributing
 
 Use `npm run dev` to run a small development environment app at `localhost:3000`. Specific staging projects and workflows can be loaded by query param `localhost:3000?project=1233&workflow=2367`
 
-Symlink in another package via lerna by `lerna add @zooniverse/classifier` (add the scope parameter if it applies)
+To add a local dependency, install it with yarn: `yarn add @zooniverse/package-name@X`. Note the `@X` - without a matching version number, yarn will attempt to find it in the npm registry.
 
 The basic style of the classifier is to be modular. This means that each component should be small and more complex UI should be composed of these smaller components. State that needs to be shared between components or data from asynchronous HTTP requests should be stored in a mobx-state-tree model. Components that need access to this data should be wrapped by a container component that is connected to the stores, then render a child component view. Each component should be unit tested.
 
-d3.js should only be used for the interactive subject viewer visualizations and be wrapped by a container React component. Classifier state including subject and annotation state should not be stored by d3.js.
+d3.js should only be used for the interactive subject viewer visualizations and be wrapped by a container React component. Classifier state including subject and annotation state should not be stored by d3.
 
 ## Technologies
 

@@ -16,7 +16,10 @@
     "snazzy": "^8.0.0"
   },
   "scripts": {
+    "bootstrap": "./bin/bootstrap.sh",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "panic": "./bin/panic-button.sh",
+    "panic-button": "./bin/panic-button.sh",
     "test": "lerna run --parallel test",
     "test:ci": "nyc lerna run --parallel test:ci"
   },
