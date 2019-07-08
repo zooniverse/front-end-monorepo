@@ -49,7 +49,7 @@ class Tasks extends React.Component {
       // but works for now
       return (
         <ThemeProvider theme={{ mode: this.props.theme }}>
-          <Box as='form' justify='between'>
+          <Box as='form' justify='between' fill>
             {tasks.map((task) => {
               const TaskComponent = getTaskComponent(task.type)
               if (TaskComponent) {
