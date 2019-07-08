@@ -6,7 +6,6 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "_test": "BABEL_ENV=test mocha",
     "build": "PANOPTES_ENV=production next build",
     "dev": "PANOPTES_ENV=production node server/server.js",
     "lint": "zoo-standard --fix | snazzy",
