@@ -14,5 +14,6 @@
 - [ADR 12: Docker setup for monorepo](adr-12.md)
 - [ADR 13: Contributing Guidelines](adr-13.md)
 - [ADR 14: Using an external CMS for content pages](adr-14.md)
-- ADR 15
+- [ADR 15: Drawing tools API](adr-15.md)
 - [ADR 16: Monorepo Tooling](adr-16.md)
+
