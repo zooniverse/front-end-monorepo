@@ -6,7 +6,7 @@ const DataVis = types.model('DataVis', {
   value: types.array(types.union({
     dispatcher: (snapshot) => {
       if (snapshot.toolType === 'graph2dRangeX') return Graph2dRangeXAnnotation
-      return Annotation
+      return undefined
     }
   }, Graph2dRangeXAnnotation))
 })
