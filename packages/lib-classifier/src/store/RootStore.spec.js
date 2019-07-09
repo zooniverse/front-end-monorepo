@@ -21,7 +21,7 @@ describe('Model > RootStore', function () {
     'fieldGuide',
     'projects',
     'subjects',
-    'subjectViewer', 
+    'subjectViewer',
     'tutorials',
     'workflows',
     'workflowSteps',
