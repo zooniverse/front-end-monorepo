@@ -4,26 +4,24 @@ set -ev
 # Script for bootstrapping the monorepo into a working state for development.
 #
 # Runs the following tasks in order:
-#   - Install top level dependencies
-#   - Install package dependencies and symlink them together
+#   - Install dependencies
 #   - Build `@zooniverse/react-components`
 #   - Build `@zooniverse/lib-classifier`
 
 
 ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
-LERNA=$ROOT_DIR/node_modules/.bin/lerna
+cd $ROOT_DIR
 
-printf 'Installing root dependencies...\n'
-(cd $ROOT_DIR && npm install)
+printf 'Installing dependencies...\n'
+yarn install
 printf '\n'
 
-printf 'Bootstrapping the monorepo!\n\n'
-$LERNA bootstrap
-
 printf 'Building `lib-react-components`...\n'
-$LERNA exec --scope="@zooniverse/react-components" -- npm run build
+yarn workspace @zooniverse/react-components build
 printf '\n'
 
 printf 'Building `lib-classifier`...\n'
-$LERNA exec --scope="@zooniverse/classifier" -- npm run build
+yarn workspace @zooniverse/classifier build
 printf '\n'
+
+echo 'Done!'

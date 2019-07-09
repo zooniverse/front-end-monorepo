@@ -6,14 +6,12 @@
   "version": "0.0.1",
   "main": "dist/main.js",
   "scripts": {
-    "_check": "check-dependencies",
-    "_test": "npm run _check && NODE_PATH=. NODE_ENV=test mocha",
-    "build": "npm run _check && webpack --config webpack.dist.js",
-    "dev": "npm run _check && webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.dist.js",
+    "dev": "webpack-dev-server --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "npm run _check && PANOPTES_ENV=production npm run dev",
-    "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test -- --reporter=min"
+    "start": "PANOPTES_ENV=production npm run dev",
+    "test": "NODE_PATH=. NODE_ENV=test mocha",
+    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --reporter=min"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.4.4",
@@ -56,7 +54,6 @@
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.0.6",
     "chai": "~4.2.0",
-    "check-dependencies": "~1.1.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.10.0",
     "enzyme-adapter-react-16": "~1.14.0",
@@ -72,7 +69,6 @@
     "mst-middlewares": "~3.7.1",
     "nock": "~10.0.6",
     "panoptes-client": "~2.12.0",
-    "peer-deps-externals-webpack-plugin": "~1.0.4",
     "polished": "~3.4.1",
     "query-string": "~6.8.1",
     "react": "~16.8.6",
