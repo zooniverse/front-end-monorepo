@@ -82,12 +82,12 @@ describe('TaskNavButtonsContainer', function () {
 
     it('should call #createDefaultAnnotationIfThereIsNone', function () {
       wrapper.instance().goToNextStep()
-      expect(createDefaultAnnotationIfThereIsNoneSpy.called).to.be.true()
+      expect(createDefaultAnnotationIfThereIsNoneSpy).to.have.been.called()
     })
 
     it('should call props.selectStep', function () {
       wrapper.instance().goToNextStep()
-      expect(selectStepSpy.called).to.be.true()
+      expect(selectStepSpy).to.have.been.called()
     })
   })
 
@@ -131,16 +131,16 @@ describe('TaskNavButtonsContainer', function () {
       const step = { stepKey: 'S1', taskKeys: ['T1'] }
       wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, isThereAPreviousStep: () => { return true }, step })
       wrapper.instance().goToPreviousStep()
-      expect(selectStepSpy.called).to.be.true()
-      expect(selectStepSpy.calledWith('S0')).to.be.true()
+      expect(selectStepSpy).to.have.been.called()
+      expect(selectStepSpy.withArgs('S0')).to.have.been.calledOnce()
     })
 
     it('should call props.removeAnnotation when there is a previous step', function () {
       const step = { stepKey: 'S1', taskKeys: ['T1'] }
       wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, isThereAPreviousStep: () => { return true }, step })
       wrapper.instance().goToPreviousStep()
-      expect(removeAnnotationSpy.called).to.be.true()
-      expect(removeAnnotationSpy.calledWith('T1')).to.be.true()
+      expect(removeAnnotationSpy).to.have.been.called()
+      expect(removeAnnotationSpy.withArgs('T1')).to.have.been.calledOnce()
     })
   })
 
@@ -168,7 +168,7 @@ describe('TaskNavButtonsContainer', function () {
 
     it('should not call props.createDefaultAnnotation if there is not a props.classification', function () {
       wrapper.instance().createDefaultAnnotationIfThereIsNone()
-      expect(createDefaultAnnotationSpy.called).to.be.false()
+      expect(createDefaultAnnotationSpy).to.have.not.been.called()
     })
 
     it('should call props.createDefaultAnnotation if there is a props.classification and there aren\'t annotations for the tasks', function () {
@@ -176,8 +176,8 @@ describe('TaskNavButtonsContainer', function () {
       wrapper.setProps({ classification })
       wrapper.instance().createDefaultAnnotationIfThereIsNone()
       tasks.forEach((task) => {
-        expect(createDefaultAnnotationSpy.called).to.be.true()
-        expect(createDefaultAnnotationSpy.calledWith(task)).to.be.true()
+        expect(createDefaultAnnotationSpy).to.have.been.called()
+        expect(createDefaultAnnotationSpy.withArgs(task)).to.have.been.calledOnce()
       })
     })
 

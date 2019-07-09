@@ -60,7 +60,7 @@ describe('TaskInputField', function () {
 
     it('should call onChange when the on change event is fired', function () {
       wrapper.find('input').simulate('change')
-      expect(onChangeSpy.calledOnce).to.be.true()
+      expect(onChangeSpy).to.have.been.calledOnce()
     })
   })
 })

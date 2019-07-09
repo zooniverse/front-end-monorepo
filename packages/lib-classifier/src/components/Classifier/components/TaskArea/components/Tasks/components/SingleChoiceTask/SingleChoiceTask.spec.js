@@ -81,7 +81,7 @@ describe('SingleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(onChangeSpy.calledWith(index)).to.be.true()
+        expect(onChangeSpy.withArgs(index)).to.have.been.calledOnce()
       })
     })
 
@@ -89,7 +89,7 @@ describe('SingleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(addAnnotationSpy.calledWith(index, task)).to.be.true()
+        expect(addAnnotationSpy.withArgs(index, task)).to.have.been.calledOnce()
       })
     })
 

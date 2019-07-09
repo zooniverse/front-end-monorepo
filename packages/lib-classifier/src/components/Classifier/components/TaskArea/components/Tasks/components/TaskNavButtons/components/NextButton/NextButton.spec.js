@@ -30,7 +30,7 @@ describe('NextButton', function () {
 
     it('should call props.onClick for the onClick event', function () {
       wrapper.find('WithTheme(Button)').simulate('click')
-      expect(onClickSpy.calledOnce).to.be.true()
+      expect(onClickSpy).to.have.been.calledOnce()
     })
   })
 

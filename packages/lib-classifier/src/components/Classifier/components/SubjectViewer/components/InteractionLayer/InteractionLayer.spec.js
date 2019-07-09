@@ -29,16 +29,16 @@ describe('Component > InteractionLayer', function () {
 
   it('should bind the onMouseMove prop', function () {
     wrapper.simulate('mousemove')
-    expect(onMouseMove.called).to.be.true()
+    expect(onMouseMove).to.have.been.called()
   })
 
   it('should bind the onMouseUp prop', function () {
     wrapper.simulate('mouseup')
-    expect(onMouseUp.called).to.be.true()
+    expect(onMouseUp).to.have.been.called()
   })
 
   it('should bind the onMouseDown prop', function () {
     wrapper.simulate('mousedown')
-    expect(onMouseDown.called).to.be.true()
+    expect(onMouseDown).to.have.been.called()
   })
 })

@@ -88,7 +88,7 @@ describe('MultipleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(onChangeSpy.calledWith(index)).to.be.true()
+        expect(onChangeSpy.withArgs(index)).to.have.been.calledOnce()
       })
     })
 
@@ -96,7 +96,7 @@ describe('MultipleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(addAnnotationSpy.calledWith([index], task)).to.be.true()
+        expect(addAnnotationSpy.withArgs([index], task)).to.have.been.calledOnce()
       })
     })
 
@@ -104,12 +104,12 @@ describe('MultipleChoiceTask', function () {
       const firstNode = wrapper.find({ label: task.answers[0].label })
       const lastNode = wrapper.find({ label: task.answers[2].label })
       firstNode.simulate('change', { target: { checked: true } })
-      expect(addAnnotationSpy.calledWith([0], task)).to.be.true()
+      expect(addAnnotationSpy.withArgs([0], task)).to.have.been.calledOnce()
 
       const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
       wrapper.setProps({ annotations })
       lastNode.simulate('change', { target: { checked: true } })
-      expect(addAnnotationSpy.calledWith([0, 2], task)).to.be.true()
+      expect(addAnnotationSpy.withArgs([0, 2], task)).to.have.been.calledOnce()
     })
 
     it('should splice the index from the value array if the event target is unchecked and the existing annotations value array includes the index', function () {
@@ -118,7 +118,7 @@ describe('MultipleChoiceTask', function () {
       const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
       wrapper.setProps({ annotations })
       firstNode.simulate('change', { target: { checked: false } })
-      expect(addAnnotationSpy.secondCall.calledWith([], task)).to.be.true()
+      expect(addAnnotationSpy.withArgs([], task)).to.have.been.calledOnce()
     })
   })
 })

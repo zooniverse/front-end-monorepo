@@ -39,7 +39,7 @@ describe('BackButton', function () {
 
     it('should call props.onClick on the onClick event', function () {
       wrapper.find(Button).simulate('click')
-      expect(onClickSpy.calledOnce).to.be.true()
+      expect(onClickSpy).to.have.been.calledOnce()
     })
   })
 
@@ -79,27 +79,27 @@ describe('BackButton', function () {
 
     it('should should call showWarning on the onMouseEnter event', function () {
       wrapper.find(Button).simulate('mouseenter')
-      expect(showWarningSpy.calledOnce).to.be.true()
+      expect(showWarningSpy).to.have.been.calledOnce()
     })
 
     it('should call showWarning on the onFocus event', function () {
       wrapper.find(Button).simulate('focus')
-      expect(showWarningSpy.calledOnce).to.be.true()
+      expect(showWarningSpy).to.have.been.calledOnce()
     })
 
     it('should call hideWarning on the onMouseLeave event', function () {
       wrapper.find(Button).simulate('mouseleave')
-      expect(hideWarningSpy.calledOnce).to.be.true()
+      expect(hideWarningSpy).to.have.been.calledOnce()
     })
 
     it('should call hideWarning on the onBlur event', function () {
       wrapper.find(Button).simulate('blur')
-      expect(hideWarningSpy.calledOnce).to.be.true()
+      expect(hideWarningSpy).to.have.been.calledOnce()
     })
 
     it('should not call setState if props.areAnnotationsNotPersisted is false', function () {
       wrapper.find(Button).simulate('mouseenter')
-      expect(setStateSpy.calledOnce).to.be.false()
+      expect(setStateSpy).to.have.not.been.called()
       expect(wrapper.state().showWarning).to.be.false()
     })
 
@@ -107,7 +107,7 @@ describe('BackButton', function () {
       const previousShowWarningState = wrapper.state().showWarning
       wrapper.setProps({ areAnnotationsNotPersisted: true })
       wrapper.find(Button).simulate('mouseenter')
-      expect(setStateSpy.calledOnce).to.be.true()
+      expect(setStateSpy).to.have.been.calledOnce()
       expect(previousShowWarningState).to.be.false()
       expect(wrapper.state().showWarning).to.be.true()
       expect(previousShowWarningState).to.not.equal(wrapper.state().showWarning)

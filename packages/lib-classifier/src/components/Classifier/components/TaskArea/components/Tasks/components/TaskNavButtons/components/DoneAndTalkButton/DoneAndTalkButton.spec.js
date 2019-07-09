@@ -20,7 +20,7 @@ describe('DoneAndTalkButton', function () {
     const onClickSpy = sinon.stub().callsFake(() => { return Promise.resolve() })
     const wrapper = shallow(<DoneAndTalkButton onClick={onClickSpy} talkURL={talkURL} />)
     wrapper.simulate('click', { event: { metaKey: false } })
-    expect(onClickSpy.calledOnce).to.be.true()
+    expect(onClickSpy).to.have.been.calledOnce()
   })
 
   describe('when props.completed is true', function () {

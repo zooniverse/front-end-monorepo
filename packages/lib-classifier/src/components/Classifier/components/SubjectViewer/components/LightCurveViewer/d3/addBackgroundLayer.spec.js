@@ -23,9 +23,9 @@ describe('LightCurveViewer > d3 > addBackgroundLayer', function () {
 
   it('should append a rect with the correct attributes to the selection', function () {
     addBackgroundLayer(selectionFixture, chartStyle)
-    expect(appendStub.calledWith('rect')).to.be.true()
-    expect(attrStub.calledWith('width', '100%')).to.be.true()
-    expect(attrStub.calledWith('height', '100%')).to.be.true()
-    expect(attrStub.calledWith('fill', chartStyle.background)).to.be.true()
+    expect(appendStub.withArgs('rect')).to.have.been.calledOnce()
+    expect(attrStub.withArgs('width', '100%')).to.have.been.calledOnce()
+    expect(attrStub.withArgs('height', '100%')).to.have.been.calledOnce()
+    expect(attrStub.withArgs('fill', chartStyle.background)).to.have.been.calledOnce()
   })
 })

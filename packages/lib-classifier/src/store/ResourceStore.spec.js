@@ -83,7 +83,7 @@ describe('Model > ResourceStore', function () {
   it('should fetch a missing resource object when `setActive` is called', async function () {
     await resourceStore.setActive('789')
     expect(resourceStore.active).to.deep.equal(otherResourceStub)
-    expect(clientStub.panoptes.get.called).to.be.true()
+    expect(clientStub.panoptes.get).to.have.been.called()
   })
 
   it('should set the headers object when a successful get request is made', async function () {

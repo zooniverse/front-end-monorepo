@@ -21,7 +21,7 @@ describe('ClassificationQueue', function () {
     })
     it('saves classifications to the API', async function () {
       await classificationQueue.add(classificationData)
-      expect(postSpy.called).to.be.true()
+      expect(postSpy).to.have.been.called()
       postSpy.returnValues[0].then((response) => {
         expect(response.ok).to.be.true()
       })
@@ -56,7 +56,7 @@ describe('ClassificationQueue', function () {
     it('should not save failed classifications', async function () {
       try {
         await classificationQueue.add(classificationData)
-        expect(postSpy.called).to.be.true()
+        expect(postSpy).to.have.been.called()
         postSpy.returnValues[0].then((response) => {
           expect(response.ok).to.be.false()
         })
