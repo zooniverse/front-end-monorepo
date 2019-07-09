@@ -10,7 +10,7 @@ import {
 } from '@zooniverse/panoptes-js'
 
 import { unregisterWorkers } from '../../workers'
-import RootStore from 'src/store'
+import RootStore from '../../store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
