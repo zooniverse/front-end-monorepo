@@ -1,6 +1,5 @@
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
-import { getEnv, types } from 'mobx-state-tree'
 import merge from 'lodash/merge'
 
 import ProjectStore from './ProjectStore'
@@ -76,8 +75,8 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(authClientStubWithoutUser.checkBearerToken).to.have.been.called
-          expect(authClientStubWithoutUser.checkCurrent).to.have.been.called
+          expect(authClientStubWithoutUser.checkBearerToken).to.have.been.called()
+          expect(authClientStubWithoutUser.checkCurrent).to.have.been.called()
         }).then(done, done)
     })
 
@@ -90,7 +89,7 @@ describe('Model > UserProjectPreferencesStore', function () {
       rootStore.projects.setActive(project.id)
         .then(() => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
-          expect(rootStore.userProjectPreferences.active).to.be.undefined
+          expect(rootStore.userProjectPreferences.active).to.be.undefined()
         }).then(done, done)
     })
 
@@ -99,8 +98,8 @@ describe('Model > UserProjectPreferencesStore', function () {
         projects: ProjectStore.create(),
         userProjectPreferences: UserProjectPreferencesStore.create()
       }, { authClient: {
-        checkBearerToken: () => Promise.reject('testing error handling'),
-        checkCurrent: () => Promise.reject('testing error handling')
+        checkBearerToken: () => Promise.reject(new Error('testing error handling')),
+        checkCurrent: () => Promise.reject(new Error('testing error handling'))
       },
       client: clientStub })
 
@@ -119,7 +118,7 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore.projects.setActive(project.id)
         .then(() => {
-          expect(fetchUPPSpy).to.have.been.called
+          expect(fetchUPPSpy).to.have.been.called()
         }).then(done, done)
     })
   })
@@ -237,7 +236,7 @@ describe('Model > UserProjectPreferencesStore', function () {
               if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
               return Promise.resolve({ body: { project_preferences: [] } })
             },
-            post: () => Promise.reject('testing error handling')
+            post: () => Promise.reject(new Error('testing error handling'))
           }
         } })
 
@@ -313,7 +312,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.have.been.calledOnce
+      ).to.have.been.calledOnce()
       rootStore.client.panoptes.get.resetHistory()
     })
 
@@ -323,7 +322,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         `/project_preferences/${upp.id}`,
         null,
         { authorization: `Bearer ${token}` })
-      ).to.not.have.been.called
+      ).to.have.not.been.called()
       rootStore.client.panoptes.get.resetHistory()
     })
   })

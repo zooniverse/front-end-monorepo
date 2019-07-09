@@ -26,6 +26,7 @@ const ClassificationStore = types
       if (self.active) {
         return self.active.annotations
       }
+      return []
     },
 
     get classificationQueue () {
@@ -113,6 +114,7 @@ const ClassificationStore = types
       }
 
       if (!classification) console.error('No active classification. Cannot create default annotations.')
+      return null
     }
 
     function addAnnotation (annotationValue, task) {

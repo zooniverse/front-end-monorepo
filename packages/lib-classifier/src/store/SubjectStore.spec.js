@@ -45,7 +45,7 @@ describe('Model > SubjectStore', function () {
         expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
         rootStore.subjects.advance()
         expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-        expect(rootStore.subjects.resources.get('1')).to.be.undefined
+        expect(rootStore.subjects.resources.get('1')).to.be.undefined()
       }).then(done, done)
     })
 
@@ -64,7 +64,7 @@ describe('Model > SubjectStore', function () {
       })
 
       it('should request more subjects', function () {
-        expect(populateSpy).to.have.been.calledOnce
+        expect(populateSpy).to.have.been.calledOnce()
       })
     })
 
@@ -82,7 +82,7 @@ describe('Model > SubjectStore', function () {
 
       it('should leave the active subject empty', function () {
         expect(rootStore.subjects.resources.size).to.equal(0)
-        expect(rootStore.subjects.active).to.be.undefined
+        expect(rootStore.subjects.active).to.be.undefined()
       })
     })
   })
@@ -105,7 +105,7 @@ describe('Model > SubjectStore', function () {
 
       setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
-        expect(rootStore.subjects.isThereMetadata).to.be.false
+        expect(rootStore.subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
@@ -118,7 +118,7 @@ describe('Model > SubjectStore', function () {
       setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(0)
-        expect(rootStore.subjects.isThereMetadata).to.be.false
+        expect(rootStore.subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
@@ -144,7 +144,7 @@ describe('Model > SubjectStore', function () {
         const metadataKeys = Object.keys(rootStore.subjects.active.toJSON().metadata)
         expect(metadataKeys).to.have.lengthOf(1)
         expect(metadataKeys[0]).to.equal('#foo')
-        expect(rootStore.subjects.isThereMetadata).to.be.false
+        expect(rootStore.subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
@@ -168,7 +168,7 @@ describe('Model > SubjectStore', function () {
       setupStores(rootStore)
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
-        expect(rootStore.subjects.isThereMetadata).to.be.true
+        expect(rootStore.subjects.isThereMetadata).to.be.true()
       }).then(done, done)
     })
   })
@@ -201,7 +201,7 @@ describe('Model > SubjectStore', function () {
       })
 
       it('should open a Talk URL', function () {
-        expect(window.location.assign.withArgs(talkURL)).to.have.been.calledOnce
+        expect(window.location.assign.withArgs(talkURL)).to.have.been.calledOnce()
       })
     })
 
@@ -231,7 +231,7 @@ describe('Model > SubjectStore', function () {
       })
 
       it('should switch focus to the new tab', function () {
-        expect(newTab.focus).to.have.been.calledOnce
+        expect(newTab.focus).to.have.been.calledOnce()
       })
     })
   })

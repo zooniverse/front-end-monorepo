@@ -16,7 +16,7 @@ describe('Component > Button', function () {
     )
 
     wrapper.find('button').simulate('blur')
-    expect(spy.called).to.be.true()
+    expect(spy).to.have.been.called()
   })
 
   it('should call the onClick prop function on click', function () {
@@ -26,7 +26,7 @@ describe('Component > Button', function () {
     )
 
     wrapper.find('button').simulate('click')
-    expect(spy.called).to.be.true()
+    expect(spy).to.have.been.called()
   })
 
   it('should call the onFocus prop function on focus', function () {
@@ -36,7 +36,7 @@ describe('Component > Button', function () {
     )
 
     wrapper.find('button').simulate('focus')
-    expect(spy.called).to.be.true()
+    expect(spy).to.have.been.called()
   })
 
   it('should call the onMouseOver prop function on mouse over', function () {
@@ -46,7 +46,7 @@ describe('Component > Button', function () {
     )
 
     wrapper.find('button').simulate('mouseover')
-    expect(spy.called).to.be.true()
+    expect(spy).to.have.been.called()
   })
 
   it('should call the onMouseOut prop function on mouse out', function () {
@@ -56,7 +56,7 @@ describe('Component > Button', function () {
     )
 
     wrapper.find('button').simulate('mouseout')
-    expect(spy.called).to.be.true()
+    expect(spy).to.have.been.called()
   })
 
   it('should add an `aria-label` from the `a11yTitle` prop', function () {

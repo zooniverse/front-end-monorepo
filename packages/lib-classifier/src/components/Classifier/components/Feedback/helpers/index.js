@@ -1,2 +1,2 @@
-export { default } from './getFeedbackViewer'
-export { default } from './reduceFeedbackMessages'
+export { getFeedbackViewer } from './getFeedbackViewer'
+export { reduceFeedbackMessages } from './reduceFeedbackMessages'

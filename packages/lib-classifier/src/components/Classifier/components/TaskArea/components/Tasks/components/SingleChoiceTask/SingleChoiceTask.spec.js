@@ -21,11 +21,11 @@ describe('SingleChoiceTask', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
 
     it('should have a question', function () {
-      expect(wrapper.contains(task.question)).to.be.true
+      expect(wrapper.contains(task.question)).to.be.true()
     })
 
     it('should render the correct number of answer choices', function () {
@@ -54,7 +54,7 @@ describe('SingleChoiceTask', function () {
     it('should check the selected answer', function () {
       const answer = task.answers[0]
       const input = wrapper.find({ label: answer.label })
-      expect(input.prop('checked')).to.be.true
+      expect(input.prop('checked')).to.be.true()
     })
   })
 
@@ -81,7 +81,7 @@ describe('SingleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(onChangeSpy.calledWith(index)).to.be.true
+        expect(onChangeSpy.withArgs(index)).to.have.been.calledOnce()
       })
     })
 
@@ -89,14 +89,14 @@ describe('SingleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(addAnnotationSpy.calledWith(index, task)).to.be.true
+        expect(addAnnotationSpy.withArgs(index, task)).to.have.been.calledOnce()
       })
     })
 
     it('should not call addAnnotation in the onChange handler if the event target is not checked', function () {
       const node = wrapper.find({ label: task.answers[0].label })
       node.simulate('change', { target: { checked: false } })
-      expect(addAnnotationSpy.called).to.be.false
+      expect(addAnnotationSpy.called).to.be.false()
     })
   })
 })

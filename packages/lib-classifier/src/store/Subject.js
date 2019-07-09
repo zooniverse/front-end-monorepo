@@ -1,5 +1,4 @@
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, types } from 'mobx-state-tree'
+import { getRoot, types } from 'mobx-state-tree'
 import Resource from './Resource'
 import createLocationCounts from '../helpers/createLocationCounts'
 import subjectViewers from '../helpers/subjectViewers'
@@ -54,9 +53,8 @@ const Subject = types
     get viewer () {
       const counts = createLocationCounts(self)
 
-      const subject = getRoot(self).subjects.active
       const workflow = getRoot(self).workflows.active
-      const configuration = workflow && workflow.configuration || {}
+      const configuration = (workflow && workflow.configuration) || {}
       let viewer = null
 
       // If the Workflow configuration specifies a subject viewer, use that.
