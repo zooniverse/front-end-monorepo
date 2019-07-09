@@ -15,7 +15,7 @@ const ROOT_STORE = types
   .model('RootStore', {
     classifications: types.frozen({}),
     workflows: types.frozen({}),
-    workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create())
+    workflowSteps: types.optional(WorkflowStepStore, () => WorkflowStepStore.create({}))
   })
 
 describe('Model > WorkflowStepStore', function () {
