@@ -1,4 +1,3 @@
-import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
@@ -162,7 +161,7 @@ describe('Component > SingleImageViewerContainer', function () {
         message: 'the SVG image failed to load'
       }
       onError.callsFake(function () {
-        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce
+        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce()
         done()
       })
       imageWrapper.simulate('error', fakeSVGError)

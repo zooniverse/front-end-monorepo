@@ -96,10 +96,10 @@ const FieldGuideStore = types
       const fieldGuide = self.active
       if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
         if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
-        return self.activeItemIndex = index
+        self.activeItemIndex = index
+      } else {
+        self.activeItemIndex = undefined
       }
-
-      return self.activeItemIndex = undefined
     }
 
     return {

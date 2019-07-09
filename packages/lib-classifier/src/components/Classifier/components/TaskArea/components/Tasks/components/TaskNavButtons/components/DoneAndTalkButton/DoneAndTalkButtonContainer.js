@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import DoneAndTalkButton from './DoneAndTalkButton'
 
 function storeMapper (stores) {
@@ -20,32 +20,37 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class DoneAndTalkButtonContainer extends React.Component {
+  constructor () {
+    super()
+    this.openTalkLinkAndClick = this.openTalkLinkAndClick.bind(this)
+  }
+
+  openTalkLinkAndClick (event) {
+    const { onClick, subject } = this.props
+    const isCmdClick = event.metaKey
+
+    subject.openInTalk(isCmdClick)
+    onClick(event)
+  }
+
   render () {
     const {
       completed,
       demoMode,
       disabled,
       goldStandardMode,
-      onClick,
       shouldWeShowDoneAndTalkButton,
       subject
     } = this.props
 
     if (shouldWeShowDoneAndTalkButton && subject.id) {
-      function openTalkLinkAndClick (event) {
-        const isCmdClick = event.metaKey
-
-        subject.openInTalk(isCmdClick)
-        onClick(event)
-      }
-
       return (
         <DoneAndTalkButton
           completed={completed}
           demoMode={demoMode}
           disabled={disabled}
           goldStandardMode={goldStandardMode}
-          onClick={openTalkLinkAndClick}
+          onClick={this.openTalkLinkAndClick}
         />
       )
     }
@@ -69,7 +74,7 @@ DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
   demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
-  onClick: () => {},
+  onClick: PropTypes.func,
   shouldWeShowDoneAndTalkButton: PropTypes.bool,
   subject: PropTypes.shape({
     id: PropTypes.string
