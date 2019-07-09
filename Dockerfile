@@ -8,4 +8,4 @@ RUN chown -R node:node .
 
 USER node
 
-RUN ./bin/bootstrap.sh
+RUN yarn bootstrap
