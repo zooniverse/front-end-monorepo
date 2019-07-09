@@ -8,7 +8,7 @@ const singleChoiceAnnotation = {
 describe('Model > SingleChoiceAnnotation', function () {
   it('should exist', function () {
     const singleChoiceAnnotationInstance = SingleChoiceAnnotation.create(singleChoiceAnnotation)
-    expect(singleChoiceAnnotationInstance).to.exist
+    expect(singleChoiceAnnotationInstance).to.be.ok()
     expect(singleChoiceAnnotationInstance).to.be.an('object')
   })
 })

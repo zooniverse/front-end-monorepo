@@ -61,7 +61,7 @@ describe('Model > FeedbackStore', function () {
   })
 
   it('should exist', function () {
-    expect(FeedbackStore).to.exist
+    expect(FeedbackStore).to.be.ok()
     expect(FeedbackStore).to.be.an('object')
   })
 
@@ -121,15 +121,15 @@ describe('Model > FeedbackStore', function () {
     })
 
     it('should reset active state', function () {
-      expect(feedback.isActive).to.be.false
+      expect(feedback.isActive).to.be.false()
     })
 
     it('should reset feedback rules', function () {
-      expect(feedback.rules.toJSON()).to.be.empty
+      expect(feedback.rules.toJSON()).to.be.empty()
     })
 
     it('should reset showModal state', function () {
-      expect(feedback.showModal).to.be.false
+      expect(feedback.showModal).to.be.false()
     })
 
     it('should set the onHide callback', function () {
@@ -140,7 +140,7 @@ describe('Model > FeedbackStore', function () {
   describe('showFeedback', function () {
     it('should set showModal state to true', function () {
       feedback.showFeedback()
-      expect(feedback.showModal).to.be.true
+      expect(feedback.showModal).to.be.true()
     })
   })
 
@@ -151,11 +151,11 @@ describe('Model > FeedbackStore', function () {
     })
 
     it('should set showModal state to false', function () {
-      expect(feedback.showModal).to.be.false
+      expect(feedback.showModal).to.be.false()
     })
 
     it('should call the onHide callback', function () {
-      expect(feedback.onHide).to.have.been.calledOnce
+      expect(feedback.onHide).to.have.been.calledOnce()
     })
   })
 
@@ -200,7 +200,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should continue the action', function () {
-        expect(next.withArgs(call)).to.have.been.calledOnce
+        expect(next.withArgs(call)).to.have.been.calledOnce()
       })
     })
 
@@ -211,11 +211,11 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should abort the action', function () {
-        expect(abort).to.have.been.calledOnce
+        expect(abort).to.have.been.calledOnce()
       })
 
       it('should show feedback', function () {
-        expect(feedback.showModal).to.be.true
+        expect(feedback.showModal).to.be.true()
       })
     })
   })

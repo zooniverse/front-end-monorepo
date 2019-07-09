@@ -7,7 +7,7 @@ const icon = <svg />
 describe('InputIcon', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<InputIcon icon={icon} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a StyledInputIcon component', function () {

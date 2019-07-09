@@ -17,7 +17,7 @@ const dataVisAnnotationTask = {
 describe('Model > DataVisAnnotationTask', function () {
   it('should exist', function () {
     const dataVisAnnotationTaskInstance = DataVisAnnotationTask.create(dataVisAnnotationTask)
-    expect(dataVisAnnotationTaskInstance).to.exist
+    expect(dataVisAnnotationTaskInstance).to.be.ok()
     expect(dataVisAnnotationTaskInstance).to.be.an('object')
   })
 })

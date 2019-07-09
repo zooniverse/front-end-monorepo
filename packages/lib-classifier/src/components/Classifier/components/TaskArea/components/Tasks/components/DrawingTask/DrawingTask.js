@@ -4,7 +4,6 @@ import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 function storeMapper (stores) {
   const {
@@ -30,10 +29,10 @@ class DrawingTask extends React.Component {
       annotations,
       task
     } = this.props
-    let annotation
-    if (annotations && annotations.size > 0) {
-      annotation = annotations.get(task.taskKey)
-    }
+    // let annotation
+    // if (annotations && annotations.size > 0) {
+    //   annotation = annotations.get(task.taskKey)
+    // }
     return (
       <Text size='small' tag='legend'>
         <Markdownz>

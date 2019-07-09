@@ -9,8 +9,8 @@ describe('Feedback > Single Answer Question > Rule Creator', function () {
     const subjectRule = { answer: '1', id: '2' }
     const workflowRule = { strategy: '3' }
     const rule = createRule(subjectRule, workflowRule)
-    expect(rule.failureEnabled).to.be.false
-    expect(rule.successEnabled).to.be.false
+    expect(rule.failureEnabled).to.be.false()
+    expect(rule.successEnabled).to.be.false()
   })
 
   it('should create a rule with the right properties derived from the workflow', function () {

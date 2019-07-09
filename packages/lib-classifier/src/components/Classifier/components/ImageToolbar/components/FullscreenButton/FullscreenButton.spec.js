@@ -23,6 +23,6 @@ describe('Component > FullscreenButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true()
+    expect(spy).to.have.been.called()
   })
 })

@@ -21,7 +21,7 @@ describe('Model > Classification', function () {
   })
 
   it('should exist', function () {
-    expect(model).to.exist
+    expect(model).to.be.ok()
     expect(model).to.be.an('object')
   })
 })
