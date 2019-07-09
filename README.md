@@ -1,10 +1,12 @@
 # Zooniverse Front-End Monorepo
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+[![Build Status](https://travis-ci.com/zooniverse/front-end-monorepo.svg?branch=master)](https://travis-ci.com/zooniverse/front-end-monorepo)
 [![Coverage Status](https://coveralls.io/repos/github/zooniverse/front-end-monorepo/badge.svg?branch=master)](https://coveralls.io/github/zooniverse/front-end-monorepo?branch=master)
+[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
+
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![Licensed under Apache 2.0](https://img.shields.io/github/license/zooniverse/front-end-monorepo.svg)](https://github.com/zooniverse/front-end-monorepo/blob/master/LICENSE.md)
 ![Contributors](https://img.shields.io/github/contributors/zooniverse/front-end-monorepo.svg)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
 
 ️Take a look at [our roadmap](https://trello.com/b/yg0r4dG5/front-end-rebuild-roadmap)! 🛣️
 
@@ -19,8 +21,8 @@
 - [Packages](#packages)
 - [Helpers](#helpers)
 - [Conventions](#conventions)
-  - [NPM](#npm)
-  - [Packages directory](#packages-directory)
+ - [NPM](#npm)
+ - [Packages directory](#packages-directory)
 - [Production deployment](#production-deployment)
 - [License](#license)
 
@@ -29,39 +31,43 @@
 - [Browser support](docs/arch/adr-3.md)
 - Node 10
 - Git
+- Yarn
+
+Node, git, and yarn can be installed through [homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of homebrew
 
 ## Monowhat?
 
-This monorepo is managed with [Lerna](https://github.com/lerna/lerna).
+This monorepo is managed with [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
 
-Lerna allows us to maintain package modularity for javascript projects that have interdependency. Organizationally, it allows us to track issues, pull requests, and progress for all related packages in one place.
+Yarn Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Getting started
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
 cd front-end-monorepo
-./bin/bootstrap.sh
+yarn bootstrap
 ```
 
-The `bootstrap.sh` script will install the top-level dependencies, build any packages used as dependencies, and finally bootstrap the remaining packages.
+The `bootstrap` script will install the dependencies and build any local packages used as dependencies.
 
 ## Helpful Guides
 
-- [Lerna docs](https://github.com/lerna/lerna)
-- [Troubleshooting guide](docs/troubleshooting-guide.md) for developers encountering issues installing or running the Front-End Monorepo.
+- [Yarn docs](https://yarnpkg.com/en/docs)
 
 ## Packages
 
-A list of apps and packages and their main dependencies. See each package's folder for more specific readme documentation.
+See each package's folder for more specific documentation.
 
-- **@zooniverse/fe-project** - Server-side rendered application for a project (anything at `/projects/owner/display_name`)
-- **@zooniverse/classifier** - Classifier view components and state which can be exported modularly or altogether as a working classifier
-- **@zooniverse/async-states** - Frozen object of async states to use in data stores
-- **@zooniverse/grommet-theme** - The style definitions for a Zooniverse theme to use with Grommet
-- **@zooniverse/panoptes-js** - Panoptes API javascript client. Functional HTTP request helpers built on top of superagent
-- **@zooniverse/react-components** - A set of Zooniverse specific React components
-
+| package name | folder | description |
+|---|---|---|
+| **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
+| **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
+| **@zooniverse/fe-content-pages** | `packages/app-content-pages` | Server-side rendered application for documentation / info pages, such as Publications. |
+| **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a project (anything at `/projects/owner/display_name`) |
+| **@zooniverse/grommet-theme** | `packages/lib-grommet-theme` | The style definitions for a Zooniverse theme to use with Grommet |
+| **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API javascript client. Functional HTTP request helpers built on top of superagent |
+| **@zooniverse/react-components** | `packages/lib-react-components` | A set of Zooniverse-specific React components, built using Grommet |
 
 ## Helpers
 
@@ -76,7 +82,7 @@ If you have [`plop`](https://plopjs.com/) installed globally (`npm i -g plop`), 
 
 All packages built from this monorepo should be _scoped_ to `zooniverse`, e.g. `grommet-theme` becomes `@zooniverse/grommet-theme`.
 
-### Packages directory
+### `packages` directory
 
 Libraries for publishing to NPM should have their directory names prefixed with `lib-`, e.g. `/grommet-theme` becomes `/lib-grommet-theme`.
 

@@ -14,11 +14,3 @@ This script gets the monorepo into a working state by doing the following:
 ## `panic-button.sh`
 
 Trashes `node_modules` and all build artifacts in the monorepo.
-
-## `travis-bootstrap.sh`
-
-Version of `bootstrap.sh` for use in running the tests on Travis CI.
-
-## `travis-test.sh`
-
-Runs tests for every package on Travis CI.

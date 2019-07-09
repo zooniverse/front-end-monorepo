@@ -48,16 +48,5 @@ module.exports = {
   plugins: [
     EnvironmentWebpackPlugin,
     HtmlWebpackPluginConfig
-  ],
-  resolve: {
-    alias: {
-      // adjust this path as needed depending on where your webpack config is
-      react: path.resolve('./node_modules/react'),
-      'styled-components': path.resolve('./node_modules/styled-components')
-    },
-    modules: [
-      path.resolve(__dirname),
-      'node_modules'
-    ]
-  }
+  ]
 }
