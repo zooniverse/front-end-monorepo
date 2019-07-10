@@ -1,7 +1,7 @@
-import { types, onSnapshot } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 const Point = types.model('Point', {
-  color: types.optional(types.string, '#00ff00'),
+  color: types.optional(types.string, ''),
   label: types.optional(types.string, ''),
   max: types.maybe(types.union(types.string, types.number), ''),
   min: types.maybe(types.union(types.string, types.number), ''),
