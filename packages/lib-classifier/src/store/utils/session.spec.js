@@ -49,8 +49,8 @@ describe('Store utils > sessionUtils', function () {
     })
 
     it('it should retrieve id from session or local storage if it exists', function () {
-      sessionUtils.generateSessionID() // just setting up for test
-      generateSessionIDSpy.resetHistory()
+      const stored = { id: 'foobar', ttl: (Date.now() + 50000) }
+      sessionStorage.setItem('session_id', JSON.stringify(stored))
       sessionUtils.getSessionID()
       expect(generateSessionIDSpy).to.have.not.been.called()
     })
@@ -69,25 +69,21 @@ describe('Store utils > sessionUtils', function () {
       // Unsure of the minor discrepency
       expect(new Date(stored.ttl).toString()).to.equal(fiveMinutesFromNowSpy.returnValues[0].toString())
     })
-  })
 
-  describe('getSessionID > when the ttl property is less than Date.now()', function () {
-    // Can't wrap the same method in a spy and a stub in the same describe block
-    // So this test is isolated here.
-    let generateSessionIDStub
-    before(function () {
-      generateSessionIDStub = sinon.stub(sessionUtils, 'generateSessionID')
-        .callsFake(() => { return { id: 'foobar', ttl: (Date.now() - 1) } })
-    })
+    describe('when the stored token has expired', function () {
+      before(function () {
+        const stored = { id: 'foobar', ttl: (Date.now() - 1) }
+        sessionStorage.setItem('session_id', JSON.stringify(stored))
+      })
 
-    after(function () {
-      generateSessionIDStub.restore()
-      sessionStorage.removeItem('session_id')
-    })
+      after(function () {
+        sessionStorage.removeItem('session_id')
+      })
 
-    it('should call generateSessionID', function () {
-      sessionUtils.getSessionID()
-      expect(generateSessionIDStub).to.have.been.calledTwice()
+      it('should call generateSessionID', function () {
+        sessionUtils.getSessionID()
+        expect(generateSessionIDSpy).to.have.been.calledOnce()
+      })
     })
   })
 
