@@ -13,6 +13,6 @@ describe('Drawing Task > getIcon ', function () {
     const wrapper = shallow(<LineIcon />)
     expect(wrapper.containsMatchingElement(
       <line x1='25' y1='90' x2='75' y2='10' />
-    )).to.be.true
+    )).to.be.true()
   })
 })
