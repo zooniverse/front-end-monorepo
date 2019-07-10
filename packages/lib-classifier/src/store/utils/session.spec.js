@@ -80,7 +80,7 @@ describe('Store utils > sessionUtils', function () {
         sessionStorage.removeItem('session_id')
       })
 
-      it('should call generateSessionID', function () {
+      it('should generate a new session ID', function () {
         sessionUtils.getSessionID()
         expect(generateSessionIDSpy).to.have.been.calledOnce()
       })
