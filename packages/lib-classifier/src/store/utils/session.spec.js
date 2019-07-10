@@ -52,7 +52,7 @@ describe('Store utils > sessionUtils', function () {
       sessionUtils.generateSessionID() // just setting up for test
       generateSessionIDSpy.resetHistory()
       sessionUtils.getSessionID()
-      expect(generateSessionIDSpy.notCalled).to.be.true()
+      expect(generateSessionIDSpy).to.have.not.been.called()
     })
 
     it('should call fiveMinutesFromNow if the ttl property is greater than Date.now()', function () {
@@ -87,7 +87,7 @@ describe('Store utils > sessionUtils', function () {
 
     it('should call generateSessionID', function () {
       sessionUtils.getSessionID()
-      expect(generateSessionIDStub.calledTwice).to.be.true()
+      expect(generateSessionIDStub).to.have.been.calledTwice()
     })
   })
 
