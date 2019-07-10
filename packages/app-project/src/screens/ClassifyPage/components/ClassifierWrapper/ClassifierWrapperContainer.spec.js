@@ -27,6 +27,7 @@ describe('Component > ClassifierWrapperContainer', function () {
   describe('with a project and user loaded', function () {
     let recents
     let collections
+    let yourStats
 
     before(function () {
       const project = {
@@ -39,6 +40,9 @@ describe('Component > ClassifierWrapperContainer', function () {
         addFavourites: sinon.stub(),
         removeFavourites: sinon.stub()
       }
+      yourStats = {
+        increment: sinon.stub()
+      }
       const user = {
         loadingState: asyncStates.success
       }
@@ -48,6 +52,7 @@ describe('Component > ClassifierWrapperContainer', function () {
           project={project}
           recents={recents}
           user={user}
+          yourStats={yourStats}
         />
       )
     })
@@ -56,20 +61,32 @@ describe('Component > ClassifierWrapperContainer', function () {
       expect(wrapper.find(Classifier)).to.have.lengthOf(1)
     })
 
-    it('should add to recents on classification complete', function () {
-      const subject = {
-        id: '1',
-        locations: [
-          { 'image/jpeg': 'thing.jpg' }
-        ]
-      }
-      const recent = {
-        subjectId: subject.id,
-        locations: subject.locations
-      }
-      wrapper.instance().onCompleteClassification({}, subject)
-      expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+    describe('on classification complete', function () {
+      before(function () {
+        const subject = {
+          id: '1',
+          locations: [
+            { 'image/jpeg': 'thing.jpg' }
+          ]
+        }
+        wrapper.instance().onCompleteClassification({}, subject)
+      })
+
+      it('should increment stats', function () {
+        expect(yourStats.increment).to.have.been.calledOnce()
+      })
+
+      it('should add to recents', function () {
+        const recent = {
+          subjectId: '1',
+          locations: [
+            { 'image/jpeg': 'thing.jpg' }
+          ]
+        }
+        expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+      })
     })
+    
 
     describe('on toggle favourite', function () {
       it('should add a subject to favourites', function () {
