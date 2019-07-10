@@ -4,19 +4,18 @@ import ModalTutorial from './ModalTutorial'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
 import { TutorialFactory } from '../../../../../test/factories'
-import SlideTutorial from '../SlideTutorial'
 
 const tutorial = TutorialFactory.build()
 
 describe('ModalTutorial', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<ModalTutorial.wrappedComponent setModalVisibility={() => {}} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render null if a tutorial has not been successfully loaded', function () {
     const wrapper = shallow(<ModalTutorial.wrappedComponent setModalVisibility={() => { }} />)
-    expect(wrapper.html()).to.be.null
+    expect(wrapper.html()).to.be.null()
   })
 
   it('should render a Modal when a tutorial is successfully loaded', function () {

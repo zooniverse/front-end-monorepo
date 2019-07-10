@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Grid, Image } from 'grommet'
-import { arrayOf, oneOf, node, string } from 'prop-types'
+import { arrayOf, node, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -11,10 +11,6 @@ import SocialAnchor from './components/SocialAnchor'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-const RelativeDiv = styled.div`
-  position: relative;
-`
 
 export const StyledEasterEgg = styled(Image)`
   bottom: 100%;
@@ -57,6 +53,7 @@ export default function ZooFooter (props) {
 
   return (
     <Box
+      as='footer'
       align='center'
       background={{
         dark: 'dark-1',
@@ -73,7 +70,6 @@ export default function ZooFooter (props) {
         top: 'large'
       }}
       responsive
-      tag='footer'
     >
       <Box
         pad={{ horizontal: 'large', bottom: 'medium' }}
@@ -97,6 +93,7 @@ export default function ZooFooter (props) {
             gap='small'
             justify='end'
             responsive={false}
+            role='presentation'
             tag='nav'
           >
             <SocialAnchor service='facebook' />
@@ -110,7 +107,7 @@ export default function ZooFooter (props) {
           gap='small'
           columns={{
             'count': 'fit',
-            'size': 'small'
+            'size': '120px'
           }}
           margin={{ bottom: 'large' }}
           tag='section'

@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
-import MetadataButton from './components/MetadataButton'
-import { MetadataModal } from './components/MetadataModal'
+import { withResponsiveContext } from '@zooniverse/react-components'
+import Metadata from './components/Metadata'
 import FavouritesButton from './components/FavouritesButton'
 import CollectionsButton from './components/CollectionsButton'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
   const upp = stores.classifierStore.userProjectPreferences.active
   return {
@@ -19,17 +19,12 @@ function storeMapper(stores) {
 
 @inject(storeMapper)
 @observer
-export default class MetaTools extends React.Component {
+class MetaTools extends React.Component {
   constructor () {
     super()
 
     this.addToCollection = this.addToCollection.bind(this)
     this.toggleFavourites = this.toggleFavourites.bind(this)
-    this.toggleMetadataModal = this.toggleMetadataModal.bind(this)
-
-    this.state = {
-      showMetadataModal: false
-    }
   }
 
   addToCollection () {
@@ -37,27 +32,19 @@ export default class MetaTools extends React.Component {
     subject.addToCollection()
   }
 
-  toggleMetadataModal () {
-    this.setState((prevState) => { return { showMetadataModal: !prevState.showMetadataModal } })
-  }
-
   toggleFavourites () {
     const { subject } = this.props
     subject.toggleFavorite()
   }
 
+  // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
   render () {
-    const { className, isThereMetadata, subject, upp } = this.props
-
+    const { className, isThereMetadata, screenSize, subject, upp } = this.props
+    const gap = (screenSize === 'small') ? 'xsmall' : 'small'
+    const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
     return (
-      <Box className={className} direction="row-responsive" gap='small'>
-        <MetadataButton disabled={!isThereMetadata} onClick={this.toggleMetadataModal} />
-        {isThereMetadata &&
-          <MetadataModal
-            active={this.state.showMetadataModal}
-            closeFn={this.toggleMetadataModal}
-            metadata={subject.metadata}
-          />}
+      <Box className={className} direction='row-responsive' gap={gap} margin={margin}>
+        <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
           checked={subject && subject.favorite}
           disabled={!upp}
@@ -70,5 +57,22 @@ export default class MetaTools extends React.Component {
       </Box>
     )
   }
-
 }
+
+MetaTools.defaultProps = {
+  className: '',
+  isThereMetadata: false,
+  subject: null,
+  upp: null
+}
+
+MetaTools.propTypes = {
+  className: PropTypes.string,
+  isThereMetadata: PropTypes.bool,
+  screenSize: PropTypes.string,
+  subject: PropTypes.object,
+  upp: PropTypes.object
+}
+
+export default withResponsiveContext(MetaTools)
+export { MetaTools }

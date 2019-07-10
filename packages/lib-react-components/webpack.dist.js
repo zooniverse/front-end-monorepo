@@ -1,7 +1,9 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const path = require('path')
 const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/index.js',
   mode: 'production',
   module: {
@@ -13,9 +15,6 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    minimize: false // disabled for now to make debugging easier
-  },
   output: {
     path: path.resolve('dist'),
     filename: 'main.js',
@@ -26,6 +25,7 @@ module.exports = {
     globalObject: `typeof self !== 'undefined' ? self : this`
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new PeerDepsExternalsPlugin(),
   ],
   resolve: {

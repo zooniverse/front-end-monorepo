@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import DoneAndTalkButton from './DoneAndTalkButton'
 
 function storeMapper (stores) {
@@ -10,18 +10,8 @@ function storeMapper (stores) {
   const {
     active: subject
   } = stores.classifierStore.subjects
-  const {
-    active: project
-  } = stores.classifierStore.projects
-  const {
-    onHide,
-    setOnHide
-  } = stores.classifierStore.feedback
 
   return {
-    project,
-    onHide,
-    setOnHide,
     shouldWeShowDoneAndTalkButton,
     subject
   }
@@ -30,56 +20,37 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class DoneAndTalkButtonContainer extends React.Component {
+  constructor () {
+    super()
+    this.openTalkLinkAndClick = this.openTalkLinkAndClick.bind(this)
+  }
+
+  openTalkLinkAndClick (event) {
+    const { onClick, subject } = this.props
+    const isCmdClick = event.metaKey
+
+    subject.openInTalk(isCmdClick)
+    onClick(event)
+  }
+
   render () {
     const {
       completed,
       demoMode,
       disabled,
       goldStandardMode,
-      onClick,
-      onHide,
-      project,
-      setOnHide,
       shouldWeShowDoneAndTalkButton,
       subject
     } = this.props
-    const projectSlug = project && project.slug
-    const subjectId = subject && subject.id
 
-    if (shouldWeShowDoneAndTalkButton && projectSlug && subjectId) {
-      const talkURL = `/projects/${projectSlug}/talk/subjects/${subjectId}`
-
-      function openTalkLinkAndClick (event) {
-        const isCmdClick = event.metaKey
-
-        onClick(event)
-          .then(() => {
-            if (window && talkURL) {
-              const url = `${window.location.origin}${talkURL}`
-              if (isCmdClick) {
-                setOnHide(() => {
-                  onHide()
-                  const newTab = window.open()
-                  newTab.opener = null
-                  newTab.location = url
-                  newTab.target = '_blank'
-                  newTab.focus()
-                })
-              } else {
-                setOnHide(() => window.location.assign(url))
-              }
-            }
-          })
-      }
-
+    if (shouldWeShowDoneAndTalkButton && subject.id) {
       return (
         <DoneAndTalkButton
           completed={completed}
           demoMode={demoMode}
           disabled={disabled}
           goldStandardMode={goldStandardMode}
-          onClick={openTalkLinkAndClick}
-          talkURL={talkURL}
+          onClick={this.openTalkLinkAndClick}
         />
       )
     }
@@ -94,7 +65,6 @@ DoneAndTalkButtonContainer.wrappedComponent.defaultProps = {
   disabled: false,
   goldStandardMode: false,
   onClick: () => {},
-  project: {},
   shouldWeShowDoneAndTalkButton: false,
   subject: {}
 }
@@ -104,10 +74,7 @@ DoneAndTalkButtonContainer.wrappedComponent.propTypes = {
   demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
   goldStandardMode: PropTypes.bool,
-  onClick: () => {},
-  project: PropTypes.shape({
-    slug: PropTypes.string
-  }),
+  onClick: PropTypes.func,
   shouldWeShowDoneAndTalkButton: PropTypes.bool,
   subject: PropTypes.shape({
     id: PropTypes.string

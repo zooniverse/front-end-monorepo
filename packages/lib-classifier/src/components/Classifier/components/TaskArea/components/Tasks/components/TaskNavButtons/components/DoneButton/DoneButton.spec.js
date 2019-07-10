@@ -1,39 +1,28 @@
-import React from 'react'
-import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
+import { shallow } from 'enzyme'
+import React from 'react'
 import sinon from 'sinon'
-import DoneButton, { StyledDoneButton } from './DoneButton'
+
+import { DoneButton } from './DoneButton'
 
 describe('DoneButton', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<DoneButton />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   describe('when props.completed is true', function () {
     it('should render null', function () {
       const wrapper = shallow(<DoneButton completed />)
-      expect(wrapper.html()).to.be.null
+      expect(wrapper.html()).to.be.null()
     })
   })
 
   it('should call props.onClick for the onClick event', function () {
     const onClickSpy = sinon.spy()
     const wrapper = shallow(<DoneButton onClick={onClickSpy} />)
-    wrapper.find('Styled(WithTheme(Button))').simulate('click')
-    expect(onClickSpy.calledOnce).to.be.true
-  })
-
-  describe('when props.completed is false', function () {
-    it('should render a ThemeProvider', function () {
-      const wrapper = shallow(<DoneButton />)
-      expect(wrapper.find('ThemeProvider')).to.have.lengthOf(1)
-    })
-
-    it('should render a StyledDoneButton', function () {
-      const wrapper = shallow(<DoneButton />)
-      expect(wrapper.find(StyledDoneButton)).to.have.lengthOf(1)
-    })
+    wrapper.simulate('click')
+    expect(onClickSpy).to.have.been.calledOnce()
   })
 
   xdescribe('props.goldStandardMode', function () {

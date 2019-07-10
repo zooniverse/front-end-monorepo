@@ -1,5 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
+import { Button, Heading } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import StepNavigation from './components/StepNavigation'
 import SlideTutorial from './SlideTutorial'
@@ -21,7 +23,7 @@ const medium = {
 describe('SlideTutorial', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render markdown from the step content', function () {
@@ -43,5 +45,26 @@ describe('SlideTutorial', function () {
     step.medium = medium.id
     const wrapper = shallow(<SlideTutorial stepWithMedium={{ step, medium }} />)
     expect(wrapper.find(Media)).to.have.lengthOf(1)
+  })
+
+  it('should only render the Heading on the first step', function () {
+    const wrapper = shallow(<SlideTutorial activeStep={0} stepWithMedium={{ step, medium }} isFirstStep />)
+    expect(wrapper.find(Heading)).to.have.lengthOf(1)
+    wrapper.setProps({ activeStep: 1, isFirstStep: false })
+    expect(wrapper.find(Heading)).to.have.lengthOf(0)
+  })
+
+  it('should only render the get started button on the last step', function () {
+    const wrapper = shallow(<SlideTutorial activeStep={1} stepWithMedium={{ step, medium }} isLastStep />)
+    expect(wrapper.find(Button)).to.have.lengthOf(1)
+    wrapper.setProps({ activeStep: 0, isLastStep: false })
+    expect(wrapper.find(Button)).to.have.lengthOf(0)
+  })
+
+  it('should call props.onClick for the click event of the get started button', function () {
+    const onClick = sinon.spy()
+    const wrapper = shallow(<SlideTutorial activeStep={1} onClick={onClick} stepWithMedium={{ step, medium }} isLastStep />)
+    wrapper.find(Button).simulate('click')
+    expect(onClick).to.have.been.calledOnce()
   })
 })

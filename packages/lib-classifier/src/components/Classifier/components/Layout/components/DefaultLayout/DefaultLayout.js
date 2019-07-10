@@ -12,7 +12,7 @@ import TaskArea from '../../../TaskArea'
 
 const ContainerGrid = styled.div`
   display: grid;
-  grid-gap: 2rem;
+  grid-gap: 30px;
   grid-template-areas: "viewer task";
   overflow: hidden;
   position: relative;
@@ -25,6 +25,7 @@ const ContainerGrid = styled.div`
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
     grid-auto-flow: column;
+    grid-gap: 20px;
     grid-template-areas: "viewer" "task";
   }
 `

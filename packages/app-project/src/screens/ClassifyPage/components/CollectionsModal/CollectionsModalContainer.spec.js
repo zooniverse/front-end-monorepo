@@ -63,7 +63,7 @@ describe('Component > CollectionsModalContainer', function () {
       })
 
       it('should fetch a list of collections filtered by name', function () {
-        expect(searchCollections).to.have.been.calledOnceWith(query)
+        expect(searchCollections.withArgs(query)).to.have.been.calledOnce()
       })
     })
 
@@ -91,7 +91,7 @@ describe('Component > CollectionsModalContainer', function () {
         })
 
         it('should add subjects to the selected collection', function () {
-          expect(addSubjects).to.have.been.calledOnceWith('1', [subjectId])
+          expect(addSubjects.withArgs('1', [subjectId])).to.have.been.calledOnce()
         })
 
         it('should close the modal', function () {
@@ -154,9 +154,10 @@ describe('Component > CollectionsModalContainer', function () {
         })
 
         it('should create a new collection with that name', function () {
-          expect(createCollection).to.have.been.calledOnceWith(query, [
+          const createSpy = createCollection.withArgs(query, [
             subjectId
           ])
+          expect(createSpy).to.have.been.calledOnce()
         })
 
         it('should close the modal', function () {

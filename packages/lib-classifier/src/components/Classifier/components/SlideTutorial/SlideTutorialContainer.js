@@ -1,15 +1,17 @@
 import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { Box, Paragraph, ResponsiveContext } from 'grommet'
 import SlideTutorial from './SlideTutorial'
 
 function storeMapper (stores) {
-  const { activeStep, stepWithMedium } = stores.classifierStore.tutorials
+  const { activeStep, isFirstStep, isLastStep, stepWithMedium } = stores.classifierStore.tutorials
   const { active: project } = stores.classifierStore.projects
   return {
     activeStep,
+    isFirstStep,
+    isLastStep,
     projectDisplayName: project.display_name,
     stepWithMedium
   }

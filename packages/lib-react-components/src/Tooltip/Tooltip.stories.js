@@ -1,5 +1,5 @@
 import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet, Text } from 'grommet'
@@ -46,8 +46,8 @@ storiesOf('Tooltip', module)
         right: 'left'
       }}
       animation={{
-        "type": "slideLeft",
-        "delay": 20
+        'type': 'slideLeft',
+        'delay': 20
       }}
       backgroundColor='brand'
       icon={<Add />}
@@ -58,14 +58,14 @@ storiesOf('Tooltip', module)
   ), config)
 
 class TooltipStoryExample extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       showDrop: false
     }
   }
 
-  render() {
+  render () {
     const { align, animation, backgroundColor, label, icon, pad, showDropKnob, tooltipText } = this.props
     return (
       <Grommet theme={zooTheme}>
@@ -77,7 +77,7 @@ class TooltipStoryExample extends React.Component {
             onMouseOver={() => this.setState({ showDrop: true })}
             onMouseOut={() => this.setState({ showDrop: false })}
             primary
-            ref={ref => this.button = ref}
+            ref={ref => { this.button = ref }}
           />
           {(this.state.showDrop || showDropKnob) &&
             <Tooltip

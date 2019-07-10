@@ -1,6 +1,5 @@
 import * as d3 from 'd3'
 import { Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
@@ -20,47 +19,11 @@ const ZOOM_OUT_VALUE = 0.8
 const ZOOMING_TIME = 100 // milliseconds
 const PAN_DISTANCE = 20
 
-function storeMapper (stores) {
-  const {
-    enableAnnotate,
-    enableMove,
-    interactionMode, // string: indicates if the Classifier is in 'annotate' (default) mode or 'move' mode
-    setOnPan,
-    setOnZoom // func: sets onZoom event handler
-  } = stores.classifierStore.subjectViewer
-
-  const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications.currentAnnotations
-
-  const currentTask =
-    (stores.classifierStore.workflowSteps.activeStepTasks &&
-     stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
-    {}
-
-  const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
-
-  return {
-    addAnnotation,
-    annotations,
-    currentTask,
-    enableAnnotate,
-    enableMove,
-    interactionMode,
-    setOnPan,
-    setOnZoom,
-    toolIndex
-  }
-}
-
-@inject(storeMapper)
-@observer
 class LightCurveViewer extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
-    this.svgContainer = React.createRef()
+    this.svgContainer = props.forwardRef
 
     // D3 Selection elements
     this.d3annotationsLayer = null
@@ -155,60 +118,58 @@ class LightCurveViewer extends Component {
    */
   drawChart (width, height, shouldAnimate = true) {
     const props = this.props
-    if (!height || !width) {
-      return false
-    }
+    if (height && width) {
+      this.chartWidth = width
+      this.chartHeight = height
 
-    this.chartWidth = width
-    this.chartHeight = height
+      /*
+      Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
+      beyond the start-ish (xMin=0-margin) or end-ish (xMax=width+margin) of the
+      light curve.
 
-    /*
-    Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
-    beyond the start-ish (xMin=0-margin) or end-ish (xMax=width+margin) of the
-    light curve.
+      UX: the +/-margins add some "give" to chart that lets users see _some_
+      interactivity at 1.0x zoom. Without this give, users won't see any feedback
+      to drag/move actions in Move mode at 1.0x zoom, possibly causing them to
+      incorrectly think they're in Annotate Mode. Feel free to remove these
+      margins if we can find a better way to communicate when a user is in Move
+      Mode but cannot actually pan the image.
+      */
+      this.zoom.translateExtent([[-props.outerMargin, 0], [width + props.outerMargin, 0]])
 
-    UX: the +/-margins add some "give" to chart that lets users see _some_
-    interactivity at 1.0x zoom. Without this give, users won't see any feedback
-    to drag/move actions in Move mode at 1.0x zoom, possibly causing them to
-    incorrectly think they're in Annotate Mode. Feel free to remove these
-    margins if we can find a better way to communicate when a user is in Move
-    Mode but cannot actually pan the image.
-    */
-    this.zoom.translateExtent([[-props.outerMargin, 0], [width + props.outerMargin, 0]])
+      // Update x-y scales to fit current size of container
+      this.xScale
+        .domain(this.props.dataExtent.x)
+        .range([0 + props.innerMargin, width - props.innerMargin])
+      this.yScale
+        .domain(this.props.dataExtent.y)
+        .range([height - props.innerMargin, 0 + props.innerMargin]) // Note that this is reversed
 
-    // Update x-y scales to fit current size of container
-    this.xScale
-      .domain(this.props.dataExtent.x)
-      .range([0 + props.innerMargin, width - props.innerMargin])
-    this.yScale
-      .domain(this.props.dataExtent.y)
-      .range([height - props.innerMargin, 0 + props.innerMargin]) // Note that this is reversed
+      this.updatePresentation(width, height)
 
-    this.updatePresentation(width, height)
+      // Add the data points
+      const points = this.d3dataLayer.selectAll('.data-point')
+        .data(this.props.dataPoints)
 
-    // Add the data points
-    const points = this.d3dataLayer.selectAll('.data-point')
-      .data(this.props.dataPoints)
+      // For each new and existing data point, add (append) a new SVG circle.
+      points.enter()
+        .append('circle') // Note: all circles are of class '.data-point'
+        .call(setDataPointStyle, props.chartStyle)
 
-    // For each new and existing data point, add (append) a new SVG circle.
-    points.enter()
-      .append('circle') // Note: all circles are of class '.data-point'
-      .call(setDataPointStyle, props.chartStyle)
+      // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
+      points.exit().remove()
 
-    // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
-    points.exit().remove()
+      // Update visual elements
+      this.updateDataPoints(shouldAnimate)
+      this.updatePresentation(width, height)
 
-    // Update visual elements
-    this.updateDataPoints(shouldAnimate)
-    this.updatePresentation(width, height)
-    
-    if (this.props.feedback) {
-      this.updateInteractionMode('move')
-      this.disableBrushEvents()
-      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
-    } else {
-      this.updateAnnotationBrushes()
-      this.initBrushes()
+      if (this.props.feedback) {
+        this.updateInteractionMode('move')
+        this.disableBrushEvents()
+        this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
+      } else {
+        this.updateAnnotationBrushes()
+        this.initBrushes()
+      }
     }
   }
 
@@ -314,7 +275,6 @@ class LightCurveViewer extends Component {
   onAnnotationBrushEnd (annotationBrush, index, domElements) {
     const props = this.props
     const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
-    const defaultBrush = this.getDefaultBrush()
 
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
@@ -428,6 +388,7 @@ class LightCurveViewer extends Component {
    */
   initChart () {
     const props = this.props
+    const { onKeyDown } = props
 
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
@@ -435,6 +396,9 @@ class LightCurveViewer extends Component {
       .attr('class', 'light-curve-viewer')
       .attr('height', '100%')
       .attr('width', '100%')
+      .attr('focusable', true)
+      .attr('tabindex', 0)
+      .on('keydown', () => onKeyDown(d3.event))
       .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
@@ -449,9 +413,10 @@ class LightCurveViewer extends Component {
     data points from appearing outside of the 'middle' of the chart, i.e.
     prevents <circle>s from appearing in the margins of the container.
     */
-    this.d3svg.call(addDataLayer)
+    const uniqueId = props.id || Math.floor(Math.random() * 1000000)
+    this.d3svg.call(addDataLayer, uniqueId)
     this.d3dataLayer = this.d3svg.select('.data-layer')
-    this.d3svg.call(addDataMask, props.outerMargin)
+    this.d3svg.call(addDataMask, props.outerMargin, uniqueId)
     this.d3dataMask = this.d3svg.select('.data-mask')
 
     /*
@@ -460,7 +425,7 @@ class LightCurveViewer extends Component {
      */
     this.xAxis = d3.axisTop(this.yScale)
     this.yAxis = d3.axisRight(this.yScale)
-    const axisLayer = addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
+    addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
     // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
     // Deco layer
@@ -501,10 +466,6 @@ class LightCurveViewer extends Component {
     } else if (interactionMode === 'move') {
       this.d3interfaceLayer.style('display', 'inline')
     }
-  }
-
-  isCurrentTaskValidForAnnotation () {
-    return this.props.currentTask.type === 'dataVisAnnotation' && this.props.currentTask.tools.some(tool => tool.type === 'graph2dRangeX')
   }
 
   isCurrentTaskValidForAnnotation () {
@@ -564,12 +525,11 @@ class LightCurveViewer extends Component {
       }
 
       this.repositionBrush(annotationBrush, d3brush)
-
     })
     this.enableBrushEvents() // Re-enable brush events
   }
 
-  repositionBrush(brush, d3brush) {
+  repositionBrush (brush, d3brush) {
     const currentTransform = this.getCurrentTransform()
 
     const minXonScreen = currentTransform.rescaleX(this.xScale)(brush.minX)
@@ -672,7 +632,7 @@ class LightCurveViewer extends Component {
   }
 }
 
-LightCurveViewer.wrappedComponent.propTypes = {
+LightCurveViewer.propTypes = {
   // Data values
   dataExtent: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
@@ -703,12 +663,16 @@ LightCurveViewer.wrappedComponent.propTypes = {
     fontSize: PropTypes.string
   }),
 
-  // Store-mapped Properties
+  id: PropTypes.number,
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
-  setOnZoom: PropTypes.func.isRequired
+  setOnZoom: PropTypes.func.isRequired,
+
+  onKeyDown: PropTypes.func
 }
 
-LightCurveViewer.wrappedComponent.defaultProps = {
+LightCurveViewer.defaultProps = {
+  forwardRef: React.createRef(),
+
   dataExtent: { x: [-1, 1], y: [-1, 1] },
   dataPoints: [[]],
 
@@ -734,8 +698,10 @@ LightCurveViewer.wrappedComponent.defaultProps = {
     fontSize: '0.75rem'
   },
 
-  interactionMode: '',
-  setOnZoom: (type, zoomValue) => {}
+  id: undefined, // Specify a unique ID for each LCV; required to distinguish data-masks. WARNING: do not apply Math.random() here, as the random value will be set at the class level, and therefore be the same for each instance of the LCV.
+  interactionMode: 'annotate',
+
+  onKeyDown: () => true
 }
 
 export default LightCurveViewer

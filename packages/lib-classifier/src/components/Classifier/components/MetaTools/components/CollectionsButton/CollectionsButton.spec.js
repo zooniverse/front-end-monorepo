@@ -1,9 +1,10 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import { PlainButton } from '@zooniverse/react-components'
+import MetaToolsButton from '../MetaToolsButton'
 
-import CollectionsButton, { Collect } from './CollectionsButton'
+import CollectionsButton from './CollectionsButton'
+import CollectionsIcon from './CollectionsIcon'
 
 let wrapper
 
@@ -13,13 +14,13 @@ describe('Component > CollectionsButton', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should display a Collect icon', function () {
-    const button = wrapper.find(PlainButton)
+    const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Collect />)
+    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='1em' />)
   })
 
   it('should call props.onClick on click', function () {
@@ -30,8 +31,8 @@ describe('Component > CollectionsButton', function () {
       />
     )
 
-    wrapper.find(PlainButton).simulate('click')
-    expect(onClick).to.have.been.calledOnce
+    wrapper.find(MetaToolsButton).simulate('click')
+    expect(onClick).to.have.been.calledOnce()
   })
 
   describe('when disabled', function () {
@@ -44,8 +45,8 @@ describe('Component > CollectionsButton', function () {
     )
 
     it('should not be clickable', function () {
-      wrapper.find(PlainButton).simulate('click')
-      expect(onClick).to.not.have.been.called
+      wrapper.find(MetaToolsButton).simulate('click')
+      expect(onClick).to.not.have.been.called()
     })
   })
 })

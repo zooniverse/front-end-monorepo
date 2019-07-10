@@ -6,7 +6,7 @@ if (workbox) {
     console.log('Classification POST failed', error)
     console.log('Adding classification POST to queue', request)
     try {
-      return queue.addRequest(request)
+      queue.addRequest(request)
     } catch (saveQueueError) {
       console.error('Failed to update classification queue:', saveQueueError)
     }

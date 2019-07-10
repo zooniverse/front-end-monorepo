@@ -8,65 +8,47 @@ import locationValidator from '../../helpers/locationValidator'
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
-    this.state = {
-      height: null,
-      width: null,
-      loading: asyncStates.initialized
-    }
+    this.imageViewer = React.createRef()
+    this.onLoad = this.onLoad.bind(this)
   }
 
-  componentDidMount () {
-    if (this.props.subject) {
-      this.handleSubject()
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    // Casting to JSON fixes reference issue from MST store
-    // A more robust solution might be to have a getter view function defined on the model
-    const prevSubject = prevProps.subject.toJSON()
-    const subject = this.props.subject.toJSON()
-
-    if (subject && (!prevSubject || prevSubject.id !== subject.id)) {
-      this.handleSubject()
-    }
-  }
-
-  // TODO: store the subject image's naturalWidth, naturalHeight, clientWidth, and clientHeight
-  // in the classification metadata
-  // Using SVG image might need to be rethought
   fetchImage (url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
-      let img = new ImageObject()
+      const img = new ImageObject()
       img.onload = () => resolve(img)
       img.onerror = reject
       img.src = url
     })
   }
 
-  async handleSubject () {
+  async getImageSize () {
     const { subject } = this.props
     // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
-    this.setState({ loading: asyncStates.loading })
-    try {
-      const img = await this.fetchImage(imageUrl)
+    const img = await this.fetchImage(imageUrl)
+    const svg = this.imageViewer.current
+    return {
+      clientHeight: svg.clientHeight,
+      clientWidth: svg.clientWidth,
+      naturalHeight: img.naturalHeight,
+      naturalWidth: img.naturalWidth
+    }
+  }
 
-      this.setState({
-        height: img.height,
-        width: img.width,
-        loading: asyncStates.success
-      })
+  async onLoad () {
+    const { onError, onReady } = this.props
+    try {
+      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      onReady({ target })
     } catch (error) {
-      console.error(error)
-      this.setState({ loading: asyncStates.error })
+      onError(error)
     }
   }
 
   render () {
-    const { loadingState } = this.state
-    const { subject } = this.props
+    const { loadingState, onError, subject } = this.props
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
@@ -80,19 +62,30 @@ class SingleImageViewerContainer extends React.Component {
     // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     return (
-      <SingleImageViewer url={imageUrl} />
+      <SingleImageViewer
+        ref={this.imageViewer}
+        onError={onError}
+        onLoad={this.onLoad}
+        url={imageUrl}
+      />
     )
   }
 }
 
 SingleImageViewerContainer.propTypes = {
+  loadingState: PropTypes.string,
+  onError: PropTypes.func,
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
 SingleImageViewerContainer.defaultProps = {
-  ImageObject: window.Image
+  ImageObject: window.Image,
+  loadingState: asyncStates.initialized,
+  onError: () => true,
+  onReady: () => true
 }
 
 export default SingleImageViewerContainer

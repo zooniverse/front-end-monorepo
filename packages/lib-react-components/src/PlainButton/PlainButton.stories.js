@@ -18,8 +18,8 @@ const config = {
 storiesOf('PlainButton', module)
   .addDecorator(withActions('click button'))
   .addDecorator(withKnobs)
-  .
-  add('Light theme (default)', () => (
+
+  .add('Light theme (default)', () => (
     <Grommet theme={zooTheme}>
       <PlainButton text={text('Text', 'Click me')} />
     </Grommet>
@@ -33,12 +33,18 @@ storiesOf('PlainButton', module)
 
   .add('With icon', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton icon={<Add />} text={text('Text', 'Click me')} />
+      <PlainButton icon={<Add size='1em' />} text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
 
   .add('Disabled', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton disabled={true} onClick={undefined} text={text('Text', 'Click me')} />
+      <PlainButton disabled text={text('Text', 'Click me')} />
+    </Grommet>
+  ), config)
+
+  .add('Custom label size', () => (
+    <Grommet theme={zooTheme}>
+      <PlainButton disabled labelSize='small' text={text('Text', 'Click me')} />
     </Grommet>
   ), config)

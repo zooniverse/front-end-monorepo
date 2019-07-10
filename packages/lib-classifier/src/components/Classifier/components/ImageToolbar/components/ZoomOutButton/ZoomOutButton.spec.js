@@ -5,7 +5,8 @@ import ZoomOutButton from './ZoomOutButton'
 
 describe('Component > ZoomOutButton', function () {
   it('should render without crashing', function () {
-    shallow(<ZoomOutButton />)
+    const wrapper = shallow(<ZoomOutButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` label', function () {
@@ -21,6 +22,6 @@ describe('Component > ZoomOutButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy).to.have.been.called()
   })
 })

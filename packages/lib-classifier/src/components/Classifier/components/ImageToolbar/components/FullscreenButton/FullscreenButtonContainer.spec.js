@@ -5,6 +5,7 @@ import FullscreenButtonContainer from './FullscreenButtonContainer'
 
 describe('Component > FullscreenButtonContainer', function () {
   it('should render without crashing', function () {
-    shallow(<FullscreenButtonContainer.wrappedComponent />)
+    const wrapper = shallow(<FullscreenButtonContainer.wrappedComponent />)
+    expect(wrapper).to.be.ok()
   })
 })

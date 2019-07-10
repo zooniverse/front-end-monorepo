@@ -1,23 +1,46 @@
+import asyncStates from '@zooniverse/async-states'
+import { panoptes } from '@zooniverse/panoptes-js'
+import { GraphQLClient } from 'graphql-request'
+import _ from 'lodash'
+import { DateTime } from 'luxon'
 import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
-import { GraphQLClient } from 'graphql-request'
-import asyncStates from '@zooniverse/async-states'
-import { panoptes } from '@zooniverse/panoptes-js'
 
 export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
 
+const Count = types
+  .model('Count', {
+    count: types.number,
+    period: types.string
+  })
+
 const YourStats = types
   .model('YourStats', {
-    dailyCounts: types.array(types.frozen({})),
+    dailyCounts: types.array(Count),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     totalCount: types.optional(types.number, 0)
   })
 
+  .volatile(self => ({
+    sessionCount: 0
+  }))
+
   .views(self => ({
-    get todaysCount () {
-      return self.dailyCounts[0]
+    get counts () {
+      // `substring(0, 10)` turns an ISO 8601 date into YYYY-MM-DD
+      const todaysDate = DateTime.local().toISO().substring(0, 10)
+      const today = _.chain(self.dailyCounts)
+        .find(count => count.period.startsWith(todaysDate))
+        .get('count', 0)
+        .add(self.sessionCount)
+        .value()
+
+      return {
+        today,
+        total: self.totalCount
+      }
     }
   }))
 

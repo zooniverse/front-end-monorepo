@@ -1,6 +1,6 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { PlainButton, withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Box } from 'grommet'
+import { Box } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import React from 'react'
@@ -10,44 +10,38 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(PlainButton)`
   white-space: nowrap;
 
   > div {
-    flex-direction: column-reverse;
+    flex-direction: ${(props) => (props.screenSize === 'small') ? 'row' : 'column-reverse'};
+
+    span {
+      transform: ${(props) => (props.screenSize === 'small') ? 'none' : 'rotate(180deg)'};
+      writing-mode: ${(props) => (props.screenSize === 'small') ? 'unset' : 'vertical-lr'};
+    }
   }
 `
 
 const StyledInfo = styled(Info)`
-  transform: rotate(270deg);
-  margin-top: 6px;
-`
-
-const StyledText = styled(SpacedText)`
-  transform: rotate(180deg);
-  writing-mode: vertical-lr;
+  transform: ${(props) => (props.screensize === 'small') ? 'none' : 'rotate(270deg)'};
+  margin-top: ${(props) => (props.screensize === 'small') ? '0' : '6px'};
 `
 
 function ThemeModeToggle (props) {
-  const { onClick, theme: { dark } } = props
+  const { onClick, screenSize, theme: { dark } } = props
   const text = dark
     ? counterpart('ThemeModeToggle.switchToLight')
     : counterpart('ThemeModeToggle.switchToDark')
 
-  const Label = (
-    <StyledText color={{ dark: 'accent-2', light: 'neutral-2' }} size='medium'>
-      {text}
-    </StyledText>
-  )
-
   return (
-    <Box pad={{ top: 'medium', right: 'small', bottom: 'medium' }}>
+    <Box justify='center'>
       <StyledButton
         a11yTitle={text}
-        icon={<StyledInfo />}
-        label={Label}
+        icon={<StyledInfo color='dark-5' screensize={screenSize} size='1em' />}
+        text={text}
         onClick={onClick}
-        plain
+        screenSize={screenSize}
       />
     </Box>
   )
@@ -58,4 +52,4 @@ ThemeModeToggle.propTypes = {
   onClick: func
 }
 
-export default withTheme(ThemeModeToggle)
+export default withTheme(withResponsiveContext(ThemeModeToggle))

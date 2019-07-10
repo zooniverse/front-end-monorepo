@@ -19,11 +19,7 @@ describe('TaskInputField', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
-    })
-
-    it('should renders a ThemeProvider', function () {
-      expect(wrapper.find('ThemeProvider')).to.have.lengthOf(1)
+      expect(wrapper).to.be.ok()
     })
 
     it('should render a StyledTaskInputField', function () {
@@ -42,6 +38,12 @@ describe('TaskInputField', function () {
       wrapper.setProps({ className: 'active' })
       expect(wrapper.find(StyledTaskInputField).props().className).to.include('active')
     })
+
+    it('should disable the form input when disabled', function () {
+      expect(wrapper.find('input').prop('disabled')).to.be.false()
+      wrapper.setProps({ disabled: true })
+      expect(wrapper.find('input').prop('disabled')).to.be.true()
+    })
   })
 
   describe('onChange method', function () {
@@ -58,7 +60,7 @@ describe('TaskInputField', function () {
 
     it('should call onChange when the on change event is fired', function () {
       wrapper.find('input').simulate('change')
-      expect(onChangeSpy.calledOnce).to.be.true
+      expect(onChangeSpy).to.have.been.calledOnce()
     })
   })
 })

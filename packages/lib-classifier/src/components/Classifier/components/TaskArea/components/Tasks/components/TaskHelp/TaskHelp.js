@@ -10,7 +10,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledPlainButton = styled(PlainButton)`
+export const StyledPlainButton = styled(PlainButton)`
   text-align: center;
 `
 

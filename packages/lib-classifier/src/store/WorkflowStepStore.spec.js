@@ -75,7 +75,6 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should set the tasks', function () {
       const { workflowSteps } = ROOT_STORE_INSTANCE
-      const storeTasks = workflowSteps.tasks.toJSON()
       Object.keys(WORKFLOW.tasks).forEach(taskKey => {
         const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
         // `taskKey` is copied from the original object for serialization by MST
@@ -121,7 +120,8 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should convert the tasks to steps and set the steps', function () {
       const { workflowSteps } = ROOT_STORE_INSTANCE
-      expect(ROOT_STORE_INSTANCE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
+      const numberOfTasks = Object.keys(WORKFLOW.tasks).length
+      expect(workflowSteps.steps).to.have.lengthOf(numberOfTasks)
     })
 
     it('should set the tasks', function () {
@@ -207,7 +207,7 @@ describe('Model > WorkflowStepStore', function () {
           active: undefined
         }
       })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if there is not an active classification', function () {
@@ -219,7 +219,7 @@ describe('Model > WorkflowStepStore', function () {
           active: WORKFLOW
         }
       })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if not on the last step', function () {
@@ -231,7 +231,7 @@ describe('Model > WorkflowStepStore', function () {
           active: WORKFLOW
         }
       })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if the workflow is not configured to hide classification summaries', function () {
@@ -247,7 +247,7 @@ describe('Model > WorkflowStepStore', function () {
       // returns as falsey undefined rather than explicit false
       // this is because usually the workflow has hide_classification_summaries as undefined in the config
       // rather than explicitly set as false
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined()
     })
 
     it('should return false if the classification subject has been flagged', function () {
@@ -261,7 +261,7 @@ describe('Model > WorkflowStepStore', function () {
       })
 
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return true if the conditions are met', function () {
@@ -274,7 +274,7 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
       ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true
+      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()
     })
   })
 })

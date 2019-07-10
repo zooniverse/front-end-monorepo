@@ -34,8 +34,8 @@ describe('Component > ProjectCard', function () {
   })
 
   it('should include the project image', function () {
-    const imageWrapper = shallow(projectCard).find('Media')
-    expect(imageWrapper.prop('src')).to.equal(IMAGE)
+    const imageWrapper = shallow(projectCard)
+    expect(imageWrapper.find({ src: IMAGE })).to.have.lengthOf(1)
   })
 
   it('should include the project name', function () {

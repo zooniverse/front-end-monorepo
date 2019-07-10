@@ -52,7 +52,7 @@ export default function UserMenu ({ signOut, user }) {
 UserMenu.propTypes = {
   signOut: PropTypes.func.isRequired,
   user: PropTypes.shape({
-    display_name: PropTypes.string,
-    login: PropTypes.string
+    display_name: PropTypes.string.isRequired,
+    login: PropTypes.string.isRequired
   }).isRequired
 }

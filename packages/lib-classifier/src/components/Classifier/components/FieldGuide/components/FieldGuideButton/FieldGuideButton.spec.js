@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import FieldGuideButton, { ButtonLabel } from './FieldGuideButton'
@@ -29,7 +29,7 @@ describe('Component > FieldGuideButton', function () {
         fieldGuide={fieldGuide}
         setModalVisibility={() => {}}
       />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should disable the button if there isn\'t a field guide', function () {
@@ -37,7 +37,7 @@ describe('Component > FieldGuideButton', function () {
       <FieldGuideButton.wrappedComponent
         setModalVisibility={() => { }}
       />)
-    expect(wrapper.props().disabled).to.be.true
+    expect(wrapper.props().disabled).to.be.true()
   })
 
   it('should disable the button if the field guide doesn\'t have items', function () {
@@ -46,7 +46,7 @@ describe('Component > FieldGuideButton', function () {
         fieldGuide={fieldGuideWithoutItems}
         setModalVisibility={() => { }}
       />)
-    expect(wrapper.props().disabled).to.be.true
+    expect(wrapper.props().disabled).to.be.true()
   })
 
   it('should enable the button if the field guide has items', function () {
@@ -55,7 +55,7 @@ describe('Component > FieldGuideButton', function () {
         fieldGuide={fieldGuide}
         setModalVisibility={() => { }}
       />)
-    expect(wrapper.props().disabled).to.be.false
+    expect(wrapper.props().disabled).to.be.false()
   })
 
   it('should render a ButtonLabel for the label', function () {
@@ -64,7 +64,7 @@ describe('Component > FieldGuideButton', function () {
         fieldGuide={fieldGuide}
         setModalVisibility={() => { }}
       />)
-    
+
     expect(wrapper.props().label.type).to.equal(ButtonLabel)
   })
 
@@ -83,7 +83,7 @@ describe('Component > FieldGuideButton', function () {
   describe('Component > ButtonLabel', function () {
     it('should render without crashing', function () {
       const wrapper = shallow(<ButtonLabel />)
-      expect(wrapper).to.be.ok
+      expect(wrapper).to.be.ok()
     })
   })
 })

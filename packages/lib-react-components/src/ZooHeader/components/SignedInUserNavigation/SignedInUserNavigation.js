@@ -52,10 +52,11 @@ export default function SignedInUserNavigation (props) {
   if (Object.keys(user).length > 0 && signOut) {
     return (
       <Box
+        aria-label={counterpart('SignedInUserNavigation.ariaLabel')}
+        as='nav'
         align='center'
         direction='row'
         gap='small'
-        tag='nav'
       >
         <NavListItem
           color={unreadNotifications ? 'accent-2' : '#B2B2B2'}
@@ -108,7 +109,7 @@ SignedInUserNavigation.propTypes = {
   unreadMessages: PropTypes.number,
   unreadNotifications: PropTypes.number,
   user: PropTypes.shape({
-    display_name: PropTypes.string,
-    login: PropTypes.string
+    display_name: PropTypes.string.isRequired,
+    login: PropTypes.string.isRequired
   }).isRequired
 }

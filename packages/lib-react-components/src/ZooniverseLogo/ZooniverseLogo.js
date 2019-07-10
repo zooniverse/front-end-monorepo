@@ -25,9 +25,9 @@ export default function ZooniverseLogo ({ id, size, ...rest }) {
 
 ZooniverseLogo.propTypes = {
   id: string.isRequired,
-  size: string,
+  size: string
 }
 
 ZooniverseLogo.defaultProps = {
-  size: '1em',
+  size: '1em'
 }

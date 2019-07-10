@@ -1,0 +1,9 @@
+--require @babel/register
+--require chai/register-expect
+--reporter spec
+--ui bdd
+--file ./test/create-enzyme-adapter.js
+--file ./test/create-global-document.js
+--file ./test/chai-config.js
+
+./{src,server}/**/*.spec.js

@@ -7,6 +7,7 @@ import counterpart from 'counterpart'
 import en from './locales/en'
 
 import getFeedbackViewer from './helpers/getFeedbackViewer'
+import reduceFeedbackMessages from './helpers/reduceFeedbackMessages'
 
 counterpart.registerTranslations('en', en)
 
@@ -35,9 +36,14 @@ class FeedbackModal extends React.Component {
     const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
     const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
     let FeedbackViewer = null
+
     if (showViewer) {
-      FeedbackViewer = getFeedbackViewer(applicableRules)      
+      FeedbackViewer = getFeedbackViewer(applicableRules)
     }
+
+    const messageContainerHeight = showViewer ? '400px' : '100%'
+
+    const reducedMessages = reduceFeedbackMessages(messages)
 
     if (showModal) {
       return (
@@ -47,16 +53,18 @@ class FeedbackModal extends React.Component {
           title={label}
         >
           <>
-            <Box
-              height='medium'
-              overflow='auto'
-              width='medium'
-            >
-              {showViewer && <FeedbackViewer />}
+            {showViewer && (
+              <Box
+                height='400px'
+                width='600px'
+              >
+                <FeedbackViewer />
+              </Box>)}
+            <Box height={messageContainerHeight} overflow='scroll'>
               <ul>
-                {messages.map(message =>
+                {reducedMessages.map(message =>
                   <li key={Math.random()}>
-                    {message}
+                    {message.text} <small>({message.count} { message.count === 1 ? 'match' : 'matches' })</small>
                   </li>
                 )}
               </ul>
@@ -64,7 +72,7 @@ class FeedbackModal extends React.Component {
             <Box pad={{ top: 'small' }}>
               <Button
                 onClick={hideFeedback}
-                label={counterpart('FeedbackModal.close')}
+                label={counterpart('FeedbackModal.keepClassifying')}
                 primary
               />
             </Box>

@@ -28,13 +28,8 @@ class FieldGuide extends React.Component {
           const width = (size === 'small') ? '100%' : '490px'
           return (
             <Box
-              background={{
-                dark: 'dark-3',
-                light: 'white'
-              }}
               className={className}
               height={height}
-              overflow='auto'
               width={width}
             >
               {items[activeItemIndex]
@@ -51,7 +46,7 @@ class FieldGuide extends React.Component {
 
 FieldGuide.wrappedComponent.defaultProps = {
   activeItemIndex: -1,
-  className: '',
+  className: ''
 }
 
 FieldGuide.wrappedComponent.propTypes = {

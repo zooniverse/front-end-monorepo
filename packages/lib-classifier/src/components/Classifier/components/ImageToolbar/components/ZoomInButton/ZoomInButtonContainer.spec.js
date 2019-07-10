@@ -4,6 +4,7 @@ import ZoomInButtonContainer from './ZoomInButtonContainer'
 
 describe('Component > ZoomInButtonContainer', function () {
   it('should render without crashing', function () {
-    shallow(<ZoomInButtonContainer.wrappedComponent />)
+    const wrapper = shallow(<ZoomInButtonContainer.wrappedComponent />)
+    expect(wrapper).to.be.ok()
   })
 })

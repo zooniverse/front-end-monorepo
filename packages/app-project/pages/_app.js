@@ -4,16 +4,17 @@ import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App, { Container } from 'next/app'
-import cookies from 'next-cookies'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
 
-import AuthModals from '../src/components/AuthModals'
+import AuthModal from '../src/components/AuthModal'
+import getCookie from '../src/helpers/getCookie'
 import GrommetWrapper from '../src/helpers/GrommetWrapper'
 import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
+import { initializeLogger, logReactError } from '../src/helpers/logger'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -21,6 +22,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
+
+initializeLogger()
 
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
@@ -34,9 +37,11 @@ export default class MyApp extends App {
     }
 
     if (pageProps.isServer) {
+      // cookie is in the next.js context req object
+      const mode = getCookie(context, 'mode') || undefined
       const store = initStore(pageProps.isServer, {
         ui: {
-          mode: cookies(context).mode
+          mode
         }
       })
 
@@ -62,6 +67,11 @@ export default class MyApp extends App {
   componentDidMount () {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
     this.store.user.checkCurrent()
+  }
+
+  componentDidCatch (error, errorInfo) {
+    logReactError(error, errorInfo)
+    super.componentDidCatch(error, errorInfo)
   }
 
   componentDidUpdate () {
@@ -93,7 +103,7 @@ export default class MyApp extends App {
               <Component {...pageProps} />
             </Box>
             <ZooFooter />
-            <AuthModals />
+            <AuthModal />
           </GrommetWrapper>
         </Provider>
       </Container>

@@ -23,7 +23,7 @@ function ProjectHeader (props) {
   const { className, navLinks, projectHomeLink, size, title } = props
 
   return (
-    <StyledBox>
+    <StyledBox as='header' className={className}>
       <Background />
       <Box
         align='center'

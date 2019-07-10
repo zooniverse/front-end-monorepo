@@ -6,7 +6,8 @@ import FullscreenButton from './FullscreenButton'
 
 describe('Component > FullscreenButton', function () {
   it('should render without crashing', function () {
-    shallow(<FullscreenButton />)
+    const wrapper = shallow(<FullscreenButton />)
+    expect(wrapper).to.be.ok()
   })
 
   it('should have an `a11yTitle` label', function () {
@@ -22,6 +23,6 @@ describe('Component > FullscreenButton', function () {
       />
     )
     wrapper.simulate('click')
-    expect(spy.called).to.be.true
+    expect(spy).to.have.been.called()
   })
 })

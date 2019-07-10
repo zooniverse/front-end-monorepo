@@ -28,14 +28,14 @@ AdminCheckbox.defaultProps = {
   checked: false,
   colorTheme: 'light',
   label: <Label />,
-  onChange: () => {},
+  onChange: () => {}
 }
 
 AdminCheckbox.propTypes = {
   checked: PropTypes.bool,
   colorTheme: PropTypes.oneOf(['light', 'dark']),
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }
 
 function Label () {

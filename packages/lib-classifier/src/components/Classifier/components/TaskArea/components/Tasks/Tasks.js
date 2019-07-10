@@ -3,26 +3,28 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 
 import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
-import { default as TaskNavButtons } from './components/TaskNavButtons'
+import TaskNavButtons from './components/TaskNavButtons'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
   const { active: step } = stores.classifierStore.workflowSteps
   const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+  const { loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
   return {
     loadingState,
     step,
+    subjectReadyState,
     tasks
   }
 }
 
 @inject(storeMapper)
 @observer
-export class Tasks extends React.Component {
+class Tasks extends React.Component {
   [asyncStates.initialized] () {
     return null
   }
@@ -37,7 +39,8 @@ export class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { tasks } = this.props
+    const { subjectReadyState, tasks } = this.props
+    const ready = subjectReadyState === asyncStates.success
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area
@@ -52,7 +55,7 @@ export class Tasks extends React.Component {
               if (TaskComponent) {
                 return (
                   <Box key={task.taskKey} basis='246px'>
-                    <TaskComponent task={task} {...this.props} />
+                    <TaskComponent disabled={!ready} task={task} {...this.props} />
                   </Box>
                 )
               }
@@ -60,9 +63,9 @@ export class Tasks extends React.Component {
               return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
             <TaskHelp />
-            <TaskNavButtons />
+            <TaskNavButtons disabled={!ready} />
           </Box>
-      </ThemeProvider>
+        </ThemeProvider>
       )
     }
 
@@ -77,14 +80,16 @@ export class Tasks extends React.Component {
 
 Tasks.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
+  ready: PropTypes.bool,
   tasks: PropTypes.arrayOf(PropTypes.object),
-  theme: PropTypes.string,
+  theme: PropTypes.string
 }
 
 Tasks.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized,
+  ready: false,
   tasks: [],
-  theme: 'light',
+  theme: 'light'
 }
 
 export default Tasks

@@ -26,6 +26,7 @@ const ClassificationStore = types
       if (self.active) {
         return self.active.annotations
       }
+      return []
     },
 
     get classificationQueue () {
@@ -113,6 +114,7 @@ const ClassificationStore = types
       }
 
       if (!classification) console.error('No active classification. Cannot create default annotations.')
+      return null
     }
 
     function addAnnotation (annotationValue, task) {
@@ -132,10 +134,12 @@ const ClassificationStore = types
 
     function completeClassification () {
       const classification = self.active
+      const subjectDimensions = toJS(getRoot(self).subjectViewer.dimensions)
 
       const metadata = {
-        session: sessionUtils.getSessionID(),
         finishedAt: (new Date()).toISOString(),
+        session: sessionUtils.getSessionID(),
+        subjectDimensions,
         viewport: {
           width: window.innerWidth,
           height: window.innerHeight

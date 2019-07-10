@@ -7,15 +7,13 @@ const { config } = require('../../config')
 const { resources, responses } = require('./mocks')
 
 describe('Tutorials resource common requests', function () {
-  let scope
-
   describe('getAttachedImages', function () {
     const expectedGetResponse = responses.get.attachedImage
+    const scope = nock(config.host)
 
-    before(function () {
-      scope = nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .get(`${endpoint}/1/attached_images`)
         .query(true)
         .reply(200, expectedGetResponse)
     })
@@ -39,8 +37,8 @@ describe('Tutorials resource common requests', function () {
     })
 
     it('should use query params if defined', async function () {
-      const response = await tutorials.getAttachedImages({ id: '1', query: { page: '2' }})
-      expect(response.req.path.includes('page=2')).to.be.true
+      const response = await tutorials.getAttachedImages({ id: '1', query: { page: '2' } })
+      expect(response.req.path.includes('page=2')).to.be.true()
     })
 
     it('should add the Authorization header to the request if param is defined', async function () {
@@ -52,11 +50,11 @@ describe('Tutorials resource common requests', function () {
   describe('getWithImages', function () {
     describe('a single tutorial', function () {
       const expectedGetResponse = responses.get.tutorialWithImages
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/1`)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -67,12 +65,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should use a default include query param', async function () {
         const response = await tutorials.getWithImages({ id: '1' })
-        expect(response.req.path.includes('include=attached_images')).to.be.true
+        expect(response.req.path.includes('include=attached_images')).to.be.true()
       })
 
       it('should include any other query params if defined', async function () {
-        const response = await tutorials.getWithImages({ id: '1', query: { page: '2' }})
-        expect(response.req.path.includes('page=2')).to.be.true
+        const response = await tutorials.getWithImages({ id: '1', query: { page: '2' } })
+        expect(response.req.path.includes('page=2')).to.be.true()
       })
 
       it('should return the expected response', async function () {
@@ -83,11 +81,11 @@ describe('Tutorials resource common requests', function () {
 
     describe('many tutorials', function () {
       const expectedGetResponse = responses.get.tutorialsWithImages
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -98,12 +96,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should use a default include query param', async function () {
         const response = await tutorials.getWithImages({ workflowId: '10' })
-        expect(response.req.path.includes('include=attached_images')).to.be.true
+        expect(response.req.path.includes('include=attached_images')).to.be.true()
       })
 
       it('should include any other query params if defined', async function () {
         const response = await tutorials.getWithImages({ workflowId: '10', query: { page: '2' } })
-        expect(response.req.path.includes('page=2')).to.be.true
+        expect(response.req.path.includes('page=2')).to.be.true()
       })
 
       it('should return the expected response', async function () {
@@ -115,19 +113,16 @@ describe('Tutorials resource common requests', function () {
 
   describe('getTutorials', function () {
     describe('by tutorial id', function () {
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      const scope = nock(config.host)
+
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/1`)
           .query(true)
-          .reply(200, (uri, requestBody) => {
-            if (uri.includes(resources.tutorialOne.id)) {
-              return responses.get.tutorial
-            }
-            if (uri.includes(resources.minicourse.id)) {
-              return responses.get.minicourse
-            }
-          })
+          .reply(200, responses.get.tutorial)
+          .get(`${endpoint}/52`)
+          .query(true)
+          .reply(200, responses.get.minicourse)
       })
 
       after(function () {
@@ -153,11 +148,11 @@ describe('Tutorials resource common requests', function () {
 
     describe('by workflow id', function () {
       const expectedGetResponse = responses.get.allTutorialsForWorkflow
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -175,7 +170,7 @@ describe('Tutorials resource common requests', function () {
 
       it('should use the workflow id as the query param', async function () {
         const response = await tutorials.getTutorials({ workflowId: '10' })
-        expect(response.req.path.includes('workflow_id=10')).to.be.true
+        expect(response.req.path.includes('workflow_id=10')).to.be.true()
       })
 
       it('should not return minicourse kind tutorials', async function () {
@@ -191,11 +186,11 @@ describe('Tutorials resource common requests', function () {
   describe('getMinicourses', function () {
     describe('by tutorial id', function () {
       const expectedGetResponse = responses.get.minicourse
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/52`)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -211,17 +206,17 @@ describe('Tutorials resource common requests', function () {
 
       it('should set a default query parameter for kind', async function () {
         const response = await tutorials.getMinicourses({ id: '52' })
-        expect(response.req.path.includes('kind=mini-course')).to.be.true
+        expect(response.req.path.includes('kind=mini-course')).to.be.true()
       })
     })
 
     describe('by workflow id', function () {
       const expectedGetResponse = responses.get.minicourse
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponse)
       })
@@ -237,12 +232,12 @@ describe('Tutorials resource common requests', function () {
 
       it('should set a default query parameter for kind', async function () {
         const response = await tutorials.getMinicourses({ workflowId: '10' })
-        expect(response.req.path.includes('kind=mini-course')).to.be.true
+        expect(response.req.path.includes('kind=mini-course')).to.be.true()
       })
 
       it('should use the workflow id as the query param', async function () {
         const response = await tutorials.getTutorials({ workflowId: '10' })
-        expect(response.req.path.includes('workflow_id=10')).to.be.true
+        expect(response.req.path.includes('workflow_id=10')).to.be.true()
       })
     })
   })

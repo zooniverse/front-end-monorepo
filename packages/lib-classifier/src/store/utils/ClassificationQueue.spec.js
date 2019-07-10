@@ -21,9 +21,9 @@ describe('ClassificationQueue', function () {
     })
     it('saves classifications to the API', async function () {
       await classificationQueue.add(classificationData)
-      expect(postSpy.called).to.be.true
+      expect(postSpy).to.have.been.called()
       postSpy.returnValues[0].then((response) => {
-        expect(response.ok).to.be.true
+        expect(response.ok).to.be.true()
       })
     })
     it('does not store saved classifications', async function () {
@@ -40,7 +40,7 @@ describe('ClassificationQueue', function () {
     let postSpy
     beforeEach(function () {
       apiClient = { post: () =>
-        Promise.reject('Stubbing error response')
+        Promise.reject(new Error('Stubbing error response'))
           .catch(() => { return { body: {}, ok: false, status: 504 } })
       }
       postSpy = sinon.spy(apiClient, 'post')
@@ -56,9 +56,9 @@ describe('ClassificationQueue', function () {
     it('should not save failed classifications', async function () {
       try {
         await classificationQueue.add(classificationData)
-        expect(postSpy.called).to.be.true
+        expect(postSpy).to.have.been.called()
         postSpy.returnValues[0].then((response) => {
-          expect(response.ok).to.be.false
+          expect(response.ok).to.be.false()
         })
       } catch (error) {}
     })
@@ -78,7 +78,7 @@ describe('ClassificationQueue', function () {
       sinon.stub(classificationQueue.flushToBackend, 'bind').callsFake(() => classificationQueue.flushToBackend)
       try {
         await classificationQueue.add(classificationData)
-        expect(global.setTimeout.calledWith(classificationQueue.flushToBackend)).to.be.true
+        expect(global.setTimeout.calledWith(classificationQueue.flushToBackend)).to.be.true()
         expect(classificationQueue.flushTimeout).to.equal(100)
       } catch (e) {}
       classificationQueue.flushToBackend.bind.restore()
@@ -86,8 +86,8 @@ describe('ClassificationQueue', function () {
     it('should cancel any existing timer before flushing the queue', function () {
       classificationQueue.flushTimeout = 100
       classificationQueue.add(classificationData)
-      expect(global.clearTimeout.calledWith(100)).to.be.true
-      expect(classificationQueue.flushTimeout).to.be.null
+      expect(global.clearTimeout.calledWith(100)).to.be.true()
+      expect(classificationQueue.flushTimeout).to.be.null()
     })
   })
   describe('with a slow network connection', function () {

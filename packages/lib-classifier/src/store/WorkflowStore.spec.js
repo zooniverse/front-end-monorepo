@@ -95,8 +95,8 @@ xdescribe('Model > WorkflowStore', function () {
 
       it('should set the active workflow to a random active workflow', function () {
         const workflowStore = rootStore.workflows.toJSON()
-        expect(projectWithoutDefault.configuration.default_workflow).to.be.undefined
-        expect(projectWithoutDefault.links.active_workflows.includes(workflowStore.active)).to.be.true
+        expect(projectWithoutDefault.configuration.default_workflow).to.be.undefined()
+        expect(projectWithoutDefault.links.active_workflows.includes(workflowStore.active)).to.be.true()
       })
     })
   })

@@ -19,9 +19,9 @@ const fieldGuideWithItems = FieldGuideFactory.build({ items: [
     icon: medium.id,
     title: 'Cats'
   },
-  { 
+  {
     content: 'All about dogs',
-    title: 'Dogs'  
+    title: 'Dogs'
   }
 ] })
 
@@ -59,7 +59,7 @@ describe('Model > FieldGuideStore', function () {
     }, { client: { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null)) } } })
 
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
-    expect(rootStore.client.panoptes.get).to.not.been.called
+    expect(rootStore.client.panoptes.get).to.have.not.been.called()
   })
 
   it('should set the field guide if there is a project', function (done) {
@@ -72,6 +72,7 @@ describe('Model > FieldGuideStore', function () {
           get: sinon.stub().callsFake((url) => {
             if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
             if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            return Promise.resolve({ body: null })
           })
         }
       }
@@ -95,6 +96,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -102,7 +104,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce
+          expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce()
         }).then(done, done)
     })
 
@@ -116,6 +118,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -125,7 +128,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(setResourceSpy).to.have.not.been.called
+          expect(setResourceSpy).to.have.not.been.called()
           expect(rootStore.fieldGuide.loadingState).to.equal(asyncStates.success)
         }).then(() => {
           setResourceSpy.restore()
@@ -142,6 +145,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -156,7 +160,7 @@ describe('Model > FieldGuideStore', function () {
           return rootStore.fieldGuide.fetchFieldGuide()
         })
         .then(() => {
-          expect(rootStore.client.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)).to.have.been.calledOnce
+          expect(rootStore.client.panoptes.get.withArgs(`/field_guides/${fieldGuide.id}/attached_images`)).to.have.been.calledOnce()
         }).then(done, done)
     })
 
@@ -170,6 +174,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -196,7 +201,7 @@ describe('Model > FieldGuideStore', function () {
         client: {
           panoptes: {
             get: sinon.stub().callsFake(() => {
-              return Promise.reject('testing error state')
+              return Promise.reject(new Error('testing error state'))
             })
           }
         }
@@ -220,6 +225,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -229,7 +235,7 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide()
         .then(() => {
-          expect(setMediaResourcesSpy).to.have.not.been.called
+          expect(setMediaResourcesSpy).to.have.not.been.called()
         }).then(() => {
           setMediaResourcesSpy.restore()
         }).then(done, done)
@@ -245,6 +251,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
               if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -272,15 +279,16 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
               if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
       })
 
       rootStore.fieldGuide.setModalVisibility(true)
-      expect(rootStore.fieldGuide.showModal).to.be.true
+      expect(rootStore.fieldGuide.showModal).to.be.true()
       rootStore.fieldGuide.setModalVisibility(false)
-      expect(rootStore.fieldGuide.showModal).to.be.false
+      expect(rootStore.fieldGuide.showModal).to.be.false()
     })
   })
 
@@ -295,6 +303,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
               if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -302,8 +311,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex(0)
-        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
 
@@ -317,6 +326,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
               if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -324,8 +334,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex()
-        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
 
@@ -339,6 +349,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
               if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -346,8 +357,8 @@ describe('Model > FieldGuideStore', function () {
 
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex(2)
-        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
 
@@ -361,6 +372,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
               if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -380,21 +392,22 @@ describe('Model > FieldGuideStore', function () {
         fieldGuide: FieldGuideStore.create(),
         projects: ProjectStore.create()
       }, {
-          client: {
-            panoptes: {
-              get: sinon.stub().callsFake((url) => {
-                if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-                if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-              })
-            }
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake((url) => {
+              if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
+              if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
+            })
           }
-        })
+        }
+      })
 
       fetchFieldGuide()
         .then(() => {
           rootStore.fieldGuide.setActiveItemIndex(0)
           expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
-        }).then(done, done) 
+        }).then(done, done)
     })
 
     it('should not set the active medium if the item does not have an icon', function (done) {
@@ -407,6 +420,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithoutIcon] } })
               if (url === `/field_guides/${fieldGuideWithoutIcon.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -415,7 +429,7 @@ describe('Model > FieldGuideStore', function () {
       fetchFieldGuide().then(() => {
         rootStore.fieldGuide.setActiveItemIndex(0)
         expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
-        expect(rootStore.fieldGuide.activeMedium).to.be.undefined
+        expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
       }).then(done, done)
     })
   })
@@ -431,6 +445,7 @@ describe('Model > FieldGuideStore', function () {
             get: sinon.stub().callsFake((url) => {
               if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
               if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
+              return Promise.resolve({ body: null })
             })
           }
         }
@@ -442,20 +457,20 @@ describe('Model > FieldGuideStore', function () {
           rootStore.fieldGuide.setModalVisibility(true)
         })
         .then(() => {
-          expect(rootStore.fieldGuide.active).to.exist
-          expect(rootStore.fieldGuide.resources).to.exist
-          expect(rootStore.fieldGuide.attachedMedia).to.exist
-          expect(rootStore.fieldGuide.activeMedium).to.exist
+          expect(rootStore.fieldGuide.active).to.be.ok()
+          expect(rootStore.fieldGuide.resources).to.be.ok()
+          expect(rootStore.fieldGuide.attachedMedia).to.be.ok()
+          expect(rootStore.fieldGuide.activeMedium).to.be.ok()
           expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
-          expect(rootStore.fieldGuide.showModal).to.be.true
+          expect(rootStore.fieldGuide.showModal).to.be.true()
           return rootStore.fieldGuide.reset()
         }).then(() => {
-          expect(rootStore.fieldGuide.active).to.be.undefined
+          expect(rootStore.fieldGuide.active).to.be.undefined()
           expect(rootStore.fieldGuide.resources.size).to.equal(0)
           expect(rootStore.fieldGuide.attachedMedia.size).to.equal(0)
-          expect(rootStore.fieldGuide.activeMedium).to.be.undefined
-          expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined
-          expect(rootStore.fieldGuide.showModal).to.be.false
+          expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
+          expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
+          expect(rootStore.fieldGuide.showModal).to.be.false()
         }).then(done, done)
     })
   })

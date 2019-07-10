@@ -2,19 +2,18 @@ const { expect } = require('chai')
 const nock = require('nock')
 
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 const { queuedEndpoint } = require('./helpers')
 const subjects = require('./index')
 
 describe('Subjects resource common requests', function () {
   describe('getSubjectQueue', function () {
     const expectedGetResponse = responses.get.subjectQueue
-    let scope
+    const scope = nock(config.host)
 
-    before(function () {
-      scope = nock(config.host)
-        .persist()
-        .get(uri => uri.includes(queuedEndpoint))
+    beforeEach(function () {
+      scope
+        .get(queuedEndpoint)
         .query(true)
         .reply(200, expectedGetResponse)
     })
@@ -57,7 +56,7 @@ describe('Subjects resource common requests', function () {
 
     it('should use the subject set id in the request query params if defined', async function () {
       const response = await subjects.getSubjectQueue({ subjectSetId: '40', workflowId: '10' })
-      expect(response.req.path.includes('subject_set_id=40')).to.be.true
+      expect(response.req.path.includes('subject_set_id=40')).to.be.true()
     })
 
     it('should add the Authorization header to the request if param is defined', async function () {

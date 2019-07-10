@@ -7,7 +7,7 @@ import LightCurveViewer from '../../SubjectViewer/components/LightCurveViewer'
 
 function storeMapper (stores) {
   const annotations = stores.classifierStore.classifications.currentAnnotations
-  const { 
+  const {
     applicableRules,
     showModal: feedback
   } = stores.classifierStore.feedback
@@ -35,7 +35,7 @@ class Graph2dRangeFeedback extends Component {
   drawFeedbackBrushes (d3annotationsLayer, repositionBrush) {
     const annotationBrushes = []
     this.props.annotations.forEach(annotation => {
-      const { task, value } = toJS(annotation)
+      const { value } = toJS(annotation)
       value.forEach((marking, i) => {
         const markingBrush = {
           id: i,
@@ -52,8 +52,8 @@ class Graph2dRangeFeedback extends Component {
       const ruleBrush = {
         id: rule.id,
         brush: d3.brushX(),
-        maxX: (parseInt(rule.x, 10) + (parseInt(rule.width, 10) / 2) + parseInt(rule.tolerance, 10)),
-        minX: (parseInt(rule.x, 10) - (parseInt(rule.width, 10) / 2) - parseInt(rule.tolerance, 10)),
+        maxX: (parseFloat(rule.x) + (parseFloat(rule.width) / 2) + parseFloat(rule.tolerance)),
+        minX: (parseFloat(rule.x) - (parseFloat(rule.width) / 2) - parseFloat(rule.tolerance)),
         success: rule.success
       }
       ruleBrushes.push(ruleBrush)
@@ -103,7 +103,7 @@ class Graph2dRangeFeedback extends Component {
   render () {
     const { feedback, subject } = this.props
     return (
-      <LightCurveViewer 
+      <LightCurveViewer
         drawFeedbackBrushes={this.drawFeedbackBrushes}
         feedback={feedback}
         subject={subject}

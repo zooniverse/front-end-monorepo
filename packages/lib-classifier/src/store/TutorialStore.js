@@ -24,10 +24,11 @@ const TutorialStore = types
 
     get stepWithMedium () {
       // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
-      if (!!self.active && !!self.activeStep.toString()) {
+      if (self.active && !!self.activeStep.toString()) {
         const step = self.active.steps[self.activeStep]
         return { step, medium: self.activeMedium }
       }
+      return null
     },
 
     get tutorial () {
@@ -43,6 +44,8 @@ const TutorialStore = types
     },
 
     get miniCourse () {
+      const tutorials = Array.from(self.resources.values())
+
       if (tutorials) {
         return tutorials.find((tutorial) => {
           return tutorial.kind === 'mini-course'
@@ -77,6 +80,25 @@ const TutorialStore = types
       const { miniCourse } = self
 
       if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
+
+      return false
+    },
+
+    get isFirstStep () {
+      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
+      if (self.active && !!self.activeStep.toString()) {
+        return self.activeStep === 0
+      }
+
+      return false
+    },
+
+    get isLastStep () {
+      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
+      if (self.active && !!self.activeStep.toString()) {
+        const numOfSteps = self.active.steps.length
+        return self.activeStep === numOfSteps - 1
+      }
 
       return false
     }
@@ -174,10 +196,13 @@ const TutorialStore = types
     }
 
     function setActiveTutorial (id, stepIndex) {
-      if (!id) return self.resetActiveTutorial()
-      self.active = id
-      self.setTutorialStep(stepIndex)
-      self.setSeenTime()
+      if (!id) {
+        self.resetActiveTutorial()
+      } else {
+        self.active = id
+        self.setTutorialStep(stepIndex)
+        self.setSeenTime()
+      }
     }
 
     function setSeenTime () {

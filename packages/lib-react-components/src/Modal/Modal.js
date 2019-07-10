@@ -5,15 +5,37 @@ import WithLayer from './WithLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
-function Modal ({ children, className, closeFn, pad, title }) {
-  return (
-    <React.Fragment>
-      <ModalHeading className={className} closeFn={closeFn} title={title} />
-      <ModalBody className={className} pad={pad}>
-        {children}
-      </ModalBody>
-    </React.Fragment>
-  )
+class Modal extends React.Component {
+  constructor () {
+    super()
+
+    this.state = {
+      client: false
+    }
+  }
+
+  componentDidMount () {
+    // This seems rendundant when used in conjunction with withOnlyRenderOnBrowser
+    // Yet without it, autoFocus on child components don't work
+    this.setState({ client: true })
+  }
+
+  render () {
+    const { children, className, closeFn, pad, title } = this.props
+
+    if (!this.state.client) {
+      return null
+    }
+
+    return (
+      <React.Fragment>
+        <ModalHeading className={className} closeFn={closeFn} title={title} />
+        <ModalBody className={className} pad={pad}>
+          {children}
+        </ModalBody>
+      </React.Fragment>
+    )
+  }
 }
 
 Modal.propTypes = {

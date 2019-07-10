@@ -1,15 +1,15 @@
 import counterpart from 'counterpart'
 import { Text, Paragraph } from 'grommet'
-import PropTypes from 'prop-types'
+import { number, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'
 import CompletionBar from './components/CompletionBar'
 import MainGrid from './components/MainGrid'
-import Stat from './components/Stat'
 import Subtitle from './components/Subtitle'
 import ContentBox from '../ContentBox'
+import Stat from '../Stat'
 
 counterpart.registerTranslations('en', en)
 
@@ -18,6 +18,11 @@ const NumbersGrid = styled.div`
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 12px;
+`
+
+const StyledParagraph = styled(Paragraph)`
+  line-height: 22px;
+  max-width: 100%;
 `
 
 function ProjectStatistics ({
@@ -39,15 +44,14 @@ function ProjectStatistics ({
       <MainGrid>
         <section>
           <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
-          <Paragraph margin={{ bottom: 'small', top: 'none' }}>
-            {counterpart('ProjectStatistics.text')}
-          </Paragraph>
-          <CompletionBar />
-          <Text
-            margin={{ top: 'small' }}
-            size='small'
-            weight='bold'
+          <StyledParagraph
+            margin={{ bottom: 'small', top: 'none' }}
+            size='medium'
           >
+            {counterpart('ProjectStatistics.text', { projectName })}
+          </StyledParagraph>
+          <CompletionBar />
+          <Text margin={{ top: 'small' }} size='small' weight='bold'>
             {counterpart('ProjectStatistics.percentComplete')}
           </Text>
         </section>
@@ -81,10 +85,13 @@ function ProjectStatistics ({
 }
 
 ProjectStatistics.propTypes = {
-  classifications: PropTypes.number.isRequired,
-  completedSubjects: PropTypes.number.isRequired,
-  subjects: PropTypes.number.isRequired,
-  volunteers: PropTypes.number.isRequired
+  className: string,
+  classifications: number.isRequired,
+  completedSubjects: number.isRequired,
+  projectName: string,
+  projectSlug: string,
+  subjects: number.isRequired,
+  volunteers: number.isRequired
 }
 
 ProjectStatistics.defaultProps = {

@@ -7,7 +7,7 @@ import ZooHeaderWrapperContainer from './ZooHeaderWrapperContainer'
 
 let wrapper
 
-describe('Component > ZooHeaderWrapperContainer', function () {
+xdescribe('Component > ZooHeaderWrapperContainer', function () {
   const user = {
     id: 'test',
     clear: sinon.stub()

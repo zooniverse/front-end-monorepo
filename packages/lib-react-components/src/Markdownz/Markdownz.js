@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
   Anchor,
   Heading,
-  Image,
   Paragraph,
   Table,
   TableBody,
@@ -11,11 +10,9 @@ import {
   TableRow,
   TableHeader,
   TableFooter,
-  Text,
-  Video
+  Text
 } from 'grommet'
 
-import mime from 'mime-types'
 import remark from 'remark'
 import remark2react from 'remark-react'
 import emoji from 'remark-emoji'
@@ -30,7 +27,7 @@ const at = '@'
 const subjectSymbol = '^S'
 
 class Markdownz extends React.Component {
-  buildResourceURL(resource, symbol) {
+  buildResourceURL (resource, symbol) {
     if (!resource) return ''
     const { baseURI, projectSlug } = this.props
     const baseURL = (projectSlug) ? `${baseURI}/projects/${projectSlug}` : baseURI
@@ -42,7 +39,7 @@ class Markdownz extends React.Component {
     return ''
   }
 
-  shouldResourceBeLinkable(resource, symbol) {
+  shouldResourceBeLinkable (resource, symbol) {
     const { projectSlug, restrictedUserNames } = this.props
 
     if (symbol === at) return !restrictedUserNames.includes(resource)
@@ -52,7 +49,7 @@ class Markdownz extends React.Component {
   }
 
   // Support image resizing, video, and audio using markdown's image syntax
-  renderMedia(nodeProps) {
+  renderMedia (nodeProps) {
     let width, height
     const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
     let alt = nodeProps.alt
@@ -64,12 +61,12 @@ class Markdownz extends React.Component {
       height = parseInt(match[3])
       alt = alt.split(match[0])[0].trim()
     }
-    
+
     if (src) return <Media alt={alt} height={height} src={src} width={width} />
     return null
   }
 
-  render() {
+  render () {
     const { children, components, settings } = this.props
 
     if (!children) return null
@@ -98,7 +95,7 @@ class Markdownz extends React.Component {
       tr: TableRow
     }
 
-    const remarkReactComponents = Object.assign({},  componentMappings, components)
+    const remarkReactComponents = Object.assign({}, componentMappings, components)
     const remarkSettings = Object.assign({}, { footnotes: true }, settings)
 
     const markdown = remark()
@@ -110,7 +107,7 @@ class Markdownz extends React.Component {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
         resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
-        matchRegex: /\@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
+        matchRegex: /@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })

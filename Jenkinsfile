@@ -1,56 +1,96 @@
 #!groovy
 
-timeout(20) {
-  node {
-    def scmVars = checkout scm
+// Uses the Jenkins Declarative Pipeline -
+// https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline
 
-    stage('publish: Monorepo Docker image') {
-      echo 'Publishing Monorepo Docker image...'
-      if (BRANCH_NAME == 'master') {
-        def dockerRepoName = 'zooniverse/front-end-monorepo'
-        def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-        def newImage = docker.build(dockerImageName)
-        newImage.push()
-        newImage.push('latest')
-      } else {
-        echo 'Not on `master` branch, skipping stage'
-      }
-    }
+// ProTip: If you're debugging changes to this file, use the replay feature in
+// Jenkins rather than the commit/watch/fix cycle:
+//   1. Go to https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/
+//   2. Find your branch and click on it
+//   3. Pick a build from the list in the sidebar
+//   4. Click 'Replay' in the sidebar
+//   5. You should get an editor where you can modify the pipeline and run it
+//      again immediately <3
 
-    stage('publish: App Docker images') {
-      echo 'Publishing app Docker images...'
-      if (BRANCH_NAME == 'master') {
-        def appFolders = sh(returnStdout: true, script: './bin/get-app-folders.sh').trim().split(',')
+pipeline {
+  agent none
 
-        echo "Found ${appFolders.size()} app(s) to deploy."
+  options {
+    quietPeriod(120) // builds happen at least 120 seconds apart
+    disableConcurrentBuilds()
+  }
 
-        if (appFolders.size() > 0) {
-          for (appDir in appFolders) {
-            dir (appDir) {
-              // get the app's project name - ideally this shell code moves to a package.json script in each app
-              def dockerRepoName = sh(returnStdout: true, script: 'grep name package.json | cut -c 13- | rev | cut -c 3- | rev').trim()
-              def dockerImageName = "${dockerRepoName}:${scmVars.GIT_COMMIT}"
+  stages {
 
-              echo "Building image for ${dockerImageName}..."
-              def newImage = docker.build(dockerImageName, '--quiet .')
+    // Right now, we're *only* building and deploying on the `master` branch;
+    // longer-term, we'll want to deploy feature branches as well.
+    stage('`master` branch') {
+      when { branch 'master' }
+      stages {
 
-              echo "Pushing ${dockerImageName} to Docker Hub..."
+        stage('Build base Docker image') {
+          agent any
+          steps {
+            script {
+              def dockerRepoName = 'zooniverse/front-end-monorepo'
+              def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+              def newImage = docker.build(dockerImageName)
               newImage.push()
               newImage.push('latest')
             }
           }
         }
-      } else {
-        echo 'Not on `master` branch, skipping stage'
-      }
-    }
 
-    stage('Deploy to Kubernetes') {
-      if (BRANCH_NAME == 'master') {
-        sh "kubectl apply --record -f kubernetes/"
-        sh "sed 's/__IMAGE_TAG__/${scmVars.GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
-      } else {
-        echo 'Not on `master` branch, skipping stage'
+        stage('Build app Docker images') {
+          parallel {
+            stage('Build @zooniverse/fe-content-pages') {
+              agent any
+              steps {
+                dir ('packages/app-content-pages') {
+                  script {
+                    def dockerRepoName = 'zooniverse/fe-content-pages'
+                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+                    def newImage = docker.build(dockerImageName)
+                    newImage.push()
+                    newImage.push('latest')
+                  }
+                }
+              }
+            }
+            stage('Build @zooniverse/fe-project') {
+              agent any
+              steps {
+                dir ('packages/app-project') {
+                  script {
+                    def dockerRepoName = 'zooniverse/fe-project'
+                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+                    def newImage = docker.build(dockerImageName)
+                    newImage.push()
+                    newImage.push('latest')
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        stage('Deploy to Kubernetes') {
+          agent any
+          steps {
+            sh "kubectl apply --record -f kubernetes/"
+            sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+          }
+        }
+      }
+
+      post {
+        unsuccessful {
+          slackSend (
+            color: '#FF0000',
+            message: "DEPLOY FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]' (${BUILD_URL})",
+            channel: "#frontend-rewrite"
+          )
+        }
       }
     }
 

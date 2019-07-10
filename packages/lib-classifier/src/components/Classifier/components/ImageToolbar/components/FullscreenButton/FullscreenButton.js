@@ -2,15 +2,15 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import actualSizeIcon from './actualSizeIcon'
-import fullscreenIcon from './fullscreenIcon'
+import ActualSizeIcon from './ActualSizeIcon'
+import FullscreenIcon from './FullscreenIcon'
 import en from './locales/en'
 import Button from '../Button'
 
 counterpart.registerTranslations('en', en)
 
 function FullscreenButton ({ active, disabled, onClick }) {
-  const icon = (active) ? actualSizeIcon : fullscreenIcon
+  const Icon = (active) ? ActualSizeIcon : FullscreenIcon
   const labelKey = active ? 'actualSize' : 'fullscreen'
   const label = counterpart(`FullscreenButton.ariaLabel.${labelKey}`)
 
@@ -19,10 +19,9 @@ function FullscreenButton ({ active, disabled, onClick }) {
       a11yTitle={label}
       active={active}
       disabled={disabled}
+      icon={<Icon />}
       onClick={onClick}
-    >
-      {icon}
-    </Button>
+    />
   )
 }
 

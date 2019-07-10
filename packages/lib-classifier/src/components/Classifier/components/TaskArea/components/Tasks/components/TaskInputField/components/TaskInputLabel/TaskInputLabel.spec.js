@@ -16,7 +16,7 @@ const label = 'test label'
 describe('TaskInputLabel', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<TaskInputLabel />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render Markdownz', function () {
@@ -26,7 +26,7 @@ describe('TaskInputLabel', function () {
 
   it('should use props.label as the innerHTML text', function () {
     const wrapper = shallow(<TaskInputLabel label={label} />)
-    expect(wrapper.contains(label)).to.be.true
+    expect(wrapper.contains(label)).to.be.true()
   })
 
   it('should not render props.labelIcon if not defined', function () {
