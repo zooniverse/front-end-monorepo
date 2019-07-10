@@ -37,11 +37,9 @@ const StyledText = styled(Text)`
 `
 
 function storeMapper (stores) {
-  const annotations = stores.classifierStore.classifications.currentAnnotations
   const { active, setActive } = stores.classifierStore.drawing
   return {
     active,
-    annotations,
     setActive
   }
 }
@@ -59,13 +57,8 @@ class DrawingTask extends React.Component {
   render () {
     const {
       active,
-      annotations,
       task
     } = this.props
-    // let annotation
-    // if (annotations && annotations.size > 0) {
-    //   annotation = annotations.get(task.taskKey)
-    // }
     return (
       <StyledFieldset>
         <StyledText size='small' tag='legend'>
