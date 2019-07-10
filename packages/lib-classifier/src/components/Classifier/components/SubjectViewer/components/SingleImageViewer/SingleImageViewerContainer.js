@@ -23,7 +23,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   async getImageSize () {
-    const { onError, subject } = this.props
+    const { subject } = this.props
     // TODO: Add polyfill for Object.values for IE
     const imageUrl = Object.values(subject.locations[0])[0]
     const img = await this.fetchImage(imageUrl)

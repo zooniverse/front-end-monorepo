@@ -7,20 +7,18 @@ const { config } = require('../../config')
 const { responses } = require('./mocks')
 
 describe('Projects resource REST requests', function () {
-  let scope
-
   describe('create', function () {
     const expectedResponse = responses.post.createdProject
+    const scope = nock(config.host)
 
     // We save the request body here in order to make assertions on the
     // content _without_ accessing a private property in Nock.
     let reqBody
 
-    before(function () {
-      scope = nock(config.host)
-        .persist()
+    beforeEach(function () {
+      scope
         .post(
-          uri => uri.includes(endpoint),
+          endpoint,
           body => { reqBody = body; return body }
         )
         .query(true)
@@ -38,7 +36,7 @@ describe('Projects resource REST requests', function () {
 
     it('should have sent the expected data params with an added { private: true }', async function () {
       const projectDisplayName = { display_name: 'My project' }
-      const response = await projects.create({ data: projectDisplayName })
+      await projects.create({ data: projectDisplayName })
       expect(reqBody).to.eql(Object.assign({}, { private: true }, projectDisplayName))
     })
 
@@ -51,11 +49,11 @@ describe('Projects resource REST requests', function () {
   describe('get', function () {
     describe('many projects', function () {
       const expectedGetAllResponse = responses.get.projects
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetAllResponse)
       })
@@ -77,11 +75,11 @@ describe('Projects resource REST requests', function () {
 
     describe('a single project', function () {
       const expectedGetSingleResponse = responses.get.project
+      const scope = nock(config.host)
 
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/2`)
           .query(true)
           .reply(200, expectedGetSingleResponse)
       })
@@ -103,7 +101,7 @@ describe('Projects resource REST requests', function () {
       it('should include query params with the request if defined', async function () {
         const queryParams = { page: '2' }
         const response = await projects.get({ id: '2', query: queryParams })
-        expect(response.req.path.includes('?page=2')).to.be.true
+        expect(response.req.path.includes('?page=2')).to.be.true()
       })
 
       it('should error if id arugment is not a string', async function () {
@@ -120,11 +118,11 @@ describe('Projects resource REST requests', function () {
   describe('update', function () {
     const expectedPutResponse = responses.put.updatedProject
     const update = { researcher_quote: 'Try my project!' }
+    const scope = nock(config.host)
 
-    before(function () {
-      scope = nock(config.host)
-        .persist()
-        .put(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .put(`${endpoint}/2`)
         .query(true)
         .reply(200, expectedPutResponse)
     })
@@ -173,11 +171,11 @@ describe('Projects resource REST requests', function () {
 
   describe('delete', function () {
     const responseStatus = 204
+    const scope = nock(config.host)
 
-    before(function () {
-      scope = nock(config.host)
-        .persist()
-        .delete(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .delete(`${endpoint}/2`)
         .query(true)
         .reply(responseStatus)
     })

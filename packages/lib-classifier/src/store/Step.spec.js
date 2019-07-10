@@ -7,7 +7,7 @@ describe('Model > Step', function () {
   })
 
   it('should exist', function () {
-    expect(step).to.exist
+    expect(step).to.be.ok()
     expect(step).to.be.an('object')
   })
 })

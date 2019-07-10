@@ -28,6 +28,7 @@ const TutorialStore = types
         const step = self.active.steps[self.activeStep]
         return { step, medium: self.activeMedium }
       }
+      return null
     },
 
     get tutorial () {
@@ -43,6 +44,8 @@ const TutorialStore = types
     },
 
     get miniCourse () {
+      const tutorials = Array.from(self.resources.values())
+
       if (tutorials) {
         return tutorials.find((tutorial) => {
           return tutorial.kind === 'mini-course'
@@ -193,10 +196,13 @@ const TutorialStore = types
     }
 
     function setActiveTutorial (id, stepIndex) {
-      if (!id) return self.resetActiveTutorial()
-      self.active = id
-      self.setTutorialStep(stepIndex)
-      self.setSeenTime()
+      if (!id) {
+        self.resetActiveTutorial()
+      } else {
+        self.active = id
+        self.setTutorialStep(stepIndex)
+        self.setSeenTime()
+      }
     }
 
     function setSeenTime () {

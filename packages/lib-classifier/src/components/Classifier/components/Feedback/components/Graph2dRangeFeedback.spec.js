@@ -7,7 +7,7 @@ import LightCurveViewer from '../../SubjectViewer/components/LightCurveViewer'
 describe('Component > Graph2dRangeFeedback', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<Graph2dRangeFeedback.wrappedComponent subject={{ id: '1' }} />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the LightCurveViewer', function () {

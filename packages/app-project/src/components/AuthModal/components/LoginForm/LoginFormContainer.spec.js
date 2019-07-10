@@ -4,38 +4,28 @@ import sinon from 'sinon'
 
 import { LoginFormContainer } from './LoginFormContainer'
 import LoginForm from './LoginForm'
+import en from './locales/en'
 
 let wrapper
 let componentWrapper
 
-const CLOSE_MODAL = sinon.spy()
-
-const MOCK_STORE = {
-  user: { set: sinon.spy() }
-}
-
 const MOCK_USER_RESOURCE = { foo: 'bar' }
 
 const INVALID_SIGN_IN_ERROR = {
-  message: 'Everything is broken'
+  message: 'Invalid email or password.'
 }
-const INVALID_SIGN_IN = sinon.stub().rejects(INVALID_SIGN_IN_ERROR)
-const VALID_SIGN_IN = sinon.stub().resolves(MOCK_USER_RESOURCE)
+
+const API_ERROR = { code: 504, message: 'Gateway Timeout' }
 
 const MOCK_FORM_VALUES = {
   username: 'foo',
   password: 'bar'
 }
 
-const MOCK_FORMIK = {
-  setFieldError: sinon.spy(),
-  setSubmitting: sinon.spy()
-}
-
 describe('Component > LoginFormContainer', function () {
   before(function () {
     wrapper = shallow(<LoginFormContainer
-      closeModal={CLOSE_MODAL}
+      closeModal={() => {}}
     />)
     componentWrapper = wrapper.find(LoginForm)
   })
@@ -49,6 +39,33 @@ describe('Component > LoginFormContainer', function () {
   })
 
   describe('onSubmit', function () {
+    let CLOSE_MODAL, MOCK_STORE, VALID_SIGN_IN, INVALID_SIGN_IN, API_ERROR_STUB, MOCK_FORMIK
+    before(function () {
+      CLOSE_MODAL = sinon.spy()
+      MOCK_STORE = {
+        user: { set: sinon.spy() }
+      }
+      VALID_SIGN_IN = sinon.stub().resolves(MOCK_USER_RESOURCE)
+
+      INVALID_SIGN_IN = sinon.stub().rejects(INVALID_SIGN_IN_ERROR)
+
+      API_ERROR_STUB = sinon.stub().rejects(API_ERROR)
+      MOCK_FORMIK = {
+        setFieldError: sinon.spy(),
+        setSubmitting: sinon.spy()
+      }
+    })
+
+    afterEach(function () {
+      CLOSE_MODAL.resetHistory()
+      MOCK_STORE.user.set.resetHistory()
+      VALID_SIGN_IN.resetHistory()
+      INVALID_SIGN_IN.resetHistory()
+      API_ERROR_STUB.resetHistory()
+      MOCK_FORMIK.setFieldError.resetHistory()
+      MOCK_FORMIK.setSubmitting.resetHistory()
+    })
+
     it('should be passed to the LoginForm', function () {
       expect(componentWrapper.prop('onSubmit')).to.be.a('function')
     })
@@ -83,8 +100,29 @@ describe('Component > LoginFormContainer', function () {
         expect.fail()
       } catch (error) {
         expect(INVALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
-        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('password', INVALID_SIGN_IN_ERROR.message)
+        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('login', en.LoginForm.error)
+        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('password', en.LoginForm.error)
         expect(MOCK_FORMIK.setSubmitting).to.have.been.calledWith(false)
+        expect(CLOSE_MODAL).to.not.have.been.called()
+      }
+    })
+
+    it('should pass a general error message on other API errors', async function () {
+      const validWrapper = shallow(<LoginFormContainer
+        authClient={{ signIn: API_ERROR_STUB }}
+        closeModal={CLOSE_MODAL}
+        store={MOCK_STORE}
+      />)
+
+      try {
+        await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
+        expect(API_ERROR_STUB).to.have.been.calledOnceWith(MOCK_FORM_VALUES)
+        expect(validWrapper.state().error).to.equal(API_ERROR.message)
+        expect(validWrapper.find(LoginForm).props().generalError).to.equal(API_ERROR.message)
+        expect(MOCK_FORMIK.setSubmitting).to.have.been.calledOnceWith(false)
+        expect(CLOSE_MODAL).to.not.have.been.called()
+      } catch (error) {
+        expect.fail(error)
       }
     })
   })

@@ -18,14 +18,14 @@ describe('Model > Subject', function () {
   })
 
   it('should exist', function () {
-    expect(Subject).to.exist
+    expect(Subject).to.be.ok()
     expect(Subject).to.be.an('object')
   })
 
   it('should have a `locations` property', function () {
     expect(subject.locations).to.deep.equal(stub.locations)
   })
-  
+
   it('should have a Talk URL', function () {
     expect(subject.talkURL).to.equal(`https://example.org/projects/zooniverse/example/talk/subjects/${subject.id}`)
   })
@@ -36,7 +36,7 @@ describe('Model > Subject', function () {
     })
 
     it('should toggle subject.favorite', function () {
-      expect(subject.favorite).to.be.true
+      expect(subject.favorite).to.be.true()
     })
 
     it('should call the onToggleFavourite callback', function () {
@@ -61,7 +61,7 @@ describe('Model > Subject', function () {
     before(function () {
       feedback = {
         onHide,
-        setOnHide: sinon.stub().callsFake(callback => onHide = callback)
+        setOnHide: sinon.stub().callsFake(callback => { onHide = callback })
       }
       subject.feedback = feedback
     })

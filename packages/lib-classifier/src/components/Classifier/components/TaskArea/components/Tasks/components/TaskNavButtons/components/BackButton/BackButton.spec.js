@@ -1,9 +1,10 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import BackButton, {
-  StyledBackButton,
+import { Button } from 'grommet'
+import {
+  BackButton,
   StyledBackButtonWrapper,
   StyledBackButtonToolTip
 } from './BackButton'
@@ -16,19 +17,15 @@ describe('BackButton', function () {
     })
 
     it('should render without crashing', function () {
-      expect(wrapper).to.be.ok
-    })
-
-    it('should render a ThemeProvider', function () {
-      expect(wrapper.find('ThemeProvider')).to.have.lengthOf(1)
+      expect(wrapper).to.be.ok()
     })
 
     it('should render a StyledBackButtonWrapper', function () {
       expect(wrapper.find(StyledBackButtonWrapper)).to.have.lengthOf(1)
     })
 
-    it('should render a StyledBackButton', function () {
-      expect(wrapper.find(StyledBackButton)).to.have.lengthOf(1)
+    it('should render a Button', function () {
+      expect(wrapper.find(Button)).to.have.lengthOf(1)
     })
   })
 
@@ -41,8 +38,8 @@ describe('BackButton', function () {
     })
 
     it('should call props.onClick on the onClick event', function () {
-      wrapper.find('Styled(WithTheme(Button))').simulate('click')
-      expect(onClickSpy.calledOnce).to.be.true
+      wrapper.find(Button).simulate('click')
+      expect(onClickSpy).to.have.been.calledOnce()
     })
   })
 
@@ -81,38 +78,38 @@ describe('BackButton', function () {
     })
 
     it('should should call showWarning on the onMouseEnter event', function () {
-      wrapper.find('Styled(WithTheme(Button))').simulate('mouseenter')
-      expect(showWarningSpy.calledOnce).to.be.true
+      wrapper.find(Button).simulate('mouseenter')
+      expect(showWarningSpy).to.have.been.calledOnce()
     })
 
     it('should call showWarning on the onFocus event', function () {
-      wrapper.find('Styled(WithTheme(Button))').simulate('focus')
-      expect(showWarningSpy.calledOnce).to.be.true
+      wrapper.find(Button).simulate('focus')
+      expect(showWarningSpy).to.have.been.calledOnce()
     })
 
     it('should call hideWarning on the onMouseLeave event', function () {
-      wrapper.find('Styled(WithTheme(Button))').simulate('mouseleave')
-      expect(hideWarningSpy.calledOnce).to.be.true
+      wrapper.find(Button).simulate('mouseleave')
+      expect(hideWarningSpy).to.have.been.calledOnce()
     })
 
     it('should call hideWarning on the onBlur event', function () {
-      wrapper.find('Styled(WithTheme(Button))').simulate('blur')
-      expect(hideWarningSpy.calledOnce).to.be.true
+      wrapper.find(Button).simulate('blur')
+      expect(hideWarningSpy).to.have.been.calledOnce()
     })
 
     it('should not call setState if props.areAnnotationsNotPersisted is false', function () {
-      wrapper.find('Styled(WithTheme(Button))').simulate('mouseenter')
-      expect(setStateSpy.calledOnce).to.be.false
-      expect(wrapper.state().showWarning).to.be.false
+      wrapper.find(Button).simulate('mouseenter')
+      expect(setStateSpy).to.have.not.been.called()
+      expect(wrapper.state().showWarning).to.be.false()
     })
 
     it('should call setState if props.areAnnotationsNotPersisted is true', function () {
       const previousShowWarningState = wrapper.state().showWarning
       wrapper.setProps({ areAnnotationsNotPersisted: true })
-      wrapper.find('Styled(WithTheme(Button))').simulate('mouseenter')
-      expect(setStateSpy.calledOnce).to.be.true
-      expect(previousShowWarningState).to.be.false
-      expect(wrapper.state().showWarning).to.be.true
+      wrapper.find(Button).simulate('mouseenter')
+      expect(setStateSpy).to.have.been.calledOnce()
+      expect(previousShowWarningState).to.be.false()
+      expect(wrapper.state().showWarning).to.be.true()
       expect(previousShowWarningState).to.not.equal(wrapper.state().showWarning)
     })
   })

@@ -6,86 +6,68 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "_check": "check-engines && check-dependencies",
-    "_serve": "node server/server.js",
-    "_test": "npm run _check && BABEL_ENV=test mocha",
-    "build": "npm run _check && PANOPTES_ENV=production next build",
-    "dev": "npm run _check && npm run _serve",
+    "build": "PANOPTES_ENV=production next build",
+    "dev": "node server/server.js",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "npm run _check && NODE_ENV=production npm run _serve",
+    "start": "NODE_ENV=production node server/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "npm run _test && exit 0",
-    "test:ci": "npm run _test -- --reporter=min"
+    "test": "BABEL_ENV=test mocha",
+    "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "~7.1.6",
+    "@babel/plugin-proposal-decorators": "~7.4.4",
     "@babel/plugin-proposal-optional-chaining": "~7.2.0",
+    "@sentry/browser": "^5.4.3",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
-    "babel-plugin-dynamic-import-node": "~2.2.0",
-    "babel-plugin-styled-components": "~1.10.0",
-    "check-dependencies": "~1.1.0",
-    "check-engines": "~1.5.0",
+    "babel-plugin-dynamic-import-node": "~2.3.0",
+    "babel-plugin-styled-components": "~1.10.6",
+    "cookie": "~0.4.0",
     "counterpart": "~0.18.6",
-    "d3": "~5.9.1",
-    "formik": "~1.5.7",
+    "d3": "~5.9.7",
+    "dotenv-webpack": "~1.7.0",
     "graphql-request": "~1.8.2",
-    "grommet": "~2.7.0",
+    "grommet": "~2.7.1",
     "grommet-icons": "~4.2.0",
     "lodash": "~4.17.11",
-    "luxon": "~1.13.2",
+    "luxon": "~1.16.0",
     "mobx": "~5.5.0",
     "mobx-devtools-mst": "~0.9.18",
     "mobx-react": "~5.2.8",
     "mobx-state-tree": "~3.5.0",
-    "newrelic": "^5.10.0",
-    "next": "~8.0.1",
-    "next-cookies": "^1.1.2",
+    "newrelic": "~5.10.0",
+    "next": "~8.1.0",
     "panoptes-client": "~2.12.0",
     "path-match": "~1.2.4",
     "react": "~16.8.4",
     "react-dom": "~16.8.4",
-    "require-control": "~2.1.1",
-    "styled-components": "~4.1.1",
-    "url-parse": "~1.4.4",
-    "validator": "~10.11.0"
+    "styled-components": "~4.1.3",
+    "url-parse": "~1.4.7",
+    "validator": "~11.0.0"
   },
   "devDependencies": {
-    "@babel/register": "~7.0.0",
-    "@storybook/react": "~4.1.12",
-    "@zooniverse/standard": "^1.0.0",
+    "@babel/register": "~7.4.4",
+    "@storybook/addon-actions": "~5.1.9",
+    "@storybook/addon-backgrounds": "~5.1.9",
+    "@storybook/addon-knobs": "~5.1.9",
+    "@storybook/addon-links": "~5.1.9",
+    "@storybook/addon-notes": "~5.1.9",
+    "@storybook/addon-viewport": "~5.1.9",
+    "@storybook/react": "~5.1.9",
     "chai": "~4.2.0",
-    "dirty-chai": "^2.0.1",
-    "enzyme": "~3.9.0",
-    "enzyme-adapter-react-16": "~1.11.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "jsdom": "~13.0.0",
-    "mocha": "~5.2.0",
+    "dirty-chai": "~2.0.1",
+    "enzyme": "~3.10.0",
+    "enzyme-adapter-react-16": "~1.14.0",
+    "jsdom": "~15.1.1",
+    "mocha": "~6.1.4",
     "nock": "~10.0.6",
-    "sinon": "~7.2.3",
+    "sinon": "~7.3.2",
     "sinon-chai": "~3.3.0"
   },
   "engines": {
     "node": ">=10"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:jsx-a11y/recommended"
-    ]
-  },
-  "standardx": {
-    "env": [
-      "mocha"
-    ],
-    "globals": [
-      "expect"
-    ],
-    "parser": "babel-eslint",
-    "plugins": [
-      "jsx-a11y"
-    ]
   }
 }

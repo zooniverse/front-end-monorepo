@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   DEBUG: false,
@@ -8,16 +7,19 @@ const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   PANOPTES_ENV: 'production'
 })
 
-// The peer deps external plugin doesn't work with scoped packages
-// so we add them explicitly to webpack's externals config
-// see: https://github.com/Updater/peer-deps-externals-webpack-plugin/issues/5
 module.exports = {
   devtool: 'source-map',
   entry: './src/components/Classifier/index.js',
   externals: [
-    /^(@zooniverse\/grommet-theme\/.*)$/i,
-    /^(@zooniverse\/panoptes-js\/.*)$/i,
-    /^(@zooniverse\/react-components\/.*)$/i
+    '@zooniverse/grommet-theme',
+    '@zooniverse/panoptes-js',
+    '@zooniverse/react-components',
+    'grommet',
+    'grommet-icons',
+    'react',
+    'react-dom',
+    'seven-ten',
+    'styled-components',
   ],
   mode: 'production',
   module: {
@@ -38,12 +40,5 @@ module.exports = {
   },
   plugins: [
     EnvironmentWebpackPlugin,
-    new PeerDepsExternalsPlugin()
-  ],
-  resolve: {
-    modules: [
-      path.resolve(__dirname),
-      'node_modules'
-    ]
-  }
+  ]
 }

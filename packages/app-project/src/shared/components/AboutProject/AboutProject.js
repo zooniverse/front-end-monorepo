@@ -1,30 +1,33 @@
+import { Markdownz } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Paragraph } from 'grommet'
 import { string } from 'prop-types'
 import React from 'react'
+import { Paragraph } from 'grommet'
+
 import en from './locales/en'
 import ContentBox from '../ContentBox'
-import styled from 'styled-components'
 
 counterpart.registerTranslations('en', en)
 
-const StyledParagraph = styled(Paragraph)`
-  max-width: 100%;
-`
+const components = {
+  p: (nodeProps) => <Paragraph margin={{ top: 'none' }}>{nodeProps.children}</Paragraph>
+}
 
-function AboutProject ({ projectName, description }) {
+function AboutProject ({ description, projectName }) {
   return (
     <ContentBox title={counterpart('AboutProject.title', { projectName })}>
-      <StyledParagraph margin={{ bottom: 'none', top: 'none' }} size='small'>
-        {description}
-      </StyledParagraph>
+      <Markdownz children={description} components={components} />
     </ContentBox>
   )
 }
 
 AboutProject.propTypes = {
+  description: string,
   projectName: string,
-  description: string
+}
+
+AboutProject.defaultProps = {
+  description: '_No projection information found._',
 }
 
 export default AboutProject

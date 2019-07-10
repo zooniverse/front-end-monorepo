@@ -16,12 +16,14 @@
   "bin": {
     "zoo-standard": "./bin/cmd.js"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "standard": "^12.0.1",
+    "babel-eslint": "~10.0.2",
+    "eslint-plugin-jsx-a11y": "~6.2.3",
+    "standard": "~12.0.1",
     "standard-engine": "^10.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

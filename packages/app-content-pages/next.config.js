@@ -8,9 +8,7 @@ const { setAliases } = require('require-control')
 // Fixes the FOUC due to SC not collecting styles from symlinked packages
 // https://github.com/styled-components/styled-components/issues/2322
 setAliases({
-  'styled-components': path.resolve(
-    path.join(__dirname, './node_modules/styled-components')
-  )
+  'styled-components': resolveHoisted('styled-components')
 })
 
 module.exports = {
@@ -20,14 +18,6 @@ module.exports = {
   },
 
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      grommet: resolveLocal('grommet'),
-      'grommet-icons': resolveLocal('grommet-icons'),
-      'styled-components': resolveLocal('styled-components')
-    }
-
-    config.plugins = config.plugins || []
 
     config.plugins = [
       ...config.plugins,
@@ -41,6 +31,6 @@ module.exports = {
   }
 }
 
-function resolveLocal (packageName) {
-  return path.resolve('.', 'node_modules', packageName)
+function resolveHoisted (packageName) {
+  return path.resolve(path.join(__dirname, '../../node_modules', packageName))
 }

@@ -1,4 +1,4 @@
-import deepFreeze from 'deep-freeze'
+const deepFreeze = require('deep-freeze')
 
 // Zooniverse brand: https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8
 const brand = '#00979d'
@@ -115,7 +115,7 @@ const theme = deepFreeze({
           small: `15px`,
           medium: `20px`,
           large: `25px`,
-          xlarge: `30px`,
+          xlarge: `30px`
         }
       }
     },
@@ -132,7 +132,7 @@ const theme = deepFreeze({
       small: `20px`,
       medium: `30px`,
       large: `50px`,
-      xlarge: `90px`,
+      xlarge: `90px`
     },
     elevation: {
       light: {
@@ -141,7 +141,7 @@ const theme = deepFreeze({
         small: '0px 2px 4px rgba(0, 0, 0, 0.30)',
         medium: '0px 4px 8px rgba(0, 0, 0, 0.30)',
         large: '0px 8px 16px rgba(0, 0, 0, 0.30)',
-        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.30)',
+        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.30)'
       },
       dark: {
         none: 'none',
@@ -149,8 +149,8 @@ const theme = deepFreeze({
         small: '0px 2px 4px rgba(0, 0, 0, 0.30)',
         medium: '0px 4px 8px rgba(0, 0, 0, 0.30)',
         large: '0px 8px 16px rgba(0, 0, 0, 0.30)',
-        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.30)',
-      },
+        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.30)'
+      }
     },
     font: {
       family: "'Karla', Arial, sans-serif",
@@ -248,70 +248,70 @@ const theme = deepFreeze({
       1: {
         // "font": {},
         small: {
-          size: "32px",
-          height: "32px",
-          maxWidth: "816px"
+          size: '32px',
+          height: '32px',
+          maxWidth: '816px'
         },
         medium: {
-          size: "32px",
-          height: "37px",
-          maxWidth: "1200px"
+          size: '32px',
+          height: '37px',
+          maxWidth: '1200px'
         },
         large: {
-          size: "82px",
-          height: "88px",
-          maxWidth: "1968px"
+          size: '82px',
+          height: '88px',
+          maxWidth: '1968px'
         },
         xlarge: {
-          size: "114px",
-          height: "120px",
-          maxWidth: "2736px"
+          size: '114px',
+          height: '120px',
+          maxWidth: '2736px'
         }
       },
       2: {
         // font: {},
         small: {
-          size: "26px",
-          height: "26px",
-          maxWidth: "624px"
+          size: '26px',
+          height: '26px',
+          maxWidth: '624px'
         },
         medium: {
-          size: "30px",
-          height: "36px",
-          maxWidth: "816px"
+          size: '30px',
+          height: '36px',
+          maxWidth: '816px'
         },
         large: {
-          size: "50px",
-          height: "56px",
-          maxWidth: "1200px"
+          size: '50px',
+          height: '56px',
+          maxWidth: '1200px'
         },
         xlarge: {
-          size: "66px",
-          height: "72px",
-          maxWidth: "1584px"
+          size: '66px',
+          height: '72px',
+          maxWidth: '1584px'
         }
       },
       3: {
         // font: {},
         small: {
-          size: "22px",
-          height: "22px",
-          maxWidth: "528px"
+          size: '22px',
+          height: '22px',
+          maxWidth: '528px'
         },
         medium: {
-          size: "26px",
-          height: "31px",
-          maxWidth: "624px"
+          size: '26px',
+          height: '31px',
+          maxWidth: '624px'
         },
         large: {
-          size: "34px",
-          height: "40px",
-          maxWidth: "816px"
+          size: '34px',
+          height: '40px',
+          maxWidth: '816px'
         },
         xlarge: {
-          size: "42px",
-          height: "48px",
-          maxWidth: "1008px"
+          size: '42px',
+          height: '48px',
+          maxWidth: '1008px'
         }
       },
       4: { // Same font size as h3, but should be regular not bold.
@@ -319,74 +319,74 @@ const theme = deepFreeze({
           weight: 'normal'
         },
         small: {
-          size: "18px",
-          height: "18px",
-          maxWidth: "432px"
+          size: '18px',
+          height: '18px',
+          maxWidth: '432px'
         },
         medium: {
-          size: "26px",
-          height: "31px",
-          maxWidth: "432px"
+          size: '26px',
+          height: '31px',
+          maxWidth: '432px'
         },
         large: {
-          size: "18px",
-          height: "24px",
-          maxWidth: "432px"
+          size: '18px',
+          height: '24px',
+          maxWidth: '432px'
         },
         xlarge: {
-          size: "18px",
-          height: "24px",
-          maxWidth: "432px"
+          size: '18px',
+          height: '24px',
+          maxWidth: '432px'
         }
       },
       5: {
         // font: {}
         small: {
-          size: "14px",
-          height: "14px",
-          maxWidth: "384px"
+          size: '14px',
+          height: '14px',
+          maxWidth: '384px'
         },
         medium: {
-          size: "14px",
-          height: "17px",
-          maxWidth: "384px"
+          size: '14px',
+          height: '17px',
+          maxWidth: '384px'
         },
         large: {
-          size: "14px",
-          height: "17px",
-          maxWidth: "384px"
+          size: '14px',
+          height: '17px',
+          maxWidth: '384px'
         },
         xlarge: {
-          size: "14px",
-          height: "17px",
-          maxWidth: "384px"
+          size: '14px',
+          height: '17px',
+          maxWidth: '384px'
         }
       },
       6: {
         // font: {},
         small: {
-          size: "14px",
-          height: "14px",
-          maxWidth: "336px"
+          size: '14px',
+          height: '14px',
+          maxWidth: '336px'
         },
         medium: {
-          size: "14px",
-          height: "17px",
-          maxWidth: "336px"
+          size: '14px',
+          height: '17px',
+          maxWidth: '336px'
         },
         large: {
-          size: "14px",
-          height: "17px",
-          maxWidth: "336px"
+          size: '14px',
+          height: '17px',
+          maxWidth: '336px'
         },
         xlarge: {
-          size: "14px",
-          height: "17px",
-          maxWidth: "336px"
+          size: '14px',
+          height: '17px',
+          maxWidth: '336px'
         }
       }
     },
-    responsiveBreakpoint: "small",
+    responsiveBreakpoint: 'small',
     weight: 600,
     extend: props => `margin: ${props.margin || '10px 0 10px 0'}`
   },
@@ -431,12 +431,12 @@ const theme = deepFreeze({
     check: {
       color: {
         dark: 'accent-2',
-        light: 'brand',
+        light: 'brand'
       }
     },
     color: {
       dark: 'accent-2',
-      light: 'brand',
+      light: 'brand'
     },
     icon: {
       size: '15px',
@@ -452,42 +452,42 @@ const theme = deepFreeze({
     icons: {
       color: {
         dark: 'accent-2',
-        light: 'brand',
+        light: 'brand'
       }
     }
   },
   text: {
     xsmall: {
-      size: "12px",
-      height: "16px",
-      maxWidth: "100%"
+      size: '12px',
+      height: '16px',
+      maxWidth: '100%'
     },
     small: {
-      size: "14px",
-      height: "14px",
-      maxWidth: "100%"
+      size: '14px',
+      height: '14px',
+      maxWidth: '100%'
     },
     medium: {
-      size: "14px",
-      height: "18px",
-      maxWidth: "100%"
+      size: '14px',
+      height: '18px',
+      maxWidth: '100%'
     },
     large: {
-      size: "22px",
-      height: "26px",
-      maxWidth: "100%"
+      size: '22px',
+      height: '26px',
+      maxWidth: '100%'
     },
     xlarge: {
-      size: "26px",
-      height: "30px",
-      maxWidth: "100%"
+      size: '26px',
+      height: '30px',
+      maxWidth: '100%'
     },
     xxlarge: {
-      size: "34px",
-      height: "38px",
-      maxWidth: "100%"
+      size: '34px',
+      height: '38px',
+      maxWidth: '100%'
     }
   }
 })
 
-export default theme
+module.exports = theme

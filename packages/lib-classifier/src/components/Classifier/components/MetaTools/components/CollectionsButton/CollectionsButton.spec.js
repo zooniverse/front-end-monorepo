@@ -14,7 +14,7 @@ describe('Component > CollectionsButton', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should display a Collect icon', function () {
@@ -32,7 +32,7 @@ describe('Component > CollectionsButton', function () {
     )
 
     wrapper.find(MetaToolsButton).simulate('click')
-    expect(onClick).to.have.been.calledOnce
+    expect(onClick).to.have.been.calledOnce()
   })
 
   describe('when disabled', function () {
@@ -46,7 +46,7 @@ describe('Component > CollectionsButton', function () {
 
     it('should not be clickable', function () {
       wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClick).to.not.have.been.called
+      expect(onClick).to.not.have.been.called()
     })
   })
 })

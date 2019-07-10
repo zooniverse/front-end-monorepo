@@ -4,19 +4,17 @@ const nock = require('nock')
 const projects = require('./index')
 const { endpoint } = require('./helpers')
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 
 describe('Projects resource common requests', function () {
-  let scope
-
   describe('getBySlug', function () {
     const expectedGetResponse = responses.get.project
     const expectedNotFoundResponse = responses.get.queryNotFound
+    const scope = nock(config.host)
 
-    before(function () {
-      scope = nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+    beforeEach(function () {
+      scope
+        .get(endpoint)
         .query(true)
         .reply(200, (uri, requestBody) =>
           uri.includes(encodeURIComponent('zooniverse/my-project'))
@@ -31,7 +29,7 @@ describe('Projects resource common requests', function () {
 
     it('should error if slug param is not a string', async function () {
       try {
-        await projects.getBySlug({ query: { slug: 1234 }})
+        await projects.getBySlug({ query: { slug: 1234 } })
         expect.fail()
       } catch (error) {
         expect(error.message).to.equal('Projects: Get request slug must be a string.')
@@ -39,7 +37,7 @@ describe('Projects resource common requests', function () {
     })
 
     it('should return the expected response if not found', async function () {
-      const response = await projects.getBySlug({ query: { slug: 'zooniverse/my-project' }})
+      const response = await projects.getBySlug({ query: { slug: 'zooniverse/my-project' } })
       expect(response.body).to.eql(expectedNotFoundResponse)
     })
 
@@ -54,13 +52,13 @@ describe('Projects resource common requests', function () {
 
     it('should return the expected response if the slug is defined', async function () {
       const slug = 'user/untitled-project-2'
-      const response = await projects.getBySlug({ query: { slug }})
+      const response = await projects.getBySlug({ query: { slug } })
       expect(response.body).to.eql(expectedGetResponse)
     })
 
     it('should return the expected response if the slug is defined including "projects" in the pathname', async function () {
       const slug = 'projects/user/untitled-project-2'
-      const response = await projects.getBySlug({ query: { slug }})
+      const response = await projects.getBySlug({ query: { slug } })
       expect(response.body).to.eql(expectedGetResponse)
     })
 
@@ -72,12 +70,11 @@ describe('Projects resource common requests', function () {
 
   describe('getWithLinkedResources', function () {
     const expectedGetResponseWithLinkedResources = responses.get.projectWithLinkedResources
-    const expectedNotFoundResponse = responses.get.queryNotFound
+    const scope = nock(config.host)
 
     before(function () {
-      scope = nock(config.host)
-        .persist()
-        .get(uri => uri.includes(endpoint))
+      scope
+        .get(`${endpoint}/2`)
         .query(true)
         .reply(200, expectedGetResponseWithLinkedResources)
     })
@@ -102,9 +99,8 @@ describe('Projects resource common requests', function () {
 
     describe('using project slug query parameter', function () {
       before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetResponseWithLinkedResources)
       })
@@ -115,7 +111,7 @@ describe('Projects resource common requests', function () {
 
       it('should error if slug is not a string', async function () {
         try {
-          await projects.getWithLinkedResources({ query: { slug: 1234 }})
+          await projects.getWithLinkedResources({ query: { slug: 1234 } })
           expect.fail()
         } catch (error) {
           expect(error.message).to.equal('Projects: Get request slug must be a string.')
@@ -132,18 +128,18 @@ describe('Projects resource common requests', function () {
       })
 
       it('should return the expected response', async function () {
-        const response = await projects.getWithLinkedResources({ query: { slug: 'user/untitled-project-2' }})
+        const response = await projects.getWithLinkedResources({ query: { slug: 'user/untitled-project-2' } })
         expect(response.body).to.eql(expectedGetResponseWithLinkedResources)
       })
     })
 
     describe('using project id', function () {
       before(function () {
-        scope = nock(config.host)
-          .get(uri => uri.includes(endpoint))
+        scope
+          .get(`${endpoint}/2`)
           .query(true)
           .reply(200, expectedGetResponseWithLinkedResources)
-          .get(uri => uri.includes(endpoint))
+          .get(endpoint)
           .query(true)
           .reply(404)
       })

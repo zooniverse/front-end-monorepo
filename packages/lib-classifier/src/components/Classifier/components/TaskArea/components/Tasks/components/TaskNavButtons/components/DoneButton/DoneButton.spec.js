@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
@@ -8,13 +8,13 @@ import { DoneButton } from './DoneButton'
 describe('DoneButton', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<DoneButton />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   describe('when props.completed is true', function () {
     it('should render null', function () {
       const wrapper = shallow(<DoneButton completed />)
-      expect(wrapper.html()).to.be.null
+      expect(wrapper.html()).to.be.null()
     })
   })
 
@@ -22,7 +22,7 @@ describe('DoneButton', function () {
     const onClickSpy = sinon.spy()
     const wrapper = shallow(<DoneButton onClick={onClickSpy} />)
     wrapper.simulate('click')
-    expect(onClickSpy.calledOnce).to.be.true
+    expect(onClickSpy).to.have.been.calledOnce()
   })
 
   xdescribe('props.goldStandardMode', function () {

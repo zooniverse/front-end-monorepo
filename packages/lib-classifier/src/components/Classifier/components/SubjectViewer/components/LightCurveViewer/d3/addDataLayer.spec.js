@@ -19,7 +19,7 @@ describe('LightCurveViewer > d3 > addDataLayer', function () {
 
   it('should append a group with the correct class to the selection', function () {
     addDataLayer(selectionFixture)
-    expect(appendStub.calledWith('g')).to.be.true
-    expect(attrStub.calledWith('class', 'data-layer')).to.be.true
+    expect(appendStub.withArgs('g')).to.have.been.calledOnce()
+    expect(attrStub.withArgs('class', 'data-layer')).to.have.been.calledOnce()
   })
 })

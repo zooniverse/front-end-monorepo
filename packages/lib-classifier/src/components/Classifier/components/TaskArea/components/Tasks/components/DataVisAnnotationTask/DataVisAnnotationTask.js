@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
 import TaskInputField from '../TaskInputField'
-import InputStatus from '../InputStatus'
 import InputIcon from '../InputIcon'
 import Graph2dRangeXIcon from './components/Graph2dRangeXIcon'
 
@@ -55,12 +54,11 @@ class DataVisAnnotationTask extends React.Component {
       annotations,
       task
     } = this.props
-    let annotation
-    if (annotations && annotations.size > 0) {
-      annotation = annotations.get(task.taskKey)
-    }
+    // let annotation
+    // if (annotations && annotations.size > 0) {
+    //   annotation = annotations.get(task.taskKey)
+    // }
     // TODO: Add in the status count along with the validations to not go over the max allowed
-    const numberOfAnnotations = (annotation && annotation.value.length) || 0
 
     return (
       <StyledFieldset>

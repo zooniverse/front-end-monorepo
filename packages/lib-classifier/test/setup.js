@@ -1,7 +1,9 @@
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+import dirtyChai from 'dirty-chai'
 import { JSDOM } from 'jsdom'
 
+chai.use(dirtyChai)
 chai.use(sinonChai)
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {

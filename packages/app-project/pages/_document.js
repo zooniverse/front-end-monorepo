@@ -2,6 +2,8 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
+import { logNodeError } from '../src/helpers/logger'
+
 const GA_TRACKING_ID = 'GTM-WDW6V4'
 
 const GA_TRACKING_SCRIPT = `
@@ -9,6 +11,9 @@ const GA_TRACKING_SCRIPT = `
 `
 
 const isProduction = process.env.NODE_ENV === 'production'
+
+process.on('unhandledRejection', logNodeError)
+process.on('uncaughtException', logNodeError)
 
 export default class MyDocument extends Document {
   static async getInitialProps (ctx) {

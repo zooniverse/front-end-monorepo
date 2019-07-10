@@ -10,7 +10,7 @@ import withKeyZoom from '../../../withKeyZoom'
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   const {
     enableAnnotate,
     enableMove,
@@ -120,7 +120,7 @@ class LightCurveViewerContainer extends Component {
         x: d3.extent(rawData.x),
         y: d3.extent(rawData.y)
       },
-      dataPoints: zip(rawData.x, rawData.y),
+      dataPoints: zip(rawData.x, rawData.y)
     },
     function () {
       onReady({ target })
@@ -141,7 +141,7 @@ class LightCurveViewerContainer extends Component {
       setOnPan,
       setOnZoom,
       subject,
-      toolIndex,
+      toolIndex
     } = this.props
 
     if (!subject.id) {
@@ -180,7 +180,7 @@ LightCurveViewerContainer.defaultProps = {
   subject: {
     id: '',
     locations: []
-  },
+  }
 }
 
 LightCurveViewerContainer.propTypes = {

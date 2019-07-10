@@ -3,12 +3,17 @@ language: node_js
 node_js:
   - '10'
 
+cache: yarn
+
 install:
-  - ./bin/travis-bootstrap.sh
+  - yarn install
+
+before_script:
+  - yarn workspace @zooniverse/react-components build
+  - yarn workspace @zooniverse/classifier build
 
 script:
-  - ./bin/travis-test.sh
+  - yarn test:ci
 
 after_success:
-  - npm run coverage
-
+  - yarn coverage

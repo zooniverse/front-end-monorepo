@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
-import { array, arrayOf, func, shape, string } from 'prop-types'
+import { array } from 'prop-types'
 import React, { Component } from 'react'
 import Publications from './Publications'
 
@@ -32,12 +32,8 @@ class PublicationsContainer extends Component {
 }
 
 PublicationsContainer.propTypes = {
-  publications: shape({
-    activeFilter: string,
-    currentView: array,
-    filters: arrayOf(string),
-    setActiveFilter: func
-  })
+  data: array,
+  filters: array
 }
 
 export default PublicationsContainer

@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'

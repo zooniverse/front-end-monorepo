@@ -8,7 +8,7 @@ const multipleChoiceAnnotation = {
 describe('Model > MutipleChoiceAnnotation', function () {
   it('should exist', function () {
     const multipleChoiceAnnotationInstance = MultipleChoiceAnnotation.create(multipleChoiceAnnotation)
-    expect(multipleChoiceAnnotationInstance).to.exist
+    expect(multipleChoiceAnnotationInstance).to.be.ok()
     expect(multipleChoiceAnnotationInstance).to.be.an('object')
   })
 })

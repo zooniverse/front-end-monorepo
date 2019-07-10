@@ -6,7 +6,7 @@ import MetadataButton from './components/MetadataButton'
 describe('Metadata', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<Metadata />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   describe('when there is no metadata', function () {
@@ -20,7 +20,7 @@ describe('Metadata', function () {
     })
 
     it('should disable the MetadataButton', function () {
-      expect(wrapper.find(MetadataButton).props().disabled).to.be.true
+      expect(wrapper.find(MetadataButton).props().disabled).to.be.true()
     })
   })
 
@@ -35,13 +35,13 @@ describe('Metadata', function () {
     })
 
     it('should not disable the MetadataButton', function () {
-      expect(wrapper.find(MetadataButton).props().disabled).to.be.false
+      expect(wrapper.find(MetadataButton).props().disabled).to.be.false()
     })
 
     it('should set showMetadataModel state when the toggle handler is called', function () {
-      expect(wrapper.state().showMetadataModal).to.be.false
+      expect(wrapper.state().showMetadataModal).to.be.false()
       wrapper.find(MetadataButton).simulate('click')
-      expect(wrapper.state().showMetadataModal).to.be.true
+      expect(wrapper.state().showMetadataModal).to.be.true()
     })
   })
 })

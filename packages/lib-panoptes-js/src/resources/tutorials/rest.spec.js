@@ -2,22 +2,20 @@ const { expect } = require('chai')
 const nock = require('nock')
 
 const { config } = require('../../config')
-const { resources, responses } = require('./mocks')
+const { responses } = require('./mocks')
 const { endpoint } = require('./helpers')
 const tutorials = require('./index')
 
 describe('Tutorials resource REST requests', function () {
-  let scope
-
   describe('get', function () {
     const expectedGetAllResponse = responses.get.tutorials
     const expectedGetSingleResponse = responses.get.tutorial
+    const scope = nock(config.host)
 
     describe('by workflow id', function () {
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      beforeEach(function () {
+        scope
+          .get(endpoint)
           .query(true)
           .reply(200, expectedGetAllResponse)
       })
@@ -56,10 +54,11 @@ describe('Tutorials resource REST requests', function () {
     })
 
     describe('by tutorial id', function () {
-      before(function () {
-        scope = nock(config.host)
-          .persist()
-          .get(uri => uri.includes(endpoint))
+      const scope = nock(config.host)
+
+      beforeEach(function () {
+        scope
+          .get(`${endpoint}/1`)
           .query(true)
           .reply(200, expectedGetSingleResponse)
       })

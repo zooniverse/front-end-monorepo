@@ -42,6 +42,7 @@ const Classification = types
         if (snapshotType.name === 'SingleChoiceAnnotation') return SingleChoiceAnnotation
         if (snapshotType.name === 'MultipleChoiceAnnotation') return MultipleChoiceAnnotation
         if (snapshotType.name === 'DataVisAnnotation') return DataVisAnnotation
+        return undefined
       }
     }, SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation)),
     completed: types.optional(types.boolean, false),

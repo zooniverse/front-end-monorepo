@@ -5,7 +5,7 @@ import InputStatus, { StyledInputStatus } from './InputStatus'
 describe('InputStatus', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<InputStatus />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a StyledInputStatus component', function () {

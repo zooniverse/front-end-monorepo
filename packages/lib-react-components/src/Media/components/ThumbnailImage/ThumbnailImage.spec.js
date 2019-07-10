@@ -18,7 +18,7 @@ describe('ThumbnailImage', function () {
     const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
     progressiveImageInstance.onLoad()
     wrapper.update()
-    expect(wrapper.find('Styled(Image)')).to.have.lengthOf(1)
+    expect(wrapper.find(Image)).to.have.lengthOf(1)
   })
 
   it('should set the alt attribute using the alt prop', function () {
@@ -27,7 +27,7 @@ describe('ThumbnailImage', function () {
     const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
     progressiveImageInstance.onLoad()
     wrapper.update()
-    expect(wrapper.find('Styled(Image)').props().alt).to.equal(alt)
+    expect(wrapper.find(Image).props().alt).to.equal(alt)
   })
 
   it('should be wrapped by ProgressiveImage', function () {
@@ -39,7 +39,7 @@ describe('ThumbnailImage', function () {
     const wrapper = mount(<ThumbnailImage src={image} />)
 
     expect(wrapper.find(Placeholder)).to.have.lengthOf(1)
-    expect(wrapper.find('Styled(Image)')).to.have.lengthOf(0)
+    expect(wrapper.find(Image)).to.have.lengthOf(0)
   })
 
   it('should delay loading the image the given time in props.delay', function (done) {
@@ -49,8 +49,7 @@ describe('ThumbnailImage', function () {
     progressiveImageInstance.onLoad()
     setTimeout(function () {
       wrapper.update()
-      expect(wrapper.find(Placeholder)).to.have.lengthOf(0)
-      expect(wrapper.find('Styled(Image)')).to.have.lengthOf(1)
+      expect(wrapper.find(Image)).to.have.lengthOf(1)
       done()
     }, delay + 1)
   })

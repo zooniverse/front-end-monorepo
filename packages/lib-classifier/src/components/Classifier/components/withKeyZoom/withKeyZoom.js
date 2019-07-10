@@ -1,5 +1,4 @@
 import { inject } from 'mobx-react'
-import { func, shape, string } from 'prop-types'
 import React, { Component, forwardRef } from 'react'
 
 function storeMapper (stores) {
@@ -18,7 +17,7 @@ function storeMapper (stores) {
 
 function withKeyZoom (WrappedComponent) {
   @inject(storeMapper)
-  class KeyZoom extends React.Component {
+  class KeyZoom extends Component {
     constructor () {
       super()
       this.onKeyDown = this.onKeyDown.bind(this)
@@ -64,11 +63,11 @@ function withKeyZoom (WrappedComponent) {
     zoomOut: () => true
   }
 
-  const DecoratedKeyZoom = forwardRef(function(props, ref) {
+  const DecoratedKeyZoom = forwardRef(function (props, ref) {
     return <KeyZoom {...props} forwardedRef={ref} />
   })
-  const name = WrappedComponent.displayName || WrappedComponent.name;
-  DecoratedKeyZoom.displayName = `withKeyZoom(${name})`;
+  const name = WrappedComponent.displayName || WrappedComponent.name
+  DecoratedKeyZoom.displayName = `withKeyZoom(${name})`
   DecoratedKeyZoom.wrappedComponent = WrappedComponent
 
   return DecoratedKeyZoom

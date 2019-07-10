@@ -2,9 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Box, Image } from 'grommet'
 import ProgressiveImage from 'react-progressive-image'
-import zooTheme from '@zooniverse/grommet-theme'
 import getThumbnailSrc from '../../helpers/getThumbnailSrc'
-import pxToRem from '../../../helpers/pxToRem'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 const StyledBox = styled(Box)`
@@ -20,7 +18,7 @@ const StyledImage = styled(Image)`
 
 export function Placeholder(props) {
   return (
-    <Box background={zooTheme.global.colors.brand} flex={props.flex} justify='center' align='center' {...props}>
+    <Box background='brand' flex={props.flex} justify='center' align='center' {...props}>
       {props.children}
     </Box>
   )
@@ -39,12 +37,29 @@ export default class ThumbnailImage extends React.Component {
     this.setState((prevState) => { if (!prevState.failed) return { failed: true } })
   }
 
+  stringifySize (size) {
+    return (typeof size === 'number') ? `${size}px` : size
+  }
+
   render() {
-    const { alt, delay, fit, flex, height, origin, placeholder, src, width } = this.props
+    const {
+      alt,
+      delay,
+      fit,
+      flex,
+      height,
+      origin,
+      placeholder,
+      src,
+      width,
+      ...rest
+    } = this.props
     const thumbnailSrc = this.state.failed ? src : getThumbnailSrc({ height, origin, src, width })
+    const stringHeight = this.stringifySize(height)
+    const stringWidth = this.stringifySize(width)
     const fallbackStyle = {
-      maxHeight: `${height}px`,
-      maxWidth: `${width}px`
+      maxHeight: this.stringifySize(height),
+      maxWidth: this.stringifySize(width)
     }
 
     return (
@@ -57,8 +72,16 @@ export default class ThumbnailImage extends React.Component {
         {(returnedSrc, loading) => (
           <>
             {loading ?
-              <Placeholder height={height} flex={flex} width={width} {...this.props}>{placeholder}</Placeholder> :
-              <StyledBox animation={loading ? undefined : "fadeIn"} flex={flex} maxWidth={width} maxHeight={height} {...this.props}>
+              <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
+              <StyledBox
+                animation={loading ? undefined : "fadeIn"}
+                flex={flex}
+                height='100%'
+                maxWidth={width}
+                maxHeight={height}
+                width='100%'
+                {...rest}
+              >
                 <StyledImage
                   alt={alt}
                   fit={fit}
