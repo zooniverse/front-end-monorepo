@@ -71,7 +71,7 @@ describe('Model > ResourceStore', function () {
     resetStore.reset()
     expect(resetStore.resources.size).to.equal(0)
     expect(resetStore.active).to.be.undefined()
-    expect(Object.keys(resourceStore.headers)).to.have.lengthOf(0)
+    expect(resetStore.headers.etag).to.be.undefined()
   })
 
   it('should use an existing resources object when `setActive` is called', async function () {
@@ -88,7 +88,7 @@ describe('Model > ResourceStore', function () {
 
   it('should set the headers object when a successful get request is made', async function () {
     resourceStore.reset()
-    expect(Object.keys(resourceStore.headers)).to.have.lengthOf(0)
+    expect(resourceStore.headers.etag).to.be.undefined()
     await resourceStore.setActive('789')
     expect(resourceStore.headers).to.include({ etag: etagStub })
   })
