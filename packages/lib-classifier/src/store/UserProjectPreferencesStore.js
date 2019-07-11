@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import UserProjectPreferences from './UserProjectPreferences'
@@ -8,8 +8,8 @@ import merge from 'lodash/merge'
 
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
-    active: types.maybe(types.reference(UserProjectPreferences)),
-    resources: types.optional(types.map(UserProjectPreferences), {}),
+    active: types.safeReference(UserProjectPreferences),
+    resources: types.map(UserProjectPreferences),
     type: types.optional(types.string, 'project_preferences')
   })
 
@@ -21,13 +21,13 @@ const UserProjectPreferencesStore = types
 
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
-        const project = getRoot(self).projects.active
+        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
 
-        if (project) {
+        if (validProjectReference) {
           self.reset()
           self.checkForUser()
         }
-      })
+      }, { name: 'UPPStore Project Observer autorun' })
       addDisposer(self, projectDisposer)
     }
 
