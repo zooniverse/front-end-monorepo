@@ -114,7 +114,7 @@ describe('Component > Form', function () {
 
       textInputs.forEach((input) => {
         input.simulate('change')
-        expect(handleChangeSpy).to.have.been.calledOnce
+        expect(handleChangeSpy).to.have.been.calledOnce()
         handleChangeSpy.resetHistory()
       })
 
@@ -133,7 +133,7 @@ describe('Component > Form', function () {
 
       textInputs.forEach((input) => {
         input.simulate('blur')
-        expect(handleBlurSpy).to.have.been.calledOnce
+        expect(handleBlurSpy).to.have.been.calledOnce()
         handleBlurSpy.resetHistory()
       })
 
@@ -220,7 +220,7 @@ describe('Component > Form', function () {
       const handleSubmitSpy = sinon.spy()
       const wrapper = shallow(<Form handleSubmit={handleSubmitSpy} />)
       wrapper.simulate('submit')
-      expect(handleSubmitSpy).to.have.been.calledOnce
+      expect(handleSubmitSpy).to.have.been.calledOnce()
     })
 
     it('should disable all of the inputs and the submit button', function () {
