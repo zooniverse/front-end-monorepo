@@ -1,5 +1,6 @@
 {
   "MessageFromResearcher": {
+    "noMessage": "The researcher hasn't added a message.",
     "title": "Message from the researcher"
   }
 }

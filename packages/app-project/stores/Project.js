@@ -21,6 +21,8 @@ const Project = types
     launch_approved: types.optional(types.boolean, false),
     links: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
+    researcher_quote: types.maybeNull(types.string),
+    owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
     urls: types.frozen([]),
@@ -53,6 +55,7 @@ const Project = types
 
           self.avatar = get(linked, 'avatars[0]', {})
           self.background = get(linked, 'backgrounds[0]', {})
+          self.owners = get(linked, 'owners', [])
 
           const properties = [
             'classifications_count',
@@ -66,12 +69,15 @@ const Project = types
             'introduction',
             'launch_approved',
             'links',
+            'researcher_quote',
             'retired_subjects_count',
             'slug',
             'subjects_count',
             'urls'
           ]
           properties.forEach(property => { self[property] = project[property] })
+
+
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error('Error loading project:', error)
