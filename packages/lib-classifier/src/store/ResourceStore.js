@@ -6,8 +6,8 @@ import Resource from './Resource'
 const ResourceStore = types
   .model('ResourceStore', {
     active: types.safeReference(Resource),
-    headers: types.optional(types.frozen({
-      // etag: types.string // setting this is causing the store to be set with a MST type and thus defined. Maybe a bug?
+    headers: types.optional(types.model({
+      etag: types.maybe(types.string)
     }), {}),
     resources: types.map(Resource),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
