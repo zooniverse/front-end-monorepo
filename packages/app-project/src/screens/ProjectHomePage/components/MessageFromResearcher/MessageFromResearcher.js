@@ -65,7 +65,6 @@ function MessageFromResearcher ({
 MessageFromResearcher.propTypes = {
   message: string,
   researcher: string,
-  socialLink: string,
   avatar: string
 }
 
