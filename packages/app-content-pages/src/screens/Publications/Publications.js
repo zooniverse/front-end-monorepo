@@ -22,6 +22,17 @@ const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMe
 function Publications (props) {
   const { className, data, filters } = props
 
+  // `Show all` isn't a Contentful category, so we need to manually add the
+  // translated string.
+  const filtersPlusShowAll = filters.reduce((acc, filter) => {
+    if (filter.slug === 'showAll') {
+      acc.push({ ...filter, title: counterpart(`Publications.showAll`) })
+    } else {
+      acc.push(filter)
+    }
+    return acc
+  }, [])
+
   const main = (
     <article>
       <Heading margin={{ top: 'none' }} size='small'>
@@ -44,11 +55,11 @@ function Publications (props) {
 
   const sidebar = (
     <Box gap='small'>
-      {filters.map(filter => (
+      {filtersPlusShowAll.map(filter => (
         <div key={filter.slug} >
           <StyledButton
             active={filter.active}
-            label={counterpart(`Publications.categories.${filter.slug}`)}
+            label={filter.title}
             onClick={filter.selectCategory}
             plain
           />
@@ -82,7 +93,8 @@ Publications.propTypes = {
   filters: arrayOf(shape({
     active: bool,
     selectCategory: func,
-    slug: string
+    slug: string,
+    title: string
   }))
 }
 

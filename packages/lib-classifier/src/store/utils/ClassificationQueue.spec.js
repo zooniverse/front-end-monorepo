@@ -78,7 +78,7 @@ describe('ClassificationQueue', function () {
       sinon.stub(classificationQueue.flushToBackend, 'bind').callsFake(() => classificationQueue.flushToBackend)
       try {
         await classificationQueue.add(classificationData)
-        expect(global.setTimeout.calledWith(classificationQueue.flushToBackend)).to.be.true()
+        expect(global.setTimeout.withArgs(classificationQueue.flushToBackend)).to.have.been.calledOnce()
         expect(classificationQueue.flushTimeout).to.equal(100)
       } catch (e) {}
       classificationQueue.flushToBackend.bind.restore()
@@ -86,7 +86,7 @@ describe('ClassificationQueue', function () {
     it('should cancel any existing timer before flushing the queue', function () {
       classificationQueue.flushTimeout = 100
       classificationQueue.add(classificationData)
-      expect(global.clearTimeout.calledWith(100)).to.be.true()
+      expect(global.clearTimeout.withArgs(100)).to.have.been.calledOnce()
       expect(classificationQueue.flushTimeout).to.be.null()
     })
   })
