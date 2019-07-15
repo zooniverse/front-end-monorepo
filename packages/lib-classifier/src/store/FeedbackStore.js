@@ -47,7 +47,7 @@ const FeedbackStore = types
             annotations.forEach(annotation => self.update(annotation))
           }
         })
-      })
+      }, { name: 'FeedbackStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
 
@@ -70,7 +70,7 @@ const FeedbackStore = types
             next(call)
           }
         })
-      })
+      }, { name: 'FeedbackStore Subject Middleware autorun' })
       addDisposer(self, subjectMiddleware)
     }
 
@@ -81,7 +81,7 @@ const FeedbackStore = types
           self.reset()
           self.createRules(subject)
         }
-      })
+      }, { name: 'FeedbackStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
