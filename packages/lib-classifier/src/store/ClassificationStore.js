@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
@@ -17,13 +17,14 @@ import {
 
 const ClassificationStore = types
   .model('ClassificationStore', {
-    active: types.maybe(types.reference(Classification)),
+    active: types.safeReference(Classification),
     resources: types.map(Classification),
     type: types.optional(types.string, 'classifications')
   })
   .views(self => ({
     get currentAnnotations () {
-      if (self.active) {
+      const validClassificationReference = isValidReference(() => self.active)
+      if (validClassificationReference) {
         return self.active.annotations
       }
       return []
@@ -47,24 +48,30 @@ const ClassificationStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const subject = getRoot(self).subjects.active
-        if (subject) {
+        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
+        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
+        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+        if (validSubjectReference, validWorkflowReference, validProjectReference) {
+          const subject = getRoot(self).subjects.active
+          const workflow = getRoot(self).workflows.active
+          const project = getRoot(self).projects.active
           self.reset()
-          self.createClassification(subject)
+          self.createClassification(subject, workflow, project)
         }
-      })
+      }, { name: 'ClassificationStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
-    function createClassification (subject) {
+    function createClassification (subject, workflow, project) {
+      if (!subject || !workflow || !project) {
+        throw new Error('Cannot create a classification without a subject, workflow, project')
+      }
       const tempID = cuid()
-      const projectID = getRoot(self).projects.active.id
-      const workflow = getRoot(self).workflows.active
 
       const newClassification = Classification.create({
         id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
         links: {
-          project: projectID,
+          project: project.id,
           subjects: [subject.id],
           workflow: workflow.id
         },

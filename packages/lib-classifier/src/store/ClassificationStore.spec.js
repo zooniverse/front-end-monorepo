@@ -1,68 +1,61 @@
 import sinon from 'sinon'
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
+import RootStore from './RootStore'
 import Subject from './Subject'
-import SubjectViewerStore from './SubjectViewerStore'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
+import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-import { getEnv, types } from 'mobx-state-tree'
+// import { getEnv, types } from 'mobx-state-tree'
 
-const RootStub = types
-  .model('RootStore', {
-    classifications: ClassificationStore,
-    feedback: FeedbackStore,
-    projects: types.frozen(),
-    subjects: types.frozen(),
-    subjectViewer: SubjectViewerStore,
-    workflows: types.frozen()
-  })
-  .views(self => ({
-    get client () {
-      return getEnv(self).client
-    }
-  }))
+// const RootStub = types
+//   .model('RootStore', {
+//     classifications: ClassificationStore,
+//     feedback: FeedbackStore,
+//     projects: types.frozen(),
+//     subjects: types.frozen(),
+//     subjectViewer: SubjectViewerStore,
+//     workflows: types.frozen()
+//   })
+//   .views(self => ({
+//     get client () {
+//       return getEnv(self).client
+//     }
+//   }))
 
-const subjectStub = {
-  already_seen: true,
-  favorite: true,
-  finished_workflow: true,
-  id: '3333',
-  locations: [
-    { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/335/0/44a48dd2-23b3-4bb5-9aa4-0e803ac4fe6d.jpeg' }
-  ],
-  metadata: {},
-  retired: true,
-  selection_state: 'normal',
-  user_has_finished_workflow: true
-}
+const subjectStub = SubjectFactory.build()
 
-const projectStub = {
-  id: '1111'
-}
+const workflowStub = WorkflowFactory.build()
+const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
 
-const workflowStub = {
-  id: '2222',
-  version: 'v0.2'
-}
-
-describe('Model > ClassificationStore', function () {
+describe.only('Model > ClassificationStore', function () {
   let classifications
-  let subject
+  let rootStore
+
+  function setupStores () {
+    const clientStub = stubPanoptesJs({ workflows: workflowStub })
+    const store = RootStore.create({
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      subjects: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
+    }, {
+      client: clientStub,
+      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+    })
+
+    store.projects.setResource(projectStub)
+    store.projects.setActive(projectStub.id)
+    return store
+  }
 
   before(function () {
-    subject = Subject.create(subjectStub)
-
-    const rootStore = RootStub.create({
-      classifications: ClassificationStore.create({
-        active: undefined,
-        resources: {},
-        type: 'classifications'
-      }),
-      feedback: { isActive: false },
-      projects: { active: projectStub },
-      subjects: { active: undefined },
-      subjectViewer: {},
-      workflows: { active: workflowStub }
-    })
+    rootStore = setupStores()
     classifications = rootStore.classifications
   })
 
@@ -71,10 +64,10 @@ describe('Model > ClassificationStore', function () {
     expect(ClassificationStore).to.be.an('object')
   })
 
-  it('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
-    classifications.createClassification(subject)
+  it.only('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
+    classifications.createClassification(subjectStub, workflowStub, projectStub)
 
-    const classification = Array.from(classifications.resources.values())[0]
+    const classification = classifications.active.toJSON()
 
     expect(classification).to.be.ok()
     expect(classification.links.project).to.equal(projectStub.id)
