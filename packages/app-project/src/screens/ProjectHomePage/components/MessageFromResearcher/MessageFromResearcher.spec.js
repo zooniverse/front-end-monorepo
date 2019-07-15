@@ -7,6 +7,8 @@ import translations from './locales/en'
 const AVATAR = 'avatar.jpg'
 const MESSAGE = 'this is a researcher message'
 const RESEARCHER = 'researcher name'
+const TALK_LINK = '/projects/owner/slug/talk'
+
 
 describe('Component > MessageFromResearcher', function () {
   it('should render without crashing', function () {
@@ -15,9 +17,19 @@ describe('Component > MessageFromResearcher', function () {
   })
 
   describe('behaviour without a researcher message', function () {
+    let wrapper
+
+    before(function () {
+      wrapper = render(<MessageFromResearcher talkLink={TALK_LINK} />)
+    })
+
     it('should show a message', function () {
-      const wrapper = render(<MessageFromResearcher />)
       expect(wrapper.text()).to.include(translations.MessageFromResearcher.noMessage)
+    })
+
+    it('should show a link to the talk board', function () {
+      const link = wrapper.find('a')
+      expect(link.attr('href')).to.equal(TALK_LINK)
     })
   })
 

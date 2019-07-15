@@ -1,6 +1,7 @@
 {
   "MessageFromResearcher": {
-    "noMessage": "The researcher hasn't added a message.",
+    "noMessage": "Connect with the research team on Talk to learn more about this project!",
+    "noMessageButton": "Go to Talk",
     "title": "Message from the researcher"
   }
 }

@@ -4,43 +4,56 @@ import React from 'react'
 import MessageFromResearcher from './MessageFromResearcher'
 import { MessageFromResearcherContainer } from './MessageFromResearcherContainer'
 
-const PROJECT = {
+const PROJECT_WITH_NAMED_RESEARCHER = {
   avatar: {
     src: '/images/foo.jpg',
   },
-  display_name: 'Test project',
-  researcher_quote: 'This is a quote'
-}
-
-const PROJECT_WITH_NAMED_RESEARCHER = {
-  ...PROJECT,
   configuration: {
     researcherID: '1'
   },
+  display_name: 'Test project',
   owners: [{
     avatar_src: '/images/bar.jpg',
     id: '1',
     display_name: 'Researcher 1'
   }],
+  researcher_quote: 'This is a quote',
+  slug: 'owner/slug'
 }
 
 const PROJECT_WITHOUT_NAMED_RESEARCHER = {
-  ...PROJECT,
+  ...PROJECT_WITH_NAMED_RESEARCHER,
   configuration: {
     researcherID: 'Test project'
   }
 }
 
-describe('Component > CompletionBarContainer', function () {
+let wrapper
+let wrappedComponent
+
+describe.only('Component > CompletionBarContainer', function () {
+  before(function () {
+    wrapper = shallow(<MessageFromResearcherContainer project={PROJECT_WITH_NAMED_RESEARCHER} />)
+    wrappedComponent = wrapper.find(MessageFromResearcher)
+  })
+
+  after(function () {
+    wrapper = null
+    wrappedComponent = null
+  })
+
   it('should render without crashing', function () {
-    const wrapper = (<MessageFromResearcherContainer project={PROJECT} />)
     expect(wrapper).to.be.ok()
   })
 
-  describe('behaviour with named researcher', function () {
-    let wrapper
-    let wrappedComponent
+  describe('behaviour without a quote', function () {
+    it('should pass a link to the project talk board', function () {
+      const passedProps = wrappedComponent.props()
+      expect(passedProps.talkLink).to.equal(`/projects/${PROJECT_WITH_NAMED_RESEARCHER.slug}/talk`)
+    })
+  })
 
+  describe('behaviour with named researcher', function () {
     before(function () {
       wrapper = shallow(<MessageFromResearcherContainer project={PROJECT_WITH_NAMED_RESEARCHER} />)
       wrappedComponent = wrapper.find(MessageFromResearcher)
@@ -60,9 +73,6 @@ describe('Component > CompletionBarContainer', function () {
   })
 
   describe('behaviour without a named researcher', function () {
-    let wrapper
-    let wrappedComponent
-
     before(function () {
       wrapper = shallow(<MessageFromResearcherContainer project={PROJECT_WITHOUT_NAMED_RESEARCHER} />)
       wrappedComponent = wrapper.find(MessageFromResearcher)

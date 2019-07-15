@@ -1,6 +1,6 @@
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Box, Paragraph, Image } from 'grommet'
+import { Box, Button, Paragraph, Image } from 'grommet'
 import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -36,16 +36,22 @@ const components = {
 function MessageFromResearcher ({
   avatar,
   message,
-  researcher
+  researcher,
+  talkLink
 }) {
   return (
     <ContentBox title={counterpart('MessageFromResearcher.title')}>
 
       {!message && (
-        <StyledParagraph
-          children={counterpart('MessageFromResearcher.noMessage')}
-          margin='none'
-        />
+        <>
+          <StyledParagraph
+            children={counterpart('MessageFromResearcher.noMessage')}
+            margin={{ bottom: 'small', top: 'none' }}
+          />
+          <div>
+            <Button href={talkLink} label={counterpart('MessageFromResearcher.noMessageButton')} />
+          </div>
+        </>
       )}
 
       {!!message && (
@@ -63,9 +69,10 @@ function MessageFromResearcher ({
 }
 
 MessageFromResearcher.propTypes = {
+  avatar: string,
   message: string,
   researcher: string,
-  avatar: string
+  talkLink: string
 }
 
 export default MessageFromResearcher

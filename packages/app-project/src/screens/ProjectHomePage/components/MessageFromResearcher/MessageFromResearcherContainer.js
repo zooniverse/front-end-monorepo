@@ -51,14 +51,20 @@ class MessageFromResearcherContainer extends Component {
       : this.props.project.display_name
   }
 
+  getTalkLink () {
+    const { project } = this.props
+    return `/projects/${project.slug}/talk`
+  }
+
   render () {
     const { researcher_quote } = this.props.project
 
     return (
       <MessageFromResearcher
+        avatar={this.getResearcherAvatar()}
         message={researcher_quote}
         researcher={this.getResearcherName()}
-        avatar={this.getResearcherAvatar()}
+        talkLink={this.getTalkLink()}
       />
     )
   }
@@ -74,7 +80,8 @@ MessageFromResearcherContainer.propTypes = {
       avatar_src: string,
       display_name: string
     })),
-    researcher_quote: string
+    researcher_quote: string,
+    slug: string
   })
 }
 
