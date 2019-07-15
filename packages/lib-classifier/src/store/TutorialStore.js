@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import Tutorial from './Tutorial'
@@ -7,8 +7,8 @@ import Medium from './Medium'
 
 const TutorialStore = types
   .model('TutorialStore', {
-    active: types.maybe(types.reference(Tutorial)),
-    activeMedium: types.maybe(types.reference(Medium)),
+    active: types.safeReference(Tutorial),
+    activeMedium: types.safeReference(Medium),
     activeStep: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
@@ -112,13 +112,13 @@ const TutorialStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const workflow = getRoot(self).workflows.active
-        if (workflow) {
+        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
+        if (validWorkflowReference) {
           self.reset()
           self.resetSeen()
           self.fetchTutorials()
         }
-      })
+      }, { name: 'Tutorial Store Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
     }
 
@@ -128,7 +128,7 @@ const TutorialStore = types
         if (upp.loadingState === asyncStates.success) {
           self.showTutorialInModal()
         }
-      })
+      }, { name: 'Tutorial Store UPP Observer autorun' })
       addDisposer(self, uppDisposer)
     }
 
@@ -227,6 +227,8 @@ const TutorialStore = types
     }
 
     function resetActiveTutorial () {
+      // we manually set active and activeMedium to undefined
+      // because we are not removing the tutorial from the map
       self.active = undefined
       self.activeStep = undefined
       self.activeMedium = undefined
