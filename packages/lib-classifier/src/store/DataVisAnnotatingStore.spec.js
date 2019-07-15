@@ -2,7 +2,7 @@ import DataVisAnnotatingStore from './DataVisAnnotatingStore'
 
 let model
 
-describe.only('Model > DataVisAnnotatingStore', function () {
+describe('Model > DataVisAnnotatingStore', function () {
   before(function () {
     model = DataVisAnnotatingStore.create()
   })
