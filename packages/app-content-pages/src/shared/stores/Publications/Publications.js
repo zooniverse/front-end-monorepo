@@ -51,18 +51,20 @@ const Publications = types
     get uiFilters () {
       const filters = self.categories
         .map(category => {
-          const { id, slug } = category
+          const { id, slug, title } = category
           return {
             active: self.isActiveCategory(id),
             selectCategory: self.selectCategory.bind(this, id),
-            slug
+            slug,
+            title
           }
         })
 
       filters.unshift({
         active: !self.selectedCategory,
         selectCategory: self.selectCategory.bind(this, null),
-        slug: 'showAll'
+        slug: 'showAll',
+        title: 'Show All'
       })
 
       return filters

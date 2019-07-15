@@ -1,9 +1,9 @@
 import { Grid } from 'grommet'
 import React from 'react'
 
+import MessageFromResearcher from './components/MessageFromResearcher'
 import AboutProject from '../../shared/components/AboutProject'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
-import MessageFromResearcher from '../../shared/components/MessageFromResearcher'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
 
 function ProjectHomePage () {
