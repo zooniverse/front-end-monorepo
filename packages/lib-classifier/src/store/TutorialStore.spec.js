@@ -78,7 +78,7 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe.only('Model > TutorialStore', function () {
+describe('Model > TutorialStore', function () {
   function fetchTutorials (rootStore) {
     sinon.stub(rootStore.tutorials, 'fetchTutorials')
     return rootStore.workflows.setActive(workflow.id)
