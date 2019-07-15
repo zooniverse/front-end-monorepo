@@ -53,7 +53,7 @@ function setupStores (clientStub, authClientStub) {
   }, { authClient: authClientStub, client: clientStub })
 }
 
-describe.only('Model > UserProjectPreferencesStore', function () {
+describe('Model > UserProjectPreferencesStore', function () {
   describe('when instantiated', function () {
     let rootStore
     it('should exist', function () {
