@@ -2,9 +2,7 @@ import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
 import RootStore from './RootStore'
-import ProjectStore from './ProjectStore'
 import TutorialStore from './TutorialStore'
-import WorkflowStore from './WorkflowStore'
 import {
   ProjectFactory,
   TutorialFactory,
@@ -15,7 +13,6 @@ import {
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-let rootStore
 const seenMock = new Date().toISOString()
 const token = '1235'
 
@@ -81,8 +78,8 @@ const authClientStubWithUser = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
 }
 
-describe('Model > TutorialStore', function () {
-  function fetchTutorials () {
+describe.only('Model > TutorialStore', function () {
+  function fetchTutorials (rootStore) {
     sinon.stub(rootStore.tutorials, 'fetchTutorials')
     return rootStore.workflows.setActive(workflow.id)
       .then(() => {
@@ -91,61 +88,76 @@ describe('Model > TutorialStore', function () {
       })
   }
 
-  it('should exist', function () {
-    expect(TutorialStore).to.be.an('object')
-  })
+  function setupStores(clientStub, authClientStub) {
+    return RootStore.create({
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      projects: {},
+      subjects: {},
+      subjectViewer: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
+    }, { client: clientStub, authClient: authClientStub })
+  }
 
-  it('should remain in an initialized state if there is no workflow', function () {
-    rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
-    }, { authClient: authClientStubWithoutUser, client: clientStub() })
+  describe('when initialized', function () {
+    let rootStore
+    beforeEach(function () {
+      rootStore = null
+    })
 
-    expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
-  })
+    it('should exist', function () {
+      expect(TutorialStore).to.be.an('object')
+    })
 
-  it('should set the tutorial if there is a workflow', function (done) {
-    rootStore = RootStore.create({
-      tutorials: TutorialStore.create(),
-      workflows: WorkflowStore.create()
-    }, { authClient: authClientStubWithUser, client: clientStub() })
+    it('should remain in an initialized state if there is no workflow', function () {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-    fetchTutorials()
-      .then(() => {
-        const tutorialInStore = rootStore.tutorials.resources.get(tutorial.id)
-        expect(tutorialInStore.toJSON()).to.deep.equal(tutorial)
-      }).then(done, done)
+      expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
+    })
+
+    it('should set the tutorial if there is a workflow', function (done) {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
+
+      fetchTutorials(rootStore)
+        .then(() => {
+          const tutorialInStore = rootStore.tutorials.resources.get(tutorial.id)
+          expect(tutorialInStore.toJSON()).to.deep.equal(tutorial)
+        }).then(done, done)
+    })
   })
 
   describe('Actions > fetchTutorials', function () {
-    it('should request for tutorials linked to the active workflow', function (done) {
-      const client = clientStub()
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithoutUser, client })
+    let rootStore
+    beforeEach(function () {
+      rootStore = null
+    })
 
-      fetchTutorials()
+    it('should request for tutorials linked to the active workflow', function (done) {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
+
+      fetchTutorials(rootStore)
         .then(() => {
-          expect(client.tutorials.get).to.have.been.calledWith({ workflowId: workflow.id })
+          expect(panoptesClientStub.tutorials.get).to.have.been.calledWith({ workflowId: workflow.id })
         }).then(done, done)
     })
 
     it('should not request for media or set the resources if there are no tutorials in the response', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithoutUser,
-        client: Object.assign({}, panoptesClient, {
-          tutorials: {
-            get: () => { return Promise.resolve({ body: { tutorials: [] } }) }
-          }
-        })
+      const panoptesClientStub = Object.assign({}, panoptesClient, {
+        tutorials: {
+          get: () => { return Promise.resolve({ body: { tutorials: [] } }) }
+        }
       })
-
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setTutorialsSpy = sinon.spy(rootStore.tutorials, 'setTutorials')
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           expect(setTutorialsSpy).to.have.not.been.called()
           expect(rootStore.tutorials.loadingState).to.equal(asyncStates.success)
@@ -155,35 +167,27 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should request for the media if there are tutorials', function (done) {
-      const client = clientStub()
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithoutUser, client })
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
       rootStore.workflows.setActive(workflow.id)
-        .then(() => client.tutorials.getAttachedImages.resetHistory())
+        .then(() => panoptesClientStub.tutorials.getAttachedImages.resetHistory())
         .then(() => {
           rootStore.tutorials.fetchTutorials.restore()
           return rootStore.tutorials.fetchTutorials()
         })
         .then(() => {
-          expect(client.tutorials.getAttachedImages).to.have.been.calledOnceWith({ id: tutorial.id })
+          expect(panoptesClientStub.tutorials.getAttachedImages).to.have.been.calledOnceWith({ id: tutorial.id })
         }).then(done, done)
     })
 
     it('should call setTutorials if there are tutorials', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setTutorialsSpy = sinon.spy(rootStore.tutorials, 'setTutorials')
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           expect(setTutorialsSpy).to.have.been.calledOnceWith([tutorial])
         }).then(() => {
@@ -192,19 +196,14 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the loadingState to error if the request errors', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser,
-        client: Object.assign({}, panoptesClient, {
-          tutorials: {
-            get: () => { return Promise.reject(new Error('testing error state')) }
-          }
-        })
+      const panoptesClientStub = Object.assign({}, panoptesClient, {
+        tutorials: {
+          get: () => { return Promise.reject(new Error('testing error state')) }
+        }
       })
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           expect(rootStore.tutorials.loadingState).to.equal(asyncStates.error)
         }).then(done, done)
@@ -212,22 +211,23 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > fetchMedia', function () {
+    let rootStore
+    beforeEach(function () {
+      rootStore = null
+    })
+
     it('should not call setMediaResources if there is no media in the response', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser,
-        client: Object.assign({}, panoptesClient, {
-          tutorials: {
-            get: () => { return Promise.resolve({ body: { tutorials: [tutorial] } }) },
-            getAttachedImages: () => { return Promise.resolve({ body: { media: [] } }) }
-          } })
+      const panoptesClientStub = Object.assign({}, panoptesClient, {
+        tutorials: {
+          get: () => { return Promise.resolve({ body: { tutorials: [tutorial] } }) },
+          getAttachedImages: () => { return Promise.resolve({ body: { media: [] } }) }
+        }
       })
 
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           expect(setMediaResourcesSpy).to.have.not.been.called()
         }).then(() => {
@@ -236,16 +236,11 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should call setMediaResources if there is media in the response', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
       const setMediaResourcesSpy = sinon.spy(rootStore.tutorials, 'setMediaResources')
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
         }).then(() => {
@@ -255,14 +250,13 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > setActiveTutorial', function () {
-    it('should reset the active tutorial if the id parameter is not defined', function () {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
+    let rootStore
+    beforeEach(function () {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
+    })
 
+    it('should reset the active tutorial if the id parameter is not defined', function () {
       const resetActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'resetActiveTutorial')
       rootStore.tutorials.setActiveTutorial()
       expect(resetActiveTutorialSpy).to.have.been.calledOnce()
@@ -273,13 +267,6 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the active tutorial to the id parameter', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id)
       }).then(() => {
@@ -288,12 +275,6 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the tutorial step if the id parameter is defined', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
       const setTutorialStepSpy = sinon.spy(rootStore.tutorials, 'setTutorialStep')
 
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
@@ -307,12 +288,6 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the seen time if the id parameter is defined', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
       const setSeenTimeSpy = sinon.spy(rootStore.tutorials, 'setSeenTime')
 
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
@@ -327,14 +302,13 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > setTutorialStep', function () {
-    it('should not set the active step if there is not an active tutorial', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
+    let rootStore
+    beforeEach(function () {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
+    })
 
+    it('should not set the active step if there is not an active tutorial', function (done) {
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setTutorialStep(0)
       }).then(() => {
@@ -343,13 +317,6 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set not the active step if that stepIndex does not exist in the steps array', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id, 2)
       }).then(() => {
@@ -358,13 +325,6 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the active step with the stepIndex parameter', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
       }).then(() => {
@@ -373,13 +333,6 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the active step with the default of 0', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id)
       }).then(() => {
@@ -388,14 +341,7 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the activeMedium if it exists for the step', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
-
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorial.id)
           rootStore.tutorials.setMediaResources([medium])
@@ -406,16 +352,26 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > resetSeen', function () {
+    let rootStore
     it('should reset the tutorial seen time when a new workflow loads', function (done) {
       const seen = new Date().toISOString()
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create({ tutorialSeenTime: seen }),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
+      const panoptesClientStub = clientStub()
 
-      fetchTutorials()
+      rootStore = RootStore.create({
+        classifications: {},
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        projects: {},
+        subjects: {},
+        subjectViewer: {},
+        tutorials: TutorialStore.create({ tutorialSeenTime: seen }),
+        workflowSteps: {},
+        userProjectPreferences: {}
+      }, { client: panoptesClientStub, authClientStubWithoutUser })
+
+      fetchTutorials(rootStore)
         .then(() => {
           expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
         }).then(done, done)
@@ -423,27 +379,23 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Actions > setSeenTime', function () {
+    let rootStore
+    beforeEach(function () {
+      rootStore = null
+    })
     it('should not set the seen time if there is not an active tutorial', function () {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
       rootStore.tutorials.setSeenTime()
       expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
     })
 
     it('should set the seen time for the tutorial kind of tutorial resource', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorial.id)
         }).then(() => {
@@ -452,14 +404,10 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should set the seen time for the null kind of tutorial resource', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub(tutorialNullKind)
-      })
+      const panoptesClientStub = clientStub(tutorialNullKind)
+      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorialNullKind.id)
         }).then(() => {
@@ -470,12 +418,8 @@ describe('Model > TutorialStore', function () {
 
   describe('Actions > setModalVisibility', function () {
     it('should set the modal visibility', function () {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, {
-        authClient: authClientStubWithoutUser, client: clientStub()
-      })
+      const panoptesClientStub = clientStub()
+      const rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
       rootStore.tutorials.setModalVisibility(true)
       expect(rootStore.tutorials.showModal).to.be.true()
@@ -510,6 +454,7 @@ describe('Model > TutorialStore', function () {
     describe('loading attached media', function () {
       let awaitTutorials
       let awaitMedia
+      let rootStore
       function defer () {
         // http://lea.verou.me/2016/12/resolve-promises-externally-with-this-one-weird-trick/
         let res
@@ -527,9 +472,8 @@ describe('Model > TutorialStore', function () {
       }
 
       beforeEach(function () {
-        rootStore = RootStore.create({}, {
-          authClient: authClientStubWithoutUser, client: clientStubWithUPP
-        })
+        rootStore = setupStores(clientStubWithUPP, authClientStubWithoutUser)
+
         awaitTutorials = defer()
         awaitMedia = defer()
         tutorialsClient.tutorials.get = sinon.stub().callsFake(() => awaitTutorials)
@@ -619,15 +563,15 @@ describe('Model > TutorialStore', function () {
       })
 
       describe('when media have loaded', function () {
+        let rootStore
+        beforeEach(function () {
+          rootStore = null
+        })
+
         describe('for logged-out users', function () {
           it('should show the tutorial', function (done) {
-            rootStore = RootStore.create({
-              projects: ProjectStore.create(),
-              tutorials: TutorialStore.create(),
-              workflows: WorkflowStore.create()
-            }, {
-              authClient: authClientStubWithoutUser, client: clientStub()
-            })
+            const panoptesClientStub = clientStub()
+            rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
             const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
             const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
             sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
@@ -666,9 +610,7 @@ describe('Model > TutorialStore', function () {
 
         describe('for logged-in users', function () {
           it('should show the tutorial if it has not been seen', function (done) {
-            rootStore = RootStore.create({}, {
-              authClient: authClientStubWithUser, client: clientStubWithUPP
-            })
+            rootStore = setupStores(clientStubWithUPP, authClientStubWithUser)
             const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
             const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
             sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
@@ -707,9 +649,7 @@ describe('Model > TutorialStore', function () {
           })
 
           it('should not show the tutorial if it has been seen', function (done) {
-            rootStore = RootStore.create({}, {
-              authClient: authClientStubWithUser, client: clientStubWithUPPTimestamp
-            })
+            rootStore = setupStores(clientStubWithUPPTimestamp, authClientStubWithUser)
             const setActiveTutorialSpy = sinon.spy(rootStore.tutorials, 'setActiveTutorial')
             const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
             sinon.stub(rootStore.tutorials, 'fetchTutorials')
@@ -750,23 +690,19 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Views > isFirstStep', function () {
-    it('should return false if no active tutorial', function () {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithUser, client: clientStub() })
+    let rootStore
+    beforeEach(function () {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
+    })
 
+    it('should return false if no active tutorial', function () {
       expect(rootStore.tutorials.active).to.be.undefined()
       expect(rootStore.tutorials.isFirstStep).to.be.false()
     })
 
     it('should return false if activeStep is not the first step', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithUser, client: clientStub() })
-
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
         }).then(() => {
@@ -776,12 +712,7 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should return true if activeStep is the first step', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithUser, client: clientStub() })
-
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
         }).then(() => {
@@ -792,23 +723,19 @@ describe('Model > TutorialStore', function () {
   })
 
   describe('Views > isLastStep', function () {
-    it('should return false if no active tutorial', function () {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithUser, client: clientStub() })
+    let rootStore
+    beforeEach(function () {
+      const panoptesClientStub = clientStub()
+      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
+    })
 
+    it('should return false if no active tutorial', function () {
       expect(rootStore.tutorials.active).to.be.undefined()
       expect(rootStore.tutorials.isLastStep).to.be.false()
     })
 
     it('should return false if activeStep is not the last step', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithUser, client: clientStub() })
-
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
         }).then(() => {
@@ -818,12 +745,7 @@ describe('Model > TutorialStore', function () {
     })
 
     it('should return true if activeStep is the last step', function (done) {
-      rootStore = RootStore.create({
-        tutorials: TutorialStore.create(),
-        workflows: WorkflowStore.create()
-      }, { authClient: authClientStubWithUser, client: clientStub() })
-
-      fetchTutorials()
+      fetchTutorials(rootStore)
         .then(() => {
           rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
         }).then(() => {
