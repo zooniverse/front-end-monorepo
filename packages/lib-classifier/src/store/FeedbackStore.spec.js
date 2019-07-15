@@ -4,7 +4,7 @@ import FeedbackStore from './FeedbackStore'
 import strategies from './feedback/strategies'
 import helpers from './feedback/helpers'
 
-describe('Model > FeedbackStore', function () {
+describe.only('Model > FeedbackStore', function () {
   let feedback
   let feedbackStub
 
