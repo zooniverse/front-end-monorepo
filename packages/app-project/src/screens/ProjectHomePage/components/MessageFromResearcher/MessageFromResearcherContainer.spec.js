@@ -31,7 +31,7 @@ const PROJECT_WITHOUT_NAMED_RESEARCHER = {
 let wrapper
 let wrappedComponent
 
-describe.only('Component > CompletionBarContainer', function () {
+describe('Component > CompletionBarContainer', function () {
   before(function () {
     wrapper = shallow(<MessageFromResearcherContainer project={PROJECT_WITH_NAMED_RESEARCHER} />)
     wrappedComponent = wrapper.find(MessageFromResearcher)
