@@ -1,0 +1,19 @@
+version: '3.2'
+
+services:
+  dev:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - HOST=0.0.0.0
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - AWS_SECURITY_TOKEN=${AWS_SECURITY_TOKEN}
+    volumes:
+      - ${PWD}:/src
+      - /src/node_modules
