@@ -11,5 +11,6 @@ USER node
 RUN yarn bootstrap
 
 EXPOSE 3000
-CMD yarn workspace @zooniverse/fe-project dev
+ENTRYPOINT ["yarn"]
+CMD ["workspace",  "@zooniverse/fe-project", "dev"]
 
