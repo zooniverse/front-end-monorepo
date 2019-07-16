@@ -5,10 +5,12 @@ import MessageFromResearcher from './components/MessageFromResearcher'
 import AboutProject from '../../shared/components/AboutProject'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
+import ZooniverseTalk from './components/ZooniverseTalk'
 
 function ProjectHomePage () {
   return (
     <Grid gap='medium' margin='medium'>
+      <ZooniverseTalk />
       <ProjectStatistics />
       <Grid
         fill='horizontal'
