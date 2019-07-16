@@ -20,5 +20,5 @@ class MyComponent extends React.Component {
   }
 }
 
-export default withThemeContext(MyComponent)
+export default withResponsiveContext(MyComponent)
 ```
