@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
+      - "6006:6006"
       - "8080:8080"
     environment:
       - HOST=0.0.0.0

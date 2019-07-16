@@ -10,7 +10,7 @@ USER node
 
 RUN yarn bootstrap
 
-EXPOSE 3000 8080
+EXPOSE 3000 6006 8080
 ENTRYPOINT ["yarn"]
 CMD ["workspace",  "@zooniverse/fe-project", "dev"]
 
