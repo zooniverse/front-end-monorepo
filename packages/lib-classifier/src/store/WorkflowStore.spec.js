@@ -17,7 +17,7 @@ const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow
 const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
 
 function setupStores(clientStub, project) {
-  rootStore = RootStore.create({
+  const store = RootStore.create({
     classifications: {},
     dataVisAnnotating: {},
     drawing: {},
@@ -30,8 +30,9 @@ function setupStores(clientStub, project) {
     userProjectPreferences: {}
   }, { client: clientStub, authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() } })
 
-  rootStore.projects.setResource(project)
-  rootStore.projects.setActive(project.id)
+  store.projects.setResource(project)
+  store.projects.setActive(project.id)
+  return store
 }
 
 describe.only('Model > WorkflowStore', function () {
@@ -41,13 +42,14 @@ describe.only('Model > WorkflowStore', function () {
 
   describe('workflow selection', function () {
     xdescribe('when there is a url query param', function () {
+      let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
           projects: projectWithoutDefault,
           workflows: workflow
         })
 
-        setupStores(panoptesClientStub, projectWithoutDefault)
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         // JSDOM doesn't support doing this :(
         window.location.assign(`https://www.zooniverse.org/projects/${projectWithoutDefault.slug}/classify/?workflow=${workflow.id}`)
       })
@@ -62,12 +64,13 @@ describe.only('Model > WorkflowStore', function () {
     })
 
     describe('when there is a project default', function () {
+      let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
           workflows: workflow
         })
 
-        setupStores(panoptesClientStub, projectWithDefault)
+        rootStore = setupStores(panoptesClientStub, projectWithDefault)
       })
 
       after(function () {
@@ -80,12 +83,13 @@ describe.only('Model > WorkflowStore', function () {
     })
 
     describe('when there is not an active project', function () {
+      let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
           workflows: workflow
         })
 
-        setupStores(panoptesClientStub, projectWithoutDefault)
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
       })
 
       after(function () {
