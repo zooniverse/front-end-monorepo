@@ -2,7 +2,7 @@ import getDrawingTool from './getDrawingTool'
 
 import { Point } from '../tools'
 
-describe.only('Helpers > getDrawingTool', function () {
+describe('Helpers > getDrawingTool', function () {
   it('should return the `Point` component if passed `point`', function () {
     expect(getDrawingTool('point')).to.equal(Point)
   })

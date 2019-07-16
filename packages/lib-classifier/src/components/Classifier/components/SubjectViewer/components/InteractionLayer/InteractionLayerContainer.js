@@ -68,13 +68,17 @@ class InteractionLayerContainer extends Component {
         this.setState({ currentMark: newMark, drawing: true })
       }
 
-      // move mark while drawing
-      if (drawing && event.type === 'mousemove') {
+      // while drawing
+      if (drawing) {
+        // move mark
+        if (event.type === 'mousemove') {
         newMark = this.getNewMark(event)
         this.setState({ currentMark: newMark })
-      }
-      if (drawing && event.type === 'mouseup') {
-        this.setState({ drawing: false })
+        }
+        // finish mark
+        if (event.type === 'mouseup') {
+          this.setState({ drawing: false })
+        }
       }
 
       // subsequent mark
