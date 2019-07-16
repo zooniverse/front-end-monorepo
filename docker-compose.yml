@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
+      - "8080:8080"
     environment:
       - HOST=0.0.0.0
       - AWS_REGION=${AWS_REGION}
