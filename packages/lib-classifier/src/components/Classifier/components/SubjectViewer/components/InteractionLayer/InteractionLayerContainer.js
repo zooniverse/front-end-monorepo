@@ -33,7 +33,7 @@ class InteractionLayerContainer extends Component {
     this.state = {
       currentMark: null,
       drawing: false,
-      marks: []
+      marks: new Map()
     }
 
     this.drawMark = this.drawMark.bind(this)
@@ -61,11 +61,13 @@ class InteractionLayerContainer extends Component {
     stream.subscribe(event => {
       const { currentMark, drawing, marks } = this.state
       let newMark
+
       // initial mark
-      if (marks.length === 0 && event.type === 'mousedown') {
+      if (marks.size === 0 && event.type === 'mousedown') {
         newMark = this.getNewMark(event)
         this.setState({ currentMark: newMark, drawing: true })
       }
+
       // move mark while drawing
       if (drawing && event.type === 'mousemove') {
         newMark = this.getNewMark(event)
@@ -74,12 +76,13 @@ class InteractionLayerContainer extends Component {
       if (drawing && event.type === 'mouseup') {
         this.setState({ drawing: false })
       }
+
       // subsequent mark
       if (!drawing && currentMark !== null && event.type === 'mousedown') {
-        const filteredmarks = marks.filter(marking => marking.id !== currentMark.id)
-        filteredmarks.push(currentMark)
         newMark = this.getNewMark(event)
-        this.setState({ currentMark: newMark, drawing: true, marks: filteredmarks })
+        const newMarks = new Map(marks)
+        newMarks.set(currentMark.id, currentMark)
+        this.setState({ currentMark: newMark, drawing: true, marks: newMarks })
       }
     })
   }
@@ -133,7 +136,7 @@ class InteractionLayerContainer extends Component {
   render () {
     const [dimensions] = toJS(this.props.dimensions)
     const { currentMark, marks } = this.state
-
+    
     let MarkComponent
     let scale = {
       horizontal: 0.001,
@@ -161,14 +164,14 @@ class InteractionLayerContainer extends Component {
         {MarkComponent && (
           <MarkComponent key={currentMark.id} active mark={currentMark} scale={scale} />
         )}
-        {marks.length > 0 && marks.map(marking => {
+        {marks.size > 0 && Array.from(marks, ([id, marking]) => {
           if (marking === null) {
             return null
           }
 
           const MarkingComponent = getDrawingTool(marking.toolType)
           return (
-            <MarkingComponent key={marking.id} mark={marking} scale={scale} />
+            <MarkingComponent key={id} mark={marking} scale={scale} />
           )
         })}
       </>
