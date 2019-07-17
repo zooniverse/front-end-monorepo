@@ -22,9 +22,13 @@ const ResourceStore = types
       try {
         const response = yield client.get(`/${type}/${id}`)
         self.headers = response.headers
-        const resource = response.body[type][0]
-        self.loadingState = asyncStates.success
-        return resource
+        if (response.body[type] && response.body[type].length > 0) {
+          const resource = response.body[type][0]
+          self.loadingState = asyncStates.success
+          return resource
+        } else {
+          return undefined
+        }
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error
