@@ -57,38 +57,39 @@ class InteractionLayerContainer extends Component {
   drawMark () {
     const { eventStream } = this.props
 
-    const stream = eventStream
-    stream.subscribe(event => {
-      const { currentMark, drawing, marks } = this.state
-      let newMark
-
-      // initial mark
-      if (marks.size === 0 && event.type === 'mousedown') {
-        newMark = this.getNewMark(event)
-        this.setState({ currentMark: newMark, drawing: true })
-      }
-
-      // while drawing
-      if (drawing) {
-        // move mark
-        if (event.type === 'mousemove') {
-        newMark = this.getNewMark(event)
-        this.setState({ currentMark: newMark })
+    if (eventStream) {
+      eventStream.subscribe(event => {
+        const { currentMark, drawing, marks } = this.state
+        let newMark
+  
+        // initial mark
+        if (marks.size === 0 && event.type === 'mousedown') {
+          newMark = this.getNewMark(event)
+          this.setState({ currentMark: newMark, drawing: true })
         }
-        // finish mark
-        if (event.type === 'mouseup') {
-          this.setState({ drawing: false })
+  
+        // while drawing
+        if (drawing) {
+          // move mark
+          if (event.type === 'mousemove') {
+          newMark = this.getNewMark(event)
+          this.setState({ currentMark: newMark })
+          }
+          // finish mark
+          if (event.type === 'mouseup') {
+            this.setState({ drawing: false })
+          }
         }
-      }
-
-      // subsequent mark
-      if (!drawing && currentMark !== null && event.type === 'mousedown') {
-        newMark = this.getNewMark(event)
-        const newMarks = new Map(marks)
-        newMarks.set(currentMark.id, currentMark)
-        this.setState({ currentMark: newMark, drawing: true, marks: newMarks })
-      }
-    })
+  
+        // subsequent mark
+        if (!drawing && currentMark !== null && event.type === 'mousedown') {
+          newMark = this.getNewMark(event)
+          const newMarks = new Map(marks)
+          newMarks.set(currentMark.id, currentMark)
+          this.setState({ currentMark: newMark, drawing: true, marks: newMarks })
+        }
+      })
+    }
   }
 
   getEventOffset (x, y) {
@@ -138,7 +139,7 @@ class InteractionLayerContainer extends Component {
   }
 
   render () {
-    const [dimensions] = toJS(this.props.dimensions)
+    const subjectDimensions = toJS(this.props.dimensions)
     const { currentMark, marks } = this.state
     
     let MarkComponent
@@ -147,7 +148,8 @@ class InteractionLayerContainer extends Component {
       vertical: 1
     }
 
-    if (dimensions) {
+    if (subjectDimensions && subjectDimensions.length) {
+      const [dimensions] = subjectDimensions
       scale = {
         horizontal: dimensions.clientWidth / dimensions.naturalWidth,
         vertical: dimensions.clientHeight / dimensions.naturalHeight
@@ -198,7 +200,8 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
       naturalHeight: PropTypes.number,
       naturalWidth: PropTypes.number
     })
-  )
+  ),
+  eventStream: PropTypes.object
 }
 
 export default InteractionLayerContainer

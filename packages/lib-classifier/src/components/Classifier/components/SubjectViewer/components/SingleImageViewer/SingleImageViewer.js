@@ -19,7 +19,7 @@ const SingleImageViewer = React.forwardRef(function SingleImageViewer ({ onError
         onError={onError}
         onLoad={onLoad}
       />
-      <InteractionLayer svg={ref.current} />
+      <InteractionLayer svg={ref ? ref.current : null} />
     </SVG>
   )
 })
