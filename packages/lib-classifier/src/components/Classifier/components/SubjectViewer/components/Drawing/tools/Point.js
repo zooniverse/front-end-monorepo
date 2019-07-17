@@ -60,8 +60,8 @@ Point.propTypes = {
 Point.defaultProps = {
   active: false,
   scale: {
-    horizontal: 0.001,
-    vertical: 0.001
+    horizontal: 1,
+    vertical: 1
   }
 }
 

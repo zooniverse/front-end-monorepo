@@ -143,8 +143,8 @@ class InteractionLayerContainer extends Component {
     
     let MarkComponent
     let scale = {
-      horizontal: 0.001,
-      vertical: 0.001
+      horizontal: 1,
+      vertical: 1
     }
 
     if (dimensions) {
