@@ -35,7 +35,7 @@ function setupStores(clientStub, project) {
   return store
 }
 
-describe.only('Model > WorkflowStore', function () {
+describe('Model > WorkflowStore', function () {
   it('should exist', function () {
     expect(WorkflowStore).to.be.an('object')
   })
