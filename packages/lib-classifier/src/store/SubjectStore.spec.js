@@ -12,7 +12,7 @@ const shortListSubjects = Factory.buildList('subject', 2)
 
 const clientStub = stubPanoptesJs({ subjects, workflows: workflow })
 
-describe('Model > SubjectStore', function () {
+describe.only('Model > SubjectStore', function () {
   function setupStores(panoptesClientStub = clientStub) {
     const store = RootStore.create({
       classifications: {},
@@ -121,17 +121,19 @@ describe('Model > SubjectStore', function () {
     describe('after emptying the queue', function () {
       let rootStore
       before(function () {
-        const clientStub = stubPanoptesJs({ workflows: workflow, subjects })
-        rootStore = setupStores(clientStub)
+        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: [] }))
+        rootStore = setupStores()
       })
 
-      beforeEach(function () {
-        while (rootStore.subjects.resources.size > 0) {
-          rootStore.subjects.advance()
-        }
+      after(function () {
+        clientStub.panoptes.get.restore()
+        rootStore = null
       })
 
       it('should leave the active subject empty', function () {
+        while (rootStore.subjects.resources.size > 0) {
+          rootStore.subjects.advance()
+        }
         expect(rootStore.subjects.resources.size).to.equal(0)
         expect(rootStore.subjects.active).to.be.undefined()
       })
