@@ -4,7 +4,9 @@ services:
   dev:
     build:
       context: ./
-      dockerfile: Dockerfile.dev
+    entrypoint:
+      - yarn
+    command: ["workspace",  "@zooniverse/fe-project", "dev"]
     ports:
       - "3000:3000"
       - "6006:6006"
@@ -17,5 +19,5 @@ services:
       - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
       - AWS_SECURITY_TOKEN=${AWS_SECURITY_TOKEN}
     volumes:
-      - ${PWD}:/src
-      - /src/node_modules
+      - ${PWD}:/usr/src
+      - /usr/src/node_modules
