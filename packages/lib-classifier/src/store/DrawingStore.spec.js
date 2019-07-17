@@ -12,7 +12,7 @@ describe('Model > DrawingStore', function () {
   })
 
   it('should have an `eventStream` observable', function () {
-    expect(model.eventStream).to.exist
+    expect(model.eventStream).to.be.ok()
     expect(model.eventStream.subscribe).to.be.a('function')
   })
 

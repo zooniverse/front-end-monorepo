@@ -14,7 +14,7 @@ const tutorial = TutorialFactory.build()
 describe('TaskArea', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<TaskArea />)
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 
   it('should render a Tabs wrapper component and two Tab components', function () {
@@ -40,7 +40,7 @@ describe('TaskArea', function () {
 
   it('should disable the tutorial tab if disableTutorialTab is true', function () {
     const wrapper = shallow(<TaskArea disableTutorialTab />)
-    expect(wrapper.find(Tab).last().props().disabled).to.be.true
+    expect(wrapper.find(Tab).last().props().disabled).to.be.true()
   })
 
   describe('#onTabClick', function () {
@@ -61,7 +61,7 @@ describe('TaskArea', function () {
 
     it('should call setActiveTutorial when activeIndex is 0 with no argument', function () {
       wrapper.instance().onTabClick(0)
-      expect(setActiveTutorialSpy).to.have.been.calledOnce
+      expect(setActiveTutorialSpy).to.have.been.calledOnce()
       expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
     })
 
@@ -85,7 +85,7 @@ describe('TaskArea', function () {
 
     it('should call setActiveTutorial with no argument', function () {
       wrapper.instance().onClose()
-      expect(setActiveTutorialSpy).to.have.been.calledOnce
+      expect(setActiveTutorialSpy).to.have.been.calledOnce()
       expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
     })
 

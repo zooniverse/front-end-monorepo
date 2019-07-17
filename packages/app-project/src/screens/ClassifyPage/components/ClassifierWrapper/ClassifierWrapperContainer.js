@@ -7,7 +7,7 @@ import asyncStates from '@zooniverse/async-states'
 import ErrorMessage from './components/ErrorMessage'
 
 function storeMapper (stores) {
-  const { collections, project, recents, user } = stores.store
+  const { collections, project, recents, user, yourStats } = stores.store
   const { mode } = stores.store.ui
   // We return a POJO here, as the `project` resource is also stored in a
   // `mobx-state-tree` store in the classifier and an MST node can't be in two
@@ -17,7 +17,8 @@ function storeMapper (stores) {
     mode,
     project: project.toJSON(),
     recents,
-    user
+    user,
+    yourStats
   }
 }
 
@@ -41,7 +42,8 @@ class ClassifierWrapperContainer extends Component {
   }
 
   onCompleteClassification (classification, subject) {
-    const { recents } = this.props
+    const { recents, yourStats } = this.props
+    yourStats.increment()
     recents.add({
       subjectId: subject.id,
       locations: subject.locations

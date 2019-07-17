@@ -20,7 +20,7 @@ describe('Metadata', function () {
     })
 
     it('should disable the MetadataButton', function () {
-      expect(wrapper.find(MetadataButton).props().disabled).to.be.true
+      expect(wrapper.find(MetadataButton).props().disabled).to.be.true()
     })
   })
 

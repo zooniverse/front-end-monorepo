@@ -51,6 +51,10 @@ describe('Stores > Project', function () {
       expect(projectStore.launch_approved).to.be.a('boolean')
     })
 
+    it('should have a `researcher_quote` property', function () {
+      expect(projectStore.researcher_quote).to.equal(null)
+    })
+
     it('should have a `slug` property', function () {
       expect(projectStore.slug).to.equal('')
     })
