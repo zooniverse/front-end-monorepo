@@ -13,6 +13,7 @@ const WorkflowStepStore = types
       if (snapshot.type === 'multiple') return MultipleChoiceTask
       if (snapshot.type === 'single') return SingleChoiceTask
       if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
+      return undefined
     } }, DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask))
   })
   .views(self => ({

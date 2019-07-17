@@ -1,5 +1,5 @@
 import { Markdownz } from '@zooniverse/react-components'
-import { Box, Text } from 'grommet'
+import { Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'

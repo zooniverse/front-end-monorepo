@@ -10,7 +10,7 @@ import ContentBox from '../ContentBox'
 counterpart.registerTranslations('en', en)
 
 const components = {
-  p: (nodeProps) => <Paragraph margin={{ top: 'none' }}>{nodeProps.children}</Paragraph>
+  p: (nodeProps) => <Paragraph children={nodeProps.children} margin={{ top: 'none' }} />
 }
 
 function AboutProject ({ description, projectName }) {

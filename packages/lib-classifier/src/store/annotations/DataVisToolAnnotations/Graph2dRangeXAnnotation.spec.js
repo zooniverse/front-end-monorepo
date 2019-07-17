@@ -10,7 +10,7 @@ const annotation = {
 describe('Model > Graph2dRangeXAnnotation', function () {
   it('should exist', function () {
     const annotationInstance = Graph2dRangeXAnnotation.create(annotation)
-    expect(annotationInstance).to.exist
+    expect(annotationInstance).to.be.ok()
     expect(annotationInstance).to.be.an('object')
   })
 })

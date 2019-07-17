@@ -3,11 +3,11 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 
 import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
-import { default as TaskNavButtons } from './components/TaskNavButtons'
+import TaskNavButtons from './components/TaskNavButtons'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
@@ -24,7 +24,7 @@ function storeMapper (stores) {
 
 @inject(storeMapper)
 @observer
-export class Tasks extends React.Component {
+class Tasks extends React.Component {
   [asyncStates.initialized] () {
     return null
   }
@@ -65,7 +65,7 @@ export class Tasks extends React.Component {
             <TaskHelp />
             <TaskNavButtons disabled={!ready} />
           </Box>
-      </ThemeProvider>
+        </ThemeProvider>
       )
     }
 
@@ -82,14 +82,14 @@ Tasks.wrappedComponent.propTypes = {
   loadingState: PropTypes.oneOf(asyncStates.values),
   ready: PropTypes.bool,
   tasks: PropTypes.arrayOf(PropTypes.object),
-  theme: PropTypes.string,
+  theme: PropTypes.string
 }
 
 Tasks.wrappedComponent.defaultProps = {
   loadingState: asyncStates.initialized,
   ready: false,
   tasks: [],
-  theme: 'light',
+  theme: 'light'
 }
 
 export default Tasks

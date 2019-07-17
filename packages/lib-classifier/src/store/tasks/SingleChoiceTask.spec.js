@@ -14,7 +14,7 @@ const singleChoiceTask = {
 describe('Model > SingleChoiceTask', function () {
   it('should exist', function () {
     const singleChoiceTaskInstance = SingleChoiceTask.create(singleChoiceTask)
-    expect(singleChoiceTaskInstance).to.exist
+    expect(singleChoiceTaskInstance).to.be.ok()
     expect(singleChoiceTaskInstance).to.be.an('object')
   })
 })

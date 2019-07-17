@@ -13,5 +13,7 @@ function locationValidator (propValue, key, componentName, location, propFullNam
         ' `' + componentName + '`. Validation failed.'
     )
   }
+
+  return undefined
 }
 export default locationValidator

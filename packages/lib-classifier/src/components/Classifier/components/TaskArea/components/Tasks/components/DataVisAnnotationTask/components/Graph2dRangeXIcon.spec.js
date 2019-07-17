@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Blank } from 'grommet-icons'
 
 import Graph2dRangeXIcon from './Graph2dRangeXIcon'
 
@@ -12,6 +11,6 @@ describe('Component > Graph2dRangeXIcon', function () {
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok
+    expect(wrapper).to.be.ok()
   })
 })

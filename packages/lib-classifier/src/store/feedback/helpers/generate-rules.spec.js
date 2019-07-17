@@ -45,7 +45,7 @@ describe('feedback: generateRules', function () {
     const subject = {}
     const workflow = {}
     it('should return an empty object', function () {
-      expect(generateRules(subject, workflow)).to.be.empty
+      expect(generateRules(subject, workflow)).to.be.empty()
     })
   })
 

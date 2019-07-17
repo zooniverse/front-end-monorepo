@@ -5,7 +5,7 @@ import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 
 import styled from 'styled-components'
 import Link from 'next/link'
 import FieldLabel from '../../../../shared/components/FieldLabel'
-import withCustomFormik from '../../../../shared/components/withCustomFormik'
+import { withCustomFormik } from '@zooniverse/react-components'
 import en from '../../locales/en'
 
 counterpart.registerTranslations('en', en)
