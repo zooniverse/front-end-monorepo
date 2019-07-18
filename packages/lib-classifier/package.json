@@ -11,7 +11,9 @@
     "lint": "zoo-standard --fix | snazzy",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_PATH=. NODE_ENV=test mocha",
-    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --reporter=min"
+    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --reporter=min",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.4.4",
@@ -48,6 +50,14 @@
     "@babel/preset-env": "~7.4.5",
     "@babel/preset-react": "~7.0.0",
     "@babel/register": "~7.4.4",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-backgrounds": "~5.1.9",
+    "@storybook/addon-knobs": "~5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-notes": "~5.1.9",
+    "@storybook/addon-viewport": "~5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
     "@zooniverse/grommet-theme": "~2.0.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
