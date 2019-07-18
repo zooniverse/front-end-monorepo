@@ -4,7 +4,7 @@ A standalone library for the Zooniverse project classifier, including state mana
 
 ## Contributing
 
-Use `npm run dev` to run a small development environment app at `localhost:3000`. Specific staging projects and workflows can be loaded by query param `localhost:3000?project=1233&workflow=2367`
+Use `yarn dev` to run a small development environment app at `localhost:8080`. Specific staging projects and workflows can be loaded by query param `localhost:8080?project=1233&workflow=2367`
 
 To add a local dependency, install it with yarn: `yarn add @zooniverse/package-name@X`. Note the `@X` - without a matching version number, yarn will attempt to find it in the npm registry.
 
