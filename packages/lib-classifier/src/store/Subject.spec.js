@@ -99,29 +99,26 @@ describe.only('Model > Subject', function () {
       url = `https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`
     })
 
+    function testOpenInTalk (newTab) {
+      const subject = Subject.create(stub)
+      subject.projects = ProjectStore.create({})
+      subject.projects.setResource(project)
+      subject.projects.setActive(project.id)
+      subject.openInTalk(newTab)
+      expect(subject.shouldDiscuss).to.eql({ newTab, url })
+    }
+
     describe('in the same tab', function () {
-      const newTab = false
       
       it('should set the shouldDiscuss property', function () {
-        const subject = Subject.create(stub)
-        subject.projects = ProjectStore.create({})
-        subject.projects.setResource(project)
-        subject.projects.setActive(project.id)
-        subject.openInTalk(newTab)
-        expect(subject.shouldDiscuss).to.eql({ newTab, url })
+        testOpenInTalk(false)
       })
     })
 
     describe('in a new tab', function () {
-      const newTab = true
 
       it('should set the shouldDiscuss property', function () {
-        const subject = Subject.create(stub)
-        subject.projects = ProjectStore.create({})
-        subject.projects.setResource(project)
-        subject.projects.setActive(project.id)
-        subject.openInTalk(newTab)
-        expect(subject.shouldDiscuss).to.eql({ newTab, url })
+        testOpenInTalk(true)
       })
     })
   })
