@@ -43,6 +43,29 @@ Yarn Workspaces allow us to maintain package modularity for javascript projects 
 
 ## Getting started
 
+### Docker
+You can run the code locally in Docker, which avoids needing to install Node or yarn.
+
+```sh
+git clone git@github.com:zooniverse/front-end-monorepo.git
+cd front-end-monorepo
+docker-compose build
+```
+
+`docker-compose up` runs the project app at http://localhost:3000
+
+`docker-compose down` stops the running container.
+
+`docker-compose run --rm dev YARN-ARGS` runs a single yarn command with _YARN-ARGS_.
+eg. `docker-compose run --rm dev test` runs the tests.
+
+Scripts for individual packages can be run using yarn workspaces. Remember to open service ports on localhost if you're running a development server.
+
+eg. `docker-compose run --rm --service-ports dev workspace @zooniverse/classifier dev` will run the classifier dev server.
+
+### With Node and yarn
+Alternatively, you can install Node 10 and yarn and build the monorepo packages.
+
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
 cd front-end-monorepo
