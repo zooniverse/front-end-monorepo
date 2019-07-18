@@ -91,4 +91,38 @@ describe.only('Model > Subject', function () {
       expect(subject.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce()
     })
   })
+
+  describe('Actions > openInTalk', function () {
+    let url
+
+    before (function () {
+      url = `https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`
+    })
+
+    describe('in the same tab', function () {
+      const newTab = false
+      
+      it('should set the shouldDiscuss property', function () {
+        const subject = Subject.create(stub)
+        subject.projects = ProjectStore.create({})
+        subject.projects.setResource(project)
+        subject.projects.setActive(project.id)
+        subject.openInTalk(newTab)
+        expect(subject.shouldDiscuss).to.eql({ newTab, url })
+      })
+    })
+
+    describe('in a new tab', function () {
+      const newTab = true
+
+      it('should set the shouldDiscuss property', function () {
+        const subject = Subject.create(stub)
+        subject.projects = ProjectStore.create({})
+        subject.projects.setResource(project)
+        subject.projects.setActive(project.id)
+        subject.openInTalk(newTab)
+        expect(subject.shouldDiscuss).to.eql({ newTab, url })
+      })
+    })
+  })
 })
