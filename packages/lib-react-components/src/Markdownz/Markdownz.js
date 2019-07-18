@@ -125,7 +125,7 @@ Markdownz.defaultProps = {
   baseURI: '',
   components: {},
   projectSlug: '',
-  restrictedUserNames: ['admins', 'moderators', 'researchers', 'scientists', 'team'],
+  restrictedUserNames: ['admins', 'moderators', 'researchers', 'scientists', 'team', 'support'],
   settings: {}
 }
 
