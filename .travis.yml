@@ -6,14 +6,12 @@ node_js:
 cache: yarn
 
 install:
-  - yarn install
-
-before_script:
-  - yarn workspace @zooniverse/react-components build
-  - yarn workspace @zooniverse/classifier build
+  - yarn bootstrap
 
 script:
   - yarn test:ci
+  - yarn workspace @zooniverse/fe-content-pages build
+  - yarn workspace @zooniverse/fe-project build
 
 after_success:
   - yarn coverage
