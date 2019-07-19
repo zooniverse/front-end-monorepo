@@ -218,8 +218,10 @@ describe('<Markdownz />', function () {
     })
 
     it('should return false if the symbol is @ and the resource is in the props.restrictedUserNames array', function () {
-      wrapper.instance().shouldResourceBeLinkable('team', '@')
-      expect(shouldResourceBeLinkableSpy).to.have.returned(false)
+      wrapper.instance().props.restrictedUserNames.forEach((username) => {
+        wrapper.instance().shouldResourceBeLinkable(username, '@')
+        expect(shouldResourceBeLinkableSpy).to.have.returned(false)
+      })
     })
   })
 
