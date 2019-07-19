@@ -27,6 +27,7 @@ const ResourceStore = types
           self.loadingState = asyncStates.success
           return resource
         } else {
+          self.loadingState = asyncStates.success
           return undefined
         }
       } catch (error) {
