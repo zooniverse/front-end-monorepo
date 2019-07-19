@@ -58,7 +58,7 @@ describe.only('Model > Subject', function () {
       expect(subjectStore.viewer).to.equal(subjectViewers.singleImage)
     })
 
-    it('should reutrn the light curve viewer if the workflow configuration is defined', function () {
+    it('should return the light curve viewer if the workflow configuration is defined', function () {
       const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }]})
       const subjectResourceStore = Subject.create(dataSubject)
       subjectResourceStore.workflows = WorkflowStore.create({})
