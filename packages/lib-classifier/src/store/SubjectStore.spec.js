@@ -121,19 +121,17 @@ describe.only('Model > SubjectStore', function () {
     describe('after emptying the queue', function () {
       let rootStore
       before(function () {
-        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: [] }))
-        rootStore = setupStores()
+        const clientStub = stubPanoptesJs({ workflows: workflow, subjects: [] })
+        rootStore = setupStores(clientStub)
       })
 
-      after(function () {
-        clientStub.panoptes.get.restore()
-        rootStore = null
-      })
-
-      it('should leave the active subject empty', function () {
+      beforeEach(function () {
         while (rootStore.subjects.resources.size > 0) {
           rootStore.subjects.advance()
         }
+      })
+
+      it('should leave the active subject empty', function () {
         expect(rootStore.subjects.resources.size).to.equal(0)
         expect(rootStore.subjects.active).to.be.undefined()
       })

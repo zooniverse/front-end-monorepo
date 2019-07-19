@@ -78,10 +78,8 @@ const SubjectStore = types
           const { url, newTab } = subject.shouldDiscuss
           openTalkPage(url, newTab)
         }
-        next(call)
-      } else {
-        next(call)
       }
+      next(call)
     }
 
     function createSubjectMiddleware () {
