@@ -39,27 +39,10 @@ const SubjectStore = types
   }))
 
   .actions(self => {
-    function advance () {
-      const validSubjectReference = isValidReference(() => self.active)
-      if (validSubjectReference) {
-        const idToRemove = self.active.id
-        self.resources.delete(idToRemove)
-      }
-
-      const nextSubject = self.resources.values().next().value
-      self.active = nextSubject && nextSubject.id
-
-      if (self.resources.size < 3) {
-        console.log('Fetching more subjects')
-        self.populateQueue()
-      }
-    }
-
     function afterAttach () {
       createWorkflowObserver()
       createClassificationObserver()
       createSubjectMiddleware()
-      createQueueLoadObserver()
     }
 
     function createWorkflowObserver () {
@@ -93,10 +76,8 @@ const SubjectStore = types
           const { url, newTab } = subject.shouldDiscuss
           openTalkPage(url, newTab)
         }
-        next(call)
-      } else {
-        next(call)
       }
+      next(call)
     }
 
     function createSubjectMiddleware () {
@@ -112,21 +93,20 @@ const SubjectStore = types
       addDisposer(self, subjectMiddleware)
     }
 
-    function createQueueLoadObserver() {
-      const selfDisposer = autorun(() => {
-        onPatch(getRoot(self), (patch) => {
-          const { path, value } = patch
-          const validSubjectReference = isValidReference(() => self.active)
-          if (path === '/subjects/loadingState' &&
-            value === 'success' &&
-            self.resources.size > 0 &&
-            !validSubjectReference
-          ) {
-            self.advance()
-          }
-        })
-      }, { name: 'SubjectStore queue Observer autorun' })
-      addDisposer(self, selfDisposer)
+    function advance() {
+      const validSubjectReference = isValidReference(() => self.active)
+      if (validSubjectReference) {
+        const idToRemove = self.active.id
+        self.resources.delete(idToRemove)
+      }
+
+      const nextSubject = self.resources.values().next().value
+      self.active = nextSubject && nextSubject.id
+
+      if (self.resources.size < 3) {
+        console.log('Fetching more subjects')
+        self.populateQueue()
+      }
     }
 
     function * populateQueue () {
@@ -146,6 +126,11 @@ const SubjectStore = types
             response.body.subjects.forEach(subject => {
               self.resources.put(subject)
             })
+
+            const validSubjectReference = isValidReference(() => self.active)
+            if (!validSubjectReference) {
+              self.advance()
+            }
           }
 
           self.loadingState = asyncStates.success
