@@ -4,7 +4,7 @@ import RootStore from './RootStore'
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
 import Subject from './Subject'
-import { ProjectFactory, WorkflowFactory } from '../../test/factories'
+import { ProjectFactory, SingleChoiceAnnotationFactory, SingleChoiceTaskFactory, WorkflowFactory } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
 // import { getEnv, types } from 'mobx-state-tree'
@@ -25,7 +25,9 @@ import stubPanoptesJs from '../../test/stubPanoptesJs'
 //   }))
 
 const subjectsStub = Factory.buildList('subject', 10)
-const workflowStub = WorkflowFactory.build()
+const singleChoiceTaskStub = SingleChoiceTaskFactory.build()
+const singleChoiceAnnotationStub = SingleChoiceAnnotationFactory.build()
+const workflowStub = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskStub }})
 const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
 
 describe.only('Model > ClassificationStore', function () {
@@ -96,6 +98,7 @@ describe.only('Model > ClassificationStore', function () {
     let subjectViewer
     let onComplete
     let feedbackStub
+    let rootStore
 
     before(function () {
       subject = subjectsStub[0]
@@ -128,7 +131,7 @@ describe.only('Model > ClassificationStore', function () {
       sinon.stub(feedback, 'createRules')
       sinon.stub(feedback, 'update')
       sinon.stub(feedback, 'reset')
-      const rootStore = setupStores({
+      rootStore = setupStores({
         dataVisAnnotating: {},
         drawing: {},
         feedback,
@@ -148,13 +151,14 @@ describe.only('Model > ClassificationStore', function () {
     })
 
     beforeEach(function () {
+      console.log(rootStore.toJSON())
       subjectViewer.onSubjectReady({
         target: {
           naturalHeight: 200,
           naturalWidth: 400
         }
       })
-      classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })
+      classifications.addAnnotation(singleChoiceAnnotationStub.value, { type: 'single', taskKey: singleChoiceAnnotationStub.task })
       classifications.completeClassification(event)
     })
 
@@ -171,11 +175,7 @@ describe.only('Model > ClassificationStore', function () {
     })
 
     it('should update feedback', function () {
-      const annotation = {
-        task: 'T0',
-        value: 0
-      }
-      expect(feedback.update.withArgs(annotation)).to.have.been.calledOnce()
+      expect(feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
     })
 
     it('should call the onComplete callback with the classification and subject', function () {
