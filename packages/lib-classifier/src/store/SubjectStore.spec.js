@@ -8,6 +8,7 @@ import stubPanoptesJs from '../../test/stubPanoptesJs'
 const project = ProjectFactory.build()
 const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
 const subjects = Factory.buildList('subject', 10)
+const shortListSubjects = Factory.buildList('subject', 2)
 
 const clientStub = stubPanoptesJs({ subjects, workflows: workflow })
 
@@ -26,7 +27,9 @@ describe.only('Model > SubjectStore', function () {
     }, {
         client: panoptesClientStub,
         authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
-      })
+    })
+    sinon.spy(store.subjects, 'populateQueue')
+
     store.projects.setResource(project)
     store.projects.setActive(project.id)
     store.workflows.setResource(workflow)
@@ -47,19 +50,20 @@ describe.only('Model > SubjectStore', function () {
     })
 
     describe('with less than three subjects in the queue', function () {
-      let populateSpy
       let rootStore
 
       before(function () {
         rootStore = setupStores()
-        populateSpy = sinon.spy(rootStore.subjects, 'populateQueue')
-
       })
 
       beforeEach(function () {
+        rootStore.subjects.populateQueue.resetHistory()
         while (rootStore.subjects.resources.size > 2) {
           rootStore.subjects.advance()
         }
+      })
+
+      afterEach(function () {
       })
 
       after(function () {
@@ -67,7 +71,13 @@ describe.only('Model > SubjectStore', function () {
       })
 
       it('should request more subjects', function () {
-        expect(populateSpy).to.have.been.calledOnce()
+        expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
+      })
+
+      it('should request more subjects when the initial queue response only has less than 3 subjects', function () {
+        const clientStub = stubPanoptesJs({ workflows: workflow, subjects: shortListSubjects })
+        rootStore = setupStores(clientStub)
+        expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
       })
     })
 
