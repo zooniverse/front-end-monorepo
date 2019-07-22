@@ -57,13 +57,9 @@ describe.only('Model > SubjectStore', function () {
       })
 
       beforeEach(function () {
-        rootStore.subjects.populateQueue.resetHistory()
         while (rootStore.subjects.resources.size > 2) {
           rootStore.subjects.advance()
         }
-      })
-
-      afterEach(function () {
       })
 
       after(function () {
@@ -71,13 +67,34 @@ describe.only('Model > SubjectStore', function () {
       })
 
       it('should request more subjects', function () {
-        expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
+        // Once for initialization and once after the queue has been advanced to less than 3 subjects
+        expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
       })
 
-      it('should request more subjects when the initial queue response only has less than 3 subjects', function () {
-        const clientStub = stubPanoptesJs({ workflows: workflow, subjects: shortListSubjects })
-        rootStore = setupStores(clientStub)
-        expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
+      describe('when the initial response has less than three subjects', function () {
+        let rootStore
+        before(function () {
+          const clientStub = stubPanoptesJs({ workflows: workflow, subjects: shortListSubjects })
+          rootStore = setupStores(clientStub)
+        })
+
+        it('should request more subjects', function () {
+          // Once for initialization and again since less than three subjects in initial response
+          expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+        })
+      })
+
+      describe('when the initial response has no subjects', function () {
+        let rootStore
+        before(function () {
+          const clientStub = stubPanoptesJs({ workflows: workflow, subjects: [] })
+          rootStore = setupStores(clientStub)
+        })
+
+        it('should request more subjects', function () {
+          // Once for initialization
+          expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
+        })
       })
     })
 
