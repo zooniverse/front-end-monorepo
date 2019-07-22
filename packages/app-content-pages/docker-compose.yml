@@ -11,8 +11,7 @@ services:
     command: ["dev"]
     ports:
       - "3000:3000"
-      - "6006:6006"
-      - "8080:8080"
+      - "9001:9001"
     environment:
       - HOST=0.0.0.0
       - AWS_REGION=${AWS_REGION}
