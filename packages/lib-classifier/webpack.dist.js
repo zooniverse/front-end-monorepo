@@ -19,7 +19,7 @@ module.exports = {
     'react',
     'react-dom',
     'seven-ten',
-    'styled-components',
+    'styled-components'
   ],
   mode: 'production',
   module: {
@@ -39,6 +39,6 @@ module.exports = {
     umdNamedDefine: true
   },
   plugins: [
-    EnvironmentWebpackPlugin,
+    EnvironmentWebpackPlugin
   ]
 }
