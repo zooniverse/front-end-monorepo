@@ -15,11 +15,6 @@ services:
       - "8080:8080"
     environment:
       - HOST=0.0.0.0
-      - AWS_REGION=${AWS_REGION}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-      - AWS_SECURITY_TOKEN=${AWS_SECURITY_TOKEN}
     volumes:
       - ../../:/usr/src
       - /usr/src/node_modules
