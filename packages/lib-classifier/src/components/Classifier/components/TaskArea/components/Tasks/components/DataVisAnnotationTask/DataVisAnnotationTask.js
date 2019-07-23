@@ -1,23 +1,17 @@
 import counterpart from 'counterpart'
-import { Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import { observable } from 'mobx'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
-import TaskInputField from '../TaskInputField'
+import TaskInput from '../TaskInput'
 import InputIcon from '../InputIcon'
 import Graph2dRangeXIcon from './components/Graph2dRangeXIcon'
 
 import en from './locales/en'
 counterpart.registerTranslations('en', en)
-
-export const StyledFieldset = styled.fieldset`
-  border: none;
-  margin: 0;
-  padding: 0;
-`
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -61,7 +55,7 @@ class DataVisAnnotationTask extends React.Component {
     // TODO: Add in the status count along with the validations to not go over the max allowed
 
     return (
-      <StyledFieldset>
+      <Box>
         <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.instruction}
@@ -71,7 +65,7 @@ class DataVisAnnotationTask extends React.Component {
         {task.tools.map((tool, index) => {
           const checked = active === index
           return (
-            <TaskInputField
+            <TaskInput
               checked={checked}
               index={index}
               key={`${task.taskKey}_${index}`}
@@ -84,7 +78,7 @@ class DataVisAnnotationTask extends React.Component {
             />
           )
         })}
-      </StyledFieldset>
+      </Box>
     )
   }
 }

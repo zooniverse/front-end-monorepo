@@ -1,5 +1,5 @@
 import { Markdownz } from '@zooniverse/react-components'
-import { Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
@@ -7,9 +7,9 @@ import React from 'react'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import { pxToRem } from '@zooniverse/react-components'
-import TaskInputField from '../TaskInputField'
+import TaskInput from '../TaskInput'
 
-export const StyledFieldSet = styled.fieldset`
+export const StyledBox = styled(Box)`
   border: none;
   margin: 0;
   padding: 0;
@@ -62,7 +62,7 @@ class SingleChoiceTask extends React.Component {
     }
 
     return (
-      <StyledFieldSet
+      <StyledBox
         className={className}
         disabled={disabled}
       >
@@ -75,7 +75,7 @@ class SingleChoiceTask extends React.Component {
         {task.answers.map((answer, index) => {
           const checked = (annotation && annotation.value + 1) ? index === annotation.value : false
           return (
-            <TaskInputField
+            <TaskInput
               autoFocus={checked}
               checked={checked}
               disabled={disabled}
@@ -89,7 +89,7 @@ class SingleChoiceTask extends React.Component {
             />
           )
         })}
-      </StyledFieldSet>
+      </StyledBox>
     )
   }
 }
