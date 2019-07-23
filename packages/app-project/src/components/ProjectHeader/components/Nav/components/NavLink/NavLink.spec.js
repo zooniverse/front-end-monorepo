@@ -5,16 +5,15 @@ import { NavLink } from './NavLink'
 
 let wrapper
 const TEXT = 'Foobar'
-const OWNER = 'foo'
-const PROJECT = 'bar'
-const HREF = `http://www.foobar.com/projects/${OWNER}/${PROJECT}`
+const HREF = `http://www.foobar.com/projects/foo/bar`
+const AS = '/page?owner=foo?project=bar'
 const ROUTER = {
-  asPath: `/projects/${OWNER}/${PROJECT}`
+  asPath: `/projects/projects/foo/bar`
 }
 
 describe('Component > NavLink', function () {
   before(function () {
-    wrapper = shallow(<NavLink href={HREF} router={ROUTER} text={TEXT} />)
+    wrapper = shallow(<NavLink as={AS} href={HREF} router={ROUTER} text={TEXT} />)
   })
 
   it('should render without crashing', function () {
@@ -22,10 +21,14 @@ describe('Component > NavLink', function () {
   })
 
   it('should have the correct text', function () {
-    expect(wrapper.text()).to.equal(TEXT)
+    expect(wrapper.render().text()).to.include(TEXT)
   })
 
   it('should have the correct `href`', function () {
     expect(wrapper.prop('href')).to.equal(HREF)
+  })
+
+  it('should have the correct `as`', function () {
+    expect(wrapper.prop('as')).to.equal(AS)
   })
 })
