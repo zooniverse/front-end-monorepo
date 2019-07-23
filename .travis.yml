@@ -3,15 +3,15 @@ language: node_js
 node_js:
   - '10'
 
-install:
-  - yarn install
+cache: yarn
 
-before_script:
-  - yarn workspace @zooniverse/react-components build
-  - yarn workspace @zooniverse/classifier build
+install:
+  - yarn bootstrap
 
 script:
   - yarn test:ci
+  - yarn workspace @zooniverse/fe-content-pages build
+  - yarn workspace @zooniverse/fe-project build
 
 after_success:
   - yarn coverage

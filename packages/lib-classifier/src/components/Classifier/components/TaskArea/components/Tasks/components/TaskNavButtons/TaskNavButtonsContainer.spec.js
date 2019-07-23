@@ -124,7 +124,7 @@ describe('TaskNavButtonsContainer', function () {
       const step = { stepKey: 'S0', taskKeys: ['T0'] }
       wrapper.setProps({ step })
       wrapper.instance().goToPreviousStep()
-      expect(selectStepSpy.notCalled).to.be.true()
+      expect(selectStepSpy).to.have.not.been.called()
     })
 
     it('should call props.selectStep when there is a previous step', function () {
@@ -186,7 +186,7 @@ describe('TaskNavButtonsContainer', function () {
       tasks.forEach(task => annotations.set(task.taskKey, task))
       wrapper.setProps({ classification: { annotations } })
       wrapper.instance().createDefaultAnnotationIfThereIsNone()
-      expect(createDefaultAnnotationSpy.notCalled).to.be.true()
+      expect(createDefaultAnnotationSpy).to.have.not.been.called()
     })
   })
 
