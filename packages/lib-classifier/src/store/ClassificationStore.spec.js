@@ -30,15 +30,17 @@ const singleChoiceAnnotationStub = SingleChoiceAnnotationFactory.build()
 const workflowStub = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskStub }})
 const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
 
-describe.only('Model > ClassificationStore', function () {
+describe('Model > ClassificationStore', function () {
   function setupStores (stores) {
-    const clientStub = stubPanoptesJs({ subjects: subjectsStub, workflows: workflowStub })
+    const clientStub = stubPanoptesJs({ classifications: [], subjects: subjectsStub })
     const store = RootStore.create(stores, {
         client: clientStub,
         authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
     })
     store.projects.setResource(projectStub)
     store.projects.setActive(projectStub.id)
+    store.workflows.setResource(workflowStub)
+    store.workflows.setActive(workflowStub.id)
     return store
   }
 
@@ -117,30 +119,20 @@ describe.only('Model > ClassificationStore', function () {
         }
       }
 
-      // const clientStub = {
-      //   panoptes: {
-      //     post: sinon.stub().callsFake(() => Promise.resolve({
-      //       ok: true,
-      //       body: {
-      //         classifications: []
-      //       }
-      //     }))
-      //   }
-      // }
-      feedback = FeedbackStore.create(feedbackStub)
-      sinon.stub(feedback, 'createRules')
-      sinon.stub(feedback, 'update')
-      sinon.stub(feedback, 'reset')
       rootStore = setupStores({
         dataVisAnnotating: {},
         drawing: {},
-        feedback,
+        feedback: feedbackStub,
         fieldGuide: {},
         subjectViewer: {},
         tutorials: {},
         workflowSteps: {},
         userProjectPreferences: {}
       })
+
+      sinon.stub(rootStore.feedback, 'createRules')
+      sinon.stub(rootStore.feedback, 'update')
+      sinon.stub(rootStore.feedback, 'reset')
       classifications = rootStore.classifications
       event = {
         preventDefault: sinon.stub()
@@ -151,7 +143,7 @@ describe.only('Model > ClassificationStore', function () {
     })
 
     beforeEach(function () {
-      console.log(rootStore.toJSON())
+      // console.log(rootStore.toJSON())
       subjectViewer.onSubjectReady({
         target: {
           naturalHeight: 200,
@@ -164,18 +156,18 @@ describe.only('Model > ClassificationStore', function () {
 
     afterEach(function () {
       onComplete.resetHistory()
-      feedback.update.resetHistory()
+      rootStore.feedback.update.resetHistory()
       subjectViewer.resetSubject()
     })
 
     after(function () {
-      feedback.createRules.restore()
-      feedback.update.restore()
-      feedback.reset.restore()
+      rootStore.feedback.createRules.restore()
+      rootStore.feedback.update.restore()
+      rootStore.feedback.reset.restore()
     })
 
     it('should update feedback', function () {
-      expect(feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
+      expect(rootStore.feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
     })
 
     it('should call the onComplete callback with the classification and subject', function () {
