@@ -1,5 +1,6 @@
 import { Factory } from 'rosie'
 
+// TODO: Make the factory configurable for number of locations
 const subject = Factory.define('subject')
   .sequence('id', (id) => { return id.toString() })
   .attr('already_seen', false)
