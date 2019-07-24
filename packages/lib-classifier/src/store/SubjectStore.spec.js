@@ -12,7 +12,7 @@ const shortListSubjects = Factory.buildList('subject', 2)
 
 const clientStub = stubPanoptesJs({ subjects, workflows: workflow })
 
-describe.only('Model > SubjectStore', function () {
+describe('Model > SubjectStore', function () {
   function setupStores(panoptesClientStub = clientStub) {
     const store = RootStore.create({
       classifications: {},
