@@ -10,6 +10,7 @@ services:
     command: ["dev"]
     ports:
       - "3000:3000"
+      - "9001:9001"
     volumes:
       - ../../:/usr/src
       - /usr/src/node_modules

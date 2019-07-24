@@ -30,7 +30,7 @@ yarn dev
 Starts a Storybook server on port 9001 by default.
 
 ####Docker
-`docker-compose run --rm dev storybook`.
+`docker-compose run --rm --service-ports dev storybook`.
 
 ####Node/yarn
 ```sh
