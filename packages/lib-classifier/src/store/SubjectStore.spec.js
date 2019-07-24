@@ -92,6 +92,11 @@ describe.only('Model > SubjectStore', function () {
           // Once for initialization
           expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
         })
+
+        it('should not advance the queue', function () {
+          expect(rootStore.subjects.resources.size).to.equal(0)
+          expect(rootStore.subjects.active).to.be.undefined()
+        })
       })
     })
 
