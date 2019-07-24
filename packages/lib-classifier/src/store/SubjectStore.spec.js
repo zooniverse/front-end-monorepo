@@ -1,62 +1,59 @@
 import sinon from 'sinon'
-import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
-import SubjectStore, { openTalkPage } from './SubjectStore'
-import WorkflowStore from './WorkflowStore'
+import { openTalkPage } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
-
-let rootStore
+import stubPanoptesJs from '../../test/stubPanoptesJs'
 
 const project = ProjectFactory.build()
 const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
 const subjects = Factory.buildList('subject', 10)
+const shortListSubjects = Factory.buildList('subject', 2)
 
-const clientStub = {
-  panoptes: {
-    get () {
-      return Promise.resolve({
-        body: {
-          subjects
-        }
-      })
-    }
-  }
-}
+const clientStub = stubPanoptesJs({ subjects, workflows: workflow })
 
-describe('Model > SubjectStore', function () {
-  function setupStores (rootStore) {
-    sinon.stub(rootStore.classifications, 'createClassification')
-    rootStore.projects.setResource(project)
-    rootStore.workflows.setResource(workflow)
-    rootStore.workflows.setActive(workflow.id)
+describe.only('Model > SubjectStore', function () {
+  function setupStores(panoptesClientStub = clientStub) {
+    const store = RootStore.create({
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
+    }, {
+        client: panoptesClientStub,
+        authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+    })
+    sinon.spy(store.subjects, 'populateQueue')
+
+    store.projects.setResource(project)
+    store.projects.setActive(project.id)
+    store.workflows.setResource(workflow)
+    store.workflows.setActive(workflow.id)
+    return store
   }
   describe('Actions > advance', function () {
+    let rootStore
     before(function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
+      rootStore = setupStores()
     })
 
-    it('should make the next subject in the queue active when calling `advance()`', function (done) {
-      setupStores(rootStore)
-      rootStore.subjects.populateQueue().then(() => {
-        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-        rootStore.subjects.advance()
-        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-        expect(rootStore.subjects.resources.get('1')).to.be.undefined()
-      }).then(done, done)
+    it('should make the next subject in the queue active when calling `advance()`', function () {
+      expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
+      rootStore.subjects.advance()
+      expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
+      expect(rootStore.subjects.resources.get('1')).to.be.undefined()
     })
 
     describe('with less than three subjects in the queue', function () {
-      let populateSpy
+      let rootStore
 
       before(function () {
-        populateSpy = sinon.spy(rootStore.subjects, 'populateQueue')
-        while (rootStore.subjects.resources.size > 2) {
-          rootStore.subjects.advance()
-        }
+        rootStore = setupStores()
       })
 
       after(function () {
@@ -64,20 +61,56 @@ describe('Model > SubjectStore', function () {
       })
 
       it('should request more subjects', function () {
-        expect(populateSpy).to.have.been.calledOnce()
+        while (rootStore.subjects.resources.size > 2) {
+          rootStore.subjects.advance()
+        }
+        // Once for initialization and once after the queue has been advanced to less than 3 subjects
+        expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+      })
+
+      describe('when the initial response has less than three subjects', function () {
+        let rootStore
+        before(function () {
+          const clientStub = stubPanoptesJs({ workflows: workflow, subjects: shortListSubjects })
+          rootStore = setupStores(clientStub)
+        })
+
+        it('should request more subjects', function () {
+          // Once for initialization and again since less than three subjects in initial response
+          expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+        })
+      })
+
+      describe('when the initial response has no subjects', function () {
+        let rootStore
+        before(function () {
+          const clientStub = stubPanoptesJs({ workflows: workflow, subjects: [] })
+          rootStore = setupStores(clientStub)
+        })
+
+        it('should request more subjects', function () {
+          // Once for initialization
+          expect(rootStore.subjects.populateQueue).to.have.been.calledOnce()
+        })
+
+        it('should not advance the queue', function () {
+          expect(rootStore.subjects.resources.size).to.equal(0)
+          expect(rootStore.subjects.active).to.be.undefined()
+        })
       })
     })
 
     describe('after emptying the queue', function () {
+      let rootStore
       before(function () {
-        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: [] }))
+        const clientStub = stubPanoptesJs({ workflows: workflow, subjects })
+        rootStore = setupStores(clientStub)
+      })
+
+      beforeEach(function () {
         while (rootStore.subjects.resources.size > 0) {
           rootStore.subjects.advance()
         }
-      })
-
-      after(function () {
-        clientStub.panoptes.get.restore()
       })
 
       it('should leave the active subject empty', function () {
@@ -87,61 +120,31 @@ describe('Model > SubjectStore', function () {
     })
   })
 
-  describe('Views > isThereMetadata', function (done) {
-    it('should return false when there is not an active queue subject', function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: {
-          panoptes: {
-            get: () => {
-              return Promise.resolve({
-                body: { subjects: [] }
-              })
-            }
-          }
-        }
-        }
-      )
+  describe('Views > isThereMetadata', function () {
+    it('should return false when there is not an active queue subject', function (done) {
+      const getStub = stubPanoptesJs({ subjects: [] })
 
-      setupStores(rootStore)
+      const rootStore = setupStores(getStub)
       rootStore.subjects.populateQueue().then(() => {
         expect(rootStore.subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return false if the active subject does not have metadata', function (done) {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
-
-      setupStores(rootStore)
+      const rootStore = setupStores()
       rootStore.subjects.populateQueue().then(() => {
-        expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(0)
+        expect(Object.keys(rootStore.subjects.active.metadata)).to.have.lengthOf(0)
         expect(rootStore.subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return false if the active subject only has hidden metadata', function (done) {
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithHiddenMetadata] }
-                })
-              }
-            }
-          }
-        }
-      )
+      const getStub = stubPanoptesJs({ subjects: subjectWithHiddenMetadata })
 
-      setupStores(rootStore)
+      const rootStore = setupStores(getStub)
       rootStore.subjects.populateQueue().then(() => {
-        const metadataKeys = Object.keys(rootStore.subjects.active.toJSON().metadata)
+        const metadataKeys = Object.keys(rootStore.subjects.active.metadata)
         expect(metadataKeys).to.have.lengthOf(1)
         expect(metadataKeys[0]).to.equal('#foo')
         expect(rootStore.subjects.isThereMetadata).to.be.false()
@@ -150,24 +153,11 @@ describe('Model > SubjectStore', function () {
 
     it('should return true if the active subject has metadata', function (done) {
       const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithMetadata] }
-                })
-              }
-            }
-          }
-        }
-      )
+      const getStub = stubPanoptesJs({ subjects: subjectWithMetadata })
 
-      setupStores(rootStore)
+      const rootStore = setupStores(getStub)
       rootStore.subjects.populateQueue().then(() => {
-        expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
+        expect(Object.keys(rootStore.subjects.active.metadata)).to.have.lengthOf(1)
         expect(rootStore.subjects.isThereMetadata).to.be.true()
       }).then(done, done)
     })
