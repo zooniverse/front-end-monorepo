@@ -2,8 +2,7 @@ version: '3.2'
 
 services:
   dev:
-    build:
-      context: ../../
+    image: front-end-monorepo_dev:latest
     entrypoint:
       - "yarn"
       - "workspace"
