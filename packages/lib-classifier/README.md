@@ -5,16 +5,17 @@ A standalone library for the Zooniverse project classifier, including state mana
 ## Contributing
 
 ### Docker
-- `docker-compose up` to run a server on http://localhost:8080.
-- `docker-compose down` to stop the dev server.
+- `docker-compose up` to run a server on http://localhost:8080 and the storybook on http://localhost:6006.
+- `docker-compose down` to stop the container.
 - `docker-compose run --rm dev test` to run the tests.
 
 ### Node/yarn
 ```sh
 yarn dev
+yarn storybook
 ```
 
-Starts a development server on port 3000 by default.
+Starts a development server on port 8080 and a Storybook on port 6006 by default.
 
 Use `yarn dev` to run a small development environment app at `localhost:8080`. Specific staging projects and workflows can be loaded by query param `localhost:8080?project=1233&workflow=2367`
 
