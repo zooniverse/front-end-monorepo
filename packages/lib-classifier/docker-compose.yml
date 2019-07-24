@@ -9,7 +9,6 @@ services:
       - "@zooniverse/classifier"
     command: ["dev"]
     ports:
-      - "3000:3000"
       - "6006:6006"
       - "8080:8080"
     environment:
