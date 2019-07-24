@@ -8,12 +8,11 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-
 function LoginForm (props) {
   const { generalError, onSubmit, validate } = props
   return (
     <Box width='medium'>
-      <Heading size='small'  margin={{ bottom: 'xsmall', top: 'none' }}>
+      <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
         {counterpart('LoginForm.heading')}
       </Heading>
       <Text>
