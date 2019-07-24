@@ -10,6 +10,17 @@ services:
     command: ["dev"]
     ports:
       - "3000:3000"
+    volumes:
+      - ../../:/usr/src
+      - /usr/src/node_modules
+  storybook:
+    image: front-end-monorepo_dev:latest
+    entrypoint:
+      - "yarn"
+      - "workspace"
+      - "@zooniverse/fe-project"
+    command: ["storybook"]
+    ports:
       - "9001:9001"
     volumes:
       - ../../:/usr/src
