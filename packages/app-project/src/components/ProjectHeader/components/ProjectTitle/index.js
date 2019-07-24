@@ -1,1 +1,1 @@
-export { default } from './ProjectTitle'
+export { default } from './ProjectTitleContainer'

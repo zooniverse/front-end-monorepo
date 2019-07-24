@@ -1,4 +1,5 @@
 import { Anchor, Heading } from 'grommet'
+import Link from 'next/link'
 import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -16,10 +17,25 @@ const StyledHeading = styled(Heading)`
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 `
 
-function ProjectTitle ({ href, title }) {
-  return href
-    ? <StyledAnchor href={href}><Title text={title} /></StyledAnchor>
-    : <Title text={title} />
+function ProjectTitle (props) {
+  const { link, title } = props
+  let result = (
+    <StyledHeading color='white' margin='none' size='small'>
+      {title}
+    </StyledHeading>
+  )
+
+  if (link) {
+    result = (
+      <Link as={link.as} href={link.href} passHref>
+        <StyledAnchor>
+          {result}
+        </StyledAnchor>
+      </Link >
+    )
+  }
+
+  return result
 }
 
 ProjectTitle.propTypes = {
@@ -29,22 +45,6 @@ ProjectTitle.propTypes = {
 
 ProjectTitle.defaultProps = {
   href: '',
-  title: ''
-}
-
-function Title ({ text }) {
-  return (
-    <StyledHeading color='white' margin='none' size='small'>
-      {text}
-    </StyledHeading>
-  )
-}
-
-Title.propTypes = {
-  title: string
-}
-
-Title.defaultProps = {
   title: ''
 }
 

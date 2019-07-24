@@ -34,20 +34,20 @@ app.prepare()
 
       if (params === false) {
         if (dev && req.url === '/') {
-          return renderPage('/Index')
+          return renderPage('/index')
         }
       }
 
       if (!params.subroute) {
-        return renderPage('/Home')
+        return renderPage('/home')
       }
 
       if (params.subroute && params.subroute[0] === 'classify') {
-        return renderPage('/Classify')
+        return renderPage('/classify')
       }
 
       if (params.subroute && params.subroute[0] === 'about') {
-        return renderPage('/About')
+        return renderPage('/about')
       }
 
       // Finally handle any non-matching routes
