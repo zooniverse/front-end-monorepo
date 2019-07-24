@@ -1,51 +1,117 @@
 import getNavLinks from './getNavLinks'
 
-const BASE_URL = '/foo/bar'
+const PARAMS = {
+  owner: 'Foo',
+  project: 'Bar'
+}
 
 describe('Helper > getNavLinks', function () {
   it('should return the menu links for anonymous users', function () {
-    const links = getNavLinks(false, BASE_URL)
+    const links = getNavLinks(false, PARAMS)
     expect(links).to.deep.equal([
       {
-        href: `${BASE_URL}/about`,
+        as: '/projects/Foo/Bar/about',
+        href: {
+          pathname: '/about/index',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'About'
       },
       {
-        href: `${BASE_URL}/classify`,
+        as: '/projects/Foo/Bar/classify',
+        href: {
+          pathname: '/classify',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Classify'
       },
       {
-        href: `${BASE_URL}/talk`,
+        as: '/projects/Foo/Bar/talk',
+        href: {
+          pathname: '/talk',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Talk'
       },
       {
-        href: `${BASE_URL}/collections`,
+        as: '/projects/Foo/Bar/collections',
+        href: {
+          pathname: '/collections',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Collect'
       }
     ])
   })
 
   it('should return the menu links for logged-in users', function () {
-    const links = getNavLinks(true, BASE_URL)
+    const links = getNavLinks(true, PARAMS)
     expect(links).to.deep.equal([
       {
-        href: `${BASE_URL}/about`,
+        as: '/projects/Foo/Bar/about',
+        href: {
+          pathname: '/about/index',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'About'
       },
       {
-        href: `${BASE_URL}/classify`,
+        as: '/projects/Foo/Bar/classify',
+        href: {
+          pathname: '/classify',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Classify'
       },
       {
-        href: `${BASE_URL}/talk`,
+        as: '/projects/Foo/Bar/talk',
+        href: {
+          pathname: '/talk',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Talk'
       },
       {
-        href: `${BASE_URL}/collections`,
+        as: '/projects/Foo/Bar/collections',
+        href: {
+          pathname: '/collections',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Collect'
       },
       {
-        href: `${BASE_URL}/recents`,
+        as: '/projects/Foo/Bar/recents',
+        href: {
+          pathname: '/recents',
+          query: {
+            owner: 'Foo',
+            project: 'Bar'
+          }
+        },
         text: 'Recents'
       }
     ])
