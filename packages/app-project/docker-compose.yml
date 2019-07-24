@@ -1,0 +1,15 @@
+version: '3.2'
+
+services:
+  dev:
+    image: front-end-monorepo_dev:latest
+    entrypoint:
+      - "yarn"
+      - "workspace"
+      - "@zooniverse/fe-project"
+    command: ["dev"]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../:/usr/src
+      - /usr/src/node_modules
