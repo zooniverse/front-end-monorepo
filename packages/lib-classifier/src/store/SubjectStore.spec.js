@@ -56,17 +56,14 @@ describe.only('Model > SubjectStore', function () {
         rootStore = setupStores()
       })
 
-      beforeEach(function () {
-        while (rootStore.subjects.resources.size > 2) {
-          rootStore.subjects.advance()
-        }
-      })
-
       after(function () {
         rootStore.subjects.populateQueue.restore()
       })
 
       it('should request more subjects', function () {
+        while (rootStore.subjects.resources.size > 2) {
+          rootStore.subjects.advance()
+        }
         // Once for initialization and once after the queue has been advanced to less than 3 subjects
         expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
       })
@@ -101,7 +98,7 @@ describe.only('Model > SubjectStore', function () {
     describe('after emptying the queue', function () {
       let rootStore
       before(function () {
-        const clientStub = stubPanoptesJs({ workflows: workflow, subjects: [] })
+        const clientStub = stubPanoptesJs({ workflows: workflow, subjects })
         rootStore = setupStores(clientStub)
       })
 
