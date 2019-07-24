@@ -10,7 +10,7 @@ const workflow = WorkflowFactory.build()
 const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
 const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 
-describe('Model > Subject', function () {
+describe.only('Model > Subject', function () {
   let subject
 
   before(function () {
