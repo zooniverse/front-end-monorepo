@@ -1,28 +1,37 @@
 import counterpart from 'counterpart'
 
-function getNavLinks (isLoggedIn, baseUrl) {
+function getNavLinks (isLoggedIn, params) {
+  const { owner, project } = params
+  const baseUrl = `/projects/${owner}/${project}`
+  const query = { owner, project }
+
   const links = [
     {
-      href: `${baseUrl}/about`,
+      as: `${baseUrl}/about`,
+      href: { pathname: '/about/index', query },
       text: counterpart('ProjectHeader.nav.about')
     },
     {
-      href: `${baseUrl}/classify`,
+      as: `${baseUrl}/classify`,
+      href: { pathname: '/classify', query },
       text: counterpart('ProjectHeader.nav.classify')
     },
     {
-      href: `${baseUrl}/talk`,
+      as: `${baseUrl}/talk`,
+      href: { pathname: '/talk', query },
       text: counterpart('ProjectHeader.nav.talk')
     },
     {
-      href: `${baseUrl}/collections`,
+      as: `${baseUrl}/collections`,
+      href: { pathname: '/collections', query },
       text: counterpart('ProjectHeader.nav.collect')
     }
   ]
 
   if (isLoggedIn) {
     links.push({
-      href: `${baseUrl}/recents`,
+      as: `${baseUrl}/recents`,
+      href: { pathname: '/recents', query },
       text: counterpart('ProjectHeader.nav.recents')
     })
   }
