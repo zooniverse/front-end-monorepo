@@ -11,7 +11,7 @@ module.exports = {
 
   env: {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
-    PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging'
+    PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging',
   },
 
   webpack: (config) => {

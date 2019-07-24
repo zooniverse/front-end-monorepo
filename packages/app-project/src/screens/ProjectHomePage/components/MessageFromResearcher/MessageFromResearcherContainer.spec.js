@@ -6,7 +6,7 @@ import { MessageFromResearcherContainer } from './MessageFromResearcherContainer
 
 const PROJECT_WITH_NAMED_RESEARCHER = {
   avatar: {
-    src: '/images/foo.jpg'
+    src: '/images/foo.jpg',
   },
   configuration: {
     researcherID: '1'
