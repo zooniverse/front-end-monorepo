@@ -1,47 +1,58 @@
 import { inject, observer } from 'mobx-react'
-import { withRouter } from 'next/router'
-import { bool, shape, string } from 'prop-types'
+import { array, bool, shape, string } from 'prop-types'
 import React, { Component } from 'react'
+import { withRouter } from 'next/router'
 
 import ProjectHeader from './ProjectHeader'
 import getNavLinks from './helpers/getNavLinks'
 
 function storeMapper (stores) {
   return {
-    isLoggedIn: stores.store.user.isLoggedIn
+    isLoggedIn: stores.store.user.isLoggedIn,
+    project: stores.store.project
   }
 }
 
+@inject(storeMapper)
+@withRouter
+@observer
 class ProjectHeaderContainer extends Component {
-  getParams () {
-    const { owner, project } = this.props.router.query
-    return { owner, project }
+  getBaseUrl () {
+    const { query } = this.props.router
+    return `/projects/${query.owner}/${query.project}`
+  }
+
+  getProjectHomeLink () {
+    const { query } = this.props.router
+    return (query.subroute) ? this.getBaseUrl() : ''
   }
 
   render () {
-    const navLinks = getNavLinks(this.props.isLoggedIn, this.getParams())
+    const navLinks = getNavLinks(this.props.isLoggedIn, this.getBaseUrl())
+
     return (
-      <ProjectHeader navLinks={navLinks} />
+      <ProjectHeader
+        className={this.props.className}
+        navLinks={navLinks}
+        projectHomeLink={this.getProjectHomeLink()}
+        title={this.props.project.display_name}
+      />
     )
   }
 }
 
 ProjectHeaderContainer.propTypes = {
   isLoggedIn: bool,
+  project: shape({
+    display_name: string
+  }),
   router: shape({
     query: shape({
+      subroute: array,
       project: string,
       owner: string
     })
   })
 }
 
-@inject(storeMapper)
-@withRouter
-@observer
-class DecoratedProjectHeaderContainer extends ProjectHeaderContainer {}
-
-export {
-  DecoratedProjectHeaderContainer as default,
-  ProjectHeaderContainer
-}
+export default ProjectHeaderContainer
