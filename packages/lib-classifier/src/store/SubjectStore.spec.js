@@ -6,8 +6,6 @@ import WorkflowStore from './WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
 
-let rootStore
-
 const project = ProjectFactory.build()
 const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
 const subjects = Factory.buildList('subject', 10)
@@ -25,27 +23,42 @@ const clientStub = {
 }
 
 describe('Model > SubjectStore', function () {
-  function setupStores (rootStore) {
-    sinon.stub(rootStore.classifications, 'createClassification')
-    rootStore.projects.setResource(project)
-    rootStore.workflows.setResource(workflow)
-    rootStore.workflows.setActive(workflow.id)
+  function setupStores () {
+    const projects = ProjectStore.create()
+    const subjects = SubjectStore.create()
+    const workflows = WorkflowStore.create()
+    const store = RootStore.create(
+      { projects, subjects, workflows },
+      { client: clientStub }
+    )
+    sinon.stub(store.classifications, 'createClassification')
+    store.projects.setResource(project)
+    store.workflows.setResource(workflow)
+    store.workflows.setActive(workflow.id)
+    return store
   }
+
   describe('Actions > advance', function () {
+    let rootStore
+
     before(function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
+      rootStore = setupStores()
     })
 
-    it('should make the next subject in the queue active when calling `advance()`', function (done) {
-      setupStores(rootStore)
+    it('should make the next subject in the queue active', function (done) {
       rootStore.subjects.populateQueue().then(() => {
         expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
         rootStore.subjects.advance()
         expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
         expect(rootStore.subjects.resources.get('1')).to.be.undefined()
+      }).then(done, done)
+    })
+
+    it('should reduce the queue size by one', function (done) {
+      rootStore.subjects.populateQueue().then(() => {
+        expect(rootStore.subjects.resources.size).to.equal(10)
+        rootStore.subjects.advance()
+        expect(rootStore.subjects.resources.size).to.equal(9)
       }).then(done, done)
     })
 
@@ -69,19 +82,27 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('after emptying the queue', function () {
+    describe('when the queue is not refilled', function () {
       before(function () {
-        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: [] }))
-        while (rootStore.subjects.resources.size > 0) {
-          rootStore.subjects.advance()
-        }
+        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: { subjects: [] } }))
       })
 
       after(function () {
         clientStub.panoptes.get.restore()
       })
 
-      it('should leave the active subject empty', function () {
+      it('should advance until empty without crashing', function () {
+        expect(rootStore.subjects.resources.size).to.equal(10)
+        while (rootStore.subjects.resources.size > 0) {
+          rootStore.subjects.advance()
+        }
+        expect(rootStore.subjects.resources.size).to.equal(0)
+        expect(rootStore.subjects.active).to.be.undefined()
+      })
+
+      it('should remain empty without crashing', function () {
+        expect(rootStore.subjects.resources.size).to.equal(0)
+        rootStore.subjects.advance()
         expect(rootStore.subjects.resources.size).to.equal(0)
         expect(rootStore.subjects.active).to.be.undefined()
       })
@@ -89,34 +110,16 @@ describe('Model > SubjectStore', function () {
   })
 
   describe('Views > isThereMetadata', function (done) {
-    it('should return false when there is not an active queue subject', function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: {
-          panoptes: {
-            get: () => {
-              return Promise.resolve({
-                body: { subjects: [] }
-              })
-            }
-          }
-        }
-        }
-      )
 
-      setupStores(rootStore)
+    it('should return false when there is not an active queue subject', function () {
+      const rootStore = setupStores()
       rootStore.subjects.populateQueue().then(() => {
         expect(rootStore.subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return false if the active subject does not have metadata', function (done) {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
-
-      setupStores(rootStore)
+      const rootStore = setupStores()
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(0)
         expect(rootStore.subjects.isThereMetadata).to.be.false()
@@ -124,23 +127,13 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should return false if the active subject only has hidden metadata', function (done) {
+      const rootStore = setupStores()
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithHiddenMetadata] }
-                })
-              }
-            }
-          }
-        }
-      )
-
-      setupStores(rootStore)
+      rootStore.client.panoptes.get = () => {
+        return Promise.resolve({
+          body: { subjects: [subjectWithHiddenMetadata] }
+        })
+      }
       rootStore.subjects.populateQueue().then(() => {
         const metadataKeys = Object.keys(rootStore.subjects.active.toJSON().metadata)
         expect(metadataKeys).to.have.lengthOf(1)
@@ -150,23 +143,13 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should return true if the active subject has metadata', function (done) {
+      const rootStore = setupStores()
       const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithMetadata] }
-                })
-              }
-            }
-          }
-        }
-      )
-
-      setupStores(rootStore)
+      rootStore.client.panoptes.get = () => {
+        return Promise.resolve({
+          body: { subjects: [subjectWithMetadata] }
+        })
+      }
       rootStore.subjects.populateQueue().then(() => {
         expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
         expect(rootStore.subjects.isThereMetadata).to.be.true()
