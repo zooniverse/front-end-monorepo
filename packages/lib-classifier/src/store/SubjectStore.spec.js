@@ -58,22 +58,24 @@ describe('Model > SubjectStore', function () {
     })
 
     describe('with less than three subjects in the queue', function () {
-      let rootStore
+      describe('when the initial response has ten subjects', function () {
+        let rootStore
 
-      before(function () {
-        rootStore = setupStores()
-      })
+        before(function () {
+          rootStore = setupStores()
+        })
 
-      after(function () {
-        rootStore.subjects.populateQueue.restore()
-      })
+        after(function () {
+          rootStore.subjects.populateQueue.restore()
+        })
 
-      it('should request more subjects', function () {
-        while (rootStore.subjects.resources.size > 2) {
-          rootStore.subjects.advance()
-        }
-        // Once for initialization and once after the queue has been advanced to less than 3 subjects
-        expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+        it('should request more subjects', function () {
+          while (rootStore.subjects.resources.size > 2) {
+            rootStore.subjects.advance()
+          }
+          // Once for initialization and once after the queue has been advanced to less than 3 subjects
+          expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+        })
       })
 
       describe('when the initial response has less than three subjects', function () {
