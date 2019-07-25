@@ -12,7 +12,7 @@ const shortListSubjects = Factory.buildList('subject', 2)
 
 const clientStub = stubPanoptesJs({ subjects, workflows: workflow })
 
-describe('Model > SubjectStore', function () {
+describe.only('Model > SubjectStore', function () {
   function setupStores(panoptesClientStub = clientStub) {
     const store = RootStore.create({
       classifications: {},
@@ -44,10 +44,13 @@ describe('Model > SubjectStore', function () {
       })
 
       it('should make the next subject in the queue active', function () {
-        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
+        const firstSubject = rootStore.subjects.resources.values().next().value.id
+        expect(rootStore.subjects.active.id).to.equal(firstSubject)
         rootStore.subjects.advance()
-        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-        expect(rootStore.subjects.resources.get('1')).to.be.undefined()
+        const secondSubject = rootStore.subjects.resources.values().next().value.id
+        expect(rootStore.subjects.active.id).to.equal(secondSubject)
+        expect(rootStore.subjects.resources.get(firstSubject)).to.be.undefined()
+        expect(firstSubject).to.not.equal(secondSubject)
       })
 
       it('should reduce the queue size by one', function () {
