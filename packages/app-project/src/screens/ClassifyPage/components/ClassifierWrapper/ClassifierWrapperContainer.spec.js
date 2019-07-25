@@ -86,6 +86,7 @@ describe('Component > ClassifierWrapperContainer', function () {
         expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
       })
     })
+    
 
     describe('on toggle favourite', function () {
       it('should add a subject to favourites', function () {

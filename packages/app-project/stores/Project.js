@@ -77,6 +77,7 @@ const Project = types
           ]
           properties.forEach(property => { self[property] = project[property] })
 
+
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error('Error loading project:', error)
