@@ -37,16 +37,24 @@ describe('Model > SubjectStore', function () {
     return store
   }
   describe('Actions > advance', function () {
-    let rootStore
-    before(function () {
-      rootStore = setupStores()
-    })
+    describe('with a full queue', function () {
+      let rootStore
+      before(function () {
+        rootStore = setupStores()
+      })
 
-    it('should make the next subject in the queue active when calling `advance()`', function () {
-      expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-      rootStore.subjects.advance()
-      expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-      expect(rootStore.subjects.resources.get('1')).to.be.undefined()
+      it('should make the next subject in the queue active', function () {
+        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
+        rootStore.subjects.advance()
+        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
+        expect(rootStore.subjects.resources.get('1')).to.be.undefined()
+      })
+
+      it('should reduce the queue size by one', function () {
+        const expectedSize = rootStore.subjects.resources.size - 1
+        rootStore.subjects.advance()
+        expect(rootStore.subjects.resources.size).to.equal(expectedSize)
+      })
     })
 
     describe('with less than three subjects in the queue', function () {
