@@ -18,6 +18,8 @@ function openTalkPage (talkURL, newTab = false) {
   }
 }
 
+const MINIMUM_QUEUE_SIZE = 2
+
 const SubjectStore = types
   .model('SubjectStore', {
     active: types.maybe(types.reference(Subject)),
@@ -45,7 +47,7 @@ const SubjectStore = types
         self.active = undefined
       }
 
-      if (self.resources.size < 3) {
+      if (self.resources.size < MINIMUM_QUEUE_SIZE) {
         console.log('Fetching more subjects')
         self.populateQueue()
       }
@@ -150,4 +152,4 @@ const SubjectStore = types
   })
 
 export default types.compose('SubjectResourceStore', ResourceStore, SubjectStore)
-export { openTalkPage }
+export { openTalkPage, MINIMUM_QUEUE_SIZE }

@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
-import SubjectStore, { openTalkPage } from './SubjectStore'
+import SubjectStore, { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import WorkflowStore from './WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
@@ -49,14 +49,15 @@ describe('Model > SubjectStore', function () {
       }).then(done, done)
     })
 
-    describe('with less than three subjects in the queue', function () {
+    describe(`with less than ${MINIMUM_QUEUE_SIZE} subjects in the queue`, function () {
       let populateSpy
 
       before(function () {
         populateSpy = sinon.spy(rootStore.subjects, 'populateQueue')
-        while (rootStore.subjects.resources.size > 2) {
+        while (rootStore.subjects.resources.size >= MINIMUM_QUEUE_SIZE) {
           rootStore.subjects.advance()
         }
+        rootStore.subjects.advance()
       })
 
       after(function () {
