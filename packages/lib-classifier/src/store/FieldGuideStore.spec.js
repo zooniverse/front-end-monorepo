@@ -36,8 +36,7 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 const project = ProjectFactory.build()
 
 describe.only('Model > FieldGuideStore', function () {
-  let rootStore
-  function fetchFieldGuide () {
+  function fetchFieldGuide (rootStore) {
     sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
     rootStore.projects.setResource(project)
     return rootStore.projects.setActive(project.id)
@@ -48,7 +47,7 @@ describe.only('Model > FieldGuideStore', function () {
   }
 
   function setupStores (clientStub) {
-    rootStore = RootStore.create({
+    const store = RootStore.create({
       classifications: {},
       dataVisAnnotating: {},
       drawing: {},
@@ -60,11 +59,9 @@ describe.only('Model > FieldGuideStore', function () {
       workflowSteps: {},
       userProjectPreferences: {}
     }, { client: clientStub })
-  }
 
-  afterEach(function () {
-    rootStore = null
-  })
+    return store
+  }
 
   it('should exist', function () {
     expect(FieldGuideStore).to.be.an('object')
@@ -72,7 +69,7 @@ describe.only('Model > FieldGuideStore', function () {
 
   it('should remain in an initialized state if there is no project', function () {
     const panoptesClientStub = { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null)) } }
-    setupStores(panoptesClientStub)
+    const rootStore = setupStores(panoptesClientStub)
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
     expect(rootStore.client.panoptes.get).to.have.not.been.called()
   })
@@ -87,9 +84,9 @@ describe.only('Model > FieldGuideStore', function () {
         })
       }
     }
-    setupStores(panoptesClientStub)
+    const rootStore = setupStores(panoptesClientStub)
 
-    fetchFieldGuide()
+    fetchFieldGuide(rootStore)
       .then(() => {
         const fieldGuideInStore = rootStore.fieldGuide.active
         expect(fieldGuideInStore.toJSON()).to.deep.equal(fieldGuide)
@@ -97,10 +94,6 @@ describe.only('Model > FieldGuideStore', function () {
   })
 
   describe('Actions > fetchFieldGuide', function () {
-    afterEach(function () {
-      rootStore = null
-    })
-
     it('should request for a field guide linked to the active project', function (done) {
       const panoptesClientStub = {
         panoptes: {
@@ -111,9 +104,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           expect(rootStore.client.panoptes.get.withArgs('/field_guides', { project_id: project.id })).to.have.been.calledOnce()
         }).then(done, done)
@@ -129,11 +122,11 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
       const setResourceSpy = sinon.spy(rootStore.fieldGuide, 'setResource')
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           expect(setResourceSpy).to.have.not.been.called()
           expect(rootStore.fieldGuide.loadingState).to.equal(asyncStates.success)
@@ -152,7 +145,7 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
       sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
 
@@ -178,12 +171,12 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
       const setResourceSpy = sinon.spy(rootStore.fieldGuide, 'setResource')
       const setActiveSpy = sinon.spy(rootStore.fieldGuide, 'setActive')
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           expect(setResourceSpy).to.have.been.calledOnceWith(fieldGuide)
           expect(setActiveSpy).to.have.been.calledOnceWith(fieldGuide.id)
@@ -201,9 +194,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           expect(rootStore.fieldGuide.loadingState).to.equal(asyncStates.error)
         }).then(done, done)
@@ -211,10 +204,6 @@ describe.only('Model > FieldGuideStore', function () {
   })
 
   describe('Actions > fetchMedia', function () {
-    afterEach(function () {
-      rootStore = null
-    })
-
     it('should not call setMediaResources if there is no media in the response', function (done) {
       const panoptesClientStub = {
         panoptes: {
@@ -225,11 +214,11 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
       const setMediaResourcesSpy = sinon.spy(rootStore.fieldGuide, 'setMediaResources')
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           expect(setMediaResourcesSpy).to.have.not.been.called()
         }).then(() => {
@@ -247,11 +236,11 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
       const setMediaResourcesSpy = sinon.spy(rootStore.fieldGuide, 'setMediaResources')
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           expect(setMediaResourcesSpy).to.have.been.calledOnceWith([medium])
         }).then(() => {
@@ -261,10 +250,6 @@ describe.only('Model > FieldGuideStore', function () {
   })
 
   describe('Actions > setModalVisibility', function () {
-    afterEach(function () {
-      rootStore = null
-    })
-
     it('should set the modal visibility', function () {
       const panoptesClientStub = {
         panoptes: {
@@ -275,7 +260,7 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
       rootStore.fieldGuide.setModalVisibility(true)
       expect(rootStore.fieldGuide.showModal).to.be.true()
@@ -295,9 +280,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide().then(() => {
+      fetchFieldGuide(rootStore).then(() => {
         rootStore.fieldGuide.setActiveItemIndex(0)
         expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
@@ -314,9 +299,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide().then(() => {
+      fetchFieldGuide(rootStore).then(() => {
         rootStore.fieldGuide.setActiveItemIndex()
         expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
@@ -333,9 +318,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide().then(() => {
+      fetchFieldGuide(rootStore).then(() => {
         rootStore.fieldGuide.setActiveItemIndex(2)
         expect(rootStore.fieldGuide.activeItemIndex).to.be.undefined()
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
@@ -352,9 +337,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           fieldGuideWithItems.items.forEach((item, index) => {
             rootStore.fieldGuide.setActiveItemIndex(index)
@@ -373,9 +358,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           rootStore.fieldGuide.setActiveItemIndex(0)
           expect(rootStore.fieldGuide.activeMedium.toJSON()).to.deep.equal(medium)
@@ -392,9 +377,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide().then(() => {
+      fetchFieldGuide(rootStore).then(() => {
         rootStore.fieldGuide.setActiveItemIndex(0)
         expect(rootStore.fieldGuide.activeItemIndex).to.equal(0)
         expect(rootStore.fieldGuide.activeMedium).to.be.undefined()
@@ -403,10 +388,6 @@ describe.only('Model > FieldGuideStore', function () {
   })
 
   describe('Actions > reset', function () {
-    afterEach(function () {
-      rootStore = null
-    })
-
     it('should reset the store', function (done) {
       const panoptesClientStub = {
         panoptes: {
@@ -417,9 +398,9 @@ describe.only('Model > FieldGuideStore', function () {
           })
         }
       }
-      setupStores(panoptesClientStub)
+      const rootStore = setupStores(panoptesClientStub)
 
-      fetchFieldGuide()
+      fetchFieldGuide(rootStore)
         .then(() => {
           rootStore.fieldGuide.setActiveItemIndex(0)
           rootStore.fieldGuide.setModalVisibility(true)
