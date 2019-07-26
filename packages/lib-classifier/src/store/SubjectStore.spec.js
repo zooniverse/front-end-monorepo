@@ -39,24 +39,28 @@ describe('Model > SubjectStore', function () {
   describe('Actions > advance', function () {
     describe('with a full queue', function () {
       let rootStore
+      let firstSubject
+      let initialSize
+
       before(function () {
         rootStore = setupStores()
       })
 
-      it('should make the next subject in the queue active', function () {
-        const firstSubject = rootStore.subjects.resources.values().next().value.id
-        expect(rootStore.subjects.active.id).to.equal(firstSubject)
+      beforeEach(function () {
+        firstSubject = rootStore.subjects.resources.values().next().value.id
+        initialSize = rootStore.subjects.resources.size
         rootStore.subjects.advance()
-        const secondSubject = rootStore.subjects.resources.values().next().value.id
-        expect(rootStore.subjects.active.id).to.equal(secondSubject)
-        expect(rootStore.subjects.resources.get(firstSubject)).to.be.undefined()
-        expect(firstSubject).to.not.equal(secondSubject)
       })
 
       it('should reduce the queue size by one', function () {
-        const expectedSize = rootStore.subjects.resources.size - 1
-        rootStore.subjects.advance()
-        expect(rootStore.subjects.resources.size).to.equal(expectedSize)
+        expect(rootStore.subjects.resources.size).to.equal(initialSize - 1)
+      })
+
+      it('should make the next subject in the queue active', function () {
+        const currentSubject = rootStore.subjects.resources.values().next().value.id
+        expect(rootStore.subjects.active.id).to.equal(currentSubject)
+        expect(rootStore.subjects.resources.get(firstSubject)).to.be.undefined()
+        expect(firstSubject).to.not.equal(currentSubject)
       })
     })
 
