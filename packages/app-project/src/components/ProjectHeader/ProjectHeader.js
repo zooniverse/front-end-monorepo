@@ -1,5 +1,6 @@
+import { withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Box, ResponsiveContext } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -20,34 +21,36 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { className, navLinks, projectHomeLink, size, title } = props
+  const { className, navLinks, projectHomeLink, screenSize } = props
+
+  const isNarrow = screenSize === 'small'
 
   return (
     <StyledBox as='header' className={className}>
       <Background />
       <Box
         align='center'
-        direction={size === 'small' ? 'column' : 'row'}
+        direction={isNarrow ? 'column' : 'row'}
         justify='between'
         pad='medium'
       >
         <Box
           align='center'
-          direction={size === 'small' ? 'column' : 'row'}
-          gap={size === 'small' ? 'xsmall' : 'medium'}
+          direction={isNarrow ? 'column' : 'row'}
+          gap={isNarrow ? 'xsmall' : 'medium'}
         >
-          <Avatar isNarrow={size === 'small'} />
+          <Avatar isNarrow={isNarrow} />
           <Box
             align='center'
             direction='row'
-            gap={size === 'small' ? 'small' : 'medium'}
+            gap={isNarrow ? 'small' : 'medium'}
           >
-            <ProjectTitle href={projectHomeLink} title={title} />
-            <ApprovedIcon isNarrow={size === 'small'} />
+            <ProjectTitle href={projectHomeLink} />
+            <ApprovedIcon isNarrow={isNarrow} />
           </Box>
         </Box>
-        {size !== 'small' && <Nav navLinks={navLinks} />}
-        {size === 'small' && <DropdownNav navLinks={navLinks} />}
+
+        {isNarrow ? <DropdownNav navLinks={navLinks} /> : <Nav navLinks={navLinks} />}
       </Box>
     </StyledBox>
   )
@@ -61,20 +64,9 @@ ProjectHeader.propTypes = {
     text: string
   })),
   projectHomeLink: string,
-  size: string,
-  title: string.isRequired
+  size: string
 }
 
-function ProjectHeaderWithSize (props) {
-  return (
-    <ResponsiveContext.Consumer>
-      {size => (
-        <ProjectHeader size={size} {...props} />
-      )}
-    </ResponsiveContext.Consumer>
-  )
-}
-
-export default ProjectHeaderWithSize
+export default withResponsiveContext(ProjectHeader)
 
 export { ProjectHeader }

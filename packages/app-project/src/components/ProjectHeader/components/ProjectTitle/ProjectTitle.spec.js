@@ -1,31 +1,35 @@
-import { shallow } from 'enzyme'
+import { shallow, render } from 'enzyme'
 import React from 'react'
 
 import ProjectTitle from './ProjectTitle'
 
-let wrapper
-const HREF = '/foo'
+const LINK = {
+  as: '/foo',
+  href: '/page?slug=foo'
+}
 const TITLE = 'Project title'
 
 describe('Component > ProjectTitle', function () {
-  before(function () {
-    wrapper = shallow(<ProjectTitle title={TITLE} />)
-  })
-
   it('should render without crashing', function () {
+    const wrapper = shallow(<ProjectTitle title={TITLE} />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render the title prop as an h1', function () {
-    const title = wrapper.find('Title').render()
-    expect(title.is('h1')).to.be.ok()
+    const title = render(<ProjectTitle title={TITLE} />)
+    expect(title.get(0).tagName).to.equal('h1')
     expect(title.text()).to.equal(TITLE)
   })
 
-  it('should wrap the heading in an anchor if it has an `href` prop', function () {
-    const wrapperWithHref = shallow(<ProjectTitle href={HREF} title={TITLE} />)
-    const linkWrapper = wrapperWithHref.find('ProjectTitle__StyledAnchor')
-    expect(linkWrapper).to.have.lengthOf(1)
-    expect(linkWrapper.prop('href')).to.equal(HREF)
+  it('should wrap the heading in an anchor if it has the `link` prop', function () {
+    const wrapper = render(<ProjectTitle link={LINK} title={TITLE} />)
+
+    const link = wrapper.get(0)
+    expect(link.tagName).to.equal('a')
+    expect(wrapper.prop('href')).to.equal(LINK.as)
+
+    const title = wrapper.find('h1')
+    expect(title).to.have.lengthOf(1)
+    expect(title.text()).to.equal(TITLE)
   })
 })

@@ -27,19 +27,15 @@ initializeLogger()
 
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
-    let pageProps = {
+    const initialProps = {
       host: generateHostUrl(context),
-      isServer: !!context.req
+      isServer: detectIfServer(context)
     }
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(context)
-    }
-
-    if (pageProps.isServer) {
+    if (initialProps.isServer) {
       // cookie is in the next.js context req object
       const mode = getCookie(context, 'mode') || undefined
-      const store = initStore(pageProps.isServer, {
+      const store = initStore(initialProps.isServer, {
         ui: {
           mode
         }
@@ -50,16 +46,16 @@ export default class MyApp extends App {
         const projectSlug = `${owner}/${project}`
         const query = (context.query.env) ? { env: context.query.env } : {}
         await store.project.fetch(projectSlug, query)
-        pageProps.initialState = getSnapshot(store)
+        initialProps.initialState = getSnapshot(store)
       }
     }
 
-    return { pageProps }
+    return initialProps
   }
 
   constructor (props) {
     super()
-    const { isServer, initialState } = props.pageProps
+    const { isServer, initialState } = props
     this.store = initStore(isServer, initialState, props.client)
     makeInspectable(this.store)
   }
@@ -87,20 +83,20 @@ export default class MyApp extends App {
   }
 
   render () {
-    const { Component, pageProps } = this.props
+    const { Component, host } = this.props
     return (
       <Container>
         <GlobalStyle />
         <Provider store={this.store}>
           <GrommetWrapper>
-            <Head host={pageProps.host} />
+            <Head host={host} />
             <ZooHeaderWrapper />
             <ProjectHeader />
             <Box background={{
               dark: 'dark-1',
               light: 'light-1'
             }}>
-              <Component {...pageProps} />
+              <Component {...this.props} />
             </Box>
             <ZooFooter />
             <AuthModal />
@@ -119,7 +115,20 @@ function getSlugFromUrl (relativeUrl) {
 }
 
 function generateHostUrl (context) {
-  const { connection, headers } = context.req
-  const protocol = connection.encrypted ? 'https' : 'http'
-  return `${protocol}://${headers.host}`
+  const isServer = detectIfServer(context)
+  let host
+
+  if (isServer) {
+    const { connection, headers } = context.req
+    const protocol = connection.encrypted ? 'https' : 'http'
+    host = `${protocol}://${headers.host}`
+  } else {
+    host = window.location.origin
+  }
+
+  return host
+}
+
+function detectIfServer (context) {
+  return !!context.req
 }

@@ -11,7 +11,6 @@ function storeMapper (stores) {
   }
 }
 
-
 class MessageFromResearcherContainer extends Component {
   getMessage () {
     return this.props.project.researcher_quote
@@ -36,9 +35,9 @@ class MessageFromResearcherContainer extends Component {
     let avatar
 
     if (project.researcher_quote) {
-      avatar = researcher ?
-        get(researcher, 'avatar_src') :
-        get(project, 'avatar.src')
+      avatar = researcher
+        ? get(researcher, 'avatar_src')
+        : get(project, 'avatar.src')
     }
 
     return avatar
