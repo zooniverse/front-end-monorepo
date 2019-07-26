@@ -93,18 +93,16 @@ describe.only('Model > FeedbackStore', function () {
     })
 
     it('should set active state', function () {
+      feedback.subjects.setResource(subject)
+      feedback.subjects.setActive(subject.id)
       expect(feedback.isActive).to.be.false()
       feedback.createRules(subject)
-      expect(helpers.isFeedbackActive).to.have.been.calledOnce()
-      // Normally we would use sinon's withArgs call to test the spy for specific arguments
-      // But this is complicated with the fact that the arguments actually used in the store are MST references
-      // so they will not equal the stub resource object
-      // We convert the arguments to standard json for the expectations below
-      // Expect for subject
-      expect(helpers.isFeedbackActive.args[0][0].toJSON()).deep.equal(project)
-      expect(helpers.isFeedbackActive.args[0][1]).deep.equal(subject)
-      expect(helpers.isFeedbackActive.args[0][2].toJSON()).deep.equal(workflow)
+      const projectRef = feedback.projects.active
+      const workflowRef = feedback.projects.active
+      const subjectRef = feedback.subjects.active.toJSON()
+      expect(helpers.isFeedbackActive.withArgs(projectRef, subjectRef, workflowRef)).to.have.been.calledOnce
       expect(feedback.isActive).to.equal(helpers.isFeedbackActive.returnValues[0])
+      expect(feedback.isActive).to.be.true()
     })
 
     it('should generate rules', function () {
@@ -139,9 +137,8 @@ describe.only('Model > FeedbackStore', function () {
     beforeEach(function () {
       feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
       feedback = FeedbackStore.create(feedbackStub)
-      feedback.subjects = {
-        advance: sinon.stub()
-      }
+      feedback.subjects = SubjectStore.create()
+      sinon.stub(feedback.subjects, 'advance').callsFake(() => {})
     })
 
     it('should reset active state', function () {
