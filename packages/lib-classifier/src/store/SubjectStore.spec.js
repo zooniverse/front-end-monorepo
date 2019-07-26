@@ -39,7 +39,7 @@ describe('Model > SubjectStore', function () {
   describe('Actions > advance', function () {
     describe('with a full queue', function () {
       let rootStore
-      let firstSubject
+      let previousSubject
       let initialSize
 
       before(function () {
@@ -47,7 +47,7 @@ describe('Model > SubjectStore', function () {
       })
 
       beforeEach(function () {
-        firstSubject = rootStore.subjects.resources.values().next().value.id
+        previousSubject = rootStore.subjects.resources.values().next().value.id
         initialSize = rootStore.subjects.resources.size
         rootStore.subjects.advance()
       })
@@ -59,8 +59,8 @@ describe('Model > SubjectStore', function () {
       it('should make the next subject in the queue active', function () {
         const currentSubject = rootStore.subjects.resources.values().next().value.id
         expect(rootStore.subjects.active.id).to.equal(currentSubject)
-        expect(rootStore.subjects.resources.get(firstSubject)).to.be.undefined()
-        expect(firstSubject).to.not.equal(currentSubject)
+        expect(rootStore.subjects.resources.get(previousSubject)).to.be.undefined()
+        expect(previousSubject).to.not.equal(currentSubject)
       })
     })
 
