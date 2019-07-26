@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
@@ -76,8 +76,9 @@ const FeedbackStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const subject = getRoot(self).subjects.active
-        if (subject) {
+        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
+        if (validSubjectReference) {
+          const subject = getRoot(self).subjects.active
           self.reset()
           self.createRules(subject)
         }
@@ -86,13 +87,19 @@ const FeedbackStore = types
     }
 
     function createRules (subject) {
-      const project = getRoot(self).projects.active
-      const workflow = getRoot(self).workflows.active
+      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+      const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
-      self.isActive = helpers.isFeedbackActive(project, subject, workflow)
+      if (validProjectReference && validWorkflowReference && subject) {
+        const project = getRoot(self).projects.active
+        const workflow = getRoot(self).workflows.active
+        self.isActive = helpers.isFeedbackActive(project, subject, workflow)
 
-      if (self.isActive) {
-        self.rules = helpers.generateRules(subject, workflow)
+        if (self.isActive) {
+          self.rules = helpers.generateRules(subject, workflow)
+        }
+      } else {
+        console.error('Cannot create feedback rules without project, workflow, and/or subject')
       }
     }
 
