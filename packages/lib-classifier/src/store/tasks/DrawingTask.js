@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import Task from './Task'
-import { Point } from './drawingTools'
+import { Line, Point } from './drawingTools'
 
 // TODO: Need to define tool models
 
@@ -14,6 +14,8 @@ const Drawing = types.model('Drawing', {
   tools: types.array(types.union({
     dispatcher: (snapshot) => {
       switch (snapshot.type) {
+        case 'line':
+          return Line
         case 'point':
           return Point
       }
