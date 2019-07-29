@@ -35,7 +35,7 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 
 const project = ProjectFactory.build()
 
-describe.only('Model > FieldGuideStore', function () {
+describe('Model > FieldGuideStore', function () {
   function fetchFieldGuide (rootStore) {
     sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
     rootStore.projects.setResource(project)
