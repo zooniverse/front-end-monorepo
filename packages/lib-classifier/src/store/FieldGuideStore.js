@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import FieldGuide from './FieldGuide'
@@ -7,8 +7,8 @@ import Medium from './Medium'
 
 const FieldGuideStore = types
   .model('FieldGuideStore', {
-    active: types.maybe(types.reference(FieldGuide)),
-    activeMedium: types.maybe(types.reference(Medium)),
+    active: types.safeReference(FieldGuide),
+    activeMedium: types.safeReference(Medium),
     activeItemIndex: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(FieldGuide),
@@ -23,12 +23,12 @@ const FieldGuideStore = types
 
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
-        const project = getRoot(self).projects.active
-        if (project) {
+        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+        if (validProjectReference) {
           self.reset()
           self.fetchFieldGuide()
         }
-      })
+      }, { name: 'FieldGuideStore Project Observer autorun' })
       addDisposer(self, projectDisposer)
     }
 
