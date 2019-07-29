@@ -1,6 +1,14 @@
 version: '3.4'
 
 services:
+  test:
+    image: front-end-monorepo_dev:latest
+    build:
+      context: ./
+      target: bootstrap
+    entrypoint:
+      - "yarn"
+    command: ["test"]
   fe-project:
     image: front-end-monorepo_production:latest
     build:
