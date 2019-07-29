@@ -50,7 +50,7 @@ const rulesStub = {
   }]
 }
 
-describe.only('Model > FeedbackStore', function () {
+describe('Model > FeedbackStore', function () {
   before(function () {
     sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
     sinon.stub(helpers, 'generateRules').callsFake(() => rulesStub)
