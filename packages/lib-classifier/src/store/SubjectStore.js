@@ -52,7 +52,6 @@ const SubjectStore = types
         const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
         if (validWorkflowReference) {
           self.reset()
-          console.log('calling populate queue')
           self.populateQueue()
         }
       }, { name: 'SubjectStore Workflow Observer autorun' })
@@ -70,7 +69,6 @@ const SubjectStore = types
     }
 
     function onSubjectAdvance (call, next, abort) {
-      console.log('onSubjectAdvance')
       const root = getRoot(self)
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
@@ -87,12 +85,9 @@ const SubjectStore = types
     function createSubjectMiddleware () {
       const subjectMiddleware = autorun(() => {
         addMiddleware(self, (call, next, abort) => {
-          console.log('call.name', call.name)
           if (call.name === 'advance') {
-            console.log('calling middleware')
             onSubjectAdvance(call, next, abort)
           } else {
-            console.log('continue call')
             next(call)
           }
         })
@@ -101,7 +96,6 @@ const SubjectStore = types
     }
 
     function advance () {
-      console.log('advance')
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
         const idToRemove = self.active.id
@@ -109,7 +103,6 @@ const SubjectStore = types
       }
 
       const nextSubject = self.resources.values().next().value
-      console.log('nextSubject', nextSubject)
       self.active = nextSubject && nextSubject.id
 
       if (self.resources.size < MINIMUM_QUEUE_SIZE) {
@@ -131,16 +124,13 @@ const SubjectStore = types
           const authorization = yield getBearerToken(authClient)
           const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
 
-          console.log('response', response)
           if (response.body.subjects && response.body.subjects.length > 0) {
             response.body.subjects.forEach(subject => {
               self.resources.put(subject)
             })
 
             const validSubjectReference = isValidReference(() => self.active)
-            console.log('validSubjectReference', !validSubjectReference)
             if (!validSubjectReference) {
-              console.log('calling advance')
               self.advance()
             }
           }

@@ -2,28 +2,28 @@ import sinon from 'sinon'
 import { Factory } from 'rosie'
 import RootStore from './RootStore'
 import ClassificationStore from './ClassificationStore'
-import FeedbackStore from './FeedbackStore'
-import Subject from './Subject'
-import { ProjectFactory, SingleChoiceAnnotationFactory, SingleChoiceTaskFactory, WorkflowFactory } from '../../test/factories'
+import { applySnapshot } from 'mobx-state-tree'
+import {
+  FeedbackFactory,
+  ProjectFactory,
+  SingleChoiceAnnotationFactory,
+  SingleChoiceTaskFactory,
+  WorkflowFactory
+} from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-// import { getEnv, types } from 'mobx-state-tree'
 
-// const RootStub = types
-//   .model('RootStore', {
-//     classifications: ClassificationStore,
-//     feedback: FeedbackStore,
-//     projects: types.frozen(),
-//     subjects: types.frozen(),
-//     subjectViewer: SubjectViewerStore,
-//     workflows: types.frozen()
-//   })
-//   .views(self => ({
-//     get client () {
-//       return getEnv(self).client
-//     }
-//   }))
-
+const feedbackRulesStub = {
+  T0: [{
+    id: 'testRule',
+    answer: '0',
+    strategy: 'singleAnswerQuestion',
+    successEnabled: true,
+    successMessage: 'Yay!',
+    failureEnabled: true,
+    failureMessage: 'No!'
+  }]
+}
 const subjectsStub = Factory.buildList('subject', 10)
 const singleChoiceTaskStub = SingleChoiceTaskFactory.build()
 const singleChoiceAnnotationStub = SingleChoiceAnnotationFactory.build()
@@ -34,8 +34,8 @@ describe('Model > ClassificationStore', function () {
   function setupStores (stores) {
     const clientStub = stubPanoptesJs({ classifications: [], subjects: subjectsStub })
     const store = RootStore.create(stores, {
-        client: clientStub,
-        authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+      client: clientStub,
+      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
     })
     store.projects.setResource(projectStub)
     store.projects.setActive(projectStub.id)
@@ -94,35 +94,22 @@ describe('Model > ClassificationStore', function () {
 
   describe.only('on complete classification', function () {
     let classifications
+    let classificationWithAnnotation
+    let subjectToBeClassified
     let event
     let feedback
-    let subject
     let subjectViewer
     let onComplete
     let feedbackStub
     let rootStore
 
     before(function () {
-      subject = subjectsStub[0]
-      feedbackStub = {
-        isActive: true,
-        rules: {
-          T0: [{
-            id: 'testRule',
-            answer: '0',
-            strategy: 'singleAnswerQuestion',
-            successEnabled: true,
-            successMessage: 'Yay!',
-            failureEnabled: true,
-            failureMessage: 'No!'
-          }]
-        }
-      }
+      feedbackStub = FeedbackFactory.build({ rules: feedbackRulesStub })
 
       rootStore = setupStores({
         dataVisAnnotating: {},
         drawing: {},
-        feedback: feedbackStub,
+        feedback: {},
         fieldGuide: {},
         subjectViewer: {},
         tutorials: {},
@@ -134,6 +121,7 @@ describe('Model > ClassificationStore', function () {
       sinon.stub(rootStore.feedback, 'update')
       sinon.stub(rootStore.feedback, 'reset')
       classifications = rootStore.classifications
+      feedback = rootStore.feedback
       event = {
         preventDefault: sinon.stub()
       }
@@ -143,7 +131,7 @@ describe('Model > ClassificationStore', function () {
     })
 
     beforeEach(function () {
-      // console.log(rootStore.toJSON())
+      subjectToBeClassified = rootStore.subjects.active
       subjectViewer.onSubjectReady({
         target: {
           naturalHeight: 200,
@@ -151,44 +139,51 @@ describe('Model > ClassificationStore', function () {
         }
       })
       classifications.addAnnotation(singleChoiceAnnotationStub.value, { type: 'single', taskKey: singleChoiceAnnotationStub.task })
+      classificationWithAnnotation = classifications.active
       classifications.completeClassification(event)
     })
 
     afterEach(function () {
       onComplete.resetHistory()
-      rootStore.feedback.update.resetHistory()
+      feedback.update.resetHistory()
       subjectViewer.resetSubject()
     })
 
     after(function () {
-      rootStore.feedback.createRules.restore()
-      rootStore.feedback.update.restore()
-      rootStore.feedback.reset.restore()
+      feedback.createRules.restore()
+      feedback.update.restore()
+      feedback.reset.restore()
     })
 
     it('should update feedback', function () {
-      expect(rootStore.feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
+      expect(feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
     })
 
     it('should call the onComplete callback with the classification and subject', function () {
-      const classification = classifications.active
-      expect(onComplete.withArgs(classification.toJSON(), subject.toJSON())).to.have.been.calledOnce()
+      expect(onComplete.withArgs(classificationWithAnnotation.toJSON(), subjectToBeClassified.toJSON())).to.have.been.calledOnce()
     })
 
-    describe('classification metadata', function () {
+    describe.only('classification metadata', function () {
       let metadata
 
       before(function () {
-        metadata = classifications.active.metadata
+        const activeFeedback = FeedbackFactory.build({ isActive: true, rules: feedbackRulesStub })
+        // Classification completion adds feedback metadata if feedback is active and there are rules
+        // So first we update the feedback store to have active feedback
+        // Then call the classification complete event
+        applySnapshot(feedback, activeFeedback)
+        classifications.completeClassification(event)
+        const classification = classifications.active.toJSON()
+        metadata = classification.metadata
       })
 
       it('should have a feedback key', function () {
         const { rules } = feedbackStub
-        expect(metadata.feedback).to.eql(rules)
+        expect(metadata.feedback).to.deep.equal(rules)
       })
 
       it('should record subject dimensions', function () {
-        expect(metadata.subjectDimensions).to.eql(subjectViewer.dimensions)
+        expect(metadata.subjectDimensions).to.deep.equal(subjectViewer.dimensions)
       })
     })
   })

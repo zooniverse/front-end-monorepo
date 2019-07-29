@@ -54,6 +54,7 @@ const FeedbackStore = types
     function onSubjectAdvance (call, next, abort) {
       const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
       if (shouldShowFeedback) {
+        console.log('Aborting subject advance and showing feedback')
         abort()
         self.showFeedback()
       } else {
