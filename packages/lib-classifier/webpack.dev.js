@@ -17,9 +17,10 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
   devServer: {
     allowedHosts: [
+      'localhost',
       '.zooniverse.org'
     ],
-    host: process.env.HOST || "localhost"
+    host: process.env.HOST || 'localhost'
   },
   entry: [
     '@babel/polyfill',
