@@ -1,23 +1,27 @@
-version: '3.2'
+version: '3.4'
 
 services:
-  dev:
+  fe-project:
+    image: front-end-monorepo_production:latest
     build:
       context: ./
+      target: production
     entrypoint:
-      - yarn
-    command: ["workspace",  "@zooniverse/fe-project", "dev"]
+      - "yarn"
+      - "workspace"
+      - "@zooniverse/fe-project"
+    command: ["start"]
     ports:
       - "3000:3000"
-      - "6006:6006"
-      - "8080:8080"
-    environment:
-      - HOST=0.0.0.0
-      - AWS_REGION=${AWS_REGION}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-      - AWS_SECURITY_TOKEN=${AWS_SECURITY_TOKEN}
-    volumes:
-      - ${PWD}:/usr/src
-      - /usr/src/node_modules
+  fe-content:
+    image: front-end-monorepo_production:latest
+    build:
+      context: ./
+      target: production
+    entrypoint:
+      - "yarn"
+      - "workspace"
+      - "@zooniverse/fe-content-pages"
+    command: ["start"]
+    ports:
+      - "3001:3000"
