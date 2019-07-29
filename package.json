@@ -17,6 +17,7 @@
   },
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
+    "build": "lerna run --parallel build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "panic": "./bin/panic-button.sh",
     "panic-button": "./bin/panic-button.sh",
