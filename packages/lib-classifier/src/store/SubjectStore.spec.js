@@ -37,35 +37,52 @@ describe('Model > SubjectStore', function () {
     return store
   }
   describe('Actions > advance', function () {
-    let rootStore
-    before(function () {
-      rootStore = setupStores()
-    })
-
-    it('should make the next subject in the queue active when calling `advance()`', function () {
-      expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-      rootStore.subjects.advance()
-      expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-      expect(rootStore.subjects.resources.get('1')).to.be.undefined()
-    })
-
-    describe('with less than three subjects in the queue', function () {
+    describe('with a full queue', function () {
       let rootStore
+      let previousSubject
+      let initialSize
 
       before(function () {
         rootStore = setupStores()
       })
 
-      after(function () {
-        rootStore.subjects.populateQueue.restore()
+      beforeEach(function () {
+        previousSubject = rootStore.subjects.resources.values().next().value.id
+        initialSize = rootStore.subjects.resources.size
+        rootStore.subjects.advance()
       })
 
-      it('should request more subjects', function () {
-        while (rootStore.subjects.resources.size > 2) {
-          rootStore.subjects.advance()
-        }
-        // Once for initialization and once after the queue has been advanced to less than 3 subjects
-        expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+      it('should reduce the queue size by one', function () {
+        expect(rootStore.subjects.resources.size).to.equal(initialSize - 1)
+      })
+
+      it('should make the next subject in the queue active', function () {
+        const currentSubject = rootStore.subjects.resources.values().next().value.id
+        expect(rootStore.subjects.active.id).to.equal(currentSubject)
+        expect(rootStore.subjects.resources.get(previousSubject)).to.be.undefined()
+        expect(previousSubject).to.not.equal(currentSubject)
+      })
+    })
+
+    describe('with less than three subjects in the queue', function () {
+      describe('when the initial response has ten subjects', function () {
+        let rootStore
+
+        before(function () {
+          rootStore = setupStores()
+        })
+
+        after(function () {
+          rootStore.subjects.populateQueue.restore()
+        })
+
+        it('should request more subjects', function () {
+          while (rootStore.subjects.resources.size > 2) {
+            rootStore.subjects.advance()
+          }
+          // Once for initialization and once after the queue has been advanced to less than 3 subjects
+          expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
+        })
       })
 
       describe('when the initial response has less than three subjects', function () {
