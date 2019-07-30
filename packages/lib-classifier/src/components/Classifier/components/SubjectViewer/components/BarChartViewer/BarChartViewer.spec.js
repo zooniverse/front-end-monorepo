@@ -2,11 +2,12 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import mockData from './mockData'
 
-import BarChartViewer from './BarChartViewer'
+import { BarChartViewer } from './BarChartViewer'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
-import Group from '../SVGComponents/Group'
-import Bar from './components/Bar'
+import { Bar } from '@vx/shape'
+import { Group } from '@vx/group'
+import { AxisBottom } from '@vx/axis'
 
 const { data } = mockData
 
@@ -26,13 +27,18 @@ describe('Component > BarChartViewer', function () {
     expect(wrapper.find(Background)).to.have.lengthOf(1)
   })
 
-  it('should render a Group', function () {
+  it('should render Group', function () {
     const wrapper = shallow(<BarChartViewer data={data} />)
-    expect(wrapper.find(Group)).to.have.lengthOf(1)
+    expect(wrapper.find(Group)).to.have.lengthOf(2)
   })
 
   it('should render a Bar for each item in the data array', function () {
     const wrapper = shallow(<BarChartViewer data={data} />)
     expect(wrapper.find(Bar)).to.have.lengthOf(data.length)
+  })
+
+  it('should render a AxisBottom', function () {
+    const wrapper = shallow(<BarChartViewer data={data} />)
+    expect(wrapper.find(AxisBottom)).to.have.lengthOf(1)
   })
 })
