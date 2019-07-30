@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { scaleLinear, scaleBand } from '../../helpers/d3'
+import { withTheme } from 'styled-components'
+import { Bar } from '@vx/shape'
+import { Group } from '@vx/group'
+import { AxisBottom } from '@vx/axis'
+import { scaleBand, scaleLinear } from '@vx/scale'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
-import Group from '../SVGComponents/Group'
-import Bar from './components/Bar'
 
-const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill, data, height, width }, ref) {
-  const yMax = height - 120
+const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill, data, height, theme, width }, ref) {
+  const yMax = height * 0.95
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
     rangeRound: [0, width],
@@ -17,10 +19,14 @@ const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill
     domain: [0, Math.max(...data.map(datum => datum.value))],
     rangeRound: [yMax, 0]
   })
+
+  const brandColor = theme.global.colors.brand
+  const axisMargin = height
+  const ticks = xScale.domain()
   return (
-    <Chart ref={ref}>
+    <Chart height={height + 50} ref={ref} width={width}>
       <Background fill={backgroundFill} />
-      <Group>
+      <Group left={5} top={5}>
         {data.map((datum, index) => {
           const { label, value } = datum
           const key = `bar-${label}`
@@ -30,6 +36,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill
           const y = yMax - barHeight
           return (
             <Bar
+              fill={brandColor}
               height={barHeight}
               index={index}
               key={key}
@@ -39,6 +46,9 @@ const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill
             />
           )
         })}
+      </Group>
+      <Group left={5} top={5}>
+        <AxisBottom label='Letters' left={0} scale={xScale} ticks={ticks.length} top={axisMargin} />
       </Group>
     </Chart>
   )
@@ -60,4 +70,5 @@ BarChartViewer.propTypes = {
   width: PropTypes.number
 }
 
-export default BarChartViewer
+export default withTheme(BarChartViewer)
+export { BarChartViewer }
