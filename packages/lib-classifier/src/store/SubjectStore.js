@@ -6,6 +6,8 @@ import { filterByLabel, filters } from '../components/Classifier/components/Meta
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
 
+const MINIMUM_QUEUE_SIZE = 3
+
 function openTalkPage (talkURL, newTab = false) {
   if (newTab) {
     const newTab = window.open()
@@ -103,7 +105,7 @@ const SubjectStore = types
       const nextSubject = self.resources.values().next().value
       self.active = nextSubject && nextSubject.id
 
-      if (self.resources.size < 3) {
+      if (self.resources.size < MINIMUM_QUEUE_SIZE) {
         console.log('Fetching more subjects')
         self.populateQueue()
       }
@@ -154,4 +156,4 @@ const SubjectStore = types
   })
 
 export default types.compose('SubjectResourceStore', ResourceStore, SubjectStore)
-export { openTalkPage }
+export { openTalkPage, MINIMUM_QUEUE_SIZE }

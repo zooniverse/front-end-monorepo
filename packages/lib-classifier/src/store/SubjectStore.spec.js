@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import RootStore from './RootStore'
-import { openTalkPage } from './SubjectStore'
+import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
@@ -77,9 +77,10 @@ describe('Model > SubjectStore', function () {
         })
 
         it('should request more subjects', function () {
-          while (rootStore.subjects.resources.size > 2) {
+          while (rootStore.subjects.resources.size > MINIMUM_QUEUE_SIZE) {
             rootStore.subjects.advance()
           }
+          rootStore.subjects.advance()
           // Once for initialization and once after the queue has been advanced to less than 3 subjects
           expect(rootStore.subjects.populateQueue).to.have.been.calledTwice()
         })
