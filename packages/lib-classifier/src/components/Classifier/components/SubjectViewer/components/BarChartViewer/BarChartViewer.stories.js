@@ -29,7 +29,7 @@ stories.add('light theme', () => {
           <BarChartViewer
             backgroundFill={text('background fill', 'white')}
             data={data}
-            height={number('height', 500)}
+            height={number('height', 300)}
             width={number('width', 500)}
           />
         </Box>
@@ -44,7 +44,7 @@ stories.add('light theme', () => {
           <BarChartViewer
             backgroundFill={text('background fill', 'white')}
             data={data}
-            height={number('height', 500)}
+            height={number('height', 300)}
             width={number('width', 500)}
           />
         </Box>
