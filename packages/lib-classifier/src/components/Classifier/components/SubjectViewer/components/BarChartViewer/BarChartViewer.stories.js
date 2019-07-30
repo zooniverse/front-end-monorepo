@@ -71,10 +71,15 @@ stories.add('light theme', () => {
         >
           <BarChartViewer
             data={data}
+<<<<<<< HEAD
             xAxisLabel={text('x axis label', xAxisLabel)}
             xAxisMargin={number('x axis margin', xAxisMargin)}
             yAxisLabel={text('y axis label', yAxisLabel)}
             yAxisMargin={number('y axis margin', yAxisMargin)}
+=======
+            height={number('height', 300)}
+            width={number('width', 500)}
+>>>>>>> Try out vx
           />
         </Box>
       </Grommet>
