@@ -9,6 +9,9 @@ services:
     entrypoint:
       - "yarn"
     command: ["test"]
+    volumes:
+      - ${PWD}:/usr/src
+      - /usr/src/node_modules
   fe-project:
     image: front-end-monorepo_production:latest
     build:
@@ -33,3 +36,4 @@ services:
     command: ["start"]
     ports:
       - "3001:3000"
+
