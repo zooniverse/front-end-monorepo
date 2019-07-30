@@ -15,4 +15,13 @@ describe('Model > DrawingTools > Point', function () {
     expect(pointToolInstance).to.exist()
     expect(pointToolInstance).to.be.an('object')
   })
+
+  it('should have a property `type` of `point`', function () {
+    const pointToolInstance = Point.create(point)
+    expect(pointToolInstance).to.deep.include({ type: 'point' })
+  })
+
+  it('should throw an error with incorrect property `type`', function () {
+    expect(() => Point.create({ type: 'purple' })).to.throw()
+  })
 })

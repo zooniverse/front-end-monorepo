@@ -19,4 +19,13 @@ describe('Model > DrawingTask', function () {
     expect(drawingTaskInstance).to.be.ok()
     expect(drawingTaskInstance).to.be.an('object')
   })
+
+  it('should have a property `type` of `drawing`', function () {
+    const drawingTaskInstance = DrawingTask.create(drawingTask)
+    expect(drawingTaskInstance).to.include({ type: 'drawing' })
+  })
+
+  it('should throw an error with incorrect property `type`', function () {
+    expect(() => DrawingTask.create({ type: 'orange' })).to.throw()
+  })
 })
