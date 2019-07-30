@@ -4,7 +4,11 @@ import { WaveLoading } from 'styled-spinkit'
 import { withTheme } from 'styled-components'
 
 function Placeholder (props) {
-  const spinnerColour = props.theme.global.colors['light-4']
+  const { theme } = props
+  const spinnerColour = theme.dark
+    ? theme.global.colors['light-5']
+    : theme.global.colors['light-4']
+
   return (
     <Grid
       columns={['1fr', '1fr', '1fr']}
@@ -15,7 +19,10 @@ function Placeholder (props) {
       {[null, null, null].map((element, index) => (
         <Box
           align='center'
-          background='light-2'
+          background={{
+            dark: 'dark-4',
+            light: 'light-2'
+          }}
           children={<WaveLoading color={spinnerColour} />}
           elevation='small'
           fill

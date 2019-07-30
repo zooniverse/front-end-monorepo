@@ -6,8 +6,17 @@ function MessageBox (props) {
     <Box
       align='center'
       animation={['fadeIn', 'slideUp']}
-      background='light-1'
-      border={{ color: 'light-3', side: 'all' }}
+      background={{
+        dark: 'dark-4',
+        light: 'light-1'
+      }}
+      border={{
+        color: {
+          dark: 'transparent',
+          light: 'light-3'
+        },
+        side: 'all'
+      }}
       elevation='small'
       fill
       justify='center'
