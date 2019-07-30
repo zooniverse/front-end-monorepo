@@ -57,6 +57,11 @@ const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill
 BarChartViewer.defaultProps = {
   backgroundFill: 'white',
   height: 200,
+  theme: {
+    global: {
+      colors: {}
+    }
+  },
   width: 200
 }
 
@@ -67,6 +72,7 @@ BarChartViewer.propTypes = {
     value: PropTypes.number.isRequired
   })).isRequired,
   height: PropTypes.number,
+  theme: PropTypes.object,
   width: PropTypes.number
 }
 
