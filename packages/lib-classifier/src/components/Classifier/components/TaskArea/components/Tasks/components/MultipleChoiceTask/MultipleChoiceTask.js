@@ -10,7 +10,7 @@ import { pxToRem } from '@zooniverse/react-components'
 
 import TaskInput from '../TaskInput'
 
-export const StyledBox = styled(Box)`
+const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
     background-color: ${zooTheme.global.colors.brand};
     max-width: ${pxToRem(60)};
