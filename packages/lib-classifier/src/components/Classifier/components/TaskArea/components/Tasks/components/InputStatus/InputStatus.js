@@ -1,29 +1,30 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import counterpart from 'counterpart'
+import { Text } from 'grommet'
 import styled from 'styled-components'
+import { Markdownz } from '@zooniverse/react-components'
+import en from './locales/en'
 
-export const StyledInputStatus = styled.span`
-  font-size: 0.8em;
-  opacity: 0.7;
-  text-align: right;
+counterpart.registerTranslations('en', en)
+
+export const StyledInputStatus = styled(Text)`
+  flex-grow: 1;
 `
 
-// TODO Add Translations
 export default function InputStatus ({ count, tool }) {
-  const minStyleColor = (count < tool.min) ? 'red' : ''
-  const maxStyleColor = (count === tool.max) ? 'orange' : ''
+  let status = counterpart('InputStatus.drawn', { count })
+  if (!!tool.min && !!tool.max) {
+    status = counterpart('InputStatus.maxAndMin', { count, max: tool.max, min: tool.min })
+  } else if (!!tool.max && !tool.min) {
+    status = counterpart('InputStatus.max', { count, max: tool.max })
+  } else if (!tool.max && !!tool.min) {
+    status = counterpart('InputStatus.min', { count, min: tool.min })
+  }
+
   return (
-    <StyledInputStatus>
-      {count}{' '}
-      {(!!tool.min || !!tool.max) &&
-        'of '}
-      {!!tool.min &&
-        <span style={{ color: minStyleColor }}>{tool.min} required</span>}
-      {!!tool.min && !!tool.max &&
-        ', '}
-      {!!tool.max &&
-        <span style={{ color: maxStyleColor }}>{tool.max} maximum</span>}
-      {' '}drawn
+    <StyledInputStatus textAlign='end'>
+      <Markdownz>{status}</Markdownz>
     </StyledInputStatus>
   )
 }
