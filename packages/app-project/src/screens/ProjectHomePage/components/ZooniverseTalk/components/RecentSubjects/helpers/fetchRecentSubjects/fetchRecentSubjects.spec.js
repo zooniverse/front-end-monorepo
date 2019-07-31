@@ -66,5 +66,4 @@ describe('Helpers > fetchRecentSubjects', function () {
       expect(result).to.deep.equal(MOCK_SUBJECTS)
     })
   })
-
 })
