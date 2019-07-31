@@ -36,9 +36,12 @@ class RecentSubjectsContainer extends Component {
         loading: asyncStates.success,
         subjects: subjects || []
       }))
-      .catch(() => this.setState({
-        loading: asyncStates.error
-      }))
+      .catch(error => {
+        console.error(error)
+        this.setState({
+          loading: asyncStates.error
+        })
+      })
   }
 
   render () {
