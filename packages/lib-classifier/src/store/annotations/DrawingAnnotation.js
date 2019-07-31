@@ -11,9 +11,9 @@ const Drawing = types.model('Drawing', {
     types.union({
       dispatcher: (snapshot) => {
         if (snapshot.toolType === 'point') return PointAnnotation
-        return undefined
+        return {}
       }
-    }, PointAnnotation)
+    })
   ))
 })
 

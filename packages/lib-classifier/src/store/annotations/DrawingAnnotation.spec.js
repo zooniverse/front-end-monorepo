@@ -11,4 +11,18 @@ describe('Model > DrawingAnnotation', function () {
     expect(drawingAnnotationInstance).to.exist()
     expect(drawingAnnotationInstance).to.be.an('object')
   })
+
+  it('should throw an error without frame number', function () {
+    expect(() => DrawingAnnotation.create({
+      task: 'T0',
+      value: [{ toolIndex: '0', toolType: 'point', x: 100, y: 150 }]
+    })).to.throw()
+  })
+
+  it('should throw an error without toolIndex number', function () {
+    expect(() => DrawingAnnotation.create({
+      task: 'T0',
+      value: [{ frame: '0', toolType: 'point', x: 100, y: 150 }]
+    })).to.throw()
+  })
 })
