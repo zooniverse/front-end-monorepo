@@ -10,7 +10,6 @@ const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 
 console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
-
 module.exports = {
   // Disable file-system routing
   // https://github.com/zeit/next.js#disabling-file-system-routing
