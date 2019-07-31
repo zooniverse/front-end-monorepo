@@ -18,6 +18,14 @@ const MOCK_SUBJECTS = [
 ]
 
 describe('Helpers > fetchRecentSubjects', function () {
+  before(function () {
+    process.env.TALK_HOST = TALK_URL
+  })
+
+  after(function () {
+    delete process.env.TALK_HOST
+  })
+
   it('should exist', function () {
     expect(fetchRecentSubjects).to.be.a('function')
   })
