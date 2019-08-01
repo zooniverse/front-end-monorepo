@@ -63,6 +63,8 @@ describe.only('Model > ClassificationStore', function () {
         workflowSteps: {},
         userProjectPreferences: {}
       })
+      rootStore.subjects.setResource(subjectsStub[0])
+      rootStore.subjects.setActive(subjectsStub[0].id)
       classifications = rootStore.classifications
     })
 
@@ -148,6 +150,8 @@ describe.only('Model > ClassificationStore', function () {
       feedback.reset.restore()
     })
 
+    // Why is this test here?
+    // The observer is in the feedback store
     it('should update feedback', function () {
       expect(feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
     })
