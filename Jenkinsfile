@@ -21,78 +21,79 @@ pipeline {
   }
 
   stages {
-
-    // Right now, we're *only* building and deploying on the `master` branch;
-    // longer-term, we'll want to deploy feature branches as well.
-    stage('`master` branch') {
-      when { branch 'master' }
-      stages {
-
-        stage('Build base Docker image') {
-          agent any
-          steps {
-            script {
-              def dockerRepoName = 'zooniverse/front-end-monorepo'
-              def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-              def newImage = docker.build(dockerImageName)
-              newImage.push()
-              newImage.push('latest')
-            }
+    stage('Build base Docker image') {
+      agent any
+      steps {
+        script {
+          def dockerRepoName = 'zooniverse/front-end-monorepo'
+          def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+          def newImage = null 
+          newImage = docker.build(dockerImageName)
+          newImage.push()
+          if (BRANCH_NAME == 'master') {
+            newImage.push('latest')
           }
-        }
-
-        stage('Build app Docker images') {
-          parallel {
-            stage('Build @zooniverse/fe-content-pages') {
-              agent any
-              steps {
-                dir ('packages/app-content-pages') {
-                  script {
-                    def dockerRepoName = 'zooniverse/fe-content-pages'
-                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def newImage = docker.build(dockerImageName)
-                    newImage.push()
-                    newImage.push('latest')
-                  }
-                }
-              }
-            }
-            stage('Build @zooniverse/fe-project') {
-              agent any
-              steps {
-                dir ('packages/app-project') {
-                  script {
-                    def dockerRepoName = 'zooniverse/fe-project'
-                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def newImage = docker.build(dockerImageName)
-                    newImage.push()
-                    newImage.push('latest')
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        stage('Deploy to Kubernetes') {
-          agent any
-          steps {
-            sh "kubectl apply --record -f kubernetes/"
-            sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
-          }
-        }
-      }
-
-      post {
-        unsuccessful {
-          slackSend (
-            color: '#FF0000',
-            message: "DEPLOY FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]' (${BUILD_URL})",
-            channel: "#frontend-rewrite"
-          )
         }
       }
     }
 
+    stage('Build app Docker images') {
+      parallel {
+        stage('Build @zooniverse/fe-content-pages') {
+          agent any
+          steps {
+            dir ('packages/app-content-pages') {
+              script {
+                def dockerRepoName = 'zooniverse/fe-content-pages'
+                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+                def newImage = docker.build(dockerImageName)
+                newImage.push()
+                if (BRANCH_NAME == 'master') {
+                  newImage.push('latest')
+                }
+              }
+            }
+          }
+        }
+        stage('Build @zooniverse/fe-project') {
+          agent any
+          steps {
+            dir ('packages/app-project') {
+              script {
+                def dockerRepoName = 'zooniverse/fe-project'
+                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+                def newImage = docker.build(dockerImageName)
+                newImage.push()
+                if (BRANCH_NAME == 'master') {
+                  newImage.push('latest')
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Right now, we're *only* building and deploying on the `master` branch;
+    // longer-term, we'll want to deploy feature branches as well.
+
+    stage('Deploy master branch to Kubernetes') {
+      agent any
+      when { branch 'master' }
+      steps {
+        sh "kubectl apply --record -f kubernetes/"
+        sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment.tmpl | kubectl apply --record -f -"
+      }
+    }
+  }
+
+  post {
+    unsuccessful {
+      slackSend (
+        color: '#FF0000',
+        message: "DEPLOY FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]' (${BUILD_URL})",
+        channel: "#frontend-rewrite"
+      )
+    }
   }
 }
