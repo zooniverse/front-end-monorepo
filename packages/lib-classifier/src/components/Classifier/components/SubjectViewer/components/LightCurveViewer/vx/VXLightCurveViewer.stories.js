@@ -27,12 +27,10 @@ storiesOf('VXLightCurveViewer', module)
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='384px' width='768px'>
           <VXLightCurveViewer
             dataExtent={dataExtent}
             dataPoints={dataPoints}
-            width='500'
-            height='500'
           />
         </Box>
       </Grommet>
@@ -46,8 +44,6 @@ storiesOf('VXLightCurveViewer', module)
           <VXLightCurveViewer
             dataExtent={dataExtent}
             dataPoints={dataPoints}
-            width='500'
-            height='500'
           />
         </Box>
       </Grommet>

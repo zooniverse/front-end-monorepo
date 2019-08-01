@@ -3295,6 +3295,13 @@
   dependencies:
     d3-shape "^1.0.6"
 
+"@vx/event@0.0.189":
+  version "0.0.189"
+  resolved "https://registry.yarnpkg.com/@vx/event/-/event-0.0.189.tgz#5838f3cf64cc9ab20e71532431708fc68f61ebb9"
+  integrity sha512-xfKVE42yIw7yyfHWri8Tk3G9fYEJ4UMtKo+oDF+thaYY2daNbu9FV8WpYEA61g6L/byZiQ+9QziDO+qnwINVQw==
+  dependencies:
+    "@vx/point" "0.0.189"
+
 "@vx/group@0.0.190", "@vx/group@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.190.tgz#9bc1e568dbd44c04a0abad9a9a74c7364f231a35"
@@ -3307,6 +3314,15 @@
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/point/-/point-0.0.189.tgz#2a52824dd3e7a1e74188c2ee9407aeee2a2a7a10"
   integrity sha512-OZW05k6Kozta1QAP3T5dEFO0OQH8ppf/dnOnF2DnTJQ4W7a+ctLVJQ0kBDbsWG2xB+sOiMjvccfMOZZKb5JnvA==
+
+"@vx/responsive@~0.0.189":
+  version "0.0.189"
+  resolved "https://registry.yarnpkg.com/@vx/responsive/-/responsive-0.0.189.tgz#64257fdf4570e58fe8a9f7a0d9b33febb7f80058"
+  integrity sha512-46phRmRMrcRvUgAwOCMkZdqSEyo8SdXdV3Fh1Zsdgrtzqs3Zg8xtd3UX9t0piXw0tJqeZ16JrOQAZbPxUp9jEw==
+  dependencies:
+    lodash "^4.17.10"
+    prop-types "^15.6.1"
+    resize-observer-polyfill "1.5.0"
 
 "@vx/scale@~0.0.190":
   version "0.0.190"
@@ -3337,6 +3353,14 @@
     lodash "^4.17.4"
     prop-types "^15.6.2"
     reduce-css-calc "^1.3.0"
+
+"@vx/zoom@~0.0.189":
+  version "0.0.189"
+  resolved "https://registry.yarnpkg.com/@vx/zoom/-/zoom-0.0.189.tgz#4b61d55a62634f7922e343e05234d35fbbbe6904"
+  integrity sha512-WhB6M16l9zU8+IKVTRg+VSOjKQMREs3XCPm9wm8AHEhhmsuZlq/MFrSbMRNrzGgWN3zzCol8oHfnDADw+vhqLw==
+  dependencies:
+    "@vx/event" "0.0.189"
+    prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
@@ -14645,6 +14669,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
+  integrity sha512-M2AelyJDVR/oLnToJLtuDJRBBWUGUvvGigj1411hXhAdyFWqMaqHp7TixW3FpiLuVaikIcR1QL+zqoJoZlOgpg==
 
 resize-observer-polyfill@^1.5.0, resize-observer-polyfill@^1.5.1:
   version "1.5.1"
