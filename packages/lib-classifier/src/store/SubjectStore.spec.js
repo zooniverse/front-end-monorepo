@@ -121,7 +121,7 @@ describe('Model > SubjectStore', function () {
     describe('after emptying the queue', function () {
       let rootStore
       before(function () {
-        const clientStub = stubPanoptesJs({ workflows: workflow, subjects: [] })
+        const clientStub = stubPanoptesJs({ workflows: workflow, subjects })
         rootStore = setupStores(clientStub)
       })
 
