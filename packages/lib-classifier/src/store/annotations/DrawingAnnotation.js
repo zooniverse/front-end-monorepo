@@ -3,18 +3,14 @@ import Annotation from './Annotation'
 import { PointAnnotation } from './DrawingToolAnnotations'
 
 const Drawing = types.model('Drawing', {
-  value: types.array(Object.assign(
-    types.frozen({
-      frame: types.number,
-      toolIndex: types.number
-    }),
+  value: types.array(
     types.union({
       dispatcher: (snapshot) => {
         if (snapshot.toolType === 'point') return PointAnnotation
-        return {}
+        return undefined
       }
     })
-  ))
+  )
 })
 
 const DrawingAnnotation = types.compose('DrawingAnnotation', Annotation, Drawing)

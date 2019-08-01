@@ -2,7 +2,7 @@ import DrawingAnnotation from './DrawingAnnotation'
 
 const drawingAnnotation = {
   task: 'T0',
-  value: [{ frame: 0, toolIndex: 0, toolType: 'point', x: 100, y: 150 }]
+  value: [{ frame: 0, tool: 0, toolType: 'point', x: 100, y: 150 }]
 }
 
 describe('Model > DrawingAnnotation', function () {
@@ -10,19 +10,5 @@ describe('Model > DrawingAnnotation', function () {
     const drawingAnnotationInstance = DrawingAnnotation.create(drawingAnnotation)
     expect(drawingAnnotationInstance).to.exist()
     expect(drawingAnnotationInstance).to.be.an('object')
-  })
-
-  it('should throw an error without frame number', function () {
-    expect(() => DrawingAnnotation.create({
-      task: 'T0',
-      value: [{ toolIndex: '0', toolType: 'point', x: 100, y: 150 }]
-    })).to.throw()
-  })
-
-  it('should throw an error without toolIndex number', function () {
-    expect(() => DrawingAnnotation.create({
-      task: 'T0',
-      value: [{ frame: '0', toolType: 'point', x: 100, y: 150 }]
-    })).to.throw()
   })
 })
