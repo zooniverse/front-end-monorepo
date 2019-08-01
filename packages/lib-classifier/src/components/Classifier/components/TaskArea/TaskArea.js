@@ -56,9 +56,10 @@ class TaskArea extends React.Component {
         activeIndex={this.state.activeIndex}
         className={this.props.className}
         onActive={this.onTabClick.bind(this)}
+        flex
       >
         <Tab title={counterpart('TaskArea.task')}>
-          <Box>
+          <Box fill>
             <Tasks />
           </Box>
         </Tab>

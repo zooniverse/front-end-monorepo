@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 export const StyledInputIcon = styled.span`
   color: ${props => props.color};
+  display: flex;
+  align-items: center;
 
   &::after {
     content: " ";
@@ -23,7 +25,9 @@ export const StyledInputIcon = styled.span`
 
 export default function InputIcon (props) {
   return (
-    <StyledInputIcon color={props.tool.color}>{props.icon}</StyledInputIcon>
+    <StyledInputIcon color={props.tool.color}>
+      {props.icon}
+    </StyledInputIcon>
   )
 }
 

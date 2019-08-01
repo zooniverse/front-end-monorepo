@@ -5,13 +5,19 @@ import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-
+import zooTheme from '@zooniverse/grommet-theme'
+import { pxToRem } from '@zooniverse/react-components'
 import TaskInputField from '../TaskInputField'
 
 export const StyledFieldSet = styled.fieldset`
   border: none;
   margin: 0;
   padding: 0;
+
+  img:only-child, svg:only-child {
+    background-color: ${zooTheme.global.colors.brand};
+    max-width: ${pxToRem(60)};
+  }
 `
 
 const StyledText = styled(Text)`
