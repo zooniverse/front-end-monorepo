@@ -1,4 +1,4 @@
-FROM node:10 as bootstrap
+FROM node:10 AS bootstrap
 
 RUN mkdir -p /usr/src
 WORKDIR /usr/src/
@@ -10,5 +10,5 @@ USER node
 
 RUN yarn bootstrap
 
-FROM bootstrap as production
+FROM bootstrap AS production
 RUN yarn build
