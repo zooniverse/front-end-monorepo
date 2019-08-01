@@ -30,7 +30,7 @@ const singleChoiceAnnotationStub = SingleChoiceAnnotationFactory.build()
 const workflowStub = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskStub }})
 const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
 
-describe('Model > ClassificationStore', function () {
+describe.only('Model > ClassificationStore', function () {
   function setupStores (stores) {
     const clientStub = stubPanoptesJs({ classifications: [], subjects: subjectsStub })
     const store = RootStore.create(stores, {
@@ -92,7 +92,7 @@ describe('Model > ClassificationStore', function () {
     })
   })
 
-  describe.only('on complete classification', function () {
+  describe('on complete classification', function () {
     let classifications
     let classificationWithAnnotation
     let subjectToBeClassified
@@ -132,12 +132,6 @@ describe('Model > ClassificationStore', function () {
 
     beforeEach(function () {
       subjectToBeClassified = rootStore.subjects.active
-      subjectViewer.onSubjectReady({
-        target: {
-          naturalHeight: 200,
-          naturalWidth: 400
-        }
-      })
       classifications.addAnnotation(singleChoiceAnnotationStub.value, { type: 'single', taskKey: singleChoiceAnnotationStub.task })
       classificationWithAnnotation = classifications.active
       classifications.completeClassification(event)
@@ -146,7 +140,6 @@ describe('Model > ClassificationStore', function () {
     afterEach(function () {
       onComplete.resetHistory()
       feedback.update.resetHistory()
-      subjectViewer.resetSubject()
     })
 
     after(function () {
@@ -163,7 +156,7 @@ describe('Model > ClassificationStore', function () {
       expect(onComplete.withArgs(classificationWithAnnotation.toJSON(), subjectToBeClassified.toJSON())).to.have.been.calledOnce()
     })
 
-    describe.only('classification metadata', function () {
+    describe('classification metadata', function () {
       let metadata
 
       before(function () {
@@ -172,6 +165,12 @@ describe('Model > ClassificationStore', function () {
         // So first we update the feedback store to have active feedback
         // Then call the classification complete event
         applySnapshot(feedback, activeFeedback)
+        subjectViewer.onSubjectReady({
+          target: {
+            naturalHeight: 200,
+            naturalWidth: 400
+          }
+        })
         classifications.completeClassification(event)
         const classification = classifications.active.toJSON()
         metadata = classification.metadata
@@ -183,7 +182,7 @@ describe('Model > ClassificationStore', function () {
       })
 
       it('should record subject dimensions', function () {
-        expect(metadata.subjectDimensions).to.deep.equal(subjectViewer.dimensions)
+        expect(metadata.subjectDimensions).to.deep.equal(subjectViewer.dimensions.toJSON())
       })
     })
   })
