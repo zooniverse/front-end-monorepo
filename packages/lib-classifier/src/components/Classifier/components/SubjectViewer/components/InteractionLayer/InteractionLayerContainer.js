@@ -72,8 +72,10 @@ class InteractionLayerContainer extends Component {
         if (drawing) {
           // move mark
           if (event.type === 'mousemove') {
-          newMark = this.getNewMark(event)
-          this.setState({ currentMark: newMark })
+            const newEvents = Array.from(currentMark.events)
+            newEvents.push(event)
+            newMark = Object.assign(currentMark, { events: newEvents })
+            this.setState({ currentMark: newMark })
           }
           // finish mark
           if (event.type === 'mouseup') {
@@ -107,10 +109,11 @@ class InteractionLayerContainer extends Component {
     const { activeDrawingTool, activeStepTasks } = this.props
 
     const [drawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-    const newMark = Object.assign({
+    const newMark = {
+      events: [event],
       id: cuid(),
-      toolType: drawingTask.tools[activeDrawingTool].type
-    }, event)
+      tool: drawingTask.tools[activeDrawingTool]
+    }
 
     return newMark
   }
@@ -157,7 +160,7 @@ class InteractionLayerContainer extends Component {
     }
 
     if (currentMark !== null) {
-      MarkComponent = getDrawingTool(currentMark.toolType)
+      MarkComponent = getDrawingTool(currentMark.tool.type)
     }
 
     return (
@@ -175,7 +178,7 @@ class InteractionLayerContainer extends Component {
             return null
           }
 
-          const MarkingComponent = getDrawingTool(marking.toolType)
+          const MarkingComponent = getDrawingTool(marking.tool.type)
           return (
             <MarkingComponent key={id} mark={marking} scale={scale} />
           )

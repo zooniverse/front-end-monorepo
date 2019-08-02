@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import DrawingToolRoot from './root'
+
+// TODOs:
+// - add and update per size prop
+// - add and update per color
+// - create and move pointerEvent to root tool?
+
 const RADIUS = {
   large: 10,
   small: 2
@@ -13,10 +20,10 @@ const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
 const Point = ({ active, mark, scale }) => {
-  // TODOs:
-  // - add and update per size prop
-  // - add and update per color
-  // - create and move pointerEvent to root tool?
+  const coordinates = {
+    x: mark.events[mark.events.length - 1].x,
+    y: mark.events[mark.events.length - 1].y
+  }
 
   const size = 'large'
   const averageScale = (scale.horizontal + scale.vertical) / 2
@@ -33,23 +40,25 @@ const Point = ({ active, mark, scale }) => {
   }
 
   return (
-    <g key={mark.id} transform={`translate(${mark.x}, ${mark.y})`} style={{ color: 'rgb(0, 255, 0)', pointerEvents: 'none' }}>
-      <g fill='transparent' stroke='currentColor' strokeWidth='2.5' tabIndex='-1'>
+    <DrawingToolRoot active tool={mark.tool}>
+      <g transform={`translate(${coordinates.x}, ${coordinates.y})`} style={{ pointerEvents: 'none' }}>
         <line x1='0' y1={-1 * crosshairSpace * selectedRadius} x2='0' y2={-1 * selectedRadius} strokeWidth={crosshairWidth} />
         <line x1={-1 * crosshairSpace * selectedRadius} y1='0' x2={-1 * selectedRadius} y2='0' strokeWidth={crosshairWidth} />
         <line x1='0' y1={crosshairSpace * selectedRadius} x2='0' y2={selectedRadius} strokeWidth={crosshairWidth} />
         <line x1={crosshairSpace * selectedRadius} y1='0' x2={selectedRadius} y2='0' strokeWidth={crosshairWidth} />
         <circle r={radius} />
       </g>
-    </g>
+    </DrawingToolRoot>
   )
 }
 
 Point.propTypes = {
   active: PropTypes.bool,
   mark: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number
+    x1: PropTypes.number,
+    y1: PropTypes.number,
+    x2: PropTypes.number,
+    y2: PropTypes.number
   }).isRequired,
   scale: PropTypes.shape({
     horizontal: PropTypes.number,
