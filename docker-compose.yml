@@ -5,7 +5,6 @@ services:
     image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: bootstrap
     entrypoint:
       - "yarn"
     command: ["test"]
@@ -13,10 +12,9 @@ services:
       - ${PWD}:/usr/src
       - /usr/src/node_modules
   fe-project:
-    image: front-end-monorepo_production:latest
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: production
     entrypoint:
       - "yarn"
       - "workspace"
@@ -25,10 +23,9 @@ services:
     ports:
       - "3000:3000"
   fe-content:
-    image: front-end-monorepo_production:latest
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: production
     entrypoint:
       - "yarn"
       - "workspace"
