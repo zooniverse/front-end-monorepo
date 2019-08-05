@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { TaskInputField, StyledTaskInputField, StyledTaskLabel } from './TaskInputField'
+import { TaskInput, StyledTaskInput, StyledTaskLabel } from './TaskInput'
 import TaskInputLabel from './components/TaskInputLabel'
 
 const radioTypeAnnotation = {
@@ -11,19 +11,19 @@ const radioTypeAnnotation = {
   value: null
 }
 
-describe('TaskInputField', function () {
+describe('TaskInput', function () {
   describe('render', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<TaskInputField annotation={radioTypeAnnotation} index={0} type='radio' />)
+      wrapper = shallow(<TaskInput annotation={radioTypeAnnotation} index={0} type='radio' />)
     })
 
     it('should render without crashing', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render a StyledTaskInputField', function () {
-      expect(wrapper.find(StyledTaskInputField)).to.have.lengthOf(1)
+    it('should render a StyledTaskInput', function () {
+      expect(wrapper.find(StyledTaskInput)).to.have.lengthOf(1)
     })
 
     it('should render a StyledTaskLabel', function () {
@@ -36,7 +36,7 @@ describe('TaskInputField', function () {
 
     it('should use props.className in its classlist', function () {
       wrapper.setProps({ className: 'active' })
-      expect(wrapper.find(StyledTaskInputField).props().className).to.include('active')
+      expect(wrapper.find(StyledTaskInput).props().className).to.include('active')
     })
 
     it('should disable the form input when disabled', function () {
@@ -51,7 +51,7 @@ describe('TaskInputField', function () {
     let wrapper
     before(function () {
       onChangeSpy = sinon.spy()
-      wrapper = shallow(<TaskInputField annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />)
+      wrapper = shallow(<TaskInput annotation={radioTypeAnnotation} onChange={onChangeSpy} index={0} type='radio' />)
     })
 
     afterEach(function () {

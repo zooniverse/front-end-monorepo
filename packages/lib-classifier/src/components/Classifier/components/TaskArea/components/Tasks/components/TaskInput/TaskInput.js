@@ -43,9 +43,11 @@ export const StyledTaskLabel = styled(Text)`
   box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
   cursor: pointer;
   display: flex;
+  margin-top: .5em;
+  margin-bottom: .5em;
 `
 
-export const StyledTaskInputField = styled.label`
+export const StyledTaskInput = styled.label`
   position: relative;
 
   input {
@@ -85,7 +87,7 @@ export const StyledTaskInputField = styled.label`
   }
 `
 
-export function TaskInputField (props) {
+export function TaskInput (props) {
   const {
     autoFocus,
     checked,
@@ -102,7 +104,7 @@ export function TaskInputField (props) {
   } = props
 
   return (
-    <StyledTaskInputField
+    <StyledTaskInput
       className={className}
       theme={theme}
     >
@@ -118,11 +120,11 @@ export function TaskInputField (props) {
       <StyledTaskLabel margin={{ vertical: 'small', horizontal: 'none' }} theme={theme}>
         <TaskInputLabel label={label} labelIcon={labelIcon} labelStatus={labelStatus} />
       </StyledTaskLabel>
-    </StyledTaskInputField>
+    </StyledTaskInput>
   )
 }
 
-TaskInputField.defaultProps = {
+TaskInput.defaultProps = {
   autoFocus: false,
   checked: false,
   disabled: false,
@@ -137,7 +139,7 @@ TaskInputField.defaultProps = {
   }
 }
 
-TaskInputField.propTypes = {
+TaskInput.propTypes = {
   autoFocus: PropTypes.bool,
   checked: PropTypes.bool,
   className: PropTypes.string,
@@ -154,4 +156,4 @@ TaskInputField.propTypes = {
   type: PropTypes.string.isRequired
 }
 
-export default React.memo(withTheme(TaskInputField))
+export default React.memo(withTheme(TaskInput))
