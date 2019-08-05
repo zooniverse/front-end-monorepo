@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import DataVisAnnotationTask from './DataVisAnnotationTask'
-import TaskInputField from '../TaskInputField'
+import TaskInput from '../TaskInput'
 
 // TODO: move this into a factory
 const task = {
@@ -37,13 +37,13 @@ describe('DataVisAnnotationTask', function () {
       expect(wrapper.contains(task.instruction)).to.be.true()
     })
 
-    it('should render TaskInputField per the number of tools', function () {
-      expect(wrapper.find(TaskInputField)).to.have.lengthOf(task.tools.length)
+    it('should render TaskInput per the number of tools', function () {
+      expect(wrapper.find(TaskInput)).to.have.lengthOf(task.tools.length)
     })
 
-    it('should set the TaskInputField checked prop using the active prop', function () {
-      expect(wrapper.find(TaskInputField).first().props().checked).to.be.true()
-      expect(wrapper.find(TaskInputField).last().props().checked).to.be.false()
+    it('should set the TaskInput checked prop using the active prop', function () {
+      expect(wrapper.find(TaskInput).first().props().checked).to.be.true()
+      expect(wrapper.find(TaskInput).last().props().checked).to.be.false()
     })
   })
 })
