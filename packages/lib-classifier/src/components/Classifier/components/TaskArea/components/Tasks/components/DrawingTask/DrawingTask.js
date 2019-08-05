@@ -1,4 +1,4 @@
-import { Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import { Blank } from 'grommet-icons'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
@@ -9,13 +9,7 @@ import { Markdownz } from '@zooniverse/react-components'
 import getIcon from './helpers/getIcon'
 import InputIcon from '../InputIcon'
 import InputStatus from '../InputStatus'
-import TaskInputField from '../TaskInputField'
-
-export const StyledFieldset = styled.fieldset`
-  border: none;
-  margin: 0;
-  padding: 0;
-`
+import TaskInput from '../TaskInput'
 
 const ToolIcon = ({ type }) => {
   const Icon = getIcon(type)
@@ -60,7 +54,7 @@ class DrawingTask extends React.Component {
       task
     } = this.props
     return (
-      <StyledFieldset>
+      <Box>
         <StyledText size='small' tag='legend'>
           <Markdownz>
             {task.instruction}
@@ -71,7 +65,7 @@ class DrawingTask extends React.Component {
           const checked = active === index
           // TODO add count for min/max
           return (
-            <TaskInputField
+            <TaskInput
               checked={checked}
               index={index}
               key={`${task.taskKey}_${index}`}
@@ -85,7 +79,7 @@ class DrawingTask extends React.Component {
             />
           )
         })}
-      </StyledFieldset>
+      </Box>
     )
   }
 }
