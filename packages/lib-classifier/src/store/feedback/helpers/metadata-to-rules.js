@@ -1,21 +1,17 @@
-// Converts a subject metadata object into an array of feedback objects
-function metadataToRules (metadata = {}) {
-  const metadataKeys = Object.keys(metadata)
-  const rules = metadataKeys.reduce(function (result, key) {
-    const [prefix, ruleIndex, propKey] = key.split('_')
-    const value = metadata[key]
-    const stringValue = value.toString()
+import _ from 'lodash'
 
-    if (prefix === '#feedback' && stringValue) {
-      const rule = result[ruleIndex] || {}
-      rule[propKey] = value
-      result[ruleIndex] = rule
+// Converts a subject metadata object into an array of feedback objects
+function metadataToRules (metadata) {
+  const rulesObject = _.reduce(metadata, (result, value, key) => {
+    const [prefix, ruleKey, propKey] = key.split('_')
+
+    if (prefix === '#feedback' && value) {
+      _.set(result, `${ruleKey}.${propKey}`, value)
     }
 
     return result
-  }, [])
-
-  return rules.filter(Boolean)
+  }, {})
+  return _.toArray(rulesObject)
 }
 
 export default metadataToRules
