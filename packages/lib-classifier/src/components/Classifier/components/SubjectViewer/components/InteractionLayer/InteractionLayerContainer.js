@@ -36,109 +36,44 @@ class InteractionLayerContainer extends Component {
       marks: new Map()
     }
 
-    this.drawMark = this.drawMark.bind(this)
-    this.getEventOffset = this.getEventOffset.bind(this)
-    this.getNewMark = this.getNewMark.bind(this)
+    this.finishDrawing = this.finishDrawing.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
   }
 
-  componentDidMount () {
-    // const stream = this.props.eventStream
-    // stream.subscribe(z => console.log('z = ', z))
-    this.drawMark()
+  finishDrawing (id) {
+    const { drawing, currentMark } = this.state
+    if (drawing && id === currentMark.id) {
+      this.setState({ drawing: false })
+    }
   }
 
-  componentDidUpdate () {
-    this.drawMark()
+  addToStream (event) {
+    this.props.addToStream(event)
   }
 
-  drawMark () {
-    const { eventStream } = this.props
-
-    if (eventStream) {
-      eventStream.subscribe(event => {
-        const { currentMark, drawing, marks } = this.state
-        let newMark
-  
-        // initial mark
-        if (marks.size === 0 && event.type === 'mousedown') {
-          newMark = this.getNewMark(event)
-          this.setState({ currentMark: newMark, drawing: true })
-        }
-  
-        // while drawing
-        if (drawing) {
-          // move mark
-          if (event.type === 'mousemove') {
-            const newEvents = Array.from(currentMark.events)
-            newEvents.push(event)
-            newMark = Object.assign(currentMark, { events: newEvents })
-            this.setState({ currentMark: newMark })
-          }
-          // finish mark
-          if (event.type === 'mouseup') {
-            this.setState({ drawing: false })
-          }
-        }
-  
-        // subsequent mark
-        if (!drawing && currentMark !== null && event.type === 'mousedown') {
-          newMark = this.getNewMark(event)
-          const newMarks = new Map(marks)
-          newMarks.set(currentMark.id, currentMark)
-          this.setState({ currentMark: newMark, drawing: true, marks: newMarks })
+  onMouseDown (event) {
+    this.addToStream(event)
+    if (!this.state.drawing) {
+      const { activeDrawingTool, activeStepTasks } = this.props
+      const [drawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+      this.setState({
+        drawing: true,
+        currentMark: {
+          id: cuid(),
+          tool: drawingTask.tools[activeDrawingTool]
         }
       })
     }
   }
 
-  getEventOffset (x, y) {
-    const { svg } = this.props
-
-    const svgEvent = svg.createSVGPoint()
-    svgEvent.x = x
-    svgEvent.y = y
-    const svgEventOffset = svgEvent.matrixTransform(svg.getScreenCTM().inverse())
-
-    return svgEventOffset
-  }
-
-  getNewMark (event) {
-    const { activeDrawingTool, activeStepTasks } = this.props
-
-    const [drawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-    const newMark = {
-      events: [event],
-      id: cuid(),
-      tool: drawingTask.tools[activeDrawingTool]
-    }
-
-    return newMark
-  }
-
-  addToStream (event, type) {
-    const svgEventOffset = this.getEventOffset(event.clientX, event.clientY)
-
-    this.props.addToStream({
-      target: event.target,
-      type,
-      x: svgEventOffset.x,
-      y: svgEventOffset.y
-    })
-  }
-
-  onMouseDown (event) {
-    this.addToStream(event, 'mousedown')
-  }
-
   onMouseMove (event) {
-    this.addToStream(event, 'mousemove')
+    this.addToStream(event)
   }
 
   onMouseUp (event) {
-    this.addToStream(event, 'mouseup')
+    this.addToStream(event)
   }
 
   render () {
@@ -159,7 +94,7 @@ class InteractionLayerContainer extends Component {
       }
     }
 
-    if (currentMark !== null) {
+    if (currentMark !== null && currentMark.tool && currentMark.tool.type) {
       MarkComponent = getDrawingTool(currentMark.tool.type)
     }
 
@@ -171,7 +106,13 @@ class InteractionLayerContainer extends Component {
           onMouseUp={this.onMouseUp}
         />
         {MarkComponent && (
-          <MarkComponent key={currentMark.id} active mark={currentMark} scale={scale} />
+          <MarkComponent
+            key={currentMark.id}
+            active
+            finishDrawing={this.finishDrawing}
+            mark={currentMark}
+            scale={scale}
+          />
         )}
         {marks.size > 0 && Array.from(marks, ([id, marking]) => {
           if (marking === null) {

@@ -21,9 +21,16 @@ const CROSSHAIR_WIDTH = 1
 
 const Point = ({ active, mark, scale }) => {
   const coordinates = {
-    x: mark.events[mark.events.length - 1].x,
-    y: mark.events[mark.events.length - 1].y
+    x: Math.floor(Math.random() * Math.floor(500)),
+    y: Math.floor(Math.random() * Math.floor(500))
   }
+
+  console.log('coordinates', coordinates)
+
+  // const coordinates = {
+  //   x: mark.events[mark.events.length - 1].x,
+  //   y: mark.events[mark.events.length - 1].y
+  // }
 
   const size = 'large'
   const averageScale = (scale.horizontal + scale.vertical) / 2

@@ -5,6 +5,8 @@ const STROKE_WIDTH = 1.5
 const SELECTED_STROKE_WIDTH = 2.5
 
 const DrawingToolRoot = ({ active, children, tool }) => {
+  // if active then subscribe to eventStream, define coordinates...
+
   const mainStyle = {
     color: tool.color,
     fill: 'transparent',
