@@ -4,7 +4,6 @@ import { Axis } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Circle, Line } from '@vx/shape'
 import { scaleLinear } from '@vx/scale'
-import { localPoint } from '@vx/event'
 import withVXZoom from './withVXZoom'
 import Background from '../../SVGComponents/Background'
 import Chart from '../../SVGComponents/Chart'
@@ -20,10 +19,7 @@ function VXLightCurveViewer(props) {
     parentWidth,
     panning,
     transformMatrix,
-    zoom,
-    zooming,
-    zoomInValue,
-    zoomOutValue
+    zooming
   } = props
 
   const xScale = scaleLinear({
@@ -45,7 +41,7 @@ function VXLightCurveViewer(props) {
 
   const yScaleTransformed = scaleLinear({
     domain: [
-      yScale.invert((yScale(0) - transformMatrix.translateY) / transformMatrix.scaleY),
+      yScale.invert((yScale(dataExtent.y[0]) - transformMatrix.translateY) / transformMatrix.scaleY),
       yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY),
     ],
     range: [parentHeight - padding, 0 + margin],
@@ -84,8 +80,8 @@ function VXLightCurveViewer(props) {
         top={margin}
       >
         {dataPoints.map((point, index) => {
-          const cx = xScale(point[0])
-          const cy = yScale(point[1])
+          const cx = xScaleTransformed(point[0])
+          const cy = yScaleTransformed(point[1])
           return (
             <Circle
               key={index}
@@ -191,14 +187,8 @@ VXLightCurveViewer.propTypes = {
     y: PropTypes.array
   }),
   dataPoints: PropTypes.array,
-  minZoom: PropTypes.number,
-  maxZoom: PropTypes.number,
   panning: PropTypes.bool,
-  setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func,
   zooming: PropTypes.bool,
-  zoomInValue: PropTypes.number,
-  zoomOutValue: PropTypes.number
 }
 
 export default withVXZoom(VXLightCurveViewer)

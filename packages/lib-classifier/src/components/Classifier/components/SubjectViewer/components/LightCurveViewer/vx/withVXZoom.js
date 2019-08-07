@@ -47,6 +47,7 @@ function withVXZoom (WrappedComponent) {
         }
       }
       const { scaleX, scaleY } = scaleValues[direction]
+      console.log('scaleX, scaleY', scaleX, scaleY)
       this.zoom.scale({ scaleX, scaleY })
     }
 
@@ -80,8 +81,17 @@ function withVXZoom (WrappedComponent) {
 
     onDoubleClick (event) {
       const { zoomInValue } = this.props.zoomConfiguration
-      const point = localPoint(event);
+      const point = localPoint(event)
       this.zoom.scale({ scaleX: zoomInValue, scaleY: zoomInValue, point })
+    }
+
+    onMouseLeave () {
+      if (!this.zoom.isDragging && !this.props.panning) return
+      this.zoom.dragEnd()
+    }
+
+    onWheel () {
+      if (this.props.zooming) this.zoom.handleWheel()
     }
 
     // pan(xMultiplier) {
@@ -111,14 +121,11 @@ function withVXZoom (WrappedComponent) {
                 this.zoom = zoom
                 return (
                   <WrappedComponent
-                    onWheel={zooming ? zoom.handleWheel : () => { }}
+                    onWheel={this.onWheel.bind(this)}
                     onMouseDown={panning ? zoom.dragStart : () => { }}
                     onMouseMove={panning ? zoom.dragMove : () => { }}
                     onMouseUp={panning ? zoom.dragEnd : () => { }}
-                    onMouseLeave={() => {
-                      if (!zoom.isDragging && !panning) return
-                      zoom.dragEnd()
-                    }}
+                    onMouseLeave={this.onMouseLeave.bind(this)}
                     onDoubleClick={(event) => this.onDoubleClick(event)}
                     parentHeight={parent.height}
                     parentWidth={parent.width}
@@ -144,7 +151,8 @@ function withVXZoom (WrappedComponent) {
       maxZoom: 10,
       zoomInValue: 1.2,
       zoomOutValue: 0.8
-    }
+    },
+    zooming: false
   }
 
   VXZoom.propTypes = {
@@ -156,7 +164,8 @@ function withVXZoom (WrappedComponent) {
       maxZoom: PropTypes.number,
       zoomInValue: PropTypes.number,
       zoomOutValue: PropTypes.number
-    })
+    }),
+    zooming: PropTypes.bool
   }
 
   const DecoratedVXZoom = forwardRef(function (props, ref) {

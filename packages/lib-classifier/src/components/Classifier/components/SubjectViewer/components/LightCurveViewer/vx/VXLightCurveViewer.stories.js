@@ -38,6 +38,13 @@ stories
             dataPoints={dataPoints}
             panning={boolean('panning', false)}
             zooming={boolean('zooming', false)}
+            zoomConfiguration={{
+              direction: text('zoom direction', 'x'),
+              minZoom: 1,
+              maxZoom: 10,
+              zoomInValue: 1.2,
+              zoomOutValue: 0.8
+            }}
           />
         </Box>
       </Grommet>
