@@ -1,13 +1,17 @@
 import { types } from 'mobx-state-tree'
 import Annotation from './Annotation'
-import { PointAnnotation } from './DrawingToolAnnotations'
+import { LineAnnotation, PointAnnotation } from './DrawingToolAnnotations'
 
 const Drawing = types.model('Drawing', {
   value: types.array(
     types.union({
       dispatcher: (snapshot) => {
-        if (snapshot.toolType === 'point') return PointAnnotation
-        return undefined
+        switch (snapshot.toolType) {
+          case 'line':
+            return LineAnnotation
+          case 'point':
+            return PointAnnotation
+        }
       }
     })
   )
