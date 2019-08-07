@@ -33,4 +33,4 @@ Accepted
 - The deployment of the front-end next.js apps will match how the back-end apps are managed so we will now be consistent in process
 - We will need to train developers on the new deployment process
 - We do not have a clear set of steps for setting up the as needed branch deployments at this time
-  - We need to do more research into technically how to accomplish the ad hoc branch deploymenets and tear downs. It is not known if Helm can be used for this.
+  - We need to do more research into technically how to accomplish the ad hoc branch deployments and tear downs. It is not known if Helm can be used for this.
