@@ -4,9 +4,8 @@ import { Axis } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Circle, Line } from '@vx/shape'
 import { scaleLinear } from '@vx/scale'
-import { withParentSize } from '@vx/responsive'
 import { localPoint } from '@vx/event'
-import { Zoom } from '@vx/zoom'
+import withVXZoom from './withVXZoom'
 import Background from '../../SVGComponents/Background'
 import Chart from '../../SVGComponents/Chart'
 
@@ -20,6 +19,8 @@ function VXLightCurveViewer(props) {
     parentHeight,
     parentWidth,
     panning,
+    transformMatrix,
+    zoom,
     zooming,
     zoomInValue,
     zoomOutValue
@@ -34,133 +35,135 @@ function VXLightCurveViewer(props) {
     range: [parentHeight - padding, 0 + margin]
   })
 
+  const xScaleTransformed = scaleLinear({
+    domain: [
+      xScale.invert((xScale(dataExtent.x[0]) - transformMatrix.translateX) / transformMatrix.scaleX),
+      xScale.invert((xScale(dataExtent.x[1]) - transformMatrix.translateX) / transformMatrix.scaleX),
+    ],
+    range: [0 + padding, parentWidth - margin]
+  });
+
+  const yScaleTransformed = scaleLinear({
+    domain: [
+      yScale.invert((yScale(0) - transformMatrix.translateY) / transformMatrix.scaleY),
+      yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY),
+    ],
+    range: [parentHeight - padding, 0 + margin],
+  })
+
   const {
     background,
     dataPointSize,
     color,
     fontFamily,
-    fontSize
+    fontSize,
+    onWheel,
+    onMouseDown,
+    onMouseMove,
+    onMouseUp,
+    onMouseLeave,
+    onDoubleClick
   } = chartStyles
 
   return (
-    <Zoom
+    <Chart
       height={parentHeight}
-      scaleXMin={1}
-      scaleXMax={parentWidth + margin}
-      scaleYMin={1}
-      scaleYMax={1}
-      width={parentWidth}
+      panning={panning ? 'true' : undefined}
+      width={parentWidth + margin} 
+      zooming={zooming ? 'true' : undefined}
     >
-      {zoom => {
-        console.log(zoom)
-        return (
-          <Chart
-            height={parentHeight}
-            panning={zoom.isDragging && panning ? 'true' : undefined}
-            width={parentWidth + margin} 
-            zooming={zooming ? 'true' : undefined}
-          >
-            <Background fill={background} />
-            <Group
-              left={margin}
-              onWheel={zooming ? zoom.handleWheel : () => {}}
-              onMouseDown={panning ? zoom.dragStart : () => {}}
-              onMouseMove={panning ? zoom.dragMove: () => {}}
-              onMouseUp={panning ? zoom.dragEnd : () => {}}
-              onMouseLeave={() => {
-                if (!zoom.isDragging && !panning) return
-                zoom.dragEnd()
-              }}
-              onDoubleClick={event => {
-                const point = localPoint(event);
-                zoom.scale({ scaleX: zoomInValue, scaleY: 1, point });
-              }}
-              top={margin}
-            >
-              {dataPoints.map((point, index) => {
-                const cx = xScale(point[0])
-                const cy = yScale(point[1])
-                return (
-                  <Circle
-                    key={index}
-                    cx={cx}
-                    cy={cy}
-                    r={dataPointSize}
-                    fill={color}
-                  />
-                )
-              })}
-            </Group>
-            <Group>
-              <Axis
-                hideAxisLine
-                label='Brightness'
-                left={0}
-                orientation="right"
-                tickLength={5}
-                top={padding} 
-                scale={yScale}
-              >
-                {axis => {
+      <Background fill={background} />
+      <Group
+        left={margin}
+        onWheel={onWheel}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseLeave}
+        onDoubleClick={onDoubleClick}
+        top={margin}
+      >
+        {dataPoints.map((point, index) => {
+          const cx = xScale(point[0])
+          const cy = yScale(point[1])
+          return (
+            <Circle
+              key={index}
+              cx={cx}
+              cy={cy}
+              r={dataPointSize}
+              fill={color}
+            />
+          )
+        })}
+      </Group>
+      <Group>
+        <Axis
+          hideAxisLine
+          label='Brightness'
+          left={0}
+          orientation="right"
+          tickLength={5}
+          top={padding} 
+          scale={yScaleTransformed}
+        >
+          {axis => {
+            return (
+              <g>
+                {axis.ticks.map((tick, i) => {
                   return (
-                    <g>
-                      {axis.ticks.map((tick, i) => {
-                        return (
-                          <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
-                            <Line from={tick.from} to={tick.to} stroke={color} />
-                            <text
-                              transform={`translate(${tick.to.x + 5}, ${tick.to.y + 3})`}
-                              fontSize={fontSize}
-                              textAnchor="start"
-                              fill={color}
-                            >
-                              {tick.formattedValue}
-                            </text>
-                          </Group>
-                        );
-                      })}
-                      <text fill={color} fontSize={fontSize} transform={`translate(${0 + margin}, ${0 - margin})`}>{axis.label}</text>
-                    </g>
-                  )
-                }}
-              </Axis>
-              <Axis
-                hideAxisLine
-                label='Days'
-                left={0}
-                orientation="bottom"
-                tickLength={5}
-                top={parentHeight - 5}
-                scale={xScale}
-              >
-                {axis => {
+                    <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
+                      <Line from={tick.from} to={tick.to} stroke={color} />
+                      <text
+                        transform={`translate(${tick.to.x + 5}, ${tick.to.y + 3})`}
+                        fontSize={fontSize}
+                        textAnchor="start"
+                        fill={color}
+                      >
+                        {tick.formattedValue}
+                      </text>
+                    </Group>
+                  );
+                })}
+                <text fill={color} fontSize={fontSize} transform={`translate(${0 + margin}, ${0 - margin})`}>{axis.label}</text>
+              </g>
+            )
+          }}
+        </Axis>
+        <Axis
+          hideAxisLine
+          label='Days'
+          left={0}
+          orientation="bottom"
+          tickLength={5}
+          top={parentHeight - 5}
+          scale={xScaleTransformed}
+        >
+          {axis => {
+            return (
+              <g>
+                {axis.ticks.map((tick, i) => {
                   return (
-                    <g>
-                      {axis.ticks.map((tick, i) => {
-                        return (
-                          <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
-                            <Line from={tick.from} to={tick.to} stroke={color} />
-                            <text
-                              transform={`translate(${tick.to.x}, ${tick.to.y - margin})`}
-                              fontSize={fontSize}
-                              textAnchor="middle"
-                              fill={color}
-                            >
-                              {tick.formattedValue}
-                            </text>
-                          </Group>
-                        );
-                      })}
-                      <text fill={color} fontSize={fontSize} transform={`translate(${parentWidth - (padding + margin)}, ${0 - margin})`}>{axis.label}</text>
-                    </g>
-                  )
-                }}
-              </Axis>
-            </Group>
-          </Chart>
-        )
-      }}
-    </Zoom>
+                    <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
+                      <Line from={tick.from} to={tick.to} stroke={color} />
+                      <text
+                        transform={`translate(${tick.to.x}, ${tick.to.y - margin})`}
+                        fontSize={fontSize}
+                        textAnchor="middle"
+                        fill={color}
+                      >
+                        {tick.formattedValue}
+                      </text>
+                    </Group>
+                  );
+                })}
+                <text fill={color} fontSize={fontSize} transform={`translate(${parentWidth - (padding + margin)}, ${0 - margin})`}>{axis.label}</text>
+              </g>
+            )
+          }}
+        </Axis>
+      </Group>
+    </Chart>
   )
 }
 
@@ -175,13 +178,10 @@ VXLightCurveViewer.defaultProps = {
   dataExtent: { x: [-1, 1], y: [-1, 1] },
   dataPoints: [[]],
   margin: 10,
-  minZoom: 1,
-  maxZoom: 10,
+
   padding: 30,
   panning: false,
   zooming: false,
-  zoomInValue: 1.2,
-  zoomOutValue: 0.8
 }
 
 VXLightCurveViewer.propTypes = {
@@ -201,4 +201,4 @@ VXLightCurveViewer.propTypes = {
   zoomOutValue: PropTypes.number
 }
 
-export default withParentSize(VXLightCurveViewer)
+export default withVXZoom(VXLightCurveViewer)
