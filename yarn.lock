@@ -3295,7 +3295,7 @@
   dependencies:
     d3-shape "^1.0.6"
 
-"@vx/event@0.0.189":
+"@vx/event@0.0.189", "@vx/event@~0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/event/-/event-0.0.189.tgz#5838f3cf64cc9ab20e71532431708fc68f61ebb9"
   integrity sha512-xfKVE42yIw7yyfHWri8Tk3G9fYEJ4UMtKo+oDF+thaYY2daNbu9FV8WpYEA61g6L/byZiQ+9QziDO+qnwINVQw==

@@ -18,6 +18,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@vx/axis": "~0.0.190",
+    "@vx/event": "~0.0.189",
     "@vx/group": "~0.0.190",
     "@vx/responsive": "~0.0.189",
     "@vx/scale": "~0.0.190",

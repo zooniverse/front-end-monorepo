@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
 import * as d3 from 'd3'
 import { zip } from 'lodash'
 import VXLightCurveViewer from './VXLightCurveViewer'
@@ -23,7 +24,11 @@ const dataExtent = {
   y: d3.extent(mockData.y)
 }
 
-storiesOf('VXLightCurveViewer', module)
+const stories = storiesOf('VXLightCurveViewer', module)
+
+stories.addDecorator(withKnobs)
+
+stories
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
@@ -31,6 +36,8 @@ storiesOf('VXLightCurveViewer', module)
           <VXLightCurveViewer
             dataExtent={dataExtent}
             dataPoints={dataPoints}
+            panning={boolean('panning', false)}
+            zooming={boolean('zooming', false)}
           />
         </Box>
       </Grommet>
@@ -44,6 +51,7 @@ storiesOf('VXLightCurveViewer', module)
           <VXLightCurveViewer
             dataExtent={dataExtent}
             dataPoints={dataPoints}
+            panning={boolean('panning', false)}
           />
         </Box>
       </Grommet>
