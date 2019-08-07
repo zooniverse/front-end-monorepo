@@ -7,9 +7,9 @@
   "main": "index.js",
   "scripts": {
     "build": "PANOPTES_ENV=production next build",
-    "dev": "node server/server.js",
+    "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "NODE_ENV=production node server/server.js",
+    "start": "NODE_ENV=production next start",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"

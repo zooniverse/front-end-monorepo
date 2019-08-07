@@ -1,3 +1,7 @@
+if (process.env.NEWRELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 require('dotenv').config()
 
 const { execSync } = require('child_process')
@@ -5,9 +9,7 @@ const Dotenv = require('dotenv-webpack')
 const path = require('path')
 
 module.exports = {
-  // Disable file-system routing
-  // https://github.com/zeit/next.js#disabling-file-system-routing
-  useFileSystemPublicRoutes: false,
+  assetPrefix: process.env.ASSET_PREFIX || '',
 
   env: {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
