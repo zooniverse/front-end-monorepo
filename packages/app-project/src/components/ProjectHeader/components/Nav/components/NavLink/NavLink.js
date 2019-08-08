@@ -1,9 +1,9 @@
 import { SpacedText } from '@zooniverse/react-components'
-import { Anchor, Box } from 'grommet'
-import { shape, string } from 'prop-types'
+import { Anchor } from 'grommet'
+import Link from 'next/link'
+import { withRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { withRouter } from 'next/router'
 
 const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
@@ -11,36 +11,40 @@ const StyledSpacedText = styled(SpacedText)`
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
-  &:hover,
-  &:focus {
+  &:hover {
     text-decoration: none;
-    border-color: white;
   }
-  ${props =>
-    props.isActive &&
-    `
-    border-color: white;
-  `}
+  &[href]:hover {
+    border-bottom-color: white;
+  }
+  &:not([href]) {
+    cursor: default;
+    border-bottom-color: white;
+  }
 `
 
 function NavLink (props) {
-  const { href, router, text } = props
-  const isActive = router.asPath.includes(href)
-  return (
-    <StyledAnchor href={href} isActive={isActive}>
-      <StyledSpacedText color='white' weight='bold'>
-        {text}
-      </StyledSpacedText>
-    </StyledAnchor>
-  )
-}
+  const { className, link, router } = props
+  const { as, href, text } = link
 
-NavLink.propTypes = {
-  href: string.isRequired,
-  router: shape({
-    asPath: string
-  }),
-  text: string.isRequired
+  const anchor = (
+    <StyledAnchor
+      className={className}
+      label={(
+        <StyledSpacedText children={text} color='white' weight='bold' />
+      )}
+    />
+  )
+
+  if (router.pathname === href) {
+    return anchor
+  } else {
+    return (
+      <Link as={as} href={href} passHref>
+        {anchor}
+      </Link>
+    )
+  }
 }
 
 export default withRouter(NavLink)

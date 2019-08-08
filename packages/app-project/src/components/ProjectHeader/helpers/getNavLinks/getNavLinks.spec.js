@@ -11,7 +11,8 @@ describe('Helper > getNavLinks', function () {
         text: 'About'
       },
       {
-        href: `${BASE_URL}/classify`,
+        as: `${BASE_URL}/classify`,
+        href: `/projects/[owner]/[project]/classify`,
         text: 'Classify'
       },
       {
@@ -33,7 +34,8 @@ describe('Helper > getNavLinks', function () {
         text: 'About'
       },
       {
-        href: `${BASE_URL}/classify`,
+        as: `${BASE_URL}/classify`,
+        href: `/projects/[owner]/[project]/classify`,
         text: 'Classify'
       },
       {

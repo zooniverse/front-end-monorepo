@@ -1,15 +1,31 @@
-import { shallow } from 'enzyme'
+import { render } from 'enzyme'
 import React from 'react'
 
 import ProjectTitle from './ProjectTitle'
 
 let wrapper
-const HREF = '/foo'
+
+const ROUTER_ON_HOME_PAGE = {
+  pathname: '/projects/[owner]/[project]',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
+}
+
+const ROUTER_ON_OTHER_PAGE = {
+  pathname: '/projects/[owner]/[project]/foo',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
+}
+
 const TITLE = 'Project title'
 
 describe('Component > ProjectTitle', function () {
   before(function () {
-    wrapper = shallow(<ProjectTitle title={TITLE} />)
+    wrapper = render(<ProjectTitle router={ROUTER_ON_HOME_PAGE} title={TITLE} />)
   })
 
   it('should render without crashing', function () {
@@ -17,15 +33,20 @@ describe('Component > ProjectTitle', function () {
   })
 
   it('should render the title prop as an h1', function () {
-    const title = wrapper.find('Title').render()
-    expect(title.is('h1')).to.be.ok()
+    const title = wrapper.find('h1')
+    expect(title).to.have.lengthOf(1)
     expect(title.text()).to.equal(TITLE)
   })
 
-  it('should wrap the heading in an anchor if it has an `href` prop', function () {
-    const wrapperWithHref = shallow(<ProjectTitle href={HREF} title={TITLE} />)
-    const linkWrapper = wrapperWithHref.find('ProjectTitle__StyledAnchor')
-    expect(linkWrapper).to.have.lengthOf(1)
-    expect(linkWrapper.prop('href')).to.equal(HREF)
+  it('should be wrapped in an anchor with no `href` if on the home page', function () {
+    expect(wrapper[0].name).to.equal('a')
+    expect(wrapper.href).to.equal(undefined)
+
+  })
+
+  it('should be wrapped in an anchor with an `href` if on any other page', function () {
+    wrapper = render(<ProjectTitle router={ROUTER_ON_OTHER_PAGE} title={TITLE} />)
+    expect(wrapper[0].name).to.equal('a')
+    expect(wrapper.attr('href')).to.equal('/projects/foo/bar')
   })
 })
