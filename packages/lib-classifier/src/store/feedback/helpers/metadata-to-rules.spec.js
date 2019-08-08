@@ -5,10 +5,10 @@ describe('feedback: metadataToRules', function () {
   function mockSubjectWithRule (ruleID) {
     return {
       metadata: {
-        '#feedback_1_id': ruleID,
-        '#feedback_1_answer': '0',
-        '#feedback_1_failureMessage': 'Actually, this sound is from noise (background)',
-        '#feedback_1_successMessage': 'Correct!'
+        '#feedback_[1]_id': ruleID,
+        '#feedback_[1]_answer': '0',
+        '#feedback_[1]_failureMessage': 'Actually, this sound is from noise (background)',
+        '#feedback_[1]_successMessage': 'Correct!'
       }
     }
   }
