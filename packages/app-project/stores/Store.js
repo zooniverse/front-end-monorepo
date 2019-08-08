@@ -1,4 +1,5 @@
-import { getEnv, types } from 'mobx-state-tree'
+import { addMiddleware, getEnv, types } from 'mobx-state-tree'
+import { logNodeError } from '../src/helpers/logger'
 
 import Collections from './Collections'
 import Project from './Project'
@@ -20,6 +21,20 @@ const Store = types
   .views(self => ({
     get client () {
       return getEnv(self).client
+    }
+  }))
+
+  .actions(self => ({
+    afterCreate () {
+      addMiddleware(self, (call, next, abort) => {
+        try {
+          next(call)
+        } catch (error) {
+          abort(call)
+          console.error('Project App MST error:', error)
+          logNodeError(error)
+        }
+      })
     }
   }))
 
