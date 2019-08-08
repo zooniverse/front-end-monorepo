@@ -1,18 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import * as d3 from 'd3'
+import { zip } from 'lodash'
 import { Axis } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Circle, Line } from '@vx/shape'
 import { scaleLinear } from '@vx/scale'
 import withVXZoom from './withVXZoom'
-import Background from '../../SVGComponents/Background'
-import Chart from '../../SVGComponents/Chart'
+import Background from '../SVGComponents/Background'
+import Chart from '../SVGComponents/Chart'
 
 function VXLightCurveViewer(props) {
   const {
     chartStyles,
-    dataExtent,
-    dataPoints,
+    children,
+    data,
     margin,
     padding,
     parentHeight,
@@ -21,6 +23,12 @@ function VXLightCurveViewer(props) {
     transformMatrix,
     zooming
   } = props
+
+  const dataPoints = zip(data.x, data.y)
+  const dataExtent = {
+    x: d3.extent(data.x),
+    y: d3.extent(data.y)
+  }
 
   const xScale = scaleLinear({
     domain: dataExtent.x,
@@ -53,12 +61,6 @@ function VXLightCurveViewer(props) {
     color,
     fontFamily,
     fontSize,
-    onWheel,
-    onMouseDown,
-    onMouseMove,
-    onMouseUp,
-    onMouseLeave,
-    onDoubleClick
   } = chartStyles
 
   return (
@@ -71,12 +73,6 @@ function VXLightCurveViewer(props) {
       <Background fill={background} />
       <Group
         left={margin}
-        onWheel={onWheel}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseLeave}
-        onDoubleClick={onDoubleClick}
         top={margin}
       >
         {dataPoints.map((point, index) => {
@@ -93,6 +89,7 @@ function VXLightCurveViewer(props) {
           )
         })}
       </Group>
+      {children}
       <Group>
         <Axis
           hideAxisLine
@@ -171,10 +168,12 @@ VXLightCurveViewer.defaultProps = {
     fontFamily: 'inherit',
     fontSize: '0.75rem'
   },
-  dataExtent: { x: [-1, 1], y: [-1, 1] },
-  dataPoints: [[]],
+  data: {
+    x: [1],
+    y: [1]
+  },
   margin: 10,
-
+  onDoubleClick: () => {},
   padding: 30,
   panning: false,
   zooming: false,
@@ -182,11 +181,11 @@ VXLightCurveViewer.defaultProps = {
 
 VXLightCurveViewer.propTypes = {
   chartStyles: PropTypes.object,
-  dataExtent: PropTypes.shape({
-    x: PropTypes.array,
-    y: PropTypes.array
+  data: PropTypes.shape({
+    x: PropTypes.arrayOf(PropTypes.number),
+    y: PropTypes.arrayOf(PropTypes.number)
   }),
-  dataPoints: PropTypes.array,
+  onDoubleClick: PropTypes.func,
   panning: PropTypes.bool,
   zooming: PropTypes.bool,
 }

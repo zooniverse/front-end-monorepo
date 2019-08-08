@@ -3,18 +3,64 @@ import PropTypes from 'prop-types'
 import { ParentSize } from '@vx/responsive'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
+import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
 
 function withVXZoom (WrappedComponent) {
   class VXZoom extends Component {
     constructor(props) {
       super(props)
-
+      const { zoomInValue, zoomOutValue } = props.zoomConfiguration
       props.setOnZoom(this.handleToolbarZoom.bind(this))
+
+      this.state = {
+        scaleValues: {
+          in: {
+            both: {
+              scaleX: zoomInValue,
+              scaleY: zoomInValue
+            },
+            none: {
+              scaleX: 1,
+              scaleY: 1
+            },
+            x: {
+              scaleX: zoomInValue,
+              scaleY: 1
+            },
+            y: {
+              scaleX: 1,
+              scaleY: zoomInValue
+            }
+          },
+          out: {
+            both: {
+              scaleX: zoomOutValue,
+              scaleY: zoomOutValue
+            },
+            none: {
+              scaleX: 1,
+              scaleY: 1
+            },
+            x: {
+              scaleX: zoomOutValue,
+              scaleY: 1
+            },
+            y: {
+              scaleX: 1,
+              scaleY: zoomOutValue
+            }
+          }
+        }
+      }
+
+      this.onDoubleClick = this.onDoubleClick.bind(this)
+      this.onMouseLeave = this.onMouseLeave.bind(this)
     }
 
     static zoom = null
 
     handleToolbarZoom(type, zoomValue) {
+      console.log('handleToolbarZoom')
       const doZoom = {
         'zoomin': this.zoomIn.bind(this),
         'zoomout': this.zoomOut.bind(this),
@@ -27,51 +73,15 @@ function withVXZoom (WrappedComponent) {
     }
 
     zoomIn () {
-      const { direction, zoomInValue } = this.props.zoomConfiguration
-      const scaleValues = {
-        both: {
-          scaleX: zoomInValue,
-          scaleY: zoomInValue
-        },
-        none: {
-          scaleX: 1,
-          scaleY: 1
-        },
-        x: {
-          scaleX: zoomInValue,
-          scaleY: 1
-        },
-        y: {
-          scaleX: 1,
-          scaleY: zoomInValue
-        }
-      }
-      const { scaleX, scaleY } = scaleValues[direction]
+      const { direction } = this.props.zoomConfiguration
+      const { scaleX, scaleY } = this.state.scaleValues.in[direction]
       console.log('scaleX, scaleY', scaleX, scaleY)
       this.zoom.scale({ scaleX, scaleY })
     }
 
     zoomOut () {
-      const { direction, zoomOutValue } = this.props.zoomConfiguration
-      const scaleValues = {
-        both: {
-          scaleX: zoomOutValue,
-          scaleY: zoomOutValue
-        },
-        none: {
-          scaleX: 1,
-          scaleY: 1
-        },
-        x: {
-          scaleX: zoomOutValue,
-          scaleY: 1
-        },
-        y: {
-          scaleX: 1,
-          scaleY: zoomOutValue
-        }
-      }
-      const { scaleX, scaleY } = scaleValues[direction]
+      const { direction } = this.props.zoomConfiguration
+      const { scaleX, scaleY } = this.state.scaleValues.out[direction]
       this.zoom.scale({ scaleX, scaleY })
     }
 
@@ -79,10 +89,16 @@ function withVXZoom (WrappedComponent) {
       this.zoom.reset()
     }
 
-    onDoubleClick (event) {
-      const { zoomInValue } = this.props.zoomConfiguration
+    zoomToPoint (event, zoomDirection) {
+      const { direction } = this.props.zoomConfiguration
+      const { scaleX, scaleY } = this.state.scaleValues[zoomDirection][direction]
       const point = localPoint(event)
-      this.zoom.scale({ scaleX: zoomInValue, scaleY: zoomInValue, point })
+      this.zoom.scale({ scaleX, scaleY, point })
+    }
+
+    onDoubleClick (event) {
+      if (!this.props.zooming) event.preventDefault()
+      this.zoomToPoint(event, 'in')
     }
 
     onMouseLeave () {
@@ -90,8 +106,11 @@ function withVXZoom (WrappedComponent) {
       this.zoom.dragEnd()
     }
 
-    onWheel () {
-      if (this.props.zooming) this.zoom.handleWheel()
+    onWheel (event) {
+      // performance of this is pretty bad
+      if (!this.props.zooming) event.preventDefault()
+      const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
+      this.zoomToPoint(event, zoomDirection)
     }
 
     // pan(xMultiplier) {
@@ -101,7 +120,6 @@ function withVXZoom (WrappedComponent) {
     render() {
       const {
         panning,
-        zooming,
         zoomConfiguration
       } = this.props
 
@@ -114,6 +132,7 @@ function withVXZoom (WrappedComponent) {
               scaleXMax={zoomConfiguration.maxZoom}
               scaleYMin={zoomConfiguration.minZoom}
               scaleYMax={zoomConfiguration.maxZoom}
+              passive
               width={parent.width}
             >
               {zoom => {
@@ -121,17 +140,22 @@ function withVXZoom (WrappedComponent) {
                 this.zoom = zoom
                 return (
                   <WrappedComponent
-                    onWheel={this.onWheel.bind(this)}
-                    onMouseDown={panning ? zoom.dragStart : () => { }}
-                    onMouseMove={panning ? zoom.dragMove : () => { }}
-                    onMouseUp={panning ? zoom.dragEnd : () => { }}
-                    onMouseLeave={this.onMouseLeave.bind(this)}
-                    onDoubleClick={(event) => this.onDoubleClick(event)}
                     parentHeight={parent.height}
                     parentWidth={parent.width}
                     transformMatrix={zoom.transformMatrix}
                     {...this.props}
-                  />
+                  >
+                    <ZoomEventLayer
+                      onWheel={(event) => this.onWheel(event)}
+                      onMouseDown={panning ? zoom.dragStart : () => { }}
+                      onMouseMove={panning ? zoom.dragMove : () => { }}
+                      onMouseUp={panning ? zoom.dragEnd : () => { }}
+                      onMouseLeave={this.onMouseLeave}
+                      onDoubleClick={this.onDoubleClick}
+                      parentHeight={parent.height}
+                      parentWidth={parent.width}
+                    />
+                  </WrappedComponent>
                 )
               }}
             </Zoom>
