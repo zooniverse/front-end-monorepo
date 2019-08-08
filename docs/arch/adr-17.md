@@ -8,17 +8,23 @@ We have identified a gap in our automated and manual testing process from the de
 
 We had acknowledged previously that we had a need for staging environment deploys for the purposes of design reviews in [zooniverse/front-end-monorepo#694](https://github.com/zooniverse/front-end-monorepo/issues/694). We now have a need to have staging deployments so we can manually check that the pull request functions in a deployed, production-like environment. The next.js builds and creates files specific for the production deployment that running the app locally for development does not replicate, nor is it replicated in automated unit testing.
 
-Initially we were considering branch deploys for both of these cases, but in order to do this we would need to use wildcard sub-domains. At this time, [kubernetes ingress does not support wildcards](https://github.com/containous/traefik/issues/3884).
+Initially we were considering branch deploys for both of these cases, but in order to do this we would need to use wildcard sub-domains. At this time, [kubernetes ingress does not support wildcards](https://github.com/containous/traefik/issues/3884). Therefore, we need to devise a different solution.
 
 ## Decision
 
+In practice, we're going to have two kinds of pull request: one that changes a single app (e.g. new widget on project home page), and one that affects multiple apps (e.g. update to the shared component library). For PRs on a single app, we'd like to manually deploy it as a staging branch deployment so it can be tested in isolation. On merging to master, that gets deployed to staging automatically. We'd then do manual integration testing before manually deploying to production. For PRs across multiple apps, we'd test it locally before merging to master using a local Docker image setup to use Panoptes in production. Once it's deployed to staging, we'd do integration testing before manually deploying to production.
+
 We're going to setup a staging deployment that matches production as closely as possible to fill the gap of the need for manual reviews to confirm that the app is functioning. To accomplish this:
 
-- Merging to master will be switched to deploy to staging to https://fe-project.preview.zooniverse.org
+- Merging to master will be switched to deploy to staging to https://frontend.preview.zooniverse.org
 - Production deployment will now be done manually triggered by lita command on slack and using a git tag for production
 - The Jenkins file will be updated to use the git tags to determine the location of the deployment
+- Cloudfront will be configured to load the correct microservice app depending on route:
+    - Both the staging (https://frontend.preview.zooniverse.org) and production domains (www.zooniverse.org) will have cloudfront configurations that will match URL traffic against rules setup in Cloudfront.
+    - The rules match paths on the URL, i.e. `/about/team` maps to the correct app via DNS resolution, e.g. `about/team` maps to `fe-content-pages` production app that hits the k8 cluster via DNS. A `GET` request on URL `www.zooniverse.org/about/team` will route like this via Cloudfront: `Cloudfront -> k8 ingress (DNS) -> a fe-content-pages pod`
+    - Generally staging and production would have the same behaviour mappings in Cloudfront and staging will be a place to test these mapping out before setting up in production.
 
-A future enhancement will be added for branch deploys for manual design reviews. This can possibly be accomplished by:
+A future enhancement will be added for branch deploys for manual reviews. This can possibly be accomplished by:
 
 - Lita command on slack
 - Script is written to deploy to a branch
