@@ -21,7 +21,10 @@ We're going to setup a staging deployment that matches production as closely as 
 - The Jenkins file will be updated to use the git tags to determine the location of the deployment
 - Cloudfront will be configured to load the correct microservice app depending on route:
     - Both the staging (https://frontend.preview.zooniverse.org) and production domains (www.zooniverse.org) will have cloudfront configurations that will match URL traffic against rules setup in Cloudfront.
-    - The rules match paths on the URL, i.e. `/about/team` maps to the correct app via DNS resolution, e.g. `about/team` maps to `fe-content-pages` production app that hits the k8 cluster via DNS. A `GET` request on URL `www.zooniverse.org/about/team` will route like this via Cloudfront: `Cloudfront -> k8 ingress (DNS) -> a fe-content-pages pod`
+    - The cloudfront rules match paths on the incoming URL, i.e. `/about/team` maps to a registered service via DNS, e.g.
+        + When a `GET` request for URL `www.zooniverse.org/about/team` hits cloudfront, it maps to the `fe-content-pages.zooniverse.org` service domain. 
+        + Cloudfront then proxies that request via DNS lookup to the Kubneretes (K8) ingress service
+        + The K8 ingress then looks up the registered service domain and forwards the request, in this case, to a `fe-content-pages` service pod to serve the request and respond to the client. 
     - Generally staging and production would have the same behaviour mappings in Cloudfront and staging will be a place to test these mapping out before setting up in production.
 
 A future enhancement will be added for branch deploys for manual reviews. This can possibly be accomplished by:
