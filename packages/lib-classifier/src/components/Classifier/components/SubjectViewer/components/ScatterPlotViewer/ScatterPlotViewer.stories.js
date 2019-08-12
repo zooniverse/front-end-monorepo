@@ -42,6 +42,12 @@ stories
             data={mockData}
             panning={boolean('panning', false)}
             setOnZoom={setZoomCallback}
+            tickStyles={{
+              direction: text('tick direction', 'inner'),
+              length: 5
+            }}
+            xAxisLabel={text('x axis label', 'Days')}
+            yAxisLabel={text('y axis label', 'Brightness')}
             zooming={boolean('zooming', false)}
             zoomConfiguration={{
               direction: text('zoom direction', 'x'),

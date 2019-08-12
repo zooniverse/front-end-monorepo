@@ -2,27 +2,36 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
 import { zip } from 'lodash'
-import { Axis } from '@vx/axis'
 import { Group } from '@vx/group'
-import { Circle, Line } from '@vx/shape'
+import { Circle } from '@vx/shape'
 import { scaleLinear } from '@vx/scale'
 import withVXZoom from './withVXZoom'
 import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
+import Axes from './components/Axes'
 
-function VXLightCurveViewer(props) {
+function ScatterPlotViewer(props) {
   const {
     chartStyles,
     children,
     data,
-    margin,
-    padding,
     parentHeight,
     parentWidth,
     panning,
+    tickStyles,
     transformMatrix,
+    xAxisLabel,
+    yAxisLabel,
     zooming
   } = props
+
+  const {
+    background,
+    dataPointSize,
+    color,
+    padding,
+    margin
+  } = chartStyles
 
   const dataPoints = zip(data.x, data.y)
   const dataExtent = {
@@ -55,13 +64,18 @@ function VXLightCurveViewer(props) {
     range: [parentHeight - padding, 0 + margin],
   })
 
-  const {
-    background,
-    dataPointSize,
-    color,
-    fontFamily,
-    fontSize,
-  } = chartStyles
+  const axesConfig = {
+    xAxis: {
+      label: xAxisLabel,
+      orientation: 'bottom',
+      scale: xScaleTransformed,
+    },
+    yAxis: {
+      label: yAxisLabel,
+      orientation: 'right', // orientation for inner tick direction
+      scale: yScaleTransformed,
+    }
+  }
 
   return (
     <Chart
@@ -90,104 +104,55 @@ function VXLightCurveViewer(props) {
         })}
       </Group>
       {children}
-      <Group>
-        <Axis
-          hideAxisLine
-          label='Brightness'
-          left={0}
-          orientation="right"
-          tickLength={5}
-          top={padding} 
-          scale={yScaleTransformed}
-        >
-          {axis => {
-            return (
-              <g>
-                {axis.ticks.map((tick, i) => {
-                  return (
-                    <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
-                      <Line from={tick.from} to={tick.to} stroke={color} />
-                      <text
-                        transform={`translate(${tick.to.x + 5}, ${tick.to.y + 3})`}
-                        fontSize={fontSize}
-                        textAnchor="start"
-                        fill={color}
-                      >
-                        {tick.formattedValue}
-                      </text>
-                    </Group>
-                  );
-                })}
-                <text fill={color} fontSize={fontSize} transform={`translate(${0 + margin}, ${0 - margin})`}>{axis.label}</text>
-              </g>
-            )
-          }}
-        </Axis>
-        <Axis
-          hideAxisLine
-          label='Days'
-          left={0}
-          orientation="bottom"
-          tickLength={5}
-          top={parentHeight - 5}
-          scale={xScaleTransformed}
-        >
-          {axis => {
-            return (
-              <g>
-                {axis.ticks.map((tick, i) => {
-                  return (
-                    <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
-                      <Line from={tick.from} to={tick.to} stroke={color} />
-                      <text
-                        transform={`translate(${tick.to.x}, ${tick.to.y - margin})`}
-                        fontSize={fontSize}
-                        textAnchor="middle"
-                        fill={color}
-                      >
-                        {tick.formattedValue}
-                      </text>
-                    </Group>
-                  );
-                })}
-                <text fill={color} fontSize={fontSize} transform={`translate(${parentWidth - (padding + margin)}, ${0 - margin})`}>{axis.label}</text>
-              </g>
-            )
-          }}
-        </Axis>
-      </Group>
+      <Axes
+        axesConfig={axesConfig}
+        chartStyles={chartStyles}
+        tickStyles={tickStyles}
+        parentHeight={parentHeight}
+        parentWidth={parentWidth}
+      />
     </Chart>
   )
 }
 
-VXLightCurveViewer.defaultProps = {
+ScatterPlotViewer.defaultProps = {
   chartStyles: {
     color: '#eff2f5', // Zooniverse Light Grey
     background: '#003941', // Zooniverse Dark Teal
     dataPointSize: '1.5',
     fontFamily: 'inherit',
-    fontSize: '0.75rem'
+    fontSize: '0.75rem',
+    margin: 10,
+    padding: 30
   },
   data: {
     x: [1],
     y: [1]
   },
-  margin: 10,
-  onDoubleClick: () => {},
-  padding: 30,
   panning: false,
+  tickStyles: {
+    direction: 'outer',
+    length: 5
+  },
+  xAxisLabel: 'x-axis',
+  yAxisLabel: 'y-axis',
   zooming: false,
 }
 
-VXLightCurveViewer.propTypes = {
+ScatterPlotViewer.propTypes = {
   chartStyles: PropTypes.object,
   data: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
-  onDoubleClick: PropTypes.func,
   panning: PropTypes.bool,
+  tickStyles: PropTypes.shape({
+    direction: PropTypes.oneOf(['inner', 'outer']),
+    length: PropTypes.number
+  }),
+  xAxisLabel: PropTypes.string,
+  yAxisLabel: PropTypes.string,
   zooming: PropTypes.bool,
 }
 
-export default withVXZoom(VXLightCurveViewer)
+export default withVXZoom(ScatterPlotViewer)
