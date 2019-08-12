@@ -20,7 +20,7 @@ We're going to setup a staging deployment that matches production as closely as 
 - Production deployment will now be done manually triggered by lita command on slack and using a git tag for production
 - The Jenkins file will be updated to use the git tags to determine the location of the deployment
 - Cloudfront will be configured to load the correct microservice app depending on route:
-    - Both the staging (https://frontend.preview.zooniverse.org) and production domains (www.zooniverse.org) will have cloudfront configurations that will match URL traffic against rules setup in Cloudfront.
+    - Both the staging (https://frontend.preview.zooniverse.org) and production domains (www.zooniverse.org) will have cloudfront configurations that will match URL traffic against rules setup in Cloudfront. The staging rules will map to the staging apps and the production rules will map to the production apps.
     - The cloudfront rules match paths on the incoming URL, i.e. `/about/team` maps to a registered service via DNS, e.g.
         + When a `GET` request for URL `www.zooniverse.org/about/team` hits cloudfront, it maps to the `fe-content-pages.zooniverse.org` service domain. 
         + Cloudfront then proxies that request via DNS lookup to the Kubneretes (K8) ingress service
