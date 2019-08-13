@@ -14,6 +14,8 @@ const Drawing = types.model('Drawing', {
           return Line
         case 'point':
           return Point
+        default:
+          return null
       }
     }
   })),
