@@ -52,16 +52,18 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs the project app at http://localhost:3000
+`docker-compose up` runs production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
 
 `docker-compose down` stops the running container.
 
-`docker-compose run --rm dev YARN-ARGS` runs a single yarn command with _YARN-ARGS_.
-eg. `docker-compose run --rm dev test` runs the tests.
+`docker-compose run --rm test` runs the tests.
 
-Scripts for individual packages can be run using yarn workspaces. Remember to open service ports on localhost if you're running a development server.
-
-eg. `docker-compose run --rm --service-ports dev workspace @zooniverse/classifier dev` will run the classifier dev server.
+Development environments for individual packages can be run from the package directories. For example:
+```sh
+cd packages/app-project
+docker-compose up
+````
+to run a develeopment server for the project app.
 
 ### With Node and yarn
 Alternatively, you can install Node 10 and yarn and build the monorepo packages.
