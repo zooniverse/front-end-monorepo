@@ -80,9 +80,7 @@ function ScatterPlotViewer(props) {
   return (
     <Chart
       height={parentHeight}
-      panning={panning ? 'true' : undefined}
-      width={parentWidth + margin} 
-      zooming={zooming ? 'true' : undefined}
+      width={parentWidth + margin}
     >
       <Background fill={background} />
       <Group

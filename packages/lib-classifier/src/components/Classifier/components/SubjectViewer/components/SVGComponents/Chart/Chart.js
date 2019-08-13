@@ -1,10 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-
-const StyledSVG = styled.svg`
-  cursor: ${props => props.dragging ? 'move' : 'inherit'}
-`
 
 const Chart = React.forwardRef(function Chart({ children, height, width, ...rest }, ref) {
   return (

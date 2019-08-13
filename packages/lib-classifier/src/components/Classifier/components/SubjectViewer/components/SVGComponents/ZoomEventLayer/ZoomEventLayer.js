@@ -1,4 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const StyledRect = styled.rect`
+  cursor: ${props => props.panning ? 'move' : 'inherit'}
+`
 
 function ZoomEventLayer(props) {
   const {
@@ -9,11 +15,12 @@ function ZoomEventLayer(props) {
     onMouseLeave,
     onWheel,
     parentHeight,
-    parentWidth
+    parentWidth,
+    panning
   } = props
 
   return (
-    <rect
+    <StyledRect
       height={parentHeight}
       fill='transparent'
       onDoubleClick={onDoubleClick}
@@ -22,6 +29,7 @@ function ZoomEventLayer(props) {
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseLeave}
       onWheel={onWheel}
+      panning={(panning) ? 'true' : undefined}
       width={parentWidth}
     />
   )

@@ -1,58 +1,19 @@
-import React, { Component, forwardRef} from 'react'
+import React, { PureComponent, forwardRef} from 'react'
 import PropTypes from 'prop-types'
 import { ParentSize } from '@vx/responsive'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
+import * as d3 from 'd3'
 import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
+import { transform } from 'popmotion';
 
 function withVXZoom (WrappedComponent) {
-  class VXZoom extends Component {
+  class VXZoom extends PureComponent {
     constructor(props) {
       super(props)
-      const { zoomInValue, zoomOutValue } = props.zoomConfiguration
       props.setOnZoom(this.handleToolbarZoom.bind(this))
 
-      this.state = {
-        scaleValues: {
-          in: {
-            both: {
-              scaleX: zoomInValue,
-              scaleY: zoomInValue
-            },
-            none: {
-              scaleX: 1,
-              scaleY: 1
-            },
-            x: {
-              scaleX: zoomInValue,
-              scaleY: 1
-            },
-            y: {
-              scaleX: 1,
-              scaleY: zoomInValue
-            }
-          },
-          out: {
-            both: {
-              scaleX: zoomOutValue,
-              scaleY: zoomOutValue
-            },
-            none: {
-              scaleX: 1,
-              scaleY: 1
-            },
-            x: {
-              scaleX: zoomOutValue,
-              scaleY: 1
-            },
-            y: {
-              scaleX: 1,
-              scaleY: zoomOutValue
-            }
-          }
-        }
-      }
-
+      this.constrain = this.constrain.bind(this)
       this.onDoubleClick = this.onDoubleClick.bind(this)
       this.onMouseLeave = this.onMouseLeave.bind(this)
     }
@@ -60,7 +21,6 @@ function withVXZoom (WrappedComponent) {
     static zoom = null
 
     handleToolbarZoom(type, zoomValue) {
-      console.log('handleToolbarZoom')
       const doZoom = {
         'zoomin': this.zoomIn.bind(this),
         'zoomout': this.zoomOut.bind(this),
@@ -73,16 +33,15 @@ function withVXZoom (WrappedComponent) {
     }
 
     zoomIn () {
-      const { direction } = this.props.zoomConfiguration
-      const { scaleX, scaleY } = this.state.scaleValues.in[direction]
-      console.log('scaleX, scaleY', scaleX, scaleY)
-      this.zoom.scale({ scaleX, scaleY })
+      if (!this.props.zooming) return
+      const { zoomInValue } = this.props.zoomConfiguration
+      this.zoom.scale({ scaleX: zoomInValue, scaleY: zoomInValue })
     }
 
     zoomOut () {
-      const { direction } = this.props.zoomConfiguration
-      const { scaleX, scaleY } = this.state.scaleValues.out[direction]
-      this.zoom.scale({ scaleX, scaleY })
+      if (!this.props.zooming) return
+      const { zoomOutValue } = this.props.zoomConfiguration
+      this.zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
     }
 
     zoomTo () {
@@ -90,15 +49,72 @@ function withVXZoom (WrappedComponent) {
     }
 
     zoomToPoint (event, zoomDirection) {
-      const { direction } = this.props.zoomConfiguration
-      const { scaleX, scaleY } = this.state.scaleValues[zoomDirection][direction]
+      if (!this.props.zooming) event.preventDefault()
+      const { zoomInValue, zoomOutValue } = this.props.zoomConfiguration
+      const zoomValue = (zoomDirection === 'in') ? zoomInValue : zoomOutValue
       const point = localPoint(event)
-      this.zoom.scale({ scaleX, scaleY, point })
+      this.zoom.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
     }
 
     onDoubleClick (event) {
       if (!this.props.zooming) event.preventDefault()
       this.zoomToPoint(event, 'in')
+    }
+
+    applyMatrixToPoint(matrix, { x, y }) {
+      return {
+        x: matrix.scaleX * x + matrix.skewX * y + matrix.translateX,
+        y: matrix.skewY * x + matrix.scaleY * y + matrix.translateY
+      }
+    }
+
+    constrain (transformMatrix, prevTransformMatrix) {
+      const { data, parentWidth, parentHeight, zoomConfiguration } = this.props
+      const dataExtent = {
+        x: d3.extent(data.x),
+        y: d3.extent(data.y)
+      }
+
+      // const min = this.applyMatrixToPoint(transformMatrix, { x: dataExtent.x[0], y: dataExtent.y[0] })
+      // const max = this.applyMatrixToPoint(transformMatrix, { x: dataExtent.x[1], y: dataExtent.y[1] })
+      // console.log('min', min)
+      // console.log('max', max)
+      console.log('dataExtent', dataExtent)
+      if (dataExtent.x[1] < transformMatrix.translateX || dataExtent.y[1] < transformMatrix.translateY) {
+        return prevTransformMatrix;
+      }
+      // if (min.x > 0 || min.y > 0) {
+      //   return prevTransformMatrix
+      // }
+
+      console.log('transformMatrix', transformMatrix)
+
+      console.log('prevTransformMatrix', prevTransformMatrix)
+
+      if (zoomConfiguration.direction === 'x') {
+        const newTransformMatrix = Object.assign({}, transformMatrix, { scaleY: 1, translateY: 0 })
+        if (newTransformMatrix.scaleX < 1) {
+          newTransformMatrix.scaleX = 1
+          newTransformMatrix.translateX = 0
+        }
+        console.log('new transform matrix', newTransformMatrix)
+        return newTransformMatrix
+      }
+
+      if (zoomConfiguration.direction === 'y') {
+        const newTransformMatrix = Object.assign({}, transformMatrix, { scaleX: 1, translateX: 0 })
+        if (newTransformMatrix.scaleY < 1) {
+          newTransformMatrix.scaleY = 1
+          newTransformMatrix.translateY = 0
+        }
+        return newTransformMatrix
+      }
+
+      if (zoomConfiguration.direction === 'none') {
+        return prevTransformMatrix
+      }
+
+      return transformMatrix
     }
 
     onMouseLeave () {
@@ -113,10 +129,6 @@ function withVXZoom (WrappedComponent) {
       this.zoomToPoint(event, zoomDirection)
     }
 
-    // pan(xMultiplier) {
-    //   this.zoom.translateBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), xMultiplier * PAN_DISTANCE, 0)
-    // }
-
     render() {
       const {
         panning,
@@ -127,6 +139,7 @@ function withVXZoom (WrappedComponent) {
         <ParentSize>
           {parent => (
             <Zoom
+              constrain={this.constrain}
               height={parent.height}
               scaleXMin={zoomConfiguration.minZoom}
               scaleXMax={zoomConfiguration.maxZoom}
@@ -152,6 +165,7 @@ function withVXZoom (WrappedComponent) {
                       onMouseUp={panning ? zoom.dragEnd : () => { }}
                       onMouseLeave={this.onMouseLeave}
                       onDoubleClick={this.onDoubleClick}
+                      panning={panning}
                       parentHeight={parent.height}
                       parentWidth={parent.width}
                     />
@@ -168,6 +182,7 @@ function withVXZoom (WrappedComponent) {
   VXZoom.defaultProps = {
     forwardedRef: null,
     onPan: () => true,
+    panning: false,
     setOnZoom: () => true,
     zoomConfiguration: {
       direction: 'both',
@@ -181,6 +196,7 @@ function withVXZoom (WrappedComponent) {
 
   VXZoom.propTypes = {
     onPan: PropTypes.func,
+    panning: PropTypes.bool,
     setOnZoom: PropTypes.func,
     zoomConfiguration: PropTypes.shape({
       direction: PropTypes.oneOf(['both', 'none', 'x', 'y']),
