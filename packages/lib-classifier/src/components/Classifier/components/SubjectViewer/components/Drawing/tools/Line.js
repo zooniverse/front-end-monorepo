@@ -1,23 +1,35 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import DrawingToolRoot from './root'
+import DrawingToolRoot from './Root'
 
-const Line = ({ active, mark, scale }) => {
-  const secondaryCoordinates = mark.events.filter(event => event.type === 'mousemove' || event.type === 'mousedown')
+const Line = ({ active, coordinates, finishDrawing, tool }) => {
+  if (coordinates.length <= 1) return null
 
-  const coordinates = {
-    x1: `${mark.events[0].x}`,
-    y1: `${mark.events[0].y}`,
-    x2: `${secondaryCoordinates[secondaryCoordinates.length - 1].x}`,
-    y2: `${secondaryCoordinates[secondaryCoordinates.length - 1].y}`
+  const secondaryCoordinates = coordinates[(coordinates.length - 1)]
+  const currentCoordinates = {
+    x1: coordinates[0].x,
+    y1: coordinates[0].y,
+    x2: secondaryCoordinates.x,
+    y2: secondaryCoordinates.y
+  }
+
+  if (active && secondaryCoordinates.type && secondaryCoordinates.type === 'mouseup') {
+    finishDrawing(coordinates)
   }
 
   return (
-    <DrawingToolRoot active tool={mark.tool}>
-      <line {...coordinates} />
+    <DrawingToolRoot active tool={tool}>
+      <line {...currentCoordinates} />
     </DrawingToolRoot>
   )
+}
+
+Line.propTypes = {
+  active: PropTypes.bool,
+  coordinates: PropTypes.array,
+  finishDrawing: PropTypes.func,
+  tool: PropTypes.object
 }
 
 export default Line

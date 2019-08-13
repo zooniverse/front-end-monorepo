@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import DrawingToolRoot from './root'
+import DrawingToolRoot from './Root'
 
 // TODOs:
-// - add and update per size prop
-// - add and update per color
-// - create and move pointerEvent to root tool?
+// - add and update per tool size prop
 
 const RADIUS = {
   large: 10,
@@ -19,22 +17,17 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-const Point = ({ active, mark, scale }) => {
-  const coordinates = {
-    x: Math.floor(Math.random() * Math.floor(500)),
-    y: Math.floor(Math.random() * Math.floor(500))
+const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
+  if (coordinates.length === 0) return null
+
+  const currentCoordinates = coordinates[(coordinates.length - 1)]
+
+  if (active && currentCoordinates.type && currentCoordinates.type === 'mouseup') {
+    finishDrawing(coordinates)
   }
-
-  console.log('coordinates', coordinates)
-
-  // const coordinates = {
-  //   x: mark.events[mark.events.length - 1].x,
-  //   y: mark.events[mark.events.length - 1].y
-  // }
 
   const size = 'large'
   const averageScale = (scale.horizontal + scale.vertical) / 2
-
   const crosshairSpace = CROSSHAIR_SPACE / averageScale
   const crosshairWidth = CROSSHAIR_WIDTH / averageScale
   const selectedRadius = SELECTED_RADIUS[size] / averageScale
@@ -47,8 +40,8 @@ const Point = ({ active, mark, scale }) => {
   }
 
   return (
-    <DrawingToolRoot active tool={mark.tool}>
-      <g transform={`translate(${coordinates.x}, ${coordinates.y})`} style={{ pointerEvents: 'none' }}>
+    <DrawingToolRoot active tool={tool}>
+      <g transform={`translate(${currentCoordinates.x}, ${currentCoordinates.y})`}>
         <line x1='0' y1={-1 * crosshairSpace * selectedRadius} x2='0' y2={-1 * selectedRadius} strokeWidth={crosshairWidth} />
         <line x1={-1 * crosshairSpace * selectedRadius} y1='0' x2={-1 * selectedRadius} y2='0' strokeWidth={crosshairWidth} />
         <line x1='0' y1={crosshairSpace * selectedRadius} x2='0' y2={selectedRadius} strokeWidth={crosshairWidth} />
@@ -61,16 +54,13 @@ const Point = ({ active, mark, scale }) => {
 
 Point.propTypes = {
   active: PropTypes.bool,
-  mark: PropTypes.shape({
-    x1: PropTypes.number,
-    y1: PropTypes.number,
-    x2: PropTypes.number,
-    y2: PropTypes.number
-  }).isRequired,
+  coordinates: PropTypes.array,
+  finishDrawing: PropTypes.func,
   scale: PropTypes.shape({
     horizontal: PropTypes.number,
     vertical: PropTypes.number
-  })
+  }),
+  tool: PropTypes.object
 }
 
 Point.defaultProps = {
