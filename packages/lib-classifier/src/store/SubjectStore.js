@@ -95,7 +95,7 @@ const SubjectStore = types
       addDisposer(self, subjectMiddleware)
     }
 
-    function advance() {
+    function advance () {
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
         const idToRemove = self.active.id
