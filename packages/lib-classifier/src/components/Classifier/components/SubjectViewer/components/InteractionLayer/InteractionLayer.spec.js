@@ -4,16 +4,16 @@ import sinon from 'sinon'
 
 import InteractionLayer from './InteractionLayer'
 
-const onMouseMove = sinon.stub()
-const onMouseUp = sinon.stub()
-const onMouseDown = sinon.stub()
+const onPointerMove = sinon.stub()
+const onPointerUp = sinon.stub()
+const onPointerDown = sinon.stub()
 
 let wrapper
 
 describe('Component > InteractionLayer', function () {
   beforeEach(function () {
-    wrapper = shallow(<InteractionLayer onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp} onMouseDown={onMouseDown} />)
+    wrapper = shallow(<InteractionLayer onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp} onPointerDown={onPointerDown} />)
   })
 
   it('should render without crashing', function () {
@@ -27,18 +27,18 @@ describe('Component > InteractionLayer', function () {
     expect(rect.prop('fill')).to.equal('transparent')
   })
 
-  it('should bind the onMouseMove prop', function () {
-    wrapper.simulate('mousemove')
-    expect(onMouseMove).to.have.been.called()
+  it('should bind the onPointerMove prop', function () {
+    wrapper.simulate('pointermove')
+    expect(onPointerMove).to.have.been.called()
   })
 
-  it('should bind the onMouseUp prop', function () {
-    wrapper.simulate('mouseup')
-    expect(onMouseUp).to.have.been.called()
+  it('should bind the onPointerUp prop', function () {
+    wrapper.simulate('pointerup')
+    expect(onPointerUp).to.have.been.called()
   })
 
-  it('should bind the onMouseDown prop', function () {
-    wrapper.simulate('mousedown')
-    expect(onMouseDown).to.have.been.called()
+  it('should bind the onPointerDown prop', function () {
+    wrapper.simulate('pointerdown')
+    expect(onPointerDown).to.have.been.called()
   })
 })

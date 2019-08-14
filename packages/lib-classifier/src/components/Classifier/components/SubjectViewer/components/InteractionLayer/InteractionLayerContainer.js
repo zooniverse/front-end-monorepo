@@ -1,13 +1,19 @@
-import { inject, observer } from 'mobx-react'
+import { observable } from 'mobx'
+import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
+import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
-  const { drawing } = stores.classifierStore
+  const {
+    addToStream
+  } = stores.classifierStore.drawing
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
   return {
-    drawing
+    activeStepTasks,
+    addToStream
   }
 }
 
@@ -16,54 +22,59 @@ function storeMapper (stores) {
 class InteractionLayerContainer extends Component {
   constructor () {
     super()
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onMouseUp = this.onMouseUp.bind(this)
+
+    this.onPointerDown = this.onPointerDown.bind(this)
+    this.onPointerMove = this.onPointerMove.bind(this)
+    this.onPointerUp = this.onPointerUp.bind(this)
   }
 
-  componentDidMount () {
-    // TODO: We're simply logging the event stream here for now, but this will
-    // be passed to the active drawing tool for parsing
-    // const stream = this.props.drawing.eventStream
-    // stream.subscribe(z => console.log(z))
+  addToStream (event) {
+    this.props.addToStream(event)
   }
 
-  addToStream (event, type) {
-    this.props.drawing.addToStream({
-      event: type,
-      target: event.target,
-      x: event.clientX,
-      y: event.clientY
-    })
+  onPointerDown (event) {
+    this.addToStream(event)
   }
 
-  onMouseDown (event) {
-    this.addToStream(event, 'mousedown')
+  onPointerMove (event) {
+    this.addToStream(event)
   }
 
-  onMouseMove (event) {
-    this.addToStream(event, 'mousemove')
-  }
-
-  onMouseUp (event) {
-    this.addToStream(event, 'mouseup')
+  onPointerUp (event) {
+    this.addToStream(event)
   }
 
   render () {
+    const yas = this.props.activeStepTasks
+    console.log('yas', (typeof yas))
+
+    const drawing = this.props.activeStepTasks.some(task => task.type === 'drawing')
+
     return (
-      <InteractionLayer
-        onMouseMove={this.onMouseMove}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={this.onMouseUp}
-      />
+      <>
+        <InteractionLayer
+          onPointerMove={this.onPointerMove}
+          onPointerDown={this.onPointerDown}
+          onPointerUp={this.onPointerUp}
+        />
+        {drawing && <DrawingContainer svg={this.props.svg} />}
+      </>
     )
   }
 }
 
+InteractionLayerContainer.wrappedComponent.defaultProps = {
+  activeStepTasks: []
+}
+
 InteractionLayerContainer.wrappedComponent.propTypes = {
-  drawing: PropTypes.shape({
-    addToStream: PropTypes.func.isRequired
-  })
+  activeStepTasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string
+    })
+  ),
+  addToStream: PropTypes.func,
+  svg: PropTypes.object
 }
 
 export default InteractionLayerContainer
