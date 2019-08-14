@@ -15,7 +15,7 @@ describe('Model > PointAnnotation', function () {
 
   it('should have a toolType property of `point`', function () {
     const pointAnnotationInstance = Point.create(pointAnnotation)
-    expect(pointAnnotation).to.deep.include({ toolType: 'point' })
+    expect(pointAnnotationInstance).to.deep.include({ toolType: 'point' })
   })
 
   it('should throw an error with incorrect toolType property', function () {

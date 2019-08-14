@@ -11,6 +11,8 @@ const Drawing = types.model('Drawing', {
             return LineAnnotation
           case 'point':
             return PointAnnotation
+          default:
+            return null
         }
       }
     })
