@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import SubjectViewerStore from './SubjectViewerStore'
 
-describe.only('Model > SubjectViewerStore', function () {
+describe('Model > SubjectViewerStore', function () {
   it('should exist', function () {
     expect(SubjectViewerStore).to.be.ok()
     expect(SubjectViewerStore).to.be.an('object')
