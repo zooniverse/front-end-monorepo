@@ -25,7 +25,7 @@ class GrommetWrapperContainer extends Component {
     const mergedThemes = this.mergeThemes()
 
     return (
-      <Grommet theme={mergedThemes}>
+      <Grommet userAgent='Mobile' theme={mergedThemes}>
         {children}
       </Grommet>
     )
