@@ -126,7 +126,9 @@ const ClassificationStore = types
         classification.annotations.put(newAnnotation)
         return newAnnotation
       } else {
-        console.error('No active classification. Cannot create default annotation.')
+        if (process.browser) {
+          console.error('No active classification. Cannot create default annotation.')
+        }
         return null
       }
     }
@@ -141,7 +143,9 @@ const ClassificationStore = types
           annotation.value = annotationValue
         }
       } else {
-        console.error('No active classification. Cannot add annotation.')
+        if (process.browser) {
+          console.error('No active classification. Cannot add annotation.')
+        }
       }
     }
 
@@ -155,7 +159,9 @@ const ClassificationStore = types
         const isPersistAnnotationsSet = workflow.configuration.persist_annotations
         if (!isPersistAnnotationsSet) classification.annotations.delete(taskKey)
       } else {
-        console.error('No active classification or no active workflow. Cannot remove annotation.')
+        if (process.browser) {
+          console.error('No active classification or no active workflow. Cannot remove annotation.')
+        }
       }
     }
 
@@ -201,10 +207,14 @@ const ClassificationStore = types
         const subject = getRoot(self).subjects.active
         self.onComplete(classification.toJSON(), subject.toJSON())
 
-        console.log('Completed classification', classificationToSubmit)
+        if (process.browser) {
+          console.log('Completed classification', classificationToSubmit)
+        }
         return self.submitClassification(classificationToSubmit)
       } else {
-        console.error('No active classification or active subject. Cannot complete classification')
+        if (process.browser) {
+          console.error('No active classification or active subject. Cannot complete classification')
+        }
       }
     }
 

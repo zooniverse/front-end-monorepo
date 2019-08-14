@@ -54,7 +54,9 @@ const FeedbackStore = types
     function onSubjectAdvance (call, next, abort) {
       const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
       if (shouldShowFeedback) {
-        console.log('Aborting subject advance and showing feedback')
+        if (process.browser) {
+          console.log('Aborting subject advance and showing feedback')
+        }
         abort()
         self.showFeedback()
       } else {
@@ -100,7 +102,9 @@ const FeedbackStore = types
           self.rules = helpers.generateRules(subject, workflow)
         }
       } else {
-        console.error('Cannot create feedback rules without project, workflow, and/or subject')
+        if (process.browser) {
+          console.error('Cannot create feedback rules without project, workflow, and/or subject')
+        }
       }
     }
 
