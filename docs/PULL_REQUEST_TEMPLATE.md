@@ -17,5 +17,5 @@ Describe your changes:
 
 - [ ] Does it work in all major browsers: Firefox, Chrome, Edge, Safari?
 - [ ] Does it work on mobile?
-- [ ] Can you `rm -rf node_modules/ && npm install` and app works as expected?
-
+- [ ] Can you `rm -rf node_modules/ && yarn bootstrap` and app works as expected?
+- [ ] Can you run a [production build](https://github.com/zooniverse/front-end-monorepo#getting-started) of the app?
