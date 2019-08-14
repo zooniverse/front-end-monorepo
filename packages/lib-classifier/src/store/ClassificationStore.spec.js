@@ -30,7 +30,7 @@ const singleChoiceAnnotationStub = SingleChoiceAnnotationFactory.build()
 const workflowStub = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskStub }})
 const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
 
-describe.only('Model > ClassificationStore', function () {
+describe('Model > ClassificationStore', function () {
   function setupStores (stores) {
     const clientStub = stubPanoptesJs({ classifications: [], subjects: subjectsStub })
     const store = RootStore.create(stores, {
