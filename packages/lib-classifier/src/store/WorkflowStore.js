@@ -55,10 +55,11 @@ const WorkflowStore = types
     }
 
     function getDefaultWorkflowId () {
-      const project = getRoot(self).projects.active
-      let id = null
+      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+      let id = ''
 
-      if (project) {
+      if (validProjectReference) {
+        const project = getRoot(self).projects.active
         if (project.configuration && project.configuration.default_workflow) {
           id = project.configuration.default_workflow
         } else if (project.links && project.links.active_workflows[0]) {

@@ -25,17 +25,17 @@ const FieldGuideStore = types
       const projectDisposer = autorun(() => {
         const validProjectReference = isValidReference(() => getRoot(self).projects.active)
         if (validProjectReference) {
+          const project = getRoot(self).projects.active
           self.reset()
-          self.fetchFieldGuide()
+          console.log('fetchFieldGuide called', getRoot(self).toJSON())
+          self.fetchFieldGuide(project.id)
         }
       }, { name: 'FieldGuideStore Project Observer autorun' })
       addDisposer(self, projectDisposer)
     }
 
     function reset () {
-      self.active = undefined
       self.resources.clear()
-      self.activeMedium = undefined
       self.attachedMedia.clear()
       self.activeItemIndex = undefined
       self.showModal = false
@@ -55,7 +55,9 @@ const FieldGuideStore = types
         } catch (error) {
           // We're not setting the store state to error because
           // we do not want to prevent the field guide from rendering
-          console.error(error)
+          if (process.browser) {
+            console.error(error)
+          }
         }
       }
     })
@@ -65,15 +67,16 @@ const FieldGuideStore = types
     }
 
     // TODO: move req in panoptes.js
-    function * fetchFieldGuide () {
+    function * fetchFieldGuide (projectID) {
       const { type } = self
-      const project = getRoot(self).projects.active
       const client = getRoot(self).client.panoptes
 
       self.loadingState = asyncStates.loading
       try {
-        const response = yield client.get(`/${type}`, { project_id: project.id })
+        console.log('fetching')
+        const response = yield client.get(`/${type}`, { project_id: projectID })
         const fieldGuide = response.body[type][0]
+        console.log('fieldGuide', fieldGuide)
         if (fieldGuide) {
           yield fetchMedia(fieldGuide)
           self.setResource(fieldGuide)
@@ -83,7 +86,9 @@ const FieldGuideStore = types
           self.loadingState = asyncStates.success
         }
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
       }
     }
@@ -93,12 +98,15 @@ const FieldGuideStore = types
     }
 
     function setActiveItemIndex (index) {
-      const fieldGuide = self.active
-      if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
-        if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
-        self.activeItemIndex = index
-      } else {
-        self.activeItemIndex = undefined
+      const validFieldGuide = isValidReference(() => self.active)
+      if (validFieldGuide) {
+        const fieldGuide = self.active
+        if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
+          if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
+          self.activeItemIndex = index
+        } else {
+          self.activeItemIndex = undefined
+        }
       }
     }
 

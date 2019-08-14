@@ -19,6 +19,7 @@ const ResourceStore = types
       const client = getRoot(self).client.panoptes
       const { type } = self
       self.loadingState = asyncStates.loading
+      console.log('fetching', type)
       try {
         const response = yield client.get(`/${type}/${id}`)
         self.headers = response.headers

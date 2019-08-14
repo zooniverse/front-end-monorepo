@@ -35,62 +35,73 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 
 const project = ProjectFactory.build()
 
-describe('Model > FieldGuideStore', function () {
-  function fetchFieldGuide (rootStore) {
-    sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide')
-    rootStore.projects.setResource(project)
-    return rootStore.projects.setActive(project.id)
-      .then(() => {
-        rootStore.fieldGuide.fetchFieldGuide.restore()
-        return rootStore.fieldGuide.fetchFieldGuide()
-      })
-  }
+function fetchFieldGuide(rootStore) {
+  sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide').callsFake(() => {})
+  rootStore.projects.setResource(project)
+  return rootStore.projects.setActive(project.id)
+    .then(() => {
+      rootStore.fieldGuide.fetchFieldGuide.restore()
+      return rootStore.fieldGuide.fetchFieldGuide()
+    })
+}
 
-  function setupStores (clientStub) {
-    const store = RootStore.create({
-      classifications: {},
-      dataVisAnnotating: {},
-      drawing: {},
-      feedback: {},
-      subjects: {},
-      subjectViewer: {},
-      tutorials: {},
-      workflows: {},
-      workflowSteps: {},
-      userProjectPreferences: {}
-    }, { client: clientStub })
+function setupStores(clientStub) {
+  const store = RootStore.create({
+    classifications: {},
+    dataVisAnnotating: {},
+    drawing: {},
+    feedback: {},
+    subjects: {},
+    subjectViewer: {},
+    tutorials: {},
+    workflows: {},
+    workflowSteps: {},
+    userProjectPreferences: {}
+  }, { client: clientStub })
 
-    return store
-  }
+  return store
+}
 
+describe.only('Model > FieldGuideStore', function () {
   it('should exist', function () {
     expect(FieldGuideStore).to.be.an('object')
   })
 
   it('should remain in an initialized state if there is no project', function () {
-    const panoptesClientStub = { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve(null)) } }
+    const panoptesClientStub = { panoptes: { get: sinon.stub().callsFake(() => Promise.resolve({ body: null })) } }
     const rootStore = setupStores(panoptesClientStub)
     expect(rootStore.tutorials.loadingState).to.equal(asyncStates.initialized)
     expect(rootStore.client.panoptes.get).to.have.not.been.called()
   })
 
-  it('should set the field guide if there is a project', function (done) {
-    const panoptesClientStub = {
-      panoptes: {
-        get: sinon.stub().callsFake((url) => {
-          if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
-          if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-          return Promise.resolve({ body: null })
-        })
+  describe('when there is a project', function () {
+    let rootStore
+    before(function () {
+      const panoptesClientStub = {
+        panoptes: {
+          get: sinon.stub().callsFake((url) => {
+            console.log('get', url)
+            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
+            if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
+            return Promise.resolve({ body: null })
+          })
+        }
       }
-    }
-    const rootStore = setupStores(panoptesClientStub)
+      rootStore = setupStores(panoptesClientStub)
+      rootStore.projects.setResource(project)
+      rootStore.projects.setActive(project.id)
+    })
 
-    fetchFieldGuide(rootStore)
-      .then(() => {
-        const fieldGuideInStore = rootStore.fieldGuide.active
-        expect(fieldGuideInStore.toJSON()).to.deep.equal(fieldGuide)
-      }).then(done, done)
+    it.only('should set the field guide', function () {
+
+      // const rootStore = setupStores(panoptesClientStub)
+
+      // fetchFieldGuide(rootStore)
+      //   .then(() => {
+          const fieldGuideInStore = rootStore.fieldGuide.active
+          expect(fieldGuideInStore.toJSON()).to.deep.equal(fieldGuide)
+        // }).then(done, done)
+    })
   })
 
   describe('Actions > fetchFieldGuide', function () {
