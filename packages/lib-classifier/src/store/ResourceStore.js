@@ -19,7 +19,6 @@ const ResourceStore = types
       const client = getRoot(self).client.panoptes
       const { type } = self
       self.loadingState = asyncStates.loading
-      console.log('fetching', type)
       try {
         const response = yield client.get(`/${type}/${id}`)
         self.headers = response.headers
@@ -32,7 +31,9 @@ const ResourceStore = types
           return undefined
         }
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
         return undefined
       }
@@ -49,7 +50,9 @@ const ResourceStore = types
           self.resources.put(resource)
           self.loadingState = asyncStates.success
         } catch (error) {
-          console.error(error)
+          if (process.browser) {
+            console.error(error)
+          }
         }
       }
     },

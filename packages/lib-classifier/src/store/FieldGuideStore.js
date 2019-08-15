@@ -27,7 +27,6 @@ const FieldGuideStore = types
         if (validProjectReference) {
           const project = getRoot(self).projects.active
           self.reset()
-          console.log('fetchFieldGuide called', getRoot(self).toJSON())
           self.fetchFieldGuide(project.id)
         }
       }, { name: 'FieldGuideStore Project Observer autorun' })
@@ -73,10 +72,8 @@ const FieldGuideStore = types
 
       self.loadingState = asyncStates.loading
       try {
-        console.log('fetching')
         const response = yield client.get(`/${type}`, { project_id: projectID })
         const fieldGuide = response.body[type][0]
-        console.log('fieldGuide', fieldGuide)
         if (fieldGuide) {
           yield fetchMedia(fieldGuide)
           self.setResource(fieldGuide)
