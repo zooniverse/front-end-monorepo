@@ -1,50 +1,67 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import find from 'lodash/find'
+import pick from 'lodash/find'
 import toNumber from 'lodash/toNumber'
 
-function fetchWorkflowData(activeWorkflows) {
+function fetchWorkflowData (activeWorkflows) {
   return panoptes
     .get('/workflows', {
+      complete: false,
+      fields: 'completeness',
       id: activeWorkflows.join(','),
     })
     .then(response => response.body.workflows)
+    .then(workflows => workflows.map(pickWorkflowFields))
 }
 
-function fetchTranslationData(language, activeWorkflows) {
+function fetchDisplayNames (language, activeWorkflows) {
   return panoptes
     .get('/translations', {
+      fields: 'strings,translated_id',
       language,
       translated_id: activeWorkflows.join(','),
       translated_type: 'workflow'
     })
     .then(response => response.body.translations)
+    .then(createDisplayNamesMap)
 }
 
 async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow) {
   try {
-    const [workflows, translations] = await Promise.all([
-      fetchWorkflowData(activeWorkflows),
-      fetchTranslationData(language, activeWorkflows)
-    ])
+    const workflows = await fetchWorkflowData(activeWorkflows)
+    const workflowIds = workflows.map(workflow => workflow.id)
+    const displayNames = await fetchDisplayNames(language, workflowIds)
 
     return workflows.map(workflow => {
-      const translation = find(translations, {
-        translated_id: toNumber(workflow.id)
-      })
-
       const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
 
       return {
         completeness: workflow.completeness || 0,
         default: isDefault,
         id: workflow.id,
-        displayName: translation.strings.display_name
+        displayName: displayNames[workflow.id]
       }
     })
   } catch (error) {
     console.error(error)
     return error
   }
+}
+
+function pickWorkflowFields (workflow) {
+  return {
+    completeness: workflow.completeness,
+    id: workflow.id
+  }
+}
+
+function createDisplayNamesMap (translations) {
+  const map = {}
+  translations.forEach(translation => {
+    const workflowId = translation.translated_id.toString()
+    map[workflowId] = translation.strings.display_name
+  })
+  return map
 }
 
 export default fetchWorkflowsHelper
