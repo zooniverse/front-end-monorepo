@@ -45,7 +45,9 @@ const UserProjectPreferencesStore = types
         self.headers = response.headers
         return response.body[type][0]
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
         return null
       }
@@ -65,7 +67,9 @@ const UserProjectPreferencesStore = types
           self.loadingState = asyncStates.success
         }
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
       }
     }
@@ -90,7 +94,9 @@ const UserProjectPreferencesStore = types
         self.loadingState = asyncStates.success
         if (resource) self.setUPP(resource)
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
       }
     }
@@ -113,7 +119,9 @@ const UserProjectPreferencesStore = types
           return resource
         }
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
         return null
       }
@@ -135,7 +143,9 @@ const UserProjectPreferencesStore = types
             yield self.putUPP(mergedUPP)
           }
         } catch (error) {
-          console.error(error)
+          if (process.browser) {
+            console.error(error)
+          }
           self.loadingState = asyncStates.error
         }
       }
@@ -163,7 +173,9 @@ const UserProjectPreferencesStore = types
 
           self.loadingState = asyncStates.success
         } catch (error) {
-          console.error(error)
+          if (process.browser) {
+            console.error(error)
+          }
           self.loadingState = asyncStates.error
         }
       }
