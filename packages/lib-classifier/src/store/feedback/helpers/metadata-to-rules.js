@@ -7,6 +7,9 @@ function metadataToRules (metadata = {}) {
     const stringValue = value.toString()
 
     if (prefix === '#feedback' && stringValue) {
+      if (isNaN(ruleIndex)) {
+        console.error('Subject metadata feedback ruleIndex is improperly formatted')
+      }
       const rule = result[ruleIndex] || {}
       rule[propKey] = value
       result[ruleIndex] = rule
