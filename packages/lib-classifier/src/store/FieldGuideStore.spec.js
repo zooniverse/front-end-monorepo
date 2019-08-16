@@ -36,16 +36,6 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 
 const project = ProjectFactory.build()
 
-// function fetchFieldGuide(rootStore) {
-//   sinon.stub(rootStore.fieldGuide, 'fetchFieldGuide').callsFake(() => {})
-//   rootStore.projects.setResource(project)
-//   return rootStore.projects.setActive(project.id)
-//     .then(() => {
-//       rootStore.fieldGuide.fetchFieldGuide.restore()
-//       return rootStore.fieldGuide.fetchFieldGuide()
-//     })
-// }
-
 function setupStores(clientStub) {
   const store = FieldGuideStore.create()
   store.projects = ProjectStore.create()
