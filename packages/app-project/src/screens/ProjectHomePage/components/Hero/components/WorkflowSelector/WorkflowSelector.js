@@ -62,9 +62,9 @@ function WorkflowSelector (props) {
 WorkflowSelector.propTypes = {
   workflows: shape({
     data: arrayOf(shape({
-      id: string
-    }))
-  })
+      id: string.isRequired
+    }).isRequired).isRequired
+  }).isRequired
 }
 
 export default withTheme(WorkflowSelector)

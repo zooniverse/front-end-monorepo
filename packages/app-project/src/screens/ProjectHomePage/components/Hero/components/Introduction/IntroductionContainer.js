@@ -37,14 +37,14 @@ class IntroductionContainer extends Component {
 }
 
 IntroductionContainer.propTypes = {
-  description: string,
+  description: string.isRequired,
   router: shape({
     query: shape({
-      owner: string,
-      project: string
-    })
-  }),
-  title: string
+      owner: string.isRequired,
+      project: string.isRequired
+    }).isRequired
+  }).isRequired,
+  title: string.isRequired
 }
 
 @inject(storeMapper)

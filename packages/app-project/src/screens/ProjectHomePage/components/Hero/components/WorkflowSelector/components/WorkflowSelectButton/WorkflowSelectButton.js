@@ -24,14 +24,12 @@ function WorkflowSelectButton (props) {
   )
 }
 
-WorkflowSelectButton.displayName = 'WorkflowSelectButton'
-
 WorkflowSelectButton.propTypes = {
   workflow: shape({
-    default: bool,
-    displayName: string,
-    id: string
-  })
+    default: bool.isRequired,
+    displayName: string.isRequired,
+    id: string.isRequired
+  }).isRequired
 }
 
 export default withThemeContext(WorkflowSelectButton, theme)

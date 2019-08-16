@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { arrayOf, string } from 'prop-types'
 import React, { Component } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
@@ -67,9 +67,15 @@ class HeroContainer extends Component {
 }
 
 HeroContainer.propTypes = {
+  activeWorkflows: arrayOf(string),
+  defaultWorkflow: string,
+  language: string,
 }
 
 HeroContainer.defaultProps = {
+  activeWorkflows: [],
+  defaultWorkflow: '',
+  language: 'en'
 }
 
 export default HeroContainer

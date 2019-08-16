@@ -37,9 +37,9 @@ function Introduction (props) {
 }
 
 Introduction.propTypes = {
-  description: string,
-  link: object,
-  title: string,
+  description: string.isRequired,
+  link: object.isRequired,
+  title: string.isRequired,
 }
 
 export default Introduction

@@ -19,7 +19,7 @@ class BackgroundContainer extends Component {
 }
 
 BackgroundContainer.propTypes = {
-  backgroundSrc: string
+  backgroundSrc: string.isRequired
 }
 
 @inject(storeMapper)
