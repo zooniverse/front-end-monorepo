@@ -39,7 +39,6 @@ describe('Model > SubjectStore', function () {
   describe('Actions > advance', function () {
     describe('with a full queue', function () {
       let rootStore
-      let previousSubject
       let initialSize
 
       before(function () {
@@ -47,13 +46,26 @@ describe('Model > SubjectStore', function () {
       })
 
       beforeEach(function () {
-        previousSubject = rootStore.subjects.resources.values().next().value.id
         initialSize = rootStore.subjects.resources.size
         rootStore.subjects.advance()
       })
 
       it('should reduce the queue size by one', function () {
         expect(rootStore.subjects.resources.size).to.equal(initialSize - 1)
+      })
+    })
+
+    describe('setting an active subject', function () {
+      let rootStore
+      let previousSubject
+
+      before(function () {
+        rootStore = setupStores()
+      })
+
+      beforeEach(function () {
+        previousSubject = rootStore.subjects.resources.values().next().value.id
+        rootStore.subjects.advance()
       })
 
       it('should make the next subject in the queue active', function () {
@@ -77,7 +89,7 @@ describe('Model > SubjectStore', function () {
         })
 
         it('should request more subjects', function () {
-          while (rootStore.subjects.resources.size > MINIMUM_QUEUE_SIZE) {
+          while (rootStore.subjects.resources.size >= MINIMUM_QUEUE_SIZE) {
             rootStore.subjects.advance()
           }
           rootStore.subjects.advance()
