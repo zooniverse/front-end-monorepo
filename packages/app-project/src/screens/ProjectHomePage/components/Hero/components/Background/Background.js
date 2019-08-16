@@ -22,6 +22,7 @@ function Background (props) {
   const { className, backgroundSrc, screenSize } = props
   return (
     <Img
+      alt=''
       className={className}
       src={backgroundSrc}
       screenSize={screenSize}
