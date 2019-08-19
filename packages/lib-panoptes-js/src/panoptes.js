@@ -24,79 +24,83 @@ function determineHost (query, host) {
   return config.host
 }
 
+function getQueryParams (query) {
+  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
+
+  if (query && Object.keys(query).length > 0) {
+    if (query && query.env) delete query.env
+    const fullQuery = Object.assign({}, query, defaultParams)
+    return fullQuery
+  } else {
+    return defaultParams
+  }
+}
+
 // TODO: Consider how to integrate a GraphQL option
 function get (endpoint, query = {}, headers = {}, host) {
-  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
+  if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
+
   const apiHost = determineHost(query, host)
   const request = superagent.get(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
   if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  const queryParams = getQueryParams(query)
 
-  if (query && Object.keys(query).length > 0) {
-    if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
-    if (query && query.env) delete query.env
-    const fullQuery = Object.assign({}, query, defaultParams)
-    request.query(fullQuery)
-  } else {
-    request.query(defaultParams)
-  }
-
-  return request.then(response => response)
+  return request.query(queryParams).then(response => response)
 }
 
-// TODO support env query
-function post (endpoint, data, headers = {}, host) {
-  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
-
+function post(endpoint, data, headers = {}, query = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
-  const apiHost = host || config.host
+  if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
+  const apiHost = determineHost(query, host)
   const request = superagent.post(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
   if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  const queryParams = getQueryParams(query)
 
-  return request.query(defaultParams)
+  return request.query(queryParams)
     .send(data)
     .then(response => response)
 }
 
-// TODO: support env query
-function put (endpoint, data, headers = {}, host) {
-  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
+function put(endpoint, data, headers = {}, query = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (!data) return handleMissingParameter('Request needs a defined data for update')
-  const apiHost = host || config.host
+  if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
+  const apiHost = determineHost(query, host)
   const request = superagent.put(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
   if (headers && headers.authorization) request.set('Authorization', headers.authorization)
   if (headers && headers.etag) request.set('If-Match', headers.etag)
+  const queryParams = getQueryParams(query)
 
-  return request.query(defaultParams)
+  return request.query(queryParams)
     .send(data)
     .then(response => response)
 }
 
 function del (endpoint, query = {}, headers = {}, host) {
-  const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
-
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
-  const apiHost = determineHost(query, host)
+  if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
+  const apiHost = determineHost(query, host)
   const request = superagent.delete(`${apiHost}${endpoint}`)
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
   if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  const queryParams = getQueryParams(query)
 
-  return request.query(defaultParams)
+  return request.query(queryParams)
     .then(response => response)
 }
 
