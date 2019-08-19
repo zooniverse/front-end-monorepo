@@ -1,21 +1,25 @@
 # Zooniverse Grommet Theme
 
-A Zooniverse theme for the [Grommet 2.0](https://grommet.github.io/) React component library.
+A Zooniverse theme for the [Grommet 2.0](https://grommet.github.io/) React component library. [Zooniverse brand](https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8).
 
 ## Usage
 
 To use this theme, import it and pass it as a prop to the top-level `Grommet` component:
 
 ```javascript
-import { Button, Grommet } from 'grommet'
+import { Button, Grommet, base as baseTheme } from 'grommet'
 import React from 'react'
-import grommetTheme from '@zooniverse/grommet-theme'
+import merge from 'lodash/merge'
+import zooTheme from '@zooniverse/grommet-theme'
 
 class MyComponent extends React.Component {
+  // Deep merging the base and new theme is recommended by the Grommet team
+  // Use which ever deep merge function you'd like
+  const mergedTheme = merge({}, baseTheme, zooTheme)
   render() {
     return (
-      <Grommet theme={grommetTheme}>
-        <Button color="teal" label="Click me!" />
+      <Grommet theme={mergedTheme}>
+        <Button color='brand' label='Click me!' />
       </Grommet>
     )
   }
