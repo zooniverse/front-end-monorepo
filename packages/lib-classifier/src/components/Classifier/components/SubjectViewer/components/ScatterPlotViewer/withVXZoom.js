@@ -75,39 +75,41 @@ function withVXZoom (WrappedComponent) {
         y: d3.extent(data.y)
       }
 
-      // const min = this.applyMatrixToPoint(transformMatrix, { x: dataExtent.x[0], y: dataExtent.y[0] })
-      // const max = this.applyMatrixToPoint(transformMatrix, { x: dataExtent.x[1], y: dataExtent.y[1] })
-      // console.log('min', min)
-      // console.log('max', max)
-      console.log('dataExtent', dataExtent)
-      if (dataExtent.x[1] < transformMatrix.translateX || dataExtent.y[1] < transformMatrix.translateY) {
-        return prevTransformMatrix;
-      }
-      // if (min.x > 0 || min.y > 0) {
-      //   return prevTransformMatrix
-      // }
-
-      console.log('transformMatrix', transformMatrix)
-
-      console.log('prevTransformMatrix', prevTransformMatrix)
+      const translatedPoints = this.applyMatrixToPoint(this.zoom.initialTransformMatrix, {x: dataExtent.x[1], y: dataExtent.y[1] })
+      console.log(translatedPoints)
+      const outOfXAxisDataBounds = transformMatrix.translateX > dataExtent.x[1]
+      const outOfYAxisDataBounds = transformMatrix.translateY > dataExtent.y[1]
 
       if (zoomConfiguration.direction === 'x') {
+        if (outOfXAxisDataBounds) {
+          return prevTransformMatrix
+        }
+
         const newTransformMatrix = Object.assign({}, transformMatrix, { scaleY: 1, translateY: 0 })
         if (newTransformMatrix.scaleX < 1) {
           newTransformMatrix.scaleX = 1
           newTransformMatrix.translateX = 0
         }
-        console.log('new transform matrix', newTransformMatrix)
         return newTransformMatrix
       }
 
       if (zoomConfiguration.direction === 'y') {
+        if (outOfYAxisDataBounds) {
+          return prevTransformMatrix
+        }
+
         const newTransformMatrix = Object.assign({}, transformMatrix, { scaleX: 1, translateX: 0 })
         if (newTransformMatrix.scaleY < 1) {
           newTransformMatrix.scaleY = 1
           newTransformMatrix.translateY = 0
         }
         return newTransformMatrix
+      }
+
+      if (zoomConfiguration.direction === 'both') {
+        if (outOfXAxisDataBounds || outOfYAxisDataBounds) {
+          return prevTransformMatrix
+        }
       }
 
       if (zoomConfiguration.direction === 'none') {
