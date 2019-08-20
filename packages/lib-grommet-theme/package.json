@@ -12,11 +12,11 @@
     "deep-freeze": "~0.0.1"
   },
   "devDependencies": {
-    "@zooniverse/standard": "^1.0.0",
-    "snazzy": "^8.0.0"
+    "@zooniverse/standard": "~1.0.0",
+    "snazzy": "~8.0.0"
   },
   "peerDependencies": {
-    "grommet": "2.7.x"
+    "grommet": ">=2"
   },
   "engines": {
     "node": ">=10"
