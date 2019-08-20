@@ -39,7 +39,7 @@ describe('Model > SubjectStore', function () {
   describe('Actions > advance', function () {
     describe('with a full queue', function () {
       let rootStore
-      let previousSubject
+      let previousSubjectID
       let initialSize
 
       before(function () {
@@ -47,20 +47,27 @@ describe('Model > SubjectStore', function () {
       })
 
       beforeEach(function () {
-        previousSubject = rootStore.subjects.resources.values().next().value.id
+        previousSubjectID = rootStore.subjects.active && rootStore.subjects.active.id
         initialSize = rootStore.subjects.resources.size
         rootStore.subjects.advance()
+      })
+
+      it('should make the next subject in the queue active', function () {
+        const currentSubjectID = rootStore.subjects.active && rootStore.subjects.active.id
+        expect(currentSubjectID).to.equal(subjects[1].id)
       })
 
       it('should reduce the queue size by one', function () {
         expect(rootStore.subjects.resources.size).to.equal(initialSize - 1)
       })
 
-      it('should make the next subject in the queue active', function () {
-        const currentSubject = rootStore.subjects.resources.values().next().value.id
-        expect(rootStore.subjects.active.id).to.equal(currentSubject)
-        expect(rootStore.subjects.resources.get(previousSubject)).to.be.undefined()
-        expect(previousSubject).to.not.equal(currentSubject)
+      it('should remove the active subject from the queue', function () {
+        expect(rootStore.subjects.resources.get(previousSubjectID)).to.be.undefined()
+      })
+
+      it('should change the active subject', function () {
+        const currentSubjectID = rootStore.subjects.active && rootStore.subjects.active.id
+        expect(currentSubjectID).to.not.equal(previousSubjectID)
       })
     })
 
