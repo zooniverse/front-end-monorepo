@@ -58,6 +58,11 @@ describe('Model > FeedbackStore', function () {
       reducer: sinon.stub().callsFake(rule => rule)
     }
   })
+
+  after(function () {
+    helpers.isFeedbackActive.restore()
+    helpers.generateRules.restore()
+  })
   
   describe('existance', function () {
     it('should exist', function () {
