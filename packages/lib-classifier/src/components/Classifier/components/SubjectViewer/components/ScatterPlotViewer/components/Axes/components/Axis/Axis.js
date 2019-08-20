@@ -2,15 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { AxisLeft, AxisBottom } from '@vx/axis'
 import InnerTickAxis from '../InnerTickAxis'
+import { PADDING } from '../../../../helpers/constants'
 
 function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
   const { direction, length } = tickStyles
   const {
     color,
     fontFamily,
-    fontSize,
-    padding,
-    margin
+    fontSize
   } = chartStyles
 
   const {
@@ -40,7 +39,7 @@ function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
           fontSize,
           fontFamily
         }}
-        left={padding}
+        left={PADDING}
         tickLabelProps={() => ({
           fill: color,
           fontSize,
@@ -76,7 +75,7 @@ function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
         tickStroke={color}
         stroke={color}
         scale={scale}
-        top={parentHeight - padding}
+        top={parentHeight - PADDING}
       />
     )
   }

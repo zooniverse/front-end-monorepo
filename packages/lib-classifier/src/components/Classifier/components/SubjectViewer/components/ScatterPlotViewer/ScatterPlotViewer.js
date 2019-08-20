@@ -9,6 +9,7 @@ import withVXZoom from './withVXZoom'
 import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
 import Axes from './components/Axes'
+import { MARGIN, PADDING } from './helpers/constants'
 
 function ScatterPlotViewer(props) {
   const {
@@ -17,20 +18,16 @@ function ScatterPlotViewer(props) {
     data,
     parentHeight,
     parentWidth,
-    panning,
     tickStyles,
     transformMatrix,
     xAxisLabel,
-    yAxisLabel,
-    zooming
+    yAxisLabel
   } = props
 
   const {
     background,
     dataPointSize,
-    color,
-    padding,
-    margin
+    color
   } = chartStyles
 
   const dataPoints = zip(data.x, data.y)
@@ -41,27 +38,28 @@ function ScatterPlotViewer(props) {
 
   const xScale = scaleLinear({
     domain: dataExtent.x,
-    range: [0 + padding, parentWidth - margin]
+    range: [0 + PADDING, parentWidth - MARGIN]
   })
+
   const yScale = scaleLinear({
     domain: dataExtent.y,
-    range: [parentHeight - padding, 0 + margin]
+    range: [parentHeight - PADDING, 0 + MARGIN]
   })
 
   const xScaleTransformed = scaleLinear({
     domain: [
       xScale.invert((xScale(dataExtent.x[0]) - transformMatrix.translateX) / transformMatrix.scaleX),
-      xScale.invert((xScale(dataExtent.x[1]) - transformMatrix.translateX) / transformMatrix.scaleX),
+      xScale.invert((xScale(dataExtent.x[1]) - transformMatrix.translateX) / transformMatrix.scaleX)
     ],
-    range: [0 + padding, parentWidth - margin]
+    range: [0 + PADDING, parentWidth - MARGIN]
   });
 
   const yScaleTransformed = scaleLinear({
     domain: [
       yScale.invert((yScale(dataExtent.y[0]) - transformMatrix.translateY) / transformMatrix.scaleY),
-      yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY),
+      yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY)
     ],
-    range: [parentHeight - padding, 0 + margin],
+    range: [parentHeight - PADDING, 0 + MARGIN],
   })
 
   const axesConfig = {
@@ -80,12 +78,12 @@ function ScatterPlotViewer(props) {
   return (
     <Chart
       height={parentHeight}
-      width={parentWidth + margin}
+      width={parentWidth + MARGIN}
     >
       <Background fill={background} />
       <Group
-        left={margin}
-        top={margin}
+        left={MARGIN}
+        top={MARGIN}
       >
         {dataPoints.map((point, index) => {
           const cx = xScaleTransformed(point[0])
@@ -119,9 +117,7 @@ ScatterPlotViewer.defaultProps = {
     background: '#003941', // Zooniverse Dark Teal
     dataPointSize: '1.5',
     fontFamily: 'inherit',
-    fontSize: '0.75rem',
-    margin: 10,
-    padding: 30
+    fontSize: '0.75rem'
   },
   data: {
     x: [1],

@@ -1,17 +1,34 @@
 import React, { PureComponent, forwardRef} from 'react'
 import PropTypes from 'prop-types'
-import { ParentSize } from '@vx/responsive'
+import { withParentSize, ParentSize } from '@vx/responsive'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
 import * as d3 from 'd3'
+import scaleTransform from './helpers/scaleTransform'
+import { MARGIN, PADDING } from './helpers/constants'
 import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
-import { transform } from 'popmotion';
 
 function withVXZoom (WrappedComponent) {
   class VXZoom extends PureComponent {
     constructor(props) {
       super(props)
-      props.setOnZoom(this.handleToolbarZoom.bind(this))
+      const {
+        data,
+        parentHeight,
+        parentWidth,
+        setOnZoom
+      } = props
+
+      setOnZoom(this.handleToolbarZoom.bind(this))
+
+      this.state = {
+        dataExtent: {
+          x: d3.extent(data.x),
+          y: d3.extent(data.y)
+        },
+        xRange: [PADDING, parentWidth - MARGIN],
+        yRange: [parentHeight - PADDING, MARGIN]
+      }
 
       this.constrain = this.constrain.bind(this)
       this.onDoubleClick = this.onDoubleClick.bind(this)
@@ -61,55 +78,92 @@ function withVXZoom (WrappedComponent) {
       this.zoomToPoint(event, 'in')
     }
 
-    applyMatrixToPoint(matrix, { x, y }) {
-      return {
-        x: matrix.scaleX * x + matrix.skewX * y + matrix.translateX,
-        y: matrix.skewY * x + matrix.scaleY * y + matrix.translateY
+    constrainXAxisZoom (transformMatrix, prevTransformMatrix) {
+      const { zoomConfiguration } = this.props
+      const { maxZoom, minZoom } = zoomConfiguration
+      const { scaleX, translateX } = transformMatrix
+      const { dataExtent, xRange, yRange } = this.state
+      
+      const { xScale, yScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
+      const xScaleDomain = xScale.domain()
+      const xScaleRange = xScale.range()
+      console.log('domain', xScale.domain(), xScale.range())
+      const outOfXAxisDataBounds = xScaleDomain[0] < dataExtent.x[0] || xScaleDomain[1] > xScaleRange[0]
+      const shouldConstrainScaleX = scaleX > maxZoom || scaleX < minZoom
+      if (outOfXAxisDataBounds) {
+        return prevTransformMatrix
       }
+
+      if (shouldConstrainScaleX) {
+        return prevTransformMatrix
+      }
+
+      const newTransformMatrix = Object.assign({}, transformMatrix, { scaleY: 1, translateY: 0 })
+      if (newTransformMatrix.scaleX < 1) {
+        newTransformMatrix.scaleX = 1
+        newTransformMatrix.translateX = 0
+      }
+      return newTransformMatrix
+    }
+
+    constrainYAxisZoom (transformMatrix, prevTransformMatrix) {
+      const { data, zoomConfiguration } = this.props
+      const { maxZoom, minZoom } = zoomConfiguration
+      const { scaleY, translateY } = transformMatrix
+      const yDataExtent = d3.extent(data.y)
+      const outOfYAxisDataBounds = translateY > yDataExtent[1]
+      const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
+
+      if (outOfYAxisDataBounds) {
+        return prevTransformMatrix
+      }
+
+      if (shouldConstrainScaleY) {
+        return prevTransformMatrix
+      }
+
+      const newTransformMatrix = Object.assign({}, transformMatrix, { scaleX: 1, translateX: 0 })
+      if (newTransformMatrix.scaleY < 1) {
+        newTransformMatrix.scaleY = 1
+        newTransformMatrix.translateY = 0
+      }
+      return newTransformMatrix
+    }
+
+    constrainBothAxisZoom (transformMatrix, prevTransformMatrix) {
+      const { zoomConfiguration } = this.props
+      const { dataExtent } = this.state
+      const { maxZoom, minZoom } = zoomConfiguration
+      const { scaleY, translateY } = transformMatrix
+      const outOfXAxisDataBounds = translateX > dataExtent.x[1]
+      const shouldConstrainScaleX = scaleX > maxZoom || scaleX < minZoom
+      const outOfYAxisDataBounds = translateY > dataExtent.y[1]
+      const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
+
+      if (outOfXAxisDataBounds || outOfYAxisDataBounds) {
+        return prevTransformMatrix
+      }
+
+      if (shouldConstrainScaleX || shouldConstrainScaleY) {
+        return prevTransformMatrix
+      }
+
+      return transformMatrix
     }
 
     constrain (transformMatrix, prevTransformMatrix) {
-      const { data, parentWidth, parentHeight, zoomConfiguration } = this.props
-      const dataExtent = {
-        x: d3.extent(data.x),
-        y: d3.extent(data.y)
-      }
-
-      const translatedPoints = this.applyMatrixToPoint(this.zoom.initialTransformMatrix, {x: dataExtent.x[1], y: dataExtent.y[1] })
-      console.log(translatedPoints)
-      const outOfXAxisDataBounds = transformMatrix.translateX > dataExtent.x[1]
-      const outOfYAxisDataBounds = transformMatrix.translateY > dataExtent.y[1]
+      const { zoomConfiguration } = this.props
 
       if (zoomConfiguration.direction === 'x') {
-        if (outOfXAxisDataBounds) {
-          return prevTransformMatrix
-        }
-
-        const newTransformMatrix = Object.assign({}, transformMatrix, { scaleY: 1, translateY: 0 })
-        if (newTransformMatrix.scaleX < 1) {
-          newTransformMatrix.scaleX = 1
-          newTransformMatrix.translateX = 0
-        }
-        return newTransformMatrix
+        return this.constrainXAxisZoom(transformMatrix, prevTransformMatrix)
       }
 
       if (zoomConfiguration.direction === 'y') {
-        if (outOfYAxisDataBounds) {
-          return prevTransformMatrix
-        }
-
-        const newTransformMatrix = Object.assign({}, transformMatrix, { scaleX: 1, translateX: 0 })
-        if (newTransformMatrix.scaleY < 1) {
-          newTransformMatrix.scaleY = 1
-          newTransformMatrix.translateY = 0
-        }
-        return newTransformMatrix
+        return this.constrainYAxisZoom(transformMatrix, prevTransformMatrix)
       }
 
       if (zoomConfiguration.direction === 'both') {
-        if (outOfXAxisDataBounds || outOfYAxisDataBounds) {
-          return prevTransformMatrix
-        }
+        return this.constrainBothAxisZoom(transformMatrix, prevTransformMatrix)
       }
 
       if (zoomConfiguration.direction === 'none') {
@@ -134,49 +188,49 @@ function withVXZoom (WrappedComponent) {
     render() {
       const {
         panning,
+        parentHeight,
+        parentWidth,
         zoomConfiguration
       } = this.props
 
       return (
-        <ParentSize>
-          {parent => (
-            <Zoom
-              constrain={this.constrain}
-              height={parent.height}
-              scaleXMin={zoomConfiguration.minZoom}
-              scaleXMax={zoomConfiguration.maxZoom}
-              scaleYMin={zoomConfiguration.minZoom}
-              scaleYMax={zoomConfiguration.maxZoom}
-              passive
-              width={parent.width}
-            >
-              {zoom => {
-                console.log('zoom', zoom)
-                this.zoom = zoom
-                return (
-                  <WrappedComponent
-                    parentHeight={parent.height}
-                    parentWidth={parent.width}
-                    transformMatrix={zoom.transformMatrix}
-                    {...this.props}
-                  >
-                    <ZoomEventLayer
-                      onWheel={(event) => this.onWheel(event)}
-                      onMouseDown={panning ? zoom.dragStart : () => { }}
-                      onMouseMove={panning ? zoom.dragMove : () => { }}
-                      onMouseUp={panning ? zoom.dragEnd : () => { }}
-                      onMouseLeave={this.onMouseLeave}
-                      onDoubleClick={this.onDoubleClick}
-                      panning={panning}
-                      parentHeight={parent.height}
-                      parentWidth={parent.width}
-                    />
-                  </WrappedComponent>
-                )
-              }}
-            </Zoom>
-          )}
-        </ParentSize>
+        <Zoom
+          constrain={this.constrain}
+          height={parentHeight}
+          scaleXMin={zoomConfiguration.minZoom}
+          scaleXMax={zoomConfiguration.maxZoom}
+          scaleYMin={zoomConfiguration.minZoom}
+          scaleYMax={zoomConfiguration.maxZoom}
+          passive
+          width={parentWidth}
+        >
+          {zoom => {
+            console.log('zoom', zoom)
+            this.zoom = zoom
+            return (
+              <WrappedComponent
+                margin={MARGIN}
+                padding={PADDING}
+                parentHeight={parentHeight}
+                parentWidth={parentWidth}
+                transformMatrix={zoom.transformMatrix}
+                {...this.props}
+              >
+                <ZoomEventLayer
+                  onWheel={(event) => this.onWheel(event)}
+                  onMouseDown={panning ? zoom.dragStart : () => { }}
+                  onMouseMove={panning ? zoom.dragMove : () => { }}
+                  onMouseUp={panning ? zoom.dragEnd : () => { }}
+                  onMouseLeave={this.onMouseLeave}
+                  onDoubleClick={this.onDoubleClick}
+                  panning={panning}
+                  parentHeight={parentHeight}
+                  parentWidth={parentWidth}
+                />
+              </WrappedComponent>
+            )
+          }}
+        </Zoom>
       )
     }
   }
@@ -217,7 +271,7 @@ function withVXZoom (WrappedComponent) {
   DecoratedVXZoom.displayName = `withVXZoom(${name})`
   DecoratedVXZoom.wrappedComponent = WrappedComponent
 
-  return DecoratedVXZoom
+  return withParentSize(DecoratedVXZoom)
 }
 
 export default withVXZoom

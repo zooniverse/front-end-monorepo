@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Axis } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Line } from '@vx/shape'
+import { MARGIN, PADDING } from '../../../../helpers/constants'
 
 function InnerTickAxis (props) {
   const {
@@ -16,9 +17,7 @@ function InnerTickAxis (props) {
   const {
     color,
     fontFamily,
-    fontSize,
-    padding,
-    margin
+    fontSize
   } = chartStyles
 
   const {
@@ -27,7 +26,7 @@ function InnerTickAxis (props) {
     scale
   } = axis
 
-  const top = (orientation === 'right') ? padding : parentHeight - tickLength
+  const top = (orientation === 'right') ? PADDING : parentHeight - tickLength
   return (
     <Axis
       hideAxisLine
@@ -40,14 +39,14 @@ function InnerTickAxis (props) {
     >
       {innerAxis => {
         const labelTransform = (orientation === 'right') ?
-          `translate(${0 + margin}, ${0 - margin})` :
-          `translate(${parentWidth - (padding + margin)}, ${0 - margin})`
+          `translate(${0 + MARGIN}, ${0 - MARGIN})` :
+          `translate(${parentWidth - (PADDING + MARGIN)}, ${0 - MARGIN})`
         return (
           <g>
             {innerAxis.ticks.map((tick, i) => {
               const tickLabelTransform = (orientation === 'right') ?
                 `translate(${tick.to.x + tickLength}, ${tick.to.y + 3})` :
-                `translate(${tick.to.x}, ${tick.to.y - margin})`
+                `translate(${tick.to.x}, ${tick.to.y - MARGIN})`
               const tickTextAnchor = (orientation === 'right') ? 'start' : 'middle'
               return (
                 <Group key={`vx-tick-${tick.value}-${i}`} className={'vx-axis-tick'}>
