@@ -38,15 +38,11 @@ describe('Model > SubjectStore', function () {
   }
   describe('Actions > advance', function () {
     describe('with a full queue', function () {
-      let rootStore
+      const rootStore = setupStores()
       let previousSubjectID
       let initialSize
 
       before(function () {
-        rootStore = setupStores()
-      })
-
-      beforeEach(function () {
         previousSubjectID = rootStore.subjects.active && rootStore.subjects.active.id
         initialSize = rootStore.subjects.resources.size
         rootStore.subjects.advance()
