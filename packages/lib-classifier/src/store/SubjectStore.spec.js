@@ -13,7 +13,7 @@ const shortListSubjects = Factory.buildList('subject', 2)
 const clientStub = stubPanoptesJs({ subjects: longListSubjects, workflows: workflow })
 
 describe('Model > SubjectStore', function () {
-  function mockStores(panoptesClientStub = clientStub) {
+  function mockSubjectStore(panoptesClientStub = clientStub) {
     const store = RootStore.create({
       classifications: {},
       dataVisAnnotating: {},
@@ -34,11 +34,11 @@ describe('Model > SubjectStore', function () {
     store.projects.setActive(project.id)
     store.workflows.setResource(workflow)
     store.workflows.setActive(workflow.id)
-    return store
+    return store.subjects
   }
   describe('Actions > advance', function () {
     describe('with a full queue', function () {
-      const { subjects } = mockStores()
+      const subjects = mockSubjectStore()
       let previousSubjectID
       let initialSize
 
@@ -69,15 +69,13 @@ describe('Model > SubjectStore', function () {
 
     describe('with less than three subjects in the queue', function () {
       describe('when the initial response has ten subjects', function () {
-        const { subjects } = mockStores()
+        const subjects = mockSubjectStore()
 
         it('should request more subjects', function () {
           while (subjects.resources.size > MINIMUM_QUEUE_SIZE) {
             subjects.advance()
-            console.log(subjects.resources.size)
           }
           subjects.advance()
-          console.log(subjects.resources.size)
           // Once for initialization and once after the queue has been advanced to less than 3 subjects
           expect(subjects.populateQueue).to.have.been.calledTwice()
         })
@@ -85,7 +83,7 @@ describe('Model > SubjectStore', function () {
 
       describe('when the initial response has less than three subjects', function () {
         const clientStub = stubPanoptesJs({ workflows: workflow, subjects: shortListSubjects })
-        const { subjects } = mockStores(clientStub)
+        const subjects = mockSubjectStore(clientStub)
 
         it('should request more subjects', function () {
           // Once for initialization and again since less than three subjects in initial response
@@ -95,7 +93,7 @@ describe('Model > SubjectStore', function () {
 
       describe('when the initial response has no subjects', function () {
         const clientStub = stubPanoptesJs({ workflows: workflow, subjects: [] })
-        const { subjects } = mockStores(clientStub)
+        const subjects = mockSubjectStore(clientStub)
 
         it('should request more subjects', function () {
           // Once for initialization
@@ -111,7 +109,7 @@ describe('Model > SubjectStore', function () {
 
     describe('after emptying the queue', function () {
       const clientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const { subjects } = mockStores(clientStub)
+      const subjects = mockSubjectStore(clientStub)
 
       beforeEach(function () {
         while (subjects.resources.size > 0) {
@@ -130,14 +128,14 @@ describe('Model > SubjectStore', function () {
     it('should return false when there is not an active queue subject', function (done) {
       const getStub = stubPanoptesJs({ subjects: [] })
 
-      const { subjects } = mockStores(getStub)
+      const subjects = mockSubjectStore(getStub)
       subjects.populateQueue().then(() => {
         expect(subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return false if the active subject does not have metadata', function (done) {
-      const { subjects } = mockStores()
+      const subjects = mockSubjectStore()
       subjects.populateQueue().then(() => {
         expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(0)
         expect(subjects.isThereMetadata).to.be.false()
@@ -148,7 +146,7 @@ describe('Model > SubjectStore', function () {
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
       const getStub = stubPanoptesJs({ subjects: subjectWithHiddenMetadata })
 
-      const { subjects } = mockStores(getStub)
+      const subjects = mockSubjectStore(getStub)
       subjects.populateQueue().then(() => {
         const metadataKeys = Object.keys(subjects.active.metadata)
         expect(metadataKeys).to.have.lengthOf(1)
@@ -161,7 +159,7 @@ describe('Model > SubjectStore', function () {
       const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
       const getStub = stubPanoptesJs({ subjects: subjectWithMetadata })
 
-      const { subjects } = mockStores(getStub)
+      const subjects = mockSubjectStore(getStub)
       subjects.populateQueue().then(() => {
         expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(1)
         expect(subjects.isThereMetadata).to.be.true()
