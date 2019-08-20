@@ -47,7 +47,7 @@ function setupStores(clientStub) {
 }
 
 
-describe.only('Model > FieldGuideStore', function () {
+describe('Model > FieldGuideStore', function () {
   it('should exist', function () {
     expect(FieldGuideStore).to.be.an('object')
   })
