@@ -7,8 +7,6 @@ import {
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-let rootStore
-
 const workflow = WorkflowFactory.build({
   tasks: { T1: SingleChoiceTaskFactory.build() },
   steps: [['S1', { taskKeys: ['T1'] }]]

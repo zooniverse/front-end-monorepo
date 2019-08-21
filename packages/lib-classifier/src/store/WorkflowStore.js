@@ -12,12 +12,12 @@ const WorkflowStore = types
   })
 
   .actions(self => {
-    function afterAttach () {
+    function afterAttach() {
       createProjectObserver()
       createUPPObserver()
     }
 
-    function createProjectObserver () {
+    function createProjectObserver() {
       const projectDisposer = autorun(() => {
         const validProjectReference = isValidReference(() => getRoot(self).projects.active)
         if (validProjectReference) {
@@ -29,7 +29,7 @@ const WorkflowStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function createUPPObserver () {
+    function createUPPObserver() {
       const uppDisposer = autorun(() => {
         const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
         const validWorkflowReference = isValidReference(() => self.active)
@@ -37,11 +37,11 @@ const WorkflowStore = types
           self.reset()
           selectWorkflow()
         }
-      }, { name: 'Workflow Store UPP Observer autorun'})
+      }, { name: 'Workflow Store UPP Observer autorun' })
       addDisposer(self, uppDisposer)
     }
 
-    function getQueryParamId () {
+    function getQueryParamId() {
       if (window.location && window.location.search) {
         const { workflow } = queryString.parse(window.location.search) // Search the query string for the 'project='
         if (workflow) {
@@ -54,11 +54,12 @@ const WorkflowStore = types
       return undefined
     }
 
-    function getDefaultWorkflowId () {
-      const project = getRoot(self).projects.active
-      let id = null
+    function getDefaultWorkflowId() {
+      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+      let id = ''
 
-      if (project) {
+      if (validProjectReference) {
+        const project = getRoot(self).projects.active
         if (project.configuration && project.configuration.default_workflow) {
           id = project.configuration.default_workflow
         } else if (project.links && project.links.active_workflows[0]) {
@@ -70,7 +71,7 @@ const WorkflowStore = types
       return id
     }
 
-    function selectWorkflow (id = getDefaultWorkflowId()) {
+    function selectWorkflow(id = getDefaultWorkflowId()) {
       if (id) {
         self.setActive(id)
       } else {
