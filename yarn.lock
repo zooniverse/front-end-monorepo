@@ -3580,6 +3580,13 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zooniverse/grommet-theme@~2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@zooniverse/grommet-theme/-/grommet-theme-2.0.0.tgz#9cc997c7e7f81738ee7f7d08fed596e53c3ebfa8"
+  integrity sha512-vXfWwu0IhhkaT88rJdDsL87n74mXjECOHCZNdxl7snb5jVF7WBZm/BZQHFaQ3e/KLV28+xZJe6OF5ReiEoadRQ==
+  dependencies:
+    deep-freeze "~0.0.1"
+
 JSONStream@^1.0.4, JSONStream@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
