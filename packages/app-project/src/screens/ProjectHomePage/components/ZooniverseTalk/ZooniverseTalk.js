@@ -13,12 +13,11 @@ import RecentSubjects from './components/RecentSubjects'
 counterpart.registerTranslations('en', en)
 
 function ZooniverseTalk (props) {
-  const showSubjects = props.screenSize !== 'small'
-  const width = showSubjects ? '18%' : 'full'
+  const direction = props.screenSize === 'small' ? 'column' : 'row'
 
   return (
-    <ContentBox direction='row' gap='large'>
-      <Box width={width} gap='small' justify='between'>
+    <ContentBox direction={direction} gap='large'>
+      <Box width='full' gap='small' justify='between'>
         <Box gap='small'>
           <WidgetHeading>
             <Box direction='row' gap='xsmall' align='center'>
@@ -35,7 +34,7 @@ function ZooniverseTalk (props) {
         <JoinInButton />
       </Box>
       <Box fill='horizontal'>
-        <RecentSubjects show={showSubjects} />
+        <RecentSubjects show={true} />
       </Box>
     </ContentBox>
   )
