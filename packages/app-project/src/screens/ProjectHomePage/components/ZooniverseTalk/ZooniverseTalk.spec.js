@@ -3,6 +3,7 @@ import React from 'react'
 
 import { ZooniverseTalk } from './ZooniverseTalk'
 import translations from './locales/en'
+import ContentBox from '../../../../shared/components/ContentBox'
 
 describe('Component > ZooniverseTalk', function () {
   let wrapper
@@ -25,5 +26,25 @@ describe('Component > ZooniverseTalk', function () {
     const { message } = translations.ZooniverseTalk
     const messageWrapper = wrapper.find(`[children="${message}"]`)
     expect(messageWrapper).to.have.lengthOf(1)
+  })
+
+  it('should use a row layout', function () {
+    const contentBox = wrapper.find(ContentBox)
+    expect(contentBox.prop('direction')).to.equal('row')
+  })
+
+  describe('on small screens', function () {
+    before(function () {
+      wrapper.setProps({ screenSize: 'small' })
+    })
+
+    after(function () {
+      wrapper.setProps({ screenSize: undefined })
+    })
+
+    it('should use a column layout', function () {
+      const contentBox = wrapper.find(ContentBox)
+      expect(contentBox.prop('direction')).to.equal('column')
+    })
   })
 })
