@@ -1,13 +1,13 @@
 import counterpart from 'counterpart'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
-import { Box, Grid } from 'grommet'
+import { Anchor, Box, Grid } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
 // TODO: Use the subject viewers from the classifier
 function RecentSubjects (props) {
-  const { className, subjects } = props
+  const { className, href, subjects } = props
   const height=200
   const width=200
   return (
@@ -21,14 +21,20 @@ function RecentSubjects (props) {
         const subjectURLs = subject.locations.map(location => Object.values(location)[0])
         const subjectURL = subjectURLs[0]
         return (
-          <Box background='brand' elevation='small' justify='end' pad='none'>
-            <Media
-              alt={`subject ${subject.id}`}
-              height={height}
-              src={subjectURL}
-              width={width}
-            />
-          </Box>
+          <Anchor
+            key={subject.id}
+            href={`${href}/subjects/${subject.id}`}
+          >
+            <Box background='brand' elevation='small' justify='end' pad='none'>
+              <Media
+                alt={`subject ${subject.id}`}
+                className={className}
+                height={height}
+                src={subjectURL}
+                width={width}
+              />
+            </Box>
+          </Anchor>
         )
       })}
     </Grid>
