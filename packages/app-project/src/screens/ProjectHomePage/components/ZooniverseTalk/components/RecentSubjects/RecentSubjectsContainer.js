@@ -14,7 +14,8 @@ counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   return {
-    projectId: stores.store.project.id
+    projectId: stores.store.project.id,
+    slug: stores.store.project.slug
   }
 }
 
@@ -47,13 +48,14 @@ class RecentSubjectsContainer extends Component {
   render () {
     const { show } = this.props
     const { loading, subjects } = this.state
+    const href=`/projects/${this.props.slug}/talk`
     let result = null
 
     if (show) {
       if (loading === asyncStates.success) {
         result = (subjects.length < 1)
           ? (<MessageBox children={counterpart('RecentSubjects.noSubjects')} />)
-          : (<RecentSubjects subjects={subjects} />)
+          : (<RecentSubjects href={href} subjects={subjects} />)
       } else if (loading === asyncStates.error) {
         result = (<MessageBox children={counterpart('RecentSubjects.error')} />)
       } else {
