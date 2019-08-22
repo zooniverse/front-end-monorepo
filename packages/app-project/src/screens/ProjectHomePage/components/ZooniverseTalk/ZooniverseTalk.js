@@ -14,10 +14,11 @@ counterpart.registerTranslations('en', en)
 
 function ZooniverseTalk (props) {
   const direction = props.screenSize === 'small' ? 'column' : 'row'
+  const width = props.screenSize === 'small' ? 'full' : '30%'
 
   return (
     <ContentBox direction={direction} gap='large'>
-      <Box width='full' gap='small' justify='between'>
+      <Box width={width} gap='small' justify='between'>
         <Box gap='small'>
           <WidgetHeading>
             <Box direction='row' gap='xsmall' align='center'>
