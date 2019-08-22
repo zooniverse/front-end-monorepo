@@ -9,7 +9,7 @@ import styled from 'styled-components'
 function RecentSubjects (props) {
   const { className, href, subjects } = props
   const height=200
-  const width=200
+  const width=300
   return (
     <Grid
       className={className}
