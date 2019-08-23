@@ -126,18 +126,41 @@ describe('Model > SubjectStore', function () {
 
     before(function () {
       subjects.append(shortListSubjects)
-      subjects.append(longListSubjects)
     })
 
     it('should increase the size of the queue', function () {
-      expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+      expect(subjects.resources.size).to.equal(shortListSubjects.length)
     })
 
     it('should add new subjects to the end of the queue', function () {
       const initialSubjectIDs = shortListSubjects.map(subject => subject.id)
-      const newSubjectIDs = longListSubjects.map(subject => subject.id)
       const queue = Array.from(subjects.resources.keys())
-      expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+      expect(queue).to.deep.equal(initialSubjectIDs)
+    })
+
+    it('should set the active subject', function () {
+      expect(subjects.active.id).to.equal(shortListSubjects[0].id)
+    })
+
+    describe('with an existing queue', function () {
+      before(function () {
+        subjects.append(longListSubjects)
+      })
+
+      it('should increase the size of the queue', function () {
+        expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+      })
+
+      it('should add new subjects to the end of the queue', function () {
+        const initialSubjectIDs = shortListSubjects.map(subject => subject.id)
+        const newSubjectIDs = longListSubjects.map(subject => subject.id)
+        const queue = Array.from(subjects.resources.keys())
+        expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+      })
+
+      it('should not change the active subject', function () {
+        expect(subjects.active.id).to.equal(shortListSubjects[0].id)
+      })
     })
   })
 
