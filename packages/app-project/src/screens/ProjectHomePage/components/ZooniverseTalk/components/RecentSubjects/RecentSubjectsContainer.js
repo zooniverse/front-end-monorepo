@@ -5,6 +5,7 @@ import { bool } from 'prop-types'
 import React, { Component } from 'react'
 
 import RecentSubjects from './RecentSubjects'
+import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import Placeholder from './components/Placeholder'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
@@ -46,21 +47,20 @@ class RecentSubjectsContainer extends Component {
   }
 
   render () {
-    const { show } = this.props
+    const { carousel } = this.props
     const { loading, subjects } = this.state
     const href=`/projects/${this.props.slug}/talk`
     let result = null
+    const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
 
-    if (show) {
-      if (loading === asyncStates.success) {
-        result = (subjects.length < 1)
-          ? (<MessageBox children={counterpart('RecentSubjects.noSubjects')} />)
-          : (<RecentSubjects href={href} subjects={subjects} />)
-      } else if (loading === asyncStates.error) {
-        result = (<MessageBox children={counterpart('RecentSubjects.error')} />)
-      } else {
-        result = (<Placeholder />)
-      }
+    if (loading === asyncStates.success) {
+      result = (subjects.length < 1)
+        ? (<MessageBox children={counterpart('RecentSubjects.noSubjects')} />)
+        : (<ThumbnailComponent href={href} subjects={subjects} />)
+    } else if (loading === asyncStates.error) {
+      result = (<MessageBox children={counterpart('RecentSubjects.error')} />)
+    } else {
+      result = (<Placeholder />)
     }
 
     return result
@@ -68,11 +68,11 @@ class RecentSubjectsContainer extends Component {
 }
 
 RecentSubjectsContainer.propTypes = {
-  show: bool
+  carousel: bool
 }
 
 RecentSubjectsContainer.defaultProps = {
-  show: false
+  carousel: false
 }
 
 export default RecentSubjectsContainer

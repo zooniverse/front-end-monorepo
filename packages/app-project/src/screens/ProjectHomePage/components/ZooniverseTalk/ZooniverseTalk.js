@@ -40,7 +40,7 @@ function ZooniverseTalk (props) {
           <JoinInButton />
         </Box>
         <Box fill='horizontal'>
-          <RecentSubjects show={true} />
+          <RecentSubjects carousel={props.screenSize === 'small'} />
         </Box>
       </Grid>
     </ContentBox>
