@@ -90,7 +90,6 @@ const FeedbackStore = types
       const workflow = getRoot(self).workflows.active
 
       self.isActive = helpers.isFeedbackActive(project, subject, workflow)
-
       if (self.isActive) {
         self.rules = helpers.generateRules(subject, workflow)
       }
@@ -106,13 +105,15 @@ const FeedbackStore = types
     }
 
     function update (annotation) {
-      const { task, value } = annotation
-      const taskRules = self.rules.get(task) || []
-      const updatedTaskRules = taskRules.map(rule => {
-        const ruleReducer = strategies[rule.strategy].reducer
-        return ruleReducer(rule, value)
-      })
-      self.rules.set(task, updatedTaskRules)
+      if (self.isActive) {
+        const { task, value } = annotation
+        const taskRules = self.rules.get(task) || []
+        const updatedTaskRules = taskRules.map(rule => {
+          const ruleReducer = strategies[rule.strategy].reducer
+          return ruleReducer(rule, value)
+        })
+        self.rules.set(task, updatedTaskRules)
+      }
     }
 
     function reset () {
