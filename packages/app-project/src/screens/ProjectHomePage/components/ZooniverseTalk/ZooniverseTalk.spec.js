@@ -1,5 +1,6 @@
 import { shallow, render } from 'enzyme'
 import React from 'react'
+import { Grid } from 'grommet'
 
 import { ZooniverseTalk } from './ZooniverseTalk'
 import translations from './locales/en'
@@ -28,9 +29,9 @@ describe('Component > ZooniverseTalk', function () {
     expect(messageWrapper).to.have.lengthOf(1)
   })
 
-  it('should use a row layout', function () {
-    const contentBox = wrapper.find(ContentBox)
-    expect(contentBox.prop('direction')).to.equal('row')
+  it('should use a two-column layout', function () {
+    const layout = wrapper.find(Grid)
+    expect(layout.prop('columns')).to.deep.equal(['1fr', '3fr'])
   })
 
   describe('on small screens', function () {
@@ -42,9 +43,9 @@ describe('Component > ZooniverseTalk', function () {
       wrapper.setProps({ screenSize: undefined })
     })
 
-    it('should use a column layout', function () {
-      const contentBox = wrapper.find(ContentBox)
-      expect(contentBox.prop('direction')).to.equal('column')
+    it('should use a one-column layout', function () {
+      const layout = wrapper.find(Grid)
+      expect(layout.prop('columns')).to.deep.equal(['1fr'])
     })
   })
 })
