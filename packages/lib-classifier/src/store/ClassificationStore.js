@@ -148,7 +148,7 @@ const ClassificationStore = types
       }
 
       const feedback = getRoot(self).feedback
-      if (feedback.isActive && feedback.rules) {
+      if (feedback.isActive && feedback.rules.size > 0) {
         metadata.feedback = toJS(feedback.rules)
       }
 
