@@ -1,9 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Media } from '@zooniverse/react-components'
-import { Anchor } from 'grommet'
 
 import RecentSubjects from './RecentSubjects'
+import SubjectThumbnail from './components/SubjectThumbnail'
 
 describe('Component > RecentSubjects', function () {
   let wrapper
@@ -34,16 +33,8 @@ describe('Component > RecentSubjects', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render a linked thumbnail for each subject', function () {
-    const links = wrapper.find(Anchor)
-    expect(links.length).to.equal(3)
-    links.forEach(function (link, i) {
-      const subject = subjects[i]
-      const href = `/projects/test/project/talk/subjects/${subject.id}`
-      const src = `https://www.zooniverse.org/mock-subjects/file-${subject.id}.jpg`
-      const media = link.find(Media)
-      expect(link.prop('href')).to.equal(href)
-      expect(media.prop('src')).to.equal(src)
-    })
+  it('should render a thumbnail for each subject', function () {
+    const thumbnails = wrapper.find(SubjectThumbnail)
+    expect(thumbnails.length).to.equal(3)
   })
 })
