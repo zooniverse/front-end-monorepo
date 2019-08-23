@@ -20,7 +20,7 @@
     "@sentry/browser": "^5.4.3",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
-    "@zooniverse/grommet-theme": "~2.0.0",
+    "@zooniverse/grommet-theme": "~2.1.0",
     "@zooniverse/panoptes-js": "~0.0.1",
     "@zooniverse/react-components": "~0.7.1",
     "babel-plugin-dynamic-import-node": "~2.3.0",
