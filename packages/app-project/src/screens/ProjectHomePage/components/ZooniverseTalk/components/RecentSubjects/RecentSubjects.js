@@ -2,8 +2,19 @@ import counterpart from 'counterpart'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import { Anchor, Box, Grid } from 'grommet'
-import { Media } from '@zooniverse/react-components'
+import { Media, SpacedText } from '@zooniverse/react-components'
 import styled from 'styled-components'
+
+
+const StyledBox = styled(Box)`
+  position: relative;
+`
+const StyledSpacedText = styled(SpacedText)`
+  bottom: 1em;
+  left: 1em;
+  position: absolute;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+`
 
 // TODO: Use the subject viewers from the classifier
 function RecentSubjects (props) {
@@ -25,7 +36,7 @@ function RecentSubjects (props) {
             key={subject.id}
             href={`${href}/subjects/${subject.id}`}
           >
-            <Box background='brand' elevation='small' justify='end' pad='none'>
+            <StyledBox background='brand' elevation='small' justify='end' pad='none'>
               <Media
                 alt={`subject ${subject.id}`}
                 className={className}
@@ -33,7 +44,10 @@ function RecentSubjects (props) {
                 src={subjectURL}
                 width={width}
               />
-            </Box>
+              <StyledSpacedText color='white' weight='bold'>
+                {counterpart('RecentSubjects.subjectLabel', { id: subject.id })}
+              </StyledSpacedText>
+            </StyledBox>
           </Anchor>
         )
       })}
