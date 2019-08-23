@@ -121,6 +121,26 @@ describe('Model > SubjectStore', function () {
     })
   })
 
+  describe('Actions > append', function () {
+    const subjects = mockSubjectStore([])
+
+    before(function () {
+      subjects.append(shortListSubjects)
+      subjects.append(longListSubjects)
+    })
+
+    it('should increase the size of the queue', function () {
+      expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+    })
+
+    it('should add new subjects to the end of the queue', function () {
+      const initialSubjectIDs = shortListSubjects.map(subject => subject.id)
+      const newSubjectIDs = longListSubjects.map(subject => subject.id)
+      const queue = Array.from(subjects.resources.keys())
+      expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+    })
+  })
+
   describe('Views > isThereMetadata', function () {
     it('should return false when there is not an active queue subject', function (done) {
       const subjects = mockSubjectStore([])
