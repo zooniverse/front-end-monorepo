@@ -60,7 +60,7 @@ describe('feedback: metadataToRules', function () {
       metadataToRules(improperMetadataSubject.metadata)
 
       expect(logError).to.have.been.calledThrice()
-      expect(logError).to.have.been.calledWith('Subject metadata feedback ruleIndex is improperly formatted')
+      expect(logError).to.have.been.calledWith('Subject metadata feedback rule index [1] is improperly formatted. The feedback rule index should be an integer.')
     })
   })
 })
