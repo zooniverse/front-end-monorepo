@@ -5,7 +5,9 @@ node_js:
 
 branches:
   only:
-  - master
+    - master
+    - mobx-upgrade
+    - update-store-instantiation
 
 cache: yarn
 
