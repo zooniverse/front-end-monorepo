@@ -1,9 +1,14 @@
 import sinon from 'sinon'
 import Subject from './Subject'
-import { ProjectFactory, SubjectFactory } from '../../test/factories'
+import ProjectStore from './ProjectStore'
+import WorkflowStore from './WorkflowStore'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
+import subjectViewers from '../helpers/subjectViewers'
 
 const stub = SubjectFactory.build()
-const project = ProjectFactory.build()
+const workflow = WorkflowFactory.build()
+const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
+const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 
 describe('Model > Subject', function () {
   let subject
@@ -12,9 +17,7 @@ describe('Model > Subject', function () {
     subject = Subject.create(stub)
     subject.onToggleFavourite = sinon.stub()
     subject.onAddToCollection = sinon.stub()
-    subject.projects = {
-      active: project
-    }
+
   })
 
   it('should exist', function () {
@@ -26,11 +29,46 @@ describe('Model > Subject', function () {
     expect(subject.locations).to.deep.equal(stub.locations)
   })
 
-  it('should have a Talk URL', function () {
-    expect(subject.talkURL).to.equal(`https://example.org/projects/zooniverse/example/talk/subjects/${subject.id}`)
+  describe('Views > talkURL', function () {
+    before(function() {
+      subject.projects = ProjectStore.create({})
+      subject.projects.setResource(project)
+      subject.projects.setActive(project.id)
+    })
+
+    it('should have a Talk URL', function () {
+      expect(subject.talkURL).to.equal(`https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`)
+    })
   })
 
-  describe('toggleFavorite', function () {
+  describe('Views > viewer', function () {
+    it('should return null as default', function () {
+      subject.workflows = WorkflowStore.create({})
+      subject.workflows.setResource(workflow)
+      subject.workflows.setActive(workflow.id)
+      expect(subject.viewer).to.be.null()
+    })
+
+    it('should return the single image viewer for subjects with a single image location', function () {
+      const singleImageSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+      const subjectStore = Subject.create(singleImageSubject)
+      subjectStore.workflows = WorkflowStore.create({})
+      subjectStore.workflows.setResource(workflow)
+      subjectStore.workflows.setActive(workflow.id)
+      expect(subjectStore.viewer).to.equal(subjectViewers.singleImage)
+    })
+
+    it('should return the light curve viewer if the workflow configuration is defined', function () {
+      const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }]})
+      const subjectResourceStore = Subject.create(dataSubject)
+      subjectResourceStore.workflows = WorkflowStore.create({})
+      subjectResourceStore.workflows.setResource(workflowWithConfig)
+      subjectResourceStore.workflows.setActive(workflowWithConfig.id)
+      expect(subjectResourceStore.viewer).to.equal(subjectViewers.lightCurve)
+    })
+  })
+
+  describe('Actions > toggleFavorite', function () {
     before(function () {
       subject.toggleFavorite()
     })
@@ -40,59 +78,47 @@ describe('Model > Subject', function () {
     })
 
     it('should call the onToggleFavourite callback', function () {
-      expect(subject.onToggleFavourite).to.have.been.calledOnceWith(subject.id, subject.favorite)
+      expect(subject.onToggleFavourite.withArgs(subject.id, subject.favorite)).to.have.been.calledOnce()
     })
   })
 
-  describe('addToCollection', function () {
+  describe('Actions > addToCollection', function () {
     before(function () {
       subject.addToCollection()
     })
 
     it('should call the onAddToCollection callback', function () {
-      expect(subject.onAddToCollection).to.have.been.calledOnceWith(subject.id)
+      expect(subject.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce()
     })
   })
 
-  describe('openInTalk', function () {
-    let feedback
-    let onHide = () => null
+  describe('Actions > openInTalk', function () {
+    let url
 
-    before(function () {
-      feedback = {
-        onHide,
-        setOnHide: sinon.stub().callsFake(callback => { onHide = callback })
-      }
-      subject.feedback = feedback
+    before (function () {
+      url = `https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`
     })
 
-    describe('in the same tab', function () {
-      before(function () {
-        subject.openInTalk(false)
-      })
+    function testOpenInTalk (newTab) {
+      const subject = Subject.create(stub)
+      subject.projects = ProjectStore.create({})
+      subject.projects.setResource(project)
+      subject.projects.setActive(project.id)
+      subject.openInTalk(newTab)
+      expect(subject.shouldDiscuss).to.eql({ newTab, url })
+    }
 
-      after(function () {
-        feedback.setOnHide.resetHistory()
-        window.location.assign.resetHistory()
+    describe('in the same tab', function () {
+      
+      it('should set the shouldDiscuss property', function () {
+        testOpenInTalk(false)
       })
     })
 
     describe('in a new tab', function () {
-      let newTab = {
-        opener: null,
-        location: null,
-        target: null,
-        focus: sinon.stub()
-      }
 
-      before(function () {
-        window.open = sinon.stub().callsFake(() => newTab)
-        subject.openInTalk(true)
-      })
-
-      after(function () {
-        feedback.setOnHide.resetHistory()
-        window.location.assign.resetHistory()
+      it('should set the shouldDiscuss property', function () {
+        testOpenInTalk(true)
       })
     })
   })

@@ -1,13 +1,21 @@
 import { FieldGuideMediumFactory, TutorialMediumFactory } from './MediumFactory'
-export { FieldGuideMediumFactory, TutorialMediumFactory }
 
+// Resource Factories
 export { default as ProjectFactory } from './ProjectFactory'
 export { default as SubjectFactory } from './SubjectFactory'
 export { default as WorkflowFactory } from './WorkflowFactory'
-export { default as MultipleChoiceTaskFactory } from './tasks/MultipleChoiceTaskFactory'
-export { default as SingleChoiceTaskFactory } from './tasks/SingleChoiceTaskFactory'
 export { default as TutorialFactory } from './TutorialFactory'
 export { default as UPPFactory } from './UPPFactory'
 export { default as UserFactory } from './UserFactory'
 export { default as ClassificationFactory } from './ClassificationFactory'
 export { default as FieldGuideFactory } from './FieldGuideFactory'
+export { default as FeedbackFactory } from './FeedbackFactory'
+export { FieldGuideMediumFactory, TutorialMediumFactory }
+
+
+// Workflow Task Factories
+export { default as MultipleChoiceTaskFactory } from './tasks/MultipleChoiceTaskFactory'
+export { default as SingleChoiceTaskFactory } from './tasks/SingleChoiceTaskFactory'
+
+// Classification Annotation Factories
+export { default as SingleChoiceAnnotationFactory } from './annotations/SingleChoiceAnnotationFactory'

@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
@@ -47,13 +47,16 @@ const FeedbackStore = types
             annotations.forEach(annotation => self.update(annotation))
           }
         })
-      })
+      }, { name: 'FeedbackStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
 
     function onSubjectAdvance (call, next, abort) {
       const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
       if (shouldShowFeedback) {
+        if (process.browser) {
+          console.log('Aborting subject advance and showing feedback')
+        }
         abort()
         self.showFeedback()
       } else {
@@ -70,29 +73,38 @@ const FeedbackStore = types
             next(call)
           }
         })
-      })
+      }, { name: 'FeedbackStore Subject Middleware autorun' })
       addDisposer(self, subjectMiddleware)
     }
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const subject = getRoot(self).subjects.active
-        if (subject) {
+        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
+        if (validSubjectReference) {
+          const subject = getRoot(self).subjects.active
           self.reset()
           self.createRules(subject)
         }
-      })
+      }, { name: 'FeedbackStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
     function createRules (subject) {
-      const project = getRoot(self).projects.active
-      const workflow = getRoot(self).workflows.active
+      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+      const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
-      self.isActive = helpers.isFeedbackActive(project, subject, workflow)
+      if (validProjectReference && validWorkflowReference && subject) {
+        const project = getRoot(self).projects.active
+        const workflow = getRoot(self).workflows.active
+        self.isActive = helpers.isFeedbackActive(project, subject, workflow)
 
-      if (self.isActive) {
-        self.rules = helpers.generateRules(subject, workflow)
+        if (self.isActive) {
+          self.rules = helpers.generateRules(subject, workflow)
+        }
+      } else {
+        if (process.browser) {
+          console.error('Cannot create feedback rules without project, workflow, and/or subject')
+        }
       }
     }
 

@@ -1,10 +1,8 @@
-import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
 import WorkflowStore from './WorkflowStore'
 import {
   SingleChoiceTaskFactory,
   ProjectFactory,
-  SubjectFactory,
   WorkflowFactory
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
@@ -13,38 +11,49 @@ const workflow = WorkflowFactory.build({
   tasks: { T1: SingleChoiceTaskFactory.build() },
   steps: [['S1', { taskKeys: ['T1'] }]]
 })
-const subject = SubjectFactory.build()
 const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
 
-xdescribe('Model > WorkflowStore', function () {
+function setupStores(clientStub, project) {
+  const store = RootStore.create({
+    classifications: {},
+    dataVisAnnotating: {},
+    drawing: {},
+    feedback: {},
+    fieldGuide: {},
+    subjects: {},
+    subjectViewer: {},
+    tutorials: {},
+    workflowSteps: {},
+    userProjectPreferences: {}
+  }, { client: clientStub, authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() } })
+
+  store.projects.setResource(project)
+  store.projects.setActive(project.id)
+  return store
+}
+
+describe('Model > WorkflowStore', function () {
   it('should exist', function () {
     expect(WorkflowStore).to.be.an('object')
   })
 
   describe('workflow selection', function () {
-    describe('when there is a url query param', function () {
-      let clientStub
+    xdescribe('when there is a url query param', function () {
       let rootStore
-
       before(function () {
-        clientStub = stubPanoptesJs({
+        const panoptesClientStub = stubPanoptesJs({
           projects: projectWithoutDefault,
-          subjects: subject,
           workflows: workflow
         })
 
-        rootStore = RootStore.create({
-          projects: ProjectStore.create(),
-          workflows: WorkflowStore.create()
-        }, { client: clientStub })
-
-        rootStore.projects.setActive(projectWithoutDefault.id)
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         // JSDOM doesn't support doing this :(
         window.location.assign(`https://www.zooniverse.org/projects/${projectWithoutDefault.slug}/classify/?workflow=${workflow.id}`)
       })
 
       after(function () {
+        rootStore = null
         window.location.assign('https://example.org/')
       })
 
@@ -53,50 +62,41 @@ xdescribe('Model > WorkflowStore', function () {
     })
 
     describe('when there is a project default', function () {
-      let clientStub
       let rootStore
-
       before(function () {
-        clientStub = stubPanoptesJs({
-          projects: projectWithDefault,
-          subjects: subject,
+        const panoptesClientStub = stubPanoptesJs({
           workflows: workflow
         })
 
-        rootStore = RootStore.create({
-          projects: ProjectStore.create(),
-          workflows: WorkflowStore.create()
-        }, { client: clientStub })
+        rootStore = setupStores(panoptesClientStub, projectWithDefault)
+      })
 
-        rootStore.projects.setActive(projectWithDefault.id)
+      after(function () {
+        rootStore = null
       })
 
       it('should set the active workflow to the project.configuration.default_workflow', function () {
-        const workflowStore = rootStore.workflows.toJSON()
-        expect(workflowStore.active).to.equal(projectWithDefault.configuration.default_workflow)
+        expect(rootStore.workflows.active.id).to.equal(projectWithDefault.configuration.default_workflow)
       })
     })
 
     describe('when there is not an active project', function () {
-      let clientStub
       let rootStore
       before(function () {
-        clientStub = stubPanoptesJs({
-          projects: projectWithoutDefault,
-          subjects: subject,
+        const panoptesClientStub = stubPanoptesJs({
           workflows: workflow
         })
-        rootStore = RootStore.create({
-          projects: ProjectStore.create(),
-          workflows: WorkflowStore.create({})
-        }, { client: clientStub })
-        rootStore.projects.setActive(projectWithoutDefault.id)
+
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
+      })
+
+      after(function () {
+        rootStore = null
       })
 
       it('should set the active workflow to a random active workflow', function () {
-        const workflowStore = rootStore.workflows.toJSON()
         expect(projectWithoutDefault.configuration.default_workflow).to.be.undefined()
-        expect(projectWithoutDefault.links.active_workflows.includes(workflowStore.active)).to.be.true()
+        expect(projectWithoutDefault.links.active_workflows.includes(rootStore.workflows.active.id)).to.be.true()
       })
     })
   })
