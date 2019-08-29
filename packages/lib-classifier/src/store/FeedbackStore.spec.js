@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-
+import { applySnapshot } from 'mobx-state-tree'
 import FeedbackStore from './FeedbackStore'
 import strategies from './feedback/strategies'
 import helpers from './feedback/helpers'
@@ -101,14 +101,35 @@ describe('Model > FeedbackStore', function () {
   })
 
   describe('update', function () {
-    beforeEach(function () {
-      const annotation = { task: 'T1', value: 0 }
-      feedback.update(annotation)
+    describe('when feedback is active', function () {
+      beforeEach(function () {
+        const annotation = { task: 'T1', value: 0 }
+        feedback.update(annotation)
+      })
+
+      after(function () {
+        strategies.testStrategy.reducer.resetHistory()
+      })
+
+      it('should reduce the rule and value', function () {
+        const [rule] = feedback.rules.get('T1')
+        expect(strategies.testStrategy.reducer).to.have.been.calledOnceWith(rule, 0)
+      })
     })
 
-    it('should reduce the rule and value', function () {
-      const [ rule ] = feedback.rules.get('T1')
-      expect(strategies.testStrategy.reducer).to.have.been.calledOnceWith(rule, 0)
+    describe('when feedback is not active', function () {
+      before(function () {
+        applySnapshot(feedback, { isActive: false })
+      })
+  
+      after(function () {
+        strategies.testStrategy.reducer.resetHistory()
+        applySnapshot(feedback, { isActive: true })
+      })
+
+      it('should not reduce the rule and value', function () {
+        expect(strategies.testStrategy.reducer).to.have.not.been.called()
+      })
     })
   })
 
