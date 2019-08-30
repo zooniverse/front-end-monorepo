@@ -11,6 +11,7 @@ function RecentSubjectsCarousel (props) {
   const width = 700
   return (
     <Carousel
+      className={className}
       controls='arrows'
       fill
     >
