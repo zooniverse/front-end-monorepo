@@ -29,12 +29,15 @@ function RecentSubjectsCarousel (props) {
 }
 
 RecentSubjectsCarousel.propTypes = {
+  className: string,
+  href: string.isRequired,
   subjects: arrayOf(shape({
     id: string
-  }))
+  })).isRequired
 }
 
 RecentSubjectsCarousel.defaultProps = {
+  className: undefined
 }
 
 export default RecentSubjectsCarousel
