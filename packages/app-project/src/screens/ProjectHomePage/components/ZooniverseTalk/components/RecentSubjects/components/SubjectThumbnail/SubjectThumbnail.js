@@ -26,7 +26,13 @@ function SubjectThumbnail ({ height, href, width, subject }) {
     <Anchor
       href={`${href}/subjects/${subject.id}`}
     >
-      <StyledBox background='brand' elevation='small' justify='end' pad='none'>
+      <StyledBox
+        background='brand'
+        elevation='small'
+        fill
+        justify='end'
+        pad='none'
+      >
         <Media
           alt={`subject ${subject.id}`}
           height={height}
