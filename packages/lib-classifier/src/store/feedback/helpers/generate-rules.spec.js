@@ -81,4 +81,42 @@ describe('feedback: generateRules', function () {
     }
     testSubjectAndWorkflow(subject, workflow)
   })
+
+  describe('with no matching rules', function () {
+    describe('when the workflow rule ID is truthy', function () {
+      const workflow = {
+        tasks: {
+          T0: mockTaskWithRule('1')
+        }
+      }
+
+      it('should return an empty object for a falsy subject rule ID', function () {
+        const subject = mockSubjectWithRule(0)
+        expect(generateRules(subject, workflow)).to.be.empty()
+      })
+
+      it('should return an empty object for a truthy subject rule ID', function () {
+        const subject = mockSubjectWithRule('0')
+        expect(generateRules(subject, workflow)).to.be.empty()
+      })
+    })
+
+    describe('when the workflow rule ID is falsy', function () {
+      const workflow = {
+        tasks: {
+          T0: mockTaskWithRule(0)
+        }
+      }
+
+      it('should return an empty object for a numeric subject rule ID', function () {
+        const subject = mockSubjectWithRule(1)
+        expect(generateRules(subject, workflow)).to.be.empty()
+      })
+
+      it('should return an empty object for a string subject rule ID', function () {
+        const subject = mockSubjectWithRule('1')
+        expect(generateRules(subject, workflow)).to.be.empty()
+      })
+    })
+  })
 })
