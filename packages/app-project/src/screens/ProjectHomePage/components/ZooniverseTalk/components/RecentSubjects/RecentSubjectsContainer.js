@@ -7,7 +7,6 @@ import React, { Component } from 'react'
 import RecentSubjects from './RecentSubjects'
 import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
-import Placeholder from './components/Placeholder'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
 import en from './locales/en'
 
@@ -53,14 +52,12 @@ class RecentSubjectsContainer extends Component {
     let result = null
     const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
 
-    if (loading === asyncStates.success) {
-      result = (subjects.length < 1)
-        ? (<MessageBox children={counterpart('RecentSubjects.noSubjects')} />)
-        : (<ThumbnailComponent href={href} subjects={subjects} />)
-    } else if (loading === asyncStates.error) {
+    if (loading === asyncStates.error) {
       result = (<MessageBox children={counterpart('RecentSubjects.error')} />)
     } else {
-      result = (<Placeholder />)
+      result = (loading === asyncStates.success && subjects.length < 1)
+        ? (<MessageBox children={counterpart('RecentSubjects.noSubjects')} />)
+        : (<ThumbnailComponent href={href} subjects={subjects} />)
     }
 
     return result
