@@ -1,9 +1,11 @@
 import { Box } from 'grommet'
+import { string } from 'prop-types'
 import React from 'react'
 
 function MessageBox (props) {
   return (
     <Box
+      as='p'
       align='center'
       animation={['fadeIn', 'slideUp']}
       background={{
@@ -20,9 +22,13 @@ function MessageBox (props) {
       elevation='small'
       fill
       justify='center'
+      pad='small'
       {...props}
     />
   )
 }
 
+MessageBox.propTypes = {
+  children: string
+}
 export default MessageBox
