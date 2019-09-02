@@ -3,6 +3,7 @@ import counterpart from 'counterpart'
 import React from 'react'
 import { Chat } from 'grommet-icons'
 import { Box, Grid, Paragraph } from 'grommet'
+import { string } from 'prop-types'
 
 import en from './locales/en'
 import ContentBox from '../../../../shared/components/ContentBox'
@@ -48,9 +49,13 @@ function ZooniverseTalk (props) {
 }
 
 ZooniverseTalk.propTypes = {
+  className: string,
+  screenSize: string
 }
 
 ZooniverseTalk.defaultProps = {
+  className: undefined,
+  screenSize: 'medium'
 }
 
 export default withResponsiveContext(ZooniverseTalk)
