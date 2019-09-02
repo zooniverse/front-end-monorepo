@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import PropTypes from 'prop-types'
+import { number } from 'prop-types'
 import React, { Component } from 'react'
 
 class AnimatedNumber extends Component {
@@ -39,18 +39,16 @@ class AnimatedNumber extends Component {
 
   render () {
     return (
-      <>
-        <span ref={this.ref}>
-          {this.formatValue(this.props.value)}
-        </span>
-      </>
+      <span ref={this.ref}>
+        {this.formatValue(this.props.value)}
+      </span>
     )
   }
 }
 
 AnimatedNumber.propTypes = {
-  duration: PropTypes.number,
-  value: PropTypes.number.isRequired
+  duration: number,
+  value: number.isRequired
 }
 
 AnimatedNumber.defaultProps = {

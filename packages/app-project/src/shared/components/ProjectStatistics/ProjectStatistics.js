@@ -8,6 +8,7 @@ import en from './locales/en'
 import CompletionBar from './components/CompletionBar'
 import MainGrid from './components/MainGrid'
 import Subtitle from './components/Subtitle'
+import AnimatedNumber from '../AnimatedNumber'
 import ContentBox from '../ContentBox'
 import Stat from '../Stat'
 
@@ -62,19 +63,19 @@ function ProjectStatistics ({
           />
           <NumbersGrid>
             <Stat
-              value={volunteers}
+              value={<AnimatedNumber value={volunteers} />}
               label={counterpart('ProjectStatistics.volunteers')}
             />
             <Stat
-              value={classifications}
+              value={<AnimatedNumber value={classifications} />}
               label={counterpart('ProjectStatistics.classifications')}
             />
             <Stat
-              value={subjects}
+              value={<AnimatedNumber value={subjects} />}
               label={counterpart('ProjectStatistics.subjects')}
             />
             <Stat
-              value={completedSubjects}
+              value={<AnimatedNumber value={completedSubjects} />}
               label={counterpart('ProjectStatistics.completedSubjects')}
             />
           </NumbersGrid>

@@ -1,34 +1,31 @@
-import { Text } from 'grommet'
-import { number, string } from 'prop-types'
+import { Box, Text } from 'grommet'
+import { node, string } from 'prop-types'
 import React from 'react'
 
-import AnimatedNumber from './components/AnimatedNumber'
-
-function Stat ({ className, label, value }) {
+function Stat (props) {
+  const { label, value, ...rest } = props
   return (
-    <div className={className}>
+    <Box {...rest}>
       <Text
+        children={value}
         color={{ light: 'dark-5', dark: 'light-1' }}
         tag='div'
         size='xxlarge'
-      >
-        <AnimatedNumber value={value} />
-      </Text>
+      />
       <Text
+        children={label}
         color={{ light: 'dark-5', dark: 'light-1' }}
         size='medium'
         tag='div'
         weight='bold'
-      >
-        {label}
-      </Text>
-    </div>
+      />
+    </Box>
   )
 }
 
 Stat.propTypes = {
   label: string.isRequired,
-  value: number.isRequired
+  value: node.isRequired
 }
 
 export default Stat
