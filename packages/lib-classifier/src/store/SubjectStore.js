@@ -111,6 +111,17 @@ const SubjectStore = types
       }
     }
 
+    function append (newSubjects) {
+      newSubjects.forEach(subject => {
+        self.resources.put(subject)
+      })
+
+      const validSubjectReference = isValidReference(() => self.active)
+      if (!validSubjectReference) {
+        self.advance()
+      }
+    }
+
     function * populateQueue () {
       const root = getRoot(self)
       const client = root.client.panoptes
@@ -125,14 +136,7 @@ const SubjectStore = types
           const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
 
           if (response.body.subjects && response.body.subjects.length > 0) {
-            response.body.subjects.forEach(subject => {
-              self.resources.put(subject)
-            })
-
-            const validSubjectReference = isValidReference(() => self.active)
-            if (!validSubjectReference) {
-              self.advance()
-            }
+            self.append(response.body.subjects)
           }
 
           self.loadingState = asyncStates.success
@@ -150,6 +154,7 @@ const SubjectStore = types
     return {
       advance,
       afterAttach,
+      append,
       populateQueue: flow(populateQueue),
       reset
     }
