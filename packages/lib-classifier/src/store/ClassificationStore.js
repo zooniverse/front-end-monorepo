@@ -102,7 +102,9 @@ const ClassificationStore = types
         const classification = self.active
         classification.metadata = Object.assign({}, classification.metadata, newMetadata)
       } else {
-        console.error('No active classification. Cannot update metadata')
+        if (process.browser) {
+          console.error('No active classification. Cannot update metadata')
+        }
       }
     }
 
