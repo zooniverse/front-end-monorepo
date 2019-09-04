@@ -12,12 +12,12 @@ const WorkflowStore = types
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createProjectObserver()
       createUPPObserver()
     }
 
-    function createProjectObserver() {
+    function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const validProjectReference = isValidReference(() => getRoot(self).projects.active)
         if (validProjectReference) {
@@ -29,7 +29,7 @@ const WorkflowStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function createUPPObserver() {
+    function createUPPObserver () {
       const uppDisposer = autorun(() => {
         const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
         const validWorkflowReference = isValidReference(() => self.active)
@@ -41,7 +41,7 @@ const WorkflowStore = types
       addDisposer(self, uppDisposer)
     }
 
-    function getQueryParamId() {
+    function getQueryParamId () {
       if (window.location && window.location.search) {
         const { workflow } = queryString.parse(window.location.search) // Search the query string for the 'project='
         if (workflow) {
@@ -54,7 +54,7 @@ const WorkflowStore = types
       return undefined
     }
 
-    function getDefaultWorkflowId() {
+    function getDefaultWorkflowId () {
       const validProjectReference = isValidReference(() => getRoot(self).projects.active)
       let id = ''
 
@@ -71,7 +71,7 @@ const WorkflowStore = types
       return id
     }
 
-    function selectWorkflow(id = getDefaultWorkflowId()) {
+    function selectWorkflow (id = getDefaultWorkflowId()) {
       if (id) {
         self.setActive(id)
       } else {

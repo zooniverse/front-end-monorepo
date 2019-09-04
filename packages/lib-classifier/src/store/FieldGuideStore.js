@@ -17,11 +17,11 @@ const FieldGuideStore = types
   })
 
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createProjectObserver()
     }
 
-    function createProjectObserver() {
+    function createProjectObserver () {
       const projectDisposer = autorun(() => {
         const validProjectReference = isValidReference(() => getRoot(self).projects.active)
         if (validProjectReference) {
@@ -33,7 +33,7 @@ const FieldGuideStore = types
       addDisposer(self, projectDisposer)
     }
 
-    function reset() {
+    function reset () {
       self.resources.clear()
       self.attachedMedia.clear()
       self.activeItemIndex = undefined
@@ -41,7 +41,7 @@ const FieldGuideStore = types
     }
 
     // TODO: this might need to paginate for field guides that have 20+ items
-    const fetchMedia = flow(function* fetchMedia(fieldGuide) {
+    const fetchMedia = flow(function * fetchMedia (fieldGuide) {
       const { type } = self
       const client = getRoot(self).client.panoptes
       if (fieldGuide) {
@@ -61,12 +61,12 @@ const FieldGuideStore = types
       }
     })
 
-    function setMediaResources(media) {
+    function setMediaResources (media) {
       media.forEach(medium => self.attachedMedia.put(medium))
     }
 
     // TODO: move req in panoptes.js
-    function* fetchFieldGuide(projectID) {
+    function * fetchFieldGuide (projectID) {
       const { type } = self
       const client = getRoot(self).client.panoptes
 
@@ -90,11 +90,11 @@ const FieldGuideStore = types
       }
     }
 
-    function setModalVisibility(boolean) {
+    function setModalVisibility (boolean) {
       self.showModal = boolean
     }
 
-    function setActiveItemIndex(index) {
+    function setActiveItemIndex (index) {
       const validFieldGuide = isValidReference(() => self.active)
       if (validFieldGuide) {
         const fieldGuide = self.active

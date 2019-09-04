@@ -14,7 +14,7 @@ const workflow = WorkflowFactory.build({
 const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
 
-function setupStores(clientStub, project) {
+function setupStores (clientStub, project) {
   const store = RootStore.create({
     classifications: {},
     dataVisAnnotating: {},
@@ -40,7 +40,6 @@ describe('Model > WorkflowStore', function () {
 
   describe('workflow selection', function () {
     xdescribe('when there is a url query param', function () {
-      let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
           projects: projectWithoutDefault,

@@ -2,7 +2,6 @@ import RootStore from './RootStore'
 
 import WorkflowStepStore from './WorkflowStepStore'
 import {
-  ClassificationFactory,
   MultipleChoiceTaskFactory,
   ProjectFactory,
   SingleChoiceTaskFactory,
@@ -11,7 +10,7 @@ import {
 import { Factory } from 'rosie'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-function setupStores(clientStub, project, workflow) {
+function setupStores (clientStub, project, workflow) {
   const store = RootStore.create({
     classifications: {},
     dataVisAnnotating: {},

@@ -12,7 +12,6 @@ export { default as FieldGuideFactory } from './FieldGuideFactory'
 export { default as FeedbackFactory } from './FeedbackFactory'
 export { FieldGuideMediumFactory, TutorialMediumFactory }
 
-
 // Workflow Task Factories
 export { default as MultipleChoiceTaskFactory } from './tasks/MultipleChoiceTaskFactory'
 export { default as SingleChoiceTaskFactory } from './tasks/SingleChoiceTaskFactory'

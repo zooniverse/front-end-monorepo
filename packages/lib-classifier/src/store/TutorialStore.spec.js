@@ -88,7 +88,7 @@ describe('Model > TutorialStore', function () {
       })
   }
 
-  function setupStores(clientStub, authClientStub) {
+  function setupStores (clientStub, authClientStub) {
     return RootStore.create({
       classifications: {},
       dataVisAnnotating: {},

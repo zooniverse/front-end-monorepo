@@ -17,7 +17,6 @@ describe('Model > Subject', function () {
     subject = Subject.create(stub)
     subject.onToggleFavourite = sinon.stub()
     subject.onAddToCollection = sinon.stub()
-
   })
 
   it('should exist', function () {
@@ -30,7 +29,7 @@ describe('Model > Subject', function () {
   })
 
   describe('Views > talkURL', function () {
-    before(function() {
+    before(function () {
       subject.projects = ProjectStore.create({})
       subject.projects.setResource(project)
       subject.projects.setActive(project.id)
@@ -59,7 +58,7 @@ describe('Model > Subject', function () {
     })
 
     it('should return the light curve viewer if the workflow configuration is defined', function () {
-      const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }]})
+      const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }] })
       const subjectResourceStore = Subject.create(dataSubject)
       subjectResourceStore.workflows = WorkflowStore.create({})
       subjectResourceStore.workflows.setResource(workflowWithConfig)
@@ -95,7 +94,7 @@ describe('Model > Subject', function () {
   describe('Actions > openInTalk', function () {
     let url
 
-    before (function () {
+    before(function () {
       url = `https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`
     })
 
@@ -109,14 +108,12 @@ describe('Model > Subject', function () {
     }
 
     describe('in the same tab', function () {
-      
       it('should set the shouldDiscuss property', function () {
         testOpenInTalk(false)
       })
     })
 
     describe('in a new tab', function () {
-
       it('should set the shouldDiscuss property', function () {
         testOpenInTalk(true)
       })

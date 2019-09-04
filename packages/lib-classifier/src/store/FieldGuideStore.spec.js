@@ -38,14 +38,13 @@ const fieldGuideWithoutIcon = FieldGuideFactory.build({
 
 const project = ProjectFactory.build()
 
-function setupStores(clientStub) {
+function setupStores (clientStub) {
   const store = FieldGuideStore.create()
   store.projects = ProjectStore.create()
   store.client = clientStub
 
   return store
 }
-
 
 describe('Model > FieldGuideStore', function () {
   it('should exist', function () {

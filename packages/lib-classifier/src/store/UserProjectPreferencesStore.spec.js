@@ -49,7 +49,7 @@ function setupStores (clientStub, authClientStub) {
     subjectViewer: {},
     tutorials: {},
     workflows: {},
-    workflowSteps: {},
+    workflowSteps: {}
   }, { authClient: authClientStub, client: clientStub })
 }
 

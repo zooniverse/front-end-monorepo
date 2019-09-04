@@ -12,7 +12,6 @@ import {
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-
 const feedbackRulesStub = {
   T0: [{
     id: 'testRule',
@@ -31,7 +30,7 @@ const workflowStub = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskStub }
 const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
 
 describe('Model > ClassificationStore', function () {
-  function setupStores(stores) {
+  function setupStores (stores) {
     const clientStub = stubPanoptesJs({ classifications: [], subjects: subjectsStub })
     const store = RootStore.create(stores, {
       client: clientStub,
@@ -138,7 +137,6 @@ describe('Model > ClassificationStore', function () {
       let feedback
       let subjectViewer
       let onComplete
-      let feedbackStub
       let rootStore
 
       before(function () {

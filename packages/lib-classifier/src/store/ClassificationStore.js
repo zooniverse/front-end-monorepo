@@ -22,7 +22,7 @@ const ClassificationStore = types
     type: types.optional(types.string, 'classifications')
   })
   .views(self => ({
-    get currentAnnotations() {
+    get currentAnnotations () {
       const validClassificationReference = isValidReference(() => self.active)
       if (validClassificationReference) {
         return self.active.annotations
@@ -30,7 +30,7 @@ const ClassificationStore = types
       return []
     },
 
-    get classificationQueue() {
+    get classificationQueue () {
       const client = getRoot(self).client.panoptes
       const { authClient } = getRoot(self)
       return new ClassificationQueue(client, self.onClassificationSaved, authClient)
@@ -42,11 +42,11 @@ const ClassificationStore = types
     }
   })
   .actions(self => {
-    function afterAttach() {
+    function afterAttach () {
       createSubjectObserver()
     }
 
-    function createSubjectObserver() {
+    function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
         const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
         const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
@@ -62,7 +62,7 @@ const ClassificationStore = types
       addDisposer(self, subjectDisposer)
     }
 
-    function createClassification(subject, workflow, project) {
+    function createClassification (subject, workflow, project) {
       if (!subject || !workflow || !project) {
         throw new Error('Cannot create a classification without a subject, workflow, project')
       }
@@ -96,7 +96,7 @@ const ClassificationStore = types
       self.loadingState = asyncStates.success
     }
 
-    function updateClassificationMetadata(newMetadata) {
+    function updateClassificationMetadata (newMetadata) {
       const validClassificationReference = isValidReference(() => self.active)
       if (validClassificationReference) {
         const classification = self.active
@@ -106,7 +106,7 @@ const ClassificationStore = types
       }
     }
 
-    function getAnnotationType(taskType) {
+    function getAnnotationType (taskType) {
       const taskTypes = {
         single: SingleChoiceAnnotation,
         multiple: MultipleChoiceAnnotation,
@@ -117,7 +117,7 @@ const ClassificationStore = types
       return taskTypes[taskType] || undefined
     }
 
-    function createDefaultAnnotation(task) {
+    function createDefaultAnnotation (task) {
       const validClassificationReference = isValidReference(() => self.active)
 
       if (validClassificationReference) {
@@ -134,7 +134,7 @@ const ClassificationStore = types
       }
     }
 
-    function addAnnotation(annotationValue, task) {
+    function addAnnotation (annotationValue, task) {
       const validClassificationReference = isValidReference(() => self.active)
 
       if (validClassificationReference) {
@@ -150,7 +150,7 @@ const ClassificationStore = types
       }
     }
 
-    function removeAnnotation(taskKey) {
+    function removeAnnotation (taskKey) {
       const validClassificationReference = isValidReference(() => self.active)
       const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
@@ -166,7 +166,7 @@ const ClassificationStore = types
       }
     }
 
-    function completeClassification() {
+    function completeClassification () {
       const validClassificationReference = isValidReference(() => self.active)
       const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
 
@@ -219,11 +219,11 @@ const ClassificationStore = types
       }
     }
 
-    function onClassificationSaved(savedClassification) {
+    function onClassificationSaved (savedClassification) {
       Split.classificationCreated(savedClassification) // Metric log needs classification id
     }
 
-    function* submitClassification(classification) {
+    function * submitClassification (classification) {
       self.loadingState = asyncStates.posting
 
       // Service worker isn't working right now, so let's use the fallback queue for all browsers
@@ -235,7 +235,7 @@ const ClassificationStore = types
       }
     }
 
-    function setOnComplete(onComplete) {
+    function setOnComplete (onComplete) {
       self.onComplete = onComplete
     }
 

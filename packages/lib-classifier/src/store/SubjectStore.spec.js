@@ -9,7 +9,7 @@ describe('Model > SubjectStore', function () {
   const longListSubjects = Factory.buildList('subject', 10)
   const shortListSubjects = Factory.buildList('subject', 2)
 
-  function mockSubjectStore(subjects) {
+  function mockSubjectStore (subjects) {
     const project = ProjectFactory.build()
     const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
     const client = stubPanoptesJs({ subjects, workflows: workflow })
@@ -24,8 +24,8 @@ describe('Model > SubjectStore', function () {
       workflowSteps: {},
       userProjectPreferences: {}
     }, {
-        client,
-        authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+      client,
+      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
     })
     sinon.spy(store.subjects, 'populateQueue')
 
@@ -183,7 +183,7 @@ describe('Model > SubjectStore', function () {
     it('should return false if the active subject only has hidden metadata', function (done) {
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
 
-      const subjects = mockSubjectStore(subjectWithHiddenMetadata )
+      const subjects = mockSubjectStore(subjectWithHiddenMetadata)
       subjects.populateQueue().then(() => {
         const metadataKeys = Object.keys(subjects.active.metadata)
         expect(metadataKeys).to.have.lengthOf(1)

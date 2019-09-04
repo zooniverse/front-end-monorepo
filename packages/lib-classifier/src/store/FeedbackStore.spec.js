@@ -1,5 +1,4 @@
 import sinon from 'sinon'
-import { applySnapshot } from 'mobx-state-tree'
 import FeedbackStore from './FeedbackStore'
 import ProjectStore from './ProjectStore'
 import WorkflowStore from './WorkflowStore'
@@ -53,6 +52,7 @@ const rulesStub = {
 const workflow = WorkflowFactory.build()
 const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 const subject = Factory.build('subject')
+subject.shouldDiscuss = undefined
 
 describe('Model > FeedbackStore', function () {
   before(function () {
@@ -78,7 +78,6 @@ describe('Model > FeedbackStore', function () {
   describe('Actions > createRules', function () {
     let feedback, feedbackStub
     before(function () {
-
       feedbackStub = FeedbackFactory.build()
       feedback = FeedbackStore.create(feedbackStub)
       feedback.projects = ProjectStore.create()
@@ -105,9 +104,9 @@ describe('Model > FeedbackStore', function () {
       expect(feedback.isActive).to.be.false()
       feedback.createRules(subject)
       const projectRef = feedback.projects.active
-      const workflowRef = feedback.projects.active
+      const workflowRef = feedback.workflows.active
       const subjectRef = feedback.subjects.active.toJSON()
-      expect(helpers.isFeedbackActive.withArgs(projectRef, subjectRef, workflowRef)).to.have.been.calledOnce
+      expect(helpers.isFeedbackActive.withArgs(projectRef, subjectRef, workflowRef)).to.have.been.calledOnce()
       expect(feedback.isActive).to.equal(helpers.isFeedbackActive.returnValues[0])
       expect(feedback.isActive).to.be.true()
     })
