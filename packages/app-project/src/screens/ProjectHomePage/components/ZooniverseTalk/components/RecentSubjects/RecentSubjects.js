@@ -8,8 +8,8 @@ import SubjectThumbnail from './components/SubjectThumbnail'
 // TODO: Use the subject viewers from the classifier
 function RecentSubjects (props) {
   const { className, href, subjects } = props
-  const height = 220
-  const width = 300
+  const height = 350
+  const width = 400
   return (
     <Grid
       className={className}
