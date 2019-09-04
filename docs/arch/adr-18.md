@@ -23,7 +23,18 @@ We adopt the following URL structure:
 
 This would be facilitated by the [dynamic routing feature in Next.js 9](https://github.com/zeit/next.js/#dynamic-routing) (see [#1071](https://github.com/zooniverse/front-end-monorepo/pull/1071)).
 
-Navigating to `/classify` does a history replace to route the user either to the default workflow, or the user's preferred workflow. Workflow links from the home page would then route directly to their workflow-specific URLs.
+Workflow links from the home page would route directly to their workflow-specific URLs.
+
+### `/classify` behaviour
+
+When navigating to `/classify`, the page should redirect the user to the correct workflow URL in the following priority:
+
+1. Workflow ID set in user project preferences by the user
+1. Workflow ID set in user project preferences by the project
+1. Project default workflow
+1. Random active selection
+
+The new URL that we redirect the user to should replace the entry for `/classify` in the browser history.
 
 ## Status
 
@@ -32,4 +43,5 @@ Proposed
 ## Consequences
 
 - `/classify` will still have different effects depending on the user, but solely in terms of redirects rather than content.
+- We'll have to start storing at least portions of the MST state object in the browser, in order to allow for users to navigate back and forth between Talk and the classifier transparently.
 - Workflow access restriction can be managed at the workflow component file level.
