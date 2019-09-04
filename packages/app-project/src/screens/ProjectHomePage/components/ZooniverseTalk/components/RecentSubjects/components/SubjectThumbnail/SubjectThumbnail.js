@@ -27,7 +27,6 @@ function SubjectThumbnail ({ height, href, width, subject }) {
       href={`${href}/subjects/${subject.id}`}
     >
       <StyledBox
-        background='brand'
         elevation='small'
         fill
         justify='end'
