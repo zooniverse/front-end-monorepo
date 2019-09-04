@@ -4,7 +4,8 @@ const annotation = {
   tool: 0,
   toolType: 'graph2dRangeX',
   x: 100,
-  width: 10
+  width: 10,
+  zoomLevelOnCreation: 1,
 }
 
 describe('Model > Graph2dRangeXAnnotation', function () {
