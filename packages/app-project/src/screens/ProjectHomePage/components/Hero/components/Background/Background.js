@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 const Img = styled.img`
   height: 100%;
-  min-height: 61.8vh;
   object-fit: cover;
   object-position: 0 50%;
   width: 100%;

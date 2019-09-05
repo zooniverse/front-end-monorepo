@@ -11,16 +11,17 @@ import ContentBox from '../../../../shared/components/ContentBox'
 const StyledContentBox = styled(ContentBox)`
   ${props => (props.screenSize !== 'small') && `
     border-color: transparent;
+    max-height: 763px;
   `}
 `
 
 function Hero (props) {
-  const { className, screenSize, workflows } = props
+  const { screenSize, workflows } = props
 
   // Default to `small` layout
   let component = (
     <Box
-      className={className}
+      align='stretch'
       background={{
         dark: 'dark-1',
         light: 'light-1'
@@ -40,7 +41,7 @@ function Hero (props) {
 
   if (screenSize !== 'small') {
     component = (
-      <Grid className={className} columns={['1.618fr', '1fr']} margin={{ bottom: 'medium' }}>
+      <Grid columns={['1.618fr', '1fr']} margin={{ bottom: 'medium' }}>
         <Background />
         <StyledContentBox
           gap='medium'
