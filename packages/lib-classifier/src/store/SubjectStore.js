@@ -112,13 +112,14 @@ const SubjectStore = types
     }
 
     function append (newSubjects) {
-      newSubjects.forEach(subject => {
-        self.resources.put(subject)
-      })
+      const validResources = isValidReference(() => self.resources)
+      if (validResources) {
+        newSubjects.forEach(self.resources.put)
 
-      const validSubjectReference = isValidReference(() => self.active)
-      if (!validSubjectReference) {
-        self.advance()
+        const validSubjectReference = isValidReference(() => self.active)
+        if (!validSubjectReference) {
+          self.advance()
+        }
       }
     }
 
