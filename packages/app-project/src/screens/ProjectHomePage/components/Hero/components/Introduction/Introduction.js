@@ -1,16 +1,21 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Anchor, Box, Text } from 'grommet'
+import { Anchor, Box, Paragraph, Text } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { object, string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function Introduction (props) {
+const StyledParagraph = styled(Paragraph)`
+  font-weight: bold;
+`
+
+function Introduction(props) {
   const { description, link, title } = props
   return (
     <Box>
@@ -19,11 +24,9 @@ function Introduction (props) {
           {title}
         </SpacedText>
       </Box>
-      <Box margin={{ bottom: 'small' }}>
-        <Text size='xlarge' weight='bold'>
-          {description}
-        </Text>
-      </Box>
+      <StyledParagraph margin={{ bottom: 'small', top: 'none' }} size='xxlarge'>
+        {description}
+      </StyledParagraph>
       <Link {...link} passHref>
         <Anchor
           gap='xsmall'
