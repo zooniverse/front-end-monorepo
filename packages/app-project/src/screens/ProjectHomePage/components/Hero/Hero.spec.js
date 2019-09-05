@@ -14,7 +14,7 @@ describe('Component > Hero', function () {
   })
 
   it('should render without crashing', function () {
-    console.info(wrapper.debug())
+    expect(wrapper).to.be.ok()
   })
 
   it('should render the `Background` component', function () {
