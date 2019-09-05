@@ -1,15 +1,14 @@
 import { withThemeContext } from '@zooniverse/react-components'
 import { Button } from 'grommet'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { withRouter } from 'next/router'
 import { bool, shape, string } from 'prop-types'
 import React from 'react'
 
 import theme from './theme'
 
 function WorkflowSelectButton (props) {
-  const { workflow } = props
-  const router = useRouter()
+  const { router, workflow } = props
 
   const as = workflow.default
     ? `${router.asPath}/classify`
@@ -25,6 +24,9 @@ function WorkflowSelectButton (props) {
 }
 
 WorkflowSelectButton.propTypes = {
+  router: shape({
+    asPath: string.isRequired
+  }),
   workflow: shape({
     default: bool.isRequired,
     displayName: string.isRequired,
@@ -32,4 +34,9 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-export default withThemeContext(WorkflowSelectButton, theme)
+const DecoratedWorkflowSelectButton = withRouter(withThemeContext(WorkflowSelectButton, theme))
+
+export {
+  DecoratedWorkflowSelectButton as default,
+  WorkflowSelectButton
+}
