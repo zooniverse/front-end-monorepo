@@ -6,8 +6,8 @@ Created: September 4, 2019
 
 On PFE, there are a couple of different ways workflows are routed:
 
-- Navigating to `/classify`, the user sees either the default workflow for that project, or the workflow stored in project preferences for logged-in volunteers.
-- Navigating to `/classify?workflow=[workflow_id]` shows the workflow determined by the query parameter.
+- Navigating to `/classify`, the user sees either the default workflow for that project, a random active workflow, or the workflow stored in project preferences for logged-in volunteers.
+- Navigating to `/classify?workflow=[workflow_id]` shows the workflow determined by the query parameter when the "Use workflow query" feature is enabled for the project, or if the user has the correct role (owner, collaborator, tester, or admin).
 
 This is not optimal for several reasons. Users cannot bookmark specific workflows unless they use the query parameter; there can be uncertainty over which actual workflow is being shown (particularly as the workflow name isn't shown in the UI); different workflows can be shown at the same URL at different times; and ultimately, workflows are static resources that should be routed to - that's what URLs are for.
 
