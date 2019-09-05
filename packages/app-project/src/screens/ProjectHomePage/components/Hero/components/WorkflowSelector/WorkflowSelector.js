@@ -31,7 +31,7 @@ function WorkflowSelector (props) {
           justify='center'
           margin={{ top: 'small' }}
         >
-          There was an error fetching the workflows :(
+          {counterpart('WorkflowSelector.error')}
         </Box>
       )}
 
