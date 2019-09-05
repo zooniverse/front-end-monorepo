@@ -209,7 +209,7 @@ class LightCurveViewer extends Component {
         const x = (raw.minX + raw.maxX) / 2
         const width = (raw.maxX - raw.minX)
         const toolType = props.currentTask.tools[props.toolIndex].type
-        return { x, width, tool: props.toolIndex, toolType }
+        return { x, width, tool: props.toolIndex, zoomLevelOnCreation: raw.zoomLevelOnCreation, toolType }
       })
 
     props.addAnnotation(annotations, props.currentTask)
@@ -232,7 +232,8 @@ class LightCurveViewer extends Component {
       id: nextAvailableId,
       brush: brush,
       minX: undefined, // x, relative to the data range (not the SVG dimensions)
-      maxX: undefined
+      maxX: undefined,
+      zoomLevelOnCreation: undefined
     })
   }
 
@@ -299,6 +300,10 @@ class LightCurveViewer extends Component {
     let dataMaxX = brushSelection && brushSelection[1]
     annotationBrush.minX = dataMinX && currentTransform.rescaleX(this.xScale).invert((dataMinX))
     annotationBrush.maxX = dataMaxX && currentTransform.rescaleX(this.xScale).invert((dataMaxX))
+
+    if (annotationBrush.zoomLevelOnCreation === undefined) {
+      annotationBrush.zoomLevelOnCreation = this.getCurrentTransform().k
+    }
 
     // NOTE: when MOVE mode is enabled, the d3interfaceLayer appears on top of
     // the d3annotations layer, essentially blocking any d3 brush interactions.

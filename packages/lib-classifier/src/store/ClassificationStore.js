@@ -8,7 +8,7 @@ import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
-import { SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation } from './annotations'
+import { SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation, DrawingAnnotation } from './annotations'
 import {
   ClassificationQueue,
   convertMapToArray,
@@ -98,7 +98,8 @@ const ClassificationStore = types
       const taskTypes = {
         single: SingleChoiceAnnotation,
         multiple: MultipleChoiceAnnotation,
-        dataVisAnnotation: DataVisAnnotation
+        dataVisAnnotation: DataVisAnnotation,
+        drawing: DrawingAnnotation
       }
 
       return taskTypes[taskType] || undefined
@@ -147,7 +148,7 @@ const ClassificationStore = types
       }
 
       const feedback = getRoot(self).feedback
-      if (feedback.isActive && feedback.rules) {
+      if (feedback.isActive && feedback.rules.size > 0) {
         metadata.feedback = toJS(feedback.rules)
       }
 

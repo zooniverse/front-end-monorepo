@@ -96,122 +96,185 @@ describe('Model > ClassificationStore', function () {
   })
 
   describe('on complete classification', function () {
-    let classifications
-    let event
-    let feedback
-    let subjectViewer
-    let onComplete
-    let feedbackStub
-
-    before(function () {
-      subject = Subject.create(subjectStub)
-      feedbackStub = {
-        isActive: true,
-        rules: {
-          T0: [{
-            id: 'testRule',
-            answer: '0',
-            strategy: 'singleAnswerQuestion',
-            successEnabled: true,
-            successMessage: 'Yay!',
-            failureEnabled: true,
-            failureMessage: 'No!'
-          }]
+    describe('with invalid feedback', function () {
+      let classifications
+      let event
+      let feedback
+      let onComplete
+      let invalidFeedbackStub
+      before(function () {
+        subject = Subject.create(subjectStub)
+        invalidFeedbackStub = {
+          isActive: true,
+          rules: {}
         }
-      }
 
-      const clientStub = {
-        panoptes: {
-          post: sinon.stub().callsFake(() => Promise.resolve({
-            ok: true,
-            body: {
-              classifications: []
-            }
-          }))
+        const clientStub = {
+          panoptes: {
+            post: sinon.stub().callsFake(() => Promise.resolve({
+              ok: true,
+              body: {
+                classifications: []
+              }
+            }))
+          }
         }
-      }
-      classifications = ClassificationStore.create({
-        active: undefined,
-        resources: {},
-        type: 'classifications'
+        classifications = ClassificationStore.create({
+          active: undefined,
+          resources: {},
+          type: 'classifications'
+        })
+        feedback = FeedbackStore.create(invalidFeedbackStub)
+
+        RootStub.create(
+          {
+            classifications,
+            feedback,
+            projects: { active: projectStub },
+            subjects: { active: subject },
+            subjectViewer: {},
+            workflows: { active: workflowStub }
+          },
+          {
+            client: clientStub
+          }
+        )
+        event = {
+          preventDefault: sinon.stub()
+        }
+        onComplete = sinon.stub()
+        classifications.setOnComplete(onComplete)
       })
-      feedback = FeedbackStore.create(feedbackStub)
-      sinon.stub(feedback, 'createRules')
-      sinon.stub(feedback, 'update')
-      sinon.stub(feedback, 'reset')
-      const rootStore = RootStub.create(
-        {
-          classifications,
-          feedback,
-          projects: { active: projectStub },
-          subjects: { active: subject },
-          subjectViewer: {},
-          workflows: { active: workflowStub }
-        },
-        {
-          client: clientStub
-        }
-      )
-      event = {
-        preventDefault: sinon.stub()
-      }
-      onComplete = sinon.stub()
-      classifications.setOnComplete(onComplete)
-      subjectViewer = rootStore.subjectViewer
-    })
 
-    beforeEach(function () {
-      subjectViewer.onSubjectReady({
-        target: {
-          naturalHeight: 200,
-          naturalWidth: 400
-        }
+      beforeEach(function () {
+        classifications.createClassification(subject)
+        classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })
+        classifications.completeClassification(event)
       })
-      classifications.createClassification(subject)
-      classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })
-      classifications.completeClassification(event)
+
+      it('should not add feedback to classification metadata', function () {
+        expect(classifications.active.metadata.feedback).to.be.empty()
+      })
     })
 
-    afterEach(function () {
-      onComplete.resetHistory()
-      feedback.update.resetHistory()
-      subjectViewer.resetSubject()
-    })
-
-    after(function () {
-      feedback.createRules.restore()
-      feedback.update.restore()
-      feedback.reset.restore()
-    })
-
-    it('should update feedback', function () {
-      const annotation = {
-        task: 'T0',
-        value: 0
-      }
-      expect(feedback.update).to.have.been.calledOnceWith(annotation)
-    })
-
-    it('should call the onComplete callback with the classification and subject', function () {
-      const classification = classifications.active
-      expect(onComplete).to.have.been.calledOnceWith(classification.toJSON(), subject.toJSON())
-    })
-
-    describe('classification metadata', function () {
-      let metadata
+    describe('with valid feedback', function () {
+      let classifications
+      let event
+      let feedback
+      let subjectViewer
+      let onComplete
+      let feedbackStub
 
       before(function () {
-        metadata = classifications.active.metadata
+        subject = Subject.create(subjectStub)
+        feedbackStub = {
+          isActive: true,
+          rules: {
+            T0: [{
+              id: 'testRule',
+              answer: '0',
+              strategy: 'singleAnswerQuestion',
+              successEnabled: true,
+              successMessage: 'Yay!',
+              failureEnabled: true,
+              failureMessage: 'No!'
+            }]
+          }
+        }
+
+        const clientStub = {
+          panoptes: {
+            post: sinon.stub().callsFake(() => Promise.resolve({
+              ok: true,
+              body: {
+                classifications: []
+              }
+            }))
+          }
+        }
+        classifications = ClassificationStore.create({
+          active: undefined,
+          resources: {},
+          type: 'classifications'
+        })
+        feedback = FeedbackStore.create(feedbackStub)
+        sinon.stub(feedback, 'createRules')
+        sinon.stub(feedback, 'update')
+        sinon.stub(feedback, 'reset')
+        const rootStore = RootStub.create(
+          {
+            classifications,
+            feedback,
+            projects: { active: projectStub },
+            subjects: { active: subject },
+            subjectViewer: {},
+            workflows: { active: workflowStub }
+          },
+          {
+            client: clientStub
+          }
+        )
+        event = {
+          preventDefault: sinon.stub()
+        }
+        onComplete = sinon.stub()
+        classifications.setOnComplete(onComplete)
+        subjectViewer = rootStore.subjectViewer
       })
 
-      it('should have a feedback key', function () {
-        const { rules } = feedbackStub
-        expect(metadata.feedback).to.eql(rules)
+      beforeEach(function () {
+        subjectViewer.onSubjectReady({
+          target: {
+            naturalHeight: 200,
+            naturalWidth: 400
+          }
+        })
+        classifications.createClassification(subject)
+        classifications.addAnnotation(0, { type: 'single', taskKey: 'T0' })
+        classifications.completeClassification(event)
       })
 
-      it('should record subject dimensions', function () {
-        expect(metadata.subjectDimensions).to.eql(subjectViewer.dimensions)
+      afterEach(function () {
+        onComplete.resetHistory()
+        feedback.update.resetHistory()
+        subjectViewer.resetSubject()
+      })
+
+      after(function () {
+        feedback.createRules.restore()
+        feedback.update.restore()
+        feedback.reset.restore()
+      })
+
+      it('should update feedback', function () {
+        const annotation = {
+          task: 'T0',
+          value: 0
+        }
+        expect(feedback.update).to.have.been.calledOnceWith(annotation)
+      })
+
+      it('should call the onComplete callback with the classification and subject', function () {
+        const classification = classifications.active
+        expect(onComplete).to.have.been.calledOnceWith(classification.toJSON(), subject.toJSON())
+      })
+
+      describe('classification metadata', function () {
+        let metadata
+
+        before(function () {
+          metadata = classifications.active.metadata
+        })
+
+        it('should have a feedback key', function () {
+          const { rules } = feedbackStub
+          expect(metadata.feedback).to.eql(rules)
+        })
+
+        it('should record subject dimensions', function () {
+          expect(metadata.subjectDimensions).to.eql(subjectViewer.dimensions)
+        })
       })
     })
-  })
+  })    
 })
