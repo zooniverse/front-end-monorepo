@@ -10,7 +10,7 @@ const StyledHeading = styled(Heading)`
 `
 
 function WidgetHeading (props) {
-  const { level, text } = props
+  const { children, level } = props
   return (
     <StyledHeading level={level} margin='none'>
       <SpacedText
@@ -20,7 +20,7 @@ function WidgetHeading (props) {
         }}
         weight='bold'
       >
-        {text}
+        {children}
       </SpacedText>
     </StyledHeading>
   )
