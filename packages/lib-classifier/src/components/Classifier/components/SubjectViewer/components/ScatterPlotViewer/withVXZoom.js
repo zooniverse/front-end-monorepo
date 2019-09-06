@@ -5,7 +5,7 @@ import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
 import * as d3 from 'd3'
 import scaleTransform from './helpers/scaleTransform'
-import { MARGIN, PADDING } from './helpers/constants'
+import { MARGIN, PADDING, PAN_DISTANCE } from './helpers/constants'
 import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
 
 function withVXZoom (WrappedComponent) {
@@ -26,8 +26,8 @@ function withVXZoom (WrappedComponent) {
           x: d3.extent(data.x),
           y: d3.extent(data.y)
         },
-        xRange: [PADDING, parentWidth - MARGIN],
-        yRange: [parentHeight - PADDING, MARGIN]
+        xRange: [0 + PADDING, parentWidth - MARGIN],
+        yRange: [parentHeight - PADDING, MARGIN + 0]
       }
 
       this.constrain = this.constrain.bind(this)
@@ -85,8 +85,7 @@ function withVXZoom (WrappedComponent) {
 
       const { xScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
       const xScaleDomain = xScale.domain()
-      const xScaleRange = xScale.range()
-      const outOfXAxisDataBounds = xScaleDomain[0] < dataExtent.x[0] || xScaleDomain[1] > xScaleRange[0]
+      const outOfXAxisDataBounds = xScaleDomain[0] < (dataExtent.x[0] - PAN_DISTANCE) || xScaleDomain[1] > (dataExtent.x[1] + PAN_DISTANCE)
       const shouldConstrainScaleX = scaleX > maxZoom || scaleX < minZoom
 
       return outOfXAxisDataBounds || shouldConstrainScaleX
@@ -98,8 +97,7 @@ function withVXZoom (WrappedComponent) {
       const { dataExtent, xRange, yRange } = this.state
       const { yScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
       const yScaleDomain = yScale.domain()
-      const yScaleRange = yScale.range()
-      const outOfYAxisDataBounds = yScaleDomain[0] < dataExtent.y[0] || yScaleDomain[1] > yScaleRange[0]
+      const outOfYAxisDataBounds = yScaleDomain[0] < (dataExtent.y[0] - PAN_DISTANCE) || yScaleDomain[1] > (dataExtent.y[1] + PAN_DISTANCE)
       const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
 
       return outOfYAxisDataBounds || shouldConstrainScaleY
