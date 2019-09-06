@@ -13,8 +13,9 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ../../:/usr/src
-      - /usr/src/node_modules
+      - ./pages:/usr/src/packages/app-project/pages
+      - ./src:/usr/src/packages/app-project/src
+      - ./stores:/usr/src/packages/app-project/stores
   storybook:
     image: front-end-monorepo_dev:latest
     entrypoint:
@@ -25,5 +26,6 @@ services:
     ports:
       - "9001:9001"
     volumes:
-      - ../../:/usr/src
-      - /usr/src/node_modules
+      - ./pages:/usr/src/packages/app-project/pages
+      - ./src:/usr/src/packages/app-project/src
+      - ./stores:/usr/src/packages/app-project/stores
