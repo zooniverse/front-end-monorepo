@@ -1,6 +1,6 @@
 import React, { PureComponent, forwardRef} from 'react'
 import PropTypes from 'prop-types'
-import { withParentSize, ParentSize } from '@vx/responsive'
+import { withParentSize } from '@vx/responsive'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
 import * as d3 from 'd3'
@@ -78,23 +78,37 @@ function withVXZoom (WrappedComponent) {
       this.zoomToPoint(event, 'in')
     }
 
-    constrainXAxisZoom (transformMatrix, prevTransformMatrix) {
-      const { zoomConfiguration } = this.props
-      const { maxZoom, minZoom } = zoomConfiguration
-      const { scaleX, translateX } = transformMatrix
+    isXAxisOutOfBounds (transformMatrix) {
+      const { maxZoom, minZoom } = this.props.zoomConfiguration
+      const { scaleX } = transformMatrix
       const { dataExtent, xRange, yRange } = this.state
-      
-      const { xScale, yScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
+
+      const { xScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
       const xScaleDomain = xScale.domain()
       const xScaleRange = xScale.range()
-      console.log('domain', xScale.domain(), xScale.range())
       const outOfXAxisDataBounds = xScaleDomain[0] < dataExtent.x[0] || xScaleDomain[1] > xScaleRange[0]
       const shouldConstrainScaleX = scaleX > maxZoom || scaleX < minZoom
-      if (outOfXAxisDataBounds) {
-        return prevTransformMatrix
-      }
 
-      if (shouldConstrainScaleX) {
+      return outOfXAxisDataBounds || shouldConstrainScaleX
+    }
+
+    isYAxisOutOfBounds (transformMatrix) {
+      const { maxZoom, minZoom } = this.props.zoomConfiguration
+      const { scaleY } = transformMatrix
+      const { dataExtent, xRange, yRange } = this.state
+      const { yScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
+      const yScaleDomain = yScale.domain()
+      const yScaleRange = yScale.range()
+      const outOfYAxisDataBounds = yScaleDomain[0] < dataExtent.y[0] || yScaleDomain[1] > yScaleRange[0]
+      const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
+
+      return outOfYAxisDataBounds || shouldConstrainScaleY
+    }
+
+    constrainXAxisZoom (transformMatrix, prevTransformMatrix) {
+      const isXAxisOutOfBounds = this.isXAxisOutOfBounds(transformMatrix)
+
+      if (isXAxisOutOfBounds) {
         return prevTransformMatrix
       }
 
@@ -107,18 +121,9 @@ function withVXZoom (WrappedComponent) {
     }
 
     constrainYAxisZoom (transformMatrix, prevTransformMatrix) {
-      const { data, zoomConfiguration } = this.props
-      const { maxZoom, minZoom } = zoomConfiguration
-      const { scaleY, translateY } = transformMatrix
-      const yDataExtent = d3.extent(data.y)
-      const outOfYAxisDataBounds = translateY > yDataExtent[1]
-      const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
-
-      if (outOfYAxisDataBounds) {
-        return prevTransformMatrix
-      }
-
-      if (shouldConstrainScaleY) {
+      const isYAxisOutOfBounds = this.isYAxisOutOfBounds(transformMatrix)
+      console.log('isYAxisOutOfBounds', isYAxisOutOfBounds)
+      if (isYAxisOutOfBounds) {
         return prevTransformMatrix
       }
 
@@ -131,20 +136,10 @@ function withVXZoom (WrappedComponent) {
     }
 
     constrainBothAxisZoom (transformMatrix, prevTransformMatrix) {
-      const { zoomConfiguration } = this.props
-      const { dataExtent } = this.state
-      const { maxZoom, minZoom } = zoomConfiguration
-      const { scaleY, translateY } = transformMatrix
-      const outOfXAxisDataBounds = translateX > dataExtent.x[1]
-      const shouldConstrainScaleX = scaleX > maxZoom || scaleX < minZoom
-      const outOfYAxisDataBounds = translateY > dataExtent.y[1]
-      const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
+      const isXAxisOutOfBounds = this.isXAxisOutOfBounds(transformMatrix)
+      const isYAxisOutOfBounds = this.isYAxisOutOfBounds(transformMatrix)
 
-      if (outOfXAxisDataBounds || outOfYAxisDataBounds) {
-        return prevTransformMatrix
-      }
-
-      if (shouldConstrainScaleX || shouldConstrainScaleY) {
+      if (isXAxisOutOfBounds|| isYAxisOutOfBounds) {
         return prevTransformMatrix
       }
 
@@ -209,11 +204,14 @@ function withVXZoom (WrappedComponent) {
             this.zoom = zoom
             return (
               <WrappedComponent
+                dataExtent={this.state.dataExtent}
                 margin={MARGIN}
                 padding={PADDING}
                 parentHeight={parentHeight}
                 parentWidth={parentWidth}
                 transformMatrix={zoom.transformMatrix}
+                xRange={this.state.xRange}
+                yRange={this.state.yRange}
                 {...this.props}
               >
                 <ZoomEventLayer

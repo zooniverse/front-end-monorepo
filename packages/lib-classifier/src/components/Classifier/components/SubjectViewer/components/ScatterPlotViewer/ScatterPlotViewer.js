@@ -10,6 +10,7 @@ import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
 import Axes from './components/Axes'
 import { MARGIN, PADDING } from './helpers/constants'
+import scaleTransform from './helpers/scaleTransform'
 
 function ScatterPlotViewer(props) {
   const {

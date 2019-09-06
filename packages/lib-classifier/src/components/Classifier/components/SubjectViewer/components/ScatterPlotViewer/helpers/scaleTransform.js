@@ -1,7 +1,6 @@
 import { scaleLinear } from '@vx/scale'
 
 export default function scaleTransform (dataExtent, transformMatrix, xRange, yRange) {
-  console.log(dataExtent, transformMatrix, xRange, yRange)
   const xScale = scaleLinear({
     domain: dataExtent.x,
     range: xRange
