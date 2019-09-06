@@ -33,7 +33,6 @@ The production server is started on port 3000 by default.
 
 #### Docker
 ```sh
-docker-compose run --rm dev build
 docker-compose run --rm --service-ports dev start
 ````
 
