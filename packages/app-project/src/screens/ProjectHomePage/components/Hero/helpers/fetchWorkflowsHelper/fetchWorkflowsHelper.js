@@ -1,7 +1,4 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import find from 'lodash/find'
-import pick from 'lodash/find'
-import toNumber from 'lodash/toNumber'
 
 function fetchWorkflowData (activeWorkflows) {
   return panoptes
@@ -19,15 +16,14 @@ function fetchDisplayNames (language, activeWorkflows) {
     .get('/translations', {
       fields: 'strings,translated_id',
       language,
-      translated_id: activeWorkflows.join(','),
-      translated_type: 'workflow'
+      'translated_id': activeWorkflows.join(','),
+      'translated_type': 'workflow'
     })
     .then(response => response.body.translations)
     .then(createDisplayNamesMap)
 }
 
 async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow) {
-  try {
     const workflows = await fetchWorkflowData(activeWorkflows)
     const workflowIds = workflows.map(workflow => workflow.id)
     const displayNames = await fetchDisplayNames(language, workflowIds)
@@ -42,10 +38,6 @@ async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWor
         displayName: displayNames[workflow.id]
       }
     })
-  } catch (error) {
-    console.error(error)
-    return error
-  }
 }
 
 function pickWorkflowFields (workflow) {
@@ -59,7 +51,7 @@ function createDisplayNamesMap (translations) {
   const map = {}
   translations.forEach(translation => {
     const workflowId = translation.translated_id.toString()
-    map[workflowId] = translation.strings.display_name
+    map[workflowId] = translation.strings['display_name']
   })
   return map
 }

@@ -13,7 +13,7 @@ const WORKFLOWS = [
   }
 ]
 
-// `translated_id` is an number because of a bug in the translations API :(
+// `translated_id` is a number because of a bug in the translations API :(
 const TRANSLATIONS = [
   {
     translated_id: 1,
@@ -29,7 +29,7 @@ const TRANSLATIONS = [
   }
 ]
 
-describe('Helpers > fetchWorkflowsHelper', function () {
+describe.only('Helpers > fetchWorkflowsHelper', function () {
   it('should provide the expected result with a single workflow', async function () {
     const scope = nock('https://panoptes-staging.zooniverse.org/api')
       .get('/translations')
@@ -62,11 +62,59 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         workflows: WORKFLOWS
       })
 
-    const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+    const result = await fetchWorkflowsHelper('en', ['1', '2'])
     expect(result).to.deep.equal([
       { completeness: 0.4, default: false, id: '1', displayName: 'Foo' },
-      { completeness: 0.7, default: true, id: '2', displayName: 'Bar' }
+      { completeness: 0.7, default: false, id: '2', displayName: 'Bar' }
     ])
+  })
 
+  describe('when there is a `defaultWorkflow` provided', function () {
+    it('should provide the expected result with multiple workflows', async function () {
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS
+        })
+        .get('/workflows')
+        .query(true)
+        .reply(200, {
+          workflows: WORKFLOWS
+        })
+
+      const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+      expect(result).to.deep.equal([
+        { completeness: 0.4, default: false, id: '1', displayName: 'Foo' },
+        { completeness: 0.7, default: true, id: '2', displayName: 'Bar' }
+      ])
+    })
+  })
+
+  describe.only(`when there's an error`, function () {
+    it('should allow the error to be thrown for the consumer to handle', async function () {
+      const error = {
+        message: 'oh dear. oh dear god'
+      }
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .replyWithError(error)
+        .get('/workflows')
+        .query(true)
+        .reply(200, {
+          workflows: WORKFLOWS
+        })
+
+      try {
+        await fetchWorkflowsHelper('en', ['1', '2'], '2')
+        expect.fail()
+      } catch (error) {
+        expect(error).to.deep.equal({
+          ...error,
+          response: undefined
+        })
+      }
+    })
   })
 })
