@@ -2,11 +2,13 @@
 function getFeedbackFromTasks (tasks = {}) {
   const result = {}
   Object.entries(tasks).forEach(function getTaskRules ([taskKey, task]) {
+    const defaultFeedback = { enabled: false, rules: []}
     const { feedback } = task
+    const { enabled, rules } = feedback || defaultFeedback
     const taskHasFeedback =
-      feedback &&
-      feedback.enabled &&
-      feedback.rules.length > 0
+      enabled &&
+      rules &&
+      rules.length > 0
 
     if (taskHasFeedback) {
       result[taskKey] = task.feedback.rules
