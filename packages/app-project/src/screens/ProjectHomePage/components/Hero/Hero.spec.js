@@ -18,14 +18,14 @@ describe('Component > Hero', function () {
   })
 
   it('should render the `Background` component', function () {
-    expect(wrapper.find(Background)).to.have.lengthOf(1)
+    expect(wrapper.find(Background)).to.have.lengthOf(2)
   })
 
   it('should render the `Introduction` component', function () {
-    expect(wrapper.find(Introduction)).to.have.lengthOf(1)
+    expect(wrapper.find(Introduction)).to.have.lengthOf(2)
   })
 
   it('should render the `WorkflowSelector` component', function () {
-    expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+    expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(2)
   })
 })

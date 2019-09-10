@@ -7,6 +7,7 @@ import Background from './components/Background'
 import Introduction from './components/Introduction'
 import WorkflowSelector from './components/WorkflowSelector'
 import ContentBox from '../../../../shared/components/ContentBox'
+import { Media } from '../../../../shared/components/Media'
 
 const StyledContentBox = styled(ContentBox)`
   ${props => (props.screenSize !== 'small') && `
@@ -18,45 +19,45 @@ const StyledContentBox = styled(ContentBox)`
 function Hero (props) {
   const { screenSize, workflows } = props
 
-  // Default to `small` layout
-  let component = (
-    <Box
-      align='stretch'
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      direction='column'
-      justify='between'
-    >
-      <Background />
-      <Grid margin={{ top: 'medium-neg', horizontal: 'medium' }}>
-        <StyledContentBox gap='medium' screenSize={screenSize}>
-          <Introduction />
-          <WorkflowSelector workflows={workflows} />
-        </StyledContentBox>
-      </Grid>
-    </Box>
-  )
 
-  if (screenSize !== 'small') {
-    component = (
-      <Grid columns={['1.618fr', '1fr']} margin={{ bottom: 'medium' }}>
-        <Background />
-        <StyledContentBox
-          gap='medium'
+  return (
+    <>
+      <Media at='default'>
+        <Box
+          align='stretch'
+          background={{
+            dark: 'dark-1',
+            light: 'light-1'
+          }}
+          direction='column'
           justify='between'
-          pad='medium'
-          screenSize={screenSize}
         >
-          <Introduction />
-          <WorkflowSelector workflows={workflows} />
-        </StyledContentBox>
-      </Grid>
-    )
-  }
+          <Background />
+          <Grid margin={{ top: 'medium-neg', horizontal: 'medium' }}>
+            <StyledContentBox gap='medium' screenSize={screenSize}>
+              <Introduction />
+              <WorkflowSelector workflows={workflows} />
+            </StyledContentBox>
+          </Grid>
+        </Box>
+      </Media>
 
-  return component
+      <Media greaterThan='default'>
+        <Grid columns={['1.618fr', '1fr']} margin={{ bottom: 'medium' }}>
+          <Background />
+          <StyledContentBox
+            gap='medium'
+            justify='between'
+            pad='medium'
+            screenSize={screenSize}
+          >
+            <Introduction />
+            <WorkflowSelector workflows={workflows} />
+          </StyledContentBox>
+        </Grid>
+      </Media>
+    </>
+  )
 }
 
 const DecoratedHero = withResponsiveContext(Hero)

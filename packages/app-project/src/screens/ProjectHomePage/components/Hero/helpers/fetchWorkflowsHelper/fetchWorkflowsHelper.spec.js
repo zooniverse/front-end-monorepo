@@ -29,7 +29,7 @@ const TRANSLATIONS = [
   }
 ]
 
-describe.only('Helpers > fetchWorkflowsHelper', function () {
+describe('Helpers > fetchWorkflowsHelper', function () {
   it('should provide the expected result with a single workflow', async function () {
     const scope = nock('https://panoptes-staging.zooniverse.org/api')
       .get('/translations')
@@ -91,7 +91,7 @@ describe.only('Helpers > fetchWorkflowsHelper', function () {
     })
   })
 
-  describe.only(`when there's an error`, function () {
+  describe(`when there's an error`, function () {
     it('should allow the error to be thrown for the consumer to handle', async function () {
       const error = {
         message: 'oh dear. oh dear god'
