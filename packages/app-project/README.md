@@ -15,12 +15,12 @@ This package should be cloned as part of the [front-end-monorepo](https://github
 
 Starts a development server on port 3000 and a Storybook server on port 9001 by default.
 
-####Docker
+#### Docker
 - `docker-compose up` to run a dev server on http://localhost:3000 and the storybook on http://localhost:9001.
 - `docker-compose down` to stop the container.
 - `docker-compose run --rm dev test` to run the tests.
 
-####Node/yarn
+#### Node/yarn
 ```sh
 yarn dev
 yarn storybook
@@ -31,13 +31,12 @@ Next.js [treats the build and serve tasks as separate steps](https://github.com/
 
 The production server is started on port 3000 by default.
 
-####Docker
+#### Docker
 ```sh
-docker-compose run --rm dev build
 docker-compose run --rm --service-ports dev start
 ````
 
-####Node/yarn
+#### Node/yarn
 ```sh
 yarn build
 yarn start
@@ -47,10 +46,10 @@ yarn start
 
 See [Testing](#testing) for more details.
 
-####Docker
+#### Docker
 `docker-compose run --rm dev test`.
 
-####Node/yarn
+#### Node/yarn
 ```sh
 yarn test
 ```

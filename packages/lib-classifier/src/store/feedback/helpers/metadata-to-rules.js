@@ -4,7 +4,7 @@ function metadataToRules (metadata = {}) {
   const rules = metadataKeys.reduce(function (result, key) {
     const [prefix, ruleIndex, propKey] = key.split('_')
     const value = metadata[key]
-    const stringValue = value.toString()
+    const stringValue = (value !== null && value !== undefined) ? value.toString() : ''
 
     if (prefix === '#feedback' && stringValue) {
       if (isNaN(ruleIndex)) {
