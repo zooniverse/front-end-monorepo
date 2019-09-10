@@ -49,25 +49,31 @@ const rulesStub = {
   }]
 }
 
-const workflow = WorkflowFactory.build()
-const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+const workflow = WorkflowFactory.build({
+  tasks: {
+    T0: {
+      feedback: {
+        enabled: true,
+        rules: [{
+          id: '51',
+          strategy: 'singleAnswerQuestion',
+          failureEnabled: true,
+          successEnabled: true,
+          defaultFailureMessage: '"Actually, that\'s not correct"',
+          defaultSuccessMessage: '"Correct"'
+        }]
+      }
+    }
+  }
+})
+const project = ProjectFactory.build({}, {
+  activeWorkflowId: workflow.id,
+  experimental_tools: ['general feedback']
+})
 const subject = Factory.build('subject')
 subject.shouldDiscuss = undefined
 
 describe('Model > FeedbackStore', function () {
-  before(function () {
-    sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
-    sinon.stub(helpers, 'generateRules').callsFake(() => rulesStub)
-    strategies.testStrategy = {
-      reducer: sinon.stub().callsFake(rule => rule)
-    }
-  })
-
-  after(function () {
-    helpers.isFeedbackActive.restore()
-    helpers.generateRules.restore()
-  })
-
   describe('existance', function () {
     it('should exist', function () {
       expect(FeedbackStore).to.be.ok()
@@ -75,55 +81,24 @@ describe('Model > FeedbackStore', function () {
     })
   })
 
-  describe('Actions > createRules', function () {
-    let feedback, feedbackStub
+  describe('Actions', function () {
     before(function () {
-      feedbackStub = FeedbackFactory.build()
-      feedback = FeedbackStore.create(feedbackStub)
-      feedback.projects = ProjectStore.create()
-      feedback.workflows = WorkflowStore.create()
-      feedback.subjects = SubjectStore.create()
+      sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+      sinon.stub(helpers, 'generateRules').callsFake(() => rulesStub)
+      strategies.testStrategy = {
+        reducer: sinon.stub().callsFake(rule => rule)
+      }
     })
 
-    beforeEach(function () {
-      feedback.projects.setResource(project)
-      feedback.projects.setActive(project.id)
-      feedback.workflows.setResource(workflow)
-      feedback.workflows.setActive(workflow.id)
+    after(function () {
+      helpers.isFeedbackActive.restore()
+      helpers.generateRules.restore()
     })
 
-    afterEach(function () {
-      feedback.reset()
-      helpers.isFeedbackActive.resetHistory()
-      helpers.generateRules.resetHistory()
-    })
-
-    it('should set active state', function () {
-      feedback.subjects.setResource(subject)
-      feedback.subjects.setActive(subject.id)
-      expect(feedback.isActive).to.be.false()
-      feedback.createRules(subject)
-      const projectRef = feedback.projects.active
-      const workflowRef = feedback.workflows.active
-      const subjectRef = feedback.subjects.active.toJSON()
-      expect(helpers.isFeedbackActive.withArgs(projectRef, subjectRef, workflowRef)).to.have.been.calledOnce()
-      expect(feedback.isActive).to.equal(helpers.isFeedbackActive.returnValues[0])
-      expect(feedback.isActive).to.be.true()
-    })
-
-    it('should generate rules', function () {
-      expect(feedback.rules.toJSON()).to.be.empty()
-      feedback.createRules(subject)
-      expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce()
-      expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
-    })
-  })
-
-  describe('Actions > update', function () {
-    let feedback, feedbackStub
-    describe('when feedback is active', function () {
+    describe('createRules', function () {
+      let feedback, feedbackStub
       before(function () {
-        feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub })
+        feedbackStub = FeedbackFactory.build()
         feedback = FeedbackStore.create(feedbackStub)
         feedback.projects = ProjectStore.create()
         feedback.workflows = WorkflowStore.create()
@@ -135,115 +110,161 @@ describe('Model > FeedbackStore', function () {
         feedback.projects.setActive(project.id)
         feedback.workflows.setResource(workflow)
         feedback.workflows.setActive(workflow.id)
-        const annotation = { task: 'T1', value: 0 }
-        feedback.update(annotation)
       })
 
-      after(function () {
-        strategies.testStrategy.reducer.resetHistory()
+      afterEach(function () {
+        feedback.reset()
+        helpers.isFeedbackActive.resetHistory()
+        helpers.generateRules.resetHistory()
       })
 
-      it('should reduce the rule and value', function () {
-        const [rule] = feedback.rules.get('T1')
-        expect(strategies.testStrategy.reducer).to.have.been.calledOnceWith(rule, 0)
+      it('should set active state', function () {
+        feedback.subjects.setResource(subject)
+        feedback.subjects.setActive(subject.id)
+        expect(feedback.isActive).to.be.false()
+        feedback.createRules(subject)
+        const projectRef = feedback.projects.active
+        const workflowRef = feedback.workflows.active
+        const subjectRef = feedback.subjects.active.toJSON()
+        expect(helpers.isFeedbackActive.withArgs(projectRef, subjectRef, workflowRef)).to.have.been.calledOnce()
+        expect(feedback.isActive).to.equal(helpers.isFeedbackActive.returnValues[0])
+        expect(feedback.isActive).to.be.true()
+      })
+
+      it('should generate rules', function () {
+        expect(feedback.rules.toJSON()).to.be.empty()
+        feedback.createRules(subject)
+        expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce()
+        expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
       })
     })
 
-    describe('when feedback is not active', function () {
-      before(function () {
-        feedbackStub = FeedbackFactory.build({ isActive: false, rules: {} })
+    describe('update', function () {
+      let feedback, feedbackStub
+      describe('when feedback is active', function () {
+        before(function () {
+          feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub })
+          feedback = FeedbackStore.create(feedbackStub)
+          feedback.projects = ProjectStore.create()
+          feedback.workflows = WorkflowStore.create()
+          feedback.subjects = SubjectStore.create()
+        })
+
+        beforeEach(function () {
+          feedback.projects.setResource(project)
+          feedback.projects.setActive(project.id)
+          feedback.workflows.setResource(workflow)
+          feedback.workflows.setActive(workflow.id)
+          const annotation = { task: 'T1', value: 0 }
+          feedback.update(annotation)
+        })
+
+        after(function () {
+          strategies.testStrategy.reducer.resetHistory()
+        })
+
+        it('should reduce the rule and value', function () {
+          const [rule] = feedback.rules.get('T1')
+          expect(strategies.testStrategy.reducer).to.have.been.calledOnceWith(rule, 0)
+        })
+      })
+
+      describe('when feedback is not active', function () {
+        before(function () {
+          feedbackStub = FeedbackFactory.build({ isActive: false, rules: {} })
+          feedback = FeedbackStore.create(feedbackStub)
+          feedback.projects = ProjectStore.create()
+          feedback.workflows = WorkflowStore.create()
+          feedback.subjects = SubjectStore.create()
+        })
+
+        beforeEach(function () {
+          feedback.projects.setResource(project)
+          feedback.projects.setActive(project.id)
+          feedback.workflows.setResource(workflow)
+          feedback.workflows.setActive(workflow.id)
+          const annotation = { task: 'T1', value: 0 }
+          feedback.update(annotation)
+        })
+
+        after(function () {
+          strategies.testStrategy.reducer.resetHistory()
+        })
+
+        it('should not reduce the rule and value', function () {
+          expect(strategies.testStrategy.reducer).to.have.not.been.called()
+        })
+      })
+    })
+
+    describe('reset', function () {
+      let feedback, feedbackStub
+      beforeEach(function () {
+        feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
         feedback = FeedbackStore.create(feedbackStub)
-        feedback.projects = ProjectStore.create()
-        feedback.workflows = WorkflowStore.create()
         feedback.subjects = SubjectStore.create()
+        sinon.stub(feedback.subjects, 'advance').callsFake(() => { })
+      })
+
+      it('should reset active state', function () {
+        expect(feedback.isActive).to.be.true()
+        feedback.reset()
+        expect(feedback.isActive).to.be.false()
+      })
+
+      it('should reset feedback rules', function () {
+        expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
+        feedback.reset()
+        expect(feedback.rules).to.be.empty()
+      })
+
+      it('should reset showModal state', function () {
+        expect(feedback.showModal).to.be.true()
+        feedback.reset()
+        expect(feedback.showModal).to.be.false()
+      })
+
+      it('should set the onHide callback', function () {
+        expect(feedback.onHide).to.be.a('function')
+        expect(feedback.onHide()).to.be.true() // default to just return true
+        feedback.reset()
+        expect(feedback.onHide).to.equal(feedback.subjects.advance)
+      })
+    })
+
+    describe('showFeedback', function () {
+      let feedback
+      before(function () {
+        const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub })
+        feedback = FeedbackStore.create(feedbackStub)
+      })
+
+      it('should set showModal state to true', function () {
+        expect(feedback.showModal).to.be.false()
+        feedback.showFeedback()
+        expect(feedback.showModal).to.be.true()
+      })
+    })
+
+    describe('hideFeedback', function () {
+      let feedback
+      before(function () {
+        const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
+        feedback = FeedbackStore.create(feedbackStub)
       })
 
       beforeEach(function () {
-        feedback.projects.setResource(project)
-        feedback.projects.setActive(project.id)
-        feedback.workflows.setResource(workflow)
-        feedback.workflows.setActive(workflow.id)
-        const annotation = { task: 'T1', value: 0 }
-        feedback.update(annotation)
+        feedback.setOnHide(sinon.stub())
+        feedback.hideFeedback()
       })
 
-      after(function () {
-        strategies.testStrategy.reducer.resetHistory()
+      it('should set showModal state to false', function () {
+        expect(feedback.showModal).to.be.false()
       })
 
-      it('should not reduce the rule and value', function () {
-        expect(strategies.testStrategy.reducer).to.have.not.been.called()
+      it('should call the onHide callback', function () {
+        expect(feedback.onHide).to.have.been.calledOnce()
       })
-    })
-  })
-
-  describe('Actions > reset', function () {
-    let feedback, feedbackStub
-    beforeEach(function () {
-      feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
-      feedback = FeedbackStore.create(feedbackStub)
-      feedback.subjects = SubjectStore.create()
-      sinon.stub(feedback.subjects, 'advance').callsFake(() => { })
-    })
-
-    it('should reset active state', function () {
-      expect(feedback.isActive).to.be.true()
-      feedback.reset()
-      expect(feedback.isActive).to.be.false()
-    })
-
-    it('should reset feedback rules', function () {
-      expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
-      feedback.reset()
-      expect(feedback.rules).to.be.empty()
-    })
-
-    it('should reset showModal state', function () {
-      expect(feedback.showModal).to.be.true()
-      feedback.reset()
-      expect(feedback.showModal).to.be.false()
-    })
-
-    it('should set the onHide callback', function () {
-      expect(feedback.onHide).to.be.a('function')
-      expect(feedback.onHide()).to.be.true() // default to just return true
-      feedback.reset()
-      expect(feedback.onHide).to.equal(feedback.subjects.advance)
-    })
-  })
-
-  describe('Actions > showFeedback', function () {
-    let feedback
-    before(function () {
-      const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub })
-      feedback = FeedbackStore.create(feedbackStub)
-    })
-
-    it('should set showModal state to true', function () {
-      expect(feedback.showModal).to.be.false()
-      feedback.showFeedback()
-      expect(feedback.showModal).to.be.true()
-    })
-  })
-
-  describe('Actions > hideFeedback', function () {
-    let feedback
-    before(function () {
-      const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
-      feedback = FeedbackStore.create(feedbackStub)
-    })
-
-    beforeEach(function () {
-      feedback.setOnHide(sinon.stub())
-      feedback.hideFeedback()
-    })
-
-    it('should set showModal state to false', function () {
-      expect(feedback.showModal).to.be.false()
-    })
-
-    it('should call the onHide callback', function () {
-      expect(feedback.onHide).to.have.been.calledOnce()
     })
   })
 
@@ -335,6 +356,79 @@ describe('Model > FeedbackStore', function () {
 
       it('should show feedback', function () {
         expect(feedback.showModal).to.be.true()
+      })
+    })
+  })
+
+  describe('when a new subject loads', function () {
+    let feedback
+
+    before(function () {
+      const feedbackStub = FeedbackFactory.build()
+      feedback = FeedbackStore.create(feedbackStub)
+      feedback.projects = ProjectStore.create()
+      feedback.workflows = WorkflowStore.create()
+      feedback.subjects = SubjectStore.create()
+    })
+
+    beforeEach(function () {
+      feedback.projects.setResource(project)
+      feedback.projects.setActive(project.id)
+      feedback.workflows.setResource(workflow)
+      feedback.workflows.setActive(workflow.id)
+    })
+
+    afterEach(function () {
+      feedback.reset()
+    })
+
+    describe('when the subject has no feedback', function () {
+      before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => false)
+        sinon.stub(helpers, 'generateRules').callsFake(() => {})
+        strategies.testStrategy = {
+          reducer: sinon.stub().callsFake(rule => rule)
+        }
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
+        helpers.generateRules.restore()
+      })
+
+      beforeEach(function () {
+        feedback.subjects.setResource(subject)
+        feedback.subjects.setActive(subject.id)
+        feedback.onNewSubject()
+      })
+
+      it('should not set isActive', function () {
+        expect(feedback.isActive).to.be.false()
+      })
+    })
+
+    describe('when the subject has feedback', function () {
+      before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+        sinon.stub(helpers, 'generateRules').callsFake(() => rulesStub)
+        strategies.testStrategy = {
+          reducer: sinon.stub().callsFake(rule => rule)
+        }
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
+        helpers.generateRules.restore()
+      })
+
+      beforeEach(function () {
+        feedback.subjects.setResource(subject)
+        feedback.subjects.setActive(subject.id)
+        feedback.onNewSubject()
+      })
+
+      it('should set isActive', function () {
+        expect(feedback.isActive).to.be.true()
       })
     })
   })
