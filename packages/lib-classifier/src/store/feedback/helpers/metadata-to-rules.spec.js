@@ -9,7 +9,9 @@ describe('feedback: metadataToRules', function () {
         '#feedback_1_id': ruleID,
         '#feedback_1_answer': '0',
         '#feedback_1_failureMessage': 'Actually, this sound is from noise (background)',
-        '#feedback_1_successMessage': 'Correct!'
+        '#feedback_1_successMessage': 'Correct!',
+        'foo': null,
+        'bar': undefined
       }
     }
   }
@@ -19,7 +21,9 @@ describe('feedback: metadataToRules', function () {
       metadata: {
         '#feedback_[1]_id': ruleID,
         '#feedback_a_answer': '0',
-        '#feedback_1a2b_failureMessage': 'Actually, this sound is from noise (background)'
+        '#feedback_1a2b_failureMessage': 'Actually, this sound is from noise (background)',
+        'foo': null,
+        'bar': undefined
       }
     }
   }
