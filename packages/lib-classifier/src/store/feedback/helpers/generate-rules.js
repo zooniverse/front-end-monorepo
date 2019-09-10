@@ -23,8 +23,13 @@ function generateRules (subject, workflow) {
 
   _.forEach(workflowRules, (rules, taskId) => {
     const taskRules = _.reduce(rules, (result, workflowRule) => {
-      const matchingSubjectRule = _.find(subjectRules, subjectRule =>
-        subjectRule.id.toString() === workflowRule.id.toString())
+      const matchingSubjectRule = _.find(subjectRules, (subjectRule) => {
+        if (subjectRule.id && workflowRule.id) {
+          return subjectRule.id.toString() === workflowRule.id.toString()
+        }
+
+        return null
+      })
 
       if (matchingSubjectRule) {
         const ruleStrategy = workflowRule.strategy
