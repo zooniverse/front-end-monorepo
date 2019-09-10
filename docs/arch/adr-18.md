@@ -36,6 +36,10 @@ When navigating to `/classify`, the page should redirect the user to the correct
 
 The new URL that we redirect the user to should replace the entry for `/classify` in the browser history.
 
+### Error handling
+
+When a user is unable to view a workflow at a given URL, we should provide an error page at that URL. Next.js allows you to provide a response code in `getInitialProps`, which we can use to tailor the message we show on a custom error component, so for non-existent workflows, `404`; incorrect permissions get a `401`/`403` (depending on login status) etc.
+
 ## Status
 
 Proposed
