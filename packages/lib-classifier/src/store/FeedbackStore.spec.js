@@ -405,6 +405,10 @@ describe('Model > FeedbackStore', function () {
       it('should not set isActive', function () {
         expect(feedback.isActive).to.be.false()
       })
+
+      it('should not generate rules', function () {
+        expect(feedback.rules).to.be.empty()
+      })
     })
 
     describe('when the subject has feedback', function () {
@@ -429,6 +433,10 @@ describe('Model > FeedbackStore', function () {
 
       it('should set isActive', function () {
         expect(feedback.isActive).to.be.true()
+      })
+
+      it('should generate new rules', function () {
+        expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
       })
     })
   })
