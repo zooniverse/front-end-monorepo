@@ -51,6 +51,15 @@ const FeedbackStore = types
       addDisposer(self, classificationDisposer)
     }
 
+    function onNewSubject () {
+      const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
+      if (validSubjectReference) {
+        const subject = getRoot(self).subjects.active
+        self.reset()
+        self.createRules(subject)
+      }
+    }
+
     function onSubjectAdvance (call, next, abort) {
       const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
       if (shouldShowFeedback) {
@@ -78,14 +87,7 @@ const FeedbackStore = types
     }
 
     function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-        if (validSubjectReference) {
-          const subject = getRoot(self).subjects.active
-          self.reset()
-          self.createRules(subject)
-        }
-      }, { name: 'FeedbackStore Subject Observer autorun' })
+      const subjectDisposer = autorun(onNewSubject, { name: 'FeedbackStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
@@ -143,6 +145,7 @@ const FeedbackStore = types
       setOnHide,
       showFeedback,
       hideFeedback,
+      onNewSubject,
       onSubjectAdvance,
       update,
       reset
