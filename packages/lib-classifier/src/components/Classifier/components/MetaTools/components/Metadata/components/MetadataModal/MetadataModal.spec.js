@@ -9,7 +9,8 @@ const metadata = {
   id: '1',
   href: 'https://zooniverse.org',
   '#hidden': true,
-  '!onlyTalk': false
+  '!onlyTalk': false,
+  'foo': null
 }
 
 describe('MetadataModal', function () {
