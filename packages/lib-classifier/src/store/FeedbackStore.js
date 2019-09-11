@@ -7,7 +7,6 @@ import strategies from './feedback/strategies'
 
 const FeedbackStore = types
   .model('FeedbackStore', {
-    isActive: types.optional(types.boolean, false),
     rules: types.map(types.frozen({})),
     showModal: types.optional(types.boolean, false)
   })
@@ -22,6 +21,10 @@ const FeedbackStore = types
     get hideSubjectViewer () {
       return flatten(Array.from(self.rules.values()))
         .some(rule => rule.hideSubjectViewer)
+    },
+    get isActive () {
+      const { projects = {}, subjects = {}, workflows = {} } = getRoot(self)
+      return helpers.isFeedbackActive(projects.active, subjects.active, workflows.active)
     },
     get messages () {
       return self.applicableRules
@@ -96,9 +99,7 @@ const FeedbackStore = types
       const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
       if (validProjectReference && validWorkflowReference && subject) {
-        const project = getRoot(self).projects.active
         const workflow = getRoot(self).workflows.active
-        self.isActive = helpers.isFeedbackActive(project, subject, workflow)
 
         if (self.isActive) {
           self.rules = helpers.generateRules(subject, workflow)
@@ -132,7 +133,6 @@ const FeedbackStore = types
     }
 
     function reset () {
-      self.isActive = false
       self.rules.clear()
       self.showModal = false
       const onHide = getRoot(self).subjects.advance
