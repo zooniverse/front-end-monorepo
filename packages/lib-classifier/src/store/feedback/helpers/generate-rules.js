@@ -23,8 +23,17 @@ function generateRules (subject, workflow) {
 
   _.forEach(workflowRules, (rules, taskId) => {
     const taskRules = _.reduce(rules, (result, workflowRule) => {
-      const matchingSubjectRule = _.find(subjectRules, subjectRule =>
-        subjectRule.id.toString() === workflowRule.id.toString())
+      const matchingSubjectRule = _.find(subjectRules, (subjectRule) => {
+        if ((subjectRule.id !== null && subjectRule.id !== undefined) &&
+          (workflowRule.id !== null && workflowRule.id !== undefined)) {
+          return subjectRule.id.toString() === workflowRule.id.toString()
+        } else {
+          if (process.browser) {
+            console.warn('Feedback: Subject rule id or workflow rule id is null or undefined')
+          }
+          return false
+        }
+      })
 
       if (matchingSubjectRule) {
         const ruleStrategy = workflowRule.strategy

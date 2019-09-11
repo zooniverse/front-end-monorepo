@@ -31,9 +31,11 @@ describe('feedback: generateRules', function () {
     it('should generate rules for tasks with feedback enabled', function () {
       expect(generateRules(subject, workflow)).to.have.property('T0')
     })
+
     it('should not generate rules for tasks with feedback disabled', function () {
       expect(generateRules(subject, workflow)).not.to.have.property('T1')
     })
+
     it('should copy subject rules', function () {
       const taskFeedbackRule = generateRules(subject, workflow).T0[0]
       expect(taskFeedbackRule).to.have.property('failureMessage')
@@ -82,6 +84,41 @@ describe('feedback: generateRules', function () {
     testSubjectAndWorkflow(subject, workflow)
   })
 
+  describe('when the rule id is 0', function () {
+    const subject = mockSubjectWithRule(0)
+    const workflow = {
+      tasks: {
+        T0: mockTaskWithRule(0),
+        T1: mockTaskWithRule('52')
+      }
+    }
+    testSubjectAndWorkflow(subject, workflow)
+  })
+
+  describe('with a null or undefined rule id', function () {
+    it('should return an empty object when null', function () {
+      const subject = mockSubjectWithRule(null)
+      const workflow = {
+        tasks: {
+          T0: mockTaskWithRule(null)
+        }
+      }
+
+      expect(generateRules(subject, workflow)).to.be.empty()
+    })
+
+    it('should return an empty object when undefined', function () {
+      const subject = mockSubjectWithRule(undefined)
+      const workflow = {
+        tasks: {
+          T0: mockTaskWithRule(undefined)
+        }
+      }
+
+      expect(generateRules(subject, workflow)).to.be.empty()
+    })
+  })
+
   describe('with no matching rules', function () {
     describe('when the workflow rule ID is truthy', function () {
       const workflow = {
@@ -91,7 +128,7 @@ describe('feedback: generateRules', function () {
       }
 
       it('should return an empty object for a falsy subject rule ID', function () {
-        const subject = mockSubjectWithRule(0)
+        const subject = mockSubjectWithRule(null)
         expect(generateRules(subject, workflow)).to.be.empty()
       })
 
@@ -101,10 +138,10 @@ describe('feedback: generateRules', function () {
       })
     })
 
-    describe('when the workflow rule ID is falsy', function () {
+    describe('when the workflow rule ID is null or undefined', function () {
       const workflow = {
         tasks: {
-          T0: mockTaskWithRule(0)
+          T0: mockTaskWithRule(null)
         }
       }
 

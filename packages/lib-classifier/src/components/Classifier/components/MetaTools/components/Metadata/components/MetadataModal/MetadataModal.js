@@ -36,6 +36,8 @@ export function formatValue (value) {
     return stringValue
   }
 
+  if (value === null) return 'null'
+
   return ''
 }
 
