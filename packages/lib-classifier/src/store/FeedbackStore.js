@@ -26,6 +26,9 @@ const FeedbackStore = types
       const { projects = {}, subjects = {}, workflows = {} } = getRoot(self)
       return helpers.isFeedbackActive(projects.active, subjects.active, workflows.active)
     },
+    get isValid () {
+      return self.isActive && self.rules && self.rules.size > 0
+    },
     get messages () {
       return self.applicableRules
         .map(rule => rule.success ? rule.successMessage : rule.failureMessage)
@@ -121,7 +124,7 @@ const FeedbackStore = types
     }
 
     function update (annotation) {
-      if (self.isActive && self.rules.size > 0) {
+      if (self.isValid) {
         const { task, value } = annotation
         const taskRules = self.rules.get(task) || []
         const updatedTaskRules = taskRules.map(rule => {
