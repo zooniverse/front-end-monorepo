@@ -8,6 +8,7 @@ export default new Factory()
   .attr('configuration', ['activeWorkflowId'], (activeWorkflowId) => {
     return { default_workflow: activeWorkflowId }
   })
+  .attr('experimental_tools', [])
   .attr('links', ['activeWorkflowId', 'workflowId'], (activeWorkflowId, workflowId) => {
     return {
       active_workflows: [activeWorkflowId],

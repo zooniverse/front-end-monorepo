@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import layouts from '../helpers/layouts'
 
 const SubjectViewer = types
@@ -38,11 +38,11 @@ const SubjectViewer = types
   .actions(self => {
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const subject = getRoot(self).subjects.active
-        if (subject) {
+        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
+        if (validSubjectReference) {
           self.resetSubject()
         }
-      })
+      }, { name: 'SubjectViewerStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
 
