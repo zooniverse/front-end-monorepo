@@ -120,7 +120,7 @@ const FeedbackStore = types
     }
 
     function update (annotation) {
-      if (self.isActive) {
+      if (self.isActive && self.rules.size > 0) {
         const { task, value } = annotation
         const taskRules = self.rules.get(task) || []
         const updatedTaskRules = taskRules.map(rule => {
