@@ -1,16 +1,23 @@
 import { Grid } from 'grommet'
 import React from 'react'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
 import MessageFromResearcher from './components/MessageFromResearcher'
 import AboutProject from '../../shared/components/AboutProject'
 import ConnectWithProject from '../../shared/components/ConnectWithProject'
 import ProjectStatistics from '../../shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
+import ThemeModeToggle from '../../components/ThemeModeToggle'
 
-function ProjectHomePage () {
+function ProjectHomePage (props) {
+  const { screenSize } = props
+  const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['auto', '1em']
   return (
     <Grid gap='medium' margin='medium'>
-      <ZooniverseTalk />
+      <Grid columns={responsiveColumns} gap='small'>
+        <ZooniverseTalk />
+        <ThemeModeToggle />
+      </Grid>
       <ProjectStatistics />
       <Grid
         fill='horizontal'
@@ -25,4 +32,5 @@ function ProjectHomePage () {
   )
 }
 
-export default ProjectHomePage
+export default withResponsiveContext(ProjectHomePage)
+export { ProjectHomePage }

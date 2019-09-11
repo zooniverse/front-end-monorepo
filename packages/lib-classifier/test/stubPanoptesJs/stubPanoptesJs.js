@@ -3,7 +3,8 @@ function createResponse (url, factories) {
   // Assuming url is in the format '/resource_type/resource_id'
   const endpoint = url.split('/')[1]
   const response = {}
-  response[endpoint] = [factories[endpoint]]
+  const resources = (Array.isArray(factories[endpoint])) ? factories[endpoint] : [factories[endpoint]]
+  response[endpoint] = resources
   return Promise.resolve({ body: response })
 }
 
