@@ -4,16 +4,21 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import getDrawingTool from './helpers/getDrawingTool'
-import withCoordsFromStream from './helpers/withCoordsFromStream'
 
 function storeMapper (stores) {
   const {
-    active: activeDrawingTool
-  } = stores.classifierStore.drawing
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
-  return {
+    activeDrawingTask,
     activeDrawingTool,
-    activeStepTasks
+    coordinateStream,
+    drawingInActiveWorkflowStepBoolean,
+    eventStream
+  } = stores.classifierStore.drawing
+  return {
+    activeDrawingTask,
+    activeDrawingTool,
+    coordinateStream,
+    drawingInActiveWorkflowStepBoolean,
+    eventStream
   }
 }
 
@@ -28,46 +33,49 @@ class DrawingContainer extends Component {
       marks: new Map()
     }
 
-    this.storeMark = this.storeMark.bind(this)
+    this.finishMark = this.finishMark.bind(this)
   }
 
   componentDidMount () {
+    const { coordinateStream, eventStream } = this.props
+    // eventStream.subscribe(event => console.log('eventStream sanity check'))
+  
+    // coordinateStream.subscribe(event => console.log('coordinateStream', event))
+    
     this.setActiveMark()
   }
 
   componentDidUpdate (prevProps) {
-    if (this.props.activeStepTasks !== prevProps.activeStepTasks || this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
+    if (this.props.activeDrawingTask !== prevProps.activeDrawingTask || this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
       this.setActiveMark()
     }
   }
 
   setActiveMark () {
-    const { activeDrawingTool, activeStepTasks } = this.props
-    const [drawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-
+    const { activeDrawingTask, activeDrawingTool } = this.props
     this.setState({
       activeMark: {
         id: cuid(),
-        tool: drawingTask.tools[activeDrawingTool]
+        tool: activeDrawingTask.tools[activeDrawingTool]
       }
     })
   }
 
-  storeMark (coordinates) {
+  finishMark (coordinates) {
     if (!coordinates || coordinates.length === 0) return null
 
-    const { activeDrawingTool, activeStepTasks } = this.props
-    const [drawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+    const { activeDrawingTask, activeDrawingTool } = this.props
     const { activeMark, marks } = this.state
-
+    
     const newMark = {
       id: cuid(),
-      tool: drawingTask.tools[activeDrawingTool]
+      tool: activeDrawingTask.tools[activeDrawingTool]
     }
 
-    const storeMark = Object.assign(activeMark, { coordinates })
+    const finishedMark = Object.assign(activeMark, { coordinates })
+    
     const newMarks = new Map(marks)
-    newMarks.set(storeMark.id, storeMark)
+    newMarks.set(finishedMark.id, finishedMark)
 
     this.setState({ activeMark: newMark, marks: newMarks })
   }
@@ -77,16 +85,14 @@ class DrawingContainer extends Component {
     if (!activeMark) return null
 
     const MarkComponent = getDrawingTool(activeMark.tool.type)
-    const WithStreamCoordsMarkComponent = withCoordsFromStream(MarkComponent)
-
+    
     return (
       <>
-        <WithStreamCoordsMarkComponent
+        <MarkComponent
           key={activeMark.id}
           active
-          storeMark={this.storeMark}
-          svg={this.props.svg}
           tool={activeMark.tool}
+          finishMark={this.finishMark}
         />
         {marks.size > 0 && Array.from(marks, ([id, marking]) => {
           if (!marking) {
@@ -108,12 +114,12 @@ class DrawingContainer extends Component {
 }
 
 DrawingContainer.wrappedComponent.propTypes = {
+  activeDrawingTask: PropTypes.shape({
+    tool: PropTypes.arrayOf(
+      PropTypes.object // TODO elaborate
+    )
+  }),
   activeDrawingTool: PropTypes.number,
-  activeStepTasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string
-    })
-  ),
   svg: PropTypes.object
 }
 

@@ -1,4 +1,3 @@
-import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -8,12 +7,14 @@ import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
   const {
-    addToStream
+    addToStream,
+    drawingInActiveWorkflowStepBoolean,
+    storeSVG
   } = stores.classifierStore.drawing
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
   return {
-    activeStepTasks,
-    addToStream
+    addToStream,
+    drawingInActiveWorkflowStepBoolean,
+    storeSVG
   }
 }
 
@@ -26,6 +27,21 @@ class InteractionLayerContainer extends Component {
     this.onPointerDown = this.onPointerDown.bind(this)
     this.onPointerMove = this.onPointerMove.bind(this)
     this.onPointerUp = this.onPointerUp.bind(this)
+  }
+
+  componentDidMount () {
+    this.storeSVG()
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.svg !== prevProps.svg) {
+      this.storeSVG()
+    }
+  }
+
+  storeSVG () {
+    const { storeSVG, svg } = this.props
+    storeSVG(svg)
   }
 
   addToStream (event) {
@@ -45,35 +61,26 @@ class InteractionLayerContainer extends Component {
   }
 
   render () {
-    const yas = this.props.activeStepTasks
-    console.log('yas', (typeof yas))
-
-    const drawing = this.props.activeStepTasks.some(task => task.type === 'drawing')
-
     return (
       <>
         <InteractionLayer
-          onPointerMove={this.onPointerMove}
           onPointerDown={this.onPointerDown}
+          onPointerMove={this.onPointerMove}
           onPointerUp={this.onPointerUp}
         />
-        {drawing && <DrawingContainer svg={this.props.svg} />}
+        {this.props.drawingInActiveWorkflowStepBoolean && <DrawingContainer />}
       </>
     )
   }
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
-  activeStepTasks: []
+  drawingInActiveWorkflowStepBoolean: false
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
-  activeStepTasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string
-    })
-  ),
   addToStream: PropTypes.func,
+  drawingInActiveWorkflowStepBoolean: PropTypes.bool,
   svg: PropTypes.object
 }
 

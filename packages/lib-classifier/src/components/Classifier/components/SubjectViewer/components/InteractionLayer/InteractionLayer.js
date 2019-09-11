@@ -7,8 +7,8 @@ function InteractionLayer ({ onPointerMove, onPointerDown, onPointerUp }) {
       id='InteractionLayer'
       width='100%'
       height='100%'
-      onPointerMove={onPointerMove}
       onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       fill='transparent'
     />
@@ -16,8 +16,8 @@ function InteractionLayer ({ onPointerMove, onPointerDown, onPointerUp }) {
 }
 
 InteractionLayer.propTypes = {
-  onPointerMove: func.isRequired,
   onPointerDown: func.isRequired,
+  onPointerMove: func.isRequired,
   onPointerUp: func.isRequired
 }
 
