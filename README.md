@@ -115,7 +115,12 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 ## Production deployment
 
-Deploys to production are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/). Firstly, a base Docker image is created which installs and builds the `lib-` packages, and that's used as a base image for creating `app-` images, which are then deployed to Kubernetes.
+Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/). Firstly, a base Docker image (`zooniverse/front-end-monorepo`) is built with the top-level Dockerfile, which installs and builds production versions of the `lib-` packages. 
+
+That image is used as a base image to build `zooniverse/fe-project` and `zooniverse/fe-content-pages` images, from the Dockerfiles in `packages/app-project` and `packages/app-content-pages`. Those images run production (static) builds of the NextJS apps and are then deployed to Kubernetes.
+
+The latest commit to master is deployed to https://frontend.preview.zooniverse.org
+The `production-release` git tag is deployed to https://www.zooniverse.org
 
 More information is available in [ADR 12](docs/arch/adr-12.md).
 
