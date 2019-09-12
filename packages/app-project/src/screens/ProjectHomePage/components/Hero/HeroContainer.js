@@ -9,13 +9,10 @@ import fetchWorkflowsHelper from './helpers/fetchWorkflowsHelper'
 function storeMapper(stores) {
   return {
     activeWorkflows: stores.store.project.links['active_workflows'],
-    defaultWorkflow: stores.store.project.configuration['default_workflow'],
-    language: stores.store.ui.language
+    defaultWorkflow: stores.store.project.configuration['default_workflow']
   }
 }
 
-@inject(storeMapper)
-@observer
 class HeroContainer extends Component {
   constructor() {
     super()
@@ -28,7 +25,7 @@ class HeroContainer extends Component {
   }
 
   componentDidMount () {
-    this.fetchWorkflows()
+    return this.fetchWorkflows()
   }
 
   async fetchWorkflows() {
@@ -78,4 +75,11 @@ HeroContainer.defaultProps = {
   language: 'en'
 }
 
-export default HeroContainer
+@inject(storeMapper)
+@observer
+class DecoratedHeroContainer extends HeroContainer { }
+
+export {
+  DecoratedHeroContainer as default,
+  HeroContainer
+}
