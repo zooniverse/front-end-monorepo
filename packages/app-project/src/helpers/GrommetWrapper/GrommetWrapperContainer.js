@@ -1,9 +1,10 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet, base as baseTheme } from 'grommet'
+import { Grommet } from 'grommet'
 import merge from 'lodash/merge'
 import { inject, observer } from 'mobx-react'
 import { node, object, oneOf } from 'prop-types'
 import React, { Component } from 'react'
+
+import theme from '../theme'
 
 function storeMapper (stores) {
   const { mode } = stores.store.ui
@@ -17,7 +18,7 @@ function storeMapper (stores) {
 class GrommetWrapperContainer extends Component {
   mergeThemes () {
     const { mode, theme } = this.props
-    return merge({}, baseTheme, theme, { dark: mode === 'dark' })
+    return merge({}, theme, { dark: mode === 'dark' })
   }
 
   render () {
@@ -25,7 +26,7 @@ class GrommetWrapperContainer extends Component {
     const mergedThemes = this.mergeThemes()
 
     return (
-      <Grommet userAgent='Mobile' theme={mergedThemes}>
+      <Grommet theme={mergedThemes}>
         {children}
       </Grommet>
     )
@@ -40,7 +41,7 @@ GrommetWrapperContainer.propTypes = {
 
 GrommetWrapperContainer.defaultProps = {
   mode: 'light',
-  theme: zooTheme
+  theme
 }
 
 export default GrommetWrapperContainer

@@ -5,10 +5,12 @@ import { Hero } from './Hero'
 import Background from './components/Background'
 import Introduction from './components/Introduction'
 import WorkflowSelector from './components/WorkflowSelector'
+import { Media } from '../../../../shared/components/Media'
 
-let wrapper
 
 describe('Component > Hero', function () {
+  let wrapper
+
   before(function () {
     wrapper = shallow(<Hero screenSize='small' />)
   })
@@ -17,15 +19,51 @@ describe('Component > Hero', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the `Background` component', function () {
-    expect(wrapper.find(Background)).to.have.lengthOf(1)
+  describe('behaviour on small screens', function () {
+    let mediaWrapper
+
+    before(function () {
+      mediaWrapper = wrapper.find(Media).find({ at: 'default' })
+    })
+
+    it('should have a layout for small screens', function () {
+      expect(mediaWrapper).to.have.lengthOf(1)
+    })
+
+    it('should render the `Background` component', function () {
+      expect(mediaWrapper.find(Background)).to.have.lengthOf(1)
+    })
+
+    it('should render the `Introduction` component', function () {
+      expect(mediaWrapper.find(Introduction)).to.have.lengthOf(1)
+    })
+
+    it('should render the `WorkflowSelector` component', function () {
+      expect(mediaWrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+    })
   })
 
-  it('should render the `Introduction` component', function () {
-    expect(wrapper.find(Introduction)).to.have.lengthOf(1)
-  })
+  describe('behaviour on larger screens', function () {
+    let mediaWrapper
 
-  it('should render the `WorkflowSelector` component', function () {
-    expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+    before(function () {
+      mediaWrapper = wrapper.find(Media).find({ greaterThan: 'default' })
+    })
+
+    it('should have a layout for larger screens', function () {
+      expect(mediaWrapper).to.have.lengthOf(1)
+    })
+
+    it('should render the `Background` component', function () {
+      expect(mediaWrapper.find(Background)).to.have.lengthOf(1)
+    })
+
+    it('should render the `Introduction` component', function () {
+      expect(mediaWrapper.find(Introduction)).to.have.lengthOf(1)
+    })
+
+    it('should render the `WorkflowSelector` component', function () {
+      expect(mediaWrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+    })
   })
 })

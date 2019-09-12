@@ -15,6 +15,7 @@
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
   "dependencies": {
+    "@artsy/fresnel": "~1.0.7",
     "@babel/plugin-proposal-decorators": "~7.4.4",
     "@babel/plugin-proposal-optional-chaining": "~7.2.0",
     "@sentry/browser": "^5.4.3",
