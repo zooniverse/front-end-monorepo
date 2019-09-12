@@ -192,4 +192,185 @@ describe.only('Component > VXZoom', function () {
       expect(wrapper.find(StubComponent).find(ZoomEventLayer)).to.have.lengthOf(1)
     })
   })
+  
+  describe('zooming', function () {
+    let onWheelSpy, onDoubleClickSpy
+
+    before(function () {
+      onWheelSpy = sinon.spy(VXZoom.prototype, 'onWheel')
+      onDoubleClickSpy = sinon.spy(VXZoom.prototype, 'onDoubleClick')
+    })
+
+    afterEach(function () {
+      onWheelSpy.resetHistory()
+      onDoubleClickSpy.resetHistory()
+    })
+
+    after(function () {
+      onWheelSpy.restore()
+      onDoubleClickSpy.restore()
+    })
+
+    describe('when zooming prop is false', function () {
+      it('should not scale the transformMatrix on mouse wheel', function () {
+        const event = { preventDefault: sinon.spy() }
+        const wrapper = mount(
+          <VXZoom
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            wrappedComponent={StubComponent}
+          />
+        )
+        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        wrapper.find(ZoomEventLayer).simulate('wheel', event)
+        expect(event.preventDefault).to.have.been.called()
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+      })
+
+      it('should not scale the transformMatrix on double click', function () {
+        const event = { preventDefault: sinon.spy() }
+        const wrapper = mount(
+          <VXZoom
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            wrappedComponent={StubComponent}
+          />
+        )
+        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        wrapper.find(ZoomEventLayer).simulate('dblclick', event)
+        expect(event.preventDefault).to.have.been.called()
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+      })
+
+      it('should not scale the transformMatrix when zoom callback is called', function () {
+        const zoomCallback = sinon.stub()
+        const wrapper = mount(
+          <VXZoom
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            setOnZoom={zoomCallback}
+            wrappedComponent={StubComponent}
+          />
+        )
+        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        zoomCallback('zoomin')
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        zoomCallback('zoomout')
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        zoomCallback('zoomto')
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+      })
+    })
+
+    describe('when zooming prop is true', function () {
+      describe('with the default configuration of allowing zoom in both directions', function () {
+        it('should scale the transformMatrix on mouse wheel', function () {
+          const event = { preventDefault: sinon.spy() }
+          const wrapper = mount(
+            <VXZoom
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              wrappedComponent={StubComponent}
+              zooming={true}
+            />
+          )
+          const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+          const { zoomInValue } = wrapper.props().zoomConfiguration
+
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          wrapper.simulate('wheel', event)
+          // console.log(wrapper.find(StubComponent).props())
+          expect(transformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX * zoomInValue)
+          expect(transformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY * zoomInValue)
+        })
+
+        it.only('should scale the transformMatrix on double click', function () {
+          const event = { preventDefault: sinon.spy() }
+          const wrapper = mount(
+            <VXZoom
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              wrappedComponent={StubComponent}
+              zooming={true}
+            />
+          )
+          const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+          const { zoomInValue } = wrapper.props().zoomConfiguration
+
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          wrapper.find(ZoomEventLayer).simulate('dblclick', event)
+          expect(transformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX * zoomInValue)
+          expect(transformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY * zoomInValue)
+        })
+
+        it('should scale the transformMatrix when zoom callback is called', function () {
+          const zoomCallback = sinon.stub()
+          const wrapper = mount(
+            <VXZoom
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              setOnZoom={zoomCallback}
+              wrappedComponent={StubComponent}
+              zooming={true}
+            />
+          )
+          const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+          const { zoomInValue } = wrapper.props().zoomConfiguration
+
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          zoomCallback('zoomin')
+          expect(transformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX * zoomInValue)
+          expect(transformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY * zoomInValue)
+          zoomCallback('zoomout')
+          expect(transformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX * zoomOutValue)
+          expect(transformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY * zoomOutValue)
+          zoomCallback('zoomto')
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        })
+      })
+
+      describe('when only zooming the x-axis', function () {
+        const zoomConfiguration = {
+          direction: 'x',
+          minZoom: 1,
+          maxZoom: 10,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
+
+        it('should scale the x-axis on mouse wheel', function () {
+          const event = { preventDefault: sinon.spy() }
+          const wrapper = mount(
+            <VXZoom
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              wrappedComponent={StubComponent}
+              zooming={true}
+            />
+          )
+          const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+          const { zoomInValue } = wrapper.props().zoomConfiguration
+
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          wrapper.find(ZoomEventLayer).simulate('wheel', event)
+          expect(transformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX * zoomInValue)
+          expect(transformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY * zoomInValue)
+        })
+      })
+    })
+  })
 })

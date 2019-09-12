@@ -60,6 +60,7 @@ class VXZoom extends PureComponent {
   }
 
   zoomTo() {
+    if (!this.props.zooming) return
     this.zoom.reset()
   }
 
@@ -68,6 +69,7 @@ class VXZoom extends PureComponent {
     const { zoomInValue, zoomOutValue } = this.props.zoomConfiguration
     const zoomValue = (zoomDirection === 'in') ? zoomInValue : zoomOutValue
     const point = localPoint(event)
+    console.log('calling')
     this.zoom.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
   }
 
@@ -118,7 +120,6 @@ class VXZoom extends PureComponent {
 
   constrainYAxisZoom(transformMatrix, prevTransformMatrix) {
     const isYAxisOutOfBounds = this.isYAxisOutOfBounds(transformMatrix)
-    console.log('isYAxisOutOfBounds', isYAxisOutOfBounds)
     if (isYAxisOutOfBounds) {
       return prevTransformMatrix
     }
@@ -173,6 +174,7 @@ class VXZoom extends PureComponent {
     // performance of this is pretty bad
     if (!this.props.zooming) event.preventDefault()
     const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
+    console.log('onwheel')
     this.zoomToPoint(event, zoomDirection)
   }
 
@@ -198,7 +200,7 @@ class VXZoom extends PureComponent {
         width={parentWidth}
       >
         {zoom => {
-          console.log('zoom', zoom)
+          {/* console.log('zoom', zoom) */}
           this.zoom = zoom
           return (
             <WrappedComponent
