@@ -116,24 +116,16 @@ describe('Component > HeroContainer', function () {
       fetchWorkflowsSpy.restore()
     })
 
-    it('should pass down the correct props', function (done) {
+    it('should pass down the correct props', async function () {
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
-
-      fetchWorkflowsSpy.returnValues[0]
-        .then(function () {
-          componentWrapper = wrapper.find(Hero)
-          expect(componentWrapper.prop('workflows')).to.deep.equal({
-            loading: 'success',
-            data: [
-              { completeness: 0.4, default: true, id: '1', displayName: 'Foo' },
-            ]
-          })
-          done()
-        })
-      // // how to make sure we're that the `fetchWorkflows` method has finished?
-      // wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
-      // await wrapper.instance().fetchWorkflows()
-      // console.info(wrapper.instance().state)
+      await fetchWorkflowsSpy.returnValues[0]
+      componentWrapper = wrapper.find(Hero)
+      expect(componentWrapper.prop('workflows')).to.deep.equal({
+        loading: 'success',
+        data: [
+          { completeness: 0.4, default: true, id: '1', displayName: 'Foo' },
+        ]
+      })
     })
   })
 
@@ -161,18 +153,14 @@ describe('Component > HeroContainer', function () {
       fetchWorkflowsSpy.restore()
     })
 
-    it('should pass down the correct props', function (done) {
+    it('should pass down the correct props', async function () {
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
-
-      fetchWorkflowsSpy.returnValues[0]
-        .then(function () {
-          componentWrapper = wrapper.find(Hero)
-          expect(componentWrapper.prop('workflows')).to.deep.equal({
-            loading: 'error',
-            data: []
-          })
-          done()
-        })
+      await fetchWorkflowsSpy.returnValues[0]
+      componentWrapper = wrapper.find(Hero)
+      expect(componentWrapper.prop('workflows')).to.deep.equal({
+        loading: 'error',
+        data: []
+      })
     })
   })
 })
