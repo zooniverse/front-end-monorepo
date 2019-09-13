@@ -9,6 +9,21 @@ import auth from 'panoptes-client/lib/auth'
 
 export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
 
+// https://stackoverflow.com/a/51918448/10951669
+function firstDayOfWeek(dateObject, firstDayOfWeekIndex) {
+
+    const dayOfWeek = dateObject.getDay(),
+        firstDayOfWeek = new Date(dateObject),
+        diff = dayOfWeek >= firstDayOfWeekIndex ?
+            dayOfWeek - firstDayOfWeekIndex :
+            6 - dayOfWeek
+
+    firstDayOfWeek.setDate(dateObject.getDate() - diff)
+    firstDayOfWeek.setHours(0,0,0,0)
+
+    return firstDayOfWeek
+}
+
 const Count = types
   .model('Count', {
     count: types.number,
@@ -20,6 +35,7 @@ const YourStats = types
     dailyCounts: types.array(Count),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
+    thisWeek: types.array(Count),
     totalCount: types.optional(types.number, 0)
   })
 
@@ -29,13 +45,16 @@ const YourStats = types
 
   .views(self => ({
     get counts () {
-      // `substring(0, 10)` turns an ISO 8601 date into YYYY-MM-DD
-      const todaysDate = DateTime.local().toISO().substring(0, 10)
-      const today = _.chain(self.dailyCounts)
-        .find(count => count.period.startsWith(todaysDate))
-        .get('count', 0)
-        .add(self.sessionCount)
-        .value()
+      const todaysDate = new Date()
+      let today
+      try {
+        const todaysCount = self.thisWeek.length === 7 ?
+          self.thisWeek[todaysDate.getDay() - 1].count :
+          0
+        today = todaysCount + self.sessionCount
+      } catch (error) {
+        today = 0
+      }
 
       return {
         today,
@@ -54,6 +73,26 @@ const YourStats = types
         }
       })
       addDisposer(self, projectDisposer)
+    }
+
+    function calculateWeeklyStats () {
+      /*
+      Calculate daily stats for this week, starting last Monday.
+      */
+      const today = new Date()
+      const sunday = firstDayOfWeek(today, 0)
+      const weeklyStats = []
+      for (let day = 1; day <= 7; day++) {
+        const weekDay = new Date()
+        weekDay.setDate(sunday.getDate() + day)
+        const period = weekDay.toISOString().substring(0, 10)
+        const { count } = self.dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
+        weeklyStats.push({
+          count,
+          period
+        })
+      }
+      return weeklyStats
     }
 
     return {
@@ -110,6 +149,7 @@ const YourStats = types
           self.error = error
           self.loadingState = asyncStates.error
         }
+        self.thisWeek = calculateWeeklyStats()
       }),
 
       increment () {
