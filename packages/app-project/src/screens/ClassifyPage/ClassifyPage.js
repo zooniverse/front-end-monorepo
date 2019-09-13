@@ -34,7 +34,7 @@ function ClassifyPage (props) {
 
       <Box as='aside' gap='medium'>
         <FinishedForTheDay />
-        {false && <Grid columns={['auto', 'auto', 'auto']} gap='medium'>
+        {<Grid columns={['auto', 'auto', 'auto']} gap='medium'>
           <YourStats />
         </Grid>}
         <ProjectStatistics />
