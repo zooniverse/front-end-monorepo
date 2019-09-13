@@ -115,23 +115,9 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 ## Production deployment
 
-Deploys are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/). Firstly, a base Docker image is created which installs and builds the `lib-` packages, and that's used as a base image for creating `app-` images, which are then deployed to Kubernetes.
+Deploys to production are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/). Firstly, a base Docker image is created which installs and builds the `lib-` packages, and that's used as a base image for creating `app-` images, which are then deployed to Kubernetes.
 
 More information is available in [ADR 12](docs/arch/adr-12.md).
-
-Merges to master deploy to a staging instance that uses Panoptes production. This is used for manual end to end behavior testing for new code and design reviews. Deployments to a production are triggered by setting a `production-release` git tag. This can either be done using the git CLI or using lita on slack. 
-
-More information is available in [ADR 17](docs/arch/adr-17.md)
-
-### Environment variables
-
-We use an environment variable, `PANOPTES_ENV`, to set which Panoptes API endpoint to use. Setting to `production` will use `https://www.zooniverse.org/api` and `staging` to `https://panoptes-staging.zooniverse.org/api`. The build scripts for the apps and libraries default to production. 
-
-### Docker images
-
-- `zooniverse/front-end-monorepo`
-- `zooniverse/fe-content-pages`
-- `zooniverse/fe-project`
 
 ---
 
