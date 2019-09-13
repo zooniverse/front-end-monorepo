@@ -94,6 +94,10 @@ describe('Stores > YourStats', function () {
       it('should add 1 to your total count', function () {
         expect(rootStore.yourStats.totalCount).to.equal(24)
       })
+
+      it('should add 1 to your session count', function () {
+        expect(rootStore.yourStats.sessionCount).to.equal(1)
+      })
     })
   })
 

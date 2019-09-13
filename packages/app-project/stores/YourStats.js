@@ -113,6 +113,7 @@ const YourStats = types
       }),
 
       increment () {
+        self.sessionCount = self.sessionCount + 1
         self.totalCount = self.totalCount + 1
       }
     }
