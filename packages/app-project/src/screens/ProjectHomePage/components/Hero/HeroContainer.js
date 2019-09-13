@@ -45,7 +45,9 @@ class HeroContainer extends Component {
         }
       })
     } catch (error) {
-      console.error(error)
+      if (process.browser) {
+        console.error(error)
+      }
       this.setState(state => ({
         workflows: {
           ...state.workflows,

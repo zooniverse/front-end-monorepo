@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import nock from 'nock'
-import React from 'react'
+import sinon from 'sinon'
 
 import { HeroContainer } from './HeroContainer'
 import Hero from './Hero'
@@ -22,8 +22,8 @@ const TRANSLATIONS = [
   }
 ]
 
-describe.only('Component > HeroContainer', function () {
-  xdescribe('general behaviour', function () {
+describe('Component > HeroContainer', function () {
+  describe('general behaviour', function () {
     let scope
     let wrapper
     let componentWrapper
@@ -57,7 +57,7 @@ describe.only('Component > HeroContainer', function () {
     })
   })
 
-  xdescribe('loading state', function () {
+  describe('loading state', function () {
     let scope
     let wrapper
     let componentWrapper
@@ -94,6 +94,7 @@ describe.only('Component > HeroContainer', function () {
     let scope
     let wrapper
     let componentWrapper
+    let fetchWorkflowsSpy
 
     before(function () {
       scope = nock('https://panoptes-staging.zooniverse.org/api')
@@ -107,14 +108,71 @@ describe.only('Component > HeroContainer', function () {
         .reply(200, {
           workflows: WORKFLOWS
         })
+      fetchWorkflowsSpy = sinon.spy(HeroContainer.prototype, 'fetchWorkflows')
     })
 
     after(function () {
       nock.cleanAll()
+      fetchWorkflowsSpy.restore()
     })
 
-    it('should pass down the correct props', function () {
-      // how to make sure we're that the `fetchWorkflows` method has finished?
+    it('should pass down the correct props', function (done) {
+      wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
+
+      fetchWorkflowsSpy.returnValues[0]
+        .then(function () {
+          componentWrapper = wrapper.find(Hero)
+          expect(componentWrapper.prop('workflows')).to.deep.equal({
+            loading: 'success',
+            data: [
+              { completeness: 0.4, default: true, id: '1', displayName: 'Foo' },
+            ]
+          })
+          done()
+        })
+      // // how to make sure we're that the `fetchWorkflows` method has finished?
+      // wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
+      // await wrapper.instance().fetchWorkflows()
+      // console.info(wrapper.instance().state)
+    })
+  })
+
+  describe('error state', function () {
+    let scope
+    let wrapper
+    let componentWrapper
+    let fetchWorkflowsSpy
+
+    before(function () {
+      scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS
+        })
+        .get('/workflows')
+        .query(true)
+        .replyWithError('something awful happened')
+      fetchWorkflowsSpy = sinon.spy(HeroContainer.prototype, 'fetchWorkflows')
+    })
+
+    after(function () {
+      nock.cleanAll()
+      fetchWorkflowsSpy.restore()
+    })
+
+    it('should pass down the correct props', function (done) {
+      wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
+
+      fetchWorkflowsSpy.returnValues[0]
+        .then(function () {
+          componentWrapper = wrapper.find(Hero)
+          expect(componentWrapper.prop('workflows')).to.deep.equal({
+            loading: 'error',
+            data: []
+          })
+          done()
+        })
     })
   })
 })

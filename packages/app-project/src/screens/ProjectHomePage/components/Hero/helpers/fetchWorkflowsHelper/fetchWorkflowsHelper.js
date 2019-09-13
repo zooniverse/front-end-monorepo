@@ -24,20 +24,20 @@ function fetchDisplayNames (language, activeWorkflows) {
 }
 
 async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow) {
-    const workflows = await fetchWorkflowData(activeWorkflows)
-    const workflowIds = workflows.map(workflow => workflow.id)
-    const displayNames = await fetchDisplayNames(language, workflowIds)
+  const workflows = await fetchWorkflowData(activeWorkflows)
+  const workflowIds = workflows.map(workflow => workflow.id)
+  const displayNames = await fetchDisplayNames(language, workflowIds)
 
-    return workflows.map(workflow => {
-      const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
+  return workflows.map(workflow => {
+    const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
 
-      return {
-        completeness: workflow.completeness || 0,
-        default: isDefault,
-        id: workflow.id,
-        displayName: displayNames[workflow.id]
-      }
-    })
+    return {
+      completeness: workflow.completeness || 0,
+      default: isDefault,
+      id: workflow.id,
+      displayName: displayNames[workflow.id]
+    }
+  })
 }
 
 function pickWorkflowFields (workflow) {
