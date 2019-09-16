@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import PropTypes from 'prop-types'
+import { array, string } from 'prop-types'
 import React from 'react'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { Group } from '@vx/group'
@@ -65,9 +65,12 @@ function DailyClassificationsChart ({ counts, projectName }) {
 }
 
 DailyClassificationsChart.propTypes = {
+  counts: array,
+  projectName: string.isRequired
 }
 
 DailyClassificationsChart.defaultProps = {
+  counts: []
 }
 
 export default DailyClassificationsChart

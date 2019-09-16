@@ -37,11 +37,12 @@ class DailyClassificationsChartContainer extends Component {
 }
 
 DailyClassificationsChartContainer.propTypes = {
-  projectName: string,
+  projectName: string.isRequired,
   thisWeek: array
 }
 
 DailyClassificationsChartContainer.defaultProps = {
+  thisWeek: []
 }
 
 export default DailyClassificationsChartContainer
