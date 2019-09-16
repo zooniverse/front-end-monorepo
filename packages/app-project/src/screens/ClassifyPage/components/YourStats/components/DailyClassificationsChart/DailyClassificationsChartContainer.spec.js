@@ -9,7 +9,12 @@ let componentWrapper
 
 describe('Component > DailyClassificationsChartContainer', function () {
   before(function () {
-    wrapper = shallow(<DailyClassificationsChartContainer.wrappedComponent />)
+    wrapper = shallow(
+      <DailyClassificationsChartContainer.wrappedComponent
+        projectName="Test Project"
+        thisWeek={[]}
+      />
+    )
     componentWrapper = wrapper.find(DailyClassificationsChart)
   })
 

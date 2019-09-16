@@ -187,13 +187,17 @@ describe('Stores > YourStats', function () {
     })
 
     describe('today\'s count', function () {
-      it('should get today\'s count from the store\'s `dailyCounts`', function () {
+      it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
           { count: 12, period: new Date().toISOString().slice(0, 10) },
           { count: 13, period: '2019-01-02' },
-          { count: 14, period: '2019-01-01' }
+          { count: 14, period: '2019-01-01' },
+          { count: 10, period: '2018-12-31' },
+          { count: 11, period: '2018-12-30' },
+          { count: 8, period: '2018-12-29' },
+          { count: 15, period: '2018-12-28' }
         ]
-        const statsStore = YourStats.create({ dailyCounts: MOCK_DAILY_COUNTS })
+        const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
         expect(statsStore.counts.today).to.equal(MOCK_DAILY_COUNTS[0].count)
       })
 
@@ -203,7 +207,7 @@ describe('Stores > YourStats', function () {
           { count: 13, period: '2019-01-02' },
           { count: 14, period: '2019-01-01' }
         ]
-        const statsStore = YourStats.create({ dailyCounts: MOCK_DAILY_COUNTS })
+        const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
         expect(statsStore.counts.today).to.equal(0)
       })
     })
