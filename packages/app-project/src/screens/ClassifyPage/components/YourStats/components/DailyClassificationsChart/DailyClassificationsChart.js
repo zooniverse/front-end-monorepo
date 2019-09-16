@@ -1,6 +1,7 @@
 import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
 import React from 'react'
+import { withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
@@ -11,7 +12,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function DailyClassificationsChart ({ counts, projectName }) {
+function DailyClassificationsChart ({ counts, projectName, theme }) {
   const xScale = scaleBand({
       rangeRound: [0, 300],
       domain: counts.map(count => count.longLabel),
@@ -33,6 +34,7 @@ function DailyClassificationsChart ({ counts, projectName }) {
         width="500"
       >
         <AxisLeft
+          stroke={theme.global.colors['light-3']}
           hideTicks
           scale={yScale}
         />
@@ -46,6 +48,7 @@ function DailyClassificationsChart ({ counts, projectName }) {
               <Bar
                 aria-label={count.alt}
                 role="image"
+                fill={theme.global.colors['accent-2']}
                 height={barHeight}
                 width={barWidth}
                 x={barX}
@@ -55,6 +58,7 @@ function DailyClassificationsChart ({ counts, projectName }) {
           })}
         </Group>
         <AxisBottom
+          stroke={theme.global.colors['light-3']}
           hideTicks
           scale={xScale}
           top={180}
@@ -73,4 +77,4 @@ DailyClassificationsChart.defaultProps = {
   counts: []
 }
 
-export default DailyClassificationsChart
+export default withTheme(DailyClassificationsChart)
