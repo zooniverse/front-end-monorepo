@@ -23,6 +23,12 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
     domain: [0, Math.max(...counts.map(count => count.count))],
     nice: true
   });
+
+  function shortDayLabels (dayName) {
+    const count = counts.find(count => count.longLabel === dayName)
+    return count.label
+  }
+
   return (
     <>
       <WidgetHeading>
@@ -62,6 +68,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
           stroke={theme.global.colors['light-3']}
           hideTicks
           scale={xScale}
+          tickFormat={shortDayLabels}
           top={180}
         />
       </svg>
