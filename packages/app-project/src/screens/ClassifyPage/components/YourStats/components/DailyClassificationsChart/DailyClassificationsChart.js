@@ -14,15 +14,15 @@ counterpart.registerTranslations('en', en)
 
 function DailyClassificationsChart ({ counts, projectName, theme }) {
   const xScale = scaleBand({
-      rangeRound: [0, 300],
-      domain: counts.map(count => count.longLabel),
-      padding: 0.1
-    });
-    const yScale = scaleLinear({
-      rangeRound: [180, 0],
-      domain: [0, Math.max(...counts.map(count => count.count))],
-      nice: true
-    });
+    rangeRound: [0, 300],
+    domain: counts.map(count => count.longLabel),
+    padding: 0.1
+  });
+  const yScale = scaleLinear({
+    rangeRound: [180, 0],
+    domain: [0, Math.max(...counts.map(count => count.count))],
+    nice: true
+  });
   return (
     <>
       <WidgetHeading>
@@ -37,6 +37,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
           stroke={theme.global.colors['light-3']}
           hideTicks
           scale={yScale}
+          tickValues={yScale.ticks(3)}
         />
         <Group>
           {counts.map(count => {
