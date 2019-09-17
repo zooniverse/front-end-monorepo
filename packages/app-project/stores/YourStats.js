@@ -12,16 +12,15 @@ export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.o
 // https://stackoverflow.com/a/51918448/10951669
 function firstDayOfWeek(dateObject, firstDayOfWeekIndex) {
 
-    const dayOfWeek = dateObject.getDay(),
-        firstDayOfWeek = new Date(dateObject),
-        diff = dayOfWeek >= firstDayOfWeekIndex ?
-            dayOfWeek - firstDayOfWeekIndex :
-            6 - dayOfWeek
+  const dayOfWeek = dateObject.getDay()
+  const firstDayOfWeek = new Date(dateObject)
+  const diff = dayOfWeek >= firstDayOfWeekIndex ?
+    dayOfWeek - firstDayOfWeekIndex :
+    6 - dayOfWeek
 
-    firstDayOfWeek.setDate(dateObject.getDate() - diff)
-    firstDayOfWeek.setHours(0,0,0,0)
+  firstDayOfWeek.setDate(dateObject.getDate() - diff)
 
-    return firstDayOfWeek
+  return firstDayOfWeek
 }
 
 const Count = types
@@ -80,11 +79,12 @@ const YourStats = types
       Calculate daily stats for this week, starting last Monday.
       */
       const today = new Date()
-      const sunday = firstDayOfWeek(today, 0)
       const weeklyStats = []
+      const sunday = firstDayOfWeek(today, 0)
       for (let day = 1; day <= 7; day++) {
-        const weekDay = new Date()
-        weekDay.setDate(sunday.getDate() + day)
+        const weekDay = new Date(sunday.toISOString())
+        const newDate = sunday.getDate() + day
+        weekDay.setDate(newDate)
         const period = weekDay.toISOString().substring(0, 10)
         const { count } = self.dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
         weeklyStats.push({

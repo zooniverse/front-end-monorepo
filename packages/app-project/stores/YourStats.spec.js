@@ -6,6 +6,7 @@ import initStore from './initStore'
 import YourStats, { statsClient } from './YourStats'
 
 describe('Stores > YourStats', function () {
+  let clock
   let rootStore
   const project = {
     id: '2',
@@ -24,13 +25,25 @@ describe('Stores > YourStats', function () {
         ]
       }
     }
+    const MOCK_DAILY_COUNTS = [
+      { count: 12, period: '2019-09-29'},
+      { count: 12, period: '2019-09-30'},
+      { count: 13, period: '2019-10-01' },
+      { count: 14, period: '2019-10-02' },
+      { count: 10, period: '2019-10-03' },
+      { count: 11, period: '2019-10-04' },
+      { count: 8, period: '2019-10-05' },
+      { count: 15, period: '2019-10-06' }
+    ]
+    clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12) })
     rootStore = initStore(true, { project })
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
     sinon.stub(rootStore.client.panoptes, 'post').callsFake(() => Promise.resolve({}))
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve([]))
+    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
   })
 
   after(function () {
+    clock.restore()
     console.error.restore()
     rootStore.client.panoptes.get.restore()
     rootStore.client.panoptes.post.restore()
@@ -42,6 +55,7 @@ describe('Stores > YourStats', function () {
   })
 
   describe('with a project and user', function () {
+
     before(function () {
       const user = {
         id: '123',
@@ -84,6 +98,20 @@ describe('Stores > YourStats', function () {
         }
       }`
       expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
+    })
+
+    describe('weekly classification stats', function () {
+      it('should be created', function () {
+        expect(rootStore.yourStats.thisWeek.length).to.equal(7)
+      })
+
+      it('should start on Monday', function () {
+        expect(rootStore.yourStats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30'})
+      })
+
+      it('should end on Sunday', function () {
+        expect(rootStore.yourStats.thisWeek[6]).to.deep.equal({ count: 15, period: '2019-10-06' })
+      })
     })
 
     describe('incrementing your classification count', function () {
