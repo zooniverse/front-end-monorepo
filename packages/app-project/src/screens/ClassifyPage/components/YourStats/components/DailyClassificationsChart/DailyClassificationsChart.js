@@ -18,12 +18,22 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
     domain: counts.map(count => count.longLabel),
     padding: 0.1
   });
+
   const yScale = scaleLinear({
     rangeRound: [180, 0],
     domain: [0, Math.max(...counts.map(count => count.count))],
     nice: true
   });
 
+  function tickLabelProps () {
+    return {
+      dx: '-0.25em',
+      dy: '0.2em',
+      fill: theme.global.colors['light-4'],
+      fontFamily: 'Arial',
+      fontSize: 10,
+      textAnchor: 'middle' }
+  } 
   function shortDayLabels (dayName) {
     const count = counts.find(count => count.longLabel === dayName)
     return count.label
@@ -43,6 +53,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
           stroke={theme.global.colors['light-3']}
           hideTicks
           scale={yScale}
+          tickLabelProps={tickLabelProps}
           tickValues={yScale.ticks(3)}
         />
         <Group>
@@ -70,6 +81,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
           hideTicks
           scale={xScale}
           tickFormat={shortDayLabels}
+          tickLabelProps={tickLabelProps}
           top={180}
         />
       </svg>
