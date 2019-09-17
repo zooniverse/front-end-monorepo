@@ -13,14 +13,17 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function DailyClassificationsChart ({ counts, projectName, theme }) {
+  const HEIGHT = 200
+  const PADDING = 20
+  const WIDTH = 300
   const xScale = scaleBand({
-    rangeRound: [0, 300],
+    rangeRound: [0, WIDTH],
     domain: counts.map(count => count.longLabel),
     padding: 0.1
   });
 
   const yScale = scaleLinear({
-    rangeRound: [180, 0],
+    rangeRound: [HEIGHT - PADDING, 0],
     domain: [0, Math.max(...counts.map(count => count.count))],
     nice: true
   });
@@ -45,9 +48,9 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
         {`${projectName} daily classification counts`}
       </WidgetHeading>
       <svg
-        height="267"
-        viewBox="0 0 300 240"
-        width="500"
+        height={HEIGHT + PADDING}
+        viewBox={`${-PADDING} ${-PADDING} ${WIDTH + PADDING} ${HEIGHT + PADDING}`}
+        width="100%"
       >
         <AxisLeft
           stroke={theme.global.colors['light-3']}
@@ -59,9 +62,9 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
         <Group>
           {counts.map(count => {
             const barWidth = xScale.bandwidth();
-            const barHeight = 180 - yScale(count.count);
+            const barHeight = (HEIGHT - PADDING) - yScale(count.count);
             const barX = xScale(count.longLabel)
-            const barY = 180 - barHeight
+            const barY = (HEIGHT - PADDING) - barHeight
             return (
               <Bar
                 aria-label={count.alt}
@@ -82,7 +85,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
           scale={xScale}
           tickFormat={shortDayLabels}
           tickLabelProps={tickLabelProps}
-          top={180}
+          top={HEIGHT - PADDING}
         />
       </svg>
     </>
