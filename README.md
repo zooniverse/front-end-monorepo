@@ -115,7 +115,7 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 ## Deployment
 
-Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/). Firstly, a base Docker image (`zooniverse/front-end-monorepo`) is built with the top-level Dockerfile, which installs and builds production versions of the `lib-` packages. 
+Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using Docker images (descriptions found below). 
 
 Merges to master deploy to a staging Kubernetes instance that uses Panoptes production. This is used for manual end to end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
@@ -130,9 +130,9 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 ### Docker images
 
-- `zooniverse/front-end-monorepo`: Used as a base image to build `zooniverse/fe-project` and `zooniverse/fe-content-pages` images from the Dockerfiles in `packages/app-project` and `packages/app-content-pages`
-- `zooniverse/fe-content-pages`: Runs production (static) builds of the NextJS app and are then deployed to Kubernetes
-- `zooniverse/fe-project`: Runs production (static) builds of the NextJS app and are then deployed to Kubernetes
+- `zooniverse/front-end-monorepo`: Used as a base image to build `zooniverse/fe-project` and `zooniverse/fe-content-pages` images from the Dockerfiles in `packages/app-project` and `packages/app-content-pages`. Built from the Dockerfile in the root directory. It runs `yarn install` and builds the `lib-` packages and static (production) apps.
+- `zooniverse/fe-content-pages`: Runs production (static) builds of the NextJS app and are then deployed to Kubernetes. Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn start`.
+- `zooniverse/fe-project`: Runs production (static) builds of the NextJS app and are then deployed to Kubernetes. Built from the Dockerfile in `packages/app-project`. Runs `yarn start`.
 
 
 ---
