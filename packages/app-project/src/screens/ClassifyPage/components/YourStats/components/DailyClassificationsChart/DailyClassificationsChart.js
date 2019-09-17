@@ -36,7 +36,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
       </WidgetHeading>
       <svg
         height="267"
-        viewBox="0 0 300 200"
+        viewBox="0 0 300 240"
         width="500"
       >
         <AxisLeft
