@@ -6,7 +6,6 @@ import initStore from './initStore'
 import YourStats, { statsClient } from './YourStats'
 
 describe('Stores > YourStats', function () {
-  let clock
   let rootStore
   const project = {
     id: '2',
@@ -35,7 +34,6 @@ describe('Stores > YourStats', function () {
       { count: 8, period: '2019-10-05' },
       { count: 15, period: '2019-10-06' }
     ]
-    clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12) })
     rootStore = initStore(true, { project })
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
     sinon.stub(rootStore.client.panoptes, 'post').callsFake(() => Promise.resolve({}))
@@ -43,7 +41,6 @@ describe('Stores > YourStats', function () {
   })
 
   after(function () {
-    clock.restore()
     console.error.restore()
     rootStore.client.panoptes.get.restore()
     rootStore.client.panoptes.post.restore()
@@ -55,8 +52,10 @@ describe('Stores > YourStats', function () {
   })
 
   describe('with a project and user', function () {
+    let clock
 
     before(function () {
+      clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
       const user = {
         id: '123',
         login: 'test.user'
@@ -66,6 +65,7 @@ describe('Stores > YourStats', function () {
     })
 
     after(function () {
+      clock.restore()
       rootStore.client.panoptes.get.resetHistory()
       rootStore.client.panoptes.post.resetHistory()
       rootStore.collections.fetchFavourites.restore()
@@ -215,6 +215,15 @@ describe('Stores > YourStats', function () {
     })
 
     describe('today\'s count', function () {
+      let clock
+
+      before(function () {
+        clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
+      })
+
+      after(function () {
+        clock.restore()
+      })
 
       it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
