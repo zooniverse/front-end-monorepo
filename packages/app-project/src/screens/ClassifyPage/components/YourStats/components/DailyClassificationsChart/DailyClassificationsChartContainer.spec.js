@@ -37,10 +37,8 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
   describe('daily stats counts', function () {
     let counts
-    let monday
 
     before(function () {
-      monday = new Date(2019, 9, 30)
       counts = componentWrapper.prop('counts')
     })
 
@@ -55,8 +53,8 @@ describe('Component > DailyClassificationsChartContainer', function () {
       let count
 
       before(function () {
-        today = new Date()
-        today.setDate(monday.getDate() + day)
+        today = new Date(2019, 8, 30)
+        today.setDate(30 + day)
         dayShort = today.toLocaleDateString('en', { weekday: 'narrow' })
         dayLong = today.toLocaleDateString('en', { weekday: 'long' })
         count = counts[day]
