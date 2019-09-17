@@ -215,15 +215,6 @@ describe('Stores > YourStats', function () {
     })
 
     describe('today\'s count', function () {
-      let clock
-
-      before(function () {
-        clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1) })
-      })
-
-      after(function () {
-        clock.restore()
-      })
 
       it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
