@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { array, string } from 'prop-types'
+import { array, object, string } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@vx/axis'
@@ -54,6 +54,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
             return (
               <Bar
                 aria-label={count.alt}
+                key={count.period}
                 role="image"
                 fill={theme.global.colors['accent-2']}
                 height={barHeight}
@@ -78,11 +79,19 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
 
 DailyClassificationsChart.propTypes = {
   counts: array,
-  projectName: string.isRequired
+  projectName: string.isRequired,
+  theme: object
 }
 
 DailyClassificationsChart.defaultProps = {
-  counts: []
+  counts: [],
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 export default withTheme(DailyClassificationsChart)
+export { DailyClassificationsChart }
+
