@@ -25,7 +25,7 @@ describe('DrawingTask', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<DrawingTask.wrappedComponent active={0} addAnnotation={() => {}} task={task} />)
+      wrapper = shallow(<DrawingTask.wrappedComponent activeDrawingTool={0} addAnnotation={() => {}} task={task} />)
     })
 
     it('should render without crashing', function () {
