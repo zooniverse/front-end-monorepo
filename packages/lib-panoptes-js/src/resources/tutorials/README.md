@@ -7,7 +7,6 @@
 [Other common requests](#common-requests)
 
 - [Get Attached Images](#get-attached-images)
-- [Get with Images](#get-with-images)
 - [Get Tutorials](#get-tutorials)
 - [Get Mini-courses](#get-mini-courses)
 
@@ -102,48 +101,6 @@ tutorials.getAttachedImages(params)
 // Get request using id
 tutorials.getAttachedImages({ id: '10' }).then((response) => {
   this.setState({ tutorialMedia: response.body.media[0] });
-}).catch((error) => { 
-  if (error.statusCode === 404) return null; // If you don't care about catching a 404
-});
-```
-
-### Get with Images
-
-A tutorials get request uses a default include query param for attached images. It then uses the tutorials' [`get`](#get request helper so this also requires either a tutorial id or workflow id. Note, there is a known bug with the include request, so this will not return what we expect at the moment:
-
-https://github.com/zooniverse/Panoptes/issues/2279
-
-**Function**
-
-``` javascript
-const params = { id: '1', authorization: authorization };
-
-tutorials.getWithImages(params)
-
-// or with additional query params
-const params = { workflowId: '1000', query: { page: '2' } }
-
-tutorials.getWithImages(params)
-```
-
-**Arguments**
-
-- params _(object)_ - An object that should include the tutorial id _(string)_ or workflow id _(string)_ and optionally additional query params. Also can take an authorization _(string)_ property that must be set to a string including type and token, i.e. `{ authorization: 'Bearer 12345' }`.
-
-**Returns**
-
-- Promise _(object)_ resolves to the API response with the resource, meta, links, and linked media resources or the request error.
-
-**Example**
-
-``` javascript
-// Get request
-tutorials.getWithImages({ id: '1' }).then((response) => {
-  // The media will have to be matched up with the step it is for...
-  this.setState({ 
-    tutorial: response.body.tutorials[0],
-    tutorialMedia: response.body.linked
-  });
 }).catch((error) => { 
   if (error.statusCode === 404) return null; // If you don't care about catching a 404
 });
