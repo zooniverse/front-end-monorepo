@@ -35,7 +35,11 @@ function ClassifyPage (props) {
 
       <Box as='aside' gap='medium'>
         <FinishedForTheDay />
-        <Grid columns={['1fr', '2fr']} gap='medium'>
+        <Grid
+          alignContent="stretch"
+          columns={['1fr', '2fr']}
+          gap='medium'
+        >
           <YourStats />
           <RecentSubjects />
         </Grid>
