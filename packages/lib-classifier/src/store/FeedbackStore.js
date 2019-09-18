@@ -26,6 +26,8 @@ const FeedbackStore = types
       const { projects = {}, subjects = {}, workflows = {} } = getRoot(self)
       return helpers.isFeedbackActive(projects.active, subjects.active, workflows.active)
     },
+    // This is a workaround for https://github.com/zooniverse/front-end-monorepo/issues/1112
+    // (feedback incorrectly being active when there are no rules)
     get isValid () {
       return self.isActive && self.rules && self.rules.size > 0
     },
