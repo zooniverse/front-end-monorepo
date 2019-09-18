@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import FieldGuide from './FieldGuide'
@@ -7,8 +7,8 @@ import Medium from './Medium'
 
 const FieldGuideStore = types
   .model('FieldGuideStore', {
-    active: types.maybe(types.reference(FieldGuide)),
-    activeMedium: types.maybe(types.reference(Medium)),
+    active: types.safeReference(FieldGuide),
+    activeMedium: types.safeReference(Medium),
     activeItemIndex: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(FieldGuide),
@@ -23,19 +23,18 @@ const FieldGuideStore = types
 
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
-        const project = getRoot(self).projects.active
-        if (project) {
+        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+        if (validProjectReference) {
+          const project = getRoot(self).projects.active
           self.reset()
-          self.fetchFieldGuide()
+          self.fetchFieldGuide(project.id)
         }
-      })
+      }, { name: 'FieldGuideStore Project Observer autorun' })
       addDisposer(self, projectDisposer)
     }
 
     function reset () {
-      self.active = undefined
       self.resources.clear()
-      self.activeMedium = undefined
       self.attachedMedia.clear()
       self.activeItemIndex = undefined
       self.showModal = false
@@ -55,7 +54,9 @@ const FieldGuideStore = types
         } catch (error) {
           // We're not setting the store state to error because
           // we do not want to prevent the field guide from rendering
-          console.error(error)
+          if (process.browser) {
+            console.error(error)
+          }
         }
       }
     })
@@ -65,14 +66,13 @@ const FieldGuideStore = types
     }
 
     // TODO: move req in panoptes.js
-    function * fetchFieldGuide () {
+    function * fetchFieldGuide (projectID) {
       const { type } = self
-      const project = getRoot(self).projects.active
       const client = getRoot(self).client.panoptes
 
       self.loadingState = asyncStates.loading
       try {
-        const response = yield client.get(`/${type}`, { project_id: project.id })
+        const response = yield client.get(`/${type}`, { project_id: projectID })
         const fieldGuide = response.body[type][0]
         if (fieldGuide) {
           yield fetchMedia(fieldGuide)
@@ -83,7 +83,9 @@ const FieldGuideStore = types
           self.loadingState = asyncStates.success
         }
       } catch (error) {
-        console.error(error)
+        if (process.browser) {
+          console.error(error)
+        }
         self.loadingState = asyncStates.error
       }
     }
@@ -93,12 +95,15 @@ const FieldGuideStore = types
     }
 
     function setActiveItemIndex (index) {
-      const fieldGuide = self.active
-      if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
-        if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
-        self.activeItemIndex = index
-      } else {
-        self.activeItemIndex = undefined
+      const validFieldGuide = isValidReference(() => self.active)
+      if (validFieldGuide) {
+        const fieldGuide = self.active
+        if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
+          if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
+          self.activeItemIndex = index
+        } else {
+          self.activeItemIndex = undefined
+        }
       }
     }
 

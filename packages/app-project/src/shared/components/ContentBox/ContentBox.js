@@ -49,7 +49,7 @@ function ContentBox (props) {
         >
 
           {title && (
-            <WidgetHeading text={title} level={titleLevel} />
+            <WidgetHeading children={title} level={titleLevel} />
           )}
 
           {(linkLabel && linkUrl) && (
