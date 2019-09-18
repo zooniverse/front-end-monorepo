@@ -45,7 +45,7 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
   return (
     <>
       <WidgetHeading>
-        {`${projectName} daily classification counts`}
+        {counterpart('DailyClassificationsChart.title', { projectName })}
       </WidgetHeading>
       <svg
         height={HEIGHT + PADDING}
