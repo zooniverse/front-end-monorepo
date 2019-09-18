@@ -125,7 +125,11 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 ### Environment variables
 
-- `PANOPTES_ENV`: sets which Panoptes API endpoint to use. Setting to `production` will use `https://www.zooniverse.org/api` and `staging` to `https://panoptes-staging.zooniverse.org/api`. The yarn build scripts for libraries default to production and overrides the environment to be production for the apps. 
+- `PANOPTES_ENV`: sets which Panoptes API endpoint to use. 
+  - `production` will use `https://www.zooniverse.org/api` 
+  - `staging` will use `https://panoptes-staging.zooniverse.org/api`.
+
+The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
 - `NODE_ENV`: sets the environment for library builds.
 
 ### Docker images
