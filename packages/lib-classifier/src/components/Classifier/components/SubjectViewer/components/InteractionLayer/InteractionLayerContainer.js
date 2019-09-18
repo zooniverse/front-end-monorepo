@@ -16,9 +16,9 @@ function storeMapper (stores) {
 class InteractionLayerContainer extends Component {
   constructor () {
     super()
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onPointerDown = this.onPointerDown.bind(this)
+    this.onPointerMove = this.onPointerMove.bind(this)
+    this.onPointerUp = this.onPointerUp.bind(this)
   }
 
   componentDidMount () {
@@ -28,33 +28,28 @@ class InteractionLayerContainer extends Component {
     // stream.subscribe(z => console.log(z))
   }
 
-  addToStream (event, type) {
-    this.props.drawing.addToStream({
-      event: type,
-      target: event.target,
-      x: event.clientX,
-      y: event.clientY
-    })
+  addToStream (event) {
+    this.props.drawing.addToStream(event)
   }
 
-  onMouseDown (event) {
-    this.addToStream(event, 'mousedown')
+  onPointerDown (event) {
+    this.addToStream(event)
   }
 
-  onMouseMove (event) {
-    this.addToStream(event, 'mousemove')
+  onPointerMove (event) {
+    this.addToStream(event)
   }
 
-  onMouseUp (event) {
-    this.addToStream(event, 'mouseup')
+  onPointerUp (event) {
+    this.addToStream(event)
   }
 
   render () {
     return (
       <InteractionLayer
-        onMouseMove={this.onMouseMove}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={this.onMouseUp}
+        onPointerDown={this.onPointerDown}
+        onPointerMove={this.onPointerMove}
+        onPointerUp={this.onPointerUp}
       />
     )
   }
