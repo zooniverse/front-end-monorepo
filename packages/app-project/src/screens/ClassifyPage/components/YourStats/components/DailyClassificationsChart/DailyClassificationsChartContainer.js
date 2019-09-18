@@ -24,8 +24,7 @@ class DailyClassificationsChartContainer extends Component {
       const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
       const alt = `${longLabel}: ${count.count}`
       const label = day.toLocaleDateString(locale, { weekday: 'narrow' })
-      const randomCount = count.count || Math.random() * 150
-      return Object.assign({}, count, { alt, count: randomCount, label, longLabel })
+      return Object.assign({}, count, { alt, label, longLabel })
     })
     return (
       <DailyClassificationsChart
