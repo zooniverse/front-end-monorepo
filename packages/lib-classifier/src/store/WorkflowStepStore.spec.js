@@ -1,22 +1,39 @@
-import { types } from 'mobx-state-tree'
+import RootStore from './RootStore'
 
 import WorkflowStepStore from './WorkflowStepStore'
 import {
-  ClassificationFactory,
   MultipleChoiceTaskFactory,
+  ProjectFactory,
   SingleChoiceTaskFactory,
   WorkflowFactory
 } from '../../test/factories'
+import { Factory } from 'rosie'
+import stubPanoptesJs from '../../test/stubPanoptesJs'
 
-let ROOT_STORE_INSTANCE = null
-let WORKFLOW = null
-
-const ROOT_STORE = types
-  .model('RootStore', {
-    classifications: types.frozen({}),
-    workflows: types.frozen({}),
-    workflowSteps: types.optional(WorkflowStepStore, WorkflowStepStore.create())
+function setupStores (clientStub, project, workflow) {
+  const store = RootStore.create({
+    classifications: {},
+    dataVisAnnotating: {},
+    drawing: {},
+    feedback: {},
+    fieldGuide: {},
+    subjects: {},
+    subjectViewer: {},
+    tutorials: {},
+    userProjectPreferences: {}
+  }, {
+    client: clientStub,
+    authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
   })
+
+  store.projects.setResource(project)
+  store.projects.setActive(project.id)
+  if (workflow) {
+    store.workflows.setResource(workflow)
+    store.workflows.setActive(workflow.id)
+  }
+  return store
+}
 
 describe('Model > WorkflowStepStore', function () {
   it('should exist', function () {
@@ -24,8 +41,10 @@ describe('Model > WorkflowStepStore', function () {
   })
 
   describe('when the workflow has defined steps', function () {
+    let rootStore
+    let workflow
     before(function () {
-      WORKFLOW = WorkflowFactory.build({
+      workflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }],
           ['S2', { taskKeys: ['T2'] }]
@@ -36,57 +55,50 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
 
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-    })
-
-    after(function () {
-      ROOT_STORE_INSTANCE = null
-      WORKFLOW = null
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
+      rootStore = setupStores(panoptesClientStub, project)
     })
 
     describe('should set the steps', function () {
       let STORE_STEPS
 
       before(function () {
-        STORE_STEPS = ROOT_STORE_INSTANCE.workflows.active.steps
+        STORE_STEPS = rootStore.workflows.active.steps
       })
 
       it('should have the expected steps set', function () {
-        expect(ROOT_STORE_INSTANCE.workflows.active.steps).to.have.lengthOf(WORKFLOW.steps.length)
+        expect(rootStore.workflows.active.steps).to.have.lengthOf(workflow.steps.length)
         STORE_STEPS.forEach((step, index) =>
-          expect(step[0]).to.equal(WORKFLOW.steps[index][0])
+          expect(step[0]).to.equal(workflow.steps[index][0])
         )
       })
 
       it('should have the expected `taskKeys` for each step', function () {
         STORE_STEPS.forEach((step, stepIndex) => {
-          expect(step[1].taskKeys).to.have.lengthOf(WORKFLOW.steps[stepIndex][1].taskKeys.length)
+          expect(step[1].taskKeys).to.have.lengthOf(workflow.steps[stepIndex][1].taskKeys.length)
 
           step[1].taskKeys.forEach((taskKey, taskIndex) => {
-            expect(taskKey).to.equal(WORKFLOW.steps[stepIndex][1].taskKeys[taskIndex])
+            expect(taskKey).to.equal(workflow.steps[stepIndex][1].taskKeys[taskIndex])
           })
         })
       })
     })
 
     it('should set the tasks', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
-      Object.keys(WORKFLOW.tasks).forEach(taskKey => {
+      const { workflowSteps } = rootStore
+      Object.keys(workflow.tasks).forEach(taskKey => {
         const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
         // `taskKey` is copied from the original object for serialization by MST
         delete storedTask.taskKey
-        const originalTask = WORKFLOW.tasks[taskKey]
+        const originalTask = workflow.tasks[taskKey]
         expect(storedTask).to.eql(originalTask)
       })
     })
 
     it('should set the first step to be active', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
-      const firstStep = WORKFLOW.steps[0]
+      const { workflowSteps } = rootStore
+      const firstStep = workflow.steps[0]
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal(firstStep[0])
       firstStep[1].taskKeys.forEach((taskKey, index) => {
@@ -97,60 +109,55 @@ describe('Model > WorkflowStepStore', function () {
   })
 
   describe('when the workflow does not have defined steps', function () {
+    let rootStore
+    let workflow
     before(function () {
-      WORKFLOW = WorkflowFactory.build({
+      workflow = WorkflowFactory.build({
         first_task: 'T1',
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build()
         }
       })
-
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-    })
-
-    after(function () {
-      ROOT_STORE_INSTANCE = null
-      WORKFLOW = null
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
+      rootStore = setupStores(panoptesClientStub, project)
     })
 
     it('should convert the tasks to steps and set the steps', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
-      const numberOfTasks = Object.keys(WORKFLOW.tasks).length
+      const { workflowSteps } = rootStore
+      const numberOfTasks = Object.keys(workflow.tasks).length
       expect(workflowSteps.steps).to.have.lengthOf(numberOfTasks)
     })
 
     it('should set the tasks', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
-      Object.keys(WORKFLOW.tasks).forEach(taskKey => {
+      const { workflowSteps } = rootStore
+      Object.keys(workflow.tasks).forEach(taskKey => {
         const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
         // `taskKey` is copied from the original object for serialization by MST
         delete storedTask.taskKey
-        const originalTask = WORKFLOW.tasks[taskKey]
+        const originalTask = workflow.tasks[taskKey]
         expect(storedTask).to.eql(originalTask)
       })
     })
 
     it('should set the first step to be active', function () {
-      const { workflowSteps } = ROOT_STORE_INSTANCE
+      const { workflowSteps } = rootStore
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal('S0')
       storedStep.taskKeys.forEach(taskKey =>
-        expect(taskKey).to.equal(WORKFLOW.first_task)
+        expect(taskKey).to.equal(workflow.first_task)
       )
     })
   })
 
   describe('Views > shouldWeShowDoneAndTalkButton', function () {
-    let classification
-    let flaggedClassification
+    let subjects
+    let subject
     let hiddenSummaryWorkflow
+    let workflow
     before(function () {
-      WORKFLOW = WorkflowFactory.build({
+      workflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }],
           ['S2', { taskKeys: ['T2'] }]
@@ -175,106 +182,61 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
 
-      classification = ClassificationFactory.build({
-        annotations: [
-          { task: 'T1', value: 0 },
-          { task: 'T2', value: [0, 2] }
-        ]
-      })
-
-      flaggedClassification = ClassificationFactory.build({
-        annotations: [
-          { task: 'T1', value: 0 },
-          { task: 'T2', value: [0, 2] }
-        ],
-        metadata: {
-          subject_flagged: true
-        }
-      })
-    })
-
-    after(function () {
-      ROOT_STORE_INSTANCE = null
-      WORKFLOW = null
+      subjects = Factory.buildList('subject', 10)
+      subject = subjects[0]
     })
 
     it('should return false if there is not an active workflow', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: undefined
-        },
-        workflows: {
-          active: undefined
-        }
-      })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
+      const project = ProjectFactory.build({})
+      const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
+      const rootStore = setupStores(panoptesClientStub, project)
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if there is not an active classification', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: undefined
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
+      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if not on the last step', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
+      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      rootStore.classifications.createClassification(subject, workflow, project)
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if the workflow is not configured to hide classification summaries', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: WORKFLOW
-        }
-      })
-      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
+      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      rootStore.classifications.createClassification(subject, workflow, project)
+      rootStore.workflowSteps.selectStep('S2')
       // returns as falsey undefined rather than explicit false
       // this is because usually the workflow has hide_classification_summaries as undefined in the config
       // rather than explicitly set as false
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined()
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined()
     })
 
     it('should return false if the classification subject has been flagged', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: flaggedClassification
-        },
-        workflows: {
-          active: hiddenSummaryWorkflow
-        }
-      })
-
-      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
+      const project = ProjectFactory.build({}, { activeWorkflowId: hiddenSummaryWorkflow.id })
+      const panoptesClientStub = stubPanoptesJs({ workflows: hiddenSummaryWorkflow, subjects })
+      const rootStore = setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
+      rootStore.classifications.createClassification(subject, hiddenSummaryWorkflow, project)
+      rootStore.classifications.updateClassificationMetadata({ subject_flagged: true })
+      rootStore.workflowSteps.selectStep('S2')
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return true if the conditions are met', function () {
-      ROOT_STORE_INSTANCE = ROOT_STORE.create({
-        classifications: {
-          active: classification
-        },
-        workflows: {
-          active: hiddenSummaryWorkflow
-        }
-      })
-      ROOT_STORE_INSTANCE.workflowSteps.selectStep('S2')
-      expect(ROOT_STORE_INSTANCE.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()
+      const project = ProjectFactory.build({}, { activeWorkflowId: hiddenSummaryWorkflow.id })
+      const panoptesClientStub = stubPanoptesJs({ workflows: hiddenSummaryWorkflow, subjects })
+      const rootStore = setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
+      rootStore.classifications.createClassification(subject, hiddenSummaryWorkflow, project)
+      rootStore.workflowSteps.selectStep('S2')
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()
     })
   })
 })

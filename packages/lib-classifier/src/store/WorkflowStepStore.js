@@ -1,12 +1,12 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
 import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
-    active: types.maybe(types.reference(Step)),
+    active: types.safeReference(Step),
     steps: types.map(Step),
     tasks: types.map(types.union({ dispatcher: (snapshot) => {
       if (snapshot.type === 'drawing') return DrawingTask
@@ -18,7 +18,8 @@ const WorkflowStepStore = types
   })
   .views(self => ({
     get activeStepTasks () {
-      if (self.active) {
+      const validStepReference = isValidReference(() => self.active)
+      if (validStepReference) {
         return self.active.taskKeys.map((taskKey) => {
           return self.tasks.get(taskKey)
         })
@@ -33,8 +34,13 @@ const WorkflowStepStore = types
     },
 
     isThereAPreviousStep () {
-      const firstStep = self.steps.keys().next()
-      return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
+      const validStepReference = isValidReference(() => self.active)
+      if (validStepReference) {
+        const firstStep = self.steps.keys().next()
+        return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
+      }
+
+      return false
     },
 
     get isThereTaskHelp () {
@@ -45,15 +51,19 @@ const WorkflowStepStore = types
 
     get shouldWeShowDoneAndTalkButton () {
       const isThereANextStep = self.isThereANextStep()
-      const workflow = getRoot(self).workflows.active
-      const classification = getRoot(self).classifications.active
+      const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
+      const validClassificationReference = isValidReference(() => getRoot(self).classifications.active)
+      if (validWorkflowReference && validClassificationReference) {
+        const workflow = getRoot(self).workflows.active
+        const classification = getRoot(self).classifications.active
 
-      if (workflow && classification) {
-        const disableTalk = classification.metadata.subject_flagged
-        return !isThereANextStep &&
-        workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
-        !disableTalk // &&
-        // !completed TODO: implement classification completed validations per task?
+        if (workflow && classification) {
+          const disableTalk = classification.metadata.subject_flagged
+          return !isThereANextStep &&
+          workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
+          !disableTalk // &&
+          // !completed TODO: implement classification completed validations per task?
+        }
       }
 
       return false
@@ -67,12 +77,13 @@ const WorkflowStepStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const workflow = getRoot(self).workflows.active
-        if (workflow) {
+        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
+        if (validWorkflowReference) {
+          const workflow = getRoot(self).workflows.active
           self.reset()
           if (workflow.steps &&
-              workflow.steps.length > 0 &&
-              Object.keys(workflow.tasks).length > 0) {
+            workflow.steps.length > 0 &&
+            Object.keys(workflow.tasks).length > 0) {
             self.setStepsAndTasks(workflow)
           } else {
             // backwards compatibility
@@ -80,7 +91,7 @@ const WorkflowStepStore = types
             self.setTasks(workflow)
           }
         }
-      })
+      }, { name: 'WorkflowStepStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
     }
 
@@ -89,13 +100,14 @@ const WorkflowStepStore = types
         onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') self.resetSteps()
         })
-      })
+      }, { name: 'WorkflowStepStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
 
     function getNextStepKey () {
+      const validStepReference = isValidReference(() => self.active)
       const stepKeys = self.steps.keys()
-      if (self.active) {
+      if (validStepReference) {
         const stepKeysArray = Array.from(stepKeys)
         const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
         return stepKeysArray[currentStepIndex + 1]
@@ -105,9 +117,13 @@ const WorkflowStepStore = types
     }
 
     function getPreviousStepKey () {
-      const stepsKeys = Array.from(self.steps.keys())
-      const currentStepIndex = stepsKeys.indexOf(self.active.stepKey)
-      return stepsKeys[currentStepIndex - 1]
+      const validStepReference = isValidReference(() => self.active)
+      if (validStepReference) {
+        const stepsKeys = Array.from(self.steps.keys())
+        const currentStepIndex = stepsKeys.indexOf(self.active.stepKey)
+        return stepsKeys[currentStepIndex - 1]
+      }
+      return undefined
     }
 
     function resetSteps () {
@@ -116,7 +132,6 @@ const WorkflowStepStore = types
     }
 
     function reset () {
-      self.active = undefined
       self.steps.clear()
       self.tasks.clear()
     }

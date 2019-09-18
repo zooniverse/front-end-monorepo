@@ -15,8 +15,7 @@ services:
     environment:
       - HOST=0.0.0.0
     volumes:
-      - ../../:/usr/src
-      - /usr/src/node_modules
+      - ./src:/usr/src/packages/lib-classifier/src
   storybook:
     image: front-end-monorepo_dev:latest
     entrypoint:
@@ -27,5 +26,4 @@ services:
     ports:
       - "6006:6006"
     volumes:
-      - ../../:/usr/src
-      - /usr/src/node_modules
+      - ./src:/usr/src/packages/lib-classifier/src
