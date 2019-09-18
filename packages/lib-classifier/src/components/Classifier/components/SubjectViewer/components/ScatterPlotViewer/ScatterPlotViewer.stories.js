@@ -50,11 +50,11 @@ stories
             yAxisLabel={text('y axis label', 'Brightness')}
             zooming={boolean('zooming', false)}
             zoomConfiguration={{
-              direction: text('zoom direction', 'x'),
-              minZoom: 1,
-              maxZoom: 10,
-              zoomInValue: 1.2,
-              zoomOutValue: 0.8
+              direction: text('zoom direction', 'both'),
+              minZoom: number('min zoom', 1),
+              maxZoom: number('max zoom', 10),
+              zoomInValue: number('zoom in scale', 1.2),
+              zoomOutValue: number('zoom out scale', 0.8)
             }}
           />
           <Box direction='row'>

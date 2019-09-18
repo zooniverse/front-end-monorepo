@@ -42,10 +42,7 @@ class VXZoom extends PureComponent {
       'zoomto': this.zoomTo.bind(this)
     }
 
-    console.log('handling')
-
     if (doZoom[type]) {
-      console.log('doin zoom')
       doZoom[type]()
     }
   }
@@ -59,7 +56,6 @@ class VXZoom extends PureComponent {
   zoomOut() {
     if (!this.props.zooming) return
     const { zoomOutValue } = this.props.zoomConfiguration
-    console.log('zoom out')
     this.zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
   }
 
@@ -178,10 +174,6 @@ class VXZoom extends PureComponent {
       return this.constrainBothAxisZoom(transformMatrix, prevTransformMatrix)
     }
 
-    if (zoomConfiguration.direction === 'none') {
-      return prevTransformMatrix
-    }
-
     return transformMatrix
   }
 
@@ -219,9 +211,9 @@ class VXZoom extends PureComponent {
             >
               <ZoomEventLayer
                 onWheel={(event) => this.onWheel(event)}
-                onMouseDown={panning ? zoom.dragStart : () => { }}
-                onMouseMove={panning ? zoom.dragMove : () => { }}
-                onMouseUp={panning ? zoom.dragEnd : () => { }}
+                onMouseDown={panning ? zoom.dragStart : () => {}}
+                onMouseMove={panning ? zoom.dragMove : () => {}}
+                onMouseUp={panning ? zoom.dragEnd : () => {}}
                 onMouseLeave={this.onMouseLeave}
                 onDoubleClick={this.onDoubleClick}
                 panning={panning}
@@ -258,7 +250,7 @@ VXZoom.propTypes = {
   parentWidth: PropTypes.number.isRequired,
   setOnZoom: PropTypes.func,
   zoomConfiguration: PropTypes.shape({
-    direction: PropTypes.oneOf(['both', 'none', 'x', 'y']),
+    direction: PropTypes.oneOf(['both', 'x', 'y']),
     minZoom: PropTypes.number,
     maxZoom: PropTypes.number,
     zoomInValue: PropTypes.number,
