@@ -20,6 +20,13 @@ function StubComponent ({ children }) {
 const width = 1000
 const height = 1000
 
+const zoomInEventMock = {
+  clientX: 50,
+  clientY: 50,
+  deltaY: -1,
+  preventDefault: sinon.spy()
+}
+
 describe.only('Component > VXZoom', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
@@ -890,6 +897,83 @@ describe.only('Component > VXZoom', function () {
           expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX)
           expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
         })
+      })
+    })
+  })
+
+  describe.only('data boundary constraints', function () {
+    describe('when zooming', function () {
+      it('should not zoom in beyond maximum zoom configuration', function () {
+        const zoomConfiguration = {
+          direction: 'both',
+          minZoom: 1,
+          maxZoom: 5,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
+        const wrapper = mount(
+          <VXZoom
+            data={mockData}
+            panning={true}
+            parentHeight={height}
+            parentWidth={width}
+            wrappedComponent={StubComponent}
+            zoomConfiguration={zoomConfiguration}
+            zooming={true}
+          />
+        )
+        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+        // multiplying the scale 1.2 nine times is 5.159780352
+        let previousTransformMatrix
+        for (let i = 0; i < 10; i++) {
+          wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
+          if (i === 8) {
+            previousTransformMatrix = wrapper.instance().zoom.transformMatrix
+          }
+        }
+        const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+
+        expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
+        expect(zoomedTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX)
+        expect(zoomedTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY)
+        expect(zoomedTransformMatrix.scaleX).to.be.below(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.scaleY).to.be.below(zoomConfiguration.maxZoom)
+      })
+
+      it('should not zoom out beyond the minimum zoom configuration', function () {
+        const wrapper = mount(
+          <VXZoom
+            data={mockData}
+            panning={true}
+            parentHeight={height}
+            parentWidth={width}
+            wrappedComponent={StubComponent}
+            zooming={true}
+          />
+        )
+        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+        // zoom in first
+        wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
+
+        // zoom out by mouse wheel
+        // 1 * 1.2 * 0.8 is 0.96
+        wrapper.find(ZoomEventLayer).simulate('wheel', {
+          clientX: 50,
+          clientY: 50,
+          deltaY: 10,
+          preventDefault: sinon.spy()
+        })
+        const zoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
+
+        expect(zoomedOutTransformMatrix).to.not.deep.equal(transformMatrix)
+        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
+        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
       })
     })
   })
