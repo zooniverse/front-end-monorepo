@@ -11,6 +11,7 @@ import {
   WorkflowFactory
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
+import helpers from './feedback/helpers'
 
 const feedbackRulesStub = {
   T0: [{
@@ -98,8 +99,8 @@ describe('Model > ClassificationStore', function () {
       let classifications
       let rootStore
       before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
         const invalidFeedbackStub = {
-          isActive: true,
           rules: {}
         }
 
@@ -123,6 +124,10 @@ describe('Model > ClassificationStore', function () {
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should not add feedback to classification metadata', function () {
@@ -154,6 +159,7 @@ describe('Model > ClassificationStore', function () {
         sinon.stub(rootStore.feedback, 'createRules')
         sinon.stub(rootStore.feedback, 'update')
         sinon.stub(rootStore.feedback, 'reset')
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
         classifications = rootStore.classifications
         feedback = rootStore.feedback
         onComplete = sinon.stub()
@@ -162,7 +168,7 @@ describe('Model > ClassificationStore', function () {
       })
 
       beforeEach(function () {
-        const activeFeedback = FeedbackFactory.build({ isActive: true, rules: feedbackRulesStub })
+        const activeFeedback = FeedbackFactory.build({ rules: feedbackRulesStub })
         // Classification completion adds feedback metadata if feedback is active and there are rules
         // So first we update the feedback store to have active feedback
         // Then call the classification complete event
@@ -193,6 +199,7 @@ describe('Model > ClassificationStore', function () {
         feedback.createRules.restore()
         feedback.update.restore()
         feedback.reset.restore()
+        helpers.isFeedbackActive.restore()
       })
 
       // Why is this test here?

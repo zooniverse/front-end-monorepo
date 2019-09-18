@@ -7,7 +7,6 @@ import strategies from './feedback/strategies'
 
 const FeedbackStore = types
   .model('FeedbackStore', {
-    isActive: types.optional(types.boolean, false),
     rules: types.map(types.frozen({})),
     showModal: types.optional(types.boolean, false)
   })
@@ -22,6 +21,18 @@ const FeedbackStore = types
     get hideSubjectViewer () {
       return flatten(Array.from(self.rules.values()))
         .some(rule => rule.hideSubjectViewer)
+    },
+    get isActive () {
+      const { projects = {}, subjects = {}, workflows = {} } = getRoot(self)
+      const validProject = isValidReference(() => projects.active) && projects.active
+      const validWorkflow = isValidReference(() => workflows.active) && workflows.active
+      const validSubject = isValidReference(() => subjects.active) && subjects.active
+      return helpers.isFeedbackActive(validProject, validSubject, validWorkflow)
+    },
+    // This is a workaround for https://github.com/zooniverse/front-end-monorepo/issues/1112
+    // (feedback incorrectly being active when there are no rules)
+    get isValid () {
+      return self.isActive && self.rules && self.rules.size > 0
     },
     get messages () {
       return self.applicableRules
@@ -92,13 +103,10 @@ const FeedbackStore = types
     }
 
     function createRules (subject) {
-      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
       const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
-      if (validProjectReference && validWorkflowReference && subject) {
-        const project = getRoot(self).projects.active
+      if (validWorkflowReference && subject) {
         const workflow = getRoot(self).workflows.active
-        self.isActive = helpers.isFeedbackActive(project, subject, workflow)
 
         if (self.isActive) {
           self.rules = helpers.generateRules(subject, workflow)
@@ -120,7 +128,7 @@ const FeedbackStore = types
     }
 
     function update (annotation) {
-      if (self.isActive && self.rules.size > 0) {
+      if (self.isValid) {
         const { task, value } = annotation
         const taskRules = self.rules.get(task) || []
         const updatedTaskRules = taskRules.map(rule => {
@@ -132,7 +140,6 @@ const FeedbackStore = types
     }
 
     function reset () {
-      self.isActive = false
       self.rules.clear()
       self.showModal = false
       const onHide = getRoot(self).subjects.advance
