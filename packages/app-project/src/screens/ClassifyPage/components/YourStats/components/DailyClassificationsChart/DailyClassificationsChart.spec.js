@@ -1,6 +1,9 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import { AxisBottom, AxisLeft } from '@vx/axis'
+import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
+import WidgetHeading from '../../../../../../shared/components/WidgetHeading'
 
 import { DailyClassificationsChart } from './DailyClassificationsChart'
 
@@ -69,6 +72,22 @@ describe('Component > DailyClassificationsChart', function () {
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
+  })
+
+  it('should have a heading', function () {
+    expect(wrapper.find(WidgetHeading).length).to.equal(1)
+  })
+
+  it('should have a left axis', function () {
+    expect(wrapper.find(AxisLeft).length).to.equal(1)
+  })
+
+  it('should have a bottom axis', function () {
+    expect(wrapper.find(AxisBottom).length).to.equal(1)
+  })
+
+  it('should have a bar group', function () {
+    expect(wrapper.find(Group).length).to.equal(1)
   })
 
   describe('daily bars', function () {
