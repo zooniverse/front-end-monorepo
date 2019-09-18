@@ -1,174 +1,204 @@
 import sinon from 'sinon'
-import ProjectStore from './ProjectStore'
 import RootStore from './RootStore'
-import SubjectStore, { openTalkPage } from './SubjectStore'
-import WorkflowStore from './WorkflowStore'
+import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
 import { Factory } from 'rosie'
-
-let rootStore
-
-const project = ProjectFactory.build()
-const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
-const subjects = Factory.buildList('subject', 10)
-
-const clientStub = {
-  panoptes: {
-    get () {
-      return Promise.resolve({
-        body: {
-          subjects
-        }
-      })
-    }
-  }
-}
+import stubPanoptesJs from '../../test/stubPanoptesJs'
 
 describe('Model > SubjectStore', function () {
-  function setupStores (rootStore) {
-    sinon.stub(rootStore.classifications, 'createClassification')
-    rootStore.projects.setResource(project)
-    rootStore.workflows.setResource(workflow)
-    rootStore.workflows.setActive(workflow.id)
-  }
-  describe('Actions > advance', function () {
-    before(function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
-    })
+  const longListSubjects = Factory.buildList('subject', 10)
+  const shortListSubjects = Factory.buildList('subject', 2)
 
-    it('should make the next subject in the queue active when calling `advance()`', function (done) {
-      setupStores(rootStore)
-      rootStore.subjects.populateQueue().then(() => {
-        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-        rootStore.subjects.advance()
-        expect(rootStore.subjects.active.id).to.equal(rootStore.subjects.resources.values().next().value.id)
-        expect(rootStore.subjects.resources.get('1')).to.be.undefined()
-      }).then(done, done)
+  function mockSubjectStore (subjects) {
+    const project = ProjectFactory.build()
+    const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
+    const client = stubPanoptesJs({ subjects, workflows: workflow })
+    const store = RootStore.create({
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
+    }, {
+      client,
+      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+    })
+    sinon.spy(store.subjects, 'populateQueue')
+
+    store.projects.setResource(project)
+    store.projects.setActive(project.id)
+    store.workflows.setResource(workflow)
+    store.workflows.setActive(workflow.id)
+    return store.subjects
+  }
+
+  describe('Actions > advance', function () {
+    describe('with a full queue', function () {
+      const subjects = mockSubjectStore(longListSubjects)
+      let previousSubjectID
+      let initialSize
+
+      before(function () {
+        previousSubjectID = subjects.active && subjects.active.id
+        initialSize = subjects.resources.size
+        subjects.advance()
+      })
+
+      it('should make the next subject in the queue active', function () {
+        const currentSubjectID = subjects.active && subjects.active.id
+        expect(currentSubjectID).to.equal(longListSubjects[1].id)
+      })
+
+      it('should reduce the queue size by one', function () {
+        expect(subjects.resources.size).to.equal(initialSize - 1)
+      })
+
+      it('should remove the active subject from the queue', function () {
+        expect(subjects.resources.get(previousSubjectID)).to.be.undefined()
+      })
+
+      it('should change the active subject', function () {
+        const currentSubjectID = subjects.active && subjects.active.id
+        expect(currentSubjectID).to.not.equal(previousSubjectID)
+      })
     })
 
     describe('with less than three subjects in the queue', function () {
-      let populateSpy
+      describe('when the initial response has ten subjects', function () {
+        const subjects = mockSubjectStore(longListSubjects)
 
-      before(function () {
-        populateSpy = sinon.spy(rootStore.subjects, 'populateQueue')
-        while (rootStore.subjects.resources.size > 2) {
-          rootStore.subjects.advance()
-        }
+        it('should request more subjects', function () {
+          while (subjects.resources.size > MINIMUM_QUEUE_SIZE) {
+            subjects.advance()
+          }
+          subjects.advance()
+          // Once for initialization and once after the queue has been advanced to less than 3 subjects
+          expect(subjects.populateQueue).to.have.been.calledTwice()
+        })
       })
 
-      after(function () {
-        rootStore.subjects.populateQueue.restore()
+      describe('when the initial response has less than three subjects', function () {
+        const subjects = mockSubjectStore(shortListSubjects)
+
+        it('should request more subjects', function () {
+          // Once for initialization and again since less than three subjects in initial response
+          expect(subjects.populateQueue).to.have.been.calledTwice()
+        })
       })
 
-      it('should request more subjects', function () {
-        expect(populateSpy).to.have.been.calledOnce()
+      describe('when the initial response has no subjects', function () {
+        const subjects = mockSubjectStore([])
+
+        it('should request more subjects', function () {
+          // Once for initialization
+          expect(subjects.populateQueue).to.have.been.calledOnce()
+        })
+
+        it('should not advance the queue', function () {
+          expect(subjects.resources.size).to.equal(0)
+          expect(subjects.active).to.be.undefined()
+        })
       })
     })
 
     describe('after emptying the queue', function () {
-      before(function () {
-        sinon.stub(clientStub.panoptes, 'get').callsFake(() => Promise.resolve({ body: [] }))
-        while (rootStore.subjects.resources.size > 0) {
-          rootStore.subjects.advance()
+      const subjects = mockSubjectStore(longListSubjects)
+
+      beforeEach(function () {
+        while (subjects.resources.size > 0) {
+          subjects.advance()
         }
       })
 
-      after(function () {
-        clientStub.panoptes.get.restore()
-      })
-
       it('should leave the active subject empty', function () {
-        expect(rootStore.subjects.resources.size).to.equal(0)
-        expect(rootStore.subjects.active).to.be.undefined()
+        expect(subjects.resources.size).to.equal(0)
+        expect(subjects.active).to.be.undefined()
       })
     })
   })
 
-  describe('Views > isThereMetadata', function (done) {
-    it('should return false when there is not an active queue subject', function () {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: {
-          panoptes: {
-            get: () => {
-              return Promise.resolve({
-                body: { subjects: [] }
-              })
-            }
-          }
-        }
-        }
-      )
+  describe('Actions > append', function () {
+    const subjects = mockSubjectStore([])
 
-      setupStores(rootStore)
-      rootStore.subjects.populateQueue().then(() => {
-        expect(rootStore.subjects.isThereMetadata).to.be.false()
+    before(function () {
+      subjects.append(shortListSubjects)
+    })
+
+    it('should increase the size of the queue', function () {
+      expect(subjects.resources.size).to.equal(shortListSubjects.length)
+    })
+
+    it('should add new subjects to the end of the queue', function () {
+      const initialSubjectIDs = shortListSubjects.map(subject => subject.id)
+      const queue = Array.from(subjects.resources.keys())
+      expect(queue).to.deep.equal(initialSubjectIDs)
+    })
+
+    it('should set the active subject', function () {
+      expect(subjects.active.id).to.equal(shortListSubjects[0].id)
+    })
+
+    describe('with an existing queue', function () {
+      before(function () {
+        subjects.append(longListSubjects)
+      })
+
+      it('should increase the size of the queue', function () {
+        expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+      })
+
+      it('should add new subjects to the end of the queue', function () {
+        const initialSubjectIDs = shortListSubjects.map(subject => subject.id)
+        const newSubjectIDs = longListSubjects.map(subject => subject.id)
+        const queue = Array.from(subjects.resources.keys())
+        expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+      })
+
+      it('should not change the active subject', function () {
+        expect(subjects.active.id).to.equal(shortListSubjects[0].id)
+      })
+    })
+  })
+
+  describe('Views > isThereMetadata', function () {
+    it('should return false when there is not an active queue subject', function (done) {
+      const subjects = mockSubjectStore([])
+      subjects.populateQueue().then(() => {
+        expect(subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return false if the active subject does not have metadata', function (done) {
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        { client: clientStub }
-      )
-
-      setupStores(rootStore)
-      rootStore.subjects.populateQueue().then(() => {
-        expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(0)
-        expect(rootStore.subjects.isThereMetadata).to.be.false()
+      const subjects = mockSubjectStore(longListSubjects)
+      subjects.populateQueue().then(() => {
+        expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(0)
+        expect(subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return false if the active subject only has hidden metadata', function (done) {
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithHiddenMetadata] }
-                })
-              }
-            }
-          }
-        }
-      )
 
-      setupStores(rootStore)
-      rootStore.subjects.populateQueue().then(() => {
-        const metadataKeys = Object.keys(rootStore.subjects.active.toJSON().metadata)
+      const subjects = mockSubjectStore(subjectWithHiddenMetadata)
+      subjects.populateQueue().then(() => {
+        const metadataKeys = Object.keys(subjects.active.metadata)
         expect(metadataKeys).to.have.lengthOf(1)
         expect(metadataKeys[0]).to.equal('#foo')
-        expect(rootStore.subjects.isThereMetadata).to.be.false()
+        expect(subjects.isThereMetadata).to.be.false()
       }).then(done, done)
     })
 
     it('should return true if the active subject has metadata', function (done) {
       const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
-      rootStore = RootStore.create(
-        { projects: ProjectStore.create(), subjects: SubjectStore.create(), workflows: WorkflowStore.create() },
-        {
-          client: {
-            panoptes: {
-              get: () => {
-                return Promise.resolve({
-                  body: { subjects: [subjectWithMetadata] }
-                })
-              }
-            }
-          }
-        }
-      )
 
-      setupStores(rootStore)
-      rootStore.subjects.populateQueue().then(() => {
-        expect(Object.keys(rootStore.subjects.active.toJSON().metadata)).to.have.lengthOf(1)
-        expect(rootStore.subjects.isThereMetadata).to.be.true()
+      const subjects = mockSubjectStore(subjectWithMetadata)
+      subjects.populateQueue().then(() => {
+        expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(1)
+        expect(subjects.isThereMetadata).to.be.true()
       }).then(done, done)
     })
   })
