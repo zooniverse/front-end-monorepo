@@ -32,7 +32,7 @@ import { panoptes } from '@zooniverse/panoptes-js';
 
 ## Documentation
 
-Full API documentation is avialable at []().
+The repository contains readme files under each sub-folder.
 
 ## Tests
 
