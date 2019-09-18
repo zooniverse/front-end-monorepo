@@ -28,6 +28,6 @@ describe('Component > RecentSubjectsContainer', function () {
   })
 
   it('should pass down the `recents` prop', function () {
-    expect(componentWrapper.prop('recents')).to.equal(RECENTS)
+    expect(componentWrapper.prop('recents')).to.deep.equal(RECENTS)
   })
 })

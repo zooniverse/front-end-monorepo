@@ -17,7 +17,7 @@ class RecentSubjectsContainer extends Component {
     const { recents, projectName } = this.props
     return (
       <RecentSubjects
-        recents={recents}
+        recents={recents.slice(0,3)}
         projectName={projectName}
       />
     )

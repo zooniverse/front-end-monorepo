@@ -19,8 +19,9 @@ function RecentSubjects (props) {
       </Paragraph>
       <Grid
         columns={['1fr', '1fr', '1fr']}
+        gap="small"
       >
-        {[1,2,3].map(recent => <SubjectPreview />)}
+        {recents.map(({ subjectId, locations }) => <SubjectPreview key={subjectId} subjectId={subjectId} locations={locations} />)}
       </Grid>
     </ContentBox>
   )
