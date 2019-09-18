@@ -105,7 +105,6 @@ class DrawingContainer extends Component {
     }
 
     const finishedMark = Object.assign(activeMark, { coordinates })
-
     const newMarks = new Map(marks)
     newMarks.set(finishedMark.id, finishedMark)
 
