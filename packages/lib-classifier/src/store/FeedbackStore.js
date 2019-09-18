@@ -24,7 +24,10 @@ const FeedbackStore = types
     },
     get isActive () {
       const { projects = {}, subjects = {}, workflows = {} } = getRoot(self)
-      return helpers.isFeedbackActive(projects.active, subjects.active, workflows.active)
+      const validProject = isValidReference(() => projects.active) && projects.active
+      const validWorkflow = isValidReference(() => workflows.active) && workflows.active
+      const validSubject = isValidReference(() => subjects.active) && subjects.active
+      return helpers.isFeedbackActive(validProject, validSubject, validWorkflow)
     },
     // This is a workaround for https://github.com/zooniverse/front-end-monorepo/issues/1112
     // (feedback incorrectly being active when there are no rules)
@@ -100,10 +103,9 @@ const FeedbackStore = types
     }
 
     function createRules (subject) {
-      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
       const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
-      if (validProjectReference && validWorkflowReference && subject) {
+      if (validWorkflowReference && subject) {
         const workflow = getRoot(self).workflows.active
 
         if (self.isActive) {
