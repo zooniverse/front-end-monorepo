@@ -23,7 +23,7 @@
 - [Conventions](#conventions)
  - [NPM](#npm)
  - [Packages directory](#packages-directory)
-- [Production deployment](#production-deployment)
+- [Deployment](#deployment)
 - [License](#license)
 
 ## Requirements
