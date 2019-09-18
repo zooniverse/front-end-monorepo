@@ -35,15 +35,18 @@ class VXZoom extends PureComponent {
 
   static zoom = null
 
-  handleToolbarZoom(type, zoomValue) {
+  handleToolbarZoom(type) {
     const doZoom = {
       'zoomin': this.zoomIn.bind(this),
       'zoomout': this.zoomOut.bind(this),
       'zoomto': this.zoomTo.bind(this)
     }
 
+    console.log('handling')
+
     if (doZoom[type]) {
-      doZoom[type](zoomValue)
+      console.log('doin zoom')
+      doZoom[type]()
     }
   }
 
@@ -56,6 +59,7 @@ class VXZoom extends PureComponent {
   zoomOut() {
     if (!this.props.zooming) return
     const { zoomOutValue } = this.props.zoomConfiguration
+    console.log('zoom out')
     this.zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
   }
 
@@ -65,17 +69,33 @@ class VXZoom extends PureComponent {
   }
 
   zoomToPoint(event, zoomDirection) {
-    if (!this.props.zooming) event.preventDefault()
     const { zoomInValue, zoomOutValue } = this.props.zoomConfiguration
     const zoomValue = (zoomDirection === 'in') ? zoomInValue : zoomOutValue
     const point = localPoint(event)
-    console.log('calling')
     this.zoom.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
   }
 
   onDoubleClick(event) {
-    if (!this.props.zooming) event.preventDefault()
-    this.zoomToPoint(event, 'in')
+    if (this.props.zooming) {
+      this.zoomToPoint(event, 'in')
+    } else {
+      event.preventDefault()
+    }
+  }
+
+  onMouseLeave() {
+    if (!this.zoom.isDragging && !this.props.panning) return
+    this.zoom.dragEnd()
+  }
+
+  onWheel(event) {
+    // performance of this is pretty bad
+    if (this.props.zooming) {
+      const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
+      this.zoomToPoint(event, zoomDirection)
+    } else {
+      event.preventDefault()
+    }
   }
 
   isXAxisOutOfBounds(transformMatrix) {
@@ -163,19 +183,6 @@ class VXZoom extends PureComponent {
     }
 
     return transformMatrix
-  }
-
-  onMouseLeave() {
-    if (!this.zoom.isDragging && !this.props.panning) return
-    this.zoom.dragEnd()
-  }
-
-  onWheel(event) {
-    // performance of this is pretty bad
-    if (!this.props.zooming) event.preventDefault()
-    const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
-    console.log('onwheel')
-    this.zoomToPoint(event, zoomDirection)
   }
 
   render() {
