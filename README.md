@@ -135,7 +135,7 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 ### Docker images
 
 - `zooniverse/front-end-monorepo`: Built from the Dockerfile in the root directory. It runs `yarn install` and `yarn build` for the `lib-` packages and static (production) apps.
-- `zooniverse/fe-content-pages`: Runs production (static) builds of the NextJS app and are then deployed to Kubernetes. Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn start`.
+- `zooniverse/fe-content-pages`: Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn start` in `packages/app-content-pages` from `zooniverse/front-end-monorepo:latest`.
 - `zooniverse/fe-project`: Runs production (static) builds of the NextJS app and are then deployed to Kubernetes. Built from the Dockerfile in `packages/app-project`. Runs `yarn start`.
 
 
