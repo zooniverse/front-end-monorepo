@@ -98,7 +98,6 @@ class DrawingContainer extends Component {
     const { activeMark, marks } = this.state
 
     const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-
     const newMark = {
       id: cuid(),
       tool: activeDrawingTask.tools[activeDrawingTool]
@@ -117,7 +116,6 @@ class DrawingContainer extends Component {
 
     const MarkComponent = getDrawingTool(activeMark.tool.type)
     // TODO: add error handling if don't get requested tool type
-
     return (
       <>
         <MarkComponent
