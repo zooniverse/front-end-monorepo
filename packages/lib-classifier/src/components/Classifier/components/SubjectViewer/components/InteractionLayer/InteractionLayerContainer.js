@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
+import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
-  const { drawing } = stores.classifierStore
+  const { addToStream } = stores.classifierStore.drawing
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
   return {
-    drawing
+    activeStepTasks,
+    addToStream
   }
 }
 
@@ -21,44 +24,37 @@ class InteractionLayerContainer extends Component {
     this.onPointerUp = this.onPointerUp.bind(this)
   }
 
-  componentDidMount () {
-    // TODO: We're simply logging the event stream here for now, but this will
-    // be passed to the active drawing tool for parsing
-    // const stream = this.props.drawing.eventStream
-    // stream.subscribe(z => console.log(z))
-  }
-
-  addToStream (event) {
-    this.props.drawing.addToStream(event)
-  }
-
   onPointerDown (event) {
-    this.addToStream(event)
+    this.props.addToStream(event)
   }
 
   onPointerMove (event) {
-    this.addToStream(event)
+    this.props.addToStream(event)
   }
 
   onPointerUp (event) {
-    this.addToStream(event)
+    this.props.addToStream(event)
   }
 
   render () {
+    const { activeStepTasks } = this.props
+    const isDrawingInActiveSteps = activeStepTasks && activeStepTasks.some(task => task.type === 'drawing')
+
     return (
-      <InteractionLayer
-        onPointerDown={this.onPointerDown}
-        onPointerMove={this.onPointerMove}
-        onPointerUp={this.onPointerUp}
-      />
+      <>
+        <InteractionLayer
+          onPointerDown={this.onPointerDown}
+          onPointerMove={this.onPointerMove}
+          onPointerUp={this.onPointerUp}
+        />
+        {isDrawingInActiveSteps && <DrawingContainer />}
+      </>
     )
   }
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
-  drawing: PropTypes.shape({
-    addToStream: PropTypes.func.isRequired
-  })
+  addToStream: PropTypes.func.isRequired
 }
 
 export default InteractionLayerContainer
