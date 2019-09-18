@@ -42,7 +42,7 @@ When a user is unable to view a workflow at a given URL, we should provide an er
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
