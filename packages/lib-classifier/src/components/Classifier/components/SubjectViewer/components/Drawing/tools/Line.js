@@ -2,10 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import DrawingToolRoot from './Root'
 
-const Line = ({ active, finishMark, tool }) => {
-  // RANDOMLY SET COORDINATES UNTIL COORDINATE STREAM IMPLEMENTATION
-  const coordinates = { x1: (Math.floor(Math.random() * 500)), y1: (Math.floor(Math.random() * 500)), x2: (Math.floor(Math.random() * 500)), y2: (Math.floor(Math.random() * 500)) }
-
+const Line = ({ active, coordinates, finishDrawing, tool }) => {
   if (!coordinates) return null
   if (active && coordinates.type === 'pointerup') {
     finishDrawing(coordinates)

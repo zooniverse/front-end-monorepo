@@ -15,10 +15,7 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-const Point = ({ active, finishDrawing, scale, tool }) => {
-  // RANDOMLY SET COORDINATES UNTIL COORDINATE STREAM IMPLEMENTATION
-  const coordinates = { x: (Math.floor(Math.random() * 500)), y: (Math.floor(Math.random() * 500)) }
-
+const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
   const size = 'large'
   const averageScale = (scale.horizontal + scale.vertical) / 2
   const crosshairSpace = CROSSHAIR_SPACE / averageScale
@@ -34,7 +31,7 @@ const Point = ({ active, finishDrawing, scale, tool }) => {
 
   if (!coordinates) return null
   if (active && coordinates.type === 'pointerup') {
-    finishDrawing()
+    finishDrawing(coordinates)
   }
 
   return (

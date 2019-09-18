@@ -6,11 +6,12 @@ import React, { Component } from 'react'
 import getDrawingTool from './helpers/getDrawingTool'
 
 function storeMapper (stores) {
-  const { activeDrawingTool } = stores.classifierStore.drawing
+  const { activeDrawingTool, eventStream } = stores.classifierStore.drawing
   const { activeStepTasks } = stores.classifierStore.workflowSteps
   return {
     activeDrawingTool,
-    activeStepTasks
+    activeStepTasks,
+    eventStream
   }
 }
 
@@ -25,16 +26,54 @@ class DrawingContainer extends Component {
       marks: new Map()
     }
 
+    // TEMP CODE UNTIL COORDINATE STREAM
+    this.tempSubscription = null
+
     this.finishMark = this.finishMark.bind(this)
   }
 
   componentDidMount () {
     this.setActiveMark()
+   
+    // TEMP CODE UNTIL COORDINATE STREAM
+    const { eventStream } = this.props
+    this.tempSubscription = eventStream.subscribe(event => {
+      if (event.type === 'pointerup') {
+        this.tempMarkCreation()
+      }
+    })
   }
 
   componentDidUpdate (prevProps) {
     if (this.props.activeStepTasks !== prevProps.activeStepTasks || this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
       this.setActiveMark()
+    }
+  }
+
+  // TEMP CODE UNTIL COORDINATE STREAM
+  componentWillUnmount() {
+    if (this.tempSubscription) {
+      this.tempSubscription.unsubscribe()
+    }
+  }
+  
+  // TEMP CODE UNTIL COORDINATE STREAM
+  tempMarkCreation() {
+    const { activeDrawingTool, activeStepTasks } = this.props
+
+    const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+    const tool = activeDrawingTask.tools[activeDrawingTool]
+    if (tool.type === 'line') {
+      console.log('line');
+
+      const coordinates = { x1: (Math.floor(Math.random() * 400)), y1: (Math.floor(Math.random() * 400)), x2: (Math.floor(Math.random() * 400)), y2: (Math.floor(Math.random() * 400)) }
+      this.finishMark(coordinates)
+    }
+    if (tool.type === 'point') {
+      console.log('point');
+
+      const coordinates = { x: (Math.floor(Math.random() * 400)), y: (Math.floor(Math.random() * 400)) }
+      this.finishMark(coordinates)
     }
   }
 
@@ -50,10 +89,12 @@ class DrawingContainer extends Component {
   }
 
   finishMark (coordinates) {
-    if (!coordinates || coordinates.length === 0) return null
+    if (!coordinates) return null
 
-    const { activeDrawingTask, activeDrawingTool } = this.props
+    const { activeDrawingTool, activeStepTasks } = this.props
     const { activeMark, marks } = this.state
+
+    const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
     
     const newMark = {
       id: cuid(),
@@ -73,6 +114,7 @@ class DrawingContainer extends Component {
     if (!activeMark) return null
 
     const MarkComponent = getDrawingTool(activeMark.tool.type)
+    // TODO: add error handling if don't get requested tool type
     
     return (
       <>
