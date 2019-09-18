@@ -117,7 +117,7 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images). 
 
-Merges to master deploy to a staging Kubernetes instance that uses Panoptes production. This is used for manual end to end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
+Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end to end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
 Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on master. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
 
