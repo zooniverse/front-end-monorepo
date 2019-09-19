@@ -83,7 +83,6 @@ describe('Model > FeedbackStore', function () {
 
   describe('Actions', function () {
     before(function () {
-      sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
       sinon.stub(helpers, 'generateRules').callsFake(() => rulesStub)
       strategies.testStrategy = {
         reducer: sinon.stub().callsFake(rule => rule)
@@ -91,13 +90,13 @@ describe('Model > FeedbackStore', function () {
     })
 
     after(function () {
-      helpers.isFeedbackActive.restore()
       helpers.generateRules.restore()
     })
 
     describe('createRules', function () {
       let feedback, feedbackStub
       before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
         feedbackStub = FeedbackFactory.build()
         feedback = FeedbackStore.create(feedbackStub)
         feedback.projects = ProjectStore.create()
@@ -118,17 +117,8 @@ describe('Model > FeedbackStore', function () {
         helpers.generateRules.resetHistory()
       })
 
-      it('should set active state', function () {
-        feedback.subjects.setResource(subject)
-        feedback.subjects.setActive(subject.id)
-        expect(feedback.isActive).to.be.false()
-        feedback.createRules(subject)
-        const projectRef = feedback.projects.active
-        const workflowRef = feedback.workflows.active
-        const subjectRef = feedback.subjects.active.toJSON()
-        expect(helpers.isFeedbackActive.withArgs(projectRef, subjectRef, workflowRef)).to.have.been.calledOnce()
-        expect(feedback.isActive).to.equal(helpers.isFeedbackActive.returnValues[0])
-        expect(feedback.isActive).to.be.true()
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should generate rules', function () {
@@ -143,7 +133,8 @@ describe('Model > FeedbackStore', function () {
       let feedback, feedbackStub
       describe('when feedback is active', function () {
         before(function () {
-          feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub })
+          sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+          feedbackStub = FeedbackFactory.build({ rules: rulesStub })
           feedback = FeedbackStore.create(feedbackStub)
           feedback.projects = ProjectStore.create()
           feedback.workflows = WorkflowStore.create()
@@ -161,6 +152,7 @@ describe('Model > FeedbackStore', function () {
 
         after(function () {
           strategies.testStrategy.reducer.resetHistory()
+          helpers.isFeedbackActive.restore()
         })
 
         it('should reduce the rule and value', function () {
@@ -171,11 +163,16 @@ describe('Model > FeedbackStore', function () {
 
       describe('when feedback is not active', function () {
         before(function () {
-          feedbackStub = FeedbackFactory.build({ isActive: false, rules: {} })
+          sinon.stub(helpers, 'isFeedbackActive').callsFake(() => false)
+          feedbackStub = FeedbackFactory.build({ rules: {} })
           feedback = FeedbackStore.create(feedbackStub)
           feedback.projects = ProjectStore.create()
           feedback.workflows = WorkflowStore.create()
           feedback.subjects = SubjectStore.create()
+        })
+
+        after(function () {
+          helpers.isFeedbackActive.restore()
         })
 
         beforeEach(function () {
@@ -199,17 +196,19 @@ describe('Model > FeedbackStore', function () {
 
     describe('reset', function () {
       let feedback, feedbackStub
+      before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+      })
+
       beforeEach(function () {
-        feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
+        feedbackStub = FeedbackFactory.build({ rules: rulesStub, showModal: true })
         feedback = FeedbackStore.create(feedbackStub)
         feedback.subjects = SubjectStore.create()
         sinon.stub(feedback.subjects, 'advance').callsFake(() => { })
       })
 
-      it('should reset active state', function () {
-        expect(feedback.isActive).to.be.true()
-        feedback.reset()
-        expect(feedback.isActive).to.be.false()
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should reset feedback rules', function () {
@@ -235,8 +234,13 @@ describe('Model > FeedbackStore', function () {
     describe('showFeedback', function () {
       let feedback
       before(function () {
-        const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub })
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+        const feedbackStub = FeedbackFactory.build({ rules: rulesStub })
         feedback = FeedbackStore.create(feedbackStub)
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should set showModal state to true', function () {
@@ -249,13 +253,18 @@ describe('Model > FeedbackStore', function () {
     describe('hideFeedback', function () {
       let feedback
       before(function () {
-        const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+        const feedbackStub = FeedbackFactory.build({ rules: rulesStub, showModal: true })
         feedback = FeedbackStore.create(feedbackStub)
       })
 
       beforeEach(function () {
         feedback.setOnHide(sinon.stub())
         feedback.hideFeedback()
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should set showModal state to false', function () {
@@ -312,8 +321,13 @@ describe('Model > FeedbackStore', function () {
   describe('Views > messages', function () {
     let feedback, feedbackStub
     before(function () {
-      feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: true })
+      sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+      feedbackStub = FeedbackFactory.build({ rules: rulesStub, showModal: true })
       feedback = FeedbackStore.create(feedbackStub)
+    })
+
+    after(function () {
+      helpers.isFeedbackActive.restore()
     })
 
     it('should return an array of feedback messages', function () {
@@ -331,10 +345,18 @@ describe('Model > FeedbackStore', function () {
 
     describe('when feedback is inactive', function () {
       let feedback
+      before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => false)
+      })
+
       beforeEach(function () {
         const feedbackStub = FeedbackFactory.build({ rules: rulesStub })
         feedback = FeedbackStore.create(feedbackStub)
         feedback.onSubjectAdvance(call, next, abort)
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should continue the action', function () {
@@ -344,10 +366,18 @@ describe('Model > FeedbackStore', function () {
 
     describe('when feedback is active', function () {
       let feedback
+      before(function () {
+        sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
+      })
+
       beforeEach(function () {
-        const feedbackStub = FeedbackFactory.build({ isActive: true, rules: rulesStub, showModal: false })
+        const feedbackStub = FeedbackFactory.build({ rules: rulesStub, showModal: false })
         feedback = FeedbackStore.create(feedbackStub)
         feedback.onSubjectAdvance(call, next, abort)
+      })
+
+      after(function () {
+        helpers.isFeedbackActive.restore()
       })
 
       it('should abort the action', function () {

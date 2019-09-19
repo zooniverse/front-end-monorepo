@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@artsy/fresnel@~1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-1.0.7.tgz#ba1a12610e0d0e86fa2cd124c4d823297b0d4211"
+  integrity sha512-iXPiAKoArZB5ssJW4fUFPka48XUzDUt65LOWAcEPfwQC5V/KJ7ggSvKbMbfmU9Cr4arSGufWfSX94h/2D19SJg==
+
 "@babel/code-frame@7.0.0", "@babel/code-frame@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"
@@ -15808,6 +15813,11 @@ supports-color@^5.2.0, supports-color@^5.3.0, supports-color@^5.4.0, supports-co
   integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
   dependencies:
     has-flag "^3.0.0"
+
+svg-loaders-react@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/svg-loaders-react/-/svg-loaders-react-2.0.1.tgz#67b50783b1dd0f9bb845a7248e46290ba828fc06"
+  integrity sha512-7oOA29mMLPuGNZ5UkyprH/4RysYy6F19/P8cr5mbrWJeNseH01ih5YpynNFhgpvUaQ8h6vStMS8wd3IFELcFYA==
 
 svg-url-loader@^2.3.2:
   version "2.3.3"
