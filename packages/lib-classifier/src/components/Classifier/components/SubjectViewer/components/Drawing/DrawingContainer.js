@@ -34,7 +34,7 @@ class DrawingContainer extends Component {
 
   componentDidMount () {
     this.setActiveMark()
-   
+
     // TEMP CODE UNTIL COORDINATE STREAM
     const { eventStream } = this.props
     this.tempSubscription = eventStream.subscribe(event => {
@@ -51,27 +51,23 @@ class DrawingContainer extends Component {
   }
 
   // TEMP CODE UNTIL COORDINATE STREAM
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.tempSubscription) {
       this.tempSubscription.unsubscribe()
     }
   }
-  
+
   // TEMP CODE UNTIL COORDINATE STREAM
-  tempMarkCreation() {
+  tempMarkCreation () {
     const { activeDrawingTool, activeStepTasks } = this.props
 
     const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
     const tool = activeDrawingTask.tools[activeDrawingTool]
     if (tool.type === 'line') {
-      console.log('line');
-
       const coordinates = { x1: (Math.floor(Math.random() * 400)), y1: (Math.floor(Math.random() * 400)), x2: (Math.floor(Math.random() * 400)), y2: (Math.floor(Math.random() * 400)) }
       this.finishMark(coordinates)
     }
     if (tool.type === 'point') {
-      console.log('point');
-
       const coordinates = { x: (Math.floor(Math.random() * 400)), y: (Math.floor(Math.random() * 400)) }
       this.finishMark(coordinates)
     }
@@ -95,14 +91,14 @@ class DrawingContainer extends Component {
     const { activeMark, marks } = this.state
 
     const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-    
+
     const newMark = {
       id: cuid(),
       tool: activeDrawingTask.tools[activeDrawingTool]
     }
 
     const finishedMark = Object.assign(activeMark, { coordinates })
-    
+
     const newMarks = new Map(marks)
     newMarks.set(finishedMark.id, finishedMark)
 
@@ -115,7 +111,7 @@ class DrawingContainer extends Component {
 
     const MarkComponent = getDrawingTool(activeMark.tool.type)
     // TODO: add error handling if don't get requested tool type
-    
+
     return (
       <>
         <MarkComponent
