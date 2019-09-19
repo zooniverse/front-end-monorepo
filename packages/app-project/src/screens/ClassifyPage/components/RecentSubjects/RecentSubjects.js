@@ -21,7 +21,7 @@ function RecentSubjects (props) {
         columns={['1fr', '1fr', '1fr']}
         gap="small"
       >
-        {recents.map(({ subjectId, locations }) => <SubjectPreview key={subjectId} subjectId={subjectId} locations={locations} />)}
+        {recents.map(recent => <SubjectPreview key={recent.subjectId} recent={recent} />)}
       </Grid>
     </ContentBox>
   )

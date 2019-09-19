@@ -45,6 +45,7 @@ class ClassifierWrapperContainer extends Component {
     const { recents, yourStats } = this.props
     yourStats.increment()
     recents.add({
+      favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })

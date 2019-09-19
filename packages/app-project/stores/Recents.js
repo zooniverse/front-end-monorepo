@@ -5,6 +5,7 @@ import asyncStates from '@zooniverse/async-states'
 
 export const Recent = types
   .model('Recent', {
+    favorite: types.optional(types.boolean, false),
     subjectId: types.string,
     locations: types.frozen({})
   })
@@ -56,8 +57,8 @@ const Recents = types
         }
       }),
 
-      add ({ subjectId, locations }) {
-        self.recents.unshift(Recent.create({ subjectId, locations }))
+      add ({ subjectId, favorite = false, locations }) {
+        self.recents.unshift(Recent.create({ subjectId, favorite, locations }))
       }
     }
   })
