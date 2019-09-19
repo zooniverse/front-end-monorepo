@@ -22,7 +22,7 @@ const StyledParagraph = styled(Paragraph)`
   font-weight: bold;
 `
 
-function Introduction(props) {
+function Introduction (props) {
   const { description, link, title } = props
   return (
     <Box>
@@ -49,7 +49,7 @@ function Introduction(props) {
 Introduction.propTypes = {
   description: string.isRequired,
   link: object.isRequired,
-  title: string.isRequired,
+  title: string.isRequired
 }
 
 export default Introduction

@@ -4,14 +4,14 @@ import React, { Component } from 'react'
 
 import Background from './Background'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   return {
     backgroundSrc: stores.store.project.background.src
   }
 }
 
 class BackgroundContainer extends Component {
-  render() {
+  render () {
     return (
       <Background backgroundSrc={this.props.backgroundSrc} />
     )

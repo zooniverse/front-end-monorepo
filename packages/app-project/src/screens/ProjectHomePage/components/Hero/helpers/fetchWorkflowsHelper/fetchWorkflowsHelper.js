@@ -5,7 +5,7 @@ function fetchWorkflowData (activeWorkflows) {
     .get('/workflows', {
       complete: false,
       fields: 'completeness',
-      id: activeWorkflows.join(','),
+      id: activeWorkflows.join(',')
     })
     .then(response => response.body.workflows)
     .then(workflows => workflows.map(pickWorkflowFields))
@@ -23,7 +23,7 @@ function fetchDisplayNames (language, activeWorkflows) {
     .then(createDisplayNamesMap)
 }
 
-async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow) {
+async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWorkflow) {
   const workflows = await fetchWorkflowData(activeWorkflows)
   const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds)

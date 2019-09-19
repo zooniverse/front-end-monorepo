@@ -11,7 +11,7 @@ const theme = {
         box-shadow: none;
       }
     `
-  },
+  }
 }
 
 export default theme

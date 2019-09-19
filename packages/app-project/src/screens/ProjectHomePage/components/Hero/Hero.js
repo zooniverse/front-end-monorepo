@@ -19,7 +19,6 @@ const StyledContentBox = styled(ContentBox)`
 function Hero (props) {
   const { screenSize, workflows } = props
 
-
   return (
     <>
       <Media at='default'>

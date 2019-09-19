@@ -9,7 +9,7 @@ function storeMapper (stores) {
   const { project } = stores.store
   return {
     description: project.description,
-    title: project.display_name,
+    title: project.display_name
   }
 }
 

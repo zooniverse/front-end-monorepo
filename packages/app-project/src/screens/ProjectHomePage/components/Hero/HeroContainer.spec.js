@@ -123,7 +123,7 @@ describe('Component > HeroContainer', function () {
       expect(componentWrapper.prop('workflows')).to.deep.equal({
         loading: 'success',
         data: [
-          { completeness: 0.4, default: true, id: '1', displayName: 'Foo' },
+          { completeness: 0.4, default: true, id: '1', displayName: 'Foo' }
         ]
       })
     })

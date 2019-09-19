@@ -6,7 +6,7 @@ import asyncStates from '@zooniverse/async-states'
 import Hero from './Hero'
 import fetchWorkflowsHelper from './helpers/fetchWorkflowsHelper'
 
-function storeMapper(stores) {
+function storeMapper (stores) {
   return {
     activeWorkflows: stores.store.project.links['active_workflows'],
     defaultWorkflow: stores.store.project.configuration['default_workflow']
@@ -14,7 +14,7 @@ function storeMapper(stores) {
 }
 
 class HeroContainer extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       workflows: {
@@ -28,7 +28,7 @@ class HeroContainer extends Component {
     return this.fetchWorkflows()
   }
 
-  async fetchWorkflows() {
+  async fetchWorkflows () {
     this.setState(state => ({
       workflows: {
         ...state.workflows,
@@ -68,7 +68,7 @@ class HeroContainer extends Component {
 HeroContainer.propTypes = {
   activeWorkflows: arrayOf(string),
   defaultWorkflow: string,
-  language: string,
+  language: string
 }
 
 HeroContainer.defaultProps = {
