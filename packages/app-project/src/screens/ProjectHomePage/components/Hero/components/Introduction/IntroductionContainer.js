@@ -15,14 +15,9 @@ function storeMapper (stores) {
 
 class IntroductionContainer extends Component {
   getLink () {
-    const { query } = this.props.router
-    const linkQuery = {
-      owner: query.owner,
-      project: query.project,
-    }
-
+    const { owner, project } = this.props.router.query
     return {
-      as: `/projects/${query.owner}/${query.project}/about`,
+      as: `/projects/${owner}/${project}/about`,
       href: '/about'
     }
   }
