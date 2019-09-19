@@ -11,7 +11,13 @@ export const Recent = types
   })
   .actions(self => {
     function toggleFavorite () {
+      const { collections } = getRoot(self)
       self.favorite = !self.favorite
+      if (self.favorite) {
+        collections.addFavourites([self.subjectId])
+      } else {
+        collections.removeFavourites([self.subjectId])
+      }
     }
     return {
       toggleFavorite
