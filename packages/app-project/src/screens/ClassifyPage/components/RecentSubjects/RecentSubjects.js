@@ -33,7 +33,7 @@ RecentSubjects.propTypes = {
 }
 
 RecentSubjects.defaultProps = {
-  recents: [1,2,3]
+  recents: []
 }
 
 export default RecentSubjects
