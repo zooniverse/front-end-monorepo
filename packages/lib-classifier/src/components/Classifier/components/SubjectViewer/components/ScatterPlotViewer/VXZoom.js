@@ -39,7 +39,7 @@ class VXZoom extends PureComponent {
     const doZoom = {
       'zoomin': this.zoomIn.bind(this),
       'zoomout': this.zoomOut.bind(this),
-      'zoomto': this.zoomTo.bind(this)
+      'zoomto': this.zoomReset.bind(this)
     }
 
     if (doZoom[type]) {
@@ -59,7 +59,7 @@ class VXZoom extends PureComponent {
     this.zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
   }
 
-  zoomTo() {
+  zoomReset() {
     if (!this.props.zooming) return
     this.zoom.reset()
   }
@@ -95,64 +95,124 @@ class VXZoom extends PureComponent {
   }
 
   isXAxisOutOfBounds(transformMatrix) {
-    const { maxZoom, minZoom } = this.props.zoomConfiguration
-    const { scaleX } = transformMatrix
     const { dataExtent, xRange, yRange } = this.state
 
     const { xScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
     const xScaleDomain = xScale.domain()
     const outOfXAxisDataBounds = xScaleDomain[0] < (dataExtent.x[0] - PAN_DISTANCE) || xScaleDomain[1] > (dataExtent.x[1] + PAN_DISTANCE)
-    const shouldConstrainScaleX = scaleX > maxZoom || scaleX < minZoom
 
-    return outOfXAxisDataBounds || shouldConstrainScaleX
+    return outOfXAxisDataBounds
+  }
+
+  isXScaleMin(scaleX) {
+    const { minZoom } = this.props.zoomConfiguration
+
+    return scaleX < minZoom
+  }
+
+  isXScaleMax(scaleX) {
+    const { maxZoom } = this.props.zoomConfiguration
+
+    return scaleX > maxZoom
   }
 
   isYAxisOutOfBounds(transformMatrix) {
-    const { maxZoom, minZoom } = this.props.zoomConfiguration
-    const { scaleY } = transformMatrix
     const { dataExtent, xRange, yRange } = this.state
     const { yScale } = scaleTransform(dataExtent, transformMatrix, xRange, yRange)
     const yScaleDomain = yScale.domain()
     const outOfYAxisDataBounds = yScaleDomain[0] < (dataExtent.y[0] - PAN_DISTANCE) || yScaleDomain[1] > (dataExtent.y[1] + PAN_DISTANCE)
-    const shouldConstrainScaleY = scaleY > maxZoom || scaleY < minZoom
+    
 
-    return outOfYAxisDataBounds || shouldConstrainScaleY
+    return outOfYAxisDataBounds
+  }
+
+  isYScaleMin (scaleY) {
+    const {  minZoom } = this.props.zoomConfiguration
+
+    return scaleY < minZoom 
+  }
+
+  isYScaleMax (scaleY) {
+    const { maxZoom } = this.props.zoomConfiguration
+
+    return scaleY > maxZoom
   }
 
   constrainXAxisZoom(transformMatrix, prevTransformMatrix) {
+    const { maxZoom } = this.props.zoomConfiguration
+    const { scaleX } = transformMatrix
     const isXAxisOutOfBounds = this.isXAxisOutOfBounds(transformMatrix)
+    const isXScaleMin = this.isXScaleMin(scaleX)
+    const isXScaleMax = this.isXScaleMax(scaleX)
+
+    const newTransformMatrix = Object.assign({}, transformMatrix, { scaleY: 1, translateY: 0 })
+
+    if (isXScaleMin) {
+      this.zoomReset()
+    }
+
+    if (isXScaleMax) {
+      newTransformMatrix.scaleX = maxZoom
+      newTransformMatrix.translateX = prevTransformMatrix.translateX
+    }
 
     if (isXAxisOutOfBounds) {
       return prevTransformMatrix
     }
 
-    const newTransformMatrix = Object.assign({}, transformMatrix, { scaleY: 1, translateY: 0 })
-    if (newTransformMatrix.scaleX < 1) {
-      newTransformMatrix.scaleX = 1
-      newTransformMatrix.translateX = 0
-    }
     return newTransformMatrix
   }
 
   constrainYAxisZoom(transformMatrix, prevTransformMatrix) {
+    const { maxZoom } = this.props.zoomConfiguration
+    const { scaleY } = transformMatrix
     const isYAxisOutOfBounds = this.isYAxisOutOfBounds(transformMatrix)
+    const isYScaleMin = this.isYScaleMin(scaleY)
+    const isYScaleMax = this.isYScaleMax(scaleY)
+
+    const newTransformMatrix = Object.assign({}, transformMatrix, { scaleX: 1, translateX: 0 })
+
+    if (isYScaleMin) {
+      this.zoomReset()
+    }
+
+    if (isYScaleMax) {
+      newTransformMatrix.scaleY = maxZoom
+      newTransformMatrix.translateY = prevTransformMatrix.translateY
+    }
+
     if (isYAxisOutOfBounds) {
       return prevTransformMatrix
     }
 
-    const newTransformMatrix = Object.assign({}, transformMatrix, { scaleX: 1, translateX: 0 })
-    if (newTransformMatrix.scaleY < 1) {
-      newTransformMatrix.scaleY = 1
-      newTransformMatrix.translateY = 0
-    }
     return newTransformMatrix
   }
 
   constrainBothAxisZoom(transformMatrix, prevTransformMatrix) {
+    const { maxZoom } = this.props.zoomConfiguration
+    const { scaleX, scaleY } = transformMatrix
     const isXAxisOutOfBounds = this.isXAxisOutOfBounds(transformMatrix)
     const isYAxisOutOfBounds = this.isYAxisOutOfBounds(transformMatrix)
+    const isXScaleMin = this.isXScaleMin(scaleX)
+    const isYScaleMin = this.isYScaleMin(scaleY)
+    const isXScaleMax = this.isXScaleMax(scaleX)
+    const isYScaleMax = this.isYScaleMax(scaleY)
+
+    if (isXScaleMax && isYScaleMax) {
+      return Object.assign({}, transformMatrix, {
+        scaleX: maxZoom,
+        scaleY: maxZoom,
+        translateX: prevTransformMatrix.translateX,
+        translateY: prevTransformMatrix.translateY
+      })
+    }
+
+    if (isXScaleMin || isYScaleMin) {
+      this.zoomReset()
+    }
 
     if (isXAxisOutOfBounds || isYAxisOutOfBounds) {
+      console.log('out of bounds')
       return prevTransformMatrix
     }
 

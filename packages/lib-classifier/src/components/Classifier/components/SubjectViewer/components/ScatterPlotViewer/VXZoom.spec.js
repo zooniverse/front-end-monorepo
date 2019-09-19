@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme'
 import * as d3 from 'd3'
 import sinon from 'sinon'
 import { Zoom } from '@vx/zoom'
-import { MARGIN, PADDING, PAN_DISTANCE } from './helpers/constants'
+import { MARGIN, PADDING } from './helpers/constants'
 import mockData from '../LightCurveViewer/mockData'
 import VXZoom from './VXZoom'
 import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
@@ -936,13 +936,13 @@ describe.only('Component > VXZoom', function () {
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
 
         expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
-        expect(zoomedTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX)
-        expect(zoomedTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY)
-        expect(zoomedTransformMatrix.scaleX).to.be.below(zoomConfiguration.maxZoom)
-        expect(zoomedTransformMatrix.scaleY).to.be.below(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.scaleX).to.equal(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.scaleY).to.equal(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.translateX).to.equal(previousTransformMatrix.translateX)
+        expect(zoomedTransformMatrix.translateY).to.equal(previousTransformMatrix.translateY)
       })
 
-      it('should not zoom out beyond the minimum zoom configuration', function () {
+      it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
         const wrapper = mount(
           <VXZoom
             data={mockData}
@@ -971,9 +971,132 @@ describe.only('Component > VXZoom', function () {
         })
         const zoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
 
-        expect(zoomedOutTransformMatrix).to.not.deep.equal(transformMatrix)
-        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
-        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
+        expect(zoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
+        expect(zoomedOutTransformMatrix).to.deep.equal(initialTransformMatrix)
+      })
+    })
+
+    describe('when panning', function () {
+      describe('in the x-axis direction', function () {
+        let wrapper, eventLayer, isXAxisOutOfBoundsSpy
+        before(function () {
+          isXAxisOutOfBoundsSpy = sinon.spy(VXZoom.prototype, 'isXAxisOutOfBounds')
+          wrapper = mount(
+            <VXZoom
+              data={mockData}
+              panning={true}
+              parentHeight={height}
+              parentWidth={width}
+              wrappedComponent={StubComponent}
+              zooming={true}
+            />
+          )
+          eventLayer = wrapper.find(ZoomEventLayer)
+        })
+
+        afterEach(function () {
+          isXAxisOutOfBoundsSpy.resetHistory()
+          wrapper.instance().zoom.reset()
+        })
+
+        after(function () {
+          isXAxisOutOfBoundsSpy.restore()
+        })
+
+        it('should not pan beyond the data extent minimum', function () {
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          eventLayer.simulate('mousedown', {
+            clientX: 10,
+            clientY: 50
+          })
+          eventLayer.simulate('mousemove', {
+            clientX: -250,
+            clientY: 50
+          })
+          eventLayer.simulate('mouseup')
+
+          expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+        })
+
+        it('should not pan beyond the data extent maximum', function () {
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          eventLayer.simulate('mousedown', {
+            clientX: 90,
+            clientY: 50
+          })
+          eventLayer.simulate('mousemove', {
+            clientX: 250,
+            clientY: 50
+          })
+          eventLayer.simulate('mouseup')
+
+          expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+        })
+      })
+
+      describe('in the y-axis direction', function () {
+        let wrapper, eventLayer, isYAxisOutOfBoundsSpy
+        before(function () {
+          isYAxisOutOfBoundsSpy = sinon.spy(VXZoom.prototype, 'isYAxisOutOfBounds')
+          wrapper = mount(
+            <VXZoom
+              data={mockData}
+              panning={true}
+              parentHeight={height}
+              parentWidth={width}
+              wrappedComponent={StubComponent}
+              zooming={true}
+            />
+          )
+          eventLayer = wrapper.find(ZoomEventLayer)
+        })
+
+        afterEach(function () {
+          isYAxisOutOfBoundsSpy.resetHistory()
+          wrapper.instance().zoom.reset()
+        })
+
+        after(function () {
+          isYAxisOutOfBoundsSpy.restore()
+        })
+
+        it('should not pan beyond the data extent minimum', function () {
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          eventLayer.simulate('mousedown', {
+            clientX: 50,
+            clientY: 90
+          })
+          eventLayer.simulate('mousemove', {
+            clientX: 50,
+            clientY: 250
+          })
+          eventLayer.simulate('mouseup')
+
+          expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+        })
+
+        it('should not pan beyond the data extent maximum', function () {
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          eventLayer.simulate('mousedown', {
+            clientX: 50,
+            clientY: 10
+          })
+          eventLayer.simulate('mousemove', {
+            clientX: 50,
+            clientY: -250
+          })
+          eventLayer.simulate('mouseup')
+
+          expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+        })
       })
     })
   })
