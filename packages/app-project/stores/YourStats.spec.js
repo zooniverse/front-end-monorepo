@@ -228,13 +228,13 @@ describe('Stores > YourStats', function () {
 
       it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-09-30'},
-          { count: 13, period: '2019-10-01' },
-          { count: 14, period: '2019-10-02' },
-          { count: 10, period: '2019-10-03' },
-          { count: 11, period: '2019-10-04' },
-          { count: 8, period: '2019-10-05' },
-          { count: 15, period: '2019-10-06' }
+          { count: 12, period: '2019-09-30T00:00:00Z'},
+          { count: 13, period: '2019-10-01T00:00:00Z' },
+          { count: 14, period: '2019-10-02T00:00:00Z' },
+          { count: 10, period: '2019-10-03T00:00:00Z' },
+          { count: 11, period: '2019-10-04T00:00:00Z' },
+          { count: 8, period: '2019-10-05T00:00:00Z' },
+          { count: 15, period: '2019-10-06T00:00:00Z' }
         ]
         const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
         expect(statsStore.counts.today).to.equal(MOCK_DAILY_COUNTS[1].count)
@@ -242,9 +242,9 @@ describe('Stores > YourStats', function () {
 
       it('should be `0` if there are no classifications today', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-01-03' },
-          { count: 13, period: '2019-01-02' },
-          { count: 14, period: '2019-01-01' }
+          { count: 12, period: '2019-01-03T00:00:00Z' },
+          { count: 13, period: '2019-01-02T00:00:00Z' },
+          { count: 14, period: '2019-01-01T00:00:00Z' }
         ]
         const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
         expect(statsStore.counts.today).to.equal(0)
