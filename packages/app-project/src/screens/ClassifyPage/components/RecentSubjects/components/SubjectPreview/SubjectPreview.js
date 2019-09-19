@@ -36,7 +36,7 @@ function SubjectPreview ({ recent, slug }) {
       >
         <Media
           alt={`subject ${recent.subjectId}`}
-          height={350}
+          height={250}
           src={subjectURL}
           width={400}
         />
