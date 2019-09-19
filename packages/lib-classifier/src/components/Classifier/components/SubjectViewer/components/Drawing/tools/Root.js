@@ -6,15 +6,15 @@ const SELECTED_STROKE_WIDTH = 2.5
 
 const DrawingToolRoot = ({ active, children, tool }) => {
   const mainStyle = {
-    color: tool.color,
+    color: tool && tool.color ? tool.color : 'green',
     fill: 'transparent',
     pointerEvents: 'none',
-    stroke: tool.color,
+    stroke: tool && tool.color ? tool.color : 'green',
     strokeWidth: active ? SELECTED_STROKE_WIDTH : STROKE_WIDTH
   }
 
   return (
-    <g {...mainStyle} tabIndex='-1'>
+    <g {...mainStyle} focusable tabIndex='-1'>
       {children}
     </g>
   )
@@ -22,7 +22,7 @@ const DrawingToolRoot = ({ active, children, tool }) => {
 
 DrawingToolRoot.propTypes = {
   active: PropTypes.bool,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
