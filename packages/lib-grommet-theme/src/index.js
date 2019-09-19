@@ -110,12 +110,15 @@ const theme = deepFreeze({
     breakpoints: {
       small: {
         edgeSize: {
-          xxsmall: '5px',
-          xsmall: `10px`,
           small: `15px`,
           medium: `20px`,
           large: `25px`,
-          xlarge: `30px`
+          xlarge: `30px`,
+
+          'small-neg': `-15px`,
+          'medium-neg': `-20px`,
+          'large-neg': `-25px`,
+          'xlarge-neg': `-30px`
         }
       }
     },
@@ -132,7 +135,14 @@ const theme = deepFreeze({
       small: `20px`,
       medium: `30px`,
       large: `50px`,
-      xlarge: `90px`
+      xlarge: `90px`,
+
+      'xxsmall-neg': '-5px',
+      'xsmall-neg': `-10px`,
+      'small-neg': `-20px`,
+      'medium-neg': `-30px`,
+      'large-neg': `-50px`,
+      'xlarge-neg': `-90px`
     },
     elevation: {
       light: {

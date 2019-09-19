@@ -2,6 +2,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
+import { mediaStyle } from '../src/shared/components/Media'
 import { logNodeError } from '../src/helpers/logger'
 
 const GA_TRACKING_ID = 'GTM-WDW6V4'
@@ -40,6 +41,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
+          <style type="text/css">${mediaStyle}</style>
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
