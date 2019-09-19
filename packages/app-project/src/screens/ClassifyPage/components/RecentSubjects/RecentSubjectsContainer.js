@@ -8,17 +8,19 @@ function storeMapper (stores) {
   const { project, recents: { recents } } = stores.store
   return {
     recents,
-    projectName: project['display_name']
+    projectName: project['display_name'],
+    slug: project.slug
   }
 }
 
 class RecentSubjectsContainer extends Component {
   render () {
-    const { recents, projectName } = this.props
+    const { recents, projectName, slug } = this.props
     return (
       <RecentSubjects
         recents={recents.slice(0,3)}
         projectName={projectName}
+        slug={slug}
       />
     )
   }

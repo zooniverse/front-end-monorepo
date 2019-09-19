@@ -10,7 +10,7 @@ let wrapper
 
 describe('Component > TalkLink', function () {
   before(function () {
-    wrapper = shallow(<TalkLink />)
+    wrapper = shallow(<TalkLink href='/project/slug/talk/1234' />)
   })
 
   it('should render without crashing', function () {
@@ -23,30 +23,9 @@ describe('Component > TalkLink', function () {
     expect(icon).to.deep.equal(<TalkIcon color='dark-5' size='1em' />)
   })
 
-  it('should call props.onClick on click', function () {
-    const onClick = sinon.stub()
-    wrapper = shallow(
-      <TalkLink
-        onClick={onClick}
-      />
-    )
-
-    wrapper.find(MetaToolsButton).simulate('click')
-    expect(onClick).to.have.been.calledOnce()
-  })
-
-  describe('when disabled', function () {
-    const onClick = sinon.stub()
-    wrapper = shallow(
-      <TalkLink
-        disabled
-        onClick={onClick}
-      />
-    )
-
-    it('should not be clickable', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClick).to.not.have.been.called()
-    })
+  it('should link to the subject Talk page', function () {
+    const button = wrapper.find(MetaToolsButton)
+    const { href } = button.props()
+    expect(href).to.equal('/project/slug/talk/1234')
   })
 })
