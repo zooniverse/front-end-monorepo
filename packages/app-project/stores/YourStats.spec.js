@@ -90,6 +90,7 @@ describe('Stores > YourStats', function () {
         statsCount(
           eventType: "classification",
           interval: "1 Day",
+          window: "1 Week",
           projectId: "2",
           userId: "123"
         ){

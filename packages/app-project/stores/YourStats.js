@@ -134,6 +134,7 @@ const YourStats = types
             statsCount(
               eventType: "classification",
               interval: "1 Day",
+              window: "1 Week",
               projectId: "${project.id}",
               userId: "${user.id}"
             ){
