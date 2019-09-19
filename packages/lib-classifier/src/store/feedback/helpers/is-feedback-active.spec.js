@@ -37,13 +37,13 @@ describe('Feedback: isFeedbackActive', function () {
   })
   describe('with an invalid project, workflow or subject', function () {
     it('should be false with an invalid project', function () {
-      expect(isFeedbackActive({}, subject, workflow)).to.be.false()
+      expect(isFeedbackActive(false, subject, workflow)).to.be.false()
     })
     it('should be false with an invalid workflow', function () {
-      expect(isFeedbackActive(project, subject, {})).to.be.false()
+      expect(isFeedbackActive(project, subject, false)).to.be.false()
     })
     it('should be false with an invalid subject', function () {
-      expect(isFeedbackActive(project, {}, workflow)).to.be.false()
+      expect(isFeedbackActive(project, false, workflow)).to.be.false()
     })
   })
 })
