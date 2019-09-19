@@ -40,6 +40,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
       <RecentSubjectsContainer
         recents={RECENTS}
         projectName="Snapshot Serengeti"
+        slug="zooniverse/snapshot-serengeti"
       />
     </Grommet>
   ))
