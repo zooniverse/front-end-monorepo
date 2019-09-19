@@ -4,6 +4,7 @@ import { Grommet } from 'grommet'
 import React from 'react'
 
 import { RecentSubjectsContainer } from './RecentSubjectsContainer'
+
 const RECENTS = [
   {
     favorite: false,
@@ -27,6 +28,11 @@ const RECENTS = [
     ]
   }
 ]
+
+function toggle() {
+  this.favorite = !this.favorite
+}
+RECENTS.forEach(recent => recent.toggleFavorite = toggle.bind(recent) )
 
 storiesOf('Project App / Screens / Classify / Recent Subjects', module)
   .add('plain', () => (

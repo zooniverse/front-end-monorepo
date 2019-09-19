@@ -9,6 +9,14 @@ export const Recent = types
     subjectId: types.string,
     locations: types.frozen({})
   })
+  .actions(self => {
+    function toggleFavorite () {
+      self.favorite = !self.favorite
+    }
+    return {
+      toggleFavorite
+    }
+  })
 
 const Recents = types
   .model('Recents', {
