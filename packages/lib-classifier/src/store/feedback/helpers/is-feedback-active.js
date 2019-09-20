@@ -13,7 +13,7 @@ function getSubjectFeedback (subject) {
 }
 
 function getWorkflowFeedback (workflow) {
-  const taskFeedback = getFeedbackFromTasks(workflow.tasks)
+  const taskFeedback = workflow ? getFeedbackFromTasks(workflow.tasks) : {}
   return Object.keys(taskFeedback).length > 0
 }
 
