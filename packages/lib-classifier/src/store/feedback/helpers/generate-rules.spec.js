@@ -51,6 +51,40 @@ describe('feedback: generateRules', function () {
     })
   })
 
+  describe('without a valid subject or workflow', function () {
+    const subject = mockSubjectWithRule('51')
+    const workflow = {
+      tasks: {
+        T0: mockTaskWithRule('51'),
+        T1: mockTaskWithRule('52')
+      }
+    }
+
+    it('should return an empty object for an invalid subject', function () {
+      expect(generateRules(false, workflow)).to.be.empty()
+    })
+
+    it('should return an empty object for an undefined subject', function () {
+      expect(generateRules(undefined, workflow)).to.be.empty()
+    })
+
+    it('should return an empty object for a null subject', function () {
+      expect(generateRules(null, workflow)).to.be.empty()
+    })
+
+    it('should return an empty object for an invalid workflow', function () {
+      expect(generateRules(subject, false)).to.be.empty()
+    })
+
+    it('should return an empty object for an undefined workflow', function () {
+      expect(generateRules(subject, undefined)).to.be.empty()
+    })
+
+    it('should return an empty object for a null workflow', function () {
+      expect(generateRules(subject, null)).to.be.empty()
+    })
+  })
+
   describe('with task feedback enabled', function () {
     const subject = mockSubjectWithRule('51')
     const workflow = {
