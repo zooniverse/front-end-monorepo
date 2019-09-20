@@ -33,7 +33,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
       dx: '-0.25em',
       dy: '0.2em',
       fill: theme.global.colors['light-4'],
-      fontFamily: 'Arial',
+      fontFamily: theme.global.font.family,
       fontSize: 10,
       textAnchor: 'middle' }
   } 
