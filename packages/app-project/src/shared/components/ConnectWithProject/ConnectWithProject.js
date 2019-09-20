@@ -3,19 +3,19 @@ import { Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 
-import ContentBox from '../ContentBox'
 import ProjectLink from './components/ProjectLink'
 import en from './locales/en'
+import ContentBox from '../ContentBox'
 
 counterpart.registerTranslations('en', en)
 
-function ConnectWithProject ({ className, projectName, urls }) {
+function ConnectWithProject (props) {
+  const { projectName, urls } = props
   return (
     <ContentBox
-      className={className}
       title={counterpart('ConnectWithProject.title', { projectName })}
     >
-      <Grid columns={['1fr', '1fr']} gap='medium' rows={['1fr']}>
+      <Grid columns={['repeat(auto-fill, minmax(280px, 1fr))']} gap='medium'>
         {urls.map(urlObject =>
           <ProjectLink
             key={urlObject.url}
