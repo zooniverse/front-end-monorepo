@@ -37,11 +37,13 @@ function ClassifyPage (props) {
         <FinishedForTheDay />
         <Grid
           alignContent="stretch"
-          columns={['1fr', '2fr']}
+          columns={(screenSize === 'small') ? ['auto'] : ['1fr', '2fr']}
           gap='medium'
         >
           <YourStats />
-          <RecentSubjects />
+          <RecentSubjects
+            size={(screenSize === 'small') ? 1 : 3}
+          />
         </Grid>
         <ProjectStatistics />
         <ConnectWithProject />

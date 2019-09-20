@@ -19,7 +19,7 @@ function RecentSubjects (props) {
       </Paragraph>
       <Grid
         alignContent="stretch"
-        columns={['1fr', '1fr', '1fr']}
+        columns={recents.map(recent => '1fr')}
         gap="small"
       >
         {recents.map(recent => <SubjectPreview key={recent.subjectId} recent={recent} slug={slug} />)}

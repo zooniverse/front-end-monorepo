@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import { array, string } from 'prop-types'
+import { array, number, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import RecentSubjects from './RecentSubjects'
@@ -15,10 +15,10 @@ function storeMapper (stores) {
 
 class RecentSubjectsContainer extends Component {
   render () {
-    const { recents, projectName, slug } = this.props
+    const { recents, projectName, size, slug } = this.props
     return (
       <RecentSubjects
-        recents={recents.slice(0,3)}
+        recents={recents.slice(0, size)}
         projectName={projectName}
         slug={slug}
       />
@@ -28,7 +28,14 @@ class RecentSubjectsContainer extends Component {
 
 RecentSubjectsContainer.propTypes = {
   recents: array,
-  projectName: string
+  projectName: string,
+  size: number
+}
+
+RecentSubjectsContainer.defaultProps = {
+  recents: [],
+  projectName: '',
+  size: 3
 }
 
 @inject(storeMapper)
