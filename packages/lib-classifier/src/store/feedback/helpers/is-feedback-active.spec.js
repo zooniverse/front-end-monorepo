@@ -46,4 +46,32 @@ describe('Feedback: isFeedbackActive', function () {
       expect(isFeedbackActive(project, false, workflow)).to.be.false()
     })
   })
+  describe('with undefined arguments', function () {
+    it('should be false', function () {
+      expect(isFeedbackActive()).to.be.false()
+    })
+    it('should be false with an undefined project', function () {
+      expect(isFeedbackActive(undefined, subject, workflow)).to.be.false()
+    })
+    it('should be false with an undefined workflow', function () {
+      expect(isFeedbackActive(project, subject, undefined)).to.be.false()
+    })
+    it('should be false with an undefined subject', function () {
+      expect(isFeedbackActive(project, undefined, workflow)).to.be.false()
+    })
+  })
+  describe('with null arguments', function () {
+    it('should be false', function () {
+      expect(isFeedbackActive(null, null, null)).to.be.false()
+    })
+    it('should be false with a null project', function () {
+      expect(isFeedbackActive(null, subject, workflow)).to.be.false()
+    })
+    it('should be false with a null workflow', function () {
+      expect(isFeedbackActive(project, subject, null)).to.be.false()
+    })
+    it('should be false with a null subject', function () {
+      expect(isFeedbackActive(project, null, workflow)).to.be.false()
+    })
+  })
 })
