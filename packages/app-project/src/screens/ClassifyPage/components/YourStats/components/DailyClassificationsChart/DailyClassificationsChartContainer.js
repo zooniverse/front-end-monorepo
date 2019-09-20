@@ -18,7 +18,7 @@ function storeMapper (stores) {
 class DailyClassificationsChartContainer extends Component {
   render () {
     const { projectName, thisWeek } = this.props
-    const counts = thisWeek.map(count => {
+    const stats = thisWeek.map(count => {
       const day = new Date(count.period)
       const locale = counterpart.getLocale()
       const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
@@ -28,7 +28,7 @@ class DailyClassificationsChartContainer extends Component {
     })
     return (
       <DailyClassificationsChart
-        counts={counts}
+        stats={stats}
         projectName={projectName}
       />
     )

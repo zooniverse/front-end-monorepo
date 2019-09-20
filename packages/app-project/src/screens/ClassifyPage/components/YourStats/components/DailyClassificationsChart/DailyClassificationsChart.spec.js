@@ -64,7 +64,7 @@ describe('Component > DailyClassificationsChart', function () {
   before(function () {
     wrapper = shallow(
       <DailyClassificationsChart
-        counts={MOCK_COUNTS}
+        stats={MOCK_COUNTS}
         projectName="Test Project"
       />
     )

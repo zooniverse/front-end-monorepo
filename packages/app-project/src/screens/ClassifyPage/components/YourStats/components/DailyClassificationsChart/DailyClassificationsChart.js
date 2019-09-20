@@ -12,19 +12,19 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function DailyClassificationsChart ({ counts, projectName, theme }) {
+function DailyClassificationsChart ({ stats, projectName, theme }) {
   const HEIGHT = 200
   const PADDING = 20
   const WIDTH = 300
   const xScale = scaleBand({
     rangeRound: [0, WIDTH],
-    domain: counts.map(count => count.longLabel),
+    domain: stats.map(stat => stat.longLabel),
     padding: 0.1
   });
 
   const yScale = scaleLinear({
     rangeRound: [HEIGHT - PADDING, 0],
-    domain: [0, Math.max(...counts.map(count => count.count))],
+    domain: [0, Math.max(...stats.map(stat => stat.count))],
     nice: true
   });
 
@@ -38,8 +38,8 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
       textAnchor: 'middle' }
   } 
   function shortDayLabels (dayName) {
-    const count = counts.find(count => count.longLabel === dayName)
-    return count.label
+    const stat = stats.find(stat => stat.longLabel === dayName)
+    return stat.label
   }
 
   return (
@@ -60,15 +60,15 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
           tickValues={yScale.ticks(3)}
         />
         <Group>
-          {counts.map(count => {
+          {stats.map(stat => {
             const barWidth = xScale.bandwidth();
-            const barHeight = (HEIGHT - PADDING) - yScale(count.count);
-            const barX = xScale(count.longLabel)
+            const barHeight = (HEIGHT - PADDING) - yScale(stat.count);
+            const barX = xScale(stat.longLabel)
             const barY = (HEIGHT - PADDING) - barHeight
             return (
               <Bar
-                aria-label={count.alt}
-                key={count.period}
+                aria-label={stat.alt}
+                key={stat.period}
                 role="image"
                 fill={theme.global.colors['accent-2']}
                 height={barHeight}
@@ -93,13 +93,13 @@ function DailyClassificationsChart ({ counts, projectName, theme }) {
 }
 
 DailyClassificationsChart.propTypes = {
-  counts: array,
+  stats: array,
   projectName: string.isRequired,
   theme: object
 }
 
 DailyClassificationsChart.defaultProps = {
-  counts: [],
+  stats: [],
   theme: {
     global: {
       colors: {}
