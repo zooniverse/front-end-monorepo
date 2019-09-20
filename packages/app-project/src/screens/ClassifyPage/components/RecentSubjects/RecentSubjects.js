@@ -18,6 +18,7 @@ function RecentSubjects (props) {
         {counterpart('RecentSubjects.text')}
       </Paragraph>
       <Grid
+        alignContent="stretch"
         columns={['1fr', '1fr', '1fr']}
         gap="small"
       >
