@@ -80,10 +80,10 @@ const YourStats = types
       */
       const today = new Date()
       const weeklyStats = []
-      const sunday = firstDayOfWeek(today, 0)
-      for (let day = 1; day <= 7; day++) {
-        const weekDay = new Date(sunday.toISOString())
-        const newDate = sunday.getDate() + day
+      const monday = firstDayOfWeek(today, 1) // Monday is day number 1 in JavaScript
+      for (let day = 0; day < 7; day++) {
+        const weekDay = new Date(monday.toISOString())
+        const newDate = monday.getDate() + day
         weekDay.setDate(newDate)
         const period = weekDay.toISOString().substring(0, 10)
         const { count } = self.dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
