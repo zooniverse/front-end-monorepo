@@ -37,6 +37,18 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
   describe('daily stats counts', function () {
     let stats
+    function mockStat(count, period) {
+      const day = new Date(period)
+      const dayNameShort = day.toLocaleDateString('en', { weekday: 'narrow' })
+      const dayNameFull = day.toLocaleDateString('en', { weekday: 'long' })
+      return {
+        count,
+        period,
+        alt: `${dayNameFull}: ${count}`,
+        label: dayNameShort,
+        longLabel: dayNameFull
+      }
+    }
 
     before(function () {
       stats = componentWrapper.prop('stats')
@@ -47,17 +59,12 @@ describe('Component > DailyClassificationsChartContainer', function () {
     })
 
     for(let day = 0; day < 7; day++) {
-      let today
-      let dayShort
-      let dayLong
       let stat
+      let expectedStat
 
       before(function () {
-        today = new Date(2019, 8, 30)
-        today.setDate(30 + day)
-        dayShort = today.toLocaleDateString('en', { weekday: 'narrow' })
-        dayLong = today.toLocaleDateString('en', { weekday: 'long' })
         stat = stats[day]
+        expectedStat = mockStat(stat.count, stat.period)
       })
 
       describe(MOCK_DAILY_COUNTS[day].period, function () {
@@ -70,15 +77,15 @@ describe('Component > DailyClassificationsChartContainer', function () {
         })
 
         it('should have a short label', function () {
-          expect(stat.label).to.equal(dayShort)
+          expect(stat.label).to.equal(expectedStat.label)
         })
 
         it('should have a long label', function () {
-          expect(stat.longLabel).to.equal(dayLong)
+          expect(stat.longLabel).to.equal(expectedStat.longLabel)
         })
 
         it('should have an accessible description', function () {
-          expect(stat.alt).to.equal(`${dayLong}: ${stat.count}`)
+          expect(stat.alt).to.equal(expectedStat.alt)
         })
       })
     }

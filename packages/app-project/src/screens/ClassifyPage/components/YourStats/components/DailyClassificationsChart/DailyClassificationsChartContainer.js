@@ -18,13 +18,13 @@ function storeMapper (stores) {
 class DailyClassificationsChartContainer extends Component {
   render () {
     const { projectName, thisWeek } = this.props
-    const stats = thisWeek.map(count => {
-      const day = new Date(count.period)
+    const stats = thisWeek.map(stat => {
+      const day = new Date(stat.period)
       const locale = counterpart.getLocale()
       const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
-      const alt = `${longLabel}: ${count.count}`
+      const alt = `${longLabel}: ${stat.count}`
       const label = day.toLocaleDateString(locale, { weekday: 'narrow' })
-      return Object.assign({}, count, { alt, label, longLabel })
+      return Object.assign({}, stat, { alt, label, longLabel })
     })
     return (
       <DailyClassificationsChart
