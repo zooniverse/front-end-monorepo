@@ -24,15 +24,17 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
 
   const yScale = scaleLinear({
     rangeRound: [HEIGHT - PADDING, 0],
-    domain: [0, Math.max(...stats.map(stat => stat.count))],
+    domain: [0, Math.max(...stats.map(stat => stat.count), 10)],
     nice: true
   });
+
+  const axisColour = theme.dark ? 'light-3' : 'light-5'
 
   function tickLabelProps () {
     return {
       dx: '-0.25em',
       dy: '0.2em',
-      fill: theme.global.colors['light-4'],
+      fill: theme.global.colors[axisColour],
       fontFamily: theme.global.font.family,
       fontSize: 10,
       textAnchor: 'middle' }
@@ -41,7 +43,6 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
     const stat = stats.find(stat => stat.longLabel === dayName)
     return stat.label
   }
-
   return (
     <>
       <WidgetHeading>
@@ -53,7 +54,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
         width="100%"
       >
         <AxisLeft
-          stroke={theme.global.colors['light-3']}
+          stroke={theme.global.colors[axisColour]}
           hideTicks
           scale={yScale}
           tickLabelProps={tickLabelProps}
@@ -80,7 +81,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
           })}
         </Group>
         <AxisBottom
-          stroke={theme.global.colors['light-3']}
+          stroke={theme.global.colors[axisColour]}
           hideTicks
           scale={xScale}
           tickFormat={shortDayLabels}
