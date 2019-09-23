@@ -48,7 +48,7 @@ function SubjectPreview ({ height, recent, slug, width }) {
         href={href}
       />
       <FavouritesButton
-        checked={recent.favorite}
+        checked={checked}
         onClick={toggleFavorite}
       />
       <CollectionsButton
