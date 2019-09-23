@@ -5,14 +5,23 @@ import { Bar } from '@vx/shape'
 import { Group } from '@vx/group'
 import { AxisBottom } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
+import { withParentSize } from '@vx/responsive'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
 
-const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill, data, height, theme, width }, ref) {
-  const yMax = height * 0.95
+const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
+  const {
+    backgroundFill,
+    data,
+    parentHeight,
+    parentWidth,
+    theme
+  } = props
+
+  const yMax = parentHeight * 0.95
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
-    rangeRound: [0, width],
+    rangeRound: [0, parentWidth],
     padding: 0.5
   })
   const yScale = scaleLinear({
@@ -21,10 +30,10 @@ const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill
   })
 
   const brandColor = theme.global.colors.brand
-  const axisMargin = height
+  const axisMargin = parentHeight
   const ticks = xScale.domain()
   return (
-    <Chart height={height + 50} ref={ref} width={width}>
+    <Chart height={parentHeight + 50} ref={ref} width={parentWidth}>
       <Background fill={backgroundFill} />
       <Group left={5} top={5}>
         {data.map((datum, index) => {
@@ -56,13 +65,11 @@ const BarChartViewer = React.forwardRef(function BarChartViewer({ backgroundFill
 
 BarChartViewer.defaultProps = {
   backgroundFill: 'white',
-  height: 200,
   theme: {
     global: {
       colors: {}
     }
-  },
-  width: 200
+  }
 }
 
 BarChartViewer.propTypes = {
@@ -71,10 +78,10 @@ BarChartViewer.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })).isRequired,
-  height: PropTypes.number,
-  theme: PropTypes.object,
-  width: PropTypes.number
+  parentHeight: PropTypes.number.isRequired,
+  parentWidth: PropTypes.number.isRequired,
+  theme: PropTypes.object
 }
 
-export default withTheme(BarChartViewer)
+export default withTheme(withParentSize(BarChartViewer))
 export { BarChartViewer }

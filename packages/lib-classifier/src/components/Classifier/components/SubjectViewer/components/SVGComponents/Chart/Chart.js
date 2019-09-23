@@ -15,8 +15,8 @@ Chart.defaultProps = {
 }
 
 Chart.propTypes = {
-  height: PropTypes.string,
-  width: PropTypes.string
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }
 
 export default Chart
