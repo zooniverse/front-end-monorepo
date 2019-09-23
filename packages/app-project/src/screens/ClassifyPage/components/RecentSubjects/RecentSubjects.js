@@ -26,7 +26,7 @@ function RecentSubjects (props) {
           <SubjectPreview
             key={recent.subjectId}
             isLoggedIn={isLoggedIn}
-            recent={recent}
+            subject={recent}
             slug={slug}
           />
         ))}

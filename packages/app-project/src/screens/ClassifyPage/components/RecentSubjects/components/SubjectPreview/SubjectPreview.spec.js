@@ -8,7 +8,7 @@ import { CollectionsButton, FavouritesButton, TalkLink } from './components'
 
 describe('Component > SubjectPreview', function () {
   let wrapper
-  const recent = {
+  const subject = {
     favorite: false,
     subjectId: '12345',
     locations: [
@@ -21,7 +21,7 @@ describe('Component > SubjectPreview', function () {
     wrapper = shallow(
       <SubjectPreview
         isLoggedIn
-        recent={recent}
+        subject={subject}
         slug={slug}
       />
     )
@@ -41,7 +41,7 @@ describe('Component > SubjectPreview', function () {
     })
 
     it('should link to the subject Talk page', function () {
-      expect(link.prop('href')).to.equal(`/projects/${slug}/talk/subjects/${recent.subjectId}`)
+      expect(link.prop('href')).to.equal(`/projects/${slug}/talk/subjects/${subject.subjectId}`)
     })
 
     it('should display the first subject location', function () {
@@ -81,7 +81,7 @@ describe('Component > SubjectPreview', function () {
     before(function () {
       wrapper = shallow(
         <SubjectPreview
-          recent={recent}
+          subject={subject}
           slug={slug}
         />
       )

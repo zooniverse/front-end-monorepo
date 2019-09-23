@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { array, bool, number, shape, string } from 'prop-types'
+import { array, bool, func, number, shape, string } from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Anchor, Box } from 'grommet'
@@ -11,20 +11,20 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectPreview ({ height, isLoggedIn, recent, slug, width }) {
-  const subjectURLs = recent.locations.map(location => Object.values(location)[0])
+function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
+  const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
-  const [ checked, setChecked ] = useState(recent.favorite)
+  const [ isFavourite, setIsFavourite ] = useState(subject.favorite)
   const collectionsModal = React.createRef()
-  const href = `/projects/${slug}/talk/subjects/${recent.subjectId}`
+  const href = `/projects/${slug}/talk/subjects/${subject.subjectId}`
 
   function addToCollections () {
-    collectionsModal.current.wrappedInstance.open(recent.subjectId)
+    collectionsModal.current.wrappedInstance.open(subject.subjectId)
   }
 
   function toggleFavourite () {
-    recent.toggleFavourite()
-    setChecked(recent.favorite)
+    subject.toggleFavourite()
+    setIsFavourite(subject.favorite)
   }
 
   return (
@@ -38,7 +38,7 @@ function SubjectPreview ({ height, isLoggedIn, recent, slug, width }) {
         href={href}
       >
         <Media
-          alt={`subject ${recent.subjectId}`}
+          alt={`subject ${subject.subjectId}`}
           height={height}
           src={subjectURL}
           width={width}
@@ -48,7 +48,7 @@ function SubjectPreview ({ height, isLoggedIn, recent, slug, width }) {
         href={href}
       />
       <FavouritesButton
-        checked={checked}
+        checked={isFavourite}
         disabled={!isLoggedIn}
         onClick={toggleFavourite}
       />
@@ -64,9 +64,10 @@ SubjectPreview.propTypes = {
   className: string,
   height: number,
   isLoggedIn: bool,
-  recent: shape({
+  subject: shape({
     favorite: bool,
     subjectId: string,
+    toggleFavourite: func,
     locations: array
   }),
   slug: string.isRequired,
@@ -76,9 +77,10 @@ SubjectPreview.propTypes = {
 SubjectPreview.defaultProps = {
   height: 250,
   isLoggedIn: false,
-  recent: {
+  subject: {
     favorite: false,
     subjectId: '',
+    toggleFavorite: () => false,
     locations: []
   },
   width: 400
