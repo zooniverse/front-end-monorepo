@@ -21,7 +21,7 @@ const StyledBarGroup = styled(Group)`
   
   &:hover rect,
   &:focus rect {
-    fill: ${props => props.theme.global.colors['accent-3']};
+    fill: ${props => props.theme.global.colors.brand};
   }
 
   &:hover text,
@@ -46,13 +46,15 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
     nice: true
   });
 
-  const axisColour = theme.dark ? 'light-3' : 'light-5'
+  const axisColour = theme.dark ?
+    theme.global.colors.text.dark :
+    theme.global.colors.text.light
 
   function tickLabelProps () {
     return {
       dx: '-0.25em',
       dy: '0.2em',
-      fill: theme.global.colors[axisColour],
+      fill: axisColour,
       fontFamily: theme.global.font.family,
       fontSize: 10,
       textAnchor: 'middle' }
@@ -72,7 +74,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
         width="100%"
       >
         <AxisLeft
-          stroke={theme.global.colors[axisColour]}
+          stroke={axisColour}
           hideTicks
           scale={yScale}
           tickLabelProps={tickLabelProps}
@@ -111,7 +113,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
           })}
         </Group>
         <AxisBottom
-          stroke={theme.global.colors[axisColour]}
+          stroke={axisColour}
           hideTicks
           scale={xScale}
           tickFormat={shortDayLabels}
@@ -133,7 +135,9 @@ DailyClassificationsChart.defaultProps = {
   stats: [],
   theme: {
     global: {
-      colors: {}
+      colors: {
+        text: {}
+      }
     }
   }
 }
