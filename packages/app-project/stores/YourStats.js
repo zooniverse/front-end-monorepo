@@ -31,7 +31,6 @@ const Count = types
 
 const YourStats = types
   .model('YourStats', {
-    dailyCounts: types.array(Count),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     thisWeek: types.array(Count),
@@ -74,7 +73,7 @@ const YourStats = types
       addDisposer(self, projectDisposer)
     }
 
-    function calculateWeeklyStats () {
+    function calculateWeeklyStats (dailyCounts) {
       /*
       Calculate daily stats for this week, starting last Monday.
       */
@@ -86,7 +85,7 @@ const YourStats = types
         const newDate = monday.getDate() + day
         weekDay.setDate(newDate)
         const period = weekDay.toISOString().substring(0, 10)
-        const { count } = self.dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
+        const { count } = dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
         weeklyStats.push({
           count,
           period
@@ -124,6 +123,7 @@ const YourStats = types
       fetchDailyCounts: flow(function * fetchDailyCounts () {
         const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
+        let dailyCounts
         try {
           const token = yield auth.checkBearerToken()
           const Authorization = `Bearer ${token}`
@@ -143,14 +143,15 @@ const YourStats = types
             }
           }`
           const response = yield statsClient.request(query.replace(/\s+/g, ' '))
-          self.dailyCounts = response.statsCount
+          dailyCounts = response.statsCount
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error(error)
           self.error = error
           self.loadingState = asyncStates.error
+          dailyCounts = []
         }
-        self.thisWeek = calculateWeeklyStats()
+        self.thisWeek = calculateWeeklyStats(dailyCounts)
       }),
 
       increment () {
