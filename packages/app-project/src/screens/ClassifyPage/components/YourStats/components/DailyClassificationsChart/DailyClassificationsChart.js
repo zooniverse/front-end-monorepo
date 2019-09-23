@@ -17,6 +17,7 @@ const StyledBarGroup = styled(Group)`
   text {
     display: none;
     fill: ${props => props.theme.global.colors['light-1']};
+    font-size: ${props => props.theme.text.small.size}
   }
   
   &:hover rect,
@@ -102,6 +103,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
                   y={barY}
                 />
                 <Text
+                  aria-hidden="true"
                   textAnchor='middle'
                   x={barX + 20}
                   y={barY + 20}
@@ -138,6 +140,9 @@ DailyClassificationsChart.defaultProps = {
       colors: {
         text: {}
       }
+    },
+    text: {
+      small: {}
     }
   }
 }
