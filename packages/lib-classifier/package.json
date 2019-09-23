@@ -32,7 +32,7 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "~2.2.0",
-    "@zooniverse/panoptes-js": "~0.0.1",
+    "@zooniverse/panoptes-js": "~0.1.0",
     "@zooniverse/react-components": "~0.7.1",
     "grommet": "~2.7.x",
     "grommet-icons": "~4.3.x",
@@ -59,7 +59,7 @@
     "@storybook/addons": "^5.1.9",
     "@storybook/react": "^5.1.9",
     "@zooniverse/grommet-theme": "~2.2.0",
-    "@zooniverse/panoptes-js": "~0.0.1",
+    "@zooniverse/panoptes-js": "~0.1.0",
     "@zooniverse/react-components": "~0.7.1",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.0.6",
