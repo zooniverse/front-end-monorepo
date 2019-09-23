@@ -1,10 +1,12 @@
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
 import React from 'react'
 
 import DailyClassificationsChartContainer from './DailyClassificationsChartContainer'
 import DailyClassificationsChart from './DailyClassificationsChart'
 
 describe('Component > DailyClassificationsChartContainer', function () {
+  let clock
   let wrapper
   let componentWrapper
   const MOCK_DAILY_COUNTS = [
@@ -16,15 +18,24 @@ describe('Component > DailyClassificationsChartContainer', function () {
     { count: 8, period: '2019-10-05' },
     { count: 15, period: '2019-10-06' }
   ]
+  const MOCK_TOTALS = {
+    today: 25
+  }
 
   before(function () {
+    clock = sinon.useFakeTimers({ now: new Date('2019-10-06'), toFake: ['Date'] })
     wrapper = shallow(
       <DailyClassificationsChartContainer.wrappedComponent
+        counts={MOCK_TOTALS}
         projectName="Test Project"
         thisWeek={MOCK_DAILY_COUNTS}
       />
     )
     componentWrapper = wrapper.find(DailyClassificationsChart)
+  })
+
+  after(function () {
+    clock.restore()
   })
 
   it('should render without crashing', function () {
@@ -64,16 +75,18 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
       before(function () {
         stat = stats[day]
-        expectedStat = mockStat(stat.count, stat.period)
+        expectedStat = stat.period === '2019-10-06' ?
+          mockStat(MOCK_TOTALS.today, stat.period) :
+          mockStat(stat.count, stat.period)
       })
 
       describe(MOCK_DAILY_COUNTS[day].period, function () {
         it('should have a count', function () {
-          expect(stat.count).to.equal(MOCK_DAILY_COUNTS[day].count)
+          expect(stat.count).to.equal(expectedStat.count)
         })
 
         it('should have a period', function () {
-          expect(stat.period).to.equal(MOCK_DAILY_COUNTS[day].period)
+          expect(stat.period).to.equal(expectedStat.period)
         })
 
         it('should have a short label', function () {
