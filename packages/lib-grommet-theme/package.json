@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "zoo-standard --fix | snazzy",
-    "postversion": "git push && git push --tags && npm publish"
+    "postversion": "npm publish"
   },
   "dependencies": {
     "deep-freeze": "~0.0.1"
