@@ -5,6 +5,7 @@ import styled, { withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
+import { Text } from '@vx/text'
 import { scaleBand, scaleLinear } from '@vx/scale'
 import WidgetHeading from '../../../../../../shared/components/WidgetHeading'
 
@@ -12,10 +13,20 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledBar = styled(Bar)`
-  &:hover,
-  &:focus {
-    fill: ${props => props.theme.global.colors['accent-3']}
+const StyledBarGroup = styled(Group)`
+  text {
+    display: none;
+    fill: ${props => props.theme.global.colors['light-1']};
+  }
+  
+  &:hover rect,
+  &:focus rect {
+    fill: ${props => props.theme.global.colors['accent-3']};
+  }
+
+  &:hover text,
+  &:focus text {
+    display: inline-block;
   }
 `
 
@@ -74,18 +85,28 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
             const barX = xScale(stat.longLabel)
             const barY = (HEIGHT - PADDING) - barHeight
             return (
-              <StyledBar
-                aria-label={stat.alt}
+              <StyledBarGroup
                 focusable
                 key={stat.period}
-                role="image"
                 tabIndex={0}
-                fill={theme.global.colors['accent-2']}
-                height={barHeight}
-                width={barWidth}
-                x={barX}
-                y={barY}
-              />
+              >
+                <Bar
+                  aria-label={stat.alt}
+                  role="image"
+                  fill={theme.global.colors['accent-2']}
+                  height={barHeight}
+                  width={barWidth}
+                  x={barX}
+                  y={barY}
+                />
+                <Text
+                  textAnchor='middle'
+                  x={barX + 20}
+                  y={barY + 20}
+                >
+                  {stat.count}
+                </Text>
+              </StyledBarGroup>
             )
           })}
         </Group>
