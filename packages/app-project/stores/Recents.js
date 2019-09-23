@@ -10,7 +10,7 @@ export const Recent = types
     locations: types.frozen({})
   })
   .actions(self => {
-    function toggleFavorite () {
+    function toggleFavourite () {
       const { collections } = getRoot(self)
       self.favorite = !self.favorite
       if (self.favorite) {
@@ -20,7 +20,7 @@ export const Recent = types
       }
     }
     return {
-      toggleFavorite
+      toggleFavourite
     }
   })
 

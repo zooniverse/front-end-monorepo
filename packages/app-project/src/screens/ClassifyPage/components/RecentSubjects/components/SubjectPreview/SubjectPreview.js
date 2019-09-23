@@ -16,14 +16,14 @@ function SubjectPreview ({ height, isLoggedIn, recent, slug, width }) {
   const subjectURL = subjectURLs[0]
   const [ checked, setChecked ] = useState(recent.favorite)
   const collectionsModal = React.createRef()
-  const href=`/projects/${slug}/talk/subjects/${recent.subjectId}`
+  const href = `/projects/${slug}/talk/subjects/${recent.subjectId}`
 
   function addToCollections () {
     collectionsModal.current.wrappedInstance.open(recent.subjectId)
   }
 
-  function toggleFavorite () {
-    recent.toggleFavorite()
+  function toggleFavourite () {
+    recent.toggleFavourite()
     setChecked(recent.favorite)
   }
 
@@ -50,7 +50,7 @@ function SubjectPreview ({ height, isLoggedIn, recent, slug, width }) {
       <FavouritesButton
         checked={checked}
         disabled={!isLoggedIn}
-        onClick={toggleFavorite}
+        onClick={toggleFavourite}
       />
       <CollectionsButton
         disabled={!isLoggedIn}
