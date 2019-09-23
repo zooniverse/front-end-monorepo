@@ -11,7 +11,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectPreview ({ height, recent, slug, width }) {
+function SubjectPreview ({ height, isLoggedIn, recent, slug, width }) {
   const subjectURLs = recent.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
   const [ checked, setChecked ] = useState(recent.favorite)
@@ -49,9 +49,11 @@ function SubjectPreview ({ height, recent, slug, width }) {
       />
       <FavouritesButton
         checked={checked}
+        disabled={!isLoggedIn}
         onClick={toggleFavorite}
       />
       <CollectionsButton
+        disabled={!isLoggedIn}
         onClick={addToCollections}
       />
     </Box>
@@ -61,6 +63,7 @@ function SubjectPreview ({ height, recent, slug, width }) {
 SubjectPreview.propTypes = {
   className: string,
   height: number,
+  isLoggedIn: bool,
   recent: shape({
     favorite: bool,
     subjectId: string,
@@ -72,6 +75,7 @@ SubjectPreview.propTypes = {
 
 SubjectPreview.defaultProps = {
   height: 250,
+  isLoggedIn: false,
   recent: {
     favorite: false,
     subjectId: '',

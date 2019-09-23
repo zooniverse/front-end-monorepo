@@ -20,6 +20,7 @@ describe('Component > SubjectPreview', function () {
   before(function () {
     wrapper = shallow(
       <SubjectPreview
+        isLoggedIn
         recent={recent}
         slug={slug}
       />
@@ -50,17 +51,48 @@ describe('Component > SubjectPreview', function () {
     it('should have alt text', function () {
       expect(media.prop('alt')).to.equal('subject 12345')
     })
+  })
 
-    it('should have a talk link', function () {
-      expect(wrapper.find(TalkLink).length).to.equal(1)
-    })
+  it('should have a talk link', function () {
+    expect(wrapper.find(TalkLink).length).to.equal(1)
+  })
 
-    it('should have a favourites button', function () {
+  describe('the favourites button', function () {
+    it('should exist', function () {
       expect(wrapper.find(FavouritesButton).length).to.equal(1)
     })
 
-    it('should have a collections button', function () {
+    it('should be enabled', function () {
+      expect(wrapper.find(FavouritesButton).prop('disabled')).to.be.false()
+    })
+  })
+
+  describe('the collections button', function () {
+    it('should exist', function () {
       expect(wrapper.find(CollectionsButton).length).to.equal(1)
+    })
+
+    it('should be enabled', function () {
+      expect(wrapper.find(CollectionsButton).prop('disabled')).to.be.false()
+    })
+  })
+
+  describe('without a logged-in user', function () {
+    before(function () {
+      wrapper = shallow(
+        <SubjectPreview
+          recent={recent}
+          slug={slug}
+        />
+      )
+    })
+
+    it('should disable favourites', function () {
+      expect(wrapper.find(FavouritesButton).prop('disabled')).to.be.true()
+    })
+
+    it('should disable collections', function () {
+      expect(wrapper.find(CollectionsButton).prop('disabled')).to.be.true()
     })
   })
 })
