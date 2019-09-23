@@ -29,7 +29,7 @@ describe('Component > BarChartViewer', function () {
 
   it('should render Group', function () {
     const wrapper = shallow(<BarChartViewer data={data} />)
-    expect(wrapper.find(Group)).to.have.lengthOf(2)
+    expect(wrapper.find(Group)).to.have.lengthOf(1)
   })
 
   it('should render a Bar for each item in the data array', function () {
