@@ -25,7 +25,12 @@ stories.addDecorator(withKnobs)
 stories.add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box
+          background={text('container background', 'white')}
+          height='medium'
+          pad='small'
+          width='large'
+        >
           <BarChartViewer
             backgroundFill={text('background fill', 'white')}
             data={data}
@@ -38,7 +43,12 @@ stories.add('light theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <Grommet theme={darkZooTheme}>
-        <Box height='medium' width='large'>
+        <Box
+          background={text('container background', 'white')}
+          height='medium'
+          pad='small'
+          width='large'
+        >
           <BarChartViewer
             backgroundFill={text('background fill', 'white')}
             data={data}

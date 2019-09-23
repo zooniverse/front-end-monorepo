@@ -18,7 +18,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
     theme
   } = props
 
-  const yMax = parentHeight * 0.95
+  const yMax = parentHeight * 0.85
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
     rangeRound: [0, parentWidth],
@@ -30,14 +30,14 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
   })
 
   const brandColor = theme.global.colors.brand
-  const axisMargin = parentHeight
   const ticks = xScale.domain()
   return (
-    <Chart height={parentHeight + 50} ref={ref} width={parentWidth}>
+    <Chart height={parentHeight} ref={ref} width={parentWidth}>
       <Background fill={backgroundFill} />
-      <Group left={5} top={5}>
+      <Group width={parentWidth}>
         {data.map((datum, index) => {
-          const { label, value } = datum
+          const { color, label, value } = datum
+          const fill = color || brandColor
           const key = `bar-${label}`
           const barHeight = yMax - yScale(value)
           const barWidth = xScale.bandwidth()
@@ -45,7 +45,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
           const y = yMax - barHeight
           return (
             <Bar
-              fill={brandColor}
+              fill={fill}
               height={barHeight}
               index={index}
               key={key}
@@ -55,9 +55,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
             />
           )
         })}
-      </Group>
-      <Group left={5} top={5}>
-        <AxisBottom label='Letters' left={0} scale={xScale} ticks={ticks.length} top={axisMargin} />
+        <AxisBottom label='Letters' left={0} scale={xScale} ticks={ticks.length} top={yMax} />
       </Group>
     </Chart>
   )
@@ -75,6 +73,7 @@ BarChartViewer.defaultProps = {
 BarChartViewer.propTypes = {
   backgroundFill: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.string,
     label: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })).isRequired,
