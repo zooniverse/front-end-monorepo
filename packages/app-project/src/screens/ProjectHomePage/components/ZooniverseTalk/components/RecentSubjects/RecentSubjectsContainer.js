@@ -48,7 +48,7 @@ class RecentSubjectsContainer extends Component {
   render () {
     const { carousel } = this.props
     const { loading, subjects } = this.state
-    const href=`/projects/${this.props.slug}/talk`
+    const href = `/projects/${this.props.slug}/talk`
     let result = null
     const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
 
