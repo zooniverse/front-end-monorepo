@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import { array, object, string } from 'prop-types'
 import React from 'react'
-import { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
@@ -11,6 +11,13 @@ import WidgetHeading from '../../../../../../shared/components/WidgetHeading'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const StyledBar = styled(Bar)`
+  &:hover,
+  &:focus {
+    fill: ${props => props.theme.global.colors['accent-3']}
+  }
+`
 
 function DailyClassificationsChart ({ stats, projectName, theme }) {
   const HEIGHT = 200
@@ -67,10 +74,12 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
             const barX = xScale(stat.longLabel)
             const barY = (HEIGHT - PADDING) - barHeight
             return (
-              <Bar
+              <StyledBar
                 aria-label={stat.alt}
+                focusable
                 key={stat.period}
                 role="image"
+                tabIndex={0}
                 fill={theme.global.colors['accent-2']}
                 height={barHeight}
                 width={barWidth}
