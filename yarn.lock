@@ -7159,7 +7159,7 @@ dir-glob@^2.0.0, dir-glob@^2.2.2:
   dependencies:
     path-type "^3.0.0"
 
-dirty-chai@^2.0.1, dirty-chai@~2.0.1:
+dirty-chai@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/dirty-chai/-/dirty-chai-2.0.1.tgz#6b2162ef17f7943589da840abc96e75bda01aff3"
   integrity sha512-ys79pWKvDMowIDEPC6Fig8d5THiC0DJ2gmTeGzVAoEH18J8OzLud0Jh7I9IWg3NSk8x2UocznUuFmfHCXYZx9w==
@@ -15153,7 +15153,7 @@ simplebar@^4.1.0:
     lodash.throttle "^4.1.1"
     resize-observer-polyfill "^1.5.1"
 
-sinon-chai@^3.3.0, sinon-chai@~3.3.0:
+sinon-chai@~3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-3.3.0.tgz#8084ff99451064910fbe2c2cb8ab540c00b740ea"
   integrity sha512-r2JhDY7gbbmh5z3Q62pNbrjxZdOAjpsqW/8yxAZRSqLZqowmfGZPGUZPFf3UX36NLis0cv8VEM5IJh9HgkSOAA==
