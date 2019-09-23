@@ -11,11 +11,10 @@ export const StyledPlainButton = styled(PlainButton)`
 `
 
 function MetaToolsButton (props) {
-  const { className, disabled, icon, onClick, text } = props
+  const { disabled, icon, onClick, text } = props
 
   return (
     <StyledPlainButton
-      className={className}
       disabled={disabled}
       icon={icon}
       labelSize='small'
@@ -28,7 +27,6 @@ function MetaToolsButton (props) {
 }
 
 MetaToolsButton.propTypes = {
-  className: PropTypes.string,
   disabled: PropTypes.bool,
   icon: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   onClick: PropTypes.func,
@@ -40,7 +38,6 @@ MetaToolsButton.propTypes = {
 }
 
 MetaToolsButton.defaultProps = {
-  className: '',
   disabled: false,
   icon: null,
   onClick: () => false,

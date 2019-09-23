@@ -14,14 +14,14 @@ export const Favourite = styled(HeartIcon)`
 `
 
 export default function FavouritesButton (props) {
-  const { className, checked, disabled, onClick } = props
+  const { checked, disabled, onClick } = props
   const label = checked ? 'FavouritesButton.remove' : 'FavouritesButton.add'
   const filled = checked ? 'true' : undefined
   return (
     <MetaToolsButton
       aria-checked={checked}
       disabled={disabled}
-      icon={<Favourite className={className} color='dark-5' filled={filled} size='1em' />}
+      icon={<Favourite color='dark-5' filled={filled} size='1em' />}
       role='checkbox'
       text={counterpart(label)}
       onClick={onClick}
@@ -31,14 +31,12 @@ export default function FavouritesButton (props) {
 
 FavouritesButton.propTypes = {
   checked: PropTypes.bool,
-  className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 FavouritesButton.defaultProps = {
   checked: false,
-  className: '',
   disabled: false,
   onClick: () => false
 }
