@@ -15,7 +15,7 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
   const subjectURL = subjectURLs[0]
   const [ isFavourite, setIsFavourite ] = useState(subject.favorite)
   const collectionsModal = React.createRef()
-  const href = `/projects/${slug}/talk/subjects/${subject.subjectId}`
+  const href = `/projects/${slug}/talk/subjects/${subject.id}`
 
   function addToCollections () {
     collectionsModal.current.wrappedInstance.open(subject.id)

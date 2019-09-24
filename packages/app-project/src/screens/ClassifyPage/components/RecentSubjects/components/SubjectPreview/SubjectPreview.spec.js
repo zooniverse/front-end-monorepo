@@ -10,7 +10,7 @@ describe('Component > SubjectPreview', function () {
   let wrapper
   const subject = {
     favorite: false,
-    subjectId: '12345',
+    id: '12345',
     locations: [
       { 'image/jpeg': 'https://somedomain/photo.jpg' }
     ]
@@ -41,7 +41,7 @@ describe('Component > SubjectPreview', function () {
     })
 
     it('should link to the subject Talk page', function () {
-      expect(link.prop('href')).to.equal(`/projects/${slug}/talk/subjects/${subject.subjectId}`)
+      expect(link.prop('href')).to.equal(`/projects/${slug}/talk/subjects/${subject.id}`)
     })
 
     it('should display the first subject location', function () {
