@@ -5,6 +5,8 @@ import ProgressiveImage from 'react-progressive-image'
 import getThumbnailSrc from '../../helpers/getThumbnailSrc'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
+const DEFAULT_THUMBNAIL_DIMENSION = 999
+
 const StyledBox = styled(Box)`
   max-height: ${props => props.maxHeight}px;
   max-width: ${props => props.maxWidth}px;
@@ -105,5 +107,7 @@ ThumbnailImage.propTypes = {
 }
 
 ThumbnailImage.defaultProps = {
-  ...defaultProps
+  ...defaultProps,
+  height: DEFAULT_THUMBNAIL_DIMENSION,
+  width: DEFAULT_THUMBNAIL_DIMENSION
 }
