@@ -4,7 +4,6 @@ import React from 'react'
 import { Grid } from 'grommet'
 import SubjectThumbnail from './components/SubjectThumbnail'
 
-
 // TODO: Use the subject viewers from the classifier
 function RecentSubjects (props) {
   const { className, href, subjects } = props
@@ -17,7 +16,7 @@ function RecentSubjects (props) {
       fill
       gap='small'
     >
-      {subjects.map( subject => (
+      {subjects.map(subject => (
         <SubjectThumbnail
           key={subject.id}
           height={height}

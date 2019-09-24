@@ -41,7 +41,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <style type="text/css">${mediaStyle}</style>
+          <style type='text/css'>${mediaStyle}</style>
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
