@@ -122,7 +122,11 @@ function getSlugFromUrl (relativeUrl) {
 }
 
 function generateHostUrl (context) {
-  const { connection, headers } = context.req
-  const protocol = connection.encrypted ? 'https' : 'http'
-  return `${protocol}://${headers.host}`
+  if (context.req) {
+    const { connection, headers } = context.req
+    const protocol = connection.encrypted ? 'https' : 'http'
+    return `${protocol}://${headers.host}`
+  } else {
+    return location.origin
+  }
 }
