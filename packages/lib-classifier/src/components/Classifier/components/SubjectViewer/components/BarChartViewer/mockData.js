@@ -16,7 +16,7 @@ const dataInZooFormat = letterFrequency.map((datum) => {
 })
 
 const dataWithVariableBarColor = letterFrequency.map((datum) => {
-  return { color: colors['accent-1'], label: datum.letter, value: datum.frequency }
+  return { color: colors['accent-3'], label: datum.letter, value: datum.frequency }
 })
 
 const mockData = Object.assign({}, { data: dataInZooFormat }, optionsMock)

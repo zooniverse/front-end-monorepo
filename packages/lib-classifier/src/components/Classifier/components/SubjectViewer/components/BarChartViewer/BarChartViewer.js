@@ -20,6 +20,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
   } = props
 
   let axisColor = (dark) ? colors.text.dark : colors.text.light
+  // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
   const yMax = parentHeight * 0.85
   const xScale = scaleBand({
