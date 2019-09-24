@@ -22,14 +22,21 @@ function RecentSubjects (props) {
         columns={recents.map(recent => '1fr')}
         gap='small'
       >
-        {recents.map(recent => (
-          <SubjectPreview
-            key={recent.subjectId}
-            isLoggedIn={isLoggedIn}
-            subject={recent}
-            slug={slug}
-          />
-        ))}
+        {recents.map(recent => {
+          const subject = {
+            favorite: recent.favorite,
+            id: recent.subjectId,
+            locations: recent.locations
+          }
+          return (
+            <SubjectPreview
+              key={recent.subjectId}
+              isLoggedIn={isLoggedIn}
+              subject={subject}
+              slug={slug}
+            />
+          )
+        })}
       </Grid>
     </ContentBox>
   )

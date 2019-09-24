@@ -18,7 +18,7 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
   const href = `/projects/${slug}/talk/subjects/${subject.subjectId}`
 
   function addToCollections () {
-    collectionsModal.current.wrappedInstance.open(subject.subjectId)
+    collectionsModal.current.wrappedInstance.open(subject.id)
   }
 
   function toggleFavourite () {
@@ -65,7 +65,7 @@ SubjectPreview.propTypes = {
   isLoggedIn: bool,
   subject: shape({
     favorite: bool,
-    subjectId: string,
+    id: string,
     toggleFavourite: func,
     locations: array
   }),
@@ -78,7 +78,7 @@ SubjectPreview.defaultProps = {
   isLoggedIn: false,
   subject: {
     favorite: false,
-    subjectId: '',
+    id: '',
     toggleFavorite: () => false,
     locations: []
   },
