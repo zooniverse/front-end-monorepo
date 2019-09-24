@@ -6,11 +6,13 @@ import InteractionLayer from './InteractionLayer'
 import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
-  const { addToStream } = stores.classifierStore.drawing
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
+  const {
+    addToStream,
+    isDrawingInActiveWorkflowStep,
+  } = stores.classifierStore.drawing
   return {
-    activeStepTasks,
-    addToStream
+    addToStream,
+    isDrawingInActiveWorkflowStep,
   }
 }
 
@@ -37,9 +39,6 @@ class InteractionLayerContainer extends Component {
   }
 
   render () {
-    const { activeStepTasks } = this.props
-    const isDrawingInActiveSteps = activeStepTasks && activeStepTasks.some(task => task.type === 'drawing')
-
     return (
       <>
         <InteractionLayer
@@ -47,19 +46,19 @@ class InteractionLayerContainer extends Component {
           onPointerMove={this.onPointerMove}
           onPointerUp={this.onPointerUp}
         />
-        {isDrawingInActiveSteps && <DrawingContainer />}
+        {this.props.isDrawingInActiveWorkflowStep && <DrawingContainer />}
       </>
     )
   }
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
-  activeStepTasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string
-    })
-  ),
-  addToStream: PropTypes.func.isRequired
+  addToStream: PropTypes.func.isRequired,
+  isDrawingInActiveWorkflowStep: PropTypes.bool,
+}
+
+InteractionLayerContainer.wrappedComponent.defaultProps = {
+  isDrawingInActiveWorkflowStep: false
 }
 
 export default InteractionLayerContainer
