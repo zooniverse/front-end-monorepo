@@ -25,6 +25,16 @@ const {
 const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
 
 describe('Component > BarChartViewer', function () {
+  let wrapper
+  before(function () {
+    wrapper = shallow(<BarChartViewer
+      axis={options.axis}
+      data={data}
+      parentHeight={500}
+      parentWidth={500}
+    />)
+  })
+
   it('should render without crashing', function () {
     const wrapper = shallow(
       <BarChartViewer
