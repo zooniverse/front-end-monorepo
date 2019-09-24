@@ -13,7 +13,8 @@ describe('Component > SubjectPreview', function () {
     id: '12345',
     locations: [
       { 'image/jpeg': 'https://somedomain/photo.jpg' }
-    ]
+    ],
+    toggleFavourite: () => false
   }
   const slug = 'owner/projectName'
 
@@ -58,12 +59,34 @@ describe('Component > SubjectPreview', function () {
   })
 
   describe('the favourites button', function () {
+    let favouritesButton
+    
+    beforeEach(function () {
+      favouritesButton = wrapper.find(FavouritesButton)
+    })
+
     it('should exist', function () {
-      expect(wrapper.find(FavouritesButton).length).to.equal(1)
+      expect(favouritesButton.length).to.equal(1)
     })
 
     it('should be enabled', function () {
-      expect(wrapper.find(FavouritesButton).prop('disabled')).to.be.false()
+      expect(favouritesButton.prop('disabled')).to.be.false()
+    })
+
+    it('should not be checked', function () {
+      expect(favouritesButton.prop('checked')).to.be.false()
+    })
+
+    it('should toggle favourites on', function () {
+      expect(favouritesButton.prop('checked')).to.be.false()
+      favouritesButton.simulate('click')
+      expect(wrapper.find(FavouritesButton).prop('checked')).to.be.true()
+    })
+
+    it('should toggle favourites off', function () {
+      expect(favouritesButton.prop('checked')).to.be.true()
+      favouritesButton.simulate('click')
+      expect(wrapper.find(FavouritesButton).prop('checked')).to.be.false()
     })
   })
 

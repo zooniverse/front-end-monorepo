@@ -23,7 +23,7 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
 
   function toggleFavourite () {
     subject.toggleFavourite()
-    setIsFavourite(subject.favorite)
+    setIsFavourite(!isFavourite)
   }
 
   return (
