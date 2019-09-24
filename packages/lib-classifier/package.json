@@ -19,7 +19,6 @@
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@vx/axis": "~0.0.190",
     "@vx/group": "~0.0.190",
-    "@vx/mock-data": "~0.0.189",
     "@vx/responsive": "~0.0.189",
     "@vx/scale": "~0.0.190",
     "@vx/shape": "~0.0.190",
