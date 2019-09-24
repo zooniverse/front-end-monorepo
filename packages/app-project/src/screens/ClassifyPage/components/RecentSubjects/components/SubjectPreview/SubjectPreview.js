@@ -37,7 +37,7 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
         href={href}
       >
         <Media
-          alt={`subject ${subject.subjectId}`}
+          alt={`subject ${subject.id}`}
           height={height}
           src={subjectURL}
           width={width}
