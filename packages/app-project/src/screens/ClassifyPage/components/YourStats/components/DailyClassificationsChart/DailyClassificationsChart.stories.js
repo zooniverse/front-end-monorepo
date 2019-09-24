@@ -9,7 +9,7 @@ const MOCK_DAILY_COUNTS = [
   { count: 32, period: '2019-10-01' },
   { count: 140, period: '2019-10-02' },
   { count: 105, period: '2019-10-03' },
-  { count: 0, period: '2019-10-04' },
+  { count: 10, period: '2019-10-04' },
   { count: 0, period: '2019-10-05' },
   { count: 0, period: '2019-10-06' }
 ]
