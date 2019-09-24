@@ -28,8 +28,8 @@ describe('Component > BarChartViewer', function () {
   let wrapper
   before(function () {
     wrapper = shallow(<BarChartViewer
-      axis={options.axis}
       data={data}
+      options={options}
       parentHeight={500}
       parentWidth={500}
     />)
