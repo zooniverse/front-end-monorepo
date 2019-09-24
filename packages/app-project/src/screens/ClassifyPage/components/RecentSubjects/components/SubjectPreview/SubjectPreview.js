@@ -36,12 +36,19 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
       <Anchor
         href={href}
       >
-        <Media
-          alt={`subject ${subject.id}`}
-          height={height}
-          src={subjectURL}
-          width={width}
-        />
+        <Box
+          align='center'
+          height={`${height}px`}
+          overflow="hidden"
+          width={`${width}px`}
+        >
+          <Media
+            alt={`subject ${subject.id}`}
+            height={400}
+            src={subjectURL}
+            width={400}
+          />
+        </Box>
       </Anchor>
       <TalkLink
         href={href}
