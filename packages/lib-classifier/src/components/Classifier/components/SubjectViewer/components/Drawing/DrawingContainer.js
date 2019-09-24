@@ -9,12 +9,14 @@ function storeMapper (stores) {
   const {
     activeDrawingTask,
     activeDrawingTool,
+    coordinateStream,
     isDrawingInActiveWorkflowStep,
     eventStream
   } = stores.classifierStore.drawing
   return {
     activeDrawingTask,
     activeDrawingTool,
+    coordinateStream,
     isDrawingInActiveWorkflowStep,
     eventStream
   }
@@ -41,14 +43,12 @@ class DrawingContainer extends Component {
     this.setActiveMark()
 
     // TEMP CODE UNTIL COORDINATE STREAM
-    const { eventStream } = this.props
-    if (eventStream) {
-      this.tempSubscription = eventStream.subscribe(event => {
-        if (event.type === 'pointerup') {
-          this.tempMarkCreation()
-        }
-      })
-    }
+    const { coordinateStream } = this.props
+    this.tempSubscription = coordinateStream.subscribe(event => {
+      if (event.type === 'pointerup') {
+        this.tempMarkCreation()
+      }
+    })
   }
 
   componentDidUpdate (prevProps) {

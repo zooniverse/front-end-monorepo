@@ -9,10 +9,12 @@ function storeMapper (stores) {
   const {
     addToStream,
     isDrawingInActiveWorkflowStep,
+    storeSVG
   } = stores.classifierStore.drawing
   return {
     addToStream,
     isDrawingInActiveWorkflowStep,
+    storeSVG
   }
 }
 
@@ -24,6 +26,21 @@ class InteractionLayerContainer extends Component {
     this.onPointerDown = this.onPointerDown.bind(this)
     this.onPointerMove = this.onPointerMove.bind(this)
     this.onPointerUp = this.onPointerUp.bind(this)
+  }
+
+  componentDidMount() {
+    this.storeSVG()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.svg !== prevProps.svg) {
+      this.storeSVG()
+    }
+  }
+
+  storeSVG() {
+    const { storeSVG, svg } = this.props
+    storeSVG(svg)
   }
 
   onPointerDown (event) {
@@ -55,6 +72,7 @@ class InteractionLayerContainer extends Component {
 InteractionLayerContainer.wrappedComponent.propTypes = {
   addToStream: PropTypes.func.isRequired,
   isDrawingInActiveWorkflowStep: PropTypes.bool,
+  svg: PropTypes.object
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
