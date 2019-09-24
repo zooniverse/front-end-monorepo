@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import sinon from 'sinon'
 import MetaToolsButton from '../MetaToolsButton'
 
 import TalkLink from './TalkLink'

@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { array, bool, func, number, shape, string } from 'prop-types'
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import { Anchor, Box } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 import { CollectionsButton, FavouritesButton, TalkLink } from './components'

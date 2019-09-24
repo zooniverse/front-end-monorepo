@@ -36,7 +36,7 @@ function ClassifyPage (props) {
       <Box as='aside' gap='medium'>
         <FinishedForTheDay />
         <Grid
-          alignContent="stretch"
+          alignContent='stretch'
           columns={(screenSize === 'small') ? ['auto'] : ['1fr', '2fr']}
           gap='medium'
         >

@@ -6,7 +6,7 @@ import RecentSubjects from './RecentSubjects'
 
 let wrapper
 let componentWrapper
-const RECENTS=[]
+const RECENTS = []
 const PROJECT_NAME = 'Foobar'
 
 describe('Component > RecentSubjectsContainer', function () {

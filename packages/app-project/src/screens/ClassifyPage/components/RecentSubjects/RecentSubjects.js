@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Box, Grid, Paragraph } from 'grommet'
+import { Grid, Paragraph } from 'grommet'
 import { array, bool, string } from 'prop-types'
 import React from 'react'
 
@@ -18,9 +18,9 @@ function RecentSubjects (props) {
         {counterpart('RecentSubjects.text')}
       </Paragraph>
       <Grid
-        alignContent="stretch"
+        alignContent='stretch'
         columns={recents.map(recent => '1fr')}
-        gap="small"
+        gap='small'
       >
         {recents.map(recent => (
           <SubjectPreview
