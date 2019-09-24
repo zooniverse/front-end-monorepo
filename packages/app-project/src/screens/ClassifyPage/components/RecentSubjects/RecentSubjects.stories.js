@@ -112,3 +112,12 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
       />
     </Grommet>
   ))
+  .add('one subject', () => (
+    <Grommet theme={zooTheme}>
+      <RecentSubjectsContainer
+        recents={RECENTS.slice(0,1)}
+        projectName='NestCams'
+        slug='spotteron/nestcams'
+      />
+    </Grommet>
+  ))
