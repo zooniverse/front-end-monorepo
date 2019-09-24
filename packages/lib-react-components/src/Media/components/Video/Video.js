@@ -3,10 +3,10 @@ import { Anchor, Box, Video as GrommetVideo } from 'grommet'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 export default function Video(props) {
-  const { alt, controls, flex, fit, src } = props
+  const { alt, controls, flex, fit, src, ...rest } = props
   const controlsOption = (controls) ? 'below' : false
   return (
-    <Box flex={flex} {...props}>
+    <Box flex={flex} {...rest}>
       <GrommetVideo a11yTitle={alt} controls={controlsOption} fit={fit} preload='metadata' src={src}>
         <Anchor href={src} label={alt} />
       </GrommetVideo>
