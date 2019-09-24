@@ -6,11 +6,16 @@ import React, { Component } from 'react'
 import getDrawingTool from './helpers/getDrawingTool'
 
 function storeMapper (stores) {
-  const { activeDrawingTool, eventStream } = stores.classifierStore.drawing
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
-  return {
+  const {
+    activeDrawingTask,
     activeDrawingTool,
-    activeStepTasks,
+    isDrawingInActiveWorkflowStep,
+    eventStream
+  } = stores.classifierStore.drawing
+  return {
+    activeDrawingTask,
+    activeDrawingTool,
+    isDrawingInActiveWorkflowStep,
     eventStream
   }
 }
@@ -47,7 +52,7 @@ class DrawingContainer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (this.props.activeStepTasks !== prevProps.activeStepTasks || this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
+    if (this.props.activeDrawingTask !== prevProps.activeDrawingTask || this.props.activeDrawingTool !== prevProps.activeDrawingTool) {
       this.setActiveMark()
     }
   }
@@ -61,43 +66,36 @@ class DrawingContainer extends Component {
 
   // TEMP CODE UNTIL COORDINATE STREAM
   tempMarkCreation () {
-    const { activeDrawingTool, activeStepTasks } = this.props
+    const { activeDrawingTask, activeDrawingTool } = this.props
 
-    if (activeStepTasks && activeStepTasks.length > 0) {
-      const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-      const tool = activeDrawingTask.tools[activeDrawingTool]
-      if (tool.type === 'line') {
-        const coordinates = { x1: (Math.floor(Math.random() * 400)), y1: (Math.floor(Math.random() * 400)), x2: (Math.floor(Math.random() * 400)), y2: (Math.floor(Math.random() * 400)) }
-        this.finishMark(coordinates)
-      }
-      if (tool.type === 'point') {
-        const coordinates = { x: (Math.floor(Math.random() * 400)), y: (Math.floor(Math.random() * 400)) }
-        this.finishMark(coordinates)
-      }
+    const tool = activeDrawingTask.tools[activeDrawingTool]
+    if (tool.type === 'line') {
+      const coordinates = { x1: (Math.floor(Math.random() * 400)), y1: (Math.floor(Math.random() * 400)), x2: (Math.floor(Math.random() * 400)), y2: (Math.floor(Math.random() * 400)) }
+      this.finishMark(coordinates)
+    }
+    if (tool.type === 'point') {
+      const coordinates = { x: (Math.floor(Math.random() * 400)), y: (Math.floor(Math.random() * 400)) }
+      this.finishMark(coordinates)
     }
   }
 
   setActiveMark () {
-    const { activeDrawingTool, activeStepTasks } = this.props
+    const { activeDrawingTask, activeDrawingTool } = this.props
 
-    if (activeStepTasks && activeStepTasks.length > 0) {
-      const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-      this.setState({
-        activeMark: {
-          id: cuid(),
-          tool: activeDrawingTask.tools[activeDrawingTool]
-        }
-      })
-    }
+    this.setState({
+      activeMark: {
+        id: cuid(),
+        tool: activeDrawingTask.tools[activeDrawingTool]
+      }
+    })
   }
 
   finishMark (coordinates) {
     if (!coordinates) return null
 
-    const { activeDrawingTool, activeStepTasks } = this.props
+    const { activeDrawingTask, activeDrawingTool } = this.props
     const { activeMark, marks } = this.state
 
-    const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
     const newMark = {
       id: cuid(),
       tool: activeDrawingTask.tools[activeDrawingTool]
@@ -143,13 +141,14 @@ class DrawingContainer extends Component {
   }
 }
 
-DrawingContainer.propTypes = {
+DrawingContainer.wrappedComponent.propTypes = {
+  activeDrawingTask: PropTypes.shape({
+    tool: PropTypes.arrayOf(
+      PropTypes.object // TODO elaborate
+    )
+  }),
   activeDrawingTool: PropTypes.number,
-  activeStepTasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string
-    })
-  )
+  svg: PropTypes.object
 }
 
 export default DrawingContainer

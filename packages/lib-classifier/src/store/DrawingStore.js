@@ -6,6 +6,17 @@ const DrawingStore = types
   .model('DrawingStore', {
     activeDrawingTool: types.optional(types.number, 0)
   })
+  .views(self => ({
+    get activeDrawingTask () {
+      const [task] = getRoot(self).workflowSteps.activeStepTasks
+        .filter(task => task.type === 'drawing')
+      return task
+    },
+    get isDrawingInActiveWorkflowStep () {
+      return getRoot(self).workflowSteps.activeStepTasks
+        .some(task => task.type === 'drawing')
+    }
+  }))
   .volatile(self => ({
     eventStream: new Subject()
   }))
