@@ -96,7 +96,12 @@ BarChartViewer.defaultProps = {
   theme: {
     dark: false,
     global: {
-      colors: {}
+      colors: {
+        text: {}
+      },
+      font: {
+        family: ''
+      }
     }
   }
 }
