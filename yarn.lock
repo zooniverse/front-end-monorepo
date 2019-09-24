@@ -3242,7 +3242,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.2"
 
-"@vx/mock-data@0.0.189":
+"@vx/mock-data@0.0.189", "@vx/mock-data@~0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/mock-data/-/mock-data-0.0.189.tgz#a6336965bf295f6dc583db516004385691219db2"
   integrity sha512-u8xW5nruauMym5q2vd0ojjzKkTz2MdKyiYbRBxMi/FD9I1wBvHlPOa2k41rX3+qyyqm6r0qunltWdyAEA7fMlQ==

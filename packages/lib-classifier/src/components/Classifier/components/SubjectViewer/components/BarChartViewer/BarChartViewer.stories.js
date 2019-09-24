@@ -8,13 +8,13 @@ import mockData from './mockData'
 // import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
-// const config = {
-//   notes: {
-//     markdown: readme
-//   }
-// }
+const config = {
+  // notes: {
+  //   markdown: readme
+  // }
+}
 
-// const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
+const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
 const { data } = mockData
 
@@ -32,7 +32,13 @@ stories.add('light theme', () => {
           width='large'
         >
           <BarChartViewer
-            backgroundFill={text('background fill', 'white')}
+            axis={{
+              label: 'Letters'
+            }}
+            backgroundFill={{
+              dark: text('background dark theme fill', ''),
+              light: text('background light theme fill', '')
+            }}
             data={data}
           />
         </Box>
@@ -44,16 +50,22 @@ stories.add('light theme', () => {
     return (
       <Grommet theme={darkZooTheme}>
         <Box
-          background={text('container background', 'white')}
+          background={text('container background', darkZooTheme.global.colors['dark-3'])}
           height='medium'
           pad='small'
           width='large'
         >
           <BarChartViewer
-            backgroundFill={text('background fill', 'white')}
+            axis={{
+              label: 'Letters'
+            }}
+            backgroundFill={{
+              dark: text('background dark theme fill', ''),
+              light: text('background light theme fill', '')
+            }}
             data={data}
           />
         </Box>
       </Grommet>
     )
-  })
+  }, darkThemeConfig)

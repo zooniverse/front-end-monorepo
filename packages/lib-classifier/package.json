@@ -64,6 +64,7 @@
     "@storybook/addon-viewport": "~5.2.1",
     "@storybook/addons": "~5.2.1",
     "@storybook/react": "~5.2.1",
+    "@vx/mock-data": "~0.0.189",
     "@zooniverse/grommet-theme": "~2.2.0",
     "@zooniverse/panoptes-js": "~0.1.0",
     "@zooniverse/react-components": "~0.7.1",
