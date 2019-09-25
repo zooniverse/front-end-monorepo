@@ -15,6 +15,7 @@ import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import { initializeLogger, logReactError } from '../src/helpers/logger'
+import { MediaContextProvider } from '../src/shared/components/Media'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -92,19 +93,21 @@ export default class MyApp extends App {
       <Container>
         <GlobalStyle />
         <Provider store={this.store}>
-          <GrommetWrapper>
-            <Head host={pageProps.host} />
-            <ZooHeaderWrapper />
-            <ProjectHeader />
-            <Box background={{
-              dark: 'dark-1',
-              light: 'light-1'
-            }}>
-              <Component {...pageProps} />
-            </Box>
-            <ZooFooter />
-            <AuthModal />
-          </GrommetWrapper>
+          <MediaContextProvider>
+            <GrommetWrapper>
+              <Head host={pageProps.host} />
+              <ZooHeaderWrapper />
+              <ProjectHeader />
+              <Box background={{
+                dark: 'dark-1',
+                light: 'light-1'
+              }}>
+                <Component {...pageProps} />
+              </Box>
+              <ZooFooter />
+              <AuthModal />
+            </GrommetWrapper>
+          </MediaContextProvider>
         </Provider>
       </Container>
     )
@@ -119,7 +122,11 @@ function getSlugFromUrl (relativeUrl) {
 }
 
 function generateHostUrl (context) {
-  const { connection, headers } = context.req
-  const protocol = connection.encrypted ? 'https' : 'http'
-  return `${protocol}://${headers.host}`
+  if (context.req) {
+    const { connection, headers } = context.req
+    const protocol = connection.encrypted ? 'https' : 'http'
+    return `${protocol}://${headers.host}`
+  } else {
+    return location.origin
+  }
 }

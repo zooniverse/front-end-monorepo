@@ -1,17 +1,20 @@
-import _ from 'lodash'
-
 // Filters a workflow's tasks object to an object of `taskId: [feedback rules]` pairs
-function getFeedbackFromTasks (tasks) {
-  return _.reduce(tasks, (result, task, taskId) => {
-    if (_.get(task, 'feedback.enabled', false) &&
-      _.get(task, 'feedback.rules', []).length > 0) {
-      return _.assign({}, result, {
-        [taskId]: task.feedback.rules
-      })
-    } else {
-      return result
+function getFeedbackFromTasks (tasks = {}) {
+  const result = {}
+  Object.entries(tasks).forEach(function getTaskRules ([taskKey, task]) {
+    const defaultFeedback = { enabled: false, rules: []}
+    const { feedback } = task
+    const { enabled, rules } = feedback || defaultFeedback
+    const taskHasFeedback =
+      enabled &&
+      rules &&
+      rules.length > 0
+
+    if (taskHasFeedback) {
+      result[taskKey] = task.feedback.rules
     }
-  }, {})
+  })
+  return result
 }
 
 export default getFeedbackFromTasks

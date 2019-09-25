@@ -17,8 +17,8 @@ import getFeedbackFromTasks from './get-feedback-from-tasks'
 // that rule.
 
 function generateRules (subject, workflow) {
-  const subjectRules = metadataToRules(subject.metadata)
-  const workflowRules = getFeedbackFromTasks(workflow.tasks)
+  const subjectRules = subject ? metadataToRules(subject.metadata) : {}
+  const workflowRules = workflow ? getFeedbackFromTasks(workflow.tasks) : {}
   const canonicalRules = {}
 
   _.forEach(workflowRules, (rules, taskId) => {

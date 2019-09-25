@@ -9,11 +9,11 @@ describe('Component > SubjectThumbnail', function () {
   let wrapper
   const href = '/projects/test/project/talk'
 
-  function mockSubject(id) {
+  function mockSubject (id) {
     return {
       id,
       locations: [
-        {'image/jpeg': `https://www.zooniverse.org/mock-subjects/file-${id}.jpg`}
+        { 'image/jpeg': `https://www.zooniverse.org/mock-subjects/file-${id}.jpg` }
       ]
     }
   }
@@ -27,11 +27,11 @@ describe('Component > SubjectThumbnail', function () {
   })
 
   it('should render a linked thumbnail', function () {
-      const link = wrapper.find(Anchor)
-      const href = '/projects/test/project/talk/subjects/1'
-      const src = 'https://www.zooniverse.org/mock-subjects/file-1.jpg'
-      const media = link.find(Media)
-      expect(link.prop('href')).to.equal(href)
-      expect(media.prop('src')).to.equal(src)
+    const link = wrapper.find(Anchor)
+    const href = '/projects/test/project/talk/subjects/1'
+    const src = 'https://www.zooniverse.org/mock-subjects/file-1.jpg'
+    const media = link.find(Media)
+    expect(link.prop('href')).to.equal(href)
+    expect(media.prop('src')).to.equal(src)
   })
 })

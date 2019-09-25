@@ -23,11 +23,11 @@ function AboutProject ({ description, projectName }) {
 
 AboutProject.propTypes = {
   description: string,
-  projectName: string,
+  projectName: string
 }
 
 AboutProject.defaultProps = {
-  description: '_No projection information found._',
+  description: '_No projection information found._'
 }
 
 export default AboutProject

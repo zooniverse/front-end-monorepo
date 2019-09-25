@@ -9,7 +9,6 @@ const MESSAGE = 'this is a researcher message'
 const RESEARCHER = 'researcher name'
 const TALK_LINK = '/projects/owner/slug/talk'
 
-
 describe('Component > MessageFromResearcher', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<MessageFromResearcher />)
