@@ -3,7 +3,7 @@ import { object, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import YourStats from './YourStats'
-import withRequireUser from '../../../../shared/components/withRequireUser'
+import withRequireUser from '@shared/components/withRequireUser'
 
 function storeMapper (stores) {
   const { project, yourStats: { counts } } = stores.store

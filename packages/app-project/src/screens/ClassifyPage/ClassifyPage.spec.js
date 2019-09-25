@@ -6,8 +6,8 @@ import FinishedForTheDay from './components/FinishedForTheDay'
 import ThemeModeToggle from '../../components/ThemeModeToggle'
 import ProjectName from '../../components/ProjectName'
 import YourStats from './components/YourStats'
-import ConnectWithProject from '../../shared/components/ConnectWithProject'
-import ProjectStatistics from '../../shared/components/ProjectStatistics'
+import ConnectWithProject from '@shared/components/ConnectWithProject'
+import ProjectStatistics from '@shared/components/ProjectStatistics'
 
 let wrapper
 

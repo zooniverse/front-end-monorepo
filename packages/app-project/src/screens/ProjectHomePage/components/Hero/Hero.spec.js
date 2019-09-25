@@ -5,7 +5,7 @@ import { Hero } from './Hero'
 import Background from './components/Background'
 import Introduction from './components/Introduction'
 import WorkflowSelector from './components/WorkflowSelector'
-import { Media } from '../../../../shared/components/Media'
+import { Media } from '@shared/components/Media'
 
 describe('Component > Hero', function () {
   let wrapper
