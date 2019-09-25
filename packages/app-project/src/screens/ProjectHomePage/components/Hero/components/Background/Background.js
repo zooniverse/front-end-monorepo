@@ -10,9 +10,7 @@ const Img = styled.img`
 
   @media (min-width: ${props => props.breakpoint}px) {
     height: 100%;
-    object-fit: cover;
     object-position: 0 50%;
-    width: 100%;
   }
 `
 
