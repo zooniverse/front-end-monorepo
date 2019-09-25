@@ -1,4 +1,5 @@
 import { storiesOf } from '@storybook/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
@@ -42,11 +43,12 @@ function toggle () {
 })
 
 storiesOf('Project App / Screens / Classify / Subject Preview', module)
+  .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={zooTheme}>
       <SubjectPreview
         height={200}
-        isLoggedIn={true}
+        isLoggedIn={boolean('User logged in', true)}
         subject={CAT}
         slug='zooniverse/snapshot-serengeti'
         width={270}
@@ -57,7 +59,7 @@ storiesOf('Project App / Screens / Classify / Subject Preview', module)
     <Grommet theme={zooTheme}>
       <SubjectPreview
         height={200}
-        isLoggedIn={true}
+        isLoggedIn={boolean('User logged in', true)}
         subject={PORTRAIT_PAGE}
         slug='zooniverse/snapshot-serengeti'
         width={270}
@@ -68,7 +70,7 @@ storiesOf('Project App / Screens / Classify / Subject Preview', module)
     <Grommet theme={zooTheme}>
       <SubjectPreview
         height={200}
-        isLoggedIn={true}
+        isLoggedIn={boolean('User logged in', true)}
         subject={VIDEO}
         slug='zooniverse/snapshot-serengeti'
         width={270}

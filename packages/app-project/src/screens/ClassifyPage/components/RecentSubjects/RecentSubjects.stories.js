@@ -1,4 +1,5 @@
 import { storiesOf } from '@storybook/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
@@ -85,9 +86,11 @@ RECENTS.forEach(recent => {
 })
 
 storiesOf('Project App / Screens / Classify / Recent Subjects', module)
+  .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjectsContainer
+        isLoggedIn={boolean('User logged in', true)}
         recents={RECENTS}
         projectName='Snapshot Serengeti'
         slug='zooniverse/snapshot-serengeti'
@@ -97,6 +100,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
   .add('transcription', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjectsContainer
+        isLoggedIn={boolean('User logged in', true)}
         recents={PORTRAIT_SUBJECTS}
         projectName='Notes from Nature'
         slug='zooniverse/notes-from-nature'
@@ -106,6 +110,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
   .add('video', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjectsContainer
+        isLoggedIn={boolean('User logged in', true)}
         recents={VIDEO_SUBJECTS}
         projectName='NestCams'
         slug='spotteron/nestcams'
@@ -115,6 +120,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
   .add('one subject', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjectsContainer
+        isLoggedIn={boolean('User logged in', true)}
         recents={RECENTS.slice(0,1)}
         projectName='NestCams'
         slug='spotteron/nestcams'
