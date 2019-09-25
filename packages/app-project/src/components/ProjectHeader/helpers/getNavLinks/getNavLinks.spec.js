@@ -8,8 +8,7 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(false, BASE_URL)
       expect(links).to.deep.equal([
         {
-          as: `${BASE_URL}/about`,
-          href: '/projects/[owner]/[project]/about',
+          href: `${BASE_URL}/about`,
           text: 'About'
         },
         {
@@ -18,13 +17,11 @@ describe('Helper > getNavLinks', function () {
           text: 'Classify'
         },
         {
-          as: `${BASE_URL}/talk`,
-          href: '/projects/[owner]/[project]/talk',
+          href: `${BASE_URL}/talk`,
           text: 'Talk'
         },
         {
-          as: `${BASE_URL}/collections`,
-          href: '/projects/[owner]/[project]/collections',
+          href: `${BASE_URL}/collections`,
           text: 'Collect'
         }
       ])
@@ -36,8 +33,7 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(true, BASE_URL)
       expect(links).to.deep.equal([
         {
-          as: `${BASE_URL}/about`,
-          href: '/projects/[owner]/[project]/about',
+          href: `${BASE_URL}/about`,
           text: 'About'
         },
         {
@@ -46,18 +42,15 @@ describe('Helper > getNavLinks', function () {
           text: 'Classify'
         },
         {
-          as: `${BASE_URL}/talk`,
-          href: '/projects/[owner]/[project]/talk',
+          href: `${BASE_URL}/talk`,
           text: 'Talk'
         },
         {
-          as: `${BASE_URL}/collections`,
-          href: '/projects/[owner]/[project]/collections',
+          href: `${BASE_URL}/collections`,
           text: 'Collect'
         },
         {
-          as: `${BASE_URL}/recents`,
-          href: '/projects/[owner]/[project]/recents',
+          href: `${BASE_URL}/recents`,
           text: 'Recents'
         }
       ])

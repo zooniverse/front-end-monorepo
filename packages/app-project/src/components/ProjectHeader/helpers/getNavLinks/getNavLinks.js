@@ -3,8 +3,7 @@ import counterpart from 'counterpart'
 function getNavLinks (isLoggedIn, baseUrl) {
   const links = [
     {
-      as: `${baseUrl}/about`,
-      href: `/projects/[owner]/[project]/about`,
+      href: `${baseUrl}/about`,
       text: counterpart('ProjectHeader.nav.about')
     },
     {
@@ -13,21 +12,18 @@ function getNavLinks (isLoggedIn, baseUrl) {
       text: counterpart('ProjectHeader.nav.classify')
     },
     {
-      as: `${baseUrl}/talk`,
-      href: `/projects/[owner]/[project]/talk`,
+      href: `${baseUrl}/talk`,
       text: counterpart('ProjectHeader.nav.talk')
     },
     {
-      as: `${baseUrl}/collections`,
-      href: `/projects/[owner]/[project]/collections`,
+      href: `${baseUrl}/collections`,
       text: counterpart('ProjectHeader.nav.collect')
     }
   ]
 
   if (isLoggedIn) {
     links.push({
-      as: `${baseUrl}/recents`,
-      href: `/projects/[owner]/[project]/recents`,
+      href: `${baseUrl}/recents`,
       text: counterpart('ProjectHeader.nav.recents')
     })
   }

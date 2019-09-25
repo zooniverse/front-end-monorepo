@@ -26,24 +26,25 @@ const StyledAnchor = styled(Anchor)`
 `
 
 function NavLink (props) {
-  const { className, link, router } = props
+  const { link, router } = props
   const { as, href, text } = link
+  const isCurrentPage = router.pathname === href
+  const isPFELink = !as
 
-  const anchor = (
-    <StyledAnchor
-      className={className}
-      label={(
-        <StyledSpacedText children={text} color='white' weight='bold' />
-      )}
-    />
-  )
+  const label = <StyledSpacedText children={text} color='white' weight='bold' />
 
-  if (router.pathname === href) {
-    return anchor
+  if (isCurrentPage) {
+    return (
+      <StyledAnchor label={label} />
+    )
+  } else if (isPFELink) {
+    return (
+      <StyledAnchor label={label} href={addQueryParams(href, router)} />
+    )
   } else {
     return (
       <Link as={addQueryParams(as, router)} href={href} passHref>
-        {anchor}
+        <StyledAnchor label={label} />
       </Link>
     )
   }
