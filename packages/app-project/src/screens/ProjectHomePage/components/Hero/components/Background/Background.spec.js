@@ -4,11 +4,20 @@ import React from 'react'
 import { Background } from './Background'
 
 const BACKGROUND_SRC = '/foo/bar/baz.jpg'
+const THEME = {
+  global: {
+    breakpoints: {
+      small: {
+        value: 768
+      }
+    }
+  }
 
+}
 describe('Component > Background', function () {
   let wrapper
   before(function () {
-    wrapper = render(<Background backgroundSrc={BACKGROUND_SRC} />)
+    wrapper = render(<Background backgroundSrc={BACKGROUND_SRC} theme={THEME} />)
   })
 
   it('should render without crashing', function () {

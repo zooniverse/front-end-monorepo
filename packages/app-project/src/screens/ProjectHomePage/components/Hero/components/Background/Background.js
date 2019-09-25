@@ -1,39 +1,45 @@
-import { withResponsiveContext } from '@zooniverse/react-components'
-import { string } from 'prop-types'
+import { number, shape, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 const Img = styled.img`
-  height: 100%;
-  object-fit: cover;
-  object-position: 0 50%;
-  width: 100%;
-
-  ${props => props.screenSize === 'small' && `
-    height: auto;
+    height: 230px;
     min-height: inherit;
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
-  `}
+
+  @media (min-width: ${props => props.breakpoint}px) {
+    height: 100%;
+    object-position: 0 50%;
+  }
 `
 
 function Background (props) {
-  const { className, backgroundSrc, screenSize } = props
+  const { backgroundSrc, theme } = props
+  const breakpoint = theme.global.breakpoints.small.value
   return (
     <Img
       alt=''
-      className={className}
+      breakpoint={breakpoint}
       src={backgroundSrc}
-      screenSize={screenSize}
     />
   )
 }
 
 Background.propTypes = {
-  backgroundSrc: string
+  backgroundSrc: string.isRequired,
+  theme: shape({
+    global: shape({
+      breakpoints: shape({
+        small: shape({
+          value: number.isRequired
+        }).isRequired
+      }).isRequired
+    }).isRequired
+  }).isRequired
 }
 
-export default withResponsiveContext(Background)
+export default withTheme(Background)
 export {
   Background
 }
