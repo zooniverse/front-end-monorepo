@@ -18,7 +18,6 @@ describe('Component > WorkflowSelectButton', function () {
 
   before(function () {
     wrapper = render(<WorkflowSelectButton router={ROUTER} workflow={WORKFLOW} />)
-    console.info(wrapper.html())
   })
 
   it('should render without crashing', function () {
