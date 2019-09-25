@@ -31,6 +31,12 @@ module.exports = {
       })
     ])
 
+    const newAliases = {
+      '@helpers': path.resolve(__dirname, 'src/helpers/'),
+      '@shared': path.resolve(__dirname, 'src/shared')
+    }
+    const alias = Object.assign({}, config.resolve.alias, newAliases)
+    config.resolve = Object.assign({}, config.resolve, { alias } )
     return config
   }
 }
