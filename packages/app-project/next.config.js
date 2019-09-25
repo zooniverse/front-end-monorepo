@@ -11,6 +11,7 @@ const path = require('path')
 const talkHosts = require('./config/talkHosts')
 
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
+const webpackConfig = require('./webpack.config')
 
 console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
@@ -31,10 +32,7 @@ module.exports = {
       })
     ])
 
-    const newAliases = {
-      '@helpers': path.resolve(__dirname, 'src/helpers/'),
-      '@shared': path.resolve(__dirname, 'src/shared')
-    }
+    const newAliases = webpackConfig.resolve.alias
     const alias = Object.assign({}, config.resolve.alias, newAliases)
     config.resolve = Object.assign({}, config.resolve, { alias } )
     return config

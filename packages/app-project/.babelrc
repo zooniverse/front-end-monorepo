@@ -19,6 +19,7 @@
     "test": {
       "plugins": [
         "babel-plugin-styled-components",
+        "babel-plugin-webpack-alias"
       ],
       "presets": [
         [
