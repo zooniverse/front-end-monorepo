@@ -1,31 +1,38 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { withRouter } from 'next/router'
 
 import ProjectStatistics from './ProjectStatistics'
+import addQueryParams from '../../../helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project } = stores.store
   return {
-    classifications: project.classifications_count,
-    completedSubjects: project.retired_subjects_count,
-    projectName: project.display_name,
-    projectSlug: project.slug,
-    subjects: project.subjects_count,
-    volunteers: project.classifiers_count
+    classifications: project['classifications_count'],
+    completedSubjects: project['retired_subjects_count'],
+    projectName: project['display_name'],
+    subjects: project['subjects_count'],
+    volunteers: project['classifiers_count']
   }
 }
 
-@inject(storeMapper)
-@observer
 class ProjectStatisticsContainer extends Component {
+  getLinkProps () {
+    const { router } = this.props
+    const { owner, project } = router.query
+    return {
+      as: addQueryParams(`/projects/${owner}/${project}/stats`, router),
+      href: '/projects/[owner]/[project]/stats'
+    }
+  }
+
   render () {
     const {
       className,
       classifications,
       completedSubjects,
       projectName,
-      projectSlug,
       subjects,
       volunteers
     } = this.props
@@ -35,8 +42,8 @@ class ProjectStatisticsContainer extends Component {
         className={className}
         classifications={classifications}
         completedSubjects={completedSubjects}
+        linkProps={this.getLinkProps()}
         projectName={projectName}
-        projectSlug={projectSlug}
         subjects={subjects}
         volunteers={volunteers}
       />
@@ -58,4 +65,12 @@ ProjectStatisticsContainer.defaultProps = {
   volunteers: 0
 }
 
-export default ProjectStatisticsContainer
+@inject(storeMapper)
+@withRouter
+@observer
+class DecoratedProjectStatisticsContainer extends ProjectStatisticsContainer {}
+
+export {
+  DecoratedProjectStatisticsContainer as default,
+  ProjectStatisticsContainer
+}

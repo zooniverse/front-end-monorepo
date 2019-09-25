@@ -4,29 +4,31 @@ import { shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import Introduction from './Introduction'
+import addQueryParams from '../../../../../../helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project } = stores.store
   return {
     description: project.description,
-    title: project.display_name
+    title: project['display_name']
   }
 }
 
 class IntroductionContainer extends Component {
-  getLink () {
-    const { owner, project } = this.props.router.query
+  getLinkProps () {
+    const { router } = this.props
+    const { owner, project } = router.query
     return {
-      as: `/projects/${owner}/${project}/about`,
-      href: '/about'
+      as: addQueryParams(`/projects/${owner}/${project}/about`, router),
+      href: '/projects/[owner]/[project]/about'
     }
   }
 
   render () {
     const { description, title } = this.props
-    const link = this.getLink()
+    const linkProps = this.getLinkProps()
     return (
-      <Introduction description={description} link={link} title={title} />
+      <Introduction description={description} linkProps={linkProps} title={title} />
     )
   }
 }

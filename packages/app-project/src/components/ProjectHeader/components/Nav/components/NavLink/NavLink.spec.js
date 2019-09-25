@@ -1,20 +1,29 @@
-import { shallow } from 'enzyme'
+import { render } from 'enzyme'
 import React from 'react'
 
 import { NavLink } from './NavLink'
 
-let wrapper
-const TEXT = 'Foobar'
-const OWNER = 'foo'
-const PROJECT = 'bar'
-const HREF = `http://www.foobar.com/projects/${OWNER}/${PROJECT}`
-const ROUTER = {
-  asPath: `/projects/${OWNER}/${PROJECT}`
+const ROUTER_ON_CURRENT_PAGE = {
+  asPath: '/projects/foo/bar/baz',
+  pathname: '/projects/[project]/[owner]/baz'
+}
+
+const ROUTER_ON_OTHER_PAGE = {
+  asPath: '/projects/foo/bar/bing',
+  pathname: '/projects/[project]/[owner]/bing'
+}
+
+const LINK = {
+  as: '/projects/foo/bar/baz',
+  href: '/projects/[project]/[owner]/baz',
+  text: 'Foobar'
 }
 
 describe('Component > NavLink', function () {
-  before(function () {
-    wrapper = shallow(<NavLink href={HREF} router={ROUTER} text={TEXT} />)
+  let wrapper
+
+  beforeEach(function () {
+    wrapper = render(<NavLink router={ROUTER_ON_OTHER_PAGE} link={LINK} />)
   })
 
   it('should render without crashing', function () {
@@ -22,10 +31,19 @@ describe('Component > NavLink', function () {
   })
 
   it('should have the correct text', function () {
-    expect(wrapper.text()).to.equal(TEXT)
+    expect(wrapper.text()).to.equal(LINK.text)
   })
 
-  it('should have the correct `href`', function () {
-    expect(wrapper.prop('href')).to.equal(HREF)
+  describe('when on the current page', function () {
+    it(`should have an href`, function () {
+      expect(wrapper.attr('href')).to.equal(LINK.as)
+    })
+  })
+
+  describe('when not on the current page', function () {
+    it(`should not have an href`, function () {
+      wrapper = render(<NavLink router={ROUTER_ON_CURRENT_PAGE} link={LINK} />)
+      expect(wrapper.attr('href')).to.equal(undefined)
+    })
   })
 })

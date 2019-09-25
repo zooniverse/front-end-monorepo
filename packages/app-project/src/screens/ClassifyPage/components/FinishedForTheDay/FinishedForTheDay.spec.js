@@ -6,15 +6,21 @@ import { FinishedForTheDay } from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
 import RelatedProjects from './components/RelatedProjects'
 
-const projectName = 'Foobar'
-const imageSrc = 'foobar.jpg'
-const slug = 'foo/bar'
-
-let wrapper
+const PROJECT_NAME = 'Foobar'
+const IMAGE_SRC = 'foobar.jpg'
+const LINK_PROPS = {
+  as: '/projects/foo/bar/stats',
+  href: '/projects/[owner]/[project]/stats'
+}
 
 describe('Component > FinishedForTheDay', function () {
+  let wrapper
+
   before(function () {
-    wrapper = shallow(<FinishedForTheDay projectName={projectName} />)
+    wrapper = shallow(<FinishedForTheDay
+      linkProps={LINK_PROPS}
+      projectName={PROJECT_NAME}
+    />)
   })
 
   it('should render without crashing', function () {
@@ -36,26 +42,29 @@ describe('Component > FinishedForTheDay', function () {
     expect(wrapper.find(RelatedProjects)).to.have.lengthOf(1)
   })
 
-  it('should not contain a `ProjectImage` if there\'s no `imgSrc` prop', function () {
-    expect(wrapper.find(ProjectImage)).to.have.lengthOf(0)
-  })
+  describe('project image', function () {
+    it('should not contain a `ProjectImage` if there\'s no `imgSrc` prop', function () {
+      expect(wrapper.find(ProjectImage)).to.have.lengthOf(0)
+    })
 
-  it('should contain a `ProjectImage` if an `imageSrc` prop is present', function () {
-    const wrapper = shallow(<FinishedForTheDay projectName={projectName} imageSrc={imageSrc} />)
-    const projectImageWrapper = wrapper.find(ProjectImage)
-    expect(projectImageWrapper).to.have.lengthOf(1)
-    expect(projectImageWrapper.prop('imageSrc')).to.equal(imageSrc)
+    it('should contain a `ProjectImage` if an `imageSrc` prop is present', function () {
+      const wrapper = shallow(<FinishedForTheDay
+        imageSrc={IMAGE_SRC}
+        linkProps={LINK_PROPS}
+        projectName={PROJECT_NAME}
+      />)
+      const projectImageWrapper = wrapper.find(ProjectImage)
+      expect(projectImageWrapper).to.have.lengthOf(1)
+      expect(projectImageWrapper.prop('imageSrc')).to.equal(IMAGE_SRC)
+    })
   })
 
   describe('stats link', function () {
-    before(function () {
-      wrapper = shallow(<FinishedForTheDay projectName={projectName} slug={slug} />)
-    })
-
-    it('should render the link', function () {
+    it('should render a link to the project stats page', function () {
       const link = wrapper.find('Link')
       expect(link).to.have.lengthOf(1)
-      expect(link.props().href).to.equal(`/projects/${slug}/stats`)
+      expect(link.prop('as')).to.equal(LINK_PROPS.as)
+      expect(link.prop('href')).to.equal(LINK_PROPS.href)
     })
   })
 })

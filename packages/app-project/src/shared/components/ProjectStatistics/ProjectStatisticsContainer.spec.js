@@ -2,23 +2,29 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import ProjectStatistics from './ProjectStatistics'
-import ProjectStatisticsContainer from './ProjectStatisticsContainer'
+import { ProjectStatisticsContainer } from './ProjectStatisticsContainer'
 
 let wrapper
 let projectStatisticsWrapper
 
 const CLASSIFICATIONS = 1
-const COMPLETEDSUBJECTS = 2
-const SLUG = 'foo/bar'
+const COMPLETED_SUBJECTS = 2
+const ROUTER = {
+  asPath: '/projects/foo/bar',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
+}
 const SUBJECTS = 3
 const VOLUNTEERS = 4
 
-describe('Component > CompletionBarContainer', function () {
+describe('Component > ProjectStatisticsContainer', function () {
   before(function () {
-    wrapper = shallow(<ProjectStatisticsContainer.wrappedComponent
+    wrapper = shallow(<ProjectStatisticsContainer
       classifications={CLASSIFICATIONS}
-      completedSubjects={COMPLETEDSUBJECTS}
-      projectSlug={SLUG}
+      completedSubjects={COMPLETED_SUBJECTS}
+      router={ROUTER}
       subjects={SUBJECTS}
       volunteers={VOLUNTEERS}
     />)
@@ -38,11 +44,14 @@ describe('Component > CompletionBarContainer', function () {
   })
 
   it('should pass through a `completedSubjects` prop', function () {
-    expect(projectStatisticsWrapper.prop('completedSubjects')).to.equal(COMPLETEDSUBJECTS)
+    expect(projectStatisticsWrapper.prop('completedSubjects')).to.equal(COMPLETED_SUBJECTS)
   })
 
-  it('should pass through a `projectSlug` prop', function () {
-    expect(projectStatisticsWrapper.prop('projectSlug')).to.equal(SLUG)
+  it('should pass through a `linkProps` prop', function () {
+    expect(projectStatisticsWrapper.prop('linkProps')).to.deep.equal({
+      as: `/projects/foo/bar/stats`,
+      href: '/projects/[owner]/[project]/stats'
+    })
   })
 
   it('should pass through a `subjects` prop', function () {
