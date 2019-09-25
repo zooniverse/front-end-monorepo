@@ -34,7 +34,7 @@ describe('Component > NavLink', function () {
     expect(wrapper.text()).to.equal(LINK.text)
   })
 
-  describe('when on the current page', function () {
+  describe('when not on the current page', function () {
     it(`should have an href`, function () {
       expect(wrapper.attr('href')).to.equal(LINK.as)
     })
