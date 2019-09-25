@@ -9,8 +9,7 @@ import RelatedProjects from './components/RelatedProjects'
 const PROJECT_NAME = 'Foobar'
 const IMAGE_SRC = 'foobar.jpg'
 const LINK_PROPS = {
-  as: '/projects/foo/bar/stats',
-  href: '/projects/[owner]/[project]/stats'
+  href: '/projects/foo/bar/stats',
 }
 
 describe('Component > FinishedForTheDay', function () {
@@ -61,9 +60,8 @@ describe('Component > FinishedForTheDay', function () {
 
   describe('stats link', function () {
     it('should render a link to the project stats page', function () {
-      const link = wrapper.find('Link')
+      const link = wrapper.find('[type="button"]')
       expect(link).to.have.lengthOf(1)
-      expect(link.prop('as')).to.equal(LINK_PROPS.as)
       expect(link.prop('href')).to.equal(LINK_PROPS.href)
     })
   })

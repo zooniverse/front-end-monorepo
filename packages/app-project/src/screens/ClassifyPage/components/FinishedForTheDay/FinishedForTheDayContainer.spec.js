@@ -39,8 +39,7 @@ describe('Component > FinishedForTheDayContainer', function () {
     expect(finishedForTheDayWrapper.prop('imageSrc')).to.equal(IMAGE_SRC)
     expect(finishedForTheDayWrapper.prop('projectName')).to.equal(PROJECT_NAME)
     expect(finishedForTheDayWrapper.prop('linkProps')).to.deep.equal({
-      as: '/projects/foo/bar/stats',
-      href: '/projects/[owner]/[project]/stats'
+      href: '/projects/foo/bar/stats',
     })
   })
 })

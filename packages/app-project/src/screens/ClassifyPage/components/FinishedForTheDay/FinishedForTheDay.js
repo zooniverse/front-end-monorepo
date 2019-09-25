@@ -55,17 +55,16 @@ function FinishedForTheDay (props) {
           </Paragraph>
 
           <StyledBox direction='row' wrap>
-            <Link {...linkProps} passHref>
-              <StyledButton
-                color='brand'
-                label={(
-                  <Text size='medium'>
-                    {counterpart('FinishedForTheDay.buttons.stats')}
-                  </Text>
-                )}
-                primary
-              />
-            </Link>
+            <StyledButton
+              color='brand'
+              href={linkProps.href}
+              label={(
+                <Text size='medium'>
+                  {counterpart('FinishedForTheDay.buttons.stats')}
+                </Text>
+              )}
+              primary
+            />
           </StyledBox>
 
         </ContentBox>

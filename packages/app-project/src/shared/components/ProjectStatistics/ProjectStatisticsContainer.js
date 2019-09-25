@@ -22,8 +22,7 @@ class ProjectStatisticsContainer extends Component {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      as: addQueryParams(`/projects/${owner}/${project}/stats`, router),
-      href: '/projects/[owner]/[project]/stats'
+      href: addQueryParams(`/projects/${owner}/${project}/stats`, router),
     }
   }
 
