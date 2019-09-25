@@ -81,7 +81,7 @@ function toggle () {
   this.favorite = !this.favorite
 }
 RECENTS.forEach(recent => {
-  recent.toggleFavorite = toggle.bind(recent)
+  recent.toggleFavourite = toggle.bind(recent)
 })
 
 storiesOf('Project App / Screens / Classify / Recent Subjects', module)
