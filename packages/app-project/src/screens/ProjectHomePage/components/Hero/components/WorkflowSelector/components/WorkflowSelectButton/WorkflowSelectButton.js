@@ -8,17 +8,16 @@ import React from 'react'
 import theme from './theme'
 
 function WorkflowSelectButton (props) {
-  const { router, workflow } = props
+  const { router, workflow, ...rest } = props
 
   const as = workflow.default
     ? `${router.asPath}/classify`
     : `${router.asPath}/classify/workflow/${workflow.id}`
-
   const href = '/Classify'
 
   return (
     <Link as={as} href={href} passHref>
-      <Button label={workflow.displayName} />
+      <Button label={workflow.displayName} {...rest} />
     </Link>
   )
 }
@@ -28,9 +27,9 @@ WorkflowSelectButton.propTypes = {
     asPath: string.isRequired
   }),
   workflow: shape({
-    default: bool.isRequired,
+    default: bool,
     displayName: string.isRequired,
-    id: string.isRequired
+    id: string
   }).isRequired
 }
 

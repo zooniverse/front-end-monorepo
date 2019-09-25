@@ -37,18 +37,25 @@ function WorkflowSelector (props) {
 
       {(workflows.loading === asyncStates.success) && (
         <Box margin={{ top: 'small' }}>
-          {workflows.data.map(workflow =>
+          {(workflows.data.length > 0) && workflows.data.map(workflow =>
             <WorkflowSelectButton key={workflow.id} workflow={workflow} />
+          )}
+          {(workflows.data.length === 0) && (
+            <Box background='accent-4' pad='xsmall'>
+              <Text size='small' textAlign='center'>
+                {counterpart('WorkflowSelector.noWorkflows')}
+              </Text>
+            </Box>
           )}
         </Box>
       )}
 
-      {(!asyncStates.values.includes(workflows.loading)) && (
+      {(![asyncStates.success, asyncStates.error].includes(workflows.loading)) && (
         <Box align='center' justify='center' margin={{ top: 'small' }}>
           <Box height='xxsmall' width='xxsmall'>
             <Bars
               fill={loaderColor}
-              height='100%'
+              height='80%'
               viewBox='0 0 135 140'
               width='100%'
             />
