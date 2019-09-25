@@ -1,3 +1,5 @@
+_Please request review from `@zooniverse/frontend` team. If PR is related to design, please request review from `@beckyrother` in addition._ 
+
 Package:
 
 Closes # .
@@ -11,11 +13,22 @@ Describe your changes:
 
 - [ ] Are the tests passing locally and on Travis?
 - [ ] Is the documentation up to date?
-- [ ] Is the changelog updated?
 
 ## Apps
 
 - [ ] Does it work in all major browsers: Firefox, Chrome, Edge, Safari?
 - [ ] Does it work on mobile?
-- [ ] Can you `rm -rf node_modules/ && yarn bootstrap` and app works as expected?
-- [ ] Can you run a [production build](https://github.com/zooniverse/front-end-monorepo#getting-started) of the app?
+- [ ] Can you `yarn panic && yarn bootstrap` and app works as expected?
+
+## Publishing
+
+- [ ] Is the changelog updated?
+- [ ] Are the dependencies updated for apps and libraries that are using the newly published library?
+
+## Post-merging
+
+- [ ] Did the app deploy to https://frontend.preview.zooniverse.org/projects/:project-name/:owner or https://frontend.preview.zooniverse.org/about?
+- [ ] Is the new feature working or bug now fixed?
+- [ ] Is the design working across browsers (Firefox, Chrome, Edge, Safari) and mobile?
+  - [ ] Is this approved by our designer?
+- [ ] Is this ready for production deployment?
