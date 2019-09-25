@@ -5,8 +5,15 @@ const { colors } = zooTheme.global
 
 const optionsMock = {
   options: {
-    axis: {
-      label: 'Letters'
+    axes: {
+      x: {
+        label: 'Letters',
+        margin: 60,
+      },
+      y: {
+        label: 'Frequency',
+        margin: 40
+      }
     }
   }
 }

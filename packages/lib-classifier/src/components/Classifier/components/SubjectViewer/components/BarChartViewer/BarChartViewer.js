@@ -3,7 +3,7 @@ import React from 'react'
 import { withTheme } from 'styled-components'
 import { Bar } from '@vx/shape'
 import { Group } from '@vx/group'
-import { AxisBottom } from '@vx/axis'
+import { AxisBottom, AxisLeft } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
 import { withParentSize } from '@vx/responsive'
 import Chart from '../SVGComponents/Chart'
@@ -12,8 +12,11 @@ import Background from '../SVGComponents/Background'
 const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
   const {
     backgroundFill,
+    barStyles: {
+      padding
+    },
     data,
-    options: { axis },
+    options: { axes },
     parentHeight,
     parentWidth,
     theme: { dark, global: { colors, font } }
@@ -22,11 +25,13 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
-  const yMax = parentHeight * 0.85
+  const xMax = parentWidth - axes.x.margin
+  const yMax = parentHeight - axes.y.margin
+
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
-    rangeRound: [0, parentWidth],
-    padding: 0.5
+    rangeRound: [0, xMax],
+    padding
   })
   const yScale = scaleLinear({
     domain: [0, Math.max(...data.map(datum => datum.value))],
@@ -37,15 +42,15 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
     backgroundColor = (dark) ? backgroundFill.dark : backgroundFill.light
   }
 
-  if (axis.color && axis.color.dark && axis.color.light) {
-    axisColor = (dark) ? axis.color.dark : axis.color.light
+  if (axes.color && axes.color.dark && axes.color.light) {
+    axisColor = (dark) ? axes.color.dark : axes.color.light
   } 
 
   const ticks = xScale.domain()
   return (
     <Chart height={parentHeight} ref={ref} width={parentWidth}>
       <Background fill={backgroundColor} />
-      <Group width={parentWidth}>
+      <Group left={axes.x.margin}>
         {data.map((datum, index) => {
           const { color, label, value } = datum
           const fill = color || colors.brand
@@ -66,8 +71,33 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
             />
           )
         })}
+      </Group>
+      <Group left={axes.x.margin}>
+        <AxisLeft
+          label={axes.y.label}
+          labelProps={{
+            fill: axisColor,
+            textAnchor: 'middle',
+            fontSize: 12,
+            fontFamily: font.family
+          }}
+          left={0}
+          scale={yScale}
+          stroke={axisColor}
+          ticks={ticks.length}
+          tickStroke={axisColor}
+          tickLabelProps={(value, index) => ({
+            fill: axisColor,
+            textAnchor: 'end',
+            fontSize: 10,
+            fontFamily: font.family,
+            dx: '-0.25em',
+            dy: '0.25em'
+          })}
+          top={0}
+        />
         <AxisBottom
-          label={axis.label}
+          label={axes.x.label}
           labelProps={{
             fill: axisColor,
             textAnchor: 'middle',
@@ -94,15 +124,26 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
 
 BarChartViewer.defaultProps = {
   backgroundFill: {},
+  barStyles: {
+    padding: 0.25
+  },
   options: {
-    axis: {
-      label: ''
+    axes: {
+      x: {
+        label: '',
+        margin: 40 // how much this should be depends on the data, but let's have a sensible default
+      },
+      y: {
+        label: '',
+        margin: 40 // how much this should be depends on the data, but let's have a sensible default
+      }
     }
   },
   theme: {
     dark: false,
     global: {
       colors: {
+        brand: '',
         text: {}
       },
       font: {
@@ -116,6 +157,9 @@ BarChartViewer.propTypes = {
   backgroundFill: PropTypes.shape({
     dark: PropTypes.string,
     light: PropTypes.string
+  }),
+  barStyles: PropTypes.shape({
+    padding: PropTypes.number
   }),
   data: PropTypes.arrayOf(PropTypes.shape({
     color: PropTypes.string,
