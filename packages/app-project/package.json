@@ -62,6 +62,7 @@
     "@storybook/addon-notes": "~5.2.1",
     "@storybook/addon-viewport": "~5.2.1",
     "@storybook/react": "~5.2.1",
+    "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.10.0",
