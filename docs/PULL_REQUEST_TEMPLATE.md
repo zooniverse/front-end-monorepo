@@ -29,6 +29,7 @@ Describe your changes:
 
 - [ ] Did the app deploy to https://frontend.preview.zooniverse.org/projects/:project-name/:owner or https://frontend.preview.zooniverse.org/about?
 - [ ] Is the new feature working or bug now fixed?
+  - [ ] Is there a Talk or blog post written to announce the new feature(s)?
 - [ ] Is the design working across browsers (Firefox, Chrome, Edge, Safari) and mobile?
   - [ ] Is this approved by our designer?
 - [ ] Is this ready for production deployment?
