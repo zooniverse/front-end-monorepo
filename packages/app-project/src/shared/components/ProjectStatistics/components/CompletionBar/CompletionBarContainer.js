@@ -10,16 +10,11 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class CompletionBarContainer extends Component {
   render () {
-    const { className, completeness } = this.props
+    const { completeness } = this.props
     return (
-      <CompletionBar
-        className={className}
-        completeness={completeness}
-      />
+      <CompletionBar completeness={completeness} />
     )
   }
 }
@@ -32,4 +27,11 @@ CompletionBarContainer.defaultProps = {
   completeness: 0
 }
 
-export default CompletionBarContainer
+@inject(storeMapper)
+@observer
+class DecoratedCompletionBarContainer extends CompletionBarContainer {}
+
+export {
+  DecoratedCompletionBarContainer as default,
+  CompletionBarContainer
+}

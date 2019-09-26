@@ -72,7 +72,8 @@ class CompletionBar extends Component {
         className={this.props.className}
         height='40px'
         ref={this.svgRef}
-        width='100%'>
+        width='100%'
+      >
         <rect
           fill={theme.global.colors['accent-2']}
           height='100%'

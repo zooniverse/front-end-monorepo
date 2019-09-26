@@ -1,17 +1,23 @@
-import { shallow } from 'enzyme'
+import { shallow, render } from 'enzyme'
 import React from 'react'
 
 import { JoinInButtonContainer } from './JoinInButtonContainer'
 import JoinInButton from './JoinInButton'
 
-let wrapper
-let componentWrapper
-
-const SLUG = 'owner/slug'
+const ROUTER = {
+  asPath: '/projects/foo/bar',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
+}
 
 describe('Component > JoinInButtonContainer', function () {
+  let wrapper
+  let componentWrapper
+
   before(function () {
-    wrapper = shallow(<JoinInButtonContainer slug={SLUG} />)
+    wrapper = shallow(<JoinInButtonContainer router={ROUTER} />)
     componentWrapper = wrapper.find(JoinInButton)
   })
 
@@ -23,7 +29,7 @@ describe('Component > JoinInButtonContainer', function () {
     expect(componentWrapper).to.have.lengthOf(1)
   })
 
-  it('should pass a valid talk href', function () {
-    expect(componentWrapper.prop('href')).to.equal(`/projects/${SLUG}/talk`)
+  it('should pass valid link props for Talk', function () {
+    expect(componentWrapper.prop('linkProps')).to.deep.equal({ href: '/projects/foo/bar/talk'})
   })
 })
