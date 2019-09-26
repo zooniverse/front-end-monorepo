@@ -4,8 +4,9 @@ import { array, bool, string } from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
+
 import ContentBox from '@shared/components/ContentBox'
-import SubjectPreview from './components/SubjectPreview'
+import SubjectPreview from '@shared/components/SubjectPreview'
 
 counterpart.registerTranslations('en', en)
 
