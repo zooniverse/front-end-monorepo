@@ -22,6 +22,7 @@ class RecentSubjectsContainer extends Component {
         isLoggedIn={isLoggedIn}
         recents={recents.slice(0, size)}
         projectName={projectName}
+        size={size}
         slug={slug}
       />
     )
