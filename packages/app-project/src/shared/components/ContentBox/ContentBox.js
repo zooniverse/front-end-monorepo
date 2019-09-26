@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import Link from 'next/link'
-import { bool, node, shape, string } from 'prop-types'
+import { bool, node, object, shape, string } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 
@@ -11,7 +11,7 @@ function ContentBox (props) {
   const {
     children,
     linkLabel,
-    linkUrl,
+    linkProps,
     theme: { dark },
     title,
     titleLevel,
@@ -52,8 +52,8 @@ function ContentBox (props) {
             <WidgetHeading children={title} level={titleLevel} />
           )}
 
-          {(linkLabel && linkUrl) && (
-            <Link href={linkUrl} passHref>
+          {(linkLabel && linkProps) && (
+            <Link {...linkProps} passHref>
               <Anchor>
                 <SpacedText>
                   {linkLabel}
@@ -73,7 +73,7 @@ function ContentBox (props) {
 ContentBox.propTypes = {
   children: node,
   linkLabel: string,
-  linkUrl: string,
+  linkProps: object,
   theme: shape({ dark: bool }),
   title: string,
   titleLevel: string

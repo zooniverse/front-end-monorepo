@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Text, Paragraph } from 'grommet'
-import { number, string } from 'prop-types'
+import { number, object, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -25,20 +25,22 @@ const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
 `
 
-function ProjectStatistics ({
-  className,
-  classifications,
-  completedSubjects,
-  projectName,
-  projectSlug,
-  subjects,
-  volunteers
-}) {
+function ProjectStatistics (props) {
+  const {
+    className,
+    classifications,
+    completedSubjects,
+    linkProps,
+    projectName,
+    subjects,
+    volunteers
+  } = props
+
   return (
     <ContentBox
       className={className}
       linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
-      linkUrl={`/projects/${projectSlug}/stats`}
+      linkProps={linkProps}
       title={counterpart('ProjectStatistics.title', { projectName })}
     >
       <MainGrid>
@@ -88,8 +90,8 @@ ProjectStatistics.propTypes = {
   className: string,
   classifications: number.isRequired,
   completedSubjects: number.isRequired,
+  linkProps: object.isRequired,
   projectName: string,
-  projectSlug: string,
   subjects: number.isRequired,
   volunteers: number.isRequired
 }

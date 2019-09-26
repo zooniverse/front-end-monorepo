@@ -23,7 +23,7 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 function Introduction (props) {
-  const { description, link, title } = props
+  const { description, linkProps, title } = props
   return (
     <Box>
       <Box margin={{ bottom: 'xsmall' }}>
@@ -34,7 +34,7 @@ function Introduction (props) {
       <StyledParagraph margin={{ bottom: 'small', top: 'none' }} size='xxlarge'>
         {description}
       </StyledParagraph>
-      <Link {...link} passHref>
+      <Link {...linkProps} passHref>
         <StyledAnchor
           gap='xsmall'
           icon={<Next color='light-5' size='12px' />}
@@ -48,7 +48,7 @@ function Introduction (props) {
 
 Introduction.propTypes = {
   description: string.isRequired,
-  link: object.isRequired,
+  linkProps: object.isRequired,
   title: string.isRequired
 }
 
