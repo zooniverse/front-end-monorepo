@@ -12,6 +12,7 @@ import { Media } from '../../../../shared/components/Media'
 const StyledContentBox = styled(ContentBox)`
   ${props => (props.screenSize !== 'small') && `
     border-color: transparent;
+    min-height: 545px;
     max-height: 763px;
   `}
 `
