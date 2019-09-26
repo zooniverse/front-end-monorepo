@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Anchor, Box } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 import { CollectionsButton, FavouritesButton, TalkLink } from './components'
-import CollectionsModal from '../../../screens/ClassifyPage/components/CollectionsModal'
+import CollectionsModal from '../CollectionsModal'
 
 import en from './locales/en'
 
