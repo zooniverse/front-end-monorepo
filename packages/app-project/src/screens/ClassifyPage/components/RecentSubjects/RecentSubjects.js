@@ -28,7 +28,8 @@ function RecentSubjects (props) {
           const subject = {
             favorite: recent.favorite,
             id: recent.subjectId,
-            locations: recent.locations
+            locations: recent.locations,
+            toggleFavourite: recent.toggleFavourite
           }
           return (
             <>
