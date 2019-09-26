@@ -26,9 +26,12 @@ const StyledAnchor = styled(Anchor)`
 function ProjectTitle (props) {
   const { router, title } = props
   const { owner, project } = router.query
-  const as = addQueryParams(`/projects/${owner}/${project}`, router)
   const href = '/projects/[owner]/[project]'
   const isCurrentPage = router.pathname === href
+
+  const linkProps = {
+    href: addQueryParams(`/projects/${owner}/${project}`, router)
+  }
 
   const anchor = (
     <StyledAnchor
@@ -47,7 +50,7 @@ function ProjectTitle (props) {
     return anchor
   } else {
     return (
-      <Link as={as} href={href} passHref>
+      <Link {...linkProps} passHref>
         {anchor}
       </Link>
     )
