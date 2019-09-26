@@ -5,9 +5,11 @@ import styled from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'
 
-import en from './locales/en'
+import en from './locales/en-US'
+import enGB from './locales/en-GB'
 
 counterpart.registerTranslations('en', en)
+counterpart.registerTranslations('en-GB', enGB)
 
 export const Favourite = styled(HeartIcon)`
   fill: ${props => props.filled ? props.theme.global.colors.statusColors.error : 'none'};
