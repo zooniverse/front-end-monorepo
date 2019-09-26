@@ -7,6 +7,7 @@ import en from './locales/en'
 
 import ContentBox from '@shared/components/ContentBox'
 import SubjectPreview from '@shared/components/SubjectPreview'
+import { Media as ResponsiveContent } from '@shared/components/Media'
 
 counterpart.registerTranslations('en', en)
 
@@ -30,14 +31,28 @@ function RecentSubjects (props) {
             locations: recent.locations
           }
           return (
-            <SubjectPreview
-              height={'200px'}
-              key={recent.subjectId}
-              isLoggedIn={isLoggedIn}
-              subject={subject}
-              slug={slug}
-              width={'100%'}
-            />
+            <>
+              <ResponsiveContent at='default'>
+                <SubjectPreview
+                  height={'40vw'}
+                  key={recent.subjectId}
+                  isLoggedIn={isLoggedIn}
+                  subject={subject}
+                  slug={slug}
+                  width={'100%'}
+                />
+              </ResponsiveContent>
+              <ResponsiveContent greaterThan='default'>
+                <SubjectPreview
+                  height={'200px'}
+                  key={recent.subjectId}
+                  isLoggedIn={isLoggedIn}
+                  subject={subject}
+                  slug={slug}
+                  width={'100%'}
+                />
+              </ResponsiveContent>
+            </>
           )
         })}
       </Grid>
