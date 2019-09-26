@@ -2,6 +2,7 @@ import counterpart from 'counterpart'
 import { Grid, Paragraph } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import en from './locales/en'
 
@@ -9,6 +10,10 @@ import ContentBox from '@shared/components/ContentBox'
 import SubjectPreview from '@shared/components/SubjectPreview'
 
 counterpart.registerTranslations('en', en)
+
+const Placeholder = styled('img')`
+  width: 100%;
+`
 
 function RecentSubjects (props) {
   const { isLoggedIn, recents, projectName, size, slug } = props
@@ -41,6 +46,9 @@ function RecentSubjects (props) {
               width={'100%'}
             />
           )
+        })}
+        {[...Array(size - recents.length)].map((placeholder, i) => {
+          return <Placeholder key={i} alt="" role='presentation' src='/static/subject-placeholder.png' />
         })}
       </Grid>
     </ContentBox>
