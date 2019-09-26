@@ -1,5 +1,6 @@
+import { withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Box, ResponsiveContext } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -20,34 +21,33 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { className, navLinks, projectHomeLink, size, title } = props
-
+  const { className, navLinks, screenSize, title } = props
   return (
     <StyledBox as='header' className={className}>
       <Background />
       <Box
         align='center'
-        direction={size === 'small' ? 'column' : 'row'}
+        direction={screenSize === 'small' ? 'column' : 'row'}
         justify='between'
         pad='medium'
       >
         <Box
           align='center'
-          direction={size === 'small' ? 'column' : 'row'}
-          gap={size === 'small' ? 'xsmall' : 'medium'}
+          direction={screenSize === 'small' ? 'column' : 'row'}
+          gap={screenSize === 'small' ? 'xsmall' : 'medium'}
         >
-          <Avatar isNarrow={size === 'small'} />
+          <Avatar isNarrow={screenSize === 'small'} />
           <Box
             align='center'
             direction='row'
-            gap={size === 'small' ? 'small' : 'medium'}
+            gap={screenSize === 'small' ? 'small' : 'medium'}
           >
-            <ProjectTitle href={projectHomeLink} title={title} />
-            <ApprovedIcon isNarrow={size === 'small'} />
+            <ProjectTitle title={title} />
+            <ApprovedIcon isNarrow={screenSize === 'small'} />
           </Box>
         </Box>
-        {size !== 'small' && <Nav navLinks={navLinks} />}
-        {size === 'small' && <DropdownNav navLinks={navLinks} />}
+        {screenSize !== 'small' && <Nav navLinks={navLinks} />}
+        {screenSize === 'small' && <DropdownNav navLinks={navLinks} />}
       </Box>
     </StyledBox>
   )
@@ -60,21 +60,9 @@ ProjectHeader.propTypes = {
     href: string,
     text: string
   })),
-  projectHomeLink: string,
-  size: string,
+  screenSize: string,
   title: string.isRequired
 }
 
-function ProjectHeaderWithSize (props) {
-  return (
-    <ResponsiveContext.Consumer>
-      {size => (
-        <ProjectHeader size={size} {...props} />
-      )}
-    </ResponsiveContext.Consumer>
-  )
-}
-
-export default ProjectHeaderWithSize
-
+export default withResponsiveContext(ProjectHeader)
 export { ProjectHeader }

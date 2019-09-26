@@ -3,19 +3,20 @@ import React from 'react'
 
 import Introduction from './Introduction'
 
-let wrapper
-
 const DESCRIPTION = 'Project Title!'
-const LINK = {
-  href: '/projects/foo/bar/about'
+const LINK_PROPS = {
+  as: '/projects/foo/bar/about',
+  href: '/projects/[owner]/[project]/about'
 }
 const TITLE = 'baz'
 
 describe('Component > Introduction', function () {
+  let wrapper
+
   before(function () {
     wrapper = render(<Introduction
       description={DESCRIPTION}
-      link={LINK}
+      linkProps={LINK_PROPS}
       title={TITLE}
     />)
   })
@@ -33,6 +34,6 @@ describe('Component > Introduction', function () {
   })
 
   it('should render a link to the about page', function () {
-    expect(wrapper.find(`a[href="${LINK.href}"]`)).to.have.lengthOf(1)
+    expect(wrapper.find(`a[href="${LINK_PROPS.as}"]`)).to.have.lengthOf(1)
   })
 })

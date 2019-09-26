@@ -1,6 +1,7 @@
 import counterpart from 'counterpart'
 import { Button } from 'grommet'
-import { string } from 'prop-types'
+import Link from 'next/link'
+import { object } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -9,15 +10,17 @@ const StyledButton = styled(Button)`
 `
 
 function JoinInButton (props) {
-  const { href } = props
+  const { linkProps } = props
   const label = counterpart('ZooniverseTalk.button')
   return (
-    <StyledButton href={href} label={label} />
+    <Link {...linkProps} passHref>
+      <StyledButton label={label} />
+    </Link>
   )
 }
 
 JoinInButton.propTypes = {
-  href: string.isRequired
+  linkProps: object
 }
 
 export default JoinInButton

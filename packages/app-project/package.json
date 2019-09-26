@@ -7,9 +7,9 @@
   "main": "index.js",
   "scripts": {
     "build": "PANOPTES_ENV=production next build",
-    "dev": "node server/server.js",
+    "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "NODE_ENV=production node server/server.js",
+    "start": "NODE_ENV=production next start",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
@@ -43,6 +43,7 @@
     "next": "~9.0.3",
     "panoptes-client": "~2.12.0",
     "path-match": "~1.2.4",
+    "query-string": "~6.8.3",
     "react": "~16.8.6",
     "react-dom": "~16.8.6",
     "styled-components": "~4.1.3",

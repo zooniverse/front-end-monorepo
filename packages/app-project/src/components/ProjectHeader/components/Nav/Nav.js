@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import Link from 'next/link'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 
@@ -16,9 +15,7 @@ function Nav (props) {
       <Box as='ul' direction='row' gap='medium'>
         {navLinks.map(navLink => (
           <Box as='li' key={navLink.href}>
-            <Link href={navLink.href} passHref>
-              <NavLink text={navLink.text} />
-            </Link>
+            <NavLink link={navLink} />
           </Box>
         ))}
       </Box>
@@ -30,7 +27,6 @@ Nav.propTypes = {
   navLinks: arrayOf(
     shape({
       href: string,
-      text: string
     })
   )
 }

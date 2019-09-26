@@ -75,18 +75,6 @@ export default class MyApp extends App {
     super.componentDidCatch(error, errorInfo)
   }
 
-  componentDidUpdate () {
-    // Next.js mutates the router, so we can't compare the previous `asPath` to
-    // the current one. Instead, we check the URL against the slug for the
-    // active project in the store.
-    const slugFromUrl = getSlugFromUrl(this.props.router.asPath)
-    const currentSlug = this.store.project.slug
-
-    if (slugFromUrl && currentSlug !== slugFromUrl) {
-      this.store.project.fetch(slugFromUrl)
-    }
-  }
-
   render () {
     const { Component, pageProps } = this.props
     return (
@@ -112,13 +100,6 @@ export default class MyApp extends App {
       </Container>
     )
   }
-}
-
-function getSlugFromUrl (relativeUrl) {
-  const fragments = new UrlParse(relativeUrl).pathname.split('/')
-  return (fragments[2] && fragments[3])
-    ? `${fragments[2]}/${fragments[3]}`
-    : undefined
 }
 
 function generateHostUrl (context) {
