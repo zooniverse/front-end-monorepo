@@ -42,7 +42,7 @@ function toggle () {
   subject.toggleFavourite = toggle.bind(subject)
 })
 
-storiesOf('Project App / Screens / Classify / Subject Preview', module)
+storiesOf('Project App / Shared / Subject Preview', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={zooTheme}>
