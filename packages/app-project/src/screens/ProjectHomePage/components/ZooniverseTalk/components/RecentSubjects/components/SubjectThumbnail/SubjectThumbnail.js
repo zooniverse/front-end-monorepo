@@ -39,9 +39,9 @@ function SubjectThumbnail ({ height, href, width, subject }) {
       >
         <Media
           alt={`subject ${subject.id}`}
-          height={400}
+          height={700}
           src={subjectURL}
-          width={400}
+          width={700}
         />
         <StyledSpacedText color='white' weight='bold'>
           {counterpart('RecentSubjects.subjectLabel', { id: subject.id })}
