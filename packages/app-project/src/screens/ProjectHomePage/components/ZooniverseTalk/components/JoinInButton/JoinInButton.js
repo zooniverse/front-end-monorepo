@@ -17,7 +17,6 @@ function JoinInButton (props) {
 }
 
 JoinInButton.propTypes = {
-  as: string.isRequired,
   href: string.isRequired
 }
 
