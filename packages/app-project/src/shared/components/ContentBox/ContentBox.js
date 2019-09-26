@@ -52,7 +52,7 @@ function ContentBox (props) {
             <WidgetHeading children={title} level={titleLevel} />
           )}
 
-          {(linkLabel && linkProps && linkProps.as) && (
+          {(linkLabel && linkProps) && (
             <Link {...linkProps} passHref>
               <Anchor>
                 <SpacedText>
@@ -60,14 +60,6 @@ function ContentBox (props) {
                 </SpacedText>
               </Anchor>
             </Link>
-          )}
-
-          {(linkLabel && linkProps && !linkProps.as) && (
-            <Anchor href={linkProps.href}>
-              <SpacedText>
-                {linkLabel}
-              </SpacedText>
-            </Anchor>
           )}
 
         </Box>

@@ -9,10 +9,12 @@ class JoinInButtonContainer extends Component {
   render () {
     const { router } = this.props
     const { owner, project } = router.query
-    const href = addQueryParams(`/projects/${owner}/${project}/talk`, router)
+    const linkProps = {
+      href: addQueryParams(`/projects/${owner}/${project}/talk`, router)
+    }
 
     return (
-      <JoinInButton href={href} />
+      <JoinInButton linkProps={linkProps} />
     )
   }
 }

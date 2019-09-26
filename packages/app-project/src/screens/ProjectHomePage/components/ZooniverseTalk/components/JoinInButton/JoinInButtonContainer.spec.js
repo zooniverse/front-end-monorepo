@@ -30,6 +30,6 @@ describe('Component > JoinInButtonContainer', function () {
   })
 
   it('should pass valid link props for Talk', function () {
-    expect(componentWrapper.prop('href')).to.equal('/projects/foo/bar/talk')
+    expect(componentWrapper.prop('linkProps')).to.deep.equal({ href: '/projects/foo/bar/talk'})
   })
 })
