@@ -19,8 +19,7 @@ class IntroductionContainer extends Component {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      as: addQueryParams(`/projects/${owner}/${project}/about`, router),
-      href: '/projects/[owner]/[project]/about'
+      href: addQueryParams(`/projects/${owner}/${project}/about`, router),
     }
   }
 
