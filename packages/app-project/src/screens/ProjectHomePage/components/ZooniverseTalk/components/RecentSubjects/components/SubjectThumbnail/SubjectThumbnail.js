@@ -10,6 +10,9 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
+  max-height: ${props => props.maxHeight}px;
+  max-width: ${props => props.maxWidth}px;
+  overflow: hidden;
   position: relative;
 `
 const StyledSpacedText = styled(SpacedText)`
@@ -29,14 +32,16 @@ function SubjectThumbnail ({ height, href, width, subject }) {
       <StyledBox
         elevation='small'
         fill
-        justify='end'
+        maxHeight={height}
+        justify='center'
         pad='none'
+        maxWidth={width}
       >
         <Media
           alt={`subject ${subject.id}`}
-          height={height}
+          height={700}
           src={subjectURL}
-          width={width}
+          width={700}
         />
         <StyledSpacedText color='white' weight='bold'>
           {counterpart('RecentSubjects.subjectLabel', { id: subject.id })}
