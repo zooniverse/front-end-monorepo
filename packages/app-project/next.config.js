@@ -1,3 +1,7 @@
+if (process.env.NEWRELIC_LICENSE_KEY) {
+  require('newrelic')
+}
+
 require('dotenv').config()
 
 const { execSync } = require('child_process')
@@ -11,9 +15,7 @@ const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
 module.exports = {
-  // Disable file-system routing
-  // https://github.com/zeit/next.js#disabling-file-system-routing
-  useFileSystemPublicRoutes: false,
+  assetPrefix: process.env.ASSET_PREFIX || '',
 
   env: {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),

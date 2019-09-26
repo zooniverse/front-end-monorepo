@@ -10,7 +10,11 @@ const WORKFLOW = {
 }
 
 const ROUTER = {
-  asPath: '/projects/foo/bar'
+  asPath: '/projects/foo/bar',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
 }
 
 describe('Component > WorkflowSelectButton', function () {

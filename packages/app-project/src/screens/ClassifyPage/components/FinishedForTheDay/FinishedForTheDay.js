@@ -29,10 +29,9 @@ const StyledBox = styled(Box)`
 function FinishedForTheDay (props) {
   const {
     imageSrc,
-    isLoggedIn,
+    linkProps,
     projectName,
     screenSize,
-    slug,
     theme: { dark }
   } = props
 
@@ -51,24 +50,21 @@ function FinishedForTheDay (props) {
             {counterpart('FinishedForTheDay.title')}
           </Heading>
 
-          <Paragraph
-            margin={{ bottom: 'small', top: 'none' }}
-          >
+          <Paragraph margin={{ bottom: 'small', top: 'none' }}>
             {counterpart('FinishedForTheDay.text', { projectName })}
           </Paragraph>
 
           <StyledBox direction='row' wrap>
-            <Link href={`/projects/${slug}/stats`} passHref>
-              <StyledButton
-                color='brand'
-                label={(
-                  <Text size='medium'>
-                    {counterpart('FinishedForTheDay.buttons.stats')}
-                  </Text>
-                )}
-                primary
-              />
-            </Link>
+            <StyledButton
+              color='brand'
+              href={linkProps.href}
+              label={(
+                <Text size='medium'>
+                  {counterpart('FinishedForTheDay.buttons.stats')}
+                </Text>
+              )}
+              primary
+            />
           </StyledBox>
 
         </ContentBox>
@@ -80,17 +76,20 @@ function FinishedForTheDay (props) {
 FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
+  linkProps: PropTypes.object.isRequired,
   projectName: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired
 }
 
 FinishedForTheDay.defaultProps = {
   imageSrc: '',
-  isLoggedIn: false,
   theme: {
     dark: false
   }
 }
 
-export default withTheme(withResponsiveContext(FinishedForTheDay))
-export { FinishedForTheDay }
+const DecoratedFinishedForTheDay = withTheme(withResponsiveContext(FinishedForTheDay))
+
+export {
+  DecoratedFinishedForTheDay as default,
+  FinishedForTheDay
+}

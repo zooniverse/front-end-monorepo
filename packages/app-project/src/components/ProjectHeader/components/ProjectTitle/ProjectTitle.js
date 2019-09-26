@@ -1,51 +1,61 @@
 import { Anchor, Heading } from 'grommet'
-import { string } from 'prop-types'
+import Link from 'next/link'
+import { withRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 
+import addQueryParams from '../../../../helpers/addQueryParams'
+
+const StyledHeading = styled(Heading)`
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+`
+
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
-  &:focus,
   &:hover {
     text-decoration: none;
-    border-color: white;
+  }
+  &[href]:hover {
+    border-bottom-color: white;
+  }
+  &:not([href]) {
+    cursor: default;
   }
 `
 
-const StyledHeading = styled(Heading)`
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-`
+function ProjectTitle (props) {
+  const { router, title } = props
+  const { owner, project } = router.query
+  const href = '/projects/[owner]/[project]'
+  const isCurrentPage = router.pathname === href
 
-function ProjectTitle ({ href, title }) {
-  return href
-    ? <StyledAnchor href={href}><Title text={title} /></StyledAnchor>
-    : <Title text={title} />
-}
+  const linkProps = {
+    href: addQueryParams(`/projects/${owner}/${project}`, router)
+  }
 
-ProjectTitle.propTypes = {
-  href: string,
-  title: string
-}
-
-ProjectTitle.defaultProps = {
-  href: '',
-  title: ''
-}
-
-function Title ({ text }) {
-  return (
-    <StyledHeading color='white' margin='none' size='small'>
-      {text}
-    </StyledHeading>
+  const anchor = (
+    <StyledAnchor
+      label={(
+        <StyledHeading
+          children={title}
+          color='white'
+          margin='none'
+          size='small'
+        />
+      )}
+    />
   )
+
+  if (isCurrentPage) {
+    return anchor
+  } else {
+    return (
+      <Link {...linkProps} passHref>
+        {anchor}
+      </Link>
+    )
+  }
 }
 
-Title.propTypes = {
-  title: string
-}
-
-Title.defaultProps = {
-  title: ''
-}
-
-export default ProjectTitle
+export default withRouter(ProjectTitle)
+export { ProjectTitle }
