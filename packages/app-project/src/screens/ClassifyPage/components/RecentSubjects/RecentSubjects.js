@@ -31,12 +31,12 @@ function RecentSubjects (props) {
           }
           return (
             <SubjectPreview
-              height={200}
+              height={'200px'}
               key={recent.subjectId}
               isLoggedIn={isLoggedIn}
               subject={subject}
               slug={slug}
-              width={270}
+              width={'100%'}
             />
           )
         })}

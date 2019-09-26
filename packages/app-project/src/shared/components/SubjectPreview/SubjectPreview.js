@@ -38,15 +38,15 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
       >
         <Box
           align='center'
-          height={`${height}px`}
+          height={height}
           overflow="hidden"
-          width={`${width}px`}
+          width={width}
         >
           <Media
             alt={`subject ${subject.id}`}
-            height={400}
+            height={700}
             src={subjectURL}
-            width={400}
+            width={700}
           />
         </Box>
       </Anchor>
@@ -68,7 +68,7 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
 
 SubjectPreview.propTypes = {
   className: string,
-  height: number,
+  height: string,
   isLoggedIn: bool,
   subject: shape({
     favorite: bool,
@@ -77,11 +77,11 @@ SubjectPreview.propTypes = {
     locations: array
   }),
   slug: string.isRequired,
-  width: number
+  width: string
 }
 
 SubjectPreview.defaultProps = {
-  height: 250,
+  height: '250px',
   isLoggedIn: false,
   subject: {
     favorite: false,
@@ -89,7 +89,7 @@ SubjectPreview.defaultProps = {
     toggleFavorite: () => false,
     locations: []
   },
-  width: 400
+  width: '400px'
 }
 
 export default SubjectPreview

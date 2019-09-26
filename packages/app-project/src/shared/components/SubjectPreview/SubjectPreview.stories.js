@@ -47,33 +47,33 @@ storiesOf('Project App / Shared / Subject Preview', module)
   .add('plain', () => (
     <Grommet theme={zooTheme}>
       <SubjectPreview
-        height={200}
+        height={'200px'}
         isLoggedIn={boolean('User logged in', true)}
         subject={CAT}
         slug='zooniverse/snapshot-serengeti'
-        width={270}
+        width={'270px'}
       />
     </Grommet>
   ))
   .add('transcription', () => (
     <Grommet theme={zooTheme}>
       <SubjectPreview
-        height={200}
+        height={'200px'}
         isLoggedIn={boolean('User logged in', true)}
         subject={PORTRAIT_PAGE}
         slug='zooniverse/snapshot-serengeti'
-        width={270}
+        width={'270px'}
       />
     </Grommet>
   ))
   .add('video', () => (
     <Grommet theme={zooTheme}>
       <SubjectPreview
-        height={200}
+        height={'200px'}
         isLoggedIn={boolean('User logged in', true)}
         subject={VIDEO}
         slug='zooniverse/snapshot-serengeti'
-        width={270}
+        width={'270px'}
       />
     </Grommet>
   ))
