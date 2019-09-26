@@ -36,7 +36,7 @@ function WorkflowSelector (props) {
       )}
 
       {(workflows.loading === asyncStates.success) && (
-        <Box margin={{ top: 'small' }}>
+        <Box margin={{ top: 'small' }} gap='xsmall'>
           {(workflows.data.length > 0) && workflows.data.map(workflow =>
             <WorkflowSelectButton key={workflow.id} workflow={workflow} />
           )}
