@@ -1,0 +1,8 @@
+{
+  "WorkflowSelector": {
+    "classify": "Classify",
+    "error": "There was an error fetching the workflows :(",
+    "message": "Anyone can do real research!",
+    "noWorkflows": "Nothing to classify"
+  }
+}

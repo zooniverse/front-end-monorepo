@@ -26,6 +26,42 @@ class MyComponent extends React.Component {
 }
 ```
 
+## Theme colors
+
+[Zooniverse brand colors](https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8) map to the following variable names in the theme:
+
+| theme variable | hex |
+| ----------- | --------- |
+| 'accent-1' | '#B8E986' |
+| 'accent-2' | '#f6d885' |
+| 'accent-3' | '#6D91B3' |
+| 'accent-4' | '#addde0' |
+| 'brand' | '#00979d' |
+| 'dark-1' | '#2D2D2D' |
+| 'dark-2' | '#272727' |
+| 'dark-3' | '#333333' |
+| 'dark-4' | '#404040' |
+| 'dark-5' | '#5C5C5C' |
+| 'dark-6' | '#5C5C5C' |
+| 'light-1' | '#eff2f5' |
+| 'light-2' | '#ebebeb' |
+| 'light-3' | '#e2e5e9' |
+| 'light-4' | '#CBCCCB' |
+| 'light-5' | '#a6a7a9' |
+| 'light-6' | '#979797' |
+| 'neutral-1' | '#345446' |
+| 'neutral-2' | '#005D69' |
+| 'neutral-3' | '#0C4881' |
+| 'neutral-4' | '#f0b200' |
+| 'status-critical' | '#E45950' |
+| 'status-error' | '#FFB6AA' |
+| 'status-warning' | '#CC9200' |
+| 'status-ok' | '#078F52' |
+| 'status-unknown' | '#CBCCCB' |
+| 'status-disabled' | '#CBCCCB' |
+
+Colors for components defaults, text, focus, placeholder, borders, etc are set from these in the theme. Additionally, any Grommet component that accepts a color for a prop can be passed in the variable name to set it, i.e. `<Box background={{ light: 'dark-2', dark: 'light-2' }}>`
+
 ## Development
 
 The conventions of the theme structure are based on Grommet's base theme: https://github.com/grommet/grommet/blob/master/src/js/themes/base.js

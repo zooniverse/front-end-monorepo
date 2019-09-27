@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const nock = require('nock')
 
-const { config } = require('./config')
+const { baseConfig, config } = require('./config')
 const panoptes = require('./panoptes')
 
 describe('panoptes.js', function () {
@@ -28,6 +28,7 @@ describe('panoptes.js', function () {
     testAcceptHeader('get', endpoint)
     testAuthHeader('get', endpoint)
     testHttpCache('get', endpoint)
+    testEnvParam('get', endpoint, expectedResponse)
     testAdminParam('get', endpoint)
     testNoEndpoint('get')
 
@@ -69,13 +70,14 @@ describe('panoptes.js', function () {
     testAcceptHeader('post', endpoint)
     testAuthHeader('post', endpoint)
     testHttpCache('post', endpoint)
+    testEnvParam('post', endpoint, expectedResponse)
     testAdminParam('post', endpoint)
     testNoEndpoint('post')
 
     it('should send any data params if defined', async function () {
-      const params = { display_name: 'My project' }
-      const response = await panoptes.post(endpoint, params)
-      expect(response.request._data).to.deep.equal(params)
+      const data = { display_name: 'My project' }
+      const response = await panoptes.post(endpoint, data)
+      expect(response.request._data).to.deep.equal(data)
     })
   })
 
@@ -103,6 +105,7 @@ describe('panoptes.js', function () {
     testAcceptHeader('put', endpoint, update)
     testAuthHeader('put', endpoint, update)
     testHttpCache('put', endpoint, update)
+    testEnvParam('put', endpoint, expectedResponse, update)
     testAdminParam('put', endpoint, update)
     testNoEndpoint('put')
 
@@ -141,8 +144,22 @@ describe('panoptes.js', function () {
     testAcceptHeader('del', endpoint)
     testAuthHeader('del', endpoint)
     testHttpCache('del', endpoint)
+    testEnvParam('del', endpoint, expectedResponse)
     testAdminParam('del', endpoint)
     testNoEndpoint('del')
+
+    it('should use the env query param to set the host only', async function () {
+      const queryParams = { env: 'production' }
+      const { host } = baseConfig[queryParams.env]
+
+      nock(host).delete(uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedResponse)
+
+      const response = await panoptes.del(endpoint, queryParams)
+      expect(response.request.url.includes(host)).to.be.true()
+      expect(response.req.path.includes('env=production')).to.be.false()
+    })
   })
 
   function testExpectedResponse (method, endpoint, expectedResponse, update = null) {
@@ -152,14 +169,18 @@ describe('panoptes.js', function () {
     })
   }
 
-  function testHostArg (method, endpoint, expectedResponse, update = null) {
+  function testHostArg (method, endpoint, expectedResponse, update = null, query = null) {
     it('should use the host from the function call if defined', async function () {
       const mockAPIHost = 'https://my-api.com'
 
       const isDel = method === 'del'
+      const isPost = method === 'post'
+      const isPut = method === 'put'
       // Nock calls it 'delete', panoptes-js calls it 'del'
       const nockMethod = isDel ? 'delete' : method
-      const methodArgs = [endpoint, update, null, mockAPIHost]
+      const methodArgs = (isPost || isPut) ?
+        [endpoint, update, null, query, mockAPIHost] :
+        [endpoint, update, null, mockAPIHost]
 
       nock(mockAPIHost)[nockMethod](uri => uri.includes(endpoint))
         .query(true)
@@ -205,6 +226,29 @@ describe('panoptes.js', function () {
     it('should add the http_cache default query params to the request', async function () {
       const response = await panoptes[method](endpoint, update)
       expect(response.req.path.includes('?http_cache=true')).to.be.true()
+    })
+  }
+
+  function testEnvParam (method, endpoint, expectedResponse) {
+    it('should use the env query param to set the host only', async function () {
+      const envParams = { env: 'production' }
+      const { host } = baseConfig[envParams.env]
+      const isDel = method === 'del'
+      const isPost = method === 'post'
+      const isPut = method === 'put'
+      // Nock calls it 'delete', panoptes-js calls it 'del'
+      const nockMethod = isDel ? 'delete' : method
+      const methodArgs = (isPost || isPut) ?
+        [endpoint, {}, '', envParams] :
+        [endpoint, envParams]
+
+      nock(host)[nockMethod](uri => uri.includes(endpoint))
+        .query(true)
+        .reply(200, expectedResponse)
+
+      const response = await panoptes[method].apply(this, methodArgs)
+      expect(response.request.url.includes(host)).to.be.true()
+      expect(response.req.path.includes('env=production')).to.be.false()
     })
   }
 

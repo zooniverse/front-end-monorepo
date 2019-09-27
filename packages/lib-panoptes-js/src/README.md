@@ -2,11 +2,13 @@
 
 All of the following examples will be using ES6.
 
-## Configuring your environment
+The client has a base set of request functions built on top of superagent for HTTP GET, POST, PUT, and DELETE. Each function returns a promise that returns the request response. The client does not do error handling and that is up to the consuming script or app either by using a catch on the promise or wrapping async/await in a try/catch statement. The function will error, though, if an argument is an incorrect type or if a parameter is missing that is necessary to the request.
 
-There are currently options for running the client against the staging and production environments, which determine which endpoints are used for requests handled by the module. There are a few different ways to set which you want to use - **staging is the default environment**.
+## Request Environment and Host
 
-Note: There is a test environment specified in the config file, but it is set to use the same API hosts as staging. The test environment is specifically for automated test running.
+The environment used cascades from the environment set via query param, then node process environment variable, then to a default of `'staging'`. Depending on the environment, an appropriate Panoptes host is used. For the environments of `'test'`, `'development'`, `'staging'`, the host `'https://panoptes-staging.zooniverse.org/api'` is used. For `'production'`, the host `'https://www.zooniverse.org/api'` is used. 
+
+Each of the request functions will take a query param for `env` which then will return the correctly matched host and use that as the destination to make the HTTP request. The `env` param then gets deleted from the param object before it is then passed along as params to the request itself.
 
 The currently set environment is available from the config file exported as `env`.
 
@@ -26,6 +28,17 @@ If you're running an app using hash history, you'll need to add `?env=` before t
 
 ```
 http://localhost:3000?env=production#/classify
+```
+
+Then in your app, you'll have to retrieve the environment set in the window.location.search string and pass the environment into the request in the query params argument. A package like `query-string` is helpful for parsing the search string.
+
+
+``` javascript
+import panoptes from '@zoonivere/panoptes-js';
+import queryString from 'query-string';
+
+const { env } = queryString.parse(window.location.search);
+const response = panoptes.get('/projects', { env })
 ```
 
 ### Setting the environment via `PANOPTES_ENV`
@@ -53,6 +66,10 @@ The available host configurations are:
 ``` javascript
 {
   test: {
+    host: 'https://panoptes-staging.zooniverse.org/api',
+    oauth: 'https://panoptes-staging.zooniverse.org'
+  },
+  development: {
     host: 'https://panoptes-staging.zooniverse.org/api',
     oauth: 'https://panoptes-staging.zooniverse.org'
   },
@@ -106,7 +123,7 @@ panoptes.get(endpoint, query, authorization, host)
 
 **Example**
 
-Get many projects:
+Get next page of projects:
 
 ``` javascript
 panoptes.get('/projects', { page: 2 }).then((response) => {
@@ -127,7 +144,7 @@ panoptes.get('/projects/1104', { include: 'avatar,background,owners' }).then((re
 **Function**
 
 ``` javascript
-panoptes.post(endpoint, data, authorization, host)
+panoptes.post(endpoint, data, authorization, query, host)
 ```
 
 **Arguments**
@@ -135,6 +152,7 @@ panoptes.post(endpoint, data, authorization, host)
 - endpoint _(string)_ - the API endpoint for the request. Required.
 - data _(object)_ - an object of data to send with the request. Optional.
 - authorization _(string)_ - a string of the authorization type and token, i.e. `'Bearer 12345abcde'`. Optional.
+- query _(object)_ - an object of query parameters to send with the request. Optional.
 - host _(string)_ - available to specify a different API host. Defaults to the hosts defined in the `config.js` file. Optional.
 
 **Returns**
@@ -156,14 +174,15 @@ panoptes.get('/projects', { private: true }).then((response) => {
 **Function**
 
 ``` javascript
-panoptes.post(endpoint, data, authorization, host)
+panoptes.put(endpoint, data, authorization, query, host)
 ```
 
 **Arguments**
 
 - endpoint _(string)_ - the API endpoint for the request. Required.
-- data _(object)_ - an object of data to send with the request. Optional.
+- data _(object)_ - an object of data to send with the request. Required.
 - authorization _(string)_ - a string of the authorization type and token, i.e. `'Bearer 12345abcde'`. Optional.
+- query _(object)_ - an object of query parameters to send with the request. Optional.
 - host _(string)_ - available to specify a different API host. Defaults to the hosts defined in the `config.js` file. Optional.
 
 **Returns**
@@ -175,7 +194,7 @@ panoptes.post(endpoint, data, authorization, host)
 Update a project:
 
 ``` javascript
-panoptes.put('/projects/1104', { display_name: 'Super Zoo' }).then((response) => {
+panoptes.put('/projects/1104', { projects: { display_name: 'Super Zoo' }}, { authorization: 'Bearer 12345' }).then((response) => {
   // Do something with the response
 });
 ```
@@ -212,9 +231,12 @@ panoptes.del('/projects/1104').then((response) => {
 
 Using helper functions for a defined Panoptes resource in a React component. These resources have functions defined:
 
-- [Projects](projects.md)
-- [Subjects](subjects.md)
-- [Tutorials](tutorials.md)
+- Collections
+- Projects
+- Subjects
+- Tutorials
+
+A readme on specific use is available in the folder for each resource type.
 
 The API for resource helpers will include:
 

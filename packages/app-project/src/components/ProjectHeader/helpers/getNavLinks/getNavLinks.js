@@ -7,7 +7,8 @@ function getNavLinks (isLoggedIn, baseUrl) {
       text: counterpart('ProjectHeader.nav.about')
     },
     {
-      href: `${baseUrl}/classify`,
+      as: `${baseUrl}/classify`,
+      href: `/projects/[owner]/[project]/classify`,
       text: counterpart('ProjectHeader.nav.classify')
     },
     {

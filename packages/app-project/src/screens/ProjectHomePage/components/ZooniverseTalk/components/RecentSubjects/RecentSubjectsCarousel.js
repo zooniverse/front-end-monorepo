@@ -15,7 +15,7 @@ function RecentSubjectsCarousel (props) {
       controls='arrows'
       fill
     >
-      {subjects.map( subject => (
+      {subjects.map(subject => (
         <SubjectThumbnail
           key={subject.id}
           height={height}

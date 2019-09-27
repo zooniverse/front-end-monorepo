@@ -15,6 +15,7 @@ import Head from '../src/components/Head'
 import ProjectHeader from '../src/components/ProjectHeader'
 import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
 import { initializeLogger, logReactError } from '../src/helpers/logger'
+import { MediaContextProvider } from '../src/shared/components/Media'
 import initStore from '../stores'
 
 const GlobalStyle = createGlobalStyle`
@@ -74,52 +75,39 @@ export default class MyApp extends App {
     super.componentDidCatch(error, errorInfo)
   }
 
-  componentDidUpdate () {
-    // Next.js mutates the router, so we can't compare the previous `asPath` to
-    // the current one. Instead, we check the URL against the slug for the
-    // active project in the store.
-    const slugFromUrl = getSlugFromUrl(this.props.router.asPath)
-    const currentSlug = this.store.project.slug
-
-    if (slugFromUrl && currentSlug !== slugFromUrl) {
-      this.store.project.fetch(slugFromUrl)
-    }
-  }
-
   render () {
     const { Component, pageProps } = this.props
     return (
       <Container>
         <GlobalStyle />
         <Provider store={this.store}>
-          <GrommetWrapper>
-            <Head host={pageProps.host} />
-            <ZooHeaderWrapper />
-            <ProjectHeader />
-            <Box background={{
-              dark: 'dark-1',
-              light: 'light-1'
-            }}>
-              <Component {...pageProps} />
-            </Box>
-            <ZooFooter />
-            <AuthModal />
-          </GrommetWrapper>
+          <MediaContextProvider>
+            <GrommetWrapper>
+              <Head host={pageProps.host} />
+              <ZooHeaderWrapper />
+              <ProjectHeader />
+              <Box background={{
+                dark: 'dark-1',
+                light: 'light-1'
+              }}>
+                <Component {...pageProps} />
+              </Box>
+              <ZooFooter />
+              <AuthModal />
+            </GrommetWrapper>
+          </MediaContextProvider>
         </Provider>
       </Container>
     )
   }
 }
 
-function getSlugFromUrl (relativeUrl) {
-  const fragments = new UrlParse(relativeUrl).pathname.split('/')
-  return (fragments[2] && fragments[3])
-    ? `${fragments[2]}/${fragments[3]}`
-    : undefined
-}
-
 function generateHostUrl (context) {
-  const { connection, headers } = context.req
-  const protocol = connection.encrypted ? 'https' : 'http'
-  return `${protocol}://${headers.host}`
+  if (context.req) {
+    const { connection, headers } = context.req
+    const protocol = connection.encrypted ? 'https' : 'http'
+    return `${protocol}://${headers.host}`
+  } else {
+    return location.origin
+  }
 }

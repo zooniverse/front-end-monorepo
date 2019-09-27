@@ -47,7 +47,22 @@ yarn start
 See [Testing](#testing) for more details.
 
 #### Docker
-`docker-compose run --rm dev test`.
+Run the whole test suite in the container and exit
+```
+# run the tests in the docker container
+docker-compose run --rm dev test
+```
+Interactively run the test suite from a bash shell in the container
+```
+# launch an interactive bash shell in the dev app
+docker-compose run --rm --entrypoint="/bin/bash" dev
+
+# change directory to the desired app (app-project)
+cd packages/app-project/
+
+# run the tests for this app
+yarn test
+```
 
 #### Node/yarn
 ```sh
