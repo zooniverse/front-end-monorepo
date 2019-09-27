@@ -8,7 +8,7 @@ import AboutProject from '@shared/components/AboutProject'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
-import ThemeModeToggle from '../../components/ThemeModeToggle'
+import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectAnnouncement from './components/ProjectAnnouncement'
 
 function ProjectHomePage (props) {

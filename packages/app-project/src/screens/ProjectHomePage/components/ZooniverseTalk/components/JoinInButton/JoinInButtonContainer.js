@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'next/router'
 
 import JoinInButton from './JoinInButton'
-import addQueryParams from '../../../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 class JoinInButtonContainer extends Component {
   render () {
