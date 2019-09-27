@@ -37,11 +37,13 @@ class DrawingContainer extends Component {
 
     // TEMP CODE UNTIL COORDINATE STREAM
     const { eventStream } = this.props
-    this.tempSubscription = eventStream.subscribe(event => {
-      if (event.type === 'pointerup') {
-        this.tempMarkCreation()
-      }
-    })
+    if (eventStream) {
+      this.tempSubscription = eventStream.subscribe(event => {
+        if (event.type === 'pointerup') {
+          this.tempMarkCreation()
+        }
+      })
+    }
   }
 
   componentDidUpdate (prevProps) {
@@ -61,27 +63,32 @@ class DrawingContainer extends Component {
   tempMarkCreation () {
     const { activeDrawingTool, activeStepTasks } = this.props
 
-    const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-    const tool = activeDrawingTask.tools[activeDrawingTool]
-    if (tool.type === 'line') {
-      const coordinates = { x1: (Math.floor(Math.random() * 400)), y1: (Math.floor(Math.random() * 400)), x2: (Math.floor(Math.random() * 400)), y2: (Math.floor(Math.random() * 400)) }
-      this.finishMark(coordinates)
-    }
-    if (tool.type === 'point') {
-      const coordinates = { x: (Math.floor(Math.random() * 400)), y: (Math.floor(Math.random() * 400)) }
-      this.finishMark(coordinates)
+    if (activeStepTasks && activeStepTasks.length > 0) {
+      const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+      const tool = activeDrawingTask.tools[activeDrawingTool]
+      if (tool.type === 'line') {
+        const coordinates = { x1: (Math.floor(Math.random() * 400)), y1: (Math.floor(Math.random() * 400)), x2: (Math.floor(Math.random() * 400)), y2: (Math.floor(Math.random() * 400)) }
+        this.finishMark(coordinates)
+      }
+      if (tool.type === 'point') {
+        const coordinates = { x: (Math.floor(Math.random() * 400)), y: (Math.floor(Math.random() * 400)) }
+        this.finishMark(coordinates)
+      }
     }
   }
 
   setActiveMark () {
     const { activeDrawingTool, activeStepTasks } = this.props
-    const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-    this.setState({
-      activeMark: {
-        id: cuid(),
-        tool: activeDrawingTask.tools[activeDrawingTool]
-      }
-    })
+
+    if (activeStepTasks && activeStepTasks.length > 0) {
+      const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+      this.setState({
+        activeMark: {
+          id: cuid(),
+          tool: activeDrawingTask.tools[activeDrawingTool]
+        }
+      })
+    }
   }
 
   finishMark (coordinates) {
@@ -137,6 +144,15 @@ class DrawingContainer extends Component {
       </>
     )
   }
+}
+
+DrawingContainer.propTypes = {
+  activeDrawingTool: PropTypes.number,
+  activeStepTasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string
+    })
+  )
 }
 
 export default DrawingContainer
