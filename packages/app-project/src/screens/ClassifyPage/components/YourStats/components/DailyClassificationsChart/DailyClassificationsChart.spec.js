@@ -104,7 +104,7 @@ describe('Component > DailyClassificationsChart', function () {
         })
 
         it('should be an image', function () {
-          expect(bar.prop('role')).to.equal('image')
+          expect(bar.prop('role')).to.equal('img')
         })
 
         it('should have an accessible description', function () {
