@@ -47,6 +47,7 @@ function RecentSubjects (props) {
           return (
             <Box
               align='center'
+              justify='center'
               height={height}
               key={i}
               overflow="hidden"
