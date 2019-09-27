@@ -2,8 +2,8 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
-import { mediaStyle } from '../src/shared/components/Media'
-import { logNodeError } from '../src/helpers/logger'
+import { mediaStyle } from '@shared/components/Media'
+import { logNodeError } from '@helpers/logger'
 
 const GA_TRACKING_ID = 'GTM-WDW6V4'
 
