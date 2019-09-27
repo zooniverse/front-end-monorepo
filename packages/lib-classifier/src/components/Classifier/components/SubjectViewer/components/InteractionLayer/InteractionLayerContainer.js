@@ -54,6 +54,11 @@ class InteractionLayerContainer extends Component {
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
+  activeStepTasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string
+    })
+  ),
   addToStream: PropTypes.func.isRequired
 }
 
