@@ -13,6 +13,8 @@ const config = {
   }
 }
 
+const darkZooTheme = { ...zooTheme, dark: true }
+
 storiesOf('ZooFooter/AdminCheckbox', module)
   .addDecorator(withActions('change #admin-checkbox'))
 
@@ -41,7 +43,7 @@ class AdminCheckboxStoryExample extends React.Component {
 
   render () {
     return (
-      <Grommet theme={zooTheme}>
+      <Grommet theme={(this.props.colorTheme === 'dark') ? darkZooTheme : zooTheme}>
         <AdminCheckbox
           checked={this.state.checked}
           onChange={this.onChange}
