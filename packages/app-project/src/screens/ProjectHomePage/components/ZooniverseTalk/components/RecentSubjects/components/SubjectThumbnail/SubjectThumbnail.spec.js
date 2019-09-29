@@ -19,7 +19,7 @@ describe('Component > SubjectThumbnail', function () {
   }
 
   before(function () {
-    wrapper = shallow(<SubjectThumbnail height={100} href={href} width={100} subject={mockSubject('1')} />)
+    wrapper = shallow(<SubjectThumbnail height={200} href={href} width={270} subject={mockSubject('1')} />)
   })
 
   it('should render without crashing', function () {
@@ -33,5 +33,15 @@ describe('Component > SubjectThumbnail', function () {
     const media = link.find(Media)
     expect(link.prop('href')).to.equal(href)
     expect(media.prop('src')).to.equal(src)
+  })
+
+  it('should have a max height', function () {
+    const container = wrapper.find(Anchor).children().first()
+    expect(container.prop('maxHeight')).to.equal(200)
+  })
+
+  it('should have a max width', function () {
+    const container = wrapper.find(Anchor).children().first()
+    expect(container.prop('maxWidth')).to.equal(270)
   })
 })
