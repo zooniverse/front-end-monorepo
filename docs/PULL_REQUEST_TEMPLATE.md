@@ -14,11 +14,16 @@ Describe your changes:
 - [ ] Are the tests passing locally and on Travis?
 - [ ] Is the documentation up to date?
 
+## Components
+- [ ] Has a storybook story been created or updated?
+- [ ] Is the component accessible? 
+  - [ ] Can it be used by a screen reader and without a mouse?
+
 ## Apps
 
 - [ ] Does it work in all major browsers: Firefox, Chrome, Edge, Safari?
 - [ ] Does it work on mobile?
-- [ ] Can you `yarn panic && yarn bootstrap` and app works as expected?
+- [ ] Can you `yarn panic && yarn bootstrap` or `docker-compose up --build` and app works as expected?
 
 ## Publishing
 
