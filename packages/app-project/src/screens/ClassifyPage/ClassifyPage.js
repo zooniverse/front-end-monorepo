@@ -17,12 +17,18 @@ const ClassifierWrapper = dynamic(() =>
 
 function ClassifyPage (props) {
   const { addToCollection, screenSize } = props
-  const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['1em', 'auto', '1em']
+  const responsiveColumns = (screenSize === 'small')
+    ? ['auto']
+    : ['1em', 'auto', '1em']
 
   return (
-    <Box gap='medium' pad={{ horizontal: 'small', vertical: 'medium' }}>
+    <Box
+      align='center'
+      gap='medium'
+      pad={{ horizontal: 'small', vertical: 'medium' }}
+    >
 
-      <Box as='main'>
+      <Box as='main' fill='horizontal'>
         <Grid columns={responsiveColumns} gap='small'>
           <ProjectName />
           <ClassifierWrapper
@@ -32,7 +38,7 @@ function ClassifyPage (props) {
         </Grid>
       </Box>
 
-      <Box as='aside' gap='medium'>
+      <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>
         <FinishedForTheDay />
         <Grid columns={['1fr', '2fr']} gap='medium'>
           <YourStats />
@@ -40,8 +46,8 @@ function ClassifyPage (props) {
         <ProjectStatistics />
         <ConnectWithProject />
       </Box>
-    </Box>
 
+    </Box>
   )
 }
 
