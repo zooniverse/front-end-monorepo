@@ -16,6 +16,8 @@ const config = {
   }
 }
 
+const darkZooTheme = { ...zooTheme, dark: true }
+
 storiesOf('Modal', module)
   .addDecorator(withKnobs)
 
@@ -32,7 +34,7 @@ storiesOf('Modal', module)
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={darkZooTheme}>
       <Modal
         active={boolean('Active', true)}
         closeFn={action('Close modal')}
