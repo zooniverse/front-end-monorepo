@@ -53,6 +53,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
 
   function tickLabelProps () {
     return {
+      'aria-hidden': 'true',
       dx: '-0.25em',
       dy: '0.2em',
       fill: axisColour,
