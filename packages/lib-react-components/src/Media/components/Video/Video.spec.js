@@ -27,4 +27,20 @@ describe('Video', function () {
     const wrapper = shallow(<Video src={video} />)
     expect(wrapper.find(GrommetVideo).props().controls).to.equal('below')
   })
+
+  describe('height and width', function () {
+    it('should be set if specified', function () {
+      const wrapper = shallow(<Video height={200} width={270} src={video} />)
+      const { maxHeight, maxWidth } = wrapper.props()
+      expect(maxHeight).to.equal(200)
+      expect(maxWidth).to.equal(270)
+    })
+
+    it('should be ignored if not specified', function () {
+      const wrapper = shallow(<Video src={video} />)
+      const { maxHeight, maxWidth } = wrapper.props()
+      expect(maxHeight).to.be.undefined()
+      expect(maxWidth).to.be.undefined()
+    })
+  })
 })
