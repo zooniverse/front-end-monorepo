@@ -17,7 +17,9 @@ Describe your changes:
 ## Components
 - [ ] Has a storybook story been created or updated?
 - [ ] Is the component accessible? 
-  - [ ] Can it be used by a screen reader and without a mouse?
+  - [ ] Can it be used with a screen reader?
+  - [ ] Can it be used without a mouse?
+  - [ ] Is it passing accessibility checks in the storybook?
 
 ## Apps
 
