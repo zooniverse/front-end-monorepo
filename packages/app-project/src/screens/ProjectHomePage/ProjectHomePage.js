@@ -1,4 +1,4 @@
-import { Grid } from 'grommet'
+import { Box, Grid } from 'grommet'
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
@@ -10,33 +10,49 @@ import ProjectStatistics from '../../shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import ThemeModeToggle from '../../components/ThemeModeToggle'
 import ProjectAnnouncement from './components/ProjectAnnouncement'
+import { Media } from '../../shared/components/Media'
 
 function ProjectHomePage (props) {
   const { screenSize } = props
-  const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['auto', '1em']
   return (
-    <>
+    <Box align='center'>
       <ProjectAnnouncement />
       <Hero />
-      <Grid gap='medium' margin='medium'>
-        <Grid columns={responsiveColumns} gap='small'>
-          <ZooniverseTalk />
+
+      <Media at='default'>
+        <Box margin='small' gap='small'>
           <ThemeModeToggle />
-        </Grid>
-        <ProjectStatistics />
-        <Grid
-          fill='horizontal'
-          gap='medium'
-          columns={['repeat(auto-fit, minmax(320px, 1fr))']}
-        >
+          <ZooniverseTalk />
+          <ProjectStatistics />
           <MessageFromResearcher />
           <AboutProject />
-        </Grid>
-        <ConnectWithProject />
-      </Grid>
-    </>
+          <ConnectWithProject />
+        </Box>
+      </Media>
+
+      <Media greaterThan='default'>
+        <Box
+          align='start'
+          direction='row'
+          gap='small'
+          margin='small'
+          width={{ max: 'xxlarge' }}
+        >
+          <Box gap='medium'>
+            <ZooniverseTalk />
+            <ProjectStatistics />
+            <Grid columns={['1fr', '1fr']} gap='medium'>
+              <MessageFromResearcher />
+              <AboutProject />
+            </Grid>
+            <ConnectWithProject />
+          </Box>
+          <ThemeModeToggle />
+        </Box>
+      </Media>
+
+    </Box>
   )
 }
 
-export default withResponsiveContext(ProjectHomePage)
-export { ProjectHomePage }
+export default ProjectHomePage
