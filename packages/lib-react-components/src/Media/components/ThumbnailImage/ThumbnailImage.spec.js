@@ -1,6 +1,6 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
-import { Image } from 'grommet'
+import { Box, Image } from 'grommet'
 import ProgressiveImage from 'react-progressive-image'
 
 import ThumbnailImage, { Placeholder } from './ThumbnailImage'
@@ -61,4 +61,25 @@ describe('ThumbnailImage', function () {
     expect(noscriptWrapper.find('div')).to.have.lengthOf(1)
   })
 
+  describe('height and width', function () {
+    it('should be set if specified', function () {
+      const wrapper = mount(<ThumbnailImage height={200} width={270} src={image} />)
+      const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
+      progressiveImageInstance.onLoad()
+      wrapper.update()
+      const { maxHeight, maxWidth } = wrapper.find(Box).props()
+      expect(maxHeight).to.equal(200)
+      expect(maxWidth).to.equal(270)
+    })
+
+    it('should default to 999', function () {
+      const wrapper = mount(<ThumbnailImage src={image} />)
+      const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
+      progressiveImageInstance.onLoad()
+      wrapper.update()
+      const { maxHeight, maxWidth } = wrapper.find(Box).props()
+      expect(maxHeight).to.equal(999)
+      expect(maxWidth).to.equal(999)
+    })
+  })
 })
