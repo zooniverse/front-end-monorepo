@@ -26,7 +26,9 @@ storiesOf('Media', module)
       <Box>
         <Media
           alt={text('Alt', 'A galaxy')}
+          height={200}
           src={text('Image URL', IMAGE_URL)}
+          width={270}
         />
       </Box>
     </Grommet>
@@ -55,7 +57,9 @@ storiesOf('Media', module)
       <Box>
         <Media
           alt={text('Alt', 'Zooniverse in a nutshell')}
+          height={200}
           src={text('Video URL', VIDEO_URL)}
+          width={270}
         />
       </Box>
     </Grommet>
@@ -66,7 +70,9 @@ storiesOf('Media', module)
       <Box>
         <Media
           alt={text('Alt', 'City noise')}
+          height={200}
           src={text('Audio URL', AUDIO_URL)}
+          width={270}
         />
       </Box>
     </Grommet>
