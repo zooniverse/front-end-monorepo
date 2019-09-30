@@ -97,6 +97,17 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
       />
     </Grommet>
   ))
+  .add('narrow screens', () => (
+    <Grommet theme={zooTheme}>
+      <RecentSubjectsContainer
+        isLoggedIn={boolean('User logged in', true)}
+        recents={RECENTS}
+        projectName='Snapshot Serengeti'
+        size={1}
+        slug='zooniverse/snapshot-serengeti'
+      />
+    </Grommet>
+  ), { viewport: { defaultViewport: 'iphone5' }})
   .add('transcription', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjectsContainer
