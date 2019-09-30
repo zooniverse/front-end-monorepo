@@ -24,10 +24,20 @@ describe('Stores > YourStats', function () {
         ]
       }
     }
+    const MOCK_DAILY_COUNTS = [
+      { count: 12, period: '2019-09-29'},
+      { count: 12, period: '2019-09-30'},
+      { count: 13, period: '2019-10-01' },
+      { count: 14, period: '2019-10-02' },
+      { count: 10, period: '2019-10-03' },
+      { count: 11, period: '2019-10-04' },
+      { count: 8, period: '2019-10-05' },
+      { count: 15, period: '2019-10-06' }
+    ]
     rootStore = initStore(true, { project })
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
     sinon.stub(rootStore.client.panoptes, 'post').callsFake(() => Promise.resolve({}))
-    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve([]))
+    sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
   })
 
   after(function () {
@@ -42,7 +52,10 @@ describe('Stores > YourStats', function () {
   })
 
   describe('with a project and user', function () {
+    let clock
+
     before(function () {
+      clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
       const user = {
         id: '123',
         login: 'test.user'
@@ -52,6 +65,7 @@ describe('Stores > YourStats', function () {
     })
 
     after(function () {
+      clock.restore()
       rootStore.client.panoptes.get.resetHistory()
       rootStore.client.panoptes.post.resetHistory()
       rootStore.collections.fetchFavourites.restore()
@@ -76,6 +90,7 @@ describe('Stores > YourStats', function () {
         statsCount(
           eventType: "classification",
           interval: "1 Day",
+          window: "1 Week",
           projectId: "2",
           userId: "123"
         ){
@@ -86,6 +101,20 @@ describe('Stores > YourStats', function () {
       expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
     })
 
+    describe('weekly classification stats', function () {
+      it('should be created', function () {
+        expect(rootStore.yourStats.thisWeek.length).to.equal(7)
+      })
+
+      it('should start on Monday', function () {
+        expect(rootStore.yourStats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30'})
+      })
+
+      it('should end on Sunday', function () {
+        expect(rootStore.yourStats.thisWeek[6]).to.deep.equal({ count: 15, period: '2019-10-06' })
+      })
+    })
+
     describe('incrementing your classification count', function () {
       before(function () {
         rootStore.yourStats.increment()
@@ -93,6 +122,10 @@ describe('Stores > YourStats', function () {
 
       it('should add 1 to your total count', function () {
         expect(rootStore.yourStats.totalCount).to.equal(24)
+      })
+
+      it('should add 1 to your session count', function () {
+        expect(rootStore.yourStats.sessionCount).to.equal(1)
       })
     })
   })
@@ -183,23 +216,37 @@ describe('Stores > YourStats', function () {
     })
 
     describe('today\'s count', function () {
-      it('should get today\'s count from the store\'s `dailyCounts`', function () {
+      let clock
+
+      before(function () {
+        clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
+      })
+
+      after(function () {
+        clock.restore()
+      })
+
+      it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: new Date().toISOString().slice(0, 10) },
-          { count: 13, period: '2019-01-02' },
-          { count: 14, period: '2019-01-01' }
+          { count: 12, period: '2019-09-30T00:00:00Z'},
+          { count: 13, period: '2019-10-01T00:00:00Z' },
+          { count: 14, period: '2019-10-02T00:00:00Z' },
+          { count: 10, period: '2019-10-03T00:00:00Z' },
+          { count: 11, period: '2019-10-04T00:00:00Z' },
+          { count: 8, period: '2019-10-05T00:00:00Z' },
+          { count: 15, period: '2019-10-06T00:00:00Z' }
         ]
-        const statsStore = YourStats.create({ dailyCounts: MOCK_DAILY_COUNTS })
-        expect(statsStore.counts.today).to.equal(MOCK_DAILY_COUNTS[0].count)
+        const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
+        expect(statsStore.counts.today).to.equal(MOCK_DAILY_COUNTS[1].count)
       })
 
       it('should be `0` if there are no classifications today', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-01-03' },
-          { count: 13, period: '2019-01-02' },
-          { count: 14, period: '2019-01-01' }
+          { count: 12, period: '2019-01-03T00:00:00Z' },
+          { count: 13, period: '2019-01-02T00:00:00Z' },
+          { count: 14, period: '2019-01-01T00:00:00Z' }
         ]
-        const statsStore = YourStats.create({ dailyCounts: MOCK_DAILY_COUNTS })
+        const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
         expect(statsStore.counts.today).to.equal(0)
       })
     })
