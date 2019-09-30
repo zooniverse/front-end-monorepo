@@ -5,8 +5,8 @@ const theme = {
     },
     color: 'black',
     extend: props => `
-      text-align: center;
       background: ${props.theme.global.colors['neutral-4']};
+      text-align: center;
       &:hover {
         box-shadow: none;
       }
