@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DrawingToolRoot from './Root'
+import DrawingToolRoot from './DrawingToolRoot'
 
 const Line = ({ active, coordinates, finishDrawing, tool }) => {
   if (!coordinates) return null
