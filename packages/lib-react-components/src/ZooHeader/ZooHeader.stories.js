@@ -26,7 +26,7 @@ storiesOf('ZooHeader', module)
         user={{}}
       />
     </Grommet>
-  ), config)
+  ), { viewport: { defaultViewport: 'responsive' }, ...config })
 
   .add('Signed out narrow window view', () => (
     <Grommet theme={zooTheme} full>
@@ -37,7 +37,7 @@ storiesOf('ZooHeader', module)
         user={{}}
       />
     </Grommet>
-  ), { viewport: 'iphone5', ...config })
+  ), { viewport: { defaultViewport: 'iphone5' }, ...config })
 
   .add('Signed in', () => (
     <Grommet theme={zooTheme} full>
@@ -50,7 +50,7 @@ storiesOf('ZooHeader', module)
         }}
       />
     </Grommet>
-  ), config)
+  ), { viewport: { defaultViewport: 'responsive' }, ...config })
 
   .add('Signed in narrow window view', () => (
     <Grommet theme={zooTheme} full>
@@ -65,7 +65,7 @@ storiesOf('ZooHeader', module)
         }}
       />
     </Grommet>
-  ), { viewport: 'iphone5', ...config })
+  ), { viewport: { defaultViewport: 'iphone5' }, ...config })
 
   .add('Signed in as admin', () => (
     <Grommet theme={zooTheme} full>
@@ -80,7 +80,7 @@ storiesOf('ZooHeader', module)
         }}
       />
     </Grommet>
-  ), config)
+  ), { viewport: { defaultViewport: 'responsive' }, ...config })
 
   .add('Signed in with notifications', () => (
     <Grommet theme={zooTheme} full>
@@ -95,7 +95,7 @@ storiesOf('ZooHeader', module)
         }}
       />
     </Grommet>
-  ), config)
+  ), { viewport: { defaultViewport: 'responsive' }, ...config })
 
   .add('Signed in with messages', () => (
     <Grommet theme={zooTheme} full>
@@ -110,4 +110,4 @@ storiesOf('ZooHeader', module)
         }}
       />
     </Grommet>
-  ), config)
+  ), { viewport: { defaultViewport: 'responsive' }, ...config })
