@@ -18,7 +18,7 @@ Describe your changes:
 - [ ] Has a storybook story been created or updated?
 - [ ] Is the component accessible? 
   - [ ] Can it be used with a screen reader?
-  - [ ] Can it be used without a mouse?
+  - [ ] Can it be used from the keyboard? [WebAIM guide to keyboard testing](https://webaim.org/techniques/keyboard/#testing)
   - [ ] Is it passing accessibility checks in the storybook?
 
 ## Apps
