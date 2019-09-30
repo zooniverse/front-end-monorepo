@@ -21,4 +21,20 @@ describe('Audio', function () {
     const wrapper = shallow(<Audio alt={alt} src={audio} />)
     expect(wrapper.find('audio').props()['aria-label']).to.equal(alt)
   })
+
+  describe('height and width', function () {
+    it('should be set if specified', function () {
+      const wrapper = shallow(<Audio height={200} width={270} src={audio} />)
+      const { maxHeight, maxWidth } = wrapper.props()
+      expect(maxHeight).to.equal(200)
+      expect(maxWidth).to.equal(270)
+    })
+
+    it('should be ignored if not specified', function () {
+      const wrapper = shallow(<Audio src={audio} />)
+      const { maxHeight, maxWidth } = wrapper.props()
+      expect(maxHeight).to.be.undefined()
+      expect(maxWidth).to.be.undefined()
+    })
+  })
 })
