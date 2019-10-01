@@ -7,12 +7,14 @@ import SelectCollection from './components/SelectCollection'
 import CreateCollection from './components/CreateCollection'
 
 function storeMapper (stores) {
+  const store = stores.store || {}
+  const collectionsStore = store.collections || {}
   const {
     addSubjects,
     collections,
     createCollection,
     searchCollections
-  } = stores.store.collections
+  } = collectionsStore
   return {
     addSubjects,
     collections,

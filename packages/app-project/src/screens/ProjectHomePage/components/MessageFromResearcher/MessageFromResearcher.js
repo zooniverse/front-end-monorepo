@@ -6,7 +6,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'
-import ContentBox from '../../../../shared/components/ContentBox'
+import ContentBox from '@shared/components/ContentBox'
 
 counterpart.registerTranslations('en', en)
 
