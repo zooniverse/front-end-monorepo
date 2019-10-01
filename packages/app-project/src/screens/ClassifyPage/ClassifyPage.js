@@ -5,11 +5,11 @@ import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import FinishedForTheDay from './components/FinishedForTheDay'
-import ThemeModeToggle from '../../components/ThemeModeToggle'
-import ProjectName from '../../components/ProjectName'
+import ThemeModeToggle from '@components/ThemeModeToggle'
+import ProjectName from '@components/ProjectName'
 import YourStats from './components/YourStats'
-import ConnectWithProject from '../../shared/components/ConnectWithProject'
-import ProjectStatistics from '../../shared/components/ProjectStatistics'
+import ConnectWithProject from '@shared/components/ConnectWithProject'
+import ProjectStatistics from '@shared/components/ProjectStatistics'
 
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }

@@ -5,7 +5,7 @@ import { withRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 
-import addQueryParams from '../../../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);

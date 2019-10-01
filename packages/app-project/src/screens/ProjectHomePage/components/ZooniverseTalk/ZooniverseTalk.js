@@ -6,8 +6,8 @@ import { Box, Grid, Paragraph } from 'grommet'
 import { string } from 'prop-types'
 
 import en from './locales/en'
-import ContentBox from '../../../../shared/components/ContentBox'
-import WidgetHeading from '../.././../../shared/components/WidgetHeading'
+import ContentBox from '@shared/components/ContentBox'
+import WidgetHeading from '@shared/components/WidgetHeading'
 import JoinInButton from './components/JoinInButton'
 import RecentSubjects from './components/RecentSubjects'
 
