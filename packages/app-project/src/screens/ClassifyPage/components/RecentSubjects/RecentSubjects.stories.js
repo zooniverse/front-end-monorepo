@@ -96,7 +96,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
         slug='zooniverse/snapshot-serengeti'
       />
     </Grommet>
-  ))
+  ), { viewport: { defaultViewport: 'responsive' }})
   .add('narrow screens', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
@@ -117,7 +117,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
         slug='zooniverse/notes-from-nature'
       />
     </Grommet>
-  ))
+  ), { viewport: { defaultViewport: 'responsive' }})
   .add('video', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
@@ -127,7 +127,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
         slug='spotteron/nestcams'
       />
     </Grommet>
-  ))
+  ), { viewport: { defaultViewport: 'responsive' }})
   .add('one subject', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
@@ -137,4 +137,4 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
         slug='spotteron/nestcams'
       />
     </Grommet>
-  ))
+  ), { viewport: { defaultViewport: 'responsive' }})
