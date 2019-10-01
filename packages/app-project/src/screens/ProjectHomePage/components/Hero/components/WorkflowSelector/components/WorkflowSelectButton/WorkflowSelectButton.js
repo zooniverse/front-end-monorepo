@@ -21,7 +21,7 @@ function WorkflowSelectButton (props) {
 
   return (
     <Link as={as} href={href} passHref>
-      <Button label={workflow.displayName} {...rest} />
+      <Button label={workflow.displayName} primary {...rest} />
     </Link>
   )
 }
