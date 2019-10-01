@@ -28,7 +28,7 @@ const theme = {
         &:hover:not(:disabled) {
           background: ${dark ? colors['neutral-4'] : adjustHue(-7, colors['neutral-4'])};
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
-          color: ${dark ? 'white' : 'black'};
+          color: black;
         }
     `}
   }
