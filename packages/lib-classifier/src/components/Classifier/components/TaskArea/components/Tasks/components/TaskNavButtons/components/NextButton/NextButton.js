@@ -1,6 +1,5 @@
-import { withThemeContext } from '@zooniverse/react-components'
+import { GoldButton, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Text } from 'grommet'
 import { bool, func } from 'prop-types'
 import React from 'react'
 
@@ -9,21 +8,16 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const Label = (
-  <Text size='medium'>
-    {counterpart('NextButton.next')}
-  </Text>
-)
-
 function NextButton (props) {
   const { autoFocus, disabled, onClick } = props
+  const label = counterpart('NextButton.next')
   return (
-    <Button
-      a11yTitle={counterpart('NextButton.next')}
+    <GoldButton
+      a11yTitle={label}
       autoFocus={autoFocus}
       disabled={disabled}
       fill
-      label={Label}
+      label={label}
       onClick={onClick}
       primary
       reverse

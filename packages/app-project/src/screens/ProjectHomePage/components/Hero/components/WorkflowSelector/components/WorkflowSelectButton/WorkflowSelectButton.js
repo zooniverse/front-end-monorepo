@@ -1,12 +1,11 @@
 import { SpacedText, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button } from 'grommet'
+import { GoldButton } from '@zooniverse/react-components'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
 
-import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
 
 import en from './locales/en'
@@ -35,7 +34,7 @@ function WorkflowSelectButton (props) {
 
   return (
     <Link as={as} href={href} passHref>
-      <Button
+      <GoldButton
         completeness={completeness}
         label={label}
         primary
@@ -61,7 +60,7 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-const DecoratedWorkflowSelectButton = withRouter(withThemeContext(WorkflowSelectButton, theme))
+const DecoratedWorkflowSelectButton = withRouter(WorkflowSelectButton)
 
 export {
   DecoratedWorkflowSelectButton as default,
