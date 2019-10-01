@@ -3,9 +3,12 @@ import counterpart from 'counterpart'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import Link from 'next/link'
+import { withRouter } from 'next/router'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
+
+import addQueryParams from '@helpers/addQueryParams'
 
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;
@@ -23,9 +26,7 @@ const StyledDropButton = styled(DropButton)`
   border-radius: 2em;
   color: white;
 
-  ${props =>
-    props.isOpen &&
-    `
+  ${props => props.isOpen && `
     background: ${props.theme.global.colors['accent-2']};
   `}
 
@@ -46,6 +47,7 @@ class DropdownNav extends React.Component {
   onOpen = () => this.setState({ isOpen: true })
 
   renderItems () {
+    const { router } = this.props
     return (
       <Box
         as='nav'
@@ -56,7 +58,11 @@ class DropdownNav extends React.Component {
         <Box as='ul'>
           {this.props.navLinks.map(navLink => (
             <Box as='li' key={navLink.href}>
-              <Link href={navLink.href} passHref>
+              <Link
+                as={addQueryParams(navLink.as, router)}
+                href={navLink.href}
+                passHref
+              >
                 <StyledAnchor
                   label={
                     <SpacedText color='white' weight='bold'>
@@ -99,6 +105,7 @@ class DropdownNav extends React.Component {
 DropdownNav.propTypes = {
   navLinks: arrayOf(
     shape({
+      as: string,
       href: string,
       text: string
     })
@@ -113,4 +120,11 @@ DropdownNav.propTypes = {
   })
 }
 
-export default withTheme(DropdownNav)
+@withTheme
+@withRouter
+class DecoratedDropdownNav extends DropdownNav { }
+
+export {
+  DecoratedDropdownNav as default,
+  DropdownNav
+}

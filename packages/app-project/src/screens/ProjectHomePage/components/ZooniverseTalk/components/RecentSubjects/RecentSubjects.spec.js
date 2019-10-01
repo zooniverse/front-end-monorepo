@@ -11,11 +11,11 @@ describe('Component > RecentSubjects', function () {
     mockSubject('1'),
     mockSubject('3')
   ]
-  function mockSubject(id) {
+  function mockSubject (id) {
     return {
       id,
       locations: [
-        {'image/jpeg': `https://www.zooniverse.org/mock-subjects/file-${id}.jpg`}
+        { 'image/jpeg': `https://www.zooniverse.org/mock-subjects/file-${id}.jpg` }
       ]
     }
   }
@@ -23,7 +23,7 @@ describe('Component > RecentSubjects', function () {
   before(function () {
     wrapper = shallow(
       <RecentSubjects
-        href="/projects/test/project/talk"
+        href='/projects/test/project/talk'
         subjects={subjects}
       />
     )

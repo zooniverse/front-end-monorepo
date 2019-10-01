@@ -6,19 +6,22 @@ import { bool, shape, string } from 'prop-types'
 import React from 'react'
 
 import theme from './theme'
+import addQueryParams from '@helpers/addQueryParams'
 
 function WorkflowSelectButton (props) {
-  const { router, workflow } = props
+  const { router, workflow, ...rest } = props
+  const { owner, project } = router.query
 
-  const as = workflow.default
-    ? `${router.asPath}/classify`
-    : `${router.asPath}/classify/workflow/${workflow.id}`
+  const url = (workflow.default)
+    ? `/projects/${owner}/${project}/classify`
+    : `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
 
-  const href = '/Classify'
+  const as = addQueryParams(url, router)
+  const href = '/projects/[owner]/[project]/classify'
 
   return (
     <Link as={as} href={href} passHref>
-      <Button label={workflow.displayName} />
+      <Button label={workflow.displayName} {...rest} />
     </Link>
   )
 }
@@ -26,11 +29,11 @@ function WorkflowSelectButton (props) {
 WorkflowSelectButton.propTypes = {
   router: shape({
     asPath: string.isRequired
-  }),
+  }).isRequired,
   workflow: shape({
-    default: bool.isRequired,
+    default: bool,
     displayName: string.isRequired,
-    id: string.isRequired
+    id: string
   }).isRequired
 }
 

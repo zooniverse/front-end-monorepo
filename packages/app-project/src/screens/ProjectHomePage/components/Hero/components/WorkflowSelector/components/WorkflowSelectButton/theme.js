@@ -10,6 +10,9 @@ const theme = {
       &:hover {
         box-shadow: none;
       }
+      &:disabled {
+        cursor: not-allowed;
+      }
     `
   }
 }

@@ -4,17 +4,19 @@ import { withResponsiveContext } from '@zooniverse/react-components'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
-import AboutProject from '../../shared/components/AboutProject'
-import ConnectWithProject from '../../shared/components/ConnectWithProject'
-import ProjectStatistics from '../../shared/components/ProjectStatistics'
+import AboutProject from '@shared/components/AboutProject'
+import ConnectWithProject from '@shared/components/ConnectWithProject'
+import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
-import ThemeModeToggle from '../../components/ThemeModeToggle'
+import ThemeModeToggle from '@components/ThemeModeToggle'
+import ProjectAnnouncement from './components/ProjectAnnouncement'
 
 function ProjectHomePage (props) {
   const { screenSize } = props
   const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['auto', '1em']
   return (
     <>
+      <ProjectAnnouncement />
       <Hero />
       <Grid gap='medium' margin='medium'>
         <Grid columns={responsiveColumns} gap='small'>

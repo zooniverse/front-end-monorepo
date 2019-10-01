@@ -1,9 +1,11 @@
 import { SpacedText } from '@zooniverse/react-components'
-import { Anchor, Box } from 'grommet'
-import { shape, string } from 'prop-types'
+import { Anchor } from 'grommet'
+import Link from 'next/link'
+import { withRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
-import { withRouter } from 'next/router'
+
+import addQueryParams from '@helpers/addQueryParams'
 
 const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
@@ -11,36 +13,41 @@ const StyledSpacedText = styled(SpacedText)`
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
-  &:hover,
-  &:focus {
+  &:hover {
     text-decoration: none;
-    border-color: white;
   }
-  ${props =>
-    props.isActive &&
-    `
-    border-color: white;
-  `}
+  &[href]:hover {
+    border-bottom-color: white;
+  }
+  &:not([href]) {
+    cursor: default;
+    border-bottom-color: white;
+  }
 `
 
 function NavLink (props) {
-  const { href, router, text } = props
-  const isActive = router.asPath.includes(href)
-  return (
-    <StyledAnchor href={href} isActive={isActive}>
-      <StyledSpacedText color='white' weight='bold'>
-        {text}
-      </StyledSpacedText>
-    </StyledAnchor>
-  )
-}
+  const { link, router } = props
+  const { as, href, text } = link
+  const isCurrentPage = router.pathname === href
+  const isPFELink = !as
 
-NavLink.propTypes = {
-  href: string.isRequired,
-  router: shape({
-    asPath: string
-  }),
-  text: string.isRequired
+  const label = <StyledSpacedText children={text} color='white' weight='bold' />
+
+  if (isCurrentPage) {
+    return (
+      <StyledAnchor label={label} />
+    )
+  } else if (isPFELink) {
+    return (
+      <StyledAnchor label={label} href={addQueryParams(href, router)} />
+    )
+  } else {
+    return (
+      <Link as={addQueryParams(as, router)} href={href} passHref>
+        <StyledAnchor label={label} />
+      </Link>
+    )
+  }
 }
 
 export default withRouter(NavLink)

@@ -67,4 +67,10 @@ describe('feedback: metadataToRules', function () {
       expect(logError).to.have.been.calledWith('Subject metadata feedback rule index [1] is improperly formatted. The feedback rule index should be an integer.')
     })
   })
+
+  describe('with undefined metadata', function () {
+    it('should generate an empty rules object', function () {
+      expect(metadataToRules()).to.be.empty()
+    })
+  })
 })

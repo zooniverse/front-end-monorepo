@@ -10,7 +10,11 @@ const WORKFLOW = {
 }
 
 const ROUTER = {
-  asPath: '/projects/foo/bar'
+  asPath: '/projects/foo/bar',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
 }
 
 describe('Component > WorkflowSelectButton', function () {
@@ -18,7 +22,6 @@ describe('Component > WorkflowSelectButton', function () {
 
   before(function () {
     wrapper = render(<WorkflowSelectButton router={ROUTER} workflow={WORKFLOW} />)
-    console.info(wrapper.html())
   })
 
   it('should render without crashing', function () {

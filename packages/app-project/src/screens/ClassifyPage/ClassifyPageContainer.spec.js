@@ -3,7 +3,7 @@ import React from 'react'
 
 import ClassifyPageContainer from './ClassifyPageContainer'
 import ClassifyPage from './ClassifyPage'
-import CollectionsModal from './components/CollectionsModal'
+import CollectionsModal from '../../shared/components/CollectionsModal'
 
 let wrapper
 let componentWrapper

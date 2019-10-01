@@ -8,15 +8,15 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import UrlParse from 'url-parse'
 
-import AuthModal from '../src/components/AuthModal'
-import getCookie from '../src/helpers/getCookie'
-import GrommetWrapper from '../src/helpers/GrommetWrapper'
-import Head from '../src/components/Head'
-import ProjectHeader from '../src/components/ProjectHeader'
-import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
-import { initializeLogger, logReactError } from '../src/helpers/logger'
-import { MediaContextProvider } from '../src/shared/components/Media'
-import initStore from '../stores'
+import AuthModal from '@components/AuthModal'
+import getCookie from '@helpers/getCookie'
+import GrommetWrapper from '@helpers/GrommetWrapper'
+import Head from '@components/Head'
+import ProjectHeader from '@components/ProjectHeader'
+import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+import { initializeLogger, logReactError } from '@helpers/logger'
+import { MediaContextProvider } from '@shared/components/Media'
+import initStore from '@stores'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -75,18 +75,6 @@ export default class MyApp extends App {
     super.componentDidCatch(error, errorInfo)
   }
 
-  componentDidUpdate () {
-    // Next.js mutates the router, so we can't compare the previous `asPath` to
-    // the current one. Instead, we check the URL against the slug for the
-    // active project in the store.
-    const slugFromUrl = getSlugFromUrl(this.props.router.asPath)
-    const currentSlug = this.store.project.slug
-
-    if (slugFromUrl && currentSlug !== slugFromUrl) {
-      this.store.project.fetch(slugFromUrl)
-    }
-  }
-
   render () {
     const { Component, pageProps } = this.props
     return (
@@ -114,15 +102,12 @@ export default class MyApp extends App {
   }
 }
 
-function getSlugFromUrl (relativeUrl) {
-  const fragments = new UrlParse(relativeUrl).pathname.split('/')
-  return (fragments[2] && fragments[3])
-    ? `${fragments[2]}/${fragments[3]}`
-    : undefined
-}
-
 function generateHostUrl (context) {
-  const { connection, headers } = context.req
-  const protocol = connection.encrypted ? 'https' : 'http'
-  return `${protocol}://${headers.host}`
+  if (context.req) {
+    const { connection, headers } = context.req
+    const protocol = connection.encrypted ? 'https' : 'http'
+    return `${protocol}://${headers.host}`
+  } else {
+    return location.origin
+  }
 }

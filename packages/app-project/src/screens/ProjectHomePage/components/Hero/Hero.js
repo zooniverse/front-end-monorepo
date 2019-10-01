@@ -6,12 +6,13 @@ import styled from 'styled-components'
 import Background from './components/Background'
 import Introduction from './components/Introduction'
 import WorkflowSelector from './components/WorkflowSelector'
-import ContentBox from '../../../../shared/components/ContentBox'
-import { Media } from '../../../../shared/components/Media'
+import ContentBox from '@shared/components/ContentBox'
+import { Media } from '@shared/components/Media'
 
 const StyledContentBox = styled(ContentBox)`
   ${props => (props.screenSize !== 'small') && `
     border-color: transparent;
+    min-height: 545px;
     max-height: 763px;
   `}
 `

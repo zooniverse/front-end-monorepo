@@ -204,10 +204,10 @@ class LightCurveViewer extends Component {
     if (!this.isCurrentTaskValidForAnnotation()) return // Sanity check
 
     const annotations = this.annotationBrushes
-      .filter((raw) => (raw.minX !== undefined && raw.maxX !== undefined))
+      .filter((raw) => (raw.minX !== undefined && raw.maxX !== undefined && raw.minX !== null && raw.maxX !== null))
       .map((raw) => {
         const x = (raw.minX + raw.maxX) / 2
-        const width = (raw.maxX - raw.minX)
+        const width = Math.abs(raw.maxX - raw.minX)
         const toolType = props.currentTask.tools[props.toolIndex].type
         return { x, width, tool: props.toolIndex, zoomLevelOnCreation: raw.zoomLevelOnCreation, toolType }
       })

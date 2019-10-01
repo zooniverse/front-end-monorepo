@@ -1,31 +1,35 @@
-import { inject, observer } from 'mobx-react'
-import { string } from 'prop-types'
+import { shape, string } from 'prop-types'
 import React, { Component } from 'react'
+import { withRouter } from 'next/router'
 
 import JoinInButton from './JoinInButton'
-
-function storeMapper (stores) {
-  return {
-    slug: stores.store.project.slug
-  }
-}
+import addQueryParams from '@helpers/addQueryParams'
 
 class JoinInButtonContainer extends Component {
   render () {
-    const href = `/projects/${this.props.slug}/talk`
+    const { router } = this.props
+    const { owner, project } = router.query
+    const linkProps = {
+      href: addQueryParams(`/projects/${owner}/${project}/talk`, router)
+    }
+
     return (
-      <JoinInButton href={href} />
+      <JoinInButton linkProps={linkProps} />
     )
   }
 }
 
 JoinInButtonContainer.propTypes = {
-  slug: string
+  router: shape({
+    query: shape({
+      owner: string.isRequired,
+      project: string.isRequired
+    }).isRequired
+  }).isRequired
 }
 
-@inject(storeMapper)
-@observer
-class WrappedJoinInButtonContainer extends JoinInButtonContainer { }
+@withRouter
+class DecoratedJoinInButtonContainer extends JoinInButtonContainer { }
 
-export default WrappedJoinInButtonContainer
+export default DecoratedJoinInButtonContainer
 export { JoinInButtonContainer }

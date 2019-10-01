@@ -65,6 +65,7 @@ describe('Component > ClassifierWrapperContainer', function () {
       before(function () {
         const subject = {
           id: '1',
+          favorite: false,
           locations: [
             { 'image/jpeg': 'thing.jpg' }
           ]
@@ -78,6 +79,7 @@ describe('Component > ClassifierWrapperContainer', function () {
 
       it('should add to recents', function () {
         const recent = {
+          favorite: false,
           subjectId: '1',
           locations: [
             { 'image/jpeg': 'thing.jpg' }
@@ -86,7 +88,6 @@ describe('Component > ClassifierWrapperContainer', function () {
         expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
       })
     })
-    
 
     describe('on toggle favourite', function () {
       it('should add a subject to favourites', function () {

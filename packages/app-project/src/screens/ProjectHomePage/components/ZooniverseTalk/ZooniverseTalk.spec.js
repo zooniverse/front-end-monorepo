@@ -4,7 +4,7 @@ import { Grid } from 'grommet'
 
 import { ZooniverseTalk } from './ZooniverseTalk'
 import translations from './locales/en'
-import ContentBox from '../../../../shared/components/ContentBox'
+import ContentBox from '@shared/components/ContentBox'
 
 describe('Component > ZooniverseTalk', function () {
   let wrapper
