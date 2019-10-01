@@ -37,7 +37,7 @@ function WorkflowSelector (props) {
 
       {(workflows.loading === asyncStates.success) && (
         <Box
-          alignSelf='center'
+          alignSelf='start'
           fill='horizontal'
           gap='xsmall'
           margin={{ top: 'small' }}
