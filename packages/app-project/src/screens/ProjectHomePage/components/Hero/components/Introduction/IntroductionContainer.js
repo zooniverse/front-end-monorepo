@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import Introduction from './Introduction'
-import addQueryParams from '../../../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project } = stores.store

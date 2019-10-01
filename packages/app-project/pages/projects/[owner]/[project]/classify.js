@@ -1,1 +1,1 @@
-export { default } from '../../../../src/screens/ClassifyPage'
+export { default } from '@screens/ClassifyPage'

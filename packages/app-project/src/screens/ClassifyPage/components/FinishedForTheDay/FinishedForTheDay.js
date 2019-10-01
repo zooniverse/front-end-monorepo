@@ -9,7 +9,7 @@ import { withResponsiveContext } from '@zooniverse/react-components'
 import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
 // import RelatedProjects from './components/RelatedProjects'
-import ContentBox from '../../../../shared/components/ContentBox'
+import ContentBox from '@shared/components/ContentBox'
 
 counterpart.registerTranslations('en', en)
 

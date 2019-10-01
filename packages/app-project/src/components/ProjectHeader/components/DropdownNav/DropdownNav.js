@@ -8,7 +8,7 @@ import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
-import addQueryParams from '../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;

@@ -1,1 +1,1 @@
-export { default } from '../../../../src/screens/ProjectHomePage'
+export { default } from '@screens/ProjectHomePage'

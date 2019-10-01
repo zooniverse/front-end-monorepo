@@ -7,7 +7,7 @@ import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
 import { Text } from '@vx/text'
 import { scaleBand, scaleLinear } from '@vx/scale'
-import WidgetHeading from '../../../../../../shared/components/WidgetHeading'
+import WidgetHeading from '@shared/components/WidgetHeading'
 
 import en from './locales/en'
 
