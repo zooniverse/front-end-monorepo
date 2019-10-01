@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import ClassifyPage from './ClassifyPage'
-import CollectionsModal from './components/CollectionsModal'
+import CollectionsModal from '../../shared/components/CollectionsModal'
 
 class ClassifyPageContainer extends Component {
   constructor () {

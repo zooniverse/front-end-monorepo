@@ -4,12 +4,13 @@ import { func, string } from 'prop-types'
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
-import FinishedForTheDay from './components/FinishedForTheDay'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
-import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
+import FinishedForTheDay from './components/FinishedForTheDay'
+import RecentSubjects from './components/RecentSubjects'
+import YourStats from './components/YourStats'
 
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
@@ -34,8 +35,15 @@ function ClassifyPage (props) {
 
       <Box as='aside' gap='medium'>
         <FinishedForTheDay />
-        <Grid columns={['1fr', '2fr']} gap='medium'>
+        <Grid
+          alignContent='stretch'
+          columns={(screenSize === 'small') ? ['auto'] : ['1fr', '2fr']}
+          gap='medium'
+        >
           <YourStats />
+          <RecentSubjects
+            size={(screenSize === 'small') ? 1 : 3}
+          />
         </Grid>
         <ProjectStatistics />
         <ConnectWithProject />

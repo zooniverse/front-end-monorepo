@@ -10,7 +10,7 @@
     "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=production next start",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook": "start-storybook -p 9001 -c .storybook -s ./",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
