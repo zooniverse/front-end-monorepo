@@ -45,7 +45,7 @@ function toggle () {
 storiesOf('Project App / Shared / Subject Preview', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <SubjectPreview
         height={'200px'}
         isLoggedIn={boolean('User logged in', true)}
@@ -56,7 +56,7 @@ storiesOf('Project App / Shared / Subject Preview', module)
     </Grommet>
   ))
   .add('transcription', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <SubjectPreview
         height={'200px'}
         isLoggedIn={boolean('User logged in', true)}
@@ -67,7 +67,7 @@ storiesOf('Project App / Shared / Subject Preview', module)
     </Grommet>
   ))
   .add('video', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <SubjectPreview
         height={'200px'}
         isLoggedIn={boolean('User logged in', true)}

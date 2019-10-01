@@ -88,7 +88,7 @@ RECENTS.forEach(recent => {
 storiesOf('Project App / Screens / Classify / Recent Subjects', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
         isLoggedIn={boolean('User logged in', true)}
         recents={RECENTS}
@@ -98,7 +98,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
     </Grommet>
   ))
   .add('narrow screens', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
         isLoggedIn={boolean('User logged in', true)}
         recents={RECENTS}
@@ -109,7 +109,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
     </Grommet>
   ), { viewport: { defaultViewport: 'iphone5' }})
   .add('transcription', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
         isLoggedIn={boolean('User logged in', true)}
         recents={PORTRAIT_SUBJECTS}
@@ -119,7 +119,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
     </Grommet>
   ))
   .add('video', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
         isLoggedIn={boolean('User logged in', true)}
         recents={VIDEO_SUBJECTS}
@@ -129,7 +129,7 @@ storiesOf('Project App / Screens / Classify / Recent Subjects', module)
     </Grommet>
   ))
   .add('one subject', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <RecentSubjectsContainer
         isLoggedIn={boolean('User logged in', true)}
         recents={RECENTS.slice(0,1)}
