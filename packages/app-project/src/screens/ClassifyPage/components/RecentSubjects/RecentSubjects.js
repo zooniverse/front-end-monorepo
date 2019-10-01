@@ -3,6 +3,7 @@ import { Box, Grid, Paragraph } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import { Media } from '@zooniverse/react-components'
 
 import en from './locales/en'
 
@@ -37,6 +38,7 @@ function RecentSubjects (props) {
               height={height}
               key={recent.subjectId}
               isLoggedIn={isLoggedIn}
+              placeholder={<img alt="" role="presentation" src="/static/subject-placeholder.png" />}
               subject={subject}
               slug={slug}
               width={'100%'}
@@ -53,7 +55,7 @@ function RecentSubjects (props) {
               overflow="hidden"
               width={'100%'}
             >
-              <img alt="" role='presentation' src='/static/subject-placeholder.png' />
+              <img alt="" role="presentation" src="/static/subject-placeholder.png" />
             </Box>
           )
         })}

@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { array, bool, func, number, shape, string } from 'prop-types'
+import { array, bool, func, node, number, shape, string } from 'prop-types'
 import React, { useState } from 'react'
 import { Anchor, Box } from 'grommet'
 import { Media } from '@zooniverse/react-components'
@@ -10,7 +10,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
+function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width }) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
   const [ isFavourite, setIsFavourite ] = useState(subject.favorite)
@@ -45,6 +45,7 @@ function SubjectPreview ({ height, isLoggedIn, subject, slug, width }) {
           <Media
             alt={`subject ${subject.id}`}
             height={700}
+            placeholder={placeholder}
             src={subjectURL}
             width={700}
           />
@@ -70,6 +71,7 @@ SubjectPreview.propTypes = {
   className: string,
   height: string,
   isLoggedIn: bool,
+  placeholder: node,
   subject: shape({
     favorite: bool,
     id: string,
