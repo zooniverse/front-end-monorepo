@@ -24,7 +24,9 @@ const {
 
 const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
 
-describe('Component > BarChartViewer', function () {
+const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+
+describe.only('Component > BarChartViewer', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <BarChartViewer
