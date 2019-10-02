@@ -4,7 +4,7 @@ import React from 'react'
 import { Anchor, Box } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 import { CollectionsButton, FavouritesButton, TalkLink } from './components'
-import CollectionsModal from '../CollectionsModal'
+
 
 import en from './locales/en'
 
@@ -16,17 +16,10 @@ function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width
   const collectionsModal = React.createRef()
   const href = `/projects/${slug}/talk/subjects/${subject.id}`
 
-  function addToCollections () {
-    collectionsModal.current.wrappedInstance.open(subject.id)
-  }
-
   return (
     <Box
       fill
     >
-      <CollectionsModal
-        ref={collectionsModal}
-      />
       <Anchor
         href={href}
       >
@@ -55,7 +48,7 @@ function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width
       />
       <CollectionsButton
         disabled={!isLoggedIn}
-        onClick={addToCollections}
+        subject={subject}
       />
     </Box>
   )
