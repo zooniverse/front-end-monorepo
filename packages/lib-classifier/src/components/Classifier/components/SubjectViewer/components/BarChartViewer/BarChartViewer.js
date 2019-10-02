@@ -11,22 +11,24 @@ import Background from '../SVGComponents/Background'
 
 const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
   const {
-    backgroundFill,
     barStyles: {
       padding
     },
     data,
-    options: { axes },
     parentHeight,
     parentWidth,
-    theme: { dark, global: { colors, font } }
+    theme: { dark, global: { colors, font } },
+    xAxisLabel,
+    xAxisMargin,
+    yAxisLabel,
+    yAxisMargin
   } = props
 
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
-  const xMax = parentWidth - axes.x.margin
-  const yMax = parentHeight - axes.y.margin
+  const xMax = parentWidth - xAxisMargin
+  const yMax = parentHeight - yAxisMargin
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
@@ -38,19 +40,12 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
     rangeRound: [yMax, 0]
   })
 
-  if (backgroundFill.dark && backgroundFill.light) {
-    backgroundColor = (dark) ? backgroundFill.dark : backgroundFill.light
-  }
-
-  if (axes.color && axes.color.dark && axes.color.light) {
-    axisColor = (dark) ? axes.color.dark : axes.color.light
-  } 
-
-  const ticks = xScale.domain()
+  const xScaleTicks = xScale.domain()
+  const yScaleTicks = yScale.domain()
   return (
     <Chart height={parentHeight} ref={ref} width={parentWidth}>
       <Background fill={backgroundColor} />
-      <Group left={axes.x.margin}>
+      <Group left={xAxisMargin}>
         {data.map((datum, index) => {
           const { color, label, value } = datum
           const fill = color || colors.brand
@@ -72,9 +67,9 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
           )
         })}
       </Group>
-      <Group left={axes.x.margin}>
+      <Group left={xAxisMargin}>
         <AxisLeft
-          label={axes.y.label}
+          label={yAxisLabel}
           labelProps={{
             fill: axisColor,
             textAnchor: 'middle',
@@ -84,7 +79,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
           left={0}
           scale={yScale}
           stroke={axisColor}
-          ticks={ticks.length}
+          ticks={yScaleTicks.length}
           tickStroke={axisColor}
           tickLabelProps={(value, index) => ({
             fill: axisColor,
@@ -97,7 +92,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
           top={0}
         />
         <AxisBottom
-          label={axes.x.label}
+          label={xAxisLabel}
           labelProps={{
             fill: axisColor,
             textAnchor: 'middle',
@@ -107,7 +102,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
           left={0}
           scale={xScale}
           stroke={axisColor}
-          ticks={ticks.length}
+          ticks={xScaleTicks.length}
           tickStroke={axisColor}
           tickLabelProps={(value, index) => ({
             fill: axisColor,
@@ -123,22 +118,13 @@ const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
 })
 
 BarChartViewer.defaultProps = {
-  backgroundFill: {},
   barStyles: {
     padding: 0.25
   },
-  options: {
-    axes: {
-      x: {
-        label: '',
-        margin: 40 // how much this should be depends on the data, but let's have a sensible default
-      },
-      y: {
-        label: '',
-        margin: 40 // how much this should be depends on the data, but let's have a sensible default
-      }
-    }
-  },
+  xAxisLabel: '',
+  xAxisMargin: 40,
+  yAxisLabel: '',
+  yAxisMargin: 40,
   theme: {
     dark: false,
     global: {
@@ -154,10 +140,6 @@ BarChartViewer.defaultProps = {
 }
 
 BarChartViewer.propTypes = {
-  backgroundFill: PropTypes.shape({
-    dark: PropTypes.string,
-    light: PropTypes.string
-  }),
   barStyles: PropTypes.shape({
     padding: PropTypes.number
   }),
@@ -166,15 +148,6 @@ BarChartViewer.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })).isRequired,
-  options: PropTypes.shape({
-    axis: PropTypes.shape({
-      color: PropTypes.shape({
-        dark: PropTypes.string,
-        light: PropTypes.string
-      }),
-      label: PropTypes.string
-    })
-  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   theme: PropTypes.object
