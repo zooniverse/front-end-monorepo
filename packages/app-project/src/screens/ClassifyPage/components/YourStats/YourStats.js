@@ -5,9 +5,9 @@ import React from 'react'
 
 import en from './locales/en'
 import DailyClassificationsChart from './components/DailyClassificationsChart'
-import ContentBox from '../../../../shared/components/ContentBox'
-import Stat from '../../../../shared/components/Stat'
-import WidgetHeading from '../../../../shared/components/WidgetHeading'
+import ContentBox from '@shared/components/ContentBox'
+import Stat from '@shared/components/Stat'
+import WidgetHeading from '@shared/components/WidgetHeading'
 
 counterpart.registerTranslations('en', en)
 

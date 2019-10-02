@@ -5,6 +5,7 @@ services:
     image: front-end-monorepo_dev:latest
     build:
       context: ../../
+      target: bootstrap
     entrypoint:
       - "yarn"
       - "workspace"

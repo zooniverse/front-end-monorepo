@@ -1,1 +1,1 @@
-export { default } from '../../../../src/shared/components/StubComponent'
+export { default } from '@shared/components/StubComponent'

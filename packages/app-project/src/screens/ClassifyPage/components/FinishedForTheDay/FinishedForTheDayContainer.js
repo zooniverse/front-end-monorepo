@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
-import addQueryParams from '../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project, user } = stores.store

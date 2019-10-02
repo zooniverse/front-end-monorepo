@@ -3,7 +3,7 @@ import React from 'react'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
-import WidgetHeading from '../../../../../../shared/components/WidgetHeading'
+import WidgetHeading from '@shared/components/WidgetHeading'
 
 import { DailyClassificationsChart } from './DailyClassificationsChart'
 

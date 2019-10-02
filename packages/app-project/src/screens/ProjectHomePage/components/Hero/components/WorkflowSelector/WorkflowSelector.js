@@ -36,17 +36,26 @@ function WorkflowSelector (props) {
       )}
 
       {(workflows.loading === asyncStates.success) && (
-        <Box margin={{ top: 'small' }} gap='xsmall'>
+        <Box
+          alignSelf='start'
+          fill='horizontal'
+          gap='xsmall'
+          margin={{ top: 'small' }}
+          width={{ max: 'medium' }}
+        >
+
           {(workflows.data.length > 0) && workflows.data.map(workflow =>
             <WorkflowSelectButton key={workflow.id} workflow={workflow} />
           )}
+
           {(workflows.data.length === 0) && (
-            <Box background='accent-4' pad='xsmall'>
+            <Box background='accent-4' pad='xsmall' width={{ max: 'medium' }}>
               <Text size='small' textAlign='center'>
                 {counterpart('WorkflowSelector.noWorkflows')}
               </Text>
             </Box>
           )}
+
         </Box>
       )}
 

@@ -6,7 +6,7 @@ import { bool, shape, string } from 'prop-types'
 import React from 'react'
 
 import theme from './theme'
-import addQueryParams from '../../../../../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 function WorkflowSelectButton (props) {
   const { router, workflow, ...rest } = props
@@ -21,7 +21,7 @@ function WorkflowSelectButton (props) {
 
   return (
     <Link as={as} href={href} passHref>
-      <Button label={workflow.displayName} {...rest} />
+      <Button label={workflow.displayName} primary {...rest} />
     </Link>
   )
 }
