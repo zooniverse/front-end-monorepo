@@ -6,13 +6,13 @@ import { Box, Grommet, base as baseTheme } from 'grommet'
 import BarChartViewer from './BarChartViewer'
 import mockData, { mockDataWithColor } from './mockData'
 import { merge } from 'lodash'
-// import readme from './README.md'
+import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const config = {
-  // notes: {
-  //   markdown: readme
-  // }
+  notes: {
+    markdown: readme
+  }
 }
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
@@ -49,7 +49,7 @@ stories.add('light theme', () => {
         </Box>
       </Grommet>
     )
-  })
+  }, config)
   .add('dark theme', () => {
     const {
       data,
@@ -115,4 +115,4 @@ stories.add('light theme', () => {
         </Box>
       </Grommet>
     )
-  })
+  }, config)
