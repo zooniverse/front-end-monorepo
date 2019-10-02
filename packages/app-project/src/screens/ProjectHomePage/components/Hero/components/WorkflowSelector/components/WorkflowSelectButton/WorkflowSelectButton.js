@@ -18,15 +18,17 @@ function WorkflowSelectButton (props) {
 
   const as = addQueryParams(url, router)
   const href = '/projects/[owner]/[project]/classify'
+  const a11yTitle = `${workflow.displayName} ${parseInt(workflow.completeness * 100)}% complete`
 
   return (
     <Link as={as} href={href} passHref>
       <Button
-         completeness={workflow.completeness}
-         label={workflow.displayName}
-         primary
-         {...rest}
-        />
+        a11yTitle={a11yTitle}
+        completeness={workflow.completeness}
+        label={workflow.displayName}
+        primary
+        {...rest}
+      />
     </Link>
   )
 }
