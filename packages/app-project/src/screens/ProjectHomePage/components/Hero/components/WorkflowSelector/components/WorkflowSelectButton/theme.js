@@ -17,9 +17,11 @@ const theme = {
       }
     },
     extend: props => {
-      const { theme: { dark, global: { colors } } } = props
+      const { theme: { dark, global: { colors } }, completeness } = props
+      const percentComplete = `${parseInt(completeness * 100)}%`
       
       return `
+        background: linear-gradient(to right, ${colors['status-critical']} ${percentComplete}, ${colors['neutral-4']} ${percentComplete});
         text-align: center;
         &:disabled {
           cursor: not-allowed;
