@@ -19,7 +19,7 @@ describe('Component > FavouritesButton', function () {
   it('should display an empty icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Favourite color='dark-5' filled={undefined} size='1em' />)
+    expect(icon).to.deep.equal(<Favourite color='dark-5' filled={false} size='1em' />)
   })
 
   it('should not be checked', function () {
@@ -65,7 +65,7 @@ describe('Component > FavouritesButton', function () {
     it('should display a filled icon', function () {
       const button = wrapper.find(MetaToolsButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite color='dark-5' filled='true' size='1em' />)
+      expect(icon).to.deep.equal(<Favourite color='dark-5' filled size='1em' />)
     })
 
     it('should be checked', function () {
