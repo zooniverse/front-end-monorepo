@@ -27,11 +27,10 @@ const StyledButton = styled(Button)`
   }
 `
 
-function CloseButton ({ className, closeFn, fill, ...rest }) {
+function CloseButton ({ closeFn, ...rest }) {
   return (
     <StyledButton
       a11yTitle={counterpart('CloseButton.close')}
-      className={className}
       icon={<CloseIcon size='1em' />}
       onClick={closeFn}
       {...rest}
