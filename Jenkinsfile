@@ -34,7 +34,7 @@ pipeline {
             script {
               def dockerRepoName = 'zooniverse/front-end-monorepo'
               def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-              def newImage = docker.build(dockerImageName)
+              def newImage = docker.build(dockerImageName, "--target bootstrap")
               newImage.push()
               newImage.push('latest')
             }

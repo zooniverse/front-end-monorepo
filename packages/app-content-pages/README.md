@@ -21,12 +21,12 @@ To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api
 
 ### Running in development
 
-####Docker
+#### Docker
 - `docker-compose up` to run a server on http://localhost:3000.
 - `docker-compose down` to stop the dev server.
 - `docker-compose run --rm dev test` to run the tests.
 
-####Node/yarn
+#### Node/yarn
 ```sh
 yarn dev
 ```
@@ -45,8 +45,8 @@ Starts a Storybook server on port 9001 by default.
 ### Running in production
 
 ```sh
-npm run build
-npm run start
+yarn build
+yarn start
 ```
 
 Next.js [treats the build and serve tasks as separate steps](https://github.com/zeit/next.js/#production-deployment) when running in production.
