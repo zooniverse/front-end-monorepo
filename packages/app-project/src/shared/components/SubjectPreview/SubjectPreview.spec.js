@@ -76,18 +76,6 @@ describe('Component > SubjectPreview', function () {
     it('should not be checked', function () {
       expect(favouritesButton.prop('checked')).to.be.false()
     })
-
-    it('should toggle favourites on', function () {
-      expect(favouritesButton.prop('checked')).to.be.false()
-      favouritesButton.simulate('click')
-      expect(wrapper.find(FavouritesButton).prop('checked')).to.be.true()
-    })
-
-    it('should toggle favourites off', function () {
-      expect(favouritesButton.prop('checked')).to.be.true()
-      favouritesButton.simulate('click')
-      expect(wrapper.find(FavouritesButton).prop('checked')).to.be.false()
-    })
   })
 
   describe('the collections button', function () {

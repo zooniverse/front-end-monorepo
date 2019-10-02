@@ -28,14 +28,32 @@ describe('Component > FavouritesButton', function () {
   })
 
   describe('on click', function () {
-    const onClickSpy = sinon.spy()
+    let onClickStub
+
     before(function () {
-      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickSpy} />)
+      onClickStub = sinon.stub()
+      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickStub} />)
+    })
+    
+    afterEach(function () {
+      onClickStub.resetHistory()
+    })
+
+    it('should toggle favourites on', function () {
+      wrapper.simulate('click')
+      const icon = wrapper.prop('icon')
+      expect(icon.props.filled).to.be.true()
+    })
+
+    it('should toggle favourites off', function () {
+      wrapper.simulate('click')
+      const icon = wrapper.prop('icon')
+      expect(icon.props.filled).to.be.false()
     })
 
     it('should call props.onClick', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClickSpy).to.have.been.calledOnce()
+      wrapper.simulate('click')
+      expect(onClickStub).to.have.been.calledOnce()
     })
   })
 
