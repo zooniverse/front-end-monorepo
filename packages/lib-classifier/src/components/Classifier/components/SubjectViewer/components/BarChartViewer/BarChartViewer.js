@@ -15,7 +15,6 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       padding
     },
     data,
-    options: { axes },
     parentHeight,
     parentWidth,
     theme: { dark, global: { colors, font } },
@@ -161,15 +160,6 @@ BarChartViewer.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })).isRequired,
-  options: PropTypes.shape({
-    axis: PropTypes.shape({
-      color: PropTypes.shape({
-        dark: PropTypes.string,
-        light: PropTypes.string
-      }),
-      label: PropTypes.string
-    })
-  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   theme: PropTypes.object
