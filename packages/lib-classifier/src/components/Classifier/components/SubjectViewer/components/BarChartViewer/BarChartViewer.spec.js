@@ -207,6 +207,21 @@ describe.only('Component > BarChartViewer', function () {
       expect(wrapper.find(AxisBottom)).to.have.lengthOf(1)
     })
 
+    it('should have a defined scale', function () {
+      const wrapper = shallow(
+        <BarChartViewer
+          data={data}
+          parentHeight={500}
+          parentWidth={500}
+          xAxisLabel={xAxisLabel}
+          xAxisMargin={xAxisMargin}
+          yAxisLabel={yAxisLabel}
+          yAxisMargin={yAxisMargin}
+        />
+      )
+      expect(wrapper.find(AxisBottom).props().scale).to.be.a('function')
+    })
+
     it('should use the theme text colors', function () {
       let axisBottomProps
       const wrapper = mount(
@@ -289,6 +304,21 @@ describe.only('Component > BarChartViewer', function () {
         />
       )
       expect(wrapper.find(AxisLeft)).to.have.lengthOf(1)
+    })
+
+    it('should have a defined scale', function () {
+      const wrapper = shallow(
+        <BarChartViewer
+          data={data}
+          parentHeight={500}
+          parentWidth={500}
+          xAxisLabel={xAxisLabel}
+          xAxisMargin={xAxisMargin}
+          yAxisLabel={yAxisLabel}
+          yAxisMargin={yAxisMargin}
+        />
+      )
+      expect(wrapper.find(AxisLeft).props().scale).to.be.a('function')
     })
 
     it('should use the theme text colors', function () {
