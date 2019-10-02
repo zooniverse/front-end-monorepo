@@ -15,6 +15,6 @@ describe('<CloseButton />', function () {
 
   it('calls on the closeFn prop on click', function () {
     wrapper.simulate('click')
-    expect(wrapper.props().closeFn).to.have.been.calledOnce()
+    expect(wrapper.props().onClick).to.have.been.calledOnce()
   })
 })
