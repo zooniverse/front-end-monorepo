@@ -90,7 +90,7 @@ storiesOf('Project App / Shared / Subject Preview', module)
   ))
   .add('video', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Box>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' pad='medium' width='medium'>
         <SubjectPreview
           height={'200px'}
           isLoggedIn={boolean('User logged in', true)}
