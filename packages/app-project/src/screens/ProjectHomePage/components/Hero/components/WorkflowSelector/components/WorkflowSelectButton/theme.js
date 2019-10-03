@@ -19,18 +19,28 @@ const theme = {
     extend: props => {
       const { theme: { global: { colors } }, completeness } = props
       const percentComplete = `${parseInt(completeness * 100)}%`
-      const progressGradient = `${colors['status-critical']} ${percentComplete}, ${colors['neutral-4']} ${percentComplete}`
-      const hoverGradient = `${adjustHue(7, colors['status-critical'])} ${percentComplete}, ${adjustHue(-7, colors['neutral-4'])} ${percentComplete}`
+      const progressGradient = [
+        `${colors['neutral-4']}`,
+        `${colors['status-critical']} ${percentComplete}`,
+        `white ${percentComplete} calc(${percentComplete} + 1px)`,
+        `${colors['neutral-4']} ${percentComplete}`
+      ]
+      const hoverGradient = [
+        `${colors['neutral-4']}`,
+        `${adjustHue(7, colors['status-critical'])} ${percentComplete}`,
+        `white ${percentComplete} calc(${percentComplete} + 1px)`,
+        `${adjustHue(-7, colors['neutral-4'])} ${percentComplete}`
+      ]
       
       return `
-        background: linear-gradient(to right, ${progressGradient});
+        background: linear-gradient(to right, ${progressGradient.join(',')});
         text-align: center;
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          background: linear-gradient(to right, ${hoverGradient});
+          background: linear-gradient(to right, ${hoverGradient.join(',')});
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
           color: 'black';
         }
