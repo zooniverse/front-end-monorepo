@@ -17,9 +17,18 @@ import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const config = {
-  notes: {
-    markdown: readme
-  }
+  // notes: {
+  //   markdown: readme
+  // }
+}
+
+const transformMatrixMock = {
+  scaleX: 1,
+  scaleY: 1,
+  skewX: 0,
+  skewY: 0,
+  translateX: 0,
+  translateY: 0
 }
 
 let zoomCallback
