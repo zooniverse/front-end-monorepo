@@ -31,7 +31,7 @@ const theme = {
         `white ${percentComplete} calc(${percentComplete} + 1px)`,
         `${adjustHue(-7, colors['neutral-4'])} ${percentComplete}`
       ]
-      
+
       return `
         background: linear-gradient(to right, ${progressGradient.join(',')});
         text-align: center;
@@ -44,7 +44,8 @@ const theme = {
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
           color: 'black';
         }
-    `}
+    `
+    }
   }
 }
 
