@@ -69,7 +69,7 @@ function ScatterPlotViewer(props) {
     },
     yAxis: {
       label: yAxisLabel,
-      orientation: 'right', // orientation for inner tick direction
+      orientation: 'left',
       scale: yScaleTransformed,
     }
   }
@@ -101,7 +101,6 @@ function ScatterPlotViewer(props) {
       {children}
       <Axes
         axesConfig={axesConfig}
-        chartStyles={chartStyles}
         tickStyles={tickStyles}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
@@ -139,6 +138,8 @@ ScatterPlotViewer.propTypes = {
     y: PropTypes.arrayOf(PropTypes.number)
   }),
   panning: PropTypes.bool,
+  parentHeight: PropTypes.number.isRequired,
+  parentWidth: PropTypes.number.isRequired,
   tickStyles: PropTypes.shape({
     direction: PropTypes.oneOf(['inner', 'outer']),
     length: PropTypes.number

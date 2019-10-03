@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { AxisLeft, AxisBottom } from '@vx/axis'
+import { withTheme } from 'styled-components'
+
 import InnerTickAxis from '../InnerTickAxis'
 import { PADDING } from '../../../../helpers/constants'
 
-function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
+function Axis ({ axis, parentHeight, parentWidth, theme, tickStyles }) {
   const { direction, length } = tickStyles
-  const {
-    color,
-    fontFamily,
-    fontSize
-  } = chartStyles
+
+  const color = theme.global.colors['light-1']
+  const fontFamily = theme.global.font.family
+  const fontSize = theme.text.xsmall.size
 
   const {
     label,
@@ -22,7 +23,9 @@ function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
     return (
       <InnerTickAxis
         axis={axis}
-        chartStyles={chartStyles}
+        color={color}
+        fontFamily={fontFamily}
+        fontSize={fontSize}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
         tickLength={length}
@@ -30,7 +33,7 @@ function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
     )
   }
 
-  if (orientation === 'right') {
+  if (orientation === 'left') {
     return (
       <AxisLeft
         label={label}
@@ -83,4 +86,31 @@ function Axis ({ axis, chartStyles, parentHeight, parentWidth, tickStyles }) {
   return null
 }
 
-export default Axis
+Axis.defaultProps = {
+  axis: {},
+  theme: {
+    dark: false
+  },
+  tickStyles: {
+    direction: 'outer',
+    length: 5
+  }
+}
+
+Axis.propTypes = {
+  axis: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    orientation: PropTypes.oneOf(['bottom', 'left']).isRequired,
+    scale: PropTypes.func.isRequired // D3 scaleLinear function
+  }),
+  parentHeight: PropTypes.number.isRequired,
+  parentWidth: PropTypes.number.isRequired,
+  theme: PropTypes.object,
+  tickStyles: PropTypes.shape({
+    direction: PropTypes.oneOf(['inner', 'outer']),
+    length: PropTypes.number
+  })
+}
+
+export default withTheme(Axis)
+export { Axis }
