@@ -9,7 +9,7 @@ import RelatedProjects from './components/RelatedProjects'
 const PROJECT_NAME = 'Foobar'
 const IMAGE_SRC = 'foobar.jpg'
 const LINK_PROPS = {
-  href: '/projects/foo/bar/stats',
+  href: '/projects/foo/bar/stats'
 }
 
 describe('Component > FinishedForTheDay', function () {

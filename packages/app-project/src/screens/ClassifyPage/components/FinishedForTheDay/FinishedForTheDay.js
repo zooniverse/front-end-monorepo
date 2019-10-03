@@ -77,7 +77,7 @@ FinishedForTheDay.propTypes = {
   imageSrc: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   linkProps: PropTypes.object.isRequired,
-  projectName: PropTypes.string.isRequired,
+  projectName: PropTypes.string.isRequired
 }
 
 FinishedForTheDay.defaultProps = {

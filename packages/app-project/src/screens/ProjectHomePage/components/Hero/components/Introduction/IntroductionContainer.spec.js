@@ -38,7 +38,7 @@ describe('Component > IntroductionContainer', function () {
   it('should pass down the expected props to the `Introduction` component', function () {
     expect(componentWrapper.prop('description')).to.equal(DESCRIPTION)
     expect(componentWrapper.prop('linkProps')).to.deep.equal({
-      href: '/projects/foo/bar/about',
+      href: '/projects/foo/bar/about'
     })
     expect(componentWrapper.prop('title')).to.equal(TITLE)
   })

@@ -38,7 +38,7 @@ function RecentSubjects (props) {
               height={height}
               key={recent.subjectId}
               isLoggedIn={isLoggedIn}
-              placeholder={<img alt="" role="presentation" src="/static/subject-placeholder.png" />}
+              placeholder={<img alt='' role='presentation' src='/static/subject-placeholder.png' />}
               subject={subject}
               slug={slug}
               width={'100%'}
@@ -52,10 +52,10 @@ function RecentSubjects (props) {
               justify='center'
               height={height}
               key={i}
-              overflow="hidden"
+              overflow='hidden'
               width={'100%'}
             >
-              <img alt="" role="presentation" src="/static/subject-placeholder.png" />
+              <img alt='' role='presentation' src='/static/subject-placeholder.png' />
             </Box>
           )
         })}

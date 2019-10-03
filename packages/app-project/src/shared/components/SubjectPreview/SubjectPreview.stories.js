@@ -1,13 +1,13 @@
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import React from 'react'
 import { backgrounds } from '../../../../.storybook/lib'
 
-const darkThemeConfig = { backgrounds: backgrounds.darkDefault }
-
 import SubjectPreview from './'
+
+const darkThemeConfig = { backgrounds: backgrounds.darkDefault }
 
 const CAT = {
   favorite: false,
@@ -49,7 +49,7 @@ storiesOf('Project App / Shared / Subject Preview', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Box background={{ dark: 'dark-3', light: 'light-3'}} height='medium' pad='medium' width='medium'>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' pad='medium' width='medium'>
         <SubjectPreview
           height={'200px'}
           isLoggedIn={boolean('User logged in', true)}

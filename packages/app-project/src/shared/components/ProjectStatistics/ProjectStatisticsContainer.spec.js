@@ -49,7 +49,7 @@ describe('Component > ProjectStatisticsContainer', function () {
 
   it('should pass through a `linkProps` prop', function () {
     expect(projectStatisticsWrapper.prop('linkProps')).to.deep.equal({
-      href: `/projects/foo/bar/stats`,
+      href: `/projects/foo/bar/stats`
     })
   })
 
