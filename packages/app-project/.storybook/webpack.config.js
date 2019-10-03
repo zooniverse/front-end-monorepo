@@ -10,6 +10,12 @@ module.exports = async ({ config }) => {
     })
   ])
 
+  config.module.rules.push({
+    test: /\.stories\.jsx?$/,
+    loaders: [require.resolve('@storybook/source-loader')],
+    enforce: 'pre',
+  })
+
   const newAliases = webpackConfig.resolve.alias
   const alias = Object.assign({}, config.resolve.alias, newAliases)
   config.resolve = Object.assign({}, config.resolve, { alias } )
