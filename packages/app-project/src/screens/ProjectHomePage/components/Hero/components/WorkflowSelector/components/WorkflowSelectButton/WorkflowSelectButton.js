@@ -1,13 +1,22 @@
-import { withThemeContext } from '@zooniverse/react-components'
+import { SpacedText, withThemeContext } from '@zooniverse/react-components'
+import counterpart from 'counterpart'
 import { Button } from 'grommet'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { bool, shape, string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
 
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
+const StyledButton = styled(Button)`
+  text-align: left;
+`
 function WorkflowSelectButton (props) {
   const { router, workflow, ...rest } = props
   const { owner, project } = router.query
@@ -18,14 +27,21 @@ function WorkflowSelectButton (props) {
 
   const as = addQueryParams(url, router)
   const href = '/projects/[owner]/[project]/classify'
-  const a11yTitle = `${workflow.displayName} ${parseInt(workflow.completeness * 100)}% complete`
+  const completeness = parseInt(workflow.completeness * 100)
+  const label = (
+    <span>
+      {workflow.displayName}<br/>
+      <SpacedText size='xsmall'>
+        {counterpart('WorkflowSelectButton.complete', { completeness })}
+      </SpacedText>
+    </span>
+  )
 
   return (
     <Link as={as} href={href} passHref>
-      <Button
-        a11yTitle={a11yTitle}
+      <StyledButton
         completeness={workflow.completeness}
-        label={workflow.displayName}
+        label={label}
         primary
         {...rest}
       />
