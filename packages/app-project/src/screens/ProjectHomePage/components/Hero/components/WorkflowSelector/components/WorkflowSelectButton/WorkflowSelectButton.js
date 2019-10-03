@@ -27,7 +27,7 @@ function WorkflowSelectButton (props) {
 
   const as = addQueryParams(url, router)
   const href = '/projects/[owner]/[project]/classify'
-  const completeness = parseInt(workflow.completeness * 100)
+  const completeness = parseInt(workflow.completeness * 100, 10)
   const label = (
     <span>
       {workflow.displayName}<br/>
@@ -40,7 +40,7 @@ function WorkflowSelectButton (props) {
   return (
     <Link as={as} href={href} passHref>
       <StyledButton
-        completeness={workflow.completeness}
+        completeness={completeness}
         label={label}
         primary
         {...rest}

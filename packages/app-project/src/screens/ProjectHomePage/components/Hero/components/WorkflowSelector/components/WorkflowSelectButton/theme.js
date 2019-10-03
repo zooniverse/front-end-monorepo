@@ -18,7 +18,7 @@ const theme = {
     },
     extend: props => {
       const { theme: { global: { colors } }, completeness } = props
-      const percentComplete = `${parseInt(completeness * 100)}%`
+      const percentComplete = `${completeness}%`
       const progressGradient = [
         `${colors['neutral-4']}`,
         `${colors['status-critical']} ${percentComplete}`,
