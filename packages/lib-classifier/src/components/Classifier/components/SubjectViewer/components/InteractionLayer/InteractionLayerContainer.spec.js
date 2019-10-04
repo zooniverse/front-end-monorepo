@@ -1,49 +1,58 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 import InteractionLayerContainer from './InteractionLayerContainer'
-
-const activeStepTasksWithDrawing = [
-  {
-    instruction: 'Draw a point and line',
-    taskKey: 'T0',
-    tools: [
-      { type: 'point' },
-      { type: 'line' }
-    ],
-    type: 'drawing'
-  }
-]
-
-const activeStepTasksWithSingleChoice = [
-  {
-    answers: [{ label: 'yes' }, { label: 'no' }],
-    question: 'Is there a cat?',
-    required: true,
-    taskKey: 'T0',
-    type: 'single'
-  }
-]
 
 describe('Component > InteractionLayerContainer', function () {
   it('should render without crashing', function () {
-    shallow(<InteractionLayerContainer.wrappedComponent />)
+    shallow(
+      <InteractionLayerContainer.wrappedComponent
+        addToStream={() => {}}
+        storeSVG={() => {}}
+      />)
   })
 
   it('should render an InteractionLayer', function () {
-    const wrapper = shallow(<InteractionLayerContainer.wrappedComponent />)
+    const wrapper = shallow(
+      <InteractionLayerContainer.wrappedComponent
+        addToStream={() => {}}
+        storeSVG={() => {}}
+      />)
     expect(wrapper.find('InteractionLayer')).to.have.lengthOf(1)
+  })
+
+  it('should store svg prop to drawing store', function () {
+    const svg = <svg />
+    const storeSVGSpy = sinon.spy()
+    shallow(
+      <InteractionLayerContainer.wrappedComponent
+        addToStream={() => {}}
+        storeSVG={storeSVGSpy}
+        svg={svg}
+      />)
+    expect(storeSVGSpy).to.be.calledWith(svg)
   })
 
   describe('with active workflow step including a drawing task', function () {
     it('should render a DrawingContainer', function () {
-      const wrapper = shallow(<InteractionLayerContainer.wrappedComponent activeStepTasks={activeStepTasksWithDrawing} />)
+      const wrapper = shallow(
+        <InteractionLayerContainer.wrappedComponent
+          addToStream={() => {}}
+          isDrawingInActiveWorkflowStep
+          storeSVG={() => {}}
+        />)
       expect(wrapper.find('inject-DrawingContainer')).to.have.lengthOf(1)
     })
   })
 
   describe('with active workflow step excluding a drawing task', function () {
     it('should not render a DrawingContainer', function () {
-      const wrapper = shallow(<InteractionLayerContainer.wrappedComponent activeStepTasks={activeStepTasksWithSingleChoice} />)
+      const wrapper = shallow(
+        <InteractionLayerContainer.wrappedComponent
+          addToStream={() => {}}
+          isDrawingInActiveWorkflowStep={false}
+          storeSVG={() => {}}
+        />)
       expect(wrapper.find('inject-DrawingContainer')).to.have.lengthOf(0)
     })
   })
