@@ -59,6 +59,19 @@ Router.router = mockedRouter
 
 const StorybookRouterFix = withMockRouterContext(mockedRouter)
 
+function MockProjectContext({ children, theme }) {
+  return (
+    <MediaContextProvider>
+      <Provider store={mockStore}>
+        <Grommet theme={theme}>
+          <StorybookRouterFix>
+            {children}
+          </StorybookRouterFix>
+        </Grommet>
+      </Provider>
+    </MediaContextProvider>
+  )
+}
 const WORKFLOWS = {
   loading: asyncStates.success,
   data: [
@@ -94,58 +107,34 @@ storiesOf('Project App / Screens / Project Home / Hero', module)
   .addDecorator(withKnobs)
   .addParameters({ viewport: { defaultViewport: 'responsive' }})
   .add('plain', () => (
-    <MediaContextProvider>
-      <Provider store={mockStore}>
-        <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-          <StorybookRouterFix>
-            <Hero
-              screenSize='default'
-              workflows={WORKFLOWS}
-            />
-          </StorybookRouterFix>
-        </Grommet>
-      </Provider>
-    </MediaContextProvider>
+    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <Hero
+        screenSize='default'
+        workflows={WORKFLOWS}
+      />
+    </MockProjectContext>
   ))
   .add('small screen', () => (
-    <MediaContextProvider>
-      <Provider store={mockStore}>
-        <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-          <StorybookRouterFix>
-            <Hero
-              screenSize='default'
-              workflows={WORKFLOWS}
-            />
-          </StorybookRouterFix>
-        </Grommet>
-      </Provider>
-    </MediaContextProvider>
+    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <Hero
+        screenSize='default'
+        workflows={WORKFLOWS}
+      />
+    </MockProjectContext>
   ), { viewport: { defaultViewport: 'iphone5' }})
   .add('loading', () => (
-    <MediaContextProvider>
-      <Provider store={mockStore}>
-        <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-          <StorybookRouterFix>
-            <Hero
-              screenSize='default'
-              workflows={WORKFLOWS_LOADING}
-            />
-          </StorybookRouterFix>
-        </Grommet>
-      </Provider>
-    </MediaContextProvider>
+    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <Hero
+        screenSize='default'
+        workflows={WORKFLOWS_LOADING}
+      />
+    </MockProjectContext>
   ))
   .add('error', () => (
-    <MediaContextProvider>
-      <Provider store={mockStore}>
-        <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-          <StorybookRouterFix>
-            <Hero
-              screenSize='default'
-              workflows={WORKFLOWS_ERROR}
-            />
-          </StorybookRouterFix>
-        </Grommet>
-      </Provider>
-    </MediaContextProvider>
+    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <Hero
+        screenSize='default'
+        workflows={WORKFLOWS_ERROR}
+      />
+    </MockProjectContext>
   ))
