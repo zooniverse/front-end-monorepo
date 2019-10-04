@@ -28,17 +28,17 @@ class InteractionLayerContainer extends Component {
     this.onPointerUp = this.onPointerUp.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.storeSVG()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (this.props.svg !== prevProps.svg) {
       this.storeSVG()
     }
   }
 
-  storeSVG() {
+  storeSVG () {
     const { storeSVG, svg } = this.props
     storeSVG(svg)
   }
@@ -72,6 +72,7 @@ class InteractionLayerContainer extends Component {
 InteractionLayerContainer.wrappedComponent.propTypes = {
   addToStream: PropTypes.func.isRequired,
   isDrawingInActiveWorkflowStep: PropTypes.bool,
+  storeSVG: PropTypes.func.isRequired,
   svg: PropTypes.object
 }
 

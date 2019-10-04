@@ -9,16 +9,12 @@ function storeMapper (stores) {
   const {
     activeDrawingTask,
     activeDrawingTool,
-    coordinateStream,
-    isDrawingInActiveWorkflowStep,
-    eventStream
+    coordinateStream
   } = stores.classifierStore.drawing
   return {
     activeDrawingTask,
     activeDrawingTool,
-    coordinateStream,
-    isDrawingInActiveWorkflowStep,
-    eventStream
+    coordinateStream
   }
 }
 
@@ -33,7 +29,7 @@ class DrawingContainer extends Component {
       marks: new Map()
     }
 
-    // TEMP CODE UNTIL COORDINATE STREAM
+    // TEMP CODE UNTIL TOOL STORES
     this.tempSubscription = null
 
     this.finishMark = this.finishMark.bind(this)
@@ -42,7 +38,7 @@ class DrawingContainer extends Component {
   componentDidMount () {
     this.setActiveMark()
 
-    // TEMP CODE UNTIL COORDINATE STREAM
+    // TEMP CODE UNTIL TOOL STORES
     const { coordinateStream } = this.props
     this.tempSubscription = coordinateStream.subscribe(event => {
       if (event.type === 'pointerup') {
@@ -57,14 +53,14 @@ class DrawingContainer extends Component {
     }
   }
 
-  // TEMP CODE UNTIL COORDINATE STREAM
+  // TEMP CODE UNTIL TOOL STORES
   componentWillUnmount () {
     if (this.tempSubscription) {
       this.tempSubscription.unsubscribe()
     }
   }
 
-  // TEMP CODE UNTIL COORDINATE STREAM
+  // TEMP CODE UNTIL TOOL STORES
   tempMarkCreation () {
     const { activeDrawingTask, activeDrawingTool } = this.props
 
@@ -91,8 +87,6 @@ class DrawingContainer extends Component {
   }
 
   finishMark (coordinates) {
-    if (!coordinates) return null
-
     const { activeDrawingTask, activeDrawingTool } = this.props
     const { activeMark, marks } = this.state
 
@@ -146,9 +140,8 @@ DrawingContainer.wrappedComponent.propTypes = {
     tool: PropTypes.arrayOf(
       PropTypes.object // TODO elaborate
     )
-  }),
-  activeDrawingTool: PropTypes.number,
-  svg: PropTypes.object
+  }).isRequired,
+  activeDrawingTool: PropTypes.number.isRequired
 }
 
 export default DrawingContainer

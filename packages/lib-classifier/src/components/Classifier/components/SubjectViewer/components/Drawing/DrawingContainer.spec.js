@@ -2,33 +2,34 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import DrawingContainer from './DrawingContainer'
 
-const activeStepTasksWithDrawing = [
-  {
-    instruction: 'Draw a point and line',
-    taskKey: 'T0',
-    tools: [
-      { type: 'point' },
-      { type: 'line' }
-    ],
-    type: 'drawing'
-  }
-]
-
-const mockEventStream = {
-  subscribe: () => {}
+const activeDrawingTask = {
+  instruction: 'Draw a point and line',
+  taskKey: 'T0',
+  tools: [
+    { type: 'point' },
+    { type: 'line' }
+  ],
+  type: 'drawing'
 }
 
 describe('Component > DrawingContainer', function () {
   it('should render without crashing', function () {
-    shallow(<DrawingContainer.wrappedComponent />)
+    shallow(
+      <DrawingContainer.wrappedComponent
+        activeDrawingTool={0}
+        activeDrawingTask={activeDrawingTask}
+        // TEMP CODE UNTIL TOOL STORES
+        coordinateStream={{ subscribe: () => {} }}
+      />)
   })
 
   it('it should render the activeMark tool component', function () {
     const wrapper = shallow(
       <DrawingContainer.wrappedComponent
         activeDrawingTool={0}
-        activeStepTasks={activeStepTasksWithDrawing}
-        eventStream={mockEventStream}
+        activeDrawingTask={activeDrawingTask}
+        // TEMP CODE UNTIL TOOL STORES
+        coordinateStream={{ subscribe: () => {} }}
       />
     )
     expect(wrapper.find('Point')).to.have.lengthOf(1)
@@ -38,8 +39,9 @@ describe('Component > DrawingContainer', function () {
     const wrapper = shallow(
       <DrawingContainer.wrappedComponent
         activeDrawingTool={0}
-        activeStepTasks={activeStepTasksWithDrawing}
-        eventStream={mockEventStream}
+        activeDrawingTask={activeDrawingTask}
+        // TEMP CODE UNTIL TOOL STORES
+        coordinateStream={{ subscribe: () => {} }}
       />
     )
     expect(wrapper.find('Point')).to.have.lengthOf(1)
