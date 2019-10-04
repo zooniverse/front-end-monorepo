@@ -82,6 +82,7 @@ const VIDEO_SUBJECTS = [
   }
 ]
 storiesOf('Project App / Screens / Project Home / Recent Subjects', module)
+  .addParameters({ viewport: { defaultViewport: 'responsive' }})
   .add('plain', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjects
