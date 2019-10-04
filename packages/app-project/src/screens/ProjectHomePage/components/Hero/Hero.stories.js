@@ -17,7 +17,9 @@ const mockStore = {
   project: {
     background: {
       src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
-    }
+    },
+    description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
+    display_name: 'Nest Quest Go: Western Bluebirds'
   }
 }
 
