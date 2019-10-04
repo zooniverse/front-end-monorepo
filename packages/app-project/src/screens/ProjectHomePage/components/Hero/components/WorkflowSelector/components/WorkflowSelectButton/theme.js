@@ -6,10 +6,7 @@ const theme = {
       color: 'neutral-4',
       width: '1px'
     },
-    color: {
-      dark: 'neutral-4',
-      light: 'black'
-    },
+    color: 'black',
     primary: {
       color: {
         dark: 'dark-3',
