@@ -51,7 +51,11 @@ function WorkflowSelectButton (props) {
 
 WorkflowSelectButton.propTypes = {
   router: shape({
-    asPath: string.isRequired
+    asPath: string.isRequired,
+    query: {
+      owner: string.isRequired,
+      project: string.isRequired
+    }
   }).isRequired,
   workflow: shape({
     completeness: number,
