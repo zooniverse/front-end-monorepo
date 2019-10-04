@@ -116,7 +116,7 @@ storiesOf('Project App / Screens / Project Home / Hero', module)
   .add('small screen', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <Hero
-        screenSize='default'
+        screenSize='small'
         workflows={WORKFLOWS}
       />
     </MockProjectContext>
