@@ -47,7 +47,6 @@ const withMockRouterContext = mockRouter => {
     }
   }
 
-  // @ts-ignore
   MockRouterContext.childContextTypes = {
     router: PropTypes.object
   }
