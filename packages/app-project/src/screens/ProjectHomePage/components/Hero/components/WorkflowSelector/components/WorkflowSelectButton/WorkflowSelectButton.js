@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import { Button } from 'grommet'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import { bool, shape, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -54,6 +54,7 @@ WorkflowSelectButton.propTypes = {
     asPath: string.isRequired
   }).isRequired,
   workflow: shape({
+    completeness: number,
     default: bool,
     displayName: string.isRequired,
     id: string
