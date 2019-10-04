@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
@@ -14,9 +13,6 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled(Button)`
-  text-align: left;
-`
 function WorkflowSelectButton (props) {
   const { router, workflow, ...rest } = props
   const { owner, project } = router.query
@@ -39,7 +35,7 @@ function WorkflowSelectButton (props) {
 
   return (
     <Link as={as} href={href} passHref>
-      <StyledButton
+      <Button
         completeness={completeness}
         label={label}
         primary

@@ -31,7 +31,7 @@ const theme = {
 
       return `
         background: linear-gradient(to right, ${progressGradient.join(',')});
-        text-align: center;
+        text-align: left;
         &:disabled {
           cursor: not-allowed;
         }
