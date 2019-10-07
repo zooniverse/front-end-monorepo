@@ -26,7 +26,7 @@ function Nav (props) {
 Nav.propTypes = {
   navLinks: arrayOf(
     shape({
-      href: string,
+      href: string
     })
   )
 }

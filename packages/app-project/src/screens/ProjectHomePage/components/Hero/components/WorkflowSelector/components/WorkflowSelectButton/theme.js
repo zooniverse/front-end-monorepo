@@ -18,7 +18,7 @@ const theme = {
     },
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
-      
+
       return `
         text-align: center;
         &:disabled {
@@ -30,7 +30,8 @@ const theme = {
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
           color: ${dark ? 'white' : 'black'};
         }
-    `}
+    `
+    }
   }
 }
 

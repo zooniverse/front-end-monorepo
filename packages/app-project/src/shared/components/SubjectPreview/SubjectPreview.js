@@ -39,7 +39,7 @@ function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width
         <Box
           align='center'
           height={height}
-          overflow="hidden"
+          overflow='hidden'
           width={width}
         >
           <Media

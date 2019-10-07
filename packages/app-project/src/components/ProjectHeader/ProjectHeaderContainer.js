@@ -13,7 +13,6 @@ function storeMapper (stores) {
   }
 }
 
-
 class ProjectHeaderContainer extends Component {
   getBaseUrl () {
     const { owner, project } = this.props.router.query

@@ -10,7 +10,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
   let wrapper
   let componentWrapper
   const MOCK_DAILY_COUNTS = [
-    { count: 12, period: '2019-09-30'},
+    { count: 12, period: '2019-09-30' },
     { count: 13, period: '2019-10-01' },
     { count: 14, period: '2019-10-02' },
     { count: 10, period: '2019-10-03' },
@@ -27,7 +27,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
     wrapper = shallow(
       <DailyClassificationsChartContainer.wrappedComponent
         counts={MOCK_TOTALS}
-        projectName="Test Project"
+        projectName='Test Project'
         thisWeek={MOCK_DAILY_COUNTS}
       />
     )
@@ -48,7 +48,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
   describe('daily stats counts', function () {
     let stats
-    function mockStat(count, period) {
+    function mockStat (count, period) {
       const day = new Date(period)
       const dayNameShort = day.toLocaleDateString('en', { weekday: 'narrow' })
       const dayNameFull = day.toLocaleDateString('en', { weekday: 'long' })
@@ -69,15 +69,15 @@ describe('Component > DailyClassificationsChartContainer', function () {
       expect(stats.length).to.equal(7)
     })
 
-    for(let day = 0; day < 7; day++) {
+    for (let day = 0; day < 7; day++) {
       let stat
       let expectedStat
 
       before(function () {
         stat = stats[day]
-        expectedStat = stat.period === '2019-10-06' ?
-          mockStat(MOCK_TOTALS.today, stat.period) :
-          mockStat(stat.count, stat.period)
+        expectedStat = stat.period === '2019-10-06'
+          ? mockStat(MOCK_TOTALS.today, stat.period)
+          : mockStat(stat.count, stat.period)
       })
 
       describe(MOCK_DAILY_COUNTS[day].period, function () {
