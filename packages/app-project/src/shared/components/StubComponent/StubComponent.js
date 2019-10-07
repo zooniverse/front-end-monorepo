@@ -3,7 +3,7 @@ import Error from 'next/error'
 import React, { Component } from 'react'
 
 class StubComponent extends Component {
-  static async getInitialProps({ res }) {
+  static async getInitialProps ({ res }) {
     const isProduction = process.env.NODE_ENV === 'production'
     let showErrorPage = false
 
@@ -24,10 +24,10 @@ class StubComponent extends Component {
         <Grid gap='medium' margin='medium'>
           <Heading>
             This page isn't built yet!
-        </Heading>
+          </Heading>
           <div>
             You're in development mode (<code>NODE_ENV !== 'production'</code>), so you're seeing this message. In production, this route will 404, so make sure you check the CloudFront config so it's picked up by PFE.
-        </div>
+          </div>
         </Grid>
       )
     }

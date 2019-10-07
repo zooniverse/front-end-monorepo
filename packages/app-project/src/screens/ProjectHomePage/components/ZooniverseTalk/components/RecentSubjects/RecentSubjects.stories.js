@@ -6,6 +6,7 @@ import React from 'react'
 import en from './locales/en'
 
 import RecentSubjects from './RecentSubjects'
+import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 
 counterpart.registerTranslations('en', en)
 
@@ -81,6 +82,7 @@ const VIDEO_SUBJECTS = [
   }
 ]
 storiesOf('Project App / Screens / Project Home / Recent Subjects', module)
+  .addParameters({ viewport: { defaultViewport: 'responsive' }})
   .add('plain', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjects
@@ -89,6 +91,14 @@ storiesOf('Project App / Screens / Project Home / Recent Subjects', module)
       />
     </Grommet>
   ))
+  .add('carousel view', () => (
+    <Grommet theme={zooTheme}>
+      <RecentSubjectsCarousel
+        href='/projects/zooniverse/snapshot-serengeti/talk'
+        subjects={SUBJECTS}
+      />
+    </Grommet>
+  ), { viewport: { defaultViewport: 'iphone5' }})
   .add('transcription', () => (
     <Grommet theme={zooTheme}>
       <RecentSubjects

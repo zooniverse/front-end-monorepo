@@ -25,8 +25,8 @@ describe('Stores > YourStats', function () {
       }
     }
     const MOCK_DAILY_COUNTS = [
-      { count: 12, period: '2019-09-29'},
-      { count: 12, period: '2019-09-30'},
+      { count: 12, period: '2019-09-29' },
+      { count: 12, period: '2019-09-30' },
       { count: 13, period: '2019-10-01' },
       { count: 14, period: '2019-10-02' },
       { count: 10, period: '2019-10-03' },
@@ -107,7 +107,7 @@ describe('Stores > YourStats', function () {
       })
 
       it('should start on Monday', function () {
-        expect(rootStore.yourStats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30'})
+        expect(rootStore.yourStats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30' })
       })
 
       it('should end on Sunday', function () {
@@ -228,7 +228,7 @@ describe('Stores > YourStats', function () {
 
       it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-09-30T00:00:00Z'},
+          { count: 12, period: '2019-09-30T00:00:00Z' },
           { count: 13, period: '2019-10-01T00:00:00Z' },
           { count: 14, period: '2019-10-02T00:00:00Z' },
           { count: 10, period: '2019-10-03T00:00:00Z' },
