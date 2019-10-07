@@ -19,7 +19,7 @@ describe('Component > FavouritesButton', function () {
   it('should display an empty icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Favourite color='dark-5' filled={undefined} size='1em' />)
+    expect(icon).to.deep.equal(<Favourite color='dark-5' filled={false} size='1em' />)
   })
 
   it('should not be checked', function () {
@@ -28,14 +28,32 @@ describe('Component > FavouritesButton', function () {
   })
 
   describe('on click', function () {
-    const onClickSpy = sinon.spy()
+    let onClickStub
+
     before(function () {
-      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickSpy} />)
+      onClickStub = sinon.stub()
+      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickStub} />)
+    })
+    
+    afterEach(function () {
+      onClickStub.resetHistory()
+    })
+
+    it('should toggle favourites on', function () {
+      wrapper.simulate('click')
+      const icon = wrapper.prop('icon')
+      expect(icon.props.filled).to.be.true()
+    })
+
+    it('should toggle favourites off', function () {
+      wrapper.simulate('click')
+      const icon = wrapper.prop('icon')
+      expect(icon.props.filled).to.be.false()
     })
 
     it('should call props.onClick', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClickSpy).to.have.been.calledOnce()
+      wrapper.simulate('click')
+      expect(onClickStub).to.have.been.calledOnce()
     })
   })
 
@@ -47,7 +65,7 @@ describe('Component > FavouritesButton', function () {
     it('should display a filled icon', function () {
       const button = wrapper.find(MetaToolsButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite color='dark-5' filled='true' size='1em' />)
+      expect(icon).to.deep.equal(<Favourite color='dark-5' filled size='1em' />)
     })
 
     it('should be checked', function () {

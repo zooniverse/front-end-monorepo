@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { array, bool, func, node, number, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { Anchor, Box } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 import { CollectionsButton, FavouritesButton, TalkLink } from './components'
@@ -13,17 +13,11 @@ counterpart.registerTranslations('en', en)
 function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width }) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
-  const [ isFavourite, setIsFavourite ] = useState(subject.favorite)
   const collectionsModal = React.createRef()
   const href = `/projects/${slug}/talk/subjects/${subject.id}`
 
   function addToCollections () {
     collectionsModal.current.wrappedInstance.open(subject.id)
-  }
-
-  function toggleFavourite () {
-    subject.toggleFavourite()
-    setIsFavourite(!isFavourite)
   }
 
   return (
@@ -55,9 +49,9 @@ function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width
         href={href}
       />
       <FavouritesButton
-        checked={isFavourite}
+        checked={subject.favorite}
         disabled={!isLoggedIn}
-        onClick={toggleFavourite}
+        onClick={subject.toggleFavourite}
       />
       <CollectionsButton
         disabled={!isLoggedIn}
