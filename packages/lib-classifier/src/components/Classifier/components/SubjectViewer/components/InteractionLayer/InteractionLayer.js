@@ -1,24 +1,24 @@
 import { func } from 'prop-types'
 import React from 'react'
 
-function InteractionLayer ({ onMouseMove, onMouseDown, onMouseUp }) {
+function InteractionLayer ({ onPointerDown, onPointerMove, onPointerUp }) {
   return (
     <rect
       id='InteractionLayer'
       width='100%'
       height='100%'
-      onMouseMove={onMouseMove}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
       fill='transparent'
     />
   )
 }
 
 InteractionLayer.propTypes = {
-  onMouseMove: func.isRequired,
-  onMouseDown: func.isRequired,
-  onMouseUp: func.isRequired
+  onPointerDown: func.isRequired,
+  onPointerMove: func.isRequired,
+  onPointerUp: func.isRequired
 }
 
 export default InteractionLayer

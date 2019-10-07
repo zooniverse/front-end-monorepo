@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'
@@ -17,16 +17,22 @@ export const Favourite = styled(HeartIcon)`
 
 export default function FavouritesButton (props) {
   const { checked, disabled, onClick } = props
-  const label = checked ? 'FavouritesButton.remove' : 'FavouritesButton.add'
-  const filled = checked ? 'true' : undefined
+  const [ isFavourite, setIsFavourite ] = useState(checked)
+  const label = isFavourite ? 'FavouritesButton.remove' : 'FavouritesButton.add'
+
+  function toggleFavourite () {
+    setIsFavourite(!isFavourite)
+    onClick()
+  }
+
   return (
     <MetaToolsButton
-      aria-checked={checked}
+      aria-checked={isFavourite}
       disabled={disabled}
-      icon={<Favourite color='dark-5' filled={filled} size='1em' />}
+      icon={<Favourite color='dark-5' filled={isFavourite} size='1em' />}
       role='checkbox'
       text={counterpart(label)}
-      onClick={onClick}
+      onClick={toggleFavourite}
     />
   )
 }
