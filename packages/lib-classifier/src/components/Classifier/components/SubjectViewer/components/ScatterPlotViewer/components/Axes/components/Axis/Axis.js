@@ -6,9 +6,7 @@ import { withTheme } from 'styled-components'
 import InnerTickAxis from '../InnerTickAxis'
 import { PADDING } from '../../../../helpers/constants'
 
-function Axis ({ axis, parentHeight, parentWidth, theme, tickStyles }) {
-  const { direction, length } = tickStyles
-
+function Axis ({ axis, parentHeight, parentWidth, theme, tickDirection, tickLength }) {
   const color = theme.global.colors['light-1']
   const fontFamily = theme.global.font.family
   const fontSize = theme.text.xsmall.size
@@ -19,16 +17,15 @@ function Axis ({ axis, parentHeight, parentWidth, theme, tickStyles }) {
     scale
   } = axis
 
-  if (direction === 'inner') {
+  if (tickDirection === 'inner') {
     return (
       <InnerTickAxis
         axis={axis}
         color={color}
-        fontFamily={fontFamily}
         fontSize={fontSize}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
-        tickLength={length}
+        tickLength={tickLength}
       />
     )
   }
@@ -91,10 +88,8 @@ Axis.defaultProps = {
   theme: {
     dark: false
   },
-  tickStyles: {
-    direction: 'outer',
-    length: 5
-  }
+  tickDirection: 'outer',
+  tickLength: 5
 }
 
 Axis.propTypes = {
@@ -106,10 +101,8 @@ Axis.propTypes = {
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   theme: PropTypes.object,
-  tickStyles: PropTypes.shape({
-    direction: PropTypes.oneOf(['inner', 'outer']),
-    length: PropTypes.number
-  })
+  tickDirection: PropTypes.oneOf(['inner', 'outer']),
+  tickLength: PropTypes.number
 }
 
 export default withTheme(Axis)

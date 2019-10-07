@@ -12,6 +12,10 @@ import { MARGIN, PADDING } from '../../../../helpers/constants'
 
 const parentWidth = 768
 const parentHeight = 384
+const color = zooTheme.global.colors['light-1']
+const fontFamily = zooTheme.global.font.family
+const fontSize = zooTheme.text.xsmall.size
+
 const randomPoints = genRandomNormalPoints()
 const xPoints = randomPoints.filter((point) => {
   return point[0]
@@ -46,7 +50,7 @@ const leftAxis = {
   scale: yScale
 }
 
-describe.only('Component > Axis', function () {
+describe('Component > Axis', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <Axis
@@ -141,9 +145,6 @@ describe.only('Component > Axis', function () {
     })
 
     it('should style the ticks and label with the theme', function () {
-      const color = zooTheme.global.colors['light-1']
-      const fontFamily = zooTheme.global.font.family
-      const fontSize = zooTheme.text.xsmall.size
       expect(wrapperProps.labelProps).to.deep.equal({
         fill: color,
         fontFamily,
@@ -162,7 +163,39 @@ describe.only('Component > Axis', function () {
     })
   })
 
-  describe('inner tick direction axis', function () {
+  describe('InnerTickAxis', function () {
+    let wrapper, wrapperProps
+    before(function () {
+      wrapper = shallow(
+        <Axis
+          axis={leftAxis}
+          parentHeight={parentHeight}
+          parentWidth={parentWidth}
+          theme={zooTheme}
+          tickDirection='inner'
+          tickLength={3}
+        />
+      )
+      wrapperProps = wrapper.props()
+    })
 
+    it('should render a InnerTickAxis when the direction is configured to inner', function () {
+      expect(wrapper.find(InnerTickAxis)).to.have.lengthOf(1)
+    })
+
+    it('should receive style related props', function () {
+      expect(wrapperProps.color).to.equal(color)
+      expect(wrapperProps.fontSize).to.equal(fontSize)
+      expect(wrapperProps.parentHeight).to.equal(parentHeight)
+      expect(wrapperProps.parentWidth).to.equal(parentWidth)
+    })
+
+    it('should receive the axis props', function () {
+      expect(wrapperProps.axis).to.equal(leftAxis)
+    })
+
+    it('should receive the tick length prop', function () {
+      expect(wrapperProps.tickLength).to.equal(3)
+    })
   })
 })

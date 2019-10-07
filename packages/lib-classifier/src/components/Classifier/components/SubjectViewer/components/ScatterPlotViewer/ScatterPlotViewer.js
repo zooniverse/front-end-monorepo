@@ -17,7 +17,8 @@ function ScatterPlotViewer(props) {
     data,
     parentHeight,
     parentWidth,
-    tickStyles,
+    tickDirection,
+    tickLength,
     transformMatrix,
     xAxisLabel,
     yAxisLabel
@@ -101,7 +102,8 @@ function ScatterPlotViewer(props) {
       {children}
       <Axes
         axesConfig={axesConfig}
-        tickStyles={tickStyles}
+        tickDirection={tickDirection}
+        tickLength={tickLength}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
       />
@@ -122,10 +124,8 @@ ScatterPlotViewer.defaultProps = {
     y: [1]
   },
   panning: false,
-  tickStyles: {
-    direction: 'outer',
-    length: 5
-  },
+  tickDirection: 'outer',
+  tickLength: 5,
   xAxisLabel: 'x-axis',
   yAxisLabel: 'y-axis',
   zooming: false,
@@ -140,10 +140,8 @@ ScatterPlotViewer.propTypes = {
   panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
-  tickStyles: PropTypes.shape({
-    direction: PropTypes.oneOf(['inner', 'outer']),
-    length: PropTypes.number
-  }),
+  tickDirection: PropTypes.oneOf(['inner', 'outer']),
+  tickLength: PropTypes.number,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
   zooming: PropTypes.bool,

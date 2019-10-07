@@ -107,10 +107,7 @@ stories
             parentHeight={384}
             parentWidth={768}
             setOnZoom={setZoomCallback}
-            tickStyles={{
-              direction: text('tick direction', 'inner'),
-              length: 5
-            }}
+            tickDirection={text('tick direction', 'inner')}
             transformMatrix={transformMatrixMock}
             xAxisLabel={text('x axis label', 'Days')}
             yAxisLabel={text('y axis label', 'Brightness')}
@@ -137,10 +134,6 @@ stories
             parentHeight={384}
             parentWidth={768}
             setOnZoom={setZoomCallback}
-            tickStyles={{
-              direction: text('tick direction', 'inner'),
-              length: 5
-            }}
             transformMatrix={transformMatrixMock}
             xAxisLabel={text('x axis label', 'Days')}
             yAxisLabel={text('y axis label', 'Brightness')}
