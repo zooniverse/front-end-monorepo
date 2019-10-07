@@ -60,7 +60,7 @@ describe('Component > SubjectPreview', function () {
 
   describe('the favourites button', function () {
     let favouritesButton
-    
+
     beforeEach(function () {
       favouritesButton = wrapper.find(FavouritesButton)
     })
