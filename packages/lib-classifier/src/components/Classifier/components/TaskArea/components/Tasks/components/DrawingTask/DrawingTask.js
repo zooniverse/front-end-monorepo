@@ -31,10 +31,10 @@ const StyledText = styled(Text)`
 `
 
 function storeMapper (stores) {
-  const { active, setActive } = stores.classifierStore.drawing
+  const { activeDrawingTool, setActiveDrawingTool } = stores.classifierStore.drawing
   return {
-    active,
-    setActive
+    activeDrawingTool,
+    setActiveDrawingTool
   }
 }
 
@@ -42,15 +42,15 @@ function storeMapper (stores) {
 @observer
 class DrawingTask extends React.Component {
   onChange (index, event) {
-    const { setActive } = this.props
+    const { setActiveDrawingTool } = this.props
     if (event.target.checked) {
-      setActive(index)
+      setActiveDrawingTool(index)
     }
   }
 
   render () {
     const {
-      active,
+      activeDrawingTool,
       task
     } = this.props
     return (
@@ -62,7 +62,7 @@ class DrawingTask extends React.Component {
         </StyledText>
 
         {task.tools.map((tool, index) => {
-          const checked = active === index
+          const checked = activeDrawingTool === index
           // TODO add count for min/max
           return (
             <TaskInput

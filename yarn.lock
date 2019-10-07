@@ -3126,7 +3126,7 @@
     classnames "^2.2.5"
     prop-types "^15.5.10"
 
-"@vx/axis@0.0.191":
+"@vx/axis@0.0.191", "@vx/axis@~0.0.190":
   version "0.0.191"
   resolved "https://registry.yarnpkg.com/@vx/axis/-/axis-0.0.191.tgz#05719f19fdfcf3db7f6238576bde205e339da805"
   integrity sha512-fNNfiqEn6+PS0/mqRTY7suQX1oKteTMdRhrS3drFLvH2U2VkrQm2IQbq3Nn26jN7+lsSZWd5I+2n3nlLDRADqg==
@@ -3230,7 +3230,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.2"
 
-"@vx/group@0.0.190":
+"@vx/group@0.0.190", "@vx/group@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.190.tgz#9bc1e568dbd44c04a0abad9a9a74c7364f231a35"
   integrity sha512-tyFIQS4iB987281ZWNmozdjqzyBrM4lsw4J8ObeJTeybTi1T5EgdkN/pmviCCIcT29Q1kVtFOC8FoQLXkcimcQ==
@@ -3276,7 +3276,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.2"
 
-"@vx/mock-data@0.0.189":
+"@vx/mock-data@0.0.189", "@vx/mock-data@~0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/mock-data/-/mock-data-0.0.189.tgz#a6336965bf295f6dc583db516004385691219db2"
   integrity sha512-u8xW5nruauMym5q2vd0ojjzKkTz2MdKyiYbRBxMi/FD9I1wBvHlPOa2k41rX3+qyyqm6r0qunltWdyAEA7fMlQ==
@@ -3306,7 +3306,7 @@
   resolved "https://registry.yarnpkg.com/@vx/point/-/point-0.0.189.tgz#2a52824dd3e7a1e74188c2ee9407aeee2a2a7a10"
   integrity sha512-OZW05k6Kozta1QAP3T5dEFO0OQH8ppf/dnOnF2DnTJQ4W7a+ctLVJQ0kBDbsWG2xB+sOiMjvccfMOZZKb5JnvA==
 
-"@vx/responsive@0.0.189":
+"@vx/responsive@0.0.189", "@vx/responsive@~0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/responsive/-/responsive-0.0.189.tgz#64257fdf4570e58fe8a9f7a0d9b33febb7f80058"
   integrity sha512-46phRmRMrcRvUgAwOCMkZdqSEyo8SdXdV3Fh1Zsdgrtzqs3Zg8xtd3UX9t0piXw0tJqeZ16JrOQAZbPxUp9jEw==
@@ -3315,14 +3315,14 @@
     prop-types "^15.6.1"
     resize-observer-polyfill "1.5.0"
 
-"@vx/scale@0.0.190":
+"@vx/scale@0.0.190", "@vx/scale@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/scale/-/scale-0.0.190.tgz#f2799a7e1b29aed9626c4f0ceab0a330469c0d90"
   integrity sha512-oxXVIuxdjZxAftmAtT+zkveTAGUbjCS1cOZr2h14mJ7ODWUMY6RLLPA8PHfXfmRhnCLhNLGo6ijXWgu20I4ruA==
   dependencies:
     d3-scale "^2.2.2"
 
-"@vx/shape@0.0.190":
+"@vx/shape@0.0.190", "@vx/shape@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/shape/-/shape-0.0.190.tgz#2807bb53dbea0922c9c12651a6bc33f8abe6d0e4"
   integrity sha512-insrYP7+vQCZ1Eekq0tJ7impeghnXRodakSuhGkPITjHZUYIHRYswuV5ArfoeLtR+9VWA+BaIZ/d0L1ZNwdCkg==
