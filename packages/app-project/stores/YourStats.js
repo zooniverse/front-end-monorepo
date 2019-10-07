@@ -10,13 +10,12 @@ import auth from 'panoptes-client/lib/auth'
 export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
 
 // https://stackoverflow.com/a/51918448/10951669
-function firstDayOfWeek(dateObject, firstDayOfWeekIndex) {
-
+function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
   const dayOfWeek = dateObject.getDay()
   const firstDayOfWeek = new Date(dateObject)
-  const diff = dayOfWeek >= firstDayOfWeekIndex ?
-    dayOfWeek - firstDayOfWeekIndex :
-    6 - dayOfWeek
+  const diff = dayOfWeek >= firstDayOfWeekIndex
+    ? dayOfWeek - firstDayOfWeekIndex
+    : 6 - dayOfWeek
 
   firstDayOfWeek.setDate(dateObject.getDate() - diff)
 
@@ -46,9 +45,9 @@ const YourStats = types
       const todaysDate = new Date()
       let today
       try {
-        const todaysCount = self.thisWeek.length === 7 ?
-          self.thisWeek[todaysDate.getDay() - 1].count :
-          0
+        const todaysCount = self.thisWeek.length === 7
+          ? self.thisWeek[todaysDate.getDay() - 1].count
+          : 0
         today = todaysCount + self.sessionCount
       } catch (error) {
         today = 0

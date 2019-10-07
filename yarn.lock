@@ -2460,6 +2460,25 @@
     prop-types "^15.7.2"
     util-deprecate "^1.0.2"
 
+"@storybook/addon-storysource@~5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-5.2.1.tgz#8b0edcac885be3d588a33d8557609831e5c2aa46"
+  integrity sha512-g8RDPdH8wfeXiGeXe2S04jy9VF4bnrRrkXoq6Xa4BuDT//6IzecrObHO+6KNHYR7qf1vdBNDu4Yc5xFjqPi9Sw==
+  dependencies:
+    "@storybook/addons" "5.2.1"
+    "@storybook/components" "5.2.1"
+    "@storybook/router" "5.2.1"
+    "@storybook/source-loader" "5.2.1"
+    "@storybook/theming" "5.2.1"
+    core-js "^3.0.1"
+    estraverse "^4.2.0"
+    loader-utils "^1.2.3"
+    prettier "^1.16.4"
+    prop-types "^15.7.2"
+    react-syntax-highlighter "^8.0.1"
+    regenerator-runtime "^0.12.1"
+    util-deprecate "^1.0.2"
+
 "@storybook/addon-viewport@~5.2.1":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-5.2.1.tgz#3cc8ec9f2ee1dd0a474cb8dd47ecee8428defe77"
@@ -2714,6 +2733,21 @@
     lodash "^4.17.11"
     memoizerific "^1.11.3"
     qs "^6.6.0"
+
+"@storybook/source-loader@5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.2.1.tgz#87b47899c47e301d890f4135f85301a24a3313aa"
+  integrity sha512-JbvcN9pLbT0mMq5fy/TXE8OcZGk/LVvpNhJtv0rOpREbm8Ia5Xk0tBF5IfGh7bWbHz8DndlgikaMx1mSTv6l9A==
+  dependencies:
+    "@storybook/addons" "5.2.1"
+    "@storybook/router" "5.2.1"
+    core-js "^3.0.1"
+    estraverse "^4.2.0"
+    global "^4.3.2"
+    loader-utils "^1.2.3"
+    prettier "^1.16.4"
+    prop-types "^15.7.2"
+    regenerator-runtime "^0.12.1"
 
 "@storybook/theming@5.2.1":
   version "5.2.1"
@@ -3092,7 +3126,7 @@
     classnames "^2.2.5"
     prop-types "^15.5.10"
 
-"@vx/axis@0.0.191":
+"@vx/axis@0.0.191", "@vx/axis@~0.0.190":
   version "0.0.191"
   resolved "https://registry.yarnpkg.com/@vx/axis/-/axis-0.0.191.tgz#05719f19fdfcf3db7f6238576bde205e339da805"
   integrity sha512-fNNfiqEn6+PS0/mqRTY7suQX1oKteTMdRhrS3drFLvH2U2VkrQm2IQbq3Nn26jN7+lsSZWd5I+2n3nlLDRADqg==
@@ -3196,7 +3230,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.2"
 
-"@vx/group@0.0.190":
+"@vx/group@0.0.190", "@vx/group@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.190.tgz#9bc1e568dbd44c04a0abad9a9a74c7364f231a35"
   integrity sha512-tyFIQS4iB987281ZWNmozdjqzyBrM4lsw4J8ObeJTeybTi1T5EgdkN/pmviCCIcT29Q1kVtFOC8FoQLXkcimcQ==
@@ -3242,7 +3276,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.2"
 
-"@vx/mock-data@0.0.189":
+"@vx/mock-data@0.0.189", "@vx/mock-data@~0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/mock-data/-/mock-data-0.0.189.tgz#a6336965bf295f6dc583db516004385691219db2"
   integrity sha512-u8xW5nruauMym5q2vd0ojjzKkTz2MdKyiYbRBxMi/FD9I1wBvHlPOa2k41rX3+qyyqm6r0qunltWdyAEA7fMlQ==
@@ -3272,7 +3306,7 @@
   resolved "https://registry.yarnpkg.com/@vx/point/-/point-0.0.189.tgz#2a52824dd3e7a1e74188c2ee9407aeee2a2a7a10"
   integrity sha512-OZW05k6Kozta1QAP3T5dEFO0OQH8ppf/dnOnF2DnTJQ4W7a+ctLVJQ0kBDbsWG2xB+sOiMjvccfMOZZKb5JnvA==
 
-"@vx/responsive@0.0.189":
+"@vx/responsive@0.0.189", "@vx/responsive@~0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/responsive/-/responsive-0.0.189.tgz#64257fdf4570e58fe8a9f7a0d9b33febb7f80058"
   integrity sha512-46phRmRMrcRvUgAwOCMkZdqSEyo8SdXdV3Fh1Zsdgrtzqs3Zg8xtd3UX9t0piXw0tJqeZ16JrOQAZbPxUp9jEw==
@@ -3281,14 +3315,14 @@
     prop-types "^15.6.1"
     resize-observer-polyfill "1.5.0"
 
-"@vx/scale@0.0.190":
+"@vx/scale@0.0.190", "@vx/scale@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/scale/-/scale-0.0.190.tgz#f2799a7e1b29aed9626c4f0ceab0a330469c0d90"
   integrity sha512-oxXVIuxdjZxAftmAtT+zkveTAGUbjCS1cOZr2h14mJ7ODWUMY6RLLPA8PHfXfmRhnCLhNLGo6ijXWgu20I4ruA==
   dependencies:
     d3-scale "^2.2.2"
 
-"@vx/shape@0.0.190":
+"@vx/shape@0.0.190", "@vx/shape@~0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/shape/-/shape-0.0.190.tgz#2807bb53dbea0922c9c12651a6bc33f8abe6d0e4"
   integrity sha512-insrYP7+vQCZ1Eekq0tJ7impeghnXRodakSuhGkPITjHZUYIHRYswuV5ArfoeLtR+9VWA+BaIZ/d0L1ZNwdCkg==
@@ -13095,6 +13129,11 @@ prepend-http@^1.0.0, prepend-http@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
+
+prettier@^1.16.4:
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
+  integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
 
 pretty-error@^2.0.2, pretty-error@^2.1.1:
   version "2.1.1"

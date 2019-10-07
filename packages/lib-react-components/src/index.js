@@ -1,4 +1,5 @@
 export { default as AdminCheckbox } from './AdminCheckbox'
+export { default as CloseButton } from './CloseButton'
 export { default as Markdownz } from './Markdownz'
 export { default as Media } from './Media'
 export { default as Modal } from './Modal'

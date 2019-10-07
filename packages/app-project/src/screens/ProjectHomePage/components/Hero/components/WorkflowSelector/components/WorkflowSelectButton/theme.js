@@ -6,10 +6,7 @@ const theme = {
       color: 'neutral-4',
       width: '1px'
     },
-    color: {
-      dark: 'neutral-4',
-      light: 'black'
-    },
+    color: 'black',
     primary: {
       color: {
         dark: 'dark-3',
@@ -17,20 +14,35 @@ const theme = {
       }
     },
     extend: props => {
-      const { theme: { dark, global: { colors } } } = props
-      
+      const { theme: { global: { colors } }, completeness } = props
+      const percentComplete = `${completeness}%`
+      const progressGradient = [
+        `${colors['neutral-4']}`,
+        `${colors['status-critical']} ${percentComplete}`,
+        `white ${percentComplete} calc(${percentComplete} + 1px)`,
+        `${colors['neutral-4']} ${percentComplete}`
+      ]
+      const hoverGradient = [
+        `${colors['neutral-4']}`,
+        `${adjustHue(7, colors['status-critical'])} ${percentComplete}`,
+        `white ${percentComplete} calc(${percentComplete} + 1px)`,
+        `${adjustHue(-7, colors['neutral-4'])} ${percentComplete}`
+      ]
+
       return `
-        text-align: center;
+        background: linear-gradient(to right, ${progressGradient.join(',')});
+        text-align: left;
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          background: ${dark ? colors['neutral-4'] : adjustHue(-7, colors['neutral-4'])};
+          background: linear-gradient(to right, ${hoverGradient.join(',')});
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
-          color: ${dark ? 'white' : 'black'};
+          color: 'black';
         }
-    `}
+    `
+    }
   }
 }
 

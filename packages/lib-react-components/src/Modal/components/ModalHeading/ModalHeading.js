@@ -1,13 +1,8 @@
-import counterpart from 'counterpart'
-import { Box, Button } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-
-import en from './locales/en'
-import CloseIcon from '../CloseIcon'
-
-counterpart.registerTranslations('en', en)
+import CloseButton from '../../../CloseButton'
 
 const StyledBox = styled(Box)`
   min-height: 30px;
@@ -21,20 +16,6 @@ const Heading = styled.h2`
   margin: 0;
   text-shadow: 0 2px 2px rgba(0,0,0,0.22);
   text-transform: uppercase;
-`
-
-const StyledButton = styled(Button)`
-  height: 1rem;
-  width: 1rem;
-
-  svg {
-    opacity: 0.7;
-  }
-
-  &:active svg,
-  &:hover svg {
-    opacity: 1;
-  }
 `
 
 function ModalHeading ({ className, closeFn, title }) {
@@ -51,12 +32,7 @@ function ModalHeading ({ className, closeFn, title }) {
       <Heading>
         {title}
       </Heading>
-      <StyledButton
-        a11yTitle={counterpart('ModalHeading.close')}
-        onClick={closeFn}
-      >
-        <CloseIcon />
-      </StyledButton>
+      <CloseButton closeFn={closeFn} />
     </StyledBox>
   )
 }
