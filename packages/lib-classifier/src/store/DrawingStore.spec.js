@@ -26,16 +26,16 @@ describe('Model > DrawingStore', function () {
   })
 
   it('should default the active tool index to the first tool in the tools array', function () {
-    expect(model.active).to.equal(0)
+    expect(model.activeDrawingTool).to.equal(0)
   })
 
   it('should set the active tool index', function () {
-    model.setActive(1)
-    expect(model.active).to.equal(1)
+    model.setActiveDrawingTool(1)
+    expect(model.activeDrawingTool).to.equal(1)
   })
 
   it('should reset the active tool to 0 when reset is called', function () {
     model.reset()
-    expect(model.active).to.equal(0)
+    expect(model.activeDrawingTool).to.equal(0)
   })
 })
