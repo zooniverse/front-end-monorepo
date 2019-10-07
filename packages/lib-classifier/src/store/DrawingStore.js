@@ -89,6 +89,7 @@ const DrawingStore = types
     }
 
     function reset () {
+      // TODO also reset SVG or eventStream on classification or workflowStep change?
       self.activeDrawingTool = 0
     }
 
