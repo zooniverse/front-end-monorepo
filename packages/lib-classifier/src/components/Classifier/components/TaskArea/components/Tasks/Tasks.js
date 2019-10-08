@@ -8,6 +8,8 @@ import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
 
+import taskRegistry from '@plugins/tasks'
+
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
   const { active: step, activeStepTasks: tasks, isThereTaskHelp } = stores.classifierStore.workflowSteps
@@ -55,7 +57,6 @@ class Tasks extends React.Component {
                 </Box>
               )
             }
-
             return (<Paragraph>Task component could not be rendered.</Paragraph>)
           })}
           {isThereTaskHelp && <TaskHelp tasks={tasks} />}

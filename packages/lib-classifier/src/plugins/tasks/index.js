@@ -1,5 +1,5 @@
-import TextTask from './TextTask'
+import Registry from './Registry'
 
-export default {
-  text: TextTask
-}
+const taskRegistry = new Registry()
+
+export default taskRegistry

@@ -2,6 +2,7 @@ import { types, getType } from 'mobx-state-tree'
 import Resource from './Resource'
 import { SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation } from './annotations'
 import { TextAnnotation } from '@plugins/tasks/TextTask'
+import taskRegistry from '@plugins/tasks'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
@@ -41,7 +42,8 @@ const Classification = types
         SingleChoiceAnnotation,
         MultipleChoiceAnnotation,
         DataVisAnnotation,
-        TextAnnotation
+        TextAnnotation,
+        ...taskRegistry.values('AnnotationModel')
       )),
     completed: types.optional(types.boolean, false),
     links: types.frozen({

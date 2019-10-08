@@ -4,6 +4,7 @@ import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-st
 import Step from './Step'
 import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
 import { TextModel } from '@plugins/tasks/TextTask'
+import taskRegistry from '@plugins/tasks'
 
 function taskDispatcher (snapshot) {
   if (snapshot.type === 'drawing') return DrawingTask
@@ -11,7 +12,7 @@ function taskDispatcher (snapshot) {
   if (snapshot.type === 'single') return SingleChoiceTask
   if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
   if (snapshot.type === 'text') return TextModel
-  return undefined
+  return taskRegistry.get(snapshot.type).TaskModel
 }
 
 const taskTypes = types.union(
@@ -20,7 +21,8 @@ const taskTypes = types.union(
   DataVisAnnotationTask,
   MultipleChoiceTask,
   SingleChoiceTask,
-  TextModel
+  TextModel,
+  ...taskRegistry.values('TaskModel')
 )
 
 const WorkflowStepStore = types
