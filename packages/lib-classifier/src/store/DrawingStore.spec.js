@@ -1,14 +1,17 @@
+import { Subject } from 'rxjs'
+import { TestScheduler } from 'rxjs/testing'
+import sinon from 'sinon'
+
 import RootStore from './RootStore'
+import DrawingStore from './DrawingStore'
+
 import {
   DrawingTaskFactory,
   ProjectFactory,
   SingleChoiceTaskFactory,
   WorkflowFactory
 } from '../../test/factories'
-import { Factory } from 'rosie'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
-
-import DrawingStore from './DrawingStore'
 
 function setupStores (clientStub, project, workflow) {
   const store = RootStore.create({
@@ -37,7 +40,19 @@ function setupStores (clientStub, project, workflow) {
 }
 
 describe('Model > DrawingStore', function () {
-  const model = DrawingStore.create()
+  let model
+  let rootStore
+
+  beforeEach(function () {
+    model = DrawingStore.create()
+    rootStore = null
+  })
+
+  // is the following after block necessary?
+  after(function () {
+    model = null
+    rootStore = null
+  })
 
   it('should exist', function () {
     expect(model).to.be.an('object')
@@ -55,7 +70,7 @@ describe('Model > DrawingStore', function () {
   describe('Views > activeDrawingTask', function () {
     it('should return the active workflow step drawing task', function () {
       const drawingTask = DrawingTaskFactory.build()
-      drawingTask.help = 'random help string'
+      drawingTask.help = 'test help string'
       const workflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T9'] }]
@@ -66,9 +81,9 @@ describe('Model > DrawingStore', function () {
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
-      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      rootStore = setupStores(panoptesClientStub, project, workflow)
 
-      expect(rootStore.drawing.activeDrawingTask.help).to.eql('random help string')
+      expect(rootStore.drawing.activeDrawingTask.help).to.eql('test help string')
       expect(rootStore.drawing.activeDrawingTask.taskKey).to.eql('T9')
     })
   })
@@ -85,7 +100,7 @@ describe('Model > DrawingStore', function () {
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
-      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      rootStore = setupStores(panoptesClientStub, project, workflow)
 
       expect(rootStore.drawing.isDrawingInActiveWorkflowStep).to.be.true()
     })
@@ -101,16 +116,48 @@ describe('Model > DrawingStore', function () {
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
-      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      rootStore = setupStores(panoptesClientStub, project, workflow)
 
       expect(rootStore.drawing.isDrawingInActiveWorkflowStep).to.be.false()
     })
   })
 
   describe('Views > coordinateStream', function () {
-    describe('with an eventStream of client events pointerdown, pointermoves, and pointerup', function () {
-      it('should return a coordinateStream view of the events converted to svg coordinates', function () {
-        expect(true).to.be.false()
+    beforeEach(function () {
+      sinon.stub(model, 'getEventOffset').callsFake((x, y) => ({ x: (x + 100), y: (y + 100) }))
+    })
+
+    afterEach(function () {
+      model.getEventOffset.restore()
+      model.setEventStream(new Subject())
+    })
+
+    const events = '--a--b-c---d--|'
+    const values = {
+      a: { clientX: 50, clientY: 50, type: 'pointermove' },
+      b: { clientX: 100, clientY: 200, type: 'pointerdown' },
+      c: { clientX: 150, clientY: 250, type: 'pointermove' },
+      d: { clientX: 200, clientY: 300, type: 'pointerup' }
+    }
+
+    const coordinateStreamEvents = '-----f-g---h--|'
+    const coordinateStreamValues = {
+      f: { x: 200, y: 300, type: 'pointerdown' },
+      g: { x: 250, y: 350, type: 'pointermove' },
+      h: { x: 300, y: 400, type: 'pointerup' }
+    }
+
+    it('should return a coordinateStream with events beginning on pointer down and converted from client to svg coordinates', function () {
+      const testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).to.deep.equal(expected)
+      })
+
+      testScheduler.run(helpers => {
+        const { hot, expectObservable } = helpers
+
+        model.setEventStream(hot(events, values))
+
+        expectObservable(model.coordinateStream).toBe(coordinateStreamEvents, coordinateStreamValues)
       })
     })
   })

@@ -42,21 +42,25 @@ const DrawingStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
-        onAction(getRoot(self).classifications, (call) => {
+        onAction(getRoot(self), (call) => {
           if (call.name === 'completeClassification') self.reset()
         })
-      })
+      }, { name: 'DrawingStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
 
     function createWorkflowStepsObserver () {
       const workflowStepsDisposer = autorun(() => {
-        onAction(getRoot(self).workflowSteps, (call) => {
+        onAction(getRoot(self), (call) => {
           if (call.name === 'selectStep') self.reset()
         })
-      })
+      }, { name: 'DrawingStore WorkflowStep Observer autorun' })
 
       addDisposer(self, workflowStepsDisposer)
+    }
+
+    function setEventStream (stream) {
+      self.eventStream = stream
     }
 
     function addToStream (event) {
@@ -108,6 +112,7 @@ const DrawingStore = types
       getEventOffset,
       reset,
       setActiveDrawingTool,
+      setEventStream,
       storeSVG
     }
   })
