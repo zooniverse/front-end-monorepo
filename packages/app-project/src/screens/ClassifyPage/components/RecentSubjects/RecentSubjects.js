@@ -2,8 +2,6 @@ import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import { Media } from '@zooniverse/react-components'
 
 import en from './locales/en'
 
