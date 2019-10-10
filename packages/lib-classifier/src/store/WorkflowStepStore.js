@@ -11,7 +11,6 @@ function taskDispatcher (snapshot) {
   if (snapshot.type === 'multiple') return MultipleChoiceTask
   if (snapshot.type === 'single') return SingleChoiceTask
   if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
-  if (snapshot.type === 'text') return TextModel
   return taskRegistry.get(snapshot.type).TaskModel
 }
 
