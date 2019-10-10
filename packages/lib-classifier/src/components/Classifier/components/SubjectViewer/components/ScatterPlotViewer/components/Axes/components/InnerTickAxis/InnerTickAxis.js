@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Axis } from '@vx/axis'
-import { Group } from '@vx/group'
 import { Line } from '@vx/shape'
+import { Group } from '@vx/group'
 import { MARGIN, PADDING } from '../../../../helpers/constants'
+// import Ticks from './components/Ticks'
 
 function InnerTickAxis (props) {
   const {
