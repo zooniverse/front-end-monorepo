@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, number } from '@storybook/addon-knobs';
+import { withKnobs, text, number } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet, base as baseTheme } from 'grommet'
 import BarChartViewer from './BarChartViewer'
@@ -22,34 +22,34 @@ const stories = storiesOf('BarChartViewer', module)
 stories.addDecorator(withKnobs)
 
 stories.add('light theme', () => {
-    const {
-      data,
-      options: {
-        xAxisLabel,
-        xAxisMargin,
-        yAxisLabel,
-        yAxisMargin
-      }
-    } = mockData
-    return (
-      <Grommet theme={zooTheme}>
-        <Box
-          background={text('container background', 'white')}
-          height='medium'
-          pad='small'
-          width='large'
-        >
-          <BarChartViewer
-            data={data}
-            xAxisLabel={text('x axis label', xAxisLabel)}
-            xAxisMargin={number('x axis margin', xAxisMargin)}
-            yAxisLabel={text('y axis label', yAxisLabel)}
-            yAxisMargin={number('y axis margin', yAxisMargin)}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, config)
+  const {
+    data,
+    options: {
+      xAxisLabel,
+      xAxisMargin,
+      yAxisLabel,
+      yAxisMargin
+    }
+  } = mockData
+  return (
+    <Grommet theme={zooTheme}>
+      <Box
+        background={text('container background', 'white')}
+        height='medium'
+        pad='small'
+        width='large'
+      >
+        <BarChartViewer
+          data={data}
+          xAxisLabel={text('x axis label', xAxisLabel)}
+          xAxisMargin={number('x axis margin', xAxisMargin)}
+          yAxisLabel={text('y axis label', yAxisLabel)}
+          yAxisMargin={number('y axis margin', yAxisMargin)}
+        />
+      </Box>
+    </Grommet>
+  )
+}, config)
   .add('dark theme', () => {
     const {
       data,

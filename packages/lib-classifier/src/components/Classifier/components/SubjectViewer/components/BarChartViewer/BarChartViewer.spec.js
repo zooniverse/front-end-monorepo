@@ -73,7 +73,6 @@ describe('Component > BarChartViewer', function () {
     })
   })
 
-
   describe('Background', function () {
     let wrapper
     before(function () {
@@ -189,7 +188,6 @@ describe('Component > BarChartViewer', function () {
       })
     })
   })
-
 
   describe('AxisBottom', function () {
     it('should render', function () {
