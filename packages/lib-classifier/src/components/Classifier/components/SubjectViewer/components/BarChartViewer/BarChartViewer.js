@@ -9,7 +9,7 @@ import { withParentSize } from '@vx/responsive'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
 
-const BarChartViewer = React.forwardRef(function BarChartViewer(props, ref) {
+const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const {
     barStyles: {
       padding
