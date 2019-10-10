@@ -26,8 +26,7 @@ describe('Registry', function () {
     registry.add('testKey', testData)
     try {
       registry.add('testKey', newData)
-    }
-    catch (e) {
+    } catch (e) {
       errorThrown = true
       expect(e.message).to.equal('Registry error: key testKey is already registered.')
     }

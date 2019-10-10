@@ -39,12 +39,12 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
 const Classification = types
   .model('Classification', {
     annotations: types.map(types.union(
-        SingleChoiceAnnotation,
-        MultipleChoiceAnnotation,
-        DataVisAnnotation,
-        TextAnnotation,
-        ...taskRegistry.values('AnnotationModel')
-      )),
+      SingleChoiceAnnotation,
+      MultipleChoiceAnnotation,
+      DataVisAnnotation,
+      TextAnnotation,
+      ...taskRegistry.values('AnnotationModel')
+    )),
     completed: types.optional(types.boolean, false),
     links: types.frozen({
       project: types.string,
