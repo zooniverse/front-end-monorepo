@@ -5,6 +5,8 @@ import { zip } from 'lodash'
 import { Group } from '@vx/group'
 import { Circle } from '@vx/shape'
 import { scaleLinear } from '@vx/scale'
+import { withTheme } from 'styled-components'
+import { darken } from 'polished'
 import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
 import Axes from './components/Axes'
@@ -12,23 +14,25 @@ import { MARGIN, PADDING } from './helpers/constants'
 
 function ScatterPlotViewer(props) {
   const {
-    chartStyles,
     children,
     data,
+    dataPointSize,
     parentHeight,
     parentWidth,
     tickDirection,
     tickLength,
+    theme: {
+      global: {
+        colors
+      }
+    },
     transformMatrix,
     xAxisLabel,
     yAxisLabel
   } = props
-
-  const {
-    background,
-    dataPointSize,
-    color
-  } = chartStyles
+  
+  const background = darken(0.08, colors['neutral-2'])
+  const color = colors['light-1']
 
   const dataPoints = zip(data.x, data.y)
   const dataExtent = {
@@ -112,18 +116,18 @@ function ScatterPlotViewer(props) {
 }
 
 ScatterPlotViewer.defaultProps = {
-  chartStyles: {
-    color: '#eff2f5', // Zooniverse Light Grey
-    background: '#003941', // Zooniverse Dark Teal
-    dataPointSize: '1.5',
-    fontFamily: 'inherit',
-    fontSize: '0.75rem'
-  },
   data: {
     x: [1],
     y: [1]
   },
+  dataPointSize: '1.5',
   panning: false,
+  theme: {
+    global: {
+      colors: {},
+      font: {}
+    }
+  },
   tickDirection: 'outer',
   tickLength: 5,
   xAxisLabel: 'x-axis',
@@ -132,14 +136,15 @@ ScatterPlotViewer.defaultProps = {
 }
 
 ScatterPlotViewer.propTypes = {
-  chartStyles: PropTypes.object,
   data: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
+  dataPointSize: PropTypes.string,
   panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
+  theme: PropTypes.object,
   tickDirection: PropTypes.oneOf(['inner', 'outer']),
   tickLength: PropTypes.number,
   xAxisLabel: PropTypes.string,
@@ -147,4 +152,5 @@ ScatterPlotViewer.propTypes = {
   zooming: PropTypes.bool,
 }
 
-export default ScatterPlotViewer
+export default withTheme(ScatterPlotViewer)
+export { ScatterPlotViewer }
