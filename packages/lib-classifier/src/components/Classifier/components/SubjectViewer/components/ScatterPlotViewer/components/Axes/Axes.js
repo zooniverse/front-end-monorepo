@@ -13,4 +13,11 @@ function Axes ({ axesConfig, ...rest }) {
   )
 }
 
+Axes.propTypes = {
+  axesConfig: PropTypes.shape({
+    xAxis: PropTypes.object,
+    yAxis: PropTypes.object
+  })
+}
+
 export default Axes
