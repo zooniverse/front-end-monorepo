@@ -20,10 +20,13 @@ module.exports = {
   assetPrefix,
 
   env: {
-    ASSET_PREFIX: assetPrefix,
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
     PANOPTES_ENV,
     TALK_HOST: talkHosts[PANOPTES_ENV]
+  },
+
+  publicRuntimeConfig: {
+    assetPrefix
   },
 
   webpack: (config) => {
