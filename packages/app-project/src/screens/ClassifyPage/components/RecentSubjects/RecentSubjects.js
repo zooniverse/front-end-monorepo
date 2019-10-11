@@ -2,8 +2,6 @@ import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
 import { array, bool, number, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import { Media } from '@zooniverse/react-components'
 
 import en from './locales/en'
 
@@ -15,6 +13,9 @@ counterpart.registerTranslations('en', en)
 function RecentSubjects (props) {
   const { isLoggedIn, recents, projectName, size, slug } = props
   const height = (size === 1) ? '40vw' : '200px'
+  const placeholderUrl = process.env.ASSET_PREFIX
+    ? `${process.env.ASSET_PREFIX}/subject-placeholder.png`
+    : '/subject-placeholder.png'
 
   return (
     <ContentBox title={counterpart('RecentSubjects.title', { projectName })}>
@@ -38,7 +39,7 @@ function RecentSubjects (props) {
               height={height}
               key={recent.subjectId}
               isLoggedIn={isLoggedIn}
-              placeholder={<img alt='' role='presentation' src='/static/subject-placeholder.png' />}
+              placeholder={<img alt='' role='presentation' src={placeholderUrl} />}
               subject={subject}
               slug={slug}
               width={'100%'}
@@ -55,7 +56,7 @@ function RecentSubjects (props) {
               overflow='hidden'
               width={'100%'}
             >
-              <img alt='' role='presentation' src='/static/subject-placeholder.png' />
+              <img alt='' role='presentation' src={placeholderUrl} />
             </Box>
           )
         })}
