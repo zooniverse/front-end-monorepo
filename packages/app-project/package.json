@@ -7,6 +7,7 @@
   "main": "index.js",
   "scripts": {
     "build": "PANOPTES_ENV=production next build",
+    "build-storybook": "build-storybook -s static",
     "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=production next start",
