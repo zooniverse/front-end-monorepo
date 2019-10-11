@@ -22,8 +22,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class Tasks extends React.Component {
   [asyncStates.initialized] () {
     return null
@@ -78,7 +76,7 @@ class Tasks extends React.Component {
   }
 }
 
-Tasks.wrappedComponent.propTypes = {
+Tasks.propTypes = {
   isThereTaskHelp: PropTypes.bool,
   loadingState: PropTypes.oneOf(asyncStates.values),
   ready: PropTypes.bool,
@@ -86,7 +84,7 @@ Tasks.wrappedComponent.propTypes = {
   theme: PropTypes.string
 }
 
-Tasks.wrappedComponent.defaultProps = {
+Tasks.defaultProps = {
   isThereTaskHelp: false,
   loadingState: asyncStates.initialized,
   ready: false,
@@ -94,4 +92,9 @@ Tasks.wrappedComponent.defaultProps = {
   theme: 'light'
 }
 
-export default Tasks
+@inject(storeMapper)
+@observer
+class DecoratedTasks extends Tasks {}
+
+export default DecoratedTasks
+export { Tasks }

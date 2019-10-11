@@ -6,7 +6,7 @@ import React from 'react'
 import { Grommet } from 'grommet'
 import { Provider } from "mobx-react"
 
-import Tasks from './Tasks'
+import { Tasks } from './Tasks'
 
 const mockStore = {
   classifications: {},
@@ -29,7 +29,9 @@ storiesOf('Tasks', module)
   return (
     <Provider classifierStore={mockStore}>
       <Grommet theme={zooTheme}>
-        <Tasks/>
+        <Tasks
+          loadingState={asyncStates.loading}
+        />
       </Grommet>
     </Provider>
   )
@@ -45,11 +47,8 @@ storiesOf('Tasks', module)
     type: 'single'
   }]
   const dark = boolean('Dark theme', false)
-  const loadingState = select('Subject loading', asyncStates, asyncStates.success)
+  const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
   const store = Object.assign({}, mockStore, {
-    subjectViewer: {
-      loadingState
-    },
     workflows: {
       loadingState: asyncStates.success
     },
@@ -63,7 +62,14 @@ storiesOf('Tasks', module)
   return (
     <Provider classifierStore={store}>
       <Grommet theme={Object.assign({}, zooTheme, { dark })}>
-        <Tasks/>
+        <Tasks
+          isThereTaskHelp={true}
+          loadingState={asyncStates.success}
+          step={step}
+          subjectReadyState={subjectReadyState}
+          tasks={tasks}
+          theme={dark ? 'dark' : 'light'}
+        />
       </Grommet>
     </Provider>
   )
