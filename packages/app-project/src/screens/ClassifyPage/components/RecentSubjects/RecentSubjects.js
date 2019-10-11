@@ -1,10 +1,10 @@
 import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
+import getConfig from 'next/config'
 import { array, bool, number, string } from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
-
 import ContentBox from '@shared/components/ContentBox'
 import SubjectPreview from '@shared/components/SubjectPreview'
 
@@ -13,9 +13,9 @@ counterpart.registerTranslations('en', en)
 function RecentSubjects (props) {
   const { isLoggedIn, recents, projectName, size, slug } = props
   const height = (size === 1) ? '40vw' : '200px'
-  const placeholderUrl = process.env.ASSET_PREFIX
-    ? `${process.env.ASSET_PREFIX}/subject-placeholder.png`
-    : '/subject-placeholder.png'
+  const { publicRuntimeConfig = {} } = getConfig() || {}
+  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
+  const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
 
   return (
     <ContentBox title={counterpart('RecentSubjects.title', { projectName })}>
