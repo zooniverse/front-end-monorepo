@@ -3,6 +3,7 @@ import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import React from 'react'
+import sinon from 'sinon'
 import { Grommet } from 'grommet'
 import { Provider } from "mobx-react"
 
@@ -39,12 +40,13 @@ storiesOf('Tasks', module)
 .add('single answer question', function () {
   const step = null
   const tasks = [{
+    annotation: { task: 'init' },
     answers: [{ label: 'yes' }, { label: 'no' }],
     question: 'Is there a cat?',
-    help: 'Choose an answer from the choices given, then press Done.',
     required: true,
     taskKey: 'init',
-    type: 'single'
+    type: 'single',
+    updateAnnotation: sinon.stub()
   }]
   const dark = boolean('Dark theme', false)
   const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
