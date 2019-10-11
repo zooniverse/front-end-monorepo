@@ -13,8 +13,9 @@ counterpart.registerTranslations('en', en)
 function RecentSubjects (props) {
   const { isLoggedIn, recents, projectName, size, slug } = props
   const height = (size === 1) ? '40vw' : '200px'
-  const { publicRuntimeConfig: { assetPrefix } } = getConfig()
-  const placeholderUrl = `${assetPrefix || ''}/subject-placeholder.png`
+  const { publicRuntimeConfig = {} } = getConfig() || {}
+  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
+  const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
 
   return (
     <ContentBox title={counterpart('RecentSubjects.title', { projectName })}>
