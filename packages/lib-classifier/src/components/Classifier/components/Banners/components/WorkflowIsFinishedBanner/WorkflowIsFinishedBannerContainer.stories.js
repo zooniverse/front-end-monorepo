@@ -22,7 +22,7 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
-storiesOf('Banners | WorkflowIsFinishedBannerContainer', module)
+storiesOf('Banners | WorkflowIsFinishedBanner', module)
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
