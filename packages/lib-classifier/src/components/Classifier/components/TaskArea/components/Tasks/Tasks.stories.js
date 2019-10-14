@@ -42,6 +42,7 @@ storiesOf('Tasks', module)
   const tasks = [{
     annotation: { task: 'init' },
     answers: [{ label: 'yes' }, { label: 'no' }],
+    help: 'Choose an answer from the choices given, then press Done.',
     question: 'Is there a cat?',
     required: true,
     taskKey: 'init',
@@ -82,6 +83,7 @@ storiesOf('Tasks', module)
     {
       annotation: { task: 'T0' },
       answers: [{ label: 'yes' }, { label: 'no' }],
+      help: 'Choose an answer from the choices given, then press Done.',
       question: 'Is there a cat?',
       required: true,
       taskKey: 'T0',
@@ -91,8 +93,8 @@ storiesOf('Tasks', module)
     {
       annotation: { task: 'T1', value: [] },
       answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
+      help: 'Pick as many answers as apply, then press Done.',
       question: 'What is it doing?',
-      help: 'Choose an answer from the choices given, then press Done.',
       required: true,
       taskKey: 'T1',
       type: 'multiple',
