@@ -17,9 +17,9 @@ import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const config = {
-  // notes: {
-  //   markdown: readme
-  // }
+  notes: {
+    markdown: readme
+  }
 }
 
 const transformMatrixMock = {
