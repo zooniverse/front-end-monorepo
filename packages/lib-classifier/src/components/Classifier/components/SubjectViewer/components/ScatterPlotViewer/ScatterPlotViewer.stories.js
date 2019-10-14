@@ -8,13 +8,13 @@ import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInBu
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
 import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
 import mockData from '../LightCurveViewer/mockData'
-import readme from '../LightCurveViewer/README.md'
+import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const config = {
-  // notes: {
-  //   markdown: readme
-  // }
+  notes: {
+    markdown: readme
+  }
 }
 
 const transformMatrixMock = {
@@ -36,9 +36,10 @@ function setZoomCallback (callback) {
   zoomCallback = callback
 }
 
-const stories = storiesOf('ScatterPlotViewer', module)
+const stories = storiesOf('Subject Viewers | ScatterPlotViewer', module)
 
 stories.addDecorator(withKnobs)
+stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 stories
   .add('light theme', () => {
@@ -58,7 +59,7 @@ stories
         </Box>
       </Grommet>
     )
-  }, { viewport: { defaultViewport: 'responsive' }, ...config })
+  }, config)
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
@@ -123,7 +124,7 @@ stories
         </Box>
       </Grommet>
     )
-  }, { viewport: { defaultViewport: 'responsive' }, ...config })
+  }, config)
   .add('pan and zoom', () => {
     return (
       <Grommet theme={zooTheme}>
@@ -154,4 +155,4 @@ stories
         </Box>
       </Grommet>
     )
-  }, { viewport: { defaultViewport: 'responsive' }, ...config })
+  }, config)
