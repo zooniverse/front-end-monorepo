@@ -13,7 +13,6 @@ function NextButton (props) {
   const label = counterpart('NextButton.next')
   return (
     <GoldButton
-      a11yTitle={label}
       autoFocus={autoFocus}
       disabled={disabled}
       fill
