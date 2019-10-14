@@ -177,7 +177,7 @@ const WorkflowStepStore = types
       const taskKeys = Object.keys(workflow.tasks)
       const { first_task } = workflow
 
-      function comboToStepTasks (task) {
+      function getStepTasksFromCombo (task) {
         task.tasks.forEach(function (taskKey) {
           taskKeys.splice(taskKeys.indexOf(taskKey), 1)
         })
@@ -192,7 +192,7 @@ const WorkflowStepStore = types
 
         if (workflow.tasks[first_task].type === 'combo') {
           const combo = workflow.tasks[first_task]
-          firstStep.taskKeys = comboToStepTasks(combo)
+          firstStep.taskKeys = getStepTasksFromCombo(combo)
         }
 
         taskKeys.splice(taskKeys.indexOf(first_task), 1)
@@ -204,7 +204,7 @@ const WorkflowStepStore = types
         if (task.type !== 'shortcut') {
           let stepTasks = [taskKey]
           if (task.type === 'combo') {
-            stepTasks = comboToStepTasks(task)
+            stepTasks = getStepTasksFromCombo(task)
           }
           self.steps.put({
             stepKey: `S${index + 1}`,
