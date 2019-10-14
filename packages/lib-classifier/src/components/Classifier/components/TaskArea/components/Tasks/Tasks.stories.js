@@ -37,7 +37,7 @@ storiesOf('Tasks', module)
     </Provider>
   )
 })
-.add('single answer question', function () {
+.add('single task', function () {
   const step = null
   const tasks = [{
     annotation: { task: 'init' },
@@ -48,6 +48,57 @@ storiesOf('Tasks', module)
     type: 'single',
     updateAnnotation: sinon.stub()
   }]
+  const dark = boolean('Dark theme', false)
+  const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+  const store = Object.assign({}, mockStore, {
+    workflows: {
+      loadingState: asyncStates.success
+    },
+    workflowSteps: {
+      activeStepTasks: tasks,
+      isThereANextStep: () => false,
+      isThereAPreviousStep: () => false,
+      isThereTaskHelp: true
+    }
+  })
+  return (
+    <Provider classifierStore={store}>
+      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
+        <Tasks
+          isThereTaskHelp={true}
+          loadingState={asyncStates.success}
+          step={step}
+          subjectReadyState={subjectReadyState}
+          tasks={tasks}
+          theme={dark ? 'dark' : 'light'}
+        />
+      </Grommet>
+    </Provider>
+  )
+})
+.add('multiple tasks', function () {
+  const step = null
+  const tasks = [
+    {
+      annotation: { task: 'T0' },
+      answers: [{ label: 'yes' }, { label: 'no' }],
+      question: 'Is there a cat?',
+      required: true,
+      taskKey: 'T0',
+      type: 'single',
+      updateAnnotation: sinon.stub()
+    },
+    {
+      annotation: { task: 'T1', value: [] },
+      answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
+      question: 'What is it doing?',
+      help: 'Choose an answer from the choices given, then press Done.',
+      required: true,
+      taskKey: 'T1',
+      type: 'multiple',
+      updateAnnotation: sinon.stub()
+    }
+  ]
   const dark = boolean('Dark theme', false)
   const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
   const store = Object.assign({}, mockStore, {
