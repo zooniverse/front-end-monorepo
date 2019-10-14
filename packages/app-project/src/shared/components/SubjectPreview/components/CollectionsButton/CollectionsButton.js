@@ -1,8 +1,8 @@
+import CollectionsModal from '@shared/components/CollectionsModal'
+import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { array, bool, func, shape, string } from 'prop-types'
 import React from 'react'
-import CollectionsModal from '@shared/components/CollectionsModal'
-import MetaToolsButton from '../MetaToolsButton'
 import CollectionsIcon from './CollectionsIcon'
 
 import en from './locales/en'
