@@ -6,7 +6,6 @@ import { getSnapshot } from 'mobx-state-tree'
 import App from 'next/app'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import UrlParse from 'url-parse'
 
 import AuthModal from '@components/AuthModal'
 import getCookie from '@helpers/getCookie'
