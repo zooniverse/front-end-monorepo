@@ -116,7 +116,12 @@ describe('Model > WorkflowStepStore', function () {
         first_task: 'T1',
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
-          T2: MultipleChoiceTaskFactory.build()
+          T2: {
+            type: 'combo',
+            tasks: ['T3', 'T4']
+          },
+          T3: MultipleChoiceTaskFactory.build(),
+          T4: MultipleChoiceTaskFactory.build()
         }
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
@@ -126,18 +131,20 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should convert the tasks to steps and set the steps', function () {
       const { workflowSteps } = rootStore
-      const numberOfTasks = Object.keys(workflow.tasks).length
-      expect(workflowSteps.steps).to.have.lengthOf(numberOfTasks)
+      expect(workflowSteps.steps).to.have.lengthOf(2)
     })
 
-    it('should set the tasks', function () {
-      const { workflowSteps } = rootStore
-      Object.keys(workflow.tasks).forEach(taskKey => {
-        const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
-        // `taskKey` is copied from the original object for serialization by MST
-        delete storedTask.taskKey
-        const originalTask = workflow.tasks[taskKey]
-        expect(storedTask).to.eql(originalTask)
+    describe('workflow tasks', function () {
+      const taskKeys = ['T1', 'T3', 'T4']
+      taskKeys.forEach(taskKey => {
+        it(`should set task ${taskKey}`, function () {
+          const { workflowSteps } = rootStore
+          const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
+          // `taskKey` is copied from the original object for serialization by MST
+          delete storedTask.taskKey
+          const originalTask = workflow.tasks[taskKey]
+          expect(storedTask).to.eql(originalTask)
+        })
       })
     })
 
@@ -148,6 +155,12 @@ describe('Model > WorkflowStepStore', function () {
       storedStep.taskKeys.forEach(taskKey =>
         expect(taskKey).to.equal(workflow.first_task)
       )
+    })
+
+    it('should generate a step from the combo task', function () {
+      const { workflowSteps } = rootStore
+      const comboStep = workflowSteps.steps.get('S1')
+      expect(comboStep.taskKeys).to.deep.equal(['T3', 'T4'])
     })
   })
 
