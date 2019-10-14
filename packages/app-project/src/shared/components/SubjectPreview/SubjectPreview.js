@@ -2,8 +2,8 @@ import counterpart from 'counterpart'
 import { array, bool, func, node, number, shape, string } from 'prop-types'
 import React from 'react'
 import { Anchor, Box } from 'grommet'
-import { Media } from '@zooniverse/react-components'
-import { CollectionsButton, FavouritesButton, TalkLink } from './components'
+import { FavouritesButton, Media } from '@zooniverse/react-components'
+import { CollectionsButton, TalkLink } from './components'
 
 
 import en from './locales/en'

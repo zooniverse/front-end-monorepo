@@ -7,11 +7,11 @@
   "main": "index.js",
   "scripts": {
     "build": "PANOPTES_ENV=production next build",
-    "build-storybook": "build-storybook -s static",
+    "build-storybook": "build-storybook -s public",
     "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=production next start",
-    "storybook": "start-storybook -p 9001 -c .storybook -s ./",
+    "storybook": "start-storybook -p 9001 -c .storybook -s public",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
@@ -42,7 +42,7 @@
     "mobx-react": "~5.2.8",
     "mobx-state-tree": "~3.5.0",
     "newrelic": "~5.10.0",
-    "next": "~9.0.3",
+    "next": "~9.1.1",
     "panoptes-client": "~2.12.0",
     "path-match": "~1.2.4",
     "query-string": "~6.8.3",
