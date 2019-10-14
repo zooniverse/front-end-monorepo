@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function Background({ fill, height, width, ...rest }) {
+function Background ({ fill, height, width, ...rest }) {
   return (
     <rect
       fill={fill}

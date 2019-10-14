@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Chart = React.forwardRef(function Chart({ children, height, width, ...rest }, ref) {
+const Chart = React.forwardRef(function Chart ({ children, height, width, ...rest }, ref) {
   return (
     <svg height={height} ref={ref} width={width} {...rest}>
       {children}
@@ -10,7 +10,7 @@ const Chart = React.forwardRef(function Chart({ children, height, width, ...rest
 })
 
 Chart.defaultProps = {
-  height: '100%', 
+  height: '100%',
   width: '100%'
 }
 
