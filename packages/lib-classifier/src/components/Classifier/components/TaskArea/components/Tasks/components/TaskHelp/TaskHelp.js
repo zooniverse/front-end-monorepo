@@ -42,10 +42,12 @@ function TaskHelp (props) {
             {tasks.map((task) => {
               if (tasks.length > 1) {
                 return (
-                  <Markdownz key={task.taskKey}>
-                    {task.help}
+                  <>
+                    <Markdownz key={task.taskKey}>
+                      {task.help}
+                    </Markdownz>
                     <hr />
-                  </Markdownz>
+                  </>
                 )
               }
 
