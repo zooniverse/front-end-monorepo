@@ -2,7 +2,7 @@ import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -27,85 +27,63 @@ const StyledText = styled(Text)`
   }
 `
 
-function storeMapper (stores) {
+function MultipleChoiceTask (props) {
   const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications.currentAnnotations
-  return {
-    addAnnotation,
-    annotations
+    disabled,
+    task
+  } = props
+  const { annotation } = task
+  const [ value, setValue ] = useState(annotation.value)
+
+  function onChange (index, event) {
+    const newValue = value ? value.slice(0) : []
+    if (event.target.checked && !newValue.includes(index)) {
+      newValue.push(index)
+    } else if (!event.target.checked && newValue.includes(index)) {
+      const indexInValue = newValue.indexOf(index)
+      newValue.splice(indexInValue, 1)
+    }
+    setValue(newValue)
+    task.updateAnnotation(newValue)
   }
+
+  return (
+    <StyledBox
+      autoFocus={(value && value.length === 0)}
+      disabled={disabled}
+    >
+      <StyledText size='small' tag='legend'>
+        <Markdownz>
+          {task.question}
+        </Markdownz>
+      </StyledText>
+      {task.answers.map((answer, index) => {
+        const checked = (value && value.length > 0) ? value.includes(index) : false
+        return (
+          <TaskInput
+            autoFocus={checked}
+            checked={checked}
+            disabled={disabled}
+            index={index}
+            key={`${task.taskKey}_${index}`}
+            label={answer.label}
+            name={task.taskKey}
+            onChange={onChange.bind(this, index)}
+            required={task.required}
+            type='checkbox'
+          />
+        )
+      })}
+    </StyledBox>
+  )
 }
 
-@inject(storeMapper)
-@observer
-class MultipleChoiceTask extends React.Component {
-  onChange (index, event) {
-    const { addAnnotation, annotations, task } = this.props
-    const annotation = annotations.get(task.taskKey)
-    const newAnnotationValue = (annotation) ? annotation.value.slice(0) : []
-    if (event.target.checked && !newAnnotationValue.includes(index)) {
-      newAnnotationValue.push(index)
-    } else if (!event.target.checked && newAnnotationValue.includes(index)) {
-      const indexInValue = newAnnotationValue.indexOf(index)
-      newAnnotationValue.splice(indexInValue, 1)
-    }
-    addAnnotation(newAnnotationValue, task)
-  }
-
-  render () {
-    const {
-      annotations,
-      disabled,
-      task
-    } = this.props
-    let annotation
-    if (annotations && annotations.size > 0) {
-      annotation = annotations.get(task.taskKey)
-    }
-    return (
-      <StyledBox
-        autoFocus={(annotation && annotation.value && annotation.value.length === 0)}
-        disabled={disabled}
-      >
-        <StyledText size='small' tag='legend'>
-          <Markdownz>
-            {task.question}
-          </Markdownz>
-        </StyledText>
-        {task.answers.map((answer, index) => {
-          const checked = (annotation && annotation.value && annotation.value.length > 0) ? annotation.value.includes(index) : false
-          return (
-            <TaskInput
-              autoFocus={checked}
-              checked={checked}
-              disabled={disabled}
-              index={index}
-              key={`${task.taskKey}_${index}`}
-              label={answer.label}
-              name={task.taskKey}
-              onChange={this.onChange.bind(this, index)}
-              required={task.required}
-              type='checkbox'
-            />
-          )
-        })}
-      </StyledBox>
-    )
-  }
-}
-
-MultipleChoiceTask.wrappedComponent.defaultProps = {
-  addAnnotation: () => {},
-  annotations: observable.map(),
+MultipleChoiceTask.defaultProps = {
   disabled: false,
   task: {}
 }
 
-MultipleChoiceTask.wrappedComponent.propTypes = {
-  addAnnotation: PropTypes.func,
-  annotations: MobXPropTypes.observableMap,
+MultipleChoiceTask.propTypes = {
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({

@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 import Task from './Task'
+import MultipleChoiceAnnotation from '../annotations/MultipleChoiceAnnotation'
 
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
@@ -14,6 +15,11 @@ const MultipleChoice = types.model('MultipleChoice', {
   required: types.maybe(types.boolean),
   type: types.literal('multiple')
 })
+.views(self => ({
+  get defaultAnnotation () {
+    return MultipleChoiceAnnotation.create({ task: self.taskKey })
+  }
+}))
 
 const MultipleChoiceTask = types.compose('MultipleChoiceTask', Task, MultipleChoice)
 

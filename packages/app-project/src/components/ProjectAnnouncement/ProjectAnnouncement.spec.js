@@ -1,4 +1,4 @@
-import { render } from 'enzyme'
+import { render, shallow } from 'enzyme'
 import React from 'react'
 
 import ProjectAnnouncement from './ProjectAnnouncement'
@@ -19,5 +19,10 @@ describe('Component > ProjectAnnouncement', function () {
   it('should render a paragraph with the announcement text', function () {
     const paragraphWrapper = wrapper.find('p')
     expect(paragraphWrapper.text()).to.equal(ANNOUNCEMENT)
+  })
+
+  it('should be the full width of its container', function () {
+    const shallowWrapper = shallow(<ProjectAnnouncement announcement={ANNOUNCEMENT} />)
+    expect(shallowWrapper.prop('fill')).to.equal('horizontal')
   })
 })
