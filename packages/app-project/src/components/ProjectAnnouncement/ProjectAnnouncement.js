@@ -20,7 +20,7 @@ const components = {
 function ProjectAnnouncement (props) {
   const { announcement } = props
   return (
-    <Box align='center' background='neutral-4' pad='small'>
+    <Box align='center' background='neutral-4' fill='horizontal' pad='small'>
       <Markdownz components={components}>
         {announcement}
       </Markdownz>
