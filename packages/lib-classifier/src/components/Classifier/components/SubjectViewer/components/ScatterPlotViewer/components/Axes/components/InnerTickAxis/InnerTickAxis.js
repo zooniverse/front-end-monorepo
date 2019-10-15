@@ -116,13 +116,13 @@ InnerTickAxis.propTypes = {
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }).isRequired,
+  }),
   padding: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }).isRequired,
+  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   tickLength: PropTypes.number
