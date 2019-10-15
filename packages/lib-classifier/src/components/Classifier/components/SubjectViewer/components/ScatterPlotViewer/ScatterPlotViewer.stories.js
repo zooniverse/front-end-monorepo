@@ -41,7 +41,7 @@ stories
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box height='large' width='xlarge'>
+        <Box height='medium' width='large'>
           <ScatterPlotViewer
             data={data}
             panning={boolean('panning', false)}
