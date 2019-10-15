@@ -3,13 +3,22 @@ import React from 'react'
 import sinon from 'sinon'
 import MetaToolsButton from '../MetaToolsButton'
 
-import FavouritesButton, { Favourite } from './FavouritesButton'
-
-let wrapper
+import FavouritesButton from './FavouritesButton'
+import HeartIcon from './HeartIcon'
 
 describe('Component > FavouritesButton', function () {
+  let wrapper
+  const mockTheme = {
+    global : {
+      colors: {
+        statusColors: {
+          error: 'status-error'
+        }
+      }
+    }
+  }
   before(function () {
-    wrapper = shallow(<FavouritesButton />)
+    wrapper = shallow(<FavouritesButton theme={mockTheme} />)
   })
 
   it('should render without crashing', function () {
@@ -19,7 +28,7 @@ describe('Component > FavouritesButton', function () {
   it('should display an empty icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<Favourite className='' color='dark-5' filled={undefined} size='1em' />)
+    expect(icon).to.deep.equal(<HeartIcon color='dark-5' fill='none' size='1em' />)
   })
 
   it('should not be checked', function () {
@@ -28,26 +37,45 @@ describe('Component > FavouritesButton', function () {
   })
 
   describe('on click', function () {
-    const onClickSpy = sinon.spy()
+    let onClickStub
+
     before(function () {
-      wrapper = shallow(<FavouritesButton checked={false} onClick={onClickSpy} />)
+      onClickStub = sinon.stub()
+      wrapper = shallow(<FavouritesButton theme={mockTheme} checked={false} onClick={onClickStub} />)
+    })
+    
+    afterEach(function () {
+      onClickStub.resetHistory()
+    })
+
+    it('should toggle favourites on', function () {
+      wrapper.simulate('click')
+      const icon = wrapper.prop('icon')
+      expect(icon.props.fill).to.equal(mockTheme.global.colors.statusColors.error)
+    })
+
+    it('should toggle favourites off', function () {
+      wrapper.simulate('click')
+      const icon = wrapper.prop('icon')
+      expect(icon.props.fill).to.equal('none')
     })
 
     it('should call props.onClick', function () {
-      wrapper.find(MetaToolsButton).simulate('click')
-      expect(onClickSpy).to.have.been.calledOnce()
+      wrapper.simulate('click')
+      expect(onClickStub).to.have.been.calledOnce()
     })
   })
 
   describe('when checked', function () {
     before(function () {
-      wrapper = shallow(<FavouritesButton checked />)
+      wrapper = shallow(<FavouritesButton theme={mockTheme} checked />)
     })
 
     it('should display a filled icon', function () {
       const button = wrapper.find(MetaToolsButton)
       const { icon } = button.props()
-      expect(icon).to.deep.equal(<Favourite className='' color='dark-5' filled='true' size='1em' />)
+      const fill = mockTheme.global.colors.statusColors.error
+      expect(icon).to.deep.equal(<HeartIcon color='dark-5' fill={fill} size='1em' />)
     })
 
     it('should be checked', function () {

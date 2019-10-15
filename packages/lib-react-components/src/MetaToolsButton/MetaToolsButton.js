@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
-import { PlainButton } from '@zooniverse/react-components'
+import PlainButton from '../PlainButton'
 
 export const StyledPlainButton = styled(PlainButton)`
   > div {

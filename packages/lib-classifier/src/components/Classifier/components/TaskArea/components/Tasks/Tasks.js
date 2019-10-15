@@ -11,10 +11,10 @@ import TaskNavButtons from './components/TaskNavButtons'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
-  const { active: step } = stores.classifierStore.workflowSteps
-  const tasks = stores.classifierStore.workflowSteps.activeStepTasks
+  const { active: step, activeStepTasks: tasks, isThereTaskHelp } = stores.classifierStore.workflowSteps
   const { loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
   return {
+    isThereTaskHelp,
     loadingState,
     step,
     subjectReadyState,
@@ -22,8 +22,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class Tasks extends React.Component {
   [asyncStates.initialized] () {
     return null
@@ -39,7 +37,7 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { subjectReadyState, tasks } = this.props
+    const { isThereTaskHelp, subjectReadyState, tasks } = this.props
     const ready = subjectReadyState === asyncStates.success
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
@@ -62,7 +60,7 @@ class Tasks extends React.Component {
 
               return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
-            <TaskHelp />
+            {isThereTaskHelp && <TaskHelp tasks={tasks} />}
             <TaskNavButtons disabled={!ready} />
           </Box>
         </ThemeProvider>
@@ -78,18 +76,25 @@ class Tasks extends React.Component {
   }
 }
 
-Tasks.wrappedComponent.propTypes = {
+Tasks.propTypes = {
+  isThereTaskHelp: PropTypes.bool,
   loadingState: PropTypes.oneOf(asyncStates.values),
   ready: PropTypes.bool,
   tasks: PropTypes.arrayOf(PropTypes.object),
   theme: PropTypes.string
 }
 
-Tasks.wrappedComponent.defaultProps = {
+Tasks.defaultProps = {
+  isThereTaskHelp: false,
   loadingState: asyncStates.initialized,
   ready: false,
   tasks: [],
   theme: 'light'
 }
 
-export default Tasks
+@inject(storeMapper)
+@observer
+class DecoratedTasks extends Tasks {}
+
+export default DecoratedTasks
+export { Tasks }

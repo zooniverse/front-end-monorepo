@@ -7,18 +7,20 @@ import MultipleChoiceTask from './MultipleChoiceTask'
 
 // TODO: move this into a factory
 const task = {
+  annotation: { task: 'T1', value: [] },
   answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
   question: 'What is/are the cat(s) doing?',
   required: false,
   taskKey: 'T1',
-  type: 'multiple'
+  type: 'multiple',
+  updateAnnotation: sinon.stub()
 }
 
 describe('MultipleChoiceTask', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<MultipleChoiceTask.wrappedComponent addAnnotation={() => { }} task={task} />)
+      wrapper = shallow(<MultipleChoiceTask task={task} />)
     })
 
     it('should render without crashing', function () {
@@ -41,13 +43,9 @@ describe('MultipleChoiceTask', function () {
 
     before(function () {
       const annotation = { task: task.taskKey, value: [0] }
-      const annotations = new Map([[task.taskKey, annotation]])
-      const addAnnotation = () => {}
       wrapper = shallow(
-        <MultipleChoiceTask.wrappedComponent
-          annotations={annotations}
-          addAnnotation={addAnnotation}
-          task={task}
+        <MultipleChoiceTask
+          task={Object.assign({}, task, { annotation })}
         />
       )
     })
@@ -59,66 +57,45 @@ describe('MultipleChoiceTask', function () {
     })
   })
 
-  describe('onChange event handler', function () {
+  describe('onChange', function () {
     let wrapper
-    let addAnnotationSpy
-    let onChangeSpy
-    before(function () {
-      addAnnotationSpy = sinon.spy()
-      onChangeSpy = sinon.spy(MultipleChoiceTask.wrappedComponent.prototype, 'onChange')
+    beforeEach(function () {
       wrapper = shallow(
-        <MultipleChoiceTask.wrappedComponent
-          addAnnotation={addAnnotationSpy}
-          annotations={observable.map()}
+        <MultipleChoiceTask
           task={task}
         />
       )
     })
 
     afterEach(function () {
-      addAnnotationSpy.resetHistory()
-      onChangeSpy.resetHistory()
+      task.updateAnnotation.resetHistory()
     })
 
-    after(function () {
-      onChangeSpy.restore()
-    })
-
-    it('should bind the array index to the onChange handler', function () {
+    it('should update the annotation', function () {
+      const expectedValue = []
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(onChangeSpy.withArgs(index)).to.have.been.calledOnce()
+        expectedValue.push(index)
+        expect(task.updateAnnotation.withArgs(expectedValue)).to.have.been.calledOnce()
       })
     })
 
-    it('should call addAnnotation in the onChange handler with an array of indices and the task as arguments', function () {
-      task.answers.forEach((answer, index) => {
-        const node = wrapper.find({ label: answer.label })
-        node.simulate('change', { target: { checked: true } })
-        expect(addAnnotationSpy.withArgs([index], task)).to.have.been.calledOnce()
-      })
-    })
-
-    it('should push the index to the value array if the event target is checked and the existing annotations array does not include the index', function () {
+    it('should add checked answers to the annotation value', function () {
       const firstNode = wrapper.find({ label: task.answers[0].label })
+      firstNode.simulate('change', { target: { checked: true } })
       const lastNode = wrapper.find({ label: task.answers[2].label })
-      firstNode.simulate('change', { target: { checked: true } })
-      expect(addAnnotationSpy.withArgs([0], task)).to.have.been.calledOnce()
-
-      const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
-      wrapper.setProps({ annotations })
       lastNode.simulate('change', { target: { checked: true } })
-      expect(addAnnotationSpy.withArgs([0, 2], task)).to.have.been.calledOnce()
+      expect(task.updateAnnotation.withArgs([0])).to.have.been.calledOnce()
+      expect(task.updateAnnotation.withArgs([0, 2])).to.have.been.calledOnce()
     })
 
-    it('should splice the index from the value array if the event target is unchecked and the existing annotations value array includes the index', function () {
+    it('should remove unchecked answers from the annotation value', function () {
       const firstNode = wrapper.find({ label: task.answers[0].label })
       firstNode.simulate('change', { target: { checked: true } })
-      const annotations = observable.map([['T1', { value: [0], task: 'T1' }]])
-      wrapper.setProps({ annotations })
+      expect(task.updateAnnotation.withArgs([0])).to.have.been.calledOnce()
       firstNode.simulate('change', { target: { checked: false } })
-      expect(addAnnotationSpy.withArgs([], task)).to.have.been.calledOnce()
+      expect(task.updateAnnotation.withArgs([])).to.have.been.calledOnce()
     })
   })
 })

@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "repository": "github:zooniverse/front-end-monorepo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "src/index.js",
   "scripts": {
     "lint": "zoo-standard --fix | snazzy",
@@ -13,12 +13,11 @@
     "test:ci": "NODE_ENV=test mocha --reporter=min"
   },
   "dependencies": {
-    "@zooniverse/standard": "~1.0.0",
-    "snazzy": "~8.0.0",
     "superagent": "~5.1.0",
     "url-parse": "~1.4.7"
   },
   "devDependencies": {
+    "@zooniverse/standard": "~1.0.0",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "jsdom": "~15.1.1",
@@ -26,7 +25,8 @@
     "mock-local-storage": "~1.1.8",
     "nock": "~10.0.6",
     "sinon": "~7.3.2",
-    "sinon-chai": "~3.3.0"
+    "sinon-chai": "~3.3.0",
+    "snazzy": "~8.0.0"
   },
   "engines": {
     "node": ">=10"

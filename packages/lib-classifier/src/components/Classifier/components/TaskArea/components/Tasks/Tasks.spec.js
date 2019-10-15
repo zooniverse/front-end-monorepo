@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import Tasks from './Tasks'
+import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
 
 describe('Tasks', function () {
@@ -14,34 +14,34 @@ describe('Tasks', function () {
   }]
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent />)
+    const wrapper = shallow(<Tasks />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render null on initialization', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent />)
+    const wrapper = shallow(<Tasks />)
     expect(wrapper.type()).to.be.null()
   })
 
   it('should render a loading UI when the workflow loading', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.loading} />)
+    const wrapper = shallow(<Tasks loadingState={asyncStates.loading} />)
     expect(wrapper.contains('Loading')).to.be.true()
   })
 
   it('should render an error message when there is a loading error', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.error} />)
+    const wrapper = shallow(<Tasks loadingState={asyncStates.error} />)
     expect(wrapper.contains('Something went wrong')).to.be.true()
   })
 
   it('should render null if the workflow is load but has no tasks', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready />)
+    const wrapper = shallow(<Tasks loadingState={asyncStates.success} ready />)
     expect(wrapper.type()).to.be.null()
   })
 
   it('should render the correct task component if the workflow is loaded', function () {
-    const wrapper = shallow(<Tasks.wrappedComponent loadingState={asyncStates.success} ready tasks={tasks} />)
+    const wrapper = shallow(<Tasks loadingState={asyncStates.success} ready tasks={tasks} />)
     // Is there a better way to do this?
-    expect(wrapper.find('inject-SingleChoiceTask')).to.have.lengthOf(1)
+    expect(wrapper.find('SingleChoiceTask')).to.have.lengthOf(1)
   })
 
   describe('task components', function () {
@@ -50,13 +50,13 @@ describe('Tasks', function () {
     describe('while the subject is loading', function () {
       before(function () {
         const wrapper = shallow(
-          <Tasks.wrappedComponent
+          <Tasks
             loadingState={asyncStates.success}
             subjectReadyState={asyncStates.loading}
             tasks={tasks}
           />
         )
-        taskWrapper = wrapper.find('inject-SingleChoiceTask')
+        taskWrapper = wrapper.find('SingleChoiceTask')
       })
 
       it('should be disabled', function () {
@@ -67,13 +67,13 @@ describe('Tasks', function () {
     describe('when the subject viewer is ready', function () {
       before(function () {
         const wrapper = shallow(
-          <Tasks.wrappedComponent
+          <Tasks
             loadingState={asyncStates.success}
             subjectReadyState={asyncStates.success}
             tasks={tasks}
           />
         )
-        taskWrapper = wrapper.find('inject-SingleChoiceTask')
+        taskWrapper = wrapper.find('SingleChoiceTask')
       })
 
       it('should be enabled', function () {
