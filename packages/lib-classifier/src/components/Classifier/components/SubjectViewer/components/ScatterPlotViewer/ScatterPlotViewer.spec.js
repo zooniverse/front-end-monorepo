@@ -1,42 +1,20 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { genRandomNormalPoints } from '@vx/mock-data'
 import { Group } from '@vx/group'
 import { Circle } from '@vx/shape'
-import { zip } from 'lodash'
 import zooTheme from '@zooniverse/grommet-theme'
 import Axes from './components/Axes'
 import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
 import { ScatterPlotViewer } from './ScatterPlotViewer'
-import { MARGIN, PADDING } from './helpers/constants'
-
-const parentWidth = 768
-const parentHeight = 384
-
-const randomPoints = genRandomNormalPoints()
-const xPoints = randomPoints.map((point) => {
-  return point[0]
-})
-const yPoints = randomPoints.map((point) => {
-  return point[1]
-})
-
-const data = {
-  x: xPoints,
-  y: yPoints
-}
-
-const dataPoints = zip(data.x, data.y)
-
-const transformMatrix = {
-  scaleX: 1,
-  scaleY: 1,
-  skewX: 0,
-  skewY: 0,
-  translateX: 0,
-  translateY: 0
-}
+import { MARGIN } from './helpers/constants'
+import {
+  data,
+  dataPoints,
+  parentWidth,
+  parentHeight,
+  transformMatrix
+} from './helpers/mockData'
 
 describe('Component > ScatterPlotViewer', function () {
   describe('render', function () {

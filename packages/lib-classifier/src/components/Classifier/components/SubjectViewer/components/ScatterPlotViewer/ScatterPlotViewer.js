@@ -87,13 +87,14 @@ function ScatterPlotViewer(props) {
       <Background fill={background} />
       <Group
         left={MARGIN}
-        top={MARGIN}
       >
         {dataPoints.map((point, index) => {
           const cx = xScaleTransformed(point[0])
           const cy = yScaleTransformed(point[1])
           return (
             <Circle
+              data-x={point[0]}
+              data-y={point[1]}
               key={index}
               cx={cx}
               cy={cy}

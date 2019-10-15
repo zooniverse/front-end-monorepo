@@ -41,11 +41,12 @@ function Axis ({ axis, parentHeight, parentWidth, theme, tickDirection, tickLeng
         }}
         left={PADDING}
         tickLabelProps={() => ({
+          dx: '-0.25em',
+          dy: '0.25em',
           fill: color,
           fontSize,
           fontFamily,
-          dx: '0.25em',
-          dy: '-0.25em'
+          textAnchor: 'end'
         })}
         tickStroke={color}
         stroke={color}
@@ -66,11 +67,11 @@ function Axis ({ axis, parentHeight, parentWidth, theme, tickDirection, tickLeng
         }}
         left={0}
         tickLabelProps={() => ({
+          dy: '1.75em',
           fill: color,
           fontSize,
           fontFamily,
-          dx: '-0.25em',
-          dy: '0.25em'
+          textAnchor: 'middle'
         })}
         tickStroke={color}
         stroke={color}

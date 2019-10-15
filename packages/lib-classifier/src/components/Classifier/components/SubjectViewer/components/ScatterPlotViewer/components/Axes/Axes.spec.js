@@ -1,55 +1,13 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-import * as d3 from 'd3'
-import { scaleLinear } from '@vx/scale'
-import { genRandomNormalPoints } from '@vx/mock-data'
 import { Group } from '@vx/group'
 import Axes from './Axes'
 import Axis from './components/Axis'
-import { MARGIN, PADDING } from '../../helpers/constants'
-
-const parentWidth = 768
-const parentHeight = 384
-
-const randomPoints = genRandomNormalPoints()
-const xPoints = randomPoints.map((point) => {
-  return point[0]
-})
-const yPoints = randomPoints.map((point) => {
-  return point[1]
-})
-
-const dataExtent = {
-  x: d3.extent(xPoints),
-  y: d3.extent(yPoints)
-}
-
-const xScale = scaleLinear({
-  domain: dataExtent.x,
-  range: [0 + PADDING, parentWidth - MARGIN]
-})
-
-const yScale = scaleLinear({
-  domain: dataExtent.y,
-  range: [parentHeight - PADDING, 0 + MARGIN]
-})
-
-const bottomAxis = {
-  label: 'Days',
-  orientation: 'bottom',
-  scale: xScale
-}
-
-const leftAxis = {
-  label: 'Brightness',
-  orientation: 'left',
-  scale: yScale
-}
-
-const axesConfig = {
-  xAxis: bottomAxis,
-  yAxis: leftAxis
-}
+import {
+  axesConfig,
+  parentWidth,
+  parentHeight
+} from '../../helpers/mockData'
 
 describe('Component > Axes', function () {
   describe('render', function () {
