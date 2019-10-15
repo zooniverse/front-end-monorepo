@@ -1,6 +1,5 @@
 import { Box, Grid } from 'grommet'
 import React from 'react'
-import { withResponsiveContext } from '@zooniverse/react-components'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -12,7 +11,6 @@ import ThemeModeToggle from '@components/ThemeModeToggle'
 import { Media } from '../../shared/components/Media'
 
 function ProjectHomePage (props) {
-  const { screenSize } = props
   return (
     <Box align='center'>
       <Hero />
