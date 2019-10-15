@@ -88,6 +88,18 @@ InnerTickAxis.defaultProps = {
   axis: {},
   color: 'black',
   fontSize: 12,
+  margin: {
+    bottom: 10,
+    left: 10,
+    right: 10,
+    top: 10
+  },
+  padding: {
+    bottom: 30,
+    left: 30,
+    right: 0,
+    top: 0
+  },
   tickLength: 5
 }
 
@@ -104,13 +116,13 @@ InnerTickAxis.propTypes = {
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }).isRequired,
+  }),
   padding: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }).isRequired,
+  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   tickLength: PropTypes.number
