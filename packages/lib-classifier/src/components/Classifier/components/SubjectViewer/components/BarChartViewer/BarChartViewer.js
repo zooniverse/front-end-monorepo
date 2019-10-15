@@ -152,9 +152,6 @@ BarChartViewer.propTypes = {
   barStyles: PropTypes.shape({
     padding: PropTypes.number
   }),
-  barStyles: PropTypes.shape({
-    padding: PropTypes.number
-  }),
   data: PropTypes.arrayOf(PropTypes.shape({
     color: PropTypes.string,
     label: PropTypes.string.isRequired,
