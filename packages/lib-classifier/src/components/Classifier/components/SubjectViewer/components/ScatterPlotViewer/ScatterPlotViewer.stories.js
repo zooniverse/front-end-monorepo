@@ -22,15 +22,6 @@ const config = {
   }
 }
 
-const transformMatrixMock = {
-  scaleX: 1,
-  scaleY: 1,
-  skewX: 0,
-  skewY: 0,
-  translateX: 0,
-  translateY: 0
-}
-
 let zoomCallback
 
 function onZoom (type) {
@@ -50,7 +41,7 @@ stories
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='large' width='xlarge'>
           <ScatterPlotViewer
             data={data}
             panning={boolean('panning', false)}
