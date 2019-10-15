@@ -129,3 +129,46 @@ storiesOf('Tasks', module)
     </Provider>
   )
 })
+.add('text', function () {
+  const step = null
+  const tasks = [
+    {
+      help: 'Type something into the text box.',
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion'],
+      type: 'text'
+    }
+  ]
+  const dark = boolean('Dark theme', false)
+  const loadingState = select('Subject loading', asyncStates, asyncStates.success)
+  const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+  const store = Object.assign({}, mockStore, {
+    subjectViewer: {
+      loadingState
+    },
+    workflows: {
+      loadingState: asyncStates.success
+    },
+    workflowSteps: {
+      activeStepTasks: tasks,
+      isThereANextStep: () => false,
+      isThereAPreviousStep: () => false,
+      isThereTaskHelp: true
+    }
+  })
+  return (
+    <Provider classifierStore={store}>
+      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
+        <Tasks
+          isThereTaskHelp={true}
+          loadingState={asyncStates.success}
+          step={step}
+          subjectReadyState={subjectReadyState}
+          tasks={tasks}
+          theme={dark ? 'dark' : 'light'}
+        />
+      </Grommet>
+    </Provider>
+  )
+})
