@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import CollectionsModal from '@shared/components/CollectionsModal'
-import MetaToolsButton from '../MetaToolsButton'
+import { MetaToolsButton } from '@zooniverse/react-components'
 import CollectionsButton from './CollectionsButton'
 import CollectionsIcon from './CollectionsIcon'
 

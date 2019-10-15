@@ -6,18 +6,20 @@ import SingleChoiceTask from './SingleChoiceTask'
 
 // TODO: move this into a factory
 const task = {
+  annotation: { task: 'init' },
   answers: [{ label: 'yes' }, { label: 'no' }],
   question: 'Is there a cat?',
   required: true,
   taskKey: 'init',
-  type: 'single'
+  type: 'single',
+  updateAnnotation: sinon.stub()
 }
 
 describe('SingleChoiceTask', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<SingleChoiceTask.wrappedComponent addAnnotation={() => {}} task={task} />)
+      wrapper = shallow(<SingleChoiceTask addAnnotation={() => {}} task={task} />)
     })
 
     it('should render without crashing', function () {
@@ -40,13 +42,9 @@ describe('SingleChoiceTask', function () {
 
     before(function () {
       const annotation = { task: task.taskKey, value: 0 }
-      const annotations = new Map([[task.taskKey, annotation]])
-      const addAnnotation = () => {}
       wrapper = shallow(
-        <SingleChoiceTask.wrappedComponent
-          annotations={annotations}
-          addAnnotation={addAnnotation}
-          task={task}
+        <SingleChoiceTask
+          task={Object.assign({}, task, { annotation })}
         />
       )
     })
@@ -60,43 +58,26 @@ describe('SingleChoiceTask', function () {
 
   describe('onChange event handler', function () {
     let wrapper
-    let addAnnotationSpy
-    let onChangeSpy
     before(function () {
-      addAnnotationSpy = sinon.spy()
-      onChangeSpy = sinon.spy(SingleChoiceTask.wrappedComponent.prototype, 'onChange')
-      wrapper = shallow(<SingleChoiceTask.wrappedComponent addAnnotation={addAnnotationSpy} task={task} />)
+      wrapper = shallow(<SingleChoiceTask task={task} />)
     })
 
     afterEach(function () {
-      addAnnotationSpy.resetHistory()
-      onChangeSpy.resetHistory()
+      task.updateAnnotation.resetHistory()
     })
 
-    after(function () {
-      onChangeSpy.restore()
-    })
-
-    it('should bind the array index to the onChange handler', function () {
+    it('should update the annotation', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(onChangeSpy.withArgs(index)).to.have.been.calledOnce()
+        expect(task.updateAnnotation.withArgs(index)).to.have.been.calledOnce()
       })
     })
 
-    it('should call addAnnotation in the onChange handler with the array index and task as arguments if the event target is checked', function () {
-      task.answers.forEach((answer, index) => {
-        const node = wrapper.find({ label: answer.label })
-        node.simulate('change', { target: { checked: true } })
-        expect(addAnnotationSpy.withArgs(index, task)).to.have.been.calledOnce()
-      })
-    })
-
-    it('should not call addAnnotation in the onChange handler if the event target is not checked', function () {
+    it('should not update the annotation if the answer is not checked', function () {
       const node = wrapper.find({ label: task.answers[0].label })
       node.simulate('change', { target: { checked: false } })
-      expect(addAnnotationSpy.called).to.be.false()
+      expect(task.updateAnnotation.withArgs(0)).to.not.have.been.called()
     })
   })
 })

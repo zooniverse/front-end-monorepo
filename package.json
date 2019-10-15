@@ -9,6 +9,7 @@
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "version": "0.0.1",
   "devDependencies": {
+    "@storybook/storybook-deployer": "~2.8.1",
     "coveralls": "~3.0.4",
     "lerna": "~3.15.0",
     "nyc": "~14.1.1",
@@ -19,6 +20,7 @@
     "bootstrap": "./bin/bootstrap.sh",
     "build": "lerna run --parallel build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
     "panic-button": "./bin/panic-button.sh",
     "test": "lerna run --parallel test",

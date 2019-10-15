@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import { Anchor } from 'grommet'
-import { Media } from '@zooniverse/react-components'
+import { FavouritesButton, Media } from '@zooniverse/react-components'
 
 import SubjectPreview from './SubjectPreview'
-import { CollectionsButton, FavouritesButton, TalkLink } from './components'
+import { CollectionsButton, TalkLink } from './components'
 
 describe('Component > SubjectPreview', function () {
   let wrapper

@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import MetaToolsButton from '../MetaToolsButton'
+import { MetaToolsButton } from '@zooniverse/react-components'
 
 import TalkLink from './TalkLink'
 import TalkIcon from './TalkIcon'

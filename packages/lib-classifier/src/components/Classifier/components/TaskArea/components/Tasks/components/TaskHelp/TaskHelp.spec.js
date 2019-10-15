@@ -1,3 +1,4 @@
+import { Modal } from '@zooniverse/react-components'
 import { Button } from 'grommet'
 import { shallow } from 'enzyme'
 import React from 'react'
@@ -11,25 +12,21 @@ const tasks = [{
 
 describe('TaskHelp', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent tasks={tasks} />)
+    const wrapper = shallow(<TaskHelp tasks={tasks} />)
     expect(wrapper).to.be.ok()
   })
 
-  it('should render null if there is no task help', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp={false} tasks={[{ taskKey: 'init' }]} />)
-    expect(wrapper.html()).to.be.null()
-  })
-
   it('should render the modal when the need help button is clicked', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
+    const wrapper = shallow(<TaskHelp tasks={tasks} />)
     wrapper.find(NeedHelpButton).simulate('click')
-    expect(wrapper.state('showModal')).to.be.true()
+    expect(wrapper.find(Modal).prop('active')).to.be.true()
   })
 
   it('should no longer render the modal when the close button is clicked', function () {
-    const wrapper = shallow(<TaskHelp.wrappedComponent isThereTaskHelp tasks={tasks} />)
-    wrapper.setState({ showModal: true })
+    const wrapper = shallow(<TaskHelp tasks={tasks} />)
+    wrapper.find(NeedHelpButton).simulate('click')
+    expect(wrapper.find(Modal).prop('active')).to.be.true()
     wrapper.find(Button).simulate('click')
-    expect(wrapper.state('showModal')).to.be.false()
+    expect(wrapper.find(Modal).prop('active')).to.be.false()
   })
 })
