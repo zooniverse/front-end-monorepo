@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { Axis } from '@vx/axis'
 import { Line } from '@vx/shape'
 import { Group } from '@vx/group'
-import { MARGIN, PADDING } from '../../../../helpers/constants'
-// import Ticks from './components/Ticks'
 
 function InnerTickAxis (props) {
   const {
@@ -15,19 +13,21 @@ function InnerTickAxis (props) {
     },
     color,
     fontSize,
+    margin,
+    padding,
     parentHeight,
     parentWidth,
     tickLength
   } = props
 
   const top = {
-    bottom: parentHeight - tickLength,
-    left: PADDING
+    bottom: parentHeight - margin.top - tickLength,
+    left: padding.left
   }
 
   const labelTransform = {
-    bottom: `translate(${parentWidth - (PADDING + MARGIN)}, ${0 - MARGIN})`,
-    left: `translate(${0 + MARGIN}, ${0 - MARGIN})`
+    bottom: `translate(${parentWidth - (padding.left + margin.left)}, ${0 - margin.right})`,
+    left: `translate(${0 + margin.left}, ${0 - margin.right})`
   }
 
   const vxOrientation = {
@@ -50,7 +50,7 @@ function InnerTickAxis (props) {
             {innerAxis.ticks.map((tick, i) => {
               const tickLabelTransform = {
                 left: `translate(${tick.to.x + tickLength}, ${tick.to.y + 3})`,
-                bottom: `translate(${tick.to.x}, ${tick.to.y - MARGIN})`
+                bottom: `translate(${tick.to.x}, ${tick.to.y - margin.bottom})`
               }
               const tickTextAnchor = {
                 left: 'start',
@@ -87,7 +87,7 @@ function InnerTickAxis (props) {
 InnerTickAxis.defaultProps = {
   axis: {},
   color: 'black',
-  fontSize: '12px',
+  fontSize: 12,
   tickLength: 5
 }
 
@@ -98,7 +98,19 @@ InnerTickAxis.propTypes = {
     scale: PropTypes.func.isRequired // D3 scaleLinear function
   }),
   color: PropTypes.string,
-  fontSize: PropTypes.string,
+  fontSize: PropTypes.number,
+  margin: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
+  padding: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   tickLength: PropTypes.number

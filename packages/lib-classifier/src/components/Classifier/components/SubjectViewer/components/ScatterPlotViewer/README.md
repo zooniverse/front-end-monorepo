@@ -68,6 +68,18 @@ A set of options can be defined along with the data that define the x-axis and y
     ]
   },
   "options": {
+    "margin": {
+      "bottom": 10,
+      "left": 10,
+      "right": 10,
+      "top": 1
+    },
+    "padding": {
+      "bottom": 30,
+      "left": 30,
+      "right": 0,
+      "top": 0
+    },
     "xAxisLabel": "Days",
     "yAxisLabel": "Brightness",
   }

@@ -7,9 +7,10 @@ import ScatterPlotViewer from './ScatterPlotViewer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
 import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
-import lightCurveMockData from '../LightCurveViewer/mockData'
+
 import {
   data,
+  lightCurveMockData,
   transformMatrix
 } from './helpers/mockData'
 import readme from './README.md'
@@ -40,15 +41,15 @@ stories
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box height='large' width='xlarge'>
+        <Box height='medium' width='large'>
           <ScatterPlotViewer
             data={data}
             panning={boolean('panning', false)}
             parentHeight={384}
             parentWidth={768}
             transformMatrix={transformMatrix}
-            xAxisLabel={text('x axis label', 'Days')}
-            yAxisLabel={text('y axis label', 'Brightness')}
+            xAxisLabel={text('x axis label', 'x-axis')}
+            yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
           />
         </Box>
@@ -66,8 +67,8 @@ stories
             parentHeight={384}
             parentWidth={768}
             transformMatrix={transformMatrix}
-            xAxisLabel={text('x axis label', 'Days')}
-            yAxisLabel={text('y axis label', 'Brightness')}
+            xAxisLabel={text('x axis label', 'x-axis')}
+            yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
           />
         </Box>
@@ -85,8 +86,8 @@ stories
             parentHeight={384}
             parentWidth={768}
             transformMatrix={transformMatrix}
-            xAxisLabel={text('x axis label', 'Days')}
-            yAxisLabel={text('y axis label', 'Brightness')}
+            xAxisLabel={text('x axis label', 'x-axis')}
+            yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
           />
         </Box>
@@ -98,15 +99,17 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={lightCurveMockData}
+            data={lightCurveMockData.data}
+            margin={lightCurveMockData.options.margin}
+            padding={lightCurveMockData.options.padding}
             panning={boolean('panning', false)}
             parentHeight={384}
             parentWidth={768}
             setOnZoom={setZoomCallback}
-            tickDirection={text('tick direction', 'inner')}
+            tickDirection='inner'
             transformMatrix={transformMatrix}
-            xAxisLabel={text('x axis label', 'Days')}
-            yAxisLabel={text('y axis label', 'Brightness')}
+            xAxisLabel={text('x axis label', lightCurveMockData.options.xAxisLabel)}
+            yAxisLabel={text('y axis label', lightCurveMockData.options.yAxisLabel)}
             zooming={boolean('zooming', false)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
@@ -131,8 +134,8 @@ stories
             parentWidth={768}
             setOnZoom={setZoomCallback}
             transformMatrix={transformMatrix}
-            xAxisLabel={text('x axis label', 'Days')}
-            yAxisLabel={text('y axis label', 'Brightness')}
+            xAxisLabel={text('x axis label', 'x-axis')}
+            yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),

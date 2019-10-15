@@ -10,13 +10,15 @@ import { darken } from 'polished'
 import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
 import Axes from './components/Axes'
-import { MARGIN, PADDING } from './helpers/constants'
+import { left, top, xMin, xMax, yMin, yMax } from './helpers/utils'
 
-function ScatterPlotViewer(props) {
+const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, ref) {
   const {
     children,
     data,
     dataPointSize,
+    margin,
+    padding,
     parentHeight,
     parentWidth,
     tickDirection,
@@ -28,9 +30,18 @@ function ScatterPlotViewer(props) {
     },
     transformMatrix,
     xAxisLabel,
-    yAxisLabel
+    yAxisLabel,
   } = props
-  
+
+  const xRangeMin = xMin(tickDirection, padding)
+  const xRangeMax = xMax(tickDirection, parentWidth, margin)
+
+  const yRangeMin = yMin(tickDirection, margin)
+  const yRangeMax = yMax(tickDirection, parentHeight, margin, padding)
+
+  const leftPosition = left(tickDirection, margin)
+  const topPosition = top(tickDirection, margin)
+
   const background = darken(0.08, colors['neutral-2'])
   const color = colors['light-1']
 
@@ -42,12 +53,12 @@ function ScatterPlotViewer(props) {
 
   const xScale = scaleLinear({
     domain: dataExtent.x,
-    range: [0 + PADDING, parentWidth - MARGIN]
+    range: [xRangeMin, xRangeMax]
   })
 
   const yScale = scaleLinear({
     domain: dataExtent.y,
-    range: [parentHeight - PADDING, 0 + MARGIN]
+    range: [yRangeMax, yRangeMin]
   })
 
   const xScaleTransformed = scaleLinear({
@@ -55,7 +66,7 @@ function ScatterPlotViewer(props) {
       xScale.invert((xScale(dataExtent.x[0]) - transformMatrix.translateX) / transformMatrix.scaleX),
       xScale.invert((xScale(dataExtent.x[1]) - transformMatrix.translateX) / transformMatrix.scaleX)
     ],
-    range: [0 + PADDING, parentWidth - MARGIN]
+    range: [xRangeMin, xRangeMax]
   });
 
   const yScaleTransformed = scaleLinear({
@@ -63,7 +74,7 @@ function ScatterPlotViewer(props) {
       yScale.invert((yScale(dataExtent.y[0]) - transformMatrix.translateY) / transformMatrix.scaleY),
       yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY)
     ],
-    range: [parentHeight - PADDING, 0 + MARGIN],
+    range: [yRangeMax, yRangeMin],
   })
 
   const axesConfig = {
@@ -82,11 +93,13 @@ function ScatterPlotViewer(props) {
   return (
     <Chart
       height={parentHeight}
-      width={parentWidth + MARGIN}
+      ref={ref}
+      width={parentWidth}
     >
       <Background fill={background} />
       <Group
-        left={MARGIN}
+        left={leftPosition}
+        top={topPosition}
       >
         {dataPoints.map((point, index) => {
           const cx = xScaleTransformed(point[0])
@@ -105,16 +118,23 @@ function ScatterPlotViewer(props) {
         })}
       </Group>
       {children}
-      <Axes
-        axesConfig={axesConfig}
-        tickDirection={tickDirection}
-        tickLength={tickLength}
-        parentHeight={parentHeight}
-        parentWidth={parentWidth}
-      />
+      <Group
+        left={leftPosition}
+        top={margin.top}
+      >
+        <Axes
+          axesConfig={axesConfig}
+          margin={margin}
+          padding={padding}
+          parentHeight={parentHeight}
+          parentWidth={parentWidth}
+          tickDirection={tickDirection}
+          tickLength={tickLength}
+        />
+      </Group>
     </Chart>
   )
-}
+})
 
 ScatterPlotViewer.defaultProps = {
   data: {
@@ -122,6 +142,18 @@ ScatterPlotViewer.defaultProps = {
     y: [1]
   },
   dataPointSize: '1.5',
+  margin: {
+    bottom: 60,
+    left: 60,
+    right: 10,
+    top: 10
+  },
+  padding: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0
+  },
   panning: false,
   theme: {
     global: {
@@ -133,7 +165,7 @@ ScatterPlotViewer.defaultProps = {
   tickLength: 5,
   xAxisLabel: 'x-axis',
   yAxisLabel: 'y-axis',
-  zooming: false,
+  zooming: false
 }
 
 ScatterPlotViewer.propTypes = {
@@ -142,6 +174,18 @@ ScatterPlotViewer.propTypes = {
     y: PropTypes.arrayOf(PropTypes.number)
   }),
   dataPointSize: PropTypes.string,
+  margin: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
+  padding: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
   panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
@@ -150,7 +194,7 @@ ScatterPlotViewer.propTypes = {
   tickLength: PropTypes.number,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
-  zooming: PropTypes.bool,
+  zooming: PropTypes.bool
 }
 
 export default withTheme(ScatterPlotViewer)

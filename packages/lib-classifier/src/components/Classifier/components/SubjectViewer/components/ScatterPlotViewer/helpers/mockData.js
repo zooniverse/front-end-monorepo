@@ -3,11 +3,12 @@ import { genRandomNormalPoints } from '@vx/mock-data'
 import { scaleLinear } from '@vx/scale'
 import { zip } from 'lodash'
 import * as d3 from 'd3'
-import { MARGIN, PADDING } from './constants'
+import lightCurve from '../../LightCurveViewer/mockData'
+import { left, top, xMin, xMax, yMin, yMax } from './utils'
 
 const color = zooTheme.global.colors['light-1']
 const fontFamily = zooTheme.global.font.family
-const fontSize = zooTheme.text.xsmall.size
+const fontSize = 12
 const parentWidth = 768
 const parentHeight = 384
 
@@ -41,14 +42,34 @@ const transformMatrix = {
   translateY: 0
 }
 
+const tickDirection = 'outer'
+const margin = {
+  bottom: 60,
+  left: 60,
+  right: 10,
+  top: 10
+}
+
+const padding = {
+  bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0
+}
+const xRangeMin = xMin(tickDirection, padding)
+const xRangeMax = xMax(tickDirection, parentWidth, margin)
+
+const yRangeMin = yMin(tickDirection, margin)
+const yRangeMax = yMax(tickDirection, parentHeight, margin, padding)
+
 const xScale = scaleLinear({
   domain: dataExtent.x,
-  range: [0 + PADDING, parentWidth - MARGIN]
+  range: [xRangeMin, xRangeMax]
 })
 
 const yScale = scaleLinear({
   domain: dataExtent.y,
-  range: [parentHeight - PADDING, 0 + MARGIN]
+  range: [yRangeMax, yRangeMin]
 })
 
 const bottomAxis = {
@@ -68,6 +89,26 @@ const axesConfig = {
   yAxis: leftAxis
 }
 
+const lightCurveMockData = {
+  data: lightCurve,
+  options: {
+    margin: {
+      bottom: 10,
+      left: 10,
+      right: 10,
+      top: 10
+    },
+    padding: {
+      bottom: 30,
+      left: 30,
+      right: 0,
+      top: 0
+    },
+    xAxisLabel: 'Days',
+    yAxisLabel: 'Brightness'
+  }
+}
+
 export {
   axesConfig,
   bottomAxis,
@@ -78,6 +119,7 @@ export {
   dataExtent,
   dataPoints,
   leftAxis,
+  lightCurveMockData,
   parentWidth,
   parentHeight,
   transformMatrix,
