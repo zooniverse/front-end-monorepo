@@ -9,14 +9,12 @@ import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import ThemeModeToggle from '@components/ThemeModeToggle'
-import ProjectAnnouncement from './components/ProjectAnnouncement'
 import { Media } from '../../shared/components/Media'
 
 function ProjectHomePage (props) {
   const { screenSize } = props
   return (
     <Box align='center'>
-      <ProjectAnnouncement />
       <Hero />
 
       <Media at='default'>
