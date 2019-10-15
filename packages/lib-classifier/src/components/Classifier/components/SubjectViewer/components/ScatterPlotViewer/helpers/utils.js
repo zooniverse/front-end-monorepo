@@ -34,9 +34,9 @@ export function xMax (tickDirection, parentWidth, margin) {
   return xMax[tickDirection]
 }
 
-export function yMin (tickDirection, margin) {
+export function yMin (tickDirection, padding) {
   const yMin = {
-    inner: margin.bottom,
+    inner: padding.bottom,
     outer: 0
   }
 

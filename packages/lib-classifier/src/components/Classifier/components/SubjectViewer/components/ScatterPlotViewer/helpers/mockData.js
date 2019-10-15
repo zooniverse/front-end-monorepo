@@ -120,9 +120,15 @@ export {
   dataPoints,
   leftAxis,
   lightCurveMockData,
+  margin,
+  padding,
   parentWidth,
   parentHeight,
   transformMatrix,
   xScale,
-  yScale
+  yScale,
+  xRangeMin,
+  xRangeMax,
+  yRangeMin,
+  yRangeMax
 }

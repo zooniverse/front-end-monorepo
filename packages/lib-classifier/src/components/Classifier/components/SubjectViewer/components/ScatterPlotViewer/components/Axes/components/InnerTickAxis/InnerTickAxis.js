@@ -22,12 +22,12 @@ function InnerTickAxis (props) {
 
   const top = {
     bottom: parentHeight - margin.top - tickLength,
-    left: padding.left
+    left: padding.top
   }
 
   const labelTransform = {
     bottom: `translate(${parentWidth - (padding.left + margin.left)}, ${0 - margin.right})`,
-    left: `translate(${0 + margin.left}, ${0 - margin.right})`
+    left: `translate(${margin.left}, ${margin.right})`
   }
 
   const vxOrientation = {
@@ -104,13 +104,13 @@ InnerTickAxis.propTypes = {
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }),
+  }).isRequired,
   padding: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }),
+  }).isRequired,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   tickLength: PropTypes.number

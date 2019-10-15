@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Group } from '@vx/group'
 import Axes from './Axes'
 import Axis from './components/Axis'
 import {
@@ -28,8 +27,7 @@ describe('Component > Axes', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render a Group of Axis components', function () {
-      expect(wrapper.find(Group)).to.have.lengthOf(1)
+    it('should render a pair of Axis components', function () {
       expect(wrapper.find(Axis)).to.have.lengthOf(2)
     })
 

@@ -101,7 +101,10 @@ function Axis (props) {
 Axis.defaultProps = {
   axis: {},
   theme: {
-    dark: false
+    global: {
+      colors: {},
+      font: {}
+    }
   },
   tickDirection: 'outer',
   tickLength: 5
@@ -118,13 +121,13 @@ Axis.propTypes = {
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }),
+  }).isRequired,
   padding: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
     right: PropTypes.number,
     top: PropTypes.number
-  }),
+  }).isRequired,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   theme: PropTypes.object,

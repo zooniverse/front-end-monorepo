@@ -7,14 +7,15 @@ import Axes from './components/Axes'
 import Background from '../SVGComponents/Background'
 import Chart from '../SVGComponents/Chart'
 import { ScatterPlotViewer } from './ScatterPlotViewer'
-import { MARGIN } from './helpers/constants'
 import {
   data,
   dataPoints,
+  margin,
   parentWidth,
   parentHeight,
   transformMatrix
 } from './helpers/mockData'
+import { left, top } from './helpers/utils'
 
 describe('Component > ScatterPlotViewer', function () {
   describe('render', function () {
@@ -43,7 +44,7 @@ describe('Component > ScatterPlotViewer', function () {
     })
 
     it('should set the Chart\'s width and height from props', function () {
-      expect(chart.props().width).to.equal(parentWidth + MARGIN)
+      expect(chart.props().width).to.equal(parentWidth)
       expect(chart.props().height).to.equal(parentHeight)
     })
 
@@ -55,8 +56,16 @@ describe('Component > ScatterPlotViewer', function () {
       expect(wrapper.find(Background).props().fill).to.be.a('string')
     })
 
-    it('should render a Group component', function () {
-      expect(wrapper.find(Group)).to.have.lengthOf(1)
+    it('should render Group components', function () {
+      expect(wrapper.find(Group)).to.have.lengthOf(2)
+    })
+
+    it('should set the position of the Group wrapping the Chart', function () {
+      const chartGroupWrapper = wrapper.find(Group).first()
+      const leftPosition = left('outer', margin)
+      const topPosition = top('outer', margin)
+      expect(chartGroupWrapper.props().left).to.equal(leftPosition)
+      expect(chartGroupWrapper.props().top).to.equal(topPosition)
     })
 
     it('should render a number of Circle components equal to the number of data points', function () {
@@ -69,6 +78,13 @@ describe('Component > ScatterPlotViewer', function () {
       circles.forEach((circle) => {
         expect(circle.props().fill).to.be.a('string')
       })
+    })
+
+    it('should set the position of the Group wrapping the Axes', function () {
+      const axesGroupWrapper = wrapper.find(Group).last()
+      const leftPosition = left('outer', margin)
+      expect(axesGroupWrapper.props().left).to.equal(leftPosition)
+      expect(axesGroupWrapper.props().top).to.equal(margin.top)
     })
 
     it('should render Axes', function () {

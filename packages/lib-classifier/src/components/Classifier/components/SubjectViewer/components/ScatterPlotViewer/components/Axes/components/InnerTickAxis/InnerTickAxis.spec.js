@@ -4,16 +4,19 @@ import { Axis } from '@vx/axis'
 import { Line } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
 import InnerTickAxis from './InnerTickAxis'
-import { MARGIN, PADDING } from '../../../../helpers/constants'
 import {
   bottomAxis,
   color,
   fontSize,
   leftAxis,
+  lightCurveMockData,
   parentWidth,
   parentHeight,
   xScale
 } from '../../../../helpers/mockData'
+
+const margin = lightCurveMockData.options.margin
+const padding = lightCurveMockData.options.padding
 
 describe('Component > InnerTickAxis', function () {
   describe('render', function () {
@@ -25,6 +28,8 @@ describe('Component > InnerTickAxis', function () {
             axis={bottomAxis}
             color={color}
             fontSize={fontSize}
+            margin={margin}
+            padding={padding}
             parentHeight={parentHeight}
             parentWidth={parentWidth}
           />
@@ -80,12 +85,14 @@ describe('Component > InnerTickAxis', function () {
       wrapper.setProps({
         children: (
           <InnerTickAxis
-              axis={bottomAxis}
-              color={color}
-              fontSize={fontSize}
-              parentHeight={parentHeight}
-              parentWidth={parentWidth}
-              tickLength={10}
+            axis={bottomAxis}
+            color={color}
+            fontSize={fontSize}
+            margin={margin}
+            padding={padding}
+            parentHeight={parentHeight}
+            parentWidth={parentWidth}
+            tickLength={10}
           />
         )
       })
@@ -110,6 +117,8 @@ describe('Component > InnerTickAxis', function () {
           <svg>
             <InnerTickAxis
               axis={bottomAxis}
+              margin={margin}
+              padding={padding}
               parentHeight={parentHeight}
               parentWidth={parentWidth}
               theme={zooTheme}
@@ -121,15 +130,16 @@ describe('Component > InnerTickAxis', function () {
       })
 
       it('should calculate the top position using the parentHeight and tickLength', function () {
-        expect(axisComponentProps.top).to.equal(parentHeight - axisComponentProps.tickLength)
+        expect(axisComponentProps.top).to.equal(parentHeight - margin.top - axisComponentProps.tickLength)
       })
 
       it('should set the orientation to be bottom', function () {
         expect(axisComponentProps.orientation).to.equal('bottom')
       })
 
-      it('should position the label using a CSS transform calculated with the parentWidth, PADDING, and MARGIN', function () {
-        expect(axisComponent.find('text').last().props().transform).to.equal(`translate(${parentWidth - (PADDING + MARGIN)}, ${0 - MARGIN})`)
+      it('should position the label using a CSS transform calculated with the parentWidth, padding, and margin', function () {
+        const transform = axisComponent.find('text').last().props().transform
+        expect(transform).to.equal(`translate(${parentWidth - (padding.left + margin.left)}, ${0 - margin.right})`)
       })
     })
 
@@ -140,6 +150,8 @@ describe('Component > InnerTickAxis', function () {
           <svg>
             <InnerTickAxis
               axis={leftAxis}
+              margin={margin}
+              padding={padding}
               parentHeight={parentHeight}
               parentWidth={parentWidth}
               theme={zooTheme}
@@ -150,8 +162,8 @@ describe('Component > InnerTickAxis', function () {
         axisComponentProps = axisComponent.props()
       })
 
-      it('should set the top position to be equal to the PADDING', function () {
-        expect(axisComponentProps.top).to.equal(PADDING)
+      it('should set the top position to be equal to the padding top', function () {
+        expect(axisComponentProps.top).to.equal(padding.top)
       })
 
       it('should set the orientation to be right', function () {
@@ -159,8 +171,9 @@ describe('Component > InnerTickAxis', function () {
         expect(axisComponentProps.orientation).to.equal('right')
       })
 
-      it('should position the label using a CSS transform calculated with the PADDING and MARGIN constants', function () {
-        expect(axisComponent.find('text').last().props().transform).to.equal(`translate(${0 + MARGIN}, ${0 - MARGIN})`)
+      it('should position the label using a CSS transform calculated with the margin', function () {
+        const transform = axisComponent.find('text').last().props().transform
+        expect(transform).to.equal(`translate(${margin.left}, ${margin.right})`)
       })
     })
   })

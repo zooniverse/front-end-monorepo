@@ -4,13 +4,14 @@ import { AxisLeft, AxisBottom } from '@vx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Axis } from './Axis'
 import InnerTickAxis from '../InnerTickAxis'
-import { PADDING } from '../../../../helpers/constants'
 import {
   bottomAxis,
   color,
   fontFamily,
   fontSize,
   leftAxis,
+  margin,
+  padding,
   parentWidth,
   parentHeight,
   xScale
@@ -21,6 +22,8 @@ describe('Component > Axis', function () {
     const wrapper = shallow(
       <Axis
         axis={bottomAxis}
+        margin={margin}
+        padding={padding}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
         theme={zooTheme}
@@ -32,6 +35,11 @@ describe('Component > Axis', function () {
   it('should render null if missing an orientation', function () {
     const wrapper = shallow(
       <Axis
+        axis={{
+          label: 'a label'
+        }}
+        margin={margin}
+        padding={padding}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
         theme={zooTheme}
@@ -46,6 +54,8 @@ describe('Component > Axis', function () {
       wrapper = shallow(
         <Axis
           axis={bottomAxis}
+          margin={margin}
+          padding={padding}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
@@ -63,13 +73,11 @@ describe('Component > Axis', function () {
     })
 
     it('should style the ticks and label with the theme', function () {
-      const color = zooTheme.global.colors['light-1']
-      const fontFamily = zooTheme.global.font.family
-      const fontSize = zooTheme.text.xsmall.size
       expect(wrapperProps.labelProps).to.deep.equal({
         fill: color,
         fontFamily,
-        fontSize
+        fontSize,
+        textAnchor: 'middle'
       })
       expect(wrapperProps.tickLabelProps().fill).to.equal(color)
       expect(wrapperProps.tickLabelProps().fontFamily).to.equal(fontFamily)
@@ -79,7 +87,7 @@ describe('Component > Axis', function () {
     })
 
     it('should position the axis at the bottom of the svg', function () {
-      expect(wrapperProps.top).to.equal(parentHeight - PADDING)
+      expect(wrapperProps.top).to.equal(parentHeight - margin.top - margin.bottom)
       expect(wrapperProps.left).to.equal(0)
     })
 
@@ -94,6 +102,8 @@ describe('Component > Axis', function () {
       wrapper = shallow(
         <Axis
           axis={leftAxis}
+          margin={margin}
+          padding={padding}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
@@ -114,7 +124,8 @@ describe('Component > Axis', function () {
       expect(wrapperProps.labelProps).to.deep.equal({
         fill: color,
         fontFamily,
-        fontSize
+        fontSize,
+        textAnchor: 'middle'
       })
       expect(wrapperProps.tickLabelProps().fill).to.equal(color)
       expect(wrapperProps.tickLabelProps().fontFamily).to.equal(fontFamily)
@@ -125,7 +136,7 @@ describe('Component > Axis', function () {
 
     it('should position the axis at the left of the svg', function () {
       expect(wrapperProps.top).to.equal(0)
-      expect(wrapperProps.left).to.equal(PADDING)
+      expect(wrapperProps.left).to.equal(padding.left)
     })
   })
 
@@ -135,6 +146,8 @@ describe('Component > Axis', function () {
       wrapper = shallow(
         <Axis
           axis={leftAxis}
+          margin={margin}
+          padding={padding}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
