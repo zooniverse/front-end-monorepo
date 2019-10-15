@@ -12,7 +12,7 @@ import {
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
-import { SingleChoiceAnnotation } from './annotations'
+import SingleChoiceAnnotation from '@plugins/tasks/SingleChoiceTask/models/SingleChoiceAnnotation'
 
 const feedbackRulesStub = {
   T0: [{

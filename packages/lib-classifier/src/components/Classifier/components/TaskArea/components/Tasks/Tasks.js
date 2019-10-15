@@ -4,7 +4,6 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
 
@@ -49,7 +48,7 @@ class Tasks extends React.Component {
       return (
         <Box as='form' gap="small" justify='between' fill>
           {tasks.map((task) => {
-            const TaskComponent = getTaskComponent(task.type)
+            const { TaskComponent } = taskRegistry.get(task.type)
             if (TaskComponent) {
               return (
                 <Box key={task.taskKey} basis='auto'>
@@ -57,6 +56,7 @@ class Tasks extends React.Component {
                 </Box>
               )
             }
+
             return (<Paragraph>Task component could not be rendered.</Paragraph>)
           })}
           {isThereTaskHelp && <TaskHelp tasks={tasks} />}
