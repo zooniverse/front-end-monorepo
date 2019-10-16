@@ -7,6 +7,7 @@ display two variable coordinate data. The data is expected to have a numerical x
 
 The Scatter Plot Viewer...
 - allows users to view coordinate data
+- can be configurable to display a standard outer facing axes or display a inner facing axes similar to the PH: TESS light curve viewer design. Right now this configuration is not available via API, but can be set by devs in the code if the design for the specific use case calls for it. The prop `tickDirection` which can be set to either `'outer'` or `'inner'`, defaulting to `'outer'`, is for this use case.
 
 ## External Setup: Workflows and Subjects
 
