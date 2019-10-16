@@ -141,7 +141,7 @@ ScatterPlotViewer.defaultProps = {
     x: [1],
     y: [1]
   },
-  dataPointSize: '1.5',
+  dataPointSize: 1.5,
   margin: {
     bottom: 60,
     left: 60,
@@ -173,7 +173,7 @@ ScatterPlotViewer.propTypes = {
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
   }),
-  dataPointSize: PropTypes.string,
+  dataPointSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
