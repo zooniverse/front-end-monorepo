@@ -41,12 +41,12 @@ class MetaTools extends React.Component {
         <FavouritesButton
           key={subject && subject.id}
           checked={subject && subject.favorite}
-          disabled={!upp}
+          disabled={!subject || !upp}
           onClick={subject && subject.toggleFavorite}
         />
         <CollectionsButton
           key={subject && subject.id}
-          disabled={!upp}
+          disabled={!subject || !upp}
           onClick={this.addToCollection}
         />
       </Box>
