@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import MetaToolsButton from '../MetaToolsButton'
 
-import FavouritesButton from './FavouritesButton'
+import { FavouritesButton } from './FavouritesButton'
 import HeartIcon from './HeartIcon'
 
 describe('Component > FavouritesButton', function () {
