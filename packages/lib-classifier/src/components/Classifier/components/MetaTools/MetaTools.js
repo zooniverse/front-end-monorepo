@@ -39,11 +39,13 @@ class MetaTools extends React.Component {
       <Box className={className} direction='row-responsive' gap={gap} margin={margin}>
         <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
+          key={subject && subject.id}
           checked={subject && subject.favorite}
           disabled={!upp}
           onClick={subject && subject.toggleFavorite}
         />
         <CollectionsButton
+          key={subject && subject.id}
           disabled={!upp}
           onClick={this.addToCollection}
         />
