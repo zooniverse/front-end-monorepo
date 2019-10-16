@@ -9,7 +9,13 @@ class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
     this.imageViewer = React.createRef()
-    this.onLoad = this.onLoad.bind(this)
+    this.state = {
+      img: {}
+    }
+  }
+
+  componentDidMount () {
+    this.onLoad()
   }
 
   fetchImage (url) {
@@ -19,15 +25,25 @@ class SingleImageViewerContainer extends React.Component {
       img.onload = () => resolve(img)
       img.onerror = reject
       img.src = url
+      return img
     })
   }
 
-  async getImageSize () {
+  async preload () {
     const { subject } = this.props
-    // TODO: Add polyfill for Object.values for IE
-    const imageUrl = Object.values(subject.locations[0])[0]
-    const img = await this.fetchImage(imageUrl)
-    const svg = this.imageViewer.current
+    if (subject && subject.locations) {
+      // TODO: Add polyfill for Object.values for IE
+      const imageUrl = Object.values(subject.locations[0])[0]
+      const img = await this.fetchImage(imageUrl)
+      this.setState({ img })
+      return img
+    }
+    return {}
+  }
+
+  async getImageSize () {
+    const img = await this.preload()
+    const svg = this.imageViewer.current || {}
     return {
       clientHeight: svg.clientHeight,
       clientWidth: svg.clientWidth,
@@ -43,30 +59,30 @@ class SingleImageViewerContainer extends React.Component {
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
+      console.error(error)
       onError(error)
     }
   }
 
   render () {
     const { loadingState, onError, subject } = this.props
+    const { img } = this.state
+    const url = img && img.src
+
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
       )
     }
 
-    if (!subject) {
+    if (!url) {
       return null
     }
-
-    // TODO: Add polyfill for Object.values for IE
-    const imageUrl = Object.values(subject.locations[0])[0]
+    
     return (
       <SingleImageViewer
         ref={this.imageViewer}
-        onError={onError}
-        onLoad={this.onLoad}
-        url={imageUrl}
+        url={url}
       />
     )
   }
