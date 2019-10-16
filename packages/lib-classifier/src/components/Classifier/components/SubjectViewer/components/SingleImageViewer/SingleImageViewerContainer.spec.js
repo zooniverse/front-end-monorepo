@@ -107,6 +107,30 @@ describe('Component > SingleImageViewerContainer', function () {
         done()
       })
     })
+
+    it('should pass the original image dimensions to the SVG image', function (done) {
+      const svg = wrapper.instance().imageViewer.current
+      const fakeEvent = {
+        target: {
+          clientHeight: 0,
+          clientWidth: 0
+        }
+      }
+      const expectedEvent = {
+        target: {
+          clientHeight: svg.clientHeight,
+          clientWidth: svg.clientWidth,
+          naturalHeight: height,
+          naturalWidth: width
+        }
+      }
+      onReady.callsFake(function () {
+        const { height, width } = wrapper.find(SingleImageViewer).props()
+        expect(height).to.equal(height)
+        expect(width).to.equal(width)
+        done()
+      })
+    })
   })
 
   describe('with an invalid subject', function () {

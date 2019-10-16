@@ -67,7 +67,7 @@ class SingleImageViewerContainer extends React.Component {
   render () {
     const { loadingState, onError, subject } = this.props
     const { img } = this.state
-    const url = img && img.src
+    const { naturalHeight, naturalWidth, src} = img
 
     if (loadingState === asyncStates.error) {
       return (
@@ -75,14 +75,16 @@ class SingleImageViewerContainer extends React.Component {
       )
     }
 
-    if (!url) {
+    if (!src) {
       return null
     }
     
     return (
       <SingleImageViewer
         ref={this.imageViewer}
-        url={url}
+        height={naturalHeight}
+        width={naturalWidth}
+        url={src}
       />
     )
   }
