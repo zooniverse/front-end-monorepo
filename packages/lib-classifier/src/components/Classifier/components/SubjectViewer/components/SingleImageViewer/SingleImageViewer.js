@@ -9,29 +9,20 @@ const SVG = styled.svg`
   width: 100%;
 `
 
-const SingleImageViewer = React.forwardRef(function SingleImageViewer ({ onError, onLoad, url }, ref) {
+const SingleImageViewer = React.forwardRef(function SingleImageViewer ({ url }, ref) {
   return (
     <SVG ref={ref}>
       <image
         height='100%'
         width='100%'
         xlinkHref={url}
-        onError={onError}
-        onLoad={onLoad}
       />
       <InteractionLayer />
     </SVG>
   )
 })
 
-SingleImageViewer.defaultProps = {
-  onError: () => true,
-  onLoad: () => true
-}
-
 SingleImageViewer.propTypes = {
-  onError: PropTypes.func,
-  onLoad: PropTypes.func,
   url: PropTypes.string.isRequired
 }
 
