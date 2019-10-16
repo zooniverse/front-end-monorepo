@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
@@ -40,4 +40,3 @@ storiesOf('Favourites Button', module)
       />
     </Grommet>
   ), config)
-

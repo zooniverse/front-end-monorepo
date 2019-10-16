@@ -9,7 +9,7 @@ import HeartIcon from './HeartIcon'
 describe('Component > FavouritesButton', function () {
   let wrapper
   const mockTheme = {
-    global : {
+    global: {
       colors: {
         statusColors: {
           error: 'status-error'
@@ -43,7 +43,7 @@ describe('Component > FavouritesButton', function () {
       onClickStub = sinon.stub()
       wrapper = shallow(<FavouritesButton theme={mockTheme} checked={false} onClick={onClickStub} />)
     })
-    
+
     afterEach(function () {
       onClickStub.resetHistory()
     })
