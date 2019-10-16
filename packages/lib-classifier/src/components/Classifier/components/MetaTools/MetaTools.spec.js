@@ -45,12 +45,12 @@ describe('Component > MetaTools', function () {
     })
 
     it('should disable the FavouritesButton if there is no user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} />)
       expect(wrapper.find(FavouritesButton).props().disabled).to.be.true()
     })
 
     it('should enable the FavouritesButton if there is user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent upp={{ id: '1' }} />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} upp={{ id: '1' }} />)
       expect(wrapper.find(FavouritesButton).props().disabled).to.be.false()
     })
 
@@ -81,12 +81,12 @@ describe('Component > MetaTools', function () {
     })
 
     it('should disable the CollectionsButton if there is no user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} />)
       expect(wrapper.find(CollectionsButton).props().disabled).to.be.true()
     })
 
     it('should enable the CollectionsButton if there is user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent upp={{ id: '1' }} />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} upp={{ id: '1' }} />)
       expect(wrapper.find(CollectionsButton).props().disabled).to.be.false()
     })
   })
