@@ -1,5 +1,5 @@
 import { PlainButton } from '@zooniverse/react-components'
-import { Box, FormField, TextArea } from 'grommet'
+import { Box, Text, TextArea } from 'grommet'
 import React from 'react'
 
 function TextTask (props) {
@@ -44,11 +44,13 @@ function TextTask (props) {
   }
 
   return (
-    <Box>
-      <FormField
+    <Box
+      direction="column"
+    >
+      <label
         htmlFor={`${task.taskKey}-${task.type}`}
-        label={task.instruction}
       >
+        <Text>{task.instruction}</Text>
         <TextArea
           ref={textArea}
           autoFocus={autoFocus}
@@ -57,7 +59,7 @@ function TextTask (props) {
           value={value}
           onChange={onChange}
         />
-      </FormField>
+      </label>
       <Box
         gap='small'
         justify='center'

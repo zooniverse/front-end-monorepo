@@ -45,7 +45,7 @@ class Tasks extends React.Component {
       // there has to be a better way
       // but works for now
       return (
-        <Box as='form' justify='between' fill>
+        <Box as='form' gap="small" justify='between' fill>
           {tasks.map((task) => {
             const TaskComponent = getTaskComponent(task.type)
             if (TaskComponent) {

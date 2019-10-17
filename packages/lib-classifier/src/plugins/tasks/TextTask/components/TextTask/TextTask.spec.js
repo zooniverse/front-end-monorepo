@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import { FormField, TextArea } from 'grommet'
+import { Text, TextArea } from 'grommet'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
@@ -28,8 +28,8 @@ describe('TextTask', function () {
   })
 
   it('should have a labelled textarea', function () {
-    const label = wrapper.find(FormField)
-    expect(label.prop('label')).to.equal(mockTask.instruction)
+    const label = wrapper.find('label')
+    expect(label.find(Text).prop('children')).to.equal(mockTask.instruction)
     const textarea = label.find(TextArea)
     expect(textarea.prop('value')).to.equal(mockTask.annotation.value)
   })
