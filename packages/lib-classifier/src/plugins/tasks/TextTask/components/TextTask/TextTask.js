@@ -58,16 +58,22 @@ function TextTask (props) {
           onChange={onChange}
         />
       </FormField>
-      {task.text_tags.map(tag => (
-        <PlainButton
-          key={tag}
-          disabled={disabled}
-          justify='start'
-          onClick={setTagSelection}
-          text={tag}
-          value={tag}
-        />
-      ))}
+      <Box
+        gap='small'
+        justify='center'
+        direction='row'
+      >
+        {task.text_tags.map(tag => (
+          <PlainButton
+            key={tag}
+            disabled={disabled}
+            justify='start'
+            onClick={setTagSelection}
+            text={tag}
+            value={tag}
+          />
+        ))}
+      </Box>
     </Box>
   )
 }
