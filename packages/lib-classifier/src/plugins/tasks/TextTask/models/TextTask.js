@@ -10,12 +10,16 @@ const TextTask = types.model('TextTask', {
   type: types.literal('text')
 })
   .views(self => ({
+    get defaultAnnotation () {
+      return TextAnnotation.create({ task: self.taskKey })
+    },
     get annotation () {
       const { currentAnnotations } = getRoot(self).classifications
+      let currentAnnotation
       if (currentAnnotations && currentAnnotations.size > 0) {
-        return currentAnnotations.get(self.taskKey)
+        currentAnnotation = currentAnnotations.get(self.taskKey)
       }
-      return TextAnnotation.create({ task: self.taskKey })
+      return currentAnnotation || self.defaultAnnotation
     }
   }))
   .actions(self => ({

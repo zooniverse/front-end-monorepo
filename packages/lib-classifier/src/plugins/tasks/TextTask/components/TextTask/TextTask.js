@@ -4,7 +4,7 @@ import React from 'react'
 
 function TextTask (props) {
   const { autoFocus, disabled, task } = props
-  const defaultValue = task.annotation ? task.annotation.value : ''
+  const defaultValue = task.annotation.value
   const [value, setValue] = React.useState(defaultValue)
   const textArea = React.createRef()
 
