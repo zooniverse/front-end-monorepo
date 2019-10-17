@@ -3,7 +3,7 @@ import { Box, Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import { pxToRem } from '@zooniverse/react-components'
@@ -26,80 +26,58 @@ const StyledText = styled(Text)`
   }
 `
 
-function storeMapper (stores) {
+function SingleChoiceTask (props) {
   const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications.currentAnnotations
-  return {
-    addAnnotation,
-    annotations
+    annotations,
+    className,
+    disabled,
+    task
+  } = props
+  const { annotation } = task
+  const [ value, setValue ] = useState(annotation.value)
+  function onChange (index, event) {
+    setValue(index)
+    if (event.target.checked) task.updateAnnotation(index)
   }
+
+  return (
+    <StyledBox
+      className={className}
+      disabled={disabled}
+    >
+      <StyledText size='small' tag='legend'>
+        <Markdownz>
+          {task.question}
+        </Markdownz>
+      </StyledText>
+
+      {task.answers.map((answer, index) => {
+        const checked = (value + 1) ? index === value : false
+        return (
+          <TaskInput
+            autoFocus={checked}
+            checked={checked}
+            disabled={disabled}
+            index={index}
+            key={`${task.taskKey}_${index}`}
+            label={answer.label}
+            name={task.taskKey}
+            onChange={onChange.bind(this, index)}
+            required={task.required}
+            type='radio'
+          />
+        )
+      })}
+    </StyledBox>
+  )
 }
 
-@inject(storeMapper)
-@observer
-class SingleChoiceTask extends React.Component {
-  onChange (index, event) {
-    const { addAnnotation, task } = this.props
-    if (event.target.checked) addAnnotation(index, task)
-  }
-
-  render () {
-    const {
-      annotations,
-      className,
-      disabled,
-      task
-    } = this.props
-    let annotation
-    if (annotations && annotations.size > 0) {
-      annotation = annotations.get(task.taskKey)
-    }
-
-    return (
-      <StyledBox
-        className={className}
-        disabled={disabled}
-      >
-        <StyledText size='small' tag='legend'>
-          <Markdownz>
-            {task.question}
-          </Markdownz>
-        </StyledText>
-
-        {task.answers.map((answer, index) => {
-          const checked = (annotation && annotation.value + 1) ? index === annotation.value : false
-          return (
-            <TaskInput
-              autoFocus={checked}
-              checked={checked}
-              disabled={disabled}
-              index={index}
-              key={`${task.taskKey}_${index}`}
-              label={answer.label}
-              name={task.taskKey}
-              onChange={this.onChange.bind(this, index)}
-              required={task.required}
-              type='radio'
-            />
-          )
-        })}
-      </StyledBox>
-    )
-  }
-}
-
-SingleChoiceTask.wrappedComponent.defaultProps = {
-  addAnnotation: () => {},
-  annotations: observable.map(),
+SingleChoiceTask.defaultProps = {
   disabled: false,
   task: {}
 }
 
-SingleChoiceTask.wrappedComponent.propTypes = {
-  addAnnotation: PropTypes.func,
-  annotations: MobXPropTypes.observableMap,
+SingleChoiceTask.propTypes = {
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({

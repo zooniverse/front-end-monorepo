@@ -1,6 +1,7 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { withTheme } from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'
 
@@ -10,7 +11,7 @@ import enGB from './locales/en-GB'
 counterpart.registerTranslations('en', en)
 counterpart.registerTranslations('en-GB', enGB)
 
-export default function FavouritesButton (props) {
+function FavouritesButton (props) {
   const { checked, disabled, onClick } = props
   const [ isFavourite, setIsFavourite ] = useState(checked)
   const label = isFavourite ? 'FavouritesButton.remove' : 'FavouritesButton.add'
@@ -44,3 +45,6 @@ FavouritesButton.defaultProps = {
   disabled: false,
   onClick: () => false
 }
+
+export default withTheme(FavouritesButton)
+export { FavouritesButton }
