@@ -71,7 +71,6 @@ storiesOf('Tasks', module)
           step={step}
           subjectReadyState={subjectReadyState}
           tasks={tasks}
-          theme={dark ? 'dark' : 'light'}
         />
       </Grommet>
     </Provider>
@@ -123,7 +122,6 @@ storiesOf('Tasks', module)
           step={step}
           subjectReadyState={subjectReadyState}
           tasks={tasks}
-          theme={dark ? 'dark' : 'light'}
         />
       </Grommet>
     </Provider>
@@ -166,7 +164,6 @@ storiesOf('Tasks', module)
           step={step}
           subjectReadyState={subjectReadyState}
           tasks={tasks}
-          theme={dark ? 'dark' : 'light'}
         />
       </Grommet>
     </Provider>
