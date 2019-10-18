@@ -3,7 +3,7 @@ import Task from './Task'
 import { Graph2dRangeXTool } from './dataVisTools'
 import { DataVisAnnotation } from '../annotations'
 
-const DataVisTask = types.model('DataVisTask', {
+const DataVisTaskModel = types.model('DataVisTaskModel', {
   help: types.optional(types.string, ''),
   instruction: types.maybe(types.string),
   tools: types.array(types.union({
@@ -20,6 +20,6 @@ const DataVisTask = types.model('DataVisTask', {
   }
 }))
 
-const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisTask)
+const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisTaskModel)
 
 export default DataVisAnnotationTask
