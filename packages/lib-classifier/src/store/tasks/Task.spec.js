@@ -52,5 +52,9 @@ describe('Model > Task', function () {
       const annotation = task.createAnnotation()
       expect(getType(annotation)).to.equal(Annotation)
     })
+
+    it('should add its task key to annotations', function () {
+      expect(task.annotation.task).to.equal(task.taskKey)
+    })
   })
 })
