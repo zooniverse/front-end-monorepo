@@ -62,7 +62,7 @@ function TextTask (props) {
       </label>
       <Box
         gap='small'
-        justify='center'
+        justify='start'
         direction='row'
       >
         {task.text_tags.map(tag => (
