@@ -45,7 +45,11 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   return (
     <Chart height={parentHeight} ref={ref} width={parentWidth}>
       <Background fill={backgroundColor} />
-      <Group left={xAxisMargin}>
+      <Group
+        focusable
+        left={xAxisMargin}
+        tabIndex={0}
+      >
         {data.map((datum, index) => {
           const { color, label, value } = datum
           const fill = color || colors.brand
@@ -54,12 +58,17 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
           const barWidth = xScale.bandwidth()
           const x = xScale(label)
           const y = yMax - barHeight
+          const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
           return (
             <Bar
+              aria-label={alt}
+              data-label={label}
+              data-value={value}
               fill={fill}
               height={barHeight}
               index={index}
               key={key}
+              role='img'
               width={barWidth}
               x={x}
               y={y}
