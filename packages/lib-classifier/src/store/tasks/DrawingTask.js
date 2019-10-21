@@ -1,6 +1,7 @@
 import { types } from 'mobx-state-tree'
 import Task from './Task'
 import { Line, Point } from './drawingTools'
+import { DrawingAnnotation } from '../annotations'
 
 // TODO: Need to define tool models
 
@@ -21,6 +22,12 @@ const Drawing = types.model('Drawing', {
   })),
   type: types.literal('drawing')
 })
+.views(self => ({
+  get defaultAnnotation () {
+    return DrawingAnnotation.create({ task: self.taskKey })
+  }
+}))
+
 
 const DrawingTask = types.compose('DrawingTask', Task, Drawing)
 

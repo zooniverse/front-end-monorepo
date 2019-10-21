@@ -1,8 +1,9 @@
 import { types } from 'mobx-state-tree'
 import Task from './Task'
 import { Graph2dRangeXTool } from './dataVisTools'
+import { DataVisAnnotation } from '../annotations'
 
-const DataVisAnnotation = types.model('DataVisAnnotation', {
+const DataVisTaskModel = types.model('DataVisTaskModel', {
   help: types.optional(types.string, ''),
   instruction: types.maybe(types.string),
   tools: types.array(types.union({
@@ -13,7 +14,12 @@ const DataVisAnnotation = types.model('DataVisAnnotation', {
   }, Graph2dRangeXTool)),
   type: types.literal('dataVisAnnotation')
 })
+.views(self => ({
+  get defaultAnnotation () {
+    return DataVisAnnotation.create({ task: self.taskKey })
+  }
+}))
 
-const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisAnnotation)
+const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisTaskModel)
 
 export default DataVisAnnotationTask

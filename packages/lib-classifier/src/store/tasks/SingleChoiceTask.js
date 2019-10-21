@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import Task from './Task'
-import SingleChoiceAnnotation from '../annotations/SingleChoiceAnnotation'
+import { SingleChoiceAnnotation } from '../annotations'
 
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
