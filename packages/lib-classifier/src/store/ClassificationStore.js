@@ -13,7 +13,6 @@ import {
   convertMapToArray,
   sessionUtils
 } from './utils'
-import { TextAnnotation } from '@plugins/tasks/TextTask'
 
 const ClassificationStore = types
   .model('ClassificationStore', {

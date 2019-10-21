@@ -1,11 +1,11 @@
 import { getRoot, types } from 'mobx-state-tree'
 import TextAnnotation from './TextAnnotation'
+import { Task } from '../../../../store/tasks'
 
-const TextTask = types.model('TextTask', {
+const Text = types.model('Text', {
   help: types.optional(types.string, ''),
   instruction: types.string,
   required: types.optional(types.boolean, false),
-  taskKey: types.identifier,
   text_tags: types.array(types.string),
   type: types.literal('text')
 })
@@ -22,11 +22,7 @@ const TextTask = types.model('TextTask', {
       return currentAnnotation || self.defaultAnnotation
     }
   }))
-  .actions(self => ({
-    updateAnnotation (value) {
-      const { addAnnotation } = getRoot(self).classifications
-      addAnnotation(value, self)
-    }
-  }))
+
+const TextTask = types.compose('TextTask', Task, Text)
 
 export default TextTask
