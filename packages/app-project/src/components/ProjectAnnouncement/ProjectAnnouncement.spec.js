@@ -18,11 +18,11 @@ describe('Component > ProjectAnnouncement', function () {
 
   it('should render a paragraph with the announcement text', function () {
     const paragraphWrapper = wrapper.find('p')
-    expect(paragraphWrapper.text()).to.equal(ANNOUNCEMENT)
+    expect(paragraphWrapper.text()).to.contain(ANNOUNCEMENT)
   })
 
   it('should be the full width of its container', function () {
     const shallowWrapper = shallow(<ProjectAnnouncement announcement={ANNOUNCEMENT} />)
-    expect(shallowWrapper.prop('fill')).to.equal('horizontal')
+    expect(shallowWrapper.prop('fill')).to.contain('horizontal')
   })
 })

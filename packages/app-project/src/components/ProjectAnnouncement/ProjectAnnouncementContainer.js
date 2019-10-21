@@ -6,16 +6,23 @@ import ProjectAnnouncement from './ProjectAnnouncement'
 
 function storeMapper (stores) {
   const { announcement } = stores.store.project.configuration
+  const {
+    dismissAnnouncementBanner,
+    showAnnouncement
+  } = stores.store.ui
+
   return {
-    announcement
+    announcement,
+    dismissBanner: dismissAnnouncementBanner,
+    isVisible: showAnnouncement
   }
 }
 
 class ProjectAnnouncementContainer extends Component {
   render () {
-    const { announcement } = this.props
-    return (announcement)
-      ? <ProjectAnnouncement announcement={announcement} />
+    const { announcement, dismissBanner, isVisible } = this.props
+    return (isVisible && announcement)
+      ? <ProjectAnnouncement announcement={announcement} closeFn={dismissBanner} />
       : null
   }
 }
