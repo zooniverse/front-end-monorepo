@@ -110,12 +110,8 @@ describe('Stores > UI', function () {
   })
 
   describe('dismissedAnnouncementBanner', function () {
-    xit('should contain a dismissedAnnouncementBanner property', function () {
-      expect(store.dismissedAnnouncementBanner).to.be.ok()
-    })
-
-    it('should default to undefined', function () {
-      expect(store.dismissedAnnouncementBanner).to.equal(undefined)
+    it('should contain a dismissedAnnouncementBanner property', function () {
+      expect(store.dismissedAnnouncementBanner).to.be.undefined()
     })
 
     it('should have a `dismissAnnouncementBanner` action', function () {
