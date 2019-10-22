@@ -72,10 +72,9 @@ const UI = types
       if (canSetCookie) {
         const parsedCookie = cookie.parse(document.cookie) || {}
         if (self.dismissedAnnouncementBanner !== parsedCookie.dismissedAnnouncementBanner) {
-          const isProduction = process.env.NODE_ENV === 'production'
           const { slug } = getRoot(self).project
           document.cookie = cookie.serialize('dismissedAnnouncementBanner', self.dismissedAnnouncementBanner, {
-            domain: isProduction ? 'zooniverse.org' : null,
+            domain: getCookieDomain(),
             path: `/projects/${slug}`,
           })
         }
@@ -85,10 +84,9 @@ const UI = types
     setModeCookie () {
       if (canSetCookie) {
         const parsedCookie = cookie.parse(document.cookie) || {}
-        const isProduction = process.env.NODE_ENV === 'production'
         if (self.mode !== parsedCookie.mode) {
           document.cookie = cookie.serialize('mode', self.mode, {
-            domain: isProduction ? 'zooniverse.org' : null,
+            domain: getCookieDomain(),
             maxAge: 31536000,
             path: '/',
           })
@@ -114,3 +112,8 @@ const UI = types
   }))
 
 export default UI
+
+function getCookieDomain () {
+  const isProduction = process.env.NODE_ENV === 'production'
+  return isProduction ? 'zooniverse.org' : null
+}
