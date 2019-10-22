@@ -16,18 +16,14 @@ const PROJECT = {
   slug: 'test/project'
 }
 
-describe('Stores > UI', function () {
-  let store
-
-  beforeEach(function () {
-    store = UI.create()
-  })
-
+describe.only('Stores > UI', function () {
   it('should export an object', function () {
     expect(UI).to.be.an('object')
   })
 
   describe('mode', function () {
+    let store
+
     beforeEach(function () {
       store = UI.create()
     })
@@ -65,6 +61,7 @@ describe('Stores > UI', function () {
 
   describe('when using the mode cookie', function () {
     let setModeCookieSpy
+    let store
 
     beforeEach(function () {
       document.cookie = 'mode=; max-age=-99999999;'
@@ -73,10 +70,6 @@ describe('Stores > UI', function () {
     })
 
     afterEach(function () {
-      setModeCookieSpy.resetHistory()
-    })
-
-    after(function () {
       setModeCookieSpy.restore()
     })
 
@@ -110,13 +103,19 @@ describe('Stores > UI', function () {
   })
 
   describe('dismissedAnnouncementBanner', function () {
+    let rootStore
+    let store
+
+    beforeEach(function () {
+      rootStore = initStore(true, { project: PROJECT })
+      store = rootStore.ui
+    })
+
     it('should contain a dismissedAnnouncementBanner property', function () {
       expect(store.dismissedAnnouncementBanner).to.be.undefined()
     })
 
     it('should have a `dismissAnnouncementBanner` action', function () {
-      const rootStore = initStore(true, { project: PROJECT })
-      const store = rootStore.ui
       const expectedValue = stringHash(PROJECT.configuration.announcement)
       expect(store.dismissedAnnouncementBanner).to.equal(undefined)
       store.dismissAnnouncementBanner()
@@ -124,8 +123,6 @@ describe('Stores > UI', function () {
     })
 
     it('should have a showAnnouncement view', function () {
-      const rootStore = initStore(true, { project: PROJECT })
-      const store = rootStore.ui
       expect(store.showAnnouncement).to.be.true()
       store.dismissAnnouncementBanner()
       expect(store.showAnnouncement).to.be.false()
@@ -138,10 +135,10 @@ describe('Stores > UI', function () {
     let setAnnouncementBannerCookieSpy
 
     beforeEach(function () {
+      document.cookie = 'dismissedAnnouncementBanner=; max-age=-99999999;'
       rootStore = initStore(true, { project: PROJECT })
       store = rootStore.ui
       setAnnouncementBannerCookieSpy = sinon.spy(store, 'setAnnouncementBannerCookie')
-      document.cookie = 'dismissedAnnouncementBanner=; max-age=-99999999;'
     })
 
     afterEach(function () {
