@@ -3,6 +3,9 @@ import { addDisposer, getRoot, onPatch, types } from 'mobx-state-tree'
 import cookie from 'cookie'
 import stringHash from '@sindresorhus/string-hash'
 
+// process.browser doesn't exist in the jsdom test environment
+const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
+
 const UI = types
   .model('UI', {
     dismissedAnnouncementBanner: types.maybe(types.number),
@@ -66,8 +69,7 @@ const UI = types
     },
 
     setAnnouncementBannerCookie() {
-      // process.browser doesn't exist in the jsdom test environment
-      if (process.browser || process.env.BABEL_ENV === 'test') {
+      if (canSetCookie) {
         const parsedCookie = cookie.parse(document.cookie) || {}
         if (self.dismissedAnnouncementBanner !== parsedCookie.dismissedAnnouncementBanner) {
           const isProduction = process.env.NODE_ENV === 'production'
@@ -81,8 +83,7 @@ const UI = types
     },
 
     setModeCookie () {
-      // process.browser doesn't exist in the jsdom test environment
-      if (process.browser || process.env.BABEL_ENV === 'test') {
+      if (canSetCookie) {
         const parsedCookie = cookie.parse(document.cookie) || {}
         const isProduction = process.env.NODE_ENV === 'production'
         if (self.mode !== parsedCookie.mode) {
