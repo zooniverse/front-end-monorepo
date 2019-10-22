@@ -5,10 +5,14 @@ const { colors } = zooTheme.global
 
 const optionsMock = {
   options: {
+    margin: {
+      bottom: 40,
+      left: 60,
+      right: 0,
+      top: 0
+    },
     xAxisLabel: 'Letters',
-    xAxisMargin: 40,
     yAxisLabel: 'Frequency',
-    yAxisMargin: 60
   }
 }
 
@@ -37,10 +41,14 @@ const variableStarPeriodMockData = {
     }
   ],
   options: {
+    margin: {
+      bottom: 40,
+      left: 25,
+      right: 0,
+      top: 0
+    },
     xAxisLabel: 'Period',
-    xAxisMargin: 40,
-    yAxisLabel: '',
-    yAxisMargin: 25
+    yAxisLabel: ''
   }
 }
 
@@ -58,10 +66,14 @@ const variableStarAmplitudeMockData = {
     }
   ],
   options: {
+    margin: {
+      bottom: 40,
+      left: 25,
+      right: 0,
+      top: 0
+    },
     xAxisLabel: 'Amplitude',
-    xAxisMargin: 40,
-    yAxisLabel: '',
-    yAxisMargin: 25
+    yAxisLabel: ''
   }
 }
 

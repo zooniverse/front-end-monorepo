@@ -15,20 +15,24 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       padding
     },
     data,
+    margin: {
+      bottom,
+      left,
+      right,
+      top
+    },
     parentHeight,
     parentWidth,
     theme: { dark, global: { colors, font } },
     xAxisLabel,
-    xAxisMargin,
-    yAxisLabel,
-    yAxisMargin
+    yAxisLabel
   } = props
 
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
-  const xMax = parentWidth - yAxisMargin
-  const yMax = parentHeight - xAxisMargin
+  const xMax = parentWidth - left
+  const yMax = parentHeight - bottom
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
@@ -47,7 +51,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       <Background fill={backgroundColor} />
       <Group
         focusable
-        left={yAxisMargin}
+        left={left}
         tabIndex={0}
       >
         {data.map((datum, index) => {
@@ -76,7 +80,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
           )
         })}
       </Group>
-      <Group left={yAxisMargin}>
+      <Group left={left}>
         <AxisLeft
           label={yAxisLabel}
           labelProps={{
@@ -130,10 +134,14 @@ BarChartViewer.defaultProps = {
   barStyles: {
     padding: 0.25
   },
-  xAxisLabel: '',
-  xAxisMargin: 40,
-  yAxisLabel: '',
-  yAxisMargin: 40,
+  margin: {
+    bottom: 40,
+    left: 40,
+    right: 0,
+    top: 0
+  },
+  xAxisLabel: 'x-axis',
+  yAxisLabel: 'y-axis',
   theme: {
     dark: false,
     global: {
@@ -157,9 +165,17 @@ BarChartViewer.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })).isRequired,
+  margin: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  xAxisLabel: PropTypes.string,
+  yAxisLabel: PropTypes.string
 }
 
 export default withTheme(withParentSize(BarChartViewer))

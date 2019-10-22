@@ -4,8 +4,6 @@ import { Bar } from '@vx/shape'
 import { Group } from '@vx/group'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import { scaleBand, scaleLinear } from '@vx/scale'
 
 import mockData, { mockDataWithColor } from './mockData'
 import { BarChartViewer } from './BarChartViewer'
@@ -15,10 +13,9 @@ import Background from '../SVGComponents/Background'
 const {
   data,
   options: {
+    margin,
     xAxisLabel,
-    xAxisMargin,
     yAxisLabel,
-    yAxisMargin
   }
 } = mockData
 
@@ -29,12 +26,11 @@ describe('Component > BarChartViewer', function () {
     const wrapper = shallow(
       <BarChartViewer
         data={data}
+        margin={margin}
         parentHeight={500}
         parentWidth={500}
         xAxisLabel={xAxisLabel}
-        xAxisMargin={xAxisMargin}
         yAxisLabel={yAxisLabel}
-        yAxisMargin={yAxisMargin}
       />
     )
     expect(wrapper).to.be.ok()
@@ -48,12 +44,11 @@ describe('Component > BarChartViewer', function () {
       wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={originalSize}
           parentWidth={originalSize}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
     })
@@ -79,12 +74,11 @@ describe('Component > BarChartViewer', function () {
       wrapper = mount(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
     })
@@ -107,12 +101,11 @@ describe('Component > BarChartViewer', function () {
       wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
     })
@@ -124,7 +117,7 @@ describe('Component > BarChartViewer', function () {
       const groups = wrapper.find(Group)
       groups.forEach((group) => {
         expect(group.props().left).to.be.a('number')
-        expect(group.props().left).to.equal(yAxisMargin)
+        expect(group.props().left).to.equal(margin.left)
       })
     })
   })
@@ -135,13 +128,12 @@ describe('Component > BarChartViewer', function () {
       wrapper = mount(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
     })
@@ -206,12 +198,11 @@ describe('Component > BarChartViewer', function () {
       const wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       expect(wrapper.find(AxisBottom)).to.have.lengthOf(1)
@@ -221,12 +212,11 @@ describe('Component > BarChartViewer', function () {
       const wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       expect(wrapper.find(AxisBottom).props().scale).to.be.a('function')
@@ -237,13 +227,12 @@ describe('Component > BarChartViewer', function () {
       const wrapper = mount(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       const { theme } = wrapper.props()
@@ -267,13 +256,12 @@ describe('Component > BarChartViewer', function () {
       const wrapper = mount(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       const { theme } = wrapper.props()
@@ -286,13 +274,12 @@ describe('Component > BarChartViewer', function () {
       const wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
 
@@ -305,12 +292,11 @@ describe('Component > BarChartViewer', function () {
       const wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       expect(wrapper.find(AxisLeft)).to.have.lengthOf(1)
@@ -320,12 +306,11 @@ describe('Component > BarChartViewer', function () {
       const wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       expect(wrapper.find(AxisLeft).props().scale).to.be.a('function')
@@ -336,13 +321,12 @@ describe('Component > BarChartViewer', function () {
       const wrapper = mount(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       const { theme } = wrapper.props()
@@ -366,13 +350,12 @@ describe('Component > BarChartViewer', function () {
       const wrapper = mount(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
       const { theme } = wrapper.props()
@@ -385,13 +368,12 @@ describe('Component > BarChartViewer', function () {
       const wrapper = shallow(
         <BarChartViewer
           data={data}
+          margin={margin}
           parentHeight={500}
           parentWidth={500}
           theme={zooTheme}
           xAxisLabel={xAxisLabel}
-          xAxisMargin={xAxisMargin}
           yAxisLabel={yAxisLabel}
-          yAxisMargin={yAxisMargin}
         />
       )
 
