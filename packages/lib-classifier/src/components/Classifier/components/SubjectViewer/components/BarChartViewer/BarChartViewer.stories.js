@@ -4,7 +4,11 @@ import { withKnobs, text, number } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet, base as baseTheme } from 'grommet'
 import BarChartViewer from './BarChartViewer'
-import mockData, { mockDataWithColor } from './mockData'
+import mockData, {
+  mockDataWithColor,
+  variableStarAmplitudeMockData,
+  variableStarPeriodMockData
+} from './mockData'
 import { merge } from 'lodash'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
@@ -111,6 +115,35 @@ stories.add('light theme', () => {
             xAxisMargin={number('x axis margin', xAxisMargin)}
             yAxisLabel={text('y axis label', yAxisLabel)}
             yAxisMargin={number('y axis margin', yAxisMargin)}
+          />
+        </Box>
+      </Grommet>
+    )
+  }, config)
+  .add('Variable Star Period bar charts', () => {
+    return (
+      <Grommet theme={zooTheme}>
+        <Box
+          background={text('container background', '#ffffff')}
+          direction='row'
+          height='300px'
+          gap='small'
+          pad='small'
+          width='300px'
+        >
+          <BarChartViewer
+            data={variableStarPeriodMockData.data}
+            xAxisLabel={variableStarPeriodMockData.options.xAxisLabel}
+            xAxisMargin={variableStarPeriodMockData.options.xAxisMargin}
+            yAxisLabel={variableStarPeriodMockData.options.yAxisLabel}
+            yAxisMargin={variableStarPeriodMockData.options.yAxisMargin}
+          />
+          <BarChartViewer
+            data={variableStarAmplitudeMockData.data}
+            xAxisLabel={variableStarAmplitudeMockData.options.xAxisLabel}
+            xAxisMargin={variableStarAmplitudeMockData.options.xAxisMargin}
+            yAxisLabel={variableStarAmplitudeMockData.options.yAxisLabel}
+            yAxisMargin={variableStarAmplitudeMockData.options.yAxisMargin}
           />
         </Box>
       </Grommet>

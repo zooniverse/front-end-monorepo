@@ -124,7 +124,7 @@ describe('Component > BarChartViewer', function () {
       const groups = wrapper.find(Group)
       groups.forEach((group) => {
         expect(group.props().left).to.be.a('number')
-        expect(group.props().left).to.equal(xAxisMargin)
+        expect(group.props().left).to.equal(yAxisMargin)
       })
     })
   })
@@ -187,8 +187,8 @@ describe('Component > BarChartViewer', function () {
     it('should use defined colors from the data if defined', function () {
       wrapper.setProps({ data: mockDataWithColor.data })
       const bars = wrapper.find(Bar)
-      bars.forEach((bar) => {
-        expect(bar.props().fill).to.equal(zooTheme.global.colors['accent-3'])
+      bars.forEach((bar, i) => {
+        expect(bar.props().fill).to.equal(mockDataWithColor.data[i].color)
       })
     })
 

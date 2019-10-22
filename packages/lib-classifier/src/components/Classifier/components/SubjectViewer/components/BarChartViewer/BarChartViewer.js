@@ -27,8 +27,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
-  const xMax = parentWidth - xAxisMargin
-  const yMax = parentHeight - yAxisMargin
+  const xMax = parentWidth - yAxisMargin
+  const yMax = parentHeight - xAxisMargin
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
@@ -47,12 +47,12 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       <Background fill={backgroundColor} />
       <Group
         focusable
-        left={xAxisMargin}
+        left={yAxisMargin}
         tabIndex={0}
       >
         {data.map((datum, index) => {
           const { color, label, value } = datum
-          const fill = color || colors.brand
+          const fill = colors[color] || color || colors.brand
           const key = `bar-${label}`
           const barHeight = yMax - yScale(value)
           const barWidth = xScale.bandwidth()
@@ -76,7 +76,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
           )
         })}
       </Group>
-      <Group left={xAxisMargin}>
+      <Group left={yAxisMargin}>
         <AxisLeft
           label={yAxisLabel}
           labelProps={{
