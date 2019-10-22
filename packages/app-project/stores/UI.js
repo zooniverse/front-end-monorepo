@@ -48,7 +48,7 @@ const UI = types
     },
 
     createDismissedAnnouncementBannerObserver() {
-      const modeDisposer = autorun(() => {
+      const dismissedAnnouncementBannerDisposer = autorun(() => {
         onPatch(self, (patch) => {
           const { path } = patch
           if (path === '/dismissedAnnouncementBanner') {
@@ -56,7 +56,7 @@ const UI = types
           }
         })
       })
-      addDisposer(self, modeDisposer)
+      addDisposer(self, dismissedAnnouncementBannerDisposer)
     },
 
     dismissAnnouncementBanner() {
