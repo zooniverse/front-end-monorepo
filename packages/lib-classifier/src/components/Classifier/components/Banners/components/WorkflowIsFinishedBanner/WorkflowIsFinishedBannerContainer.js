@@ -14,8 +14,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class WorkflowIsFinishedBannerContainer extends Component {
   render () {
     const { subject } = this.props
@@ -42,4 +40,11 @@ WorkflowIsFinishedBannerContainer.propTypes = {
   })
 }
 
-export default WorkflowIsFinishedBannerContainer
+@inject(storeMapper)
+@observer
+class DecoratedWorkflowIsFinishedBannerContainer extends WorkflowIsFinishedBannerContainer { }
+
+export {
+  DecoratedWorkflowIsFinishedBannerContainer as default,
+  WorkflowIsFinishedBannerContainer
+}

@@ -12,6 +12,7 @@ import {
 } from '../../test/factories'
 import stubPanoptesJs from '../../test/stubPanoptesJs'
 import helpers from './feedback/helpers'
+import { SingleChoiceAnnotation } from './annotations'
 
 const feedbackRulesStub = {
   T0: [{
@@ -120,7 +121,9 @@ describe('Model > ClassificationStore', function () {
       })
 
       beforeEach(function () {
-        classifications.addAnnotation(singleChoiceAnnotationStub.value, { type: 'single', taskKey: singleChoiceAnnotationStub.task })
+        const taskStub = Object.assign({}, singleChoiceTaskStub, { taskKey: singleChoiceAnnotationStub.task })
+        taskStub.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationStub)
+        classifications.addAnnotation(singleChoiceAnnotationStub.value, taskStub)
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
@@ -182,7 +185,9 @@ describe('Model > ClassificationStore', function () {
         })
 
         subjectToBeClassified = rootStore.subjects.active
-        classifications.addAnnotation(singleChoiceAnnotationStub.value, { type: 'single', taskKey: singleChoiceAnnotationStub.task })
+        const taskStub = Object.assign({}, singleChoiceTaskStub, { taskKey: singleChoiceAnnotationStub.task })
+        taskStub.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationStub)
+        classifications.addAnnotation(singleChoiceAnnotationStub.value, taskStub)
         classificationWithAnnotation = classifications.active
         classifications.completeClassification({
           preventDefault: sinon.stub()

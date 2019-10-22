@@ -22,6 +22,10 @@ const Task = types.model('Task', {
   updateAnnotation (value) {
     const { addAnnotation } = getRoot(self).classifications
     addAnnotation(value, self)
+  },
+  createAnnotation () {
+    const newAnnotation = self.defaultAnnotation
+    return newAnnotation
   }
 }))
 

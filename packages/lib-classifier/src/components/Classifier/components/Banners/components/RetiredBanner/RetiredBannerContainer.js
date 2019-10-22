@@ -14,8 +14,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class RetiredBannerContainer extends Component {
   render () {
     const { subject } = this.props
@@ -45,4 +43,11 @@ RetiredBannerContainer.propTypes = {
   })
 }
 
-export default RetiredBannerContainer
+@inject(storeMapper)
+@observer
+class DecoratedRetiredBannerContainer extends RetiredBannerContainer { }
+
+export {
+  DecoratedRetiredBannerContainer as default,
+  RetiredBannerContainer
+}
