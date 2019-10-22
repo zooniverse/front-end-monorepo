@@ -16,7 +16,9 @@ const PROJECT = {
   slug: 'test/project'
 }
 
-describe.only('Stores > UI', function () {
+const ANNOUNCEMENT_HASH = stringHash(PROJECT.configuration.announcement)
+
+describe('Stores > UI', function () {
   it('should export an object', function () {
     expect(UI).to.be.an('object')
   })
@@ -132,10 +134,23 @@ describe.only('Stores > UI', function () {
   describe('when using the dismissedAnnouncementBanner cookie', function () {
     let rootStore
     let store
+    let originalURL
     let setAnnouncementBannerCookieSpy
 
+    before(function () {
+      originalURL = document.URL
+      dom.reconfigure({
+        url: `https://localhost/projects/${PROJECT.slug}`
+      })
+    })
+
+    after(function () {
+      dom.reconfigure({
+        url: originalURL
+      })
+    })
+
     beforeEach(function () {
-      document.cookie = 'dismissedAnnouncementBanner=; max-age=-99999999;'
       rootStore = initStore(true, { project: PROJECT })
       store = rootStore.ui
       setAnnouncementBannerCookieSpy = sinon.spy(store, 'setAnnouncementBannerCookie')
@@ -149,20 +164,24 @@ describe.only('Stores > UI', function () {
       expect(setAnnouncementBannerCookieSpy).to.not.have.been.called()
     })
 
-    it('should not update the cookie on instantiation if there is already one', function () {
-      document.cookie = cookie.serialize('dismissedAnnouncementBanner', 1234567890, {
+    it('should not update the cookie if it already matches the store value', function () {
+      document.cookie = cookie.serialize('dismissedAnnouncementBanner', ANNOUNCEMENT_HASH, {
         path: `/projects/${PROJECT.slug}`
       })
-      store = UI.create()
+
+      store.dismissAnnouncementBanner()
       expect(setAnnouncementBannerCookieSpy).to.not.have.been.called()
     })
 
-    it('should update the cookie if the store announcement hash does not equal the stored cookie announcement hash', function () {
+    it(`should update the cookie if it doesn't match the store value`, function () {
+      document.cookie = cookie.serialize('dismissedAnnouncementBanner', 1234567890, {
+        path: `/projects/${PROJECT.slug}`
+      })
       store.dismissAnnouncementBanner()
       expect(setAnnouncementBannerCookieSpy).to.have.been.calledOnce()
-      const expectedValue = stringHash(PROJECT.configuration.announcement)
-      const parsedCookie = cookie.parse(document.cookie)
-      expect(parsedCookie.dismissedAnnouncementBanner).to.equal(expectedValue)
+      const parsedCookie = cookie.parse(document.cookie) || {}
+      const cookieHash = parseInt(parsedCookie.dismissedAnnouncementBanner, 10)
+      expect(cookieHash).to.equal(ANNOUNCEMENT_HASH)
     })
   })
 })

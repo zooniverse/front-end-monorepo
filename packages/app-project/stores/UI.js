@@ -54,7 +54,12 @@ const UI = types
       const dismissedAnnouncementBannerDisposer = autorun(() => {
         onPatch(self, (patch) => {
           const { path } = patch
-          if (path === '/dismissedAnnouncementBanner') {
+          const isCorrectPath = path === '/dismissedAnnouncementBanner'
+          const parsedCookie = cookie.parse(document.cookie) || {}
+          const cookieHash = parseInt(parsedCookie.dismissedAnnouncementBanner, 10)
+          const cookieIsStale = cookieHash !== self.dismissedAnnouncementBanner
+
+          if (canSetCookie && isCorrectPath && cookieIsStale) {
             self.setAnnouncementBannerCookie()
           }
         })
@@ -63,22 +68,17 @@ const UI = types
     },
 
     dismissAnnouncementBanner() {
-      const announcement = getRoot(self).project.configuration.announcement
+      const { announcement } = getRoot(self).project.configuration
       const announcementHash = stringHash(announcement)
       self.dismissedAnnouncementBanner = announcementHash
     },
 
     setAnnouncementBannerCookie() {
-      if (canSetCookie) {
-        const parsedCookie = cookie.parse(document.cookie) || {}
-        if (self.dismissedAnnouncementBanner !== parsedCookie.dismissedAnnouncementBanner) {
-          const { slug } = getRoot(self).project
-          document.cookie = cookie.serialize('dismissedAnnouncementBanner', self.dismissedAnnouncementBanner, {
-            domain: getCookieDomain(),
-            path: `/projects/${slug}`,
-          })
-        }
-      }
+      const { slug } = getRoot(self).project
+      document.cookie = cookie.serialize('dismissedAnnouncementBanner', self.dismissedAnnouncementBanner, {
+        domain: getCookieDomain(),
+        path: `/projects/${slug}`,
+      })
     },
 
     setModeCookie () {
