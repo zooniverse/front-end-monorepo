@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import { string } from 'prop-types'
+import { func, string, bool } from 'prop-types'
 import React, { Component } from 'react'
 
 import ProjectAnnouncement from './ProjectAnnouncement'
@@ -28,11 +28,14 @@ class ProjectAnnouncementContainer extends Component {
 }
 
 ProjectAnnouncementContainer.propTypes = {
-  announcement: string
+  announcement: string,
+  dismissBanner: func.isRequired,
+  isVisible: bool
 }
 
 ProjectAnnouncementContainer.defaultProps = {
-  announcement: ''
+  announcement: '',
+  isVisible: false
 }
 
 @inject(storeMapper)
