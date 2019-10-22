@@ -9,7 +9,7 @@ const TutorialStore = types
   .model('TutorialStore', {
     active: types.safeReference(Tutorial),
     activeMedium: types.safeReference(Medium),
-    activeStep: types.maybe(types.integer),
+    activeStep: types.optional(types.integer, -1),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
     tutorialSeenTime: types.maybe(types.string),
@@ -18,13 +18,20 @@ const TutorialStore = types
   })
 
   .views(self => ({
+    get isActiveReferenceValid () {
+      return isValidReference(() => self.active)
+    },
+
+    get isActiveStepValid () {
+      return self.isActiveReferenceValid && self.activeStep > -1
+    },
+
     get disableTutorialTab () {
       return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !self.tutorial)
     },
 
     get stepWithMedium () {
-      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
-      if (self.active && !!self.activeStep.toString()) {
+      if (self.isActiveStepValid) {
         const step = self.active.steps[self.activeStep]
         return { step, medium: self.activeMedium }
       }
@@ -56,9 +63,10 @@ const TutorialStore = types
     },
 
     get hasNotSeenTutorialBefore () {
-      const upp = getRoot(self).userProjectPreferences.active
+      const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
       const { tutorial } = self
-      if (upp && tutorial) {
+      if (validUPPReference && tutorial) {
+        const upp = getRoot(self).userProjectPreferences.active
         return !(upp.preferences.tutorials_completed_at && upp.preferences.tutorials_completed_at[tutorial.id])
       }
 
@@ -66,10 +74,10 @@ const TutorialStore = types
     },
 
     get tutorialLastSeen () {
+      const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
       const upp = getRoot(self).userProjectPreferences.active
       const { tutorial } = self
-
-      if (upp && upp.preferences.tutorials_completed_at && tutorial) {
+      if (validUPPReference && upp.preferences.tutorials_completed_at && tutorial) {
         return upp.preferences.tutorials_completed_at[tutorial.id]
       }
 
@@ -85,8 +93,7 @@ const TutorialStore = types
     },
 
     get isFirstStep () {
-      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
-      if (self.active && !!self.activeStep.toString()) {
+      if (self.isActiveStepValid) {
         return self.activeStep === 0
       }
 
@@ -94,8 +101,7 @@ const TutorialStore = types
     },
 
     get isLastStep () {
-      // The step index can be 0, but that is falsey, so convert to a string for conditional evaluation
-      if (self.active && !!self.activeStep.toString()) {
+      if (self.isActiveStepValid) {
         const numOfSteps = self.active.steps.length
         return self.activeStep === numOfSteps - 1
       }
@@ -185,7 +191,7 @@ const TutorialStore = types
     }
 
     function setTutorialStep (stepIndex = 0) {
-      if (self.active) {
+      if (self.isActiveReferenceValid) {
         const { steps } = self.active
         self.activeMedium = undefined
         if (stepIndex < steps.length) {
@@ -207,12 +213,14 @@ const TutorialStore = types
 
     function setSeenTime () {
       const uppStore = getRoot(self).userProjectPreferences
-      const tutorial = self.active
+      const validUPP = isValidReference(() => uppStore.active)
+      
       const seen = new Date().toISOString()
-      if (tutorial) {
+      if (self.isActiveReferenceValid) {
+        const tutorial = self.active
         if (tutorial.kind === 'tutorial' || tutorial.kind === null) {
           self.tutorialSeenTime = seen
-          if (uppStore.active) {
+          if (validUPP) {
             const changes = {
               preferences: {
                 tutorials_completed_at: {
@@ -230,7 +238,7 @@ const TutorialStore = types
       // we manually set active and activeMedium to undefined
       // because we are not removing the tutorial from the map
       self.active = undefined
-      self.activeStep = undefined
+      self.activeStep = -1
       self.activeMedium = undefined
     }
 
