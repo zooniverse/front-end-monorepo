@@ -1,6 +1,10 @@
 import { PlainButton } from '@zooniverse/react-components'
+import counterpart from 'counterpart'
 import { Box, Text, TextArea } from 'grommet'
 import React from 'react'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 function TextTask (props) {
   const { autoFocus, disabled, task } = props
@@ -60,6 +64,14 @@ function TextTask (props) {
           onChange={onChange}
         />
       </label>
+      {(task.text_tags.length > 0) &&
+        <Text
+          id={`textModifiers-${task.taskKey}`}
+          weight='bold'
+        >
+          {counterpart('TextTask.modifiers')}
+        </Text>
+      }
       <Box
         gap='small'
         justify='start'
@@ -67,6 +79,8 @@ function TextTask (props) {
       >
         {task.text_tags.map(tag => (
           <PlainButton
+            aria-labelledby={`textModifiers-${task.taskKey} ${task.taskKey}-${tag}`}
+            id={`${task.taskKey}-${tag}`}
             key={tag}
             disabled={disabled}
             justify='start'
