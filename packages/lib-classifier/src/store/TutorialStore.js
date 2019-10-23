@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, tryReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import ResourceStore from './ResourceStore'
 import Tutorial from './Tutorial'
@@ -63,10 +63,9 @@ const TutorialStore = types
     },
 
     get hasNotSeenTutorialBefore () {
-      const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
+      const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
       const { tutorial } = self
-      if (validUPPReference && tutorial) {
-        const upp = getRoot(self).userProjectPreferences.active
+      if (upp && tutorial) {
         return !(upp.preferences.tutorials_completed_at && upp.preferences.tutorials_completed_at[tutorial.id])
       }
 
@@ -74,10 +73,9 @@ const TutorialStore = types
     },
 
     get tutorialLastSeen () {
-      const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
-      const upp = getRoot(self).userProjectPreferences.active
+      const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
       const { tutorial } = self
-      if (validUPPReference && upp.preferences.tutorials_completed_at && tutorial) {
+      if (upp && upp.preferences.tutorials_completed_at && tutorial) {
         return upp.preferences.tutorials_completed_at[tutorial.id]
       }
 
@@ -118,8 +116,8 @@ const TutorialStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-        if (validWorkflowReference) {
+        const workflow = tryReference(() => getRoot(self).workflows.active)
+        if (workflow) {
           self.reset()
           self.resetSeen()
           self.fetchTutorials()
