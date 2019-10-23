@@ -131,11 +131,13 @@ storiesOf('Tasks', module)
   const step = null
   const tasks = [
     {
+      annotation: { task: 'T0', value: '' },
       help: 'Type something into the text box.',
       instruction: 'Type something here',
       taskKey: 'T0',
       text_tags: ['insertion', 'deletion'],
-      type: 'text'
+      type: 'text',
+      updateAnnotation: sinon.stub()
     }
   ]
   const dark = boolean('Dark theme', false)
