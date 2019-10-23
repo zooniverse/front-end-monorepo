@@ -63,7 +63,10 @@ const UI = types
             self.setAnnouncementBannerCookie()
           }
         })
+      }, {
+        name: 'updateDismissedAnnouncementBannerCookie'
       })
+
       addDisposer(self, dismissedAnnouncementBannerDisposer)
     },
 
