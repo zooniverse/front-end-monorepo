@@ -36,15 +36,21 @@ class MetaTools extends React.Component {
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
     return (
-      <Box className={className} direction='row-responsive' gap={gap} margin={margin}>
+      <Box
+        key={subject && subject.id}
+        className={className}
+        direction='row-responsive'
+        gap={gap}
+        margin={margin}
+      >
         <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
           checked={subject && subject.favorite}
-          disabled={!upp}
+          disabled={!subject || !upp}
           onClick={subject && subject.toggleFavorite}
         />
         <CollectionsButton
-          disabled={!upp}
+          disabled={!subject || !upp}
           onClick={this.addToCollection}
         />
       </Box>

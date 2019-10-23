@@ -1,4 +1,4 @@
-import { render } from 'enzyme'
+import { render, shallow } from 'enzyme'
 import React from 'react'
 
 import { WorkflowSelectButton } from './WorkflowSelectButton'
@@ -18,31 +18,27 @@ const ROUTER = {
 }
 
 describe('Component > WorkflowSelectButton', function () {
-  let wrapper
-
-  before(function () {
-    wrapper = render(<WorkflowSelectButton router={ROUTER} workflow={WORKFLOW} />)
-  })
-
   it('should render without crashing', function () {
+    const wrapper = shallow(<WorkflowSelectButton router={ROUTER} workflow={WORKFLOW} />)
     expect(wrapper).to.be.ok()
   })
 
   describe('when used with a default workflow', function () {
     it('should be a link pointing to `/classify`', function () {
-      const wrapper = render(<WorkflowSelectButton router={ROUTER} workflow={{
+      const wrapper = shallow(<WorkflowSelectButton router={ROUTER} workflow={{
         ...WORKFLOW,
         default: true
       }} />)
-      expect(wrapper[0].name).to.equal('a')
-      expect(wrapper.prop('href')).to.equal(`${ROUTER.asPath}/classify`)
+      expect(wrapper.name()).to.equal('Link')
+      expect(wrapper.prop('as')).to.equal(`${ROUTER.asPath}/classify`)
     })
   })
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
-      expect(wrapper[0].name).to.equal('a')
-      expect(wrapper.prop('href')).to.equal(`${ROUTER.asPath}/classify/workflow/${WORKFLOW.id}`)
+      const wrapper = shallow(<WorkflowSelectButton router={ROUTER} workflow={WORKFLOW} />)
+      expect(wrapper.name()).to.equal('Link')
+      expect(wrapper.prop('as')).to.equal(`${ROUTER.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 })

@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
@@ -21,7 +21,7 @@ const CAT = {
   ]
 }
 
-storiesOf('Project App / Shared / Favourites Button', module)
+storiesOf('Favourites Button', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
@@ -40,4 +40,3 @@ storiesOf('Project App / Shared / Favourites Button', module)
       />
     </Grommet>
   ), config)
-

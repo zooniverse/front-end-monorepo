@@ -261,7 +261,7 @@ describe('Model > TutorialStore', function () {
       rootStore.tutorials.setActiveTutorial()
       expect(resetActiveTutorialSpy).to.have.been.calledOnce()
       expect(rootStore.tutorials.active).to.be.undefined()
-      expect(rootStore.tutorials.activeStep).to.be.undefined()
+      expect(rootStore.tutorials.activeStep).to.equal(-1)
       expect(rootStore.tutorials.activeMedium).to.be.undefined()
       resetActiveTutorialSpy.restore()
     })
@@ -312,7 +312,7 @@ describe('Model > TutorialStore', function () {
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setTutorialStep(0)
       }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.be.undefined()
+        expect(rootStore.tutorials.activeStep).to.equal(-1)
       }).then(done, done)
     })
 
@@ -320,7 +320,7 @@ describe('Model > TutorialStore', function () {
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
         rootStore.tutorials.setActiveTutorial(tutorial.id, 2)
       }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.be.undefined()
+        expect(rootStore.tutorials.activeStep).to.equal(-1)
       }).then(done, done)
     })
 

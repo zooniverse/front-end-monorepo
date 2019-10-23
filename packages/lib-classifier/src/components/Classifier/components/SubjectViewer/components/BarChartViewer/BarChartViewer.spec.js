@@ -150,6 +150,10 @@ describe('Component > BarChartViewer', function () {
       expect(wrapper.find(Bar)).to.have.lengthOf(data.length)
     })
 
+    it('should have a focusable Group container', function () {
+      expect(wrapper.find(Group).first().props().focusable).be.true()
+    })
+
     it('should default to use the theme brand color for the fill', function () {
       const bars = wrapper.find(Bar)
       const { theme } = wrapper.props()
@@ -185,6 +189,14 @@ describe('Component > BarChartViewer', function () {
       const bars = wrapper.find(Bar)
       bars.forEach((bar) => {
         expect(bar.props().fill).to.equal(zooTheme.global.colors['accent-3'])
+      })
+    })
+
+    it('should have an aria-label', function () {
+      const bars = wrapper.find(Bar)
+      bars.forEach((bar) => {
+        const barProps = bar.props()
+        expect(barProps['aria-label']).to.equal(`${xAxisLabel} ${barProps['data-label']}: ${yAxisLabel} ${barProps['data-value']}`)
       })
     })
   })
