@@ -32,14 +32,6 @@ describe('Component > SingleImageViewerContainer', function () {
     }
   }
 
-  before(function () {
-    sinon.stub(console, 'error')
-  })
-
-  after(function () {
-    console.error.restore()
-  })
-
   describe('without a subject', function () {
     const onError = sinon.stub()
 
@@ -61,7 +53,7 @@ describe('Component > SingleImageViewerContainer', function () {
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
-    before(function () {
+    beforeEach(function () {
       const subject = {
         id: 'test',
         locations: [
@@ -114,7 +106,30 @@ describe('Component > SingleImageViewerContainer', function () {
         expect(onError).to.not.have.been.called()
         done()
       })
-      imageWrapper.simulate('load', fakeEvent)
+    })
+
+    it('should pass the original image dimensions to the SVG image', function (done) {
+      const svg = wrapper.instance().imageViewer.current
+      const fakeEvent = {
+        target: {
+          clientHeight: 0,
+          clientWidth: 0
+        }
+      }
+      const expectedEvent = {
+        target: {
+          clientHeight: svg.clientHeight,
+          clientWidth: svg.clientWidth,
+          naturalHeight: height,
+          naturalWidth: width
+        }
+      }
+      onReady.callsFake(function () {
+        const { height, width } = wrapper.find(SingleImageViewer).props()
+        expect(height).to.equal(height)
+        expect(width).to.equal(width)
+        done()
+      })
     })
   })
 
@@ -124,6 +139,10 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
+      sinon.stub(console, 'error')
+    })
+
+    beforeEach(function () {
       const subject = {
         id: 'test',
         locations: [
@@ -147,27 +166,20 @@ describe('Component > SingleImageViewerContainer', function () {
       }
     })
 
-    after(function () {
+    afterEach(function () {
       onError.resetHistory()
       onReady.resetHistory()
+    })
+
+    after(function () {
+      console.error.restore()
     })
 
     it('should render without crashing', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should log an error from an invalid SVG image', function (done) {
-      const fakeSVGError = {
-        message: 'the SVG image failed to load'
-      }
-      onError.callsFake(function () {
-        expect(onError.withArgs(fakeSVGError)).to.have.been.calledOnce()
-        done()
-      })
-      imageWrapper.simulate('error', fakeSVGError)
-    })
-
-    it('should log an error from an invalid HTML img', function (done) {
+    it('should log an error from an invalid image', function (done) {
       const fakeEvent = {
         target: {
           clientHeight: 0,
@@ -178,18 +190,13 @@ describe('Component > SingleImageViewerContainer', function () {
         expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
         done()
       })
-      imageWrapper.simulate('load', fakeEvent)
     })
 
     it('should not call onReady', function (done) {
-      const fakeSVGError = {
-        message: 'the SVG image failed to load'
-      }
       onError.callsFake(function () {
         expect(onReady).to.not.have.been.called()
         done()
       })
-      imageWrapper.simulate('error', fakeSVGError)
     })
   })
 })
