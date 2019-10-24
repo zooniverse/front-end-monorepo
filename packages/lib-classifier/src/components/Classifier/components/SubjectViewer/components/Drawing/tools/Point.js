@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import DrawingToolRoot from './DrawingToolRoot'
 
-// TODO add and update per tool size prop
+// TODO update per tool size prop
 
 const RADIUS = {
   large: 10,

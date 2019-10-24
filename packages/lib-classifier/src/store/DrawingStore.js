@@ -5,8 +5,7 @@ import { filter, map, skipUntil } from 'rxjs/operators'
 
 const DrawingStore = types
   .model('DrawingStore', {
-    activeDrawingTool: types.optional(types.number, 0),
-    svg: types.frozen()
+    activeDrawingTool: types.optional(types.number, 0)
   })
   .views(self => ({
     get activeDrawingTask () {
@@ -32,7 +31,8 @@ const DrawingStore = types
     }
   }))
   .volatile(self => ({
-    eventStream: new Subject()
+    eventStream: new Subject(),
+    svg: null
   }))
   .actions(self => {
     function afterAttach () {
@@ -93,7 +93,6 @@ const DrawingStore = types
     }
 
     function reset () {
-      // TODO also reset SVG or eventStream on classification or workflowStep change?
       self.activeDrawingTool = 0
     }
 

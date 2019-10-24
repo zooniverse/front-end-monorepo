@@ -3,7 +3,7 @@ import Task from '../../models/Task'
 import { Line, Point } from './drawingTools'
 import DrawingAnnotation from './DrawingAnnotation'
 
-// TODO: Need to define tool models
+// TODO: define tool models
 
 const Drawing = types.model('Drawing', {
   help: types.optional(types.string, ''),

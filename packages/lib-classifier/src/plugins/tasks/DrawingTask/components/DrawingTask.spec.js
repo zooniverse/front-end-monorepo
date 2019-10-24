@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import DrawingTask from './DrawingTask'
 import TaskInput from '../../components/TaskInput'
 
-// TODO: move this into a factory
+// TODO: move to factory
 const task = {
   help: 'Help content.',
   instruction: 'Draw something.',

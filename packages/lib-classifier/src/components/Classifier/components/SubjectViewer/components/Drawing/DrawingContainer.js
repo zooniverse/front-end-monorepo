@@ -107,7 +107,7 @@ class DrawingContainer extends Component {
     if (!activeMark) return null
 
     const MarkComponent = getDrawingTool(activeMark.tool.type)
-    // TODO: add error handling if don't get requested tool type
+
     return (
       <>
         <MarkComponent
