@@ -17,7 +17,9 @@ const UI = types
   .views(self => ({
     get showAnnouncement () {
       const { announcement } = getRoot(self).project.configuration
-      return stringHash(announcement) !== self.dismissedAnnouncementBanner
+      return announcement
+        ? stringHash(announcement) !== self.dismissedAnnouncementBanner
+        : true
     }
   }))
 
@@ -37,6 +39,9 @@ const UI = types
   .actions(self => ({
     afterCreate () {
       self.createModeObserver()
+    },
+
+    afterAttach() {
       self.createDismissedAnnouncementBannerObserver()
     },
 
