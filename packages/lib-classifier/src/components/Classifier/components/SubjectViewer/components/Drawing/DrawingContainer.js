@@ -9,7 +9,7 @@ function storeMapper (stores) {
     activeDrawingTask,
     activeMark,
     marks
-    
+
   } = stores.classifierStore.drawing
   return {
     activeDrawingTask,
@@ -27,14 +27,14 @@ class DrawingContainer extends Component {
       <>
         {Array.from(marks, ([id, mark]) => {
           if (!mark.coordinates) return null
-          
+
           const tool = activeDrawingTask.tools[mark.toolIndex]
           const MarkingComponent = getDrawingTool(tool.type)
 
           return (
             <MarkingComponent
               key={id}
-              active={mark === activeMark ? true : false}
+              active={mark === activeMark}
               coordinates={mark.coordinates}
               tool={tool}
             />
