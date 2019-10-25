@@ -154,6 +154,7 @@ const DrawingStore = types
 
     function setActiveDrawingTool (toolIndex) {
       self.activeDrawingTool = toolIndex
+      self.activeMark.stop()
     }
 
     function setSVG (svg) {

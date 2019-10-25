@@ -26,6 +26,8 @@ class DrawingContainer extends Component {
     return (
       <>
         {Array.from(marks, ([id, mark]) => {
+          if (!mark.coordinates) return null
+          
           const tool = activeDrawingTask.tools[mark.toolIndex]
           const MarkingComponent = getDrawingTool(tool.type)
 
