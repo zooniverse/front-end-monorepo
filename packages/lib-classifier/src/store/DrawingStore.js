@@ -100,7 +100,7 @@ const DrawingStore = types
       self.activeDrawingTool = toolIndex
     }
 
-    function storeSVG (svg) {
+    function setSVG (svg) {
       self.svg = svg
     }
 
@@ -112,7 +112,7 @@ const DrawingStore = types
       reset,
       setActiveDrawingTool,
       setEventStream,
-      storeSVG
+      setSVG
     }
   })
 
