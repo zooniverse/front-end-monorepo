@@ -21,7 +21,7 @@ describe('Component > ProjectAnnouncement > WideProjectAnnouncement', function (
     expect(paragraphWrapper.text()).to.contain(ANNOUNCEMENT)
   })
 
-  xit('should be the full width of its container', function () {
+  it('should be the full width of its container', function () {
     const shallowWrapper = shallow(<WideProjectAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
     expect(shallowWrapper.prop('fill')).to.contain('horizontal')
   })
