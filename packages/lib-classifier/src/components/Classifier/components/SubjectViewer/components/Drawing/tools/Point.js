@@ -15,7 +15,7 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
+const Point = ({ active, coordinates, scale, tool }) => {
   const size = 'large'
   const averageScale = (scale.horizontal + scale.vertical) / 2
   const crosshairSpace = CROSSHAIR_SPACE / averageScale
@@ -30,9 +30,6 @@ const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
   }
 
   if (!coordinates) return null
-  if (active && coordinates.type === 'pointerup') {
-    finishDrawing(coordinates)
-  }
 
   return (
     <DrawingToolRoot active tool={tool}>
@@ -49,7 +46,6 @@ const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
 
 Point.propTypes = {
   active: PropTypes.bool,
-  finishDrawing: PropTypes.func,
   scale: PropTypes.shape({
     horizontal: PropTypes.number,
     vertical: PropTypes.number

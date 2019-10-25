@@ -1,11 +1,16 @@
+import cuid from 'cuid'
 import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import { Subject } from 'rxjs'
 import { filter, map, skipUntil } from 'rxjs/operators'
 
+import { PointStore } from './drawing'
+
 const DrawingStore = types
   .model('DrawingStore', {
-    activeDrawingTool: types.optional(types.number, 0)
+    activeDrawingTool: types.optional(types.number, 0),
+    activeMark: types.safeReference(PointStore),
+    marks: types.map(PointStore)
   })
   .views(self => ({
     get activeDrawingTask () {
@@ -38,6 +43,7 @@ const DrawingStore = types
     function afterAttach () {
       createClassificationObserver()
       createWorkflowStepsObserver()
+      createMark()
     }
 
     function createClassificationObserver () {
@@ -57,6 +63,19 @@ const DrawingStore = types
       }, { name: 'DrawingStore WorkflowStep Observer autorun' })
 
       addDisposer(self, workflowStepsDisposer)
+    }
+
+    function createMark () {
+      const tempId = cuid()
+      console.log(tempId)
+
+      const newMark = PointStore.create({
+        id: tempId,
+        toolIndex: self.activeDrawingTool
+      })
+
+      self.marks.put(newMark)
+      self.activeMark = tempId
     }
 
     function setEventStream (stream) {
@@ -94,6 +113,9 @@ const DrawingStore = types
 
     function reset () {
       self.activeDrawingTool = 0
+      // TODO:
+      // self.activeMark
+      // self.marks
     }
 
     function setActiveDrawingTool (toolIndex) {
@@ -108,6 +130,7 @@ const DrawingStore = types
       addToStream,
       afterAttach,
       convertEvent,
+      createMark,
       getEventOffset,
       reset,
       setActiveDrawingTool,
