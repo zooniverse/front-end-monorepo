@@ -1,11 +1,39 @@
 import { autorun } from 'mobx'
-import { addDisposer, onPatch, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, onPatch, types } from 'mobx-state-tree'
 import cookie from 'cookie'
+import stringHash from '@sindresorhus/string-hash'
+
+// process.browser doesn't exist in the jsdom test environment
+const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
 
 const UI = types
   .model('UI', {
+    dismissedAnnouncementBanner: types.maybe(types.number),
+
     // The mode is retrieved out of the cookie in _app.js during store initialization
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), 'light')
+  })
+
+  .views(self => ({
+    get showAnnouncement () {
+      const { announcement } = getRoot(self).project.configuration
+      return announcement
+        ? stringHash(announcement) !== self.dismissedAnnouncementBanner
+        : true
+    }
+  }))
+
+  .preProcessSnapshot(snapshot => {
+    const dismissedAnnouncementBanner = (snapshot && snapshot.dismissedAnnouncementBanner)
+      ? parseInt(snapshot.dismissedAnnouncementBanner, 10)
+      : undefined
+
+    const mode = (snapshot && snapshot.mode) ? snapshot.mode : undefined
+
+    return {
+      dismissedAnnouncementBanner,
+      mode
+    }
   })
 
   .actions(self => ({
@@ -13,26 +41,63 @@ const UI = types
       self.createModeObserver()
     },
 
+    afterAttach() {
+      self.createDismissedAnnouncementBannerObserver()
+    },
+
     createModeObserver () {
       const modeDisposer = autorun(() => {
         onPatch(self, (patch) => {
           const { path } = patch
-          if (path === '/mode') self.setCookie()
+          if (path === '/mode') self.setModeCookie()
         })
       })
       addDisposer(self, modeDisposer)
     },
 
-    setCookie () {
-      // process.browser doesn't exist in the jsdom test environment
-      if (process.browser || process.env.BABEL_ENV === 'test') {
+    createDismissedAnnouncementBannerObserver() {
+      const dismissedAnnouncementBannerDisposer = autorun(() => {
+        onPatch(self, (patch) => {
+          const { path } = patch
+          const isCorrectPath = path === '/dismissedAnnouncementBanner'
+          const parsedCookie = cookie.parse(document.cookie) || {}
+          const cookieHash = parseInt(parsedCookie.dismissedAnnouncementBanner, 10)
+          const cookieIsStale = cookieHash !== self.dismissedAnnouncementBanner
+
+          if (canSetCookie && isCorrectPath && cookieIsStale) {
+            self.setAnnouncementBannerCookie()
+          }
+        })
+      }, {
+        name: 'updateDismissedAnnouncementBannerCookie'
+      })
+
+      addDisposer(self, dismissedAnnouncementBannerDisposer)
+    },
+
+    dismissAnnouncementBanner() {
+      const { announcement } = getRoot(self).project.configuration
+      const announcementHash = stringHash(announcement)
+      self.dismissedAnnouncementBanner = announcementHash
+    },
+
+    setAnnouncementBannerCookie() {
+      const { slug } = getRoot(self).project
+      document.cookie = cookie.serialize('dismissedAnnouncementBanner', self.dismissedAnnouncementBanner, {
+        domain: getCookieDomain(),
+        path: `/projects/${slug}`,
+      })
+    },
+
+    setModeCookie () {
+      if (canSetCookie) {
         const parsedCookie = cookie.parse(document.cookie) || {}
         if (self.mode !== parsedCookie.mode) {
-          if (process.env.NODE_ENV === 'production') {
-            document.cookie = `mode=${self.mode}; path=/; domain=zooniverse.org; max-age=31536000`
-          } else {
-            document.cookie = `mode=${self.mode}; path=/; max-age=31536000`
-          }
+          document.cookie = cookie.serialize('mode', self.mode, {
+            domain: getCookieDomain(),
+            maxAge: 31536000,
+            path: '/',
+          })
         }
       }
     },
@@ -51,7 +116,12 @@ const UI = types
       } else {
         self.setLightMode()
       }
-    }
+    },
   }))
 
 export default UI
+
+function getCookieDomain () {
+  const isProduction = process.env.NODE_ENV === 'production'
+  return isProduction ? 'zooniverse.org' : null
+}
