@@ -17,7 +17,7 @@ function getMarkStore (toolType) {
 
 const DrawingStore = types
   .model('DrawingStore', {
-    activeDrawingTool: types.optional(types.number, 0),
+    activeDrawingToolIndex: types.optional(types.number, 0),
     activeMark: types.safeReference(types.union({
       dispatcher: (snapshot) => {
         const snapshotType = getType(snapshot)
@@ -64,9 +64,19 @@ const DrawingStore = types
   }))
   .actions(self => {
     function afterAttach () {
+      createDrawingTaskObserver()
       createClassificationObserver()
       createWorkflowStepsObserver()
-      createDrawingTaskObserver()
+    }
+
+    function createDrawingTaskObserver () {
+      const drawingTaskDisposer = autorun(() => {
+        const validDrawingTaskReference = isValidReference(() => getRoot(self).drawing.activeDrawingTask)
+        if (validDrawingTaskReference) {
+          self.createMark()
+        }
+      }, { name: 'DrawingStore DrawingTask Observer autorun' })
+      addDisposer(self, drawingTaskDisposer)
     }
 
     function createClassificationObserver () {
@@ -88,24 +98,15 @@ const DrawingStore = types
       addDisposer(self, workflowStepsDisposer)
     }
 
-    function createDrawingTaskObserver () {
-      const drawingTaskDisposer = autorun(() => {
-        const validDrawingTaskReference = isValidReference(() => getRoot(self).drawing.activeDrawingTask)
-        if (validDrawingTaskReference) {
-          self.createMark()
-        }
-      }, { name: 'DrawingStore DrawingTask Observer autorun' })
-      addDisposer(self, drawingTaskDisposer)
-    }
-
     function createMark () {
-      const MarkStore = getMarkStore(self.activeDrawingTask.tools[self.activeDrawingTool].type)
+      const MarkStore = getMarkStore(self.activeDrawingTask.tools[self.activeDrawingToolIndex].type)
+      // TODO add error/null handling ^
 
       const tempId = cuid()
 
       const newMark = MarkStore.create({
         id: tempId,
-        toolIndex: self.activeDrawingTool
+        toolIndex: self.activeDrawingToolIndex
       })
 
       self.marks.put(newMark)
@@ -146,14 +147,12 @@ const DrawingStore = types
     }
 
     function reset () {
-      self.activeDrawingTool = 0
-      // TODO:
-      // self.activeMark
-      // self.marks
+      self.activeDrawingToolIndex = 0
+      self.marks.clear()
     }
 
     function setActiveDrawingTool (toolIndex) {
-      self.activeDrawingTool = toolIndex
+      self.activeDrawingToolIndex = toolIndex
       self.activeMark.stop()
     }
 

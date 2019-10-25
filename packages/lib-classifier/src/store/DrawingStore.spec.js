@@ -59,7 +59,7 @@ describe('Model > DrawingStore', function () {
   })
 
   it('should default the active tool index to the first tool in the tools array', function () {
-    expect(model.activeDrawingTool).to.equal(0)
+    expect(model.activeDrawingToolIndex).to.equal(0)
   })
 
   it('should have an `eventStream` observable', function () {
@@ -165,12 +165,12 @@ describe('Model > DrawingStore', function () {
   describe('Actions', function () {
     it('should set the active tool index', function () {
       model.setActiveDrawingTool(1)
-      expect(model.activeDrawingTool).to.equal(1)
+      expect(model.activeDrawingToolIndex).to.equal(1)
     })
 
     it('should reset the active tool to 0 when reset is called', function () {
       model.reset()
-      expect(model.activeDrawingTool).to.equal(0)
+      expect(model.activeDrawingToolIndex).to.equal(0)
     })
 
     it('should add new events to the eventStream with `addToStream`', function (done) {

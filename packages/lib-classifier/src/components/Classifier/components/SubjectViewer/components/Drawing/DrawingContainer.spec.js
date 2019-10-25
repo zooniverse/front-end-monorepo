@@ -16,7 +16,7 @@ describe('Component > DrawingContainer', function () {
   it('should render without crashing', function () {
     shallow(
       <DrawingContainer.wrappedComponent
-        activeDrawingTool={0}
+        activeDrawingToolIndex={0}
         activeDrawingTask={activeDrawingTask}
         // TEMP CODE UNTIL TOOL STORES
         coordinateStream={{ subscribe: () => {} }}
@@ -26,7 +26,7 @@ describe('Component > DrawingContainer', function () {
   it('it should render the activeMark tool component', function () {
     const wrapper = shallow(
       <DrawingContainer.wrappedComponent
-        activeDrawingTool={0}
+        activeDrawingToolIndex={0}
         activeDrawingTask={activeDrawingTask}
         // TEMP CODE UNTIL TOOL STORES
         coordinateStream={{ subscribe: () => {} }}
@@ -38,7 +38,7 @@ describe('Component > DrawingContainer', function () {
   it('should render current workflow step inactive marks', function () {
     const wrapper = shallow(
       <DrawingContainer.wrappedComponent
-        activeDrawingTool={0}
+        activeDrawingToolIndex={0}
         activeDrawingTask={activeDrawingTask}
         // TEMP CODE UNTIL TOOL STORES
         coordinateStream={{ subscribe: () => {} }}

@@ -31,9 +31,9 @@ const StyledText = styled(Text)`
 `
 
 function storeMapper (stores) {
-  const { activeDrawingTool, setActiveDrawingTool } = stores.classifierStore.drawing
+  const { activeDrawingToolIndex, setActiveDrawingTool } = stores.classifierStore.drawing
   return {
-    activeDrawingTool,
+    activeDrawingToolIndex,
     setActiveDrawingTool
   }
 }
@@ -50,7 +50,7 @@ class DrawingTask extends React.Component {
 
   render () {
     const {
-      activeDrawingTool,
+      activeDrawingToolIndex,
       task
     } = this.props
     return (
@@ -62,7 +62,7 @@ class DrawingTask extends React.Component {
         </StyledText>
 
         {task.tools.map((tool, index) => {
-          const checked = activeDrawingTool === index
+          const checked = activeDrawingToolIndex === index
           // TODO add count for min/max
           return (
             <TaskInput
