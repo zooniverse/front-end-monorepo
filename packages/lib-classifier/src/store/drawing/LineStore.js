@@ -1,11 +1,11 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { filter } from 'rxjs/operators'
+import { filter, skip } from 'rxjs/operators'
 
 import Mark from './Mark'
 
-const Point = types
-  .model('PointStore', {
+const Line = types
+  .model('LineStore', {
     coordinatesArray: types.maybeNull(
       types.array(types.model({
         x: types.number,
@@ -15,8 +15,14 @@ const Point = types
   })
   .views(self => ({
     get coordinates () {
-      if (self.coordinatesArray && self.coordinatesArray.length === 1) {
-        return self.coordinatesArray[0]
+      if (self.coordinatesArray && self.coordinatesArray.length === 2) {
+        const coordinates = {
+          x1: self.coordinatesArray[0].x,
+          y1: self.coordinatesArray[0].y,
+          x2: self.coordinatesArray[1].x,
+          y2: self.coordinatesArray[1].y
+        }
+        return coordinates
       }
       return null
     }
@@ -37,12 +43,18 @@ const Point = types
           self.setCoordinatesSubscription()
           self.setStopSubscription()
         }
-      }, { name: 'PointStore DrawingTask Observer autorun' })
+      }, { name: 'LineStore DrawingTask Observer autorun' })
       addDisposer(self, drawingTaskDisposer)
     }
 
     function setCoordinates (event) {
-      self.coordinatesArray = [event]
+      if (!self.coordinatesArray) {
+        self.coordinatesArray = [event, event]
+      } else {
+        const newCoordinatesArray = Array.from(self.coordinatesArray)
+        newCoordinatesArray.splice(1, 1, event)
+        self.coordinatesArray = newCoordinatesArray
+      }
     }
 
     function setCoordinatesSubscription () {
@@ -62,7 +74,8 @@ const Point = types
     function setStopSubscription () {
       if (self.stopSubscription === null) {
         const pointerUpStream = getRoot(self).drawing.coordinateStream.pipe(
-          filter(event => event.type === 'pointerup')
+          filter(event => event.type === 'pointerup'),
+          skip(1)
         )
         self.stopSubscription = pointerUpStream.subscribe(event => {
           self.stop()
@@ -79,6 +92,6 @@ const Point = types
     }
   })
 
-const PointStore = types.compose('PointStore', Mark, Point)
+const LineStore = types.compose('LineStore', Mark, Line)
 
-export default PointStore
+export default LineStore
