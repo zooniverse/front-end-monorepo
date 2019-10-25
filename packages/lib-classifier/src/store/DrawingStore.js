@@ -1,16 +1,39 @@
 import cuid from 'cuid'
-import { addDisposer, getRoot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, getType, isValidReference, onAction, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import { Subject } from 'rxjs'
 import { filter, map, skipUntil } from 'rxjs/operators'
 
-import { PointStore } from './drawing'
+import { LineStore, PointStore } from './markings'
+
+const markStores = {
+  line: LineStore,
+  point: PointStore
+}
+
+function getMarkStore (toolType) {
+  return markStores[toolType] || null
+}
 
 const DrawingStore = types
   .model('DrawingStore', {
     activeDrawingTool: types.optional(types.number, 0),
-    activeMark: types.safeReference(PointStore),
-    marks: types.map(PointStore)
+    activeMark: types.safeReference(types.union({
+      dispatcher: (snapshot) => {
+        const snapshotType = getType(snapshot)
+        if (snapshotType.name === 'LineStore') return LineStore
+        if (snapshotType.name === 'PointStore') return PointStore
+        return undefined
+      }
+    }, LineStore, PointStore)),
+    marks: types.map(types.union({
+      dispatcher: (snapshot) => {
+        const snapshotType = getType(snapshot)
+        if (snapshotType.name === 'LineStore') return LineStore
+        if (snapshotType.name === 'PointStore') return PointStore
+        return undefined
+      }
+    }, LineStore, PointStore))
   })
   .views(self => ({
     get activeDrawingTask () {
@@ -43,7 +66,7 @@ const DrawingStore = types
     function afterAttach () {
       createClassificationObserver()
       createWorkflowStepsObserver()
-      createMark()
+      createDrawingTaskObserver()
     }
 
     function createClassificationObserver () {
@@ -65,11 +88,22 @@ const DrawingStore = types
       addDisposer(self, workflowStepsDisposer)
     }
 
-    function createMark () {
-      const tempId = cuid()
-      console.log(tempId)
+    function createDrawingTaskObserver () {
+      const drawingTaskDisposer = autorun(() => {
+        const validDrawingTaskReference = isValidReference(() => getRoot(self).drawing.activeDrawingTask)
+        if (validDrawingTaskReference) {
+          self.createMark()
+        }
+      }, { name: 'DrawingStore DrawingTask Observer autorun' })
+      addDisposer(self, drawingTaskDisposer)
+    }
 
-      const newMark = PointStore.create({
+    function createMark () {
+      const MarkStore = getMarkStore(self.activeDrawingTask.tools[self.activeDrawingTool].type)
+
+      const tempId = cuid()
+
+      const newMark = MarkStore.create({
         id: tempId,
         toolIndex: self.activeDrawingTool
       })
