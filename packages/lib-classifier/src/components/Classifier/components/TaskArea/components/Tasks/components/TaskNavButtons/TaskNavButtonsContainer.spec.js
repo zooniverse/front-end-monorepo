@@ -34,7 +34,7 @@ const project = ProjectFactory.build()
 const subject = SubjectFactory.build()
 const workflow = WorkflowFactory.build()
 
-describe.only('TaskNavButtonsContainer', function () {
+describe('TaskNavButtonsContainer', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
@@ -159,7 +159,7 @@ describe.only('TaskNavButtonsContainer', function () {
     })
   })
 
-  describe('#onSubmit', function () {
+  describe.only('#onSubmit', function () {
     let wrapper
     let completeClassificationSpy
     let addAnnotationSpy
@@ -198,11 +198,6 @@ describe.only('TaskNavButtonsContainer', function () {
       onSubmitSpy.restore()
     })
 
-    it('should prevent the event default', function () {
-      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
-      expect(preventDefaultSpy).to.have.been.calledOnce()
-    })
-
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
       wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
       const classification = classificationStore.active.toJSON()
@@ -211,6 +206,11 @@ describe.only('TaskNavButtonsContainer', function () {
         expect(addAnnotationSpy.withArgs(null, task)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
+    })
+
+    it('should prevent the event default', function () {
+      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      expect(preventDefaultSpy).to.have.been.calledOnce()
     })
 
     it('should call completeClassification', function () {
