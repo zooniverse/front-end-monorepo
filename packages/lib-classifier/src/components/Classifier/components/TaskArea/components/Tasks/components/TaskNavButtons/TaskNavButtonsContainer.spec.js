@@ -4,6 +4,10 @@ import { observable } from 'mobx'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
+import ClassificationStore from '../../../../../../../../store/ClassificationStore'
+import SingleChoiceTask from '../../../../../../../../store/tasks/SingleChoiceTask'
+import MultipleChoiceTask from '../../../../../../../../store/tasks/MultipleChoiceTask'
+import { SubjectFactory, WorkflowFactory, ProjectFactory } from '../../../../../../../../../test/factories'
 
 const steps = observable.map([
   ['S0', { taskKeys: ['T0'] }],
@@ -11,22 +15,26 @@ const steps = observable.map([
 ])
 
 const tasks = [
-  {
+  SingleChoiceTask.create({
     answers: [{ label: 'yes' }, { label: 'no' }],
     question: 'Is there a cat?',
-    required: true,
+    required: false,
     taskKey: 'init',
     type: 'single'
-  }, {
+  }), MultipleChoiceTask.create({
     answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
     question: 'What is/are the cat(s) doing?',
     required: false,
     taskKey: 'T1',
     type: 'multiple'
-  }
+  })
 ]
 
-describe('TaskNavButtonsContainer', function () {
+const project = ProjectFactory.build()
+const subject = SubjectFactory.build()
+const workflow = WorkflowFactory.build()
+
+describe.only('TaskNavButtonsContainer', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
@@ -51,17 +59,19 @@ describe('TaskNavButtonsContainer', function () {
 
   describe('#goToNextStep', function () {
     let wrapper
-    let createDefaultAnnotationIfThereIsNoneSpy
+    let addAnnotationSpy
     let selectStepSpy
+    let classificationStore
 
     before(function () {
-      createDefaultAnnotationIfThereIsNoneSpy = sinon.spy(
-        TaskNavButtonsContainer.wrappedComponent.prototype, 'createDefaultAnnotationIfThereIsNone'
-      )
       selectStepSpy = sinon.spy()
-
+      classificationStore = ClassificationStore.create()
+      classificationStore.createClassification(subject, workflow, project)
+      addAnnotationSpy = sinon.spy(classificationStore, 'addAnnotation')
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
+          addAnnotation={classificationStore.addAnnotation}
+          classification={classificationStore.active}
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
           shouldWeShowDoneAndTalkButton={() => {}}
@@ -72,17 +82,22 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     afterEach(function () {
-      createDefaultAnnotationIfThereIsNoneSpy.resetHistory()
+      addAnnotationSpy.resetHistory()
       selectStepSpy.resetHistory()
     })
 
     after(function () {
-      createDefaultAnnotationIfThereIsNoneSpy.restore()
+      addAnnotationSpy.restore()
     })
 
-    it('should call #createDefaultAnnotationIfThereIsNone', function () {
+    it('should create a default annotation for each task if there is not an annotation for that task', function () {
       wrapper.instance().goToNextStep()
-      expect(createDefaultAnnotationIfThereIsNoneSpy).to.have.been.called()
+      const classification = classificationStore.active.toJSON()
+
+      tasks.forEach((task) => {
+        expect(addAnnotationSpy.withArgs(null, task)).to.have.been.calledOnce()
+        expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
+      })
     })
 
     it('should call props.selectStep', function () {
@@ -144,66 +159,25 @@ describe('TaskNavButtonsContainer', function () {
     })
   })
 
-  describe('#createDefaultAnnotationIfThereIsNone', function () {
-    let wrapper
-    let createDefaultAnnotationSpy
-
-    before(function () {
-      createDefaultAnnotationSpy = sinon.spy()
-
-      wrapper = shallow(
-        <TaskNavButtonsContainer.wrappedComponent
-          createDefaultAnnotation={createDefaultAnnotationSpy}
-          isThereAPreviousStep={() => {}}
-          isThereANextStep={() => {}}
-          shouldWeShowDoneAndTalkButton={() => {}}
-          tasks={tasks}
-        />
-      )
-    })
-
-    afterEach(function () {
-      createDefaultAnnotationSpy.resetHistory()
-    })
-
-    it('should not call props.createDefaultAnnotation if there is not a props.classification', function () {
-      wrapper.instance().createDefaultAnnotationIfThereIsNone()
-      expect(createDefaultAnnotationSpy).to.have.not.been.called()
-    })
-
-    it('should call props.createDefaultAnnotation if there is a props.classification and there aren\'t annotations for the tasks', function () {
-      const classification = { annotations: observable.map() }
-      wrapper.setProps({ classification })
-      wrapper.instance().createDefaultAnnotationIfThereIsNone()
-      tasks.forEach((task) => {
-        expect(createDefaultAnnotationSpy).to.have.been.called()
-        expect(createDefaultAnnotationSpy.withArgs(task)).to.have.been.calledOnce()
-      })
-    })
-
-    it('should not call props.createDefaultAnnotation if props.classification has matching annotations for the tasks', function () {
-      const annotations = observable.map()
-      tasks.forEach(task => annotations.set(task.taskKey, task))
-      wrapper.setProps({ classification: { annotations } })
-      wrapper.instance().createDefaultAnnotationIfThereIsNone()
-      expect(createDefaultAnnotationSpy).to.have.not.been.called()
-    })
-  })
-
   describe('#onSubmit', function () {
     let wrapper
     let completeClassificationSpy
-    let createDefaultAnnotationIfThereIsNoneSpy
+    let addAnnotationSpy
     let onSubmitSpy
+    let classificationStore
     const preventDefaultSpy = sinon.spy()
 
     before(function () {
+      classificationStore = ClassificationStore.create()
+      classificationStore.createClassification(subject, workflow, project)
+      addAnnotationSpy = sinon.spy(classificationStore, 'addAnnotation')
       completeClassificationSpy = sinon.spy()
-      createDefaultAnnotationIfThereIsNoneSpy = sinon.spy(TaskNavButtonsContainer.wrappedComponent.prototype, 'createDefaultAnnotationIfThereIsNone')
       onSubmitSpy = sinon.spy(TaskNavButtonsContainer.wrappedComponent.prototype, 'onSubmit')
 
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
+          addAnnotation={classificationStore.addAnnotation}
+          classification={classificationStore.active}
           completeClassification={completeClassificationSpy}
           isThereAPreviousStep={() => { }}
           isThereANextStep={() => { }}
@@ -214,13 +188,13 @@ describe('TaskNavButtonsContainer', function () {
 
     afterEach(function () {
       completeClassificationSpy.resetHistory()
-      createDefaultAnnotationIfThereIsNoneSpy.resetHistory()
+      addAnnotationSpy.resetHistory()
       onSubmitSpy.resetHistory()
       preventDefaultSpy.resetHistory()
     })
 
     after(function () {
-      createDefaultAnnotationIfThereIsNoneSpy.restore()
+      addAnnotationSpy.restore()
       onSubmitSpy.restore()
     })
 
@@ -229,9 +203,14 @@ describe('TaskNavButtonsContainer', function () {
       expect(preventDefaultSpy).to.have.been.calledOnce()
     })
 
-    it('should call createDefaultAnnotationIfThereIsNone', function () {
+    it('should create a default annotation for each task if there is not an annotation for that task', function () {
       wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
-      expect(createDefaultAnnotationIfThereIsNoneSpy).to.have.been.calledOnce()
+      const classification = classificationStore.active.toJSON()
+
+      tasks.forEach((task) => {
+        expect(addAnnotationSpy.withArgs(null, task)).to.have.been.calledOnce()
+        expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
+      })
     })
 
     it('should call completeClassification', function () {
