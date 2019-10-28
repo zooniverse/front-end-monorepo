@@ -159,7 +159,7 @@ describe('TaskNavButtonsContainer', function () {
     })
   })
 
-  describe.only('#onSubmit', function () {
+  describe('#onSubmit', function () {
     let wrapper
     let completeClassificationSpy
     let addAnnotationSpy
