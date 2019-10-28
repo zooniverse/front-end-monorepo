@@ -8,7 +8,6 @@ import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
-import { SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation, DrawingAnnotation } from './annotations'
 import {
   ClassificationQueue,
   convertMapToArray,
@@ -108,41 +107,15 @@ const ClassificationStore = types
       }
     }
 
-    function getAnnotationType (taskType) {
-      const taskTypes = {
-        single: SingleChoiceAnnotation,
-        multiple: MultipleChoiceAnnotation,
-        dataVisAnnotation: DataVisAnnotation,
-        drawing: DrawingAnnotation
-      }
-
-      return taskTypes[taskType] || undefined
-    }
-
-    function createDefaultAnnotation (task) {
-      const validClassificationReference = isValidReference(() => self.active)
-
-      if (validClassificationReference) {
-        const classification = self.active
-        const annotationModel = getAnnotationType(task.type)
-        const newAnnotation = annotationModel.create({ task: task.taskKey })
-        classification.annotations.put(newAnnotation)
-        return newAnnotation
-      } else {
-        if (process.browser) {
-          console.error('No active classification. Cannot create default annotation.')
-        }
-        return null
-      }
-    }
-
     function addAnnotation (annotationValue, task) {
       const validClassificationReference = isValidReference(() => self.active)
 
       if (validClassificationReference) {
         const classification = self.active
         if (classification) {
-          const annotation = classification.annotations.get(task.taskKey) || createDefaultAnnotation(task)
+          const annotation = classification.annotations.get(task.taskKey) || task.createAnnotation()
+          // new annotations must be added to this store before we can modify them
+          classification.annotations.put(annotation)
           annotation.value = annotationValue
         }
       } else {
@@ -246,7 +219,6 @@ const ClassificationStore = types
       afterAttach,
       completeClassification,
       createClassification,
-      createDefaultAnnotation,
       onClassificationSaved,
       removeAnnotation,
       setOnComplete,

@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import Introduction from './Introduction'
-import addQueryParams from '../../../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project } = stores.store
@@ -19,7 +19,7 @@ class IntroductionContainer extends Component {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      href: addQueryParams(`/projects/${owner}/${project}/about`, router),
+      href: addQueryParams(`/projects/${owner}/${project}/about`, router)
     }
   }
 

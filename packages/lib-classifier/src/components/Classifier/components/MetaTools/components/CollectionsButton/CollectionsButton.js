@@ -1,7 +1,7 @@
+import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
-import MetaToolsButton from '../MetaToolsButton'
 import CollectionsIcon from './CollectionsIcon'
 
 import en from './locales/en'

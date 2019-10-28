@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
-import addQueryParams from '../../../../helpers/addQueryParams'
+import addQueryParams from '@helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project, user } = stores.store
@@ -16,11 +16,11 @@ function storeMapper (stores) {
 }
 
 class FinishedForTheDayContainer extends Component {
-  getLinkProps() {
+  getLinkProps () {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      href: addQueryParams(`/projects/${owner}/${project}/stats`, router),
+      href: addQueryParams(`/projects/${owner}/${project}/stats`, router)
     }
   }
 
@@ -45,9 +45,9 @@ FinishedForTheDayContainer.propTypes = {
   router: PropTypes.shape({
     query: PropTypes.shape({
       owner: PropTypes.string.isRequired,
-      project: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+      project: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
 }
 
 // We wouldn't normally have a `defaultProp` for a required prop, but there's

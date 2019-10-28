@@ -9,6 +9,19 @@ import auth from 'panoptes-client/lib/auth'
 
 export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
 
+// https://stackoverflow.com/a/51918448/10951669
+function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
+  const dayOfWeek = dateObject.getDay()
+  const firstDayOfWeek = new Date(dateObject)
+  const diff = dayOfWeek >= firstDayOfWeekIndex
+    ? dayOfWeek - firstDayOfWeekIndex
+    : 6 - dayOfWeek
+
+  firstDayOfWeek.setDate(dateObject.getDate() - diff)
+
+  return firstDayOfWeek
+}
+
 const Count = types
   .model('Count', {
     count: types.number,
@@ -17,9 +30,9 @@ const Count = types
 
 const YourStats = types
   .model('YourStats', {
-    dailyCounts: types.array(Count),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
+    thisWeek: types.array(Count),
     totalCount: types.optional(types.number, 0)
   })
 
@@ -29,13 +42,16 @@ const YourStats = types
 
   .views(self => ({
     get counts () {
-      // `substring(0, 10)` turns an ISO 8601 date into YYYY-MM-DD
-      const todaysDate = DateTime.local().toISO().substring(0, 10)
-      const today = _.chain(self.dailyCounts)
-        .find(count => count.period.startsWith(todaysDate))
-        .get('count', 0)
-        .add(self.sessionCount)
-        .value()
+      const todaysDate = new Date()
+      let today
+      try {
+        const todaysCount = self.thisWeek.length === 7
+          ? self.thisWeek[todaysDate.getDay() - 1].count
+          : 0
+        today = todaysCount + self.sessionCount
+      } catch (error) {
+        today = 0
+      }
 
       return {
         today,
@@ -54,6 +70,27 @@ const YourStats = types
         }
       })
       addDisposer(self, projectDisposer)
+    }
+
+    function calculateWeeklyStats (dailyCounts) {
+      /*
+      Calculate daily stats for this week, starting last Monday.
+      */
+      const today = new Date()
+      const weeklyStats = []
+      const monday = firstDayOfWeek(today, 1) // Monday is day number 1 in JavaScript
+      for (let day = 0; day < 7; day++) {
+        const weekDay = new Date(monday.toISOString())
+        const newDate = monday.getDate() + day
+        weekDay.setDate(newDate)
+        const period = weekDay.toISOString().substring(0, 10)
+        const { count } = dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
+        weeklyStats.push({
+          count,
+          period
+        })
+      }
+      return weeklyStats
     }
 
     return {
@@ -85,6 +122,7 @@ const YourStats = types
       fetchDailyCounts: flow(function * fetchDailyCounts () {
         const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
+        let dailyCounts
         try {
           const token = yield auth.checkBearerToken()
           const Authorization = `Bearer ${token}`
@@ -95,6 +133,7 @@ const YourStats = types
             statsCount(
               eventType: "classification",
               interval: "1 Day",
+              window: "1 Week",
               projectId: "${project.id}",
               userId: "${user.id}"
             ){
@@ -103,16 +142,19 @@ const YourStats = types
             }
           }`
           const response = yield statsClient.request(query.replace(/\s+/g, ' '))
-          self.dailyCounts = response.statsCount
+          dailyCounts = response.statsCount
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error(error)
           self.error = error
           self.loadingState = asyncStates.error
+          dailyCounts = []
         }
+        self.thisWeek = calculateWeeklyStats(dailyCounts)
       }),
 
       increment () {
+        self.sessionCount = self.sessionCount + 1
         self.totalCount = self.totalCount + 1
       }
     }

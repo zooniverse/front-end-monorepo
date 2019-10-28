@@ -1,9 +1,9 @@
+import { FavouritesButton } from '@zooniverse/react-components'
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { MetaTools } from './MetaTools'
 import Metadata from './components/Metadata'
-import FavouritesButton from './components/FavouritesButton'
 import CollectionsButton from './components/CollectionsButton'
 import { Factory } from 'rosie'
 
@@ -39,20 +39,18 @@ describe('Component > MetaTools', function () {
 
     it('should call toggle favourites on click of the FavouritesButton', function () {
       const subjectMethod = { toggleFavorite: sinon.spy() }
-      const toggleFavouritesSpy = sinon.spy(MetaTools.wrappedComponent.prototype, 'toggleFavourites')
       const wrapper = shallow(<MetaTools.wrappedComponent subject={subjectMethod} />)
       wrapper.find(FavouritesButton).simulate('click')
-      expect(toggleFavouritesSpy).to.have.been.calledOnce()
       expect(subjectMethod.toggleFavorite).to.have.been.calledOnce()
     })
 
     it('should disable the FavouritesButton if there is no user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} />)
       expect(wrapper.find(FavouritesButton).props().disabled).to.be.true()
     })
 
     it('should enable the FavouritesButton if there is user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent upp={{ id: '1' }} />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} upp={{ id: '1' }} />)
       expect(wrapper.find(FavouritesButton).props().disabled).to.be.false()
     })
 
@@ -83,12 +81,12 @@ describe('Component > MetaTools', function () {
     })
 
     it('should disable the CollectionsButton if there is no user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} />)
       expect(wrapper.find(CollectionsButton).props().disabled).to.be.true()
     })
 
     it('should enable the CollectionsButton if there is user project preferences', function () {
-      const wrapper = shallow(<MetaTools.wrappedComponent upp={{ id: '1' }} />)
+      const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} upp={{ id: '1' }} />)
       expect(wrapper.find(CollectionsButton).props().disabled).to.be.false()
     })
   })

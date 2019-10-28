@@ -3,20 +3,20 @@ import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import UrlParse from 'url-parse'
 
-import AuthModal from '../src/components/AuthModal'
-import getCookie from '../src/helpers/getCookie'
-import GrommetWrapper from '../src/helpers/GrommetWrapper'
-import Head from '../src/components/Head'
-import ProjectHeader from '../src/components/ProjectHeader'
-import ZooHeaderWrapper from '../src/components/ZooHeaderWrapper'
-import { initializeLogger, logReactError } from '../src/helpers/logger'
-import { MediaContextProvider } from '../src/shared/components/Media'
-import initStore from '../stores'
+import AuthModal from '@components/AuthModal'
+import getCookie from '@helpers/getCookie'
+import GrommetWrapper from '@helpers/GrommetWrapper'
+import Head from '@components/Head'
+import ProjectAnnouncement from '@components/ProjectAnnouncement'
+import ProjectHeader from '@components/ProjectHeader'
+import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+import { initializeLogger, logReactError } from '@helpers/logger'
+import { MediaContextProvider } from '@shared/components/Media'
+import initStore from '@stores'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -40,8 +40,10 @@ export default class MyApp extends App {
     if (pageProps.isServer) {
       // cookie is in the next.js context req object
       const mode = getCookie(context, 'mode') || undefined
+      const dismissedAnnouncementBanner = getCookie(context, 'dismissedAnnouncementBanner') || undefined
       const store = initStore(pageProps.isServer, {
         ui: {
+          dismissedAnnouncementBanner,
           mode
         }
       })
@@ -78,7 +80,7 @@ export default class MyApp extends App {
   render () {
     const { Component, pageProps } = this.props
     return (
-      <Container>
+      <>
         <GlobalStyle />
         <Provider store={this.store}>
           <MediaContextProvider>
@@ -86,6 +88,7 @@ export default class MyApp extends App {
               <Head host={pageProps.host} />
               <ZooHeaderWrapper />
               <ProjectHeader />
+              <ProjectAnnouncement />
               <Box background={{
                 dark: 'dark-1',
                 light: 'light-1'
@@ -97,7 +100,7 @@ export default class MyApp extends App {
             </GrommetWrapper>
           </MediaContextProvider>
         </Provider>
-      </Container>
+      </>
     )
   }
 }

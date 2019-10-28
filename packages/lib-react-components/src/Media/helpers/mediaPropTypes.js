@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
 
-const DEFAULT_THUMBNAIL_DIMENSION = 999
-
 export const propTypes = {
   alt: PropTypes.string,
   controls: PropTypes.bool,
@@ -20,8 +18,6 @@ export const defaultProps = {
   delay: 0,
   fit: 'cover',
   flex: 'grow',
-  height: DEFAULT_THUMBNAIL_DIMENSION,
   origin: 'https://thumbnails.zooniverse.org',
-  placeholder: null,
-  width: DEFAULT_THUMBNAIL_DIMENSION
+  placeholder: null
 }
