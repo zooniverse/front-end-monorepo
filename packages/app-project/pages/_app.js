@@ -40,8 +40,10 @@ export default class MyApp extends App {
     if (pageProps.isServer) {
       // cookie is in the next.js context req object
       const mode = getCookie(context, 'mode') || undefined
+      const dismissedAnnouncementBanner = getCookie(context, 'dismissedAnnouncementBanner') || undefined
       const store = initStore(pageProps.isServer, {
         ui: {
+          dismissedAnnouncementBanner,
           mode
         }
       })

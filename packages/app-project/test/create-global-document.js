@@ -15,6 +15,7 @@ function copyProps (src, target) {
   Object.defineProperties(target, props)
 }
 
+global.dom = jsdom
 global.window = window
 global.document = window.document
 global.navigator = {

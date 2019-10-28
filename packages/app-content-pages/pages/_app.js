@@ -4,7 +4,7 @@ import { Grommet, base } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
@@ -59,7 +59,7 @@ export default class MyApp extends App {
     const { Component, pageProps, theme } = this.props
     const mergedThemes = merge({}, base, theme)
     return (
-      <Container>
+      <>
         <GlobalStyle />
         <Provider store={this.store}>
           <Grommet theme={mergedThemes}>
@@ -69,7 +69,7 @@ export default class MyApp extends App {
             <AuthModals />
           </Grommet>
         </Provider>
-      </Container>
+      </>
     )
   }
 }

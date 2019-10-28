@@ -13,7 +13,7 @@ function NavLink (props) {
   const { href, label, router: { asPath } } = props
   const isActive = asPath === href
   return (
-    <Link href={href} passHref prefetch>
+    <Link href={href} passHref>
       <Anchor size='medium' weight='normal' active={isActive}>
         <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
           {label}
