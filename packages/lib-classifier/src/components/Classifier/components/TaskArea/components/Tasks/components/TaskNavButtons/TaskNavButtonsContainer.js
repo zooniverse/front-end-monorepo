@@ -14,13 +14,11 @@ function storeMapper (stores) {
   } = stores.classifierStore.workflowSteps
   const {
     active: classification,
-    addAnnotation,
     completeClassification,
     removeAnnotation
   } = stores.classifierStore.classifications
 
   return {
-    addAnnotation,
     classification,
     completeClassification,
     getPreviousStepKey,
@@ -37,13 +35,13 @@ function storeMapper (stores) {
 @observer
 class TaskNavButtonsContainer extends React.Component {
   createDefaultAnnotationIfThereIsNone () {
-    const { addAnnotation, classification, tasks } = this.props
+    const { classification, tasks } = this.props
     if (classification) {
       tasks.forEach((task) => {
         // User didn't submit annotation and task is not required
         // Create the default annotation before going to the next step
         if (classification.annotations && !(classification.annotations.get(task.taskKey))) {
-          addAnnotation(null, task)
+          task.updateAnnotation()
         }
       })
     }
