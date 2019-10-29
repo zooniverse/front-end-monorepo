@@ -7,27 +7,31 @@ import TaskNavButtonsContainer from './TaskNavButtonsContainer'
 import ClassificationStore from '../../../../../../../../store/ClassificationStore'
 import SingleChoiceTask from '../../../../../../../../store/tasks/SingleChoiceTask'
 import MultipleChoiceTask from '../../../../../../../../store/tasks/MultipleChoiceTask'
+import Step from '../../../../../../../../store/Step'
 import { SubjectFactory, WorkflowFactory, ProjectFactory } from '../../../../../../../../../test/factories'
 
 const steps = observable.map([
-  ['S0', { taskKeys: ['T0'] }],
-  ['S1', { taskKeys: ['T1'] }]
+  Step.create({ stepKey: 'S0', taskKeys: ['T0'] }),
+  Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
 ])
 
-const tasks = [
-  SingleChoiceTask.create({
-    answers: [{ label: 'yes' }, { label: 'no' }],
-    question: 'Is there a cat?',
-    required: false,
-    taskKey: 'init',
-    type: 'single'
-  }), MultipleChoiceTask.create({
-    answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
-    question: 'What is/are the cat(s) doing?',
-    required: false,
-    taskKey: 'T1',
-    type: 'multiple'
-  })
+const singleChoiceTask = SingleChoiceTask.create({
+  answers: [{ label: 'yes' }, { label: 'no' }],
+  question: 'Is there a cat?',
+  required: false,
+  taskKey: 'init',
+  type: 'single'
+})
+const multipleChoiceTask = MultipleChoiceTask.create({
+  answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
+  question: 'What is/are the cat(s) doing?',
+  required: false,
+  taskKey: 'T1',
+  type: 'multiple'
+})
+const activeStepTasks = [
+  singleChoiceTask,
+  multipleChoiceTask
 ]
 
 const project = ProjectFactory.build()
@@ -43,7 +47,7 @@ describe('TaskNavButtonsContainer', function () {
           isThereAPreviousStep={() => {}}
           isThereANextStep={() => {}}
           shouldWeShowDoneAndTalkButton={() => {}}
-          tasks={tasks}
+          tasks={activeStepTasks}
         />
       )
     })
@@ -68,15 +72,16 @@ describe('TaskNavButtonsContainer', function () {
       classificationStore = ClassificationStore.create()
       classificationStore.createClassification(subject, workflow, project)
       addAnnotationSpy = sinon.spy(classificationStore, 'addAnnotation')
+      singleChoiceTask.classifications = classificationStore
+      multipleChoiceTask.classifications = classificationStore
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
-          addAnnotation={classificationStore.addAnnotation}
           classification={classificationStore.active}
-          isThereAPreviousStep={() => {}}
-          isThereANextStep={() => {}}
+          isThereAPreviousStep={() => false}
+          isThereANextStep={() => false}
           shouldWeShowDoneAndTalkButton={() => {}}
           selectStep={selectStepSpy}
-          tasks={tasks}
+          tasks={activeStepTasks}
         />
       )
     })
@@ -94,8 +99,8 @@ describe('TaskNavButtonsContainer', function () {
       wrapper.instance().goToNextStep()
       const classification = classificationStore.active.toJSON()
 
-      tasks.forEach((task) => {
-        expect(addAnnotationSpy.withArgs(null, task)).to.have.been.calledOnce()
+      activeStepTasks.forEach((task) => {
+        expect(addAnnotationSpy.withArgs(undefined, task)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
     })
@@ -119,13 +124,13 @@ describe('TaskNavButtonsContainer', function () {
 
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
-          isThereAPreviousStep={() => {}}
-          isThereANextStep={() => {}}
+          isThereAPreviousStep={() => false}
+          isThereANextStep={() => false}
           shouldWeShowDoneAndTalkButton={() => {}}
           removeAnnotation={removeAnnotationSpy}
           selectStep={selectStepSpy}
           steps={steps}
-          tasks={tasks}
+          tasks={activeStepTasks}
         />
       )
     })
@@ -171,17 +176,18 @@ describe('TaskNavButtonsContainer', function () {
       classificationStore = ClassificationStore.create()
       classificationStore.createClassification(subject, workflow, project)
       addAnnotationSpy = sinon.spy(classificationStore, 'addAnnotation')
+      singleChoiceTask.classifications = classificationStore
+      multipleChoiceTask.classifications = classificationStore
       completeClassificationSpy = sinon.spy()
       onSubmitSpy = sinon.spy(TaskNavButtonsContainer.wrappedComponent.prototype, 'onSubmit')
 
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
-          addAnnotation={classificationStore.addAnnotation}
           classification={classificationStore.active}
           completeClassification={completeClassificationSpy}
           isThereAPreviousStep={() => { }}
           isThereANextStep={() => { }}
-          tasks={tasks}
+          tasks={activeStepTasks}
         />
       )
     })
@@ -202,8 +208,8 @@ describe('TaskNavButtonsContainer', function () {
       wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
       const classification = classificationStore.active.toJSON()
 
-      tasks.forEach((task) => {
-        expect(addAnnotationSpy.withArgs(null, task)).to.have.been.calledOnce()
+      activeStepTasks.forEach((task) => {
+        expect(addAnnotationSpy.withArgs(undefined, task)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
     })
