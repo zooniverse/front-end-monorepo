@@ -20,6 +20,9 @@
   ],
   "env": {
     "test": {
+      "plugins": [
+        ["babel-plugin-webpack-alias", { "config": "./webpack.dev.js" }]
+      ],
       "presets": [
         "@babel/preset-env",
         "@babel/preset-react"

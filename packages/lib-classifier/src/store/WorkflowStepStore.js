@@ -3,18 +3,31 @@ import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-st
 
 import Step from './Step'
 import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
+import { TextModel } from '@plugins/tasks/TextTask'
+
+function taskDispatcher (snapshot) {
+  if (snapshot.type === 'drawing') return DrawingTask
+  if (snapshot.type === 'multiple') return MultipleChoiceTask
+  if (snapshot.type === 'single') return SingleChoiceTask
+  if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
+  if (snapshot.type === 'text') return TextModel
+  return undefined
+}
+
+const taskTypes = types.union(
+  { dispatcher: taskDispatcher },
+  DrawingTask,
+  DataVisAnnotationTask,
+  MultipleChoiceTask,
+  SingleChoiceTask,
+  TextModel
+)
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.safeReference(Step),
     steps: types.map(Step),
-    tasks: types.map(types.union({ dispatcher: (snapshot) => {
-      if (snapshot.type === 'drawing') return DrawingTask
-      if (snapshot.type === 'multiple') return MultipleChoiceTask
-      if (snapshot.type === 'single') return SingleChoiceTask
-      if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
-      return undefined
-    } }, DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask))
+    tasks: types.map(taskTypes)
   })
   .views(self => ({
     get activeStepTasks () {
@@ -22,7 +35,7 @@ const WorkflowStepStore = types
       if (validStepReference) {
         return self.active.taskKeys.map((taskKey) => {
           return self.tasks.get(taskKey)
-        })
+        }).filter(Boolean)
       }
 
       return []
@@ -166,8 +179,7 @@ const WorkflowStepStore = types
         const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
         try {
           self.tasks.put(taskToStore)
-        }
-        catch (e) {
+        } catch (e) {
           console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
         }
       })
