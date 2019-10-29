@@ -15,14 +15,12 @@ function storeMapper (stores) {
   const {
     active: classification,
     completeClassification,
-    createDefaultAnnotation,
     removeAnnotation
   } = stores.classifierStore.classifications
 
   return {
     classification,
     completeClassification,
-    createDefaultAnnotation,
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
@@ -37,13 +35,13 @@ function storeMapper (stores) {
 @observer
 class TaskNavButtonsContainer extends React.Component {
   createDefaultAnnotationIfThereIsNone () {
-    const { classification, createDefaultAnnotation, tasks } = this.props
+    const { classification, tasks } = this.props
     if (classification) {
       tasks.forEach((task) => {
         // User didn't submit annotation and task is not required
         // Create the default annotation before going to the next step
         if (classification.annotations && !(classification.annotations.get(task.taskKey))) {
-          createDefaultAnnotation(task)
+          task.updateAnnotation()
         }
       })
     }
@@ -98,7 +96,6 @@ class TaskNavButtonsContainer extends React.Component {
 
 TaskNavButtonsContainer.wrappedComponent.defaultProps = {
   completeClassification: () => {},
-  createDefaultAnnotation: () => {},
   disabled: false,
   selectStep: () => {},
   tasks: []
@@ -109,7 +106,6 @@ TaskNavButtonsContainer.wrappedComponent.propTypes = {
     annotations: MobXPropTypes.observableMap
   }),
   completeClassification: PropTypes.func,
-  createDefaultAnnotation: PropTypes.func,
   disabled: PropTypes.bool,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
