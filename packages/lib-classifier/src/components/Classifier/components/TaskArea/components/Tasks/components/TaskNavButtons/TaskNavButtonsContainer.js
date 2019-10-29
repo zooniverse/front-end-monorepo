@@ -96,7 +96,6 @@ class TaskNavButtonsContainer extends React.Component {
 
 TaskNavButtonsContainer.wrappedComponent.defaultProps = {
   completeClassification: () => {},
-  createDefaultAnnotation: () => {},
   disabled: false,
   selectStep: () => {},
   tasks: []
@@ -107,7 +106,6 @@ TaskNavButtonsContainer.wrappedComponent.propTypes = {
     annotations: MobXPropTypes.observableMap
   }),
   completeClassification: PropTypes.func,
-  createDefaultAnnotation: PropTypes.func,
   disabled: PropTypes.bool,
   showBackButton: PropTypes.bool,
   showNextButton: PropTypes.bool,
