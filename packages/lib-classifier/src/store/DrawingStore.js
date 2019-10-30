@@ -2,7 +2,6 @@ import cuid from 'cuid'
 import { addDisposer, getRoot, getType, isValidReference, onAction, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import { Subject } from 'rxjs'
-import { filter, map, skipUntil } from 'rxjs/operators'
 
 import { Line, Point } from './markings'
 
@@ -40,18 +39,6 @@ const DrawingStore = types
       const [task] = getRoot(self).workflowSteps.activeStepTasks
         .filter(task => task.type === 'drawing')
       return task
-    },
-    get coordinateStream () {
-      const pointerDownStream = self.eventStream.pipe(
-        filter(event => event.type === 'pointerdown')
-      )
-
-      const coordinateStream = self.eventStream.pipe(
-        skipUntil(pointerDownStream),
-        map(event => self.convertEvent(event))
-      )
-
-      return coordinateStream
     },
     get isDrawingInActiveWorkflowStep () {
       return getRoot(self).workflowSteps.activeStepTasks
@@ -118,7 +105,8 @@ const DrawingStore = types
     }
 
     function addToStream (event) {
-      self.eventStream.next(event)
+      const svgEvent = self.convertEvent(event)
+      self.eventStream.next(svgEvent)
     }
 
     function convertEvent (event) {
@@ -129,6 +117,7 @@ const DrawingStore = types
       const svgEventOffset = self.getEventOffset(clientX, clientY)
 
       const svgCoordinateEvent = {
+        pointerId: event.pointerId,
         type,
         x: svgEventOffset.x,
         y: svgEventOffset.y
