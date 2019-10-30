@@ -3,7 +3,7 @@ import React from 'react'
 import { Grid } from 'grommet'
 import FieldGuideItems from './FieldGuideItems'
 import FieldGuideItemAnchor from './FieldGuideItemAnchor'
-import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
+import { FieldGuideMediumFactory } from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const items = [

@@ -2,7 +2,7 @@ import sinon from 'sinon'
 import Subject from './Subject'
 import ProjectStore from './ProjectStore'
 import WorkflowStore from './WorkflowStore'
-import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import subjectViewers from '../helpers/subjectViewers'
 
 const stub = SubjectFactory.build()

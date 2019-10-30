@@ -5,7 +5,7 @@ import { observable } from 'mobx'
 import { Markdownz } from '@zooniverse/react-components'
 import FieldGuideItemAnchor, { AnchorLabel } from './FieldGuideItemAnchor'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
-import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
+import { FieldGuideMediumFactory } from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const attachedMedia = observable.map()

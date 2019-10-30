@@ -4,7 +4,7 @@ import React from 'react'
 import sinon from 'sinon'
 
 import { DoneAndTalkButton } from './DoneAndTalkButton'
-import { ProjectFactory, SubjectFactory } from '../../../../../../../../../../../test/factories'
+import { ProjectFactory, SubjectFactory } from '@test/factories'
 
 const project = ProjectFactory.build()
 const subject = SubjectFactory.build()

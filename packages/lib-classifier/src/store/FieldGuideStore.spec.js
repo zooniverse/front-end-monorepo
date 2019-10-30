@@ -9,7 +9,7 @@ import {
   ProjectFactory,
   FieldGuideFactory,
   FieldGuideMediumFactory
-} from '../../test/factories'
+} from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const fieldGuide = FieldGuideFactory.build()

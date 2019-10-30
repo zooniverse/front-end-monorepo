@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { SubjectFactory } from '../../../../../../../../../../../test/factories'
+import { SubjectFactory } from '@test/factories'
 import DoneAndTalkButtonContainer from './DoneAndTalkButtonContainer'
 import DoneAndTalkButton from './DoneAndTalkButton'
 

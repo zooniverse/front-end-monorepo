@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import ModalTutorial from './ModalTutorial'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
-import { TutorialFactory } from '../../../../../test/factories'
+import { TutorialFactory } from '@test/factories'
 
 const tutorial = TutorialFactory.build()
 
