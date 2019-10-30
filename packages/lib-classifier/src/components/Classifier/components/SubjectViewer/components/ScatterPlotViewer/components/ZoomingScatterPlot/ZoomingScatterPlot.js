@@ -181,16 +181,13 @@ class ZoomingScatterPlot extends Component {
   }
 
   render() {
-    return forwardRef(function (props, ref) {
-      return (
-        <VXZoom
-          constrain={this.constrain}
-          forwardedRef={ref}
-          zoomingComponent={<ScatterPlot />}
-          {...props}
-        />
-      )
-    })
+    return (
+      <VXZoom
+        constrain={this.constrain}
+        zoomingComponent={<ScatterPlot />}
+        {...props}
+      />
+    )
   }
 }
 

@@ -1,4 +1,5 @@
 import { scaleLinear } from '@vx/scale'
+import * as d3 from 'd3'
 
 export function getDataExtent(data) {
   return {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef }  from 'react'
 import PropTypes from 'prop-types'
 import { zip } from 'lodash'
 import { Group } from '@vx/group'
@@ -75,7 +75,6 @@ function ScatterPlot(props) {
   return (
     <Chart
       height={parentHeight}
-      ref={ref}
       width={parentWidth}
     >
       <Background fill={background} />

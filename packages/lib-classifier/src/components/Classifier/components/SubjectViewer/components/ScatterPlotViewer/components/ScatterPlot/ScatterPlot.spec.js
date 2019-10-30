@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import { Group } from '@vx/group'
 import { Circle } from '@vx/shape'
