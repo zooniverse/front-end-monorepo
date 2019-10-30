@@ -1,17 +1,15 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { filter, skip } from 'rxjs/operators'
+import { filter, skip, skipUntil } from 'rxjs/operators'
 
 import Mark from './Mark'
 
-const Line = types
-  .model('LineStore', {
-    coordinatesArray: types.maybeNull(
-      types.array(types.model({
-        x: types.number,
-        y: types.number
-      }))
-    )
+const LineModel = types
+  .model('LineModel', {
+    coordinatesArray: types.array(types.model({
+      x: types.number,
+      y: types.number
+    }))
   })
   .views(self => ({
     get coordinates () {
@@ -59,9 +57,14 @@ const Line = types
 
     function setCoordinatesSubscription () {
       if (self.coordinatesSubscription === null) {
-        self.coordinatesSubscription = getRoot(self).drawing.coordinateStream.subscribe(event => {
-          self.setCoordinates(event)
-        })
+        const pointerDownStream = getRoot(self).drawing.eventStream.pipe(
+          filter(event => event.type === 'pointerdown')
+        )
+        self.coordinatesSubscription = getRoot(self).drawing.eventStream
+          .pipe(skipUntil(pointerDownStream))
+          .subscribe(event => {
+            self.setCoordinates(event)
+          })
       }
     }
 
@@ -73,7 +76,7 @@ const Line = types
 
     function setStopSubscription () {
       if (self.stopSubscription === null) {
-        const pointerUpStream = getRoot(self).drawing.coordinateStream.pipe(
+        const pointerUpStream = getRoot(self).drawing.eventStream.pipe(
           filter(event => event.type === 'pointerup'),
           skip(1)
         )
@@ -92,6 +95,6 @@ const Line = types
     }
   })
 
-const LineStore = types.compose('LineStore', Mark, Line)
+const Line = types.compose('Line', Mark, LineModel)
 
-export default LineStore
+export default Line

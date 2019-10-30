@@ -1,17 +1,15 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { filter } from 'rxjs/operators'
+import { filter, skipUntil } from 'rxjs/operators'
 
 import Mark from './Mark'
 
-const Point = types
-  .model('PointStore', {
-    coordinatesArray: types.maybeNull(
-      types.array(types.model({
-        x: types.number,
-        y: types.number
-      }))
-    )
+const PointModel = types
+  .model('PointModel', {
+    coordinatesArray: types.array(types.model({
+      x: types.number,
+      y: types.number
+    }))
   })
   .views(self => ({
     get coordinates () {
@@ -47,9 +45,14 @@ const Point = types
 
     function setCoordinatesSubscription () {
       if (self.coordinatesSubscription === null) {
-        self.coordinatesSubscription = getRoot(self).drawing.coordinateStream.subscribe(event => {
-          self.setCoordinates(event)
-        })
+        const pointerDownStream = getRoot(self).drawing.eventStream.pipe(
+          filter(event => event.type === 'pointerdown')
+        )
+        self.coordinatesSubscription = getRoot(self).drawing.eventStream
+          .pipe(skipUntil(pointerDownStream))
+          .subscribe(event => {
+            self.setCoordinates(event)
+          })
       }
     }
 
@@ -61,7 +64,7 @@ const Point = types
 
     function setStopSubscription () {
       if (self.stopSubscription === null) {
-        const pointerUpStream = getRoot(self).drawing.coordinateStream.pipe(
+        const pointerUpStream = getRoot(self).drawing.eventStream.pipe(
           filter(event => event.type === 'pointerup')
         )
         self.stopSubscription = pointerUpStream.subscribe(event => {
@@ -79,6 +82,6 @@ const Point = types
     }
   })
 
-const PointStore = types.compose('PointStore', Mark, Point)
+const Point = types.compose('Point', Mark, PointModel)
 
-export default PointStore
+export default Point

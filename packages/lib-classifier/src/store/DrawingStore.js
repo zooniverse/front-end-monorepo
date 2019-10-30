@@ -4,15 +4,15 @@ import { autorun } from 'mobx'
 import { Subject } from 'rxjs'
 import { filter, map, skipUntil } from 'rxjs/operators'
 
-import { LineStore, PointStore } from './markings'
+import { Line, Point } from './markings'
 
-const markStores = {
-  line: LineStore,
-  point: PointStore
+const markModels = {
+  line: Line,
+  point: Point
 }
 
-function getMarkStore (toolType) {
-  return markStores[toolType] || null
+function getMarkModel (toolType) {
+  return markModels[toolType] || null
 }
 
 const DrawingStore = types
@@ -21,19 +21,19 @@ const DrawingStore = types
     activeMark: types.safeReference(types.union({
       dispatcher: (snapshot) => {
         const snapshotType = getType(snapshot)
-        if (snapshotType.name === 'LineStore') return LineStore
-        if (snapshotType.name === 'PointStore') return PointStore
+        if (snapshotType.name === 'Line') return Line
+        if (snapshotType.name === 'Point') return Point
         return undefined
       }
-    }, LineStore, PointStore)),
+    }, Line, Point)),
     marks: types.map(types.union({
       dispatcher: (snapshot) => {
         const snapshotType = getType(snapshot)
-        if (snapshotType.name === 'LineStore') return LineStore
-        if (snapshotType.name === 'PointStore') return PointStore
+        if (snapshotType.name === 'Line') return Line
+        if (snapshotType.name === 'Point') return Point
         return undefined
       }
-    }, LineStore, PointStore))
+    }, Line, Point))
   })
   .views(self => ({
     get activeDrawingTask () {
@@ -99,12 +99,12 @@ const DrawingStore = types
     }
 
     function createMark () {
-      const MarkStore = getMarkStore(self.activeDrawingTask.tools[self.activeDrawingToolIndex].type)
+      const MarkModel = getMarkModel(self.activeDrawingTask.tools[self.activeDrawingToolIndex].type)
       // TODO add error/null handling ^
 
       const tempId = cuid()
 
-      const newMark = MarkStore.create({
+      const newMark = MarkModel.create({
         id: tempId,
         toolIndex: self.activeDrawingToolIndex
       })
