@@ -70,6 +70,7 @@
     "@zooniverse/react-components": "~0.7.1",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.0.6",
+    "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.10.0",

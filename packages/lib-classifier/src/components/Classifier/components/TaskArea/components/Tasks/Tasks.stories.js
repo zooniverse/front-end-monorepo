@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import React from 'react'
 import sinon from 'sinon'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import { Provider } from "mobx-react"
 
 import { Tasks } from './Tasks'
@@ -24,8 +24,38 @@ const mockStore = {
   }
 }
 
+function MockTask({ dark, isThereTaskHelp, subjectReadyState, step, store, tasks, zooTheme}) {
+  const background = dark ?
+    zooTheme.global.colors['dark-1'] :
+    zooTheme.global.colors['light-1']
+  return (
+    <Provider classifierStore={store}>
+      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
+        <Box
+          background={background}
+          pad='1em'
+          width='380px'
+        >
+          <Tasks
+            isThereTaskHelp={isThereTaskHelp}
+            loadingState={asyncStates.success}
+            step={step}
+            subjectReadyState={subjectReadyState}
+            tasks={tasks}
+          />
+        </Box>
+      </Grommet>
+    </Provider>
+  )
+}
+
 storiesOf('Tasks', module)
 .addDecorator(withKnobs)
+.addParameters({
+  viewport: {
+    defaultViewport: 'responsive'
+  }
+})
 .add('loading', function () {
   return (
     <Provider classifierStore={mockStore}>
@@ -51,6 +81,7 @@ storiesOf('Tasks', module)
   }]
   const dark = boolean('Dark theme', false)
   const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+  const isThereTaskHelp = boolean('Enable task help', true)
   const store = Object.assign({}, mockStore, {
     workflows: {
       loadingState: asyncStates.success
@@ -63,18 +94,16 @@ storiesOf('Tasks', module)
     }
   })
   return (
-    <Provider classifierStore={store}>
-      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
-        <Tasks
-          isThereTaskHelp={true}
-          loadingState={asyncStates.success}
-          step={step}
-          subjectReadyState={subjectReadyState}
-          tasks={tasks}
-          theme={dark ? 'dark' : 'light'}
-        />
-      </Grommet>
-    </Provider>
+    <MockTask
+      dark={dark}
+      isThereTaskHelp={isThereTaskHelp}
+      loadingState={asyncStates.success}
+      step={step}
+      store={store}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+      zooTheme={zooTheme}
+    />
   )
 })
 .add('multiple tasks', function () {
@@ -103,6 +132,7 @@ storiesOf('Tasks', module)
   ]
   const dark = boolean('Dark theme', false)
   const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+  const isThereTaskHelp = boolean('Enable task help', true)
   const store = Object.assign({}, mockStore, {
     workflows: {
       loadingState: asyncStates.success
@@ -115,17 +145,59 @@ storiesOf('Tasks', module)
     }
   })
   return (
-    <Provider classifierStore={store}>
-      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
-        <Tasks
-          isThereTaskHelp={true}
-          loadingState={asyncStates.success}
-          step={step}
-          subjectReadyState={subjectReadyState}
-          tasks={tasks}
-          theme={dark ? 'dark' : 'light'}
-        />
-      </Grommet>
-    </Provider>
+    <MockTask
+      dark={dark}
+      isThereTaskHelp={isThereTaskHelp}
+      loadingState={asyncStates.success}
+      step={step}
+      store={store}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+      zooTheme={zooTheme}
+    />
+  )
+})
+.add('text', function () {
+  const step = null
+  const tasks = [
+    {
+      annotation: { task: 'T0', value: '' },
+      help: 'Type something into the text box.',
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion'],
+      type: 'text',
+      updateAnnotation: sinon.stub()
+    }
+  ]
+  const dark = boolean('Dark theme', false)
+  const loadingState = select('Subject loading', asyncStates, asyncStates.success)
+  const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+  const isThereTaskHelp = boolean('Enable task help', true)
+  const store = Object.assign({}, mockStore, {
+    subjectViewer: {
+      loadingState
+    },
+    workflows: {
+      loadingState: asyncStates.success
+    },
+    workflowSteps: {
+      activeStepTasks: tasks,
+      isThereANextStep: () => false,
+      isThereAPreviousStep: () => false,
+      isThereTaskHelp: true
+    }
+  })
+  return (
+    <MockTask
+      dark={dark}
+      isThereTaskHelp={isThereTaskHelp}
+      loadingState={asyncStates.success}
+      step={step}
+      store={store}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+      zooTheme={zooTheme}
+    />
   )
 })

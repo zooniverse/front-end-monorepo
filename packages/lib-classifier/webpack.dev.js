@@ -27,6 +27,12 @@ module.exports = {
     './dev/index.js'
   ],
   mode: 'development',
+  resolve: {
+    alias: {
+      '@plugins': path.resolve(__dirname, 'src/plugins'),
+      '@store': path.resolve(__dirname, 'src/store')
+    }
+  },
   module: {
     rules: [
       {
