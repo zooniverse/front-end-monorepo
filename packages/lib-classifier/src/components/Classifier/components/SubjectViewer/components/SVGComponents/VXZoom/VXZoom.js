@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
-import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
+import ZoomEventLayer from '../ZoomEventLayer'
 
 class VXZoom extends PureComponent {
   constructor(props) {
@@ -99,7 +99,6 @@ class VXZoom extends PureComponent {
         width={parentWidth}
       >
         {zoom => {
-          {/* console.log('zoom', zoom) */ }
           this.zoom = zoom
           return (
             <ZoomingComponent
@@ -139,6 +138,7 @@ VXZoom.defaultProps = {
 }
 
 VXZoom.propTypes = {
+  constrain: PropTypes.func,
   data: PropTypes.object.isRequired,
   panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
@@ -152,7 +152,7 @@ VXZoom.propTypes = {
     zoomOutValue: PropTypes.number
   }),
   zooming: PropTypes.bool,
-  zoomingComponent: PropTypes.node.isRequired
+  zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 }
 
 export default VXZoom

@@ -6,7 +6,7 @@ import {
   data as mockData,
 } from '../../ScatterPlotViewer/helpers/mockData'
 import VXZoom from './VXZoom'
-import ZoomEventLayer from '../SVGComponents/ZoomEventLayer'
+import ZoomEventLayer from '../ZoomEventLayer'
 
 function StubComponent({ children }) {
   return (
@@ -27,7 +27,7 @@ const zoomInEventMock = {
   preventDefault: sinon.spy()
 }
 
-describe.only('Component > VXZoom', function () {
+describe('Component > VXZoom', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <VXZoom
@@ -499,24 +499,34 @@ describe.only('Component > VXZoom', function () {
         const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        // multiplying the scale 1.2 nine times is 5.159780352
-        let previousTransformMatrix
+        // multiplying the scale 1.2 nine times is 5.159780352,
+        // so the eighth double click event is the last one before the max zoom boundary is hit.
+        let eightTimesZoomedMatrix
         for (let i = 0; i < 10; i++) {
           wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
-          if (i === 8) {
-            previousTransformMatrix = wrapper.instance().zoom.transformMatrix
+          if (i === 8) { // eighth event
+            eightTimesZoomedMatrix = wrapper.instance().zoom.transformMatrix
           }
         }
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
 
         expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
-        expect(zoomedTransformMatrix.scaleX).to.equal(zoomConfiguration.maxZoom)
-        expect(zoomedTransformMatrix.scaleY).to.equal(zoomConfiguration.maxZoom)
-        expect(zoomedTransformMatrix.translateX).to.equal(previousTransformMatrix.translateX)
-        expect(zoomedTransformMatrix.translateY).to.equal(previousTransformMatrix.translateY)
+        expect(zoomedTransformMatrix.scaleX).to.be.below(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.scaleY).to.be.below(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.scaleX).to.equal(eightTimesZoomedMatrix.scaleX)
+        expect(zoomedTransformMatrix.scaleY).to.equal(eightTimesZoomedMatrix.scaleY)
+        expect(zoomedTransformMatrix.translateX).to.equal(eightTimesZoomedMatrix.translateX)
+        expect(zoomedTransformMatrix.translateY).to.equal(eightTimesZoomedMatrix.translateY)
       })
 
       it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
+        const zoomConfiguration = {
+          direction: 'both',
+          minZoom: 1,
+          maxZoom: 5,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
         const wrapper = mount(
           <VXZoom
             data={mockData}
@@ -524,6 +534,7 @@ describe.only('Component > VXZoom', function () {
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
+            zoomConfiguration={zoomConfiguration}
             zooming={true}
           />
         )
@@ -532,21 +543,32 @@ describe.only('Component > VXZoom', function () {
 
         // zoom in first
         wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
+        wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
         const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
 
         // zoom out by mouse wheel
-        // 1 * 1.2 * 0.8 is 0.96
+        // 1 * 1.2 * 1.2 * 0.8 is 1.152 then * 0.8 is 0.9216
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy()
         })
-        const zoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const firstZoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
+        wrapper.find(ZoomEventLayer).simulate('wheel', {
+          clientX: 50,
+          clientY: 50,
+          deltaY: 10,
+          preventDefault: sinon.spy()
+        })
+        const secondZoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
 
-        expect(zoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
-        expect(zoomedOutTransformMatrix).to.deep.equal(initialTransformMatrix)
+        expect(secondZoomedOutTransformMatrix.scaleX).to.be.above(zoomConfiguration.minZoom)
+        expect(secondZoomedOutTransformMatrix.scaleY).to.be.above(zoomConfiguration.minZoom)
+        expect(secondZoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
+        // The default vx behavior is to return the previous transform matrix
+        expect(secondZoomedOutTransformMatrix).to.deep.equal(firstZoomedOutTransformMatrix)
       })
     })
   })

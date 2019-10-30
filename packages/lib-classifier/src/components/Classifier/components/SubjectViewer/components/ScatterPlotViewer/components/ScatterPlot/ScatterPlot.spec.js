@@ -3,7 +3,7 @@ import React from 'react'
 import { Group } from '@vx/group'
 import { Circle } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
-import Axes from '../components/Axes'
+import Axes from '../Axes'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import { ScatterPlot } from './ScatterPlot'
@@ -14,8 +14,8 @@ import {
   parentWidth,
   parentHeight,
   transformMatrix
-} from './helpers/mockData'
-import { left, top } from './helpers/utils'
+} from '../../helpers/mockData'
+import { left, top } from '../../helpers/utils'
 
 describe('Component > ScatterPlot', function () {
   describe('render', function () {
