@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import FieldGuideButton, { ButtonLabel } from './FieldGuideButton'
-import { FieldGuideFactory, FieldGuideMediumFactory } from '../../../../../../../test/factories'
+import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const items = [

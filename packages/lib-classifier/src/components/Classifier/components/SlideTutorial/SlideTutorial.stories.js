@@ -5,7 +5,7 @@ import { Box, Grommet } from 'grommet'
 import SlideTutorial from './SlideTutorial'
 // import readme from './README.md'
 import backgrounds from '../../../../../.storybook/lib/backgrounds'
-import { TutorialMediumFactory } from '../../../../../test/factories'
+import { TutorialMediumFactory } from '@test/factories'
 
 // TODO: add readme
 const config = {

@@ -4,8 +4,8 @@ import {
   SingleChoiceTaskFactory,
   ProjectFactory,
   WorkflowFactory
-} from '../../test/factories'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+} from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 const workflow = WorkflowFactory.build({
   tasks: { T1: SingleChoiceTaskFactory.build() },

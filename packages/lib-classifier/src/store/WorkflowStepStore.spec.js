@@ -6,9 +6,9 @@ import {
   ProjectFactory,
   SingleChoiceTaskFactory,
   WorkflowFactory
-} from '../../test/factories'
+} from '@test/factories'
 import { Factory } from 'rosie'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 function setupStores (clientStub, project, workflow) {
   const store = RootStore.create({

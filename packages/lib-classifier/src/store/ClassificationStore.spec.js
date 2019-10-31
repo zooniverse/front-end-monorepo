@@ -9,8 +9,8 @@ import {
   SingleChoiceAnnotationFactory,
   SingleChoiceTaskFactory,
   WorkflowFactory
-} from '../../test/factories'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+} from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
 import { SingleChoiceAnnotation } from './annotations'
 

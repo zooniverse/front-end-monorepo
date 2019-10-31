@@ -10,8 +10,8 @@ import {
   WorkflowFactory,
   UPPFactory,
   UserFactory
-} from '../../test/factories'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+} from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 const seenMock = new Date().toISOString()
 const token = '1235'
