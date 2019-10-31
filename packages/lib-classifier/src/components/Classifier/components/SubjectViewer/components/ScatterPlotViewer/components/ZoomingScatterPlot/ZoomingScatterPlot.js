@@ -1,9 +1,10 @@
-import React, { Component, forwardRef } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { withParentSize } from '@vx/responsive'
 import VXZoom from '../../../SVGComponents/VXZoom'
 import { getDataExtent, transformXScale, transformYScale } from '../../helpers/utils'
 import { PAN_DISTANCE } from '../../helpers/constants'
-import { ScatterPlot } from '../ScatterPlot'
+import ScatterPlot from '../ScatterPlot'
 
 class ZoomingScatterPlot extends Component {
   constructor(props) {
@@ -185,9 +186,57 @@ class ZoomingScatterPlot extends Component {
       <VXZoom
         constrain={this.constrain}
         zoomingComponent={<ScatterPlot />}
-        {...props}
+        {...this.props}
       />
     )
+  }
+}
+
+ZoomingScatterPlot.propTypes = {
+  margin: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
+  padding: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
+  parentHeight: PropTypes.number.isRequired,
+  parentWidth: PropTypes.number.isRequired,
+  tickDirection: PropTypes.oneOf(['inner', 'outer']),
+  zoomConfiguration: PropTypes.shape({
+    direction: PropTypes.oneOf(['both', 'x', 'y']),
+    minZoom: PropTypes.number,
+    maxZoom: PropTypes.number,
+    zoomInValue: PropTypes.number,
+    zoomOutValue: PropTypes.number
+  })
+}
+
+ZoomingScatterPlot.defaultProps = {
+  margin: {
+    bottom: 60,
+    left: 60,
+    right: 10,
+    top: 10
+  },
+  padding: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0
+  },
+  tickDirection: 'outer',
+  zoomConfiguration: {
+    direction: 'both',
+    minZoom: 1,
+    maxZoom: 10,
+    zoomInValue: 1.2,
+    zoomOutValue: 0.8
   }
 }
 

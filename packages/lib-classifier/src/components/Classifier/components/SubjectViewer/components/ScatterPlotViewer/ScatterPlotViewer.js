@@ -14,7 +14,7 @@ const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, re
     )
   }
   return (
-    <ScatterPlot />
+    <ScatterPlot forwardedRef={ref} />
   )
 })
 
