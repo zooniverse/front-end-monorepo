@@ -1,6 +1,7 @@
 # ADR 15: Drawing tools API
 
-June 19, 2019
+Created: June 19, 2019
+Updated: October 31, 2019
 
 ## Context
 
@@ -37,9 +38,15 @@ What we do want to do:
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
 - This is the first time rx.js will be used in our code and there will be a learning curve.
 - The current feedback code may need refactoring as it is written only for the D3.js interactive plot subject viewers.
+
+### rx.js use
+
+We had an early prototype at the start of this proposal using rx.js. This library is an implementation of the proposed observable specification for javascript and has an API for use with browser DOM events. After several months of experimentation, we have decided that we will proceed with implementing the drawing tools just with the browser pointer events API and potentially integrate rx.js at a later date as an enhancement.
+
+In retrospect, trying to incorporate rx.js increased the complexity for implementation and for learning and contributed to delays. For future experiments, we should be sure to structure how we'll go about the experiment including evaluation milestones for its use from the start. 
