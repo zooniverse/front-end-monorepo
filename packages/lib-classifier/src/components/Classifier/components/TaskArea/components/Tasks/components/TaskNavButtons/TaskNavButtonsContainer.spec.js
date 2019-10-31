@@ -8,7 +8,7 @@ import ClassificationStore from '../../../../../../../../store/ClassificationSto
 import SingleChoiceTask from '../../../../../../../../store/tasks/SingleChoiceTask'
 import MultipleChoiceTask from '../../../../../../../../store/tasks/MultipleChoiceTask'
 import Step from '../../../../../../../../store/Step'
-import { SubjectFactory, WorkflowFactory, ProjectFactory } from '../../../../../../../../../test/factories'
+import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
 
 const steps = observable.map([
   Step.create({ stepKey: 'S0', taskKeys: ['T0'] }),

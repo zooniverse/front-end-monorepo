@@ -9,8 +9,8 @@ import {
   TutorialFactory,
   UPPFactory,
   UserFactory
-} from '../../test/factories'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+} from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 const project = ProjectFactory.build()
 const upp = UPPFactory.build()

@@ -7,7 +7,7 @@ import sinon from 'sinon'
 
 import { FieldGuideItem } from './FieldGuideItem'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
-import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
+import { FieldGuideMediumFactory } from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const attachedMedia = observable.map().set(medium.id, medium)

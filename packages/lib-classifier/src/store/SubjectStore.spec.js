@@ -1,9 +1,9 @@
 import sinon from 'sinon'
 import RootStore from './RootStore'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
-import { ProjectFactory, SubjectFactory, WorkflowFactory } from '../../test/factories'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import { Factory } from 'rosie'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Model > SubjectStore', function () {
   const longListSubjects = Factory.buildList('subject', 10)
