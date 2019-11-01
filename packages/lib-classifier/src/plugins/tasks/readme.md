@@ -20,6 +20,12 @@ The registry is a simple map of unique task types (`single`, `multiple`, `text`,
   import { default as TaskComponent } from './components/MyNewTask'
   import { default as TaskModel } from './models/MyNewTask'
   import { default as AnnotationModel } from './models/MyNewAnnotation'
+  
+  export default {
+    TaskComponent,
+    TaskModel,
+    AnnotationModel
+  }
   ```
   - import your task into `tasks/index.js` and add it to the list of registered tasks.
   ```js
