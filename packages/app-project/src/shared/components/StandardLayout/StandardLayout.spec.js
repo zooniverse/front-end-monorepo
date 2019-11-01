@@ -1,13 +1,13 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import WorkflowSelector from './WorkflowSelector'
+import StandardLayout from './StandardLayout'
 
 let wrapper
 
-describe('Component > Hero > WorkflowSelector', function () {
+describe('Component > StandardLayout', function () {
   before(function () {
-    wrapper = shallow(<WorkflowSelector />)
+    wrapper = shallow(<StandardLayout />)
   })
 
   it('should render without crashing', function () {

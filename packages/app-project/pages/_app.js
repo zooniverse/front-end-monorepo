@@ -11,9 +11,6 @@ import AuthModal from '@components/AuthModal'
 import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
-import ProjectAnnouncement from '@components/ProjectAnnouncement'
-import ProjectHeader from '@components/ProjectHeader'
-import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
 import { initializeLogger, logReactError } from '@helpers/logger'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
@@ -86,9 +83,6 @@ export default class MyApp extends App {
           <MediaContextProvider>
             <GrommetWrapper>
               <Head host={pageProps.host} />
-              <ZooHeaderWrapper />
-              <ProjectHeader />
-              <ProjectAnnouncement />
               <Box background={{
                 dark: 'dark-1',
                 light: 'light-1'
