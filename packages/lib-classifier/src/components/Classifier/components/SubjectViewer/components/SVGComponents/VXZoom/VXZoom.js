@@ -102,6 +102,7 @@ class VXZoom extends PureComponent {
           this.zoom = zoom
           return (
             <ZoomingComponent
+              initialTransformMatrix={zoom.initialTransformMatrix}
               transformMatrix={zoom.transformMatrix}
               {...this.props}
             >

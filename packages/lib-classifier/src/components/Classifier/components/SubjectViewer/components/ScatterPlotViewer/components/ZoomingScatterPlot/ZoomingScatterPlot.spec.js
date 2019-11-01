@@ -4,7 +4,6 @@ import sinon from 'sinon'
 import ZoomingScatterPlot from './ZoomingScatterPlot'
 import ScatterPlot from '../ScatterPlot'
 import ZoomEventLayer from '../../../SVGComponents/ZoomEventLayer'
-import VXZoom from '../../../SVGComponents/VXZoom'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
   data as mockData,
@@ -19,7 +18,14 @@ const zoomInEventMock = {
   preventDefault: sinon.spy()
 }
 
-describe('Component > ZoomingScatterPlot', function () {
+const zoomOutEventMock = {
+  clientX: 50,
+  clientY: 50,
+  deltaY: 10,
+  preventDefault: sinon.spy()
+}
+
+describe.only('Component > ZoomingScatterPlot', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <ZoomingScatterPlot
@@ -44,12 +50,6 @@ describe('Component > ZoomingScatterPlot', function () {
   })
 
   describe('zooming', function () {
-    let zoomCallback
-
-    function setZoomCallback(callback) {
-      zoomCallback = sinon.stub().callsFake(callback)
-    }
-
     function testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction }) {
       if (direction === 'both') {
         expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
@@ -75,65 +75,36 @@ describe('Component > ZoomingScatterPlot', function () {
       const zoomValue = (-eventMock.deltaY > 0) ? zoomInValue : zoomOutValue
 
       wrapper.find(ZoomEventLayer).simulate(type, eventMock)
-      const currentTransformMatrix = wrapper.instance().zoom.transformMatrix
+      const currentTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
       testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction })
     }
 
-    function testZoomCallback({ wrapper, zoomType }) {
-      const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-      const { direction, zoomInValue, zoomOutValue } = wrapper.props().zoomConfiguration
-      const zoomValues = {
-        'zoomin': zoomInValue,
-        'zoomout': zoomOutValue,
-        'zoomto': 1
-      }
-      const zoomValue = zoomValues[zoomType]
-
-      if (zoomType === 'zoomin') {
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-      } else {
-        // currently zoomed in to test zoom out and reset
-        expect(transformMatrix).to.not.deep.equal(initialTransformMatrix)
-      }
-
-      const previousTransformMatrix = (zoomType !== 'zoomto') ? transformMatrix : initialTransformMatrix
-      zoomCallback(zoomType)
-      const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
-      testTransformations({
-        currentTransformMatrix: zoomedTransformMatrix,
-        previousTransformMatrix,
-        zoomValue,
-        direction
-      })
-      zoomCallback.resetHistory()
-    }
-
     describe('with the default configuration of allowing zoom in both directions', function () {
-      it('should scale both axes in on mouse wheel', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should scale both axes in', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            {...zoomingScatterPlotWrapper.props()}
           />
         )
         
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
 
-        testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        testTransformations({
+          currentTransformMatrix: zoomedInTransformMatrix,
+          previousTransformMatrix: initialTransformMatrix,
+          zoomValue: zoomConfiguration.zoomInValue,
+          direction: 'both'
+        })
       })
 
-      it('should scale both axes out on mouse wheel', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should scale both axes out', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
@@ -141,40 +112,28 @@ describe('Component > ZoomingScatterPlot', function () {
             theme={zooTheme}
           />
         )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        const zoomInEvent = {
-          clientX: 50,
-          clientY: 50,
-          deltaY: -1,
-          preventDefault: sinon.spy()
-        }
+        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        const zoomOutEvent = {
-          clientX: 50,
-          clientY: 50,
-          deltaY: 10,
-          preventDefault: sinon.spy()
-        }
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
+        testTransformations({
+          currentTransformMatrix: zoomedOutTransformMatrix,
+          previousTransformMatrix: zoomedInTransformMatrix,
+          zoomValue: zoomConfiguration.zoomOutValue,
+          direction: 'both'
+        })
       })
 
-      it('should scale both axes on double click', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should reset the scale when zooming out beyond the minimum scale', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
@@ -182,431 +141,215 @@ describe('Component > ZoomingScatterPlot', function () {
             theme={zooTheme}
           />
         )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        const { initialTransformMatrix } = wrapper.find(ScatterPlot).props()
 
-        testEvent({ wrapper, type: 'dblclick', previousTransformMatrix: initialTransformMatrix })
-      })
-
-      describe('when zoom callback is called', function () {
-        it('should scale both axes when zooming in', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              zoomingComponent={ScatterPlot}
-              setOnZoom={setZoomCallback}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-          testZoomCallback({ wrapper, zoomType: 'zoomin' })
-        })
-
-        it('should scale both axes when zooming out', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              zoomingComponent={ScatterPlot}
-              setOnZoom={setZoomCallback}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-          // zoom in first
-          zoomCallback('zoomin')
-          zoomCallback('zoomin')
-
-          testZoomCallback({ wrapper, zoomType: 'zoomout' })
-        })
-
-        it('should scale both axes when resetting zoom', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              zoomingComponent={ScatterPlot}
-              setOnZoom={setZoomCallback}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-
-          // zooming in first
-          zoomCallback('zoomin')
-          testZoomCallback({ wrapper, zoomType: 'zoomto' })
-        })
+        // zooming in first
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        expect(zoomedInTransformMatrix.scaleX).to.not.equal(initialTransformMatrix.scaleX)
+        expect(zoomedInTransformMatrix.scaleY).to.not.equal(initialTransformMatrix.scaleY)
+        
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
+        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
       })
     })
 
     describe('when only zooming the x-axis', function () {
-      const zoomConfiguration = {
-        direction: 'x',
-        minZoom: 1,
-        maxZoom: 10,
-        zoomInValue: 1.2,
-        zoomOutValue: 0.8
-      }
-
-      it('should scale the x-axis in on mouse wheel', function () {
-        const zoomingScatterPlotWrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
+      let zoomConfig
+      before(function () {
+        zoomConfig = { 
+          direction: 'x',
+          minZoom: 1,
+          maxZoom: 10,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
       })
 
-      it('should scale the x-axis out on mouse wheel', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should scale the x-axis in', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
+            zoomConfiguration={zoomConfig}
           />
         )
 
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        const zoomInEvent = {
-          clientX: 50,
-          clientY: 50,
-          deltaY: -1,
-          preventDefault: sinon.spy()
-        }
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+
+        testTransformations({
+          currentTransformMatrix: zoomedInTransformMatrix,
+          previousTransformMatrix: initialTransformMatrix,
+          zoomValue: zoomConfiguration.zoomInValue,
+          direction: 'x'
+        })
+      })
+
+      it('should scale the x-axis out', function () {
+        const wrapper = mount(
+          <ZoomingScatterPlot
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            theme={zooTheme}
+            zoomConfiguration={zoomConfig}
+          />
+        )
+
+        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        const zoomOutEvent = {
-          clientX: 50,
-          clientY: 50,
-          deltaY: 10,
-          preventDefault: sinon.spy()
-        }
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
+        testTransformations({
+          currentTransformMatrix: zoomedOutTransformMatrix,
+          previousTransformMatrix: zoomedInTransformMatrix,
+          zoomValue: zoomConfiguration.zoomOutValue,
+          direction: 'x'
+        })
       })
 
-      it('should scale the x-axis on double click', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should reset the x-scale when zooming out beyond the minimum', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
+            zoomConfiguration={zoomConfig}
           />
         )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        testEvent({ wrapper, type: 'dblclick', previousTransformMatrix: initialTransformMatrix })
-      })
+        const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
+        // zooming in first
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        expect(zoomedInTransformMatrix.scaleX).to.not.equal(initialTransformMatrix.scaleX)
+        expect(zoomedInTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
 
-      describe('when the zoom callback is called', function () {
-        it('should scale the x-axis when zooming in', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={ScatterPlot}
-              zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
+        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
 
-          testZoomCallback({ wrapper, zoomType: 'zoomin' })
-        })
-
-        it('should scale the x-axis when zooming out', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={ScatterPlot}
-              zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-          // zoom in first
-          zoomCallback('zoomin')
-          zoomCallback('zoomin')
-
-          testZoomCallback({ wrapper, zoomType: 'zoomout' })
-        })
-
-        it('should scale the x-axis when resetting zoom', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={ScatterPlot}
-              zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-
-          // zooming in first
-          zoomCallback('zoomin')
-          testZoomCallback({ wrapper, zoomType: 'zoomto' })
+        testTransformations({
+          currentTransformMatrix: zoomedInTransformMatrix,
+          previousTransformMatrix: zoomedOutTransformMatrix,
+          zoomValue: zoomConfiguration.zoomInValue,
+          direction: 'x'
         })
       })
     })
 
     describe('when only zooming the y-axis', function () {
-      const zoomConfiguration = {
-        direction: 'y',
-        minZoom: 1,
-        maxZoom: 10,
-        zoomInValue: 1.2,
-        zoomOutValue: 0.8
-      }
-
-      it('should scale the y-axis in on mouse wheel', function () {
-        const zoomingScatterPlotWrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
+      let zoomConfig
+      before(function () {
+        zoomConfig = {
+          direction: 'y',
+          minZoom: 1,
+          maxZoom: 10,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
       })
 
-      it('should scale the y-axis out on mouse wheel', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should scale the y-axis in', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
+            zoomConfiguration={zoomConfig}
           />
         )
 
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        const zoomInEvent = {
-          clientX: 50,
-          clientY: 50,
-          deltaY: -1,
-          preventDefault: sinon.spy()
-        }
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+
+        testTransformations({
+          currentTransformMatrix: zoomedInTransformMatrix,
+          previousTransformMatrix: initialTransformMatrix,
+          zoomValue: zoomConfiguration.zoomInValue,
+          direction: 'y'
+        })
+      })
+
+      it('should scale the y-axis out', function () {
+        const wrapper = mount(
+          <ZoomingScatterPlot
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            theme={zooTheme}
+            zoomConfiguration={zoomConfig}
+          />
+        )
+
+        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        const zoomOutEvent = {
-          clientX: 50,
-          clientY: 50,
-          deltaY: 10,
-          preventDefault: sinon.spy()
-        }
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
+        testTransformations({
+          currentTransformMatrix: zoomedOutTransformMatrix,
+          previousTransformMatrix: zoomedInTransformMatrix,
+          zoomValue: zoomConfiguration.zoomOutValue,
+          direction: 'y'
+        })
       })
 
-      it('should scale the y-axis on double click', function () {
-        const zoomingScatterPlotWrapper = mount(
+      it('should reset the y-scale when zooming out beyond the minimum', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
+            zoomConfiguration={zoomConfig}
           />
         )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        testEvent({ wrapper, type: 'dblclick', previousTransformMatrix: initialTransformMatrix })
-      })
+        const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
+        // zooming in first
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        expect(zoomedInTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
+        expect(zoomedInTransformMatrix.scaleY).to.not.equal(initialTransformMatrix.scaleY)
 
-      describe('when the zoom callback is called', function () {
-        it('should scale the y-axis when zooming in', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={ScatterPlot}
-              zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
+        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
+        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
 
-          testZoomCallback({ wrapper, zoomType: 'zoomin' })
-        })
-
-        it('should scale the y-axis when zooming out', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={ScatterPlot}
-              zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-          // zoom in first
-          zoomCallback('zoomin')
-          zoomCallback('zoomin')
-
-          testZoomCallback({ wrapper, zoomType: 'zoomout' })
-        })
-
-        it('should scale the y-axis when resetting zoom', function () {
-          const zoomingScatterPlotWrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              setOnZoom={setZoomCallback}
-              zoomingComponent={ScatterPlot}
-              zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
-
-          // zooming in first
-          zoomCallback('zoomin')
-          testZoomCallback({ wrapper, zoomType: 'zoomto' })
+        testTransformations({
+          currentTransformMatrix: zoomedInTransformMatrix,
+          previousTransformMatrix: zoomedOutTransformMatrix,
+          zoomValue: zoomConfiguration.zoomInValue,
+          direction: 'y'
         })
       })
     })
@@ -615,19 +358,12 @@ describe('Component > ZoomingScatterPlot', function () {
   describe('panning', function () {
     describe('when panning is disabled', function () {
       it('should not translate the SVG position', function () {
-        const zoomingScatterPlotWrapper = mount(
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            zoomingComponent={ScatterPlot}
-            {...zoomingScatterPlotWrapper.props()}
           />
         )
 
@@ -638,7 +374,7 @@ describe('Component > ZoomingScatterPlot', function () {
 
         events.forEach((event) => {
           wrapper.find(ZoomEventLayer).simulate(event, eventMock)
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
         })
       })
@@ -647,7 +383,7 @@ describe('Component > ZoomingScatterPlot', function () {
     describe('when panning is enabled', function () {
       describe('with the default configuration allowing pan in both directions', function () {
         it('should translate the SVG position', function () {
-          const zoomingScatterPlotWrapper = mount(
+          const wrapper = mount(
             <ZoomingScatterPlot
               data={mockData}
               parentHeight={height}
@@ -655,16 +391,10 @@ describe('Component > ZoomingScatterPlot', function () {
               theme={zooTheme}
             />
           )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              zoomingComponent={ScatterPlot}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
+
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We zoom in a bit so we don't run into the data boundary constraints
@@ -674,7 +404,7 @@ describe('Component > ZoomingScatterPlot', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
           eventLayer.simulate('mousedown', {
@@ -687,7 +417,7 @@ describe('Component > ZoomingScatterPlot', function () {
           })
           eventLayer.simulate('mouseup')
 
-          const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           console.log(pannedTransformMatrix, zoomedTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           // expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
@@ -705,25 +435,19 @@ describe('Component > ZoomingScatterPlot', function () {
             zoomInValue: 1.2,
             zoomOutValue: 0.8
           }
-          const zoomingScatterPlotWrapper = mount(
+          const wrapper = mount(
             <ZoomingScatterPlot
               data={mockData}
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              zoomingComponent={ScatterPlot}
               zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
             />
           )
+
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
@@ -733,7 +457,7 @@ describe('Component > ZoomingScatterPlot', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
           eventLayer.simulate('mousedown', {
@@ -746,7 +470,7 @@ describe('Component > ZoomingScatterPlot', function () {
           })
           eventLayer.simulate('mouseup')
 
-          const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
@@ -763,26 +487,18 @@ describe('Component > ZoomingScatterPlot', function () {
             zoomInValue: 1.2,
             zoomOutValue: 0.8
           }
-          const zoomingScatterPlotWrapper = mount(
+          const wrapper = shallow(
             <ZoomingScatterPlot
               data={mockData}
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
-            />
-          )
-          const wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              panning={true}
-              zoomingComponent={ScatterPlot}
               zoomConfiguration={zoomConfiguration}
-              {...zoomingScatterPlotWrapper.props()}
             />
           )
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
@@ -792,7 +508,7 @@ describe('Component > ZoomingScatterPlot', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
           eventLayer.simulate('mousedown', {
@@ -805,7 +521,7 @@ describe('Component > ZoomingScatterPlot', function () {
           })
           eventLayer.simulate('mouseup')
 
-          const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX)
@@ -825,24 +541,17 @@ describe('Component > ZoomingScatterPlot', function () {
           zoomInValue: 1.2,
           zoomOutValue: 0.8
         }
-        const zoomingScatterPlotWrapper = mount(
+        const wrapper = shallow(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
-        )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            panning={true}
-            zoomingComponent={ScatterPlot}
             zoomConfiguration={zoomConfiguration}
-            {...zoomingScatterPlotWrapper.props()}
           />
         )
-        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+
+        const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // multiplying the scale 1.2 nine times is 5.159780352
@@ -850,10 +559,10 @@ describe('Component > ZoomingScatterPlot', function () {
         for (let i = 0; i < 10; i++) {
           wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
           if (i === 8) {
-            previousTransformMatrix = wrapper.instance().zoom.transformMatrix
+            previousTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           }
         }
-        const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
         expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
         expect(zoomedTransformMatrix.scaleX).to.equal(zoomConfiguration.maxZoom)
@@ -863,28 +572,22 @@ describe('Component > ZoomingScatterPlot', function () {
       })
 
       it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
-        const zoomingScatterPlotWrapper = mount(
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
+            zoomConfiguration={zoomConfiguration}
           />
         )
-        const wrapper = mount(
-          <VXZoom
-            constrain={zoomingScatterPlotWrapper.instance().constrain}
-            panning={true}
-            zoomingComponent={ScatterPlot}
-            {...zoomingScatterPlotWrapper.props()}
-          />
-        )
-        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+
+        const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zoom in first
         wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
         expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
 
         // zoom out by mouse wheel
@@ -895,7 +598,7 @@ describe('Component > ZoomingScatterPlot', function () {
           deltaY: 10,
           preventDefault: sinon.spy()
         })
-        const zoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
         expect(zoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
         expect(zoomedOutTransformMatrix).to.deep.equal(initialTransformMatrix)
@@ -907,28 +610,24 @@ describe('Component > ZoomingScatterPlot', function () {
         let wrapper, eventLayer, isXAxisOutOfBoundsSpy
         before(function () {
           isXAxisOutOfBoundsSpy = sinon.spy(ZoomingScatterPlot.prototype, 'isXAxisOutOfBounds')
-          const zoomingScatterPlotWrapper = mount(
+        })
+
+        beforeEach(function () {
+          wrapper = shallow(
             <ZoomingScatterPlot
               data={mockData}
               parentHeight={height}
               parentWidth={width}
+              panning={true}
               theme={zooTheme}
             />
           )
-          wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              panning={true}
-              zoomingComponent={ScatterPlot}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
+
           eventLayer = wrapper.find(ZoomEventLayer)
         })
 
         afterEach(function () {
           isXAxisOutOfBoundsSpy.resetHistory()
-          wrapper.instance().zoom.reset()
         })
 
         after(function () {
@@ -936,7 +635,7 @@ describe('Component > ZoomingScatterPlot', function () {
         })
 
         it('should not pan beyond the data extent minimum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           eventLayer.simulate('mousedown', {
@@ -953,7 +652,7 @@ describe('Component > ZoomingScatterPlot', function () {
         })
 
         it('should not pan beyond the data extent maximum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           eventLayer.simulate('mousedown', {
@@ -974,28 +673,24 @@ describe('Component > ZoomingScatterPlot', function () {
         let wrapper, eventLayer, isYAxisOutOfBoundsSpy
         before(function () {
           isYAxisOutOfBoundsSpy = sinon.spy(ZoomingScatterPlot.prototype, 'isYAxisOutOfBounds')
-          const zoomingScatterPlotWrapper = mount(
+        })
+
+        beforeEach(function () {
+          wrapper = shallow(
             <ZoomingScatterPlot
               data={mockData}
+              panning={true}
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
             />
           )
-          wrapper = mount(
-            <VXZoom
-              constrain={zoomingScatterPlotWrapper.instance().constrain}
-              panning={true}
-              zoomingComponent={ScatterPlot}
-              {...zoomingScatterPlotWrapper.props()}
-            />
-          )
+
           eventLayer = wrapper.find(ZoomEventLayer)
         })
 
         afterEach(function () {
           isYAxisOutOfBoundsSpy.resetHistory()
-          wrapper.instance().zoom.reset()
         })
 
         after(function () {
@@ -1003,7 +698,7 @@ describe('Component > ZoomingScatterPlot', function () {
         })
 
         it('should not pan beyond the data extent minimum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           eventLayer.simulate('mousedown', {
@@ -1020,7 +715,7 @@ describe('Component > ZoomingScatterPlot', function () {
         })
 
         it('should not pan beyond the data extent maximum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           eventLayer.simulate('mousedown', {
