@@ -48,8 +48,7 @@ const DrawingStore = types
 
     function createDrawingTaskObserver () {
       const drawingTaskDisposer = autorun(() => {
-        const validDrawingTaskReference = isValidReference(() => getRoot(self).drawing.activeDrawingTask)
-        if (validDrawingTaskReference) {
+        if (self.isDrawingInActiveWorkflowStep) {
           self.createMark()
         }
       }, { name: 'DrawingStore DrawingTask Observer autorun' })
