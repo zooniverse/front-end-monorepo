@@ -18,20 +18,10 @@ const DrawingStore = types
   .model('DrawingStore', {
     activeDrawingToolIndex: types.optional(types.number, 0),
     activeMark: types.safeReference(types.union({
-      dispatcher: (snapshot) => {
-        const snapshotType = getType(snapshot)
-        if (snapshotType.name === 'Line') return Line
-        if (snapshotType.name === 'Point') return Point
-        return undefined
-      }
+      dispatcher: getType
     }, Line, Point)),
     marks: types.map(types.union({
-      dispatcher: (snapshot) => {
-        const snapshotType = getType(snapshot)
-        if (snapshotType.name === 'Line') return Line
-        if (snapshotType.name === 'Point') return Point
-        return undefined
-      }
+      dispatcher: getType
     }, Line, Point))
   })
   .views(self => ({
