@@ -1,6 +1,6 @@
 import { types, getType } from 'mobx-state-tree'
 import Resource from './Resource'
-import taskRegistry from '@plugins/tasks'
+import { annotationModels } from '@plugins/tasks'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
@@ -37,7 +37,7 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
 const Classification = types
   .model('Classification', {
     annotations: types.map(types.union(
-      ...taskRegistry.values('AnnotationModel')
+      ...annotationModels
     )),
     completed: types.optional(types.boolean, false),
     links: types.frozen({

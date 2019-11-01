@@ -2,7 +2,7 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
-import taskRegistry from '@plugins/tasks'
+import taskRegistry, { taskModels } from '@plugins/tasks'
 
 function taskDispatcher (snapshot) {
   return taskRegistry.get(snapshot.type).TaskModel
@@ -10,7 +10,7 @@ function taskDispatcher (snapshot) {
 
 const taskTypes = types.union(
   { dispatcher: taskDispatcher },
-  ...taskRegistry.values('TaskModel')
+  ...taskModels
 )
 
 const WorkflowStepStore = types

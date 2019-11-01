@@ -16,4 +16,10 @@ try {
   console.log(e.message)
 }
 
+const taskModels = taskRegistry.values('TaskModel')
+const annotationModels = taskRegistry.values('AnnotationModel')
 export default taskRegistry
+export {
+  annotationModels,
+  taskModels
+}
