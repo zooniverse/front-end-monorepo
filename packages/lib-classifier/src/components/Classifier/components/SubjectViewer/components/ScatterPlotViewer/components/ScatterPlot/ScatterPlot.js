@@ -1,10 +1,8 @@
-import React, { forwardRef }  from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { zip } from 'lodash'
 import { Group } from '@vx/group'
 import { Circle } from '@vx/shape'
-import { withParentSize } from '@vx/responsive'
-import { withTheme } from 'styled-components'
 import { darken } from 'polished'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
@@ -18,6 +16,7 @@ import {
 
 function ScatterPlot(props) {
   const {
+    backgroundColor,
     children,
     data,
     dataPointSize,
@@ -50,9 +49,8 @@ function ScatterPlot(props) {
   const leftPosition = left(tickDirection, margin)
   const topPosition = top(tickDirection, margin)
 
-  const background = darken(0.08, colors['neutral-2'])
+  const background = backgroundColor || darken(0.08, colors['neutral-2'])
   const color = colors['light-1']
-
   const dataPoints = zip(data.x, data.y)
 
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
@@ -118,6 +116,7 @@ function ScatterPlot(props) {
 }
 
 ScatterPlot.defaultProps = {
+  backgroundColor: '',
   dataPointSize: 1.5,
   margin: {
     bottom: 60,
@@ -148,6 +147,7 @@ ScatterPlot.defaultProps = {
 }
 
 ScatterPlot.propTypes = {
+  backgroundColor: PropTypes.string,
   data: PropTypes.shape({
     x: PropTypes.arrayOf(PropTypes.number),
     y: PropTypes.arrayOf(PropTypes.number)
@@ -178,5 +178,4 @@ ScatterPlot.propTypes = {
   zooming: PropTypes.bool
 }
 
-export default withParentSize(withTheme(ScatterPlot))
-export { ScatterPlot }
+export default ScatterPlot

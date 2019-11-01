@@ -168,7 +168,7 @@ describe('Component > VXZoom', function () {
   describe('zooming', function () {
     let zoomCallback
 
-    function testNoZoom(currentTransformMatrix, previousTransformMatrix) {
+    function testNoZoom({ currentTransformMatrix, previousTransformMatrix }) {
       expect(currentTransformMatrix).to.deep.equal(previousTransformMatrix)
     }
 
@@ -177,7 +177,7 @@ describe('Component > VXZoom', function () {
     }
 
     describe('when zooming is disabled', function () {
-      function testEventPrevention(wrapper, type) {
+      function testEventPrevention({ wrapper, type }) {
         const event = { preventDefault: sinon.spy() }
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -196,7 +196,7 @@ describe('Component > VXZoom', function () {
             zoomingComponent={StubComponent}
           />
         )
-        testEventPrevention(wrapper, 'wheel')
+        testEventPrevention({ wrapper, type: 'wheel' })
       })
 
       it('should not scale the transform matrix on double click', function () {
@@ -208,7 +208,7 @@ describe('Component > VXZoom', function () {
             zoomingComponent={StubComponent}
           />
         )
-        testEventPrevention(wrapper, 'dblclick')
+        testEventPrevention({ wrapper, type: 'dblclick' })
       })
 
       it('should not scale the transform matrix when zoom callback is called', function () {
@@ -228,7 +228,10 @@ describe('Component > VXZoom', function () {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
           zoomCallback(type)
           const transformMatrixAfterZoomInCall = wrapper.instance().zoom.transformMatrix
-          testNoZoom(transformMatrixAfterZoomInCall, initialTransformMatrix)
+          testNoZoom({
+            currentTransformMatrix: transformMatrixAfterZoomInCall, 
+            previousTransformMatrix: initialTransformMatrix
+          })
           wrapper.instance().zoom.reset()
         })
         zoomCallback.resetHistory()
@@ -236,12 +239,12 @@ describe('Component > VXZoom', function () {
     })
 
     describe('when zooming is enabled', function () {
-      function testTransformations(currentTransformMatrix, previousTransformMatrix, zoomValue) {
+      function testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue }) {
         expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
         expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
       }
 
-      function testEvent (wrapper, type, event, previousTransformMatrix) {
+      function testEvent ({ wrapper, type, event, previousTransformMatrix }) {
         const eventMock = event || {
           clientX: 50,
           clientY: 50,
@@ -254,10 +257,10 @@ describe('Component > VXZoom', function () {
 
         wrapper.find(ZoomEventLayer).simulate(type, eventMock)
         const currentTransformMatrix = wrapper.instance().zoom.transformMatrix
-        testTransformations(currentTransformMatrix, previousTransformMatrix, zoomValue)
+        testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue })
       }
 
-      function testZoomCallback (wrapper, zoomType) {
+      function testZoomCallback ({ wrapper, zoomType }) {
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
         const { zoomInValue, zoomOutValue } = wrapper.props().zoomConfiguration
         const zoomValues = {
@@ -277,7 +280,11 @@ describe('Component > VXZoom', function () {
         const previousTransformMatrix = (zoomType !== 'zoomto') ? transformMatrix : initialTransformMatrix
         zoomCallback(zoomType)
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
-        testTransformations(zoomedTransformMatrix, previousTransformMatrix, zoomValue)
+        testTransformations({
+          currentTransformMatrix: zoomedTransformMatrix, 
+          previousTransformMatrix, 
+          zoomValue
+        })
         zoomCallback.resetHistory()
       }
 
@@ -295,7 +302,7 @@ describe('Component > VXZoom', function () {
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        testEvent(wrapper, 'wheel', null, initialTransformMatrix)
+        testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
       })
 
       it('should scale out the transform matrix on mouse wheel', function () {
@@ -330,7 +337,7 @@ describe('Component > VXZoom', function () {
           preventDefault: sinon.spy()
         }
 
-        testEvent(wrapper, 'wheel', zoomOutEvent, zoomedInTransformMatrix)
+        testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
       })
 
       it('should scale in the transform matrix on double click', function () {
@@ -346,7 +353,7 @@ describe('Component > VXZoom', function () {
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        testEvent(wrapper, 'dblclick', null, initialTransformMatrix)
+        testEvent({ wrapper, type: 'dblclick', previousTransformMatrix: initialTransformMatrix })
       })
 
       describe('when zoom callback is called', function () {
@@ -362,7 +369,7 @@ describe('Component > VXZoom', function () {
             />
           )
 
-          testZoomCallback(wrapper, 'zoomin')
+          testZoomCallback({ wrapper, zoomType: 'zoomin' })
         })
 
         it('should scale transform matrix when zooming out', function () {
@@ -380,7 +387,7 @@ describe('Component > VXZoom', function () {
           zoomCallback('zoomin')
           zoomCallback('zoomin')
 
-          testZoomCallback(wrapper, 'zoomout')
+          testZoomCallback({ wrapper, zoomType: 'zoomout' })
         })
 
         it('should scale transform matrix when resetting zoom', function () {
@@ -397,7 +404,7 @@ describe('Component > VXZoom', function () {
 
           // zooming in first
           zoomCallback('zoomin')
-          testZoomCallback(wrapper, 'zoomto')
+          testZoomCallback({ wrapper, zoomType: 'zoomto' })
         })
       })
     })

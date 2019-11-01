@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withParentSize } from '@vx/responsive'
 import VXZoom from '../../../SVGComponents/VXZoom'
 import { getDataExtent, transformXScale, transformYScale } from '../../helpers/utils'
 import { PAN_DISTANCE } from '../../helpers/constants'
@@ -66,7 +65,6 @@ class ZoomingScatterPlot extends Component {
     const yScale = transformYScale(data, transformMatrix, this.rangeParameters)
     const yScaleDomain = yScale.domain()
     const outOfYAxisDataBounds = yScaleDomain[0] < (dataExtent.y[0] - PAN_DISTANCE) || yScaleDomain[1] > (dataExtent.y[1] + PAN_DISTANCE)
-
 
     return outOfYAxisDataBounds
   }
@@ -185,7 +183,7 @@ class ZoomingScatterPlot extends Component {
     return (
       <VXZoom
         constrain={this.constrain}
-        zoomingComponent={<ScatterPlot />}
+        zoomingComponent={ScatterPlot}
         {...this.props}
       />
     )
@@ -214,7 +212,8 @@ ZoomingScatterPlot.propTypes = {
     maxZoom: PropTypes.number,
     zoomInValue: PropTypes.number,
     zoomOutValue: PropTypes.number
-  })
+  }),
+  zooming: PropTypes.bool
 }
 
 ZoomingScatterPlot.defaultProps = {
@@ -237,8 +236,8 @@ ZoomingScatterPlot.defaultProps = {
     maxZoom: 10,
     zoomInValue: 1.2,
     zoomOutValue: 0.8
-  }
+  },
+  zooming: true
 }
 
-export default withParentSize(ZoomingScatterPlot)
-export { ZoomingScatterPlot }
+export default ZoomingScatterPlot
