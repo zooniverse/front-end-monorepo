@@ -4,9 +4,10 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
+
+import taskRegistry from '@plugins/tasks'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
@@ -47,7 +48,7 @@ class Tasks extends React.Component {
       return (
         <Box as='form' gap="small" justify='between' fill>
           {tasks.map((task) => {
-            const TaskComponent = getTaskComponent(task.type)
+            const { TaskComponent } = taskRegistry.get(task.type)
             if (TaskComponent) {
               return (
                 <Box key={task.taskKey} basis='auto'>
