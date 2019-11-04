@@ -9,7 +9,7 @@ const Img = styled.img`
     width: 100%;
 
   @media (min-width: ${props => props.breakpoint}px) {
-    height: 100%;
+    flex: 1 1 auto;
     object-position: 0 50%;
   }
 `
