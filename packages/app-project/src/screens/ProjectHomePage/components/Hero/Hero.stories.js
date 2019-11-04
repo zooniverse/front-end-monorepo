@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import sinon from 'sinon'
 
-import Hero from './Hero'
+import NarrowLayout from './components/NarrowLayout'
+import WideLayout from './components/WideLayout'
 
 const mockStore = {
   project: {
@@ -109,7 +110,7 @@ storiesOf('Project App / Screens / Project Home / Hero', module)
   .addParameters({ viewport: { defaultViewport: 'responsive' }})
   .add('plain', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Hero
+      <WideLayout
         screenSize='default'
         workflows={WORKFLOWS}
       />
@@ -117,7 +118,7 @@ storiesOf('Project App / Screens / Project Home / Hero', module)
   ))
   .add('small screen', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Hero
+      <NarrowLayout
         screenSize='small'
         workflows={WORKFLOWS}
       />
@@ -125,7 +126,7 @@ storiesOf('Project App / Screens / Project Home / Hero', module)
   ), { viewport: { defaultViewport: 'iphone5' }})
   .add('loading', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Hero
+      <WideLayout
         screenSize='default'
         workflows={WORKFLOWS_LOADING}
       />
@@ -133,7 +134,7 @@ storiesOf('Project App / Screens / Project Home / Hero', module)
   ))
   .add('error', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Hero
+      <WideLayout
         screenSize='default'
         workflows={WORKFLOWS_ERROR}
       />
