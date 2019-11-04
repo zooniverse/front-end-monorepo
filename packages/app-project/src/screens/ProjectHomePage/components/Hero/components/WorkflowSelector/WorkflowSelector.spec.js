@@ -5,7 +5,7 @@ import WorkflowSelector from './WorkflowSelector'
 
 let wrapper
 
-describe('Component > Hero > WorkflowSelector', function () {
+describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
   before(function () {
     wrapper = shallow(<WorkflowSelector />)
   })
