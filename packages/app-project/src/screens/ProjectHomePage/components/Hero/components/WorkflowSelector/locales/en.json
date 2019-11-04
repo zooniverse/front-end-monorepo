@@ -1,6 +1,6 @@
 {
   "WorkflowSelector": {
-    "classify": "Classify",
+    "getStarted": "Get Started!",
     "error": "There was an error fetching the workflows :(",
     "message": "Anyone can do real research!",
     "noWorkflows": "Nothing to classify"
