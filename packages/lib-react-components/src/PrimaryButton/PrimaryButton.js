@@ -1,23 +1,44 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { Button, Text, ThemeContext } from 'grommet'
 
-import en from './locales/en'
+import blueTheme from './themes/blue'
+import goldTheme from './themes/gold'
+import greenTheme from './themes/green'
+import tealTheme from './themes/teal'
 
-counterpart.registerTranslations('en', en)
+const themeMap = {
+  blue: blueTheme,
+  gold: goldTheme,
+  green: greenTheme,
+  teal: tealTheme,
+}
 
-function PrimaryButton () {
+function PrimaryButton (props) {
+  const { color, label, ...rest } = props
+  const theme = themeMap[color]
+
+  const wrappedLabel = (React.isValidElement(label))
+    ? label
+    : <Text size='medium'>{label}</Text>
+
   return (
-    <div>
-      component
-    </div>
+    <ThemeContext.Extend value={theme}>
+      <Button
+        label={wrappedLabel}
+        primary
+        {...rest}
+      />
+    </ThemeContext.Extend>
   )
 }
 
 PrimaryButton.propTypes = {
+  color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal'])
 }
 
 PrimaryButton.defaultProps = {
+  color: 'gold'
 }
 
 export default PrimaryButton
