@@ -19,7 +19,7 @@ function WorkflowSelector (props) {
   return (
     <Box>
       <SpacedText weight='bold' margin={{ bottom: 'xsmall' }}>
-        {counterpart('WorkflowSelector.classify')}
+        {counterpart('WorkflowSelector.getStarted')}
       </SpacedText>
       <Text>
         {counterpart('WorkflowSelector.message')}
