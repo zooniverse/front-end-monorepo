@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { addDisposer, getRoot, getType, isValidReference, onAction, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, getType, onAction, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import { Subject } from 'rxjs'
 
@@ -37,7 +37,9 @@ const DrawingStore = types
   }))
   .volatile(self => ({
     eventStream: new Subject(),
-    svg: null
+    svg: null,
+    createSVGPoint: null,
+    getScreenCTMInverse: null
   }))
   .actions(self => {
     function afterAttach () {
@@ -116,10 +118,10 @@ const DrawingStore = types
     }
 
     function getEventOffset (x, y) {
-      const svgEvent = self.svg.createSVGPoint()
+      const svgEvent = self.createSVGPoint
       svgEvent.x = x
       svgEvent.y = y
-      const svgEventOffset = svgEvent.matrixTransform(self.svg.getScreenCTM().inverse())
+      const svgEventOffset = svgEvent.matrixTransform(self.getScreenCTMInverse)
 
       return svgEventOffset
     }
@@ -134,8 +136,12 @@ const DrawingStore = types
       self.activeMark.stop()
     }
 
-    function setSVG (svg) {
-      self.svg = svg
+    function setCreateSVGPoint (createSVGPoint) {
+      self.createSVGPoint = createSVGPoint
+    }
+
+    function setGetScreenCTMInverse (getScreenCTMInverse) {
+      self.getScreenCTMInverse = getScreenCTMInverse
     }
 
     return {
@@ -147,7 +153,8 @@ const DrawingStore = types
       reset,
       setActiveDrawingTool,
       setEventStream,
-      setSVG
+      setCreateSVGPoint,
+      setGetScreenCTMInverse
     }
   })
 
