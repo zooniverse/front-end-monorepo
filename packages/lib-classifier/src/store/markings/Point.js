@@ -40,7 +40,7 @@ const PointModel = types
     }
 
     function setCoordinates (event) {
-      self.coordinatesArray = [event]
+      self.coordinatesArray = [{ x: event.x, y: event.y }]
     }
 
     function setCoordinatesSubscription () {

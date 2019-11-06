@@ -47,10 +47,10 @@ const LineModel = types
 
     function setCoordinates (event) {
       if (!self.coordinatesArray) {
-        self.coordinatesArray = [event, event]
+        self.coordinatesArray = [{ x: event.x, y: event.y }, { x: event.x, y: event.y }]
       } else {
         const newCoordinatesArray = Array.from(self.coordinatesArray)
-        newCoordinatesArray.splice(1, 1, event)
+        newCoordinatesArray.splice(1, 1, { x: event.x, y: event.y })
         self.coordinatesArray = newCoordinatesArray
       }
     }
