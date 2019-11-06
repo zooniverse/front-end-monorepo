@@ -21,18 +21,6 @@ describe('Component > InteractionLayerContainer', function () {
     expect(wrapper.find('InteractionLayer')).to.have.lengthOf(1)
   })
 
-  it('should store svg prop to drawing store', function () {
-    const svg = <svg />
-    const storeSVGSpy = sinon.spy()
-    shallow(
-      <InteractionLayerContainer.wrappedComponent
-        addToStream={() => {}}
-        storeSVG={storeSVGSpy}
-        svg={svg}
-      />)
-    expect(storeSVGSpy).to.be.calledWith(svg)
-  })
-
   describe('with active workflow step including a drawing task', function () {
     it('should render a DrawingContainer', function () {
       const wrapper = shallow(

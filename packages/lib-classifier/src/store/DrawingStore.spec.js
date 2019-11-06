@@ -1,5 +1,3 @@
-import { Subject } from 'rxjs'
-import { TestScheduler } from 'rxjs/testing'
 import sinon from 'sinon'
 
 import RootStore from './RootStore'
@@ -48,7 +46,6 @@ describe('Model > DrawingStore', function () {
     rootStore = null
   })
 
-  // is the following after block necessary?
   after(function () {
     model = null
     rootStore = null
@@ -60,11 +57,6 @@ describe('Model > DrawingStore', function () {
 
   it('should default the active tool index to the first tool in the tools array', function () {
     expect(model.activeDrawingToolIndex).to.equal(0)
-  })
-
-  it('should have an `eventStream` observable', function () {
-    expect(model.eventStream).to.be.ok()
-    expect(model.eventStream.subscribe).to.be.a('function')
   })
 
   describe('Views > activeDrawingTask', function () {
@@ -122,43 +114,32 @@ describe('Model > DrawingStore', function () {
     })
   })
 
-  describe('Views > coordinateStream', function () {
+  describe('Volatile > eventStream', function () {
+    it('should have an `eventStream` observable', function () {
+      expect(model.eventStream).to.be.ok()
+      expect(model.eventStream.subscribe).to.be.a('function')
+    })
+  })
+
+  describe('Actions > addToStream', function () {
     beforeEach(function () {
       sinon.stub(model, 'getEventOffset').callsFake((x, y) => ({ x: (x + 100), y: (y + 100) }))
     })
 
     afterEach(function () {
       model.getEventOffset.restore()
-      model.setEventStream(new Subject())
     })
 
-    const events = '--a--b-c---d--|'
-    const values = {
-      a: { clientX: 50, clientY: 50, type: 'pointermove' },
-      b: { clientX: 100, clientY: 200, type: 'pointerdown' },
-      c: { clientX: 150, clientY: 250, type: 'pointermove' },
-      d: { clientX: 200, clientY: 300, type: 'pointerup' }
-    }
-
-    const coordinateStreamEvents = '-----f-g---h--|'
-    const coordinateStreamValues = {
-      f: { x: 200, y: 300, type: 'pointerdown' },
-      g: { x: 250, y: 350, type: 'pointermove' },
-      h: { x: 300, y: 400, type: 'pointerup' }
-    }
-
-    it('should return a coordinateStream with events beginning on pointer down and converted from client to svg coordinates', function () {
-      const testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).to.deep.equal(expected)
+    it('should add events converted to SVG to the stream on calling `addToStream`', function (done) {
+      const newEvent = { clientX: 100, clientY: 200, pointerId: 1, type: 'pointermove' }
+      model.eventStream.subscribe(value => {
+        expect(value.x).to.equal(200)
+        expect(value.y).to.equal(300)
+        expect(value.pointerId).to.equal(1)
+        expect(value.type).to.equal('pointermove')
+        done()
       })
-
-      testScheduler.run(helpers => {
-        const { hot, expectObservable } = helpers
-
-        model.setEventStream(hot(events, values))
-
-        expectObservable(model.coordinateStream).toBe(coordinateStreamEvents, coordinateStreamValues)
-      })
+      model.addToStream(newEvent)
     })
   })
 
@@ -171,15 +152,6 @@ describe('Model > DrawingStore', function () {
     it('should reset the active tool to 0 when reset is called', function () {
       model.reset()
       expect(model.activeDrawingToolIndex).to.equal(0)
-    })
-
-    it('should add new events to the eventStream with `addToStream`', function (done) {
-      const newEvent = 'foo'
-      model.eventStream.subscribe(value => {
-        expect(value).to.equal(newEvent)
-        done()
-      })
-      model.addToStream(newEvent)
     })
   })
 })

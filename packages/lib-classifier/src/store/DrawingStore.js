@@ -78,7 +78,6 @@ const DrawingStore = types
 
     function createMark () {
       const MarkModel = getMarkModel(self.activeDrawingTask.tools[self.activeDrawingToolIndex].type)
-      // TODO add error/null handling ^
 
       const tempId = cuid()
 
@@ -89,10 +88,6 @@ const DrawingStore = types
 
       self.marks.put(newMark)
       self.activeMark = tempId
-    }
-
-    function setEventStream (stream) {
-      self.eventStream = stream
     }
 
     function addToStream (event) {
@@ -133,7 +128,9 @@ const DrawingStore = types
 
     function setActiveDrawingTool (toolIndex) {
       self.activeDrawingToolIndex = toolIndex
-      self.activeMark.stop()
+      if (self.activeMark) {
+        self.activeMark.stop()
+      }
     }
 
     function setCreateSVGPoint (createSVGPoint) {
@@ -152,7 +149,6 @@ const DrawingStore = types
       getEventOffset,
       reset,
       setActiveDrawingTool,
-      setEventStream,
       setCreateSVGPoint,
       setGetScreenCTMInverse
     }
