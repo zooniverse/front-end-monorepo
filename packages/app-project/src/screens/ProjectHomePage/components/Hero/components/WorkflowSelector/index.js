@@ -1,1 +1,1 @@
-export { default } from './WorkflowSelector'
+export { default } from './WorkflowSelectorContainer'
