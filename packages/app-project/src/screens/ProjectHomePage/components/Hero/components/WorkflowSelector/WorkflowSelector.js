@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
-import { SpacedText } from '@zooniverse/react-components'
+import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Box, Text } from 'grommet'
+import { Box, Paragraph, Text } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
@@ -12,18 +12,23 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const markdownzComponents = {
+  p: nodeProps => <Paragraph {...nodeProps} margin='none' />
+}
+
 function WorkflowSelector (props) {
   const { workflows } = props
   const loaderColor = props.theme.global.colors.brand
+  const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
     <Box>
       <SpacedText weight='bold' margin={{ bottom: 'xsmall' }}>
         {counterpart('WorkflowSelector.getStarted')}
       </SpacedText>
-      <Text>
-        {counterpart('WorkflowSelector.message')}
-      </Text>
+      <Markdownz components={markdownzComponents}>
+        {workflowDescription}
+      </Markdownz>
 
       {(workflows.loading === asyncStates.error) && (
         <Box
@@ -76,6 +81,7 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
+  workflowDescription: string,
   workflows: shape({
     data: arrayOf(shape({
       id: string.isRequired
