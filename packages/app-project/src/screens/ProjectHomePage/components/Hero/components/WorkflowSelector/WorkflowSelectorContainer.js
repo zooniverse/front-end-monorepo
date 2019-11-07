@@ -6,7 +6,7 @@ import WorkflowSelector from './WorkflowSelector'
 
 function storeMapper (stores) {
   return {
-    workflowDescription: stores.store.project.workflow_description || undefined
+    workflowDescription: stores.store.project.workflow_description
   }
 }
 

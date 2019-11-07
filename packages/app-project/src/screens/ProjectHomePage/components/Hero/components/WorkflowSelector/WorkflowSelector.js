@@ -17,8 +17,9 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { workflowDescription, workflows } = props
+  const { workflows } = props
   const loaderColor = props.theme.global.colors.brand
+  const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
     <Box>
@@ -86,10 +87,6 @@ WorkflowSelector.propTypes = {
       id: string.isRequired
     }).isRequired).isRequired
   }).isRequired
-}
-
-WorkflowSelector.defaultProps = {
-  workflowDescription: counterpart('WorkflowSelector.message')
 }
 
 export default withTheme(WorkflowSelector)

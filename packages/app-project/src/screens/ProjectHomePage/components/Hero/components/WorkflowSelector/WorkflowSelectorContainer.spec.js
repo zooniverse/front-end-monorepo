@@ -4,8 +4,6 @@ import React from 'react'
 import { WorkflowSelectorContainer } from './WorkflowSelectorContainer'
 import WorkflowSelector from './WorkflowSelector'
 
-const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
-
 describe('Component > Hero > WorkflowSelector > WorkflowSelectorContainer', function () {
   let wrapper
   let componentWrapper
