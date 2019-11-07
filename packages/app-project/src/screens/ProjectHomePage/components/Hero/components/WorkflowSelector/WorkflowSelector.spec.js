@@ -17,6 +17,7 @@ const WORKFLOWS = {
 }
 
 const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
+const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
 
 describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
 
@@ -47,7 +48,16 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
           theme={THEME}
           workflows={WORKFLOWS}
         />)
-      const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
+      expect(wrapper.text()).to.include(DEFAULT_WORKFLOW_DESCRIPTION)
+    })
+
+    it('should use the default message if the `workflowDescription` prop is an empty string', function () {
+      const wrapper = render(
+        <WorkflowSelector
+          theme={THEME}
+          workflows={WORKFLOWS}
+          workflowDescription=''
+        />)
       expect(wrapper.text()).to.include(DEFAULT_WORKFLOW_DESCRIPTION)
     })
   })
