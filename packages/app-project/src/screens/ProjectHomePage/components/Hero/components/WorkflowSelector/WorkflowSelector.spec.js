@@ -18,7 +18,7 @@ const WORKFLOWS = {
 
 const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
 
-describe.only('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
+describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
 
   it('should render without crashing', function () {
     const wrapper = shallow(
