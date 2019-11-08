@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import DrawingContainer from './DrawingContainer'
-import { Line, Point } from '../../../../../../store/markings'
+import { Line, Point } from '@store/markings'
 
 const activeDrawingTask = {
   instruction: 'Draw a point and line',
