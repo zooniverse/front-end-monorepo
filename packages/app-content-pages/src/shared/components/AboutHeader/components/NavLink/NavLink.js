@@ -1,13 +1,8 @@
-import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { string } from 'prop-types'
 import React from 'react'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function NavLink (props) {
   const { href, isPFELink, label, router: { asPath } } = props
