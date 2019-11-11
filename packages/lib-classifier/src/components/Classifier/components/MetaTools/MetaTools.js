@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-components'
 import Metadata from './components/Metadata'
-import FavouritesButton from './components/FavouritesButton'
 import CollectionsButton from './components/CollectionsButton'
 
 function storeMapper (stores) {
@@ -24,17 +23,11 @@ class MetaTools extends React.Component {
     super()
 
     this.addToCollection = this.addToCollection.bind(this)
-    this.toggleFavourites = this.toggleFavourites.bind(this)
   }
 
   addToCollection () {
     const { subject } = this.props
     subject.addToCollection()
-  }
-
-  toggleFavourites () {
-    const { subject } = this.props
-    subject.toggleFavorite()
   }
 
   // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
@@ -43,15 +36,21 @@ class MetaTools extends React.Component {
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
     return (
-      <Box className={className} direction='row-responsive' gap={gap} margin={margin}>
+      <Box
+        key={subject && subject.id}
+        className={className}
+        direction='row-responsive'
+        gap={gap}
+        margin={margin}
+      >
         <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
           checked={subject && subject.favorite}
-          disabled={!upp}
-          onClick={this.toggleFavourites}
+          disabled={!subject || !upp}
+          onClick={subject && subject.toggleFavorite}
         />
         <CollectionsButton
-          disabled={!upp}
+          disabled={!subject || !upp}
           onClick={this.addToCollection}
         />
       </Box>

@@ -16,11 +16,11 @@ function storeMapper (stores) {
 }
 
 class FinishedForTheDayContainer extends Component {
-  getLinkProps() {
+  getLinkProps () {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      href: addQueryParams(`/projects/${owner}/${project}/stats`, router),
+      href: addQueryParams(`/projects/${owner}/${project}/stats`, router)
     }
   }
 
@@ -45,9 +45,9 @@ FinishedForTheDayContainer.propTypes = {
   router: PropTypes.shape({
     query: PropTypes.shape({
       owner: PropTypes.string.isRequired,
-      project: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+      project: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
 }
 
 // We wouldn't normally have a `defaultProp` for a required prop, but there's

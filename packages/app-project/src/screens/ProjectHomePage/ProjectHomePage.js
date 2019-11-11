@@ -1,6 +1,6 @@
-import { Grid } from 'grommet'
+import { Box, Grid } from 'grommet'
 import React from 'react'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import styled from 'styled-components'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -9,34 +9,67 @@ import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import ThemeModeToggle from '@components/ThemeModeToggle'
-import ProjectAnnouncement from './components/ProjectAnnouncement'
+import { Media } from '../../shared/components/Media'
+import ProjectAnnouncement from '@components/ProjectAnnouncement'
+import ProjectHeader from '@components/ProjectHeader'
+import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+
+const FullHeightBox = styled(Box)`
+  min-height: 98vh;
+`
+
+const RemainingHeightBox = styled(Box)`
+  flex-grow: 1;
+`
 
 function ProjectHomePage (props) {
-  const { screenSize } = props
-  const responsiveColumns = (screenSize === 'small') ? ['auto'] : ['auto', '1em']
   return (
     <>
-      <ProjectAnnouncement />
-      <Hero />
-      <Grid gap='medium' margin='medium'>
-        <Grid columns={responsiveColumns} gap='small'>
-          <ZooniverseTalk />
+      <Media at='default'>
+        <ZooHeaderWrapper />
+        <ProjectHeader />
+        <ProjectAnnouncement />
+        <Hero />
+        <Box margin='small' gap='small'>
           <ThemeModeToggle />
-        </Grid>
-        <ProjectStatistics />
-        <Grid
-          fill='horizontal'
-          gap='medium'
-          columns={['repeat(auto-fit, minmax(320px, 1fr))']}
-        >
+          <ZooniverseTalk />
+          <ProjectStatistics />
           <MessageFromResearcher />
           <AboutProject />
-        </Grid>
-        <ConnectWithProject />
-      </Grid>
+          <ConnectWithProject />
+        </Box>
+      </Media>
+
+      <Media greaterThan='default'>
+        <FullHeightBox margin={{ bottom: 'large' }}>
+          <ZooHeaderWrapper />
+          <ProjectHeader />
+          <ProjectAnnouncement />
+          <RemainingHeightBox>
+            <Hero isWide={true} />
+          </RemainingHeightBox>
+        </FullHeightBox>
+        <Box
+          align='start'
+          direction='row'
+          gap='small'
+          margin='small'
+          width={{ max: 'xxlarge' }}
+        >
+          <Box gap='medium'>
+            <ZooniverseTalk />
+            <ProjectStatistics />
+            <Grid columns={['1fr', '1fr']} gap='medium'>
+              <MessageFromResearcher />
+              <AboutProject />
+            </Grid>
+            <ConnectWithProject />
+          </Box>
+          <ThemeModeToggle />
+        </Box>
+      </Media>
     </>
   )
 }
 
-export default withResponsiveContext(ProjectHomePage)
-export { ProjectHomePage }
+export default ProjectHomePage

@@ -39,17 +39,17 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
     rangeRound: [0, WIDTH],
     domain: stats.map(stat => stat.longLabel),
     padding: 0.1
-  });
+  })
 
   const yScale = scaleLinear({
     rangeRound: [HEIGHT - PADDING, 0],
     domain: [0, Math.max(...stats.map(stat => stat.count), 10)],
     nice: true
-  });
+  })
 
-  const axisColour = theme.dark ?
-    theme.global.colors.text.dark :
-    theme.global.colors.text.light
+  const axisColour = theme.dark
+    ? theme.global.colors.text.dark
+    : theme.global.colors.text.light
 
   function tickLabelProps () {
     return {
@@ -60,7 +60,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
       fontFamily: theme.global.font.family,
       fontSize: 10,
       textAnchor: 'middle' }
-  } 
+  }
   function shortDayLabels (dayName) {
     const stat = stats.find(stat => stat.longLabel === dayName)
     return stat.label
@@ -73,7 +73,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
       <svg
         height={HEIGHT + PADDING}
         viewBox={`${-PADDING} ${-PADDING} ${WIDTH + PADDING} ${HEIGHT + PADDING}`}
-        width="100%"
+        width='100%'
       >
         <AxisLeft
           stroke={axisColour}
@@ -84,8 +84,8 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
         />
         <Group>
           {stats.map(stat => {
-            const barWidth = xScale.bandwidth();
-            const barHeight = (HEIGHT - PADDING) - yScale(stat.count);
+            const barWidth = xScale.bandwidth()
+            const barHeight = (HEIGHT - PADDING) - yScale(stat.count)
             const barX = xScale(stat.longLabel)
             const barY = (HEIGHT - PADDING) - barHeight
             return (
@@ -96,7 +96,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
               >
                 <Bar
                   aria-label={stat.alt}
-                  role="img"
+                  role='img'
                   fill={theme.global.colors['accent-2']}
                   height={barHeight}
                   width={barWidth}
@@ -104,7 +104,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
                   y={barY}
                 />
                 <Text
-                  aria-hidden="true"
+                  aria-hidden='true'
                   textAnchor='middle'
                   x={barX + 20}
                   y={barY + 20}
@@ -150,4 +150,3 @@ DailyClassificationsChart.defaultProps = {
 
 export default withTheme(DailyClassificationsChart)
 export { DailyClassificationsChart }
-

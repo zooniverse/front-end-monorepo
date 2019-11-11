@@ -14,8 +14,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class AlreadySeenBannerContainer extends Component {
   render () {
     const { subject } = this.props
@@ -47,4 +45,12 @@ AlreadySeenBannerContainer.propTypes = {
   })
 }
 
-export default AlreadySeenBannerContainer
+@inject(storeMapper)
+@observer
+class DecoratedAlreadySeenBannerContainer extends AlreadySeenBannerContainer { }
+
+export {
+  DecoratedAlreadySeenBannerContainer as default,
+  AlreadySeenBannerContainer
+}
+

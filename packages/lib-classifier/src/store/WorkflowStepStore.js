@@ -2,19 +2,22 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
-import { DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask } from './tasks'
+import taskRegistry, { taskModels } from '@plugins/tasks'
+
+function taskDispatcher (snapshot) {
+  return taskRegistry.get(snapshot.type).TaskModel
+}
+
+const taskTypes = types.union(
+  { dispatcher: taskDispatcher },
+  ...taskModels
+)
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.safeReference(Step),
     steps: types.map(Step),
-    tasks: types.map(types.union({ dispatcher: (snapshot) => {
-      if (snapshot.type === 'drawing') return DrawingTask
-      if (snapshot.type === 'multiple') return MultipleChoiceTask
-      if (snapshot.type === 'single') return SingleChoiceTask
-      if (snapshot.type === 'dataVisAnnotation') return DataVisAnnotationTask
-      return undefined
-    } }, DrawingTask, DataVisAnnotationTask, MultipleChoiceTask, SingleChoiceTask))
+    tasks: types.map(taskTypes)
   })
   .views(self => ({
     get activeStepTasks () {
@@ -22,7 +25,7 @@ const WorkflowStepStore = types
       if (validStepReference) {
         return self.active.taskKeys.map((taskKey) => {
           return self.tasks.get(taskKey)
-        })
+        }).filter(Boolean)
       }
 
       return []
@@ -164,29 +167,50 @@ const WorkflowStepStore = types
         // put is a MST method, not native to ES Map
         // the key is inferred from the identifier type of the target model
         const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
-        self.tasks.put(taskToStore)
+        try {
+          self.tasks.put(taskToStore)
+        } catch (e) {
+          console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
+        }
       })
     }
 
     function convertWorkflowToUseSteps (workflow) {
       const taskKeys = Object.keys(workflow.tasks)
+      const { first_task } = workflow
 
-      if (workflow.first_task) {
-        const firstStep = {
+      function getStepTasksFromCombo (task) {
+        task.tasks.forEach(function (taskKey) {
+          taskKeys.splice(taskKeys.indexOf(taskKey), 1)
+        })
+        return task.tasks
+      }
+
+      if (first_task) {
+        let firstStep = {
           stepKey: 'S0',
-          taskKeys: [workflow.first_task]
+          taskKeys: [first_task]
         }
 
+        if (workflow.tasks[first_task].type === 'combo') {
+          const combo = workflow.tasks[first_task]
+          firstStep.taskKeys = getStepTasksFromCombo(combo)
+        }
+
+        taskKeys.splice(taskKeys.indexOf(first_task), 1)
         self.steps.put(firstStep)
       }
 
       taskKeys.forEach((taskKey, index) => {
-        if (taskKey !== workflow.first_task &&
-            (workflow.tasks[taskKey].type !== 'combo' ||
-            workflow.tasks[taskKey].type !== 'shortcut')) {
+        const task = workflow.tasks[taskKey]
+        if (task.type !== 'shortcut') {
+          let stepTasks = [taskKey]
+          if (task.type === 'combo') {
+            stepTasks = getStepTasksFromCombo(task)
+          }
           self.steps.put({
             stepKey: `S${index + 1}`,
-            taskKeys: [taskKey]
+            taskKeys: stepTasks
           })
         }
       })

@@ -1,12 +1,17 @@
-import { withThemeContext } from '@zooniverse/react-components'
+import { SpacedText, withThemeContext } from '@zooniverse/react-components'
+import counterpart from 'counterpart'
 import { Button } from 'grommet'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import { bool, shape, string } from 'prop-types'
+import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
+
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 function WorkflowSelectButton (props) {
   const { router, workflow, ...rest } = props
@@ -18,19 +23,38 @@ function WorkflowSelectButton (props) {
 
   const as = addQueryParams(url, router)
   const href = '/projects/[owner]/[project]/classify'
+  const completeness = parseInt(workflow.completeness * 100, 10)
+  const label = (
+    <span>
+      {workflow.displayName}<br />
+      <SpacedText size='xsmall'>
+        {counterpart('WorkflowSelectButton.complete', { completeness })}
+      </SpacedText>
+    </span>
+  )
 
   return (
     <Link as={as} href={href} passHref>
-      <Button label={workflow.displayName} {...rest} />
+      <Button
+        completeness={completeness}
+        label={label}
+        primary
+        {...rest}
+      />
     </Link>
   )
 }
 
 WorkflowSelectButton.propTypes = {
   router: shape({
-    asPath: string.isRequired
+    asPath: string.isRequired,
+    query: {
+      owner: string.isRequired,
+      project: string.isRequired
+    }
   }).isRequired,
   workflow: shape({
+    completeness: number,
     default: bool,
     displayName: string.isRequired,
     id: string

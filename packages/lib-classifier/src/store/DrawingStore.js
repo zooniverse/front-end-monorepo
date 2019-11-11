@@ -4,7 +4,7 @@ import { Subject } from 'rxjs'
 
 const DrawingStore = types
   .model('DrawingStore', {
-    active: types.optional(types.number, 0)
+    activeDrawingTool: types.optional(types.number, 0)
   })
   .volatile(self => ({
     eventStream: new Subject()
@@ -35,11 +35,11 @@ const DrawingStore = types
     }
 
     function reset () {
-      self.active = 0
+      self.activeDrawingTool = 0
     }
 
-    function setActive (toolIndex) {
-      self.active = toolIndex
+    function setActiveDrawingTool (toolIndex) {
+      self.activeDrawingTool = toolIndex
     }
 
     function addToStream (event) {
@@ -50,7 +50,7 @@ const DrawingStore = types
       addToStream,
       afterAttach,
       reset,
-      setActive
+      setActiveDrawingTool
     }
   })
 

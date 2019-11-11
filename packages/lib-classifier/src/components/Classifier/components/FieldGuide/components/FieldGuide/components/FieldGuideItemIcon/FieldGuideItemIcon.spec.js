@@ -3,7 +3,7 @@ import React from 'react'
 import { observable } from 'mobx'
 import { Media } from '@zooniverse/react-components'
 import FieldGuideItemIcon from './FieldGuideItemIcon'
-import { FieldGuideMediumFactory } from '../../../../../../../../../test/factories'
+import { FieldGuideMediumFactory } from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const attachedMedia = observable.map()

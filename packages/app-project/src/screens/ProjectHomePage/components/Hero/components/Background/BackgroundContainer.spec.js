@@ -9,7 +9,7 @@ const BACKGROUND_SRC = '/foo/bar/baz.jpg'
 let wrapper
 let componentWrapper
 
-describe('Component > BackgroundContainer', function () {
+describe('Component > Hero > BackgroundContainer', function () {
   before(function () {
     wrapper = shallow(<BackgroundContainer backgroundSrc={BACKGROUND_SRC} />)
     componentWrapper = wrapper.find(Background)

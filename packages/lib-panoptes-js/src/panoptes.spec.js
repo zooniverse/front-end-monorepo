@@ -178,9 +178,9 @@ describe('panoptes.js', function () {
       const isPut = method === 'put'
       // Nock calls it 'delete', panoptes-js calls it 'del'
       const nockMethod = isDel ? 'delete' : method
-      const methodArgs = (isPost || isPut) ?
-        [endpoint, update, null, query, mockAPIHost] :
-        [endpoint, update, null, mockAPIHost]
+      const methodArgs = (isPost || isPut)
+        ? [endpoint, update, null, query, mockAPIHost]
+        : [endpoint, update, null, mockAPIHost]
 
       nock(mockAPIHost)[nockMethod](uri => uri.includes(endpoint))
         .query(true)
@@ -238,9 +238,9 @@ describe('panoptes.js', function () {
       const isPut = method === 'put'
       // Nock calls it 'delete', panoptes-js calls it 'del'
       const nockMethod = isDel ? 'delete' : method
-      const methodArgs = (isPost || isPut) ?
-        [endpoint, {}, '', envParams] :
-        [endpoint, envParams]
+      const methodArgs = (isPost || isPut)
+        ? [endpoint, {}, '', envParams]
+        : [endpoint, envParams]
 
       nock(host)[nockMethod](uri => uri.includes(endpoint))
         .query(true)

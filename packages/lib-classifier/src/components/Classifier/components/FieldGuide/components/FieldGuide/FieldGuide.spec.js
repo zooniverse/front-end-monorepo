@@ -3,7 +3,7 @@ import React from 'react'
 import FieldGuide from './FieldGuide'
 import FieldGuideItem from './components/FieldGuideItem'
 import FieldGuideItems from './components/FieldGuideItems'
-import { FieldGuideMediumFactory } from '../../../../../../../test/factories'
+import { FieldGuideMediumFactory } from '@test/factories'
 
 const medium = FieldGuideMediumFactory.build()
 const items = [

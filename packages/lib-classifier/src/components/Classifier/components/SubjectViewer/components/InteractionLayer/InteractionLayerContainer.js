@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
+import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
-  const { drawing } = stores.classifierStore
+  const { addToStream } = stores.classifierStore.drawing
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
   return {
-    drawing
+    activeStepTasks,
+    addToStream
   }
 }
 
@@ -16,54 +19,47 @@ function storeMapper (stores) {
 class InteractionLayerContainer extends Component {
   constructor () {
     super()
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onPointerDown = this.onPointerDown.bind(this)
+    this.onPointerMove = this.onPointerMove.bind(this)
+    this.onPointerUp = this.onPointerUp.bind(this)
   }
 
-  componentDidMount () {
-    // TODO: We're simply logging the event stream here for now, but this will
-    // be passed to the active drawing tool for parsing
-    // const stream = this.props.drawing.eventStream
-    // stream.subscribe(z => console.log(z))
+  onPointerDown (event) {
+    this.props.addToStream(event)
   }
 
-  addToStream (event, type) {
-    this.props.drawing.addToStream({
-      event: type,
-      target: event.target,
-      x: event.clientX,
-      y: event.clientY
-    })
+  onPointerMove (event) {
+    this.props.addToStream(event)
   }
 
-  onMouseDown (event) {
-    this.addToStream(event, 'mousedown')
-  }
-
-  onMouseMove (event) {
-    this.addToStream(event, 'mousemove')
-  }
-
-  onMouseUp (event) {
-    this.addToStream(event, 'mouseup')
+  onPointerUp (event) {
+    this.props.addToStream(event)
   }
 
   render () {
+    const { activeStepTasks } = this.props
+    const isDrawingInActiveSteps = activeStepTasks && activeStepTasks.some(task => task.type === 'drawing')
+
     return (
-      <InteractionLayer
-        onMouseMove={this.onMouseMove}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={this.onMouseUp}
-      />
+      <>
+        <InteractionLayer
+          onPointerDown={this.onPointerDown}
+          onPointerMove={this.onPointerMove}
+          onPointerUp={this.onPointerUp}
+        />
+        {isDrawingInActiveSteps && <DrawingContainer />}
+      </>
     )
   }
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
-  drawing: PropTypes.shape({
-    addToStream: PropTypes.func.isRequired
-  })
+  activeStepTasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string
+    })
+  ),
+  addToStream: PropTypes.func.isRequired
 }
 
 export default InteractionLayerContainer

@@ -63,6 +63,10 @@ describe('Stores > Project', function () {
       expect(projectStore.loadingState).to.equal(asyncStates.initialized)
     })
 
+    it('should have a `workflow_description` property', function () {
+      expect(projectStore.workflow_description).to.equal('')
+    })
+
     after(function () {
       rootStore = null
       projectStore = null

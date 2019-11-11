@@ -25,7 +25,7 @@ function ProjectHeader (props) {
   return (
     <StyledBox as='header' className={className}>
       <Background />
-      <Box
+      <StyledBox
         align='center'
         direction={screenSize === 'small' ? 'column' : 'row'}
         justify='between'
@@ -48,7 +48,7 @@ function ProjectHeader (props) {
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
         {screenSize === 'small' && <DropdownNav navLinks={navLinks} />}
-      </Box>
+      </StyledBox>
     </StyledBox>
   )
 }

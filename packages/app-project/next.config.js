@@ -12,16 +12,21 @@ const talkHosts = require('./config/talkHosts')
 
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
+const assetPrefix = process.env.ASSET_PREFIX || ''
 
 console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
 module.exports = {
-  assetPrefix: process.env.ASSET_PREFIX || '',
+  assetPrefix,
 
   env: {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
     PANOPTES_ENV,
     TALK_HOST: talkHosts[PANOPTES_ENV]
+  },
+
+  publicRuntimeConfig: {
+    assetPrefix
   },
 
   webpack: (config) => {

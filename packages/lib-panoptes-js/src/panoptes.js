@@ -52,7 +52,7 @@ function get (endpoint, query = {}, headers = {}, host) {
   return request.query(queryParams).then(response => response)
 }
 
-function post(endpoint, data, headers = {}, query = {}, host) {
+function post (endpoint, data, headers = {}, query = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))
 
@@ -69,7 +69,7 @@ function post(endpoint, data, headers = {}, query = {}, host) {
     .then(response => response)
 }
 
-function put(endpoint, data, headers = {}, query = {}, host) {
+function put (endpoint, data, headers = {}, query = {}, host) {
   if (!endpoint) return handleMissingParameter('Request needs a defined resource endpoint')
   if (!data) return handleMissingParameter('Request needs a defined data for update')
   if (typeof query !== 'object') return Promise.reject(new TypeError('Query must be an object'))

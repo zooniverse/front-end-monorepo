@@ -14,7 +14,7 @@ const THEME = {
   }
 
 }
-describe('Component > Background', function () {
+describe('Component > Hero > Background', function () {
   let wrapper
   before(function () {
     wrapper = render(<Background backgroundSrc={BACKGROUND_SRC} theme={THEME} />)
