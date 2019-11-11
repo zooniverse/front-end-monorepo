@@ -17,7 +17,7 @@ const ROUTER = {
 }
 const TITLE = 'Cum semper tristique'
 
-describe('Component > IntroductionContainer', function () {
+describe('Component > Hero > IntroductionContainer', function () {
   before(function () {
     wrapper = shallow(<IntroductionContainer
       description={DESCRIPTION}

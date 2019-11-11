@@ -3,7 +3,8 @@ import nock from 'nock'
 import sinon from 'sinon'
 
 import { HeroContainer } from './HeroContainer'
-import Hero from './Hero'
+import NarrowLayout from './components/NarrowLayout'
+import WideLayout from './components/WideLayout'
 
 const WORKFLOWS = [
   {
@@ -26,7 +27,6 @@ describe('Component > HeroContainer', function () {
   describe('general behaviour', function () {
     let scope
     let wrapper
-    let componentWrapper
 
     before(function () {
       scope = nock('https://panoptes-staging.zooniverse.org/api')
@@ -41,7 +41,6 @@ describe('Component > HeroContainer', function () {
           workflows: WORKFLOWS
         })
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
-      componentWrapper = wrapper.find(Hero)
     })
 
     after(function () {
@@ -52,8 +51,13 @@ describe('Component > HeroContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render the `Hero` component', function () {
-      expect(componentWrapper).to.have.lengthOf(1)
+    it('should render the `NarrowLayout` by default', function () {
+      expect(wrapper.find(NarrowLayout)).to.have.lengthOf(1)
+    })
+
+    it('should render the `WideLayout` with the appropriate prop', function () {
+      wrapper.setProps({ isWide: true })
+      expect(wrapper.find(WideLayout)).to.have.lengthOf(1)
     })
   })
 
@@ -82,7 +86,7 @@ describe('Component > HeroContainer', function () {
 
     it('should pass down the correct props', function () {
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
-      componentWrapper = wrapper.find(Hero)
+      componentWrapper = wrapper.first()
       expect(componentWrapper.prop('workflows')).to.deep.equal({
         loading: 'loading',
         data: []
@@ -119,7 +123,7 @@ describe('Component > HeroContainer', function () {
     it('should pass down the correct props', async function () {
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
       await fetchWorkflowsSpy.returnValues[0]
-      componentWrapper = wrapper.find(Hero)
+      componentWrapper = wrapper.first()
       expect(componentWrapper.prop('workflows')).to.deep.equal({
         loading: 'success',
         data: [
@@ -156,7 +160,7 @@ describe('Component > HeroContainer', function () {
     it('should pass down the correct props', async function () {
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
       await fetchWorkflowsSpy.returnValues[0]
-      componentWrapper = wrapper.find(Hero)
+      componentWrapper = wrapper.first()
       expect(componentWrapper.prop('workflows')).to.deep.equal({
         loading: 'error',
         data: []
