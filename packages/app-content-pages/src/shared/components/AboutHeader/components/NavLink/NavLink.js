@@ -10,17 +10,26 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function NavLink (props) {
-  const { href, label, router: { asPath } } = props
+  const { href, isPFELink, label, router: { asPath } } = props
   const isActive = asPath === href
-  return (
-    <Link href={href} passHref>
-      <Anchor size='medium' weight='normal' active={isActive}>
-        <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
-          {label}
-        </Box>
-      </Anchor>
-    </Link>
+
+  const link = (
+    <Anchor active={isActive} href={href} size='medium' weight='normal'>
+      <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
+        {label}
+      </Box>
+    </Anchor>
   )
+
+  if (isPFELink) {
+    return link
+  } else {
+    return (
+      <Link href={href} passHref>
+        {link}
+      </Link>
+    )
+  }
 }
 
 NavLink.propTypes = {

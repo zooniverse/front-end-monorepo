@@ -21,13 +21,13 @@ function AboutHeader () {
         margin={{ bottom: 'xsmall' }}
         width='xlarge'
       >
-        <NavLink label='About' href='/about' />
+        <NavLink label='About' href='/about' isPFELink />
         <NavLink label='Publications' href='/about/publications' />
         <NavLink label='Our Team' href='/about/team' />
-        <NavLink label='Acknowledgements' href='/about/acknowledgements' />
-        <NavLink label='Resources' href='/about/resources' />
-        <NavLink label='Contact Us' href='/about/contact' />
-        <NavLink label='FAQ' href='/about/faq' />
+        <NavLink label='Acknowledgements' href='/about/acknowledgements' isPFELink />
+        <NavLink label='Resources' href='/about/resources' isPFELink />
+        <NavLink label='Contact Us' href='/about/contact' isPFELink />
+        <NavLink label='FAQ' href='/about/faq' isPFELink />
       </Box>
     </Box>
   )
