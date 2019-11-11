@@ -30,11 +30,14 @@ const Store = types
         try {
           next(call)
         } catch (error) {
-          abort(call)
           console.error('Project App MST error:', error)
           logNodeError(error)
         }
       })
+    },
+
+    testError () {
+      throw new Error('Testing errors')
     }
   }))
 
