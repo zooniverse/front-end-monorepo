@@ -53,8 +53,6 @@ function ScatterPlot(props) {
   const color = colors['light-1']
   const dataPoints = zip(data.x, data.y)
 
-  console.log('data', data)
-  console.log(transformMatrix)
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
 
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
@@ -86,9 +84,6 @@ function ScatterPlot(props) {
           const cx = xScaleTransformed(point[0])
           const cy = yScaleTransformed(point[1])
 
-          if (index === 1) {
-            console.log(cx, cy)
-          }
           return (
             <Circle
               data-x={point[0]}

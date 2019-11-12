@@ -2,7 +2,6 @@ import { scaleLinear } from '@vx/scale'
 import * as d3 from 'd3'
 
 export function getDataExtent (data) {
-  console.log('data.x', data.x)
   return {
     x: d3.extent(data.x),
     y: d3.extent(data.y)
@@ -64,7 +63,6 @@ export function yMax ({ tickDirection, parentHeight, margin, padding }) {
 }
 
 export function transformXScale (data, transformMatrix, rangeParameters) {
-  console.log('data', data)
   const dataExtent = getDataExtent(data)
   const xRange = [xMin(rangeParameters), xMax(rangeParameters)]
   const xScale = scaleLinear({

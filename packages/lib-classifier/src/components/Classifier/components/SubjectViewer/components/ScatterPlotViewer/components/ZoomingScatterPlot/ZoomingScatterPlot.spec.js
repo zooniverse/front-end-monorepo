@@ -593,7 +593,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
       })
     })
 
-    describe.only('when panning', function () {
+    describe('when panning', function () {
       describe('in the x-axis direction', function () {
         let wrapper, eventLayer, isXAxisOutOfBoundsSpy
         before(function () {
