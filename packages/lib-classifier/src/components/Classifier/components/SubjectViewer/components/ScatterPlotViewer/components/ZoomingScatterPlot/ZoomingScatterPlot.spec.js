@@ -25,7 +25,7 @@ const zoomOutEventMock = {
   preventDefault: sinon.spy()
 }
 
-describe.only('Component > ZoomingScatterPlot', function () {
+describe('Component > ZoomingScatterPlot', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <ZoomingScatterPlot
@@ -61,22 +61,6 @@ describe.only('Component > ZoomingScatterPlot', function () {
         expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX)
         expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
       }
-    }
-
-    function testEvent({ wrapper, type, event, previousTransformMatrix }) {
-      const eventMock = event || {
-        clientX: 50,
-        clientY: 50,
-        deltaY: -1,
-        preventDefault: sinon.spy()
-      }
-
-      const { direction, zoomInValue, zoomOutValue } = wrapper.props().zoomConfiguration
-      const zoomValue = (-eventMock.deltaY > 0) ? zoomInValue : zoomOutValue
-
-      wrapper.find(ZoomEventLayer).simulate(type, eventMock)
-      const currentTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-      testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction })
     }
 
     describe('with the default configuration of allowing zoom in both directions', function () {

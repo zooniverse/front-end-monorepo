@@ -6,7 +6,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import Axes from '../Axes'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
-import { ScatterPlot } from './ScatterPlot'
+import ScatterPlot from './ScatterPlot'
 import {
   data,
   dataPoints,
