@@ -203,6 +203,7 @@ ZoomingScatterPlot.propTypes = {
     right: PropTypes.number,
     top: PropTypes.number
   }),
+  panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   tickDirection: PropTypes.oneOf(['inner', 'outer']),
@@ -229,6 +230,7 @@ ZoomingScatterPlot.defaultProps = {
     right: 0,
     top: 0
   },
+  panning: true, 
   tickDirection: 'outer',
   zoomConfiguration: {
     direction: 'both',

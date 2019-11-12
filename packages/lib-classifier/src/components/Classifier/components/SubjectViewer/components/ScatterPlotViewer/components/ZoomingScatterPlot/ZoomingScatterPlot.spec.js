@@ -361,6 +361,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
         const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
+            panning={false}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
@@ -398,12 +399,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We zoom in a bit so we don't run into the data boundary constraints
-          eventLayer.simulate('dblclick', {
-            clientX: 50,
-            clientY: 50,
-            deltaY: -1,
-            preventDefault: sinon.spy()
-          })
+          eventLayer.simulate('dblclick', zoomInEventMock)
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
@@ -412,15 +408,14 @@ describe.only('Component > ZoomingScatterPlot', function () {
             clientY: 50
           })
           eventLayer.simulate('mousemove', {
-            clientX: 60,
-            clientY: 60
+            clientX: 55,
+            clientY: 55
           })
           eventLayer.simulate('mouseup')
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-          console.log(pannedTransformMatrix, zoomedTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          // expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
           expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
         })
@@ -451,12 +446,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
-          eventLayer.simulate('dblclick', {
-            clientX: 50,
-            clientY: 50,
-            deltaY: -1,
-            preventDefault: sinon.spy()
-          })
+          eventLayer.simulate('dblclick', zoomInEventMock)
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
@@ -487,7 +477,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
             zoomInValue: 1.2,
             zoomOutValue: 0.8
           }
-          const wrapper = shallow(
+          const wrapper = mount(
             <ZoomingScatterPlot
               data={mockData}
               parentHeight={height}
@@ -502,12 +492,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
-          eventLayer.simulate('dblclick', {
-            clientX: 50,
-            clientY: 50,
-            deltaY: -1,
-            preventDefault: sinon.spy()
-          })
+          eventLayer.simulate('dblclick', zoomInEventMock)
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
@@ -533,21 +518,24 @@ describe.only('Component > ZoomingScatterPlot', function () {
 
   describe('data boundary constraints', function () {
     describe('when zooming', function () {
-      it('should not zoom in beyond maximum zoom configuration', function () {
-        const zoomConfiguration = {
+      let zoomConfig
+      before(function () {
+        zoomConfig = {
           direction: 'both',
           minZoom: 1,
           maxZoom: 5,
           zoomInValue: 1.2,
           zoomOutValue: 0.8
         }
-        const wrapper = shallow(
+      })
+      it('should not zoom in beyond maximum zoom configuration', function () {
+        const wrapper = mount(
           <ZoomingScatterPlot
             data={mockData}
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-            zoomConfiguration={zoomConfiguration}
+            zoomConfiguration={zoomConfig}
           />
         )
 
@@ -565,8 +553,8 @@ describe.only('Component > ZoomingScatterPlot', function () {
         const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
         expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
-        expect(zoomedTransformMatrix.scaleX).to.equal(zoomConfiguration.maxZoom)
-        expect(zoomedTransformMatrix.scaleY).to.equal(zoomConfiguration.maxZoom)
+        expect(zoomedTransformMatrix.scaleX).to.equal(zoomConfig.maxZoom)
+        expect(zoomedTransformMatrix.scaleY).to.equal(zoomConfig.maxZoom)
         expect(zoomedTransformMatrix.translateX).to.equal(previousTransformMatrix.translateX)
         expect(zoomedTransformMatrix.translateY).to.equal(previousTransformMatrix.translateY)
       })
@@ -578,7 +566,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-            zoomConfiguration={zoomConfiguration}
+            zoomConfiguration={zoomConfig}
           />
         )
 
@@ -605,7 +593,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
       })
     })
 
-    describe('when panning', function () {
+    describe.only('when panning', function () {
       describe('in the x-axis direction', function () {
         let wrapper, eventLayer, isXAxisOutOfBoundsSpy
         before(function () {
@@ -613,7 +601,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
         })
 
         beforeEach(function () {
-          wrapper = shallow(
+          wrapper = mount(
             <ZoomingScatterPlot
               data={mockData}
               parentHeight={height}
@@ -639,11 +627,11 @@ describe.only('Component > ZoomingScatterPlot', function () {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           eventLayer.simulate('mousedown', {
-            clientX: 10,
+            clientX: 50,
             clientY: 50
           })
           eventLayer.simulate('mousemove', {
-            clientX: -250,
+            clientX: -2000,
             clientY: 50
           })
           eventLayer.simulate('mouseup')
@@ -656,11 +644,11 @@ describe.only('Component > ZoomingScatterPlot', function () {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           eventLayer.simulate('mousedown', {
-            clientX: 90,
+            clientX: 50,
             clientY: 50
           })
           eventLayer.simulate('mousemove', {
-            clientX: 250,
+            clientX: 2000,
             clientY: 50
           })
           eventLayer.simulate('mouseup')
@@ -676,7 +664,7 @@ describe.only('Component > ZoomingScatterPlot', function () {
         })
 
         beforeEach(function () {
-          wrapper = shallow(
+          wrapper = mount(
             <ZoomingScatterPlot
               data={mockData}
               panning={true}
@@ -703,11 +691,11 @@ describe.only('Component > ZoomingScatterPlot', function () {
 
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 90
+            clientY: 50
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: 250
+            clientY: -2000
           })
           eventLayer.simulate('mouseup')
 
@@ -720,11 +708,11 @@ describe.only('Component > ZoomingScatterPlot', function () {
 
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 10
+            clientY: 50
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: -250
+            clientY: 2000
           })
           eventLayer.simulate('mouseup')
 
