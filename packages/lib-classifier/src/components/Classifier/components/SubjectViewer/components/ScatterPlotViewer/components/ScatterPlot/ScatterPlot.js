@@ -53,6 +53,8 @@ function ScatterPlot(props) {
   const color = colors['light-1']
   const dataPoints = zip(data.x, data.y)
 
+  console.log('data', data)
+  console.log(transformMatrix)
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
 
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
@@ -83,6 +85,10 @@ function ScatterPlot(props) {
         {dataPoints.map((point, index) => {
           const cx = xScaleTransformed(point[0])
           const cy = yScaleTransformed(point[1])
+
+          if (index === 1) {
+            console.log(cx, cy)
+          }
           return (
             <Circle
               data-x={point[0]}
@@ -139,6 +145,14 @@ ScatterPlot.defaultProps = {
   },
   tickDirection: 'outer',
   tickLength: 5,
+  transformMatrix: {
+    scaleX: 1,
+    scaleY: 1,
+    skewX: 0,
+    skewY: 0,
+    translateX: 0,
+    translateY: 0
+  },
   xAxisLabel: 'x-axis',
   yAxisLabel: 'y-axis',
   xScale: null,
@@ -171,6 +185,14 @@ ScatterPlot.propTypes = {
   theme: PropTypes.object,
   tickDirection: PropTypes.oneOf(['inner', 'outer']),
   tickLength: PropTypes.number,
+  transformMatrix: PropTypes.shape({
+    scaleX: PropTypes.number,
+    scaleY: PropTypes.number,
+    skewX: PropTypes.number,
+    skewY: PropTypes.number,
+    translateX: PropTypes.number,
+    translateY: PropTypes.number
+  }),
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
   xScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
