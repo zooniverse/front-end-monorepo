@@ -14,7 +14,8 @@ function storeMapper(stores) {
 @observer
 class Logger extends Component {
   static async getInitialProps({ query = {}, res }) {
-    const isProduction = query.env === 'production' || process.env.NODE_ENV === 'production'
+    const environment = query.env || process.env.NODE_ENV
+    const isProduction = environment === 'production'
     let showErrorPage = false
 
     if (res && isProduction) {
