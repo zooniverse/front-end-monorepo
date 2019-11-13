@@ -115,11 +115,11 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={lightCurveMockData}
+            data={lightCurveMockData.data}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            yAxisLabel={text('y axis label', 'y-axis')}
+            xAxisLabel={text('x axis label', lightCurveMockData.options.xAxisLabel)}
+            yAxisLabel={text('y axis label', lightCurveMockData.options.yAxisLabel)}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),

@@ -83,7 +83,7 @@ function ScatterPlot(props) {
         {dataPoints.map((point, index) => {
           const cx = xScaleTransformed(point[0])
           const cy = yScaleTransformed(point[1])
-
+          const style = (cx < 0 || cy > parentHeight - margin.bottom - margin.top) ? { display: 'none'} : {}
           return (
             <Circle
               data-x={point[0]}
@@ -93,6 +93,7 @@ function ScatterPlot(props) {
               cy={cy}
               r={dataPointSize}
               fill={color}
+              style={style}
             />
           )
         })}
