@@ -27,7 +27,8 @@ export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx: context }) {
     let pageProps = {
       host: generateHostUrl(context),
-      isServer: !!context.req
+      isServer: !!context.req,
+      query: context.query
     }
 
     if (Component.getInitialProps) {
