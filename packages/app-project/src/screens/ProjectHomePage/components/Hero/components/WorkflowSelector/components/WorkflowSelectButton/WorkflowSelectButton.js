@@ -26,17 +26,17 @@ function WorkflowSelectButton (props) {
   const completeness = parseInt(workflow.completeness * 100, 10)
   const label = (
     <span>
-      {workflow.displayName}<br />
-      <SpacedText size='xsmall'>
+      <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
-      </SpacedText>
+      </SpacedText><br />
+      {workflow.displayName}
     </span>
   )
 
   return (
     <Link as={as} href={href} passHref>
       <Button
-        completeness={completeness}
+        completeness={46}
         label={label}
         primary
         {...rest}

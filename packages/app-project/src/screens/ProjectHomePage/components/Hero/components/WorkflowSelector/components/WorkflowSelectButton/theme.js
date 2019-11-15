@@ -17,29 +17,29 @@ const theme = {
       const { theme: { global: { colors } }, completeness } = props
       const percentComplete = `${completeness}%`
       const progressGradient = [
-        `${colors['neutral-4']}`,
-        `${colors['status-critical']} ${percentComplete}`,
-        `white ${percentComplete} calc(${percentComplete} + 1px)`,
-        `${colors['neutral-4']} ${percentComplete}`
-      ]
-      const hoverGradient = [
-        `${colors['neutral-4']}`,
-        `${adjustHue(7, colors['status-critical'])} ${percentComplete}`,
-        `white ${percentComplete} calc(${percentComplete} + 1px)`,
-        `${adjustHue(-7, colors['neutral-4'])} ${percentComplete}`
-      ]
+        `${colors['accent-4']} ${percentComplete}`,
+        `transparent ${percentComplete}`
+      ].join(',')
 
       return `
-        background: linear-gradient(to right, ${progressGradient.join(',')});
         text-align: left;
+        position: relative;
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          background: linear-gradient(to right, ${hoverGradient.join(',')});
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
           color: 'black';
+        }
+        &:before {
+          content: "";
+          width: 100%;
+          position: absolute;
+          height: 5px;
+          background: linear-gradient(to right, ${progressGradient});
+          top: 0;
+          left: 0;
         }
     `
     }
