@@ -12,7 +12,6 @@ const MultipleChoice = types.model('MultipleChoice', {
   })),
   help: types.optional(types.string, ''),
   question: types.string,
-  required: types.maybe(types.boolean),
   type: types.literal('multiple')
 })
   .views(self => ({

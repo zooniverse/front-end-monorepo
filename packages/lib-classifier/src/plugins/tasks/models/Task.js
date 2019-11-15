@@ -2,7 +2,8 @@ import { getRoot, types } from 'mobx-state-tree'
 import Annotation from './Annotation'
 
 const Task = types.model('Task', {
-  taskKey: types.identifier
+  taskKey: types.identifier,
+  required: types.maybe(types.boolean)
 })
   .views(self => ({
     get annotation () {
@@ -12,6 +13,9 @@ const Task = types.model('Task', {
     get defaultAnnotation () {
     // Override this in a real task
       return Annotation.create({ task: self.taskKey })
+    },
+    get isComplete () {
+      return !self.required || self.annotation.isComplete
     }
   }))
   .actions(self => ({

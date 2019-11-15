@@ -4,6 +4,11 @@ import Annotation from '../../models/Annotation'
 const MultipleChoice = types.model('MultipleChoice', {
   value: types.optional(types.array(types.number), [])
 })
+  .views(self => ({
+    get isComplete () {
+      return self.value.length > 0
+    }
+  }))
 
 const MultipleChoiceAnnotation = types.compose('MultipleChoiceAnnotation', Annotation, MultipleChoice)
 
