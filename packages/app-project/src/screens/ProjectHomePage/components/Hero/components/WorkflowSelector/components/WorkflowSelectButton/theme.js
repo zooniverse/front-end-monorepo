@@ -3,7 +3,7 @@ import { adjustHue } from 'polished'
 const theme = {
   button: {
     border: {
-      color: 'neutral-4',
+      color: 'accent-4',
       width: '1px'
     },
     color: 'black',
@@ -24,13 +24,13 @@ const theme = {
       return `
         text-align: left;
         position: relative;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
-          color: 'black';
+          box-shadow: 0px 2px 14px rgba(0, 0, 0, .3);
         }
         &:before {
           content: "";
