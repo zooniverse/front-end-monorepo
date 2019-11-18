@@ -23,9 +23,7 @@ const WorkflowStepStore = types
     get activeStepTasks () {
       const validStepReference = isValidReference(() => self.active)
       if (validStepReference) {
-        return self.active.taskKeys.map((taskKey) => {
-          return self.tasks.get(taskKey)
-        }).filter(Boolean)
+        return self.active.tasks
       }
 
       return []

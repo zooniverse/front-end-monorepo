@@ -2,9 +2,9 @@ import { Factory } from 'rosie'
 
 export default new Factory()
   .attr('answers', [
-    { label: 'red', _key: Math.random() },
-    { label: 'blue', _key: Math.random() },
-    { labe: 'green', _key: Math.random() }
+    { label: 'red', _key: 1 },
+    { label: 'blue', _key: 2 },
+    { label: 'green', _key: 3 }
   ])
   .attr('help', '')
   .attr('required', false)
