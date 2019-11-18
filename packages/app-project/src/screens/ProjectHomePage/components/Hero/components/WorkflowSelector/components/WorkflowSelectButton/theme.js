@@ -1,4 +1,3 @@
-import { adjustHue } from 'polished'
 import { normalizeColor } from 'grommet/utils'
 import { getGradientShade } from '@zooniverse/react-components'
 
