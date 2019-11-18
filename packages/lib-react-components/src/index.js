@@ -21,3 +21,4 @@ export { default as withOnlyRenderOnBrowser } from './helpers/withOnlyRenderOnBr
 export { default as withResponsiveContext } from './helpers/withResponsiveContext'
 export { default as withThemeContext } from './helpers/withThemeContext'
 export { default as getThumbnailSrc } from './Media/helpers/getThumbnailSrc'
+export { default as getGradientShade } from './helpers/getGradientShade'

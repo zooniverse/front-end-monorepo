@@ -1,4 +1,6 @@
 import { adjustHue } from 'polished'
+import { normalizeColor } from 'grommet/utils'
+import { getGradientShade } from '@zooniverse/react-components'
 
 const theme = {
   button: {
@@ -15,6 +17,8 @@ const theme = {
     },
     extend: props => {
       const { theme: { global: { colors } }, completeness } = props
+      const color = normalizeColor(colors['neutral-4'], props.theme)
+      const secondaryColor = getGradientShade(color)
       const percentComplete = `${completeness}%`
       const progressGradient = [
         `${colors['accent-4']} ${percentComplete}`,
@@ -22,15 +26,21 @@ const theme = {
       ].join(',')
 
       return `
-        text-align: left;
-        position: relative;
+        background: ${color};
         box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
+        position: relative;
+        text-align: left;
+        transition-property: color, border-color, box-shadow;
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
+          background: linear-gradient(${color}, ${secondaryColor});
           box-shadow: 0px 2px 14px rgba(0, 0, 0, .3);
+        }
+        &:active:not(:disabled) {
+          background: linear-gradient(${secondaryColor}, ${color});
         }
         &:before {
           content: "";
