@@ -3,6 +3,8 @@
 A helper function which accepts a colour hex string as an argument, and returns
 the correct secondary shade to use for the linear gradients used in our buttons.
 
+Based on the Photoshop `overlay` blending mode: https://stackoverflow.com/a/5925219
+
 ## Example
 
 ```js
