@@ -1,6 +1,7 @@
 import { SpacedText, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button } from 'grommet'
+import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { bool, number, shape, string } from 'prop-types'
@@ -37,6 +38,8 @@ function WorkflowSelectButton (props) {
     <Link as={as} href={href} passHref>
       <Button
         completeness={completeness}
+        icon={<Next />}
+        reverse
         label={label}
         primary
         {...rest}

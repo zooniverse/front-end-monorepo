@@ -30,6 +30,9 @@ const theme = {
         position: relative;
         text-align: left;
         transition-property: color, border-color, box-shadow;
+        > div {
+          justify-content: space-between;
+        }
         &:disabled {
           cursor: not-allowed;
         }
