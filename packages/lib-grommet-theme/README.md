@@ -32,33 +32,33 @@ class MyComponent extends React.Component {
 
 | theme variable | hex | color |
 | - | - | - |
-| `accent-1` | `#B8E986` | <div style="background: #B8E986; height: 2rem;"></div> |
-| `accent-2` | `#f6d885` | <div style="background: #f6d885; height: 2rem;"></div> |
-| `accent-3` | `#6D91B3` | <div style="background: #6D91B3; height: 2rem;"></div> |
-| `accent-4` | `#addde0` | <div style="background: #addde0; height: 2rem;"></div> |
-| `brand` | `#00979d` | <div style="background: #00979d; height: 2rem;"></div> |
-| `dark-1` | `#2D2D2D` | <div style="background: #2D2D2D; height: 2rem;"></div> |
-| `dark-2` | `#272727` | <div style="background: #272727; height: 2rem;"></div> |
-| `dark-3` | `#333333` | <div style="background: #333333; height: 2rem;"></div> |
-| `dark-4` | `#404040` | <div style="background: #404040; height: 2rem;"></div> |
-| `dark-5` | `#5C5C5C` | <div style="background: #5C5C5C; height: 2rem;"></div> |
-| `dark-6` | `#5C5C5C` | <div style="background: #5C5C5C; height: 2rem;"></div> |
-| `light-1` | `#eff2f5` | <div style="background: #eff2f5; height: 2rem;"></div> |
-| `light-2` | `#ebebeb` | <div style="background: #ebebeb; height: 2rem;"></div> |
-| `light-3` | `#e2e5e9` | <div style="background: #e2e5e9; height: 2rem;"></div> |
-| `light-4` | `#CBCCCB` | <div style="background: #CBCCCB; height: 2rem;"></div> |
-| `light-5` | `#a6a7a9` | <div style="background: #a6a7a9; height: 2rem;"></div> |
-| `light-6` | `#979797` | <div style="background: #979797; height: 2rem;"></div> |
-| `neutral-1` | `#345446` | <div style="background: #345446; height: 2rem;"></div> |
-| `neutral-2` | `#005D69` | <div style="background: #005D69; height: 2rem;"></div> |
-| `neutral-3` | `#0C4881` | <div style="background: #0C4881; height: 2rem;"></div> |
-| `neutral-4` | `#f0b200` | <div style="background: #f0b200; height: 2rem;"></div> |
-| `status-critical` | `#E45950` | <div style="background: #E45950; height: 2rem;"></div> |
-| `status-error` | `#FFB6AA` | <div style="background: #FFB6AA; height: 2rem;"></div> |
-| `status-warning` | `#CC9200` | <div style="background: #CC9200; height: 2rem;"></div> |
-| `status-ok` | `#078F52` | <div style="background: #078F52; height: 2rem;"></div> |
-| `status-unknown` | `#CBCCCB` | <div style="background: #CBCCCB; height: 2rem;"></div> |
-| `status-disabled` | `#CBCCCB` | <div style="background: #CBCCCB; height: 2rem;"></div> |
+| `accent-1` | `#B8E986` | ![](https://via.placeholder.com/80x30.png/B8E986?text=+) |
+| `accent-2` | `#f6d885` | ![](https://via.placeholder.com/80x30.png/f6d885?text=+) |
+| `accent-3` | `#6D91B3` | ![](https://via.placeholder.com/80x30.png/6D91B3?text=+) |
+| `accent-4` | `#addde0` | ![](https://via.placeholder.com/80x30.png/addde0?text=+) |
+| `brand` | `#00979d` | ![](https://via.placeholder.com/80x30.png/00979d?text=+) |
+| `dark-1` | `#2D2D2D` | ![](https://via.placeholder.com/80x30.png/2D2D2D?text=+) |
+| `dark-2` | `#272727` | ![](https://via.placeholder.com/80x30.png/272727?text=+) |
+| `dark-3` | `#333333` | ![](https://via.placeholder.com/80x30.png/333333?text=+) |
+| `dark-4` | `#404040` | ![](https://via.placeholder.com/80x30.png/404040?text=+) |
+| `dark-5` | `#5C5C5C` | ![](https://via.placeholder.com/80x30.png/5C5C5C?text=+) |
+| `dark-6` | `#5C5C5C` | ![](https://via.placeholder.com/80x30.png/5C5C5C?text=+) |
+| `light-1` | `#eff2f5` | ![](https://via.placeholder.com/80x30.png/eff2f5?text=+) |
+| `light-2` | `#ebebeb` | ![](https://via.placeholder.com/80x30.png/ebebeb?text=+) |
+| `light-3` | `#e2e5e9` | ![](https://via.placeholder.com/80x30.png/e2e5e9?text=+) |
+| `light-4` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
+| `light-5` | `#a6a7a9` | ![](https://via.placeholder.com/80x30.png/a6a7a9?text=+) |
+| `light-6` | `#979797` | ![](https://via.placeholder.com/80x30.png/979797?text=+) |
+| `neutral-1` | `#345446` | ![](https://via.placeholder.com/80x30.png/345446?text=+) |
+| `neutral-2` | `#005D69` | ![](https://via.placeholder.com/80x30.png/005D69?text=+) |
+| `neutral-3` | `#0C4881` | ![](https://via.placeholder.com/80x30.png/0C4881?text=+) |
+| `neutral-4` | `#f0b200` | ![](https://via.placeholder.com/80x30.png/f0b200?text=+) |
+| `status-critical` | `#E45950` | ![](https://via.placeholder.com/80x30.png/E45950?text=+) |
+| `status-error` | `#FFB6AA` | ![](https://via.placeholder.com/80x30.png/FFB6AA?text=+) |
+| `status-warning` | `#CC9200` | ![](https://via.placeholder.com/80x30.png/CC9200?text=+) |
+| `status-ok` | `#078F52` | ![](https://via.placeholder.com/80x30.png/078F52?text=+) |
+| `status-unknown` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
+| `status-disabled` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
 
 Colors for components defaults, text, focus, placeholder, borders, etc are set from these in the theme. Additionally, any Grommet component that accepts a color for a prop can be passed in the variable name to set it, i.e. `<Box background={{ light: 'dark-2', dark: 'light-2' }}>`
 
