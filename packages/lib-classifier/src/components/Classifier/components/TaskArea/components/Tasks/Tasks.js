@@ -37,7 +37,7 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { isThereTaskHelp, subjectReadyState, tasks } = this.props
+    const { isThereTaskHelp, subjectReadyState, step, tasks } = this.props
     const ready = subjectReadyState === asyncStates.success
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
@@ -60,7 +60,7 @@ class Tasks extends React.Component {
             return (<Paragraph>Task component could not be rendered.</Paragraph>)
           })}
           {isThereTaskHelp && <TaskHelp tasks={tasks} />}
-          <TaskNavButtons disabled={!ready} />
+          <TaskNavButtons disabled={!ready || !step.isComplete} />
         </Box>
       )
     }
