@@ -19,7 +19,7 @@ function storeMapper (stores) {
 class InteractionLayerContainer extends Component {
 
   render () {
-    const { activeDrawingTask, activeDrawingToolIndex, createMark, marks, svg } = this.props
+    const { activeDrawingTask, svg } = this.props
     return (
       <InteractionLayer
         activeDrawingTask={activeDrawingTask}
