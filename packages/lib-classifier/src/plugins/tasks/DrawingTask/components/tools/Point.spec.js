@@ -5,7 +5,9 @@ import Point from './Point'
 
 describe('Point tool', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<Point />)
+    const wrapper = shallow(<Point
+      mark={{ x: 100, y: 200 }}
+    />)
     expect(wrapper).to.be.ok()
   })
 
@@ -30,7 +32,7 @@ describe('Point tool', function () {
   it('should render with radius', function () {
     const wrapper = shallow(
       <Point
-        coordinates={{ x: 100, y: 200 }}
+        mark={{ x: 100, y: 200 }}
       />)
     expect(wrapper.containsMatchingElement(<circle r={10} />)).to.be.true()
   })
@@ -39,13 +41,8 @@ describe('Point tool', function () {
     const wrapper = shallow(
       <Point
         active
-        coordinates={{ x: 100, y: 200 }}
+        mark={{ x: 100, y: 200 }}
       />)
     expect(wrapper.containsMatchingElement(<circle r={20} />)).to.be.true()
-  })
-
-  it('should return null with coordinates undefined', function () {
-    const wrapper = shallow(<Point />)
-    expect(wrapper.isEmptyRender()).to.be.true()
   })
 })
