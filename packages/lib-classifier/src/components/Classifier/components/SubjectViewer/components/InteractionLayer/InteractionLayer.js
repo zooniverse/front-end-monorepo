@@ -2,8 +2,7 @@ import cuid from 'cuid'
 import { observer } from 'mobx-react'
 import { func } from 'prop-types'
 import React, { useState } from 'react'
-import DrawingToolRoot from '@plugins/tasks/DrawingTask/components/tools/DrawingToolRoot'
-import DeleteButton from '@plugins/tasks/DrawingTask/components/tools/DeleteButton'
+import DrawingMarks from './components/DrawingMarks'
 
 function InteractionLayer ({ activeDrawingTask, svg }) {
   const [ activeMark, setActiveMark ] = useState(null)
@@ -41,12 +40,6 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     setActiveMark(activeMark)
   }
 
-  function deleteMark (tool, mark) {
-    // TODO: fade out the deleted mark then remove it.
-    setActiveMark(null)
-    tool.deleteMark(mark)
-  }
-
   function onPointerDown ({ x, y }) {
     activeMark && activeMark.initialPosition({ x, y })
   }
@@ -72,40 +65,19 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
       />
       {activeDrawingTask &&
         activeDrawingTask.tools.map( tool => {
-          const marksArray = Array.from(tool.marks.values())
-          return marksArray.map(mark => {
-
-            const MarkingComponent = observer(mark.toolComponent)
-
-            return (
-              <DrawingToolRoot
-                key={mark.id}
-                isActive={mark === activeMark}
-                coords={mark.coords}
-                dragStart={onPointerDown}
-                dragMove={(event, difference) => mark.move(difference)}
-                dragEnd={onPointerUp}
-                mark={mark}
-                onDelete={mark => deleteMark(tool, mark)}
-                svg={svg}
-                tool={tool}
-              >
-                <MarkingComponent
-                  mark={mark}
-                  svg={svg}
-                  tool={tool}
-                >
-                  <DeleteButton
-                    mark={mark}
-                    svg={svg}
-                    tool={tool}
-                    {...mark.deleteButtonPosition}
-                    onDelete={mark => deleteMark(tool, mark)}
-                  />
-                </MarkingComponent>
-              </DrawingToolRoot>
-            )
-          })})
+          const ObservedDrawingMarks = observer(DrawingMarks)
+          return (
+            <ObservedDrawingMarks
+              key={`${tool.type}-${tool.toolIndex}`}
+              activeMark={activeMark}
+              onDelete={() => setActiveMark(null)}
+              onPointerDown={onPointerDown}
+              onPointerUp={onPointerUp}
+              svg={svg}
+              tool={tool}
+            />
+          )
+        })
       }
     </g>
   )
