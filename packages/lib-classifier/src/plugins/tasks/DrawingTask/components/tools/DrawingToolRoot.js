@@ -1,49 +1,57 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
+import draggable from '../components/draggable'
 
-const STROKE_WIDTH = 1.5
-const SELECTED_STROKE_WIDTH = 2.5
+const STROKE_WIDTH = 2
+const SELECTED_STROKE_WIDTH = 3
 
-function DrawingToolRoot ({ children, tool }) {
-  const [ active, setActive ] = useState(true)
+const DrawingToolRoot = forwardRef(({ children, isActive, mark, svg, tool, onDelete }, ref) => {
+  const [ active, setActive ] = useState(isActive)
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
     fill: 'transparent',
     stroke: tool && tool.color ? tool.color : 'green',
-    strokeWidth: active ? SELECTED_STROKE_WIDTH : STROKE_WIDTH
   }
 
-  function onPointerDown (event) {
-    console.log(`${tool.type} clicked`)
-    event.stopPropagation()
-    event.preventDefault()
+  function onKeyDown (event) {
+    switch (event.key) {
+      case 'Backspace': {
+        event.preventDefault()
+        event.stopPropagation()
+        onDelete(mark)
+        return false
+      }
+      default: {
+        return true
+      }
+    }
+  }
+
+  function select (event) {
     setActive(true)
   }
 
-  function onPointerMove (event) {
-    console.log(`${tool.type} moved`)
-    event.stopPropagation()
-    event.preventDefault()
-  }
-
-  function onPointerUp (event) {
-    console.log(`${tool.type} dropped`)
+  function deselect (event) {
     setActive(false)
   }
 
   return (
     <g
       {...mainStyle}
+      ref={ref}
+      strokeWidth ={active ? SELECTED_STROKE_WIDTH : STROKE_WIDTH}
       focusable
       tabIndex='-1'
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
+      onFocus={select}
+      onBlur={deselect}
+      onKeyDown={onKeyDown}
+      onPointerDown={select}
+      onPointerUp={deselect}
     >
-      {children}
+      {React.cloneElement(React.Children.only(children), { active })}
     </g>
   )
-}
+})
 
 DrawingToolRoot.propTypes = {
   active: PropTypes.bool,
@@ -53,4 +61,11 @@ DrawingToolRoot.propTypes = {
   })
 }
 
-export default DrawingToolRoot
+DrawingToolRoot.defaultProps = {
+  active: false,
+  tool: {
+    color: 'green'
+  }
+}
+
+export default draggable(DrawingToolRoot)
