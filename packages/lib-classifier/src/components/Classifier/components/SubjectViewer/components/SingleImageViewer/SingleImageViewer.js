@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 
 import InteractionLayer from '../InteractionLayer'
@@ -9,7 +9,7 @@ const SVG = styled.svg`
   width: 100%;
 `
 
-const SingleImageViewer = React.forwardRef(function SingleImageViewer ({ height, url, width }, ref) {
+const SingleImageViewer = forwardRef(function SingleImageViewer ({ height, url, width }, ref) {
   const viewBox = `0 0 ${width} ${height}`
   return (
     <SVG
@@ -21,7 +21,7 @@ const SingleImageViewer = React.forwardRef(function SingleImageViewer ({ height,
         width='100%'
         xlinkHref={url}
       />
-      <InteractionLayer />
+      <InteractionLayer svg={ref ? ref.current : null} />
     </SVG>
   )
 })
