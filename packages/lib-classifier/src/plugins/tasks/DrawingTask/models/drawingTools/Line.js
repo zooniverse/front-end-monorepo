@@ -21,8 +21,13 @@ const Line = types.model('Line', {
     return newMark
   }
 
+  function deleteMark (mark) {
+    self.marks.delete(mark.id)
+  }
+
   return {
-    createMark
+    createMark,
+    deleteMark
   }
 })
 

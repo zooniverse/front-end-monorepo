@@ -7,7 +7,7 @@ const Point = types.model('Point', {
   marks: types.map(PointMark),
   max: types.maybe(types.union(types.string, types.number), ''),
   min: types.maybe(types.union(types.string, types.number), ''),
-  size: types.maybe(types.enumeration(['large', 'small'])),
+  size: types.optional(types.enumeration(['large', 'small']), 'large'),
   type: types.literal('point')
 })
 .views(self => ({
@@ -21,8 +21,14 @@ const Point = types.model('Point', {
     self.marks.put(newMark)
     return newMark
   }
+
+  function deleteMark (mark) {
+    self.marks.delete(mark.id)
+  }
+
   return {
-    createMark
+    createMark,
+    deleteMark
   }
 })
 
