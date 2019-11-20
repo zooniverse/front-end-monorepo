@@ -3,35 +3,21 @@ import React from 'react'
 import InteractionLayerContainer from './InteractionLayerContainer'
 import DrawingContainer from '../Drawing/DrawingContainer'
 
-const activeStepTasksWithDrawing = [
-  {
-    instruction: 'Draw a point and line',
-    taskKey: 'T0',
-    tools: [
-      { type: 'point' },
-      { type: 'line' }
-    ],
-    type: 'drawing'
-  }
-]
-
-const activeStepTasksWithSingleChoice = [
-  {
-    answers: [{ label: 'yes' }, { label: 'no' }],
-    question: 'Is there a cat?',
-    required: true,
-    taskKey: 'T0',
-    type: 'single'
-  }
-]
-
 describe('Component > InteractionLayerContainer', function () {
   it('should render without crashing', function () {
-    shallow(<InteractionLayerContainer.wrappedComponent />)
+    shallow(
+      <InteractionLayerContainer.wrappedComponent
+        addToStream={() => {}}
+        storeSVG={() => {}}
+      />)
   })
 
   it('should render an InteractionLayer', function () {
-    const wrapper = shallow(<InteractionLayerContainer.wrappedComponent />)
+    const wrapper = shallow(
+      <InteractionLayerContainer.wrappedComponent
+        addToStream={() => {}}
+        storeSVG={() => {}}
+      />)
     expect(wrapper.find('InteractionLayer')).to.have.lengthOf(1)
   })
 
