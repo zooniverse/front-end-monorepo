@@ -29,7 +29,7 @@ describe('Component > ScatterPlot', function () {
           theme={zooTheme}
           transformMatrix={transformMatrix}
         >
-          <rect></rect>
+          <rect id='test'></rect>
         </ScatterPlot>
       )
       chart = wrapper.find(Chart)
@@ -92,7 +92,7 @@ describe('Component > ScatterPlot', function () {
     })
 
     it('should render children', function () {
-      expect(wrapper.find('rect')).to.have.lengthOf(1)
+      expect(wrapper.find('rect#test')).to.have.lengthOf(1)
     })
   })
 })

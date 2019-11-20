@@ -7,6 +7,8 @@ import { darken } from 'polished'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import Axes from '../Axes'
+import cuid from 'cuid'
+
 import {
   left,
   transformXScale,
@@ -70,20 +72,27 @@ function ScatterPlot(props) {
     }
   }
 
+  const clipPathId = cuid()
   return (
     <Chart
       height={parentHeight}
       width={parentWidth}
     >
       <Background fill={background} />
+      <clipPath id={`scatter-plot-${clipPathId}`}>
+        <rect
+          height={parentHeight - margin.bottom - margin.top}
+          width={parentWidth - margin.right - margin.left}
+        />
+      </clipPath>
       <Group
+        clipPath={`url(#scatter-plot-${clipPathId})`}
         left={leftPosition}
         top={topPosition}
       >
         {dataPoints.map((point, index) => {
           const cx = xScaleTransformed(point[0])
           const cy = yScaleTransformed(point[1])
-          const style = (cx < 0 || cy > parentHeight - margin.bottom - margin.top) ? { display: 'none'} : {}
           return (
             <Circle
               data-x={point[0]}
@@ -93,7 +102,6 @@ function ScatterPlot(props) {
               cy={cy}
               r={dataPointSize}
               fill={color}
-              style={style}
             />
           )
         })}
