@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import DrawingToolRoot from './DrawingToolRoot'
 
-// TODO add and update per tool size prop
+// TODO update per tool size prop
 
 const RADIUS = {
   large: 10,
@@ -15,7 +15,7 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
+function Point ({ active, mark, scale, tool }) {
   const size = 'large'
   const averageScale = (scale.horizontal + scale.vertical) / 2
   const crosshairSpace = CROSSHAIR_SPACE / averageScale
@@ -29,14 +29,9 @@ const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
     radius = RADIUS[size] / averageScale
   }
 
-  if (!coordinates) return null
-  if (active && coordinates.type === 'pointerup') {
-    finishDrawing(coordinates)
-  }
-
   return (
     <DrawingToolRoot active tool={tool}>
-      <g transform={`translate(${coordinates.x}, ${coordinates.y})`}>
+      <g transform={`translate(${mark.x}, ${mark.y})`}>
         <line x1='0' y1={-1 * crosshairSpace * selectedRadius} x2='0' y2={-1 * selectedRadius} strokeWidth={crosshairWidth} />
         <line x1={-1 * crosshairSpace * selectedRadius} y1='0' x2={-1 * selectedRadius} y2='0' strokeWidth={crosshairWidth} />
         <line x1='0' y1={crosshairSpace * selectedRadius} x2='0' y2={selectedRadius} strokeWidth={crosshairWidth} />
@@ -49,7 +44,6 @@ const Point = ({ active, coordinates, finishDrawing, scale, tool }) => {
 
 Point.propTypes = {
   active: PropTypes.bool,
-  finishDrawing: PropTypes.func,
   scale: PropTypes.shape({
     horizontal: PropTypes.number,
     vertical: PropTypes.number

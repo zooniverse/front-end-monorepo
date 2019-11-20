@@ -2,22 +2,18 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import DrawingToolRoot from './DrawingToolRoot'
 
-const Line = ({ active, coordinates, finishDrawing, tool }) => {
-  if (!coordinates) return null
-  if (active && coordinates.type === 'pointerup') {
-    finishDrawing(coordinates)
-  }
+function Line ({ active, mark, tool }) {
+  const { x1, y1, x2, y2 } = mark
 
   return (
     <DrawingToolRoot active tool={tool}>
-      <line {...coordinates} />
+      <line x1={x1} y1={y1} x2={x2} y2={y2} />
     </DrawingToolRoot>
   )
 }
 
 Line.propTypes = {
   active: PropTypes.bool,
-  finishDrawing: PropTypes.func,
   tool: PropTypes.object
 }
 
