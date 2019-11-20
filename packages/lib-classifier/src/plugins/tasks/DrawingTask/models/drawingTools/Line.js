@@ -1,11 +1,29 @@
 import { types } from 'mobx-state-tree'
+import { Line as LineMark } from '../markings'
 
 const Line = types.model('Line', {
   color: types.optional(types.string, ''),
   label: types.optional(types.string, ''),
+  marks: types.map(LineMark),
   max: types.maybe(types.union(types.string, types.number), ''),
   min: types.maybe(types.union(types.string, types.number), ''),
   type: types.literal('line')
+})
+.views(self => ({
+  get isComplete () {
+    return (self.marks.size >= self.min && self.marks.size <= self.max)
+  }
+}))
+.actions(self => {
+  function createMark (mark) {
+    const newMark = LineMark.create(mark)
+    self.marks.put(newMark)
+    return newMark
+  }
+
+  return {
+    createMark
+  }
 })
 
 export default Line
