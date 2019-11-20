@@ -13,6 +13,7 @@ export { default as FeedbackFactory } from './FeedbackFactory'
 export { FieldGuideMediumFactory, TutorialMediumFactory }
 
 // Workflow Task Factories
+export { default as DrawingTaskFactory } from './tasks/DrawingTaskFactory'
 export { default as MultipleChoiceTaskFactory } from './tasks/MultipleChoiceTaskFactory'
 export { default as SingleChoiceTaskFactory } from './tasks/SingleChoiceTaskFactory'
 
