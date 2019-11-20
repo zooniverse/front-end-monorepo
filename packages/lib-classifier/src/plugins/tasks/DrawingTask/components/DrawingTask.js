@@ -29,30 +29,17 @@ const StyledText = styled(Text)`
     margin-top: 0;
   }
 `
-
-function storeMapper (stores) {
-  const { activeDrawingTool, setActiveDrawingTool } = stores.classifierStore.drawing
-  return {
-    activeDrawingTool,
-    setActiveDrawingTool
-  }
-}
-
-@inject(storeMapper)
 @observer
 class DrawingTask extends React.Component {
   onChange (index, event) {
-    const { setActiveDrawingTool } = this.props
+    const { setActiveTool } = this.props.task
     if (event.target.checked) {
-      setActiveDrawingTool(index)
+      setActiveTool(index)
     }
   }
 
   render () {
-    const {
-      activeDrawingTool,
-      task
-    } = this.props
+    const { task } = this.props
     return (
       <Box>
         <StyledText size='small' tag='legend'>
@@ -62,16 +49,17 @@ class DrawingTask extends React.Component {
         </StyledText>
 
         {task.tools.map((tool, index) => {
-          const checked = activeDrawingTool === index
+          const checked = task.activeToolIndex === index
           // TODO add count for min/max
           return (
             <TaskInput
               checked={checked}
+              disabled={tool.isComplete}
               index={index}
               key={`${task.taskKey}_${index}`}
               label={tool.label}
               labelIcon={<InputIcon icon={<ToolIcon type={tool.type} />} tool={tool} />}
-              labelStatus={<InputStatus tool={tool} />}
+              labelStatus={<InputStatus count={tool.marks.size} tool={tool} />}
               name='drawing-tool'
               onChange={this.onChange.bind(this, index)}
               required={task.required}
@@ -84,12 +72,12 @@ class DrawingTask extends React.Component {
   }
 }
 
-DrawingTask.wrappedComponent.defaultProps = {
+DrawingTask.defaultProps = {
   annotations: observable.map(),
   task: {}
 }
 
-DrawingTask.wrappedComponent.propTypes = {
+DrawingTask.propTypes = {
   annotations: MobXPropTypes.observableMap,
   task: PropTypes.shape({
     help: PropTypes.string,
