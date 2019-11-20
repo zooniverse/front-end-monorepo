@@ -5,19 +5,11 @@ import DrawingContainer from '../Drawing/DrawingContainer'
 
 describe('Component > InteractionLayerContainer', function () {
   it('should render without crashing', function () {
-    shallow(
-      <InteractionLayerContainer.wrappedComponent
-        addToStream={() => {}}
-        storeSVG={() => {}}
-      />)
+    shallow(<InteractionLayerContainer.wrappedComponent />)
   })
 
   it('should render an InteractionLayer', function () {
-    const wrapper = shallow(
-      <InteractionLayerContainer.wrappedComponent
-        addToStream={() => {}}
-        storeSVG={() => {}}
-      />)
+    const wrapper = shallow(<InteractionLayerContainer.wrappedComponent />)
     expect(wrapper.find('InteractionLayer')).to.have.lengthOf(1)
   })
 
