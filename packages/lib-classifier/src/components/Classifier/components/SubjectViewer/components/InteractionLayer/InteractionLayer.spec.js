@@ -9,6 +9,7 @@ import { Line, Point } from '@plugins/tasks/DrawingTask/components/tools'
 describe('Component > InteractionLayer', function () {
   let wrapper
   const mockMark = {
+    initialPosition: sinon.stub(),
     setCoordinates: sinon.stub()
   }
   const mockDrawingTask = DrawingTask.TaskModel.create({

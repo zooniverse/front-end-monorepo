@@ -31,7 +31,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     return svgEventOffset
   }
 
-  function createMark () {
+  function createMark (event) {
     const activeTool = activeDrawingTask.activeTool
     const activeMark = activeTool.createMark({
       id: cuid(),

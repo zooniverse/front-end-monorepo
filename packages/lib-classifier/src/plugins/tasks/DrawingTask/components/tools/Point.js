@@ -48,6 +48,9 @@ Point.defaultProps = {
   scale: {
     horizontal: 1,
     vertical: 1
+  },
+  tool: {
+    size: 'large'
   }
 }
 
