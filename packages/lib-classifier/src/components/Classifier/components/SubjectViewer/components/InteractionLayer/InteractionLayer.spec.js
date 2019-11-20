@@ -3,17 +3,44 @@ import React from 'react'
 import sinon from 'sinon'
 
 import InteractionLayer from './InteractionLayer'
-
-const onPointerDown = sinon.stub()
-const onPointerMove = sinon.stub()
-const onPointerUp = sinon.stub()
-
-let wrapper
+import { Line, Point } from '@plugins/tasks/DrawingTask/components/tools'
 
 describe('Component > InteractionLayer', function () {
+  let wrapper
+  const mockMark = {
+    setCoordinates: sinon.stub()
+  }
+  const mockDrawingTask = {
+    activeToolIndex: 0,
+    activeTool: {
+      createMark: sinon.stub().callsFake(() => mockMark)
+    },
+    tools: [
+      {
+        marks: new Map([]),
+        toolComponent: Point
+      },
+      {
+        marks: new Map([]),
+        toolComponent: Line
+      }
+    ]
+  }
+  const mockSVGEvent = {
+    matrixTransform: sinon.stub().callsFake(() => ({
+      x: 100,
+      y: 200
+    }))
+  }
+  const mockSVG = {
+    createSVGPoint: sinon.stub().callsFake(() => mockSVGEvent),
+    getScreenCTM: sinon.stub().callsFake(() => ({
+      inverse: sinon.stub()
+    }))
+  }
+
   beforeEach(function () {
-    wrapper = shallow(<InteractionLayer onPointerDown={onPointerDown} onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp} />)
+    wrapper = shallow(<InteractionLayer activeDrawingTask={mockDrawingTask} svg={mockSVG} />)
   })
 
   it('should render without crashing', function () {
@@ -27,18 +54,11 @@ describe('Component > InteractionLayer', function () {
     expect(rect.prop('fill')).to.equal('transparent')
   })
 
-  it('should bind the onPointerDown prop', function () {
-    wrapper.simulate('pointerdown')
-    expect(onPointerDown).to.have.been.called()
-  })
-
-  it('should bind the onPointerMove prop', function () {
-    wrapper.simulate('pointermove')
-    expect(onPointerMove).to.have.been.called()
-  })
-
-  it('should bind the onPointerUp prop', function () {
-    wrapper.simulate('pointerup')
-    expect(onPointerUp).to.have.been.called()
+  it('should create a mark on pointer down', function () {
+    const fakeEvent = {
+      type: 'pointer'
+    }
+    wrapper.simulate('pointerdown', fakeEvent)
+    expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
   })
 })
