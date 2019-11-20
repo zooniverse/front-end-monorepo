@@ -3,63 +3,39 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
-import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
-  const { addToStream } = stores.classifierStore.drawing
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
+  const {
+    activeStepTasks
+  } = stores.classifierStore.workflowSteps
+  const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
   return {
-    activeStepTasks,
-    addToStream
+    activeDrawingTask
   }
 }
 
 @inject(storeMapper)
 @observer
 class InteractionLayerContainer extends Component {
-  constructor () {
-    super()
-    this.onPointerDown = this.onPointerDown.bind(this)
-    this.onPointerMove = this.onPointerMove.bind(this)
-    this.onPointerUp = this.onPointerUp.bind(this)
-  }
-
-  onPointerDown (event) {
-    this.props.addToStream(event)
-  }
-
-  onPointerMove (event) {
-    this.props.addToStream(event)
-  }
-
-  onPointerUp (event) {
-    this.props.addToStream(event)
-  }
 
   render () {
-    const { activeStepTasks } = this.props
-    const isDrawingInActiveSteps = activeStepTasks && activeStepTasks.some(task => task.type === 'drawing')
-
+    const { activeDrawingTask, activeDrawingToolIndex, createMark, marks, svg } = this.props
     return (
-      <>
-        <InteractionLayer
-          onPointerDown={this.onPointerDown}
-          onPointerMove={this.onPointerMove}
-          onPointerUp={this.onPointerUp}
-        />
-        {isDrawingInActiveSteps && <DrawingContainer />}
-      </>
+      <InteractionLayer
+        activeDrawingTask={activeDrawingTask}
+        svg={svg}
+      />
     )
   }
 }
 
-InteractionLayerContainer.wrappedComponent.propTypes = {
-  activeStepTasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string
-    })
-  ),
-  addToStream: PropTypes.func.isRequired
+InteractionLayerContainer.propTypes = {
+  isDrawingInActiveWorkflowStep: PropTypes.bool,
+  svg: PropTypes.object
+}
+
+InteractionLayerContainer.defaultProps = {
+  isDrawingInActiveWorkflowStep: false
 }
 
 export default InteractionLayerContainer
