@@ -14,7 +14,7 @@ const Project = types
     completeness: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
     display_name: types.maybeNull(types.string),
-    error: types.optional(types.frozen({}), {}),
+    error: types.frozen({}),
     experimental_tools: types.frozen([]),
     id: types.maybeNull(numberString),
     introduction: types.maybeNull(types.string),
