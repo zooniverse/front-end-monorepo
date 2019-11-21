@@ -32,7 +32,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
   }
 
   function createMark (event) {
-    const activeTool = activeDrawingTask.activeTool
+    const { activeTool } = activeDrawingTask
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
@@ -48,6 +48,10 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
 
   function onPointerUp () {
     setCreating(false)
+    if (!activeMark.isValid) {
+      const { activeTool } = activeDrawingTask
+      activeTool.deleteMark(activeMark)
+    }
   }
 
   return (

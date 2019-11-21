@@ -4,6 +4,8 @@ import { Line as LineComponent } from '../../components/tools'
 
 import Mark from './Mark'
 
+const MINIMUM_LENGTH = 5
+
 const LineModel = types
   .model('LineModel', {
     x1: types.maybe(types.number),
@@ -25,6 +27,13 @@ const LineModel = types
       const y = self.y1
       // TODO: check for out of bounds coordinates
       return { x, y }
+    },
+    get length () {
+      const { x1, y1, x2, y2 } = self
+      return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+    },
+    get isValid () {
+      return self.length - MINIMUM_LENGTH > 0
     },
     get toolComponent () {
       return LineComponent
