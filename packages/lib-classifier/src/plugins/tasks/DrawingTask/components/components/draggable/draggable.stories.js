@@ -1,13 +1,13 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import React, { Component, createRef } from 'react'
+import React, { Component, createRef, forwardRef } from 'react'
 import sinon from 'sinon'
 import draggable from './draggable'
 
-function TestComponent ({ x, y }) {
-  return <circle fill='blue'r={10} cx={x} cy={y} />
-}
+const TestComponent = forwardRef(({ x, y }, ref) => {
+  return <circle ref={ref} fill='blue'r={10} cx={x} cy={y} />
+})
 
 const DraggableCircle = draggable(TestComponent)
 
@@ -34,8 +34,8 @@ class DraggableStory extends Component {
     const { x, y } = this.state
     const { dragMove, svg } = this
     return (
-      <svg viewbox='0 0 300 400' height={300} width={400} ref={this.svg}>
-        {React.cloneElement(children, { dragMove, svg, x, y })}
+      <svg viewBox='0 0 300 400' height={300} width={400} ref={this.svg}>
+        {React.cloneElement(children, { dragMove, svg: svg.current, x, y })}
       </svg>
     )
   }
