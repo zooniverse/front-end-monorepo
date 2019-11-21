@@ -6,6 +6,7 @@ import DrawingMarks from './components/DrawingMarks'
 
 function InteractionLayer ({ activeDrawingTask, svg }) {
   const [ activeMark, setActiveMark ] = useState(null)
+  const [ creating, setCreating ] = useState(false)
 
   function convertEvent (event) {
     const type = event.type
@@ -38,24 +39,22 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     })
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
-  }
-
-  function onPointerDown ({ x, y }) {
-    activeMark && activeMark.initialPosition({ x, y })
+    setCreating(true)
   }
 
   function onPointerMove (event) {
-    activeMark && activeMark.initialDrag(convertEvent(event))
+    creating && activeMark.initialDrag(convertEvent(event))
   }
 
   function onPointerUp () {
-    setActiveMark(null)
+    setCreating(false)
   }
 
   return (
     <g
       onPointerDown={createMark}
       onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
     >
       <rect
         id='InteractionLayer'
@@ -71,8 +70,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
               key={`${tool.type}-${tool.toolIndex}`}
               activeMark={activeMark}
               onDelete={() => setActiveMark(null)}
-              onPointerDown={onPointerDown}
-              onPointerUp={onPointerUp}
+              onSelectMark={mark => setActiveMark(mark)}
               svg={svg}
               tool={tool}
             />

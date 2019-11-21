@@ -38,12 +38,10 @@ function draggable (WrappedComponent) {
       svgEvent.x = x
       svgEvent.y = y
       const svgEventOffset = svgEvent.matrixTransform(svg.getScreenCTM().inverse())
-      this.setState({ coords: { x, y } })
       return svgEventOffset
     }
 
     dragStart (event) {
-      console.log('drag start')
       event.stopPropagation()
       event.preventDefault()
       const { setPointerCapture } = this.wrappedComponent.current

@@ -5,7 +5,7 @@ import draggable from '../components/draggable'
 const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 3
 
-const DrawingToolRoot = forwardRef(({ children, isActive, mark, svg, tool, onDelete }, ref) => {
+const DrawingToolRoot = forwardRef(({ children, isActive, mark, onDelete, svg, tool }, ref) => {
   const [ active, setActive ] = useState(isActive)
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
@@ -46,7 +46,6 @@ const DrawingToolRoot = forwardRef(({ children, isActive, mark, svg, tool, onDel
       onBlur={deselect}
       onKeyDown={onKeyDown}
       onPointerDown={select}
-      onPointerUp={deselect}
     >
       {React.cloneElement(React.Children.only(children), { active })}
     </g>
