@@ -107,7 +107,7 @@ const ClassificationStore = types
       }
     }
 
-    function addAnnotation (annotationValue, task) {
+    function addAnnotation (task, annotationValue) {
       const validClassificationReference = isValidReference(() => self.active)
 
       if (validClassificationReference) {
