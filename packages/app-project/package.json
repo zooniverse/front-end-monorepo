@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~1.0.7",
-    "@babel/plugin-proposal-decorators": "~7.4.4",
-    "@babel/plugin-proposal-optional-chaining": "~7.2.0",
+    "@babel/plugin-proposal-decorators": "~7.7.0",
+    "@babel/plugin-proposal-optional-chaining": "~7.6.0",
     "@sentry/browser": "^5.4.3",
     "@sindresorhus/string-hash": "~1.2.0",
     "@vx/vx": "~0.0.191",
@@ -55,7 +55,7 @@
     "validator": "~11.0.0"
   },
   "devDependencies": {
-    "@babel/register": "~7.4.4",
+    "@babel/register": "~7.7.0",
     "@storybook/addon-a11y": "~5.2.1",
     "@storybook/addon-actions": "~5.2.1",
     "@storybook/addon-backgrounds": "~5.2.1",
