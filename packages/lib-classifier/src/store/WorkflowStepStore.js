@@ -159,7 +159,7 @@ const WorkflowStepStore = types
           // the key is inferred from the identifier type of the target model
           const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
           try {
-            step.tasks.put(taskToStore)
+            step.tasks.push(taskToStore)
           } catch (e) {
             console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
           }

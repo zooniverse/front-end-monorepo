@@ -6,12 +6,11 @@ export const BaseStep = types
   .model('BaseStep', {
     stepKey: types.identifier,
     taskKeys: types.array(types.string),
-    tasks: types.map(taskTypes)
+    tasks: types.array(taskTypes)
   })
   .views(self => ({
     get isComplete () {
-      const tasksArray = Array.from(self.tasks.values())
-      return tasksArray.reduce((isStepComplete, task) => isStepComplete && task.isComplete, true)
+      return self.tasks.reduce((isStepComplete, task) => isStepComplete && task.isComplete, true)
     }
   }))
 

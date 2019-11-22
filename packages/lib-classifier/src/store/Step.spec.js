@@ -21,41 +21,87 @@ describe('Model > Step', function () {
   })
   
   describe('with incomplete, optional tasks', function () {
+    let tasks
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
+      ]
+    })
+
     it('should be complete', function () {
-      const tasks = {
-        T1: MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
-        T2: SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
-      }
-      step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       step.classifications = ClassificationStore.create()
       expect(step.isComplete).to.be.true()
     })
   })
 
   describe('with any incomplete, required tasks', function () {
+    let tasks
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+      ]
+    })
+
     it('should be incomplete', function () {
-      const tasks = {
-        T1: MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
-        T2: SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
-      }
-      step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       step.classifications = ClassificationStore.create()
       expect(step.isComplete).to.be.false()
     })
   })
 
-  describe('with all complete, required tasks', function () {
-    it('should be incomplete', function () {
-      const tasks = {
-        T1: MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: true })),
-        T2: SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
-      }
+  describe('with only required tasks', function () {
+    let step
+    let tasks
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: true })),
+        SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+      ]
       step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       step.classifications = ClassificationStore.create()
-      tasks.T1.updateAnnotation([1])
+      const mockSubject = {
+        id: 'subject',
+        metadata: {}
+      }
+      const mockWorkflow = {
+        id: 'workflow',
+        version: '1.0'
+      }
+      const mockProject = {
+        id: 'project'
+      }
+      step.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+    })
+
+    it('should be incomplete', function () {
       expect(step.isComplete).to.be.false()
-      tasks.T2.updateAnnotation(0)
-      expect(step.isComplete).to.be.false()
+    })
+
+    describe('after annotating task T1', function () {
+      it('should still be incomplete', function () {
+        tasks[0].updateAnnotation([1])
+        expect(step.isComplete).to.be.false()
+      })
+
+      it('should have one complete task', function () {
+        expect(tasks[0].isComplete).to.be.true()
+        expect(tasks[1].isComplete).to.be.false()
+      })
+    })
+
+    describe('after annotating tasks T1 & T2', function () {
+      it('should be complete', function () {
+        tasks[1].updateAnnotation(1)
+        expect(step.isComplete).to.be.true()
+      })
+
+      it('should have two complete tasks', function () {
+        expect(tasks[0].isComplete).to.be.true()
+        expect(tasks[1].isComplete).to.be.true()
+      })
     })
   })
 })
