@@ -113,12 +113,7 @@ const ClassificationStore = types
       if (validClassificationReference) {
         const classification = self.active
         if (classification) {
-          const annotation = classification.annotations.get(task.taskKey) || task.createAnnotation()
-          // new annotations must be added to this store before we can modify them
-          classification.annotations.put(annotation)
-          if (annotationValue !== undefined) {
-            annotation.value = annotationValue
-          }
+          classification.addAnnotation(task, annotationValue)
         }
       } else {
         if (process.browser) {
