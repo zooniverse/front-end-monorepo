@@ -64,7 +64,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have a `workflow_description` property', function () {
-      expect(projectStore.workflow_description).to.equal('')
+      expect(projectStore.workflow_description).to.be.null()
     })
 
     after(function () {
