@@ -86,7 +86,7 @@
     "mocha": "~6.1.4",
     "mst-middlewares": "~3.14.0",
     "nock": "~10.0.6",
-    "panoptes-client": "~2.12.0",
+    "panoptes-client": "~3.0.0-rc.0",
     "polished": "~3.4.1",
     "query-string": "~6.8.1",
     "react": "~16.8.6",
