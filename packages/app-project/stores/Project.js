@@ -27,7 +27,7 @@ const Project = types
     slug: types.optional(types.string, ''),
     urls: types.frozen([]),
     subjects_count: types.optional(types.number, 0),
-    workflow_description: types.optional(types.string, '')
+    workflow_description: types.maybeNull(types.optional(types.string, ''))
   })
 
   .views(self => ({
