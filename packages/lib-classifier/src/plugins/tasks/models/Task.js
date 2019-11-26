@@ -6,11 +6,7 @@ const Task = types.model('Task', {
 })
   .views(self => ({
     get annotation () {
-      const { currentAnnotations } = getRoot(self).classifications
-      let currentAnnotation
-      if (currentAnnotations && currentAnnotations.size > 0) {
-        currentAnnotation = currentAnnotations.get(self.taskKey)
-      }
+      const currentAnnotation = getRoot(self).classifications.annotation(self)
       return currentAnnotation || self.defaultAnnotation
     },
     get defaultAnnotation () {

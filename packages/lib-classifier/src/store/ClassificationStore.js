@@ -21,6 +21,14 @@ const ClassificationStore = types
     type: types.optional(types.string, 'classifications')
   })
   .views(self => ({
+    annotation (task) {
+      const validClassificationReference = isValidReference(() => self.active)
+      if (validClassificationReference) {
+        return self.active.annotation(task)
+      }
+      return null
+    },
+
     get currentAnnotations () {
       const validClassificationReference = isValidReference(() => self.active)
       if (validClassificationReference) {
