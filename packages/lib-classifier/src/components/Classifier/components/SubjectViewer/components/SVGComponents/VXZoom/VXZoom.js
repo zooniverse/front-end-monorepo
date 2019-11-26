@@ -100,7 +100,6 @@ class VXZoom extends PureComponent {
       >
         {zoom => {
           this.zoom = zoom
-          {/* console.log('zoom', zoom.transformMatrix) */}
           return (
             <ZoomingComponent
               initialTransformMatrix={zoom.initialTransformMatrix}
