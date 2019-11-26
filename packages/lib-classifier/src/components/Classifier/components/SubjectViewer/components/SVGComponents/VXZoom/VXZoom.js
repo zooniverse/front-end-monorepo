@@ -12,6 +12,7 @@ class VXZoom extends PureComponent {
     setOnZoom(this.handleToolbarZoom.bind(this))
 
     this.onDoubleClick = this.onDoubleClick.bind(this)
+    this.onMouseEnter = this.onMouseEnter.bind(this)
     this.onMouseLeave = this.onMouseLeave.bind(this)
   }
 
@@ -61,7 +62,16 @@ class VXZoom extends PureComponent {
     }
   }
 
+  onMouseEnter() {
+    if (this.props.zooming) {
+      document.body.style.overflow = 'hidden'
+    }
+  }
+
   onMouseLeave() {
+    if (this.props.zooming) {
+      document.body.style.overflow = ''
+    }
     if (!this.zoom.isDragging && !this.props.panning) return
     this.zoom.dragEnd()
   }
@@ -71,8 +81,6 @@ class VXZoom extends PureComponent {
     if (this.props.zooming) {
       const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
       this.zoomToPoint(event, zoomDirection)
-    } else {
-      event.preventDefault()
     }
   }
 
@@ -109,6 +117,7 @@ class VXZoom extends PureComponent {
               <ZoomEventLayer
                 onWheel={(event) => this.onWheel(event)}
                 onMouseDown={panning ? zoom.dragStart : () => { }}
+                onMouseEnter={this.onMouseEnter}
                 onMouseMove={panning ? zoom.dragMove : () => { }}
                 onMouseUp={panning ? zoom.dragEnd : () => { }}
                 onMouseLeave={this.onMouseLeave}

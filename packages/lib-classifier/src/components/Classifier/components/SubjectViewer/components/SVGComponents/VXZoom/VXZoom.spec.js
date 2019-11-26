@@ -196,7 +196,9 @@ describe('Component > VXZoom', function () {
             zoomingComponent={StubComponent}
           />
         )
-        testEventPrevention({ wrapper, type: 'wheel' })
+
+        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
       })
 
       it('should not scale the transform matrix on double click', function () {
@@ -287,6 +289,24 @@ describe('Component > VXZoom', function () {
         })
         zoomCallback.resetHistory()
       }
+
+      it('should define overflow styles on the document body on mouse enter and on mouse leave', function () {
+        const wrapper = mount(
+          <VXZoom
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            zoomingComponent={StubComponent}
+            zooming={true}
+          />
+        )
+
+        expect(document.body.style.overflow).to.be.empty()
+        wrapper.find(ZoomEventLayer).simulate('mouseenter')
+        expect(document.body.style.overflow).to.equal('hidden')
+        wrapper.find(ZoomEventLayer).simulate('mouseleave')
+        expect(document.body.style.overflow).to.be.empty()
+      })
 
       it('should scale in the transform matrix on mouse wheel', function () {
         const wrapper = mount(

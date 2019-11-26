@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const StyledRect = styled.rect`
-  cursor: ${props => props.panning ? 'move' : 'inherit'}
+  cursor: ${props => props.panning ? 'move' : 'inherit'};
+  overscroll-behavior: none;
 `
 
 function ZoomEventLayer(props) {
   const {
     onDoubleClick = () => {},
     onMouseDown,
+    onMouseEnter,
     onMouseMove,
     onMouseUp,
     onMouseLeave,
@@ -25,6 +27,7 @@ function ZoomEventLayer(props) {
       fill='transparent'
       onDoubleClick={onDoubleClick}
       onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseLeave}
@@ -38,6 +41,7 @@ function ZoomEventLayer(props) {
 ZoomEventLayer.propTypes = {
   onDoubleClick: PropTypes.func,
   onMouseDown: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func,
   onMouseMove: PropTypes.func.isRequired,
   onMouseUp: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
