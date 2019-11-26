@@ -5,9 +5,14 @@ const AnnotationsStore = types
   .model('AnnotationsStore', {
     annotations: types.map(types.union(...annotationModels))
   })
+  .views(self =>({
+    annotation (task) {
+      return self.annotations.get(task.taskKey) || task.createAnnotation()
+    }
+  }))
   .actions(self => {
     function addAnnotation (task, annotationValue) {
-      const annotation = self.annotations.get(task.taskKey) || task.createAnnotation()
+      const annotation = self.annotation(task)
       // new annotations must be added to this store before we can modify them
       self.annotations.put(annotation)
       if (annotationValue) {
