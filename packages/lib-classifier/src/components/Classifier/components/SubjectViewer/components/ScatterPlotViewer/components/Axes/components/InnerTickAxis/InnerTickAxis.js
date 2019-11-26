@@ -68,7 +68,7 @@ function InnerTickAxis (props) {
                     {tick.formattedValue}
                   </text>
                 </Group>
-              );
+              )
             })}
             <text
               fill={color}

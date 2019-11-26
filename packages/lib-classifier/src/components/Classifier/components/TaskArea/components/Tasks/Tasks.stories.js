@@ -5,7 +5,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import React from 'react'
 import sinon from 'sinon'
 import { Box, Grommet } from 'grommet'
-import { Provider } from "mobx-react"
+import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
 
 const mockStore = {
@@ -23,10 +23,10 @@ const mockStore = {
   }
 }
 
-function MockTask({ dark, isThereTaskHelp, subjectReadyState, step, store, tasks, zooTheme}) {
-  const background = dark ?
-    zooTheme.global.colors['dark-1'] :
-    zooTheme.global.colors['light-1']
+function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, store, tasks, zooTheme }) {
+  const background = dark
+    ? zooTheme.global.colors['dark-1']
+    : zooTheme.global.colors['light-1']
   return (
     <Provider classifierStore={store}>
       <Grommet theme={Object.assign({}, zooTheme, { dark })}>
@@ -190,4 +190,3 @@ storiesOf('Tasks', module)
       />
     )
   })
-

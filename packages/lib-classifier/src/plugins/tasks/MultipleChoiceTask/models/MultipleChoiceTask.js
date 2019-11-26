@@ -15,11 +15,11 @@ const MultipleChoice = types.model('MultipleChoice', {
   required: types.maybe(types.boolean),
   type: types.literal('multiple')
 })
-.views(self => ({
-  get defaultAnnotation () {
-    return MultipleChoiceAnnotation.create({ task: self.taskKey })
-  }
-}))
+  .views(self => ({
+    get defaultAnnotation () {
+      return MultipleChoiceAnnotation.create({ task: self.taskKey })
+    }
+  }))
 
 const MultipleChoiceTask = types.compose('MultipleChoiceTask', Task, MultipleChoice)
 

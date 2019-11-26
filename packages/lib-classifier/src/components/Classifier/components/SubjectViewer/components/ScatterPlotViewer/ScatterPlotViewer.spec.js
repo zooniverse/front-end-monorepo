@@ -32,7 +32,6 @@ describe('Component > ScatterPlotViewer', function () {
     expect(wrapper.find(ScatterPlot)).to.have.lengthOf(0)
     expect(wrapper.find(ZoomingScatterPlot)).to.have.lengthOf(1)
     wrapper.setProps({ zooming: false })
-
   })
 
   it('should pass along the size of the parent container as props', function () {

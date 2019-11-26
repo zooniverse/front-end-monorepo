@@ -49,7 +49,7 @@ function TextTask (props) {
 
   return (
     <Box
-      direction="column"
+      direction='column'
     >
       <label
         htmlFor={`${task.taskKey}-${task.type}`}
