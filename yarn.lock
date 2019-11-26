@@ -3524,7 +3524,7 @@
     classnames "^2.2.5"
     prop-types "^15.5.10"
 
-"@vx/axis@0.0.191", "@vx/axis@~0.0.190":
+"@vx/axis@0.0.191":
   version "0.0.191"
   resolved "https://registry.yarnpkg.com/@vx/axis/-/axis-0.0.191.tgz#05719f19fdfcf3db7f6238576bde205e339da805"
   integrity sha512-fNNfiqEn6+PS0/mqRTY7suQX1oKteTMdRhrS3drFLvH2U2VkrQm2IQbq3Nn26jN7+lsSZWd5I+2n3nlLDRADqg==
@@ -3533,6 +3533,18 @@
     "@vx/point" "0.0.189"
     "@vx/shape" "0.0.190"
     "@vx/text" "0.0.191"
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
+"@vx/axis@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/axis/-/axis-0.0.192.tgz#96e5274853749d13d5efcb45c933396ae5c28d78"
+  integrity sha512-+PblyJtQW3IYMMOQR1KlNvHP9FiWzGqw9Kmc05HhSsPTOWr6fpbT/t80I1BdSTMl59tVLZ3YIr1Qmlr3Hn0SYA==
+  dependencies:
+    "@vx/group" "0.0.192"
+    "@vx/point" "0.0.192"
+    "@vx/shape" "0.0.192"
+    "@vx/text" "0.0.192"
     classnames "^2.2.5"
     prop-types "^15.6.0"
 
@@ -3574,6 +3586,13 @@
   dependencies:
     d3-shape "^1.0.6"
 
+"@vx/curve@0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/curve/-/curve-0.0.192.tgz#be64214e1ca5e6c5f66a22db9c747de3146f8dbd"
+  integrity sha512-NCijtrq0k+t2eWFhbsPEYGXTQfhdHB/l+1MqRUXM6pyl5k/HcEyGEV4C+H3M9l2cn8THegs/2DUKnUDZp2wTng==
+  dependencies:
+    d3-shape "^1.0.6"
+
 "@vx/drag@0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/drag/-/drag-0.0.189.tgz#f4cf35045f9b5710e2cdd5a95d062f8b0014b1bb"
@@ -3588,6 +3607,13 @@
   integrity sha512-xfKVE42yIw7yyfHWri8Tk3G9fYEJ4UMtKo+oDF+thaYY2daNbu9FV8WpYEA61g6L/byZiQ+9QziDO+qnwINVQw==
   dependencies:
     "@vx/point" "0.0.189"
+
+"@vx/event@0.0.192", "@vx/event@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/event/-/event-0.0.192.tgz#460db4513389d61166d582cf283ae6ca8bfcaa65"
+  integrity sha512-PJ2gO+O1SXMD7MPJmmXLwih+KSQ95flgJYIskJLyy73yc2my3+Uzt0jsU1GAvKvkIC2KozYpQfJ6hOOBoQNwzw==
+  dependencies:
+    "@vx/point" "0.0.192"
 
 "@vx/geo@0.0.190":
   version "0.0.190"
@@ -3628,10 +3654,18 @@
     classnames "^2.2.5"
     prop-types "^15.6.2"
 
-"@vx/group@0.0.190", "@vx/group@~0.0.190":
+"@vx/group@0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.190.tgz#9bc1e568dbd44c04a0abad9a9a74c7364f231a35"
   integrity sha512-tyFIQS4iB987281ZWNmozdjqzyBrM4lsw4J8ObeJTeybTi1T5EgdkN/pmviCCIcT29Q1kVtFOC8FoQLXkcimcQ==
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.2"
+
+"@vx/group@0.0.192", "@vx/group@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.192.tgz#c528afc3ae07ad55ae4dc1fe46e4beee9e99e840"
+  integrity sha512-QMrJWDiIf9xW06yjJRL1xNDwTx6Kq1+gRPLMFLWlieltQfKcqleKJFTlS5hSJB0V7hiA+UrMpqpBYYH54AT5JQ==
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.6.2"
@@ -3704,7 +3738,12 @@
   resolved "https://registry.yarnpkg.com/@vx/point/-/point-0.0.189.tgz#2a52824dd3e7a1e74188c2ee9407aeee2a2a7a10"
   integrity sha512-OZW05k6Kozta1QAP3T5dEFO0OQH8ppf/dnOnF2DnTJQ4W7a+ctLVJQ0kBDbsWG2xB+sOiMjvccfMOZZKb5JnvA==
 
-"@vx/responsive@0.0.189", "@vx/responsive@~0.0.189":
+"@vx/point@0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/point/-/point-0.0.192.tgz#1576c64c2ed567ee03972258aa6a621c7fcdd789"
+  integrity sha512-kIWYZcTvw95bCD5A4dsyqJYn9oDJxvKuw+DBjp3/X/m7+IAQ6rpo41MkDDjFFyu7napZJM6h3xwxj8SxOyJGmw==
+
+"@vx/responsive@0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/responsive/-/responsive-0.0.189.tgz#64257fdf4570e58fe8a9f7a0d9b33febb7f80058"
   integrity sha512-46phRmRMrcRvUgAwOCMkZdqSEyo8SdXdV3Fh1Zsdgrtzqs3Zg8xtd3UX9t0piXw0tJqeZ16JrOQAZbPxUp9jEw==
@@ -3713,14 +3752,30 @@
     prop-types "^15.6.1"
     resize-observer-polyfill "1.5.0"
 
-"@vx/scale@0.0.190", "@vx/scale@~0.0.190":
+"@vx/responsive@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/responsive/-/responsive-0.0.192.tgz#721d032bec38b9e3ff5fde2e4d5d8ee5a81cc517"
+  integrity sha512-HaXVwhSJXUfRbzRV+glxsX0ki2Hi1mdpz42iuGArVQgDPJEmBHjkXyoiXU8U6v66M7FAH+OyKgtc5j2bfhyYzA==
+  dependencies:
+    lodash "^4.17.10"
+    prop-types "^15.6.1"
+    resize-observer-polyfill "1.5.0"
+
+"@vx/scale@0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/scale/-/scale-0.0.190.tgz#f2799a7e1b29aed9626c4f0ceab0a330469c0d90"
   integrity sha512-oxXVIuxdjZxAftmAtT+zkveTAGUbjCS1cOZr2h14mJ7ODWUMY6RLLPA8PHfXfmRhnCLhNLGo6ijXWgu20I4ruA==
   dependencies:
     d3-scale "^2.2.2"
 
-"@vx/shape@0.0.190", "@vx/shape@~0.0.190":
+"@vx/scale@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/scale/-/scale-0.0.192.tgz#4e13b6eea852de37cd3c95a7c91ed744f63f5692"
+  integrity sha512-jcRtgHzNI1YgQStxn87xgmRUD5RRAalIlswlMgcs6PnJlU4AhJIbvyzOOogWUi+Va/GY6omIVEdK9WpRqsxQPg==
+  dependencies:
+    d3-scale "^2.2.2"
+
+"@vx/shape@0.0.190":
   version "0.0.190"
   resolved "https://registry.yarnpkg.com/@vx/shape/-/shape-0.0.190.tgz#2807bb53dbea0922c9c12651a6bc33f8abe6d0e4"
   integrity sha512-insrYP7+vQCZ1Eekq0tJ7impeghnXRodakSuhGkPITjHZUYIHRYswuV5ArfoeLtR+9VWA+BaIZ/d0L1ZNwdCkg==
@@ -3733,10 +3788,33 @@
     d3-shape "^1.2.0"
     prop-types "^15.5.10"
 
+"@vx/shape@0.0.192", "@vx/shape@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/shape/-/shape-0.0.192.tgz#8eec168627bad2b14adbb896ae68a8584e139ac9"
+  integrity sha512-i6FQzoKQFSoYGSmU1wcKUJdYQxRITLLx9uzQa1GpLD90BdrH6cJPMcXUZ+7WS9GSWyQ/FUg1X5VbrenWq58X7Q==
+  dependencies:
+    "@vx/curve" "0.0.192"
+    "@vx/group" "0.0.192"
+    "@vx/point" "0.0.192"
+    classnames "^2.2.5"
+    d3-path "^1.0.5"
+    d3-shape "^1.2.0"
+    prop-types "^15.5.10"
+
 "@vx/text@0.0.191":
   version "0.0.191"
   resolved "https://registry.yarnpkg.com/@vx/text/-/text-0.0.191.tgz#d2eb556c9d85a2375e451023474017d79a0e0921"
   integrity sha512-MEnJSigPF2igLV5Ff2slIuNwr+N3owIv5N9JQ7DifTnf3Hhiv0Usex4BYzeJDx8ifduILBwCpgaiv3uB+XNUCg==
+  dependencies:
+    classnames "^2.2.5"
+    lodash "^4.17.15"
+    prop-types "^15.7.2"
+    reduce-css-calc "^1.3.0"
+
+"@vx/text@0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/text/-/text-0.0.192.tgz#cb71261e003c9d951d242ec43049cff2c4509302"
+  integrity sha512-lyy7eXfmQ8SJF7Qx+bCRcaEgvVSa18Lp6eRMo3GMANumUh9kSe7LwgqRFSdBJ85WkPqX+UOkJVyCH7AOlt0IWA==
   dependencies:
     classnames "^2.2.5"
     lodash "^4.17.15"
@@ -3803,6 +3881,14 @@
   integrity sha512-WhB6M16l9zU8+IKVTRg+VSOjKQMREs3XCPm9wm8AHEhhmsuZlq/MFrSbMRNrzGgWN3zzCol8oHfnDADw+vhqLw==
   dependencies:
     "@vx/event" "0.0.189"
+    prop-types "^15.6.2"
+
+"@vx/zoom@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/zoom/-/zoom-0.0.192.tgz#a1eb7d473e179e0d1d284ed608344b0a4f3da6cb"
+  integrity sha512-AZuDu5e7z/hpbxREf5mACJwRe8wutqon075BXc8/DqcjF7LK5hlOT0jb62T6MiqM41Bw0EPZWp8V0ExcJ+t8+A==
+  dependencies:
+    "@vx/event" "0.0.192"
     prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.8.5":
