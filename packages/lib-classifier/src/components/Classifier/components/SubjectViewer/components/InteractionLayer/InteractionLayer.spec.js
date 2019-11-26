@@ -3,6 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 
 import InteractionLayer from './InteractionLayer'
+import DrawingTask from '@plugins/tasks/DrawingTask'
 import { Line, Point } from '@plugins/tasks/DrawingTask/components/tools'
 
 describe('Component > InteractionLayer', function () {
@@ -10,22 +11,23 @@ describe('Component > InteractionLayer', function () {
   const mockMark = {
     setCoordinates: sinon.stub()
   }
-  const mockDrawingTask = {
+  const mockDrawingTask = DrawingTask.TaskModel.create({
     activeToolIndex: 0,
-    activeTool: {
-      createMark: sinon.stub().callsFake(() => mockMark)
-    },
+    taskKey: 'T0',
     tools: [
       {
-        marks: new Map([]),
-        toolComponent: Point
+        marks: {},
+        toolComponent: Point,
+        type: 'point'
       },
       {
-        marks: new Map([]),
-        toolComponent: Line
+        marks: {},
+        toolComponent: Line,
+        type: 'line'
       }
-    ]
-  }
+    ],
+    type: 'drawing'
+  })
   const mockSVGEvent = {
     matrixTransform: sinon.stub().callsFake(() => ({
       x: 100,
@@ -58,7 +60,9 @@ describe('Component > InteractionLayer', function () {
     const fakeEvent = {
       type: 'pointer'
     }
+    sinon.spy(mockDrawingTask.activeTool, 'createMark')
     wrapper.simulate('pointerdown', fakeEvent)
     expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
+    mockDrawingTask.activeTool.createMark.restore()
   })
 })
