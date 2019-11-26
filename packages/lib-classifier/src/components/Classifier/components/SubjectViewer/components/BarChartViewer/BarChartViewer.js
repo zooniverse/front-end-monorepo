@@ -31,8 +31,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
-  const xMax = parentWidth - left
-  const yMax = parentHeight - bottom
+  const xMax = parentWidth - left - right
+  const yMax = parentHeight - bottom - top
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
