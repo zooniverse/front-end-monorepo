@@ -1,98 +1,46 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Group } from '@vx/group'
-import { Circle } from '@vx/shape'
-import zooTheme from '@zooniverse/grommet-theme'
-import Axes from './components/Axes'
-import Background from '../SVGComponents/Background'
-import Chart from '../SVGComponents/Chart'
+import ScatterPlot from './components/ScatterPlot'
+import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import { ScatterPlotViewer } from './ScatterPlotViewer'
-import {
-  data,
-  dataPoints,
-  margin,
-  parentWidth,
-  parentHeight,
-  transformMatrix
-} from './helpers/mockData'
-import { left, top } from './helpers/utils'
+import { data, parentHeight, parentWidth } from './helpers/mockData'
 
 describe('Component > ScatterPlotViewer', function () {
-  describe('render', function () {
-    let wrapper, chart
-    before(function () {
-      wrapper = shallow(
-        <ScatterPlotViewer
-          data={data}
-          parentHeight={parentHeight}
-          parentWidth={parentWidth}
-          theme={zooTheme}
-          transformMatrix={transformMatrix}
-        >
-          <rect></rect>
-        </ScatterPlotViewer>
-      )
-      chart = wrapper.find(Chart)
-    })
+  let wrapper
+  before(function () {
+    wrapper = shallow(
+      <ScatterPlotViewer
+        data={data}
+        parentHeight={parentHeight}
+        parentWidth={parentWidth}
+      />
+    )
+  })
 
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
-    })
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok()
+  })
 
-    it('should render a Chart', function () {
-      expect(chart).to.have.lengthOf(1)
-    })
+  it('should default to rendering the standard ScatterPlot', function () {
+    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
+  })
 
-    it('should set the Chart\'s width and height from props', function () {
-      expect(chart.props().width).to.equal(parentWidth)
-      expect(chart.props().height).to.equal(parentHeight)
-    })
+  it('should render the ZoomingScatterPlot if zooming is enabled', function () {
+    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
+    expect(wrapper.find(ZoomingScatterPlot)).to.have.lengthOf(0)
+    wrapper.setProps({ zooming: true })
+    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(0)
+    expect(wrapper.find(ZoomingScatterPlot)).to.have.lengthOf(1)
+    wrapper.setProps({ zooming: false })
 
-    it('should render a Background', function () {
-      expect(wrapper.find(Background)).to.have.lengthOf(1)
-    })
+  })
 
-    it('should style the Background fill', function () {
-      expect(wrapper.find(Background).props().fill).to.be.a('string')
-    })
-
-    it('should render Group components', function () {
-      expect(wrapper.find(Group)).to.have.lengthOf(2)
-    })
-
-    it('should set the position of the Group wrapping the Chart', function () {
-      const chartGroupWrapper = wrapper.find(Group).first()
-      const leftPosition = left('outer', margin)
-      const topPosition = top('outer', margin)
-      expect(chartGroupWrapper.props().left).to.equal(leftPosition)
-      expect(chartGroupWrapper.props().top).to.equal(topPosition)
-    })
-
-    it('should render a number of Circle components equal to the number of data points', function () {
-      const circles = wrapper.find(Circle)
-      expect(circles).to.have.lengthOf(dataPoints.length)
-    })
-
-    it('should style the Circle\'s fill', function () {
-      const circles = wrapper.find(Circle)
-      circles.forEach((circle) => {
-        expect(circle.props().fill).to.be.a('string')
-      })
-    })
-
-    it('should set the position of the Group wrapping the Axes', function () {
-      const axesGroupWrapper = wrapper.find(Group).last()
-      const leftPosition = left('outer', margin)
-      expect(axesGroupWrapper.props().left).to.equal(leftPosition)
-      expect(axesGroupWrapper.props().top).to.equal(margin.top)
-    })
-
-    it('should render Axes', function () {
-      expect(wrapper.find(Axes)).to.have.lengthOf(1)
-    })
-
-    it('should render children', function () {
-      expect(wrapper.find('rect')).to.have.lengthOf(1)
-    })
+  it('should pass along the size of the parent container as props', function () {
+    expect(wrapper.find(ScatterPlot).props().parentHeight).to.equal(parentHeight)
+    expect(wrapper.find(ScatterPlot).props().parentWidth).to.equal(parentWidth)
+    wrapper.setProps({ zooming: true })
+    expect(wrapper.find(ZoomingScatterPlot).props().parentHeight).to.equal(parentHeight)
+    expect(wrapper.find(ZoomingScatterPlot).props().parentWidth).to.equal(parentWidth)
+    wrapper.setProps({ zooming: false })
   })
 })

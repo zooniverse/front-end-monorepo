@@ -100,6 +100,18 @@ function Axis (props) {
 
 Axis.defaultProps = {
   axis: {},
+  margin: {
+    bottom: 10,
+    left: 10,
+    right: 10,
+    top: 10
+  },
+  padding: {
+    bottom: 30,
+    left: 30,
+    right: 0,
+    top: 0
+  },
   theme: {
     global: {
       colors: {},

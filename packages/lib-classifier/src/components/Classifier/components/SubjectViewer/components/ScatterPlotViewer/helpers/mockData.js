@@ -56,11 +56,11 @@ const padding = {
   right: 0,
   top: 0
 }
-const xRangeMin = xMin(tickDirection, padding)
-const xRangeMax = xMax(tickDirection, parentWidth, margin)
+const xRangeMin = xMin({ tickDirection, padding })
+const xRangeMax = xMax({ tickDirection, parentWidth, margin })
 
-const yRangeMin = yMin(tickDirection, margin)
-const yRangeMax = yMax(tickDirection, parentHeight, margin, padding)
+const yRangeMin = yMin({ tickDirection, padding })
+const yRangeMax = yMax({ tickDirection, parentHeight, margin, padding })
 
 const xScale = scaleLinear({
   domain: dataExtent.x,
