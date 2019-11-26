@@ -1,43 +1,76 @@
-import asyncStates from '@zooniverse/async-states'
-import { inject, observer } from 'mobx-react'
-import { array } from 'prop-types'
-import React, { Component } from 'react'
+import counterpart from 'counterpart'
+import absoluteUrl from 'next-absolute-url'
+import { array, string } from 'prop-types'
+import React, { useState } from 'react'
+import request from 'superagent'
 
+import en from './locales/en'
 import Team from './Team'
 
-function storeMapper (stores) {
-  return {
-    data: stores.store.team.uiData,
-    filters: stores.store.team.uiFilters
+counterpart.registerTranslations('en', en)
+
+function TeamContainer (props) {
+  const { error, teamData } = props
+  const [activeFilter, setActiveFilter] = useState(null)
+
+  const filters = createFilters(teamData, activeFilter, setActiveFilter)
+  const filteredTeamData = createFilteredTeamData(teamData, activeFilter)
+
+  if (error) {
+    return (
+      <div>{counterpart('Team.error')}</div>
+    )
   }
+
+  return (
+    <Team filters={filters} data={filteredTeamData} />
+  )
 }
 
-class TeamContainer extends Component {
-  static async getInitialProps (context, store) {
-    if (store.team.loading !== asyncStates.success) {
-      await store.team.fetch()
-    }
-    return {}
-  }
-
-  render () {
-    return (
-      <Team
-        data={this.props.data}
-        filters={this.props.filters}
-      />
-    )
+TeamContainer.getInitialProps = async ({ req }) => {
+  const host = getHost(req)
+  let error
+  const teamData = await request.get(host + '/api/team')
+    .then(res => res.body)
+    .catch(err => error = err.message)
+  return {
+    error,
+    teamData
   }
 }
 
 TeamContainer.propTypes = {
-  data: array,
-  filters: array
+  error: string,
+  teamData: array,
 }
 
-@inject(storeMapper)
-@observer
-class WrappedTeamContainer extends TeamContainer { }
+export default TeamContainer
 
-export default WrappedTeamContainer
-export { TeamContainer }
+function getHost (req) {
+  return process.env.ASSET_PREFIX || absoluteUrl(req).origin
+}
+
+function createFilters (teamData, activeFilter, setActiveFilter) {
+  const showAllFilter = {
+    active: activeFilter === null,
+    name: counterpart('Team.showAll'),
+    setActive: () => setActiveFilter(null)
+  }
+
+  const teamFilters = teamData.map(team => ({
+    active: activeFilter === team.name,
+    name: team.name,
+    setActive: () => setActiveFilter(team.name)
+  }))
+
+  return [showAllFilter, ...teamFilters]
+}
+
+// Show the filtered team if a filter is active; show everything but the alumni
+// if there's no active filter.
+function createFilteredTeamData (teamData, activeFilter) {
+  const filterFn = activeFilter
+    ? team => team.name === activeFilter
+    : team => team.name !== 'Alumni'
+  return teamData.filter(filterFn)
+}

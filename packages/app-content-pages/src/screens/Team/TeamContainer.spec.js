@@ -1,18 +1,17 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import { TeamContainer } from './TeamContainer'
+import TeamContainer from './TeamContainer'
+import mockData from './TeamContainer.mock'
 import TeamComponent from './Team'
 
 let wrapper
 let componentWrapper
-
-const DATA = [{ id: 'foo' }]
-const FILTERS = [{ id: 'bar' }]
+const DATA = mockData
 
 describe('Component > TeamContainer', function () {
   before(function () {
-    wrapper = shallow(<TeamContainer data={DATA} filters={FILTERS} />)
+    wrapper = shallow(<TeamContainer teamData={DATA} />)
     componentWrapper = wrapper.find(TeamComponent)
   })
 
@@ -24,7 +23,22 @@ describe('Component > TeamContainer', function () {
     expect(componentWrapper).to.have.lengthOf(1)
   })
 
-  it('should pass down the expected props', function () {
-    expect(componentWrapper.prop('data')).to.deep.equal(DATA)
+  describe('with no active filters', function () {
+    it('should pass down the expected props', function () {
+      const expectedResult = DATA.filter(t => t.name !== 'Alumni')
+      expect(componentWrapper.prop('data')).to.deep.equal(expectedResult)
+    })
+  })
+
+  describe('with an active filter', function () {
+    it('should pass down the expected props', function () {
+      const filters = componentWrapper.prop('filters')
+      const targetFilter = filters[2]
+      targetFilter.setActive()
+      componentWrapper = wrapper.find(TeamComponent)
+      const expectedResult = DATA.filter(t => t.name === targetFilter.name)
+      expect(componentWrapper.prop('data')).to.deep.equal(expectedResult)
+      expect(componentWrapper.prop('filters')[2].active).to.be.true()
+    })
   })
 })
