@@ -1,26 +1,15 @@
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
-import { Line, Point } from './drawingTools'
+import * as tools from './drawingTools'
 import DrawingAnnotation from './DrawingAnnotation'
 
-// TODO: define tool models
+const toolModels = Object.values(tools)
 
 const Drawing = types.model('Drawing', {
   activeToolIndex: types.optional(types.number, 0),
   help: types.optional(types.string, ''),
   instruction: types.maybe(types.string),
-  tools: types.array(types.union({
-    dispatcher: (snapshot) => {
-      switch (snapshot.type) {
-        case 'line':
-          return Line
-        case 'point':
-          return Point
-        default:
-          return types.model({})
-      }
-    }
-  })),
+  tools: types.array(types.union(...toolModels)),
   type: types.literal('drawing')
 })
   .views(self => ({
