@@ -5,10 +5,14 @@ const { colors } = zooTheme.global
 
 const optionsMock = {
   options: {
+    margin: {
+      bottom: 40,
+      left: 60,
+      right: 0,
+      top: 0
+    },
     xAxisLabel: 'Letters',
-    xAxisMargin: 60,
     yAxisLabel: 'Frequency',
-    yAxisMargin: 40
   }
 }
 
@@ -17,11 +21,65 @@ const dataInZooFormat = letterFrequency.map((datum) => {
 })
 
 const dataWithVariableBarColor = letterFrequency.map((datum) => {
-  return { color: colors['accent-3'], label: datum.letter, value: datum.frequency }
+  return { color: '#1cc6b7', label: datum.letter, value: datum.frequency }
 })
 
 const mockData = Object.assign({}, { data: dataInZooFormat }, optionsMock)
 const mockDataWithColor = Object.assign({}, { data: dataWithVariableBarColor }, optionsMock)
 
+const variableStarPeriodMockData = {
+  data: [
+    {
+      color: 'neutral-3',
+      label: 'filter-1',
+      value: 0.4661477096
+    },
+    {
+      color: 'status-critical',
+      label: 'filter-2',
+      value: 1.025524961
+    }
+  ],
+  options: {
+    margin: {
+      bottom: 40,
+      left: 25,
+      right: 0,
+      top: 0
+    },
+    xAxisLabel: 'Period',
+    yAxisLabel: ''
+  }
+}
+
+const variableStarAmplitudeMockData = {
+  data: [
+    {
+      color: 'neutral-3',
+      label: 'filter-1',
+      value: 1.045
+    },
+    {
+      color: 'status-critical',
+      label: 'filter-2',
+      value: 1.9989011347
+    }
+  ],
+  options: {
+    margin: {
+      bottom: 40,
+      left: 25,
+      right: 0,
+      top: 0
+    },
+    xAxisLabel: 'Amplitude',
+    yAxisLabel: ''
+  }
+}
+
 export default mockData
-export { mockDataWithColor }
+export {
+  mockDataWithColor,
+  variableStarAmplitudeMockData,
+  variableStarPeriodMockData
+}
