@@ -67,7 +67,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('outer tick direction', function () {
       it('should return the difference between the parent width, margin left, and margin right for the range maximum', function () {
-        expect(xMax({tickDirection: 'outer', parentWidth, margin })).to.equal(parentWidth - margin.left - margin.right)
+        expect(xMax({ tickDirection: 'outer', parentWidth, margin })).to.equal(parentWidth - margin.left - margin.right)
       })
     })
 

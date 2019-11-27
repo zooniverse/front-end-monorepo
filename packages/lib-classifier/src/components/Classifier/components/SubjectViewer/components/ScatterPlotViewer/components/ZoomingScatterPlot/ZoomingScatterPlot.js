@@ -6,7 +6,7 @@ import { PAN_DISTANCE } from '../../helpers/constants'
 import ScatterPlot from '../ScatterPlot'
 
 class ZoomingScatterPlot extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const {
       margin,
@@ -26,7 +26,7 @@ class ZoomingScatterPlot extends Component {
     this.constrain = this.constrain.bind(this)
   }
 
-  zoomReset() {
+  zoomReset () {
     return {
       scaleX: 1,
       scaleY: 1,
@@ -37,7 +37,7 @@ class ZoomingScatterPlot extends Component {
     }
   }
 
-  isXAxisOutOfBounds(transformMatrix) {
+  isXAxisOutOfBounds (transformMatrix) {
     const { data } = this.props
     const dataExtent = getDataExtent(data)
     const xScale = transformXScale(data, transformMatrix, this.rangeParameters)
@@ -47,19 +47,19 @@ class ZoomingScatterPlot extends Component {
     return outOfXAxisDataBounds
   }
 
-  isXScaleMin(scaleX) {
+  isXScaleMin (scaleX) {
     const { minZoom } = this.props.zoomConfiguration
 
     return scaleX < minZoom
   }
 
-  isXScaleMax(scaleX) {
+  isXScaleMax (scaleX) {
     const { maxZoom } = this.props.zoomConfiguration
 
     return scaleX > maxZoom
   }
 
-  isYAxisOutOfBounds(transformMatrix) {
+  isYAxisOutOfBounds (transformMatrix) {
     const { data } = this.props
     const dataExtent = getDataExtent(data)
     const yScale = transformYScale(data, transformMatrix, this.rangeParameters)
@@ -69,13 +69,13 @@ class ZoomingScatterPlot extends Component {
     return outOfYAxisDataBounds
   }
 
-  isYScaleMin(scaleY) {
+  isYScaleMin (scaleY) {
     const { minZoom } = this.props.zoomConfiguration
 
     return scaleY < minZoom
   }
 
-  isYScaleMax(scaleY) {
+  isYScaleMax (scaleY) {
     const { maxZoom } = this.props.zoomConfiguration
 
     return scaleY > maxZoom
@@ -106,7 +106,7 @@ class ZoomingScatterPlot extends Component {
     return newTransformMatrix
   }
 
-  constrainYAxisZoom(transformMatrix, prevTransformMatrix) {
+  constrainYAxisZoom (transformMatrix, prevTransformMatrix) {
     const { maxZoom } = this.props.zoomConfiguration
     const { scaleY } = transformMatrix
     const isYAxisOutOfBounds = this.isYAxisOutOfBounds(transformMatrix)
@@ -131,7 +131,7 @@ class ZoomingScatterPlot extends Component {
     return newTransformMatrix
   }
 
-  constrainBothAxisZoom(transformMatrix, prevTransformMatrix) {
+  constrainBothAxisZoom (transformMatrix, prevTransformMatrix) {
     const { maxZoom } = this.props.zoomConfiguration
     const { scaleX, scaleY } = transformMatrix
     const isXAxisOutOfBounds = this.isXAxisOutOfBounds(transformMatrix)
@@ -161,7 +161,7 @@ class ZoomingScatterPlot extends Component {
     return transformMatrix
   }
 
-  constrain(transformMatrix, prevTransformMatrix) {
+  constrain (transformMatrix, prevTransformMatrix) {
     const { zoomConfiguration } = this.props
 
     if (zoomConfiguration.direction === 'x') {
@@ -179,7 +179,7 @@ class ZoomingScatterPlot extends Component {
     return transformMatrix
   }
 
-  render() {
+  render () {
     return (
       <VXZoom
         constrain={this.constrain}
@@ -230,7 +230,7 @@ ZoomingScatterPlot.defaultProps = {
     right: 0,
     top: 0
   },
-  panning: true, 
+  panning: true,
   tickDirection: 'outer',
   zoomConfiguration: {
     direction: 'both',

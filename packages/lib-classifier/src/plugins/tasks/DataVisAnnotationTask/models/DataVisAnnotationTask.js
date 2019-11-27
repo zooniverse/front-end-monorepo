@@ -14,11 +14,11 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
   }, Graph2dRangeXTool)),
   type: types.literal('dataVisAnnotation')
 })
-.views(self => ({
-  get defaultAnnotation () {
-    return DataVisAnnotation.create({ task: self.taskKey })
-  }
-}))
+  .views(self => ({
+    get defaultAnnotation () {
+      return DataVisAnnotation.create({ task: self.taskKey })
+    }
+  }))
 
 const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisTaskModel)
 

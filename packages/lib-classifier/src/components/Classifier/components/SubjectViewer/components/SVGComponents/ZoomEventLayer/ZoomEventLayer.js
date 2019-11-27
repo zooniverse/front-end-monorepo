@@ -7,7 +7,7 @@ const StyledRect = styled.rect`
   overscroll-behavior: none;
 `
 
-function ZoomEventLayer(props) {
+function ZoomEventLayer (props) {
   const {
     onDoubleClick = () => {},
     onMouseDown,

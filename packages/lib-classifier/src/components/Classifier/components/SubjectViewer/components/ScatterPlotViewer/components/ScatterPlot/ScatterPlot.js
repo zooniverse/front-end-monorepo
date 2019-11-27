@@ -13,10 +13,10 @@ import {
   left,
   transformXScale,
   transformYScale,
-  top,
+  top
 } from '../../helpers/utils'
 
-function ScatterPlot(props) {
+function ScatterPlot (props) {
   const {
     backgroundColor,
     children,
@@ -63,12 +63,12 @@ function ScatterPlot(props) {
     xAxis: {
       label: xAxisLabel,
       orientation: 'bottom',
-      scale: xScaleTransformed,
+      scale: xScaleTransformed
     },
     yAxis: {
       label: yAxisLabel,
       orientation: 'left',
-      scale: yScaleTransformed,
+      scale: yScaleTransformed
     }
   }
 

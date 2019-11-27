@@ -5,7 +5,7 @@ import { Zoom } from '@vx/zoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
 class VXZoom extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const { setOnZoom } = props
 
@@ -18,7 +18,7 @@ class VXZoom extends PureComponent {
 
   static zoom = null
 
-  handleToolbarZoom(type) {
+  handleToolbarZoom (type) {
     const doZoom = {
       'zoomin': this.zoomIn.bind(this),
       'zoomout': this.zoomOut.bind(this),
@@ -30,31 +30,31 @@ class VXZoom extends PureComponent {
     }
   }
 
-  zoomIn() {
+  zoomIn () {
     if (!this.props.zooming) return
     const { zoomInValue } = this.props.zoomConfiguration
     this.zoom.scale({ scaleX: zoomInValue, scaleY: zoomInValue })
   }
 
-  zoomOut() {
+  zoomOut () {
     if (!this.props.zooming) return
     const { zoomOutValue } = this.props.zoomConfiguration
     this.zoom.scale({ scaleX: zoomOutValue, scaleY: zoomOutValue })
   }
 
-  zoomReset() {
+  zoomReset () {
     if (!this.props.zooming) return
     this.zoom.reset()
   }
 
-  zoomToPoint(event, zoomDirection) {
+  zoomToPoint (event, zoomDirection) {
     const { zoomInValue, zoomOutValue } = this.props.zoomConfiguration
     const zoomValue = (zoomDirection === 'in') ? zoomInValue : zoomOutValue
     const point = localPoint(event)
     this.zoom.scale({ scaleX: zoomValue, scaleY: zoomValue, point })
   }
 
-  onDoubleClick(event) {
+  onDoubleClick (event) {
     if (this.props.zooming) {
       this.zoomToPoint(event, 'in')
     } else {
@@ -62,13 +62,13 @@ class VXZoom extends PureComponent {
     }
   }
 
-  onMouseEnter() {
+  onMouseEnter () {
     if (this.props.zooming) {
       document.body.style.overflow = 'hidden'
     }
   }
 
-  onMouseLeave() {
+  onMouseLeave () {
     if (this.props.zooming) {
       document.body.style.overflow = ''
     }
@@ -76,7 +76,7 @@ class VXZoom extends PureComponent {
     this.zoom.dragEnd()
   }
 
-  onWheel(event) {
+  onWheel (event) {
     // performance of this is pretty bad
     if (this.props.zooming) {
       const zoomDirection = (-event.deltaY > 0) ? 'in' : 'out'
@@ -84,7 +84,7 @@ class VXZoom extends PureComponent {
     }
   }
 
-  render() {
+  render () {
     const {
       constrain,
       panning,

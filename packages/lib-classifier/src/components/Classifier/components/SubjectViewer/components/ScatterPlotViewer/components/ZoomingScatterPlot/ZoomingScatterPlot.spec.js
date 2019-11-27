@@ -50,7 +50,7 @@ describe('Component > ZoomingScatterPlot', function () {
   })
 
   describe('zooming', function () {
-    function testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction }) {
+    function testTransformations ({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction }) {
       if (direction === 'both') {
         expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
         expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
@@ -73,7 +73,7 @@ describe('Component > ZoomingScatterPlot', function () {
             theme={zooTheme}
           />
         )
-        
+
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
         wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
@@ -132,7 +132,7 @@ describe('Component > ZoomingScatterPlot', function () {
         const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
         expect(zoomedInTransformMatrix.scaleX).to.not.equal(initialTransformMatrix.scaleX)
         expect(zoomedInTransformMatrix.scaleY).to.not.equal(initialTransformMatrix.scaleY)
-        
+
         wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
         const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
         expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
@@ -143,7 +143,7 @@ describe('Component > ZoomingScatterPlot', function () {
     describe('when only zooming the x-axis', function () {
       let zoomConfig
       before(function () {
-        zoomConfig = { 
+        zoomConfig = {
           direction: 'x',
           minZoom: 1,
           maxZoom: 10,
@@ -590,7 +590,7 @@ describe('Component > ZoomingScatterPlot', function () {
               data={mockData}
               parentHeight={height}
               parentWidth={width}
-              panning={true}
+              panning
               theme={zooTheme}
             />
           )
@@ -651,7 +651,7 @@ describe('Component > ZoomingScatterPlot', function () {
           wrapper = mount(
             <ZoomingScatterPlot
               data={mockData}
-              panning={true}
+              panning
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}

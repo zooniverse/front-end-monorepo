@@ -54,12 +54,12 @@ export function yMin ({ tickDirection, padding }) {
 }
 
 export function yMax ({ tickDirection, parentHeight, margin, padding }) {
- const yMax = {
-   inner: parentHeight - padding.bottom,
-   outer: parentHeight - margin.top - margin.bottom
- }
+  const yMax = {
+    inner: parentHeight - padding.bottom,
+    outer: parentHeight - margin.top - margin.bottom
+  }
 
- return yMax[tickDirection]
+  return yMax[tickDirection]
 }
 
 export function transformXScale (data, transformMatrix, rangeParameters) {
@@ -77,7 +77,7 @@ export function transformXScale (data, transformMatrix, rangeParameters) {
     ],
     range: xRange
   })
-} 
+}
 
 export function transformYScale (data, transformMatrix, rangeParameters) {
   const dataExtent = getDataExtent(data)
@@ -93,6 +93,6 @@ export function transformYScale (data, transformMatrix, rangeParameters) {
       yScale.invert((yScale(dataExtent.y[0]) - transformMatrix.translateY) / transformMatrix.scaleY),
       yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY)
     ],
-    range: yRange,
+    range: yRange
   })
 }
