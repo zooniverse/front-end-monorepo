@@ -15,9 +15,9 @@ const Task = types.model('Task', {
     },
     get defaultAnnotation () {
     // Override this in a real task
-    return Annotation.create({ task: self.taskKey })
-  }
-}))
+      return Annotation.create({ task: self.taskKey })
+    }
+  }))
   .actions(self => ({
     updateAnnotation (value) {
       const { addAnnotation } = getRoot(self).classifications

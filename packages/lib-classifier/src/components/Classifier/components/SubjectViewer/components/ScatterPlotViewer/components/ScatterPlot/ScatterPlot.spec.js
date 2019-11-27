@@ -29,7 +29,7 @@ describe('Component > ScatterPlot', function () {
           theme={zooTheme}
           transformMatrix={transformMatrix}
         >
-          <rect id='test'></rect>
+          <rect id='test' />
         </ScatterPlot>
       )
       chart = wrapper.find(Chart)

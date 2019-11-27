@@ -67,7 +67,7 @@ class SingleImageViewerContainer extends React.Component {
   render () {
     const { loadingState, onError, subject } = this.props
     const { img } = this.state
-    const { naturalHeight, naturalWidth, src} = img
+    const { naturalHeight, naturalWidth, src } = img
 
     if (loadingState === asyncStates.error) {
       return (
@@ -78,7 +78,7 @@ class SingleImageViewerContainer extends React.Component {
     if (!src) {
       return null
     }
-    
+
     return (
       <SingleImageViewer
         ref={this.imageViewer}

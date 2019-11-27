@@ -3,15 +3,15 @@ import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Zoom } from '@vx/zoom'
 import {
-  data as mockData,
+  data as mockData
 } from '../../ScatterPlotViewer/helpers/mockData'
 import VXZoom from './VXZoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
-function StubComponent({ children }) {
+function StubComponent ({ children }) {
   return (
     <svg height='100px' width='100px'>
-      <rect fill='#fff'></rect>
+      <rect fill='#fff' />
       {children}
     </svg>
   )
@@ -168,16 +168,16 @@ describe('Component > VXZoom', function () {
   describe('zooming', function () {
     let zoomCallback
 
-    function testNoZoom({ currentTransformMatrix, previousTransformMatrix }) {
+    function testNoZoom ({ currentTransformMatrix, previousTransformMatrix }) {
       expect(currentTransformMatrix).to.deep.equal(previousTransformMatrix)
     }
 
-    function setZoomCallback(callback) {
+    function setZoomCallback (callback) {
       zoomCallback = sinon.stub().callsFake(callback)
     }
 
     describe('when zooming is disabled', function () {
-      function testEventPrevention({ wrapper, type }) {
+      function testEventPrevention ({ wrapper, type }) {
         const event = { preventDefault: sinon.spy() }
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
@@ -231,7 +231,7 @@ describe('Component > VXZoom', function () {
           zoomCallback(type)
           const transformMatrixAfterZoomInCall = wrapper.instance().zoom.transformMatrix
           testNoZoom({
-            currentTransformMatrix: transformMatrixAfterZoomInCall, 
+            currentTransformMatrix: transformMatrixAfterZoomInCall,
             previousTransformMatrix: initialTransformMatrix
           })
           wrapper.instance().zoom.reset()
@@ -241,7 +241,7 @@ describe('Component > VXZoom', function () {
     })
 
     describe('when zooming is enabled', function () {
-      function testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue }) {
+      function testTransformations ({ currentTransformMatrix, previousTransformMatrix, zoomValue }) {
         expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
         expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
       }
@@ -283,8 +283,8 @@ describe('Component > VXZoom', function () {
         zoomCallback(zoomType)
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
         testTransformations({
-          currentTransformMatrix: zoomedTransformMatrix, 
-          previousTransformMatrix, 
+          currentTransformMatrix: zoomedTransformMatrix,
+          previousTransformMatrix,
           zoomValue
         })
         zoomCallback.resetHistory()
@@ -297,7 +297,7 @@ describe('Component > VXZoom', function () {
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
-            zooming={true}
+            zooming
           />
         )
 
@@ -315,7 +315,7 @@ describe('Component > VXZoom', function () {
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
-            zooming={true}
+            zooming
           />
         )
 
@@ -332,7 +332,7 @@ describe('Component > VXZoom', function () {
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
-            zooming={true}
+            zooming
           />
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
@@ -367,7 +367,7 @@ describe('Component > VXZoom', function () {
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
-            zooming={true}
+            zooming
           />
         )
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
@@ -385,7 +385,7 @@ describe('Component > VXZoom', function () {
               parentWidth={width}
               setOnZoom={setZoomCallback}
               zoomingComponent={StubComponent}
-              zooming={true}
+              zooming
             />
           )
 
@@ -400,7 +400,7 @@ describe('Component > VXZoom', function () {
               parentWidth={width}
               setOnZoom={setZoomCallback}
               zoomingComponent={StubComponent}
-              zooming={true}
+              zooming
             />
           )
           // zoom in first
@@ -418,7 +418,7 @@ describe('Component > VXZoom', function () {
               parentWidth={width}
               setOnZoom={setZoomCallback}
               zoomingComponent={StubComponent}
-              zooming={true}
+              zooming
             />
           )
 
@@ -436,7 +436,7 @@ describe('Component > VXZoom', function () {
         const wrapper = mount(
           <VXZoom
             data={mockData}
-            panning={true}
+            panning
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
@@ -461,11 +461,11 @@ describe('Component > VXZoom', function () {
         const wrapper = mount(
           <VXZoom
             data={mockData}
-            panning={true}
+            panning
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
-            zooming={true}
+            zooming
           />
         )
         const eventLayer = wrapper.find(ZoomEventLayer)
@@ -515,12 +515,12 @@ describe('Component > VXZoom', function () {
         const wrapper = mount(
           <VXZoom
             data={mockData}
-            panning={true}
+            panning
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
             zoomConfiguration={zoomConfiguration}
-            zooming={true}
+            zooming
           />
         )
         const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
@@ -557,12 +557,12 @@ describe('Component > VXZoom', function () {
         const wrapper = mount(
           <VXZoom
             data={mockData}
-            panning={true}
+            panning
             parentHeight={height}
             parentWidth={width}
             zoomingComponent={StubComponent}
             zoomConfiguration={zoomConfiguration}
-            zooming={true}
+            zooming
           />
         )
         const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom

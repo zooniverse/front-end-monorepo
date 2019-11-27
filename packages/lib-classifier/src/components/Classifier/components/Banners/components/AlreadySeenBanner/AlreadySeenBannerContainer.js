@@ -53,4 +53,3 @@ export {
   DecoratedAlreadySeenBannerContainer as default,
   AlreadySeenBannerContainer
 }
-

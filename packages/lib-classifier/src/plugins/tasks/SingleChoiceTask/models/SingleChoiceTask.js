@@ -15,11 +15,11 @@ const SingleChoice = types.model('SingleChoice', {
   required: types.maybe(types.boolean), // Should this be an optional type with the default to true?
   type: types.literal('single')
 })
-.views(self => ({
-  get defaultAnnotation () {
-    return SingleChoiceAnnotation.create({ task: self.taskKey })
-  }
-}))
+  .views(self => ({
+    get defaultAnnotation () {
+      return SingleChoiceAnnotation.create({ task: self.taskKey })
+    }
+  }))
 
 const SingleChoiceTask = types.compose('SingleChoiceTask', Task, SingleChoice)
 

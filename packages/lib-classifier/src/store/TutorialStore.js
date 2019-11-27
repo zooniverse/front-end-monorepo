@@ -212,7 +212,7 @@ const TutorialStore = types
     function setSeenTime () {
       const uppStore = getRoot(self).userProjectPreferences
       const validUPP = isValidReference(() => uppStore.active)
-      
+
       const seen = new Date().toISOString()
       if (self.isActiveReferenceValid) {
         const tutorial = self.active

@@ -77,7 +77,6 @@ describe('Component > ZoomEventLayer', function () {
     expect(onDoubleClickSpy).to.have.been.calledOnce()
   })
 
-
   it('should call the onWheel prop callback when onWheel event fires', function () {
     wrapper.simulate('wheel')
     expect(onWheelSpy).to.have.been.calledOnce()
