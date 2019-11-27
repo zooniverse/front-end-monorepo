@@ -72,7 +72,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
           return (
             <ObservedDrawingMarks
               key={`${tool.type}-${tool.toolIndex}`}
-              activeMark={activeMark}
+              activeMarkId={activeMark && activeMark.id}
               onDelete={() => setActiveMark(null)}
               onSelectMark={mark => setActiveMark(mark)}
               svg={svg}

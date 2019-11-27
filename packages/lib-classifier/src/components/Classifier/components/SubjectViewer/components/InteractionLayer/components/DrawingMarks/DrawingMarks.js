@@ -2,13 +2,13 @@ import React from 'react'
 import DrawingToolRoot from '@plugins/tasks/DrawingTask/components/tools/DrawingToolRoot'
 import DeleteButton from '@plugins/tasks/DrawingTask/components/tools/DeleteButton'
 
-function DrawingMarks ({ activeMark, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
+function DrawingMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
   const marksArray = Array.from(tool.marks.values())
 
   return marksArray.map(mark => {
 
     const MarkingComponent = mark.toolComponent
-    const isActive = mark === activeMark
+    const isActive = mark.id === activeMarkId
 
     function deleteMark () {
       tool.deleteMark(mark)
