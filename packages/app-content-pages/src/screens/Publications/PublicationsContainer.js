@@ -1,39 +1,75 @@
-import asyncStates from '@zooniverse/async-states'
-import { inject, observer } from 'mobx-react'
-import { array } from 'prop-types'
-import React, { Component } from 'react'
+import counterpart from 'counterpart'
+import absoluteUrl from 'next-absolute-url'
+import { array, string } from 'prop-types'
+import React, { useState } from 'react'
+import request from 'superagent'
+
+import en from './locales/en'
 import Publications from './Publications'
 
-function storeMapper (stores) {
-  return {
-    data: stores.store.publications.uiData,
-    filters: stores.store.publications.uiFilters
+counterpart.registerTranslations('en', en)
+
+function PublicationsContainer(props) {
+  const { error, publicationsData } = props
+  const [activeFilter, setActiveFilter] = useState(null)
+
+  const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
+  const filteredPublicationsData = createFilteredPublicationsData(publicationsData, activeFilter)
+
+  if (error) {
+    return (
+      <div>{counterpart('Publications.error')}</div>
+    )
   }
+
+  return (
+    <Publications filters={filters} data={filteredPublicationsData} />
+  )
 }
 
-@inject(storeMapper)
-@observer
-class PublicationsContainer extends Component {
-  static async getInitialProps (context, store) {
-    if (store.publications.loading !== asyncStates.success) {
-      await store.publications.fetch()
-    }
-    return {}
-  }
-
-  render () {
-    return (
-      <Publications
-        data={this.props.data}
-        filters={this.props.filters}
-      />
-    )
+PublicationsContainer.getInitialProps = async ({ req }) => {
+  const host = getHost(req)
+  let error
+  const publicationsData = await request.get(host + '/api/publications')
+    .then(res => res.body)
+    .catch(err => error = err.message)
+  return {
+    error,
+    publicationsData
   }
 }
 
 PublicationsContainer.propTypes = {
-  data: array,
-  filters: array
+  error: string,
+  publicationsData: array,
 }
 
 export default PublicationsContainer
+
+function getHost(req) {
+  return process.env.ASSET_PREFIX || absoluteUrl(req).origin
+}
+
+function createFilters(publicationsData, activeFilter, setActiveFilter) {
+  const showAllFilter = {
+    active: activeFilter === null,
+    name: counterpart('Publications.showAll'),
+    setActive: () => setActiveFilter(null)
+  }
+
+  const categoryFilters = publicationsData.map(category => ({
+    active: activeFilter === category.title,
+    name: category.title,
+    setActive: () => setActiveFilter(category.title)
+  }))
+
+  return [showAllFilter, ...categoryFilters]
+}
+
+// Show the filtered category if a filter is active; show everything if there's
+// no active filter.
+function createFilteredPublicationsData(publicationsData, activeFilter) {
+  return activeFilter
+    ? publicationsData.filter(category => category.title === activeFilter)
+    : publicationsData
+}
