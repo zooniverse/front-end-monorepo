@@ -5,18 +5,26 @@ import DeleteButton from '@plugins/tasks/DrawingTask/components/tools/DeleteButt
 function DrawingMarks ({ activeMark, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
   const marksArray = Array.from(tool.marks.values())
 
-  function deleteMark (mark) {
-    tool.deleteMark(mark)
-    onDelete(mark)
-  }
-
   return marksArray.map(mark => {
 
     const MarkingComponent = mark.toolComponent
     const isActive = mark === activeMark
 
-    function onMarkMove (event, difference ) {
+    function deleteMark () {
+      tool.deleteMark(mark)
+      onDelete(mark)
+    }
+
+    function moveMark (event, difference ) {
       mark.move(difference)
+    }
+
+    function deselectMark () {
+      onDeselectMark(mark)
+    }
+
+    function selectMark () {
+      onSelectMark(mark)
     }
 
     return (
@@ -24,11 +32,13 @@ function DrawingMarks ({ activeMark, onDelete, onDeselectMark, onSelectMark, svg
         key={mark.id}
         isActive={isActive}
         coords={mark.coords}
-        dragStart={() => onSelectMark(mark)}
-        dragMove={onMarkMove}
-        dragEnd={() => onDeselectMark(mark)}
+        dragStart={selectMark}
+        dragMove={moveMark}
+        dragEnd={deselectMark}
         mark={mark}
-        onDelete={() => deleteMark(mark)}
+        onDelete={deleteMark}
+        onDeselect={onDeselectMark}
+        onSelect={onSelectMark}
         svg={svg}
         tool={tool}
       >
