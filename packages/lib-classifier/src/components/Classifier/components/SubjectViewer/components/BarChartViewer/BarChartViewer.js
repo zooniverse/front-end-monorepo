@@ -53,6 +53,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
         focusable
         left={left}
         tabIndex={0}
+        top={top}
       >
         {data.map((datum, index) => {
           const { color, label, value } = datum
@@ -80,7 +81,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
           )
         })}
       </Group>
-      <Group left={left}>
+      <Group left={left} top={top}>
         <AxisLeft
           label={yAxisLabel}
           labelProps={{
