@@ -13,7 +13,8 @@ function draggable (WrappedComponent) {
           x: props.coords.x,
           y: props.coords.y
         },
-        dragging: false
+        dragging: false,
+        pointerId: -1
       }
     }
 
@@ -46,14 +47,14 @@ function draggable (WrappedComponent) {
       event.preventDefault()
       const { setPointerCapture } = this.wrappedComponent.current
       const { x, y, pointerId } = this.convertEvent(event)
-      this.setState({ coords: { x, y }, dragging: true })
+      this.setState({ coords: { x, y }, dragging: true, pointerId })
       this.props.dragStart({ x, y, pointerId })
       setPointerCapture && this.wrappedComponent.current.setPointerCapture(pointerId)
     }
 
     dragMove (event) {
-      const { coords, dragging } = this.state
-      if (dragging) {
+      const { coords, dragging, pointerId } = this.state
+      if (dragging && event.pointerId === pointerId) {
         const { x, y } = this.convertEvent(event)
         const difference = {
           x: x - coords.x,
@@ -67,9 +68,11 @@ function draggable (WrappedComponent) {
     dragEnd (event) {
       const { releasePointerCapture } = this.wrappedComponent.current
       const { x, y, pointerId } = this.convertEvent(event)
-      this.setState({ coords: { x: null, y: null }, dragging: false })
-      this.props.dragEnd({ x, y, pointerId })
-      releasePointerCapture && this.wrappedComponent.current.releasePointerCapture(pointerId)
+      if (pointerId === this.state.pointerId) {
+        this.props.dragEnd({ x, y, pointerId })
+        releasePointerCapture && this.wrappedComponent.current.releasePointerCapture(pointerId)
+      }
+      this.setState({ coords: { x: null, y: null }, dragging: false, pointerId: -1 })
     }
 
     render () {
