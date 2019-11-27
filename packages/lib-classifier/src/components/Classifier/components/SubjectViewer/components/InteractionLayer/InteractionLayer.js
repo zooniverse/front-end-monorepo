@@ -31,7 +31,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     return svgEventOffset
   }
 
-  function createMark (event) {
+  function onPointerDown (event) {
     const { activeTool } = activeDrawingTask
     const activeMark = activeTool.createMark({
       id: cuid(),
@@ -48,7 +48,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
 
   function onPointerUp () {
     setCreating(false)
-    if (!activeMark.isValid) {
+    if (activeMark && !activeMark.isValid) {
       const { activeTool } = activeDrawingTask
       activeTool.deleteMark(activeMark)
     }
@@ -56,8 +56,6 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
 
   return (
     <g
-      onPointerDown={createMark}
-      onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
       <rect
@@ -65,6 +63,8 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
         width='100%'
         height='100%'
         fill='transparent'
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
       />
       {activeDrawingTask &&
         activeDrawingTask.tools.map( tool => {

@@ -71,7 +71,7 @@ describe('Component > InteractionLayer', function () {
       const fakeEvent = {
         type: 'pointer'
       }
-      wrapper.simulate('pointerdown', fakeEvent)
+      wrapper.find('rect').simulate('pointerdown', fakeEvent)
       expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
     
     })
@@ -84,8 +84,8 @@ describe('Component > InteractionLayer', function () {
       const fakeEvent = {
         type: 'pointer'
       }
-      wrapper.simulate('pointerdown', fakeEvent)
-      wrapper.simulate('pointermove', fakeEvent)
+      wrapper.find('rect').simulate('pointerdown', fakeEvent)
+      wrapper.find('rect').simulate('pointermove', fakeEvent)
       expect(mockMark.initialDrag).to.have.been.calledOnce()
     })
   })
