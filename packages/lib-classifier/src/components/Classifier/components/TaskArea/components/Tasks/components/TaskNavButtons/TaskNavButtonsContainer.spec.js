@@ -102,7 +102,7 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classificationStore.active.toJSON()
 
       activeStepTasks.forEach((task) => {
-        expect(addAnnotationSpy.withArgs(undefined, task)).to.have.been.calledOnce()
+        expect(addAnnotationSpy.withArgs(task, undefined)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
     })
@@ -211,7 +211,7 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classificationStore.active.toJSON()
 
       activeStepTasks.forEach((task) => {
-        expect(addAnnotationSpy.withArgs(undefined, task)).to.have.been.calledOnce()
+        expect(addAnnotationSpy.withArgs(task, undefined)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
     })
