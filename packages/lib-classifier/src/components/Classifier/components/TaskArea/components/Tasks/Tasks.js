@@ -3,11 +3,11 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import getTaskComponent from './helpers/getTaskComponent'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
+
+import taskRegistry from '@plugins/tasks'
 
 function storeMapper (stores) {
   const { loadingState } = stores.classifierStore.workflows
@@ -46,24 +46,22 @@ class Tasks extends React.Component {
       // there has to be a better way
       // but works for now
       return (
-        <ThemeProvider theme={{ mode: this.props.theme }}>
-          <Box as='form' justify='between' fill>
-            {tasks.map((task) => {
-              const TaskComponent = getTaskComponent(task.type)
-              if (TaskComponent) {
-                return (
-                  <Box key={task.taskKey} basis='auto'>
-                    <TaskComponent disabled={!ready} task={task} {...this.props} />
-                  </Box>
-                )
-              }
+        <Box as='form' gap='small' justify='between' fill>
+          {tasks.map((task) => {
+            const { TaskComponent } = taskRegistry.get(task.type)
+            if (TaskComponent) {
+              return (
+                <Box key={task.taskKey} basis='auto'>
+                  <TaskComponent disabled={!ready} task={task} {...this.props} />
+                </Box>
+              )
+            }
 
-              return (<Paragraph>Task component could not be rendered.</Paragraph>)
-            })}
-            {isThereTaskHelp && <TaskHelp tasks={tasks} />}
-            <TaskNavButtons disabled={!ready} />
-          </Box>
-        </ThemeProvider>
+            return (<Paragraph>Task component could not be rendered.</Paragraph>)
+          })}
+          {isThereTaskHelp && <TaskHelp tasks={tasks} />}
+          <TaskNavButtons disabled={!ready} />
+        </Box>
       )
     }
 
@@ -80,16 +78,14 @@ Tasks.propTypes = {
   isThereTaskHelp: PropTypes.bool,
   loadingState: PropTypes.oneOf(asyncStates.values),
   ready: PropTypes.bool,
-  tasks: PropTypes.arrayOf(PropTypes.object),
-  theme: PropTypes.string
+  tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
 Tasks.defaultProps = {
   isThereTaskHelp: false,
   loadingState: asyncStates.initialized,
   ready: false,
-  tasks: [],
-  theme: 'light'
+  tasks: []
 }
 
 @inject(storeMapper)

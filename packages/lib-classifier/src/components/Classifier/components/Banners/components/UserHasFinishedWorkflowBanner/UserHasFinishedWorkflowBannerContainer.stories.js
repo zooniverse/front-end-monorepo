@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { UserHasFinishedWorkflowBannerContainer } from './UserHasFinishedWorkflowBannerContainer'
 import readme from '../../README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
-import { SubjectFactory } from '../../../../../../../test/factories'
+import { SubjectFactory } from '@test/factories'
 
 const config = {
   notes: {

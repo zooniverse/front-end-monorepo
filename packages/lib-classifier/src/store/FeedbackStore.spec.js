@@ -9,7 +9,7 @@ import {
   FeedbackFactory,
   ProjectFactory,
   WorkflowFactory
-} from '../../test/factories'
+} from '@test/factories'
 import { Factory } from 'rosie'
 
 const rulesStub = {

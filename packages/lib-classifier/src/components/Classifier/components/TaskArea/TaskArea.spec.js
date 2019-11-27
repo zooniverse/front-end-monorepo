@@ -7,7 +7,7 @@ import sinon from 'sinon'
 import { TaskArea } from './TaskArea'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
-import { TutorialFactory } from '../../../../../test/factories'
+import { TutorialFactory } from '@test/factories'
 
 const tutorial = TutorialFactory.build()
 

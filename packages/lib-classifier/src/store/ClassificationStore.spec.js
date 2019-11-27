@@ -9,10 +9,12 @@ import {
   SingleChoiceAnnotationFactory,
   SingleChoiceTaskFactory,
   WorkflowFactory
-} from '../../test/factories'
-import stubPanoptesJs from '../../test/stubPanoptesJs'
+} from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
-import { SingleChoiceAnnotation } from './annotations'
+import taskRegistry from '@plugins/tasks'
+
+const { AnnotationModel: SingleChoiceAnnotation } = taskRegistry.get('single')
 
 const feedbackRulesStub = {
   T0: [{
@@ -123,7 +125,7 @@ describe('Model > ClassificationStore', function () {
       beforeEach(function () {
         const taskStub = Object.assign({}, singleChoiceTaskStub, { taskKey: singleChoiceAnnotationStub.task })
         taskStub.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationStub)
-        classifications.addAnnotation(singleChoiceAnnotationStub.value, taskStub)
+        classifications.addAnnotation(taskStub, singleChoiceAnnotationStub.value)
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
@@ -187,7 +189,7 @@ describe('Model > ClassificationStore', function () {
         subjectToBeClassified = rootStore.subjects.active
         const taskStub = Object.assign({}, singleChoiceTaskStub, { taskKey: singleChoiceAnnotationStub.task })
         taskStub.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationStub)
-        classifications.addAnnotation(singleChoiceAnnotationStub.value, taskStub)
+        classifications.addAnnotation(taskStub, singleChoiceAnnotationStub.value)
         classificationWithAnnotation = classifications.active
         classifications.completeClassification({
           preventDefault: sinon.stub()

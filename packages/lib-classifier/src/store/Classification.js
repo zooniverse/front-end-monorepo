@@ -1,6 +1,6 @@
 import { types, getType } from 'mobx-state-tree'
 import Resource from './Resource'
-import { SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation } from './annotations'
+import { annotationModels } from '@plugins/tasks'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
@@ -36,15 +36,9 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
 
 const Classification = types
   .model('Classification', {
-    annotations: types.map(types.union({
-      dispatcher: (snapshot) => {
-        const snapshotType = getType(snapshot)
-        if (snapshotType.name === 'SingleChoiceAnnotation') return SingleChoiceAnnotation
-        if (snapshotType.name === 'MultipleChoiceAnnotation') return MultipleChoiceAnnotation
-        if (snapshotType.name === 'DataVisAnnotation') return DataVisAnnotation
-        return undefined
-      }
-    }, SingleChoiceAnnotation, MultipleChoiceAnnotation, DataVisAnnotation)),
+    annotations: types.map(types.union(
+      ...annotationModels
+    )),
     completed: types.optional(types.boolean, false),
     links: types.frozen({
       project: types.string,

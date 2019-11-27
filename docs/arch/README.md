@@ -16,5 +16,8 @@
 - [ADR 14: Using an external CMS for content pages](adr-14.md)
 - [ADR 15: Drawing tools API](adr-15.md)
 - [ADR 16: Monorepo Tooling](adr-16.md)
-- [ADR: 17: Staging deployment](adr-17.md)
-- [ADR: 18: Workflow routing](adr-18.md)
+- [ADR 17: Staging deployment](adr-17.md)
+- [ADR 18: Workflow routing](adr-18.md)
+- [ADR: 19: multiFrame Viewer](adr-19.md)
+- [ADR 20: Transcription TAsk](adr-20.md)
+

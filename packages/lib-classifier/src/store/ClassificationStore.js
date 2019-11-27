@@ -107,7 +107,7 @@ const ClassificationStore = types
       }
     }
 
-    function addAnnotation (annotationValue, task) {
+    function addAnnotation (task, annotationValue) {
       const validClassificationReference = isValidReference(() => self.active)
 
       if (validClassificationReference) {
@@ -116,7 +116,9 @@ const ClassificationStore = types
           const annotation = classification.annotations.get(task.taskKey) || task.createAnnotation()
           // new annotations must be added to this store before we can modify them
           classification.annotations.put(annotation)
-          annotation.value = annotationValue
+          if (annotationValue !== undefined) {
+            annotation.value = annotationValue
+          }
         }
       } else {
         if (process.browser) {
