@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import { ProjectAnnouncementContainer } from './ProjectAnnouncementContainer'
-import ProjectAnnouncement from './ProjectAnnouncement'
+import GenericAnnouncement from '../GenericAnnouncement'
 
 const ANNOUNCEMENT = 'Arcu scelerisque curae eu sapien euismod nisl, viverra gravida donec interdum tempor vulputate nec, nam morbi rhoncus porta sollicitudin.'
 
@@ -12,18 +12,18 @@ describe('Component > ProjectAnnouncementContainer', function () {
 
   before(function () {
     wrapper = shallow(<ProjectAnnouncementContainer announcement={ANNOUNCEMENT} dismissBanner={() => {}} />)
-    componentWrapper = wrapper.find(ProjectAnnouncement)
+    componentWrapper = wrapper.find(GenericAnnouncement)
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the `ProjectAnnouncement` component if visible', function () {
+  it('should render the `GenericAnnouncement` component if visible', function () {
     expect(wrapper.html()).to.be.null()
     expect(componentWrapper).to.have.lengthOf(0)
     wrapper.setProps({ isVisible: true })
-    componentWrapper = wrapper.find(ProjectAnnouncement)
+    componentWrapper = wrapper.find(GenericAnnouncement)
     expect(componentWrapper).to.have.lengthOf(1)
   })
 

@@ -1,15 +1,15 @@
 import { render, shallow } from 'enzyme'
 import React from 'react'
 
-import NarrowProjectAnnouncement from './NarrowProjectAnnouncement'
+import WideGenericAnnouncement from './WideGenericAnnouncement'
 
 const ANNOUNCEMENT = 'Arcu scelerisque curae eu sapien euismod nisl, viverra gravida donec interdum tempor vulputate nec, nam morbi rhoncus porta sollicitudin.'
 
-describe('Component > ProjectAnnouncement > NarrowProjectAnnouncement', function () {
+describe('Component > GenericAnnouncement > WideGenericAnnouncement', function () {
   let wrapper
 
   before(function () {
-    wrapper = render(<NarrowProjectAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
+    wrapper = render(<WideGenericAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
   })
 
   it('should render without crashing', function () {
@@ -22,7 +22,7 @@ describe('Component > ProjectAnnouncement > NarrowProjectAnnouncement', function
   })
 
   it('should be the full width of its container', function () {
-    const shallowWrapper = shallow(<NarrowProjectAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
+    const shallowWrapper = shallow(<WideGenericAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
     expect(shallowWrapper.prop('fill')).to.contain('horizontal')
   })
 })

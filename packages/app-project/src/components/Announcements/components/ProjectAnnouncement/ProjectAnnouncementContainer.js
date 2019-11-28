@@ -2,7 +2,7 @@ import { inject, observer } from 'mobx-react'
 import { func, string, bool } from 'prop-types'
 import React, { Component } from 'react'
 
-import ProjectAnnouncement from './ProjectAnnouncement'
+import GenericAnnouncement from '../GenericAnnouncement'
 
 function storeMapper (stores) {
   const { announcement } = stores.store.project.configuration
@@ -22,7 +22,7 @@ class ProjectAnnouncementContainer extends Component {
   render () {
     const { announcement, dismissBanner, isVisible } = this.props
     return (isVisible && announcement)
-      ? <ProjectAnnouncement announcement={announcement} closeFn={dismissBanner} />
+      ? <GenericAnnouncement announcement={announcement} color='neutral-4' closeFn={dismissBanner} />
       : null
   }
 }
