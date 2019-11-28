@@ -1,7 +1,14 @@
 import cuid from 'cuid'
 import { func } from 'prop-types'
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import DrawingMarks from './components/DrawingMarks'
+
+const StyledRect = styled('rect')`
+  :hover {
+    cursor: crosshair;
+  }
+`
 
 function InteractionLayer ({ activeDrawingTask, svg }) {
   const [ activeMark, setActiveMark ] = useState(null)
@@ -58,7 +65,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     <g
       onPointerUp={onPointerUp}
     >
-      <rect
+      <StyledRect
         id='InteractionLayer'
         width='100%'
         height='100%'

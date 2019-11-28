@@ -10,6 +10,9 @@ const StyledGroup = styled('g')`
   :focus {
     outline: none;
   }
+  :hover {
+    cursor: grab;
+  }
 `
 
 const DrawingToolRoot = forwardRef(({
