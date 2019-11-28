@@ -1,4 +1,11 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledGroup = styled('g')`
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 function DeleteButton ({ label, mark, svg, rotate, onDelete }) {
   const RADIUS = (screen.width < 900) ? 11 : 8
@@ -38,7 +45,7 @@ function DeleteButton ({ label, mark, svg, rotate, onDelete }) {
   }
 
   return (
-    <g
+    <StyledGroup
       focusable
       tabIndex={0}
       aria-label={label}
@@ -57,7 +64,7 @@ function DeleteButton ({ label, mark, svg, rotate, onDelete }) {
         d={CROSS_PATH}
         transform="rotate(45)"
       />
-    </g>
+    </StyledGroup>
   )
 }
 
