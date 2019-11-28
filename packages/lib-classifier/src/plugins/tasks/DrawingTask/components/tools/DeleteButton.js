@@ -1,6 +1,6 @@
 import React from 'react'
 
-function DeleteButton ({ mark, svg, tool, x, y, rotate, onDelete }) {
+function DeleteButton ({ mark, svg, rotate, onDelete }) {
   const RADIUS = (screen.width < 900) ? 11 : 8
   const STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
@@ -11,6 +11,7 @@ function DeleteButton ({ mark, svg, tool, x, y, rotate, onDelete }) {
     M 0 ${-1 * RADIUS * 0.7 }
     L 0 ${RADIUS * 0.7 }
   `
+  const { x, y } = mark.deleteButtonPosition
   const matrix = svg.getScreenCTM()
   const transform = `
     translate(${x}, ${y})
@@ -32,7 +33,7 @@ function DeleteButton ({ mark, svg, tool, x, y, rotate, onDelete }) {
   function onPointerDown (event) {
     event.preventDefault()
     event.stopPropagation()
-    onDelete(mark)
+    onDelete()
     return false
   }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import DrawingToolRoot from '@plugins/tasks/DrawingTask/components/tools/DrawingToolRoot'
 import DeleteButton from '@plugins/tasks/DrawingTask/components/tools/DeleteButton'
@@ -8,7 +9,8 @@ function DrawingMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, s
 
   return marksArray.map(mark => {
 
-    const MarkingComponent = mark.toolComponent
+    const MarkingComponent = observer(mark.toolComponent)
+    const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
 
     function deleteMark () {
@@ -44,18 +46,16 @@ function DrawingMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, s
         tool={tool}
       >
         <MarkingComponent
+          active={isActive}
           mark={mark}
           svg={svg}
           tool={tool}
-        >
-          {isActive && <DeleteButton
-            mark={mark}
-            svg={svg}
-            tool={tool}
-            {...mark.deleteButtonPosition}
-            onDelete={mark => deleteMark(mark)}
-          />}
-        </MarkingComponent>
+        />
+        {isActive && <ObservedDeleteButton
+          mark={mark}
+          svg={svg}
+          onDelete={deleteMark}
+        />}
       </DrawingToolRoot>
     )
   })

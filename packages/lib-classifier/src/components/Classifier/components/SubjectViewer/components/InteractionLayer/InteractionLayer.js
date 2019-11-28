@@ -1,5 +1,4 @@
 import cuid from 'cuid'
-import { observer } from 'mobx-react'
 import { func } from 'prop-types'
 import React, { useState } from 'react'
 import DrawingMarks from './components/DrawingMarks'
@@ -51,6 +50,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     if (activeMark && !activeMark.isValid) {
       const { activeTool } = activeDrawingTask
       activeTool.deleteMark(activeMark)
+      setActiveMark(null)
     }
   }
 
@@ -68,9 +68,8 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
       />
       {activeDrawingTask &&
         activeDrawingTask.tools.map( tool => {
-          const ObservedDrawingMarks = observer(DrawingMarks)
           return (
-            <ObservedDrawingMarks
+            <DrawingMarks
               key={`${tool.type}-${tool.toolIndex}`}
               activeMarkId={activeMark && activeMark.id}
               onDelete={() => setActiveMark(null)}

@@ -54,7 +54,7 @@ const DrawingToolRoot = forwardRef(({
       onBlur={deselect}
       onKeyDown={onKeyDown}
     >
-      {React.cloneElement(React.Children.only(children), { active: isActive })}
+      {children}
     </g>
   )
 })

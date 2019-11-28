@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 function draggable (WrappedComponent) {
-  class Draggable extends Component {
+  class Draggable extends PureComponent {
     constructor (props) {
       super(props)
       this.dragStart = this.dragStart.bind(this)
