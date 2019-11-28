@@ -10,18 +10,52 @@ const PointModel = types
     y: types.optional(types.number, 0)
   })
   .views(self => ({
+    get coords () {
+      return {
+        x: self.x,
+        y: self.y
+      }
+    },
+
+    get deleteButtonPosition () {
+      const DELETE_BUTTON_ANGLE = 45
+      const theta = (DELETE_BUTTON_ANGLE) * (Math.PI / 180)
+      const dx = 20 * Math.cos(theta)
+      const dy = -1 * 20 * Math.sin(theta)
+      const x = self.x + dx
+      const y = self.y + dy
+      return { x, y }
+    },
+
     get toolComponent () {
       return PointComponent
     }
   }))
   .actions(self => {
+    function initialDrag ({ x, y }) {
+      self.x = x
+      self.y = y
+    }
 
-    function setCoordinates (event) {
-      self.x = event.x
-      self.y = event.y
+    function initialPosition ({ x, y }) {
+      self.x = x
+      self.y = y
+    }
+
+    function move ({ x, y }) {
+      self.x += x
+      self.y += y
+    }
+
+    function setCoordinates ({ x, y }) {
+      self.x = x
+      self.y = y
     }
 
     return {
+      initialDrag,
+      initialPosition,
+      move,
       setCoordinates
     }
   })

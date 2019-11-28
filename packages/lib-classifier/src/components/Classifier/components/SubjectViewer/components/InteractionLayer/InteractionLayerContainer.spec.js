@@ -8,9 +8,11 @@ describe('Component > InteractionLayerContainer', function () {
     shallow(<InteractionLayerContainer.wrappedComponent />)
   })
 
-  it('should render an InteractionLayer', function () {
-    const wrapper = shallow(<InteractionLayerContainer.wrappedComponent />)
-    expect(wrapper.find('InteractionLayer')).to.have.lengthOf(1)
+  describe('with an active drawing task', function () {
+    it('should render an InteractionLayer', function () {
+      const wrapper = shallow(<InteractionLayerContainer.wrappedComponent activeDrawingTask />)
+      expect(wrapper.find('InteractionLayer')).to.have.lengthOf(1)
+    })
   })
 
   describe('with active workflow step including a drawing task', function () {
