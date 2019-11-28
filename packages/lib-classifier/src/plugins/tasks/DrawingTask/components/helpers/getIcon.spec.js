@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Point, Line } from '../components'
+import { Point, Line } from '../icons'
 
 describe('Drawing Task > getIcon ', function () {
   it('should render an icon without crashing', function () {

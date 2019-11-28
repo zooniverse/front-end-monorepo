@@ -5,5 +5,10 @@ const Mark = types.model('Mark', {
   frame: types.optional(types.number, 0),
   toolIndex: types.optional(types.number, 0)
 })
+  .views(self => ({
+    get isValid () {
+      return true
+    }
+  }))
 
 export default Mark
