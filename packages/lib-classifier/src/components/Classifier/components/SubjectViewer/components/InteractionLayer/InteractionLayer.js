@@ -74,7 +74,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
         onPointerDown={onPointerDown}
       />
       {activeDrawingTask &&
-        activeDrawingTask.tools.map( tool => {
+        activeDrawingTask.tools.map(tool => {
           return (
             <DrawingToolMarks
               key={`${tool.type}-${tool.toolIndex}`}

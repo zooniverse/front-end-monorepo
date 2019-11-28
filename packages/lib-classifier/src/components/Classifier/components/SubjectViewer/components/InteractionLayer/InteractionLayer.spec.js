@@ -73,7 +73,6 @@ describe('Component > InteractionLayer', function () {
       }
       wrapper.find('rect').simulate('pointerdown', fakeEvent)
       expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
-    
     })
 
     it('should place a new mark on pointer down', function () {

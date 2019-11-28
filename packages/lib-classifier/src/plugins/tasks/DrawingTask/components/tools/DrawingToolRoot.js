@@ -16,21 +16,21 @@ const StyledGroup = styled('g')`
 `
 
 const DrawingToolRoot = forwardRef(({
-    children,
-    dragging,
-    isActive,
-    label,
-    mark,
-    onDelete,
-    onDeselect,
-    onSelect,
-    svg,
-    tool
-  }, ref) => {
+  children,
+  dragging,
+  isActive,
+  label,
+  mark,
+  onDelete,
+  onDeselect,
+  onSelect,
+  svg,
+  tool
+}, ref) => {
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
     fill: 'transparent',
-    stroke: tool && tool.color ? tool.color : 'green',
+    stroke: tool && tool.color ? tool.color : 'green'
   }
 
   function onKeyDown (event) {
@@ -61,7 +61,7 @@ const DrawingToolRoot = forwardRef(({
       ref={ref}
       aria-label={label}
       dragging={dragging}
-      strokeWidth ={isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH}
+      strokeWidth={isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH}
       focusable
       tabIndex={0}
       onBlur={deselect}

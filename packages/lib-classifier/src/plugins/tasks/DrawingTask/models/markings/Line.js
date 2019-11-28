@@ -40,17 +40,16 @@ const LineModel = types
     }
   }))
   .actions(self => {
-
-    function initialDrag ({ x, y}) {
-        self.x2 = x
-        self.y2 = y
+    function initialDrag ({ x, y }) {
+      self.x2 = x
+      self.y2 = y
     }
 
     function initialPosition ({ x, y }) {
-        self.x1 = x
-        self.y1 = y
-        self.x2 = x
-        self.y2 = y
+      self.x1 = x
+      self.y1 = y
+      self.x2 = x
+      self.y2 = y
     }
 
     function move ({ x, y }) {
@@ -61,10 +60,10 @@ const LineModel = types
     }
 
     function setCoordinates ({ x1, y1, x2, y2 }) {
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
+      self.x1 = x1
+      self.y1 = y1
+      self.x2 = x2
+      self.y2 = y2
     }
 
     return {

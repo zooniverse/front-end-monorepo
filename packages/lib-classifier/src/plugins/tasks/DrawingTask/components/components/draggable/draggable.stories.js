@@ -16,7 +16,7 @@ class DraggableStory extends Component {
     super()
     this.svg = React.createRef()
     this.dragMove = this.dragMove.bind(this)
-    this.state={
+    this.state = {
       x: 50,
       y: 100
     }
@@ -26,7 +26,7 @@ class DraggableStory extends Component {
     const { x, y } = this.state
     x += d.x
     y += d.y
-    this.setState({ x, y})
+    this.setState({ x, y })
   }
 
   render () {

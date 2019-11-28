@@ -8,7 +8,6 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
   const marksArray = Array.from(tool.marks.values())
 
   return marksArray.map((mark, index) => {
-
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
@@ -18,7 +17,7 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
       onDelete(mark)
     }
 
-    function moveMark (event, difference ) {
+    function moveMark (event, difference) {
       mark.move(difference)
     }
 

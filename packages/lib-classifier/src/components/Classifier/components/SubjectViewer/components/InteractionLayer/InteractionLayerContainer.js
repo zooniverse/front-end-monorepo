@@ -17,7 +17,6 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class InteractionLayerContainer extends Component {
-
   render () {
     const { activeDrawingTask, svg } = this.props
     return activeDrawingTask ? <InteractionLayer activeDrawingTask={activeDrawingTask} svg={svg} /> : null

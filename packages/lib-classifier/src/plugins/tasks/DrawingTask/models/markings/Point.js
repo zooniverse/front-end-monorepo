@@ -32,10 +32,9 @@ const PointModel = types
     }
   }))
   .actions(self => {
-
     function initialDrag ({ x, y }) {
-        self.x = x
-        self.y = y
+      self.x = x
+      self.y = y
     }
 
     function initialPosition ({ x, y }) {

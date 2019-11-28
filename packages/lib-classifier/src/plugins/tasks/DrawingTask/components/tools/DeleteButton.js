@@ -13,17 +13,17 @@ function DeleteButton ({ label, mark, svg, rotate, onDelete }) {
   const FILL_COLOR = 'black'
   const STROKE_WIDTH = 1.5
   const CROSS_PATH = `
-    M ${-1 * RADIUS * 0.7 } 0
-    L ${RADIUS * 0.7 } 0
-    M 0 ${-1 * RADIUS * 0.7 }
-    L 0 ${RADIUS * 0.7 }
+    M ${-1 * RADIUS * 0.7} 0
+    L ${RADIUS * 0.7} 0
+    M 0 ${-1 * RADIUS * 0.7}
+    L 0 ${RADIUS * 0.7}
   `
   const { x, y } = mark.deleteButtonPosition
   const matrix = svg.getScreenCTM()
   const transform = `
     translate(${x}, ${y})
     rotate(${rotate})
-    matrix( ${1/matrix.a} 0 0 ${1/matrix.d} 0 0)
+    matrix( ${1 / matrix.a} 0 0 ${1 / matrix.d} 0 0)
   `
   function onKeyDown (event) {
     switch (event.key) {
@@ -62,7 +62,7 @@ function DeleteButton ({ label, mark, svg, rotate, onDelete }) {
       />
       <path
         d={CROSS_PATH}
-        transform="rotate(45)"
+        transform='rotate(45)'
       />
     </StyledGroup>
   )
@@ -76,4 +76,3 @@ DeleteButton.defaultProps = {
 }
 
 export default DeleteButton
-

@@ -53,7 +53,6 @@ describe('draggable', function () {
     it('should start dragging', function () {
       expect(onStart).to.have.been.calledOnce()
     })
-    
   })
 
   describe('on pointer move', function () {
@@ -68,11 +67,10 @@ describe('draggable', function () {
       }
       wrapper.simulate('pointermove', fakeEvent)
     })
-    
+
     it('should drag to a new position', function () {
       expect(onMove).to.have.been.calledOnce()
     })
-    
   })
 
   describe('on pointer up', function () {
@@ -91,6 +89,5 @@ describe('draggable', function () {
     it('should stop dragging', function () {
       expect(onEnd).to.have.been.calledOnce()
     })
-    
   })
 })
