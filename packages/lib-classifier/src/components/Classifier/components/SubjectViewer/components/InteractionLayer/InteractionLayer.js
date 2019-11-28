@@ -63,6 +63,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
 
   return (
     <g
+      onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
       <StyledRect
@@ -71,7 +72,6 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
         height='100%'
         fill='transparent'
         onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
       />
       {activeDrawingTask &&
         activeDrawingTask.tools.map( tool => {
