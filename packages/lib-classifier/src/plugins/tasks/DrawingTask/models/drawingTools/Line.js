@@ -9,21 +9,26 @@ const Line = types.model('Line', {
   min: types.maybe(types.union(types.string, types.number), ''),
   type: types.literal('line')
 })
-.views(self => ({
-  get isComplete () {
-    return (self.marks.size >= self.min && self.marks.size <= self.max)
-  }
-}))
-.actions(self => {
-  function createMark (mark) {
-    const newMark = LineMark.create(mark)
-    self.marks.put(newMark)
-    return newMark
-  }
+  .views(self => ({
+    get isComplete () {
+      return (self.marks.size >= self.min && self.marks.size <= self.max)
+    }
+  }))
+  .actions(self => {
+    function createMark (mark) {
+      const newMark = LineMark.create(mark)
+      self.marks.put(newMark)
+      return newMark
+    }
 
-  return {
-    createMark
-  }
-})
+    function deleteMark (mark) {
+      self.marks.delete(mark.id)
+    }
+
+    return {
+      createMark,
+      deleteMark
+    }
+  })
 
 export default Line
