@@ -11,12 +11,13 @@ const StyledGroup = styled('g')`
     outline: none;
   }
   :hover {
-    cursor: grab;
+    cursor: ${props => props.dragging ? 'grabbing' : 'grab'};
   }
 `
 
 const DrawingToolRoot = forwardRef(({
     children,
+    dragging,
     isActive,
     label,
     mark,
@@ -59,6 +60,7 @@ const DrawingToolRoot = forwardRef(({
       {...mainStyle}
       ref={ref}
       aria-label={label}
+      dragging={dragging}
       strokeWidth ={isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH}
       focusable
       tabIndex={0}
@@ -73,6 +75,7 @@ const DrawingToolRoot = forwardRef(({
 
 DrawingToolRoot.propTypes = {
   active: PropTypes.bool,
+  dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
   label: PropTypes.string.isRequired,
   onDelete: PropTypes.func,
@@ -85,6 +88,7 @@ DrawingToolRoot.propTypes = {
 
 DrawingToolRoot.defaultProps = {
   active: false,
+  dragging: false,
   onDelete: () => true,
   onDeselect: () => true,
   onSelect: () => true,

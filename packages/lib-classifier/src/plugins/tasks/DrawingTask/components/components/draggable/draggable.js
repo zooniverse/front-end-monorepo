@@ -77,6 +77,7 @@ function draggable (WrappedComponent) {
 
     render () {
       const { children, dragStart, dragMove, dragEnd, ...rest } = this.props
+      const { dragging } = this.state
       return (
         <g
           onPointerDown={this.dragStart}
@@ -85,6 +86,7 @@ function draggable (WrappedComponent) {
         >
           <WrappedComponent
             ref={this.wrappedComponent}
+            dragging={dragging}
             {...rest}
           >
             {children}
