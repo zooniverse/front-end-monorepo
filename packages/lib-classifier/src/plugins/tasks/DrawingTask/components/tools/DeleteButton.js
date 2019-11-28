@@ -1,6 +1,6 @@
 import React from 'react'
 
-function DeleteButton ({ mark, svg, rotate, onDelete }) {
+function DeleteButton ({ label, mark, svg, rotate, onDelete }) {
   const RADIUS = (screen.width < 900) ? 11 : 8
   const STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
@@ -41,6 +41,7 @@ function DeleteButton ({ mark, svg, rotate, onDelete }) {
     <g
       focusable
       tabIndex={0}
+      aria-label={label}
       role='button'
       transform={transform}
       stroke={STROKE_COLOR}
