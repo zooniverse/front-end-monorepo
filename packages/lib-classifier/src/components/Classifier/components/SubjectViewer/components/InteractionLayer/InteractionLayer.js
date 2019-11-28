@@ -2,7 +2,7 @@ import cuid from 'cuid'
 import { func } from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import DrawingMarks from './components/DrawingMarks'
+import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
   :hover {
@@ -76,7 +76,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
       {activeDrawingTask &&
         activeDrawingTask.tools.map( tool => {
           return (
-            <DrawingMarks
+            <DrawingToolMarks
               key={`${tool.type}-${tool.toolIndex}`}
               activeMarkId={activeMark && activeMark.id}
               onDelete={() => setActiveMark(null)}

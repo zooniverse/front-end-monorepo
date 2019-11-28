@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import DrawingToolRoot from '@plugins/tasks/DrawingTask/components/tools/DrawingToolRoot'
 import DeleteButton from '@plugins/tasks/DrawingTask/components/tools/DeleteButton'
 
-function DrawingMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
+function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
   const marksArray = Array.from(tool.marks.values())
 
   return marksArray.map((mark, index) => {
@@ -63,7 +63,7 @@ function DrawingMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, s
   })
 }
 
-DrawingMarks.propTypes = {
+DrawingToolMarks.propTypes = {
   activeMarkId: PropTypes.string,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
@@ -72,11 +72,11 @@ DrawingMarks.propTypes = {
   tool: PropTypes.object.isRequired
 }
 
-DrawingMarks.defaultProps = {
+DrawingToolMarks.defaultProps = {
   activeMarkId: '',
   onDelete: () => true,
-  onDeselectMark: (mark) => true,
-  onSelectMark: (mark) => true
+  onDeselectMark: () => true,
+  onSelectMark: () => true
 }
 
-export default DrawingMarks
+export default DrawingToolMarks
