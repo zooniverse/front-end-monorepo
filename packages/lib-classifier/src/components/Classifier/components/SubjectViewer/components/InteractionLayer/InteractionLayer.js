@@ -1,17 +1,23 @@
 import cuid from 'cuid'
-import { observer } from 'mobx-react'
 import { func } from 'prop-types'
 import React, { useState } from 'react'
+import styled from 'styled-components'
+import DrawingToolMarks from './components/DrawingToolMarks'
+
+const StyledRect = styled('rect')`
+  :hover {
+    cursor: crosshair;
+  }
+`
 
 function InteractionLayer ({ activeDrawingTask, svg }) {
   const [ activeMark, setActiveMark ] = useState(null)
+  const [ creating, setCreating ] = useState(false)
 
   function convertEvent (event) {
     const type = event.type
 
-    const clientX = event.clientX
-    const clientY = event.clientY
-    const svgEventOffset = getEventOffset(clientX, clientY)
+    const svgEventOffset = getEventOffset(event.clientX, event.clientY)
 
     const svgCoordinateEvent = {
       pointerId: event.pointerId,
@@ -28,61 +34,58 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     svgEvent.x = x
     svgEvent.y = y
     const svgEventOffset = svgEvent.matrixTransform(svg.getScreenCTM().inverse())
-
     return svgEventOffset
   }
 
   function onPointerDown (event) {
-    const activeTool = activeDrawingTask.activeTool
+    const { activeTool } = activeDrawingTask
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
     })
-    activeMark.setCoordinates(convertEvent(event))
+    activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
+    setCreating(true)
   }
 
   function onPointerMove (event) {
-    if (activeMark) {
-      activeMark.setCoordinates(convertEvent(event))
-    }
+    creating && activeMark.initialDrag(convertEvent(event))
   }
 
-  function onPointerUp (event) {
-    if (activeMark) {
-      activeMark.setCoordinates(convertEvent(event))
+  function onPointerUp () {
+    setCreating(false)
+    if (activeMark && !activeMark.isValid) {
+      const { activeTool } = activeDrawingTask
+      activeTool.deleteMark(activeMark)
+      setActiveMark(null)
     }
-    setActiveMark(null)
   }
 
   return (
     <g
-      onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
-      <rect
+      <StyledRect
         id='InteractionLayer'
         width='100%'
         height='100%'
         fill='transparent'
+        onPointerDown={onPointerDown}
       />
       {activeDrawingTask &&
-        activeDrawingTask.tools.map( tool => {
-          const marksArray = Array.from(tool.marks.values())
-          return marksArray.map(mark => {
-
-            const MarkingComponent = observer(mark.toolComponent)
-
-            return (
-              <MarkingComponent
-                key={mark.id}
-                active={mark === activeMark}
-                mark={mark}
-                tool={tool}
-              />
-            )
-          })})
+        activeDrawingTask.tools.map(tool => {
+          return (
+            <DrawingToolMarks
+              key={`${tool.type}-${tool.toolIndex}`}
+              activeMarkId={activeMark && activeMark.id}
+              onDelete={() => setActiveMark(null)}
+              onSelectMark={mark => setActiveMark(mark)}
+              svg={svg}
+              tool={tool}
+            />
+          )
+        })
       }
     </g>
   )

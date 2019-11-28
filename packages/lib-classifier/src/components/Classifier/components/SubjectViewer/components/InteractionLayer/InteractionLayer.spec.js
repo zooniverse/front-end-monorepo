@@ -9,6 +9,8 @@ import { Line, Point } from '@plugins/tasks/DrawingTask/components/tools'
 describe('Component > InteractionLayer', function () {
   let wrapper
   const mockMark = {
+    initialDrag: sinon.stub(),
+    initialPosition: sinon.stub(),
     setCoordinates: sinon.stub()
   }
   const mockDrawingTask = DrawingTask.TaskModel.create({
@@ -56,13 +58,34 @@ describe('Component > InteractionLayer', function () {
     expect(rect.prop('fill')).to.equal('transparent')
   })
 
-  it('should create a mark on pointer down', function () {
-    const fakeEvent = {
-      type: 'pointer'
-    }
-    sinon.spy(mockDrawingTask.activeTool, 'createMark')
-    wrapper.simulate('pointerdown', fakeEvent)
-    expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
-    mockDrawingTask.activeTool.createMark.restore()
+  describe('on pointer events', function () {
+    before(function () {
+      sinon.stub(mockDrawingTask.activeTool, 'createMark').callsFake(() => mockMark)
+    })
+
+    after(function () {
+      mockDrawingTask.activeTool.createMark.restore()
+    })
+
+    it('should create a mark on pointer down', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.find('rect').simulate('pointerdown', fakeEvent)
+      expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
+    })
+
+    it('should place a new mark on pointer down', function () {
+      expect(mockMark.initialPosition).to.have.been.calledOnce()
+    })
+
+    it('should drag the new mark on pointer down + move', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.find('rect').simulate('pointerdown', fakeEvent)
+      wrapper.find('rect').simulate('pointermove', fakeEvent)
+      expect(mockMark.initialDrag).to.have.been.calledOnce()
+    })
   })
 })
