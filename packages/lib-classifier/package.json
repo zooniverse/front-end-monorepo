@@ -83,7 +83,7 @@
     "jsdom": "~15.1.1",
     "mobx": "~5.9.0",
     "mobx-devtools-mst": "~0.9.21",
-    "mobx-react": "~5.2.6",
+    "mobx-react": "~6.1.4",
     "mobx-state-tree": "~3.11.0",
     "mocha": "~6.1.4",
     "mst-middlewares": "~3.14.0",
