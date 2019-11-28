@@ -2,9 +2,9 @@ import { Factory } from 'rosie'
 
 export default new Factory()
   .attr('answers', [
-    { label: 'red', _key: 1 },
-    { label: 'blue', _key: 2 },
-    { label: 'green', _key: 3 }
+    { label: 'red' },
+    { label: 'blue' },
+    { label: 'green' }
   ])
   .attr('help', '')
   .attr('required', false)

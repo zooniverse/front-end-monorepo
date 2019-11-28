@@ -7,7 +7,6 @@ import MultipleChoiceAnnotation from './MultipleChoiceAnnotation'
 
 const MultipleChoice = types.model('MultipleChoice', {
   answers: types.array(types.frozen({
-    _key: types.integer,
     label: types.string
   })),
   help: types.optional(types.string, ''),
