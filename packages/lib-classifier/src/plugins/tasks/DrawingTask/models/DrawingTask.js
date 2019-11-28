@@ -22,12 +22,11 @@ const Drawing = types.model('Drawing', {
   })),
   type: types.literal('drawing')
 })
-.views(self => ({
-  get defaultAnnotation () {
-    return DrawingAnnotation.create({ task: self.taskKey })
-  }
-}))
-
+  .views(self => ({
+    get defaultAnnotation () {
+      return DrawingAnnotation.create({ task: self.taskKey })
+    }
+  }))
 
 const DrawingTask = types.compose('DrawingTask', Task, Drawing)
 

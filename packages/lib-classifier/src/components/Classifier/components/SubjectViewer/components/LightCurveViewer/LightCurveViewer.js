@@ -212,7 +212,7 @@ class LightCurveViewer extends Component {
         return { x, width, tool: props.toolIndex, zoomLevelOnCreation: raw.zoomLevelOnCreation, toolType }
       })
 
-    props.addAnnotation(annotations, props.currentTask)
+    props.addAnnotation(props.currentTask, annotations)
   }
 
   /*
