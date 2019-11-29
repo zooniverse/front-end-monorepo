@@ -5,13 +5,17 @@ const LineTool = types.model('Line', {
   color: types.optional(types.string, ''),
   label: types.optional(types.string, ''),
   marks: types.map(Line),
-  max: types.maybe(types.union(types.string, types.number), ''),
-  min: types.maybe(types.union(types.string, types.number), ''),
+  max: types.optional(types.union(types.string, types.number), Infinity),
+  min: types.optional(types.union(types.string, types.number), 0),
   type: types.literal('line')
 })
   .views(self => ({
+    get disabled () {
+      return self.marks.size >= self.max
+    },
+
     get isComplete () {
-      return (self.marks.size >= self.min && self.marks.size <= self.max)
+      return (self.marks.size >= self.min)
     }
   }))
   .actions(self => {

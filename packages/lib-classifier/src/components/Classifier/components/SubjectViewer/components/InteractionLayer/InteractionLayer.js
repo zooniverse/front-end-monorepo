@@ -5,9 +5,8 @@ import styled from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
-  :hover {
-    cursor: crosshair;
-  }
+  cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
+  pointer-events: ${props => props.disabled ? 'none' : 'all'};
 `
 
 function InteractionLayer ({ activeDrawingTask, svg }) {
@@ -61,6 +60,8 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     }
   }
 
+  const { activeTool } = activeDrawingTask
+  const { disabled } = activeTool
   return (
     <g
       onPointerMove={onPointerMove}
@@ -68,6 +69,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     >
       <StyledRect
         id='InteractionLayer'
+        disabled={disabled}
         width='100%'
         height='100%'
         fill='transparent'
