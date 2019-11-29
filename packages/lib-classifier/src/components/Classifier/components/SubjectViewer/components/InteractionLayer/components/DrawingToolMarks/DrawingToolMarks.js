@@ -1,8 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import DrawingToolRoot from '@plugins/tasks/DrawingTask/components/tools/DrawingToolRoot'
-import DeleteButton from '@plugins/tasks/DrawingTask/components/tools/DeleteButton'
+import { DeleteButton, DrawingToolRoot } from '@plugins/drawingTools/components'
 
 function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
   const marksArray = Array.from(tool.marks.values())

@@ -1,14 +1,13 @@
 import { types } from 'mobx-state-tree'
-import { Point as PointMark } from '../markings'
+import { Line } from '../marks'
 
-const Point = types.model('Point', {
+const LineTool = types.model('Line', {
   color: types.optional(types.string, ''),
   label: types.optional(types.string, ''),
-  marks: types.map(PointMark),
+  marks: types.map(Line),
   max: types.maybe(types.union(types.string, types.number), ''),
   min: types.maybe(types.union(types.string, types.number), ''),
-  size: types.optional(types.enumeration(['large', 'small']), 'large'),
-  type: types.literal('point')
+  type: types.literal('line')
 })
   .views(self => ({
     get isComplete () {
@@ -17,7 +16,7 @@ const Point = types.model('Point', {
   }))
   .actions(self => {
     function createMark (mark) {
-      const newMark = PointMark.create(mark)
+      const newMark = Line.create(mark)
       self.marks.put(newMark)
       return newMark
     }
@@ -32,4 +31,4 @@ const Point = types.model('Point', {
     }
   })
 
-export default Point
+export default LineTool
