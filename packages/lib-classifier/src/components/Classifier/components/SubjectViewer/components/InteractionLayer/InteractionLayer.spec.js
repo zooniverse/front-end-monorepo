@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import InteractionLayer, { StyledRect } from './InteractionLayer'
 import DrawingTask from '@plugins/tasks/DrawingTask'
-import { Line, Point } from '@plugins/tasks/DrawingTask/components/tools'
+import { Line, Point } from '@plugins/drawingTools/components'
 
 describe('Component > InteractionLayer', function () {
   let wrapper

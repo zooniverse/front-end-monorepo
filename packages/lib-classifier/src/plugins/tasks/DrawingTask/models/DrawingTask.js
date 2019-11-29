@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
-import * as tools from './drawingTools'
+import * as tools from '@plugins/drawingTools/models/tools'
 import DrawingAnnotation from './DrawingAnnotation'
 
 const toolModels = Object.values(tools)

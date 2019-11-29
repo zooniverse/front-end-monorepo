@@ -1,5 +1,5 @@
 import AnnotationsStore from './AnnotationsStore'
-import taskRegistry from '@plugins/tasks'
+import Task from '@plugins/tasks/models/Task'
 
 describe('Model > AnnotationsStore', function () {
   let model
@@ -17,8 +17,7 @@ describe('Model > AnnotationsStore', function () {
   })
 
   describe(`updating an annotation`, function () {
-    const SingleChoiceTask = taskRegistry.get('single').TaskModel
-    const task = SingleChoiceTask.create({ taskKey: 'T0', type: 'single', question: 'How many cats?' })
+    const task = Task.create({ taskKey: 'T0', type: 'single', question: 'How many cats?' })
 
     describe('for a new task', function () {
       it('should create a new annotation', function () {

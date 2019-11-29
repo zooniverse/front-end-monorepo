@@ -1,9 +1,10 @@
 import { types, getType } from 'mobx-state-tree'
-import { annotationModels } from '@plugins/tasks'
+import Annotation from '@plugins/tasks/models/Annotation'
+
 
 const AnnotationsStore = types
   .model('AnnotationsStore', {
-    annotations: types.map(types.union(...annotationModels))
+    annotations: types.map(Annotation)
   })
   .views(self =>({
     annotation (task) {
