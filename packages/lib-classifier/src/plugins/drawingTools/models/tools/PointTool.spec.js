@@ -1,4 +1,4 @@
-import Point from './Point'
+import PointTool from './PointTool'
 
 const point = {
   color: '#ff0000',
@@ -9,19 +9,19 @@ const point = {
   type: 'point'
 }
 
-describe('Model > DrawingTools > Point', function () {
+describe('Model > DrawingTools > PointTool', function () {
   it('should exist', function () {
-    const pointToolInstance = Point.create(point)
+    const pointToolInstance = PointTool.create(point)
     expect(pointToolInstance).to.exist()
     expect(pointToolInstance).to.be.an('object')
   })
 
   it('should have a property `type` of `point`', function () {
-    const pointToolInstance = Point.create(point)
+    const pointToolInstance = PointTool.create(point)
     expect(pointToolInstance).to.deep.include({ type: 'point' })
   })
 
   it('should throw an error with incorrect property `type`', function () {
-    expect(() => Point.create({ type: 'purple' })).to.throw()
+    expect(() => PointTool.create({ type: 'purple' })).to.throw()
   })
 })
