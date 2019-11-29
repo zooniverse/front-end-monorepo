@@ -1,7 +1,6 @@
 import { types, getType } from 'mobx-state-tree'
 import AnnotationsStore from './AnnotationsStore'
 import Resource from './Resource'
-import { annotationModels } from '@plugins/tasks'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
