@@ -1,6 +1,6 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { Line as LineComponent } from '@plugins/tasks/DrawingTask/components/tools'
+import { Line as LineComponent } from '../../components/'
 
 import Mark from './Mark'
 
