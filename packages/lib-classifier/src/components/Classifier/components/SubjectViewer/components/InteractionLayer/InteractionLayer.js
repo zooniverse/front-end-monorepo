@@ -95,3 +95,4 @@ InteractionLayer.propTypes = {
 }
 
 export default InteractionLayer
+export { StyledRect }
