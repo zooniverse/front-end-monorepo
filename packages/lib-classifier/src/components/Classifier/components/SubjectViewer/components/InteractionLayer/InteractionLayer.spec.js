@@ -1,8 +1,9 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
+import styled from 'styled-components'
 
-import InteractionLayer from './InteractionLayer'
+import InteractionLayer, { StyledRect } from './InteractionLayer'
 import DrawingTask from '@plugins/tasks/DrawingTask'
 import { Line, Point } from '@plugins/tasks/DrawingTask/components/tools'
 
@@ -51,8 +52,8 @@ describe('Component > InteractionLayer', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should return a transparent rect', function () {
-    const rect = wrapper.find('rect')
+  it('should render a transparent rect', function () {
+    const rect = wrapper.find(StyledRect)
     expect(rect.exists()).to.be.true()
     expect(rect.prop('id')).to.equal('InteractionLayer')
     expect(rect.prop('fill')).to.equal('transparent')
@@ -71,7 +72,7 @@ describe('Component > InteractionLayer', function () {
       const fakeEvent = {
         type: 'pointer'
       }
-      wrapper.find('rect').simulate('pointerdown', fakeEvent)
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
       expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
     })
 
@@ -83,8 +84,8 @@ describe('Component > InteractionLayer', function () {
       const fakeEvent = {
         type: 'pointer'
       }
-      wrapper.find('rect').simulate('pointerdown', fakeEvent)
-      wrapper.find('rect').simulate('pointermove', fakeEvent)
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      wrapper.simulate('pointermove', fakeEvent)
       expect(mockMark.initialDrag).to.have.been.calledOnce()
     })
   })
