@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import Annotation from '../../models/Annotation'
-import * as markTypes from './markings'
+import * as markTypes from '@plugins/drawingTools/models/marks'
 
 const Drawing = types.model('Drawing', {
   value: types.array(

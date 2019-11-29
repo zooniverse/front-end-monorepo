@@ -1,4 +1,4 @@
-import Line from './Line'
+import LineTool from './LineTool'
 
 const line = {
   color: '#ff0000',
@@ -10,17 +10,17 @@ const line = {
 
 describe('Model > DrawingTools > Line', function () {
   it('should exist', function () {
-    const lineToolInstance = Line.create(line)
+    const lineToolInstance = LineTool.create(line)
     expect(lineToolInstance).to.exist()
     expect(lineToolInstance).to.be.an('object')
   })
 
   it('should have a property `type` of `line`', function () {
-    const lineToolInstance = Line.create(line)
+    const lineToolInstance = LineTool.create(line)
     expect(lineToolInstance).to.deep.include({ type: 'line' })
   })
 
   it('should throw an error with incorrect property `type`', function () {
-    expect(() => Line.create({ type: 'purple' })).to.throw()
+    expect(() => LineTool.create({ type: 'purple' })).to.throw()
   })
 })

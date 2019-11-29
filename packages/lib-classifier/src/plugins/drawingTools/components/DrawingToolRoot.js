@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { forwardRef, useState } from 'react'
 import styled from 'styled-components'
-import draggable from '../components/draggable'
+import draggable from './draggable'
 
 const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 3

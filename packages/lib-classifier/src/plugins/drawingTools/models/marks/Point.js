@@ -1,6 +1,6 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { Point as PointComponent } from '../../components/tools'
+import { Point as PointComponent } from '../../components'
 
 import Mark from './Mark'
 
