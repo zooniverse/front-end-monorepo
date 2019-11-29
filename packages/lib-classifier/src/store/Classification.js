@@ -1,4 +1,5 @@
 import { types, getType } from 'mobx-state-tree'
+import AnnotationsStore from './AnnotationsStore'
 import Resource from './Resource'
 import { annotationModels } from '@plugins/tasks'
 
@@ -36,9 +37,6 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
 
 const Classification = types
   .model('Classification', {
-    annotations: types.map(types.union(
-      ...annotationModels
-    )),
     completed: types.optional(types.boolean, false),
     links: types.frozen({
       project: types.string,
@@ -49,4 +47,4 @@ const Classification = types
   })
 
 export { ClassificationMetadata }
-export default types.compose('ClassificationResource', Resource, Classification)
+export default types.compose('ClassificationResource', Resource, AnnotationsStore, Classification)
