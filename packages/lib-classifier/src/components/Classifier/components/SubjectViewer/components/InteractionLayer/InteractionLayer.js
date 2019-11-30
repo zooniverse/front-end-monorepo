@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { func } from 'prop-types'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
@@ -9,7 +9,7 @@ const StyledRect = styled('rect')`
   pointer-events: ${props => props.disabled ? 'none' : 'all'};
 `
 
-function InteractionLayer ({ activeDrawingTask, svg }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
 
@@ -37,7 +37,6 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
   }
 
   function onPointerDown (event) {
-    const { activeTool } = activeDrawingTask
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
@@ -54,14 +53,11 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
   function onPointerUp () {
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
-      const { activeTool } = activeDrawingTask
       activeTool.deleteMark(activeMark)
       setActiveMark(null)
     }
   }
 
-  const { activeTool } = activeDrawingTask
-  const { disabled } = activeTool
   return (
     <g
       onPointerMove={onPointerMove}
@@ -94,6 +90,14 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
 }
 
 InteractionLayer.propTypes = {
+  activeDrawingTask: PropTypes.object.isRequired,
+  activeTool: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+  svg: PropTypes.instanceOf(Element).isRequired
+}
+
+InteractionLayer.defaultProps = {
+  disabled: false
 }
 
 export default InteractionLayer

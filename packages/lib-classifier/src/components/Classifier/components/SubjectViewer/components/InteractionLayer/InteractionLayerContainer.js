@@ -9,8 +9,12 @@ function storeMapper (stores) {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+  const { activeTool } = activeDrawingTask
+  const { disabled } = activeTool
   return {
-    activeDrawingTask
+    activeDrawingTask,
+    activeTool,
+    disabled
   }
 }
 
@@ -18,8 +22,15 @@ function storeMapper (stores) {
 @observer
 class InteractionLayerContainer extends Component {
   render () {
-    const { activeDrawingTask, svg } = this.props
-    return activeDrawingTask ? <InteractionLayer activeDrawingTask={activeDrawingTask} svg={svg} /> : null
+    const { activeDrawingTask, activeTool, disabled, svg } = this.props
+    return activeDrawingTask ? 
+    <InteractionLayer
+      activeDrawingTask={activeDrawingTask}
+      activeTool={activeTool}
+      disabled={disabled}
+      svg={svg}
+    /> : 
+    null
   }
 }
 
