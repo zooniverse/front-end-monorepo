@@ -1,34 +1,42 @@
 import { adjustHue } from 'polished'
+import getGradientShade from '../helpers/getGradientShade'
+import { normalizeColor } from 'grommet/utils'
+
+const BLUE = '#43BBFD'
 
 const theme = {
   button: {
     border: {
-      color: 'neutral-5',
+      color: BLUE,
       width: '1px'
     },
     color: {
-      dark: 'neutral-5',
-      light: 'black'
+      dark: 'neutral-4',
+      light: 'white'
     },
     primary: {
       color: {
         dark: 'dark-3',
-        light: 'neutral-5'
+        light: BLUE
       }
     },
     extend: props => {
-      const { theme: { dark, global: { colors } } } = props
+      const color = normalizeColor(BLUE, props.theme)
+      const gradientShade = getGradientShade(color)
 
       return `
+        transition: none;
         text-align: center;
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          background: ${dark ? colors['neutral-5'] : adjustHue(-7, colors['neutral-5'])};
-          box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
-          color: black;
+          background: linear-gradient(${color}, ${gradientShade});
+          box-shadow: none;
+        }
+        &:active:not(:disabled) {
+          background: linear-gradient(${gradientShade}, ${color});
         }
     `}
   }

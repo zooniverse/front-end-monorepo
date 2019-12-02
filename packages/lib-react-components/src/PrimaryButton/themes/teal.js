@@ -1,6 +1,6 @@
-import { adjustHue } from 'polished'
-import getGradientShade from '../helpers/getGradientShade'
 import { normalizeColor } from 'grommet/utils'
+
+import getGradientShade from '../helpers/getGradientShade'
 
 const theme = {
   button: {
@@ -23,17 +23,19 @@ const theme = {
       const gradientShade = getGradientShade(color)
 
       return `
+        transition: none;
         text-align: center;
-        background: linear-gradient(${color}, ${color});
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
+          color: white;
           background: linear-gradient(${color}, ${gradientShade});
           box-shadow: none;
         }
         &:active:not(:disabled) {
+          color: white;
           background: linear-gradient(${gradientShade}, ${color});
         }
     `}

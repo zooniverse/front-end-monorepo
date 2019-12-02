@@ -1,6 +1,6 @@
+import { Button, Text, ThemeContext } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Button, Text, ThemeContext } from 'grommet'
 
 import blueTheme from './themes/blue'
 import goldTheme from './themes/gold'
@@ -17,10 +17,9 @@ const themeMap = {
 function PrimaryButton (props) {
   const { color, label, ...rest } = props
   const theme = themeMap[color]
-
-  const wrappedLabel = (React.isValidElement(label))
+  const wrappedLabel = React.isValidElement(label)
     ? label
-    : <Text size='medium'>{label}</Text>
+    : <Text children={label} size='medium' />
 
   return (
     <ThemeContext.Extend value={theme}>
@@ -34,7 +33,8 @@ function PrimaryButton (props) {
 }
 
 PrimaryButton.propTypes = {
-  color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal'])
+  color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal']),
+  label: PropTypes.oneOf(PropTypes.element, PropTypes.string).isRequired
 }
 
 PrimaryButton.defaultProps = {

@@ -3,7 +3,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
 import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text, select } from '@storybook/addon-knobs'
+import { boolean, select, text, withKnobs } from '@storybook/addon-knobs'
 
 import { backgrounds } from '../../.storybook/lib/'
 import readme from './README.md'
@@ -27,6 +27,7 @@ storiesOf('PrimaryButton', module)
     <Grommet theme={zooTheme}>
       <PrimaryButton
         color={select('Color', colors, colors[1])}
+        disabled={boolean('Disabled', false)}
         label={text('Label', 'Click me')}
         onClick={() => { }}
       />
@@ -37,6 +38,7 @@ storiesOf('PrimaryButton', module)
     <Grommet theme={darkTheme}>
       <PrimaryButton
         color={select('Color', colors, colors[1])}
+        disabled={boolean('Disabled', false)}
         label={text('Label', 'Click me')}
         onClick={() => { }}
       />
