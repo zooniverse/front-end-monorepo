@@ -45,7 +45,8 @@ describe('Component > InteractionLayer', function () {
   }
 
   beforeEach(function () {
-    wrapper = shallow(<InteractionLayer activeDrawingTask={mockDrawingTask} svg={mockSVG} />)
+    const { activeTool } = mockDrawingTask
+    wrapper = shallow(<InteractionLayer activeDrawingTask={mockDrawingTask} activeTool={activeTool} svg={mockSVG} />)
   })
 
   it('should render without crashing', function () {
@@ -55,7 +56,6 @@ describe('Component > InteractionLayer', function () {
   it('should render a transparent rect', function () {
     const rect = wrapper.find(StyledRect)
     expect(rect.exists()).to.be.true()
-    expect(rect.prop('id')).to.equal('InteractionLayer')
     expect(rect.prop('fill')).to.equal('transparent')
   })
 
