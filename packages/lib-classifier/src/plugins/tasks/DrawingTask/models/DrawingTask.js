@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { detach, types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import * as tools from '@plugins/drawingTools/models/tools'
 import DrawingAnnotation from './DrawingAnnotation'
@@ -23,6 +23,13 @@ const Drawing = types.model('Drawing', {
 
     get isComplete () {
       return self.tools.reduce((isTaskComplete, tool) => isTaskComplete && tool.isComplete, true)
+    },
+
+    get marks () {
+      return self.tools.reduce(function flattenMarks (allMarks, tool) {
+        const toolMarks = Array.from(tool.marks.values())
+        return allMarks.concat(toolMarks)
+      }, [])
     }
   }))
   .actions(self => {
@@ -30,7 +37,13 @@ const Drawing = types.model('Drawing', {
       self.activeToolIndex = toolIndex
     }
 
+    function complete () {
+      const newValue = self.marks.map(mark => detach(mark))
+      self.updateAnnotation(newValue)
+    }
+
     return {
+      complete,
       setActiveTool
     }
   })
