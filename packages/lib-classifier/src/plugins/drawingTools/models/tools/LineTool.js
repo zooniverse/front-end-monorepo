@@ -1,19 +1,11 @@
 import { types } from 'mobx-state-tree'
+import Tool from './Tool'
 import { Line } from '../marks'
 
 const LineTool = types.model('Line', {
-  color: types.optional(types.string, ''),
-  label: types.optional(types.string, ''),
   marks: types.map(Line),
-  max: types.maybe(types.union(types.string, types.number), ''),
-  min: types.maybe(types.union(types.string, types.number), ''),
   type: types.literal('line')
 })
-  .views(self => ({
-    get isComplete () {
-      return (self.marks.size >= self.min && self.marks.size <= self.max)
-    }
-  }))
   .actions(self => {
     function createMark (mark) {
       const newMark = Line.create(mark)
@@ -21,14 +13,9 @@ const LineTool = types.model('Line', {
       return newMark
     }
 
-    function deleteMark (mark) {
-      self.marks.delete(mark.id)
-    }
-
     return {
-      createMark,
-      deleteMark
+      createMark
     }
   })
 
-export default LineTool
+export default types.compose('LineTool', Tool, LineTool)
