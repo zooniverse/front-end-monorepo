@@ -1,16 +1,15 @@
 import cuid from 'cuid'
-import { func } from 'prop-types'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
-  :hover {
-    cursor: crosshair;
-  }
+  cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
+  pointer-events: ${props => props.disabled ? 'none' : 'all'};
 `
 
-function InteractionLayer ({ activeDrawingTask, svg }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
 
@@ -38,7 +37,6 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
   }
 
   function onPointerDown (event) {
-    const { activeTool } = activeDrawingTask
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
@@ -55,7 +53,6 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
   function onPointerUp () {
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
-      const { activeTool } = activeDrawingTask
       activeTool.deleteMark(activeMark)
       setActiveMark(null)
     }
@@ -68,6 +65,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
     >
       <StyledRect
         id='InteractionLayer'
+        disabled={disabled}
         width='100%'
         height='100%'
         fill='transparent'
@@ -77,7 +75,7 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
         activeDrawingTask.tools.map(tool => {
           return (
             <DrawingToolMarks
-              key={`${tool.type}-${tool.toolIndex}`}
+              key={`${tool.type}-${tool.color}`}
               activeMarkId={activeMark && activeMark.id}
               onDelete={() => setActiveMark(null)}
               onSelectMark={mark => setActiveMark(mark)}
@@ -92,6 +90,14 @@ function InteractionLayer ({ activeDrawingTask, svg }) {
 }
 
 InteractionLayer.propTypes = {
+  activeDrawingTask: PropTypes.object.isRequired,
+  activeTool: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+  svg: PropTypes.instanceOf(Element).isRequired
+}
+
+InteractionLayer.defaultProps = {
+  disabled: false
 }
 
 export default InteractionLayer

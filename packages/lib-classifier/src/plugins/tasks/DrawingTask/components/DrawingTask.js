@@ -54,7 +54,7 @@ class DrawingTask extends React.Component {
           return (
             <TaskInput
               checked={checked}
-              disabled={tool.isComplete}
+              disabled={tool.disabled}
               index={index}
               key={`${task.taskKey}_${index}`}
               label={tool.label}

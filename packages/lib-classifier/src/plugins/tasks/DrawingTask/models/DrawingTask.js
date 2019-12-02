@@ -16,14 +16,20 @@ const Drawing = types.model('Drawing', {
     get activeTool () {
       return self.tools[self.activeToolIndex]
     },
+
     get defaultAnnotation () {
       return DrawingAnnotation.create({ task: self.taskKey })
+    },
+
+    get isComplete () {
+      return self.tools.reduce((isTaskComplete, tool) => isTaskComplete && tool.isComplete, true)
     }
   }))
   .actions(self => {
     function setActiveTool (toolIndex) {
       self.activeToolIndex = toolIndex
     }
+
     return {
       setActiveTool
     }
