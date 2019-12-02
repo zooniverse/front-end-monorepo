@@ -48,4 +48,3 @@ export {
   DecoratedUserHasFinishedWorkflowBannerContainer as default,
   UserHasFinishedWorkflowBannerContainer
 }
-

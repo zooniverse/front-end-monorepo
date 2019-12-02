@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
@@ -10,8 +10,7 @@ import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButto
 
 import {
   data,
-  lightCurveMockData,
-  transformMatrix
+  lightCurveMockData
 } from './helpers/mockData'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
@@ -45,9 +44,6 @@ stories
           <ScatterPlotViewer
             data={data}
             panning={boolean('panning', false)}
-            parentHeight={384}
-            parentWidth={768}
-            transformMatrix={transformMatrix}
             xAxisLabel={text('x axis label', 'x-axis')}
             yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
@@ -64,9 +60,6 @@ stories
           <ScatterPlotViewer
             data={data}
             panning={boolean('panning', false)}
-            parentHeight={384}
-            parentWidth={768}
-            transformMatrix={transformMatrix}
             xAxisLabel={text('x axis label', 'x-axis')}
             yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
@@ -83,9 +76,6 @@ stories
           <ScatterPlotViewer
             data={data}
             panning={boolean('panning', false)}
-            parentHeight={384}
-            parentWidth={768}
-            transformMatrix={transformMatrix}
             xAxisLabel={text('x axis label', 'x-axis')}
             yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', false)}
@@ -103,11 +93,8 @@ stories
             margin={lightCurveMockData.options.margin}
             padding={lightCurveMockData.options.padding}
             panning={boolean('panning', false)}
-            parentHeight={384}
-            parentWidth={768}
             setOnZoom={setZoomCallback}
             tickDirection='inner'
-            transformMatrix={transformMatrix}
             xAxisLabel={text('x axis label', lightCurveMockData.options.xAxisLabel)}
             yAxisLabel={text('y axis label', lightCurveMockData.options.yAxisLabel)}
             zooming={boolean('zooming', false)}
@@ -128,15 +115,12 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={data}
-            panning={boolean('panning', false)}
-            parentHeight={384}
-            parentWidth={768}
+            data={lightCurveMockData.data}
+            panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
-            transformMatrix={transformMatrix}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            yAxisLabel={text('y axis label', 'y-axis')}
-            zooming={boolean('zooming', false)}
+            xAxisLabel={text('x axis label', lightCurveMockData.options.xAxisLabel)}
+            yAxisLabel={text('y axis label', lightCurveMockData.options.yAxisLabel)}
+            zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
               minZoom: number('min zoom', 1),

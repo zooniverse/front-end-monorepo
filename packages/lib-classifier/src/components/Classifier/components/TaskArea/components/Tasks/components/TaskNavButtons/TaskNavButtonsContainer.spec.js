@@ -4,11 +4,13 @@ import { observable } from 'mobx'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
-import ClassificationStore from '../../../../../../../../store/ClassificationStore'
-import SingleChoiceTask from '../../../../../../../../store/tasks/SingleChoiceTask'
-import MultipleChoiceTask from '../../../../../../../../store/tasks/MultipleChoiceTask'
-import Step from '../../../../../../../../store/Step'
+import ClassificationStore from '@store/ClassificationStore'
+import taskRegistry from '@plugins/tasks'
+import Step from '@store/Step'
 import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
+
+const SingleChoiceTask = taskRegistry.get('single').TaskModel
+const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
 
 const steps = observable.map([
   Step.create({ stepKey: 'S0', taskKeys: ['T0'] }),
@@ -100,7 +102,7 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classificationStore.active.toJSON()
 
       activeStepTasks.forEach((task) => {
-        expect(addAnnotationSpy.withArgs(undefined, task)).to.have.been.calledOnce()
+        expect(addAnnotationSpy.withArgs(task, undefined)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
     })
@@ -209,7 +211,7 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classificationStore.active.toJSON()
 
       activeStepTasks.forEach((task) => {
-        expect(addAnnotationSpy.withArgs(undefined, task)).to.have.been.calledOnce()
+        expect(addAnnotationSpy.withArgs(task, undefined)).to.have.been.calledOnce()
         expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
       })
     })

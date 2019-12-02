@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { Annotation } from '@store/annotations'
+import Annotation from '../../models/Annotation'
 
 const Text = types.model('Text', {
   value: types.optional(types.string, '')

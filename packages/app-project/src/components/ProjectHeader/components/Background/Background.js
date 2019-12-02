@@ -6,7 +6,6 @@ import styled from 'styled-components'
 const BackgroundBox = styled(Box)`
   overflow: hidden;
   position: absolute;
-  z-index: -1;
 `
 
 const BackgroundImage = styled.div`

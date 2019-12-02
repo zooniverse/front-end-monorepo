@@ -15,20 +15,24 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       padding
     },
     data,
+    margin: {
+      bottom,
+      left,
+      right,
+      top
+    },
     parentHeight,
     parentWidth,
     theme: { dark, global: { colors, font } },
     xAxisLabel,
-    xAxisMargin,
-    yAxisLabel,
-    yAxisMargin
+    yAxisLabel
   } = props
 
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
-  const xMax = parentWidth - xAxisMargin
-  const yMax = parentHeight - yAxisMargin
+  const xMax = parentWidth - left - right
+  const yMax = parentHeight - bottom - top
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
@@ -47,12 +51,13 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       <Background fill={backgroundColor} />
       <Group
         focusable
-        left={xAxisMargin}
+        left={left}
         tabIndex={0}
+        top={top}
       >
         {data.map((datum, index) => {
           const { color, label, value } = datum
-          const fill = color || colors.brand
+          const fill = colors[color] || color || colors.brand
           const key = `bar-${label}`
           const barHeight = yMax - yScale(value)
           const barWidth = xScale.bandwidth()
@@ -76,7 +81,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
           )
         })}
       </Group>
-      <Group left={xAxisMargin}>
+      <Group left={left} top={top}>
         <AxisLeft
           label={yAxisLabel}
           labelProps={{
@@ -130,10 +135,14 @@ BarChartViewer.defaultProps = {
   barStyles: {
     padding: 0.25
   },
-  xAxisLabel: '',
-  xAxisMargin: 40,
-  yAxisLabel: '',
-  yAxisMargin: 40,
+  margin: {
+    bottom: 40,
+    left: 40,
+    right: 0,
+    top: 0
+  },
+  xAxisLabel: 'x-axis',
+  yAxisLabel: 'y-axis',
   theme: {
     dark: false,
     global: {
@@ -157,9 +166,17 @@ BarChartViewer.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired
   })).isRequired,
+  margin: PropTypes.shape({
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number,
+    top: PropTypes.number
+  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  xAxisLabel: PropTypes.string,
+  yAxisLabel: PropTypes.string
 }
 
 export default withTheme(withParentSize(BarChartViewer))

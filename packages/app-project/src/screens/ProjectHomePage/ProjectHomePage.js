@@ -1,5 +1,6 @@
 import { Box, Grid } from 'grommet'
 import React from 'react'
+import styled from 'styled-components'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -9,13 +10,26 @@ import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import { Media } from '../../shared/components/Media'
+import Announcements from '@components/Announcements'
+import ProjectHeader from '@components/ProjectHeader'
+import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+
+const FullHeightBox = styled(Box)`
+  min-height: 98vh;
+`
+
+const RemainingHeightBox = styled(Box)`
+  flex-grow: 1;
+`
 
 function ProjectHomePage (props) {
   return (
-    <Box align='center'>
-      <Hero />
-
+    <>
       <Media at='default'>
+        <ZooHeaderWrapper />
+        <ProjectHeader />
+        <Announcements />
+        <Hero />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
           <ZooniverseTalk />
@@ -27,6 +41,14 @@ function ProjectHomePage (props) {
       </Media>
 
       <Media greaterThan='default'>
+        <FullHeightBox margin={{ bottom: 'large' }}>
+          <ZooHeaderWrapper />
+          <ProjectHeader />
+          <Announcements />
+          <RemainingHeightBox>
+            <Hero isWide={true} />
+          </RemainingHeightBox>
+        </FullHeightBox>
         <Box
           align='start'
           direction='row'
@@ -46,8 +68,7 @@ function ProjectHomePage (props) {
           <ThemeModeToggle />
         </Box>
       </Media>
-
-    </Box>
+    </>
   )
 }
 

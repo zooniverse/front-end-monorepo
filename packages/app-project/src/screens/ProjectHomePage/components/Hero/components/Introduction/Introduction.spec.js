@@ -10,7 +10,7 @@ const LINK_PROPS = {
 }
 const TITLE = 'baz'
 
-describe('Component > Introduction', function () {
+describe('Component > Hero > Introduction', function () {
   let wrapper
 
   before(function () {

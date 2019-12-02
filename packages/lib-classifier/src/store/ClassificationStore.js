@@ -21,6 +21,14 @@ const ClassificationStore = types
     type: types.optional(types.string, 'classifications')
   })
   .views(self => ({
+    annotation (task) {
+      const validClassificationReference = isValidReference(() => self.active)
+      if (validClassificationReference) {
+        return self.active.annotation(task)
+      }
+      return null
+    },
+
     get currentAnnotations () {
       const validClassificationReference = isValidReference(() => self.active)
       if (validClassificationReference) {
@@ -107,18 +115,13 @@ const ClassificationStore = types
       }
     }
 
-    function addAnnotation (annotationValue, task) {
+    function addAnnotation (task, annotationValue) {
       const validClassificationReference = isValidReference(() => self.active)
 
       if (validClassificationReference) {
         const classification = self.active
         if (classification) {
-          const annotation = classification.annotations.get(task.taskKey) || task.createAnnotation()
-          // new annotations must be added to this store before we can modify them
-          classification.annotations.put(annotation)
-          if (annotationValue) {
-            annotation.value = annotationValue
-          }
+          classification.addAnnotation(task, annotationValue)
         }
       } else {
         if (process.browser) {

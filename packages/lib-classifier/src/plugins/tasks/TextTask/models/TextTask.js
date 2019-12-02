@@ -1,5 +1,5 @@
 import { getRoot, types } from 'mobx-state-tree'
-import { Task } from '@store/tasks'
+import Task from '../../models/Task'
 import TextAnnotation from './TextAnnotation'
 
 const Text = types.model('Text', {

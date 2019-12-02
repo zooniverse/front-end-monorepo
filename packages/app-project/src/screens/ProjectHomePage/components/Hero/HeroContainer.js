@@ -3,7 +3,8 @@ import { arrayOf, string } from 'prop-types'
 import React, { Component } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
-import Hero from './Hero'
+import WideLayout from './components/WideLayout'
+import NarrowLayout from './components/NarrowLayout'
 import fetchWorkflowsHelper from './helpers/fetchWorkflowsHelper'
 
 function storeMapper (stores) {
@@ -59,9 +60,11 @@ class HeroContainer extends Component {
 
   render () {
     const { workflows } = this.state
-    return (
-      <Hero workflows={workflows} />
-    )
+    const { isWide } = this.props
+    return isWide
+      ? <WideLayout workflows={workflows} />
+      : <NarrowLayout workflows={workflows} />
+
   }
 }
 
