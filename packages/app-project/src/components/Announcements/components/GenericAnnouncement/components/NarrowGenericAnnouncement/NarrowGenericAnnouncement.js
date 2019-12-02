@@ -5,10 +5,10 @@ import React from 'react'
 
 import markdownzComponents from '../../helpers/markdownzComponents'
 
-function NarrowProjectAnnouncement(props) {
-  const { announcement, closeFn } = props
+function NarrowGenericAnnouncement(props) {
+  const { announcement, closeFn, color } = props
   return (
-    <Box align='center' background='neutral-4' fill='horizontal' pad='small'>
+    <Box align='center' background={color} fill='horizontal' pad='small'>
       <Box align='center' direction='row' gap='small' justify='between'>
         <Markdownz components={markdownzComponents}>
           {announcement}
@@ -19,9 +19,10 @@ function NarrowProjectAnnouncement(props) {
   )
 }
 
-NarrowProjectAnnouncement.propTypes = {
+NarrowGenericAnnouncement.propTypes = {
   announcement: string.isRequired,
-  closeFn: func.isRequired
+  closeFn: func,
+  color: string.isRequired,
 }
 
-export default NarrowProjectAnnouncement
+export default NarrowGenericAnnouncement

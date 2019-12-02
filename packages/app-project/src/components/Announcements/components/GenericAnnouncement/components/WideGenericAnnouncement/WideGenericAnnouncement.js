@@ -12,10 +12,10 @@ const Balancer = styled(CloseButton)`
   visibility: hidden;
 `
 
-function WideProjectAnnouncement(props) {
-  const { announcement, closeFn } = props
+function WideGenericAnnouncement(props) {
+  const { announcement, closeFn, color } = props
   return (
-    <Box align='center' background='neutral-4' fill='horizontal' pad='small'>
+    <Box align='center' background={color} fill='horizontal' pad='small'>
       <Box align='center' direction='row' gap='small' justify='between' width='xxlarge'>
         <Balancer />
         <Box align='center' fill='horizontal'>
@@ -29,9 +29,10 @@ function WideProjectAnnouncement(props) {
   )
 }
 
-WideProjectAnnouncement.propTypes = {
+WideGenericAnnouncement.propTypes = {
   announcement: string.isRequired,
-  closeFn: func.isRequired
+  closeFn: func.isRequired,
+  color: string.isRequired
 }
 
-export default WideProjectAnnouncement
+export default WideGenericAnnouncement
