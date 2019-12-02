@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { DeleteButton, DrawingToolRoot } from '@plugins/drawingTools/components'
 
-function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, svg, tool }) {
+function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, svg, tool }) {
   const marksArray = Array.from(tool.marks.values())
 
   return marksArray.map((mark, index) => {
@@ -47,12 +47,14 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
         <MarkingComponent
           active={isActive}
           mark={mark}
+          scale={scale}
           svg={svg}
           tool={tool}
         />
         {isActive && <ObservedDeleteButton
           label={`Delete ${tool.type}`}
           mark={mark}
+          scale={scale}
           svg={svg}
           onDelete={deleteMark}
         />}
@@ -66,6 +68,7 @@ DrawingToolMarks.propTypes = {
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
   onSelectMark: PropTypes.func,
+  scale: PropTypes.number,
   svg: PropTypes.instanceOf(Element).isRequired,
   tool: PropTypes.object.isRequired
 }
@@ -74,7 +77,8 @@ DrawingToolMarks.defaultProps = {
   activeMarkId: '',
   onDelete: () => true,
   onDeselectMark: () => true,
-  onSelectMark: () => true
+  onSelectMark: () => true,
+  scale: 1
 }
 
 export default DrawingToolMarks

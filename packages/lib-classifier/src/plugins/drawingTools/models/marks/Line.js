@@ -20,21 +20,24 @@ const LineModel = types
         y: self.y1
       }
     },
-    get deleteButtonPosition () {
-      const scale = 1
+
+    deleteButtonPosition (scale) {
       const BUFFER = 16
       const x = self.x1 > self.x2 ? self.x1 + (BUFFER / scale) : self.x1 - (BUFFER / scale)
       const y = self.y1
       // TODO: check for out of bounds coordinates
       return { x, y }
     },
+
     get length () {
       const { x1, y1, x2, y2 } = self
       return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
     },
+
     get isValid () {
       return self.length - MINIMUM_LENGTH > 0
     },
+
     get toolComponent () {
       return LineComponent
     }

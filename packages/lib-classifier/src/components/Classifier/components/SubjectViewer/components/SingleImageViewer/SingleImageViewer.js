@@ -21,7 +21,11 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ height, url, 
         width='100%'
         xlinkHref={url}
       />
-      <InteractionLayer svg={ref ? ref.current : null} />
+      <InteractionLayer
+        height={height}
+        svg={ref ? ref.current : null}
+        width={width}
+      />
     </SVG>
   )
 })

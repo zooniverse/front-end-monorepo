@@ -9,9 +9,11 @@ const StyledRect = styled('rect')`
   pointer-events: ${props => props.disabled ? 'none' : 'all'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, svg, width }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
+  const [ scale, setScale ] = useState(1)
+  const interactionLayer = React.createRef()
 
   function convertEvent (event) {
     const type = event.type
@@ -41,6 +43,9 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
     })
+    const { width: clientWidth, height: clientHeight } = interactionLayer.current.getBoundingClientRect()
+    const scale = clientWidth / width
+    setScale(scale)
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
@@ -64,10 +69,10 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
       onPointerUp={onPointerUp}
     >
       <StyledRect
-        id='InteractionLayer'
+        ref={interactionLayer}
         disabled={disabled}
-        width='100%'
-        height='100%'
+        width={width}
+        height={height}
         fill='transparent'
         onPointerDown={onPointerDown}
       />
@@ -79,6 +84,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
               activeMarkId={activeMark && activeMark.id}
               onDelete={() => setActiveMark(null)}
               onSelectMark={mark => setActiveMark(mark)}
+              scale={scale}
               svg={svg}
               tool={tool}
             />
@@ -92,8 +98,10 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, svg }) {
 InteractionLayer.propTypes = {
   activeDrawingTask: PropTypes.object.isRequired,
   activeTool: PropTypes.object.isRequired,
+  height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
-  svg: PropTypes.instanceOf(Element).isRequired
+  svg: PropTypes.instanceOf(Element).isRequired,
+  width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {

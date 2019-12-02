@@ -16,11 +16,10 @@ const CROSSHAIR_WIDTH = 1
 
 function Point ({ active, children, mark, scale, svg, tool }) {
   const { size } = tool
-  const averageScale = (scale.horizontal + scale.vertical) / 2
-  const crosshairSpace = CROSSHAIR_SPACE / averageScale
-  const crosshairWidth = CROSSHAIR_WIDTH / averageScale
-  const selectedRadius = SELECTED_RADIUS[size] / averageScale
-  const radius = RADIUS[size] / averageScale
+  const crosshairSpace = CROSSHAIR_SPACE / scale
+  const crosshairWidth = CROSSHAIR_WIDTH / scale
+  const selectedRadius = SELECTED_RADIUS[size] / scale
+  const radius = RADIUS[size] / scale
 
   return (
     <g transform={`translate(${mark.x}, ${mark.y})`}>
@@ -36,19 +35,13 @@ function Point ({ active, children, mark, scale, svg, tool }) {
 
 Point.propTypes = {
   active: PropTypes.bool,
-  scale: PropTypes.shape({
-    horizontal: PropTypes.number,
-    vertical: PropTypes.number
-  }),
+  scale: PropTypes.number,
   tool: PropTypes.object
 }
 
 Point.defaultProps = {
   active: false,
-  scale: {
-    horizontal: 1,
-    vertical: 1
-  },
+  scale: 1,
   tool: {
     size: 'large'
   }
