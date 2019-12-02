@@ -8,7 +8,7 @@ import initStore from './initStore'
 import placeholderEnv from './helpers/placeholderEnv'
 
 const user = {
-  display_name: 'Jean Luc Picard',
+  display_name: 'Jean-Luc Picard',
   id: '1',
   login: 'zootester1'
 }
