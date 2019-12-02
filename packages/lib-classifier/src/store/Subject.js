@@ -72,6 +72,8 @@ const Subject = types
           if (counts.images) {
             viewer = subjectViewers.singleImage
           }
+        } else if (counts.total > 1 && counts.total < 11) {
+          viewer = subjectViewers.multiFrame
         }
       }
 
