@@ -13,7 +13,7 @@ install:
   - yarn bootstrap
 
 script:
-  - yarn test:ci
+  - npm run test:ci
   - yarn workspace @zooniverse/fe-content-pages build
   - yarn workspace @zooniverse/fe-project build
 
