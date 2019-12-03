@@ -1,4 +1,4 @@
-import { detach, types } from 'mobx-state-tree'
+import { clone, detach, tryReference, types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import * as tools from '@plugins/drawingTools/models/tools'
 import DrawingAnnotation from './DrawingAnnotation'
@@ -42,9 +42,20 @@ const Drawing = types.model('Drawing', {
       self.updateAnnotation(newValue)
     }
 
+    function start () {
+      const activeMarks = self.annotation.value
+      activeMarks.forEach(function addMarksToTools (mark) {
+        const newMark = clone(mark)
+        const tool = tryReference(() => self.tools[newMark.toolIndex])
+        tool && tool.marks.put(newMark)
+      })
+      self.updateAnnotation([])
+    }
+
     return {
       complete,
-      setActiveTool
+      setActiveTool,
+      start
     }
   })
 

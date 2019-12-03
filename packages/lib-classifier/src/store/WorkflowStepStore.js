@@ -143,6 +143,7 @@ const WorkflowStepStore = types
       const step = self.steps.get(stepKey)
       if (step) {
         self.active = stepKey
+        self.activeStepTasks.forEach(task => task.start())
       }
     }
 

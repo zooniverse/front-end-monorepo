@@ -1,5 +1,8 @@
 import sinon from 'sinon'
+import { observable } from 'mobx'
 import DrawingTask from './DrawingTask'
+import DrawingAnnotation from './DrawingAnnotation'
+import { Line, Point } from '@plugins/drawingTools/models/marks'
 
 const pointTool = {
   help: '',
@@ -73,6 +76,46 @@ describe('Model > DrawingTask', function () {
 
     it('should copy marks to the task annotation', function () {
       expect(addAnnotation).to.have.been.calledOnce()
+    })
+  })
+
+  describe('on start', function () {
+    let marks
+    let pointTool
+    let lineTool
+    let addAnnotation
+    before(function () {
+      const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+      pointTool = drawingTask.tools[0]
+      lineTool = drawingTask.tools[1]
+      const taskAnnotation = DrawingAnnotation.create({
+        task: 'T3',
+        value: [
+          Point.create({ id: 'point1', toolIndex: 0 }),
+          Point.create({ id: 'point2', toolIndex: 0 }),
+          Line.create({ id: 'line1', toolIndex: 1 })
+        ]
+      })
+      drawingTask.classifications = {
+        addAnnotation: sinon.stub(),
+        annotation () { return taskAnnotation }
+      }
+      drawingTask.start()
+      marks = drawingTask.marks
+      addAnnotation = drawingTask.classifications.addAnnotation.withArgs(drawingTask, [])
+    })
+
+    it('should add existing annotation marks to the task', function () {
+      expect(marks.length).to.equal(3)
+    })
+
+    it('should clear marks from the current annotation', function () {
+      expect(addAnnotation).to.have.been.calledOnce()
+    })
+
+    it('should copy marks to the correct tools', function () {
+      expect(pointTool.marks.size).to.equal(2)
+      expect(lineTool.marks.size).to.equal(1)
     })
   })
 })

@@ -29,6 +29,10 @@ const Task = types.model('Task', {
     createAnnotation () {
       const newAnnotation = self.defaultAnnotation
       return newAnnotation
+    },
+
+    start () {
+      // override this with any setup actions for your task
     }
   }))
 
