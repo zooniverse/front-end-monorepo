@@ -9,6 +9,7 @@ const stub = SubjectFactory.build()
 const workflow = WorkflowFactory.build()
 const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
 const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
+const workflowWithConfigEnableSwitching = WorkflowFactory.build({ configuration: { enable_switching_flipbook_and_separate: true } })
 const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 
 describe('Model > Subject', function () {
@@ -97,6 +98,16 @@ describe('Model > Subject', function () {
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflowWithConfigSeparateMultiImage)
       subjectStore.workflows.setActive(workflowWithConfigSeparateMultiImage.id)
+      expect(subjectStore.viewer).to.be.null()
+    })
+
+    // enable_switching_flipbook_and_separate
+    it('should return a null viewer when workflow.configuration["enable_switching_flipbook_and_separate"] === "true"', function () {
+      const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }]})
+      const subjectStore = Subject.create(multiFrameSubject)
+      subjectStore.workflows = WorkflowStore.create({})
+      subjectStore.workflows.setResource(workflowWithConfigEnableSwitching)
+      subjectStore.workflows.setActive(workflowWithConfigEnableSwitching.id)
       expect(subjectStore.viewer).to.be.null()
     })
 
