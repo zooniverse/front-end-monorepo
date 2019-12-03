@@ -3,14 +3,11 @@ import React from 'react'
 
 import PrimaryButton from './PrimaryButton'
 
-let wrapper
+const LABEL = 'Foobar'
 
 describe('Component > PrimaryButton', function () {
-  before(function () {
-    wrapper = shallow(<PrimaryButton />)
-  })
-
   it('should render without crashing', function () {
+    const wrapper = shallow(<PrimaryButton label={LABEL} theme={THEME} />)
     expect(wrapper).to.be.ok()
   })
 })

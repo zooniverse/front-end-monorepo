@@ -35,7 +35,7 @@ const darkGreen = '#345446'
 const darkTeal = '#005D69'
 const navy = '#0C4881'
 const gold = '#f0b200'
-const blue = '#0f3865'
+const blue = '#43BBFD'
 
 const accentColors = [
   mint, // accent-1

@@ -16,7 +16,7 @@ const themeMap = {
 
 function PrimaryButton (props) {
   const { color, label, ...rest } = props
-  const theme = themeMap[color]
+  const theme = themeMap[color] || themeMap['gold']
   const wrappedLabel = React.isValidElement(label)
     ? label
     : <Text children={label} size='medium' />
@@ -34,7 +34,7 @@ function PrimaryButton (props) {
 
 PrimaryButton.propTypes = {
   color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal']),
-  label: PropTypes.oneOf(PropTypes.element, PropTypes.string).isRequired
+  label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired
 }
 
 PrimaryButton.defaultProps = {
