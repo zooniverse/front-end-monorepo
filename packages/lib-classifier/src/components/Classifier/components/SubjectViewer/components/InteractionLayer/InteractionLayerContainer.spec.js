@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import InteractionLayerContainer from './InteractionLayerContainer'
+import DrawingContainer from '../Drawing/DrawingContainer'
 
 const activeStepTasksWithDrawing = [
   {
@@ -37,14 +38,14 @@ describe('Component > InteractionLayerContainer', function () {
   describe('with active workflow step including a drawing task', function () {
     it('should render a DrawingContainer', function () {
       const wrapper = shallow(<InteractionLayerContainer.wrappedComponent activeStepTasks={activeStepTasksWithDrawing} />)
-      expect(wrapper.find('inject-DrawingContainer')).to.have.lengthOf(1)
+      expect(wrapper.find(DrawingContainer)).to.have.lengthOf(1)
     })
   })
 
   describe('with active workflow step excluding a drawing task', function () {
     it('should not render a DrawingContainer', function () {
       const wrapper = shallow(<InteractionLayerContainer.wrappedComponent activeStepTasks={activeStepTasksWithSingleChoice} />)
-      expect(wrapper.find('inject-DrawingContainer')).to.have.lengthOf(0)
+      expect(wrapper.find(DrawingContainer)).to.have.lengthOf(0)
     })
   })
 })
