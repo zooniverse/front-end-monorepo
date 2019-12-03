@@ -92,8 +92,8 @@ const WorkflowStepStore = types
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
         onAction(getRoot(self), (call) => {
-          if (call.name === 'completeClassification') self.resetSteps()
-        })
+          if (call.name === 'onSubjectReady') self.resetSteps()
+        }, true)
       }, { name: 'WorkflowStepStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
@@ -134,6 +134,7 @@ const WorkflowStepStore = types
       const step = self.steps.get(stepKey)
       if (step) {
         self.active = stepKey
+        self.activeStepTasks.forEach(task => task.start())
       }
     }
 
