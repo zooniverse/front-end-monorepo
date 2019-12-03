@@ -70,12 +70,14 @@ class InteractionLayerContainer extends Component {
   }
 }
 
-InteractionLayerContainer.propTypes = {
+InteractionLayerContainer.wrappedComponent.propTypes = {
+  drawingAnnotations: PropTypes.array,
   isDrawingInActiveWorkflowStep: PropTypes.bool,
   svg: PropTypes.object
 }
 
-InteractionLayerContainer.defaultProps = {
+InteractionLayerContainer.wrappedComponent.defaultProps = {
+  drawingAnnotations: [],
   isDrawingInActiveWorkflowStep: false
 }
 
