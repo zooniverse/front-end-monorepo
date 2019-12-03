@@ -25,6 +25,7 @@ class InteractionLayerContainer extends Component {
     const { activeDrawingTask, activeTool, disabled, svg } = this.props
     return activeDrawingTask && activeTool ? 
     <InteractionLayer
+      key={activeDrawingTask.taskKey}
       activeDrawingTask={activeDrawingTask}
       activeTool={activeTool}
       disabled={disabled}
