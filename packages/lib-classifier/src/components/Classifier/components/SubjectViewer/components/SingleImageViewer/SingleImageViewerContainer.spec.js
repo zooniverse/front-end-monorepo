@@ -131,6 +131,30 @@ describe('Component > SingleImageViewerContainer', function () {
         done()
       })
     })
+
+    it('should render an svg image', function () {
+      const svg = wrapper.instance().imageViewer.current
+      const fakeEvent = {
+        target: {
+          clientHeight: 0,
+          clientWidth: 0
+        }
+      }
+      const expectedEvent = {
+        target: {
+          clientHeight: svg.clientHeight,
+          clientWidth: svg.clientWidth,
+          naturalHeight: height,
+          naturalWidth: width
+        }
+      }
+      onReady.callsFake(function () {
+        const image = wrapper.find('image')
+        expect(image).to.have.lengthOf(1)
+        expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
+        done()
+      })
+    })
   })
 
   describe('with an invalid subject', function () {

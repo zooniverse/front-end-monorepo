@@ -9,19 +9,16 @@ const SVG = styled.svg`
   width: 100%;
 `
 
-const SingleImageViewer = forwardRef(function SingleImageViewer ({ height, url, width }, ref) {
+const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, scale, width }, ref) {
   const viewBox = `0 0 ${width} ${height}`
   return (
     <SVG
       ref={ref}
       viewBox={viewBox}
     >
-      <image
-        height='100%'
-        width='100%'
-        xlinkHref={url}
-      />
+      {children}
       <InteractionLayer
+        scale={scale}
         height={height}
         svg={ref ? ref.current : null}
         width={width}
@@ -32,8 +29,12 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ height, url, 
 
 SingleImageViewer.propTypes = {
   height: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
+  scale: PropTypes.number,
   width: PropTypes.number.isRequired
+}
+
+SingleImageViewer.defaultProps = {
+  scale: 1
 }
 
 export default SingleImageViewer

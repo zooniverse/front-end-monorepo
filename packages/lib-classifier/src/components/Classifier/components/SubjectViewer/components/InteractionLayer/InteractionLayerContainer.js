@@ -32,7 +32,7 @@ function storeMapper (stores) {
 @observer
 class InteractionLayerContainer extends Component {
   render () {
-    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, svg, tasks, width } = this.props
+    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, scale, svg, tasks, width } = this.props
     return (
       <>
         {drawingAnnotations.map(annotation =>
@@ -50,6 +50,7 @@ class InteractionLayerContainer extends Component {
               >
                 <MarkingComponent
                   mark={mark}
+                  scale={scale}
                   svg={svg}
                   tool={tool}
                 />
@@ -64,6 +65,7 @@ class InteractionLayerContainer extends Component {
             activeTool={activeTool}
             disabled={disabled}
             height={height}
+            scale={scale}
             svg={svg}
             width={width}
           />
@@ -78,13 +80,15 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
   drawingAnnotations: PropTypes.array,
   height: PropTypes.number.isRequired,
   isDrawingInActiveWorkflowStep: PropTypes.bool,
+  scale: PropTypes.number,
   svg: PropTypes.object,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
   drawingAnnotations: [],
-  isDrawingInActiveWorkflowStep: false
+  isDrawingInActiveWorkflowStep: false,
+  scale: 1
 }
 
 export default InteractionLayerContainer

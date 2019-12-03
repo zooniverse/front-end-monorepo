@@ -9,11 +9,9 @@ const StyledRect = styled('rect')`
   pointer-events: ${props => props.disabled ? 'none' : 'all'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, svg, width }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, svg, width }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
-  const [ scale, setScale ] = useState(1)
-  const interactionLayer = React.createRef()
 
   function convertEvent (event) {
     const type = event.type
@@ -43,9 +41,6 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sv
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
     })
-    const { width: clientWidth, height: clientHeight } = interactionLayer.current.getBoundingClientRect()
-    const scale = clientWidth / width
-    setScale(scale)
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
@@ -69,7 +64,6 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sv
       onPointerUp={onPointerUp}
     >
       <StyledRect
-        ref={interactionLayer}
         disabled={disabled}
         width={width}
         height={height}
@@ -100,12 +94,14 @@ InteractionLayer.propTypes = {
   activeTool: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
+  scale: PropTypes.number,
   svg: PropTypes.instanceOf(Element).isRequired,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {
-  disabled: false
+  disabled: false,
+  scale: 1
 }
 
 export default InteractionLayer
