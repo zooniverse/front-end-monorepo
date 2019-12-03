@@ -6,7 +6,7 @@ import PrimaryButton from './PrimaryButton'
 
 const LABEL = 'Foobar'
 
-describe.only('Component > PrimaryButton', function () {
+describe('Component > PrimaryButton', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<PrimaryButton label={LABEL} />)
     expect(wrapper).to.be.ok()
