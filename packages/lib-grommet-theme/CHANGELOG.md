@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished] 2019-10-24
 ### Added
-- Added `#0f3865` (blue) as `neutral-5`.
+- Added `#43BBFD` (blue) as `neutral-5`.
 
 ### Changed
 - Lowered font weight for form input text.
