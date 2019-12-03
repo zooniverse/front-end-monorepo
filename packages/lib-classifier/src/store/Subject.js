@@ -73,10 +73,11 @@ const Subject = types
             viewer = subjectViewers.singleImage
           }
         } else if (counts.total > 1 && counts.total < 11) {
-          viewer = subjectViewers.multiFrame
+          if (workflow.configuration['multi_image_mode'] !== "separate") {
+            viewer = subjectViewers.multiFrame
+          }
         }
       }
-
       return viewer
     }
   }))

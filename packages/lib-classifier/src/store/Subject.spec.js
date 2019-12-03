@@ -8,6 +8,7 @@ import subjectViewers from '../helpers/subjectViewers'
 const stub = SubjectFactory.build()
 const workflow = WorkflowFactory.build()
 const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
+const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
 const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
 
 describe('Model > Subject', function () {
@@ -55,6 +56,48 @@ describe('Model > Subject', function () {
       subjectStore.workflows.setResource(workflow)
       subjectStore.workflows.setActive(workflow.id)
       expect(subjectStore.viewer).to.equal(subjectViewers.singleImage)
+    })
+
+    it('should return the multi image viewer for subjects with more than one location', function () {
+      const multiFrameSubject = SubjectFactory.build({ locations: [
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' }
+      ]})
+      const subjectStore = Subject.create(multiFrameSubject)
+      subjectStore.workflows = WorkflowStore.create({})
+      subjectStore.workflows.setResource(workflow)
+      subjectStore.workflows.setActive(workflow.id)
+      expect(subjectStore.viewer).to.equal(subjectViewers.multiFrame)
+    })
+
+    it('should return a null viewer for subjects with more than ten location', function () {
+      const multiFrameSubject = SubjectFactory.build({ locations: [
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+      ]})
+      const subjectStore = Subject.create(multiFrameSubject)
+      subjectStore.workflows = WorkflowStore.create({})
+      subjectStore.workflows.setResource(workflow)
+      subjectStore.workflows.setActive(workflow.id)
+      expect(subjectStore.viewer).to.be.null()
+    })
+
+    it('should return a null viewer when workflow.configuration["multi_image_mode"] === "separate"', function () {
+      const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }]})
+      const subjectStore = Subject.create(multiFrameSubject)
+      subjectStore.workflows = WorkflowStore.create({})
+      subjectStore.workflows.setResource(workflowWithConfigSeparateMultiImage)
+      subjectStore.workflows.setActive(workflowWithConfigSeparateMultiImage.id)
+      expect(subjectStore.viewer).to.be.null()
     })
 
     it('should return the light curve viewer if the workflow configuration is defined', function () {
