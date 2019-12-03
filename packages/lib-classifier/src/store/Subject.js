@@ -67,11 +67,13 @@ const Subject = types
         // Otherwise, take a guess using the Subject.
 
         const pfeMultiImageMode = workflow.configuration['multi_image_mode'] === "separate"
-        const pfeEnableSwitchingFlipbookAndSeparate = workflow.configuration['enable_switching_flipbook_and_separate'] //expect true false value
+        const pfeEnableSwitchingFlipbookAndSeparate = workflow.configuration['enable_switching_flipbook_and_separate'] //expect true/false value
         const nullViewer = pfeMultiImageMode || pfeEnableSwitchingFlipbookAndSeparate
 
         if (configuration.subject_viewer === 'lightcurve') {
           viewer = subjectViewers.lightCurve
+        } else if (configuration.subject_viewer === 'multiFrame') {
+          viewer = subjectViewers.multiFrame
         } else if (counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage
