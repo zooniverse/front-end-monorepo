@@ -11,7 +11,7 @@ const User = types
     error: types.maybeNull(types.frozen({})),
     id: types.maybeNull(numberString),
     login: types.maybeNull(types.string),
-    loadingState: asyncStates.loading
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.loading)
   })
 
   .views(self => ({
@@ -42,6 +42,8 @@ const User = types
 
     clear () {
       self.id = null
+      self.display_name = null
+      self.login = null
     },
 
     set (user) {
