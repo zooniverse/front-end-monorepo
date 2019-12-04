@@ -16,5 +16,5 @@ export default function VXTooltip ({ label, left, top }) {
 VXTooltip.propTypes = {
   label: PropTypes.string,
   left: PropTypes.number,
-  top: PropTypes.number.number
+  top: PropTypes.number
 }
