@@ -90,7 +90,7 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={lightCurveMockData.data}
+            data={keplerMockDataWithOptions.data}
             margin={keplerMockDataWithOptions.chartOptions.margin}
             padding={keplerMockDataWithOptions.chartOptions.padding}
             panning={boolean('panning', false)}
@@ -116,11 +116,11 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={lightCurveMockData.data}
+            data={keplerMockDataWithOptions.data}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', lightCurveMockData.chartOptions.xAxisLabel)}
-            yAxisLabel={text('y axis label', lightCurveMockData.chartOptions.yAxisLabel)}
+            xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
+            yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
