@@ -7,6 +7,9 @@ import sinon from 'sinon'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
+import ClassificationStore from '@store/ClassificationStore'
+import Step from '@store/Step'
+import taskRegistry from '@plugins/tasks'
 
 const mockStore = {
   classifications: {},
@@ -67,17 +70,24 @@ storiesOf('Tasks', module)
     )
   })
   .add('single task', function () {
-    const step = null
-    const tasks = [{
+    const SingleChoiceTask = taskRegistry.get('single').TaskModel
+    const tasks = [SingleChoiceTask.create({
       annotation: { task: 'init' },
       answers: [{ label: 'yes' }, { label: 'no' }],
       help: 'Choose an answer from the choices given, then press Done.',
       question: 'Is there a cat?',
-      required: true,
+      required: boolean('Required', false),
       taskKey: 'init',
       type: 'single',
       updateAnnotation: sinon.stub()
-    }]
+    })]
+    const step = Step.create({
+      stepKey: 'S1',
+      taskKeys: ['init'],
+      tasks: {
+        T1: tasks[0]
+      }
+    })
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
@@ -86,9 +96,9 @@ storiesOf('Tasks', module)
         loadingState: asyncStates.success
       },
       workflowSteps: {
-        activeStepTasks: tasks,
+        active: step,
         isThereANextStep: () => false,
-        isThereAPreviousStep: () => false,
+        isThereAPreviousStep: () => true,
         isThereTaskHelp: true
       }
     })
@@ -106,19 +116,38 @@ storiesOf('Tasks', module)
     )
   })
   .add('multiple tasks', function () {
-    const step = null
+    const SingleChoiceTask = taskRegistry.get('single').TaskModel
+    const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
     const tasks = [
-      {
+      SingleChoiceTask.create({
+        annotation: { task: 'init' },
+        answers: [{ label: 'yes' }, { label: 'no' }],
+        help: 'Choose an answer from the choices given, then press Done.',
+        question: 'Is there a cat?',
+        required: boolean('Required', false),
+        taskKey: 'init',
+        type: 'single',
+        updateAnnotation: sinon.stub()
+      }),
+      MultipleChoiceTask.create({
         annotation: { task: 'T1', value: [] },
         answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
         help: 'Pick as many answers as apply, then press Done.',
         question: 'What is it doing?',
-        required: true,
+        required: false,
         taskKey: 'T1',
         type: 'multiple',
         updateAnnotation: sinon.stub()
-      }
+      })
     ]
+    const step = Step.create({
+      stepKey: 'S1',
+      taskKeys: ['init', 'T1'],
+      tasks: {
+        init: tasks[0],
+        T1: tasks[1]
+      }
+    })
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
@@ -127,9 +156,9 @@ storiesOf('Tasks', module)
         loadingState: asyncStates.success
       },
       workflowSteps: {
-        activeStepTasks: tasks,
-        isThereANextStep: () => false,
-        isThereAPreviousStep: () => false,
+        active: step,
+        isThereANextStep: () => true,
+        isThereAPreviousStep: () => true,
         isThereTaskHelp: true
       }
     })
@@ -147,7 +176,6 @@ storiesOf('Tasks', module)
     )
   })
   .add('text', function () {
-    const step = null
     const tasks = [
       {
         annotation: { task: 'T0', value: '' },
@@ -159,6 +187,13 @@ storiesOf('Tasks', module)
         updateAnnotation: sinon.stub()
       }
     ]
+    const step = Step.create({
+      stepKey: 'S1',
+      taskKeys: ['T0'],
+      tasks: {
+        T0: tasks[0]
+      }
+    })
     const dark = boolean('Dark theme', false)
     const loadingState = select('Subject loading', asyncStates, asyncStates.success)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
@@ -171,7 +206,7 @@ storiesOf('Tasks', module)
         loadingState: asyncStates.success
       },
       workflowSteps: {
-        activeStepTasks: tasks,
+        active: step,
         isThereANextStep: () => false,
         isThereAPreviousStep: () => false,
         isThereTaskHelp: true

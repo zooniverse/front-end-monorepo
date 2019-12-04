@@ -12,7 +12,6 @@ const SingleChoice = types.model('SingleChoice', {
   })),
   help: types.optional(types.string, ''),
   question: types.string,
-  required: types.maybe(types.boolean), // Should this be an optional type with the default to true?
   type: types.literal('single')
 })
   .views(self => ({

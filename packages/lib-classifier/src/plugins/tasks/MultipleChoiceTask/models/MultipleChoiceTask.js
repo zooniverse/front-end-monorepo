@@ -7,12 +7,10 @@ import MultipleChoiceAnnotation from './MultipleChoiceAnnotation'
 
 const MultipleChoice = types.model('MultipleChoice', {
   answers: types.array(types.frozen({
-    _key: types.integer,
     label: types.string
   })),
   help: types.optional(types.string, ''),
   question: types.string,
-  required: types.maybe(types.boolean),
   type: types.literal('multiple')
 })
   .views(self => ({
