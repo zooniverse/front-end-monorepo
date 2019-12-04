@@ -5,7 +5,7 @@ import { Box, Grommet } from 'grommet'
 import * as d3 from 'd3'
 import { zip } from 'lodash'
 import LightCurveViewer from './LightCurveViewer'
-import mockData from './mockData'
+import { kepler as mockData } from '../../helpers/mockLightCurves/kepler'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 

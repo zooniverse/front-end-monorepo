@@ -67,7 +67,7 @@ The JSON file is a very, very basic data object consisting of an array of number
 }
 ```
 
-A set of options can be defined along with the data that define the x-axis and y-axis labels as well as the margins and padding to use. Padding is defined as the the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes. 
+A set of chart options can be defined along with the data that define the x-axis and y-axis labels as well as the margins and padding to use. Padding is defined as the the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes. 
 
 
 ``` json
@@ -84,7 +84,7 @@ A set of options can be defined along with the data that define the x-axis and y
       0.667
     ]
   },
-  "options": {
+  "chartOptions": {
     "margin": {
       "bottom": 10,
       "left": 10,

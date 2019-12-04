@@ -3635,6 +3635,16 @@
     d3-shape "^1.2.0"
     prop-types "^15.6.2"
 
+"@vx/glyph@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/glyph/-/glyph-0.0.192.tgz#8f8e62771418d10f0cfa4bfac9f991481978e29e"
+  integrity sha512-wne/fuuaQqp17yB3keqTGPURXlf7ejDQ6xJJA0gIgTtwcwA7mHEWpAbtSCxtrSUiQgmfqC6KMBZgC84UcSDanA==
+  dependencies:
+    "@vx/group" "0.0.192"
+    classnames "^2.2.5"
+    d3-shape "^1.2.0"
+    prop-types "^15.6.2"
+
 "@vx/gradient@0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/gradient/-/gradient-0.0.189.tgz#5b53be804cc7205ed6c0d9c4c10608543f105f58"

@@ -10,6 +10,7 @@ import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButto
 
 import {
   data,
+  keplerMockDataWithOptions,
   lightCurveMockData
 } from './helpers/mockData'
 import readme from './README.md'
@@ -90,13 +91,13 @@ stories
         <Box height='medium' width='large'>
           <ScatterPlotViewer
             data={lightCurveMockData.data}
-            margin={lightCurveMockData.options.margin}
-            padding={lightCurveMockData.options.padding}
+            margin={keplerMockDataWithOptions.chartOptions.margin}
+            padding={keplerMockDataWithOptions.chartOptions.padding}
             panning={boolean('panning', false)}
             setOnZoom={setZoomCallback}
             tickDirection='inner'
-            xAxisLabel={text('x axis label', lightCurveMockData.options.xAxisLabel)}
-            yAxisLabel={text('y axis label', lightCurveMockData.options.yAxisLabel)}
+            xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
+            yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
             zooming={boolean('zooming', false)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
@@ -118,8 +119,8 @@ stories
             data={lightCurveMockData.data}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', lightCurveMockData.options.xAxisLabel)}
-            yAxisLabel={text('y axis label', lightCurveMockData.options.yAxisLabel)}
+            xAxisLabel={text('x axis label', lightCurveMockData.chartOptions.xAxisLabel)}
+            yAxisLabel={text('y axis label', lightCurveMockData.chartOptions.yAxisLabel)}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
