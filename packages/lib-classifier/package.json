@@ -24,6 +24,7 @@
     "@vx/responsive": "~0.0.192",
     "@vx/scale": "~0.0.192",
     "@vx/shape": "~0.0.192",
+    "@vx/tooltip": "~0.0.192",
     "@vx/zoom": "~0.0.192",
     "@zooniverse/async-states": "~0.0.1",
     "counterpart": "~0.18.6",
