@@ -34,7 +34,6 @@
     "mobx-utils": "~5.0.2",
     "react-pose": "~4.0.8",
     "react-resize-detector": "~4.2.0",
-    "rxjs": "~6.5.2",
     "seven-ten": "~3.4.0",
     "valid-url": "~1.0.9"
   },

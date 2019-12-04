@@ -85,14 +85,15 @@ describe('Model > WorkflowStepStore', function () {
       })
     })
 
-    it('should set the tasks', function () {
-      const { workflowSteps } = rootStore
-      Object.keys(workflow.tasks).forEach(taskKey => {
-        const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
-        // `taskKey` is copied from the original object for serialization by MST
-        delete storedTask.taskKey
-        const originalTask = workflow.tasks[taskKey]
-        expect(storedTask).to.eql(originalTask)
+    it('should set the tasks for each step', function () {
+      const STORE_STEPS = rootStore.workflowSteps.steps
+
+      STORE_STEPS.forEach(step => {
+        step.tasks.forEach(task => {
+          const { taskKey } = task
+          const originalTask = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+          expect(task).to.eql(originalTask)
+        })
       })
     })
 
@@ -134,16 +135,14 @@ describe('Model > WorkflowStepStore', function () {
       expect(workflowSteps.steps).to.have.lengthOf(2)
     })
 
-    describe('workflow tasks', function () {
-      const taskKeys = ['T1', 'T3', 'T4']
-      taskKeys.forEach(taskKey => {
-        it(`should set task ${taskKey}`, function () {
-          const { workflowSteps } = rootStore
-          const storedTask = Object.assign({}, workflowSteps.tasks.get(taskKey))
-          // `taskKey` is copied from the original object for serialization by MST
-          delete storedTask.taskKey
-          const originalTask = workflow.tasks[taskKey]
-          expect(storedTask).to.eql(originalTask)
+    it('should assign each task to a step', function () {
+      const STORE_STEPS = rootStore.workflowSteps.steps
+
+      STORE_STEPS.forEach(step => {
+        step.tasks.forEach(task => {
+          const { taskKey } = task
+          const originalTask = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+          expect(task).to.eql(originalTask)
         })
       })
     })
