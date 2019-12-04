@@ -1,65 +1,94 @@
 import { inject, observer } from 'mobx-react'
+import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { DrawingToolRoot } from '@plugins/drawingTools/components'
 
 import InteractionLayer from './InteractionLayer'
-import DrawingContainer from '../Drawing/DrawingContainer'
 
 function storeMapper (stores) {
-  const { addToStream } = stores.classifierStore.drawing
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
-  return {
+  const {
     activeStepTasks,
-    addToStream
+    tasks
+  } = stores.classifierStore.workflowSteps
+  const {
+    active: classification,
+  } = stores.classifierStore.classifications
+  const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+  const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
+  const disabled = activeTool ? activeTool.disabled : false
+  const drawingAnnotations = Array.from(classification.annotations.values())
+    .filter(annotation => getType(annotation).name === 'DrawingAnnotation')
+  return {
+    activeDrawingTask,
+    activeTool,
+    disabled,
+    drawingAnnotations,
+    tasks
   }
 }
 
 @inject(storeMapper)
 @observer
 class InteractionLayerContainer extends Component {
-  constructor () {
-    super()
-    this.onPointerDown = this.onPointerDown.bind(this)
-    this.onPointerMove = this.onPointerMove.bind(this)
-    this.onPointerUp = this.onPointerUp.bind(this)
-  }
-
-  onPointerDown (event) {
-    this.props.addToStream(event)
-  }
-
-  onPointerMove (event) {
-    this.props.addToStream(event)
-  }
-
-  onPointerUp (event) {
-    this.props.addToStream(event)
-  }
-
   render () {
-    const { activeStepTasks } = this.props
-    const isDrawingInActiveSteps = activeStepTasks && activeStepTasks.some(task => task.type === 'drawing')
-
+    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, scale, svg, tasks, width } = this.props
     return (
       <>
-        <InteractionLayer
-          onPointerDown={this.onPointerDown}
-          onPointerMove={this.onPointerMove}
-          onPointerUp={this.onPointerUp}
-        />
-        {isDrawingInActiveSteps && <DrawingContainer />}
+        {drawingAnnotations.map(annotation =>
+          annotation.value.map(mark => {
+            const MarkingComponent = mark.toolComponent
+            const [ task ] = tasks.filter(task => task.taskKey === annotation.task)
+            const tool = task.tools[mark.toolIndex]
+            return (
+              <DrawingToolRoot
+                key={mark.id}
+                isActive={false}
+                mark={mark}
+                svg={svg}
+                tool={tool}
+              >
+                <MarkingComponent
+                  mark={mark}
+                  scale={scale}
+                  svg={svg}
+                  tool={tool}
+                />
+              </DrawingToolRoot>
+            )
+          })
+        )}
+        {activeDrawingTask && activeTool &&
+          <InteractionLayer
+            key={activeDrawingTask.taskKey}
+            activeDrawingTask={activeDrawingTask}
+            activeTool={activeTool}
+            disabled={disabled}
+            height={height}
+            scale={scale}
+            svg={svg}
+            width={width}
+          />
+        }
       </>
     )
   }
 }
 
+
 InteractionLayerContainer.wrappedComponent.propTypes = {
-  activeStepTasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string
-    })
-  ),
-  addToStream: PropTypes.func.isRequired
+  drawingAnnotations: PropTypes.array,
+  height: PropTypes.number.isRequired,
+  isDrawingInActiveWorkflowStep: PropTypes.bool,
+  scale: PropTypes.number,
+  svg: PropTypes.object,
+  width: PropTypes.number.isRequired
+}
+
+InteractionLayerContainer.wrappedComponent.defaultProps = {
+  drawingAnnotations: [],
+  isDrawingInActiveWorkflowStep: false,
+  scale: 1
 }
 
 export default InteractionLayerContainer

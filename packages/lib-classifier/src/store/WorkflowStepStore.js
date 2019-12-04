@@ -9,8 +9,7 @@ const taskTypes = types.union(...taskModels)
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.safeReference(Step),
-    steps: types.map(Step),
-    tasks: types.map(taskTypes)
+    steps: types.map(Step)
   })
   .views(self => ({
     get activeStepTasks () {
@@ -61,6 +60,10 @@ const WorkflowStepStore = types
       }
 
       return false
+    },
+
+    get tasks () {
+      return Array.from(self.steps.values()).reduce((allTasks, step) => allTasks.concat(step.tasks), [])
     }
   }))
   .actions(self => {
@@ -92,8 +95,8 @@ const WorkflowStepStore = types
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
         onAction(getRoot(self), (call) => {
-          if (call.name === 'completeClassification') self.resetSteps()
-        })
+          if (call.name === 'onSubjectReady') self.resetSteps()
+        }, true)
       }, { name: 'WorkflowStepStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
@@ -127,13 +130,13 @@ const WorkflowStepStore = types
 
     function reset () {
       self.steps.clear()
-      self.tasks.clear()
     }
 
     function selectStep (stepKey = getNextStepKey()) {
       const step = self.steps.get(stepKey)
       if (step) {
         self.active = stepKey
+        self.activeStepTasks.forEach(task => task.start())
       }
     }
 
