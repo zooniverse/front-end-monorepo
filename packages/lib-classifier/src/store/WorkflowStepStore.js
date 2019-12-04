@@ -4,14 +4,7 @@ import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-st
 import Step from './Step'
 import taskRegistry, { taskModels } from '@plugins/tasks'
 
-function taskDispatcher (snapshot) {
-  return taskRegistry.get(snapshot.type).TaskModel
-}
-
-const taskTypes = types.union(
-  { dispatcher: taskDispatcher },
-  ...taskModels
-)
+const taskTypes = types.union(...taskModels)
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
@@ -23,9 +16,7 @@ const WorkflowStepStore = types
     get activeStepTasks () {
       const validStepReference = isValidReference(() => self.active)
       if (validStepReference) {
-        return self.active.taskKeys.map((taskKey) => {
-          return self.tasks.get(taskKey)
-        }).filter(Boolean)
+        return self.active.tasks
       }
 
       return []
@@ -160,18 +151,19 @@ const WorkflowStepStore = types
     }
 
     function setTasks (workflow) {
-      const taskKeys = Object.keys(workflow.tasks)
+      self.steps.forEach(function (step) {
 
-      taskKeys.forEach((taskKey) => {
-        // Set tasks object as a MobX observable JS map in the store
-        // put is a MST method, not native to ES Map
-        // the key is inferred from the identifier type of the target model
-        const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
-        try {
-          self.tasks.put(taskToStore)
-        } catch (e) {
-          console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
-        }
+        step.taskKeys.forEach((taskKey) => {
+          // Set tasks object as a MobX observable JS map in the store
+          // put is a MST method, not native to ES Map
+          // the key is inferred from the identifier type of the target model
+          const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+          try {
+            step.tasks.push(taskToStore)
+          } catch (e) {
+            console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
+          }
+        })
       })
     }
 

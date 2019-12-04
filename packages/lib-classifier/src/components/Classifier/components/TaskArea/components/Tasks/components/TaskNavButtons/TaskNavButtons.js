@@ -9,7 +9,7 @@ import BackButton from './components/BackButton'
 
 export default function TaskNavButtons (props) {
   const goldStandardMode = props.classification ? props.classification.goldStandard : false
-  const disabled = props.disabled || props.waitingForAnswer
+  const disabled = props.disabled
 
   if (props.showNextButton) {
     return (
@@ -79,8 +79,7 @@ TaskNavButtons.defaultProps = {
   nextSubject: () => {},
   showBackButton: false,
   showNextButton: false,
-  showDoneAndTalkLink: false,
-  waitingForAnswer: false
+  showDoneAndTalkLink: false
 }
 
 TaskNavButtons.propTypes = {
@@ -93,6 +92,5 @@ TaskNavButtons.propTypes = {
   nextSubject: PropTypes.func,
   onSubmit: PropTypes.func,
   showBackButton: PropTypes.bool,
-  showNextButton: PropTypes.bool,
-  waitingForAnswer: PropTypes.bool
+  showNextButton: PropTypes.bool
 }
