@@ -38,7 +38,8 @@ class InteractionLayerContainer extends Component {
         {drawingAnnotations.map(annotation =>
           annotation.value.map(mark => {
             const MarkingComponent = mark.toolComponent
-            const tool = tasks.get(annotation.task).tools[mark.toolIndex]
+            const [ task ] = tasks.filter(task => task.taskKey === annotation.task)
+            const tool = task.tools[mark.toolIndex]
             return (
               <DrawingToolRoot
                 key={mark.id}

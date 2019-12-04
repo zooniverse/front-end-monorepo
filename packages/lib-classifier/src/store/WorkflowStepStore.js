@@ -9,8 +9,7 @@ const taskTypes = types.union(...taskModels)
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.safeReference(Step),
-    steps: types.map(Step),
-    tasks: types.map(taskTypes)
+    steps: types.map(Step)
   })
   .views(self => ({
     get activeStepTasks () {
@@ -61,6 +60,10 @@ const WorkflowStepStore = types
       }
 
       return false
+    },
+
+    get tasks () {
+      return Array.from(self.steps.values()).reduce((allTasks, step) => allTasks.concat(step.tasks), [])
     }
   }))
   .actions(self => {
@@ -127,7 +130,6 @@ const WorkflowStepStore = types
 
     function reset () {
       self.steps.clear()
-      self.tasks.clear()
     }
 
     function selectStep (stepKey = getNextStepKey()) {
