@@ -17,11 +17,11 @@ const PointModel = types
       }
     },
 
-    get deleteButtonPosition () {
+    deleteButtonPosition (scale) {
       const DELETE_BUTTON_ANGLE = 45
       const theta = (DELETE_BUTTON_ANGLE) * (Math.PI / 180)
-      const dx = 20 * Math.cos(theta)
-      const dy = -1 * 20 * Math.sin(theta)
+      const dx = (20 / scale) * Math.cos(theta)
+      const dy = -1 * (20 / scale) * Math.sin(theta)
       const x = self.x + dx
       const y = self.y + dy
       return { x, y }

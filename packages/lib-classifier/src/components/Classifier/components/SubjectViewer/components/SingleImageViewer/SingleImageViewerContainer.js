@@ -9,6 +9,7 @@ class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
     this.imageViewer = React.createRef()
+    this.subjectImage = React.createRef()
     this.state = {
       img: {}
     }
@@ -68,6 +69,12 @@ class SingleImageViewerContainer extends React.Component {
     const { loadingState, onError, subject } = this.props
     const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
+    const subjectImageElement = this.subjectImage.current
+    let scale = 1
+    if (subjectImageElement) {
+      const { width: clientWidth, height: clientHeight } = subjectImageElement.getBoundingClientRect()
+      scale = clientWidth / naturalWidth
+    }
 
     if (loadingState === asyncStates.error) {
       return (
@@ -83,9 +90,16 @@ class SingleImageViewerContainer extends React.Component {
       <SingleImageViewer
         ref={this.imageViewer}
         height={naturalHeight}
+        scale={scale}
         width={naturalWidth}
-        url={src}
-      />
+      >
+        <image
+          ref={this.subjectImage}
+          height={naturalHeight}
+          width={naturalWidth}
+          xlinkHref={src}
+        />
+      </SingleImageViewer>
     )
   }
 }
