@@ -16,7 +16,6 @@ describe('Model > RootStore', function () {
   const stores = [
     'classifications',
     'dataVisAnnotating',
-    'drawing',
     'feedback',
     'fieldGuide',
     'projects',

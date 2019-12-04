@@ -34,15 +34,11 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class TaskNavButtonsContainer extends React.Component {
-  createDefaultAnnotationIfThereIsNone () {
+  completeStepTasks () {
     const { classification, tasks } = this.props
     if (classification) {
       tasks.forEach((task) => {
-        // User didn't submit annotation and task is not required
-        // Create the default annotation before going to the next step
-        if (classification.annotations && !(classification.annotations.get(task.taskKey))) {
-          task.updateAnnotation()
-        }
+        task.complete()
       })
     }
   }
@@ -67,14 +63,14 @@ class TaskNavButtonsContainer extends React.Component {
 
   goToNextStep () {
     const { selectStep } = this.props
-    this.createDefaultAnnotationIfThereIsNone()
+    this.completeStepTasks()
     selectStep()
   }
 
   onSubmit (event) {
     event.preventDefault()
     const { completeClassification } = this.props
-    this.createDefaultAnnotationIfThereIsNone()
+    this.completeStepTasks()
     return completeClassification()
   }
 
