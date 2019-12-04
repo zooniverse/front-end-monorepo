@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
-import { Bar } from '@vx/shape'
 import { Group } from '@vx/group'
+import { localPoint } from '@vx/event'
+import { withTooltip } from '@vx/tooltip'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
 import { withParentSize } from '@vx/responsive'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
+import VXTooltip from '../SVGComponents/VXTooltip'
+import Bars from './components/Bars'
 
 const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const {
@@ -25,8 +28,23 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     parentWidth,
     theme: { dark, global: { colors, font } },
     xAxisLabel,
-    yAxisLabel
+    yAxisLabel,
+    tooltipData,
+    tooltipLeft,
+    tooltipTop,
+    tooltipOpen,
+    hideTooltip,
+    showTooltip
   } = props
+
+  function handleMouseOverBar(event, value) {
+    const coords = localPoint(event.target.ownerSVGElement, event)
+    showTooltip({
+      tooltipLeft: coords.x,
+      tooltipTop: coords.y,
+      tooltipData: value
+    })
+  }
 
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
@@ -47,87 +65,80 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const xScaleTicks = xScale.domain()
   const yScaleTicks = yScale.domain()
   return (
-    <Chart height={parentHeight} ref={ref} width={parentWidth}>
-      <Background fill={backgroundColor} />
-      <Group
-        focusable
-        left={left}
-        tabIndex={0}
-        top={top}
-      >
-        {data.map((datum, index) => {
-          const { color, label, value } = datum
-          const fill = colors[color] || color || colors.brand
-          const key = `bar-${label}`
-          const barHeight = yMax - yScale(value)
-          const barWidth = xScale.bandwidth()
-          const x = xScale(label)
-          const y = yMax - barHeight
-          const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
-          return (
-            <Bar
-              aria-label={alt}
-              data-label={label}
-              data-value={value}
-              fill={fill}
-              height={barHeight}
-              index={index}
-              key={key}
-              role='img'
-              width={barWidth}
-              x={x}
-              y={y}
-            />
-          )
-        })}
-      </Group>
-      <Group left={left} top={top}>
-        <AxisLeft
-          label={yAxisLabel}
-          labelProps={{
-            fill: axisColor,
-            textAnchor: 'middle',
-            fontSize: 12,
-            fontFamily: font.family
-          }}
-          left={0}
-          scale={yScale}
-          stroke={axisColor}
-          ticks={yScaleTicks.length}
-          tickStroke={axisColor}
-          tickLabelProps={(value, index) => ({
-            fill: axisColor,
-            textAnchor: 'end',
-            fontSize: 10,
-            fontFamily: font.family,
-            dx: '-0.25em',
-            dy: '0.25em'
-          })}
-          top={0}
-        />
-        <AxisBottom
-          label={xAxisLabel}
-          labelProps={{
-            fill: axisColor,
-            textAnchor: 'middle',
-            fontSize: 12,
-            fontFamily: font.family
-          }}
-          left={0}
-          scale={xScale}
-          stroke={axisColor}
-          ticks={xScaleTicks.length}
-          tickStroke={axisColor}
-          tickLabelProps={(value, index) => ({
-            fill: axisColor,
-            textAnchor: 'middle',
-            fontSize: 10,
-            fontFamily: font.family
-          })}
-          top={yMax}
-        />
-      </Group>
-    </Chart>
+    <>
+      <Chart height={parentHeight} ref={ref} width={parentWidth}>
+        <Background fill={backgroundColor} />
+        <Group
+          focusable
+          left={left}
+          tabIndex={0}
+          top={top}
+        >
+          <Bars
+            data={data}
+            onMouseMove={handleMouseOverBar}
+            onMouseOut={hideTooltip}
+            xAxisLabel={xAxisLabel}
+            xScale={xScale}
+            yAxisLabel={yAxisLabel}
+            yScale={yScale}
+            yMax={yMax}
+          />
+        </Group>
+        <Group left={left} top={top}>
+          <AxisLeft
+            label={yAxisLabel}
+            labelProps={{
+              fill: axisColor,
+              textAnchor: 'middle',
+              fontSize: 12,
+              fontFamily: font.family
+            }}
+            left={0}
+            scale={yScale}
+            stroke={axisColor}
+            ticks={yScaleTicks.length}
+            tickStroke={axisColor}
+            tickLabelProps={(value, index) => ({
+              fill: axisColor,
+              textAnchor: 'end',
+              fontSize: 10,
+              fontFamily: font.family,
+              dx: '-0.25em',
+              dy: '0.25em'
+            })}
+            top={0}
+          />
+          <AxisBottom
+            label={xAxisLabel}
+            labelProps={{
+              fill: axisColor,
+              textAnchor: 'middle',
+              fontSize: 12,
+              fontFamily: font.family
+            }}
+            left={0}
+            scale={xScale}
+            stroke={axisColor}
+            ticks={xScaleTicks.length}
+            tickStroke={axisColor}
+            tickLabelProps={(value, index) => ({
+              fill: axisColor,
+              textAnchor: 'middle',
+              fontSize: 10,
+              fontFamily: font.family
+            })}
+            top={yMax}
+          />
+        </Group>
+      </Chart>
+      {tooltipOpen &&
+        <VXTooltip
+          left={tooltipLeft}
+          label={tooltipData}
+          top={tooltipTop}
+        />}
+    </>
   )
 })
 
@@ -179,5 +190,5 @@ BarChartViewer.propTypes = {
   yAxisLabel: PropTypes.string
 }
 
-export default withTheme(withParentSize(BarChartViewer))
+export default withTheme(withParentSize(withTooltip(BarChartViewer)))
 export { BarChartViewer }
