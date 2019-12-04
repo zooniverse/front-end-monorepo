@@ -16,6 +16,7 @@ describe('Component > InteractionLayer', function () {
   }
   const mockDrawingTask = DrawingTask.TaskModel.create({
     activeToolIndex: 0,
+    instruction: 'draw a mark',
     taskKey: 'T0',
     tools: [
       {
