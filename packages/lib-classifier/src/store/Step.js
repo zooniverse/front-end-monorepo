@@ -1,7 +1,12 @@
 import { types } from 'mobx-state-tree'
-import { taskModels } from '@plugins/tasks'
+import taskRegistry, { taskModels } from '@plugins/tasks'
 
-const taskTypes = types.union(...taskModels)
+function taskDispatcher (snapshot) {
+  return taskRegistry.get(snapshot.type).TaskModel
+}
+
+const taskTypes = types.union({ dispatcher: taskDispatcher }, ...taskModels)
+
 export const BaseStep = types
   .model('BaseStep', {
     stepKey: types.identifier,
