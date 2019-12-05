@@ -40,11 +40,6 @@ describe('TaskNavButtons', function () {
       expect(wrapper.find(BackButton)).to.have.lengthOf(1)
     })
 
-    it('should disable the Next button when waiting for a required answer.', function () {
-      wrapper.setProps({ waitingForAnswer: true })
-      expect(wrapper.find(NextButton).prop('disabled')).to.be.true()
-    })
-
     it('should disable the Next button when disabled.', function () {
       wrapper.setProps({ disabled: true })
       expect(wrapper.find(NextButton).prop('disabled')).to.be.true()
@@ -79,16 +74,6 @@ describe('TaskNavButtons', function () {
     it('should render a BackButton if props.showBackButton is true', function () {
       wrapper.setProps({ showBackButton: true })
       expect(wrapper.find(BackButton)).to.have.lengthOf(1)
-    })
-
-    it('should disable the Done button when waiting for a required answer.', function () {
-      wrapper.setProps({ waitingForAnswer: true })
-      expect(wrapper.find(DoneButton).prop('disabled')).to.be.true()
-    })
-
-    it('should disable the Done & Talk button when waiting for a required answer.', function () {
-      wrapper.setProps({ waitingForAnswer: true })
-      expect(wrapper.find(DoneAndTalkButton).prop('disabled')).to.be.true()
     })
 
     it('should disable the Done button when disabled.', function () {

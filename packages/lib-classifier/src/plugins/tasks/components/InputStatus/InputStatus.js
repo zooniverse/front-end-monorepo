@@ -14,11 +14,13 @@ export const StyledInputStatus = styled(Text)`
 
 export default function InputStatus ({ count, tool }) {
   let status = counterpart('InputStatus.drawn', { count })
-  if (!!tool.min && !!tool.max) {
+  const hasMin = tool.min && tool.min > 0
+  const hasMax = tool.max && tool.max < Infinity
+  if (hasMin && hasMax) {
     status = counterpart('InputStatus.maxAndMin', { count, max: tool.max, min: tool.min })
-  } else if (!!tool.max && !tool.min) {
+  } else if (hasMax) {
     status = counterpart('InputStatus.max', { count, max: tool.max })
-  } else if (!tool.max && !!tool.min) {
+  } else if (hasMin) {
     status = counterpart('InputStatus.min', { count, min: tool.min })
   }
 

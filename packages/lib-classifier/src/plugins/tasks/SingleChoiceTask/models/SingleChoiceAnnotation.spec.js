@@ -1,14 +1,37 @@
 import SingleChoiceAnnotation from './SingleChoiceAnnotation'
 
-const singleChoiceAnnotation = {
-  task: 'T0',
-  value: 0
-}
-
 describe('Model > SingleChoiceAnnotation', function () {
-  it('should exist', function () {
-    const singleChoiceAnnotationInstance = SingleChoiceAnnotation.create(singleChoiceAnnotation)
-    expect(singleChoiceAnnotationInstance).to.be.ok()
-    expect(singleChoiceAnnotationInstance).to.be.an('object')
+  describe('with a selected answer', function () {
+    let singleChoiceAnnotation
+
+    before(function () {
+      singleChoiceAnnotation = SingleChoiceAnnotation.create({ task: 'T0', value: 0 })
+    })
+
+    it('should exist', function () {
+      expect(singleChoiceAnnotation).to.be.ok()
+      expect(singleChoiceAnnotation).to.be.an('object')
+    })
+
+    it('should be complete', function () {
+      expect(singleChoiceAnnotation.isComplete).to.be.true()
+    })
+  })
+
+  describe('without a selected answer', function () {
+    let singleChoiceAnnotation
+
+    before(function () {
+      singleChoiceAnnotation = SingleChoiceAnnotation.create({ task: 'T0' })
+    })
+
+    it('should exist', function () {
+      expect(singleChoiceAnnotation).to.be.ok()
+      expect(singleChoiceAnnotation).to.be.an('object')
+    })
+
+    it('should be incomplete', function () {
+      expect(singleChoiceAnnotation.isComplete).to.be.false()
+    })
   })
 })
