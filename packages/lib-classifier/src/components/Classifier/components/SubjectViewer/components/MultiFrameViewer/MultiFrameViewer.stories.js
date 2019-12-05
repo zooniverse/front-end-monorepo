@@ -1,23 +1,23 @@
-import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import sinon from 'sinon'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import SingleImageViewer from './'
-// import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
+import readme from './README.md'
+import MultiFrameViewer from './'
 
-// TODO: add readme
 const config = {
   notes: {
-    // markdown: readme
+    markdown: readme
   }
 }
 
 const subject = {
   locations: [
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
     { 'image/jpeg': 'http://placekitten.com/500/300' }
   ]
 }
@@ -44,12 +44,12 @@ function ViewerContext (props) {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-storiesOf('Subject Viewers | SingleImageViewer', module)
+storiesOf('Subject Viewers | MultiFrameViewer', module)
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme}>
         <Box height='medium' width='large'>
-          <SingleImageViewer
+          <MultiFrameViewer
             subject={subject}
           />
         </Box>
@@ -61,7 +61,7 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
     return (
       <ViewerContext theme={darkZooTheme}>
         <Box height='medium' width='large'>
-          <SingleImageViewer
+          <MultiFrameViewer
             subject={subject}
           />
         </Box>
