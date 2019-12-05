@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 import { Group } from '@vx/group'
-import { localPoint } from '@vx/event'
 import { withTooltip } from '@vx/tooltip'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
@@ -37,15 +36,6 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     showTooltip
   } = props
 
-  function handleMouseOverBar(event, value) {
-    const coords = localPoint(event.target.ownerSVGElement, event)
-    showTooltip({
-      tooltipLeft: coords.x,
-      tooltipTop: coords.y,
-      tooltipData: value
-    })
-  }
-
   let axisColor = (dark) ? colors.text.dark : colors.text.light
   // Should we put white into the theme?
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
@@ -64,6 +54,15 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
 
   const xScaleTicks = xScale.domain()
   const yScaleTicks = yScale.domain()
+
+  function handleShowingTooltip(event, value, barCenter, barHeight) {
+    showTooltip({
+      tooltipLeft: barCenter,
+      tooltipTop: barHeight,
+      tooltipData: value
+    })
+  }
+
   return (
     <>
       <Chart height={parentHeight} ref={ref} width={parentWidth}>
@@ -76,7 +75,9 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
         >
           <Bars
             data={data}
-            onMouseMove={handleMouseOverBar}
+            onBlur={hideTooltip}
+            onFocus={handleShowingTooltip}
+            onMouseMove={handleShowingTooltip}
             onMouseOut={hideTooltip}
             xAxisLabel={xAxisLabel}
             xScale={xScale}

@@ -6,6 +6,8 @@ import { Bar } from '@vx/shape'
 function Bars (props) {
   const {
     data,
+    onBlur,
+    onFocus,
     onMouseMove,
     onMouseOut,
     xAxisLabel,
@@ -24,6 +26,7 @@ function Bars (props) {
     const barWidth = xScale.bandwidth()
     const x = xScale(label)
     const y = yMax - barHeight
+    const center = x + (barWidth / 2)
     const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
     return (
       <Bar
@@ -31,12 +34,16 @@ function Bars (props) {
         data-label={label}
         data-value={value}
         fill={fill}
+        focusable
         key={key}
         height={barHeight}
         index={index}
-        onMouseMove={(event) => onMouseMove(event, value)}
+        onFocus={(event) => onFocus(event, value)}
+        onBlur={onBlur}
+        onMouseMove={(event) => onMouseMove(event, value, center, y)}
         onMouseOut={onMouseOut}
-        role='img'
+        tab-index={0}
+        // role='img'
         width={barWidth}
         x={x}
         y={y}
