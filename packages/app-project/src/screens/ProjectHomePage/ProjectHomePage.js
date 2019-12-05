@@ -10,7 +10,7 @@ import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import { Media } from '../../shared/components/Media'
-import ProjectAnnouncement from '@components/ProjectAnnouncement'
+import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
 import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
 
@@ -28,7 +28,7 @@ function ProjectHomePage (props) {
       <Media at='default'>
         <ZooHeaderWrapper />
         <ProjectHeader />
-        <ProjectAnnouncement />
+        <Announcements />
         <Hero />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
@@ -44,7 +44,7 @@ function ProjectHomePage (props) {
         <FullHeightBox margin={{ bottom: 'large' }}>
           <ZooHeaderWrapper />
           <ProjectHeader />
-          <ProjectAnnouncement />
+          <Announcements />
           <RemainingHeightBox>
             <Hero isWide={true} />
           </RemainingHeightBox>

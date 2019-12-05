@@ -9,6 +9,17 @@ The Bar Chart Viewer...
 - allows users to view bar chart data (x-axis: categorical values, y-axis:
   numerical values for each category)
 
+## Props
+
+- `barStyles` _(object)_ Default: `{ padding: 0.25 }` An object containing properties for the individual bar styles. The option for `padding` sets the space between each bar.
+- `data` _(array)_ Required. An array of objects. Each object must contain a string label and a number value. A string color value is optional for each bar and can be set to either a string variable name from the [Zooniverse theme](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or any hex value. A color variable name is preferred from the theme since it has been approved by the Zooniverse designer and tested for accessibility. This should be set by the data property in the location JSON of the subject. See the section on [JSON file](#JSON_file) for examples.
+- `margin` _(object)_ Default: `{ bottom: 40, left: 40, right: 10, top: 10 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space outside of the axes lines. This is configurable via the subject location JSON's options property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. Bottom and left margin is greater since that is where the x-axis and y-axis are positioned for the chart.
+- parentHeight: _(number)_ Required. The size of the parent container's height. This is necessary for setting the size of the SVG Chart and for calculating the maximum of the y-axis scale. This is being provided by vx's `withParentSize` HOC if the default export of the `BarChartViewer` is used. An undecorated `BarChartViewer` is also exported and if this is used, then the `parentHeight` needs to be provided another way so the bar chart knows what pixel height to render.
+- parentWidth _(number)_ Required. The size of the parent container's width. This is necessary for setting the size of the SVG Chart and for calculating the maximum of the x-axis scale. This is being provided by vx's `withParentSize` HOC if the default export of the `BarChartViewer` is used. An undecorated `BarChartViewer` is also exported and if this is used, then the `parentWidth` needs to be provided another way so the bar chart knows what pixel width to render.
+- theme _object_ An object containing style information used by svg elements for their fill color, font size, and font family. This can be set via prop or provided by the React context if `BarChartViewer` component decorated by styled-components `withTheme` HOC is used. The object shape is expected to be the same as [Zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme).
+- xAxisLabel _(string)_ Default: `'x-axis'`. The label for the x-axis. This should be set by the subject location JSON's option property (See the section on [JSON file](#JSON_file)) with a label that makes sense for the data.
+- yAxisLabel _(string)_ Default: `'y-axis'`. The label for the y-axis. This should be set by the subject location JSON's option property (See the section on [JSON file](#JSON_file)) with a label that makes sense for the data.
+
 ## External Setup: Workflows and Subjects
 
 **Workflow**
@@ -71,7 +82,7 @@ Optionally, each data object can define a color value. A string value from the z
 }
 ```
 
-An set of options can be defined along with the data that define the x-axis and y-axis labels and margins.
+An set of options can be defined along with the data that define the x-axis and y-axis labels and margins. The margins add space outside of the axes lines for the tick and axes labels.
 
 
 ``` json
@@ -83,10 +94,14 @@ An set of options can be defined along with the data that define the x-axis and 
     }
   ],
   "options": {
+    "margin": {
+      "bottom": 40,
+      "left": 60,
+      "right": 0,
+      "top": 0
+    },
     "xAxisLabel": "Letters",
-    "xAxisMargin": 60,
-    "yAxisLabel": "Frequency",
-    "yAxisMargin": 40
+    "yAxisLabel": "Frequency"
   }
 }
 ```

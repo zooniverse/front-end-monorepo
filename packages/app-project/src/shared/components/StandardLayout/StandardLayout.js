@@ -1,6 +1,6 @@
 import { node } from 'prop-types'
 import React from 'react'
-import ProjectAnnouncement from '@components/ProjectAnnouncement'
+import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
 import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
 
@@ -11,7 +11,7 @@ function StandardLayout (props) {
     <>
       <ZooHeaderWrapper />
       <ProjectHeader />
-      <ProjectAnnouncement />
+      <Announcements />
       {children}
     </>
   )

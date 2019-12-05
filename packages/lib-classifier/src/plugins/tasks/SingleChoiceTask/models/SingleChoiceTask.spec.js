@@ -58,4 +58,39 @@ describe('Model > SingleChoiceTask', function () {
       expect(task.annotation.value).to.equal(1)
     })
   })
+
+  describe('when required', function () {
+    let task
+
+    before(function () {
+      const requiredTask = Object.assign({}, singleChoiceTask, { required: true })
+      task = SingleChoiceTask.create(requiredTask)
+      task.classifications = ClassificationStore.create()
+      const mockSubject = {
+        id: 'subject',
+        metadata: {}
+      }
+      const mockWorkflow = {
+        id: 'workflow',
+        version: '1.0'
+      }
+      const mockProject = {
+        id: 'project'
+      }
+      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+    })
+
+    describe('with an incomplete annotation', function () {
+      it('should be incomplete', function () {
+        expect(task.isComplete).to.be.false()
+      })
+    })
+
+    describe('with a complete annotation', function () {
+      it('should be complete', function () {
+        task.updateAnnotation(1)
+        expect(task.isComplete).to.be.true()
+      })
+    })
+  })
 })

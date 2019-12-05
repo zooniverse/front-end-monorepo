@@ -49,13 +49,13 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('outer tick direction', function () {
       it('should return 0 for the range minimum', function () {
-        expect(xMin('outer', padding)).to.equal(0)
+        expect(xMin({ tickDirection: 'outer', padding })).to.equal(0)
       })
     })
 
     describe('inner tick direction', function () {
       it('should return the left padding as the range minimum', function () {
-        expect(xMin('inner', padding)).to.equal(0)
+        expect(xMin({ tickDirection: 'inner', padding })).to.equal(0)
       })
     })
   })
@@ -67,13 +67,13 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('outer tick direction', function () {
       it('should return the difference between the parent width, margin left, and margin right for the range maximum', function () {
-        expect(xMax('outer', parentWidth, margin)).to.equal(parentWidth - margin.left - margin.right)
+        expect(xMax({ tickDirection: 'outer', parentWidth, margin })).to.equal(parentWidth - margin.left - margin.right)
       })
     })
 
     describe('inner tick direction', function () {
       it('should return the difference between the parent width and the margin left as the range maximum', function () {
-        expect(xMax('inner', parentWidth, margin)).to.equal(parentWidth - margin.left)
+        expect(xMax({ tickDirection: 'inner', parentWidth, margin })).to.equal(parentWidth - margin.left)
       })
     })
   })
@@ -85,13 +85,13 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('outer tick direction', function () {
       it('should return 0 for the range minimum', function () {
-        expect(yMin('outer', padding)).to.equal(0)
+        expect(yMin({ tickDirection: 'outer', padding })).to.equal(0)
       })
     })
 
     describe('inner tick direction', function () {
       it('should return the padding bottom as the range minimum', function () {
-        expect(yMin('inner', padding)).to.equal(padding.bottom)
+        expect(yMin({ tickDirection: 'inner', padding })).to.equal(padding.bottom)
       })
     })
   })
@@ -103,13 +103,13 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('outer tick direction', function () {
       it('should return the difference between the parent height, margin top, and margin bottom for the range maximum', function () {
-        expect(yMax('outer', parentHeight, margin, padding)).to.equal(parentHeight - margin.top - margin.bottom)
+        expect(yMax({ tickDirection: 'outer', parentHeight, margin, padding })).to.equal(parentHeight - margin.top - margin.bottom)
       })
     })
 
     describe('inner tick direction', function () {
       it('should return the difference between the parent height and the padding bottom as the range maximum', function () {
-        expect(yMax('inner', parentHeight, margin, padding)).to.equal(parentHeight - padding.bottom)
+        expect(yMax({ tickDirection: 'inner', parentHeight, margin, padding })).to.equal(parentHeight - padding.bottom)
       })
     })
   })

@@ -12,6 +12,14 @@ describe('Tasks', function () {
     taskKey: 'init',
     type: 'single'
   }]
+  const step = {
+    isComplete: true,
+    stepKey: 'S1',
+    taskKeys: ['init'],
+    tasks: {
+      init: tasks[0]
+    }
+  }
 
   it('should render without crashing', function () {
     const wrapper = shallow(<Tasks />)
@@ -70,6 +78,7 @@ describe('Tasks', function () {
           <Tasks
             loadingState={asyncStates.success}
             subjectReadyState={asyncStates.success}
+            step={step}
             tasks={tasks}
           />
         )

@@ -37,7 +37,7 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { isThereTaskHelp, subjectReadyState, tasks } = this.props
+    const { isThereTaskHelp, subjectReadyState, step, tasks } = this.props
     const ready = subjectReadyState === asyncStates.success
     if (tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
@@ -46,7 +46,7 @@ class Tasks extends React.Component {
       // there has to be a better way
       // but works for now
       return (
-        <Box as='form' gap="small" justify='between' fill>
+        <Box as='form' gap='small' justify='between' fill>
           {tasks.map((task) => {
             const { TaskComponent } = taskRegistry.get(task.type)
             if (TaskComponent) {
@@ -60,7 +60,7 @@ class Tasks extends React.Component {
             return (<Paragraph>Task component could not be rendered.</Paragraph>)
           })}
           {isThereTaskHelp && <TaskHelp tasks={tasks} />}
-          <TaskNavButtons disabled={!ready} />
+          <TaskNavButtons disabled={!ready || !step.isComplete} />
         </Box>
       )
     }
