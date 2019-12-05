@@ -56,6 +56,7 @@ describe('Component > InteractionLayer', function () {
         activeTool={activeTool}
         height={400}
         svg={mockSVG}
+        usePointer
         width={600}
       />)
   })

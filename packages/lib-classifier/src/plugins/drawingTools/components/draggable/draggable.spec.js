@@ -33,6 +33,7 @@ describe('draggable', function () {
         dragMove={onMove}
         dragEnd={onEnd}
         svg={mockSVG}
+        usePointer
       />
     )
   })

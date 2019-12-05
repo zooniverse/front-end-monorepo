@@ -8,7 +8,7 @@ const StyledRect = styled('rect')`
   cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, svg, width }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, svg, usePointer, width }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
 
@@ -60,17 +60,30 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
     }
   }
 
+  const pointerHandlers = {
+    onPointerMove,
+    onPointerUp
+  }
+
+  const mouseHandlers = {
+    onMouseMove: onPointerMove,
+    onMouseUp: onPointerUp
+  }
+
+  const rootProps = usePointer ? pointerHandlers : mouseHandlers
+
+  const rectProps = usePointer ? { onPointerDown } : { onMouseDown: onPointerDown }
+
   return (
     <g
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
+      {...rootProps}
     >
       <StyledRect
         disabled={disabled}
         width={width}
         height={height}
         fill='transparent'
-        onPointerDown={onPointerDown}
+        {...rectProps}
       />
       {activeDrawingTask &&
         activeDrawingTask.tools.map(tool => {
@@ -98,12 +111,14 @@ InteractionLayer.propTypes = {
   disabled: PropTypes.bool,
   scale: PropTypes.number,
   svg: PropTypes.instanceOf(Element).isRequired,
+  usePointer: PropTypes.bool,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {
   disabled: false,
-  scale: 1
+  scale: 1,
+  usePointer: !!window.PointerEvent
 }
 
 export default InteractionLayer

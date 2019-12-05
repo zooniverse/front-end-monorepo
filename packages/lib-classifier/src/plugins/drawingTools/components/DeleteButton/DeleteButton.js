@@ -7,7 +7,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-function DeleteButton ({ label, mark, scale, svg, rotate, onDelete }) {
+function DeleteButton ({ label, mark, scale, svg, rotate, onDelete, usePointer }) {
   const RADIUS = (screen.width < 900) ? 11 : 8
   const STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
@@ -44,6 +44,8 @@ function DeleteButton ({ label, mark, scale, svg, rotate, onDelete }) {
     return false
   }
 
+  const eventHandlers = usePointer ? { onKeyDown, onPointerDown } : { onKeyDown, onMouseDown: onPointerDown }
+
   return (
     <StyledGroup
       focusable
@@ -53,8 +55,7 @@ function DeleteButton ({ label, mark, scale, svg, rotate, onDelete }) {
       transform={transform}
       stroke={STROKE_COLOR}
       strokeWidth={STROKE_WIDTH}
-      onKeyDown={onKeyDown}
-      onPointerDown={onPointerDown}
+      {...eventHandlers}
     >
       <circle
         r={RADIUS}
@@ -72,7 +73,8 @@ DeleteButton.defaultProps = {
   x: 0,
   y: 0,
   rotate: 0,
-  destroyTransitionDuration: 300
+  destroyTransitionDuration: 300,
+  usePointer: !!window.PointerEvent
 }
 
 export default DeleteButton

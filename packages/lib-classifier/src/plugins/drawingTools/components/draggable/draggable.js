@@ -76,13 +76,26 @@ function draggable (WrappedComponent) {
     }
 
     render () {
-      const { children, dragStart, dragMove, dragEnd, ...rest } = this.props
+      const { children, dragStart, dragMove, dragEnd, usePointer, ...rest } = this.props
       const { dragging } = this.state
+
+      const pointerHandlers = {
+        onPointerDown: this.dragStart,
+        onPointerMove: this.dragMove,
+        onPointerUp: this.dragEnd
+      }
+
+      const mouseHandlers = {
+        onMouseDown: this.dragStart,
+        onMouseMove: this.dragMove,
+        onMouseUp: this.dragEnd
+      }
+
+      const eventHandlers = usePointer ? pointerHandlers : mouseHandlers
+
       return (
         <g
-          onPointerDown={this.dragStart}
-          onPointerMove={this.dragMove}
-          onPointerUp={this.dragEnd}
+          {...eventHandlers}
         >
           <WrappedComponent
             ref={this.wrappedComponent}
@@ -103,7 +116,8 @@ function draggable (WrappedComponent) {
     },
     dragStart: () => true,
     dragMove: () => true,
-    dragEnd: () => true
+    dragEnd: () => true,
+    usePointer: !!window.PointerEvent
   }
   const name = WrappedComponent.displayName || WrappedComponent.name
   Draggable.displayName = `draggable(${name})`
