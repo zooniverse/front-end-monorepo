@@ -6,31 +6,65 @@ import styled, { withTheme } from 'styled-components'
 const SVG = styled.svg`
   display: block;
   fill: ${props => props.fill};
-  height: 20px;
-  width: 20px;
+  height: ${props => `${props.height}px`};
+  width: ${props => `${props.width}px`};
   z-index: 1;
 `
 
 function Triangle (props) {
-  const { theme } = props
+  let fill
+  const {
+    backgroundColor,
+    pointDirection,
+    justify,
+    theme,
+    height,
+    width
+  } = props
   const { colors } = theme.global
-  const fill = (theme.mode === 'light') ? colors.white : colors['dark-2']
+  if (backgroundColor) {
+    fill = backgroundColor
+  } else {
+    fill = (theme.mode === 'light') ? colors.white : colors['dark-2']
+  }
+
+  const points = {
+    down: '0,0 10,0 5,10',
+    left: '10,0 10,10 0,5',
+    right: '0,0 0,10 10,5',
+    up: '5,0 10,10 0,10',
+  }
 
   return (
     <Box
       aria-hidden='true'
       direction='row'
-      justify='end'
+      justify={justify}
       pad={{ horizontal: 'small' }}
     >
-      <SVG viewBox='0 0 10 10' fill={fill}>
-        <polygon points='5,0 10,10 0,10' />
+      <SVG
+        fill={fill}
+        height={height}
+        viewBox='0 0 10 10'
+        width={width}
+      >
+        <polygon points={points[pointDirection]} />
       </SVG>
     </Box>
   )
 }
 
+Triangle.defaultProps = {
+  pointDirection: 'up',
+  justify: 'end',
+  shadow: 'none',
+  height: 20,
+  width: 20
+}
+
 Triangle.propTypes = {
+  pointDirection: oneOf(['down', 'left', 'right', 'up']),
+  justify: oneOf(['start', 'center', 'end']),
   theme: shape({
     global: shape({
       colors: shape({
