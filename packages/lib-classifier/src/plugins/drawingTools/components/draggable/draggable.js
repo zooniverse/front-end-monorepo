@@ -18,6 +18,10 @@ function draggable (WrappedComponent) {
       }
     }
 
+    getBounds () {
+      return this.wrappedComponent.current.getBoundingClientRect()
+    }
+
     convertEvent (event) {
       const type = event.type
 
