@@ -61,6 +61,9 @@ describe('Component > InteractionLayer', function () {
   })
 
   afterEach(function () {
+    mockMark.initialDrag.resetHistory()
+    mockMark.initialPosition.resetHistory()
+    mockMark.setCoordinates.resetHistory()
     activeTool.createMark.restore()
   })
 
@@ -84,6 +87,10 @@ describe('Component > InteractionLayer', function () {
     })
 
     it('should place a new mark on pointer down', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
       expect(mockMark.initialPosition).to.have.been.calledOnce()
     })
 
@@ -92,6 +99,27 @@ describe('Component > InteractionLayer', function () {
         type: 'pointer'
       }
       wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      wrapper.simulate('pointermove', fakeEvent)
+      expect(mockMark.initialDrag).to.have.been.calledOnce()
+    })
+  })
+
+  describe('when disabled', function () {
+    it('should not create a mark on pointer down', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.setProps({ disabled: true })
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      expect(activeTool.createMark).to.have.not.been.called()
+    })
+
+    it('should drag a new mark on pointer down + move', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      wrapper.setProps({ disabled: true })
       wrapper.simulate('pointermove', fakeEvent)
       expect(mockMark.initialDrag).to.have.been.calledOnce()
     })
