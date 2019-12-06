@@ -9,29 +9,12 @@ import { Line, Point } from '@plugins/drawingTools/components'
 
 describe('Component > InteractionLayer', function () {
   let wrapper
+  let activeTool
   const mockMark = {
     initialDrag: sinon.stub(),
     initialPosition: sinon.stub(),
     setCoordinates: sinon.stub()
   }
-  const mockDrawingTask = DrawingTask.TaskModel.create({
-    activeToolIndex: 0,
-    instruction: 'draw a mark',
-    taskKey: 'T0',
-    tools: [
-      {
-        marks: {},
-        toolComponent: Point,
-        type: 'point'
-      },
-      {
-        marks: {},
-        toolComponent: Line,
-        type: 'line'
-      }
-    ],
-    type: 'drawing'
-  })
   const mockSVGEvent = {
     matrixTransform: sinon.stub().callsFake(() => ({
       x: 100,
@@ -46,8 +29,42 @@ describe('Component > InteractionLayer', function () {
   }
 
   beforeEach(function () {
-    const { activeTool } = mockDrawingTask
-    wrapper = shallow(<InteractionLayer activeDrawingTask={mockDrawingTask} activeTool={activeTool} svg={mockSVG} />)
+    const mockDrawingTask = DrawingTask.TaskModel.create({
+      activeToolIndex: 0,
+      instruction: 'draw a mark',
+      taskKey: 'T0',
+      tools: [
+        {
+          marks: {},
+          max: 2,
+          toolComponent: Point,
+          type: 'point'
+        },
+        {
+          marks: {},
+          toolComponent: Line,
+          type: 'line'
+        }
+      ],
+      type: 'drawing'
+    })
+    activeTool = mockDrawingTask.activeTool
+    sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
+    wrapper = shallow(
+      <InteractionLayer
+        activeDrawingTask={mockDrawingTask}
+        activeTool={activeTool}
+        height={400}
+        svg={mockSVG}
+        width={600}
+      />)
+  })
+
+  afterEach(function () {
+    mockMark.initialDrag.resetHistory()
+    mockMark.initialPosition.resetHistory()
+    mockMark.setCoordinates.resetHistory()
+    activeTool.createMark.restore()
   })
 
   it('should render without crashing', function () {
@@ -61,23 +78,19 @@ describe('Component > InteractionLayer', function () {
   })
 
   describe('on pointer events', function () {
-    before(function () {
-      sinon.stub(mockDrawingTask.activeTool, 'createMark').callsFake(() => mockMark)
-    })
-
-    after(function () {
-      mockDrawingTask.activeTool.createMark.restore()
-    })
-
     it('should create a mark on pointer down', function () {
       const fakeEvent = {
         type: 'pointer'
       }
       wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-      expect(mockDrawingTask.activeTool.createMark).to.have.been.calledOnce()
+      expect(activeTool.createMark).to.have.been.calledOnce()
     })
 
     it('should place a new mark on pointer down', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
       expect(mockMark.initialPosition).to.have.been.calledOnce()
     })
 
@@ -86,6 +99,27 @@ describe('Component > InteractionLayer', function () {
         type: 'pointer'
       }
       wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      wrapper.simulate('pointermove', fakeEvent)
+      expect(mockMark.initialDrag).to.have.been.calledOnce()
+    })
+  })
+
+  describe('when disabled', function () {
+    it('should not create a mark on pointer down', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.setProps({ disabled: true })
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      expect(activeTool.createMark).to.have.not.been.called()
+    })
+
+    it('should drag a new mark on pointer down + move', function () {
+      const fakeEvent = {
+        type: 'pointer'
+      }
+      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      wrapper.setProps({ disabled: true })
       wrapper.simulate('pointermove', fakeEvent)
       expect(mockMark.initialDrag).to.have.been.calledOnce()
     })

@@ -7,7 +7,7 @@ const subject = Factory.define('subject')
   .attr('favorite', false)
   .attr('finished_workflow', false)
   .attr('locations', () => {
-    return [1, 2].map((int) => {
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((int) => {
       const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
       return { 'image/png': `https://foo.bar/${randomString}.png` }
     })
