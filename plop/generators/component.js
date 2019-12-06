@@ -59,6 +59,18 @@ module.exports = function (plop) {
           templateFile: 'plop/templates/component/index.js.hbs',
           path: render('{{ path }}/index.js', data),
           data
+        },
+        {
+          type: 'add',
+          templateFile: 'plop/templates/component/Stories.js.hbs',
+          path: render('{{ path }}/{{ component }}.stories.js', data),
+          data
+        },
+        {
+          type: 'add',
+          templateFile: 'plop/templates/component/Readme.md.hbs',
+          path: render('{{ path }}/README.md', data),
+          data
         }
       ]
 
