@@ -21,13 +21,19 @@ describe('Component > PrimaryButton', function () {
     expect(wrapper.text()).to.equal(LABEL)
   })
 
-  it('should pass down extra props', function () {
-    const wrapper = render(
+  it('should pass down extra props to `Button`', function () {
+    const TEST_PROPS = {
+      disabled: true
+    }
+
+    const wrapper = shallow(
       <Grommet>
-        <PrimaryButton label={LABEL} disabled />
+        <PrimaryButton label={LABEL} {...TEST_PROPS} />
       </Grommet>
     )
-    const buttonAttributes = wrapper.find('button').get(0).attribs
-    expect(Object.keys(buttonAttributes)).to.contain('disabled')
+
+    const primaryButton = wrapper.find(PrimaryButton).dive()
+    const grommetButton = primaryButton.dive().dive().dive()
+    expect(grommetButton.props()).to.deep.include(TEST_PROPS)
   })
 })
