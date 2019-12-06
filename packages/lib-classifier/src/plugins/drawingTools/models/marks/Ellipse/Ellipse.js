@@ -26,8 +26,8 @@ const EllipseModel = types
 
     deleteButtonPosition (scale) {
       const theta = (DELETE_BUTTON_ANGLE - self.angle) * (Math.PI / 180)
-      const dx = (self.rx + (BUFFER / scale)) * Math.cos(theta)
-      const dy = (self.ry + (BUFFER / scale)) * Math.sin(theta)
+      const dx = ((self.rx + BUFFER) / scale) * Math.cos(theta)
+      const dy = ((self.ry + BUFFER) / scale) * Math.sin(theta)
       return {
         x: self.x + dx,
         y: self.y - dy
