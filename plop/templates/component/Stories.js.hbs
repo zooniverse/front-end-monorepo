@@ -1,0 +1,21 @@
+import { storiesOf } from '@storybook/react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import React from 'react'
+
+import readme from './README.md'
+import {{ properCase name }} from './{{ properCase name }}'
+
+const config = {
+  notes: {
+    markdown: readme
+  }
+}
+
+storiesOf('{{ properCase name }}', module)
+
+  .add('default', () => (
+    <Grommet theme={zooTheme}>
+      <{{ properCase name }} />
+    </Grommet>
+  ), config)
