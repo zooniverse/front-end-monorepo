@@ -25,12 +25,12 @@ const EllipseModel = types
     },
 
     deleteButtonPosition (scale) {
-      const theta = (DELETE_BUTTON_ANGLE - self.angle) * (Math.PI / 180)
+      const theta = (self.angle - DELETE_BUTTON_ANGLE) * (Math.PI / 180)
       const dx = ((self.rx + BUFFER) / scale) * Math.cos(theta)
       const dy = ((self.ry + BUFFER) / scale) * Math.sin(theta)
       return {
         x: self.x + dx,
-        y: self.y - dy
+        y: self.y + dy
       };
     },
 
@@ -46,7 +46,7 @@ const EllipseModel = types
     function getAngle(x1, y1, x2, y2) {
       const deltaX = x2 - x1
       const deltaY = y2 - y1
-      return Math.atan2(deltaY, deltaX) * (-180 / Math.PI)
+      return Math.atan2(deltaY, deltaX) * (180 / Math.PI)
     }
 
     function getDistance(x1, y1, x2, y2) {

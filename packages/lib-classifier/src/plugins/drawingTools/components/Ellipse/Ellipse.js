@@ -17,13 +17,13 @@ function Ellipse ({ active, children, mark, scale, svg, tool }) {
 
   function onYHandleDrag (e, d) {
     const r = mark.getDistance(x, y , e.x, e.y)
-    const angle = mark.getAngle(x, y , e.x, e.y) - 90
+    const angle = mark.getAngle(x, y , e.x, e.y) + 90
     mark.setCoordinates({ x, y, rx, ry: r, angle })
   }
 
   const positionAndRotate = `\
   translate(${x}, ${y}) \
-  rotate(${-1 * angle})\
+  rotate(${angle})\
   `
 
   return (
