@@ -3,9 +3,9 @@ import { Ellipse as EllipseComponent } from '../../../components/'
 
 import Mark from '../Mark'
 
-const BUFFER = 16
+const BUFFER = 24
 const DEFAULT_SQUASH = 0.5
-const DELETE_BUTTON_ANGLE = 45
+const DELETE_BUTTON_ANGLE = -45
 const MINIMUM_RADIUS = 5
 
 const EllipseModel = types
@@ -25,12 +25,12 @@ const EllipseModel = types
     },
 
     deleteButtonPosition (scale) {
-      const theta = (self.angle - DELETE_BUTTON_ANGLE) * (Math.PI / 180)
+      const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
       const dx = ((self.rx + BUFFER) / scale) * Math.cos(theta)
       const dy = ((self.ry + BUFFER) / scale) * Math.sin(theta)
       return {
-        x: self.x + dx,
-        y: self.y + dy
+        x: dx,
+        y: dy
       };
     },
 

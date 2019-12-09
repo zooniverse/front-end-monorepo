@@ -21,13 +21,8 @@ function Ellipse ({ active, children, mark, scale, svg, tool }) {
     mark.setCoordinates({ x, y, rx, ry: r, angle })
   }
 
-  const positionAndRotate = `\
-  translate(${x}, ${y}) \
-  rotate(${angle})\
-  `
-
   return (
-    <g transform={positionAndRotate}>
+    <g>
       <ellipse rx={rx} ry={ry} />
 
       {active &&
