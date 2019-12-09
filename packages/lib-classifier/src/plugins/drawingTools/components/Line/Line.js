@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DragHandle from '../components/DragHandle'
+import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
