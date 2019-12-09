@@ -56,7 +56,8 @@ function Triangle (props) {
 
 Triangle.defaultProps = {
   pointDirection: 'up',
-  justify: 'center',
+  justify: 'end',
+  shadow: 'none',
   height: 20,
   width: 20
 }

@@ -18,6 +18,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.6.2",
     "@vx/axis": "~0.0.192",
+    "@vx/bounds": "~0.0.192",
     "@vx/event": "~0.0.192",
     "@vx/glyph": "~0.0.192",
     "@vx/group": "~0.0.192",

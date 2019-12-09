@@ -68,8 +68,10 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       <Chart height={parentHeight} ref={ref} width={parentWidth}>
         <Background fill={backgroundColor} />
         <Group
+          aria-label='Bar chart'
           focusable
           left={left}
+          role='list'
           tabIndex={0}
           top={top}
         >
@@ -136,7 +138,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       {tooltipOpen &&
         <VXTooltip
           left={tooltipLeft}
-          label={tooltipData}
+          label={tooltipData.toString()}
           top={tooltipTop}
         />}
     </>

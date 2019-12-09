@@ -12,30 +12,30 @@ function getNumberValue (string) {
 }
 
 export default function VXTooltip ({ backgroundColor, label, left, top }) {
-  // vx's Tooltip isn't easy to style. Have to pass in styles directly.
   const fontSize = zooTheme.text.small.size
   const padding = zooTheme.global.edgeSize.xsmall
-
+  const tooltipStyles = { background: 'transparent', borderRadius: 'none', boxShadow: 'none', padding: 0, zIndex: '1' }
   const triangleHeight = 10
   const triangleWidth = 20
-  const topPosition = top - getNumberValue(fontSize) - (getNumberValue(padding) * 2) - (triangleHeight * 2)
+  const topPosition = top - getNumberValue(fontSize) - (getNumberValue(padding) * 2) - (triangleHeight * 1.5)
+
   return (
     <Tooltip
       left={left}
       top={topPosition}
-      style={{ background: 'transparent', borderRadius: 'none', boxShadow: 'none', padding: 0 }}
+      style={tooltipStyles}
     >
       <Box
         background={{ color: backgroundColor, dark: true }}
         elevation='medium'
         pad={{ horizontal: 'medium', vertical: 'xsmall' }}
+        responsive={false}
       >
         <SpacedText weight='bold'>{label}</SpacedText>
       </Box>
       <Triangle
         backgroundColor='black'
         height={triangleHeight}
-        justify='center'
         pointDirection='down'
         width={triangleWidth}
       />
