@@ -1,8 +1,8 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { Point as PointComponent } from '../../components'
+import { Point as PointComponent } from '../../../components'
 
-import Mark from './Mark'
+import Mark from '../Mark'
 
 const PointModel = types
   .model('PointModel', {

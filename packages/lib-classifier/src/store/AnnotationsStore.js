@@ -16,7 +16,7 @@ const AnnotationsStore = types
       const annotation = self.annotation(task)
       // new annotations must be added to this store before we can modify them
       self.annotations.put(annotation)
-      if (annotationValue) {
+      if (annotationValue !== undefined) {
         annotation.value = annotationValue
       }
     }
