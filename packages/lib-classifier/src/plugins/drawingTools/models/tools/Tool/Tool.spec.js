@@ -1,4 +1,10 @@
 import Tool from './Tool'
+import {
+  MultipleChoiceTaskFactory,
+  SingleChoiceTaskFactory
+} from '@test/factories'
+import taskRegistry from '@plugins/tasks'
+import ClassificationStore from '@store/ClassificationStore'
 
 const toolData = {
   color: '#ff0000',
@@ -73,6 +79,96 @@ describe('Model > DrawingTools > Tool', function () {
       const ids = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
       ids.forEach(id => tool.createMark({ id }))
       expect(tool.disabled).to.be.true()
+    })
+  })
+
+  describe('with subtasks', function () {
+    const SingleChoiceTask = taskRegistry.get('single').TaskModel
+    const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
+
+    describe('with incomplete, optional tasks', function () {
+      let tasks
+      before(function () {
+        tasks = [
+          MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+          SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
+        ]
+      })
+
+      it('should be complete', function () {
+        const tool = Tool.create(Object.assign({}, toolData, { tasks }))
+        tool.classifications = ClassificationStore.create()
+        expect(tool.hasCompletedTasks).to.be.true()
+      })
+    })
+
+    describe('with any incomplete, required tasks', function () {
+      let tasks
+      before(function () {
+        tasks = [
+          MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+          SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+        ]
+      })
+
+      it('should be incomplete', function () {
+        const tool = Tool.create(Object.assign({}, toolData, { tasks }))
+        tool.classifications = ClassificationStore.create()
+        expect(tool.hasCompletedTasks).to.be.false()
+      })
+    })
+
+    describe('with only required tasks', function () {
+      let tool
+      let tasks
+      before(function () {
+        tasks = [
+          MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: true })),
+          SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+        ]
+        tool = Tool.create(Object.assign({}, toolData, { tasks }))
+        tool.classifications = ClassificationStore.create()
+        const mockSubject = {
+          id: 'subject',
+          metadata: {}
+        }
+        const mockWorkflow = {
+          id: 'workflow',
+          version: '1.0'
+        }
+        const mockProject = {
+          id: 'project'
+        }
+        tool.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      })
+
+      it('should be incomplete', function () {
+        expect(tool.hasCompletedTasks).to.be.false()
+      })
+
+      describe('after annotating task T1', function () {
+        it('should still be incomplete', function () {
+          tasks[0].updateAnnotation([1])
+          expect(tool.hasCompletedTasks).to.be.false()
+        })
+
+        it('should have one complete task', function () {
+          expect(tasks[0].isComplete).to.be.true()
+          expect(tasks[1].isComplete).to.be.false()
+        })
+      })
+
+      describe('after annotating tasks T1 & T2', function () {
+        it('should be complete', function () {
+          tasks[1].updateAnnotation(1)
+          expect(tool.hasCompletedTasks).to.be.true()
+        })
+
+        it('should have two complete tasks', function () {
+          expect(tasks[0].isComplete).to.be.true()
+          expect(tasks[1].isComplete).to.be.true()
+        })
+      })
     })
   })
 })
