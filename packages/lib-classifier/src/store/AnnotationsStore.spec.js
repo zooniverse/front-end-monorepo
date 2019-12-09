@@ -24,6 +24,16 @@ describe('Model > AnnotationsStore', function () {
         model.addAnnotation(task)
         expect(model.annotations.size).to.equal(1)
       })
+
+      it('should allow for 0 values', function () {
+        model.addAnnotation(task, 0)
+        expect(model.annotation(task).value).to.equal(0)
+      })
+
+      it('should allow for null values', function () {
+        model.addAnnotation(task, null)
+        expect(model.annotation(task).value).to.be.null
+      })
     })
 
     describe('for an existing task', function () {

@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import DrawingToolRoot from './DrawingToolRoot'
-import Point from './Point'
+import Point from '../Point'
 
 describe('Root tool', function () {
   it('should render without crashing', function () {

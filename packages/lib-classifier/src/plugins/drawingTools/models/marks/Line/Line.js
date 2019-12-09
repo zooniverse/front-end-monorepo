@@ -1,8 +1,8 @@
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import { Line as LineComponent } from '../../components/'
+import { Line as LineComponent } from '../../../components/'
 
-import Mark from './Mark'
+import Mark from '../Mark'
 
 const MINIMUM_LENGTH = 5
 
