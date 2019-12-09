@@ -8,7 +8,7 @@ import posed, { PoseGroup } from 'react-pose'
 
 import en from './locales/en'
 import TooltipText from './components/TooltipText'
-import Triangle from './components/Triangle'
+import Triangle from '../../../shared/Triangle'
 
 counterpart.registerTranslations('en', en)
 
@@ -99,7 +99,7 @@ class Banner extends Component {
                 target={this.ref.current}
               >
                 <Box direction='column' margin='xsmall'>
-                  <Triangle />
+                  <Triangle justify='end' />
                   <Box
                     background={mode === 'light' ? 'white' : 'dark-2'}
                     pad='small'

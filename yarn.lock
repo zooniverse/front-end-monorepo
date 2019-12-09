@@ -3377,7 +3377,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.0"
 
-"@vx/bounds@0.0.192":
+"@vx/bounds@0.0.192", "@vx/bounds@~0.0.192":
   version "0.0.192"
   resolved "https://registry.yarnpkg.com/@vx/bounds/-/bounds-0.0.192.tgz#f918b172bc30a551f0f6febf3b48f4ac5ec158e2"
   integrity sha512-IEWwvi41V8FbQXd0J402VdAXSxUxoMp1uGJErNvcd21RVMZqBCxVzapDWaSFProcbdPtNAZ45MtVc6pUosY35g==

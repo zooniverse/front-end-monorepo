@@ -38,12 +38,12 @@ function Bars (props) {
         key={key}
         height={barHeight}
         index={index}
-        onFocus={(event) => onFocus(event, value)}
+        onFocus={(event) => onFocus(event, value, center, y)}
         onBlur={onBlur}
         onMouseMove={(event) => onMouseMove(event, value, center, y)}
         onMouseOut={onMouseOut}
-        tab-index={0}
-        // role='img'
+        tabIndex={0}
+        role='list item'
         width={barWidth}
         x={x}
         y={y}
