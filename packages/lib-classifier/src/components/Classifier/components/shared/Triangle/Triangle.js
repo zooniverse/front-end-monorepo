@@ -15,10 +15,10 @@ function Triangle (props) {
   let fill
   const {
     backgroundColor,
-    pointDirection,
-    justify,
-    theme,
     height,
+    justify,
+    pointDirection,
+    theme,
     width
   } = props
   const { colors } = theme.global

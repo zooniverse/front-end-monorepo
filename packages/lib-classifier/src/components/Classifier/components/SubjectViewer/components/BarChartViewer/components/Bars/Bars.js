@@ -26,7 +26,7 @@ function Bars (props) {
     const barWidth = xScale.bandwidth()
     const x = xScale(label)
     const y = yMax - barHeight
-    const center = x + (barWidth / 2)
+    const barCenter = x + (barWidth / 2)
     const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
     return (
       <Bar
@@ -38,9 +38,9 @@ function Bars (props) {
         key={key}
         height={barHeight}
         index={index}
-        onFocus={(event) => onFocus(event, value, center, y)}
+        onFocus={(event) => onFocus(event, { value, barCenter, barWidth, x, y })}
         onBlur={onBlur}
-        onMouseMove={(event) => onMouseMove(event, value, center, y)}
+        onMouseMove={(event) => onMouseMove(event, { value, barCenter, barWidth, x, y })}
         onMouseOut={onMouseOut}
         tabIndex={0}
         role='list item'
