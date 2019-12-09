@@ -55,10 +55,11 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const xScaleTicks = xScale.domain()
   const yScaleTicks = yScale.domain()
 
-  function handleShowingTooltip(event, value, barCenter, barHeight) {
+  function handleShowingTooltip(event, { barCenter, value, x, y }) {
+    console.log('barCenter', barCenter)
     showTooltip({
       tooltipLeft: barCenter,
-      tooltipTop: barHeight,
+      tooltipTop: y,
       tooltipData: value
     })
   }

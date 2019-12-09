@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Tooltip } from '@vx/tooltip'
+import { withBoundingRects, withBoundingRectsProps } from '@vx/bounds'
 import { Box } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
-import Triangle from '../../../../Banners/components/Banner/components/Triangle'
+import Triangle from '../../../../shared/Triangle'
 import zooTheme from '@zooniverse/grommet-theme'
 
 function getNumberValue (string) {
@@ -11,13 +12,35 @@ function getNumberValue (string) {
   return +splitString[0]
 }
 
-export default function VXTooltip ({ backgroundColor, label, left, top }) {
+function VXTooltip (props) {
+  const {
+    backgroundColor,
+    label,
+    left,
+    parentRect,
+    pointDirection,
+    rect,
+    top: initialTop
+  } = props
   const fontSize = zooTheme.text.small.size
-  const padding = zooTheme.global.edgeSize.xsmall
+  const horizontalPadding = zooTheme.global.edgeSize.medium
+  const verticalPadding = zooTheme.global.edgeSize.xsmall
   const tooltipStyles = { background: 'transparent', borderRadius: 'none', boxShadow: 'none', padding: 0, zIndex: '1' }
   const triangleHeight = 10
   const triangleWidth = 20
-  const topPosition = top - getNumberValue(fontSize) - (getNumberValue(padding) * 2) - (triangleHeight * 1.5)
+  const heightOfTooltip = getNumberValue(fontSize) + (getNumberValue(verticalPadding) * 2) + (triangleHeight * 1.5)
+  const widthOfTooltip = getNumberValue(fontSize) + (getNumberValue(horizontalPadding) * 2) + (triangleHeight * 1.5)
+  // let leftPosition = initialLeft
+  let topPosition = initialTop - heightOfTooltip
+
+  if (parentRect && rect) {
+    console.log('parentRect', parentRect)
+    console.log('rect', rect)
+
+    if (rect.top < 0) {
+      topPosition = initialTop
+    }
+  }
 
   return (
     <Tooltip
@@ -36,7 +59,8 @@ export default function VXTooltip ({ backgroundColor, label, left, top }) {
       <Triangle
         backgroundColor='black'
         height={triangleHeight}
-        pointDirection='down'
+        justify='center'
+        pointDirection={pointDirection}
         width={triangleWidth}
       />
     </Tooltip>
@@ -44,11 +68,20 @@ export default function VXTooltip ({ backgroundColor, label, left, top }) {
 }
 
 VXTooltip.defaultProps = {
-  backgroundColor: 'rgb(0,0,0,0.5)'
+  backgroundColor: 'rgb(0,0,0,0.5)',
+  pointDirection: 'down',
+  pointPosition: 'center'
 }
 
 VXTooltip.propTypes = {
-  label: PropTypes.string,
-  left: PropTypes.number,
-  top: PropTypes.number
+  ...withBoundingRectsProps,
+  backgroundColor: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  left: PropTypes.number.isRequired,
+  pointDirection: PropTypes.oneOf(['down', 'left', 'right', 'up']),
+  pointPosition: PropTypes.oneOf(['start', 'center', 'end']),
+  top: PropTypes.number.isRequired
 }
+
+export default withBoundingRects(VXTooltip)
+export { VXTooltip }
