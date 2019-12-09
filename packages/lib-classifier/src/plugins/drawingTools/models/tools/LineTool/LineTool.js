@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
-import Tool from './Tool'
-import { Line } from '../marks'
+import Tool from '../Tool'
+import { Line } from '../../marks'
 
 const LineTool = types.model('Line', {
   marks: types.map(Line),

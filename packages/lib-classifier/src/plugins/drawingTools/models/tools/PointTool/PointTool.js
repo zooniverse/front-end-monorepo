@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
-import Tool from './Tool'
-import { Point } from '../marks'
+import Tool from '../Tool'
+import { Point } from '../../marks'
 
 const PointTool = types.model('Point', {
   marks: types.map(Point),

@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { Mark } from '../marks'
+import { Mark } from '../../marks'
 
 const Tool = types.model('Tool', {
   color: types.optional(types.string, ''),
