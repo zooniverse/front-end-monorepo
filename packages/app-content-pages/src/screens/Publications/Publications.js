@@ -5,11 +5,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Category from './components/Category'
-import en from './locales/en'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
-
-counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   ${props => props.active && `
@@ -21,17 +18,6 @@ const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMe
 
 function Publications (props) {
   const { className, data, filters } = props
-
-  // `Show all` isn't a Contentful category, so we need to manually add the
-  // translated string.
-  const filtersPlusShowAll = filters.reduce((acc, filter) => {
-    if (filter.slug === 'showAll') {
-      acc.push({ ...filter, title: counterpart(`Publications.showAll`) })
-    } else {
-      acc.push(filter)
-    }
-    return acc
-  }, [])
 
   const main = (
     <article>
@@ -45,7 +31,7 @@ function Publications (props) {
 
       {data.map(category => (
         <Category
-          key={category.id}
+          key={category.title}
           title={category.title}
           projects={category.projects}
         />
@@ -55,12 +41,12 @@ function Publications (props) {
 
   const sidebar = (
     <Box gap='small'>
-      {filtersPlusShowAll.map(filter => (
-        <div key={filter.slug} >
+      {filters.map(filter => (
+        <div key={filter.name} >
           <StyledButton
             active={filter.active}
-            label={filter.title}
-            onClick={filter.selectCategory}
+            label={filter.name}
+            onClick={filter.setActive}
             plain
           />
         </div>
@@ -92,8 +78,7 @@ Publications.propTypes = {
   })),
   filters: arrayOf(shape({
     active: bool,
-    selectCategory: func,
-    slug: string,
+    setActive: func,
     title: string
   }))
 }

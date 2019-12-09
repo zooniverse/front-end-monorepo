@@ -17,7 +17,7 @@ function Team (props) {
 
       {people.map(person => (
         <Person
-          key={person.id}
+          key={person.name}
           {...person}
         />
       ))}

@@ -12,7 +12,10 @@ function Category (props) {
         {title}
       </Heading>
       {projects.map(project => (
-        <Project {...project} key={project.id} />
+        <Project
+          {...project}
+          key={project.title}
+        />
       ))}
     </Box>
   )
