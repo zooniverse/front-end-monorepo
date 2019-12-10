@@ -41,4 +41,12 @@ describe('Component > AboutHeader', function () {
   it('should have a `FAQ` link', function () {
     expect(wrapper.find('[href="/about/faq"]')).to.have.lengthOf(1)
   })
+
+  it('should have a `Highlights` link', function () {
+    expect(wrapper.find('[href="/about/highlights"]')).to.have.lengthOf(1)
+  })
+
+  it('should have a `Donate` link', function () {
+    expect(wrapper.find('[href="/about/donate"]')).to.have.lengthOf(1)
+  })
 })
