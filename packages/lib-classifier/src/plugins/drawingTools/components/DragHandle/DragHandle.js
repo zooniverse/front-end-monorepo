@@ -8,19 +8,26 @@ const StyledCircle = styled('circle')`
   }
 `
 const RADIUS = screen.width > 900 ? 4 : 10
-const OVERSHOOT = screen.width > 900 ? 4 : 10
 
-const DragHandle = forwardRef(function DragHandle ({ scale, x, y }, ref) {
+const DragHandle = forwardRef(function DragHandle ({ fill, radius, scale, x, y }, ref) {
   const styleProps = {
-    fill: 'currentColor',
-    stroke: 'transparent',
-    strokeWidth: OVERSHOOT,
+    fill: fill || 'currentColor',
+    stroke: 'currentColor',
+    strokeWidth: 1,
     transform: `\
 translate(${x}, ${y})
 scale(${1 / scale})\
 `
   }
-  return <StyledCircle ref={ref} r={RADIUS} {...styleProps} />
+  const r = radius || RADIUS
+  return (
+    <g
+      ref={ref}
+    >
+      <StyledCircle r={r} {...styleProps} />
+      <StyledCircle r={2 * r} fill='transparent' stroke='transparent' />
+    </g>
+  )
 })
 
 export default draggable(DragHandle)
