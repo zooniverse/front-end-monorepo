@@ -1,7 +1,17 @@
 import { letterFrequency } from '@vx/mock-data'
-import zooTheme from '@zooniverse/grommet-theme'
+import { scaleBand, scaleLinear } from '@vx/scale'
 
-const { colors } = zooTheme.global
+const margin = {
+  bottom: 40,
+  left: 40,
+  right: 0,
+  top: 0
+}
+const parentHeight = 768
+const parentWidth = 1024
+
+const xMax = parentWidth - margin.left - margin.right
+const yMax = parentHeight - margin.bottom - margin.top
 
 const optionsMock = {
   options: {
@@ -26,6 +36,17 @@ const dataWithVariableBarColor = letterFrequency.map((datum) => {
 
 const mockData = Object.assign({}, { data: dataInZooFormat }, optionsMock)
 const mockDataWithColor = Object.assign({}, { data: dataWithVariableBarColor }, optionsMock)
+
+const xScale = scaleBand({
+  domain: dataInZooFormat.map(datum => datum.label),
+  rangeRound: [0, xMax],
+  padding: 0.25
+})
+
+const yScale = scaleLinear({
+  domain: [0, Math.max(...dataInZooFormat.map(datum => datum.value))],
+  rangeRound: [yMax, 0]
+})
 
 const variableStarPeriodMockData = {
   data: [
@@ -81,5 +102,9 @@ export default mockData
 export {
   mockDataWithColor,
   variableStarAmplitudeMockData,
-  variableStarPeriodMockData
+  variableStarPeriodMockData,
+  xScale,
+  xMax,
+  yScale,
+  yMax
 }

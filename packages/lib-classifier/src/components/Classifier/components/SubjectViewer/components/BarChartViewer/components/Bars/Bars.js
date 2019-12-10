@@ -41,7 +41,7 @@ function Bars (props) {
         onFocus={(event) => onFocus(event, { value, barCenter, barWidth, x, y })}
         onBlur={onBlur}
         onMouseMove={(event) => onMouseMove(event, { value, barCenter, barWidth, x, y })}
-        onMouseOut={onMouseOut}
+        // onMouseOut={onMouseOut}
         tabIndex={0}
         role='list item'
         width={barWidth}
@@ -50,6 +50,38 @@ function Bars (props) {
       />
     )
   })
+}
+
+Bars.defaultProps = {
+  onBlur: () => {},
+  onFocus: () => {},
+  onMouseMove: () => {},
+  onMouseOut: () => {},
+  theme: {
+    dark: false,
+    global: {
+      colors: {
+        brand: '',
+        text: {}
+      }
+    }
+  },
+  xAxisLabel: 'x-axis',
+  yAxisLabel: 'y-axis'
+}
+
+Bars.propTypes = {
+  data: PropTypes.array.isRequired,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onMouseMove: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  theme: PropTypes.object,
+  xAxisLabel: PropTypes.string,
+  xScale: PropTypes.func.isRequired,
+  yAxisLabel: PropTypes.string,
+  yScale: PropTypes.func.isRequired,
+  yMax: PropTypes.number.isRequired
 }
 
 export default withTheme(Bars)
