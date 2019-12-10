@@ -47,6 +47,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     rangeRound: [0, xMax],
     padding
   })
+
   const yScale = scaleLinear({
     domain: [0, Math.max(...data.map(datum => datum.value))],
     rangeRound: [yMax, 0]
@@ -138,6 +139,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
       </Chart>
       {tooltipOpen &&
         <VXTooltip
+          key={Math.random()}
           left={tooltipLeft}
           label={tooltipData.toString()}
           top={tooltipTop}
