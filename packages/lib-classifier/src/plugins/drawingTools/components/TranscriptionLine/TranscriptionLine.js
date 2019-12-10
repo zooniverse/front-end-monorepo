@@ -24,6 +24,8 @@ function TranscriptionLine ({ active, children, mark, onFinish, scale, svg, tool
 
       {active &&
         <DragHandle
+          fill='transparent'
+          radius={6}
           scale={scale}
           svg={svg}
           x={x1}
@@ -32,6 +34,7 @@ function TranscriptionLine ({ active, children, mark, onFinish, scale, svg, tool
         />}
       {active &&
         <DragHandle
+          radius={6}
           scale={scale}
           svg={svg}
           x={x2}
