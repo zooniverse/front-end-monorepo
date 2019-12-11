@@ -14,7 +14,7 @@ function Project (props) {
       {publications.map(publication => (
         <Publication
           avatarSrc={avatarSrc}
-          key={publication.id}
+          key={publication.url}
           {...publication}
         />
       ))}

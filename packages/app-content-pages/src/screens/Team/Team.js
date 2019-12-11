@@ -5,11 +5,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Team from './components/Team'
-import en from './locales/en'
 import Head from '../../shared/components/Head'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 
-counterpart.registerTranslations('en', en)
 
 const StyledLi = styled.li`
   list-style-type: none;
@@ -33,7 +31,7 @@ function TeamComponent (props) {
 
       {data && data.map(team => (
         <Team
-          key={team.id}
+          key={team.name}
           name={team.name}
           people={team.people}
         />
@@ -48,7 +46,7 @@ function TeamComponent (props) {
           <StyledButton
             active={filter.active}
             label={filter.name}
-            onClick={filter.selectTeam}
+            onClick={filter.setActive}
             plain
           />
         </StyledLi>

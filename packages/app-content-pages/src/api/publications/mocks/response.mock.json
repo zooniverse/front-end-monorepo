@@ -1,0 +1,1768 @@
+[
+  {
+    "title": "Space",
+    "weight": 1,
+    "projects": [
+      {
+        "title": "Milky Way Project",
+        "projectId": "27",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/e1070bee-3378-4e74-a2aa-63aed603387c.jpeg",
+        "publications": [
+          {
+            "title": "The Milky Way Project and ATLASGAL: The distribution and physical properties of cold clumps near infrared bubbles",
+            "url": "http://arxiv.org/abs/1602.06982",
+            "authors": "Kendrew+",
+            "year": "2016"
+          },
+          {
+            "title": "The Milky Way Project: What are Yellowballs?",
+            "url": "http://arxiv.org/abs/1502.01388v1",
+            "authors": "Kerton+",
+            "year": "2015"
+          },
+          {
+            "title": "The Milky Way Project: Leveraging Citizen Science and Machine Learning to Detect Interstellar Bubbles",
+            "url": "http://arxiv.org/abs/1406.2692",
+            "authors": "Beaumont+",
+            "year": "2014"
+          },
+          {
+            "title": "The Milky Way Project: A Statistical Study of Massive Star Formation Associated with Infrared Bubbles",
+            "url": "http://adsabs.harvard.edu/abs/2012ApJ...755...71K",
+            "authors": "Kendrew+",
+            "year": "2012"
+          },
+          {
+            "title": "The Milky Way Project First Data Release: a bubblier Galactic disc",
+            "url": "http://mnras.oxfordjournals.org/content/424/4/2442.abstract?sid=4a445f2b-71d6-4865-9e64-3aba88192f61",
+            "authors": "Simpson+",
+            "year": "2012"
+          },
+          {
+            "title": "The Milky Way Project Second Data Release: Bubbles and Bow Shocks",
+            "url": "https://arxiv.org/abs/1905.12625",
+            "authors": "Jayasinghe+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Galaxy Zoo",
+        "projectId": "21",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/8e945c4f-4d91-46b8-875e-cdfe28a0c66e.jpeg",
+        "publications": [
+          {
+            "title": "Galaxy Zoo and SPARCFIRE: constraints on spiral arm formation mechanisms from spiral arm number and pitch angles",
+            "url": "https://arxiv.org/abs/1708.04628",
+            "authors": "Hart+",
+            "year": "2018"
+          },
+          {
+            "title": "Galaxy Zoo: constraining the origin of spiral arms",
+            "url": "https://arxiv.org/abs/1805.01782",
+            "authors": "Hart+",
+            "year": "2018"
+          },
+          {
+            "title": "Coordinating Advanced Crowd Work: Extending Citizen Science",
+            "url": "https://crowston.syr.edu/sites/crowston.syr.edu/files/Quench%20to%20distribute.pdf",
+            "authors": "Crowston+",
+            "year": "2018"
+          },
+          {
+            "title": "Galaxy Zoo: finding offset discs and bars in SDSS galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2017MNRAS.469.3363K",
+            "authors": "Kruk+",
+            "year": "2017"
+          },
+          {
+            "title": "Galaxy Zoo: secular evolution of barred galaxies from structural decomposition of multiband images",
+            "url": "https://arxiv.org/abs/1710.00093",
+            "authors": "Kruk+",
+            "year": "2018"
+          },
+          {
+            "title": "Galaxy Zoo: star-formation versus spiral arm number",
+            "url": "http://adsabs.harvard.edu/abs/2017arXiv170302053H",
+            "authors": "Hart+",
+            "year": "2017"
+          },
+          {
+            "title": "Galaxy Zoo: The interplay of quenching mechanisms in the group environment",
+            "url": "https://arxiv.org/abs/1704.06269",
+            "authors": "Smethurst+",
+            "year": "2017"
+          },
+          {
+            "title": "Galaxy Zoo: Mergers - Dynamical Models of Interacting Galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2016MNRAS.tmp..436H",
+            "authors": "Holincheck+",
+            "year": "2016"
+          },
+          {
+            "title": "Galaxy Zoo: Morphological Classification for 120,000 Galaxies in HST Legacy Imaging",
+            "url": "https://arxiv.org/pdf/1610.03068v2.pdf",
+            "authors": "Willett+",
+            "year": "2016"
+          },
+          {
+            "title": "Galaxy Zoo: Quantitative Visual Morphological Classifications for 48,000 galaxies from CANDELS",
+            "url": "https://academic.oup.com/mnras/article/464/4/4420/2417365",
+            "authors": "Simmons+",
+            "year": "2017"
+          },
+          {
+            "title": "Galaxy Zoo: Evidence for rapid, recent quenching within a population of AGN host galaxies",
+            "url": "http://mnras.oxfordjournals.org/content/early/2016/09/02/mnras.stw2204",
+            "authors": "Smethurst+",
+            "year": "2016"
+          },
+          {
+            "title": "Galaxy Zoo: Comparing the demographics of spiral arm number and a new method for correcting redshift bias",
+            "url": "https://ui.adsabs.harvard.edu/#abs/2016MNRAS.461.3663H/abstract",
+            "authors": "Hart+",
+            "year": "2016"
+          },
+          {
+            "title": "Galaxy Zoo: the effect of bar-driven fueling on the presence of an active galactic nucleus in disc galaxies",
+            "url": "http://arxiv.org/abs/1502.01033",
+            "authors": "Galloway+",
+            "year": "2015"
+          },
+          {
+            "title": "Galaxy Zoo: the dependence of the star formation-stellar mass relation on spiral disc morphology",
+            "url": "http://mnras.oxfordjournals.org/cgi/content/full/stv307?ijkey=n2t0XjSn37YTbrU&keytype=ref",
+            "authors": "Willett+",
+            "year": "2015"
+          },
+          {
+            "title": "Galaxy Zoo: Evidence for Diverse Star Formation Histories through the Green Valley",
+            "url": "http://mnras.oxfordjournals.org/content/450/1/435.full.pdf+html",
+            "authors": "Smethurst+",
+            "year": "2015"
+          },
+          {
+            "title": "Galaxy Zoo: Are Bars Responsible for the Feeding of Active Galactic Nuclei at 0.2 < z < 1.0?",
+            "url": "http://adsabs.harvard.edu/abs/2014arXiv1409.5434C",
+            "authors": "Cheung+",
+            "year": "2014"
+          },
+          {
+            "title": "Galaxy Zoo: an independent look at the evolution of the bar fraction over the last eight billion years from HST-COSMOS",
+            "url": "http://mnras.oxfordjournals.org/content/438/4/2882",
+            "authors": "Melvin+",
+            "year": "2014"
+          },
+          {
+            "title": "Galaxy Zoo: The Ultraviolet Attenuation Law in Backlit Spiral Galaxies",
+            "url": "http://arxiv.org/abs/1401.0773",
+            "authors": "Keel+",
+            "year": "2014"
+          },
+          {
+            "title": "HST Imaging of Fading AGN Candidates I: Host-Galaxy Properties and Origin of the Extended Gas",
+            "url": "http://arxiv.org/abs/1408.5159",
+            "authors": "Keel+",
+            "year": "2014"
+          },
+          {
+            "title": "The green valley is a red herring: Galaxy Zoo reveals two evolutionary pathways towards quenching of star formation in early- and late-type galaxies",
+            "url": "http://arxiv.org/abs/1402.4814",
+            "authors": "Schawinski+",
+            "year": "2014"
+          },
+          {
+            "title": "Galaxy Zoo: CANDELS barred discs and bar fractions",
+            "url": "http://mnras.oxfordjournals.org/content/445/4/3466",
+            "authors": "Simmons+",
+            "year": "2014"
+          },
+          {
+            "title": "Galaxy Zoo: quantifying morphological indicators of galaxy interaction",
+            "url": "http://adsabs.harvard.edu/abs/2013MNRAS.429.1051C",
+            "authors": "Casteels+",
+            "year": "2013"
+          },
+          {
+            "title": "Galaxy Zoo: Observing Secular Evolution Through Bars",
+            "url": "http://arxiv.org/abs/1310.2941",
+            "authors": "Cheung+",
+            "year": "2013"
+          },
+          {
+            "title": "Galaxy Zoo: A Catalog of Overlapping Galaxy Pairs for Dust Studies",
+            "url": "http://adsabs.harvard.edu/abs/2013PASP..125....2K",
+            "authors": "Keel+",
+            "year": "2013"
+          },
+          {
+            "title": "The different star-formation histories of blue and red spiral and elliptical galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2013arXiv1303.3551T",
+            "authors": "Tojeiro+",
+            "year": "2013"
+          },
+          {
+            "title": "Galaxy Zoo 2: detailed morphological classifications for 304,122 galaxies from the Sloan Digital Sky Survey",
+            "url": "http://arxiv.org/abs/1308.3496",
+            "authors": "Willett+",
+            "year": "2013"
+          },
+          {
+            "title": "Galaxy Zoo: building the low-mass end of the red sequence with local post-starburst galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.420.1684W",
+            "authors": "Wong+",
+            "year": "2013"
+          },
+          {
+            "title": "Spheroidal post-mergers in the local Universe",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.420.2139C",
+            "authors": "Carpineti+",
+            "year": "2012"
+          },
+          {
+            "title": "Polar ring galaxies in the Galaxy Zoo",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.422.2386F",
+            "authors": "Finkelman+",
+            "year": "2012"
+          },
+          {
+            "title": "The fraction of early-type galaxies in low-redshift groups and clusters of galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.423.3478H",
+            "authors": "Hoyle+",
+            "year": "2012"
+          },
+          {
+            "title": "The Galaxy Zoo survey for giant AGN-ionized clouds: past and present black hole accretion events",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.420..878K",
+            "authors": "Keel+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo and ALFALFA: atomic gas and the regulation of star formation in barred disc galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.424.2180M",
+            "authors": "Masters+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo: dust and molecular gas in early-type galaxies with prominent dust lanes",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.423...49K",
+            "authors": "Kaviraj+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo: dust lane early-type galaxies are tracers of recent gas-rich minor mergers",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.423...59S",
+            "authors": "Shabala+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo: Bulgeless Galaxies With Growing Black Holes",
+            "url": "http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1207.4190",
+            "authors": "Simmons+",
+            "year": "2012"
+          },
+          {
+            "title": "Chandra Observations of Galaxy Zoo Mergers: Frequency of Binary Active Nuclei in Massive Mergers",
+            "url": "http://adsabs.harvard.edu/abs/2012ApJ...753..165T",
+            "authors": "Teng+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo: the environmental dependence of bars and bulges in disc galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.423.1485S",
+            "authors": "Skibba+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo Volunteers Share Pain and Glory of Research",
+            "url": "http://adsabs.harvard.edu/abs/2011Sci...333..173C",
+            "authors": "Clery",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo: bar lengths in local disc galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.415.3627H",
+            "authors": "Hoyle+",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo: multimergers and the Millennium Simulation",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.416.1745D",
+            "authors": "Darg+",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo: bars in disc galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.411.2026M",
+            "authors": "Masters+",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo 1: data release of morphological classifications for nearly 900 000 galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.410..166L",
+            "authors": "Lintott+",
+            "year": "2011"
+          },
+          {
+            "title": "Tidal dwarf galaxies in the nearby Universe",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.419...70K",
+            "authors": "Kaviraj+",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo Supernovae",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.412.1309S",
+            "authors": "Smith+",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo Morphology and Photometric Redshifts in the Sloan Digital Sky Survey",
+            "url": "http://adsabs.harvard.edu/abs/2011ApJ...734L...9W",
+            "authors": "Way",
+            "year": "2011"
+          },
+          {
+            "title": "Galaxy Zoo: reproducing galaxy morphologies via machine learning",
+            "url": "http://adsabs.harvard.edu/abs/2010MNRAS.406..342B",
+            "authors": "Banerji+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: the properties of merging galaxies in the nearby Universe - local environments colours masses star formation rates and AGN activity",
+            "url": "http://adsabs.harvard.edu/abs/2010MNRAS.401.1552D",
+            "authors": "Darg+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: a correlation between the coherence of galaxy spin chirality and star formation efficiency",
+            "url": "http://adsabs.harvard.edu/abs/2010MNRAS.404..975J",
+            "authors": "Jimenez+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: passive red spirals",
+            "url": "http://adsabs.harvard.edu/abs/2010MNRAS.405..783M",
+            "authors": "Masters+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: the fraction of merging galaxies in the SDSS and their morphologies",
+            "url": "http://adsabs.harvard.edu/abs/2010MNRAS.401.1043D",
+            "authors": "Darg+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: The Fundamentally Different Co-Evolution of Supermassive Black Holes and Their Early- and Late-Type Host Galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2010ApJ...711..284S",
+            "authors": "Schawinski+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: the dependence of morphology and colour on environment",
+            "url": "http://adsabs.harvard.edu/abs/2009MNRAS.393.1324B",
+            "authors": "Bamford+",
+            "year": "2009"
+          },
+          {
+            "title": "Galaxy Zoo: dust in spiral galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2010MNRAS.404..792M",
+            "authors": "Masters+",
+            "year": "2010"
+          },
+          {
+            "title": "Galaxy Zoo: `Hanny's Voorwerp' a quasar light echo?",
+            "url": "http://adsabs.harvard.edu/abs/2009MNRAS.399..129L",
+            "authors": "Lintott+",
+            "year": "2009"
+          },
+          {
+            "title": "Galaxy Zoo Green Peas: discovery of a class of compact extremely star-forming galaxies",
+            "url": "http://adsabs.harvard.edu/abs/2009MNRAS.399.1191C",
+            "authors": "Cardamone+",
+            "year": "2009"
+          },
+          {
+            "title": "Galaxy Zoo: a sample of blue early-type galaxies at low redshift",
+            "url": "http://adsabs.harvard.edu/abs/2009MNRAS.396..818S",
+            "authors": "Schawinski+",
+            "year": "2009"
+          },
+          {
+            "title": "Galaxy Zoo: disentangling the environmental dependence of morphology and colour",
+            "url": "http://adsabs.harvard.edu/abs/2009MNRAS.399..966S",
+            "authors": "Skibba+",
+            "year": "2009"
+          },
+          {
+            "title": "Galaxy Zoo: chiral correlation function of galaxy spins",
+            "url": "http://adsabs.harvard.edu/abs/2009MNRAS.392.1225S",
+            "authors": "Slosar+",
+            "year": "2009"
+          },
+          {
+            "title": "Galaxy Zoo: the large-scale spin statistics of spiral galaxies in the Sloan Digital Sky Survey",
+            "url": "http://adsabs.harvard.edu/abs/2008MNRAS.388.1686L",
+            "authors": "Land+",
+            "year": "2008"
+          },
+          {
+            "title": "Galaxy Zoo: morphologies derived from visual inspection of galaxies from the Sloan Digital Sky Survey",
+            "url": "http://adsabs.harvard.edu/abs/2008MNRAS.389.1179L",
+            "authors": "Lintott+",
+            "year": "2008"
+          },
+          {
+            "title": "Galaxy Zoo: unwinding the winding problem - observations of spiral bulge prominence and arm pitch angles suggest local spiral galaxies are winding",
+            "url": "https://academic.oup.com/mnras/article/487/2/1808/5482087",
+            "authors": "Masters+",
+            "year": "2019"
+          },
+          {
+            "title": "Fading AGN Candidates: AGN Histories and Outflow Signatures",
+            "url": "https://iopscience.iop.org/article/10.3847/1538-4357/835/2/256",
+            "authors": "Keel+",
+            "year": "2017"
+          },
+          {
+            "title": "AGN photoionization of gas in companion galaxies as a probe of AGN radiation in time and direction",
+            "url": "https://academic.oup.com/mnras/article/483/4/4847/5251992",
+            "authors": "Keel+",
+            "year": "2019"
+          },
+          {
+            "title": "Galaxy Zoo: Probabilistic Morphology through Bayesian CNNs and Active Learning",
+            "url": "https://arxiv.org/abs/1905.07424",
+            "authors": "Walmsley+",
+            "year": "2020"
+          }
+        ]
+      },
+      {
+        "title": "Exoplanet Explorers",
+        "projectId": "3757",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/b5302da8-fae8-4299-b05d-d242698e1a62.png",
+        "publications": [
+          {
+            "title": "The K2-138 System: A Near-Resonant Chain of Five Sub-Neptune Planets Discovered by Citizen Scientists",
+            "url": "https://arxiv.org/abs/1801.03874",
+            "authors": "Christiansen+",
+            "year": "2018"
+          },
+          {
+            "title": "K2-288Bb: A small Temperate Planet in a Low-mass Binary System Discovered by Citizen Scientists",
+            "url": "http://iopscience.iop.org/article/10.3847/1538-3881/aafa70",
+            "authors": "Feinstein+",
+            "year": "2019"
+          },
+          {
+            "title": "Catalog of New K2 Exoplanet Candidates from Citizen Scientists",
+            "url": "https://ui.adsabs.harvard.edu/#abs/2019RNAAS...3b..43Z/abstract"
+          },
+          {
+            "title": "Catalog of New K2 Exoplanet Candidates from Citizen Scientists",
+            "url": "https://iopscience.iop.org/article/10.3847/2515-5172/ab0a02/meta",
+            "authors": "Zink+",
+            "year": "2019"
+          },
+          {
+            "title": "K2-138 g: Spitzer Spots a Sixth Sub-Neptune for the Citizen Science System",
+            "url": "https://ui.adsabs.harvard.edu/abs/2019AAS...23316407H/abstract",
+            "authors": "Christiansen+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Disk Detective",
+        "projectId": "50",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6c0b365d-fe0d-4628-b36d-1bc6e583fef2.jpeg",
+        "publications": [
+          {
+            "title": "A new M dwarf debris disk candidate in a young moving group discovered with disk detective",
+            "url": "http://iopscience.iop.org/article/10.3847/2041-8205/830/2/L28/meta",
+            "authors": "Silverberg+",
+            "year": "2016"
+          },
+          {
+            "title": "Disk Detective: Discovery of New Circumstellar Disk Candidates through Citizen Science",
+            "url": "http://iopscience.iop.org/article/10.3847/0004-637X/830/2/84/meta",
+            "authors": "Kuchner+",
+            "year": "2016"
+          },
+          {
+            "title": "Follow-up Imaging of Disk Candidates from the Disk Detective Citizen Science Project: New Discoveries and False-Positives in WISE Circumstellar Disk Surveys",
+            "url": "https://arxiv.org/abs/1809.09663",
+            "authors": "Silverberg+",
+            "year": "2018"
+          }
+        ]
+      },
+      {
+        "title": "Andromeda Project",
+        "projectId": "39",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/e9d68b60-43d8-4fc9-b55c-ebf72f8c7bf2.jpeg",
+        "publications": [
+          {
+            "title": "Panchromatic Hubble Andromeda Treasury XVIII. The High-mass Truncation of the Star Cluster Mass Function",
+            "url": "https://arxiv.org/abs/1703.10312",
+            "authors": "Johnson+",
+            "year": "2017"
+          },
+          {
+            "title": "Panchromatic Hubble Andromeda Treasury XVI. Star Cluster Formation Efficiency and the Clustered Fraction of Young Stars",
+            "url": "https://arxiv.org/abs/1606.05349",
+            "authors": "Johnson+",
+            "year": "2016"
+          },
+          {
+            "title": "The High-mass Stellar Initial Mass Function in M31 Clusters",
+            "url": "https://arxiv.org/abs/1502.06621",
+            "authors": "Weisz+",
+            "year": "2015"
+          },
+          {
+            "title": "PHAT Stellar Cluster Survey. II. Andromeda Project Cluster Catalog",
+            "url": "http://arxiv.org/abs/1501.04966",
+            "authors": "Johnson+",
+            "year": "2015"
+          }
+        ]
+      },
+      {
+        "title": "Backyard Worlds: Planet 9",
+        "projectId": "2416",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/b0703966-0f59-4bf9-909e-6cf947451870.jpeg",
+        "publications": [
+          {
+            "title": "The First Brown Dwarf Discovered by the Backyard Worlds: Planet 9 Citizen Science Project",
+            "url": "http://iopscience.iop.org/article/10.3847/2041-8213/aa7200/meta",
+            "authors": "Kuchner+",
+            "year": "2017"
+          },
+          {
+            "title": "WiseView: Visualizing motion and variability of faint WISE sources",
+            "url": "http://ascl.net/1806.004",
+            "authors": "Caselden+",
+            "year": "2018"
+          },
+          {
+            "title": "A 3 Gyr White Dwarf with Warm Dust Discovered via the Backyard Worlds: Planet 9 Citizen Science Project",
+            "url": "https://arxiv.org/abs/1902.07073",
+            "authors": "Debes+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Space Warps",
+        "projectId": "43",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/7544ce85-d470-4924-b1a0-d9df7ff8ea36.jpeg",
+        "publications": [
+          {
+            "title": "Space Warps - II. New gravitational lens candidates from the CFHTLS discovered through citizen science",
+            "url": "http://mnras.oxfordjournals.org/content/455/2/1191.full.pdf",
+            "authors": "Marshall+",
+            "year": "2016"
+          },
+          {
+            "title": "Space Warps - I. Crowdsourcing the discovery of gravitational lenses",
+            "url": "http://mnras.oxfordjournals.org/content/455/2/1171.full.pdf",
+            "authors": "Marshall+",
+            "year": "2016"
+          },
+          {
+            "title": "Gravitational lens modelling in a citizen science context",
+            "url": "http://arxiv.org/pdf/1502.00008v1.pdf",
+            "authors": "Küng+",
+            "year": "2015"
+          },
+          {
+            "title": "The Red Radio Ring: a gravitationally lensed hyperluminous infrared radio galaxy at z=2.553 discovered through citizen science",
+            "url": "http://arxiv.org/pdf/1503.05824v1.pdf",
+            "authors": "Geach+",
+            "year": "2015"
+          }
+        ]
+      },
+      {
+        "title": "Planet Four",
+        "projectId": "41",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/ea12f707-41f3-440f-99e0-5e39f8edb414.jpeg",
+        "publications": [
+          {
+            "title": "Planet Four: Probing Springtime Winds on Mars by Mapping the Southern Polar CO2 Jet Deposits",
+            "url": "https://arxiv.org/abs/1803.10341",
+            "authors": "Aye+",
+            "year": "2018"
+          }
+        ]
+      },
+      {
+        "title": "Moon Zoo",
+        "projectId": "22",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/db2bbc4a-9c64-41fe-b9e1-85ca95a7f75b.jpeg",
+        "publications": [
+          {
+            "title": "The Moon Zoo citizen science project: Preliminary results for the Apollo 17 landing site",
+            "url": "http://arxiv.org/pdf/1602.01664v1.pdf",
+            "authors": "Bugiolacchi+",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Galaxy Zoo - Supernova",
+        "projectId": "25",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/b2c2901d-4033-4ef6-8458-f5adc4e24758.jpeg",
+        "publications": [
+          {
+            "title": "Galaxy Zoo Supernovae",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.412.1309S",
+            "authors": "Smith+",
+            "year": "2011"
+          },
+          {
+            "title": "Five New Outbursting AM CVn Systems Discovered by the Palomar Transient Factory",
+            "url": "http://adsabs.harvard.edu/abs/2012arXiv1212.5312L",
+            "authors": "Levitan+",
+            "year": "2012"
+          },
+          {
+            "title": "Dynamic Bayesian Combination of Multiple Imperfect Classifiers",
+            "url": "http://adsabs.harvard.edu/abs/2012arXiv1206.1831S",
+            "authors": "Simpson+",
+            "year": "2012"
+          },
+          {
+            "title": "Hubble Space Telescope studies of low-redshift Type Ia supernovae: evolution with redshift and ultraviolet spectral trends",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.426.2359M",
+            "authors": "Maguire+",
+            "year": "2012"
+          },
+          {
+            "title": "PTF10ops - a subluminous, normal-width light curve Type Ia supernova in the middle of nowhere",
+            "url": "http://adsabs.harvard.edu/abs/2011MNRAS.418..747M",
+            "authors": "Maguire+",
+            "year": "2011"
+          }
+        ]
+      },
+      {
+        "title": "Ice Hunters",
+        "projectId": "29",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/81428298-d3f7-40ee-8ec3-891aa5fb3680.jpeg",
+        "publications": [
+          {
+            "title": "2011 HM102: Discovery of a High-Inclination L5 Neptune Trojan in the Search for a post-Pluto New Horizons Target",
+            "url": "http://arxiv.org/abs/1210.4549",
+            "authors": "Parker+",
+            "year": "2012"
+          }
+        ]
+      },
+      {
+        "title": "Planet Four: Terrains",
+        "projectId": "17",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6c69466d-e612-4720-9c03-7a9c180c41a9.jpeg",
+        "publications": [
+          {
+            "title": "Planet Four: Terrains - Discovery of Araneiforms Outside of the South Polar Layered Deposits",
+            "url": "http://arxiv.org/abs/1708.07858",
+            "authors": "Schwamb+",
+            "year": "2017"
+          }
+        ]
+      },
+      {
+        "title": "Planet Hunters",
+        "projectId": "26",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/912d988e-19c3-4abf-b632-312453042d8a.jpeg",
+        "publications": [
+          {
+            "title": "Planet Hunters. VIII. Characterization of 41 Long-Period Exoplanet Candidates from Kepler Archival Data",
+            "url": "http://arxiv.org/pdf/1512.02559v2.pdf",
+            "authors": "Wang+",
+            "year": "2015"
+          },
+          {
+            "title": "Planet Hunters X: Searching for Nearby Neighbors of 75 Planet and Eclipsing Binary Candidates from the K2 Kepler extended mission",
+            "url": "http://arxiv.org/pdf/1603.06945v1.pdf",
+            "authors": "Schmitt+",
+            "year": "2016"
+          },
+          {
+            "title": "Planet Hunters. IX. KIC 8462852 – Where’s the flux?",
+            "url": "http://mnras.oxfordjournals.org/content/457/4/3988.full.pdf",
+            "authors": "Boyajian+",
+            "year": "2015"
+          },
+          {
+            "title": "GALEX J194419.33+491257.0: An unusually active SU UMa-type dwarf nova with a very short orbital period in the Kepler data",
+            "url": "http://adsabs.harvard.edu/doi/10.1093/pasj/psu025",
+            "authors": "Kato & Osaki",
+            "year": "2014"
+          },
+          {
+            "title": "Planet Hunters. VI. An Independent Characterization of KOI-351 and Several Long Period Planet Candidates from the Kepler Archival Data",
+            "url": "http://adsabs.harvard.edu/abs/2013arXiv1310.5912S",
+            "authors": "Schmitt+",
+            "year": "2014"
+          },
+          {
+            "title": "Planet Hunters. VII. Discovery of a New Low-mass, Low-density Planet (PH3 C) Orbiting Kepler-289 with Mass Measurements of Two Additional Planets (PH3 B and D)",
+            "url": "http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1410.8114",
+            "authors": "Schmitt+",
+            "year": "2014"
+          },
+          {
+            "title": "Planet Hunters: KIC 9406652: An Unusual Cataclysmic Variable in the Kepler Field of View",
+            "url": "http://arxiv.org/abs/1308.0369",
+            "authors": "Gies+",
+            "year": "2013"
+          },
+          {
+            "title": "Planet Hunters: A Transiting Circumbinary Planet in a Quadruple Star System",
+            "url": "http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1210.3612",
+            "authors": "Schwamb+",
+            "year": "2013"
+          },
+          {
+            "title": "Planet Hunters: the first two planet candidates identified by the public using the Kepler public archive data",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.419.2900F",
+            "authors": "Fischer+",
+            "year": "2012"
+          },
+          {
+            "title": "Planet Hunters: New Kepler planet candidates from analysis of quarter 2",
+            "url": "https://iopscience.iop.org/article/10.1088/0004-6256/145/6/151/meta",
+            "authors": "Lintott+",
+            "year": "2013"
+          },
+          {
+            "title": "Planet Hunters V. A Confirmed Jupiter-Size Planet in the Habitable Zone and 42 Planet Candidates from the Kepler Archive Data",
+            "url": "http://arxiv.org/abs/1301.0644",
+            "authors": "Wang+",
+            "year": "2013"
+          },
+          {
+            "title": "Planet Hunters: Assessing the Kepler Inventory of Short-period Planets",
+            "url": "http://adsabs.harvard.edu/abs/2012ApJ...754..129S",
+            "authors": "Schwamb+",
+            "year": "2012"
+          },
+          {
+            "title": "WASP-47: A Hot Jupiter System with Two Additional Planets Discovered by K2",
+            "url": "https://arxiv.org/abs/1508.02411",
+            "authors": "Becker+",
+            "year": "2015"
+          },
+          {
+            "title": "Likely transiting exocomets detected by Kepler",
+            "url": "http://arxiv.org/abs/1708.06069",
+            "authors": "Rappaport+",
+            "year": "2017"
+          }
+        ]
+      },
+      {
+        "title": "Radio Galaxy Zoo",
+        "projectId": "47",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/8887fa98-c149-461f-99d2-aafceef25a6b.jpeg",
+        "publications": [
+          {
+            "title": "Radio Galaxy Zoo: discovery of a poor cluster through a giant wide-angle tail radio galaxy",
+            "url": "http://mnras.oxfordjournals.org/content/early/2016/05/05/mnras.stw1067.abstract",
+            "authors": "Banfield+",
+            "year": "2016"
+          },
+          {
+            "title": "Radio Galaxy Zoo: host galaxies and radio morphologies derived from visual inspection",
+            "url": "https://academic.oup.com/mnras/article/453/3/2326/1075547",
+            "authors": "Banfield+",
+            "year": "2015"
+          },
+          {
+            "title": "Radio Galaxy Zoo: Cosmological Alignment of Radio Sources",
+            "url": "https://academic.oup.com/mnras/article/472/1/636/4060737",
+            "authors": "Contigiani+",
+            "year": "2017"
+          },
+          {
+            "title": "Radio Galaxy Zoo: A Search for Hybrid Morphology Radio Galaxies",
+            "url": "http://iopscience.iop.org/article/10.3847/1538-3881/aa90b7",
+            "authors": "Kapińska+",
+            "year": "2017"
+          },
+          {
+            "title": "Radio Galaxy Zoo: Compact and extended radio source classification with deep learning",
+            "url": "https://academic.oup.com/mnras/article/476/1/246/4826039",
+            "authors": "Lukic+",
+            "year": "2018"
+          },
+          {
+            "title": "Radio Galaxy Zoo: ClaRAN - A Deep Learning Classifier for Radio Morphologies",
+            "url": "https://arxiv.org/abs/1805.12008",
+            "authors": "Wu+",
+            "year": "2018"
+          },
+          {
+            "title": "Radio Galaxy Zoo: Machine learning for radio source host galaxy cross-identification",
+            "url": "https://academic.oup.com/mnras/article/478/4/5547/4999919",
+            "authors": "Alger+",
+            "year": "2018"
+          },
+          {
+            "title": "Radio Galaxy Zoo: The Distortion of Radio Galaxies by Galaxy Clusters",
+            "url": "https://arxiv.org/abs/1901.05480",
+            "authors": "Garon+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Snapshot Supernova",
+        "projectId": "1",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6c2ad786-618f-40a4-b6ed-f9b7e45f9588.jpeg",
+        "publications": [
+          {
+            "title": "ATel #7254: PESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=7254",
+            "authors": "Campbell+",
+            "year": "2015"
+          },
+          {
+            "title": "ATel #7261: PESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=7261",
+            "authors": "Cartier+",
+            "year": "2015"
+          }
+        ]
+      },
+      {
+        "title": "Solar Stormwatch",
+        "projectId": "23",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/d26703e8-b9ba-47e0-a8c2-a2b6e32ec688.jpeg",
+        "publications": [
+          {
+            "title": "Testing the current paradigm for space weather prediction with heliospheric imagers",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/2017SW001609/full",
+            "authors": "Barnard+",
+            "year": "2017"
+          },
+          {
+            "title": "Tracking CMEs using data from the Solar Stormwatch project;observing deﬂections and other properties",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/2017SW001640/epdf",
+            "authors": "Jones+",
+            "year": "2017"
+          },
+          {
+            "title": "Differences between the CME fronts tracked by an expert, an automated algorithm, and the Solar Stormwatch project",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/2015SW001280/full",
+            "authors": "Barnard+",
+            "year": "2015"
+          },
+          {
+            "title": "Observational Tracking of the 2D Structure of Coronal Mass Ejections Between the Sun and 1 AU",
+            "url": "http://arxiv.org/abs/1503.08774",
+            "authors": "Savani+",
+            "year": "2015"
+          },
+          {
+            "title": "Validation of a priori CME arrival predictions made using real-time heliospheric imager observations",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/2014SW001106/abstract",
+            "authors": "Tucker-Hood+",
+            "year": "2015"
+          },
+          {
+            "title": "The Solar Stormwatch CME catalogue: Results from the first space weather citizen science project",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/2014SW001119/abstract",
+            "authors": "Barnard+",
+            "year": "2014"
+          },
+          {
+            "title": "The distribution of interplanetary dust between 0.96 and 1.04 au as inferred from impacts on the STEREO spacecraft observed by the heliospheric imagers",
+            "url": "http://adsabs.harvard.edu/abs/2012MNRAS.420.1355D",
+            "authors": "Davis+",
+            "year": "2012"
+          }
+        ]
+      },
+      {
+        "title": "Supernova Hunters",
+        "projectId": "2455",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6a22db9e-78c2-481f-8704-7b0e73a4ca4d.jpeg",
+        "publications": [
+          {
+            "title": "ePESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=10331",
+            "authors": "Gutierrez+",
+            "year": "2017"
+          },
+          {
+            "title": "ePESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=10328",
+            "authors": "Cartier+",
+            "year": "2017"
+          },
+          {
+            "title": "ePESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=10334",
+            "authors": "Cartier+",
+            "year": "2017"
+          },
+          {
+            "title": "A transient search using combined human and machine classifications",
+            "url": "https://arxiv.org/pdf/1707.05223.pdf",
+            "authors": "Wright+",
+            "year": "2017"
+          },
+          {
+            "title": "PESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=9308",
+            "authors": "Mattila+",
+            "year": "2016"
+          },
+          {
+            "title": "PESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=9269",
+            "authors": "Fraser+",
+            "year": "2016"
+          },
+          {
+            "title": "PESSTO spectroscopic classification of optical transients",
+            "url": "http://www.astronomerstelegram.org/?read=9711",
+            "authors": "Dimitriadis+",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Supernova Sighting",
+        "projectId": "4124",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/1d2063fb-578e-48f8-b4a3-bfd4cbfda01a.jpeg",
+        "publications": [
+          {
+            "title": "Spectroscopic classification of SN 2018bwp as a type Ia supernova a few weeks after peak brightness",
+            "url": "http://www.astronomerstelegram.org/?read=11671",
+            "authors": "Lopez-Sanchez+",
+            "year": "2018"
+          },
+          {
+            "title": "Spectroscopic classification of SN 2018bwq as a type Ia supernova a few days before maximum light",
+            "url": "http://www.astronomerstelegram.org/?read=11667",
+            "authors": "Lopez-Sanchez+",
+            "year": "2018"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Physics",
+    "weight": 2,
+    "projects": [
+      {
+        "title": "Gravity Spy",
+        "projectId": "1104",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/1f9cb06d-1dc9-4abc-ad1c-70c6d5072992.png",
+        "publications": [
+          {
+            "title": "Appealing to different motivations in a message to recruit citizen scientists: results of a field experiment",
+            "url": "https://jcom.sissa.it/archive/17/01/JCOM_1701_2018_A02",
+            "authors": "Lee+",
+            "year": "2018"
+          },
+          {
+            "title": "Deep Multi-view Models for Glitch Classification",
+            "url": "https://arxiv.org/pdf/1705.00034.pdf",
+            "authors": "Bahaadini+",
+            "year": "2017"
+          },
+          {
+            "title": "Gravity Spy: Integrating Advanced LIGO Detector Characterization, Machine Learning, and Citizen Science",
+            "url": "https://arxiv.org/abs/1611.04596",
+            "authors": "Zevin+",
+            "year": "2017"
+          },
+          {
+            "title": "Gravity Spy: Humans, machines and the future of citizen science",
+            "url": "https://crowston.syr.edu/node/668",
+            "authors": "Crowston+",
+            "year": "2017"
+          },
+          {
+            "title": "Machine learning for Gravity Spy: Glitch classification and dataset",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0020025518301634",
+            "authors": "Bahaadini+",
+            "year": "2018"
+          },
+          {
+            "title": "Folksonomies to Support Coordination and Coordination of Folksonomies",
+            "url": "https://link.springer.com/article/10.1007%2Fs10606-018-9327-z",
+            "authors": "Jackson+",
+            "year": "2018"
+          },
+          {
+            "title": "Blending Machine and Human Learning Processes",
+            "url": "http://hdl.handle.net/10125/41159",
+            "authors": "Crowston+",
+            "year": "2017"
+          },
+          {
+            "title": "Did they login? Patterns of Anonymous Contributions in Online Communities",
+            "url": "https://crowston.syr.edu/sites/crowston.syr.edu/files/anonymous-contributions-cameraready.pdf",
+            "authors": "Jackson+",
+            "year": "2018"
+          },
+          {
+            "title": "Knowledge Tracing to Model Learning in Online Citizen Science Projects",
+            "url": "https://crowston.syr.edu/node/784",
+            "authors": "Crowston+",
+            "year": "2019"
+          },
+          {
+            "title": "The Genie in the Bottle: Different Stakeholders, Different Interpretations of Machine Learning",
+            "url": "https://crowston.syr.edu/node/781",
+            "authors": "Harandi+",
+            "year": "2020"
+          },
+          {
+            "title": "Classifying the unknown: discovering novel gravitational-wave detector glitches using similarity learning",
+            "url": "https://arxiv.org/abs/1903.04058",
+            "authors": "Coughlin+",
+            "year": "2019"
+          },
+          {
+            "title": "Linguistic Adoption in Online Citizen Science: A Structurational Perspective",
+            "url": "https://crowston.syr.edu/node/860",
+            "authors": "Jackson+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Higgs Hunters",
+        "projectId": "56",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/f6a09e22-771a-4d54-a7bf-0558d2d5cdc8.jpeg",
+        "publications": [
+          {
+            "title": "'That looks weird' - evaluating citizen scientists' ability to detect unusual features in ATLAS images of LHC collisions",
+            "url": "https://arxiv.org/pdf/1610.02214v1.pdf",
+            "authors": "Barr+",
+            "year": "2016"
+          },
+          {
+            "title": "Proceedings of the First Higgs Hunters Schools’ Conference",
+            "url": "http://cds.cern.ch/record/2676777",
+            "authors": "Barr+",
+            "year": "2019"
+          },
+          {
+            "title": "Citizen scientist community engagement with the Higgs Hunters project at the Large Hadron Collider",
+            "url": "https://www.ingentaconnect.com/content/ioep/rfa/2018/00000002/00000002/art00013",
+            "authors": "Barr+",
+            "year": "2018"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Climate",
+    "weight": 3,
+    "projects": [
+      {
+        "title": "Cyclone Center",
+        "projectId": "36",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/443eb5a0-1053-431a-b9fb-648c507423cd.jpeg",
+        "publications": [
+          {
+            "title": "Cyclone Center: Can Citizen Scientists Improve Tropical Cyclone Intensity Records?",
+            "url": "http://journals.ametsoc.org/doi/abs/10.1175/BAMS-D-13-00152.1",
+            "authors": "Hennon+",
+            "year": "2014"
+          }
+        ]
+      },
+      {
+        "title": "Pattern Perception",
+        "projectId": "2299",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/2e2cdc02-83ce-4682-8ea7-bf975117004c.jpeg",
+        "publications": [
+          {
+            "title": "Citizen science: A new perspective to advance spatial pattern evaluation in hydrology",
+            "url": "http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0178165",
+            "authors": "Koch+",
+            "year": "2017"
+          }
+        ]
+      },
+      {
+        "title": "Season Spotter Questions",
+        "projectId": "347",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6985bc43-1b9a-4361-8bb8-d323d3d524a3.png",
+        "publications": [
+          {
+            "title": "Volunteer recruitment and retention in online citizen science projects using marketing strategies: lessons from Season Spotter",
+            "url": "https://jcom.sissa.it/sites/default/files/documents/JCOM_1601_2017_A01.pdf",
+            "authors": "Crall+",
+            "year": "2017"
+          },
+          {
+            "title": "Season Spotter: Using Citizen Science to Validate and Scale Plant Phenology from Near-Surface Remote Sensing",
+            "url": "http://www.mdpi.com/2072-4292/8/9/726",
+            "authors": "Kosmala+",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Sounds of New York City",
+        "projectId": "5352",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/940ed797-9f4e-4c69-b5e1-1f837527b112.png",
+        "publications": [
+          {
+            "title": "Crowdsourcing Multi-label Audio Annotation Tasks with Citizen Scientists",
+            "url": "https://dl.acm.org/citation.cfm?id=3300522",
+            "authors": "Cartwright+",
+            "year": "2019"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Humanities",
+    "weight": 4,
+    "projects": [
+      {
+        "title": "Ancient Lives",
+        "projectId": "2366",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/9e7a8aca-247d-40eb-bfa8-509a74a26f22.png",
+        "publications": [
+          {
+            "title": "A computational pipeline for crowdsourced transcriptions of Ancient Greek papyrus fragments",
+            "url": "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&tp=&arnumber=7004460&queryText%3Dwilliam+alex+pridemore",
+            "authors": "Williams+",
+            "year": "2014"
+          },
+          {
+            "title": "P.Oxy 5156, Plutarch Moralia 660C, 661B-C (Quaestiones Convivales IV PR., 1.2), in The Oxyrhynchus Papyri Vol. 78",
+            "url": null,
+            "authors": "Brusuelas",
+            "year": "2013"
+          }
+        ]
+      },
+      {
+        "title": "Operation War Diary",
+        "projectId": "48",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/8a874ad1-008c-4b1f-a68f-c66abd7fdc9f.jpeg",
+        "publications": [
+          {
+            "title": "The Zooniverse is Expanding: Crowdsourced Solutions to the Hidden Collections Problem and the Rise of the Revolutionary Cataloging Interface",
+            "url": "https://doi.org/10.1080/19386389.2018.1489449",
+            "authors": "Barber",
+            "year": "2019"
+          },
+          {
+            "title": "A Life in the Trenches? The Use of Operation War Diary and Crowdsourcing Methods to Provide an Understanding of the British Army’s Day-to-Day Life on the Western Front",
+            "url": "http://journals.gold.ac.uk/index.php/bjmh/article/view/662",
+            "authors": "Grayson+",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Scribes of the Cairo Geniza",
+        "projectId": "5042",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/877becbd-83af-4523-87b2-e1e1a0e4bac7.jpeg",
+        "publications": [
+          {
+            "title": "Of Scribes and Scripts: Citizen Science and the Cairo Genizah",
+            "url": "https://repository.upenn.edu/mss_sims/vol3/iss1/9/",
+            "authors": "Eckstein",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Shakespeare's World",
+        "projectId": "376",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/14472e63-10fb-4d47-81c9-8d6812036b37.jpeg",
+        "publications": [
+          {
+            "title": "Tagging, Pinging and Linking – User Roles in Virtual Citizen Science Forums",
+            "url": "https://theoryandpractice.citizenscienceassociation.org/articles/10.5334/cstp.181/",
+            "authors": "Rohden+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "The American Soldier",
+        "projectId": "5551",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/ca03c413-8d8b-4aca-ae81-c67e4e634850.jpeg",
+        "publications": [
+          {
+            "title": "Supporting Historical Research and Education with Crowdsourced Analysis of Primary Sources",
+            "url": "https://vtechworks.lib.vt.edu/handle/10919/87437",
+            "authors": "Wang",
+            "year": "2019"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Nature",
+    "weight": 5,
+    "projects": [
+      {
+        "title": "Bat Detective",
+        "projectId": "37",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/8fc06440-a7b9-4b6a-ba93-8b153e9daa72.jpeg",
+        "publications": [
+          {
+            "title": "Bat detective—Deep learning tools for bat acoustic signal detection",
+            "url": "https://doi.org/10.1371/journal.pcbi.1005995",
+            "authors": "Mac Aodha+",
+            "year": "2018"
+          }
+        ]
+      },
+      {
+        "title": "Chimp & See",
+        "projectId": "60",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/ddfe31cf-2d16-48bc-835b-5ae6c727afc3.jpeg",
+        "publications": [
+          {
+            "title": "Nocturnal activity in wild chimpanzees (Pan troglodytes): Evidence for flexible sleeping patterns and insights into human evolution",
+            "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/ajpa.23478",
+            "authors": "Tagg+",
+            "year": "2018"
+          },
+          {
+            "title": "Novelty Response of Wild African Apes to Camera Traps",
+            "url": "https://www.cell.com/current-biology/fulltext/S0960-9822(19)30163-0",
+            "authors": "Kalan+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Elephant Expedition",
+        "projectId": "3775",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/95a815ef-7e22-434f-b6d3-a73e288837e6.jpeg",
+        "publications": [
+          {
+            "title": "The Role of Forest Elephants in Shaping Tropical Forest-Savanna Coexistence",
+            "url": "https://link.springer.com/epdf/10.1007/s10021-019-00424-3",
+            "authors": "Cardoso+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Floating Forests",
+        "projectId": "2864",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/546ce22c-f6b2-4fbb-a883-ab4157007659.png",
+        "publications": [
+          {
+            "title": "Encouraging Work in Citizen Science: Experiments in Goal Setting and Anchoring",
+            "url": "https://dl.acm.org/citation.cfm?id=2818052.2869129",
+            "authors": "Jackson+",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Identify New Zealand animals",
+        "projectId": "5142",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/c34555c0-e790-4eee-a4c8-ca1c98429524.png",
+        "publications": [
+          {
+            "title": "Monitoring the mammalian fauna of urban areas using remote cameras and citizen science",
+            "url": "https://academic.oup.com/jue/article/4/1/juy002/4947839",
+            "authors": "Anton+",
+            "year": "2018"
+          },
+          {
+            "title": "Evaluation of remote cameras for monitoring multiple invasive mammals in New Zealand",
+            "url": "https://www.researchgate.net/publication/318727598_Evaluation_of_remote_cameras_for_monitoring_multiple_invasive_mammals_in_New_Zealand",
+            "authors": "Anton+",
+            "year": "2018"
+          }
+        ]
+      },
+      {
+        "title": "Notes from Nature",
+        "projectId": "1558",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/5e650d84-6143-437c-91e1-16f387d64eae.jpeg",
+        "publications": [
+          {
+            "title": "Workforce-efficient consensus in crowdsourced transcription of biocollections information",
+            "url": "http://www.sciencedirect.com/science/article/pii/S0167739X15002277",
+            "authors": "Matsunaga+",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Penguin Watch",
+        "projectId": "55",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6e74b1f7-e50d-4d5a-9e0c-2fc568ed1b29.jpeg",
+        "publications": [
+          {
+            "title": "Counting in the Wild, Arteta, C., Lempitsky, V., Zisserman",
+            "url": "https://link.springer.com/chapter/10.1007/978-3-319-46478-7_30",
+            "authors": "A",
+            "year": "2016"
+          }
+        ]
+      },
+      {
+        "title": "Plankton Portal",
+        "projectId": "46",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/420b2e5e-3181-400e-8e09-3c92849c8863.jpeg",
+        "publications": [
+          {
+            "title": "A Tale of Two Crowds: Public Engagement in Plankton Classification",
+            "url": "https://docs.google.com/spreadsheets/d/1NZ31aVPiQag5V3-zY9tIP2x2WPXFEf9dLIIHBSHkx3M/edit#gid=0",
+            "authors": "Robinson+",
+            "year": "2017"
+          }
+        ]
+      },
+      {
+        "title": "Snapshot Serengeti",
+        "projectId": "4996",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/54f9e3ce-1231-4456-8ea5-453982487f57.jpeg",
+        "publications": [
+          {
+            "title": "Applying a random encounter model to estimate lion density from camera traps in Serengeti National Park, Tanzania",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/jwmg.902/full",
+            "authors": "Cusack+",
+            "year": "2015"
+          },
+          {
+            "title": "Snapshot Serengeti, high-frequency annotated camera trap images of 40 mammalian species in an African savanna",
+            "url": "http://www.nature.com/articles/sdata201526",
+            "authors": "Swanson+",
+            "year": "2015"
+          },
+          {
+            "title": "In the absence of a 'landscape of fear': How lions, hyenas, and cheetahs coexist",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1002/ece3.2569/full",
+            "authors": "Swanson+",
+            "year": "2016"
+          },
+          {
+            "title": "A generalized approach for producing, quantifying, and validating citizen science data from wildlife images",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1111/cobi.12695/abstract",
+            "authors": "Swanson+",
+            "year": "2016"
+          },
+          {
+            "title": "The spatial distribution of African savannah herbivores: species associations and habitat occupancy in a landscape context",
+            "url": "http://rstb.royalsocietypublishing.org/content/371/1703/20150314",
+            "authors": "Anderson+",
+            "year": "2016"
+          },
+          {
+            "title": "Identifying drivers of spatial variation in occupancy with limited replication camera trap data",
+            "url": "https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecy.2396",
+            "authors": "Hepler+",
+            "year": "2018"
+          },
+          {
+            "title": "No respect for apex carnivores Distribution and activity patterns of honey badgers in the Serengeti",
+            "url": "https://www.sciencedirect.com/science/article/pii/S1616504717302720",
+            "authors": "Allen+",
+            "year": "2018"
+          },
+          {
+            "title": "Towards automatic wild animal monitoring: Identification of animal species in camera-trap images using very deep convolutional neural networks",
+            "url": "https://arxiv.org/pdf/1603.06169.pdf",
+            "authors": "Gomez+",
+            "year": "2017"
+          },
+          {
+            "title": "Identifying animal species in camera trap images using deep learning and citizen science",
+            "url": "https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13099",
+            "authors": "Willi",
+            "year": "2018"
+          },
+          {
+            "title": "Bats join the ranks of oxpeckers and cleaner fish as partners in a pest‐reducing mutualism",
+            "url": "https://www.researchgate.net/publication/330849616_Bats_join_the_ranks_of_oxpeckers_and_cleaner_fish_as_partners_in_a_pest-reducing_mutualism",
+            "authors": "Palmer+",
+            "year": "2019"
+          },
+          {
+            "title": "A ‘dynamic’ landscape of fear: prey responses to spatiotemporal variations in predation risk across the lunar cycle",
+            "url": "https://www.researchgate.net/publication/319670534_A_'dynamic'_landscape_of_fear_prey_responses_to_spatiotemporal_variations_in_predation_risk_across_the_lunar_cycle",
+            "authors": "Palmer+",
+            "year": "2017"
+          },
+          {
+            "title": "Giraffe bed and breakfast: Camera traps reveal Tanzanian yellow-billed oxpeckers roosting on their large mammalian hosts",
+            "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/aje.12505",
+            "authors": "Palmer+",
+            "year": "2018"
+          },
+          {
+            "title": "Automatically identifying, counting, and describing wild animals in camera-trap images with deep learning",
+            "url": "https://www.pnas.org/content/115/25/E5716",
+            "authors": "Norouzzadeh+",
+            "year": "2018"
+          },
+          {
+            "title": "Evaluating relative abundance indices for terrestrial herbivores from large‐scale camera trap surveys",
+            "url": "https://www.researchgate.net/publication/329288754_Evaluating_relative_abundance_indices_for_terrestrial_herbivores_from_large-scale_camera_trap_surveys",
+            "authors": "Palmer+",
+            "year": "2018"
+          },
+          {
+            "title": "Animal Scanner: Software for classifying humans, animals, and empty frames in camera trap images",
+            "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.4747",
+            "authors": "Yousif+",
+            "year": "2019"
+          }
+        ]
+      },
+      {
+        "title": "Whale FM",
+        "projectId": "32",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/8901db9f-4dc9-4965-8d58-367736ffd0fc.jpeg",
+        "publications": [
+          {
+            "title": "Classification of large acoustic datasets using machine learning and crowdsourcing: Application to whale calls",
+            "url": "https://www.ncbi.nlm.nih.gov/pubmed/25234903",
+            "authors": "Shamir+",
+            "year": "2014"
+          },
+          {
+            "title": "Repeated call types in short-finned pilot whales, Globicephala macrorhynchus",
+            "url": "http://onlinelibrary.wiley.com/doi/10.1111/j.1748-7692.2012.00577.x/abstract",
+            "authors": "Sayigh+",
+            "year": "2012"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Medicine",
+    "weight": 6,
+    "projects": [
+      {
+        "title": "Cell Slider",
+        "projectId": "38",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/459a8744-2a2c-434a-863e-61aa539c2043.jpeg",
+        "publications": [
+          {
+            "title": "Crowdsourcing the General Public for Large Scale Molecular Pathology Studies in Cancer",
+            "url": "http://www.ebiomedicine.com/article/S2352-3964(15)30016-5/pdf",
+            "authors": "Candido dos Reis+",
+            "year": "2015"
+          }
+        ]
+      },
+      {
+        "title": "Microscopy Masters",
+        "projectId": "1457",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/eea70444-25b7-4bef-b1f1-328f50aa1351.jpeg",
+        "publications": [
+          {
+            "title": "Exploring applications of crowdsourcing to cryo-EM",
+            "url": "https://www.sciencedirect.com/science/article/pii/S1047847718300601",
+            "authors": "Bruggemann+",
+            "year": "2018"
+          }
+        ]
+      },
+      {
+        "title": "Sounds of New York City",
+        "projectId": "5352",
+        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/940ed797-9f4e-4c69-b5e1-1f837527b112.png",
+        "publications": [
+          {
+            "title": "Crowdsourcing Multi-label Audio Annotation Tasks with Citizen Scientists",
+            "url": "https://dl.acm.org/citation.cfm?id=3300522",
+            "authors": "Cartwright+",
+            "year": "2019"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Meta",
+    "weight": 8,
+    "projects": [
+      {
+        "title": "Meta Studies",
+        "publications": [
+          {
+            "title": "Citizen science frontiers: Efficiency, engagement, and serendipitous discovery with human–machine systems",
+            "url": "https://www.pnas.org/content/116/6/1902.abstract",
+            "authors": "Trouille+",
+            "year": "2019"
+          },
+          {
+            "title": "Open Community Health: Workshop Report",
+            "url": "http://peerproduction.net/issues/issue-13-open/news-from-nowhere/open-community-health-workshop-report/",
+            "authors": "Link+",
+            "year": "2018"
+          },
+          {
+            "title": "Everyone counts? Design considerations in online citizen science",
+            "url": "https://jcom.sissa.it/archive/18/01/JCOM_1801_2019_A04",
+            "authors": "Spiers+",
+            "year": "2019"
+          },
+          {
+            "title": "Optimizing Interventions via Offline Policy Evaluation: Studies in Citizen Science",
+            "url": "http://erichorvitz.com/optimizing-interventions-offline.pdf",
+            "authors": "Segal+",
+            "year": "2018"
+          },
+          {
+            "title": "Preserving the Margins: Supporting Creativity and Resistance on Digital Participatory Platforms",
+            "url": "https://dl.acm.org/citation.cfm?id=3134718",
+            "authors": "Mugar",
+            "year": "2017"
+          },
+          {
+            "title": "Comparing experts and novices in Martian surface feature change detection and identification",
+            "url": "https://www.sciencedirect.com/science/article/pii/S030324341730123X?via%3Dihub",
+            "authors": "Wardlaw+",
+            "year": "2018"
+          },
+          {
+            "title": "Task Workflow Design and its impact on performance and volunteers' subjective preference in Virtual Citizen Science",
+            "url": "http://www.sciencedirect.com/science/article/pii/S1071581917300332",
+            "authors": "Sprinks+",
+            "year": "2017"
+          },
+          {
+            "title": "Recruiting Messages Matter: Message Strategies to Attract Citizen Scientists",
+            "url": "http://dl.acm.org/citation.cfm?id=3026335",
+            "authors": "Lee+",
+            "year": "2017"
+          },
+          {
+            "title": "Blending Machine and Human Learning Processes, Crowston, Kevin, Østerlund, Carsten, Lee, Tae Kyoung, 2017",
+            "url": "http://scholarspace.manoa.hawaii.edu/handle/10125/41159",
+            "year": "2017"
+          },
+          {
+            "title": "Doing good online: the changing relationships between motivations, activity and retention among online volunteers",
+            "url": "http://eprints.lse.ac.uk/81320/",
+            "authors": "Cox+",
+            "year": "2017"
+          },
+          {
+            "title": "DIY Zooniverse Citizen Science Project: Engaging The Public With Your Museum’s Collections And Data",
+            "url": "http://mw17.mwconf.org/paper/diy-your-own-zooniverse-citizen-science-project-engaging-the-public-with-your-museums-collections-and-data/",
+            "authors": "Trouille+",
+            "year": "2017"
+          },
+          {
+            "title": "Giving Citizen Scientists a Chance: A Study of Volunteer-led Scientific Discovery",
+            "url": "http://theoryandpractice.citizenscienceassociation.org/articles/10.5334/cstp.40/",
+            "authors": "Straub",
+            "year": "2016"
+          },
+          {
+            "title": "Intervention Strategies for Increasing Engagement in Crowdsourcing: Platform, Predictions, and Experiments",
+            "url": "http://research.microsoft.com/en-us/um/people/horvitz/engagement_intervention.pdf",
+            "authors": "Segal+",
+            "year": "2016"
+          },
+          {
+            "title": "Assessing data quality in citizen science",
+            "url": "http://biorxiv.org/content/early/2016/09/08/074104",
+            "authors": "Kosmala+",
+            "year": "2016"
+          },
+          {
+            "title": "Science Learning via Participation in Online Citizen Science",
+            "url": "http://arxiv.org/pdf/1601.05973v1.pdf",
+            "authors": "Masters+",
+            "year": "2016"
+          },
+          {
+            "title": "'Guess what! You're the first to see this event': Increasing Contribution to Online Production Communities",
+            "url": "http://citsci.syr.edu/content/%E2%80%9Cguess-what-you%E2%80%99re-first-see-event%E2%80%9D-increasing-contribution-online-production-communities",
+            "authors": "Jackson+",
+            "year": "2016"
+          },
+          {
+            "title": "Which Way Did They Go? Newcomer Movement through the Zooniverse",
+            "url": "http://dl.acm.org/citation.cfm?id=2818048.2835197",
+            "authors": "Jackson+",
+            "year": "2016"
+          },
+          {
+            "title": "This Image Intentionally Left Blank: Mundane Images Increase Citizen Science Participation",
+            "url": "http://www.humancomputation.com/2015/papers/45_Paper.pdf",
+            "authors": "Bowyer+",
+            "year": "2015"
+          },
+          {
+            "title": "Defining and Measuring Success in Online Citizen Science: A Case Study of Zooniverse Projects",
+            "url": "http://eprints.whiterose.ac.uk/86535/",
+            "authors": "Cox+",
+            "year": "2015"
+          },
+          {
+            "title": "Being Present in Online Communities: Learning in Citizen Science",
+            "url": "http://dl.acm.org/citation.cfm?id=2768555",
+            "authors": "Mugar+",
+            "year": "2015"
+          },
+          {
+            "title": "Socializing the Crowd: Learning to Talk in Citizen Science",
+            "url": "http://proceedings.aom.org/content/2014/1/16799.short",
+            "authors": "Oesterlund+",
+            "year": "2014"
+          },
+          {
+            "title": "Motivations for Sustained Participation in Crowdsourcing: Case Studies of Citizen Science on the Role of Talk",
+            "url": "http://ieeexplore.ieee.org/document/7070006/",
+            "authors": "Jackson+",
+            "year": "2015"
+          },
+          {
+            "title": "Planet hunters and seafloor explorers: legitimate peripheral participation through practice proxies in online citizen science",
+            "url": "http://dl.acm.org/citation.cfm?id=2531721",
+            "authors": "Mugar+",
+            "year": "2014"
+          },
+          {
+            "title": "Designing for Dabblers and Deterring Drop-Outs in Citizen Science",
+            "url": "http://discovery.ucl.ac.uk/1418573/1/p2985-eveleigh.pdf",
+            "authors": "Eveleigh+",
+            "year": "2014"
+          },
+          {
+            "title": "Playing with science: gamised aspects of gamification found on the Online Citizen Science Project - Zooniverse",
+            "url": "http://eprints.port.ac.uk/15648/",
+            "authors": "Greenhill+",
+            "year": "2014"
+          },
+          {
+            "title": "Why Won’t Alien’s Talk to Us: Content and Community Dynamics in Online Citizen Science",
+            "url": "https://eprints.soton.ac.uk/363523/",
+            "authors": "Luczak-Roesch+",
+            "year": "2014"
+          },
+          {
+            "title": "Volunteers’ Engagement in Human Computation Astronomy Projects",
+            "url": "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&arnumber=6728933",
+            "authors": "Ponciano+",
+            "year": "2014"
+          },
+          {
+            "title": "Zooniverse: Observing the World’s Largest Citizen Science Platform",
+            "url": "http://dl.acm.org/citation.cfm?id=2579215",
+            "authors": "Simpson+",
+            "year": "2014"
+          },
+          {
+            "title": "“Volunteering Versus Work for Pay: Incentives and Tradeoffs in Crowdsourcing",
+            "url": "http://www.aaai.org/ocs/index.php/HCOMP/HCOMP13/paper/viewFile/7497/7408",
+            "authors": "Mao+",
+            "year": "2013"
+          },
+          {
+            "title": "“Why Stop Now? Predicting Worker Engagement in Online Crowdsourcing",
+            "url": "http://research.microsoft.com/en-us/um/people/eckamar/papers/HCOMP12_engagement.pdf",
+            "authors": "Mao+",
+            "year": "2013"
+          },
+          {
+            "title": "“I want to be a Captain! I want to be a Captain!\": Gamification in the Old Weather citizen science project",
+            "url": "http://discovery.ucl.ac.uk/1412171/",
+            "authors": "Eveleigh+",
+            "year": "2013"
+          },
+          {
+            "title": "Learning by volunteer computing, thinking and gaming: What and how are volunteers learning by participating in Virtual Citizen Science?",
+            "url": "http://ebwb.hu-berlin.de/aktuelles/esrea/conference-programme/esrea-book-of-abstracts",
+            "authors": "Kloetzer+",
+            "year": "2013"
+          },
+          {
+            "title": "Measuring the Conceptual Understandings of Citizen Scientists Participating in Zooniverse Projects: A First Approach",
+            "url": "http://www.portico.org/Portico/#!journalAUSimpleView/tab=PDF?cs=ISSN_15391515?ct=E-Journal%20Content?auId=ark:/27927/pgg3ztfcwj0",
+            "authors": "Prather+",
+            "year": "2013"
+          },
+          {
+            "title": "Creativity in citizen cyberscience: All for one and one for all",
+            "url": "http://ac.aup.fr/~croda/tclab/creativity&attention2013Material/CharleneJennett.pdf",
+            "authors": "Jennett+",
+            "year": "2013"
+          },
+          {
+            "title": "Galaxy Zoo: Motivations of Citizen Scientists",
+            "url": "http://arxiv.org/abs/1303.6886",
+            "authors": "Raddick+",
+            "year": "2013"
+          },
+          {
+            "title": "Galaxy Zoo: Morphological Classification and Citizen Science",
+            "url": "http://labs.adsabs.harvard.edu/adsabs/abs/2012amld.book..213F/",
+            "authors": "Fortson+",
+            "year": "2012"
+          },
+          {
+            "title": "Galaxy Zoo: Exploring the Motivations of Citizen Science Volunteers",
+            "url": "http://adsabs.harvard.edu/abs/2010AEdRv...9a0103R",
+            "authors": "Raddick+",
+            "year": "2010"
+          },
+          {
+            "title": "Crowdsourcing Knowledge: Interactive Learning with Mapping Historic Skies",
+            "url": "https://mw19.mwconf.org/paper/crowdsourcing-knowledge-interactive-learning-with-mapping-historic-skies/",
+            "authors": "BrodeFrank+",
+            "year": "2019"
+          },
+          {
+            "title": "Galaxy zoo: Science content knowledge of citizen scientists",
+            "url": "https://journals.sagepub.com/doi/full/10.1177/0963662519840222",
+            "authors": "Raddick+",
+            "year": "2019"
+          },
+          {
+            "title": "Planet Four: Craters—Optimizing task workflow to improve volunteer engagement and crater counting performance",
+            "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/maps.13277",
+            "authors": "Sprinks+",
+            "year": "2019"
+          },
+          {
+            "title": "Learning at the Seafloor, Looking at the Sky: The Relationship Between Individual Tasks and Collaborative Engagement in Two Citizen Science Projects",
+            "url": "https://citsci.syr.edu/content/learning-seafloor-looking-sky-relationship-between-individual-tasks-and-collaborative-engage",
+            "authors": "Hassman+",
+            "year": "2013"
+          },
+          {
+            "title": "Tagging, Pinging and Linking – User Roles in Virtual Citizen Science Forums",
+            "url": "https://theoryandpractice.citizenscienceassociation.org/articles/10.5334/cstp.181/",
+            "authors": "Rohden+",
+            "year": "2019"
+          },
+          {
+            "title": "Coordinating Advanced Crowd Work: Extending Citizen Science",
+            "url": "https://theoryandpractice.citizenscienceassociation.org/articles/10.5334/cstp.166/",
+            "authors": "Crowston+",
+            "year": "2019"
+          }
+        ]
+      }
+    ]
+  }
+]

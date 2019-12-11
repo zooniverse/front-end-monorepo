@@ -6,7 +6,6 @@ import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
   cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
-  pointer-events: ${props => props.disabled ? 'none' : 'all'};
 `
 
 function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, svg, width }) {
@@ -37,6 +36,9 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
   }
 
   function onPointerDown (event) {
+    if (disabled) {
+      return false
+    }
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
@@ -62,6 +64,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
     <g
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
+      touch-action='none'
     >
       <StyledRect
         disabled={disabled}
