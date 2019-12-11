@@ -26,7 +26,8 @@ function Bars (props) {
     const barWidth = xScale.bandwidth()
     const x = xScale(label)
     const y = yMax - barHeight
-    const barCenter = x + (barWidth / 2)
+    // rounding the center calculation to match the tick position in the axis
+    const barCenter = Math.round(x + (barWidth / 2))
     const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
     return (
       <Bar
@@ -39,7 +40,7 @@ function Bars (props) {
         height={barHeight}
         index={index}
         onFocus={(event) => onFocus(event, { value, barCenter, barWidth, x, y })}
-        onBlur={onBlur}
+        // onBlur={onBlur}
         onMouseMove={(event) => onMouseMove(event, { value, barCenter, barWidth, x, y })}
         // onMouseOut={onMouseOut}
         tabIndex={0}

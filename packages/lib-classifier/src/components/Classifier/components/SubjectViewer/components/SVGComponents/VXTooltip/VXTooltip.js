@@ -15,11 +15,11 @@ function getNumberValue (string) {
 function VXTooltip (props) {
   const {
     backgroundColor,
-    getRects,
     label,
-    left,
+    left: initialLeft,
     parentRect,
     pointDirection,
+    pointPosition,
     rect,
     theme,
     top: initialTop
@@ -33,11 +33,11 @@ function VXTooltip (props) {
   const heightOfTooltip = getNumberValue(fontSize) + (getNumberValue(verticalPadding) * 2) + (triangleHeight * 1.5)
   const widthOfTooltip = getNumberValue(fontSize) + (getNumberValue(horizontalPadding) * 2) + (triangleHeight * 1.5)
   let topPosition = initialTop - heightOfTooltip
-
+  let leftPosition = initialLeft
   if (parentRect && rect) {
     console.log('parentRect', parentRect)
     console.log('rect', rect)
-    console.log('left', left)
+    console.log('left', leftPosition)
 
     if (rect.top < 0) {
       topPosition = initialTop
@@ -46,7 +46,7 @@ function VXTooltip (props) {
 
   return (
     <Tooltip
-      left={left}
+      left={leftPosition}
       top={topPosition}
       style={tooltipStyles}
     >
@@ -59,9 +59,10 @@ function VXTooltip (props) {
         <SpacedText weight='bold'>{label}</SpacedText>
       </Box>
       <Triangle
-        backgroundColor='black'
+        backgroundColor={backgroundColor}
         height={triangleHeight}
-        justify='center'
+        justify={pointPosition}
+        pad='none'
         pointDirection={pointDirection}
         width={triangleWidth}
       />
@@ -70,7 +71,7 @@ function VXTooltip (props) {
 }
 
 VXTooltip.defaultProps = {
-  backgroundColor: 'rgb(0,0,0,0.5)',
+  backgroundColor: 'black',
   pointDirection: 'down',
   pointPosition: 'center',
   theme: {

@@ -11,7 +11,7 @@ const label = '25'
 const left = 50
 const top = 50
 
-describe.only('VXTooltip', function () {
+describe('VXTooltip', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <VXTooltip
@@ -78,7 +78,8 @@ describe.only('VXTooltip', function () {
           x: 137.5,
           y: -26
         }}
-        top={-27}
+        theme={zooTheme}
+        top={top}
       />
     )
 
