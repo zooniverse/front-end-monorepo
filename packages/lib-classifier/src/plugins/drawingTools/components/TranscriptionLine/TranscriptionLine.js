@@ -54,11 +54,13 @@ function TranscriptionLine ({ active, children, mark, onFinish, scale, svg, tool
 
 TranscriptionLine.propTypes = {
   active: PropTypes.bool,
+  onFinish: PropTypes.func,
   tool: PropTypes.object
 }
 
 TranscriptionLine.defaultProps = {
-  active: false
+  active: false,
+  onFinish: () => true
 }
 
 export default TranscriptionLine
