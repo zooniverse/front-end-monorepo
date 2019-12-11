@@ -1,8 +1,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { LineTool } from '@plugins/drawingTools/models/tools'
-import { Line } from '@plugins/drawingTools/models/marks'
+import { PointTool, LineTool } from '@plugins/drawingTools/models/tools'
 import { DrawingToolRoot } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './DrawingToolMarks'
@@ -10,7 +9,9 @@ import DrawingToolMarks from './DrawingToolMarks'
 describe('Components > DrawingToolMarks', function () {
   let mockContext
   let svg
-  let tool
+  let line
+  let point
+  let marks
 
   beforeEach(function () {
     svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
@@ -21,35 +22,41 @@ describe('Components > DrawingToolMarks', function () {
       label: 'Draw a line',
       type: 'line'
     })
-    lineTool.createMark({ id: 'line1' }),
-    lineTool.createMark({ id: 'line2' }),
-    tool = lineTool
+    const pointTool = PointTool.create({
+      help: '',
+      label: 'Points!',
+      type: 'point'
+    })
+    line = lineTool.createMark({ id: 'line1' })
+    point = pointTool.createMark({ id: 'point1' })
+    marks = [ line, point ]
     mockContext = { svg }
   })
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<DrawingToolMarks tool={tool} />)
+    const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
     expect(wrapper).to.be.ok()
   })
   
-  it('should render two lines', function () {
-    const wrapper = shallow(<DrawingToolMarks tool={tool} />)
-    const marks = wrapper.find('Line')
-    expect(marks.length).to.equal(2)
+  it('should render a line', function () {
+    const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
+    expect(wrapper.find('Line').prop('mark')).to.equal(line)
+  })
+
+  it('should render a point', function () {
+    const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
+    expect(wrapper.find('Point').prop('mark')).to.equal(point)
   })
 
   describe('with an active mark', function () {
     it('should show that mark as active', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMarkId='line1' tool={tool} />)
-      const mark = wrapper.find('Line').first()
-      expect(mark.prop('active')).to.be.true()
+      const wrapper = shallow(<DrawingToolMarks activeMarkId='point1' marks={marks} svg={svg} />)
+      expect(wrapper.find('Point').prop('active')).to.be.true()
     })
 
     it('should render a delete button', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMarkId='line1' tool={tool} />)
-      const line = tool.marks.get('line1')
-      const deleteButton = wrapper.find('DeleteButton')
-      expect(deleteButton.prop('mark')).to.equal(line)
+      const wrapper = shallow(<DrawingToolMarks activeMarkId='point1' marks={marks} svg={svg} />)
+      expect(wrapper.find('DeleteButton').prop('mark')).to.equal(point)
     })
   })
 
@@ -60,7 +67,8 @@ describe('Components > DrawingToolMarks', function () {
     let deleteMark
 
     before(function () {
-      deleteMark = sinon.spy(tool, 'deleteMark')
+      const point = marks[1]
+      deleteMark = sinon.spy(point.tool, 'deleteMark')
       onDeselectMark = sinon.stub()
       onDelete = sinon.stub()
       const wrapper = mount(
@@ -69,12 +77,12 @@ describe('Components > DrawingToolMarks', function () {
             <DrawingToolMarks
               onDelete={onDelete}
               onDeselectMark={onDeselectMark}
-              tool={tool}
+              marks={marks}
             />
           </svg>
         </SVGContext.Provider>
       )
-      dragEnd = wrapper.find(DrawingToolRoot).first().prop('dragEnd')
+      dragEnd = wrapper.find(DrawingToolRoot).at(1).prop('dragEnd')
     })
 
     it('should deselect the mark', function () {
@@ -95,7 +103,8 @@ describe('Components > DrawingToolMarks', function () {
         }
         const fakeEvent = { currentTarget }
         dragEnd(fakeEvent)
-        expect(tool.marks.size).to.equal(2)
+        const { tool } = marks[1]
+        expect(tool.marks.size).to.equal(1)
         expect(onDelete).to.not.have.been.called()
       })
     })
@@ -108,7 +117,8 @@ describe('Components > DrawingToolMarks', function () {
         }
         const fakeEvent = { currentTarget }
         dragEnd(fakeEvent)
-        expect(tool.marks.size).to.equal(2)
+        const { tool } = marks[1]
+        expect(tool.marks.size).to.equal(1)
         expect(onDelete).to.not.have.been.called()
       })
     })
