@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { oneOf, shape, string } from 'prop-types'
+import { object, oneOf, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
@@ -17,6 +17,7 @@ function Triangle (props) {
     backgroundColor,
     height,
     justify,
+    pad,
     pointDirection,
     theme,
     width
@@ -40,7 +41,7 @@ function Triangle (props) {
       aria-hidden='true'
       direction='row'
       justify={justify}
-      pad={{ horizontal: 'small' }}
+      pad={pad}
     >
       <SVG
         fill={fill}
@@ -55,14 +56,15 @@ function Triangle (props) {
 }
 
 Triangle.defaultProps = {
+  pad: { horizontal: 'small' },
   pointDirection: 'up',
   justify: 'end',
-  shadow: 'none',
   height: 20,
   width: 20
 }
 
 Triangle.propTypes = {
+  pad: oneOf([object, string]),
   pointDirection: oneOf(['down', 'left', 'right', 'up']),
   justify: oneOf(['start', 'center', 'end']),
   theme: shape({
