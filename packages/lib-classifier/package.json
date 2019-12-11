@@ -31,6 +31,7 @@
     "hash.js": "~1.1.7",
     "lodash": "~4.17.11",
     "mobx-utils": "~5.0.2",
+    "pepjs": "~0.5.2",
     "react-pose": "~4.0.8",
     "react-resize-detector": "~4.2.0",
     "seven-ten": "~3.4.0",
