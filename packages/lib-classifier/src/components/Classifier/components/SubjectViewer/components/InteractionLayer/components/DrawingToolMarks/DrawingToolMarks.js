@@ -57,13 +57,11 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
         onDeselect={onDeselectMark}
         onSelect={onSelectMark}
         scale={scale}
-        tool={tool}
       >
         <MarkingComponent
           active={isActive}
           mark={mark}
           scale={scale}
-          tool={tool}
         />
         {isActive && <ObservedDeleteButton
           label={`Delete ${tool.type}`}

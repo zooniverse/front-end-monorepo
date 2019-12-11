@@ -24,9 +24,9 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot({
   onDelete,
   onDeselect,
   onSelect,
-  scale,
-  tool
+  scale
 }, ref) {
+  const { tool } = mark
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
     fill: 'transparent',

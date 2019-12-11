@@ -70,10 +70,6 @@ describe('Model > DrawingTask', function () {
       marks = drawingTask.marks
     })
 
-    it('should remove marks from the task', function () {
-      expect(marks).to.be.empty()
-    })
-
     it('should copy marks to the task annotation', function () {
       expect(addAnnotation).to.have.been.calledOnce()
     })
@@ -83,18 +79,16 @@ describe('Model > DrawingTask', function () {
     let marks
     let pointTool
     let lineTool
-    let addAnnotation
     before(function () {
       const drawingTask = DrawingTask.create(drawingTaskSnapshot)
       pointTool = drawingTask.tools[0]
       lineTool = drawingTask.tools[1]
+      const point1 = pointTool.createMark({ id: 'point1' })
+      const point2 = pointTool.createMark({ id: 'point2' })
+      const line1 = lineTool.createMark({ id: 'line1' })
       const taskAnnotation = DrawingAnnotation.create({
         task: 'T3',
-        value: [
-          Point.create({ id: 'point1', toolIndex: 0 }),
-          Point.create({ id: 'point2', toolIndex: 0 }),
-          Line.create({ id: 'line1', toolIndex: 1 })
-        ]
+        value: []
       })
       drawingTask.classifications = {
         addAnnotation: sinon.stub(),
@@ -102,20 +96,15 @@ describe('Model > DrawingTask', function () {
       }
       drawingTask.start()
       marks = drawingTask.marks
-      addAnnotation = drawingTask.classifications.addAnnotation.withArgs(drawingTask, [])
     })
 
-    it('should add existing annotation marks to the task', function () {
-      expect(marks.length).to.equal(3)
+    it('should clear stale marks from the task', function () {
+      expect(marks.length).to.equal(0)
     })
 
-    it('should clear marks from the current annotation', function () {
-      expect(addAnnotation).to.have.been.calledOnce()
-    })
-
-    it('should copy marks to the correct tools', function () {
-      expect(pointTool.marks.size).to.equal(2)
-      expect(lineTool.marks.size).to.equal(1)
+    it('should clear stale marks from the drawing tools', function () {
+      expect(pointTool.marks.size).to.equal(0)
+      expect(lineTool.marks.size).to.equal(0)
     })
   })
 })
