@@ -17,6 +17,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
   devServer: {
     allowedHosts: [
+      'bs-local.com',
       'localhost',
       '.zooniverse.org'
     ],
