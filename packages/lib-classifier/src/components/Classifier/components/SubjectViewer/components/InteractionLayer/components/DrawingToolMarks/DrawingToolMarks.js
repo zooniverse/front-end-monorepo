@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { DeleteButton, DrawingToolRoot } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, tool }) {
-  const marksArray = Array.from(tool.marks.values())
+function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, marks }) {
   const { svg } = useContext(SVGContext)
 
-  return marksArray.map((mark, index) => {
+  return marks.map((mark, index) => {
+    const { tool } = mark
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
@@ -76,11 +76,11 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
 
 DrawingToolMarks.propTypes = {
   activeMarkId: PropTypes.string,
+  marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
   onSelectMark: PropTypes.func,
-  scale: PropTypes.number,
-  tool: PropTypes.object.isRequired
+  scale: PropTypes.number
 }
 
 DrawingToolMarks.defaultProps = {

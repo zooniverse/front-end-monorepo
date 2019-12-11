@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { DrawingToolRoot } from '@plugins/drawingTools/components'
 
 import InteractionLayer from './InteractionLayer'
+import DrawingToolMarks from './components/DrawingToolMarks'
 
 function storeMapper (stores) {
   const {
@@ -38,22 +39,11 @@ class InteractionLayerContainer extends Component {
     return (
       <>
         {drawingAnnotations.map(annotation =>
-          annotation.value.map((mark, index) => {
-            const MarkingComponent = mark.toolComponent
-            return (
-              <DrawingToolRoot
-                key={mark.id}
-                label={`${mark.tool.type} ${index}`}
-                isActive={false}
-                mark={mark}
-              >
-                <MarkingComponent
-                  mark={mark}
-                  scale={scale}
-                />
-              </DrawingToolRoot>
-            )
-          })
+          <DrawingToolMarks
+            key={annotation.task}
+            marks={annotation.value}
+            scale={scale}
+          />
         )}
         {activeDrawingTask && activeTool &&
           <InteractionLayer
