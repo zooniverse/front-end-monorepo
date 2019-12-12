@@ -70,7 +70,7 @@ The single series JSON shape is a very, very basic data object consisting of an 
 }
 ```
 
-The multiple series JSON shape is an array of objects consisting of a `seriesData` and a `seriesOptions` properties:
+The multiple series JSON shape is an array of objects consisting of `seriesData` and `seriesOptions` properties:
 
 ``` json
 { "data": [
