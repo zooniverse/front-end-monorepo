@@ -21,13 +21,14 @@ import { left, top } from '../../helpers/utils'
 const { variableStar } = lightCurveMockData
 const { data, dataPoints } = randomSingleSeriesData
 
-describe.only('Component > ScatterPlot', function () {
+describe('Component > ScatterPlot', function () {
   describe('render', function () {
     let wrapper, chart
     before(function () {
       wrapper = shallow(
         <ScatterPlot
           data={data}
+          margin={margin}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
@@ -63,8 +64,8 @@ describe.only('Component > ScatterPlot', function () {
     it('should render a clipPath with a child rect the size of the parent chart minus the axes margin', function () {
       const clipPath = wrapper.find('clipPath')
       expect(clipPath).to.have.lengthOf(1)
-      expect(clipPath.find('rect').props().height).to.equal(parentHeight - wrapper.props().margin.top - wrapper.props().margin.bottom)
-      expect(clipPath.find('rect').props().width).to.equal(parentWidth - wrapper.props().margin.left - wrapper.props().margin.right)
+      expect(clipPath.find('rect').props().height).to.equal(parentHeight - margin.top - margin.bottom)
+      expect(clipPath.find('rect').props().width).to.equal(parentWidth - margin.left - margin.right)
     })
 
     it('should set the clipPath attribute with the clipPath id on the Group wrapping the data', function () {
