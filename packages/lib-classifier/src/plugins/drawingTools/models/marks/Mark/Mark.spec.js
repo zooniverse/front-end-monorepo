@@ -168,7 +168,7 @@ describe('Models > Drawing Task > Mark', function () {
         expect(drawingTool.isComplete).to.be.false()
       })
 
-      describe('after annotating task T1', function () {
+      describe('after annotating the first subtask', function () {
         it('should still be incomplete', function () {
           mark.addAnnotation(multipleTask, [0])
           expect(mark.isComplete).to.be.false()
@@ -179,7 +179,7 @@ describe('Models > Drawing Task > Mark', function () {
         })
       })
 
-      describe('after annotating tasks T1 & T2', function () {
+      describe('after annotating both subtasks', function () {
         it('should be complete', function () {
           mark.addAnnotation(singleTask, 1)
           expect(mark.isComplete).to.be.true()
