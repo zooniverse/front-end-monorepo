@@ -24,7 +24,9 @@ const Tool = types.model('Tool', {
     },
 
     get isComplete () {
-      return (self.marks.size >= self.min)
+      const allMarksComplete = Array.from(self.marks.values())
+        .reduce((allComplete, mark) => allComplete && mark.isComplete, true)
+      return (allMarksComplete && self.marks.size >= self.min)
     }
   }))
   .actions(self => {

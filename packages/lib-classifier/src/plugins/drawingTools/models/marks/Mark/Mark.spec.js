@@ -62,6 +62,8 @@ describe('Models > Drawing Task > Mark', function () {
     }
 
     describe('with incomplete, optional tasks', function () {
+      let drawingTool
+
       before(function () {
         const details = [
           {
@@ -88,9 +90,15 @@ describe('Models > Drawing Task > Mark', function () {
       it('should be complete', function () {
         expect(mark.isComplete).to.be.true()
       })
+
+      it('should complete the drawing tool', function () {
+        expect(drawingTool.isComplete).to.be.true()
+      })
     })
 
     describe('with any incomplete, required tasks', function () {
+      let drawingTool
+
       before(function () {
         const details = [
           {
@@ -117,9 +125,14 @@ describe('Models > Drawing Task > Mark', function () {
       it('should be incomplete', function () {
         expect(mark.isComplete).to.be.false()
       })
+
+      it('should not complete the drawing tool', function () {
+        expect(drawingTool.isComplete).to.be.false()
+      })
     })
 
     describe('with only required tasks', function () {
+      let drawingTool
       let mark
       let multipleTask
       let singleTask
@@ -151,10 +164,18 @@ describe('Models > Drawing Task > Mark', function () {
         expect(mark.isComplete).to.be.false()
       })
 
+      it('should not complete the drawing tool', function () {
+        expect(drawingTool.isComplete).to.be.false()
+      })
+
       describe('after annotating task T1', function () {
         it('should still be incomplete', function () {
           mark.addAnnotation(multipleTask, [0])
           expect(mark.isComplete).to.be.false()
+        })
+
+        it('should not complete the drawing tool', function () {
+          expect(drawingTool.isComplete).to.be.false()
         })
       })
 
@@ -162,6 +183,10 @@ describe('Models > Drawing Task > Mark', function () {
         it('should be complete', function () {
           mark.addAnnotation(singleTask, 1)
           expect(mark.isComplete).to.be.true()
+        })
+
+        it('should complete the drawing tool', function () {
+          expect(drawingTool.isComplete).to.be.true()
         })
       })
     })
