@@ -10,8 +10,7 @@ const StyledCircle = styled('circle')`
 const RADIUS = screen.width > 900 ? 4 : 10
 const OVERSHOOT = screen.width > 900 ? 4 : 10
 
-const DragHandle = forwardRef(({ scale, svg, x, y }, ref) => {
-  const matrix = svg.getScreenCTM()
+const DragHandle = forwardRef(({ scale, x, y }, ref) => {
 
   const styleProps = {
     fill: 'currentColor',
@@ -19,7 +18,7 @@ const DragHandle = forwardRef(({ scale, svg, x, y }, ref) => {
     strokeWidth: OVERSHOOT,
     transform: `\
 translate(${x}, ${y})
-matrix( ${1 / matrix.a} 0 0 ${1 / matrix.d} 0 0)\
+scale(${1 / scale})\
 `
   }
   return <StyledCircle ref={ref} r={RADIUS} {...styleProps} />
