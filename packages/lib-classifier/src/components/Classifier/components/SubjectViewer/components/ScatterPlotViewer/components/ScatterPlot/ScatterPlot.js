@@ -176,12 +176,15 @@ ScatterPlot.propTypes = {
     }),
     PropTypes.arrayOf(PropTypes.shape({
       seriesData: PropTypes.arrayOf(PropTypes.shape({
-        x: PropTypes.number,
-        y: PropTypes.number,
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
         x_error: PropTypes.number,
         y_error: PropTypes.number
-      })),
-      seriesOptions: PropTypes.object
+      })).isRequired,
+      seriesOptions: PropTypes.shape({
+        color: PropTypes.string,
+        label: PropTypes.string.isRequired
+      }).isRequired
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
