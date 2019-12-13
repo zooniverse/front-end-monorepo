@@ -8,15 +8,15 @@ import {
   bottomAxis,
   color,
   fontSize,
+  keplerMockDataWithOptions,
   leftAxis,
-  lightCurveMockData,
   parentWidth,
   parentHeight,
   xScale
 } from '../../../../helpers/mockData'
 
-const margin = lightCurveMockData.options.margin
-const padding = lightCurveMockData.options.padding
+const margin =  keplerMockDataWithOptions.chartOptions.margin
+const padding =  keplerMockDataWithOptions.chartOptions.padding
 
 describe('Component > InnerTickAxis', function () {
   describe('render', function () {

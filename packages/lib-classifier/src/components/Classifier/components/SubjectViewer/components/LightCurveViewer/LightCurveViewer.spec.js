@@ -4,16 +4,16 @@ import { zip } from 'lodash'
 import React from 'react'
 
 import LightCurveViewer from './LightCurveViewer'
-import mockData from './mockData'
+import kepler from '../../helpers/mockLightCurves/kepler'
 
 let wrapper
 
 describe('Component > LightCurveViewer', function () {
   before(function () {
-    const dataPoints = zip(mockData.x, mockData.y)
+    const dataPoints = zip(kepler.x, kepler.y)
     const dataExtent = {
-      x: d3.extent(mockData.x),
-      y: d3.extent(mockData.y)
+      x: d3.extent(kepler.x),
+      y: d3.extent(kepler.y)
     }
 
     // Use mount() instead of shallow() since d3 logic exists outside of render()
