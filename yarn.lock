@@ -3635,6 +3635,16 @@
     d3-shape "^1.2.0"
     prop-types "^15.6.2"
 
+"@vx/glyph@~0.0.192":
+  version "0.0.192"
+  resolved "https://registry.yarnpkg.com/@vx/glyph/-/glyph-0.0.192.tgz#8f8e62771418d10f0cfa4bfac9f991481978e29e"
+  integrity sha512-wne/fuuaQqp17yB3keqTGPURXlf7ejDQ6xJJA0gIgTtwcwA7mHEWpAbtSCxtrSUiQgmfqC6KMBZgC84UcSDanA==
+  dependencies:
+    "@vx/group" "0.0.192"
+    classnames "^2.2.5"
+    d3-shape "^1.2.0"
+    prop-types "^15.6.2"
+
 "@vx/gradient@0.0.189":
   version "0.0.189"
   resolved "https://registry.yarnpkg.com/@vx/gradient/-/gradient-0.0.189.tgz#5b53be804cc7205ed6c0d9c4c10608543f105f58"
@@ -13165,6 +13175,11 @@ peer-deps-externals-webpack-plugin@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/peer-deps-externals-webpack-plugin/-/peer-deps-externals-webpack-plugin-1.0.4.tgz#191e8f116c70401364dbd8e6c44ab3f8844101dc"
   integrity sha512-MIZk2xvwUqd74rSIkbM4R/qTn182Hvb1gEOYIHwAqlqeRuSqn6QOGsd8NJLJRzwlMBnyjvMCs8JZH62+mQjb9g==
+
+pepjs@~0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/pepjs/-/pepjs-0.5.2.tgz#f0d10bb160bcbf4b72d2069d931170661491a05c"
+  integrity sha512-acPfplXnTKaG8p7VBgkNaBJSGsZu7LYrqEmLCQFoeHYl21B74mMBeVoQA/Gl9u5GmysgzrOCeHsEjw0mXo61nw==
 
 performance-now@^2.1.0:
   version "2.1.0"

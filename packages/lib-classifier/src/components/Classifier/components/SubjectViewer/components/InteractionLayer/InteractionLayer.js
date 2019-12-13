@@ -64,6 +64,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
     <g
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
+      touch-action='none'
     >
       <StyledRect
         disabled={disabled}
