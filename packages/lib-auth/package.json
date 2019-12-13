@@ -1,0 +1,30 @@
+{
+  "name": "@zooniverse/auth",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "~0.19.0",
+    "cookie": "~0.4.0",
+    "detect-node": "~2.0.4",
+    "yup": "~0.27.0"
+  },
+  "scripts": {
+    "docs": "jsdoc src",
+    "lint": "zoo-standard",
+    "lint:fix": "zoo-standard --fix",
+    "test": "mocha ./test/unit/playground.js",
+    "test:functional:node": "mocha ./test/functional/node/isolation/test.js",
+    "test:functional:node:staging": "mocha ./test/functional/node/staging/test.js",
+    "test:unit": "mocha \"./test/unit/**/*.spec.js\""
+  },
+  "devDependencies": {
+    "@zooniverse/standard": "~2.0.0",
+    "axios-debug-log": "~0.6.2",
+    "chai": "~4.2.0",
+    "dirty-chai": "~2.0.1",
+    "jsdoc": "~3.6.3",
+    "mocha": "~6.1.4",
+    "nock": "~11.7.0"
+  }
+}
