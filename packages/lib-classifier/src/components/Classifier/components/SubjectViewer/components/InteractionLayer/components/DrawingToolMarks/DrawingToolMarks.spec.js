@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { PointTool, LineTool } from '@plugins/drawingTools/models/tools'
-import { Point, Line } from '@plugins/drawingTools/models/marks'
+import { LineTool } from '@plugins/drawingTools/models/tools'
+import { Line } from '@plugins/drawingTools/models/marks'
 import { DrawingToolRoot } from '@plugins/drawingTools/components'
 import DrawingToolMarks from './DrawingToolMarks'
 
