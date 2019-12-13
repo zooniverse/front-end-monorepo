@@ -11,7 +11,7 @@ describe('Components > DrawingToolMarks', function () {
   let tool
 
   beforeEach(function () {
-    svg = document.createElement('svg')
+    svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
     const svgBounds = { left: 0, top: 0, right: 2000, bottom: 1000, width: 2000, height: 1000 }
     sinon.stub(svg, 'getBoundingClientRect').callsFake(() => svgBounds )
     const lineTool = LineTool.create({
