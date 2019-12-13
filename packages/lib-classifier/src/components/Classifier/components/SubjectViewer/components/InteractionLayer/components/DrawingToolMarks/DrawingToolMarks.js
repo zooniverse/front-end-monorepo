@@ -10,10 +10,9 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
-    const markRef = React.createRef()
 
-    function isInBounds (markComponent) {
-      const object = markComponent.getBounds()
+    function isInBounds (markElement) {
+      const object = markElement.getBoundingClientRect()
       const bounds = svg.getBoundingClientRect()
       const notBeyondLeft = (object.left + object.width) > bounds.left
       const notBeyondRight = object.left < (bounds.left + bounds.width)
@@ -31,9 +30,9 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
       mark.move(difference)
     }
 
-    function deselectMark () {
+    function deselectMark (event) {
       onDeselectMark(mark)
-      if (!isInBounds(markRef.current)) {
+      if (!isInBounds(event.currentTarget)) {
         deleteMark()
       }
     }
@@ -44,7 +43,6 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
 
     return (
       <DrawingToolRoot
-        ref={markRef}
         key={mark.id}
         isActive={isActive}
         coords={mark.coords}
