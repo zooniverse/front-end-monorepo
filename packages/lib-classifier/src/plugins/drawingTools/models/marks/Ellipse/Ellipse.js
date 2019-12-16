@@ -43,17 +43,6 @@ const EllipseModel = types
     }
   }))
   .actions(self => {
-    function getAngle(x1, y1, x2, y2) {
-      const deltaX = x2 - x1
-      const deltaY = y2 - y1
-      return Math.atan2(deltaY, deltaX) * (180 / Math.PI)
-    }
-
-    function getDistance(x1, y1, x2, y2) {
-      const aSquared = Math.pow(x2 - x1, 2)
-      const bSquared = Math.pow(y2 - y1, 2)
-      return Math.sqrt(aSquared + bSquared)
-    }
 
     function initialDrag ({ x, y }) {
       const rx = self.getDistance(self.x, self.y, x, y)
@@ -82,8 +71,6 @@ const EllipseModel = types
     }
 
     return {
-      getDistance,
-      getAngle,
       initialDrag,
       initialPosition,
       move,
