@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
+import getViewer from '../../helpers/getViewer'
 
 class MultiFrameViewer extends React.Component {
   constructor () {
@@ -11,10 +12,26 @@ class MultiFrameViewer extends React.Component {
 
   render () {
     // carousel component
+    const { onError, onSubjectReady, subject, subjectReadyState } = this.props
+    const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
+    const mimeTypeKey = Object.keys(this.props.subject.locations[currentFrameIndex])
+    console.log("mimeTypeKey", mimeTypeKey)
+    const currentFrameLocation = this.props.subject.locations[currentFrameIndex][mimeTypeKey]
+    console.log("currentFrameLocation", currentFrameLocation)
+    //         <FrameContainer
+        //   currentIndex={this.state.currentFrameIndex}
+        //   setCurrentSubjectIndex={this.currentFrameLocation}
+        //   locations={this.props.subject.locations}
+        // />
     return (
-      <div>
-        <p>MultiFrameViewer Placeholder</p>
-      </div>
+       <section tabIndex="0" className="subjectcarousel" aria-labelledby="carouselheading">
+        <h3 id="subjectcarousel" className="visuallyhidden">
+          Carousel of Subjects
+        </h3>
+        <div className="frame-display" role="region" aria-live="polite">
+          <img src={currentFrameLocation} alt={`Subject ${currentFrameIndex + 1} of ${this.props.subject.locations.length}`}/>
+        </div>
+      </section>
     )
   }
 }
@@ -26,7 +43,7 @@ MultiFrameViewer.propTypes = {
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator),
     metadata: PropTypes.shape({
-      default_frame: PropTypes.number
+      default_frame: PropTypes.string
     })
   })
 }
