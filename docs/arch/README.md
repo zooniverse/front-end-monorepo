@@ -18,6 +18,6 @@
 - [ADR 16: Monorepo Tooling](adr-16.md)
 - [ADR 17: Staging deployment](adr-17.md)
 - [ADR 18: Workflow routing](adr-18.md)
-- [ADR: 19: multiFrame Viewer](adr-19.md)
-- [ADR 20: Transcription TAsk](adr-20.md)
-
+- [ADR 19: multiFrame Viewer](adr-19.md)
+- [ADR 20: Transcription Task](adr-20.md)
+- [ADR 21: Auth Client](adr-21.md)
