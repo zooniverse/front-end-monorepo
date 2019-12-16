@@ -110,7 +110,9 @@ class Client {
    * @param {Array|string} response.headers.set-cookie - The `set-cookie` header
    */
   _getJWTFromResponse (response) {
-    const setCookie = response.headers['set-cookie']
+    const { headers } = response
+    const setCookie = headers['set-cookie'] || []
+    console.info('_getJWTFromResponse', 'response', response)
     const cookies = (setCookie instanceof Array) ? setCookie : [setCookie]
     return cookies.reduce((jwt, cookieString) => {
       if (jwt) {
@@ -268,7 +270,7 @@ class Client {
    * @param {Object} credentials - The credentials for the user logging in.
    * @param {string} credentials.login - The user's username or email address.
    * @param {string} credentials.password - The user's password.
-   * @returns {Promise} Resolves to the new access token.
+   * @returns {Promise} Resolves to the user resource.
    */
   async signIn (credentials) {
     if (this.isSignedIn()) {
@@ -285,8 +287,11 @@ class Client {
       }
     }
     const response = await this._httpClient.post('/users/sign_in', data)
-    const jwt = this._getJWTFromResponse(response)
-    return this.resumeSession(jwt)
+    const jwt = this._getJWTFromBrowser() || this._getJWTFromResponse(response)
+    await this.resumeSession(jwt)
+    const user = response.data.users[0]
+    console.info(user)
+    return user
   }
 
   /**

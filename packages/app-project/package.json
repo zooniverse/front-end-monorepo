@@ -23,6 +23,7 @@
     "@sindresorhus/string-hash": "~1.2.0",
     "@vx/vx": "~0.0.191",
     "@zooniverse/async-states": "~0.0.1",
+    "@zooniverse/auth": "1.0.0",
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
     "@zooniverse/panoptes-js": "~0.1.0",

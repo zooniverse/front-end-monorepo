@@ -43,7 +43,7 @@ describe('Component > LoginFormContainer', function () {
     before(function () {
       CLOSE_MODAL = sinon.spy()
       MOCK_STORE = {
-        user: { set: sinon.spy() }
+        set: sinon.spy()
       }
       VALID_SIGN_IN = sinon.stub().resolves(MOCK_USER_RESOURCE)
 
@@ -58,7 +58,7 @@ describe('Component > LoginFormContainer', function () {
 
     afterEach(function () {
       CLOSE_MODAL.resetHistory()
-      MOCK_STORE.user.set.resetHistory()
+      MOCK_STORE.set.resetHistory()
       VALID_SIGN_IN.resetHistory()
       INVALID_SIGN_IN.resetHistory()
       API_ERROR_STUB.resetHistory()
@@ -74,14 +74,14 @@ describe('Component > LoginFormContainer', function () {
       const validWrapper = shallow(<LoginFormContainer
         authClient={{ signIn: VALID_SIGN_IN }}
         closeModal={CLOSE_MODAL}
-        store={MOCK_STORE}
+        userStore={MOCK_STORE}
       />)
 
       try {
         await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
         expect(VALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
         expect(MOCK_FORMIK.setSubmitting).to.have.been.calledWith(false)
-        expect(MOCK_STORE.user.set).to.have.been.calledWith(MOCK_USER_RESOURCE)
+        expect(MOCK_STORE.set).to.have.been.calledWith(MOCK_USER_RESOURCE)
         expect(CLOSE_MODAL).to.have.been.called()
       } catch (error) {
         expect.fail(error)

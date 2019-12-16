@@ -9,6 +9,15 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+function storeMapper(stores) {
+  const { client } = stores.store.auth
+  const userStore = stores.store.user
+  return {
+    authClient: client,
+    userStore
+  }
+}
+
 class LoginFormContainer extends Component {
   constructor () {
     super()
@@ -19,27 +28,28 @@ class LoginFormContainer extends Component {
     }
   }
 
-  onSubmit (values, { setFieldError, setSubmitting }) {
-    if (this.state.error) this.setState({ error: '' })
-    const { authClient, store } = this.props
-    return authClient.signIn(values)
-      .then(userResource => {
-        setSubmitting(false)
-        store.user.set(userResource)
-        this.props.closeModal()
-      })
-      .catch(error => {
-        console.error(error)
-        if (error && error.message === 'Invalid email or password.') {
-          const errorMessage = counterpart('LoginForm.error')
-          setFieldError('login', errorMessage)
-          setFieldError('password', errorMessage)
-        } else {
-          this.setState({ error: error.message })
-        }
+  async onSubmit (values, { setFieldError, setSubmitting }) {
+    if (this.state.error) {
+      this.setState({ error: '' })
+    }
 
-        setSubmitting(false)
-      })
+    try {
+      const { authClient, userStore } = this.props
+      const userResource = await authClient.signIn(values)
+      userStore.set(userResource)
+      this.props.closeModal()
+      setSubmitting(false)
+    } catch (error) {
+      console.error(error)
+      if (error && error.message === 'Invalid email or password.') {
+        const errorMessage = counterpart('LoginForm.error')
+        setFieldError('login', errorMessage)
+        setFieldError('password', errorMessage)
+      } else {
+        this.setState({ error: error.message })
+      }
+      setSubmitting(false)
+    }
   }
 
   render () {
@@ -66,7 +76,7 @@ LoginFormContainer.defaultProps = {
   closeModal: () => {}
 }
 
-@inject('store')
+@inject(storeMapper)
 @observer
 class DecoratedLoginFormContainer extends LoginFormContainer { }
 

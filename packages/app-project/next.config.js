@@ -22,7 +22,7 @@ module.exports = {
   env: {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
     PANOPTES_ENV,
-    TALK_HOST: talkHosts[PANOPTES_ENV]
+    TALK_HOST: talkHosts[PANOPTES_ENV],
   },
 
   publicRuntimeConfig: {

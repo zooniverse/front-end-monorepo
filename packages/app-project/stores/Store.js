@@ -1,7 +1,9 @@
 import { addMiddleware, getEnv, types } from 'mobx-state-tree'
 import { logNodeError } from '../src/helpers/logger'
 
+import Auth from './Auth'
 import Collections from './Collections'
+import Config from './Config'
 import Project from './Project'
 import Recents from './Recents'
 import UI from './UI'
@@ -10,7 +12,9 @@ import YourStats from './YourStats'
 
 const Store = types
   .model('Store', {
+    auth: types.optional(Auth, {}),
     collections: types.optional(Collections, {}),
+    config: types.optional(Config, {}),
     project: types.optional(Project, {}),
     recents: types.optional(Recents, {}),
     ui: types.optional(UI, {}),

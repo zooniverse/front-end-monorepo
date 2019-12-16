@@ -39,20 +39,30 @@ export default class MyApp extends App {
       // cookie is in the next.js context req object
       const mode = getCookie(context, 'mode') || undefined
       const dismissedAnnouncementBanner = getCookie(context, 'dismissedAnnouncementBanner') || undefined
-      const store = initStore(pageProps.isServer, {
+      const snapshot = {
+        config: {
+          apiHostUrl: process.env.API_HOST_URL,
+          clientAppID: process.env.CLIENT_APP_ID
+        },
         ui: {
           dismissedAnnouncementBanner,
           mode
         }
-      })
+      }
+      const store = initStore(pageProps.isServer, snapshot)
+      // console.info(getSnapshot(store))
+      // store.auth.createClient()
+      // const f = await store.auth.client.resumeSession()
+      // console.info(f)
 
       const { owner, project } = context.query
       if (owner && project) {
         const projectSlug = `${owner}/${project}`
         const query = (context.query.env) ? { env: context.query.env } : {}
         await store.project.fetch(projectSlug, query)
-        pageProps.initialState = getSnapshot(store)
       }
+
+      pageProps.initialState = getSnapshot(store)
     }
 
     return { pageProps }
@@ -61,13 +71,17 @@ export default class MyApp extends App {
   constructor (props) {
     super()
     const { isServer, initialState } = props.pageProps
+    console.info(initialState)
     this.store = initStore(isServer, initialState, props.client)
     makeInspectable(this.store)
   }
 
   componentDidMount () {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-    this.store.user.checkCurrent()
+    // this.store.user.checkCurrent()
+    this.store.auth.createClient()
+    // console.info(getSnapshot(this.store))
+
   }
 
   componentDidCatch (error, errorInfo) {
