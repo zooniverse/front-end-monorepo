@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
 import getViewer from '../../helpers/getViewer'
+import FrameCarousel from './FrameCarousel'
 
 class MultiFrameViewer extends React.Component {
   constructor () {
@@ -25,9 +26,7 @@ class MultiFrameViewer extends React.Component {
         // />
     return (
        <section tabIndex="0" className="subjectcarousel" aria-labelledby="carouselheading">
-        <h3 id="subjectcarousel" className="visuallyhidden">
-          Carousel of Subjects
-        </h3>
+        <FrameCarousel />
         <div className="frame-display" role="region" aria-live="polite">
           <img src={currentFrameLocation} alt={`Subject ${currentFrameIndex + 1} of ${this.props.subject.locations.length}`}/>
         </div>
