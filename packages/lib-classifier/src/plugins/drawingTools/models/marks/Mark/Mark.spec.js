@@ -26,4 +26,28 @@ describe('Models > Drawing Task > Mark', function () {
   it('should be able to store annotations', function () {
     expect(mark.annotations).to.be.ok()
   })
+
+  describe('getDistance', function () {
+    it('should return the distance between two points', function () {
+      expect(mark.getDistance(-20, -20, 20, 10)).to.equal(50)
+    })
+  })
+
+  describe('getAngle', function () {
+    it('should work at -90 degrees', function () {
+      expect(mark.getAngle(-20, -20, -20, -40)).to.equal(-90)
+    })
+
+    it('should work at 0 degrees', function () {
+      expect(mark.getAngle(-20, -20, 20, -20)).to.equal(0)
+    })
+
+    it('should work at 90 degrees', function () {
+      expect(mark.getAngle(-20, -20, -20, 20)).to.equal(90)
+    })
+
+    it('should work at 180 degrees', function () {
+      expect(mark.getAngle(-20, -20, -40, -20)).to.equal(180)
+    })
+  })
 })
