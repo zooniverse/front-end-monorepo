@@ -5,7 +5,7 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Ellipse ({ active, children, mark, scale, svg, tool }) {
+function Ellipse ({ active, children, mark, onFinish, scale, svg, tool }) {
   const { x, y, rx, ry, angle } = mark
   const guideWidth = GUIDE_WIDTH / scale;
 
@@ -22,7 +22,9 @@ function Ellipse ({ active, children, mark, scale, svg, tool }) {
   }
 
   return (
-    <g>
+    <g
+      onPointerUp={active ? onFinish : undefined}
+    >
       <ellipse rx={rx} ry={ry} />
 
       {active &&
