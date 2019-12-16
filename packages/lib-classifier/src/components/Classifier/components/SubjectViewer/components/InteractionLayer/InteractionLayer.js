@@ -41,6 +41,8 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     if (disabled || move) {
       return true
     }
+
+    const { target, pointerId } = event
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
@@ -48,6 +50,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
+    target.setPointerCapture(pointerId)
     return false
   }
 
@@ -56,11 +59,13 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
   }
 
   function onPointerUp () {
+    const { target, pointerId } = event
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(null)
     }
+    target.releasePointerCapture(pointerId)
   }
 
   return (
