@@ -22,3 +22,4 @@
 - [ADR 20: Transcription Task](adr-20.md)
 - [ADR 21: Auth Client](adr-21.md)
 - [ADR 22: Drawing tools](adr-22.md)
+- [ADR 23: Task plugins](adr-23.md)
