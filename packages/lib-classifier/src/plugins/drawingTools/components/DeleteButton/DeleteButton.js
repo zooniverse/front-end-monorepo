@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const StyledGroup = styled('g')`
@@ -67,11 +68,17 @@ function DeleteButton ({ label, mark, scale, rotate, onDelete }) {
   )
 }
 
+DeleteButton.propTypes = {
+  label: PropTypes.string.isRequired,
+  mark: PropTypes.object.isRequired,
+  onDelete: PropTypes.func,
+  rotate: PropTypes.number,
+  scale: PropTypes.number
+}
 DeleteButton.defaultProps = {
-  x: 0,
-  y: 0,
+  onDelete: () => true,
   rotate: 0,
-  destroyTransitionDuration: 300
+  scale: 1
 }
 
 export default DeleteButton
