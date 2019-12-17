@@ -76,6 +76,7 @@ describe('draggable', function () {
   describe('on pointer up', function () {
     before(function () {
       const fakeEvent = {
+        currentTarget: {},
         preventDefault () {
           return true
         },

@@ -68,8 +68,9 @@ function draggable (WrappedComponent) {
     dragEnd (event) {
       const { releasePointerCapture } = this.wrappedComponent.current
       const { x, y, pointerId } = this.convertEvent(event)
+      const { currentTarget } = event
       if (pointerId === this.state.pointerId) {
-        this.props.dragEnd({ x, y, pointerId })
+        this.props.dragEnd({ currentTarget, x, y, pointerId })
         releasePointerCapture && this.wrappedComponent.current.releasePointerCapture(pointerId)
       }
       this.setState({ coords: { x: null, y: null }, dragging: false, pointerId: -1 })

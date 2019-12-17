@@ -15,18 +15,33 @@ describe('Component > InteractionLayer', function () {
     initialPosition: sinon.stub(),
     setCoordinates: sinon.stub()
   }
-  const mockSVGEvent = {
+  const mockSVGPoint = {
+    x: 100,
+    y: 200,
     matrixTransform: sinon.stub().callsFake(() => ({
       x: 100,
       y: 200
     }))
   }
-  const mockSVG = {
-    createSVGPoint: sinon.stub().callsFake(() => mockSVGEvent),
-    getScreenCTM: sinon.stub().callsFake(() => ({
-      inverse: sinon.stub()
-    }))
+  const mockScreenCTM = {
+    a: 1,
+    b: 1,
+    c: 1,
+    d: 1,
+    e: 1,
+    f: 1,
+    inverse: () => ({
+      a: 1,
+      b: 1,
+      c: 1,
+      d: 1,
+      e: 1,
+      f: 1
+    })
   }
+  const svg = document.createElementNS("http://www.w3.org/2000/svg","svg")
+  svg.createSVGPoint = () => mockSVGPoint
+  svg.getScreenCTM = () => mockScreenCTM
 
   beforeEach(function () {
     const mockDrawingTask = DrawingTask.TaskModel.create({
@@ -55,7 +70,7 @@ describe('Component > InteractionLayer', function () {
         activeDrawingTask={mockDrawingTask}
         activeTool={activeTool}
         height={400}
-        svg={mockSVG}
+        svg={svg}
         width={600}
       />)
   })
