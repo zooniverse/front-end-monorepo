@@ -1,31 +1,26 @@
-# ADR 22: Drawing tools
+# Drawing Tools
 
-## Context
+This directory holds React components and MobX State Tree models for the drawing tools that are available to the drawing task.
 
-With new drawing tools being developed for the classifier, we need an API that's common to all drawing tools and marks, which can be easily extended by tool developers. This document lays out an overview of the drawing tool model and the public interfaces common to all tools and all marks.
-
-## The drawing model
-
-A drawing task has drawing tools. Each tool creates marks. On task completion, a drawing annotation is created, which is an array of all drawn marks. Each mark has a corresponding React component which renders the SVG for that particular shape.
-
-## Filesystem
-
-Drawing tools are stored in `lib-classifier/src/plugins/drawingTools`, in two directories:
-- _components_: React components that render marks (one for each Mark model) and any helper functions and components.
-- _models_: MobX State Tree models for drawing tools and marks.
+Experimental tools should be added to `drawingTools/experimental`.
 
 ## React Components
+
+`import { Point } from '@plugins/drawingTools/components'`
 
 A React component for a mark takes a Mark model and renders it as SVG. The basic shape is:
 ```jsx
 <MarkComponent active mark={mark} scale={scale} onFinish={onFinish} />
 ```
 
+ - _mark_ is the mark model to render. You can use `const MarkComponent = mark.toolComponent` to make sure the React component is correct for this mark.
  - _scale_ is the linear scale of the subject image (_clientWidth_ / _naturalWidth_).
  - _active_ is a boolean attribute indicating whether the mark is currently editable.
  - _onFinish_ is a callback that should be called when initial creation of the mark is complete. It resets the drawing canvas and tells it to start listening to clicks to create new marks again.
 
 ## Tool models
+
+`import { PointTool } from '@plugins/drawingTools/models/tools'`
 
 The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/drawingTools/models/tools/Tool) defines the following common properties and actions for all drawing tools.
 - _color (string)_
@@ -46,6 +41,8 @@ All tools should extend the Tool model by implementing the following:
 - _createMark(snapshot)_: an action which creates a new mark from the supplied snapshot, then stores it in `self.marks`.
 
 ## Mark models
+
+`import { Point } from '@plugins/drawingTools/models/marks'`
 
 The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/drawingTools/models/marks/Mark) defines common properties and actions for all marks.
 - _id (string)_ Mark identifier. Automatically generated when a mark is created by a tool.
