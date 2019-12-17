@@ -7,6 +7,7 @@ const Tool = types.model('Tool', {
   marks: types.map(Mark),
   max: types.optional(types.union(types.string, types.number), Infinity),
   min: types.optional(types.union(types.string, types.number), 0),
+  type: types.literal('drawingTool')
 })
   .views(self => ({
     get disabled () {

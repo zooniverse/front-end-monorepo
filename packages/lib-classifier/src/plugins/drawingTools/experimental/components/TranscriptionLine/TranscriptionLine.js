@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DragHandle from '../DragHandle'
+import { DragHandle } from '@plugins/drawingTools/components'
 
 const FINISHER_RADIUS = 8
 const GRAB_STROKE_WIDTH = 6
