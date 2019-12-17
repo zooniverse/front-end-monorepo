@@ -4,7 +4,8 @@ const toolData = {
   color: '#ff0000',
   label: 'Point',
   max: '10',
-  min: 1
+  min: 1,
+  type: 'drawingTool'
 }
 
 describe('Model > DrawingTools > Tool', function () {
