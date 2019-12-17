@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import TranscriptionLine from './TranscriptionLine'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
-import DragHandle from '../DragHandle'
+import { DragHandle } from '@plugins/drawingTools/components'
 
 describe('Transcription line tool', function () {
   let mark
