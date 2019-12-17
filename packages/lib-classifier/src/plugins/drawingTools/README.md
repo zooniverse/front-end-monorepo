@@ -52,6 +52,7 @@ The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _isComplete (boolean)_ Read only. True if all required tasks have been annotated for this mark.
 - _isValid (boolean)_ Read only. True if any required validations pass for this mark (eg. minimum length for a line.)
 - _tool (Tool)_ Read only. A reference to the tool that created this mark.
+- _addAnnotation(task, value)_ Add `value` to the annotation for `task`, which should be a valid task for this mark.
 
 All marks should extend the Mark model by implementing the following views and actions:
 - _coords (Object { x, y })_ Read only. Returns the `{ x, y }` coords for this mark.
