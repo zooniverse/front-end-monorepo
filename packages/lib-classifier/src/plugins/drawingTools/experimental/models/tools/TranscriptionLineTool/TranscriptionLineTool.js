@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import Tool from '../Tool'
+import { Tool } from '@plugins/drawingTools/models/tools'
 import { TranscriptionLine } from '../../marks'
 
 const TranscriptionLineTool = types.model('TranscriptionLine', {

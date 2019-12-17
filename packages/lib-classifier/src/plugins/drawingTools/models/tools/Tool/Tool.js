@@ -17,6 +17,7 @@ const Tool = types.model('Tool', {
     TextTask.TaskModel
   )),
   type: types.literal('default')
+
 })
   .views(self => ({
     get disabled () {
