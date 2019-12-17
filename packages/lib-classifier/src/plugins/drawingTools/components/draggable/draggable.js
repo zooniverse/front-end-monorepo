@@ -106,7 +106,7 @@ function draggable (WrappedComponent) {
     dragMove: () => true,
     dragEnd: () => true
   }
-  const name = WrappedComponent.displayName || WrappedComponent.name
+  const name = WrappedComponent.displayName || WrappedComponent.name || WrappedComponent.render.name
   Draggable.displayName = `draggable(${name})`
   Draggable.wrappedComponent = WrappedComponent
 
