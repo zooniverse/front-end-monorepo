@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
-import SingleImageViewerContainer from './SingleImageViewerContainer'
+import { SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
 
 describe('Component > SingleImageViewerContainer', function () {
@@ -44,6 +44,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render null', function () {
+      console.log(wrapper.debug())
       expect(wrapper.type()).to.be.null()
     })
   })
@@ -132,7 +133,7 @@ describe('Component > SingleImageViewerContainer', function () {
       })
     })
 
-    it('should render an svg image', function () {
+    it('should render an svg image', function (done) {
       const svg = wrapper.instance().imageViewer.current
       const fakeEvent = {
         target: {
@@ -219,6 +220,67 @@ describe('Component > SingleImageViewerContainer', function () {
     it('should not call onReady', function (done) {
       onError.callsFake(function () {
         expect(onReady).to.not.have.been.called()
+        done()
+      })
+    })
+  })
+
+  describe('with pan and zoom', function () {
+    const onError = sinon.stub()
+    const onReady = sinon.stub()
+    let onPan
+    let onZoom
+
+    beforeEach(function () {
+      const subject = {
+        id: 'test',
+        locations: [
+          { 'image/jpeg': 'https://some.domain/image.jpg' }
+        ]
+      }
+      wrapper = shallow(
+        <SingleImageViewerContainer
+          ImageObject={ValidImage}
+          subject={subject}
+          onError = {onError}
+          onReady={onReady}
+          setOnPan={callback => {onPan = callback}}
+          setOnZoom={callback => {onZoom = callback}}
+        />)
+    })
+
+    it('should enable zoom in', function (done) {
+      onReady.callsFake(function () {
+        onZoom('zoomin', 1)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('5 5 390 190')
+        done()
+      })
+    })
+
+    it('should enable zoom out', function (done) {
+      onReady.callsFake(function () {
+        onZoom('zoomout', -1)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('-5 -5 410 210')
+        done()
+      })
+    })
+
+    it('should enable horizontal panning', function (done) {
+      onReady.callsFake(function () {
+        onPan(-1, 0)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('-10 0 400 200')
+        done()
+      })
+    })
+
+    it('should enable vertical panning', function (done) {
+      onReady.callsFake(function () {
+        onPan(0, -1)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 -10 400 200')
         done()
       })
     })

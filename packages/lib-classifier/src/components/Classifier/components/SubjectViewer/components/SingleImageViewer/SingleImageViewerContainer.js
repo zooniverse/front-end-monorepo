@@ -6,6 +6,19 @@ import PropTypes from 'prop-types'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
+import withKeyZoom from '../../../withKeyZoom'
+
+function storeMapper (stores) {
+  const {
+    setOnZoom,
+    setOnPan
+  } = stores.classifierStore.subjectViewer
+
+  return {
+    setOnZoom,
+    setOnPan
+  }
+}
 
 function storeMapper (stores) {
   const {
@@ -27,12 +40,20 @@ class SingleImageViewerContainer extends React.Component {
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
     this.state = {
-      img: {}
+      img: {},
+      viewBox: {
+        x: 0,
+        y: 0,
+        height: 0,
+        width: 0
+      }
     }
   }
 
   componentDidMount () {
     this.props.enableRotation()
+    this.props.setOnZoom(this.onZoom.bind(this))
+    this.props.setOnPan(this.onPan.bind(this))
     this.onLoad()
   }
 
@@ -45,6 +66,24 @@ class SingleImageViewerContainer extends React.Component {
       img.src = url
       return img
     })
+  }
+
+  onPan (dx, dy) {
+    const { viewBox } = this.state
+    viewBox.x += dx * 10
+    viewBox.y += dy * 10
+    this.setState({ viewBox })
+  }
+
+  onZoom (type, zoomValue) {
+    const { viewBox } = this.state
+    const xCentre = viewBox.x + viewBox.width / 2
+    const yCentre = viewBox.y + viewBox.height / 2
+    viewBox.width -= zoomValue * 10
+    viewBox.height -= zoomValue * 10
+    viewBox.x = xCentre - viewBox.width / 2
+    viewBox.y = yCentre - viewBox.height / 2
+    this.setState({ viewBox })
   }
 
   async preload () {
@@ -75,6 +114,10 @@ class SingleImageViewerContainer extends React.Component {
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      const { viewBox } = this.state
+      viewBox.height = naturalHeight
+      viewBox.width = naturalWidth
+      this.setState({ viewBox })
       onReady({ target })
     } catch (error) {
       console.error(error)
@@ -83,8 +126,8 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
-    const { loadingState, onError, rotation, subject } = this.props
-    const { img } = this.state
+    const { loadingState, onError, onKeyDown, rotation, subject } = this.props
+    const { img, viewBox } = this.state
     const { naturalHeight, naturalWidth, src } = img
     const subjectImageElement = this.subjectImage.current
     let scale = 1
@@ -111,8 +154,10 @@ class SingleImageViewerContainer extends React.Component {
         <SingleImageViewer
           ref={this.imageViewer}
           height={naturalHeight}
+          onKeyDown={onKeyDown}
           rotate={rotation}
           scale={scale}
+          viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
           width={naturalWidth}
         >
           <image
@@ -132,17 +177,29 @@ SingleImageViewerContainer.wrappedComponent.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
+
 
 SingleImageViewerContainer.wrappedComponent.defaultProps = {
   enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
-  onReady: () => true
+  onReady: () => true,
+  setOnPan: () => true,
+  setOnZoom: () => true
 }
 
-export default SingleImageViewerContainer
+@inject(storeMapper)
+@withKeyZoom
+@observer
+class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
+
+export default DecoratedSingleImageViewerContainer
+export { SingleImageViewerContainer }
+

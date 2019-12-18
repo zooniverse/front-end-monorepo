@@ -80,7 +80,8 @@ describe('withKeyZoom', function () {
     bindings.forEach(function ({ key, name, handler }) {
       it(`should call ${name} for ${key}`, function () {
         const fakeEvent = {
-          key
+          key,
+          preventDefault: sinon.stub()
         }
         wrappedComponent.props.onKeyDown(fakeEvent)
         expect(handler).to.have.been.calledOnce()

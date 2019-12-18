@@ -10,13 +10,16 @@ overflow: hidden;
 width: 100%;
 `
 
-const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, rotate, scale, width }, ref) {
+const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, onKeyDown, rotate, scale, viewBox, width }, ref) {
   const viewBox = `0 0 ${width} ${height}`
   const transform = `rotate(${rotate} 0 0)`
   return (
     <Container>
       <svg
         ref={ref}
+        focusable
+        onKeyDown={onKeyDown}
+        tabIndex={0}
         transform={transform}
         viewBox={viewBox}
       >
@@ -33,12 +36,15 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, hei
 
 SingleImageViewer.propTypes = {
   height: PropTypes.number.isRequired,
+  onKeyDown: PropTypes.func,
   rotate: PropTypes.number,
   scale: PropTypes.number,
+  viewBox: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired
 }
 
 SingleImageViewer.defaultProps = {
+  onKeyDown: () => true,
   rotate: 0,
   scale: 1
 }
