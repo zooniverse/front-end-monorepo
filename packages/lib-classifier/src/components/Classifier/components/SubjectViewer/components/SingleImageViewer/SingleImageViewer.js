@@ -9,12 +9,14 @@ const SVG = styled.svg`
   width: 100%;
 `
 
-const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, scale, width }, ref) {
+const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, rotate, scale, width }, ref) {
   const viewBox = `0 0 ${width} ${height}`
+  const transform = `rotate(${rotate})`
   return (
     <SVG
       ref={ref}
       viewBox={viewBox}
+      transform={transform}
     >
       {children}
       <InteractionLayer
@@ -28,11 +30,13 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, hei
 
 SingleImageViewer.propTypes = {
   height: PropTypes.number.isRequired,
+  rotate: PropTypes.number,
   scale: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
 SingleImageViewer.defaultProps = {
+  rotate: 0,
   scale: 1
 }
 

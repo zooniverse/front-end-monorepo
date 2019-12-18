@@ -15,7 +15,8 @@ const SubjectViewer = types
     fullscreen: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
-    move: types.optional(types.boolean, false)
+    move: types.optional(types.boolean, false),
+    rotation: types.optional(types.number, 0)
   })
 
   .volatile(self => ({
@@ -94,10 +95,12 @@ const SubjectViewer = types
       resetView () {
         console.log('resetting view')
         self.onZoom && self.onZoom('zoomto', 1.0)
+        self.rotation = 0
       },
 
       rotate () {
         console.log('rotating subject')
+        self.rotation -= 90
       },
 
       setLayout (layout = layouts.DefaultLayout) {
