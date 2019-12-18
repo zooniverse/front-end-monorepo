@@ -9,10 +9,12 @@ import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper (stores) {
   const {
+    enableRotation,
     rotation
   } = stores.classifierStore.subjectViewer
 
   return {
+    enableRotation,
     rotation
   }
 }
@@ -30,6 +32,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   componentDidMount () {
+    this.props.enableRotation()
     this.onLoad()
   }
 
@@ -125,6 +128,7 @@ class SingleImageViewerContainer extends React.Component {
 }
 
 SingleImageViewerContainer.wrappedComponent.propTypes = {
+  enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -134,6 +138,7 @@ SingleImageViewerContainer.wrappedComponent.propTypes = {
 }
 
 SingleImageViewerContainer.wrappedComponent.defaultProps = {
+  enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,

@@ -6,10 +6,13 @@ import RotateButton from './RotateButton'
 
 function storeMapper (stores) {
   const {
-    rotate
+    rotate,
+    rotationEnabled
   } = stores.classifierStore.subjectViewer
 
+  const disabled = !rotationEnabled
   return {
+    disabled,
     rotate
   }
 }

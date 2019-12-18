@@ -24,6 +24,20 @@ describe('Model > SubjectViewerStore', function () {
     })
   })
 
+  describe('Actions > enableRotation', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should enable subject rotation', function () {
+      expect(subjectViewerStore.rotationEnabled).to.be.false()
+      subjectViewerStore.enableRotation()
+      expect(subjectViewerStore.rotationEnabled).to.be.true()
+    })
+  })
+
   describe('Actions > rotate', function () {
     let subjectViewerStore
 

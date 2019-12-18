@@ -16,6 +16,7 @@ const SubjectViewer = types
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
+    rotationEnabled: types.optional(types.boolean, false),
     rotation: types.optional(types.number, 0)
   })
 
@@ -64,6 +65,10 @@ const SubjectViewer = types
       enableMove () {
         self.annotate = false
         self.move = true
+      },
+
+      enableRotation () {
+        self.rotationEnabled = true
       },
 
       disableFullscreen () {
