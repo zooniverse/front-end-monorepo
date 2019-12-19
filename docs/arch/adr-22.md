@@ -18,6 +18,8 @@ The subject viewer will render two components.
 
 Marks created by the _InterctionLayer_ are added to a new drawing task annotation, for the current classification, when we click Next or Done to complete the current task.
 
+Pointer event support is polyfilled in older browsers with [PEP](https://github.com/jquery/PEP).
+
 ### The drawing model
 
 A drawing task has drawing tools. Each tool creates marks. On task completion, a drawing annotation is created, which is an array of all drawn marks. Each mark has a corresponding React component which renders the SVG for that particular shape.
