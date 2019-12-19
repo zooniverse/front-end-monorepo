@@ -14,13 +14,13 @@ We'd like the new classifier to be easily extensible. However, adding new tasks 
 
 It was easy to forget one of these steps and a lot of this could be automated in code.
 
-## Proposed solution
+## Decision
 
 - Keep all the code together. Store task views and models next to each other in the filesystem. (#1212)
 - Import named modules to a registry object (or similar) then load them in to other code from that register. (#1212)
 - Delegate responsibility from the classification to individual tasks. (#1228)
 
-## Implementation
+### Implementation
 
 - Task code was moved to `lib-classifier/src/plugins/tasks`. Each task has its own directory, with these subdirectories:
   - _components_: React components to render the task.
@@ -30,11 +30,14 @@ It was easy to forget one of these steps and a lot of this could be automated in
   - _task.createAnnotation()_ creates a new annotation of the correct type for a specific task.
   - _task.defaultAnnotation_ (read-only) returns the default annotation for a specific task.
 
-## Suggestions
+## Status
+
+Accepted
+
+## Consequences
 
 - A similar architecture could be used to register subject viewers with the classifier.
 - Tasks could be removed completely from the classifier. When a workflow loads, its tasks could be instantiated outside the classifier and only the tasks needed for the workflow could be passed in as props.
 - The classifier could make better use of the MobX State Tree. A classification could store the tasks used to generate that classification, each task holding a reference to its own annotation. This opens up the possibility of more flexible code for tracking workflow history and handling recursive workflows. We could also take advantage of the tree (via _getParent()_ or _getParentOfType()_) to easily reference the task that generated a specific annotation, or the classification that a task is currently doing work for.
 - the registry model has no equivalent for `import { SingleChoiceAnnotation, MultipleChoiceAnnotation, TextAnnotation } from '@plugins/tasks/models/annotations'`. It would be helpful, but not necessary, to be able to do this when setting up classifier stores.
 - the task registry is only available after the task models have been set up and initialised, limiting its usefulness when accessing models in order to set up other models, such as drawing tools.
-
