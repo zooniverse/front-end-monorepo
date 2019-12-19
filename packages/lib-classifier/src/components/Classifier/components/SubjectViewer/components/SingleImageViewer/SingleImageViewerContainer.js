@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { draggable } from '@plugins/drawingTools/components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SingleImageViewer from './SingleImageViewer'
@@ -10,33 +11,26 @@ import withKeyZoom from '../../../withKeyZoom'
 
 function storeMapper (stores) {
   const {
+    enableRotation,
+    rotation,
     setOnZoom,
     setOnPan
   } = stores.classifierStore.subjectViewer
 
   return {
+    enableRotation,
+    rotation,
     setOnZoom,
     setOnPan
   }
 }
 
-function storeMapper (stores) {
-  const {
-    enableRotation,
-    rotation
-  } = stores.classifierStore.subjectViewer
+const DraggableImage = draggable('image')
 
-  return {
-    enableRotation,
-    rotation
-  }
-}
-
-@inject(storeMapper)
-@observer
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.dragMove = this.dragMove.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
     this.state = {
@@ -66,6 +60,13 @@ class SingleImageViewerContainer extends React.Component {
       img.src = url
       return img
     })
+  }
+
+  dragMove (event, difference) {
+    const { viewBox } = this.state
+    viewBox.x -= difference.x
+    viewBox.y -= difference.y
+    this.setState({ viewBox })
   }
 
   onPan (dx, dy) {
@@ -132,7 +133,7 @@ class SingleImageViewerContainer extends React.Component {
     const subjectImageElement = this.subjectImage.current
     let scale = 1
     if (subjectImageElement) {
-      const { width: clientWidth, height: clientHeight } = subjectImageElement.getBoundingClientRect()
+      const { width: clientWidth, height: clientHeight } = subjectImageElement.wrappedComponent.current.getBoundingClientRect()
       scale = clientWidth / naturalWidth
     }
 
@@ -160,8 +161,9 @@ class SingleImageViewerContainer extends React.Component {
           viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
           width={naturalWidth}
         >
-          <image
+          <DraggableImage
             ref={this.subjectImage}
+            dragMove={this.dragMove}
             height={naturalHeight}
             width={naturalWidth}
             xlinkHref={src}

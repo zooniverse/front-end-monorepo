@@ -11,7 +11,6 @@ width: 100%;
 `
 
 const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, onKeyDown, rotate, scale, viewBox, width }, ref) {
-  const viewBox = `0 0 ${width} ${height}`
   const transform = `rotate(${rotate} 0 0)`
   return (
     <Container>
