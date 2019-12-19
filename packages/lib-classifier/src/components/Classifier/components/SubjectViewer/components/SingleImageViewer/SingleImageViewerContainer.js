@@ -63,17 +63,21 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   dragMove (event, difference) {
-    const { viewBox } = this.state
-    viewBox.x -= difference.x
-    viewBox.y -= difference.y
-    this.setState({ viewBox })
+    this.setState(prevState => {
+      const { viewBox } = Object.assign({}, prevState)
+      viewBox.x -= difference.x / 1.5
+      viewBox.y -= difference.y / 1.5
+      return { viewBox }
+    })
   }
 
   onPan (dx, dy) {
-    const { viewBox } = this.state
-    viewBox.x += dx * 10
-    viewBox.y += dy * 10
-    this.setState({ viewBox })
+    this.setState(prevState => {
+      const { viewBox } = Object.assign({}, prevState)
+      viewBox.x += dx * 10
+      viewBox.y += dy * 10
+      return { viewBox }
+    })
   }
 
   onZoom (type, zoomValue) {
