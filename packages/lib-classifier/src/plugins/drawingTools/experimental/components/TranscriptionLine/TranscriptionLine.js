@@ -5,7 +5,7 @@ import { DragHandle } from '@plugins/drawingTools/components'
 const FINISHER_RADIUS = 8
 const GRAB_STROKE_WIDTH = 6
 
-function TranscriptionLine ({ active, children, mark, onFinish, scale, svg, tool }) {
+function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
   const { x1, y1, x2, y2, closed } = mark
   const finisherRadius = FINISHER_RADIUS / scale
 
@@ -54,13 +54,16 @@ function TranscriptionLine ({ active, children, mark, onFinish, scale, svg, tool
 
 TranscriptionLine.propTypes = {
   active: PropTypes.bool,
+  mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
-  tool: PropTypes.object
+  scale: PropTypes.number,
+  svg: PropTypes.instanceOf(Element).isRequired
 }
 
 TranscriptionLine.defaultProps = {
   active: false,
-  onFinish: () => true
+  onFinish: () => true,
+  scale: 1
 }
 
 export default TranscriptionLine
