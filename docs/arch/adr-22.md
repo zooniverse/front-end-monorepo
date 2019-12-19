@@ -4,7 +4,19 @@
 
 With new drawing tools being developed for the classifier, we need an API that's common to all drawing tools and marks, which can be easily extended by tool developers. This document lays out an overview of the drawing tool model and the public interfaces common to all tools and all marks.
 
+To support drawing, the subject viewer also needs to support:
+- rendering a static list of marks from previous drawing task annotations.
+- interacting with pointer events to create, edit and delete new marks for the current drawing task annotation.
+
 ## Decision
+
+### The subject viewer
+
+The subject viewer will render two components.
+- _DrawingToolMarks_ takes an array of marks from drawing task annotations in the classification and renders it as a static, read-only list.
+- _InteractionLayer_ wraps a _DrawingToolMarks_ component and adds pointer event support, so that the rendered array of marks can be edited and updated. THis component only acts on marks for the active drawing task.
+
+Marks created by the _InterctionLayer_ are added to a new drawing task annotation, for the current classification, when we click Next or Done to complete the current task.
 
 ### The drawing model
 
