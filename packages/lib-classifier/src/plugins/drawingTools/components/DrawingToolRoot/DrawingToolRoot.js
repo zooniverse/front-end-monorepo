@@ -15,7 +15,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-const DrawingToolRoot = forwardRef(({
+const DrawingToolRoot = forwardRef(function DrawingToolRoot({
   children,
   dragging,
   isActive,
@@ -26,7 +26,7 @@ const DrawingToolRoot = forwardRef(({
   onSelect,
   svg,
   tool
-}, ref) => {
+}, ref) {
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
     fill: 'transparent',

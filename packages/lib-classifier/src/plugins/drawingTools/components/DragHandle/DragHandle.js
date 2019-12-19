@@ -10,7 +10,7 @@ const StyledCircle = styled('circle')`
 const RADIUS = screen.width > 900 ? 4 : 10
 const OVERSHOOT = screen.width > 900 ? 4 : 10
 
-const DragHandle = forwardRef(({ scale, x, y }, ref) => {
+const DragHandle = forwardRef(function DragHandle({ scale, x, y }, ref) {
 
   const styleProps = {
     fill: 'currentColor',
