@@ -12,6 +12,9 @@ function storeMapper (stores) {
     tasks
   } = stores.classifierStore.workflowSteps
   const {
+    move
+  } = stores.classifierStore.subjectViewer
+  const {
     active: classification,
   } = stores.classifierStore.classifications
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
@@ -24,6 +27,7 @@ function storeMapper (stores) {
     activeTool,
     disabled,
     drawingAnnotations,
+    move,
     tasks
   }
 }
@@ -32,7 +36,7 @@ function storeMapper (stores) {
 @observer
 class InteractionLayerContainer extends Component {
   render () {
-    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, scale, svg, tasks, width } = this.props
+    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, move, scale, svg, tasks, width } = this.props
     return (
       <>
         {drawingAnnotations.map(annotation =>
@@ -65,6 +69,7 @@ class InteractionLayerContainer extends Component {
             activeTool={activeTool}
             disabled={disabled}
             height={height}
+            move={move}
             scale={scale}
             svg={svg}
             width={width}
