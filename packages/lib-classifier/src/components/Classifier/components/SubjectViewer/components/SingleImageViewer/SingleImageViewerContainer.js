@@ -31,6 +31,7 @@ class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
+    this.onWheel = this.onWheel.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
     this.state = {
@@ -49,6 +50,10 @@ class SingleImageViewerContainer extends React.Component {
     this.props.setOnZoom(this.onZoom.bind(this))
     this.props.setOnPan(this.onPan.bind(this))
     this.onLoad()
+  }
+
+  componentWillUnmount () {
+    this.imageViewer.current && this.imageViewer.current.removeEventListener('wheel', this.onWheel)
   }
 
   fetchImage (url) {
@@ -78,6 +83,16 @@ class SingleImageViewerContainer extends React.Component {
       viewBox.y += dy * 10
       return { viewBox }
     })
+  }
+
+  onWheel (event) {
+    event.preventDefault()
+    const { deltaY } = event
+    if (deltaY < 0) {
+      this.onZoom('zoomout', -1)
+    } else {
+      this.onZoom('zoomin', 1)
+    }
   }
 
   onZoom (type, zoomValue) {
@@ -142,6 +157,7 @@ class SingleImageViewerContainer extends React.Component {
       viewBox.height = naturalHeight
       viewBox.width = naturalWidth
       this.setState({ viewBox })
+      this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
       console.error(error)
@@ -156,7 +172,7 @@ class SingleImageViewerContainer extends React.Component {
     const subjectImageElement = this.subjectImage.current
     let scale = 1
     if (subjectImageElement) {
-      const { width: clientWidth, height: clientHeight } = subjectImageElement.wrappedComponent.current.getBoundingClientRect()
+      const { width: clientWidth, height: clientHeight } = subjectImageElement.getBoundingClientRect()
       scale = clientWidth / naturalWidth
     }
 

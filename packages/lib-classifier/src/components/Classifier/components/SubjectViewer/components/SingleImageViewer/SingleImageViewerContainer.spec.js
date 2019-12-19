@@ -72,7 +72,9 @@ describe('Component > SingleImageViewerContainer', function () {
       wrapper.instance().imageViewer = {
         current: {
           clientHeight: 100,
-          clientWidth: 200
+          clientWidth: 200,
+          addEventListener: sinon.stub(),
+          removeEventListener: sinon.stub()
         }
       }
     })
@@ -185,7 +187,9 @@ describe('Component > SingleImageViewerContainer', function () {
       wrapper.instance().imageViewer = {
         current: {
           clientHeight: 100,
-          clientWidth: 200
+          clientWidth: 200,
+          addEventListener: sinon.stub(),
+          removeEventListener: sinon.stub()
         }
       }
     })
