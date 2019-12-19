@@ -24,7 +24,6 @@ function withKeyZoom (WrappedComponent) {
     }
 
     onKeyDown (e) {
-      e.preventDefault()
       const { onPan, zoomIn, zoomOut } = this.props
       switch (e.key) {
         case '+':
@@ -38,18 +37,22 @@ function withKeyZoom (WrappedComponent) {
           return true
         }
         case 'ArrowRight': {
+          e.preventDefault()
           onPan(-1, 0)
           return true
         }
         case 'ArrowLeft': {
+          e.preventDefault()
           onPan(1, 0)
           return true
         }
         case 'ArrowUp': {
+          e.preventDefault()
           onPan(0, -1)
           return true
         }
         case 'ArrowDown': {
+          e.preventDefault()
           onPan(0, 1)
           return true
         }
