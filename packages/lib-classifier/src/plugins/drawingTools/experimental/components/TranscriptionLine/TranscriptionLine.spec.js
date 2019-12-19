@@ -4,7 +4,7 @@ import TranscriptionLine from './TranscriptionLine'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
 
-describe('Transcription line tool', function () {
+describe('Components > Drawing marks > Transcription line', function () {
   let mark
   beforeEach(function () {
     mark = TranscriptionLineMark.create({
@@ -29,7 +29,7 @@ describe('Transcription line tool', function () {
         active
         mark={mark}
       />)
-      expect(mark.closed).to.be.false()
+      expect(mark.finished).to.be.false()
     })
 
     it('should have a draggable start point', function () {
@@ -88,7 +88,7 @@ describe('Transcription line tool', function () {
         mark={mark}
       />)
       wrapper.find('circle[cx=300]').simulate('pointerdown')
-      expect(mark.closed).to.be.true()
+      expect(mark.finished).to.be.true()
     })
   })
 })

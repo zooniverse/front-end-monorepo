@@ -6,7 +6,7 @@ const FINISHER_RADIUS = 8
 const GRAB_STROKE_WIDTH = 6
 
 function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
-  const { x1, y1, x2, y2, closed } = mark
+  const { x1, y1, x2, y2, finished } = mark
   const finisherRadius = FINISHER_RADIUS / scale
 
   function onHandleDrag (coords) {
@@ -14,7 +14,7 @@ function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
   }
 
   function handleFinishClick () {
-    mark.close()
+    mark.finish()
     onFinish()
   }
 
@@ -42,7 +42,7 @@ function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
           dragMove={(e, d) => onHandleDrag({ x1, y1, x2: x2 + d.x, y2: y2 + d.y })}
         />}
 
-      {active && !closed &&
+      {active && !finished &&
         <g>
           <circle r={finisherRadius} cx={x1} cy={y1} stroke="transparent" onPointerDown={handleFinishClick} />
           <circle r={finisherRadius} cx={x2} cy={y2} onPointerDown={handleFinishClick} />
