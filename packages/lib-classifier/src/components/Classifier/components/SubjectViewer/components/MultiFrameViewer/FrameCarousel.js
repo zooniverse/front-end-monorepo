@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
 import getViewer from '../../helpers/getViewer'
 
-import { Button, Text, Icons } from 'grommet'
+import { Button, Box, Text, Icons } from 'grommet'
 import { FormUp, FormDown } from 'grommet-icons'
 
 const StyledH3= styled.h3`
@@ -16,15 +16,6 @@ const StyledH3= styled.h3`
   padding: 0;
   position: absolute;
   width: 1px;
-`
-
-const StyledDivContainer = styled.div`
-  align-content: center;
-  background: #FFFFFF;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
 `
 
 const StyledUnorderedList = styled.ul`
@@ -59,30 +50,6 @@ const StyledButtons = styled.button`
   }
 `
 
-const StyledIcon = styled.i`
-  color: #FFFFFF;
-  font-size: 1.5em;
-`
-
-const StyledControlButtons = styled.button`
-  align-items: center;
-  background-color: #00979D;
-  border: 0;
-  margin: 0;
-  width: 100%;
-  height: 15%;
-  text-align: center;
-  outline: none;
-
-  &:hover {
-    background: #addde0;
-  }
-
-  &:focus {
-    background: #addde0;
-  }
-`
-
 const StyledImage = styled.img`
   height: 40px;
   width: 40px;
@@ -112,7 +79,16 @@ class FrameCarousel extends React.Component {
     const locations = this.props.subject.locations
 
     return (
-      <StyledDivContainer className="frames-container">
+      <Box
+        className="frames-container"
+        align="center"
+        alignContent="around"
+        background={"#FFFFFF"}
+        direction="column"
+        flex="grow"
+        height="100%"
+        responsive={true}
+      >
         <StyledH3 id="subjectcarousel" className="visuallyhidden">
           Carousel of Subjects
         </StyledH3>
@@ -148,7 +124,7 @@ class FrameCarousel extends React.Component {
           onClick={() => {}}
           primary
         />
-      </StyledDivContainer>
+      </Box>
     )
   }
 }
