@@ -22,6 +22,7 @@ function DoneButton (props) {
   if (!props.completed) {
     return (
       <Button
+        color={ZOONIVERSE_TEAL}
         disabled={props.disabled}
         label={Label}
         onClick={props.onClick}

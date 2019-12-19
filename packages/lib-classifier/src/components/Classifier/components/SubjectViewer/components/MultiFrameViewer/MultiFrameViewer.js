@@ -5,6 +5,20 @@ import locationValidator from '../../helpers/locationValidator'
 import getViewer from '../../helpers/getViewer'
 import FrameCarousel from './FrameCarousel'
 
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  background: gray;
+`
+
+const StyledMainImage = styled.img`
+  flex-grow: 2;
+  width: 100%;
+  height: 100%;
+`
+
 class MultiFrameViewer extends React.Component {
   constructor () {
     super()
@@ -12,25 +26,23 @@ class MultiFrameViewer extends React.Component {
   }
 
   render () {
-    // carousel component
     const { onError, onSubjectReady, subject, subjectReadyState } = this.props
     const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
     const mimeTypeKey = Object.keys(this.props.subject.locations[currentFrameIndex])
-    console.log("mimeTypeKey", mimeTypeKey)
     const currentFrameLocation = this.props.subject.locations[currentFrameIndex][mimeTypeKey]
-    console.log("currentFrameLocation", currentFrameLocation)
-    //         <FrameContainer
-        //   currentIndex={this.state.currentFrameIndex}
-        //   setCurrentSubjectIndex={this.currentFrameLocation}
-        //   locations={this.props.subject.locations}
-        // />
+
     return (
-       <section tabIndex="0" className="subjectcarousel" aria-labelledby="carouselheading">
-        <FrameCarousel />
+       <StyledSection tabIndex="0" className="subjectcarousel" aria-labelledby="carouselheading">
+        <FrameCarousel subject={this.props.subject} />
         <div className="frame-display" role="region" aria-live="polite">
-          <img src={currentFrameLocation} alt={`Subject ${currentFrameIndex + 1} of ${this.props.subject.locations.length}`}/>
+          <StyledMainImage
+            role="region"
+            aria-live="polite"
+            src={currentFrameLocation}
+            alt={`Subject ${currentFrameIndex + 1} of ${this.props.subject.locations.length}`}
+          />
         </div>
-      </section>
+      </StyledSection>
     )
   }
 }
@@ -49,7 +61,9 @@ MultiFrameViewer.propTypes = {
 
 MultiFrameViewer.defaultProps = {
   subject: {
-    default_frame: 0
+    metadata: {
+      default_frame: "0"
+    }
   }
 }
 
