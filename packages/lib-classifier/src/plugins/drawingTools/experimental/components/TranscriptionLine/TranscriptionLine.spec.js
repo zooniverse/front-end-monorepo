@@ -54,6 +54,8 @@ describe('Transcription line tool', function () {
         mark={mark}
       />)
       const dragMove = wrapper.find(DragHandle).find('[x=100]').prop('dragMove')
+      expect(mark.x1).to.equal(100)
+      expect(mark.y1).to.equal(200)
       dragMove({}, { x: 10, y: 20 })
       expect(mark.x1).to.equal(110)
       expect(mark.y1).to.equal(220)
@@ -73,6 +75,8 @@ describe('Transcription line tool', function () {
         mark={mark}
       />)
       const dragMove = wrapper.find(DragHandle).find('[x=300]').prop('dragMove')
+      expect(mark.x2).to.equal(300)
+      expect(mark.y2).to.equal(400)
       dragMove({}, { x: 10, y: 20 })
       expect(mark.x2).to.equal(310)
       expect(mark.y2).to.equal(420)
