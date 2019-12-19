@@ -44,7 +44,6 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render null', function () {
-      console.log(wrapper.debug())
       expect(wrapper.type()).to.be.null()
     })
   })
@@ -150,7 +149,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
       }
       onReady.callsFake(function () {
-        const image = wrapper.find('image')
+        const image = wrapper.find('draggable(image)')
         expect(image).to.have.lengthOf(1)
         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
         done()
