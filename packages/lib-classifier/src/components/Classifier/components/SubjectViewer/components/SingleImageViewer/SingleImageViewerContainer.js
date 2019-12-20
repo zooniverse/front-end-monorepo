@@ -97,14 +97,26 @@ class SingleImageViewerContainer extends React.Component {
 
   onZoom (type, zoomValue) {
     switch (type) {
-      case 'zoomin':
+      case 'zoomin': {
+        this.setState(prevState => {
+          const { viewBox } = Object.assign({}, prevState)
+          const xCentre = viewBox.x + viewBox.width / 2
+          const yCentre = viewBox.y + viewBox.height / 2
+          viewBox.width = parseInt(viewBox.width * 0.9, 10)
+          viewBox.height = parseInt(viewBox.height * 0.9, 10)
+          viewBox.x = xCentre - viewBox.width / 2
+          viewBox.y = yCentre - viewBox.height / 2
+          return { viewBox }
+        })
+        return
+      }
       case 'zoomout': {
         this.setState(prevState => {
           const { viewBox } = Object.assign({}, prevState)
           const xCentre = viewBox.x + viewBox.width / 2
           const yCentre = viewBox.y + viewBox.height / 2
-          viewBox.width -= zoomValue * 10
-          viewBox.height -= zoomValue * 10
+          viewBox.width = parseInt(viewBox.width * 1.1, 10)
+          viewBox.height = parseInt(viewBox.height * 1.1, 10)
           viewBox.x = xCentre - viewBox.width / 2
           viewBox.y = yCentre - viewBox.height / 2
           return { viewBox }
