@@ -36,6 +36,8 @@ class SingleImageViewerContainer extends React.Component {
     this.subjectImage = React.createRef()
     this.state = {
       img: {},
+      initialScale: 1,
+      scale: 1,
       viewBox: {
         x: 0,
         y: 0,
@@ -99,39 +101,44 @@ class SingleImageViewerContainer extends React.Component {
     switch (type) {
       case 'zoomin': {
         this.setState(prevState => {
-          const { viewBox } = Object.assign({}, prevState)
+          let { scale, viewBox } = Object.assign({}, prevState)
           const xCentre = viewBox.x + viewBox.width / 2
           const yCentre = viewBox.y + viewBox.height / 2
           viewBox.width = parseInt(viewBox.width * 0.9, 10)
           viewBox.height = parseInt(viewBox.height * 0.9, 10)
           viewBox.x = xCentre - viewBox.width / 2
           viewBox.y = yCentre - viewBox.height / 2
-          return { viewBox }
+          scale = scale / 0.9
+          return { scale, viewBox }
         })
         return
       }
       case 'zoomout': {
         this.setState(prevState => {
-          const { viewBox } = Object.assign({}, prevState)
+          let { scale, viewBox } = Object.assign({}, prevState)
           const xCentre = viewBox.x + viewBox.width / 2
           const yCentre = viewBox.y + viewBox.height / 2
           viewBox.width = parseInt(viewBox.width * 1.1, 10)
           viewBox.height = parseInt(viewBox.height * 1.1, 10)
           viewBox.x = xCentre - viewBox.width / 2
           viewBox.y = yCentre - viewBox.height / 2
-          return { viewBox }
+          scale = scale / 1.1
+          return { scale, viewBox }
         })
         return
       }
       case 'zoomto': {
-        const { naturalHeight, naturalWidth } = this.state.img
-        const viewBox = {
-          x: 0,
-          y: 0,
-          width: naturalWidth,
-          height: naturalHeight
-        }
-        this.setState({ viewBox })
+        this.setState(prevState => {
+          const { naturalHeight, naturalWidth } = prevState.img
+          const scale = prevState.initialScale
+          const viewBox = {
+            x: 0,
+            y: 0,
+            width: naturalWidth,
+            height: naturalHeight
+          }
+          return { scale, viewBox }
+        })
         return
       }
     }
@@ -164,11 +171,13 @@ class SingleImageViewerContainer extends React.Component {
     const { onError, onReady } = this.props
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const scale = clientWidth / naturalWidth
+      const initialScale = scale
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       const { viewBox } = this.state
       viewBox.height = naturalHeight
       viewBox.width = naturalWidth
-      this.setState({ viewBox })
+      this.setState({ initialScale, scale, viewBox })
       this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
@@ -179,14 +188,9 @@ class SingleImageViewerContainer extends React.Component {
 
   render () {
     const { loadingState, onError, onKeyDown, rotation, subject } = this.props
-    const { img, viewBox } = this.state
+    const { img, scale, viewBox } = this.state
     const { naturalHeight, naturalWidth, src } = img
     const subjectImageElement = this.subjectImage.current
-    let scale = 1
-    if (subjectImageElement) {
-      const { width: clientWidth, height: clientHeight } = subjectImageElement.getBoundingClientRect()
-      scale = clientWidth / naturalWidth
-    }
 
     if (loadingState === asyncStates.error) {
       return (
