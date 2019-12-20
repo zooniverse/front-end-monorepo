@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { Bar } from '@vx/shape'
+import Tippy from '@tippy.js/react'
 
 function Bars (props) {
   const {
@@ -18,6 +19,8 @@ function Bars (props) {
     theme: { global: { colors } }
   } = props
 
+  const [ tooltipShown, setTooltipToShow ] = React.useState(null)
+
   return data.map((datum, index) => {
     const { color, label, value } = datum
     const fill = colors[color] || color || colors.brand
@@ -30,25 +33,30 @@ function Bars (props) {
     const barCenter = Math.round(x + (barWidth / 2))
     const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
     return (
-      <Bar
-        aria-label={alt}
-        data-label={label}
-        data-value={value}
-        fill={fill}
-        focusable
+      <Tippy
+        content={value.toString()}
         key={key}
-        height={barHeight}
-        index={index}
-        onFocus={(event) => onFocus(event, { value, barCenter, barWidth, x, y })}
-        // onBlur={onBlur}
-        onMouseMove={(event) => onMouseMove(event, { value, barCenter, barWidth, x, y })}
-        // onMouseOut={onMouseOut}
-        tabIndex={0}
-        role='list item'
-        width={barWidth}
-        x={x}
-        y={y}
-      />
+        visible={tooltipShown === key}
+      >
+        <Bar
+          aria-label={alt}
+          data-label={label}
+          data-value={value}
+          fill={fill}
+          focusable
+          height={barHeight}
+          index={index}
+          onFocus={(event) => setTooltipToShow(key)}
+          // onBlur={onBlur}
+          onMouseMove={(event) => setTooltipToShow(key)}
+          // onMouseOut={onMouseOut}
+          tabIndex={0}
+          role='list item'
+          width={barWidth}
+          x={x}
+          y={y}
+        />
+      </Tippy>
     )
   })
 }
