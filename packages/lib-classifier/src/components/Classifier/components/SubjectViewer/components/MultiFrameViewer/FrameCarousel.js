@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
 import getViewer from '../../helpers/getViewer'
 
-import { Button, Box, Text, Icons } from 'grommet'
+import { Button, Box, List, Text, Icons } from 'grommet'
 import { FormUp, FormDown } from 'grommet-icons'
 
 const StyledH3= styled.h3`
@@ -18,18 +18,10 @@ const StyledH3= styled.h3`
   width: 1px;
 `
 
-const StyledUnorderedList = styled.ul`
-  align-items: center;
-  align-content: center;
-  background: #FFFFFF;
-  list-style: none;
-  display: flex;
-  flex-grow: 20;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  padding: 0;
-  overflow-y: auto;
+const StyledControlButton = styled(Button)`
+  &:focus {
+    background: #7fcbce
+  }
 `
 
 const StyledButtons = styled.button`
@@ -43,7 +35,7 @@ const StyledButtons = styled.button`
     box-sizing: border-box;
     border: 3px solid #F0B200;
   }
-  &:focus: {
+  &:focus {
     box-sizing: border-box;
     border: 3px solid #F0B200;
     outline: none;
@@ -51,8 +43,8 @@ const StyledButtons = styled.button`
 `
 
 const StyledImage = styled.img`
-  height: 40px;
-  width: 40px;
+  height: 3em;
+  width: 3em;
   float: center;
   object-fit: cover;
   padding: 0;
@@ -76,7 +68,23 @@ class FrameCarousel extends React.Component {
   }
 
   render () {
-    const locations = this.props.subject.locations
+    const locations = this.props.subject.locations.map( location => ({"url": location["image/jpeg"]}))
+    const locationElements = locations.map((location, index) => {
+      return (
+        <li key={index} className={`frame-${index}`}>
+          <StyledButtons
+            key={index}
+            value={index}
+            data-slide={index}
+          >
+            <StyledImage
+              src={location.url}
+              alt="Thumbnail of Image"
+            />
+          </StyledButtons>
+        </li>
+      )
+    })
 
     return (
       <Box
@@ -86,42 +94,38 @@ class FrameCarousel extends React.Component {
         background={"#FFFFFF"}
         direction="column"
         flex="grow"
-        height="100%"
         responsive={true}
       >
         <StyledH3 id="subjectcarousel" className="visuallyhidden">
           Carousel of Subjects
         </StyledH3>
-        <Button
+        <StyledControlButton
           alignSelf="center"
           a11yTitle="Click to see the previous frame"
-          hoverIndicator={true, {color: "#addde0"}}
+          hoverIndicator={true, {color: "#7fcbce"}}
+          focusIndicator={true, {color: "#7fcbce"}}
           icon={<FormUp />}
-          onClick={() => {}}
           primary
         />
-        <StyledUnorderedList className="frames-list">
-          {locations.map((frame, index) => (
-            <li key={index} className={`frame-${index}`}>
-              <StyledButtons
-                key={index}
-                value={index}
-                data-slide={index}
-              >
-                <StyledImage
-                  src={frame["image/jpeg"]}
-                  alt="Thumbnail of Image"
-                />
-              </StyledButtons>
-            </li>
-          ))}
-        </StyledUnorderedList>
-        <Button
+        <Box
+          align="center"
+          alignContent="center"
+          as="ul"
+          background="#FFFFFF"
+          border={false}
+          direction="column"
+          height="100%"
+          pad="0"
+          overflow="scroll"
+        >
+          {locationElements}
+        </Box>
+        <StyledControlButton
           alignSelf="center"
           a11yTitle="Click to see the next frame"
-          hoverIndicator={true, {color: "#addde0"}}
+          hoverIndicator={true, {color: "#7fcbce"}}
+          focusIndicator={true, {color: "#7fcbce"}}
           icon={<FormDown />}
-          onClick={() => {}}
           primary
         />
       </Box>
@@ -133,9 +137,6 @@ FrameCarousel.propTypes = {
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator),
   })
-}
-
-FrameCarousel.defaultProps = {
 }
 
 export default FrameCarousel
