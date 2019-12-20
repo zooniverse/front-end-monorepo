@@ -3385,7 +3385,7 @@
     classnames "^2.2.5"
     prop-types "^15.6.0"
 
-"@vx/bounds@0.0.192", "@vx/bounds@~0.0.192":
+"@vx/bounds@0.0.192":
   version "0.0.192"
   resolved "https://registry.yarnpkg.com/@vx/bounds/-/bounds-0.0.192.tgz#f918b172bc30a551f0f6febf3b48f4ac5ec158e2"
   integrity sha512-IEWwvi41V8FbQXd0J402VdAXSxUxoMp1uGJErNvcd21RVMZqBCxVzapDWaSFProcbdPtNAZ45MtVc6pUosY35g==
@@ -3593,7 +3593,7 @@
     prop-types "^15.7.2"
     reduce-css-calc "^1.3.0"
 
-"@vx/tooltip@0.0.192", "@vx/tooltip@~0.0.192":
+"@vx/tooltip@0.0.192":
   version "0.0.192"
   resolved "https://registry.yarnpkg.com/@vx/tooltip/-/tooltip-0.0.192.tgz#0d0f8fcf2033f3521e2fdcfa13d9f912270e6036"
   integrity sha512-uQeT8nyCuJKwX3QPhtvUoxmA4oB7CIbfKzwt92/IGMP7qOqqsmqLl74xgAIwSdZQ/qua/RsIwmKszbBoxth4/w==

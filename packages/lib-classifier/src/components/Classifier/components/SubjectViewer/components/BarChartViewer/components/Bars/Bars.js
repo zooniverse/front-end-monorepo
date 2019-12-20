@@ -1,78 +1,109 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
+import { Box } from 'grommet'
 import { Bar } from '@vx/shape'
 import Tippy from '@tippy.js/react'
+import { SpacedText } from '@zooniverse/react-components'
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+
+const StyledTippy = styled(Tippy)`
+  background-color: black !important;
+  border-radius: 0 !important;
+
+  .tippy-content {
+    font-family: ${props => props.fontFamily};
+    padding: 0;
+  }
+
+  &[data-placement^=bottom] {
+    .tippy-arrow {
+      border-bottom-color: black !important;
+    }
+  }
+
+  &[data-placement^='top'] {
+    .tippy-arrow {
+      border-top-color: black !important;
+    }
+  }
+`
+
+function TooltipContent ({ label }) {
+  return (
+    <Box
+      background={{ color: 'black', dark: true }}
+      elevation='medium'
+      pad={{ horizontal: 'medium', vertical: 'xsmall' }}
+      responsive={false}
+    >
+      <SpacedText weight='bold'>{label}</SpacedText>
+    </Box>
+  )
+}
 
 function Bars (props) {
   const {
     data,
-    onBlur,
-    onFocus,
-    onMouseMove,
-    onMouseOut,
     xAxisLabel,
     xScale,
     yAxisLabel,
     yScale,
     yMax,
-    theme: { global: { colors } }
+    theme: { global: { colors, font } }
   } = props
 
-  const [ tooltipShown, setTooltipToShow ] = React.useState(null)
-
   return data.map((datum, index) => {
-    const { color, label, value } = datum
-    const fill = colors[color] || color || colors.brand
-    const key = `bar-${label}`
-    const barHeight = yMax - yScale(value)
-    const barWidth = xScale.bandwidth()
-    const x = xScale(label)
-    const y = yMax - barHeight
-    // rounding the center calculation to match the tick position in the axis
-    const barCenter = Math.round(x + (barWidth / 2))
-    const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
-    return (
-      <Tippy
-        content={value.toString()}
-        key={key}
-        visible={tooltipShown === key}
-      >
-        <Bar
-          aria-label={alt}
-          data-label={label}
-          data-value={value}
-          fill={fill}
-          focusable
-          height={barHeight}
-          index={index}
-          onFocus={(event) => setTooltipToShow(key)}
-          // onBlur={onBlur}
-          onMouseMove={(event) => setTooltipToShow(key)}
-          // onMouseOut={onMouseOut}
-          tabIndex={0}
-          role='list item'
-          width={barWidth}
-          x={x}
-          y={y}
-        />
-      </Tippy>
-    )
-  })
+      const { color, label, value } = datum
+      const fill = colors[color] || color || colors.brand
+      const key = `bar-${label}`
+      const barHeight = yMax - yScale(value)
+      const barWidth = xScale.bandwidth()
+      const x = xScale(label)
+      const y = yMax - barHeight
+      const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
+      return (
+        <StyledTippy
+          arrow={true}
+          animation='scale'
+          content={<TooltipContent label={value.toString()} />}
+          fontFamily={font.family}
+          key={key}
+          placement='top'
+          trigger='mouseenter focus'
+        >
+          <svg
+            tabIndex='0'
+          >
+            <Bar
+              aria-label={alt}
+              data-label={label}
+              data-value={value}
+              fill={fill}
+              focusable
+              height={barHeight}
+              index={index}
+              role='list item'
+              width={barWidth}
+              x={x}
+              y={y}
+            />
+          </svg>
+        </StyledTippy>
+      )
+    })
 }
 
 Bars.defaultProps = {
-  onBlur: () => {},
-  onFocus: () => {},
-  onMouseMove: () => {},
-  onMouseOut: () => {},
   theme: {
     dark: false,
     global: {
       colors: {
         brand: '',
         text: {}
-      }
+      },
+      font: {}
     }
   },
   xAxisLabel: 'x-axis',
@@ -81,10 +112,6 @@ Bars.defaultProps = {
 
 Bars.propTypes = {
   data: PropTypes.array.isRequired,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
-  onMouseMove: PropTypes.func,
-  onMouseOut: PropTypes.func,
   theme: PropTypes.object,
   xAxisLabel: PropTypes.string,
   xScale: PropTypes.func.isRequired,

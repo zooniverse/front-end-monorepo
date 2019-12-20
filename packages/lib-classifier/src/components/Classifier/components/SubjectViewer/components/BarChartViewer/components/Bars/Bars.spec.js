@@ -104,43 +104,10 @@ describe('Bars', function () {
       })
     })
 
-    it('should call props.onFocus', function () {
+    xit('should show a tooltip onFocus', function () {
       bars.forEach((bar) => {
         bar.simulate('focus')
-        expect(onFocusSpy).to.be.calledOnce()
-        onFocusSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onBlur', function () {
-      bars.forEach((bar) => {
-        bar.simulate('blur')
-        expect(onBlurSpy).to.be.calledOnce()
-        onBlurSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onMouseOut', function () {
-      bars.forEach((bar) => {
-        bar.simulate('mouseout')
-        expect(onMouseOutSpy).to.be.calledOnce()
-        onMouseOutSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onMouseMove', function () {
-      bars.forEach((bar) => {
-        bar.simulate('mousemove')
-        expect(onMouseMoveSpy).to.be.calledOnce()
-        onMouseMoveSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onMouseOut', function () {
-      bars.forEach((bar) => {
-        bar.simulate('mouseout')
-        expect(onMouseOutSpy).to.be.calledOnce()
-        onMouseOutSpy.resetHistory()
+        console.log(wrapper.debug())
       })
     })
 
