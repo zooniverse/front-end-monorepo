@@ -249,7 +249,8 @@ describe('Component > SingleImageViewerContainer', function () {
           onReady={onReady}
           setOnPan={callback => {onPan = callback}}
           setOnZoom={callback => {onZoom = callback}}
-        />)
+        />
+      )
     })
 
     it('should enable zoom in', function (done) {
@@ -304,6 +305,26 @@ describe('Component > SingleImageViewerContainer', function () {
         dragMove({}, { x: 0, y: -15 })
         const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
         expect(viewBox).to.equal('0 10 400 200')
+        done()
+      })
+    })
+
+    it('should should zoom out on wheel scroll up', function (done) {
+      onReady.callsFake(function () {
+        const { onWheel } = wrapper.instance()
+        onWheel({ deltaY: -10, preventDefault: sinon.stub() })
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('-5 -5 410 210')
+        done()
+      })
+    })
+
+    it('should should zoom in on wheel scroll down', function (done) {
+      onReady.callsFake(function () {
+        const { onWheel } = wrapper.instance()
+        onWheel({ deltaY: 10, preventDefault: sinon.stub() })
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('5 5 390 190')
         done()
       })
     })
