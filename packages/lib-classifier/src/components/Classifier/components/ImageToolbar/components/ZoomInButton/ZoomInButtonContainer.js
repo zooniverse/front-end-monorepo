@@ -17,10 +17,31 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class ZoomInButtonContainer extends React.Component {
-  render () {
+  constructor () {
+    super()
+    this.onPointerDown = this.onPointerDown.bind(this)
+    this.onPointerUp = this.onPointerUp.bind(this)
+    this.timer = ''
+  }
+
+  onPointerDown (event) {
     const { zoomIn } = this.props
+    this.timer = setInterval(zoomIn, 100)
+  }
+
+  onPointerUp (event) {
+    clearInterval(this.timer)
+  }
+
+  render () {
     return (
-      <ZoomInButton onClick={zoomIn} />
+      <span
+        touch-action='none'
+        onPointerDown={this.onPointerDown}
+        onPointerUp={this.onPointerUp}
+      >
+        <ZoomInButton onClick={this.onPointerUp} />
+      </span>
     )
   }
 }
