@@ -287,5 +287,25 @@ describe('Component > SingleImageViewerContainer', function () {
         done()
       })
     })
+
+    it('should should pan horizontally on drag', function (done) {
+      onReady.callsFake(function () {
+        const dragMove = wrapper.find('draggable(image)').prop('dragMove')
+        dragMove({}, { x: -15, y: 0 })
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('10 0 400 200')
+        done()
+      })
+    })
+
+    it('should should pan vertically on drag', function (done) {
+      onReady.callsFake(function () {
+        const dragMove = wrapper.find('draggable(image)').prop('dragMove')
+        dragMove({}, { x: 0, y: -15 })
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 10 400 200')
+        done()
+      })
+    })
   })
 })
