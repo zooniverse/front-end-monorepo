@@ -23,3 +23,4 @@
 - [ADR 21: Auth Client](adr-21.md)
 - [ADR 22: Drawing tools](adr-22.md)
 - [ADR 23: Task plugins](adr-23.md)
+- [ADR 24: Drawing Shape Mark Annotation Models](adr-24.md)
