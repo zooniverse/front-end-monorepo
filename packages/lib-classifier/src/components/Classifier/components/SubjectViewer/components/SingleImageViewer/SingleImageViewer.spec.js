@@ -7,7 +7,7 @@ let wrapper
 
 describe('Component > SingleImageViewer', function () {
   beforeEach(function () {
-    wrapper = shallow(<SingleImageViewer />)
+    wrapper = shallow(<SingleImageViewer width={100} height={200} />)
   })
 
   it('should render without crashing', function () {
@@ -15,7 +15,7 @@ describe('Component > SingleImageViewer', function () {
   })
   
   it('should be upright', function () {
-    const transform = wrapper.root().prop('transform')
+    const transform = wrapper.find('svg').prop('transform')
     expect(transform).to.have.string('rotate(0)')
   })
 
@@ -25,7 +25,7 @@ describe('Component > SingleImageViewer', function () {
     })
 
     it('should be rotated', function () {
-    const transform = wrapper.root().prop('transform')
+    const transform = wrapper.find('svg').prop('transform')
     expect(transform).to.have.string('rotate(-90)')
     })
   })
