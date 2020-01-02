@@ -95,6 +95,7 @@ const SubjectViewer = types
       resetSubject () {
         self.loadingState = asyncStates.loading
         self.dimensions = []
+        self.rotation = 0
       },
 
       resetView () {
