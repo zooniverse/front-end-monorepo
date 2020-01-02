@@ -12,7 +12,7 @@
     "@storybook/storybook-deployer": "~2.8.1",
     "coveralls": "~3.0.9",
     "lerna": "~3.15.0",
-    "nyc": "~14.1.1",
+    "nyc": "~15.0.0",
     "plop": "~2.4.0",
     "snazzy": "~8.0.0"
   },
