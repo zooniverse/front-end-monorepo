@@ -27,6 +27,8 @@ class ZoomOutButtonContainer extends React.Component {
   onPointerDown (event) {
     const { zoomOut } = this.props
     const { currentTarget, pointerId } = event
+    zoomOut()
+    clearInterval(this.timer)
     this.timer = setInterval(zoomOut, 100)
     currentTarget.setPointerCapture(pointerId)
   }
