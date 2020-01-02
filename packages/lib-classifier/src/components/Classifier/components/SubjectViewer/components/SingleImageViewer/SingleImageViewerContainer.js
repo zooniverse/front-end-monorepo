@@ -98,17 +98,19 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   onZoom (type, zoomValue) {
+    const { img, initialScale } = this.state
     switch (type) {
       case 'zoomin': {
         this.setState(prevState => {
           let { scale, viewBox } = Object.assign({}, prevState)
           const xCentre = viewBox.x + viewBox.width / 2
           const yCentre = viewBox.y + viewBox.height / 2
-          viewBox.width = parseInt(viewBox.width * 0.9, 10)
-          viewBox.height = parseInt(viewBox.height * 0.9, 10)
+          scale = Math.min(scale + 0.1, 2)
+          const viewBoxScale = initialScale / scale
+          viewBox.width = parseInt(img.naturalWidth * viewBoxScale, 10)
+          viewBox.height = parseInt(img.naturalHeight * viewBoxScale, 10)
           viewBox.x = xCentre - viewBox.width / 2
           viewBox.y = yCentre - viewBox.height / 2
-          scale = scale / 0.9
           return { scale, viewBox }
         })
         return
@@ -118,11 +120,12 @@ class SingleImageViewerContainer extends React.Component {
           let { scale, viewBox } = Object.assign({}, prevState)
           const xCentre = viewBox.x + viewBox.width / 2
           const yCentre = viewBox.y + viewBox.height / 2
-          viewBox.width = parseInt(viewBox.width * 1.1, 10)
-          viewBox.height = parseInt(viewBox.height * 1.1, 10)
+          scale = Math.max(scale - 0.1, initialScale)
+          const viewBoxScale = initialScale / scale
+          viewBox.width = parseInt(img.naturalWidth * viewBoxScale, 10)
+          viewBox.height = parseInt(img.naturalHeight * viewBoxScale, 10)
           viewBox.x = xCentre - viewBox.width / 2
           viewBox.y = yCentre - viewBox.height / 2
-          scale = scale / 1.1
           return { scale, viewBox }
         })
         return
