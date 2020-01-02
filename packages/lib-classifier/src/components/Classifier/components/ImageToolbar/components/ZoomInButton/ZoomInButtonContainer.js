@@ -26,11 +26,15 @@ class ZoomInButtonContainer extends React.Component {
 
   onPointerDown (event) {
     const { zoomIn } = this.props
+    const { currentTarget, pointerId } = event
     this.timer = setInterval(zoomIn, 100)
+    currentTarget.setPointerCapture(pointerId)
   }
 
   onPointerUp (event) {
+    const { currentTarget, pointerId } = event
     clearInterval(this.timer)
+    currentTarget.releasePointerCapture(pointerId)
   }
 
   render () {
