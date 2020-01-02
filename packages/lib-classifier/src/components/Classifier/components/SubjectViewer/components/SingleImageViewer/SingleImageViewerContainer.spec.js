@@ -36,7 +36,7 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<SingleImageViewerContainer.wrappedComponent onError={onError} />)
+      wrapper = shallow(<SingleImageViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -61,7 +61,7 @@ describe('Component > SingleImageViewerContainer', function () {
         ]
       }
       wrapper = shallow(
-        <SingleImageViewerContainer.wrappedComponent
+        <SingleImageViewerContainer
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
@@ -176,7 +176,7 @@ describe('Component > SingleImageViewerContainer', function () {
         ]
       }
       wrapper = shallow(
-        <SingleImageViewerContainer.wrappedComponent
+        <SingleImageViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
           onError={onError}
@@ -251,22 +251,33 @@ describe('Component > SingleImageViewerContainer', function () {
           setOnZoom={callback => {onZoom = callback}}
         />
       )
+      wrapper.instance().imageViewer = {
+        current: {
+          clientHeight: 100,
+          clientWidth: 200,
+          addEventListener: sinon.stub(),
+          removeEventListener: sinon.stub()
+        }
+      }
     })
 
     it('should enable zoom in', function (done) {
       onReady.callsFake(function () {
         onZoom('zoomin', 1)
         const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('20 10 360 180')
+        expect(viewBox).to.equal('33.5 17 333 166')
         done()
       })
     })
 
     it('should enable zoom out', function (done) {
       onReady.callsFake(function () {
+        onZoom('zoomin', 1)
+        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
         onZoom('zoomout', -1)
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('-20 -10 440 220')
+        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         done()
       })
     })
@@ -275,7 +286,7 @@ describe('Component > SingleImageViewerContainer', function () {
       onReady.callsFake(function () {
         onPan(-1, 0)
         const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('-10 0 400 200')
+        expect(viewBox).to.equal('10 0 400 200')
         done()
       })
     })
@@ -312,9 +323,12 @@ describe('Component > SingleImageViewerContainer', function () {
     it('should should zoom out on wheel scroll up', function (done) {
       onReady.callsFake(function () {
         const { onWheel } = wrapper.instance()
+        onWheel({ deltaY: 10, preventDefault: sinon.stub() })
+        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
         onWheel({ deltaY: -10, preventDefault: sinon.stub() })
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('-20 -10 440 220')
+        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         done()
       })
     })
@@ -322,9 +336,11 @@ describe('Component > SingleImageViewerContainer', function () {
     it('should should zoom in on wheel scroll down', function (done) {
       onReady.callsFake(function () {
         const { onWheel } = wrapper.instance()
+        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         onWheel({ deltaY: 10, preventDefault: sinon.stub() })
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('20 10 360 180')
+        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
         done()
       })
     })

@@ -232,7 +232,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 }
 
-SingleImageViewerContainer.wrappedComponent.propTypes = {
+SingleImageViewerContainer.propTypes = {
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
@@ -245,7 +245,7 @@ SingleImageViewerContainer.wrappedComponent.propTypes = {
 }
 
 
-SingleImageViewerContainer.wrappedComponent.defaultProps = {
+SingleImageViewerContainer.defaultProps = {
   enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
