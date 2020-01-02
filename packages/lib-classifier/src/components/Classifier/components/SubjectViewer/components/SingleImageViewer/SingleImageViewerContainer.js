@@ -81,7 +81,7 @@ class SingleImageViewerContainer extends React.Component {
   onPan (dx, dy) {
     this.setState(prevState => {
       const { viewBox } = Object.assign({}, prevState)
-      viewBox.x += dx * 10
+      viewBox.x -= dx * 10
       viewBox.y += dy * 10
       return { viewBox }
     })
