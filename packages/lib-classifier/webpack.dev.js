@@ -43,6 +43,14 @@ module.exports = {
           loader: 'babel-loader',
           options: { compact: false }
         }]
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
