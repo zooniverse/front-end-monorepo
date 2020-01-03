@@ -12,7 +12,7 @@ width: 100%;
 
 const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, rotate, scale, width }, ref) {
   const viewBox = `0 0 ${width} ${height}`
-  const transform = `rotate(${rotate})`
+  const transform = `rotate(${rotate} 0 0)`
   return (
     <Container>
       <svg
