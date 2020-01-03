@@ -1,12 +1,14 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import { LineTool } from '@plugins/drawingTools/models/tools'
 import { Line } from '@plugins/drawingTools/models/marks'
 import { DrawingToolRoot } from '@plugins/drawingTools/components'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './DrawingToolMarks'
 
 describe('Components > DrawingToolMarks', function () {
+  let mockContext
   let svg
   let tool
 
@@ -22,28 +24,29 @@ describe('Components > DrawingToolMarks', function () {
     lineTool.createMark({ id: 'line1' }),
     lineTool.createMark({ id: 'line2' }),
     tool = lineTool
+    mockContext = { svg }
   })
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<DrawingToolMarks tool={tool} svg={svg} />)
+    const wrapper = shallow(<DrawingToolMarks tool={tool} />)
     expect(wrapper).to.be.ok()
   })
   
   it('should render two lines', function () {
-    const wrapper = shallow(<DrawingToolMarks tool={tool} svg={svg} />)
+    const wrapper = shallow(<DrawingToolMarks tool={tool} />)
     const marks = wrapper.find('Line')
     expect(marks.length).to.equal(2)
   })
 
   describe('with an active mark', function () {
     it('should show that mark as active', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMarkId='line1' tool={tool} svg={svg} />)
+      const wrapper = shallow(<DrawingToolMarks activeMarkId='line1' tool={tool} />)
       const mark = wrapper.find('Line').first()
       expect(mark.prop('active')).to.be.true()
     })
 
     it('should render a delete button', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMarkId='line1' tool={tool} svg={svg} />)
+      const wrapper = shallow(<DrawingToolMarks activeMarkId='line1' tool={tool} />)
       const line = tool.marks.get('line1')
       const deleteButton = wrapper.find('DeleteButton')
       expect(deleteButton.prop('mark')).to.equal(line)
@@ -60,13 +63,16 @@ describe('Components > DrawingToolMarks', function () {
       deleteMark = sinon.spy(tool, 'deleteMark')
       onDeselectMark = sinon.stub()
       onDelete = sinon.stub()
-      const wrapper = shallow(
-        <DrawingToolMarks
-          onDelete={onDelete}
-          onDeselectMark={onDeselectMark}
-          tool={tool}
-          svg={svg}
-        />
+      const wrapper = mount(
+        <SVGContext.Provider value={mockContext}>
+          <svg>
+            <DrawingToolMarks
+              onDelete={onDelete}
+              onDeselectMark={onDeselectMark}
+              tool={tool}
+            />
+          </svg>
+        </SVGContext.Provider>
       )
       dragEnd = wrapper.find(DrawingToolRoot).first().prop('dragEnd')
     })

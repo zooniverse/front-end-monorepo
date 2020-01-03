@@ -14,7 +14,7 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-function Point ({ active, children, mark, scale, svg, tool }) {
+function Point ({ active, children, mark, scale, tool }) {
   const { size } = tool
   const crosshairSpace = CROSSHAIR_SPACE / scale
   const crosshairWidth = CROSSHAIR_WIDTH / scale

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { forwardRef } from 'react'
+import React, { createContext, forwardRef } from 'react'
 import styled from 'styled-components'
 
 import InteractionLayer from '../InteractionLayer'
@@ -20,7 +20,6 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, hei
       <InteractionLayer
         scale={scale}
         height={height}
-        svg={ref ? ref.current : null}
         width={width}
       />
     </SVG>

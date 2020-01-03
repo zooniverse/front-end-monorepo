@@ -1,21 +1,23 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
   cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, svg, width }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, width }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
+  const { svg, getScreenCTM } = useContext(SVGContext)
 
   function convertEvent (event) {
     const type = event.type
 
-    const svgEventOffset = getEventOffset(event.clientX, event.clientY)
+    const svgEventOffset = getEventOffset(event)
 
     const svgCoordinateEvent = {
       pointerId: event.pointerId,
@@ -27,11 +29,11 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
     return svgCoordinateEvent
   }
 
-  function getEventOffset (x, y) {
-    const svgEvent = svg.createSVGPoint()
-    svgEvent.x = x
-    svgEvent.y = y
-    const svgEventOffset = svgEvent.matrixTransform(svg.getScreenCTM().inverse())
+  function getEventOffset (event) {
+    const svgPoint = svg.createSVGPoint()
+    svgPoint.x = event.clientX
+    svgPoint.y = event.clientY
+    const svgEventOffset = svgPoint.matrixTransform(svg.getScreenCTM().inverse())
     return svgEventOffset
   }
 
@@ -82,7 +84,6 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
               onDelete={() => setActiveMark(null)}
               onSelectMark={mark => setActiveMark(mark)}
               scale={scale}
-              svg={svg}
               tool={tool}
             />
           )
@@ -98,7 +99,6 @@ InteractionLayer.propTypes = {
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
   scale: PropTypes.number,
-  svg: PropTypes.instanceOf(Element).isRequired,
   width: PropTypes.number.isRequired
 }
 
