@@ -42,7 +42,7 @@ describe('Component > InteractionLayer', function () {
   }
   const svg = document.createElementNS("http://www.w3.org/2000/svg","svg")
   svg.createSVGPoint = () => mockSVGPoint
-  svg.getScreenCTM = () => mockScreenCTM
+  const getScreenCTM = () => mockScreenCTM
 
   describe('when enabled', function () {
     beforeEach(function () {
@@ -68,7 +68,7 @@ describe('Component > InteractionLayer', function () {
       activeTool = mockDrawingTask.activeTool
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       wrapper = mount(
-        <SVGContext.Provider value={{ svg }}>
+        <SVGContext.Provider value={{ svg, getScreenCTM }}>
           <svg>
             <InteractionLayer
               activeDrawingTask={mockDrawingTask}
@@ -152,7 +152,7 @@ describe('Component > InteractionLayer', function () {
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       activeTool.createMark.resetHistory()
       wrapper = mount(
-        <SVGContext.Provider value={{ svg }}>
+        <SVGContext.Provider value={{ svg, getScreenCTM }}>
           <svg>
             <InteractionLayer
               activeDrawingTask={mockDrawingTask}

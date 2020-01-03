@@ -33,7 +33,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
     const svgPoint = svg.createSVGPoint()
     svgPoint.x = event.clientX
     svgPoint.y = event.clientY
-    const svgEventOffset = svgPoint.matrixTransform(svg.getScreenCTM().inverse())
+    const svgEventOffset = svgPoint.matrixTransform(getScreenCTM().inverse())
     return svgEventOffset
   }
 

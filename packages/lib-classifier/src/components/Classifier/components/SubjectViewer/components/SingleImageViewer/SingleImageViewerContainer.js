@@ -88,7 +88,7 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
-    const { getScreenCTM } = svg ? svg : {}
+    const getScreenCTM = () => svg.getScreenCTM()
     
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
