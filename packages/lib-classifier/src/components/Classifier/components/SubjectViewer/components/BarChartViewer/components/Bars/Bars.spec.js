@@ -3,8 +3,9 @@ import React from 'react'
 import sinon from 'sinon'
 import { Bar } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Bars } from './Bars'
+import { Bars, TooltipContent } from './Bars'
 import mockData, { mockDataWithColor, xScale, yScale, yMax } from '../../mockData'
+import { Tooltip } from 'grommet-icons'
 
 const {
   data,
@@ -104,43 +105,10 @@ describe('Bars', function () {
       })
     })
 
-    it('should call props.onFocus', function () {
-      bars.forEach((bar) => {
-        bar.simulate('focus')
-        expect(onFocusSpy).to.be.calledOnce()
-        onFocusSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onBlur', function () {
-      bars.forEach((bar) => {
-        bar.simulate('blur')
-        expect(onBlurSpy).to.be.calledOnce()
-        onBlurSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onMouseOut', function () {
-      bars.forEach((bar) => {
-        bar.simulate('mouseout')
-        expect(onMouseOutSpy).to.be.calledOnce()
-        onMouseOutSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onMouseMove', function () {
-      bars.forEach((bar) => {
-        bar.simulate('mousemove')
-        expect(onMouseMoveSpy).to.be.calledOnce()
-        onMouseMoveSpy.resetHistory()
-      })
-    })
-
-    it('should call props.onMouseOut', function () {
-      bars.forEach((bar) => {
-        bar.simulate('mouseout')
-        expect(onMouseOutSpy).to.be.calledOnce()
-        onMouseOutSpy.resetHistory()
+    it('should have a tooltip', function () {
+      bars.forEach((bar, index) => {
+        const tooltip = wrapper.find(TooltipContent).at(index)
+        expect(tooltip.text()).to.equal(bar.props()['data-value'].toString())
       })
     })
 

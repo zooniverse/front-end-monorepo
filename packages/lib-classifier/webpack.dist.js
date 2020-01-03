@@ -34,6 +34,13 @@ module.exports = {
         test: /\.js?$/,
         include: path.resolve(__dirname, 'src'),
         use: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
