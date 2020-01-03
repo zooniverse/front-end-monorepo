@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { createContext, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 
 import InteractionLayer from '../InteractionLayer'
