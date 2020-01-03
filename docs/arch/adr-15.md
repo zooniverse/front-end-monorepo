@@ -38,7 +38,7 @@ What we do want to do:
 
 ## Status
 
-Accepted
+Superseded by [ADR-22](adr-22.md).
 
 ## Consequences
 

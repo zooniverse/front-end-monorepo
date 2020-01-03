@@ -3,7 +3,8 @@ import { genRandomNormalPoints } from '@vx/mock-data'
 import { scaleLinear } from '@vx/scale'
 import { zip } from 'lodash'
 import * as d3 from 'd3'
-import lightCurve from '../../LightCurveViewer/mockData'
+import kepler from '../../../helpers/mockLightCurves/kepler'
+import variableStar from '../../../helpers/mockLightCurves/variableStar'
 import { left, top, xMin, xMax, yMin, yMax } from './utils'
 
 const color = zooTheme.global.colors['light-1']
@@ -89,9 +90,9 @@ const axesConfig = {
   yAxis: leftAxis
 }
 
-const lightCurveMockData = {
-  data: lightCurve,
-  options: {
+const keplerMockDataWithOptions = {
+  data: kepler,
+  chartOptions: {
     margin: {
       bottom: 10,
       left: 10,
@@ -109,6 +110,11 @@ const lightCurveMockData = {
   }
 }
 
+const lightCurveMockData = [
+  kepler,
+  variableStar
+]
+
 export {
   axesConfig,
   bottomAxis,
@@ -118,6 +124,7 @@ export {
   data,
   dataExtent,
   dataPoints,
+  keplerMockDataWithOptions,
   leftAxis,
   lightCurveMockData,
   margin,

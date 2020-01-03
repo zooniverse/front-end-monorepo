@@ -7,7 +7,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-function DeleteButton ({ label, mark, scale, svg, rotate, onDelete }) {
+function DeleteButton ({ label, mark, scale, rotate, onDelete }) {
   const RADIUS = (screen.width < 900) ? 11 : 8
   const STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
@@ -19,11 +19,10 @@ function DeleteButton ({ label, mark, scale, svg, rotate, onDelete }) {
     L 0 ${RADIUS * 0.7}
   `
   const { x, y } = mark.deleteButtonPosition(scale)
-  const matrix = svg.getScreenCTM()
   const transform = `
     translate(${x}, ${y})
     rotate(${rotate})
-    matrix( ${1 / matrix.a} 0 0 ${1 / matrix.d} 0 0)
+    scale(${1 / scale})
   `
   function onKeyDown (event) {
     switch (event.key) {

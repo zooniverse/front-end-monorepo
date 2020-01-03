@@ -6,10 +6,12 @@ import * as d3 from 'd3'
 import { zip } from 'lodash'
 
 import { LightCurveViewerContainer } from './LightCurveViewerContainer'
-import mockData from './mockData.json'
+import kepler from '../../helpers/mockLightCurves/kepler'
 import { Factory } from 'rosie'
 
 let wrapper
+
+const mockData = kepler
 
 const subject = Factory.build('subject', { locations: [
   { 'application/json': 'http://localhost:8080/mockData.json' }

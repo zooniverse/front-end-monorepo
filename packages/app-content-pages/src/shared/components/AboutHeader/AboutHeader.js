@@ -28,6 +28,8 @@ function AboutHeader () {
         <NavLink label='Resources' href='/about/resources' />
         <NavLink label='Contact Us' href='/about/contact' />
         <NavLink label='FAQ' href='/about/faq' />
+        <NavLink label='Highlights Book' href='/about/highlights' />
+        <NavLink label='Donate' href='/about/donate' />
       </Box>
     </Box>
   )
