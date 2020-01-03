@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 import { Group } from '@vx/group'
-import { withTooltip } from '@vx/tooltip'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
 import { withParentSize } from '@vx/responsive'
@@ -167,5 +166,5 @@ BarChartViewer.propTypes = {
   yAxisLabel: PropTypes.string
 }
 
-export default withTheme(withParentSize(withTooltip(BarChartViewer)))
+export default withTheme(withParentSize(BarChartViewer))
 export { BarChartViewer }
