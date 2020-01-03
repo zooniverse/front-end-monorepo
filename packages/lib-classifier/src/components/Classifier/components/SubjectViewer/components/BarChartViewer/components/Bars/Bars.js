@@ -13,7 +13,6 @@ const StyledTippy = styled(Tippy)`
   border-radius: 0 !important;
 
   .tippy-content {
-    font-family: ${props => props.fontFamily};
     padding: 0;
   }
 
@@ -30,10 +29,11 @@ const StyledTippy = styled(Tippy)`
   }
 `
 
-function TooltipContent ({ label }) {
+export function TooltipContent ({ className, label }) {
   return (
     <Box
       background={{ color: 'black', dark: true }}
+      className={className}
       elevation='medium'
       pad={{ horizontal: 'medium', vertical: 'xsmall' }}
       responsive={false}
@@ -42,6 +42,10 @@ function TooltipContent ({ label }) {
     </Box>
   )
 }
+
+const StyledTooltipContent = styled(TooltipContent)`
+  font-family: ${props => props.fontFamily};
+`
 
 function Bars (props) {
   const {
@@ -67,8 +71,7 @@ function Bars (props) {
         <StyledTippy
           arrow={true}
           animation='scale'
-          content={<TooltipContent label={value.toString()} />}
-          fontFamily={font.family}
+          content={<StyledTooltipContent fontFamily={font.family} label={value.toString()} />}
           key={key}
           placement='top'
           trigger='mouseenter focus'

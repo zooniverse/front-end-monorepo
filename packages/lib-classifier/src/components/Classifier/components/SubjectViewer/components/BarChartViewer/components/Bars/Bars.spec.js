@@ -3,8 +3,9 @@ import React from 'react'
 import sinon from 'sinon'
 import { Bar } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Bars } from './Bars'
+import { Bars, TooltipContent } from './Bars'
 import mockData, { mockDataWithColor, xScale, yScale, yMax } from '../../mockData'
+import { Tooltip } from 'grommet-icons'
 
 const {
   data,
@@ -104,10 +105,10 @@ describe('Bars', function () {
       })
     })
 
-    xit('should show a tooltip onFocus', function () {
-      bars.forEach((bar) => {
-        bar.simulate('focus')
-        console.log(wrapper.debug())
+    it('should have a tooltip', function () {
+      bars.forEach((bar, index) => {
+        const tooltip = wrapper.find(TooltipContent).at(index)
+        expect(tooltip.text()).to.equal(bar.props()['data-value'].toString())
       })
     })
 
