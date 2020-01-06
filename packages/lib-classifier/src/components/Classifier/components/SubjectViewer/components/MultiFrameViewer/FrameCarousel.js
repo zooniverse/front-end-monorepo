@@ -22,6 +22,7 @@ const StyledControlButton = styled(Button)`
   &:focus {
     background: #7fcbce
   }
+
 `
 
 const StyledButtons = styled.button`
@@ -43,8 +44,8 @@ const StyledButtons = styled.button`
 `
 
 const StyledImage = styled.img`
-  height: 3em;
-  width: 3em;
+  height: 4em;
+  width: 4em;
   float: center;
   object-fit: cover;
   padding: 0;
