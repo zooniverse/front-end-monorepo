@@ -40,7 +40,46 @@ The shape's mark annotation models should change for consistency and improved po
   - The exceptions are non-shapes like point, line, and transcription line tools, and non-symmetric shapes like fan.
   - Shape clustering in aggregation is always done with the center
 - All rotations should be defined about `x_center` and `y_center` point. If the rotation cannot be defined around the center point, then the point used should be clearly recorded in the annotation as `x_rotation` and `y_rotation`
-  - Conditional logic in component code can be avoided by using a Mobx-state-tree's computed view functions to get either `x_center` or `x_rotation` mapped to `mark.x`. 
+  - Conditional logic in component code can be avoided by using a Mobx-State-Tree's computed view functions to get either `x_center` or `x_rotation` mapped to `mark.x`. Code example:
+  
+  ```js
+  const CircleModel = types
+    .model('CircleModel', {
+      x_center: types.optional(types.number, 0),
+      y_center: types.optional(types.number, 0),
+      radius: types.maybe(types.number),
+      angle: types.maybe(types.number)
+    })
+    .views(self => ({
+       get coords { // this is naming is reusing what's already been done with Point and Line for consistency.
+         return {
+           x: self.x_center,
+           y: self.y_center
+         }
+       }
+    }))
+  ```
+
+  ```js
+  // non-symmetrical shapes like fan use x_rotation, y_rotation
+  const FanModel = types
+    .model('FanModel', {
+      x_rotation: types.optional(types.number, 0),
+      y_rotation: types.optional(types.number, 0),
+      radius: types.maybe(types.number),
+      angle: types.maybe(types.number),
+      spread: types.maybe(types.number)
+    })
+    .views(self => ({
+       get coords { // this is naming is reusing what's already been done with Point and Line for consistency.
+         return {
+           x: self.x_rotation,
+           y: self.y_rotation
+         }
+       }
+    }))
+  ```
+
 - Default values should be removed wherever possible. This may result in some tools drawing UX changing. 
   - The tools that have defaults are ellipse, rotate rectangle, fan. 
   - A proposed example for the ellipse may involve requiring the volunteers to click twice to set the the two radii. ([comment](https://github.com/zooniverse/front-end-monorepo/issues/500#issuecomment-516788821))
