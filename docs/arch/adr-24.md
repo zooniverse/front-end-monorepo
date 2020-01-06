@@ -34,7 +34,7 @@ Some of the mark annotation models have a few other issues as well:
 
 The shape's mark annotation models should change for consistency and improved post-classification analysis in the following ways:
 
-- The annotation should use the mathematical standard of _RHC_ with a domain of `(-180, 180]` for consistent angle calculation
+- The annotation should use the mathematical standard of _RHC_ with a domain of `[-180, 180]` for consistent angle calculation
 - The annotation model should use `angle` for naming rotation angles. This replaces usage of `rotation`.
 - The annotation model should replace `x` and `y` with `x_center` and `y_center` for shapes where that is applicable
   - The exceptions are non-shapes like point, line, and transcription line tools, and non-symmetric shapes like fan.
@@ -100,4 +100,3 @@ Proposed
   - The new annotation models could be submitted with a JSON schema as proposed in ADR 07 to assist with this
 - The aggregation code in Caesar will need to be updated. It can check the classification metadata for `classifier_version: 2.0` to know to use any updated clustering code. Any further updates to the mark annotation model could be checked against the proposed JSON schema if included in the annotation and the schema itself will be versioned starting at `2.0` (PFE is version `1.0`).
 - The freehand drawing tool mark annotation is an exception to the rest of the marks' annotation models due to performance reasons and that will have to be communicated.
-
