@@ -7,7 +7,11 @@ import { SubjectFactory } from '@test/factories'
 
 describe('Component > FrameCarousel', function () {
   let wrapper
-  const multiFrameSubject = SubjectFactory.build({ locations: [
+  const multiFrameSubject = SubjectFactory.build({
+    metadata: {
+      default_frame: 2
+    },
+    locations: [
       { 'image/png': 'https://foo.bar/example.png' },
       { 'image/png': 'https://foo.bar/example.png' },
       { 'image/png': 'https://foo.bar/example.png' },
@@ -35,10 +39,14 @@ describe('Component > FrameCarousel', function () {
 
   it('should render a list item and img for each location', function () {
     const list = wrapper.find('li')
-    const image = wrapper.find('img')
-    // expect(image).to.have.lengthOf(numberOfFrames)
+    const image = wrapper.find('.frame-image')
+    expect(image).to.have.lengthOf(numberOfFrames)
     expect(list).to.have.lengthOf(numberOfFrames)
   })
 
+  it('should apply the active class to the button corresponding to the default_frame', function() {
+    const activeImage = wrapper.find('.active')
+    expect(activeImage.hasClass('active')).to.equal(true)
+  })
 
 })

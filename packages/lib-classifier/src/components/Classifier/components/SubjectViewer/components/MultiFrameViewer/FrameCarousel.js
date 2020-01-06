@@ -22,7 +22,6 @@ const StyledControlButton = styled(Button)`
   &:focus {
     background: #7fcbce
   }
-
 `
 
 const StyledButtons = styled.button`
@@ -32,6 +31,10 @@ const StyledButtons = styled.button`
   margin: 5px 5px 5px 5px;
   padding: 0;
   line-height: 0;
+  &.active {
+    box-sizing: border-box;
+    border: 3px solid #F0B200;
+  }
   &:hover {
     box-sizing: border-box;
     border: 3px solid #F0B200;
@@ -71,14 +74,18 @@ class FrameCarousel extends React.Component {
   render () {
     const locations = this.props.subject.locations.map( location => ({"url": location["image/jpeg"]}))
     const locationElements = locations.map((location, index) => {
+      const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
+      const currentActive = currentFrameIndex == index
       return (
         <li key={index} className={`frame-${index}`}>
           <StyledButtons
             key={index}
             value={index}
             data-slide={index}
+            className={currentActive ? 'active' : ''}
           >
             <StyledImage
+              className="frame-image"
               src={location.url}
               alt="Thumbnail of Image"
             />

@@ -16,7 +16,6 @@ const StyledSection = styled.section`
 const StyledMainImage = styled.img`
   flex-grow: 2;
   width: 100%;
-  height: 100%;
 `
 
 class MultiFrameViewer extends React.Component {
@@ -30,9 +29,8 @@ class MultiFrameViewer extends React.Component {
     const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
     const mimeTypeKey = Object.keys(this.props.subject.locations[currentFrameIndex])
     const currentFrameLocation = this.props.subject.locations[currentFrameIndex][mimeTypeKey]
-
     return (
-       <StyledSection tabIndex="0" className="subjectcarousel" aria-labelledby="carouselheading">
+       <StyledSection tabIndex="0" className="subjectcarousel" >
         <FrameCarousel subject={this.props.subject} />
         <div className="frame-display" role="region" aria-live="polite">
           <StyledMainImage
