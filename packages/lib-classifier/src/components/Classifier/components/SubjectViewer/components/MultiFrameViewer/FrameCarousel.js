@@ -100,6 +100,7 @@ class FrameCarousel extends React.Component {
         alignContent="around"
         className="frames-container"
         direction="column"
+        fill="vertical"
         flex={{shrink: 0}}
         background={"#FFFFFF"}
         justify={"center"}
