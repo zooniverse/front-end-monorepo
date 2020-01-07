@@ -79,8 +79,8 @@ An example of the new sub-task annotation JSON structure:
         "x": 452.18341064453125,
         "y": 202.87478637695312,
         "details": [
-          {"task": "T0.0.0"},
-          {"task": "T0.0.1"}
+          {"task": "T0.0.0.0"},
+          {"task": "T0.0.0.1"}
         ]
       },
       {
@@ -91,8 +91,8 @@ An example of the new sub-task annotation JSON structure:
         "y": 583.4398803710938,
         "value_index": 1,
         "details": [
-          {"task": "T0.1.0"},
-          {"task": "T0.1.1"}
+          {"task": "T0.1.1.0"},
+          {"task": "T0.1.1.1"}
         ]
       }
     ]
