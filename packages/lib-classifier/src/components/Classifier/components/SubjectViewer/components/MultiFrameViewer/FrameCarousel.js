@@ -96,13 +96,14 @@ class FrameCarousel extends React.Component {
 
     return (
       <Box
-        className="frames-container"
         align="center"
         alignContent="around"
-        background={"#FFFFFF"}
+        className="frames-container"
         direction="column"
-        flex="grow"
-        responsive={true}
+        flex={{shrink: 0}}
+        background={"#FFFFFF"}
+        justify={"center"}
+        width={{"min": "2em"}}
       >
         <StyledH3 id="subjectcarousel" className="visuallyhidden">
           Carousel of Subjects
@@ -113,6 +114,7 @@ class FrameCarousel extends React.Component {
           hoverIndicator={true, {color: "#7fcbce"}}
           focusIndicator={true, {color: "#7fcbce"}}
           icon={<FormUp />}
+          margin={{"bottom": "5px"}}
           primary
         />
         <Box
@@ -123,7 +125,6 @@ class FrameCarousel extends React.Component {
           border={false}
           direction="column"
           height="100%"
-          pad="0"
           overflow="scroll"
         >
           {locationElements}
@@ -134,6 +135,7 @@ class FrameCarousel extends React.Component {
           hoverIndicator={true, {color: "#7fcbce"}}
           focusIndicator={true, {color: "#7fcbce"}}
           icon={<FormDown />}
+          margin={{"top": "5px"}}
           primary
         />
       </Box>

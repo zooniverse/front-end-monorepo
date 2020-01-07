@@ -4,14 +4,7 @@ import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
 import getViewer from '../../helpers/getViewer'
 import FrameCarousel from './FrameCarousel'
-
-const StyledSection = styled.section`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  background: gray;
-`
+import { Box } from 'grommet'
 
 const StyledMainImage = styled.img`
   flex-grow: 2;
@@ -30,7 +23,13 @@ class MultiFrameViewer extends React.Component {
     const mimeTypeKey = Object.keys(this.props.subject.locations[currentFrameIndex])
     const currentFrameLocation = this.props.subject.locations[currentFrameIndex][mimeTypeKey]
     return (
-       <StyledSection tabIndex="0" className="subjectcarousel" >
+      <Box
+        align="center"
+        alignContent="center"
+        direction="row"
+        tabIndex="0"
+        className="subjectcarousel"
+      >
         <FrameCarousel subject={this.props.subject} />
         <div className="frame-display" role="region" aria-live="polite">
           <StyledMainImage
@@ -40,7 +39,7 @@ class MultiFrameViewer extends React.Component {
             alt={`Subject ${currentFrameIndex + 1} of ${this.props.subject.locations.length}`}
           />
         </div>
-      </StyledSection>
+      </Box>
     )
   }
 }
