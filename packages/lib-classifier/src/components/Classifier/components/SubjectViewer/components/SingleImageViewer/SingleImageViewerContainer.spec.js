@@ -36,7 +36,7 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<SingleImageViewerContainer onError={onError} />)
+      wrapper = shallow(<SingleImageViewerContainer.wrappedComponent onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -61,7 +61,7 @@ describe('Component > SingleImageViewerContainer', function () {
         ]
       }
       wrapper = shallow(
-        <SingleImageViewerContainer
+        <SingleImageViewerContainer.wrappedComponent
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
@@ -174,7 +174,7 @@ describe('Component > SingleImageViewerContainer', function () {
         ]
       }
       wrapper = shallow(
-        <SingleImageViewerContainer
+        <SingleImageViewerContainer.wrappedComponent
           ImageObject={InvalidImage}
           subject={subject}
           onError={onError}

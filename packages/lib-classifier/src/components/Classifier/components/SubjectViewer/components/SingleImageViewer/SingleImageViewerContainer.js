@@ -1,4 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
+import { inject, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,6 +7,20 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
 
+function storeMapper (stores) {
+  const {
+    enableRotation,
+    rotation
+  } = stores.classifierStore.subjectViewer
+
+  return {
+    enableRotation,
+    rotation
+  }
+}
+
+@inject(storeMapper)
+@observer
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
@@ -17,6 +32,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   componentDidMount () {
+    this.props.enableRotation()
     this.onLoad()
   }
 
@@ -67,7 +83,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
-    const { loadingState, onError, subject } = this.props
+    const { loadingState, onError, rotation, subject } = this.props
     const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
     const subjectImageElement = this.subjectImage.current
@@ -95,6 +111,7 @@ class SingleImageViewerContainer extends React.Component {
         <SingleImageViewer
           ref={this.imageViewer}
           height={naturalHeight}
+          rotate={rotation}
           scale={scale}
           width={naturalWidth}
         >
@@ -110,7 +127,8 @@ class SingleImageViewerContainer extends React.Component {
   }
 }
 
-SingleImageViewerContainer.propTypes = {
+SingleImageViewerContainer.wrappedComponent.propTypes = {
+  enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -119,7 +137,8 @@ SingleImageViewerContainer.propTypes = {
   })
 }
 
-SingleImageViewerContainer.defaultProps = {
+SingleImageViewerContainer.wrappedComponent.defaultProps = {
+  enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,

@@ -4,35 +4,42 @@ import styled from 'styled-components'
 
 import InteractionLayer from '../InteractionLayer'
 
-const SVG = styled.svg`
-  height: 100%;
-  width: 100%;
+const Container = styled.div`
+height: 100%;
+overflow: hidden;
+width: 100%;
 `
 
-const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, scale, width }, ref) {
+const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, rotate, scale, width }, ref) {
   const viewBox = `0 0 ${width} ${height}`
+  const transform = `rotate(${rotate} 0 0)`
   return (
-    <SVG
-      ref={ref}
-      viewBox={viewBox}
-    >
-      {children}
-      <InteractionLayer
-        scale={scale}
-        height={height}
-        width={width}
-      />
-    </SVG>
+    <Container>
+      <svg
+        ref={ref}
+        transform={transform}
+        viewBox={viewBox}
+      >
+        {children}
+        <InteractionLayer
+          scale={scale}
+          height={height}
+          width={width}
+        />
+      </svg>
+    </Container>
   )
 })
 
 SingleImageViewer.propTypes = {
   height: PropTypes.number.isRequired,
+  rotate: PropTypes.number,
   scale: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
 SingleImageViewer.defaultProps = {
+  rotate: 0,
   scale: 1
 }
 
