@@ -24,9 +24,9 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot({
   onDelete,
   onDeselect,
   onSelect,
-  svg,
-  tool
+  scale
 }, ref) {
+  const { tool } = mark
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
     fill: 'transparent',
@@ -61,7 +61,7 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot({
       ref={ref}
       aria-label={label}
       dragging={dragging}
-      strokeWidth={isActive ? SELECTED_STROKE_WIDTH : STROKE_WIDTH}
+      strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
       focusable
       tabIndex={0}
       onBlur={deselect}
@@ -81,6 +81,7 @@ DrawingToolRoot.propTypes = {
   onDelete: PropTypes.func,
   onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
+  scale: PropTypes.number,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
@@ -92,6 +93,7 @@ DrawingToolRoot.defaultProps = {
   onDelete: () => true,
   onDeselect: () => true,
   onSelect: () => true,
+  scale: 1,
   tool: {
     color: 'green'
   }

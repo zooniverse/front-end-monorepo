@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { DeleteButton, DrawingToolRoot } from '@plugins/drawingTools/components'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, svg, tool }) {
-  const marksArray = Array.from(tool.marks.values())
+function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, marks }) {
+  const { svg } = useContext(SVGContext)
 
-  return marksArray.map((mark, index) => {
+  return marks.map((mark, index) => {
+    const { tool } = mark
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
@@ -54,21 +56,17 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
         onDelete={deleteMark}
         onDeselect={onDeselectMark}
         onSelect={onSelectMark}
-        svg={svg}
-        tool={tool}
+        scale={scale}
       >
         <MarkingComponent
           active={isActive}
           mark={mark}
           scale={scale}
-          svg={svg}
-          tool={tool}
         />
         {isActive && <ObservedDeleteButton
           label={`Delete ${tool.type}`}
           mark={mark}
           scale={scale}
-          svg={svg}
           onDelete={deleteMark}
         />}
       </DrawingToolRoot>
@@ -78,12 +76,11 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
 
 DrawingToolMarks.propTypes = {
   activeMarkId: PropTypes.string,
+  marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
   onSelectMark: PropTypes.func,
-  scale: PropTypes.number,
-  svg: PropTypes.instanceOf(Element).isRequired,
-  tool: PropTypes.object.isRequired
+  scale: PropTypes.number
 }
 
 DrawingToolMarks.defaultProps = {

@@ -69,6 +69,16 @@ describe('withKeyZoom', function () {
         key: 'ArrowLeft',
         name: 'pan left',
         handler: onPan.withArgs(1, 0)
+      },
+      {
+        key: 'ArrowUp',
+        name: 'pan up',
+        handler: onPan.withArgs(0, -1)
+      },
+      {
+        key: 'ArrowDown',
+        name: 'pan down',
+        handler: onPan.withArgs(0, 1)
       }
     ]
 
@@ -80,11 +90,21 @@ describe('withKeyZoom', function () {
     bindings.forEach(function ({ key, name, handler }) {
       it(`should call ${name} for ${key}`, function () {
         const fakeEvent = {
-          key
+          key,
+          preventDefault: sinon.stub()
         }
         wrappedComponent.props.onKeyDown(fakeEvent)
         expect(handler).to.have.been.calledOnce()
       })
+    })
+
+    it('should not trap other keys', function () {
+      const fakeEvent = {
+        key: 'Tab',
+        preventDefault: sinon.stub()
+      }
+      wrappedComponent.props.onKeyDown(fakeEvent)
+      expect(fakeEvent.preventDefault).to.have.not.been.called()
     })
   })
 })

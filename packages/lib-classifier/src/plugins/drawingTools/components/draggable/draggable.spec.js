@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react'
 import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import draggable from './draggable'
 
 describe('draggable', function () {
@@ -24,17 +25,22 @@ describe('draggable', function () {
       inverse: sinon.stub()
     }))
   }
+  const getScreenCTM = sinon.stub().callsFake(() => ({ inverse: sinon.stub() }))
   let wrapper
 
   before(function () {
     wrapper = mount(
-      <Draggable
-        dragStart={onStart}
-        dragMove={onMove}
-        dragEnd={onEnd}
-        svg={mockSVG}
-      />
+      <SVGContext.Provider value={{ svg: mockSVG, getScreenCTM }}>
+        <svg>
+          <Draggable
+            dragStart={onStart}
+            dragMove={onMove}
+            dragEnd={onEnd}
+          />
+        </svg>
+      </SVGContext.Provider>
     )
+    .find(Draggable)
   })
 
   describe('on pointer down', function () {

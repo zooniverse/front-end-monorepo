@@ -1,14 +1,17 @@
 import DrawingAnnotation from './DrawingAnnotation'
+import { Point } from '@plugins/drawingTools/models/marks'
 
-const drawingAnnotation = {
+const point = Point.create({ id: 'mockAnnotation', frame: 0, toolIndex: 0, x: 100, y: 150 })
+
+const drawingAnnotationSnapshot = {
   task: 'T0',
-  value: [{ id: 'mockAnnotation', frame: 0, toolIndex: 0, x: 100, y: 150 }]
+  value: [ point.id ]
 }
 
 describe('Model > DrawingAnnotation', function () {
   it('should exist', function () {
-    const drawingAnnotationInstance = DrawingAnnotation.create(drawingAnnotation)
-    expect(drawingAnnotationInstance).to.exist()
-    expect(drawingAnnotationInstance).to.be.an('object')
+    const drawingAnnotation = DrawingAnnotation.create(drawingAnnotationSnapshot)
+    expect(drawingAnnotation).to.exist()
+    expect(drawingAnnotation).to.be.an('object')
   })
 })
