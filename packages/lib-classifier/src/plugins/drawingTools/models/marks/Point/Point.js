@@ -1,6 +1,7 @@
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import { Point as PointComponent } from '../../../components'
+import { PointTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
 
@@ -25,6 +26,10 @@ const PointModel = types
       const x = self.x + dx
       const y = self.y + dy
       return { x, y }
+    },
+
+    get tool () {
+      return getParentOfType(self, PointTool)
     },
 
     get toolComponent () {
