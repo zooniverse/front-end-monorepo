@@ -2,38 +2,60 @@ import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { draggable } from '@plugins/drawingTools/components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
+import withKeyZoom from '../../../withKeyZoom'
 
 function storeMapper (stores) {
   const {
     enableRotation,
-    rotation
+    rotation,
+    setOnZoom,
+    setOnPan
   } = stores.classifierStore.subjectViewer
 
   return {
     enableRotation,
-    rotation
+    rotation,
+    setOnZoom,
+    setOnPan
   }
 }
 
-@inject(storeMapper)
-@observer
+const DraggableImage = draggable('image')
+
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.dragMove = this.dragMove.bind(this)
+    this.onWheel = this.onWheel.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
     this.state = {
-      img: {}
+      img: {},
+      initialScale: 1,
+      scale: 1,
+      viewBox: {
+        x: 0,
+        y: 0,
+        height: 0,
+        width: 0
+      }
     }
   }
 
   componentDidMount () {
     this.props.enableRotation()
+    this.props.setOnZoom(this.onZoom.bind(this))
+    this.props.setOnPan(this.onPan.bind(this))
     this.onLoad()
+  }
+
+  componentWillUnmount () {
+    this.imageViewer.current && this.imageViewer.current.removeEventListener('wheel', this.onWheel)
   }
 
   fetchImage (url) {
@@ -45,6 +67,84 @@ class SingleImageViewerContainer extends React.Component {
       img.src = url
       return img
     })
+  }
+
+  dragMove (event, difference) {
+    this.setState(prevState => {
+      const { viewBox } = Object.assign({}, prevState)
+      viewBox.x -= difference.x / 1.5
+      viewBox.y -= difference.y / 1.5
+      return { viewBox }
+    })
+  }
+
+  onPan (dx, dy) {
+    this.setState(prevState => {
+      const { viewBox } = Object.assign({}, prevState)
+      viewBox.x -= dx * 10
+      viewBox.y += dy * 10
+      return { viewBox }
+    })
+  }
+
+  onWheel (event) {
+    event.preventDefault()
+    const { deltaY } = event
+    if (deltaY < 0) {
+      this.onZoom('zoomout', -1)
+    } else {
+      this.onZoom('zoomin', 1)
+    }
+  }
+
+  onZoom (type, zoomValue) {
+    const { img, initialScale } = this.state
+    switch (type) {
+      case 'zoomin': {
+        this.setState(prevState => {
+          let { scale, viewBox } = Object.assign({}, prevState)
+          const xCentre = viewBox.x + viewBox.width / 2
+          const yCentre = viewBox.y + viewBox.height / 2
+          scale = Math.min(scale + 0.1, 2)
+          const viewBoxScale = initialScale / scale
+          viewBox.width = parseInt(img.naturalWidth * viewBoxScale, 10)
+          viewBox.height = parseInt(img.naturalHeight * viewBoxScale, 10)
+          viewBox.x = xCentre - viewBox.width / 2
+          viewBox.y = yCentre - viewBox.height / 2
+          return { scale, viewBox }
+        })
+        return
+      }
+      case 'zoomout': {
+        this.setState(prevState => {
+          let { scale, viewBox } = Object.assign({}, prevState)
+          const xCentre = viewBox.x + viewBox.width / 2
+          const yCentre = viewBox.y + viewBox.height / 2
+          scale = Math.max(scale - 0.1, initialScale)
+          const viewBoxScale = initialScale / scale
+          viewBox.width = parseInt(img.naturalWidth * viewBoxScale, 10)
+          viewBox.height = parseInt(img.naturalHeight * viewBoxScale, 10)
+          viewBox.x = xCentre - viewBox.width / 2
+          viewBox.y = yCentre - viewBox.height / 2
+          return { scale, viewBox }
+        })
+        return
+      }
+      case 'zoomto': {
+        this.setState(prevState => {
+          const { naturalHeight, naturalWidth } = prevState.img
+          const scale = prevState.initialScale
+          const viewBox = {
+            x: 0,
+            y: 0,
+            width: naturalWidth,
+            height: naturalHeight
+          }
+          return { scale, viewBox }
+        })
+        return
+      }
+    }
   }
 
   async preload () {
@@ -74,7 +174,14 @@ class SingleImageViewerContainer extends React.Component {
     const { onError, onReady } = this.props
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const scale = clientWidth / naturalWidth
+      const initialScale = scale
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      const { viewBox } = this.state
+      viewBox.height = naturalHeight
+      viewBox.width = naturalWidth
+      this.setState({ initialScale, scale, viewBox })
+      this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
       console.error(error)
@@ -83,15 +190,10 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
-    const { loadingState, onError, rotation, subject } = this.props
-    const { img } = this.state
+    const { loadingState, onError, onKeyDown, rotation, subject } = this.props
+    const { img, scale, viewBox } = this.state
     const { naturalHeight, naturalWidth, src } = img
     const subjectImageElement = this.subjectImage.current
-    let scale = 1
-    if (subjectImageElement) {
-      const { width: clientWidth, height: clientHeight } = subjectImageElement.getBoundingClientRect()
-      scale = clientWidth / naturalWidth
-    }
 
     if (loadingState === asyncStates.error) {
       return (
@@ -111,12 +213,15 @@ class SingleImageViewerContainer extends React.Component {
         <SingleImageViewer
           ref={this.imageViewer}
           height={naturalHeight}
+          onKeyDown={onKeyDown}
           rotate={rotation}
           scale={scale}
+          viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
           width={naturalWidth}
         >
-          <image
+          <DraggableImage
             ref={this.subjectImage}
+            dragMove={this.dragMove}
             height={naturalHeight}
             width={naturalWidth}
             xlinkHref={src}
@@ -127,22 +232,34 @@ class SingleImageViewerContainer extends React.Component {
   }
 }
 
-SingleImageViewerContainer.wrappedComponent.propTypes = {
+SingleImageViewerContainer.propTypes = {
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
-SingleImageViewerContainer.wrappedComponent.defaultProps = {
+
+SingleImageViewerContainer.defaultProps = {
   enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
-  onReady: () => true
+  onReady: () => true,
+  setOnPan: () => true,
+  setOnZoom: () => true
 }
 
-export default SingleImageViewerContainer
+@inject(storeMapper)
+@withKeyZoom
+@observer
+class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
+
+export default DecoratedSingleImageViewerContainer
+export { SingleImageViewerContainer }
+

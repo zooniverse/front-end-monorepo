@@ -34,6 +34,10 @@ function draggable (WrappedComponent) {
       return svgCoordinateEvent
     }
 
+    getBoundingClientRect () {
+      return this.wrappedComponent.current.getBoundingClientRect()
+    }
+
     getEventOffset (event) {
       const { clientX, clientY } = event
       const { svg, getScreenCTM } = this.context
@@ -110,7 +114,11 @@ function draggable (WrappedComponent) {
     dragMove: () => true,
     dragEnd: () => true
   }
-  const name = WrappedComponent.displayName || WrappedComponent.name || WrappedComponent.render.name
+  const name =
+    WrappedComponent.displayName ||
+    WrappedComponent.name ||
+    WrappedComponent.render && WrappedComponent.render.name ||
+    WrappedComponent.toString()
   Draggable.displayName = `draggable(${name})`
   Draggable.wrappedComponent = WrappedComponent
 

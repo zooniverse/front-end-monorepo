@@ -9,7 +9,7 @@ const StyledRect = styled('rect')`
   cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, scale, width }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, move, scale, width }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
   const { svg, getScreenCTM } = useContext(SVGContext)
@@ -38,8 +38,8 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
   }
 
   function onPointerDown (event) {
-    if (disabled) {
-      return false
+    if (disabled || move) {
+      return true
     }
     const activeMark = activeTool.createMark({
       id: cuid(),
@@ -69,7 +69,8 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, sc
       touch-action='none'
     >
       <StyledRect
-        disabled={disabled}
+        disabled={disabled || move }
+        pointerEvents={move ? 'none' : 'all'}
         width={width}
         height={height}
         fill='transparent'

@@ -56,6 +56,7 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
         onDelete={deleteMark}
         onDeselect={onDeselectMark}
         onSelect={onSelectMark}
+        scale={scale}
         tool={tool}
       >
         <MarkingComponent
