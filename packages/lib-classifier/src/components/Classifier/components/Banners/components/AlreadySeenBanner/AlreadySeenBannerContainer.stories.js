@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import styled from 'styled-components'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { AlreadySeenBannerContainer } from './AlreadySeenBannerContainer'
 import readme from '../../README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
@@ -16,21 +16,21 @@ const config = {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-const subject = SubjectFactory.build({ already_seen: true })
+const subject = SubjectFactory.build()
 
-const StyledBox = styled(Box)`
-  position: relative;
-`
+const stories = storiesOf('Banners | AlreadySeenBanner', module)
 
-storiesOf('Banners | AlreadySeenBanner', module)
-  .add('light theme', () => {
+stories.addDecorator(withKnobs)
+
+stories.add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <StyledBox background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
           <AlreadySeenBannerContainer
-            subject={subject}
+            subject={Object.assign({}, subject, { already_seen: boolean('already_seen', true) })}
           />
-        </StyledBox>
+          <img src="https://placekitten.com/800/400" alt='placeholder' />
+        </Box>
       </Grommet>
     )
   }, config)
@@ -38,11 +38,12 @@ storiesOf('Banners | AlreadySeenBanner', module)
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <Grommet theme={darkZooTheme}>
-        <StyledBox background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
           <AlreadySeenBannerContainer
-            subject={subject}
+            subject={Object.assign({}, subject, { already_seen: boolean('already_seen', true) })}
           />
-        </StyledBox>
+          <img src="https://placekitten.com/800/400" alt='placeholder' />
+        </Box>
       </Grommet>
     )
   }, darkThemeConfig)

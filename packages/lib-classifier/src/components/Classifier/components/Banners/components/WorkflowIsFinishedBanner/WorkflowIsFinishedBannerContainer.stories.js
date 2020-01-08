@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import styled from 'styled-components'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { WorkflowIsFinishedBannerContainer } from './WorkflowIsFinishedBannerContainer'
 import readme from '../../README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
@@ -16,21 +16,19 @@ const config = {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-const subject = SubjectFactory.build({ finished_workflow: true })
+const subject = SubjectFactory.build()
 
-const StyledBox = styled(Box)`
-  position: relative;
-`
-
-storiesOf('Banners | WorkflowIsFinishedBanner', module)
-  .add('light theme', () => {
+const stories = storiesOf('Banners | WorkflowIsFinishedBanner', module)
+stories.addDecorator(withKnobs)
+stories.add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <StyledBox background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
           <WorkflowIsFinishedBannerContainer
-            subject={subject}
+            subject={Object.assign({}, subject, { finished_workflow: boolean('finished_workflow', true) })}
           />
-        </StyledBox>
+          <img src="https://placekitten.com/800/400" alt='placeholder' />
+        </Box>
       </Grommet>
     )
   }, config)
@@ -38,11 +36,12 @@ storiesOf('Banners | WorkflowIsFinishedBanner', module)
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <Grommet theme={darkZooTheme}>
-        <StyledBox background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
           <WorkflowIsFinishedBannerContainer
-            subject={subject}
+            subject={Object.assign({}, subject, { finished_workflow: boolean('finished_workflow', true) })}
           />
-        </StyledBox>
+          <img src="https://placekitten.com/800/400" alt='placeholder' />
+        </Box>
       </Grommet>
     )
   }, darkThemeConfig)
