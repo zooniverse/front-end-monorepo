@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
 
@@ -86,20 +87,25 @@ class SingleImageViewerContainer extends React.Component {
       return null
     }
 
+    const svg = this.imageViewer.current
+    const getScreenCTM = () => svg.getScreenCTM()
+    
     return (
-      <SingleImageViewer
-        ref={this.imageViewer}
-        height={naturalHeight}
-        scale={scale}
-        width={naturalWidth}
-      >
-        <image
-          ref={this.subjectImage}
+      <SVGContext.Provider value={{ svg, getScreenCTM }}>
+        <SingleImageViewer
+          ref={this.imageViewer}
           height={naturalHeight}
+          scale={scale}
           width={naturalWidth}
-          xlinkHref={src}
-        />
-      </SingleImageViewer>
+        >
+          <image
+            ref={this.subjectImage}
+            height={naturalHeight}
+            width={naturalWidth}
+            xlinkHref={src}
+          />
+        </SingleImageViewer>
+      </SVGContext.Provider>
     )
   }
 }

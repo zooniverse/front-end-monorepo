@@ -20,7 +20,6 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, hei
       <InteractionLayer
         scale={scale}
         height={height}
-        svg={ref ? ref.current : null}
         width={width}
       />
     </SVG>

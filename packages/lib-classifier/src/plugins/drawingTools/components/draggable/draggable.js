@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function draggable (WrappedComponent) {
   class Draggable extends PureComponent {
@@ -21,7 +22,7 @@ function draggable (WrappedComponent) {
     convertEvent (event) {
       const type = event.type
 
-      const svgEventOffset = this.getEventOffset(event.clientX, event.clientY)
+      const svgEventOffset = this.getEventOffset(event)
 
       const svgCoordinateEvent = {
         pointerId: event.pointerId,
@@ -33,12 +34,13 @@ function draggable (WrappedComponent) {
       return svgCoordinateEvent
     }
 
-    getEventOffset (x, y) {
-      const { svg } = this.props
-      const svgEvent = svg.createSVGPoint()
-      svgEvent.x = x
-      svgEvent.y = y
-      const svgEventOffset = svgEvent.matrixTransform(svg.getScreenCTM().inverse())
+    getEventOffset (event) {
+      const { clientX, clientY } = event
+      const { svg, getScreenCTM } = this.context
+      const svgPoint = svg.createSVGPoint()
+      svgPoint.x = clientX
+      svgPoint.y = clientY
+      const svgEventOffset = svgPoint.matrixTransform(getScreenCTM().inverse())
       return svgEventOffset
     }
 
@@ -96,6 +98,8 @@ function draggable (WrappedComponent) {
       )
     }
   }
+
+  Draggable.contextType = SVGContext
 
   Draggable.defaultProps = {
     coords: {

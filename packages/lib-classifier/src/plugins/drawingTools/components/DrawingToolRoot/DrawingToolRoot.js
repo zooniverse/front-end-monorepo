@@ -24,7 +24,6 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot({
   onDelete,
   onDeselect,
   onSelect,
-  svg,
   tool
 }, ref) {
   const mainStyle = {
