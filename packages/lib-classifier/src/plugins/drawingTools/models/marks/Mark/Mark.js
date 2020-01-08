@@ -1,7 +1,8 @@
-import { types } from 'mobx-state-tree'
+import { getParentOfType, types } from 'mobx-state-tree'
 import SingleChoiceTask  from '@plugins/tasks/SingleChoiceTask'
 import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
 import TextTask from '@plugins/tasks/TextTask'
+import { Tool } from '@plugins/drawingTools/models/tools'
 import AnnotationsStore from '@store/AnnotationsStore'
 
 const BaseMark = types.model('BaseMark', {
@@ -17,6 +18,10 @@ const BaseMark = types.model('BaseMark', {
   .views(self => ({
     get isValid () {
       return true
+    },
+
+    get tool () {
+      return getParentOfType(self, Tool)
     }
   }))
 

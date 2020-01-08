@@ -24,6 +24,35 @@ describe('Model > SubjectViewerStore', function () {
     })
   })
 
+  describe('Actions > enableRotation', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should enable subject rotation', function () {
+      expect(subjectViewerStore.rotationEnabled).to.be.false()
+      subjectViewerStore.enableRotation()
+      expect(subjectViewerStore.rotationEnabled).to.be.true()
+    })
+  })
+
+  describe('Actions > rotate', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should rotate the subject by -90 degrees', function () {
+      expect(subjectViewerStore.rotation).to.equal(0)
+      subjectViewerStore.rotate()
+      expect(subjectViewerStore.rotation).to.equal(-90)
+      subjectViewerStore.resetView()
+    })
+  })
+
   describe('Actions > resetSubject', function () {
     let subjectViewerStub
     let subjectViewerStore
@@ -43,6 +72,26 @@ describe('Model > SubjectViewerStore', function () {
       subjectViewerStore.resetSubject()
       expect(subjectViewerStore.loadingState).to.equal(asyncStates.loading)
       expect(subjectViewerStore.dimensions).to.have.lengthOf(0)
+    })
+
+    it('should reset the rotation angle when there is a new active subject', function () {
+      subjectViewerStore.rotate()
+      subjectViewerStore.resetSubject()
+      expect(subjectViewerStore.rotation).to.equal(0)
+    })
+  })
+
+  describe('Actions > resetView', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should reset subject rotation', function () {
+      subjectViewerStore.rotate()
+      subjectViewerStore.resetView()
+      expect(subjectViewerStore.rotation).to.equal(0)
     })
   })
 })

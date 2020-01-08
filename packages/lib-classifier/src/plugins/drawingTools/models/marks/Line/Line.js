@@ -1,6 +1,7 @@
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import { Line as LineComponent } from '../../../components/'
+import { LineTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
 
@@ -36,6 +37,10 @@ const LineModel = types
 
     get isValid () {
       return self.length - MINIMUM_LENGTH > 0
+    },
+
+    get tool () {
+      return getParentOfType(self, LineTool)
     },
 
     get toolComponent () {
