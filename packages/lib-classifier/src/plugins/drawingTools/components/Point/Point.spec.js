@@ -1,17 +1,18 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Point as PointMark } from '@plugins/drawingTools/models/marks'
+import { PointTool } from '@plugins/drawingTools/models/tools'
 import Point from './Point'
 
 describe('Point tool', function () {
-  const mark = PointMark.create({
+  const pointTool = PointTool.create({
+    size: 'large',
+    type: 'point'
+  })
+  const mark = pointTool.createMark({
     id: 'point1',
     x: 100,
-    y: 200,
-    tool: {
-      size: 'large'
-    }
+    y: 200
   })
 
   it('should render without crashing', function () {
