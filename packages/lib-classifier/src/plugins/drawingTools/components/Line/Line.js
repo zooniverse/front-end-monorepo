@@ -4,7 +4,7 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Line ({ active, children, mark, scale, tool }) {
+function Line ({ active, children, mark, scale }) {
   const { x1, y1, x2, y2 } = mark
 
   function onHandleDrag (coords) {
@@ -25,8 +25,7 @@ function Line ({ active, children, mark, scale, tool }) {
 }
 
 Line.propTypes = {
-  active: PropTypes.bool,
-  tool: PropTypes.object
+  active: PropTypes.bool
 }
 
 Line.defaultProps = {

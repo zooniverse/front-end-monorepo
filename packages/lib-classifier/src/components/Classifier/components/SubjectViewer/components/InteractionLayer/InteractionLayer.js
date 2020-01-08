@@ -82,10 +82,10 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, mo
             <DrawingToolMarks
               key={`${tool.type}-${tool.color}`}
               activeMarkId={activeMark && activeMark.id}
+              marks={Array.from(tool.marks.values())}
               onDelete={() => setActiveMark(null)}
               onSelectMark={mark => setActiveMark(mark)}
               scale={scale}
-              tool={tool}
             />
           )
         })

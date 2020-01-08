@@ -5,11 +5,11 @@ import React, { Component } from 'react'
 import { DrawingToolRoot } from '@plugins/drawingTools/components'
 
 import InteractionLayer from './InteractionLayer'
+import DrawingToolMarks from './components/DrawingToolMarks'
 
 function storeMapper (stores) {
   const {
-    activeStepTasks,
-    tasks
+    activeStepTasks
   } = stores.classifierStore.workflowSteps
   const {
     move
@@ -27,8 +27,7 @@ function storeMapper (stores) {
     activeTool,
     disabled,
     drawingAnnotations,
-    move,
-    tasks
+    move
   }
 }
 
@@ -36,31 +35,15 @@ function storeMapper (stores) {
 @observer
 class InteractionLayerContainer extends Component {
   render () {
-    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, move, scale, svg, tasks, width } = this.props
+    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, move, scale, width } = this.props
     return (
       <>
         {drawingAnnotations.map(annotation =>
-          annotation.value.map(mark => {
-            const MarkingComponent = mark.toolComponent
-            const [ task ] = tasks.filter(task => task.taskKey === annotation.task)
-            const tool = task.tools[mark.toolIndex]
-            return (
-              <DrawingToolRoot
-                key={mark.id}
-                isActive={false}
-                mark={mark}
-                svg={svg}
-                tool={tool}
-              >
-                <MarkingComponent
-                  mark={mark}
-                  scale={scale}
-                  svg={svg}
-                  tool={tool}
-                />
-              </DrawingToolRoot>
-            )
-          })
+          <DrawingToolMarks
+            key={annotation.task}
+            marks={annotation.value}
+            scale={scale}
+          />
         )}
         {activeDrawingTask && activeTool &&
           <InteractionLayer
@@ -71,7 +54,6 @@ class InteractionLayerContainer extends Component {
             height={height}
             move={move}
             scale={scale}
-            svg={svg}
             width={width}
           />
         }
@@ -86,7 +68,6 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
   height: PropTypes.number.isRequired,
   isDrawingInActiveWorkflowStep: PropTypes.bool,
   scale: PropTypes.number,
-  svg: PropTypes.object,
   width: PropTypes.number.isRequired
 }
 

@@ -60,10 +60,6 @@ const WorkflowStepStore = types
       }
 
       return false
-    },
-
-    get tasks () {
-      return Array.from(self.steps.values()).reduce((allTasks, step) => allTasks.concat(step.tasks), [])
     }
   }))
   .actions(self => {
