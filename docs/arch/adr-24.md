@@ -80,12 +80,13 @@ The shape's mark annotation models should change for consistency and improved po
     }))
   ```
 
-- Default values should be removed wherever possible. This may result in some tools drawing UX changing. 
+- Default values should be removed wherever possible. We will replace these with project builder configurable values set in the project builder lab when the tools are setup.
+  - The parameters will _not_ have default values suggested by us. If the parameters are not set in the lab, then when attempting to use that drawing tool in the classifier, the classifier should display an error message that the tool is not fully setup yet. The lab should also prompt for inputing a value.
+  - The lab should include instructions and a warning about the biasing effect.
   - The tools that have defaults are ellipse, rotate rectangle, fan. 
-  - A proposed example for the ellipse may involve requiring the volunteers to click twice to set the the two radii. ([comment](https://github.com/zooniverse/front-end-monorepo/issues/500#issuecomment-516788821))
 - The freehand drawing tools mark annotation will be a string of the SVG's path and it will be the responsibility of post-classification analysis to convert this to usable x,y points. We will include a sample script in the `DataDigging` repo for project owners to reference on how to do this. Aggregation in Caesar will have to be updated to do the conversion first.
 - `tool` will change to `toolIndex` to clarify it is referring to the index of the input from the task area. The `toolIndex` is useful to distinguish between multiple instances of the same tool tip in a drawing task.
-- Tasks and drawing tools will have a `taskType` attribute that map to an enumeration of the type of task or tool like `drawing` or `point`, `ellipse`, etc respectively. This enables the aggregation for Caesar code to auto-configure which extractor to use without checking data types ([comment](https://github.com/zooniverse/front-end-monorepo/issues/823#issuecomment-493896524)).
+- Drawing annotations and drawing tool marks will have a `taskType` and `toolType` attribute added that map to an enumeration of the type of task or tool like `drawing` or `point`, `ellipse`, etc respectively. This enables the aggregation for Caesar code to auto-configure which extractor to use without checking data types ([comment](https://github.com/zooniverse/front-end-monorepo/issues/823#issuecomment-493896524)).
 - Certain annotation models may have internal properties used denoted by a preceding underscore. These properties will be removed with the classification complete action. We will remove them to help prevent confusion by project owners in downstream analysis. 
 
 ## Status
@@ -100,3 +101,4 @@ Proposed
   - The new annotation models could be submitted with a JSON schema as proposed in ADR 07 to assist with this
 - The aggregation code in Caesar will need to be updated. It can check the classification metadata for `classifier_version: 2.0` to know to use any updated clustering code. Any further updates to the mark annotation model could be checked against the proposed JSON schema if included in the annotation and the schema itself will be versioned starting at `2.0` (PFE is version `1.0`).
 - The freehand drawing tool mark annotation is an exception to the rest of the marks' annotation models due to performance reasons and that will have to be communicated.
+- Using configuable values instead of constant default values for certain drawing tools will not entirely eliminate the bias effect. To do this, we need to eliminate default values entirely, but at the moment we do not know what the best way for changing the UX is and this will require research and experimentation. A recommendation for the ellipse tool suggest multiple clicks ([comment](https://github.com/zooniverse/front-end-monorepo/issues/500#issuecomment-516788821)). Another option might be text inputs during the drawing. 
