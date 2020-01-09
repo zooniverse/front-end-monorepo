@@ -8,7 +8,7 @@ const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
 
 const UI = types
   .model('UI', {
-    dismissedAnnouncementBanner: types.maybe(types.number),
+    dismissedProjectAnnouncementBanner: types.maybe(types.number),
 
     // The mode is retrieved out of the cookie in _app.js during store initialization
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), 'light')
@@ -18,20 +18,20 @@ const UI = types
     get showAnnouncement () {
       const { announcement } = getRoot(self).project.configuration
       return announcement
-        ? stringHash(announcement) !== self.dismissedAnnouncementBanner
+        ? stringHash(announcement) !== self.dismissedProjectAnnouncementBanner
         : true
     }
   }))
 
   .preProcessSnapshot(snapshot => {
-    const dismissedAnnouncementBanner = (snapshot && snapshot.dismissedAnnouncementBanner)
-      ? parseInt(snapshot.dismissedAnnouncementBanner, 10)
+    const dismissedProjectAnnouncementBanner = (snapshot && snapshot.dismissedProjectAnnouncementBanner)
+      ? parseInt(snapshot.dismissedProjectAnnouncementBanner, 10)
       : undefined
 
     const mode = (snapshot && snapshot.mode) ? snapshot.mode : undefined
 
     return {
-      dismissedAnnouncementBanner,
+      dismissedProjectAnnouncementBanner,
       mode
     }
   })
@@ -42,7 +42,7 @@ const UI = types
     },
 
     afterAttach() {
-      self.createDismissedAnnouncementBannerObserver()
+      self.createDismissedProjectAnnouncementBannerObserver()
     },
 
     createModeObserver () {
@@ -55,35 +55,35 @@ const UI = types
       addDisposer(self, modeDisposer)
     },
 
-    createDismissedAnnouncementBannerObserver() {
-      const dismissedAnnouncementBannerDisposer = autorun(() => {
+    createDismissedProjectAnnouncementBannerObserver() {
+      const dismissedProjectAnnouncementBannerDisposer = autorun(() => {
         onPatch(self, (patch) => {
           const { path } = patch
-          const isCorrectPath = path === '/dismissedAnnouncementBanner'
+          const isCorrectPath = path === '/dismissedProjectAnnouncementBanner'
           const parsedCookie = cookie.parse(document.cookie) || {}
-          const cookieHash = parseInt(parsedCookie.dismissedAnnouncementBanner, 10)
-          const cookieIsStale = cookieHash !== self.dismissedAnnouncementBanner
+          const cookieHash = parseInt(parsedCookie.dismissedProjectAnnouncementBanner, 10)
+          const cookieIsStale = cookieHash !== self.dismissedProjectAnnouncementBanner
 
           if (canSetCookie && isCorrectPath && cookieIsStale) {
-            self.setAnnouncementBannerCookie()
+            self.setAnnouncementProjectBannerCookie()
           }
         })
       }, {
         name: 'updateDismissedAnnouncementBannerCookie'
       })
 
-      addDisposer(self, dismissedAnnouncementBannerDisposer)
+      addDisposer(self, dismissedProjectAnnouncementBannerDisposer)
     },
 
-    dismissAnnouncementBanner() {
+    dismissProjectAnnouncementBanner() {
       const { announcement } = getRoot(self).project.configuration
       const announcementHash = stringHash(announcement)
-      self.dismissedAnnouncementBanner = announcementHash
+      self.dismissedProjectAnnouncementBanner = announcementHash
     },
 
-    setAnnouncementBannerCookie() {
+    setProjectAnnouncementBannerCookie() {
       const { slug } = getRoot(self).project
-      document.cookie = cookie.serialize('dismissedAnnouncementBanner', self.dismissedAnnouncementBanner, {
+      document.cookie = cookie.serialize('dismissedProjectAnnouncementBanner', self.dismissedProjectAnnouncementBanner, {
         domain: getCookieDomain(),
         path: `/projects/${slug}`,
       })

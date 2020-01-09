@@ -22,7 +22,12 @@ class ProjectAnnouncementContainer extends Component {
   render () {
     const { announcement, dismissBanner, isVisible } = this.props
     return (isVisible && announcement)
-      ? <GenericAnnouncement announcement={announcement} color='neutral-4' closeFn={dismissBanner} />
+      ? <GenericAnnouncement
+          announcement={announcement}
+          color='neutral-4'
+          closeFn={dismissBanner}
+          dismissable
+        />
       : null
   }
 }

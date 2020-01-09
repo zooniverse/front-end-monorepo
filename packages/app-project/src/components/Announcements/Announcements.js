@@ -1,11 +1,12 @@
 import React from 'react'
 
-import ResearcherAnnouncement from './components/ProjectAnnouncement'
+import ProjectAnnouncement from './components/ProjectAnnouncement'
+import FinishedAnnouncement from './components/FinishedAnnouncement'
 
 function Announcements () {
   return (
     <>
-      <ResearcherAnnouncement />
+      <ProjectAnnouncement />
     </>
   )
 }
