@@ -36,7 +36,6 @@ class SingleImageViewerContainer extends React.Component {
     this.subjectImage = React.createRef()
     this.state = {
       img: {},
-      subjectScale: 1,
       scale: 1,
       viewBox: {
         x: 0,
@@ -161,9 +160,10 @@ class SingleImageViewerContainer extends React.Component {
   async getImageSize () {
     const img = await this.preload()
     const svg = this.imageViewer.current || {}
+    const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect()
     return {
-      clientHeight: svg.clientHeight,
-      clientWidth: svg.clientWidth,
+      clientHeight,
+      clientWidth,
       naturalHeight: img.naturalHeight,
       naturalWidth: img.naturalWidth
     }
@@ -173,12 +173,11 @@ class SingleImageViewerContainer extends React.Component {
     const { onError, onReady } = this.props
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
-      const subjectScale = clientWidth / naturalWidth
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       const { viewBox } = this.state
       viewBox.height = naturalHeight
       viewBox.width = naturalWidth
-      this.setState({ subjectScale, viewBox })
+      this.setState({ viewBox })
       this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
@@ -204,6 +203,8 @@ class SingleImageViewerContainer extends React.Component {
 
     const svg = this.imageViewer.current
     const getScreenCTM = () => svg.getScreenCTM()
+    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
+    const subjectScale = clientWidth / naturalWidth
 
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
@@ -212,7 +213,7 @@ class SingleImageViewerContainer extends React.Component {
           height={naturalHeight}
           onKeyDown={onKeyDown}
           rotate={rotation}
-          scale={scale}
+          scale={subjectScale}
           viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
           width={naturalWidth}
         >

@@ -71,9 +71,10 @@ describe('Component > SingleImageViewerContainer', function () {
       imageWrapper = wrapper.find(SingleImageViewer)
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 100,
-          clientWidth: 200,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -186,9 +187,10 @@ describe('Component > SingleImageViewerContainer', function () {
       imageWrapper = wrapper.find(SingleImageViewer)
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 100,
-          clientWidth: 200,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -253,9 +255,10 @@ describe('Component > SingleImageViewerContainer', function () {
       )
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 100,
-          clientWidth: 200,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
