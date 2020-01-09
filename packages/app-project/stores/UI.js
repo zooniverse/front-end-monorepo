@@ -65,11 +65,11 @@ const UI = types
           const cookieIsStale = cookieHash !== self.dismissedProjectAnnouncementBanner
 
           if (canSetCookie && isCorrectPath && cookieIsStale) {
-            self.setAnnouncementProjectBannerCookie()
+            self.setProjectAnnouncementBannerCookie()
           }
         })
       }, {
-        name: 'updateDismissedAnnouncementBannerCookie'
+        name: 'updateDismissedProjectAnnouncementBannerCookie'
       })
 
       addDisposer(self, dismissedProjectAnnouncementBannerDisposer)
