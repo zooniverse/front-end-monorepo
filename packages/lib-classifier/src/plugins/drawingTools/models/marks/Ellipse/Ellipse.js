@@ -10,8 +10,8 @@ const MINIMUM_RADIUS = 5
 
 const EllipseModel = types
   .model('EllipseModel', {
-    x: types.maybe(types.number),
-    y: types.maybe(types.number),
+    x_center: types.maybe(types.number),
+    y_center: types.maybe(types.number),
     rx: types.optional(types.number, 0),
     ry: types.optional(types.number, 0),
     angle: types.optional(types.number, 0)
@@ -19,8 +19,8 @@ const EllipseModel = types
   .views(self => ({
     get coords () {
       return {
-        x: self.x,
-        y: self.y
+        x: self.x_center,
+        y: self.y_center
       }
     },
 
@@ -44,6 +44,14 @@ const EllipseModel = types
 
     get toolComponent () {
       return EllipseComponent
+    },
+    
+    get x () {
+      return self.x_center
+    },
+
+    get y () {
+      return self.y_center
     }
   }))
   .actions(self => {
@@ -57,18 +65,18 @@ const EllipseModel = types
     }
 
     function initialPosition ({ x, y }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
     }
 
     function move ({ x, y }) {
-      self.x += x
-      self.y += y
+      self.x_center += x
+      self.y_center += y
     }
 
     function setCoordinates ({ x, y, rx, ry, angle }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
       self.rx = rx
       self.ry = ry
       self.angle = angle

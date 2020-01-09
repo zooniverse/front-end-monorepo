@@ -10,10 +10,12 @@ describe('Ellipse tool', function () {
   beforeEach(function () {
     mark = EllipseMark.create({
       id: 'ellipse1',
-      x: 100,
-      y: 200,
       rx: 50,
       ry: 40
+    })
+    mark.initialPosition({
+      x: 100,
+      y: 200
     })
   })
 
