@@ -102,30 +102,19 @@ class SingleImageViewerContainer extends React.Component {
     switch (type) {
       case 'zoomin': {
         this.setState(prevState => {
-          let { scale, viewBox } = Object.assign({}, prevState)
-          const xCentre = viewBox.x + viewBox.width / 2
-          const yCentre = viewBox.y + viewBox.height / 2
+          let { scale } = Object.assign({}, prevState)
           scale = Math.min(scale + 0.1, 2)
           const viewBoxScale = initialScale / scale
-          viewBox.width = parseInt(img.naturalWidth * viewBoxScale, 10)
-          viewBox.height = parseInt(img.naturalHeight * viewBoxScale, 10)
-          viewBox.x = xCentre - viewBox.width / 2
-          viewBox.y = yCentre - viewBox.height / 2
+          const viewBox = this.scaledViewBox(scale)
           return { scale, viewBox }
         })
         return
       }
       case 'zoomout': {
         this.setState(prevState => {
-          let { scale, viewBox } = Object.assign({}, prevState)
-          const xCentre = viewBox.x + viewBox.width / 2
-          const yCentre = viewBox.y + viewBox.height / 2
+          let { scale } = Object.assign({}, prevState)
           scale = Math.max(scale - 0.1, initialScale)
-          const viewBoxScale = initialScale / scale
-          viewBox.width = parseInt(img.naturalWidth * viewBoxScale, 10)
-          viewBox.height = parseInt(img.naturalHeight * viewBoxScale, 10)
-          viewBox.x = xCentre - viewBox.width / 2
-          viewBox.y = yCentre - viewBox.height / 2
+          const viewBox = this.scaledViewBox(scale)
           return { scale, viewBox }
         })
         return
@@ -144,6 +133,18 @@ class SingleImageViewerContainer extends React.Component {
         })
       }
     }
+  }
+
+  scaledViewBox (scale) {
+    const { img, initialScale, viewBox } = this.state
+    const viewBoxScale = initialScale / scale
+    const xCentre = viewBox.x + viewBox.width / 2
+    const yCentre = viewBox.y + viewBox.height / 2
+    const width = parseInt(img.naturalWidth * viewBoxScale, 10)
+    const height = parseInt(img.naturalHeight * viewBoxScale, 10)
+    const x = xCentre - width / 2
+    const y = yCentre - height / 2
+    return { x, y, width, height }
   }
 
   async preload () {
