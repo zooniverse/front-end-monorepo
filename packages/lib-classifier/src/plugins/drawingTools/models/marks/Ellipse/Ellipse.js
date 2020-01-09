@@ -1,5 +1,6 @@
-import { types } from 'mobx-state-tree'
-import { Ellipse as EllipseComponent } from '../../../components/'
+import { getParentOfType, types } from 'mobx-state-tree'
+import { Ellipse as EllipseComponent } from '@plugins/drawingTools/components/'
+import { EllipseTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
 
@@ -36,6 +37,10 @@ const EllipseModel = types
 
     get isValid () {
       return self.rx - MINIMUM_RADIUS > 0
+    },
+
+    get tool () {
+      return getParentOfType(self, EllipseTool)
     },
 
     get toolComponent () {
