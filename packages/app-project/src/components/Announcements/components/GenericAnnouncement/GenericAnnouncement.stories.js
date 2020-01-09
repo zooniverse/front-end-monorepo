@@ -1,4 +1,4 @@
-import { withKnobs, select, text } from '@storybook/addon-knobs'
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
@@ -21,6 +21,7 @@ storiesOf('Project App / Screens / Project Home / Announcements / GenericAnnounc
       <GenericAnnouncement
         announcement={text('Announcement', ANNOUNCEMENT)}
         color={select('color', zooThemeColors, 'neutral-4')}
+        dismissable={boolean('dismissable', false)}
       />
     </Grommet>
   ), {
