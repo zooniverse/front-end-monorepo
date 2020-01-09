@@ -5,7 +5,6 @@ import { EllipseTool } from '@plugins/drawingTools/models/tools'
 import Mark from '../Mark'
 
 const BUFFER = 24
-const DEFAULT_SQUASH = 0.5
 const DELETE_BUTTON_ANGLE = -45
 const MINIMUM_RADIUS = 5
 
@@ -53,7 +52,7 @@ const EllipseModel = types
       const rx = self.getDistance(self.x, self.y, x, y)
       const angle = self.getAngle(self.x, self.y, x, y)
       self.rx = rx
-      self.ry = rx * DEFAULT_SQUASH
+      self.ry = rx * 0.0001
       self.angle = angle
     }
 
