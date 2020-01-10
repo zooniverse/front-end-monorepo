@@ -13,7 +13,6 @@ const zooThemeColors = Object.keys(zooTheme.global.colors).filter((color) => {
   return typeof zooTheme.global.colors[color] === 'string'
 })
 
-console.log(zooTheme.global.colors, zooThemeColors)
 storiesOf('Project App / Screens / Project Home / Announcements / GenericAnnouncement', module)
   .addDecorator(withKnobs)
   .add('default', () => (
