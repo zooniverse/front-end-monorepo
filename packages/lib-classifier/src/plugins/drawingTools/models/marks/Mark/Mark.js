@@ -22,6 +22,14 @@ const BaseMark = types.model('BaseMark', {
 
     get tool () {
       return getParentOfType(self, Tool)
+    },
+
+    get x () {
+      return self.x_center
+    },
+
+    get y () {
+      return self.y_center
     }
   }))
 

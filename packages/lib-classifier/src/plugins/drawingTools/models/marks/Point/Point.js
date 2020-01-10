@@ -7,8 +7,8 @@ import Mark from '../Mark'
 
 const PointModel = types
   .model('PointModel', {
-    x: types.optional(types.number, 0),
-    y: types.optional(types.number, 0)
+    x_center: types.optional(types.number, 0),
+    y_center: types.optional(types.number, 0)
   })
   .views(self => ({
     get coords () {
@@ -38,23 +38,23 @@ const PointModel = types
   }))
   .actions(self => {
     function initialDrag ({ x, y }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
     }
 
     function initialPosition ({ x, y }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
     }
 
     function move ({ x, y }) {
-      self.x += x
-      self.y += y
+      self.x_center += x
+      self.y_center += y
     }
 
     function setCoordinates ({ x, y }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
     }
 
     return {
