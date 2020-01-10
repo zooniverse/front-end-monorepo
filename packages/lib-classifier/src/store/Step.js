@@ -18,6 +18,11 @@ export const BaseStep = types
       return self.tasks.reduce((isStepComplete, task) => isStepComplete && task.isComplete, true)
     }
   }))
+  .actions(self => ({
+    reset () {
+      self.tasks.forEach(task => task.reset())
+    }
+  }))
 
 export const NextStepReference = types
   .model('NextStepReference', {
