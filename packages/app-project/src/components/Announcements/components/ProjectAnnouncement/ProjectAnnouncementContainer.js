@@ -7,13 +7,13 @@ import GenericAnnouncement from '../GenericAnnouncement'
 function storeMapper (stores) {
   const { announcement } = stores.store.project.configuration
   const {
-    dismissAnnouncementBanner,
+    dismissProjectAnnouncementBanner,
     showAnnouncement
   } = stores.store.ui
 
   return {
     announcement,
-    dismissBanner: dismissAnnouncementBanner,
+    dismissBanner: dismissProjectAnnouncementBanner,
     isVisible: showAnnouncement
   }
 }
