@@ -4,9 +4,16 @@ import { expect } from 'chai'
 import Point from './Point'
 
 describe('Point tool', function () {
+  const mark = {
+    x: 100,
+    y: 200,
+    tool: {
+      size: 'large'
+    }
+  }
   it('should render without crashing', function () {
     const wrapper = shallow(<Point
-      mark={{ x: 100, y: 200 }}
+      mark={mark}
     />)
     expect(wrapper).to.be.ok()
   })
@@ -32,7 +39,7 @@ describe('Point tool', function () {
   it('should render with radius', function () {
     const wrapper = shallow(
       <Point
-        mark={{ x: 100, y: 200 }}
+        mark={mark}
       />)
     expect(wrapper.containsMatchingElement(<circle r={10} />)).to.be.true()
   })
@@ -41,7 +48,7 @@ describe('Point tool', function () {
     const wrapper = shallow(
       <Point
         active
-        mark={{ x: 100, y: 200 }}
+        mark={mark}
       />)
     expect(wrapper.containsMatchingElement(<circle r={20} />)).to.be.true()
   })

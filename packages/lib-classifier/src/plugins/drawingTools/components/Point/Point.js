@@ -14,8 +14,8 @@ const SELECTED_RADIUS = {
 const CROSSHAIR_SPACE = 0.2
 const CROSSHAIR_WIDTH = 1
 
-function Point ({ active, children, mark, scale, svg, tool }) {
-  const { size } = tool
+function Point ({ active, children, mark, scale }) {
+  const { size } = mark.tool
   const crosshairSpace = CROSSHAIR_SPACE / scale
   const crosshairWidth = CROSSHAIR_WIDTH / scale
   const selectedRadius = SELECTED_RADIUS[size] / scale
@@ -35,16 +35,18 @@ function Point ({ active, children, mark, scale, svg, tool }) {
 
 Point.propTypes = {
   active: PropTypes.bool,
-  scale: PropTypes.number,
-  tool: PropTypes.object
+  mark: PropTypes.object,
+  scale: PropTypes.number
 }
 
 Point.defaultProps = {
   active: false,
-  scale: 1,
-  tool: {
-    size: 'large'
-  }
+  mark: {
+    tool: {
+      size: 'large'
+    }
+  },
+  scale: 1
 }
 
 export default Point
