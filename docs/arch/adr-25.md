@@ -101,7 +101,7 @@ An example of the new sub-task annotation JSON structure at classification submi
   {
     "task": "T0.0.0",
     "taskType": "single",
-    "markIndex" 0,
+    "markIndex": 0,
     "value": 0
   },
   {
@@ -122,7 +122,7 @@ An example of the new sub-task annotation JSON structure at classification submi
   },
   {
     "task": "T0.1.1",
-    "markIndex: 1,
+    "markIndex": 1,
     "taskType": "dropdown",
     "value": [
       {"option-3": 1},
