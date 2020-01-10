@@ -42,7 +42,7 @@ describe('Component > GenericAnnouncement > NarrowGenericAnnouncement', function
     })
   })
 
-  describe('when there is children nodes' function () {
+  describe('when there are children nodes', function () {
     before(function () {
       wrapper = render(
         <NarrowGenericAnnouncement announcement={ANNOUNCEMENT}>

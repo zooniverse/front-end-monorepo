@@ -48,7 +48,7 @@ class FinishedAnnouncementContainer extends Component {
 FinishedAnnouncementContainer.propTypes = {
   announcement: string,
   baseUrl: string,
-  dismissBanner: func.isRequired,
+  dismissBanner: func,
   isVisible: bool,
   theme: shape({
     global: shape({
@@ -62,7 +62,14 @@ FinishedAnnouncementContainer.propTypes = {
 
 FinishedAnnouncementContainer.defaultProps = {
   announcement: '',
-  isVisible: false
+  baseUrl: '',
+  dismissBanner: () => {},
+  isVisible: false,
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 @inject(storeMapper)
