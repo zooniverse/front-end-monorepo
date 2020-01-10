@@ -48,7 +48,7 @@ The current sub-task annotation JSON structure is:
 ]}
 ```
 
-This annotation structure has a few issues because it solely relies on an array index to relate back to the original task. This makes it difficult to make downstream analysis and aggregation scripts. The aggregation code now has to parse the details array and make a "mock annotation" of the correct structure to be passed along to the next reducer.
+The annotation structure for the sub-task, under `details`, has a few issues because it solely relies on an array index to relate back to the original sub-task. This makes it difficult to make downstream analysis and aggregation scripts. The aggregation code now has to parse the details array and make a "mock annotation" of the correct structure to be passed along to the next reducer.
 
 ### Sub-task UI
 
@@ -60,11 +60,13 @@ For initial support, we will support the single and multiple choice question tas
 
 ### Annotation JSON structure
 
-The annotations in the details array will be updated to be an object that just contains a reference to the task's unique identifier. The task annotation itself will be stored in the classification's annotations flattened. 
+The annotations in the details array will be updated to be an object that just contains a reference to the sub-task's unique identifier. The task annotation itself will be stored in the classification's annotations array flattened. 
 
 The main benefit of this reorganization will be with downstream analysis and aggregation. When aggregating drawn shapes the first step is clustering. Once the clusters are found the subtasks need to be aggregated within each cluster. This will be easier to do if the structure of each subtask annotation is the same as if that task was asked on its own. The code can just take all subtask annotations within a cluster and just pass it to the reducer as if it is a list of main task annotations without having to reshape them.
 
-An example of the new sub-task annotation JSON structure:
+An addition of `markIndex` is being added for the sub-task annotations for the purpose of having an identifier relating it back to the parent drawing task annotation value array which represents marks. 
+
+An example of the new sub-task annotation JSON structure at classification submission:
 
 ```json
 {"annotations": [
@@ -79,8 +81,8 @@ An example of the new sub-task annotation JSON structure:
         "x": 452.18341064453125,
         "y": 202.87478637695312,
         "details": [
-          {"task": "T0.0.0.0"},
-          {"task": "T0.0.0.1"}
+          {"task": "T0.0.0"},
+          {"task": "T0.0.1"}
         ]
       },
       {
@@ -89,22 +91,23 @@ An example of the new sub-task annotation JSON structure:
         "toolType": "point",
         "x": 404.61279296875,
         "y": 583.4398803710938,
-        "value_index": 1,
         "details": [
-          {"task": "T0.1.1.0"},
-          {"task": "T0.1.1.1"}
+          {"task": "T0.1.0"},
+          {"task": "T0.1.1"}
         ]
       }
     ]
   },
   {
-    "task": "T0.0.0.0",
+    "task": "T0.0.0",
     "taskType": "single",
+    "markIndex" 0,
     "value": 0
   },
   {
-    "task": "T0.0.0.1",
+    "task": "T0.0.1",
     "taskType": "dropdown",
+    "markIndex": 0,
     "value":[
       {"option-1": 1},
       {"option-2": 1},
@@ -112,12 +115,14 @@ An example of the new sub-task annotation JSON structure:
     ]
   },
   {
-    "task": "T0.1.1.0",
+    "task": "T0.1.0",
+    "markIndex": 1,
     "taskType": "single",
     "value": 1
   },
   {
-    "task": "T0.1.1.1",
+    "task": "T0.1.1",
+    "markIndex: 1,
     "taskType": "dropdown",
     "value": [
       {"option-3": 1},
@@ -128,7 +133,9 @@ An example of the new sub-task annotation JSON structure:
 ]}
 ```
 
-The sub-task identifiers follow a convention of `TASK_KEY.ANNOTATION_INDEX.TOOL_INDEX.DETAILS_INDEX`.
+The sub-task identifiers follow a convention of `TASK_KEY.TOOL_INDEX.DETAILS_INDEX`.
+
+Note that this is the structure at classification submission. The classifier's internal store models may have differences for the purposes of keeping track of in-progress annotations and marks being made.
 
 ### Drawing sub-task UI
 
