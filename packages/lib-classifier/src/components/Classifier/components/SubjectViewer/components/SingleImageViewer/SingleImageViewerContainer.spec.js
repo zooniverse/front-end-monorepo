@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
-import SingleImageViewerContainer from './SingleImageViewerContainer'
+import { SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
 
 describe('Component > SingleImageViewerContainer', function () {
@@ -77,7 +77,9 @@ describe('Component > SingleImageViewerContainer', function () {
       wrapper.instance().imageViewer = {
         current: {
           clientHeight: 100,
-          clientWidth: 200
+          clientWidth: 200,
+          addEventListener: sinon.stub(),
+          removeEventListener: sinon.stub()
         }
       }
     })
@@ -137,7 +139,7 @@ describe('Component > SingleImageViewerContainer', function () {
       })
     })
 
-    it('should render an svg image', function () {
+    it('should render an svg image', function (done) {
       const svg = wrapper.instance().imageViewer.current
       const fakeEvent = {
         target: {
@@ -154,7 +156,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
       }
       onReady.callsFake(function () {
-        const image = wrapper.find('image')
+        const image = wrapper.find('draggable(image)')
         expect(image).to.have.lengthOf(1)
         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
         done()
@@ -190,7 +192,9 @@ describe('Component > SingleImageViewerContainer', function () {
       wrapper.instance().imageViewer = {
         current: {
           clientHeight: 100,
-          clientWidth: 200
+          clientWidth: 200,
+          addEventListener: sinon.stub(),
+          removeEventListener: sinon.stub()
         }
       }
     })
@@ -224,6 +228,124 @@ describe('Component > SingleImageViewerContainer', function () {
     it('should not call onReady', function (done) {
       onError.callsFake(function () {
         expect(onReady).to.not.have.been.called()
+        done()
+      })
+    })
+  })
+
+  describe('with pan and zoom', function () {
+    const onError = sinon.stub()
+    const onReady = sinon.stub()
+    let onPan
+    let onZoom
+
+    beforeEach(function () {
+      const subject = {
+        id: 'test',
+        locations: [
+          { 'image/jpeg': 'https://some.domain/image.jpg' }
+        ]
+      }
+      wrapper = shallow(
+        <SingleImageViewerContainer
+          ImageObject={ValidImage}
+          subject={subject}
+          onError = {onError}
+          onReady={onReady}
+          setOnPan={callback => {onPan = callback}}
+          setOnZoom={callback => {onZoom = callback}}
+        />
+      )
+      wrapper.instance().imageViewer = {
+        current: {
+          clientHeight: 100,
+          clientWidth: 200,
+          addEventListener: sinon.stub(),
+          removeEventListener: sinon.stub()
+        }
+      }
+    })
+
+    it('should enable zoom in', function (done) {
+      onReady.callsFake(function () {
+        onZoom('zoomin', 1)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
+        done()
+      })
+    })
+
+    it('should enable zoom out', function (done) {
+      onReady.callsFake(function () {
+        onZoom('zoomin', 1)
+        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
+        onZoom('zoomout', -1)
+        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
+        done()
+      })
+    })
+
+    it('should enable horizontal panning', function (done) {
+      onReady.callsFake(function () {
+        onPan(-1, 0)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('10 0 400 200')
+        done()
+      })
+    })
+
+    it('should enable vertical panning', function (done) {
+      onReady.callsFake(function () {
+        onPan(0, -1)
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 -10 400 200')
+        done()
+      })
+    })
+
+    it('should should pan horizontally on drag', function (done) {
+      onReady.callsFake(function () {
+        const dragMove = wrapper.find('draggable(image)').prop('dragMove')
+        dragMove({}, { x: -15, y: 0 })
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('10 0 400 200')
+        done()
+      })
+    })
+
+    it('should should pan vertically on drag', function (done) {
+      onReady.callsFake(function () {
+        const dragMove = wrapper.find('draggable(image)').prop('dragMove')
+        dragMove({}, { x: 0, y: -15 })
+        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 10 400 200')
+        done()
+      })
+    })
+
+    it('should should zoom out on wheel scroll up', function (done) {
+      onReady.callsFake(function () {
+        const { onWheel } = wrapper.instance()
+        onWheel({ deltaY: 10, preventDefault: sinon.stub() })
+        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
+        onWheel({ deltaY: -10, preventDefault: sinon.stub() })
+        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
+        done()
+      })
+    })
+
+    it('should should zoom in on wheel scroll down', function (done) {
+      onReady.callsFake(function () {
+        const { onWheel } = wrapper.instance()
+        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
+        onWheel({ deltaY: 10, preventDefault: sinon.stub() })
+        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+        expect(viewBox).to.equal('33.5 17 333 166')
         done()
       })
     })

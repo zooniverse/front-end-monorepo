@@ -19,16 +19,35 @@ function storeMapper (stores) {
 class ZoomOutButtonContainer extends React.Component {
   constructor () {
     super()
-    this.onClick = this.onClick.bind(this)
+    this.onPointerDown = this.onPointerDown.bind(this)
+    this.onPointerUp = this.onPointerUp.bind(this)
+    this.timer = ''
   }
 
-  onClick () {
-    this.props.zoomOut()
+  onPointerDown (event) {
+    const { zoomOut } = this.props
+    const { currentTarget, pointerId } = event
+    zoomOut()
+    clearInterval(this.timer)
+    this.timer = setInterval(zoomOut, 100)
+    currentTarget.setPointerCapture(pointerId)
+  }
+
+  onPointerUp (event) {
+    const { currentTarget, pointerId } = event
+    clearInterval(this.timer)
+    currentTarget.releasePointerCapture(pointerId)
   }
 
   render () {
     return (
-      <ZoomOutButton onClick={this.onClick} />
+      <span
+        touch-action='none'
+        onPointerDown={this.onPointerDown}
+        onPointerUp={this.onPointerUp}
+      >
+        <ZoomOutButton onClick={this.onPointerUp} />
+      </span>
     )
   }
 }

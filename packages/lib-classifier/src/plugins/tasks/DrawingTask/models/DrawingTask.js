@@ -38,18 +38,15 @@ const Drawing = types.model('Drawing', {
     }
 
     function complete () {
-      const newValue = self.marks.map(mark => detach(mark))
-      self.updateAnnotation(newValue)
+      self.updateAnnotation(self.marks)
     }
 
     function start () {
       const activeMarks = self.annotation.value
-      activeMarks.forEach(function addMarksToTools (mark) {
-        const newMark = clone(mark)
-        const tool = tryReference(() => self.tools[newMark.toolIndex])
-        tool && tool.marks.put(newMark)
-      })
-      self.updateAnnotation([])
+      // if the current annotation is empty, clear any leftover marks.
+      if (activeMarks.length === 0) {
+        self.tools.forEach(tool => tool.marks.clear())
+      }
     }
 
     return {
