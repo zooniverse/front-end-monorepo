@@ -5,7 +5,7 @@ import { Grommet } from 'grommet'
 import React from 'react'
 
 import { FinishedAnnouncementContainer } from './FinishedAnnouncementContainer'
-// import readme from './README.md'
+import readme from './README.md'
 
 storiesOf('Project App / Screens / Project Home / Announcements / FinishedAnnouncement', module)
   .addDecorator(withKnobs)
@@ -17,4 +17,8 @@ storiesOf('Project App / Screens / Project Home / Announcements / FinishedAnnoun
         theme={zooTheme}
       />
     </Grommet>
-  ))
+  ), {
+    notes: {
+      markdown: readme
+    }
+  })
