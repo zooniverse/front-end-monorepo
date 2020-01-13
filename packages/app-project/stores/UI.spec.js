@@ -104,7 +104,7 @@ describe('Stores > UI', function () {
     })
   })
 
-  describe('dismissedAnnouncementBanner', function () {
+  describe('dismissedProjectAnnouncementBanner', function () {
     let rootStore
     let store
 
@@ -113,29 +113,29 @@ describe('Stores > UI', function () {
       store = rootStore.ui
     })
 
-    it('should contain a dismissedAnnouncementBanner property', function () {
-      expect(store.dismissedAnnouncementBanner).to.be.undefined()
+    it('should contain a dismissedProjectAnnouncementBanner property', function () {
+      expect(store.dismissedProjectAnnouncementBanner).to.be.undefined()
     })
 
-    it('should have a `dismissAnnouncementBanner` action', function () {
+    it('should have a `dismissProjectAnnouncementBanner` action', function () {
       const expectedValue = stringHash(PROJECT.configuration.announcement)
-      expect(store.dismissedAnnouncementBanner).to.equal(undefined)
-      store.dismissAnnouncementBanner()
-      expect(store.dismissedAnnouncementBanner).to.equal(expectedValue)
+      expect(store.dismissedProjectAnnouncementBanner).to.equal(undefined)
+      store.dismissProjectAnnouncementBanner()
+      expect(store.dismissedProjectAnnouncementBanner).to.equal(expectedValue)
     })
 
     it('should have a showAnnouncement view', function () {
       expect(store.showAnnouncement).to.be.true()
-      store.dismissAnnouncementBanner()
+      store.dismissProjectAnnouncementBanner()
       expect(store.showAnnouncement).to.be.false()
     })
   })
 
-  describe('when using the dismissedAnnouncementBanner cookie', function () {
+  describe('when using the dismissedProjectAnnouncementBanner cookie', function () {
     let rootStore
     let store
     let originalURL
-    let setAnnouncementBannerCookieSpy
+    let setProjectAnnouncementBannerCookieSpy
 
     before(function () {
       originalURL = document.URL
@@ -153,34 +153,34 @@ describe('Stores > UI', function () {
     beforeEach(function () {
       rootStore = initStore(true, { project: PROJECT })
       store = rootStore.ui
-      setAnnouncementBannerCookieSpy = sinon.spy(store, 'setAnnouncementBannerCookie')
+      setProjectAnnouncementBannerCookieSpy = sinon.spy(store, 'setProjectAnnouncementBannerCookie')
     })
 
     afterEach(function () {
-      setAnnouncementBannerCookieSpy.restore()
+      setProjectAnnouncementBannerCookieSpy.restore()
     })
 
     it('should not set the cookie on instantiation', function () {
-      expect(setAnnouncementBannerCookieSpy).to.not.have.been.called()
+      expect(setProjectAnnouncementBannerCookieSpy).to.not.have.been.called()
     })
 
     it('should not update the cookie if it already matches the store value', function () {
-      document.cookie = cookie.serialize('dismissedAnnouncementBanner', ANNOUNCEMENT_HASH, {
+      document.cookie = cookie.serialize('dismissedProjectAnnouncementBanner', ANNOUNCEMENT_HASH, {
         path: `/projects/${PROJECT.slug}`
       })
 
-      store.dismissAnnouncementBanner()
-      expect(setAnnouncementBannerCookieSpy).to.not.have.been.called()
+      store.dismissProjectAnnouncementBanner()
+      expect(setProjectAnnouncementBannerCookieSpy).to.not.have.been.called()
     })
 
     it(`should update the cookie if it doesn't match the store value`, function () {
-      document.cookie = cookie.serialize('dismissedAnnouncementBanner', 1234567890, {
+      document.cookie = cookie.serialize('dismissedProjectAnnouncementBanner', 1234567890, {
         path: `/projects/${PROJECT.slug}`
       })
-      store.dismissAnnouncementBanner()
-      expect(setAnnouncementBannerCookieSpy).to.have.been.calledOnce()
+      store.dismissProjectAnnouncementBanner()
+      expect(setProjectAnnouncementBannerCookieSpy).to.have.been.calledOnce()
       const parsedCookie = cookie.parse(document.cookie) || {}
-      const cookieHash = parseInt(parsedCookie.dismissedAnnouncementBanner, 10)
+      const cookieHash = parseInt(parsedCookie.dismissedProjectAnnouncementBanner, 10)
       expect(cookieHash).to.equal(ANNOUNCEMENT_HASH)
     })
   })
