@@ -46,6 +46,7 @@
     "next": "~9.1.1",
     "panoptes-client": "~3.0.0-rc.0",
     "path-match": "~1.2.4",
+    "polished": "~3.4.2",
     "query-string": "~6.8.3",
     "react": "~16.8.6",
     "react-dom": "~16.8.6",

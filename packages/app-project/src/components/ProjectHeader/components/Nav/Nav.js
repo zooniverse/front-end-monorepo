@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 
-import NavLink from './components/NavLink'
+import NavLink from '@shared/components/NavLink'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)

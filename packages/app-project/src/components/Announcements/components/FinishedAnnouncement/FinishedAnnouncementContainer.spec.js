@@ -1,17 +1,19 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import { ProjectAnnouncementContainer } from './ProjectAnnouncementContainer'
+import { FinishedAnnouncementContainer } from './FinishedAnnouncementContainer'
 import GenericAnnouncement from '../GenericAnnouncement'
+import en from './locales/en'
 
-const ANNOUNCEMENT = 'Arcu scelerisque curae eu sapien euismod nisl, viverra gravida donec interdum tempor vulputate nec, nam morbi rhoncus porta sollicitudin.'
-
-describe('Component > ProjectAnnouncementContainer', function () {
+describe('Component > FinishedAnnouncementContainer', function () {
   let wrapper
   let componentWrapper
 
   before(function () {
-    wrapper = shallow(<ProjectAnnouncementContainer announcement={ANNOUNCEMENT} dismissBanner={() => {}} />)
+    wrapper = shallow(
+      <FinishedAnnouncementContainer theme={zooTheme} />
+    )
     componentWrapper = wrapper.find(GenericAnnouncement)
   })
 
@@ -20,7 +22,6 @@ describe('Component > ProjectAnnouncementContainer', function () {
   })
 
   it('should render the `GenericAnnouncement` component if visible', function () {
-    expect(wrapper.html()).to.be.null()
     expect(componentWrapper).to.have.lengthOf(0)
     wrapper.setProps({ isVisible: true })
     componentWrapper = wrapper.find(GenericAnnouncement)
@@ -28,6 +29,6 @@ describe('Component > ProjectAnnouncementContainer', function () {
   })
 
   it('should pass down the required props', function () {
-    expect(componentWrapper.props().announcement).to.equal(ANNOUNCEMENT)
+    expect(componentWrapper.props().announcement).to.equal(en.FinishedAnnouncement.announcement)
   })
 })

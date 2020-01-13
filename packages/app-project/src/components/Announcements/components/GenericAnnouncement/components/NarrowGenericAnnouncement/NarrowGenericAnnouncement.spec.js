@@ -9,7 +9,7 @@ describe('Component > GenericAnnouncement > NarrowGenericAnnouncement', function
   let wrapper
 
   before(function () {
-    wrapper = render(<NarrowGenericAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
+    wrapper = render(<NarrowGenericAnnouncement announcement={ANNOUNCEMENT} />)
   })
 
   it('should render without crashing', function () {
@@ -22,7 +22,38 @@ describe('Component > GenericAnnouncement > NarrowGenericAnnouncement', function
   })
 
   it('should be the full width of its container', function () {
-    const shallowWrapper = shallow(<NarrowGenericAnnouncement announcement={ANNOUNCEMENT} closeFn={() => { }} />)
+    const shallowWrapper = shallow(<NarrowGenericAnnouncement announcement={ANNOUNCEMENT} />)
     expect(shallowWrapper.prop('fill')).to.contain('horizontal')
+  })
+
+  it('should not render a close button', function () {
+    const buttonWrapper = wrapper.find('button')
+    expect(buttonWrapper).to.have.lengthOf(0)
+  })
+
+  describe('when dismissable', function () {
+    before(function () {
+      wrapper = render(<NarrowGenericAnnouncement announcement={ANNOUNCEMENT} dismissable closeFn={() => { }} />)
+    })
+
+    it('should render a close button', function () {
+      const buttonWrapper = wrapper.find('button')
+      expect(buttonWrapper).to.have.lengthOf(1)
+    })
+  })
+
+  describe('when there are children nodes', function () {
+    before(function () {
+      wrapper = render(
+        <NarrowGenericAnnouncement announcement={ANNOUNCEMENT}>
+          <span id='child'></span>
+        </NarrowGenericAnnouncement>
+      )
+    })
+
+    it('should render the children', function () {
+      const child = wrapper.find('span#child')
+      expect(child).to.have.lengthOf(1)
+    })
   })
 })
