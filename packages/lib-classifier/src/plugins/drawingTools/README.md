@@ -54,11 +54,15 @@ The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _isValid (boolean)_ Read only. True if any required validations pass for this mark (eg. minimum length for a line.)
 - _tool (Tool)_ Read only. A reference to the tool that created this mark.
 - _addAnnotation(task, value)_ Add `value` to the annotation for `task`, which should be a valid task for this mark.
+- _x (number)_ Read only. X position of the mark's centre, in SVG coordinates relative to the subject image. Override this if `mark.x` should refer to a different position eg. the mark's top left corner for rectangles.
+- _y (number)_ Read only. Y position of the mark's centre, in SVG coordinates relative to the subject image. Override this if `mark.y` should refer to a different position eg. the mark's top left corner for rectangles.
 
 All marks should extend the Mark model by implementing the following views and actions:
 - _coords (Object { x, y })_ Read only. Returns the `{ x, y }` coords for this mark.
 - _deleteButtonPosition(scale) (Object { x, y })_ Given the image scale, return the `{ x, y }` position for this mark's delete button.
 - _toolComponent (React.Component)_ Read only. Returns the React component used to render this mark.
+- _x_center_ (number)_ x position of the mark's centre, in SVG coordinates relative to the subject image.
+- _y_center_ (number)_ y position of the mark's centre, in SVG coordinates relative to the subject image.
 - _initialDrag({ x, y })_ Called on drag when first creating the mark. `{ x, y }` are the new position of the dragged pointer in the frame of the subject image.
 - _initialPosition({ x, y })_ Called on initial click/tap when creating the mark. `{ x, y }` are the position of the pointer in the frame of the subject image.
 - _move(difference)_ Called on drag when moving the mark. `difference` is the change in position since the last move: `{ x, y }`.
@@ -67,5 +71,5 @@ All marks should extend the Mark model by implementing the following views and a
 In addition, mark models should extend the base Mark model with any properties specific to the new shape. These mark properties will be passed to Panoptes as the annotation for this mark. Marks may specify the following properties, which have a special meaning when rendering marks.
 
 - _angle (number)_ Rotation angle of the mark in degrees, measure clockwise from the positive x-axis.
-- _x (number)_ x position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
-- _y (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
+- _x_rotation_ (number)_ x position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
+- _y_rotation_ (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
