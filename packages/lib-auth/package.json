@@ -14,6 +14,7 @@
     "lint": "zoo-standard",
     "lint:fix": "zoo-standard --fix",
     "test": "mocha ./test/unit/playground.js",
+    "test:ci": "BABEL_ENV=test yarn test:unit --reporter=min",
     "test:functional:node": "mocha ./test/functional/node/isolation/test.js",
     "test:functional:node:staging": "mocha ./test/functional/node/staging/test.js",
     "test:unit": "mocha \"./test/unit/**/*.spec.js\""
