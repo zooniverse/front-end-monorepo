@@ -5,6 +5,7 @@ import { Mark } from '@plugins/drawingTools/models/marks'
 
 const TranscriptionLineModel = types
   .model('TranscriptionLineModel', {
+    toolType: types.literal('transcriptionLine'),
     x1: types.maybe(types.number),
     y1: types.maybe(types.number),
     x2: types.maybe(types.number),

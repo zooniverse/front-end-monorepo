@@ -21,7 +21,11 @@ const BaseMark = types.model('BaseMark', {
     },
 
     get tool () {
-      return getParentOfType(self, Tool)
+      try {
+        return getParentOfType(self, Tool)
+      } catch (e) {
+        console.log(`no parent of ${Tool.type} available`)
+      }
     }
   }))
 

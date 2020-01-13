@@ -5,7 +5,7 @@ import { DragHandle } from '@plugins/drawingTools/components'
 const FINISHER_RADIUS = 8
 const GRAB_STROKE_WIDTH = 6
 
-function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
+function TranscriptionLine ({ active, mark, onFinish, scale }) {
   const { x1, y1, x2, y2, finished } = mark
   const finisherRadius = FINISHER_RADIUS / scale
 
@@ -27,7 +27,6 @@ function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
           fill='transparent'
           radius={6}
           scale={scale}
-          svg={svg}
           x={x1}
           y={y1}
           dragMove={(e, d) => onHandleDrag({ x1: x1 + d.x, y1: y1 + d.y, x2, y2 })}
@@ -36,7 +35,6 @@ function TranscriptionLine ({ active, mark, onFinish, scale, svg }) {
         <DragHandle
           radius={6}
           scale={scale}
-          svg={svg}
           x={x2}
           y={y2}
           dragMove={(e, d) => onHandleDrag({ x1, y1, x2: x2 + d.x, y2: y2 + d.y })}
@@ -57,7 +55,6 @@ TranscriptionLine.propTypes = {
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
   scale: PropTypes.number,
-  svg: PropTypes.instanceOf(Element).isRequired
 }
 
 TranscriptionLine.defaultProps = {
