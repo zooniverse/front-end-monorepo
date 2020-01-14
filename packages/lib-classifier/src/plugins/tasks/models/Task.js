@@ -37,8 +37,17 @@ const Task = types.model('Task', {
       return newAnnotation
     },
 
+    reset () {
+      /*
+      Override this to reset your task for a new annotation.
+      */
+    },
+
     start () {
-      // override this with any setup actions for your task
+      /*
+      Override this with any setup actions for your task
+      eg. setting the task value from a saved annotation
+      */
     }
   }))
 
