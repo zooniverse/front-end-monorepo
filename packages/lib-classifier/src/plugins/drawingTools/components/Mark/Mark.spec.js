@@ -145,4 +145,32 @@ describe('Drawing tools > drawing tool root', function () {
       })
     })
   })
+
+  describe('mark position', function () {
+    it('should be positioned at {mark.x, mark.y}', function () {
+      point.initialPosition({ x: 50, y: 120 })
+      wrapper.setProps({ mark: point })
+      const transform = wrapper.root().prop('transform')
+      expect(transform).to.have.string('translate(50, 120)')
+    })
+
+    describe( 'when rotated', function () {
+      beforeEach(function () {
+        const ellipseTool = EllipseTool.create({
+          type: 'ellipse'
+        })
+        const ellipse = ellipseTool.createMark({
+          id: 'ellipse1',
+          x: 50,
+          y: 120,
+          angle: -45
+        })
+        wrapper.setProps({ mark: ellipse })
+      })
+      it('should be rotated by mark.angle', function () {
+        const transform = wrapper.root().prop('transform')
+        expect(transform).to.have.string('rotate(-45)')
+      })
+    })
+  })
 })
