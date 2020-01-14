@@ -89,10 +89,9 @@ export default function buildResponse(publications, projectAvatarsMap) {
   publicationsArray.sort((a, b) => a.weight - b.weight)
 
   // We sort projects alphabetically by title
-  // comparison function can be updated to take locale as an argument
   publicationsArray.forEach(category =>
     category.projects.sort((a, b) =>
-      a.title.localeCompare(b.title, { ignorePunctuation: true })
+      a.title.localeCompare(b.title, 'en', { ignorePunctuation: true })
     )
   )
 

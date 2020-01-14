@@ -32,7 +32,7 @@ describe('API > Publications > buildResponse', function () {
       projects.forEach((project, index) => {
         const projectATitle = project.title.toLowerCase()
         const projectBTitle = (projects[index + 1]) ? projects[index + 1].title.toLowerCase() : ''
-        const comparison = projectATitle.localeCompare(projectBTitle, { ignorePunctuation: true })
+        const comparison = projectATitle.localeCompare(projectBTitle, 'en', { ignorePunctuation: true })
 
         if (projectBTitle) {
           expect(comparison).to.be.below(0)
