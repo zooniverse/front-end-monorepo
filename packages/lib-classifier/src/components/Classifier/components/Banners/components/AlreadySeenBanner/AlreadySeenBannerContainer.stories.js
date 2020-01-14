@@ -25,7 +25,7 @@ stories.addDecorator(withKnobs)
 stories.add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
           <AlreadySeenBannerContainer
             subject={Object.assign({}, subject, { already_seen: boolean('already_seen', true) })}
           />
@@ -38,7 +38,7 @@ stories.add('light theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <Grommet theme={darkZooTheme}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
           <AlreadySeenBannerContainer
             subject={Object.assign({}, subject, { already_seen: boolean('already_seen', true) })}
           />

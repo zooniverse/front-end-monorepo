@@ -23,7 +23,7 @@ stories.addDecorator(withKnobs)
 stories.add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
           <UserHasFinishedWorkflowBannerContainer
             subject={Object.assign({}, subject, { user_has_finished_workflow: boolean('user_has_finished_workflow', true) })}
           />
@@ -36,7 +36,7 @@ stories.add('light theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <Grommet theme={darkZooTheme}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' width='large'>
+        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
           <UserHasFinishedWorkflowBannerContainer
             subject={Object.assign({}, subject, { user_has_finished_workflow: boolean('user_has_finished_workflow', true) })}
           />
