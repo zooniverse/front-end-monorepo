@@ -5,7 +5,7 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Ellipse ({ active, children, mark, onFinish, scale, svg, tool }) {
+function Ellipse ({ active, children, mark, onFinish, scale }) {
   const { x, y, rx, ry, angle } = mark
   const guideWidth = GUIDE_WIDTH / scale;
 
@@ -31,8 +31,8 @@ function Ellipse ({ active, children, mark, onFinish, scale, svg, tool }) {
         <g>
           <line x1="0" y1="0" x2={rx} y2="0" strokeWidth={guideWidth} strokeDasharray={GUIDE_DASH} />
           <line x1="0" y1="0" x2="0" y2={-1 * ry} strokeWidth={guideWidth} strokeDasharray={GUIDE_DASH} />
-          <DragHandle dragMove={onXHandleDrag} x={rx} y={0} scale={scale} svg={svg} />
-          <DragHandle dragMove={onYHandleDrag} x={0} y={-1 * ry} scale={scale} svg={svg} />
+          <DragHandle dragMove={onXHandleDrag} x={rx} y={0} scale={scale} />
+          <DragHandle dragMove={onYHandleDrag} x={0} y={-1 * ry} scale={scale} />
         </g>
       }
     </g>
@@ -41,11 +41,16 @@ function Ellipse ({ active, children, mark, onFinish, scale, svg, tool }) {
 
 Ellipse.propTypes = {
   active: PropTypes.bool,
-  tool: PropTypes.object
+  children: PropTypes.node.isRequired,
+  mark: PropTypes.object.isRequired,
+  onFinish: PropTypes.func,
+  scale: PropTypes.number
 }
 
 Ellipse.defaultProps = {
-  active: false
+  active: false,
+  onFinish: () => true,
+  scale: 1
 }
 
 export default Ellipse
