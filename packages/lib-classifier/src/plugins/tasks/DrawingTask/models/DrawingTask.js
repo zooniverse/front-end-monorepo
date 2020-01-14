@@ -41,18 +41,14 @@ const Drawing = types.model('Drawing', {
       self.updateAnnotation(self.marks)
     }
 
-    function start () {
-      const activeMarks = self.annotation.value
-      // if the current annotation is empty, clear any leftover marks.
-      if (activeMarks.length === 0) {
-        self.tools.forEach(tool => tool.marks.clear())
-      }
+    function reset () {
+      self.tools.forEach(tool => tool.marks.clear())
     }
 
     return {
       complete,
-      setActiveTool,
-      start
+      reset,
+      setActiveTool
     }
   })
 
