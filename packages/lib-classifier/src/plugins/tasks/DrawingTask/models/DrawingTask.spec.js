@@ -75,7 +75,7 @@ describe('Model > DrawingTask', function () {
     })
   })
 
-  describe('on start', function () {
+  describe('on reset', function () {
     let marks
     let pointTool
     let lineTool
@@ -94,7 +94,7 @@ describe('Model > DrawingTask', function () {
         addAnnotation: sinon.stub(),
         annotation () { return taskAnnotation }
       }
-      drawingTask.start()
+      drawingTask.reset()
       marks = drawingTask.marks
     })
 
