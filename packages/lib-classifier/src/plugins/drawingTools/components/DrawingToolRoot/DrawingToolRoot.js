@@ -100,3 +100,5 @@ DrawingToolRoot.defaultProps = {
 }
 
 export default draggable(DrawingToolRoot)
+export { DrawingToolRoot }
+
