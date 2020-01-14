@@ -105,4 +105,7 @@ DrawingToolRoot.defaultProps = {
   }
 }
 
+
 export default draggable(observer(DrawingToolRoot))
+export { DrawingToolRoot }
+
