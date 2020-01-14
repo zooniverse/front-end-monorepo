@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
+import { PointTool, Tool } from '@plugins/drawingTools/models/tools'
 import { DrawingToolRoot } from './DrawingToolRoot'
 import Point from '../Point'
 
@@ -114,6 +114,34 @@ describe('Drawing tools > drawing tool root', function () {
 
       it('should not be deleted', function () {
         expect(onDelete).to.not.have.been.called()
+      })
+    })
+  })
+
+  describe('mark position', function () {
+    it('should be positioned at {mark.x, mark.y}', function () {
+      point.initialPosition({ x: 50, y: 120 })
+      wrapper.setProps({ mark: point })
+      const transform = wrapper.root().prop('transform')
+      expect(transform).to.have.string('translate(50, 120)')
+    })
+
+    describe( 'when rotated', function () {
+      beforeEach(function () {
+        const tool = Tool.create({
+          type: 'tool'
+        })
+        const mark = tool.createMark({
+          id: 'tool1',
+          x: 50,
+          y: 120
+        })
+        mark.angle = -45
+        wrapper.setProps({ mark: mark })
+      })
+      it('should be rotated by mark.angle', function () {
+        const transform = wrapper.root().prop('transform')
+        expect(transform).to.have.string('rotate(-45)')
       })
     })
   })
