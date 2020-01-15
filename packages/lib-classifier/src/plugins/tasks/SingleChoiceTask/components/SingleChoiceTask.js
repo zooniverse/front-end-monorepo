@@ -3,7 +3,7 @@ import { Box, Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import { pxToRem } from '@zooniverse/react-components'
@@ -34,9 +34,8 @@ function SingleChoiceTask (props) {
     task
   } = props
   const { annotation } = task
-  const [ value, setValue ] = useState(annotation.value)
+  const { value } = annotation
   function onChange (index, event) {
-    setValue(index)
     if (event.target.checked) task.updateAnnotation(index)
   }
 
