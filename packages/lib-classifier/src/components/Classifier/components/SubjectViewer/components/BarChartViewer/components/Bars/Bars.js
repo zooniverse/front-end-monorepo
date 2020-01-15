@@ -87,7 +87,7 @@ function Bars (props) {
               focusable
               height={barHeight}
               index={index}
-              role='list item'
+              role='listitem'
               width={barWidth}
               x={x}
               y={y}
