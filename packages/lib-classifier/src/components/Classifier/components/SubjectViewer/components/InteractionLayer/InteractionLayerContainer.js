@@ -22,7 +22,7 @@ function storeMapper (stores) {
   const disabled = activeTool ? activeTool.disabled : false
   const drawingAnnotations = Array.from(classification.annotations.values())
     .filter(annotation => getType(annotation).name === 'DrawingAnnotation')
-  const { marks } = activeDrawingTask
+  const { marks } = activeDrawingTask || {}
   return {
     activeDrawingTask,
     activeTool,
