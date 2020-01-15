@@ -8,8 +8,7 @@ counterpart.registerTranslations('en', en)
 
 function TextTask (props) {
   const { autoFocus, disabled, task } = props
-  const defaultValue = task.annotation.value
-  const [value, setValue] = React.useState(defaultValue)
+  const { value } = task.annotation
   const textArea = React.createRef()
 
   function onChange (event) {
@@ -18,7 +17,6 @@ function TextTask (props) {
   }
 
   function updateText (text) {
-    setValue(text)
     task.updateAnnotation(text)
   }
 

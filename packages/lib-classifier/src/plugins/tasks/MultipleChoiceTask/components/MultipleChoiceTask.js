@@ -2,7 +2,7 @@ import { Markdownz } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -33,7 +33,7 @@ function MultipleChoiceTask (props) {
     task
   } = props
   const { annotation } = task
-  const [ value, setValue ] = useState(annotation.value)
+  const { value } = annotation
 
   function onChange (index, event) {
     const newValue = value ? value.slice(0) : []
@@ -43,7 +43,6 @@ function MultipleChoiceTask (props) {
       const indexInValue = newValue.indexOf(index)
       newValue.splice(indexInValue, 1)
     }
-    setValue(newValue)
     task.updateAnnotation(newValue)
   }
 
