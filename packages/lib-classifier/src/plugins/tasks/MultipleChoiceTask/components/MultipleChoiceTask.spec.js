@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { observable } from 'mobx'
 import MultipleChoiceTask from './MultipleChoiceTask'
 
 // TODO: move this into a factory

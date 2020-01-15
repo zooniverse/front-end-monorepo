@@ -4,7 +4,7 @@ import {
   SingleChoiceTaskFactory
 } from '@test/factories'
 import taskRegistry from '@plugins/tasks'
-import ClassificationStore from '@store/ClassificationStore' 
+import ClassificationStore from '@store/ClassificationStore'
 
 describe('Model > Step', function () {
   let step
@@ -19,7 +19,7 @@ describe('Model > Step', function () {
     expect(step).to.be.ok()
     expect(step).to.be.an('object')
   })
-  
+
   describe('with incomplete, optional tasks', function () {
     let tasks
     before(function () {

@@ -1,4 +1,4 @@
-import { clone, detach, tryReference, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import * as tools from '@plugins/drawingTools/models/tools'
 import DrawingAnnotation from './DrawingAnnotation'

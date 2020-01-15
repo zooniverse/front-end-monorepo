@@ -15,8 +15,8 @@ import {
   xScale
 } from '../../../../helpers/mockData'
 
-const margin =  keplerMockDataWithOptions.chartOptions.margin
-const padding =  keplerMockDataWithOptions.chartOptions.padding
+const margin = keplerMockDataWithOptions.chartOptions.margin
+const padding = keplerMockDataWithOptions.chartOptions.padding
 
 describe('Component > InnerTickAxis', function () {
   describe('render', function () {

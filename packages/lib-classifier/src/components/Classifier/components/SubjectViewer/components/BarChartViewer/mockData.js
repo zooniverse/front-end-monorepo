@@ -12,7 +12,7 @@ const optionsMock = {
       top: 0
     },
     xAxisLabel: 'Letters',
-    yAxisLabel: 'Frequency',
+    yAxisLabel: 'Frequency'
   }
 }
 
