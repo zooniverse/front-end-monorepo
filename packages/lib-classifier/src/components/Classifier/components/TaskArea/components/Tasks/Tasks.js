@@ -48,7 +48,7 @@ class Tasks extends React.Component {
       return (
         <Box as='form' gap='small' justify='between' fill>
           {tasks.map((task) => {
-            const { TaskComponent } = taskRegistry.get(task.type)
+            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
             if (TaskComponent) {
               return (
                 <Box key={task.taskKey} basis='auto'>

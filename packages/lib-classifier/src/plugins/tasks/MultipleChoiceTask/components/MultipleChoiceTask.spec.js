@@ -13,7 +13,9 @@ const task = {
   required: false,
   taskKey: 'T1',
   type: 'multiple',
-  updateAnnotation: sinon.stub()
+  updateAnnotation: sinon.stub().callsFake(value => {
+    task.annotation.value = value
+  })
 }
 
 describe('MultipleChoiceTask', function () {
@@ -60,9 +62,10 @@ describe('MultipleChoiceTask', function () {
   describe('onChange', function () {
     let wrapper
     beforeEach(function () {
+      const annotation = { task: task.taskKey, value: [] }
       wrapper = shallow(
         <MultipleChoiceTask
-          task={task}
+          task={Object.assign({}, task, { annotation })}
         />
       )
     })
@@ -76,26 +79,31 @@ describe('MultipleChoiceTask', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
+        wrapper.setProps({ task })
         expectedValue.push(index)
-        expect(task.updateAnnotation.withArgs(expectedValue)).to.have.been.calledOnce()
+        expect(task.annotation.value).to.deep.equal(expectedValue)
       })
     })
 
     it('should add checked answers to the annotation value', function () {
       const firstNode = wrapper.find({ label: task.answers[0].label })
       firstNode.simulate('change', { target: { checked: true } })
+      wrapper.setProps({ task })
+      expect(task.annotation.value).to.deep.equal([0])
       const lastNode = wrapper.find({ label: task.answers[2].label })
       lastNode.simulate('change', { target: { checked: true } })
-      expect(task.updateAnnotation.withArgs([0])).to.have.been.calledOnce()
-      expect(task.updateAnnotation.withArgs([0, 2])).to.have.been.calledOnce()
+      wrapper.setProps({ task })
+      expect(task.annotation.value).to.deep.equal([0, 2])
     })
 
     it('should remove unchecked answers from the annotation value', function () {
       const firstNode = wrapper.find({ label: task.answers[0].label })
       firstNode.simulate('change', { target: { checked: true } })
-      expect(task.updateAnnotation.withArgs([0])).to.have.been.calledOnce()
+      wrapper.setProps({ task })
+      expect(task.annotation.value).to.deep.equal([0])
       firstNode.simulate('change', { target: { checked: false } })
-      expect(task.updateAnnotation.withArgs([])).to.have.been.calledOnce()
+      wrapper.setProps({ task })
+      expect(task.annotation.value).to.deep.equal([])
     })
   })
 })
