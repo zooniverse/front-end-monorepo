@@ -1,4 +1,4 @@
-import { getRoot, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import TextAnnotation from './TextAnnotation'
 

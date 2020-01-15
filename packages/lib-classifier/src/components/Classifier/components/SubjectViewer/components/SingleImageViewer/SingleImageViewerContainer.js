@@ -189,10 +189,9 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
-    const { loadingState, onError, onKeyDown, rotation, subject } = this.props
+    const { loadingState, onKeyDown, rotation } = this.props
     const { img, scale, viewBox } = this.state
     const { naturalHeight, naturalWidth, src } = img
-    const subjectImageElement = this.subjectImage.current
 
     if (loadingState === asyncStates.error) {
       return (

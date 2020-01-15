@@ -1,7 +1,7 @@
 import { Box, Text } from 'grommet'
 import { Blank } from 'grommet-icons'
 import { observable } from 'mobx'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'

@@ -2,7 +2,6 @@ import { inject, observer } from 'mobx-react'
 import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { DrawingToolRoot } from '@plugins/drawingTools/components'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'

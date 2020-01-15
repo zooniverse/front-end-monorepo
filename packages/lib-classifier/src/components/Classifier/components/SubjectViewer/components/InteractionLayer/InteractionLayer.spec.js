@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import styled from 'styled-components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer, { StyledRect } from './InteractionLayer'

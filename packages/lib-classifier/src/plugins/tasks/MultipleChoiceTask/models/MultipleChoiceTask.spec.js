@@ -22,7 +22,7 @@ describe('Model > MultipleChoiceTask', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      const task = MultipleChoiceTask.create({})
+      MultipleChoiceTask.create({})
     } catch (e) {
       errorThrown = true
     }

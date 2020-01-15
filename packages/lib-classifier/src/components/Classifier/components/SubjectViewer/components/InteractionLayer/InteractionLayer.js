@@ -48,6 +48,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
+    return false
   }
 
   function onPointerMove (event) {
