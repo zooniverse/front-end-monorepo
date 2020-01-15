@@ -69,7 +69,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
       touch-action='none'
     >
       <StyledRect
-        disabled={disabled || move }
+        disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
         height={height}

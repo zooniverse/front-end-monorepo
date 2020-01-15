@@ -142,7 +142,6 @@ class SingleImageViewerContainer extends React.Component {
           }
           return { scale, viewBox }
         })
-        return
       }
     }
   }
@@ -207,7 +206,7 @@ class SingleImageViewerContainer extends React.Component {
 
     const svg = this.imageViewer.current
     const getScreenCTM = () => svg.getScreenCTM()
-    
+
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
         <SingleImageViewer
@@ -244,7 +243,6 @@ SingleImageViewerContainer.propTypes = {
   })
 }
 
-
 SingleImageViewerContainer.defaultProps = {
   enableRotation: () => null,
   ImageObject: window.Image,
@@ -262,4 +260,3 @@ class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
 
 export default DecoratedSingleImageViewerContainer
 export { SingleImageViewerContainer }
-

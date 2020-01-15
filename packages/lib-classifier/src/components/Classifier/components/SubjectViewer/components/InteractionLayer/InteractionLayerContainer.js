@@ -15,7 +15,7 @@ function storeMapper (stores) {
     move
   } = stores.classifierStore.subjectViewer
   const {
-    active: classification,
+    active: classification
   } = stores.classifierStore.classifications
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
   const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
@@ -74,7 +74,6 @@ class InteractionLayerContainer extends Component {
     )
   }
 }
-
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
   drawingAnnotations: PropTypes.array,

@@ -64,7 +64,7 @@ describe('Model > Subject', function () {
       const multiFrameSubject = SubjectFactory.build({ locations: [
         { 'image/png': 'https://foo.bar/example.png' },
         { 'image/png': 'https://foo.bar/example.png' }
-      ]})
+      ] })
       const subjectStore = Subject.create(multiFrameSubject)
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflow)
@@ -84,8 +84,8 @@ describe('Model > Subject', function () {
         { 'image/png': 'https://foo.bar/example.png' },
         { 'image/png': 'https://foo.bar/example.png' },
         { 'image/png': 'https://foo.bar/example.png' },
-        { 'image/png': 'https://foo.bar/example.png' },
-      ]})
+        { 'image/png': 'https://foo.bar/example.png' }
+      ] })
       const subjectStore = Subject.create(multiFrameSubject)
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflow)
@@ -94,7 +94,7 @@ describe('Model > Subject', function () {
     })
 
     it('should return a null viewer when workflow.configuration["multi_image_mode"] === "separate"', function () {
-      const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }]})
+      const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
       const subjectStore = Subject.create(multiFrameSubject)
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflowWithConfigSeparateMultiImage)
@@ -103,7 +103,7 @@ describe('Model > Subject', function () {
     })
 
     it('should return a null viewer when workflow.configuration["enable_switching_flipbook_and_separate"] === "true"', function () {
-      const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }]})
+      const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
       const subjectStore = Subject.create(multiFrameSubject)
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflowWithConfigEnableSwitching)

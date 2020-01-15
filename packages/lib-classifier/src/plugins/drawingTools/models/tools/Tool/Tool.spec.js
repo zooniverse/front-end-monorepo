@@ -13,7 +13,7 @@ describe('Model > DrawingTools > Tool', function () {
     expect(tool).to.exist()
     expect(tool).to.be.an('object')
   })
-  
+
   describe('tool.createMark', function () {
     it('should add a new mark', function () {
       const mark = { id: '1' }
@@ -48,7 +48,7 @@ describe('Model > DrawingTools > Tool', function () {
       expect(tool.disabled).to.be.false()
     })
   })
-  
+
   describe('with the minimum marks but fewer than the maximum marks', function () {
     let tool
 
@@ -66,7 +66,7 @@ describe('Model > DrawingTools > Tool', function () {
       expect(tool.disabled).to.be.false()
     })
   })
-  
+
   describe('with the maximum marks', function () {
     it('should be disabled', function () {
       const tool = Tool.create(toolData)

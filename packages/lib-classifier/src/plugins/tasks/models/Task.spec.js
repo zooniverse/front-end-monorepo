@@ -47,7 +47,7 @@ describe('Model > Task', function () {
     it('should start up with an undefined value', function () {
       expect(task.annotation.value).to.be.undefined()
     })
-    
+
     it('should always be complete', function () {
       expect(task.isComplete).to.be.true()
     })

@@ -1,12 +1,11 @@
 import { types, getType } from 'mobx-state-tree'
 import Annotation from '@plugins/tasks/models/Annotation'
 
-
 const AnnotationsStore = types
   .model('AnnotationsStore', {
     annotations: types.map(Annotation)
   })
-  .views(self =>({
+  .views(self => ({
     annotation (task) {
       return self.annotations.get(task.taskKey) || task.createAnnotation()
     }

@@ -15,7 +15,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-const DrawingToolRoot = forwardRef(function DrawingToolRoot({
+const DrawingToolRoot = forwardRef(function DrawingToolRoot ({
   children,
   dragging,
   isActive,

@@ -40,7 +40,7 @@ describe('Component > InteractionLayer', function () {
       f: 1
     })
   }
-  const svg = document.createElementNS("http://www.w3.org/2000/svg","svg")
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   svg.createSVGPoint = () => mockSVGPoint
   const getScreenCTM = () => mockScreenCTM
 
@@ -127,7 +127,6 @@ describe('Component > InteractionLayer', function () {
   })
 
   describe('when disabled', function () {
-
     beforeEach(function () {
       const mockDrawingTask = DrawingTask.TaskModel.create({
         activeToolIndex: 0,

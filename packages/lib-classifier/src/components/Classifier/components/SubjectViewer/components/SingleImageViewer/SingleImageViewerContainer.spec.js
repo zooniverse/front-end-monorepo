@@ -245,10 +245,10 @@ describe('Component > SingleImageViewerContainer', function () {
         <SingleImageViewerContainer
           ImageObject={ValidImage}
           subject={subject}
-          onError = {onError}
+          onError={onError}
           onReady={onReady}
-          setOnPan={callback => {onPan = callback}}
-          setOnZoom={callback => {onZoom = callback}}
+          setOnPan={callback => { onPan = callback }}
+          setOnZoom={callback => { onZoom = callback }}
         />
       )
       wrapper.instance().imageViewer = {
