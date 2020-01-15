@@ -66,6 +66,10 @@ The single series JSON shape is a very, very basic data object consisting of an 
       3,
       0.667
     ]
+  },
+  "chartOptions": {
+    "xAxisLabel": "Days",
+    "yAxisLabel": "Brightness"
   }
 }
 ```
@@ -105,7 +109,11 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
         "label": "Filter 2"
       }
     }
-  ]
+  ],
+  "chartOptions": {
+    "xAxisLabel": "Days",
+    "yAxisLabel": "Brightness"
+  }
 }
 ```
 
