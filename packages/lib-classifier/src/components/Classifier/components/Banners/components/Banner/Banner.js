@@ -46,7 +46,6 @@ class Banner extends Component {
     const {
       background,
       bannerText,
-      className,
       theme: { mode },
       show,
       tooltipText
@@ -57,7 +56,6 @@ class Banner extends Component {
         align='center'
         animation='fadeIn'
         background={{ color: background }}
-        className={className}
         direction='row'
         key={bannerText}
         justify='between'
