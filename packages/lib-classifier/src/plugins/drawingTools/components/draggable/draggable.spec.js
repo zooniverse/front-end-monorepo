@@ -40,7 +40,7 @@ describe('draggable', function () {
         </svg>
       </SVGContext.Provider>
     )
-    .find(Draggable)
+      .find(Draggable)
   })
 
   describe('on pointer down', function () {

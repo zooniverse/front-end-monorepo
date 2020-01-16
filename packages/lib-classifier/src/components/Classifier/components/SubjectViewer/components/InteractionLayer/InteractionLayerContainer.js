@@ -2,7 +2,6 @@ import { inject, observer } from 'mobx-react'
 import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { DrawingToolRoot } from '@plugins/drawingTools/components'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
@@ -15,18 +14,20 @@ function storeMapper (stores) {
     move
   } = stores.classifierStore.subjectViewer
   const {
-    active: classification,
+    active: classification
   } = stores.classifierStore.classifications
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
   const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
   const disabled = activeTool ? activeTool.disabled : false
   const drawingAnnotations = Array.from(classification.annotations.values())
     .filter(annotation => getType(annotation).name === 'DrawingAnnotation')
+  const { marks } = activeDrawingTask || {}
   return {
     activeDrawingTask,
     activeTool,
     disabled,
     drawingAnnotations,
+    marks,
     move
   }
 }
@@ -35,7 +36,17 @@ function storeMapper (stores) {
 @observer
 class InteractionLayerContainer extends Component {
   render () {
-    const { activeDrawingTask, activeTool, disabled, drawingAnnotations, height, move, scale, width } = this.props
+    const {
+      activeDrawingTask,
+      activeTool,
+      disabled,
+      drawingAnnotations,
+      height,
+      marks,
+      move,
+      scale,
+      width
+    } = this.props
     return (
       <>
         {drawingAnnotations.map(annotation =>
@@ -52,6 +63,7 @@ class InteractionLayerContainer extends Component {
             activeTool={activeTool}
             disabled={disabled}
             height={height}
+            marks={marks}
             move={move}
             scale={scale}
             width={width}
@@ -61,7 +73,6 @@ class InteractionLayerContainer extends Component {
     )
   }
 }
-
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
   drawingAnnotations: PropTypes.array,

@@ -1,4 +1,4 @@
-FROM node:10 AS bootstrap
+FROM node:12 AS bootstrap
 
 RUN mkdir -p /usr/src
 WORKDIR /usr/src/
@@ -12,7 +12,7 @@ RUN yarn install
 
 RUN yarn bootstrap
 
-FROM node:10 AS production-apps
+FROM node:12 AS production-apps
 
 RUN mkdir -p /usr/src
 WORKDIR /usr/src/

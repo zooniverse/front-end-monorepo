@@ -15,7 +15,7 @@ describe('Model > TextAnnotation', function () {
   it('should error for invalid annotations', function () {
     let errorThrown = false
     try {
-      const annotation = TextAnnotation.create({ task: 'T4', value: 5 })
+      TextAnnotation.create({ task: 'T4', value: 5 })
     } catch (e) {
       errorThrown = true
     }

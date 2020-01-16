@@ -1,4 +1,3 @@
-import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import sinon from 'sinon'
 import { storiesOf } from '@storybook/react'

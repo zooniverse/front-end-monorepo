@@ -1,12 +1,9 @@
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
-import { observable } from 'mobx'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
-import { pxToRem } from '@zooniverse/react-components'
 import TaskInput from '../../components/TaskInput'
 
 const StyledBox = styled(Box)`
@@ -28,15 +25,13 @@ const StyledText = styled(Text)`
 
 function SingleChoiceTask (props) {
   const {
-    annotations,
     className,
     disabled,
     task
   } = props
   const { annotation } = task
-  const [ value, setValue ] = useState(annotation.value)
+  const { value } = annotation
   function onChange (index, event) {
-    setValue(index)
     if (event.target.checked) task.updateAnnotation(index)
   }
 

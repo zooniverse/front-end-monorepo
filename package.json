@@ -27,7 +27,7 @@
     "test:ci": "nyc lerna run --parallel test:ci"
   },
   "engines": {
-    "node": "10"
+    "node": "12"
   },
   "nyc": {
     "exclude": [

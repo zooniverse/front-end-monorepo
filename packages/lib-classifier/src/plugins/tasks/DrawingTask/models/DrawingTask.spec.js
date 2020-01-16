@@ -1,8 +1,6 @@
 import sinon from 'sinon'
-import { observable } from 'mobx'
 import DrawingTask from './DrawingTask'
 import DrawingAnnotation from './DrawingAnnotation'
-import { Line, Point } from '@plugins/drawingTools/models/marks'
 
 const pointTool = {
   help: '',
@@ -55,7 +53,6 @@ describe('Model > DrawingTask', function () {
   })
 
   describe('on complete', function () {
-    let marks
     let addAnnotation
     before(function () {
       const drawingTask = DrawingTask.create(drawingTaskSnapshot)
@@ -67,7 +64,6 @@ describe('Model > DrawingTask', function () {
       }
       addAnnotation = drawingTask.classifications.addAnnotation.withArgs(drawingTask, [point1, point2, line1])
       drawingTask.complete()
-      marks = drawingTask.marks
     })
 
     it('should copy marks to the task annotation', function () {
@@ -75,7 +71,7 @@ describe('Model > DrawingTask', function () {
     })
   })
 
-  describe('on start', function () {
+  describe('on reset', function () {
     let marks
     let pointTool
     let lineTool
@@ -83,9 +79,6 @@ describe('Model > DrawingTask', function () {
       const drawingTask = DrawingTask.create(drawingTaskSnapshot)
       pointTool = drawingTask.tools[0]
       lineTool = drawingTask.tools[1]
-      const point1 = pointTool.createMark({ id: 'point1' })
-      const point2 = pointTool.createMark({ id: 'point2' })
-      const line1 = lineTool.createMark({ id: 'line1' })
       const taskAnnotation = DrawingAnnotation.create({
         task: 'T3',
         value: []
@@ -94,7 +87,7 @@ describe('Model > DrawingTask', function () {
         addAnnotation: sinon.stub(),
         annotation () { return taskAnnotation }
       }
-      drawingTask.start()
+      drawingTask.reset()
       marks = drawingTask.marks
     })
 
