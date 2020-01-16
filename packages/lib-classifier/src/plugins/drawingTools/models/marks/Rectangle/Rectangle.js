@@ -45,17 +45,31 @@ const RectangleModel = types
   }))
   .actions(self => {
     function initialDrag ({ x, y }) {
+      const current_x_left = self.x_center - self.width / 2
+      const current_x_right = self.x_center + self.width / 2
+      const current_y_top = self.y_center - self.height / 2
+      const current_y_bottom = self.y_center + self.height / 2
+            
+      let new_x_left = current_x_left
+      let new_x_right = current_x_right
+      let new_y_top = current_y_top
+      let new_y_bottom = current_y_bottom
       
-      const x_left = Math.min(x, self.x_center - self.width / 2)
-      const x_right = Math.max(x, self.x_center + self.width / 2)
-      const y_top = Math.min(y, self.y_center - self.height / 2)
-      const y_bottom = Math.max(y, self.y_center + self.height / 2)
+      if (x > self.x_center) {
+        new_x_right = x
+      } else if (x < self.x_center) {
+        new_x_left = x
+      }
+      if (y > self.y_center) {
+        new_y_bottom = y
+      } else if (y < self.y_center) {
+        new_y_top = y
+      }
       
-      
-      self.width = x_right - x_left
-      self.height = y_bottom - y_top
-      self.x_center = (x_left + x_right) / 2
-      self.y_center = (y_top + y_bottom) / 2
+      self.width = new_x_right - new_x_left
+      self.height = new_y_bottom - new_y_top
+      self.x_center = (new_x_left + new_x_right) / 2
+      self.y_center = (new_y_top + new_y_bottom) / 2
     }
 
     function initialPosition ({ x, y }) {
