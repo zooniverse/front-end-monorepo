@@ -1,13 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
 import Axis from './components/Axis'
 
-function Axes ({ axesConfig, ...rest }) {
-  const { xAxis, yAxis } = axesConfig
+const StyledAxis = styled(Axis)`
+  .Axis__label {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+`
+
+function Axes ({ axesConfig, className, ...rest }) {
+  const { color, xAxis, yAxis } = axesConfig
   return (
     <>
-      <Axis axis={yAxis} {...rest} />
-      <Axis axis={xAxis} {...rest} />
+      <StyledAxis axis={yAxis} className={className} color={color} {...rest} />
+      <StyledAxis axis={xAxis} className={className} color={color} {...rest} />
     </>
   )
 }
