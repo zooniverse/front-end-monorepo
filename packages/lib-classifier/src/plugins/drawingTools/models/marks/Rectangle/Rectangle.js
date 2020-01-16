@@ -45,15 +45,24 @@ const RectangleModel = types
   }))
   .actions(self => {
     function initialDrag ({ x, y }) {
-      self.x_center = x
-      self.y_center = y
+      
+      const x_left = Math.min(x, self.x_center - self.width / 2)
+      const x_right = Math.max(x, self.x_center + self.width / 2)
+      const y_top = Math.min(y, self.y_center - self.height / 2)
+      const y_bottom = Math.max(y, self.y_center + self.height / 2)
+      
+      
+      self.width = x_right - x_left
+      self.height = y_bottom - y_top
+      self.x_center = (x_left + x_right) / 2
+      self.y_center = (y_top + y_bottom) / 2
     }
 
     function initialPosition ({ x, y }) {
       self.x_center = x
       self.y_center = y
-      self.width = 100
-      self.height = 100
+      self.width = 0
+      self.height = 0
     }
 
     function move ({ x, y }) {
@@ -62,7 +71,6 @@ const RectangleModel = types
     }
 
     function setCoordinates ({ x_left, x_right, y_top, y_bottom }) {
-      console.log('+++ setCoordinates ', x_left, x_right, y_top, y_bottom)
       self.x_center = (x_left + x_right) / 2
       self.y_center = (y_top + y_bottom) / 2
       self.width = Math.abs(x_right - x_left)

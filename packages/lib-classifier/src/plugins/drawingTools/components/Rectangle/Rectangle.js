@@ -8,8 +8,6 @@ function Rectangle ({ active, children, mark, scale }) {
   const { x_center, y_center, width, height } = mark
 
   function onHandleDrag (coords) {
-    console.log('+++ coords: ', coords)
-    
     mark.setCoordinates(coords)
   }
   
