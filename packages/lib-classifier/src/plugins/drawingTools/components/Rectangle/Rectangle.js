@@ -48,6 +48,34 @@ function Rectangle ({ active, children, mark, scale }) {
             })
           }
         />}
+        {active &&
+        <DragHandle
+          scale={scale}
+          x={x_left}
+          y={y_bottom}
+          dragMove={(e, d) =>
+            onHandleDrag({
+              x_left: x_left + d.x,
+              x_right: x_right,
+              y_top: y_top,
+              y_bottom: y_bottom + d.y,
+            })
+          }
+        />}
+        {active &&
+        <DragHandle
+          scale={scale}
+          x={x_right}
+          y={y_top}
+          dragMove={(e, d) =>
+            onHandleDrag({
+              x_left: x_left,
+              x_right: x_right + d.x,
+              y_top: y_top + d.y,
+              y_bottom: y_bottom,
+            })
+          }
+        />}
       {children}
     </g>
   )
