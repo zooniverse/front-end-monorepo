@@ -9,23 +9,16 @@ import TranscriptionLine from './TranscriptionLine'
 
 
 class DrawingStory extends Component {
-  constructor () {
-    super()
-    this.svg = React.createRef()
-  }
 
   render () {
-    const { children, mark, tool } = this.props
-    const { svg } = this
+    const { children, mark } = this.props
     return (
-      <svg viewBox='0 0 300 400' height={300} width={400} ref={this.svg}>
+      <svg viewBox='0 0 300 400' height={300} width={400}>
         <DrawingToolRoot
           label='Transcription line'
           mark={mark}
-          svg={svg}
-          tool={tool}
         >
-          {React.cloneElement(children, { svg: svg.current })}
+          {children}
         </DrawingToolRoot>
       </svg>
     )
@@ -41,7 +34,7 @@ storiesOf('Drawing tools | Transcription Line', module)
   .add('complete', function () {
     const tool = TranscriptionLineTool.create({
       color: 'red',
-      type: 'polygon'
+      type: 'transcriptionLine'
     })
     const mark = tool.createMark({
       id: 'transcriptionLine1',
@@ -60,7 +53,7 @@ storiesOf('Drawing tools | Transcription Line', module)
   .add('active', function () {
     const tool = TranscriptionLineTool.create({
       color: 'red',
-      type: 'polygon'
+      type: 'transcriptionLine'
     })
     const mark = tool.createMark({
       id: 'transcriptionLine1',
@@ -79,7 +72,7 @@ storiesOf('Drawing tools | Transcription Line', module)
   .add('unfinished', function () {
     const tool = TranscriptionLineTool.create({
       color: 'red',
-      type: 'polygon'
+      type: 'transcriptionLine'
     })
     const mark = tool.createMark({
       id: 'transcriptionLine1',

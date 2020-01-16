@@ -4,7 +4,7 @@ import { TranscriptionLine } from '@plugins/drawingTools/models/marks'
 
 const TranscriptionLineTool = types.model('TranscriptionLine', {
   marks: types.map(TranscriptionLine),
-  type: types.literal('polygon')
+  type: types.literal('transcriptionLine')
 })
   .actions(self => {
     function createMark (mark) {
