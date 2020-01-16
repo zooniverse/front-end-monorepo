@@ -1,6 +1,6 @@
 import { getParentOfType, types } from 'mobx-state-tree'
 import { TranscriptionLine as TranscriptionLineComponent } from '../../../components/'
-import { TranscriptionLineTool } from '../../tools'
+import { TranscriptionLineTool } from '@plugins/drawingTools/models/tools'
 
 import { Mark } from '@plugins/drawingTools/models/marks'
 
