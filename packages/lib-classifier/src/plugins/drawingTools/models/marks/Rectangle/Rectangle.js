@@ -5,38 +5,34 @@ import { RectangleTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
 
-const MINIMUM_LENGTH = 5
+const MINIMUM_SIZE = 5
 
 const RectangleModel = types
   .model('RectangleModel', {
-    x1: types.maybe(types.number),
-    y1: types.maybe(types.number),
-    x2: types.maybe(types.number),
-    y2: types.maybe(types.number)
+    x_center: types.maybe(types.number),
+    y_center: types.maybe(types.number),
+    width: types.maybe(types.number),
+    height: types.maybe(types.number)
   })
   .views(self => ({
     get coords () {
       return {
-        x: self.x1,
-        y: self.y1
+        x: self.x_center,
+        y: self.y_center
       }
     },
 
     deleteButtonPosition (scale) {
       const BUFFER = 16
-      const x = self.x1 > self.x2 ? self.x1 + (BUFFER / scale) : self.x1 - (BUFFER / scale)
-      const y = self.y1
+      const x = self.x_center + self.width / 2 + (BUFFER / scale)
+      const y = self.y_center - self.height / 2
       // TODO: check for out of bounds coordinates
       return { x, y }
     },
 
-    get length () {
-      const { x1, y1, x2, y2 } = self
-      return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
-    },
-
     get isValid () {
-      return self.length - MINIMUM_LENGTH > 0
+      return (self.width - MINIMUM_SIZE > 0)
+        && (self.height - MINIMUM_SIZE > 0)
     },
 
     get tool () {
@@ -49,29 +45,28 @@ const RectangleModel = types
   }))
   .actions(self => {
     function initialDrag ({ x, y }) {
-      self.x2 = x
-      self.y2 = y
+      self.x_center = x
+      self.y_center = y
     }
 
     function initialPosition ({ x, y }) {
-      self.x1 = x
-      self.y1 = y
-      self.x2 = x
-      self.y2 = y
+      self.x_center = x
+      self.y_center = y
+      self.width = 100
+      self.height = 100
     }
 
     function move ({ x, y }) {
-      self.x1 += x
-      self.x2 += x
-      self.y1 += y
-      self.y2 += y
+      self.x_center += x
+      self.y_center += y
     }
 
-    function setCoordinates ({ x1, y1, x2, y2 }) {
-      self.x1 = x1
-      self.y1 = y1
-      self.x2 = x2
-      self.y2 = y2
+    function setCoordinates ({ x_left, x_right, y_top, y_bottom }) {
+      console.log('+++ setCoordinates ', x_left, x_right, y_top, y_bottom)
+      self.x_center = (x_left + x_right) / 2
+      self.y_center = (y_top + y_bottom) / 2
+      self.width = Math.abs(x_right - x_left)
+      self.height = Math.abs(y_bottom - y_top)
     }
 
     return {
