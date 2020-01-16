@@ -86,12 +86,12 @@ export default function buildResponse(publications, projectAvatarsMap) {
     }))
 
   // We sort the categories by ascending weight
-  publicationsArray.sort((a, b) => a.weight > b.weight)
+  publicationsArray.sort((a, b) => a.weight - b.weight)
 
   // We sort projects alphabetically by title
   publicationsArray.forEach(category =>
     category.projects.sort((a, b) =>
-      a.title.toLowerCase() > b.title.toLowerCase()
+      a.title.localeCompare(b.title, 'en', { ignorePunctuation: true })
     )
   )
 

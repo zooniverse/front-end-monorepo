@@ -1,5 +1,5 @@
 import { getParentOfType, types } from 'mobx-state-tree'
-import SingleChoiceTask  from '@plugins/tasks/SingleChoiceTask'
+import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
 import TextTask from '@plugins/tasks/TextTask'
 import { Tool } from '@plugins/drawingTools/models/tools'

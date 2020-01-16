@@ -2,7 +2,6 @@ import SingleImageViewer from '../../components/SingleImageViewer'
 import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
 
-
 const viewers = {
   singleImage: SingleImageViewer,
   lightCurve: LightCurveViewer,

@@ -8,7 +8,7 @@ import TextTask from './'
 
 describe('TextTask', function () {
   let wrapper
-  const mockTask = {
+  const task = {
     annotation: {
       task: 'T0',
       value: ''
@@ -16,35 +16,38 @@ describe('TextTask', function () {
     instruction: 'Type something here',
     taskKey: 'T0',
     text_tags: ['insertion', 'deletion'],
-    updateAnnotation: sinon.stub()
+    updateAnnotation: sinon.stub().callsFake(value => {
+      task.annotation.value = value
+    })
   }
 
   before(function () {
     wrapper = shallow(
       <TextTask
-        task={mockTask}
+        task={task}
       />
     )
   })
 
   it('should have a labelled textarea', function () {
     const label = wrapper.find('label')
-    expect(label.find(Text).prop('children')).to.equal(mockTask.instruction)
+    expect(label.find(Text).prop('children')).to.equal(task.instruction)
     const textarea = label.find(TextArea)
-    expect(textarea.prop('value')).to.equal(mockTask.annotation.value)
+    expect(textarea.prop('value')).to.equal(task.annotation.value)
   })
 
   describe('onChange', function () {
     beforeEach(function () {
+      const annotation = { task: 'T0', value: '' }
       wrapper = shallow(
         <TextTask
-          task={mockTask}
+          task={Object.assign({}, task, { annotation })}
         />
       )
     })
 
     afterEach(function () {
-      mockTask.updateAnnotation.resetHistory()
+      task.updateAnnotation.resetHistory()
     })
 
     it('should update the textarea', function () {
@@ -55,6 +58,7 @@ describe('TextTask', function () {
         }
       }
       textArea.simulate('change', fakeEvent)
+      wrapper.setProps({ task })
       expect(wrapper.find(TextArea).prop('value')).to.equal(fakeEvent.target.value)
     })
 
@@ -66,7 +70,8 @@ describe('TextTask', function () {
         }
       }
       textArea.simulate('change', fakeEvent)
-      expect(mockTask.updateAnnotation.withArgs(fakeEvent.target.value)).to.have.been.calledOnce()
+      wrapper.setProps({ task })
+      expect(task.annotation.value).to.deep.equal(fakeEvent.target.value)
     })
   })
 
@@ -78,20 +83,20 @@ describe('TextTask', function () {
       }
       wrapper = mount(
         <TextTask
-          task={Object.assign({}, mockTask, { annotation })}
+          task={Object.assign({}, task, { annotation })}
         />
       )
     })
 
     afterEach(function () {
-      mockTask.updateAnnotation.resetHistory()
+      task.updateAnnotation.resetHistory()
     })
 
     it('should render buttons for tagging text', function () {
       expect(wrapper.find('button')).to.have.lengthOf(2)
     })
 
-    mockTask.text_tags.forEach(function (tag) {
+    task.text_tags.forEach(function (tag) {
       it(`should render a ${tag} button`, function () {
         const button = wrapper.find('button').find({ value: tag })
         expect(button).to.have.lengthOf(1)
@@ -110,6 +115,7 @@ describe('TextTask', function () {
       textArea.selectionEnd = 11
       const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
       insertionButton.simulate('click', fakeEvent)
+      wrapper.setProps({ task })
       expect(textArea.value).to.equal(expectedText)
     })
   })

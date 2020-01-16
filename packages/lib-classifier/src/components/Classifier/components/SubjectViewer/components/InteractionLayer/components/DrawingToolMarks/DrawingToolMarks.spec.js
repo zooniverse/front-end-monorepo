@@ -14,9 +14,9 @@ describe('Components > DrawingToolMarks', function () {
   let marks
 
   beforeEach(function () {
-    svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     const svgBounds = { left: 0, top: 0, right: 2000, bottom: 1000, width: 2000, height: 1000 }
-    sinon.stub(svg, 'getBoundingClientRect').callsFake(() => svgBounds )
+    sinon.stub(svg, 'getBoundingClientRect').callsFake(() => svgBounds)
     const lineTool = LineTool.create({
       help: '',
       label: 'Draw a line',
@@ -37,7 +37,7 @@ describe('Components > DrawingToolMarks', function () {
     const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
     expect(wrapper).to.be.ok()
   })
-  
+
   it('should render a line', function () {
     const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
     expect(wrapper.find('Line').prop('mark')).to.equal(line)

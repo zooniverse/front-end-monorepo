@@ -15,7 +15,7 @@ const {
   options: {
     margin,
     xAxisLabel,
-    yAxisLabel,
+    yAxisLabel
   }
 } = mockData
 

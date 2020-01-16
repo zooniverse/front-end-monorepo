@@ -49,18 +49,14 @@ const StyledMetaTools = styled(MetaTools)`
   grid-area: metatools;
 `
 
-const StyledBox = styled(Box)`
-  position: relative;
-`
-
 function DefaultLayout (props) {
   return (
     <ContainerGrid className={props.className}>
       <ViewerGrid>
-        <StyledBox gridArea='subject'>
-          <SubjectViewer />
+        <Box gridArea='subject'>
           <Banners />
-        </StyledBox>
+          <SubjectViewer />
+        </Box>
         <StyledImageToolbar />
         <StyledMetaTools />
       </ViewerGrid>

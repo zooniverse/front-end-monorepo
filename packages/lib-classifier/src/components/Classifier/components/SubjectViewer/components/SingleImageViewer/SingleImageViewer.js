@@ -5,9 +5,20 @@ import styled from 'styled-components'
 import InteractionLayer from '../InteractionLayer'
 
 const Container = styled.div`
-height: 100%;
-overflow: hidden;
-width: 100%;
+  animation: fadein 1s 0s forwards;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 100%;
+    }
+  }
 `
 
 const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, onKeyDown, rotate, scale, viewBox, width }, ref) {
