@@ -202,8 +202,9 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
+    const subject = this.subjectImage.current
     const getScreenCTM = () => svg.getScreenCTM()
-    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
+    const { width: clientWidth, height: clientHeight } = subject ? subject.getBoundingClientRect() : {}
     const subjectScale = clientWidth / naturalWidth
 
     return (
