@@ -25,11 +25,15 @@ function Line ({ active, children, mark, scale }) {
 }
 
 Line.propTypes = {
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  mark: PropTypes.object.isRequired,
+  scale: PropTypes.number
 }
 
 Line.defaultProps = {
-  active: false
+  active: false,
+  scale: 1
 }
 
 export default Line
