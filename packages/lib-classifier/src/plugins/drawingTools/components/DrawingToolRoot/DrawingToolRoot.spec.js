@@ -129,7 +129,7 @@ describe('Drawing tools > drawing tool root', function () {
     describe( 'when rotated', function () {
       beforeEach(function () {
         const tool = Tool.create({
-          type: 'tool'
+          type: 'default'
         })
         const mark = tool.createMark({
           id: 'tool1',
