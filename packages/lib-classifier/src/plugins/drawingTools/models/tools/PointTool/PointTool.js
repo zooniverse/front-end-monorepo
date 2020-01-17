@@ -9,7 +9,7 @@ const PointTool = types.model('Point', {
 })
   .actions(self => {
     function createMark (mark) {
-      const newMark = Point.create(mark)
+      const newMark = Point.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
       return newMark
     }
