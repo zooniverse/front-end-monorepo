@@ -11,7 +11,7 @@ const Text = types.model('Text', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return TextAnnotation.create({ task: self.taskKey })
+      return TextAnnotation.create({ task: self.taskKey, taskType: self.type })
     }
   }))
 

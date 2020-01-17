@@ -18,7 +18,7 @@ const Drawing = types.model('Drawing', {
     },
 
     get defaultAnnotation () {
-      return DrawingAnnotation.create({ task: self.taskKey })
+      return DrawingAnnotation.create({ task: self.taskKey, taskType: self.type })
     },
 
     get isComplete () {

@@ -16,7 +16,7 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return DataVisAnnotation.create({ task: self.taskKey })
+      return DataVisAnnotation.create({ task: self.taskKey, taskType: self.type })
     }
   }))
 

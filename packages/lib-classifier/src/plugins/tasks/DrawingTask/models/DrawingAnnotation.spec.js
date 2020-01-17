@@ -5,6 +5,7 @@ const point = Point.create({ id: 'mockAnnotation', frame: 0, toolIndex: 0, toolT
 
 const drawingAnnotationSnapshot = {
   task: 'T0',
+  taskType: 'drawing',
   value: [ point.id ]
 }
 

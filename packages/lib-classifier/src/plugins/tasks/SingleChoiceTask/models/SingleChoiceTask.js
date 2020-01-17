@@ -16,7 +16,7 @@ const SingleChoice = types.model('SingleChoice', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return SingleChoiceAnnotation.create({ task: self.taskKey })
+      return SingleChoiceAnnotation.create({ task: self.taskKey, taskType: self.type })
     }
   }))
 
