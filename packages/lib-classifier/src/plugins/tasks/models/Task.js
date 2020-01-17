@@ -9,7 +9,7 @@ const Task = types.model('Task', {
   .views(self => ({
     get annotation () {
       const { classifications } = getRoot(self)
-      const { annotation } = classifications
+      const { annotation } = classifications || {}
       const currentAnnotation = annotation ? annotation(self) : self.defaultAnnotation
       return currentAnnotation
     },
