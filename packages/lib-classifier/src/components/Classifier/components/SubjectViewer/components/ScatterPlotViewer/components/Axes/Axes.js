@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Axis from './components/Axis'
 
-const StyledAxis = styled(Axis)`
+export const StyledAxis = styled(Axis)`
   .Axis__label {
     text-transform: uppercase;
     font-weight: bold;

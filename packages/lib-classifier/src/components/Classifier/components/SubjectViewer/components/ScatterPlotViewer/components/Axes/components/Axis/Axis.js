@@ -51,10 +51,10 @@ function Axis (props) {
         label={label}
         labelClassName='Axis__label'
         labelProps={{
+          dy: '2.5em',
           fill: axisColor,
           fontSize,
           fontFamily,
-          textAnchor: 'middle'
         }}
         left={padding.left}
         tickLabelProps={() => ({
@@ -74,16 +74,22 @@ function Axis (props) {
   }
 
   if (orientation === 'bottom') {
+    // vx axis components assume center prosition for label,
+    // so the labelProps textAnchor option doesn't do what you might think it does
+    // x position on the text starts at the center of the scale range
+    // so textAnchor='start' starts at the center of the range!
+    // we calculate the dx to get the position to actually be at the start
+    const dx = scale.range()[1] / 2
     return (
       <AxisBottom
         axisClassName={className}
         label={label}
         labelClassName='Axis__label'
         labelProps={{
+          dx: -dx,
           fill: axisColor,
           fontSize,
           fontFamily,
-          textAnchor: 'start'
         }}
         left={0}
         tickLabelProps={() => ({
@@ -91,7 +97,7 @@ function Axis (props) {
           fill: axisColor,
           fontSize,
           fontFamily,
-          textAnchor: 'middle'
+          textAnchor: 'middle',
         })}
         tickStroke={axisColor}
         stroke={axisColor}

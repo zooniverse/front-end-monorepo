@@ -86,6 +86,8 @@ function ScatterPlot (props) {
   }
 
   const clipPathId = cuid()
+  const plotHeight = parentHeight - margin.bottom - margin.top
+  const plotWidth = parentWidth - margin.right - margin.left
   return (
     <Chart
       height={parentHeight}
@@ -94,8 +96,8 @@ function ScatterPlot (props) {
       <Background fill={background} />
       <clipPath id={`scatter-plot-${clipPathId}`}>
         <rect
-          height={parentHeight - margin.bottom - margin.top}
-          width={parentWidth - margin.right - margin.left}
+          height={plotHeight}
+          width={plotWidth}
         />
       </clipPath>
       <Group
@@ -105,10 +107,12 @@ function ScatterPlot (props) {
       >
         {tickDirection === 'outer' &&
           <Background
-            borderColor={axisColor}
+            borderColor={colors['dark-5']}
             fill='#ffffff'
+            height={plotHeight}
             left={leftPosition}
             top={topPosition}
+            width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
           const glyphColor = series.seriesOptions?.color ||

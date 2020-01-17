@@ -6,7 +6,8 @@ function Background ({ borderColor, fill, height, width, ...rest }) {
     <rect
       fill={fill}
       height={height}
-      style={(borderColor) ? { strokeWidth: 3, stroke: borderColor } : {}}
+      stroke={borderColor || ''}
+      strokeWidth={(borderColor)  ? 1 : 0}
       width={width}
       {...rest}
     />
