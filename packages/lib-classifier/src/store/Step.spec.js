@@ -32,6 +32,19 @@ describe('Model > Step', function () {
     it('should be complete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       step.classifications = ClassificationStore.create()
+      step.classifications = ClassificationStore.create()
+      const mockSubject = {
+        id: 'subject',
+        metadata: {}
+      }
+      const mockWorkflow = {
+        id: 'workflow',
+        version: '1.0'
+      }
+      const mockProject = {
+        id: 'project'
+      }
+      step.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
       expect(step.isComplete).to.be.true()
     })
   })
@@ -48,6 +61,19 @@ describe('Model > Step', function () {
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       step.classifications = ClassificationStore.create()
+      step.classifications = ClassificationStore.create()
+      const mockSubject = {
+        id: 'subject',
+        metadata: {}
+      }
+      const mockWorkflow = {
+        id: 'workflow',
+        version: '1.0'
+      }
+      const mockProject = {
+        id: 'project'
+      }
+      step.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
       expect(step.isComplete).to.be.false()
     })
   })

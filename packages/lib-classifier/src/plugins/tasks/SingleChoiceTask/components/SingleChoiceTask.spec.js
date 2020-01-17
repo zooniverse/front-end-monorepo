@@ -1,25 +1,23 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import sinon from 'sinon'
 import SingleChoiceTask from './SingleChoiceTask'
-
-// TODO: move this into a factory
-const task = {
-  annotation: { task: 'init' },
-  answers: [{ label: 'yes' }, { label: 'no' }],
-  question: 'Is there a cat?',
-  required: true,
-  taskKey: 'init',
-  type: 'single',
-  updateAnnotation: sinon.stub()
-}
+import { default as Task } from '@plugins/tasks/SingleChoiceTask'
 
 describe('SingleChoiceTask', function () {
+  const task = Task.TaskModel.create({
+    answers: [{ label: 'yes' }, { label: 'no' }],
+    question: 'Is there a cat?',
+    required: true,
+    taskKey: 'init',
+    type: 'single'
+  })
+  const { annotation } = task
+
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<SingleChoiceTask addAnnotation={() => {}} task={task} />)
+      wrapper = shallow(<SingleChoiceTask annotation={annotation} task={task} />)
     })
 
     it('should render without crashing', function () {
@@ -41,10 +39,11 @@ describe('SingleChoiceTask', function () {
     let wrapper
 
     before(function () {
-      const annotation = { task: task.taskKey, value: 0 }
+      annotation.update(0)
       wrapper = shallow(
         <SingleChoiceTask
-          task={Object.assign({}, task, { annotation })}
+          annotation={annotation}
+          task={task}
         />
       )
     })
@@ -58,26 +57,23 @@ describe('SingleChoiceTask', function () {
 
   describe('onChange event handler', function () {
     let wrapper
-    before(function () {
-      wrapper = shallow(<SingleChoiceTask task={task} />)
-    })
-
-    afterEach(function () {
-      task.updateAnnotation.resetHistory()
+    beforeEach(function () {
+      annotation.update(null)
+      wrapper = shallow(<SingleChoiceTask annotation={annotation} task={task} />)
     })
 
     it('should update the annotation', function () {
       task.answers.forEach((answer, index) => {
         const node = wrapper.find({ label: answer.label })
         node.simulate('change', { target: { checked: true } })
-        expect(task.updateAnnotation.withArgs(index)).to.have.been.calledOnce()
+        expect(annotation.value).to.equal(index)
       })
     })
 
     it('should not update the annotation if the answer is not checked', function () {
-      const node = wrapper.find({ label: task.answers[0].label })
+      const node = wrapper.find({ label: task.answers[1].label })
       node.simulate('change', { target: { checked: false } })
-      expect(task.updateAnnotation.withArgs(0)).to.not.have.been.called()
+      expect(annotation.value).to.be.null()
     })
   })
 })

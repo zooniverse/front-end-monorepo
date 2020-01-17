@@ -26,10 +26,10 @@ const StyledText = styled(Text)`
 
 function MultipleChoiceTask (props) {
   const {
+    annotation,
     disabled,
     task
   } = props
-  const { annotation } = task
   const { value } = annotation
 
   function onChange (index, event) {
@@ -40,7 +40,7 @@ function MultipleChoiceTask (props) {
       const indexInValue = newValue.indexOf(index)
       newValue.splice(indexInValue, 1)
     }
-    task.updateAnnotation(newValue)
+    annotation.update(newValue)
   }
 
   return (

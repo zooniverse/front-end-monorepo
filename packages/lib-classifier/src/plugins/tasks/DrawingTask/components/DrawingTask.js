@@ -1,7 +1,6 @@
 import { Box, Text } from 'grommet'
 import { Blank } from 'grommet-icons'
-import { observable } from 'mobx'
-import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -73,12 +72,10 @@ class DrawingTask extends React.Component {
 }
 
 DrawingTask.defaultProps = {
-  annotations: observable.map(),
   task: {}
 }
 
 DrawingTask.propTypes = {
-  annotations: MobXPropTypes.observableMap,
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,

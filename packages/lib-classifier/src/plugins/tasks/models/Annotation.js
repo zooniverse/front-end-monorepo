@@ -9,5 +9,10 @@ const Annotation = types.model('Annotation', {
       return true
     }
   }))
+  .actions(self => ({
+    update (value) {
+      self.value = value
+    }
+  }))
 
 export default Annotation

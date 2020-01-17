@@ -48,11 +48,17 @@ class Tasks extends React.Component {
       return (
         <Box as='form' gap='small' justify='between' fill>
           {tasks.map((task) => {
+            const { annotation } = task
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
             if (TaskComponent) {
               return (
                 <Box key={task.taskKey} basis='auto'>
-                  <TaskComponent disabled={!ready} task={task} {...this.props} />
+                  <TaskComponent
+                    disabled={!ready}
+                    annotation={annotation}
+                    task={task}
+                    {...this.props}
+                  />
                 </Box>
               )
             }

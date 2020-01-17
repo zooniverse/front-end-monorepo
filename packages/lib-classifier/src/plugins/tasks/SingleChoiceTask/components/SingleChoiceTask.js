@@ -25,14 +25,14 @@ const StyledText = styled(Text)`
 
 function SingleChoiceTask (props) {
   const {
+    annotation,
     className,
     disabled,
     task
   } = props
-  const { annotation } = task
   const { value } = annotation
   function onChange (index, event) {
-    if (event.target.checked) task.updateAnnotation(index)
+    if (event.target.checked) annotation.update(index)
   }
 
   return (

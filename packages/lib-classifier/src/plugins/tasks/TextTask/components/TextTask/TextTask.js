@@ -7,8 +7,8 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function TextTask (props) {
-  const { autoFocus, disabled, task } = props
-  const { value } = task.annotation
+  const { annotation, autoFocus, disabled, task } = props
+  const { value } = annotation
   const textArea = React.createRef()
 
   function onChange (event) {
@@ -17,7 +17,7 @@ function TextTask (props) {
   }
 
   function updateText (text) {
-    task.updateAnnotation(text)
+    annotation.update(text)
   }
 
   function setTagSelection (e) {
