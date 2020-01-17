@@ -9,12 +9,14 @@ import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOu
 import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
 
 import {
-  data,
   keplerMockDataWithOptions,
-  lightCurveMockData
+  lightCurveMockData,
+  randomSingleSeriesData
 } from './helpers/mockData'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
+
+const { data } = randomSingleSeriesData
 
 const config = {
   notes: {
@@ -85,7 +87,7 @@ stories
       </Grommet>
     )
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
-  .add('light curve data with inner facing axes', () => {
+  .add('kepler light curve data with inner facing axes', () => {
     return (
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
@@ -121,6 +123,34 @@ stories
             setOnZoom={setZoomCallback}
             xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
             yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
+            zooming={boolean('zooming', true)}
+            zoomConfiguration={{
+              direction: text('zoom direction', 'both'),
+              minZoom: number('min zoom', 1),
+              maxZoom: number('max zoom', 10),
+              zoomInValue: number('zoom in scale', 1.2),
+              zoomOutValue: number('zoom out scale', 0.8)
+            }}
+          />
+        </Box>
+        <Box direction='row'>
+          <ZoomInButton onClick={() => onZoom('zoomin')} />
+          <ZoomOutButton onClick={() => onZoom('zoomout')} />
+          <ResetButton onClick={() => onZoom('zoomto')} />
+        </Box>
+      </Grommet>
+    )
+  }, config)
+  .add('variable star light curve data', () => {
+    return (
+      <Grommet theme={zooTheme}>
+        <Box height='medium' width='large'>
+          <ScatterPlotViewer
+            data={lightCurveMockData.variableStar.data}
+            panning={boolean('panning', true)}
+            setOnZoom={setZoomCallback}
+            xAxisLabel={text('x axis label', 'x-axis')}
+            yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
