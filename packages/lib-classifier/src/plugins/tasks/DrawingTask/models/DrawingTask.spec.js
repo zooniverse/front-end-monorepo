@@ -1,6 +1,7 @@
 import { types } from 'mobx-state-tree'
 import sinon from 'sinon'
 import DrawingTask from '@plugins/tasks/DrawingTask'
+import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 
 const details = [
   {
@@ -82,6 +83,54 @@ describe('Model > DrawingTask', function () {
 
     it('should exist for each drawn mark', function () {
       expect(marks.length).to.equal(3)
+    })
+  })
+
+  describe('with subtask annotations', function () {
+    let line1
+    let point1
+    let point2
+    let point3
+    let pointSubTask
+    let task
+
+    before(function () {
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: DrawingTask.AnnotationModel,
+        task: DrawingTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
+      point1 = task.tools[0].createMark({ id: 'point1' })
+      point2 = task.tools[0].createMark({ id: 'point2' })
+      point3 = task.tools[0].createMark({ id: 'point3' })
+      line1 = task.tools[1].createMark({ id: 'line1' })
+      pointSubTask = SingleChoiceTask.TaskModel.create({
+        taskKey: 'T3.0.0',
+        type: 'single',
+        answers: [ 'Yes', 'No' ],
+        question: 'Yes or no?'
+      })
+      point1.addAnnotation(pointSubTask, 1)
+      point2.addAnnotation(pointSubTask, 1)
+      point3.addAnnotation(pointSubTask, 0)
+    })
+
+    it('should store an annotation for point1', function () {
+      expect(point1.annotation(pointSubTask)).to.deep.equal({ task: 'T3.0.0', taskType: 'single', value: 1 })
+    })
+
+    it('should store an annotation for point2', function () {
+      expect(point2.annotation(pointSubTask)).to.deep.equal({ task: 'T3.0.0', taskType: 'single', value: 1 })
+    })
+
+    it('should store an annotation for point3', function () {
+      expect(point3.annotation(pointSubTask)).to.deep.equal({ task: 'T3.0.0', taskType: 'single', value: 0 })
     })
   })
 
