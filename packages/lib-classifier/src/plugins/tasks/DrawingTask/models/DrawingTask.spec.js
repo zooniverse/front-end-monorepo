@@ -1,6 +1,6 @@
+import { types } from 'mobx-state-tree'
 import sinon from 'sinon'
-import DrawingTask from './DrawingTask'
-import DrawingAnnotation from './DrawingAnnotation'
+import DrawingTask from '@plugins/tasks/DrawingTask'
 
 const details = [
   {
@@ -44,18 +44,18 @@ const drawingTaskSnapshot = {
 
 describe('Model > DrawingTask', function () {
   it('should exist', function () {
-    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     expect(drawingTask).to.be.ok()
     expect(drawingTask).to.be.an('object')
   })
 
   it('should have a property `type` of `drawing`', function () {
-    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     expect(drawingTask).to.include({ type: 'drawing' })
   })
 
   it('should throw an error with incorrect property `type`', function () {
-    expect(() => DrawingTask.create({ type: 'orange' })).to.throw()
+    expect(() => DrawingTask.TaskModel.create({ type: 'orange' })).to.throw()
   })
 
   it('should load subtasks on creation.', function () {
@@ -73,7 +73,7 @@ describe('Model > DrawingTask', function () {
   describe('drawn marks', function () {
     let marks
     before(function () {
-      const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+      const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       drawingTask.tools[0].createMark({ id: 'point1' })
       drawingTask.tools[0].createMark({ id: 'point2' })
       drawingTask.tools[1].createMark({ id: 'line1' })
@@ -86,21 +86,31 @@ describe('Model > DrawingTask', function () {
   })
 
   describe('on complete', function () {
-    let addAnnotation
+    let line1
+    let point1
+    let point2
+    let task
+
     before(function () {
-      const drawingTask = DrawingTask.create(drawingTaskSnapshot)
-      const point1 = drawingTask.tools[0].createMark({ id: 'point1' })
-      const point2 = drawingTask.tools[0].createMark({ id: 'point2' })
-      const line1 = drawingTask.tools[1].createMark({ id: 'line1' })
-      drawingTask.classifications = {
-        addAnnotation: sinon.stub()
-      }
-      addAnnotation = drawingTask.classifications.addAnnotation.withArgs(drawingTask, [point1, point2, line1])
-      drawingTask.complete()
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: DrawingTask.AnnotationModel,
+        task: DrawingTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
+      point1 = task.tools[0].createMark({ id: 'point1' })
+      point2 = task.tools[0].createMark({ id: 'point2' })
+      line1 = task.tools[1].createMark({ id: 'line1' })
+      task.complete()
     })
 
     it('should copy marks to the task annotation', function () {
-      expect(addAnnotation).to.have.been.calledOnce()
+      expect(task.annotation.value).to.deep.equal([point1, point2, line1])
     })
   })
 
@@ -109,20 +119,21 @@ describe('Model > DrawingTask', function () {
     let pointTool
     let lineTool
     before(function () {
-      const drawingTask = DrawingTask.create(drawingTaskSnapshot)
-      pointTool = drawingTask.tools[0]
-      lineTool = drawingTask.tools[1]
-      const taskAnnotation = DrawingAnnotation.create({
-        task: 'T3',
-        taskType: drawingTask.type,
-        value: []
+      const task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: DrawingTask.AnnotationModel,
+        task: DrawingTask.TaskModel
       })
-      drawingTask.classifications = {
-        addAnnotation: sinon.stub(),
-        annotation () { return taskAnnotation }
-      }
-      drawingTask.reset()
-      marks = drawingTask.marks
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
+      pointTool = task.tools[0]
+      lineTool = task.tools[1]
+      task.reset()
+      marks = task.marks
     })
 
     it('should clear stale marks from the task', function () {

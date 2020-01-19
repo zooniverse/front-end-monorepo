@@ -1,5 +1,5 @@
-import ClassificationStore from '@store/ClassificationStore'
-import TextTask from './TextTask'
+import { types } from 'mobx-state-tree'
+import TextTask from '@plugins/tasks/TextTask'
 
 describe('Model > TextTask', function () {
   const textTask = {
@@ -21,7 +21,7 @@ describe('Model > TextTask', function () {
   }
 
   it('should exist', function () {
-    const task = TextTask.create(textTask)
+    const task = TextTask.TaskModel.create(textTask)
     expect(task).to.be.ok()
     expect(task).to.be.an('object')
   })
@@ -29,7 +29,7 @@ describe('Model > TextTask', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      TextTask.create(singleChoiceTask)
+      TextTask.TaskModel.create(singleChoiceTask)
     } catch (e) {
       errorThrown = true
     }
@@ -40,20 +40,17 @@ describe('Model > TextTask', function () {
     let task
 
     before(function () {
-      task = TextTask.create(textTask)
-      task.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      task = TextTask.TaskModel.create(textTask)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: TextTask.AnnotationModel,
+        task: TextTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
     })
 
     it('should start up with an empty string', function () {
