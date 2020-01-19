@@ -128,34 +128,6 @@ describe('Drawing tools > drawing tool root', function () {
 
     describe( 'when rotated', function () {
       beforeEach(function () {
-        const tool = EllipseTool.create({
-          type: 'default'
-        })
-        const mark = tool.createMark({
-          id: 'tool1',
-          x: 50,
-          y: 120,
-          angle: -45
-        })
-        wrapper.setProps({ mark: mark })
-      })
-      it('should be rotated by mark.angle', function () {
-        const transform = wrapper.root().prop('transform')
-        expect(transform).to.have.string('rotate(-45)')
-      })
-    })
-  })
-
-  describe('mark position', function () {
-    it('should be positioned at {mark.x, mark.y}', function () {
-      point.initialPosition({ x: 50, y: 120 })
-      wrapper.setProps({ mark: point })
-      const transform = wrapper.root().prop('transform')
-      expect(transform).to.have.string('translate(50, 120)')
-    })
-
-    describe( 'when rotated', function () {
-      beforeEach(function () {
         const ellipseTool = EllipseTool.create({
           type: 'ellipse'
         })

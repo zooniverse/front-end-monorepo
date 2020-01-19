@@ -11,7 +11,8 @@ describe('Ellipse tool', function () {
     mark = EllipseMark.create({
       id: 'ellipse1',
       rx: 50,
-      ry: 40
+      ry: 40,
+      toolType: 'ellipse'
     })
     mark.initialPosition({
       x: 100,
