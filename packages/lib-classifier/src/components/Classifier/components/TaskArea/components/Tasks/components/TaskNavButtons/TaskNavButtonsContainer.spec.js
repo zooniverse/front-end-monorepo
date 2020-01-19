@@ -1,3 +1,4 @@
+import { types } from 'mobx-state-tree'
 import React from 'react'
 import { shallow } from 'enzyme'
 import { observable } from 'mobx'
@@ -9,41 +10,67 @@ import taskRegistry from '@plugins/tasks'
 import Step from '@store/Step'
 import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
 
-const SingleChoiceTask = taskRegistry.get('single').TaskModel
-const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
-
-const steps = observable.map([
-  Step.create({ stepKey: 'S0', taskKeys: ['T0'] }),
-  Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
-])
-
-const singleChoiceTask = SingleChoiceTask.create({
-  answers: [{ label: 'yes' }, { label: 'no' }],
-  question: 'Is there a cat?',
-  required: false,
-  taskKey: 'init',
-  type: 'single'
-})
-const multipleChoiceTask = MultipleChoiceTask.create({
-  answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
-  question: 'What is/are the cat(s) doing?',
-  required: false,
-  taskKey: 'T1',
-  type: 'multiple'
-})
-const activeStepTasks = [
-  singleChoiceTask,
-  multipleChoiceTask
-]
+const SingleChoiceTask = taskRegistry.get('single')
+const MultipleChoiceTask = taskRegistry.get('multiple')
 
 const project = ProjectFactory.build()
 const subject = SubjectFactory.build()
 const workflow = WorkflowFactory.build()
 
 describe('TaskNavButtonsContainer', function () {
+  function setupMocks () {
+    const steps = observable.map([
+      Step.create({ stepKey: 'S0', taskKeys: ['T0'] }),
+      Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
+    ])
+
+    const singleChoiceTask = SingleChoiceTask.TaskModel.create({
+      answers: [{ label: 'yes' }, { label: 'no' }],
+      question: 'Is there a cat?',
+      required: false,
+      taskKey: 'init',
+      type: 'single'
+    })
+    const multipleChoiceTask = MultipleChoiceTask.TaskModel.create({
+      answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
+      question: 'What is/are the cat(s) doing?',
+      required: false,
+      taskKey: 'T1',
+      type: 'multiple'
+    })
+    const activeStepTasks = [
+      singleChoiceTask,
+      multipleChoiceTask
+    ]
+    const classificationStore = ClassificationStore.create()
+    classificationStore.createClassification(subject, workflow, project)
+    const store = types.model('MockStore', {
+      classifications: ClassificationStore,
+      multipleChoiceTask: MultipleChoiceTask.TaskModel,
+      singleChoiceTask: SingleChoiceTask.TaskModel
+    })
+    .create({
+      classifications: classificationStore,
+      multipleChoiceTask,
+      singleChoiceTask
+    })
+    const classification = classificationStore.active
+    classification.addAnnotation(multipleChoiceTask)
+    classification.addAnnotation(singleChoiceTask)
+    singleChoiceTask.setAnnotation(classification.annotation(singleChoiceTask))
+    multipleChoiceTask.setAnnotation(classification.annotation(multipleChoiceTask))
+    return {
+      activeStepTasks,
+      classificationStore,
+      steps
+    }
+  }
+
   describe('when it renders', function () {
     let wrapper
+
     before(function () {
+      const { activeStepTasks } = setupMocks()
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
           isThereAPreviousStep={() => {}}
@@ -65,17 +92,16 @@ describe('TaskNavButtonsContainer', function () {
 
   describe('#goToNextStep', function () {
     let wrapper
-    let addAnnotationSpy
     let selectStepSpy
+    let activeStepTasks
     let classificationStore
 
     before(function () {
+      ({
+        activeStepTasks,
+        classificationStore
+      } = setupMocks())
       selectStepSpy = sinon.spy()
-      classificationStore = ClassificationStore.create()
-      classificationStore.createClassification(subject, workflow, project)
-      addAnnotationSpy = sinon.spy(classificationStore, 'addAnnotation')
-      singleChoiceTask.classifications = classificationStore
-      multipleChoiceTask.classifications = classificationStore
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
           classification={classificationStore.active}
@@ -89,12 +115,7 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     afterEach(function () {
-      addAnnotationSpy.resetHistory()
       selectStepSpy.resetHistory()
-    })
-
-    after(function () {
-      addAnnotationSpy.restore()
     })
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
@@ -117,8 +138,14 @@ describe('TaskNavButtonsContainer', function () {
     let getPreviousStepKeyStub
     let removeAnnotationSpy
     let selectStepSpy
+    let activeStepTasks
+    let steps
 
     before(function () {
+      ({
+        activeStepTasks,
+        steps
+      } = setupMocks())
       getPreviousStepKeyStub = sinon.stub().callsFake(() => { return 'S0' })
       selectStepSpy = sinon.spy()
       removeAnnotationSpy = sinon.spy()
@@ -168,19 +195,17 @@ describe('TaskNavButtonsContainer', function () {
   describe('#onSubmit', function () {
     let wrapper
     let completeClassificationSpy
-    let addAnnotationSpy
     let onSubmitSpy
+    let activeStepTasks
     let classificationStore
     const preventDefaultSpy = sinon.spy()
 
     before(function () {
-      classificationStore = ClassificationStore.create()
-      classificationStore.createClassification(subject, workflow, project)
-      addAnnotationSpy = sinon.spy(classificationStore, 'addAnnotation')
-      singleChoiceTask.classifications = classificationStore
-      multipleChoiceTask.classifications = classificationStore
+      ({
+        activeStepTasks,
+        classificationStore
+      } = setupMocks())
       completeClassificationSpy = sinon.spy()
-      onSubmitSpy = sinon.spy(TaskNavButtonsContainer.wrappedComponent.prototype, 'onSubmit')
 
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
@@ -195,14 +220,7 @@ describe('TaskNavButtonsContainer', function () {
 
     afterEach(function () {
       completeClassificationSpy.resetHistory()
-      addAnnotationSpy.resetHistory()
-      onSubmitSpy.resetHistory()
       preventDefaultSpy.resetHistory()
-    })
-
-    after(function () {
-      addAnnotationSpy.restore()
-      onSubmitSpy.restore()
     })
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
