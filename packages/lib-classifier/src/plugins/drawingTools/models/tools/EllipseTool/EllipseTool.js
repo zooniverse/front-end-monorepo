@@ -8,7 +8,7 @@ const EllipseTool = types.model('Ellipse', {
 })
   .actions(self => {
     function createMark (mark) {
-      const newMark = Ellipse.create(mark)
+      const newMark = Ellipse.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
       return newMark
     }
