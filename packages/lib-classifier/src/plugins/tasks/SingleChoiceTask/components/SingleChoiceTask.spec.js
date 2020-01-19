@@ -12,7 +12,7 @@ describe('SingleChoiceTask', function () {
     taskKey: 'init',
     type: 'single'
   })
-  const { annotation } = task
+  const annotation = task.defaultAnnotation
 
   describe('when it renders', function () {
     let wrapper
