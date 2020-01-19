@@ -53,6 +53,7 @@ class Tasks extends React.Component {
           {tasks.map((task) => {
             addAnnotation(task)
             const annotation = classification.annotation(task)
+            task.setAnnotation(annotation)
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
             if (annotation && TaskComponent) {
               return (

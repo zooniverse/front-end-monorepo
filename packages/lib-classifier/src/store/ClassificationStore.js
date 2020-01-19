@@ -55,9 +55,10 @@ const ClassificationStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+        const { projects, subjects, workflows } = getRoot(self)
+        const validSubjectReference = isValidReference(() => subjects && subjects.active)
+        const validWorkflowReference = isValidReference(() => workflows && workflows.active)
+        const validProjectReference = isValidReference(() => projects && projects.active)
         if (validSubjectReference && validWorkflowReference && validProjectReference) {
           const subject = getRoot(self).subjects.active
           const workflow = getRoot(self).workflows.active
