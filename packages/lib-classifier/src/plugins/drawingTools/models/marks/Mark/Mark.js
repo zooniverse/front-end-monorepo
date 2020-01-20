@@ -12,7 +12,8 @@ const BaseMark = types.model('BaseMark', {
     TextTask.AnnotationModel
   )),
   frame: types.optional(types.number, 0),
-  toolIndex: types.optional(types.number, 0)
+  toolIndex: types.optional(types.number, 0),
+  toolType: types.string
 })
   .views(self => ({
     getAngle (x1, y1, x2, y2) {
