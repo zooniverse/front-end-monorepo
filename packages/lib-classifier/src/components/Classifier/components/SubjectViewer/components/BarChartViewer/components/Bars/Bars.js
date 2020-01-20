@@ -29,6 +29,14 @@ const StyledTippy = styled(Tippy)`
   }
 `
 
+const StyledSvg = styled.svg`
+  &:focus, &:hover {
+    rect {
+      outline: solid 4px ${props => props.focusColor};
+    }
+  }
+`
+
 export function TooltipContent ({ className, label }) {
   return (
     <Box
@@ -76,23 +84,25 @@ function Bars (props) {
           placement='top'
           trigger='mouseenter focus'
         >
-          <svg
+          <StyledSvg
             tabIndex='0'
+            focusable
+            focusColor={colors[colors.focus]}
+            role='listitem'
           >
             <Bar
               aria-label={alt}
               data-label={label}
               data-value={value}
               fill={fill}
-              focusable
+              focusColor={colors.focus}
               height={barHeight}
               index={index}
-              role='listitem'
               width={barWidth}
               x={x}
               y={y}
             />
-          </svg>
+          </StyledSvg>
         </StyledTippy>
       )
     })

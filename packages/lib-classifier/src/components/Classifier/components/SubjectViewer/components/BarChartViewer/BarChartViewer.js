@@ -78,6 +78,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
             fontFamily: font.family
           }}
           left={0}
+          role='presentation'
           scale={yScale}
           stroke={axisColor}
           ticks={yScaleTicks.length}
@@ -101,6 +102,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
             fontFamily: font.family
           }}
           left={0}
+          role='presentation'
           scale={xScale}
           stroke={axisColor}
           ticks={xScaleTicks.length}
