@@ -1,6 +1,6 @@
 # @zooniverse/auth
 
-An authentication library for the Panoptes API which provides tokens for making authenticated requests.
+An authentication library for the Panoptes API which provides tokens for making authenticated requests. It uses [`axios`](https://github.com/axios/axios) for making XHR requests under the hood.
 
 ## Example
 
