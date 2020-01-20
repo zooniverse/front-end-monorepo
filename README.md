@@ -114,6 +114,7 @@ See each package's folder for more specific documentation.
 | package name | folder | description |
 |---|---|---|
 | **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
+| **@zooniverse/auth** | `packages/lib-auth` | A client for handling auth tokens that works on server and client  |
 | **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
 | **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a project (anything at `/projects/owner/display_name`) |
 | **@zooniverse/grommet-theme** | `packages/lib-grommet-theme` | The style definitions for a Zooniverse theme to use with Grommet |
