@@ -1,11 +1,9 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
-import sinon from 'sinon'
 import { Bar } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Bars, TooltipContent } from './Bars'
+import { Bars, StyledSvg, TooltipContent } from './Bars'
 import mockData, { mockDataWithColor, xScale, yScale, yMax } from '../../mockData'
-import { Tooltip } from 'grommet-icons'
 
 const {
   data,
@@ -33,23 +31,12 @@ describe('Bars', function () {
   describe('Bar', function () {
     let wrapper
     let bars
-    let onMouseMoveSpy
-    let onMouseOutSpy
-    let onFocusSpy
-    let onBlurSpy
+    let svgWrapper
     before(function () {
-      onMouseMoveSpy = sinon.spy()
-      onMouseOutSpy = sinon.spy()
-      onFocusSpy = sinon.spy()
-      onBlurSpy = sinon.spy()
       wrapper = mount(
         <svg>
           <Bars
             data={data}
-            onBlur={onBlurSpy}
-            onFocus={onFocusSpy}
-            onMouseMove={onMouseMoveSpy}
-            onMouseOut={onMouseOutSpy}
             theme={zooTheme}
             xAxisLabel={xAxisLabel}
             xScale={xScale}
@@ -60,6 +47,7 @@ describe('Bars', function () {
         </svg>
       )
       bars = wrapper.find(Bar)
+      svgWrapper = wrapper.find(StyledSvg)
     })
 
     it('should render a Bar for each item in the data array', function () {
@@ -100,8 +88,11 @@ describe('Bars', function () {
     })
 
     it('should be focusable', function () {
-      bars.forEach((bar) => {
-        expect(bar.props().focusable).be.true()
+      svgWrapper.forEach((svg) => {
+        const props = svg.props()
+        expect(props.focusable).be.true()
+        expect(props.tabIndex).to.equal('0')
+        expect(props.role).to.equal('listitem')
       })
     })
 

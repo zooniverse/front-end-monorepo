@@ -29,7 +29,7 @@ const StyledTippy = styled(Tippy)`
   }
 `
 
-const StyledSvg = styled.svg`
+export const StyledSvg = styled.svg`
   &:focus, &:hover {
     rect {
       outline: solid 4px ${props => props.focusColor};
