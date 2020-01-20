@@ -98,10 +98,8 @@ class Client {
       return ''
     }
     const { cookieName } = this._config
-    // via https://plainjs.com/javascript/utilities/set-cookie-get-cookie-and-delete-cookie-5/
-    const regexString = '(^|;) ?' + cookieName + '=([^;]*)(;|$)'
-    const targetCookie = document.cookie.match(regexString)
-    return targetCookie ? targetCookie[2] : ''
+    const cookies = cookie.parse(document.cookie)
+    return cookies[cookieName] || ''
   }
 
   /**
