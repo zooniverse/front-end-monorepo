@@ -87,6 +87,7 @@ See each package's folder for more specific documentation.
 | package name | folder | description |
 |---|---|---|
 | **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
+| **@zooniverse/auth** | `packages/lib-auth` | A client for handling auth tokens that works on server and client  |
 | **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
 | **@zooniverse/fe-content-pages** | `packages/app-content-pages` | Server-side rendered application for documentation / info pages, such as Publications. |
 | **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a project (anything at `/projects/owner/display_name`) |
@@ -115,7 +116,7 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 ## Deployment
 
-Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images). 
+Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images).
 
 Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end to end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
@@ -125,8 +126,8 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 ### Environment variables
 
-- `PANOPTES_ENV`: sets which Panoptes API endpoint to use. 
-  - `production` will use `https://www.zooniverse.org/api` 
+- `PANOPTES_ENV`: sets which Panoptes API endpoint to use.
+  - `production` will use `https://www.zooniverse.org/api`
   - `staging` will use `https://panoptes-staging.zooniverse.org/api`.
 
 The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
