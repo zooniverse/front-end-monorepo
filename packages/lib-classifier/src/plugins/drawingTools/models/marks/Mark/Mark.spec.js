@@ -58,7 +58,8 @@ describe('Models > Drawing Task > Mark', function () {
       color: '#ff0000',
       label: 'Point',
       max: '10',
-      min: 1
+      min: 1,
+      type: 'default'
     }
 
     describe('with incomplete, optional tasks', function () {
@@ -79,11 +80,11 @@ describe('Models > Drawing Task > Mark', function () {
             required: false
           }
         ]
-        const drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
         const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
         const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
-        const multipleTask = drawingTool.createTask(multipleTaskSnapshot)
-        const singleTask = drawingTool.createTask(singleTaskSnapshot)
+        drawingTool.createTask(multipleTaskSnapshot)
+        drawingTool.createTask(singleTaskSnapshot)
         mark = drawingTool.createMark({ id: 'mockMark' })
       })
 
@@ -114,11 +115,11 @@ describe('Models > Drawing Task > Mark', function () {
             required: true
           }
         ]
-        const drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
         const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
         const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
-        const multipleTask = drawingTool.createTask(multipleTaskSnapshot)
-        const singleTask = drawingTool.createTask(singleTaskSnapshot)
+        drawingTool.createTask(multipleTaskSnapshot)
+        drawingTool.createTask(singleTaskSnapshot)
         mark = drawingTool.createMark({ id: 'mockMark' })
       })
 
@@ -152,7 +153,7 @@ describe('Models > Drawing Task > Mark', function () {
             required: true
           }
         ]
-        const drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
         const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
         const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
         multipleTask = drawingTool.createTask(multipleTaskSnapshot)
