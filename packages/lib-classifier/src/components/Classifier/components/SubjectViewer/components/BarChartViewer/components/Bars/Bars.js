@@ -85,13 +85,13 @@ function Bars (props) {
           trigger='mouseenter focus'
         >
           <StyledSvg
+            aria-label={alt}
             tabIndex='0'
             focusable
             focusColor={colors[colors.focus]}
             role='listitem'
           >
             <Bar
-              aria-label={alt}
               data-label={label}
               data-value={value}
               fill={fill}

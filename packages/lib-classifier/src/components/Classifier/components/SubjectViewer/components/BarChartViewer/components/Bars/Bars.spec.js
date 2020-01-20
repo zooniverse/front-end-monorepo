@@ -81,9 +81,10 @@ describe('Bars', function () {
     })
 
     it('should have an aria-label', function () {
-      bars.forEach((bar) => {
-        const barProps = bar.props()
-        expect(barProps['aria-label']).to.equal(`${xAxisLabel} ${barProps['data-label']}: ${yAxisLabel} ${barProps['data-value']}`)
+      svgWrapper.forEach((svg, index) => {
+        const props = svg.props()
+        const barProps = bars.at(index).props()
+        expect(props['aria-label']).to.equal(`${xAxisLabel} ${barProps['data-label']}: ${yAxisLabel} ${barProps['data-value']}`)
       })
     })
 
