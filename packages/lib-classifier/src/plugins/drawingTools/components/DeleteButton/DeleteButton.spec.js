@@ -6,7 +6,7 @@ import { Point } from '@plugins/drawingTools/models/marks'
 import DeleteButton from './DeleteButton'
 
 describe('Drawing tools > Delete button', function () {
-  const mark = Point.create({ id: 'point1', x: 50, y: 50 })
+  const mark = Point.create({ id: 'point1', x: 50, y: 50, toolType: 'point' })
 
   it('should render without crashing', function () {
     const wrapper = shallow(<DeleteButton label='Delete' mark={mark} />)

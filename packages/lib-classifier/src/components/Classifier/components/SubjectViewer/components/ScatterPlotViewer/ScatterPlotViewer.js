@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withParentSize } from '@vx/responsive'
 import { withTheme } from 'styled-components'
-import { darken } from 'polished'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
 
