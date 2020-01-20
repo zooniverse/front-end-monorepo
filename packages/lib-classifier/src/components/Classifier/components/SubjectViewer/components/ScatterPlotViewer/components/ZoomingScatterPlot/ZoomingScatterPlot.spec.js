@@ -6,10 +6,12 @@ import ScatterPlot from '../ScatterPlot'
 import ZoomEventLayer from '../../../SVGComponents/ZoomEventLayer'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
-  data as mockData,
+  randomSingleSeriesData,
   parentHeight as height,
   parentWidth as width
 } from '../../helpers/mockData'
+
+const mockData = randomSingleSeriesData.data
 
 const zoomInEventMock = {
   clientX: 50,
