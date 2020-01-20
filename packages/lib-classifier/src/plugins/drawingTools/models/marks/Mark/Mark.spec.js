@@ -4,7 +4,7 @@ describe('Models > Drawing Task > Mark', function () {
   let mark
 
   before(function () {
-    mark = Mark.create({ id: 'test' })
+    mark = Mark.create({ id: 'test', toolType: 'default' })
   })
 
   it('should exist', function () {

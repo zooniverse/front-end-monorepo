@@ -22,7 +22,7 @@ function Point ({ active, children, mark, scale }) {
   const radius = RADIUS[size] / scale
 
   return (
-    <g transform={`translate(${mark.x}, ${mark.y})`}>
+    <g>
       <line x1='0' y1={-1 * crosshairSpace * selectedRadius} x2='0' y2={-1 * selectedRadius} strokeWidth={crosshairWidth} />
       <line x1={-1 * crosshairSpace * selectedRadius} y1='0' x2={-1 * selectedRadius} y2='0' strokeWidth={crosshairWidth} />
       <line x1='0' y1={crosshairSpace * selectedRadius} x2='0' y2={selectedRadius} strokeWidth={crosshairWidth} />
