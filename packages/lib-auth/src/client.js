@@ -300,7 +300,7 @@ class Client {
 
     // If there's no session, we can't log out.
     if (!currentSession) {
-      return null
+      return
     }
 
     const csrfToken = await this._getCSRFToken()
@@ -311,7 +311,7 @@ class Client {
     }
     await this._httpClient.delete('/users/sign_out', config)
     this._resetState()
-    return null
+    return
   }
 }
 
