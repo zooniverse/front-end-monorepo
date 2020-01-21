@@ -152,7 +152,6 @@ const WorkflowStepStore = types
 
     function setTasks (workflow) {
       self.steps.forEach(function (step) {
-
         step.taskKeys.forEach((taskKey) => {
           // Set tasks object as a MobX observable JS map in the store
           // put is a MST method, not native to ES Map

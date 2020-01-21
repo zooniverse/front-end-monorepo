@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { forwardRef, useState } from 'react'
 import styled from 'styled-components'
@@ -15,7 +16,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-const DrawingToolRoot = forwardRef(function DrawingToolRoot({
+const DrawingToolRoot = forwardRef(function DrawingToolRoot ({
   children,
   dragging,
   isActive,
@@ -55,6 +56,10 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot({
     onDeselect(mark)
   }
 
+  let transform = ''
+  transform = (mark.x && mark.y) ? `${transform} translate(${mark.x}, ${mark.y})` : transform
+  transform = mark.angle ? `${transform} rotate(${mark.angle})` : transform
+
   return (
     <StyledGroup
       {...mainStyle}
@@ -64,6 +69,7 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot({
       strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
       focusable
       tabIndex={0}
+      transform={transform}
       onBlur={deselect}
       onFocus={select}
       onKeyDown={onKeyDown}
@@ -99,4 +105,7 @@ DrawingToolRoot.defaultProps = {
   }
 }
 
-export default draggable(DrawingToolRoot)
+
+export default draggable(observer(DrawingToolRoot))
+export { DrawingToolRoot }
+

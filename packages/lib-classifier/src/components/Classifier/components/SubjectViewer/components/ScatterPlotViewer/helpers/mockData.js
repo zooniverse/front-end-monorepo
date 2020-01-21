@@ -110,10 +110,16 @@ const keplerMockDataWithOptions = {
   }
 }
 
-const lightCurveMockData = [
+const lightCurveMockData = {
   kepler,
   variableStar
-]
+}
+
+const randomSingleSeriesData = {
+  data,
+  dataPoints,
+  dataExtent
+}
 
 export {
   axesConfig,
@@ -121,9 +127,6 @@ export {
   color,
   fontFamily,
   fontSize,
-  data,
-  dataExtent,
-  dataPoints,
   keplerMockDataWithOptions,
   leftAxis,
   lightCurveMockData,
@@ -131,6 +134,7 @@ export {
   padding,
   parentWidth,
   parentHeight,
+  randomSingleSeriesData,
   transformMatrix,
   xScale,
   yScale,

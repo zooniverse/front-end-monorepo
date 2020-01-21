@@ -4,7 +4,8 @@ const toolData = {
   color: '#ff0000',
   label: 'Point',
   max: '10',
-  min: 1
+  min: 1,
+  type: 'default'
 }
 
 describe('Model > DrawingTools > Tool', function () {
@@ -13,7 +14,7 @@ describe('Model > DrawingTools > Tool', function () {
     expect(tool).to.exist()
     expect(tool).to.be.an('object')
   })
-  
+
   describe('tool.createMark', function () {
     it('should add a new mark', function () {
       const mark = { id: '1' }
@@ -48,7 +49,7 @@ describe('Model > DrawingTools > Tool', function () {
       expect(tool.disabled).to.be.false()
     })
   })
-  
+
   describe('with the minimum marks but fewer than the maximum marks', function () {
     let tool
 
@@ -66,7 +67,7 @@ describe('Model > DrawingTools > Tool', function () {
       expect(tool.disabled).to.be.false()
     })
   })
-  
+
   describe('with the maximum marks', function () {
     it('should be disabled', function () {
       const tool = Tool.create(toolData)

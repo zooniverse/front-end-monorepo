@@ -1,12 +1,9 @@
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
-import { observable } from 'mobx'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
-import { pxToRem } from '@zooniverse/react-components'
 
 import TaskInput from '../../components/TaskInput'
 

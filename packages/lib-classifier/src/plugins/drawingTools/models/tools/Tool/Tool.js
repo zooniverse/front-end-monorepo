@@ -7,6 +7,7 @@ const Tool = types.model('Tool', {
   marks: types.map(Mark),
   max: types.optional(types.union(types.string, types.number), Infinity),
   min: types.optional(types.union(types.string, types.number), 0),
+  type: types.literal('default')
 })
   .views(self => ({
     get disabled () {
@@ -19,7 +20,7 @@ const Tool = types.model('Tool', {
   }))
   .actions(self => {
     function createMark (mark) {
-      const newMark = Mark.create(mark)
+      const newMark = Mark.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
       return newMark
     }
