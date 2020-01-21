@@ -70,3 +70,64 @@ In addition, mark models should extend the base Mark model with any properties s
 - _angle (number)_ Rotation angle of the mark in degrees, measure clockwise from the positive x-axis.
 - _x (number)_ x position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
 - _y (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
+
+## Working with tools and marks
+```js
+// Create a new drawing tool
+const tool = TranscriptionLine.create({
+  color: 'green',
+  label: 'Transcribe a line'
+  type: 'transcriptionLine'
+})
+
+// Add a text task to a drawing tool
+// This is done automatically by the DrawingTask model
+tool.createTask({
+  taskKey: 'T0.0.0',
+  instruction: 'Transcribe the marked line.',
+  required: true,
+  type: 'text'
+})
+
+// draw some lines
+
+const line1 = tool.createMark({
+  id: 'line1'
+  x1: 10,
+  y2: 10,
+  x2: 200,
+  y2: 10
+})
+
+const line2 = tool.createMark({
+  id: 'line2'
+  x1: 10,
+  y2: 20,
+  x2: 200,
+  y2: 20
+})
+
+// render subtasks for a mark
+
+line1.tasks.map(task => renderTask(task))
+
+// add some text to the text tasks
+
+const task = tool.tasks[0]
+
+line1.addAnnotation({
+  task,
+  value: 'Hello! This is the first line.'
+})
+
+line2.addAnnotation({
+  task,
+  value: 'This is the second line.'
+})
+
+// do something if a line has text added
+
+if ( line1.isComplete ) {
+  …
+}
+````
