@@ -28,7 +28,7 @@ The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _label (string)_
 - _max (number = Infinity)_
 - _min (number = 0)_
-- _details (Array)_ An array of definitions for subtasks of this tool.
+- _details (array)_ An array of task definitions for this tool eg. a text task for a transcription line tool. Task definitions are in the same format as workflow task definitions and can be passed to Task models.
 - _tasks (Map)_ A map of Tasks for the subtasks of this tool. Automatically generated from `tool.details`.
 - _disabled (boolean)_ Read only. True if new marks cannot be created.
 - _isComplete (boolean)_ Read only. True if all required marks have been made and all required mark tasks have been annotated.
@@ -52,6 +52,7 @@ The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _toolIndex (number)_ The array index of the tool that created this mark.
 - _isComplete (boolean)_ Read only. True if all required tasks have been annotated for this mark.
 - _isValid (boolean)_ Read only. True if any required validations pass for this mark (eg. minimum length for a line.)
+- _tasks (array)_ Read only. An array of any sub-tasks linked to this mark eg. a text task for a transcription line.
 - _tool (Tool)_ Read only. A reference to the tool that created this mark.
 - _addAnnotation(task, value)_ Add `value` to the annotation for `task`, which should be a valid task for this mark.
 
