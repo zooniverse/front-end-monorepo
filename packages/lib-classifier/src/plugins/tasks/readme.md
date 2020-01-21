@@ -62,6 +62,7 @@ The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 All tasks should extend the Task model by implementing the following:
 
 - _defaultAnnotation (Annotation)_ the default annotation for this task.
+- _type (string)_ the type of task eg. `single`, `text`, `drawing`. Types must be unique to each Task model.
 
 Tasks may implement the following actions to hook into the workflow classification lifecycle
 - _reset()_ Reset the task for a new subject and annotation.
@@ -75,6 +76,7 @@ Tasks may implement the following actions to hook into the workflow classificati
 The [base Annotation model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Annotation.js) defines the following common properties and actions for all annotations.
 
 - _task (string)_ An identifier for the task that created this annotation eg. `T0`
+- _taskType (string)_ The task type that creates these annotations. Set by the annotation's task.
 
 All annotations should extend the Annotation model by implementing the following:
 
