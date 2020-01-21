@@ -10,7 +10,7 @@
     "yup": "~0.27.0"
   },
   "scripts": {
-    "docs": "jsdoc src",
+    "docs": "jsdoc2md src/*.js > docs/README.md",
     "lint": "zoo-standard",
     "lint:fix": "zoo-standard --fix",
     "test": "yarn test:unit",
@@ -25,6 +25,7 @@
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "jsdoc": "~3.6.3",
+    "jsdoc-to-markdown": "~5.0.3",
     "mocha": "~6.1.4",
     "nock": "~11.7.0"
   }
