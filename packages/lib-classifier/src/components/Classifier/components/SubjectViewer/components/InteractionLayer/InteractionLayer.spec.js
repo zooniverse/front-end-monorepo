@@ -100,15 +100,38 @@ describe('Component > InteractionLayer', function () {
     describe('on pointer events', function () {
       it('should create a mark on pointer down', function () {
         const fakeEvent = {
-          type: 'pointer'
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
         expect(activeTool.createMark).to.have.been.calledOnce()
       })
 
+      it('should capture the pointer on pointer down', function () {
+        const fakeEvent = {
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
+        }
+        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+        expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
+      })
+
       it('should place a new mark on pointer down', function () {
         const fakeEvent = {
-          type: 'pointer'
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
         expect(mockMark.initialPosition).to.have.been.calledOnce()
@@ -116,7 +139,12 @@ describe('Component > InteractionLayer', function () {
 
       it('should drag the new mark on pointer down + move', function () {
         const fakeEvent = {
-          type: 'pointer'
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
         wrapper.find(InteractionLayer).simulate('pointermove', fakeEvent)
@@ -173,7 +201,12 @@ describe('Component > InteractionLayer', function () {
 
     it('should not create a mark on pointer down', function () {
       const fakeEvent = {
-        type: 'pointer'
+        pointerId: 'fakePointer',
+        type: 'pointer',
+        target: {
+          setPointerCapture: sinon.stub(),
+          releasePointerCapture: sinon.stub()
+        }
       }
       wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
       expect(activeTool.createMark).to.have.not.been.called()
