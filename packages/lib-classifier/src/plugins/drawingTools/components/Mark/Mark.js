@@ -16,7 +16,7 @@ const StyledGroup = styled('g')`
   }
 `
 
-const DrawingToolRoot = forwardRef(function DrawingToolRoot ({
+const Mark = forwardRef(function Mark ({
   children,
   dragging,
   isActive,
@@ -79,7 +79,7 @@ const DrawingToolRoot = forwardRef(function DrawingToolRoot ({
   )
 })
 
-DrawingToolRoot.propTypes = {
+Mark.propTypes = {
   active: PropTypes.bool,
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
@@ -93,7 +93,7 @@ DrawingToolRoot.propTypes = {
   })
 }
 
-DrawingToolRoot.defaultProps = {
+Mark.defaultProps = {
   active: false,
   dragging: false,
   onDelete: () => true,
@@ -106,6 +106,6 @@ DrawingToolRoot.defaultProps = {
 }
 
 
-export default draggable(observer(DrawingToolRoot))
-export { DrawingToolRoot }
+export default draggable(observer(Mark))
+export { Mark }
 
