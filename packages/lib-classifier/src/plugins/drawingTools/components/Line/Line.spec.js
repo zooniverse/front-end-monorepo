@@ -5,11 +5,12 @@ import { Line as LineMark } from '@plugins/drawingTools/models/marks'
 import Line from './Line'
 import DragHandle from '../DragHandle'
 
-describe('Line tool', function () {
+describe('Components > Drawing marks > Line tool', function () {
   let mark
   beforeEach(function () {
     mark = LineMark.create({
       id: 'line1',
+      toolType: 'line',
       x1: 100,
       y1: 200,
       x2: 300,

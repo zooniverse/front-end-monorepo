@@ -9,6 +9,7 @@ describe('Components > Drawing marks > Transcription line', function () {
   beforeEach(function () {
     mark = TranscriptionLineMark.create({
       id: 'line1',
+      toolType: 'transcriptionLine',
       x1: 100,
       y1: 200,
       x2: 300,
