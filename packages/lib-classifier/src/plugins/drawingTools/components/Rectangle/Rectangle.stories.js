@@ -31,7 +31,7 @@ storiesOf('Drawing tools | Rectangle', module)
     }
   })
   .add('complete', function () {
-    const tool = Rectangle.create({
+    const tool = RectangleTool.create({
       color: 'blue',
       type: 'rectangle'
     })
@@ -45,7 +45,7 @@ storiesOf('Drawing tools | Rectangle', module)
     })
     return (
       <DrawingStory mark={mark}>
-        <Rectangle mark={mark} />
+        <Rectangle mark={mark} scale={1} />
       </DrawingStory>
     )
   })
@@ -64,7 +64,7 @@ storiesOf('Drawing tools | Rectangle', module)
     })
     return (
       <DrawingStory mark={mark}>
-        <Rectangle active mark={mark} />
+        <Rectangle active mark={mark} scale={1} />
       </DrawingStory>
     )
   })
