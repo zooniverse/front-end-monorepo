@@ -96,29 +96,40 @@ describe('Model > DrawingTask', function () {
 
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-      const annotation = task.defaultAnnotation
-      const store = types.model('MockStore', {
-        annotation: DrawingTask.AnnotationModel,
-        task: DrawingTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
-      point1 = task.tools[0].createMark({ id: 'point1' })
-      point2 = task.tools[0].createMark({ id: 'point2' })
-      point3 = task.tools[0].createMark({ id: 'point3' })
-      line1 = task.tools[1].createMark({ id: 'line1' })
       pointSubTask = SingleChoiceTask.TaskModel.create({
         taskKey: 'T3.0.0',
         type: 'single',
         answers: [ 'Yes', 'No' ],
         question: 'Yes or no?'
       })
-      point1.addAnnotation(pointSubTask, 1)
-      point2.addAnnotation(pointSubTask, 1)
-      point3.addAnnotation(pointSubTask, 0)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: DrawingTask.AnnotationModel,
+        subtask: SingleChoiceTask.TaskModel,
+        task: DrawingTask.TaskModel
+      })
+      .create({
+        annotation,
+        subtask: pointSubTask,
+        task
+      })
+
+      function updateMark(mark, value) {
+        mark.addAnnotation(pointSubTask)
+        const markAnnotation = mark.annotation(pointSubTask)
+        pointSubTask.setAnnotation(markAnnotation)
+        markAnnotation.update(value)
+      }
+
+      task.setAnnotation(annotation)
+      point1 = task.tools[0].createMark({ id: 'point1' })
+      point2 = task.tools[0].createMark({ id: 'point2' })
+      point3 = task.tools[0].createMark({ id: 'point3' })
+      line1 = task.tools[1].createMark({ id: 'line1' })
+
+      updateMark(point1, 1)
+      updateMark(point2, 1)
+      updateMark(point3, 0)
     })
 
     it('should store an annotation for point1', function () {
