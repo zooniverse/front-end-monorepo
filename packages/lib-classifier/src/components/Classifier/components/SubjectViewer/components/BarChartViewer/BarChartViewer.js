@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
-import { Bar } from '@vx/shape'
 import { Group } from '@vx/group'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
 import { withParentSize } from '@vx/responsive'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
+import Bars from './components/Bars'
 
 const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const {
@@ -25,7 +25,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     parentWidth,
     theme: { dark, global: { colors, font } },
     xAxisLabel,
-    yAxisLabel
+    yAxisLabel,
   } = props
 
   let axisColor = (dark) ? colors.text.dark : colors.text.light
@@ -39,6 +39,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     rangeRound: [0, xMax],
     padding
   })
+
   const yScale = scaleLinear({
     domain: [0, Math.max(...data.map(datum => datum.value))],
     rangeRound: [yMax, 0]
@@ -46,40 +47,26 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
 
   const xScaleTicks = xScale.domain()
   const yScaleTicks = yScale.domain()
+
   return (
     <Chart height={parentHeight} ref={ref} width={parentWidth}>
       <Background fill={backgroundColor} />
       <Group
+        aria-label='Bar chart'
         focusable
         left={left}
+        role='list'
         tabIndex={0}
         top={top}
       >
-        {data.map((datum, index) => {
-          const { color, label, value } = datum
-          const fill = colors[color] || color || colors.brand
-          const key = `bar-${label}`
-          const barHeight = yMax - yScale(value)
-          const barWidth = xScale.bandwidth()
-          const x = xScale(label)
-          const y = yMax - barHeight
-          const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
-          return (
-            <Bar
-              aria-label={alt}
-              data-label={label}
-              data-value={value}
-              fill={fill}
-              height={barHeight}
-              index={index}
-              key={key}
-              role='img'
-              width={barWidth}
-              x={x}
-              y={y}
-            />
-          )
-        })}
+        <Bars
+          data={data}
+          xAxisLabel={xAxisLabel}
+          xScale={xScale}
+          yAxisLabel={yAxisLabel}
+          yScale={yScale}
+          yMax={yMax}
+        />
       </Group>
       <Group left={left} top={top}>
         <AxisLeft
@@ -91,6 +78,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
             fontFamily: font.family
           }}
           left={0}
+          role='presentation'
           scale={yScale}
           stroke={axisColor}
           ticks={yScaleTicks.length}
@@ -114,6 +102,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
             fontFamily: font.family
           }}
           left={0}
+          role='presentation'
           scale={xScale}
           stroke={axisColor}
           ticks={xScaleTicks.length}

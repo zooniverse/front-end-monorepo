@@ -4,7 +4,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import React, { Component, createRef, forwardRef } from 'react'
 import sinon from 'sinon'
 import { LineTool } from '@plugins/drawingTools/models/tools'
-import { DrawingToolRoot }from '@plugins/drawingTools/components'
+import { Mark }from '@plugins/drawingTools/components'
 import Line from './Line'
 
 class DrawingStory extends Component {
@@ -13,12 +13,12 @@ class DrawingStory extends Component {
 
     return (
       <svg viewBox='0 0 300 400' height={300} width={400}>
-        <DrawingToolRoot
+        <Mark
           label='Line'
           mark={mark}
         >
           {children}
-        </DrawingToolRoot>
+        </Mark>
       </svg>
     )
   }
