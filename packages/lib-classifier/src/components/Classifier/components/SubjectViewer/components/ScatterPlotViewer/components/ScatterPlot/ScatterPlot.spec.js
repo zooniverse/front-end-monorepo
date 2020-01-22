@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import { Group } from '@vx/group'
-import { Circle } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
 import Axes from '../Axes'
 import Background from '../../../SVGComponents/Background'
@@ -9,6 +8,8 @@ import Chart from '../../../SVGComponents/Chart'
 import ScatterPlot from './ScatterPlot'
 import { glyphComponents } from '../../helpers/constants'
 import {
+  dataSeriesWithXErrors,
+  dataSeriesWithYErrors,
   lightCurveMockData,
   margin,
   parentWidth,
@@ -159,6 +160,68 @@ describe('Component > ScatterPlot', function () {
       })
       variableStar.data.forEach((series, index) => {
         expect(wrapper.find(renderedSeriesGlyphs[index])).to.have.lengthOf(series.seriesData.length)
+      })
+    })
+  })
+
+  describe('when there are error bars', function () {
+    describe('for the horizontal (x) direction', function () {
+      it('should render a line centered at the glyph component', function () {
+        const data = [{
+          seriesData: dataSeriesWithXErrors,
+          seriesOptions: {
+            label: 'My data'
+          }
+        }]
+        const wrapper = shallow(
+          <ScatterPlot
+            data={data}
+            parentHeight={parentHeight}
+            parentWidth={parentWidth}
+            theme={zooTheme}
+            transformMatrix={transformMatrix}
+          />
+        )
+
+        const lines = wrapper.find('line')
+        expect(lines).to.have.lengthOf(data[0].seriesData.length)
+        lines.forEach((line, index) => {
+          const glyph = wrapper.find('GlyphCircle').at(index)
+          expect(line.props().x1).to.not.equal(line.props().x2)
+          expect(line.props().y1).to.equal(line.props().y2)
+          expect(line.props().x1).to.be.below(glyph.props().left)
+          expect(line.props().x2).to.be.above(glyph.props().left)
+        })
+      })
+    })
+
+    describe('for the vertical (y) direction', function () {
+      it('should render a line centered at the glyph component', function () {
+        const data = [{
+          seriesData: dataSeriesWithYErrors,
+          seriesOptions: {
+            label: 'My data'
+          }
+        }]
+        const wrapper = shallow(
+          <ScatterPlot
+            data={data}
+            parentHeight={parentHeight}
+            parentWidth={parentWidth}
+            theme={zooTheme}
+            transformMatrix={transformMatrix}
+          />
+        )
+
+        const lines = wrapper.find('line')
+        expect(lines).to.have.lengthOf(data[0].seriesData.length)
+        lines.forEach((line, index) => {
+          const glyph = wrapper.find('GlyphCircle').at(index)
+          expect(line.props().x1).to.equal(line.props().x2)
+          expect(line.props().y1).to.not.equal(line.props().y2)
+          expect(line.props().y1).to.be.above(glyph.props().top)
+          expect(line.props().y2).to.be.below(glyph.props().top)
+        })
       })
     })
   })
