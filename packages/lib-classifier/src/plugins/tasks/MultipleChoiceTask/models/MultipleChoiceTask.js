@@ -15,7 +15,7 @@ const MultipleChoice = types.model('MultipleChoice', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return MultipleChoiceAnnotation.create({ task: self.taskKey })
+      return MultipleChoiceAnnotation.create({ task: self.taskKey, taskType: self.type })
     }
   }))
 
