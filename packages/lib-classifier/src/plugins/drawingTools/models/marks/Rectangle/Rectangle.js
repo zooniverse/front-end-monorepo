@@ -1,5 +1,4 @@
 import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
 import { Rectangle as RectangleComponent } from '../../../components/'
 import { RectangleTool } from '@plugins/drawingTools/models/tools'
 
