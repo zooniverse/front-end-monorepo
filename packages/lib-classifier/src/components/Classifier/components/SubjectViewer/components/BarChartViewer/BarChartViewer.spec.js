@@ -1,6 +1,5 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
-import { Bar } from '@vx/shape'
 import { Group } from '@vx/group'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -118,77 +117,6 @@ describe('Component > BarChartViewer', function () {
       groups.forEach((group) => {
         expect(group.props().left).to.be.a('number')
         expect(group.props().left).to.equal(margin.left)
-      })
-    })
-  })
-
-  describe('Bar', function () {
-    let wrapper
-    before(function () {
-      wrapper = mount(
-        <BarChartViewer
-          data={data}
-          margin={margin}
-          parentHeight={500}
-          parentWidth={500}
-          theme={zooTheme}
-          xAxisLabel={xAxisLabel}
-          yAxisLabel={yAxisLabel}
-        />
-      )
-    })
-
-    it('should render a Bar for each item in the data array', function () {
-      expect(wrapper.find(Bar)).to.have.lengthOf(data.length)
-    })
-
-    it('should have a focusable Group container', function () {
-      expect(wrapper.find(Group).first().props().focusable).be.true()
-    })
-
-    it('should default to use the theme brand color for the fill', function () {
-      const bars = wrapper.find(Bar)
-      const { theme } = wrapper.props()
-      bars.forEach((bar) => {
-        expect(bar.props().fill).to.equal(theme.global.colors.brand)
-      })
-    })
-
-    it('should set the x value each bar from the data using a band scale', function () {
-      const bars = wrapper.find(Bar)
-      bars.forEach((bar) => {
-        expect(bar.props().x).to.be.a('number')
-      })
-    })
-
-    it('should set the y value each bar from the data using a linear scale', function () {
-      const bars = wrapper.find(Bar)
-      bars.forEach((bar) => {
-        expect(bar.props().x).to.be.a('number')
-      })
-    })
-
-    it('should set the each bar\'s calculated width and height', function () {
-      const bars = wrapper.find(Bar)
-      bars.forEach((bar) => {
-        expect(bar.props().width).to.be.a('number')
-        expect(bar.props().height).to.be.a('number')
-      })
-    })
-
-    it('should use defined colors from the data if defined', function () {
-      wrapper.setProps({ data: mockDataWithColor.data })
-      const bars = wrapper.find(Bar)
-      bars.forEach((bar, i) => {
-        expect(bar.props().fill).to.equal(mockDataWithColor.data[i].color)
-      })
-    })
-
-    it('should have an aria-label', function () {
-      const bars = wrapper.find(Bar)
-      bars.forEach((bar) => {
-        const barProps = bar.props()
-        expect(barProps['aria-label']).to.equal(`${xAxisLabel} ${barProps['data-label']}: ${yAxisLabel} ${barProps['data-value']}`)
       })
     })
   })
