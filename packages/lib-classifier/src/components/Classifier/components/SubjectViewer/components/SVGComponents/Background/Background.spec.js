@@ -23,4 +23,13 @@ describe('Component > Background', function () {
     const wrapper = shallow(<Background fill='black' />)
     expect(wrapper.props().fill).to.equal('black')
   })
+
+  it('should set the stroke properties if a borderColor is defined', function () {
+    const wrapper = shallow(<Background fill='black' />)
+    expect(wrapper.props().stroke).to.be.empty()
+    expect(wrapper.props().strokeWidth).to.be.equal(0)
+    wrapper.setProps({ borderColor: '#ffffff' })
+    expect(wrapper.props().stroke).to.equal('#ffffff')
+    expect(wrapper.props().strokeWidth).to.be.equal(1)
+  })
 })

@@ -53,12 +53,20 @@ describe('Component > ScatterPlot', function () {
       expect(chart.props().height).to.equal(parentHeight)
     })
 
-    it('should render a Background', function () {
-      expect(wrapper.find(Background)).to.have.lengthOf(1)
+    it('should render Backgrounds', function () {
+      expect(wrapper.find(Background)).to.have.lengthOf(2)
     })
 
     it('should style the Background fill', function () {
-      expect(wrapper.find(Background).props().fill).to.be.a('string')
+      wrapper.find(Background).forEach((backgroundElement) => {
+        expect(backgroundElement.props().fill).to.be.a('string')
+      })
+    })
+
+    it('should not render the plot area background if the axis ticks are inner facing', function () {
+      wrapper.setProps({ tickDirection: 'inner' })
+      expect(wrapper.find(Background)).to.have.lengthOf(1)
+      wrapper.setProps({ tickDirection: 'outer' })
     })
 
     it('should render a clipPath with a child rect the size of the parent chart minus the axes margin', function () {
