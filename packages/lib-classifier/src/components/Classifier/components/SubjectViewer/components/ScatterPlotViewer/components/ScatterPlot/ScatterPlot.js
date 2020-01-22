@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Group } from '@vx/group'
-import { darken } from 'polished'
 import cuid from 'cuid'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
@@ -18,10 +17,12 @@ import {
 
 function ScatterPlot (props) {
   const {
+    axisColor,
     backgroundColor,
     children,
     data,
     dataPointSize,
+    glyphColors,
     margin,
     padding,
     parentHeight,
@@ -48,11 +49,22 @@ function ScatterPlot (props) {
     tickDirection
   }
 
+  // The drawing tool colors, only used in the lab right now
+  // Candidates to be moved into the zooniverse theme
+  const standardGlyphColors = [
+    '#FF3C25',
+    '#235DFF',
+    '#FFFF03',
+    '#FF9300',
+    '#06FE76',
+    '#0CFFE0',
+    '#FF40FF'
+  ]
+
   const leftPosition = left(tickDirection, margin)
   const topPosition = top(tickDirection, margin)
 
-  const background = backgroundColor || darken(0.08, colors['neutral-2'])
-  const color = colors['light-1']
+  const background = backgroundColor || colors['light-1']
   const dataPoints = getDataPoints(data)
 
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
@@ -60,6 +72,7 @@ function ScatterPlot (props) {
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
 
   const axesConfig = {
+    color: axisColor,
     xAxis: {
       label: xAxisLabel,
       orientation: 'bottom',
@@ -73,6 +86,8 @@ function ScatterPlot (props) {
   }
 
   const clipPathId = cuid()
+  const plotHeight = parentHeight - margin.bottom - margin.top
+  const plotWidth = parentWidth - margin.right - margin.left
   return (
     <Chart
       height={parentHeight}
@@ -81,8 +96,8 @@ function ScatterPlot (props) {
       <Background fill={background} />
       <clipPath id={`scatter-plot-${clipPathId}`}>
         <rect
-          height={parentHeight - margin.bottom - margin.top}
-          width={parentWidth - margin.right - margin.left}
+          height={plotHeight}
+          width={plotWidth}
         />
       </clipPath>
       <Group
@@ -90,11 +105,26 @@ function ScatterPlot (props) {
         left={leftPosition}
         top={topPosition}
       >
+        {tickDirection === 'outer' &&
+          <Background
+            borderColor={colors['dark-5']}
+            fill='#ffffff'
+            height={plotHeight}
+            left={leftPosition}
+            top={topPosition}
+            width={plotWidth}
+          />}
         {dataPoints.map((series, seriesIndex) => {
+          const glyphColor = series.seriesOptions?.color ||
+          glyphColors[seriesIndex] ||
+          standardGlyphColors[seriesIndex]
+
+          const GlyphComponent = glyphComponents[seriesIndex]
+
           return series.seriesData.map((point, pointIndex) => {
-            const GlyphComponent = glyphComponents[seriesIndex]
             const cx = xScaleTransformed(point.x)
             const cy = yScaleTransformed(point.y)
+
             return (
               <GlyphComponent
                 data-x={point.x}
@@ -103,7 +133,7 @@ function ScatterPlot (props) {
                 left={cx}
                 size={dataPointSize}
                 top={cy}
-                fill={color}
+                fill={glyphColor}
               />
             )
           })
@@ -115,6 +145,7 @@ function ScatterPlot (props) {
         top={margin.top}
       >
         <Axes
+          axisColor={axisColor}
           axesConfig={axesConfig}
           margin={margin}
           padding={padding}
@@ -129,8 +160,10 @@ function ScatterPlot (props) {
 }
 
 ScatterPlot.defaultProps = {
+  axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
+  glyphColors: [],
   margin: {
     bottom: 60,
     left: 60,
@@ -168,6 +201,7 @@ ScatterPlot.defaultProps = {
 }
 
 ScatterPlot.propTypes = {
+  axisColor: PropTypes.string,
   backgroundColor: PropTypes.string,
   data: PropTypes.oneOfType([
     PropTypes.shape({
@@ -188,6 +222,7 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  glyphColors: PropTypes.arrayOf(PropTypes.string),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

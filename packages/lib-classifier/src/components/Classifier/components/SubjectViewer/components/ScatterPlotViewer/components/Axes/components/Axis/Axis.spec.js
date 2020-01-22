@@ -54,6 +54,7 @@ describe('Component > Axis', function () {
       wrapper = shallow(
         <Axis
           axis={bottomAxis}
+          color={color}
           margin={margin}
           padding={padding}
           parentHeight={parentHeight}
@@ -73,11 +74,12 @@ describe('Component > Axis', function () {
     })
 
     it('should style the ticks and label with the theme', function () {
+      const dx = xScale.range()[1] / 2
       expect(wrapperProps.labelProps).to.deep.equal({
+        dx: -dx,
         fill: color,
         fontFamily,
-        fontSize,
-        textAnchor: 'middle'
+        fontSize
       })
       expect(wrapperProps.tickLabelProps().fill).to.equal(color)
       expect(wrapperProps.tickLabelProps().fontFamily).to.equal(fontFamily)
@@ -102,6 +104,7 @@ describe('Component > Axis', function () {
       wrapper = shallow(
         <Axis
           axis={leftAxis}
+          color={color}
           margin={margin}
           padding={padding}
           parentHeight={parentHeight}
@@ -122,10 +125,10 @@ describe('Component > Axis', function () {
 
     it('should style the ticks and label with the theme', function () {
       expect(wrapperProps.labelProps).to.deep.equal({
+        dy: '2.5em',
         fill: color,
         fontFamily,
-        fontSize,
-        textAnchor: 'middle'
+        fontSize
       })
       expect(wrapperProps.tickLabelProps().fill).to.equal(color)
       expect(wrapperProps.tickLabelProps().fontFamily).to.equal(fontFamily)
@@ -146,6 +149,7 @@ describe('Component > Axis', function () {
       wrapper = shallow(
         <Axis
           axis={leftAxis}
+          color={color}
           margin={margin}
           padding={padding}
           parentHeight={parentHeight}
