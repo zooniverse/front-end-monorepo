@@ -7,6 +7,8 @@ import InnerTickAxis from '../InnerTickAxis'
 function Axis (props) {
   const {
     axis,
+    className,
+    color,
     margin,
     padding,
     parentHeight,
@@ -15,7 +17,7 @@ function Axis (props) {
     tickDirection,
     tickLength
   } = props
-  const color = theme.global.colors['light-1']
+  const axisColor = color || theme.global.colors['dark-5']
   const fontFamily = theme.global.font.family
 
   const {
@@ -31,7 +33,7 @@ function Axis (props) {
     return (
       <InnerTickAxis
         axis={axis}
-        color={color}
+        color={axisColor}
         fontSize={fontSize}
         margin={margin}
         padding={padding}
@@ -45,24 +47,26 @@ function Axis (props) {
   if (orientation === 'left') {
     return (
       <AxisLeft
+        axisClassName={className}
         label={label}
+        labelClassName='Axis__label'
         labelProps={{
-          fill: color,
+          dy: '2.5em',
+          fill: axisColor,
           fontSize,
           fontFamily,
-          textAnchor: 'middle'
         }}
         left={padding.left}
         tickLabelProps={() => ({
           dx: '-0.25em',
           dy: '0.25em',
-          fill: color,
+          fill: axisColor,
           fontSize,
           fontFamily,
           textAnchor: 'end'
         })}
-        tickStroke={color}
-        stroke={color}
+        tickStroke={axisColor}
+        stroke={axisColor}
         scale={scale}
         top={0}
       />
@@ -70,25 +74,33 @@ function Axis (props) {
   }
 
   if (orientation === 'bottom') {
+    // vx axis components assume center prosition for label,
+    // so the labelProps textAnchor option doesn't do what you might think it does
+    // x position on the text starts at the center of the scale range
+    // so textAnchor='start' starts at the center of the range!
+    // we calculate the dx to get the position to actually be at the start
+    const dx = scale.range()[1] / 2
     return (
       <AxisBottom
+        axisClassName={className}
         label={label}
+        labelClassName='Axis__label'
         labelProps={{
-          fill: color,
+          dx: -dx,
+          fill: axisColor,
           fontSize,
           fontFamily,
-          textAnchor: 'middle'
         }}
         left={0}
         tickLabelProps={() => ({
           dy: '0.25em',
-          fill: color,
+          fill: axisColor,
           fontSize,
           fontFamily,
-          textAnchor: 'middle'
+          textAnchor: 'middle',
         })}
-        tickStroke={color}
-        stroke={color}
+        tickStroke={axisColor}
+        stroke={axisColor}
         scale={scale}
         top={parentHeight - margin.bottom - margin.top}
       />
@@ -100,6 +112,7 @@ function Axis (props) {
 
 Axis.defaultProps = {
   axis: {},
+  color: '',
   margin: {
     bottom: 10,
     left: 10,
@@ -128,6 +141,7 @@ Axis.propTypes = {
     orientation: PropTypes.oneOf(['bottom', 'left']).isRequired,
     scale: PropTypes.func.isRequired // D3 scaleLinear function
   }),
+  color: PropTypes.string,
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

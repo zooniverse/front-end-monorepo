@@ -1,5 +1,4 @@
 import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
 import { Line as LineComponent } from '../../../components/'
 import { LineTool } from '@plugins/drawingTools/models/tools'
 
