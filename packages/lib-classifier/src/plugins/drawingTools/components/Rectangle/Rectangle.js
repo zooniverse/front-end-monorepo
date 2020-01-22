@@ -4,7 +4,7 @@ import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Rectangle ({ active, children, mark, scale }) {
+function Rectangle ({ active, children, mark, onFinish, scale }) {
   const { x_center, y_center, width, height } = mark
 
   function onHandleDrag (coords) {
@@ -16,8 +16,10 @@ function Rectangle ({ active, children, mark, scale }) {
   const y_top = y_center - height / 2
   const y_bottom = y_center + height / 2
   
+  const _onFinish = onFinish || function () { return true }
+  
   return (
-    <g>
+    <g onPointerUp={active ? _onFinish : undefined}>
       <rect x={x_left} y={y_top} width={width} height={height} />
       <rect x={x_left} y={y_top} width={width} height={height} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
       {active &&
