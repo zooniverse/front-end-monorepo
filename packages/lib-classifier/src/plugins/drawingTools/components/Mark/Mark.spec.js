@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { PointTool, Tool } from '@plugins/drawingTools/models/tools'
-import { DrawingToolRoot } from './DrawingToolRoot'
+import { Mark } from './Mark'
 import Point from '../Point'
 
 describe('Drawing tools > drawing tool root', function () {
@@ -20,7 +20,7 @@ describe('Drawing tools > drawing tool root', function () {
 
   beforeEach(function () {
     wrapper = shallow(
-      <DrawingToolRoot
+      <Mark
         label='Point 1'
         mark={point}
         onDelete={onDelete}
@@ -28,7 +28,7 @@ describe('Drawing tools > drawing tool root', function () {
         onSelect={onSelect}
       >
         <Point mark={point} />
-      </DrawingToolRoot>
+      </Mark>
     )
   })
 
