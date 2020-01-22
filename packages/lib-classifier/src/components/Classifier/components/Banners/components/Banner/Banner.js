@@ -7,7 +7,7 @@ import styled, { withTheme } from 'styled-components'
 
 import en from './locales/en'
 import TooltipText from './components/TooltipText'
-import Triangle from './components/Triangle'
+import Triangle from '../../../shared/Triangle'
 
 counterpart.registerTranslations('en', en)
 

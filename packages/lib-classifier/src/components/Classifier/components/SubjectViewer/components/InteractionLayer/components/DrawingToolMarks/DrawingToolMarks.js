@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { DeleteButton, DrawingToolRoot } from '@plugins/drawingTools/components'
+import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, marks }) {
@@ -44,7 +44,7 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
     }
 
     return (
-      <DrawingToolRoot
+      <Mark
         key={mark.id}
         isActive={isActive}
         coords={mark.coords}
@@ -69,7 +69,7 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
           scale={scale}
           onDelete={deleteMark}
         />}
-      </DrawingToolRoot>
+      </Mark>
     )
   })
 }
