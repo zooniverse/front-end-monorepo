@@ -8,7 +8,7 @@ const RectangleTool = types.model('Rectangle', {
 })
   .actions(self => {
     function createMark (mark) {
-      const newMark = Rectangle.create(mark)
+      const newMark = Rectangle.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
       return newMark
     }
