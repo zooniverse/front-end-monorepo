@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
 import Rectangle from './Rectangle'
+import { default as RectangleMark } from '../../models/marks/Rectangle'
 import DragHandle from '../DragHandle'
 
 describe('Rectangle tool', function () {
@@ -29,22 +30,36 @@ describe('Rectangle tool', function () {
         scale={1}
       />)
     expect(wrapper.find(DragHandle)).to.have.lengthOf(4)
+  })
+  
+  it('should resize when the drag handles are moved', function () {
+    const mark = RectangleMark.create({
+      id: 'rect1',
+      toolType: 'rectangle',
+      x_center: 100,
+      y_center: 200,
+      width: 30,
+      height: 40
+    })
     
-        
-    console.log('-'.repeat(80))
-    console.log(wrapper.debug())
-    console.log('-'.repeat(80))
+    const wrapper = mount(
+      <Rectangle
+        active
+        mark={mark}
+        scale={1}
+      />)
+    
+    const dragMove = wrapper.find(DragHandle).find('[x=115][y=220][dragMove]').prop('dragMove')
+    expect(mark.x_center).to.equal(100)
+    expect(mark.y_center).to.equal(200)
+    expect(mark.width).to.equal(30)
+    expect(mark.height).to.equal(40)
+    
+    dragMove({}, { x: 50, y: 20 })
+    
+    expect(mark.x_center).to.equal(125)
+    expect(mark.y_center).to.equal(210)
+    expect(mark.width).to.equal(80)
+    expect(mark.height).to.equal(60)
   })
 })
-
-  /*
-  <g>
-  <rect x={85} y={180} width={30} height={40} />
-  <rect x={85} y={180} width={30} height={40} strokeWidth={6} strokeOpacity="0" />
-  <draggable(DragHandle) scale={1} x={85} y={180} dragMove={[Function: dragMove]} coords={{...}} dragStart={[Function: dragStart]} dragEnd={[Function: dragEnd]} />
-  <draggable(DragHandle) scale={1} x={115} y={220} dragMove={[Function: dragMove]} coords={{...}} dragStart={[Function: dragStart]} dragEnd={[Function: dragEnd]} />
-  <draggable(DragHandle) scale={1} x={85} y={220} dragMove={[Function: dragMove]} coords={{...}} dragStart={[Function: dragStart]} dragEnd={[Function: dragEnd]} />
-  <draggable(DragHandle) scale={1} x={115} y={180} dragMove={[Function: dragMove]} coords={{...}} dragStart={[Function: dragStart]} dragEnd={[Function: dragEnd]} />
-</g>
-  
-   */
