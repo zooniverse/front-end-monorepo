@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
+import { darken } from 'polished'
 import { withKnobs, boolean, text, number } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
@@ -38,6 +39,8 @@ const stories = storiesOf('Subject Viewers | ScatterPlotViewer', module)
 
 stories.addDecorator(withKnobs)
 stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
+
+const { colors } = zooTheme.global
 
 stories
   .add('light theme', () => {
@@ -92,7 +95,10 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
+            axisColor={text('axis color', colors['light-1'])}
+            backgroundColor={text('background color', darken(0.08, colors['neutral-2']))}
             data={keplerMockDataWithOptions.data}
+            glyphColors={[colors['light-1']]}
             margin={keplerMockDataWithOptions.chartOptions.margin}
             padding={keplerMockDataWithOptions.chartOptions.padding}
             panning={boolean('panning', false)}
@@ -149,8 +155,8 @@ stories
             data={lightCurveMockData.variableStar.data}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            yAxisLabel={text('y axis label', 'y-axis')}
+            xAxisLabel={text('x axis label', 'phase')}
+            yAxisLabel={text('y axis label', 'brightness')}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),

@@ -114,6 +114,7 @@ describe('Model > DrawingTask', function () {
       lineTool = drawingTask.tools[1]
       const taskAnnotation = DrawingAnnotation.create({
         task: 'T3',
+        taskType: drawingTask.type,
         value: []
       })
       drawingTask.classifications = {

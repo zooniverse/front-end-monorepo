@@ -1,5 +1,4 @@
 import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
 import { Point as PointComponent } from '../../../components'
 import { PointTool } from '@plugins/drawingTools/models/tools'
 

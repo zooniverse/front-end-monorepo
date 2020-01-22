@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import Axes from './Axes'
-import Axis from './components/Axis'
+import Axes, { StyledAxis } from './Axes'
 import {
   axesConfig,
   parentWidth,
@@ -28,7 +27,7 @@ describe('Component > Axes', function () {
     })
 
     it('should render a pair of Axis components', function () {
-      expect(wrapper.find(Axis)).to.have.lengthOf(2)
+      expect(wrapper.find(StyledAxis)).to.have.lengthOf(2)
     })
 
     it('should pass the xAxis to only one of the Axis components', function () {
@@ -40,7 +39,7 @@ describe('Component > Axes', function () {
     })
 
     it('should pass the rest of the props to the Axis components', function () {
-      const axisComponents = wrapper.find(Axis)
+      const axisComponents = wrapper.find(StyledAxis)
       axisComponents.forEach((component) => {
         expect(component.props().tickDirection).to.equal('outer')
         expect(component.props().tickLength).to.equal(10)
