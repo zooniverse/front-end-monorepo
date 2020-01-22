@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import { PointTool, LineTool } from '@plugins/drawingTools/models/tools'
-import { DrawingToolRoot } from '@plugins/drawingTools/components'
+import { Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './DrawingToolMarks'
 
@@ -82,7 +82,7 @@ describe('Components > DrawingToolMarks', function () {
           </svg>
         </SVGContext.Provider>
       )
-      dragEnd = wrapper.find(DrawingToolRoot).at(1).prop('dragEnd')
+      dragEnd = wrapper.find(Mark).at(1).prop('dragEnd')
     })
 
     it('should deselect the mark', function () {
