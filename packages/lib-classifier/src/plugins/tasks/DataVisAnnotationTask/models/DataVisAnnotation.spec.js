@@ -2,6 +2,7 @@ import DataVisAnnotation from './DataVisAnnotation'
 
 const dataVisAnnotation = {
   task: 'T0',
+  taskType: 'dataVisAnnotation',
   value: []
 }
 

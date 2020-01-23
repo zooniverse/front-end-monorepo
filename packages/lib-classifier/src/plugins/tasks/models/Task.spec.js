@@ -5,11 +5,12 @@ import Annotation from './Annotation'
 
 describe('Model > Task', function () {
   const mockTask = {
-    taskKey: 'T0'
+    taskKey: 'T0',
+    type: 'default'
   }
 
   it('should exist', function () {
-    const taskInstance = Task.create({ taskKey: 'T3' })
+    const taskInstance = Task.create({ taskKey: 'T3', type: 'default' })
     expect(taskInstance).to.be.ok()
     expect(taskInstance).to.be.an('object')
   })

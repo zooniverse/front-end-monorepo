@@ -17,7 +17,7 @@ describe('Model > AnnotationsStore', function () {
   })
 
   describe(`updating an annotation`, function () {
-    const task = Task.create({ taskKey: 'T0', type: 'single', question: 'How many cats?' })
+    const task = Task.create({ taskKey: 'T0', type: 'default', question: 'How many cats?' })
 
     describe('for a new task', function () {
       it('should create a new annotation', function () {
