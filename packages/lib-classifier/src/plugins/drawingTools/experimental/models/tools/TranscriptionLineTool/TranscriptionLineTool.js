@@ -8,7 +8,7 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
 })
   .actions(self => {
     function createMark (mark) {
-      const newMark = TranscriptionLine.create(mark)
+      const newMark = TranscriptionLine.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
       return newMark
     }
