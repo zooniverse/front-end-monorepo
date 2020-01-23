@@ -6,7 +6,7 @@ import SingleChoiceAnnotation from './SingleChoiceAnnotation'
 // What should be it called? I think we should use 'instruction'
 
 const SingleChoice = types.model('SingleChoice', {
-  annotation: types.maybe(types.reference(SingleChoiceAnnotation)),
+  annotation: types.maybe(types.safeReference(SingleChoiceAnnotation)),
   answers: types.array(types.frozen({
     label: types.string,
     next: types.maybe(types.string)

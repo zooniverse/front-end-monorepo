@@ -6,7 +6,7 @@ import MultipleChoiceAnnotation from './MultipleChoiceAnnotation'
 // What should be it called? I think we should use 'instruction'
 
 const MultipleChoice = types.model('MultipleChoice', {
-  annotation: types.maybe(types.reference(MultipleChoiceAnnotation)),
+  annotation: types.maybe(types.safeReference(MultipleChoiceAnnotation)),
   answers: types.array(types.frozen({
     label: types.string
   })),
