@@ -1,3 +1,4 @@
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -6,7 +7,7 @@ import sinon from 'sinon'
 import draggable from './draggable'
 
 const TestComponent = forwardRef(({ x, y }, ref) => {
-  return <circle ref={ref} fill='blue'r={10} cx={x} cy={y} />
+  return <circle ref={ref} fill='blue'r={50} cx={x} cy={y} />
 })
 
 const DraggableCircle = draggable(TestComponent)
@@ -14,7 +15,7 @@ const DraggableCircle = draggable(TestComponent)
 class DraggableStory extends Component {
   constructor () {
     super()
-    this.svg = React.createRef()
+    this.svgRef = React.createRef()
     this.dragMove = this.dragMove.bind(this)
     this.state = {
       x: 50,
@@ -32,11 +33,15 @@ class DraggableStory extends Component {
   render () {
     const { children } = this.props
     const { x, y } = this.state
-    const { dragMove, svg } = this
+    const { dragMove } = this
+    const svg = this.svgRef.current
+    const getScreenCTM = () => svg.getScreenCTM()
     return (
-      <svg viewBox='0 0 300 400' height={300} width={400} ref={this.svg}>
-        {React.cloneElement(children, { dragMove, svg: svg.current, x, y })}
-      </svg>
+      <SVGContext.Provider value={{ svg , getScreenCTM }}>
+        <svg viewBox='0 0 300 400' height={300} width={400} ref={this.svgRef}>
+          {React.cloneElement(children, { dragMove, x, y })}
+        </svg>
+      </SVGContext.Provider>
     )
   }
 }
