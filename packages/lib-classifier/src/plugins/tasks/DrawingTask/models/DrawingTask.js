@@ -33,6 +33,21 @@ const Drawing = types.model('Drawing', {
     }
   }))
   .actions(self => {
+    function afterCreate () {
+      loadSubtasks()
+    }
+
+    function loadSubtasks () {
+      self.tools.forEach((tool, toolIndex) => {
+        const toolKey = `${self.taskKey}.${toolIndex}`
+        tool.details.forEach((detail, detailIndex) => {
+          const taskKey = `${toolKey}.${detailIndex}`
+          const taskSnapshot = Object.assign({}, detail, { taskKey })
+          tool.createTask(taskSnapshot)
+        })
+      })
+    }
+
     function setActiveTool (toolIndex) {
       self.activeToolIndex = toolIndex
     }
@@ -46,6 +61,7 @@ const Drawing = types.model('Drawing', {
     }
 
     return {
+      afterCreate,
       complete,
       reset,
       setActiveTool

@@ -28,6 +28,17 @@ const BaseMark = types.model('BaseMark', {
       return Math.sqrt(aSquared + bSquared)
     },
 
+    get isComplete () {
+      // Return false after the first incomplete task, true otherwise.
+      let isMarkComplete = true
+      self.tasks.forEach(task => {
+        if (isMarkComplete) {
+          isMarkComplete = !task.required || self.annotation(task).isComplete
+        }
+      })
+      return isMarkComplete
+    },
+
     get isValid () {
       return true
     },
@@ -38,6 +49,10 @@ const BaseMark = types.model('BaseMark', {
         Its grandparent is the tool that created it.
       */
       return getParent(self, 2)
+    },
+
+    get tasks () {
+      return self.tool.tasks
     }
   }))
 

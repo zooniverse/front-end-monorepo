@@ -1,4 +1,5 @@
 import Mark from './Mark'
+import { Tool } from '@plugins/drawingTools/models/tools'
 
 describe('Models > Drawing Task > Mark', function () {
   let mark
@@ -50,4 +51,146 @@ describe('Models > Drawing Task > Mark', function () {
       expect(mark.getAngle(-20, -20, -40, -20)).to.equal(180)
     })
   })
+
+  describe('with subtasks', function () {
+    let mark
+    const toolData = {
+      color: '#ff0000',
+      label: 'Point',
+      max: '10',
+      min: 1,
+      type: 'default'
+    }
+
+    describe('with incomplete, optional tasks', function () {
+      let drawingTool
+
+      before(function () {
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            required: false
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            required: false
+          }
+        ]
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
+        const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+        drawingTool.createTask(multipleTaskSnapshot)
+        drawingTool.createTask(singleTaskSnapshot)
+        mark = drawingTool.createMark({ id: 'mockMark' })
+      })
+
+      it('should be complete', function () {
+        expect(mark.isComplete).to.be.true()
+      })
+
+      it('should complete the drawing tool', function () {
+        expect(drawingTool.isComplete).to.be.true()
+      })
+    })
+
+    describe('with any incomplete, required tasks', function () {
+      let drawingTool
+
+      before(function () {
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            required: false
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            required: true
+          }
+        ]
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
+        const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+        drawingTool.createTask(multipleTaskSnapshot)
+        drawingTool.createTask(singleTaskSnapshot)
+        mark = drawingTool.createMark({ id: 'mockMark' })
+      })
+
+      it('should be incomplete', function () {
+        expect(mark.isComplete).to.be.false()
+      })
+
+      it('should not complete the drawing tool', function () {
+        expect(drawingTool.isComplete).to.be.false()
+      })
+    })
+
+    describe('with only required tasks', function () {
+      let drawingTool
+      let mark
+      let multipleTask
+      let singleTask
+
+      before(function () {
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            required: true
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            required: true
+          }
+        ]
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
+        const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+        multipleTask = drawingTool.createTask(multipleTaskSnapshot)
+        singleTask = drawingTool.createTask(singleTaskSnapshot)
+        mark = drawingTool.createMark({ id: 'mockMark' })
+      })
+
+      it('should be incomplete', function () {
+        expect(mark.isComplete).to.be.false()
+      })
+
+      it('should not complete the drawing tool', function () {
+        expect(drawingTool.isComplete).to.be.false()
+      })
+
+      describe('after annotating the first subtask', function () {
+        it('should still be incomplete', function () {
+          mark.addAnnotation(multipleTask, [0])
+          expect(mark.isComplete).to.be.false()
+        })
+
+        it('should not complete the drawing tool', function () {
+          expect(drawingTool.isComplete).to.be.false()
+        })
+      })
+
+      describe('after annotating both subtasks', function () {
+        it('should be complete', function () {
+          mark.addAnnotation(singleTask, 1)
+          expect(mark.isComplete).to.be.true()
+        })
+
+        it('should complete the drawing tool', function () {
+          expect(drawingTool.isComplete).to.be.true()
+        })
+      })
+    })
+  })
 })
+

@@ -2,10 +2,31 @@ import sinon from 'sinon'
 import DrawingTask from './DrawingTask'
 import DrawingAnnotation from './DrawingAnnotation'
 
+const details = [
+  {
+    type: 'multiple',
+    question: 'which fruit?',
+    answers: ['apples', 'oranges', 'pears'],
+    required: false
+  },
+  {
+    type: 'single',
+    question: 'how many?',
+    answers: ['one', 'two', 'three'],
+    required: false
+  },
+  {
+    type: 'text',
+    instruction: 'Transcribe something',
+    required: false
+  }
+]
+
 const pointTool = {
   help: '',
   label: 'Point please.',
-  type: 'point'
+  type: 'point',
+  details
 }
 
 const lineTool = {
@@ -35,6 +56,18 @@ describe('Model > DrawingTask', function () {
 
   it('should throw an error with incorrect property `type`', function () {
     expect(() => DrawingTask.create({ type: 'orange' })).to.throw()
+  })
+
+  it('should load subtasks on creation.', function () {
+    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    expect(drawingTask.tools[0].tasks.length).to.equal(3)
+    expect(drawingTask.tools[1].tasks.length).to.equal(0)
+  })
+
+  it('should assign task keys to subtasks.', function () {
+    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    const subtasks = drawingTask.tools[0].tasks
+    subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
   })
 
   describe('drawn marks', function () {
