@@ -87,6 +87,17 @@ An example of the new sub-task annotation JSON structure at classification submi
       },
       {
         "frame": 0,
+        "tool": 0,
+        "toolType": "point",
+        "x": 374.23454574576868,
+        "y": 455.23453656547428,
+        "details": [
+          {"task": "T0.0.0"},
+          {"task": "T0.0.1"}
+        ]
+      },
+      {
+        "frame": 0,
         "tool": 1,
         "toolType": "point",
         "x": 404.61279296875,
@@ -115,14 +126,30 @@ An example of the new sub-task annotation JSON structure at classification submi
     ]
   },
   {
-    "task": "T0.1.0",
+    "task": "T0.0.0",
+    "taskType": "single",
     "markIndex": 1,
+    "value": 1
+  },
+  {
+    "task": "T0.0.1",
+    "taskType": "dropdown",
+    "markIndex": 1,
+    "value":[
+      {"option-1": 0},
+      {"option-2": 1},
+      {"None": 0}
+    ]
+  },
+  {
+    "task": "T0.1.0",
+    "markIndex": 2,
     "taskType": "single",
     "value": 1
   },
   {
     "task": "T0.1.1",
-    "markIndex": 1,
+    "markIndex": 2,
     "taskType": "dropdown",
     "value": [
       {"option-3": 1},
@@ -154,8 +181,10 @@ Proposed
 
 ## Consequences
 
-Flattening the annotations array for drawing task sub-tasks is conceptually consistent with the move to using workflow steps to flatten the combo task. It is however a breaking change and this change will have to be communicated to project builders. As with other classifications from the new classifier, this can be checked by the presence of `classifier_version: 2.0` in the classification metadata. In the future, we would also like to include a link to json schema for each annotation type as recommended in [ADR 07](adr-07.md).
+Flattening the annotations array for drawing task sub-tasks is conceptually consistent with the move to using workflow steps to flatten the combo task. It is however a breaking change and this change will have to be communicated to project builders. As with other classifications from the new classifier, this can be checked by the presence of `classifier_version: 2.0` in the classification metadata. In the future, we would also like to include a link to JSON schema for each annotation type as recommended in [ADR 07](adr-07.md).
 
-Flattening also has added benefits for Panoptes when generating classification exports. It can parse through a flattened array to convert machine readable strings to human readable strings for each task without having to check for values in a nested `details` array and then traverse it. In the raw classification export, this also benefits researchers that want to analyze the outputted CSV directly and prefer a flatter json structure.
+Flattening also has added benefits for Panoptes when generating classification exports. It can parse through a flattened array to convert machine readable strings to human readable strings for each task without having to check for values in a nested `details` array and then traverse it. 
+
+In the raw classification export, this also benefits researchers that want to analyze the outputted CSV directly and prefer a flatter JSON structure. Flat structures facilitate research teams being able to load data without JSON-based manipulation. There are many teams who would benefit from the ability to read-in a CSV to Excel and start analyzing their results, as opposed to needing to first parse JSON. There will still be some JSON structure in CSV exports, but this will contribute toward minimizing it. 
 
 The transcription task is a automatically configured drawing task with a sub-task and will be using a new variant of a text task that includes auto-suggestions from caesar reductions. Its sub-task should use the suggested changes from this ADR as well.
