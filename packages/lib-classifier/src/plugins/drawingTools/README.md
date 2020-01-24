@@ -28,7 +28,7 @@ The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _label (string)_
 - _max (number = Infinity)_
 - _min (number = 0)_
-- _details (Array)_ An array of definitions for subtasks of this tool.
+- _details (array)_ An array of task definitions for this tool eg. a text task for a transcription line tool. Task definitions are in the same format as workflow task definitions and can be passed to Task models.
 - _tasks (Map)_ A map of Tasks for the subtasks of this tool. Automatically generated from `tool.details`.
 - _disabled (boolean)_ Read only. True if new marks cannot be created.
 - _isComplete (boolean)_ Read only. True if all required marks have been made and all required mark tasks have been annotated.
@@ -52,6 +52,7 @@ The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _toolIndex (number)_ The array index of the tool that created this mark.
 - _isComplete (boolean)_ Read only. True if all required tasks have been annotated for this mark.
 - _isValid (boolean)_ Read only. True if any required validations pass for this mark (eg. minimum length for a line.)
+- _tasks (array)_ Read only. An array of any sub-tasks linked to this mark eg. a text task for a transcription line.
 - _tool (Tool)_ Read only. A reference to the tool that created this mark.
 - _addAnnotation(task, value)_ Add `value` to the annotation for `task`, which should be a valid task for this mark.
 
@@ -69,3 +70,65 @@ In addition, mark models should extend the base Mark model with any properties s
 - _angle (number)_ Rotation angle of the mark in degrees, measure clockwise from the positive x-axis.
 - _x (number)_ x position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
 - _y (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
+
+## Working with tools and marks
+```js
+// Create a new drawing tool
+const tool = TranscriptionLine.create({
+  color: 'green',
+  label: 'Transcribe a line'
+  type: 'transcriptionLine'
+})
+
+// Add a text task to a drawing tool
+// This is done automatically by the DrawingTask model
+tool.createTask({
+  taskKey: 'T0.0.0',
+  instruction: 'Transcribe the marked line.',
+  required: true,
+  type: 'text'
+})
+
+// draw some lines
+
+const line1 = tool.createMark({
+  id: 'line1'
+  x1: 10,
+  y2: 10,
+  x2: 200,
+  y2: 10
+})
+
+const line2 = tool.createMark({
+  id: 'line2'
+  x1: 10,
+  y2: 20,
+  x2: 200,
+  y2: 20
+})
+
+// render subtasks for a mark
+
+line1.tasks.map(task => renderTask(task))
+
+// add some text to the text tasks
+// TODO: Update once #1434 merges
+
+const task = tool.tasks[0]
+
+line1.addAnnotation({
+  task,
+  value: 'Hello! This is the first line.'
+})
+
+line2.addAnnotation({
+  task,
+  value: 'This is the second line.'
+})
+
+// do something if a line has text added
+
+if ( line1.isComplete ) {
+  …
+}
+````
