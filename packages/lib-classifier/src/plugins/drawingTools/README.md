@@ -112,6 +112,7 @@ const line2 = tool.createMark({
 line1.tasks.map(task => renderTask(task))
 
 // add some text to the text tasks
+// TODO: Update once #1434 merges
 
 const task = tool.tasks[0]
 
