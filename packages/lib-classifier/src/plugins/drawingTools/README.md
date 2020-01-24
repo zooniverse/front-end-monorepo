@@ -73,15 +73,16 @@ In addition, mark models should extend the base Mark model with any properties s
 
 ## Working with tools and marks
 ```js
-// Create a new drawing tool
+// Create a new drawing tool.
 const tool = TranscriptionLine.create({
   color: 'green',
   label: 'Transcribe a line'
   type: 'transcriptionLine'
 })
 
-// Add a text task to a drawing tool
-// This is done automatically by the DrawingTask model
+// Add a text task to a drawing tool.
+// NB. This is done automatically by the DrawingTask model
+// when a tool has tool.details defined.
 tool.createTask({
   taskKey: 'T0.0.0',
   instruction: 'Transcribe the marked line.',
@@ -89,7 +90,7 @@ tool.createTask({
   type: 'text'
 })
 
-// draw some lines
+// draw some lines.
 
 const line1 = tool.createMark({
   id: 'line1'
@@ -107,28 +108,29 @@ const line2 = tool.createMark({
   y2: 20
 })
 
-// render subtasks for a mark
+// render subtasks for a mark.
 
 line1.tasks.map(task => renderTask(task))
 
-// add some text to the text tasks
-// TODO: Update once #1434 merges
+// add some text to each drawn line.
 
 const task = tool.tasks[0]
 
-line1.addAnnotation({
-  task,
-  value: 'Hello! This is the first line.'
-})
+let annotation = line1.addAnnotation({ task })
 
-line2.addAnnotation({
-  task,
-  value: 'This is the second line.'
-})
+task.setAnnotation(annotation)
 
-// do something if a line has text added
+task.updateAnnotation('Hello! This is the first line.')
+
+annotation = line2.addAnnotation({ task })
+
+task.setAnnotation(annotation)
+
+task.updateAnnotation('This is the second line of text.')
+
+// check if a line has been completed.
 
 if ( line1.isComplete ) {
   …
 }
-````
+```
