@@ -132,15 +132,21 @@ describe('Model > DrawingTask', function () {
     })
 
     it('should store an annotation for point1', function () {
-      expect(point1.annotation(pointSubTask)).to.deep.equal({ task: 'T3.0.0', taskType: 'single', value: 1 })
+      expect(point1.annotation(pointSubTask).task).to.equal('T3.0.0')
+      expect(point1.annotation(pointSubTask).taskType).to.equal('single')
+      expect(point1.annotation(pointSubTask).value).to.equal(1)
     })
 
     it('should store an annotation for point2', function () {
-      expect(point2.annotation(pointSubTask)).to.deep.equal({ task: 'T3.0.0', taskType: 'single', value: 1 })
+      expect(point2.annotation(pointSubTask).task).to.equal('T3.0.0')
+      expect(point2.annotation(pointSubTask).taskType).to.equal('single')
+      expect(point2.annotation(pointSubTask).value).to.equal(1)
     })
 
     it('should store an annotation for point3', function () {
-      expect(point3.annotation(pointSubTask)).to.deep.equal({ task: 'T3.0.0', taskType: 'single', value: 0 })
+      expect(point3.annotation(pointSubTask).task).to.equal('T3.0.0')
+      expect(point3.annotation(pointSubTask).taskType).to.equal('single')
+      expect(point3.annotation(pointSubTask).value).to.equal(0)
     })
   })
 

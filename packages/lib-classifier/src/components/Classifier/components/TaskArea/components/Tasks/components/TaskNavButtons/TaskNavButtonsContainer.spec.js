@@ -120,10 +120,12 @@ describe('TaskNavButtonsContainer', function () {
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
       wrapper.instance().goToNextStep()
-      const classification = classificationStore.active.toJSON()
+      const classification = classificationStore.active
 
       activeStepTasks.forEach((task) => {
-        expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
+        const { defaultAnnotation } = task
+        expect(classification.annotation(task).task).to.equal(defaultAnnotation.task)
+        expect(classification.annotation(task).value).to.deep.equal(defaultAnnotation.value)
       })
     })
 
@@ -225,10 +227,12 @@ describe('TaskNavButtonsContainer', function () {
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
       wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
-      const classification = classificationStore.active.toJSON()
+      const classification = classificationStore.active
 
       activeStepTasks.forEach((task) => {
-        expect(classification.annotations[task.taskKey]).to.deep.equal(task.defaultAnnotation)
+        const { defaultAnnotation } = task
+        expect(classification.annotation(task).task).to.equal(defaultAnnotation.task)
+        expect(classification.annotation(task).value).to.deep.equal(defaultAnnotation.value)
       })
     })
 

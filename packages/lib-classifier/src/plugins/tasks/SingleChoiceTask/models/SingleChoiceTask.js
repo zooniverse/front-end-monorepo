@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SingleChoiceAnnotation from './SingleChoiceAnnotation'
@@ -17,7 +18,11 @@ const SingleChoice = types.model('SingleChoice', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return SingleChoiceAnnotation.create({ task: self.taskKey, taskType: self.type })
+      return SingleChoiceAnnotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     }
   }))
 

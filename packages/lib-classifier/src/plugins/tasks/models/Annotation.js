@@ -1,7 +1,8 @@
 import { types } from 'mobx-state-tree'
 
 const Annotation = types.model('Annotation', {
-  task: types.identifier,
+  id: types.identifier,
+  task: types.string,
   taskType: types.string
 })
   .views(self => ({

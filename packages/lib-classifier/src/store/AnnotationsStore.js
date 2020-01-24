@@ -7,7 +7,13 @@ const AnnotationsStore = types
   })
   .views(self => ({
     annotation (task) {
-      return self.annotations.get(task.taskKey) || task.createAnnotation()
+      let taskAnnotation = task.createAnnotation()
+      self.annotations.forEach(annotation => {
+        if (annotation.task === task.taskKey) {
+          taskAnnotation = annotation
+        }
+      })
+      return taskAnnotation
     }
   }))
   .actions(self => {

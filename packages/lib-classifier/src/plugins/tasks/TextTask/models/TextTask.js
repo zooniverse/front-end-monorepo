@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import TextAnnotation from './TextAnnotation'
@@ -12,7 +13,11 @@ const Text = types.model('Text', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return TextAnnotation.create({ task: self.taskKey, taskType: self.type })
+      return TextAnnotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     }
   }))
 

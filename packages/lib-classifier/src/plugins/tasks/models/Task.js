@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import { getRoot, types } from 'mobx-state-tree'
 import Annotation from './Annotation'
 
@@ -13,7 +14,11 @@ const Task = types.model('Task', {
 
     get defaultAnnotation () {
     // Override this in a real task
-      return Annotation.create({ task: self.taskKey, taskType: self.type })
+      return Annotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     },
 
     get isComplete () {
