@@ -60,13 +60,13 @@ describe('Model > DrawingTask', function () {
   })
 
   it('should load subtasks on creation.', function () {
-    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     expect(drawingTask.tools[0].tasks.length).to.equal(3)
     expect(drawingTask.tools[1].tasks.length).to.equal(0)
   })
 
   it('should assign task keys to subtasks.', function () {
-    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     const subtasks = drawingTask.tools[0].tasks
     subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
   })
