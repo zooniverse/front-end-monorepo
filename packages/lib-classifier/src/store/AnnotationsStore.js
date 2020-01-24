@@ -11,13 +11,14 @@ const AnnotationsStore = types
     }
   }))
   .actions(self => {
-    function addAnnotation (task, annotationValue) {
+    function addAnnotation (task, value) {
       const annotation = self.annotation(task)
       // new annotations must be added to this store before we can modify them
       self.annotations.put(annotation)
-      if (annotationValue !== undefined) {
-        annotation.value = annotationValue
+      if (value !== undefined) {
+        annotation.update(value)
       }
+      return annotation
     }
 
     return {

@@ -16,7 +16,6 @@ describe('Tasks', function () {
     taskKey: 'init',
     type: 'single'
   })
-  const annotation = singleChoiceTask.createAnnotation()
   const tasks = [ singleChoiceTask ]
   const step = {
     isComplete: true,
@@ -47,10 +46,10 @@ describe('Tasks', function () {
     id: 'project'
   }
   classifications.createClassification(mockSubject, mockWorkflow, mockProject)
-  classifications.addAnnotation(singleChoiceTask)
+  const annotation = classifications.addAnnotation(singleChoiceTask)
   const classification = classifications.active
   const { addAnnotation } = classifications
-  singleChoiceTask.setAnnotation(classification.annotation(singleChoiceTask))
+  singleChoiceTask.setAnnotation(annotation)
 
   it('should render without crashing', function () {
     const wrapper = shallow(<Tasks />)

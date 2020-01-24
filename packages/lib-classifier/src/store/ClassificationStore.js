@@ -122,11 +122,13 @@ const ClassificationStore = types
       if (validClassificationReference) {
         const classification = self.active
         if (classification) {
-          classification.addAnnotation(task, annotationValue)
+          return classification.addAnnotation(task, annotationValue)
         }
       } else {
         if (process.browser) {
+          // TODO: throw an error here?
           console.error('No active classification. Cannot add annotation.')
+          return null
         }
       }
     }

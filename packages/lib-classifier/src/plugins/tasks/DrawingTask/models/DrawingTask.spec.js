@@ -115,8 +115,7 @@ describe('Model > DrawingTask', function () {
       })
 
       function updateMark(mark, value) {
-        mark.addAnnotation(pointSubTask)
-        const markAnnotation = mark.annotation(pointSubTask)
+        const markAnnotation = mark.addAnnotation(pointSubTask)
         pointSubTask.setAnnotation(markAnnotation)
         markAnnotation.update(value)
       }
