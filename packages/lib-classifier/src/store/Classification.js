@@ -35,6 +35,13 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   }),
   workflowVersion: types.string
 })
+  .actions(self => ({
+    update (newMetadata) {
+      Object.keys(newMetadata).forEach(key => {
+        self[key] = newMetadata[key]
+      })
+    }
+  }))
 
 const Classification = types
   .model('Classification', {
