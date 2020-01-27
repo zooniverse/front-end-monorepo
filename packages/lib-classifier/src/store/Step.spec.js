@@ -32,7 +32,6 @@ describe('Model > Step', function () {
     it('should be complete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       step.classifications = ClassificationStore.create()
-      step.classifications = ClassificationStore.create()
       const mockSubject = {
         id: 'subject',
         metadata: {}
@@ -60,7 +59,6 @@ describe('Model > Step', function () {
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.classifications = ClassificationStore.create()
       step.classifications = ClassificationStore.create()
       const mockSubject = {
         id: 'subject',
