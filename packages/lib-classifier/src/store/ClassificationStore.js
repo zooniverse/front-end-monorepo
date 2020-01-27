@@ -140,7 +140,7 @@ const ClassificationStore = types
 
       if (validClassificationReference && validSubjectReference) {
         const classification = self.active
-        const subjectDimensions = toJS(getRoot(self).subjectViewer.dimensions)
+        const subjectDimensions = toJS(getRoot(self).subjectViewer.dimensions, { recurseEverything: true })
 
         const metadata = {
           finishedAt: (new Date()).toISOString(),
@@ -154,7 +154,7 @@ const ClassificationStore = types
 
         const feedback = getRoot(self).feedback
         if (feedback.isValid) {
-          metadata.feedback = toJS(feedback.rules)
+          metadata.feedback = toJS(feedback.rules, { recurseEverything: true })
         }
 
         // TODO store intervention metadata if we have a user...
@@ -162,7 +162,7 @@ const ClassificationStore = types
 
         classification.completed = true
         // Convert from observables
-        const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
+        const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false, recurseEverything: true })
         delete classificationToSubmit.id // remove temp id
         classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
 
