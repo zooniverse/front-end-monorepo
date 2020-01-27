@@ -25,14 +25,14 @@ const StyledText = styled(Text)`
 
 function SingleChoiceTask (props) {
   const {
+    annotation,
     className,
     disabled,
     task
   } = props
-  const { annotation } = task
   const { value } = annotation
   function onChange (index, event) {
-    if (event.target.checked) task.updateAnnotation(index)
+    if (event.target.checked) annotation.update(index)
   }
 
   return (
@@ -68,11 +68,16 @@ function SingleChoiceTask (props) {
 }
 
 SingleChoiceTask.defaultProps = {
-  disabled: false,
-  task: {}
+  className: '',
+  disabled: false
 }
 
 SingleChoiceTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.number
+  }).isRequired,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
@@ -81,7 +86,7 @@ SingleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  })
+  }).isRequired
 }
 
 export default SingleChoiceTask

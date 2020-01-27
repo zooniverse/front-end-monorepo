@@ -26,10 +26,10 @@ const StyledText = styled(Text)`
 
 function MultipleChoiceTask (props) {
   const {
+    annotation,
     disabled,
     task
   } = props
-  const { annotation } = task
   const { value } = annotation
 
   function onChange (index, event) {
@@ -40,7 +40,7 @@ function MultipleChoiceTask (props) {
       const indexInValue = newValue.indexOf(index)
       newValue.splice(indexInValue, 1)
     }
-    task.updateAnnotation(newValue)
+    annotation.update(newValue)
   }
 
   return (
@@ -75,11 +75,14 @@ function MultipleChoiceTask (props) {
 }
 
 MultipleChoiceTask.defaultProps = {
-  disabled: false,
-  task: {}
+  disabled: false
 }
 
 MultipleChoiceTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }).isRequired,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
@@ -88,7 +91,7 @@ MultipleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  })
+  }).isRequired
 }
 
 export default MultipleChoiceTask
