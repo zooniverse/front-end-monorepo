@@ -1,6 +1,7 @@
 import { PlainButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Text, TextArea } from 'grommet'
+import PropTypes from 'prop-types'
 import React from 'react'
 import en from './locales/en'
 
@@ -90,6 +91,28 @@ function TextTask (props) {
       </Box>
     </Box>
   )
+}
+
+TextTask.defaultProps = {
+  autoFocus: false,
+  className: '',
+  disabled: false
+}
+
+TextTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.string
+  }).isRequired,
+  autoFocus: PropTypes.bool,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  task: PropTypes.shape({
+    help: PropTypes.string,
+    instruction: PropTypes.string,
+    required: PropTypes.bool,
+    text_tags: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 }
 
 export default TextTask

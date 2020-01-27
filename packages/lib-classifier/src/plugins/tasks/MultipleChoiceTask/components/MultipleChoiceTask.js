@@ -75,11 +75,14 @@ function MultipleChoiceTask (props) {
 }
 
 MultipleChoiceTask.defaultProps = {
-  disabled: false,
-  task: {}
+  disabled: false
 }
 
 MultipleChoiceTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }).isRequired,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
@@ -88,7 +91,7 @@ MultipleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  })
+  }).isRequired
 }
 
 export default MultipleChoiceTask
