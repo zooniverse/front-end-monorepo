@@ -10,10 +10,13 @@ import TaskNavButtons from './components/TaskNavButtons'
 import taskRegistry from '@plugins/tasks'
 
 function storeMapper (stores) {
+  const { active: classification, addAnnotation } = stores.classifierStore.classifications
   const { loadingState } = stores.classifierStore.workflows
   const { active: step, activeStepTasks: tasks, isThereTaskHelp } = stores.classifierStore.workflowSteps
   const { loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
   return {
+    addAnnotation,
+    classification,
     isThereTaskHelp,
     loadingState,
     step,
@@ -37,9 +40,9 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { isThereTaskHelp, subjectReadyState, step, tasks } = this.props
+    const { addAnnotation, classification, isThereTaskHelp, subjectReadyState, step, tasks } = this.props
     const ready = subjectReadyState === asyncStates.success
-    if (tasks.length > 0) {
+    if (classification && tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area
       // and keeps the task nav buttons at the the bottom area
@@ -48,11 +51,18 @@ class Tasks extends React.Component {
       return (
         <Box as='form' gap='small' justify='between' fill>
           {tasks.map((task) => {
+            addAnnotation(task)
+            const annotation = classification.annotation(task)
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-            if (TaskComponent) {
+            if (annotation && TaskComponent) {
               return (
                 <Box key={task.taskKey} basis='auto'>
-                  <TaskComponent disabled={!ready} task={task} {...this.props} />
+                  <TaskComponent
+                    disabled={!ready}
+                    annotation={annotation}
+                    task={task}
+                    {...this.props}
+                  />
                 </Box>
               )
             }

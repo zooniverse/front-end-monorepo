@@ -8,8 +8,10 @@ const Task = types.model('Task', {
 })
   .views(self => ({
     get annotation () {
-      const currentAnnotation = getRoot(self).classifications.annotation(self)
-      return currentAnnotation || self.defaultAnnotation
+      const { classifications } = getRoot(self)
+      const { annotation } = classifications || {}
+      const currentAnnotation = annotation ? annotation(self) : self.defaultAnnotation
+      return currentAnnotation
     },
 
     get defaultAnnotation () {
