@@ -76,9 +76,10 @@ describe('Component > SingleImageViewerContainer', function () {
       imageWrapper = wrapper.find(SingleImageViewer)
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 100,
-          clientWidth: 200,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -191,9 +192,10 @@ describe('Component > SingleImageViewerContainer', function () {
       imageWrapper = wrapper.find(SingleImageViewer)
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 100,
-          clientWidth: 200,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -250,17 +252,18 @@ describe('Component > SingleImageViewerContainer', function () {
         <SingleImageViewerContainer
           ImageObject={ValidImage}
           subject={subject}
-          onError = {onError}
+          onError={onError}
           onReady={onReady}
-          setOnPan={callback => {onPan = callback}}
-          setOnZoom={callback => {onZoom = callback}}
+          setOnPan={callback => { onPan = callback }}
+          setOnZoom={callback => { onZoom = callback }}
         />
       )
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 100,
-          clientWidth: 200,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -270,7 +273,7 @@ describe('Component > SingleImageViewerContainer', function () {
       onReady.callsFake(function () {
         onZoom('zoomin', 1)
         const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('33.5 17 333 166')
+        expect(viewBox).to.equal('18.5 9.5 363 181')
         done()
       })
     })
@@ -279,7 +282,7 @@ describe('Component > SingleImageViewerContainer', function () {
       onReady.callsFake(function () {
         onZoom('zoomin', 1)
         let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('33.5 17 333 166')
+        expect(viewBox).to.equal('18.5 9.5 363 181')
         onZoom('zoomout', -1)
         viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
         expect(viewBox).to.equal('0 0 400 200')
@@ -330,7 +333,7 @@ describe('Component > SingleImageViewerContainer', function () {
         const { onWheel } = wrapper.instance()
         onWheel({ deltaY: 10, preventDefault: sinon.stub() })
         let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('33.5 17 333 166')
+        expect(viewBox).to.equal('18.5 9.5 363 181')
         onWheel({ deltaY: -10, preventDefault: sinon.stub() })
         viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
         expect(viewBox).to.equal('0 0 400 200')
@@ -345,7 +348,7 @@ describe('Component > SingleImageViewerContainer', function () {
         expect(viewBox).to.equal('0 0 400 200')
         onWheel({ deltaY: 10, preventDefault: sinon.stub() })
         viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('33.5 17 333 166')
+        expect(viewBox).to.equal('18.5 9.5 363 181')
         done()
       })
     })

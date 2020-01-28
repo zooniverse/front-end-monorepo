@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { zip } from 'lodash'
 import { Group } from '@vx/group'
-import { Circle } from '@vx/shape'
-import { darken } from 'polished'
+import cuid from 'cuid'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import Axes from '../Axes'
-import cuid from 'cuid'
+import { glyphComponents } from '../../helpers/constants'
 
 import {
+  getDataPoints,
   left,
   transformXScale,
   transformYScale,
@@ -18,10 +17,12 @@ import {
 
 function ScatterPlot (props) {
   const {
+    axisColor,
     backgroundColor,
     children,
     data,
     dataPointSize,
+    glyphColors,
     margin,
     padding,
     parentHeight,
@@ -48,18 +49,30 @@ function ScatterPlot (props) {
     tickDirection
   }
 
+  // The drawing tool colors, only used in the lab right now
+  // Candidates to be moved into the zooniverse theme
+  const standardGlyphColors = [
+    '#FF3C25',
+    '#235DFF',
+    '#FFFF03',
+    '#FF9300',
+    '#06FE76',
+    '#0CFFE0',
+    '#FF40FF'
+  ]
+
   const leftPosition = left(tickDirection, margin)
   const topPosition = top(tickDirection, margin)
 
-  const background = backgroundColor || darken(0.08, colors['neutral-2'])
-  const color = colors['light-1']
-  const dataPoints = zip(data.x, data.y)
+  const background = backgroundColor || colors['light-1']
+  const dataPoints = getDataPoints(data)
 
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
 
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
 
   const axesConfig = {
+    color: axisColor,
     xAxis: {
       label: xAxisLabel,
       orientation: 'bottom',
@@ -73,6 +86,8 @@ function ScatterPlot (props) {
   }
 
   const clipPathId = cuid()
+  const plotHeight = parentHeight - margin.bottom - margin.top
+  const plotWidth = parentWidth - margin.right - margin.left
   return (
     <Chart
       height={parentHeight}
@@ -81,8 +96,8 @@ function ScatterPlot (props) {
       <Background fill={background} />
       <clipPath id={`scatter-plot-${clipPathId}`}>
         <rect
-          height={parentHeight - margin.bottom - margin.top}
-          width={parentWidth - margin.right - margin.left}
+          height={plotHeight}
+          width={plotWidth}
         />
       </clipPath>
       <Group
@@ -90,20 +105,38 @@ function ScatterPlot (props) {
         left={leftPosition}
         top={topPosition}
       >
-        {dataPoints.map((point, index) => {
-          const cx = xScaleTransformed(point[0])
-          const cy = yScaleTransformed(point[1])
-          return (
-            <Circle
-              data-x={point[0]}
-              data-y={point[1]}
-              key={index}
-              cx={cx}
-              cy={cy}
-              r={dataPointSize}
-              fill={color}
-            />
-          )
+        {tickDirection === 'outer' &&
+          <Background
+            borderColor={colors['dark-5']}
+            fill='#ffffff'
+            height={plotHeight}
+            left={leftPosition}
+            top={topPosition}
+            width={plotWidth}
+          />}
+        {dataPoints.map((series, seriesIndex) => {
+          const glyphColor = series.seriesOptions?.color ||
+          glyphColors[seriesIndex] ||
+          standardGlyphColors[seriesIndex]
+
+          const GlyphComponent = glyphComponents[seriesIndex]
+
+          return series.seriesData.map((point, pointIndex) => {
+            const cx = xScaleTransformed(point.x)
+            const cy = yScaleTransformed(point.y)
+
+            return (
+              <GlyphComponent
+                data-x={point.x}
+                data-y={point.y}
+                key={pointIndex}
+                left={cx}
+                size={dataPointSize}
+                top={cy}
+                fill={glyphColor}
+              />
+            )
+          })
         })}
       </Group>
       {children}
@@ -112,6 +145,7 @@ function ScatterPlot (props) {
         top={margin.top}
       >
         <Axes
+          axisColor={axisColor}
           axesConfig={axesConfig}
           margin={margin}
           padding={padding}
@@ -126,8 +160,10 @@ function ScatterPlot (props) {
 }
 
 ScatterPlot.defaultProps = {
+  axisColor: '',
   backgroundColor: '',
-  dataPointSize: 1.5,
+  dataPointSize: 20,
+  glyphColors: [],
   margin: {
     bottom: 60,
     left: 60,
@@ -165,12 +201,28 @@ ScatterPlot.defaultProps = {
 }
 
 ScatterPlot.propTypes = {
+  axisColor: PropTypes.string,
   backgroundColor: PropTypes.string,
-  data: PropTypes.shape({
-    x: PropTypes.arrayOf(PropTypes.number),
-    y: PropTypes.arrayOf(PropTypes.number)
-  }).isRequired,
-  dataPointSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  data: PropTypes.oneOfType([
+    PropTypes.shape({
+      x: PropTypes.arrayOf(PropTypes.number),
+      y: PropTypes.arrayOf(PropTypes.number)
+    }),
+    PropTypes.arrayOf(PropTypes.shape({
+      seriesData: PropTypes.arrayOf(PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+        x_error: PropTypes.number,
+        y_error: PropTypes.number
+      })).isRequired,
+      seriesOptions: PropTypes.shape({
+        color: PropTypes.string,
+        label: PropTypes.string.isRequired
+      }).isRequired
+    }))
+  ]).isRequired,
+  dataPointSize: PropTypes.number,
+  glyphColors: PropTypes.arrayOf(PropTypes.string),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

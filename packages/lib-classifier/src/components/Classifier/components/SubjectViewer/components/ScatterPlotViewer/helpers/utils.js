@@ -1,10 +1,47 @@
 import { scaleLinear } from '@vx/scale'
 import * as d3 from 'd3'
+import { flatten, zipWith } from 'lodash'
+
+function isThisMultipleDataSeries (data) {
+  return Array.isArray(data)
+}
+
+export function getDataPoints (data) {
+  if (isThisMultipleDataSeries(data)) {
+    return data
+  } else {
+    return [
+      { seriesData: zipWith(data.x, data.y,
+        function (a, b) {
+          return { x: a, y: b }
+        }) 
+      }
+    ]
+  }
+}
 
 export function getDataExtent (data) {
-  return {
-    x: d3.extent(data.x),
-    y: d3.extent(data.y)
+  if (isThisMultipleDataSeries(data)) {
+    const xValues = flatten(data.map((series) => {
+      return series.seriesData.map((dataItem) => {
+        return dataItem.x
+      })
+    }))
+    const yValues = flatten(data.map((series) => {
+      return series.seriesData.map((dataItem) => {
+        return dataItem.y
+      })
+    }))
+
+    return {
+      x: d3.extent(xValues),
+      y: d3.extent(yValues)
+    }
+  } else {
+    return {
+      x: d3.extent(data.x),
+      y: d3.extent(data.y)
+    }
   }
 }
 

@@ -65,7 +65,7 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
-      createClassificationObserver()
+      createSubjectObserver()
     }
 
     function createWorkflowObserver () {
@@ -88,13 +88,13 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
+    function createSubjectObserver () {
+      const subjectDisposer = autorun(() => {
         onAction(getRoot(self), (call) => {
           if (call.name === 'onSubjectReady') self.resetSteps()
         }, true)
-      }, { name: 'WorkflowStepStore Classification Observer autorun' })
-      addDisposer(self, classificationDisposer)
+      }, { name: 'WorkflowStepStore Subject Observer autorun' })
+      addDisposer(self, subjectDisposer)
     }
 
     function getNextStepKey () {
@@ -121,6 +121,7 @@ const WorkflowStepStore = types
 
     function resetSteps () {
       self.active = undefined
+      self.steps.forEach(step => step.reset())
       self.selectStep()
     }
 
@@ -151,7 +152,6 @@ const WorkflowStepStore = types
 
     function setTasks (workflow) {
       self.steps.forEach(function (step) {
-
         step.taskKeys.forEach((taskKey) => {
           // Set tasks object as a MobX observable JS map in the store
           // put is a MST method, not native to ES Map

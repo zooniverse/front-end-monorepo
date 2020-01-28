@@ -1,4 +1,4 @@
-import { string, func } from 'prop-types'
+import { bool, string, func } from 'prop-types'
 import React from 'react'
 
 import { Media } from '@shared/components/Media'
@@ -19,10 +19,16 @@ function GenericAnnouncement (props) {
   )
 }
 
+GenericAnnouncement.defaultProps = {
+  dismissable: false,
+  closeFn: () => {}
+}
+
 GenericAnnouncement.propTypes = {
   announcement: string.isRequired,
   color: string.isRequired,
-  closeFn: func.isRequired
+  closeFn: func,
+  dismissable: bool
 }
 
 export default GenericAnnouncement

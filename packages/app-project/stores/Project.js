@@ -31,8 +31,16 @@ const Project = types
   })
 
   .views(self => ({
+    get baseUrl() {
+      return `/projects/${self.slug}`
+    },
+
     get displayName () {
       return self.display_name
+    },
+
+    get isComplete () {
+      return self.completeness === 1
     }
   }))
 

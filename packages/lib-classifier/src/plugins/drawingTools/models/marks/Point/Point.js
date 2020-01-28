@@ -1,5 +1,4 @@
 import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
 import { Point as PointComponent } from '../../../components'
 import { PointTool } from '@plugins/drawingTools/models/tools'
 
@@ -23,8 +22,8 @@ const PointModel = types
       const theta = (DELETE_BUTTON_ANGLE) * (Math.PI / 180)
       const dx = (20 / scale) * Math.cos(theta)
       const dy = -1 * (20 / scale) * Math.sin(theta)
-      const x = self.x + dx
-      const y = self.y + dy
+      const x = dx
+      const y = dy
       return { x, y }
     },
 

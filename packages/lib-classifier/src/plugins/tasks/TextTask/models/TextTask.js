@@ -1,4 +1,4 @@
-import { getRoot, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import TextAnnotation from './TextAnnotation'
 
@@ -11,7 +11,7 @@ const Text = types.model('Text', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return TextAnnotation.create({ task: self.taskKey })
+      return TextAnnotation.create({ task: self.taskKey, taskType: self.type })
     }
   }))
 

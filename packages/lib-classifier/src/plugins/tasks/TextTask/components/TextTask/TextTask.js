@@ -1,15 +1,15 @@
 import { PlainButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Text, TextArea } from 'grommet'
+import PropTypes from 'prop-types'
 import React from 'react'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 function TextTask (props) {
-  const { autoFocus, disabled, task } = props
-  const defaultValue = task.annotation.value
-  const [value, setValue] = React.useState(defaultValue)
+  const { annotation, autoFocus, disabled, task } = props
+  const { value } = annotation
   const textArea = React.createRef()
 
   function onChange (event) {
@@ -18,8 +18,7 @@ function TextTask (props) {
   }
 
   function updateText (text) {
-    setValue(text)
-    task.updateAnnotation(text)
+    annotation.update(text)
   }
 
   function setTagSelection (e) {
@@ -92,6 +91,28 @@ function TextTask (props) {
       </Box>
     </Box>
   )
+}
+
+TextTask.defaultProps = {
+  autoFocus: false,
+  className: '',
+  disabled: false
+}
+
+TextTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.string
+  }).isRequired,
+  autoFocus: PropTypes.bool,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  task: PropTypes.shape({
+    help: PropTypes.string,
+    instruction: PropTypes.string,
+    required: PropTypes.bool,
+    text_tags: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 }
 
 export default TextTask

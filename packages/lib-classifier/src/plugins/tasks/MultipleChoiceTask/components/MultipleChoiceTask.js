@@ -1,12 +1,9 @@
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
-import { observable } from 'mobx'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
-import { pxToRem } from '@zooniverse/react-components'
 
 import TaskInput from '../../components/TaskInput'
 
@@ -29,11 +26,11 @@ const StyledText = styled(Text)`
 
 function MultipleChoiceTask (props) {
   const {
+    annotation,
     disabled,
     task
   } = props
-  const { annotation } = task
-  const [ value, setValue ] = useState(annotation.value)
+  const { value } = annotation
 
   function onChange (index, event) {
     const newValue = value ? value.slice(0) : []
@@ -43,8 +40,7 @@ function MultipleChoiceTask (props) {
       const indexInValue = newValue.indexOf(index)
       newValue.splice(indexInValue, 1)
     }
-    setValue(newValue)
-    task.updateAnnotation(newValue)
+    annotation.update(newValue)
   }
 
   return (
@@ -79,11 +75,14 @@ function MultipleChoiceTask (props) {
 }
 
 MultipleChoiceTask.defaultProps = {
-  disabled: false,
-  task: {}
+  disabled: false
 }
 
 MultipleChoiceTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }).isRequired,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
@@ -92,7 +91,7 @@ MultipleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  })
+  }).isRequired
 }
 
 export default MultipleChoiceTask

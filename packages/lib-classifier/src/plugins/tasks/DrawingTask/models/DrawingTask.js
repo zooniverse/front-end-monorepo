@@ -1,4 +1,4 @@
-import { clone, detach, tryReference, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import * as tools from '@plugins/drawingTools/models/tools'
 import DrawingAnnotation from './DrawingAnnotation'
@@ -18,7 +18,7 @@ const Drawing = types.model('Drawing', {
     },
 
     get defaultAnnotation () {
-      return DrawingAnnotation.create({ task: self.taskKey })
+      return DrawingAnnotation.create({ task: self.taskKey, taskType: self.type })
     },
 
     get isComplete () {
@@ -33,6 +33,21 @@ const Drawing = types.model('Drawing', {
     }
   }))
   .actions(self => {
+    function afterCreate () {
+      loadSubtasks()
+    }
+
+    function loadSubtasks () {
+      self.tools.forEach((tool, toolIndex) => {
+        const toolKey = `${self.taskKey}.${toolIndex}`
+        tool.details.forEach((detail, detailIndex) => {
+          const taskKey = `${toolKey}.${detailIndex}`
+          const taskSnapshot = Object.assign({}, detail, { taskKey })
+          tool.createTask(taskSnapshot)
+        })
+      })
+    }
+
     function setActiveTool (toolIndex) {
       self.activeToolIndex = toolIndex
     }
@@ -41,18 +56,15 @@ const Drawing = types.model('Drawing', {
       self.updateAnnotation(self.marks)
     }
 
-    function start () {
-      const activeMarks = self.annotation.value
-      // if the current annotation is empty, clear any leftover marks.
-      if (activeMarks.length === 0) {
-        self.tools.forEach(tool => tool.marks.clear())
-      }
+    function reset () {
+      self.tools.forEach(tool => tool.marks.clear())
     }
 
     return {
+      afterCreate,
       complete,
-      setActiveTool,
-      start
+      reset,
+      setActiveTool
     }
   })
 

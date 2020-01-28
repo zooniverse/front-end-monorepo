@@ -29,6 +29,5 @@ describe('Component > ProjectAnnouncementContainer', function () {
 
   it('should pass down the required props', function () {
     expect(componentWrapper.props().announcement).to.equal(ANNOUNCEMENT)
-    expect(componentWrapper.props().closeFn).to.be.a('function')
   })
 })

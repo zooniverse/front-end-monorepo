@@ -1,13 +1,32 @@
 import sinon from 'sinon'
-import { observable } from 'mobx'
 import DrawingTask from './DrawingTask'
 import DrawingAnnotation from './DrawingAnnotation'
-import { Line, Point } from '@plugins/drawingTools/models/marks'
+
+const details = [
+  {
+    type: 'multiple',
+    question: 'which fruit?',
+    answers: ['apples', 'oranges', 'pears'],
+    required: false
+  },
+  {
+    type: 'single',
+    question: 'how many?',
+    answers: ['one', 'two', 'three'],
+    required: false
+  },
+  {
+    type: 'text',
+    instruction: 'Transcribe something',
+    required: false
+  }
+]
 
 const pointTool = {
   help: '',
   label: 'Point please.',
-  type: 'point'
+  type: 'point',
+  details
 }
 
 const lineTool = {
@@ -39,6 +58,18 @@ describe('Model > DrawingTask', function () {
     expect(() => DrawingTask.create({ type: 'orange' })).to.throw()
   })
 
+  it('should load subtasks on creation.', function () {
+    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    expect(drawingTask.tools[0].tasks.length).to.equal(3)
+    expect(drawingTask.tools[1].tasks.length).to.equal(0)
+  })
+
+  it('should assign task keys to subtasks.', function () {
+    const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+    const subtasks = drawingTask.tools[0].tasks
+    subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
+  })
+
   describe('drawn marks', function () {
     let marks
     before(function () {
@@ -55,7 +86,6 @@ describe('Model > DrawingTask', function () {
   })
 
   describe('on complete', function () {
-    let marks
     let addAnnotation
     before(function () {
       const drawingTask = DrawingTask.create(drawingTaskSnapshot)
@@ -67,7 +97,6 @@ describe('Model > DrawingTask', function () {
       }
       addAnnotation = drawingTask.classifications.addAnnotation.withArgs(drawingTask, [point1, point2, line1])
       drawingTask.complete()
-      marks = drawingTask.marks
     })
 
     it('should copy marks to the task annotation', function () {
@@ -75,7 +104,7 @@ describe('Model > DrawingTask', function () {
     })
   })
 
-  describe('on start', function () {
+  describe('on reset', function () {
     let marks
     let pointTool
     let lineTool
@@ -83,18 +112,16 @@ describe('Model > DrawingTask', function () {
       const drawingTask = DrawingTask.create(drawingTaskSnapshot)
       pointTool = drawingTask.tools[0]
       lineTool = drawingTask.tools[1]
-      const point1 = pointTool.createMark({ id: 'point1' })
-      const point2 = pointTool.createMark({ id: 'point2' })
-      const line1 = lineTool.createMark({ id: 'line1' })
       const taskAnnotation = DrawingAnnotation.create({
         task: 'T3',
+        taskType: drawingTask.type,
         value: []
       })
       drawingTask.classifications = {
         addAnnotation: sinon.stub(),
         annotation () { return taskAnnotation }
       }
-      drawingTask.start()
+      drawingTask.reset()
       marks = drawingTask.marks
     })
 

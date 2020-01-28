@@ -9,7 +9,7 @@ const StyledRect = styled('rect')`
   cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, move, scale, width }) {
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, marks, move, scale, width }) {
   const [ activeMark, setActiveMark ] = useState(null)
   const [ creating, setCreating ] = useState(false)
   const { svg, getScreenCTM } = useContext(SVGContext)
@@ -41,6 +41,8 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, mo
     if (disabled || move) {
       return true
     }
+
+    const { target, pointerId } = event
     const activeMark = activeTool.createMark({
       id: cuid(),
       toolIndex: activeDrawingTask.activeToolIndex
@@ -48,6 +50,8 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, mo
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
+    target.setPointerCapture(pointerId)
+    return false
   }
 
   function onPointerMove (event) {
@@ -55,11 +59,13 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, mo
   }
 
   function onPointerUp () {
+    const { target, pointerId } = event
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(null)
     }
+    target.releasePointerCapture(pointerId)
   }
 
   return (
@@ -69,26 +75,21 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, mo
       touch-action='none'
     >
       <StyledRect
-        disabled={disabled || move }
+        disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
         height={height}
         fill='transparent'
         onPointerDown={onPointerDown}
       />
-      {activeDrawingTask &&
-        activeDrawingTask.tools.map(tool => {
-          return (
-            <DrawingToolMarks
-              key={`${tool.type}-${tool.color}`}
-              activeMarkId={activeMark && activeMark.id}
-              marks={Array.from(tool.marks.values())}
-              onDelete={() => setActiveMark(null)}
-              onSelectMark={mark => setActiveMark(mark)}
-              scale={scale}
-            />
-          )
-        })
+      {marks &&
+        <DrawingToolMarks
+          activeMarkId={activeMark && activeMark.id}
+          marks={marks}
+          onDelete={() => setActiveMark(null)}
+          onSelectMark={mark => setActiveMark(mark)}
+          scale={scale}
+        />
       }
     </g>
   )
@@ -99,12 +100,14 @@ InteractionLayer.propTypes = {
   activeTool: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
+  marks: PropTypes.array,
   scale: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {
   disabled: false,
+  marks: [],
   scale: 1
 }
 

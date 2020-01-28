@@ -33,3 +33,55 @@ The registry is a simple map of unique task types (`single`, `multiple`, `text`,
   …
   taskRegistry.add('newTask', MyNewTask)
   ```
+
+## React Components
+
+A React component for a task takes a Task model and renders it as HTML. The basic shape is:
+```jsx
+const SingleChoiceTask = taskRegistry.get('single').TaskComponent
+<SingleChoiceTask disabled task={task} />
+```
+
+ - _task_ is the task model to render.
+ - _disabled_ should be set if the task is disabled eg. while waiting for a subject to load.
+
+## Task models
+
+`const SingleChoiceTask = taskRegistry.get('single').TaskModel`
+
+The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Task.js) defines the following common properties and actions for all tasks.
+
+- _taskKey (string)_ An identifier for the task eg. `T0`
+- _required (boolean = false)_ True if the task must be annotated before continuing.
+- _annotation (Annotation)_ The classification annotation for this task's task key.
+- _isComplete (boolean = true)_ False if the task's annotation is invalid.
+- _createAnnotation() (Annotation)_ Returns a new, empty annotation for this task. 
+- _updateAnnotation(value)_ Annotate the task's classification annotation with _value_.
+
+
+All tasks should extend the Task model by implementing the following:
+
+- _defaultAnnotation (Annotation)_ the default annotation for this task.
+- _type (string)_ the type of task eg. `single`, `text`, `drawing`. Types must be unique to each Task model.
+
+Tasks may implement the following actions to hook into the workflow classification lifecycle
+- _reset()_ Reset the task for a new subject and annotation.
+- _start()_ Runs each time we enter the task while navigating a workflow.
+- _complete()_ Runs when exiting a task by pressing Next or Done. Creates the task's classification annotation by default.
+
+## Annotation models
+
+`const SingleChoiceAnnotation = taskRegistry.get('single').AnnotationModel`
+
+The [base Annotation model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Annotation.js) defines the following common properties and actions for all annotations.
+
+- _task (string)_ An identifier for the task that created this annotation eg. `T0`
+- _taskType (string)_ The task type that creates these annotations. Set by the annotation's task.
+
+All annotations should extend the Annotation model by implementing the following:
+
+- _value (any)_ The annotation value.
+
+Annotations may implement the following:
+
+- _isComplete (boolean = true)_ False if the annotation's value is invalid.

@@ -31,7 +31,7 @@ stories.add('light theme', () => {
     options: {
       margin,
       xAxisLabel,
-      yAxisLabel,
+      yAxisLabel
     }
   } = mockData
   return (

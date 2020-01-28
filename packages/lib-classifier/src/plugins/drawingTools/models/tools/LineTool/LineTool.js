@@ -8,7 +8,7 @@ const LineTool = types.model('Line', {
 })
   .actions(self => {
     function createMark (mark) {
-      const newMark = Line.create(mark)
+      const newMark = Line.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
       return newMark
     }

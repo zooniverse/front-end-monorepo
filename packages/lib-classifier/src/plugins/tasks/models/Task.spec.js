@@ -5,11 +5,12 @@ import Annotation from './Annotation'
 
 describe('Model > Task', function () {
   const mockTask = {
-    taskKey: 'T0'
+    taskKey: 'T0',
+    type: 'default'
   }
 
   it('should exist', function () {
-    const taskInstance = Task.create({ taskKey: 'T3' })
+    const taskInstance = Task.create({ taskKey: 'T3', type: 'default' })
     expect(taskInstance).to.be.ok()
     expect(taskInstance).to.be.an('object')
   })
@@ -17,7 +18,7 @@ describe('Model > Task', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      const task = Task.create({})
+      Task.create({})
     } catch (e) {
       errorThrown = true
     }
@@ -47,7 +48,7 @@ describe('Model > Task', function () {
     it('should start up with an undefined value', function () {
       expect(task.annotation.value).to.be.undefined()
     })
-    
+
     it('should always be complete', function () {
       expect(task.isComplete).to.be.true()
     })

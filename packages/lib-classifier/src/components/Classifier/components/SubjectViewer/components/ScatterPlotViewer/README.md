@@ -8,11 +8,12 @@ display two variable coordinate data. The data is expected to have a numerical x
 The Scatter Plot Viewer...
 - allows users to view coordinate data
 - can be configurable to display a standard outer facing axes or display a inner facing axes similar to the PH: TESS light curve viewer design. Right now this configuration is not available via API, but can be set by devs in the code if the design for the specific use case calls for it. The prop `tickDirection` which can be set to either `'outer'` or `'inner'`, defaulting to `'outer'`, is for this use case.
+- can render single or multiple data series
 
 ## Props
 
-- `data` _(object)_ Required. An object of the x and y coordinates. Each variable is an array of numbers. This should be set by the data property in the location JSON of the subject. See the section on [JSON file](#JSON_file) for more information.
-- `dataPointSize` _(string) or (number)_ Default: `1.5`. The size of the radius of the SVG circle. Not available to configure via the subject location JSON's options property.
+- `data` _(object)_ Required. This should be set by the data property in the location JSON of the subject. See the section on [JSON file](#JSON_file) for more information on the allowed data formats for the data series.
+- `dataPointSize` _(number)_ Default: `20`. The size of the SVG glyph icon. Not available to configure via the subject location JSON's options property.
 - `margin` _(object)_ Default: `{ bottom: 60, left: 60, right: 10, top: 10 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space outside of the axes lines. This is configurable via the subject location JSON's options property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. Bottom and left margin should be greater since that is where the x-axis and y-axis are positioned for the chart.
 - padding _(object)_ Default: `{ bottom: 0, left: 0, right: 0, top: 0 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space inside of the axes lines. This is configurable via the subject location JSON's options property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. This defaults to 0 because the default `tickDirection` of the axes is `'outer'` and no extra space is required for labels inside of the axes. This will need to be defined with values if the `tickDirection` is changed to `'inner'`.
 - panning _(boolean)_ Default: `false`. Enable or disable being able to pan the svg. It is separately configurable from `zooming`, however, it is unlikely to keep this `false` when `zooming` is `true`. If `zooming` is fales, and `panning` is set to true, then this configuration is ignored, because panning doesn't need to function unless the full data series is not in view due to zooming in. 
@@ -48,7 +49,9 @@ subject.locations = [
 
 ### JSON file
 
-The JSON file is a very, very basic data object consisting of an array of numbers for each axis.
+The JSON file can take two different shapes depending on if the data is a single series or multiple series. 
+
+The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis:
 
 ``` json
 //subject1234.json
@@ -63,11 +66,60 @@ The JSON file is a very, very basic data object consisting of an array of number
       3,
       0.667
     ]
+  },
+  "chartOptions": {
+    "xAxisLabel": "Days",
+    "yAxisLabel": "Brightness"
   }
 }
 ```
 
-A set of chart options can be defined along with the data that define the x-axis and y-axis labels as well as the margins and padding to use. Padding is defined as the the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes. 
+The multiple series JSON shape is an array of objects consisting of `seriesData` and `seriesOptions` properties:
+
+``` json
+{ "data": [
+    { 
+      "seriesData": [
+        { "x": 1.46,
+          "y": 6.37,
+          "x_error": 2,
+          "y_error": 0.5
+        }, {
+          "x": 7.58,
+          "y": 9.210
+        }
+      ],
+      "seriesOptions": {
+        "color": "accent-2",
+        "label": "Filter 1"
+      }
+    }, {
+      "seriesData": [
+        { "x": 700,
+          "y": 500,
+          "x_error": 2,
+          "y_error": 0.5
+        }, {
+          "x": 701,
+          "y": 900
+        }
+      ],
+      "seriesOptions": {
+        "color": "#98b6a7",
+        "label": "Filter 2"
+      }
+    }
+  ],
+  "chartOptions": {
+    "xAxisLabel": "Days",
+    "yAxisLabel": "Brightness"
+  }
+}
+```
+
+The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. 
+
+For both single series data and multiple series data, a set of chart options can also be supplied that define the x-axis and y-axis labels as well as the margins and padding to use. Padding is defined as the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes. 
 
 
 ``` json

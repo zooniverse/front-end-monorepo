@@ -29,7 +29,7 @@ describe('Model > TextTask', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      const task = TextTask.create(singleChoiceTask)
+      TextTask.create(singleChoiceTask)
     } catch (e) {
       errorThrown = true
     }
