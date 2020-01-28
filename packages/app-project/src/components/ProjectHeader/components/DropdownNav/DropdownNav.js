@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -26,7 +26,7 @@ const StyledDropButton = styled(DropButton)`
   border-radius: 2em;
   color: white;
 
-  ${props => props.isOpen && `
+  ${props => props.isOpen && css`
     background: ${props.theme.global.colors['accent-2']};
   `}
 

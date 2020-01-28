@@ -1,11 +1,11 @@
 import { bool, func } from 'prop-types'
 import React from 'react'
 import { Button as GrommetButton } from 'grommet'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
 
 const StyledButton = styled(GrommetButton)`
-  background-color: ${props => props.active ? props.theme.global.colors.brand : (props.theme.dark ? props.theme.global.colors['dark-1'] : 'inherit')}; 
+  background-color: ${props => props.active ? props.theme.global.colors.brand : (props.theme.dark ? props.theme.global.colors['dark-1'] : css`inherit`)}; 
   border-radius: 50%;
   padding: ${pxToRem(13)};
 
@@ -18,7 +18,7 @@ const StyledButton = styled(GrommetButton)`
   }
 
   > svg {
-    fill: ${props => props.active ? 'white' : (props.theme.dark ? 'white' : 'black')};
+    fill: ${props => props.active ? css`white` : (props.theme.dark ? css`white` : css`black`)};
     height: ${pxToRem(18)};
     stroke: transparent;
     width: ${pxToRem(18)};
