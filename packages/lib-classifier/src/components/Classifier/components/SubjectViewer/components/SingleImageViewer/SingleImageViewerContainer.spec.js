@@ -57,8 +57,6 @@ describe('Component > SingleImageViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
-          { 'image/jpeg': 'https://some.domain/image.jpg' },
-          { 'image/jpeg': 'https://some.domain/image.jpg' },
           { 'image/jpeg': 'https://some.domain/image.jpg' }
         ],
         metadata: {
