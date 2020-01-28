@@ -1,5 +1,4 @@
 import React from 'react'
-import sinon from 'sinon'
 import { shallow } from 'enzyme'
 
 import FrameCarousel from './FrameCarousel'
@@ -16,7 +15,7 @@ describe('Component > FrameCarousel', function () {
       { 'image/png': 'https://foo.bar/example.png' },
       { 'image/png': 'https://foo.bar/example.png' },
       { 'image/png': 'https://foo.bar/example.png' }
-    ]})
+    ] })
   const numberOfFrames = multiFrameSubject.locations.length
 
   beforeEach(function () {
@@ -44,9 +43,8 @@ describe('Component > FrameCarousel', function () {
     expect(list).to.have.lengthOf(numberOfFrames)
   })
 
-  it('should apply the active class to the button corresponding to the default_frame', function() {
+  it('should apply the active class to the button corresponding to the default_frame', function () {
     const activeImage = wrapper.find('.active')
     expect(activeImage.hasClass('active')).to.equal(true)
   })
-
 })

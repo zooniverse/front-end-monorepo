@@ -2,12 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import locationValidator from '../../helpers/locationValidator'
-import getViewer from '../../helpers/getViewer'
 
-import { Button, Box, List, Text, Icons } from 'grommet'
+import { Button, Box } from 'grommet'
 import { FormUp, FormDown } from 'grommet-icons'
 
-const StyledH3= styled.h3`
+const StyledH3 = styled.h3`
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -54,28 +53,12 @@ const StyledImage = styled.img`
   padding: 0;
 `
 
-const StyledHiddenSpan = styled.span`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-`
-
 class FrameCarousel extends React.Component {
-  constructor () {
-    super()
-    // current frame
-  }
-
   render () {
-    const locations = this.props.subject.locations.map( location => ({"url": location["image/jpeg"]}))
+    const locations = this.props.subject.locations.map(location => ({ 'url': location['image/jpeg'] }))
     const locationElements = locations.map((location, index) => {
       const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
-      const currentActive = currentFrameIndex == index
+      const currentActive = currentFrameIndex === index
       return (
         <li key={index} className={`frame-${index}`}>
           <StyledButtons
@@ -85,9 +68,9 @@ class FrameCarousel extends React.Component {
             className={currentActive ? 'active' : ''}
           >
             <StyledImage
-              className="frame-image"
+              className='frame-image'
               src={location.url}
-              alt="Thumbnail of Image"
+              alt='Thumbnail of Image'
             />
           </StyledButtons>
         </li>
@@ -96,47 +79,47 @@ class FrameCarousel extends React.Component {
 
     return (
       <Box
-        align="center"
-        alignContent="around"
-        className="frames-container"
-        direction="column"
-        fill="vertical"
-        flex={{shrink: 0}}
-        background={"#FFFFFF"}
-        justify={"center"}
-        width={{"min": "2em"}}
+        align='center'
+        alignContent='around'
+        className='frames-container'
+        direction='column'
+        fill='vertical'
+        flex={{ shrink: 0 }}
+        background={'#FFFFFF'}
+        justify={'center'}
+        width={{ 'min': '2em' }}
       >
-        <StyledH3 id="subjectcarousel" className="visuallyhidden">
+        <StyledH3 id='subjectcarousel' className='visuallyhidden'>
           Carousel of Subjects
         </StyledH3>
         <StyledControlButton
-          alignSelf="center"
-          a11yTitle="Click to see the previous frame"
-          hoverIndicator={true, {color: "#7fcbce"}}
-          focusIndicator={true, {color: "#7fcbce"}}
+          alignSelf='center'
+          a11yTitle='Click to see the previous frame'
+          hoverIndicator={{ color: '#7fcbce' }}
+          focusIndicator={{ color: '#7fcbce' }}
           icon={<FormUp />}
-          margin={{"bottom": "5px"}}
+          margin={{ 'bottom': '5px' }}
           primary
         />
         <Box
-          align="center"
-          alignContent="center"
-          as="ul"
-          background="#FFFFFF"
+          align='center'
+          alignContent='center'
+          as='ul'
+          background='#FFFFFF'
           border={false}
-          direction="column"
-          height="100%"
-          overflow="scroll"
+          direction='column'
+          height='100%'
+          overflow='scroll'
         >
           {locationElements}
         </Box>
         <StyledControlButton
-          alignSelf="center"
-          a11yTitle="Click to see the next frame"
-          hoverIndicator={true, {color: "#7fcbce"}}
-          focusIndicator={true, {color: "#7fcbce"}}
+          alignSelf='center'
+          a11yTitle='Click to see the next frame'
+          hoverIndicator={{ color: '#7fcbce' }}
+          focusIndicator={{ color: '#7fcbce' }}
           icon={<FormDown />}
-          margin={{"top": "5px"}}
+          margin={{ 'top': '5px' }}
           primary
         />
       </Box>
@@ -146,7 +129,7 @@ class FrameCarousel extends React.Component {
 
 FrameCarousel.propTypes = {
   subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator),
+    locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
