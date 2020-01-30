@@ -1,8 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import FrameCarousel from './FrameCarousel'
 import { SubjectFactory } from '@test/factories'
+import FrameCarousel from './FrameCarousel'
+
+import {
+  StyledControlButton,
+  StyledInput,
+  StyledImage
+} from './FrameCarousel'
 
 describe('Component > FrameCarousel', function () {
   let wrapper
@@ -30,21 +36,10 @@ describe('Component > FrameCarousel', function () {
     expect(wrapper.instance().props.subject.locations.length).to.equal(numberOfFrames)
   })
 
-  it('should render a visually hidden h3 for the carousel', function () {
-    const heading3 = wrapper.find('#subjectcarousel')
-    expect(heading3).to.have.lengthOf(1)
-    expect(heading3.html()).to.include('Carousel of Subjects')
-  })
-
-  it('should render a list item and img for each location', function () {
-    const list = wrapper.find('li')
-    const image = wrapper.find('.frame-image')
-    expect(image).to.have.lengthOf(numberOfFrames)
-    expect(list).to.have.lengthOf(numberOfFrames)
-  })
-
-  it('should apply the active class to the button corresponding to the default_frame', function () {
-    const activeImage = wrapper.find('.active')
-    expect(activeImage.hasClass('active')).to.equal(true)
+  it('should render an input and an img for each location', function () {
+    const inputs = wrapper.find(StyledInput)
+    const images = wrapper.find(StyledImage)
+    expect(images).to.have.lengthOf(numberOfFrames)
+    expect(inputs).to.have.lengthOf(numberOfFrames)
   })
 })

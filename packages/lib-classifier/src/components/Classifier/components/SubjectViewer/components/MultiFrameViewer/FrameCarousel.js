@@ -10,8 +10,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledControlButton = styled(Button)`
-  box-shadow: none
+export const StyledControlButton = styled(Button)`
   width: 100%;
   svg {
     fill: #FFFFFF;
@@ -26,22 +25,17 @@ const StyledControlButton = styled(Button)`
     box-shadow: none;
   }
 `
-const StyledInput = styled.input`
-  border: 0;
+export const StyledInput = styled.input`
   clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
   overflow: hidden;
-  padding: 0;
   position: absolute;
-  width: 1px;
 
   &:checked + img {
     outline: #F0B200 solid;
   }
 `
 
-const StyledImage = styled.img`
+export const StyledImage = styled.img`
   height: 3em;
   width: 3em;
   margin: 0.5em;
