@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import counterpart from 'counterpart'
 import locationValidator from '../../helpers/locationValidator'
 
 import { Button, Box } from 'grommet'
 import { FormUp, FormDown } from 'grommet-icons'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 const StyledH3 = styled.h3`
   border: 0;
@@ -18,8 +22,19 @@ const StyledH3 = styled.h3`
 `
 
 const StyledControlButton = styled(Button)`
+  box-shadow: none
+  width: 100%;
+  svg {
+    fill: #FFFFFF;
+    stroke: #FFFFFF;
+  }
   &:focus {
-    background: #7fcbce
+    background: #7fcbce;
+    box-shadow: none;
+  }
+  &:hover {
+    background: #7fcbce;
+    box-shadow: none;
   }
 `
 
@@ -70,7 +85,7 @@ class FrameCarousel extends React.Component {
             <StyledImage
               className='frame-image'
               src={location.url}
-              alt='Thumbnail of Image'
+              alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
             />
           </StyledButtons>
         </li>
@@ -94,10 +109,9 @@ class FrameCarousel extends React.Component {
         </StyledH3>
         <StyledControlButton
           alignSelf='center'
-          a11yTitle='Click to see the previous frame'
-          hoverIndicator={{ color: '#7fcbce' }}
-          focusIndicator={{ color: '#7fcbce' }}
-          icon={<FormUp />}
+          label={<span><FormUp /><br />{counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}</span>}
+          hoverIndicator={{ color: '#7fcbce'}}
+          focusIndicator={{ color: '#7fcbce'}}
           margin={{ 'bottom': '5px' }}
           primary
         />
@@ -115,10 +129,9 @@ class FrameCarousel extends React.Component {
         </Box>
         <StyledControlButton
           alignSelf='center'
-          a11yTitle='Click to see the next frame'
-          hoverIndicator={{ color: '#7fcbce' }}
-          focusIndicator={{ color: '#7fcbce' }}
-          icon={<FormDown />}
+          label={<span>{counterpart('MultiFrameViewer.FrameCarousel.nextFrameLabel')}<br /><FormDown /></span>}
+          hoverIndicator={{ color: '#7fcbce'}}
+          focusIndicator={{ color: '#7fcbce'}}
           margin={{ 'top': '5px' }}
           primary
         />
