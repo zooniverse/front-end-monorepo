@@ -1,4 +1,4 @@
-import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
+import { getParentOfType, types } from 'mobx-state-tree'
 import { Point as PointComponent } from '../../../components'
 import { PointTool } from '@plugins/drawingTools/models/tools'
 
@@ -56,10 +56,15 @@ const PointModel = types
       self.y = y
     }
 
+    function onPointerUp (event, callback) {
+      callback(event)
+    }
+
     return {
       initialDrag,
       initialPosition,
       move,
+      onPointerUp,
       setCoordinates
     }
   })

@@ -68,9 +68,14 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     target.releasePointerCapture(pointerId)
   }
 
+  function onPointerUp (event) {
+    activeMark.onPointerUp(event, onFinish)
+  }
+
   return (
     <g
       onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
       touch-action='none'
     >
       <StyledRect

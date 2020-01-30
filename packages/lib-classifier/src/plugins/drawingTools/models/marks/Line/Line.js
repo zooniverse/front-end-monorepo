@@ -73,10 +73,15 @@ const LineModel = types
       self.y2 = y2
     }
 
+    function onPointerUp(event, callback) {
+      callback(event)
+    }
+
     return {
       initialDrag,
       initialPosition,
       move,
+      onPointerUp,
       setCoordinates
     }
   })

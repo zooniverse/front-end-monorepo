@@ -72,11 +72,17 @@ const TranscriptionLineModel = types
       self.y2 = y2
     }
 
+    function onPointerUp () {
+      // do nothing
+      return
+    }
+
     return {
       finish,
       initialDrag,
       initialPosition,
       move,
+      onPointerUp,
       setCoordinates
     }
   })
