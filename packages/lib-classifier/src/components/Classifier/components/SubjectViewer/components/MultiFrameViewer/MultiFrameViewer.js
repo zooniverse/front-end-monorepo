@@ -21,7 +21,6 @@ class MultiFrameViewer extends React.Component {
         align='center'
         alignContent='center'
         direction='row'
-        tabIndex='0'
         className='subjectcarousel'
       >
         <FrameCarousel subject={this.props.subject} />
