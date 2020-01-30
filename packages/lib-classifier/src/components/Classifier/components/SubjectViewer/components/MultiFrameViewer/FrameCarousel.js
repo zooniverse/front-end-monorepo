@@ -101,7 +101,7 @@ class FrameCarousel extends React.Component {
         fill='vertical'
         flex={{ shrink: 0 }}
         background={'#FFFFFF'}
-        justify={'center'}
+        justify='center'
         width={{ 'min': '2em' }}
       >
         <StyledH3 id='subjectcarousel' className='visuallyhidden'>
