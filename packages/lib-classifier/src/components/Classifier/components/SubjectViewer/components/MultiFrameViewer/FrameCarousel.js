@@ -110,8 +110,6 @@ class FrameCarousel extends React.Component {
         <StyledControlButton
           alignSelf='center'
           label={<span><FormUp /><br />{counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}</span>}
-          hoverIndicator={{ color: '#7fcbce'}}
-          focusIndicator={{ color: '#7fcbce'}}
           margin={{ 'bottom': '5px' }}
           primary
         />
@@ -130,8 +128,6 @@ class FrameCarousel extends React.Component {
         <StyledControlButton
           alignSelf='center'
           label={<span>{counterpart('MultiFrameViewer.FrameCarousel.nextFrameLabel')}<br /><FormDown /></span>}
-          hoverIndicator={{ color: '#7fcbce'}}
-          focusIndicator={{ color: '#7fcbce'}}
           margin={{ 'top': '5px' }}
           primary
         />
