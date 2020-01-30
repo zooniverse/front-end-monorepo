@@ -43,7 +43,7 @@ const icons = {
 }
 
 function getIcon (icon) {
-  return icons[icon] || null
+  return icons[icon] || (() => null)
 }
 
 export default getIcon

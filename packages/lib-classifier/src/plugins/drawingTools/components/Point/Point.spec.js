@@ -1,40 +1,26 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { expect } from 'chai'
+import sinon from 'sinon'
+import { PointTool } from '@plugins/drawingTools/models/tools'
 import Point from './Point'
 
 describe('Point tool', function () {
-  const mark = {
+  const pointTool = PointTool.create({
+    size: 'large',
+    type: 'point'
+  })
+  const mark = pointTool.createMark({
+    id: 'point1',
     x: 100,
-    y: 200,
-    tool: {
-      size: 'large'
-    }
-  }
+    y: 200
+  })
+
   it('should render without crashing', function () {
     const wrapper = shallow(<Point
       mark={mark}
     />)
     expect(wrapper).to.be.ok()
   })
-
-  // it('should render with the coordinates provided', function () {
-  //   const wrapper = shallow(
-  //     <Point
-  //       coordinates={{ x: 100, y: 200 }}
-  //     />
-  //   )
-  //   console.log(wrapper.html())
-  //   expect(wrapper.containsMatchingElement(
-  //     <g transform={`translate(100, 200)`}>
-  //       <line x1={0} y1={-4} x2={0} y2={-20} strokeWidth={1} />
-  //       <line x1={-4} y1={0} x2={-20} y2={0} strokeWidth={1} />
-  //       <line x1={0} y1={4} x2={0} y2={20} strokeWidth={1} />
-  //       <line x1={4} y1={0} x2={20} y2={0} strokeWidth={1} />
-  //       <circle r={10} />
-  //     </g>
-  //   )).to.be.true()
-  // })
 
   it('should render with radius', function () {
     const wrapper = shallow(
@@ -51,5 +37,19 @@ describe('Point tool', function () {
         mark={mark}
       />)
     expect(wrapper.containsMatchingElement(<circle r={20} />)).to.be.true()
+  })
+
+  describe('when active', function () {
+
+    it('should finish on pointer up', function () {
+      const onFinish = sinon.stub()
+      const wrapper = shallow(<Point
+        active
+        mark={mark}
+        onFinish={onFinish}
+      />)
+      wrapper.simulate('pointerup')
+      expect(onFinish).to.have.been.calledOnce()
+    })
   })
 })
