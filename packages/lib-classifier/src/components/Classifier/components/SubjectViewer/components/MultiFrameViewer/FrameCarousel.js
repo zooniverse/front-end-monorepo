@@ -10,17 +10,6 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledH3 = styled.h3`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-`
-
 const StyledControlButton = styled(Button)`
   box-shadow: none
   width: 100%;
@@ -37,32 +26,25 @@ const StyledControlButton = styled(Button)`
     box-shadow: none;
   }
 `
-
-const StyledButtons = styled.button`
-  box-sizing: border-box;
-  border: 3px solid transparent;
-  background: #FFFFFF;
-  margin: 5px 5px 5px 5px;
+const StyledInput = styled.input`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
   padding: 0;
-  line-height: 0;
-  &.active {
-    box-sizing: border-box;
-    border: 3px solid #F0B200;
-  }
-  &:hover {
-    box-sizing: border-box;
-    border: 3px solid #F0B200;
-  }
-  &:focus {
-    box-sizing: border-box;
-    border: 3px solid #F0B200;
-    outline: none;
+  position: absolute;
+  width: 1px;
+
+  &:checked + img {
+    outline: #F0B200 solid;
   }
 `
 
 const StyledImage = styled.img`
-  height: 4em;
-  width: 4em;
+  height: 3em;
+  width: 3em;
+  margin: 0.5em;
   float: center;
   object-fit: cover;
   padding: 0;
@@ -75,20 +57,14 @@ class FrameCarousel extends React.Component {
       const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
       const currentActive = currentFrameIndex === index
       return (
-        <li key={index} className={`frame-${index}`}>
-          <StyledButtons
-            key={index}
-            value={index}
-            data-slide={index}
-            className={currentActive ? 'active' : ''}
-          >
-            <StyledImage
-              className='frame-image'
-              src={location.url}
-              alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
-            />
-          </StyledButtons>
-        </li>
+        <label>
+          <StyledInput
+            type="radio"
+            src={location.url}
+            name="frame"
+          />
+          <StyledImage src={location.url} alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')} />
+        </label>
       )
     })
 
@@ -104,9 +80,6 @@ class FrameCarousel extends React.Component {
         justify='center'
         width={{ 'min': '2em' }}
       >
-        <StyledH3 id='subjectcarousel' className='visuallyhidden'>
-          Carousel of Subjects
-        </StyledH3>
         <StyledControlButton
           alignSelf='center'
           label={<span><FormUp /><br />{counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}</span>}
