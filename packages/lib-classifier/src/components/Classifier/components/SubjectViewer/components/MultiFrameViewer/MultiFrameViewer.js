@@ -12,7 +12,6 @@ const StyledMainImage = styled.img`
 
 class MultiFrameViewer extends React.Component {
   render () {
-    const { onError, onSubjectReady, subject, subjectReadyState } = this.props
     const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
     const mimeTypeKey = Object.keys(this.props.subject.locations[currentFrameIndex])
     const currentFrameLocation = this.props.subject.locations[currentFrameIndex][mimeTypeKey]
@@ -38,9 +37,6 @@ class MultiFrameViewer extends React.Component {
 }
 
 MultiFrameViewer.propTypes = {
-  loadingState: PropTypes.string,
-  onError: PropTypes.func,
-  onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator),
     metadata: PropTypes.shape({
