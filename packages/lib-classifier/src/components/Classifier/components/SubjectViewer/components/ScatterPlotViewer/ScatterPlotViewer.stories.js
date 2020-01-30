@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { darken } from 'polished'
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs'
+import { withKnobs, boolean, text, number, object } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
@@ -48,7 +48,7 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={data}
+            data={object('data', data)}
             panning={boolean('panning', false)}
             xAxisLabel={text('x axis label', 'x-axis')}
             yAxisLabel={text('y axis label', 'y-axis')}
@@ -64,7 +64,7 @@ stories
       <Grommet theme={darkZooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={data}
+            data={object('data', data)}
             panning={boolean('panning', false)}
             xAxisLabel={text('x axis label', 'x-axis')}
             yAxisLabel={text('y axis label', 'y-axis')}
@@ -80,7 +80,7 @@ stories
       <Grommet theme={darkZooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={data}
+            data={object('data', data)}
             panning={boolean('panning', false)}
             xAxisLabel={text('x axis label', 'x-axis')}
             yAxisLabel={text('y axis label', 'y-axis')}
@@ -90,6 +90,53 @@ stories
       </Grommet>
     )
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
+  .add('data with x (horizontal) error bars', () => {
+    function constructData () {
+      return [...Array(10)].map((number, index) => {
+        const coords = {
+          x: Math.floor(Math.random() * 10) + 1,
+          y: Math.floor(Math.random() * 10) + 1,
+        }
+
+        if (index % 2 == 0) coords.x_error = Math.random()
+        return coords
+      })
+    }
+
+    const data = [{
+      seriesData: constructData(),
+      seriesOptions: {
+        label: 'data'
+      }
+    }]
+
+    return (
+      <Grommet theme={zooTheme}>
+        <Box height='medium' width='large'>
+          <ScatterPlotViewer
+            data={object('data', data)}
+            panning={boolean('panning', true)}
+            setOnZoom={setZoomCallback}
+            xAxisLabel={text('x axis label', 'x-axis')}
+            yAxisLabel={text('y axis label', 'y-axis')}
+            zooming={boolean('zooming', true)}
+            zoomConfiguration={{
+              direction: text('zoom direction', 'both'),
+              minZoom: number('min zoom', 1),
+              maxZoom: number('max zoom', 10),
+              zoomInValue: number('zoom in scale', 1.2),
+              zoomOutValue: number('zoom out scale', 0.8)
+            }}
+          />
+        </Box>
+        <Box direction='row'>
+          <ZoomInButton onClick={() => onZoom('zoomin')} />
+          <ZoomOutButton onClick={() => onZoom('zoomout')} />
+          <ResetButton onClick={() => onZoom('zoomto')} />
+        </Box>
+      </Grommet>
+    )
+  })
   .add('kepler light curve data with inner facing axes', () => {
     return (
       <Grommet theme={zooTheme}>
@@ -97,7 +144,7 @@ stories
           <ScatterPlotViewer
             axisColor={text('axis color', colors['light-1'])}
             backgroundColor={text('background color', darken(0.08, colors['neutral-2']))}
-            data={keplerMockDataWithOptions.data}
+            data={object('data', keplerMockDataWithOptions.data)}
             glyphColors={[colors['light-1']]}
             margin={keplerMockDataWithOptions.chartOptions.margin}
             padding={keplerMockDataWithOptions.chartOptions.padding}
@@ -124,7 +171,7 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={keplerMockDataWithOptions.data}
+            data={object('data', keplerMockDataWithOptions.data)}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
             xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
@@ -147,12 +194,12 @@ stories
       </Grommet>
     )
   }, config)
-  .add('variable star light curve data', () => {
+  .add('variable star light curve data (multiple series) with y (vertical) direction error bars', () => {
     return (
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={lightCurveMockData.variableStar.data}
+            data={object('data', lightCurveMockData.variableStar.data)}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
             xAxisLabel={text('x axis label', 'phase')}
