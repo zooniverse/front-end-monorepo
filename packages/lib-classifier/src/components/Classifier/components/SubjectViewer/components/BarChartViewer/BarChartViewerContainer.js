@@ -8,7 +8,7 @@ import BarChartViewer from './BarChartViewer'
 import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper(stores) {
-  // TODO connect to get subject data
+  // TODO connect to get other data / function as needed
 }
 
 class BarChartViewerContainer extends Component {
@@ -16,7 +16,7 @@ class BarChartViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      data: null
+      JSONdata: null
     }
   }
 
@@ -39,7 +39,7 @@ class BarChartViewerContainer extends Component {
 
   getSubjectUrl() {
     // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json'] || {})
+    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -74,11 +74,11 @@ class BarChartViewerContainer extends Component {
     }
   }
 
-  onLoad(data) {
+  onLoad(JSONdata) {
     const { onReady } = this.props
     const target = this.viewer.current
     this.setState({
-      data
+      JSONdata: JSONdata
     },
       function () {
         onReady({ target })
@@ -95,7 +95,7 @@ class BarChartViewerContainer extends Component {
     }
 
     return (
-      <BarChartViewer data={this.state.data} />
+      <BarChartViewer data={this.state.JSONdata} />
     )
   }
 }
