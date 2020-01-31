@@ -32,6 +32,11 @@ export default class MyDocument extends Document {
         ...initialProps,
         styles: <>{initialProps.styles}{sheet.getStyleElement()}</>
       }
+    } catch (error) {
+      logNodeError(error)
+      return {
+        html: error.message
+      }
     } finally {
       sheet.seal()
     }
