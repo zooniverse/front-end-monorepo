@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Group } from '@vx/group'
 import cuid from 'cuid'
+import { lighten } from 'polished'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import Axes from '../Axes'
@@ -119,22 +120,58 @@ function ScatterPlot (props) {
           glyphColors[seriesIndex] ||
           standardGlyphColors[seriesIndex]
 
+          const errorBarColor = lighten(0.25, glyphColor)
           const GlyphComponent = glyphComponents[seriesIndex]
 
           return series.seriesData.map((point, pointIndex) => {
-            const cx = xScaleTransformed(point.x)
-            const cy = yScaleTransformed(point.y)
+            let xErrorBarPoints, yErrorBarPoints
+            const { x, y, x_error, y_error } = point
+            const cx = xScaleTransformed(x)
+            const cy = yScaleTransformed(y)
+
+            if (x_error) {
+              xErrorBarPoints = {
+                x1: xScaleTransformed(x - x_error),
+                x2: xScaleTransformed(x + x_error)
+              }
+            }
+
+            if (y_error) {
+              yErrorBarPoints = {
+                y1: yScaleTransformed(y + y_error),
+                y2: yScaleTransformed(y - y_error)
+              }
+            }
 
             return (
-              <GlyphComponent
-                data-x={point.x}
-                data-y={point.y}
-                key={pointIndex}
-                left={cx}
-                size={dataPointSize}
-                top={cy}
-                fill={glyphColor}
-              />
+              <g key={pointIndex}>
+                {x_error &&
+                  <line
+                    stroke={errorBarColor}
+                    strokeWidth={1}
+                    x1={xErrorBarPoints.x1}
+                    x2={xErrorBarPoints.x2}
+                    y1={cy}
+                    y2={cy}
+                  />}
+                {y_error &&
+                  <line
+                    stroke={errorBarColor}
+                    strokeWidth={1}
+                    x1={cx}
+                    x2={cx}
+                    y1={yErrorBarPoints.y1}
+                    y2={yErrorBarPoints.y2}
+                  />}
+                <GlyphComponent
+                  data-x={x}
+                  data-y={y}
+                  left={cx}
+                  size={dataPointSize}
+                  top={cy}
+                  fill={glyphColor}
+                />
+              </g>
             )
           })
         })}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMark, scale, marks }) {
+function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFinish, onSelectMark, scale }) {
   const { svg } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
@@ -61,6 +61,7 @@ function DrawingToolMarks ({ activeMarkId, onDelete, onDeselectMark, onSelectMar
         <MarkingComponent
           active={isActive}
           mark={mark}
+          onFinish={onFinish}
           scale={scale}
         />
         {isActive && <ObservedDeleteButton

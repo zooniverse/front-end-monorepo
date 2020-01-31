@@ -58,7 +58,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     creating && activeMark.initialDrag(convertEvent(event))
   }
 
-  function onPointerUp () {
+  function onFinish (event) {
     const { target, pointerId } = event
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
@@ -71,7 +71,6 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
   return (
     <g
       onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
       touch-action='none'
     >
       <StyledRect
@@ -87,6 +86,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
           onDelete={() => setActiveMark(null)}
+          onFinish={onFinish}
           onSelectMark={mark => setActiveMark(mark)}
           scale={scale}
         />
