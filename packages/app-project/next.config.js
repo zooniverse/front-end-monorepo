@@ -7,6 +7,7 @@ require('dotenv').config()
 const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
+const withSourceMaps = require('@zeit/next-source-maps')()
 
 const talkHosts = require('./config/talkHosts')
 
@@ -17,7 +18,7 @@ const SENTRY_DSN = process.env.SENTRY_DSN
 
 console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
-module.exports = {
+const nextConfig = {
   assetPrefix,
 
   env: {
@@ -45,3 +46,5 @@ module.exports = {
     return config
   }
 }
+
+module.exports = withSourceMaps(nextConfig)
