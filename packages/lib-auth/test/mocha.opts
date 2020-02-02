@@ -1,0 +1,4 @@
+--require chai/register-expect
+--reporter spec
+--ui bdd
+--file ./test/chai-config.js
