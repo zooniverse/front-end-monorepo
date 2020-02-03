@@ -54,8 +54,8 @@
   },
   "devDependencies": {
     "@babel/register": "~7.7.0",
-    "@storybook/addon-a11y": "~5.2.1",
-    "@storybook/react": "~5.2.1",
+    "@storybook/addon-a11y": "~5.3.10",
+    "@storybook/react": "~5.3.10",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.9.0",
