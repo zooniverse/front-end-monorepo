@@ -15,7 +15,17 @@ const config = {
 }
 
 const subject = {
+  metadata: {
+    default_frame: 1
+  },
   locations: [
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
     { 'image/jpeg': 'http://placekitten.com/500/300' },
     { 'image/jpeg': 'http://placekitten.com/500/300' },
     { 'image/jpeg': 'http://placekitten.com/500/300' }

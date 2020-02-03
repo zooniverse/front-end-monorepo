@@ -58,7 +58,10 @@ describe('Component > SingleImageViewerContainer', function () {
         id: 'test',
         locations: [
           { 'image/jpeg': 'https://some.domain/image.jpg' }
-        ]
+        ],
+        metadata: {
+          default_frame: "0"
+        }
       }
       wrapper = shallow(
         <SingleImageViewerContainer
