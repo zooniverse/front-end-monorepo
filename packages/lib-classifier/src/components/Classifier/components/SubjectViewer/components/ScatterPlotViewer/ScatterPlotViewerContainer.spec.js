@@ -38,7 +38,7 @@ describe('Component > ScatterPlotViewerContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should mount with an initialized state', function () {
+  it('should initialize with the default state', function () {
     const wrapper = shallow(
       <ScatterPlotViewerContainer />,
       { disableLifecycleMethods: true }

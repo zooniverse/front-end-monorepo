@@ -115,6 +115,7 @@ ScatterPlotViewerContainer.defaultProps = {
 ScatterPlotViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
