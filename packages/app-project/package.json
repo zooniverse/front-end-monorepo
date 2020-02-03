@@ -22,6 +22,7 @@
     "@sentry/browser": "^5.4.3",
     "@sindresorhus/string-hash": "~1.2.0",
     "@vx/vx": "~0.0.191",
+    "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
