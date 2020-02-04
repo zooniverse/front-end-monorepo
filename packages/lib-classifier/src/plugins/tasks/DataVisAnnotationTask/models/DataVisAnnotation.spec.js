@@ -1,6 +1,7 @@
 import DataVisAnnotation from './DataVisAnnotation'
 
 const dataVisAnnotation = {
+  id: 'datavis1',
   task: 'T0',
   taskType: 'dataVisAnnotation',
   value: []

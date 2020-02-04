@@ -1,5 +1,5 @@
-import ClassificationStore from '@store/ClassificationStore'
-import SingleChoiceTask from './SingleChoiceTask'
+import { types } from 'mobx-state-tree'
+import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 
 const singleChoiceTask = {
   answers: [
@@ -14,7 +14,7 @@ const singleChoiceTask = {
 
 describe('Model > SingleChoiceTask', function () {
   it('should exist', function () {
-    const singleChoiceTaskInstance = SingleChoiceTask.create(singleChoiceTask)
+    const singleChoiceTaskInstance = SingleChoiceTask.TaskModel.create(singleChoiceTask)
     expect(singleChoiceTaskInstance).to.be.ok()
     expect(singleChoiceTaskInstance).to.be.an('object')
   })
@@ -29,24 +29,21 @@ describe('Model > SingleChoiceTask', function () {
     expect(errorThrown).to.be.true()
   })
 
-  describe('with a classification', function () {
+  describe('with an annotation', function () {
     let task
 
     before(function () {
-      task = SingleChoiceTask.create(singleChoiceTask)
-      task.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      task = SingleChoiceTask.TaskModel.create(singleChoiceTask)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: SingleChoiceTask.AnnotationModel,
+        task: SingleChoiceTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
     })
 
     it('should start up with a null value', function () {
@@ -64,20 +61,17 @@ describe('Model > SingleChoiceTask', function () {
 
     before(function () {
       const requiredTask = Object.assign({}, singleChoiceTask, { required: true })
-      task = SingleChoiceTask.create(requiredTask)
-      task.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      task = SingleChoiceTask.TaskModel.create(requiredTask)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: SingleChoiceTask.AnnotationModel,
+        task: SingleChoiceTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {

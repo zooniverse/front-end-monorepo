@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import * as tools from '@plugins/drawingTools/models/tools'
@@ -7,6 +8,7 @@ const toolModels = Object.values(tools)
 
 const Drawing = types.model('Drawing', {
   activeToolIndex: types.optional(types.number, 0),
+  annotation: types.maybe(types.safeReference(DrawingAnnotation)),
   help: types.optional(types.string, ''),
   instruction: types.string,
   tools: types.array(types.union(...toolModels)),
@@ -18,7 +20,11 @@ const Drawing = types.model('Drawing', {
     },
 
     get defaultAnnotation () {
-      return DrawingAnnotation.create({ task: self.taskKey, taskType: self.type })
+      return DrawingAnnotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     },
 
     get isComplete () {
