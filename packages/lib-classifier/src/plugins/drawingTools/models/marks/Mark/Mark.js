@@ -17,7 +17,6 @@ const BaseMark = types.model('BaseMark', {
   toolType: types.string
 })
   .preProcessSnapshot(snapshot => {
-    console.log('Mark preprocessor', snapshot)
     const newSnapshot = Object.assign({}, snapshot)
     // generate mark IDs, if not present
     newSnapshot.id = snapshot.id || cuid()
@@ -27,17 +26,14 @@ const BaseMark = types.model('BaseMark', {
       snapshot.annotations.forEach(annotation => annotationsMap[annotation.task] = annotation)
       newSnapshot.annotations = annotationsMap
     }
-    console.log(newSnapshot)
     return newSnapshot
   })
   .postProcessSnapshot(snapshot => {
-    console.log('Mark postprocessor')
     const newSnapshot = Object.assign({}, snapshot)
     // remove mark IDs
     delete newSnapshot.id
     // convert subtask annotations to an array
     newSnapshot.annotations = Object.values(snapshot.annotations)
-    console.log(newSnapshot)
     return newSnapshot
   })
   .views(self => ({

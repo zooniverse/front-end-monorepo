@@ -32,7 +32,6 @@ const Drawing = types.model('Drawing', {
         const { annotations, ...rest } = mark
         drawingSnapshot.value[markIndex] = rest
       })
-      console.log('drawing annotation', drawingAnnotations)
       return drawingAnnotations
     }
   }))

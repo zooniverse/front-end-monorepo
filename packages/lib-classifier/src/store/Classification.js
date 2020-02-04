@@ -55,12 +55,10 @@ const Classification = types
         annotations = annotations.concat(annotation.toSnapshot)
       })
       snapshot = Object.assign({}, snapshot, { annotations })
-      console.log('Panoptes classification', snapshot)
       return snapshot
     }
   }))
   .preProcessSnapshot(snapshot => {
-    console.log('Classification preprocessor', snapshot)
     const newSnapshot = Object.assign({}, snapshot)
     // generate classification IDs, if not present
     newSnapshot.id = snapshot.id || cuid()
@@ -70,18 +68,15 @@ const Classification = types
       snapshot.annotations.forEach(annotation => annotationsMap[annotation.task] = annotation)
       newSnapshot.annotations = annotationsMap
     }
-    console.log(newSnapshot)
     return newSnapshot
   })
   .postProcessSnapshot(snapshot => {
-    console.log('Classification postprocessor')
     const newSnapshot = Object.assign({}, snapshot)
     // remove temporary classification IDs
     // TODO: leave the ID if it came from Panoptes
     delete newSnapshot.id
     // convert annotations to an array
     newSnapshot.annotations = Object.values(snapshot.annotations)
-    console.log(newSnapshot)
     return newSnapshot
   })
 
