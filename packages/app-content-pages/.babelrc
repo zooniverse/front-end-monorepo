@@ -1,7 +1,6 @@
 {
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    "@babel/plugin-proposal-optional-chaining",
     "dynamic-import-node"
   ],
   "presets": ["next/babel"],

@@ -15,8 +15,7 @@
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "~7.7.0",
-    "@babel/plugin-proposal-optional-chaining": "~7.6.0",
+    "@babel/plugin-proposal-decorators": "~7.8.3",
     "@sentry/browser": "^5.4.3",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
@@ -24,7 +23,7 @@
     "@zooniverse/react-components": "~0.7.1",
     "async": "~2.6.2",
     "babel-plugin-dynamic-import-node": "~2.3.0",
-    "babel-plugin-styled-components": "~1.10.0",
+    "babel-plugin-styled-components": "~1.10.7",
     "contentful": "~7.5.0",
     "counterpart": "~0.18.6",
     "dotenv-webpack": "~1.7.0",
@@ -53,7 +52,7 @@
     "validator": "~10.11.0"
   },
   "devDependencies": {
-    "@babel/register": "~7.7.0",
+    "@babel/register": "~7.8.3",
     "@storybook/addon-a11y": "~5.3.10",
     "@storybook/react": "~5.3.10",
     "chai": "~4.2.0",
