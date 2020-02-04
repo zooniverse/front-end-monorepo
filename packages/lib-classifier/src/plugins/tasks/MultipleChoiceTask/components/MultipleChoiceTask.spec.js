@@ -13,7 +13,7 @@ describe('MultipleChoiceTask', function () {
     type: 'multiple'
   })
 
-  const { annotation } = task
+  const annotation = task.defaultAnnotation
 
   describe('when it renders', function () {
     let wrapper

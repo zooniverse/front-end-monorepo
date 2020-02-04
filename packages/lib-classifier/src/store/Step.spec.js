@@ -1,15 +1,15 @@
+import { types } from 'mobx-state-tree'
 import Step from './Step'
 import {
   MultipleChoiceTaskFactory,
   SingleChoiceTaskFactory
 } from '@test/factories'
 import taskRegistry from '@plugins/tasks'
-import ClassificationStore from '@store/ClassificationStore'
 
 describe('Model > Step', function () {
   let step
-  const SingleChoiceTask = taskRegistry.get('single').TaskModel
-  const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
+  const SingleChoiceTask = taskRegistry.get('single')
+  const MultipleChoiceTask = taskRegistry.get('multiple')
 
   before(function () {
     step = Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
@@ -24,26 +24,13 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
-        SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
       ]
     })
 
     it('should be complete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      step.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
       expect(step.isComplete).to.be.true()
     })
   })
@@ -52,26 +39,13 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
-        SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
       ]
     })
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      step.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
       expect(step.isComplete).to.be.false()
     })
   })
@@ -81,23 +55,25 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: true })),
-        SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: true })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
       ]
       step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      step.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      const multipleChoiceAnnotation = tasks[0].defaultAnnotation
+      const singleChoiceAnnotation = tasks[1].defaultAnnotation
+      const store = types.model({
+        annotations: types.array(types.union(MultipleChoiceTask.AnnotationModel, SingleChoiceTask.AnnotationModel)),
+        step: Step
+      })
+      .create({
+        annotations: [
+          multipleChoiceAnnotation,
+          singleChoiceAnnotation
+        ],
+        step
+      })
+      tasks[0].setAnnotation(multipleChoiceAnnotation)
+      tasks[1].setAnnotation(singleChoiceAnnotation)
     })
 
     it('should be incomplete', function () {

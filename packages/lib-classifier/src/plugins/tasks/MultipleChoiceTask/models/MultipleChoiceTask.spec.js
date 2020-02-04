@@ -1,5 +1,5 @@
-import ClassificationStore from '@store/ClassificationStore'
-import MultipleChoiceTask from './MultipleChoiceTask'
+import { types } from 'mobx-state-tree'
+import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
 
 const multipleChoiceTask = {
   answers: [
@@ -14,7 +14,7 @@ const multipleChoiceTask = {
 
 describe('Model > MultipleChoiceTask', function () {
   it('should exist', function () {
-    const multipleChoiceTaskInstance = MultipleChoiceTask.create(multipleChoiceTask)
+    const multipleChoiceTaskInstance = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
     expect(multipleChoiceTaskInstance).to.be.ok()
     expect(multipleChoiceTaskInstance).to.be.an('object')
   })
@@ -22,31 +22,28 @@ describe('Model > MultipleChoiceTask', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      MultipleChoiceTask.create({})
+      MultipleChoiceTask.TaskModel.create({})
     } catch (e) {
       errorThrown = true
     }
     expect(errorThrown).to.be.true()
   })
 
-  describe('with a classification', function () {
+  describe('with an annotation', function () {
     let task
 
     before(function () {
-      task = MultipleChoiceTask.create(multipleChoiceTask)
-      task.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      task = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: MultipleChoiceTask.AnnotationModel,
+        task: MultipleChoiceTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
     })
 
     it('should start up with an empty value', function () {
@@ -64,20 +61,17 @@ describe('Model > MultipleChoiceTask', function () {
 
     before(function () {
       const requiredTask = Object.assign({}, multipleChoiceTask, { required: true })
-      task = MultipleChoiceTask.create(requiredTask)
-      task.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      task = MultipleChoiceTask.TaskModel.create(requiredTask)
+      const annotation = task.defaultAnnotation
+      const store = types.model('MockStore', {
+        annotation: MultipleChoiceTask.AnnotationModel,
+        task: MultipleChoiceTask.TaskModel
+      })
+      .create({
+        annotation,
+        task
+      })
+      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {

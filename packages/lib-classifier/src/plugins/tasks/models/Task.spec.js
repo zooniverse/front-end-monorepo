@@ -1,5 +1,5 @@
-import { getType } from 'mobx-state-tree'
-import ClassificationStore from '@store/ClassificationStore'
+import { getType, types } from 'mobx-state-tree'
+import AnnotationsStore from '@store/AnnotationsStore'
 import Task from './Task'
 import Annotation from './Annotation'
 
@@ -25,24 +25,22 @@ describe('Model > Task', function () {
     expect(errorThrown).to.be.true()
   })
 
-  describe('with a classification', function () {
+  describe('with an annotation', function () {
     let task
 
     before(function () {
       task = Task.create(mockTask)
-      task.classifications = ClassificationStore.create()
-      const mockSubject = {
-        id: 'subject',
-        metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
-        id: 'project'
-      }
-      task.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+      const annotations = AnnotationsStore.create()
+      const store = types.model('MockStore', {
+        annotations: AnnotationsStore,
+        task: Task
+      })
+      .create({
+        annotations,
+        task
+      })
+      annotations.addAnnotation(task)
+      task.setAnnotation(annotations.annotation(task))
     })
 
     it('should start up with an undefined value', function () {
