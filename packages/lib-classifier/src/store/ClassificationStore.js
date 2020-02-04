@@ -56,6 +56,7 @@ const ClassificationStore = types
 
       const tempID = cuid()
       const newClassification = Classification.create({
+        annotations: {},
         id: tempID, // Generate an id just for serialization in MST. Should be dropped before POST...
         links: {
           project: project.id,
