@@ -5,7 +5,7 @@ describe('Model > MutipleChoiceAnnotation', function () {
     let multipleChoiceAnnotation
 
     before(function () {
-      multipleChoiceAnnotation = MultipleChoiceAnnotation.create({ task: 'T0', taskType: 'multiple', value: [0, 3] })
+      multipleChoiceAnnotation = MultipleChoiceAnnotation.create({ id: 'multiple1', task: 'T0', taskType: 'multiple', value: [0, 3] })
     })
 
     it('should exist', function () {
@@ -22,7 +22,7 @@ describe('Model > MutipleChoiceAnnotation', function () {
     let multipleChoiceAnnotation
 
     before(function () {
-      multipleChoiceAnnotation = MultipleChoiceAnnotation.create({ task: 'T0', taskType: 'multiple' })
+      multipleChoiceAnnotation = MultipleChoiceAnnotation.create({ id: 'multiple1', task: 'T0', taskType: 'multiple' })
     })
 
     it('should exist', function () {

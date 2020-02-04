@@ -90,8 +90,9 @@ describe('Model > WorkflowStepStore', function () {
 
       STORE_STEPS.forEach(step => {
         step.tasks.forEach(task => {
+          const annotation = undefined
           const { taskKey } = task
-          const originalTask = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+          const originalTask = Object.assign({}, workflow.tasks[taskKey], { annotation, taskKey })
           expect(task).to.eql(originalTask)
         })
       })
@@ -140,8 +141,9 @@ describe('Model > WorkflowStepStore', function () {
 
       STORE_STEPS.forEach(step => {
         step.tasks.forEach(task => {
+          const annotation = undefined
           const { taskKey } = task
-          const originalTask = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+          const originalTask = Object.assign({}, workflow.tasks[taskKey], { annotation, taskKey })
           expect(task).to.eql(originalTask)
         })
       })

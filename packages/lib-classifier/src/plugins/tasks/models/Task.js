@@ -1,32 +1,33 @@
+import cuid from 'cuid'
 import { getRoot, types } from 'mobx-state-tree'
 import Annotation from './Annotation'
 
+
 const Task = types.model('Task', {
+  // override annotation in individual task models with specific annotation types
+  annotation: types.maybe(types.safeReference(Annotation)),
   taskKey: types.identifier,
   required: types.maybe(types.boolean),
   type: types.literal('default')
 })
   .views(self => ({
-    get annotation () {
-      const { classifications } = getRoot(self)
-      const { annotation } = classifications || {}
-      const currentAnnotation = annotation ? annotation(self) : self.defaultAnnotation
-      return currentAnnotation
-    },
 
     get defaultAnnotation () {
     // Override this in a real task
-      return Annotation.create({ task: self.taskKey, taskType: self.type })
+      return Annotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     },
 
     get isComplete () {
-      return !self.required || self.annotation.isComplete
+      return !self.required || !!self.annotation && self.annotation.isComplete
     }
   }))
   .actions(self => ({
     updateAnnotation (value) {
-      const { addAnnotation } = getRoot(self).classifications
-      addAnnotation(self, value)
+      self.annotation && self.annotation.update(value)
     },
 
     complete () {
@@ -44,6 +45,10 @@ const Task = types.model('Task', {
       /*
       Override this to reset your task for a new annotation.
       */
+    },
+
+    setAnnotation (annotation) {
+      self.annotation = annotation
     },
 
     start () {

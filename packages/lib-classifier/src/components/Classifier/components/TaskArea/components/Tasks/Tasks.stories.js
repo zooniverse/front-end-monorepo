@@ -2,34 +2,51 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
+import { types } from 'mobx-state-tree'
 import React from 'react'
 import sinon from 'sinon'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
 import ClassificationStore from '@store/ClassificationStore'
+import WorkflowStepStore from '@store/WorkflowStepStore'
 import Step from '@store/Step'
 import taskRegistry from '@plugins/tasks'
 
-const mockStore = {
-  classifications: {},
-  subjects: {},
-  subjectViewer: {
-    loadingState: asyncStates.loading
-  },
-  workflows: {
-    loadingState: asyncStates.loading
-  },
-  workflowSteps: {
-    isThereANextStep: () => false,
-    isThereAPreviousStep: () => false
-  }
-}
+const SingleChoiceTask = taskRegistry.get('single').TaskModel
+const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
+const TextTask = taskRegistry.get('text').TaskModel
 
-function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, store, tasks, zooTheme }) {
+function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, zooTheme }) {
   const background = dark
     ? zooTheme.global.colors['dark-1']
     : zooTheme.global.colors['light-1']
+  const classifications = ClassificationStore.create()
+  const steps = {
+    S1: step
+  }
+  const store = types.model('MockStore', {
+    classifications: ClassificationStore,
+    workflowSteps: WorkflowStepStore
+  })
+  .create({
+    classifications,
+    workflowSteps: WorkflowStepStore.create({ steps })
+  })
+  const mockSubject = {
+    id: 'subject',
+    metadata: {}
+  }
+  const mockWorkflow = {
+    id: 'workflow',
+    version: '1.0'
+  }
+  const mockProject = {
+    id: 'project'
+  }
+  classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+  step.tasks.forEach(task => classifications.addAnnotation(task))
+  const classification = classifications.active
   return (
     <Provider classifierStore={store}>
       <Grommet theme={Object.assign({}, zooTheme, { dark })}>
@@ -39,11 +56,13 @@ function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, store, task
           width='380px'
         >
           <Tasks
+            addAnnotation={classifications.addAnnotation}
+            classification={classification}
             isThereTaskHelp={isThereTaskHelp}
             loadingState={asyncStates.success}
             step={step}
             subjectReadyState={subjectReadyState}
-            tasks={tasks}
+            tasks={step.tasks}
           />
         </Box>
       </Grommet>
@@ -60,7 +79,7 @@ storiesOf('Tasks', module)
   })
   .add('loading', function () {
     return (
-      <Provider classifierStore={mockStore}>
+      <Provider classifierStore={{}}>
         <Grommet theme={zooTheme}>
           <Tasks
             loadingState={asyncStates.loading}
@@ -70,45 +89,28 @@ storiesOf('Tasks', module)
     )
   })
   .add('single task', function () {
-    const SingleChoiceTask = taskRegistry.get('single').TaskModel
-    const tasks = [SingleChoiceTask.create({
-      annotation: { task: 'init' },
+    const tasks = [{
       answers: [{ label: 'yes' }, { label: 'no' }],
       help: 'Choose an answer from the choices given, then press Done.',
       question: 'Is there a cat?',
       required: boolean('Required', false),
       taskKey: 'init',
-      type: 'single',
-      updateAnnotation: sinon.stub()
-    })]
+      type: 'single'
+    }]
     const step = Step.create({
       stepKey: 'S1',
       taskKeys: ['init'],
-      tasks: {
-        T1: tasks[0]
-      }
+      tasks
     })
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
-    const store = Object.assign({}, mockStore, {
-      workflows: {
-        loadingState: asyncStates.success
-      },
-      workflowSteps: {
-        active: step,
-        isThereANextStep: () => false,
-        isThereAPreviousStep: () => true,
-        isThereTaskHelp: true
-      }
-    })
     return (
       <MockTask
         dark={dark}
         isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        store={store}
         subjectReadyState={subjectReadyState}
         tasks={tasks}
         zooTheme={zooTheme}
@@ -116,59 +118,38 @@ storiesOf('Tasks', module)
     )
   })
   .add('multiple tasks', function () {
-    const SingleChoiceTask = taskRegistry.get('single').TaskModel
-    const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
     const tasks = [
-      SingleChoiceTask.create({
-        annotation: { task: 'init' },
+      {
         answers: [{ label: 'yes' }, { label: 'no' }],
         help: 'Choose an answer from the choices given, then press Done.',
         question: 'Is there a cat?',
         required: boolean('Required', false),
         taskKey: 'init',
-        type: 'single',
-        updateAnnotation: sinon.stub()
-      }),
-      MultipleChoiceTask.create({
-        annotation: { task: 'T1', value: [] },
+        type: 'single'
+      },
+      {
         answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
         help: 'Pick as many answers as apply, then press Done.',
         question: 'What is it doing?',
         required: false,
         taskKey: 'T1',
-        type: 'multiple',
-        updateAnnotation: sinon.stub()
-      })
+        type: 'multiple'
+      }
     ]
     const step = Step.create({
       stepKey: 'S1',
       taskKeys: ['init', 'T1'],
-      tasks: {
-        init: tasks[0],
-        T1: tasks[1]
-      }
+      tasks
     })
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
-    const store = Object.assign({}, mockStore, {
-      workflows: {
-        loadingState: asyncStates.success
-      },
-      workflowSteps: {
-        active: step,
-        isThereANextStep: () => true,
-        isThereAPreviousStep: () => true,
-        isThereTaskHelp: true
-      }
-    })
     return (
       <MockTask
         dark={dark}
         isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        store={store}
         subjectReadyState={subjectReadyState}
         tasks={tasks}
         zooTheme={zooTheme}
@@ -178,47 +159,28 @@ storiesOf('Tasks', module)
   .add('text', function () {
     const tasks = [
       {
-        annotation: { task: 'T0', value: '' },
         help: 'Type something into the text box.',
         instruction: 'Type something here',
         taskKey: 'T0',
         text_tags: ['insertion', 'deletion'],
-        type: 'text',
-        updateAnnotation: sinon.stub()
+        type: 'text'
       }
     ]
     const step = Step.create({
       stepKey: 'S1',
       taskKeys: ['T0'],
-      tasks: {
-        T0: tasks[0]
-      }
+      tasks
     })
     const dark = boolean('Dark theme', false)
     const loadingState = select('Subject loading', asyncStates, asyncStates.success)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
-    const store = Object.assign({}, mockStore, {
-      subjectViewer: {
-        loadingState
-      },
-      workflows: {
-        loadingState: asyncStates.success
-      },
-      workflowSteps: {
-        active: step,
-        isThereANextStep: () => false,
-        isThereAPreviousStep: () => false,
-        isThereTaskHelp: true
-      }
-    })
     return (
       <MockTask
         dark={dark}
         isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        store={store}
         subjectReadyState={subjectReadyState}
         tasks={tasks}
         zooTheme={zooTheme}
