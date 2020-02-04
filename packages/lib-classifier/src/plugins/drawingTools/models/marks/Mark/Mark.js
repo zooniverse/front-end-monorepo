@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import { getParent, types } from 'mobx-state-tree'
 import SingleChoiceTask  from '@plugins/tasks/SingleChoiceTask'
 import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
@@ -15,6 +16,30 @@ const BaseMark = types.model('BaseMark', {
   toolIndex: types.optional(types.number, 0),
   toolType: types.string
 })
+  .preProcessSnapshot(snapshot => {
+    console.log('Mark preprocessor', snapshot)
+    const newSnapshot = Object.assign({}, snapshot)
+    // generate mark IDs, if not present
+    newSnapshot.id = snapshot.id || cuid()
+    // convert any subtask annotations arrays to a map
+    const annotationsMap = {}
+    if (snapshot.annotations && Array.isArray(snapshot.annotations)) {
+      snapshot.annotations.forEach(annotation => annotationsMap[annotation.task] = annotation)
+      newSnapshot.annotations = annotationsMap
+    }
+    console.log(newSnapshot)
+    return newSnapshot
+  })
+  .postProcessSnapshot(snapshot => {
+    console.log('Mark postprocessor')
+    const newSnapshot = Object.assign({}, snapshot)
+    // remove mark IDs
+    delete newSnapshot.id
+    // convert subtask annotations to an array
+    newSnapshot.annotations = Object.values(snapshot.annotations)
+    console.log(newSnapshot)
+    return newSnapshot
+  })
   .views(self => ({
     getAngle (x1, y1, x2, y2) {
       const deltaX = x2 - x1

@@ -1,3 +1,4 @@
+import { getSnapshot } from 'mobx-state-tree'
 import Mark from './Mark'
 import { Tool } from '@plugins/drawingTools/models/tools'
 
@@ -5,11 +6,16 @@ describe('Models > Drawing Task > Mark', function () {
   let mark
 
   before(function () {
-    mark = Mark.create({ id: 'test', toolType: 'default' })
+    mark = Mark.create({ toolType: 'default' })
   })
 
   it('should exist', function () {
     expect(mark).to.be.ok()
+  })
+
+  it('should have an id', function () {
+    expect(mark.id).to.exist()
+    expect(mark.id).to.be.a('string')
   })
 
   it('should have a toolIndex', function () {
@@ -190,6 +196,22 @@ describe('Models > Drawing Task > Mark', function () {
           expect(drawingTool.isComplete).to.be.true()
         })
       })
+    })
+  })
+
+  describe('snapshots', function () {
+    let snapshot
+
+    before(function () {
+      snapshot = getSnapshot(mark)
+    })
+
+    it('should not have an ID', function () {
+      expect(snapshot.id).to.be.undefined()
+    })
+
+    it('should have an annotations array', function () {
+      expect(snapshot.annotations).to.be.a('array')
     })
   })
 })
