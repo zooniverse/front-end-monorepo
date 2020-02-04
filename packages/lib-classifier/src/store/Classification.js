@@ -1,4 +1,5 @@
-import { types, getType } from 'mobx-state-tree'
+import cuid from 'cuid'
+import { types, getSnapshot, getType } from 'mobx-state-tree'
 import { annotationModels } from '@plugins/tasks'
 import AnnotationsStore from './AnnotationsStore'
 import Resource from './Resource'
@@ -45,6 +46,43 @@ const Classification = types
       workflow: types.string
     }),
     metadata: types.maybe(ClassificationMetadata)
+  })
+  .views(self => ({
+    get toSnapshot () {
+      let snapshot = getSnapshot(self)
+      let annotations = []
+      self.annotations.forEach(annotation => {
+        annotations = annotations.concat(annotation.toSnapshot)
+      })
+      snapshot = Object.assign({}, snapshot, { annotations })
+      console.log('Panoptes classification', snapshot)
+      return snapshot
+    }
+  }))
+  .preProcessSnapshot(snapshot => {
+    console.log('Classification preprocessor', snapshot)
+    const newSnapshot = Object.assign({}, snapshot)
+    // generate classification IDs, if not present
+    newSnapshot.id = snapshot.id || cuid()
+    // convert any annotations arrays to a map
+    const annotationsMap = {}
+    if (snapshot.annotations && Array.isArray(snapshot.annotations)) {
+      snapshot.annotations.forEach(annotation => annotationsMap[annotation.task] = annotation)
+      newSnapshot.annotations = annotationsMap
+    }
+    console.log(newSnapshot)
+    return newSnapshot
+  })
+  .postProcessSnapshot(snapshot => {
+    console.log('Classification postprocessor')
+    const newSnapshot = Object.assign({}, snapshot)
+    // remove temporary classification IDs
+    // TODO: leave the ID if it came from Panoptes
+    delete newSnapshot.id
+    // convert annotations to an array
+    newSnapshot.annotations = Object.values(snapshot.annotations)
+    console.log(newSnapshot)
+    return newSnapshot
   })
 
 export { ClassificationMetadata }
