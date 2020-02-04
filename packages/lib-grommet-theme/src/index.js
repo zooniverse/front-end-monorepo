@@ -36,6 +36,7 @@ const darkTeal = '#005D69'
 const navy = '#0C4881'
 const gold = '#f0b200'
 const blue = '#43BBFD'
+const white = '#ffffff'
 
 const accentColors = [
   mint, // accent-1
@@ -49,7 +50,8 @@ const neutralColors = [
   darkTeal, // neutral-2
   navy, // neutral-3
   gold, // neutral-4
-  blue // neutral-5
+  blue, // neutral-5
+  white // neutral-6
 ]
 
 const statusColors = {
