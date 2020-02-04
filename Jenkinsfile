@@ -42,9 +42,20 @@ pipeline {
         }
 
         stage('Build app Docker images') {
+          environment {
+              NODE_ENV = 'production'
+              PANOPTES_ENV = 'production'
+          }
+
           parallel {
             stage('Build @zooniverse/fe-content-pages') {
               agent any
+
+              environment {
+                ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
+                SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+              }
+
               steps {
                 dir ('packages/app-content-pages') {
                   script {
@@ -59,6 +70,12 @@ pipeline {
             }
             stage('Build @zooniverse/fe-project') {
               agent any
+
+              environment {
+                ASSET_PREFIX = 'https://fe-project.zooniverse.org'
+                SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
+              }
+
               steps {
                 dir ('packages/app-project') {
                   script {
