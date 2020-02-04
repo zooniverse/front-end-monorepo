@@ -34,10 +34,10 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     <Grid
       forwardedRef={ref}
       rows={['1fr', '1fr', '1fr']}
-      columns={['2fr', '1fr']}
+      columns={['1fr', '1fr', '1fr']}
       gap='xsmall'
       areas={[
-        { name: 'controls', start: [0, 0], end: [0, 0] },
+        { name: 'controls', start: [0, 0], end: [1, 0] },
         { name: 'phasedJSON', start: [0, 1], end: [1, 1] },
         { name: 'rawJSON', start: [0, 2], end: [1, 2] },
         { name: 'barCharts', start: [2, 0], end: [2, 0] },
@@ -51,21 +51,37 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         setSeriesFocus={setSeriesFocus}
         setYAxisInversion={setYAxisInversion}
       />
-      <Box gridArea='phasedJSON'>
+      <Box
+        gridArea='phasedJSON'
+        height='545px'
+        width='770px'
+      >
         <ScatterPlotViewer
           data={phasedJSON.data}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
         />
       </Box>
-      <Box gridArea='rawData'>
+      <Box
+        gridArea='rawData'
+        height='350px'
+        width='440px'
+      >
         <ScatterPlotViewer
           data={rawJSON.data}
           xAxisLabel={rawJSON.chartOptions.xAxisLabel}
           yAxisLabel={rawJSON.chartOptions.yAxisLabel}
         />
       </Box>
-      <Box gridArea='barCharts'>
+      <Box
+        background='#ffffff'
+        direction='row'
+        gap='small'
+        gridArea='barCharts'
+        height='300px'
+        pad='small'
+        width='300px'
+      >
         <BarChartViewer
           data={period.data}
           xAxisLabel={period.options.xAxisLabel}
@@ -77,8 +93,17 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           yAxisLabel={amplitude.options.yAxisLabel}
         />
       </Box>
-      <Box gridArea='HRDiagram'>
-        <SingleImageViewer>
+      <Box
+        direction='column'
+        height='260px'
+        gridArea='HRDiagram'
+        width='220px'
+      >
+        <SingleImageViewer
+          height='260px'
+          enableInteractionLayer={false}
+          width='220px'
+        >
           <image src={imgSrc} />
         </SingleImageViewer>
         <SpacedText>{counterpart('VariableStarViewer.temperature')}</SpacedText>

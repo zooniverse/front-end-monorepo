@@ -11,10 +11,7 @@ import {
   variableStarAmplitudeMockData,
   variableStarPeriodMockData
 } from '../BarChartViewer/mockData'
-import {
-  keplerMockDataWithOptions,
-  lightCurveMockData,
-} from '../ScatterPlotViewer/helpers/mockData'
+import variableStar from '../../helpers/mockLightCurves/variableStar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
@@ -52,12 +49,12 @@ stories
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='500px' width='700px'>
           <VariableStarViewer
             barJSON={barJSON}
             imgSrc={image}
             phasedJSON={{ data: [], chartOptions: {} }}
-            rawJSON={object('data', data)}
+            rawJSON={object('data', variableStar)}
           />
         </Box>
       </Grommet>
@@ -71,7 +68,7 @@ stories
           <VariableStarViewer
             barJSON={barJSON}
             imgSrc='https://placekitten.com/200/230'
-            rawJSON={object('data', data)}
+            rawJSON={object('data', variableStar)}
           />
         </Box>
       </Grommet>
@@ -85,7 +82,7 @@ stories
           <VariableStarViewer
             barJSON={barJSON}
             imgSrc='https://placekitten.com/200/230'
-            rawJSON={object('data', data)}
+            rawJSON={object('data', variableStar)}
           />
         </Box>
       </Grommet>
