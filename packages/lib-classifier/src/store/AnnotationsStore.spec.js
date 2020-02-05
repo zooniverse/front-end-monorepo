@@ -26,20 +26,21 @@ describe('Model > AnnotationsStore', function () {
       })
 
       it('should allow for 0 values', function () {
-        model.addAnnotation(task, 0)
-        expect(model.annotation(task).value).to.equal(0)
+        const annotation = model.addAnnotation(task, 0)
+        expect(annotation.value).to.equal(0)
       })
 
       it('should allow for null values', function () {
-        model.addAnnotation(task, null)
-        expect(model.annotation(task).value).to.be.null
+        const annotation = model.addAnnotation(task, null)
+        expect(annotation.value).to.be.null
       })
     })
 
     describe('for an existing task', function () {
       it('should not create a new annotation', function () {
-        model.addAnnotation(task, 2)
+        const annotation = model.addAnnotation(task, 2)
         expect(model.annotations.size).to.equal(1)
+        expect(annotation.value).to.equal(2)
       })
     })
   })

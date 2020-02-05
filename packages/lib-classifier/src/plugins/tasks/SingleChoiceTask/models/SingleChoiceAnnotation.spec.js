@@ -5,7 +5,7 @@ describe('Model > SingleChoiceAnnotation', function () {
     let singleChoiceAnnotation
 
     before(function () {
-      singleChoiceAnnotation = SingleChoiceAnnotation.create({ task: 'T0', taskType: 'single', value: 0 })
+      singleChoiceAnnotation = SingleChoiceAnnotation.create({ id: 'single1', task: 'T0', taskType: 'single', value: 0 })
     })
 
     it('should exist', function () {
@@ -22,7 +22,7 @@ describe('Model > SingleChoiceAnnotation', function () {
     let singleChoiceAnnotation
 
     before(function () {
-      singleChoiceAnnotation = SingleChoiceAnnotation.create({ task: 'T0', taskType: 'single' })
+      singleChoiceAnnotation = SingleChoiceAnnotation.create({ id: 'single1', task: 'T0', taskType: 'single' })
     })
 
     it('should exist', function () {

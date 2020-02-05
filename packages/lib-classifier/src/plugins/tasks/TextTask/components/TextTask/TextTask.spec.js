@@ -13,7 +13,7 @@ describe('TextTask', function () {
     text_tags: ['insertion', 'deletion'],
     type: 'text'
   })
-  const { annotation } = task
+  const annotation = task.defaultAnnotation
 
   before(function () {
     wrapper = shallow(

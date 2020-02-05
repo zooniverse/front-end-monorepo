@@ -1,9 +1,11 @@
+import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import { Graph2dRangeXTool } from './dataVisTools'
 import DataVisAnnotation from './DataVisAnnotation'
 
 const DataVisTaskModel = types.model('DataVisTaskModel', {
+  annotation: types.maybe(types.safeReference(DataVisAnnotation)),
   help: types.optional(types.string, ''),
   instruction: types.maybe(types.string),
   tools: types.array(types.union({
@@ -16,7 +18,11 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return DataVisAnnotation.create({ task: self.taskKey, taskType: self.type })
+      return DataVisAnnotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     }
   }))
 

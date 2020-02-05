@@ -55,9 +55,10 @@ const ClassificationStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+        const { projects, subjects, workflows } = getRoot(self)
+        const validSubjectReference = isValidReference(() => subjects && subjects.active)
+        const validWorkflowReference = isValidReference(() => workflows && workflows.active)
+        const validProjectReference = isValidReference(() => projects && projects.active)
         if (validSubjectReference && validWorkflowReference && validProjectReference) {
           const subject = getRoot(self).subjects.active
           const workflow = getRoot(self).workflows.active
@@ -121,11 +122,13 @@ const ClassificationStore = types
       if (validClassificationReference) {
         const classification = self.active
         if (classification) {
-          classification.addAnnotation(task, annotationValue)
+          return classification.addAnnotation(task, annotationValue)
         }
       } else {
         if (process.browser) {
+          // TODO: throw an error here?
           console.error('No active classification. Cannot add annotation.')
+          return null
         }
       }
     }

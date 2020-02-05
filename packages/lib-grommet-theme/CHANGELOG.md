@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished] 2019-10-24
+## [Unpublished]
 ### Added
 - Added `#43BBFD` (blue) as `neutral-5`.
+- Added `#ffffff` (white) as `neutral-6`
 
 ### Changed
 - Lowered font weight for form input text.

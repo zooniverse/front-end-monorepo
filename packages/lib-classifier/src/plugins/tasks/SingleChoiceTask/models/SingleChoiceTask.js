@@ -1,3 +1,4 @@
+import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SingleChoiceAnnotation from './SingleChoiceAnnotation'
@@ -6,6 +7,7 @@ import SingleChoiceAnnotation from './SingleChoiceAnnotation'
 // What should be it called? I think we should use 'instruction'
 
 const SingleChoice = types.model('SingleChoice', {
+  annotation: types.maybe(types.safeReference(SingleChoiceAnnotation)),
   answers: types.array(types.frozen({
     label: types.string,
     next: types.maybe(types.string)
@@ -16,7 +18,11 @@ const SingleChoice = types.model('SingleChoice', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return SingleChoiceAnnotation.create({ task: self.taskKey, taskType: self.type })
+      return SingleChoiceAnnotation.create({
+        id: cuid(),
+        task: self.taskKey,
+        taskType: self.type
+      })
     }
   }))
 
