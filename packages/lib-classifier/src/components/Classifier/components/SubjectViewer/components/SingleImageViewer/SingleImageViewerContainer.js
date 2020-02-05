@@ -34,6 +34,8 @@ class SingleImageViewerContainer extends React.Component {
     this.onWheel = this.onWheel.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
+
+    
     this.state = {
       img: {},
       scale: 1,
@@ -96,8 +98,7 @@ class SingleImageViewerContainer extends React.Component {
     }
   }
 
-  onZoom (type, zoomValue) {
-    const { img } = this.state
+  onZoom (type) {
     switch (type) {
       case 'zoomin': {
         this.setState(prevState => {
@@ -148,7 +149,7 @@ class SingleImageViewerContainer extends React.Component {
   async preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
-      // TODO: Add polyfill for Object.values for IE
+      // TODO: Validate for allowed image media mime types
       const imageUrl = Object.values(subject.locations[0])[0]
       const img = await this.fetchImage(imageUrl)
       this.setState({ img })
@@ -187,8 +188,13 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   render () {
-    const { loadingState, onKeyDown, rotation } = this.props
-    const { img, scale, viewBox } = this.state
+    const {
+      enableInteractionLayer,
+      loadingState,
+      onKeyDown,
+      rotation
+    } = this.props
+    const { img, viewBox } = this.state
     const { naturalHeight, naturalWidth, src } = img
 
     if (loadingState === asyncStates.error) {
@@ -210,9 +216,10 @@ class SingleImageViewerContainer extends React.Component {
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
         <SingleImageViewer
-          ref={this.imageViewer}
+          enableInteractionLayer={enableInteractionLayer}
           height={naturalHeight}
           onKeyDown={onKeyDown}
+          ref={this.imageViewer}
           rotate={rotation}
           scale={subjectScale}
           viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
@@ -232,6 +239,7 @@ class SingleImageViewerContainer extends React.Component {
 }
 
 SingleImageViewerContainer.propTypes = {
+  enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
@@ -244,6 +252,7 @@ SingleImageViewerContainer.propTypes = {
 }
 
 SingleImageViewerContainer.defaultProps = {
+  enableInteractionLayer: true,
   enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
