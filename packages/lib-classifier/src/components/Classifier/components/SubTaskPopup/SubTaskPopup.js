@@ -5,18 +5,18 @@ import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
 import {} from 'prop-types'  // TODO
 
+import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
+
 import styled from 'styled-components'  // TODO: check what's the best way to style this component
 import zooTheme from '@zooniverse/grommet-theme'
 
 // EXPERIMENTAL
 // ----------------
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import taskRegistry from '@plugins/tasks'
-// ----------------
-
 const StyledBox = styled(Box)`
   border: 2px solid ${zooTheme.global.colors.brand}
-`  // DEBUG
+`
+// ----------------
 
 import en from './locales/en'
 
@@ -33,9 +33,12 @@ class SubTaskPopup extends React.Component {
   constructor () {
     super()
   }
+  
+  // TODO: Split render() into various asyncStates
 
   render () {
-    // TEST
+    // EXPERIMENTAL:
+    // Create a hardcoded simple task. Does it work? Very yes.
     const task = SingleChoiceTask.TaskModel.create({
       answers: [{ label: 'yes' }, { label: 'no' }],
       question: 'Is there a cat?',
