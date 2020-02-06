@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import getViewer from './helpers/getViewer'
 
+import SubTaskPopup from '../SubTaskPopup'
+
 function storeMapper (stores) {
   const { active: subject, loadingState: subjectQueueState } = stores.classifierStore.subjects
   const {
@@ -42,13 +44,16 @@ class SubjectViewer extends React.Component {
     const Viewer = getViewer(subject.viewer)
 
     return (
-      <Viewer
-        key={subject.id}
-        subject={subject}
-        loadingState={subjectReadyState}
-        onError={onError}
-        onReady={onSubjectReady}
-      />
+      <>
+        <Viewer
+          key={subject.id}
+          subject={subject}
+          loadingState={subjectReadyState}
+          onError={onError}
+          onReady={onSubjectReady}
+        />
+        <SubTaskPopup />
+      </>
     )
   }
 
