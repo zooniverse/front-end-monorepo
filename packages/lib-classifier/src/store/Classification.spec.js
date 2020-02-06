@@ -1,9 +1,15 @@
 import { getSnapshot } from 'mobx-state-tree'
+import taskRegistry from '@plugins/tasks'
 import Classification, { ClassificationMetadata } from './Classification'
 
 describe('Model > Classification', function () {
   let model
+  let firstAnnotation
+  let secondAnnotation
+
   before(function () {
+    const singleChoiceTask = taskRegistry.get('single')
+    const textTask = taskRegistry.get('text')
     model = Classification.create({
       links: {
         project: '1234',
@@ -17,6 +23,19 @@ describe('Model > Classification', function () {
         workflowVersion: '1.0'
       })
     })
+    const singleChoice = singleChoiceTask.TaskModel.create({
+      question: 'yes or no?',
+      answers: [ 'yes', 'no'],
+      taskKey: 'T1',
+      type: 'single'
+    })
+    const text = textTask.TaskModel.create({
+      instruction: 'type something',
+      taskKey: 'T0',
+      type: 'text'
+    })
+    firstAnnotation = model.addAnnotation(singleChoice, 0)
+    secondAnnotation = model.addAnnotation(text, 'This is a text task')
   })
 
   it('should exist', function () {
@@ -33,7 +52,7 @@ describe('Model > Classification', function () {
     let snapshot
 
     before(function () {
-      snapshot = getSnapshot(model)
+      snapshot = model.toSnapshot
     })
 
     it('should not have an ID', function () {
@@ -42,6 +61,10 @@ describe('Model > Classification', function () {
 
     it('should have an annotations array', function () {
       expect(snapshot.annotations).to.be.a('array')
+    })
+
+    it('should preserve annotation order', function () {
+      expect(snapshot.annotations).to.deep.equal([ firstAnnotation.toSnapshot, secondAnnotation.toSnapshot ])
     })
   })
 })
