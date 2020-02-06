@@ -1,4 +1,6 @@
+import { types } from 'mobx-state-tree'
 import React from 'react'
+import sinon from 'sinon'
 import { mount, shallow } from 'enzyme'
 import { Text, TextArea } from 'grommet'
 import { expect } from 'chai'
@@ -16,9 +18,17 @@ describe('TextTask', function () {
   const annotation = task.defaultAnnotation
 
   before(function () {
+    const store = types.model('MockStore', {
+      annotation: Task.AnnotationModel,
+      task: Task.TaskModel
+    })
+    .create({
+      annotation,
+      task
+    })
+    task.setAnnotation(annotation)
     wrapper = shallow(
       <TextTask
-        annotation={annotation}
         task={task}
       />
     )
@@ -28,41 +38,7 @@ describe('TextTask', function () {
     const label = wrapper.find('label')
     expect(label.find(Text).prop('children')).to.equal(task.instruction)
     const textarea = label.find(TextArea)
-    expect(textarea.prop('value')).to.equal(annotation.value)
-  })
-
-  describe('onChange', function () {
-    beforeEach(function () {
-      annotation.update('')
-      wrapper = shallow(
-        <TextTask
-          annotation={annotation}
-          task={task}
-        />
-      )
-    })
-
-    it('should update the textarea', function () {
-      const fakeEvent = {
-        target: {
-          value: 'Hello there!'
-        }
-      }
-      wrapper.find(TextArea).simulate('change', fakeEvent)
-      wrapper.setProps({ annotation })
-      expect(wrapper.find(TextArea).prop('value')).to.equal(fakeEvent.target.value)
-    })
-
-    it('should update the task annotation', function () {
-      const textArea = wrapper.find(TextArea)
-      const fakeEvent = {
-        target: {
-          value: 'Hello there!'
-        }
-      }
-      textArea.simulate('change', fakeEvent)
-      expect(annotation.value).to.deep.equal(fakeEvent.target.value)
-    })
+    expect(textarea.prop('defaultValue')).to.equal(annotation.value)
   })
 
   describe('text tagging', function () {
@@ -70,7 +46,6 @@ describe('TextTask', function () {
       annotation.update('Hello, this is some test text.')
       wrapper = mount(
         <TextTask
-          annotation={annotation}
           task={task}
         />
       )
@@ -99,8 +74,49 @@ describe('TextTask', function () {
       textArea.selectionEnd = 11
       const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
       insertionButton.simulate('click', fakeEvent)
-      wrapper.setProps({ annotation })
-      expect(wrapper.find(TextArea).prop('value')).to.equal(expectedText)
+      const updatedText = textArea.value
+      expect(updatedText).to.equal(expectedText)
+    })
+  })
+
+  describe('on mount', function () {
+    before(function () {
+      annotation.update('Hello, this is an existing annotation')
+      task.setAnnotation(annotation)
+      wrapper = mount(
+        <TextTask
+          task={task}
+        />
+      )
+    })
+
+    it('should preserve an existing annotation', function () {
+      const textArea = wrapper.find(TextArea).getDOMNode()
+      expect(textArea.value).to.equal('Hello, this is an existing annotation')
+    })
+  })
+
+  describe('on unmount', function () {
+    before(function () {
+      sinon.spy(annotation, 'update')
+      annotation.update('Hello, this is an existing annotation')
+      task.setAnnotation(annotation)
+      wrapper = mount(
+        <TextTask
+          task={task}
+        />
+      )
+      const textArea = wrapper.find(TextArea).getDOMNode()
+      textArea.value = 'This has been edited.'
+      wrapper.unmount()
+    })
+
+    after(function () {
+      annotation.update.restore()
+    })
+
+    it('should save the current text', function () {
+      expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
     })
   })
 })
