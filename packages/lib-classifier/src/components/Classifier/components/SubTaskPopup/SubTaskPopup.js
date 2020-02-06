@@ -8,9 +8,7 @@ import {} from 'prop-types'  // TODO
 import styled from 'styled-components'  // TODO: check what's the best way to style this component
 import zooTheme from '@zooniverse/grommet-theme'
 
-const StyledBox = styled(Box)`
-  background-color: ${zooTheme.global.colors.brand};
-`
+const StyledBox = styled(Box)``
 
 import en from './locales/en'
 
@@ -27,7 +25,14 @@ class SubTaskPopup extends React.Component {
 
   render () {
     return (
-      <Rnd>
+      <Rnd
+        minWidth={200}
+        minHeight={100}
+        style={{
+          border: `2px solid ${zooTheme.global.colors['light-2']}`,
+          backgroundColor: zooTheme.global.colors['light-1'],
+        }}
+      >
         <StyledBox pad="medium">
           HELLO WORLD
         </StyledBox>
