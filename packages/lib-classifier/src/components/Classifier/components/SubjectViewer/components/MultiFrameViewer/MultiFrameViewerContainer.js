@@ -1,12 +1,15 @@
 import asyncStates from '@zooniverse/async-states'
+import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
-import React from 'react'
 import PropTypes from 'prop-types'
-import { draggable } from '@plugins/drawingTools/components'
+import React from 'react'
 
+import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import SingleImageViewer from './SingleImageViewer'
+
 import locationValidator from '../../helpers/locationValidator'
+import FrameCarousel from './FrameCarousel'
+import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import withKeyZoom from '../../../withKeyZoom'
 
 function storeMapper (stores) {
@@ -27,7 +30,7 @@ function storeMapper (stores) {
 
 const DraggableImage = draggable('image')
 
-class SingleImageViewerContainer extends React.Component {
+class MultiFrameViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
@@ -149,7 +152,8 @@ class SingleImageViewerContainer extends React.Component {
   async preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
-      const imageUrl = Object.values(subject.locations[0])[0]
+      const frame = subject.metadata && subject.metadata.default_frame ? subject.metadata.default_frame : 0
+      const imageUrl = Object.values(subject.locations[frame])[0]
       const img = await this.fetchImage(imageUrl)
       this.setState({ img })
       return img
@@ -191,7 +195,8 @@ class SingleImageViewerContainer extends React.Component {
       enableInteractionLayer,
       loadingState,
       onKeyDown,
-      rotation
+      rotation,
+      subject
     } = this.props
     const { img, viewBox } = this.state
     const { naturalHeight, naturalWidth, src } = img
@@ -207,37 +212,42 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
-    const subject = this.subjectImage.current
+    const currentSubjectImage = this.subjectImage.current
     const getScreenCTM = () => svg.getScreenCTM()
-    const { width: clientWidth, height: clientHeight } = subject ? subject.getBoundingClientRect() : {}
+    const { width: clientWidth, height: clientHeight } = currentSubjectImage ? currentSubjectImage.getBoundingClientRect() : {}
     const subjectScale = clientWidth / naturalWidth
 
     return (
-      <SVGContext.Provider value={{ svg, getScreenCTM }}>
-        <SingleImageViewer
-          enableInteractionLayer={enableInteractionLayer}
-          height={naturalHeight}
-          onKeyDown={onKeyDown}
-          ref={this.imageViewer}
-          rotate={rotation}
-          scale={subjectScale}
-          viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-          width={naturalWidth}
-        >
-          <DraggableImage
-            ref={this.subjectImage}
-            dragMove={this.dragMove}
+      <Box
+        direction='row'
+      >
+        <FrameCarousel subject={subject} />
+        <SVGContext.Provider value={{ svg, getScreenCTM }}>
+          <SingleImageViewer
+            enableInteractionLayer={enableInteractionLayer}
             height={naturalHeight}
+            onKeyDown={onKeyDown}
+            ref={this.imageViewer}
+            rotate={rotation}
+            scale={subjectScale}
+            viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
             width={naturalWidth}
-            xlinkHref={src}
-          />
-        </SingleImageViewer>
-      </SVGContext.Provider>
+          >
+            <DraggableImage
+              ref={this.subjectImage}
+              dragMove={this.dragMove}
+              height={naturalHeight}
+              width={naturalWidth}
+              xlinkHref={src}
+            />
+          </SingleImageViewer>
+        </SVGContext.Provider>
+      </Box>
     )
   }
 }
 
-SingleImageViewerContainer.propTypes = {
+MultiFrameViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
@@ -250,7 +260,7 @@ SingleImageViewerContainer.propTypes = {
   })
 }
 
-SingleImageViewerContainer.defaultProps = {
+MultiFrameViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   enableRotation: () => null,
   ImageObject: window.Image,
@@ -264,7 +274,7 @@ SingleImageViewerContainer.defaultProps = {
 @inject(storeMapper)
 @withKeyZoom
 @observer
-class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
+class DecoratedMultiFrameViewerContainer extends MultiFrameViewerContainer { }
 
-export default DecoratedSingleImageViewerContainer
-export { SingleImageViewerContainer }
+export default DecoratedMultiFrameViewerContainer
+export { MultiFrameViewerContainer }
