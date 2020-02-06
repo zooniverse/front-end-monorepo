@@ -48,11 +48,11 @@ const Classification = types
     metadata: types.maybe(ClassificationMetadata)
   })
   .views(self => ({
-    get toSnapshot () {
+    toSnapshot () {
       let snapshot = getSnapshot(self)
       let annotations = []
       self.annotations.forEach(annotation => {
-        annotations = annotations.concat(annotation.toSnapshot)
+        annotations = annotations.concat(annotation.toSnapshot())
       })
       snapshot = Object.assign({}, snapshot, { annotations })
       return snapshot

@@ -23,7 +23,7 @@ const Annotation = types.model('Annotation', {
       return true
     },
 
-    get toSnapshot () {
+    toSnapshot () {
       return getSnapshot(self)
     }
   }))

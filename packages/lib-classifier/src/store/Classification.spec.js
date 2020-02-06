@@ -52,7 +52,7 @@ describe('Model > Classification', function () {
     let snapshot
 
     before(function () {
-      snapshot = model.toSnapshot
+      snapshot = model.toSnapshot()
     })
 
     it('should not have an ID', function () {
@@ -64,7 +64,7 @@ describe('Model > Classification', function () {
     })
 
     it('should preserve annotation order', function () {
-      expect(snapshot.annotations).to.deep.equal([ firstAnnotation.toSnapshot, secondAnnotation.toSnapshot ])
+      expect(snapshot.annotations).to.deep.equal([ firstAnnotation.toSnapshot(), secondAnnotation.toSnapshot() ])
     })
   })
 })

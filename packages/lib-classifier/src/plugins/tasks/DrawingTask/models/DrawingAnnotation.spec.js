@@ -54,7 +54,7 @@ describe('Model > DrawingAnnotation', function () {
           drawingTask,
           annotation
         })
-        snapshot = annotation.toSnapshot
+        snapshot = annotation.toSnapshot()
       })
 
       it('should contain exactly one annotation', function () {
@@ -127,7 +127,7 @@ describe('Model > DrawingAnnotation', function () {
         const questionTask = pointTool.tasks[0]
         point1.addAnnotation(questionTask, 0)
         point2.addAnnotation(questionTask, 1)
-        snapshot = annotation.toSnapshot
+        snapshot = annotation.toSnapshot()
       })
 
       it('should contain the task annotation plus one annotation for each subtask', function () {

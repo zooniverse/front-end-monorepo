@@ -8,7 +8,7 @@ const Drawing = types.model('Drawing', {
   value: types.array(types.union(...markReferenceTypes))
 })
   .views(self => ({
-    get toSnapshot () {
+    toSnapshot () {
       const snapshot = getSnapshot(self)
       // resolve mark references (IDs) in the snapshot to mark snapshots
       const actualTask = resolveIdentifier(DrawingTask, getRoot(self), self.task)

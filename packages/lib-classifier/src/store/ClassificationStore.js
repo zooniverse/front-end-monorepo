@@ -176,7 +176,7 @@ const ClassificationStore = types
 
         classification.completed = true
         // Convert from observables
-        let classificationToSubmit = classification.toSnapshot
+        let classificationToSubmit = classification.toSnapshot()
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach((entry) => {
