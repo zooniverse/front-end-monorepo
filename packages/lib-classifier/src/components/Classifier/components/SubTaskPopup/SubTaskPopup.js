@@ -8,14 +8,25 @@ import {} from 'prop-types'  // TODO
 import styled from 'styled-components'  // TODO: check what's the best way to style this component
 import zooTheme from '@zooniverse/grommet-theme'
 
-const StyledBox = styled(Box)``
+// EXPERIMENTAL
+// ----------------
+import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
+import taskRegistry from '@plugins/tasks'
+// ----------------
+
+const StyledBox = styled(Box)`
+  border: 2px solid ${zooTheme.global.colors.brand}
+`  // DEBUG
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
-  return {}
+  const { addAnnotation } = stores.classifierStore.classifications
+  return {
+    addAnnotation
+  }
 }
 
 class SubTaskPopup extends React.Component {
@@ -24,6 +35,23 @@ class SubTaskPopup extends React.Component {
   }
 
   render () {
+    // TEST
+    const task = SingleChoiceTask.TaskModel.create({
+      answers: [{ label: 'yes' }, { label: 'no' }],
+      question: 'Is there a cat?',
+      required: true,
+      taskKey: 'init',
+      type: 'single'
+    })
+    
+    const { addAnnotation } = this.props
+    
+    const ready = true // DEBUG
+    
+    const annotation = addAnnotation(task)
+    task.setAnnotation(annotation)
+    const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+    
     return (
       <Rnd
         minWidth={200}
@@ -33,8 +61,13 @@ class SubTaskPopup extends React.Component {
           backgroundColor: zooTheme.global.colors['light-1'],
         }}
       >
-        <StyledBox pad="medium">
-          HELLO WORLD
+        <StyledBox pad="medium" fill>
+          <TaskComponent
+            disabled={!ready}
+            annotation={annotation}
+            task={task}
+            {...this.props}
+          />
         </StyledBox>
       </Rnd>
     )
