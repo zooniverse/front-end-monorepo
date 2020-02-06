@@ -2,44 +2,48 @@ import { PlainButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Text, TextArea } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 function TextTask (props) {
-  const { annotation, autoFocus, disabled, task } = props
-  const { value } = annotation
+  const { autoFocus, disabled, task } = props
+  const { value } = task.annotation
   const textArea = React.createRef()
 
-  function onChange (event) {
-    const { target } = event
-    updateText(target.value)
-  }
+  useEffect(onMount, [])
 
-  function updateText (text) {
-    annotation.update(text)
+  function onMount () {
+    function textTaskDisposer () {
+      if (textArea.current && task.annotation) {
+        const text = textArea.current.value
+        task.annotation.update(text)
+      }
+    }
+    return textTaskDisposer
   }
 
   function setTagSelection (e) {
+    const text = textArea.current.value
     const textTag = e.currentTarget.value
     const startTag = `[${textTag}]`
     const endTag = `[/${textTag}]`
     const selectionStart = textArea.current.selectionStart
     const selectionEnd = textArea.current.selectionEnd
-    const textBefore = value.substring(0, selectionStart)
+    const textBefore = text.substring(0, selectionStart)
     let textAfter
     let newValue
 
     if (selectionStart === selectionEnd) {
-      textAfter = value.substring(selectionStart, value.length)
+      textAfter = text.substring(selectionStart, text.length)
       newValue = textBefore + startTag + endTag + textAfter
     } else {
-      const textInBetween = value.substring(selectionStart, selectionEnd)
-      textAfter = value.substring(selectionEnd, value.length)
+      const textInBetween = text.substring(selectionStart, selectionEnd)
+      textAfter = text.substring(selectionEnd, text.length)
       newValue = textBefore + startTag + textInBetween + endTag + textAfter
     }
-    updateText(newValue)
+    textArea.current.value = newValue
     if (textArea.current.focus) {
       textArea.current.setSelectionRange((newValue.length - textAfter.length), (newValue.length - textAfter.length))
       textArea.current.focus()
@@ -59,8 +63,7 @@ function TextTask (props) {
           autoFocus={autoFocus}
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
-          value={value}
-          onChange={onChange}
+          defaultValue={value}
         />
       </label>
       {(task.text_tags.length > 0) &&
@@ -99,10 +102,6 @@ TextTask.defaultProps = {
 }
 
 TextTask.propTypes = {
-  annotation: PropTypes.shape({
-    update: PropTypes.func,
-    value: PropTypes.string
-  }).isRequired,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
