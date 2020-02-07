@@ -6,6 +6,7 @@ import SVGPanZoom from './SVGPanZoom'
 
 describe('Components > SVGPanZoom', function () {
   let wrapper
+  let onDrag
   let onPan
   let onZoom
   
@@ -14,6 +15,7 @@ describe('Components > SVGPanZoom', function () {
       <SVGPanZoom
         naturalHeight={200}
         naturalWidth={400}
+        setOnDrag={callback => { onDrag = callback }}
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
       >
@@ -49,18 +51,16 @@ describe('Components > SVGPanZoom', function () {
     expect(viewBox).to.equal('0 -10 400 200')
   })
 
-  xit('should should pan horizontally on drag', function () {
-      const dragMove = wrapper.find('draggable(image)').prop('dragMove')
-      dragMove({}, { x: -15, y: 0 })
-      const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-      expect(viewBox).to.equal('10 0 400 200')
+  it('should should pan horizontally on drag', function () {
+    onDrag({}, { x: -15, y: 0 })
+    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    expect(viewBox).to.equal('10 0 400 200')
   })
 
-  xit('should should pan vertically on drag', function () {
-      const dragMove = wrapper.find('draggable(image)').prop('dragMove')
-      dragMove({}, { x: 0, y: -15 })
-      const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-      expect(viewBox).to.equal('0 10 400 200')
+  it('should should pan vertically on drag', function () {
+    onDrag({}, { x: 0, y: -15 })
+    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    expect(viewBox).to.equal('0 10 400 200')
   })
 
   it('should should zoom out on wheel scroll up', function () {

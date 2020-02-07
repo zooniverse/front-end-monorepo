@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import React, { cloneElement, useContext, useEffect, useState } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnPan, setOnZoom }) {
+function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnDrag, setOnPan, setOnZoom }) {
+  setOnDrag(onDrag)
   setOnPan(onPan)
   setOnZoom(onZoom)
 
@@ -27,6 +28,13 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnPan, setOnZoo
     const x = xCentre - width / 2
     const y = yCentre - height / 2
     return { x, y, width, height }
+  }
+
+  function onDrag (event, difference) {
+    const newViewBox = Object.assign({}, viewBox)
+    newViewBox.x -= difference.x / 1.5
+    newViewBox.y -= difference.y / 1.5
+    setViewBox(newViewBox)
   }
 
   function onPan (dx, dy) {

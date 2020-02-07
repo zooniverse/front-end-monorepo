@@ -31,6 +31,7 @@ const DraggableImage = draggable('image')
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
+    this.setOnDrag = this.setOnDrag.bind(this)
     this.dragMove = this.dragMove.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
@@ -57,12 +58,11 @@ class SingleImageViewerContainer extends React.Component {
   }
 
   dragMove (event, difference) {
-    this.setState(prevState => {
-      const { viewBox } = Object.assign({}, prevState)
-      viewBox.x -= difference.x / 1.5
-      viewBox.y -= difference.y / 1.5
-      return { viewBox }
-    })
+    this.onDrag && this.onDrag(event, difference)
+  }
+
+  setOnDrag (callback) {
+    this.onDrag = callback
   }
 
   async preload () {
@@ -138,6 +138,7 @@ class SingleImageViewerContainer extends React.Component {
         <SVGPanZoom
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
+          setOnDrag={this.setOnDrag}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
         >
