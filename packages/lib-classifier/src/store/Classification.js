@@ -59,14 +59,17 @@ const Classification = types
     }
   }))
   .preProcessSnapshot(snapshot => {
-    const newSnapshot = Object.assign({}, snapshot)
+    let newSnapshot = Object.assign({}, snapshot)
     // generate classification IDs, if not present
     newSnapshot.id = snapshot.id || cuid()
     // convert any annotations arrays to a map
-    const annotationsMap = {}
     if (snapshot.annotations && Array.isArray(snapshot.annotations)) {
-      snapshot.annotations.forEach(annotation => annotationsMap[annotation.task] = annotation)
-      newSnapshot.annotations = annotationsMap
+      const annotations = {}
+      snapshot.annotations.forEach(annotation => {
+        annotation.id = annotation.id || cuid()
+        annotations[annotation.id] = annotation
+      })
+      newSnapshot = Object.assign({}, newSnapshot, { annotations })
     }
     return newSnapshot
   })
