@@ -42,11 +42,6 @@ pipeline {
         }
 
         stage('Build app Docker images') {
-          environment {
-              NODE_ENV = 'production'
-              PANOPTES_ENV = 'production'
-          }
-
           parallel {
             stage('Build @zooniverse/fe-content-pages') {
               agent any
@@ -61,7 +56,8 @@ pipeline {
                   script {
                     def dockerRepoName = 'zooniverse/fe-content-pages'
                     def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def newImage = docker.build(dockerImageName)
+                    def buildArgs = "--build-arg ASSET_PREFIX SENTRY_DSN ."
+                    def newImage = docker.build(dockerImageName, buildArgs)
                     newImage.push()
                     newImage.push('latest')
                   }
@@ -81,7 +77,8 @@ pipeline {
                   script {
                     def dockerRepoName = 'zooniverse/fe-project'
                     def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def newImage = docker.build(dockerImageName)
+                    def buildArgs = "--build-arg ASSET_PREFIX SENTRY_DSN ."
+                    def newImage = docker.build(dockerImageName, buildArgs)
                     newImage.push()
                     newImage.push('latest')
                   }
