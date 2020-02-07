@@ -62,4 +62,24 @@ describe('Components > SVGPanZoom', function () {
       const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
       expect(viewBox).to.equal('0 10 400 200')
   })
+
+  it('should should zoom out on wheel scroll up', function () {
+    let fakeEvent = { deltaY: 10, preventDefault: sinon.stub(), stopPropagation: sinon.stub() }
+    wrapper.simulate('wheel', fakeEvent)
+    let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    expect(viewBox).to.equal('18.5 9.5 363 181')
+    fakeEvent = { deltaY: -10, preventDefault: sinon.stub(), stopPropagation: sinon.stub() }
+    wrapper.simulate('wheel', fakeEvent)
+    viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    expect(viewBox).to.equal('0 0 400 200')
+  })
+
+  it('should should zoom in on wheel scroll down', function () {
+    let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    expect(viewBox).to.equal('0 0 400 200')
+    const fakeEvent = { deltaY: 10, preventDefault: sinon.stub(), stopPropagation: sinon.stub() }
+    wrapper.simulate('wheel', fakeEvent)
+    viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    expect(viewBox).to.equal('18.5 9.5 363 181')
+  })
 })

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
-import React, { cloneElement, useState } from 'react'
+import React, { cloneElement, useContext, useEffect, useState } from 'react'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnPan, setOnZoom }) {
   setOnPan(onPan)
@@ -14,6 +15,8 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnPan, setOnZoo
 
   const [ scale, setScale ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
+
+  const { svg } = useContext(SVGContext)
 
   function scaledViewBox (scale) {
     const viewBoxScale = 1 / scale
@@ -40,6 +43,7 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnPan, setOnZoo
         const newViewBox = scaledViewBox(newScale)
         setScale(newScale)
         setViewBox(newViewBox)
+        console.log(newViewBox)
         return
       }
       case 'zoomout': {
@@ -60,8 +64,23 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnPan, setOnZoo
       }
     }
   }
-  
-  return cloneElement(children, { viewBox: `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}` })
+
+  function onWheel (event) {
+    event.preventDefault()
+    event.stopPropagation()
+    const { deltaY } = event
+    if (deltaY < 0) {
+      onZoom('zoomout', -1)
+    } else {
+      onZoom('zoomin', 1)
+    }
+  }
+
+  return (
+    <div onWheel={onWheel}>
+      {cloneElement(children, { viewBox: `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}` })}
+    </div>
+  )
 }
 
 SVGPanZoom.propTypes = {

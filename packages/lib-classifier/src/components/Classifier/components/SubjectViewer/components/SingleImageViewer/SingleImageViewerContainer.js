@@ -32,7 +32,6 @@ class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
-    this.onWheel = this.onWheel.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
 
@@ -44,10 +43,6 @@ class SingleImageViewerContainer extends React.Component {
   componentDidMount () {
     this.props.enableRotation()
     this.onLoad()
-  }
-
-  componentWillUnmount () {
-    this.imageViewer.current && this.imageViewer.current.removeEventListener('wheel', this.onWheel)
   }
 
   fetchImage (url) {
@@ -68,16 +63,6 @@ class SingleImageViewerContainer extends React.Component {
       viewBox.y -= difference.y / 1.5
       return { viewBox }
     })
-  }
-
-  onWheel (event) {
-    event.preventDefault()
-    const { deltaY } = event
-    if (deltaY < 0) {
-      this.onZoom('zoomout', -1)
-    } else {
-      this.onZoom('zoomin', 1)
-    }
   }
 
   async preload () {
@@ -109,7 +94,6 @@ class SingleImageViewerContainer extends React.Component {
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
       console.error(error)
@@ -148,7 +132,6 @@ class SingleImageViewerContainer extends React.Component {
     const getScreenCTM = () => svg.getScreenCTM()
     const { width: clientWidth, height: clientHeight } = subject ? subject.getBoundingClientRect() : {}
     const subjectScale = clientWidth / naturalWidth
-    console.log(naturalHeight, naturalWidth)
 
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
