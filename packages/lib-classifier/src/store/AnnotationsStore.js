@@ -1,4 +1,4 @@
-import { types, getType } from 'mobx-state-tree'
+import { addDisposer, getParent, onAction, types } from 'mobx-state-tree'
 import Annotation from '@plugins/tasks/models/Annotation'
 
 const AnnotationsStore = types
@@ -17,6 +17,20 @@ const AnnotationsStore = types
     }
   }))
   .actions(self => {
+    function afterAttach() {
+      createClassificationObserver()
+    }
+
+    function createClassificationObserver() {
+      const classificationsDisposer = autorun(() => {
+        const classifications = getParent(self)
+        onAction(classifications, (call) => {
+          if (call.name === 'reset') self.reset()
+        })
+      }, { name: 'AnnotationsStore Classifications observer autorun' })
+      addDisposer(self, classificationsDisposer)
+    }
+
     function addAnnotation (task, value) {
       const annotation = self.annotation(task)
       // new annotations must be added to this store before we can modify them
@@ -37,9 +51,15 @@ const AnnotationsStore = types
       taskAnnotation && self.annotations.delete(taskAnnotation.id)
     }
 
+    function reset () {
+      self.annotations.clear()
+    }
+
     return {
       addAnnotation,
-      removeAnnotation
+      afterAttach,
+      removeAnnotation,
+      reset
     }
   })
 

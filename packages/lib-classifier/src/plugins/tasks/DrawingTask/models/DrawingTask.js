@@ -63,7 +63,7 @@ const Drawing = types.model('Drawing', {
     }
 
     function reset () {
-      self.tools.forEach(tool => tool.marks.clear())
+      self.tools.forEach(tool => tool.reset())
     }
 
     return {
