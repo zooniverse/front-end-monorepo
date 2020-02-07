@@ -12,13 +12,13 @@ RUN yarn install
 
 RUN yarn bootstrap
 
-FROM node:12 AS production-apps
+# FROM node:12 AS production-apps
 
-RUN mkdir -p /usr/src
-WORKDIR /usr/src/
+# RUN mkdir -p /usr/src
+# WORKDIR /usr/src/
 
-COPY --from=bootstrap /usr/src /usr/src
+# COPY --from=bootstrap /usr/src /usr/src
 
-RUN yarn workspace @zooniverse/fe-project build
+# RUN yarn workspace @zooniverse/fe-project build
 
-RUN yarn workspace @zooniverse/fe-content-pages build
+# RUN yarn workspace @zooniverse/fe-content-pages build
