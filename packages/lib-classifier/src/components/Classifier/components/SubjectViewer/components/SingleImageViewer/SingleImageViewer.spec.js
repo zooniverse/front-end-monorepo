@@ -2,12 +2,13 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import SingleImageViewer from './SingleImageViewer'
+import InteractionLayer from '../InteractionLayer'
 
 let wrapper
 
 describe('Component > SingleImageViewer', function () {
   beforeEach(function () {
-    wrapper = shallow(<SingleImageViewer width={100} height={200} />)
+    wrapper = shallow(<SingleImageViewer height={200} width={100} viewBox='0 0 100 100' />)
   })
 
   it('should render without crashing', function () {
@@ -27,6 +28,19 @@ describe('Component > SingleImageViewer', function () {
     it('should be rotated', function () {
       const transform = wrapper.find('svg').prop('transform')
       expect(transform).to.have.string('rotate(-90 0 0)')
+    })
+  })
+
+  describe('with interaction layer', function () {
+    it('should default to render the InteractionLayer', function () {
+      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
+    })
+
+    it('should be possible to disable the render of the InteractionLayer by prop', function () {
+      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
+      wrapper.setProps({ enableInteractionLayer: false })
+      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(0)
+      wrapper.setProps({ enableInteractionLayer: true })
     })
   })
 })

@@ -21,7 +21,18 @@ const Container = styled.div`
   }
 `
 
-const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, height, onKeyDown, rotate, scale, viewBox, width }, ref) {
+const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
+  const {
+    children,
+    enableInteractionLayer,
+    height,
+    onKeyDown,
+    rotate,
+    scale,
+    viewBox,
+    width
+  } = props
+
   const transform = `rotate(${rotate} 0 0)`
   return (
     <Container>
@@ -34,17 +45,19 @@ const SingleImageViewer = forwardRef(function SingleImageViewer ({ children, hei
         viewBox={viewBox}
       >
         {children}
-        <InteractionLayer
-          scale={scale}
-          height={height}
-          width={width}
-        />
+        {enableInteractionLayer &&
+          <InteractionLayer
+            scale={scale}
+            height={height}
+            width={width}
+          />}
       </svg>
     </Container>
   )
 })
 
 SingleImageViewer.propTypes = {
+  enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onKeyDown: PropTypes.func,
   rotate: PropTypes.number,
@@ -54,6 +67,7 @@ SingleImageViewer.propTypes = {
 }
 
 SingleImageViewer.defaultProps = {
+  enableInteractionLayer: true,
   onKeyDown: () => true,
   rotate: 0,
   scale: 1
