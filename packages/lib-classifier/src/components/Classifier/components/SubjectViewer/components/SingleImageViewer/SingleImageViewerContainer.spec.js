@@ -267,65 +267,6 @@ describe('Component > SingleImageViewerContainer', function () {
       }
     })
 
-    it('should enable zoom in', function (done) {
-      onReady.callsFake(function () {
-        onZoom('zoomin', 1)
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('18.5 9.5 363 181')
-        done()
-      })
-    })
-
-    it('should enable zoom out', function (done) {
-      onReady.callsFake(function () {
-        onZoom('zoomin', 1)
-        let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('18.5 9.5 363 181')
-        onZoom('zoomout', -1)
-        viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('0 0 400 200')
-        done()
-      })
-    })
-
-    it('should enable horizontal panning', function (done) {
-      onReady.callsFake(function () {
-        onPan(-1, 0)
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('10 0 400 200')
-        done()
-      })
-    })
-
-    it('should enable vertical panning', function (done) {
-      onReady.callsFake(function () {
-        onPan(0, -1)
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('0 -10 400 200')
-        done()
-      })
-    })
-
-    it('should should pan horizontally on drag', function (done) {
-      onReady.callsFake(function () {
-        const dragMove = wrapper.find('draggable(image)').prop('dragMove')
-        dragMove({}, { x: -15, y: 0 })
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('10 0 400 200')
-        done()
-      })
-    })
-
-    it('should should pan vertically on drag', function (done) {
-      onReady.callsFake(function () {
-        const dragMove = wrapper.find('draggable(image)').prop('dragMove')
-        dragMove({}, { x: 0, y: -15 })
-        const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
-        expect(viewBox).to.equal('0 10 400 200')
-        done()
-      })
-    })
-
     it('should should zoom out on wheel scroll up', function (done) {
       onReady.callsFake(function () {
         const { onWheel } = wrapper.instance()

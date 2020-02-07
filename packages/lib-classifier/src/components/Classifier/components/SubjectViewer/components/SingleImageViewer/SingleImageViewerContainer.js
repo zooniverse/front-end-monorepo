@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { draggable } from '@plugins/drawingTools/components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
@@ -35,23 +36,13 @@ class SingleImageViewerContainer extends React.Component {
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
 
-    
     this.state = {
       img: {},
-      scale: 1,
-      viewBox: {
-        x: 0,
-        y: 0,
-        height: 0,
-        width: 0
-      }
     }
   }
 
   componentDidMount () {
     this.props.enableRotation()
-    this.props.setOnZoom(this.onZoom.bind(this))
-    this.props.setOnPan(this.onPan.bind(this))
     this.onLoad()
   }
 
@@ -79,15 +70,6 @@ class SingleImageViewerContainer extends React.Component {
     })
   }
 
-  onPan (dx, dy) {
-    this.setState(prevState => {
-      const { viewBox } = Object.assign({}, prevState)
-      viewBox.x -= dx * 10
-      viewBox.y += dy * 10
-      return { viewBox }
-    })
-  }
-
   onWheel (event) {
     event.preventDefault()
     const { deltaY } = event
@@ -96,54 +78,6 @@ class SingleImageViewerContainer extends React.Component {
     } else {
       this.onZoom('zoomin', 1)
     }
-  }
-
-  onZoom (type) {
-    switch (type) {
-      case 'zoomin': {
-        this.setState(prevState => {
-          let { scale } = Object.assign({}, prevState)
-          scale = Math.min(scale + 0.1, 2)
-          const viewBox = this.scaledViewBox(scale)
-          return { scale, viewBox }
-        })
-        return
-      }
-      case 'zoomout': {
-        this.setState(prevState => {
-          let { scale } = Object.assign({}, prevState)
-          scale = Math.max(scale - 0.1, 1)
-          const viewBox = this.scaledViewBox(scale)
-          return { scale, viewBox }
-        })
-        return
-      }
-      case 'zoomto': {
-        this.setState(prevState => {
-          const { naturalHeight, naturalWidth } = prevState.img
-          const scale = 1
-          const viewBox = {
-            x: 0,
-            y: 0,
-            width: naturalWidth,
-            height: naturalHeight
-          }
-          return { scale, viewBox }
-        })
-      }
-    }
-  }
-
-  scaledViewBox (scale) {
-    const { img, viewBox } = this.state
-    const viewBoxScale = 1 / scale
-    const xCentre = viewBox.x + viewBox.width / 2
-    const yCentre = viewBox.y + viewBox.height / 2
-    const width = parseInt(img.naturalWidth * viewBoxScale, 10)
-    const height = parseInt(img.naturalHeight * viewBoxScale, 10)
-    const x = xCentre - width / 2
-    const y = yCentre - height / 2
-    return { x, y, width, height }
   }
 
   async preload () {
@@ -175,10 +109,6 @@ class SingleImageViewerContainer extends React.Component {
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      const { viewBox } = this.state
-      viewBox.height = naturalHeight
-      viewBox.width = naturalWidth
-      this.setState({ viewBox })
       this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
@@ -192,9 +122,11 @@ class SingleImageViewerContainer extends React.Component {
       enableInteractionLayer,
       loadingState,
       onKeyDown,
-      rotation
+      rotation,
+      setOnPan,
+      setOnZoom
     } = this.props
-    const { img, viewBox } = this.state
+    const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
 
     if (loadingState === asyncStates.error) {
@@ -206,33 +138,44 @@ class SingleImageViewerContainer extends React.Component {
     if (!src) {
       return null
     }
+    
+    if (!naturalWidth) {
+      return null
+    }
 
     const svg = this.imageViewer.current
     const subject = this.subjectImage.current
     const getScreenCTM = () => svg.getScreenCTM()
     const { width: clientWidth, height: clientHeight } = subject ? subject.getBoundingClientRect() : {}
     const subjectScale = clientWidth / naturalWidth
+    console.log(naturalHeight, naturalWidth)
 
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
-        <SingleImageViewer
-          enableInteractionLayer={enableInteractionLayer}
-          height={naturalHeight}
-          onKeyDown={onKeyDown}
-          ref={this.imageViewer}
-          rotate={rotation}
-          scale={subjectScale}
-          viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-          width={naturalWidth}
+        <SVGPanZoom
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
         >
-          <DraggableImage
-            ref={this.subjectImage}
-            dragMove={this.dragMove}
+          <SingleImageViewer
+            enableInteractionLayer={enableInteractionLayer}
             height={naturalHeight}
+            onKeyDown={onKeyDown}
+            ref={this.imageViewer}
+            rotate={rotation}
+            scale={subjectScale}
             width={naturalWidth}
-            xlinkHref={src}
-          />
-        </SingleImageViewer>
+          >
+            <DraggableImage
+              ref={this.subjectImage}
+              dragMove={this.dragMove}
+              height={naturalHeight}
+              width={naturalWidth}
+              xlinkHref={src}
+            />
+          </SingleImageViewer>
+        </SVGPanZoom>
       </SVGContext.Provider>
     )
   }
