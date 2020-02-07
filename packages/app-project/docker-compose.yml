@@ -2,31 +2,41 @@ version: '3.4'
 
 services:
   dev:
-    image: front-end-monorepo_dev:latest
+    image: front-end-monorepo_project-app:local
     build:
-      context: ../../
-      target: bootstrap
-    entrypoint:
-      - "yarn"
-      - "workspace"
-      - "@zooniverse/fe-project"
-    command: ["dev"]
+      context: .
+      args:
+        ASSET_PREFIX: https://fe-project.zooniverse.org
+        SENTRY_DSN: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+    command: [yarn, "dev"]
+    environment:
+      - PORT=3000
+      - ASSET_PREFIX= http://localhost:3000
+      - SENTRY_DSN=https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+      - NODE_ENV=development
+      - PANOPTES_ENV=staging
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
     ports:
       - "3000:3000"
     volumes:
+      - project_app_node_modules_cache:/usr/src/packages/app-project/node_modules
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
-  storybook:
-    image: front-end-monorepo_dev:latest
-    entrypoint:
-      - "yarn"
-      - "workspace"
-      - "@zooniverse/fe-project"
-    command: ["storybook"]
-    ports:
-      - "9001:9001"
-    volumes:
-      - ./pages:/usr/src/packages/app-project/pages
-      - ./src:/usr/src/packages/app-project/src
-      - ./stores:/usr/src/packages/app-project/stores
+  # storybook:
+  #   image: front-end-monorepo_dev:latest
+  #   entrypoint:
+  #     - "yarn"
+  #     - "workspace"
+  #     - "@zooniverse/fe-project"
+  #   command: ["storybook"]
+  #   ports:
+  #     - "9001:9001"
+  #   volumes:
+  #     - ./pages:/usr/src/packages/app-project/pages
+  #     - ./src:/usr/src/packages/app-project/src
+  #     - ./stores:/usr/src/packages/app-project/stores
+
+volumes:
+  project_app_node_modules_cache:
