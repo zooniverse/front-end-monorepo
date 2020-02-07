@@ -1,3 +1,5 @@
+import { css } from 'styled-components'
+
 export default {
   checkBox: {
     border: {
@@ -26,7 +28,7 @@ export default {
       },
       margin: { top: 'xsmall', bottom: 'none', horizontal: 'none' }
     },
-    extend: `
+    extend: css`
       & > span {
         font-style: italic;
         margin-top: 5px;
@@ -53,7 +55,7 @@ export default {
     }
   },
   textInput: {
-    extend: props => `
+    extend: props => css`
       color: ${props.theme.dark
     ? props.theme.global.colors['white']
     : props.theme.global.colors['dark-1']

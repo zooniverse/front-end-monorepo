@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -19,13 +19,16 @@ const StyledAnchor = styled(Anchor)`
   &:hover {
     text-decoration: none;
   }
-  &[href]:hover {
-    border-bottom-color: ${props => props.color};
-  }
-  &:not([href]) {
-    cursor: default;
-    border-bottom-color: ${props => props.color};
-  }
+  ${props => props.color && css`
+    &[href]:hover {
+      border-bottom-color: ${props.color};
+    }
+    &:not([href]) {
+      cursor: default;
+      border-bottom-color: ${props.color};
+    }
+  `}
+
 `
 
 function NavLink (props) {

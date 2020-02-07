@@ -4,7 +4,6 @@ import { Box } from 'grommet'
 import styled from 'styled-components'
 
 const BackgroundBox = styled(Box)`
-  overflow: hidden;
   position: absolute;
 `
 
@@ -25,6 +24,7 @@ function Background ({ backgroundSrc }) {
     <BackgroundBox
       background='brand'
       height='100%'
+      overflow='hidden'
       width='100%'
     >
       {backgroundSrc && <BackgroundImage src={backgroundSrc} />}

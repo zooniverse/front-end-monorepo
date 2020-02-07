@@ -13,19 +13,33 @@ counterpart.registerTranslations('en', en)
 const StyledButton = styled(PlainButton)`
   white-space: nowrap;
 
-  > div {
-    flex-direction: ${(props) => (props.screenSize === 'small') ? css`row` : css`column-reverse`};
-
-    span {
-      transform: ${(props) => (props.screenSize === 'small') ? css`none` : css`rotate(180deg)`};
-      writing-mode: ${(props) => (props.screenSize === 'small') ? css`unset` : css`vertical-lr`};
+  ${props => props.screenSize === 'small' ? css`
+    > div {
+      flex-direction: row;
+      span {
+        transform: none;
+        writing-mode: unset;
+      }
     }
-  }
+  ` : css`
+    > div {
+      flex-direction: column-reverse;
+      span {
+        transform: rotate(180deg);
+        writing-mode: vertical-lr;
+      }
+    }
+  `}
 `
 
 const StyledInfo = styled(Info)`
-  transform: ${(props) => (props.screensize === 'small') ? css`none` : css`rotate(270deg)`};
-  margin-top: ${(props) => (props.screensize === 'small') ? css`0` : css`6px`};
+  ${props => props.screenSize === 'small' ? css`
+    transform: none;
+    margin-top: 0;
+  ` : css`
+    transform: rotate(270deg);
+    margin-top: 6px;
+  `}
 `
 
 function ThemeModeToggle (props) {
