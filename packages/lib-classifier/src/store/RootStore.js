@@ -7,6 +7,7 @@ import FieldGuideStore from './FieldGuideStore'
 import ProjectStore from './ProjectStore'
 import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
+import SubTaskPopupStore from './SubTaskPopupStore'
 import TutorialStore from './TutorialStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
@@ -21,6 +22,7 @@ const RootStore = types
     projects: types.optional(ProjectStore, () => ProjectStore.create({})),
     subjects: types.optional(SubjectStore, () => SubjectStore.create({})),
     subjectViewer: types.optional(SubjectViewerStore, () => SubjectViewerStore.create({})),
+    subTaskPopup: types.optional(SubTaskPopupStore, () => SubTaskPopupStore.create({})),
     tutorials: types.optional(TutorialStore, () => TutorialStore.create({})),
     workflows: types.optional(WorkflowStore, () => WorkflowStore.create({})),
     workflowSteps: types.optional(WorkflowStepStore, () => WorkflowStepStore.create({})),

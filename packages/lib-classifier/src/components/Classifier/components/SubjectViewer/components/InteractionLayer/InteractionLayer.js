@@ -9,8 +9,8 @@ const StyledRect = styled('rect')`
   cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, marks, move, scale, width }) {
-  const [ activeMark, setActiveMark ] = useState(null)
+function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, marks, move, setActiveMark, scale, width }) {
+  const [ activeMark, setActiveMark_state ] = useState(null)
   const [ creating, setCreating ] = useState(false)
   const { svg, getScreenCTM } = useContext(SVGContext)
 
@@ -48,6 +48,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     })
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
+    setActiveMark_state(activeMark)
     setCreating(true)
     return false
   }
@@ -66,6 +67,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(null)
+      setActiveMark_state(null)
     }
     target.releasePointerCapture(pointerId)
   }
@@ -87,9 +89,15 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
         <DrawingToolMarks
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
-          onDelete={() => setActiveMark(null)}
+          onDelete={() => {
+            setActiveMark_state(null)
+            setActiveMark(null)
+          }}
           onFinish={onFinish}
-          onSelectMark={mark => setActiveMark(mark)}
+          onSelectMark={mark => {
+            setActiveMark_state(mark)
+            setActiveMark(mark)
+          }}
           scale={scale}
         />
       }
@@ -103,6 +111,7 @@ InteractionLayer.propTypes = {
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
   marks: PropTypes.array,
+  setActiveMark: PropTypes.func.isRequired,
   scale: PropTypes.number,
   width: PropTypes.number.isRequired
 }

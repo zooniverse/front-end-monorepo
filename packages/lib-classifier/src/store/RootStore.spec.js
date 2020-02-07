@@ -21,6 +21,7 @@ describe('Model > RootStore', function () {
     'projects',
     'subjects',
     'subjectViewer',
+    'subTaskPopup',
     'tutorials',
     'workflows',
     'workflowSteps',

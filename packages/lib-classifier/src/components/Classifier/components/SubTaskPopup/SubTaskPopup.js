@@ -23,9 +23,21 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
+  
+  const { activeMark } = stores.classifierStore.subTaskPopup
   const { addAnnotation } = stores.classifierStore.classifications
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
+  
+  const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+  // TODO: do we need this?  const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
+  // TODO: do we need this?  const disabled = activeTool ? activeTool.disabled : false
+  const { marks } = activeDrawingTask || {}
+  
+  console.log('+++ ACTIVE MARK \n', activeMark)
+  
   return {
-    addAnnotation
+    activeMark,
+    addAnnotation,
   }
 }
 

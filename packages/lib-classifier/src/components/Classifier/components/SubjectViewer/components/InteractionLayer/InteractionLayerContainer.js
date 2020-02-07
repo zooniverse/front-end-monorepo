@@ -16,6 +16,9 @@ function storeMapper (stores) {
   const {
     active: classification
   } = stores.classifierStore.classifications
+  const {
+    setActiveMark
+  } = stores.classifierStore.subTaskPopup
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
   const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
   const disabled = activeTool ? activeTool.disabled : false
@@ -28,7 +31,8 @@ function storeMapper (stores) {
     disabled,
     drawingAnnotations,
     marks,
-    move
+    move,
+    setActiveMark,
   }
 }
 
@@ -44,6 +48,7 @@ class InteractionLayerContainer extends Component {
       height,
       marks,
       move,
+      setActiveMark,
       scale,
       width
     } = this.props
@@ -65,6 +70,7 @@ class InteractionLayerContainer extends Component {
             height={height}
             marks={marks}
             move={move}
+            setActiveMark={setActiveMark}
             scale={scale}
             width={width}
           />
