@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { Button } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
 import SpacedText from '../../../../../SpacedText'
 
 const StyledNavButton = styled(Button)`
@@ -10,7 +9,7 @@ const StyledNavButton = styled(Button)`
   white-space: nowrap;
 
   &:hover, &:focus {
-    border-bottom-color: ${zooTheme.global.colors.brand};
+    ${props => css`border-bottom-color: ${props.theme.global.colors.brand};`}
   }
 
   &:first-of-type {
@@ -18,21 +17,31 @@ const StyledNavButton = styled(Button)`
   }
 `
 
-export default function NavButton ({ label, onClick }) {
+function NavButton ({ label, onClick, theme }) {
   return (
     <StyledNavButton
       label={<SpacedText color="#B2B2B2" weight="bold" size="xsmall">{label}</SpacedText>}
       plain={true}
       onClick={onClick}
+      theme={theme}
     />
   )
 }
 
 NavButton.defaultProps = {
-  label: ''
+  label: '',
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 NavButton.propTypes = {
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  theme: PropTypes.object
 }
+
+export default withTheme(NavButton)
+export { NavButton }

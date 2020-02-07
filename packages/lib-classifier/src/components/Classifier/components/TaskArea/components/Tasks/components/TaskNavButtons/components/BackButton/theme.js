@@ -1,4 +1,5 @@
 import { darken, lighten } from 'polished'
+import { css } from 'styled-components'
 
 const theme = {
   button: {
@@ -15,21 +16,33 @@ const theme = {
     },
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
-      return `
-        background: ${dark ? colors['dark-1'] : colors['light-1']};
+      const lighterAccent2 = lighten(0.05, colors['accent-2'])
+      const darkerAccent2 = darken(0.11, colors['accent-2'])
+      const background = dark ? colors['dark-1'] : colors['light-1']
+      const backgroundFocusColor = dark ?
+        colors['dark-1'] :
+        `linear-gradient(
+            ${lighterAccent2},
+            ${darkerAccent2}
+          )`
+      const borderFocusColor = dark ?
+        `solid thin ${colors['dark-5']}` :
+        `solid thin transparent`
+      const focusColor = dark ?
+       'light-3' :
+       'black'
+      return css`
+        background: ${background};
         height: 100%;
         text-transform: capitalize;
         width: 100%;
 
         &:focus,
         &:hover {
-          background: ${dark ? colors['dark-1'] : `linear-gradient(
-            ${lighten(0.05, colors['accent-2'])},
-            ${darken(0.11, colors['accent-2'])}
-          )`};
-          border: ${dark ? `solid thin ${colors['dark-5']}` : 'solid thin transparent'};
+          background: ${backgroundFocusColor};
+          border: ${borderFocusColor};
           box-shadow: none;
-          color: ${dark ? 'light-3' : 'black'};
+          color: ${focusColor};
         }
       `
     },

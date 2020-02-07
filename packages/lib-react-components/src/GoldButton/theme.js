@@ -1,4 +1,5 @@
 import { adjustHue } from 'polished'
+import { css } from 'styled-components'
 
 const theme = {
   button: {
@@ -18,15 +19,15 @@ const theme = {
     },
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
-
-      return `
+      const backgroundColor = dark ? colors['neutral-4'] : adjustHue(-7, colors['neutral-4'])
+      return css`
         text-align: center;
         &:disabled {
           cursor: not-allowed;
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          background: ${dark ? colors['neutral-4'] : adjustHue(-7, colors['neutral-4'])};
+          background: ${backgroundColor};
           box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
           color: black;
         }

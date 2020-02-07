@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Box, Image } from 'grommet'
 import ProgressiveImage from 'react-progressive-image'
 import getThumbnailSrc from '../../helpers/getThumbnailSrc'
@@ -8,8 +8,8 @@ import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 const DEFAULT_THUMBNAIL_DIMENSION = 999
 
 const StyledBox = styled(Box)`
-  max-height: ${props => props.maxHeight}px;
-  max-width: ${props => props.maxWidth}px;
+  ${props => props.maxHeight && css`max-height: ${prop.maxHeight}px;`}
+  ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
 `
 
 const StyledImage = styled(Image)`

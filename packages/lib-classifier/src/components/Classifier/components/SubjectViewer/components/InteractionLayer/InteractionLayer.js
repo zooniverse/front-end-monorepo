@@ -1,12 +1,15 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
-  cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
+  ${props => props.disabled ? 
+    css`cursor: not-allowed;` :
+    css`cursor: crosshair;`
+  }
 `
 
 function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, marks, move, scale, width }) {

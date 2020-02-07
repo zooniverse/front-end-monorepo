@@ -1,13 +1,13 @@
 import { Box } from 'grommet'
 import { object, oneOf, shape, string } from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 
 const SVG = styled.svg`
   display: block;
-  fill: ${props => props.fill};
-  height: ${props => `${props.height}px`};
-  width: ${props => `${props.width}px`};
+  ${props => props.fill && css`fill: ${props.fill};`}
+  ${props => props.height && css`height: ${props.height}px;`}
+  ${props => props.width && css`width: ${props.width}px;`}
   z-index: 1;
 `
 
