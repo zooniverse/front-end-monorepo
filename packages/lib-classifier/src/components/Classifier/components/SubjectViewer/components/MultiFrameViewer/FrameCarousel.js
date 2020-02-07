@@ -48,10 +48,7 @@ class FrameCarousel extends React.Component {
   render () {
     const locations = this.props.subject.locations.map(location => ({ 'url': location['image/jpeg'] }))
     const locationElements = locations.map((location, index) => {
-<<<<<<< HEAD
       // TODO: add styling for active/current frame
-=======
->>>>>>> Refactor MultiFrameViewer with SingleImageViewer
       // const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
       // const currentActive = currentFrameIndex === index
       return (
