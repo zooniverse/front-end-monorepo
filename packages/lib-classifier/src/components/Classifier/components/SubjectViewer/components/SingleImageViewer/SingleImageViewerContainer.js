@@ -128,14 +128,12 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
-    const subject = this.subjectImage.current
     const getScreenCTM = () => svg.getScreenCTM()
-    const { width: clientWidth, height: clientHeight } = subject ? subject.getBoundingClientRect() : {}
-    const subjectScale = clientWidth / naturalWidth
 
     return (
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
         <SVGPanZoom
+          img={this.subjectImage.current}
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
           setOnDrag={this.setOnDrag}
@@ -148,7 +146,6 @@ class SingleImageViewerContainer extends React.Component {
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
             rotate={rotation}
-            scale={subjectScale}
             width={naturalWidth}
           >
             <DraggableImage

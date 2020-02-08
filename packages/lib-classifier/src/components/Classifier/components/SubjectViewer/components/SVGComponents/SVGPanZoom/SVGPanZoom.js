@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { cloneElement, useContext, useEffect, useState } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnDrag, setOnPan, setOnZoom }) {
+function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, setOnPan, setOnZoom }) {
   setOnDrag(onDrag)
   setOnPan(onPan)
   setOnZoom(onZoom)
@@ -15,9 +15,18 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnDrag, setOnPa
   }
 
   const [ scale, setScale ] = useState(1)
+  const [ subjectScale, setSubjectScale ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
 
-  const { svg } = useContext(SVGContext)
+  useEffect(function updateImageSize () {
+    onImageChange(img)
+  }, [img])
+
+  function onImageChange (img) {
+    const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
+    const subjectScale = clientWidth / naturalWidth
+    setSubjectScale(subjectScale)
+  }
 
   function scaledViewBox (scale) {
     const viewBoxScale = 1 / scale
@@ -51,7 +60,7 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnDrag, setOnPa
         const newViewBox = scaledViewBox(newScale)
         setScale(newScale)
         setViewBox(newViewBox)
-        console.log(newViewBox)
+        onImageChange(img)
         return
       }
       case 'zoomout': {
@@ -59,6 +68,7 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnDrag, setOnPa
         const newViewBox = scaledViewBox(newScale)
         setScale(newScale)
         setViewBox(newViewBox)
+        onImageChange(img)
         return
       }
       case 'zoomto': {
@@ -86,7 +96,7 @@ function SVGPanZoom ({ children, naturalHeight, naturalWidth, setOnDrag, setOnPa
 
   return (
     <div onWheel={onWheel}>
-      {cloneElement(children, { viewBox: `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}` })}
+      {cloneElement(children, { scale: subjectScale, viewBox: `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}` })}
     </div>
   )
 }
