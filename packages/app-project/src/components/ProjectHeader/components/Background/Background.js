@@ -1,7 +1,7 @@
 import { string } from 'prop-types'
 import React from 'react'
 import { Box } from 'grommet'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const BackgroundBox = styled(Box)`
   position: absolute;
@@ -10,7 +10,7 @@ const BackgroundBox = styled(Box)`
 const BackgroundImage = styled.div`
   background-blend-mode: multiply;
   background-color: rgba(0,93,105,0.3);
-  background-image: url("${props => props.src}");
+  ${props => css`background-image: url("${props.src}");`}
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

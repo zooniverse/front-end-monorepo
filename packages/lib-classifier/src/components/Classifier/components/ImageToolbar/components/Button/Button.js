@@ -4,13 +4,30 @@ import { Button as GrommetButton } from 'grommet'
 import styled, { css } from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
 
+const paddingSize = pxToRem(13)
+const svgSize = pxToRem(18)
+
 const StyledButton = styled(GrommetButton)`
-  background-color: ${props => props.active ? props.theme.global.colors.brand : (props.theme.dark ? props.theme.global.colors['dark-1'] : css`inherit`)}; 
+  ${props => props.active ? 
+    css`
+      background-color: ${props.theme.global.colors.brand};
+    ` :
+    css`
+      background-color: ${props.theme.dark ? props.theme.global.colors['dark-1'] : 'inherit'};
+    `
+  }
   border-radius: 50%;
-  padding: ${pxToRem(13)};
+  padding: ${paddingSize};
 
   &:hover, &:focus {
-    background-color: ${props => props.theme.dark ? props.theme.global.colors['neutral-2'] : props.theme.global.colors['accent-2']};
+    ${props => props.theme.dark ?
+      css`
+        background-color: ${props.theme.global.colors['neutral-2']};
+      ` :
+      css`
+        background-color: ${props.theme.global.colors['accent-2']};
+      `
+    }
 
     > svg {
       fill: white;
@@ -18,10 +35,17 @@ const StyledButton = styled(GrommetButton)`
   }
 
   > svg {
-    fill: ${props => props.active ? css`white` : (props.theme.dark ? css`white` : css`black`)};
-    height: ${pxToRem(18)};
+    ${props => props.active ?
+      css`
+        fill: white;
+      ` :
+      css`
+        fill: ${props.theme.dark ? 'white' : 'black'};
+      `
+    }
+    height: ${svgSize};
     stroke: transparent;
-    width: ${pxToRem(18)};
+    width: ${svgSize};
   }
 `
 

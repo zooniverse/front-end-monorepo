@@ -8,10 +8,12 @@ const Img = styled.img`
     object-fit: cover;
     width: 100%;
 
-  @media (min-width: ${props => props.breakpoint}px) {
-    flex: 1 1 auto;
-    object-position: 0 50%;
-  }
+  ${props => css`
+    @media (min-width: ${props.breakpoint}px) {
+      flex: 1 1 auto;
+      object-position: 0 50%;
+    }
+  `}
 `
 
 function Background (props) {

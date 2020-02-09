@@ -19,7 +19,7 @@ const StyledAnchor = styled(Anchor)`
   &:hover {
     text-decoration: none;
   }
-  ${props => props.color && css`
+  ${props => css`
     &[href]:hover {
       border-bottom-color: ${props.color};
     }

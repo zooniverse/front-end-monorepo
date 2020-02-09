@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import { bool, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import en from './locales/en'
 
@@ -12,7 +12,7 @@ const StyledAvatar = styled.img`
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.22);
   object-fit: cover;
   overflow: hidden;
-  width: ${props => props.width};
+  ${props => css`width: ${props.width};`}
 `
 
 function Avatar (props) {

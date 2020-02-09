@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import { array, object, string } from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { Group } from '@vx/group'
 import { Bar } from '@vx/shape'
@@ -16,13 +16,15 @@ counterpart.registerTranslations('en', en)
 const StyledBarGroup = styled(Group)`
   text {
     display: none;
-    fill: ${props => props.theme.global.colors['light-1']};
-    font-size: ${props => props.theme.text.small.size}
+    ${props => css`
+      fill: ${props.theme.global.colors['light-1']};
+      font-size: ${props.theme.text.small.size}
+    `}
   }
   
   &:hover rect,
   &:focus rect {
-    fill: ${props => props.theme.global.colors.brand};
+    ${props => css`fill: ${props.theme.global.colors.brand};`}
   }
 
   &:hover text,

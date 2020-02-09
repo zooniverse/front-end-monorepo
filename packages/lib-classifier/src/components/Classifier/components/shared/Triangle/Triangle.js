@@ -5,9 +5,11 @@ import styled, { css, withTheme } from 'styled-components'
 
 const SVG = styled.svg`
   display: block;
-  ${props => props.fill && css`fill: ${props.fill};`}
-  ${props => props.height && css`height: ${props.height}px;`}
-  ${props => props.width && css`width: ${props.width}px;`}
+  ${props => css`
+    fill: ${props.fill};
+    height: ${props.height}px;
+    width: ${props.height}px;
+  `}
   z-index: 1;
 `
 

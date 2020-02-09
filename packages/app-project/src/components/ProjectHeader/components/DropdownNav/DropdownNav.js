@@ -15,7 +15,7 @@ const StyledAnchor = styled(Anchor)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
   &:focus,
   &:hover {
-    background: ${props => props.theme.global.colors['neutral-2']};
+    ${props => css`background: ${props.theme.global.colors['neutral-2']};`}
     text-decoration: none;
   }
 `
@@ -32,8 +32,10 @@ const StyledDropButton = styled(DropButton)`
 
   &:focus,
   &:hover {
-    background: ${props => props.theme.global.colors['accent-2']};
-    color: ${props => props.theme.global.colors['brand']};
+    ${props => css`
+      background: ${props.theme.global.colors['accent-2']};
+      color: ${props.theme.global.colors['brand']};
+    `}
   }
 `
 

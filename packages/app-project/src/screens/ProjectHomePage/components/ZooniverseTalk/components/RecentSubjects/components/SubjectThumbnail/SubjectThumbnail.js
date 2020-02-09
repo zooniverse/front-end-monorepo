@@ -10,8 +10,10 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
-  ${css`max-height: ${props => props.maxHeight}px`};
-  ${css`max-width: ${props => props.maxWidth}px`};
+  ${props => css`
+    max-height: ${props.maxHeight}px;
+    max-width: ${props.maxWidth}px;
+  `}
   overflow: hidden;
   position: relative;
 `
