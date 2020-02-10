@@ -1,7 +1,6 @@
 import { Markdownz, Modal, PlainButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'

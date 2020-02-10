@@ -1,10 +1,11 @@
+import { css } from 'styled-components'
 const theme = {
   anchor: {
-    extend: props => `
+    extend: props => css`
       & {
         border-bottom: 2px solid transparent;
         border-top: 2px solid transparent;
-        ${props.active && `
+        ${props.active && css`
           font-weight: bold;
           color: white;
           border-bottom-color: white;
@@ -13,7 +14,7 @@ const theme = {
     `,
     fontWeight: 'normal',
     hover: {
-      extend: `
+      extend: css`
         background: rgba(255,255,255,0.2);
         color: white;
       `,

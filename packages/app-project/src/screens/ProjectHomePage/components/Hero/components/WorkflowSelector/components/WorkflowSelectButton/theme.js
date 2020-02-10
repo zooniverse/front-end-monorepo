@@ -1,5 +1,6 @@
 import { normalizeColor } from 'grommet/utils'
 import { getGradientShade } from '@zooniverse/react-components'
+import { css } from 'styled-components'
 
 const theme = {
   button: {
@@ -24,7 +25,7 @@ const theme = {
         `transparent ${percentComplete}`
       ].join(',')
 
-      return `
+      return css`
         background: ${color};
         box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
         position: relative;

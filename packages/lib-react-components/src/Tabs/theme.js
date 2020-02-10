@@ -1,4 +1,5 @@
 import { darken, lighten } from 'polished'
+import { css } from 'styled-components'
 
 const theme = {
   tab: {
@@ -22,60 +23,72 @@ const theme = {
     pad: 'small'
   },
   tabs: {
-    extend: props => `
-      button[role="tab"] {
-        color: ${getTabHeaderColor(props)};
-        flex: 1 1 ${100 / props.children.length}%;
-        > div {
-          border-bottom: 1px solid ${getBorderColor(props)};
-          border-right: 1px solid ${getBorderColor(props)};
-        }
-
-        &:last-of-type > div {
-          border-right: none;
-        }
-
-        &:disabled {
-          cursor: not-allowed;
-          opacity: 1;
-        }
-
-        &[aria-selected="true"] {
-          pointer-events: none;
+    extend: props => {
+      const tabHeaderColor = getTabHeaderColor(props)
+      const borderColor = getBorderColor(props)
+      const activeTabHeaderColor = getActiveTabHeaderColor(props)
+      const hoverBackgroundColor = getHoverBackground(props)
+      return css`
+        button[role="tab"] {
+          color: ${tabHeaderColor};
+          flex: 1 1 ${100 / props.children.length}%;
           > div {
-            border-bottom: 1px solid transparent;
-            color: ${getActiveTabHeaderColor(props)};
+            border-bottom: 1px solid ${borderColor};
+            border-right: 1px solid ${borderColor};
           }
-        }
 
-        &:enabled[aria-selected="false"] > div {
-          &:focus,
-          &:hover {
-            background: ${getHoverBackground(props)};
+          &:last-of-type > div {
+            border-right: none;
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 1;
+          }
+
+          &[aria-selected="true"] {
+            pointer-events: none;
+            > div {
+              border-bottom: 1px solid transparent;
+              color: ${activeTabHeaderColor};
+            }
+          }
+
+          &:enabled[aria-selected="false"] > div {
+            &:focus,
+            &:hover {
+              background: ${hoverBackgroundColor};
+            }
           }
         }
-      }
-    `,
+    `},
     header: {
       background: {
         dark: 'dark-2',
         light: 'light-1'
       },
-      extend: props => `
-        border-left: 1px solid ${getBorderColor(props)};
-        border-right: 1px solid ${getBorderColor(props)};
-        border-top: 1px solid ${getBorderColor(props)};
-        text-align: center;
-      `
+      extend: props => {
+        const borderColor = getBorderColor(props)
+        return css`
+          border-left: 1px solid ${borderColor};
+          border-right: 1px solid ${borderColor};
+          border-top: 1px solid ${borderColor};
+          text-align: center;
+        `
+      }
     },
     panel: {
-      extend: props => `
-        background-color: ${getBackgroundColor(props)};
-        border-bottom: 1px solid ${getBorderColor(props)};
-        border-left: 1px solid ${getBorderColor(props)};
-        border-right: 1px solid ${getBorderColor(props)};
-        padding: 30px;
-      `
+      extend: props => { 
+        const backgroundColor = getBackgroundColor(props)
+        const borderColor = getBorderColor(props)
+        return css`
+          background-color: ${backgroundColor};
+          border-bottom: 1px solid ${borderColor};
+          border-left: 1px solid ${borderColor};
+          border-right: 1px solid ${borderColor};
+          padding: 30px;
+        `
+      }
     }
   }
 }
@@ -106,7 +119,7 @@ function getHoverBackground (props) {
   const lightColors = [lighten(0.05, color), darken(0.11, color)]
   const activeColors = props.theme.dark ? darkColors : lightColors
 
-  return `linear-gradient(${activeColors[0]}, ${activeColors[1]})`
+  return css`linear-gradient(${activeColors[0]}, ${activeColors[1]});`
 }
 
 function getTabHeaderColor (props) {

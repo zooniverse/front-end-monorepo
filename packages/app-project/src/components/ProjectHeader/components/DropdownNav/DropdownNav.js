@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -15,7 +15,7 @@ const StyledAnchor = styled(Anchor)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
   &:focus,
   &:hover {
-    background: ${props => props.theme.global.colors['neutral-2']};
+    ${props => css`background: ${props.theme.global.colors['neutral-2']};`}
     text-decoration: none;
   }
 `
@@ -26,14 +26,16 @@ const StyledDropButton = styled(DropButton)`
   border-radius: 2em;
   color: white;
 
-  ${props => props.isOpen && `
+  ${props => props.isOpen && css`
     background: ${props.theme.global.colors['accent-2']};
   `}
 
   &:focus,
   &:hover {
-    background: ${props => props.theme.global.colors['accent-2']};
-    color: ${props => props.theme.global.colors['brand']};
+    ${props => css`
+      background: ${props.theme.global.colors['accent-2']};
+      color: ${props.theme.global.colors['brand']};
+    `}
   }
 `
 

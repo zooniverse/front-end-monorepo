@@ -95,7 +95,6 @@ function TextTask (props) {
 
 TextTask.defaultProps = {
   autoFocus: false,
-  className: '',
   disabled: false
 }
 
@@ -105,7 +104,6 @@ TextTask.propTypes = {
     value: PropTypes.string
   }).isRequired,
   autoFocus: PropTypes.bool,
-  className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     help: PropTypes.string,

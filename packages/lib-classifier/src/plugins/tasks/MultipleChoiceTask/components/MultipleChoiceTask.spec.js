@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import MultipleChoiceTask from './MultipleChoiceTask'
+import { MultipleChoiceTask } from './MultipleChoiceTask'
 import { default as Task } from '@plugins/tasks/MultipleChoiceTask'
 
 describe('MultipleChoiceTask', function () {

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const StyledInputIcon = styled.span`
-  color: ${props => props.color};
+  ${props => props.color && css`color: ${props.color};`}
   display: flex;
   align-items: center;
 

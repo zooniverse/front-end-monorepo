@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const StyledRect = styled.rect`
-  cursor: ${props => props.panning ? 'move' : 'inherit'};
+  ${props => props.panning ?
+   css`cursor: move;` :
+   css`cursor: inherit;`}
   overscroll-behavior: none;
 `
 

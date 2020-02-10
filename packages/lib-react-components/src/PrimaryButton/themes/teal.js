@@ -1,5 +1,5 @@
 import { normalizeColor } from 'grommet/utils'
-
+import { css } from 'styled-components'
 import getGradientShade from '../helpers/getGradientShade'
 
 const theme = {
@@ -22,7 +22,7 @@ const theme = {
       const color = normalizeColor('brand', props.theme)
       const gradientShade = getGradientShade(color)
 
-      return `
+      return css`
         transition: none;
         text-align: center;
         &:disabled {
