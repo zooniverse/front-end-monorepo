@@ -30,7 +30,7 @@ async function getPublicationsData (skip = 0, limit = 100, accumulator = []) {
     content_type: 'publication',
     include: 2,
     limit,
-    order: 'sys.createdAt',
+    order: '-fields.year',
     skip
   })
 
