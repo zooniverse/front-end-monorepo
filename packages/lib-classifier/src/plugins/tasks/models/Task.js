@@ -5,7 +5,7 @@ import Annotation from './Annotation'
 
 const Task = types.model('Task', {
   // override annotation in individual task models with specific annotation types
-  annotation: types.maybe(types.safeReference(Annotation)),
+  annotation: types.safeReference(Annotation),
   taskKey: types.identifier,
   required: types.maybe(types.boolean),
   type: types.literal('default')

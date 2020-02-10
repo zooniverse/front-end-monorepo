@@ -5,7 +5,7 @@ import { Graph2dRangeXTool } from './dataVisTools'
 import DataVisAnnotation from './DataVisAnnotation'
 
 const DataVisTaskModel = types.model('DataVisTaskModel', {
-  annotation: types.maybe(types.safeReference(DataVisAnnotation)),
+  annotation: types.safeReference(DataVisAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.maybe(types.string),
   tools: types.array(types.union({
