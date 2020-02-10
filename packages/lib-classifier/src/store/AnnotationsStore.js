@@ -27,8 +27,19 @@ const AnnotationsStore = types
       return annotation
     }
 
+    function removeAnnotation (taskKey) {
+      let taskAnnotation
+      self.annotations.forEach(annotation => {
+        if (annotation.task === taskKey) {
+          taskAnnotation = annotation
+        }
+      })
+      taskAnnotation && self.annotations.delete(taskAnnotation.id)
+    }
+
     return {
-      addAnnotation
+      addAnnotation,
+      removeAnnotation
     }
   })
 
