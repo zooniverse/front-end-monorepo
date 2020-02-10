@@ -51,9 +51,6 @@ const Tool = types.model('Tool', {
     }
 
     function reset () {
-      self.marks.forEach((mark) => {
-        mark.reset()
-      })
       self.marks.clear()
     }
 

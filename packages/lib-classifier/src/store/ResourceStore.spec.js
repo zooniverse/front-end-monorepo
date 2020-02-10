@@ -14,8 +14,13 @@ const RootStub = types
     }
   }))
 
+const etagStub = 'W/"0b15c86677"'
+
 const resourcesStub = {
   type: 'foobar',
+  headers: {
+    etag: etagStub
+  },
   resources: {
     '123': { id: '123' },
     '456': { id: '456' }
@@ -26,8 +31,6 @@ const resourcesStub = {
 const otherResourceStub = {
   id: '789'
 }
-
-const etagStub = 'W/"0b15c86677"'
 
 const clientStub = {
   panoptes: {
@@ -68,6 +71,9 @@ describe('Model > ResourceStore', function () {
 
   it('should have a `reset` method to clear the store', function () {
     const resetStore = ResourceStore.create(resourcesStub)
+    expect(resetStore.resources.size).to.equal(2)
+    expect(resetStore.active).to.deep.equal(resourcesStub.resources['123'])
+    expect(resetStore.headers.etag).to.equal(etagStub)
     resetStore.reset()
     expect(resetStore.resources.size).to.equal(0)
     expect(resetStore.active).to.be.undefined()

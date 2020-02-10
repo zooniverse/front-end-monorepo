@@ -54,15 +54,6 @@ const BaseMark = types.model('BaseMark', {
     get tasks () {
       return self.tool.tasks
     }
-  })
-  .actions(self => {
-    function reset () {
-      self.annotations.clear()
-    }
-
-    return {
-      reset
-    }
   }))
 
 export default types.compose('Mark', AnnotationsStore, BaseMark)

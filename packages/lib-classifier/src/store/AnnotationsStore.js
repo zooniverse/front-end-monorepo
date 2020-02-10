@@ -1,4 +1,5 @@
 import { addDisposer, getParent, onAction, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
 import Annotation from '@plugins/tasks/models/Annotation'
 
 const AnnotationsStore = types
@@ -18,17 +19,19 @@ const AnnotationsStore = types
   }))
   .actions(self => {
     function afterAttach() {
-      createClassificationObserver()
+      createParentObserver()
     }
 
-    function createClassificationObserver() {
-      const classificationsDisposer = autorun(() => {
-        const classifications = getParent(self)
-        onAction(classifications, (call) => {
+    function createParentObserver() {
+      const parentNodeDisposer = autorun(() => {
+        // grandparent can either be a Tool or the ClassificationStore
+        // immediate parent is the map
+        const parentNode = getParent(self, 2)
+        onAction(parentNode, (call) => {
           if (call.name === 'reset') self.reset()
         })
-      }, { name: 'AnnotationsStore Classifications observer autorun' })
-      addDisposer(self, classificationsDisposer)
+      }, { name: 'AnnotationsStore parent node observer autorun' })
+      addDisposer(self, parentNodeDisposer)
     }
 
     function addAnnotation (task, value) {
