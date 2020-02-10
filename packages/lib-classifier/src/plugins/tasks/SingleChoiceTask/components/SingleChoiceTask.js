@@ -2,14 +2,17 @@ import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import zooTheme from '@zooniverse/grommet-theme'
+import styled, { css, withTheme } from 'styled-components'
 import TaskInput from '../../components/TaskInput'
+import zooTheme from '@zooniverse/grommet-theme'
 
+// TODO this really should use the theme from context/props instead
+// But broke tests for the Task component
+const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    background-color: ${zooTheme.global.colors.brand};
-    max-width: ${pxToRem(60)};
+    background: ${zooTheme.global.colors.brand};
+    max-width: ${maxWidth};
   }
 `
 
@@ -28,7 +31,8 @@ function SingleChoiceTask (props) {
     annotation,
     className,
     disabled,
-    task
+    task,
+    theme
   } = props
   const { value } = annotation
   function onChange (index, event) {
@@ -39,6 +43,7 @@ function SingleChoiceTask (props) {
     <StyledBox
       className={className}
       disabled={disabled}
+      theme={theme}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
@@ -69,7 +74,12 @@ function SingleChoiceTask (props) {
 
 SingleChoiceTask.defaultProps = {
   className: '',
-  disabled: false
+  disabled: false,
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 SingleChoiceTask.propTypes = {
@@ -86,7 +96,9 @@ SingleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  theme: PropTypes.object
 }
 
 export default SingleChoiceTask
+// export { SingleChoiceTask }

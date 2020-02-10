@@ -1,10 +1,9 @@
 import { SpacedText } from '@zooniverse/react-components'
-import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { tint } from 'polished'
 import { inject, observer } from 'mobx-react'
 
@@ -14,18 +13,20 @@ import HelpIcon from './HelpIcon'
 counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
-  background: ${zooTheme.global.colors.brand};
-  padding: 15px 10px;
+  ${props => props.theme && css`
+    background: ${props.theme.global.colors.brand};
+    padding: 15px 10px;
 
-  &:hover, &:focus {
-    background: ${tint(0.5, zooTheme.global.colors.brand)};
-  }
-
-  &:disabled {
     &:hover, &:focus {
-      background: ${zooTheme.global.colors.brand};
+      background: ${tint(0.5, props.theme.global.colors.brand)};
     }
-  }
+
+    &:disabled {
+      &:hover, &:focus {
+        background: ${props.theme.global.colors.brand};
+      }
+    }
+  `}
 `
 
 const StyledSpacedText = styled(SpacedText)`
@@ -71,7 +72,8 @@ class FieldGuideButton extends React.Component {
 
   render () {
     const {
-      fieldGuide
+      fieldGuide,
+      theme
     } = this.props
     const disabled = !fieldGuide || fieldGuide.items.length === 0
 
@@ -81,18 +83,25 @@ class FieldGuideButton extends React.Component {
         disabled={disabled}
         onClick={this.onClick.bind(this)}
         plain
+        theme={theme}
       />
     )
   }
 }
 
 FieldGuideButton.defaultProps = {
-  fieldGuide: null
+  fieldGuide: null,
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 FieldGuideButton.wrappedComponent.propTypes = {
   fieldGuide: PropTypes.object,
+  theme: PropTypes.object,
   setModalVisibility: PropTypes.func.isRequired
 }
 
-export default FieldGuideButton
+export default withTheme(FieldGuideButton)

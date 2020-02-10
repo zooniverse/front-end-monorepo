@@ -1,11 +1,11 @@
 import React from 'react'
 import { Anchor, Box, Video as GrommetVideo } from 'grommet'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 const StyledBox = styled(Box)`
-  max-height: ${props => props.maxHeight}px;
-  max-width: ${props => props.maxWidth}px;
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}
+  ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
 `
   
 export default function Video(props) {

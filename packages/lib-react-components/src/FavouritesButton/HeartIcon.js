@@ -1,9 +1,9 @@
 import React from 'react'
 import { Blank } from 'grommet-icons'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const StyledBlank = styled(Blank)`
-  fill: ${props => props.fill};
+  ${props => props.fill && css`fill: ${props.fill};`}
 `
 
 export default function HeartIcon (props) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import NavButton from './NavButton'
+import { NavButton } from './NavButton'
 
 describe('<NavButton />', function () {
   let wrapper

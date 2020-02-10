@@ -10,6 +10,8 @@ import MetaTools from '../../../MetaTools'
 import SubjectViewer from '../../../SubjectViewer'
 import TaskArea from '../../../TaskArea'
 
+const columnSize = pxToRem(380)
+
 const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 30px;
@@ -18,7 +20,7 @@ const ContainerGrid = styled.div`
   position: relative;
 
   @media (min-width: 701px) {
-    grid-template-columns: 8fr ${pxToRem(380)};
+    grid-template-columns: 8fr ${columnSize};
   }
 
   @media screen and (max-width: 700px) {

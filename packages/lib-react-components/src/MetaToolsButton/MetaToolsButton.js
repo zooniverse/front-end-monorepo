@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import PlainButton from '../PlainButton'
 
 export const StyledPlainButton = styled(PlainButton)`
   > div {
     justify-content: flex-start;
-    line-height: ${(props) => props.theme.paragraph.small.height};
+    ${props => css`line-height: ${props.theme.paragraph.small.height};`}
   }
 `
 

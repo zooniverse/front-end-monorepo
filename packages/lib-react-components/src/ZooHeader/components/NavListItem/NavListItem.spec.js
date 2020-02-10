@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import NavListItem from './NavListItem'
+import { NavListItem } from './NavListItem'
 
 describe('<NavListItem />', function () {
   let wrapper
