@@ -66,7 +66,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
-      setActiveMark(null)
+      setActiveMark(undefined)
       setActiveMark_state(null)
     }
     target.releasePointerCapture(pointerId)
@@ -90,13 +90,13 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
           onDelete={() => {
+            setActiveMark(undefined)
             setActiveMark_state(null)
-            setActiveMark(null)
           }}
           onFinish={onFinish}
           onSelectMark={mark => {
-            setActiveMark_state(mark)
             setActiveMark(mark)
+            setActiveMark_state(mark)
           }}
           scale={scale}
         />
