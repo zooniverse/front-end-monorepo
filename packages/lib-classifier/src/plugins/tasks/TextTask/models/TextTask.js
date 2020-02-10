@@ -4,7 +4,7 @@ import Task from '../../models/Task'
 import TextAnnotation from './TextAnnotation'
 
 const Text = types.model('Text', {
-  annotation: types.maybe(types.safeReference(TextAnnotation)),
+  annotation: types.safeReference(TextAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
   required: types.optional(types.boolean, false),

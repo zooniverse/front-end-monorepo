@@ -8,7 +8,7 @@ const toolModels = Object.values(tools)
 
 const Drawing = types.model('Drawing', {
   activeToolIndex: types.optional(types.number, 0),
-  annotation: types.maybe(types.safeReference(DrawingAnnotation)),
+  annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
   tools: types.array(types.union(...toolModels)),
