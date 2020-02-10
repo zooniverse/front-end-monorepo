@@ -1,11 +1,15 @@
 import { Text } from 'grommet'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import React from 'react'
 import pxToRem from '../helpers/pxToRem'
 
+const letterSpacing = pxToRem(1)
 const StyledText = styled(Text)`
-  letter-spacing: ${pxToRem(1)};
-  text-transform: ${props => props.uppercase ? 'uppercase' : 'normal'};
+  letter-spacing: ${letterSpacing};
+  ${props => props.uppercase ? 
+    css`text-transform: uppercase;` :
+    css`text-transform: normal;`
+  }
 `
 
 export default function SpacedText ({ children, ...props }) {

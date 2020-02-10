@@ -2,14 +2,14 @@ import counterpart from 'counterpart'
 import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, shape, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import Category from './components/Category'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
 
 const StyledButton = styled(Button)`
-  ${props => props.active && `
+  ${props => props.active && css`
     background: none;
     font-weight: bold;
   `}

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { forwardRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { forwardRef } from 'react'
+import styled, { css } from 'styled-components'
 import draggable from '../draggable'
 
 const STROKE_WIDTH = 2
@@ -12,7 +12,10 @@ const StyledGroup = styled('g')`
     outline: none;
   }
   :hover {
-    cursor: ${props => props.dragging ? 'grabbing' : 'grab'};
+    ${props => props.dragging ? 
+      css`cursor: grabbing;` :
+      css`cursor: grab;`
+    }
   }
 `
 

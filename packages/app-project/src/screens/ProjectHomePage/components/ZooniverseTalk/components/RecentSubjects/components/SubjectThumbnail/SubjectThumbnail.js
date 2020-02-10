@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
-  max-height: ${props => props.maxHeight}px;
-  max-width: ${props => props.maxWidth}px;
+  ${props => css`
+    max-height: ${props.maxHeight}px;
+    max-width: ${props.maxWidth}px;
+  `}
   overflow: hidden;
   position: relative;
 `
