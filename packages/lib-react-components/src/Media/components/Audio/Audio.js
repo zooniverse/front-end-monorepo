@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 
 const StyledBox = styled(Box)`
-  ${props => props.maxHeight && css`max-height: ${prop.maxHeight}px;`}
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}
   ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
 `
 

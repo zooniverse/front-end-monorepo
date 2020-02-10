@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import TaskInput from '../../components/TaskInput'
+import zooTheme from '@zooniverse/grommet-theme'
 
+// TODO this really should use the theme from context/props instead
+// But broke tests for the Task component
 const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
+    background: ${zooTheme.global.colors.brand};
     max-width: ${maxWidth};
   }
 `
@@ -97,5 +100,5 @@ SingleChoiceTask.propTypes = {
   theme: PropTypes.object
 }
 
-export default withTheme(SingleChoiceTask)
-export { SingleChoiceTask }
+export default SingleChoiceTask
+// export { SingleChoiceTask }

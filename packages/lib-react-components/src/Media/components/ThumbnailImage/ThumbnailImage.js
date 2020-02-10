@@ -8,7 +8,7 @@ import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 const DEFAULT_THUMBNAIL_DIMENSION = 999
 
 const StyledBox = styled(Box)`
-  ${props => props.maxHeight && css`max-height: ${prop.maxHeight}px;`}
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}
   ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
 `
 
