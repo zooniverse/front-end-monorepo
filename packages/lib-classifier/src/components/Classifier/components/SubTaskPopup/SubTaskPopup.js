@@ -1,6 +1,6 @@
 import React from 'react'
 import counterpart from 'counterpart'
-import { Box } from 'grommet'
+import { Box, Paragraph } from 'grommet'
 import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
 import {} from 'prop-types'  // TODO
@@ -26,12 +26,13 @@ function storeMapper (stores) {
   
   const { activeMark } = stores.classifierStore.subTaskPopup
   const { addAnnotation } = stores.classifierStore.classifications
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
-  
-  const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-  // TODO: do we need this?  const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
-  // TODO: do we need this?  const disabled = activeTool ? activeTool.disabled : false
-  const { marks } = activeDrawingTask || {}
+
+  // TODO: do we need these?
+  // const { activeStepTasks } = stores.classifierStore.workflowSteps
+  // const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+  // const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
+  // const disabled = activeTool ? activeTool.disabled : false
+  // const { marks } = activeDrawingTask || {}
   
   console.log('+++ ACTIVE MARK \n', activeMark)
   
@@ -59,13 +60,16 @@ class SubTaskPopup extends React.Component {
       type: 'single'
     })
     
-    const { addAnnotation } = this.props
+    const { addAnnotation, activeMark } = this.props
     
     const ready = true // DEBUG
+    const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
     
-    const annotation = addAnnotation(task)
-    task.setAnnotation(annotation)
-    const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+    console.log('+++ TASKS: ', tasks.length)
+    
+    //const annotation = addAnnotation(task)
+    //task.setAnnotation(annotation)
+    //const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
     
     return (
       <Rnd
@@ -77,12 +81,29 @@ class SubTaskPopup extends React.Component {
         }}
       >
         <StyledBox pad="medium" fill>
-          <TaskComponent
-            disabled={!ready}
-            annotation={annotation}
-            task={task}
-            {...this.props}
-          />
+          {tasks.map(task => {
+            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+            // or creates a new one if one doesn't exist.
+            // The name is a bit confusing.
+            const annotation = addAnnotation(task)
+            task.setAnnotation(annotation)
+            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+            
+            if (annotation && TaskComponent) {
+              return (
+                <Box key={task.taskKey}>
+                  <TaskComponent
+                    disabled={!ready}
+                    annotation={annotation}
+                    task={task}
+                    {...this.props}
+                  />
+                </Box>
+              )
+            }
+            
+            return (<Paragraph>Task component could not be rendered.</Paragraph>)
+          })}
         </StyledBox>
       </Rnd>
     )
