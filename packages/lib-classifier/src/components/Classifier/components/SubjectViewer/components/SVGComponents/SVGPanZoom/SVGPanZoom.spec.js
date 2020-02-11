@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import SingleImageViewer from '../../SingleImageViewer'
@@ -11,7 +11,7 @@ describe('Components > SVGPanZoom', function () {
   let onZoom
   
   beforeEach(function () {
-    wrapper = shallow(
+    wrapper = mount(
       <SVGPanZoom
         naturalHeight={200}
         naturalWidth={400}
@@ -19,67 +19,74 @@ describe('Components > SVGPanZoom', function () {
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
       >
-        <SingleImageViewer />
+        <svg />
       </SVGPanZoom>
     )
   })
   
   it('should enable zoom in', function () {
     onZoom('zoomin', 1)
-    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('18.5 9.5 363 181')
   })
 
   it('should enable zoom out', function () {
     onZoom('zoomin', 1)
-    let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    let viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('18.5 9.5 363 181')
     onZoom('zoomout', -1)
-    viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 0 400 200')
   })
 
   it('should enable horizontal panning', function () {
     onPan(-1, 0)
-    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('10 0 400 200')
   })
 
   it('should enable vertical panning', function () {
     onPan(0, -1)
-    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 -10 400 200')
   })
 
   it('should should pan horizontally on drag', function () {
     onDrag({}, { x: -15, y: 0 })
-    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('10 0 400 200')
   })
 
   it('should should pan vertically on drag', function () {
     onDrag({}, { x: 0, y: -15 })
-    const viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    wrapper.update()
+    const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 10 400 200')
   })
 
   it('should should zoom out on wheel scroll up', function () {
     let fakeEvent = { deltaY: 10, preventDefault: sinon.stub(), stopPropagation: sinon.stub() }
     wrapper.simulate('wheel', fakeEvent)
-    let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    let viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('18.5 9.5 363 181')
     fakeEvent = { deltaY: -10, preventDefault: sinon.stub(), stopPropagation: sinon.stub() }
     wrapper.simulate('wheel', fakeEvent)
-    viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 0 400 200')
   })
 
   it('should should zoom in on wheel scroll down', function () {
-    let viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    let viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 0 400 200')
     const fakeEvent = { deltaY: 10, preventDefault: sinon.stub(), stopPropagation: sinon.stub() }
     wrapper.simulate('wheel', fakeEvent)
-    viewBox = wrapper.find(SingleImageViewer).prop('viewBox')
+    viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('18.5 9.5 363 181')
   })
 })

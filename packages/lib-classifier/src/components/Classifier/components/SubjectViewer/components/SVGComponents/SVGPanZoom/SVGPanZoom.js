@@ -3,9 +3,6 @@ import React, { cloneElement, useContext, useEffect, useState } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, setOnPan, setOnZoom }) {
-  setOnDrag(onDrag)
-  setOnPan(onPan)
-  setOnZoom(onZoom)
 
   const defaultViewBox = {
     x: 0,
@@ -18,9 +15,31 @@ function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, se
   const [ subjectScale, setSubjectScale ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
 
+  function onMount () {
+    setOnDrag(onDrag)
+    setOnPan(onPan)
+    setOnZoom(onZoom)
+  }
+
+  function onUnmount () {
+    setOnDrag(() => true)
+    setOnPan(() => true)
+    setOnZoom(() => true)
+  }
+
+  useEffect(() => {
+    onMount()
+    return onUnmount
+  }, [])
+
   useEffect(function updateImageSize () {
     onImageChange(img)
   }, [img])
+
+  useEffect(function onScaleChange () {
+    const newViewBox = scaledViewBox(scale)
+    setViewBox(newViewBox)
+  }, [scale])
 
   function onImageChange (img) {
     const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
@@ -40,34 +59,34 @@ function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, se
   }
 
   function onDrag (event, difference) {
-    const newViewBox = Object.assign({}, viewBox)
-    newViewBox.x -= difference.x / 1.5
-    newViewBox.y -= difference.y / 1.5
-    setViewBox(newViewBox)
+    setViewBox(prevViewBox => {
+      const newViewBox = Object.assign({}, prevViewBox)
+      newViewBox.x -= difference.x / 1.5
+      newViewBox.y -= difference.y / 1.5
+      return newViewBox
+    })
   }
 
   function onPan (dx, dy) {
-      const newViewBox = Object.assign({}, viewBox)
+    setViewBox(prevViewBox => {
+      const newViewBox = Object.assign({}, prevViewBox)
       newViewBox.x -= dx * 10
       newViewBox.y += dy * 10
-      setViewBox(newViewBox)
+      return newViewBox
+    })
   }
 
   function onZoom (type) {
     switch (type) {
       case 'zoomin': {
         const newScale = Math.min(scale + 0.1, 2)
-        const newViewBox = scaledViewBox(newScale)
-        setScale(newScale)
-        setViewBox(newViewBox)
+        setScale(prevScale => Math.min(prevScale + 0.1, 2))
         onImageChange(img)
         return
       }
       case 'zoomout': {
         const newScale = Math.max(scale - 0.1, 1)
-        const newViewBox = scaledViewBox(newScale)
-        setScale(newScale)
-        setViewBox(newViewBox)
+        setScale(prevScale => Math.max(prevScale - 0.1, 1))
         onImageChange(img)
         return
       }
