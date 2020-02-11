@@ -50,10 +50,15 @@ const Tool = types.model('Tool', {
       self.marks.delete(mark.id)
     }
 
+    function reset () {
+      self.marks.clear()
+    }
+
     return {
       createMark,
       createTask,
-      deleteMark
+      deleteMark,
+      reset
     }
   })
 
