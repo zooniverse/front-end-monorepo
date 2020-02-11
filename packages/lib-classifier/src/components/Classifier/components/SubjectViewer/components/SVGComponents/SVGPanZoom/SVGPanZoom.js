@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import React, { cloneElement, useContext, useEffect, useState } from 'react'
+import React, { cloneElement, createRef, useEffect, useState } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, setOnPan, setOnZoom }) {
-
+  const scrollContainer = createRef()
   const defaultViewBox = {
     x: 0,
     y: 0,
@@ -19,12 +19,14 @@ function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, se
     setOnDrag(onDrag)
     setOnPan(onPan)
     setOnZoom(onZoom)
+    scrollContainer.current.addEventListener('wheel', e => e.preventDefault())
   }
 
   function onUnmount () {
     setOnDrag(() => true)
     setOnPan(() => true)
     setOnZoom(() => true)
+    scrollContainer.current.removeEventListener('wheel', e => e.preventDefault())
   }
 
   useEffect(() => {
@@ -103,8 +105,6 @@ function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, se
   }
 
   function onWheel (event) {
-    event.preventDefault()
-    event.stopPropagation()
     const { deltaY } = event
     if (deltaY < 0) {
       onZoom('zoomout', -1)
@@ -114,7 +114,7 @@ function SVGPanZoom ({ children, img, naturalHeight, naturalWidth, setOnDrag, se
   }
 
   return (
-    <div onWheel={onWheel}>
+    <div ref={scrollContainer} onWheel={onWheel}>
       {cloneElement(children, { scale: subjectScale, viewBox: `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}` })}
     </div>
   )
