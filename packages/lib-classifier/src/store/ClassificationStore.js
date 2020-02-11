@@ -180,6 +180,14 @@ const ClassificationStore = types
         const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
         delete classificationToSubmit.id // remove temp id
         classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
+        
+        classificationToSubmit.annotations.forEach(annotation => {
+          annotation.value && annotation.value.forEach(annotationValue => {
+            if (annotationValue.annotations) {
+              annotationValue.annotations = convertMapToArray(annotationValue.annotations)
+            }
+          })
+        })
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach((entry) => {
