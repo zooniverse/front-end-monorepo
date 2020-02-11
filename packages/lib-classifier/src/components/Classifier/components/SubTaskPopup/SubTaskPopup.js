@@ -87,7 +87,7 @@ class SubTaskPopup extends React.Component {
               // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
               // or creates a new one if one doesn't exist.
               // The name is a bit confusing.
-              const annotation = addAnnotation(task)
+              const annotation = activeMark.addAnnotation(task)
               task.setAnnotation(annotation)
               const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
