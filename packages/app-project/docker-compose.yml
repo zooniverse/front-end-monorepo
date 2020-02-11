@@ -20,7 +20,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - project_app_node_modules_cache:/usr/src/packages/app-project/node_modules
+      - project_app_node_modules_cache:/usr/src/node_modules
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
@@ -34,7 +34,6 @@ services:
     ports:
       - "9001:9001"
     volumes:
-      - project_app_node_modules_cache:/usr/src/packages/app-project/node_modules
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
