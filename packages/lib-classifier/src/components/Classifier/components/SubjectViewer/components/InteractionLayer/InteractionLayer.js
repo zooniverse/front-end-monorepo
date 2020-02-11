@@ -123,7 +123,7 @@ InteractionLayer.propTypes = {
 }
 
 InteractionLayer.defaultProps = {
-  activeMark: null,
+  activeMark: undefined,
   disabled: false,
   marks: [],
   scale: 1,
