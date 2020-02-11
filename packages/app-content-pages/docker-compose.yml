@@ -1,19 +1,28 @@
 version: '3.2'
 
 services:
-  dev:
-    image: front-end-monorepo_dev:latest
+  project-app:
+    image: front-end-monorepo_project-content-pages:local
     build:
-      context: ../../
-      target: bootstrap
-    entrypoint:
-      - "yarn"
-      - "workspace"
-      - "@zooniverse/fe-content-pages"
-    command: ["dev"]
+      context: .
+      args:
+        ASSET_PREFIX: https://fe-content-pages.zooniverse.org
+        SENTRY_DSN: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
+    command: [yarn, "dev"]
+    environment:
+      - PORT=3000
+      - ASSET_PREFIX= http://localhost:3000
+      - NODE_ENV=development
+      - PANOPTES_ENV=staging
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
     ports:
       - "3000:3000"
       - "9001:9001"
     volumes:
+      - app_content_pages_node_modules_cache:/usr/src/node_modules
       - ./pages:/usr/src/packages/app-content-pages/pages
       - ./src:/usr/src/packages/app-content-pages/src
+
+volumes:
+  app_content_pages_node_modules_cache:
