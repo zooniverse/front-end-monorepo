@@ -88,11 +88,11 @@ describe('Model > AnnotationsStore', function () {
     it('should reset itself when the parent ClassificationStore node resets itself', function () {
       // Classification and AnnotationsStore are a composition whose parent is ClassificationStore
       const task = SingleChoiceTask.create(SingleChoiceTaskFactory.build({ taskKey: 'T0' }))
-      const classification = ClassificationFactory.build()
+      const classificationSnapshot = ClassificationFactory.build()
       const classificationStore = ClassificationStore.create({})
       applySnapshot(classificationStore, {
-        active: classification.id,
-        resources: { [classification.id]: classification }
+        active: classificationSnapshot.id,
+        resources: { [classificationSnapshot.id]: classificationSnapshot }
       })
       const resetSpy = sinon.spy(classificationStore.active, 'reset')
 
@@ -102,6 +102,7 @@ describe('Model > AnnotationsStore', function () {
       classificationStore.reset()
       expect(resetSpy).to.have.been.calledOnce()
       expect(classificationStore.active).to.be.undefined()
+      expect(classificationStore.resources).to.be.empty()
     })
 
     it('should reset itself when the parent Tool node resets itself', function () {
@@ -128,6 +129,7 @@ describe('Model > AnnotationsStore', function () {
       expect(mark.annotations.size).to.equal(1)
       tool.reset()
       expect(resetSpy).to.have.been.calledOnce()
+      expect(tool.marks).to.be.empty()
     })
   })
 })
