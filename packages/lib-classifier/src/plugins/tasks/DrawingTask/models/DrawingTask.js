@@ -2,11 +2,15 @@ import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import * as tools from '@plugins/drawingTools/models/tools'
+import * as markTypes from '@plugins/drawingTools/models/marks'
 import DrawingAnnotation from './DrawingAnnotation'
 
+const markModels = Object.values(markTypes)
+const markReferenceTypes = markModels.map(markType => types.safeReference(markType))
 const toolModels = Object.values(tools)
 
 const Drawing = types.model('Drawing', {
+  activeMark: types.union(...markReferenceTypes),
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
@@ -54,6 +58,10 @@ const Drawing = types.model('Drawing', {
       })
     }
 
+    function setActiveMark (mark) {
+      self.activeMark = mark
+    }
+
     function setActiveTool (toolIndex) {
       self.activeToolIndex = toolIndex
     }
@@ -70,6 +78,7 @@ const Drawing = types.model('Drawing', {
       afterCreate,
       complete,
       reset,
+      setActiveMark,
       setActiveTool
     }
   })

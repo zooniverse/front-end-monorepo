@@ -86,6 +86,29 @@ describe('Model > DrawingTask', function () {
     })
   })
 
+  describe('active mark', function () {
+    let drawingTask
+    let marks
+
+    before(function () {
+      drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      drawingTask.tools[0].createMark({ id: 'point1' })
+      drawingTask.tools[0].createMark({ id: 'point2' })
+      drawingTask.tools[1].createMark({ id: 'line1' })
+      marks = drawingTask.marks
+    })
+
+    it('should be undefined by default', function () {
+      expect(drawingTask.activeMark).to.be.undefined()
+    })
+
+    it('should be set from stored marks', function () {
+      const point1 = drawingTask.marks[0]
+      drawingTask.setActiveMark(point1)
+      expect(drawingTask.activeMark).to.equal(point1)
+    })
+  })
+
   describe('with subtask annotations', function () {
     let line1
     let point1

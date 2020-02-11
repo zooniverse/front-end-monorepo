@@ -21,14 +21,16 @@ function storeMapper (stores) {
   const disabled = activeTool ? activeTool.disabled : false
   const drawingAnnotations = Array.from(classification.annotations.values())
     .filter(annotation => getType(annotation).name === 'DrawingAnnotation')
-  const { marks } = activeDrawingTask || {}
+  const { activeMark, marks, setActiveMark } = activeDrawingTask || {}
   return {
     activeDrawingTask,
+    activeMark,
     activeTool,
     disabled,
     drawingAnnotations,
     marks,
-    move
+    move,
+    setActiveMark
   }
 }
 
@@ -38,12 +40,14 @@ class InteractionLayerContainer extends Component {
   render () {
     const {
       activeDrawingTask,
+      activeMark,
       activeTool,
       disabled,
       drawingAnnotations,
       height,
       marks,
       move,
+      setActiveMark,
       scale,
       width
     } = this.props
@@ -60,11 +64,13 @@ class InteractionLayerContainer extends Component {
           <InteractionLayer
             key={activeDrawingTask.taskKey}
             activeDrawingTask={activeDrawingTask}
+            activeMark={activeMark}
             activeTool={activeTool}
             disabled={disabled}
             height={height}
             marks={marks}
             move={move}
+            setActiveMark={setActiveMark}
             scale={scale}
             width={width}
           />
