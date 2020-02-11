@@ -39,6 +39,7 @@ const ResourceStore = types
 
     reset () {
       self.headers = undefined
+      self.active = undefined
       self.resources.clear()
     },
 

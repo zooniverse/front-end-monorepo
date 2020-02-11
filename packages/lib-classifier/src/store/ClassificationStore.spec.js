@@ -97,6 +97,39 @@ describe('Model > ClassificationStore', function () {
     })
   })
 
+  describe('on new subject', function () {
+    let classifications
+    let rootStore
+    beforeEach(function () {
+      rootStore = setupStores({
+        dataVisAnnotating: {},
+        drawing: {},
+        feedback: {},
+        fieldGuide: {},
+        subjectViewer: {},
+        tutorials: {},
+        workflowSteps: {},
+        userProjectPreferences: {}
+      })
+      rootStore.subjects.setResource(subjectsStub[0])
+      rootStore.subjects.setActive(subjectsStub[0].id)
+      classifications = rootStore.classifications
+    })
+
+    afterEach(function () {
+      rootStore = null
+      classifications = null
+    })
+
+    it('should reset and create a new classification', function () {
+      const firstClassificationId = classifications.active.id
+      expect(classifications.active.toJSON()).to.ok()
+      rootStore.subjects.setResource(subjectsStub[1])
+      rootStore.subjects.setActive(subjectsStub[1].id)
+      expect(classifications.active.id).to.not.equal(firstClassificationId)
+    })
+  })
+
   describe('on complete classification', function () {
     describe('with invalid feedback', function () {
       let classifications
