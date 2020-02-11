@@ -14,14 +14,15 @@ function TextTask (props) {
 
   useEffect(onMount, [])
 
-  function onMount () {
-    function textTaskDisposer () {
-      if (textArea.current && task.annotation) {
-        const text = textArea.current.value
-        task.annotation.update(text)
-      }
+  function updateAnnotation () {
+    if (textArea.current && task.annotation) {
+      const text = textArea.current.value
+      task.annotation.update(text)
     }
-    return textTaskDisposer
+  }
+
+  function onMount () {
+    return updateAnnotation
   }
 
   function setTagSelection (e) {
@@ -44,6 +45,7 @@ function TextTask (props) {
       newValue = textBefore + startTag + textInBetween + endTag + textAfter
     }
     textArea.current.value = newValue
+    updateAnnotation()
     if (textArea.current.focus) {
       textArea.current.setSelectionRange((newValue.length - textAfter.length), (newValue.length - textAfter.length))
       textArea.current.focus()
@@ -64,6 +66,7 @@ function TextTask (props) {
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
           defaultValue={value}
+          onChange={updateAnnotation}
         />
       </label>
       {(task.text_tags.length > 0) &&
