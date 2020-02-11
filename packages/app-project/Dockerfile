@@ -13,8 +13,6 @@ ENV APP_ENV production
 
 WORKDIR /usr/src/packages/app-project/
 
-COPY ./ /usr/src/packages/app-project/
-
 RUN yarn build
 
 ENV PORT 3000
