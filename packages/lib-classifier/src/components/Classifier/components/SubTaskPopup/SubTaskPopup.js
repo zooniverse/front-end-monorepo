@@ -65,48 +65,53 @@ class SubTaskPopup extends React.Component {
     const ready = true // DEBUG
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
     
-    console.log('+++ TASKS: ', tasks.length)
+    
+    console.log('+++ ACTIVE MARK: ', activeMark)
     
     //const annotation = addAnnotation(task)
     //task.setAnnotation(annotation)
     //const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
     
-    return (
-      <Rnd
-        minWidth={200}
-        minHeight={100}
-        style={{
-          border: `2px solid ${zooTheme.global.colors['light-2']}`,
-          backgroundColor: zooTheme.global.colors['light-1'],
-        }}
-      >
-        <StyledBox pad="medium" fill>
-          {tasks.map(task => {
-            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-            // or creates a new one if one doesn't exist.
-            // The name is a bit confusing.
-            const annotation = addAnnotation(task)
-            task.setAnnotation(annotation)
-            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-            
-            if (annotation && TaskComponent) {
-              return (
-                <Box key={task.taskKey}>
-                  <TaskComponent
-                    disabled={!ready}
-                    annotation={annotation}
-                    task={task}
-                    {...this.props}
-                  />
-                </Box>
-              )
-            }
-            
-            return (<Paragraph>Task component could not be rendered.</Paragraph>)
-          })}
-        </StyledBox>
-      </Rnd>
-    )
+    if (tasks.length > 0) {
+      return (
+        <Rnd
+          minWidth={200}
+          minHeight={100}
+          style={{
+            border: `2px solid ${zooTheme.global.colors['light-2']}`,
+            backgroundColor: zooTheme.global.colors['light-1'],
+          }}
+        >
+          <StyledBox pad="medium" fill>
+            {tasks.map(task => {
+              // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+              // or creates a new one if one doesn't exist.
+              // The name is a bit confusing.
+              const annotation = addAnnotation(task)
+              task.setAnnotation(annotation)
+              const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+
+              if (annotation && TaskComponent) {
+                return (
+                  <Box key={task.taskKey}>
+                    <TaskComponent
+                      disabled={!ready}
+                      annotation={annotation}
+                      task={task}
+                      {...this.props}
+                    />
+                  </Box>
+                )
+              }
+              
+              return (<Paragraph>Task component could not be rendered.</Paragraph>)
+            })}
+          </StyledBox>
+        </Rnd>
+      )
+    }
+    
+    return null
   }
 }
 
