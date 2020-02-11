@@ -12,8 +12,18 @@ const StyledRect = styled('rect')`
   }
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, marks, move, scale, width }) {
-  const [ activeMark, setActiveMark ] = useState(null)
+function InteractionLayer ({
+  activeDrawingTask,
+  activeMark,
+  activeTool,
+  disabled,
+  height,
+  marks,
+  move,
+  scale,
+  setActiveMark,
+  width
+}) {
   const [ creating, setCreating ] = useState(false)
   const { svg, getScreenCTM } = useContext(SVGContext)
 
@@ -102,18 +112,22 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
 
 InteractionLayer.propTypes = {
   activeDrawingTask: PropTypes.object.isRequired,
+  activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
   marks: PropTypes.array,
   scale: PropTypes.number,
+  setActiveMark: PropTypes.func,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {
+  activeMark: null,
   disabled: false,
   marks: [],
-  scale: 1
+  scale: 1,
+  setActiveMark: () => null
 }
 
 export default InteractionLayer
