@@ -78,7 +78,7 @@ function InteractionLayer ({
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
-      setActiveMark(null)
+      setActiveMark(undefined)
     }
     target.releasePointerCapture(pointerId)
   }
@@ -100,7 +100,7 @@ function InteractionLayer ({
         <DrawingToolMarks
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
-          onDelete={() => setActiveMark(null)}
+          onDelete={() => setActiveMark(undefined)}
           onFinish={onFinish}
           onSelectMark={mark => setActiveMark(mark)}
           scale={scale}
@@ -127,7 +127,7 @@ InteractionLayer.defaultProps = {
   disabled: false,
   marks: [],
   scale: 1,
-  setActiveMark: () => null
+  setActiveMark: () => undefined
 }
 
 export default InteractionLayer
