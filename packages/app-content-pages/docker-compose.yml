@@ -1,7 +1,7 @@
 version: '3.2'
 
 services:
-  project-app:
+  app-content-pages:
     image: front-end-monorepo_project-content-pages:local
     build:
       context: .
