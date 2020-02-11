@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  dev:
+  project-app:
     image: front-end-monorepo_project-app:local
     build:
       context: .
@@ -24,19 +24,20 @@ services:
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
-  # storybook:
-  #   image: front-end-monorepo_dev:latest
-  #   entrypoint:
-  #     - "yarn"
-  #     - "workspace"
-  #     - "@zooniverse/fe-project"
-  #   command: ["storybook"]
-  #   ports:
-  #     - "9001:9001"
-  #   volumes:
-  #     - ./pages:/usr/src/packages/app-project/pages
-  #     - ./src:/usr/src/packages/app-project/src
-  #     - ./stores:/usr/src/packages/app-project/stores
+  storybook:
+    image: front-end-monorepo_project-app:local
+    command: [yarn, "storybook"]
+    environment:
+      - NODE_ENV=development
+      - PANOPTES_ENV=staging
+      - NEXT_TELEMETRY_DISABLED=1
+    ports:
+      - "9001:9001"
+    volumes:
+      - project_app_node_modules_cache:/usr/src/packages/app-project/node_modules
+      - ./pages:/usr/src/packages/app-project/pages
+      - ./src:/usr/src/packages/app-project/src
+      - ./stores:/usr/src/packages/app-project/stores
 
 volumes:
   project_app_node_modules_cache:

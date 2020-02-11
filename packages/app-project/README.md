@@ -16,9 +16,10 @@ This package should be cloned as part of the [front-end-monorepo](https://github
 Starts a development server on port 3000 and a Storybook server on port 9001 by default.
 
 #### Docker
+- `docker-compose build project-app` to build the local image for reuse in project-app and storybook.
 - `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001.
 - `docker-compose down` to stop the dev containers.
-- `docker-compose run --rm dev test` to run the tests.
+- `docker-compose run --rm project-app test` to run the tests.
 
 #### Node/yarn
 ```sh
