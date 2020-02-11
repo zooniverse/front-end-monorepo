@@ -58,36 +58,59 @@ describe('Model > DrawingTools > Tool', function () {
       console.error.restore()
     })
 
-    it('should create a new task for valid subtasks', function () {
-      const details = [
-        {
-          type: 'multiple',
-          question: 'which fruit?',
-          answers: ['apples', 'oranges', 'pears'],
-          required: false
-        },
-        {
-          type: 'single',
-          question: 'how many?',
-          answers: ['one', 'two', 'three'],
-          required: false
-        },
-        {
-          type: 'text',
-          instruction: 'Transcribe something',
-          required: false
-        }
-      ]
-      const tool = Tool.create(Object.assign({}, toolData, { details }))
-      const multipleTaskSnapshot = Object.assign({}, tool.details[0], {taskKey: 'multiple'})
-      const singleTaskSnapshot = Object.assign({}, tool.details[1], {taskKey: 'single'})
-      const textTaskSnapshot = Object.assign({}, tool.details[2], {taskKey: 'text'})
-      const multipleTask = tool.createTask(multipleTaskSnapshot)
-      const singleTask = tool.createTask(singleTaskSnapshot)
-      const textTask = tool.createTask(singleTaskSnapshot)
-      expect(tool.tasks[0]).to.equal(multipleTask)
-      expect(tool.tasks[1]).to.equal(singleTask)
-      expect(tool.tasks[2]).to.equal(textTask)
+    describe('with valid subtasks', function () {
+      let multipleTaskSnapshot
+      let singleTaskSnapshot
+      let textTaskSnapshot
+      let tool
+
+      before(function () {
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            help: '',
+            required: false
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            help: '',
+            required: false
+          },
+          {
+            type: 'text',
+            instruction: 'Transcribe something',
+            help: '',
+            required: false,
+            text_tags: []
+          }
+        ]
+        tool = Tool.create(Object.assign({}, toolData, { details }))
+        multipleTaskSnapshot = Object.assign({}, tool.details[0], {taskKey: 'multiple'})
+        singleTaskSnapshot = Object.assign({}, tool.details[1], {taskKey: 'single'})
+        textTaskSnapshot = Object.assign({}, tool.details[2], {taskKey: 'text'})
+        tool.createTask(multipleTaskSnapshot)
+        tool.createTask(singleTaskSnapshot)
+        tool.createTask(textTaskSnapshot)
+      })
+
+      it('should create multiple choice tasks', function () {
+        const {annotation, ...snapshot} = tool.tasks[0]
+        expect(snapshot).to.deep.equal(multipleTaskSnapshot)
+      })
+
+      it('should create single choice tasks', function () {
+        const {annotation, ...snapshot} = tool.tasks[1]
+        expect(snapshot).to.deep.equal(singleTaskSnapshot)
+      })
+
+      it('should create text tasks', function () {
+        const {annotation, ...snapshot} = tool.tasks[2]
+        expect(snapshot).to.deep.equal(textTaskSnapshot)
+      })
     })
 
     it('should error for invalid subtasks', function () {

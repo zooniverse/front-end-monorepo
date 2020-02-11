@@ -141,7 +141,7 @@ const ClassificationStore = types
         const classification = self.active
         const workflow = getRoot(self).workflows.active
         const isPersistAnnotationsSet = workflow.configuration.persist_annotations
-        if (!isPersistAnnotationsSet) classification.annotations.delete(taskKey)
+        if (!isPersistAnnotationsSet) classification.removeAnnotation(taskKey)
       } else {
         if (process.browser) {
           console.error('No active classification or no active workflow. Cannot remove annotation.')
