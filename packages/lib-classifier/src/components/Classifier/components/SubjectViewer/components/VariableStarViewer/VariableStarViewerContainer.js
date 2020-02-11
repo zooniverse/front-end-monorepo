@@ -17,7 +17,7 @@ class VariableStarViewerContainer extends Component {
     this.viewer = React.createRef()
     this.state = {
       barJSON: {},
-      focusedSeries: -1,
+      seriesOptions: [],
       imageSrc: '',
       invertYAxis: false,
       periodMultiple: 1,
@@ -120,7 +120,7 @@ class VariableStarViewerContainer extends Component {
   }
 
   setSeriesFocus(seriesToFocus) {
-    this.setState({ focusedSeries: seriesToFocus })
+    // TODO add handling
   }
 
   setYAxisInversion() {

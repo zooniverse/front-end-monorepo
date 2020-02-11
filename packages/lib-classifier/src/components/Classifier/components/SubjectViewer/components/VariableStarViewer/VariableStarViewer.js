@@ -7,7 +7,7 @@ import {
 } from 'grommet'
 import counterpart from 'counterpart'
 import { SpacedText } from '@zooniverse/react-components'
-import ScatterPlotViewer from '../ScatterPlotViewer'
+import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewer } from '../SingleImageViewer'
 import { BarChartViewer } from '../BarChartViewer'
 import Controls from './components/Controls'
@@ -33,15 +33,16 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
   return (
     <Grid
       forwardedRef={ref}
-      rows={['1fr', '1fr', '1fr']}
-      columns={['1fr', '1fr', '1fr']}
+      fill
+      rows={['60px', '1/4', '1/4', '1/4']}
+      columns={['2/3', '1/3']}
       gap='xsmall'
       areas={[
-        { name: 'controls', start: [0, 0], end: [1, 0] },
-        { name: 'phasedJSON', start: [0, 1], end: [1, 1] },
-        { name: 'rawJSON', start: [0, 2], end: [1, 2] },
-        { name: 'barCharts', start: [2, 0], end: [2, 0] },
-        { name: 'HRDiagram', start: [2, 1], end: [2, 2] }
+        { name: 'controls', start: [0, 0], end: [0, 0] },
+        { name: 'phasedJSON', start: [0, 1], end: [0, 2] },
+        { name: 'rawJSON', start: [0, 3], end: [0, 3] },
+        { name: 'barCharts', start: [1, 0], end: [1, 1] },
+        { name: 'HRDiagram', start: [1, 2], end: [1, 3] }
       ]}
     >
       <Controls
@@ -53,8 +54,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       />
       <Box
         gridArea='phasedJSON'
-        height='545px'
-        width='770px'
       >
         <ScatterPlotViewer
           data={phasedJSON.data}
@@ -63,9 +62,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         />
       </Box>
       <Box
-        gridArea='rawData'
-        height='350px'
-        width='440px'
+        gridArea='rawJSON'
       >
         <ScatterPlotViewer
           data={rawJSON.data}
@@ -78,9 +75,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         direction='row'
         gap='small'
         gridArea='barCharts'
-        height='300px'
         pad='small'
-        width='300px'
       >
         <BarChartViewer
           data={period.data}
@@ -100,11 +95,12 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         width='220px'
       >
         <SingleImageViewer
-          height='260px'
+          height={260}
           enableInteractionLayer={false}
-          width='220px'
+          viewBox='0 0 220 260'
+          width={220}
         >
-          <image src={imgSrc} />
+          <image height={260} src={imgSrc} width={220} />
         </SingleImageViewer>
         <SpacedText>{counterpart('VariableStarViewer.temperature')}</SpacedText>
       </Box>

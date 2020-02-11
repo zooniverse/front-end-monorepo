@@ -6,10 +6,11 @@ import {
   RadioButtonGroup
 } from 'grommet'
 import styled from 'styled-components'
-import { PlainButton, SpacedText } from '@zooniverse/react-components'
+import { PlainButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
+import theme from './theme'
 
 counterpart.registerTranslations('en', en)
 
@@ -17,11 +18,6 @@ const StyledPlainButton = styled(PlainButton)`
   > div {
     flex-direction: column;
   }
-`
-
-const StyledFormField = styled(FormField)`
-  flex-direction: column-reverse;
-  margin: 0;
 `
 
 function Controls(props) {
@@ -33,7 +29,13 @@ function Controls(props) {
     setYAxisInversion
   } = props
   return (
-    <Box direction='row' gridArea={gridArea}>
+    <Box
+      background='neutral-6'
+      direction='row'
+      gap='xsmall'
+      gridArea={gridArea}
+      pad='xsmall'
+    >
       <SpacedText
         style={{ fontSize: '0.5em', transform: 'rotate(180deg)', writingMode: 'vertical-lr' }}
       >
@@ -45,27 +47,7 @@ function Controls(props) {
         onClick={event => setYAxisInversion(event)}
         pad='small'
       />
-      <fieldset style={{ border: 'none' }}>
-        <FormField
-          htmlFor='checkbox1'
-        >
-          <CheckBox
-            id='checkbox1'
-            name='focusCheckboxes'
-            onChange={event => setSeriesFocus(event)}
-          />
-        </FormField>
-        <FormField
-          htmlFor='checkbox2'
-        >
-          <CheckBox
-            id='checkbox2'
-            name='focusCheckboxes'
-            onChange={event => setSeriesFocus(event)}
-          />
-        </FormField>
-      </fieldset>
-      <StyledFormField
+      <FormField
         htmlFor='periodMultiple'
         label={<SpacedText size='xsmall'>{counterpart('VariableStarViewer.periodMultiple')}</SpacedText>}
       >
@@ -78,9 +60,24 @@ function Controls(props) {
           options={['0.5', '1', '2', '3']}
           value={periodMultiple.toString()}
         />
-      </StyledFormField>
+      </FormField>
+      <Box>
+        <fieldset style={{ border: 'none' }}>
+          <label>
+            <input type='checkbox' />
+            <SpacedText style={{ fontSize: '0.5em' }}>red light</SpacedText>
+          </label>
+          <label>
+            <input type='checkbox' />
+            <SpacedText style={{ fontSize: '0.5em' }}>blue light</SpacedText>
+          </label>
+        </fieldset>
+        <SpacedText size='xsmall'>
+          {counterpart('VariableStarViewer.focus')}
+        </SpacedText>
+      </Box>
     </Box>
   )
 }
 
-export default Controls
+export default withThemeContext(Controls, theme)

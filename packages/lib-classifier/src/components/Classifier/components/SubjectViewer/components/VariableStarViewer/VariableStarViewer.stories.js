@@ -14,6 +14,7 @@ import {
 import variableStar from '../../helpers/mockLightCurves/variableStar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
+import image from './mocks/temperature.png'
 
 const config = {
   notes: {
@@ -34,7 +35,7 @@ function setZoomCallback(callback) {
 const stories = storiesOf('Subject Viewers | VariableStarViewer', module)
 
 stories.addDecorator(withKnobs)
-stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
+// stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 const { colors } = zooTheme.global
 
@@ -42,8 +43,6 @@ const barJSON = {
   amplitude: variableStarAmplitudeMockData,
   period: variableStarPeriodMockData
 }
-
-const image = 'https://placekitten.com/200/230'
 
 stories
   .add('light theme', () => {
@@ -53,7 +52,7 @@ stories
           <VariableStarViewer
             barJSON={barJSON}
             imgSrc={image}
-            phasedJSON={{ data: [], chartOptions: {} }}
+            phasedJSON={variableStar}
             rawJSON={object('data', variableStar)}
           />
         </Box>
@@ -67,7 +66,7 @@ stories
         <Box height='medium' width='large'>
           <VariableStarViewer
             barJSON={barJSON}
-            imgSrc='https://placekitten.com/200/230'
+            imgSrc={image}
             rawJSON={object('data', variableStar)}
           />
         </Box>
@@ -81,7 +80,7 @@ stories
         <Box height='medium' width='large'>
           <VariableStarViewer
             barJSON={barJSON}
-            imgSrc='https://placekitten.com/200/230'
+            imgSrc={image}
             rawJSON={object('data', variableStar)}
           />
         </Box>
