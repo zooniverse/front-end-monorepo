@@ -29,8 +29,6 @@ services:
     command: [yarn, "storybook"]
     environment:
       - NODE_ENV=development
-      - PANOPTES_ENV=staging
-      - NEXT_TELEMETRY_DISABLED=1
     ports:
       - "9001:9001"
     volumes:
