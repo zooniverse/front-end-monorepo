@@ -10,7 +10,8 @@ import Publications from './Publications'
 counterpart.registerTranslations('en', en)
 
 function PublicationsContainer(props) {
-  const { error, publicationsData } = props
+  const error = props.error
+  const publicationsData = props.publicationsData || []
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
@@ -30,9 +31,12 @@ function PublicationsContainer(props) {
 PublicationsContainer.getInitialProps = async ({ req }) => {
   const host = getHost(req)
   let error
-  const publicationsData = await request.get(host + '/api/publications')
-    .then(res => res.body)
-    .catch(err => error = err.message)
+  let publicationsData = []
+  try {
+    publicationsData = (await request.get(host + '/api/publications')).body
+  } catch (err) {
+    error = err.message
+  }
   return {
     error,
     publicationsData
