@@ -23,8 +23,7 @@ describe('Component > TeamContainer', function () {
 
   describe('with no team data', function () {
     it('should render without crashing', function () {
-      let teamNoData;
-      let noDataWrapper = shallow(<TeamContainer teamData={teamNoData} />)
+      const noDataWrapper = shallow(<TeamContainer teamData={undefined} />)
       expect(noDataWrapper).to.be.ok()
     })
   })
@@ -37,8 +36,8 @@ describe('Component > TeamContainer', function () {
     })
 
     it('should handle valid API data', async () => {
-      getTeamDataStub = sinon.stub(request, 'get').returns({body: DATA});
-      const props = await TeamContainer.getInitialProps({});
+      getTeamDataStub = sinon.stub(request, 'get').returns({ body: DATA })
+      const props = await TeamContainer.getInitialProps({})
       expect(props).to.deep.equal({
         error: undefined,
         teamData: DATA
@@ -46,8 +45,8 @@ describe('Component > TeamContainer', function () {
     })
 
     it('should handle empty API reponse', async () => {
-      getTeamDataStub = sinon.stub(request, 'get').returns({body: []});
-      const props = await TeamContainer.getInitialProps({});
+      getTeamDataStub = sinon.stub(request, 'get').returns({ body: [] })
+      const props = await TeamContainer.getInitialProps({})
       expect(props).to.deep.equal({
         error: undefined,
         teamData: []
@@ -57,11 +56,11 @@ describe('Component > TeamContainer', function () {
     it('should handle API errors', async () => {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
-      getTeamDataStub = sinon.stub(request, 'get').returns(errorPromise);
-      const props = await TeamContainer.getInitialProps({});
+      getTeamDataStub = sinon.stub(request, 'get').returns(errorPromise)
+      const props = await TeamContainer.getInitialProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
-        teamData: [],
+        teamData: []
       })
     })
   })
