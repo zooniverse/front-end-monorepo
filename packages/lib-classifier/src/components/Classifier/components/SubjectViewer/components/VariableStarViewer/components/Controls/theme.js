@@ -12,8 +12,10 @@ const theme = {
     margin: 'none'
   },
   radioButton: {
+    gap: 'xsmall',
+    size: '12px',
     icon: {
-      size: '5px'
+      size: '6px'
     }
   }
 }

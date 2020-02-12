@@ -62,7 +62,7 @@ function Controls(props) {
         />
       </FormField>
       <Box>
-        <fieldset style={{ border: 'none' }}>
+        <fieldset style={{ border: 'none', padding: 0 }}>
           <label>
             <input type='checkbox' />
             <SpacedText style={{ fontSize: '0.5em' }}>red light</SpacedText>
