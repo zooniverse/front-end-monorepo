@@ -2,15 +2,16 @@ import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
 import zooTheme from '@zooniverse/grommet-theme'
 
+const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
     background: ${zooTheme.global.colors.brand};
-    max-width: ${pxToRem(60)};
+    max-width: ${maxWidth};
   }
 `
 
