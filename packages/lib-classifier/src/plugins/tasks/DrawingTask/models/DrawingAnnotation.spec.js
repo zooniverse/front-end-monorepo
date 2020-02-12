@@ -57,6 +57,10 @@ describe('Model > DrawingAnnotation', function () {
         snapshot = annotation.toSnapshot()
       })
 
+      it('should be an array', function () {
+        expect(snapshot).to.be.a('array')
+      })
+
       it('should contain exactly one annotation', function () {
         expect(snapshot).to.have.lengthOf(1)
       })
@@ -130,9 +134,14 @@ describe('Model > DrawingAnnotation', function () {
         snapshot = annotation.toSnapshot()
       })
 
+      it('should be an array', function () {
+        expect(snapshot).to.be.a('array')
+      })
+
       it('should contain the task annotation plus one annotation for each subtask', function () {
         expect(snapshot).to.have.lengthOf(3)
       })
+
       it('should contain snapshots of the annotation plus subtask answers', function () {
         const [ annotation ] = snapshot
         const point1Answer = {
