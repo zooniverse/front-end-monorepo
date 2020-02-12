@@ -66,7 +66,7 @@ describe('Models > Drawing Task > Mark', function () {
   })
 
   it('should be able to store annotations', function () {
-    expect(mark.annotations).to.be.ok()
+    expect(mark.annotations).to.be.a('map')
   })
 
   describe('getDistance', function () {
