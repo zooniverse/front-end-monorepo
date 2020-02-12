@@ -2,7 +2,7 @@ import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
 
@@ -105,5 +105,5 @@ MultipleChoiceTask.propTypes = {
   theme: PropTypes.object
 }
 
-export default withTheme(MultipleChoiceTask)
+export default MultipleChoiceTask
 export { MultipleChoiceTask }
