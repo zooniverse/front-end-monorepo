@@ -9,7 +9,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
+    background: ${zootheme.global.colors.brand};
     max-width: ${pxToRem(60)};
   }
 `
