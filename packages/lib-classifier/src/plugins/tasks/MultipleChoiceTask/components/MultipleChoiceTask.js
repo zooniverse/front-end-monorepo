@@ -29,8 +29,7 @@ function MultipleChoiceTask (props) {
     annotation,
     className,
     disabled,
-    task,
-    theme
+    task
   } = props
   const { value } = annotation
 
@@ -50,7 +49,6 @@ function MultipleChoiceTask (props) {
       autoFocus={(value && value.length === 0)}
       className={className}
       disabled={disabled}
-      theme={theme}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
