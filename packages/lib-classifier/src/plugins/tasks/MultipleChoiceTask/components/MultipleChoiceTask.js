@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
+import zooTheme from '@zooniverse/grommet-theme'
 
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
