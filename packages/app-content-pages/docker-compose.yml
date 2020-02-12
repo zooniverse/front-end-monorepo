@@ -5,9 +5,6 @@ services:
     image: front-end-monorepo_project-content-pages:local
     build:
       context: .
-      args:
-        ASSET_PREFIX: https://fe-content-pages.zooniverse.org
-        SENTRY_DSN: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
     command: [yarn, "dev"]
     environment:
       - PORT=3000
