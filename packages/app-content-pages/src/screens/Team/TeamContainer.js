@@ -10,7 +10,8 @@ import Team from './Team'
 counterpart.registerTranslations('en', en)
 
 function TeamContainer (props) {
-  const { error, teamData } = props
+  const error = props.error
+  const teamData = props.teamData || [];
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = createFilters(teamData, activeFilter, setActiveFilter)
@@ -56,6 +57,8 @@ function createFilters (teamData, activeFilter, setActiveFilter) {
     name: counterpart('Team.showAll'),
     setActive: () => setActiveFilter(null)
   }
+
+  console.log(teamData);
 
   const teamFilters = teamData.map(team => ({
     active: activeFilter === team.name,

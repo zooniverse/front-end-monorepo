@@ -19,6 +19,14 @@ describe('Component > TeamContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
+  describe('with no team data', function () {
+    it('should render without crashing', function () {
+      let teamNoData;
+      let noDataWrapper = shallow(<TeamContainer teamData={teamNoData} />)
+      expect(noDataWrapper).to.be.ok()
+    })
+  })
+
   it('should render the `Team` component', function () {
     expect(componentWrapper).to.have.lengthOf(1)
   })
