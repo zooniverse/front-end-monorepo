@@ -11,7 +11,7 @@ services:
     command: [yarn, "dev"]
     environment:
       - PORT=3000
-      - ASSET_PREFIX= http://localhost:3000
+      - ASSET_PREFIX=http://localhost:3000
       - NODE_ENV=development
       - PANOPTES_ENV=staging
       - NEXT_TELEMETRY_DISABLED=1
