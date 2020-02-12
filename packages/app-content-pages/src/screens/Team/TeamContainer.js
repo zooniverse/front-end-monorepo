@@ -58,8 +58,6 @@ function createFilters (teamData, activeFilter, setActiveFilter) {
     setActive: () => setActiveFilter(null)
   }
 
-  console.log(teamData);
-
   const teamFilters = teamData.map(team => ({
     active: activeFilter === team.name,
     name: team.name,
