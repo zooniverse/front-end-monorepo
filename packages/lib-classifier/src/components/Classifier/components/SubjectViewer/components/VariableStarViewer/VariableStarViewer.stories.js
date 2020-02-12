@@ -67,6 +67,7 @@ stories
           <VariableStarViewer
             barJSON={barJSON}
             imgSrc={image}
+            phasedJSON={variableStar}
             rawJSON={object('data', variableStar)}
           />
         </Box>
@@ -81,6 +82,7 @@ stories
           <VariableStarViewer
             barJSON={barJSON}
             imgSrc={image}
+            phasedJSON={variableStar}
             rawJSON={object('data', variableStar)}
           />
         </Box>

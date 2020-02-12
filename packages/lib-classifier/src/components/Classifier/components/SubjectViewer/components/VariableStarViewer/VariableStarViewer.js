@@ -109,13 +109,29 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 })
 
 VariableStarViewer.defaultProps = {
+  barJSON: {
+    amplitude: {
+      data: [],
+      options: {} 
+    },
+    period: {
+      data: [],
+      options: {}
+    }
+  },
+  imgSrc: '',
   periodMultiple: 1,
   phasedJSON: {
     data: [],
     chartOptions: {}
   },
+  rawJSON: {
+    data: [],
+    chartOptions: {}
+  },
   setPeriodMultiple: () => { },
   setSeriesFocus: () => { },
+  setYAxisInversion: () => {},
   theme: {
     global: {
       colors: {},
@@ -126,6 +142,29 @@ VariableStarViewer.defaultProps = {
 }
 
 VariableStarViewer.propTypes = {
+  barJSON: PropTypes.shape({
+    amplitude: PropTypes.shape({
+      data: PropTypes.array,
+      options: PropTypes.object
+    }),
+    period: PropTypes.shape({
+      data: PropTypes.array,
+      options: PropTypes.object
+    })
+  }),
+  imgSrc: PropTypes.string,
+  periodMultiple: PropTypes.number,
+  phasedJSON: PropTypes.shape({
+    data: PropTypes.array,
+    chartOptions: PropTypes.object
+  }),
+  rawJSON: PropTypes.shape({
+    data: PropTypes.array,
+    chartOptions: PropTypes.object
+  }),
+  setPeriodMultiple: PropTypes.func,
+  setSeriesFocus: PropTypes.func,
+  setYAxisInversion: PropTypes.func,
   theme: PropTypes.object,
   zooming: PropTypes.bool
 }

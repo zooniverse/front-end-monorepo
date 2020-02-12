@@ -11,6 +11,7 @@ import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
+import { PropTypes } from 'mobx-react'
 
 counterpart.registerTranslations('en', en)
 
@@ -78,6 +79,22 @@ function Controls(props) {
       </Box>
     </Box>
   )
+}
+
+Controls.defaultProps = {
+  gridArea: '',
+  periodMultiple: 1,
+  setSeriesFocus: () => {},
+  setPeriodMultiple: () => {},
+  setYAxisInversion: () => {}
+}
+
+Controls.propTypes = {
+  gridArea: PropTypes.string,
+  periodMultiple: PropTypes.number,
+  setSeriesFocus: PropTypes.func,
+  setPeriodMultiple: PropTypes.func,
+  setYAxisInversion: PropTypes.func
 }
 
 export default withThemeContext(Controls, theme)
