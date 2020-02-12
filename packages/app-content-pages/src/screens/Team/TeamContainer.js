@@ -32,9 +32,11 @@ TeamContainer.getInitialProps = async ({ req }) => {
   const host = getHost(req)
   let error
   let teamData
-  await request.get(host + '/api/team')
-    .then(res => teamData = res.body)
-    .catch(err => error = err.message)
+  try {
+    teamData = (await request.get(host + '/api/team')).body
+  } catch (err) {
+    error = err.message
+  }
   return {
     error,
     teamData
