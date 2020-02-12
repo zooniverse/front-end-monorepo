@@ -60,8 +60,8 @@ describe('Component > TeamContainer', function () {
       getTeamDataStub = sinon.stub(request, 'get').returns(errorPromise);
       const props = await TeamContainer.getInitialProps({});
       expect(props).to.deep.equal({
-        teamData: undefined,
-        error: errorMsg
+        error: errorMsg,
+        teamData: [],
       })
     })
   })

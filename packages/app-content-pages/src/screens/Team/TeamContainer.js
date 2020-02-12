@@ -31,7 +31,7 @@ function TeamContainer (props) {
 TeamContainer.getInitialProps = async ({ req }) => {
   const host = getHost(req)
   let error
-  let teamData
+  let teamData = []
   try {
     teamData = (await request.get(host + '/api/team')).body
   } catch (err) {
