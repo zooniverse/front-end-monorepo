@@ -30,12 +30,9 @@ function PublicationsContainer(props) {
 PublicationsContainer.getInitialProps = async ({ req }) => {
   const host = getHost(req)
   let error
-  let publicationsData = []
-  try {
-    publicationsData = (await request.get(host + '/api/publications')).body
-  } catch (err) {
-    error = err.message
-  }
+  const publicationsData = await request.get(host + '/api/publications')
+    .then(res => res.body)
+    .catch(err => error = err.message)
   return {
     error,
     publicationsData
@@ -45,10 +42,6 @@ PublicationsContainer.getInitialProps = async ({ req }) => {
 PublicationsContainer.propTypes = {
   error: string,
   publicationsData: array,
-}
-
-PublicationsContainer.defaultProps = {
-  publicationsData: []
 }
 
 export default PublicationsContainer
