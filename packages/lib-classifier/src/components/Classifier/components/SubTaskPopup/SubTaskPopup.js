@@ -6,16 +6,12 @@ import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
 import {} from 'prop-types'  // TODO
 
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import taskRegistry from '@plugins/tasks'
-
-import styled from 'styled-components'  // TODO: check what's the best way to style this component
-import zooTheme from '@zooniverse/grommet-theme'
-
-
 
 // EXPERIMENTAL
 // ----------------
+import zooTheme from '@zooniverse/grommet-theme'
+import styled from 'styled-components'  // TODO: check what's the best way to style this component
 const StyledBox = styled(Box)`
   border: 2px solid ${zooTheme.global.colors.brand}
 `
