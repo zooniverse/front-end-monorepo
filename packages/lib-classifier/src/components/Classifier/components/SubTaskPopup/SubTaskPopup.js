@@ -25,12 +25,15 @@ counterpart.registerTranslations('en', en)
 function storeMapper (stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
-  const activeMark = (activeDrawingTask && activeDrawingTask.activeMark)
-    ? activeDrawingTask.activeMark
-    : undefined
-
+  
+  const activeMark = activeDrawingTask && activeDrawingTask.activeMark
+  const subTaskVisibility = activeDrawingTask && activeDrawingTask.subTaskVisibility
+  const setSubTaskVisibility = activeDrawingTask && activeDrawingTask.setSubTaskVisibility
+  
   return {
     activeMark,
+    setSubTaskVisibility,
+    subTaskVisibility,
   }
 }
 
@@ -42,12 +45,12 @@ class SubTaskPopup extends React.Component {
   // TODO: Split render() into various asyncStates?
 
   render () {
-    const { activeMark } = this.props
+    const { activeMark, setSubTaskVisibility, subTaskVisibility } = this.props
 
-    const ready = true // DEBUG
+    const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
 
-    if (tasks.length > 0) {
+    if (subTaskVisibility && tasks.length > 0) {
       return (
         <Rnd
           minWidth={200}

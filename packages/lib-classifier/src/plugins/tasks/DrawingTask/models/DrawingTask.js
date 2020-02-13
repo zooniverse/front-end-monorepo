@@ -15,6 +15,7 @@ const Drawing = types.model('Drawing', {
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
+  subTaskVisibility: types.optional(types.boolean, true),  // TODO: change to false
   tools: types.array(types.union(...toolModels)),
   type: types.literal('drawing')
 })
@@ -73,13 +74,18 @@ const Drawing = types.model('Drawing', {
     function reset () {
       self.tools.forEach(tool => tool.reset())
     }
+    
+    function setSubTaskVisibility (val) {
+      self.subTaskVisibility = val
+    }
 
     return {
       afterCreate,
       complete,
       reset,
       setActiveMark,
-      setActiveTool
+      setActiveTool,
+      setSubTaskVisibility
     }
   })
 
