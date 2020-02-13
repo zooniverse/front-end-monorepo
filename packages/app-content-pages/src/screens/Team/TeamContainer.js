@@ -30,9 +30,12 @@ function TeamContainer (props) {
 TeamContainer.getInitialProps = async ({ req }) => {
   const host = getHost(req)
   let error
-  const teamData = await request.get(host + '/api/team')
-    .then(res => res.body)
-    .catch(err => error = err.message)
+  let teamData = []
+  try {
+    teamData = (await request.get(host + '/api/team')).body
+  } catch (err) {
+    error = err.message
+  }
   return {
     error,
     teamData
@@ -42,6 +45,10 @@ TeamContainer.getInitialProps = async ({ req }) => {
 TeamContainer.propTypes = {
   error: string,
   teamData: array,
+}
+
+TeamContainer.defaultProps = {
+  teamData: []
 }
 
 export default TeamContainer
