@@ -58,6 +58,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
           { 'image/jpeg': 'https://some.domain/image.jpg' }
         ],
         metadata: {
@@ -66,6 +67,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       }
       wrapper = shallow(
         <MultiFrameViewerContainer
+          frame={0}
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
@@ -189,6 +191,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       }
       wrapper = shallow(
         <MultiFrameViewerContainer
+          frame={0}
           ImageObject={InvalidImage}
           subject={subject}
           onError={onError}
@@ -251,11 +254,13 @@ describe('Component > MultiFrameViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
           { 'image/jpeg': 'https://some.domain/image.jpg' }
         ]
       }
       wrapper = shallow(
         <MultiFrameViewerContainer
+          frame={0}
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}

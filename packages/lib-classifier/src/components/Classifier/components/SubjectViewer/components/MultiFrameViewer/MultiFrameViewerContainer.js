@@ -7,24 +7,28 @@ import React from 'react'
 import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-import locationValidator from '../../helpers/locationValidator'
 import FrameCarousel from './FrameCarousel'
+import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import withKeyZoom from '../../../withKeyZoom'
 
 function storeMapper (stores) {
   const {
     enableRotation,
+    frame,
     rotation,
-    setOnZoom,
-    setOnPan
+    setFrame,
+    setOnPan,
+    setOnZoom
   } = stores.classifierStore.subjectViewer
 
   return {
     enableRotation,
+    frame,
     rotation,
-    setOnZoom,
-    setOnPan
+    setFrame,
+    setOnPan,
+    setOnZoom
   }
 }
 
@@ -34,6 +38,7 @@ class MultiFrameViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
+    this.onFrameChange = this.onFrameChange.bind(this)
     this.onWheel = this.onWheel.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
@@ -43,19 +48,29 @@ class MultiFrameViewerContainer extends React.Component {
       img: {},
       scale: 1,
       viewBox: {
-        x: 0,
-        y: 0,
         height: 0,
-        width: 0
+        width: 0,
+        x: 0,
+        y: 0
       }
     }
   }
 
   componentDidMount () {
     this.props.enableRotation()
-    this.props.setOnZoom(this.onZoom.bind(this))
     this.props.setOnPan(this.onPan.bind(this))
+    this.props.setOnZoom(this.onZoom.bind(this))
     this.onLoad()
+  }
+
+  componentDidUpdate (prevProps) {
+    const { frame } = this.props
+    if (prevProps.frame !== frame) {
+      this.props.enableRotation()
+      this.props.setOnPan(this.onPan.bind(this))
+      this.props.setOnZoom(this.onZoom.bind(this))
+      this.onLoad()
+    }
   }
 
   componentWillUnmount () {
@@ -80,6 +95,11 @@ class MultiFrameViewerContainer extends React.Component {
       viewBox.y -= difference.y / 1.5
       return { viewBox }
     })
+  }
+
+  onFrameChange(frame) {
+    const { setFrame } = this.props
+    setFrame(frame)
   }
 
   onPan (dx, dy) {
@@ -150,9 +170,9 @@ class MultiFrameViewerContainer extends React.Component {
   }
 
   async preload () {
-    const { subject } = this.props
+    const { frame, subject } = this.props
     if (subject && subject.locations) {
-      const frame = subject.metadata && subject.metadata.default_frame ? subject.metadata.default_frame : 0
+      // TODO: Validate for allowed image media mime types
       const imageUrl = Object.values(subject.locations[frame])[0]
       const img = await this.fetchImage(imageUrl)
       this.setState({ img })
@@ -163,8 +183,8 @@ class MultiFrameViewerContainer extends React.Component {
 
   async getImageSize () {
     const img = await this.preload()
-    const svg = this.imageViewer.current || {}
-    const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect()
+    const svg = this.imageViewer.current
+    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
     return {
       clientHeight,
       clientWidth,
@@ -193,6 +213,7 @@ class MultiFrameViewerContainer extends React.Component {
   render () {
     const {
       enableInteractionLayer,
+      frame,
       loadingState,
       onKeyDown,
       rotation,
@@ -221,7 +242,11 @@ class MultiFrameViewerContainer extends React.Component {
       <Box
         direction='row'
       >
-        <FrameCarousel subject={subject} />
+        <FrameCarousel
+          frame={frame}
+          onFrameChange={this.onFrameChange}
+          subject={subject}
+        />
         <SVGContext.Provider value={{ svg, getScreenCTM }}>
           <SingleImageViewer
             enableInteractionLayer={enableInteractionLayer}
@@ -250,9 +275,11 @@ class MultiFrameViewerContainer extends React.Component {
 MultiFrameViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
+  frame: PropTypes.number,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  setFrame: PropTypes.func,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
@@ -263,10 +290,12 @@ MultiFrameViewerContainer.propTypes = {
 MultiFrameViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   enableRotation: () => null,
+  frame: undefined,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
+  setFrame: () => {},
   setOnPan: () => true,
   setOnZoom: () => true
 }
