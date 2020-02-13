@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Text } from 'grommet'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
@@ -20,10 +20,10 @@ export const StyledBackButtonWrapper = styled.div`
 export const StyledBackButtonToolTip = styled.span`
   bottom: '-100%';
   box-sizing: border-box;
-  color: ${(props) => props.theme.dark
-    ? props.theme.global.colors['accent-2']
-    : props.theme.global.colors.brand
-};
+  ${props => props.theme.dark ? 
+    css`color: ${props.theme.global.colors['accent-2']};` :
+    css`color: ${props.theme.global.colors.brand};`
+  }
   font-size: 0.9em;
   left: 0;
   padding: 1em 0;

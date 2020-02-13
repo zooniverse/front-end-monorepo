@@ -3,14 +3,15 @@ import { Box, Text } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import zooTheme from '@zooniverse/grommet-theme'
 
 import TaskInput from '../../components/TaskInput'
+import zooTheme from '@zooniverse/grommet-theme'
 
+const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    background-color: ${zooTheme.global.colors.brand};
-    max-width: ${pxToRem(60)};
+    background: ${zooTheme.global.colors.brand};
+    max-width: ${maxWidth};
   }
 `
 
@@ -27,6 +28,7 @@ const StyledText = styled(Text)`
 function MultipleChoiceTask (props) {
   const {
     annotation,
+    className,
     disabled,
     task
   } = props
@@ -46,6 +48,7 @@ function MultipleChoiceTask (props) {
   return (
     <StyledBox
       autoFocus={(value && value.length === 0)}
+      className={className}
       disabled={disabled}
     >
       <StyledText size='small' tag='legend'>
@@ -75,6 +78,7 @@ function MultipleChoiceTask (props) {
 }
 
 MultipleChoiceTask.defaultProps = {
+  className: '',
   disabled: false
 }
 
@@ -83,6 +87,7 @@ MultipleChoiceTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.array
   }).isRequired,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
@@ -95,3 +100,4 @@ MultipleChoiceTask.propTypes = {
 }
 
 export default MultipleChoiceTask
+export { MultipleChoiceTask }

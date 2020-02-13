@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import React from 'react'
+import React, { useState } from 'react'
 import sinon from 'sinon'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -64,17 +64,25 @@ describe('Component > InteractionLayer', function () {
         ],
         type: 'drawing'
       })
+      function InteractionLayerContainer () {
+        const [ activeMark, setActiveMark ] = useState(null)
+        return (
+          <InteractionLayer
+            activeDrawingTask={mockDrawingTask}
+            activeMark={activeMark}
+            activeTool={activeTool}
+            setActiveMark={setActiveMark}
+            height={400}
+            width={600}
+          />
+        )
+      }
       activeTool = mockDrawingTask.activeTool
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       wrapper = mount(
         <SVGContext.Provider value={{ svg, getScreenCTM }}>
           <svg>
-            <InteractionLayer
-              activeDrawingTask={mockDrawingTask}
-              activeTool={activeTool}
-              height={400}
-              width={600}
-            />
+            <InteractionLayerContainer />
           </svg>
         </SVGContext.Provider>
       )

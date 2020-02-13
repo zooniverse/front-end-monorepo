@@ -6,7 +6,7 @@ import { observable } from 'mobx'
 import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 
 import SpacedHeading from './components/SpacedHeading'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
@@ -18,17 +18,19 @@ const StyledButton = styled(Button)`
   padding: 0;
 
 
-  &:hover > svg,
-  &:focus > svg {
-    fill: ${props => props.theme.dark
-    ? props.theme.global.colors['light-2']
-    : props.theme.global.colors['dark-5']
-};
-    stroke: ${props => props.theme.dark
-    ? props.theme.global.colors['light-2']
-    : props.theme.global.colors['dark-5']
-};
-  }
+  ${props => props.theme.dark ? css`
+    &:hover > svg,
+    &:focus > svg {
+      fill: ${props.theme.global.colors['light-2']};
+      stroke: ${props.theme.global.colors['light-2']};
+    }
+  ` : css`
+      &:hover > svg,
+      &:focus > svg {
+        fill: ${props.theme.global.colors['dark-5']};
+        stroke: ${props.theme.global.colors['dark-5']};
+      }
+  `}
 `
 const markdownTitleComponent = {
   h3: (nodeProps) => <SpacedHeading level='3' margin='none'>{nodeProps.children}</SpacedHeading>

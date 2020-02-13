@@ -1,3 +1,5 @@
+import { css } from 'styled-components'
+
 const BLUE = '#43BBFD'
 const DARK_BLUE = '#104A79'
 
@@ -10,8 +12,9 @@ const theme = {
     color: 'white',
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
-      return `
-        background: ${dark ? colors['dark-3'] : BLUE};
+      const backgroundColor = dark ? colors['dark-3'] : BLUE
+      return css`
+        background: ${backgroundColor};
         box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
         flex: 1 1 50%;
         text-transform: capitalize;

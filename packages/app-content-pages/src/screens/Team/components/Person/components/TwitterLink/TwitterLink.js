@@ -2,7 +2,7 @@ import { Anchor } from 'grommet'
 import { Twitter } from 'grommet-icons'
 import { string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`
   align-items: center;
@@ -16,7 +16,7 @@ const StyledAnchor = styled(Anchor)`
   &:focus,
   &:hover {
     svg path {
-      fill: ${props => props.theme.global.colors.brand};
+      ${props => css`fill: ${props.theme.global.colors.brand};`}
     }
   }
 `

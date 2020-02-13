@@ -4,6 +4,7 @@ import { object, oneOfType, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+// TODO add this as an xsmall option for h3 into theme
 const StyledHeading = styled(Heading)`
   font-size: 14px;
   line-height: 22px;

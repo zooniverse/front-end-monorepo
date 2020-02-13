@@ -10,7 +10,6 @@ import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
 import {
   ClassificationQueue,
-  convertMapToArray,
   sessionUtils
 } from './utils'
 
@@ -141,7 +140,7 @@ const ClassificationStore = types
         const classification = self.active
         const workflow = getRoot(self).workflows.active
         const isPersistAnnotationsSet = workflow.configuration.persist_annotations
-        if (!isPersistAnnotationsSet) classification.annotations.delete(taskKey)
+        if (!isPersistAnnotationsSet) classification.removeAnnotation(taskKey)
       } else {
         if (process.browser) {
           console.error('No active classification or no active workflow. Cannot remove annotation.')
@@ -177,9 +176,7 @@ const ClassificationStore = types
 
         classification.completed = true
         // Convert from observables
-        const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
-        delete classificationToSubmit.id // remove temp id
-        classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
+        let classificationToSubmit = classification.toSnapshot()
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach((entry) => {

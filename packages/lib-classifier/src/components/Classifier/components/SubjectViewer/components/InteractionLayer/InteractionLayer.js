@@ -1,16 +1,29 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
-  cursor: ${props => props.disabled ? 'not-allowed' : 'crosshair'};
+  ${props => props.disabled ? 
+    css`cursor: not-allowed;` :
+    css`cursor: crosshair;`
+  }
 `
 
-function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, marks, move, scale, width }) {
-  const [ activeMark, setActiveMark ] = useState(null)
+function InteractionLayer ({
+  activeDrawingTask,
+  activeMark,
+  activeTool,
+  disabled,
+  height,
+  marks,
+  move,
+  scale,
+  setActiveMark,
+  width
+}) {
   const [ creating, setCreating ] = useState(false)
   const { svg, getScreenCTM } = useContext(SVGContext)
 
@@ -65,7 +78,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
-      setActiveMark(null)
+      setActiveMark(undefined)
     }
     target.releasePointerCapture(pointerId)
   }
@@ -87,7 +100,7 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
         <DrawingToolMarks
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
-          onDelete={() => setActiveMark(null)}
+          onDelete={() => setActiveMark(undefined)}
           onFinish={onFinish}
           onSelectMark={mark => setActiveMark(mark)}
           scale={scale}
@@ -99,18 +112,22 @@ function InteractionLayer ({ activeDrawingTask, activeTool, disabled, height, ma
 
 InteractionLayer.propTypes = {
   activeDrawingTask: PropTypes.object.isRequired,
+  activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
   marks: PropTypes.array,
   scale: PropTypes.number,
+  setActiveMark: PropTypes.func,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {
+  activeMark: undefined,
   disabled: false,
   marks: [],
-  scale: 1
+  scale: 1,
+  setActiveMark: () => undefined
 }
 
 export default InteractionLayer

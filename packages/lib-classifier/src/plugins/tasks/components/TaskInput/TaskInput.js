@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { darken, lighten } from 'polished'
 import { Text } from 'grommet'
 
@@ -11,8 +11,9 @@ function getHoverStyles (props, active = false) {
   const { theme: { dark, global: { colors } } } = props
   if (dark) {
     const borderColor = active ? colors['accent-2'] : colors['light-1']
-    return `
-      background: ${darken(0.04, colors['neutral-2'])};
+    const darkerBackgroundColor = darken(0.04, colors['neutral-2'])
+    return css`
+      background: ${darkerBackgroundColor};
       border: 2px solid ${borderColor};
       color: ${colors.text.dark};
     `
@@ -23,7 +24,7 @@ function getHoverStyles (props, active = false) {
     const borderBottomColor = active ? colors.brand : gradientBottom
     const borderRightColor = active ? colors.brand : 'transparent'
     const borderLeftColor = active ? colors.brand : 'transparent'
-    return `
+    return css`
       background: linear-gradient(${gradientTop}, ${gradientBottom});
       border-width: 2px;
       border-style: solid;
@@ -38,8 +39,11 @@ function getHoverStyles (props, active = false) {
 
 export const StyledTaskLabel = styled(Text)`
   align-items: baseline;
-  background: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['light-1']};
-  border: ${props => props.theme.dark ? `2px solid ${props.theme.global.colors['light-1']}` : '2px solid transparent'};
+  ${props => props.theme.dark ?
+    css`background: ${props.theme.global.colors['dark-3']};` :
+    css`background: ${props.theme.global.colors['light-1']};`
+  }
+  ${props => props.theme.dark ? css`border: 2px solid ${props.theme.global.colors['light-1']};` : css`border: 2px solid transparent;`}
   box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
   cursor: pointer;
   display: flex;
@@ -68,14 +72,20 @@ export const StyledTaskInput = styled.label`
   }
 
   input:checked + ${StyledTaskLabel} {
-    background: ${props => props.theme.global.colors.brand};
-    border: ${props => props.theme.dark ? `2px solid ${props.theme.global.colors['light-1']}` : '2px solid transparent'};
-    color: ${props => props.theme.dark ? props.theme.global.colors.text.dark : 'white'}
+    ${props => css`background: ${props.theme.global.colors.brand};`}
+    ${props => props.theme.dark ?
+      css`border: 2px solid ${props.theme.global.colors['light-1']};` :
+      css`border: 2px solid transparent;`
+    }
+    ${props => props.theme.dark ? css`color: ${props.theme.global.colors.text.dark};` : css`color: white;`}
   }
 
   input:focus:checked + ${StyledTaskLabel},
   input:checked + ${StyledTaskLabel}:hover {
-    border: ${props => props.theme.dark ? `2px solid ${props.theme.global.colors['light-1']}` : `2px solid ${props.theme.global.colors['neutral-2']}`};
+    ${props => props.theme.dark ?
+      css`border: 2px solid ${props.theme.global.colors['light-1']};` :
+      css`border: 2px solid ${props.theme.global.colors['neutral-2']};`
+    }
   
     > img:only-child, svg:only-child {
       background-color: inherit !important;
@@ -83,7 +93,10 @@ export const StyledTaskInput = styled.label`
   }
 
   input:checked + ${StyledTaskLabel}:hover {
-    color: ${props => props.theme.dark ? props.theme.global.colors.text.dark : 'black'}
+    ${props => props.theme.dark ?
+      css`color: ${props.theme.global.colors.text.dark};` :
+      css`color: black;`
+    }
   }
 `
 
