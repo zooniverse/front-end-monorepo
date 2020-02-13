@@ -13,7 +13,6 @@ describe('Model > SubjectViewerStore', function () {
 
   describe('frame', function () {
     let subjectViewerStore
-
     beforeEach(function () {
       subjectViewerStore = SubjectViewerStore.create()
     })
