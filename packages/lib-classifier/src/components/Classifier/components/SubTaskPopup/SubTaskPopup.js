@@ -13,7 +13,8 @@ import taskRegistry from '@plugins/tasks'
 import zooTheme from '@zooniverse/grommet-theme'
 import styled from 'styled-components'  // TODO: check what's the best way to style this component
 const StyledBox = styled(Box)`
-  border: 2px solid ${zooTheme.global.colors.brand}
+  background: white;
+  overflow: auto;
 `
 // ----------------
 
@@ -38,7 +39,7 @@ class SubTaskPopup extends React.Component {
     super()
   }
   
-  // TODO: Split render() into various asyncStates
+  // TODO: Split render() into various asyncStates?
 
   render () {
     const { activeMark } = this.props
@@ -51,10 +52,6 @@ class SubTaskPopup extends React.Component {
         <Rnd
           minWidth={200}
           minHeight={100}
-          style={{
-            border: `2px solid ${zooTheme.global.colors['light-2']}`,
-            backgroundColor: zooTheme.global.colors['light-1'],
-          }}
         >
           <StyledBox pad="medium" fill>
             {tasks.map(task => {
