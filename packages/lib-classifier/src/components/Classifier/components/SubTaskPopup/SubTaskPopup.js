@@ -12,7 +12,7 @@ import taskRegistry from '@plugins/tasks'
 // ----------------
 import zooTheme from '@zooniverse/grommet-theme'
 import styled from 'styled-components'  // TODO: check what's the best way to style this component
-const StyledBox = styled(Box)`
+const StyledContainer = styled(Box)`
   background: white;
   overflow: auto;
 `
@@ -53,7 +53,7 @@ class SubTaskPopup extends React.Component {
           minWidth={200}
           minHeight={100}
         >
-          <StyledBox pad="medium" fill>
+          <StyledContainer pad="medium" fill>
             {tasks.map(task => {
               // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
               // or creates a new one if one doesn't exist.
@@ -77,7 +77,7 @@ class SubTaskPopup extends React.Component {
               
               return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
-          </StyledBox>
+          </StyledContainer>
         </Rnd>
       )
     }
