@@ -10,8 +10,7 @@ import Publications from './Publications'
 counterpart.registerTranslations('en', en)
 
 function PublicationsContainer(props) {
-  const error = props.error
-  const publicationsData = props.publicationsData || []
+  const { error, publicationsData } = props
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
@@ -46,6 +45,10 @@ PublicationsContainer.getInitialProps = async ({ req }) => {
 PublicationsContainer.propTypes = {
   error: string,
   publicationsData: array,
+}
+
+PublicationsContainer.defaultProps = {
+  publicationsData: []
 }
 
 export default PublicationsContainer

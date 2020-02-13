@@ -10,8 +10,7 @@ import Team from './Team'
 counterpart.registerTranslations('en', en)
 
 function TeamContainer (props) {
-  const error = props.error
-  const teamData = props.teamData || [];
+  const { error, teamData } = props
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = createFilters(teamData, activeFilter, setActiveFilter)
@@ -46,6 +45,10 @@ TeamContainer.getInitialProps = async ({ req }) => {
 TeamContainer.propTypes = {
   error: string,
   teamData: array,
+}
+
+TeamContainer.defaultProps = {
+  teamData: []
 }
 
 export default TeamContainer
