@@ -21,38 +21,42 @@ describe('Model > DrawingAnnotation', function () {
   })
 
   describe('annotation snapshots', function () {
+
+    function buildMockAnnotation ({ taskSnapshot }) {
+      const drawingTask = DrawingTask.create(taskSnapshot)
+      const annotation = drawingTask.createAnnotation()
+      // TODO: build a more realistic model tree here.
+      types.model('MockStore', {
+        drawingTask: DrawingTask,
+        annotation: DrawingAnnotation
+      })
+      .create({
+        drawingTask,
+        annotation
+      })
+      return { annotation, drawingTask }
+    }
+
     describe('without subtasks', function () {
       let snapshot
 
       before(function () {
-        const drawingTask = DrawingTask.create({
-          instruction: 'draw things!',
-          taskKey: 'T0',
-          tools: [
-            {
-              type: 'point'
-            }
-          ],
-          type: 'drawing'
+        const { annotation, drawingTask } = buildMockAnnotation({
+          taskSnapshot: {
+            instruction: 'draw things!',
+            taskKey: 'T0',
+            tools: [
+              {
+                type: 'point'
+              }
+            ],
+            type: 'drawing'
+          }
         })
         const pointTool = drawingTask.tools[0]
-        const point = pointTool.createMark({
+        pointTool.createMark({
           x: 50,
           y: 100
-        })
-        const annotation = DrawingAnnotation.create({
-          id: 'drawing1',
-          task: 'T0',
-          taskType: 'drawing',
-          value: [ point ]
-        })
-        const mockStore = types.model('MockStore', {
-          drawingTask: DrawingTask,
-          annotation: DrawingAnnotation
-        })
-        .create({
-          drawingTask,
-          annotation
         })
         snapshot = annotation.toSnapshot()
       })
@@ -95,29 +99,22 @@ describe('Model > DrawingAnnotation', function () {
       let snapshot
 
       before(function () {
-        const drawingTask = DrawingTask.create({
-          instruction: 'draw things!',
-          taskKey: 'T0',
-          tools: [
-            {
-              type: 'point',
-              details: [{
-                type: 'single',
-                answers: ['yes', 'no'],
-                question: 'yes or no?'
-              }]
-            }
-          ],
-          type: 'drawing'
-        })
-        const annotation = DrawingAnnotation.create(drawingAnnotationSnapshot)
-        const mockStore = types.model('MockStore', {
-          drawingTask: DrawingTask,
-          annotation: DrawingAnnotation
-        })
-        .create({
-          drawingTask,
-          annotation
+        const { annotation, drawingTask } = buildMockAnnotation({
+          taskSnapshot: {
+            instruction: 'draw things!',
+            taskKey: 'T0',
+            tools: [
+              {
+                type: 'point',
+                details: [{
+                  type: 'single',
+                  question: 'Yes or no?',
+                  answers: [ 'yes', 'no' ]
+                }]
+              }
+            ],
+            type: 'drawing'
+          }
         })
         const pointTool = drawingTask.tools[0]
         const point1 = pointTool.createMark({
