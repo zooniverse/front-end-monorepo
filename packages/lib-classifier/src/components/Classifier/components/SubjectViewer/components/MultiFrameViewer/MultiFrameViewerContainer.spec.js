@@ -67,6 +67,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       }
       wrapper = shallow(
         <MultiFrameViewerContainer
+          frame={0}
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
@@ -190,6 +191,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       }
       wrapper = shallow(
         <MultiFrameViewerContainer
+          frame={0}
           ImageObject={InvalidImage}
           subject={subject}
           onError={onError}
@@ -258,6 +260,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       }
       wrapper = shallow(
         <MultiFrameViewerContainer
+          frame={0}
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
