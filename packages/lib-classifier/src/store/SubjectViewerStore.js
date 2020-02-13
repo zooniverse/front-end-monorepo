@@ -12,6 +12,7 @@ const SubjectViewer = types
       naturalHeight: types.integer,
       naturalWidth: types.integer
     })),
+    frame: types.maybe(types.integer),
     fullscreen: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
@@ -42,7 +43,8 @@ const SubjectViewer = types
       const subjectDisposer = autorun(() => {
         const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
         if (validSubjectReference) {
-          self.resetSubject()
+          const subject = getRoot(self).subjects.active
+          self.resetSubject(subject)
         }
       }, { name: 'SubjectViewerStore Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
@@ -76,7 +78,6 @@ const SubjectViewer = types
       },
 
       onError (error) {
-        console.error(error)
         self.loadingState = asyncStates.error
       },
 
@@ -92,9 +93,14 @@ const SubjectViewer = types
         self.loadingState = asyncStates.success
       },
 
-      resetSubject () {
-        self.loadingState = asyncStates.loading
+      resetSubject (subject) {
+        let frame = 0
+        if (subject && subject.metadata) {
+          frame = subject.metadata.default_frame ? parseInt(subject.metadata.default_frame) : 0
+        }
         self.dimensions = []
+        self.frame = frame
+        self.loadingState = asyncStates.loading
         self.rotation = 0
       },
 
@@ -107,6 +113,10 @@ const SubjectViewer = types
       rotate () {
         console.log('rotating subject')
         self.rotation -= 90
+      },
+
+      setFrame (index) {
+        self.frame = index
       },
 
       setLayout (layout = layouts.DefaultLayout) {
