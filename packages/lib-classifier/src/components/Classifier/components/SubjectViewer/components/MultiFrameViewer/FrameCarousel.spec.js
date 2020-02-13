@@ -1,10 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
 
 import { SubjectFactory } from '@test/factories'
-import FrameCarousel from './FrameCarousel'
-
-import {
+import FrameCarousel, {
   StyledControlButton,
   StyledInput,
   StyledImage
@@ -23,16 +22,23 @@ describe('Component > FrameCarousel', function () {
       { 'image/png': 'https://foo.bar/example.png' }
     ] })
   const numberOfFrames = multiFrameSubject.locations.length
+  const onFrameChangeSpy = sinon.spy()
 
   beforeEach(function () {
-    wrapper = shallow(<FrameCarousel subject={multiFrameSubject} />)
+    wrapper = shallow(
+      <FrameCarousel
+        frame={2}
+        onFrameChange={onFrameChangeSpy}
+        subject={multiFrameSubject}
+      />
+    )
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('props should contain all locations', function () {
+  it('should contain subject property with all locations', function () {
     expect(wrapper.instance().props.subject.locations.length).to.equal(numberOfFrames)
   })
 
@@ -41,5 +47,23 @@ describe('Component > FrameCarousel', function () {
     const images = wrapper.find(StyledImage)
     expect(images).to.have.lengthOf(numberOfFrames)
     expect(inputs).to.have.lengthOf(numberOfFrames)
+  })
+
+  it('should show the active location as checked', function () {
+    const inputs = wrapper.find(StyledInput)
+    expect(inputs.at(2).props().checked).to.be.true()
+  })
+
+  it('should show inactive locations as unchecked', function () {
+    const inputs = wrapper.find(StyledInput)
+    expect(inputs.at(0).props().checked).to.be.false()
+    expect(inputs.at(1).props().checked).to.be.false()
+    expect(inputs.at(3).props().checked).to.be.false()
+  })
+
+  it('should call onFrameChange with location index on input change', function () {
+    const lastInput = wrapper.find(StyledInput).last()
+    lastInput.simulate('change')
+    expect(onFrameChangeSpy.calledOnceWith(3)).to.be.true()
   })
 })

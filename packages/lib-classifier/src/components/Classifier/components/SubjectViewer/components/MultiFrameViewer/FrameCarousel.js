@@ -16,11 +16,7 @@ export const StyledControlButton = styled(Button)`
     fill: #FFFFFF;
     stroke: #FFFFFF;
   }
-  &:focus {
-    background: #7fcbce;
-    box-shadow: none;
-  }
-  &:hover {
+  &:focus, &:hover {
     background: #7fcbce;
     box-shadow: none;
   }
@@ -46,17 +42,18 @@ export const StyledImage = styled.img`
 
 class FrameCarousel extends React.Component {
   render () {
-    const locations = this.props.subject.locations.map(location => ({ 'url': location['image/jpeg'] }))
+    const { frame, onFrameChange, subject } = this.props
+    const locations = subject.locations.map(location => ({ 'url': location['image/jpeg'] }))
     const locationElements = locations.map((location, index) => {
-      // TODO: add styling for active/current frame
-      // const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
-      // const currentActive = currentFrameIndex === index
+      const activeFrame = frame === index
       return (
         <label key={`${location.url}-${index}`}>
           <StyledInput
-            type='radio'
-            src={location.url}
+            checked={activeFrame}
             name='frame'
+            onChange={() => onFrameChange(index)}
+            src={location.url}
+            type='radio'
           />
           <StyledImage src={location.url} alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')} />
         </label>
@@ -105,9 +102,11 @@ class FrameCarousel extends React.Component {
 }
 
 FrameCarousel.propTypes = {
+  frame: PropTypes.number.isRequired,
+  onFrameChange: PropTypes.func.isRequired,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  })
+  }).isRequired
 }
 
 export default FrameCarousel
