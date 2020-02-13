@@ -22,6 +22,7 @@ function InteractionLayer ({
   move,
   scale,
   setActiveMark,
+  setSubTaskVisibility,
   width
 }) {
   const [ creating, setCreating ] = useState(false)
@@ -62,6 +63,7 @@ function InteractionLayer ({
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
+    setSubTaskVisibility(false)
     return false
   }
 
@@ -76,6 +78,7 @@ function InteractionLayer ({
   function onFinish (event) {
     const { target, pointerId } = event
     setCreating(false)
+    setSubTaskVisibility(true)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
