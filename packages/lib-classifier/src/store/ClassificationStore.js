@@ -10,6 +10,7 @@ import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
 import {
   ClassificationQueue,
+  convertMapToArray,
   sessionUtils
 } from './utils'
 
@@ -176,7 +177,9 @@ const ClassificationStore = types
 
         classification.completed = true
         // Convert from observables
-        let classificationToSubmit = classification.toSnapshot()
+        const classificationToSubmit = toJS(classification, { exportMapsAsObjects: false })
+        delete classificationToSubmit.id // remove temp id
+        classificationToSubmit.annotations = convertMapToArray(classificationToSubmit.annotations)
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach((entry) => {

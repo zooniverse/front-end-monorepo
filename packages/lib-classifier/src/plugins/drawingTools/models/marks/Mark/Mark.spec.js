@@ -1,56 +1,15 @@
-import { getSnapshot } from 'mobx-state-tree'
 import Mark from './Mark'
 import { Tool } from '@plugins/drawingTools/models/tools'
 
 describe('Models > Drawing Task > Mark', function () {
   let mark
 
-  function mockMark (options) {
-    const defaultOptions = {
-      required: false
-    }
-    const { required } = options || defaultOptions
-    const toolData = {
-      color: '#ff0000',
-      label: 'Point',
-      max: '10',
-      min: 1,
-      type: 'default'
-    }
-    const details = [
-      {
-        type: 'multiple',
-        question: 'which fruit?',
-        answers: ['apples', 'oranges', 'pears'],
-        required
-      },
-      {
-        type: 'single',
-        question: 'how many?',
-        answers: ['one', 'two', 'three'],
-        required
-      }
-    ]
-    const drawingTool = Tool.create(Object.assign({}, toolData, { details }))
-    const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
-    const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
-    const multipleTask = drawingTool.createTask(multipleTaskSnapshot)
-    const singleTask = drawingTool.createTask(singleTaskSnapshot)
-    const mark = drawingTool.createMark({ id: 'mockMark' })
-    return { drawingTool, mark, multipleTask, singleTask }
-  }
-
   before(function () {
-    mark = Mark.create({ toolType: 'default' })
+    mark = Mark.create({ id: 'test', toolType: 'default' })
   })
 
   it('should exist', function () {
     expect(mark).to.be.ok()
-  })
-
-  it('should have an id', function () {
-    expect(mark.id).to.exist()
-    expect(mark.id).to.be.a('string')
   })
 
   it('should have a toolIndex', function () {
@@ -66,7 +25,7 @@ describe('Models > Drawing Task > Mark', function () {
   })
 
   it('should be able to store annotations', function () {
-    expect(mark.annotations).to.be.a('map')
+    expect(mark.annotations).to.be.ok()
   })
 
   describe('getDistance', function () {
@@ -95,12 +54,38 @@ describe('Models > Drawing Task > Mark', function () {
 
   describe('with subtasks', function () {
     let mark
+    const toolData = {
+      color: '#ff0000',
+      label: 'Point',
+      max: '10',
+      min: 1,
+      type: 'default'
+    }
 
     describe('with incomplete, optional tasks', function () {
       let drawingTool
 
       before(function () {
-        ({ drawingTool, mark } = mockMark())
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            required: false
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            required: false
+          }
+        ]
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
+        const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+        drawingTool.createTask(multipleTaskSnapshot)
+        drawingTool.createTask(singleTaskSnapshot)
+        mark = drawingTool.createMark({ id: 'mockMark' })
       })
 
       it('should be complete', function () {
@@ -116,7 +101,26 @@ describe('Models > Drawing Task > Mark', function () {
       let drawingTool
 
       before(function () {
-        ({ drawingTool, mark } = mockMark({ required: true }))
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            required: false
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            required: true
+          }
+        ]
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
+        const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+        drawingTool.createTask(multipleTaskSnapshot)
+        drawingTool.createTask(singleTaskSnapshot)
+        mark = drawingTool.createMark({ id: 'mockMark' })
       })
 
       it('should be incomplete', function () {
@@ -135,7 +139,26 @@ describe('Models > Drawing Task > Mark', function () {
       let singleTask
 
       before(function () {
-        ({ drawingTool, mark, multipleTask, singleTask } = mockMark({ required: true }))
+        const details = [
+          {
+            type: 'multiple',
+            question: 'which fruit?',
+            answers: ['apples', 'oranges', 'pears'],
+            required: true
+          },
+          {
+            type: 'single',
+            question: 'how many?',
+            answers: ['one', 'two', 'three'],
+            required: true
+          }
+        ]
+        drawingTool = Tool.create(Object.assign({}, toolData, { details }))
+        const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
+        const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+        multipleTask = drawingTool.createTask(multipleTaskSnapshot)
+        singleTask = drawingTool.createTask(singleTaskSnapshot)
+        mark = drawingTool.createMark({ id: 'mockMark' })
       })
 
       it('should be incomplete', function () {
@@ -167,30 +190,6 @@ describe('Models > Drawing Task > Mark', function () {
           expect(drawingTool.isComplete).to.be.true()
         })
       })
-    })
-  })
-
-  describe('snapshots', function () {
-    let multipleChoiceAnnotation
-    let singleChoiceAnnotation
-    let snapshot
-
-    before(function () {
-      const { mark, multipleTask, singleTask } = mockMark()
-      singleChoiceAnnotation = mark.addAnnotation(singleTask, 1)
-      multipleChoiceAnnotation = mark.addAnnotation(multipleTask, [0, 2])
-      snapshot = getSnapshot(mark)
-    })
-
-    it('should not have an ID', function () {
-      expect(snapshot.id).to.be.undefined()
-    })
-
-    it('should have an annotations array', function () {
-      expect(snapshot.annotations).to.deep.equal([
-        singleChoiceAnnotation.toSnapshot(),
-        multipleChoiceAnnotation.toSnapshot()
-      ])
     })
   })
 })
