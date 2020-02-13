@@ -27,11 +27,9 @@ function storeMapper (stores) {
   const activeMark = (activeDrawingTask && activeDrawingTask.activeMark)
     ? activeDrawingTask.activeMark
     : undefined
-  const { addAnnotation } = stores.classifierStore.classifications
 
   return {
     activeMark,
-    addAnnotation,
   }
 }
 
@@ -43,13 +41,11 @@ class SubTaskPopup extends React.Component {
   // TODO: Split render() into various asyncStates
 
   render () {
-    const { addAnnotation, activeMark } = this.props
-    
+    const { activeMark } = this.props
+
     const ready = true // DEBUG
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
-    
-    console.log('+++ ACTIVE MARK: ', activeMark)
-    
+
     if (tasks.length > 0) {
       return (
         <Rnd
@@ -95,12 +91,10 @@ class SubTaskPopup extends React.Component {
 
 SubTaskPopup.propTypes = {
   activeMark: PropTypes.object,
-  addAnnotation: PropTypes.func,
 }
 
 SubTaskPopup.defaultProps = {
   activeMark: undefined,
-  addAnnotation: () => undefined,
 }
 
 /*
