@@ -134,6 +134,7 @@ class SingleImageViewerContainer extends React.Component {
       <SVGContext.Provider value={{ svg, getScreenCTM }}>
         <SVGPanZoom
           img={this.subjectImage.current}
+          maxZoom={5}
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
           setOnDrag={this.setOnDrag}
