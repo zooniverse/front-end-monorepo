@@ -25,7 +25,12 @@ describe('Models > TranscriptionReductions', function () {
 
   describe('with transcribed lines', function () {
     before(async function () {
-      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(reducedSubject))
+      const response = {
+        workflow: {
+          subject_reductions: [{ data: reducedSubject }]
+        }
+      }
+      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
       reductions = TranscriptionReductions.create({
         caesarReducerKey: 'ext',
         subjectId: '13971150',
@@ -36,6 +41,10 @@ describe('Models > TranscriptionReductions', function () {
 
     after(function () {
       caesarClient.request.restore()
+    })
+
+    it('should have annotations', function () {
+      expect(reductions.transcribedLines).not.to.be.empty()
     })
 
     it('should default to frame 1', function () {
@@ -68,7 +77,12 @@ describe('Models > TranscriptionReductions', function () {
 
   describe('without transcribed lines', function () {
     before(async function () {
-      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(reducedEmptySubject))
+      const response = {
+        workflow: {
+          subject_reductions: [{ data: reducedEmptySubject }]
+        }
+      }
+      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
       reductions = TranscriptionReductions.create({
         caesarReducerKey: 'ext',
         subjectId: '13971170',
