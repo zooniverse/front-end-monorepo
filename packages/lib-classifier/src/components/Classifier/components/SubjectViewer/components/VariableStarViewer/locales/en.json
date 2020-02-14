@@ -1,0 +1,10 @@
+{
+  "VariableStarViewer": {
+    "controls": "controls",
+    "flip": "flip",
+    "focus": "focus",
+    "periodMultiple": "period multiple",
+    "phase": "phase",
+    "temperature": "temperature"
+  }
+}
