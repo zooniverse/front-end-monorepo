@@ -47,9 +47,9 @@ describe('Models > TranscriptionReductions', function () {
       expect(reductions.transcribedLines).not.to.be.empty()
     })
 
-    it('should default to frame 1', function () {
+    it('should default to frame 0', function () {
       reductions.transcribedLines.forEach(function (annotation) {
-        expect(annotation.frame).to.equal(1)
+        expect(annotation.frame).to.equal(0)
       })
     })
 

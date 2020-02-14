@@ -19,7 +19,7 @@ const TranscriptionReductions = types
   .model('TranscriptionReductions', {
     caesarReducerKey: types.string,
     error: types.maybeNull(types.frozen({})),
-    frame: types.optional(types.number, 1),
+    frame: types.optional(types.number, 0),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     reductions: types.array(types.frozen({})),
     subjectId: types.string,
