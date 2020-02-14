@@ -49,7 +49,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function selectMark () {
-      onSelectMark(mark)
+      onSelectMarkWithRef(mark)
     }
 
     return (
@@ -64,7 +64,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         mark={mark}
         onDelete={deleteMark}
         onDeselect={onDeselectMark}
-        onSelect={onSelectMark}
+        onSelect={onSelectMarkWithRef}
         ref={ref}
         scale={scale}
       >
