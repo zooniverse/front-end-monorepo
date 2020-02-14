@@ -105,7 +105,10 @@ function InteractionLayer ({
           marks={marks}
           onDelete={() => setActiveMark(undefined)}
           onFinish={onFinish}
-          onSelectMark={mark => setActiveMark(mark)}
+          onSelectMark={mark => {
+            setSubTaskVisibility(true)  // Show sub-task again on select, in case it was closed 
+            setActiveMark(mark)
+          }}
           scale={scale}
         />
       }
