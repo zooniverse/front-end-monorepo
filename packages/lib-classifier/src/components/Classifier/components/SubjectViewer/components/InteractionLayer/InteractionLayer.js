@@ -104,7 +104,7 @@ function InteractionLayer ({
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
           onDelete={() => {
-            setSubTaskVisibility(true)
+            setSubTaskVisibility(false)
             setActiveMark(undefined)
           }}
           onFinish={onFinish}
