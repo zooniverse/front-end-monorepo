@@ -59,7 +59,7 @@ class Tasks extends React.Component {
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
             if (annotation && TaskComponent) {
               return (
-                <Box key={task.taskKey} basis='auto'>
+                <Box key={annotation.id} basis='auto'>
                   <TaskComponent
                     disabled={!ready}
                     annotation={annotation}
