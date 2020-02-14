@@ -15,7 +15,8 @@ const Drawing = types.model('Drawing', {
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
-  subTaskVisibility: types.optional(types.boolean, true),  // TODO: change to false
+  subTaskMarkBounds: types.optional(types.frozen({}), undefined),
+  subTaskVisibility: types.optional(types.boolean, false),
   tools: types.array(types.union(...toolModels)),
   type: types.literal('drawing')
 })
@@ -75,8 +76,11 @@ const Drawing = types.model('Drawing', {
       self.tools.forEach(tool => tool.reset())
     }
     
-    function setSubTaskVisibility (visible) {
+    function setSubTaskVisibility (visible, drawingMarkNode) {
       self.subTaskVisibility = visible
+      self.subTaskMarkBounds = (drawingMarkNode)
+        ? drawingMarkNode.getBoundingClientRect()
+        : undefined
     }
 
     return {

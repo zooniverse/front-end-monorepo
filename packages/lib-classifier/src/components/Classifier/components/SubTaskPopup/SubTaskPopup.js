@@ -28,16 +28,21 @@ counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
-  const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
+  const drawingTasks = activeStepTasks.filter(task => task.type === 'drawing')
+  const activeDrawingTask = (drawingTasks.length > 0) ? drawingTasks[0] : {}
   
-  const activeMark = activeDrawingTask && activeDrawingTask.activeMark
-  const subTaskVisibility = activeDrawingTask && activeDrawingTask.subTaskVisibility
-  const setSubTaskVisibility = activeDrawingTask && activeDrawingTask.setSubTaskVisibility
+  const {
+    activeMark,
+    subTaskMarkBounds,
+    subTaskVisibility,
+    setSubTaskVisibility,
+  } = activeDrawingTask
   
   return {
     activeMark,
-    setSubTaskVisibility,
+    subTaskMarkBounds,
     subTaskVisibility,
+    setSubTaskVisibility,
   }
 }
 
@@ -49,18 +54,36 @@ class SubTaskPopup extends React.Component {
   // TODO: Split render() into various asyncStates?
 
   render () {
-    const { activeMark, setSubTaskVisibility, subTaskVisibility } = this.props
+    const {
+      activeMark,
+      subTaskMarkBounds,
+      subTaskVisibility,
+      setSubTaskVisibility,
+    } = this.props
     const { svg } = this.context
     
-    console.log('+++ SVG Bounding Box: ', svg && svg.getBoundingClientRect())
-
     const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
     
     // Calculate default position
+    let x = 0, y = 0;
     const svgBounds = svg && svg.getBoundingClientRect()
-    const x = svgBounds && svgBounds.x
-    const y = svgBounds && svgBounds.y
+
+    console.log('+++ BOUNDS:\n', svgBounds, '\n', subTaskMarkBounds)
+    if (svgBounds && subTaskMarkBounds) {
+      const markX = subTaskMarkBounds.x || 0
+      const markY = subTaskMarkBounds.y || 0
+      const markWidth = subTaskMarkBounds.width || 0
+      const markHeight = subTaskMarkBounds.height || 0
+      
+      const svgX = svgBounds.x || 0
+      const svgY = svgBounds.y || 0
+      
+      x = markX + markWidth * 0.5 - svgX
+      y = markY + markHeight * 0.5 - svgY
+      
+    }
+    
     const defaultPosition = { x, y }
 
     if (subTaskVisibility && tasks.length > 0) {
