@@ -75,8 +75,10 @@ function InteractionLayer ({
     }
   }
 
-  function onFinish (event) {
+  function onFinish (event, ref) {
     const { target, pointerId } = event
+    
+    console.log('+++ onFinish.ref: ', ref)
     setCreating(false)
     setSubTaskVisibility(true)
     if (activeMark && !activeMark.isValid) {
@@ -108,7 +110,7 @@ function InteractionLayer ({
             setActiveMark(undefined)
           }}
           onFinish={onFinish}
-          onSelectMark={mark => {
+          onSelectMark={(mark, ref) => {
             setSubTaskVisibility(true)  // Show sub-task again on select, in case it was closed 
             setActiveMark(mark)
           }}
