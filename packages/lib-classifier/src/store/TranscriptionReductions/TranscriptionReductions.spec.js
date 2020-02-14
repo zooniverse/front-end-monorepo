@@ -1,4 +1,5 @@
 import sinon from 'sinon'
+import { reducedSubject } from './mocks'
 
 import TranscriptionReductions, { caesarClient } from './TranscriptionReductions'
 
@@ -24,12 +25,17 @@ describe.only('Models > TranscriptionReductions', function () {
 
   describe('with transcribed lines', function () {
     before(async function () {
+      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(reducedSubject))
       reductions = TranscriptionReductions.create({
         caesarReducerKey: 'ext',
         subjectId: '13971150',
         workflowId: '5339'
       })
       await reductions.fetchCaesarReductions()
+    })
+
+    after(function () {
+      caesarClient.request.restore()
     })
 
     it('should default to frame 1', function () {
