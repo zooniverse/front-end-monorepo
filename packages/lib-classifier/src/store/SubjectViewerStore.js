@@ -12,7 +12,7 @@ const SubjectViewer = types
       naturalHeight: types.integer,
       naturalWidth: types.integer
     })),
-    frame: types.maybe(types.integer),
+    frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
@@ -95,8 +95,13 @@ const SubjectViewer = types
 
       resetSubject (subject) {
         let frame = 0
-        if (subject && subject.metadata) {
-          frame = subject.metadata.default_frame ? parseInt(subject.metadata.default_frame) : 0
+        if (
+          subject &&
+          subject.metadata &&
+          subject.metadata.default_frame &&
+          subject.metadata.default_frame >= 0
+        ) {
+          frame = parseInt(subject.metadata.default_frame)
         }
         self.dimensions = []
         self.frame = frame

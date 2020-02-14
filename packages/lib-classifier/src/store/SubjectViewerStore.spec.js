@@ -13,6 +13,7 @@ describe('Model > SubjectViewerStore', function () {
 
   describe('frame', function () {
     let subjectViewerStore
+
     beforeEach(function () {
       subjectViewerStore = SubjectViewerStore.create()
     })
@@ -80,6 +81,7 @@ describe('Model > SubjectViewerStore', function () {
   describe('Actions > resetSubject', function () {
     let subjectViewerStub
     let subjectViewerStore
+
     before(function () {
       subjectViewerStub = {
         loadingState: asyncStates.success,

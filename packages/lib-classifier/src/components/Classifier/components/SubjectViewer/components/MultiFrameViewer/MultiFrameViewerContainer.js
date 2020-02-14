@@ -290,7 +290,7 @@ MultiFrameViewerContainer.propTypes = {
 MultiFrameViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   enableRotation: () => null,
-  frame: undefined,
+  frame: 0,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
