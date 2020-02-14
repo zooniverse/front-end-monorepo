@@ -103,7 +103,10 @@ function InteractionLayer ({
         <DrawingToolMarks
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
-          onDelete={() => setActiveMark(undefined)}
+          onDelete={() => {
+            setSubTaskVisibility(true)
+            setActiveMark(undefined)
+          }}
           onFinish={onFinish}
           onSelectMark={mark => {
             setSubTaskVisibility(true)  // Show sub-task again on select, in case it was closed 

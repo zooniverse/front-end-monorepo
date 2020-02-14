@@ -8,6 +8,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
+import SubTaskPopup from '../../../SubTaskPopup'
 
 function storeMapper (stores) {
   const {
@@ -233,6 +234,7 @@ class SingleImageViewerContainer extends React.Component {
             xlinkHref={src}
           />
         </SingleImageViewer>
+        <SubTaskPopup />
       </SVGContext.Provider>
     )
   }

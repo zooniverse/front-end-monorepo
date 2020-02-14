@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import counterpart from 'counterpart'
 import { Box, Button, Paragraph } from 'grommet'
 import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
 import {} from 'prop-types'  // TODO
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import taskRegistry from '@plugins/tasks'
 
@@ -49,15 +50,25 @@ class SubTaskPopup extends React.Component {
 
   render () {
     const { activeMark, setSubTaskVisibility, subTaskVisibility } = this.props
+    const { svg } = this.context
+    
+    console.log('+++ SVG Bounding Box: ', svg && svg.getBoundingClientRect())
 
     const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
+    
+    // Calculate default position
+    const svgBounds = svg && svg.getBoundingClientRect()
+    const x = svgBounds && svgBounds.x
+    const y = svgBounds && svgBounds.y
+    const defaultPosition = { x, y }
 
     if (subTaskVisibility && tasks.length > 0) {
       return (
         <Rnd
-          minWidth={200}
+          minWidth={100}
           minHeight={100}
+          default={defaultPosition}
         >
           <StyledContainer pad="medium" fill>
             
@@ -102,6 +113,8 @@ SubTaskPopup.propTypes = {
 SubTaskPopup.defaultProps = {
   activeMark: undefined,
 }
+
+SubTaskPopup.contextType = SVGContext
 
 /*
   Enzyme doesn't support the context API properly yet, so using @withTheme as

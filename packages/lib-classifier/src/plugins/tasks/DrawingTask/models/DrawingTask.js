@@ -75,8 +75,8 @@ const Drawing = types.model('Drawing', {
       self.tools.forEach(tool => tool.reset())
     }
     
-    function setSubTaskVisibility (val) {
-      self.subTaskVisibility = val
+    function setSubTaskVisibility (visible) {
+      self.subTaskVisibility = visible
     }
 
     return {
