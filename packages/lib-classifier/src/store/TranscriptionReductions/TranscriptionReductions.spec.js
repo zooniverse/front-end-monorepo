@@ -3,7 +3,7 @@ import { reducedEmptySubject, reducedSubject } from './mocks'
 
 import TranscriptionReductions, { caesarClient } from './TranscriptionReductions'
 
-describe.only('Models > TranscriptionReductions', function () {
+describe('Models > TranscriptionReductions', function () {
   let reductions
 
   before(function () {
