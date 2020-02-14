@@ -4,7 +4,9 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import { MultiFrameViewerContainer } from './MultiFrameViewerContainer'
+
+import DecoratedMultiFrameViewerContainer, { MultiFrameViewerContainer } from './MultiFrameViewerContainer'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
@@ -41,6 +43,7 @@ const mockStore = {
   drawing: {
     addToStream: sinon.stub()
   },
+  subjectViewer: SubjectViewerStore.create({ frame: subject.metadata.default_frame }),
   workflowSteps: {
     activeStepTasks: []
   }
@@ -85,3 +88,14 @@ storiesOf('Subject Viewers | MultiFrameViewer', module)
       </Grommet>
     )
   }, darkThemeConfig)
+  .add('frame change', () => {
+    return (
+      <ViewerContext theme={zooTheme}>
+        <Box height='medium' width='large'>
+          <DecoratedMultiFrameViewerContainer
+            subject={subject}
+          />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)
