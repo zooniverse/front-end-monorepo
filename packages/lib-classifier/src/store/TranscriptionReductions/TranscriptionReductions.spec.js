@@ -4,26 +4,10 @@ import { reducedEmptySubject, reducedSubject } from './mocks'
 import TranscriptionReductions, { caesarClient } from './TranscriptionReductions'
 
 describe('Models > TranscriptionReductions', function () {
-  let reductions
-
-  before(function () {
-    // sinon.stub(console, 'error')
-    reductions = TranscriptionReductions.create({
-      caesarReducerKey: 'ext',
-      subjectId: '13971150',
-      workflowId: '5339'
-    })
-  })
-
-  after(function () {
-    // console.error.restore()
-  })
-
-  it('should exist', function () {
-    expect(reductions).to.be.ok()
-  })
 
   describe('with transcribed lines', function () {
+    let reductionsModel
+
     before(async function () {
       const response = {
         workflow: {
@@ -31,51 +15,58 @@ describe('Models > TranscriptionReductions', function () {
         }
       }
       sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
-      reductions = TranscriptionReductions.create({
+      reductionsModel = TranscriptionReductions.create({
         caesarReducerKey: 'ext',
         subjectId: '13971150',
         workflowId: '5339'
       })
-      await reductions.fetchCaesarReductions()
+      await reductionsModel.fetchCaesarReductions()
     })
 
     after(function () {
       caesarClient.request.restore()
     })
 
+    it('should exist', function () {
+      expect(reductionsModel).to.be.ok()
+    })
+
     it('should have annotations', function () {
-      expect(reductions.transcribedLines).not.to.be.empty()
+      reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
+      expect(reductionsModel.transcribedLines).not.to.be.empty()
     })
 
     it('should default to frame 0', function () {
-      reductions.transcribedLines.forEach(function (annotation) {
+      reductionsModel.transcribedLines.forEach(function (annotation) {
         expect(annotation.frame).to.equal(0)
       })
     })
 
     it('should have points', function () {
-      reductions.transcribedLines.forEach(function (annotation) {
+      reductionsModel.transcribedLines.forEach(function (annotation) {
         expect(annotation.points).to.be.a('array')
         expect(annotation.points).not.to.be.empty
       })
     })
 
     it('should have text options', function () {
-      reductions.transcribedLines.forEach(function (annotation) {
+      reductionsModel.transcribedLines.forEach(function (annotation) {
         expect(annotation.textOptions).to.be.a('array')
         expect(annotation.textOptions).not.to.be.empty
       })
     })
 
     it('should update on frame change', function () {
-      reductions.changeFrame(2)
-      reductions.transcribedLines.forEach(function (annotation) {
+      reductionsModel.changeFrame(2)
+      reductionsModel.transcribedLines.forEach(function (annotation) {
         expect(annotation.frame).to.equal(2)
       })
     })
   })
 
   describe('without transcribed lines', function () {
+    let reductionsModel
+
     before(async function () {
       const response = {
         workflow: {
@@ -83,20 +74,25 @@ describe('Models > TranscriptionReductions', function () {
         }
       }
       sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
-      reductions = TranscriptionReductions.create({
+      reductionsModel = TranscriptionReductions.create({
         caesarReducerKey: 'ext',
         subjectId: '13971170',
         workflowId: '5339'
       })
-      await reductions.fetchCaesarReductions()
+      await reductionsModel.fetchCaesarReductions()
     })
 
     after(function () {
       caesarClient.request.restore()
     })
 
+    it('should exist', function () {
+      expect(reductionsModel).to.be.ok()
+    })
+
     it('should not have any annotations', function () {
-      expect(reductions.transcribedLines).to.be.empty()
+      reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(0))
+      expect(reductionsModel.transcribedLines).to.be.empty()
     })
   })
 })

@@ -104,7 +104,7 @@ const TranscriptionReductions = types
           console.error(error)
           self.error = error
           self.loadingState = asyncStates.error
-          self.reductions = {}
+          self.reductions = []
           self.transcribedLines = []
         }
       }),
