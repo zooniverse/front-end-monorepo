@@ -95,4 +95,62 @@ describe('Models > TranscriptionReductions', function () {
       expect(reductionsModel.transcribedLines).to.be.empty()
     })
   })
+
+  describe('without a configured reducer', function () {
+    let reductionsModel
+
+    before(async function () {
+      sinon.stub(console, 'error')
+      const error = new Error('Error: GraphQL Error (Code: 404)')
+      error.response = {
+        error: '',
+        status: 404
+      }
+      error.request = {
+        query: '{ workflow(id: 3389) { subject_reductions(subjectId: 13971170, reducerKey:"ext") { data } } }',
+        variables: undefined
+      }
+      sinon.stub(caesarClient, 'request').callsFake(() => Promise.reject(error))
+      reductionsModel = TranscriptionReductions.create({
+        caesarReducerKey: 'ext',
+        subjectId: '13971170',
+        workflowId: '3389'
+      })
+      await reductionsModel.fetchCaesarReductions()
+    })
+
+    after(function () {
+      caesarClient.request.restore()
+      console.error.restore()
+    })
+
+    it('should exist', function () {
+      expect(reductionsModel).to.be.ok()
+    })
+
+    it('should record the error message', function () {
+      const { message } = reductionsModel.error
+      expect(message).to.equal('Error: GraphQL Error (Code: 404)')
+    })
+
+    it('should record the error response', function () {
+      const { response } = reductionsModel.error
+      expect(response.error).to.equal('')
+      expect(response.status).to.equal(404)
+    })
+
+    it('should record the error request', function () {
+      const { request } = reductionsModel.error
+      expect(request.query).to.equal('{ workflow(id: 3389) { subject_reductions(subjectId: 13971170, reducerKey:"ext") { data } } }')
+      expect(request.variables).to.be.undefined()
+    })
+
+    it('should not have any reductions', function () {
+      expect(reductionsModel.reductions).to.be.empty()
+    })
+
+    it('should not have any annotations', function () {
+      expect(reductionsModel.transcribedLines).to.be.empty()
+    })
+  })
 })
