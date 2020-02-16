@@ -31,7 +31,7 @@ describe('Models > TranscriptionReductions', function () {
       expect(reductionsModel).to.be.ok()
     })
 
-    it('should have annotations', function () {
+    it('should have transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
       expect(reductionsModel.transcribedLines).not.to.be.empty()
     })
@@ -90,7 +90,7 @@ describe('Models > TranscriptionReductions', function () {
       expect(reductionsModel).to.be.ok()
     })
 
-    it('should not have any annotations', function () {
+    it('should not have any transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(0))
       expect(reductionsModel.transcribedLines).to.be.empty()
     })
@@ -149,7 +149,7 @@ describe('Models > TranscriptionReductions', function () {
       expect(reductionsModel.reductions).to.be.empty()
     })
 
-    it('should not have any annotations', function () {
+    it('should not have any transcribed lines', function () {
       expect(reductionsModel.transcribedLines).to.be.empty()
     })
   })
