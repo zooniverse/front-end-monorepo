@@ -6,7 +6,7 @@ export const caesarClient = new GraphQLClient('https://caesar.zooniverse.org/gra
 const CONSENSUS_SCORE_TO_RETIRE = 3
 const MINIMUM_VIEW_TO_RETIRE = 5
 
-const TranscriptionAnnotation = types.model({
+const TranscriptionLine = types.model({
   consensusReached: types.boolean,
   frame: types.number,
   hasCollaborated: types.boolean,
@@ -23,19 +23,18 @@ const TranscriptionReductions = types
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     reductions: types.array(types.frozen({})),
     subjectId: types.string,
-    transcribedLines: types.array(TranscriptionAnnotation),
     workflowId: types.string
   })
 
-  .views(self => ({
-    constructCoordinates (line) {
+  .views(self => {
+    function constructCoordinates (line) {
       if (line && line.clusters_x && line.clusters_y) {
         return line.clusters_x.map((point, i) => ({ x: line.clusters_x[i], y: line.clusters_y[i] }))
       }
       return []
-    },
+    }
 
-    constructText (line) {
+    function constructText (line) {
       const sentences = []
       if (line && line.clusters_text) {
         line.clusters_text.forEach(value => {
@@ -50,33 +49,37 @@ const TranscriptionReductions = types
         })
       }
       return sentences.map(value => value.join(' '));
-    },
-
-    constructAnnotations () {
-      const { frame, reductions } = self
-      const previousAnnotations = []
-      reductions.forEach(reduction => {
-        const currentFrameAnnotations = reduction.data[`frame${frame}`] || []
-
-        currentFrameAnnotations.forEach((annotation, i) => {
-          const points = self.constructCoordinates(annotation)
-          const textOptions = self.constructText(annotation)
-          const data = {
-            points,
-            frame,
-            textOptions,
-            consensusReached:
-              annotation.consensus_score >= CONSENSUS_SCORE_TO_RETIRE ||
-              annotation.number_views >= MINIMUM_VIEW_TO_RETIRE,
-            previousAnnotation: true,
-            hasCollaborated: false,
-          }
-          previousAnnotations.push(data)
-        });
-      })
-      return previousAnnotations
     }
-  }))
+
+    function constructLine (annotation) {
+      const { frame } = self
+      const points = constructCoordinates(annotation)
+      const textOptions = constructText(annotation)
+      return TranscriptionLine.create({
+        points,
+        frame,
+        textOptions,
+        consensusReached:
+          annotation.consensus_score >= CONSENSUS_SCORE_TO_RETIRE ||
+          annotation.number_views >= MINIMUM_VIEW_TO_RETIRE,
+        previousAnnotation: true,
+        hasCollaborated: false,
+      })
+    }
+
+    return {
+      get transcribedLines () {
+        const { frame, reductions } = self
+        let transcribedLines = []
+        reductions.forEach(reduction => {
+          const currentFrameAnnotations = reduction.data[`frame${frame}`] || []
+          const currentFrameLines = currentFrameAnnotations.map(constructLine)
+          transcribedLines = transcribedLines.concat(currentFrameLines)
+        })
+        return transcribedLines
+      }
+    }
+  })
 
   .actions(self => {
     return {
@@ -98,20 +101,17 @@ const TranscriptionReductions = types
           }`
           const response = yield caesarClient.request(query.replace(/\s+/g, ' '))
           self.reductions = response.workflow && response.workflow.subject_reductions
-          self.transcribedLines = self.constructAnnotations()
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error(error)
           self.error = error
           self.loadingState = asyncStates.error
           self.reductions = []
-          self.transcribedLines = []
         }
       }),
 
       changeFrame (frame) {
         self.frame = frame
-        self.transcribedLines = self.constructAnnotations()
       }
     }
   })
