@@ -1,7 +1,9 @@
-import { getRoot, isValidReference, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { destroy, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import Resource from './Resource'
 import createLocationCounts from '../helpers/createLocationCounts'
 import subjectViewers from '../helpers/subjectViewers'
+import TranscriptionReductions from './TranscriptionReductions'
 
 const Subject = types
   .model('Subject', {
@@ -14,10 +16,31 @@ const Subject = types
     selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     shouldDiscuss: types.maybe(types.frozen()),
-    user_has_finished_workflow: types.optional(types.boolean, false)
+    user_has_finished_workflow: types.optional(types.boolean, false),
+    transcriptionReductions: types.maybe(TranscriptionReductions)
   })
 
   .actions(self => {
+    function afterAttach () {
+      fetchTranscriptionReductions()
+    }
+
+    function beforeDestroy () {
+      self.transcriptionReductions && destroy(self.transcriptionReductions)
+    }
+
+    function fetchTranscriptionReductions () {
+      const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
+        if (self.workflow) {
+          self.transcriptionReductions = TranscriptionReductions.create({
+            caesarReducerKey: 'ext',
+            subjectId: self.id,
+            workflowId: self.workflow.id
+          })
+        }
+      }, { name: 'Subject workflow disposer' })
+    }
+
     function addToCollection () {
       const rootStore = getRoot(self)
       rootStore.onAddToCollection(self.id)
@@ -37,6 +60,8 @@ const Subject = types
     }
 
     return {
+      afterAttach,
+      beforeDestroy,
       addToCollection,
       openInTalk,
       toggleFavorite
@@ -85,6 +110,10 @@ const Subject = types
         }
       }
       return viewer
+    },
+
+    get workflow () {
+      return tryReference(() => getRoot(self).workflows.active)
     }
   }))
 
