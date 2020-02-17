@@ -61,6 +61,39 @@ describe('Models > TranscriptionReductions', function () {
       reductionsModel.transcribedLines.forEach(function (annotation) {
         expect(annotation.frame).to.equal(2)
       })
+      reductionsModel.changeFrame(0)
+    })
+
+    describe('transcribed lines', function () {
+      let transcribedLine
+
+      before(async function () {
+        transcribedLine = reductionsModel.transcribedLines[0]
+      })
+
+      it('should have text options', function () {
+        expect(transcribedLine.textOptions).to.deep.equal([
+          'Here are some test',
+          'Here are some test',
+          'Here are some test'
+        ])
+      })
+
+      it('should have two points', function () {
+        expect(transcribedLine.points).to.have.lengthOf(2)
+      })
+
+      it('should have a start point', function () {
+        const x = 32.550689697265625
+        const y = 297.0990905761719
+        expect(transcribedLine.points[0]).to.deep.equal({ x, y })
+      })
+
+      it('should have an end point', function () {
+        const x = 989.6483154296875
+        const y = 280.3498840332031
+        expect(transcribedLine.points[1]).to.deep.equal({ x, y })
+      })
     })
   })
 
