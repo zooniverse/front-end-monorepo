@@ -51,7 +51,7 @@ const TranscriptionReductions = types
       return sentences.map(value => value.join(' '));
     }
 
-    function constructLine (annotation) {
+    function constructLine (annotation, threshold) {
       const { frame } = self
       const points = constructCoordinates(annotation)
       const textOptions = constructText(annotation)
@@ -60,7 +60,7 @@ const TranscriptionReductions = types
         frame,
         textOptions,
         consensusReached:
-          annotation.consensus_score >= CONSENSUS_SCORE_TO_RETIRE ||
+          annotation.consensus_score >= threshold ||
           annotation.number_views >= MINIMUM_VIEW_TO_RETIRE,
         previousAnnotation: true,
         hasCollaborated: false,
@@ -72,8 +72,12 @@ const TranscriptionReductions = types
         const { frame, reductions } = self
         let transcribedLines = []
         reductions.forEach(reduction => {
+          const { parameters } = reduction.data
+          const consensusThreshold = parameters.low_consensus_threshold || CONSENSUS_SCORE_TO_RETIRE
           const currentFrameAnnotations = reduction.data[`frame${frame}`] || []
-          const currentFrameLines = currentFrameAnnotations.map(constructLine)
+          const currentFrameLines = currentFrameAnnotations.map(annotation => {
+            return constructLine(annotation, consensusThreshold)
+          })
           transcribedLines = transcribedLines.concat(currentFrameLines)
         })
         return transcribedLines
