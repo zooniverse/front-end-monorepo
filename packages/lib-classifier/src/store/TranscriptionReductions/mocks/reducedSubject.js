@@ -136,47 +136,47 @@ export default {
         'slope_label': 1,
         'gutter_label': 1,
         'low_consensus': false
-      },
-      {
-        'clusters_text': [
-          ['a', 'a', 'a'],
-          ['big', 'big', 'big'],
-          ['mess', 'mess', 'mess']
-        ],
-        'clusters_x': [1346.167236328125, 1798.3958740234375],
-        'clusters_y': [526.802490234375, 155.92721557617188],
-        'consensus_score': 3.0,
-        'consensus_text': 'a big mess',
-        'line_slope': 320.143,
-        'number_views': 3,
-        'user_ids': [1, 2, 3],
-        'extract_index': [7, 3, 1],
-        'gold_standard': [false, true, false],
-        'slope_label': 1,
-        'gutter_label': 1,
-        'low_consensus': false
-      },
-      {
-        'clusters_text': [
-          ['not'],
-          ['in'],
-          ['a'],
-          ['cluster']
-        ],
-        'clusters_x': [1000, 10],
-        'clusters_y': [700, 10],
-        'consensus_score': 1.0,
-        'consensus_text': 'not in a cluster',
-        'line_slope': 214.875,
-        'number_views': 1,
-        'user_ids': [],
-        'extract_index': [0],
-        'gold_standard': [false],
-        'slope_label': 2,
-        'gutter_label': 0,
-        'low_consensus': true
-      }
-    ],
+    },
+    {
+      'clusters_text': [
+        ['a', 'a', 'a'],
+        ['big', 'big', 'big'],
+        ['mess', 'mess', 'mess']
+      ],
+      'clusters_x': [1346.167236328125, 1798.3958740234375],
+      'clusters_y': [526.802490234375, 155.92721557617188],
+      'consensus_score': 3.0,
+      'consensus_text': 'a big mess',
+      'line_slope': 320.143,
+      'number_views': 3,
+      'user_ids': [1, 2, 3],
+      'extract_index': [7, 3, 1],
+      'gold_standard': [false, true, false],
+      'slope_label': 1,
+      'gutter_label': 1,
+      'low_consensus': false
+    },
+    {
+      'clusters_text': [
+        ['not'],
+        ['in'],
+        ['a'],
+        ['cluster']
+      ],
+      'clusters_x': [1000, 10],
+      'clusters_y': [700, 10],
+      'consensus_score': 1.0,
+      'consensus_text': 'not in a cluster',
+      'line_slope': 214.875,
+      'number_views': 1,
+      'user_ids': [],
+      'extract_index': [0],
+      'gold_standard': [false],
+      'slope_label': 2,
+      'gutter_label': 0,
+      'low_consensus': true
+    }
+  ],
   'frame1': [
     {
       'clusters_text': [
