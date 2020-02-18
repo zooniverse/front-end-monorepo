@@ -6,7 +6,8 @@ import { lighten } from 'polished'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import Axes from '../Axes'
-import { glyphComponents } from '../../helpers/constants'
+import getDataSeriesColor from '../../../../helpers/getDataSeriesColor'
+import getDataSeriesSymbol from '../../../../helpers/getDataSeriesSymbol'
 
 import {
   getDataPoints,
@@ -23,7 +24,6 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
-    glyphColors,
     margin,
     padding,
     parentHeight,
@@ -49,18 +49,6 @@ function ScatterPlot (props) {
     parentWidth,
     tickDirection
   }
-
-  // The drawing tool colors, only used in the lab right now
-  // Candidates to be moved into the zooniverse theme
-  const standardGlyphColors = [
-    '#FF3C25',
-    '#235DFF',
-    '#FFFF03',
-    '#FF9300',
-    '#06FE76',
-    '#0CFFE0',
-    '#FF40FF'
-  ]
 
   const leftPosition = left(tickDirection, margin)
   const topPosition = top(tickDirection, margin)
@@ -116,12 +104,15 @@ function ScatterPlot (props) {
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
-          const glyphColor = series.seriesOptions?.color ||
-          glyphColors[seriesIndex] ||
-          standardGlyphColors[seriesIndex]
+          const glyphColor = getDataSeriesColor({
+            defaultColors: Object.values(colors.drawingTools),
+            seriesOptions: series.seriesOptions,
+            seriesIndex,
+            themeColors: colors
+          })
 
           const errorBarColor = lighten(0.25, glyphColor)
-          const GlyphComponent = glyphComponents[seriesIndex]
+          const GlyphComponent = getDataSeriesSymbol(seriesIndex)
 
           return series.seriesData.map((point, pointIndex) => {
             let xErrorBarPoints, yErrorBarPoints
@@ -200,7 +191,6 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
-  glyphColors: [],
   margin: {
     bottom: 60,
     left: 60,
@@ -259,7 +249,6 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
-  glyphColors: PropTypes.arrayOf(PropTypes.string),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

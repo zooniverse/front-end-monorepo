@@ -368,6 +368,7 @@
       }
     ],
     "seriesOptions": {
+      "color": "drawing-red",
       "label": "Filter 1"
     }
   }, {
@@ -739,6 +740,7 @@
       }
     ],
     "seriesOptions": {
+      "color": "drawing-blue",
       "label": "Filter 2"
     }
   }],
