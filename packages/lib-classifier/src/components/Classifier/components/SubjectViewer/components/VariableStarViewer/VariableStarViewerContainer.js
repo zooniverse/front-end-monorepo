@@ -16,13 +16,29 @@ class VariableStarViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      barJSON: {},
-      seriesOptions: [],
+      barJSON: {
+        amplitude: {
+          data: [],
+          options: {}
+        },
+        period: {
+          data: [],
+          options: {}
+        }
+      },
+      focusedSeries: [],
       imageSrc: '',
       invertYAxis: false,
+      loadingState: asyncStates.initialized,
       periodMultiple: 1,
-      phasedJSON: {},
-      rawJSON: {}
+      phasedJSON: {
+        data: [],
+        chartOptions: {}
+      },
+      rawJSON: {
+        data: [],
+        chartOptions: {}
+      }
     }
   }
 
@@ -65,7 +81,7 @@ class VariableStarViewerContainer extends Component {
       return response.body || JSON.parse(response.text)
     } catch (error) {
       onError(error)
-      return {}
+      return null
     }
   }
 
