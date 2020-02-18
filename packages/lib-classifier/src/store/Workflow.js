@@ -11,6 +11,7 @@ const Workflow = types
     }),
     display_name: types.string,
     first_task: types.optional(types.string, ''),
+    grouped: types.optional(types.boolean, false),
     steps: types.union(types.frozen({}), types.array(types.array(
       types.union(types.string, types.frozen())
     ))),

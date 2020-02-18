@@ -31,7 +31,7 @@ const Subject = types
 
     function fetchTranscriptionReductions () {
       const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
-        if (self.workflow) {
+        if (self.workflow && self.workflow.grouped) {
           self.transcriptionReductions = TranscriptionReductions.create({
             caesarReducerKey: 'ext',
             subjectId: self.id,
