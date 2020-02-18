@@ -84,13 +84,27 @@ const lightColors = [
 // https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5c68fab7fb26bb001855f29a
 const drawingTools = {
   red: '#FF3C25', // drawing-red
-  orange: '#235DFF', // drawing-orange
+  orange: '#FF9300', // drawing-orange
   yellow: '#FFFF03', // drawing-yellow
-  green: '#FF9300', // drawing-green
-  lightBlue: '#06FE76', // drawing-lightBlue
-  blue: '#0CFFE0', // drawing-blue
+  green: '#06FE76', // drawing-green
+  aqua: '#0CFFE0', // drawing-aqua
+  blue: '#235DFF', // drawing-blue
   purple: '#FF40FF', // drawing-purple
   pink: '#FF2B70' // drawing-pink
+}
+
+const highlighterTool = {
+  red: '#E65252', // highligher-red
+  orange: '#F1AE4D', // highlighter-orange
+  yellow: '#FCED54', // highlighter-yellow
+  pink: '#EE7BCF', // highlighter-pink
+  honeysuckle: '#C7F55B', // highlighter-honeysuckle
+  green: '#52DB72', // highlighter-green
+  turquoise: '#65EECA', // highlighter-turquoise
+  sky: '#7CDFF2', // highlighter-sky
+  blue: '#8AA0D3', // highlighter-blue
+  purple: '#C17DDF', // highlighter-purple
+  plum: '#E7BBE3' // highlighter-plum
 }
 
 const colors = {
@@ -101,6 +115,7 @@ const colors = {
   },
   drawingTools,
   focus: 'accent-2',
+  highlighterTool,
   placeholder: 'dark-6',
   statusColors,
   text: {
@@ -120,6 +135,9 @@ colorArray(lightColors, 'light')
 colorArray(neutralColors, 'neutral')
 Object.keys(drawingTools).forEach((color) => {
   colors[`drawing-${color}`] = drawingTools[color]
+})
+Object.keys(highlighterTool).forEach((color) => {
+  colors[`highlighter-${color}`] = highlighterTool[color]
 })
 Object.keys(statusColors).forEach((color) => {
   colors[`status-${color}`] = statusColors[color]
