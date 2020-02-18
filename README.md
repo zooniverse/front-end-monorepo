@@ -52,7 +52,7 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs local builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
+`docker-compose up` runs local production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
 
 `docker-compose down` stops the running container.
 
