@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react'
 import {} from 'prop-types'  // TODO
 
 import SaveButton from './components/SaveButton'
+import XButton from './components/XButton'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
@@ -21,10 +22,6 @@ const StyledContainer = styled(Box)`
   overflow: auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 `
-const XButton = styled(Button)`
-
-`
-
 
 // Prevent tasks from screwing up presentation when container is resized.
 const TaskBox = styled(Box)`
@@ -104,8 +101,11 @@ class SubTaskPopup extends React.Component {
           default={defaultPosition}
         >
           <StyledContainer pad="xsmall" fill>
-            <Box pad="xsmall">
-              <XButton onClick={() => setSubTaskVisibility(false)}>X</XButton>
+            <Box>
+              <XButton
+                alignSelf='end'
+                onClick={() => setSubTaskVisibility(false)}
+              />
             </Box>
             
             {tasks.map(task => {
