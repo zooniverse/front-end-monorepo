@@ -19,7 +19,7 @@ describe('Model > SubjectViewerStore', function () {
     })
 
     it('should have a `frame` property', function () {
-      expect(SubjectViewerStore.frame).to.equal(undefined)
+      expect(subjectViewerStore.frame).to.equal(0)
     })
 
     it('should have a setFrame method', function () {
@@ -27,6 +27,7 @@ describe('Model > SubjectViewerStore', function () {
     })
 
     it('should update frame with setFrame method', function () {
+      expect(subjectViewerStore.frame).to.equal(0)
       subjectViewerStore.setFrame(1)
       expect(subjectViewerStore.frame).to.equal(1)
     })

@@ -95,12 +95,7 @@ const SubjectViewer = types
 
       resetSubject (subject) {
         let frame = 0
-        if (
-          subject &&
-          subject.metadata &&
-          subject.metadata.default_frame &&
-          subject.metadata.default_frame >= 0
-        ) {
+        if (subject?.metadata?.default_frame >= 0) {
           frame = parseInt(subject.metadata.default_frame)
         }
         self.dimensions = []
