@@ -5,7 +5,7 @@ services:
     image: front-end-monorepo_project-app:local
     build:
       context: .
-    command: [yarn, "dev"]
+    command: [yarn, "start"]
     environment:
       - PORT=3000
       - ASSET_PREFIX= http://localhost:3000
