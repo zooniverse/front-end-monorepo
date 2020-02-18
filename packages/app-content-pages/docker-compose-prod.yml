@@ -19,6 +19,7 @@ services:
       - app_content_pages_node_modules_cache:/usr/src/node_modules
       - ./pages:/usr/src/packages/app-content-pages/pages
       - ./src:/usr/src/packages/app-content-pages/src
+      - .env:/usr/src/packages/app-content-pages/.env
 
 volumes:
   app_content_pages_node_modules_cache:
