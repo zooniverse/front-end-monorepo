@@ -39,6 +39,10 @@ The production server is started on port 3000 by default.
 
 #### Docker
 ```sh
+# to run a next prod server based on deployed prod image
+docker-compose -f docker-compose-prod.yml up project-app
+
+# to run a next prod server based on local filesystem builds
 docker-compose run --rm --service-ports dev start
 ````
 
