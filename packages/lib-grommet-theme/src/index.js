@@ -81,12 +81,25 @@ const lightColors = [
   moreMiddleGrey // light-6
 ]
 
+// https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5c68fab7fb26bb001855f29a
+const drawingTools = {
+  red: '#FF3C25', // drawing-red
+  orange: '#235DFF', // drawing-orange
+  yellow: '#FFFF03', // drawing-yellow
+  green: '#FF9300', // drawing-green
+  lightBlue: '#06FE76', // drawing-lightBlue
+  blue: '#0CFFE0', // drawing-blue
+  purple: '#FF40FF', // drawing-purple
+  pink: '#FF2B70' // drawing-pink
+}
+
 const colors = {
   brand,
   border: {
     dark: 'dark-1',
     light: 'light-2'
   },
+  drawingTools,
   focus: 'accent-2',
   placeholder: 'dark-6',
   statusColors,
@@ -105,6 +118,9 @@ colorArray(accentColors, 'accent')
 colorArray(darkColors, 'dark')
 colorArray(lightColors, 'light')
 colorArray(neutralColors, 'neutral')
+Object.keys(drawingTools).forEach((color) => {
+  colors[`drawing-${color}`] = drawingTools[color]
+})
 Object.keys(statusColors).forEach((color) => {
   colors[`status-${color}`] = statusColors[color]
 })

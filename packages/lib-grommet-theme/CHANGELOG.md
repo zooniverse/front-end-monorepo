@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Added `#43BBFD` (blue) as `neutral-5`.
 - Added `#ffffff` (white) as `neutral-6`
+- Added drawing tool colors as `drawing-${variableName}` and to the colors object for utility use
 
 ### Changed
 - Lowered font weight for form input text.

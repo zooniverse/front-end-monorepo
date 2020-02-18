@@ -43,6 +43,14 @@ class MyComponent extends React.Component {
 | `dark-4` | `#404040` | ![](https://via.placeholder.com/80x30.png/404040?text=+) |
 | `dark-5` | `#5C5C5C` | ![](https://via.placeholder.com/80x30.png/5C5C5C?text=+) |
 | `dark-6` | `#5C5C5C` | ![](https://via.placeholder.com/80x30.png/5C5C5C?text=+) |
+| `drawing-red` | `#FF3C25` | ![](https://via.placeholder.com/80x30.png/FF3C25?text=+) |
+| `drawing-orange` | `#235DFF` | ![](https://via.placeholder.com/80x30.png/235DFF?text=+) |
+| `drawing-yellow` | `#FFFF03` | ![](https://via.placeholder.com/80x30.png/FFFF03?text=+) |
+| `drawing-green` | `#FF9300` | ![](https://via.placeholder.com/80x30.png/FF9300?text=+) |
+| `drawing-lightBlue` | `#06FE76` | ![](https://via.placeholder.com/80x30.png/06FE76?text=+) |
+| `drawing-blue` | `#0CFFE0` | ![](https://via.placeholder.com/80x30.png/0CFFE0?text=+) |
+| `drawing-purple` | `#FF40FF` | ![](https://via.placeholder.com/80x30.png/FF40FF?text=+) |
+| `drawing-pink` | `#FF2B70` | ![](https://via.placeholder.com/80x30.png/FF2B70?text=+) |
 | `light-1` | `#eff2f5` | ![](https://via.placeholder.com/80x30.png/eff2f5?text=+) |
 | `light-2` | `#ebebeb` | ![](https://via.placeholder.com/80x30.png/ebebeb?text=+) |
 | `light-3` | `#e2e5e9` | ![](https://via.placeholder.com/80x30.png/e2e5e9?text=+) |
