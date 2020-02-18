@@ -20,17 +20,5 @@ services:
       - ./pages:/usr/src/packages/app-project/pages
       - ./src:/usr/src/packages/app-project/src
       - ./stores:/usr/src/packages/app-project/stores
-  storybook:
-    image: front-end-monorepo_project-app:local
-    command: [yarn, "storybook"]
-    environment:
-      - NODE_ENV=development
-    ports:
-      - "9001:9001"
-    volumes:
-      - ./pages:/usr/src/packages/app-project/pages
-      - ./src:/usr/src/packages/app-project/src
-      - ./stores:/usr/src/packages/app-project/stores
-
 volumes:
   project_app_node_modules_cache:
