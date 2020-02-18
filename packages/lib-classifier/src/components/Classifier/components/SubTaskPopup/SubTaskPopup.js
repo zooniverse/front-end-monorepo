@@ -5,8 +5,10 @@ import { Box, Button, Paragraph } from 'grommet'
 import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
 import {} from 'prop-types'  // TODO
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
+import SaveButton from './components/SaveButton'
+
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
 
 // EXPERIMENTAL
@@ -23,9 +25,6 @@ const XButton = styled(Button)`
 
 `
 
-const SaveButton = styled(Button)`
-
-`
 
 // Prevent tasks from screwing up presentation when container is resized.
 const TaskBox = styled(Box)`
@@ -138,7 +137,10 @@ class SubTaskPopup extends React.Component {
             })}
                        
             <Box pad="xsmall">
-              <SaveButton onClick={() => setSubTaskVisibility(false)}>Save</SaveButton>
+              <SaveButton
+                onClick={() => setSubTaskVisibility(false)}
+                disabled={false}
+              />
             </Box>
           </StyledContainer>
         </Rnd>
