@@ -42,20 +42,21 @@ export const StyledImage = styled.img`
 
 class FrameCarousel extends React.Component {
   render () {
-    const { frame, onFrameChange, subject } = this.props
-    const locations = subject.locations.map(location => ({ 'url': location['image/jpeg'] }))
+    const { frame, onFrameChange, locations } = this.props
     const locationElements = locations.map((location, index) => {
+      const mimeType = Object.keys(location)[0]
+      const url = location[mimeType]
       const activeFrame = frame === index
       return (
-        <label key={`${location.url}-${index}`}>
+        <label key={`${url}-${index}`}>
           <StyledInput
             checked={activeFrame}
             name='frame'
             onChange={() => onFrameChange(index)}
-            src={location.url}
+            src={url}
             type='radio'
           />
-          <StyledImage src={location.url} alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')} />
+          <StyledImage src={url} alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')} />
         </label>
       )
     })
@@ -104,9 +105,7 @@ class FrameCarousel extends React.Component {
 FrameCarousel.propTypes = {
   frame: PropTypes.number.isRequired,
   onFrameChange: PropTypes.func.isRequired,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  locations: PropTypes.arrayOf(locationValidator).isRequired
 }
 
 export default FrameCarousel

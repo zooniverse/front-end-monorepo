@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
-import { SubjectFactory } from '@test/factories'
 import FrameCarousel, {
   StyledControlButton,
   StyledInput,
@@ -11,27 +10,30 @@ import FrameCarousel, {
 
 describe('Component > FrameCarousel', function () {
   let wrapper
-  const multiFrameSubject = SubjectFactory.build({
-    metadata: {
-      default_frame: 2
-    },
-    locations: [
-      { 'image/png': 'https://foo.bar/example.png' },
-      { 'image/png': 'https://foo.bar/example.png' },
-      { 'image/png': 'https://foo.bar/example.png' },
-      { 'image/png': 'https://foo.bar/example.png' }
-    ] })
-  const numberOfFrames = multiFrameSubject.locations.length
-  const onFrameChangeSpy = sinon.spy()
+  let onFrameChangeSpy
+  const multiFrameSubjectLocations = [
+    { 'image/png': 'https://foo.bar/example.png' },
+    { 'image/png': 'https://foo.bar/example.png' },
+    { 'image/png': 'https://foo.bar/example.png' },
+    { 'image/png': 'https://foo.bar/example.png' }
+  ]
+  const numberOfFrames = multiFrameSubjectLocations.length
 
   beforeEach(function () {
+    onFrameChangeSpy = sinon.spy((frame) => {
+      wrapper.setProps({ frame })
+    })
     wrapper = shallow(
       <FrameCarousel
         frame={2}
         onFrameChange={onFrameChangeSpy}
-        subject={multiFrameSubject}
+        locations={multiFrameSubjectLocations}
       />
     )
+  })
+
+  afterEach(function () {
+    onFrameChangeSpy.resetHistory()
   })
 
   it('should render without crashing', function () {
@@ -39,7 +41,7 @@ describe('Component > FrameCarousel', function () {
   })
 
   it('should contain subject property with all locations', function () {
-    expect(wrapper.instance().props.subject.locations.length).to.equal(numberOfFrames)
+    expect(wrapper.instance().props.locations.length).to.equal(numberOfFrames)
   })
 
   it('should render an input and an img for each location', function () {
@@ -62,8 +64,11 @@ describe('Component > FrameCarousel', function () {
   })
 
   it('should call onFrameChange with location index on input change', function () {
+    expect(wrapper.find(StyledInput).at(2).props().checked).to.be.true()
     const lastInput = wrapper.find(StyledInput).last()
     lastInput.simulate('change')
     expect(onFrameChangeSpy.calledOnceWith(3)).to.be.true()
+    expect(wrapper.find(StyledInput).at(2).props().checked).to.be.false()
+    expect(wrapper.find(StyledInput).last().props().checked).to.be.true()
   })
 })

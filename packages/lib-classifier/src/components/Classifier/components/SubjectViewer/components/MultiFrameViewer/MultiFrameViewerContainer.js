@@ -66,9 +66,6 @@ class MultiFrameViewerContainer extends React.Component {
   componentDidUpdate (prevProps) {
     const { frame } = this.props
     if (prevProps.frame !== frame) {
-      this.props.enableRotation()
-      this.props.setOnPan(this.onPan.bind(this))
-      this.props.setOnZoom(this.onZoom.bind(this))
       this.onLoad()
     }
   }
@@ -245,7 +242,7 @@ class MultiFrameViewerContainer extends React.Component {
         <FrameCarousel
           frame={frame}
           onFrameChange={this.onFrameChange}
-          subject={subject}
+          locations={subject.locations}
         />
         <SVGContext.Provider value={{ svg, getScreenCTM }}>
           <SingleImageViewer
@@ -284,7 +281,7 @@ MultiFrameViewerContainer.propTypes = {
   setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  })
+  }).isRequired
 }
 
 MultiFrameViewerContainer.defaultProps = {

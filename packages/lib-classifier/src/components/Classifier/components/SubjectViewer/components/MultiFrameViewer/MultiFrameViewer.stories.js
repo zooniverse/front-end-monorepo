@@ -40,9 +40,6 @@ const mockStore = {
       annotations: new Map()
     }
   },
-  drawing: {
-    addToStream: sinon.stub()
-  },
   subjectViewer: SubjectViewerStore.create({ frame: subject.metadata.default_frame }),
   workflowSteps: {
     activeStepTasks: []
