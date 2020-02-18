@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  project-app:
+    image: front-end-monorepo_project-app:local
+    build:
+      context: .
+    command: [yarn, "dev"]
+    environment:
+      - PORT=3000
+      - ASSET_PREFIX= http://localhost:3000
+      - NODE_ENV=development
+      - PANOPTES_ENV=staging
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - project_app_node_modules_cache:/usr/src/node_modules
+      - ./pages:/usr/src/packages/app-project/pages
+      - ./src:/usr/src/packages/app-project/src
+      - ./stores:/usr/src/packages/app-project/stores
+  storybook:
+    image: front-end-monorepo_project-app:local
+    command: [yarn, "storybook"]
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./pages:/usr/src/packages/app-project/pages
+      - ./src:/usr/src/packages/app-project/src
+      - ./stores:/usr/src/packages/app-project/stores
+
+volumes:
+  project_app_node_modules_cache:
