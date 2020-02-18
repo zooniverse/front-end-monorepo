@@ -14,11 +14,24 @@ import taskRegistry from '@plugins/tasks'
 import zooTheme from '@zooniverse/grommet-theme'
 import styled from 'styled-components'  // TODO: check what's the best way to style this component
 const StyledContainer = styled(Box)`
-  background: white;
+  background: #ffffff;
+  border: 1px solid #eff2f5
   overflow: auto;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 `
 const XButton = styled(Button)`
 
+`
+
+const SaveButton = styled(Button)`
+
+`
+
+// TODO Why are the SubTask components on TOP of the final save button when the outer container is resized?
+const DebugBox = styled(Box)`
+  border: 1px solid black;
+  position: relative;
+  overflow: auto;
 `
 // ----------------
 
@@ -94,8 +107,9 @@ class SubTaskPopup extends React.Component {
           default={defaultPosition}
         >
           <StyledContainer pad="medium" fill>
-            
-            <XButton onClick={() => setSubTaskVisibility(false)}>X</XButton>
+            <Box>
+              <XButton onClick={() => setSubTaskVisibility(false)}>X</XButton>
+            </Box>
             
             {tasks.map(task => {
               // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
@@ -107,19 +121,23 @@ class SubTaskPopup extends React.Component {
 
               if (annotation && TaskComponent) {
                 return (
-                  <Box key={task.taskKey}>
+                  <DebugBox key={task.taskKey}>
                     <TaskComponent
                       disabled={!ready}
                       annotation={annotation}
                       task={task}
                       {...this.props}
                     />
-                  </Box>
+                  </DebugBox>
                 )
               }
               
               return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
+                       
+            <Box>
+              <SaveButton onClick={() => setSubTaskVisibility(false)}>Save</SaveButton>
+            </Box>
           </StyledContainer>
         </Rnd>
       )
