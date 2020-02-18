@@ -27,10 +27,8 @@ const SaveButton = styled(Button)`
 
 `
 
-// TODO Why are the SubTask components on TOP of the final save button when the outer container is resized?
-const DebugBox = styled(Box)`
-  border: 1px solid black;
-  position: relative;
+// Prevent tasks from screwing up presentation when container is resized.
+const TaskBox = styled(Box)`
   overflow: auto;
 `
 // ----------------
@@ -106,8 +104,8 @@ class SubTaskPopup extends React.Component {
           minHeight={100}
           default={defaultPosition}
         >
-          <StyledContainer pad="medium" fill>
-            <Box>
+          <StyledContainer pad="xsmall" fill>
+            <Box pad="xsmall">
               <XButton onClick={() => setSubTaskVisibility(false)}>X</XButton>
             </Box>
             
@@ -121,21 +119,21 @@ class SubTaskPopup extends React.Component {
 
               if (annotation && TaskComponent) {
                 return (
-                  <DebugBox key={task.taskKey}>
+                  <TaskBox key={task.taskKey} pad="xsmall">
                     <TaskComponent
                       disabled={!ready}
                       annotation={annotation}
                       task={task}
                       {...this.props}
                     />
-                  </DebugBox>
+                  </TaskBox>
                 )
               }
               
               return (<Paragraph>Task component could not be rendered.</Paragraph>)
             })}
                        
-            <Box>
+            <Box pad="xsmall">
               <SaveButton onClick={() => setSubTaskVisibility(false)}>Save</SaveButton>
             </Box>
           </StyledContainer>
