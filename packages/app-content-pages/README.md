@@ -22,9 +22,14 @@ To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api
 ### Running in development
 
 #### Docker
+
 - `docker-compose up` to run a server on http://localhost:3000.
 - `docker-compose down` to stop the dev server.
-- `docker-compose run --rm app-content-pages test` to run the tests.
+- `docker-compose run --rm dev test` to run the tests.
+
+##### Preview the production Dockerfile image build
+
+- `docker-compose -f docker-compose-prod.yml up` to run a production Dockerfile image server on http://localhost:3000.
 
 #### Node/yarn
 ```sh
