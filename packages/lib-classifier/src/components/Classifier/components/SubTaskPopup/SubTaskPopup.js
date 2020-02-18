@@ -130,7 +130,11 @@ class SubTaskPopup extends React.Component {
                 )
               }
               
-              return (<Paragraph>Task component could not be rendered.</Paragraph>)
+              return (
+                <Box pad="xsmall">
+                  <Paragraph>Task component could not be rendered.</Paragraph>
+                </Box>
+              )
             })}
                        
             <Box pad="xsmall">
