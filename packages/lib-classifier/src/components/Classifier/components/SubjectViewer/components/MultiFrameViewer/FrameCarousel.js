@@ -48,14 +48,15 @@ class FrameCarousel extends React.Component {
   render () {
     const locations = this.props.subject.locations.map(location => ({ 'url': location['image/jpeg'] }))
     const locationElements = locations.map((location, index) => {
-      const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
-      const currentActive = currentFrameIndex === index
+      // TODO: add styling for active/current frame
+      // const currentFrameIndex = parseInt(this.props.subject.metadata.default_frame)
+      // const currentActive = currentFrameIndex === index
       return (
-        <label>
+        <label key={`${location.url}-${index}`}>
           <StyledInput
-            type="radio"
+            type='radio'
             src={location.url}
-            name="frame"
+            name='frame'
           />
           <StyledImage src={location.url} alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')} />
         </label>
