@@ -2,11 +2,13 @@ import * as Sentry from '@sentry/browser'
 
 export default function initializeSentry () {
   const dsn = process.env.SENTRY_DSN
-  console.log('Sentry DSN', dsn)
+  const appEnv = process.env.APP_ENV
 
   if (dsn) {
-    console.log('initialising Sentry logger')
-    Sentry.init({ dsn })
+    Sentry.init({
+      dsn,
+      environment: appEnv,
+    })
   }
 
   return null

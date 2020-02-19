@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  app-content-pages:
+    image: front-end-monorepo_project-content-pages:local
+    build:
+      context: .
+    command: [yarn, "start"]
+    environment:
+      - PORT=3000
+      - ASSET_PREFIX=http://localhost:3000
+      - NODE_ENV=development
+      - PANOPTES_ENV=staging
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - app_content_pages_node_modules_cache:/usr/src/node_modules
+      - ./pages:/usr/src/packages/app-content-pages/pages
+      - ./src:/usr/src/packages/app-content-pages/src
+      - .env:/usr/src/packages/app-content-pages/.env
+
+volumes:
+  app_content_pages_node_modules_cache:

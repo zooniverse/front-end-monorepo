@@ -16,9 +16,15 @@ This package should be cloned as part of the [front-end-monorepo](https://github
 Starts a development server on port 3000 and a Storybook server on port 9001 by default.
 
 #### Docker
+
 - `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001.
 - `docker-compose down` to stop the dev containers.
 - `docker-compose run --rm dev test` to run the tests.
+
+##### Preview the production Dockerfile image build
+
+- `docker-compose -f docker-compose-prod.yml up` to run a production Dockerfile image server on http://localhost:3000.
+
 
 #### Node/yarn
 ```sh
@@ -33,6 +39,10 @@ The production server is started on port 3000 by default.
 
 #### Docker
 ```sh
+# to run a next prod server based on deployed prod image
+docker-compose -f docker-compose-prod.yml up project-app
+
+# to run a next prod server based on local filesystem builds
 docker-compose run --rm --service-ports dev start
 ````
 
