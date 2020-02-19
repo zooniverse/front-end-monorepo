@@ -25,6 +25,18 @@ const Workflow = types
       // TODO: enable selection of a subject set from the links array.
       const [ subjectSetId ] = self.links.subject_sets
       return subjectSetId
+    },
+
+    get usesTranscriptionLines () {
+      let usesTranscriptionLines = false
+      self.tasks && Object.values(self.tasks).forEach(task => {
+        task.tools && task.tools.forEach(tool => {
+          if (tool.type === 'transcriptionLine') {
+            usesTranscriptionLines = true
+          }
+        })
+      })
+      return usesTranscriptionLines
     }
   }))
 
