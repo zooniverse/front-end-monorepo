@@ -13,8 +13,6 @@ ENV APP_ENV production
 
 WORKDIR /usr/src/packages/app-content-pages/
 
-RUN yarn build
-
 ENV PORT 3000
 EXPOSE 3000
 
