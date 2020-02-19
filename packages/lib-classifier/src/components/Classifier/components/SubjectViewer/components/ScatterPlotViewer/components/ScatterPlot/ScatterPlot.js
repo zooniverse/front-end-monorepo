@@ -24,6 +24,7 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
+    focusedSeries,
     invertAxes,
     margin,
     padding,
@@ -112,7 +113,8 @@ function ScatterPlot (props) {
         {dataPoints.map((series, seriesIndex) => {
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
-            seriesOptions: series.seriesOptions,
+            focusedSeries,
+            seriesOptions: series?.seriesOptions,
             seriesIndex,
             themeColors: colors
           })
@@ -197,6 +199,7 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
+  focusedSeries: [],
   invertAxes: {
     x: false,
     y: false
@@ -261,6 +264,7 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   invertAxes: PropTypes.shape({
     x: PropTypes.bool,
     y: PropTypes.bool

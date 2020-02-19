@@ -1,9 +1,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { Provider } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
-import { Factory } from 'rosie'
 import { VariableStarViewerContainer } from './VariableStarViewerContainer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
@@ -16,6 +16,7 @@ import variableStar from '../../helpers/mockLightCurves/variableStar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 import image from './mocks/temperature.png'
+import { Factory } from 'rosie'
 
 const config = {
   notes: {
