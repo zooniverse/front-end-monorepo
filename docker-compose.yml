@@ -1,26 +1,26 @@
 version: '3.7'
 
 services:
-  yarn:
-    image: front-end-monorepo_dev:latest
-    build:
-      context: ./
-      target: bootstrap
-    entrypoint:
-      - "yarn"
-    command: ["test:ci"]
-  fe-project:
-    image: front-end-monorepo_prod:latest
-    build:
-      context: ./
-      target: production-apps
-    entrypoint:
-      - "yarn"
-      - "workspace"
-      - "@zooniverse/fe-project"
-    command: ["start"]
-    ports:
-      - "3000:3000"
+  # yarn:
+  #   image: front-end-monorepo_dev:latest
+  #   build:
+  #     context: ./
+  #     target: bootstrap
+  #   entrypoint:
+  #     - "yarn"
+  #   command: ["test:ci"]
+  # fe-project:
+  #   image: front-end-monorepo_prod:latest
+  #   build:
+  #     context: ./
+  #     target: production-apps
+  #   entrypoint:
+  #     - "yarn"
+  #     - "workspace"
+  #     - "@zooniverse/fe-project"
+  #   command: ["start"]
+  #   ports:
+  #     - "3000:3000"
   fe-content:
     image: front-end-monorepo_prod:latest
     build:
@@ -31,6 +31,8 @@ services:
       - "workspace"
       - "@zooniverse/fe-content-pages"
     command: ["start"]
+    environment:
+      - ASSET_PREFIX=http://localhost:3000
     ports:
       - "3001:3000"
 
