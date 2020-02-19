@@ -22,9 +22,14 @@ To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api
 ### Running in development
 
 #### Docker
+
 - `docker-compose up` to run a server on http://localhost:3000.
 - `docker-compose down` to stop the dev server.
 - `docker-compose run --rm dev test` to run the tests.
+
+##### Preview the production Dockerfile image build
+
+- `docker-compose -f docker-compose-prod.yml up` to run a production Dockerfile image server on http://localhost:3000.
 
 #### Node/yarn
 ```sh
@@ -52,6 +57,15 @@ yarn start
 Next.js [treats the build and serve tasks as separate steps](https://github.com/zeit/next.js/#production-deployment) when running in production.
 
 The production server is started on port 3000 by default.
+
+#### Docker
+```sh
+# to run a next prod server based on deployed prod image
+docker-compose -f docker-compose-prod.yml up app-content-pages
+
+# to run a next prod server based on local filesystem builds
+docker-compose run --rm --service-ports dev start
+````
 
 ### Tests
 

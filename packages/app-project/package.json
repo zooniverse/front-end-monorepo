@@ -6,11 +6,11 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "build": "PANOPTES_ENV=production next build",
+    "build": "PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "build-storybook": "build-storybook -s public",
     "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "NODE_ENV=production next start",
+    "start": "NODE_ENV=${NODE_ENV:-production} next start",
     "storybook": "start-storybook -p 9001 -c .storybook -s public",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"

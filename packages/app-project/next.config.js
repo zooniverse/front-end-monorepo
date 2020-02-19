@@ -15,6 +15,7 @@ const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
 const assetPrefix = process.env.ASSET_PREFIX || ''
 const SENTRY_DSN = process.env.SENTRY_DSN
+const APP_ENV = process.env.APP_ENV || 'production'
 
 console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
@@ -25,6 +26,7 @@ const nextConfig = {
     COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
     PANOPTES_ENV,
     SENTRY_DSN,
+    APP_ENV,
     TALK_HOST: talkHosts[PANOPTES_ENV]
   },
 
