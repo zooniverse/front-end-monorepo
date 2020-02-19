@@ -42,15 +42,13 @@ class SubjectViewer extends React.Component {
     const Viewer = getViewer(subject.viewer)
 
     return (
-      <>
-        <Viewer
-          key={subject.id}
-          subject={subject}
-          loadingState={subjectReadyState}
-          onError={onError}
-          onReady={onSubjectReady}
-        />
-      </>
+      <Viewer
+        key={subject.id}
+        subject={subject}
+        loadingState={subjectReadyState}
+        onError={onError}
+        onReady={onSubjectReady}
+      />
     )
   }
 

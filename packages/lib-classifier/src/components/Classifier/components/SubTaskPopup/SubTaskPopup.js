@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import counterpart from 'counterpart'
 import { Box, Button, Paragraph } from 'grommet'
 import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
@@ -28,10 +27,6 @@ const TaskBox = styled(Box)`
   overflow: auto;
 `
 // ----------------
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
@@ -76,7 +71,6 @@ class SubTaskPopup extends React.Component {
     let x = 0, y = 0;
     const svgBounds = svg && svg.getBoundingClientRect()
 
-    console.log('+++ BOUNDS:\n', svgBounds, '\n', subTaskMarkBounds)
     if (svgBounds && subTaskMarkBounds) {
       const markX = subTaskMarkBounds.x || 0
       const markY = subTaskMarkBounds.y || 0

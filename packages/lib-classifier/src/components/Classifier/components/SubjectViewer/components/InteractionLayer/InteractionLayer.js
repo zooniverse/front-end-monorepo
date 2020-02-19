@@ -110,8 +110,6 @@ function InteractionLayer ({
           }}
           onFinish={onFinish}
           onSelectMark={(mark, ref) => {
-            console.log('+++ REF: ', ref && ref.current)
-            
             setSubTaskVisibility(true, ref && ref.current)  // Show sub-task again on select, in case it was closed 
             setActiveMark(mark)
           }}
