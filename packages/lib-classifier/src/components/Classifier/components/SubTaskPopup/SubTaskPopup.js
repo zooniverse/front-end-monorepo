@@ -1,32 +1,31 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button, Paragraph } from 'grommet'
-import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
-import { CloseButton } from '@zooniverse/react-components'
-import {} from 'prop-types'  // TODO
 
+import { Rnd } from 'react-rnd'  // Used to create the draggable, resizable "popup" component
+import { Box, Button, Paragraph } from 'grommet'
+import { CloseButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
+import styled from 'styled-components'
 
-// EXPERIMENTAL
+// TODO: apply themes
 // ----------------
 import zooTheme from '@zooniverse/grommet-theme'
-import styled from 'styled-components'  // TODO: check what's the best way to style this component
 const StyledContainer = styled(Box)`
   background: #ffffff;
   border: 1px solid #eff2f5
   overflow: auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 `
+// ----------------
 
 // Prevent tasks from screwing up presentation when container is resized.
 const TaskBox = styled(Box)`
   overflow: auto;
 `
-// ----------------
 
 function storeMapper (stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
