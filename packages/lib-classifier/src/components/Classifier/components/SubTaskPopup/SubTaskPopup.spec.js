@@ -8,7 +8,7 @@ import asyncStates from '@zooniverse/async-states'
 import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import ClassificationStore from '@store/ClassificationStore'
 
-describe.only('SubTaskPopup', function () {
+describe('SubTaskPopup', function () {
   const singleChoiceTask = SingleChoiceTask.TaskModel.create({
     answers: [{ label: 'yes' }, { label: 'no' }],
     question: 'Is there a cat?',

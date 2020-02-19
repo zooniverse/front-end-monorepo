@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Box, Button, Paragraph } from 'grommet'
 import { Rnd } from 'react-rnd'
 import { inject, observer } from 'mobx-react'
+import { CloseButton } from '@zooniverse/react-components'
 import {} from 'prop-types'  // TODO
 
 import SaveButton from './components/SaveButton'
-import XButton from './components/XButton'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
@@ -96,7 +96,7 @@ class SubTaskPopup extends React.Component {
         >
           <StyledContainer pad="xsmall" fill>
             <Box>
-              <XButton
+              <CloseButton
                 alignSelf='end'
                 onClick={() => setSubTaskVisibility(false)}
               />
