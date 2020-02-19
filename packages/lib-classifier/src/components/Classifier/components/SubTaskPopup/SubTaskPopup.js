@@ -25,6 +25,7 @@ const StyledContainer = styled(Box)`
 // Prevent tasks from screwing up presentation when container is resized.
 const TaskBox = styled(Box)`
   overflow: auto;
+  cursor: auto;
 `
 
 function storeMapper (stores) {
@@ -92,6 +93,7 @@ class SubTaskPopup extends React.Component {
           minWidth={100}
           minHeight={100}
           default={defaultPosition}
+          cancel=".subtaskpopup-element-that-ignores-drag-actions"
         >
           <StyledContainer pad="xsmall" fill>
             <Box>
@@ -111,7 +113,11 @@ class SubTaskPopup extends React.Component {
 
               if (annotation && TaskComponent) {
                 return (
-                  <TaskBox key={task.taskKey} pad="xsmall">
+                  <TaskBox
+                    key={task.taskKey}
+                    pad="xsmall"
+                    className="subtaskpopup-element-that-ignores-drag-actions"
+                  >
                     <TaskComponent
                       disabled={!ready}
                       annotation={annotation}
