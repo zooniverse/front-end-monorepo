@@ -22,7 +22,6 @@ function SVGPanZoom ({
   }
 
   const [ zoom, setZoom ] = useState(1)
-  const [ scale, setScale ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
 
   function onMount () {
@@ -44,23 +43,15 @@ function SVGPanZoom ({
     return onUnmount
   }, [])
 
-  useEffect(function updateImageSize () {
-    onImageChange(img)
-  }, [img])
-
   useEffect(function onZoomChange () {
     const newViewBox = scaledViewBox(zoom)
     setViewBox(newViewBox)
   }, [zoom])
 
-  useEffect(function onViewBoxChange () {
-    onImageChange(img)
-  }, [viewBox])
-
-  function onImageChange (img) {
+  function imageScale (img) {
     const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
     const scale = clientWidth / naturalWidth
-    setScale(scale)
+    return scale
   }
 
   function scaledViewBox (scale) {
@@ -124,6 +115,7 @@ function SVGPanZoom ({
   }
 
   const { x, y, width, height } = scaledViewBox(zoom)
+  const scale = imageScale(img)
   return (
     <div ref={scrollContainer} onWheel={onWheel}>
       {cloneElement(children, { scale, viewBox: `${x} ${y} ${width} ${height}` })}
