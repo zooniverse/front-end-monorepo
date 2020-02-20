@@ -112,12 +112,24 @@ class VariableStarViewerContainer extends Component {
 
   calculatePhase(rawJSON) {
     // TODO
-    return {}
+    return {
+      data: [],
+      chartOptions: {}
+    }
   }
 
   calculateBarJSON(rawJSON) {
     // TODO
-    return {}
+    return {
+      amplitude: {
+        data: [],
+        options: {}
+      },
+      period: {
+        data: [],
+        options: {}
+      }
+    }
   }
 
   calculateJSON() {
