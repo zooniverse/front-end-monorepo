@@ -41,7 +41,7 @@ describe('Component > FrameCarousel', function () {
   })
 
   it('should contain subject property with all locations', function () {
-    expect(wrapper.instance().props.locations.length).to.equal(numberOfFrames)
+    expect(wrapper.instance().props.locations).to.have.lengthOf(numberOfFrames)
   })
 
   it('should render an input and an img for each location', function () {
