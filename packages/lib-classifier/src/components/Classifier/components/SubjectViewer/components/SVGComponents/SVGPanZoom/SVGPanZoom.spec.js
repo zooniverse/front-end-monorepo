@@ -11,8 +11,17 @@ describe('Components > SVGPanZoom', function () {
   let onZoom
   
   beforeEach(function () {
+    const img = {
+      getBoundingClientRect () {
+        return {
+          height: 100,
+          width: 200
+        }
+      }
+    }
     wrapper = mount(
       <SVGPanZoom
+        img={img}
         naturalHeight={200}
         naturalWidth={400}
         setOnDrag={callback => { onDrag = callback }}
