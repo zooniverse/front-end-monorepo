@@ -101,7 +101,10 @@ export function yMax ({ tickDirection, parentHeight, margin, padding }) {
 
 export function transformXScale (data, transformMatrix, rangeParameters) {
   const dataExtent = getDataExtent(data)
-  const xRange = [xMin(rangeParameters), xMax(rangeParameters)]
+  const xRange = (rangeParameters.invertAxes.x) ?
+    [xMax(rangeParameters), xMin(rangeParameters)] :
+    [xMin(rangeParameters), xMax(rangeParameters)]
+
   const xScale = scaleLinear({
     domain: dataExtent.x,
     range: xRange
@@ -118,7 +121,9 @@ export function transformXScale (data, transformMatrix, rangeParameters) {
 
 export function transformYScale (data, transformMatrix, rangeParameters) {
   const dataExtent = getDataExtent(data)
-  const yRange = [yMin(rangeParameters), yMax(rangeParameters)]
+  const yRange = (rangeParameters.invertAxes.y) ?
+    [yMax(rangeParameters), yMin(rangeParameters)] :
+    [yMin(rangeParameters), yMax(rangeParameters)]
 
   const yScale = scaleLinear({
     domain: dataExtent.y,

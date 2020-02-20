@@ -24,6 +24,7 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
+    invertAxes,
     margin,
     padding,
     parentHeight,
@@ -43,6 +44,7 @@ function ScatterPlot (props) {
   } = props
 
   const rangeParameters = {
+    invertAxes,
     margin,
     padding,
     parentHeight,
@@ -191,6 +193,10 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
+  invertAxes: {
+    x: false,
+    y: false
+  },
   margin: {
     bottom: 60,
     left: 60,
@@ -249,6 +255,10 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  invertAxes: PropTypes.shape({
+    x: PropTypes.bool,
+    y: PropTypes.bool
+  }),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

@@ -151,7 +151,7 @@ class VariableStarViewerContainer extends Component {
     // TODO add handling
   }
 
-  setYAxisInversion() {
+  setYAxisInversion () {
     this.setState((prevState) => { return { invertYAxis: !prevState.invertYAxis } })
   }
 
@@ -168,6 +168,7 @@ class VariableStarViewerContainer extends Component {
       <VariableStarViewer
         barJSON={this.state.barJSON}
         imageSrc={this.state.imageSrc}
+        invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
