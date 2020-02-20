@@ -52,7 +52,7 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
+`docker-compose up` runs local production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
 
 `docker-compose down` stops the running container.
 
@@ -115,7 +115,7 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 ## Deployment
 
-Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images). 
+Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images).
 
 Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end to end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
@@ -123,10 +123,12 @@ Deployments to a production Kubernetes instance are triggered by committing a `p
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
 
+You can test the production image builds using the `docker-compose-prod.yml` files in each pacakge.
+
 ### Environment variables
 
-- `PANOPTES_ENV`: sets which Panoptes API endpoint to use. 
-  - `production` will use `https://www.zooniverse.org/api` 
+- `PANOPTES_ENV`: sets which Panoptes API endpoint to use.
+  - `production` will use `https://www.zooniverse.org/api`
   - `staging` will use `https://panoptes-staging.zooniverse.org/api`.
 
 The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.

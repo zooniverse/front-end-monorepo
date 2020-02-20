@@ -6,11 +6,11 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "build": "PANOPTES_ENV=production next build",
+    "build": "PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "build-storybook": "build-storybook -s public",
     "dev": "next",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "NODE_ENV=production next start",
+    "start": "NODE_ENV=${NODE_ENV:-production} next start",
     "storybook": "start-storybook -p 9001 -c .storybook -s public",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
@@ -66,6 +66,7 @@
     "@storybook/addon-storysource": "~5.3.10",
     "@storybook/addon-viewport": "~5.3.10",
     "@storybook/react": "~5.3.10",
+    "babel-loader": "~8.0.6",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
