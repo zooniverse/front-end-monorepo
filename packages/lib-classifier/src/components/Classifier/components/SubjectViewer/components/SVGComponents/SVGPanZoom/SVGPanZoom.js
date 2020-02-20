@@ -53,6 +53,10 @@ function SVGPanZoom ({
     setViewBox(newViewBox)
   }, [zoom])
 
+  useEffect(function onViewBoxChange () {
+    onImageChange(img)
+  }, [viewBox])
+
   function onImageChange (img) {
     const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
     const scale = clientWidth / naturalWidth
@@ -92,12 +96,10 @@ function SVGPanZoom ({
     switch (type) {
       case 'zoomin': {
         setZoom(prevZoom => Math.min(prevZoom + 0.1, maxZoom))
-        onImageChange(img)
         return
       }
       case 'zoomout': {
         setZoom(prevZoom => Math.max(prevZoom - 0.1, minZoom))
-        onImageChange(img)
         return
       }
       case 'zoomto': {
