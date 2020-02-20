@@ -128,10 +128,9 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
-    const getScreenCTM = () => svg.getScreenCTM()
 
     return (
-      <SVGContext.Provider value={{ svg, getScreenCTM }}>
+      <SVGContext.Provider value={{ svg }}>
         <SVGPanZoom
           img={this.subjectImage.current}
           maxZoom={5}
