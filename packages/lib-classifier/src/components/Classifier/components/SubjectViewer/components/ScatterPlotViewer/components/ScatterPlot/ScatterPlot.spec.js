@@ -6,7 +6,7 @@ import Axes from '../Axes'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import ScatterPlot from './ScatterPlot'
-import { glyphComponents } from '../../helpers/constants'
+import { glyphComponents } from '../../../../helpers/getDataSeriesSymbol'
 import {
   dataSeriesWithXErrors,
   dataSeriesWithYErrors,

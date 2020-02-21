@@ -16,8 +16,8 @@ describe('Component > SingleImageViewer', function () {
   })
 
   it('should be upright', function () {
-    const transform = wrapper.find('svg').prop('transform')
-    expect(transform).to.have.string('rotate(0 0 0)')
+    const transform = wrapper.find('svg').find('g').prop('transform')
+    expect(transform).to.have.string('rotate(0 50 100)')
   })
 
   describe('with a rotation angle', function () {
@@ -26,8 +26,8 @@ describe('Component > SingleImageViewer', function () {
     })
 
     it('should be rotated', function () {
-      const transform = wrapper.find('svg').prop('transform')
-      expect(transform).to.have.string('rotate(-90 0 0)')
+      const transform = wrapper.find('svg').find('g').prop('transform')
+      expect(transform).to.have.string('rotate(-90 50 100)')
     })
   })
 
