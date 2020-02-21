@@ -23,19 +23,23 @@ function SVGPanZoom ({
 
   const [ zoom, setZoom ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
+  
+  function preventDefault (e) {
+    e.preventDefault()
+  }
 
   function onMount () {
     setOnDrag(onDrag)
     setOnPan(onPan)
     setOnZoom(onZoom)
-    scrollContainer.current.addEventListener('wheel', e => e.preventDefault())
+    scrollContainer.current.addEventListener('wheel', preventDefault)
   }
 
   function onUnmount () {
     setOnDrag(() => true)
     setOnPan(() => true)
     setOnZoom(() => true)
-    scrollContainer.current.removeEventListener('wheel', e => e.preventDefault())
+    scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
   useEffect(() => {
