@@ -86,7 +86,7 @@ class SubTaskPopup extends React.Component {
     }
     
     const defaultPosition = { x, y }
-
+    
     if (subTaskVisibility && tasks.length > 0) {
       return (
         <Rnd
@@ -152,10 +152,16 @@ class SubTaskPopup extends React.Component {
 
 SubTaskPopup.propTypes = {
   activeMark: PropTypes.object,
+  subTaskMarkBounds: PropTypes.object,
+  subTaskVisibility: PropTypes.bool,
+  setSubTaskVisibility: PropTypes.func,
 }
 
 SubTaskPopup.defaultProps = {
   activeMark: undefined,
+  subTaskMarkBounds: undefined,
+  subTaskVisibility: false,
+  setSubTaskVisibility: () => {},
 }
 
 SubTaskPopup.contextType = SVGContext
