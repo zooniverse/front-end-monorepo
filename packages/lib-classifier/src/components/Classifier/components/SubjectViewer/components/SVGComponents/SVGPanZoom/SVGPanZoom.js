@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { cloneElement, createRef, useEffect, useState } from 'react'
+import React, { cloneElement, useRef, useEffect, useState } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function SVGPanZoom ({
@@ -13,7 +13,7 @@ function SVGPanZoom ({
   setOnPan,
   setOnZoom
 }) {
-  const scrollContainer = createRef()
+  const scrollContainer = useRef()
   const defaultViewBox = {
     x: 0,
     y: 0,
