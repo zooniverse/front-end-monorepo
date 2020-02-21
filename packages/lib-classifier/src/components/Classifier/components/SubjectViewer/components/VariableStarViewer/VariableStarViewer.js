@@ -71,6 +71,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           invertAxes={{ x: false, y: invertYAxis }}
           xAxisLabel={rawJSON.chartOptions.xAxisLabel}
           yAxisLabel={rawJSON.chartOptions.yAxisLabel}
+          yAxisNumTicks={5}
         />
       </Box>
       <Box

@@ -40,6 +40,8 @@ class VariableStarViewerContainer extends Component {
         chartOptions: {}
       }
     }
+
+    this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
 
   async componentDidMount() {

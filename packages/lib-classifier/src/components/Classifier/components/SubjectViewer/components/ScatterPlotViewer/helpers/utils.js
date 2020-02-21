@@ -122,8 +122,8 @@ export function transformXScale (data, transformMatrix, rangeParameters) {
 export function transformYScale (data, transformMatrix, rangeParameters) {
   const dataExtent = getDataExtent(data)
   const yRange = (rangeParameters.invertAxes.y) ?
-    [yMax(rangeParameters), yMin(rangeParameters)] :
-    [yMin(rangeParameters), yMax(rangeParameters)]
+    [yMin(rangeParameters), yMax(rangeParameters)] :
+    [yMax(rangeParameters), yMin(rangeParameters)]
 
   const yScale = scaleLinear({
     domain: dataExtent.y,
