@@ -93,7 +93,7 @@ function draggable (WrappedComponent) {
         >
           <WrappedComponent
             ref={this.wrappedComponent}
-            dragging={dragging.toString()}
+            dragging={dragging}
             {...rest}
           >
             {children}

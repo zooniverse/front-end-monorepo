@@ -41,6 +41,26 @@ export const StyledImage = styled.img`
 `
 
 class FrameCarousel extends React.Component {
+  constructor() {
+    super()
+    this.handlePrevious = this.handlePrevious.bind(this)
+    this.handleNext = this.handleNext.bind(this)
+  }
+
+  handlePrevious () {
+    const { frame, onFrameChange } = this.props
+    if (frame > 0) {
+      onFrameChange(frame - 1)
+    }
+  }
+
+  handleNext () {
+    const { frame, onFrameChange, subject } = this.props
+    if (frame < subject.locations.length) {
+      onFrameChange(frame + 1)
+    }
+  }
+
   render () {
     const { frame, onFrameChange, locations } = this.props
     const locationElements = locations.map((location, index) => {
@@ -78,6 +98,8 @@ class FrameCarousel extends React.Component {
           label={<span><FormUp /><br />{counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}</span>}
           margin={{ 'bottom': '5px' }}
           primary
+          disabled={frame === 0}
+          onClick={() => this.handlePrevious()}
         />
         <Box
           align='center'
@@ -96,6 +118,8 @@ class FrameCarousel extends React.Component {
           label={<span>{counterpart('MultiFrameViewer.FrameCarousel.nextFrameLabel')}<br /><FormDown /></span>}
           margin={{ 'top': '5px' }}
           primary
+          disabled={frame === (subject.locations.length - 1)}
+          onClick={() => this.handleNext()}
         />
       </Box>
     )
