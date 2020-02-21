@@ -1,5 +1,22 @@
-import { left, top, xMin, xMax, yMin, yMax } from './utils'
-import { margin, padding, parentWidth, parentHeight } from './mockData'
+import {
+  getDataPoints,
+  getDataExtent,
+  left,
+  top,
+  transformXScale,
+  transformYScale,
+  xMin,
+  xMax,
+  yMin,
+  yMax
+} from './utils'
+import {
+  margin,
+  padding,
+  parentWidth,
+  parentHeight,
+  randomSingleSeriesData
+} from './mockData'
 
 describe('ScatterPlotViewer > helpers > utils', function () {
   describe('left utility function', function () {
@@ -110,6 +127,20 @@ describe('ScatterPlotViewer > helpers > utils', function () {
     describe('inner tick direction', function () {
       it('should return the difference between the parent height and the padding bottom as the range maximum', function () {
         expect(yMax({ tickDirection: 'inner', parentHeight, margin, padding })).to.equal(parentHeight - padding.bottom)
+      })
+    })
+  })
+
+  describe.only('getDataPoints utility function', function () {
+    describe('single series of data', function () {
+      it('should return an array of a seriesData object containing an array of x, y data points', function () {
+        const points = getDataPoints(randomSingleSeriesData.data)
+        expect(points).to.be.an('array')
+        expect(points[0].seriesData).to.have.lengthOf(randomSingleSeriesData.data.x.length)
+        points[0].seriesData.forEach((point) => {
+          expect(point.x).to.be.a('number')
+          expect(point.y).to.be.a('number')
+        })
       })
     })
   })

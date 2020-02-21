@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import { AxisLeft, AxisBottom } from '@vx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
