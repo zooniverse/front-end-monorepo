@@ -18,6 +18,19 @@ const Drawing = types.model('Drawing', {
   tools: types.array(types.union(...toolModels)),
   type: types.literal('drawing')
 })
+  .preProcessSnapshot(snapshot => {
+    const newSnapshot = Object.assign({}, snapshot)
+    /*
+    Create keys of the form 'T0.0' for each of this task's tools
+    */
+    newSnapshot.tools = []
+    snapshot.tools.forEach((tool, toolIndex) => {
+      const toolKey = `${snapshot.taskKey}.${toolIndex}`
+      const toolSnapshot = Object.assign({}, tool, { key: toolKey })
+      newSnapshot.tools.push(toolSnapshot)
+    })
+    return newSnapshot
+  })
   .views(self => ({
     get activeTool () {
       return self.tools[self.activeToolIndex]
@@ -43,20 +56,6 @@ const Drawing = types.model('Drawing', {
     }
   }))
   .actions(self => {
-    function afterCreate () {
-      loadSubtasks()
-    }
-
-    function loadSubtasks () {
-      self.tools.forEach((tool, toolIndex) => {
-        const toolKey = `${self.taskKey}.${toolIndex}`
-        tool.details.forEach((detail, detailIndex) => {
-          const taskKey = `${toolKey}.${detailIndex}`
-          const taskSnapshot = Object.assign({}, detail, { taskKey })
-          tool.createTask(taskSnapshot)
-        })
-      })
-    }
 
     function setActiveMark (mark) {
       self.activeMark = mark
@@ -75,7 +74,6 @@ const Drawing = types.model('Drawing', {
     }
 
     return {
-      afterCreate,
       complete,
       reset,
       setActiveMark,
