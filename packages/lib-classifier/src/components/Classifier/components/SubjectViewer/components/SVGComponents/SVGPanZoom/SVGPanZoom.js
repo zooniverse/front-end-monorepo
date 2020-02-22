@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { cloneElement, createRef, useEffect, useState } from 'react'
+import React, { cloneElement, useRef, useEffect, useState } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function SVGPanZoom ({
@@ -13,7 +13,7 @@ function SVGPanZoom ({
   setOnPan,
   setOnZoom
 }) {
-  const scrollContainer = createRef()
+  const scrollContainer = useRef()
   const defaultViewBox = {
     x: 0,
     y: 0,
@@ -23,19 +23,23 @@ function SVGPanZoom ({
 
   const [ zoom, setZoom ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
+  
+  function preventDefault (e) {
+    e.preventDefault()
+  }
 
   function onMount () {
     setOnDrag(onDrag)
     setOnPan(onPan)
     setOnZoom(onZoom)
-    scrollContainer.current.addEventListener('wheel', e => e.preventDefault())
+    scrollContainer.current.addEventListener('wheel', preventDefault)
   }
 
   function onUnmount () {
     setOnDrag(() => true)
     setOnPan(() => true)
     setOnZoom(() => true)
-    scrollContainer.current.removeEventListener('wheel', e => e.preventDefault())
+    scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
   useEffect(() => {
