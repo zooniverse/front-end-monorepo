@@ -74,8 +74,8 @@ const TranscriptionReductions = types
         let transcribedLines = []
         reductions.forEach(reduction => {
           const { parameters } = reduction.data
-          const threshold = parameters.low_consensus_threshold || CONSENSUS_SCORE_TO_RETIRE
-          const minimumViews = parameters.minimum_views || MINIMUM_VIEW_TO_RETIRE
+          const threshold = parameters?.low_consensus_threshold || CONSENSUS_SCORE_TO_RETIRE
+          const minimumViews = parameters?.minimum_views || MINIMUM_VIEW_TO_RETIRE
           const currentFrameAnnotations = reduction.data[`frame${frame}`] || []
           const currentFrameLines = currentFrameAnnotations.map(annotation => {
             return constructLine(annotation, { minimumViews, threshold })
