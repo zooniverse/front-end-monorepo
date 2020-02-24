@@ -1,11 +1,13 @@
+import { GraphQLClient } from 'graphql-request'
 import sinon from 'sinon'
 import { reducedEmptySubject, reducedSubject } from './mocks'
 
-import TranscriptionReductions, { caesarClient } from './TranscriptionReductions'
+import TranscriptionReductions from './TranscriptionReductions'
 
 describe('Models > TranscriptionReductions', function () {
 
   describe('with transcribed lines', function () {
+    const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
     before(async function () {
@@ -18,6 +20,10 @@ describe('Models > TranscriptionReductions', function () {
       reductionsModel = TranscriptionReductions.create({
         subjectId: '13971150',
         workflowId: '5339'
+      }, {
+        client: {
+          caesar: caesarClient
+        }
       })
       await reductionsModel.fetchCaesarReductions()
     })
@@ -101,6 +107,7 @@ describe('Models > TranscriptionReductions', function () {
   })
 
   describe('without transcribed lines', function () {
+    const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
     before(async function () {
@@ -114,6 +121,10 @@ describe('Models > TranscriptionReductions', function () {
         caesarReducerKey: 'ext',
         subjectId: '13971170',
         workflowId: '5339'
+      }, {
+        client: {
+          caesar: caesarClient
+        }
       })
       await reductionsModel.fetchCaesarReductions()
     })
@@ -133,6 +144,7 @@ describe('Models > TranscriptionReductions', function () {
   })
 
   describe('without a configured reducer', function () {
+    const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
     before(async function () {
@@ -151,6 +163,10 @@ describe('Models > TranscriptionReductions', function () {
         caesarReducerKey: 'ext',
         subjectId: '13971170',
         workflowId: '3389'
+      }, {
+        client: {
+          caesar: caesarClient
+        }
       })
       await reductionsModel.fetchCaesarReductions()
     })

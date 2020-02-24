@@ -1,8 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
-import { GraphQLClient } from 'graphql-request'
-import { flow, types } from 'mobx-state-tree'
+import { flow, getEnv, types } from 'mobx-state-tree'
 
-export const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
 const CONSENSUS_SCORE_TO_RETIRE = 3
 const MINIMUM_VIEW_TO_RETIRE = 5
 const REDUCER_KEY = 'alice'
@@ -90,12 +88,13 @@ const TranscriptionReductions = types
 
   .actions(self => {
     return {
-      afterCreate () {
+      afterAttach () {
         self.fetchCaesarReductions()
       },
 
       fetchCaesarReductions: flow(function * fetchCaesarReductions () {
         const { caesarReducerKey, subjectId, workflowId } = self
+        const caesarClient  = getEnv(self)?.client?.caesar
         self.loadingState = asyncStates.loading
         try {
           const query = `{
