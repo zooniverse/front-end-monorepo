@@ -2,7 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
-import FrameCarousel, {
+import {
+  FrameCarousel,
   StyledControlButton,
   StyledInput,
   StyledImage
@@ -40,7 +41,7 @@ describe('Component > FrameCarousel', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should contain subject property with all locations', function () {
+  it('should contain location property with all subject locations', function () {
     expect(wrapper.instance().props.locations).to.have.lengthOf(numberOfFrames)
   })
 
