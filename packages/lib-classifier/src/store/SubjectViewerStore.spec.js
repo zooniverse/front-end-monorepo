@@ -1,10 +1,36 @@
 import asyncStates from '@zooniverse/async-states'
+import { Factory } from 'rosie'
+import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
+
+const subject = Factory.build('subject')
 
 describe('Model > SubjectViewerStore', function () {
   it('should exist', function () {
     expect(SubjectViewerStore).to.be.ok()
     expect(SubjectViewerStore).to.be.an('object')
+  })
+
+  describe('frame', function () {
+    let subjectViewerStore
+
+    beforeEach(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should have a `frame` property', function () {
+      expect(subjectViewerStore.frame).to.equal(0)
+    })
+
+    it('should have a setFrame method', function () {
+      expect(subjectViewerStore.setFrame).to.be.a('function')
+    })
+
+    it('should update frame with setFrame method', function () {
+      expect(subjectViewerStore.frame).to.equal(0)
+      subjectViewerStore.setFrame(1)
+      expect(subjectViewerStore.frame).to.equal(1)
+    })
   })
 
   describe('layout', function () {
@@ -56,6 +82,7 @@ describe('Model > SubjectViewerStore', function () {
   describe('Actions > resetSubject', function () {
     let subjectViewerStub
     let subjectViewerStore
+
     before(function () {
       subjectViewerStub = {
         loadingState: asyncStates.success,
@@ -64,6 +91,7 @@ describe('Model > SubjectViewerStore', function () {
         ]
       }
       subjectViewerStore = SubjectViewerStore.create(subjectViewerStub)
+      subjectViewerStore.subjects = SubjectStore.create()
     })
 
     it('should reset the loading state and subject dimensions when there is a new active subject', function () {
@@ -78,6 +106,24 @@ describe('Model > SubjectViewerStore', function () {
       subjectViewerStore.rotate()
       subjectViewerStore.resetSubject()
       expect(subjectViewerStore.rotation).to.equal(0)
+    })
+
+    describe('when the subject has no default frame', function () {
+      it('should have the store frame as 0', function () {
+        const subject = Factory.build('subject')
+        subjectViewerStore.resetSubject(subject)
+        expect(subjectViewerStore.frame).to.equal(0)
+      })
+    })
+
+    describe('when the subject has a default frame of 2', function () {
+      it('should have the store frame as 2', function () {
+        const subjectWithDefaultFrame = Factory.build('subject', {
+          metadata: { default_frame: 2 }
+        })
+        subjectViewerStore.resetSubject(subjectWithDefaultFrame)
+        expect(subjectViewerStore.frame).to.equal(2)
+      })
     })
   })
 
