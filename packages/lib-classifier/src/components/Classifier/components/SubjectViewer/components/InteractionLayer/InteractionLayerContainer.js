@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
+import TranscribedLines from './components/TranscribedLines'
 
 function storeMapper (stores) {
   const {
@@ -16,22 +17,30 @@ function storeMapper (stores) {
   const {
     active: classification
   } = stores.classifierStore.classifications
+  const {
+    active: workflow
+  } = stores.classifierStore.workflows
+  const subject = stores.classifierStore.subjects.active
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
   const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
   const disabled = activeTool ? activeTool.disabled : false
   const annotations = classification ? Array.from(classification.annotations.values()) : []
   const drawingAnnotations = annotations.filter(annotation => getType(annotation).name === 'DrawingAnnotation')
   const { activeMark, marks, setActiveMark, setSubTaskVisibility } = activeDrawingTask || {}
+  const { consensusLines } = subject.transcriptionReductions || {}
+  console.log(consensusLines)
   return {
     activeDrawingTask,
     activeMark,
     activeTool,
+    consensusLines,
     disabled,
     drawingAnnotations,
     marks,
     move,
     setActiveMark,
     setSubTaskVisibility,
+    workflow
   }
 }
 
@@ -43,6 +52,7 @@ class InteractionLayerContainer extends Component {
       activeDrawingTask,
       activeMark,
       activeTool,
+      consensusLines,
       disabled,
       drawingAnnotations,
       height,
@@ -51,6 +61,7 @@ class InteractionLayerContainer extends Component {
       setActiveMark,
       setSubTaskVisibility,
       scale,
+      workflow,
       width
     } = this.props
     return (
@@ -76,7 +87,15 @@ class InteractionLayerContainer extends Component {
             setSubTaskVisibility={setSubTaskVisibility}
             scale={scale}
             width={width}
-          />
+          >
+            {workflow?.usesTranscriptionLines &&
+              <TranscribedLines
+                lines={consensusLines}
+                scale={scale}
+                task={activeDrawingTask}
+              />
+            }
+          </InteractionLayer>
         }
       </>
     )
@@ -84,6 +103,7 @@ class InteractionLayerContainer extends Component {
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
+  consensusLines: PropTypes.array,
   drawingAnnotations: PropTypes.array,
   height: PropTypes.number.isRequired,
   isDrawingInActiveWorkflowStep: PropTypes.bool,
@@ -92,6 +112,7 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
+  consensusLines: [],
   drawingAnnotations: [],
   isDrawingInActiveWorkflowStep: false,
   scale: 1

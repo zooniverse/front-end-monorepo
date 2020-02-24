@@ -16,6 +16,7 @@ function InteractionLayer ({
   activeDrawingTask,
   activeMark,
   activeTool,
+  children,
   disabled,
   height,
   marks,
@@ -100,6 +101,7 @@ function InteractionLayer ({
         fill='transparent'
         onPointerDown={onPointerDown}
       />
+      {children}
       {marks &&
         <DrawingToolMarks
           activeMarkId={activeMark && activeMark.id}
