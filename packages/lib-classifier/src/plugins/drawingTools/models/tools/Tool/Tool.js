@@ -18,6 +18,22 @@ const Tool = types.model('Tool', {
   )),
   type: types.literal('default')
 })
+  .preProcessSnapshot(snapshot => {
+    const newSnapshot = Object.assign({}, snapshot)
+    /*
+    Create tasks from details if we have details but no tasks.
+    */
+    if (snapshot.details && !snapshot.tasks) {
+      newSnapshot.tasks = []
+      snapshot.details.forEach((detail, detailIndex) => {
+        const toolKey = snapshot.key || 'subtask'
+        const taskKey = `${toolKey}.${detailIndex}`
+        const taskSnapshot = Object.assign({}, detail, { taskKey })
+        newSnapshot.tasks.push(taskSnapshot)
+      })
+    }
+    return newSnapshot
+  })
   .views(self => ({
     get disabled () {
       return self.marks.size >= self.max
