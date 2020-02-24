@@ -18,10 +18,36 @@ export const StyledControlButton = styled(Button)`
 
     &:hover, &:focus {
       background: ${tint(0.5, props.theme.global.colors.brand)};
-    box-shadow: none;
-  }
+      box-shadow: none;
+    }
   `}
 `
+
+export function PreviousLabel () {
+  return (
+    <Box
+      as='span'
+      align='center'
+      direction='column'
+    >
+      <FormUp color='neutral-6' />
+      {counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+    </Box>
+  )
+}
+
+export function NextLabel () {
+  return (
+    <Box
+      as='span'
+      align='center'
+      direction='column'
+    >
+      {counterpart('MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+      <FormDown color='neutral-6' />
+    </Box>
+  )
+}
 
 export const StyledInput = styled.input`
   ${props => props.theme && css`
@@ -94,6 +120,7 @@ class FrameCarousel extends React.Component {
         <StyledControlButton
           disabled={frame === 0}
           fill='horizontal'
+          label={<PreviousLabel />}
           onClick={() => this.handlePrevious()}
         />
         <Box
@@ -109,6 +136,7 @@ class FrameCarousel extends React.Component {
           align='center'
           disabled={frame === (locations.length - 1)}
           fill='horizontal'
+          label={<NextLabel />}
           onClick={() => this.handleNext()}
         />
       </Box>
