@@ -160,7 +160,7 @@ class VariableStarViewerContainer extends Component {
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
-  setSeriesFocus(seriesToFocus) {
+  setSeriesFocus(event) {
     const newFocusedSeriesState = this.state.focusedSeries.map((series) => {
       const [[label, checked]] = Object.entries(series)
       if (label === event.target.value) {
@@ -216,6 +216,7 @@ VariableStarViewerContainer.defaultProps = {
 VariableStarViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
