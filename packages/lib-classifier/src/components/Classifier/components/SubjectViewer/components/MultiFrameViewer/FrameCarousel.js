@@ -1,34 +1,37 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import styled from 'styled-components'
 import counterpart from 'counterpart'
-import locationValidator from '../../helpers/locationValidator'
-
 import { Button, Box } from 'grommet'
 import { FormUp, FormDown } from 'grommet-icons'
+import { tint } from 'polished'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled, { css, withTheme } from 'styled-components'
+
+import locationValidator from '../../helpers/locationValidator'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 export const StyledControlButton = styled(Button)`
-  width: 100%;
-  svg {
-    fill: #FFFFFF;
-    stroke: #FFFFFF;
-  }
-  &:focus, &:hover {
-    background: #7fcbce;
+  ${props => props.theme && css`
+    color: ${props.theme.global.colors['neutral-6']};
+    background: ${props.theme.global.colors.brand};
+
+    &:hover, &:focus {
+      background: ${tint(0.5, props.theme.global.colors.brand)};
     box-shadow: none;
   }
+  `}
 `
+
 export const StyledInput = styled.input`
+  ${props => props.theme && css`
+    &:checked + img {
+      outline: ${props.theme.global.colors['neutral-4']} solid;
+    }
+  `}
   clip: rect(0 0 0 0);
   overflow: hidden;
   position: absolute;
-
-  &:checked + img {
-    outline: #F0B200 solid;
-  }
 `
 
 export const StyledImage = styled.img`
@@ -41,7 +44,7 @@ export const StyledImage = styled.img`
 `
 
 class FrameCarousel extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
@@ -55,8 +58,8 @@ class FrameCarousel extends React.Component {
   }
 
   handleNext () {
-    const { frame, onFrameChange, subject } = this.props
-    if (frame < subject.locations.length) {
+    const { frame, onFrameChange, locations } = this.props
+    if (frame < locations.length) {
       onFrameChange(frame + 1)
     }
   }
@@ -83,42 +86,29 @@ class FrameCarousel extends React.Component {
 
     return (
       <Box
-        align='center'
-        alignContent='around'
-        className='frames-container'
+        background='neutral-6'
         direction='column'
         fill='vertical'
-        flex={{ shrink: 0 }}
-        background={'#FFFFFF'}
-        justify='center'
         width={{ 'min': '2em' }}
       >
         <StyledControlButton
-          alignSelf='center'
-          label={<span><FormUp /><br />{counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}</span>}
-          margin={{ 'bottom': '5px' }}
-          primary
           disabled={frame === 0}
+          fill='horizontal'
           onClick={() => this.handlePrevious()}
         />
         <Box
-          align='center'
-          alignContent='center'
           as='ul'
-          background='#FFFFFF'
-          border={false}
           direction='column'
-          height='100%'
+          fill
+          align='center'
           overflow='scroll'
         >
           {locationElements}
         </Box>
         <StyledControlButton
-          alignSelf='center'
-          label={<span>{counterpart('MultiFrameViewer.FrameCarousel.nextFrameLabel')}<br /><FormDown /></span>}
-          margin={{ 'top': '5px' }}
-          primary
-          disabled={frame === (subject.locations.length - 1)}
+          align='center'
+          disabled={frame === (locations.length - 1)}
+          fill='horizontal'
           onClick={() => this.handleNext()}
         />
       </Box>
@@ -128,8 +118,18 @@ class FrameCarousel extends React.Component {
 
 FrameCarousel.propTypes = {
   frame: PropTypes.number.isRequired,
+  locations: PropTypes.arrayOf(locationValidator).isRequired,
   onFrameChange: PropTypes.func.isRequired,
-  locations: PropTypes.arrayOf(locationValidator).isRequired
+  theme: PropTypes.object
 }
 
-export default FrameCarousel
+FrameCarousel.defaultProps = {
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
+}
+
+export default withTheme(FrameCarousel)
+export { FrameCarousel }
