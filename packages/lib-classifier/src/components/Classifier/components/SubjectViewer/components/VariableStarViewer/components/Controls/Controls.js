@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
   CheckBox,
@@ -11,11 +12,10 @@ import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
-import { PropTypes } from 'mobx-react'
 
 counterpart.registerTranslations('en', en)
 
-const StyledPlainButton = styled(PlainButton)`
+export const StyledPlainButton = styled(PlainButton)`
   > div {
     flex-direction: column;
   }
@@ -44,7 +44,11 @@ function Controls(props) {
       </SpacedText>
       <StyledPlainButton
         icon={<FlipIcon />}
-        label={<SpacedText size='xsmall'>{counterpart('VariableStarViewer.flip')}</SpacedText>}
+        label={
+          <SpacedText margin={{ top: '5px' }} size='10px' weight='bold'>
+            {counterpart('VariableStarViewer.flip')}
+          </SpacedText>
+        }
         onClick={event => setYAxisInversion(event)}
         pad='small'
       />
