@@ -33,7 +33,6 @@ const Subject = types
       const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
         if (self.workflow && self.workflow.usesTranscriptionLines) {
           self.transcriptionReductions = TranscriptionReductions.create({
-            caesarReducerKey: 'ext-17',
             subjectId: self.id,
             workflowId: self.workflow.id
           })

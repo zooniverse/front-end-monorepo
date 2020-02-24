@@ -5,6 +5,7 @@ import { flow, types } from 'mobx-state-tree'
 export const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
 const CONSENSUS_SCORE_TO_RETIRE = 3
 const MINIMUM_VIEW_TO_RETIRE = 5
+const REDUCER_KEY = 'alice'
 
 const TranscriptionLine = types.model({
   consensusReached: types.boolean,
@@ -17,7 +18,7 @@ const TranscriptionLine = types.model({
 
 const TranscriptionReductions = types
   .model('TranscriptionReductions', {
-    caesarReducerKey: types.string,
+    caesarReducerKey: types.frozen(REDUCER_KEY),
     error: types.maybeNull(types.frozen({})),
     frame: types.optional(types.number, 0),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),

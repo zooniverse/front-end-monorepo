@@ -16,7 +16,6 @@ describe('Models > TranscriptionReductions', function () {
       }
       sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
       reductionsModel = TranscriptionReductions.create({
-        caesarReducerKey: 'ext',
         subjectId: '13971150',
         workflowId: '5339'
       })
@@ -29,6 +28,10 @@ describe('Models > TranscriptionReductions', function () {
 
     it('should exist', function () {
       expect(reductionsModel).to.be.ok()
+    })
+
+    it('should use the "alice" reducer key', function () {
+      expect(reductionsModel.caesarReducerKey).to.equal('alice')
     })
 
     it('should have transcribed lines', function () {
