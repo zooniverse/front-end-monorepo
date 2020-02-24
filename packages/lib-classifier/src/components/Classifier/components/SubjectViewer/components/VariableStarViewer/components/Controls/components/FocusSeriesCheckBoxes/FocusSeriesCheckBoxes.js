@@ -43,11 +43,11 @@ function FocusSeriesCheckBoxes (props) {
     <Box direction='row' gap='xsmall' pad='none'>
       {focusedSeries.map((series, seriesIndex) => {
         const [[label, checked]] = Object.entries(series)
-        const seriesCustomColor = data[seriesIndex]?.seriesOptions.color
+        const seriesOptions = data[seriesIndex]?.seriesOptions
         const color = getDataSeriesColor({
           defaultColors: Object.values(colors.drawingTools),
           focusedSeries,
-          seriesOptions: seriesCustomColor,
+          seriesOptions: seriesOptions,
           seriesIndex,
           themeColors: colors
         })
