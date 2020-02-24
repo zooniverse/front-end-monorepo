@@ -65,8 +65,9 @@ describe('Model > DrawingTools > Tool', function () {
       let tool
 
       before(function () {
-        const details = [
+        const tasks = [
           {
+            taskKey: 'multiple',
             type: 'multiple',
             question: 'which fruit?',
             answers: ['apples', 'oranges', 'pears'],
@@ -74,6 +75,7 @@ describe('Model > DrawingTools > Tool', function () {
             required: false
           },
           {
+            taskKey: 'single',
             type: 'single',
             question: 'how many?',
             answers: ['one', 'two', 'three'],
@@ -81,6 +83,7 @@ describe('Model > DrawingTools > Tool', function () {
             required: false
           },
           {
+            taskKey: 'text',
             type: 'text',
             instruction: 'Transcribe something',
             help: '',
@@ -88,10 +91,10 @@ describe('Model > DrawingTools > Tool', function () {
             text_tags: []
           }
         ]
-        tool = Tool.create(Object.assign({}, toolData, { details }))
-        multipleTaskSnapshot = Object.assign({}, tool.details[0], {taskKey: 'multiple'})
-        singleTaskSnapshot = Object.assign({}, tool.details[1], {taskKey: 'single'})
-        textTaskSnapshot = Object.assign({}, tool.details[2], {taskKey: 'text'})
+        tool = Tool.create(toolData)
+        multipleTaskSnapshot = tasks[0]
+        singleTaskSnapshot = tasks[1]
+        textTaskSnapshot = tasks[2]
         tool.createTask(multipleTaskSnapshot)
         tool.createTask(singleTaskSnapshot)
         tool.createTask(textTaskSnapshot)
@@ -114,16 +117,17 @@ describe('Model > DrawingTools > Tool', function () {
     })
 
     it('should error for invalid subtasks', function () {
-      const details = [
+      const tasks = [
         {
+          taskKey: 'drawing',
           type: 'drawing',
           question: 'which fruit?',
           tools: [],
           required: false
         }
       ]
-      const tool = Tool.create(Object.assign({}, toolData, { details }))
-      const drawingTaskSnapshot = Object.assign({}, tool.details[0], {taskKey: 'drawing'})
+      const tool = Tool.create(toolData)
+      const drawingTaskSnapshot = tasks[0]
       const drawingTask = tool.createTask(drawingTaskSnapshot)
       expect(console.error.withArgs('drawing is not a valid drawing subtask')).to.have.been.calledOnce()
     })

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import React, { forwardRef } from 'react'
+import React, { createRef, forwardRef, useContext } from 'react'
 import styled from 'styled-components'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import InteractionLayer from '../InteractionLayer'
 
@@ -33,26 +34,36 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     width
   } = props
 
-  const transform = `rotate(${rotate} 0 0)`
+  const transformLayer = createRef()
+  const { svg } = useContext(SVGContext)
+  const transform = `rotate(${rotate} ${width / 2} ${height / 2 })`
+  const getScreenCTM = () => transformLayer.current.getScreenCTM()
+
   return (
-    <Container>
-      <svg
-        ref={ref}
-        focusable
-        onKeyDown={onKeyDown}
-        tabIndex={0}
-        transform={transform}
-        viewBox={viewBox}
-      >
-        {children}
-        {enableInteractionLayer &&
-          <InteractionLayer
-            scale={scale}
-            height={height}
-            width={width}
-          />}
-      </svg>
-    </Container>
+    <SVGContext.Provider value={{ svg, getScreenCTM }}>
+      <Container>
+        <svg
+          ref={ref}
+          focusable
+          onKeyDown={onKeyDown}
+          tabIndex={0}
+          viewBox={viewBox}
+        >
+          <g
+            ref={transformLayer}
+            transform={transform}
+          >
+            {children}
+            {enableInteractionLayer &&
+              <InteractionLayer
+                scale={scale}
+                height={height}
+                width={width}
+              />}
+            </g>
+        </svg>
+      </Container>
+    </SVGContext.Provider>
   )
 })
 

@@ -58,10 +58,11 @@ describe('Component > MultiFrameViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
           { 'image/jpeg': 'https://some.domain/image.jpg' }
         ],
         metadata: {
-          default_frame: '0'
+          default_frame: 1
         }
       }
       wrapper = shallow(
@@ -251,6 +252,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
           { 'image/jpeg': 'https://some.domain/image.jpg' }
         ]
       }
