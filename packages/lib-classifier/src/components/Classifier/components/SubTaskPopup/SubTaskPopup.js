@@ -180,4 +180,4 @@ SubTaskPopup.contextType = SVGContext
   https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
 */
 export default inject(storeMapper)(observer(SubTaskPopup))
-export { SubTaskPopup }
+export { SubTaskPopup, StyledContainer, TaskBox }
