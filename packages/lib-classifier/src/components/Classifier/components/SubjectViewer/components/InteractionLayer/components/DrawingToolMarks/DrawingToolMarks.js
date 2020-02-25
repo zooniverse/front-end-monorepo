@@ -15,11 +15,11 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     const ref = React.createRef()
     
     function onFinishWithRef (event) {
-      onFinish(event, ref)
+      onFinish(event, ref.current)
     }
     
     function onSelectMarkWithRef (mark) {
-      onSelectMark(mark, ref)
+      onSelectMark(mark, ref.current)
     }
 
     function isInBounds (markElement) {

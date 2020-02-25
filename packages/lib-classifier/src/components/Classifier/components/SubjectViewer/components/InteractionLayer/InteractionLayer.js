@@ -75,11 +75,11 @@ function InteractionLayer ({
     }
   }
 
-  function onFinish (event, ref) {
+  function onFinish (event, node) {
     const { target, pointerId } = event
     
     setCreating(false)
-    setSubTaskVisibility(true, ref && ref.current)
+    setSubTaskVisibility(true, node)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
@@ -109,8 +109,8 @@ function InteractionLayer ({
             setActiveMark(undefined)
           }}
           onFinish={onFinish}
-          onSelectMark={(mark, ref) => {
-            setSubTaskVisibility(true, ref && ref.current)  // Show sub-task again on select, in case it was closed 
+          onSelectMark={(mark, node) => {
+            setSubTaskVisibility(true, node)  // Show sub-task again on select, in case it was closed 
             setActiveMark(mark)
           }}
           scale={scale}
