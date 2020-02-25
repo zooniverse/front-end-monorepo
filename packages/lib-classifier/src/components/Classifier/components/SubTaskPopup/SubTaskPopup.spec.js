@@ -9,7 +9,7 @@ import { PointTool } from '@plugins/drawingTools/models/tools'
 import DrawingTask from '@plugins/tasks/DrawingTask'
 import TextTask from '@plugins/tasks/TextTask'
 
-only('SubTaskPopup', function () {
+describe.only('SubTaskPopup', function () {
   
   const pointTool = PointTool.create({
     color: 'red',
