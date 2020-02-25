@@ -9,16 +9,24 @@ import SaveButton from './components/SaveButton'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 // TODO: apply themes
 // ----------------
+console.log('+++ ', zooTheme);
+
 import zooTheme from '@zooniverse/grommet-theme'
 const StyledContainer = styled(Box)`
-  background: #ffffff;
-  border: 1px solid #eff2f5
   overflow: auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+
+  ${props => props.theme.dark ? css`
+    background: ${props.theme.global.colors['dark-1']};
+    border: 1px solid ${props.theme.global.colors['dark-6']}
+  ` : css`
+    background: ${props.theme.global.colors['neutral-6']}
+    border: 1px solid ${props.theme.global.colors['light-1']}
+  `}
 `
 // ----------------
 
