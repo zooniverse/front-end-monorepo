@@ -3,8 +3,9 @@ import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
-import { FocusSeriesCheckBoxes, StyledLabel } from './FocusSeriesCheckBoxes'
+import { FocusSeriesCheckBoxes } from './FocusSeriesCheckBoxes'
 import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
+import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
 const seriesOneLabel = variableStar.data[0].seriesOptions.label
 const seriesTwoLabel = variableStar.data[1].seriesOptions.label
@@ -81,6 +82,26 @@ describe('Component > FocusSeriesCheckBoxes', function () {
       const [focusedStateLabel] = Object.keys(defaultStateFocusedSeries[index])
       expect(label.html()).to.contain(focusedStateLabel)
     })
+  })
+
+  it('should render different glyphs and colors in each checkbox', function () {
+    const wrapper = shallow(
+      <FocusSeriesCheckBoxes
+        data={data}
+        focusedSeries={defaultStateFocusedSeries}
+        theme={zooTheme}
+      />
+    )
+    const seriesOneGlyph = getDataSeriesSymbol(0)
+    const seriesTwoGlyph = getDataSeriesSymbol(1)
+    const firstGlyph = wrapper.find(seriesOneGlyph)
+    const secondGlyph = wrapper.find(seriesTwoGlyph)
+    expect(firstGlyph).to.have.lengthOf(1)
+    expect(secondGlyph).to.have.lengthOf(1)
+    expect(firstGlyph).to.not.equal(secondGlyph)
+    expect(firstGlyph.props().fill).to.not.be.empty()
+    expect(secondGlyph.props().fill).to.not.be.empty()
+    expect(firstGlyph.props().fill).to.not.equal(secondGlyph.props().fill)
   })
 
   it('should call setSeriesFocus for the onChange event', function () {

@@ -236,7 +236,7 @@ describe('Component > VariableStarViewerContainer', function () {
     })
   })
 
-  describe.only('with series focus', function () {
+  describe('with series focus', function () {
     let cdmSpy
     let nockScope
     const subject = Factory.build('subject', {
