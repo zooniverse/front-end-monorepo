@@ -46,29 +46,29 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should default to frame 0', function () {
-      reductionsModel.transcribedLines.forEach(function (annotation) {
-        expect(annotation.frame).to.equal(0)
+      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
+        expect(transcribedLine.frame).to.equal(0)
       })
     })
 
     it('should have points', function () {
-      reductionsModel.transcribedLines.forEach(function (annotation) {
-        expect(annotation.points).to.be.a('array')
-        expect(annotation.points).not.to.be.empty
+      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
+        expect(transcribedLine.points).to.be.a('array')
+        expect(transcribedLine.points).not.to.be.empty
       })
     })
 
     it('should have text options', function () {
-      reductionsModel.transcribedLines.forEach(function (annotation) {
-        expect(annotation.textOptions).to.be.a('array')
-        expect(annotation.textOptions).not.to.be.empty
+      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
+        expect(transcribedLine.textOptions).to.be.a('array')
+        expect(transcribedLine.textOptions).not.to.be.empty
       })
     })
 
     it('should update on frame change', function () {
       reductionsModel.changeFrame(2)
-      reductionsModel.transcribedLines.forEach(function (annotation) {
-        expect(annotation.frame).to.equal(2)
+      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
+        expect(transcribedLine.frame).to.equal(2)
       })
       reductionsModel.changeFrame(0)
     })
