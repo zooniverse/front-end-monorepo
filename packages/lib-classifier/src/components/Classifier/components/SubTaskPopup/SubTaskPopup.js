@@ -11,11 +11,9 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
 import styled, { css } from 'styled-components'
 
-// TODO: apply themes
-// ----------------
-console.log('+++ ', zooTheme);
-
 import zooTheme from '@zooniverse/grommet-theme'
+
+// Container sits one level below the (otherwise transparent) React-Rnd draggable/resizable component
 const StyledContainer = styled(Box)`
   overflow: auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
@@ -28,7 +26,6 @@ const StyledContainer = styled(Box)`
     border: 1px solid ${props.theme.global.colors['light-1']}
   `}
 `
-// ----------------
 
 // Prevent tasks from screwing up presentation when container is resized.
 const TaskBox = styled(Box)`
