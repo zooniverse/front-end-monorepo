@@ -1,8 +1,8 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getEnv, types } from 'mobx-state-tree'
 
-const CONSENSUS_SCORE_TO_RETIRE = 3
-const MINIMUM_VIEW_TO_RETIRE = 5
+const DEFAULT_CONSENSUS_THRESHOLD = 3
+const DEFAULT_VIEWS_TO_RETIRE = 5
 const REDUCER_KEY = 'alice'
 
 const TranscriptionReductions = types
@@ -63,8 +63,8 @@ const TranscriptionReductions = types
         let consensusLines = []
         reductions.forEach(reduction => {
           const { parameters } = reduction.data
-          const threshold = parameters?.low_consensus_threshold || CONSENSUS_SCORE_TO_RETIRE
-          const minimumViews = parameters?.minimum_views || MINIMUM_VIEW_TO_RETIRE
+          const threshold = parameters?.low_consensus_threshold || DEFAULT_CONSENSUS_THRESHOLD
+          const minimumViews = parameters?.minimum_views || DEFAULT_VIEWS_TO_RETIRE
           const currentFrameReductions = reduction.data[`frame${frame}`] || []
           const currentFrameConsensus = currentFrameReductions.map(reduction => {
             return constructLine(reduction, { minimumViews, threshold })
