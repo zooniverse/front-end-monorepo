@@ -7,7 +7,6 @@ const REDUCER_KEY = 'alice'
 
 const TranscriptionReductions = types
   .model('TranscriptionReductions', {
-    caesarReducerKey: types.frozen(REDUCER_KEY),
     error: types.maybeNull(types.frozen({})),
     frame: types.optional(types.number, 0),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
@@ -84,13 +83,13 @@ const TranscriptionReductions = types
       },
 
       fetchCaesarReductions: flow(function * fetchCaesarReductions () {
-        const { caesarReducerKey, subjectId, workflowId } = self
+        const { subjectId, workflowId } = self
         const caesarClient  = getEnv(self)?.client?.caesar
         self.loadingState = asyncStates.loading
         try {
           const query = `{
             workflow(id: ${workflowId}) {
-              subject_reductions(subjectId: ${subjectId}, reducerKey:"${caesarReducerKey}")
+              subject_reductions(subjectId: ${subjectId}, reducerKey:"${REDUCER_KEY}")
               {
                 data
               }

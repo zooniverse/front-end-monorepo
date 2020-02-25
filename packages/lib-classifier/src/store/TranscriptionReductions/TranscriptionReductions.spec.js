@@ -36,10 +36,6 @@ describe('Models > TranscriptionReductions', function () {
       expect(reductionsModel).to.be.ok()
     })
 
-    it('should use the "alice" reducer key', function () {
-      expect(reductionsModel.caesarReducerKey).to.equal('alice')
-    })
-
     it('should have transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
       expect(reductionsModel.consensusLines).not.to.be.empty()
