@@ -87,3 +87,39 @@ storiesOf('Drawing tools | Transcription Line', module)
       </DrawingStory>
     )
   })
+  .add('transcribed', function () {
+    const tool = TranscriptionLineTool.create({
+      color: 'red',
+      type: 'transcriptionLine'
+    })
+    const mark = tool.createMark({
+      id: 'transcriptionLine1',
+      x1: 10,
+      y1: 20,
+      x2: 205,
+      y2: 15
+    })
+    return (
+      <DrawingStory mark={mark} tool={tool}>
+        <TranscriptionLine state='transcribed' mark={mark} />
+      </DrawingStory>
+    )
+  })
+  .add('complete', function () {
+    const tool = TranscriptionLineTool.create({
+      color: 'red',
+      type: 'transcriptionLine'
+    })
+    const mark = tool.createMark({
+      id: 'transcriptionLine1',
+      x1: 10,
+      y1: 20,
+      x2: 205,
+      y2: 15
+    })
+    return (
+      <DrawingStory mark={mark} tool={tool}>
+        <TranscriptionLine state='complete' mark={mark} />
+      </DrawingStory>
+    )
+  })
