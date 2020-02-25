@@ -1,3 +1,4 @@
+import { WorkflowFactory } from '@test/factories'
 import Workflow from './Workflow'
 
 describe('Model > Workflow', function () {
@@ -9,11 +10,12 @@ describe('Model > Workflow', function () {
     let workflow
 
     before(function () {
-      workflow = Workflow.create({
+      const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
         version: '0.0'
       })
+      workflow = Workflow.create(workflowSnapshot)
     })
 
     it('should not be grouped', function () {
@@ -28,7 +30,7 @@ describe('Model > Workflow', function () {
     let workflow
 
     before(function () {
-      workflow = Workflow.create({
+      const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
         tasks: {
@@ -41,6 +43,7 @@ describe('Model > Workflow', function () {
         },
         version: '0.0'
       })
+      workflow = Workflow.create(workflowSnapshot)
     })
 
     it('should use transcription lines', function () {
