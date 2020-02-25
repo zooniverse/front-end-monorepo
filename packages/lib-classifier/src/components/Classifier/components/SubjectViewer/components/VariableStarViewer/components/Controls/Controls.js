@@ -15,7 +15,7 @@ import theme from './theme'
 
 counterpart.registerTranslations('en', en)
 
-export const StyledPlainButton = styled(PlainButton)`
+export const FlipButton = styled(PlainButton)`
   > div {
     flex-direction: column;
   }
@@ -42,7 +42,7 @@ function Controls(props) {
       >
         {counterpart('VariableStarViewer.controls')}
       </SpacedText>
-      <StyledPlainButton
+      <FlipButton
         icon={<FlipIcon />}
         label={
           <SpacedText margin={{ top: '5px' }} size='10px' weight='bold'>
