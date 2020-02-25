@@ -42,46 +42,50 @@ describe('Models > TranscriptionReductions', function () {
 
     it('should have transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
-      expect(reductionsModel.transcribedLines).not.to.be.empty()
+      expect(reductionsModel.consensusLines).not.to.be.empty()
     })
 
     it('should default to frame 0', function () {
-      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
-        expect(transcribedLine.frame).to.equal(0)
+      reductionsModel.consensusLines.forEach(function (consensusLine) {
+        expect(consensusLine.frame).to.equal(0)
       })
     })
 
     it('should have points', function () {
-      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
-        expect(transcribedLine.points).to.be.a('array')
-        expect(transcribedLine.points).not.to.be.empty
+      reductionsModel.consensusLines.forEach(function (consensusLine) {
+        expect(consensusLine.points).to.be.a('array')
+        expect(consensusLine.points).not.to.be.empty
       })
     })
 
     it('should have text options', function () {
-      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
-        expect(transcribedLine.textOptions).to.be.a('array')
-        expect(transcribedLine.textOptions).not.to.be.empty
+      reductionsModel.consensusLines.forEach(function (consensusLine) {
+        expect(consensusLine.textOptions).to.be.a('array')
+        expect(consensusLine.textOptions).not.to.be.empty
       })
     })
 
     it('should update on frame change', function () {
       reductionsModel.changeFrame(2)
-      reductionsModel.transcribedLines.forEach(function (transcribedLine) {
-        expect(transcribedLine.frame).to.equal(2)
+      reductionsModel.consensusLines.forEach(function (consensusLine) {
+        expect(consensusLine.frame).to.equal(2)
       })
       reductionsModel.changeFrame(0)
     })
 
     describe('transcribed lines', function () {
-      let transcribedLine
+      let consensusLine
 
       before(async function () {
-        transcribedLine = reductionsModel.transcribedLines[0]
+        consensusLine = reductionsModel.consensusLines[0]
+      })
+
+      it('should have consensus text', function () {
+        expect(consensusLine.consensusText).to.equal('Here are some test')
       })
 
       it('should have text options', function () {
-        expect(transcribedLine.textOptions).to.deep.equal([
+        expect(consensusLine.textOptions).to.deep.equal([
           'Here are some test',
           'Here are some test',
           'Here are some test'
@@ -89,19 +93,19 @@ describe('Models > TranscriptionReductions', function () {
       })
 
       it('should have two points', function () {
-        expect(transcribedLine.points).to.have.lengthOf(2)
+        expect(consensusLine.points).to.have.lengthOf(2)
       })
 
       it('should have a start point', function () {
         const x = 32.550689697265625
         const y = 297.0990905761719
-        expect(transcribedLine.points[0]).to.deep.equal({ x, y })
+        expect(consensusLine.points[0]).to.deep.equal({ x, y })
       })
 
       it('should have an end point', function () {
         const x = 989.6483154296875
         const y = 280.3498840332031
-        expect(transcribedLine.points[1]).to.deep.equal({ x, y })
+        expect(consensusLine.points[1]).to.deep.equal({ x, y })
       })
     })
   })
@@ -118,7 +122,6 @@ describe('Models > TranscriptionReductions', function () {
       }
       sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
       reductionsModel = TranscriptionReductions.create({
-        caesarReducerKey: 'ext',
         subjectId: '13971170',
         workflowId: '5339'
       }, {
@@ -139,7 +142,7 @@ describe('Models > TranscriptionReductions', function () {
 
     it('should not have any transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(0))
-      expect(reductionsModel.transcribedLines).to.be.empty()
+      expect(reductionsModel.consensusLines).to.be.empty()
     })
   })
 
@@ -160,7 +163,6 @@ describe('Models > TranscriptionReductions', function () {
       }
       sinon.stub(caesarClient, 'request').callsFake(() => Promise.reject(error))
       reductionsModel = TranscriptionReductions.create({
-        caesarReducerKey: 'ext',
         subjectId: '13971170',
         workflowId: '3389'
       }, {
@@ -202,7 +204,7 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should not have any transcribed lines', function () {
-      expect(reductionsModel.transcribedLines).to.be.empty()
+      expect(reductionsModel.consensusLines).to.be.empty()
     })
   })
 })

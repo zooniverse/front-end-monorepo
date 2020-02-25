@@ -5,15 +5,6 @@ const CONSENSUS_SCORE_TO_RETIRE = 3
 const MINIMUM_VIEW_TO_RETIRE = 5
 const REDUCER_KEY = 'alice'
 
-const TranscriptionLine = types.model({
-  consensusReached: types.boolean,
-  frame: types.number,
-  hasCollaborated: types.boolean,
-  points: types.array(types.frozen({})),
-  previousAnnotation: types.boolean,
-  textOptions: types.array(types.string),
-})
-
 const TranscriptionReductions = types
   .model('TranscriptionReductions', {
     caesarReducerKey: types.frozen(REDUCER_KEY),
@@ -50,38 +41,38 @@ const TranscriptionReductions = types
       return sentences.map(value => value.join(' '));
     }
 
-    function constructLine (annotation, options) {
+    function constructLine (reduction, options) {
       const { minimumViews, threshold } = options
       const { frame } = self
-      const points = constructCoordinates(annotation)
-      const textOptions = constructText(annotation)
-      return TranscriptionLine.create({
+      const consensusText = reduction.consensus_text
+      const points = constructCoordinates(reduction)
+      const textOptions = constructText(reduction)
+      return {
+        consensusText,
         points,
         frame,
         textOptions,
         consensusReached:
-          annotation.consensus_score >= threshold ||
-          annotation.number_views >= minimumViews,
-        previousAnnotation: true,
-        hasCollaborated: false,
-      })
+          reduction.consensus_score >= threshold ||
+          reduction.number_views >= minimumViews
+      }
     }
 
     return {
-      get transcribedLines () {
+      get consensusLines () {
         const { frame, reductions } = self
-        let transcribedLines = []
+        let consensusLines = []
         reductions.forEach(reduction => {
           const { parameters } = reduction.data
           const threshold = parameters?.low_consensus_threshold || CONSENSUS_SCORE_TO_RETIRE
           const minimumViews = parameters?.minimum_views || MINIMUM_VIEW_TO_RETIRE
-          const currentFrameAnnotations = reduction.data[`frame${frame}`] || []
-          const currentFrameLines = currentFrameAnnotations.map(annotation => {
-            return constructLine(annotation, { minimumViews, threshold })
+          const currentFrameReductions = reduction.data[`frame${frame}`] || []
+          const currentFrameConsensus = currentFrameReductions.map(reduction => {
+            return constructLine(reduction, { minimumViews, threshold })
           })
-          transcribedLines = transcribedLines.concat(currentFrameLines)
+          consensusLines = consensusLines.concat(currentFrameConsensus)
         })
-        return transcribedLines
+        return consensusLines
       }
     }
   })
