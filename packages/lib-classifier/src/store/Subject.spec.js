@@ -3,17 +3,13 @@ import Subject from './Subject'
 import ProjectStore from './ProjectStore'
 import WorkflowStore from './WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import RootStore from './'
 import subjectViewers from '../helpers/subjectViewers'
 
-const stub = SubjectFactory.build()
-const workflow = WorkflowFactory.build()
-const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
-const workflowWithMultiFrameConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'multiFrame' } })
-const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
-const workflowWithConfigEnableSwitching = WorkflowFactory.build({ configuration: { enable_switching_flipbook_and_separate: true } })
-const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
-
 describe('Model > Subject', function () {
+  const stub = SubjectFactory.build()
+  const workflow = WorkflowFactory.build()
+  const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
   let subject
 
   before(function () {
@@ -29,6 +25,49 @@ describe('Model > Subject', function () {
 
   it('should have a `locations` property', function () {
     expect(subject.locations).to.deep.equal(stub.locations)
+  })
+
+  it('should not have transcription reductions', function () {
+    expect(subject.transcriptionReductions).to.be.undefined()
+  })
+
+  describe('with a transcription workflow', function () {
+    const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+    const workflowSnapshot = WorkflowFactory.build({
+      id: 'transcriptionWorkflow',
+      display_name: 'A test workflow',
+      tasks: {
+        T0: {
+          type: 'drawing',
+          tools: [
+            { type: 'transcriptionLine' }
+          ]
+        }
+      },
+      version: '0.0'
+    })
+    const client = {
+      caesar: {
+        request: sinon.stub()
+      }
+    }
+    const rootStore = RootStore.create({}, { client })
+
+    before(function () {
+      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setActive(workflowSnapshot.id)
+      rootStore.subjects.setResource(subjectSnapshot)
+      rootStore.subjects.setActive(subjectSnapshot.id)
+    })
+
+    it('should have transcription reductions', function () {
+      const subject = rootStore.subjects.active
+      expect(subject.transcriptionReductions).to.exist()
+    })
+
+    it('should load transcription reductions', function () {
+      expect(client.caesar.request).to.have.been.calledOnce()
+    })
   })
 
   describe('Views > talkURL', function () {
@@ -96,6 +135,7 @@ describe('Model > Subject', function () {
     it('should return a null viewer when workflow.configuration["multi_image_mode"] === "separate"', function () {
       const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
       const subjectStore = Subject.create(multiFrameSubject)
+      const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflowWithConfigSeparateMultiImage)
       subjectStore.workflows.setActive(workflowWithConfigSeparateMultiImage.id)
@@ -105,6 +145,7 @@ describe('Model > Subject', function () {
     it('should return a null viewer when workflow.configuration["enable_switching_flipbook_and_separate"] === "true"', function () {
       const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
       const subjectStore = Subject.create(multiFrameSubject)
+      const workflowWithConfigEnableSwitching = WorkflowFactory.build({ configuration: { enable_switching_flipbook_and_separate: true } })
       subjectStore.workflows = WorkflowStore.create({})
       subjectStore.workflows.setResource(workflowWithConfigEnableSwitching)
       subjectStore.workflows.setActive(workflowWithConfigEnableSwitching.id)
@@ -114,6 +155,7 @@ describe('Model > Subject', function () {
     it('should return the multiFrame viewer if the workflow configuration for subject_viewer is defined as multiFrame', function () {
       const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }] })
       const subjectResourceStore = Subject.create(dataSubject)
+      const workflowWithMultiFrameConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'multiFrame' } })
       subjectResourceStore.workflows = WorkflowStore.create({})
       subjectResourceStore.workflows.setResource(workflowWithMultiFrameConfig)
       subjectResourceStore.workflows.setActive(workflowWithMultiFrameConfig.id)
@@ -123,6 +165,7 @@ describe('Model > Subject', function () {
     it('should return the light curve viewer if the workflow configuration is defined', function () {
       const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }] })
       const subjectResourceStore = Subject.create(dataSubject)
+      const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
       subjectResourceStore.workflows = WorkflowStore.create({})
       subjectResourceStore.workflows.setResource(workflowWithConfig)
       subjectResourceStore.workflows.setActive(workflowWithConfig.id)
