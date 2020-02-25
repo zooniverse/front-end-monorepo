@@ -62,11 +62,12 @@ function draggable (WrappedComponent) {
       const { coords, dragging, pointerId } = this.state
       if (dragging && event.pointerId === pointerId) {
         const { x, y } = this.convertEvent(event)
+        const { currentTarget } = event
         const difference = {
           x: x - coords.x,
           y: y - coords.y
         }
-        this.props.dragMove(event, difference)
+        this.props.dragMove({ currentTarget, x, y, pointerId }, difference)
         this.setState({ coords: { x, y } })
       }
     }
@@ -83,8 +84,7 @@ function draggable (WrappedComponent) {
     }
 
     render () {
-      const { children, dragStart, dragMove, dragEnd, ...rest } = this.props
-      const { dragging } = this.state
+      const { children, coords, dragStart, dragMove, dragEnd, ...rest } = this.props
       return (
         <g
           onPointerDown={this.dragStart}
@@ -93,7 +93,6 @@ function draggable (WrappedComponent) {
         >
           <WrappedComponent
             ref={this.wrappedComponent}
-            dragging={dragging}
             {...rest}
           >
             {children}
