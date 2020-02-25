@@ -17,23 +17,25 @@ describe('Models > Drawing Task > Mark', function () {
       min: 1,
       type: 'default'
     }
-    const details = [
+    const tasks = [
       {
+        taskKey: 'multiple',
         type: 'multiple',
         question: 'which fruit?',
         answers: ['apples', 'oranges', 'pears'],
         required
       },
       {
+        taskKey: 'single',
         type: 'single',
         question: 'how many?',
         answers: ['one', 'two', 'three'],
         required
       }
     ]
-    const drawingTool = Tool.create(Object.assign({}, toolData, { details }))
-    const multipleTaskSnapshot = Object.assign({}, drawingTool.details[0], { taskKey: 'multiple' })
-    const singleTaskSnapshot = Object.assign({}, drawingTool.details[1], { taskKey: 'single' })
+    const drawingTool = Tool.create(toolData)
+    const multipleTaskSnapshot = tasks[0]
+    const singleTaskSnapshot = tasks[1]
     const multipleTask = drawingTool.createTask(multipleTaskSnapshot)
     const singleTask = drawingTool.createTask(singleTaskSnapshot)
     const mark = drawingTool.createMark({ id: 'mockMark' })
