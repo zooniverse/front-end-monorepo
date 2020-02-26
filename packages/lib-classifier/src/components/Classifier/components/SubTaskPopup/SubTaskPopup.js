@@ -13,6 +13,8 @@ import styled, { css } from 'styled-components'
 
 import zooTheme from '@zooniverse/grommet-theme'
 
+const SUFFICIENTLY_LARGE_ZINDEX = 10000  // Ensure the popup appears above other elements in the Classifier, such as buttons in the Task Area.
+
 // Container sits one level below the (otherwise transparent) React-Rnd draggable/resizable component
 const StyledContainer = styled(Box)`
   overflow: auto;
@@ -100,6 +102,9 @@ class SubTaskPopup extends React.Component {
           minHeight={100}
           default={defaultPosition}
           cancel=".subtaskpopup-element-that-ignores-drag-actions"
+          style={{
+            zIndex: SUFFICIENTLY_LARGE_ZINDEX,
+          }}
         >
           <StyledContainer pad="xsmall" fill>
             <Box>
