@@ -120,7 +120,7 @@ class SubTaskPopup extends React.Component {
               if (annotation && TaskComponent) {
                 return (
                   <TaskBox
-                    key={task.taskKey}
+                    key={annotation.id}
                     pad="xsmall"
                     className="subtaskpopup-element-that-ignores-drag-actions"
                   >
