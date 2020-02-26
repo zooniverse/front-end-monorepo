@@ -29,10 +29,12 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function moveMark (event, difference) {
+      if (!isActive) return;
       mark.move(difference)
     }
 
     function deselectMark (event) {
+      if (!isActive) return;
       onDeselectMark(mark)
       if (!isInBounds(event.currentTarget)) {
         deleteMark()
@@ -40,6 +42,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function selectMark () {
+      if (!isActive) return;
       onSelectMark(mark)
     }
 
@@ -48,9 +51,9 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         key={mark.id}
         isActive={isActive}
         coords={mark.coords}
-        dragStart={isActive && selectMark}
-        dragMove={isActive && moveMark}
-        dragEnd={isActive && deselectMark}
+        dragStart={selectMark}
+        dragMove={moveMark}
+        dragEnd={deselectMark}
         label={`Mark ${index}`}
         mark={mark}
         onDelete={deleteMark}
