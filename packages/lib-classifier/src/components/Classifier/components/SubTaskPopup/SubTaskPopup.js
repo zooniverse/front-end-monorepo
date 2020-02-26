@@ -109,14 +109,14 @@ class SubTaskPopup extends React.Component {
               />
             </Box>
             
-            {tasks.map(task => {
+            {tasks.map((task, index) => {
               // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
               // or creates a new one if one doesn't exist.
               // The name is a bit confusing.
               const annotation = activeMark.addAnnotation(task)
               task.setAnnotation(annotation)
               const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-
+              
               if (annotation && TaskComponent) {
                 return (
                   <TaskBox
@@ -125,8 +125,9 @@ class SubTaskPopup extends React.Component {
                     className="subtaskpopup-element-that-ignores-drag-actions"
                   >
                     <TaskComponent
-                      disabled={!ready}
                       annotation={annotation}
+                      autoFocus={(index === 0)}
+                      disabled={!ready}
                       task={task}
                       {...this.props}
                     />
