@@ -21,8 +21,13 @@ function TextTask (props) {
     }
   }
 
+  function onUnmount () {
+    updateAnnotation()
+  }
+
   function onMount () {
-    return updateAnnotation
+    updateAnnotation()
+    return onUnmount
   }
 
   function setTagSelection (e) {
