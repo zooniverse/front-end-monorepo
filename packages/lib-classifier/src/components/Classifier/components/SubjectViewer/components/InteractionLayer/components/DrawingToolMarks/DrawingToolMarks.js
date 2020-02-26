@@ -48,9 +48,9 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         key={mark.id}
         isActive={isActive}
         coords={mark.coords}
-        dragStart={selectMark}
-        dragMove={moveMark}
-        dragEnd={deselectMark}
+        dragStart={isActive && selectMark}
+        dragMove={isActive && moveMark}
+        dragEnd={isActive && deselectMark}
         label={`Mark ${index}`}
         mark={mark}
         onDelete={deleteMark}
