@@ -2,7 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
-import FrameCarousel, {
+import {
+  FrameCarousel,
   StyledControlButton,
   StyledInput,
   StyledImage
@@ -40,7 +41,7 @@ describe('Component > FrameCarousel', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should contain subject property with all locations', function () {
+  it('should contain location property with all subject locations', function () {
     expect(wrapper.instance().props.locations).to.have.lengthOf(numberOfFrames)
   })
 
@@ -70,5 +71,37 @@ describe('Component > FrameCarousel', function () {
     expect(onFrameChangeSpy.calledOnceWith(3)).to.be.true()
     expect(wrapper.find(StyledInput).at(2).props().checked).to.be.false()
     expect(wrapper.find(StyledInput).last().props().checked).to.be.true()
+  })
+
+  it('should call onFrameChange with appropriate index on previous button click', function () {
+    const inputs = wrapper.find(StyledInput)
+    expect(inputs.at(2).props().checked).to.be.true()
+    const previousButton = wrapper.find(StyledControlButton).first()
+    previousButton.simulate('click')
+    expect(onFrameChangeSpy.calledOnceWith(1)).to.be.true()
+  })
+
+  it('should call onFrameChange with appropriate index on next button click', function () {
+    const inputs = wrapper.find(StyledInput)
+    expect(inputs.at(2).props().checked).to.be.true()
+    const nextButton = wrapper.find(StyledControlButton).last()
+    nextButton.simulate('click')
+    expect(onFrameChangeSpy.calledOnceWith(3)).to.be.true()
+  })
+
+  it('should disable the previous button if first img input selected', function () {
+    let previousButton = wrapper.find(StyledControlButton).first()
+    expect(previousButton.props().disabled).to.be.false()
+    wrapper.setProps({ frame: 0 })
+    previousButton = wrapper.find(StyledControlButton).first()
+    expect(previousButton.props().disabled).to.be.true()
+  })
+
+  it('should disable the next button if last img input selected', function () {
+    let nextButton = wrapper.find(StyledControlButton).last()
+    expect(nextButton.props().disabled).to.be.false()
+    wrapper.setProps({ frame: 3 })
+    nextButton = wrapper.find(StyledControlButton).last()
+    expect(nextButton.props().disabled).to.be.true()
   })
 })
