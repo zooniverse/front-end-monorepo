@@ -95,6 +95,7 @@ class SubTaskPopup extends React.Component {
     if (subTaskVisibility && tasks.length > 0) {
       return (
         <Rnd
+          key={activeMark.id}
           minWidth={100}
           minHeight={100}
           default={defaultPosition}
