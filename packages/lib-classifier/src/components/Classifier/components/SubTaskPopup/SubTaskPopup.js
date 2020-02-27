@@ -101,7 +101,7 @@ class SubTaskPopup extends React.Component {
         <Layer
           animate={false}
           modal={true}
-          onClickOutside={this.close.bind(this)}
+          /* onClickOutside={this.close.bind(this)} */
           onEsc={this.close.bind(this)}
           plain={true}
           position={'top-left'}
