@@ -6,6 +6,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 
 const StyledRect = styled('rect')`
+  touch-action: pinch-zoom;
   ${props => props.disabled ? 
     css`cursor: not-allowed;` :
     css`cursor: crosshair;`
