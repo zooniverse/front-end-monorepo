@@ -103,6 +103,7 @@ function InteractionLayer ({
           onDelete={() => setActiveMark(undefined)}
           onFinish={onFinish}
           onSelectMark={mark => setActiveMark(mark)}
+          onMove={(mark, difference) => mark.move(difference)}
           scale={scale}
         />
       }
