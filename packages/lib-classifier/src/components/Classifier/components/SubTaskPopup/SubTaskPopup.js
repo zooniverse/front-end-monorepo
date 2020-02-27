@@ -3,17 +3,14 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
 import { Rnd } from 'react-rnd'  // Used to create the draggable, resizable "popup" component
-import { Box, Button, Paragraph } from 'grommet'
+import { Box, Button, Layer, Paragraph } from 'grommet'
 import { CloseButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import taskRegistry from '@plugins/tasks'
 import styled, { css } from 'styled-components'
 
 import zooTheme from '@zooniverse/grommet-theme'
-
-const SUFFICIENTLY_LARGE_ZINDEX = 10000  // Ensure the popup appears above other elements in the Classifier, such as buttons in the Task Area.
 
 // Container sits one level below the (otherwise transparent) React-Rnd draggable/resizable component
 const StyledContainer = styled(Box)`
@@ -60,6 +57,10 @@ class SubTaskPopup extends React.Component {
     super()
   }
   
+  close () {
+    this.props.setSubTaskVisibility(false)
+  }
+  
   // TODO: Split render() into various asyncStates?
 
   render () {
@@ -69,92 +70,99 @@ class SubTaskPopup extends React.Component {
       subTaskVisibility,
       setSubTaskVisibility,
     } = this.props
-    const { svg } = this.context
     
     const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
     
     // Calculate default position
     let x = 0, y = 0;
-    const svgBounds = svg && svg.getBoundingClientRect()
+    
+    /*
+    Note: since we're using a modal that covers the entire screen, we only need
+    to calculate the position of the mark relative to the x-y coordinates of the
+    whole screen. We do not, for example, need to offset the x-y of the parent
+    <SVG>
+    */
 
-    if (svgBounds && subTaskMarkBounds) {
+    if (subTaskMarkBounds) {
       const markX = subTaskMarkBounds.x || 0
       const markY = subTaskMarkBounds.y || 0
       const markWidth = subTaskMarkBounds.width || 0
       const markHeight = subTaskMarkBounds.height || 0
       
-      const svgX = svgBounds.x || 0
-      const svgY = svgBounds.y || 0
-      
-      x = markX + markWidth * 0.5 - svgX
-      y = markY + markHeight * 0.5 - svgY
-      
+      x = markX + markWidth * 0.5
+      y = markY + markHeight * 0.5
     }
     
     const defaultPosition = { x, y }
     
     if (subTaskVisibility && tasks.length > 0) {
       return (
-        <Rnd
-          key={activeMark.id}
-          minWidth={100}
-          minHeight={100}
-          default={defaultPosition}
-          cancel=".subtaskpopup-element-that-ignores-drag-actions"
-          style={{
-            zIndex: SUFFICIENTLY_LARGE_ZINDEX,
-          }}
+        <Layer
+          animate={false}
+          modal={true}
+          onClickOutside={this.close.bind(this)}
+          onEsc={this.close.bind(this)}
+          plain={true}
+          position={'top-left'}
         >
-          <StyledContainer pad="xsmall" fill>
-            <Box>
-              <CloseButton
-                alignSelf='end'
-                onClick={() => setSubTaskVisibility(false)}
-              />
-            </Box>
-            
-            {tasks.map((task, index) => {
-              // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-              // or creates a new one if one doesn't exist.
-              // The name is a bit confusing.
-              const annotation = activeMark.addAnnotation(task)
-              task.setAnnotation(annotation)
-              const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-              
-              if (annotation && TaskComponent) {
+          <Rnd
+            key={activeMark.id}
+            minWidth={100}
+            minHeight={100}
+            default={defaultPosition}
+            cancel=".subtaskpopup-element-that-ignores-drag-actions"
+          >
+            <StyledContainer pad="xsmall" fill>
+              <Box>
+                <CloseButton
+                  alignSelf='end'
+                  onClick={this.close.bind(this)}
+                />
+              </Box>
+
+              {tasks.map((task, index) => {
+                // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+                // or creates a new one if one doesn't exist.
+                // The name is a bit confusing.
+                const annotation = activeMark.addAnnotation(task)
+                task.setAnnotation(annotation)
+                const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+
+                if (annotation && TaskComponent) {
+                  return (
+                    <TaskBox
+                      key={annotation.id}
+                      pad="xsmall"
+                      className="subtaskpopup-element-that-ignores-drag-actions"
+                    >
+                      <TaskComponent
+                        annotation={annotation}
+                        autoFocus={(index === 0)}
+                        disabled={!ready}
+                        task={task}
+                        {...this.props}
+                      />
+                    </TaskBox>
+                  )
+                }
+
                 return (
-                  <TaskBox
-                    key={annotation.id}
-                    pad="xsmall"
-                    className="subtaskpopup-element-that-ignores-drag-actions"
-                  >
-                    <TaskComponent
-                      annotation={annotation}
-                      autoFocus={(index === 0)}
-                      disabled={!ready}
-                      task={task}
-                      {...this.props}
-                    />
-                  </TaskBox>
+                  <Box pad="xsmall">
+                    <Paragraph>Task component could not be rendered.</Paragraph>
+                  </Box>
                 )
-              }
-              
-              return (
-                <Box pad="xsmall">
-                  <Paragraph>Task component could not be rendered.</Paragraph>
-                </Box>
-              )
-            })}
-                       
-            <Box pad="xsmall">
-              <SaveButton
-                onClick={() => setSubTaskVisibility(false)}
-                disabled={false}
-              />
-            </Box>
-          </StyledContainer>
-        </Rnd>
+              })}
+
+              <Box pad="xsmall">
+                <SaveButton
+                  onClick={this.close.bind(this)}
+                  disabled={false}
+                />
+              </Box>
+            </StyledContainer>
+          </Rnd>
+        </Layer>
       )
     }
     
@@ -175,8 +183,6 @@ SubTaskPopup.defaultProps = {
   subTaskVisibility: false,
   setSubTaskVisibility: () => {},
 }
-
-SubTaskPopup.contextType = SVGContext
 
 /*
   Enzyme doesn't support the context API properly yet, so using @withTheme as
