@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFinish, onSelectMark, scale }) {
+function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFinish, onMove, onSelectMark, scale }) {
   const { svg } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
@@ -29,7 +29,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function moveMark (event, difference) {
-      mark.move(difference)
+      onMove(mark, difference)
     }
 
     function deselectMark (event) {
@@ -80,6 +80,7 @@ DrawingToolMarks.propTypes = {
   marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
+  onMove: PropTypes.func,
   onSelectMark: PropTypes.func,
   scale: PropTypes.number
 }
@@ -88,6 +89,7 @@ DrawingToolMarks.defaultProps = {
   activeMarkId: '',
   onDelete: () => true,
   onDeselectMark: () => true,
+  onMove: () => true,
   onSelectMark: () => true,
   scale: 1
 }
