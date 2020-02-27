@@ -113,6 +113,7 @@ function InteractionLayer ({
             setSubTaskVisibility(true, node)  // Show sub-task again on select, in case it was closed 
             setActiveMark(mark)
           }}
+          onMove={(mark, difference) => mark.move(difference)}
           scale={scale}
         />
       }
