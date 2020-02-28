@@ -32,6 +32,9 @@ const TaskBox = styled(Box)`
   cursor: auto;
 `
 
+const MIN_POPUP_WIDTH = 100
+const MIN_POPUP_HEIGHT = 100
+
 function storeMapper (stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
   const drawingTasks = activeStepTasks.filter(task => task.type === 'drawing')
@@ -55,6 +58,7 @@ function storeMapper (stores) {
 class SubTaskPopup extends React.Component {
   constructor () {
     super()
+    this.popup = React.createRef()
   }
   
   close () {
@@ -66,7 +70,6 @@ class SubTaskPopup extends React.Component {
   render () {
     const {
       activeMark,
-      subTaskMarkBounds,
       subTaskVisibility,
       setSubTaskVisibility,
     } = this.props
@@ -74,27 +77,7 @@ class SubTaskPopup extends React.Component {
     const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
     
-    // Calculate default position
-    let x = 0, y = 0;
-    
-    /*
-    Note: since we're using a modal that covers the entire screen, we only need
-    to calculate the position of the mark relative to the x-y coordinates of the
-    whole screen. We do not, for example, need to offset the x-y of the parent
-    <SVG>
-    */
-
-    if (subTaskMarkBounds) {
-      const markX = subTaskMarkBounds.x || 0
-      const markY = subTaskMarkBounds.y || 0
-      const markWidth = subTaskMarkBounds.width || 0
-      const markHeight = subTaskMarkBounds.height || 0
-      
-      x = markX + markWidth * 0.5
-      y = markY + markHeight * 0.5
-    }
-    
-    const defaultPosition = { x, y }
+    const defaultPosition = this.getDefaultPosition()
     
     if (subTaskVisibility && tasks.length > 0) {
       return (
@@ -108,8 +91,8 @@ class SubTaskPopup extends React.Component {
         >
           <Rnd
             key={activeMark.id}
-            minWidth={100}
-            minHeight={100}
+            minWidth={MIN_POPUP_WIDTH}
+            minHeight={MIN_POPUP_HEIGHT}
             default={defaultPosition}
             cancel=".subtaskpopup-element-that-ignores-drag-actions"
           >
@@ -167,6 +150,43 @@ class SubTaskPopup extends React.Component {
     }
     
     return null
+  }
+    
+  getDefaultPosition () {
+    const { subTaskMarkBounds } = this.props
+    
+    // Calculate default position
+    let x = 0, y = 0;
+    
+    /*
+    Note: since we're using a modal that covers the entire screen, we only need
+    to calculate the position of the mark relative to the x-y coordinates of the
+    whole screen. We do not, for example, need to offset the x-y of the parent
+    <SVG>
+    */
+
+    if (subTaskMarkBounds) {
+      const markX = subTaskMarkBounds.x || 0
+      const markY = subTaskMarkBounds.y || 0
+      const markWidth = subTaskMarkBounds.width || 0
+      const markHeight = subTaskMarkBounds.height || 0
+      
+      x = markX + markWidth * 0.5
+      y = markY + markHeight * 0.5
+    }
+
+    // Keep within bounds of the viewport
+    const leftLimit = 0
+    const topLimit = 0
+    const rightLimit = (window && window.innerWidth || 0) - MIN_POPUP_WIDTH
+    const bottomLimit = (window && window.innerHeight || 0) - MIN_POPUP_HEIGHT
+    
+    x = Math.max(x, leftLimit)
+    y = Math.max(y, topLimit)
+    x = Math.min(x, rightLimit)
+    y = Math.min(y, bottomLimit)
+    
+    return { x, y }
   }
 }
 
