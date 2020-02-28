@@ -8,6 +8,7 @@ import getDataSeriesColor from '../../../../../../helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
 export const StyledLabel = styled.label`
+  align-items: center;
   ${props => css`
     border: solid thin ${props.borderColor};
   `}
