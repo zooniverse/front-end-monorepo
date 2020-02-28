@@ -33,6 +33,11 @@ const TranscriptionLineModel = types
       return true
     },
 
+    get length () {
+      const { x1, y1, x2, y2 } = self
+      return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+    },
+
     get tool () {
       return getParentOfType(self, TranscriptionLineTool)
     },
