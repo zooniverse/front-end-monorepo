@@ -11,11 +11,33 @@ const Workflow = types
     }),
     display_name: types.string,
     first_task: types.optional(types.string, ''),
+    grouped: types.optional(types.boolean, false),
+    links: types.frozen({}),
     steps: types.union(types.frozen({}), types.array(types.array(
       types.union(types.string, types.frozen())
     ))),
     tasks: types.maybe(types.frozen()),
     version: types.string
   })
+
+  .views(self => ({
+    get subjectSetId () {
+      // TODO: enable selection of a subject set from the links array.
+      const [ subjectSetId ] = self.links.subject_sets
+      return subjectSetId
+    },
+
+    get usesTranscriptionLines () {
+      let usesTranscriptionLines = false
+      self.tasks && Object.values(self.tasks).forEach(task => {
+        task.tools && task.tools.forEach(tool => {
+          if (tool.type === 'transcriptionLine') {
+            usesTranscriptionLines = true
+          }
+        })
+      })
+      return usesTranscriptionLines
+    }
+  }))
 
 export default types.compose('WorkflowResource', Resource, Workflow)
