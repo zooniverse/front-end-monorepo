@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { DragHandle } from '@plugins/drawingTools/components'
 
-const FINISHER_RADIUS = 6
+const HANDLE_RADIUS = 5
 const GRAB_STROKE_WIDTH = 6
 const COLOURS = {
   active: '#5cb85c',
@@ -15,7 +15,7 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
   state = active ? 'active' : state
   const colour = COLOURS[state]
   const { x1, y1, x2, y2, finished } = mark
-  const finisherRadius = FINISHER_RADIUS / scale
+  const handleRadius = HANDLE_RADIUS / scale
 
   function onHandleDrag (coords) {
     mark.setCoordinates(coords)
@@ -26,6 +26,15 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
     onFinish(event)
   }
 
+  let offsetX = 0
+  let offsetY = 0
+  if (mark.length) {
+    const deltaX = x2 - x1
+    const deltaY = y2 - y1
+    offsetX = deltaX * (handleRadius/mark.length)
+    offsetY = deltaY * (handleRadius/mark.length)
+  }
+
   return (
     <g
       color={colour}
@@ -33,13 +42,13 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
       stroke={colour}
       strokeWidth={1}
     >
-      <line x1={x1} y1={y1} x2={x2} y2={y2} />
+      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
       <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
 
       {active ?
         <DragHandle
           fill='transparent'
-          radius={6}
+          radius={HANDLE_RADIUS}
           scale={scale}
           x={x1}
           y={y1}
@@ -49,13 +58,13 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
           cx={x1}
           cy={y1}
           fill='transparent'
-          r={finisherRadius}
+          r={handleRadius}
           stroke='currentColor'
         />
       }
       {active ?
         <DragHandle
-          radius={6}
+          radius={HANDLE_RADIUS}
           scale={scale}
           x={x2}
           y={y2}
@@ -65,15 +74,15 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
           cx={x2}
           cy={y2}
           fill='currentColor'
-          r={finisherRadius}
+          r={handleRadius}
           stroke='currentColor'
         />
       }
 
       {active && !finished &&
         <g>
-          <circle r={finisherRadius} cx={x1} cy={y1} fill="transparent" onPointerDown={handleFinishClick} />
-          <circle r={finisherRadius} cx={x2} cy={y2} onPointerDown={handleFinishClick} />
+          <circle r={handleRadius} cx={x1} cy={y1} fill="transparent" onPointerDown={handleFinishClick} />
+          <circle r={handleRadius} cx={x2} cy={y2} onPointerDown={handleFinishClick} />
         </g>
       }
     </g>
