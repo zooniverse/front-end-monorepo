@@ -16,6 +16,14 @@ import theme from './theme'
 counterpart.registerTranslations('en', en)
 
 export const FlipButton = styled(PlainButton)`
+  &:enabled:hover, &:focus {
+    text-decoration: none;
+
+    > div > svg > circle {
+      fill: rgba(216,216,216,0.4);
+    }
+  }
+
   > div {
     flex-direction: column;
   }
@@ -98,7 +106,7 @@ Controls.propTypes = {
   periodMultiple: PropTypes.number,
   setSeriesFocus: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
-  setYAxisInversion: PropTypes.func
+  setYAxisInversion: PropTypes.func,
 }
 
 export default withThemeContext(Controls, theme)
