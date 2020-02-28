@@ -29,13 +29,13 @@ const nextSubjectJSON = {
     }, {
       "seriesData": [
         {
-          "x": 700,
-          "y": 500,
+          "x": 19.92215,
+          "y": -0.1976986301,
           "x_error": 2,
           "y_error": 0.5
         }, {
-          "x": 701,
-          "y": 900
+          "x": 35.46347,
+          "y": -0.22472
         }
       ],
       "seriesOptions": {
@@ -81,6 +81,7 @@ describe('Component > VariableStarViewerContainer', function () {
         data: [],
         chartOptions: {}
       },
+      phaseLimit: 0.2,
       rawJSON: {
         data: [],
         chartOptions: {}
@@ -238,12 +239,6 @@ describe('Component > VariableStarViewerContainer', function () {
 
   describe('with series focus', function () {
     let cdmSpy
-    let nockScope
-    const subject = Factory.build('subject', {
-      locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
-      ]
-    })
     const focusedStateMock = [
       { [variableStar.data[0].seriesOptions.label]: true },
       { [variableStar.data[1].seriesOptions.label]: true }
@@ -268,12 +263,6 @@ describe('Component > VariableStarViewerContainer', function () {
     })
 
     it('should default to focused states of true for each series', function (done) {
-      const wrapper = shallow(
-        <VariableStarViewerContainer
-          subject={subject}
-        />
-      )
-
       expect(wrapper.state().focusedSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
@@ -287,11 +276,7 @@ describe('Component > VariableStarViewerContainer', function () {
           value: Object.keys(focusedStateMock[0])[0]
         }
       }
-      const wrapper = shallow(
-        <VariableStarViewerContainer
-          subject={subject}
-        />
-      )
+
       wrapper.setState({ rawJSON: variableStar, focusedSeries: focusedStateMock })
       expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
       wrapper.instance().setSeriesFocus(eventMock)
@@ -299,6 +284,102 @@ describe('Component > VariableStarViewerContainer', function () {
         { [variableStar.data[0].seriesOptions.label]: false },
         { [variableStar.data[1].seriesOptions.label]: true }
       ])
+    })
+  })
+
+  describe('when calculating the phased JSON', function () {
+    let cdmSpy
+    let cduSpy
+    let nockScope
+    const subject = Factory.build('subject', {
+      locations: [
+        { 'application/json': 'http://localhost:8080/variableStar.json' }
+      ]
+    })
+
+    const nextSubject = Factory.build('subject', {
+      locations: [
+        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+      ]
+    })
+    before(function () {
+      cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
+      cduSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidUpdate')
+      nockScope = nock('http://localhost:8080')
+        .persist(true)
+        .get('/variableStar.json')
+        .reply(200, variableStar)
+        .get('/nextSubject.json')
+        .reply(200, nextSubjectJSON)
+    })
+
+    afterEach(function () {
+      cdmSpy.resetHistory()
+      cduSpy.resetHistory()
+    })
+
+    after(function () {
+      cdmSpy.restore()
+      cduSpy.restore()
+      nock.cleanAll()
+      nockScope.persist(false)
+    })
+
+
+    it('should calculate the phased JSON on initialization', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      expect(wrapper.state().phasedJSON).to.deep.equal({
+        data: [],
+        chartOptions: {}
+      })
+
+      cdmSpy.returnValues[0].then(() => {
+        const phasedJSONState = wrapper.state().phasedJSON
+        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(variableStar.data[0].seriesData.length)
+        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(variableStar.data[0].seriesOptions)
+        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(variableStar.data[1].seriesData.length)
+        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(variableStar.data[1].seriesOptions)
+        expect(phasedJSONState.chartOptions).to.deep.equal(variableStar.chartOptions)
+      }).then(done, done)
+    })
+
+    it('should calculate the phased JSON for the next subject', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      wrapper.setProps({ subject: nextSubject })
+
+      cduSpy.returnValues[0].then(() => {
+        const phasedJSONState = wrapper.state().phasedJSON
+        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(nextSubjectJSON.data[0].seriesData.length)
+        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(nextSubjectJSON.data[0].seriesOptions)
+        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(nextSubjectJSON.data[1].seriesData.length)
+        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(nextSubjectJSON.data[1].seriesOptions)
+        expect(phasedJSONState.chartOptions).to.deep.equal(nextSubjectJSON.chartOptions)
+      }).then(done, done)
+    })
+
+    it('should calculate a new phased JSON when setPeriodMultiple is called', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        const phasedJSONInitialState = wrapper.state().phasedJSON
+        wrapper.instance().setPeriodMultiple({ target: { value: '2' }})
+        const phasedJSONNewState = wrapper.state().phasedJSON
+        expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
+      }).then(done, done)
     })
   })
 })

@@ -5,7 +5,7 @@ import {
   FormField,
   RadioButtonGroup
 } from 'grommet'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { PlainButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
@@ -23,9 +23,28 @@ export const FlipButton = styled(PlainButton)`
       fill: rgba(216,216,216,0.4);
     }
   }
+`
 
+export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   > div {
-    flex-direction: column;
+    position: relative;
+  }
+
+  > div:after {
+    ${props => css`border-bottom: 1px solid ${props.color};`}
+    bottom: 0;
+    content: '';
+    height: 5px;
+    left: 1px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 28px;
+  }
+
+  > div:first-of-type:after {
+    left: -5px;
+    width: 34px;
   }
 `
 
@@ -35,10 +54,20 @@ function Controls(props) {
     focusedSeries,
     gridArea,
     periodMultiple,
+    periodMultipleOptions,
     setSeriesFocus,
     setPeriodMultiple,
-    setYAxisInversion
+    setYAxisInversion,
+    theme
   } = props
+
+  const radioButtonOptions = periodMultipleOptions.map((option) => {
+    return {
+      label: <SpacedText size='10px' weight='bold'>{option}</SpacedText>,
+      value: option
+    }
+  })
+
   return (
     <Box
       background='neutral-6'
@@ -64,15 +93,17 @@ function Controls(props) {
       />
       <FormField
         htmlFor='periodMultiple'
-        label={<SpacedText size='xsmall'>{counterpart('VariableStarViewer.periodMultiple')}</SpacedText>}
+        label={<SpacedText size='10px' weight='bold'>{counterpart('VariableStarViewer.periodMultiple')}</SpacedText>}
+        style={{ position: 'relative' }}
       >
-        <RadioButtonGroup
+        <StyledRadioButtonGroup
+          color={theme.global.colors['light-6']}
           direction='row'
-          gap='xsmall'
+          gap='medium'
           id='periodMultiple'
           name='periodMultiple'
           onChange={event => setPeriodMultiple(event)}
-          options={['0.5', '1', '2', '3']}
+          options={radioButtonOptions}
           value={periodMultiple.toString()}
         />
       </FormField>
@@ -95,9 +126,15 @@ Controls.defaultProps = {
   focusedSeries: [],
   gridArea: '',
   periodMultiple: 1,
+  periodMultipleOptions: ['0.5', '1', '2', '3'],
   setSeriesFocus: () => {},
   setPeriodMultiple: () => {},
-  setYAxisInversion: () => {}
+  setYAxisInversion: () => {},
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 Controls.propTypes = {
@@ -108,6 +145,7 @@ Controls.propTypes = {
   setSeriesFocus: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setYAxisInversion: PropTypes.func,
+  theme: PropTypes.object
 }
 
 export default withThemeContext(Controls, theme)
