@@ -23,7 +23,7 @@ export const StyledLabel = styled.label`
     position: absolute;
   }
 
-  &:hover, &:focus {
+  &:hover, &:focus-within {
     background-color: rgba(216,216,216,0.4);
   }
 `
