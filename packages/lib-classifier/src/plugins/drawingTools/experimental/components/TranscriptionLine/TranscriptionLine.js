@@ -26,6 +26,15 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
     onFinish(event)
   }
 
+  let offsetX = 0
+  let offsetY = 0
+  if (mark.length) {
+    const deltaX = x2 - x1
+    const deltaY = y2 - y1
+    offsetX = deltaX * (finisherRadius/mark.length)
+    offsetY = deltaY * (finisherRadius/mark.length)
+  }
+
   return (
     <g
       color={colour}
@@ -33,7 +42,7 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
       stroke={colour}
       strokeWidth={1}
     >
-      <line x1={x1} y1={y1} x2={x2} y2={y2} />
+      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
       <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
 
       {active ?
