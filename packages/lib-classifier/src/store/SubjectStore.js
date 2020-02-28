@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from './utils'
 import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
@@ -125,15 +125,18 @@ const SubjectStore = types
     function * populateQueue () {
       const root = getRoot(self)
       const client = root.client.panoptes
-      const validWorkflowReference = isValidReference(() => root.workflows.active)
-      if (validWorkflowReference) {
-        const workflowId = root.workflows.active.id
+      const workflow = tryReference(() => root.workflows.active)
+      if (workflow) {
         self.loadingState = asyncStates.loading
+        const params = { workflow_id: workflow.id }
+        if (workflow.grouped) {
+          params.subject_set_id = workflow.subjectSetId
+        }
 
         try {
           const { authClient } = getRoot(self)
           const authorization = yield getBearerToken(authClient)
-          const response = yield client.get(`/subjects/queued`, { workflow_id: workflowId }, { authorization })
+          const response = yield client.get(`/subjects/queued`, params, { authorization })
 
           if (response.body.subjects && response.body.subjects.length > 0) {
             self.append(response.body.subjects)
