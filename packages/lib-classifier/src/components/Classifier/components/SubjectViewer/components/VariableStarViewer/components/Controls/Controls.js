@@ -23,6 +23,10 @@ export const FlipButton = styled(PlainButton)`
       fill: rgba(216,216,216,0.4);
     }
   }
+
+  > div {
+    flex-direction: column;
+  }
 `
 
 export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
