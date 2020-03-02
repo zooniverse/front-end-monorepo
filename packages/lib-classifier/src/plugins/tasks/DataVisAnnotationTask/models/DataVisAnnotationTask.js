@@ -36,7 +36,12 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
       self.activeToolIndex = toolIndex
     }
 
+    function reset () {
+      self.activeToolIndex = 0
+    }
+
     return {
+      reset,
       setActiveTool
     }
   })

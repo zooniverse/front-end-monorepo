@@ -35,8 +35,15 @@ describe('Model > DataVisAnnotationTask', function () {
     })
 
     it('can be selected', function () {
+      expect(model.activeTool).to.equal(model.tools[0])
       model.setActiveTool(1)
       expect(model.activeTool).to.equal(model.tools[1])
+    })
+
+    it('is reset when the task resets', function () {
+      expect(model.activeTool).to.equal(model.tools[1])
+      model.reset()
+      expect(model.activeTool).to.equal(model.tools[0])
     })
   })
 })
