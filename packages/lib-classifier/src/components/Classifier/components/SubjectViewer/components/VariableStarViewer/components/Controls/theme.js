@@ -31,6 +31,14 @@ const theme = {
         width: 5px;
       }
     `,
+    hover: {
+      border: {
+        color: {
+          dark: 'brand',
+          light: 'brand'
+        }
+      }
+    },
     gap: '0px',
     size: '10px',
     icon: {
