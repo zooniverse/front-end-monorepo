@@ -14,6 +14,7 @@ function InnerTickAxis (props) {
     color,
     fontSize,
     margin,
+    numTicks,
     padding,
     parentHeight,
     parentWidth,
@@ -39,6 +40,7 @@ function InnerTickAxis (props) {
       hideAxisLine
       label={label}
       left={0}
+      numTicks={numTicks}
       orientation={vxOrientation[orientation]}
       tickLength={tickLength}
       top={top[orientation]}
@@ -94,6 +96,7 @@ InnerTickAxis.defaultProps = {
     right: 10,
     top: 10
   },
+  numTicks: 10,
   padding: {
     bottom: 30,
     left: 30,
@@ -117,6 +120,7 @@ InnerTickAxis.propTypes = {
     right: PropTypes.number,
     top: PropTypes.number
   }),
+  numTicks: PropTypes.number,
   padding: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

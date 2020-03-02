@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
   CheckBox,
@@ -11,11 +12,18 @@ import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
-import { PropTypes } from 'mobx-react'
 
 counterpart.registerTranslations('en', en)
 
-const StyledPlainButton = styled(PlainButton)`
+export const FlipButton = styled(PlainButton)`
+  &:enabled:hover, &:focus {
+    text-decoration: none;
+
+    > div > svg > circle {
+      fill: rgba(216,216,216,0.4);
+    }
+  }
+
   > div {
     flex-direction: column;
   }
@@ -42,9 +50,13 @@ function Controls(props) {
       >
         {counterpart('VariableStarViewer.controls')}
       </SpacedText>
-      <StyledPlainButton
+      <FlipButton
         icon={<FlipIcon />}
-        label={<SpacedText size='xsmall'>{counterpart('VariableStarViewer.flip')}</SpacedText>}
+        label={
+          <SpacedText margin={{ top: '5px' }} size='10px' weight='bold'>
+            {counterpart('VariableStarViewer.flip')}
+          </SpacedText>
+        }
         onClick={event => setYAxisInversion(event)}
         pad='small'
       />
@@ -94,7 +106,7 @@ Controls.propTypes = {
   periodMultiple: PropTypes.number,
   setSeriesFocus: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
-  setYAxisInversion: PropTypes.func
+  setYAxisInversion: PropTypes.func,
 }
 
 export default withThemeContext(Controls, theme)

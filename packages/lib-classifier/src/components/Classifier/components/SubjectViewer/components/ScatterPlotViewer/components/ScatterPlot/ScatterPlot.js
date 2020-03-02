@@ -24,6 +24,7 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
+    invertAxes,
     margin,
     padding,
     parentHeight,
@@ -37,12 +38,15 @@ function ScatterPlot (props) {
     },
     transformMatrix,
     xAxisLabel,
-    yAxisLabel,
+    xAxisNumTicks,
     xScale,
+    yAxisLabel,
+    yAxisNumTicks,
     yScale
   } = props
 
   const rangeParameters = {
+    invertAxes,
     margin,
     padding,
     parentHeight,
@@ -64,11 +68,13 @@ function ScatterPlot (props) {
     color: axisColor,
     xAxis: {
       label: xAxisLabel,
+      numTicks: xAxisNumTicks,
       orientation: 'bottom',
       scale: xScaleTransformed
     },
     yAxis: {
       label: yAxisLabel,
+      numTicks: yAxisNumTicks,
       orientation: 'left',
       scale: yScaleTransformed
     }
@@ -191,6 +197,10 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
+  invertAxes: {
+    x: false,
+    y: false
+  },
   margin: {
     bottom: 60,
     left: 60,
@@ -221,8 +231,10 @@ ScatterPlot.defaultProps = {
     translateY: 0
   },
   xAxisLabel: 'x-axis',
-  yAxisLabel: 'y-axis',
+  xAxisNumTicks: 10,
   xScale: null,
+  yAxisLabel: 'y-axis',
+  yAxisNumTicks: 10,
   yScale: null,
   zooming: false
 }
@@ -249,6 +261,10 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  invertAxes: PropTypes.shape({
+    x: PropTypes.bool,
+    y: PropTypes.bool
+  }),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -276,8 +292,10 @@ ScatterPlot.propTypes = {
     translateY: PropTypes.number
   }),
   xAxisLabel: PropTypes.string,
-  yAxisLabel: PropTypes.string,
+  xAxisNumTicks: PropTypes.number,
   xScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  yAxisLabel: PropTypes.string,
+  yAxisNumTicks: PropTypes.number,
   yScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
 }

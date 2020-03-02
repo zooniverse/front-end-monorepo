@@ -22,6 +22,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       period
     },
     imgSrc,
+    invertYAxis,
     periodMultiple,
     phasedJSON,
     rawJSON,
@@ -57,6 +58,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       >
         <ScatterPlotViewer
           data={phasedJSON.data}
+          invertAxes={{ x: false, y: invertYAxis }}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
         />
@@ -66,8 +68,10 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       >
         <ScatterPlotViewer
           data={rawJSON.data}
+          invertAxes={{ x: false, y: invertYAxis }}
           xAxisLabel={rawJSON.chartOptions.xAxisLabel}
           yAxisLabel={rawJSON.chartOptions.yAxisLabel}
+          yAxisNumTicks={5}
         />
       </Box>
       <Box
@@ -120,6 +124,7 @@ VariableStarViewer.defaultProps = {
     }
   },
   imgSrc: '',
+  invertYAxis: false,
   periodMultiple: 1,
   phasedJSON: {
     data: [],
@@ -153,6 +158,7 @@ VariableStarViewer.propTypes = {
     })
   }),
   imgSrc: PropTypes.string,
+  invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
   phasedJSON: PropTypes.shape({
     data: PropTypes.array,
