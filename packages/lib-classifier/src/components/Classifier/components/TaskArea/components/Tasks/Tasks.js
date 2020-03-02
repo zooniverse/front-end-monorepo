@@ -3,6 +3,7 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { withTheme } from 'styled-components'
 
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
@@ -40,7 +41,7 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { addAnnotation, classification, isThereTaskHelp, subjectReadyState, step, tasks } = this.props
+    const { addAnnotation, classification, isThereTaskHelp, subjectReadyState, step, tasks, theme } = this.props
     const ready = subjectReadyState === asyncStates.success
     if (classification && tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
@@ -61,10 +62,11 @@ class Tasks extends React.Component {
               return (
                 <Box key={annotation.id} basis='auto'>
                   <TaskComponent
+                    {...this.props}
                     disabled={!ready}
                     annotation={annotation}
                     task={task}
-                    {...this.props}
+                    theme={theme}
                   />
                 </Box>
               )
@@ -102,6 +104,7 @@ Tasks.defaultProps = {
 }
 
 @inject(storeMapper)
+@withTheme
 @observer
 class DecoratedTasks extends Tasks {}
 

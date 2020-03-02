@@ -5,12 +5,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
-import zooTheme from '@zooniverse/grommet-theme'
 
 const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    background: ${zooTheme.global.colors.brand};
+    ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
     max-width: ${maxWidth};
   }
 `
@@ -30,7 +29,8 @@ function MultipleChoiceTask (props) {
     annotation,
     className,
     disabled,
-    task
+    task,
+    theme
   } = props
   const { value } = annotation
 
@@ -50,6 +50,7 @@ function MultipleChoiceTask (props) {
       autoFocus={(value && value.length === 0)}
       className={className}
       disabled={disabled}
+      theme={theme}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
