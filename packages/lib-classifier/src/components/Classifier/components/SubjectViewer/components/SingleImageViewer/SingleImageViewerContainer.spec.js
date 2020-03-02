@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
-import { SingleImageViewerContainer } from './SingleImageViewerContainer'
+import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
 
 describe('Component > SingleImageViewerContainer', function () {
@@ -155,7 +155,7 @@ describe('Component > SingleImageViewerContainer', function () {
         }
       }
       onReady.callsFake(function () {
-        const image = wrapper.find('draggable(image)')
+        const image = wrapper.find(DraggableImage)
         expect(image).to.have.lengthOf(1)
         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
         done()

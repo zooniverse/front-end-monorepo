@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { draggable } from '@plugins/drawingTools/components'
 
+import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
@@ -27,7 +28,9 @@ function storeMapper (stores) {
   }
 }
 
-const DraggableImage = draggable('image')
+const DraggableImage = styled(draggable('image'))`
+  cursor: move;
+`
 
 class SingleImageViewerContainer extends React.Component {
   constructor () {
@@ -194,4 +197,4 @@ SingleImageViewerContainer.defaultProps = {
 class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
 
 export default DecoratedSingleImageViewerContainer
-export { SingleImageViewerContainer }
+export { DraggableImage, SingleImageViewerContainer }
