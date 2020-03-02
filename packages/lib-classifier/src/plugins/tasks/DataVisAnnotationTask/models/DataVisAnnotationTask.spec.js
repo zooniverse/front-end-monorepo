@@ -1,23 +1,42 @@
 import DataVisAnnotationTask from './DataVisAnnotationTask'
 
-const graph2dRangeTool = {
+const transitTool = {
   help: '',
   label: 'Transit?',
   max: 20,
   type: 'graph2dRangeX'
 }
 
-const dataVisAnnotationTask = {
+const anomalyTool = {
+  help: '',
+  label: 'Anomaly?',
+  max: 20,
+  type: 'graph2dRangeX'
+}
+
+const dataVisAnnotationTaskSnapshot = {
   instruction: 'Do you spot a transit? If so, please mark the lightcurve.',
   taskKey: 'T3',
-  tools: [graph2dRangeTool],
+  tools: [transitTool, anomalyTool],
   type: 'dataVisAnnotation'
 }
 
 describe('Model > DataVisAnnotationTask', function () {
+  let model
   it('should exist', function () {
-    const dataVisAnnotationTaskInstance = DataVisAnnotationTask.create(dataVisAnnotationTask)
-    expect(dataVisAnnotationTaskInstance).to.be.ok()
-    expect(dataVisAnnotationTaskInstance).to.be.an('object')
+    model = DataVisAnnotationTask.create(dataVisAnnotationTaskSnapshot)
+    expect(model).to.be.ok()
+    expect(model).to.be.an('object')
+  })
+
+  describe('the active tool', function () {
+    it('should default to the first tool', function () {
+      expect(model.activeTool).to.equal(model.tools[0])
+    })
+
+    it('can be selected', function () {
+      model.setActiveTool(1)
+      expect(model.activeTool).to.equal(model.tools[1])
+    })
   })
 })
