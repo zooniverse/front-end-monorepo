@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Box,
-  CheckBox,
   FormField,
   RadioButtonGroup
 } from 'grommet'
@@ -11,11 +11,19 @@ import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
-import { PropTypes } from 'mobx-react'
+import FocusSeriesCheckBoxes from './components/FocusSeriesCheckBoxes'
 
 counterpart.registerTranslations('en', en)
 
-const StyledPlainButton = styled(PlainButton)`
+export const FlipButton = styled(PlainButton)`
+  &:enabled:hover, &:focus {
+    text-decoration: none;
+
+    > div > svg > circle {
+      fill: rgba(216,216,216,0.4);
+    }
+  }
+
   > div {
     flex-direction: column;
   }
@@ -23,6 +31,8 @@ const StyledPlainButton = styled(PlainButton)`
 
 function Controls(props) {
   const {
+    data,
+    focusedSeries,
     gridArea,
     periodMultiple,
     setSeriesFocus,
@@ -42,9 +52,13 @@ function Controls(props) {
       >
         {counterpart('VariableStarViewer.controls')}
       </SpacedText>
-      <StyledPlainButton
+      <FlipButton
         icon={<FlipIcon />}
-        label={<SpacedText size='xsmall'>{counterpart('VariableStarViewer.flip')}</SpacedText>}
+        label={
+          <SpacedText margin={{ top: '5px' }} size='10px' weight='bold'>
+            {counterpart('VariableStarViewer.flip')}
+          </SpacedText>
+        }
         onClick={event => setYAxisInversion(event)}
         pad='small'
       />
@@ -62,18 +76,13 @@ function Controls(props) {
           value={periodMultiple.toString()}
         />
       </FormField>
-      <Box>
-        <fieldset style={{ border: 'none', padding: 0 }}>
-          <label>
-            <input type='checkbox' />
-            <SpacedText style={{ fontSize: '0.5em' }}>red light</SpacedText>
-          </label>
-          <label>
-            <input type='checkbox' />
-            <SpacedText style={{ fontSize: '0.5em' }}>blue light</SpacedText>
-          </label>
-        </fieldset>
-        <SpacedText size='xsmall'>
+      <Box justify='between'>
+        <FocusSeriesCheckBoxes
+          data={data}
+          focusedSeries={focusedSeries}
+          setSeriesFocus={setSeriesFocus}
+        />
+        <SpacedText color='black' size='10px' weight='bold'>
           {counterpart('VariableStarViewer.focus')}
         </SpacedText>
       </Box>
@@ -82,6 +91,8 @@ function Controls(props) {
 }
 
 Controls.defaultProps = {
+  data: [],
+  focusedSeries: [],
   gridArea: '',
   periodMultiple: 1,
   setSeriesFocus: () => {},
@@ -90,11 +101,13 @@ Controls.defaultProps = {
 }
 
 Controls.propTypes = {
+  data: PropTypes.array,
+  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   gridArea: PropTypes.string,
   periodMultiple: PropTypes.number,
   setSeriesFocus: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
-  setYAxisInversion: PropTypes.func
+  setYAxisInversion: PropTypes.func,
 }
 
 export default withThemeContext(Controls, theme)

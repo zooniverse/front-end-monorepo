@@ -235,4 +235,70 @@ describe('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
   })
+
+  describe('with series focus', function () {
+    let cdmSpy
+    let nockScope
+    const subject = Factory.build('subject', {
+      locations: [
+        { 'application/json': 'http://localhost:8080/variableStar.json' }
+      ]
+    })
+    const focusedStateMock = [
+      { [variableStar.data[0].seriesOptions.label]: true },
+      { [variableStar.data[1].seriesOptions.label]: true }
+    ]
+
+    before(function () {
+      cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
+      nockScope = nock('http://localhost:8080')
+        .persist(true)
+        .get('/variableStar.json')
+        .reply(200, variableStar)
+    })
+
+    afterEach(function () {
+      cdmSpy.resetHistory()
+    })
+
+    after(function () {
+      cdmSpy.restore()
+      nock.cleanAll()
+      nockScope.persist(false)
+    })
+
+    it('should default to focused states of true for each series', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      expect(wrapper.state().focusedSeries).to.be.empty()
+      cdmSpy.returnValues[0].then(() => {
+        expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
+      }).then(done, done)
+    })
+
+    it('should be able to toggle the focused state', function () {
+      const eventMock = {
+        target: {
+          checked: false,
+          value: Object.keys(focusedStateMock[0])[0]
+        }
+      }
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+      wrapper.setState({ rawJSON: variableStar, focusedSeries: focusedStateMock })
+      expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
+      wrapper.instance().setSeriesFocus(eventMock)
+      expect(wrapper.state().focusedSeries).to.deep.equal([
+        { [variableStar.data[0].seriesOptions.label]: false },
+        { [variableStar.data[1].seriesOptions.label]: true }
+      ])
+    })
+  })
 })

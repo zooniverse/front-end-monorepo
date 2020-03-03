@@ -22,6 +22,7 @@ function Axis (props) {
 
   const {
     label,
+    numTicks,
     orientation,
     scale
   } = axis
@@ -36,6 +37,7 @@ function Axis (props) {
         color={axisColor}
         fontSize={fontSize}
         margin={margin}
+        numTicks={numTicks}
         padding={padding}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
@@ -57,6 +59,7 @@ function Axis (props) {
           fontFamily,
         }}
         left={padding.left}
+        numTicks={numTicks}
         tickLabelProps={() => ({
           dx: '-0.25em',
           dy: '0.25em',
@@ -74,7 +77,7 @@ function Axis (props) {
   }
 
   if (orientation === 'bottom') {
-    // vx axis components assume center prosition for label,
+    // vx axis components assume center position for label,
     // so the labelProps textAnchor option doesn't do what you might think it does
     // x position on the text starts at the center of the scale range
     // so textAnchor='start' starts at the center of the range!
@@ -119,6 +122,7 @@ Axis.defaultProps = {
     right: 10,
     top: 10
   },
+  numTicks: 10,
   padding: {
     bottom: 30,
     left: 30,
@@ -148,6 +152,7 @@ Axis.propTypes = {
     right: PropTypes.number,
     top: PropTypes.number
   }).isRequired,
+  numTicks: PropTypes.number,
   padding: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,

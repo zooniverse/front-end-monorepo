@@ -40,6 +40,9 @@ class VariableStarViewerContainer extends Component {
         chartOptions: {}
       }
     }
+
+    this.setYAxisInversion = this.setYAxisInversion.bind(this)
+    this.setSeriesFocus = this.setSeriesFocus.bind(this)
   }
 
   async componentDidMount() {
@@ -100,8 +103,10 @@ class VariableStarViewerContainer extends Component {
     const target = this.viewer.current
     const phasedJSON = this.calculatePhase(rawJSON)
     const barJSON = this.calculateBarJSON(rawJSON)
+    const focusedSeries = this.setupSeriesFocus(rawJSON)
     this.setState({
       barJSON,
+      focusedSeries,
       phasedJSON,
       rawJSON
     },
@@ -142,16 +147,33 @@ class VariableStarViewerContainer extends Component {
     })
   }
 
+  setupSeriesFocus (rawJSON) {
+    return rawJSON.data.map((series) => {
+      if (series?.seriesData.length > 0) {
+        return { [series.seriesOptions.label]: true }
+      }
+    })
+  }
+
   setPeriodMultiple(multiple) {
     const periodMultiple = parseFloat(multiple)
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
-  setSeriesFocus(seriesToFocus) {
-    // TODO add handling
+  setSeriesFocus(event) {
+    const newFocusedSeriesState = this.state.focusedSeries.map((series) => {
+      const [[label, checked]] = Object.entries(series)
+      if (label === event.target.value) {
+        return { [event.target.value]: event.target.checked }
+      } else {
+        return series
+      }
+    })
+
+    this.setState({ focusedSeries: newFocusedSeriesState })
   }
 
-  setYAxisInversion() {
+  setYAxisInversion () {
     this.setState((prevState) => { return { invertYAxis: !prevState.invertYAxis } })
   }
 
@@ -167,7 +189,9 @@ class VariableStarViewerContainer extends Component {
     return (
       <VariableStarViewer
         barJSON={this.state.barJSON}
+        focusedSeries={this.state.focusedSeries}
         imageSrc={this.state.imageSrc}
+        invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
@@ -192,6 +216,7 @@ VariableStarViewerContainer.defaultProps = {
 VariableStarViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
