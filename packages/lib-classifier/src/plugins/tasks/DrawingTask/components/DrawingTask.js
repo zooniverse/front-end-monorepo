@@ -46,7 +46,6 @@ function DrawingTask (props) {
 
       {task.tools.map((tool, index) => {
         const checked = task.activeToolIndex === index
-        // TODO add count for min/max
         return (
           <TaskInput
             checked={checked}
