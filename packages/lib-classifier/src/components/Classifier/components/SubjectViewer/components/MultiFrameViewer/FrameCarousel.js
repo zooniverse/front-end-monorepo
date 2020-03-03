@@ -49,15 +49,24 @@ export function NextLabel () {
   )
 }
 
-export const StyledInput = styled.input`
+export const StyledFrame = styled.label`
   ${props => props.theme && css`
-    &:checked + img {
-      outline: ${props.theme.global.colors['neutral-4']} solid;
+    input:checked + img {
+      border: ${props.theme.global.colors['neutral-4']} solid;
+    }
+    input:focus + img {
+      outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
+    }
+
+    input:hover + img {
+      outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
   `}
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-  position: absolute;
+  input {
+    opacity: 0.01;
+    position: absolute;
+  }
+
 `
 
 export const StyledImage = styled.img`
@@ -97,21 +106,20 @@ class FrameCarousel extends React.Component {
       const url = location[mimeType]
       const activeFrame = frame === index
       return (
-        <label
+        <StyledFrame
           key={`${url}-${index}`}
         >
-          <StyledInput
+          <input
             checked={activeFrame}
             name='frame'
             onChange={() => onFrameChange(index)}
-            src={url}
             type='radio'
           />
           <StyledImage
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
             src={url}
           />
-        </label>
+        </StyledFrame>
       )
     })
 
