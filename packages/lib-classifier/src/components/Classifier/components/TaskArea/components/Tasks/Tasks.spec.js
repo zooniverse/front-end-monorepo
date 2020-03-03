@@ -6,8 +6,9 @@ import { expect } from 'chai'
 import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
 import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
-import ClassificationStore from '@store/ClassificationStore'
 import taskRegistry from '@plugins/tasks'
+import RootStore from '@store'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 
 describe('Tasks', function () {
   let addAnnotation
@@ -22,49 +23,41 @@ describe('Tasks', function () {
     before(function () {
       const task = taskRegistry.get(taskType)
       TaskComponent = observer(task.TaskComponent)
-      const taskModel = task.TaskModel.create({
+      const taskSnapshot = {
         instruction: `${taskType} instructions`,
         question: `${taskType} question`,
         taskKey: 'init',
         type: taskType
-      })
-      tasks = [ taskModel ]
-      step = {
-        isComplete: true,
-        stepKey: 'S1',
-        taskKeys: ['init'],
-        tasks: {
-          init: tasks[0]
-        }
       }
-      /*
-      TODO: use the RootStore here 
-      */
-      const classifications = ClassificationStore.create()
-      const store = types.model('MockStore', {
-        classifications: ClassificationStore,
-        task: task.TaskModel
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'tasksWorkflow',
+        display_name: 'A test workflow',
+        tasks: {
+          init: taskSnapshot
+        },
+        version: '0.0'
       })
-      .create({
-        classifications,
-        task: taskModel
-      })
-      const mockSubject = {
+      const subjectSnapshot = SubjectFactory.build({
         id: 'subject',
         metadata: {}
-      }
-      const mockWorkflow = {
-        id: 'workflow',
-        version: '1.0'
-      }
-      const mockProject = {
+      })
+      const projectSnapshot = ProjectFactory.build({
         id: 'project'
-      }
-      classifications.createClassification(mockSubject, mockWorkflow, mockProject)
-      const annotation = classifications.addAnnotation(taskModel)
-      classification = classifications.active
-      addAnnotation = classifications.addAnnotation
-      taskModel.setAnnotation(annotation)
+      })
+      const rootStore = RootStore.create({})
+      rootStore.projects.setResource(projectSnapshot)
+      rootStore.projects.setActive(projectSnapshot.id)
+      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setActive(workflowSnapshot.id)
+      rootStore.subjects.setResource(subjectSnapshot)
+      rootStore.subjects.setActive(subjectSnapshot.id)
+      const project = rootStore.projects.active
+      const workflow = rootStore.workflows.active
+      const subject = rootStore.subjects.active
+      rootStore.classifications.createClassification(subject, workflow, project)
+      classification = rootStore.classifications.active
+      addAnnotation = rootStore.classifications.addAnnotation
+      step = rootStore.workflowSteps.active
     })
 
     describe(`Task ${taskType}`, function () {
@@ -100,7 +93,7 @@ describe('Tasks', function () {
             ready
             addAnnotation={addAnnotation}
             classification={classification}
-            tasks={tasks}
+            tasks={step.tasks}
           />
         )
         // Is there a better way to do this?
@@ -118,7 +111,7 @@ describe('Tasks', function () {
                 classification={classification}
                 loadingState={asyncStates.success}
                 subjectReadyState={asyncStates.loading}
-                tasks={tasks}
+                tasks={step.tasks}
               />
             )
             taskWrapper = wrapper.find(TaskComponent.displayName)
@@ -138,7 +131,7 @@ describe('Tasks', function () {
                 loadingState={asyncStates.success}
                 subjectReadyState={asyncStates.success}
                 step={step}
-                tasks={tasks}
+                tasks={step.tasks}
               />
             )
             taskWrapper = wrapper.find(TaskComponent.displayName)
