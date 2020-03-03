@@ -5,11 +5,11 @@ import sinon from 'sinon'
 import {
   FrameCarousel,
   StyledControlButton,
-  StyledInput,
+  StyledFrame,
   StyledImage
 } from './FrameCarousel'
 
-describe('Component > FrameCarousel', function () {
+describe.only('Component > FrameCarousel', function () {
   let wrapper
   let onFrameChangeSpy
   const multiFrameSubjectLocations = [
@@ -45,36 +45,38 @@ describe('Component > FrameCarousel', function () {
     expect(wrapper.instance().props.locations).to.have.lengthOf(numberOfFrames)
   })
 
-  it('should render an input and an img for each location', function () {
-    const inputs = wrapper.find(StyledInput)
+  it('should render a label, input and an img for each location', function () {
+    const labels = wrapper.find(StyledFrame)
+    const inputs = wrapper.find('input')
     const images = wrapper.find(StyledImage)
-    expect(images).to.have.lengthOf(numberOfFrames)
+    expect(labels).to.have.lengthOf(numberOfFrames)
     expect(inputs).to.have.lengthOf(numberOfFrames)
+    expect(images).to.have.lengthOf(numberOfFrames)
   })
 
   it('should show the active location as checked', function () {
-    const inputs = wrapper.find(StyledInput)
+    const inputs = wrapper.find('input')
     expect(inputs.at(2).props().checked).to.be.true()
   })
 
   it('should show inactive locations as unchecked', function () {
-    const inputs = wrapper.find(StyledInput)
+    const inputs = wrapper.find('input')
     expect(inputs.at(0).props().checked).to.be.false()
     expect(inputs.at(1).props().checked).to.be.false()
     expect(inputs.at(3).props().checked).to.be.false()
   })
 
   it('should call onFrameChange with location index on input change', function () {
-    expect(wrapper.find(StyledInput).at(2).props().checked).to.be.true()
-    const lastInput = wrapper.find(StyledInput).last()
+    expect(wrapper.find('input').at(2).props().checked).to.be.true()
+    const lastInput = wrapper.find('input').last()
     lastInput.simulate('change')
     expect(onFrameChangeSpy.calledOnceWith(3)).to.be.true()
-    expect(wrapper.find(StyledInput).at(2).props().checked).to.be.false()
-    expect(wrapper.find(StyledInput).last().props().checked).to.be.true()
+    expect(wrapper.find('input').at(2).props().checked).to.be.false()
+    expect(wrapper.find('input').last().props().checked).to.be.true()
   })
 
   it('should call onFrameChange with appropriate index on previous button click', function () {
-    const inputs = wrapper.find(StyledInput)
+    const inputs = wrapper.find('input')
     expect(inputs.at(2).props().checked).to.be.true()
     const previousButton = wrapper.find(StyledControlButton).first()
     previousButton.simulate('click')
@@ -82,7 +84,7 @@ describe('Component > FrameCarousel', function () {
   })
 
   it('should call onFrameChange with appropriate index on next button click', function () {
-    const inputs = wrapper.find(StyledInput)
+    const inputs = wrapper.find('input')
     expect(inputs.at(2).props().checked).to.be.true()
     const nextButton = wrapper.find(StyledControlButton).last()
     nextButton.simulate('click')
