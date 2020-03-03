@@ -24,23 +24,23 @@ function storeMapper (stores) {
   } = stores.classifierStore.classifications
   const annotations = stores.classifierStore.classifications.currentAnnotations
 
-  const currentTask =
-    (stores.classifierStore.workflowSteps.activeStepTasks &&
-      stores.classifierStore.workflowSteps.activeStepTasks[0]) ||
-    {}
+  const {
+    activeStepTasks
+  } = stores.classifierStore.workflowSteps
 
-  const { active: toolIndex } = stores.classifierStore.dataVisAnnotating
+  const [activeDataVisTask] = activeStepTasks.filter(task => task.type === 'dataVisAnnotation')
+  const { activeToolIndex } = activeDataVisTask || {}
 
   return {
+    activeDataVisTask,
+    activeToolIndex,
     addAnnotation,
     annotations,
-    currentTask,
     enableAnnotate,
     enableMove,
     interactionMode,
     setOnPan,
-    setOnZoom,
-    toolIndex
+    setOnZoom
   }
 }
 
@@ -129,9 +129,10 @@ class LightCurveViewerContainer extends Component {
 
   render () {
     const {
+      activeDataVisTask,
+      activeToolIndex,
       addAnnotation,
       annotations,
-      currentTask,
       drawFeedbackBrushes,
       enableAnnotate,
       enableMove,
@@ -140,8 +141,7 @@ class LightCurveViewerContainer extends Component {
       onKeyDown,
       setOnPan,
       setOnZoom,
-      subject,
-      toolIndex
+      subject
     } = this.props
 
     if (!subject.id) {
@@ -152,7 +152,7 @@ class LightCurveViewerContainer extends Component {
       <LightCurveViewer
         addAnnotation={addAnnotation}
         annotations={annotations}
-        currentTask={currentTask}
+        currentTask={activeDataVisTask}
         dataExtent={this.state.dataExtent}
         dataPoints={this.state.dataPoints}
         drawFeedbackBrushes={drawFeedbackBrushes}
@@ -164,7 +164,7 @@ class LightCurveViewerContainer extends Component {
         onKeyDown={onKeyDown}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
-        toolIndex={toolIndex}
+        toolIndex={activeToolIndex}
       />
     )
   }
@@ -184,6 +184,7 @@ LightCurveViewerContainer.defaultProps = {
 }
 
 LightCurveViewerContainer.propTypes = {
+  activeToolIndex: PropTypes.number,
   addAnnotation: PropTypes.func,
   drawFeedbackBrushes: PropTypes.func,
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
@@ -196,8 +197,7 @@ LightCurveViewerContainer.propTypes = {
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
-  }),
-  toolIndex: PropTypes.number
+  })
 }
 
 @inject(storeMapper)
