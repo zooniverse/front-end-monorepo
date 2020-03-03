@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { types } from 'mobx-state-tree'
 import React from 'react'
+import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import { Tasks } from './Tasks'
@@ -18,6 +19,14 @@ describe('Tasks', function () {
   let TaskComponent
 
   const taskTypes = Object.keys(taskRegistry.register)
+
+  before(function () {
+    sinon.stub(console, 'error')
+  })
+
+  after(function () {
+    console.error.restore()
+  })
 
   taskTypes.forEach(function (taskType) {
     before(function () {
@@ -44,17 +53,32 @@ describe('Tasks', function () {
       const projectSnapshot = ProjectFactory.build({
         id: 'project'
       })
-      const rootStore = RootStore.create({})
-      rootStore.projects.setResource(projectSnapshot)
-      rootStore.projects.setActive(projectSnapshot.id)
-      rootStore.workflows.setResource(workflowSnapshot)
-      rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResource(subjectSnapshot)
-      rootStore.subjects.setActive(subjectSnapshot.id)
-      const project = rootStore.projects.active
-      const workflow = rootStore.workflows.active
-      const subject = rootStore.subjects.active
-      rootStore.classifications.createClassification(subject, workflow, project)
+      const rootStore = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        },
+        subjects: {
+          active: subjectSnapshot.id,
+          resources: {
+            [subjectSnapshot.id]: subjectSnapshot
+          }
+        },
+        workflows: {
+          active: workflowSnapshot.id,
+          resources: {
+            [workflowSnapshot.id]: workflowSnapshot
+          }
+        }
+      }, {
+        client: {
+          panoptes: {
+            get: sinon.stub().callsFake(() => Promise.resolve({ body: {}}))
+          }
+        }
+      })
       classification = rootStore.classifications.active
       addAnnotation = rootStore.classifications.addAnnotation
       step = rootStore.workflowSteps.active
