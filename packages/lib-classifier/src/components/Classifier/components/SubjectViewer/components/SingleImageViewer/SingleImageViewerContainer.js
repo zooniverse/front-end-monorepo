@@ -15,6 +15,7 @@ import SubTaskPopup from '../../../SubTaskPopup'
 function storeMapper (stores) {
   const {
     enableRotation,
+    move,
     rotation,
     setOnZoom,
     setOnPan
@@ -22,6 +23,7 @@ function storeMapper (stores) {
 
   return {
     enableRotation,
+    move,
     rotation,
     setOnZoom,
     setOnPan
@@ -108,6 +110,7 @@ class SingleImageViewerContainer extends React.Component {
     const {
       enableInteractionLayer,
       loadingState,
+      move,
       onKeyDown,
       rotation,
       setOnPan,
@@ -132,6 +135,7 @@ class SingleImageViewerContainer extends React.Component {
 
     const svg = this.imageViewer.current
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
+    const SubjectImage = move ? DraggableImage : 'image'
 
     return (
       <SVGContext.Provider value={{ svg }}>
@@ -152,13 +156,14 @@ class SingleImageViewerContainer extends React.Component {
             rotate={rotation}
             width={naturalWidth}
           >
-            <DraggableImage
-              ref={this.subjectImage}
-              dragMove={this.dragMove}
-              height={naturalHeight}
-              width={naturalWidth}
-              xlinkHref={src}
-            />
+            <g ref={this.subjectImage}>
+              <SubjectImage
+                dragMove={this.dragMove}
+                height={naturalHeight}
+                width={naturalWidth}
+                xlinkHref={src}
+              />
+            </g>
           </SingleImageViewer>
         </SVGPanZoom>
         <SubTaskPopup />
@@ -171,6 +176,7 @@ SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
+  move: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
   setOnPan: PropTypes.func,
@@ -185,6 +191,7 @@ SingleImageViewerContainer.defaultProps = {
   enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
+  move: false,
   onError: () => true,
   onReady: () => true,
   setOnPan: () => true,
