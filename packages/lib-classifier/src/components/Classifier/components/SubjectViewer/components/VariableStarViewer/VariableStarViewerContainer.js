@@ -216,6 +216,7 @@ class VariableStarViewerContainer extends Component {
         imageSrc={this.state.imageSrc}
         invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
+        phaseLimit={this.state.phaseLimit}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
         setPeriodMultiple={this.setPeriodMultiple}
