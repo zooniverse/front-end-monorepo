@@ -239,6 +239,12 @@ describe('Component > VariableStarViewerContainer', function () {
 
   describe('with series focus', function () {
     let cdmSpy
+    let nockScope
+    const subject = Factory.build('subject', {
+      locations: [
+        { 'application/json': 'http://localhost:8080/variableStar.json' }
+      ]
+    })
     const focusedStateMock = [
       { [variableStar.data[0].seriesOptions.label]: true },
       { [variableStar.data[1].seriesOptions.label]: true }
@@ -263,6 +269,12 @@ describe('Component > VariableStarViewerContainer', function () {
     })
 
     it('should default to focused states of true for each series', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
       expect(wrapper.state().focusedSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
@@ -276,6 +288,11 @@ describe('Component > VariableStarViewerContainer', function () {
           value: Object.keys(focusedStateMock[0])[0]
         }
       }
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
 
       wrapper.setState({ rawJSON: variableStar, focusedSeries: focusedStateMock })
       expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
