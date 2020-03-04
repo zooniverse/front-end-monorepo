@@ -21,6 +21,7 @@ describe('Tasks', function () {
   const taskTypes = Object.keys(taskRegistry.register)
 
   before(function () {
+    // Mute the onAction warnings for the duration of these tests.
     sinon.stub(console, 'error')
   })
 
@@ -73,9 +74,28 @@ describe('Tasks', function () {
           }
         }
       }, {
+        authClient: {
+          checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
+          checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
+        },
         client: {
           panoptes: {
-            get: sinon.stub().callsFake(() => Promise.resolve({ body: {}}))
+            get: sinon.stub().callsFake(() =>
+              Promise.resolve({ body: {
+                field_guides: [],
+                projects: [projectSnapshot],
+                subjects: [subjectSnapshot],
+                tutorials: [],
+                workflows: [workflowSnapshot]
+              }})
+            )
+          },
+          tutorials: {
+            get: sinon.stub().callsFake(() =>
+              Promise.resolve({ body: {
+                tutorials: []
+              }})
+            )
           }
         }
       })
