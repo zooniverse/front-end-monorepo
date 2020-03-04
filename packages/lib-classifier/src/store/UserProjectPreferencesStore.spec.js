@@ -1,3 +1,4 @@
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 import merge from 'lodash/merge'
@@ -8,52 +9,58 @@ import {
   ProjectFactory,
   TutorialFactory,
   UPPFactory,
-  UserFactory
+  UserFactory,
+  WorkflowFactory
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-const project = ProjectFactory.build()
-const upp = UPPFactory.build()
-const user = UserFactory.build()
-const token = '1234'
-const etag = 'W/"8d26cb6718e250b"'
-
-const clientStub = stubPanoptesJs({
-  projects: project,
-  project_preferences: upp
-})
-
-const clientStubWithoutUPP = stubPanoptesJs({
-  projects: project,
-  project_preferences: null
-})
-
-const authClientStubWithoutUser = {
-  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
-  checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
-}
-
-const authClientStubWithUser = {
-  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
-  checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
-}
-
-function setupStores (clientStub, authClientStub) {
-  return RootStore.create({
-    classifications: {},
-    dataVisAnnotating: {},
-    drawing: {},
-    feedback: {},
-    fieldGuide: {},
-    subjects: {},
-    subjectViewer: {},
-    tutorials: {},
-    workflows: {},
-    workflowSteps: {}
-  }, { authClient: authClientStub, client: clientStub })
-}
-
 describe('Model > UserProjectPreferencesStore', function () {
+  const project = ProjectFactory.build()
+  const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
+  const upp = UPPFactory.build()
+  const user = UserFactory.build()
+  const token = '1234'
+  const etag = 'W/"8d26cb6718e250b"'
+
+  const clientStub = stubPanoptesJs({
+    projects: project,
+    project_preferences: upp,
+    subjects: Factory.buildList('subject', 10),
+    workflows: workflow
+  })
+
+  const clientStubWithoutUPP = stubPanoptesJs({
+    projects: project,
+    project_preferences: null,
+    subjects: Factory.buildList('subject', 10),
+    workflows: workflow
+  })
+
+  const authClientStubWithoutUser = {
+    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
+    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
+  }
+
+  const authClientStubWithUser = {
+    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
+    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
+  }
+
+  function setupStores (clientStub, authClientStub) {
+    return RootStore.create({
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      subjects: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflows: {},
+      workflowSteps: {}
+    }, { authClient: authClientStub, client: clientStub })
+  }
+
   describe('when instantiated', function () {
     let rootStore
     it('should exist', function () {
@@ -184,7 +191,7 @@ describe('Model > UserProjectPreferencesStore', function () {
 
   describe('Actions > createUPP', function () {
     let rootStore
-    afterEach(function () {
+    beforeEach(function () {
       rootStore = null
     })
 
@@ -194,7 +201,11 @@ describe('Model > UserProjectPreferencesStore', function () {
         panoptes: {
           get: (url) => {
             if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
-            return Promise.resolve({ body: { project_preferences: [] } })
+            return Promise.resolve({ body: {
+              subjects: Factory.buildList('subject', 10),
+              project_preferences: [],
+              workflows: [workflow]
+            } })
           },
           post: postStub
         }
@@ -219,7 +230,11 @@ describe('Model > UserProjectPreferencesStore', function () {
         panoptes: {
           get: (url) => {
             if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
-            return Promise.resolve({ body: { project_preferences: [] } })
+            return Promise.resolve({ body: {
+              subjects: Factory.buildList('subject', 10),
+              project_preferences: [],
+              workflows: [workflow]
+            } })
           },
           post: () => Promise.reject(new Error('testing error handling'))
         }
@@ -259,7 +274,11 @@ describe('Model > UserProjectPreferencesStore', function () {
             if (url === `/project_preferences` && params === { project_id: project.id, user_id: user.id }) {
               return Promise.resolve({ body: { project_preferences: [upp] } })
             }
-            return Promise.resolve({ body: { project_preferences: [upp] }, headers: { etag } })
+            return Promise.resolve({ body: {
+              subjects: Factory.buildList('subject', 10),
+              project_preferences: [upp],
+              workflows: [workflow]
+            }, headers: { etag } })
           }),
           put: sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [updatedUPP] } }))
         }
