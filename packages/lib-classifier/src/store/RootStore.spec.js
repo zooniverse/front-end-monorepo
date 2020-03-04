@@ -1,10 +1,10 @@
 import sinon from 'sinon'
 import RootStore from './RootStore'
 
-let model
-const client = { foo: 'bar' }
-
 describe('Model > RootStore', function () {
+  let model
+  const client = { foo: 'bar' }
+
   before(function () {
     model = RootStore.create({}, { client })
   })
