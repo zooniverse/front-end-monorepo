@@ -1,4 +1,5 @@
-import { getEnv, types, setLivelynessChecking } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getEnv, tryReference, types, setLivelynessChecking } from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
@@ -33,6 +34,24 @@ const RootStore = types
   })
 
   .actions(self => {
+    function afterCreate () {
+      createSubjectObserver()
+    }
+
+    function createSubjectObserver () {
+      const subjectDisposer = autorun(() => {
+        const { classifications, projects, subjects, workflows, workflowSteps } = self
+        const subject = tryReference(() => subjects?.active)
+        const workflow = tryReference(() => workflows?.active)
+        const project = tryReference(() => projects?.active)
+        if (subject && workflow && project) {
+          workflowSteps.resetSteps()
+          classifications.reset()
+          classifications.createClassification(subject, workflow, project)
+        }
+      }, { name: 'Root Store Subject Observer autorun' })
+      addDisposer(self, subjectDisposer)
+    }
     function setOnAddToCollection (callback) {
       self.onAddToCollection = callback
     }
@@ -42,6 +61,7 @@ const RootStore = types
     }
 
     return {
+      afterCreate,
       setOnAddToCollection,
       setOnToggleFavourite
     }
