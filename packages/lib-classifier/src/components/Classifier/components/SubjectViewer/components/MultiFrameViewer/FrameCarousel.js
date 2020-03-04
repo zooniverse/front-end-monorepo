@@ -54,6 +54,7 @@ export const StyledFrame = styled.label`
     input:checked + img {
       border: ${props.theme.global.colors['neutral-4']} solid;
     }
+    
     input:focus + img {
       outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
@@ -83,6 +84,20 @@ class FrameCarousel extends React.Component {
     super()
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
+    this.activeLabel = React.createRef()
+    this.frameList = React.createRef()
+  }
+
+  componentDidMount () {
+    this.handleScroll()
+  }
+
+  componentDidUpdate (prevProps) {
+    const { frame } = this.props
+    if (prevProps.frame !== frame) {
+      this.handleScroll()
+    }
   }
 
   handlePrevious () {
@@ -99,6 +114,12 @@ class FrameCarousel extends React.Component {
     }
   }
 
+  handleScroll (event) {
+    if (this.activeLabel.current?.offsetTop <= this.frameList.current?.scrollTop || this.activeLabel.current?.offsetTop >= (this.frameList.current?.scrollTop + this.frameList.current?.clientHeight)) {
+      this.frameList.current.scrollTop = this.activeLabel.current.offsetTop - this.activeLabel.current.offsetHeight
+    }
+  }
+
   render () {
     const { frame, onFrameChange, locations } = this.props
     const locationElements = locations.map((location, index) => {
@@ -108,6 +129,7 @@ class FrameCarousel extends React.Component {
       return (
         <StyledFrame
           key={`${url}-${index}`}
+          ref={activeFrame ? this.activeLabel : null}
         >
           <input
             checked={activeFrame}
@@ -142,6 +164,7 @@ class FrameCarousel extends React.Component {
           direction='column'
           fill
           overflow='auto'
+          ref={this.frameList}
         >
           {locationElements}
         </Box>

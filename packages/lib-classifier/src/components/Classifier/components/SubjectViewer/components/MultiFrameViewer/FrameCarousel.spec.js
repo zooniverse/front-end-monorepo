@@ -9,7 +9,7 @@ import {
   StyledImage
 } from './FrameCarousel'
 
-describe.only('Component > FrameCarousel', function () {
+describe('Component > FrameCarousel', function () {
   let wrapper
   let onFrameChangeSpy
   const multiFrameSubjectLocations = [
