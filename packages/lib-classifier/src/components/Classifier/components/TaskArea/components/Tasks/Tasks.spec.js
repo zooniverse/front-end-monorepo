@@ -11,7 +11,6 @@ import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Tasks', function () {
-  let addAnnotation
   let classification
   let step
   let tasks
@@ -97,7 +96,6 @@ describe('Tasks', function () {
         client
       })
       classification = rootStore.classifications.active
-      addAnnotation = rootStore.classifications.addAnnotation
       step = rootStore.workflowSteps.active
     })
 
@@ -132,9 +130,8 @@ describe('Tasks', function () {
           <Tasks
             loadingState={asyncStates.success}
             ready
-            addAnnotation={addAnnotation}
             classification={classification}
-            tasks={step.tasks}
+            step={step}
           />
         )
         // Is there a better way to do this?
@@ -148,11 +145,10 @@ describe('Tasks', function () {
           before(function () {
             const wrapper = shallow(
               <Tasks
-                addAnnotation={addAnnotation}
                 classification={classification}
                 loadingState={asyncStates.success}
                 subjectReadyState={asyncStates.loading}
-                tasks={step.tasks}
+                step={step}
               />
             )
             taskWrapper = wrapper.find(TaskComponent.displayName)
@@ -167,12 +163,10 @@ describe('Tasks', function () {
           before(function () {
             const wrapper = shallow(
               <Tasks
-                addAnnotation={addAnnotation}
                 classification={classification}
                 loadingState={asyncStates.success}
                 subjectReadyState={asyncStates.success}
                 step={step}
-                tasks={step.tasks}
               />
             )
             taskWrapper = wrapper.find(TaskComponent.displayName)
