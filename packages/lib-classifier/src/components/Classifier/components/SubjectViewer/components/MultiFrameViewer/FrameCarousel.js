@@ -71,20 +71,18 @@ export const StyledFrame = styled.label`
 `
 
 export const StyledImage = styled.img`
-  float: center;
-  height: 3em;
-  margin: 0.5em;
+  height: 40px;
   object-fit: cover;
   padding: 0;
-  width: 3em;
+  width: 40px;
 `
 
 class FrameCarousel extends React.Component {
   constructor () {
     super()
+    this.handleScroll = this.handleScroll.bind(this)
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
-    this.handleScroll = this.handleScroll.bind(this)
     this.activeLabel = React.createRef()
     this.frameList = React.createRef()
   }
@@ -93,35 +91,37 @@ class FrameCarousel extends React.Component {
     this.handleScroll()
   }
 
-  componentDidUpdate (prevProps) {
-    const { frame } = this.props
-    if (prevProps.frame !== frame) {
-      this.handleScroll()
+  handleScroll () {
+    const labelIsAboveContainerTop = this.activeLabel.current?.offsetTop <= this.frameList.current?.scrollTop
+    const labelIsBelowContainerBottom = this.activeLabel.current?.offsetTop >= (this.frameList.current?.scrollTop + this.frameList.current?.clientHeight)
+
+    if (labelIsAboveContainerTop || labelIsBelowContainerBottom) {
+      const newContainerTopPosition = this.activeLabel.current.offsetTop - this.activeLabel.current.offsetHeight
+      this.frameList.current.scrollTop = newContainerTopPosition
     }
   }
 
+  handleFrameChange (frameIndex) {
+    const { onFrameChange } = this.props
+    onFrameChange(frameIndex)
+  }
+
   handlePrevious () {
-    const { frame, onFrameChange } = this.props
+    const { frame } = this.props
     if (frame > 0) {
-      onFrameChange(frame - 1)
+      this.handleFrameChange(frame - 1)
     }
   }
 
   handleNext () {
-    const { frame, onFrameChange, locations } = this.props
+    const { frame, locations } = this.props
     if (frame < locations.length) {
-      onFrameChange(frame + 1)
-    }
-  }
-
-  handleScroll (event) {
-    if (this.activeLabel.current?.offsetTop <= this.frameList.current?.scrollTop || this.activeLabel.current?.offsetTop >= (this.frameList.current?.scrollTop + this.frameList.current?.clientHeight)) {
-      this.frameList.current.scrollTop = this.activeLabel.current.offsetTop - this.activeLabel.current.offsetHeight
+      this.handleFrameChange(frame + 1)
     }
   }
 
   render () {
-    const { frame, onFrameChange, locations } = this.props
+    const { frame, locations } = this.props
     const locationElements = locations.map((location, index) => {
       const mimeType = Object.keys(location)[0]
       const url = location[mimeType]
@@ -134,7 +134,7 @@ class FrameCarousel extends React.Component {
           <input
             checked={activeFrame}
             name='frame'
-            onChange={() => onFrameChange(index)}
+            onChange={() => this.handleFrameChange(index)}
             type='radio'
           />
           <StyledImage
@@ -165,6 +165,7 @@ class FrameCarousel extends React.Component {
           fill
           overflow='auto'
           ref={this.frameList}
+          style={{ position: 'relative', scrollBehavior: 'smooth' }}
         >
           {locationElements}
         </Box>
