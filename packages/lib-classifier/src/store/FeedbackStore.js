@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
@@ -45,21 +45,8 @@ const FeedbackStore = types
     }
 
     function afterAttach () {
-      createClassificationObserver()
       createSubjectMiddleware()
       createSubjectObserver()
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(getRoot(self).classifications, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = getRoot(self).classifications.currentAnnotations
-            annotations.forEach(annotation => self.update(annotation))
-          }
-        })
-      }, { name: 'FeedbackStore Classification Observer autorun' })
-      addDisposer(self, classificationDisposer)
     }
 
     function onNewSubject () {

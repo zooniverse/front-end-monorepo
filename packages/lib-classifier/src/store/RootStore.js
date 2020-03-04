@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getEnv, tryReference, types, setLivelynessChecking } from 'mobx-state-tree'
+import { addDisposer, getEnv, onAction, tryReference, types, setLivelynessChecking } from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
@@ -35,7 +35,20 @@ const RootStore = types
 
   .actions(self => {
     function afterCreate () {
+      createClassificationObserver()
       createSubjectObserver()
+    }
+
+    function createClassificationObserver () {
+      const classificationDisposer = autorun(() => {
+        onAction(self, (call) => {
+          if (call.name === 'completeClassification') {
+            const annotations = self.classifications.currentAnnotations
+            annotations.forEach(annotation => self.feedback.update(annotation))
+          }
+        })
+      }, { name: 'Root Store Classification Observer autorun' })
+      addDisposer(self, classificationDisposer)
     }
 
     function createSubjectObserver () {
