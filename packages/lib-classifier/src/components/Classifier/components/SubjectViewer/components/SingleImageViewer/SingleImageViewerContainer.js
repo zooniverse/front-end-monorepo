@@ -9,6 +9,7 @@ import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
+import SubTaskPopup from '../../../SubTaskPopup'
 
 function storeMapper (stores) {
   const {
@@ -157,6 +158,7 @@ class SingleImageViewerContainer extends React.Component {
             />
           </SingleImageViewer>
         </SVGPanZoom>
+        <SubTaskPopup />
       </SVGContext.Provider>
     )
   }

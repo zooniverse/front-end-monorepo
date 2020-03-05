@@ -12,6 +12,15 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
+    const ref = React.createRef()
+    
+    function onFinishWithRef (event) {
+      onFinish(event, ref.current)
+    }
+    
+    function onSelectMarkWithRef (mark) {
+      onSelectMark(mark, ref.current)
+    }
 
     function isInBounds (markElement) {
       const object = markElement.getBoundingClientRect()
@@ -40,7 +49,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function selectMark () {
-      onSelectMark(mark)
+      onSelectMarkWithRef(mark)
     }
 
     return (
@@ -55,13 +64,14 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         mark={mark}
         onDelete={deleteMark}
         onDeselect={onDeselectMark}
-        onSelect={onSelectMark}
+        onSelect={onSelectMarkWithRef}
+        ref={ref}
         scale={scale}
       >
         <MarkingComponent
           active={isActive}
           mark={mark}
-          onFinish={onFinish}
+          onFinish={onFinishWithRef}
           scale={scale}
         />
         {isActive && <ObservedDeleteButton
