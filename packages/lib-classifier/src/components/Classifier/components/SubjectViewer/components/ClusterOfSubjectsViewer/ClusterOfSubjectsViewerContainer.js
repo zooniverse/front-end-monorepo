@@ -6,7 +6,7 @@ import { draggable } from '@plugins/drawingTools/components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
-import SingleImageViewer from './SingleImageViewer'
+import ClusterOfSubjectsViewer from './ClusterOfSubjectsViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
 import SubTaskPopup from '../../../SubTaskPopup'
@@ -29,7 +29,7 @@ function storeMapper (stores) {
 
 const DraggableImage = draggable('image')
 
-class SingleImageViewerContainer extends React.Component {
+class ClusterOfSubjectsViewerContainer extends React.Component {
   constructor () {
     super()
     this.setOnDrag = this.setOnDrag.bind(this)
@@ -141,7 +141,7 @@ class SingleImageViewerContainer extends React.Component {
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
         >
-          <SingleImageViewer
+          <ClusterOfSubjectsViewer
             enableInteractionLayer={enableInteractionLayer}
             height={naturalHeight}
             onKeyDown={onKeyDown}
@@ -156,7 +156,7 @@ class SingleImageViewerContainer extends React.Component {
               width={naturalWidth}
               xlinkHref={src}
             />
-          </SingleImageViewer>
+          </ClusterOfSubjectsViewer>
         </SVGPanZoom>
         <SubTaskPopup />
       </SVGContext.Provider>
@@ -164,7 +164,7 @@ class SingleImageViewerContainer extends React.Component {
   }
 }
 
-SingleImageViewerContainer.propTypes = {
+ClusterOfSubjectsViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
@@ -177,7 +177,7 @@ SingleImageViewerContainer.propTypes = {
   })
 }
 
-SingleImageViewerContainer.defaultProps = {
+ClusterOfSubjectsViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   enableRotation: () => null,
   ImageObject: window.Image,
@@ -191,7 +191,7 @@ SingleImageViewerContainer.defaultProps = {
 @inject(storeMapper)
 @withKeyZoom
 @observer
-class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
+class DecoratedClusterOfSubjectsViewerContainer extends ClusterOfSubjectsViewerContainer { }
 
-export default DecoratedSingleImageViewerContainer
-export { SingleImageViewerContainer }
+export default DecoratedClusterOfSubjectsViewerContainer
+export { ClusterOfSubjectsViewerContainer }

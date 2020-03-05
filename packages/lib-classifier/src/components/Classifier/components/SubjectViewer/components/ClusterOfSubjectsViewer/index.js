@@ -1,2 +1,2 @@
-export { default } from './SingleImageViewerContainer'
-export { default as SingleImageViewer } from './SingleImageViewer'
+export { default } from './ClusterOfSubjectsViewerContainer'
+export { default as ClusterOfSubjectsViewer } from './ClusterOfSubjectsViewer'

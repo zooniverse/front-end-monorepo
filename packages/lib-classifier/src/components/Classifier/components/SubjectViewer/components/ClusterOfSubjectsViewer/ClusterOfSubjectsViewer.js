@@ -22,7 +22,7 @@ const Container = styled.div`
   }
 `
 
-const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
+const ClusterOfSubjectsViewer = forwardRef(function ClusterOfSubjectsViewer(props, ref) {
   const {
     children,
     enableInteractionLayer,
@@ -67,7 +67,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
   )
 })
 
-SingleImageViewer.propTypes = {
+ClusterOfSubjectsViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onKeyDown: PropTypes.func,
@@ -77,11 +77,11 @@ SingleImageViewer.propTypes = {
   width: PropTypes.number.isRequired
 }
 
-SingleImageViewer.defaultProps = {
+ClusterOfSubjectsViewer.defaultProps = {
   enableInteractionLayer: true,
   onKeyDown: () => true,
   rotate: 0,
   scale: 1
 }
 
-export default SingleImageViewer
+export default ClusterOfSubjectsViewer

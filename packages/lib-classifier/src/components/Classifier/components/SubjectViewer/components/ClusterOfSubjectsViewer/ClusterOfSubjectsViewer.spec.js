@@ -1,14 +1,14 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import SingleImageViewer from './SingleImageViewer'
+import ClusterOfSubjectsViewer from './ClusterOfSubjectsViewer'
 import InteractionLayer from '../InteractionLayer'
 
 let wrapper
 
-describe('Component > SingleImageViewer', function () {
+describe('Component > ClusterOfSubjectsViewer', function () {
   beforeEach(function () {
-    wrapper = shallow(<SingleImageViewer height={200} width={100} viewBox='0 0 100 100' />)
+    wrapper = shallow(<ClusterOfSubjectsViewer height={200} width={100} viewBox='0 0 100 100' />)
   })
 
   it('should render without crashing', function () {
