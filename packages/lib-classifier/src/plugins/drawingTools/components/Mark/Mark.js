@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import draggable from '../draggable'
 
 const STROKE_WIDTH = 2
-const SELECTED_STROKE_WIDTH = 3
+const SELECTED_STROKE_WIDTH = 4
 
 const StyledGroup = styled('g')`
   :focus {
