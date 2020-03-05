@@ -46,7 +46,6 @@ const FeedbackStore = types
 
     function afterAttach () {
       createSubjectMiddleware()
-      createSubjectObserver()
     }
 
     function onNewSubject () {
@@ -82,11 +81,6 @@ const FeedbackStore = types
         })
       }, { name: 'FeedbackStore Subject Middleware autorun' })
       addDisposer(self, subjectMiddleware)
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(onNewSubject, { name: 'FeedbackStore Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
     }
 
     function createRules (subject) {

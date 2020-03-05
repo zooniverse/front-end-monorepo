@@ -53,7 +53,7 @@ const RootStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const { classifications, projects, subjects, workflows, workflowSteps } = self
+        const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
         const subject = tryReference(() => subjects?.active)
         const workflow = tryReference(() => workflows?.active)
         const project = tryReference(() => projects?.active)
@@ -61,6 +61,7 @@ const RootStore = types
           workflowSteps.resetSteps()
           classifications.reset()
           classifications.createClassification(subject, workflow, project)
+          feedback.onNewSubject()
         }
       }, { name: 'Root Store Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
