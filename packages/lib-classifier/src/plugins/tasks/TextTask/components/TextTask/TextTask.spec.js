@@ -7,7 +7,7 @@ import { expect } from 'chai'
 import TextTask from './'
 import { default as Task } from '@plugins/tasks/TextTask'
 
-describe('TextTask', function () {
+describe.only('TextTask', function () {
   let wrapper
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
@@ -18,7 +18,7 @@ describe('TextTask', function () {
   const annotation = task.defaultAnnotation
 
   before(function () {
-    const store = types.model('MockStore', {
+    types.model('MockStore', {
       annotation: Task.AnnotationModel,
       task: Task.TaskModel
     })
