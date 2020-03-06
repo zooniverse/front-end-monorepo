@@ -7,7 +7,7 @@ import { expect } from 'chai'
 import TextTask from './'
 import { default as Task } from '@plugins/tasks/TextTask'
 
-describe.only('TextTask', function () {
+describe('TextTask', function () {
   let wrapper
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
@@ -38,7 +38,7 @@ describe.only('TextTask', function () {
     const label = wrapper.find('label')
     expect(label.find(Text).prop('children')).to.equal(task.instruction)
     const textarea = label.find(TextArea)
-    expect(textarea.prop('defaultValue')).to.equal(annotation.value)
+    expect(textarea.prop('value')).to.equal(annotation.value)
   })
 
   describe('text tagging', function () {
