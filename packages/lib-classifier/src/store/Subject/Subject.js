@@ -1,9 +1,9 @@
 import { autorun } from 'mobx'
 import { addDisposer, destroy, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
-import Resource from './Resource'
-import createLocationCounts from '../helpers/createLocationCounts'
-import subjectViewers from '../helpers/subjectViewers'
-import TranscriptionReductions from './TranscriptionReductions'
+import Resource from '../Resource'
+import createLocationCounts from '../../helpers/createLocationCounts'
+import subjectViewers from '../../helpers/subjectViewers'
+import TranscriptionReductions from '../TranscriptionReductions'
 
 const Subject = types
   .model('Subject', {
