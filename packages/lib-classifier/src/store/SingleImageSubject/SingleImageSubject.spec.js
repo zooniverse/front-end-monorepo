@@ -3,7 +3,7 @@ import SingleImageSubject from './SingleImageSubject'
 import RootStore from '../'
 import WorkflowStore from '../WorkflowStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
-import stubPanoptesJS from '@test/stubPanoptesJS'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 import subjectViewers from '../../helpers/subjectViewers'
 
 describe('Model > SingleImageSubject', function () {
@@ -45,7 +45,7 @@ describe('Model > SingleImageSubject', function () {
 
   describe('Views > viewer', function () {
     before(function () {
-      const { panoptes } = stubPanoptesJS({
+      const { panoptes } = stubPanoptesJs({
         subjects: [ subject ],
         workflows: [ workflowSnapshot ]
       })
