@@ -91,6 +91,13 @@ class FrameCarousel extends React.Component {
     this.handleScroll()
   }
 
+  componentDidUpdate (prevProps) {
+    const { frame } = this.props
+    if (prevProps.frame !== frame) {
+      this.handleScroll()
+    }
+  }
+
   handleScroll () {
     const labelIsAboveContainerTop = this.activeLabel.current?.offsetTop <= this.frameList.current?.scrollTop
     const labelIsBelowContainerBottom = this.activeLabel.current?.offsetTop >= (this.frameList.current?.scrollTop + this.frameList.current?.clientHeight)
