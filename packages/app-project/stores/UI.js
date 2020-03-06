@@ -49,7 +49,10 @@ const UI = types
       const modeDisposer = autorun(() => {
         onPatch(self, (patch) => {
           const { path } = patch
-          if (path === '/mode') self.setModeCookie()
+          if (path === '/mode') {
+            console.log('mode is set', self.mode)
+            self.setModeCookie()
+          }
         })
       })
       addDisposer(self, modeDisposer)
@@ -111,6 +114,7 @@ const UI = types
     },
 
     toggleMode () {
+      console.log('clicky')
       if (self.mode === 'light') {
         self.setDarkMode()
       } else {

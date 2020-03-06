@@ -18,6 +18,7 @@ function storeMapper (stores) {
 class GrommetWrapperContainer extends Component {
   mergeThemes () {
     const { mode, theme } = this.props
+    console.log('mode', mode)
     return merge({}, theme, { dark: mode === 'dark' })
   }
 
@@ -25,8 +26,9 @@ class GrommetWrapperContainer extends Component {
     const { children } = this.props
     const mergedThemes = this.mergeThemes()
 
+    console.log('mergedThemes', mergedThemes)
     return (
-      <Grommet theme={mergedThemes}>
+      <Grommet theme={mergedThemes} themeMode={(mergedThemes.dark) ? 'dark' : 'light'}>
         {children}
       </Grommet>
     )
