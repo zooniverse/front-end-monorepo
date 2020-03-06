@@ -30,6 +30,19 @@ describe('Model > SingleImageSubject', function () {
     expect(subject.locations).to.have.lengthOf(1)
   })
 
+  describe('with an invalid subject', function () {
+    const subjectSnapshot = SubjectFactory.build({ 
+      locations: [
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'audio/mpeg': 'https://foo.bar/example.mp3' }
+      ]
+    })
+
+    it('should throw an error', function () {
+      expect(() => SingleImageSubject.create(subjectSnapshot)).to.throw()
+    })
+  })
+
   describe('Views > viewer', function () {
     before(function () {
       const { panoptes } = stubPanoptesJS({

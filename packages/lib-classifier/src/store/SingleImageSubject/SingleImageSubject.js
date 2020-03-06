@@ -5,7 +5,7 @@ import Subject from '../Subject'
 const SingleImageSubject = types
   .refinement('SingleImageSubject', Subject, subject => {
     const counts = createLocationCounts(subject)
-    return counts.images === 1
+    return subject.locations.length === 1 && counts.images === 1
   })
 
   
