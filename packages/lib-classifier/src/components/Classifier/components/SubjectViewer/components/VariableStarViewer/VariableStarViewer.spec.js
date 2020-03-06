@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 import { VariableStarViewer } from './VariableStarViewer'
 
 describe('Component > VariableStarViewer', function () {
