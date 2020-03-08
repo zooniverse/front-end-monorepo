@@ -80,7 +80,12 @@ function MultipleChoiceTask (props) {
 
 MultipleChoiceTask.defaultProps = {
   className: '',
-  disabled: false
+  disabled: false,
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 MultipleChoiceTask.propTypes = {
@@ -97,7 +102,12 @@ MultipleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  theme: PropTypes.shape({
+    global: PropTypes.shape({
+      colors: PropTypes.object
+   })
+ })
 }
 
 export default MultipleChoiceTask
