@@ -45,11 +45,6 @@ export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
     top: 0;
     width: 28px;
   }
-
-  > div:first-of-type:after {
-    left: -5px;
-    width: 34px;
-  }
 `
 
 function Controls(props) {
@@ -67,7 +62,7 @@ function Controls(props) {
 
   const radioButtonOptions = periodMultipleOptions.map((option) => {
     return {
-      label: <SpacedText size='10px' weight='bold'>{option}</SpacedText>,
+      label: <SpacedText size='10px' style={{ width: '1ch' }} weight='bold'>{option}</SpacedText>,
       value: option
     }
   })
