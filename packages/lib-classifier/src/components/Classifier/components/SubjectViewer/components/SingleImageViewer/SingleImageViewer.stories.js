@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import SingleImageViewer, { SingleImageViewerContainer } from './SingleImageViewerContainer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
@@ -23,16 +24,6 @@ const subject = {
   ]
 }
 
-let zoomCallback
-
-function onZoom(type) {
-  zoomCallback(type)
-}
-
-function setZoomCallback(callback) {
-  zoomCallback = callback
-}
-
 const mockStore = {
   classifications: {
     active: {
@@ -42,10 +33,9 @@ const mockStore = {
   drawing: {
     addToStream: sinon.stub()
   },
-  subjectViewer: {
-    enableRotation: () => null,
-    setOnZoom: setZoomCallback
-  },
+  subjectViewer: SubjectViewerStore.create({
+    move: true,
+  }),
   workflowSteps: {
     activeStepTasks: []
   }
@@ -68,27 +58,25 @@ const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.dar
 storiesOf('Subject Viewers | SingleImageViewer', module)
   .add('light theme', () => {
     return (
-      <Grommet theme={zooTheme}>
+      <ViewerContext theme={zooTheme}>
         <Box height='medium' width='large'>
-          <SingleImageViewerContainer
-            enableInteractionLayer={false}
+          <SingleImageViewer
             subject={subject}
           />
         </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, config)
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <Grommet theme={darkZooTheme}>
+      <ViewerContext theme={darkZooTheme}>
         <Box height='medium' width='large'>
-          <SingleImageViewerContainer
-            enableInteractionLayer={false}
+          <SingleImageViewer
             subject={subject}
           />
         </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, darkThemeConfig)
   .add('pan and zoom', () => {
