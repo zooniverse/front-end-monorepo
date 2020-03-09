@@ -22,6 +22,7 @@ function InteractionLayer ({
   move,
   scale,
   setActiveMark,
+  setSubTaskVisibility,
   width
 }) {
   const [ creating, setCreating ] = useState(false)
@@ -62,6 +63,7 @@ function InteractionLayer ({
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
+    setSubTaskVisibility(false)
     return false
   }
 
@@ -73,9 +75,11 @@ function InteractionLayer ({
     }
   }
 
-  function onFinish (event) {
+  function onFinish (event, node) {
     const { target, pointerId } = event
+    
     setCreating(false)
+    setSubTaskVisibility(true, node)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
@@ -100,9 +104,15 @@ function InteractionLayer ({
         <DrawingToolMarks
           activeMarkId={activeMark && activeMark.id}
           marks={marks}
-          onDelete={() => setActiveMark(undefined)}
+          onDelete={() => {
+            setSubTaskVisibility(false)
+            setActiveMark(undefined)
+          }}
           onFinish={onFinish}
-          onSelectMark={mark => setActiveMark(mark)}
+          onSelectMark={(mark, node) => {
+            setSubTaskVisibility(true, node)  // Show sub-task again on select, in case it was closed 
+            setActiveMark(mark)
+          }}
           onMove={(mark, difference) => mark.move(difference)}
           scale={scale}
         />
@@ -120,6 +130,7 @@ InteractionLayer.propTypes = {
   marks: PropTypes.array,
   scale: PropTypes.number,
   setActiveMark: PropTypes.func,
+  setSubTaskVisibility: PropTypes.func,
   width: PropTypes.number.isRequired
 }
 
@@ -128,7 +139,8 @@ InteractionLayer.defaultProps = {
   disabled: false,
   marks: [],
   scale: 1,
-  setActiveMark: () => undefined
+  setActiveMark: () => {},
+  setSubTaskVisibility: () => {},
 }
 
 export default InteractionLayer

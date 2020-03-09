@@ -11,6 +11,7 @@ import FrameCarousel from './FrameCarousel'
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import withKeyZoom from '../../../withKeyZoom'
+import SubTaskPopup from '../../../SubTaskPopup'
 
 function storeMapper (stores) {
   const {
@@ -263,6 +264,7 @@ class MultiFrameViewerContainer extends React.Component {
               xlinkHref={src}
             />
           </SingleImageViewer>
+          <SubTaskPopup />
         </SVGContext.Provider>
       </Box>
     )
