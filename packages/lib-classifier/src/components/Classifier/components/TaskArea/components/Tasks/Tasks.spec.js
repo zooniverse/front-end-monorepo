@@ -8,6 +8,7 @@ import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import taskRegistry from '@plugins/tasks'
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Tasks', function () {
   let addAnnotation
@@ -52,6 +53,23 @@ describe('Tasks', function () {
       const projectSnapshot = ProjectFactory.build({
         id: 'project'
       })
+      const { panoptes } = stubPanoptesJs({
+        field_guides: [],
+        projects: [projectSnapshot],
+        subjects: [subjectSnapshot],
+        tutorials: [],
+        workflows: [workflowSnapshot]
+      })
+      const client = {
+        panoptes,
+        tutorials: {
+          get: sinon.stub().callsFake(() =>
+            Promise.resolve({ body: {
+              tutorials: []
+            }})
+          )
+        }
+      }
       const rootStore = RootStore.create({
         projects: {
           active: projectSnapshot.id,
@@ -76,26 +94,7 @@ describe('Tasks', function () {
           checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
           checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
         },
-        client: {
-          panoptes: {
-            get: sinon.stub().callsFake(() =>
-              Promise.resolve({ body: {
-                field_guides: [],
-                projects: [projectSnapshot],
-                subjects: [subjectSnapshot],
-                tutorials: [],
-                workflows: [workflowSnapshot]
-              }})
-            )
-          },
-          tutorials: {
-            get: sinon.stub().callsFake(() =>
-              Promise.resolve({ body: {
-                tutorials: []
-              }})
-            )
-          }
-        }
+        client
       })
       classification = rootStore.classifications.active
       addAnnotation = rootStore.classifications.addAnnotation
