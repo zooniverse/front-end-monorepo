@@ -2,15 +2,14 @@ import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import TaskInput from '../../components/TaskInput'
-import zooTheme from '@zooniverse/grommet-theme'
 
 const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    background: ${zooTheme.global.colors.brand};
+    ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
     max-width: ${maxWidth};
   }
 `
@@ -30,7 +29,8 @@ function MultipleChoiceTask (props) {
     annotation,
     className,
     disabled,
-    task
+    task,
+    theme
   } = props
   const { value } = annotation
 
@@ -50,6 +50,7 @@ function MultipleChoiceTask (props) {
       autoFocus={(value && value.length === 0)}
       className={className}
       disabled={disabled}
+      theme={theme}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
@@ -79,7 +80,12 @@ function MultipleChoiceTask (props) {
 
 MultipleChoiceTask.defaultProps = {
   className: '',
-  disabled: false
+  disabled: false,
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 MultipleChoiceTask.propTypes = {
@@ -96,7 +102,12 @@ MultipleChoiceTask.propTypes = {
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  theme: PropTypes.shape({
+    global: PropTypes.shape({
+      colors: PropTypes.object
+   })
+ })
 }
 
 export default MultipleChoiceTask
