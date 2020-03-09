@@ -89,13 +89,30 @@ class BarChartViewerContainer extends Component {
     const {
       subject
     } = this.props
+    const {
+      data,
+      chartOptions: {
+        margin,
+        xAxisLabel,
+        yAxisLabel
+      }
+    } = this.state.JSONdata
 
     if (!subject.id) {
       return null
     }
 
+    if (!this.state.JSONdata) {
+      return null
+    }
+
     return (
-      <BarChartViewer data={this.state.JSONdata} />
+      <BarChartViewer
+        data={data}
+        margin={margin}
+        xAxisLabel={xAxisLabel}
+        yAxisLabel={yAxisLabel}
+      />
     )
   }
 }

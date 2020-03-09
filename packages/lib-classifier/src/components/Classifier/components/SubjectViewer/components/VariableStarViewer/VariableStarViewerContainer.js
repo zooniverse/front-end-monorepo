@@ -16,16 +16,16 @@ class VariableStarViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      barJSON: {
-        amplitude: {
+      barJSON: [
+        {
           data: [],
-          options: {}
+          chartOptions: {}
         },
-        period: {
+        {
           data: [],
-          options: {}
+          chartOptions: {}
         }
-      },
+      ],
       focusedSeries: [],
       imageSrc: '',
       invertYAxis: false,
@@ -37,8 +37,21 @@ class VariableStarViewerContainer extends Component {
       },
       phaseLimit: 0.2,
       rawJSON: {
-        data: [],
-        chartOptions: {}
+        scatterPlots: [
+          {
+            data: [],
+            chartOptions: {}
+          }
+        ],
+        barCharts: [
+          {
+            data: [],
+            chartOptions: {}
+          }, {
+            data: [],
+            chartOptions: {}
+          }
+        ]
       }
     }
 
@@ -101,11 +114,15 @@ class VariableStarViewerContainer extends Component {
   }
 
   onLoad(rawJSON) {
+    const {
+      scatterPlot,
+      barCharts
+    } = rawJSON
     const { onReady } = this.props
     const target = this.viewer.current
-    const phasedJSON = this.calculatePhase(rawJSON)
-    const barJSON = this.calculateBarJSON(rawJSON)
-    const focusedSeries = this.setupSeriesFocus(rawJSON)
+    const phasedJSON = this.calculatePhase(scatterPlot)
+    const barJSON = this.calculateBarJSON(barCharts)
+    const focusedSeries = this.setupSeriesFocus(scatterPlot)
     this.setState({
       barJSON,
       focusedSeries,
@@ -117,13 +134,13 @@ class VariableStarViewerContainer extends Component {
       })
   }
 
-  calculatePhase (rawJSON) {
+  calculatePhase (scatterPlotJSON) {
     const { periodMultiple, phaseLimit } = this.state
     // temp for demo purposes
     // Will use series.seriesOptions.period in future
     const seriesPeriods = [0.4661477096, 1.025524961]
-    let phasedJSON = { data: [], chartOptions: rawJSON.chartOptions }
-    rawJSON.data.forEach((series, seriesIndex) => {
+    let phasedJSON = { data: [], chartOptions: scatterPlotJSON.chartOptions }
+    scatterPlotJSON.data.forEach((series, seriesIndex) => {
       const seriesPeriod = seriesPeriods[seriesIndex] * periodMultiple
       const seriesData = []
       series.seriesData.forEach((datum) => {
@@ -146,32 +163,36 @@ class VariableStarViewerContainer extends Component {
     return phasedJSON
   }
 
-  calculateBarJSON (rawJSON) {
-    // TODO
-    return {
-      amplitude: {
-        data: [],
-        options: {}
-      },
-      period: {
-        data: [],
-        options: {}
-      }
-    }
+  calculateBarJSON (barChartJSON) {
+    const { periodMultiple } = this.state
+    let phasedBarChartJSON = []
+    barChartJSON.forEach((series) => {
+      phasedBarChartJSON.push({ data: [], chartOptions: series.chartOptions })
+      series.forEach((datum) => {
+        const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
+        phasedBarChartJSON.data.push(phasedDatum)
+      })
+    })
+    return phasedBarChartJSON
   }
 
   calculateJSON () {
-    const { rawJSON } = this.state
-    const phasedJSON = this.calculatePhase(rawJSON)
-    const barJSON = this.calculateBarJSON(rawJSON)
+    const {
+      rawJSON: {
+        scatterPlot,
+        barCharts
+      }
+    } = this.state
+    const phasedJSON = this.calculatePhase(scatterPlot)
+    const barJSON = this.calculateBarJSON(barCharts)
     this.setState({
       barJSON,
       phasedJSON
     })
   }
 
-  setupSeriesFocus (rawJSON) {
-    return rawJSON.data.map((series) => {
+  setupSeriesFocus (scatterPlotJSON) {
+    return scatterPlotJSON.data.map((series) => {
       if (series?.seriesData.length > 0) {
         return { [series.seriesOptions.label]: true }
       }
