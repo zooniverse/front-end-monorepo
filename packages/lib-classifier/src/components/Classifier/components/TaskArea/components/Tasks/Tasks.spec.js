@@ -18,15 +18,6 @@ describe('Tasks', function () {
 
   const taskTypes = Object.keys(taskRegistry.register)
 
-  before(function () {
-    // Mute the onAction warnings for the duration of these tests.
-    sinon.stub(console, 'error')
-  })
-
-  after(function () {
-    console.error.restore()
-  })
-
   taskTypes.forEach(function (taskType) {
     before(function () {
       const task = taskRegistry.get(taskType)
