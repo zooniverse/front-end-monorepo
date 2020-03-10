@@ -16,7 +16,7 @@ class BarChartViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      JSONdata: null
+      JSONdata: {}
     }
   }
 
@@ -59,7 +59,7 @@ class BarChartViewerContainer extends Component {
       return response.body || JSON.parse(response.text)
     } catch (error) {
       onError(error)
-      return null
+      return {}
     }
   }
 
@@ -70,7 +70,7 @@ class BarChartViewerContainer extends Component {
       if (rawData) this.onLoad(rawData)
     } catch (error) {
       onError(error)
-      return null
+      return {}
     }
   }
 
@@ -91,27 +91,23 @@ class BarChartViewerContainer extends Component {
     } = this.props
     const {
       data,
-      chartOptions: {
-        margin,
-        xAxisLabel,
-        yAxisLabel
-      }
+      chartOptions
     } = this.state.JSONdata
 
     if (!subject.id) {
       return null
     }
 
-    if (!this.state.JSONdata) {
+    if (Object.keys(this.state.JSONdata).length < 1) {
       return null
     }
 
     return (
       <BarChartViewer
         data={data}
-        margin={margin}
-        xAxisLabel={xAxisLabel}
-        yAxisLabel={yAxisLabel}
+        margin={chartOptions.margin}
+        xAxisLabel={chartOptions.xAxisLabel}
+        yAxisLabel={chartOptions.yAxisLabel}
       />
     )
   }

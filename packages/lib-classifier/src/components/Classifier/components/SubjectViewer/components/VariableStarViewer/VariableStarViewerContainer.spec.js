@@ -9,48 +9,109 @@ import { VariableStarViewerContainer } from './VariableStarViewerContainer'
 import variableStar from '../../helpers/mockLightCurves/variableStar'
 
 const nextSubjectJSON = {
-  "data": [
-    {
-      "seriesData": [
-        {
-          "x": 1.46,
-          "y": 6.37,
-          "x_error": 2,
-          "y_error": 0.5
-        }, {
-          "x": 7.58,
-          "y": 9.210
+  scatterPlot: {
+    "data": [
+      {
+        "seriesData": [
+          {
+            "x": 1.46,
+            "y": 6.37,
+            "x_error": 2,
+            "y_error": 0.5
+          }, {
+            "x": 7.58,
+            "y": 9.210
+          }
+        ],
+        "seriesOptions": {
+          "color": "accent-2",
+          "label": "Filter 1"
         }
-      ],
-      "seriesOptions": {
-        "color": "accent-2",
-        "label": "Filter 1"
+      }, {
+        "seriesData": [
+          {
+            "x": 19.92215,
+            "y": -0.1976986301,
+            "x_error": 2,
+            "y_error": 0.5
+          }, {
+            "x": 35.46347,
+            "y": -0.22472
+          }
+        ],
+        "seriesOptions": {
+          "color": "#98b6a7",
+          "label": "Filter 2"
+        }
+      }
+    ],
+    "chartOptions": {
+      "xAxisLabel": "Days",
+      "yAxisLabel": "Brightness"
+    }
+  }, 
+  barCharts: [
+    { 
+      data: [
+        { label: 'A', value: 0.34742 },
+        { label: 'B', value: 2.37438 }
+      ], 
+      chartOptions: {
+        xAxisLabel: 'Period',
+        yAxisLabel: ''
       }
     }, {
-      "seriesData": [
-        {
-          "x": 19.92215,
-          "y": -0.1976986301,
-          "x_error": 2,
-          "y_error": 0.5
-        }, {
-          "x": 35.46347,
-          "y": -0.22472
-        }
+      data: [
+        { color: 'accent-1', label: 'X', value: 34.3747 },
+        { color: 'accent-2', label: 'Y', value: 236.3637 }
       ],
-      "seriesOptions": {
-        "color": "#98b6a7",
-        "label": "Filter 2"
+      chartOptions: {
+        xAxisLabel: 'Amplitude',
+        yAxisLabel: ''
       }
     }
-  ],
-  "chartOptions": {
-    "xAxisLabel": "Days",
-    "yAxisLabel": "Brightness"
-  }
+  ]
 }
 
 describe('Component > VariableStarViewerContainer', function () {
+  const mockState = {
+    barJSON: [
+      {
+        data: [],
+        chartOptions: {}
+      },
+      {
+        data: [],
+        chartOptions: {}
+      }
+    ],
+    focusedSeries: [],
+    imageSrc: '',
+    invertYAxis: false,
+    loadingState: asyncStates.initialized,
+    periodMultiple: 1,
+    phasedJSON: {
+      data: [],
+      chartOptions: {}
+    },
+    phaseLimit: 0.2,
+    rawJSON: {
+      scatterPlot: {
+        data: [],
+        chartOptions: {}
+      },
+      barCharts: [
+        {
+          data: [],
+          chartOptions: {}
+        }, {
+          data: [],
+          chartOptions: {}
+        }
+      ]
+    }
+  }
+
   it('should render without crashing', function () {
     const wrapper = shallow(<VariableStarViewerContainer />)
     expect(wrapper).to.be.ok()
@@ -61,32 +122,7 @@ describe('Component > VariableStarViewerContainer', function () {
       <VariableStarViewerContainer />,
       { disableLifecycleMethods: true }
     )
-    const mockState = {
-      barJSON: {
-        amplitude: {
-          data: [],
-          options: {}
-        },
-        period: {
-          data: [],
-          options: {}
-        }
-      },
-      focusedSeries: [],
-      imageSrc: '',
-      invertYAxis: false,
-      loadingState: asyncStates.initialized,
-      periodMultiple: 1,
-      phasedJSON: {
-        data: [],
-        chartOptions: {}
-      },
-      phaseLimit: 0.2,
-      rawJSON: {
-        data: [],
-        chartOptions: {}
-      }
-    }
+
     expect(wrapper.state()).to.eql(mockState)
   })
 
@@ -196,10 +232,7 @@ describe('Component > VariableStarViewerContainer', function () {
         />
       )
 
-      expect(wrapper.state().rawJSON).to.deep.equal({
-        data: [],
-        chartOptions: {}
-      })
+      expect(wrapper.state().rawJSON).to.deep.equal(mockState.rawJSON)
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
       }).then(done, done)
@@ -246,8 +279,8 @@ describe('Component > VariableStarViewerContainer', function () {
       ]
     })
     const focusedStateMock = [
-      { [variableStar.data[0].seriesOptions.label]: true },
-      { [variableStar.data[1].seriesOptions.label]: true }
+      { [variableStar.scatterPlot.data[0].seriesOptions.label]: true },
+      { [variableStar.scatterPlot.data[1].seriesOptions.label]: true }
     ]
 
     before(function () {
@@ -298,8 +331,8 @@ describe('Component > VariableStarViewerContainer', function () {
       expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
       wrapper.instance().setSeriesFocus(eventMock)
       expect(wrapper.state().focusedSeries).to.deep.equal([
-        { [variableStar.data[0].seriesOptions.label]: false },
-        { [variableStar.data[1].seriesOptions.label]: true }
+        { [variableStar.scatterPlot.data[0].seriesOptions.label]: false },
+        { [variableStar.scatterPlot.data[1].seriesOptions.label]: true }
       ])
     })
   })
@@ -357,11 +390,11 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cdmSpy.returnValues[0].then(() => {
         const phasedJSONState = wrapper.state().phasedJSON
-        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(variableStar.data[0].seriesData.length)
-        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(variableStar.data[0].seriesOptions)
-        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(variableStar.data[1].seriesData.length)
-        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(variableStar.data[1].seriesOptions)
-        expect(phasedJSONState.chartOptions).to.deep.equal(variableStar.chartOptions)
+        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(variableStar.scatterPlot.data[0].seriesData.length)
+        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(variableStar.scatterPlot.data[0].seriesOptions)
+        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(variableStar.scatterPlot.data[1].seriesData.length)
+        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(variableStar.scatterPlot.data[1].seriesOptions)
+        expect(phasedJSONState.chartOptions).to.deep.equal(variableStar.scatterPlot.chartOptions)
       }).then(done, done)
     })
 
@@ -376,11 +409,11 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cduSpy.returnValues[0].then(() => {
         const phasedJSONState = wrapper.state().phasedJSON
-        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(nextSubjectJSON.data[0].seriesData.length)
-        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(nextSubjectJSON.data[0].seriesOptions)
-        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(nextSubjectJSON.data[1].seriesData.length)
-        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(nextSubjectJSON.data[1].seriesOptions)
-        expect(phasedJSONState.chartOptions).to.deep.equal(nextSubjectJSON.chartOptions)
+        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(nextSubjectJSON.scatterPlot.data[0].seriesData.length)
+        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(nextSubjectJSON.scatterPlot.data[0].seriesOptions)
+        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(nextSubjectJSON.scatterPlot.data[1].seriesData.length)
+        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(nextSubjectJSON.scatterPlot.data[1].seriesOptions)
+        expect(phasedJSONState.chartOptions).to.deep.equal(nextSubjectJSON.scatterPlot.chartOptions)
       }).then(done, done)
     })
 
