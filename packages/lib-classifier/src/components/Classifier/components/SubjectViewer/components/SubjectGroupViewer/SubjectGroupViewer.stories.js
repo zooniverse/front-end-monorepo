@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import ClusterOfSubjectsViewer, { ClusterOfSubjectsViewerContainer } from './ClusterOfSubjectsViewerContainer'
+import SubjectGroupViewer, { SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
 import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
 import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
@@ -65,12 +65,12 @@ function ViewerContext (props) {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-storiesOf('Subject Viewers | ClusterOfSubjectsViewer', module)
+storiesOf('Subject Viewers | SubjectGroupViewer', module)
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
-          <ClusterOfSubjectsViewer
+          <SubjectGroupViewer
             enableInteractionLayer={false}
             subject={subject}
           />
@@ -83,7 +83,7 @@ storiesOf('Subject Viewers | ClusterOfSubjectsViewer', module)
     return (
       <Grommet theme={darkZooTheme}>
         <Box height='medium' width='large'>
-          <ClusterOfSubjectsViewer
+          <SubjectGroupViewer
             enableInteractionLayer={false}
             subject={subject}
           />
@@ -95,7 +95,7 @@ storiesOf('Subject Viewers | ClusterOfSubjectsViewer', module)
     return (
       <ViewerContext theme={zooTheme}>
         <Box height='medium' width='large'>
-          <ClusterOfSubjectsViewer
+          <SubjectGroupViewer
             subject={subject}
           />
         </Box>

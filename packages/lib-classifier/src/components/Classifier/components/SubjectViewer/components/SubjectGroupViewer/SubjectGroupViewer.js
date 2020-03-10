@@ -22,7 +22,7 @@ const Container = styled.div`
   }
 `
 
-const ClusterOfSubjectsViewer = forwardRef(function ClusterOfSubjectsViewer(props, ref) {
+const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {
     children,
     enableInteractionLayer,
@@ -67,7 +67,7 @@ const ClusterOfSubjectsViewer = forwardRef(function ClusterOfSubjectsViewer(prop
   )
 })
 
-ClusterOfSubjectsViewer.propTypes = {
+SubjectGroupViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onKeyDown: PropTypes.func,
@@ -77,11 +77,11 @@ ClusterOfSubjectsViewer.propTypes = {
   width: PropTypes.number.isRequired
 }
 
-ClusterOfSubjectsViewer.defaultProps = {
+SubjectGroupViewer.defaultProps = {
   enableInteractionLayer: true,
   onKeyDown: () => true,
   rotate: 0,
   scale: 1
 }
 
-export default ClusterOfSubjectsViewer
+export default SubjectGroupViewer

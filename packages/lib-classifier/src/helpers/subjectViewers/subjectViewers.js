@@ -15,8 +15,8 @@ Object.defineProperty(subjectViewers, 'multiFrame', {
   enumerable: true
 })
 
-Object.defineProperty(subjectViewers, 'clusterOfSubjects', {
-  value: 'clusterOfSubjects',
+Object.defineProperty(subjectViewers, 'subjectGroup', {
+  value: 'subjectGroup',
   enumerable: true
 })
 

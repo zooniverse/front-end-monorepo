@@ -1,11 +1,11 @@
-import ClusterOfSubjectsViewer from '../../components/ClusterOfSubjectsViewer'
+import SubjectGroupViewer from '../../components/SubjectGroupViewer'
 import SingleImageViewer from '../../components/SingleImageViewer'
 import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
 import VariableStarViewer from '../../components/VariableStarViewer'
 
 const viewers = {
-  clusterOfSubjects: ClusterOfSubjectsViewer,
+  subjectGroup: SubjectGroupViewer,
   singleImage: SingleImageViewer,
   lightCurve: LightCurveViewer,
   multiFrame: MultiFrameViewer,

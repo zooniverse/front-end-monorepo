@@ -1,14 +1,14 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ClusterOfSubjectsViewer from './ClusterOfSubjectsViewer'
+import SubjectGroupViewer from './SubjectGroupViewer'
 import InteractionLayer from '../InteractionLayer'
 
 let wrapper
 
-describe('Component > ClusterOfSubjectsViewer', function () {
+describe('Component > SubjectGroupViewer', function () {
   beforeEach(function () {
-    wrapper = shallow(<ClusterOfSubjectsViewer height={200} width={100} viewBox='0 0 100 100' />)
+    wrapper = shallow(<SubjectGroupViewer height={200} width={100} viewBox='0 0 100 100' />)
   })
 
   it('should render without crashing', function () {

@@ -98,8 +98,8 @@ const Subject = types
           viewer = subjectViewers.lightCurve
         } else if (configuration.subject_viewer === 'multiFrame') {
           viewer = subjectViewers.multiFrame
-        } else if (configuration.subject_viewer === 'clusterOfSubjects') {
-          viewer = subjectViewers.clusterOfSubjects
+        } else if (configuration.subject_viewer === 'subjectGroup') {
+          viewer = subjectViewers.subjectGroup
         } else if (counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage

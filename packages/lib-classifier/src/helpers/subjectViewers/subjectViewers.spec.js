@@ -5,7 +5,7 @@ describe('Helpers > subjectViewers', function () {
     'singleImage',
     'lightCurve',
     'multiFrame',
-    'clusterOfSubjects'
+    'subjectGroup'
   ]
 
   viewers.forEach(function (viewer) {

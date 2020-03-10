@@ -6,7 +6,7 @@ import { draggable } from '@plugins/drawingTools/components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
-import ClusterOfSubjectsViewer from './ClusterOfSubjectsViewer'
+import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
 import SubTaskPopup from '../../../SubTaskPopup'
@@ -29,7 +29,7 @@ function storeMapper (stores) {
 
 const DraggableImage = draggable('image')
 
-class ClusterOfSubjectsViewerContainer extends React.Component {
+class SubjectGroupViewerContainer extends React.Component {
   constructor () {
     super()
     this.setOnDrag = this.setOnDrag.bind(this)
@@ -141,7 +141,7 @@ class ClusterOfSubjectsViewerContainer extends React.Component {
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
         >
-          <ClusterOfSubjectsViewer
+          <SubjectGroupViewer
             enableInteractionLayer={enableInteractionLayer}
             height={naturalHeight}
             onKeyDown={onKeyDown}
@@ -156,7 +156,7 @@ class ClusterOfSubjectsViewerContainer extends React.Component {
               width={naturalWidth}
               xlinkHref={src}
             />
-          </ClusterOfSubjectsViewer>
+          </SubjectGroupViewer>
         </SVGPanZoom>
         <SubTaskPopup />
       </SVGContext.Provider>
@@ -164,7 +164,7 @@ class ClusterOfSubjectsViewerContainer extends React.Component {
   }
 }
 
-ClusterOfSubjectsViewerContainer.propTypes = {
+SubjectGroupViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
@@ -177,7 +177,7 @@ ClusterOfSubjectsViewerContainer.propTypes = {
   })
 }
 
-ClusterOfSubjectsViewerContainer.defaultProps = {
+SubjectGroupViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   enableRotation: () => null,
   ImageObject: window.Image,
@@ -191,7 +191,7 @@ ClusterOfSubjectsViewerContainer.defaultProps = {
 @inject(storeMapper)
 @withKeyZoom
 @observer
-class DecoratedClusterOfSubjectsViewerContainer extends ClusterOfSubjectsViewerContainer { }
+class DecoratedSubjectGroupViewerContainer extends SubjectGroupViewerContainer { }
 
-export default DecoratedClusterOfSubjectsViewerContainer
-export { ClusterOfSubjectsViewerContainer }
+export default DecoratedSubjectGroupViewerContainer
+export { SubjectGroupViewerContainer }

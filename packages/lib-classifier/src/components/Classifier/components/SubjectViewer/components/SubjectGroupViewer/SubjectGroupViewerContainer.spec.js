@@ -2,10 +2,10 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
-import { ClusterOfSubjectsViewerContainer } from './ClusterOfSubjectsViewerContainer'
-import ClusterOfSubjectsViewer from './ClusterOfSubjectsViewer'
+import { SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
+import SubjectGroupViewer from './SubjectGroupViewer'
 
-describe('Component > ClusterOfSubjectsViewerContainer', function () {
+describe('Component > SubjectGroupViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
@@ -36,7 +36,7 @@ describe('Component > ClusterOfSubjectsViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<ClusterOfSubjectsViewerContainer onError={onError} />)
+      wrapper = shallow(<SubjectGroupViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -64,14 +64,14 @@ describe('Component > ClusterOfSubjectsViewerContainer', function () {
         }
       }
       wrapper = shallow(
-        <ClusterOfSubjectsViewerContainer
+        <SubjectGroupViewerContainer
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
           onReady={onReady}
         />
       )
-      imageWrapper = wrapper.find(ClusterOfSubjectsViewer)
+      imageWrapper = wrapper.find(SubjectGroupViewer)
       wrapper.instance().imageViewer = {
         current: {
           clientHeight: 50,
@@ -131,7 +131,7 @@ describe('Component > ClusterOfSubjectsViewerContainer', function () {
         }
       }
       onReady.callsFake(function () {
-        const { height, width } = wrapper.find(ClusterOfSubjectsViewer).props()
+        const { height, width } = wrapper.find(SubjectGroupViewer).props()
         expect(height).to.equal(height)
         expect(width).to.equal(width)
         done()
@@ -180,14 +180,14 @@ describe('Component > ClusterOfSubjectsViewerContainer', function () {
         ]
       }
       wrapper = shallow(
-        <ClusterOfSubjectsViewerContainer
+        <SubjectGroupViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
           onError={onError}
           onReady={onReady}
         />
       )
-      imageWrapper = wrapper.find(ClusterOfSubjectsViewer)
+      imageWrapper = wrapper.find(SubjectGroupViewer)
       wrapper.instance().imageViewer = {
         current: {
           clientHeight: 50,
