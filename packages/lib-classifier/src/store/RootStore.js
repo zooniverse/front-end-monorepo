@@ -34,6 +34,21 @@ const RootStore = types
   })
 
   .actions(self => {
+    // Private methods
+    function onSubjectReady () {
+      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
+      const subject = tryReference(() => subjects?.active)
+      const workflow = tryReference(() => workflows?.active)
+      const project = tryReference(() => projects?.active)
+      if (subject && workflow && project) {
+        workflowSteps.resetSteps()
+        classifications.reset()
+        classifications.createClassification(subject, workflow, project)
+        feedback.onNewSubject()
+      }
+    }
+
+    // Public actions
     function afterCreate () {
       createClassificationObserver()
       createSubjectObserver()
@@ -53,19 +68,15 @@ const RootStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
-        const subject = tryReference(() => subjects?.active)
-        const workflow = tryReference(() => workflows?.active)
-        const project = tryReference(() => projects?.active)
-        if (subject && workflow && project) {
-          workflowSteps.resetSteps()
-          classifications.reset()
-          classifications.createClassification(subject, workflow, project)
-          feedback.onNewSubject()
-        }
+        onAction(self, (call) => {
+          if (call.name === 'onSubjectReady') {
+            onSubjectReady()
+          }
+        })
       }, { name: 'Root Store Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
+
     function setOnAddToCollection (callback) {
       self.onAddToCollection = callback
     }
