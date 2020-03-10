@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import React from 'react'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { Tasks } from './Tasks'
@@ -46,7 +47,7 @@ describe('Tasks', function () {
       const { panoptes } = stubPanoptesJs({
         field_guides: [],
         projects: [projectSnapshot],
-        subjects: [subjectSnapshot],
+        subjects: Factory.buildList('subject', 10),
         tutorials: [],
         workflows: [workflowSnapshot]
       })
@@ -86,6 +87,11 @@ describe('Tasks', function () {
         },
         client
       })
+      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setActive(workflowSnapshot.id)
+      rootStore.subjects.setResource(subjectSnapshot)
+      rootStore.subjects.setActive(subjectSnapshot.id)
+      rootStore.subjectViewer.onSubjectReady()
       classification = rootStore.classifications.active
       step = rootStore.workflowSteps.active
     })

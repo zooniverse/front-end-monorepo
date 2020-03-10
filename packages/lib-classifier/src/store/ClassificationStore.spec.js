@@ -8,42 +8,46 @@ import {
   ProjectFactory,
   SingleChoiceAnnotationFactory,
   SingleChoiceTaskFactory,
+  SubjectFactory,
   WorkflowFactory
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
 import taskRegistry from '@plugins/tasks'
 
-const { AnnotationModel: SingleChoiceAnnotation } = taskRegistry.get('single')
-
-const feedbackRulesStub = {
-  T0: [{
-    id: 'testRule',
-    answer: '0',
-    strategy: 'singleAnswerQuestion',
-    successEnabled: true,
-    successMessage: 'Yay!',
-    failureEnabled: true,
-    failureMessage: 'No!'
-  }]
-}
-const subjectsStub = Factory.buildList('subject', 10)
-const singleChoiceTaskStub = SingleChoiceTaskFactory.build()
-const singleChoiceAnnotationStub = SingleChoiceAnnotationFactory.build()
-const workflowStub = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskStub } })
-const projectStub = ProjectFactory.build({}, { activeWorkflowId: workflowStub.id })
-
 describe('Model > ClassificationStore', function () {
+  const { AnnotationModel: SingleChoiceAnnotation } = taskRegistry.get('single')
+
+  const feedbackRulesSnapshot = {
+    T0: [{
+      id: 'testRule',
+      answer: '0',
+      strategy: 'singleAnswerQuestion',
+      successEnabled: true,
+      successMessage: 'Yay!',
+      failureEnabled: true,
+      failureMessage: 'No!'
+    }]
+  }
+  const subjectsSnapshot = Factory.buildList('subject', 10)
+  const singleChoiceTaskSnapshot = SingleChoiceTaskFactory.build()
+  const singleChoiceAnnotationSnapshot = SingleChoiceAnnotationFactory.build()
+  const workflowSnapshot = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskSnapshot } })
+  const projectSnapshot = ProjectFactory.build({}, { activeWorkflowId: workflowSnapshot.id })
+  const subjectSnapshot = SubjectFactory.build()
+
   function setupStores (stores) {
-    const clientStub = stubPanoptesJs({ classifications: [], subjects: subjectsStub })
+    const clientSnapshot = stubPanoptesJs({ classifications: [], subjects: subjectsSnapshot })
     const store = RootStore.create(stores, {
-      client: clientStub,
+      client: clientSnapshot,
       authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
     })
-    store.projects.setResource(projectStub)
-    store.projects.setActive(projectStub.id)
-    store.workflows.setResource(workflowStub)
-    store.workflows.setActive(workflowStub.id)
+    store.projects.setResource(projectSnapshot)
+    store.projects.setActive(projectSnapshot.id)
+    store.workflows.setResource(workflowSnapshot)
+    store.workflows.setActive(workflowSnapshot.id)
+    store.subjects.setResource(subjectSnapshot)
+    store.subjects.setActive(subjectSnapshot.id)
     return store
   }
 
@@ -66,8 +70,10 @@ describe('Model > ClassificationStore', function () {
         workflowSteps: {},
         userProjectPreferences: {}
       })
-      rootStore.subjects.setResource(subjectsStub[0])
-      rootStore.subjects.setActive(subjectsStub[0].id)
+      rootStore.subjectViewer.onSubjectReady()
+      rootStore.subjects.setResource(subjectsSnapshot[0])
+      rootStore.subjects.setActive(subjectsSnapshot[0].id)
+      rootStore.subjectViewer.onSubjectReady()
       classifications = rootStore.classifications
     })
 
@@ -78,16 +84,16 @@ describe('Model > ClassificationStore', function () {
 
     it('should create an empty Classification with links to the Project, Workflow, and Subject', function () {
       const classification = classifications.active.toJSON()
-      const subject = subjectsStub[0]
+      const subject = subjectsSnapshot[0]
       expect(classification).to.be.ok()
-      expect(classification.links.project).to.equal(projectStub.id)
-      expect(classification.links.workflow).to.equal(workflowStub.id)
+      expect(classification.links.project).to.equal(projectSnapshot.id)
+      expect(classification.links.workflow).to.equal(workflowSnapshot.id)
       expect(classification.links.subjects[0]).to.equal(subject.id)
     })
 
     it('should create an empty Classification with the correct Subject Selection metadata', function () {
       const classification = classifications.active.toJSON()
-      const subject = subjectsStub[0]
+      const subject = subjectsSnapshot[0]
       expect(classification.metadata.subjectSelectionState).to.be.ok()
       expect(classification.metadata.subjectSelectionState.already_seen).to.equal(subject.already_seen)
       expect(classification.metadata.subjectSelectionState.finished_workflow).to.equal(subject.finished_workflow)
@@ -111,8 +117,10 @@ describe('Model > ClassificationStore', function () {
         workflowSteps: {},
         userProjectPreferences: {}
       })
-      rootStore.subjects.setResource(subjectsStub[0])
-      rootStore.subjects.setActive(subjectsStub[0].id)
+      rootStore.subjectViewer.onSubjectReady()
+      rootStore.subjects.setResource(subjectsSnapshot[0])
+      rootStore.subjects.setActive(subjectsSnapshot[0].id)
+      rootStore.subjectViewer.onSubjectReady()
       classifications = rootStore.classifications
     })
 
@@ -124,8 +132,9 @@ describe('Model > ClassificationStore', function () {
     it('should reset and create a new classification', function () {
       const firstClassificationId = classifications.active.id
       expect(classifications.active.toJSON()).to.ok()
-      rootStore.subjects.setResource(subjectsStub[1])
-      rootStore.subjects.setActive(subjectsStub[1].id)
+      rootStore.subjects.setResource(subjectsSnapshot[1])
+      rootStore.subjects.setActive(subjectsSnapshot[1].id)
+      rootStore.subjectViewer.onSubjectReady()
       expect(classifications.active.id).to.not.equal(firstClassificationId)
     })
   })
@@ -136,29 +145,30 @@ describe('Model > ClassificationStore', function () {
       let rootStore
       before(function () {
         sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
-        const invalidFeedbackStub = {
+        const invalidFeedbackSnapshot = {
           rules: {}
         }
 
         rootStore = setupStores({
           dataVisAnnotating: {},
           drawing: {},
-          feedback: invalidFeedbackStub,
+          feedback: invalidFeedbackSnapshot,
           fieldGuide: {},
           subjectViewer: {},
           tutorials: {},
           workflowSteps: {},
           userProjectPreferences: {}
         })
+        rootStore.subjectViewer.onSubjectReady()
 
         classifications = rootStore.classifications
         classifications.setOnComplete(sinon.stub())
       })
 
       beforeEach(function () {
-        const taskStub = Object.assign({}, singleChoiceTaskStub, { taskKey: singleChoiceAnnotationStub.task })
-        taskStub.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationStub)
-        classifications.addAnnotation(taskStub, singleChoiceAnnotationStub.value)
+        const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
+        taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
@@ -205,8 +215,8 @@ describe('Model > ClassificationStore', function () {
         subjectViewer = rootStore.subjectViewer
       })
 
-      beforeEach(function () {
-        const activeFeedback = FeedbackFactory.build({ rules: feedbackRulesStub })
+      before(function () {
+        const activeFeedback = FeedbackFactory.build({ rules: feedbackRulesSnapshot })
         // Classification completion adds feedback metadata if feedback is active and there are rules
         // So first we update the feedback store to have active feedback
         // Then call the classification complete event
@@ -220,16 +230,16 @@ describe('Model > ClassificationStore', function () {
         })
 
         subjectToBeClassified = rootStore.subjects.active
-        const taskStub = Object.assign({}, singleChoiceTaskStub, { taskKey: singleChoiceAnnotationStub.task })
-        taskStub.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationStub)
-        classifications.addAnnotation(taskStub, singleChoiceAnnotationStub.value)
+        const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
+        taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classificationWithAnnotation = classifications.active
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
       })
 
-      afterEach(function () {
+      after(function () {
         onComplete.resetHistory()
         feedback.update.resetHistory()
         subjectViewer.resetSubject()
@@ -245,7 +255,7 @@ describe('Model > ClassificationStore', function () {
       // Why is this test here?
       // The observer is in the feedback store
       it('should update feedback', function () {
-        expect(feedback.update.withArgs(singleChoiceAnnotationStub)).to.have.been.calledOnce()
+        expect(feedback.update.withArgs(singleChoiceAnnotationSnapshot)).to.have.been.calledOnce()
       })
 
       it('should call the onComplete callback with the classification and subject', function () {
@@ -260,7 +270,7 @@ describe('Model > ClassificationStore', function () {
         })
 
         it('should have a feedback key', function () {
-          expect(metadata.feedback).to.eql(feedbackRulesStub)
+          expect(metadata.feedback).to.eql(feedbackRulesSnapshot)
         })
 
         it('should record subject dimensions', function () {
