@@ -337,7 +337,7 @@ describe('Component > VariableStarViewerContainer', function () {
     })
   })
 
-  describe('when calculating the phased JSON', function () {
+  describe('when calculating the phased scatter plot JSON', function () {
     let cdmSpy
     let cduSpy
     let nockScope
@@ -383,10 +383,7 @@ describe('Component > VariableStarViewerContainer', function () {
         />
       )
 
-      expect(wrapper.state().phasedJSON).to.deep.equal({
-        data: [],
-        chartOptions: {}
-      })
+      expect(wrapper.state().phasedJSON).to.deep.equal(mockState.phasedJSON)
 
       cdmSpy.returnValues[0].then(() => {
         const phasedJSONState = wrapper.state().phasedJSON
@@ -429,6 +426,97 @@ describe('Component > VariableStarViewerContainer', function () {
         wrapper.instance().setPeriodMultiple({ target: { value: '2' }})
         const phasedJSONNewState = wrapper.state().phasedJSON
         expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
+      }).then(done, done)
+    })
+  })
+
+  describe('when calculating the phased bar charts JSON', function () {
+    let cdmSpy
+    let cduSpy
+    let nockScope
+    const subject = Factory.build('subject', {
+      locations: [
+        { 'application/json': 'http://localhost:8080/variableStar.json' }
+      ]
+    })
+
+    const nextSubject = Factory.build('subject', {
+      locations: [
+        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+      ]
+    })
+    before(function () {
+      cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
+      cduSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidUpdate')
+      nockScope = nock('http://localhost:8080')
+        .persist(true)
+        .get('/variableStar.json')
+        .reply(200, variableStar)
+        .get('/nextSubject.json')
+        .reply(200, nextSubjectJSON)
+    })
+
+    afterEach(function () {
+      cdmSpy.resetHistory()
+      cduSpy.resetHistory()
+    })
+
+    after(function () {
+      cdmSpy.restore()
+      cduSpy.restore()
+      nock.cleanAll()
+      nockScope.persist(false)
+    })
+
+
+    it('should calculate the phased bar chart JSON on initialization', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      expect(wrapper.state().barJSON).to.deep.equal(mockState.barJSON)
+
+      cdmSpy.returnValues[0].then(() => {
+        const phasedBarJSONState = wrapper.state().barJSON
+        expect(phasedBarJSONState[0].data.length).to.be.at.least(variableStar.barCharts[0].data.length)
+        expect(phasedBarJSONState[0].chartOptions).to.deep.equal(variableStar.barCharts[0].chartOptions)
+        expect(phasedBarJSONState[1].data.length).to.be.at.least(variableStar.barCharts[1].data.length)
+        expect(phasedBarJSONState[1].chartOptions).to.deep.equal(variableStar.barCharts[1].chartOptions)
+      }).then(done, done)
+    })
+
+    it('should calculate the phased bar chart JSON for the next subject', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      wrapper.setProps({ subject: nextSubject })
+
+      cduSpy.returnValues[0].then(() => {
+        const phasedBarJSONState = wrapper.state().barJSON
+        expect(phasedBarJSONState[0].data.length).to.be.at.least(nextSubjectJSON.barCharts[0].data.length)
+        expect(phasedBarJSONState[0].chartOptions).to.deep.equal(nextSubjectJSON.barCharts[0].chartOptions)
+        expect(phasedBarJSONState[1].data.length).to.be.at.least(nextSubjectJSON.barCharts[1].data.length)
+        expect(phasedBarJSONState[1].chartOptions).to.deep.equal(nextSubjectJSON.barCharts[1].chartOptions)
+      }).then(done, done)
+    })
+
+    it('should calculate a new phased bar chart JSON when setPeriodMultiple is called', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        const phasedBarJSONInitialState = wrapper.state().barJSON
+        wrapper.instance().setPeriodMultiple({ target: { value: '2' } })
+        const phasedBarJSONNewState = wrapper.state().barJSON
+        expect(phasedBarJSONInitialState).to.not.deep.equal(phasedBarJSONNewState)
       }).then(done, done)
     })
   })
