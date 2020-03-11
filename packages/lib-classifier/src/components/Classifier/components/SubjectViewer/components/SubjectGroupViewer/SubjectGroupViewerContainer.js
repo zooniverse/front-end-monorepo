@@ -20,16 +20,22 @@ function storeMapper (stores) {
   } = stores.classifierStore.subjectViewer
   
   // TODO
-  const gridRows = 3
-  const gridColumns = 3
-  const cellWidth = 1200
   const cellHeight = 1000
+  const cellWidth = 1200
+  const cellStyle = {
+    stroke: '#fff',
+    strokeWidth: '4',
+    fill: '#000'
+  }
+  const gridColumns = 3
+  const gridRows = 3
 
   return {
-    cellWidth,
     cellHeight,
-    gridRows,
+    cellWidth,
+    cellStyle,
     gridColumns,
+    gridRows,
     enableRotation,
     rotation,
     setOnZoom,
@@ -124,10 +130,11 @@ class SubjectGroupViewerContainer extends React.Component {
 
   render () {
     const {
-      cellWidth,
       cellHeight,
-      gridRows,
+      cellWidth,
+      cellStyle,
       gridColumns,
+      gridRows,
       enableInteractionLayer,
       loadingState,
       onKeyDown,
@@ -167,7 +174,7 @@ class SubjectGroupViewerContainer extends React.Component {
             rotate={rotation}
             width={naturalWidth}
           >
-            {images.map((image, index) => this.renderCell(image, index, cellWidth, cellHeight, gridRows, gridColumns))}
+            {images.map((image, index) => this.renderCell(image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle))}
           </SubjectGroupViewer>
         </SVGPanZoom>
         <SubTaskPopup />
@@ -175,7 +182,7 @@ class SubjectGroupViewerContainer extends React.Component {
     )
   }
   
-  renderCell (image, index, cellWidth, cellHeight, gridRows, gridColumns) {
+  renderCell (image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle) {
     
     const row = Math.floor(index / gridColumns)
     const col = index % gridColumns
@@ -201,13 +208,15 @@ class SubjectGroupViewerContainer extends React.Component {
     const imageX = (cellWidth - imageWidth) / 2
     const imageY = (cellHeight - imageHeight) / 2
     
+    console.log('+++ cellStyle ', cellStyle)
+    
     return (
       <g
         key={image.src}
         transform={`translate(${cellXOffset}, ${cellYOffset})`}
       >
         <DraggableRect
-          fill="#000"
+          fill={cellStyle.fill}
           width={cellWidth}
           height={cellHeight}
           dragMove={this.dragMove}
@@ -223,8 +232,8 @@ class SubjectGroupViewerContainer extends React.Component {
         />
         <rect
           fill="none"
-          stroke="#0cc"
-          strokeWidth="10"
+          stroke={cellStyle.stroke}
+          strokeWidth={cellStyle.strokeWidth}
           width={cellWidth}
           height={cellHeight}
         />
