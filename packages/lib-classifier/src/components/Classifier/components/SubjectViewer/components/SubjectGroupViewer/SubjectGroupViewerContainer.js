@@ -39,6 +39,7 @@ class SubjectGroupViewerContainer extends React.Component {
 
     this.state = {
       img: {},
+      images: [],
     }
   }
 
@@ -71,8 +72,14 @@ class SubjectGroupViewerContainer extends React.Component {
     if (subject && subject.locations) {
       // TODO: Validate for allowed image media mime types
       const imageUrl = Object.values(subject.locations[0])[0]
+      
+      const imageUrls = subject.locations.map(obj => Object.values(obj)[0])
+      const images = await Promise.all(
+        imageUrls.map(url => this.fetchImage(url))
+      )
+      
       const img = await this.fetchImage(imageUrl)
-      this.setState({ img })
+      this.setState({ img, images })
       return img
     }
     return {}
@@ -111,7 +118,7 @@ class SubjectGroupViewerContainer extends React.Component {
       setOnPan,
       setOnZoom
     } = this.props
-    const { img } = this.state
+    const { img, images } = this.state
     const { naturalHeight, naturalWidth, src } = img
 
     if (loadingState === asyncStates.error) {
@@ -149,13 +156,19 @@ class SubjectGroupViewerContainer extends React.Component {
             rotate={rotation}
             width={naturalWidth}
           >
-            <DraggableImage
-              ref={this.subjectImage}
-              dragMove={this.dragMove}
-              height={naturalHeight}
-              width={naturalWidth}
-              xlinkHref={src}
-            />
+            {images.map((image, index) =>
+              <g
+                transform={`translate(${index * 10}, ${index * 10})`}
+              >
+                <DraggableImage
+                  ref={this.subjectImage}
+                  dragMove={this.dragMove}
+                  height={image.naturalHeight / 3}
+                  width={image.naturalWidth / 3}
+                  xlinkHref={image.src}
+                />
+              </g>
+            )}
           </SubjectGroupViewer>
         </SVGPanZoom>
         <SubTaskPopup />
