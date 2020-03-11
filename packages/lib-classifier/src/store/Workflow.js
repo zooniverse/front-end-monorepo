@@ -27,16 +27,12 @@ const Workflow = types
       return subjectSetId
     },
 
-    get usesTranscriptionLines () {
-      let usesTranscriptionLines = false
+    get usesTranscriptionTask () {
+      let usesTranscriptionTask = false
       self.tasks && Object.values(self.tasks).forEach(task => {
-        task.tools && task.tools.forEach(tool => {
-          if (tool.type === 'transcriptionLine') {
-            usesTranscriptionLines = true
-          }
-        })
+        task.type === 'transcription'
       })
-      return usesTranscriptionLines
+      return usesTranscriptionTask
     }
   }))
 

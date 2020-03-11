@@ -2,9 +2,6 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
 
 import Step from './Step'
-import taskRegistry, { taskModels } from '@plugins/tasks'
-
-const taskTypes = types.union(...taskModels)
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {

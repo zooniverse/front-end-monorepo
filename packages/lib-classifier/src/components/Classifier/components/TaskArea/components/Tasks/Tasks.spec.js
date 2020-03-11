@@ -4,17 +4,15 @@ import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import taskRegistry from '@plugins/tasks'
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-describe('Tasks', function () {
+describe.only('Tasks', function () {
   let addAnnotation
   let classification
   let step
-  let tasks
   let TaskComponent
 
   const taskTypes = Object.keys(taskRegistry.register)
@@ -31,6 +29,7 @@ describe('Tasks', function () {
   taskTypes.forEach(function (taskType) {
     before(function () {
       const task = taskRegistry.get(taskType)
+      console.log('task', task)
       TaskComponent = observer(task.TaskComponent)
       const taskSnapshot = {
         instruction: `${taskType} instructions`,
@@ -127,7 +126,7 @@ describe('Tasks', function () {
         expect(wrapper.type()).to.be.null()
       })
 
-      it('should render the correct task component if the workflow is loaded', function () {
+      it.only('should render the correct task component if the workflow is loaded', function () {
         const wrapper = shallow(
           <Tasks
             loadingState={asyncStates.success}
@@ -138,6 +137,7 @@ describe('Tasks', function () {
           />
         )
         // Is there a better way to do this?
+        console.log('debug', wrapper)
         expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
       })
 

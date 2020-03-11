@@ -4,6 +4,7 @@ import DrawingTask from './DrawingTask'
 import MultipleChoiceTask from './MultipleChoiceTask'
 import SingleChoiceTask from './SingleChoiceTask'
 import TextTask from './TextTask'
+import TranscriptionTask from './TranscriptionTask'
 
 const taskRegistry = new Registry()
 try {
@@ -12,6 +13,7 @@ try {
   taskRegistry.add('multiple', MultipleChoiceTask)
   taskRegistry.add('single', SingleChoiceTask)
   taskRegistry.add('text', TextTask)
+  taskRegistry.add('transcription', TranscriptionTask)
 } catch (e) {
   console.log(e.message)
 }

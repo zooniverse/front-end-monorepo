@@ -22,11 +22,11 @@ describe('Model > Workflow', function () {
       expect(workflow.grouped).to.be.false()
     })
 
-    it('should not use transcription lines', function () {
-      expect(workflow.usesTranscriptionLines).to.be.false()
+    it('should not use transcription task', function () {
+      expect(workflow.usesTranscriptionTask).to.be.false()
     })
   })
-  describe('with transcription tools', function () {
+  describe('with transcription task', function () {
     let workflow
 
     before(function () {
@@ -35,7 +35,7 @@ describe('Model > Workflow', function () {
         display_name: 'A test workflow',
         tasks: {
           T0: {
-            type: 'drawing',
+            type: 'transcription',
             tools: [
               { type: 'transcriptionLine' }
             ]
@@ -46,8 +46,8 @@ describe('Model > Workflow', function () {
       workflow = Workflow.create(workflowSnapshot)
     })
 
-    it('should use transcription lines', function () {
-      expect(workflow.usesTranscriptionLines).to.be.true()
+    it('should use transcription task', function () {
+      expect(workflow.usesTranscriptionTask).to.be.true()
     })
   })
 })
