@@ -166,23 +166,46 @@ class SubjectGroupViewerContainer extends React.Component {
             rotate={rotation}
             width={naturalWidth}
           >
-            {images.map((image, index) =>
-              <g
-                transform={`translate(${index * 10}, ${index * 10})`}
-              >
-                <DraggableImage
-                  ref={this.subjectImage}
-                  dragMove={this.dragMove}
-                  height={image.naturalHeight}
-                  width={image.naturalWidth}
-                  xlinkHref={image.src}
-                />
-              </g>
-            )}
+            {images.map((image, index) => this.renderCell(image, index, cellWidth, cellHeight, gridRows, gridColumns))}
           </SubjectGroupViewer>
         </SVGPanZoom>
         <SubTaskPopup />
       </SVGContext.Provider>
+    )
+  }
+  
+  renderCell (image, index, cellWidth, cellHeight, gridRows, gridColumns) {
+    
+    const row = Math.floor(index / gridColumns)
+    const col = index % gridColumns
+    
+    const cellXOffset = col * cellWidth
+    const cellYOffset = row * cellHeight
+    
+    if (
+      !image || !image.src || !image.naturalHeight || !image.naturalWidth  // Don't render an image if there's no image to render. Of course.
+      || row < 0 || row >= gridRows || col < 0 || col >= gridColumns  // Don't render anything beyond the specified grid.
+    ) return null
+    
+    // TODO: what if there are fewer images than cells in the grid?
+    
+    const fitRatio = 1
+    
+    const imageHeight = image.naturalHeight / fitRatio
+    const imageWidth = image.naturalWidth / fitRatio
+    
+    return (
+      <g
+        transform={`translate(${cellXOffset}, ${cellYOffset})`}
+      >
+        <DraggableImage
+          ref={this.subjectImage}
+          dragMove={this.dragMove}
+          height={imageHeight}
+          width={imageWidth}
+          xlinkHref={image.src}
+        />
+      </g>
     )
   }
 }
