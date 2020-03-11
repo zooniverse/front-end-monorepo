@@ -18,8 +18,18 @@ function storeMapper (stores) {
     setOnZoom,
     setOnPan
   } = stores.classifierStore.subjectViewer
+  
+  // TODO
+  const gridRows = 3
+  const gridColumns = 3
+  const cellWidth = 400
+  const cellHeight = 400
 
   return {
+    cellWidth,
+    cellHeight,
+    gridRows,
+    gridColumns,
     enableRotation,
     rotation,
     setOnZoom,
@@ -38,7 +48,6 @@ class SubjectGroupViewerContainer extends React.Component {
     this.subjectImage = React.createRef()
 
     this.state = {
-      img: {},
       images: [],
     }
   }
@@ -71,35 +80,38 @@ class SubjectGroupViewerContainer extends React.Component {
     const { subject } = this.props
     if (subject && subject.locations) {
       // TODO: Validate for allowed image media mime types
-      const imageUrl = Object.values(subject.locations[0])[0]
       
       const imageUrls = subject.locations.map(obj => Object.values(obj)[0])
       const images = await Promise.all(
         imageUrls.map(url => this.fetchImage(url))
       )
       
-      const img = await this.fetchImage(imageUrl)
-      this.setState({ img, images })
-      return img
+      this.setState({ images })
+      return images
     }
     return {}
   }
 
   async getImageSize () {
-    const img = await this.preload()
     const svg = this.imageViewer.current || {}
-    const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect()
+    const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect && svg.getBoundingClientRect() || {}
+    const { gridRows, gridColumns, cellWidth, cellHeight } = this.props
+    
+    const naturalWidth = gridColumns * cellWidth
+    const naturalHeight = gridRows * cellHeight
+    
     return {
       clientHeight,
       clientWidth,
-      naturalHeight: img.naturalHeight,
-      naturalWidth: img.naturalWidth
+      naturalHeight,
+      naturalWidth
     }
   }
 
   async onLoad () {
     const { onError, onReady } = this.props
     try {
+      await this.preload()
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
@@ -111,6 +123,10 @@ class SubjectGroupViewerContainer extends React.Component {
 
   render () {
     const {
+      cellWidth,
+      cellHeight,
+      gridRows,
+      gridColumns,
       enableInteractionLayer,
       loadingState,
       onKeyDown,
@@ -118,21 +134,15 @@ class SubjectGroupViewerContainer extends React.Component {
       setOnPan,
       setOnZoom
     } = this.props
-    const { img, images } = this.state
-    const { naturalHeight, naturalWidth, src } = img
+    const { images } = this.state
+    
+    const naturalWidth = gridColumns * cellWidth
+    const naturalHeight = gridRows * cellHeight
 
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
       )
-    }
-
-    if (!src) {
-      return null
-    }
-    
-    if (!naturalWidth) {
-      return null
     }
 
     const svg = this.imageViewer.current
@@ -163,8 +173,8 @@ class SubjectGroupViewerContainer extends React.Component {
                 <DraggableImage
                   ref={this.subjectImage}
                   dragMove={this.dragMove}
-                  height={image.naturalHeight / 3}
-                  width={image.naturalWidth / 3}
+                  height={image.naturalHeight}
+                  width={image.naturalWidth}
                   xlinkHref={image.src}
                 />
               </g>
