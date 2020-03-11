@@ -1,14 +1,26 @@
+import validateMimeType from '../validateMimeType'
+
 function createLocationCounts ({ locations }) {
-  const types = locations
+  const mimeTypes = locations
     .map(location => Object.keys(location)[0])
 
-  const images = types
-    .filter(type => type.startsWith('image'))
-    .length
+  try {
+    const images = mimeTypes
+      .filter(mimeType => mimeType.startsWith('image') && validateMimeType(mimeType))
+      .length
 
-  return {
-    images,
-    total: locations.length
+    const json = mimeTypes
+      .filter(mimeType => mimeType.startsWith('application') && validateMimeType(mimeType))
+      .length
+
+    return {
+      images,
+      json,
+      total: locations.length
+    }
+  } catch (error) {
+    console.log(error)
+    return {}
   }
 }
 
