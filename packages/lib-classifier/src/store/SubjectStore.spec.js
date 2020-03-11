@@ -1,5 +1,7 @@
 import sinon from 'sinon'
 import RootStore from './RootStore'
+import SubjectGroup from './SubjectGroup'
+import SingleImageSubject from './SingleImageSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import { Factory } from 'rosie'
@@ -118,6 +120,38 @@ describe('Model > SubjectStore', function () {
         expect(subjects.resources.size).to.equal(0)
         expect(subjects.active).to.be.undefined()
       })
+    })
+  })
+
+  describe('single image subjects', function () {
+    let subjects
+    let imageSubjects = Factory.buildList('subject', 10, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+
+    before(function () {
+      subjects = mockSubjectStore([ ...imageSubjects ])
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = SingleImageSubject.create(imageSubjects[0])
+      expect(subjects.active).to.deep.equal(expectedSubject)
+    })
+  })
+
+  describe('subject groups', function () {
+    let subjects
+    let imageSubjects = Factory.buildList('subject', 25, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+
+    before(function () {
+      const subjectGroup = SubjectGroup.create({
+        id: '12345',
+        subjects: imageSubjects
+      })
+      subjects = mockSubjectStore([ subjectGroup, ...longListSubjects ])
+    })
+
+    it('should be valid subjects', function () {
+      expect(subjects.active.id).to.equal('12345')
+      expect(subjects.active.subjects).to.deep.equal(imageSubjects)
     })
   })
 

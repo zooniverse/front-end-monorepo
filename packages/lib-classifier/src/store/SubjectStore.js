@@ -5,8 +5,14 @@ import { getBearerToken } from './utils'
 import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
+import SingleImageSubject from './SingleImageSubject'
+import SubjectGroup from './SubjectGroup'
 
 const MINIMUM_QUEUE_SIZE = 3
+
+const subjectModels = [ SingleImageSubject, Subject, SubjectGroup ]
+const subjectReferences = subjectModels.map(model => types.safeReference(model))
+
 
 function openTalkPage (talkURL, newTab = false) {
   if (newTab) {
@@ -22,8 +28,8 @@ function openTalkPage (talkURL, newTab = false) {
 
 const SubjectStore = types
   .model('SubjectStore', {
-    active: types.safeReference(Subject),
-    resources: types.map(Subject),
+    active: types.union(...subjectReferences),
+    resources: types.map(types.union(...subjectModels)),
     type: types.optional(types.string, 'subjects')
   })
 
