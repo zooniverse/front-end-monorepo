@@ -22,8 +22,8 @@ function storeMapper (stores) {
   // TODO
   const gridRows = 3
   const gridColumns = 3
-  const cellWidth = 400
-  const cellHeight = 400
+  const cellWidth = 1200
+  const cellHeight = 1000
 
   return {
     cellWidth,
@@ -38,6 +38,7 @@ function storeMapper (stores) {
 }
 
 const DraggableImage = draggable('image')
+const DraggableRect = draggable('rect')
 
 class SubjectGroupViewerContainer extends React.Component {
   constructor () {
@@ -185,25 +186,47 @@ class SubjectGroupViewerContainer extends React.Component {
     if (
       !image || !image.src || !image.naturalHeight || !image.naturalWidth  // Don't render an image if there's no image to render. Of course.
       || row < 0 || row >= gridRows || col < 0 || col >= gridColumns  // Don't render anything beyond the specified grid.
+      || !cellWidth || !cellHeight || !gridColumns || !gridRows
     ) return null
     
     // TODO: what if there are fewer images than cells in the grid?
     
-    const fitRatio = 1
+    const fitRatio = Math.max(
+      image.naturalWidth / cellWidth,
+      image.naturalHeight / cellHeight,
+    )
     
     const imageHeight = image.naturalHeight / fitRatio
     const imageWidth = image.naturalWidth / fitRatio
+    const imageX = (cellWidth - imageWidth) / 2
+    const imageY = (cellHeight - imageHeight) / 2
     
     return (
       <g
+        key={image.src}
         transform={`translate(${cellXOffset}, ${cellYOffset})`}
       >
+        <DraggableRect
+          fill="#000"
+          width={cellWidth}
+          height={cellHeight}
+          dragMove={this.dragMove}
+        />
         <DraggableImage
           ref={this.subjectImage}
           dragMove={this.dragMove}
           height={imageHeight}
           width={imageWidth}
+          x={imageX}
+          y={imageY}
           xlinkHref={image.src}
+        />
+        <rect
+          fill="none"
+          stroke="#0cc"
+          strokeWidth="10"
+          width={cellWidth}
+          height={cellHeight}
         />
       </g>
     )
