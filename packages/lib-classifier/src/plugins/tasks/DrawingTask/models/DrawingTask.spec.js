@@ -230,9 +230,6 @@ describe('Model > DrawingTask', function () {
       expect(lineTool.marks.size).to.equal(0)
     })
 
-    it('should clear stale marks from the task', function () {
-      expect(marks.length).to.equal(0)
-    })
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
