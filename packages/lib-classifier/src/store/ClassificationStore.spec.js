@@ -34,7 +34,6 @@ describe('Model > ClassificationStore', function () {
   const singleChoiceAnnotationSnapshot = SingleChoiceAnnotationFactory.build()
   const workflowSnapshot = WorkflowFactory.build({ tasks: { T0: singleChoiceTaskSnapshot } })
   const projectSnapshot = ProjectFactory.build({}, { activeWorkflowId: workflowSnapshot.id })
-  const subjectSnapshot = SubjectFactory.build()
 
   function setupStores (stores) {
     const clientSnapshot = stubPanoptesJs({ classifications: [], subjects: subjectsSnapshot })
@@ -46,8 +45,19 @@ describe('Model > ClassificationStore', function () {
     store.projects.setActive(projectSnapshot.id)
     store.workflows.setResource(workflowSnapshot)
     store.workflows.setActive(workflowSnapshot.id)
-    store.subjects.setResource(subjectSnapshot)
-    store.subjects.setActive(subjectSnapshot.id)
+    store.subjects.setResource(subjectsSnapshot[0])
+    store.subjects.setActive(subjectsSnapshot[0].id)
+    store.subjectViewer.onSubjectReady({
+      target: {
+        naturalHeight: 200,
+        naturalWidth: 400
+      }
+    })
+    /*
+      onSubjectReady resets the feedback store so
+      apply any feedback rules manually for now.
+    */
+    applySnapshot(store.feedback, stores.feedback)
     return store
   }
 
@@ -70,10 +80,6 @@ describe('Model > ClassificationStore', function () {
         workflowSteps: {},
         userProjectPreferences: {}
       })
-      rootStore.subjectViewer.onSubjectReady()
-      rootStore.subjects.setResource(subjectsSnapshot[0])
-      rootStore.subjects.setActive(subjectsSnapshot[0].id)
-      rootStore.subjectViewer.onSubjectReady()
       classifications = rootStore.classifications
     })
 
@@ -117,11 +123,14 @@ describe('Model > ClassificationStore', function () {
         workflowSteps: {},
         userProjectPreferences: {}
       })
-      rootStore.subjectViewer.onSubjectReady()
-      rootStore.subjects.setResource(subjectsSnapshot[0])
-      rootStore.subjects.setActive(subjectsSnapshot[0].id)
-      rootStore.subjectViewer.onSubjectReady()
       classifications = rootStore.classifications
+      rootStore.subjects.advance()
+      rootStore.subjectViewer.onSubjectReady({
+        target: {
+          naturalHeight: 200,
+          naturalWidth: 400
+        }
+      })
     })
 
     afterEach(function () {
@@ -159,7 +168,6 @@ describe('Model > ClassificationStore', function () {
           workflowSteps: {},
           userProjectPreferences: {}
         })
-        rootStore.subjectViewer.onSubjectReady()
 
         classifications = rootStore.classifications
         classifications.setOnComplete(sinon.stub())
@@ -193,10 +201,12 @@ describe('Model > ClassificationStore', function () {
       let rootStore
 
       before(function () {
+        // mock a store with feedback rules
+        const activeFeedback = FeedbackFactory.build({ rules: feedbackRulesSnapshot })
         rootStore = setupStores({
           dataVisAnnotating: {},
           drawing: {},
-          feedback: {},
+          feedback: activeFeedback,
           fieldGuide: {},
           subjectViewer: {},
           tutorials: {},
@@ -213,22 +223,8 @@ describe('Model > ClassificationStore', function () {
         onComplete = sinon.stub()
         classifications.setOnComplete(onComplete)
         subjectViewer = rootStore.subjectViewer
-      })
 
-      before(function () {
-        const activeFeedback = FeedbackFactory.build({ rules: feedbackRulesSnapshot })
-        // Classification completion adds feedback metadata if feedback is active and there are rules
-        // So first we update the feedback store to have active feedback
-        // Then call the classification complete event
-        applySnapshot(feedback, activeFeedback)
-
-        subjectViewer.onSubjectReady({
-          target: {
-            naturalHeight: 200,
-            naturalWidth: 400
-          }
-        })
-
+        // annotate a subject then finish the classification
         subjectToBeClassified = rootStore.subjects.active
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
@@ -243,9 +239,7 @@ describe('Model > ClassificationStore', function () {
         onComplete.resetHistory()
         feedback.update.resetHistory()
         subjectViewer.resetSubject()
-      })
 
-      after(function () {
         feedback.createRules.restore()
         feedback.update.restore()
         feedback.reset.restore()
