@@ -11,7 +11,7 @@ import TranscriptionAnnotation from './TranscriptionAnnotation'
 const Transcription = types.model('Transcription', {
   activeMark: types.safeReference(TranscriptionLine),
   annotation: types.safeReference(TranscriptionAnnotation),
-  caesarKey: types.literal('alice'),
+  caesarKey: types.maybe(types.literal('alice')),
   tools: types.array(TranscriptionLineTool),
   type: types.literal('transcription')
 })

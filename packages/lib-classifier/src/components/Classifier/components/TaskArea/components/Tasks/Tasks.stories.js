@@ -172,7 +172,96 @@ storiesOf('Tasks', module)
       tasks
     })
     const dark = boolean('Dark theme', false)
-    const loadingState = select('Subject loading', asyncStates, asyncStates.success)
+    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+    const isThereTaskHelp = boolean('Enable task help', true)
+    return (
+      <MockTask
+        dark={dark}
+        isThereTaskHelp={isThereTaskHelp}
+        loadingState={asyncStates.success}
+        step={step}
+        subjectReadyState={subjectReadyState}
+        tasks={tasks}
+        zooTheme={zooTheme}
+      />
+    )
+  })
+  .add('drawing', function () {
+    const tasks = [
+      {
+        help: 'Draw on the image.',
+        instruction: 'Draw something',
+        taskKey: 'T0',
+        tools: [
+          {
+            color: zooTheme.global.colors['drawing-red'],
+            help: '',
+            label: 'Draw a line',
+            type: 'line'
+          }, {
+            color: zooTheme.global.colors['drawing-blue'],
+            help: '',
+            label: 'Point please.',
+            min: 1,
+            max: 2,
+            type: 'point',
+          }, {
+            color: zooTheme.global.colors['drawing-green'],
+            help: '',
+            label: 'Draw under the text',
+            type: 'transcriptionLine'
+          }, {
+            color: zooTheme.global.colors['drawing-orange'],
+            help: '',
+            label: 'Draw a rectangle',
+            type: 'rectangle',
+          }
+        ],
+        type: 'drawing'
+      }
+    ]
+    const step = Step.create({
+      stepKey: 'S1',
+      taskKeys: ['T0'],
+      tasks
+    })
+    const dark = boolean('Dark theme', false)
+    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+    const isThereTaskHelp = boolean('Enable task help', true)
+    return (
+      <MockTask
+        dark={dark}
+        isThereTaskHelp={isThereTaskHelp}
+        loadingState={asyncStates.success}
+        step={step}
+        subjectReadyState={subjectReadyState}
+        tasks={tasks}
+        zooTheme={zooTheme}
+      />
+    )
+  })
+  .add('transcription', function () {
+    const tasks = [
+      {
+        help: 'Underline the line to transcribe with two clicks, then enter in the text transcription.',
+        instruction: 'Underline and transcribe',
+        taskKey: 'T0',
+        tools: [
+          {
+            help: '',
+            label: 'Draw under the text',
+            type: 'transcriptionLine'
+          }
+        ],
+        type: 'transcription'
+      }
+    ]
+    const step = Step.create({
+      stepKey: 'S1',
+      taskKeys: ['T0'],
+      tasks
+    })
+    const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
     return (

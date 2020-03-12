@@ -32,11 +32,9 @@ describe('Tasks', function () {
       TaskComponent = observer(task.TaskComponent)
       // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
       // SingleChoiceTask, MultipleChoiceTask use question
-      // Only TranscriptionTask uses caesarKey
       // keys that aren't defined on certain task models are ignored
       // but missing keys that aren't an optional or maybe type will throw an error
       const taskSnapshot = {
-        caesarKey: 'alice',
         instruction: `${taskType} instructions`,
         question: `${taskType} question`,
         taskKey: 'init',

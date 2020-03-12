@@ -4,7 +4,7 @@ The transcription task is a task type designed for use in transcription humaniti
 
 The task type is very similar to the drawing task with these notable differences:
 
-- The allowed tool type is limited to the transcription line tool
+- The allowed tool type is limited to a single transcription line tool
 - The marks that are annotated are limited to the transcription line tool's marks
 - Requests to Caesar for previous transcriptions to start a new annotation only happen if this task type is part of the workflow
 - The key for the caesar request, `'alice'`, is stored as a constant on the model. This is currently hard coded in the request code in the transcription reductions model, however, if this every needs to be configurable in the future, the transcription task model is an appropriate place for this and can be looked up before a caesar reduction request is made.
