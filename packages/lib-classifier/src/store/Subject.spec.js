@@ -38,7 +38,7 @@ describe('Model > Subject', function () {
       display_name: 'A test workflow',
       tasks: {
         T0: {
-          type: 'drawing',
+          type: 'transcription',
           tools: [
             { type: 'transcriptionLine' }
           ]

@@ -9,7 +9,7 @@ import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-describe.only('Tasks', function () {
+describe('Tasks', function () {
   let addAnnotation
   let classification
   let step
@@ -29,9 +29,14 @@ describe.only('Tasks', function () {
   taskTypes.forEach(function (taskType) {
     before(function () {
       const task = taskRegistry.get(taskType)
-      console.log('task', task)
       TaskComponent = observer(task.TaskComponent)
+      // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
+      // SingleChoiceTask, MultipleChoiceTask use question
+      // Only TranscriptionTask uses caesarKey
+      // keys that aren't defined on certain task models are ignored
+      // but missing keys that aren't an optional or maybe type will throw an error
       const taskSnapshot = {
+        caesarKey: 'alice',
         instruction: `${taskType} instructions`,
         question: `${taskType} question`,
         taskKey: 'init',
@@ -126,7 +131,7 @@ describe.only('Tasks', function () {
         expect(wrapper.type()).to.be.null()
       })
 
-      it.only('should render the correct task component if the workflow is loaded', function () {
+      it('should render the correct task component if the workflow is loaded', function () {
         const wrapper = shallow(
           <Tasks
             loadingState={asyncStates.success}
@@ -137,7 +142,6 @@ describe.only('Tasks', function () {
           />
         )
         // Is there a better way to do this?
-        console.log('debug', wrapper)
         expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
       })
 

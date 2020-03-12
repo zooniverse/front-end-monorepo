@@ -30,7 +30,7 @@ const Workflow = types
     get usesTranscriptionTask () {
       let usesTranscriptionTask = false
       self.tasks && Object.values(self.tasks).forEach(task => {
-        task.type === 'transcription'
+        usesTranscriptionTask = task.type === 'transcription'
       })
       return usesTranscriptionTask
     }

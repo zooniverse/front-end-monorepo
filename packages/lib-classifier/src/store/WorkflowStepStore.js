@@ -156,8 +156,9 @@ const WorkflowStepStore = types
           const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
           try {
             step.tasks.push(taskToStore)
-          } catch (e) {
-            console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
+          } catch (error) {
+            console.error(`${taskKey} ${taskToStore.type} is not a supported task type`)
+            console.error(error)
           }
         })
       })
