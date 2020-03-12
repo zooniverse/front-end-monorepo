@@ -10,8 +10,19 @@ import SubjectGroup from './SubjectGroup'
 
 const MINIMUM_QUEUE_SIZE = 3
 
-const subjectModels = [ SingleImageSubject, Subject, SubjectGroup ]
-const subjectReferences = subjectModels.map(model => types.safeReference(model))
+/*
+  see https://github.com/mobxjs/mobx-state-tree/issues/514
+  for advice about using references with types.union.
+*/
+const SingleSubject = types.union(SingleImageSubject, Subject)
+function subjectDispatcher (snapshot) {
+  if (snapshot.subjects) {
+    return SubjectGroup
+  }
+  return SingleSubject
+}
+const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
+const SubjectType = types.union(...subjectModels)
 
 
 function openTalkPage (talkURL, newTab = false) {
@@ -28,8 +39,8 @@ function openTalkPage (talkURL, newTab = false) {
 
 const SubjectStore = types
   .model('SubjectStore', {
-    active: types.union(...subjectReferences),
-    resources: types.map(types.union(...subjectModels)),
+    active: types.safeReference(SubjectType),
+    resources: types.map(SubjectType),
     type: types.optional(types.string, 'subjects')
   })
 
