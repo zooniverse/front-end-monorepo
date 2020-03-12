@@ -18,17 +18,22 @@ function storeMapper (stores) {
 class GrommetWrapperContainer extends Component {
   mergeThemes () {
     const { mode, theme } = this.props
-    console.log('mode', mode)
     return merge({}, theme, { dark: mode === 'dark' })
   }
 
   render () {
-    const { children } = this.props
+    const { children, mode } = this.props
     const mergedThemes = this.mergeThemes()
 
-    console.log('mergedThemes', mergedThemes)
     return (
-      <Grommet theme={mergedThemes} themeMode={(mergedThemes.dark) ? 'dark' : 'light'}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={mergedThemes}
+        themeMode={mode}
+      >
         {children}
       </Grommet>
     )

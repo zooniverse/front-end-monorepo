@@ -50,7 +50,6 @@ const UI = types
         onPatch(self, (patch) => {
           const { path } = patch
           if (path === '/mode') {
-            console.log('mode is set', self.mode)
             self.setModeCookie()
           }
         })
@@ -114,7 +113,6 @@ const UI = types
     },
 
     toggleMode () {
-      console.log('clicky')
       if (self.mode === 'light') {
         self.setDarkMode()
       } else {
