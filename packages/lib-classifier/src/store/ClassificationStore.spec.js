@@ -246,8 +246,14 @@ describe('Model > ClassificationStore', function () {
         helpers.isFeedbackActive.restore()
       })
 
-      // Why is this test here?
-      // The observer is in the feedback store
+      /* 
+        Why is this test here?
+        The observer is in the root store.
+        I'm not sure why these are here either. (JOD)
+        The RootStore tests could be updated to test that feedback
+        is added to classifications on classificationComplete.
+        The tests for invalid feedback would have to be moved too.
+      */
       it('should update feedback', function () {
         expect(feedback.update.withArgs(singleChoiceAnnotationSnapshot)).to.have.been.calledOnce()
       })
