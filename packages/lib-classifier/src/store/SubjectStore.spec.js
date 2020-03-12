@@ -128,7 +128,7 @@ describe('Model > SubjectStore', function () {
     let imageSubjects = Factory.buildList('subject', 10, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
 
     before(function () {
-      subjects = mockSubjectStore([ ...imageSubjects ])
+      subjects = mockSubjectStore(imageSubjects)
     })
 
     it('should be valid subjects', function () {
@@ -142,16 +142,21 @@ describe('Model > SubjectStore', function () {
     let imageSubjects = Factory.buildList('subject', 25, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
 
     before(function () {
-      const subjectGroup = SubjectGroup.create({
-        id: '12345',
-        subjects: imageSubjects
-      })
-      subjects = mockSubjectStore([ subjectGroup, ...longListSubjects ])
+      const subjectGroups = []
+      for (let i = 0; i < 6; i++) {
+        const subjectGroup = {
+          id: `${i}`,
+          subjects: imageSubjects
+        }
+        subjectGroups.push(subjectGroup)
+      }
+      subjects = mockSubjectStore(subjectGroups)
     })
 
     it('should be valid subjects', function () {
-      expect(subjects.active.id).to.equal('12345')
-      expect(subjects.active.subjects).to.deep.equal(imageSubjects)
+      expect(subjects.active).to.exist()
+      expect(subjects.active.id).to.equal('0')
+      expect(subjects.active.subjects).to.have.lengthOf(25)
     })
   })
 
