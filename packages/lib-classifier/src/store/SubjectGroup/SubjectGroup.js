@@ -3,6 +3,10 @@ import Resource from '../Resource'
 import subjectViewers from '../../helpers/subjectViewers'
 import SingleImageSubject from '../SingleImageSubject'
 
+function validateSubjects (subjects) {
+  return subjects.length > 1
+}
+
 const SubjectGroup = types
   .model('SubjectGroup', {
     already_seen: types.optional(types.boolean, false),
@@ -13,7 +17,7 @@ const SubjectGroup = types
     selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     shouldDiscuss: types.maybe(types.frozen()),
-    subjects: types.array(SingleImageSubject),
+    subjects: types.refinement(types.array(SingleImageSubject), validateSubjects),
     user_has_finished_workflow: types.optional(types.boolean, false),
   })
 
