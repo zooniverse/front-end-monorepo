@@ -21,6 +21,30 @@ const SubjectGroup = types
     user_has_finished_workflow: types.optional(types.boolean, false),
   })
 
+  .views(self => ({
+    get locations () {
+      return self.subjects.map(subject => subject.locations[0])
+    },
+
+    get talkURL () {
+      const project = tryReference(() => getRoot(self).projects?.active)
+      if (project) {
+        const { origin } = window.location
+        return `${origin}/projects/${project.slug}/talk/subjects/${self.id}`
+      }
+
+      return ''
+    },
+
+    get viewer () {
+      return subjectViewers.subjectGroup
+    },
+
+    get workflow () {
+      return tryReference(() => getRoot(self).workflows?.active)
+    }
+  }))
+
   .actions(self => {
 
     function addToCollection () {
@@ -47,26 +71,6 @@ const SubjectGroup = types
       toggleFavorite
     }
   })
-
-  .views(self => ({
-    get talkURL () {
-      const project = tryReference(() => getRoot(self).projects?.active)
-      if (project) {
-        const { origin } = window.location
-        return `${origin}/projects/${project.slug}/talk/subjects/${self.id}`
-      }
-
-      return ''
-    },
-
-    get viewer () {
-      return subjectViewers.subjectGroup
-    },
-
-    get workflow () {
-      return tryReference(() => getRoot(self).workflows?.active)
-    }
-  }))
 
   
 
