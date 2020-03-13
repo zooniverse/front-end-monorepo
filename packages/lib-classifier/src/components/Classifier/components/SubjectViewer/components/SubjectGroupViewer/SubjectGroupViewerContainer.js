@@ -68,18 +68,17 @@ class SubjectGroupViewerContainer extends React.Component {
     this.props.enableRotation()
     this.onLoad()
 
-    // TODO: check if these are necessary
-    // IIRC these are used to listen for pan and zoom actions outside of this component.
+    // Listen for pan and zoom actions outside of this component.
     // i.e. zoom in/out actions from the iamge controls. 
-    // this.props.setOnPan(this.onPan.bind(this))
-    this.props.setOnZoom(this.onZoom.bind(this))
+    this.props.setOnPan(this.onPanViaExternalControls.bind(this))
+    this.props.setOnZoom(this.onZoomViaExternalControls.bind(this))
     
     this.scrollContainer.current.addEventListener('wheel', preventDefault)
   }
   
   componentWillUmount () {
     // TODO
-    // this.setOnPan(() => true)
+    this.setOnPan(() => true)
     this.setOnZoom(() => true)
     
     this.scrollContainer.current.removeEventListener('wheel', preventDefault)
@@ -146,21 +145,30 @@ class SubjectGroupViewerContainer extends React.Component {
   }
   
   onDrag (event, difference) {
-    // TODO
-    const { panX, panY } = this.state
+    this.doPan(difference.x, difference.y)
+  }
+
+  onPanViaExternalControls (dx, dy) {
+    const ARBITRARY_FACTOR = Math.min(this.props.cellWidth, this.props.cellHeight) / 20
     
+    // TODO: uh, looks like left/right pan is flipped, but that's a separate PR
+    
+    this.doPan(dx * ARBITRARY_FACTOR, dy * ARBITRARY_FACTOR)
+  }
+  
+  doPan (dx, dy) {
+    const { panX, panY } = this.state
     this.setState({
-      panX: panX + difference.x,
-      panY: panY + difference.y,
+      panX: panX + dx,
+      panY: panY + dy,
     })
   }
 
-  onPan (dx, dy) {
-    // TODO
-    console.log('+++ onPan: ', dy, dx)
+  onZoomViaExternalControls (type) {
+    this.doZoom(type)
   }
-
-  onZoom (type) {
+  
+  doZoom (type) {
     const { zoom } = this.state
     
     const ARBITRARY_MIN_ZOOM = 0.5
@@ -187,9 +195,9 @@ class SubjectGroupViewerContainer extends React.Component {
   onWheel (event) {
     const { deltaY } = event
     if (deltaY < 0) {
-      this.onZoom('zoomout', -1)
+      this.doZoom('zoomout', -1)
     } else {
-      this.onZoom('zoomin', 1)
+      this.doZoom('zoomin', 1)
     }
   }
 
