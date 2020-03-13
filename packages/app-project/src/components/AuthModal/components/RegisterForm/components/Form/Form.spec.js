@@ -19,10 +19,11 @@ import {
 import en from '../../locales/en'
 
 describe('RegisterForm > Component > Form', function () {
+  const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
   it('should render without crashing', function () {
     const wrapper = shallow(
       <Form />,
-      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+      shallowOptions
     )
     expect(wrapper).to.be.ok()
   })
@@ -116,7 +117,7 @@ describe('RegisterForm > Component > Form', function () {
       const handleChangeSpy = sinon.spy()
       const wrapper = shallow(
         <Form handleChange={handleChangeSpy} />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const textInputs = wrapper.find(TextInput)
       const checkboxes = wrapper.find(CheckBox)
@@ -138,7 +139,7 @@ describe('RegisterForm > Component > Form', function () {
       const handleBlurSpy = sinon.spy()
       const wrapper = shallow(
         <Form handleBlur={handleBlurSpy} />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const textInputs = wrapper.find(TextInput)
       const checkboxes = wrapper.find(CheckBox)
@@ -159,7 +160,7 @@ describe('RegisterForm > Component > Form', function () {
     it('should update the values on props change', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const values = {
         betaListSignUp: true,
@@ -193,7 +194,7 @@ describe('RegisterForm > Component > Form', function () {
     it('should set validation error messages on inputs that are javascript validated', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const errors = {
         email: 'Already taken',
@@ -216,7 +217,7 @@ describe('RegisterForm > Component > Form', function () {
     it('should show field labels for over 16 registrants when the checkbox is unchecked', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
 
       expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.usernameHelp)
@@ -228,7 +229,7 @@ describe('RegisterForm > Component > Form', function () {
     it('should show field labels for under 16 registrants when the checkbox is checked', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       wrapper.setProps({ values: { underageWithParent: true } })
 
@@ -244,7 +245,7 @@ describe('RegisterForm > Component > Form', function () {
       const handleSubmitSpy = sinon.spy()
       const wrapper = shallow(
         <Form handleSubmit={handleSubmitSpy} />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       wrapper.simulate('submit')
       expect(handleSubmitSpy).to.have.been.calledOnce()
@@ -253,7 +254,7 @@ describe('RegisterForm > Component > Form', function () {
     it('should disable all of the inputs and the submit button', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       wrapper.setProps({ isSubmitting: true })
       const textInputs = wrapper.find(TextInput)

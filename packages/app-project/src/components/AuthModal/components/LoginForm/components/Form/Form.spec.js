@@ -10,10 +10,11 @@ import {
 } from './Form'
 
 describe('LoginForm > Component > Form', function () {
+  const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
   it('should render without crashing', function () {
     const wrapper = shallow(
       <Form />,
-      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+      shallowOptions
     )
     expect(wrapper).to.be.ok()
   })
@@ -49,7 +50,7 @@ describe('LoginForm > Component > Form', function () {
       const handleChangeSpy = sinon.spy()
       const wrapper = shallow(
         <Form handleChange={handleChangeSpy} />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const textInputs = wrapper.find(TextInput)
 
@@ -64,7 +65,7 @@ describe('LoginForm > Component > Form', function () {
       const handleBlurSpy = sinon.spy()
       const wrapper = shallow(
         <Form handleBlur={handleBlurSpy} />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const textInputs = wrapper.find(TextInput)
 
@@ -78,7 +79,7 @@ describe('LoginForm > Component > Form', function () {
     it('should update the values on props change', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       const values = {
         login: 'ZooFan',
@@ -97,7 +98,7 @@ describe('LoginForm > Component > Form', function () {
       const handleSubmitSpy = sinon.spy()
       const wrapper = shallow(
         <Form handleSubmit={handleSubmitSpy} />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       wrapper.simulate('submit')
       expect(handleSubmitSpy).to.have.been.calledOnce()
@@ -106,7 +107,7 @@ describe('LoginForm > Component > Form', function () {
     it('should disable all of the inputs and the submit button', function () {
       const wrapper = shallow(
         <Form />,
-        { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+        shallowOptions
       )
       wrapper.setProps({ isSubmitting: true })
       const textInputs = wrapper.find(TextInput)
