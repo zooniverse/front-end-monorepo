@@ -59,23 +59,32 @@ class SubjectGroupViewerContainer extends React.Component {
 
     this.state = {
       images: [],
+      panX: 0,
+      panY: 0,
+      zoom: 1,
     }
   }
 
   componentDidMount () {
     this.props.enableRotation()
     this.onLoad()
+
+    // TODO: check if these are necessary
+    // IIRC these are used to listen for pan and zoom actions outside of this component.
+    // i.e. zoom in/out actions from the iamge controls. 
+    // this.props.setOnDrag(this.onDrag.bind(this))
+    // this.props.setOnPan(this.onPan.bind(this))
+    // this.props.setOnZoom(this.onZoom.bind(this))
     
-    //this.props.setOnDrag(this.onDrag.bind(this))
-    this.props.setOnPan(this.onPan.bind(this))
-    this.props.setOnZoom(this.onZoom.bind(this))
     this.scrollContainer.current.addEventListener('wheel', preventDefault)
   }
   
   componentWillUmount () {
-    //this.setOnDrag(() => true)
-    this.setOnPan(() => true)
-    this.setOnZoom(() => true)
+    // TODO
+    // this.setOnDrag(() => true)
+    // this.setOnPan(() => true)
+    // this.setOnZoom(() => true)
+    
     this.scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
