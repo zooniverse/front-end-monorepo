@@ -1,8 +1,6 @@
 import sinon from 'sinon'
 import FeedbackStore from './FeedbackStore'
-import ProjectStore from './ProjectStore'
-import WorkflowStore from './WorkflowStore'
-import SubjectStore from './SubjectStore'
+import RootStore from './RootStore'
 import strategies from './feedback/strategies'
 import helpers from './feedback/helpers'
 import {
@@ -11,69 +9,86 @@ import {
   WorkflowFactory
 } from '@test/factories'
 import { Factory } from 'rosie'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
-const rulesStub = {
-  T0: [
-    {
-      id: 'testRule1-1',
-      hideSubjectViewer: false,
+describe('Model > FeedbackStore', function () {
+  const rulesStub = {
+    T0: [
+      {
+        id: 'testRule1-1',
+        hideSubjectViewer: false,
+        answer: '0',
+        strategy: 'testStrategy',
+        success: true,
+        successEnabled: true,
+        successMessage: 'Yay! 1-1',
+        failureEnabled: true,
+        failureMessage: 'No!'
+      },
+      {
+        id: 'testRule1-2',
+        hideSubjectViewer: false,
+        answer: '1',
+        strategy: 'testStrategy',
+        success: false,
+        successEnabled: true,
+        successMessage: 'Yay! 1-2',
+        failureEnabled: false
+      }
+    ],
+    T1: [{
+      id: 'testRule2-1',
+      hideSubjectViewer: true,
       answer: '0',
-      strategy: 'testStrategy',
-      success: true,
-      successEnabled: true,
-      successMessage: 'Yay! 1-1',
-      failureEnabled: true,
-      failureMessage: 'No!'
-    },
-    {
-      id: 'testRule1-2',
-      hideSubjectViewer: false,
-      answer: '1',
       strategy: 'testStrategy',
       success: false,
       successEnabled: true,
-      successMessage: 'Yay! 1-2',
-      failureEnabled: false
-    }
-  ],
-  T1: [{
-    id: 'testRule2-1',
-    hideSubjectViewer: true,
-    answer: '0',
-    strategy: 'testStrategy',
-    success: false,
-    successEnabled: true,
-    successMessage: 'Yippee!',
-    failureEnabled: true,
-    failureMessage: 'Nope!'
-  }]
-}
+      successMessage: 'Yippee!',
+      failureEnabled: true,
+      failureMessage: 'Nope!'
+    }]
+  }
 
-const workflow = WorkflowFactory.build({
-  tasks: {
-    T0: {
-      feedback: {
-        enabled: true,
-        rules: [{
-          id: '51',
-          strategy: 'singleAnswerQuestion',
-          failureEnabled: true,
-          successEnabled: true,
-          defaultFailureMessage: '"Actually, that\'s not correct"',
-          defaultSuccessMessage: '"Correct"'
-        }]
+  const workflow = WorkflowFactory.build({
+    tasks: {
+      T0: {
+        feedback: {
+          enabled: true,
+          rules: [{
+            id: '51',
+            strategy: 'singleAnswerQuestion',
+            failureEnabled: true,
+            successEnabled: true,
+            defaultFailureMessage: '"Actually, that\'s not correct"',
+            defaultSuccessMessage: '"Correct"'
+          }]
+        }
       }
     }
-  }
-})
-const project = ProjectFactory.build({}, {
-  activeWorkflowId: workflow.id,
-  experimental_tools: ['general feedback']
-})
-const subject = Factory.build('subject')
-subject.shouldDiscuss = undefined
+  })
+  const project = ProjectFactory.build({}, {
+    activeWorkflowId: workflow.id,
+    experimental_tools: ['general feedback']
+  })
+  const subject = Factory.build('subject')
+  subject.shouldDiscuss = undefined
 
-describe('Model > FeedbackStore', function () {
+  function createRootStore (feedbackSnapshot) {
+    const project = ProjectFactory.build()
+    const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
+    const subjects = Factory.buildList('subject', 10)
+    const client = stubPanoptesJs({ subjects, workflows: workflow })
+    client.tutorials = {
+      get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
+    }
+    return RootStore.create({
+      feedback: feedbackSnapshot
+    }, {
+      client,
+      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+    })
+  }
+
   describe('existance', function () {
     it('should exist', function () {
       expect(FeedbackStore).to.be.ok()
@@ -94,21 +109,21 @@ describe('Model > FeedbackStore', function () {
     })
 
     describe('createRules', function () {
-      let feedback, feedbackStub
+      let feedback
+      let rootStore
+
       before(function () {
         sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
-        feedbackStub = FeedbackFactory.build()
-        feedback = FeedbackStore.create(feedbackStub)
-        feedback.projects = ProjectStore.create()
-        feedback.workflows = WorkflowStore.create()
-        feedback.subjects = SubjectStore.create()
+        const feedbackSnapshot = FeedbackFactory.build()
+        rootStore = createRootStore(feedbackSnapshot)
+        feedback = rootStore.feedback
       })
 
       beforeEach(function () {
-        feedback.projects.setResource(project)
-        feedback.projects.setActive(project.id)
-        feedback.workflows.setResource(workflow)
-        feedback.workflows.setActive(workflow.id)
+        rootStore.projects.setResource(project)
+        rootStore.projects.setActive(project.id)
+        rootStore.workflows.setResource(workflow)
+        rootStore.workflows.setActive(workflow.id)
       })
 
       afterEach(function () {
@@ -130,22 +145,22 @@ describe('Model > FeedbackStore', function () {
     })
 
     describe('update', function () {
-      let feedback, feedbackStub
+      let feedback
+      let rootStore
+
       describe('when feedback is active', function () {
         before(function () {
           sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
-          feedbackStub = FeedbackFactory.build({ rules: rulesStub })
-          feedback = FeedbackStore.create(feedbackStub)
-          feedback.projects = ProjectStore.create()
-          feedback.workflows = WorkflowStore.create()
-          feedback.subjects = SubjectStore.create()
+          const feedbackSnapshot = FeedbackFactory.build({ rules: rulesStub })
+          rootStore = createRootStore(feedbackSnapshot)
+          feedback = rootStore.feedback
         })
 
         beforeEach(function () {
-          feedback.projects.setResource(project)
-          feedback.projects.setActive(project.id)
-          feedback.workflows.setResource(workflow)
-          feedback.workflows.setActive(workflow.id)
+          rootStore.projects.setResource(project)
+          rootStore.projects.setActive(project.id)
+          rootStore.workflows.setResource(workflow)
+          rootStore.workflows.setActive(workflow.id)
           const annotation = { task: 'T1', value: 0 }
           feedback.update(annotation)
         })
@@ -164,11 +179,9 @@ describe('Model > FeedbackStore', function () {
       describe('when feedback is not active', function () {
         before(function () {
           sinon.stub(helpers, 'isFeedbackActive').callsFake(() => false)
-          feedbackStub = FeedbackFactory.build({ rules: {} })
-          feedback = FeedbackStore.create(feedbackStub)
-          feedback.projects = ProjectStore.create()
-          feedback.workflows = WorkflowStore.create()
-          feedback.subjects = SubjectStore.create()
+          const feedbackSnapshot = FeedbackFactory.build({ rules: {} })
+          rootStore = createRootStore(feedbackSnapshot)
+          feedback = rootStore.feedback
         })
 
         after(function () {
@@ -176,10 +189,10 @@ describe('Model > FeedbackStore', function () {
         })
 
         beforeEach(function () {
-          feedback.projects.setResource(project)
-          feedback.projects.setActive(project.id)
-          feedback.workflows.setResource(workflow)
-          feedback.workflows.setActive(workflow.id)
+          rootStore.projects.setResource(project)
+          rootStore.projects.setActive(project.id)
+          rootStore.workflows.setResource(workflow)
+          rootStore.workflows.setActive(workflow.id)
           const annotation = { task: 'T1', value: 0 }
           feedback.update(annotation)
         })
@@ -195,16 +208,18 @@ describe('Model > FeedbackStore', function () {
     })
 
     describe('reset', function () {
-      let feedback, feedbackStub
+      let feedback
+      let rootStore
+
       before(function () {
         sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
       })
 
       beforeEach(function () {
-        feedbackStub = FeedbackFactory.build({ rules: rulesStub, showModal: true })
-        feedback = FeedbackStore.create(feedbackStub)
-        feedback.subjects = SubjectStore.create()
-        sinon.stub(feedback.subjects, 'advance').callsFake(() => { })
+        const feedbackSnapshot = FeedbackFactory.build({ rules: rulesStub, showModal: true })
+        rootStore = createRootStore(feedbackSnapshot)
+        feedback = rootStore.feedback
+        sinon.stub(rootStore.subjects, 'advance').callsFake(() => { })
       })
 
       after(function () {
@@ -227,7 +242,7 @@ describe('Model > FeedbackStore', function () {
         expect(feedback.onHide).to.be.a('function')
         expect(feedback.onHide()).to.be.true() // default to just return true
         feedback.reset()
-        expect(feedback.onHide).to.equal(feedback.subjects.advance)
+        expect(feedback.onHide).to.equal(rootStore.subjects.advance)
       })
     })
 
@@ -392,20 +407,19 @@ describe('Model > FeedbackStore', function () {
 
   describe('when a new subject loads', function () {
     let feedback
+    let rootStore
 
     before(function () {
-      const feedbackStub = FeedbackFactory.build()
-      feedback = FeedbackStore.create(feedbackStub)
-      feedback.projects = ProjectStore.create()
-      feedback.workflows = WorkflowStore.create()
-      feedback.subjects = SubjectStore.create()
+      const feedbackSnapshot = FeedbackFactory.build()
+      rootStore = createRootStore(feedbackSnapshot)
+      feedback = rootStore.feedback
     })
 
     beforeEach(function () {
-      feedback.projects.setResource(project)
-      feedback.projects.setActive(project.id)
-      feedback.workflows.setResource(workflow)
-      feedback.workflows.setActive(workflow.id)
+      rootStore.projects.setResource(project)
+      rootStore.projects.setActive(project.id)
+      rootStore.workflows.setResource(workflow)
+      rootStore.workflows.setActive(workflow.id)
     })
 
     afterEach(function () {
@@ -427,8 +441,8 @@ describe('Model > FeedbackStore', function () {
       })
 
       beforeEach(function () {
-        feedback.subjects.setResource(subject)
-        feedback.subjects.setActive(subject.id)
+        rootStore.subjects.setResource(subject)
+        rootStore.subjects.setActive(subject.id)
         feedback.onNewSubject()
       })
 
@@ -456,8 +470,8 @@ describe('Model > FeedbackStore', function () {
       })
 
       beforeEach(function () {
-        feedback.subjects.setResource(subject)
-        feedback.subjects.setActive(subject.id)
+        rootStore.subjects.setResource(subject)
+        rootStore.subjects.setActive(subject.id)
         feedback.onNewSubject()
       })
 

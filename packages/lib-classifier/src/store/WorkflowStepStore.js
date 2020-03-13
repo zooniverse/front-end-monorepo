@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, onAction, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 
 import Step from './Step'
 import taskRegistry, { taskModels } from '@plugins/tasks'
@@ -65,7 +65,6 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
-      createSubjectObserver()
     }
 
     function createWorkflowObserver () {
@@ -86,15 +85,6 @@ const WorkflowStepStore = types
         }
       }, { name: 'WorkflowStepStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        onAction(getRoot(self), (call) => {
-          if (call.name === 'onSubjectReady') self.resetSteps()
-        }, true)
-      }, { name: 'WorkflowStepStore Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
     }
 
     function getNextStepKey () {

@@ -73,6 +73,8 @@ const Drawing = types.model('Drawing', {
 
     function reset () {
       self.tools.forEach(tool => tool.reset())
+      self.activeToolIndex = 0
+      self.subTaskVisibility = false
     }
     
     function setSubTaskVisibility (visible, drawingMarkNode) {
