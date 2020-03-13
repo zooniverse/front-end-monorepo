@@ -263,11 +263,15 @@ class SubjectGroupViewerContainer extends React.Component {
     
     const imageHeight = image.naturalHeight / fitRatio
     const imageWidth = image.naturalWidth / fitRatio
+      
+    // image.x and image.y determine the default 'padding' for an image inside
+    // its cell, and is applied before the zoom & translation/pan transforms.
+    // Note: this COULD be consolidated into the transform calculations, but why
+    // complicate things?
     const imageX = (cellWidth - imageWidth) / 2
     const imageY = (cellHeight - imageHeight) / 2
     
-    console.log('+++ panX, panY, zoom: ', panX, panY, zoom)
-    
+    // TODO: WARNING! CLIP PATH NOT WORKING
     const clipPathID = `subjectGroupViewer-clipPath-${index}`
     
     return (
@@ -289,11 +293,12 @@ class SubjectGroupViewerContainer extends React.Component {
           dragMove={this.dragMove}
           height={imageHeight}
           width={imageWidth}
+          xlinkHref={image.src}
           x={imageX}
           y={imageY}
-          xlinkHref={image.src}
           transform={`scale(${zoom}) translate(${panX}, ${panY})`}
-          clip-path={`url(#${clipPathID})`}
+          transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
+          clipPath={`url(#${clipPathID})`}
         />
         <rect
           fill="none"
