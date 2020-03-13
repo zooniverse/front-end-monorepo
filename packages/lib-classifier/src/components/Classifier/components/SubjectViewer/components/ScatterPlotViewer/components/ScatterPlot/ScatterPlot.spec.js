@@ -225,4 +225,33 @@ describe('Component > ScatterPlot', function () {
       })
     })
   })
+
+  describe('when there are underlays', function () {
+    it('should calculate SVG positions and set it as underlayParameters for the coordinate area Background component', function () {
+      const phaseLimit = 0.2
+      const underlays = [
+        { fill: zooTheme.global.colors['light-3'], startPosition: -phaseLimit, xAxisWidth: phaseLimit },
+        { fill: zooTheme.global.colors['light-3'], startPosition: 1, xAxisWidth: phaseLimit }
+      ]
+      const wrapper = shallow(
+        <ScatterPlot
+          data={variableStar.data}
+          parentHeight={parentHeight}
+          parentWidth={parentWidth}
+          theme={zooTheme}
+          transformMatrix={transformMatrix}
+          underlays={underlays}
+        />
+      )
+      
+      const backgroundOfCoordinateArea = wrapper.find(Group).first().find(Background)
+      const { underlayParameters } = backgroundOfCoordinateArea.props()
+      underlayParameters.forEach((parameters, index) => {
+        const { fill, left, width } = parameters
+        expect(fill).to.equal(underlays[index].fill)
+        expect(left).to.be.a('number')
+        expect(width).to.be.a('number')
+      })
+    })
+  })
 })

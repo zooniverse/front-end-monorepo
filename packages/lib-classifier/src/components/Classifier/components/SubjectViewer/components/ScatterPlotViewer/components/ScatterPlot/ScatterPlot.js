@@ -38,6 +38,7 @@ function ScatterPlot (props) {
       }
     },
     transformMatrix,
+    underlays,
     xAxisLabel,
     xAxisNumTicks,
     xScale,
@@ -84,6 +85,16 @@ function ScatterPlot (props) {
   const clipPathId = cuid()
   const plotHeight = parentHeight - margin.bottom - margin.top
   const plotWidth = parentWidth - margin.right - margin.left
+
+  let underlayParameters = []
+  if (underlays.length > 0) {
+    underlayParameters = underlays.map((underlay) => {
+      const { fill, startPosition, xAxisWidth } = underlay
+      const left = xScaleTransformed(startPosition)
+      const width = xScaleTransformed(0) - xScaleTransformed(-xAxisWidth)
+      return { fill, left, width }
+    })
+  }
   return (
     <Chart
       height={parentHeight}
@@ -108,6 +119,7 @@ function ScatterPlot (props) {
             height={plotHeight}
             left={leftPosition}
             top={topPosition}
+            underlayParameters={underlayParameters}
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
@@ -233,6 +245,7 @@ ScatterPlot.defaultProps = {
     translateX: 0,
     translateY: 0
   },
+  underlays: [],
   xAxisLabel: 'x-axis',
   xAxisNumTicks: 10,
   xScale: null,
@@ -295,6 +308,7 @@ ScatterPlot.propTypes = {
     translateX: PropTypes.number,
     translateY: PropTypes.number
   }),
+  underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
   xAxisNumTicks: PropTypes.number,
   xScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

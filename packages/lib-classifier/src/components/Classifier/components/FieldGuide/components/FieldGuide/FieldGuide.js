@@ -15,8 +15,8 @@ function storeMapper (stores) {
   }
 }
 
-@withTheme
 @inject(storeMapper)
+@withTheme
 @observer
 class FieldGuide extends React.Component {
   render () {

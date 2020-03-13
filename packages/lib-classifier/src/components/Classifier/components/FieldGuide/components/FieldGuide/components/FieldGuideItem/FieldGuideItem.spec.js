@@ -1,9 +1,10 @@
 import { Markdownz } from '@zooniverse/react-components'
 import { shallow, mount } from 'enzyme'
-import { Button } from 'grommet'
+import { Button, Grommet } from 'grommet'
 import { observable } from 'mobx'
 import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { FieldGuideItem } from './FieldGuideItem'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
@@ -24,7 +25,8 @@ describe('Component > FieldGuideItem', function () {
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
-      />)
+      />,
+      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
     expect(wrapper).to.be.ok()
   })
 
@@ -35,7 +37,8 @@ describe('Component > FieldGuideItem', function () {
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={setActiveItemIndexSpy}
-      />)
+      />,
+      { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } })
     wrapper.find(Button).simulate('click')
     expect(setActiveItemIndexSpy).to.have.been.calledOnceWith()
   })
@@ -46,7 +49,8 @@ describe('Component > FieldGuideItem', function () {
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => {}}
-      />)
+      />,
+      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
 
     expect(wrapper.find(Markdownz).first().contains(`### ${item.title}`)).to.be.true()
   })
@@ -57,7 +61,8 @@ describe('Component > FieldGuideItem', function () {
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
-      />)
+      />,
+      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
 
     expect(wrapper.find(Markdownz).last().contains(item.content)).to.be.true()
   })
@@ -68,7 +73,8 @@ describe('Component > FieldGuideItem', function () {
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
-      />)
+      />,
+      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
 
     expect(wrapper.find(FieldGuideItemIcon)).to.have.lengthOf(1)
   })

@@ -2,8 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
-import { autorun, toJS } from 'mobx'
-import { addDisposer, flow, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { toJS } from 'mobx'
+import { flow, getRoot, isValidReference, types } from 'mobx-state-tree'
 import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
@@ -48,26 +48,6 @@ const ClassificationStore = types
     }
   })
   .actions(self => {
-    function afterAttach () {
-      createSubjectObserver()
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        const { projects, subjects, workflows } = getRoot(self)
-        const validSubjectReference = isValidReference(() => subjects && subjects.active)
-        const validWorkflowReference = isValidReference(() => workflows && workflows.active)
-        const validProjectReference = isValidReference(() => projects && projects.active)
-        if (validSubjectReference && validWorkflowReference && validProjectReference) {
-          const subject = getRoot(self).subjects.active
-          const workflow = getRoot(self).workflows.active
-          const project = getRoot(self).projects.active
-          self.reset()
-          self.createClassification(subject, workflow, project)
-        }
-      }, { name: 'ClassificationStore Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
-    }
 
     function createClassification (subject, workflow, project) {
       if (!subject || !workflow || !project) {
@@ -221,7 +201,6 @@ const ClassificationStore = types
 
     return {
       addAnnotation,
-      afterAttach,
       completeClassification,
       createClassification,
       onClassificationSaved,

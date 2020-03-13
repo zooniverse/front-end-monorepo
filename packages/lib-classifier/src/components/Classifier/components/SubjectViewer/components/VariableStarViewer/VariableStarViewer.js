@@ -26,12 +26,18 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     invertYAxis,
     periodMultiple,
     phasedJSON,
+    phaseLimit,
     rawJSON,
     setPeriodMultiple,
     setSeriesFocus,
     setYAxisInversion,
     theme
   } = props
+
+  const underlays = [
+    { fill: theme.global.colors['light-3'], startPosition: -phaseLimit, xAxisWidth: phaseLimit },
+    { fill: theme.global.colors['light-3'], startPosition: 1, xAxisWidth: phaseLimit }
+  ]
 
   return (
     <Grid
@@ -65,8 +71,11 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           data={phasedJSON.data}
           focusedSeries={focusedSeries}
           invertAxes={{ x: false, y: invertYAxis }}
+          underlays={underlays}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
+          xAxisNumTicks={8}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
+          yAxisNumTicks={8}
         />
       </Box>
       <Box
@@ -77,8 +86,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           focusedSeries={focusedSeries}
           invertAxes={{ x: false, y: invertYAxis }}
           xAxisLabel={rawJSON.chartOptions.xAxisLabel}
+          xAxisNumTicks={4}
           yAxisLabel={rawJSON.chartOptions.yAxisLabel}
-          yAxisNumTicks={5}
+          yAxisNumTicks={6}
         />
       </Box>
       <Box

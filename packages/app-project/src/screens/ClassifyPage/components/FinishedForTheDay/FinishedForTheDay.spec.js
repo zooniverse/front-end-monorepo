@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import { Paragraph } from 'grommet'
 import React from 'react'
 
-import { FinishedForTheDay } from './FinishedForTheDay'
+import { FinishedForTheDay, StyledButton } from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
 import RelatedProjects from './components/RelatedProjects'
 
@@ -60,7 +60,7 @@ describe('Component > FinishedForTheDay', function () {
 
   describe('stats link', function () {
     it('should render a link to the project stats page', function () {
-      const link = wrapper.find('[type="button"]')
+      const link = wrapper.find(StyledButton)
       expect(link).to.have.lengthOf(1)
       expect(link.prop('href')).to.equal(LINK_PROPS.href)
     })

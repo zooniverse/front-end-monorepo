@@ -26,7 +26,7 @@ const Drawing = types.model('Drawing', {
     Create keys of the form 'T0.0' for each of this task's tools
     */
     newSnapshot.tools = []
-    snapshot.tools.forEach((tool, toolIndex) => {
+    snapshot.tools?.forEach((tool, toolIndex) => {
       const toolKey = `${snapshot.taskKey}.${toolIndex}`
       const toolSnapshot = Object.assign({}, tool, { key: toolKey })
       newSnapshot.tools.push(toolSnapshot)
@@ -73,6 +73,8 @@ const Drawing = types.model('Drawing', {
 
     function reset () {
       self.tools.forEach(tool => tool.reset())
+      self.activeToolIndex = 0
+      self.subTaskVisibility = false
     }
     
     function setSubTaskVisibility (visible, drawingMarkNode) {

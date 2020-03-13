@@ -35,14 +35,16 @@ class VariableStarViewerContainer extends Component {
         data: [],
         chartOptions: {}
       },
+      phaseLimit: 0.2,
       rawJSON: {
         data: [],
         chartOptions: {}
       }
     }
 
-    this.setYAxisInversion = this.setYAxisInversion.bind(this)
+    this.setPeriodMultiple = this.setPeriodMultiple.bind(this)
     this.setSeriesFocus = this.setSeriesFocus.bind(this)
+    this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
 
   async componentDidMount() {
@@ -115,15 +117,36 @@ class VariableStarViewerContainer extends Component {
       })
   }
 
-  calculatePhase(rawJSON) {
-    // TODO
-    return {
-      data: [],
-      chartOptions: {}
-    }
+  calculatePhase (rawJSON) {
+    const { periodMultiple, phaseLimit } = this.state
+    // temp for demo purposes
+    // Will use series.seriesOptions.period in future
+    const seriesPeriods = [0.4661477096, 1.025524961]
+    let phasedJSON = { data: [], chartOptions: rawJSON.chartOptions }
+    rawJSON.data.forEach((series, seriesIndex) => {
+      const seriesPeriod = seriesPeriods[seriesIndex] * periodMultiple
+      const seriesData = []
+      series.seriesData.forEach((datum) => {
+        let phasedXPoint
+        const calculatedXPoint = (datum.x % seriesPeriod) / seriesPeriod
+        seriesData.push(Object.assign({}, datum, { x: calculatedXPoint, mirrored: false }))
+
+        if (calculatedXPoint < phaseLimit) {
+          phasedXPoint = calculatedXPoint + 1
+        } else if (calculatedXPoint > 1 - phaseLimit) {
+          phasedXPoint = calculatedXPoint - 1
+        }
+
+        if (phasedXPoint) seriesData.push(Object.assign({}, datum, { x: phasedXPoint, mirrored: true }))
+      })
+
+      phasedJSON.data.push({ seriesData, seriesOptions: series.seriesOptions })
+    })
+
+    return phasedJSON
   }
 
-  calculateBarJSON(rawJSON) {
+  calculateBarJSON (rawJSON) {
     // TODO
     return {
       amplitude: {
@@ -137,10 +160,10 @@ class VariableStarViewerContainer extends Component {
     }
   }
 
-  calculateJSON() {
+  calculateJSON () {
     const { rawJSON } = this.state
-    const phasedJSON = calculatePhase(rawJSON)
-    const barJSON = calculateBarJSON(rawJSON)
+    const phasedJSON = this.calculatePhase(rawJSON)
+    const barJSON = this.calculateBarJSON(rawJSON)
     this.setState({
       barJSON,
       phasedJSON
@@ -155,8 +178,8 @@ class VariableStarViewerContainer extends Component {
     })
   }
 
-  setPeriodMultiple(multiple) {
-    const periodMultiple = parseFloat(multiple)
+  setPeriodMultiple (event) {
+    const periodMultiple = parseFloat(event.target.value)
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
@@ -193,6 +216,7 @@ class VariableStarViewerContainer extends Component {
         imageSrc={this.state.imageSrc}
         invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
+        phaseLimit={this.state.phaseLimit}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
         setPeriodMultiple={this.setPeriodMultiple}

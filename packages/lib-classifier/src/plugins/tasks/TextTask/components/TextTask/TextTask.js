@@ -49,6 +49,7 @@ function TextTask (props) {
       textAfter = text.substring(selectionEnd, text.length)
       newValue = textBefore + startTag + textInBetween + endTag + textAfter
     }
+
     textArea.current.value = newValue
     updateAnnotation()
     if (textArea.current.focus) {
@@ -70,7 +71,7 @@ function TextTask (props) {
           autoFocus={autoFocus}
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
-          defaultValue={value}
+          value={value}
           onChange={updateAnnotation}
         />
       </label>

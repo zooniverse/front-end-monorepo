@@ -18,7 +18,7 @@ describe('TextTask', function () {
   const annotation = task.defaultAnnotation
 
   before(function () {
-    const store = types.model('MockStore', {
+    types.model('MockStore', {
       annotation: Task.AnnotationModel,
       task: Task.TaskModel
     })
@@ -38,7 +38,7 @@ describe('TextTask', function () {
     const label = wrapper.find('label')
     expect(label.find(Text).prop('children')).to.equal(task.instruction)
     const textarea = label.find(TextArea)
-    expect(textarea.prop('defaultValue')).to.equal(annotation.value)
+    expect(textarea.prop('value')).to.equal(annotation.value)
   })
 
   describe('text tagging', function () {

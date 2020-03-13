@@ -114,7 +114,7 @@ const Subject = types
     },
 
     get workflow () {
-      return tryReference(() => getRoot(self).workflows.active)
+      return tryReference(() => getRoot(self).workflows?.active)
     }
   }))
 

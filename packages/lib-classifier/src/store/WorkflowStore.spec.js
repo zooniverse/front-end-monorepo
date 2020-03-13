@@ -1,3 +1,4 @@
+import { Factory } from 'rosie'
 import RootStore from './RootStore'
 import WorkflowStore from './WorkflowStore'
 import {
@@ -7,33 +8,33 @@ import {
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-const workflow = WorkflowFactory.build({
-  tasks: { T1: SingleChoiceTaskFactory.build() },
-  steps: [['S1', { taskKeys: ['T1'] }]]
-})
-const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
-const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
-
-function setupStores (clientStub, project) {
-  const store = RootStore.create({
-    classifications: {},
-    dataVisAnnotating: {},
-    drawing: {},
-    feedback: {},
-    fieldGuide: {},
-    subjects: {},
-    subjectViewer: {},
-    tutorials: {},
-    workflowSteps: {},
-    userProjectPreferences: {}
-  }, { client: clientStub, authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() } })
-
-  store.projects.setResource(project)
-  store.projects.setActive(project.id)
-  return store
-}
-
 describe('Model > WorkflowStore', function () {
+  const workflow = WorkflowFactory.build({
+    tasks: { T1: SingleChoiceTaskFactory.build() },
+    steps: [['S1', { taskKeys: ['T1'] }]]
+  })
+  const projectWithDefault = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+  const projectWithoutDefault = ProjectFactory.build({ configuration: { default_workflow: undefined } }, { activeWorkflowId: workflow.id })
+
+  function setupStores (clientStub, project) {
+    const store = RootStore.create({
+      classifications: {},
+      dataVisAnnotating: {},
+      drawing: {},
+      feedback: {},
+      fieldGuide: {},
+      subjects: {},
+      subjectViewer: {},
+      tutorials: {},
+      workflowSteps: {},
+      userProjectPreferences: {}
+    }, { client: clientStub, authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() } })
+
+    store.projects.setResource(project)
+    store.projects.setActive(project.id)
+    return store
+  }
+
   it('should exist', function () {
     expect(WorkflowStore).to.be.an('object')
   })
@@ -43,6 +44,7 @@ describe('Model > WorkflowStore', function () {
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
           projects: projectWithoutDefault,
+          subjects: Factory.buildList('subject', 10),
           workflows: workflow
         })
 
@@ -64,6 +66,7 @@ describe('Model > WorkflowStore', function () {
       let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
+          subjects: Factory.buildList('subject', 10),
           workflows: workflow
         })
 
@@ -83,6 +86,7 @@ describe('Model > WorkflowStore', function () {
       let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
+          subjects: Factory.buildList('subject', 10),
           workflows: workflow
         })
 
