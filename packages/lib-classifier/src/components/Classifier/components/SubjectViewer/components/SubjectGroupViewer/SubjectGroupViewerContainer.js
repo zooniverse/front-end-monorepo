@@ -72,7 +72,7 @@ class SubjectGroupViewerContainer extends React.Component {
     // IIRC these are used to listen for pan and zoom actions outside of this component.
     // i.e. zoom in/out actions from the iamge controls. 
     // this.props.setOnPan(this.onPan.bind(this))
-    // this.props.setOnZoom(this.onZoom.bind(this))
+    this.props.setOnZoom(this.onZoom.bind(this))
     
     this.scrollContainer.current.addEventListener('wheel', preventDefault)
   }
@@ -80,7 +80,7 @@ class SubjectGroupViewerContainer extends React.Component {
   componentWillUmount () {
     // TODO
     // this.setOnPan(() => true)
-    // this.setOnZoom(() => true)
+    this.setOnZoom(() => true)
     
     this.scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
@@ -161,8 +161,27 @@ class SubjectGroupViewerContainer extends React.Component {
   }
 
   onZoom (type) {
-    // TODO
-    console.log('+++ onZoom: ', type)
+    const { zoom } = this.state
+    
+    const ARBITRARY_MIN_ZOOM = 0.5
+    const ARBITRARY_MAX_ZOOM = 2
+    
+    switch (type) {
+      case 'zoomin':
+        this.setState({ zoom: Math.min(zoom + 0.1, ARBITRARY_MAX_ZOOM) })
+        break;
+      case 'zoomout':
+        this.setState({ zoom: Math.max(zoom - 0.1, ARBITRARY_MIN_ZOOM) })
+        break;
+      case 'zoomto': {
+        this.setState({
+          zoom: 1,
+          panX: 0,
+          panY: 0,
+        })
+        break;
+      }
+    }
   }
   
   onWheel (event) {
@@ -247,7 +266,7 @@ class SubjectGroupViewerContainer extends React.Component {
     const imageX = (cellWidth - imageWidth) / 2
     const imageY = (cellHeight - imageHeight) / 2
     
-    console.log('+++ panX, panY: ', panX, panY)
+    console.log('+++ panX, panY, zoom: ', panX, panY, zoom)
     
     return (
       <g
@@ -268,7 +287,7 @@ class SubjectGroupViewerContainer extends React.Component {
           x={imageX}
           y={imageY}
           xlinkHref={image.src}
-          transform={`translate(${panX}, ${panY})`}
+          transform={`scale(${zoom}) translate(${panX}, ${panY})`}
         />
         <rect
           fill="none"
