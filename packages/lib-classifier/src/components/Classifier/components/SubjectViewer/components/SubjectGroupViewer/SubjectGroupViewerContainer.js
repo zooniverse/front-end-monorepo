@@ -268,11 +268,16 @@ class SubjectGroupViewerContainer extends React.Component {
     
     console.log('+++ panX, panY, zoom: ', panX, panY, zoom)
     
+    const clipPathID = `subjectGroupViewer-clipPath-${index}`
+    
     return (
       <g
         key={image.src}
         transform={`translate(${cellXOffset}, ${cellYOffset})`}
       >
+        <clipPath id={clipPathID}>
+          <rect width={cellWidth} height={cellHeight} />
+        </clipPath>
         <DraggableRect
           fill={cellStyle.fill}
           width={cellWidth}
@@ -288,6 +293,7 @@ class SubjectGroupViewerContainer extends React.Component {
           y={imageY}
           xlinkHref={image.src}
           transform={`scale(${zoom}) translate(${panX}, ${panY})`}
+          clip-path={`url(#${clipPathID})`}
         />
         <rect
           fill="none"
