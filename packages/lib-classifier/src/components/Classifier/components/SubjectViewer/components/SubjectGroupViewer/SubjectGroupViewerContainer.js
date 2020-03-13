@@ -51,7 +51,6 @@ const DraggableRect = draggable('rect')
 class SubjectGroupViewerContainer extends React.Component {
   constructor () {
     super()
-    this.setOnDrag = this.setOnDrag.bind(this)
     this.dragMove = this.dragMove.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
@@ -72,7 +71,6 @@ class SubjectGroupViewerContainer extends React.Component {
     // TODO: check if these are necessary
     // IIRC these are used to listen for pan and zoom actions outside of this component.
     // i.e. zoom in/out actions from the iamge controls. 
-    // this.props.setOnDrag(this.onDrag.bind(this))
     // this.props.setOnPan(this.onPan.bind(this))
     // this.props.setOnZoom(this.onZoom.bind(this))
     
@@ -81,7 +79,6 @@ class SubjectGroupViewerContainer extends React.Component {
   
   componentWillUmount () {
     // TODO
-    // this.setOnDrag(() => true)
     // this.setOnPan(() => true)
     // this.setOnZoom(() => true)
     
@@ -101,10 +98,6 @@ class SubjectGroupViewerContainer extends React.Component {
 
   dragMove (event, difference) {
     this.onDrag && this.onDrag(event, difference)
-  }
-
-  setOnDrag (callback) {
-    this.onDrag = callback
   }
 
   async preload () {
@@ -154,7 +147,12 @@ class SubjectGroupViewerContainer extends React.Component {
   
   onDrag (event, difference) {
     // TODO
-    console.log('+++ onDrag: ', event, difference)
+    const { panX, panY } = this.state
+    
+    this.setState({
+      panX: panX + difference.x,
+      panY: panY + difference.y,
+    })
   }
 
   onPan (dx, dy) {
@@ -190,7 +188,7 @@ class SubjectGroupViewerContainer extends React.Component {
       setOnPan,
       setOnZoom
     } = this.props
-    const { images } = this.state
+    const { images, panX, panY, zoom } = this.state
     
     const naturalWidth = gridColumns * cellWidth
     const naturalHeight = gridRows * cellHeight
@@ -214,14 +212,16 @@ class SubjectGroupViewerContainer extends React.Component {
             rotate={rotation}
             width={naturalWidth}
           >
-            {images.map((image, index) => this.renderCell(image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle))}
+            {images.map((image, index) => this.renderCell(
+             image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle, panX, panY, zoom
+            ))}
           </SubjectGroupViewer>
         </div>
       </SVGContext.Provider>
     )
   }
   
-  renderCell (image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle) {
+  renderCell (image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle, panX, panY, zoom) {
     
     const row = Math.floor(index / gridColumns)
     const col = index % gridColumns
@@ -247,6 +247,8 @@ class SubjectGroupViewerContainer extends React.Component {
     const imageX = (cellWidth - imageWidth) / 2
     const imageY = (cellHeight - imageHeight) / 2
     
+    console.log('+++ panX, panY: ', panX, panY)
+    
     return (
       <g
         key={image.src}
@@ -266,6 +268,7 @@ class SubjectGroupViewerContainer extends React.Component {
           x={imageX}
           y={imageY}
           xlinkHref={image.src}
+          transform={`translate(${panX}, ${panY})`}
         />
         <rect
           fill="none"
