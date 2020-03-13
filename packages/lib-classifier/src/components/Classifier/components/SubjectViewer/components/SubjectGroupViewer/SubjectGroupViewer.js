@@ -30,10 +30,11 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     onKeyDown,
     rotate,
     scale,
-    viewBox,
     width
   } = props
 
+  // TODO: remove Transform and InteractionLayer
+  
   const transformLayer = createRef()
   const { svg } = useContext(SVGContext)
   const transform = `rotate(${rotate} ${width / 2} ${height / 2 })`
@@ -47,7 +48,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
-          viewBox={viewBox}
+          viewBox={`0 0 ${width}, ${height}`}
         >
           <g
             ref={transformLayer}
@@ -73,7 +74,6 @@ SubjectGroupViewer.propTypes = {
   onKeyDown: PropTypes.func,
   rotate: PropTypes.number,
   scale: PropTypes.number,
-  viewBox: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired
 }
 

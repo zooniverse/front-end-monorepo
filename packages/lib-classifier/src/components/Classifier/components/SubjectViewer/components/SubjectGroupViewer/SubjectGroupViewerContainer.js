@@ -5,11 +5,13 @@ import PropTypes from 'prop-types'
 import { draggable } from '@plugins/drawingTools/components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
-import SubTaskPopup from '../../../SubTaskPopup'
+
+function preventDefault (e) {
+  e.preventDefault()
+}
 
 function storeMapper (stores) {
   const {
@@ -53,6 +55,7 @@ class SubjectGroupViewerContainer extends React.Component {
     this.dragMove = this.dragMove.bind(this)
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
+    this.scrollContainer = React.createRef()
 
     this.state = {
       images: [],
@@ -62,6 +65,18 @@ class SubjectGroupViewerContainer extends React.Component {
   componentDidMount () {
     this.props.enableRotation()
     this.onLoad()
+    
+    //this.props.setOnDrag(this.onDrag.bind(this))
+    this.props.setOnPan(this.onPan.bind(this))
+    this.props.setOnZoom(this.onZoom.bind(this))
+    this.scrollContainer.current.addEventListener('wheel', preventDefault)
+  }
+  
+  componentWillUmount () {
+    //this.setOnDrag(() => true)
+    this.setOnPan(() => true)
+    this.setOnZoom(() => true)
+    this.scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
   fetchImage (url) {
@@ -127,6 +142,30 @@ class SubjectGroupViewerContainer extends React.Component {
       onError(error)
     }
   }
+  
+  onDrag (event, difference) {
+    // TODO
+    console.log('+++ onDrag: ', event, difference)
+  }
+
+  onPan (dx, dy) {
+    // TODO
+    console.log('+++ onPan: ', dy, dx)
+  }
+
+  onZoom (type) {
+    // TODO
+    console.log('+++ onZoom: ', type)
+  }
+  
+  onWheel (event) {
+    const { deltaY } = event
+    if (deltaY < 0) {
+      this.onZoom('zoomout', -1)
+    } else {
+      this.onZoom('zoomin', 1)
+    }
+  }
 
   render () {
     const {
@@ -157,15 +196,7 @@ class SubjectGroupViewerContainer extends React.Component {
 
     return (
       <SVGContext.Provider value={{ svg }}>
-        <SVGPanZoom
-          img={this.subjectImage.current}
-          maxZoom={5}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          setOnDrag={this.setOnDrag}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
-        >
+        <div ref={this.scrollContainer} onWheel={this.onWheel.bind(this)}>
           <SubjectGroupViewer
             enableInteractionLayer={enableInteractionLayer}
             height={naturalHeight}
@@ -176,8 +207,7 @@ class SubjectGroupViewerContainer extends React.Component {
           >
             {images.map((image, index) => this.renderCell(image, index, cellWidth, cellHeight, gridRows, gridColumns, cellStyle))}
           </SubjectGroupViewer>
-        </SVGPanZoom>
-        <SubTaskPopup />
+        </div>
       </SVGContext.Provider>
     )
   }
@@ -207,8 +237,6 @@ class SubjectGroupViewerContainer extends React.Component {
     const imageWidth = image.naturalWidth / fitRatio
     const imageX = (cellWidth - imageWidth) / 2
     const imageY = (cellHeight - imageHeight) / 2
-    
-    console.log('+++ cellStyle ', cellStyle)
     
     return (
       <g
