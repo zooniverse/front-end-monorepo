@@ -19,8 +19,8 @@ function storeMapper (stores) {
   const [activeDrawingTask] = activeStepTasks.filter(task => task.type === 'drawing')
   const activeTool = activeDrawingTask ? activeDrawingTask.activeTool : null
   const disabled = activeTool ? activeTool.disabled : false
-  const drawingAnnotations = Array.from(classification.annotations.values())
-    .filter(annotation => getType(annotation).name === 'DrawingAnnotation')
+  const annotations = classification ? Array.from(classification.annotations.values()) : []
+  const drawingAnnotations = annotations.filter(annotation => getType(annotation).name === 'DrawingAnnotation')
   const { activeMark, marks, setActiveMark, setSubTaskVisibility } = activeDrawingTask || {}
   return {
     activeDrawingTask,
