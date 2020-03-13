@@ -128,6 +128,7 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
+    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
 
     return (
       <SVGContext.Provider value={{ svg }}>
@@ -141,7 +142,7 @@ class SingleImageViewerContainer extends React.Component {
           setOnZoom={setOnZoom}
         >
           <SingleImageViewer
-            enableInteractionLayer={enableInteractionLayer}
+            enableInteractionLayer={enableDrawing}
             height={naturalHeight}
             onKeyDown={onKeyDown}
             ref={this.imageViewer}

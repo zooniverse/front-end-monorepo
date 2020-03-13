@@ -1,17 +1,21 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
+import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { TextInput } from 'grommet'
+import { Grommet, TextInput } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import {
   userNameFieldId,
   passwordFieldId,
   Form
 } from './Form'
 
-describe('Component > Form', function () {
+describe('LoginForm > Component > Form', function () {
+  const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
   it('should render without crashing', function () {
-    const wrapper = shallow(<Form />)
+    const wrapper = shallow(
+      <Form />,
+      shallowOptions
+    )
     expect(wrapper).to.be.ok()
   })
 
@@ -19,7 +23,10 @@ describe('Component > Form', function () {
     let rendered
 
     before(function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = mount(
+        <Form />,
+        { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } }
+      )
       rendered = wrapper.render()
     })
 
@@ -41,7 +48,10 @@ describe('Component > Form', function () {
   describe('when being edited', function () {
     it('should call handleChange on the inputs', function () {
       const handleChangeSpy = sinon.spy()
-      const wrapper = shallow(<Form handleChange={handleChangeSpy} />)
+      const wrapper = shallow(
+        <Form handleChange={handleChangeSpy} />,
+        shallowOptions
+      )
       const textInputs = wrapper.find(TextInput)
 
       textInputs.forEach((input) => {
@@ -53,7 +63,10 @@ describe('Component > Form', function () {
 
     it('should call handleBlur on the inputs', function () {
       const handleBlurSpy = sinon.spy()
-      const wrapper = shallow(<Form handleBlur={handleBlurSpy} />)
+      const wrapper = shallow(
+        <Form handleBlur={handleBlurSpy} />,
+        shallowOptions
+      )
       const textInputs = wrapper.find(TextInput)
 
       textInputs.forEach((input) => {
@@ -64,7 +77,10 @@ describe('Component > Form', function () {
     })
 
     it('should update the values on props change', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
       const values = {
         login: 'ZooFan',
         password: 'password'
@@ -80,13 +96,19 @@ describe('Component > Form', function () {
   describe('when submitting', function () {
     it('should call handleSubmit', function () {
       const handleSubmitSpy = sinon.spy()
-      const wrapper = shallow(<Form handleSubmit={handleSubmitSpy} />)
+      const wrapper = shallow(
+        <Form handleSubmit={handleSubmitSpy} />,
+        shallowOptions
+      )
       wrapper.simulate('submit')
       expect(handleSubmitSpy).to.have.been.calledOnce()
     })
 
     it('should disable all of the inputs and the submit button', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
       wrapper.setProps({ isSubmitting: true })
       const textInputs = wrapper.find(TextInput)
       const submitButton = wrapper.find({ type: 'submit' })

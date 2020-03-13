@@ -1,8 +1,10 @@
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import Subject from './Subject'
 import ProjectStore from './ProjectStore'
 import WorkflowStore from './WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 import RootStore from './'
 import subjectViewers from '../helpers/subjectViewers'
 
@@ -32,7 +34,7 @@ describe('Model > Subject', function () {
   })
 
   describe('with a transcription workflow', function () {
-    const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+    const subjects = Factory.buildList('subject', 3)
     const workflowSnapshot = WorkflowFactory.build({
       id: 'transcriptionWorkflow',
       display_name: 'A test workflow',
@@ -46,18 +48,18 @@ describe('Model > Subject', function () {
       },
       version: '0.0'
     })
-    const client = {
-      caesar: {
-        request: sinon.stub()
-      }
+    const client = stubPanoptesJs({ subjects, workflows: [workflowSnapshot] })
+    client.caesar = {
+      request: sinon.stub().callsFake(() => Promise.resolve({ workflow: { subject_reductions: [] } }))
+    }
+    client.tutorials = {
+      get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
     }
     const rootStore = RootStore.create({}, { client })
 
     before(function () {
       rootStore.workflows.setResource(workflowSnapshot)
       rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResource(subjectSnapshot)
-      rootStore.subjects.setActive(subjectSnapshot.id)
     })
 
     it('should have transcription reductions', function () {
@@ -65,8 +67,8 @@ describe('Model > Subject', function () {
       expect(subject.transcriptionReductions).to.exist()
     })
 
-    it('should load transcription reductions', function () {
-      expect(client.caesar.request).to.have.been.calledOnce()
+    it('should load transcription reductions for each subject', function () {
+      expect(client.caesar.request).to.have.been.calledThrice()
     })
   })
 

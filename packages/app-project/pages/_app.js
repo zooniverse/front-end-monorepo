@@ -84,10 +84,7 @@ export default class MyApp extends App {
           <MediaContextProvider>
             <GrommetWrapper>
               <Head host={pageProps.host} />
-              <Box background={{
-                dark: 'dark-1',
-                light: 'light-1'
-              }}>
+              <Box>
                 <Component {...pageProps} />
               </Box>
               <ZooFooter />
