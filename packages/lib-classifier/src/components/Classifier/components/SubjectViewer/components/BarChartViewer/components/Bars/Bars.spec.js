@@ -7,7 +7,7 @@ import mockData, { mockDataWithColor, xScale, yScale, yMax } from '../../mockDat
 
 const {
   data,
-  options: {
+  chartOptions: {
     xAxisLabel,
     yAxisLabel,
   }

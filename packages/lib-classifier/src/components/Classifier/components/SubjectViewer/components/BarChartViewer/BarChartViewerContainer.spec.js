@@ -35,7 +35,7 @@ const failSubject = Factory.build('subject', {
 
 describe('Component > BarChartViewerContainer', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<BarChartViewerContainer />)
+    const wrapper = shallow(<BarChartViewerContainer />, { disableLifecycleMethods: true })
     expect(wrapper).to.be.ok()
   })
 
@@ -45,7 +45,7 @@ describe('Component > BarChartViewerContainer', function () {
       { disableLifecycleMethods: true }
     )
     const mockState = {
-      JSONdata: null
+      JSONdata: {}
     }
     expect(wrapper.state()).to.eql(mockState)
   })
@@ -111,6 +111,19 @@ describe('Component > BarChartViewerContainer', function () {
         expect(onErrorSpy.args[0][0].message).to.equal('Not Found')
       }).then(done, done)
     })
+
+    it('should render null', function (done) {
+      wrapper = shallow(
+        <BarChartViewerContainer
+          onError={onErrorSpy}
+          subject={failSubject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        expect(wrapper.html()).to.be.null()
+      }).then(done, done)
+    })
   })
 
   describe('with a subject', function () {
@@ -149,7 +162,7 @@ describe('Component > BarChartViewerContainer', function () {
         />
       )
 
-      expect(wrapper.state().JSONdata).to.be.null()
+      expect(wrapper.state().JSONdata).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().JSONdata).to.deep.equal(subjectJSON)
       }).then(done, done)

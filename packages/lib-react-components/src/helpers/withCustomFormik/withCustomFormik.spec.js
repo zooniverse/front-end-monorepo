@@ -1,8 +1,9 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
-import { Box, Button, FormField, TextInput } from 'grommet'
+import { Box, Button, FormField, Grommet, TextInput } from 'grommet'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 import withCustomFormik from './withCustomFormik'
 
 const MockForm = ({ handleBlur, handleChange, handleSubmit, values }) => (
@@ -28,7 +29,10 @@ const onSubmit = sinon.spy()
 
 describe('Higher Order Component > withCustomFormik', function () {
   it('renders without crashing', function () {
-    const wrapper = shallow(<WrappedMockForm initialValues={initialValues} onSubmit={onSubmit} />)
+    const wrapper = shallow(
+      <WrappedMockForm initialValues={initialValues} onSubmit={onSubmit} />,
+      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
+    )
     expect(wrapper).to.be.ok()
   })
 
@@ -37,7 +41,8 @@ describe('Higher Order Component > withCustomFormik', function () {
       <WrappedMockForm
         initialValues={initialValues}
         onSubmit={onSubmit}
-      />
+      />,
+      { wrappingComponent: <Grommet /> , wrappingComponentProps: { theme: zooTheme } }
     )
 
     const formikHOC = wrapper.find('FormikHOC')
@@ -53,7 +58,8 @@ describe('Higher Order Component > withCustomFormik', function () {
         initialValues={initialValues}
         onSubmit={onSubmit}
         validate={validate}
-      />
+      />,
+      { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
     )
     const formikHOC = wrapper.find('FormikHOC')
 
@@ -61,26 +67,7 @@ describe('Higher Order Component > withCustomFormik', function () {
   })
 
   describe('the wrapped form', function () {
-    const onBlurStub = sinon.stub()
-    const onChangeStub = sinon.stub()
-    const wrapper = mount(
-      <WrappedMockForm
-        initialValues={initialValues}
-        onBlur={onBlurStub}
-        onChange={onChangeStub}
-        onSubmit={onSubmit}
-      />
-    )
-    const eventMock = {
-      target: {
-        name: 'testInput',
-        value: 'foo'
-      }
-    }
-
-    // the form's children prop is a render function
-    // ie. a stateless component
-    const InnerForm = wrapper.find('Formik').props().children
+    let onBlurStub, onChangeStub, wrapper, eventMock, InnerForm, mockForm
     const mockInnerProps = {
       values: {
         testInput: 'foo'
@@ -90,7 +77,32 @@ describe('Higher Order Component > withCustomFormik', function () {
       handleSubmit: sinon.stub()
     }
 
-    const mockForm = shallow(<InnerForm {...mockInnerProps} />)
+    before(function () {
+      onBlurStub = sinon.stub()
+      onChangeStub = sinon.stub()
+      wrapper = mount(
+        <WrappedMockForm
+          initialValues={initialValues}
+          onBlur={onBlurStub}
+          onChange={onChangeStub}
+          onSubmit={onSubmit}
+        />,
+        { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } }
+      )
+      eventMock = {
+        target: {
+          name: 'testInput',
+          value: 'foo'
+        }
+      }
+
+      // the form's children prop is a render function
+      // ie. a stateless component
+      InnerForm = wrapper.find('Formik').props().children
+
+      mockForm = shallow(<InnerForm {...mockInnerProps} />)
+    })
+
     
     Object.keys(mockInnerProps).forEach(function (key) {
       it(`should pass ${key} to the wrapped form`, function () {

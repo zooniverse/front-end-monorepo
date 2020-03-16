@@ -49,7 +49,9 @@ const UI = types
       const modeDisposer = autorun(() => {
         onPatch(self, (patch) => {
           const { path } = patch
-          if (path === '/mode') self.setModeCookie()
+          if (path === '/mode') {
+            self.setModeCookie()
+          }
         })
       })
       addDisposer(self, modeDisposer)

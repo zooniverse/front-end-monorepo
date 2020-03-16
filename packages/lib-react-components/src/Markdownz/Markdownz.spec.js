@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Paragraph } from 'grommet'
+import { Anchor, Paragraph } from 'grommet'
 import Media from '../Media'
 import Markdownz from './Markdownz'
 import { markdown } from './helpers/testExamples'
@@ -18,7 +18,7 @@ describe('<Markdownz />', function () {
 
   it('parses markdown to jsx', function () {
     wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-    expect(wrapper.find('WithTheme(Anchor)')).to.have.lengthOf(10)
+    expect(wrapper.find(Anchor)).to.have.lengthOf(10)
     expect(wrapper.find(Paragraph)).to.have.lengthOf(17)
   })
 

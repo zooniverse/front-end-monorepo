@@ -87,11 +87,15 @@ class App extends React.Component {
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
 
     return (
-      <Grommet theme={mergedThemes}>
-        <Box as='main' background={{
+      <Grommet 
+        background={{
           dark: 'dark-1',
           light: 'light-1'
-        }}>
+        }}
+        theme={mergedThemes} 
+        themeMode={(this.state.dark) ? 'dark' : 'light'}
+      >
+        <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
             <Button onClick={this.toggleTheme.bind(this)} label='Toggle theme' />
             {this.state.user
