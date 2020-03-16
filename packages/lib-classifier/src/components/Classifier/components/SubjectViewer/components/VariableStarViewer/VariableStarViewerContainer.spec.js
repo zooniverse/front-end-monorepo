@@ -79,10 +79,6 @@ describe('Component > VariableStarViewerContainer', function () {
       {
         data: [],
         chartOptions: {}
-      },
-      {
-        data: [],
-        chartOptions: {}
       }
     ],
     focusedSeries: [],

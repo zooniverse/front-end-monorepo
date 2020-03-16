@@ -82,7 +82,7 @@ Optionally, each data object can define a color value. A string value from the [
 }
 ```
 
-An set of chart options can be defined along with the data that define the x-axis and y-axis labels and margins. The margins add space outside of the axes lines for the tick and axes labels.
+A set of chart options can be defined along with the data that define the x-axis and y-axis labels and margins. The margins add space outside of the axes lines for the tick and axes labels.
 
 
 ``` json

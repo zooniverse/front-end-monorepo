@@ -98,7 +98,7 @@ class BarChartViewerContainer extends Component {
       return null
     }
 
-    if (Object.keys(this.state.JSONdata).length < 1) {
+    if (!data && !chartOptions) {
       return null
     }
 

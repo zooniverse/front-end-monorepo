@@ -21,8 +21,7 @@ The Variable Star Viewer...
 
 ### Workflow
 
-The Workflow of the project had a configuration that specified to the Monorepo
-Front End that the Scatter Plot Viewer should be used.
+The Workflow of the project should have a configuration specified that the Variable Star Viewer should be used.
 
 `workflow.configuration = { subject_viewer: 'variableStar' }`
 

@@ -135,13 +135,6 @@ VariableStarViewer.defaultProps = {
         xAxisLabel: '',
         yAxisLabel: ''
       } 
-    },
-    {
-      data: [],
-      chartOptions: {
-        xAxisLabel: '',
-        yAxisLabel: ''
-      }
     }
   ],
   focusedSeries: [],

@@ -20,10 +20,6 @@ class VariableStarViewerContainer extends Component {
         {
           data: [],
           chartOptions: {}
-        },
-        {
-          data: [],
-          chartOptions: {}
         }
       ],
       focusedSeries: [],
