@@ -1,3 +1,4 @@
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
@@ -13,72 +14,75 @@ import {
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-const seenMock = new Date().toISOString()
-const token = '1235'
+describe('Model > TutorialStore', function () {
+  const seenMock = new Date().toISOString()
+  const token = '1235'
 
-const user = UserFactory.build()
-const project = ProjectFactory.build()
-const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
-const medium = TutorialMediumFactory.build()
+  const user = UserFactory.build()
+  const project = ProjectFactory.build()
+  const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
+  const medium = TutorialMediumFactory.build()
 
-const tutorial = TutorialFactory.build({ steps: [
-  { content: '# Hello', media: medium.id },
-  { content: '# Step 2' }
-] })
+  const tutorial = TutorialFactory.build({ steps: [
+    { content: '# Hello', media: medium.id },
+    { content: '# Step 2' }
+  ] })
 
-const tutorialNullKind = TutorialFactory.build(
-  {
-    steps: [
-      { content: '# Hello', media: medium.id },
-      { content: '# Step 2' }
-    ],
-    kind: null
-  }
-)
-
-const upp = UPPFactory.build()
-const uppWithTutorialTimeStamp = UPPFactory.build({
-  preferences: {
-    tutorials_completed_at: {
-      [tutorial.id]: seenMock
+  const tutorialNullKind = TutorialFactory.build(
+    {
+      steps: [
+        { content: '# Hello', media: medium.id },
+        { content: '# Step 2' }
+      ],
+      kind: null
     }
-  }
-})
+  )
 
-const panoptesClient = stubPanoptesJs({ workflows: workflow })
-
-const clientStub = (tutorialResource = tutorial) => {
-  return Object.assign({}, panoptesClient, {
-    tutorials: {
-      get: sinon.stub().callsFake(() => {
-        return Promise.resolve({
-          body: {
-            tutorials: [tutorialResource]
-          }
-        })
-      }),
-      getAttachedImages: sinon.stub().callsFake(() => {
-        return Promise.resolve({
-          body: {
-            media: [medium]
-          }
-        })
-      })
+  const upp = UPPFactory.build()
+  const uppWithTutorialTimeStamp = UPPFactory.build({
+    preferences: {
+      tutorials_completed_at: {
+        [tutorial.id]: seenMock
+      }
     }
   })
-}
 
-const authClientStubWithoutUser = {
-  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
-  checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
-}
+  const panoptesClient = stubPanoptesJs({
+    subjects: Factory.buildList('subject', 10),
+    workflows: workflow
+  })
 
-const authClientStubWithUser = {
-  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
-  checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
-}
+  const clientStub = (tutorialResource = tutorial) => {
+    return Object.assign({}, panoptesClient, {
+      tutorials: {
+        get: sinon.stub().callsFake(() => {
+          return Promise.resolve({
+            body: {
+              tutorials: [tutorialResource]
+            }
+          })
+        }),
+        getAttachedImages: sinon.stub().callsFake(() => {
+          return Promise.resolve({
+            body: {
+              media: [medium]
+            }
+          })
+        })
+      }
+    })
+  }
 
-describe('Model > TutorialStore', function () {
+  const authClientStubWithoutUser = {
+    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
+    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
+  }
+
+  const authClientStubWithUser = {
+    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
+    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
+  }
+
   function fetchTutorials (rootStore) {
     sinon.stub(rootStore.tutorials, 'fetchTutorials')
     return rootStore.workflows.setActive(workflow.id)
@@ -434,8 +438,16 @@ describe('Model > TutorialStore', function () {
     let tutorialsClient
 
     before(function () {
-      const panoptesClientWithUPP = stubPanoptesJs({ project_preferences: upp, workflows: workflow })
-      const panoptesClientWithUPPTimestamp = stubPanoptesJs({ project_preferences: uppWithTutorialTimeStamp, workflows: workflow })
+      const panoptesClientWithUPP = stubPanoptesJs({
+        project_preferences: upp,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      const panoptesClientWithUPPTimestamp = stubPanoptesJs({
+        project_preferences: uppWithTutorialTimeStamp,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
       tutorialsClient = {
         tutorials: {
           get: sinon.stub().callsFake(() => {

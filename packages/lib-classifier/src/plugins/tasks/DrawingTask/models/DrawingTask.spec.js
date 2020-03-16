@@ -199,8 +199,10 @@ describe('Model > DrawingTask', function () {
     let marks
     let pointTool
     let lineTool
+    let task
+
     before(function () {
-      const task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: DrawingTask.AnnotationModel,
@@ -213,6 +215,8 @@ describe('Model > DrawingTask', function () {
       task.setAnnotation(annotation)
       pointTool = task.tools[0]
       lineTool = task.tools[1]
+      task.setActiveTool(1)
+      task.setSubTaskVisibility(true)
       task.reset()
       marks = task.marks
     })
@@ -224,6 +228,15 @@ describe('Model > DrawingTask', function () {
     it('should clear stale marks from the drawing tools', function () {
       expect(pointTool.marks.size).to.equal(0)
       expect(lineTool.marks.size).to.equal(0)
+    })
+
+
+    it('should reset the active tool', function () {
+      expect(task.activeToolIndex).to.equal(0)
+    })
+
+    it('should reset the subtask visibility', function () {
+      expect(task.subTaskVisibility).to.be.false()
     })
   })
 })

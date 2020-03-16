@@ -62,7 +62,6 @@ class FieldGuideItem extends React.Component {
 
     return (
       <Box className={className}>
-
         <Box
           align='center'
           border={{ color: 'light-5', side: 'bottom' }}
@@ -93,7 +92,6 @@ class FieldGuideItem extends React.Component {
             {item.content}
           </Markdownz>
         </Box>
-
       </Box>
     )
   }
@@ -101,14 +99,20 @@ class FieldGuideItem extends React.Component {
 
 FieldGuideItem.defaultProps = {
   className: '',
-  icons: observable.map()
+  icons: observable.map(),
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
 FieldGuideItem.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
-  setActiveItemIndex: PropTypes.func.isRequired
+  setActiveItemIndex: PropTypes.func.isRequired,
+  theme: PropTypes.object
 }
 
 @inject(storeMapper)
