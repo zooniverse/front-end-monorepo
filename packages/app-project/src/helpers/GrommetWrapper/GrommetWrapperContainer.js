@@ -22,11 +22,18 @@ class GrommetWrapperContainer extends Component {
   }
 
   render () {
-    const { children } = this.props
+    const { children, mode } = this.props
     const mergedThemes = this.mergeThemes()
 
     return (
-      <Grommet theme={mergedThemes}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={mergedThemes}
+        themeMode={mode}
+      >
         {children}
       </Grommet>
     )

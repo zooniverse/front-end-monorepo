@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import React from 'react'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { Tasks } from './Tasks'
@@ -11,22 +12,12 @@ import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Tasks', function () {
-  let addAnnotation
   let classification
   let step
   let tasks
   let TaskComponent
 
   const taskTypes = Object.keys(taskRegistry.register)
-
-  before(function () {
-    // Mute the onAction warnings for the duration of these tests.
-    sinon.stub(console, 'error')
-  })
-
-  after(function () {
-    console.error.restore()
-  })
 
   taskTypes.forEach(function (taskType) {
     before(function () {
@@ -56,7 +47,7 @@ describe('Tasks', function () {
       const { panoptes } = stubPanoptesJs({
         field_guides: [],
         projects: [projectSnapshot],
-        subjects: [subjectSnapshot],
+        subjects: Factory.buildList('subject', 10),
         tutorials: [],
         workflows: [workflowSnapshot]
       })
@@ -96,8 +87,12 @@ describe('Tasks', function () {
         },
         client
       })
+      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setActive(workflowSnapshot.id)
+      rootStore.subjects.setResource(subjectSnapshot)
+      rootStore.subjects.setActive(subjectSnapshot.id)
+      rootStore.subjectViewer.onSubjectReady()
       classification = rootStore.classifications.active
-      addAnnotation = rootStore.classifications.addAnnotation
       step = rootStore.workflowSteps.active
     })
 
@@ -132,9 +127,8 @@ describe('Tasks', function () {
           <Tasks
             loadingState={asyncStates.success}
             ready
-            addAnnotation={addAnnotation}
             classification={classification}
-            tasks={step.tasks}
+            step={step}
           />
         )
         // Is there a better way to do this?
@@ -148,11 +142,10 @@ describe('Tasks', function () {
           before(function () {
             const wrapper = shallow(
               <Tasks
-                addAnnotation={addAnnotation}
                 classification={classification}
                 loadingState={asyncStates.success}
                 subjectReadyState={asyncStates.loading}
-                tasks={step.tasks}
+                step={step}
               />
             )
             taskWrapper = wrapper.find(TaskComponent.displayName)
@@ -167,12 +160,10 @@ describe('Tasks', function () {
           before(function () {
             const wrapper = shallow(
               <Tasks
-                addAnnotation={addAnnotation}
                 classification={classification}
                 loadingState={asyncStates.success}
                 subjectReadyState={asyncStates.success}
                 step={step}
-                tasks={step.tasks}
               />
             )
             taskWrapper = wrapper.find(TaskComponent.displayName)
