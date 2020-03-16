@@ -15,10 +15,17 @@ const validMimeTypes = [
 ]
 
 const invalidMimeTypes = [
+  'application/ecmascript',
+  'application/javascript',
   'application/xml',
   'audio/aac',
-  'audio/wave',
-  'image/tiff'
+  'audio/wav',
+  'image/bmp',
+  'image/tiff',
+  'text/css',
+  'text/ecmascript',
+  'text/html',
+  'text/javascript'
 ]
 
 describe('Helpers > validateMimeType', function () {
@@ -41,6 +48,22 @@ describe('Helpers > validateMimeType', function () {
           validateMimeType(mimeType)
         }).to.throw(Error, `${mimeType} is not valid for use in the classifier.`)
       })
+    })
+
+    it('should return errors only for the invalid types', function () {
+      let successCount = 0
+      let errorCount = 0
+      const allMimeTypes = validMimeTypes.concat(invalidMimeTypes)
+      allMimeTypes.forEach((mimeType) => {
+        try { 
+          const result = validateMimeType(mimeType)
+          if (result) successCount += 1
+        } catch (error) {
+          errorCount += 1
+        }
+      })
+      expect(successCount).to.equal(validMimeTypes.length)
+      expect(errorCount).to.equal(invalidMimeTypes.length)
     })
   })
 })
