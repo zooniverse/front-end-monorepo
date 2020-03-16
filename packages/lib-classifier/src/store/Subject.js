@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { destroy, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, destroy, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import Resource from './Resource'
 import createLocationCounts from '../helpers/createLocationCounts'
 import subjectViewers from '../helpers/subjectViewers'
@@ -31,13 +31,14 @@ const Subject = types
 
     function fetchTranscriptionReductions () {
       const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
-        if (self.workflow && self.workflow.usesTranscriptionLines) {
+        if (self.workflow && self.workflow.usesTranscriptionTask) {
           self.transcriptionReductions = TranscriptionReductions.create({
             subjectId: self.id,
             workflowId: self.workflow.id
           })
         }
       }, { name: 'Subject workflow disposer' })
+      addDisposer(self, subjectWorkflowDisposer)
     }
 
     function addToCollection () {
