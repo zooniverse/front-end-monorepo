@@ -39,6 +39,11 @@ describe('Model > Workflow', function () {
             tools: [
               { type: 'transcriptionLine' }
             ]
+          },
+          T1: {
+            answers: [{ label: "Enter an answer" }, { label: "Enter an answer" }],
+            type: 'single',
+            question: 'is it done?'
           }
         },
         version: '0.0'

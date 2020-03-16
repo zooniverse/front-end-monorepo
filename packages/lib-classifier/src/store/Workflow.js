@@ -28,11 +28,9 @@ const Workflow = types
     },
 
     get usesTranscriptionTask () {
-      let usesTranscriptionTask = false
-      self.tasks && Object.values(self.tasks).forEach(task => {
-        usesTranscriptionTask = task.type === 'transcription'
+      return self.tasks && Object.values(self.tasks).some(task => {
+        return task.type === 'transcription'
       })
-      return usesTranscriptionTask
     }
   }))
 
