@@ -135,7 +135,7 @@ describe('Component > ScatterPlot', function () {
     before(function () {
       wrapper = shallow(
         <ScatterPlot
-          data={variableStar.data}
+          data={variableStar.scatterPlot.data}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
@@ -158,7 +158,7 @@ describe('Component > ScatterPlot', function () {
         const components = wrapper.find(component)
         return components.length > 0
       })
-      variableStar.data.forEach((series, index) => {
+      variableStar.scatterPlot.data.forEach((series, index) => {
         expect(wrapper.find(renderedSeriesGlyphs[index])).to.have.lengthOf(series.seriesData.length)
       })
     })
@@ -235,7 +235,7 @@ describe('Component > ScatterPlot', function () {
       ]
       const wrapper = shallow(
         <ScatterPlot
-          data={variableStar.data}
+          data={variableStar.scatterPlot.data}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
