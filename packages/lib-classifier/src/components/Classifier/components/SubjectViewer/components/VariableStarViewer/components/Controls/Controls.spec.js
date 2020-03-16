@@ -44,7 +44,7 @@ describe('VariableStarViewer > Component > Controls', function () {
     it('should pass the data, focusedSeries, and setSeriesFocus props', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
-          <Controls data={variableStar.data} focusedSeries={focusedSeriesMock} setSeriesFocus={sinon.spy()} />
+          <Controls data={variableStar.scatterPlot.data} focusedSeries={focusedSeriesMock} setSeriesFocus={sinon.spy()} />
         </Grommet>
       )
       const controls = wrapper.find(Controls)
