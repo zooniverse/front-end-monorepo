@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import TranscriptionTask from './TranscriptionTask'
 import { TranscriptionLine } from '@plugins/drawingTools/models/marks'
-import Annotation from '../../models/Annotation'
+import Annotation from '../../../models/Annotation'
 
 const Transcription = types.model('Transcription', {
   value: types.array(TranscriptionLine)

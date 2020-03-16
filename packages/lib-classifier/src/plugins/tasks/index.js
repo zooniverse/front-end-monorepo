@@ -4,7 +4,7 @@ import DrawingTask from './DrawingTask'
 import MultipleChoiceTask from './MultipleChoiceTask'
 import SingleChoiceTask from './SingleChoiceTask'
 import TextTask from './TextTask'
-import TranscriptionTask from './TranscriptionTask'
+import TranscriptionTask from './experimental/TranscriptionTask'
 
 const taskRegistry = new Registry()
 try {
