@@ -6,9 +6,7 @@ import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import SingleImageViewer, { SingleImageViewerContainer } from './SingleImageViewerContainer'
-import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/'
-import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/'
-import ResetButton from '../../../ImageToolbar/components/ResetButton/'
+import { AnnotateButton, MoveButton, ResetButton, RotateButton, ZoomInButton, ZoomOutButton } from '../../../ImageToolbar/components/'
 import withKeyZoom from '../../../withKeyZoom'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
@@ -34,9 +32,7 @@ const mockStore = {
   drawing: {
     addToStream: sinon.stub()
   },
-  subjectViewer: SubjectViewerStore.create({
-    move: true,
-  }),
+  subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
     activeStepTasks: []
   }
@@ -85,8 +81,11 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
     return (
       <ViewerContext theme={zooTheme}>
         <Toolbar direction='row'>
+          <AnnotateButton />
+          <MoveButton />
           <ZoomInButton />
           <ZoomOutButton />
+          <RotateButton />
           <ResetButton />
         </Toolbar>
         <Box height='medium' width='large'>
