@@ -6,9 +6,10 @@ import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import SingleImageViewer, { SingleImageViewerContainer } from './SingleImageViewerContainer'
-import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
-import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
-import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
+import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/'
+import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/'
+import ResetButton from '../../../ImageToolbar/components/ResetButton/'
+import withKeyZoom from '../../../withKeyZoom'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
@@ -79,18 +80,19 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
       </ViewerContext>
     )
   }, darkThemeConfig)
-  .add('pan and zoom', () => {
+  .add('with zoom controls', () => {
+    const Toolbar = withKeyZoom(Box)
     return (
       <ViewerContext theme={zooTheme}>
+        <Toolbar direction='row'>
+          <ZoomInButton />
+          <ZoomOutButton />
+          <ResetButton />
+        </Toolbar>
         <Box height='medium' width='large'>
           <SingleImageViewer
             subject={subject}
           />
-        </Box>
-        <Box direction='row'>
-          <ZoomInButton onClick={() => onZoom('zoomin')} />
-          <ZoomOutButton onClick={() => onZoom('zoomout')} />
-          <ResetButton onClick={() => onZoom('zoomto')} />
         </Box>
       </ViewerContext>
     )
