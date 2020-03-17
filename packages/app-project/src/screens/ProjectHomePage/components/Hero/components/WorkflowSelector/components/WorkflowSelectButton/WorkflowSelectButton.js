@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import { Button } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
 
@@ -15,8 +15,9 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function WorkflowSelectButton (props) {
-  const { router, workflow, ...rest } = props
-  const { owner, project } = router.query
+  const { workflow, ...rest } = props
+  const router = useRouter()
+  const { owner, project } = router?.query || {}
 
   const url = (workflow.default)
     ? `/projects/${owner}/${project}/classify`
@@ -49,13 +50,6 @@ function WorkflowSelectButton (props) {
 }
 
 WorkflowSelectButton.propTypes = {
-  router: shape({
-    asPath: string.isRequired,
-    query: {
-      owner: string.isRequired,
-      project: string.isRequired
-    }
-  }).isRequired,
   workflow: shape({
     completeness: number,
     default: bool,
@@ -64,7 +58,7 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-const DecoratedWorkflowSelectButton = withRouter(withThemeContext(WorkflowSelectButton, theme))
+const DecoratedWorkflowSelectButton = withThemeContext(WorkflowSelectButton, theme)
 
 export {
   DecoratedWorkflowSelectButton as default,
