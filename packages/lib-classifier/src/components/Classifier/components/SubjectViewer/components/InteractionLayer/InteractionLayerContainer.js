@@ -88,7 +88,7 @@ class InteractionLayerContainer extends Component {
             scale={scale}
             width={width}
           >
-            {workflow?.usesTranscriptionLines &&
+            {consensusLines && consensusLines.length > 0 && workflow?.usesTranscriptionTask &&
               <TranscribedLines
                 lines={consensusLines}
                 scale={scale}
