@@ -5,6 +5,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import * as nextRouter from 'next/router'
 import PropTypes from 'prop-types'
 import React from 'react'
 import sinon from 'sinon'
@@ -39,7 +40,7 @@ const mockedRouter = {
     project: 'snapshot-serengeti'
   }
 }
-
+sinon.stub(nextRouter, 'useRouter').callsFake(() => mockedRouter)
 
 const WORKFLOWS = {
   loading: asyncStates.success,
