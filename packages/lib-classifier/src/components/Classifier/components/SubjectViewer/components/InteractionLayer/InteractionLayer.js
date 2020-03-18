@@ -13,7 +13,7 @@ const StyledRect = styled('rect')`
 `
 
 function InteractionLayer ({
-  activeDrawingTask,
+  activeInteractionTask,
   activeMark,
   activeTool,
   children,
@@ -59,7 +59,7 @@ function InteractionLayer ({
 
     const activeMark = activeTool.createMark({
       id: cuid(),
-      toolIndex: activeDrawingTask.activeToolIndex
+      toolIndex: activeInteractionTask.activeToolIndex
     })
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
@@ -124,7 +124,7 @@ function InteractionLayer ({
 }
 
 InteractionLayer.propTypes = {
-  activeDrawingTask: PropTypes.object.isRequired,
+  activeInteractionTask: PropTypes.object.isRequired,
   activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,

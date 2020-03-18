@@ -59,6 +59,7 @@ function TranscribedLines ({ lines, scale, task, theme }) {
               role='img'
               aria-describedby={id}
               aria-label={line.consensusText}
+              key={line.id}
               onClick={() => showConsensus(line)}
               onKeyDown={e => (e.key === 'Enter' && showConsensus(line))}
               tabIndex={0}
@@ -95,6 +96,7 @@ function TranscribedLines ({ lines, scale, task, theme }) {
               role='img'
               aria-describedby={id}
               aria-label={line.consensusText}
+              key={line.id}
               onClick={e => createMark(line)}
               onKeyDown={e => (e.key === 'Enter' && createMark(line))}
               tabIndex={0}
