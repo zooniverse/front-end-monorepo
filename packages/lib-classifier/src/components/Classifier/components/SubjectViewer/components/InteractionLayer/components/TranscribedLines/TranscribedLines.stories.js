@@ -9,6 +9,7 @@ import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import InteractionLayer from '../../../InteractionLayer'
 import readme from './README.md'
 import TranscribedLines from './TranscribedLines'
+import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 
 const config = {
   notes: {
@@ -16,7 +17,7 @@ const config = {
   }
 }
 
-const query = '{ workflow(id: 5339) { subject_reductions(subjectId: 13967054, reducerKey:"ext") { data } } }'
+// const query = '{ workflow(id: 5339) { subject_reductions(subjectId: 13967054, reducerKey:"ext") { data } } }'
 const subjectSnapshot = SubjectFactory.build({
   id: '13967054',
   locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' }]
@@ -31,7 +32,7 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: {
     T0: {
       instruction: 'Transcribe a line',
-      type: 'drawing',
+      type: 'transcription',
       tools: [
         { type: 'transcriptionLine' }
       ]
@@ -43,15 +44,18 @@ const workflowSnapshot = WorkflowFactory.build({
 const client = {
   panoptes: {
     get: () => Promise.resolve({ body: {
-        subjects: Factory.build('subject', 10),
-        workflows: [workflowSnapshot]
+        subjects: [],
+        workflows: []
       }
     })
   },
-  caesar: new GraphQLClient('https://caesar.zooniverse.org/graphql')
+  caesar: new GraphQLClient('https://caesar.zooniverse.org/graphql'),
+  tutorials: {
+    get: () => Promise.resolve({ body: { tutorials: [] }})
+  }
 }
-const subjectReductions = client.caesar.request(query)
-sinon.stub(client.caesar, 'request').callsFake(() => subjectReductions)
+// const subjectReductions = client.caesar.request(query)
+sinon.stub(client.caesar, 'request').callsFake(() => Promise.resolve(reducedSubject))
 const rootStore = RootStore.create({}, { client })
 rootStore.workflows.setResource(workflowSnapshot)
 rootStore.workflows.setActive(workflowSnapshot.id)
@@ -61,7 +65,6 @@ const workflow = rootStore.workflows.active
 const subject = rootStore.subjects.active
 
 storiesOf('TranscribedLines', module)
-
   .add('default', () => (
     <Provider classifierStore={rootStore}>
       <svg viewBox='0 0 1292 2000' height={646} width={1000}>

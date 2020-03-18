@@ -1,8 +1,9 @@
 import counterpart from 'counterpart'
-import { arrayOf, bool, number, shape } from 'prop-types'
+import { arrayOf, bool, number, object, shape } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
+import Tooltip from './components/Tooltip'
 
 import en from './locales/en'
 
@@ -19,10 +20,9 @@ const ConsensusLine = styled('g')`
   }
 `
 
-function TranscribedLines ({ lines, scale, task }) {
-
+function TranscribedLines ({ lines, scale, task, theme }) {
   function createMark (line) {
-    const { activeTool, activeToolIndex, setActiveMark } = task || {}
+    const { activeTool, activeToolIndex, setActiveMark } = task
     const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
     const markSnapshot = { x1, y1, x2, y2, toolIndex: activeToolIndex }
 
@@ -53,10 +53,11 @@ function TranscribedLines ({ lines, scale, task }) {
           const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
           const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
           const mark = { length, x1, y1, x2, y2 }
+          const id = `complete-${index}`
           return (
             <ConsensusLine
               role='img'
-              aria-describedby={`complete-${index}`}
+              aria-describedby={id}
               aria-label={line.consensusText}
               onClick={() => showConsensus(line)}
               onKeyDown={e => (e.key === 'Enter' && showConsensus(line))}
@@ -67,27 +68,18 @@ function TranscribedLines ({ lines, scale, task }) {
                 mark={mark}
                 scale={scale}
               />
-              <g
+              <Tooltip
+                background={theme.global.colors['light-6']}
                 className='tooltip'
-                id={`complete-${index}`}
-                transform={`translate(${x1+10}, ${y1+10})`}
-              >
-                <rect
-                  fill='#8c8c8c'
-                  x={0}
-                  y={0}
-                  height={45}
-                  width={320}
-                >
-                </rect>
-                <text
-                  fill='#fff'
-                  x={20}
-                  y={20}
-                >
-                  {counterpart('TranscribedLines.complete')}
-                </text>
-              </g>
+                id={id}
+                index={index}
+                label={{
+                  fill: theme.global.colors['neutral-6'],
+                  text: counterpart('TranscribedLines.complete')
+                }}
+                x1={x1}
+                y1={y1}
+              />
             </ConsensusLine>
           )
         })
@@ -97,10 +89,11 @@ function TranscribedLines ({ lines, scale, task }) {
           const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
           const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
           const mark = { length, x1, y1, x2, y2 }
+          const id = `transcribed-${index}`
           return (
             <ConsensusLine
               role='img'
-              aria-describedby={`transcribed-${index}`}
+              aria-describedby={id}
               aria-label={line.consensusText}
               onClick={e => createMark(line)}
               onKeyDown={e => (e.key === 'Enter' && createMark(line))}
@@ -111,27 +104,18 @@ function TranscribedLines ({ lines, scale, task }) {
                 mark={mark}
                 scale={scale}
               />
-              <g
+              <Tooltip
+                background={theme.global.colors['drawing-red']}
                 className='tooltip'
-                id={`transcribed-${index}`}
-                transform={`translate(${x1+10}, ${y1+10})`}
-              >
-                <rect
-                  fill='#ff3c25'
-                  x={0}
-                  y={0}
-                  height={45}
-                  width={370}
-                >
-                </rect>
-                <text
-                  fill='#fff'
-                  x={20}
-                  y={20}
-                >
-                  {counterpart('TranscribedLines.transcribed')}
-                </text>
-              </g>
+                id={id}
+                index={index}
+                label={{
+                  fill: theme.global.colors['neutral-6'],
+                  text: counterpart('TranscribedLines.transcribed')
+                }}
+                x1={x1}
+                y1={y1}
+              />
             </ConsensusLine>
           )
         })
@@ -148,12 +132,25 @@ TranscribedLines.propTypes = {
       y: number
     }))
   })),
-  scale: number
+  scale: number,
+  task: object,
+  theme: shape({
+    global: shape({
+      colors: object
+    })
+  })
 }
 
 TranscribedLines.defaultProps = {
   lines: [],
-  scale: 1
+  scale: 1,
+  task: {},
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
-export default TranscribedLines
+export default withTheme(TranscribedLines)
+export { TranscribedLines }
