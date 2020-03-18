@@ -1,12 +1,12 @@
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 import Subject from './Subject'
-import ProjectStore from './ProjectStore'
-import WorkflowStore from './WorkflowStore'
+import ProjectStore from '../ProjectStore'
+import WorkflowStore from '../WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
-import RootStore from './'
-import subjectViewers from '../helpers/subjectViewers'
+import RootStore from '../'
+import subjectViewers from '../../helpers/subjectViewers'
 
 describe('Model > Subject', function () {
   const stub = SubjectFactory.build()
