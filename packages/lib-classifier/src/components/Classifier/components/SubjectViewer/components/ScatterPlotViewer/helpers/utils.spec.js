@@ -149,7 +149,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('when there is multiple series of data', function () {
       it('should return the same data JSON object input as the function parameter', function () {
-        const inputData = lightCurveMockData.variableStar.data
+        const inputData = lightCurveMockData.variableStar.scatterPlot.data
         const points = getDataPoints(inputData)
         expect(points).to.deep.equal(inputData)
       })
@@ -170,7 +170,7 @@ describe('ScatterPlotViewer > helpers > utils', function () {
 
     describe('when there is multiple series of data', function () {
       it('should return the data extent for all data series', function () {
-        const inputData = lightCurveMockData.variableStar.data
+        const inputData = lightCurveMockData.variableStar.scatterPlot.data
         const extent = getDataExtent(inputData)
 
         inputData.forEach((series) => {
