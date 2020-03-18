@@ -296,18 +296,19 @@ class SubjectGroupViewerContainer extends React.Component {
           height={cellHeight}
           dragMove={this.dragMove}
         />
-        <DraggableImage
-          ref={this.subjectImage}
-          dragMove={this.dragMove}
-          height={imageHeight}
-          width={imageWidth}
-          xlinkHref={image.src}
-          x={imageX}
-          y={imageY}
-          transform={`scale(${zoom}) translate(${panX}, ${panY})`}
-          transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
-          clipPath={`url(#${clipPathID})`}
-        />
+        <g clipPath={`url(#${clipPathID})`}>
+          <DraggableImage
+            ref={this.subjectImage}
+            dragMove={this.dragMove}
+            height={imageHeight}
+            width={imageWidth}
+            xlinkHref={image.src}
+            x={imageX}
+            y={imageY}
+            transform={`scale(${zoom}) translate(${panX}, ${panY})`}
+            transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
+          />
+        </g>
         <rect
           fill="none"
           stroke={cellStyle.stroke}
