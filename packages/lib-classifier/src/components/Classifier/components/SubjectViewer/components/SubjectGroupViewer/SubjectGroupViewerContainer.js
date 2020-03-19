@@ -13,6 +13,16 @@ function preventDefault (e) {
   e.preventDefault()
 }
 
+const DEFAULT_CELL_WIDTH = 1200
+const DEFAULT_CELL_HEIGHT = 1000
+const DEFAULT_CELL_STYLE = {
+  stroke: '#fff',
+  strokeWidth: '4',
+  fill: '#000'
+}
+const DEFAULT_GRID_COLUMNS = 3
+const DEFAULT_GRID_ROWS = 3
+
 function storeMapper (stores) {
   const {
     enableRotation,
@@ -21,16 +31,17 @@ function storeMapper (stores) {
     setOnPan
   } = stores.classifierStore.subjectViewer
   
-  // TODO
-  const cellHeight = 1000
-  const cellWidth = 1200
-  const cellStyle = {
-    stroke: '#fff',
-    strokeWidth: '4',
-    fill: '#000'
-  }
-  const gridColumns = 3
-  const gridRows = 3
+  const {
+    active: activeWorkflow
+  } = stores.classifierStore.workflows
+  
+  const workflowConfig = activeWorkflow && activeWorkflow.configuration || {}
+  
+  const cellWidth = workflowConfig.cell_width || DEFAULT_CELL_WIDTH
+  const cellHeight = workflowConfig.cell_height || DEFAULT_CELL_HEIGHT
+  const cellStyle = workflowConfig.cell_style || DEFAULT_CELL_STYLE
+  const gridColumns = workflowConfig.grid_columns || DEFAULT_GRID_COLUMNS
+  const gridRows = workflowConfig.grid_rows || DEFAULT_GRID_ROWS
 
   return {
     cellHeight,
