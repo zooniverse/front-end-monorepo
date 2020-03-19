@@ -9,7 +9,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const ConsensusLine = styled('g')`
+export const ConsensusLine = styled('g')`
   .tooltip {
     visibility: hidden;
   }
