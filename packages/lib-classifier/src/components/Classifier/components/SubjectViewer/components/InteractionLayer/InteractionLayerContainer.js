@@ -22,24 +22,17 @@ function storeMapper (stores) {
   } = stores.classifierStore.workflows
   const subject = stores.classifierStore.subjects.active
   const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
-  const activeTool = activeInteractionTask ? activeInteractionTask.activeTool : null
-  const disabled = activeTool ? activeTool.disabled : false
   const annotations = classification ? Array.from(classification.annotations.values()) : []
   const interactionTaskAnnotations = annotations.filter(annotation => getType(annotation).name === ('DrawingAnnotation' || 'TranscriptionAnnotation'))
-  const { activeMark, marks, setActiveMark, setSubTaskVisibility } = activeInteractionTask || {}
   const { consensusLines } = subject.transcriptionReductions || {}
 
   return {
     activeInteractionTask,
     activeMark,
-    activeTool,
     consensusLines,
     disabled,
     interactionTaskAnnotations,
-    marks,
     move,
-    setActiveMark,
-    setSubTaskVisibility,
     workflow
   }
 }
@@ -50,20 +43,26 @@ class InteractionLayerContainer extends Component {
   render () {
     const {
       activeInteractionTask,
-      activeMark,
-      activeTool,
       consensusLines,
       disabled,
       height,
       interactionTaskAnnotations,
-      marks,
       move,
-      setActiveMark,
-      setSubTaskVisibility,
       scale,
       workflow,
       width
     } = this.props
+
+    const {
+      activeMark,
+      activeTool,
+      activeToolIndex,
+      marks,
+      setActiveMark,
+      setSubTaskVisibility,
+      taskKey
+    } = activeInteractionTask
+
     return (
       <>
         {interactionTaskAnnotations.map(annotation =>
@@ -75,17 +74,17 @@ class InteractionLayerContainer extends Component {
         )}
         {activeInteractionTask && activeTool &&
           <InteractionLayer
-            key={activeInteractionTask.taskKey}
-            activeInteractionTask={activeInteractionTask}
             activeMark={activeMark}
             activeTool={activeTool}
+            activeToolIndex={activeToolIndex}
             disabled={disabled}
             height={height}
+            key={taskKey}
             marks={marks}
             move={move}
+            scale={scale}
             setActiveMark={setActiveMark}
             setSubTaskVisibility={setSubTaskVisibility}
-            scale={scale}
             width={width}
           >
             {workflow?.usesTranscriptionTask &&
@@ -103,17 +102,43 @@ class InteractionLayerContainer extends Component {
 }
 
 InteractionLayerContainer.wrappedComponent.propTypes = {
+  activeInteractionTask: PropTypes.shape({
+    activeMark: PropTypes.object,
+    activeTool: PropTypes.object,
+    marks: PropTypes.array,
+    setActiveMark: PropTypes.func,
+    setSubTaskVisibility: PropTypes.func,
+    taskKey: PropTypes.string
+  }),
   consensusLines: PropTypes.array,
+  disabled: PropTypes.bool,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
+  move: PropTypes.bool,
   scale: PropTypes.number,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  workflow: PropTypes.shape({
+    usesTranscriptionTask: PropTypes.bool
+  })
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
+  activeInteractionTask: {
+    activeMark: undefined,
+    activeTool: null,
+    marks: [],
+    setActiveMark: () => {},
+    setSubTaskVisibility: () => {},
+    taskKey: ''
+  },
   consensusLines: [],
+  disabled: false,
   interactionTaskAnnotations: [],
-  scale: 1
+  move: false,
+  scale: 1,
+  workflow: {
+    usesTranscriptionTask: false
+  }
 }
 
 export default InteractionLayerContainer

@@ -13,17 +13,17 @@ const StyledRect = styled('rect')`
 `
 
 function InteractionLayer ({
-  activeInteractionTask,
   activeMark,
   activeTool,
+  activeToolIndex,
   children,
   disabled,
   height,
   marks,
   move,
-  scale,
   setActiveMark,
   setSubTaskVisibility,
+  scale,
   width
 }) {
   const [ creating, setCreating ] = useState(false)
@@ -59,7 +59,7 @@ function InteractionLayer ({
 
     const activeMark = activeTool.createMark({
       id: cuid(),
-      toolIndex: activeInteractionTask.activeToolIndex
+      toolIndex: activeToolIndex
     })
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
@@ -124,25 +124,26 @@ function InteractionLayer ({
 }
 
 InteractionLayer.propTypes = {
-  activeInteractionTask: PropTypes.object.isRequired,
   activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
-  height: PropTypes.number.isRequired,
-  disabled: PropTypes.bool,
+  activeToolIndex: PropTypes.number,
   marks: PropTypes.array,
-  scale: PropTypes.number,
   setActiveMark: PropTypes.func,
   setSubTaskVisibility: PropTypes.func,
+  height: PropTypes.number.isRequired,
+  disabled: PropTypes.bool,
+  scale: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
 InteractionLayer.defaultProps = {
   activeMark: undefined,
-  disabled: false,
+  activeToolIndex: 0,
   marks: [],
-  scale: 1,
   setActiveMark: () => {},
   setSubTaskVisibility: () => {},
+  disabled: false,
+  scale: 1
 }
 
 export default InteractionLayer
