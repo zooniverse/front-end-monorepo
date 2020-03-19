@@ -28,9 +28,7 @@ function storeMapper (stores) {
 
   return {
     activeInteractionTask,
-    activeMark,
     consensusLines,
-    disabled,
     interactionTaskAnnotations,
     move,
     workflow
@@ -44,7 +42,6 @@ class InteractionLayerContainer extends Component {
     const {
       activeInteractionTask,
       consensusLines,
-      disabled,
       height,
       interactionTaskAnnotations,
       move,
@@ -77,7 +74,7 @@ class InteractionLayerContainer extends Component {
             activeMark={activeMark}
             activeTool={activeTool}
             activeToolIndex={activeToolIndex}
-            disabled={disabled}
+            disabled={activeTool.disabled}
             height={height}
             key={taskKey}
             marks={marks}
@@ -104,7 +101,9 @@ class InteractionLayerContainer extends Component {
 InteractionLayerContainer.wrappedComponent.propTypes = {
   activeInteractionTask: PropTypes.shape({
     activeMark: PropTypes.object,
-    activeTool: PropTypes.object,
+    activeTool: PropTypes.shape({
+      disabled: PropTypes.bool
+    }),
     marks: PropTypes.array,
     setActiveMark: PropTypes.func,
     setSubTaskVisibility: PropTypes.func,
@@ -125,7 +124,9 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
 InteractionLayerContainer.wrappedComponent.defaultProps = {
   activeInteractionTask: {
     activeMark: undefined,
-    activeTool: null,
+    activeTool: {
+      disabled: false
+    },
     marks: [],
     setActiveMark: () => {},
     setSubTaskVisibility: () => {},

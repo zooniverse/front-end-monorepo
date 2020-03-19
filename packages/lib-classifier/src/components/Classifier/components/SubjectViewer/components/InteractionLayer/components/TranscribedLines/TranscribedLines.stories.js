@@ -17,6 +17,7 @@ const config = {
   }
 }
 
+const query = '{ workflow(id: 5339) { subject_reductions(subjectId: 13967054, reducerKey:"ext") { data } } }'
 const subjectSnapshot = SubjectFactory.build({
   id: '13967054',
   locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' }]
@@ -53,9 +54,8 @@ const client = {
     get: () => Promise.resolve({ body: { tutorials: [] }})
   }
 }
-sinon.stub(client.caesar, 'request').callsFake(
-  () => Promise.resolve({ workflow: { subject_reductions: [{ data: reducedSubject }] }})
-)
+const subjectReductions = client.caesar.request(query)
+sinon.stub(client.caesar, 'request').callsFake(() => subjectReductions)
 const rootStore = RootStore.create({}, { client })
 rootStore.workflows.setResource(workflowSnapshot)
 rootStore.workflows.setActive(workflowSnapshot.id)
