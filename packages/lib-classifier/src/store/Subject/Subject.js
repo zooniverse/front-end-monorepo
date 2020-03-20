@@ -3,6 +3,7 @@ import { addDisposer, destroy, getRoot, tryReference, types } from 'mobx-state-t
 import Resource from '../Resource'
 import createLocationCounts from '@helpers/createLocationCounts'
 import subjectViewers from '@helpers/subjectViewers'
+import validateSubjectLocations from '@helpers/validateSubjectLocations'
 import TranscriptionReductions from '../TranscriptionReductions'
 
 const Subject = types
@@ -10,7 +11,7 @@ const Subject = types
     already_seen: types.optional(types.boolean, false),
     favorite: types.optional(types.boolean, false),
     finished_workflow: types.optional(types.boolean, false),
-    locations: types.frozen([]),
+    locations: types.refinement('SubjectLocations', types.frozen([]), validateSubjectLocations),
     metadata: types.frozen({}),
     retired: types.optional(types.boolean, false),
     selected_at: types.maybe(types.string),
