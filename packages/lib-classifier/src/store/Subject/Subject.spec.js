@@ -40,6 +40,7 @@ describe('Model > Subject', function () {
       display_name: 'A test workflow',
       tasks: {
         T0: {
+          instruction: 'Transcribe the text',
           type: 'transcription',
           tools: [
             { type: 'transcriptionLine' }
