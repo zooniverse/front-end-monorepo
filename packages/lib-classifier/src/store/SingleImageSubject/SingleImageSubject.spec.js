@@ -4,7 +4,7 @@ import RootStore from '../'
 import WorkflowStore from '../WorkflowStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
-import subjectViewers from '../../helpers/subjectViewers'
+import subjectViewers from '@helpers/subjectViewers'
 
 describe('Model > SingleImageSubject', function () {
   const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })

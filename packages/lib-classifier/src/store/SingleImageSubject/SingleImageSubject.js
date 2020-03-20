@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import createLocationCounts from '../../helpers/createLocationCounts'
+import createLocationCounts from '@helpers/createLocationCounts'
 import Subject from '../Subject'
 
 const SingleImageSubject = types

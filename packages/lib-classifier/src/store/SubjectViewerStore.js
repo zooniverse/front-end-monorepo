@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
-import layouts from '../helpers/layouts'
+import layouts from '@helpers/layouts'
 
 const SubjectViewer = types
   .model('SubjectViewer', {

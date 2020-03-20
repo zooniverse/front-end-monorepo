@@ -6,7 +6,7 @@ import WorkflowStore from '../WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import RootStore from '../'
-import subjectViewers from '../../helpers/subjectViewers'
+import subjectViewers from '@helpers/subjectViewers'
 
 describe('Model > Subject', function () {
   const stub = SubjectFactory.build()
