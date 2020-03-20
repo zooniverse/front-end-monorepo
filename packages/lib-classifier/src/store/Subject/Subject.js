@@ -92,17 +92,15 @@ const Subject = types
         const pfeEnableSwitchingFlipbookAndSeparate = configuration['enable_switching_flipbook_and_separate'] // expect true/false value
         const nullViewer = pfeMultiImageMode || pfeEnableSwitchingFlipbookAndSeparate
 
-        if (configuration.subject_viewer === 'lightcurve') {
-          viewer = subjectViewers.lightCurve
-        } else if (configuration.subject_viewer === 'multiFrame') {
-          viewer = subjectViewers.multiFrame
-        } else if (configuration.subject_viewer === 'subjectGroup') {
-          viewer = subjectViewers.subjectGroup
-        } else if (counts.total === 1) {
+        viewer = configuration.viewerType
+
+        if (!viewer && counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage
           }
-        } else if (counts.total > 1 && counts.total < 11) {
+        }
+
+        if (!viewer && counts.total > 1 && counts.total < 11) {
           if (!nullViewer) {
             viewer = subjectViewers.multiFrame
           }
