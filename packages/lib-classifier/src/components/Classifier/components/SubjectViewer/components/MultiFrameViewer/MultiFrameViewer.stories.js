@@ -30,7 +30,7 @@ const subject = {
     { 'image/jpeg': 'http://placekitten.com/300/500' }
   ],
   metadata: {
-    default_frame: 1
+    default_frame: 7
   }
 }
 

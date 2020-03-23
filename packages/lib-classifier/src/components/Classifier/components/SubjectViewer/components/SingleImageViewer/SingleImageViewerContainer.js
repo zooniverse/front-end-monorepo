@@ -9,6 +9,7 @@ import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
+import SubTaskPopup from '../../../SubTaskPopup'
 
 function storeMapper (stores) {
   const {
@@ -68,7 +69,6 @@ class SingleImageViewerContainer extends React.Component {
   async preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
-      // TODO: Validate for allowed image media mime types
       const imageUrl = Object.values(subject.locations[0])[0]
       const img = await this.fetchImage(imageUrl)
       this.setState({ img })
@@ -128,6 +128,7 @@ class SingleImageViewerContainer extends React.Component {
     }
 
     const svg = this.imageViewer.current
+    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
 
     return (
       <SVGContext.Provider value={{ svg }}>
@@ -141,7 +142,7 @@ class SingleImageViewerContainer extends React.Component {
           setOnZoom={setOnZoom}
         >
           <SingleImageViewer
-            enableInteractionLayer={enableInteractionLayer}
+            enableInteractionLayer={enableDrawing}
             height={naturalHeight}
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
@@ -157,6 +158,7 @@ class SingleImageViewerContainer extends React.Component {
             />
           </SingleImageViewer>
         </SVGPanZoom>
+        <SubTaskPopup />
       </SVGContext.Provider>
     )
   }

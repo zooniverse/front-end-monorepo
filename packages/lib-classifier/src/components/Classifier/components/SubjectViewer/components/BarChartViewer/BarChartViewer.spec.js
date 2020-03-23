@@ -4,14 +4,14 @@ import { Group } from '@vx/group'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import mockData, { mockDataWithColor } from './mockData'
+import mockData from './mockData'
 import { BarChartViewer } from './BarChartViewer'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
 
 const {
   data,
-  options: {
+  chartOptions: {
     margin,
     xAxisLabel,
     yAxisLabel

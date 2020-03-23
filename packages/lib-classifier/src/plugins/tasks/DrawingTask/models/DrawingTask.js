@@ -9,12 +9,14 @@ const markModels = Object.values(markTypes)
 const markReferenceTypes = markModels.map(markType => types.safeReference(markType))
 const toolModels = Object.values(tools)
 
-const Drawing = types.model('Drawing', {
+export const Drawing = types.model('Drawing', {
   activeMark: types.union(...markReferenceTypes),
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
+  subTaskMarkBounds: types.optional(types.frozen({}), undefined),
+  subTaskVisibility: types.optional(types.boolean, false),
   tools: types.array(types.union(...toolModels)),
   type: types.literal('drawing')
 })
@@ -24,7 +26,7 @@ const Drawing = types.model('Drawing', {
     Create keys of the form 'T0.0' for each of this task's tools
     */
     newSnapshot.tools = []
-    snapshot.tools.forEach((tool, toolIndex) => {
+    snapshot.tools?.forEach((tool, toolIndex) => {
       const toolKey = `${snapshot.taskKey}.${toolIndex}`
       const toolSnapshot = Object.assign({}, tool, { key: toolKey })
       newSnapshot.tools.push(toolSnapshot)
@@ -71,13 +73,23 @@ const Drawing = types.model('Drawing', {
 
     function reset () {
       self.tools.forEach(tool => tool.reset())
+      self.activeToolIndex = 0
+      self.subTaskVisibility = false
+    }
+    
+    function setSubTaskVisibility (visible, drawingMarkNode) {
+      self.subTaskVisibility = visible
+      self.subTaskMarkBounds = (drawingMarkNode)
+        ? drawingMarkNode.getBoundingClientRect()
+        : undefined
     }
 
     return {
       complete,
       reset,
       setActiveMark,
-      setActiveTool
+      setActiveTool,
+      setSubTaskVisibility
     }
   })
 

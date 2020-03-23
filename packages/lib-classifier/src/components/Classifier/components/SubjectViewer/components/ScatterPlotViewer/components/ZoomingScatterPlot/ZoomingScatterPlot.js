@@ -9,6 +9,7 @@ class ZoomingScatterPlot extends Component {
   constructor (props) {
     super(props)
     const {
+      invertAxes,
       margin,
       padding,
       parentHeight,
@@ -17,6 +18,7 @@ class ZoomingScatterPlot extends Component {
     } = props
 
     this.rangeParameters = {
+      invertAxes,
       margin,
       padding,
       parentHeight,
@@ -191,6 +193,10 @@ class ZoomingScatterPlot extends Component {
 }
 
 ZoomingScatterPlot.propTypes = {
+  invertAxes: PropTypes.shape({
+    x: PropTypes.bool,
+    y: PropTypes.bool
+  }),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -218,6 +224,10 @@ ZoomingScatterPlot.propTypes = {
 }
 
 ZoomingScatterPlot.defaultProps = {
+  invertAxes: {
+    x: false,
+    y: false
+  },
   margin: {
     bottom: 60,
     left: 60,

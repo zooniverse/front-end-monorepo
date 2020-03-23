@@ -91,5 +91,6 @@ const DecoratedFinishedForTheDay = withTheme(withResponsiveContext(FinishedForTh
 
 export {
   DecoratedFinishedForTheDay as default,
-  FinishedForTheDay
+  FinishedForTheDay,
+  StyledButton
 }

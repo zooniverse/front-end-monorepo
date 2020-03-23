@@ -1,7 +1,7 @@
-import { getEnv, types, setLivelynessChecking } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getEnv, onAction, tryReference, types, setLivelynessChecking } from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
-import DataVisAnnotatingStore from './DataVisAnnotatingStore'
 import FeedbackStore from './FeedbackStore'
 import FieldGuideStore from './FieldGuideStore'
 import ProjectStore from './ProjectStore'
@@ -15,7 +15,6 @@ import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 const RootStore = types
   .model('RootStore', {
     classifications: types.optional(ClassificationStore, () => ClassificationStore.create({})),
-    dataVisAnnotating: types.optional(DataVisAnnotatingStore, () => DataVisAnnotatingStore.create({})),
     feedback: types.optional(FeedbackStore, () => FeedbackStore.create({})),
     fieldGuide: types.optional(FieldGuideStore, () => FieldGuideStore.create({})),
     projects: types.optional(ProjectStore, () => ProjectStore.create({})),
@@ -35,6 +34,49 @@ const RootStore = types
   })
 
   .actions(self => {
+    // Private methods
+    function onSubjectReady () {
+      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
+      const subject = tryReference(() => subjects?.active)
+      const workflow = tryReference(() => workflows?.active)
+      const project = tryReference(() => projects?.active)
+      if (subject && workflow && project) {
+        workflowSteps.resetSteps()
+        classifications.reset()
+        classifications.createClassification(subject, workflow, project)
+        feedback.onNewSubject()
+      }
+    }
+
+    // Public actions
+    function afterCreate () {
+      createClassificationObserver()
+      createSubjectObserver()
+    }
+
+    function createClassificationObserver () {
+      const classificationDisposer = autorun(() => {
+        onAction(self, (call) => {
+          if (call.name === 'completeClassification') {
+            const annotations = self.classifications.currentAnnotations
+            annotations.forEach(annotation => self.feedback.update(annotation))
+          }
+        })
+      }, { name: 'Root Store Classification Observer autorun' })
+      addDisposer(self, classificationDisposer)
+    }
+
+    function createSubjectObserver () {
+      const subjectDisposer = autorun(() => {
+        onAction(self, (call) => {
+          if (call.name === 'onSubjectReady') {
+            onSubjectReady()
+          }
+        })
+      }, { name: 'Root Store Subject Observer autorun' })
+      addDisposer(self, subjectDisposer)
+    }
+
     function setOnAddToCollection (callback) {
       self.onAddToCollection = callback
     }
@@ -44,6 +86,7 @@ const RootStore = types
     }
 
     return {
+      afterCreate,
       setOnAddToCollection,
       setOnToggleFavourite
     }

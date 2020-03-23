@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFinish, onSelectMark, scale }) {
+function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFinish, onMove, onSelectMark, scale }) {
   const { svg } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
@@ -12,6 +12,15 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMarkId
+    const ref = React.createRef()
+    
+    function onFinishWithRef (event) {
+      onFinish(event, ref.current)
+    }
+    
+    function onSelectMarkWithRef (mark) {
+      onSelectMark(mark, ref.current)
+    }
 
     function isInBounds (markElement) {
       const object = markElement.getBoundingClientRect()
@@ -29,7 +38,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function moveMark (event, difference) {
-      mark.move(difference)
+      onMove(mark, difference)
     }
 
     function deselectMark (event) {
@@ -40,7 +49,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function selectMark () {
-      onSelectMark(mark)
+      onSelectMarkWithRef(mark)
     }
 
     return (
@@ -55,13 +64,14 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         mark={mark}
         onDelete={deleteMark}
         onDeselect={onDeselectMark}
-        onSelect={onSelectMark}
+        onSelect={onSelectMarkWithRef}
+        ref={ref}
         scale={scale}
       >
         <MarkingComponent
           active={isActive}
           mark={mark}
-          onFinish={onFinish}
+          onFinish={onFinishWithRef}
           scale={scale}
         />
         {isActive && <ObservedDeleteButton
@@ -80,6 +90,7 @@ DrawingToolMarks.propTypes = {
   marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
+  onMove: PropTypes.func,
   onSelectMark: PropTypes.func,
   scale: PropTypes.number
 }
@@ -88,6 +99,7 @@ DrawingToolMarks.defaultProps = {
   activeMarkId: '',
   onDelete: () => true,
   onDeselectMark: () => true,
+  onMove: () => true,
   onSelectMark: () => true,
   scale: 1
 }

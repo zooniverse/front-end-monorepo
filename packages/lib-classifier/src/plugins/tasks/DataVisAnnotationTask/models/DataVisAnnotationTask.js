@@ -5,6 +5,7 @@ import { Graph2dRangeXTool } from './dataVisTools'
 import DataVisAnnotation from './DataVisAnnotation'
 
 const DataVisTaskModel = types.model('DataVisTaskModel', {
+  activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DataVisAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.maybe(types.string),
@@ -17,6 +18,10 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
   type: types.literal('dataVisAnnotation')
 })
   .views(self => ({
+    get activeTool () {
+      return self.tools[self.activeToolIndex]
+    },
+
     get defaultAnnotation () {
       return DataVisAnnotation.create({
         id: cuid(),
@@ -25,6 +30,21 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
       })
     }
   }))
+
+  .actions(self => {
+    function setActiveTool (toolIndex) {
+      self.activeToolIndex = toolIndex
+    }
+
+    function reset () {
+      self.activeToolIndex = 0
+    }
+
+    return {
+      reset,
+      setActiveTool
+    }
+  })
 
 const DataVisAnnotationTask = types.compose('DataVisAnnotationTask', Task, DataVisTaskModel)
 

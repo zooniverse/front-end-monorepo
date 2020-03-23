@@ -24,6 +24,8 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
+    focusedSeries,
+    invertAxes,
     margin,
     padding,
     parentHeight,
@@ -36,13 +38,17 @@ function ScatterPlot (props) {
       }
     },
     transformMatrix,
+    underlays,
     xAxisLabel,
-    yAxisLabel,
+    xAxisNumTicks,
     xScale,
+    yAxisLabel,
+    yAxisNumTicks,
     yScale
   } = props
 
   const rangeParameters = {
+    invertAxes,
     margin,
     padding,
     parentHeight,
@@ -64,11 +70,13 @@ function ScatterPlot (props) {
     color: axisColor,
     xAxis: {
       label: xAxisLabel,
+      numTicks: xAxisNumTicks,
       orientation: 'bottom',
       scale: xScaleTransformed
     },
     yAxis: {
       label: yAxisLabel,
+      numTicks: yAxisNumTicks,
       orientation: 'left',
       scale: yScaleTransformed
     }
@@ -77,6 +85,16 @@ function ScatterPlot (props) {
   const clipPathId = cuid()
   const plotHeight = parentHeight - margin.bottom - margin.top
   const plotWidth = parentWidth - margin.right - margin.left
+
+  let underlayParameters = []
+  if (underlays.length > 0) {
+    underlayParameters = underlays.map((underlay) => {
+      const { fill, startPosition, xAxisWidth } = underlay
+      const left = xScaleTransformed(startPosition)
+      const width = xScaleTransformed(0) - xScaleTransformed(-xAxisWidth)
+      return { fill, left, width }
+    })
+  }
   return (
     <Chart
       height={parentHeight}
@@ -101,12 +119,14 @@ function ScatterPlot (props) {
             height={plotHeight}
             left={leftPosition}
             top={topPosition}
+            underlayParameters={underlayParameters}
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
-            seriesOptions: series.seriesOptions,
+            focusedSeries,
+            seriesOptions: series?.seriesOptions,
             seriesIndex,
             themeColors: colors
           })
@@ -191,6 +211,11 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
+  focusedSeries: [],
+  invertAxes: {
+    x: false,
+    y: false
+  },
   margin: {
     bottom: 60,
     left: 60,
@@ -220,9 +245,12 @@ ScatterPlot.defaultProps = {
     translateX: 0,
     translateY: 0
   },
+  underlays: [],
   xAxisLabel: 'x-axis',
-  yAxisLabel: 'y-axis',
+  xAxisNumTicks: 10,
   xScale: null,
+  yAxisLabel: 'y-axis',
+  yAxisNumTicks: 10,
   yScale: null,
   zooming: false
 }
@@ -249,6 +277,11 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  focusedSeries: PropTypes.arrayOf(PropTypes.object),
+  invertAxes: PropTypes.shape({
+    x: PropTypes.bool,
+    y: PropTypes.bool
+  }),
   margin: PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -275,9 +308,12 @@ ScatterPlot.propTypes = {
     translateX: PropTypes.number,
     translateY: PropTypes.number
   }),
+  underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
-  yAxisLabel: PropTypes.string,
+  xAxisNumTicks: PropTypes.number,
   xScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  yAxisLabel: PropTypes.string,
+  yAxisNumTicks: PropTypes.number,
   yScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
 }

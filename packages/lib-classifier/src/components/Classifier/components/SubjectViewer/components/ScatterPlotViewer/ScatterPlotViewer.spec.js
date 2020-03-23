@@ -3,14 +3,14 @@ import React from 'react'
 import ScatterPlot from './components/ScatterPlot'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import { ScatterPlotViewer } from './ScatterPlotViewer'
-import { data, parentHeight, parentWidth } from './helpers/mockData'
+import { parentHeight, parentWidth, randomSingleSeriesData } from './helpers/mockData'
 
 describe('Component > ScatterPlotViewer', function () {
   let wrapper
   before(function () {
     wrapper = shallow(
       <ScatterPlotViewer
-        data={data}
+        data={randomSingleSeriesData.data}
         parentHeight={parentHeight}
         parentWidth={parentWidth}
       />

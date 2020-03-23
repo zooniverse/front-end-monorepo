@@ -16,16 +16,12 @@ class VariableStarViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      barJSON: {
-        amplitude: {
+      barJSON: [
+        {
           data: [],
-          options: {}
-        },
-        period: {
-          data: [],
-          options: {}
+          chartOptions: {}
         }
-      },
+      ],
       focusedSeries: [],
       imageSrc: '',
       invertYAxis: false,
@@ -35,11 +31,27 @@ class VariableStarViewerContainer extends Component {
         data: [],
         chartOptions: {}
       },
+      phaseLimit: 0.2,
       rawJSON: {
-        data: [],
-        chartOptions: {}
+        scatterPlot: {
+          data: [],
+          chartOptions: {}
+        },
+        barCharts: [
+          {
+            data: [],
+            chartOptions: {}
+          }, {
+            data: [],
+            chartOptions: {}
+          }
+        ]
       }
     }
+
+    this.setPeriodMultiple = this.setPeriodMultiple.bind(this)
+    this.setSeriesFocus = this.setSeriesFocus.bind(this)
+    this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
 
   async componentDidMount() {
@@ -96,12 +108,19 @@ class VariableStarViewerContainer extends Component {
   }
 
   onLoad(rawJSON) {
+    const {
+      scatterPlot,
+      barCharts
+    } = rawJSON
     const { onReady } = this.props
     const target = this.viewer.current
-    const phasedJSON = this.calculatePhase(rawJSON)
-    const barJSON = this.calculateBarJSON(rawJSON)
+    const phasedJSON = this.calculatePhase(scatterPlot)
+    const barJSON = this.calculateBarJSON(barCharts)
+    const focusedSeries = this.setupSeriesFocus(scatterPlot)
+
     this.setState({
       barJSON,
+      focusedSeries,
       phasedJSON,
       rawJSON
     },
@@ -110,48 +129,90 @@ class VariableStarViewerContainer extends Component {
       })
   }
 
-  calculatePhase(rawJSON) {
-    // TODO
-    return {
-      data: [],
-      chartOptions: {}
-    }
+  calculatePhase (scatterPlotJSON) {
+    const { periodMultiple, phaseLimit } = this.state
+    // temp for demo purposes
+    // Will use series.seriesOptions.period in future
+    const seriesPeriods = [0.4661477096, 1.025524961]
+    let phasedJSON = { data: [], chartOptions: scatterPlotJSON.chartOptions }
+    scatterPlotJSON.data.forEach((series, seriesIndex) => {
+      const seriesPeriod = seriesPeriods[seriesIndex] * periodMultiple
+      const seriesData = []
+      series.seriesData.forEach((datum) => {
+        let phasedXPoint
+        const calculatedXPoint = (datum.x % seriesPeriod) / seriesPeriod
+        seriesData.push(Object.assign({}, datum, { x: calculatedXPoint, mirrored: false }))
+
+        if (calculatedXPoint < phaseLimit) {
+          phasedXPoint = calculatedXPoint + 1
+        } else if (calculatedXPoint > 1 - phaseLimit) {
+          phasedXPoint = calculatedXPoint - 1
+        }
+
+        if (phasedXPoint) seriesData.push(Object.assign({}, datum, { x: phasedXPoint, mirrored: true }))
+      })
+
+      phasedJSON.data.push({ seriesData, seriesOptions: series.seriesOptions })
+    })
+
+    return phasedJSON
   }
 
-  calculateBarJSON(rawJSON) {
-    // TODO
-    return {
-      amplitude: {
-        data: [],
-        options: {}
-      },
-      period: {
-        data: [],
-        options: {}
+  calculateBarJSON (barChartJSON) {
+    const { periodMultiple } = this.state
+    let phasedBarChartJSON = []
+    barChartJSON.forEach((series, seriesIndex) => {
+      phasedBarChartJSON.push({ data: [], chartOptions: series.chartOptions })
+      series.data.forEach((datum) => {
+        const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
+        phasedBarChartJSON[seriesIndex].data.push(phasedDatum)
+      })
+    })
+    return phasedBarChartJSON
+  }
+
+  calculateJSON () {
+    const {
+      rawJSON: {
+        scatterPlot,
+        barCharts
       }
-    }
-  }
-
-  calculateJSON() {
-    const { rawJSON } = this.state
-    const phasedJSON = calculatePhase(rawJSON)
-    const barJSON = calculateBarJSON(rawJSON)
+    } = this.state
+    const phasedJSON = this.calculatePhase(scatterPlot)
+    const barJSON = this.calculateBarJSON(barCharts)
     this.setState({
       barJSON,
       phasedJSON
     })
   }
 
-  setPeriodMultiple(multiple) {
-    const periodMultiple = parseFloat(multiple)
+  setupSeriesFocus (scatterPlotJSON) {
+    return scatterPlotJSON.data.map((series) => {
+      if (series?.seriesData.length > 0) {
+        return { [series.seriesOptions.label]: true }
+      }
+    })
+  }
+
+  setPeriodMultiple (event) {
+    const periodMultiple = parseFloat(event.target.value)
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
-  setSeriesFocus(seriesToFocus) {
-    // TODO add handling
+  setSeriesFocus(event) {
+    const newFocusedSeriesState = this.state.focusedSeries.map((series) => {
+      const [[label, checked]] = Object.entries(series)
+      if (label === event.target.value) {
+        return { [event.target.value]: event.target.checked }
+      } else {
+        return series
+      }
+    })
+
+    this.setState({ focusedSeries: newFocusedSeriesState })
   }
 
-  setYAxisInversion() {
+  setYAxisInversion () {
     this.setState((prevState) => { return { invertYAxis: !prevState.invertYAxis } })
   }
 
@@ -167,8 +228,11 @@ class VariableStarViewerContainer extends Component {
     return (
       <VariableStarViewer
         barJSON={this.state.barJSON}
+        focusedSeries={this.state.focusedSeries}
         imageSrc={this.state.imageSrc}
+        invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
+        phaseLimit={this.state.phaseLimit}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
         setPeriodMultiple={this.setPeriodMultiple}
@@ -192,6 +256,7 @@ VariableStarViewerContainer.defaultProps = {
 VariableStarViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)

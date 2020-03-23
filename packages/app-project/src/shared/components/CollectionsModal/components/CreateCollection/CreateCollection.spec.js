@@ -1,11 +1,12 @@
 import { mount } from 'enzyme'
-import { Button, CheckBox, TextInput } from 'grommet'
+import { Button, CheckBox, Grommet, TextInput } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import React from 'react'
 import sinon from 'sinon'
 
 import CreateCollection from './CreateCollection'
 
-describe('Component > CreateCollection', function () {
+describe('CollectionsModal > Component > CreateCollection', function () {
   let wrapper
   const collection = { display_name: 'Test One', private: true }
   const onChange = sinon.stub()
@@ -18,7 +19,8 @@ describe('Component > CreateCollection', function () {
         collection={collection}
         onChange={onChange}
         onSubmit={onSubmit}
-      />
+      />,
+      { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } }
     )
   })
 

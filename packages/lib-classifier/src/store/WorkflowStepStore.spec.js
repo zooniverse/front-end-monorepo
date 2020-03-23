@@ -56,7 +56,11 @@ describe('Model > WorkflowStepStore', function () {
       })
 
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
-      const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
       rootStore = setupStores(panoptesClientStub, project)
     })
 
@@ -127,7 +131,11 @@ describe('Model > WorkflowStepStore', function () {
         }
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
-      const panoptesClientStub = stubPanoptesJs({ projects: project, workflows: workflow })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
       rootStore = setupStores(panoptesClientStub, project)
     })
 

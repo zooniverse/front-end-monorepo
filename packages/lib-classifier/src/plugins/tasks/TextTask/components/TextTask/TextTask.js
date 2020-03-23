@@ -10,7 +10,7 @@ counterpart.registerTranslations('en', en)
 function TextTask (props) {
   const { autoFocus, disabled, task } = props
   const { value } = task.annotation
-  const textArea = React.createRef()
+  const textArea = React.useRef()
 
   useEffect(onMount, [])
 
@@ -21,8 +21,13 @@ function TextTask (props) {
     }
   }
 
+  function onUnmount () {
+    updateAnnotation()
+  }
+
   function onMount () {
-    return updateAnnotation
+    updateAnnotation()
+    return onUnmount
   }
 
   function setTagSelection (e) {
@@ -44,6 +49,7 @@ function TextTask (props) {
       textAfter = text.substring(selectionEnd, text.length)
       newValue = textBefore + startTag + textInBetween + endTag + textAfter
     }
+
     textArea.current.value = newValue
     updateAnnotation()
     if (textArea.current.focus) {
@@ -65,7 +71,7 @@ function TextTask (props) {
           autoFocus={autoFocus}
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
-          defaultValue={value}
+          value={value}
           onChange={updateAnnotation}
         />
       </label>

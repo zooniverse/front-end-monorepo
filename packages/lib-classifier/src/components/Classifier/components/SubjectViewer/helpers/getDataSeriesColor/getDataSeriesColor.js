@@ -30,6 +30,7 @@ export default function getDataSeriesColor({
     focusedSeries: focusedSeries = []
 } = {}) {
   const { color } = seriesOptions
+
   if (focusedSeries && focusedSeries[seriesIndex]) {
     const [focused] = Object.values(focusedSeries[seriesIndex]) || []
     if (focused) {

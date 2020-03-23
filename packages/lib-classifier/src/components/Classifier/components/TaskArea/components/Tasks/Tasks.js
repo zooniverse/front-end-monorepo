@@ -3,6 +3,7 @@ import { Box, Paragraph } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { withTheme } from 'styled-components'
 
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
@@ -10,18 +11,16 @@ import TaskNavButtons from './components/TaskNavButtons'
 import taskRegistry from '@plugins/tasks'
 
 function storeMapper (stores) {
-  const { active: classification, addAnnotation } = stores.classifierStore.classifications
+  const { active: classification } = stores.classifierStore.classifications
   const { loadingState } = stores.classifierStore.workflows
-  const { active: step, activeStepTasks: tasks, isThereTaskHelp } = stores.classifierStore.workflowSteps
+  const { active: step, isThereTaskHelp } = stores.classifierStore.workflowSteps
   const { loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
   return {
-    addAnnotation,
     classification,
     isThereTaskHelp,
     loadingState,
     step,
     subjectReadyState,
-    tasks
   }
 }
 
@@ -40,9 +39,9 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { addAnnotation, classification, isThereTaskHelp, subjectReadyState, step, tasks } = this.props
+    const { classification, isThereTaskHelp, subjectReadyState, step, theme } = this.props
     const ready = subjectReadyState === asyncStates.success
-    if (classification && tasks.length > 0) {
+    if (classification && step.tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area
       // and keeps the task nav buttons at the the bottom area
@@ -50,21 +49,22 @@ class Tasks extends React.Component {
       // but works for now
       return (
         <Box as='form' gap='small' justify='between' fill>
-          {tasks.map((task) => {
+          {step.tasks.map((task) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
             // The name is a bit confusing.
-            const annotation = addAnnotation(task)
+            const annotation = classification.addAnnotation(task)
             task.setAnnotation(annotation)
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
             if (annotation && TaskComponent) {
               return (
                 <Box key={annotation.id} basis='auto'>
                   <TaskComponent
+                    {...this.props}
                     disabled={!ready}
                     annotation={annotation}
                     task={task}
-                    {...this.props}
+                    theme={theme}
                   />
                 </Box>
               )
@@ -72,7 +72,7 @@ class Tasks extends React.Component {
 
             return (<Paragraph>Task component could not be rendered.</Paragraph>)
           })}
-          {isThereTaskHelp && <TaskHelp tasks={tasks} />}
+          {isThereTaskHelp && <TaskHelp tasks={step.tasks} />}
           <TaskNavButtons disabled={!ready || !step.isComplete} />
         </Box>
       )
@@ -90,18 +90,17 @@ class Tasks extends React.Component {
 Tasks.propTypes = {
   isThereTaskHelp: PropTypes.bool,
   loadingState: PropTypes.oneOf(asyncStates.values),
-  ready: PropTypes.bool,
-  tasks: PropTypes.arrayOf(PropTypes.object)
+  ready: PropTypes.bool
 }
 
 Tasks.defaultProps = {
   isThereTaskHelp: false,
   loadingState: asyncStates.initialized,
-  ready: false,
-  tasks: []
+  ready: false
 }
 
 @inject(storeMapper)
+@withTheme
 @observer
 class DecoratedTasks extends Tasks {}
 

@@ -17,18 +17,26 @@ counterpart.registerTranslations('en', en)
 
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
-    barJSON: {
-      amplitude,
-      period
-    },
+    barJSON,
+    focusedSeries,
     imgSrc,
+    invertYAxis,
     periodMultiple,
     phasedJSON,
-    rawJSON,
+    phaseLimit,
+    rawJSON: {
+      scatterPlot
+    },
     setPeriodMultiple,
     setSeriesFocus,
-    setYAxisInversion
+    setYAxisInversion,
+    theme
   } = props
+
+  const underlays = [
+    { fill: theme.global.colors['light-3'], startPosition: -phaseLimit, xAxisWidth: phaseLimit },
+    { fill: theme.global.colors['light-3'], startPosition: 1, xAxisWidth: phaseLimit }
+  ]
 
   return (
     <Grid
@@ -46,28 +54,40 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       ]}
     >
       <Controls
+        data={scatterPlot.data}
+        focusedSeries={focusedSeries}
         gridArea='controls'
         periodMultiple={periodMultiple}
         setPeriodMultiple={setPeriodMultiple}
         setSeriesFocus={setSeriesFocus}
         setYAxisInversion={setYAxisInversion}
+        theme={theme}
       />
       <Box
         gridArea='phasedJSON'
       >
         <ScatterPlotViewer
           data={phasedJSON.data}
+          focusedSeries={focusedSeries}
+          invertAxes={{ x: false, y: invertYAxis }}
+          underlays={underlays}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
+          xAxisNumTicks={8}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
+          yAxisNumTicks={8}
         />
       </Box>
       <Box
         gridArea='rawJSON'
       >
         <ScatterPlotViewer
-          data={rawJSON.data}
-          xAxisLabel={rawJSON.chartOptions.xAxisLabel}
-          yAxisLabel={rawJSON.chartOptions.yAxisLabel}
+          data={scatterPlot.data}
+          focusedSeries={focusedSeries}
+          invertAxes={{ x: false, y: invertYAxis }}
+          xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
+          xAxisNumTicks={4}
+          yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
+          yAxisNumTicks={6}
         />
       </Box>
       <Box
@@ -77,16 +97,15 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         gridArea='barCharts'
         pad='small'
       >
-        <BarChartViewer
-          data={period.data}
-          xAxisLabel={period.options.xAxisLabel}
-          yAxisLabel={period.options.yAxisLabel}
-        />
-        <BarChartViewer
-          data={amplitude.data}
-          xAxisLabel={amplitude.options.xAxisLabel}
-          yAxisLabel={amplitude.options.yAxisLabel}
-        />
+      {barJSON.map((barChart) => {
+        return (
+          <BarChartViewer
+            data={barChart.data}
+            xAxisLabel={barChart.chartOptions.xAxisLabel}
+            yAxisLabel={barChart.chartOptions.yAxisLabel}
+          />
+        )
+      })}
       </Box>
       <Box
         direction='column'
@@ -109,25 +128,29 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 })
 
 VariableStarViewer.defaultProps = {
-  barJSON: {
-    amplitude: {
+  barJSON: [
+    {
       data: [],
-      options: {} 
-    },
-    period: {
-      data: [],
-      options: {}
+      chartOptions: {
+        xAxisLabel: '',
+        yAxisLabel: ''
+      } 
     }
-  },
+  ],
+  focusedSeries: [],
   imgSrc: '',
+  invertYAxis: false,
   periodMultiple: 1,
   phasedJSON: {
     data: [],
     chartOptions: {}
   },
   rawJSON: {
-    data: [],
-    chartOptions: {}
+    scatterPlot: {
+      data: [],
+      chartOptions: {}
+    },
+    barCharts: []
   },
   setPeriodMultiple: () => { },
   setSeriesFocus: () => { },
@@ -142,17 +165,15 @@ VariableStarViewer.defaultProps = {
 }
 
 VariableStarViewer.propTypes = {
-  barJSON: PropTypes.shape({
-    amplitude: PropTypes.shape({
-      data: PropTypes.array,
-      options: PropTypes.object
-    }),
-    period: PropTypes.shape({
+  barJSON: PropTypes.arrayOf(
+    PropTypes.shape({
       data: PropTypes.array,
       options: PropTypes.object
     })
-  }),
+  ),
+  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   imgSrc: PropTypes.string,
+  invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
   phasedJSON: PropTypes.shape({
     data: PropTypes.array,
@@ -169,4 +190,5 @@ VariableStarViewer.propTypes = {
   zooming: PropTypes.bool
 }
 
-export default VariableStarViewer
+export default withTheme(VariableStarViewer)
+export { VariableStarViewer }

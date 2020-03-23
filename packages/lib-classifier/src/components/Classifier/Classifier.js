@@ -1,9 +1,11 @@
+import { GraphQLClient } from 'graphql-request'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
+  env,
   panoptes as panoptesClient,
   projects as projectsClient,
   tutorials as tutorialsClient
@@ -18,8 +20,19 @@ import RootStore from '../../store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
+function caesarClient (env) {
+  switch (env) {
+    case 'production': {
+       return new GraphQLClient('https://caesar.zooniverse.org/graphql')
+    }
+    default: {
+      return new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
+    }
+  }
+}
 
 const client = {
+  caesar: caesarClient(env),
   panoptes: panoptesClient,
   projects: projectsClient,
   tutorials: tutorialsClient

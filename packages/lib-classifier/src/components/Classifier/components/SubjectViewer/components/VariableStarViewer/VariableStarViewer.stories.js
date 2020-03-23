@@ -40,14 +40,9 @@ stories.addDecorator(withKnobs)
 
 const { colors } = zooTheme.global
 
-const barJSON = {
-  amplitude: variableStarAmplitudeMockData,
-  period: variableStarPeriodMockData
-}
-
 const subject = Factory.build('subject', {
   locations: [
-    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json' }
+    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/phased-bar-chart/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json' }
   ]
 })
 
