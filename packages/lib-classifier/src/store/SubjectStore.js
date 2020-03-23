@@ -5,8 +5,25 @@ import { getBearerToken } from './utils'
 import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
+import SingleImageSubject from './SingleImageSubject'
+import SubjectGroup from './SubjectGroup'
 
 const MINIMUM_QUEUE_SIZE = 3
+
+/*
+  see https://github.com/mobxjs/mobx-state-tree/issues/514
+  for advice about using references with types.union.
+*/
+const SingleSubject = types.union(SingleImageSubject, Subject)
+function subjectDispatcher (snapshot) {
+  if (snapshot.subjects) {
+    return SubjectGroup
+  }
+  return SingleSubject
+}
+const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
+const SubjectType = types.union(...subjectModels)
+
 
 function openTalkPage (talkURL, newTab = false) {
   if (newTab) {
@@ -22,8 +39,8 @@ function openTalkPage (talkURL, newTab = false) {
 
 const SubjectStore = types
   .model('SubjectStore', {
-    active: types.safeReference(Subject),
-    resources: types.map(Subject),
+    active: types.safeReference(SubjectType),
+    resources: types.map(SubjectType),
     type: types.optional(types.string, 'subjects')
   })
 
