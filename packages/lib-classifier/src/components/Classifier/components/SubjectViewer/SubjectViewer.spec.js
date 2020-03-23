@@ -30,4 +30,16 @@ describe('Component > SubjectViewer', function () {
     const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.success} subject={{ viewer: 'singleImage' }} />)
     expect(wrapper.find(SingleImageViewer)).to.have.lengthOf(1)
   })
+
+  describe('when there is an null viewer because of invalid subject media', function () {
+    it('should render null', function () {
+      const wrapper = shallow(
+        <SubjectViewer.wrappedComponent
+          subjectQueueState={asyncStates.success}
+          subject={{ viewer: null }}
+        />
+      )
+      expect(wrapper.html()).to.be.null()
+    })
+  })
 })

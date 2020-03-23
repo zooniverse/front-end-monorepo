@@ -1,8 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
+import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { CheckBox, TextInput, Text } from 'grommet'
+import { CheckBox, Grommet, TextInput, Text } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import {
   userNameFieldId,
   passwordFieldId,
@@ -18,9 +18,13 @@ import {
 } from './Form'
 import en from '../../locales/en'
 
-describe('Component > Form', function () {
+describe('RegisterForm > Component > Form', function () {
+  const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
   it('should render without crashing', function () {
-    const wrapper = shallow(<Form />)
+    const wrapper = shallow(
+      <Form />,
+      shallowOptions
+    )
     expect(wrapper).to.be.ok()
   })
 
@@ -28,7 +32,10 @@ describe('Component > Form', function () {
     let rendered
 
     before(function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = mount(
+        <Form />,
+        { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } }
+      )
       rendered = wrapper.render()
     })
 
@@ -108,7 +115,10 @@ describe('Component > Form', function () {
   describe('when being edited', function () {
     it('should call handleChange on the inputs', function () {
       const handleChangeSpy = sinon.spy()
-      const wrapper = shallow(<Form handleChange={handleChangeSpy} />)
+      const wrapper = shallow(
+        <Form handleChange={handleChangeSpy} />,
+        shallowOptions
+      )
       const textInputs = wrapper.find(TextInput)
       const checkboxes = wrapper.find(CheckBox)
 
@@ -127,7 +137,10 @@ describe('Component > Form', function () {
 
     it('should call handleBlur on the inputs', function () {
       const handleBlurSpy = sinon.spy()
-      const wrapper = shallow(<Form handleBlur={handleBlurSpy} />)
+      const wrapper = shallow(
+        <Form handleBlur={handleBlurSpy} />,
+        shallowOptions
+      )
       const textInputs = wrapper.find(TextInput)
       const checkboxes = wrapper.find(CheckBox)
 
@@ -145,7 +158,10 @@ describe('Component > Form', function () {
     })
 
     it('should update the values on props change', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
       const values = {
         betaListSignUp: true,
         email: 'foo@bar.com',
@@ -176,7 +192,10 @@ describe('Component > Form', function () {
     })
 
     it('should set validation error messages on inputs that are javascript validated', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
       const errors = {
         email: 'Already taken',
         emailConfirm: 'Does not match',
@@ -196,7 +215,10 @@ describe('Component > Form', function () {
 
   describe('when the under 16 checkbox is toggled', function () {
     it('should show field labels for over 16 registrants when the checkbox is unchecked', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
 
       expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.usernameHelp)
       expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal(en.RegisterForm.privacyAgreement)
@@ -205,7 +227,10 @@ describe('Component > Form', function () {
     })
 
     it('should show field labels for under 16 registrants when the checkbox is checked', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
       wrapper.setProps({ values: { underageWithParent: true } })
 
       expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.underageNotRealName)
@@ -218,13 +243,19 @@ describe('Component > Form', function () {
   describe('when submitting', function () {
     it('should call handleSubmit', function () {
       const handleSubmitSpy = sinon.spy()
-      const wrapper = shallow(<Form handleSubmit={handleSubmitSpy} />)
+      const wrapper = shallow(
+        <Form handleSubmit={handleSubmitSpy} />,
+        shallowOptions
+      )
       wrapper.simulate('submit')
       expect(handleSubmitSpy).to.have.been.calledOnce()
     })
 
     it('should disable all of the inputs and the submit button', function () {
-      const wrapper = shallow(<Form />)
+      const wrapper = shallow(
+        <Form />,
+        shallowOptions
+      )
       wrapper.setProps({ isSubmitting: true })
       const textInputs = wrapper.find(TextInput)
       const checkboxes = wrapper.find(CheckBox)

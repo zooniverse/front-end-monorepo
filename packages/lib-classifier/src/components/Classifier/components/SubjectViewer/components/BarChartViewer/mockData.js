@@ -14,7 +14,7 @@ const xMax = parentWidth - margin.left - margin.right
 const yMax = parentHeight - margin.bottom - margin.top
 
 const optionsMock = {
-  options: {
+  chartOptions: {
     margin: {
       bottom: 40,
       left: 60,
@@ -61,7 +61,7 @@ const variableStarPeriodMockData = {
       value: 1.025524961
     }
   ],
-  options: {
+  chartOptions: {
     margin: {
       bottom: 40,
       left: 25,
@@ -86,7 +86,7 @@ const variableStarAmplitudeMockData = {
       value: 1.9989011347
     }
   ],
-  options: {
+  chartOptions: {
     margin: {
       bottom: 40,
       left: 25,
