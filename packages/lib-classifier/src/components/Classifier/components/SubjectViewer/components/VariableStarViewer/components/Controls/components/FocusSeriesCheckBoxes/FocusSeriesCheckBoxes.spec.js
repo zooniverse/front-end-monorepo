@@ -7,9 +7,9 @@ import { FocusSeriesCheckBoxes } from './FocusSeriesCheckBoxes'
 import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
 import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
-const seriesOneLabel = variableStar.data[0].seriesOptions.label
-const seriesTwoLabel = variableStar.data[1].seriesOptions.label
-const { data } = variableStar
+const seriesOneLabel = variableStar.scatterPlot.data[0].seriesOptions.label
+const seriesTwoLabel = variableStar.scatterPlot.data[1].seriesOptions.label
+const { data } = variableStar.scatterPlot
 
 const defaultStateFocusedSeries = [
   { [seriesOneLabel]: true },

@@ -9,7 +9,7 @@ const markModels = Object.values(markTypes)
 const markReferenceTypes = markModels.map(markType => types.safeReference(markType))
 const toolModels = Object.values(tools)
 
-const Drawing = types.model('Drawing', {
+export const Drawing = types.model('Drawing', {
   activeMark: types.union(...markReferenceTypes),
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),

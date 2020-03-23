@@ -2,9 +2,6 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 
 import Step from './Step'
-import taskRegistry, { taskModels } from '@plugins/tasks'
-
-const taskTypes = types.union(...taskModels)
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
@@ -149,8 +146,9 @@ const WorkflowStepStore = types
           const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
           try {
             step.tasks.push(taskToStore)
-          } catch (e) {
-            console.log(`${taskKey} ${taskToStore.type} is not a supported task type`)
+          } catch (error) {
+            console.error(`${taskKey} ${taskToStore.type} is not a supported task type`)
+            console.error(error)
           }
         })
       })

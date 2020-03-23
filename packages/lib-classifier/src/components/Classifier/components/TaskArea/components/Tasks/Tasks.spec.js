@@ -5,7 +5,6 @@ import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import taskRegistry from '@plugins/tasks'
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
@@ -14,7 +13,6 @@ import stubPanoptesJs from '@test/stubPanoptesJs'
 describe('Tasks', function () {
   let classification
   let step
-  let tasks
   let TaskComponent
 
   const taskTypes = Object.keys(taskRegistry.register)
@@ -23,6 +21,10 @@ describe('Tasks', function () {
     before(function () {
       const task = taskRegistry.get(taskType)
       TaskComponent = observer(task.TaskComponent)
+      // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
+      // SingleChoiceTask, MultipleChoiceTask use question
+      // keys that aren't defined on certain task models are ignored
+      // but missing keys that aren't an optional or maybe type will throw an error
       const taskSnapshot = {
         instruction: `${taskType} instructions`,
         question: `${taskType} question`,
