@@ -3,9 +3,11 @@ import DrawingTask from './DrawingTask'
 import Annotation from '../../models/Annotation'
 import * as markTypes from '@plugins/drawingTools/models/marks'
 
-const markReferenceTypes = Object.values(markTypes).map(markType => types.reference(markType))
+const allDrawingMarks = Object.values(markTypes)
+const GenericMark = types.union(...allDrawingMarks)
+
 const Drawing = types.model('Drawing', {
-  value: types.array(types.union(...markReferenceTypes))
+  value: types.array(types.safeReference(GenericMark))
 })
   .views(self => ({
     toSnapshot () {
