@@ -28,7 +28,6 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     enableInteractionLayer,
     height,
     onKeyDown,
-    rotate,
     scale,
     width
   } = props
@@ -37,7 +36,6 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   
   const transformLayer = createRef()
   const { svg } = useContext(SVGContext)
-  const transform = `rotate(${rotate} ${width / 2} ${height / 2 })`
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
 
   return (
@@ -52,7 +50,6 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
         >
           <g
             ref={transformLayer}
-            transform={transform}
           >
             {children}
             {enableInteractionLayer &&
@@ -72,7 +69,6 @@ SubjectGroupViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onKeyDown: PropTypes.func,
-  rotate: PropTypes.number,
   scale: PropTypes.number,
   width: PropTypes.number.isRequired
 }
@@ -80,7 +76,6 @@ SubjectGroupViewer.propTypes = {
 SubjectGroupViewer.defaultProps = {
   enableInteractionLayer: true,
   onKeyDown: () => true,
-  rotate: 0,
   scale: 1
 }
 

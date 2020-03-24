@@ -25,8 +25,6 @@ const DEFAULT_GRID_ROWS = 3
 
 function storeMapper (stores) {
   const {
-    enableRotation,
-    rotation,
     setOnZoom,
     setOnPan
   } = stores.classifierStore.subjectViewer
@@ -49,8 +47,6 @@ function storeMapper (stores) {
     cellStyle,
     gridColumns,
     gridRows,
-    enableRotation,
-    rotation,
     setOnZoom,
     setOnPan
   }
@@ -76,7 +72,6 @@ class SubjectGroupViewerContainer extends React.Component {
   }
 
   componentDidMount () {
-    this.props.enableRotation()
     this.onLoad()
 
     // Listen for pan and zoom actions outside of this component.
@@ -222,7 +217,6 @@ class SubjectGroupViewerContainer extends React.Component {
       enableInteractionLayer,
       loadingState,
       onKeyDown,
-      rotation,
       setOnPan,
       setOnZoom
     } = this.props
@@ -247,7 +241,6 @@ class SubjectGroupViewerContainer extends React.Component {
             height={naturalHeight}
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
-            rotate={rotation}
             width={naturalWidth}
           >
             {images.map((image, index) => this.renderCell(
@@ -334,7 +327,6 @@ class SubjectGroupViewerContainer extends React.Component {
 
 SubjectGroupViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
-  enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -347,7 +339,6 @@ SubjectGroupViewerContainer.propTypes = {
 
 SubjectGroupViewerContainer.defaultProps = {
   enableInteractionLayer: true,
-  enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,

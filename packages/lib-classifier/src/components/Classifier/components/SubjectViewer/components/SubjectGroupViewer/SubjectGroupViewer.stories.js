@@ -19,6 +19,14 @@ const config = {
 
 const subject = {
   locations: [
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
+    { 'image/jpeg': 'http://placekitten.com/500/300' },
     { 'image/jpeg': 'http://placekitten.com/500/300' }
   ]
 }
