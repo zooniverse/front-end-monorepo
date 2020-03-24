@@ -3,8 +3,6 @@ import React, { createRef, forwardRef, useContext } from 'react'
 import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-import InteractionLayer from '../InteractionLayer'
-
 const Container = styled.div`
   animation: fadein 1s 0s forwards;
   height: 100%;
@@ -25,15 +23,12 @@ const Container = styled.div`
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {
     children,
-    enableInteractionLayer,
     height,
     onKeyDown,
     scale,
     width
   } = props
 
-  // TODO: remove Transform and InteractionLayer
-  
   const transformLayer = createRef()
   const { svg } = useContext(SVGContext)
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
@@ -52,13 +47,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
             ref={transformLayer}
           >
             {children}
-            {enableInteractionLayer &&
-              <InteractionLayer
-                scale={scale}
-                height={height}
-                width={width}
-              />}
-            </g>
+          </g>
         </svg>
       </Container>
     </SVGContext.Provider>
@@ -66,7 +55,6 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
 })
 
 SubjectGroupViewer.propTypes = {
-  enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onKeyDown: PropTypes.func,
   scale: PropTypes.number,
@@ -74,7 +62,6 @@ SubjectGroupViewer.propTypes = {
 }
 
 SubjectGroupViewer.defaultProps = {
-  enableInteractionLayer: true,
   onKeyDown: () => true,
   scale: 1
 }

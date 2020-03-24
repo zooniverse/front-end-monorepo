@@ -214,7 +214,6 @@ class SubjectGroupViewerContainer extends React.Component {
       cellStyle,
       gridColumns,
       gridRows,
-      enableInteractionLayer,
       loadingState,
       onKeyDown,
       setOnPan,
@@ -237,7 +236,6 @@ class SubjectGroupViewerContainer extends React.Component {
       <SVGContext.Provider value={{ svg }}>
         <div ref={this.scrollContainer} onWheel={this.onWheel.bind(this)}>
           <SubjectGroupViewer
-            enableInteractionLayer={enableInteractionLayer}
             height={naturalHeight}
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
@@ -326,7 +324,6 @@ class SubjectGroupViewerContainer extends React.Component {
 }
 
 SubjectGroupViewerContainer.propTypes = {
-  enableInteractionLayer: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -338,7 +335,6 @@ SubjectGroupViewerContainer.propTypes = {
 }
 
 SubjectGroupViewerContainer.defaultProps = {
-  enableInteractionLayer: true,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
