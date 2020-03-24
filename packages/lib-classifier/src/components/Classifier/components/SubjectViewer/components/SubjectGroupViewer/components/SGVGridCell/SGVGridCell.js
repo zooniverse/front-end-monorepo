@@ -10,15 +10,18 @@ function SGVGridCell (props) {
   const {
     image,
     index,
+    
+    dragMove,
+    
     cellWidth,
     cellHeight,
+    cellStyle,
     gridRows,
     gridColumns,
-    cellStyle,
+    
     panX,
     panY,
     zoom,
-    dragMove,
   } = props
     
   const row = Math.floor(index / gridColumns)
@@ -89,10 +92,38 @@ function SGVGridCell (props) {
   )
 }
 
-SGVGridCell.defaultProps = {
+SGVGridCell.propTypes = {
+  image: PropTypes.object,
+  index: PropTypes.number,
+            
+  dragMove: PropTypes.func,
+  
+  cellWidth: PropTypes.number,
+  cellHeight: PropTypes.number,
+  cellStyle: PropTypes.object,
+  gridRows: PropTypes.number,
+  gridColumns: PropTypes.number,
+
+  panX: PropTypes.number,
+  panY: PropTypes.number,
+  zoom: PropTypes.number,
 }
 
-SGVGridCell.propTypes = {
+SGVGridCell.defaultProps = {
+  image: undefined,
+  index: 0,
+            
+  dragMove: () => {},
+  
+  cellWidth: 200,
+  cellHeight: 200,
+  cellStyle: {},
+  gridRows: 1,
+  gridColumns: 1,
+
+  panX: 0,
+  panY: 0,
+  zoom: 1,
 }
 
 export default SGVGridCell

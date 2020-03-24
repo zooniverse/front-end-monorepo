@@ -231,18 +231,22 @@ class SubjectGroupViewerContainer extends React.Component {
       <SVGContext.Provider value={{ svg }}>
         <div ref={this.scrollContainer} onWheel={this.onWheel.bind(this)}>
           <SubjectGroupViewer
-            height={naturalHeight}
-            onKeyDown={onKeyDown}
-            dragMove={this.dragMove}
             ref={this.imageViewer}
-            width={naturalWidth}
             
             images={images}
+            
+            dragMove={this.dragMove}
+            onKeyDown={onKeyDown}
+            
             cellWidth={cellWidth}
             cellHeight={cellHeight}
+            cellStyle={cellStyle}
             gridRows={gridRows}
             gridColumns={gridColumns}
-            cellStyle={cellStyle}
+            
+            width={naturalWidth}
+            height={naturalHeight}
+            
             panX={panX}
             panY={panY}
             zoom={zoom}

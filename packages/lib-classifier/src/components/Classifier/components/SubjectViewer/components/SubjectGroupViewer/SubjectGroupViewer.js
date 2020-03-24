@@ -24,16 +24,19 @@ const Container = styled.div`
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {
     images,
-    height,
-    onKeyDown,
+    
     dragMove,
-    scale,
-    width,
+    onKeyDown,
+    
     cellWidth,
     cellHeight,
+    cellStyle,
     gridRows,
     gridColumns,
-    cellStyle,
+    
+    width,
+    height,
+    
     panX,
     panY,
     zoom,
@@ -59,14 +62,18 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
             {images.map((image, index) => (
               <SGVGridCell
                 key={`sgv-grid-cell-${index}`}
+                
                 image={image}
                 index={index}
+                
                 dragMove={dragMove}
+                
                 cellWidth={cellWidth}
                 cellHeight={cellHeight}
+                cellStyle={cellStyle}
                 gridRows={gridRows}
                 gridColumns={gridColumns}
-                cellStyle={cellStyle}
+                
                 panX={panX}
                 panY={panY}
                 zoom={zoom}
@@ -80,15 +87,40 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
 })
 
 SubjectGroupViewer.propTypes = {
-  height: PropTypes.number.isRequired,
+  images: PropTypes.array,
+            
+  dragMove: PropTypes.func,
   onKeyDown: PropTypes.func,
-  scale: PropTypes.number,
-  width: PropTypes.number.isRequired
+  
+  cellWidth: PropTypes.number,
+  cellHeight: PropTypes.number,
+  cellStyle: PropTypes.object,
+  gridRows: PropTypes.number,
+  gridColumns: PropTypes.number,
+
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+
+  panX: PropTypes.number,
+  panY: PropTypes.number,
+  zoom: PropTypes.number,
 }
 
 SubjectGroupViewer.defaultProps = {
-  onKeyDown: () => true,
-  scale: 1
+  images: [],
+            
+  dragMove: () => {},
+  onKeyDown: () => {},
+  
+  cellWidth: 200,
+  cellHeight: 200,
+  cellStyle: {},
+  gridRows: 1,
+  gridColumns: 1,
+
+  panX: 0,
+  panY: 0,
+  zoom: 1,
 }
 
 export default SubjectGroupViewer
