@@ -53,7 +53,6 @@ function SGVGridCell (props) {
   const imageX = (cellWidth - imageWidth) / 2
   const imageY = (cellHeight - imageHeight) / 2
 
-  // TODO: WARNING! CLIP PATH NOT WORKING
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
 
   return (

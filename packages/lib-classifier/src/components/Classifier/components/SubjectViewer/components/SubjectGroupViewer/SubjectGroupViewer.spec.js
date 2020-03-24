@@ -29,8 +29,7 @@ const exampleImages = [
   },
 ]
 
-// TODO: REMINDER: REMOVE .ONLY
-describe.only('Component > SubjectGroupViewer', function () {
+describe('Component > SubjectGroupViewer', function () {
   beforeEach(function () {
     wrapper = shallow(
       <SubjectGroupViewer
