@@ -54,7 +54,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
-          viewBox={`0 0 ${width}, ${height}`}
+          viewBox={`0 0 ${width} ${height}`}
         >
           <g
             ref={transformLayer}

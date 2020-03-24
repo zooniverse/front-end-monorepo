@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import SubjectGroupViewer from './SubjectGroupViewer'
-import InteractionLayer from '../InteractionLayer'
+import SGVGridCell from './components/SGVGridCell'
 
 let wrapper
 
@@ -29,7 +29,8 @@ const exampleImages = [
   },
 ]
 
-describe('Component > SubjectGroupViewer', function () {
+// TODO: REMINDER: REMOVE .ONLY
+describe.only('Component > SubjectGroupViewer', function () {
   beforeEach(function () {
     wrapper = shallow(
       <SubjectGroupViewer
@@ -56,5 +57,14 @@ describe('Component > SubjectGroupViewer', function () {
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
+  })
+  
+  it('should render 4 grid cells', function () {
+    expect(wrapper.find(SGVGridCell)).to.have.lengthOf(4)
+  })
+  
+  it('should have a viewBox proportional to width and height', function () {
+    const viewBox = wrapper.find('svg').prop('viewBox')
+    expect(viewBox).to.have.string('0 0 1600 1200')
   })
 })
