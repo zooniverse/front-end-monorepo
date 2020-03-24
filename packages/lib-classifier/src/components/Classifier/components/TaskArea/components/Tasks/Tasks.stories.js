@@ -2,68 +2,48 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { types } from 'mobx-state-tree'
 import React from 'react'
-import sinon from 'sinon'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
-import ClassificationStore from '@store/ClassificationStore'
-import WorkflowStepStore from '@store/WorkflowStepStore'
+import RootStore from '@store/RootStore'
 import Step from '@store/Step'
-import taskRegistry from '@plugins/tasks'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 
-const SingleChoiceTask = taskRegistry.get('single').TaskModel
-const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
-const TextTask = taskRegistry.get('text').TaskModel
-
-function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, zooTheme }) {
-  const background = dark
-    ? zooTheme.global.colors['dark-1']
-    : zooTheme.global.colors['light-1']
-  const classifications = ClassificationStore.create()
+function MockTask ({ dark, loadingState, subjectReadyState, step }) {
   const steps = {
     S1: step
   }
-  const store = types.model('MockStore', {
-    classifications: ClassificationStore,
-    workflowSteps: WorkflowStepStore
-  })
+  const store = RootStore
   .create({
-    classifications,
-    workflowSteps: WorkflowStepStore.create({ steps })
+    subjectViewer: { loadingState: subjectReadyState },
+    workflows: { loadingState },
+    workflowSteps: { active: 'S1', steps }
   })
-  const mockSubject = {
-    id: 'subject',
-    metadata: {}
-  }
-  const mockWorkflow = {
-    id: 'workflow',
-    version: '1.0'
-  }
-  const mockProject = {
-    id: 'project'
-  }
-  classifications.createClassification(mockSubject, mockWorkflow, mockProject)
-  step.tasks.forEach(task => classifications.addAnnotation(task))
-  const classification = classifications.active
+  const mockSubject = SubjectFactory.build()
+  const mockWorkflow = WorkflowFactory.build()
+  const mockProject = ProjectFactory.build()
+  store.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+  const theme = Object.assign({}, zooTheme, { dark })
   return (
     <Provider classifierStore={store}>
-      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
+      <Grommet 
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode={(dark) ? 'dark' : 'light'}
+      >
         <Box
-          background={background}
+          background={{
+            dark: 'dark-3',
+            light: 'neutral-6'
+          }}
           pad='1em'
           width='380px'
         >
-          <Tasks
-            addAnnotation={classifications.addAnnotation}
-            classification={classification}
-            isThereTaskHelp={isThereTaskHelp}
-            loadingState={asyncStates.success}
-            step={step}
-            subjectReadyState={subjectReadyState}
-            tasks={step.tasks}
-          />
+          <Tasks />
         </Box>
       </Grommet>
     </Provider>
@@ -78,14 +58,72 @@ storiesOf('Tasks', module)
     }
   })
   .add('loading', function () {
+    const tasks = [{
+      answers: [{ label: 'yes' }, { label: 'no' }],
+      question: 'is there a cat?',
+      taskKey: 'init',
+      type: 'single'
+    }]
+    const step = {
+      stepKey: 'S1',
+      taskKeys: ['init'],
+      tasks
+    }
+    const dark = boolean('Dark theme', false)
     return (
-      <Provider classifierStore={{}}>
-        <Grommet theme={zooTheme}>
-          <Tasks
-            loadingState={asyncStates.loading}
-          />
-        </Grommet>
-      </Provider>
+      <MockTask
+        dark={dark}
+        loadingState={asyncStates.loading}
+        step={step}
+        subjectReadyState={asyncStates.loading}
+        tasks={tasks}
+      />
+    )
+  })
+  .add('loading', function () {
+    const tasks = [{
+      answers: [{ label: 'yes' }, { label: 'no' }],
+      question: 'is there a cat?',
+      taskKey: 'init',
+      type: 'single'
+    }]
+    const step = {
+      stepKey: 'S1',
+      taskKeys: ['init'],
+      tasks
+    }
+    const dark = boolean('Dark theme', false)
+    return (
+      <MockTask
+        dark={dark}
+        loadingState={asyncStates.loading}
+        step={step}
+        subjectReadyState={asyncStates.loading}
+        tasks={tasks}
+      />
+    )
+  })
+  .add('error', function () {
+    const tasks = [{
+      answers: [{ label: 'yes' }, { label: 'no' }],
+      question: 'is there a cat?',
+      taskKey: 'init',
+      type: 'single'
+    }]
+    const step = {
+      stepKey: 'S1',
+      taskKeys: ['init'],
+      tasks
+    }
+    const dark = boolean('Dark theme', false)
+    return (
+      <MockTask
+        dark={dark}
+        loadingState={asyncStates.error}
+        step={step}
+        subjectReadyState={asyncStates.error}
+        tasks={tasks}
+      />
     )
   })
   .add('single task', function () {
@@ -97,23 +135,19 @@ storiesOf('Tasks', module)
       taskKey: 'init',
       type: 'single'
     }]
-    const step = Step.create({
+    const step = {
       stepKey: 'S1',
       taskKeys: ['init'],
       tasks
-    })
+    }
     const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
     return (
       <MockTask
         dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        subjectReadyState={subjectReadyState}
+        subjectReadyState={asyncStates.success}
         tasks={tasks}
-        zooTheme={zooTheme}
       />
     )
   })
@@ -142,17 +176,13 @@ storiesOf('Tasks', module)
       tasks
     })
     const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
     return (
       <MockTask
         dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        subjectReadyState={subjectReadyState}
+        subjectReadyState={asyncStates.success}
         tasks={tasks}
-        zooTheme={zooTheme}
       />
     )
   })
@@ -172,17 +202,13 @@ storiesOf('Tasks', module)
       tasks
     })
     const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
     return (
       <MockTask
         dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        subjectReadyState={subjectReadyState}
+        subjectReadyState={asyncStates.success}
         tasks={tasks}
-        zooTheme={zooTheme}
       />
     )
   })
@@ -215,6 +241,11 @@ storiesOf('Tasks', module)
             help: '',
             label: 'Draw a rectangle',
             type: 'rectangle',
+          }, {
+            color: zooTheme.global.colors['drawing-yellow'],
+            help: '',
+            label: 'Draw an ellipse',
+            type: 'ellipse',
           }
         ],
         type: 'drawing'
@@ -226,17 +257,13 @@ storiesOf('Tasks', module)
       tasks
     })
     const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
     return (
       <MockTask
         dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        subjectReadyState={subjectReadyState}
+        subjectReadyState={asyncStates.success}
         tasks={tasks}
-        zooTheme={zooTheme}
       />
     )
   })
@@ -262,17 +289,13 @@ storiesOf('Tasks', module)
       tasks
     })
     const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
     return (
       <MockTask
         dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
         loadingState={asyncStates.success}
         step={step}
-        subjectReadyState={subjectReadyState}
+        subjectReadyState={asyncStates.success}
         tasks={tasks}
-        zooTheme={zooTheme}
       />
     )
   })
