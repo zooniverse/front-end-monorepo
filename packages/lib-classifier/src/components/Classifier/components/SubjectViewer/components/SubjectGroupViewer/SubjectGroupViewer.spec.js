@@ -6,10 +6,52 @@ import InteractionLayer from '../InteractionLayer'
 
 let wrapper
 
-// TODO: REMINDER: REMOVE .ONLY
-describe.only('Component > SubjectGroupViewer', function () {
+const exampleImages = [
+  {
+    src: 'https://foo.bar/example.png',
+    naturalHeight: 400,
+    naturalWidth: 300,
+  },
+  {
+    src: 'https://foo.bar/example.png',
+    naturalHeight: 400,
+    naturalWidth: 300,
+  },
+  {
+    src: 'https://foo.bar/example.png',
+    naturalHeight: 400,
+    naturalWidth: 300,
+  },
+  {
+    src: 'https://foo.bar/example.png',
+    naturalHeight: 400,
+    naturalWidth: 300,
+  },
+]
+
+describe('Component > SubjectGroupViewer', function () {
   beforeEach(function () {
-    wrapper = shallow(<SubjectGroupViewer height={200} width={100} viewBox='0 0 100 100' />)
+    wrapper = shallow(
+      <SubjectGroupViewer
+        images={exampleImages}
+        dragMove={() => {}}
+        onKeyDown={() => {}}
+        cellWidth={800}
+        cellHeight={600}
+        cellStyle={{
+          stroke: '#fff',
+          strokeWidth: '4',
+          fill: '#000',
+        }}
+        gridRows={2}
+        gridColumns={2}
+        width={1600}
+        height={1200}
+        panX={0}
+        panY={0}
+        zoom={1}
+      />
+    )
   })
 
   it('should render without crashing', function () {
