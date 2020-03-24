@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { createRef, forwardRef, useContext } from 'react'
 import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+import SGVGridCell from './components/SGVGridCell'
 
 const Container = styled.div`
   animation: fadein 1s 0s forwards;
@@ -22,11 +23,20 @@ const Container = styled.div`
 
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {
-    children,
+    images,
     height,
     onKeyDown,
+    dragMove,
     scale,
-    width
+    width,
+    cellWidth,
+    cellHeight,
+    gridRows,
+    gridColumns,
+    cellStyle,
+    panX,
+    panY,
+    zoom,
   } = props
 
   const transformLayer = createRef()
@@ -46,7 +56,22 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
           <g
             ref={transformLayer}
           >
-            {children}
+            {images.map((image, index) => (
+              <SGVGridCell
+                key={`sgv-grid-cell-${index}`}
+                image={image}
+                index={index}
+                dragMove={dragMove}
+                cellWidth={cellWidth}
+                cellHeight={cellHeight}
+                gridRows={gridRows}
+                gridColumns={gridColumns}
+                cellStyle={cellStyle}
+                panX={panX}
+                panY={panY}
+                zoom={zoom}
+              />
+            ))}
           </g>
         </svg>
       </Container>
