@@ -202,10 +202,10 @@ storiesOf('Tasks', module)
   })
   .add('drawing', function () {
     const tasks = {
-      T0: {
+      T2: {
         help: 'Draw on the image.',
         instruction: 'Draw something',
-        taskKey: 'T0',
+        taskKey: 'T2',
         tools: [
           {
             color: zooTheme.global.colors['drawing-red'],
@@ -236,7 +236,7 @@ storiesOf('Tasks', module)
     }
     const step = {
       stepKey: 'S1',
-      taskKeys: ['T0']
+      taskKeys: ['T2']
     }
     addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
@@ -258,10 +258,10 @@ storiesOf('Tasks', module)
   })
   .add('transcription', function () {
     const tasks = {
-      T0: {
+      T3: {
         help: 'Underline the line to transcribe with two clicks, then enter in the text transcription.',
         instruction: 'Underline and transcribe',
-        taskKey: 'T0',
+        taskKey: 'T3',
         tools: [
           {
             help: '',
@@ -274,7 +274,7 @@ storiesOf('Tasks', module)
     }
     const step = {
       stepKey: 'S1',
-      taskKeys: ['T0']
+      taskKeys: ['T3']
     }
     addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
