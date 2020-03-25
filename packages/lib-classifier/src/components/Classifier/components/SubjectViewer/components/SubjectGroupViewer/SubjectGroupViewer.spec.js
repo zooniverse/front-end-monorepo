@@ -6,30 +6,30 @@ import SGVGridCell from './components/SGVGridCell'
 
 let wrapper
 
-const exampleImages = [
-  {
-    src: 'https://foo.bar/example.png',
-    naturalHeight: 400,
-    naturalWidth: 300,
-  },
-  {
-    src: 'https://foo.bar/example.png',
-    naturalHeight: 400,
-    naturalWidth: 300,
-  },
-  {
-    src: 'https://foo.bar/example.png',
-    naturalHeight: 400,
-    naturalWidth: 300,
-  },
-  {
-    src: 'https://foo.bar/example.png',
-    naturalHeight: 400,
-    naturalWidth: 300,
-  },
-]
-
 describe('Component > SubjectGroupViewer', function () {
+  const exampleImages = [
+    {
+      src: 'https://foo.bar/example.png',
+      naturalHeight: 400,
+      naturalWidth: 300,
+    },
+    {
+      src: 'https://foo.bar/example.png',
+      naturalHeight: 400,
+      naturalWidth: 300,
+    },
+    {
+      src: 'https://foo.bar/example.png',
+      naturalHeight: 400,
+      naturalWidth: 300,
+    },
+    {
+      src: 'https://foo.bar/example.png',
+      naturalHeight: 400,
+      naturalWidth: 300,
+    },
+  ]
+  
   beforeEach(function () {
     wrapper = shallow(
       <SubjectGroupViewer

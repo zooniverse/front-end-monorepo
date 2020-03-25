@@ -1,11 +1,11 @@
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
 import { SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
-describe('Component > SubjectGroupViewerContainer', function () {
+describe.only('Component > SubjectGroupViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
@@ -36,7 +36,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<SubjectGroupViewerContainer onError={onError} />)
+      wrapper = mount(<SubjectGroupViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -44,6 +44,9 @@ describe('Component > SubjectGroupViewerContainer', function () {
     })
 
     it('should render null', function () {
+      console.log('--------')
+      console.log(wrapper.debug())
+      console.log('--------')
       expect(wrapper.type()).to.be.null()
     })
   })
@@ -57,18 +60,29 @@ describe('Component > SubjectGroupViewerContainer', function () {
       const subject = {
         id: 'test',
         locations: [
-          { 'image/jpeg': 'https://some.domain/image.jpg' }
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
+          { 'image/jpeg': 'https://some.domain/image.jpg' },
         ],
         metadata: {
           default_frame: "0"
         }
       }
-      wrapper = shallow(
+      wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
           onReady={onReady}
+          cellHeight={80}
+          cellWidth={60}
+          gridColumns={3}
+          gridRows={2}
+          setOnZoom={() => {}}
+          setOnPan={() => {}}
         />
       )
       imageWrapper = wrapper.find(SubjectGroupViewer)
@@ -91,53 +105,6 @@ describe('Component > SubjectGroupViewerContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should record the original image dimensions on load', function (done) {
-      const svg = wrapper.instance().imageViewer.current
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
-      const expectedEvent = {
-        target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
-          naturalHeight: height,
-          naturalWidth: width
-        }
-      }
-      onReady.callsFake(function () {
-        expect(onReady).to.have.been.calledOnceWith(expectedEvent)
-        expect(onError).to.not.have.been.called()
-        done()
-      })
-    })
-
-    it('should pass the original image dimensions to the SVG image', function (done) {
-      const svg = wrapper.instance().imageViewer.current
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
-      const expectedEvent = {
-        target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
-          naturalHeight: height,
-          naturalWidth: width
-        }
-      }
-      onReady.callsFake(function () {
-        const { height, width } = wrapper.find(SubjectGroupViewer).props()
-        expect(height).to.equal(height)
-        expect(width).to.equal(width)
-        done()
-      })
-    })
-
     it('should render an svg image', function (done) {
       const svg = wrapper.instance().imageViewer.current
       const fakeEvent = {
@@ -155,9 +122,11 @@ describe('Component > SubjectGroupViewerContainer', function () {
         }
       }
       onReady.callsFake(function () {
+        console.log('--------')
+        console.log(wrapper.debug())
+        console.log('--------')
         const image = wrapper.find('draggable(image)')
         expect(image).to.have.lengthOf(1)
-        expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
         done()
       })
     })
@@ -179,7 +148,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
           { 'image/jpeg': '' }
         ]
       }
-      wrapper = shallow(
+      wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
