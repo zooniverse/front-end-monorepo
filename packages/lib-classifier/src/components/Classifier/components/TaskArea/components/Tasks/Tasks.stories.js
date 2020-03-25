@@ -13,11 +13,6 @@ import SubjectStore from '@store/SubjectStore'
 import WorkflowStore from '@store/WorkflowStore'
 import WorkflowStepStore from '@store/WorkflowStepStore'
 import Step from '@store/Step'
-import taskRegistry from '@plugins/tasks'
-
-const SingleChoiceTask = taskRegistry.get('single').TaskModel
-const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
-const TextTask = taskRegistry.get('text').TaskModel
 
 function createStore() {
   const classifications = ClassificationStore.create()
