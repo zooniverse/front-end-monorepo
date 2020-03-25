@@ -20,7 +20,13 @@ const mockStore = {
       src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
     },
     description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
-    display_name: 'Nest Quest Go: Western Bluebirds'
+    display_name: 'Nest Quest Go: Western Bluebirds',
+    slug: 'brbcornell/nest-quest-go-western-bluebirds',
+    workflow_description: `Choose your own adventure! There are many ways to engage with this project:  
+      1) "Nest Site": Smartphone-friendly, helps us understand where Western Bluebirds build their nests.  
+      2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.  
+      3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.  
+      4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
   }
 }
 

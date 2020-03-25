@@ -1,3 +1,4 @@
+export { default as EllipseTool } from './EllipseTool'
 export { default as LineTool } from './LineTool'
 export { default as PointTool } from './PointTool'
 export { default as RectangleTool } from './RectangleTool'

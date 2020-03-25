@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
-import { SingleImageViewerContainer } from './SingleImageViewerContainer'
+import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
 
 describe('Component > SingleImageViewerContainer', function () {
@@ -53,7 +53,9 @@ describe('Component > SingleImageViewerContainer', function () {
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
-    beforeEach(function () {
+    beforeEach(function (done) {
+      onReady.callsFake(() => done())
+      onError.callsFake(() => done())
       const subject = {
         id: 'test',
         locations: [
@@ -91,7 +93,7 @@ describe('Component > SingleImageViewerContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should record the original image dimensions on load', function (done) {
+    it('should record the original image dimensions on load', function () {
       const svg = wrapper.instance().imageViewer.current
       const fakeEvent = {
         target: {
@@ -107,58 +109,28 @@ describe('Component > SingleImageViewerContainer', function () {
           naturalWidth: width
         }
       }
-      onReady.callsFake(function () {
-        expect(onReady).to.have.been.calledOnceWith(expectedEvent)
-        expect(onError).to.not.have.been.called()
-        done()
-      })
+      expect(onReady).to.have.been.calledOnceWith(expectedEvent)
+      expect(onError).to.not.have.been.called()
     })
 
-    it('should pass the original image dimensions to the SVG image', function (done) {
-      const svg = wrapper.instance().imageViewer.current
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
-      const expectedEvent = {
-        target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
-          naturalHeight: height,
-          naturalWidth: width
-        }
-      }
-      onReady.callsFake(function () {
-        const { height, width } = wrapper.find(SingleImageViewer).props()
-        expect(height).to.equal(height)
-        expect(width).to.equal(width)
-        done()
-      })
+    it('should pass the original image dimensions to the SVG image', function () {
+      const { height, width } = wrapper.find(SingleImageViewer).props()
+      expect(height).to.equal(height)
+      expect(width).to.equal(width)
     })
 
-    it('should render an svg image', function (done) {
-      const svg = wrapper.instance().imageViewer.current
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
-      const expectedEvent = {
-        target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
-          naturalHeight: height,
-          naturalWidth: width
-        }
-      }
-      onReady.callsFake(function () {
-        const image = wrapper.find('draggable(image)')
+    it('should render an svg image', function () {
+      const image = wrapper.find('image')
+      expect(image).to.have.lengthOf(1)
+      expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
+    })
+
+    describe('with dragging enabled', function () {
+      it('should render a draggable image', function () {
+        wrapper.setProps({ move: true })
+        const image = wrapper.find(DraggableImage)
         expect(image).to.have.lengthOf(1)
         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
-        done()
       })
     })
   })
@@ -172,7 +144,9 @@ describe('Component > SingleImageViewerContainer', function () {
       sinon.stub(console, 'error')
     })
 
-    beforeEach(function () {
+    beforeEach(function (done) {
+      onReady.callsFake(() => done())
+      onError.callsFake(() => done())
       const subject = {
         id: 'test',
         locations: [
@@ -212,24 +186,18 @@ describe('Component > SingleImageViewerContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should log an error from an invalid image', function (done) {
+    it('should log an error from an invalid image', function () {
       const fakeEvent = {
         target: {
           clientHeight: 0,
           clientWidth: 0
         }
       }
-      onError.callsFake(function () {
-        expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
-        done()
-      })
+      expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
     })
 
-    it('should not call onReady', function (done) {
-      onError.callsFake(function () {
-        expect(onReady).to.not.have.been.called()
-        done()
-      })
+    it('should not call onReady', function () {
+      expect(onReady).to.not.have.been.called()
     })
   })
 })
