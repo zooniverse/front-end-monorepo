@@ -214,7 +214,8 @@ class SubjectGroupViewerContainer extends React.Component {
       loadingState,
       onKeyDown,
       setOnPan,
-      setOnZoom
+      setOnZoom,
+      subject,
     } = this.props
     const { images, panX, panY, zoom } = this.state
     
@@ -229,8 +230,10 @@ class SubjectGroupViewerContainer extends React.Component {
 
     const svg = this.imageViewer.current
     
-    if (!images
-        || !images.length
+    console.log()
+    
+    if (!subject
+        || !(subject.locations && subject.locations.length > 0)
         || !(cellHeight > 0)
         || !(cellWidth > 0)
         || !(gridColumns > 0)
