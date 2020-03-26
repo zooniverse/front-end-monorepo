@@ -4,13 +4,29 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
-import Router from 'next/router'
+import { Provider } from 'mobx-react'
+import * as nextRouter from 'next/router'
 import PropTypes from 'prop-types'
 import React from 'react'
 import sinon from 'sinon'
 
 import WorkflowSelector from './'
 
+const store = {
+  project: {
+    background: {
+      src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
+    },
+    description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
+    display_name: 'Nest Quest Go: Western Bluebirds',
+    slug: 'brbcornell/nest-quest-go-western-bluebirds',
+    workflow_description: `Choose your own adventure! There are many ways to engage with this project:  
+      1) "Nest Site": Smartphone-friendly, helps us understand where Western Bluebirds build their nests.  
+      2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.  
+      3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.  
+      4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
+  }
+}
 /*
 Mock NextJS router adapted from
 https://github.com/zeit/next.js/issues/1827#issuecomment-470155709
@@ -24,30 +40,7 @@ const mockedRouter = {
     project: 'snapshot-serengeti'
   }
 }
-
-const withMockRouterContext = mockRouter => {
-  class MockRouterContext extends React.Component {
-    getChildContext () {
-      return {
-        router: { ...mockedRouter, ...mockRouter }
-      }
-    }
-    render () {
-      return this.props.children
-    }
-  }
-
-  // @ts-ignore
-  MockRouterContext.childContextTypes = {
-    router: PropTypes.object
-  }
-
-  return MockRouterContext
-}
-
-Router.router = mockedRouter
-
-const StorybookRouterFix = withMockRouterContext(mockedRouter)
+sinon.stub(nextRouter, 'useRouter').callsFake(() => mockedRouter)
 
 const WORKFLOWS = {
   loading: asyncStates.success,
@@ -84,24 +77,28 @@ storiesOf('Project App / Screens / Project Home / Workflow Selector', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <StorybookRouterFix>
+      <Provider store={store}>
         <WorkflowSelector
           workflows={WORKFLOWS}
         />
-      </StorybookRouterFix>
+      </Provider>
     </Grommet>
   ))
   .add('loading', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <WorkflowSelector
-        workflows={WORKFLOWS_LOADING}
-      />
+      <Provider store={store}>
+        <WorkflowSelector
+          workflows={WORKFLOWS_LOADING}
+        />
+      </Provider>
     </Grommet>
   ))
   .add('error', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <WorkflowSelector
-        workflows={WORKFLOWS_ERROR}
-      />
+      <Provider store={store}>
+        <WorkflowSelector
+          workflows={WORKFLOWS_ERROR}
+        />
+      </Provider>
     </Grommet>
   ))
