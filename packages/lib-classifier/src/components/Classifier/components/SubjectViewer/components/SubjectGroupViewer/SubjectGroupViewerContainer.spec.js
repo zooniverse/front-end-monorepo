@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
@@ -76,7 +76,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
           default_frame: "0"
         }
       }
-      wrapper = mount(
+      wrapper = shallow(
         <SubjectGroupViewerContainer
           ImageObject={ValidImage}
           subject={subject}
@@ -109,8 +109,11 @@ describe('Component > SubjectGroupViewerContainer', function () {
     })
 
     it('should render a SubjectGroupViewer', function () {
-      const sgv = wrapper.find(SubjectGroupViewer)
-      expect(sgv).to.have.lengthOf(1)
+      expect(wrapper.find(SubjectGroupViewer)).to.have.lengthOf(1)
+    })
+    
+    it('should pass the correct number of images to the SubjectGroupViewer', function () {
+      expect(wrapper.find(SubjectGroupViewer).prop('images')).to.have.lengthOf(6)
     })
   })
 
