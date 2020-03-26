@@ -41,8 +41,8 @@ function storeMapper (stores) {
   const gridRows = workflowConfig.grid_rows || DEFAULT_GRID_ROWS
 
   return {
-    cellHeight,
     cellWidth,
+    cellHeight,
     cellStyle,
     gridColumns,
     gridRows,

@@ -2,21 +2,20 @@ import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
-import { SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
+import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
-describe.only('Component > SubjectGroupViewerContainer', function () {
+describe('Component > SubjectGroupViewerContainer', function () {
   let wrapper
-  
-  const cellHeight = 80
-  const cellWidth = 60
+
+  const cellWidth = 200
+  const cellHeight = 160
   const gridColumns = 3
   const gridRows = 2
   
-  const imageHeight = 200
+  const imageHeight = 500
   const imageWidth = 400
-  
-  const DELAY = 100
+  const DELAY = 0
   const HTMLImgError = {
     message: 'The HTML img did not load'
   }
@@ -60,7 +59,9 @@ describe.only('Component > SubjectGroupViewerContainer', function () {
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
-    beforeEach(function () {
+    beforeEach(function (done) {
+      onReady.callsFake(() => done())
+      onError.callsFake(() => done())
       const subject = {
         id: 'test',
         locations: [
@@ -75,28 +76,25 @@ describe.only('Component > SubjectGroupViewerContainer', function () {
           default_frame: "0"
         }
       }
-      wrapper = shallow(
+      wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={ValidImage}
           subject={subject}
           onError={onError}
           onReady={onReady}
-          cellHeight={cellHeight}
           cellWidth={cellWidth}
+          cellHeight={cellHeight}
           gridColumns={gridColumns}
           gridRows={gridRows}
-          setOnZoom={() => {}}
-          setOnPan={() => {}}
         />
       )
-  
       groupWrapper = wrapper.find(SubjectGroupViewer)
       wrapper.instance().groupViewer = {
         current: {
-          clientHeight: 600,
-          clientWidth: 800,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 800, height: 600 })),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -110,13 +108,9 @@ describe.only('Component > SubjectGroupViewerContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render an svg image', function (done) {
-      // TODO
-      
-      console.log('--------')
-      console.log(wrapper.debug())
-      console.log('--------')
-      
+    it('should render a SubjectGroupViewer', function () {
+      const sgv = wrapper.find(SubjectGroupViewer)
+      expect(sgv).to.have.lengthOf(1)
     })
   })
 
@@ -129,35 +123,30 @@ describe.only('Component > SubjectGroupViewerContainer', function () {
       sinon.stub(console, 'error')
     })
 
-    beforeEach(function () {
+    beforeEach(function (done) {
+      onReady.callsFake(() => done())
+      onError.callsFake(() => done())
       const subject = {
         id: 'test',
         locations: [
           { 'image/jpeg': '' }
         ]
       }
-      wrapper = mount(
+      wrapper = shallow(
         <SubjectGroupViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
           onError={onError}
           onReady={onReady}
-          cellHeight={cellHeight}
-          cellWidth={cellWidth}
-          gridColumns={gridColumns}
-          gridRows={gridRows}
-          setOnZoom={() => {}}
-          setOnPan={() => {}}
         />
       )
-  
       groupWrapper = wrapper.find(SubjectGroupViewer)
       wrapper.instance().groupViewer = {
         current: {
-          clientHeight: 600,
-          clientWidth: 800,
+          clientHeight: 50,
+          clientWidth: 100,
           addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 800, height: 600 })),
+          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
         }
       }
@@ -176,24 +165,18 @@ describe.only('Component > SubjectGroupViewerContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should log an error from an invalid image', function (done) {
+    it('should log an error from an invalid image', function () {
       const fakeEvent = {
         target: {
           clientHeight: 0,
           clientWidth: 0
         }
       }
-      onError.callsFake(function () {
-        expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
-        done()
-      })
+      expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
     })
 
-    it('should not call onReady', function (done) {
-      onError.callsFake(function () {
-        expect(onReady).to.not.have.been.called()
-        done()
-      })
+    it('should not call onReady', function () {
+      expect(onReady).to.not.have.been.called()
     })
   })
 })
