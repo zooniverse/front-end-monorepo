@@ -55,7 +55,7 @@ class SubjectGroupViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
-    this.imageViewer = React.createRef()
+    this.groupViewer = React.createRef()
     this.scrollContainer = React.createRef()
 
     this.state = {
@@ -119,7 +119,7 @@ class SubjectGroupViewerContainer extends React.Component {
   }
 
   async getImageSize () {
-    const svg = this.imageViewer.current || {}
+    const svg = this.groupViewer.current || {}
     const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect && svg.getBoundingClientRect() || {}
     const { gridRows, gridColumns, cellWidth, cellHeight } = this.props
     
@@ -228,7 +228,7 @@ class SubjectGroupViewerContainer extends React.Component {
       )
     }
 
-    const svg = this.imageViewer.current
+    const svg = this.groupViewer.current
     
     console.log()
     
@@ -246,7 +246,7 @@ class SubjectGroupViewerContainer extends React.Component {
       <SVGContext.Provider value={{ svg }}>
         <div ref={this.scrollContainer} onWheel={this.onWheel.bind(this)}>
           <SubjectGroupViewer
-            ref={this.imageViewer}
+            ref={this.groupViewer}
             
             images={images}
             
