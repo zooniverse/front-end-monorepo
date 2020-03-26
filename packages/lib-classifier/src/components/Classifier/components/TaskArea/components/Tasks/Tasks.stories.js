@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { types } from 'mobx-state-tree'
 import React from 'react'
-import sinon from 'sinon'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
@@ -12,7 +11,6 @@ import ClassificationStore from '@store/ClassificationStore'
 import SubjectStore from '@store/SubjectStore'
 import WorkflowStore from '@store/WorkflowStore'
 import WorkflowStepStore from '@store/WorkflowStepStore'
-import Step from '@store/Step'
 
 function createStore() {
   const classifications = ClassificationStore.create()
@@ -52,14 +50,22 @@ function addStepToStore (step, tasks) {
 }
 
 function MockTask (props) {
-  const { dark, zooTheme, ...taskProps } = props
-  const background = dark
-    ? zooTheme.global.colors['dark-1']
-    : zooTheme.global.colors['light-1']
+  const { dark, ...taskProps } = props
+
   return (
-    <Grommet theme={Object.assign({}, zooTheme, { dark })}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={Object.assign({}, zooTheme, { dark })}
+      themeMode={(dark) ? 'dark' : 'light'}
+    >
       <Box
-        background={background}
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
         pad='1em'
         width='380px'
       >
@@ -81,11 +87,18 @@ storiesOf('Tasks', module)
   .add('loading', function () {
     return (
       <Provider classifierStore={{}}>
-        <Grommet theme={zooTheme}>
-          <Tasks
-            loadingState={asyncStates.loading}
-          />
-        </Grommet>
+        <MockTask
+          loadingState={asyncStates.loading}
+        />
+      </Provider>
+    )
+  })
+  .add('error', function () {
+    return (
+      <Provider classifierStore={{}}>
+        <MockTask
+          loadingState={asyncStates.error}
+        />
       </Provider>
     )
   })
@@ -117,7 +130,6 @@ storiesOf('Tasks', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
-          zooTheme={zooTheme}
         />
       </Provider>
     )
@@ -158,7 +170,6 @@ storiesOf('Tasks', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
-          zooTheme={zooTheme}
         />
       </Provider>
     )
@@ -190,7 +201,6 @@ storiesOf('Tasks', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
-          zooTheme={zooTheme}
         />
       </Provider>
     )
@@ -224,6 +234,11 @@ storiesOf('Tasks', module)
             help: '',
             label: 'Draw a rectangle',
             type: 'rectangle',
+          }, {
+            color: zooTheme.global.colors['drawing-yellow'],
+            help: '',
+            label: 'Draw an ellipse',
+            type: 'ellipse',
           }
         ],
         type: 'drawing'
@@ -246,7 +261,6 @@ storiesOf('Tasks', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
-          zooTheme={zooTheme}
         />
       </Provider>
     )
@@ -284,7 +298,6 @@ storiesOf('Tasks', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
-          zooTheme={zooTheme}
         />
       </Provider>
     )
