@@ -46,7 +46,7 @@ class ZoomOutButtonContainer extends React.Component {
         onPointerDown={this.onPointerDown}
         onPointerUp={this.onPointerUp}
       >
-        <ZoomOutButton onClick={this.onPointerUp} />
+        <ZoomOutButton onClick={() => true} />
       </span>
     )
   }
