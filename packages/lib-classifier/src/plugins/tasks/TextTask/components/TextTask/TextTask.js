@@ -1,42 +1,28 @@
-import { PlainButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import { Box, Text, TextArea } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import DefaultTextTask from './components/DefaultTextTask'
+import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
 function TextTask (props) {
-  const { autoFocus, disabled, task } = props
+  const { autoFocus, disabled, suggestions, task } = props
   const { value } = task.annotation
-  const textArea = React.useRef()
 
-  useEffect(onMount, [])
-
-  function updateAnnotation () {
-    if (textArea.current && task.annotation) {
-      const text = textArea.current.value
+  function updateAnnotation (ref) {
+    const currentRef = ref.current
+    if (currentRef && task.annotation) {
+      const text = currentRef.value
       task.annotation.update(text)
     }
   }
 
-  function onUnmount () {
-    updateAnnotation()
-  }
-
-  function onMount () {
-    updateAnnotation()
-    return onUnmount
-  }
-
-  function setTagSelection (e) {
-    const text = textArea.current.value
+  function setTagSelection (e, ref) {
+    const currentRef = ref.current
+    const text = currentRef.value
     const textTag = e.currentTarget.value
     const startTag = `[${textTag}]`
     const endTag = `[/${textTag}]`
-    const selectionStart = textArea.current.selectionStart
-    const selectionEnd = textArea.current.selectionEnd
+    const selectionStart = currentRef.selectionStart
+    const selectionEnd = currentRef.selectionEnd
     const textBefore = text.substring(0, selectionStart)
     let textAfter
     let newValue
@@ -50,69 +36,57 @@ function TextTask (props) {
       newValue = textBefore + startTag + textInBetween + endTag + textAfter
     }
 
-    textArea.current.value = newValue
-    updateAnnotation()
-    if (textArea.current.focus) {
-      textArea.current.setSelectionRange((newValue.length - textAfter.length), (newValue.length - textAfter.length))
-      textArea.current.focus()
+    currentRef.value = newValue
+    updateAnnotation(ref)
+    if (currentRef.focus) {
+      currentRef.setSelectionRange((newValue.length - textAfter.length), (newValue.length - textAfter.length))
+      currentRef.focus()
     }
   }
 
+  function onSelectSuggestion (event, ref) {
+    const currentRef = ref.current
+    currentRef.value = event.suggestion
+    updateAnnotation(ref)
+  }
+
+  if (suggestions.length > 0) {
+    return (
+      <TextTaskWithSuggestions
+        autoFocus={autoFocus}
+        disabled={disabled}
+        onSelectSuggestion={onSelectSuggestion}
+        setTagSelection={setTagSelection}
+        suggestions={suggestions}
+        task={task}
+        value={value}
+        updateAnnotation={updateAnnotation}
+      />
+    )
+  }
+
   return (
-    <Box
-      direction='column'
-    >
-      <label
-        htmlFor={`${task.taskKey}-${task.type}`}
-      >
-        <Text>{task.instruction}</Text>
-        <TextArea
-          ref={textArea}
-          autoFocus={autoFocus}
-          disabled={disabled}
-          id={`${task.taskKey}-${task.type}`}
-          value={value}
-          onChange={updateAnnotation}
-        />
-      </label>
-      {(task.text_tags.length > 0) &&
-        <Text
-          id={`textModifiers-${task.taskKey}`}
-          weight='bold'
-        >
-          {counterpart('TextTask.modifiers')}
-        </Text>
-      }
-      <Box
-        gap='small'
-        justify='start'
-        direction='row'
-      >
-        {task.text_tags.map(tag => (
-          <PlainButton
-            aria-labelledby={`textModifiers-${task.taskKey} ${task.taskKey}-${tag}`}
-            id={`${task.taskKey}-${tag}`}
-            key={tag}
-            disabled={disabled}
-            justify='start'
-            onClick={setTagSelection}
-            text={tag}
-            value={tag}
-          />
-        ))}
-      </Box>
-    </Box>
+    <DefaultTextTask
+      autoFocus={autoFocus}
+      disabled={disabled}
+      setTagSelection={setTagSelection}
+      task={task}
+      value={value}
+      updateAnnotation={updateAnnotation}
+    />
   )
 }
 
 TextTask.defaultProps = {
   autoFocus: false,
-  disabled: false
+  disabled: false,
+  suggestions: []
 }
 
 TextTask.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
+  suggestions: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,
