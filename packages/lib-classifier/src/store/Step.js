@@ -5,13 +5,13 @@ function taskDispatcher (snapshot) {
   return taskRegistry.get(snapshot.type).TaskModel
 }
 
-const taskTypes = types.union({ dispatcher: taskDispatcher }, ...taskModels)
+const GenericTask = types.union({ dispatcher: taskDispatcher }, ...taskModels)
 
 export const BaseStep = types
   .model('BaseStep', {
     stepKey: types.identifier,
     taskKeys: types.array(types.string),
-    tasks: types.array(taskTypes)
+    tasks: types.array(GenericTask)
   })
   .views(self => ({
     get isComplete () {

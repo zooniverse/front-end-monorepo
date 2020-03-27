@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { draggable } from '@plugins/drawingTools/components'
 
+import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
@@ -14,6 +15,7 @@ import SubTaskPopup from '../../../SubTaskPopup'
 function storeMapper (stores) {
   const {
     enableRotation,
+    move,
     rotation,
     setOnZoom,
     setOnPan
@@ -21,13 +23,16 @@ function storeMapper (stores) {
 
   return {
     enableRotation,
+    move,
     rotation,
     setOnZoom,
     setOnPan
   }
 }
 
-const DraggableImage = draggable('image')
+const DraggableImage = styled(draggable('image'))`
+  cursor: move;
+`
 
 class SingleImageViewerContainer extends React.Component {
   constructor () {
@@ -105,6 +110,7 @@ class SingleImageViewerContainer extends React.Component {
     const {
       enableInteractionLayer,
       loadingState,
+      move,
       onKeyDown,
       rotation,
       setOnPan,
@@ -129,6 +135,7 @@ class SingleImageViewerContainer extends React.Component {
 
     const svg = this.imageViewer.current
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
+    const SubjectImage = move ? DraggableImage : 'image'
 
     return (
       <SVGContext.Provider value={{ svg }}>
@@ -149,13 +156,14 @@ class SingleImageViewerContainer extends React.Component {
             rotate={rotation}
             width={naturalWidth}
           >
-            <DraggableImage
-              ref={this.subjectImage}
-              dragMove={this.dragMove}
-              height={naturalHeight}
-              width={naturalWidth}
-              xlinkHref={src}
-            />
+            <g ref={this.subjectImage}>
+              <SubjectImage
+                dragMove={this.dragMove}
+                height={naturalHeight}
+                width={naturalWidth}
+                xlinkHref={src}
+              />
+            </g>
           </SingleImageViewer>
         </SVGPanZoom>
         <SubTaskPopup />
@@ -168,6 +176,7 @@ SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
+  move: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
   setOnPan: PropTypes.func,
@@ -182,6 +191,7 @@ SingleImageViewerContainer.defaultProps = {
   enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
+  move: false,
   onError: () => true,
   onReady: () => true,
   setOnPan: () => true,
@@ -194,4 +204,4 @@ SingleImageViewerContainer.defaultProps = {
 class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
 
 export default DecoratedSingleImageViewerContainer
-export { SingleImageViewerContainer }
+export { DraggableImage, SingleImageViewerContainer }

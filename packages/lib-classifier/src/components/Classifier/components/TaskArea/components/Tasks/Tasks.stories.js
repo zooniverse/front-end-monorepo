@@ -4,35 +4,16 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { types } from 'mobx-state-tree'
 import React from 'react'
-import sinon from 'sinon'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
 import ClassificationStore from '@store/ClassificationStore'
+import SubjectStore from '@store/SubjectStore'
+import WorkflowStore from '@store/WorkflowStore'
 import WorkflowStepStore from '@store/WorkflowStepStore'
-import Step from '@store/Step'
-import taskRegistry from '@plugins/tasks'
 
-const SingleChoiceTask = taskRegistry.get('single').TaskModel
-const MultipleChoiceTask = taskRegistry.get('multiple').TaskModel
-const TextTask = taskRegistry.get('text').TaskModel
-
-function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, zooTheme }) {
-  const background = dark
-    ? zooTheme.global.colors['dark-1']
-    : zooTheme.global.colors['light-1']
+function createStore() {
   const classifications = ClassificationStore.create()
-  const steps = {
-    S1: step
-  }
-  const store = types.model('MockStore', {
-    classifications: ClassificationStore,
-    workflowSteps: WorkflowStepStore
-  })
-  .create({
-    classifications,
-    workflowSteps: WorkflowStepStore.create({ steps })
-  })
   const mockSubject = {
     id: 'subject',
     metadata: {}
@@ -44,29 +25,55 @@ function MockTask ({ dark, isThereTaskHelp, subjectReadyState, step, zooTheme })
   const mockProject = {
     id: 'project'
   }
+
+  const store = types.model('MockStore', {
+    classifications: ClassificationStore,
+    subjects: SubjectStore,
+    workflows: WorkflowStore,
+    workflowSteps: WorkflowStepStore
+  })
+  .create({
+    classifications,
+    subjects: SubjectStore.create({}),
+    workflows: WorkflowStore.create({}),
+    workflowSteps: WorkflowStepStore.create({})
+  })
   classifications.createClassification(mockSubject, mockWorkflow, mockProject)
-  step.tasks.forEach(task => classifications.addAnnotation(task))
-  const classification = classifications.active
+  return store
+}
+
+const store = createStore()
+function addStepToStore (step, tasks) {
+  const steps = [ ['S1', step] ]
+  store.workflowSteps.setStepsAndTasks({ steps, tasks })
+  store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
+}
+
+function MockTask (props) {
+  const { dark, ...taskProps } = props
+
   return (
-    <Provider classifierStore={store}>
-      <Grommet theme={Object.assign({}, zooTheme, { dark })}>
-        <Box
-          background={background}
-          pad='1em'
-          width='380px'
-        >
-          <Tasks
-            addAnnotation={classifications.addAnnotation}
-            classification={classification}
-            isThereTaskHelp={isThereTaskHelp}
-            loadingState={asyncStates.success}
-            step={step}
-            subjectReadyState={subjectReadyState}
-            tasks={step.tasks}
-          />
-        </Box>
-      </Grommet>
-    </Provider>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={Object.assign({}, zooTheme, { dark })}
+      themeMode={(dark) ? 'dark' : 'light'}
+    >
+      <Box
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
+        pad='1em'
+        width='380px'
+      >
+        <Tasks
+          {...taskProps}
+        />
+      </Box>
+    </Grommet>
   )
 }
 
@@ -80,46 +87,56 @@ storiesOf('Tasks', module)
   .add('loading', function () {
     return (
       <Provider classifierStore={{}}>
-        <Grommet theme={zooTheme}>
-          <Tasks
-            loadingState={asyncStates.loading}
-          />
-        </Grommet>
+        <MockTask
+          loadingState={asyncStates.loading}
+        />
+      </Provider>
+    )
+  })
+  .add('error', function () {
+    return (
+      <Provider classifierStore={{}}>
+        <MockTask
+          loadingState={asyncStates.error}
+        />
       </Provider>
     )
   })
   .add('single task', function () {
-    const tasks = [{
-      answers: [{ label: 'yes' }, { label: 'no' }],
-      help: 'Choose an answer from the choices given, then press Done.',
-      question: 'Is there a cat?',
-      required: boolean('Required', false),
-      taskKey: 'init',
-      type: 'single'
-    }]
-    const step = Step.create({
+    const tasks = {
+      init: {
+        answers: [{ label: 'yes' }, { label: 'no' }],
+        help: 'Choose an answer from the choices given, then press Done.',
+        question: 'Is there a cat?',
+        required: boolean('Required', false),
+        taskKey: 'init',
+        type: 'single'
+      }
+    }
+    const step = {
       stepKey: 'S1',
-      taskKeys: ['init'],
-      tasks
-    })
+      taskKeys: ['init']
+    }
+    addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
     return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        loadingState={asyncStates.success}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-        zooTheme={zooTheme}
-      />
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+        />
+      </Provider>
     )
   })
   .add('multiple tasks', function () {
-    const tasks = [
-      {
+    const tasks = {
+      init: {
         answers: [{ label: 'yes' }, { label: 'no' }],
         help: 'Choose an answer from the choices given, then press Done.',
         question: 'Is there a cat?',
@@ -127,7 +144,7 @@ storiesOf('Tasks', module)
         taskKey: 'init',
         type: 'single'
       },
-      {
+      T1: {
         answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
         help: 'Pick as many answers as apply, then press Done.',
         question: 'What is it doing?',
@@ -135,63 +152,65 @@ storiesOf('Tasks', module)
         taskKey: 'T1',
         type: 'multiple'
       }
-    ]
-    const step = Step.create({
+    }
+    const step = {
       stepKey: 'S1',
-      taskKeys: ['init', 'T1'],
-      tasks
-    })
+      taskKeys: ['init', 'T1']
+    }
+    addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
     return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        loadingState={asyncStates.success}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-        zooTheme={zooTheme}
-      />
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+        />
+      </Provider>
     )
   })
   .add('text', function () {
-    const tasks = [
-      {
+    const tasks = {
+      T0: {
         help: 'Type something into the text box.',
         instruction: 'Type something here',
         taskKey: 'T0',
         text_tags: ['insertion', 'deletion'],
         type: 'text'
       }
-    ]
-    const step = Step.create({
+    }
+    const step = {
       stepKey: 'S1',
-      taskKeys: ['T0'],
-      tasks
-    })
+      taskKeys: ['T0']
+    }
+    addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
     return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        loadingState={asyncStates.success}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-        zooTheme={zooTheme}
-      />
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+        />
+      </Provider>
     )
   })
   .add('drawing', function () {
-    const tasks = [
-      {
+    const tasks = {
+      T2: {
         help: 'Draw on the image.',
         instruction: 'Draw something',
-        taskKey: 'T0',
+        taskKey: 'T2',
         tools: [
           {
             color: zooTheme.global.colors['drawing-red'],
@@ -215,37 +234,43 @@ storiesOf('Tasks', module)
             help: '',
             label: 'Draw a rectangle',
             type: 'rectangle',
+          }, {
+            color: zooTheme.global.colors['drawing-yellow'],
+            help: '',
+            label: 'Draw an ellipse',
+            type: 'ellipse',
           }
         ],
         type: 'drawing'
       }
-    ]
-    const step = Step.create({
+    }
+    const step = {
       stepKey: 'S1',
-      taskKeys: ['T0'],
-      tasks
-    })
+      taskKeys: ['T2']
+    }
+    addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
     return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        loadingState={asyncStates.success}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-        zooTheme={zooTheme}
-      />
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+        />
+      </Provider>
     )
   })
   .add('transcription', function () {
-    const tasks = [
-      {
+    const tasks = {
+      T3: {
         help: 'Underline the line to transcribe with two clicks, then enter in the text transcription.',
         instruction: 'Underline and transcribe',
-        taskKey: 'T0',
+        taskKey: 'T3',
         tools: [
           {
             help: '',
@@ -255,24 +280,25 @@ storiesOf('Tasks', module)
         ],
         type: 'transcription'
       }
-    ]
-    const step = Step.create({
+    }
+    const step = {
       stepKey: 'S1',
-      taskKeys: ['T0'],
-      tasks
-    })
+      taskKeys: ['T3']
+    }
+    addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
     const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
     const isThereTaskHelp = boolean('Enable task help', true)
     return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        loadingState={asyncStates.success}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-        zooTheme={zooTheme}
-      />
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+        />
+      </Provider>
     )
   })

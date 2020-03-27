@@ -62,3 +62,4 @@ describe('Drawing Tools > Drag Handle', function () {
     })
   })
 })
+
