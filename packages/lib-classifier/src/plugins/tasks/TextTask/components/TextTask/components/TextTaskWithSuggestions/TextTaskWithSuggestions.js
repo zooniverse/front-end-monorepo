@@ -34,7 +34,8 @@ export default function TextTaskWithSuggestions (props) {
       <TextTagButtons
         disabled={disabled}
         onClick={(event) => setTagSelection(event, textInput)}
-        task={task}
+        taskKey={task.taskKey}
+        tags={task.text_tags}
       />
       <label
         htmlFor={`${task.taskKey}-${task.type}`}
@@ -46,10 +47,38 @@ export default function TextTaskWithSuggestions (props) {
           id={`${task.taskKey}-${task.type}`}
           onChange={() => updateAnnotation(textInput)}
           onSelect={(event) => onSelectSuggestion(event, textInput)}
+          suggestions={suggestions}
           ref={textInput}
           value={value}
         />
       </label>
     </Box>
   )
+}
+
+TextTaskWithSuggestions.defaultProps = {
+  autoFocus: false,
+  disabled: false,
+  onSelectSuggestion: () => {},
+  setTagSelection: () => {},
+  suggestions: [],
+  updateAnnotation: () => {}
+}
+
+TextTaskWithSuggestions.propTypes = {
+  autoFocus: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onSelectSuggestion: PropTypes.func,
+  setTagSelection: PropTypes.func,
+  suggestions: PropTypes.arrayOf(PropTypes.string),
+  task: PropTypes.shape({
+    help: PropTypes.string,
+    instruction: PropTypes.string,
+    required: PropTypes.bool,
+    taskKey: PropTypes.string,
+    text_tags: PropTypes.arrayOf(PropTypes.string),
+    type: PropTypes.string
+  }).isRequired,
+  value: PropTypes.string.isRequired,
+  updateAnnotation: PropTypes.func
 }

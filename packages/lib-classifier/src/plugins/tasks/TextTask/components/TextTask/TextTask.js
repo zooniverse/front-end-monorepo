@@ -91,7 +91,9 @@ TextTask.propTypes = {
     help: PropTypes.string,
     instruction: PropTypes.string,
     required: PropTypes.bool,
-    text_tags: PropTypes.arrayOf(PropTypes.string)
+    taskKey: PropTypes.string,
+    text_tags: PropTypes.arrayOf(PropTypes.string),
+    type: PropTypes.string
   }).isRequired
 }
 

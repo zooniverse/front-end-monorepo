@@ -4,7 +4,7 @@ import { Text, TextInput } from 'grommet'
 import { default as Task } from '@plugins/tasks/TextTask'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
-describe.only('TextTask > Components > TextTaskWithSuggestions', function () {
+describe('TextTask > Components > TextTaskWithSuggestions', function () {
   let wrapper
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
@@ -28,7 +28,6 @@ describe.only('TextTask > Components > TextTaskWithSuggestions', function () {
     const label = wrapper.find('label')
     expect(label.find(Text).prop('children')).to.equal(task.instruction)
     const textInput = label.find(TextInput)
-    console.log(textInput.debug())
     expect(textInput.prop('value')).to.equal(annotation.value)
   })
 })

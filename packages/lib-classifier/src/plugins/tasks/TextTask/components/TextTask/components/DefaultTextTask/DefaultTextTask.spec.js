@@ -2,8 +2,10 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Text, TextArea } from 'grommet'
 import { default as Task } from '@plugins/tasks/TextTask'
+import DefaultTextTask from './DefaultTextTask'
 
 describe('TextTask > Components > DefaultTextTask', function () {
+  let wrapper
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
     taskKey: 'T0',
@@ -14,8 +16,9 @@ describe('TextTask > Components > DefaultTextTask', function () {
 
   before(function () {
     wrapper = shallow(
-      <TextTask
+      <DefaultTextTask
         task={task}
+        value={annotation.value}
       />
     )
   })

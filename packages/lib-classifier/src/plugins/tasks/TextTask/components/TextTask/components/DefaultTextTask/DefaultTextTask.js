@@ -45,8 +45,34 @@ export default function DefaultTextTask (props) {
       <TextTagButtons
         disabled={disabled}
         onClick={(event) => setTagSelection(event, textArea)}
-        task={task}
+        taskKey={task.taskKey}
+        tags={task.text_tags}
       />
     </Box>
   )
+}
+
+DefaultTextTask.defaultProps = {
+  autoFocus: false,
+  disabled: false,
+  onSelectSuggestion: () => {},
+  setTagSelection: () => {},
+  updateAnnotation: () => {}
+}
+
+DefaultTextTask.propTypes = {
+  autoFocus: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onSelectSuggestion: PropTypes.func,
+  setTagSelection: PropTypes.func,
+  task: PropTypes.shape({
+    help: PropTypes.string,
+    instruction: PropTypes.string,
+    required: PropTypes.bool,
+    taskKey: PropTypes.string,
+    text_tags: PropTypes.arrayOf(PropTypes.string),
+    type: PropTypes.string
+  }).isRequired,
+  value: PropTypes.string.isRequired,
+  updateAnnotation: PropTypes.func
 }
