@@ -46,7 +46,7 @@ class ZoomInButtonContainer extends React.Component {
         onPointerDown={this.onPointerDown}
         onPointerUp={this.onPointerUp}
       >
-        <ZoomInButton onClick={this.onPointerUp} />
+        <ZoomInButton onClick={() => true} />
       </span>
     )
   }
