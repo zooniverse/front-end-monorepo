@@ -6,18 +6,19 @@ import * as markTypes from '@plugins/drawingTools/models/marks'
 import DrawingAnnotation from './DrawingAnnotation'
 
 const markModels = Object.values(markTypes)
-const markReferenceTypes = markModels.map(markType => types.safeReference(markType))
+const GenericMark = types.union(...markModels)
 const toolModels = Object.values(tools)
+const GenericTool = types.union(...toolModels)
 
 export const Drawing = types.model('Drawing', {
-  activeMark: types.union(...markReferenceTypes),
+  activeMark: types.safeReference(GenericMark),
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
   subTaskMarkBounds: types.optional(types.frozen({}), undefined),
   subTaskVisibility: types.optional(types.boolean, false),
-  tools: types.array(types.union(...toolModels)),
+  tools: types.array(GenericTool),
   type: types.literal('drawing')
 })
   .preProcessSnapshot(snapshot => {

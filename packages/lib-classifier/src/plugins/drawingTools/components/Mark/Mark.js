@@ -108,7 +108,5 @@ Mark.defaultProps = {
   }
 }
 
-
 export default draggable(observer(Mark))
 export { Mark }
-
