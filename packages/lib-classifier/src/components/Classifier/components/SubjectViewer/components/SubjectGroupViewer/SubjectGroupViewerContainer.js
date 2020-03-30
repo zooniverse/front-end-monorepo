@@ -228,8 +228,6 @@ class SubjectGroupViewerContainer extends React.Component {
 
     const svg = this.groupViewer.current
     
-    console.log()
-    
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
         || !(cellHeight > 0)
