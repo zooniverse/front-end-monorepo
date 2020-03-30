@@ -70,7 +70,7 @@ class SubjectGroupViewerContainer extends React.Component {
     this.onLoad()
 
     // Listen for pan and zoom actions outside of this component.
-    // i.e. zoom in/out actions from the iamge controls. 
+    // i.e. zoom in/out actions from the image controls. 
     this.props.setOnPan(this.onPanViaExternalControls.bind(this))
     this.props.setOnZoom(this.onZoomViaExternalControls.bind(this))
     

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { createRef, forwardRef, useContext } from 'react'
+import React, { forwardRef, useContext, useRef } from 'react'
 import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SGVGridCell from './components/SGVGridCell'
@@ -42,7 +42,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     zoom,
   } = props
 
-  const transformLayer = createRef()
+  const transformLayer = useRef()
   const { svg } = useContext(SVGContext)
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
 
