@@ -116,19 +116,19 @@ class SubjectGroupViewerContainer extends React.Component {
     return {}
   }
 
-  async getImageSize () {
+  getGridSize () {
     const svg = this.groupViewer.current || {}
     const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect && svg.getBoundingClientRect() || {}
     const { gridRows, gridColumns, cellWidth, cellHeight } = this.props
     
-    const naturalWidth = gridColumns * cellWidth
-    const naturalHeight = gridRows * cellHeight
+    const gridWidth = gridColumns * cellWidth
+    const gridHeight = gridRows * cellHeight
     
     return {
       clientHeight,
       clientWidth,
-      naturalHeight,
-      naturalWidth
+      gridHeight,
+      gridWidth,
     }
   }
 
@@ -136,7 +136,7 @@ class SubjectGroupViewerContainer extends React.Component {
     const { onError, onReady } = this.props
     try {
       await this.preload()
-      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const { clientHeight, clientWidth, gridHeight: naturalHeight, gridWidth: naturalWidth } = this.getGridSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
@@ -217,8 +217,8 @@ class SubjectGroupViewerContainer extends React.Component {
     } = this.props
     const { images, panX, panY, zoom } = this.state
     
-    const naturalWidth = gridColumns * cellWidth
-    const naturalHeight = gridRows * cellHeight
+    const gridWidth = gridColumns * cellWidth
+    const gridHeight = gridRows * cellHeight
 
     if (loadingState === asyncStates.error) {
       return (
@@ -257,8 +257,8 @@ class SubjectGroupViewerContainer extends React.Component {
             gridRows={gridRows}
             gridColumns={gridColumns}
             
-            width={naturalWidth}
-            height={naturalHeight}
+            width={gridWidth}
+            height={gridHeight}
             
             panX={panX}
             panY={panY}
