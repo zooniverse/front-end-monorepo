@@ -74,7 +74,7 @@ class SubjectGroupViewerContainer extends React.Component {
     this.props.setOnPan(this.onPanViaExternalControls.bind(this))
     this.props.setOnZoom(this.onZoomViaExternalControls.bind(this))
     
-    this.scrollContainer.current?.addEventListener('wheel', preventDefault)
+    this.scrollContainer.current?.addEventListener('wheel', this.onWheel.bind(this))
   }
   
   componentWillUmount () {
@@ -82,7 +82,7 @@ class SubjectGroupViewerContainer extends React.Component {
     this.setOnPan(() => true)
     this.setOnZoom(() => true)
     
-    this.scrollContainer.current?.removeEventListener('wheel', preventDefault)
+    this.scrollContainer.current?.removeEventListener('wheel', this.onWheel.bind(this))
   }
 
   fetchImage (url) {
@@ -200,6 +200,7 @@ class SubjectGroupViewerContainer extends React.Component {
     } else {
       this.doZoom('zoomin', 1)
     }
+    preventDefault(event)
   }
 
   render () {
@@ -240,7 +241,7 @@ class SubjectGroupViewerContainer extends React.Component {
 
     return (
       <SVGContext.Provider value={{ svg }}>
-        <div ref={this.scrollContainer} onWheel={this.onWheel.bind(this)}>
+        <div ref={this.scrollContainer}>
           <SubjectGroupViewer
             ref={this.groupViewer}
             
