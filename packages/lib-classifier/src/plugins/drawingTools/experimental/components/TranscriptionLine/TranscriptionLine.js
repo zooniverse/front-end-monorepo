@@ -4,11 +4,14 @@ import { DragHandle } from '@plugins/drawingTools/components'
 
 const HANDLE_RADIUS = 5
 const GRAB_STROKE_WIDTH = 6
+/*
+  TODO: can these colours be read from the theme?
+*/
 const COLOURS = {
-  active: '#5cb85c',
-  default: '#00ced1',
-  transcribed: '#c33',
-  complete: '#979797'
+  active: '#06fe76',
+  default: '#235dff',
+  transcribed: '#ff3c25',
+  complete: '#8c8c8c'
 }
 
 function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
