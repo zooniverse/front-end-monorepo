@@ -74,8 +74,7 @@ class SubjectGroupViewerContainer extends React.Component {
     this.props.setOnPan(this.onPanViaExternalControls.bind(this))
     this.props.setOnZoom(this.onZoomViaExternalControls.bind(this))
     
-    this.scrollContainer.current
-    && this.scrollContainer.current.addEventListener('wheel', preventDefault)
+    this.scrollContainer.current?.addEventListener('wheel', preventDefault)
   }
   
   componentWillUmount () {
@@ -83,8 +82,7 @@ class SubjectGroupViewerContainer extends React.Component {
     this.setOnPan(() => true)
     this.setOnZoom(() => true)
     
-    this.scrollContainer.current
-    && this.scrollContainer.current.removeEventListener('wheel', preventDefault)
+    this.scrollContainer.current?.removeEventListener('wheel', preventDefault)
   }
 
   fetchImage (url) {
