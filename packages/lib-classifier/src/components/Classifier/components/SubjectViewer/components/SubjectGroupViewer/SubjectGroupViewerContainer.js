@@ -113,7 +113,7 @@ class SubjectGroupViewerContainer extends React.Component {
       this.setState({ images })
       return images
     }
-    return {}
+    return []
   }
 
   getGridSize () {
