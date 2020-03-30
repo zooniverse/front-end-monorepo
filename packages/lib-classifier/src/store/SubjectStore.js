@@ -130,7 +130,8 @@ const SubjectStore = types
 
     function append (newSubjects) {
       newSubjects.forEach(subject => {
-        self.resources.put(subject)
+        const existsInQueue = self.resources.get(subject.id)
+        if (!existsInQueue) self.resources.put(subject)
       })
 
       const validSubjectReference = isValidReference(() => self.active)
