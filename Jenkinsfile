@@ -72,7 +72,7 @@ pipeline {
               environment {
                 ASSET_PREFIX = 'https://fe-project.zooniverse.org'
                 COMMIT_ID = "${GIT_COMMIT}"
-                SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+                SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
               }
 
               steps {
