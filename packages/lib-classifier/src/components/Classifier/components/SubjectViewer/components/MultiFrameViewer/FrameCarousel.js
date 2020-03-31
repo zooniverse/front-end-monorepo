@@ -16,7 +16,7 @@ export const StyledControlButton = styled(Button)`
     color: ${props.theme.global.colors['neutral-6']};
     background: ${props.theme.global.colors.brand};
 
-    &:hover, &:focus, not(:disabled) {
+    &:focus:not(:disabled), &:hover:not(:disabled) {
       background: ${tint(0.5, props.theme.global.colors.brand)};
       box-shadow: none;
     }
@@ -63,11 +63,26 @@ export const StyledFrame = styled.label`
       outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
   `}
+
+  height: 40px;
+  margin: 5px 0;
+
+  &:first-child {
+    margin-top: 14px;
+  }
+
+  &:last-child {
+    margin-bottom: 14px;
+  }
+
   input {
     opacity: 0.01;
     position: absolute;
   }
 
+  :hover {
+    cursor: pointer;
+  }
 `
 
 export const StyledImage = styled.img`
@@ -75,6 +90,17 @@ export const StyledImage = styled.img`
   object-fit: cover;
   padding: 0;
   width: 40px;
+`
+
+export const StyledFrameList = styled.ul`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  position: relative;
+  scroll-behavior: smooth;
 `
 
 class FrameCarousel extends React.Component {
@@ -156,8 +182,8 @@ class FrameCarousel extends React.Component {
       <Box
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         direction='column'
-        height='450px'
-        width='7em'
+        height={{ max: '450px' }}
+        width='4em'
       >
         <StyledControlButton
           disabled={frame === 0}
@@ -165,17 +191,11 @@ class FrameCarousel extends React.Component {
           label={<PreviousLabel />}
           onClick={() => this.handlePrevious()}
         />
-        <Box
-          align='center'
-          as='ul'
-          direction='column'
-          fill
-          overflow='auto'
+        <StyledFrameList
           ref={this.frameList}
-          style={{ position: 'relative', scrollBehavior: 'smooth' }}
         >
           {locationElements}
-        </Box>
+        </StyledFrameList>
         <StyledControlButton
           align='center'
           disabled={frame === (locations.length - 1)}
