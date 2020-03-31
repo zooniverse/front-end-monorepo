@@ -4,7 +4,8 @@ describe('Helpers > subjectViewers', function () {
   const viewers = [
     'singleImage',
     'lightCurve',
-    'multiFrame'
+    'multiFrame',
+    'subjectGroup'
   ]
 
   viewers.forEach(function (viewer) {

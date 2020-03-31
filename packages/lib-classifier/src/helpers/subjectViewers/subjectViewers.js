@@ -15,6 +15,11 @@ Object.defineProperty(subjectViewers, 'multiFrame', {
   enumerable: true
 })
 
+Object.defineProperty(subjectViewers, 'subjectGroup', {
+  value: 'subjectGroup',
+  enumerable: true
+})
+
 // helper for returning subject viewers (e.g. for use in MST enumerable type)
 Object.defineProperty(subjectViewers, 'values', {
   value: Object.values(subjectViewers)

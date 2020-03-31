@@ -19,7 +19,7 @@ const WorkflowStore = types
 
     function createProjectObserver () {
       const projectDisposer = autorun(() => {
-        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+        const validProjectReference = isValidReference(() => getRoot(self).projects?.active)
         if (validProjectReference) {
           self.reset()
           const queryParamId = getQueryParamId()
@@ -31,7 +31,7 @@ const WorkflowStore = types
 
     function createUPPObserver () {
       const uppDisposer = autorun(() => {
-        const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences.active)
+        const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences?.active)
         const validWorkflowReference = isValidReference(() => self.active)
         if (validUPPReference && !validWorkflowReference) {
           self.reset()

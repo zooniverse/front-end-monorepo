@@ -68,7 +68,6 @@ describe('Component > InteractionLayer', function () {
         const [ activeMark, setActiveMark ] = useState(null)
         return (
           <InteractionLayer
-            activeDrawingTask={mockDrawingTask}
             activeMark={activeMark}
             activeTool={activeTool}
             setActiveMark={setActiveMark}
@@ -190,7 +189,6 @@ describe('Component > InteractionLayer', function () {
         <SVGContext.Provider value={{ svg, getScreenCTM }}>
           <svg>
             <InteractionLayer
-              activeDrawingTask={mockDrawingTask}
               activeTool={activeTool}
               disabled
               height={400}

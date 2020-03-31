@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Step from './Step'
 
@@ -41,19 +41,15 @@ const WorkflowStepStore = types
 
     get shouldWeShowDoneAndTalkButton () {
       const isThereANextStep = self.isThereANextStep()
-      const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-      const validClassificationReference = isValidReference(() => getRoot(self).classifications.active)
-      if (validWorkflowReference && validClassificationReference) {
-        const workflow = getRoot(self).workflows.active
-        const classification = getRoot(self).classifications.active
+      const workflow = tryReference(() => getRoot(self).workflows?.active)
+      const classification = tryReference(() => getRoot(self).classifications?.active)
 
-        if (workflow && classification) {
-          const disableTalk = classification.metadata.subject_flagged
-          return !isThereANextStep &&
-          workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
-          !disableTalk // &&
-          // !completed TODO: implement classification completed validations per task?
-        }
+      if (workflow && classification) {
+        const disableTalk = classification.metadata.subject_flagged
+        return !isThereANextStep &&
+        workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
+        !disableTalk // &&
+        // !completed TODO: implement classification completed validations per task?
       }
 
       return false
@@ -66,9 +62,8 @@ const WorkflowStepStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-        if (validWorkflowReference) {
-          const workflow = getRoot(self).workflows.active
+        const workflow = tryReference(() => getRoot(self).workflows?.active)
+        if (workflow) {
           self.reset()
           if (workflow.steps &&
             workflow.steps.length > 0 &&
@@ -131,9 +126,8 @@ const WorkflowStepStore = types
     }
 
     function setSteps (workflow) {
-      workflow.steps.forEach((entry) => {
-        const newStep = Step.create({ stepKey: entry[0], taskKeys: entry[1].taskKeys, next: entry[1].next })
-        self.steps.put(newStep)
+      workflow.steps.forEach(([ stepKey, step ]) => {
+        self.steps.put(Object.assign({}, step, { stepKey }))
       })
     }
 
