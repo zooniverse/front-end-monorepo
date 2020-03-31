@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getEnv, types } from 'mobx-state-tree'
+import cuid from 'cuid'
 
 const DEFAULT_CONSENSUS_THRESHOLD = 3
 const DEFAULT_VIEWS_TO_RETIRE = 5
@@ -47,13 +48,14 @@ const TranscriptionReductions = types
       const points = constructCoordinates(reduction)
       const textOptions = constructText(reduction)
       return {
-        consensusText,
-        points,
-        frame,
-        textOptions,
         consensusReached:
           reduction.consensus_score >= threshold ||
-          reduction.number_views >= minimumViews
+          reduction.number_views >= minimumViews,
+        consensusText,
+        frame,
+        id: cuid(),
+        points,
+        textOptions
       }
     }
 
