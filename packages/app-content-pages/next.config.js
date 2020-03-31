@@ -12,9 +12,13 @@ setAliases({
   'styled-components': resolveHoisted('styled-components')
 })
 
+function commitID () {
+  return execSync('git rev-parse HEAD').toString('utf8').trim()
+}
+
 const nextConfig = {
   env: {
-    COMMIT_ID: execSync('git rev-parse HEAD').toString('utf8').trim(),
+    COMMIT_ID: process.env.COMMIT_ID || commitID(),
     PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging'
   },
 

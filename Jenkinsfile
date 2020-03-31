@@ -42,13 +42,17 @@ pipeline {
         }
 
         stage('Build app Docker images') {
+          environment {
+            COMMIT_ID = "${GIT_COMMIT}"
+            SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+          }
+
           parallel {
             stage('Build @zooniverse/fe-content-pages') {
               agent any
 
               environment {
                 ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
-                SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
               }
 
               steps {
@@ -56,7 +60,7 @@ pipeline {
                   script {
                     def dockerRepoName = 'zooniverse/fe-content-pages'
                     def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def buildArgs = "--build-arg ASSET_PREFIX --build-arg SENTRY_DSN ."
+                    def buildArgs = "--build-arg COMMIT_ID --build-arg ASSET_PREFIX --build-arg SENTRY_DSN ."
                     def newImage = docker.build(dockerImageName, buildArgs)
                     newImage.push()
                     newImage.push('latest')
@@ -69,7 +73,6 @@ pipeline {
 
               environment {
                 ASSET_PREFIX = 'https://fe-project.zooniverse.org'
-                SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
               }
 
               steps {
@@ -77,7 +80,7 @@ pipeline {
                   script {
                     def dockerRepoName = 'zooniverse/fe-project'
                     def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def buildArgs = "--build-arg ASSET_PREFIX --build-arg SENTRY_DSN ."
+                    def buildArgs = "--build-arg COMMIT_ID --build-arg ASSET_PREFIX --build-arg SENTRY_DSN ."
                     def newImage = docker.build(dockerImageName, buildArgs)
                     newImage.push()
                     newImage.push('latest')
