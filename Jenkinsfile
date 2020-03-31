@@ -42,10 +42,6 @@ pipeline {
         }
 
         stage('Build app Docker images') {
-          environment {
-            COMMIT_ID = "${GIT_COMMIT}"
-            SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-          }
 
           parallel {
             stage('Build @zooniverse/fe-content-pages') {
@@ -53,6 +49,8 @@ pipeline {
 
               environment {
                 ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
+                COMMIT_ID = "${GIT_COMMIT}"
+                SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
               }
 
               steps {
@@ -73,6 +71,8 @@ pipeline {
 
               environment {
                 ASSET_PREFIX = 'https://fe-project.zooniverse.org'
+                COMMIT_ID = "${GIT_COMMIT}"
+                SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
               }
 
               steps {
