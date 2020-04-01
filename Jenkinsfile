@@ -39,68 +39,20 @@ pipeline {
       }
     }
 
-    stage('Build production app images') {
-      when { tag 'production-release' }
-
-      parallel {
-        stage('Build @zooniverse/fe-content-pages') {
-          agent any
-
-          environment {
-            APP_ENV = "production"
-            ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
-            COMMIT_ID = "${GIT_COMMIT}"
-            SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-          }
-
-          steps {
-            dir ('packages/app-content-pages') {
-              script {
-                def dockerRepoName = 'zooniverse/fe-content-pages'
-                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
-                def newImage = docker.build(dockerImageName, buildArgs)
-                newImage.push()
-                newImage.push('latest')
-              }
-            }
-          }
-        }
-        stage('Build @zooniverse/fe-project') {
-          agent any
-
-          environment {
-            APP_ENV = "production"
-            ASSET_PREFIX = 'https://fe-project.zooniverse.org'
-            COMMIT_ID = "${GIT_COMMIT}"
-            SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
-          }
-
-          steps {
-            dir ('packages/app-project') {
-              script {
-                def dockerRepoName = 'zooniverse/fe-project'
-                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
-                def newImage = docker.build(dockerImageName, buildArgs)
-                newImage.push()
-                newImage.push('latest')
-              }
-            }
-          }
+    stage('Build app images') {
+      when {
+        anyOf {
+          branch 'master'
+          tag 'production-release'
         }
       }
-    }
-
-    stage('Build staging app images') {
-      when { branch 'master' }
 
       parallel {
         stage('Build @zooniverse/fe-content-pages') {
           agent any
 
           environment {
-            APP_ENV = "staging"
+            APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
             ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
             COMMIT_ID = "${GIT_COMMIT}"
             SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
@@ -123,7 +75,7 @@ pipeline {
           agent any
 
           environment {
-            APP_ENV = "staging"
+            APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
             ASSET_PREFIX = 'https://fe-project.zooniverse.org'
             COMMIT_ID = "${GIT_COMMIT}"
             SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
