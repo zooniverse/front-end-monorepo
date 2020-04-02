@@ -12,9 +12,9 @@ function Nav (props) {
   const { navLinks } = props
   return (
     <Box aria-label={counterpart('ProjectNav.ariaLabel')} as='nav'>
-      <Box as='ul' direction='row' gap='medium'>
+      <Box as='ul' direction='row'>
         {navLinks.map(navLink => (
-          <Box as='li' key={navLink.href}>
+          <Box as='li' key={navLink.href} pad={{ left: 'medium' }}>
             <NavLink link={navLink} />
           </Box>
         ))}
