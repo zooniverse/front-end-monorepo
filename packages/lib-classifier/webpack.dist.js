@@ -24,6 +24,7 @@ module.exports = {
   mode: 'production',
   resolve: {
     alias: {
+      '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@plugins': path.resolve(__dirname, 'src/plugins'),
       '@store': path.resolve(__dirname, 'src/store')
     }

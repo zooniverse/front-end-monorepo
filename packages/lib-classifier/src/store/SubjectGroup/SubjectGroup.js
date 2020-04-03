@@ -1,6 +1,6 @@
 import { getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '../Resource'
-import subjectViewers from '../../helpers/subjectViewers'
+import subjectViewers from '@helpers/subjectViewers'
 import SingleImageSubject from '../SingleImageSubject'
 
 function validateSubjects (subjects) {
