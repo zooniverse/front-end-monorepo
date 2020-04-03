@@ -24,65 +24,72 @@ pipeline {
 
     // Right now, we're *only* building and deploying on the `master` branch;
     // longer-term, we'll want to deploy feature branches as well.
-    stage('`master` branch') {
-      when { branch 'master' }
-      stages {
 
-        stage('Build base Docker image') {
+    stage('Build base Docker image') {
+      when { branch 'master' }
+      agent any
+      steps {
+        script {
+          def dockerRepoName = 'zooniverse/front-end-monorepo'
+          def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
+          def newImage = docker.build(dockerImageName, "--target bootstrap ./")
+          newImage.push()
+          newImage.push('latest')
+        }
+      }
+    }
+
+    stage('Build app images') {
+      when {
+        anyOf {
+          branch 'master'
+          tag 'production-release'
+        }
+      }
+
+      parallel {
+        stage('Build @zooniverse/fe-content-pages') {
           agent any
+
+          environment {
+            APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
+            ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
+            COMMIT_ID = "${GIT_COMMIT}"
+            SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+          }
+
           steps {
-            script {
-              def dockerRepoName = 'zooniverse/front-end-monorepo'
-              def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-              def newImage = docker.build(dockerImageName, "--target bootstrap ./")
-              newImage.push()
-              newImage.push('latest')
+            dir ('packages/app-content-pages') {
+              script {
+                def dockerRepoName = 'zooniverse/fe-content-pages'
+                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
+                def newImage = docker.build(dockerImageName, buildArgs)
+                newImage.push()
+                newImage.push('latest')
+              }
             }
           }
         }
+        stage('Build @zooniverse/fe-project') {
+          agent any
 
-        stage('Build app Docker images') {
-          parallel {
-            stage('Build @zooniverse/fe-content-pages') {
-              agent any
+          environment {
+            APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
+            ASSET_PREFIX = 'https://fe-project.zooniverse.org'
+            COMMIT_ID = "${GIT_COMMIT}"
+            SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
+          }
 
-              environment {
-                ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
-                SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-              }
-
-              steps {
-                dir ('packages/app-content-pages') {
-                  script {
-                    def dockerRepoName = 'zooniverse/fe-content-pages'
-                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def buildArgs = "--build-arg ASSET_PREFIX --build-arg SENTRY_DSN ."
-                    def newImage = docker.build(dockerImageName, buildArgs)
-                    newImage.push()
-                    newImage.push('latest')
-                  }
-                }
-              }
-            }
-            stage('Build @zooniverse/fe-project') {
-              agent any
-
-              environment {
-                ASSET_PREFIX = 'https://fe-project.zooniverse.org'
-                SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
-              }
-
-              steps {
-                dir ('packages/app-project') {
-                  script {
-                    def dockerRepoName = 'zooniverse/fe-project'
-                    def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                    def buildArgs = "--build-arg ASSET_PREFIX --build-arg SENTRY_DSN ."
-                    def newImage = docker.build(dockerImageName, buildArgs)
-                    newImage.push()
-                    newImage.push('latest')
-                  }
-                }
+          steps {
+            dir ('packages/app-project') {
+              script {
+                def dockerRepoName = 'zooniverse/fe-project'
+                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
+                def newImage = docker.build(dockerImageName, buildArgs)
+                newImage.push()
+                newImage.push('latest')
               }
             }
           }

@@ -236,10 +236,7 @@ describe('Model > WorkflowStepStore', function () {
       const rootStore = setupStores(panoptesClientStub, project, workflow)
       rootStore.classifications.createClassification(subject, workflow, project)
       rootStore.workflowSteps.selectStep('S2')
-      // returns as falsey undefined rather than explicit false
-      // this is because usually the workflow has hide_classification_summaries as undefined in the config
-      // rather than explicitly set as false
-      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.undefined()
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
     it('should return false if the classification subject has been flagged', function () {

@@ -62,37 +62,26 @@ const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.dar
 storiesOf('Subject Viewers | MultiFrameViewer', module)
   .add('light theme', () => {
     return (
-      <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
-          <MultiFrameViewerContainer
-            enableInteractionLayer={false}
-            subject={subject}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, config)
-  .add('dark theme', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    return (
-      <Grommet theme={darkZooTheme}>
-        <Box height='medium' width='large'>
-          <MultiFrameViewerContainer
-            enableInteractionLayer={false}
-            subject={subject}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, darkThemeConfig)
-  .add('frame change', () => {
-    return (
       <ViewerContext theme={zooTheme}>
         <Box height='medium' width='large'>
           <DecoratedMultiFrameViewerContainer
+            enableInteractionLayer={false}
             subject={subject}
           />
         </Box>
       </ViewerContext>
     )
   }, config)
+  .add('dark theme', () => {
+    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+    return (
+      <ViewerContext theme={darkZooTheme}>
+        <Box height='medium' width='large'>
+          <DecoratedMultiFrameViewerContainer
+            enableInteractionLayer={false}
+            subject={subject}
+          />
+        </Box>
+      </ViewerContext>
+    )
+  }, darkThemeConfig)

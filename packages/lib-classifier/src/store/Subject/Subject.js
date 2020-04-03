@@ -1,8 +1,8 @@
 import { autorun } from 'mobx'
 import { addDisposer, destroy, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '../Resource'
-import createLocationCounts from '../../helpers/createLocationCounts'
-import subjectViewers from '../../helpers/subjectViewers'
+import createLocationCounts from '@helpers/createLocationCounts'
+import subjectViewers from '@helpers/subjectViewers'
 import TranscriptionReductions from '../TranscriptionReductions'
 
 const Subject = types
@@ -92,15 +92,15 @@ const Subject = types
         const pfeEnableSwitchingFlipbookAndSeparate = configuration['enable_switching_flipbook_and_separate'] // expect true/false value
         const nullViewer = pfeMultiImageMode || pfeEnableSwitchingFlipbookAndSeparate
 
-        if (configuration.subject_viewer === 'lightcurve') {
-          viewer = subjectViewers.lightCurve
-        } else if (configuration.subject_viewer === 'multiFrame') {
-          viewer = subjectViewers.multiFrame
-        } else if (counts.total === 1) {
+        viewer = configuration.viewerType
+
+        if (!viewer && counts.total === 1) {
           if (counts.images) {
             viewer = subjectViewers.singleImage
           }
-        } else if (counts.total > 1 && counts.total < 11) {
+        }
+
+        if (!viewer && counts.total > 1 && counts.total < 11) {
           if (!nullViewer) {
             viewer = subjectViewers.multiFrame
           }
