@@ -12,7 +12,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         ADD_LABEL: "approved"
 
-name: New Sentry Release
+name: Create new Sentry Release
 
 on:
   push:
@@ -44,6 +44,8 @@ jobs:
         
         # Create new staging deploy for this Sentry release
         sentry-cli releases deploys $VERSION new -e 'staging'
+
+name: Finalise production Sentry Release
 
 on:
   release:
