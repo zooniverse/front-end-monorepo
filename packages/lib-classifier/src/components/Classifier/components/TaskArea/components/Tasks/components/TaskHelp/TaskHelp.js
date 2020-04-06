@@ -41,12 +41,12 @@ function TaskHelp (props) {
             {tasks.map((task) => {
               if (tasks.length > 1) {
                 return (
-                  <>
-                    <Markdownz key={task.taskKey}>
+                  <React.Fragment key={task.taskKey}>
+                    <Markdownz>
                       {task.help}
                     </Markdownz>
                     <hr />
-                  </>
+                  </React.Fragment>
                 )
               }
 

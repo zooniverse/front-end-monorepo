@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { PointTool, Tool } from '@plugins/drawingTools/models/tools'
+import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Mark } from './Mark'
 import Point from '../Point'
 
@@ -128,16 +128,16 @@ describe('Drawing tools > drawing tool root', function () {
 
     describe( 'when rotated', function () {
       beforeEach(function () {
-        const tool = Tool.create({
-          type: 'default'
+        const ellipseTool = EllipseTool.create({
+          type: 'ellipse'
         })
-        const mark = tool.createMark({
-          id: 'tool1',
+        const ellipse = ellipseTool.createMark({
+          id: 'ellipse1',
           x: 50,
-          y: 120
+          y: 120,
+          angle: -45
         })
-        mark.angle = -45
-        wrapper.setProps({ mark: mark })
+        wrapper.setProps({ mark: ellipse })
       })
       it('should be rotated by mark.angle', function () {
         const transform = wrapper.root().prop('transform')

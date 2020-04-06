@@ -36,6 +36,8 @@ spec:
           env:
             - name: ASSET_PREFIX
               value: https://fe-project.preview.zooniverse.org
+            - name: COMMIT_ID
+              value: __IMAGE_TAG__
             - name: NEWRELIC_LICENSE_KEY
               valueFrom:
                 secretKeyRef:
@@ -87,6 +89,8 @@ spec:
           env:
             - name: ASSET_PREFIX
               value: https://fe-content-pages.preview.zooniverse.org
+            - name: COMMIT_ID
+              value: __IMAGE_TAG__
             - name: CONTENTFUL_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
