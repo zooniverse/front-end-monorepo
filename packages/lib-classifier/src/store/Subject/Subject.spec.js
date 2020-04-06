@@ -6,7 +6,7 @@ import WorkflowStore from '../WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import RootStore from '../'
-import subjectViewers from '../../helpers/subjectViewers'
+import subjectViewers from '@helpers/subjectViewers'
 
 describe('Model > Subject', function () {
   const stub = SubjectFactory.build()
@@ -40,6 +40,7 @@ describe('Model > Subject', function () {
       display_name: 'A test workflow',
       tasks: {
         T0: {
+          instruction: 'Transcribe the text',
           type: 'transcription',
           tools: [
             { type: 'transcriptionLine' }

@@ -9,10 +9,12 @@ ENV COMMIT_ID=$COMMIT_ID
 ARG SENTRY_DSN
 ENV SENTRY_DSN=$SENTRY_DSN
 
+ARG APP_ENV=production
+ENV APP_ENV=$APP_ENV
+
 ENV NODE_ENV production
 ENV PANOPTES_ENV production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV APP_ENV production
 
 WORKDIR /usr/src/packages/app-content-pages/
 

@@ -52,6 +52,9 @@ describe('Model > FeedbackStore', function () {
   const workflow = WorkflowFactory.build({
     tasks: {
       T0: {
+        type: 'single',
+        question: 'Yes or no?',
+        answers: ['yes', 'no'],
         feedback: {
           enabled: true,
           rules: [{
@@ -137,6 +140,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       it('should generate rules', function () {
+        const workflow = rootStore.workflows.active
         expect(feedback.rules.toJSON()).to.be.empty()
         feedback.createRules(subject)
         expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce()
