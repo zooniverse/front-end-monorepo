@@ -39,7 +39,7 @@ class SubjectViewer extends React.Component {
 
   [asyncStates.success] () {
     const { onError, onSubjectReady, subject, subjectReadyState } = this.props
-    const Viewer = getViewer(subject.viewer)
+    const Viewer = getViewer(subject?.viewer)
 
     if (Viewer) {
       return (

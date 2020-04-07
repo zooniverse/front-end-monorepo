@@ -24,14 +24,10 @@ export default function validateSubjectLocations (locations) {
         return url.endsWith(extension)
       })
     } else {
-      console.error(`${location} is invalid`)
+      console.error(`${mimeType}, ${url} is invalid`)
       return false
     }
   })
-
-  if (!areLocationsValid) {
-    throw new Error(`One of the subject locations is invalid: ${locations}.`)
-  }
 
   return areLocationsValid
 }

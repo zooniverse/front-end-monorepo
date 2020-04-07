@@ -42,28 +42,26 @@ describe('Helpers > validateMimeType', function () {
   })
 
   describe('invalid mime types', function () {
-    it('should return an error', function () {
+    it('should return false', function () {
       invalidMimeTypes.forEach((mimeType) => {
-        expect(function () { 
-          validateMimeType(mimeType)
-        }).to.throw(Error, `${mimeType} is not valid for use in the classifier.`)
+        expect(validateMimeType(mimeType)).to.be.false()
       })
     })
 
-    it('should return errors only for the invalid types', function () {
-      let successCount = 0
-      let errorCount = 0
+    it('should return false only for the invalid types', function () {
+      let validCount = 0
+      let invalidCount = 0
       const allMimeTypes = validMimeTypes.concat(invalidMimeTypes)
       allMimeTypes.forEach((mimeType) => {
-        try { 
-          const result = validateMimeType(mimeType)
-          if (result) successCount += 1
-        } catch (error) {
-          errorCount += 1
+        const result = validateMimeType(mimeType)
+        if (result) {
+          validCount += 1
+        } else {
+          invalidCount += 1
         }
       })
-      expect(successCount).to.equal(validMimeTypes.length)
-      expect(errorCount).to.equal(invalidMimeTypes.length)
+      expect(validCount).to.equal(validMimeTypes.length)
+      expect(invalidCount).to.equal(invalidMimeTypes.length)
     })
   })
 })
