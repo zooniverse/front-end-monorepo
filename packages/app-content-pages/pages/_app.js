@@ -22,22 +22,6 @@ const GlobalStyle = createGlobalStyle`
 initializeLogger()
 
 export default class MyApp extends App {
-  static async getInitialProps ({ Component, router, ctx: context }) {
-    const isServer = !!context.req
-    const store = initStore(isServer)
-
-    let pageProps = {}
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(context, store)
-    }
-
-    return {
-      initialState: getSnapshot(store),
-      isServer,
-      pageProps
-    }
-  }
-
   constructor (props) {
     super(props)
     const { isServer, initialState } = props
