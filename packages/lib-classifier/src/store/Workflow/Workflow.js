@@ -20,6 +20,13 @@ const Workflow = types
   })
 
   .views(self => ({
+    get canHidePreviousMarks () {
+      const toggleTypes = ['drawing', 'transcription']
+      return self.tasks && Object.values(self.tasks).some(task => {
+        return toggleTypes.includes(task.type)
+      })
+    },
+
     get subjectSetId () {
       // TODO: enable selection of a subject set from the links array.
       const [ subjectSetId ] = self.links.subject_sets

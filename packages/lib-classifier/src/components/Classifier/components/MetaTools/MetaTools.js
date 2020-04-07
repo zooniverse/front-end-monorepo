@@ -5,13 +5,16 @@ import { inject, observer } from 'mobx-react'
 import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-components'
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
+import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 
 function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
+  const { active: workflow } = stores.classifierStore.workflows
   const upp = stores.classifierStore.userProjectPreferences.active
   return {
     isThereMetadata,
     subject,
+    workflow,
     upp
   }
 }
@@ -32,7 +35,7 @@ class MetaTools extends React.Component {
 
   // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
   render () {
-    const { className, isThereMetadata, screenSize, subject, upp } = this.props
+    const { className, isThereMetadata, screenSize, subject, workflow, upp } = this.props
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
     return (
@@ -53,6 +56,11 @@ class MetaTools extends React.Component {
           disabled={!subject || !upp}
           onClick={this.addToCollection}
         />
+        {workflow?.canHidePreviousMarks && (
+          <HidePreviousMarksButton
+            onClick={() => console.log('Toggle Marks')}
+          />
+        )}
       </Box>
     )
   }
@@ -62,7 +70,10 @@ MetaTools.defaultProps = {
   className: '',
   isThereMetadata: false,
   subject: null,
-  upp: null
+  upp: null,
+  workflow: {
+    canHidePreviousMarks: false
+  }
 }
 
 MetaTools.propTypes = {
@@ -70,7 +81,10 @@ MetaTools.propTypes = {
   isThereMetadata: PropTypes.bool,
   screenSize: PropTypes.string,
   subject: PropTypes.object,
-  upp: PropTypes.object
+  upp: PropTypes.object,
+  workflow: PropTypes.shape({
+    canHidePreviousMarks: PropTypes.bool
+  })
 }
 
 export default withResponsiveContext(MetaTools)
