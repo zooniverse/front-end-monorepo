@@ -9,12 +9,13 @@ import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 
 function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
-  const { active: workflow } = stores.classifierStore.workflows
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
+  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription') || {}
   const upp = stores.classifierStore.userProjectPreferences.active
   return {
+    activeInteractionTask,
     isThereMetadata,
     subject,
-    workflow,
     upp
   }
 }
@@ -35,7 +36,7 @@ class MetaTools extends React.Component {
 
   // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
   render () {
-    const { className, isThereMetadata, screenSize, subject, workflow, upp } = this.props
+    const { activeInteractionTask, className, isThereMetadata, screenSize, subject, upp } = this.props
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
     return (
@@ -56,9 +57,10 @@ class MetaTools extends React.Component {
           disabled={!subject || !upp}
           onClick={this.addToCollection}
         />
-        {workflow?.canHidePreviousMarks && (
+        {activeInteractionTask && (
           <HidePreviousMarksButton
-            onClick={() => console.log('Toggle Marks')}
+            hidePreviousMarks={activeInteractionTask.hidePreviousMarks}
+            onClick={() => activeInteractionTask.togglePreviousMarks()}
           />
         )}
       </Box>
@@ -67,24 +69,25 @@ class MetaTools extends React.Component {
 }
 
 MetaTools.defaultProps = {
+  activeInteractionTask: {
+    hidePreviousMarks: false,
+    togglePreviousMarks: () => {}
+  },
   className: '',
   isThereMetadata: false,
   subject: null,
   upp: null,
-  workflow: {
-    canHidePreviousMarks: false
-  }
 }
 
 MetaTools.propTypes = {
+  activeInteractionTask: PropTypes.shape({
+    togglePreviousMarks: PropTypes.func
+  }),
   className: PropTypes.string,
   isThereMetadata: PropTypes.bool,
   screenSize: PropTypes.string,
   subject: PropTypes.object,
   upp: PropTypes.object,
-  workflow: PropTypes.shape({
-    canHidePreviousMarks: PropTypes.bool
-  })
 }
 
 export default withResponsiveContext(MetaTools)

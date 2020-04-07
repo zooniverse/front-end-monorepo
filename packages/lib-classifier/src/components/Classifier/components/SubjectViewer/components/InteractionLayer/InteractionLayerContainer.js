@@ -55,6 +55,7 @@ class InteractionLayerContainer extends Component {
       activeMark,
       activeTool,
       activeToolIndex,
+      hidePreviousMarks,
       marks,
       setActiveMark,
       setSubTaskVisibility,
@@ -63,7 +64,7 @@ class InteractionLayerContainer extends Component {
 
     return (
       <>
-        {interactionTaskAnnotations.map(annotation =>
+        {!hidePreviousMarks && interactionTaskAnnotations.map(annotation =>
           <DrawingToolMarks
             key={annotation.task}
             marks={annotation.value}
