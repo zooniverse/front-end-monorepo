@@ -49,19 +49,19 @@ describe('Helpers > validateMimeType', function () {
     })
 
     it('should return false only for the invalid types', function () {
-      let successCount = 0
-      let errorCount = 0
+      let validCount = 0
+      let invalidCount = 0
       const allMimeTypes = validMimeTypes.concat(invalidMimeTypes)
       allMimeTypes.forEach((mimeType) => {
         const result = validateMimeType(mimeType)
         if (result) {
-          successCount += 1
+          validCount += 1
         } else {
-          errorCount += 1
+          invalidCount += 1
         }
       })
-      expect(successCount).to.equal(validMimeTypes.length)
-      expect(errorCount).to.equal(invalidMimeTypes.length)
+      expect(validCount).to.equal(validMimeTypes.length)
+      expect(invalidCount).to.equal(invalidMimeTypes.length)
     })
   })
 })
