@@ -107,6 +107,12 @@ describe('Model > DrawingTask', function () {
       drawingTask.setActiveMark(point1)
       expect(drawingTask.activeMark).to.equal(point1)
     })
+
+    it('should hide previous marks', function () {
+      drawingTask.togglePreviousMarks()
+      expect(drawingTask.hidePreviousMarks).to.be.true()
+      expect(drawingTask.hidingIndex).to.equal(marks.length)
+    })
   })
 
   describe('with subtask annotations', function () {
