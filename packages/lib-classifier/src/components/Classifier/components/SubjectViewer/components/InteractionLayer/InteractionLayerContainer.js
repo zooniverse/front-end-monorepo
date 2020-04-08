@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'

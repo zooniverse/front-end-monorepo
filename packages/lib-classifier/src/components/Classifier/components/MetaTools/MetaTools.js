@@ -76,7 +76,7 @@ MetaTools.defaultProps = {
   className: '',
   isThereMetadata: false,
   subject: null,
-  upp: null,
+  upp: null
 }
 
 MetaTools.propTypes = {
@@ -87,7 +87,7 @@ MetaTools.propTypes = {
   isThereMetadata: PropTypes.bool,
   screenSize: PropTypes.string,
   subject: PropTypes.object,
-  upp: PropTypes.object,
+  upp: PropTypes.object
 }
 
 export default withResponsiveContext(MetaTools)
