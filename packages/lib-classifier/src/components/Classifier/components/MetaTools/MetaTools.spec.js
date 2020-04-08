@@ -16,6 +16,7 @@ const spy = sinon.spy()
 
 const activeInteractionTask = {
   hidePreviousMarks: false,
+  marks: [{ x: 0, y: 0 }],
   togglePreviousMarks: spy
 }
 

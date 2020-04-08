@@ -59,4 +59,19 @@ describe('Component > HidePreviousMarksButton', function () {
       expect(text).to.deep.equal(en.HidePreviousMarksButton.show)
     })
   })
+
+  describe('when disabled', function () {
+    const onClick = sinon.stub()
+    wrapper = shallow(
+      <HidePreviousMarksButton
+        disabled
+        onClick={onClick}
+      />
+    )
+
+    it('should not be clickable', function () {
+      wrapper.find(MetaToolsButton).simulate('click')
+      expect(onClick).to.not.have.been.called()
+    })
+  })
 })
