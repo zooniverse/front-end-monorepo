@@ -10,7 +10,6 @@ counterpart.registerTranslations('en', en)
 
 export const StyledInputStatus = styled(Text)`
   flex-grow: 1;
-  padding-right: 15px;
 `
 
 export default function InputStatus ({ count, tool }) {

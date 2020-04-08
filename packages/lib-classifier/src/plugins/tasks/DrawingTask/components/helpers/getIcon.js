@@ -17,7 +17,6 @@ import PointGrid from '../icons/PointGrid'
 import Polygon from '../icons/Polygon'
 import Rectangle from '../icons/Rectangle'
 import RotateRectangle from '../icons/RotateRectangle'
-import TranscriptionLine from '../icons/TranscriptionLine'
 import Triangle from '../icons/Triangle'
 
 const icons = {
@@ -40,7 +39,6 @@ const icons = {
   polygon: Polygon,
   rectangle: Rectangle,
   rotateRectangle: RotateRectangle,
-  transcriptionLine: TranscriptionLine,
   triangle: Triangle
 }
 

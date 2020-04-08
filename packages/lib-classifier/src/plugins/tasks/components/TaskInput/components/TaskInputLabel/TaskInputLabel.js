@@ -16,9 +16,6 @@ export const StyledTaskInputLabelWrapper = styled(Box)`
 `
 
 export const StyledLabel = styled(Text)`
-  padding-left: 15px;
-  padding-right: 15px;
-
   img, svg {
     padding: 10px;
     vertical-align: middle;
@@ -35,10 +32,12 @@ export default function TaskInputLabel ({ label, labelIcon, labelStatus }) {
       direction='row'
       fill='horizontal'
       justify={howShouldTheLabelBeAligned}
+      pad={{ horizontal: 'small' }}
     >
       {labelIcon &&
         labelIcon}
-      <StyledLabel>
+      <StyledLabel
+      >
         <Markdownz>{label}</Markdownz>
       </StyledLabel>
       {labelStatus &&
