@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
@@ -56,11 +56,14 @@ class InteractionLayerContainer extends Component {
       activeTool,
       activeToolIndex,
       hidePreviousMarks,
+      hidingIndex,
       marks,
       setActiveMark,
       setSubTaskVisibility,
       taskKey
     } = activeInteractionTask
+
+    const visibleMarks = hidePreviousMarks ? marks.slice(hidingIndex) : marks
 
     return (
       <>
@@ -79,7 +82,7 @@ class InteractionLayerContainer extends Component {
             disabled={activeTool.disabled}
             height={height}
             key={taskKey}
-            marks={marks}
+            marks={visibleMarks}
             move={move}
             scale={scale}
             setActiveMark={setActiveMark}

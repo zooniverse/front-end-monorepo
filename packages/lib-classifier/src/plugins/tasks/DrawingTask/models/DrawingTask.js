@@ -16,6 +16,7 @@ export const Drawing = types.model('Drawing', {
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
   hidePreviousMarks: types.optional(types.boolean, false),
+  hidingIndex: types.maybeNull(types.number),
   instruction: types.string,
   subTaskMarkBounds: types.optional(types.frozen({}), undefined),
   subTaskVisibility: types.optional(types.boolean, false),
@@ -88,6 +89,7 @@ export const Drawing = types.model('Drawing', {
 
     function togglePreviousMarks () {
       self.hidePreviousMarks = !self.hidePreviousMarks
+      self.hidingIndex = self.hidePreviousMarks ? self.marks.length : 0
     }
 
     return {
