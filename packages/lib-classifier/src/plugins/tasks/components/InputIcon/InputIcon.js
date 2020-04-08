@@ -4,10 +4,8 @@ import styled, { css } from 'styled-components'
 
 export const StyledInputIcon = styled.span`
   ${props => props.color && css`color: ${props.color};`}
-  background-color: #2D2D2D;
   display: flex;
   align-items: center;
-  padding-left: 15px;
 
   &::after {
     content: " ";
