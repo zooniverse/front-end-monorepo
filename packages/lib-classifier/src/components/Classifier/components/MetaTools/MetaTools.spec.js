@@ -5,11 +5,19 @@ import sinon from 'sinon'
 import { MetaTools } from './MetaTools'
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
+import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 import { Factory } from 'rosie'
 
 const subjectWithMetadata = Factory.build('subject', { metadata: { foo: 'bar' } })
 
 const favoriteSubject = Factory.build('subject', { favorite: true })
+
+const spy = sinon.spy()
+
+const activeInteractionTask = {
+  hidePreviousMarks: false,
+  togglePreviousMarks: spy
+}
 
 describe('Component > MetaTools', function () {
   it('should render without crashing', function () {
@@ -88,6 +96,32 @@ describe('Component > MetaTools', function () {
     it('should enable the CollectionsButton if there is user project preferences', function () {
       const wrapper = shallow(<MetaTools.wrappedComponent subject={favoriteSubject} upp={{ id: '1' }} />)
       expect(wrapper.find(CollectionsButton).props().disabled).to.be.false()
+    })
+  })
+
+  describe('HidePreviousMarksButton', function () {
+    describe('without an interaction task', function () {
+      it('should not render', function () {
+        const wrapper = shallow(<MetaTools.wrappedComponent />)
+        expect(wrapper.find(HidePreviousMarksButton)).to.have.lengthOf(0)
+      })
+    })
+
+    describe('with an interaction task', function () {
+      let wrapper
+
+      beforeEach(function () {
+        wrapper = shallow(<MetaTools.wrappedComponent activeInteractionTask={activeInteractionTask} />)
+      })
+
+      it('should render', function () {
+        expect(wrapper.find(HidePreviousMarksButton)).to.have.lengthOf(1)
+      })
+
+      it('should toggle previout marks on click of the PreviousMarks button', function () {
+        wrapper.find(HidePreviousMarksButton).simulate('click')
+        expect(spy).to.have.been.calledOnce()
+      })
     })
   })
 })
