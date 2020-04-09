@@ -19,10 +19,10 @@ const StyledContainer = styled(Box)`
 
   ${props => props.theme.dark ? css`
     background: ${props.theme.global.colors['dark-1']};
-    border: 1px solid ${props.theme.global.colors['dark-6']}
+    border: 1px solid ${props.theme.global.colors['dark-6']};
   ` : css`
-    background: ${props.theme.global.colors['neutral-6']}
-    border: 1px solid ${props.theme.global.colors['light-1']}
+    background: ${props.theme.global.colors['neutral-6']};
+    border: 1px solid ${props.theme.global.colors['light-1']};
   `}
 `
 
