@@ -188,20 +188,19 @@ describe('Model > Subject', function () {
       })
     })
 
-    describe('when the subject location is invalid', function () {
+    describe('when any subject locations are invalid', function () {
       describe('single image', function () {
-        it('should return a null viewer', function () {
+        it('should throw an error', function () {
           const singleImageSubject = SubjectFactory.build({ locations: [{ 'image/tiff': 'https://foo.bar/example.tiff' }] })
-          const subjectStore = Subject.create(singleImageSubject)
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflow)
-          subjectStore.workflows.setActive(workflow.id)
-          expect(subjectStore.viewer).to.be.null()
+          function subjectStore () {
+            return Subject.create(singleImageSubject)
+          }
+          expect(subjectStore).to.throw(Error)
         })
       })
 
       describe('multi-frame', function () {
-        it('should return a null viewer', function () {
+        it('should throw an error', function () {
           const multiMediaSubject = SubjectFactory.build({
             locations: [
               { 'image/tiff': 'https://foo.bar/example.tiff' },
@@ -209,11 +208,10 @@ describe('Model > Subject', function () {
               { 'image/png': 'https://foo.bar/example.png' }
             ]
           })
-          const subjectStore = Subject.create(multiMediaSubject)
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflow)
-          subjectStore.workflows.setActive(workflow.id)
-          expect(subjectStore.viewer).to.be.null()
+          function subjectStore () {
+            return Subject.create(multiMediaSubject)
+          }
+          expect(subjectStore).to.throw(Error)
         })
       })
     })

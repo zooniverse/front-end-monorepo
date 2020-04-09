@@ -59,9 +59,10 @@ describe('Helpers > createLocationCounts', function () {
   })
 
   describe('when the mime types are invalid', function () {
-    it('should return an empty object', function () {
+    it('should return 0 locations', function () {
       const return5 = createLocationCounts(mockSubject(mockLocations5))
-      expect(return5).to.be.empty()
+      expect(return5.images).to.equal(0)
+      expect(return5.json).to.equal(0)
     })
   })
 })
