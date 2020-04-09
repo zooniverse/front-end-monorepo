@@ -2,13 +2,13 @@ import { types } from 'mobx-state-tree'
 import React from 'react'
 import sinon from 'sinon'
 import { mount, shallow } from 'enzyme'
-import { Text, TextArea } from 'grommet'
-import { expect } from 'chai'
+import { TextArea, TextInput } from 'grommet'
 import TextTask from './'
 import { default as Task } from '@plugins/tasks/TextTask'
+import DefaultTextTask from './components/DefaultTextTask'
+import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
 describe('TextTask', function () {
-  let wrapper
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
     taskKey: 'T0',
@@ -27,131 +27,253 @@ describe('TextTask', function () {
       task
     })
     task.setAnnotation(annotation)
-    wrapper = shallow(
-      <TextTask
-        task={task}
-      />
-    )
   })
 
-  it('should have a labelled textarea', function () {
-    const label = wrapper.find('label')
-    expect(label.find(Text).prop('children')).to.equal(task.instruction)
-    const textarea = label.find(TextArea)
-    expect(textarea.prop('value')).to.equal(annotation.value)
-  })
-
-  describe('text tagging', function () {
-    beforeEach(function () {
-      sinon.spy(annotation, 'update')
-      annotation.update('Hello, this is some test text.')
-      wrapper = mount(
+  describe('default task', function () {
+    let wrapper
+    before(function () {
+      wrapper = shallow(
         <TextTask
           task={task}
         />
       )
-      const insertionButton = wrapper.find('button').find({ value: 'insertion' })
-      const fakeEvent = {
-        currentTarget: {
-          value: 'insertion'
+    })
+
+    it('should render a DefaultTextTask', function () {
+      expect(wrapper.find(DefaultTextTask)).to.have.lengthOf(1)
+    })
+
+    describe('text tagging', function () {
+      beforeEach(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Hello, this is some test text.')
+        wrapper = mount(
+          <TextTask
+            task={task}
+          />
+        )
+        const insertionButton = wrapper.find('button').find({ value: 'insertion' })
+        const fakeEvent = {
+          currentTarget: {
+            value: 'insertion'
+          }
         }
-      }
-      const textArea = wrapper.find(TextArea).getDOMNode()
-      textArea.selectionStart = 7
-      textArea.selectionEnd = 11
-      insertionButton.simulate('click', fakeEvent)
-    })
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        textArea.selectionStart = 7
+        textArea.selectionEnd = 11
+        insertionButton.simulate('click', fakeEvent)
+      })
 
-    afterEach(function () {
-      annotation.update.restore()
-    })
+      afterEach(function () {
+        annotation.update.restore()
+      })
 
-    it('should render buttons for tagging text', function () {
-      expect(wrapper.find('button')).to.have.lengthOf(2)
-    })
+      it('should tag text', function () {
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
+        const updatedText = textArea.value
+        expect(updatedText).to.equal(expectedText)
+      })
 
-    task.text_tags.forEach(function (tag) {
-      it(`should render a ${tag} button`, function () {
-        const button = wrapper.find('button').find({ value: tag })
-        expect(button).to.have.lengthOf(1)
+      it('should save the tagged text', function () {
+        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
+        expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
       })
     })
 
-    it('should tag text', function () {
-      const textArea = wrapper.find(TextArea).getDOMNode()
-      const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-      const updatedText = textArea.value
-      expect(updatedText).to.equal(expectedText)
+    describe('on mount', function () {
+      before(function () {
+        annotation.update('Hello, this is an existing annotation')
+        task.setAnnotation(annotation)
+        wrapper = mount(
+          <TextTask
+            task={task}
+          />
+        )
+      })
+
+      it('should preserve an existing annotation', function () {
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        expect(textArea.value).to.equal('Hello, this is an existing annotation')
+      })
     })
 
-    it('should save the tagged text', function () {
-      const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-      expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
+    describe('on change', function () {
+      before(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Hello, this is an existing annotation')
+        task.setAnnotation(annotation)
+        wrapper = mount(
+          <TextTask
+            task={task}
+          />
+        )
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        textArea.value = 'This has been edited.'
+        wrapper.find(TextArea).simulate('change')
+      })
+
+      after(function () {
+        annotation.update.restore()
+      })
+
+      it('should save the current text', function () {
+        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+      })
+    })
+
+    describe('on unmount', function () {
+      before(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Hello, this is an existing annotation')
+        task.setAnnotation(annotation)
+        wrapper = mount(
+          <TextTask
+            task={task}
+          />
+        )
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        textArea.value = 'This has been edited.'
+        wrapper.unmount()
+      })
+
+      after(function () {
+        annotation.update.restore()
+      })
+
+      it('should save the current text', function () {
+        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+      })
     })
   })
-
-  describe('on mount', function () {
+  
+  describe('task with suggestions', function () {
+    let wrapper
+    const suggestions = [
+      'a transcribed sentence',
+      'a transcribed sentience',
+      'a transribed sentence',
+      'a conscripted sentience'
+    ]
     before(function () {
-      annotation.update('Hello, this is an existing annotation')
-      task.setAnnotation(annotation)
-      wrapper = mount(
+      wrapper = shallow(
         <TextTask
+          suggestions={suggestions}
           task={task}
         />
       )
     })
 
-    it('should preserve an existing annotation', function () {
-      const textArea = wrapper.find(TextArea).getDOMNode()
-      expect(textArea.value).to.equal('Hello, this is an existing annotation')
-    })
-  })
-
-  describe('on change', function () {
-    before(function () {
-      sinon.spy(annotation, 'update')
-      annotation.update('Hello, this is an existing annotation')
-      task.setAnnotation(annotation)
-      wrapper = mount(
-        <TextTask
-          task={task}
-        />
-      )
-      const textArea = wrapper.find(TextArea).getDOMNode()
-      textArea.value = 'This has been edited.'
-      wrapper.find(TextArea).simulate('change')
+    it('should render a TextTaskWithSuggestions', function () {
+      expect(wrapper.find(TextTaskWithSuggestions)).to.have.lengthOf(1)
     })
 
-    after(function () {
-      annotation.update.restore()
+    describe('text tagging', function () {
+      beforeEach(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Hello, this is some test text.')
+        wrapper = mount(
+          <TextTask
+            suggestions={suggestions}
+            task={task}
+          />
+        )
+        const insertionButton = wrapper.find('button').find({ value: 'insertion' })
+        const fakeEvent = {
+          currentTarget: {
+            value: 'insertion'
+          }
+        }
+        const textInput = wrapper.find('input').getDOMNode()
+
+        textInput.selectionStart = 7
+        textInput.selectionEnd = 11
+        insertionButton.simulate('click', fakeEvent)
+      })
+
+      afterEach(function () {
+        annotation.update.restore()
+      })
+
+      it('should tag text', function () {
+        const textInput = wrapper.find('input').getDOMNode()
+        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
+        const updatedText = textInput.value
+        expect(updatedText).to.equal(expectedText)
+      })
+
+      it('should save the tagged text', function () {
+        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
+        expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
+      })
     })
 
-    it('should save the current text', function () {
-      expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
-    })
-  })
+    describe('on mount', function () {
+      before(function () {
+        annotation.update('Hello, this is an existing annotation')
+        task.setAnnotation(annotation)
+        wrapper = mount(
+          <TextTask
+            suggestions={suggestions}
+            task={task}
+          />
+        )
+      })
 
-  describe('on unmount', function () {
-    before(function () {
-      sinon.spy(annotation, 'update')
-      annotation.update('Hello, this is an existing annotation')
-      task.setAnnotation(annotation)
-      wrapper = mount(
-        <TextTask
-          task={task}
-        />
-      )
-      const textArea = wrapper.find(TextArea).getDOMNode()
-      textArea.value = 'This has been edited.'
-      wrapper.unmount()
+      it('should preserve an existing annotation', function () {
+        const textInput = wrapper.find('input').getDOMNode()
+        expect(textInput.value).to.equal('Hello, this is an existing annotation')
+      })
     })
 
-    after(function () {
-      annotation.update.restore()
+    describe('on change', function () {
+      before(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Hello, this is an existing annotation')
+        task.setAnnotation(annotation)
+        wrapper = mount(
+          <TextTask
+            suggestions={suggestions}
+            task={task}
+          />
+        )
+        const textInput = wrapper.find('input').getDOMNode()
+        textInput.value = 'This has been edited.'
+        wrapper.find('input').simulate('change')
+      })
+
+      after(function () {
+        annotation.update.restore()
+      })
+
+      it('should save the current text', function () {
+        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+      })
     })
 
-    it('should save the current text', function () {
-      expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+    describe('on unmount', function () {
+      before(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Hello, this is an existing annotation')
+        task.setAnnotation(annotation)
+        wrapper = mount(
+          <TextTask
+            suggestions={suggestions}
+            task={task}
+          />
+        )
+        const textInput= wrapper.find('input').getDOMNode()
+        textInput.value = 'This has been edited.'
+        wrapper.unmount()
+      })
+
+      after(function () {
+        annotation.update.restore()
+      })
+
+      it('should save the current text', function () {
+        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+      })
     })
   })
 })
