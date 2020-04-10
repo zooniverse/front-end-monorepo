@@ -106,7 +106,7 @@ SubjectGroupViewer.propTypes = {
   zoom: PropTypes.number,
 
   addAnnotation: PropTypes.func,
-  annotations: PropTypes.array,
+  annotations: PropTypes.object,
   currentTask: PropTypes.object,
   isCurrentTaskValidForAnnotation: PropTypes.bool,
 }
@@ -128,7 +128,7 @@ SubjectGroupViewer.defaultProps = {
   zoom: 1,
 
   addAnnotation: () => {},
-  annotations: [],
+  annotations: undefined,
   currentTask: undefined,
   isCurrentTaskValidForAnnotation: false,
 }

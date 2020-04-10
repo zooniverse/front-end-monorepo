@@ -43,8 +43,15 @@ function storeMapper (stores) {
   const {
     addAnnotation
   } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications?.currentAnnotations
+  let annotations = stores.classifierStore.classifications?.currentAnnotations
 
+  // WARNING: annotations by default returns []. But when there's a value, we get {} ???
+  // Due to `get currentAnnotations ()` being designed for LightCurveViewer and its siblings.
+  // TODO: fix this
+  
+  // TEMPORARY FIX
+  if (Array.isArray(annotations)) annotations = {}
+  
   const {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
@@ -285,7 +292,7 @@ class SubjectGroupViewerContainer extends React.Component {
     
             addAnnotation={addAnnotation}
             annotations={annotations}
-            currentTask={activeDataVisTask}
+            currentTask={currentTask}
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
           />
         </div>
