@@ -92,9 +92,9 @@ class InteractionLayerContainer extends Component {
                 task={activeInteractionTask}
               />
             }
+          <SubTaskPopup />
           </InteractionLayer>
         }
-        <SubTaskPopup />
       </>
     )
   }

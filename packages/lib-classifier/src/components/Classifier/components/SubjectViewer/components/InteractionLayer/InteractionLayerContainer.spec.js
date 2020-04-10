@@ -4,6 +4,7 @@ import InteractionLayerContainer from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
+import SubTaskPopup from '../../../SubTaskPopup'
 
 describe('Component > InteractionLayerContainer', function () {
   const width = 1024
@@ -38,15 +39,24 @@ describe('Component > InteractionLayerContainer', function () {
   })
 
   describe('with an active drawing task and drawing tool', function () {
-    it('should render an InteractionLayer', function () {
-      const wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent 
+    let wrapper
+
+    before(function () {
+      wrapper = shallow(
+        <InteractionLayerContainer.wrappedComponent
           activeInteractionTask={transcriptionTask}
           height={height}
           width={width}
         />
       )
+    })
+
+    it('should render an InteractionLayer', function () {
       expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
+    })
+
+    it('should render SubTaskPopup', function () {
+      expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
   })
 
@@ -64,8 +74,10 @@ describe('Component > InteractionLayerContainer', function () {
   })
 
   describe('with transcription task', function () {
-    it('should render TranscribedLines', function () {
-      const wrapper = shallow(
+    let wrapper
+
+    before(function () {
+      wrapper = shallow(
         <InteractionLayerContainer.wrappedComponent
           height={height}
           width={width}
@@ -73,8 +85,14 @@ describe('Component > InteractionLayerContainer', function () {
           workflow={{ usesTranscriptionTask: true }}
         />
       )
+    })
 
+    it('should render TranscribedLines', function () {
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
+    })
+
+    it('should render SubTaskPopup', function () {
+      expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
   })
 })
