@@ -60,7 +60,7 @@ class ZooHeaderWrapperContainer extends Component {
 
   signOut () {
     auth.signOut()
-      .then(() => this.props.store.user.clear())
+      .then(() => this.props.user.clear())
   }
 
   render () {
