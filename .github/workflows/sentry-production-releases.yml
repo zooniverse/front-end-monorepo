@@ -2,7 +2,7 @@ name: Sentry Production Release
 
 on:
   release:
-    types: [published]
+    types: [edited, published]
 
 jobs:
   release:
