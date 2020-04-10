@@ -104,6 +104,11 @@ SubjectGroupViewer.propTypes = {
   panX: PropTypes.number,
   panY: PropTypes.number,
   zoom: PropTypes.number,
+
+  addAnnotation: PropTypes.func,
+  annotations: PropTypes.array,
+  currentTask: PropTypes.object,
+  isCurrentTaskValidForAnnotation: PropTypes.bool,
 }
 
 SubjectGroupViewer.defaultProps = {
@@ -121,6 +126,11 @@ SubjectGroupViewer.defaultProps = {
   panX: 0,
   panY: 0,
   zoom: 1,
+
+  addAnnotation: () => {},
+  annotations: [],
+  currentTask: undefined,
+  isCurrentTaskValidForAnnotation: false,
 }
 
 export default SubjectGroupViewer

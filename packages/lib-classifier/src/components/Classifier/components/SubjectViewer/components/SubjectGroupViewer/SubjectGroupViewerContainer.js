@@ -39,6 +39,16 @@ function storeMapper (stores) {
   const cellStyle = workflowConfig.cell_style || DEFAULT_CELL_STYLE
   const gridColumns = workflowConfig.grid_columns || DEFAULT_GRID_COLUMNS
   const gridRows = workflowConfig.grid_rows || DEFAULT_GRID_ROWS
+  
+  const {
+    addAnnotation
+  } = stores.classifierStore.classifications
+  const annotations = stores.classifierStore.classifications?.currentAnnotations
+
+  const {
+    activeStepTasks
+  } = stores.classifierStore.workflowSteps
+  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupAnnotation') // TODO
 
   return {
     cellWidth,
@@ -47,7 +57,10 @@ function storeMapper (stores) {
     gridColumns,
     gridRows,
     setOnZoom,
-    setOnPan
+    setOnPan,
+    addAnnotation,
+    annotations,
+    currentTask,
   }
 }
 
@@ -202,6 +215,11 @@ class SubjectGroupViewerContainer extends React.Component {
     preventDefault(event)
   }
 
+  isCurrentTaskValidForAnnotation () {
+    return this.props.currentTask?.type === 'subjectGroupAnnotation'
+    // TODO: check if needed? -->  && this.props.currentTask?.tools?.some(tool => tool.type === 'graph2dRangeX')
+  }
+
   render () {
     const {
       cellHeight,
@@ -213,6 +231,9 @@ class SubjectGroupViewerContainer extends React.Component {
       onKeyDown,
       setOnPan,
       setOnZoom,
+      addAnnotation,
+      annotations,
+      currentTask,      
       subject,
     } = this.props
     const { images, panX, panY, zoom } = this.state
@@ -261,6 +282,11 @@ class SubjectGroupViewerContainer extends React.Component {
             panX={panX}
             panY={panY}
             zoom={zoom}
+    
+            addAnnotation={addAnnotation}
+            annotations={annotations}
+            currentTask={activeDataVisTask}
+            isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
           />
         </div>
       </SVGContext.Provider>
