@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
-import SubTaskPopup from '../../../SubTaskPopup'
+import SubTaskPopup from './components/SubTaskPopup'
 
 function storeMapper (stores) {
   const {

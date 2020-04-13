@@ -4,7 +4,7 @@ import InteractionLayerContainer from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
-import SubTaskPopup from '../../../SubTaskPopup'
+import SubTaskPopup from './components/SubTaskPopup'
 
 describe('Component > InteractionLayerContainer', function () {
   const width = 1024
@@ -20,17 +20,18 @@ describe('Component > InteractionLayerContainer', function () {
       { id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200 }
     ]
   }]
-  const transcriptionTask = {
+  const drawingTask = {
     activeTool: {
       deleteMark: () => {}
     },
-    taskKey: 'T1'
+    taskKey: 'T1',
+    type: 'drawing'
   }
 
   it('should render without crashing', function () {
     const wrapper = shallow(
       <InteractionLayerContainer.wrappedComponent
-        activeInteractionTask={transcriptionTask}
+        activeInteractionTask={drawingTask}
         height={height}
         width={width}
       />
@@ -44,7 +45,7 @@ describe('Component > InteractionLayerContainer', function () {
     before(function () {
       wrapper = shallow(
         <InteractionLayerContainer.wrappedComponent
-          activeInteractionTask={transcriptionTask}
+          activeInteractionTask={drawingTask}
           height={height}
           width={width}
         />
@@ -58,9 +59,13 @@ describe('Component > InteractionLayerContainer', function () {
     it('should render SubTaskPopup', function () {
       expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
+
+    it('should not render TranscribedLines', function () {
+      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
+    })
   })
 
-  describe('with annotations from previous drawing tasks', function () {
+  describe('with annotations from previous reduced drawing or transcription tasks', function () {
     it('should render DrawingToolMarks', function () {
       const wrapper = shallow(
         <InteractionLayerContainer.wrappedComponent 
@@ -75,6 +80,13 @@ describe('Component > InteractionLayerContainer', function () {
 
   describe('with transcription task', function () {
     let wrapper
+    const transcriptionTask = {
+      activeTool: {
+        deleteMark: () => { }
+      },
+      taskKey: 'T1',
+      type: 'transcription'
+    }
 
     before(function () {
       wrapper = shallow(
@@ -89,10 +101,6 @@ describe('Component > InteractionLayerContainer', function () {
 
     it('should render TranscribedLines', function () {
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
-    })
-
-    it('should render SubTaskPopup', function () {
-      expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
   })
 })
