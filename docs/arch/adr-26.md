@@ -12,7 +12,7 @@ The monorepo will be versioned in Sentry, using the git commit SHA to version a 
 
 ## Status
 
-Proposed
+Approved
 
 ## Consequences
 
@@ -21,4 +21,3 @@ Releases are global to a Sentry organisation. Commit SHAs are unique to the mono
 Where possible, Sentry events/issues should be linked up to a corresponding GitHub issue for easier tracking and resolution of client-side JS errors.
 
 Bug fixes in an upcoming release should be labelled as 'resolved in next release' in Sentry, after deployment and testing on staging.
-
