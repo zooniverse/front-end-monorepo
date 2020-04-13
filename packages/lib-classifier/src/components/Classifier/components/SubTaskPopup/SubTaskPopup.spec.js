@@ -51,7 +51,7 @@ describe('SubTaskPopup', function () {
       y: 160
     })
 
-    it('should render a container when given an active mark and subtask visibility is true', function () {
+    it('should render a container when given an active drawing mark and subtask visibility is true', function () {
       const wrapper = shallow(
         <SubTaskPopup
           activeMark={pointMark}
@@ -71,7 +71,7 @@ describe('SubTaskPopup', function () {
       expect(wrapper.find(StyledContainer)).to.have.lengthOf(0)
     })
 
-    it('should render the correct number of subtasks, according to the active mark provided', function () {
+    it('should render the correct number of subtasks, according to the active drawing mark provided', function () {
       const wrapper = shallow(
         <SubTaskPopup
           activeMark={pointMark}
@@ -95,7 +95,7 @@ describe('SubTaskPopup', function () {
       y2: 160
     })
 
-    it('should render a container when given an active mark and subtask visibility is true', function () {
+    it('should render a container when given an active transcription mark and subtask visibility is true', function () {
       const wrapper = shallow(
         <SubTaskPopup
           activeMark={transcriptionMark}
@@ -114,5 +114,7 @@ describe('SubTaskPopup', function () {
       )
       expect(wrapper.find(StyledContainer)).to.have.lengthOf(0)
     })
+
+    // it('should render the transcription task text input', function () {})
   })
 })

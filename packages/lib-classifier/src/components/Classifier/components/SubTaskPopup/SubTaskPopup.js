@@ -1,16 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
-import { Rnd } from 'react-rnd'  // Used to create the draggable, resizable "popup" component
-import { Box, Button, Layer, Paragraph } from 'grommet'
+import { Rnd } from 'react-rnd' // Used to create the draggable, resizable "popup" component
+import { Box, Layer, Paragraph } from 'grommet'
 import { CloseButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 
 import taskRegistry from '@plugins/tasks'
 import styled, { css } from 'styled-components'
-
-import zooTheme from '@zooniverse/grommet-theme'
 
 // Container sits one level below the (otherwise transparent) React-Rnd draggable/resizable component
 const StyledContainer = styled(Box)`
@@ -37,21 +35,20 @@ const MIN_POPUP_HEIGHT = 100
 
 function storeMapper (stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
-  const drawingTasks = activeStepTasks.filter(task => task.type === 'drawing')
-  const activeDrawingTask = (drawingTasks.length > 0) ? drawingTasks[0] : {}
-  
+  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
+
   const {
     activeMark,
     subTaskMarkBounds,
     subTaskVisibility,
-    setSubTaskVisibility,
-  } = activeDrawingTask
-  
+    setSubTaskVisibility
+  } = activeInteractionTask
+
   return {
     activeMark,
     subTaskMarkBounds,
     subTaskVisibility,
-    setSubTaskVisibility,
+    setSubTaskVisibility
   }
 }
 
@@ -60,104 +57,104 @@ class SubTaskPopup extends React.Component {
     super()
     this.popup = React.createRef()
   }
-  
+
   close () {
     this.props.setSubTaskVisibility(false)
   }
-  
-  // TODO: Split render() into various asyncStates?
+
+  // TODO:
+  // - split render() into various asyncStates?
+  // - add TranscriptionTask text input
 
   render () {
     const {
       activeMark,
-      subTaskVisibility,
-      setSubTaskVisibility,
+      subTaskVisibility
     } = this.props
-    
+
+    if (!activeMark || !subTaskVisibility) return null
+
     const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
     const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
-    
+
     const defaultPosition = this.getDefaultPosition()
-    
-    if (subTaskVisibility && tasks.length > 0) {
-      return (
-        <Layer
-          animate={false}
-          modal={true}
-          onClickOutside={this.close.bind(this)}
-          onEsc={this.close.bind(this)}
-          plain={true}
-          position={'top-left'}
+
+    return (
+      <Layer
+        animate={false}
+        modal
+        onClickOutside={this.close.bind(this)}
+        onEsc={this.close.bind(this)}
+        plain
+        position={'top-left'}
+      >
+        <Rnd
+          key={activeMark.id}
+          minWidth={MIN_POPUP_WIDTH}
+          minHeight={MIN_POPUP_HEIGHT}
+          default={defaultPosition}
+          cancel='.subtaskpopup-element-that-ignores-drag-actions'
         >
-          <Rnd
-            key={activeMark.id}
-            minWidth={MIN_POPUP_WIDTH}
-            minHeight={MIN_POPUP_HEIGHT}
-            default={defaultPosition}
-            cancel=".subtaskpopup-element-that-ignores-drag-actions"
-          >
-            <StyledContainer pad="xsmall" fill>
-              <Box>
-                <CloseButton
-                  alignSelf='end'
-                  onClick={this.close.bind(this)}
-                />
-              </Box>
+          <StyledContainer pad='xsmall' fill>
+            <Box>
+              <CloseButton
+                alignSelf='end'
+                onClick={this.close.bind(this)}
+              />
+            </Box>
 
-              {tasks.map((task, index) => {
-                // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-                // or creates a new one if one doesn't exist.
-                // The name is a bit confusing.
-                const annotation = activeMark.addAnnotation(task)
-                task.setAnnotation(annotation)
-                const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+            {tasks.map((task, index) => {
+              // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+              // or creates a new one if one doesn't exist.
+              // The name is a bit confusing.
+              const annotation = activeMark.addAnnotation(task)
+              task.setAnnotation(annotation)
+              const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
-                if (annotation && TaskComponent) {
-                  return (
-                    <TaskBox
-                      key={annotation.id}
-                      pad="xsmall"
-                      className="subtaskpopup-element-that-ignores-drag-actions"
-                    >
-                      <TaskComponent
-                        annotation={annotation}
-                        autoFocus={(index === 0)}
-                        disabled={!ready}
-                        task={task}
-                        {...this.props}
-                      />
-                    </TaskBox>
-                  )
-                }
-
+              if (annotation && TaskComponent) {
                 return (
-                  <Box pad="xsmall">
-                    <Paragraph>Task component could not be rendered.</Paragraph>
-                  </Box>
+                  <TaskBox
+                    key={annotation.id}
+                    pad='xsmall'
+                    className='subtaskpopup-element-that-ignores-drag-actions'
+                  >
+                    <TaskComponent
+                      annotation={annotation}
+                      autoFocus={(index === 0)}
+                      disabled={!ready}
+                      task={task}
+                      {...this.props}
+                    />
+                  </TaskBox>
                 )
-              })}
+              }
 
-              <Box pad="xsmall">
-                <SaveButton
-                  onClick={this.close.bind(this)}
-                  disabled={false}
-                />
-              </Box>
-            </StyledContainer>
-          </Rnd>
-        </Layer>
-      )
-    }
-    
-    return null
+              return (
+                <Box pad='xsmall'>
+                  <Paragraph>Task component could not be rendered.</Paragraph>
+                </Box>
+              )
+            })}
+
+            <Box pad='xsmall'>
+              <SaveButton
+                onClick={this.close.bind(this)}
+                disabled={false}
+              />
+            </Box>
+          </StyledContainer>
+        </Rnd>
+      </Layer>
+    )
   }
-    
+
   getDefaultPosition () {
     const { subTaskMarkBounds } = this.props
-    
+
     // Calculate default position
-    let x = 0, y = 0;
-    
+    let x = 0
+    let y = 0
+
     /*
     Note: since we're using a modal that covers the entire screen, we only need
     to calculate the position of the mark relative to the x-y coordinates of the
@@ -170,7 +167,7 @@ class SubTaskPopup extends React.Component {
       const markY = subTaskMarkBounds.y || 0
       const markWidth = subTaskMarkBounds.width || 0
       const markHeight = subTaskMarkBounds.height || 0
-      
+
       x = markX + markWidth * 0.5
       y = markY + markHeight * 0.5
     }
@@ -180,12 +177,12 @@ class SubTaskPopup extends React.Component {
     const topLimit = 0
     const rightLimit = (window && window.innerWidth || 0) - MIN_POPUP_WIDTH
     const bottomLimit = (window && window.innerHeight || 0) - MIN_POPUP_HEIGHT
-    
+
     x = Math.max(x, leftLimit)
     y = Math.max(y, topLimit)
     x = Math.min(x, rightLimit)
     y = Math.min(y, bottomLimit)
-    
+
     return { x, y }
   }
 }
@@ -194,14 +191,14 @@ SubTaskPopup.propTypes = {
   activeMark: PropTypes.object,
   subTaskMarkBounds: PropTypes.object,
   subTaskVisibility: PropTypes.bool,
-  setSubTaskVisibility: PropTypes.func,
+  setSubTaskVisibility: PropTypes.func
 }
 
 SubTaskPopup.defaultProps = {
   activeMark: undefined,
   subTaskMarkBounds: undefined,
   subTaskVisibility: false,
-  setSubTaskVisibility: () => {},
+  setSubTaskVisibility: () => {}
 }
 
 /*
