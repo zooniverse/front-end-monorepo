@@ -14732,6 +14732,15 @@ panoptes-client@~3.0.0-rc.0:
     local-storage "^1.4.2"
     sugar-client "^1.0.1"
 
+panoptes-client@~3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-3.2.1.tgz#d6dc2b3fff211b837e56a1a2a23f1ad6731dae6d"
+  integrity sha512-O4HmQS0iJVKKf4qfxJgG7IH0lYZyjfVW6T/o7+XBiJvg9j63nv5EreSemW7h7YtnloyoQ34zogL2xMCnLIbN3A==
+  dependencies:
+    json-api-client "~5.0.0"
+    local-storage "^1.4.2"
+    sugar-client "^1.0.1"
+
 parallel-transform@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/parallel-transform/-/parallel-transform-1.2.0.tgz#9049ca37d6cb2182c3b1d2c720be94d14a5814fc"
