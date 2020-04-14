@@ -61,7 +61,7 @@ pipeline {
           steps {
             dir ('packages/app-content-pages') {
               script {
-                def dockerRepoName = 'zooniverse/fe-content-pages'
+                def dockerRepoName = 'zooniverse/fe-content-pages-${APP_ENV}'
                 def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
                 def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
                 def newImage = docker.build(dockerImageName, buildArgs)
@@ -84,7 +84,7 @@ pipeline {
           steps {
             dir ('packages/app-project') {
               script {
-                def dockerRepoName = 'zooniverse/fe-project'
+                def dockerRepoName = 'zooniverse/fe-project-${APP_ENV}'
                 def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
                 def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
                 def newImage = docker.build(dockerImageName, buildArgs)
