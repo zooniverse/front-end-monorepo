@@ -9,7 +9,7 @@ const theme = {
       width: '1px'
     },
     color: {
-      dark: 'brand',
+      dark: 'white',
       light: 'white'
     },
     primary: {
@@ -28,7 +28,6 @@ const theme = {
       // needs more investigation, as it seems to be a Grommet bug
       const fontColor = props.theme.dark ? color : 'white'
       return css`
-        color: ${fontColor};
         transition: none;
         text-align: center;
         &:disabled {

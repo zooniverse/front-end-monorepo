@@ -9,7 +9,7 @@ const theme = {
       width: '1px'
     },
     color: {
-      dark: 'status-ok',
+      dark: 'white',
       light: 'white'
     },
     primary: {
@@ -26,9 +26,8 @@ const theme = {
       // but style collision is happening
       // so the theme color under color.light isn't being applied
       // needs more investigation, as it seems to be a Grommet bug
-      const fontColor = props.theme.dark ? color : 'white'
+      // const fontColor = props.theme.dark ? color : 'white'
       return css`
-        color: ${fontColor};
         transition: none;
         text-align: center;
         &:disabled {
