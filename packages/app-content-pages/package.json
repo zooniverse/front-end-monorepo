@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.8.3",
-    "@sentry/browser": "^5.4.3",
+    "@sentry/browser": "~5.15.4",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
@@ -41,7 +41,7 @@
     "next": "~9.3.0",
     "next-absolute-url": "~1.1.1",
     "node-cache": "~5.0.2",
-    "panoptes-client": "~3.0.0-rc.0",
+    "panoptes-client": "~3.2.1",
     "path-match": "~1.2.4",
     "react": "~16.13.0",
     "react-dom": "~16.13.0",

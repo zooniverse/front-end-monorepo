@@ -10,7 +10,7 @@ import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
 
 import { initializeLogger, logReactError } from '../src/helpers/logger'
-import AuthModals from '../src/shared/components/AuthModals'
+import AuthModal from '../src/shared/components/AuthModal'
 import ZooHeaderWrapper from '../src/shared/components/ZooHeaderWrapper'
 import initStore from '../src/shared/stores'
 
@@ -50,7 +50,7 @@ export default class MyApp extends App {
             <ZooHeaderWrapper />
             <Component {...pageProps} />
             <ZooFooter />
-            <AuthModals />
+            <AuthModal />
           </Grommet>
         </Provider>
       </>
