@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: fe-project-staging
-          image: zooniverse/fe-project:__IMAGE_TAG__
+          image: zooniverse/fe-project-staging:__IMAGE_TAG__
           ports:
             - containerPort: 3000
           env:
@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
         - name: fe-content-pages-staging
-          image: zooniverse/fe-content-pages:__IMAGE_TAG__
+          image: zooniverse/fe-content-pages-staging:__IMAGE_TAG__
           ports:
             - containerPort: 3000
           env:
