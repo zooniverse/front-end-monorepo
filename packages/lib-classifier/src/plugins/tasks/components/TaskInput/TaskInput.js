@@ -93,9 +93,11 @@ export const StyledTaskInput = styled.label`
   }
 
   input:checked + ${StyledTaskLabel}:hover {
-    ${props => props.theme.dark ?
-      css`color: ${props.theme.global.colors.text.dark};` :
-      css`color: black;`
+    > div > span > p {
+      ${props => props.theme.dark ?
+        css`color: ${props.theme.global.colors.text.dark};` :
+        css`color: black;`
+      }
     }
   }
 `

@@ -302,3 +302,39 @@ storiesOf('Tasks', module)
       </Provider>
     )
   })
+  .add('data visualization annotation task', function () {
+    const tasks = {
+      T1: {
+        instruction: 'Do you spot a transit?',
+        taskKey: 'T1',
+        tools: [
+          {
+            help: '',
+            label: 'Transit?',
+            type: 'graph2dRangeX'
+          }
+        ],
+        type: 'dataVisAnnotation'
+      }
+    }
+    const step = {
+      stepKey: 'S1',
+      taskKeys: ['T1']
+    }
+    addStepToStore(step, tasks)
+    const dark = boolean('Dark theme', false)
+    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+    const isThereTaskHelp = boolean('Enable task help', true)
+    return (
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+        />
+      </Provider>
+    )
+  })
