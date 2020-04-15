@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
+import SubTaskPopup from './components/SubTaskPopup'
 
 function storeMapper (stores) {
   const {
@@ -91,6 +92,7 @@ class InteractionLayerContainer extends Component {
                 task={activeInteractionTask}
               />
             }
+          <SubTaskPopup />
           </InteractionLayer>
         }
       </>
