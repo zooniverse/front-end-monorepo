@@ -58,6 +58,8 @@ class InteractionLayerContainer extends Component {
       marks,
       setActiveMark,
       setSubTaskVisibility,
+      subTaskMarkBound,
+      subTaskVisibility,
       taskKey
     } = activeInteractionTask
 
@@ -92,7 +94,12 @@ class InteractionLayerContainer extends Component {
                 task={activeInteractionTask}
               />
             }
-          <SubTaskPopup />
+          <SubTaskPopup
+            activeMark={activeMark}
+            subTaskMarkBounds={subTaskMarkBound}
+            subTaskVisibility={subTaskVisibility}
+            setSubTaskVisibility={setSubTaskVisibility}
+          />
           </InteractionLayer>
         }
       </>

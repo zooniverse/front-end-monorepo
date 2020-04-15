@@ -8,147 +8,37 @@ import { CloseButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 
 import taskRegistry from '@plugins/tasks'
-import styled, { css } from 'styled-components'
+// import styled, { css } from 'styled-components'
 
 // Container sits one level below the (otherwise transparent) React-Rnd draggable/resizable component
-const StyledContainer = styled(Box)`
-  overflow: auto;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+// const StyledContainer = styled(Box)`
+//   overflow: auto;
+//   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 
-  ${props => props.theme.dark ? css`
-    background: ${props.theme.global.colors['dark-1']};
-    border: 1px solid ${props.theme.global.colors['dark-6']};
-  ` : css`
-    background: ${props.theme.global.colors['neutral-6']};
-    border: 1px solid ${props.theme.global.colors['light-1']};
-  `}
-`
+//   ${props => props.theme.dark ? css`
+//     background: ${props.theme.global.colors['dark-1']};
+//     border: 1px solid ${props.theme.global.colors['dark-6']};
+//   ` : css`
+//     background: ${props.theme.global.colors['neutral-6']};
+//     border: 1px solid ${props.theme.global.colors['light-1']};
+//   `}
+// `
 
-// Prevent tasks from screwing up presentation when container is resized.
-const TaskBox = styled(Box)`
-  overflow: auto;
-  cursor: auto;
-`
+// // Prevent tasks from screwing up presentation when container is resized.
+// const TaskBox = styled(Box)`
+//   overflow: auto;
+//   cursor: auto;
+// `
 
 const MIN_POPUP_WIDTH = 100
 const MIN_POPUP_HEIGHT = 100
 
-function storeMapper (stores) {
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
-  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
-
-  const {
-    activeMark,
-    subTaskMarkBounds,
-    subTaskVisibility,
-    setSubTaskVisibility
-  } = activeInteractionTask
-
-  return {
-    activeMark,
-    subTaskMarkBounds,
-    subTaskVisibility,
-    setSubTaskVisibility
-  }
-}
-
-class SubTaskPopup extends React.Component {
-  constructor () {
-    super()
-    this.popup = React.createRef()
+function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSubTaskVisibility, ...rest }) {
+  function close () {
+    setSubTaskVisibility(false)
   }
 
-  close () {
-    this.props.setSubTaskVisibility(false)
-  }
-
-  // TODO: split render() into various asyncStates?
-
-  render () {
-    const {
-      activeMark,
-      subTaskVisibility
-    } = this.props
-
-    if (!activeMark || !subTaskVisibility) return null
-
-    const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
-    const tasks = (activeMark && activeMark.tasks) ? activeMark.tasks : []
-
-    const defaultPosition = this.getDefaultPosition()
-
-    return (
-      <Layer
-        animate={false}
-        modal
-        onClickOutside={this.close.bind(this)}
-        onEsc={this.close.bind(this)}
-        plain
-        position={'top-left'}
-      >
-        <Rnd
-          key={activeMark.id}
-          minWidth={MIN_POPUP_WIDTH}
-          minHeight={MIN_POPUP_HEIGHT}
-          default={defaultPosition}
-          cancel='.subtaskpopup-element-that-ignores-drag-actions'
-        >
-          <StyledContainer pad='xsmall' fill>
-            <Box>
-              <CloseButton
-                alignSelf='end'
-                onClick={this.close.bind(this)}
-              />
-            </Box>
-
-            {tasks.map((task, index) => {
-              // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-              // or creates a new one if one doesn't exist.
-              // The name is a bit confusing.
-              const annotation = activeMark.addAnnotation(task)
-              task.setAnnotation(annotation)
-              const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-
-              if (annotation && TaskComponent) {
-                return (
-                  <TaskBox
-                    key={annotation.id}
-                    pad='xsmall'
-                    className='subtaskpopup-element-that-ignores-drag-actions'
-                  >
-                    <TaskComponent
-                      annotation={annotation}
-                      autoFocus={(index === 0)}
-                      disabled={!ready}
-                      task={task}
-                      {...this.props}
-                    />
-                  </TaskBox>
-                )
-              }
-
-              return (
-                <Box pad='xsmall'>
-                  <Paragraph>Task component could not be rendered.</Paragraph>
-                </Box>
-              )
-            })}
-
-            <Box pad='xsmall'>
-              <SaveButton
-                onClick={this.close.bind(this)}
-                disabled={false}
-              />
-            </Box>
-          </StyledContainer>
-        </Rnd>
-      </Layer>
-    )
-  }
-
-  getDefaultPosition () {
-    const { subTaskMarkBounds } = this.props
-
+  function getDefaultPosition() {
     // Calculate default position
     let x = 0
     let y = 0
@@ -183,6 +73,101 @@ class SubTaskPopup extends React.Component {
 
     return { x, y }
   }
+
+  // TODO: split render() into various asyncStates?
+
+  if (!activeMark || !subTaskVisibility) return null
+
+  const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
+  const tasks = (activeMark?.tasks) ? activeMark.tasks : []
+
+  const defaultPosition = getDefaultPosition()
+
+  return (
+    <Layer
+      animate={false}
+      modal
+      onClickOutside={close}
+      onEsc={close}
+      plain
+      position='top-left'
+    >
+      <Rnd
+        key={activeMark.id}
+        minWidth={MIN_POPUP_WIDTH}
+        minHeight={MIN_POPUP_HEIGHT}
+        default={defaultPosition}
+        cancel='.subtaskpopup-element-that-ignores-drag-actions'
+      >
+        <Box
+          background={{
+            light: 'neutral-6',
+            dark: 'dark-1'
+          }}
+          border={{
+            color: {
+              light: 'light-1',
+              dark: 'dark-6'
+            },
+            size: '1px',
+            style: 'solid',
+            side: 'all'
+          }}
+          elevation='xlarge'
+          fill
+          overflow='auto'
+          pad='xsmall'
+        >
+          <Box>
+            <CloseButton
+              alignSelf='end'
+              onClick={close}
+            />
+          </Box>
+
+          {tasks.map((task, index) => {
+            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+            // or creates a new one if one doesn't exist.
+            // The name is a bit confusing.
+            const annotation = activeMark.addAnnotation(task)
+            task.setAnnotation(annotation)
+            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+
+            if (annotation && TaskComponent) {
+              return (
+                <Box
+                  className='subtaskpopup-element-that-ignores-drag-actions'
+                  key={annotation.id}
+                  overflow='auto'
+                  pad='xsmall'
+                >
+                  <TaskComponent
+                    annotation={annotation}
+                    autoFocus={(index === 0)}
+                    disabled={!ready}
+                    task={task}
+                    {...rest}
+                  />
+                </Box>
+              )
+            }
+
+            return (
+              <Box pad='xsmall'>
+                <Paragraph>Task component could not be rendered.</Paragraph>
+              </Box>
+            )
+          })}
+
+          <Box pad='xsmall'>
+            <SaveButton
+              onClick={close}
+            />
+          </Box>
+        </Box>
+      </Rnd>
+    </Layer>
+  )
 }
 
 SubTaskPopup.propTypes = {
@@ -199,13 +184,4 @@ SubTaskPopup.defaultProps = {
   setSubTaskVisibility: () => {}
 }
 
-/*
-  Enzyme doesn't support the context API properly yet, so using @withTheme as
-  recommended currently doesn't work. So instead, we're exporting the unwrapped
-  component for testing, and using the HOC function syntax to export the wrapped
-  component.
-
-  https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
-*/
-export default inject(storeMapper)(observer(SubTaskPopup))
-export { SubTaskPopup, StyledContainer, TaskBox }
+export default SubTaskPopup
