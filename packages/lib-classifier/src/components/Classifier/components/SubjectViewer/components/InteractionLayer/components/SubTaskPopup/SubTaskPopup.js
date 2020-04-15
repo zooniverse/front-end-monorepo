@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import { Rnd } from 'react-rnd' // Used to create the draggable, resizable "popup" component
 import { Box, Layer, Paragraph } from 'grommet'
@@ -8,32 +8,11 @@ import { CloseButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 
 import taskRegistry from '@plugins/tasks'
-// import styled, { css } from 'styled-components'
-
-// Container sits one level below the (otherwise transparent) React-Rnd draggable/resizable component
-// const StyledContainer = styled(Box)`
-//   overflow: auto;
-//   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-
-//   ${props => props.theme.dark ? css`
-//     background: ${props.theme.global.colors['dark-1']};
-//     border: 1px solid ${props.theme.global.colors['dark-6']};
-//   ` : css`
-//     background: ${props.theme.global.colors['neutral-6']};
-//     border: 1px solid ${props.theme.global.colors['light-1']};
-//   `}
-// `
-
-// // Prevent tasks from screwing up presentation when container is resized.
-// const TaskBox = styled(Box)`
-//   overflow: auto;
-//   cursor: auto;
-// `
 
 const MIN_POPUP_WIDTH = 100
 const MIN_POPUP_HEIGHT = 100
 
-function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSubTaskVisibility, ...rest }) {
+function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSubTaskVisibility }) {
   function close() {
     setSubTaskVisibility(false)
   }
