@@ -304,9 +304,9 @@ storiesOf('Tasks', module)
   })
   .add('data visualization annotation task', function () {
     const tasks = {
-      T1: {
+      T4: {
         instruction: 'Do you spot a transit?',
-        taskKey: 'T1',
+        taskKey: 'T4',
         tools: [
           {
             help: '',
@@ -319,7 +319,7 @@ storiesOf('Tasks', module)
     }
     const step = {
       stepKey: 'S1',
-      taskKeys: ['T1']
+      taskKeys: ['T4']
     }
     addStepToStore(step, tasks)
     const dark = boolean('Dark theme', false)
