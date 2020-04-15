@@ -133,12 +133,13 @@ You can test the production image builds using the `docker-compose-prod.yml` fil
 
 The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
 - `NODE_ENV`: sets the environment for library builds.
+- `APP_ENV`: sets the [Sentry environment](https://docs.sentry.io/enriching-error-data/environments/?platform=javascript) (development, staging or production) when reporting errors.
 
 ### Docker images
 
-- `zooniverse/front-end-monorepo`: Built from the Dockerfile in the root directory. It runs `yarn install` and `yarn build` for the `lib-` packages and static (production) apps.
-- `zooniverse/fe-content-pages`: Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn start` in `packages/app-content-pages` from `zooniverse/front-end-monorepo:latest`.
-- `zooniverse/fe-project`: Built from the Dockerfile in `packages/app-project`. Runs `yarn start` in `packages/app-project` from `zooniverse/front-end-monorepo:latest`.
+- `zooniverse/front-end-monorepo`: Built from the Dockerfile in the root directory. It runs `yarn install` and `yarn build` for the `lib-` packages.
+- `zooniverse/fe-content-pages`: Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn build` and `yarn start` in `packages/app-content-pages` from `zooniverse/front-end-monorepo:latest`.
+- `zooniverse/fe-project`: Built from the Dockerfile in `packages/app-project`. Runs `yarn build` and `yarn start` in `packages/app-project` from `zooniverse/front-end-monorepo:latest`.
 
 
 ---
