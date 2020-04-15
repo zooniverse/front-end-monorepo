@@ -34,7 +34,7 @@ const MIN_POPUP_WIDTH = 100
 const MIN_POPUP_HEIGHT = 100
 
 function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSubTaskVisibility, ...rest }) {
-  function close () {
+  function close() {
     setSubTaskVisibility(false)
   }
 
@@ -146,7 +146,6 @@ function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSub
                     autoFocus={(index === 0)}
                     disabled={!ready}
                     task={task}
-                    {...rest}
                   />
                 </Box>
               )
@@ -181,7 +180,7 @@ SubTaskPopup.defaultProps = {
   activeMark: undefined,
   subTaskMarkBounds: undefined,
   subTaskVisibility: false,
-  setSubTaskVisibility: () => {}
+  setSubTaskVisibility: () => { }
 }
 
 export default SubTaskPopup
