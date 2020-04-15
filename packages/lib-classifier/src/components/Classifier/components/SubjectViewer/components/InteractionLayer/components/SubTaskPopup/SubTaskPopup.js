@@ -62,9 +62,7 @@ class SubTaskPopup extends React.Component {
     this.props.setSubTaskVisibility(false)
   }
 
-  // TODO:
-  // - split render() into various asyncStates?
-  // - add TranscriptionTask text input
+  // TODO: split render() into various asyncStates?
 
   render () {
     const {
