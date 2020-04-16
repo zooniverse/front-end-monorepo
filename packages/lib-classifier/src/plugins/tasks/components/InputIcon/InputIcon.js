@@ -4,8 +4,10 @@ import styled, { css } from 'styled-components'
 
 export const StyledInputIcon = styled.span`
   ${props => props.color && css`color: ${props.color};`}
+  background-color: #2D2D2D;
   display: flex;
   align-items: center;
+  padding-left: 15px;
 
   &::after {
     content: " ";
@@ -23,24 +25,19 @@ export const StyledInputIcon = styled.span`
   }
 `
 
-export default function InputIcon (props) {
+export default function InputIcon ({ color, icon }) {
   return (
-    <StyledInputIcon color={props.tool.color}>
-      {props.icon}
+    <StyledInputIcon color={color}>
+      {icon}
     </StyledInputIcon>
   )
 }
 
 InputIcon.defaultProps = {
-  tool: {
-    color: '',
-    type: ''
-  }
+  color: 'white'
 }
 
 InputIcon.propTypes = {
-  tool: PropTypes.shape({
-    color: PropTypes.string,
-    type: PropTypes.string
-  })
+  color: PropTypes.string,
+  icon: PropTypes.node.isRequired
 }
