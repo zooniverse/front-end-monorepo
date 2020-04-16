@@ -109,6 +109,7 @@ describe('Model > DrawingTask', function () {
     })
 
     it('should hide previous marks', function () {
+      expect(drawingTask.hidePreviousMarks).to.be.false()
       drawingTask.togglePreviousMarks()
       expect(drawingTask.hidePreviousMarks).to.be.true()
       expect(drawingTask.hidingIndex).to.equal(marks.length)

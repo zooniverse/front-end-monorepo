@@ -83,6 +83,7 @@ MetaTools.defaultProps = {
 
 MetaTools.propTypes = {
   activeInteractionTask: PropTypes.shape({
+    hidePreviousMarks: PropTypes.bool,
     togglePreviousMarks: PropTypes.func
   }),
   className: PropTypes.string,
