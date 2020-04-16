@@ -17,8 +17,10 @@ export default function HidePreviousMarksButton (props) {
 
   return (
     <MetaToolsButton
+      aria-checked={hidePreviousMarks}
       disabled={disabled}
       icon={icon}
+      role='checkbox'
       text={text}
       onClick={onClick}
     />
