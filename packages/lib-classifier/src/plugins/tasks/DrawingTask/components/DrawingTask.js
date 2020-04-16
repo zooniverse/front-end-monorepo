@@ -53,7 +53,7 @@ function DrawingTask (props) {
             index={index}
             key={`${task.taskKey}_${index}`}
             label={tool.label}
-            labelIcon={<InputIcon icon={<ToolIcon type={tool.type} />} tool={tool} />}
+            labelIcon={<InputIcon icon={<ToolIcon type={tool.type} />} color={tool.color} />}
             labelStatus={<InputStatus count={tool.marks.size} tool={tool} />}
             name='drawing-tool'
             onChange={event => onChange(index, event)}
