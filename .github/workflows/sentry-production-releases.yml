@@ -1,8 +1,9 @@
 name: Sentry Production Release
 
 on:
-  release:
-    types: [edited, published]
+  push:
+    tags:
+      - production-release
 
 jobs:
   release:
