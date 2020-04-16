@@ -9,7 +9,7 @@ const theme = {
       width: '1px'
     },
     color: {
-      dark: 'brand',
+      dark: 'white',
       light: 'white'
     },
     primary: {
