@@ -1,8 +1,11 @@
 import React from 'react'
+import { Box } from 'grommet'
 import { shallow } from 'enzyme'
-import { expect } from 'chai'
+import sinon from 'sinon'
 import cuid from 'cuid'
-import { SubTaskPopup, StyledContainer, TaskBox } from './SubTaskPopup'
+import SubTaskPopup from './SubTaskPopup'
+import SaveButton from './components/SaveButton'
+import { CloseButton } from '@zooniverse/react-components'
 import * as Tools from '@plugins/drawingTools/models/tools'
 
 describe('SubTaskPopup', function () {
@@ -18,7 +21,7 @@ describe('SubTaskPopup', function () {
         subTaskVisibility
       />
     )
-    expect(wrapper.find(StyledContainer)).to.have.lengthOf(0)
+    expect(wrapper.html()).to.be.null()
   })
 
   Object.keys(Tools).forEach((toolKey) => {
@@ -60,7 +63,7 @@ describe('SubTaskPopup', function () {
               subTaskVisibility
             />
           )
-          expect(wrapper.find(StyledContainer)).to.have.lengthOf(1)
+          expect(wrapper.find(Box).first()).to.have.lengthOf(1)
         })
 
         it('should render nothing when subtask visibility isn\'t true', function () {
@@ -70,7 +73,7 @@ describe('SubTaskPopup', function () {
               subTaskVisibility={false}
             />
           )
-          expect(wrapper.find(StyledContainer)).to.have.lengthOf(0)
+          expect(wrapper.html()).to.be.null()
         })
 
         it('should render the correct number of subtasks, according to the active drawing mark provided', function () {
@@ -80,7 +83,35 @@ describe('SubTaskPopup', function () {
               subTaskVisibility
             />
           )
-          expect(wrapper.find(TaskBox)).to.have.lengthOf(3)
+          expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(3)
+        })
+
+        describe('on close', function () {
+          it('should call setSubTaskVisibility on clicking the save button', function () {
+            const setSubTaskVisibilitySpy = sinon.spy()
+            const wrapper = shallow(
+              <SubTaskPopup
+                activeMark={mark}
+                setSubTaskVisibility={setSubTaskVisibilitySpy}
+                subTaskVisibility
+              />
+            )
+            wrapper.find(SaveButton).simulate('click')
+            expect(setSubTaskVisibilitySpy).to.have.been.calledOnce()
+          })
+
+          it('should call setSubTaskVisibility on clicking the close button', function () {
+            const setSubTaskVisibilitySpy = sinon.spy()
+            const wrapper = shallow(
+              <SubTaskPopup
+                activeMark={mark}
+                setSubTaskVisibility={setSubTaskVisibilitySpy}
+                subTaskVisibility
+              />
+            )
+            wrapper.find(CloseButton).simulate('click')
+            expect(setSubTaskVisibilitySpy).to.have.been.calledOnce()
+          })
         })
       })
     }

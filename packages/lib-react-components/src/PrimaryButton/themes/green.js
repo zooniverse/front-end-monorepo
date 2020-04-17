@@ -9,7 +9,7 @@ const theme = {
       width: '1px'
     },
     color: {
-      dark: 'status-ok',
+      dark: 'white',
       light: 'white'
     },
     primary: {
