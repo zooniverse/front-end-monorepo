@@ -1,10 +1,10 @@
-import { types } from 'mobx-state-tree'
+import { getRoot, getSnapshot, resolveIdentifier, types } from 'mobx-state-tree'
 import TranscriptionTask from './TranscriptionTask'
 import { TranscriptionLine } from '@plugins/drawingTools/models/marks'
 import Annotation from '../../../models/Annotation'
 
 const Transcription = types.model('Transcription', {
-  value: types.array(TranscriptionLine)
+  value: types.array(types.safeReference(TranscriptionLine))
 })
   .views(self => ({
     // This is a copy of DrawingAnnotation's toSnapshot with the exception of

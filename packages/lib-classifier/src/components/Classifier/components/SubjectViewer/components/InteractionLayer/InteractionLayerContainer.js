@@ -24,7 +24,7 @@ function storeMapper (stores) {
   const subject = stores.classifierStore.subjects.active
   const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
   const annotations = classification ? Array.from(classification.annotations.values()) : []
-  const interactionTaskAnnotations = annotations.filter(annotation => getType(annotation).name === ('DrawingAnnotation' || 'TranscriptionAnnotation'))
+  const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
   const { consensusLines } = subject.transcriptionReductions || {}
 
   return {
