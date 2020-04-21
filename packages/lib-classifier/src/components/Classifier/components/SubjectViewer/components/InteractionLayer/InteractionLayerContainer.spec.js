@@ -68,7 +68,7 @@ describe('Component > InteractionLayerContainer', function () {
   describe('with annotations from previous reduced drawing or transcription tasks', function () {
     it('should render DrawingToolMarks', function () {
       const wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent 
+        <InteractionLayerContainer.wrappedComponent
           interactionTaskAnnotations={drawingAnnotations}
           height={height}
           width={width}
@@ -101,6 +101,37 @@ describe('Component > InteractionLayerContainer', function () {
 
     it('should render TranscribedLines', function () {
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
+    })
+
+    describe('and hiding previous marks', function () {
+      let wrapper
+
+      before(function () {
+        const hidingTask = {
+          hidePreviousMarks: true,
+          hidingIndex: 1,
+          marks: [{ x: 0, y: 0 }, { x: 5, y: 5}]
+        }
+        const hidingMarksInteractionTask = Object.assign(hidingTask, transcriptionTask)
+        wrapper = shallow(
+          <InteractionLayerContainer.wrappedComponent
+            height={height}
+            width={width}
+            activeInteractionTask={hidingMarksInteractionTask}
+            interactionTaskAnnotations={drawingAnnotations}
+            workflow={{ usesTranscriptionTask: true }}
+          />
+        )
+      })
+
+      it('should hide previous annotations', function () {
+        expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(0)
+      })
+
+      it('should hide all marks before the hiding index', function () {
+        const { marks } = wrapper.find(InteractionLayer).props()
+        expect(marks).to.have.lengthOf(1)
+      })
     })
   })
 })

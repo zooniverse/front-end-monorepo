@@ -55,6 +55,8 @@ class InteractionLayerContainer extends Component {
       activeMark,
       activeTool,
       activeToolIndex,
+      hidePreviousMarks,
+      hidingIndex,
       marks,
       setActiveMark,
       setSubTaskVisibility,
@@ -63,9 +65,11 @@ class InteractionLayerContainer extends Component {
       taskKey
     } = activeInteractionTask
 
+    const visibleMarks = hidePreviousMarks ? marks.slice(hidingIndex) : marks
+
     return (
       <>
-        {interactionTaskAnnotations.map(annotation =>
+        {!hidePreviousMarks && interactionTaskAnnotations.map(annotation =>
           <DrawingToolMarks
             key={annotation.task}
             marks={annotation.value}
@@ -80,7 +84,7 @@ class InteractionLayerContainer extends Component {
             disabled={activeTool.disabled}
             height={height}
             key={taskKey}
-            marks={marks}
+            marks={visibleMarks}
             move={move}
             scale={scale}
             setActiveMark={setActiveMark}
