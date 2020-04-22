@@ -135,7 +135,12 @@ class SingleImageViewerContainer extends React.Component {
     const svg = this.imageViewer.current
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
     const SubjectImage = move ? DraggableImage : 'image'
-
+    const subjectImageProps = {
+      height: naturalHeight,
+      width: naturalWidth,
+      xlinkHref: src,
+      ...(move && { dragMove: this.dragMove })
+    }
     return (
       <SVGContext.Provider value={{ svg }}>
         <SVGPanZoom
@@ -157,10 +162,7 @@ class SingleImageViewerContainer extends React.Component {
           >
             <g ref={this.subjectImage}>
               <SubjectImage
-                dragMove={this.dragMove}
-                height={naturalHeight}
-                width={naturalWidth}
-                xlinkHref={src}
+                {...subjectImageProps}
               />
             </g>
           </SingleImageViewer>
