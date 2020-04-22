@@ -9,7 +9,7 @@ import SaveButton from './components/SaveButton'
 
 import taskRegistry from '@plugins/tasks'
 
-const MIN_POPUP_WIDTH = 100
+const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
 
 function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSubTaskVisibility }) {

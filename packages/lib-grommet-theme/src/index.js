@@ -161,6 +161,11 @@ const theme = deepFreeze({
       }
     },
     colors,
+    control: {
+      border: {
+        radius: '0px'
+      }
+    },
     drop: {
       background: {
         dark: 'dark-1',
