@@ -3,6 +3,7 @@ import DataVisAnnotationTask from './DataVisAnnotationTask'
 import DrawingTask from './DrawingTask'
 import MultipleChoiceTask from './MultipleChoiceTask'
 import SingleChoiceTask from './SingleChoiceTask'
+import SubjectGroupTask from './SubjectGroupTask'
 import TextTask from './TextTask'
 import TranscriptionTask from './experimental/TranscriptionTask'
 
@@ -12,6 +13,7 @@ try {
   taskRegistry.add('drawing', DrawingTask)
   taskRegistry.add('multiple', MultipleChoiceTask)
   taskRegistry.add('single', SingleChoiceTask)
+  taskRegistry.add('subjectGroup', SubjectGroupTask)
   taskRegistry.add('text', TextTask)
   taskRegistry.add('transcription', TranscriptionTask)
 } catch (e) {

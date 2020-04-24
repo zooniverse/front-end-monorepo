@@ -48,24 +48,6 @@ function SubjectGroupTask (props) {
           {task.question}
         </Markdownz>
       </StyledText>
-
-      {task.answers.map((answer, index) => {
-        const checked = (value + 1) ? index === value : false
-        return (
-          <TaskInput
-            autoFocus={checked}
-            checked={checked}
-            disabled={disabled}
-            index={index}
-            key={`${task.taskKey}_${index}`}
-            label={answer.label}
-            name={task.taskKey}
-            onChange={onChange.bind(this, index)}
-            required={task.required}
-            type='radio'
-          />
-        )
-      })}
     </StyledBox>
   )
 }
@@ -83,7 +65,7 @@ SubjectGroupTask.defaultProps = {
 SubjectGroupTask.propTypes = {
   annotation: PropTypes.shape({
     update: PropTypes.func,
-    value: PropTypes.number
+    value: PropTypes.array
   }).isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,

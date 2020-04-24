@@ -1,11 +1,11 @@
 import SubjectGroupAnnotation from './SubjectGroupAnnotation'
 
-describe('Model > MutipleChoiceAnnotation', function () {
+describe('Model > SubjectGroupAnnotation', function () {
   describe('with a selected answer', function () {
     let SubjectGroupAnnotation
 
     before(function () {
-      SubjectGroupAnnotation = SubjectGroupAnnotation.create({ id: 'multiple1', task: 'T0', taskType: 'multiple', value: [0, 3] })
+      SubjectGroupAnnotation = SubjectGroupAnnotation.create({ id: 'subjectgroup1', task: 'T0', taskType: 'subjectGroup', value: [0, 3] })
     })
 
     it('should exist', function () {

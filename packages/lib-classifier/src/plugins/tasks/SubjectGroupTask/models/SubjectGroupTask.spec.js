@@ -2,14 +2,10 @@ import { types } from 'mobx-state-tree'
 import SubjectGroupTask from '@plugins/tasks/SubjectGroupTask'
 
 const SubjectGroupTask = {
-  answers: [
-    { label: 'yes', next: 'S2' },
-    { label: 'no', next: 'S3' }
-  ],
-  question: 'Do you exist?',
+  question: 'Please mark the cells that you think look weird',
   required: false,
   taskKey: 'T1',
-  type: 'single'
+  type: 'singleGroup'
 }
 
 describe('Model > SubjectGroupTask', function () {

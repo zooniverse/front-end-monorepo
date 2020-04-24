@@ -8,13 +8,9 @@ import SubjectGroupAnnotation from './SubjectGroupAnnotation'
 
 const SubjectGroup = types.model('SubjectGroup', {
   annotation: types.safeReference(SubjectGroupAnnotation),
-  answers: types.array(types.frozen({
-    label: types.string,
-    next: types.maybe(types.string)
-  })),
   help: types.optional(types.string, ''),
   question: types.string,
-  type: types.literal('single')
+  type: types.literal('subjectGroup')
 })
   .views(self => ({
     get defaultAnnotation () {
