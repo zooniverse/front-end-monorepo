@@ -2,36 +2,45 @@ import SubjectGroupAnnotation from './SubjectGroupAnnotation'
 
 describe('Model > SubjectGroupAnnotation', function () {
   describe('with a selected answer', function () {
-    let SubjectGroupAnnotation
+    let subjectGroupAnnotation
 
     before(function () {
-      SubjectGroupAnnotation = SubjectGroupAnnotation.create({ id: 'subjectgroup1', task: 'T0', taskType: 'subjectGroup', value: [0, 3] })
+      subjectGroupAnnotation = SubjectGroupAnnotation.create({
+        id: 'subjectGroupAnnotation-0',
+        task: 'T0',
+        taskType: 'subjectGroup',
+        value: [0, 3]
+      })
     })
 
     it('should exist', function () {
-      expect(SubjectGroupAnnotation).to.be.ok()
-      expect(SubjectGroupAnnotation).to.be.an('object')
+      expect(subjectGroupAnnotation).to.be.ok()
+      expect(subjectGroupAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(SubjectGroupAnnotation.isComplete).to.be.true()
+      expect(subjectGroupAnnotation.isComplete).to.be.true()
     })
   })
 
   describe('without a selected answer', function () {
-    let SubjectGroupAnnotation
+    let subjectGroupAnnotation
 
     before(function () {
-      SubjectGroupAnnotation = SubjectGroupAnnotation.create({ id: 'multiple1', task: 'T0', taskType: 'multiple' })
+      subjectGroupAnnotation = SubjectGroupAnnotation.create({
+        id: 'subjectGroupAnnotation-0',
+        task: 'T0',
+        taskType: 'subjectGroup'
+      })
     })
 
     it('should exist', function () {
-      expect(SubjectGroupAnnotation).to.be.ok()
-      expect(SubjectGroupAnnotation).to.be.an('object')
+      expect(subjectGroupAnnotation).to.be.ok()
+      expect(subjectGroupAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(SubjectGroupAnnotation.isComplete).to.be.false()
+      expect(subjectGroupAnnotation.isComplete).to.be.false()
     })
   })
 })

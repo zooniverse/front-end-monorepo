@@ -1,24 +1,24 @@
 import { types } from 'mobx-state-tree'
 import SubjectGroupTask from '@plugins/tasks/SubjectGroupTask'
 
-const SubjectGroupTask = {
-  question: 'Please mark the cells that you think look weird',
+const subjectGroupTask = {
+  question: 'Which of these cells look weird?',
   required: false,
-  taskKey: 'T1',
-  type: 'singleGroup'
+  taskKey: 'T2',
+  type: 'subjectGroup'
 }
 
 describe('Model > SubjectGroupTask', function () {
   it('should exist', function () {
-    const SubjectGroupTaskInstance = SubjectGroupTask.TaskModel.create(SubjectGroupTask)
-    expect(SubjectGroupTaskInstance).to.be.ok()
-    expect(SubjectGroupTaskInstance).to.be.an('object')
+    const subjectGroupTaskInstance = SubjectGroupTask.TaskModel.create(subjectGroupTask)
+    expect(subjectGroupTaskInstance).to.be.ok()
+    expect(subjectGroupTaskInstance).to.be.an('object')
   })
 
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      SubjectGroupTask.create({})
+      SubjectGroupTask.TaskModel.create({})
     } catch (e) {
       errorThrown = true
     }
@@ -29,7 +29,7 @@ describe('Model > SubjectGroupTask', function () {
     let task
 
     before(function () {
-      task = SubjectGroupTask.TaskModel.create(SubjectGroupTask)
+      task = SubjectGroupTask.TaskModel.create(subjectGroupTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SubjectGroupTask.AnnotationModel,
@@ -42,13 +42,13 @@ describe('Model > SubjectGroupTask', function () {
       task.setAnnotation(annotation)
     })
 
-    it('should start up with a null value', function () {
-      expect(task.annotation.value).to.be.null()
+    it('should start up with an empty value', function () {
+      expect(task.annotation.value).to.be.empty()
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation(1)
-      expect(task.annotation.value).to.equal(1)
+      task.updateAnnotation([1])
+      expect(task.annotation.value).to.deep.equal([1])
     })
   })
 
@@ -56,7 +56,7 @@ describe('Model > SubjectGroupTask', function () {
     let task
 
     before(function () {
-      const requiredTask = Object.assign({}, SubjectGroupTask, { required: true })
+      const requiredTask = Object.assign({}, subjectGroupTask, { required: true })
       task = SubjectGroupTask.TaskModel.create(requiredTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
@@ -78,7 +78,7 @@ describe('Model > SubjectGroupTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        task.updateAnnotation(1)
+        task.updateAnnotation([1])
         expect(task.isComplete).to.be.true()
       })
     })
