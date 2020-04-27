@@ -163,6 +163,7 @@ const theme = deepFreeze({
     colors,
     control: {
       border: {
+        color: 'light-5',
         radius: '0px'
       }
     },
