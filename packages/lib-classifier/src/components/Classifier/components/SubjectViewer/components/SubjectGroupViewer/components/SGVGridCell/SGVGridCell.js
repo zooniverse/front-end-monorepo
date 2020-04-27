@@ -22,6 +22,8 @@ function SGVGridCell (props) {
     panX,
     panY,
     zoom,
+    
+    enableInteractionLayer,
   } = props
     
   const row = Math.floor(index / gridColumns)
@@ -87,6 +89,15 @@ function SGVGridCell (props) {
         width={cellWidth}
         height={cellHeight}
       />
+      {enableInteractionLayer && (
+        <rect
+          fill="red"
+          stroke={cellStyle.stroke}
+          strokeWidth={cellStyle.strokeWidth}
+          width={cellWidth}
+          height={cellHeight}
+        />
+      )}
     </g>
   )
 }

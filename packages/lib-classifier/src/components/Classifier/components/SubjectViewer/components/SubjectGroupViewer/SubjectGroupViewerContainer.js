@@ -24,8 +24,9 @@ const DEFAULT_GRID_ROWS = 3
 
 function storeMapper (stores) {
   const {
+    interactionMode,
+    setOnPan,
     setOnZoom,
-    setOnPan
   } = stores.classifierStore.subjectViewer
   
   const {
@@ -63,8 +64,11 @@ function storeMapper (stores) {
     cellStyle,
     gridColumns,
     gridRows,
+    
+    interactionMode,
     setOnZoom,
     setOnPan,
+    
     addAnnotation,
     annotations,
     currentTask,
@@ -229,19 +233,24 @@ class SubjectGroupViewerContainer extends React.Component {
 
   render () {
     const {
+      subject,
+      loadingState,
+      
       cellHeight,
       cellWidth,
       cellStyle,
       gridColumns,
       gridRows,
-      loadingState,
+      
+      interactionMode,
       onKeyDown,
       setOnPan,
       setOnZoom,
+      
       addAnnotation,
       annotations,
-      currentTask,      
-      subject,
+      currentTask,
+      
     } = this.props
     const { images, panX, panY, zoom } = this.state
     
@@ -255,7 +264,8 @@ class SubjectGroupViewerContainer extends React.Component {
     }
 
     const svg = this.groupViewer.current
-    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
+    
+    console.log('+++ ', interactionMode)
     
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
@@ -294,7 +304,7 @@ class SubjectGroupViewerContainer extends React.Component {
             addAnnotation={addAnnotation}
             annotations={annotations}
             currentTask={currentTask}
-            enableInteractionLayer={enableDrawing}
+            interactionMode={interactionMode}
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
           />
         </div>
@@ -304,23 +314,29 @@ class SubjectGroupViewerContainer extends React.Component {
 }
 
 SubjectGroupViewerContainer.propTypes = {
-  enableInteractionLayer: PropTypes.bool,
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+    
+  interactionMode: PropTypes.oneOf(['annotate', 'move']),
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  })
+  
+  
 }
 
 SubjectGroupViewerContainer.defaultProps = {
-  enableInteractionLayer: false,
   ImageObject: window.Image,
+  
+  subject: undefined,
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
+  
+  interactionMode: 'annotate',
   setOnPan: () => true,
   setOnZoom: () => true
 }
