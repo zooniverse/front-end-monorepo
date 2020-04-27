@@ -51,8 +51,6 @@ function storeMapper (stores) {
     addAnnotation,
     active: classification,
   } = stores.classifierStore.classifications
-  const annotation = classification?.addAnnotation(currentTask)
-  currentTask.setAnnotation(annotation)
   
   return {
     cellWidth,
@@ -66,7 +64,7 @@ function storeMapper (stores) {
     setOnPan,
     
     addAnnotation,
-    annotation,
+    classification,
     currentTask,
   }
 }
@@ -268,7 +266,7 @@ class SubjectGroupViewerContainer extends React.Component {
       setOnZoom,
       
       addAnnotation,
-      annotation,
+      classification,
       currentTask,
       
     } = this.props
@@ -288,6 +286,12 @@ class SubjectGroupViewerContainer extends React.Component {
     ) {
       return null
     }
+    
+    // TODO: check??
+    // const annotation = classification.addAnnotation(currentTask)
+    // currentTask.setAnnotation(annotation)
+    const annotation = classification.annotation(currentTask)
+    console.log('+++ annotation: ', annotation.toJSON())
 
     return (
       <SVGContext.Provider value={{ svg }}>

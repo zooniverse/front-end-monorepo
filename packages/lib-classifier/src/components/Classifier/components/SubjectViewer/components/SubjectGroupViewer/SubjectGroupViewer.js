@@ -50,6 +50,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const transformLayer = useRef()
   const { svg } = useContext(SVGContext)
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
+  const { value: annotatedValues } = annotation
     
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
   // Note: For Container, isCurrentTaskValidForAnnotation is a function; for Component, isCurrentTaskValidForAnnotation is a bool.
@@ -87,6 +88,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
                 zoom={zoom}
 
                 annotationMode={annotationMode}
+                cellAnnotated={annotatedValues.includes(index)}
                 toggleCellAnnotation={toggleCellAnnotation}
               />
             ))}

@@ -24,6 +24,7 @@ function SGVGridCell (props) {
     zoom,
     
     annotationMode,
+    cellAnnotated,
     toggleCellAnnotation,
   } = props
     
@@ -92,7 +93,7 @@ function SGVGridCell (props) {
       />
       {annotationMode  && (
         <rect
-          fill="red"
+          fill={(cellAnnotated) ? 'red' : 'blue'}
           stroke={cellStyle.stroke}
           strokeWidth={cellStyle.strokeWidth}
           width={cellWidth}
@@ -123,6 +124,7 @@ SGVGridCell.propTypes = {
   zoom: PropTypes.number,
 
   annotationMode: PropTypes.bool,
+  cellAnnotated: PropTypes.bool,
   toggleCellAnnotation: PropTypes.func,
 }
 
@@ -143,6 +145,7 @@ SGVGridCell.defaultProps = {
   zoom: 1,
 
   annotationMode: true,
+  cellAnnotated: false,
   toggleCellAnnotation: () => {},
 }
 
