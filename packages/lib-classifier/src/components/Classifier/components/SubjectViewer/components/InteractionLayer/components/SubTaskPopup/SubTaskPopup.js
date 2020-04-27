@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
-
 import { Rnd } from 'react-rnd' // Used to create the draggable, resizable "popup" component
 import { Box, Layer, Paragraph } from 'grommet'
 import { CloseButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
+import ResizeIcon from './components/ResizeIcon'
 
 import taskRegistry from '@plugins/tasks'
 
@@ -72,11 +72,36 @@ function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSub
       position='top-left'
     >
       <Rnd
+        cancel='.subtaskpopup-element-that-ignores-drag-actions'
+        default={defaultPosition}
         key={activeMark.id}
         minWidth={MIN_POPUP_WIDTH}
         minHeight={MIN_POPUP_HEIGHT}
-        default={defaultPosition}
-        cancel='.subtaskpopup-element-that-ignores-drag-actions'
+        resizeHandleComponent={{ bottomRight: <ResizeIcon /> }}
+        resizeHandleStyles={{
+          bottom: {},
+          bottomLeft: {
+            bottom: 0,
+            left: 0
+          },
+          bottomRight: {
+            bottom: 0,
+            height: '20px',
+            right: 0,
+            width: '14px'
+          },
+          left: {},
+          right: {},
+          top: {},
+          topLeft: {
+            left: 0,
+            top: 0
+          },
+          topRight: {
+            right: 0,
+            top: 0
+          }
+        }}
       >
         <Box
           background={{
