@@ -40,6 +40,12 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     panX,
     panY,
     zoom,
+    
+    addAnnotation,
+    annotations,
+    currentTask,
+    enableInteractionLayer,
+    isCurrentTaskValidForAnnotation,
   } = props
 
   const transformLayer = useRef()
@@ -108,6 +114,7 @@ SubjectGroupViewer.propTypes = {
   addAnnotation: PropTypes.func,
   annotations: PropTypes.object,
   currentTask: PropTypes.object,
+  enableInteractionLayer: PropTypes.bool,
   isCurrentTaskValidForAnnotation: PropTypes.bool,
 }
 
@@ -130,6 +137,7 @@ SubjectGroupViewer.defaultProps = {
   addAnnotation: () => {},
   annotations: undefined,
   currentTask: undefined,
+  enableInteractionLayer: false,
   isCurrentTaskValidForAnnotation: false,
 }
 

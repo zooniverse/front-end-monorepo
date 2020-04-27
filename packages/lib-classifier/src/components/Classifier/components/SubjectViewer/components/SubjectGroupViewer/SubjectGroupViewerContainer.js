@@ -55,7 +55,7 @@ function storeMapper (stores) {
   const {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
-  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupAnnotation') // TODO
+  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupAnnotation')
 
   return {
     cellWidth,
@@ -255,6 +255,7 @@ class SubjectGroupViewerContainer extends React.Component {
     }
 
     const svg = this.groupViewer.current
+    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
     
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
@@ -293,6 +294,7 @@ class SubjectGroupViewerContainer extends React.Component {
             addAnnotation={addAnnotation}
             annotations={annotations}
             currentTask={currentTask}
+            enableInteractionLayer={enableDrawing}
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
           />
         </div>
@@ -302,6 +304,7 @@ class SubjectGroupViewerContainer extends React.Component {
 }
 
 SubjectGroupViewerContainer.propTypes = {
+  enableInteractionLayer: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -313,6 +316,7 @@ SubjectGroupViewerContainer.propTypes = {
 }
 
 SubjectGroupViewerContainer.defaultProps = {
+  enableInteractionLayer: false,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
