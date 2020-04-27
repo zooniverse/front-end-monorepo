@@ -56,7 +56,10 @@ function storeMapper (stores) {
   const {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
-  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupAnnotation')
+  
+  console.log('+++ currentTask: ', activeStepTasks.filter(task => true))
+  
+  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroup')
 
   return {
     cellWidth,
@@ -227,8 +230,7 @@ class SubjectGroupViewerContainer extends React.Component {
   }
 
   isCurrentTaskValidForAnnotation () {
-    return this.props.currentTask?.type === 'subjectGroupAnnotation'
-    // TODO: check if needed? -->  && this.props.currentTask?.tools?.some(tool => tool.type === 'graph2dRangeX')
+    return this.props.currentTask?.type === 'subjectGroup'
   }
 
   render () {
@@ -264,8 +266,6 @@ class SubjectGroupViewerContainer extends React.Component {
     }
 
     const svg = this.groupViewer.current
-    
-    console.log('+++ ', interactionMode)
     
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
@@ -304,6 +304,7 @@ class SubjectGroupViewerContainer extends React.Component {
             addAnnotation={addAnnotation}
             annotations={annotations}
             currentTask={currentTask}
+    
             interactionMode={interactionMode}
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
           />
@@ -324,8 +325,6 @@ SubjectGroupViewerContainer.propTypes = {
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
-  
-  
 }
 
 SubjectGroupViewerContainer.defaultProps = {

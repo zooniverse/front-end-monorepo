@@ -23,7 +23,7 @@ function SGVGridCell (props) {
     panY,
     zoom,
     
-    enableInteractionLayer,
+    annotationMode,
   } = props
     
   const row = Math.floor(index / gridColumns)
@@ -89,7 +89,7 @@ function SGVGridCell (props) {
         width={cellWidth}
         height={cellHeight}
       />
-      {enableInteractionLayer && (
+      {annotationMode  && (
         <rect
           fill="red"
           stroke={cellStyle.stroke}
@@ -117,6 +117,8 @@ SGVGridCell.propTypes = {
   panX: PropTypes.number,
   panY: PropTypes.number,
   zoom: PropTypes.number,
+
+  annotationMode: PropTypes.bool,
 }
 
 SGVGridCell.defaultProps = {
@@ -134,6 +136,8 @@ SGVGridCell.defaultProps = {
   panX: 0,
   panY: 0,
   zoom: 1,
+
+  annotationMode: true,
 }
 
 export default SGVGridCell
