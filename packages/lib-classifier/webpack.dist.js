@@ -26,7 +26,8 @@ module.exports = {
     alias: {
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@plugins': path.resolve(__dirname, 'src/plugins'),
-      '@store': path.resolve(__dirname, 'src/store')
+      '@store': path.resolve(__dirname, 'src/store'),
+      '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     }
   },
   module: {
