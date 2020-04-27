@@ -57,8 +57,6 @@ function storeMapper (stores) {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
   
-  console.log('+++ currentTask: ', activeStepTasks.filter(task => true))
-  
   const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroup')
 
   return {
@@ -232,6 +230,10 @@ class SubjectGroupViewerContainer extends React.Component {
   isCurrentTaskValidForAnnotation () {
     return this.props.currentTask?.type === 'subjectGroup'
   }
+    
+  toggleCellAnnotation (cellIndex) {
+    console.log('+++ toggleCellAnnotation: ', cellIndex)
+  }
 
   render () {
     const {
@@ -301,12 +303,10 @@ class SubjectGroupViewerContainer extends React.Component {
             panY={panY}
             zoom={zoom}
     
-            addAnnotation={addAnnotation}
             annotations={annotations}
-            currentTask={currentTask}
-    
             interactionMode={interactionMode}
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
+            toggleCellAnnotation={this.toggleCellAnnotation}
           />
         </div>
       </SVGContext.Provider>

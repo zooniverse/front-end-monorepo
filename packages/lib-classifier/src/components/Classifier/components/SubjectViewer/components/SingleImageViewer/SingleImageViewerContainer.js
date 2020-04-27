@@ -135,8 +135,6 @@ class SingleImageViewerContainer extends React.Component {
     const svg = this.imageViewer.current
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
     const SubjectImage = move ? DraggableImage : 'image'
-    
-    console.log('+++ ', enableInteractionLayer)
 
     return (
       <SVGContext.Provider value={{ svg }}>

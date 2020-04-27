@@ -41,20 +41,16 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     panY,
     zoom,
     
-    addAnnotation,
     annotations,
-    currentTask,
-    
     interactionMode,
     isCurrentTaskValidForAnnotation,
+    toggleCellAnnotation,
   } = props
 
   const transformLayer = useRef()
   const { svg } = useContext(SVGContext)
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
-  
-  console.log('+++ interactionMode : ', interactionMode , ' & isCurrentTaskValidForAnnotation : ', isCurrentTaskValidForAnnotation)
-  
+    
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
   // Note: For Container, isCurrentTaskValidForAnnotation is a function; for Component, isCurrentTaskValidForAnnotation is a bool.
 
@@ -91,6 +87,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
                 zoom={zoom}
 
                 annotationMode={annotationMode}
+                toggleCellAnnotation={toggleCellAnnotation}
               />
             ))}
           </g>
@@ -119,13 +116,10 @@ SubjectGroupViewer.propTypes = {
   panY: PropTypes.number,
   zoom: PropTypes.number,
 
-  addAnnotation: PropTypes.func,
   annotations: PropTypes.object,
-  currentTask: PropTypes.object,
-  enableInteractionLayer: PropTypes.bool,
-
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
   isCurrentTaskValidForAnnotation: PropTypes.bool,
+  toggleCellAnnotation: PropTypes.func,
 }
 
 SubjectGroupViewer.defaultProps = {
@@ -144,12 +138,10 @@ SubjectGroupViewer.defaultProps = {
   panY: 0,
   zoom: 1,
 
-  addAnnotation: () => {},
   annotations: undefined,
-  currentTask: undefined,
-
   interactionMode: 'move',
   isCurrentTaskValidForAnnotation: false,
+  toggleCellAnnotation: () => {},
 }
 
 export default SubjectGroupViewer

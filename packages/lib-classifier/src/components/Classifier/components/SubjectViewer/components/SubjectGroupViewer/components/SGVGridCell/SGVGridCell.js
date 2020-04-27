@@ -24,6 +24,7 @@ function SGVGridCell (props) {
     zoom,
     
     annotationMode,
+    toggleCellAnnotation,
   } = props
     
   const row = Math.floor(index / gridColumns)
@@ -96,6 +97,9 @@ function SGVGridCell (props) {
           strokeWidth={cellStyle.strokeWidth}
           width={cellWidth}
           height={cellHeight}
+          onClick={() => {
+            toggleCellAnnotation(index)
+          }}
         />
       )}
     </g>
@@ -119,6 +123,7 @@ SGVGridCell.propTypes = {
   zoom: PropTypes.number,
 
   annotationMode: PropTypes.bool,
+  toggleCellAnnotation: PropTypes.func,
 }
 
 SGVGridCell.defaultProps = {
@@ -138,6 +143,7 @@ SGVGridCell.defaultProps = {
   zoom: 1,
 
   annotationMode: true,
+  toggleCellAnnotation: () => {},
 }
 
 export default SGVGridCell
