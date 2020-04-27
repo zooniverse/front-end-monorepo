@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import ResizeIcon from './ResizeIcon'
+import { ResizeIcon } from './ResizeIcon'
 
 describe('SubTaskPopup > Components > ResizeIcon', function () {
   it('should render without crashing', function () {
