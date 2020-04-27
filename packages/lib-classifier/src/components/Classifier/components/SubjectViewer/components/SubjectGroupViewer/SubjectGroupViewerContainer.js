@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Paragraph } from 'grommet'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SubjectGroupViewer from './SubjectGroupViewer'
@@ -42,23 +43,17 @@ function storeMapper (stores) {
   const gridRows = workflowConfig.grid_rows || DEFAULT_GRID_ROWS
   
   const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  let annotations = stores.classifierStore.classifications?.currentAnnotations
-
-  // WARNING: annotations by default returns []. But when there's a value, we get {} ???
-  // Due to `get currentAnnotations ()` being designed for LightCurveViewer and its siblings.
-  // TODO: fix this
-  
-  // TEMPORARY FIX
-  if (Array.isArray(annotations)) annotations = {}
-  
-  const {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
-  
   const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroup')
-
+  
+  const {
+    addAnnotation,
+    active: classification,
+  } = stores.classifierStore.classifications
+  const annotation = classification?.addAnnotation(currentTask)
+  currentTask.setAnnotation(annotation)
+  
   return {
     cellWidth,
     cellHeight,
@@ -71,7 +66,7 @@ function storeMapper (stores) {
     setOnPan,
     
     addAnnotation,
-    annotations,
+    annotation,
     currentTask,
   }
 }
@@ -232,10 +227,31 @@ class SubjectGroupViewerContainer extends React.Component {
   }
     
   toggleCellAnnotation (cellIndex) {
-    console.log('+++ toggleCellAnnotation: ', cellIndex)
+    if (!this.isCurrentTaskValidForAnnotation()) return
+    
+    console.log('+++ toggleCellAnnotation: ', this.props.currentTask?.taskKey, cellIndex)
+    this.props.addAnnotation(this.props.currentTask, [ cellIndex ])
+  }
+    
+  render () {
+    const { loadingState } = this.props
+    return this[loadingState]() || null
   }
 
-  render () {
+  [asyncStates.initialized] () {
+    return null
+  }
+
+  [asyncStates.loading] () {
+    return (<Paragraph>Loading</Paragraph>)
+  }
+
+  [asyncStates.error] () {
+    console.error('There was an error loading the workflow steps and tasks.')
+    return (<Paragraph>Something went wrong</Paragraph>)
+  }
+
+  [asyncStates.success] () {
     const {
       subject,
       loadingState,
@@ -252,7 +268,7 @@ class SubjectGroupViewerContainer extends React.Component {
       setOnZoom,
       
       addAnnotation,
-      annotations,
+      annotation,
       currentTask,
       
     } = this.props
@@ -260,12 +276,6 @@ class SubjectGroupViewerContainer extends React.Component {
     
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
-
-    if (loadingState === asyncStates.error) {
-      return (
-        <div>Something went wrong.</div>
-      )
-    }
 
     const svg = this.groupViewer.current
     
@@ -303,10 +313,10 @@ class SubjectGroupViewerContainer extends React.Component {
             panY={panY}
             zoom={zoom}
     
-            annotations={annotations}
+            annotation={annotation}
             interactionMode={interactionMode}
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
-            toggleCellAnnotation={this.toggleCellAnnotation}
+            toggleCellAnnotation={this.toggleCellAnnotation.bind(this)}
           />
         </div>
       </SVGContext.Provider>
