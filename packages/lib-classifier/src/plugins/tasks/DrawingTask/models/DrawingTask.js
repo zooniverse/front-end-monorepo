@@ -81,10 +81,12 @@ export const Drawing = types.model('Drawing', {
     }
 
     function setSubTaskVisibility (visible, drawingMarkNode) {
-      self.subTaskVisibility = visible
-      self.subTaskMarkBounds = (drawingMarkNode)
-        ? drawingMarkNode.getBoundingClientRect()
-        : undefined
+      if (self.activeTool.tasks?.length > 0) {
+        self.subTaskVisibility = visible
+        self.subTaskMarkBounds = (drawingMarkNode)
+          ? drawingMarkNode.getBoundingClientRect()
+          : undefined
+      }
     }
 
     function togglePreviousMarks () {
