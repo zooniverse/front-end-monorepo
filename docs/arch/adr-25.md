@@ -199,13 +199,13 @@ To set up and extractor you need to URL encode the keywords
 
 ```json
 {
-    'task': 'T0',
-    'shape': 'point',
-    'details': {
-        'T0_tool0_subtask0': 'question_extractor',
-        'T0_tool0_subtask1': 'dropdown_extractor',
-        'T0_tool1_subtask0': 'question_extractor',
-        'T0_tool1_subtask1': 'dropdown_extractor'
+    "task": "T0",
+    "shape": "point",
+    "details": {
+        "T0_tool0_subtask0": "question_extractor",
+        "T0_tool0_subtask1": "dropdown_extractor",
+        "T0_tool1_subtask0": "question_extractor",
+        "T0_tool1_subtask1": "dropdown_extractor"
     }
 }
 ```
@@ -226,12 +226,12 @@ The reducer's URL prams also have the `details` section in the same format as th
 
 ``` json
 {
-    'shape': 'point',
-    'details': {
-        'T0_tool0_subtask0': 'question_reducer',
-        'T0_tool0_subtask1': 'dropdown_reducer',
-        'T0_tool1_subtask0': 'question_reducer',
-        'T0_tool1_subtask1': 'dropdown_reducer'
+    "shape": "point",
+    "details": {
+        "T0_tool0_subtask0": "question_reducer",
+        "T0_tool0_subtask1": "dropdown_reducer",
+        "T0_tool1_subtask0": "question_reducer",
+        "T0_tool1_subtask1": "dropdown_reducer"
     }
 }
 ```
