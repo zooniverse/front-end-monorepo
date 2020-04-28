@@ -1,6 +1,7 @@
 # ADR 25: Drawing Sub-task 
 
 Created: January 6, 2020
+Updated: April 28, 2020
 
 ## Context
 
@@ -188,3 +189,55 @@ Flattening also has added benefits for Panoptes when generating classification e
 In the raw classification export, this also benefits researchers that want to analyze the outputted CSV directly and prefer a flatter JSON structure. Flat structures facilitate research teams being able to load data without JSON-based manipulation. There are many teams who would benefit from the ability to read-in a CSV to Excel and start analyzing their results, as opposed to needing to first parse JSON. There will still be some JSON structure in CSV exports, but this will contribute toward minimizing it. 
 
 The transcription task is a automatically configured drawing task with a sub-task and will be using a new variant of a text task that includes auto-suggestions from caesar reductions. Its sub-task should use the suggested changes from this ADR as well.
+
+### Aggregation 
+
+The aggregation for caesar code needed to be updated to accommodate the new annotation structure for sub-tasks. PR [289](https://github.com/zooniverse/aggregation-for-caesar/pull/289) implements these changes. Here is a sample extractor and reducer using the new code:
+
+#### Setting up the extractor
+To set up and extractor you need to URL encode the keywords
+
+```json
+{
+    'task': 'T0',
+    'shape': 'point',
+    'details': {
+        'T0_tool0_subtask0': 'question_extractor',
+        'T0_tool0_subtask1': 'dropdown_extractor',
+        'T0_tool1_subtask0': 'question_extractor',
+        'T0_tool1_subtask1': 'dropdown_extractor'
+    }
+}
+```
+
+and that looks like
+`https://aggregation-caesar.zooniverse.org/extractors/shape_extractor?task=T0&shape=point&details=%7B%27T0_tool0_subtask0%27%3A+%27question_extractor%27%2C+%27T0_tool0_subtask1%27%3A+%27dropdown_extractor%27%2C+%27T0_tool1_subtask0%27%3A+%27question_extractor%27%2C+%27T0_tool1_subtask1%27%3A+%27dropdown_extractor%27%7D`
+
+although I expect the decoded URL would also work (not tested)
+`https://aggregation-caesar.zooniverse.org/extractors/shape_extractor?task=T0&shape=point&details={'T0_tool0_subtask0':+'question_extractor',+'T0_tool0_subtask1':+'dropdown_extractor',+'T0_tool1_subtask0':+'question_extractor',+'T0_tool1_subtask1':+'dropdown_extractor'}`
+
+These keywords define the task ID, the shape used for the drawing tool (I have not make all the changes for the newly defined 2.0 shape params yet, but it will work for the point right now as that classification structure still looks the same), and the extractors to use for each of the subtasks. In this example there are two point tools on task `T0` and they each have a question subtask followed by a dropdown subtask.
+
+Any subtasks not explicitly defined in this `details` keyword are ignored an will not be extracted.
+
+#### Setting up the reducer
+
+The reducer's URL prams also have the `details` section in the same format as the extractor. As an example for the dbscan reducer the keywords would look like (using default cluster params):
+
+``` json
+{
+    'shape': 'point',
+    'details': {
+        'T0_tool0_subtask0': 'question_reducer',
+        'T0_tool0_subtask1': 'dropdown_reducer',
+        'T0_tool1_subtask0': 'question_reducer',
+        'T0_tool1_subtask1': 'dropdown_reducer'
+    }
+}
+```
+
+The encoded URL would be
+`https://aggregation-caesar.zooniverse.org/reducers/shape_reducer_dbscan?shape=point&details=%7B%27T0_tool0_subtask0%27%3A+%27question_reducer%27%2C+%27T0_tool0_subtask1%27%3A+%27dropdown_reducer%27%2C+%27T0_tool1_subtask0%27%3A+%27question_reducer%27%2C+%27T0_tool1_subtask1%27%3A+%27dropdown_reducer%27%7D`
+
+or the decoded URL
+`https://aggregation-caesar.zooniverse.org/reducers/shape_reducer_dbscan?shape=point&details={'T0_tool0_subtask0':+'question_reducer',+'T0_tool0_subtask1':+'dropdown_reducer',+'T0_tool1_subtask0':+'question_reducer',+'T0_tool1_subtask1':+'dropdown_reducer'}`
