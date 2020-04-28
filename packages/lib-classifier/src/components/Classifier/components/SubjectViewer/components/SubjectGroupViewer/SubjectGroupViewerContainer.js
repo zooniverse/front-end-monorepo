@@ -227,8 +227,23 @@ class SubjectGroupViewerContainer extends React.Component {
   toggleCellAnnotation (cellIndex) {
     if (!this.isCurrentTaskValidForAnnotation()) return
     
+    const { classification, currentTask } = this.props
+    
+    const annotation = classification.annotation(currentTask)
+    const newValue = annotation?.value?.slice() || []
+    
+    if (newValue.includes(cellIndex)) {
+      const indexInValue = newValue.indexOf(cellIndex)
+      newValue.splice(indexInValue, 1)
+    } else {
+      newValue.push(cellIndex)
+    }
+    
     console.log('+++ toggleCellAnnotation: ', this.props.currentTask?.taskKey, cellIndex)
-    this.props.addAnnotation(this.props.currentTask, [ cellIndex ])
+    console.log('+++ annotationValue: ', newValue)
+    
+    annotation.update(newValue)
+    //this.props.addAnnotation(this.props.currentTask, [ cellIndex ])
   }
     
   render () {
@@ -286,12 +301,12 @@ class SubjectGroupViewerContainer extends React.Component {
     ) {
       return null
     }
-    
-    // TODO: check??
-    // const annotation = classification.addAnnotation(currentTask)
-    // currentTask.setAnnotation(annotation)
+
+    // Note: the Task's Annotations are initialised by the SubjectGroupTask component.
     const annotation = classification.annotation(currentTask)
-    console.log('+++ annotation: ', annotation.toJSON())
+    
+    // God dang it THIS LINE OF CODE IS APPARENTLY REQUIRED FOR THE CODE TO WORK WTF
+    console.log('+++ annotation', annotation.toJSON())
 
     return (
       <SVGContext.Provider value={{ svg }}>
