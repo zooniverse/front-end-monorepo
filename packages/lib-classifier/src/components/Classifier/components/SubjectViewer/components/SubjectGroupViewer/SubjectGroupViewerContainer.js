@@ -302,7 +302,8 @@ class SubjectGroupViewerContainer extends React.Component {
     const annotation = classification.annotation(currentTask)
     
     // This observer is required for `annotation`, for some reason.
-    const ObservedSubjectGroupViewer = observer(SubjectGroupViewer)
+    // const ObservedSubjectGroupViewer = observer(SubjectGroupViewer)
+    const ObservedSubjectGroupViewer = SubjectGroupViewer
     
     return (
       <SVGContext.Provider value={{ svg }}>

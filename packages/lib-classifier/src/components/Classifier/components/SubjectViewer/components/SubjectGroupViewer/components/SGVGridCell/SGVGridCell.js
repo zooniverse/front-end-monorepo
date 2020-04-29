@@ -1,10 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const DraggableImage = draggable('image')
-const DraggableRect = draggable('rect')
+const DraggableImage = styled(draggable('image'))`
+    cursor: grab;
+  }
+`
+
+const DraggableRect = styled(draggable('rect'))`
+    cursor: grab;
+  }
+`
+
+const ClickableRect = styled('rect')`
+    cursor: pointer;
+  }
+`
 
 function SGVGridCell (props) {
   const {
@@ -87,13 +100,13 @@ function SGVGridCell (props) {
       <rect
         fill="none"
         stroke={(cellAnnotated) ? 'red' : cellStyle.stroke}
-        strokeWidth={(cellAnnotated) ? (cellStyle.strokeWidth * 1.5) : cellStyle.strokeWidth}
+        strokeWidth={(cellAnnotated) ? (cellStyle.strokeWidth * 10) : cellStyle.strokeWidth}
         width={cellWidth}
         height={cellHeight}
       />
       {annotationMode  && (
-        <rect
-          fill={(cellAnnotated) ? 'red' : 'blue'}
+        <ClickableRect
+          fill="transparent"
           stroke="transparent"
           strokeWidth={cellStyle.strokeWidth}
           width={cellWidth}
