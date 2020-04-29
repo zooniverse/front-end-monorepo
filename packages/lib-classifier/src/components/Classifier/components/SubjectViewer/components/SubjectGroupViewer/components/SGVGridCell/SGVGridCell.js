@@ -96,14 +96,14 @@ function SGVGridCell (props) {
           transform={`scale(${zoom}) translate(${panX}, ${panY})`}
           transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
         />
+        <rect
+          fill="none"
+          stroke={(cellAnnotated) ? 'red' : cellStyle.stroke}
+          strokeWidth={(cellAnnotated) ? (cellStyle.strokeWidth * 10) : cellStyle.strokeWidth}
+          width={cellWidth}
+          height={cellHeight}
+        />
       </g>
-      <rect
-        fill="none"
-        stroke={(cellAnnotated) ? 'red' : cellStyle.stroke}
-        strokeWidth={(cellAnnotated) ? (cellStyle.strokeWidth * 10) : cellStyle.strokeWidth}
-        width={cellWidth}
-        height={cellHeight}
-      />
       {annotationMode  && (
         <ClickableRect
           fill="transparent"
