@@ -19,6 +19,9 @@ const ClickableRect = styled('rect')`
   }
 `
 
+const BORDER_WHEN_SELECTED = 20
+const BORDER_WHEN_UNSELECTED = 2  // Multiply by 2 because half of intended stroke-width will be clipped
+
 function SGVGridCell (props) {
   const {
     image,
@@ -98,8 +101,11 @@ function SGVGridCell (props) {
         />
         <rect
           fill="none"
-          stroke={(cellAnnotated) ? 'red' : cellStyle.stroke}
-          strokeWidth={(cellAnnotated) ? (cellStyle.strokeWidth * 10) : cellStyle.strokeWidth}
+          stroke={(cellAnnotated) ? cellStyle.highlight : cellStyle.stroke}
+          strokeWidth={(cellAnnotated)
+            ? cellStyle.strokeWidth * BORDER_WHEN_SELECTED
+            : cellStyle.strokeWidth * BORDER_WHEN_UNSELECTED
+          }
           width={cellWidth}
           height={cellHeight}
         />
@@ -107,8 +113,6 @@ function SGVGridCell (props) {
       {annotationMode  && (
         <ClickableRect
           fill="transparent"
-          stroke="transparent"
-          strokeWidth={cellStyle.strokeWidth}
           width={cellWidth}
           height={cellHeight}
           onClick={() => {

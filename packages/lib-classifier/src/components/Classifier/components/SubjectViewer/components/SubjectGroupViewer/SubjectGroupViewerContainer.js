@@ -17,6 +17,7 @@ const DEFAULT_CELL_WIDTH = 1200
 const DEFAULT_CELL_HEIGHT = 1000
 const DEFAULT_CELL_STYLE = {
   stroke: '#fff',
+  highlight: '#4cc',
   strokeWidth: '4',
   fill: '#000'
 }
