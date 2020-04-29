@@ -86,15 +86,15 @@ function SGVGridCell (props) {
       </g>
       <rect
         fill="none"
-        stroke={cellStyle.stroke}
-        strokeWidth={cellStyle.strokeWidth}
+        stroke={(cellAnnotated) ? 'red' : cellStyle.stroke}
+        strokeWidth={(cellAnnotated) ? (cellStyle.strokeWidth * 1.5) : cellStyle.strokeWidth}
         width={cellWidth}
         height={cellHeight}
       />
       {annotationMode  && (
         <rect
           fill={(cellAnnotated) ? 'red' : 'blue'}
-          stroke={cellStyle.stroke}
+          stroke="transparent"
           strokeWidth={cellStyle.strokeWidth}
           width={cellWidth}
           height={cellHeight}

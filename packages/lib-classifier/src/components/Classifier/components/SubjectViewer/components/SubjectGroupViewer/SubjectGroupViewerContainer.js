@@ -239,11 +239,7 @@ class SubjectGroupViewerContainer extends React.Component {
       newValue.push(cellIndex)
     }
     
-    console.log('+++ toggleCellAnnotation: ', this.props.currentTask?.taskKey, cellIndex)
-    console.log('+++ annotationValue: ', newValue)
-    
     annotation.update(newValue)
-    //this.props.addAnnotation(this.props.currentTask, [ cellIndex ])
   }
     
   render () {
@@ -305,13 +301,13 @@ class SubjectGroupViewerContainer extends React.Component {
     // Note: the Task's Annotations are initialised by the SubjectGroupTask component.
     const annotation = classification.annotation(currentTask)
     
-    // God dang it THIS LINE OF CODE IS APPARENTLY REQUIRED FOR THE CODE TO WORK WTF
-    console.log('+++ annotation', annotation.toJSON())
-
+    // This observer is required for `annotation`, for some reason.
+    const ObservedSubjectGroupViewer = observer(SubjectGroupViewer)
+    
     return (
       <SVGContext.Provider value={{ svg }}>
         <div ref={this.scrollContainer}>
-          <SubjectGroupViewer
+          <ObservedSubjectGroupViewer
             ref={this.groupViewer}
             
             images={images}
