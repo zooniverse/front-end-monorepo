@@ -43,7 +43,6 @@ function SubjectGroupTask (props) {
       theme={theme}
     >
       <StyledText size='small' tag='legend'>
-        <h1>DEBUG: SUBJECT GROUP TASK</h1>
         <Markdownz>
           {task.question}
         </Markdownz>

@@ -309,7 +309,7 @@ class SubjectGroupViewerContainer extends React.Component {
     }
 
     // Note: the Task's Annotations are initialised by the SubjectGroupTask component.
-    const annotation = toJS(classification.annotation(currentTask))
+    const annotation = toJS(classification?.annotation(currentTask))
     
     // WARNING: 
     // toJS() is currently required since changes to annotation isn't being
