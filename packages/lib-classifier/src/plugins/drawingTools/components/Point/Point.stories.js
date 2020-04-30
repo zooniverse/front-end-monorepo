@@ -2,7 +2,6 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React, { Component } from 'react'
 import { Box } from 'grommet'
-import sinon from 'sinon'
 import { Provider } from 'mobx-react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -12,7 +11,7 @@ import SingleImageViewer from '@viewers/components/SingleImageViewer'
 import ClassificationStore from '@store/ClassificationStore'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
-import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import { DrawingTaskFactory, ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 
 const subject = SubjectFactory.build({
   locations: [
@@ -22,7 +21,7 @@ const subject = SubjectFactory.build({
 
 const project = ProjectFactory.build()
 const workflow = WorkflowFactory.build()
-const drawingTaskSnapshot = {
+const drawingTaskSnapshot = DrawingTaskFactory.build({
   instruction: 'Draw a point',
   taskKey: 'T1',
   tools: [{
@@ -30,7 +29,7 @@ const drawingTaskSnapshot = {
     type: 'point'
   }],
   type: 'drawing'
-}
+})
 
 const subTasksSnapshot = [
   {
@@ -54,13 +53,15 @@ const subTasksSnapshot = [
   }
 ]
 
-function setupStores ({ activeMark = false, subtask = false }) {
+function setupStores ({ activeMark, subtask }) {
   if (subtask) {
     drawingTaskSnapshot.tools[0].details = subTasksSnapshot
     drawingTaskSnapshot.subTaskVisibility = true
+    // should think of a better way to do this for the story
+    // this is a rough approximation of what the positioning is like now
     drawingTaskSnapshot.subTaskMarkBounds = {
-      x: 100,
-      y: 100,
+      x: 162.5,
+      y: 162.5,
       width: 0,
       height: 0,
       top: 0,
@@ -148,13 +149,13 @@ storiesOf('Drawing tools | Point', module)
     }
   })
   .add('complete', function () {
-    const stores = setupStores({})
+    const stores = setupStores({ activeMark: false, subtask: false})
     return (
       <DrawingStory stores={stores} />
     )
   })
   .add('active', function () {
-    const stores = setupStores({ activeMark: true })
+    const stores = setupStores({ activeMark: true, subtask: false })
     return (
       <DrawingStory stores={stores} />
     )
