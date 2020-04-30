@@ -112,11 +112,15 @@ function SGVGridCell (props) {
       </g>
       {annotationMode  && (
         <ClickableRect
+          tabIndex={0}
           fill="transparent"
           width={cellWidth}
           height={cellHeight}
           onClick={() => {
             toggleCellAnnotation(index)
+          }}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') toggleCellAnnotation(index)
           }}
         />
       )}
