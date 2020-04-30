@@ -2,9 +2,10 @@ import absoluteUrl from 'next-absolute-url'
 import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
-import request from 'superagent'
 
 import en from './locales/en'
+import createPublicationsResponse  from '../../api/publications'
+import cache from '../../api/publications/publicationsCache'
 import Publications from './Publications'
 
 counterpart.registerTranslations('en', en)
@@ -38,12 +39,11 @@ PublicationsContainer.defaultProps = {
 
 export default PublicationsContainer
 
-export async function getServerSideProps({ req }) {
-  const host = getHost(req)
+export async function getServerSideProps() {
   let error = null
   let publicationsData = []
   try {
-    publicationsData = (await request.get(host + '/api/publications')).body
+    publicationsData = await cache.get('publications', createPublicationsResponse)
   } catch (err) {
     error = err.message
   }
@@ -53,10 +53,6 @@ export async function getServerSideProps({ req }) {
       publicationsData
     }
   }
-}
-
-function getHost(req) {
-  return process.env.ASSET_PREFIX || absoluteUrl(req).origin
 }
 
 function createFilters(publicationsData, activeFilter, setActiveFilter) {
