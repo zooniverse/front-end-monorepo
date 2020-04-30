@@ -1,5 +1,5 @@
-import counterpart from 'counterpart'
 import absoluteUrl from 'next-absolute-url'
+import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
 import request from 'superagent'
@@ -27,21 +27,6 @@ function TeamContainer (props) {
   )
 }
 
-TeamContainer.getInitialProps = async ({ req }) => {
-  const host = getHost(req)
-  let error
-  let teamData = []
-  try {
-    teamData = (await request.get(host + '/api/team')).body
-  } catch (err) {
-    error = err.message
-  }
-  return {
-    error,
-    teamData
-  }
-}
-
 TeamContainer.propTypes = {
   error: string,
   teamData: array,
@@ -52,6 +37,23 @@ TeamContainer.defaultProps = {
 }
 
 export default TeamContainer
+
+export async function getServerSideProps({ req }) {
+  const host = getHost(req)
+  let error = null
+  let teamData = []
+  try {
+    teamData = (await request.get(host + '/api/team')).body
+  } catch (err) {
+    error = err.message
+  }
+  return {
+    props: {
+      error,
+      teamData
+    }
+  }
+}
 
 function getHost (req) {
   return process.env.ASSET_PREFIX || absoluteUrl(req).origin

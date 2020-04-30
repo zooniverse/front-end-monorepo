@@ -1,5 +1,5 @@
-import counterpart from 'counterpart'
 import absoluteUrl from 'next-absolute-url'
+import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
 import request from 'superagent'
@@ -27,21 +27,6 @@ function PublicationsContainer(props) {
   )
 }
 
-PublicationsContainer.getInitialProps = async ({ req }) => {
-  const host = getHost(req)
-  let error
-  let publicationsData = []
-  try {
-    publicationsData = (await request.get(host + '/api/publications')).body
-  } catch (err) {
-    error = err.message
-  }
-  return {
-    error,
-    publicationsData
-  }
-}
-
 PublicationsContainer.propTypes = {
   error: string,
   publicationsData: array,
@@ -52,6 +37,23 @@ PublicationsContainer.defaultProps = {
 }
 
 export default PublicationsContainer
+
+export async function getServerSideProps({ req }) {
+  const host = getHost(req)
+  let error = null
+  let publicationsData = []
+  try {
+    publicationsData = (await request.get(host + '/api/publications')).body
+  } catch (err) {
+    error = err.message
+  }
+  return {
+    props: {
+      error,
+      publicationsData
+    }
+  }
+}
 
 function getHost(req) {
   return process.env.ASSET_PREFIX || absoluteUrl(req).origin

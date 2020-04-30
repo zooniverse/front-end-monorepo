@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import request from 'superagent'
 
-import TeamContainer from './TeamContainer'
+import TeamContainer, { getServerSideProps } from './TeamContainer'
 import mockData from './TeamContainer.mock'
 import TeamComponent from './Team'
 
@@ -37,18 +37,18 @@ describe('Component > TeamContainer', function () {
 
     it('should handle valid API data', async () => {
       getTeamDataStub = sinon.stub(request, 'get').returns({ body: DATA })
-      const props = await TeamContainer.getInitialProps({})
+      const { props } = await getServerSideProps({})
       expect(props).to.deep.equal({
-        error: undefined,
+        error: null,
         teamData: DATA
       })
     })
 
     it('should handle empty API reponse', async () => {
       getTeamDataStub = sinon.stub(request, 'get').returns({ body: [] })
-      const props = await TeamContainer.getInitialProps({})
+      const { props } = await getServerSideProps({})
       expect(props).to.deep.equal({
-        error: undefined,
+        error: null,
         teamData: []
       })
     })
@@ -57,7 +57,7 @@ describe('Component > TeamContainer', function () {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
       getTeamDataStub = sinon.stub(request, 'get').returns(errorPromise)
-      const props = await TeamContainer.getInitialProps({})
+      const { props } = await getServerSideProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
         teamData: []
