@@ -1,4 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
+import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -307,11 +308,12 @@ class SubjectGroupViewerContainer extends React.Component {
     }
 
     // Note: the Task's Annotations are initialised by the SubjectGroupTask component.
-    const annotation = classification.annotation(currentTask).toJSON()
+    const annotation = toJS(classification.annotation(currentTask))
     
     // WARNING: 
-    // toJSON() is currently required to make changes to annotation observable.
-    // A better solution is still being researched.
+    // toJS() is currently required since changes to annotation isn't being
+    // correctly observed.to make changes to annotation observable. A better
+    // solution is still being researched.
     
     return (
       
