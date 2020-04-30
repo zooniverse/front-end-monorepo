@@ -245,7 +245,16 @@ class SubjectGroupViewerContainer extends React.Component {
     
   render () {
     const { loadingState } = this.props
-    return this[loadingState]() || null
+    const svg = this.groupViewer.current
+    
+    // Note: SVG provider and scrollContainer should be consistent across all loading states
+    return (
+      <SVGContext.Provider value={{ svg }}>
+        <div ref={this.scrollContainer}>
+          {(this[loadingState]() || null)}
+        </div>
+      </SVGContext.Provider>
+    )
   }
 
   [asyncStates.initialized] () {
@@ -287,8 +296,6 @@ class SubjectGroupViewerContainer extends React.Component {
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
 
-    const svg = this.groupViewer.current
-    
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
         || !(cellHeight > 0)
@@ -307,8 +314,7 @@ class SubjectGroupViewerContainer extends React.Component {
     const ObservedSubjectGroupViewer = SubjectGroupViewer
     
     return (
-      <SVGContext.Provider value={{ svg }}>
-        <div ref={this.scrollContainer}>
+      
           <ObservedSubjectGroupViewer
             ref={this.groupViewer}
             
@@ -335,8 +341,7 @@ class SubjectGroupViewerContainer extends React.Component {
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
             toggleCellAnnotation={this.toggleCellAnnotation.bind(this)}
           />
-        </div>
-      </SVGContext.Provider>
+
     )
   }
 }
