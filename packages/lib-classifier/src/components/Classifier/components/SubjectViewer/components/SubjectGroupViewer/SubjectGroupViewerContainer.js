@@ -307,15 +307,15 @@ class SubjectGroupViewerContainer extends React.Component {
     }
 
     // Note: the Task's Annotations are initialised by the SubjectGroupTask component.
-    const annotation = classification.annotation(currentTask)
+    const annotation = classification.annotation(currentTask).toJSON()
     
-    // This observer is required for `annotation`, for some reason.
-    // const ObservedSubjectGroupViewer = observer(SubjectGroupViewer)
-    const ObservedSubjectGroupViewer = SubjectGroupViewer
+    // WARNING: 
+    // toJSON() is currently required to make changes to annotation observable.
+    // A better solution is still being researched.
     
     return (
       
-          <ObservedSubjectGroupViewer
+          <SubjectGroupViewer
             ref={this.groupViewer}
             
             images={images}
