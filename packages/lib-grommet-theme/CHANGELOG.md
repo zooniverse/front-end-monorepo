@@ -10,9 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added `#ffffff` (white) as `neutral-6`
 - Added drawing tool colors as `drawing-${variableName}` and to the colors object for utility use
 - Added highlighter tool colors as `highlighter-${variableName}` and to the colors object for utility use
+- Set border color on inputs to `light-5`
 
 ### Changed
 - Lowered font weight for form input text.
+- Removed border radius on inputs
 
 ## [2.2.0] 2019-09-23
 ### Added
