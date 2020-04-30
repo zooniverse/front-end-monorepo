@@ -39,7 +39,7 @@ TeamContainer.defaultProps = {
 
 export default TeamContainer
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let error = null
   let teamData = []
   try {

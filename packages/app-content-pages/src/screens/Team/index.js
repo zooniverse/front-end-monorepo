@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from './TeamContainer'
+export { default, getStaticProps } from './TeamContainer'

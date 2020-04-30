@@ -39,7 +39,7 @@ PublicationsContainer.defaultProps = {
 
 export default PublicationsContainer
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let error = null
   let publicationsData = []
   try {

@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import request from 'superagent'
 
-import PublicationsContainer, { getServerSideProps } from './PublicationsContainer'
+import PublicationsContainer, { getStaticProps } from './PublicationsContainer'
 import mockData from './PublicationsContainer.mock'
 import PublicationsComponent from './Publications'
 
@@ -37,7 +37,7 @@ describe('Component > PublicationsContainer', function () {
 
     it('should handle valid API data', async () => {
       getpublicationsDataStub = sinon.stub(request, 'get').returns({ body: DATA })
-      const { props } = await getServerSideProps({})
+      const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
         publicationsData: DATA
@@ -46,7 +46,7 @@ describe('Component > PublicationsContainer', function () {
 
     it('should handle empty API reponse', async () => {
       getpublicationsDataStub = sinon.stub(request, 'get').returns({ body: [] })
-      const { props } = await getServerSideProps({})
+      const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
         publicationsData: []
@@ -57,7 +57,7 @@ describe('Component > PublicationsContainer', function () {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
       getpublicationsDataStub = sinon.stub(request, 'get').returns(errorPromise)
-      const { props } = await getServerSideProps({})
+      const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
         publicationsData: []

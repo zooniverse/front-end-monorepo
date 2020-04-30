@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from './PublicationsContainer'
+export { default, getStaticProps } from './PublicationsContainer'

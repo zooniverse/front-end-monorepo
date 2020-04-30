@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from '../../src/screens/Publications'
+export { default, getStaticProps } from '../../src/screens/Publications'
