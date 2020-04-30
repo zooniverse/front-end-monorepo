@@ -49,7 +49,9 @@ workflow.configuration = {
   cell_style: {
     stroke: '#fff',
     strokeWidth: '4',
-    fill: '#000'
+    highlight: '#4cc',
+    highlightWidth: '40',
+    background: '#000'
   },
   grid_columns: 4,
   grid_rows: 3

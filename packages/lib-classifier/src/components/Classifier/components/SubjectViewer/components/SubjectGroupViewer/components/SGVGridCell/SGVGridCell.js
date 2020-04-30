@@ -14,13 +14,7 @@ const DraggableRect = styled(draggable('rect'))`
   }
 `
 
-const ClickableRect = styled('rect')`
-    cursor: pointer;
-  }
-`
-
-const BORDER_WHEN_SELECTED = 20
-const BORDER_WHEN_UNSELECTED = 2  // Multiply by 2 because half of intended stroke-width will be clipped
+const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
 
 function SGVGridCell (props) {
   const {
@@ -74,6 +68,17 @@ function SGVGridCell (props) {
   const imageY = (cellHeight - imageHeight) / 2
 
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
+  
+  const focusBorderSize = cellStyle.highlightWidth * BORDER_MULTIPLIER
+  const ClickableRect = styled('rect')`
+      cursor: pointer;
+      &:focus {
+        stroke: ${cellStyle.stroke};
+        stroke-width: ${focusBorderSize};
+        stroke-dasharray: ${focusBorderSize}, ${focusBorderSize};
+      }
+    }
+  `
 
   return (
     <g
@@ -83,7 +88,7 @@ function SGVGridCell (props) {
         <rect width={cellWidth} height={cellHeight} />
       </clipPath>
       <DraggableRect
-        fill={cellStyle.fill}
+        fill={cellStyle.background}
         width={cellWidth}
         height={cellHeight}
         dragMove={dragMove}
@@ -103,27 +108,27 @@ function SGVGridCell (props) {
           fill="none"
           stroke={(cellAnnotated) ? cellStyle.highlight : cellStyle.stroke}
           strokeWidth={(cellAnnotated)
-            ? cellStyle.strokeWidth * BORDER_WHEN_SELECTED
-            : cellStyle.strokeWidth * BORDER_WHEN_UNSELECTED
+            ? cellStyle.highlightWidth * BORDER_MULTIPLIER
+            : cellStyle.strokeWidth * BORDER_MULTIPLIER
           }
           width={cellWidth}
           height={cellHeight}
         />
+        {annotationMode  && (
+          <ClickableRect
+            tabIndex={0}
+            fill="transparent"
+            width={cellWidth}
+            height={cellHeight}
+            onClick={() => {
+              toggleCellAnnotation(index)
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') toggleCellAnnotation(index)
+            }}
+          />
+        )}
       </g>
-      {annotationMode  && (
-        <ClickableRect
-          tabIndex={0}
-          fill="transparent"
-          width={cellWidth}
-          height={cellHeight}
-          onClick={() => {
-            toggleCellAnnotation(index)
-          }}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') toggleCellAnnotation(index)
-          }}
-        />
-      )}
     </g>
   )
 }
