@@ -9,7 +9,7 @@ const theme = {
       width: '1px'
     },
     color: {
-      dark: 'neutral-4',
+      dark: 'white',
       light: 'black'
     },
     primary: {

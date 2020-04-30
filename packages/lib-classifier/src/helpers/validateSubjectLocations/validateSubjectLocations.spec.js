@@ -45,23 +45,17 @@ describe('Helpers > validateSubjectLocations', function () {
   })
 
   describe('invalid subject locations', function () {
-    it('should return an error', function () {
-      expect(function () {
-        validateSubjectLocations(invalidSubjectLocations)
-      }).to.throw(Error)
+    it('should return false', function () {
+      expect(validateSubjectLocations(invalidSubjectLocations)).to.be.false()
     })
 
-    it('should return an error if any one of the locations is invalid', function () {
+    it('should return false if any one of the locations is invalid', function () {
       const allLocations = validSubjectLocations.concat(invalidSubjectLocations)
-      expect(function () {
-        validateSubjectLocations(allLocations)
-      }).to.throw(Error)
+      expect(validateSubjectLocations(allLocations)).to.be.false()
     })
 
-    it('should return an error if the location mismatched mimetype and file extension', function () {
-      expect(function () {
-        validateSubjectLocations(misMatchedLocation)
-      }).to.throw(Error)
+    it('should return false if the location mismatched mimetype and file extension', function () {
+      expect(validateSubjectLocations(misMatchedLocation)).to.be.false()
     })
   })
 })

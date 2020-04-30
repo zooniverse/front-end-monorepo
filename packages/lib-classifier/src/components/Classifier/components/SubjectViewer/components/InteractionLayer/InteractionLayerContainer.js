@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
+import SubTaskPopup from './components/SubTaskPopup'
 
 function storeMapper (stores) {
   const {
@@ -23,7 +24,7 @@ function storeMapper (stores) {
   const subject = stores.classifierStore.subjects.active
   const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
   const annotations = classification ? Array.from(classification.annotations.values()) : []
-  const interactionTaskAnnotations = annotations.filter(annotation => getType(annotation).name === ('DrawingAnnotation' || 'TranscriptionAnnotation'))
+  const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
   const { consensusLines } = subject.transcriptionReductions || {}
 
   return {
@@ -54,15 +55,21 @@ class InteractionLayerContainer extends Component {
       activeMark,
       activeTool,
       activeToolIndex,
+      hidePreviousMarks,
+      hidingIndex,
       marks,
       setActiveMark,
       setSubTaskVisibility,
+      subTaskMarkBounds,
+      subTaskVisibility,
       taskKey
     } = activeInteractionTask
 
+    const visibleMarks = hidePreviousMarks ? marks.slice(hidingIndex) : marks
+
     return (
       <>
-        {interactionTaskAnnotations.map(annotation =>
+        {!hidePreviousMarks && interactionTaskAnnotations.map(annotation =>
           <DrawingToolMarks
             key={annotation.task}
             marks={annotation.value}
@@ -77,7 +84,7 @@ class InteractionLayerContainer extends Component {
             disabled={activeTool.disabled}
             height={height}
             key={taskKey}
-            marks={marks}
+            marks={visibleMarks}
             move={move}
             scale={scale}
             setActiveMark={setActiveMark}
@@ -91,6 +98,12 @@ class InteractionLayerContainer extends Component {
                 task={activeInteractionTask}
               />
             }
+            <SubTaskPopup
+              activeMark={activeMark}
+              subTaskMarkBounds={subTaskMarkBounds}
+              subTaskVisibility={subTaskVisibility}
+              setSubTaskVisibility={setSubTaskVisibility}
+            />
           </InteractionLayer>
         }
       </>
