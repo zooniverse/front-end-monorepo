@@ -2,9 +2,10 @@ import absoluteUrl from 'next-absolute-url'
 import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
-import request from 'superagent'
 
 import en from './locales/en'
+import createTeamResponse  from '../../api/team'
+import cache from '../../api/team/teamCache'
 import Team from './Team'
 
 counterpart.registerTranslations('en', en)
@@ -38,12 +39,11 @@ TeamContainer.defaultProps = {
 
 export default TeamContainer
 
-export async function getServerSideProps({ req }) {
-  const host = getHost(req)
+export async function getServerSideProps() {
   let error = null
   let teamData = []
   try {
-    teamData = (await request.get(host + '/api/team')).body
+    teamData = await cache.get('teams', createTeamResponse)
   } catch (err) {
     error = err.message
   }
@@ -53,10 +53,6 @@ export async function getServerSideProps({ req }) {
       teamData
     }
   }
-}
-
-function getHost (req) {
-  return process.env.ASSET_PREFIX || absoluteUrl(req).origin
 }
 
 function createFilters (teamData, activeFilter, setActiveFilter) {
