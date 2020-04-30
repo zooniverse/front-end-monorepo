@@ -6,7 +6,7 @@ const WorkflowConfiguration = types.model({
   hide_classification_summaries: types.optional(types.boolean, false),
   multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
   subject_viewer: types.maybe(types.enumeration('subjectViewer', ['lightcurve', 'multiFrame', 'subjectGroup'])),
-  subject_viewer_config: types.frozen()
+  subject_viewer_config: types.frozen({})
 })
   .views(self => ({
     get viewerType () {
