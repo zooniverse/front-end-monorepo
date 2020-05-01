@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import request from 'superagent'
 
+import cache from '../../api/publications/publicationsCache'
 import PublicationsContainer, { getStaticProps } from './PublicationsContainer'
 import mockData from './PublicationsContainer.mock'
 import PublicationsComponent from './Publications'
@@ -36,7 +36,7 @@ describe('Component > PublicationsContainer', function () {
     })
 
     it('should handle valid API data', async () => {
-      getpublicationsDataStub = sinon.stub(request, 'get').returns({ body: DATA })
+      getpublicationsDataStub = sinon.stub(cache, 'get').returns(DATA)
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
@@ -45,7 +45,7 @@ describe('Component > PublicationsContainer', function () {
     })
 
     it('should handle empty API reponse', async () => {
-      getpublicationsDataStub = sinon.stub(request, 'get').returns({ body: [] })
+      getpublicationsDataStub = sinon.stub(cache, 'get').returns([])
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
@@ -56,7 +56,7 @@ describe('Component > PublicationsContainer', function () {
     it('should handle API errors', async () => {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
-      getpublicationsDataStub = sinon.stub(request, 'get').returns(errorPromise)
+      getpublicationsDataStub = sinon.stub(cache, 'get').returns(errorPromise)
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
