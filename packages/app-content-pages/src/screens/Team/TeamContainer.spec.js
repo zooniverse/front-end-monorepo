@@ -1,9 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import sinon from 'sinon'
 
-import cache from '../../api/team/teamCache'
-import TeamContainer, { getStaticProps } from './TeamContainer'
+import TeamContainer from './TeamContainer'
 import mockData from './TeamContainer.mock'
 import TeamComponent from './Team'
 
@@ -25,43 +23,6 @@ describe('Component > TeamContainer', function () {
     it('should render without crashing', function () {
       const noDataWrapper = shallow(<TeamContainer teamData={undefined} />)
       expect(noDataWrapper).to.be.ok()
-    })
-  })
-
-  describe('populates the "teamData" props from contentful API', function () {
-    let getTeamDataStub
-
-    afterEach(function () {
-      getTeamDataStub.restore()
-    })
-
-    it('should handle valid API data', async () => {
-      getTeamDataStub = sinon.stub(cache, 'get').returns(DATA)
-      const { props } = await getStaticProps({})
-      expect(props).to.deep.equal({
-        error: null,
-        teamData: DATA
-      })
-    })
-
-    it('should handle empty API reponse', async () => {
-      getTeamDataStub = sinon.stub(cache, 'get').returns([])
-      const { props } = await getStaticProps({})
-      expect(props).to.deep.equal({
-        error: null,
-        teamData: []
-      })
-    })
-
-    it('should handle API errors', async () => {
-      var errorMsg = 'failed to connect to API'
-      var errorPromise = Promise.reject(new Error(errorMsg))
-      getTeamDataStub = sinon.stub(cache, 'get').returns(errorPromise)
-      const { props } = await getStaticProps({})
-      expect(props).to.deep.equal({
-        error: errorMsg,
-        teamData: []
-      })
     })
   })
 

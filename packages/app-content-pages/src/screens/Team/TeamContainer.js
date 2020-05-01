@@ -1,11 +1,8 @@
-import absoluteUrl from 'next-absolute-url'
 import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
 
 import en from './locales/en'
-import createTeamResponse  from '../../api/team'
-import cache from '../../api/team/teamCache'
 import Team from './Team'
 
 counterpart.registerTranslations('en', en)
@@ -38,22 +35,6 @@ TeamContainer.defaultProps = {
 }
 
 export default TeamContainer
-
-export async function getStaticProps() {
-  let error = null
-  let teamData = []
-  try {
-    teamData = await cache.get('teams', createTeamResponse)
-  } catch (err) {
-    error = err.message
-  }
-  return {
-    props: {
-      error,
-      teamData
-    }
-  }
-}
 
 function createFilters (teamData, activeFilter, setActiveFilter) {
   const showAllFilter = {

@@ -1,1 +1,3 @@
-export { default, getStaticProps } from './TeamContainer'
+export { default } from './TeamContainer'
+export { default as getStaticProps } from './getStaticProps'
+
