@@ -38,7 +38,7 @@
     "mobx-state-tree": "~3.15.0",
     "morgan": "^1.9.1",
     "newrelic": "^5.10.0",
-    "next": "9.3.5",
+    "next": "~9.3.6",
     "next-absolute-url": "~1.1.1",
     "node-cache": "~5.0.2",
     "panoptes-client": "~3.2.1",
