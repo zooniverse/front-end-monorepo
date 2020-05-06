@@ -52,6 +52,11 @@ function SVGPanZoom ({
     setViewBox(newViewBox)
   }, [zoom])
 
+  useEffect(() => {
+    setZoom(1)
+    setViewBox(defaultViewBox)
+  }, [img])
+
   function imageScale (img) {
     const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
     const scale = clientWidth / naturalWidth
