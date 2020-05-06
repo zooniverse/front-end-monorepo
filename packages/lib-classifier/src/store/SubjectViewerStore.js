@@ -90,6 +90,7 @@ const SubjectViewer = types
           naturalWidth = 0
         } = target
         self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
+        self.rotation = 0
         self.loadingState = asyncStates.success
       },
 
