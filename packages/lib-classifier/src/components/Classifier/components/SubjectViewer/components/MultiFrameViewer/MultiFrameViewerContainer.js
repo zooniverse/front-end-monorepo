@@ -177,13 +177,14 @@ class MultiFrameViewerContainer extends React.Component {
         />
         <SVGContext.Provider value={{ svg }}>
           <SVGPanZoom
-            img={img}
+            img={this.subjectImage.current}
             maxZoom={5}
             naturalHeight={naturalHeight}
             naturalWidth={naturalWidth}
             setOnDrag={this.setOnDrag}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
+            src={src}
           >
             <SingleImageViewer
               enableInteractionLayer={enableDrawing}

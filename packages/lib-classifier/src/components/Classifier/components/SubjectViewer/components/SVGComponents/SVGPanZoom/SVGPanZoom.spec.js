@@ -99,41 +99,25 @@ describe('Components > SVGPanZoom', function () {
     expect(viewBox).to.equal('18.5 9.5 363 181')
   })
 
-  it('should reset pan with new img', function () {
+  it('should reset pan with new src', function () {
     onPan(-1, 0)
     wrapper.update()
     let viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('10 0 400 200')
 
-    const nextImg = {
-      getBoundingClientRect () {
-        return {
-          height: 200,
-          width: 100
-        }
-      }
-    }
-    wrapper.setProps({ img: nextImg, naturalHeight: 400, naturalWidth: 200 })
+    wrapper.setProps({ naturalHeight: 400, naturalWidth: 200, src: 'http://placekitten.com/200/400' })
     wrapper.update()
     viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 0 200 400')
   })
 
-  it('should reset zoom with new img', function () {
+  it('should reset zoom with new src', function () {
     onZoom('zoomin', 1)
     wrapper.update()
     let viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('18.5 9.5 363 181')
 
-    const nextImg = {
-      getBoundingClientRect () {
-        return {
-          height: 200,
-          width: 100
-        }
-      }
-    }
-    wrapper.setProps({ img: nextImg, naturalHeight: 400, naturalWidth: 200 })
+    wrapper.setProps({ naturalHeight: 400, naturalWidth: 200, src: 'http://placekitten.com/200/400' })
     wrapper.update()
     viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 0 200 400')

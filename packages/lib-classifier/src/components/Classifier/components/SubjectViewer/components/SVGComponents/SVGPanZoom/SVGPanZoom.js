@@ -11,7 +11,8 @@ function SVGPanZoom ({
   naturalWidth,
   setOnDrag,
   setOnPan,
-  setOnZoom
+  setOnZoom,
+  src
 }) {
   const scrollContainer = useRef()
   const defaultViewBox = {
@@ -55,7 +56,7 @@ function SVGPanZoom ({
   useEffect(() => {
     setZoom(1)
     setViewBox(defaultViewBox)
-  }, [img])
+  }, [src])
 
   function imageScale (img) {
     const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
@@ -143,7 +144,8 @@ SVGPanZoom.propTypes = {
   naturalHeight: PropTypes.number.isRequired,
   naturalWidth: PropTypes.number.isRequired,
   setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func
+  setOnZoom: PropTypes.func,
+  src: PropTypes.string.isRequired
 }
 
 SVGPanZoom.defaultProps = {
