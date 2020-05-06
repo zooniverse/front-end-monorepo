@@ -98,4 +98,44 @@ describe('Components > SVGPanZoom', function () {
     viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('18.5 9.5 363 181')
   })
+
+  it('should reset pan with new img', function () {
+    onPan(-1, 0)
+    wrapper.update()
+    let viewBox = wrapper.find('svg').prop('viewBox')
+    expect(viewBox).to.equal('10 0 400 200')
+
+    const nextImg = {
+      getBoundingClientRect () {
+        return {
+          height: 200,
+          width: 100
+        }
+      }
+    }
+    wrapper.setProps({ img: nextImg, naturalHeight: 400, naturalWidth: 200 })
+    wrapper.update()
+    viewBox = wrapper.find('svg').prop('viewBox')
+    expect(viewBox).to.equal('0 0 200 400')
+  })
+
+  it('should reset zoom with new img', function () {
+    onZoom('zoomin', 1)
+    wrapper.update()
+    let viewBox = wrapper.find('svg').prop('viewBox')
+    expect(viewBox).to.equal('18.5 9.5 363 181')
+
+    const nextImg = {
+      getBoundingClientRect () {
+        return {
+          height: 200,
+          width: 100
+        }
+      }
+    }
+    wrapper.setProps({ img: nextImg, naturalHeight: 400, naturalWidth: 200 })
+    wrapper.update()
+    viewBox = wrapper.find('svg').prop('viewBox')
+    expect(viewBox).to.equal('0 0 200 400')
+  })
 })
