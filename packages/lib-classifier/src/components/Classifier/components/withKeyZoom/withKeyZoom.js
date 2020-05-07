@@ -25,41 +25,46 @@ function withKeyZoom (WrappedComponent) {
 
     onKeyDown (e) {
       const { onPan, zoomIn, zoomOut } = this.props
-      switch (e.key) {
-        case '+':
-        case '=': {
-          zoomIn()
-          return true
-        }
-        case '-':
-        case '_': {
-          zoomOut()
-          return true
-        }
-        case 'ArrowRight': {
-          e.preventDefault()
-          onPan(-1, 0)
-          return true
-        }
-        case 'ArrowLeft': {
-          e.preventDefault()
-          onPan(1, 0)
-          return true
-        }
-        case 'ArrowUp': {
-          e.preventDefault()
-          onPan(0, -1)
-          return true
-        }
-        case 'ArrowDown': {
-          e.preventDefault()
-          onPan(0, 1)
-          return true
-        }
-        default: {
-          return true
+      const htmlTag = e.target?.tagName.toLowerCase()
+      if (htmlTag === 'svg' || htmlTag === 'button') {
+        switch (e.key) {
+          case '+':
+          case '=': {
+            zoomIn()
+            return true
+          }
+          case '-':
+          case '_': {
+            zoomOut()
+            return true
+          }
+          case 'ArrowRight': {
+            e.preventDefault()
+            onPan(-1, 0)
+            return true
+          }
+          case 'ArrowLeft': {
+            e.preventDefault()
+            onPan(1, 0)
+            return true
+          }
+          case 'ArrowUp': {
+            e.preventDefault()
+            onPan(0, -1)
+            return true
+          }
+          case 'ArrowDown': {
+            e.preventDefault()
+            onPan(0, 1)
+            return true
+          }
+          default: {
+            return true
+          }
         }
       }
+
+      return true
     }
 
     render () {
