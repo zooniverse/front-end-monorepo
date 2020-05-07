@@ -96,10 +96,6 @@ function setupStores ({ activeMark, subtask }) {
     mockStores.workflowSteps.activeStepTasks[0].setActiveMark(point.id)
   }
 
-  if (subtask) {
-    mockStores
-  }
-
   return mockStores
 }
 
