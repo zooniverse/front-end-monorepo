@@ -63,6 +63,8 @@ function withKeyZoom (WrappedComponent) {
           }
         }
       }
+
+      return true
     }
 
     render () {
