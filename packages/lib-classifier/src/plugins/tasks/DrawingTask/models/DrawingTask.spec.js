@@ -1,7 +1,5 @@
 import { types } from 'mobx-state-tree'
-import sinon from 'sinon'
 import DrawingTask from '@plugins/tasks/DrawingTask'
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 
 const details = [
   {
@@ -71,6 +69,20 @@ describe('Model > DrawingTask', function () {
     subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
   })
 
+  it('should keep subTaskVisibility false if there is no tool subtask', function () {
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+    drawingTask.setActiveTool(1)
+    drawingTask.setSubTaskVisibility(true)
+    expect(drawingTask.subTaskVisibility).to.be.false()
+  })
+
+  it('should set subTaskVisibility to true if there is any tool subtask', function () {
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+    drawingTask.setActiveTool(0)
+    drawingTask.setSubTaskVisibility(true)
+    expect(drawingTask.subTaskVisibility).to.be.true()
+  })
+
   describe('drawn marks', function () {
     let marks
     before(function () {
@@ -117,7 +129,6 @@ describe('Model > DrawingTask', function () {
   })
 
   describe('with subtask annotations', function () {
-    let line1
     let point1
     let point2
     let point3
@@ -132,12 +143,12 @@ describe('Model > DrawingTask', function () {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
       })
-      .create({
-        annotation,
-        task
-      })
+        .create({
+          annotation,
+          task
+        })
 
-      function updateMark(mark, value) {
+      function updateMark (mark, value) {
         const markAnnotation = mark.addAnnotation(pointSubTask)
         pointSubTask.setAnnotation(markAnnotation)
         markAnnotation.update(value)
@@ -147,7 +158,6 @@ describe('Model > DrawingTask', function () {
       point1 = task.tools[0].createMark({ id: 'point1' })
       point2 = task.tools[0].createMark({ id: 'point2' })
       point3 = task.tools[0].createMark({ id: 'point3' })
-      line1 = task.tools[1].createMark({ id: 'line1' })
 
       updateMark(point1, 1)
       updateMark(point2, 1)
@@ -186,10 +196,10 @@ describe('Model > DrawingTask', function () {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
       })
-      .create({
-        annotation,
-        task
-      })
+        .create({
+          annotation,
+          task
+        })
       task.setAnnotation(annotation)
       point1 = task.tools[0].createMark({ id: 'point1' })
       point2 = task.tools[0].createMark({ id: 'point2' })
@@ -215,14 +225,14 @@ describe('Model > DrawingTask', function () {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
       })
-      .create({
-        annotation,
-        task
-      })
+        .create({
+          annotation,
+          task
+        })
       task.setAnnotation(annotation)
       pointTool = task.tools[0]
       lineTool = task.tools[1]
-      task.setActiveTool(1)
+      task.setActiveTool(0)
       task.setSubTaskVisibility(true)
       task.reset()
       marks = task.marks
@@ -236,7 +246,6 @@ describe('Model > DrawingTask', function () {
       expect(pointTool.marks.size).to.equal(0)
       expect(lineTool.marks.size).to.equal(0)
     })
-
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
