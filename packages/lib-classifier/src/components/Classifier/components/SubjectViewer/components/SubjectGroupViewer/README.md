@@ -44,15 +44,17 @@ Optionally, the SGV can be further configured to specify a certain grid size. Th
 ```
 workflow.configuration = {
   subject_viewer: 'subjectGroup',
-  cell_width: 1200,
-  cell_height: 1000,
-  cell_style: {
-    stroke: '#fff',
-    strokeWidth: '4',
-    fill: '#000'
-  },
-  grid_columns: 4,
-  grid_rows: 3
+  subject_viewer_config: {
+    cell_width: 1200,
+    cell_height: 1000,
+    cell_style: {
+      stroke: '#fff',
+      strokeWidth: '4',
+      fill: '#000'
+    },
+    grid_columns: 4,
+    grid_rows: 3
+  }
 }
 ```
 
