@@ -1,6 +1,6 @@
 import { getSnapshot } from 'mobx-state-tree'
 import taskRegistry from '@plugins/tasks'
-import Classification, { ClassificationMetadata } from './Classification'
+import Classification, { ClassificationMetadata } from './'
 
 describe('Model > Classification', function () {
   let model

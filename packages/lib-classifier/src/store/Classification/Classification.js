@@ -1,47 +1,9 @@
 import cuid from 'cuid'
 import { types, getSnapshot, getType } from 'mobx-state-tree'
 import { annotationModels } from '@plugins/tasks'
-import AnnotationsStore from './AnnotationsStore'
-import Resource from './Resource'
-
-const ClassificationMetadata = types.model('ClassificationMetadata', {
-  classifier_version: types.literal('2.0'),
-  feedback: types.frozen({}),
-  finishedAt: types.maybe(types.string),
-  session: types.maybe(types.string),
-  source: types.enumeration(['api', 'sugar']),
-  startedAt: types.optional(types.string, (new Date()).toISOString()),
-  subjectDimensions: types.array(types.frozen({
-    clientHeight: types.integer,
-    clientWidth: types.integer,
-    naturalHeight: types.integer,
-    naturalWidth: types.integer
-  })),
-  subjectSelectionState: types.frozen({
-    already_seen: types.optional(types.boolean, false),
-    finished_workflow: types.optional(types.boolean, false),
-    retired: types.optional(types.boolean, false),
-    selected_at: types.maybe(types.string),
-    selection_state: types.maybe(types.string),
-    user_has_finished_workflow: types.optional(types.boolean, false)
-  }),
-  subject_flagged: types.optional(types.boolean, false),
-  userAgent: types.optional(types.string, navigator.userAgent),
-  userLanguage: types.string,
-  utcOffset: types.optional(types.string, ((new Date()).getTimezoneOffset() * 60).toString()),
-  viewport: types.frozen({
-    height: types.optional(types.integer, window.innerHeight),
-    width: types.optional(types.integer, window.innerWidth)
-  }),
-  workflowVersion: types.string
-})
-  .actions(self => ({
-    update (newMetadata) {
-      Object.keys(newMetadata).forEach(key => {
-        self[key] = newMetadata[key]
-      })
-    }
-  }))
+import AnnotationsStore from '@store/AnnotationsStore'
+import Resource from '@store/Resource'
+import ClassificationMetadata  from './ClassificationMetadata'
 
 const Classification = types
   .model('Classification', {
@@ -90,5 +52,4 @@ const Classification = types
     return newSnapshot
   })
 
-export { ClassificationMetadata }
 export default types.compose('ClassificationResource', Resource, AnnotationsStore, Classification)
