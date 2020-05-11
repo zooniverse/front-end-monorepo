@@ -29,9 +29,6 @@ const mockStore = {
       annotations: new Map()
     }
   },
-  drawing: {
-    addToStream: sinon.stub()
-  },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
     activeStepTasks: []
