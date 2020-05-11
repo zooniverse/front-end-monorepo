@@ -18,6 +18,7 @@ function InteractionLayer ({
   activeToolIndex,
   children,
   disabled,
+  frame,
   height,
   marks,
   move,
@@ -59,6 +60,7 @@ function InteractionLayer ({
 
     const activeMark = activeTool.createMark({
       id: cuid(),
+      frame,
       toolIndex: activeToolIndex
     })
     activeMark.initialPosition(convertEvent(event))
@@ -127,6 +129,7 @@ InteractionLayer.propTypes = {
   activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   activeToolIndex: PropTypes.number,
+  frame: PropTypes.number,
   marks: PropTypes.array,
   setActiveMark: PropTypes.func,
   setSubTaskVisibility: PropTypes.func,
@@ -139,6 +142,7 @@ InteractionLayer.propTypes = {
 InteractionLayer.defaultProps = {
   activeMark: undefined,
   activeToolIndex: 0,
+  frame: 0,
   marks: [],
   setActiveMark: () => {},
   setSubTaskVisibility: () => {},
