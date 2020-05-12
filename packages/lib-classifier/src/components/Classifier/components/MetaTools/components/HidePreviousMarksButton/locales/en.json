@@ -1,7 +1,11 @@
 {
-  "HidePreviousMarksButton": {
+  "HidePreviousMarksDrawingButton": {
     "hide": "Hide Previous Marks",
-    "show": "Show Previous Marks",
-    "showUser": "Hide Previous Marks"
+    "show": "Show Previous Marks"
+  },
+  "HidePreviousMarksTranscriptionButton": {
+    "hide": "Hide All Marks",
+    "show": "Show All Marks",
+    "showUser": "Show Your Marks"
   }
 }

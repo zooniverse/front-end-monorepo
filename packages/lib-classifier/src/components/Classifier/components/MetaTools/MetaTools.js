@@ -37,9 +37,10 @@ class MetaTools extends React.Component {
   // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
   render () {
     const { activeInteractionTask, className, isThereMetadata, screenSize, subject, upp } = this.props
-    const { shownMarks, marks, togglePreviousMarks } = activeInteractionTask || {}
+    const { shownMarks, marks, togglePreviousMarks, type } = activeInteractionTask || {}
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
+
     return (
       <Box
         key={subject && subject.id}
@@ -62,6 +63,7 @@ class MetaTools extends React.Component {
           <HidePreviousMarksButton
             disabled={marks.length === 0}
             shownMarks={shownMarks}
+            type={type}
             onClick={() => togglePreviousMarks()}
           />
         )}
@@ -72,8 +74,9 @@ class MetaTools extends React.Component {
 
 MetaTools.defaultProps = {
   activeInteractionTask: {
-    hidePreviousMarks: false,
-    togglePreviousMarks: () => {}
+    shownMarks: 0,
+    togglePreviousMarks: () => {},
+    type: ''
   },
   className: '',
   isThereMetadata: false,
@@ -83,8 +86,9 @@ MetaTools.defaultProps = {
 
 MetaTools.propTypes = {
   activeInteractionTask: PropTypes.shape({
-    hidePreviousMarks: PropTypes.bool,
-    togglePreviousMarks: PropTypes.func
+    shownMarks: PropTypes.number,
+    togglePreviousMarks: PropTypes.func,
+    type: PropTypes.string
   }),
   className: PropTypes.string,
   isThereMetadata: PropTypes.bool,

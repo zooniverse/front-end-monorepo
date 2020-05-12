@@ -10,20 +10,23 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export default function HidePreviousMarksButton (props) {
-  const { disabled, onClick, shownMarks } = props
+  const { disabled, onClick, shownMarks, type } = props
   let text, icon;
+  const isDrawingTask = type === 'drawing'
 
   switch(shownMarks) {
     case SHOWN_MARKS.ALL:
-      text = counterpart('HidePreviousMarksButton.showUser')
+      text = isDrawingTask ? counterpart('HidePreviousMarksDrawingButton.hide')
+        : counterpart('HidePreviousMarksTranscriptionButton.showUser')
       icon = <FormView />
       break;
     case SHOWN_MARKS.USER:
-      text = counterpart('HidePreviousMarksButton.hide')
+      text = counterpart('HidePreviousMarksTranscriptionButton.hide')
       icon = <Hide />
       break;
     default:
-      text = counterpart('HidePreviousMarksButton.show')
+      text = isDrawingTask ? counterpart('HidePreviousMarksDrawingButton.show')
+        : counterpart('HidePreviousMarksTranscriptionButton.show')
       icon = <FormViewHide />
   }
 
@@ -41,14 +44,14 @@ export default function HidePreviousMarksButton (props) {
 
 HidePreviousMarksButton.propTypes = {
   disabled: PropTypes.bool,
-  hidePreviousMarks: PropTypes.bool,
   onClick: PropTypes.func,
-  shownMarks: PropTypes.number
+  shownMarks: PropTypes.number,
+  type: PropTypes.string
 }
 
 HidePreviousMarksButton.defaultProps = {
   disabled: false,
-  hidePreviousMarks: false,
   onClick: () => false,
-  shownMarks: SHOWN_MARKS.ALL
+  shownMarks: SHOWN_MARKS.ALL,
+  type: 'drawing'
 }
