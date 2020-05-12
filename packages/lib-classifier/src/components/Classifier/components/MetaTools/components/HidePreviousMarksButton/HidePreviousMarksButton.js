@@ -15,15 +15,15 @@ export default function HidePreviousMarksButton (props) {
 
   switch(shownMarks) {
     case SHOWN_MARKS.ALL:
-      text = counterpart('HidePreviousMarksButton.show')
+      text = counterpart('HidePreviousMarksButton.showUser')
       icon = <FormView />
       break;
     case SHOWN_MARKS.USER:
-      text = counterpart('HidePreviousMarksButton.showUser')
+      text = counterpart('HidePreviousMarksButton.hide')
       icon = <Hide />
       break;
     default:
-      text = counterpart('HidePreviousMarksButton.hide')
+      text = counterpart('HidePreviousMarksButton.show')
       icon = <FormViewHide />
   }
 

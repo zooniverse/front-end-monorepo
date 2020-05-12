@@ -97,7 +97,7 @@ class InteractionLayerContainer extends Component {
             setSubTaskVisibility={setSubTaskVisibility}
             width={width}
           >
-            {workflow?.usesTranscriptionTask &&
+            {shownMarks === SHOWN_MARKS.ALL && workflow?.usesTranscriptionTask &&
               <TranscribedLines
                 lines={consensusLines}
                 scale={scale}
