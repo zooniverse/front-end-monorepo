@@ -93,7 +93,6 @@ export const Drawing = types.model('Drawing', {
     function togglePreviousMarks () {
       self.shownMarks = self.shownMarks === SHOWN_MARKS.ALL ? SHOWN_MARKS.NONE : SHOWN_MARKS.ALL
       self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
-      console.log(self.hidingIndex);
     }
 
     return {

@@ -81,6 +81,12 @@ describe('Component > InteractionLayerContainer', function () {
 
   describe('with transcription task', function () {
     let wrapper
+    const hidingTask = {
+      shownMarks: SHOWN_MARKS.NONE,
+      hidingIndex: 1,
+      marks: [{ x: 0, y: 0 }, { x: 5, y: 5}]
+    }
+
     const transcriptionTask = {
       activeTool: {
         deleteMark: () => { }
@@ -189,6 +195,25 @@ describe('Component > InteractionLayerContainer', function () {
       it('should hide all marks before the hiding index', function () {
         const { marks } = wrapper.find(InteractionLayer).props()
         expect(marks).to.have.lengthOf(1)
+      })
+    })
+
+    describe('and showing only user marks', function () {
+      it('should hide previous annotations', function () {
+        const userHidingTask = Object.assign({}, hidingTask)
+        userHidingTask.shownMarks = SHOWN_MARKS.USER
+        const hidingUserMarksInteractionTask = Object.assign(transcriptionTask, userHidingTask)
+        wrapper = shallow(
+          <InteractionLayerContainer.wrappedComponent
+            height={height}
+            width={width}
+            activeInteractionTask={hidingUserMarksInteractionTask}
+            interactionTaskAnnotations={drawingAnnotations}
+            workflow={{ usesTranscriptionTask: true }}
+          />
+        )
+
+        expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(0)
       })
     })
   })

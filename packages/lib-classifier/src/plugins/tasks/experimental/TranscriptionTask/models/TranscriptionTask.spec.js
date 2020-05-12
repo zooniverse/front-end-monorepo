@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 import TranscriptionTask from '@plugins/tasks/experimental/TranscriptionTask'
+import SHOWN_MARKS from '../../../../../helpers/shownMarks'
 
 const details = [
   {
@@ -79,6 +80,15 @@ describe('Model > TranscriptionTask', function () {
       const transcriptionLineMark = transcriptionTask.marks[0]
       transcriptionTask.setActiveMark(transcriptionLineMark)
       expect(transcriptionTask.activeMark).to.equal(transcriptionLineMark)
+    })
+
+    it('should hide previous marks', function () {
+      expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
+      transcriptionTask.togglePreviousMarks()
+      expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.USER)
+      transcriptionTask.togglePreviousMarks()
+      expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
+      expect(transcriptionTask.hidingIndex).to.equal(transcriptionTask.marks.length)
     })
   })
 
