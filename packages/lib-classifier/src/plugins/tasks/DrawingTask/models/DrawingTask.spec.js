@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/DrawingTask'
+import SHOWN_MARKS from '../../../../helpers/shownMarks'
 
 const details = [
   {
@@ -121,9 +122,9 @@ describe('Model > DrawingTask', function () {
     })
 
     it('should hide previous marks', function () {
-      expect(drawingTask.hidePreviousMarks).to.be.false()
+      expect(drawingTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
       drawingTask.togglePreviousMarks()
-      expect(drawingTask.hidePreviousMarks).to.be.true()
+      expect(drawingTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
       expect(drawingTask.hidingIndex).to.equal(marks.length)
     })
   })

@@ -6,6 +6,7 @@ import { MetaToolsButton } from '@zooniverse/react-components'
 import { FormView, FormViewHide } from 'grommet-icons'
 import en from './locales/en'
 import HidePreviousMarksButton from './HidePreviousMarksButton'
+import SHOWN_MARKS from '../../../../../../helpers/shownMarks'
 
 let wrapper
 
@@ -27,7 +28,7 @@ describe('Component > HidePreviousMarksButton', function () {
   it('should display text to hide the marks', function () {
     const button = wrapper.find(MetaToolsButton)
     const { text } = button.props()
-    expect(text).to.deep.equal(en.HidePreviousMarksButton.hide)
+    expect(text).to.deep.equal(en.HidePreviousMarksDrawingButton.hide)
   })
 
   it('should call props.onClick on click', function () {
@@ -44,7 +45,7 @@ describe('Component > HidePreviousMarksButton', function () {
 
   describe('when marks are hidden', function () {
     before(function () {
-      wrapper = shallow(<HidePreviousMarksButton hidePreviousMarks />)
+      wrapper = shallow(<HidePreviousMarksButton shownMarks={SHOWN_MARKS.NONE} />)
     })
 
     it('should display a FormViewHide icon', function () {
@@ -56,7 +57,7 @@ describe('Component > HidePreviousMarksButton', function () {
     it('should display text to hide the marks', function () {
       const button = wrapper.find(MetaToolsButton)
       const { text } = button.props()
-      expect(text).to.deep.equal(en.HidePreviousMarksButton.show)
+      expect(text).to.deep.equal(en.HidePreviousMarksDrawingButton.show)
     })
   })
 

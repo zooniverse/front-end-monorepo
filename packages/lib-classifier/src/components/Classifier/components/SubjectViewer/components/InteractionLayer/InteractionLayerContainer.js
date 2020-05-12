@@ -126,6 +126,7 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
     marks: PropTypes.array,
     setActiveMark: PropTypes.func,
     setSubTaskVisibility: PropTypes.func,
+    shownMarks: PropTypes.number,
     taskKey: PropTypes.string
   }),
   consensusLines: PropTypes.array,
@@ -150,6 +151,7 @@ InteractionLayerContainer.wrappedComponent.defaultProps = {
     marks: [],
     setActiveMark: () => {},
     setSubTaskVisibility: () => {},
+    shownMarks: SHOWN_MARKS.ALL,
     taskKey: ''
   },
   consensusLines: [],

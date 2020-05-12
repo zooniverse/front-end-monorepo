@@ -5,6 +5,7 @@ import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import SHOWN_MARKS from '../../../../../../helpers/shownMarks'
 
 describe('Component > InteractionLayerContainer', function () {
   const width = 1024
@@ -84,6 +85,7 @@ describe('Component > InteractionLayerContainer', function () {
       activeTool: {
         deleteMark: () => { }
       },
+      shownMarks: SHOWN_MARKS.ALL,
       taskKey: 'T1',
       type: 'transcription'
     }
@@ -164,11 +166,11 @@ describe('Component > InteractionLayerContainer', function () {
 
       before(function () {
         const hidingTask = {
-          hidePreviousMarks: true,
+          shownMarks: SHOWN_MARKS.NONE,
           hidingIndex: 1,
           marks: [{ x: 0, y: 0, frame: 0 }, { x: 5, y: 5, frame: 0 }]
         }
-        const hidingMarksInteractionTask = Object.assign(hidingTask, transcriptionTask)
+        const hidingMarksInteractionTask = Object.assign(transcriptionTask, hidingTask)
         wrapper = shallow(
           <InteractionLayerContainer.wrappedComponent
             height={height}
