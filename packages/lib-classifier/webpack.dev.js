@@ -33,7 +33,8 @@ module.exports = {
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@plugins': path.resolve(__dirname, 'src/plugins'),
       '@store': path.resolve(__dirname, 'src/store'),
-      '@test': path.resolve(__dirname, 'test')
+      '@test': path.resolve(__dirname, 'test'),
+      '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     }
   },
   module: {

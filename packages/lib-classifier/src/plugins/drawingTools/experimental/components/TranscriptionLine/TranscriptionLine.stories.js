@@ -1,125 +1,170 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import React, { Component, createRef, forwardRef } from 'react'
-import sinon from 'sinon'
-import { TranscriptionLineTool } from '@plugins/drawingTools/models/tools'
-import { Mark } from '@plugins/drawingTools/components'
-import TranscriptionLine from './TranscriptionLine'
+import React, { Component } from 'react'
+import { Box, Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+import asyncStates from '@zooniverse/async-states'
+import cuid from 'cuid'
+import SingleImageViewer from '@viewers/components/SingleImageViewer'
+import ClassificationStore from '@store/ClassificationStore'
+import SubjectViewerStore from '@store/SubjectViewerStore'
+import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
+import { DrawingTaskFactory, ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 
+const subject = SubjectFactory.build({
+  locations: [
+    { 'image/jpeg': 'http://placekitten.com/500/300' }
+  ]
+})
+
+const project = ProjectFactory.build()
+const workflow = WorkflowFactory.build()
+const drawingTaskSnapshot = DrawingTaskFactory.build({
+  instruction: 'Draw a line under the text',
+  taskKey: 'T1',
+  tools: [{
+    color: zooTheme.global.colors['drawing-red'],
+    type: 'transcriptionLine'
+  }],
+  type: 'drawing'
+})
+
+const subTasksSnapshot = [
+  {
+    instruction: 'transcribe the text.',
+    taskKey: 'T0.0',
+    type: 'text'
+  }
+]
+
+function setupStores({ activeMark, subtask, lineState }) {
+  lineState ||= {}
+  if (subtask) {
+    drawingTaskSnapshot.tools[0].details = subTasksSnapshot
+    drawingTaskSnapshot.subTaskVisibility = true
+    // should think of a better way to do this for the story
+    // this is a rough approximation of what the positioning is like now
+    drawingTaskSnapshot.subTaskMarkBounds = {
+      x: 175,
+      y: 120,
+      width: 0,
+      height: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    }
+  }
+
+  const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+  drawingTask.setActiveTool(0)
+  const transcriptionLine = drawingTask.activeTool.createMark({ x1: 100, y1: 100, x2: 200, y2: 105 })
+  if (lineState.finished) transcriptionLine.finish()
+
+  if (lineState.transcribed) {
+    subject.transcribedLines = {
+      lines: [
+        { consensusReached: false }
+      ]
+    }
+  }
+  if (lineState.consensus) {
+    subject.transcribedLines = {
+      lines: [
+        { consensusReached: true }
+      ]
+    }
+  }
+  const mockStores = {
+    classifications: ClassificationStore.create(),
+    subjects: {
+      active: subject
+    },
+    subjectViewer: SubjectViewerStore.create(),
+    workflows: {
+      active: { id: cuid() }
+    },
+    workflowSteps: {
+      activeStepTasks: [drawingTask]
+    }
+  }
+
+  mockStores.classifications.createClassification(subject, workflow, project)
+  mockStores.workflowSteps.activeStepTasks[0].updateAnnotation()
+  if (activeMark) {
+    mockStores.workflowSteps.activeStepTasks[0].setActiveMark(transcriptionLine.id)
+  }
+
+  return mockStores
+}
 
 class DrawingStory extends Component {
+  constructor() {
+    super()
 
-  render () {
-    const { children, mark } = this.props
+    this.state = {
+      loadingState: asyncStates.initialized
+    }
+  }
+
+  componentDidMount() {
+    // what needs this time to make the svg ref to be defined?
+    // 100ms isn't enough time 1000ms is
+    setTimeout(() => this.setState({ loadingState: asyncStates.success }), 1000)
+  }
+
+  render() {
     return (
-      <svg viewBox='0 0 300 400' height={300} width={400}>
-        <Mark
-          label='Transcription line'
-          mark={mark}
+      <Provider classifierStore={this.props.stores}>
+        <Grommet
+          background={{
+            dark: 'dark-1',
+            light: 'light-1'
+          }}
+          theme={zooTheme}
+          themeMode='light'
         >
-          {children}
-        </Mark>
-      </svg>
+          <Box height='medium' width='large'>
+            <SingleImageViewer
+              loadingState={this.state.loadingState}
+              subject={subject}
+            />
+          </Box>
+        </Grommet>
+      </Provider>
     )
   }
 }
-storiesOf('Drawing tools | Transcription Line', module)
+
+storiesOf('Drawing Tools | Transcription Line', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
       defaultViewport: 'responsive'
     }
   })
-  .add('complete', function () {
-    const tool = TranscriptionLineTool.create({
-      color: 'red',
-      type: 'transcriptionLine'
-    })
-    const mark = tool.createMark({
-      id: 'transcriptionLine1',
-      x1: 10,
-      y1: 20,
-      x2: 205,
-      y2: 15
-    })
-    mark.finish()
+  .add('drawing finished', function () {
+    const stores = setupStores({ activeMark: false, subtask: false, lineState: { finished: true } })
     return (
-      <DrawingStory mark={mark} tool={tool}>
-        <TranscriptionLine mark={mark} />
-      </DrawingStory>
+      <DrawingStory stores={stores} />
     )
   })
-  .add('active', function () {
-    const tool = TranscriptionLineTool.create({
-      color: 'red',
-      type: 'transcriptionLine'
-    })
-    const mark = tool.createMark({
-      id: 'transcriptionLine1',
-      x1: 10,
-      y1: 20,
-      x2: 205,
-      y2: 15
-    })
-    mark.finish()
+  .add('active, unfinished', function () {
+    const stores = setupStores({ activeMark: true, subtask: false })
     return (
-      <DrawingStory mark={mark} tool={tool}>
-        <TranscriptionLine active mark={mark} />
-      </DrawingStory>
+      <DrawingStory stores={stores} />
     )
   })
-  .add('unfinished', function () {
-    const tool = TranscriptionLineTool.create({
-      color: 'red',
-      type: 'transcriptionLine'
-    })
-    const mark = tool.createMark({
-      id: 'transcriptionLine1',
-      x1: 10,
-      y1: 20,
-      x2: 205,
-      y2: 15
-    })
+  .add('transcribed, no consensus', function () {
+    const stores = setupStores({ activeMark: false, subtask: true, lineState: { transcribed: true } })
     return (
-      <DrawingStory mark={mark} tool={tool}>
-        <TranscriptionLine active mark={mark} />
-      </DrawingStory>
+      <DrawingStory stores={stores} />
     )
   })
-  .add('transcribed', function () {
-    const tool = TranscriptionLineTool.create({
-      color: 'red',
-      type: 'transcriptionLine'
-    })
-    const mark = tool.createMark({
-      id: 'transcriptionLine1',
-      x1: 10,
-      y1: 20,
-      x2: 205,
-      y2: 15
-    })
+  .add('transcribed, consensus reached', function () {
+    const stores = setupStores({ activeMark: false, subtask: true, lineState: { consensus: true } })
     return (
-      <DrawingStory mark={mark} tool={tool}>
-        <TranscriptionLine state='transcribed' mark={mark} />
-      </DrawingStory>
-    )
-  })
-  .add('complete', function () {
-    const tool = TranscriptionLineTool.create({
-      color: 'red',
-      type: 'transcriptionLine'
-    })
-    const mark = tool.createMark({
-      id: 'transcriptionLine1',
-      x1: 10,
-      y1: 20,
-      x2: 205,
-      y2: 15
-    })
-    return (
-      <DrawingStory mark={mark} tool={tool}>
-        <TranscriptionLine state='complete' mark={mark} />
-      </DrawingStory>
+      <DrawingStory stores={stores} />
     )
   })
