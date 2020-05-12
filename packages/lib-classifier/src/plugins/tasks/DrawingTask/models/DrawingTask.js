@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
+import SHOWN_MARKS from '../../../../helpers/shownMarks'
 import * as tools from '@plugins/drawingTools/models/tools'
 import * as markTypes from '@plugins/drawingTools/models/marks'
 import DrawingAnnotation from './DrawingAnnotation'
@@ -15,7 +16,7 @@ export const Drawing = types.model('Drawing', {
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
   help: types.optional(types.string, ''),
-  hidePreviousMarks: types.optional(types.boolean, false),
+  shownMarks: types.optional(types.number, SHOWN_MARKS.ALL),
   hidingIndex: types.maybeNull(types.number),
   instruction: types.string,
   subTaskMarkBounds: types.optional(types.frozen({}), undefined),
@@ -90,8 +91,8 @@ export const Drawing = types.model('Drawing', {
     }
 
     function togglePreviousMarks () {
-      self.hidePreviousMarks = !self.hidePreviousMarks
-      self.hidingIndex = self.hidePreviousMarks ? self.marks.length : 0
+      self.shownMarks = self.shownMarks === SHOWN_MARKS.ALL ? SHOWN_MARKS.NONE : SHOWN_MARKS.ALL
+      self.hidingIndex = self.shownMarks === SHOWN_MARKS.ALL ? self.marks.length : 0
     }
 
     return {

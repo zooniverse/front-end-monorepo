@@ -7,6 +7,7 @@ import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import SHOWN_MARKS from '../../../../../../helpers/shownMarks'
 
 function storeMapper (stores) {
   const {
@@ -58,22 +59,22 @@ class InteractionLayerContainer extends Component {
       activeMark,
       activeTool,
       activeToolIndex,
-      hidePreviousMarks,
       hidingIndex,
       marks,
       setActiveMark,
       setSubTaskVisibility,
+      shownMarks,
       subTaskMarkBounds,
       subTaskVisibility,
       taskKey
     } = activeInteractionTask
 
-    const visibleMarks = hidePreviousMarks ? marks.slice(hidingIndex) : marks
+    const visibleMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
     const visibleMarksPerFrame = visibleMarks?.filter(mark => mark.frame === frame)
 
     return (
       <>
-        {!hidePreviousMarks && interactionTaskAnnotations.map(annotation =>
+        {shownMarks === SHOWN_MARKS.ALL && interactionTaskAnnotations.map(annotation =>
           <DrawingToolMarks
             key={annotation.task}
             marks={annotation.value}
