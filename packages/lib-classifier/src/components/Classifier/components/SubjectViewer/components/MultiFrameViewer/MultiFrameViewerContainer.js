@@ -184,6 +184,7 @@ class MultiFrameViewerContainer extends React.Component {
             setOnDrag={this.setOnDrag}
             setOnPan={setOnPan}
             setOnZoom={setOnZoom}
+            src={src}
           >
             <SingleImageViewer
               enableInteractionLayer={enableDrawing}
