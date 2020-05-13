@@ -121,7 +121,11 @@ function SVGPanZoom ({
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
   return (
-    <div ref={scrollContainer} onWheel={onWheel}>
+    <div
+      ref={scrollContainer}
+      onWheel={onWheel}
+      style={{ width: '100%' }}
+    >
       {cloneElement(children, { scale, viewBox: `${x} ${y} ${width} ${height}` })}
     </div>
   )
