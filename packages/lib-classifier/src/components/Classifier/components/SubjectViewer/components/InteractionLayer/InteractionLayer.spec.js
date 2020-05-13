@@ -70,6 +70,7 @@ describe('Component > InteractionLayer', function () {
           <InteractionLayer
             activeMark={activeMark}
             activeTool={activeTool}
+            frame={2}
             setActiveMark={setActiveMark}
             height={400}
             width={600}
@@ -116,6 +117,20 @@ describe('Component > InteractionLayer', function () {
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
         expect(activeTool.createMark).to.have.been.calledOnce()
+      })
+
+      it('should create a mark with current frame', function () {
+        const fakeEvent = {
+          pointerId: 'fakePointer',
+          type: 'pointerdown',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
+        }
+        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+        const createMarkArgs = activeTool.createMark.args[0][0]
+        expect(createMarkArgs.frame).to.equal(2)
       })
 
       it('should place a new mark on pointer down', function () {
