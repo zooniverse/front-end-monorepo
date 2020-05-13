@@ -18,7 +18,8 @@ const SubjectViewer = types
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
-    rotation: types.optional(types.number, 0)
+    rotation: types.optional(types.number, 0),
+    subjectReady: types.optional(types.boolean, false)
   })
 
   .volatile(self => ({
@@ -81,7 +82,7 @@ const SubjectViewer = types
         self.loadingState = asyncStates.error
       },
 
-      onSubjectReady (event) {
+      setOnReady (event) {
         const { target = {} } = event || {}
         const {
           clientHeight = 0,
@@ -92,6 +93,18 @@ const SubjectViewer = types
         self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
         self.rotation = 0
         self.loadingState = asyncStates.success
+        if (!self.subjectReady) {
+          self.subjectReady = true
+        }
+      },
+
+      onSubsequentLocationReady (event) {
+        self.setOnReady(event)
+      },
+
+      // on initial location ready  
+      onSubjectReady (event) {
+        self.setOnReady(event)
       },
 
       resetSubject (subject) {
@@ -103,6 +116,7 @@ const SubjectViewer = types
         self.frame = frame
         self.loadingState = asyncStates.loading
         self.rotation = 0
+        self.subjectReady = false
       },
 
       resetView () {

@@ -19,20 +19,24 @@ function storeMapper (stores) {
     enableRotation,
     frame,
     move,
+    onSubsequentLocationReady,
     rotation,
     setFrame,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    subjectReady
   } = stores.classifierStore.subjectViewer
 
   return {
     enableRotation,
     frame,
     move,
+    onSubsequentLocationReady,
     rotation,
     setFrame,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    subjectReady
   }
 }
 
@@ -116,11 +120,15 @@ class MultiFrameViewerContainer extends React.Component {
   }
 
   async onLoad () {
-    const { onError, onReady } = this.props
+    const { onError, onSubsequentLocationReady, onReady, subjectReady } = this.props
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
+      if (subjectReady) {
+        onSubsequentLocationReady({ target })
+      } else {
+        onReady({ target })
+      }
     } catch (error) {
       console.error(error)
       onError(error)
@@ -213,13 +221,15 @@ MultiFrameViewerContainer.propTypes = {
   frame: PropTypes.number,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
+  onSubsequentLocationReady: PropTypes.func,
   onReady: PropTypes.func,
   setFrame: PropTypes.func,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  }).isRequired,
+  subjectReady: PropTypes.bool
 }
 
 MultiFrameViewerContainer.defaultProps = {
@@ -229,10 +239,12 @@ MultiFrameViewerContainer.defaultProps = {
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
+  onSubsequentLocationReady: () => true,
   onReady: () => true,
   setFrame: () => {},
   setOnPan: () => true,
-  setOnZoom: () => true
+  setOnZoom: () => true,
+  subjectReady: false
 }
 
 @inject(storeMapper)
