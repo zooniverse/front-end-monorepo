@@ -13,6 +13,7 @@ function storeMapper (stores) {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
   const {
+    frame,
     move
   } = stores.classifierStore.subjectViewer
   const {
@@ -30,6 +31,7 @@ function storeMapper (stores) {
   return {
     activeInteractionTask,
     consensusLines,
+    frame,
     interactionTaskAnnotations,
     move,
     workflow
@@ -43,6 +45,7 @@ class InteractionLayerContainer extends Component {
     const {
       activeInteractionTask,
       consensusLines,
+      frame,
       height,
       interactionTaskAnnotations,
       move,
@@ -82,6 +85,7 @@ class InteractionLayerContainer extends Component {
             activeTool={activeTool}
             activeToolIndex={activeToolIndex}
             disabled={activeTool.disabled}
+            frame={frame}
             height={height}
             key={taskKey}
             marks={visibleMarks}
@@ -124,6 +128,7 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
   }),
   consensusLines: PropTypes.array,
   disabled: PropTypes.bool,
+  frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
   move: PropTypes.bool,
@@ -147,6 +152,7 @@ InteractionLayerContainer.wrappedComponent.defaultProps = {
   },
   consensusLines: [],
   disabled: false,
+  frame: 0,
   interactionTaskAnnotations: [],
   move: false,
   scale: 1,
