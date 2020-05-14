@@ -2,14 +2,14 @@ import { storiesOf } from '@storybook/react'
 import { GraphQLClient } from 'graphql-request'
 import { Provider } from 'mobx-react'
 import React from 'react'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import sinon from 'sinon'
 import RootStore from '@store/'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
-import InteractionLayer from '../../../InteractionLayer'
 import readme from './README.md'
-import { reducedSubject } from '@store/TranscriptionReductions/mocks'
+
+import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
 
 const config = {
   notes: {
@@ -34,7 +34,16 @@ const workflowSnapshot = WorkflowFactory.build({
       instruction: 'Transcribe a line',
       type: 'transcription',
       tools: [
-        { type: 'transcriptionLine' }
+        {
+          details: [
+            {
+              instruction: 'Transcribe the text',
+              taskKey: 'T0.0',
+              type: 'text'
+            },
+          ],
+          type: 'transcriptionLine'
+        }
       ]
     }
   },
@@ -66,14 +75,9 @@ storiesOf('Drawing Tools | TranscribedLines', module)
   .add('default', () => (
     <Provider classifierStore={rootStore}>
       <Grommet theme={zooTheme}>
-        <svg viewBox='0 0 1292 2000' height={646} width={1000}>
-          <image xlinkHref='https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' />
-          <InteractionLayer
-            height={2000}
-            scale={0.5}
-            width={1292}
-          />
-        </svg>
+        <Box width='1000px'>
+          <MultiFrameViewer subject={subjectSnapshot} />
+        </Box>
       </Grommet>
     </Provider>
   ), config)

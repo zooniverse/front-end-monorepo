@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { MobXProviderContext } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 
 const HANDLE_RADIUS = 5
@@ -14,9 +15,19 @@ const COLOURS = {
   complete: '#8c8c8c'
 }
 
-function TranscriptionLine ({ active, color, mark, onFinish, scale, state }) {
-  // state = active ? 'active' : state
-  const colour = color || COLOURS[state]
+function storeMapper(stores) {
+  return stores.classifierStore.workflows.active?.usesTranscriptionTask || false
+}
+
+function TranscriptionLine (props) {
+  const stores = React.useContext(MobXProviderContext)
+  const usesTranscriptionTask = storeMapper(stores)
+  const { active, color, mark, onFinish, scale, state } = props
+  let lineState = state || 'default'
+  if (active) {
+    lineState = 'active'
+  }
+  const colour = (usesTranscriptionTask) ? COLOURS[lineState] : color
   const { x1, y1, x2, y2, finished } = mark
   const handleRadius = HANDLE_RADIUS / scale
 
