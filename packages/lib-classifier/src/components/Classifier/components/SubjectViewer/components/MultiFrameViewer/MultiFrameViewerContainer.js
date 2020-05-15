@@ -3,6 +3,7 @@ import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -10,12 +11,14 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import FrameCarousel from './FrameCarousel'
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
+import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
 
 function storeMapper (stores) {
   const {
     enableRotation,
     frame,
+    move,
     rotation,
     setFrame,
     setOnPan,
@@ -25,6 +28,7 @@ function storeMapper (stores) {
   return {
     enableRotation,
     frame,
+    move,
     rotation,
     setFrame,
     setOnPan,
@@ -32,34 +36,27 @@ function storeMapper (stores) {
   }
 }
 
-const DraggableImage = draggable('image')
+const DraggableImage = styled(draggable('image'))`
+  cursor: move;
+`
 
 class MultiFrameViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
     this.onFrameChange = this.onFrameChange.bind(this)
-    this.onWheel = this.onWheel.bind(this)
+    this.setOnDrag = this.setOnDrag.bind(this)
+
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
-
     
     this.state = {
-      img: {},
-      scale: 1,
-      viewBox: {
-        height: 0,
-        width: 0,
-        x: 0,
-        y: 0
-      }
+      img: {}
     }
   }
 
   componentDidMount () {
     this.props.enableRotation()
-    this.props.setOnPan(this.onPan.bind(this))
-    this.props.setOnZoom(this.onZoom.bind(this))
     this.onLoad()
   }
 
@@ -68,10 +65,6 @@ class MultiFrameViewerContainer extends React.Component {
     if (prevProps.frame !== frame) {
       this.onLoad()
     }
-  }
-
-  componentWillUnmount () {
-    this.imageViewer.current && this.imageViewer.current.removeEventListener('wheel', this.onWheel)
   }
 
   fetchImage (url) {
@@ -86,84 +79,16 @@ class MultiFrameViewerContainer extends React.Component {
   }
 
   dragMove (event, difference) {
-    this.setState(prevState => {
-      const { viewBox } = Object.assign({}, prevState)
-      viewBox.x -= difference.x / 1.5
-      viewBox.y -= difference.y / 1.5
-      return { viewBox }
-    })
+    this.onDrag && this.onDrag(event, difference)
+  }
+
+  setOnDrag (callback) {
+    this.onDrag = callback
   }
 
   onFrameChange(frame) {
     const { setFrame } = this.props
     setFrame(frame)
-  }
-
-  onPan (dx, dy) {
-    this.setState(prevState => {
-      const { viewBox } = Object.assign({}, prevState)
-      viewBox.x -= dx * 10
-      viewBox.y += dy * 10
-      return { viewBox }
-    })
-  }
-
-  onWheel (event) {
-    event.preventDefault()
-    const { deltaY } = event
-    if (deltaY < 0) {
-      this.onZoom('zoomout', -1)
-    } else {
-      this.onZoom('zoomin', 1)
-    }
-  }
-
-  onZoom (type) {
-    switch (type) {
-      case 'zoomin': {
-        this.setState(prevState => {
-          let { scale } = Object.assign({}, prevState)
-          scale = Math.min(scale + 0.1, 2)
-          const viewBox = this.scaledViewBox(scale)
-          return { scale, viewBox }
-        })
-        return
-      }
-      case 'zoomout': {
-        this.setState(prevState => {
-          let { scale } = Object.assign({}, prevState)
-          scale = Math.max(scale - 0.1, 1)
-          const viewBox = this.scaledViewBox(scale)
-          return { scale, viewBox }
-        })
-        return
-      }
-      case 'zoomto': {
-        this.setState(prevState => {
-          const { naturalHeight, naturalWidth } = prevState.img
-          const scale = 1
-          const viewBox = {
-            x: 0,
-            y: 0,
-            width: naturalWidth,
-            height: naturalHeight
-          }
-          return { scale, viewBox }
-        })
-      }
-    }
-  }
-
-  scaledViewBox (scale) {
-    const { img, viewBox } = this.state
-    const viewBoxScale = 1 / scale
-    const xCentre = viewBox.x + viewBox.width / 2
-    const yCentre = viewBox.y + viewBox.height / 2
-    const width = parseInt(img.naturalWidth * viewBoxScale, 10)
-    const height = parseInt(img.naturalHeight * viewBoxScale, 10)
-    const x = xCentre - width / 2
-    const y = yCentre - height / 2
-    return { x, y, width, height }
   }
 
   async preload () {
@@ -195,11 +120,6 @@ class MultiFrameViewerContainer extends React.Component {
     try {
       const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      const { viewBox } = this.state
-      viewBox.height = naturalHeight
-      viewBox.width = naturalWidth
-      this.setState({ viewBox })
-      this.imageViewer.current && this.imageViewer.current.addEventListener('wheel', this.onWheel)
       onReady({ target })
     } catch (error) {
       console.error(error)
@@ -212,11 +132,14 @@ class MultiFrameViewerContainer extends React.Component {
       enableInteractionLayer,
       frame,
       loadingState,
+      move,
       onKeyDown,
       rotation,
+      setOnPan,
+      setOnZoom,
       subject
     } = this.props
-    const { img, viewBox } = this.state
+    const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
 
     if (loadingState === asyncStates.error) {
@@ -229,12 +152,20 @@ class MultiFrameViewerContainer extends React.Component {
       return null
     }
 
-    const svg = this.imageViewer.current
-    const currentSubjectImage = this.subjectImage.current
-    const getScreenCTM = () => svg.getScreenCTM()
-    const { width: clientWidth, height: clientHeight } = currentSubjectImage ? currentSubjectImage.getBoundingClientRect() : {}
-    const subjectScale = clientWidth / naturalWidth
+    if (!naturalWidth) {
+      return null
+    }
 
+    const svg = this.imageViewer.current
+    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
+    const SubjectImage = move ? DraggableImage : 'image'
+    const subjectImageProps = {
+      height: naturalHeight,
+      width: naturalWidth,
+      xlinkHref: src,
+      ...(move && { dragMove: this.dragMove })
+    }
+    
     return (
       <Box
         direction='row'
@@ -244,25 +175,32 @@ class MultiFrameViewerContainer extends React.Component {
           onFrameChange={this.onFrameChange}
           locations={subject.locations}
         />
-        <SVGContext.Provider value={{ svg, getScreenCTM }}>
-          <SingleImageViewer
-            enableInteractionLayer={enableInteractionLayer}
-            height={naturalHeight}
-            onKeyDown={onKeyDown}
-            ref={this.imageViewer}
-            rotate={rotation}
-            scale={subjectScale}
-            viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-            width={naturalWidth}
+        <SVGContext.Provider value={{ svg }}>
+          <SVGPanZoom
+            img={this.subjectImage.current}
+            maxZoom={5}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            setOnDrag={this.setOnDrag}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
+            src={src}
           >
-            <DraggableImage
-              ref={this.subjectImage}
-              dragMove={this.dragMove}
+            <SingleImageViewer
+              enableInteractionLayer={enableDrawing}
               height={naturalHeight}
+              onKeyDown={onKeyDown}
+              ref={this.imageViewer}
+              rotate={rotation}
               width={naturalWidth}
-              xlinkHref={src}
-            />
-          </SingleImageViewer>
+            >
+              <g ref={this.subjectImage}>
+                <SubjectImage
+                  {...subjectImageProps}
+                />
+              </g>
+            </SingleImageViewer>
+          </SVGPanZoom>
         </SVGContext.Provider>
       </Box>
     )
@@ -303,4 +241,4 @@ MultiFrameViewerContainer.defaultProps = {
 class DecoratedMultiFrameViewerContainer extends MultiFrameViewerContainer { }
 
 export default DecoratedMultiFrameViewerContainer
-export { MultiFrameViewerContainer }
+export { DraggableImage, MultiFrameViewerContainer }

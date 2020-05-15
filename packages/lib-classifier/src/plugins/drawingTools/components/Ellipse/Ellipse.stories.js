@@ -1,9 +1,9 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
-import React, { Component } from 'react'
-import { Provider } from 'mobx-react'
-import { Box, Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import React, { Component } from 'react'
+import { Box, Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 import cuid from 'cuid'
 import SingleImageViewer from '@viewers/components/SingleImageViewer'
@@ -21,11 +21,11 @@ const subject = SubjectFactory.build({
 const project = ProjectFactory.build()
 const workflow = WorkflowFactory.build()
 const drawingTaskSnapshot = DrawingTaskFactory.build({
-  instruction: 'Draw a point',
+  instruction: 'Draw an ellipse',
   taskKey: 'T1',
   tools: [{
     color: zooTheme.global.colors['drawing-red'],
-    type: 'point'
+    type: 'ellipse'
   }],
   type: 'drawing'
 })
@@ -52,15 +52,15 @@ const subTasksSnapshot = [
   }
 ]
 
-function setupStores ({ activeMark, subtask }) {
+function setupStores({ activeMark, subtask }) {
   if (subtask) {
     drawingTaskSnapshot.tools[0].details = subTasksSnapshot
     drawingTaskSnapshot.subTaskVisibility = true
     // should think of a better way to do this for the story
     // this is a rough approximation of what the positioning is like now
     drawingTaskSnapshot.subTaskMarkBounds = {
-      x: 162.5,
-      y: 162.5,
+      x: 200,
+      y: 200,
       width: 0,
       height: 0,
       top: 0,
@@ -68,12 +68,13 @@ function setupStores ({ activeMark, subtask }) {
       bottom: 0,
       left: 0
     }
-  } 
+  }
 
   const drawingTask = DrawingTask.create(drawingTaskSnapshot)
   drawingTask.setActiveTool(0)
-  const point = drawingTask.activeTool.createMark()
-  point.move({ x: 100, y: 100 })
+  const ellipse = drawingTask.activeTool.createMark()
+  ellipse.initialPosition({ x: 125, y: 125 })
+  ellipse.setCoordinates({ x: 125, y: 125, rx: 50, ry: 20, angle: 2 })
 
   const mockStores = {
     classifications: ClassificationStore.create(),
@@ -92,15 +93,14 @@ function setupStores ({ activeMark, subtask }) {
   mockStores.classifications.createClassification(subject, workflow, project)
   mockStores.workflowSteps.activeStepTasks[0].updateAnnotation()
   if (activeMark) {
-    mockStores.workflowSteps.activeStepTasks[0].setActiveMark(point.id)
+    mockStores.workflowSteps.activeStepTasks[0].setActiveMark(ellipse.id)
   }
 
   return mockStores
 }
 
-
 class DrawingStory extends Component {
-  constructor () {
+  constructor() {
     super()
 
     this.state = {
@@ -108,13 +108,13 @@ class DrawingStory extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // what needs this time to make the svg ref to be defined?
     // 100ms isn't enough time 1000ms is
     setTimeout(() => this.setState({ loadingState: asyncStates.success }), 1000)
   }
 
-  render () {
+  render() {
     return (
       <Provider classifierStore={this.props.stores}>
         <Grommet
@@ -136,7 +136,8 @@ class DrawingStory extends Component {
     )
   }
 }
-storiesOf('Drawing tools | Point', module)
+
+storiesOf('Drawing tools | Ellipse', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
@@ -144,13 +145,15 @@ storiesOf('Drawing tools | Point', module)
     }
   })
   .add('complete', function () {
-    const stores = setupStores({ activeMark: false, subtask: false})
+    const stores = setupStores({ activeMark: false, subtask: false })
+
     return (
       <DrawingStory stores={stores} />
     )
   })
   .add('active', function () {
     const stores = setupStores({ activeMark: true, subtask: false })
+
     return (
       <DrawingStory stores={stores} />
     )

@@ -1,14 +1,15 @@
 import asyncStates from '@zooniverse/async-states'
 import { inject, observer } from 'mobx-react'
-import React from 'react'
 import PropTypes from 'prop-types'
-import { draggable } from '@plugins/drawingTools/components'
-
+import React from 'react'
 import styled from 'styled-components'
+
+import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
-import SingleImageViewer from './SingleImageViewer'
+
 import locationValidator from '../../helpers/locationValidator'
+import SingleImageViewer from './SingleImageViewer'
+import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
 
 function storeMapper (stores) {
@@ -36,8 +37,9 @@ const DraggableImage = styled(draggable('image'))`
 class SingleImageViewerContainer extends React.Component {
   constructor () {
     super()
-    this.setOnDrag = this.setOnDrag.bind(this)
     this.dragMove = this.dragMove.bind(this)
+    this.setOnDrag = this.setOnDrag.bind(this)
+    
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
 
@@ -83,8 +85,8 @@ class SingleImageViewerContainer extends React.Component {
 
   async getImageSize () {
     const img = await this.preload()
-    const svg = this.imageViewer.current || {}
-    const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect()
+    const svg = this.imageViewer.current
+    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
     return {
       clientHeight,
       clientWidth,
@@ -141,6 +143,7 @@ class SingleImageViewerContainer extends React.Component {
       xlinkHref: src,
       ...(move && { dragMove: this.dragMove })
     }
+
     return (
       <SVGContext.Provider value={{ svg }}>
         <SVGPanZoom

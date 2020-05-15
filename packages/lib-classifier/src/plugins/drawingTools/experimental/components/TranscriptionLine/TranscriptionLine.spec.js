@@ -3,6 +3,7 @@ import { shallow } from 'enzyme'
 import TranscriptionLine from './TranscriptionLine'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
+import zooTheme from '@zooniverse/grommet-theme'
 
 describe('Components > Drawing marks > Transcription line', function () {
   let mark
@@ -18,15 +19,17 @@ describe('Components > Drawing marks > Transcription line', function () {
   })
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<TranscriptionLine
-      mark={mark}
-    />)
+    const wrapper = shallow(
+      <TranscriptionLine
+        mark={mark}
+      />
+    )
     expect(wrapper).to.be.ok()
   })
 
   describe('when active', function () {
     it('should not be closed at first', function () {
-      const wrapper = shallow(<TranscriptionLine
+      shallow(<TranscriptionLine
         active
         mark={mark}
       />)
@@ -90,6 +93,26 @@ describe('Components > Drawing marks > Transcription line', function () {
       />)
       wrapper.find('circle[cx=300]').simulate('pointerdown')
       expect(mark.finished).to.be.true()
+    })
+  })
+
+  describe('when used by the drawing task', function () {
+    it('should use the color set for the tool passed as a prop', function () {
+      const tool = {
+        color: zooTheme.global.colors['drawing-orange']
+      }
+      const wrapper = shallow(
+        <TranscriptionLine
+          active
+          color={tool.color}
+          mark={mark}
+        />
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(tool.color)
+      expect(outerGroupNode.props().fill).to.equal(tool.color)
+      expect(outerGroupNode.props().stroke).to.equal(tool.color)
     })
   })
 })

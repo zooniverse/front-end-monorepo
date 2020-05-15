@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
-import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { string } from 'prop-types'
 import React from 'react'
@@ -13,13 +12,11 @@ function NavLink (props) {
   const { href, label, router: { asPath } } = props
   const isActive = asPath === href
   return (
-    <Link href={href} passHref>
-      <Anchor size='medium' weight='normal' active={isActive}>
-        <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
-          {label}
-        </Box>
-      </Anchor>
-    </Link>
+    <Anchor href={href} size='medium' weight='normal' active={isActive}>
+      <Box pad={{ horizontal: 'small', vertical: 'xsmall' }}>
+        {label}
+      </Box>
+    </Anchor>
   )
 }
 
