@@ -24,7 +24,7 @@ const drawingTaskSnapshot = DrawingTaskFactory.build({
   instruction: 'Draw a line under the text',
   taskKey: 'T1',
   tools: [{
-    color: zooTheme.global.colors['drawing-red'],
+    color: zooTheme.global.colors['drawing-orange'],
     type: 'transcriptionLine'
   }],
   type: 'drawing'
@@ -38,16 +38,15 @@ const subTasksSnapshot = [
   }
 ]
 
-function setupStores({ activeMark, subtask, lineState }) {
-  lineState ||= {}
+function setupStores({ activeMark, finished, subtask }) {
   if (subtask) {
     drawingTaskSnapshot.tools[0].details = subTasksSnapshot
     drawingTaskSnapshot.subTaskVisibility = true
     // should think of a better way to do this for the story
     // this is a rough approximation of what the positioning is like now
     drawingTaskSnapshot.subTaskMarkBounds = {
-      x: 175,
-      y: 120,
+      x: 245,
+      y: 165,
       width: 0,
       height: 0,
       top: 0,
@@ -60,22 +59,8 @@ function setupStores({ activeMark, subtask, lineState }) {
   const drawingTask = DrawingTask.create(drawingTaskSnapshot)
   drawingTask.setActiveTool(0)
   const transcriptionLine = drawingTask.activeTool.createMark({ x1: 100, y1: 100, x2: 200, y2: 105 })
-  if (lineState.finished) transcriptionLine.finish()
+  if (finished) transcriptionLine.finish()
 
-  if (lineState.transcribed) {
-    subject.transcribedLines = {
-      lines: [
-        { consensusReached: false }
-      ]
-    }
-  }
-  if (lineState.consensus) {
-    subject.transcribedLines = {
-      lines: [
-        { consensusReached: true }
-      ]
-    }
-  }
   const mockStores = {
     classifications: ClassificationStore.create(),
     subjects: {
@@ -137,34 +122,29 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing Tools | Transcription Line', module)
+storiesOf('Drawing Tools | TranscriptionLine', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
       defaultViewport: 'responsive'
     }
   })
-  .add('drawing finished', function () {
-    const stores = setupStores({ activeMark: false, subtask: false, lineState: { finished: true } })
+  .add('in drawing task, drawing complete', function () {
+    const stores = setupStores({ activeMark: false, finished: true, subtask: false })
     return (
       <DrawingStory stores={stores} />
     )
   })
-  .add('active, unfinished', function () {
+  .add('in drawing task, active', function () {
     const stores = setupStores({ activeMark: true, subtask: false })
     return (
       <DrawingStory stores={stores} />
     )
   })
-  .add('transcribed, no consensus', function () {
-    const stores = setupStores({ activeMark: false, subtask: true, lineState: { transcribed: true } })
+  .add('in drawing task, active, with sub-task', function () {
+    const stores = setupStores({ activeMark: true, subtask: true })
     return (
       <DrawingStory stores={stores} />
     )
   })
-  .add('transcribed, consensus reached', function () {
-    const stores = setupStores({ activeMark: false, subtask: true, lineState: { consensus: true } })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
+

@@ -62,7 +62,7 @@ rootStore.workflows.setActive(workflowSnapshot.id)
 rootStore.subjects.setResource(subjectSnapshot)
 rootStore.subjects.setActive(subjectSnapshot.id)
 
-storiesOf('TranscribedLines', module)
+storiesOf('Drawing Tools | TranscribedLines', module)
   .add('default', () => (
     <Provider classifierStore={rootStore}>
       <Grommet theme={zooTheme}>

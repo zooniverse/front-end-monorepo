@@ -14,9 +14,9 @@ const COLOURS = {
   complete: '#8c8c8c'
 }
 
-function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
-  state = active ? 'active' : state
-  const colour = COLOURS[state]
+function TranscriptionLine ({ active, color, mark, onFinish, scale, state }) {
+  // state = active ? 'active' : state
+  const colour = color || COLOURS[state]
   const { x1, y1, x2, y2, finished } = mark
   const handleRadius = HANDLE_RADIUS / scale
 
@@ -94,6 +94,7 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
 
 TranscriptionLine.propTypes = {
   active: PropTypes.bool,
+  color: PropTypes.string,
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
   scale: PropTypes.number,
@@ -102,9 +103,10 @@ TranscriptionLine.propTypes = {
 
 TranscriptionLine.defaultProps = {
   active: false,
+  color: '',
   onFinish: () => true,
   scale: 1,
-  state: 'default'
+  state: ''
 }
 
 export default TranscriptionLine
