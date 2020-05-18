@@ -163,7 +163,14 @@ describe('Model > ClassificationStore', function () {
           drawing: {},
           feedback: invalidFeedbackSnapshot,
           fieldGuide: {},
-          subjectViewer: {},
+          subjectViewer: {
+            dimensions: [{
+              clientHeight: 100,
+              clientWidth: 300,
+              naturalHeight: 200,
+              naturalWidth: 600
+            }]
+          },
           tutorials: {},
           workflowSteps: {},
           userProjectPreferences: {}
