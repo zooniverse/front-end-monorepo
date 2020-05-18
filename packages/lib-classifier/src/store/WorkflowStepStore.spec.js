@@ -244,7 +244,7 @@ describe('Model > WorkflowStepStore', function () {
       const panoptesClientStub = stubPanoptesJs({ workflows: hiddenSummaryWorkflow, subjects })
       const rootStore = setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
       rootStore.classifications.createClassification(subject, hiddenSummaryWorkflow, project)
-      rootStore.classifications.updateClassificationMetadata({ subject_flagged: true })
+      rootStore.classifications.active.metadata.update({ subject_flagged: true })
       rootStore.workflowSteps.selectStep('S2')
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
