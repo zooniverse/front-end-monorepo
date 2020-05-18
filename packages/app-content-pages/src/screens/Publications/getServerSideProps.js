@@ -1,7 +1,7 @@
 import createPublicationsResponse  from '../../api/publications'
 import cache from '../../api/publications/publicationsCache'
 
-export default async function getStaticProps() {
+export default async function getServerSideProps() {
   let error = null
   let publicationsData = []
   try {

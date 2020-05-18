@@ -1,3 +1,3 @@
-export { default, getStaticProps } from '../../src/screens/Team'
+export { default, getServerSideProps } from '../../src/screens/Team'
 
 

@@ -1,12 +1,12 @@
 import sinon from 'sinon'
 
 import cache from '../../api/publications/publicationsCache'
-import getStaticProps from './getStaticProps'
+import getServerSideProps from './getServerSideProps'
 import mockData from './PublicationsContainer.mock'
 
 const DATA = mockData
 
-describe('Component > PublicationsContainer > getStaticProps', function () {
+describe('Component > PublicationsContainer > getServerSideProps', function () {
 
   describe('populates the "publicationsData" props from contentful API', function () {
     let getpublicationsDataStub
@@ -17,7 +17,7 @@ describe('Component > PublicationsContainer > getStaticProps', function () {
 
     it('should handle valid API data', async () => {
       getpublicationsDataStub = sinon.stub(cache, 'get').returns(DATA)
-      const { props } = await getStaticProps({})
+      const { props } = await getServerSideProps({})
       expect(props).to.deep.equal({
         error: null,
         publicationsData: DATA
@@ -26,7 +26,7 @@ describe('Component > PublicationsContainer > getStaticProps', function () {
 
     it('should handle empty API reponse', async () => {
       getpublicationsDataStub = sinon.stub(cache, 'get').returns([])
-      const { props } = await getStaticProps({})
+      const { props } = await getServerSideProps({})
       expect(props).to.deep.equal({
         error: null,
         publicationsData: []
@@ -37,7 +37,7 @@ describe('Component > PublicationsContainer > getStaticProps', function () {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
       getpublicationsDataStub = sinon.stub(cache, 'get').returns(errorPromise)
-      const { props } = await getStaticProps({})
+      const { props } = await getServerSideProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
         publicationsData: []
