@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import TranscriptionLine from './TranscriptionLine'
+import { TranscriptionLine } from './TranscriptionLine'
 import { Provider } from 'mobx-react'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
@@ -24,6 +24,7 @@ describe('Components > Drawing marks > Transcription line', function () {
       <svg>
         <TranscriptionLine
           mark={mark}
+          theme={zooTheme}
         />
       </svg>,
       {
@@ -49,6 +50,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {
@@ -73,6 +75,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {
@@ -97,6 +100,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         { wrappingComponent: Provider,
@@ -120,6 +124,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {
@@ -149,6 +154,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {
@@ -173,6 +179,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {
@@ -202,6 +209,7 @@ describe('Components > Drawing marks > Transcription line', function () {
           <TranscriptionLine
             active
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {
@@ -238,6 +246,7 @@ describe('Components > Drawing marks > Transcription line', function () {
             active
             color={tool.color}
             mark={mark}
+            theme={zooTheme}
           />
         </svg>,
         {

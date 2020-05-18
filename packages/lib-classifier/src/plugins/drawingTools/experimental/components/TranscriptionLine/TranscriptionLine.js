@@ -1,28 +1,27 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 
 const HANDLE_RADIUS = 5
 const GRAB_STROKE_WIDTH = 6
-/*
-  TODO: can these colours be read from the theme?
-*/
-const COLOURS = {
-  active: '#06fe76',
-  default: '#235dff',
-  transcribed: '#ff3c25',
-  complete: '#8c8c8c'
-}
 
 function storeMapper(stores) {
   return stores.classifierStore.workflows.active?.usesTranscriptionTask || false
 }
 
 function TranscriptionLine (props) {
-  const stores = React.useContext(MobXProviderContext)
+  const stores = useContext(MobXProviderContext)
+  const theme = useContext(ThemeContext)
   const usesTranscriptionTask = storeMapper(stores)
   const { active, color, mark, onFinish, scale, state } = props
+  const COLOURS = {
+    active: theme.global.colors.drawingTools.aqua,
+    default: theme.global.colors.drawingTools.blue,
+    transcribed: theme.global.colors.drawingTools.yellow,
+    complete: theme.global.colors['light-5']
+  }
   let lineState = state || 'default'
   if (active) {
     lineState = 'active'
