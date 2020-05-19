@@ -8,7 +8,7 @@ import sinon from 'sinon'
 import RootStore from '@store/'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import readme from './README.md'
-
+import { reducedASMSubject } from '@store/TranscriptionReductions/mocks'
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
 
 const config = {
@@ -20,7 +20,10 @@ const config = {
 const query = '{ workflow(id: 5339) { subject_reductions(subjectId: 13967054, reducerKey:"ext") { data } } }'
 const subjectSnapshot = SubjectFactory.build({
   id: '13967054',
-  locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' }]
+  locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' }],
+  transcriptionReductions: {
+    reductions: [reducedASMSubject.workflow.subject_reductions]
+  }
 })
 
 const workflowSnapshot = WorkflowFactory.build({
@@ -63,14 +66,18 @@ const client = {
     get: () => Promise.resolve({ body: { tutorials: [] }})
   }
 }
-const subjectReductions = client.caesar.request(query)
-sinon.stub(client.caesar, 'request').callsFake(() => subjectReductions)
+// const subjectReductions = client.caesar.request(query)
+sinon.stub(client.caesar, 'request').callsFake(() => Promise.resolve({
+  workflow: { 
+    subject_reductions: [reducedASMSubject]
+  }
+}))
 const rootStore = RootStore.create({}, { client })
 rootStore.workflows.setResource(workflowSnapshot)
 rootStore.workflows.setActive(workflowSnapshot.id)
 rootStore.subjects.setResource(subjectSnapshot)
 rootStore.subjects.setActive(subjectSnapshot.id)
-
+console.log('rootStore', rootStore.toJSON())
 storiesOf('Drawing Tools | TranscribedLines', module)
   .add('default', () => (
     <Provider classifierStore={rootStore}>

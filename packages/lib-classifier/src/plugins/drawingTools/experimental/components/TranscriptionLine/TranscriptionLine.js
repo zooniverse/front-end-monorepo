@@ -19,7 +19,7 @@ function TranscriptionLine (props) {
   const COLOURS = {
     active: theme.global.colors.drawingTools.aqua,
     default: theme.global.colors.drawingTools.blue,
-    transcribed: theme.global.colors.drawingTools.yellow,
+    transcribed: theme.global.colors.drawingTools.purple,
     complete: theme.global.colors['light-5']
   }
   let lineState = state || 'default'
