@@ -83,18 +83,6 @@ const ClassificationStore = types
       self.loadingState = asyncStates.success
     }
 
-    function updateClassificationMetadata (newMetadata) {
-      const validClassificationReference = isValidReference(() => self.active)
-      if (validClassificationReference) {
-        const classification = self.active
-        classification.metadata = Object.assign({}, classification.metadata, newMetadata)
-      } else {
-        if (process.browser) {
-          console.error('No active classification. Cannot update metadata')
-        }
-      }
-    }
-
     function addAnnotation (task, annotationValue) {
       const validClassificationReference = isValidReference(() => self.active)
 
@@ -152,7 +140,7 @@ const ClassificationStore = types
         }
 
         // TODO store intervention metadata if we have a user...
-        self.updateClassificationMetadata(metadata)
+        classification.metadata.update(metadata)
 
         classification.completed = true
         // Convert from observables
@@ -206,8 +194,7 @@ const ClassificationStore = types
       onClassificationSaved,
       removeAnnotation,
       setOnComplete,
-      submitClassification: flow(submitClassification),
-      updateClassificationMetadata
+      submitClassification: flow(submitClassification)
     }
   })
 
