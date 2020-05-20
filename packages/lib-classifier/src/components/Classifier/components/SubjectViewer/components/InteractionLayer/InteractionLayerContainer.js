@@ -69,6 +69,7 @@ class InteractionLayerContainer extends Component {
     } = activeInteractionTask
 
     const visibleMarks = hidePreviousMarks ? marks.slice(hidingIndex) : marks
+    const visibleMarksPerFrame = visibleMarks?.filter(mark => mark.frame === frame)
 
     return (
       <>
@@ -88,7 +89,7 @@ class InteractionLayerContainer extends Component {
             frame={frame}
             height={height}
             key={taskKey}
-            marks={visibleMarks}
+            marks={visibleMarksPerFrame}
             move={move}
             scale={scale}
             setActiveMark={setActiveMark}
