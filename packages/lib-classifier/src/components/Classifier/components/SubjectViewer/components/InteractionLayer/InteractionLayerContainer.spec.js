@@ -103,6 +103,59 @@ describe('Component > InteractionLayerContainer', function () {
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
     })
 
+    it('should render TranscribedLines exclusively per frame', function () {
+      const activeTask = {
+        hidePreviousMarks: false,
+        hidingIndex: 0,
+        marks: [
+          {
+            id: '1',
+            frame: 0,
+            toolIndex: 0,
+            toolType: 'transcriptionLine',
+            x1: 100,
+            y1: 100,
+            x2: 400,
+            y2: 101
+          },
+          {
+            id: '2',
+            frame: 0,
+            toolIndex: 0,
+            toolType: 'transcriptionLine',
+            x1: 100,
+            y1: 200,
+            x2: 400,
+            y2: 201
+          },
+          {
+            id: '3',
+            frame: 1,
+            toolIndex: 0,
+            toolType: 'transcriptionLine',
+            x1: 100,
+            y1: 100,
+            x2: 400,
+            y2: 101
+          }
+        ]
+      }
+      const activeTranscriptionTask = Object.assign(activeTask, transcriptionTask)
+
+      const wrapper = shallow(
+        <InteractionLayerContainer.wrappedComponent
+          height={height}
+          width={width}
+          frame={1}
+          activeInteractionTask={activeTranscriptionTask}
+          workflow={{ usesTranscriptionTask: true }}
+        />
+      )
+
+      const { marks } = wrapper.find(InteractionLayer).props()
+      expect(marks).to.have.lengthOf(1)
+    })
+
     describe('and hiding previous marks', function () {
       let wrapper
 
@@ -110,7 +163,7 @@ describe('Component > InteractionLayerContainer', function () {
         const hidingTask = {
           hidePreviousMarks: true,
           hidingIndex: 1,
-          marks: [{ x: 0, y: 0 }, { x: 5, y: 5}]
+          marks: [{ x: 0, y: 0, frame: 0 }, { x: 5, y: 5, frame: 0 }]
         }
         const hidingMarksInteractionTask = Object.assign(hidingTask, transcriptionTask)
         wrapper = shallow(
