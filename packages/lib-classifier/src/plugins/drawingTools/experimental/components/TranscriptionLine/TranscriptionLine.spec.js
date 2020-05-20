@@ -1,7 +1,8 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { TranscriptionLine } from './TranscriptionLine'
+import TranscriptionLine from './TranscriptionLine'
 import { Provider } from 'mobx-react'
+import { Grommet } from 'grommet'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -267,6 +268,139 @@ describe('Components > Drawing marks > Transcription line', function () {
       expect(outerGroupNode.props().color).to.equal(tool.color)
       expect(outerGroupNode.props().fill).to.equal(tool.color)
       expect(outerGroupNode.props().stroke).to.equal(tool.color)
+    })
+  })
+
+  describe('when used by the transcription task', function () {
+    it('should use the aqua drawing tool color when the state is active', function () {
+      const { aqua } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet 
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              active
+              mark={mark}
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(aqua)
+      expect(outerGroupNode.props().fill).to.equal(aqua)
+      expect(outerGroupNode.props().stroke).to.equal(aqua)
+    })
+
+    it('should use the blue drawing tool color when the state is default', function () {
+      const { blue } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(blue)
+      expect(outerGroupNode.props().fill).to.equal(blue)
+      expect(outerGroupNode.props().stroke).to.equal(blue)
+    })
+
+    it('should use the purple drawing tool color when the state is transcribed', function () {
+      const { purple } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+              state='transcribed'
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(purple)
+      expect(outerGroupNode.props().fill).to.equal(purple)
+      expect(outerGroupNode.props().stroke).to.equal(purple)
+    })
+
+    it('should use a gray theme color when the state is complete', function () {
+      const gray = zooTheme.global.colors['light-5']
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+              state='complete'
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(gray)
+      expect(outerGroupNode.props().fill).to.equal(gray)
+      expect(outerGroupNode.props().stroke).to.equal(gray)
     })
   })
 })

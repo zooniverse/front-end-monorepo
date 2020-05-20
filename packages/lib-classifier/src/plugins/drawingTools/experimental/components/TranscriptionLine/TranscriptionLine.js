@@ -12,21 +12,25 @@ function storeMapper(stores) {
 }
 
 function TranscriptionLine (props) {
+  let transcriptionTaskColors = {}
   const stores = useContext(MobXProviderContext)
   const theme = useContext(ThemeContext)
   const usesTranscriptionTask = storeMapper(stores)
   const { active, color, mark, onFinish, scale, state } = props
-  const COLOURS = {
-    active: theme.global.colors.drawingTools.aqua,
-    default: theme.global.colors.drawingTools.blue,
-    transcribed: theme.global.colors.drawingTools.purple,
-    complete: theme.global.colors['light-5']
+  if (theme) {
+    transcriptionTaskColors = {
+      active: theme.global.colors.drawingTools.aqua,
+      default: theme.global.colors.drawingTools.blue,
+      transcribed: theme.global.colors.drawingTools.purple,
+      complete: theme.global.colors['light-5']
+    }
   }
+
   let lineState = state || 'default'
   if (active) {
     lineState = 'active'
   }
-  const colour = (usesTranscriptionTask) ? COLOURS[lineState] : color
+  const colorToRender = (usesTranscriptionTask) ? transcriptionTaskColors[lineState] : color
   const { x1, y1, x2, y2, finished } = mark
   const handleRadius = HANDLE_RADIUS / scale
 
@@ -50,9 +54,9 @@ function TranscriptionLine (props) {
 
   return (
     <g
-      color={colour}
-      fill={colour}
-      stroke={colour}
+      color={colorToRender}
+      fill={colorToRender}
+      stroke={colorToRender}
       strokeWidth={1}
     >
       <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
