@@ -123,9 +123,9 @@ describe('Model > FeedbackStore', function () {
       })
 
       beforeEach(function () {
-        rootStore.projects.setResource(project)
+        rootStore.projects.setResources([project])
         rootStore.projects.setActive(project.id)
-        rootStore.workflows.setResource(workflow)
+        rootStore.workflows.setResources([workflow])
         rootStore.workflows.setActive(workflow.id)
       })
 
@@ -161,9 +161,9 @@ describe('Model > FeedbackStore', function () {
         })
 
         beforeEach(function () {
-          rootStore.projects.setResource(project)
+          rootStore.projects.setResources([project])
           rootStore.projects.setActive(project.id)
-          rootStore.workflows.setResource(workflow)
+          rootStore.workflows.setResources([workflow])
           rootStore.workflows.setActive(workflow.id)
           const annotation = { task: 'T1', value: 0 }
           feedback.update(annotation)
@@ -193,9 +193,9 @@ describe('Model > FeedbackStore', function () {
         })
 
         beforeEach(function () {
-          rootStore.projects.setResource(project)
+          rootStore.projects.setResources([project])
           rootStore.projects.setActive(project.id)
-          rootStore.workflows.setResource(workflow)
+          rootStore.workflows.setResources([workflow])
           rootStore.workflows.setActive(workflow.id)
           const annotation = { task: 'T1', value: 0 }
           feedback.update(annotation)
@@ -420,9 +420,9 @@ describe('Model > FeedbackStore', function () {
     })
 
     beforeEach(function () {
-      rootStore.projects.setResource(project)
+      rootStore.projects.setResources([project])
       rootStore.projects.setActive(project.id)
-      rootStore.workflows.setResource(workflow)
+      rootStore.workflows.setResources([workflow])
       rootStore.workflows.setActive(workflow.id)
     })
 
@@ -445,7 +445,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       beforeEach(function () {
-        rootStore.subjects.setResource(subject)
+        rootStore.subjects.setResources([subject])
         rootStore.subjects.setActive(subject.id)
         feedback.onNewSubject()
       })
@@ -474,7 +474,7 @@ describe('Model > FeedbackStore', function () {
       })
 
       beforeEach(function () {
-        rootStore.subjects.setResource(subject)
+        rootStore.subjects.setResources([subject])
         rootStore.subjects.setActive(subject.id)
         feedback.onNewSubject()
       })

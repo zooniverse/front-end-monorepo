@@ -59,9 +59,9 @@ describe('Model > SingleImageSubject', function () {
         }
       }
       const rootStore = RootStore.create({}, { client })
-      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setResources([workflowSnapshot])
       rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResource(subject)
+      rootStore.subjects.setResources([subject])
       rootStore.subjects.setActive(subject.id)
     })
 

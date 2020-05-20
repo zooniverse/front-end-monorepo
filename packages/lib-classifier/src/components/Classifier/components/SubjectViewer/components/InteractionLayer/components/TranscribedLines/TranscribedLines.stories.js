@@ -57,9 +57,9 @@ const client = {
 const subjectReductions = client.caesar.request(query)
 sinon.stub(client.caesar, 'request').callsFake(() => subjectReductions)
 const rootStore = RootStore.create({}, { client })
-rootStore.workflows.setResource(workflowSnapshot)
+rootStore.workflows.setResources([workflowSnapshot])
 rootStore.workflows.setActive(workflowSnapshot.id)
-rootStore.subjects.setResource(subjectSnapshot)
+rootStore.subjects.setResources([subjectSnapshot])
 rootStore.subjects.setActive(subjectSnapshot.id)
 
 storiesOf('Drawing Tools | TranscribedLines', module)
