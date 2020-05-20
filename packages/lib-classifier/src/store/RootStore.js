@@ -1,5 +1,13 @@
 import { autorun } from 'mobx'
-import { addDisposer, getEnv, onAction, tryReference, types, setLivelynessChecking } from 'mobx-state-tree'
+import {
+  addDisposer,
+  addMiddleware,
+  getEnv,
+  onAction,
+  tryReference,
+  types,
+  setLivelynessChecking
+} from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
@@ -68,11 +76,14 @@ const RootStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        onAction(self, (call) => {
+        addMiddleware(self, (call, next, abort) => {
           if (call.name === 'advance') {
+            const res = next(call)
             onSubjectAdvance()
+            return res
           }
-        }, true)
+          return next(call)
+        })
       }, { name: 'Root Store Subject Observer autorun' })
       addDisposer(self, subjectDisposer)
     }
