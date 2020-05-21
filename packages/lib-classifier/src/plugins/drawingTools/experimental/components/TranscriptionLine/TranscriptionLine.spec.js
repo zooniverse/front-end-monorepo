@@ -1,6 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import TranscriptionLine from './TranscriptionLine'
+import { Provider } from 'mobx-react'
+import { Grommet } from 'grommet'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -19,45 +21,127 @@ describe('Components > Drawing marks > Transcription line', function () {
   })
 
   it('should render without crashing', function () {
-    const wrapper = shallow(
-      <TranscriptionLine
-        mark={mark}
-      />
+    const wrapper = mount(
+      <svg>
+        <TranscriptionLine
+          mark={mark}
+          theme={zooTheme}
+        />
+      </svg>,
+      {
+        wrappingComponent: Provider,
+        wrappingComponentProps: {
+          classifierStore: {
+            workflows: {
+              active: {
+                usesTranscriptionTask: false
+              }
+            }
+          }
+        }
+      }
     )
     expect(wrapper).to.be.ok()
   })
 
   describe('when active', function () {
     it('should not be closed at first', function () {
-      shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
+      mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
       expect(mark.finished).to.be.false()
     })
 
     it('should have a draggable start point', function () {
-      const wrapper = shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
-      expect(wrapper.find(DragHandle).find('[x=100]')).to.have.lengthOf(1)
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      expect(wrapper.find(DragHandle).find('[x=100]').at(0)).to.have.lengthOf(1)
     })
 
     it('should have a transparent start point', function () {
-      const wrapper = shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
-      expect(wrapper.find(DragHandle).find('[x=100]').prop('fill')).to.equal('transparent')
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        { wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      expect(wrapper.find(DragHandle).find({ x: 100 }).at(0).prop('fill')).to.equal('transparent')
     })
 
     it('should move the start point on drag move', function () {
-      const wrapper = shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
-      const dragMove = wrapper.find(DragHandle).find('[x=100]').prop('dragMove')
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      const dragMove = wrapper.find(DragHandle).find('[x=100]').at(0).prop('dragMove')
       expect(mark.x1).to.equal(100)
       expect(mark.y1).to.equal(200)
       dragMove({}, { x: 10, y: 20 })
@@ -66,19 +150,53 @@ describe('Components > Drawing marks > Transcription line', function () {
     })
 
     it('should have a draggable end point', function () {
-      const wrapper = shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
-      expect(wrapper.find(DragHandle).find('[x=300]')).to.have.lengthOf(1)
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      expect(wrapper.find(DragHandle).find('[x=300]').at(0)).to.have.lengthOf(1)
     })
 
     it('should move the end point on drag move', function () {
-      const wrapper = shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
-      const dragMove = wrapper.find(DragHandle).find('[x=300]').prop('dragMove')
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
       expect(mark.x2).to.equal(300)
       expect(mark.y2).to.equal(400)
       dragMove({}, { x: 10, y: 20 })
@@ -87,12 +205,34 @@ describe('Components > Drawing marks > Transcription line', function () {
     })
 
     it('should close when the end point is clicked', function () {
-      const wrapper = shallow(<TranscriptionLine
-        active
-        mark={mark}
-      />)
-      wrapper.find('circle[cx=300]').simulate('pointerdown')
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
+
+      wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
       expect(mark.finished).to.be.true()
+      dragMove({}, { x: 10, y: 20 })
+      expect(mark.finished).to.be.true()
+
     })
   })
 
@@ -101,18 +241,166 @@ describe('Components > Drawing marks > Transcription line', function () {
       const tool = {
         color: zooTheme.global.colors['drawing-orange']
       }
-      const wrapper = shallow(
-        <TranscriptionLine
-          active
-          color={tool.color}
-          mark={mark}
-        />
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            color={tool.color}
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
       )
 
       const outerGroupNode = wrapper.find('g').first()
       expect(outerGroupNode.props().color).to.equal(tool.color)
       expect(outerGroupNode.props().fill).to.equal(tool.color)
       expect(outerGroupNode.props().stroke).to.equal(tool.color)
+    })
+  })
+
+  describe('when used by the transcription task', function () {
+    it('should use the aqua drawing tool color when the state is active', function () {
+      const { aqua } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet 
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              active
+              mark={mark}
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(aqua)
+      expect(outerGroupNode.props().fill).to.equal(aqua)
+      expect(outerGroupNode.props().stroke).to.equal(aqua)
+    })
+
+    it('should use the blue drawing tool color when the state is default', function () {
+      const { blue } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(blue)
+      expect(outerGroupNode.props().fill).to.equal(blue)
+      expect(outerGroupNode.props().stroke).to.equal(blue)
+    })
+
+    it('should use the purple drawing tool color when the state is transcribed', function () {
+      const { purple } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+              state='transcribed'
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(purple)
+      expect(outerGroupNode.props().fill).to.equal(purple)
+      expect(outerGroupNode.props().stroke).to.equal(purple)
+    })
+
+    it('should use a gray theme color when the state is complete', function () {
+      const gray = zooTheme.global.colors['light-5']
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+              state='complete'
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const outerGroupNode = wrapper.find('g').first()
+      expect(outerGroupNode.props().color).to.equal(gray)
+      expect(outerGroupNode.props().fill).to.equal(gray)
+      expect(outerGroupNode.props().stroke).to.equal(gray)
     })
   })
 })
