@@ -5,7 +5,7 @@ import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
-import SHOWN_MARKS from '../../../../../../helpers/shownMarks'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > InteractionLayerContainer', function () {
   const width = 1024

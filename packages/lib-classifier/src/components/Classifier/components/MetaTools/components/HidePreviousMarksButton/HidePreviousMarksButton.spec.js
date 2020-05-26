@@ -6,7 +6,7 @@ import { MetaToolsButton } from '@zooniverse/react-components'
 import { FormView, FormViewHide, Hide } from 'grommet-icons'
 import en from './locales/en'
 import HidePreviousMarksButton from './HidePreviousMarksButton'
-import SHOWN_MARKS from '../../../../../../helpers/shownMarks'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 let wrapper
 

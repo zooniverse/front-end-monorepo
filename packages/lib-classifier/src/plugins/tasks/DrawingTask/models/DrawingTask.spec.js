@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/DrawingTask'
-import SHOWN_MARKS from '../../../../helpers/shownMarks'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 const details = [
   {

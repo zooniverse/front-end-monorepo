@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 
-import SHOWN_MARKS from '../../../../../../helpers/shownMarks'
+import SHOWN_MARKS from '@helpers/shownMarks'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)

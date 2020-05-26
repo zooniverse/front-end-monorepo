@@ -1,7 +1,7 @@
 import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
-import SHOWN_MARKS from '../../../../helpers/shownMarks'
+import SHOWN_MARKS from '@helpers/shownMarks'
 import * as tools from '@plugins/drawingTools/models/tools'
 import * as markTypes from '@plugins/drawingTools/models/marks'
 import DrawingAnnotation from './DrawingAnnotation'

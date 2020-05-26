@@ -6,7 +6,7 @@ import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-compo
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
 import HidePreviousMarksButton from './components/HidePreviousMarksButton'
-import SHOWN_MARKS from '../../../../helpers/shownMarks'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
