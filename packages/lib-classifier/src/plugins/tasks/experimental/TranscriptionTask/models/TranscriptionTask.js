@@ -18,7 +18,16 @@ const Transcription = types.model('Transcription', {
 })
 .actions(self => {
   function togglePreviousMarks () {
-    self.shownMarks = (self.shownMarks + 1) % Object.keys(SHOWN_MARKS).length;
+    switch (self.shownMarks) {
+      case SHOWN_MARKS.ALL:
+        self.shownMarks = SHOWN_MARKS.USER;
+        break;
+      case SHOWN_MARKS.USER:
+        self.shownMarks = SHOWN_MARKS.NONE;
+        break;
+      default:
+        self.shownMarks = SHOWN_MARKS.ALL;
+    }
     self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
   }
 

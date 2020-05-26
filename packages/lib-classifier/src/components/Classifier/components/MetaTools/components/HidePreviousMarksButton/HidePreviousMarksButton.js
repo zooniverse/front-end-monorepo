@@ -45,7 +45,7 @@ export default function HidePreviousMarksButton (props) {
 HidePreviousMarksButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  shownMarks: PropTypes.number,
+  shownMarks: PropTypes.string,
   type: PropTypes.string
 }
 

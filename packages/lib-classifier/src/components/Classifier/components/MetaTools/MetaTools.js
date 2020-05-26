@@ -6,6 +6,7 @@ import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-compo
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
 import HidePreviousMarksButton from './components/HidePreviousMarksButton'
+import SHOWN_MARKS from '../../../../helpers/shownMarks'
 
 function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
@@ -74,7 +75,7 @@ class MetaTools extends React.Component {
 
 MetaTools.defaultProps = {
   activeInteractionTask: {
-    shownMarks: 0,
+    shownMarks: SHOWN_MARKS.ALL,
     togglePreviousMarks: () => {},
     type: ''
   },
@@ -86,7 +87,7 @@ MetaTools.defaultProps = {
 
 MetaTools.propTypes = {
   activeInteractionTask: PropTypes.shape({
-    shownMarks: PropTypes.number,
+    shownMarks: PropTypes.string,
     togglePreviousMarks: PropTypes.func,
     type: PropTypes.string
   }),

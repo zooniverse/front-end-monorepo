@@ -1,7 +1,7 @@
 const SHOWN_MARKS = {
-  ALL: 0,
-  USER: 1,
-  NONE: 2,
+  ALL: 'ALL',
+  USER: 'USER',
+  NONE: 'NONE',
 }
 
 export default SHOWN_MARKS
