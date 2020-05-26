@@ -89,6 +89,8 @@ describe('Model > TranscriptionTask', function () {
       transcriptionTask.togglePreviousMarks()
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
       expect(transcriptionTask.hidingIndex).to.equal(transcriptionTask.marks.length)
+      transcriptionTask.togglePreviousMarks()
+      expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
     })
   })
 

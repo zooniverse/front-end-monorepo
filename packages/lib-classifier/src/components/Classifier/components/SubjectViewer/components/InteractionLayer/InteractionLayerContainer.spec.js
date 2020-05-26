@@ -176,7 +176,7 @@ describe('Component > InteractionLayerContainer', function () {
           hidingIndex: 1,
           marks: [{ x: 0, y: 0, frame: 0 }, { x: 5, y: 5, frame: 0 }]
         }
-        const hidingMarksInteractionTask = Object.assign(transcriptionTask, hidingTask)
+        const hidingMarksInteractionTask = Object.assign({}, transcriptionTask, hidingTask)
         wrapper = shallow(
           <InteractionLayerContainer.wrappedComponent
             height={height}
@@ -202,7 +202,7 @@ describe('Component > InteractionLayerContainer', function () {
       it('should hide previous annotations', function () {
         const userHidingTask = Object.assign({}, hidingTask)
         userHidingTask.shownMarks = SHOWN_MARKS.USER
-        const hidingUserMarksInteractionTask = Object.assign(transcriptionTask, userHidingTask)
+        const hidingUserMarksInteractionTask = Object.assign({}, transcriptionTask, userHidingTask)
         wrapper = shallow(
           <InteractionLayerContainer.wrappedComponent
             height={height}
