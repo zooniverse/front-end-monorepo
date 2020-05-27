@@ -11,7 +11,8 @@ function SVGPanZoom ({
   naturalWidth,
   setOnDrag,
   setOnPan,
-  setOnZoom
+  setOnZoom,
+  src
 }) {
   const scrollContainer = useRef()
   const defaultViewBox = {
@@ -51,6 +52,11 @@ function SVGPanZoom ({
     const newViewBox = scaledViewBox(zoom)
     setViewBox(newViewBox)
   }, [zoom])
+
+  useEffect(() => {
+    setZoom(1)
+    setViewBox(defaultViewBox)
+  }, [src])
 
   function imageScale (img) {
     const { width: clientWidth, height: clientHeight } = img ? img.getBoundingClientRect() : {}
@@ -121,7 +127,11 @@ function SVGPanZoom ({
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
   return (
-    <div ref={scrollContainer} onWheel={onWheel}>
+    <div
+      ref={scrollContainer}
+      onWheel={onWheel}
+      style={{ width: '100%' }}
+    >
       {cloneElement(children, { scale, viewBox: `${x} ${y} ${width} ${height}` })}
     </div>
   )
@@ -134,7 +144,8 @@ SVGPanZoom.propTypes = {
   naturalHeight: PropTypes.number.isRequired,
   naturalWidth: PropTypes.number.isRequired,
   setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func
+  setOnZoom: PropTypes.func,
+  src: PropTypes.string.isRequired
 }
 
 SVGPanZoom.defaultProps = {

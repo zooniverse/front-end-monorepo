@@ -60,7 +60,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
                 height={height}
                 width={width}
               />}
-            </g>
+          </g>
         </svg>
       </Container>
     </SVGContext.Provider>

@@ -18,6 +18,7 @@ function InteractionLayer ({
   activeToolIndex,
   children,
   disabled,
+  frame,
   height,
   marks,
   move,
@@ -59,6 +60,7 @@ function InteractionLayer ({
 
     const activeMark = activeTool.createMark({
       id: cuid(),
+      frame,
       toolIndex: activeToolIndex
     })
     activeMark.initialPosition(convertEvent(event))
@@ -112,7 +114,7 @@ function InteractionLayer ({
           }}
           onFinish={onFinish}
           onSelectMark={(mark, node) => {
-            setSubTaskVisibility(true, node)  // Show sub-task again on select, in case it was closed 
+            setSubTaskVisibility(true, node) // Show sub-task again on select, in case it was closed
             setActiveMark(mark)
           }}
           onMove={(mark, difference) => mark.move(difference)}
@@ -127,6 +129,7 @@ InteractionLayer.propTypes = {
   activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   activeToolIndex: PropTypes.number,
+  frame: PropTypes.number,
   marks: PropTypes.array,
   setActiveMark: PropTypes.func,
   setSubTaskVisibility: PropTypes.func,
@@ -139,6 +142,7 @@ InteractionLayer.propTypes = {
 InteractionLayer.defaultProps = {
   activeMark: undefined,
   activeToolIndex: 0,
+  frame: 0,
   marks: [],
   setActiveMark: () => {},
   setSubTaskVisibility: () => {},

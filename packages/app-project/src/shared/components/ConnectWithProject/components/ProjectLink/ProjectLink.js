@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Text } from 'grommet'
-import Link from 'next/link'
 import { shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -25,11 +24,9 @@ function ProjectLink ({ className, urlObject }) {
       </Box>
       <Box gap='xxsmall'>
         <SpacedText>
-          <Link href={url} passHref>
-            <StyledAnchor size='small'>
-              {label}
-            </StyledAnchor>
-          </Link>
+          <StyledAnchor href={url} size='small'>
+            {label}
+          </StyledAnchor>
         </SpacedText>
         <Box area='type'>
           <Text

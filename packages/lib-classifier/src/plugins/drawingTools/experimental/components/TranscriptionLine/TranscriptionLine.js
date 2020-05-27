@@ -1,22 +1,36 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
+import { MobXProviderContext } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 
 const HANDLE_RADIUS = 5
 const GRAB_STROKE_WIDTH = 6
-/*
-  TODO: can these colours be read from the theme?
-*/
-const COLOURS = {
-  active: '#06fe76',
-  default: '#235dff',
-  transcribed: '#ff3c25',
-  complete: '#8c8c8c'
+
+function storeMapper(stores) {
+  return stores.classifierStore.workflows.active?.usesTranscriptionTask || false
 }
 
-function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
-  state = active ? 'active' : state
-  const colour = COLOURS[state]
+function TranscriptionLine (props) {
+  let transcriptionTaskColors = {}
+  const stores = useContext(MobXProviderContext)
+  const theme = useContext(ThemeContext)
+  const usesTranscriptionTask = storeMapper(stores)
+  const { active, color, mark, onFinish, scale, state } = props
+  if (theme) {
+    transcriptionTaskColors = {
+      active: theme.global.colors.drawingTools.aqua,
+      default: theme.global.colors.drawingTools.blue,
+      transcribed: theme.global.colors.drawingTools.purple,
+      complete: theme.global.colors['light-5']
+    }
+  }
+
+  let lineState = state || 'default'
+  if (active) {
+    lineState = 'active'
+  }
+  const colorToRender = (usesTranscriptionTask) ? transcriptionTaskColors[lineState] : color
   const { x1, y1, x2, y2, finished } = mark
   const handleRadius = HANDLE_RADIUS / scale
 
@@ -40,9 +54,9 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
 
   return (
     <g
-      color={colour}
-      fill={colour}
-      stroke={colour}
+      color={colorToRender}
+      fill={colorToRender}
+      stroke={colorToRender}
       strokeWidth={1}
     >
       <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
@@ -94,6 +108,7 @@ function TranscriptionLine ({ active, mark, onFinish, scale, state }) {
 
 TranscriptionLine.propTypes = {
   active: PropTypes.bool,
+  color: PropTypes.string,
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
   scale: PropTypes.number,
@@ -102,9 +117,10 @@ TranscriptionLine.propTypes = {
 
 TranscriptionLine.defaultProps = {
   active: false,
+  color: '',
   onFinish: () => true,
   scale: 1,
-  state: 'default'
+  state: ''
 }
 
 export default TranscriptionLine

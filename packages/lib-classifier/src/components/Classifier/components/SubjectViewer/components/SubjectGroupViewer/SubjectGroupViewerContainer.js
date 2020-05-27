@@ -37,13 +37,13 @@ function storeMapper (stores) {
     active: activeWorkflow
   } = stores.classifierStore.workflows
   
-  const workflowConfig = activeWorkflow && activeWorkflow.configuration || {}
+  const viewerConfig = activeWorkflow?.configuration?.subject_viewer_config || {}
   
-  const cellWidth = workflowConfig.cell_width || DEFAULT_CELL_WIDTH
-  const cellHeight = workflowConfig.cell_height || DEFAULT_CELL_HEIGHT
-  const cellStyle = workflowConfig.cell_style || DEFAULT_CELL_STYLE
-  const gridColumns = workflowConfig.grid_columns || DEFAULT_GRID_COLUMNS
-  const gridRows = workflowConfig.grid_rows || DEFAULT_GRID_ROWS
+  const cellWidth = viewerConfig.cell_width || DEFAULT_CELL_WIDTH
+  const cellHeight = viewerConfig.cell_height || DEFAULT_CELL_HEIGHT
+  const cellStyle = viewerConfig.cell_style || DEFAULT_CELL_STYLE
+  const gridColumns = viewerConfig.grid_columns || DEFAULT_GRID_COLUMNS
+  const gridRows = viewerConfig.grid_rows || DEFAULT_GRID_ROWS
   
   const {
     activeStepTasks
@@ -54,7 +54,7 @@ function storeMapper (stores) {
     addAnnotation,
     active: classification,
   } = stores.classifierStore.classifications
-  
+
   return {
     cellWidth,
     cellHeight,
