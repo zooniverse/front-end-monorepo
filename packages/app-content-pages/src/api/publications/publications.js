@@ -5,19 +5,7 @@ import getUniqueProjectIds from './getUniqueProjectIds'
 import cache from './publicationsCache'
 import client from '../shared/contentfulClient'
 
-export default async function handle(req, res) {
-  try {
-    const data = await cache.get('publications', createPublicationsResponse)
-    res.json(data)
-  } catch (error) {
-    console.info(error)
-    res.status(500).json({
-      error: 'Error fetching data from Contentful'
-    })
-  }
-}
-
-async function createPublicationsResponse () {
+export default async function createPublicationsResponse () {
   const publications = await getPublicationsData()
   const projectIds = getUniqueProjectIds(publications)
   const projectAvatars = await getProjectAvatars(projectIds)

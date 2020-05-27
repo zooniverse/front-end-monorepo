@@ -83,9 +83,9 @@ const Mark = forwardRef(function Mark ({
 })
 
 Mark.propTypes = {
-  active: PropTypes.bool,
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onDelete: PropTypes.func,
   onDeselect: PropTypes.func,
@@ -97,8 +97,8 @@ Mark.propTypes = {
 }
 
 Mark.defaultProps = {
-  active: false,
   dragging: false,
+  isActive: false,
   onDelete: () => true,
   onDeselect: () => true,
   onSelect: () => true,
