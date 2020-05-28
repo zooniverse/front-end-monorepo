@@ -291,7 +291,7 @@ class SubjectGroupViewerContainer extends React.Component {
     // Note: the Task's Annotations are initialised by the SubjectGroupTask
     // component. However, do note that it's possible to have a
     // SubjectGroupViewer without a SubjectGroupTask.
-    const annotation = (this.isCurrentTaskValidForAnnotation())
+    const annotation = (classification && this.isCurrentTaskValidForAnnotation())
       ? toJS(classification?.annotation(currentTask))
       : {}
     
@@ -299,6 +299,9 @@ class SubjectGroupViewerContainer extends React.Component {
     // toJS() is currently required since changes to annotation isn't being
     // correctly observed.to make changes to annotation observable. A better
     // solution is still being researched.
+    
+    // WARNING:
+    // toJS() is causing the `Warning: Cannot update during an existing state transition (such as within `render`). ` warning.
     
     return (
       <SVGContext.Provider value={{ svg }}>
