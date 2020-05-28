@@ -51,11 +51,11 @@ describe('Model > RootStore', function () {
     expect(model.onAddToCollection).to.equal(addToCollection)
   })
   
-  describe('when a subject loads', function () {
+  describe('when a subject advances', function () {
     let model
-    let subjectSnapshot
+    let subjects
 
-    before(function () {
+    beforeEach(function () {
       const projectSnapshot = ProjectFactory.build({
         id: 'testProject',
         display_name: 'A test project',
@@ -63,7 +63,8 @@ describe('Model > RootStore', function () {
           default_workflow: 'testWorkflow' 
         }
       })
-      subjectSnapshot = SubjectFactory.build()
+      subjects = Factory.buildList('subject', 10)
+      const subjectSnapshot = subjects[0]
       const workflowSnapshot = WorkflowFactory.build({
         id: 'testWorkflow',
         display_name: 'A test workflow',
@@ -81,7 +82,7 @@ describe('Model > RootStore', function () {
         }
       })
       const client = stubPanoptesJs({
-        subjects: Factory.buildList('subject', 10),
+        subjects,
         workflows: [workflowSnapshot]
       })
       client.tutorials = {
@@ -93,48 +94,53 @@ describe('Model > RootStore', function () {
           resources: {
             testProject: projectSnapshot
           }
-        },
-        subjects: {
-          active: subjectSnapshot.id,
-          resources: {
-            [subjectSnapshot.id]: subjectSnapshot
-          }
-        },
-        workflows: {
-          active: 'testWorkflow',
-          resources: {
-            testWorkflow: workflowSnapshot
-          }
         }
       }, {
         client,
         authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
       })
-      model.workflows.setResource(workflowSnapshot)
+      model.workflows.setResources([workflowSnapshot])
       model.workflows.setActive(workflowSnapshot.id)
-      model.subjects.setResource(subjectSnapshot)
-      model.subjects.setActive(subjectSnapshot.id)
+      model.subjects.setResources(subjects)
+      model.subjects.advance()
       model.workflowSteps.selectStep('S2')
       model.feedback.showFeedback()
-      model.subjectViewer.onSubjectReady({})
     })
     
 
     it('should reset workflow steps', function () {
-      const activeStep = model.workflowSteps.active
+      let activeStep = model.workflowSteps.active
+      expect(activeStep.stepKey).to.equal('S2')
+      model.subjects.advance()
+      activeStep = model.workflowSteps.active
       expect(activeStep.stepKey).to.equal('S1')
     })
 
     it('should create a new classification', function () {
+      const firstSubjectInQueue = subjects[0]
+      const secondSubjectInQueue = subjects[1]
       expect(model.classifications.active.links).to.deep.equal({
         project: 'testProject',
-        subjects: [ subjectSnapshot.id ],
+        subjects: [ firstSubjectInQueue.id ],
         workflow: 'testWorkflow'
       })
+      expect(model.subjects.active.id).to.equal(firstSubjectInQueue.id)
+      expect(model.classifications.active.links.subjects[0]).to.equal(model.subjects.active.id)
+      const firstClassificationId = model.classifications.active.id
+      model.subjects.advance()
+      expect(model.classifications.active.id).to.not.equal(firstClassificationId)
+      expect(model.classifications.active.links).to.deep.equal({
+        project: 'testProject',
+        subjects: [ secondSubjectInQueue.id ],
+        workflow: 'testWorkflow'
+      })
+      expect(model.subjects.active.id).to.equal(secondSubjectInQueue.id)
+      expect(model.classifications.active.links.subjects[0]).to.equal(model.subjects.active.id)
     })
 
     it('should reset subject feedback', function () {
-      expect(model.feedback.rules).to.be.empty()
+      expect(model.feedback.showModal).to.be.true()
+      model.subjects.advance()
       expect(model.feedback.showModal).to.be.false()
     })
   })

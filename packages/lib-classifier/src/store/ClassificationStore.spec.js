@@ -8,7 +8,6 @@ import {
   ProjectFactory,
   SingleChoiceAnnotationFactory,
   SingleChoiceTaskFactory,
-  SubjectFactory,
   WorkflowFactory
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
@@ -41,22 +40,12 @@ describe('Model > ClassificationStore', function () {
       client: clientSnapshot,
       authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
     })
-    store.projects.setResource(projectSnapshot)
+    store.projects.setResources([projectSnapshot])
     store.projects.setActive(projectSnapshot.id)
-    store.workflows.setResource(workflowSnapshot)
+    store.workflows.setResources([workflowSnapshot])
     store.workflows.setActive(workflowSnapshot.id)
-    store.subjects.setResource(subjectsSnapshot[0])
-    store.subjects.setActive(subjectsSnapshot[0].id)
-    store.subjectViewer.onSubjectReady({
-      target: {
-        naturalHeight: 200,
-        naturalWidth: 400
-      }
-    })
-    /*
-      onSubjectReady resets the feedback store so
-      apply any feedback rules manually for now.
-    */
+    store.subjects.setResources(subjectsSnapshot)
+    store.subjects.advance()
     applySnapshot(store.feedback, stores.feedback)
     return store
   }
@@ -66,7 +55,7 @@ describe('Model > ClassificationStore', function () {
     expect(ClassificationStore).to.be.an('object')
   })
 
-  describe('when it instantiates', function () {
+  describe('when a subject advances', function () {
     let classifications
     let rootStore
     beforeEach(function () {
@@ -106,45 +95,6 @@ describe('Model > ClassificationStore', function () {
       expect(classification.metadata.subjectSelectionState.retired).to.equal(subject.retired)
       expect(classification.metadata.subjectSelectionState.selection_state).to.equal(subject.selection_state)
       expect(classification.metadata.subjectSelectionState.user_has_finished_workflow).to.equal(subject.user_has_finished_workflow)
-    })
-  })
-
-  describe('on new subject', function () {
-    let classifications
-    let rootStore
-    beforeEach(function () {
-      rootStore = setupStores({
-        dataVisAnnotating: {},
-        drawing: {},
-        feedback: {},
-        fieldGuide: {},
-        subjectViewer: {},
-        tutorials: {},
-        workflowSteps: {},
-        userProjectPreferences: {}
-      })
-      classifications = rootStore.classifications
-      rootStore.subjects.advance()
-      rootStore.subjectViewer.onSubjectReady({
-        target: {
-          naturalHeight: 200,
-          naturalWidth: 400
-        }
-      })
-    })
-
-    afterEach(function () {
-      rootStore = null
-      classifications = null
-    })
-
-    it('should reset and create a new classification', function () {
-      const firstClassificationId = classifications.active.id
-      expect(classifications.active.toJSON()).to.ok()
-      rootStore.subjects.setResource(subjectsSnapshot[1])
-      rootStore.subjects.setActive(subjectsSnapshot[1].id)
-      rootStore.subjectViewer.onSubjectReady()
-      expect(classifications.active.id).to.not.equal(firstClassificationId)
     })
   })
 

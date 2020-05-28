@@ -1,6 +1,12 @@
+import zooTheme from '@zooniverse/grommet-theme'
+import sinon from 'sinon'
 import { getSnapshot } from 'mobx-state-tree'
 import Mark from './Mark'
 import { Tool } from '@plugins/drawingTools/models/tools'
+import RootStore from '@store'
+import { DrawingTaskFactory, ProjectFactory, WorkflowFactory } from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
+import { Factory } from 'rosie'
 
 describe('Models > Drawing Task > Mark', function () {
   let mark
@@ -193,6 +199,65 @@ describe('Models > Drawing Task > Mark', function () {
         singleChoiceAnnotation.toSnapshot(),
         multipleChoiceAnnotation.toSnapshot()
       ])
+    })
+  })
+
+  describe('when multiple frame subjects', function () {
+    let rootStore
+    before(function () {
+      const project = ProjectFactory.build()
+      const workflow = WorkflowFactory.build()
+      const subjects = Factory.buildList('subject', 10)
+      const drawingTaskSnapshot = DrawingTaskFactory.build({
+        instruction: 'Draw a point',
+        taskKey: 'T1',
+        tools: [{
+          color: zooTheme.global.colors['drawing-red'],
+          type: 'point'
+        }],
+        type: 'drawing'
+      })
+      workflow.tasks = [drawingTaskSnapshot]
+      const client = stubPanoptesJs({
+        subjects,
+        workflows: [workflow]
+      })
+      client.tutorials = {
+        get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
+      }
+
+      rootStore = RootStore.create({}, {
+        authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() },
+        client
+      })
+      rootStore.projects.setResources([project])
+      rootStore.projects.setActive(project.id)
+      rootStore.workflows.setResources([workflow])
+      rootStore.workflows.setActive(workflow.id)
+      rootStore.subjects.setResources(subjects)
+      rootStore.subjects.advance()
+
+      rootStore.workflowSteps.activeStepTasks[0].setActiveTool(0)
+    })
+
+    it('should store the correct frame for the mark', function () {
+      const initialFrame = rootStore.subjectViewer.frame // defaults to 0
+      const point1 = rootStore.workflowSteps.activeStepTasks[0].activeTool.createMark({
+        id: '1',
+        frame: initialFrame,
+        toolIndex: 0
+      })
+      expect(point1.frame).to.equal(initialFrame)
+      expect(initialFrame).to.equal(0)
+      rootStore.subjectViewer.setFrame(1)
+      const nextFrame = rootStore.subjectViewer.frame
+      const point2 = rootStore.workflowSteps.activeStepTasks[0].activeTool.createMark({
+        id: '2',
+        frame: nextFrame,
+        toolIndex: 0
+      })
+      expect(point2.frame).to.equal(nextFrame)
+      expect(nextFrame).to.equal(1)
     })
   })
 })

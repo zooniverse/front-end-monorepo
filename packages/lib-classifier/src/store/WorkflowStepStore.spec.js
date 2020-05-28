@@ -26,10 +26,10 @@ function setupStores (clientStub, project, workflow) {
     authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
   })
 
-  store.projects.setResource(project)
+  store.projects.setResources([project])
   store.projects.setActive(project.id)
   if (workflow) {
-    store.workflows.setResource(workflow)
+    store.workflows.setResources([workflow])
     store.workflows.setActive(workflow.id)
   }
   return store
