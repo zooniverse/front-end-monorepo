@@ -24,6 +24,7 @@
     "prop-types": "~15.7.1",
     "react-progressive-image": "~0.6.0",
     "react-resize-detector": "~3.2.1",
+    "react-rnd": "~10.1.10",
     "rehype-stringify": "~5.0.0",
     "remark": "~10.0.1",
     "remark-emoji": "~2.0.2",
