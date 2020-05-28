@@ -18,20 +18,21 @@ const Heading = styled.h2`
   text-transform: uppercase;
 `
 
-function ModalHeading ({ className, closeFn, title }) {
+function ModalHeading ({ background, className = '', closeFn, title = '' }) {
   return (
     <StyledBox
       align='center'
-      background='brand'
+      background={background || 'brand'}
       className={className}
       direction='row'
       gap='large'
-      justify='between'
+      justify={(title) ? 'between' : 'end'}
       pad={{ horizontal: 'medium', vertical: 'none' }}
     >
-      <Heading>
-        {title}
-      </Heading>
+      {title &&
+        <Heading>
+          {title}
+        </Heading>}
       <CloseButton closeFn={closeFn} />
     </StyledBox>
   )
@@ -40,11 +41,7 @@ function ModalHeading ({ className, closeFn, title }) {
 ModalHeading.propTypes = {
   className: PropTypes.string,
   closeFn: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
-}
-
-ModalHeading.defaultProps = {
-  className: ''
+  title: PropTypes.string
 }
 
 export default ModalHeading

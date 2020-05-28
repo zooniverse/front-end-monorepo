@@ -9,41 +9,49 @@ const StyledLayer = styled(Layer)`
   box-shadow: 0px 10px 20px #000030;
 `
 
-function WithLayer (WrappedComponent) {
-  function HOC ({ active, className, closeFn, modal, position, ...props }) {
+function withLayer (WrappedComponent) {
+  function HOC (props) {
+    const {
+      active = false,
+      animate = false,
+      className = '',
+      closeFn = () => true,
+      modal = true,
+      plain = false,
+      position = 'center', 
+      ...rest
+    } = props
+
     if (!active) {
       return null
     }
 
     return (
       <StyledLayer
+        animate={animate}
         className={className}
         modal={modal}
+        plain={plain}
         position={position}
         onClickOutside={closeFn}
         onEsc={closeFn}
       >
-        <WrappedComponent {...props} closeFn={closeFn} />
+        <WrappedComponent closeFn={closeFn} {...rest} />
       </StyledLayer>
     )
   }
 
   HOC.propTypes = {
     active: PropTypes.bool,
+    animate: PropTypes.bool,
     className: PropTypes.string,
     closeFn: PropTypes.func,
     modal: PropTypes.bool,
+    plain: PropTypes.bool,
     position: PropTypes.string
-  }
-
-  HOC.defaultProps = {
-    active: false,
-    className: '',
-    modal: true,
-    position: 'center'
   }
 
   return HOC
 }
 
-export default WithLayer
+export default withLayer
