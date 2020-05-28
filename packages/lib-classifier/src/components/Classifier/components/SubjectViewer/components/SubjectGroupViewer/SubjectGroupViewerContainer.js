@@ -246,33 +246,6 @@ class SubjectGroupViewerContainer extends React.Component {
   }
     
   render () {
-    const { loadingState } = this.props
-    const svg = this.groupViewer.current
-    
-    // Note: SVG provider and scrollContainer should be consistent across all loading states
-    return (
-      <SVGContext.Provider value={{ svg }}>
-        <div ref={this.scrollContainer}>
-          {(this[loadingState]() || null)}
-        </div>
-      </SVGContext.Provider>
-    )
-  }
-
-  [asyncStates.initialized] () {
-    return null
-  }
-
-  [asyncStates.loading] () {
-    return (<Paragraph>Loading</Paragraph>)
-  }
-
-  [asyncStates.error] () {
-    console.error('There was an error loading the workflow steps and tasks.')
-    return (<Paragraph>Something went wrong</Paragraph>)
-  }
-
-  [asyncStates.success] () {
     const {
       subject,
       loadingState,
@@ -294,9 +267,16 @@ class SubjectGroupViewerContainer extends React.Component {
       
     } = this.props
     const { images, panX, panY, zoom } = this.state
+    const svg = this.groupViewer.current
     
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
+    
+    if (loadingState === asyncStates.error) {
+      return (
+        <div>Something went wrong.</div>
+      )
+    }
 
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
@@ -321,7 +301,8 @@ class SubjectGroupViewerContainer extends React.Component {
     // solution is still being researched.
     
     return (
-      
+      <SVGContext.Provider value={{ svg }}>
+        <div ref={this.scrollContainer}>
           <SubjectGroupViewer
             ref={this.groupViewer}
             
@@ -348,7 +329,8 @@ class SubjectGroupViewerContainer extends React.Component {
             isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
             toggleCellAnnotation={this.toggleCellAnnotation.bind(this)}
           />
-
+        </div>
+      </SVGContext.Provider>
     )
   }
 }
