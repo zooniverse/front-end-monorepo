@@ -89,11 +89,10 @@ describe('Tasks', function () {
         },
         client
       })
-      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setResources([workflowSnapshot])
       rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResource(subjectSnapshot)
-      rootStore.subjects.setActive(subjectSnapshot.id)
-      rootStore.subjectViewer.onSubjectReady()
+      rootStore.subjects.setResources([subjectSnapshot])
+      rootStore.subjects.advance()
       classification = rootStore.classifications.active
       step = rootStore.workflowSteps.active
     })

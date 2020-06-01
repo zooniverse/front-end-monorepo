@@ -500,7 +500,7 @@ describe('Model > TutorialStore', function () {
           sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
           sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
-          rootStore.projects.setResource(project)
+          rootStore.projects.setResources([project])
           rootStore.projects.setActive(project.id)
           rootStore.workflows.setActive(workflow.id)
             .then(() => {
@@ -548,7 +548,7 @@ describe('Model > TutorialStore', function () {
           sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
           sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
-          rootStore.projects.setResource(project)
+          rootStore.projects.setResources([project])
           rootStore.projects.setActive(project.id)
           rootStore.workflows.setActive(workflow.id)
             .then(() => {
@@ -589,7 +589,7 @@ describe('Model > TutorialStore', function () {
             sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => {})
             sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
-            rootStore.projects.setResource(project)
+            rootStore.projects.setResources([project])
             rootStore.projects.setActive(project.id)
             rootStore.workflows.setActive(workflow.id)
               .then(() => {
@@ -628,7 +628,7 @@ describe('Model > TutorialStore', function () {
             sinon.stub(rootStore.userProjectPreferences, 'updateUPP').callsFake(() => { })
             sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
-            rootStore.projects.setResource(project)
+            rootStore.projects.setResources([project])
             rootStore.projects.setActive(project.id)
             rootStore.workflows.setActive(workflow.id)
               .then(() => {
@@ -666,7 +666,7 @@ describe('Model > TutorialStore', function () {
             const setModalVisibilitySpy = sinon.spy(rootStore.tutorials, 'setModalVisibility')
             sinon.stub(rootStore.tutorials, 'fetchTutorials')
 
-            rootStore.projects.setResource(project)
+            rootStore.projects.setResources([project])
             rootStore.projects.setActive(project.id)
             rootStore.workflows.setActive(workflow.id)
               .then(() => {

@@ -59,7 +59,7 @@ describe('Model > Subject', function () {
     const rootStore = RootStore.create({}, { client })
 
     before(function () {
-      rootStore.workflows.setResource(workflowSnapshot)
+      rootStore.workflows.setResources([workflowSnapshot])
       rootStore.workflows.setActive(workflowSnapshot.id)
     })
 
@@ -76,7 +76,7 @@ describe('Model > Subject', function () {
   describe('Views > talkURL', function () {
     before(function () {
       subject.projects = ProjectStore.create({})
-      subject.projects.setResource(project)
+      subject.projects.setResources([project])
       subject.projects.setActive(project.id)
     })
 
@@ -88,7 +88,7 @@ describe('Model > Subject', function () {
   describe('Views > viewer', function () {
     it('should return null as default', function () {
       subject.workflows = WorkflowStore.create({})
-      subject.workflows.setResource(workflow)
+      subject.workflows.setResources([workflow])
       subject.workflows.setActive(workflow.id)
       expect(subject.viewer).to.be.null()
     })
@@ -99,7 +99,7 @@ describe('Model > Subject', function () {
           const singleImageSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
           const subjectStore = Subject.create(singleImageSubject)
           subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflow)
+          subjectStore.workflows.setResources([workflow])
           subjectStore.workflows.setActive(workflow.id)
           expect(subjectStore.viewer).to.equal(subjectViewers.singleImage)
         })
@@ -115,7 +115,7 @@ describe('Model > Subject', function () {
           })
           const subjectStore = Subject.create(multiFrameSubject)
           subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflow)
+          subjectStore.workflows.setResources([workflow])
           subjectStore.workflows.setActive(workflow.id)
           expect(subjectStore.viewer).to.equal(subjectViewers.multiFrame)
         })
@@ -139,7 +139,7 @@ describe('Model > Subject', function () {
           })
           const subjectStore = Subject.create(multiFrameSubject)
           subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflow)
+          subjectStore.workflows.setResources([workflow])
           subjectStore.workflows.setActive(workflow.id)
           expect(subjectStore.viewer).to.be.null()
         })
@@ -149,7 +149,7 @@ describe('Model > Subject', function () {
           const subjectStore = Subject.create(multiFrameSubject)
           const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
           subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflowWithConfigSeparateMultiImage)
+          subjectStore.workflows.setResources([workflowWithConfigSeparateMultiImage])
           subjectStore.workflows.setActive(workflowWithConfigSeparateMultiImage.id)
           expect(subjectStore.viewer).to.be.null()
         })
@@ -159,7 +159,7 @@ describe('Model > Subject', function () {
           const subjectStore = Subject.create(multiFrameSubject)
           const workflowWithConfigEnableSwitching = WorkflowFactory.build({ configuration: { enable_switching_flipbook_and_separate: true } })
           subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResource(workflowWithConfigEnableSwitching)
+          subjectStore.workflows.setResources([workflowWithConfigEnableSwitching])
           subjectStore.workflows.setActive(workflowWithConfigEnableSwitching.id)
           expect(subjectStore.viewer).to.be.null()
         })
@@ -169,7 +169,7 @@ describe('Model > Subject', function () {
           const subjectResourceStore = Subject.create(dataSubject)
           const workflowWithMultiFrameConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'multiFrame' } })
           subjectResourceStore.workflows = WorkflowStore.create({})
-          subjectResourceStore.workflows.setResource(workflowWithMultiFrameConfig)
+          subjectResourceStore.workflows.setResources([workflowWithMultiFrameConfig])
           subjectResourceStore.workflows.setActive(workflowWithMultiFrameConfig.id)
           expect(subjectResourceStore.viewer).to.equal(subjectViewers.multiFrame)
         })
@@ -181,7 +181,7 @@ describe('Model > Subject', function () {
           const subjectResourceStore = Subject.create(dataSubject)
           const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
           subjectResourceStore.workflows = WorkflowStore.create({})
-          subjectResourceStore.workflows.setResource(workflowWithConfig)
+          subjectResourceStore.workflows.setResources([workflowWithConfig])
           subjectResourceStore.workflows.setActive(workflowWithConfig.id)
           expect(subjectResourceStore.viewer).to.equal(subjectViewers.lightCurve)
         })
@@ -251,7 +251,7 @@ describe('Model > Subject', function () {
     function testOpenInTalk (newTab) {
       const subject = Subject.create(stub)
       subject.projects = ProjectStore.create({})
-      subject.projects.setResource(project)
+      subject.projects.setResources([project])
       subject.projects.setActive(project.id)
       subject.openInTalk(newTab)
       expect(subject.shouldDiscuss).to.eql({ newTab, url })

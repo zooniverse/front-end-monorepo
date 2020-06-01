@@ -1,8 +1,6 @@
 import counterpart from 'counterpart'
-import absoluteUrl from 'next-absolute-url'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
-import request from 'superagent'
 
 import en from './locales/en'
 import Team from './Team'
@@ -27,21 +25,6 @@ function TeamContainer (props) {
   )
 }
 
-TeamContainer.getInitialProps = async ({ req }) => {
-  const host = getHost(req)
-  let error
-  let teamData = []
-  try {
-    teamData = (await request.get(host + '/api/team')).body
-  } catch (err) {
-    error = err.message
-  }
-  return {
-    error,
-    teamData
-  }
-}
-
 TeamContainer.propTypes = {
   error: string,
   teamData: array,
@@ -52,10 +35,6 @@ TeamContainer.defaultProps = {
 }
 
 export default TeamContainer
-
-function getHost (req) {
-  return process.env.ASSET_PREFIX || absoluteUrl(req).origin
-}
 
 function createFilters (teamData, activeFilter, setActiveFilter) {
   const showAllFilter = {

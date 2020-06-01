@@ -76,7 +76,7 @@ const FieldGuideStore = types
         const fieldGuide = response.body[type][0]
         if (fieldGuide) {
           yield fetchMedia(fieldGuide)
-          self.setResource(fieldGuide)
+          self.setResources([fieldGuide])
           self.setActive(fieldGuide.id)
           self.loadingState = asyncStates.success
         } else {

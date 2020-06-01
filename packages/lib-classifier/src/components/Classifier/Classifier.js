@@ -79,7 +79,7 @@ export default class Classifier extends React.Component {
   }
 
   setProject (project) {
-    this.classifierStore.projects.setResource(project)
+    this.classifierStore.projects.setResources([project])
     this.classifierStore.projects.setActive(project.id)
   }
 

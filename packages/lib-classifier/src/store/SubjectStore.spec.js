@@ -31,9 +31,9 @@ describe('Model > SubjectStore', function () {
     })
     sinon.spy(store.subjects, 'populateQueue')
 
-    store.projects.setResource(project)
+    store.projects.setResources([project])
     store.projects.setActive(project.id)
-    store.workflows.setResource(workflow)
+    store.workflows.setResources([workflow])
     store.workflows.setActive(workflow.id)
     return store.subjects
   }

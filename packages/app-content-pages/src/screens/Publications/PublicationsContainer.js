@@ -1,8 +1,6 @@
 import counterpart from 'counterpart'
-import absoluteUrl from 'next-absolute-url'
 import { array, string } from 'prop-types'
 import React, { useState } from 'react'
-import request from 'superagent'
 
 import en from './locales/en'
 import Publications from './Publications'
@@ -27,21 +25,6 @@ function PublicationsContainer(props) {
   )
 }
 
-PublicationsContainer.getInitialProps = async ({ req }) => {
-  const host = getHost(req)
-  let error
-  let publicationsData = []
-  try {
-    publicationsData = (await request.get(host + '/api/publications')).body
-  } catch (err) {
-    error = err.message
-  }
-  return {
-    error,
-    publicationsData
-  }
-}
-
 PublicationsContainer.propTypes = {
   error: string,
   publicationsData: array,
@@ -52,10 +35,6 @@ PublicationsContainer.defaultProps = {
 }
 
 export default PublicationsContainer
-
-function getHost(req) {
-  return process.env.ASSET_PREFIX || absoluteUrl(req).origin
-}
 
 function createFilters(publicationsData, activeFilter, setActiveFilter) {
   const showAllFilter = {

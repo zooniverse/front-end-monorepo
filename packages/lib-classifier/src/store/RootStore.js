@@ -1,5 +1,13 @@
 import { autorun } from 'mobx'
-import { addDisposer, getEnv, onAction, tryReference, types, setLivelynessChecking } from 'mobx-state-tree'
+import {
+  addDisposer,
+  addMiddleware,
+  getEnv,
+  onAction,
+  tryReference,
+  types,
+  setLivelynessChecking
+} from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
@@ -35,7 +43,7 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
-    function onSubjectReady () {
+    function onSubjectAdvance () {
       const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
       const workflow = tryReference(() => workflows?.active)
@@ -68,10 +76,13 @@ const RootStore = types
 
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'onSubjectReady') {
-            onSubjectReady()
+        addMiddleware(self, (call, next, abort) => {
+          if (call.name === 'advance') {
+            const res = next(call)
+            onSubjectAdvance()
+            return res
           }
+          return next(call)
         })
       }, { name: 'Root Store Subject Observer autorun' })
       addDisposer(self, subjectDisposer)

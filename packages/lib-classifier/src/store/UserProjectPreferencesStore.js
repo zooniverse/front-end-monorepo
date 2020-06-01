@@ -170,7 +170,7 @@ const UserProjectPreferencesStore = types
     }
 
     function setUPP (userProjectPreferences) {
-      self.setResource(userProjectPreferences)
+      self.setResources([userProjectPreferences])
       self.setActive(userProjectPreferences.id)
     }
 
