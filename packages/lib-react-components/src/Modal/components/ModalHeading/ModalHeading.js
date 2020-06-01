@@ -19,6 +19,7 @@ const Heading = styled.h2`
 `
 
 function ModalHeading ({ background, className = '', closeFn, title = '' }) {
+  const horizontalPad = (title) ? 'medium' : 'xsmall'
   return (
     <StyledBox
       align='center'
@@ -27,7 +28,7 @@ function ModalHeading ({ background, className = '', closeFn, title = '' }) {
       direction='row'
       gap='large'
       justify={(title) ? 'between' : 'end'}
-      pad={{ horizontal: 'medium', vertical: 'none' }}
+      pad={{ horizontal: horizontalPad, vertical: 'none' }}
     >
       {title &&
         <Heading>

@@ -2,28 +2,37 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Rnd } from 'react-rnd'
 import ResizeIcon from './components/ResizeIcon'
-import withLayer from '../withLayer'
+import withLayer from '../helpers/withLayer'
 import { Modal } from '../Modal'
 
 function MovableModal (props) {
   const {
     children,
-    closeFn = () => {},
-    headingBackground = '',
-    minHeight = 100,
-    minWidth = 350,
+    closeFn,
+    headingBackground,
     pad,
-    position = {
-      x: 0,
-      y: 0
+    rndProps: {
+      minHeight,
+      minWidth,
+      position,
+      ...restRndProps
     },
-    title = '',
-    ...rest
+    title,
   } = props
 
   return (
     <Rnd
       cancel='.subtaskpopup-element-that-ignores-drag-actions'
+      enableResizing={{
+        bottom: true,
+        bottomLeft: false,
+        bottomRight: true,
+        left: true,
+        right: true,
+        top: true,
+        topLeft: false,
+        topRight: false
+      }}
       default={position}
       minHeight={minHeight}
       minWidth={minWidth}
@@ -52,7 +61,7 @@ function MovableModal (props) {
           top: 0
         }
       }}
-      {...rest}
+      {...restRndProps}
     >
       <Modal
         closeFn={closeFn}
@@ -66,16 +75,32 @@ function MovableModal (props) {
   )
 }
 
+MovableModal.defaultProps = {
+  closeFn: () => {},
+  headingBackground: '',
+  rndProps: {
+    minHeight: 100,
+    minWidth: 350,
+    position: {
+      x: 0,
+      y: 0
+    }
+  },
+  title: ''
+}
+
 MovableModal.propTypes = {
   children: PropTypes.node,
   closeFn: PropTypes.func,
   headingBackground: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
-  minHeight: PropTypes.number,
-  minWidth: PropTypes.number,
   pad: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
-  position: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number
+  rndProps: PropTypes.shape({
+    minHeight: PropTypes.number,
+    minWidth: PropTypes.number,
+    position: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    })
   }),
   title: PropTypes.string,
 }

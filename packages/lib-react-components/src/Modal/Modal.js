@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import withLayer from '../withLayer'
+import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
