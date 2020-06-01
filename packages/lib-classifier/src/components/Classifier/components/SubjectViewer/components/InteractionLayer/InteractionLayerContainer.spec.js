@@ -140,20 +140,23 @@ describe('Component > InteractionLayerContainer', function () {
           }
         ]
       }
-      const activeTranscriptionTask = Object.assign(activeTask, transcriptionTask)
+      const activeTranscriptionTask = Object.assign({}, activeTask, transcriptionTask)
 
       const wrapper = shallow(
         <InteractionLayerContainer.wrappedComponent
           height={height}
           width={width}
-          frame={1}
+          frame={0}
           activeInteractionTask={activeTranscriptionTask}
           workflow={{ usesTranscriptionTask: true }}
         />
       )
 
-      const { marks } = wrapper.find(InteractionLayer).props()
-      expect(marks).to.have.lengthOf(1)
+      const firstFrameMarks = wrapper.find(InteractionLayer).prop('marks')
+      expect(firstFrameMarks).to.have.lengthOf(2)
+      wrapper.setProps({ frame: 1 })
+      const secondFrameMarks = wrapper.find(InteractionLayer).prop('marks')
+      expect(secondFrameMarks).to.have.lengthOf(1)
     })
 
     describe('and hiding previous marks', function () {
