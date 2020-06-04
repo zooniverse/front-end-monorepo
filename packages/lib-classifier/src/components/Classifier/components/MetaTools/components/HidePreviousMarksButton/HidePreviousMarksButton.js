@@ -10,7 +10,7 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export default function HidePreviousMarksButton (props) {
-  const { disabled, onClick, shownMarks, type } = props
+  const { disabled, onClick, shownMarks } = props
   const text = shownMarks === SHOWN_MARKS.ALL ?
     counterpart('HidePreviousMarksDrawingButton.hide') :
     counterpart('HidePreviousMarksDrawingButton.show')
@@ -32,13 +32,11 @@ export default function HidePreviousMarksButton (props) {
 HidePreviousMarksButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  shownMarks: PropTypes.string,
-  type: PropTypes.string
+  shownMarks: PropTypes.string
 }
 
 HidePreviousMarksButton.defaultProps = {
   disabled: false,
   onClick: () => false,
-  shownMarks: SHOWN_MARKS.ALL,
-  type: 'drawing'
+  shownMarks: SHOWN_MARKS.ALL
 }

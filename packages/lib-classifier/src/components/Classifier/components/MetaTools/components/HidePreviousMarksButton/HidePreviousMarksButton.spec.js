@@ -75,48 +75,4 @@ describe('Component > HidePreviousMarksButton', function () {
       expect(onClick).to.not.have.been.called()
     })
   })
-
-  describe('when a transcription task', function () {
-    describe('and showing all marks', function () {
-      it('should show the correct text and icon', function () {
-        wrapper = shallow(
-          <HidePreviousMarksButton
-            shownMarks={SHOWN_MARKS.ALL}
-            type='transcription'
-          />)
-        const button = wrapper.find(MetaToolsButton)
-        const { icon, text } = button.props()
-        expect(icon).to.deep.equal(<FormView />)
-        expect(text).to.deep.equal(en.HidePreviousMarksTranscriptionButton.showUser)
-      })
-    })
-
-    describe('and showing user marks', function () {
-      it('should show the correct text and icon', function () {
-        wrapper = shallow(
-          <HidePreviousMarksButton
-            shownMarks={SHOWN_MARKS.USER}
-            type='transcription'
-          />)
-        const button = wrapper.find(MetaToolsButton)
-        const { icon, text } = button.props()
-        expect(icon).to.deep.equal(<Hide />)
-        expect(text).to.deep.equal(en.HidePreviousMarksTranscriptionButton.hide)
-      })
-    })
-
-    describe('and showing no marks', function () {
-      it('should show the correct text and icon', function () {
-        wrapper = shallow(
-          <HidePreviousMarksButton
-            shownMarks={SHOWN_MARKS.NONE}
-            type='transcription'
-          />)
-        const button = wrapper.find(MetaToolsButton)
-        const { icon, text } = button.props()
-        expect(icon).to.deep.equal(<FormViewHide />)
-        expect(text).to.deep.equal(en.HidePreviousMarksTranscriptionButton.show)
-      })
-    })
-  })
 })

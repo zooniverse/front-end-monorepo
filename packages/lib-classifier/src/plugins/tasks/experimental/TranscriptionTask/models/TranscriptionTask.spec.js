@@ -84,12 +84,12 @@ describe('Model > TranscriptionTask', function () {
 
     it('should hide previous marks', function () {
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
-      transcriptionTask.togglePreviousMarks()
+      transcriptionTask.togglePreviousMarks(SHOWN_MARKS.USER)
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.USER)
-      transcriptionTask.togglePreviousMarks()
+      transcriptionTask.togglePreviousMarks(SHOWN_MARKS.NONE)
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
       expect(transcriptionTask.hidingIndex).to.equal(transcriptionTask.marks.length)
-      transcriptionTask.togglePreviousMarks()
+      transcriptionTask.togglePreviousMarks(SHOWN_MARKS.ALL)
       expect(transcriptionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
     })
   })
