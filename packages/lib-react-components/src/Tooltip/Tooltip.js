@@ -1,44 +1,58 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Box, Drop } from 'grommet'
+import styled from 'styled-components'
+import Tippy from '@tippyjs/react'
+import Label from './components/Label'
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
 
-export default function Tooltip (props) {
-  const { align, boxAlign, boxAnimation, boxBackgroundColor, boxPad, children, target } = props
+const StyledTippy = styled(Tippy)`
+  background-color: black !important;
+  border-radius: 0 !important;
+
+  .tippy-content {
+    padding: 0;
+  }
+
+  &[data-placement^=bottom] > .tippy-arrow::before {
+    border-bottom-color: black !important;
+  }
+
+  &[data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: black !important;
+  }
+`
+
+function Tooltip (props) {
+  const { 
+    arrow = true,
+    animation = 'scale',
+    children,
+    label,
+    placement = 'top',
+    trigger = 'mouseenter focus'
+   } = props
+
   return (
-    <Drop
-      align={align}
-      target={target}
-      {...props}
+    <StyledTippy
+      arrow={arrow}
+      animation={animation}
+      content={<Label label={label} />}
+      placement={placement}
+      trigger={trigger}
     >
-      <Box
-        align={boxAlign}
-        animation={boxAnimation}
-        background={boxBackgroundColor}
-        pad={boxPad}
-      >
-        {children}
-      </Box>
-    </Drop>
+      {children}
+    </StyledTippy>
   )
 }
 
-Tooltip.defaultProps = {
-  boxAlign: 'center',
-  boxBackgroundColor: 'white',
-  boxPad: { vertical: 'xsmall', horizontal: 'small' }
+Tooltip.propTypes = {
+  arrow: PropTypes.bool,
+  animation: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  label: PropTypes.string.isRequired,
+  placement: PropTypes.string,
+  trigger: PropTypes.string
 }
 
-Tooltip.propTypes = {
-  align: PropTypes.objectOf({
-    top: PropTypes.oneOf(['top', 'bottom']),
-    bottom: PropTypes.oneOf(['top', 'bottom']),
-    right: PropTypes.oneOf(['left', 'right']),
-    left: PropTypes.oneOf(['left', 'right'])
-  }),
-  boxAlign: PropTypes.string,
-  boxAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.arrayOf(PropTypes.string)]),
-  boxBackgroundColor: PropTypes.string,
-  boxPad: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
-  target: PropTypes.object.isRequired
-}
+export default Tooltip
