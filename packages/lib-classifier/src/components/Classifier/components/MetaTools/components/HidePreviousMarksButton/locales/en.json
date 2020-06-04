@@ -6,6 +6,7 @@
   "HidePreviousMarksTranscriptionButton": {
     "hide": "Hide All Marks",
     "show": "Show All Marks",
-    "showUser": "Show Your Marks"
+    "showUser": "Show Your Marks",
+    "toggle": "Toggle Transcription Marks"
   }
 }

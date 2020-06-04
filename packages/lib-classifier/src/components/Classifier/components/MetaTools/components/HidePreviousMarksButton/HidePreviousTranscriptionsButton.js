@@ -1,35 +1,40 @@
 import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
-import { Menu } from 'grommet'
+import { Menu, Text } from 'grommet'
 import { FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export default function HidePreviousMarksTranscriptionButton (props) {
-  const { disabled, onClick, shownMarks } = props
+const StyledText = styled(Text)`
+  text-transform: uppercase;
+`
+
+function HidePreviousMarksTranscriptionButton (props) {
+  const { disabled, onClick, shownMarks, theme } = props
+  const color = theme.global.colors['neutral-2']
 
   const ALL = {
     icon: <FormView />,
-    label: counterpart('HidePreviousMarksTranscriptionButton.show'),
+    label: <StyledText color={color} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousMarksTranscriptionButton.show')}</StyledText>,
     onClick: () => onClick(SHOWN_MARKS.ALL)
   }
 
   const USER = {
     icon: <FormViewHide />,
-    label: counterpart('HidePreviousMarksTranscriptionButton.showUser'),
+    label: <StyledText color={color} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousMarksTranscriptionButton.showUser')}</StyledText>,
     disabled,
     onClick: () => onClick(SHOWN_MARKS.USER)
   }
 
   const NONE = {
     icon: <Hide />,
-    label: counterpart('HidePreviousMarksTranscriptionButton.hide'),
+    label: <StyledText color={color} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousMarksTranscriptionButton.hide')}</StyledText>,
     onClick: () => onClick(SHOWN_MARKS.NONE)
   }
 
@@ -39,6 +44,7 @@ export default function HidePreviousMarksTranscriptionButton (props) {
 
   return (
     <Menu
+      a11yTitle={counterpart('HidePreviousMarksTranscriptionButton.toggle')}
       label={current.label}
       items={Array.from(items.values())}
     />
@@ -48,13 +54,13 @@ export default function HidePreviousMarksTranscriptionButton (props) {
 HidePreviousMarksTranscriptionButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  shownMarks: PropTypes.string,
-  type: PropTypes.string
+  shownMarks: PropTypes.string
 }
 
 HidePreviousMarksTranscriptionButton.defaultProps = {
   disabled: false,
   onClick: () => false,
-  shownMarks: SHOWN_MARKS.ALL,
-  type: 'drawing'
+  shownMarks: SHOWN_MARKS.ALL
 }
+
+export default withTheme(HidePreviousMarksTranscriptionButton)
