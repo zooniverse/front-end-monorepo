@@ -18,6 +18,7 @@ function MovableModal (props) {
       ...restRndProps
     },
     title,
+    ...rest
   } = props
 
   return (
@@ -68,6 +69,7 @@ function MovableModal (props) {
         headingBackground={headingBackground}
         pad={pad}
         title={title}
+        {...rest}
       >
         {children}
       </Modal>

@@ -1,8 +1,6 @@
-# Modal
+# withLayer HOC
 
-![modal screenshot](screenshot.png)
-
-A generic modal component. Accepts the following props:
+A higher order component using the Grommet [`Layer`](https://v2.grommet.io/layer) to wrap other components like `Modal` or `MovableModal`. Accepts the following props:
 
 - `active` (boolean) - determines whether the modal is visible or not
 - `closeFn` (function) - function called when clicking outside the modal, or when the Esc button is pressed
@@ -18,14 +16,10 @@ Additional props for the HOC `Layer component (see Notes):
 - `plain` (boolean) - Defaults to `false`. Same as Grommet's `Layer` plain prop. Determines if the underlayer is styled.
 - `position` (string) - Defaults to `'center'`. Same as Grommet's `Layer` position prop. Determine the position of the rendered modal in the viewport. 
 
+Any other props get passed on to the wrapped component.
+
 ## Example
 
 ```js
-<Modal active={isActive} closeFn={setActive} title={title}>
-  Leo mollis dictum id dis maecenas consectetur metus elementum vivamus nisl
-</Modal>
+withLayer(Modal)
 ```
-
-## Notes
-
-This component uses the Grommet [`Layer`](https://v2.grommet.io/layer) component, which in turn uses React Portals for rendering. Enzyme doesn't currently support portals, so the modal is wrapped by default in a HOC which provides the Layer, and also exported as a named default for testing.
