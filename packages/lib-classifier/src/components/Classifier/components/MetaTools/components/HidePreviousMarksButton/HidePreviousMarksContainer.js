@@ -13,7 +13,9 @@ export default function HidePreviousMarksContainer (props) {
 }
 
 HidePreviousMarksContainer.propTypes = {
+  type: PropTypes.string
 }
 
 HidePreviousMarksContainer.defaultProps = {
+  type: 'drawing'
 }

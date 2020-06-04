@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
 import { FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
+import styled from 'styled-components'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import en from './locales/en'
@@ -11,63 +12,37 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export default function HidePreviousMarksTranscriptionButton (props) {
-  const { disabled, onClick, shownMarks, type } = props
-  let label, text, icon;
-  const isDrawingTask = type === 'drawing'
+  const { disabled, onClick, shownMarks } = props
 
   const ALL = {
-    label: 'ALL',
+    icon: <FormView />,
+    label: counterpart('HidePreviousMarksTranscriptionButton.show'),
     onClick: () => onClick(SHOWN_MARKS.ALL)
   }
 
   const USER = {
-    label: 'USER',
+    icon: <FormViewHide />,
+    label: counterpart('HidePreviousMarksTranscriptionButton.showUser'),
+    disabled,
     onClick: () => onClick(SHOWN_MARKS.USER)
   }
 
   const NONE = {
-    label: 'NONE',
+    icon: <Hide />,
+    label: counterpart('HidePreviousMarksTranscriptionButton.hide'),
     onClick: () => onClick(SHOWN_MARKS.NONE)
   }
 
-  let options = [ALL, USER, NONE]
-  const current = options.find(({ label }) => label === shownMarks)
-  options = options.filter(({ label }) => label !== shownMarks)
-
-
-  switch(shownMarks) {
-    case SHOWN_MARKS.ALL:
-      label = isDrawingTask ? counterpart('HidePreviousMarksDrawingButton.hide')
-        : counterpart('HidePreviousMarksTranscriptionButton.showUser')
-      icon = <FormView />
-      break;
-    case SHOWN_MARKS.USER:
-      label = counterpart('HidePreviousMarksTranscriptionButton.hide')
-      icon = <Hide />
-      break;
-    default:
-      label = isDrawingTask ? counterpart('HidePreviousMarksDrawingButton.show')
-        : counterpart('HidePreviousMarksTranscriptionButton.show')
-      icon = <FormViewHide />
-  }
+  let items = new Map([['ALL', ALL], ['USER', USER], ['NONE', NONE]])
+  const current = items.get(shownMarks)
+  items.delete(shownMarks)
 
   return (
     <Menu
       label={current.label}
-      items={options}
+      items={Array.from(items.values())}
     />
   )
-
-  // return (
-  //   <MetaToolsButton
-  //     aria-live='assertive'
-  //     aria-label={text}
-  //     disabled={disabled}
-  //     icon={icon}
-  //     text={text}
-  //     onClick={onClick}
-  //   />
-  // )
 }
 
 HidePreviousMarksTranscriptionButton.propTypes = {
