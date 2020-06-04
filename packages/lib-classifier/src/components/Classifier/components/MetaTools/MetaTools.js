@@ -65,7 +65,7 @@ class MetaTools extends React.Component {
             disabled={marks.length === 0}
             shownMarks={shownMarks}
             type={type}
-            onClick={() => togglePreviousMarks()}
+            onClick={(o) => togglePreviousMarks(o)}
           />
         )}
       </Box>

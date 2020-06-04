@@ -11,31 +11,18 @@ counterpart.registerTranslations('en', en)
 
 export default function HidePreviousMarksButton (props) {
   const { disabled, onClick, shownMarks, type } = props
-  let text, icon;
-  const isDrawingTask = type === 'drawing'
+  const text = shownMarks === SHOWN_MARKS.ALL ?
+    counterpart('HidePreviousMarksDrawingButton.hide') :
+    counterpart('HidePreviousMarksDrawingButton.show')
 
-  switch(shownMarks) {
-    case SHOWN_MARKS.ALL:
-      text = isDrawingTask ? counterpart('HidePreviousMarksDrawingButton.hide')
-        : counterpart('HidePreviousMarksTranscriptionButton.showUser')
-      icon = <FormView />
-      break;
-    case SHOWN_MARKS.USER:
-      text = counterpart('HidePreviousMarksTranscriptionButton.hide')
-      icon = <Hide />
-      break;
-    default:
-      text = isDrawingTask ? counterpart('HidePreviousMarksDrawingButton.show')
-        : counterpart('HidePreviousMarksTranscriptionButton.show')
-      icon = <FormViewHide />
-  }
+  const icon = shownMarks === SHOWN_MARKS.ALL ? <FormView /> : <FormViewHide />
 
   return (
     <MetaToolsButton
-      aria-live='assertive'
-      aria-label={text}
+      aria-checked={shownMarks === SHOWN_MARKS.NONE}
       disabled={disabled}
       icon={icon}
+      role='checkbox'
       text={text}
       onClick={onClick}
     />
