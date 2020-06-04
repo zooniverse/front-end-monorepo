@@ -1,11 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import sinon from 'sinon'
 
-import { FormView, FormViewHide, Hide } from 'grommet-icons'
 import { Menu } from 'grommet'
-import en from './locales/en'
-import { HidePreviousTranscriptionsButton } from './HidePreviousTranscriptionsButton'
+import { HidePreviousTranscriptionsButton, StyledMenu } from './HidePreviousTranscriptionsButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 let wrapper
@@ -24,7 +21,7 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
       <HidePreviousTranscriptionsButton
         shownMarks={SHOWN_MARKS.ALL}
       />)
-    const menu = wrapper.find(Menu).first()
+    const menu = wrapper.find(StyledMenu).first()
     const { label, items } = menu.props()
     expect(items.length).to.equal(2)
     expect(label.props.children).to.equal("Show All Marks")
@@ -36,7 +33,7 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
         <HidePreviousTranscriptionsButton
           shownMarks={SHOWN_MARKS.USER}
         />)
-      const menu = wrapper.find(Menu).first()
+      const menu = wrapper.find(StyledMenu).first()
       const { label, items } = menu.props()
       expect(items.length).to.equal(2)
       expect(label.props.children).to.equal("Show Your Marks")
@@ -49,7 +46,7 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
         <HidePreviousTranscriptionsButton
           shownMarks={SHOWN_MARKS.NONE}
         />)
-      const menu = wrapper.find(Menu).first()
+      const menu = wrapper.find(StyledMenu).first()
       const { label, items } = menu.props()
       expect(items.length).to.equal(2)
       expect(label.props.children).to.equal("Hide All Marks")

@@ -84,4 +84,4 @@ HidePreviousTranscriptionsButton.defaultProps = {
 }
 
 export default withTheme(HidePreviousTranscriptionsButton)
-export { HidePreviousTranscriptionsButton }
+export { HidePreviousTranscriptionsButton, StyledMenu }
