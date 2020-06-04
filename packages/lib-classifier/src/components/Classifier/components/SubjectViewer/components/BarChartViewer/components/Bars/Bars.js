@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { Box } from 'grommet'
 import { Bar } from '@vx/shape'
-import Tippy from '@tippy.js/react'
+import Tippy from '@tippyjs/react'
 import { SpacedText } from '@zooniverse/react-components'
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
