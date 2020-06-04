@@ -7,14 +7,14 @@ import React from 'react'
 
 import MovableModal from './MovableModal'
 import PrimaryButton from '../PrimaryButton'
-// import readme from './README.md'
+import readme from './README.md'
 
 const EXAMPLE_STRING = 'Leo mollis dictum id dis maecenas consectetur metus elementum vivamus nisl, suscipit tristique lectus nulla mus etiam nisi facilisis magnis, scelerisque ligula montes luctus cursus nibh vulputate parturient risus.'
 
 const config = {
-  // notes: {
-  //   markdown: readme
-  // }
+  notes: {
+    markdown: readme
+  }
 }
 
 
