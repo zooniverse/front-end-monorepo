@@ -2,7 +2,7 @@ import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Menu, Text } from 'grommet'
-import { FormView, FormViewHide, Hide } from 'grommet-icons'
+import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
@@ -11,9 +11,28 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const StyledMenu = styled(Menu)`
+  div {
+    margin-top: 10px;
+    padding: 0;
+  }
+
+  span {
+    ${props => css`line-height: ${props.theme.paragraph.small.height};`}
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 const StyledText = styled(Text)`
-  text-transform: uppercase;
   ${props => css`color: ${props.theme.global.colors['neutral-2']};`}
+  text-transform: uppercase;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 function HidePreviousTranscriptionsButton (props) {
@@ -43,9 +62,10 @@ function HidePreviousTranscriptionsButton (props) {
   items.delete(shownMarks)
 
   return (
-    <Menu
+    <StyledMenu
       a11yTitle={counterpart('HidePreviousTranscriptionsButton.toggle')}
       label={current.label}
+      icon={<FormDown />}
       items={Array.from(items.values())}
     />
   )
