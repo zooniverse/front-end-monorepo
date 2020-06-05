@@ -69,8 +69,8 @@ class InteractionLayerContainer extends Component {
       taskKey
     } = activeInteractionTask
 
-    const visibleMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
-    const visibleMarksPerFrame = visibleMarks?.filter(mark => mark.frame === frame)
+    const newMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+    const visibleMarksPerFrame = newMarks?.filter(mark => mark.frame === frame)
 
     return (
       <>

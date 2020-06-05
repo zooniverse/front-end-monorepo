@@ -84,7 +84,7 @@ describe('Component > InteractionLayerContainer', function () {
     const hidingTask = {
       shownMarks: SHOWN_MARKS.NONE,
       hidingIndex: 1,
-      marks: [{ x: 0, y: 0 }, { x: 5, y: 5}]
+      marks: [{ x: 0, y: 0, frame: 0}, { x: 5, y: 5, frame: 0}]
     }
 
     const transcriptionTask = {
@@ -199,7 +199,7 @@ describe('Component > InteractionLayerContainer', function () {
     })
 
     describe('and showing only user marks', function () {
-      it('should hide previous annotations', function () {
+      it('should only show user annotations', function () {
         const userHidingTask = Object.assign({}, hidingTask)
         userHidingTask.shownMarks = SHOWN_MARKS.USER
         const hidingUserMarksInteractionTask = Object.assign({}, transcriptionTask, userHidingTask)
@@ -213,6 +213,8 @@ describe('Component > InteractionLayerContainer', function () {
           />
         )
 
+        const marks = wrapper.find(InteractionLayer).props().marks
+        expect(marks).to.have.lengthOf(2)
         expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(0)
       })
     })
