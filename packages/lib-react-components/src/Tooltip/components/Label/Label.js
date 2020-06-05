@@ -43,3 +43,4 @@ Label.propTypes = {
 }
 
 export default withTheme(Label)
+export { Label }

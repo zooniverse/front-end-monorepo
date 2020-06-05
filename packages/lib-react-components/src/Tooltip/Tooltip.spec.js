@@ -1,15 +1,38 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-
+import { Button } from 'grommet'
 import Tooltip from './Tooltip'
+import Label from './components/Label'
 
-describe('<Tooltip />', function () {
+describe('Component > Tooltip', function () {
   let wrapper
   before(function () {
-    wrapper = shallow(<Tooltip target={{}}>Helpful tips!</Tooltip>)
+    wrapper = shallow(
+      <Tooltip label='helpful tip'>
+        <Button label='Click Me' onClick={() => {}} />
+      </Tooltip>
+    )
   })
 
   it('renders without crashing', function () {
     expect(wrapper).to.be.ok()
+  })
+
+  it('should render the child component', function () {
+    expect(wrapper.find(Button)).to.have.lengthOf(1)
+  })
+
+  it('should pass props to the Tippy component', function () {
+    let props = wrapper.props()
+    expect(props.content.props.label).to.equal('helpful tip')
+    expect(props.arrow).to.be.true()
+    expect(props.placement).to.equal('top')
+    expect(props.trigger).to.equal('mouseenter focus')
+    wrapper.setProps({ arrow: false, label: 'a new label', placement: 'bottom', trigger: 'focus' })
+    props = wrapper.props()
+    expect(props.content.props.label).to.equal('a new label')
+    expect(props.arrow).to.be.false()
+    expect(props.placement).to.equal('bottom')
+    expect(props.trigger).to.equal('focus')
   })
 })
