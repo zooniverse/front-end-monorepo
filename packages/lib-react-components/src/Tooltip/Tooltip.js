@@ -30,7 +30,8 @@ function Tooltip (props) {
     children,
     label,
     placement = 'top',
-    trigger = 'mouseenter focus'
+    trigger = 'mouseenter focus',
+    ...rest
    } = props
 
   return (
@@ -40,6 +41,7 @@ function Tooltip (props) {
       content={<Label label={label} />}
       placement={placement}
       trigger={trigger}
+      {...rest}
     >
       {children}
     </StyledTippy>
