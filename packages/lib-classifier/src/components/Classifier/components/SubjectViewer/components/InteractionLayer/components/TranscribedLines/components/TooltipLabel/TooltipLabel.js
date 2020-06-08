@@ -1,12 +1,12 @@
 import React from 'react'
-import { number, shape, string } from 'prop-types'
+import { string } from 'prop-types'
 import { Blank } from 'grommet-icons'
 import { Box } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
 
-export default function Tooltip (props) {
+export default function TooltipLabel (props) {
   const {
-    fill,
+    fill = 'light-5',
     label
   } = props
   return (
@@ -19,10 +19,7 @@ export default function Tooltip (props) {
   )
 }
 
-Tooltip.defaultProps = {
-
-}
-
-Tooltip.propTypes = {
-
+TooltipLabel.propTypes = {
+  fill: string,
+  label: string.isRequired
 }
