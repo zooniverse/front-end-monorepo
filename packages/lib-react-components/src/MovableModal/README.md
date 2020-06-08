@@ -44,3 +44,5 @@ The props `minHeight` and `minWidth` in the object get applied to the `Rnd` `min
 ## Notes
 
 This component uses the Grommet [`Layer`](https://v2.grommet.io/layer) component, which in turn uses React Portals for rendering, by way of the `withLayer` HOC located in the helpers folder. Enzyme doesn't currently support portals, so the modal is wrapped by default in a HOC which provides the Layer, and also exported as a named default for testing.
+
+The child node must have correct CSS applied to it so that it resizes as expected with the parent modal resizing. 
