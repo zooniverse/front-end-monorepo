@@ -11,7 +11,7 @@ function ModalBody ({
     <Box
       background={{
         dark: 'dark-5',
-        light: 'neutral-6'
+        light: 'white'
       }}
       className={className}
       pad={pad}

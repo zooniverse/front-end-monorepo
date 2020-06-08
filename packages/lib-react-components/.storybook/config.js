@@ -2,10 +2,10 @@ import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 
-import backgrounds from './lib/backgrounds'
+import { backgrounds } from './lib'
 
 addParameters({
-  backgrounds: backgrounds.lightDefault,
+  backgrounds,
   viewport: {
     viewports: INITIAL_VIEWPORTS
   }
