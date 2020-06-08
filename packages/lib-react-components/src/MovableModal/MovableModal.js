@@ -39,7 +39,6 @@ function MovableModal (props) {
       minWidth={minWidth}
       resizeHandleComponent={{ bottomRight: <ResizeIcon /> }}
       resizeHandleStyles={{
-        bottom: {},
         bottomLeft: {
           bottom: 0,
           left: 0
@@ -50,9 +49,6 @@ function MovableModal (props) {
           right: 0,
           width: '14px'
         },
-        left: {},
-        right: {},
-        top: {},
         topLeft: {
           left: 0,
           top: 0

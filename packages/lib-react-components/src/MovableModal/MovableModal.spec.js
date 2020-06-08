@@ -16,7 +16,7 @@ const content = (
 describe('MovableModal', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
-      <MovableModal closeFn={() => { }}>
+      <MovableModal>
         {content}
       </MovableModal>
     )
@@ -26,7 +26,7 @@ describe('MovableModal', function () {
   describe('with Rnd wrapper', function () {
     it('should be wrapped by an Rnd component', function () {
       const wrapper = shallow(
-        <MovableModal closeFn={() => { }}>
+        <MovableModal>
           {content}
         </MovableModal>
       )
@@ -38,7 +38,7 @@ describe('MovableModal', function () {
       const minHeight = 400
       const position = { x: 100, y: 100 }
       const wrapper = shallow(
-        <MovableModal closeFn={() => { }}>
+        <MovableModal>
           {content}
         </MovableModal>
       )
@@ -55,7 +55,7 @@ describe('MovableModal', function () {
 
     it('should pass along any other rnd props', function () {
       const wrapper = shallow(
-        <MovableModal closeFn={() => { }}>
+        <MovableModal>
           {content}
         </MovableModal>
       )
