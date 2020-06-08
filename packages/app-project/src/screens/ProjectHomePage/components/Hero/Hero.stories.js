@@ -71,7 +71,14 @@ function MockProjectContext({ children, theme }) {
   return (
     <MediaContextProvider>
       <Provider store={mockStore}>
-        <Grommet theme={theme}>
+        <Grommet
+          background={{
+            dark: 'dark-1',
+            light: 'light-1'
+          }}
+          theme={theme}
+          themeMode={(theme.dark) ? 'dark' : 'light'}
+        >
           <StorybookRouterFix>
             {children}
           </StorybookRouterFix>
@@ -114,7 +121,7 @@ const WORKFLOWS_ERROR = {
 storiesOf('Project App / Screens / Project Home / Hero', module)
   .addDecorator(withKnobs)
   .addParameters({ viewport: { defaultViewport: 'responsive' }})
-  .add('plain', () => (
+  .add('default', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <WideLayout
         screenSize='default'
