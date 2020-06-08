@@ -22,14 +22,7 @@ storiesOf('Modal', module)
   .addDecorator(withKnobs)
 
   .add('Light theme (default)', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode='light'
-    >
+    <Grommet theme={zooTheme}>
       <Modal
         active={boolean('Active', true)}
         closeFn={action('Close modal')}
@@ -41,17 +34,11 @@ storiesOf('Modal', module)
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={darkZooTheme}
-      themeMode='dark'
-    >
+    <Grommet theme={darkZooTheme}>
       <Modal
         active={boolean('Active', true)}
         closeFn={action('Close modal')}
+        colorTheme='dark'
         title={text('Title', 'Modal Title')}
       >
         {text('Content', EXAMPLE_STRING)}
