@@ -199,7 +199,7 @@ stories
       <Grommet theme={zooTheme}>
         <Box height='medium' width='large'>
           <ScatterPlotViewer
-            data={object('data', lightCurveMockData.variableStar.data)}
+            data={object('data', lightCurveMockData.variableStar.scatterPlot.data)}
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
             xAxisLabel={text('x axis label', 'phase')}
