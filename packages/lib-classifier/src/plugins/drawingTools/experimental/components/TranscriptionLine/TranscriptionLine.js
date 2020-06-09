@@ -31,16 +31,26 @@ function TranscriptionLine (props) {
     lineState = 'active'
   }
   const colorToRender = (usesTranscriptionTask) ? transcriptionTaskColors[lineState] : color
-  const { x1, y1, x2, y2, finished } = mark
+  const { x1, y1, x2, y2, finished, initialPointerUp } = mark
   const handleRadius = HANDLE_RADIUS / scale
 
   function onHandleDrag (coords) {
     mark.setCoordinates(coords)
   }
 
-  function handleFinishClick (event) {
-    mark.finish()
-    onFinish(event)
+  function handlePointerDown (event) {
+    event.stopPropagation()
+    event.preventDefault()
+  }
+
+  function handlePointerUp (event) {
+    if (!initialPointerUp) {
+      mark.setInitialPointerUp()
+    }
+    if (initialPointerUp) {
+      mark.finish()
+      onFinish(event)
+    }
   }
 
   let offsetX = 0
@@ -98,8 +108,19 @@ function TranscriptionLine (props) {
 
       {active && !finished &&
         <g>
-          <circle r={handleRadius} cx={x1} cy={y1} fill="transparent" onPointerDown={handleFinishClick} />
-          <circle r={handleRadius} cx={x2} cy={y2} onPointerDown={handleFinishClick} />
+          <circle
+            r={handleRadius}
+            cx={x1}
+            cy={y1}
+            fill="transparent"
+          />
+          <circle
+            r={handleRadius}
+            cx={x2}
+            cy={y2}
+            onPointerDown={handlePointerDown}
+            onPointerUp={handlePointerUp}
+          />
         </g>
       }
     </g>
