@@ -116,15 +116,15 @@ describe('Model > FieldGuideStore', function () {
       }
       const fieldGuideStore = setupStores(panoptesClientStub)
 
-      const setResourceSpy = sinon.spy(fieldGuideStore, 'setResource')
+      const setResourcesSpy = sinon.spy(fieldGuideStore, 'setResources')
       expect(fieldGuideStore.loadingState).to.equal(asyncStates.initialized)
 
       fieldGuideStore.fetchFieldGuide(project.id)
         .then(() => {
-          expect(setResourceSpy).to.have.not.been.called()
+          expect(setResourcesSpy).to.have.not.been.called()
           expect(fieldGuideStore.loadingState).to.equal(asyncStates.success)
         }).then(() => {
-          setResourceSpy.restore()
+          setResourcesSpy.restore()
         }).then(done, done)
     })
 
@@ -146,7 +146,7 @@ describe('Model > FieldGuideStore', function () {
         }).then(done, done)
     })
 
-    it('should call setResource and setActive if there is a field guide', function (done) {
+    it('should call setResources and setActive if there is a field guide', function (done) {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -158,15 +158,15 @@ describe('Model > FieldGuideStore', function () {
       }
       const fieldGuideStore = setupStores(panoptesClientStub)
 
-      const setResourceSpy = sinon.spy(fieldGuideStore, 'setResource')
+      const setResourcesSpy = sinon.spy(fieldGuideStore, 'setResources')
       const setActiveSpy = sinon.spy(fieldGuideStore, 'setActive')
 
       fieldGuideStore.fetchFieldGuide(project.id)
         .then(() => {
-          expect(setResourceSpy).to.have.been.calledOnceWith(fieldGuide)
+          expect(setResourcesSpy).to.have.been.calledOnceWith([fieldGuide])
           expect(setActiveSpy).to.have.been.calledOnceWith(fieldGuide.id)
         }).then(() => {
-          setResourceSpy.restore()
+          setResourcesSpy.restore()
           setActiveSpy.restore()
         }).then(done, done)
     })

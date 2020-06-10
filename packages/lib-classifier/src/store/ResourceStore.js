@@ -43,10 +43,12 @@ const ResourceStore = types
       self.resources.clear()
     },
 
-    setResource (resource) {
-      if (resource) {
+    setResources (resources = []) {
+      if (resources && resources.length > 0) {
         try {
-          self.resources.put(resource)
+          resources.forEach((resource) => {
+            if (resource) self.resources.put(resource)
+          })
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error(error)
@@ -58,7 +60,7 @@ const ResourceStore = types
       const active = self.resources.get(id)
       if (!active) {
         const resource = yield self.fetchResource(id)
-        self.setResource(resource)
+        self.setResources([resource])
       }
       self.active = id
     })

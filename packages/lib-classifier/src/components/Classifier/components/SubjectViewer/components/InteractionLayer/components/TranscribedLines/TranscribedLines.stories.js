@@ -66,9 +66,9 @@ const client = {
 }
 sinon.stub(client.caesar, 'request').callsFake(() => Promise.resolve(reducedASMSubject))
 const rootStore = RootStore.create({}, { client })
-rootStore.workflows.setResource(workflowSnapshot)
+rootStore.workflows.setResources([workflowSnapshot])
 rootStore.workflows.setActive(workflowSnapshot.id)
-rootStore.subjects.setResource(subjectSnapshot)
+rootStore.subjects.setResources([subjectSnapshot])
 rootStore.subjects.setActive(subjectSnapshot.id)
 
 class TranscribedLinesStory extends React.Component {

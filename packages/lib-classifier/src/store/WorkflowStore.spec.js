@@ -30,7 +30,7 @@ describe('Model > WorkflowStore', function () {
       userProjectPreferences: {}
     }, { client: clientStub, authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() } })
 
-    store.projects.setResource(project)
+    store.projects.setResources([project])
     store.projects.setActive(project.id)
     return store
   }
