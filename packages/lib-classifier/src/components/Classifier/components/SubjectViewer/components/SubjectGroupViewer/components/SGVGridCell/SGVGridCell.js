@@ -33,9 +33,9 @@ function SGVGridCell (props) {
     panY,
     zoom,
     
+    annotation,
     annotationMode,
     cellAnnotated,
-    toggleCellAnnotation,
   } = props
   
   const [checked, setChecked] = useState(cellAnnotated)
@@ -81,6 +81,25 @@ function SGVGridCell (props) {
       }
     }
   `
+  
+  function toggleCellAnnotation () {
+    if (!annotationMode || !annotation?.value) return
+
+    const toggledValue = !checked
+    setChecked(toggledValue)
+
+    const annotationValue = annotation?.value?.slice() || []
+    const hasCellIndex = annotationValue.includes(index)
+    
+    if (hasCellIndex && !toggledValue) {  // Remove cell index from annotation values
+      const indexInValue = annotationValue.indexOf(index)
+      annotationValue.splice(indexInValue, 1)
+    } else if (!hasCellIndex && toggledValue) {  // Add cell index to annotation values
+      annotationValue.push(index)
+    }
+    
+    if (annotation?.update) annotation.update(annotationValue)
+  }
 
   return (
     <g
@@ -116,7 +135,7 @@ function SGVGridCell (props) {
           width={cellWidth}
           height={cellHeight}
         />
-        {annotationMode  && (
+        {annotationMode && (
           <ClickableRect
             tabIndex={0}
             role='checkbox'
@@ -126,14 +145,12 @@ function SGVGridCell (props) {
             width={cellWidth}
             height={cellHeight}
             onClick={(e) => {
-              toggleCellAnnotation(index)
-              setChecked(!checked)
+              toggleCellAnnotation()
               e.preventDefault()
             }}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
-                toggleCellAnnotation(index)
-                setChecked(!checked)
+                toggleCellAnnotation()
                 e.preventDefault()
               }
             }}
@@ -160,9 +177,12 @@ SGVGridCell.propTypes = {
   panY: PropTypes.number,
   zoom: PropTypes.number,
 
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }),
   annotationMode: PropTypes.bool,
   cellAnnotated: PropTypes.bool,
-  toggleCellAnnotation: PropTypes.func,
 }
 
 SGVGridCell.defaultProps = {
@@ -181,9 +201,9 @@ SGVGridCell.defaultProps = {
   panY: 0,
   zoom: 1,
 
+  annotation: undefined,
   annotationMode: true,
   cellAnnotated: false,
-  toggleCellAnnotation: () => {},
 }
 
 export default SGVGridCell

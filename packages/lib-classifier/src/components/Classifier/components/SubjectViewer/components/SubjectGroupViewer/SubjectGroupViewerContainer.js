@@ -222,28 +222,6 @@ class SubjectGroupViewerContainer extends React.Component {
     }
     preventDefault(event)
   }
-
-  isCurrentTaskValidForAnnotation () {
-    return this.props.currentTask?.type === 'subjectGroup'
-  }
-    
-  toggleCellAnnotation (cellIndex) {
-    if (!this.isCurrentTaskValidForAnnotation()) return
-    
-    const { classification, currentTask } = this.props
-    
-    const annotation = classification.annotation(currentTask)
-    const newValue = annotation?.value?.slice() || []
-    
-    if (newValue.includes(cellIndex)) {
-      const indexInValue = newValue.indexOf(cellIndex)
-      newValue.splice(indexInValue, 1)
-    } else {
-      newValue.push(cellIndex)
-    }
-    
-    annotation.update(newValue)
-  }
     
   render () {
     const {
@@ -291,17 +269,11 @@ class SubjectGroupViewerContainer extends React.Component {
     // Note: the Task's Annotations are initialised by the SubjectGroupTask
     // component. However, do note that it's possible to have a
     // SubjectGroupViewer without a SubjectGroupTask.
-    const annotation = (classification && this.isCurrentTaskValidForAnnotation())
-      ? toJS(classification?.annotation(currentTask))
-      : {}
     
-    // WARNING: 
-    // toJS() is currently required since changes to annotation isn't being
-    // correctly observed.to make changes to annotation observable. A better
-    // solution is still being researched.
-    
-    // WARNING:
-    // toJS() is causing the `Warning: Cannot update during an existing state transition (such as within `render`). ` warning.
+    const isCurrentTaskValidForAnnotation = this.props.currentTask?.type === 'subjectGroup'
+    const annotation = (classification && isCurrentTaskValidForAnnotation)
+      ? classification?.annotation(currentTask)
+      : undefined
     
     return (
       <SVGContext.Provider value={{ svg }}>
@@ -329,8 +301,7 @@ class SubjectGroupViewerContainer extends React.Component {
     
             annotation={annotation}
             interactionMode={interactionMode}
-            isCurrentTaskValidForAnnotation={this.isCurrentTaskValidForAnnotation()}
-            toggleCellAnnotation={this.toggleCellAnnotation.bind(this)}
+            isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
           />
         </div>
       </SVGContext.Provider>
