@@ -6,7 +6,7 @@ import asyncStates from '@zooniverse/async-states'
 import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
-describe('Component > SubjectGroupViewerContainer', function () {
+describe.only('Component > SubjectGroupViewerContainer', function () {
   let wrapper
 
   const cellWidth = 200
@@ -50,9 +50,8 @@ describe('Component > SubjectGroupViewerContainer', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render an empty div', function () {
-      expect(wrapper.find('div')).to.have.lengthOf(1)
-      expect(wrapper.find('div:empty')).to.have.lengthOf(1)
+    it('should render null', function () {
+      expect(wrapper.html()).to.be.null()
     })
   })
 
