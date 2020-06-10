@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -37,7 +37,9 @@ function SGVGridCell (props) {
     cellAnnotated,
     toggleCellAnnotation,
   } = props
-    
+  
+  const [checked, setChecked] = useState(cellAnnotated)
+  
   const row = Math.floor(index / gridColumns)
   const col = index % gridColumns
 
@@ -106,8 +108,8 @@ function SGVGridCell (props) {
         />
         <rect
           fill="none"
-          stroke={(cellAnnotated) ? cellStyle.highlight : cellStyle.stroke}
-          strokeWidth={(cellAnnotated)
+          stroke={(checked) ? cellStyle.highlight : cellStyle.stroke}
+          strokeWidth={(checked)
             ? cellStyle.highlightWidth * BORDER_MULTIPLIER
             : cellStyle.strokeWidth * BORDER_MULTIPLIER
           }
@@ -117,14 +119,23 @@ function SGVGridCell (props) {
         {annotationMode  && (
           <ClickableRect
             tabIndex={0}
+            role='checkbox'
+            aria-checked={checked}
+            aria-label={`Cell at row ${row} column ${col}`}
             fill="transparent"
             width={cellWidth}
             height={cellHeight}
-            onClick={() => {
+            onClick={(e) => {
               toggleCellAnnotation(index)
+              setChecked(!checked)
+              e.preventDefault()
             }}
             onKeyPress={(e) => {
-              if (e.key === 'Enter') toggleCellAnnotation(index)
+              if (e.key === 'Enter') {
+                toggleCellAnnotation(index)
+                setChecked(!checked)
+                e.preventDefault()
+              }
             }}
           />
         )}
