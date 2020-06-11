@@ -1,10 +1,10 @@
-import createTeamResponse  from '../../api/team'
+import TeamAPI  from '../../api/team'
 
 export default async function getStaticProps() {
   let error = null
   let teamData = []
   try {
-    teamData = await createTeamResponse()
+    teamData = await TeamAPI.createTeamResponse()
   } catch (err) {
     error = err.message
   }

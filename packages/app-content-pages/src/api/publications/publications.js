@@ -4,7 +4,7 @@ import buildResponse from './buildResponse'
 import getUniqueProjectIds from './getUniqueProjectIds'
 import client from '../shared/contentfulClient'
 
-export default async function createPublicationsResponse () {
+async function createPublicationsResponse () {
   const publications = await getPublicationsData()
   const projectIds = getUniqueProjectIds(publications)
   const projectAvatars = await getProjectAvatars(projectIds)
@@ -57,3 +57,5 @@ function createProjectAvatarsMap (projectAvatars) {
     [project.id]: project
   }), {})
 }
+
+export default { createPublicationsResponse }

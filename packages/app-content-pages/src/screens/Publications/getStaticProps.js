@@ -1,10 +1,10 @@
-import createPublicationsResponse  from '../../api/publications'
+import PublicationsAPI  from '../../api/publications'
 
 export default async function getStaticProps() {
   let error = null
   let publicationsData = []
   try {
-    publicationsData = await createPublicationsResponse()
+    publicationsData = await PublicationsAPI.createPublicationsResponse()
   } catch (err) {
     error = err.message
   }

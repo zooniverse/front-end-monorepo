@@ -1,6 +1,7 @@
 import sinon from 'sinon'
 
 import getStaticProps from './getStaticProps'
+import TeamAPI  from '../../api/team'
 import mockData from './TeamContainer.mock'
 
 const DATA = mockData
@@ -15,7 +16,7 @@ describe('Component > TeamContainer > getStaticProps', function () {
     })
 
     it('should handle valid API data', async () => {
-      getTeamDataStub = sinon.stub(cache, 'get').returns(DATA)
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve(DATA))
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
@@ -24,7 +25,7 @@ describe('Component > TeamContainer > getStaticProps', function () {
     })
 
     it('should handle empty API reponse', async () => {
-      getTeamDataStub = sinon.stub(cache, 'get').returns([])
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve([]))
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
@@ -35,7 +36,7 @@ describe('Component > TeamContainer > getStaticProps', function () {
     it('should handle API errors', async () => {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
-      getTeamDataStub = sinon.stub(cache, 'get').returns(errorPromise)
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(errorPromise)
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
