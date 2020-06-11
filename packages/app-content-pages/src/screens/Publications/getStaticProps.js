@@ -13,6 +13,7 @@ export default async function getStaticProps() {
     props: {
       error,
       publicationsData
-    }
+    },
+    unstable_revalidate: 60 * 60 * 1
   }
 }
