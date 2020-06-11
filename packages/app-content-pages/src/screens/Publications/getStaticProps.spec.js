@@ -1,6 +1,5 @@
 import sinon from 'sinon'
 
-import cache from '../../api/publications/publicationsCache'
 import getStaticProps from './getStaticProps'
 import mockData from './PublicationsContainer.mock'
 

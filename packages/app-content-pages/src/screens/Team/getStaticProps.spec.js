@@ -1,6 +1,5 @@
 import sinon from 'sinon'
 
-import cache from '../../api/team/teamCache'
 import getStaticProps from './getStaticProps'
 import mockData from './TeamContainer.mock'
 

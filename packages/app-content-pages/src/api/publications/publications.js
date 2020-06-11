@@ -2,7 +2,6 @@ import { projects } from '@zooniverse/panoptes-js'
 
 import buildResponse from './buildResponse'
 import getUniqueProjectIds from './getUniqueProjectIds'
-import cache from './publicationsCache'
 import client from '../shared/contentfulClient'
 
 export default async function createPublicationsResponse () {
