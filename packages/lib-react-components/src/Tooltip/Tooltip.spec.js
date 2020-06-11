@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { Button } from 'grommet'
 import Tooltip from './Tooltip'
-import Label from './components/Label'
 
 describe('Component > Tooltip', function () {
   let wrapper
@@ -24,14 +23,18 @@ describe('Component > Tooltip', function () {
 
   it('should pass props to the Tippy component', function () {
     let props = wrapper.props()
-    expect(props.content.props.label).to.equal('helpful tip')
-    expect(props.arrow).to.be.true()
+    let renderedLabel = wrapper.renderProp('render')()
+    expect(renderedLabel.props().label).to.equal('helpful tip')
+    expect(renderedLabel.props().arrow).to.be.true()
+    expect(renderedLabel.props().animation).to.deep.equal({ type: 'fadeIn', duration: 500 })
     expect(props.placement).to.equal('top')
     expect(props.trigger).to.equal('mouseenter focus')
-    wrapper.setProps({ arrow: false, label: 'a new label', placement: 'bottom', trigger: 'focus' })
+    wrapper.setProps({ animation: 'zoomIn', arrow: false, label: 'a new label', placement: 'bottom', trigger: 'focus' })
     props = wrapper.props()
-    expect(props.content.props.label).to.equal('a new label')
-    expect(props.arrow).to.be.false()
+    renderedLabel = wrapper.renderProp('render')()
+    expect(renderedLabel.props().label).to.equal('a new label')
+    expect(renderedLabel.props().arrow).to.be.false()
+    expect(renderedLabel.props().animation).to.equal('zoomIn')
     expect(props.placement).to.equal('bottom')
     expect(props.trigger).to.equal('focus')
   })

@@ -1,21 +1,15 @@
 import { Box } from 'grommet'
-import { bool, object, oneOf, shape, string } from 'prop-types'
+import { bool, object, oneOf, oneOfType, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
-const SVG = styled.svg`
+export const SVG = styled.svg`
   display: block;
   ${props => {
-    const rotation = {
-      up: '0deg',
-      down: '180deg',
-      left: '-90deg',
-      right: '90deg'
-    }
     return css`
       fill: ${props.fill};
       height: ${props.height}px;
-      transform: rotate(${rotation[props.pointDirection]});
+      transform: rotate(${props.rotation});
       width: ${props.height}px;
     `
   }}
@@ -40,6 +34,13 @@ function Triangle (props) {
     fill = (theme.dark) ? colors['neutral-6'] : colors['dark-2']
   }
 
+  const rotation = {
+    up: '0deg',
+    down: '180deg',
+    left: '-90deg',
+    right: '90deg'
+  }
+
   return (
     <Box
       aria-hidden='true'
@@ -50,7 +51,7 @@ function Triangle (props) {
       <SVG
         fill={fill}
         height={height}
-        pointDirection={pointDirection}
+        rotation={rotation[pointDirection]}
         viewBox='0 0 10 10'
         width={width}
       >
@@ -69,7 +70,7 @@ Triangle.defaultProps = {
 }
 
 Triangle.propTypes = {
-  pad: oneOf([object, string]),
+  pad: oneOfType([object, string]),
   pointDirection: oneOf(['down', 'left', 'right', 'up']),
   justify: oneOf(['start', 'center', 'end']),
   theme: shape({
@@ -84,3 +85,4 @@ Triangle.propTypes = {
 }
 
 export default withTheme(Triangle)
+export { Triangle }
