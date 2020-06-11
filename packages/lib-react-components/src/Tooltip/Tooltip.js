@@ -28,7 +28,7 @@ function Tooltip (props) {
 
 Tooltip.propTypes = {
   arrow: PropTypes.bool,
-  animation: PropTypes.string,
+  animation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object, PropTypes.string ]),
   children: PropTypes.node.isRequired,
   label: PropTypes.string.isRequired,
   placement: PropTypes.string,

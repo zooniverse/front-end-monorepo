@@ -15,7 +15,7 @@
 The props are the same as what is supported by @tippyjs/react, but a few specifically are defined:
 
 - arrow: (boolean) Defaults to `true`. Determines whether to render a directional arrow.
-- animation: (string) Defaults to `'scale'`. Type of animation to use when rendering the tooltip.
+- animation: (array, object, or string) Defaults to `{ type: 'fadeIn', duration: 500 }`. Type of [Grommet animation](https://v2.grommet.io/box#animation) to use when rendering the tooltip.
 - children: (node) Required. Child component that triggers the rendering of the tooltip on certain events.
 - label: (string) Required. The text of the tip.
 - placement: (string) Defaults to `'top'`. The placement of the tooltip relative to the child node target. Placement automatically flips position if the viewport is not big enough for the default placement. See the storybook for an example.
