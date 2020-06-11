@@ -42,7 +42,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function deselectMark (event) {
-      onDeselectMark(mark)
+      onDeselectMark(event, ref.current)
       if (!isInBounds(event.currentTarget)) {
         deleteMark()
       }
