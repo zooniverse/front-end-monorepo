@@ -66,6 +66,12 @@ Triangle.defaultProps = {
   pointDirection: 'up',
   justify: 'center',
   height: 20,
+  theme: {
+    global: {
+      colors: {}
+    },
+    dark: false
+  },
   width: 20
 }
 
