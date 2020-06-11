@@ -1,32 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import Tippy from '@tippyjs/react'
+import Tippy from '@tippyjs/react/headless'
 import Label from './components/Label'
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
-
-const StyledTippy = styled(Tippy)`
-  background-color: black !important;
-  border-radius: 0 !important;
-
-  .tippy-content {
-    padding: 0;
-  }
-
-  &[data-placement^=bottom] > .tippy-arrow::before {
-    border-bottom-color: black !important;
-  }
-
-  &[data-placement^='top'] > .tippy-arrow::before {
-    border-top-color: black !important;
-  }
-`
 
 function Tooltip (props) {
   const { 
     arrow = true,
-    animation = 'scale',
+    animation = { type: 'fadeIn', duration: 500 },
     children,
     label,
     placement = 'top',
@@ -35,16 +15,14 @@ function Tooltip (props) {
    } = props
 
   return (
-    <StyledTippy
-      arrow={arrow}
-      animation={animation}
-      content={<Label label={label} />}
+    <Tippy
       placement={placement}
+      render={attrs => <Label arrow={arrow} animation={animation} label={label} {...attrs} />}
       trigger={trigger}
       {...rest}
     >
       {children}
-    </StyledTippy>
+    </Tippy>
   )
 }
 

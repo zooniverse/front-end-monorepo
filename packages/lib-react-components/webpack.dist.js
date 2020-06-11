@@ -12,15 +12,11 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
       }
     ]
+  },
+  optimization: {
+    minimize: false
   },
   output: {
     path: path.resolve('dist'),

@@ -46,7 +46,7 @@ function TooltipStoryExample (props) {
         <Tooltip
           label={tooltipText}
         >
-          <Button label='Focus me' onClick={() => {}} />
+          <Button label='Focus me' onClick={() => { }} />
         </Tooltip>
       </Box>
     </Grommet>
