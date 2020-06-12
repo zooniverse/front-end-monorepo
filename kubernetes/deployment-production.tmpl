@@ -41,6 +41,10 @@ spec:
             httpGet:
               path: /
               port: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
           ports:
             - containerPort: 3000
           env:
@@ -112,6 +116,10 @@ spec:
               memory: "275Mi"
               cpu: "500m"
           livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+          readinessProbe:
             httpGet:
               path: /
               port: 3000
