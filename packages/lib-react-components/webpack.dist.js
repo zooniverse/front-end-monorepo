@@ -15,9 +15,6 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    minimize: false
-  },
   output: {
     path: path.resolve('dist'),
     filename: 'main.js',
