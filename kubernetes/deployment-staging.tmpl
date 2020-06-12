@@ -19,7 +19,6 @@ metadata:
   labels:
     app: zooniverse-org-project-staging
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: zooniverse-org-project-staging
@@ -38,6 +37,10 @@ spec:
             limits:
               memory: "200Mi"
               cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
           ports:
             - containerPort: 3000
           env:
@@ -59,6 +62,19 @@ spec:
             - name: SENTRY_DSN
               value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
 ---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: zooniverse-org-project-staging
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: zooniverse-org-project-staging
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 80
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -79,7 +95,6 @@ metadata:
   labels:
     app: zooniverse-org-content-pages-staging
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: zooniverse-org-content-pages-staging
@@ -98,6 +113,10 @@ spec:
             limits:
               memory: "200Mi"
               cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
           ports:
             - containerPort: 3000
           env:
@@ -128,3 +147,16 @@ spec:
               value: staging
             - name: SENTRY_DSN
               value: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: zooniverse-org-content-pages-staging
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: zooniverse-org-content-pages-staging
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 80
