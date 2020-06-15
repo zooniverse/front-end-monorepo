@@ -1,44 +1,38 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Box, Drop } from 'grommet'
+import Tippy from '@tippyjs/react/headless'
+import Label from './components/Label'
 
-export default function Tooltip (props) {
-  const { align, boxAlign, boxAnimation, boxBackgroundColor, boxPad, children, target } = props
+function Tooltip (props) {
+  const { 
+    arrow = true,
+    animation = { type: 'fadeIn', duration: 500 },
+    children,
+    label,
+    placement = 'top',
+    trigger = 'mouseenter focus',
+    ...rest
+   } = props
+
   return (
-    <Drop
-      align={align}
-      target={target}
-      {...props}
+    <Tippy
+      placement={placement}
+      render={attrs => <Label arrow={arrow} animation={animation} label={label} {...attrs} />}
+      trigger={trigger}
+      {...rest}
     >
-      <Box
-        align={boxAlign}
-        animation={boxAnimation}
-        background={boxBackgroundColor}
-        pad={boxPad}
-      >
-        {children}
-      </Box>
-    </Drop>
+      {children}
+    </Tippy>
   )
 }
 
-Tooltip.defaultProps = {
-  boxAlign: 'center',
-  boxBackgroundColor: 'white',
-  boxPad: { vertical: 'xsmall', horizontal: 'small' }
+Tooltip.propTypes = {
+  arrow: PropTypes.bool,
+  animation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object, PropTypes.string ]),
+  children: PropTypes.node.isRequired,
+  label: PropTypes.string.isRequired,
+  placement: PropTypes.string,
+  trigger: PropTypes.string
 }
 
-Tooltip.propTypes = {
-  align: PropTypes.objectOf({
-    top: PropTypes.oneOf(['top', 'bottom']),
-    bottom: PropTypes.oneOf(['top', 'bottom']),
-    right: PropTypes.oneOf(['left', 'right']),
-    left: PropTypes.oneOf(['left', 'right'])
-  }),
-  boxAlign: PropTypes.string,
-  boxAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.arrayOf(PropTypes.string)]),
-  boxBackgroundColor: PropTypes.string,
-  boxPad: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
-  target: PropTypes.object.isRequired
-}
+export default Tooltip
