@@ -39,12 +39,14 @@ function HidePreviousTranscriptionsButton (props) {
   const { disabled, onClick, shownMarks } = props
 
   const ALL = {
+    'aria-checked': shownMarks === SHOWN_MARKS.ALL,
     icon: <FormView />,
     label: <StyledText margin={{ vertical: 'auto' }} {...props}>{counterpart('HidePreviousTranscriptionsButton.show')}</StyledText>,
     onClick: () => onClick(SHOWN_MARKS.ALL)
   }
 
   const USER = {
+    'aria-checked': shownMarks === SHOWN_MARKS.USER,
     icon: <FormViewHide />,
     label: <StyledText margin={{ vertical: 'auto' }} {...props}>{counterpart('HidePreviousTranscriptionsButton.showUser')}</StyledText>,
     disabled,
@@ -52,6 +54,7 @@ function HidePreviousTranscriptionsButton (props) {
   }
 
   const NONE = {
+    'aria-checked': shownMarks === SHOWN_MARKS.NONE,
     icon: <Hide />,
     label: <StyledText margin={{ vertical: 'auto' }} {...props}>{counterpart('HidePreviousTranscriptionsButton.hide')}</StyledText>,
     onClick: () => onClick(SHOWN_MARKS.NONE)
@@ -59,14 +62,17 @@ function HidePreviousTranscriptionsButton (props) {
 
   let items = new Map([['ALL', ALL], ['USER', USER], ['NONE', NONE]])
   const current = items.get(shownMarks)
-  items.delete(shownMarks)
+
+  console.log(shownMarks);
 
   return (
     <StyledMenu
       a11yTitle={counterpart('HidePreviousTranscriptionsButton.toggle')}
+      dropProps={{ align: { top: 'bottom', left: 'left' } }}
       label={current.label}
       icon={<FormDown />}
-      items={Array.from(items.values())}
+      items={Array.from([ALL, USER, NONE])}
+      role='radiogroup'
     />
   )
 }
