@@ -27,6 +27,7 @@ const Mark = forwardRef(function Mark ({
   mark,
   onDelete,
   onDeselect,
+  onFinish,
   onSelect,
   scale
 }, ref) {
@@ -43,6 +44,18 @@ const Mark = forwardRef(function Mark ({
         event.preventDefault()
         event.stopPropagation()
         onDelete(mark)
+        return false
+      }
+      case 'Enter': {
+        event.preventDefault()
+        event.stopPropagation()
+        onFinish(event)
+        return false
+      }
+      case ' ': {
+        event.preventDefault()
+        event.stopPropagation()
+        onFinish(event)
         return false
       }
       default: {

@@ -63,7 +63,8 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         label={`Mark ${index}`}
         mark={mark}
         onDelete={deleteMark}
-        onDeselect={onDeselectMark}
+        onDeselect={deselectMark}
+        onFinish={onFinishWithRef}
         onSelect={onSelectMarkWithRef}
         ref={ref}
         scale={scale}
