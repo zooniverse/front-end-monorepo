@@ -199,7 +199,7 @@ describe('Component > InteractionLayerContainer', function () {
     })
 
     describe('and showing only user marks', function () {
-      it('should only show user annotations', function () {
+      it('should only show user created marks', function () {
         const userHidingTask = Object.assign({}, hidingTask)
         userHidingTask.shownMarks = SHOWN_MARKS.USER
         const hidingUserMarksInteractionTask = Object.assign({}, transcriptionTask, userHidingTask)

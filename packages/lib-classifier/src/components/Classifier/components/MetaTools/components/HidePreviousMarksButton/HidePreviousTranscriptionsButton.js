@@ -1,4 +1,4 @@
-import { MetaToolsButton } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Menu, Text } from 'grommet'
@@ -20,19 +20,6 @@ const StyledMenu = styled(Menu)`
   span {
     ${props => css`line-height: ${props.theme.paragraph.small.height};`}
   }
-
-  &:hover {
-    text-decoration: underline;
-  }
-`
-
-const StyledText = styled(Text)`
-  ${props => css`color: ${props.theme.global.colors['neutral-2']};`}
-  text-transform: uppercase;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `
 
 function HidePreviousTranscriptionsButton (props) {
@@ -40,34 +27,38 @@ function HidePreviousTranscriptionsButton (props) {
 
   const ALL = {
     'aria-checked': shownMarks === SHOWN_MARKS.ALL,
+    role: 'radio',
     icon: <FormView />,
-    label: <StyledText margin={{ vertical: 'auto' }} {...props}>{counterpart('HidePreviousTranscriptionsButton.show')}</StyledText>,
-    onClick: () => onClick(SHOWN_MARKS.ALL)
+    label: <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousTranscriptionsButton.show')}</SpacedText>,
+    onClick: () => onClick(SHOWN_MARKS.ALL),
+    title: counterpart('HidePreviousTranscriptionsButton.show')
   }
 
   const USER = {
     'aria-checked': shownMarks === SHOWN_MARKS.USER,
+    role: 'radio',
     icon: <FormViewHide />,
-    label: <StyledText margin={{ vertical: 'auto' }} {...props}>{counterpart('HidePreviousTranscriptionsButton.showUser')}</StyledText>,
+    label: <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousTranscriptionsButton.showUser')}</SpacedText>,
     disabled,
-    onClick: () => onClick(SHOWN_MARKS.USER)
+    onClick: () => onClick(SHOWN_MARKS.USER),
+    title: counterpart('HidePreviousTranscriptionsButton.showUser')
   }
 
   const NONE = {
     'aria-checked': shownMarks === SHOWN_MARKS.NONE,
+    role: 'radio',
     icon: <Hide />,
-    label: <StyledText margin={{ vertical: 'auto' }} {...props}>{counterpart('HidePreviousTranscriptionsButton.hide')}</StyledText>,
-    onClick: () => onClick(SHOWN_MARKS.NONE)
+    label: <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousTranscriptionsButton.hide')}</SpacedText>,
+    onClick: () => onClick(SHOWN_MARKS.NONE),
+    title: counterpart('HidePreviousTranscriptionsButton.hide')
   }
 
   let items = new Map([['ALL', ALL], ['USER', USER], ['NONE', NONE]])
   const current = items.get(shownMarks)
 
-  console.log(shownMarks);
-
   return (
     <StyledMenu
-      a11yTitle={counterpart('HidePreviousTranscriptionsButton.toggle')}
+      a11yTitle={current.title}
       dropProps={{ align: { top: 'bottom', left: 'left' } }}
       label={current.label}
       icon={<FormDown />}
