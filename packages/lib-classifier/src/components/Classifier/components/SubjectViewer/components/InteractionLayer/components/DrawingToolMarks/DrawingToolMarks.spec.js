@@ -64,19 +64,22 @@ describe('Components > DrawingToolMarks', function () {
     let dragEnd
     let onDeselectMark
     let onDelete
+    let onFinish
     let deleteMark
 
-    before(function () {
+    beforeEach(function () {
       const point = marks[1]
       deleteMark = sinon.spy(point.tool, 'deleteMark')
       onDeselectMark = sinon.stub()
       onDelete = sinon.stub()
+      onFinish = sinon.stub()
       const wrapper = mount(
         <SVGContext.Provider value={mockContext}>
           <svg>
             <DrawingToolMarks
               onDelete={onDelete}
               onDeselectMark={onDeselectMark}
+              onFinish={onFinish}
               marks={marks}
             />
           </svg>
@@ -85,18 +88,12 @@ describe('Components > DrawingToolMarks', function () {
       dragEnd = wrapper.find(Mark).at(1).prop('dragEnd')
     })
 
-    it('should deselect the mark', function () {
-      const mockBounds = { left: 0, top: 0, right: 100, bottom: 100, width: 100, height: 100 }
-      const currentTarget = {
-        getBoundingClientRect: () => mockBounds
-      }
-      const fakeEvent = { currentTarget }
-      dragEnd(fakeEvent)
-      expect(onDeselectMark).to.have.been.calledOnce()
+    afterEach(function () {
+      onFinish.resetHistory()
     })
 
     describe('when the mark is inside the SVG element', function () {
-      it('should do nothing', function () {
+      it('should call onFinish, not onDelete', function () {
         const mockBounds = { left: 0, top: 0, right: 100, bottom: 100, width: 100, height: 100 }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds
@@ -105,12 +102,13 @@ describe('Components > DrawingToolMarks', function () {
         dragEnd(fakeEvent)
         const { tool } = marks[1]
         expect(tool.marks.size).to.equal(1)
+        expect(onFinish).to.have.been.calledOnce()
         expect(onDelete).to.not.have.been.called()
       })
     })
 
     describe('when the mark overlaps the SVG element', function () {
-      it('should do nothing', function () {
+      it('should do call onFinish, not onDelete', function () {
         const mockBounds = { left: 1990, top: 20, right: 2090, bottom: 120, width: 100, height: 100 }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds
@@ -119,6 +117,7 @@ describe('Components > DrawingToolMarks', function () {
         dragEnd(fakeEvent)
         const { tool } = marks[1]
         expect(tool.marks.size).to.equal(1)
+        expect(onFinish).to.have.been.calledOnce()
         expect(onDelete).to.not.have.been.called()
       })
     })
