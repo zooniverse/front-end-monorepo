@@ -66,16 +66,17 @@ const Mark = forwardRef(function Mark ({
   return (
     <StyledGroup
       {...mainStyle}
-      ref={ref}
       aria-label={label}
       dragging={dragging}
-      strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
       focusable
-      tabIndex={0}
-      transform={transform}
       onBlur={deselect}
       onFocus={select}
       onKeyDown={onKeyDown}
+      ref={ref}
+      role='button'
+      strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
+      tabIndex={0}
+      transform={transform}
     >
       {children}
     </StyledGroup>
