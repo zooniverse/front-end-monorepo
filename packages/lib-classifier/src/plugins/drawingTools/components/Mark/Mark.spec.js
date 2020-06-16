@@ -15,6 +15,7 @@ describe('Drawing tools > drawing tool root', function () {
   })
   const onDelete = sinon.stub()
   const onDeselect = sinon.stub()
+  const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let wrapper
 
@@ -25,6 +26,7 @@ describe('Drawing tools > drawing tool root', function () {
         mark={point}
         onDelete={onDelete}
         onDeselect={onDeselect}
+        onFinish={onFinish}
         onSelect={onSelect}
       >
         <Point mark={point} />
@@ -34,6 +36,7 @@ describe('Drawing tools > drawing tool root', function () {
 
   after(function () {
     onDeselect.resetHistory()
+    onFinish.resetHistory()
     onSelect.resetHistory()
   })
 
@@ -94,6 +97,62 @@ describe('Drawing tools > drawing tool root', function () {
       })
     })
 
+    describe('with enter', function () {
+      const fakeEvent = {
+        key: 'Enter',
+        preventDefault: sinon.stub(),
+        stopPropagation: sinon.stub()
+      }
+
+      before(function () {
+        wrapper.simulate('keydown', fakeEvent)
+      })
+
+      after(function () {
+        onFinish.resetHistory()
+      })
+
+      it('should cancel event bubbling', function () {
+        expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
+      })
+
+      it('should cancel the default enter handler', function () {
+        expect(fakeEvent.preventDefault).to.have.been.calledOnce()
+      })
+
+      it('should call onFinish', function () {
+        expect(onFinish).to.have.been.calledOnce()
+      })
+    })
+
+    describe('with space', function () {
+      const fakeEvent = {
+        key: ' ',
+        preventDefault: sinon.stub(),
+        stopPropagation: sinon.stub()
+      }
+
+      before(function () {
+        wrapper.simulate('keydown', fakeEvent)
+      })
+
+      after(function () {
+        onFinish.resetHistory()
+      })
+
+      it('should cancel event bubbling', function () {
+        expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
+      })
+
+      it('should cancel the default space handler', function () {
+        expect(fakeEvent.preventDefault).to.have.been.calledOnce()
+      })
+
+      it('should call onFinish', function () {
+        expect(onFinish).to.have.been.calledOnce()
+      })
+    })
+
     describe('with other keys', function () {
       const fakeEvent = {
         key: 'Tab',
@@ -114,6 +173,10 @@ describe('Drawing tools > drawing tool root', function () {
 
       it('should not be deleted', function () {
         expect(onDelete).to.not.have.been.called()
+      })
+
+      it('should not call onFinish', function () {
+        expect(onFinish).to.not.have.been.called()
       })
     })
   })
