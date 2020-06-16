@@ -21,6 +21,7 @@ function MovableModal (props) {
     ...rest
   } = props
 
+  // Change handleComponent prop to resizeHandleComponent when react-rnd gets upgraded
   return (
     <Rnd
       cancel='.subtaskpopup-element-that-ignores-drag-actions'
@@ -37,7 +38,7 @@ function MovableModal (props) {
       default={position}
       minHeight={minHeight}
       minWidth={minWidth}
-      resizeHandleComponent={{ bottomRight: <ResizeIcon /> }}
+      handleComponent={{ bottomRight: <ResizeIcon /> }}
       resizeHandleStyles={{
         bottomLeft: {
           bottom: 0,
