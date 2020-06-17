@@ -39,11 +39,11 @@ spec:
               cpu: "500m"
           livenessProbe:
             httpGet:
-              path: /
+              path: /Index
               port: 3000
           readinessProbe:
             httpGet:
-              path: /
+              path: /Index
               port: 3000
           ports:
             - containerPort: 3000
@@ -119,11 +119,11 @@ spec:
               cpu: "500m"
           livenessProbe:
             httpGet:
-              path: /
+              path: /Index
               port: 3000
           readinessProbe:
             httpGet:
-              path: /
+              path: /Index
               port: 3000
           ports:
             - containerPort: 3000
