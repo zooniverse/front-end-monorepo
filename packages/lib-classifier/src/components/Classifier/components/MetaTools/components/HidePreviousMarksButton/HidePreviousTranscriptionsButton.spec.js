@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import { Menu } from 'grommet'
-import { HidePreviousTranscriptionsButton, StyledMenu } from './HidePreviousTranscriptionsButton'
+import { HidePreviousTranscriptionsButton, StyledDrop } from './HidePreviousTranscriptionsButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 let wrapper
@@ -21,10 +21,9 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
       <HidePreviousTranscriptionsButton
         shownMarks={SHOWN_MARKS.ALL}
       />)
-    const menu = wrapper.find(StyledMenu).first()
-    const { label, items } = menu.props()
-    expect(items.length).to.equal(2)
-    expect(label.props.children).to.equal("Show All Marks")
+    const drop = wrapper.find(StyledDrop).first()
+    const { a11yTitle } = drop.props()
+    expect(a11yTitle).to.equal("Show All Marks")
   })
 
   describe('and showing user marks', function () {
@@ -33,10 +32,9 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
         <HidePreviousTranscriptionsButton
           shownMarks={SHOWN_MARKS.USER}
         />)
-      const menu = wrapper.find(StyledMenu).first()
-      const { label, items } = menu.props()
-      expect(items.length).to.equal(2)
-      expect(label.props.children).to.equal("Show Your Marks")
+      const drop = wrapper.find(StyledDrop).first()
+      const { a11yTitle } = drop.props()
+      expect(a11yTitle).to.equal("Show Your Marks")
     })
   })
 
@@ -46,10 +44,9 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
         <HidePreviousTranscriptionsButton
           shownMarks={SHOWN_MARKS.NONE}
         />)
-      const menu = wrapper.find(StyledMenu).first()
-      const { label, items } = menu.props()
-      expect(items.length).to.equal(2)
-      expect(label.props.children).to.equal("Hide All Marks")
+      const drop = wrapper.find(StyledDrop).first()
+      const { a11yTitle } = drop.props()
+      expect(a11yTitle).to.equal("Hide All Marks")
     })
   })
 })
