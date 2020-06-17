@@ -19,7 +19,6 @@ metadata:
   labels:
     app: zooniverse-org-project-production
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: zooniverse-org-project-production
@@ -38,6 +37,14 @@ spec:
             limits:
               memory: "2200Mi"
               cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /Index
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: /Index
+              port: 3000
           ports:
             - containerPort: 3000
           env:
@@ -56,6 +63,19 @@ spec:
               value: production
             - name: SENTRY_DSN
               value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: zooniverse-org-project-production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: zooniverse-org-project-production
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 80
 ---
 apiVersion: v1
 kind: Service
@@ -77,7 +97,6 @@ metadata:
   labels:
     app: zooniverse-org-content-pages-production
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: zooniverse-org-content-pages-production
@@ -96,6 +115,14 @@ spec:
             limits:
               memory: "275Mi"
               cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /Index
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: /Index
+              port: 3000
           ports:
             - containerPort: 3000
           env:
@@ -124,3 +151,16 @@ spec:
               value: production
             - name: SENTRY_DSN
               value: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: zooniverse-org-content-pages-production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: zooniverse-org-content-pages-production
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 80
