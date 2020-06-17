@@ -27,7 +27,8 @@ class Modal extends React.Component {
       closeFn = () => {},
       headingBackground = '',
       pad,
-      title = ''
+      title = '',
+      titleColor = ''
     } = this.props
 
     if (!this.state.client) {
@@ -48,6 +49,7 @@ class Modal extends React.Component {
           background={headingBackground}
           className={className}
           closeFn={closeFn}
+          color={titleColor}
           title={title}
         />
         <ModalBody className={className} pad={pad}>
@@ -63,7 +65,8 @@ Modal.propTypes = {
   className: PropTypes.string,
   closeFn: PropTypes.func,
   headingBackground: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string,
+  titleColor: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ])
 }
 
 export default withLayer(Modal)
