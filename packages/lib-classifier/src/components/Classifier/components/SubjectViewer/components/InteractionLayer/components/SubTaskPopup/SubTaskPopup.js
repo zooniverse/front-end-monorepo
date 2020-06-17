@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import { Rnd } from 'react-rnd' // Used to create the draggable, resizable "popup" component
 import { Box, Layer, Paragraph } from 'grommet'
-import { CloseButton } from '@zooniverse/react-components'
+import { CloseButton, MovableModal } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 import ResizeIcon from './components/ResizeIcon'
 
@@ -63,113 +63,61 @@ function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSub
   const defaultPosition = getDefaultPosition()
 
   return (
-    <Layer
-      animate={false}
-      modal
-      onClickOutside={close}
-      onEsc={close}
+    <MovableModal
+      active
+      closeFn={close}
+      headingBackground='transparent'
+      pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
       plain
       position='top-left'
+      rndProps={{
+        cancel: '.subtaskpopup-element-that-ignores-drag-actions',
+        minHeight: MIN_POPUP_HEIGHT,
+        minWidth: MIN_POPUP_WIDTH,
+        position: defaultPosition
+      }}
     >
-      <Rnd
-        cancel='.subtaskpopup-element-that-ignores-drag-actions'
-        default={defaultPosition}
-        key={activeMark.id}
-        minWidth={MIN_POPUP_WIDTH}
-        minHeight={MIN_POPUP_HEIGHT}
-        resizeHandleComponent={{ bottomRight: <ResizeIcon /> }}
-        resizeHandleStyles={{
-          bottom: {},
-          bottomLeft: {
-            bottom: 0,
-            left: 0
-          },
-          bottomRight: {
-            bottom: 0,
-            height: '20px',
-            right: 0,
-            width: '14px'
-          },
-          left: {},
-          right: {},
-          top: {},
-          topLeft: {
-            left: 0,
-            top: 0
-          },
-          topRight: {
-            right: 0,
-            top: 0
-          }
-        }}
-      >
-        <Box
-          background={{
-            light: 'neutral-6',
-            dark: 'dark-1'
-          }}
-          border={{
-            color: {
-              light: 'light-1',
-              dark: 'dark-6'
-            },
-            size: '1px',
-            style: 'solid',
-            side: 'all'
-          }}
-          elevation='xlarge'
-          fill
-          overflow='auto'
-          pad='xsmall'
-        >
-          <Box>
-            <CloseButton
-              alignSelf='end'
-              onClick={close}
-            />
-          </Box>
+      <Box gap='small'>
+        {tasks.map((task, index) => {
+          // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+          // or creates a new one if one doesn't exist.
+          // The name is a bit confusing.
+          const annotation = activeMark.addAnnotation(task)
+          task.setAnnotation(annotation)
+          const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
-          {tasks.map((task, index) => {
-            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-            // or creates a new one if one doesn't exist.
-            // The name is a bit confusing.
-            const annotation = activeMark.addAnnotation(task)
-            task.setAnnotation(annotation)
-            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-
-            if (annotation && TaskComponent) {
-              return (
-                <Box
-                  className='subtaskpopup-element-that-ignores-drag-actions'
-                  key={annotation.id}
-                  overflow='auto'
-                  pad='xsmall'
-                >
-                  <TaskComponent
-                    annotation={annotation}
-                    autoFocus={(index === 0)}
-                    disabled={!ready}
-                    task={task}
-                  />
-                </Box>
-              )
-            }
-
+          if (annotation && TaskComponent) {
             return (
-              <Box pad='xsmall'>
-                <Paragraph>Task component could not be rendered.</Paragraph>
+              // horizontal pad for the space for the box-shadow focus style
+              // is there a better way?
+              <Box
+                className='subtaskpopup-element-that-ignores-drag-actions'
+                key={annotation.id}
+                overflow='auto'
+                pad={{ horizontal: '2px' }}
+              >
+                <TaskComponent
+                  annotation={annotation}
+                  autoFocus={(index === 0)}
+                  disabled={!ready}
+                  task={task}
+                />
               </Box>
             )
-          })}
+          }
 
-          <Box pad='xsmall'>
-            <SaveButton
-              onClick={close}
-            />
-          </Box>
-        </Box>
-      </Rnd>
-    </Layer>
+          return (
+            <Box pad='none'>
+              <Paragraph>Task component could not be rendered.</Paragraph>
+            </Box>
+          )
+        })}
+
+        <SaveButton
+          onClick={close}
+        />
+      </Box>
+    </MovableModal>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'grommet'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import cuid from 'cuid'
 import SubTaskPopup from './SubTaskPopup'
@@ -100,9 +100,16 @@ describe('SubTaskPopup', function () {
             expect(setSubTaskVisibilitySpy).to.have.been.calledOnce()
           })
 
-          it('should call setSubTaskVisibility on clicking the close button', function () {
+          xit('should call setSubTaskVisibility on clicking the close button', function () {
+            // had to switch to mount to do this integration test
+            // Make this test not pending anymore once we can upgrade jsdom to >16.2.2
+            // see: https://github.com/jsdom/jsdom/issues/2586
+            // test passes, but throws jsdom error
+            // TypeError: activeElement.detachEvent is not a function
+            // which clutters the test running output
+            // new release should be soon
             const setSubTaskVisibilitySpy = sinon.spy()
-            const wrapper = shallow(
+            const wrapper = mount(
               <SubTaskPopup
                 activeMark={mark}
                 setSubTaskVisibility={setSubTaskVisibilitySpy}
