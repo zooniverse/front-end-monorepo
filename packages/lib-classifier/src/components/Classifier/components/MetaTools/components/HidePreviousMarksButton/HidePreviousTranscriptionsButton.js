@@ -1,17 +1,18 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
-import { Menu, Text } from 'grommet'
+import { Box, DropButton } from 'grommet'
 import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
+import HideTranscriptionButton from './HideTranscriptionButton'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledMenu = styled(Menu)`
+const StyledDrop = styled(DropButton)`
   div {
     margin-top: 10px;
     padding: 0;
@@ -24,47 +25,61 @@ const StyledMenu = styled(Menu)`
 
 function HidePreviousTranscriptionsButton (props) {
   const { disabled, onClick, shownMarks } = props
+  const [isOpen, setOpen] = React.useState(false)
 
-  const ALL = {
-    'aria-checked': shownMarks === SHOWN_MARKS.ALL,
-    role: 'radio',
-    icon: <FormView />,
-    label: <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousTranscriptionsButton.show')}</SpacedText>,
-    onClick: () => onClick(SHOWN_MARKS.ALL),
-    title: counterpart('HidePreviousTranscriptionsButton.show')
+  const titles = {
+    ALL: counterpart('HidePreviousTranscriptionsButton.show'),
+    USER: counterpart('HidePreviousTranscriptionsButton.showUser'),
+    NONE: counterpart('HidePreviousTranscriptionsButton.hide')
   }
-
-  const USER = {
-    'aria-checked': shownMarks === SHOWN_MARKS.USER,
-    role: 'radio',
-    icon: <FormViewHide />,
-    label: <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousTranscriptionsButton.showUser')}</SpacedText>,
-    disabled,
-    onClick: () => onClick(SHOWN_MARKS.USER),
-    title: counterpart('HidePreviousTranscriptionsButton.showUser')
-  }
-
-  const NONE = {
-    'aria-checked': shownMarks === SHOWN_MARKS.NONE,
-    role: 'radio',
-    icon: <Hide />,
-    label: <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }} margin={{ vertical: 'auto' }}>{counterpart('HidePreviousTranscriptionsButton.hide')}</SpacedText>,
-    onClick: () => onClick(SHOWN_MARKS.NONE),
-    title: counterpart('HidePreviousTranscriptionsButton.hide')
-  }
-
-  let items = new Map([['ALL', ALL], ['USER', USER], ['NONE', NONE]])
-  const current = items.get(shownMarks)
+  const currentTitle = titles[shownMarks]
 
   return (
-    <StyledMenu
-      a11yTitle={current.title}
+    <StyledDrop
+      a11yTitle={currentTitle}
+      dropContent={
+        <Box role='radiogroup'>
+          <HideTranscriptionButton
+            checked={shownMarks === SHOWN_MARKS.ALL}
+            icon={<FormView />}
+            onClick={() => {
+              onClick(SHOWN_MARKS.ALL)
+              setOpen(false)
+            }}
+            title={counterpart('HidePreviousTranscriptionsButton.show')}
+          />
+          <HideTranscriptionButton
+            checked={shownMarks === SHOWN_MARKS.USER}
+            icon={<FormViewHide />}
+            disabled={disabled}
+            onClick={() => {
+              onClick(SHOWN_MARKS.USER)
+              setOpen(false)
+            }}
+            title={counterpart('HidePreviousTranscriptionsButton.showUser')}
+          />
+          <HideTranscriptionButton
+            checked={shownMarks === SHOWN_MARKS.NONE}
+            icon={<Hide />}
+            onClick={() => {
+              onClick(SHOWN_MARKS.NONE)
+              setOpen(false)
+            }}
+            title={counterpart('HidePreviousTranscriptionsButton.hide')}
+          />
+        </Box>
+      }
       dropProps={{ align: { top: 'bottom', left: 'left' } }}
-      label={current.label}
-      icon={<FormDown />}
-      items={Array.from([ALL, USER, NONE])}
-      role='radiogroup'
-    />
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={isOpen}
+      plain
+    >
+      <Box align='center' direction='row'>
+        <FormDown />
+        <SpacedText color={{ dark: 'accent-2', light: 'neutral-2' }}>{currentTitle}</SpacedText>
+      </Box>
+    </StyledDrop>
   )
 }
 
@@ -81,4 +96,4 @@ HidePreviousTranscriptionsButton.defaultProps = {
 }
 
 export default withTheme(HidePreviousTranscriptionsButton)
-export { HidePreviousTranscriptionsButton, StyledMenu }
+export { HidePreviousTranscriptionsButton }
