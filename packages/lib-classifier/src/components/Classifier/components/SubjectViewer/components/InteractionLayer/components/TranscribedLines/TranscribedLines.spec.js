@@ -91,12 +91,6 @@ describe('Component > TranscribedLines', function () {
       })
     })
 
-    xit('should show the label on focus', function () {})
-
-    xit('should not be clickable', function () {
-      // TODO update test when functionality is built out
-    })
-
     it('should have an explanatory tooltip', function () {
       lines.forEach((component, index) => {
         const tooltip = wrapper.find({ id: `complete-${index}` })

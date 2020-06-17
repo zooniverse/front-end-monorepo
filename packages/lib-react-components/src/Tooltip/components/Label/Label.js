@@ -47,7 +47,7 @@ Label.propTypes = {
     PropTypes.object
   ]),
   className: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]).isRequired,
   theme: PropTypes.shape({
     global: PropTypes.shape({
       font: PropTypes.shape({
