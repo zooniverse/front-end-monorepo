@@ -38,10 +38,12 @@ spec:
               memory: "200Mi"
               cpu: "500m"
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: 3000
           readinessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: 3000
           ports:
             - containerPort: 3000
@@ -116,10 +118,12 @@ spec:
               memory: "200Mi"
               cpu: "500m"
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: 3000
           readinessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: 3000
           ports:
             - containerPort: 3000
