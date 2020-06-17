@@ -60,13 +60,16 @@ function TranscribedLines ({ lines, scale, task, theme }) {
           const mark = { length, x1, y1, x2, y2 }
           const id = `complete-${index}`
           return (
-            <Tooltip id={id} label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}>
+            <Tooltip 
+              id={id}
+              key={line.id}
+              label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}
+            >
               <ConsensusLine
                 role='img'
                 aria-describedby={id}
                 aria-label={line.consensusText}
                 focusColor={focusColor}
-                key={line.id}
                 onClick={() => showConsensus(line)}
                 onKeyDown={e => (e.key === 'Enter' && showConsensus(line))}
                 tabIndex={0}
@@ -88,13 +91,16 @@ function TranscribedLines ({ lines, scale, task, theme }) {
           const mark = { length, x1, y1, x2, y2 }
           const id = `transcribed-${index}`
           return (
-            <Tooltip id={id} label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}>
+            <Tooltip
+              id={id} 
+              key={line.id}
+              label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
+            >
               <ConsensusLine
                 role='img'
                 aria-describedby={id}
                 aria-label={line.consensusText}
                 focusColor={focusColor}
-                key={line.id}
                 onClick={e => createMark(line)}
                 onKeyDown={e => (e.key === 'Enter' && createMark(line))}
                 tabIndex={0}
