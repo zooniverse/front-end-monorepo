@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { Button } from 'grommet'
 import Tooltip from './Tooltip'
+import Label from './components/Label'
 
 describe('Component > Tooltip', function () {
   let wrapper
