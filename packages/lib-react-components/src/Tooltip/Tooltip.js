@@ -30,7 +30,7 @@ Tooltip.propTypes = {
   arrow: PropTypes.bool,
   animation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object, PropTypes.string ]),
   children: PropTypes.node.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]).isRequired,
   placement: PropTypes.string,
   trigger: PropTypes.string
 }

@@ -1,4 +1,5 @@
 import { storiesOf } from '@storybook/react'
+import { withKnobs, text, select } from "@storybook/addon-knobs"
 import { GraphQLClient } from 'graphql-request'
 import { Provider } from 'mobx-react'
 import React from 'react'
@@ -11,6 +12,7 @@ import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import readme from './README.md'
 import { reducedASMSubject } from '@store/TranscriptionReductions/mocks'
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
+import TooltipLabel from './components/TooltipLabel'
 
 const config = {
   notes: {
@@ -106,7 +108,23 @@ class TranscribedLinesStory extends React.Component {
   }
 }
 
-storiesOf('Drawing Tools | TranscribedLines', module)
+const stories = storiesOf('Drawing Tools | TranscribedLines', module)
+
+stories.addDecorator(withKnobs)
+
+stories
   .add('default', () => (
     <TranscribedLinesStory />
+  ), config)
+  .add('Tooltip Label', () => (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <TooltipLabel fill={select('Fill color', ['drawing-purple', 'light-5'], 'drawing-purple')} label={text('Label text', 'This line has been transcribed')} />
+    </Grommet>
   ), config)
