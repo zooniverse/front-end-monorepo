@@ -1,7 +1,8 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { Menu } from 'grommet'
+import { Grommet, Menu } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import { HidePreviousTranscriptionsButton, StyledDrop } from './HidePreviousTranscriptionsButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
@@ -16,7 +17,7 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should show the correct text and icon', function () {
+  it('should show the correct aria title', function () {
     wrapper = shallow(
       <HidePreviousTranscriptionsButton
         shownMarks={SHOWN_MARKS.ALL}
@@ -27,7 +28,7 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
   })
 
   describe('and showing user marks', function () {
-    it('should show the correct text and icon', function () {
+    it('should show the correct aria title', function () {
       wrapper = shallow(
         <HidePreviousTranscriptionsButton
           shownMarks={SHOWN_MARKS.USER}
@@ -39,7 +40,7 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
   })
 
   describe('and showing no marks', function () {
-    it('should show the correct text and icon', function () {
+    it('should show the correct aria title', function () {
       wrapper = shallow(
         <HidePreviousTranscriptionsButton
           shownMarks={SHOWN_MARKS.NONE}
@@ -47,6 +48,26 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
       const drop = wrapper.find(StyledDrop).first()
       const { a11yTitle } = drop.props()
       expect(a11yTitle).to.equal("Hide All Marks")
+    })
+  })
+
+  describe('isOpen state', function () {
+    it('should default to false', function () {
+      const drop = wrapper.find(StyledDrop).first()
+      const { open } = drop.props()
+      expect(open).to.be.false()
+    })
+
+    describe('when clicking the button to open and close', function () {
+      it('should toggle isOpen state', function () {
+        const firstInstance = wrapper.find(StyledDrop).first()
+        firstInstance.props().onOpen()
+        const secondInstance = wrapper.find(StyledDrop).first()
+        expect(secondInstance.props().open).to.be.true()
+        secondInstance.props().onClose()
+        const thirdInstance = wrapper.find(StyledDrop).first()
+        expect(thirdInstance.props().open).to.be.false()
+      })
     })
   })
 })
