@@ -10,6 +10,7 @@ function MovableModal (props) {
     children,
     closeFn,
     headingBackground,
+    overflow,
     pad,
     rndProps: {
       minHeight,
@@ -64,6 +65,7 @@ function MovableModal (props) {
       <Modal
         closeFn={closeFn}
         headingBackground={headingBackground}
+        overflow={overflow}
         pad={pad}
         title={title}
         {...rest}
@@ -77,6 +79,7 @@ function MovableModal (props) {
 MovableModal.defaultProps = {
   closeFn: () => {},
   headingBackground: '',
+  overflow: 'auto',
   rndProps: {
     minHeight: 100,
     minWidth: 350,
@@ -92,6 +95,7 @@ MovableModal.propTypes = {
   children: PropTypes.node,
   closeFn: PropTypes.func,
   headingBackground: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
+  overflow: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   pad: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   rndProps: PropTypes.shape({
     minHeight: PropTypes.number,

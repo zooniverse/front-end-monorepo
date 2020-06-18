@@ -2,21 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import counterpart from 'counterpart'
 import styled from 'styled-components'
-import { Box, Heading, List, Paragraph } from 'grommet'
+import { Box, List, Paragraph, Text } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledList = styled(List)`
+const StyledBox = styled(Box)`
   font-family: "Roboto Mono Regular", monospace;
-  font-size: 14px
+  font-size: 14px;
 `
 
 export default function ConsensusPopup (props) {
   const {
     active,
-    line
+    line = {
+      textOptions: []
+    }
   } = props
 
   const itemProps = {}
@@ -31,26 +33,32 @@ export default function ConsensusPopup (props) {
         dark: 'dark-5',
         light: 'neutral-6'
       }}
+      height={{ min: '250px', max: '350px' }}
       pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
       plain
       rndProps={{
+        maxHeight: 350,
         minHeight: 250,
         minWidth: 350,
         position: { x: 0, y: 0 }
       }}
       title={counterpart('ConsensusPopup.title')}
     >
-
       <Paragraph>
-        {counterpart('ConsensusPopup.explanation')}
+        {counterpart('ConsensusPopup.explanation', { count: line.textOptions.length })}
       </Paragraph>
-      <Box>
-        <Heading level={3} size='xsmall'>{line.consensusText}</Heading>
-        <StyledList
+      <StyledBox>
+        <Paragraph>
+          {line.consensusText}
+          <br />
+          <Text><em>{counterpart('ConsensusPopup.aggregatedTranscription')}</em></Text>
+        </Paragraph>
+        <List
+          border='top'
           data={line.textOptions}
           itemProps={itemProps}
         />
-      </Box>
+      </StyledBox>
     </MovableModal>
   )
 }
