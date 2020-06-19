@@ -19,6 +19,7 @@ function MovableModal (props) {
       ...restRndProps
     },
     title,
+    titleColor,
     ...rest
   } = props
 
@@ -68,6 +69,7 @@ function MovableModal (props) {
         overflow={overflow}
         pad={pad}
         title={title}
+        titleColor={titleColor}
         {...rest}
       >
         {children}
@@ -88,7 +90,8 @@ MovableModal.defaultProps = {
       y: 0
     }
   },
-  title: ''
+  title: '',
+  titleColor: ''
 }
 
 MovableModal.propTypes = {
@@ -106,6 +109,7 @@ MovableModal.propTypes = {
     })
   }),
   title: PropTypes.string,
+  titleColor: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 }
 
 export default withLayer(MovableModal)
