@@ -24,7 +24,7 @@ function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSub
   const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
   const tasks = (activeMark?.tasks) ? activeMark.tasks : []
 
-  const defaultPosition = getDefaultPosition()
+  const defaultPosition = getDefaultPosition({ bounds: subTaskMarkBounds, minHeight: MIN_POPUP_HEIGHT, minWidth: MIN_POPUP_WIDTH })
 
   return (
     <MovableModal
