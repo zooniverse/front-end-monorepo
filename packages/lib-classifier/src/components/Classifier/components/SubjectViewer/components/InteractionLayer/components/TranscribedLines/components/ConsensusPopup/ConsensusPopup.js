@@ -10,7 +10,10 @@ counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
   font-family: "Roboto Mono Regular", monospace;
-  font-size: 1em;
+
+  ${List} {
+    font-size: 0.8em;
+  }
 `
 
 export default function ConsensusPopup (props) {
