@@ -1,22 +1,19 @@
 import counterpart from 'counterpart'
 import { arrayOf, bool, number, object, shape } from 'prop-types'
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
-import Tooltip from './components/Tooltip'
-
+import { Tooltip } from '@zooniverse/react-components'
+import TooltipLabel from './components/TooltipLabel'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 export const ConsensusLine = styled('g')`
-  .tooltip {
-    visibility: hidden;
-  }
+  cursor: pointer;
 
-  &:hover .tooltip,
-  &:focus .tooltip {
-    visibility: visible;
+  &:focus {
+    ${props => css`outline: solid 4px ${props.focusColor};`}
   }
 `
 
@@ -46,6 +43,14 @@ function TranscribedLines ({ lines, scale, task, theme }) {
 
   const completedLines = lines.filter(line => line.consensusReached)
   const transcribedLines = lines.filter(line => !line.consensusReached)
+
+  const fills = {
+    transcribed: 'drawing-purple',
+    complete: 'light-5'
+  }
+
+  const focusColor = theme.global.colors[theme.global.colors.focus]
+
   return (
     <g>
       {completedLines
@@ -55,33 +60,27 @@ function TranscribedLines ({ lines, scale, task, theme }) {
           const mark = { length, x1, y1, x2, y2 }
           const id = `complete-${index}`
           return (
-            <ConsensusLine
-              role='img'
-              aria-describedby={id}
-              aria-label={line.consensusText}
+            <Tooltip 
+              id={id}
               key={line.id}
-              onClick={() => showConsensus(line)}
-              onKeyDown={e => (e.key === 'Enter' && showConsensus(line))}
-              tabIndex={0}
+              label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}
             >
-              <TranscriptionLine
-                state='complete'
-                mark={mark}
-                scale={scale}
-              />
-              <Tooltip
-                background={theme.global.colors['light-6']}
-                className='tooltip'
-                id={id}
-                index={index}
-                label={{
-                  fill: theme.global.colors['neutral-6'],
-                  text: counterpart('TranscribedLines.complete')
-                }}
-                x1={x1}
-                y1={y1}
-              />
-            </ConsensusLine>
+              <ConsensusLine
+                role='img'
+                aria-describedby={id}
+                aria-label={line.consensusText}
+                focusColor={focusColor}
+                onClick={() => showConsensus(line)}
+                onKeyDown={e => (e.key === 'Enter' && showConsensus(line))}
+                tabIndex={0}
+              >
+                <TranscriptionLine
+                  state='complete'
+                  mark={mark}
+                  scale={scale}
+                />
+              </ConsensusLine>
+            </Tooltip>
           )
         })
       }
@@ -92,33 +91,27 @@ function TranscribedLines ({ lines, scale, task, theme }) {
           const mark = { length, x1, y1, x2, y2 }
           const id = `transcribed-${index}`
           return (
-            <ConsensusLine
-              role='img'
-              aria-describedby={id}
-              aria-label={line.consensusText}
+            <Tooltip
+              id={id} 
               key={line.id}
-              onClick={e => createMark(line)}
-              onKeyDown={e => (e.key === 'Enter' && createMark(line))}
-              tabIndex={0}
+              label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
             >
-              <TranscriptionLine
-                state='transcribed'
-                mark={mark}
-                scale={scale}
-              />
-              <Tooltip
-                background={theme.global.colors['drawing-red']}
-                className='tooltip'
-                id={id}
-                index={index}
-                label={{
-                  fill: theme.global.colors['neutral-6'],
-                  text: counterpart('TranscribedLines.transcribed')
-                }}
-                x1={x1}
-                y1={y1}
-              />
-            </ConsensusLine>
+              <ConsensusLine
+                role='img'
+                aria-describedby={id}
+                aria-label={line.consensusText}
+                focusColor={focusColor}
+                onClick={e => createMark(line)}
+                onKeyDown={e => (e.key === 'Enter' && createMark(line))}
+                tabIndex={0}
+              >
+                <TranscriptionLine
+                  state='transcribed'
+                  mark={mark}
+                  scale={scale}
+                />
+              </ConsensusLine>
+            </Tooltip>
           )
         })
       }
