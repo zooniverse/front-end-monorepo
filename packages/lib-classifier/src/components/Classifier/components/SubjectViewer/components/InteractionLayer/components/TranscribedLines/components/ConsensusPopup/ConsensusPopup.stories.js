@@ -3,23 +3,13 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { withKnobs, number } from '@storybook/addon-knobs'
-import { reducedASMSubject } from '@store/TranscriptionReductions/mocks'
-import TranscriptionReductions from '@store/TranscriptionReductions'
-
+import setupMock from './helpers/setupMock'
 import ConsensusPopup from './ConsensusPopup'
 
 const config = {}
-
+const completedLines = setupMock()
 const stories = storiesOf('Drawing Tools | TranscribedLines/ConsensusPopup', module)
 stories.addDecorator(withKnobs)
-
-const transcriptionReductions = TranscriptionReductions.create({ 
-  reductions: reducedASMSubject.workflow.subject_reductions,
-  subjectId: '1',
-  workflowId: '2'
-})
-const { consensusLines } = transcriptionReductions
-const completedLines = consensusLines.filter(line => line.consensusReached)
 
 function ConsensusPopupStory (props) {
   const { dark = false, index = 0 } = props

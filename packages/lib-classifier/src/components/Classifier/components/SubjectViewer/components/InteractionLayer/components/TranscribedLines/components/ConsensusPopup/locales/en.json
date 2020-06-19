@@ -2,6 +2,8 @@
   "ConsensusPopup": {
     "aggregatedTranscription": "aggregated transcription",
     "explanation": "These %(count)s transcriptions have been submitted by previous volunteers and cannot be modified.",
-    "title": "Previous Transcriptions"
+    "noAggregation": "No aggregation available.",
+    "title": "Previous Transcriptions",
+    "transcriptionsUnavailable": "Transcriptions unavailable."
   }
 }

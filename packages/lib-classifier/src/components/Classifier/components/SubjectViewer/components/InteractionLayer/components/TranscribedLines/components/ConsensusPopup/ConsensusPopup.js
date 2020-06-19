@@ -10,14 +10,20 @@ counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
   font-family: "Roboto Mono Regular", monospace;
-  font-size: 14px;
+  font-size: 1em;
 `
 
 export default function ConsensusPopup (props) {
   const {
     active,
+    closeFn = () => {},
     line = {
+      consensusText: '',
       textOptions: []
+    },
+    position = {
+      x: 0,
+      y: 0
     }
   } = props
 
@@ -28,7 +34,7 @@ export default function ConsensusPopup (props) {
   return (
     <MovableModal
       active={active}
-      closeFn={() => {}}
+      closeFn={closeFn}
       headingBackground={{
         dark: 'dark-5',
         light: 'neutral-6'
@@ -40,7 +46,7 @@ export default function ConsensusPopup (props) {
         maxHeight: 350,
         minHeight: 250,
         minWidth: 350,
-        position: { x: 0, y: 0 }
+        position
       }}
       title={counterpart('ConsensusPopup.title')}
     >
@@ -48,16 +54,21 @@ export default function ConsensusPopup (props) {
         {counterpart('ConsensusPopup.explanation', { count: line.textOptions.length })}
       </Paragraph>
       <StyledBox>
-        <Paragraph>
-          {line.consensusText}
-          <br />
-          <Text><em>{counterpart('ConsensusPopup.aggregatedTranscription')}</em></Text>
-        </Paragraph>
-        <List
-          border='top'
-          data={line.textOptions}
-          itemProps={itemProps}
-        />
+        {line.consensusText &&
+          <Paragraph>
+            {line.consensusText}
+            <br />
+            <Text><em>{counterpart('ConsensusPopup.aggregatedTranscription')}</em></Text>
+          </Paragraph>}
+        {!line.consensusText &&
+          <Paragraph>{counterpart('ConsensusPopup.noAggregation')}</Paragraph>}
+        {line.textOptions.length > 0 &&
+          <List
+            data={line.textOptions}
+            itemProps={itemProps}
+          />}
+        {line.textOptions.length === 0 &&
+          <Paragraph>{counterpart('ConsensusPopup.transcriptionsUnavailable')}</Paragraph>}
       </StyledBox>
     </MovableModal>
   )
