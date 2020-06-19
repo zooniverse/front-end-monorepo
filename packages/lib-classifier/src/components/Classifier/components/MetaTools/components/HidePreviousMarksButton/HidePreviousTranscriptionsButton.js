@@ -5,7 +5,7 @@ import { Box, DropButton } from 'grommet'
 import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
-import HideTranscriptionButton from './HideTranscriptionButton'
+import { MetaToolsButton } from '@zooniverse/react-components'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import en from './locales/en'
@@ -39,33 +39,48 @@ function HidePreviousTranscriptionsButton (props) {
       a11yTitle={currentTitle}
       dropContent={
         <Box role='radiogroup'>
-          <HideTranscriptionButton
-            checked={shownMarks === SHOWN_MARKS.ALL}
+          <MetaToolsButton
+            a11yTitle={counterpart('HidePreviousTranscriptionsButton.show')}
+            active={shownMarks === SHOWN_MARKS.ALL}
+            aria-checked={shownMarks === SHOWN_MARKS.ALL}
             icon={<FormView />}
+            margin={{ top: '0' }}
             onClick={() => {
               onClick(SHOWN_MARKS.ALL)
               setOpen(false)
             }}
-            title={counterpart('HidePreviousTranscriptionsButton.show')}
+            padding='0.5em'
+            role='radio'
+            text={counterpart('HidePreviousTranscriptionsButton.show')}
           />
-          <HideTranscriptionButton
-            checked={shownMarks === SHOWN_MARKS.USER}
-            icon={<FormViewHide />}
+          <MetaToolsButton
+            a11yTitle={counterpart('HidePreviousTranscriptionsButton.showUser')}
+            active={shownMarks === SHOWN_MARKS.USER}
+            aria-checked={shownMarks === SHOWN_MARKS.USER}
             disabled={disabled}
+            icon={<FormViewHide />}
+            margin={{ top: '0' }}
             onClick={() => {
               onClick(SHOWN_MARKS.USER)
               setOpen(false)
             }}
-            title={counterpart('HidePreviousTranscriptionsButton.showUser')}
+            padding='0.5em'
+            role='radio'
+            text={counterpart('HidePreviousTranscriptionsButton.showUser')}
           />
-          <HideTranscriptionButton
-            checked={shownMarks === SHOWN_MARKS.NONE}
+          <MetaToolsButton
+            a11yTitle={counterpart('HidePreviousTranscriptionsButton.hide')}
+            active={shownMarks === SHOWN_MARKS.NONE}
+            aria-checked={shownMarks === SHOWN_MARKS.NONE}
             icon={<Hide />}
+            margin={{ top: '0' }}
             onClick={() => {
               onClick(SHOWN_MARKS.NONE)
               setOpen(false)
             }}
-            title={counterpart('HidePreviousTranscriptionsButton.hide')}
+            padding='0.5em'
+            role='radio'
+            text={counterpart('HidePreviousTranscriptionsButton.hide')}
           />
         </Box>
       }
