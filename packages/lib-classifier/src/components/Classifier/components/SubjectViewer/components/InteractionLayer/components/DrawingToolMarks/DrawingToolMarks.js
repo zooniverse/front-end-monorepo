@@ -4,14 +4,24 @@ import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFinish, onMove, onSelectMark, scale }) {
+function DrawingToolMarks (props) {
+  const {
+    activeMark,
+    marks,
+    onDelete,
+    onDeselectMark,
+    onFinish,
+    onMove,
+    onSelectMark,
+    scale
+  } = props
   const { svg } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
     const { tool } = mark
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
-    const isActive = mark.id === activeMarkId
+    const isActive = mark.id === activeMark && activeMark.id
     const ref = React.createRef()
     
     function onFinishWithRef (event) {
@@ -33,6 +43,7 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function deleteMark () {
+      activeMark.setSubTaskVisibility(false)
       tool.deleteMark(mark)
       onDelete(mark)
     }
@@ -96,7 +107,10 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
 }
 
 DrawingToolMarks.propTypes = {
-  activeMarkId: PropTypes.string,
+  activeMark: PropTypes.shape({
+    id: PropTypes.string,
+    setSubTaskVisibility: PropTypes.func
+  }),
   marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
@@ -107,7 +121,10 @@ DrawingToolMarks.propTypes = {
 }
 
 DrawingToolMarks.defaultProps = {
-  activeMarkId: '',
+  activeMark: {
+    id: '',
+    setSubTaskVisibility: () => {}
+  },
   onDelete: () => true,
   onDeselectMark: () => true,
   onFinish: () => true,

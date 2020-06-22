@@ -13,6 +13,9 @@ const BaseMark = types.model('BaseMark', {
     TextTask.AnnotationModel
   )),
   frame: types.optional(types.number, 0),
+  subTaskMarkBounds: types.optional(types.frozen({}), undefined),
+  subTaskPreviousAnnotations: types.map(TextTask.PreviousAnnotationsModel),
+  subTaskVisibility: types.optional(types.boolean, false),
   toolIndex: types.optional(types.number, 0),
   toolType: types.string
 })
@@ -79,5 +82,26 @@ const BaseMark = types.model('BaseMark', {
       return self.tool.tasks
     }
   }))
+  .actions(self => {
+    function setSubTaskVisibility (visible, drawingMarkNode, previousAnnotations) {
+      if(self.tasks.length > 0) {
+        console.log(visible, drawingMarkNode, previousAnnotations)
+        self.subTaskVisibility = visible
+        self.subTaskMarkBounds = (drawingMarkNode)
+        ? drawingMarkNode.getBoundingClientRect()
+        : undefined
+        if (previousAnnotations?.length > 0) {
+          previousAnnotations.forEach((previousAnnotation) => {
+            self.subTaskPreviousAnnotations.put(previousAnnotation)
+          })
+        }
+        console.log('self', self)
+      }
+    }
+
+    return {
+      setSubTaskVisibility
+    }
+  })
 
 export default types.compose('Mark', AnnotationsStore, BaseMark)

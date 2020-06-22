@@ -1,12 +1,13 @@
 import counterpart from 'counterpart'
 import { arrayOf, bool, number, object, shape } from 'prop-types'
-import React from 'react'
+import React, { createRef, useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
 import ConsensusPopup from './components/ConsensusPopup'
 import TooltipLabel from './components/TooltipLabel'
 import en from './locales/en'
+import SubTaskPopup from '../SubTaskPopup'
 
 counterpart.registerTranslations('en', en)
 
@@ -45,14 +46,19 @@ class TranscribedLines extends React.Component {
       const mark = activeTool.createMark(markSnapshot)
       mark.finish()
       setActiveMark(mark)
+
+      let previousAnnotations = []
+      activeTool.tasks.forEach((task) => {
+        const previousAnnotation = {
+          id: mark.id,
+          taskKey: task.taskKey,
+          taskType: task.type,
+          value: line.textOptions
+        }
+        previousAnnotations.push(previousAnnotation)
+      })
+      mark.setSubTaskVisibility(true, ref.current, previousAnnotations)
     }
-    /*
-    TODO: pass the textOptions array to the new mark's subtask
-    so that it can be shown as a list of choices for the text annotation
-    value
-    */
-    const text = line.textOptions.join('\n')
-    alert(text)
   }
 
   showConsensus (line) {

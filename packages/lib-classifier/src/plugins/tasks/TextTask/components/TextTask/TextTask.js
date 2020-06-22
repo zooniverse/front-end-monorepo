@@ -4,7 +4,7 @@ import DefaultTextTask from './components/DefaultTextTask'
 import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
 function TextTask (props) {
-  const { autoFocus, disabled, suggestions, task } = props
+  const { autoFocus, disabled, subTaskPreviousAnnotations, task } = props
   const { value } = task.annotation
 
   function updateAnnotation (ref) {
@@ -50,14 +50,14 @@ function TextTask (props) {
     updateAnnotation(ref)
   }
 
-  if (suggestions.length > 0) {
+  if (subTaskPreviousAnnotations.value.length > 0) {
     return (
       <TextTaskWithSuggestions
         autoFocus={autoFocus}
         disabled={disabled}
         onSelectSuggestion={onSelectSuggestion}
         setTagSelection={setTagSelection}
-        suggestions={suggestions}
+        suggestions={subTaskPreviousAnnotations.value}
         task={task}
         value={value}
         updateAnnotation={updateAnnotation}
@@ -80,13 +80,19 @@ function TextTask (props) {
 TextTask.defaultProps = {
   autoFocus: false,
   disabled: false,
-  suggestions: []
+  subTaskPreviousAnnotations: {
+    value: []
+  }
 }
 
 TextTask.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  suggestions: PropTypes.arrayOf(PropTypes.string),
+  subTaskPreviousAnnotations: PropTypes.shape({
+    taskKey: PropTypes.string,
+    taskType: PropTypes.string,
+    value: PropTypes.arrayOf(PropTypes.string)
+  }),
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,

@@ -10,7 +10,15 @@ import taskRegistry from '@plugins/tasks'
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
 
-function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSubTaskVisibility }) {
+function SubTaskPopup(props) {
+  const {
+    activeMark,
+    subTaskMarkBounds,
+    subTaskVisibility,
+    subTaskPreviousAnnotations,
+    setSubTaskVisibility
+  } = props
+
   function close() {
     setSubTaskVisibility(false)
   }
@@ -62,6 +70,7 @@ function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSub
                   annotation={annotation}
                   autoFocus={(index === 0)}
                   disabled={!ready}
+                  subTaskPreviousAnnotations={subTaskPreviousAnnotations.get(activeMark.id)}
                   task={task}
                 />
               </Box>
@@ -87,6 +96,7 @@ SubTaskPopup.propTypes = {
   activeMark: PropTypes.object,
   subTaskMarkBounds: PropTypes.object,
   subTaskVisibility: PropTypes.bool,
+  suggestions: PropTypes.array,
   setSubTaskVisibility: PropTypes.func
 }
 
@@ -94,6 +104,7 @@ SubTaskPopup.defaultProps = {
   activeMark: undefined,
   subTaskMarkBounds: undefined,
   subTaskVisibility: false,
+  suggestions: [],
   setSubTaskVisibility: () => { }
 }
 
