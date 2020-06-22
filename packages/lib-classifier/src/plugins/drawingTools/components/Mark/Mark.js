@@ -27,6 +27,7 @@ const Mark = forwardRef(function Mark ({
   mark,
   onDelete,
   onDeselect,
+  onFinish,
   onSelect,
   scale
 }, ref) {
@@ -43,6 +44,18 @@ const Mark = forwardRef(function Mark ({
         event.preventDefault()
         event.stopPropagation()
         onDelete(mark)
+        return false
+      }
+      case 'Enter': {
+        event.preventDefault()
+        event.stopPropagation()
+        onFinish(event)
+        return false
+      }
+      case ' ': {
+        event.preventDefault()
+        event.stopPropagation()
+        onFinish(event)
         return false
       }
       default: {
@@ -66,16 +79,17 @@ const Mark = forwardRef(function Mark ({
   return (
     <StyledGroup
       {...mainStyle}
-      ref={ref}
       aria-label={label}
       dragging={dragging}
-      strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
       focusable
-      tabIndex={0}
-      transform={transform}
       onBlur={deselect}
       onFocus={select}
       onKeyDown={onKeyDown}
+      ref={ref}
+      role='button'
+      strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
+      tabIndex={0}
+      transform={transform}
     >
       {children}
     </StyledGroup>
