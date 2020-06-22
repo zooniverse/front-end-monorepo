@@ -2,10 +2,9 @@ import { projects } from '@zooniverse/panoptes-js'
 
 import buildResponse from './buildResponse'
 import getUniqueProjectIds from './getUniqueProjectIds'
-import cache from './publicationsCache'
 import client from '../shared/contentfulClient'
 
-export default async function createPublicationsResponse () {
+async function createPublicationsResponse () {
   const publications = await getPublicationsData()
   const projectIds = getUniqueProjectIds(publications)
   const projectAvatars = await getProjectAvatars(projectIds)
@@ -58,3 +57,5 @@ function createProjectAvatarsMap (projectAvatars) {
     [project.id]: project
   }), {})
 }
+
+export default { createPublicationsResponse }
