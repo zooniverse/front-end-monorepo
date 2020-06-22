@@ -1,12 +1,12 @@
 import sinon from 'sinon'
 
-import cache from '../../api/team/teamCache'
-import getServerSideProps from './getServerSideProps'
+import getStaticProps from './getStaticProps'
+import TeamAPI  from '../../api/team'
 import mockData from './TeamContainer.mock'
 
 const DATA = mockData
 
-describe('Component > TeamContainer > getServerSideProps', function () {
+describe('Component > TeamContainer > getStaticProps', function () {
 
   describe('populates the "teamData" props from contentful API', function () {
     let getTeamDataStub
@@ -16,8 +16,8 @@ describe('Component > TeamContainer > getServerSideProps', function () {
     })
 
     it('should handle valid API data', async () => {
-      getTeamDataStub = sinon.stub(cache, 'get').returns(DATA)
-      const { props } = await getServerSideProps({})
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve(DATA))
+      const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
         teamData: DATA
@@ -25,8 +25,8 @@ describe('Component > TeamContainer > getServerSideProps', function () {
     })
 
     it('should handle empty API reponse', async () => {
-      getTeamDataStub = sinon.stub(cache, 'get').returns([])
-      const { props } = await getServerSideProps({})
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve([]))
+      const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: null,
         teamData: []
@@ -36,8 +36,8 @@ describe('Component > TeamContainer > getServerSideProps', function () {
     it('should handle API errors', async () => {
       var errorMsg = 'failed to connect to API'
       var errorPromise = Promise.reject(new Error(errorMsg))
-      getTeamDataStub = sinon.stub(cache, 'get').returns(errorPromise)
-      const { props } = await getServerSideProps({})
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(errorPromise)
+      const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         error: errorMsg,
         teamData: []
