@@ -42,7 +42,7 @@ const drawingTaskSnapshot = {
   type: 'drawing'
 }
 
-describe.only('Model > DrawingTask', function () {
+describe('Model > DrawingTask', function () {
   it('should exist', function () {
     const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     expect(drawingTask).to.be.ok()
