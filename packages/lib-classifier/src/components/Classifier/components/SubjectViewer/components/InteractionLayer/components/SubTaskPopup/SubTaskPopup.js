@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { observer } from 'mobx-react'
 import { Box, Layer, Paragraph } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
@@ -70,7 +71,7 @@ function SubTaskPopup(props) {
                   annotation={annotation}
                   autoFocus={(index === 0)}
                   disabled={!ready}
-                  subTaskPreviousAnnotations={subTaskPreviousAnnotations.get(activeMark.id)}
+                  subTaskPreviousAnnotations={subTaskPreviousAnnotations?.get(activeMark.id)}
                   task={task}
                 />
               </Box>
@@ -95,6 +96,7 @@ function SubTaskPopup(props) {
 SubTaskPopup.propTypes = {
   activeMark: PropTypes.object,
   subTaskMarkBounds: PropTypes.object,
+  subTaskPreviousAnnotations: MobXPropTypes.observableMap,
   subTaskVisibility: PropTypes.bool,
   suggestions: PropTypes.array,
   setSubTaskVisibility: PropTypes.func
@@ -103,6 +105,7 @@ SubTaskPopup.propTypes = {
 SubTaskPopup.defaultProps = {
   activeMark: undefined,
   subTaskMarkBounds: undefined,
+  subTaskPreviousAnnotations: undefined,
   subTaskVisibility: false,
   suggestions: [],
   setSubTaskVisibility: () => { }
