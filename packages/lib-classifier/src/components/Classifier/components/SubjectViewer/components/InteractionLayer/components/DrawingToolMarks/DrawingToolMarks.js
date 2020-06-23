@@ -57,14 +57,6 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
       }
     }
 
-    function endMoveMark (event) {
-      if (event?.currentTarget && !isInBounds(event.currentTarget)) {
-        deleteMark()
-      } else {
-        onFinishWithRef(event)
-      }
-    }
-
     function selectMark () {
       onSelectMarkWithRef(mark)
     }
