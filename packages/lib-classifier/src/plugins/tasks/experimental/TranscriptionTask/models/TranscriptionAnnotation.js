@@ -20,6 +20,9 @@ const Transcription = types.model('Transcription', {
       const drawingAnnotations = [drawingSnapshot]
       drawingSnapshot.value.forEach((markSnapshot, markIndex) => {
         const mark = Object.assign({}, markSnapshot)
+        delete mark.subTaskMarkBounds
+        delete mark.subTaskPreviousAnnotations
+        delete mark.subTaskVisibility
         // map subtask keys to mark.details
         mark.details = mark.annotations.map(annotation => ({ task: annotation.task }))
         // push mark.annotations to the returned array

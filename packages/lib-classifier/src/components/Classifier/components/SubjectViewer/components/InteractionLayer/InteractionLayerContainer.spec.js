@@ -7,7 +7,7 @@ import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-describe.only('Component > InteractionLayerContainer', function () {
+describe('Component > InteractionLayerContainer', function () {
   const width = 1024
   const height = 768
   const drawingAnnotations = [{
