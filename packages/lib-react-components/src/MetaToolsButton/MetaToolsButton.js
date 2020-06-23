@@ -6,7 +6,12 @@ import PlainButton from '../PlainButton'
 export const StyledPlainButton = styled(PlainButton)`
   > div {
     justify-content: flex-start;
+    ${props => css`padding: ${props.padding};`}
     ${props => css`line-height: ${props.theme.paragraph.small.height};`}
+  }
+
+  span {
+    ${props => props.active && css`font-weight: bold;`}
   }
 `
 
