@@ -1,1 +1,1 @@
-export { default } from './HidePreviousMarksButton'
+export { default } from './HidePreviousMarksContainer'
