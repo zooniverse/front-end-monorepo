@@ -5,6 +5,7 @@ import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > InteractionLayerContainer', function () {
   const width = 1024
@@ -80,10 +81,17 @@ describe('Component > InteractionLayerContainer', function () {
 
   describe('with transcription task', function () {
     let wrapper
+    const hidingTask = {
+      shownMarks: SHOWN_MARKS.NONE,
+      hidingIndex: 1,
+      marks: [{ x: 0, y: 0, frame: 0}, { x: 5, y: 5, frame: 0}]
+    }
+
     const transcriptionTask = {
       activeTool: {
         deleteMark: () => { }
       },
+      shownMarks: SHOWN_MARKS.ALL,
       taskKey: 'T1',
       type: 'transcription'
     }
@@ -164,11 +172,11 @@ describe('Component > InteractionLayerContainer', function () {
 
       before(function () {
         const hidingTask = {
-          hidePreviousMarks: true,
+          shownMarks: SHOWN_MARKS.NONE,
           hidingIndex: 1,
           marks: [{ x: 0, y: 0, frame: 0 }, { x: 5, y: 5, frame: 0 }]
         }
-        const hidingMarksInteractionTask = Object.assign(hidingTask, transcriptionTask)
+        const hidingMarksInteractionTask = Object.assign({}, transcriptionTask, hidingTask)
         wrapper = shallow(
           <InteractionLayerContainer.wrappedComponent
             height={height}
@@ -187,6 +195,27 @@ describe('Component > InteractionLayerContainer', function () {
       it('should hide all marks before the hiding index', function () {
         const { marks } = wrapper.find(InteractionLayer).props()
         expect(marks).to.have.lengthOf(1)
+      })
+    })
+
+    describe('and showing only user marks', function () {
+      it('should only show user created marks', function () {
+        const userHidingTask = Object.assign({}, hidingTask)
+        userHidingTask.shownMarks = SHOWN_MARKS.USER
+        const hidingUserMarksInteractionTask = Object.assign({}, transcriptionTask, userHidingTask)
+        wrapper = shallow(
+          <InteractionLayerContainer.wrappedComponent
+            height={height}
+            width={width}
+            activeInteractionTask={hidingUserMarksInteractionTask}
+            interactionTaskAnnotations={drawingAnnotations}
+            workflow={{ usesTranscriptionTask: true }}
+          />
+        )
+
+        const marks = wrapper.find(InteractionLayer).props().marks
+        expect(marks).to.have.lengthOf(2)
+        expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(0)
       })
     })
   })

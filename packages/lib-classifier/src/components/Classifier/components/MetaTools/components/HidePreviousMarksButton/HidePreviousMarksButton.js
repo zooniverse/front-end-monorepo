@@ -1,23 +1,25 @@
 import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
-import { FormView, FormViewHide } from 'grommet-icons'
+import { FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 
+import SHOWN_MARKS from '@helpers/shownMarks'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 export default function HidePreviousMarksButton (props) {
-  const { disabled, hidePreviousMarks, onClick } = props
-  const icon = hidePreviousMarks ? <FormViewHide /> : <FormView />
-  const text = hidePreviousMarks ?
-    counterpart('HidePreviousMarksButton.show') :
-    counterpart('HidePreviousMarksButton.hide')
+  const { disabled, onClick, shownMarks } = props
+  const text = shownMarks === SHOWN_MARKS.ALL ?
+    counterpart('HidePreviousMarksDrawingButton.hide') :
+    counterpart('HidePreviousMarksDrawingButton.show')
+
+  const icon = shownMarks === SHOWN_MARKS.ALL ? <FormView /> : <FormViewHide />
 
   return (
     <MetaToolsButton
-      aria-checked={hidePreviousMarks}
+      aria-checked={shownMarks === SHOWN_MARKS.NONE}
       disabled={disabled}
       icon={icon}
       role='checkbox'
@@ -29,12 +31,12 @@ export default function HidePreviousMarksButton (props) {
 
 HidePreviousMarksButton.propTypes = {
   disabled: PropTypes.bool,
-  hidePreviousMarks: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  shownMarks: PropTypes.string
 }
 
 HidePreviousMarksButton.defaultProps = {
   disabled: false,
-  hidePreviousMarks: false,
-  onClick: () => false
+  onClick: () => false,
+  shownMarks: SHOWN_MARKS.ALL
 }

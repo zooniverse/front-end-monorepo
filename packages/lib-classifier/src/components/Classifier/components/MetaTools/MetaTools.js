@@ -6,6 +6,7 @@ import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-compo
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
 import HidePreviousMarksButton from './components/HidePreviousMarksButton'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
@@ -37,9 +38,10 @@ class MetaTools extends React.Component {
   // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
   render () {
     const { activeInteractionTask, className, isThereMetadata, screenSize, subject, upp } = this.props
-    const { hidePreviousMarks, marks, togglePreviousMarks } = activeInteractionTask || {}
+    const { shownMarks, marks, togglePreviousMarks, type } = activeInteractionTask || {}
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
+
     return (
       <Box
         key={subject && subject.id}
@@ -61,8 +63,9 @@ class MetaTools extends React.Component {
         {activeInteractionTask && (
           <HidePreviousMarksButton
             disabled={marks.length === 0}
-            hidePreviousMarks={hidePreviousMarks}
-            onClick={() => togglePreviousMarks()}
+            shownMarks={shownMarks}
+            type={type}
+            onClick={(state) => togglePreviousMarks(state)}
           />
         )}
       </Box>
@@ -72,8 +75,9 @@ class MetaTools extends React.Component {
 
 MetaTools.defaultProps = {
   activeInteractionTask: {
-    hidePreviousMarks: false,
-    togglePreviousMarks: () => {}
+    shownMarks: SHOWN_MARKS.ALL,
+    togglePreviousMarks: () => {},
+    type: ''
   },
   className: '',
   isThereMetadata: false,
@@ -83,8 +87,9 @@ MetaTools.defaultProps = {
 
 MetaTools.propTypes = {
   activeInteractionTask: PropTypes.shape({
-    hidePreviousMarks: PropTypes.bool,
-    togglePreviousMarks: PropTypes.func
+    shownMarks: PropTypes.string,
+    togglePreviousMarks: PropTypes.func,
+    type: PropTypes.string
   }),
   className: PropTypes.string,
   isThereMetadata: PropTypes.bool,
