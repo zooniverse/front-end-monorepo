@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
-import { Rnd } from 'react-rnd' // Used to create the draggable, resizable "popup" component
 import { Box, Layer, Paragraph } from 'grommet'
-import { CloseButton, MovableModal } from '@zooniverse/react-components'
+import { MovableModal } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
-import ResizeIcon from './components/ResizeIcon'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import taskRegistry from '@plugins/tasks'
 
@@ -24,7 +22,7 @@ function SubTaskPopup({ activeMark, subTaskMarkBounds, subTaskVisibility, setSub
   const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
   const tasks = (activeMark?.tasks) ? activeMark.tasks : []
 
-  const defaultPosition = getDefaultPosition({ bounds: subTaskMarkBounds, minHeight: MIN_POPUP_HEIGHT, minWidth: MIN_POPUP_WIDTH })
+  const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
   return (
     <MovableModal

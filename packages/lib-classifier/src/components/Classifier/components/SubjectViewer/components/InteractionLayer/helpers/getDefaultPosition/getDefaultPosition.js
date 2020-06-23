@@ -1,14 +1,7 @@
-export default function getDefaultPosition (params) {
-  const {
-    bounds = {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0
-    },
-    minHeight = 250,
-    minWidth = 350
-  } = params
+const MIN_HEIGHT = 100
+const MIN_WIDTH = 350
+
+export default function getDefaultPosition (bounds = {}, minHeight = MIN_HEIGHT, minWidth = MIN_WIDTH) {
   // Calculate default position
   let x = 0
   let y = 0
@@ -33,8 +26,8 @@ export default function getDefaultPosition (params) {
   // Keep within bounds of the viewport
   const leftLimit = 0
   const topLimit = 0
-  const rightLimit = (window && window.innerWidth || 0) - minWidth
-  const bottomLimit = (window && window.innerHeight || 0) - minHeight
+  const rightLimit = (window && window.innerWidth || 0) - (minWidth || MIN_WIDTH)
+  const bottomLimit = (window && window.innerHeight || 0) - (minHeight || MIN_HEIGHT)
 
   x = Math.max(x, leftLimit)
   y = Math.max(y, topLimit)
