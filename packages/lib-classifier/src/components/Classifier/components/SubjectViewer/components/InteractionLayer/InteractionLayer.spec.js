@@ -1,5 +1,5 @@
-import { mount } from 'enzyme'
-import React, { useState } from 'react'
+import { shallow } from 'enzyme'
+import React from 'react'
 import sinon from 'sinon'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -13,7 +13,8 @@ describe('Component > InteractionLayer', function () {
   const mockMark = {
     initialDrag: sinon.stub(),
     initialPosition: sinon.stub(),
-    setCoordinates: sinon.stub()
+    setCoordinates: sinon.stub(),
+    setSubTaskVisibility: sinon.stub()
   }
   const mockSVGPoint = {
     x: 100,
@@ -64,27 +65,21 @@ describe('Component > InteractionLayer', function () {
         ],
         type: 'drawing'
       })
-      function InteractionLayerContainer () {
-        const [ activeMark, setActiveMark ] = useState(null)
-        return (
-          <InteractionLayer
-            activeMark={activeMark}
-            activeTool={activeTool}
-            frame={2}
-            setActiveMark={setActiveMark}
-            height={400}
-            width={600}
-          />
-        )
-      }
+      const setActiveMarkStub = sinon.stub().callsFake(() => mockMark)
       activeTool = mockDrawingTask.activeTool
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
-      wrapper = mount(
-        <SVGContext.Provider value={{ svg, getScreenCTM }}>
-          <svg>
-            <InteractionLayerContainer />
-          </svg>
-        </SVGContext.Provider>
+      wrapper = shallow(
+        <InteractionLayer
+          activeMark={mockMark}
+          activeTool={activeTool}
+          frame={2}
+          setActiveMark={setActiveMarkStub}
+          height={400}
+          width={600}
+        />, {
+          wrappingComponent: SVGContext.Provider,
+          wrappingComponentProps: { value: { svg, getScreenCTM }}
+        }
       )
     })
 
@@ -106,6 +101,15 @@ describe('Component > InteractionLayer', function () {
     })
 
     describe('on pointer events', function () {
+      let mockedContext
+      before(function () {
+        mockedContext = sinon.stub(React, 'useContext').callsFake(() => { return { svg, getScreenCTM } })
+      })
+
+      after(function () {
+        mockedContext.restore()
+      })
+
       it('should create a mark on pointer down', function () {
         const fakeEvent = {
           pointerId: 'fakePointer',
@@ -156,7 +160,7 @@ describe('Component > InteractionLayer', function () {
           }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-        wrapper.find(InteractionLayer).simulate('pointermove', fakeEvent)
+        wrapper.find('g').simulate('pointermove', fakeEvent)
         expect(mockMark.initialDrag).to.have.been.calledOnce()
       })
 
@@ -170,7 +174,7 @@ describe('Component > InteractionLayer', function () {
           }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-        wrapper.find(InteractionLayer).simulate('pointermove', fakeEvent)
+        wrapper.find('g').simulate('pointermove', fakeEvent)
         expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
       })
     })
@@ -200,17 +204,16 @@ describe('Component > InteractionLayer', function () {
       activeTool = mockDrawingTask.activeTool
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       activeTool.createMark.resetHistory()
-      wrapper = mount(
-        <SVGContext.Provider value={{ svg, getScreenCTM }}>
-          <svg>
-            <InteractionLayer
-              activeTool={activeTool}
-              disabled
-              height={400}
-              width={600}
-            />
-          </svg>
-        </SVGContext.Provider>
+      wrapper = shallow(
+          <InteractionLayer
+            activeTool={activeTool}
+            disabled
+            height={400}
+            width={600}
+          />, {
+          wrappingComponent: SVGContext.Provider,
+          wrappingComponentProps: { value: { svg, getScreenCTM } }
+        }
       )
     })
 

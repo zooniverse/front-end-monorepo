@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
@@ -18,7 +18,6 @@ function InteractionLayer ({
   activeMark,
   activeTool,
   activeToolIndex,
-  children,
   disabled,
   frame,
   height,
@@ -28,8 +27,8 @@ function InteractionLayer ({
   scale,
   width
 }) {
-  const [ creating, setCreating ] = useState(false)
-  const { svg, getScreenCTM } = useContext(SVGContext)
+  const [ creating, setCreating ] = React.useState(false)
+  const { svg, getScreenCTM } = React.useContext(SVGContext)
 
   function convertEvent (event) {
     const type = event.type
