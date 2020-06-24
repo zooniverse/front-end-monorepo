@@ -1,9 +1,10 @@
 import counterpart from 'counterpart'
 import { arrayOf, bool, number, object, shape } from 'prop-types'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
+import ConsensusPopup from './components/ConsensusPopup'
 import TooltipLabel from './components/TooltipLabel'
 import en from './locales/en'
 
@@ -18,6 +19,15 @@ export const ConsensusLine = styled('g')`
 `
 
 function TranscribedLines ({ lines, scale, task, theme }) {
+  const ref = useRef(null)
+  const [ consensusPopup, setState ] = useState({
+    bounds: {},
+    line: {
+      consensusText: '',
+      textOptions: []
+    },
+    show: false
+  })
   function createMark (line) {
     const { activeTool, activeToolIndex, setActiveMark } = task
     const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
@@ -38,7 +48,33 @@ function TranscribedLines ({ lines, scale, task, theme }) {
   }
 
   function showConsensus (line) {
-    alert(line.consensusText)
+    setState({
+      bounds: ref.current.getBoundingClientRect(),
+      line,
+      show: true
+    })
+  }
+
+  function onClick (callback) {
+    callback()
+  }
+
+  function onKeyDown (event, callback) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      callback()
+    }
+  }
+
+  function close () {
+    setState({
+      bounds: {},
+      line: {
+        consensusText: '',
+        textOptions: []
+      },
+      show: false
+    })
   }
 
   const completedLines = lines.filter(line => line.consensusReached)
@@ -52,7 +88,7 @@ function TranscribedLines ({ lines, scale, task, theme }) {
   const focusColor = theme.global.colors[theme.global.colors.focus]
 
   return (
-    <g>
+    <g ref={ref}>
       {completedLines
         .map((line, index) => {
           const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
@@ -66,12 +102,12 @@ function TranscribedLines ({ lines, scale, task, theme }) {
               label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}
             >
               <ConsensusLine
-                role='img'
+                role='button'
                 aria-describedby={id}
                 aria-label={line.consensusText}
                 focusColor={focusColor}
-                onClick={() => showConsensus(line)}
-                onKeyDown={e => (e.key === 'Enter' && showConsensus(line))}
+                onClick={() => onClick(showConsensus.bind(line))}
+                onKeyDown={event => onKeyDown(event, showConsensus.bind(line))}
                 tabIndex={0}
               >
                 <TranscriptionLine
@@ -101,8 +137,8 @@ function TranscribedLines ({ lines, scale, task, theme }) {
                 aria-describedby={id}
                 aria-label={line.consensusText}
                 focusColor={focusColor}
-                onClick={e => createMark(line)}
-                onKeyDown={e => (e.key === 'Enter' && createMark(line))}
+                onClick={() => onClick(createMark.bind(line))}
+                onKeyDown={event => onKeyDown(event, createMark.bind(line))}
                 tabIndex={0}
               >
                 <TranscriptionLine
@@ -115,6 +151,12 @@ function TranscribedLines ({ lines, scale, task, theme }) {
           )
         })
       }
+      <ConsensusPopup
+        active={consensusPopup.show}
+        closeFn={close}
+        line={consensusPopup.line}
+        bounds={consensusPopup.bounds}
+      />
     </g>
   )
 }

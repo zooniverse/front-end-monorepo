@@ -1,14 +1,12 @@
 import React from 'react'
 import { List, Paragraph, Text } from 'grommet'
-import { mount, shallow } from 'enzyme'
-import sinon from 'sinon'
+import { shallow } from 'enzyme'
 import { MovableModal } from '@zooniverse/react-components'
 import ConsensusPopup from './ConsensusPopup'
 import setupMock from './helpers/setupMock'
-import { expect } from 'chai'
 import en from './locales/en'
 
-describe.only('TranscribedLines > Component > ConsensusPopup', function () {
+describe('TranscribedLines > Component > ConsensusPopup', function () {
   const completedLines = setupMock()
   it('should render without crashing', function () {
     const wrapper = shallow(<ConsensusPopup />)

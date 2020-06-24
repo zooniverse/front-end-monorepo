@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { Box, List, Paragraph, Text } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
 import en from './locales/en'
+import getDefaultPosition from '../../../../helpers/getDefaultPosition'
+import { MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH } from './helpers/constants'
 
 counterpart.registerTranslations('en', en)
 
@@ -18,19 +20,17 @@ const StyledBox = styled(Box)`
 
 export default function ConsensusPopup (props) {
   const {
-    active,
+    active = false,
+    bounds = undefined,
     closeFn = () => {},
     line = {
       consensusText: '',
       textOptions: []
-    },
-    position = {
-      x: 0,
-      y: 0
     }
   } = props
 
   const itemProps = {}
+  const position = getDefaultPosition(bounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
   line.textOptions.forEach((option, index) => itemProps[index] = { border: false, pad: { horizontal: 'none', vertical: 'xsmall'} })
 
@@ -44,11 +44,12 @@ export default function ConsensusPopup (props) {
       }}
       height={{ min: '250px', max: '350px' }}
       pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
+      position='top-left'
       plain
       rndProps={{
         maxHeight: 350,
-        minHeight: 250,
-        minWidth: 350,
+        minHeight: MIN_POPUP_HEIGHT,
+        minWidth: MIN_POPUP_WIDTH,
         position
       }}
       title={counterpart('ConsensusPopup.title')}

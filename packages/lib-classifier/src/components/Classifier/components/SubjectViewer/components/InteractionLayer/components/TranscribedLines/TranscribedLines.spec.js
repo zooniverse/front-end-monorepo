@@ -1,4 +1,4 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/TranscriptionReductions'
@@ -6,8 +6,9 @@ import taskRegistry from '@plugins/tasks'
 import { TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
+import ConsensusPopup from './components/ConsensusPopup'
 
-describe('Component > TranscribedLines', function () {
+describe.only('Component > TranscribedLines', function () {
   let wrapper, task, consensusLines
   before(function () {
     const transcriptionReductions = TranscriptionReductions.create({
@@ -77,13 +78,6 @@ describe('Component > TranscribedLines', function () {
       })
     })
 
-    xit('should show the label on hover', function () {
-      lines.forEach((component, index) => {
-        const consensusLineWrapper = wrapper.find({ ['aria-describedby']: `complete-${index}`})
-        consensusLineWrapper.simulate('hover')
-      })
-    })
-
     it('should be focusable', function () {
       lines.forEach((component) => {
         const consensusLineWrapper = component.parent()
@@ -95,6 +89,100 @@ describe('Component > TranscribedLines', function () {
       lines.forEach((component, index) => {
         const tooltip = wrapper.find({ id: `complete-${index}` })
         expect(tooltip).to.have.lengthOf(1)
+      })
+    })
+
+    it.only('should show the ConsensusPopup onClick', function () {
+      lines.forEach((line, index) => {
+        let popUp = wrapper.find(ConsensusPopup)
+        expect(popUp.props().active).to.be.false()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: '',
+          textOptions: []
+        })
+        expect(popUp.props().bounds).to.be.empty()
+        line.simulate('click')
+        popUp = wrapper.find(ConsensusPopup)
+        console.log(popUp.debug())
+        expect(popUp.props().active).to.be.true()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: completeLines[index].consensusText,
+          textOptions: completeLines[index].textOptions
+        })
+        expect(popUp.props().bounds.x).to.be.a('number')
+        expect(popUp.props().bounds.y).to.be.a('number')
+        wrapper.instance().close()
+        popUp = wrapper.find(ConsensusPopup)
+        expect(popUp.props().active).to.be.false()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: '',
+          textOptions: []
+        })
+        expect(popUp.props().bounds).to.be.empty()
+      })
+    })
+
+    it('should show the ConsensusPopup onKeyDown with enter', function () {
+      const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+      lines.forEach((line, index) => {
+        let popUp = wrapper.find(ConsensusPopup)
+        expect(popUp.props().active).to.be.false()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: '',
+          textOptions: []
+        })
+        expect(popUp.props().bounds).to.be.empty()
+        line.simulate('keydown', eventMock)
+        popUp = wrapper.find(ConsensusPopup)
+        expect(eventMock.preventDefault).to.have.been.calledOnce()
+        expect(popUp.props().active).to.be.true()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: completeLines[index].consensusText,
+          textOptions: completeLines[index].textOptions
+        })
+        expect(popUp.props().bounds.x).to.be.a('number')
+        expect(popUp.props().bounds.y).to.be.a('number')
+        wrapper.instance().close()
+        popUp = wrapper.find(ConsensusPopup)
+        expect(popUp.props().active).to.be.false()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: '',
+          textOptions: []
+        })
+        expect(popUp.props().bounds).to.be.empty()
+        eventMock.preventDefault.resetHistory()
+      })
+    })
+
+    it('should show the ConsensusPopup onKeyDown with space', function () {
+      const eventMock = { key: ' ', preventDefault: sinon.spy() }
+      lines.forEach((line, index) => {
+        let popUp = wrapper.find(ConsensusPopup)
+        expect(popUp.props().active).to.be.false()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: '',
+          textOptions: []
+        })
+        expect(popUp.props().bounds).to.be.empty()
+        line.simulate('keydown', eventMock)
+        popUp = wrapper.find(ConsensusPopup)
+        expect(eventMock.preventDefault).to.have.been.calledOnce()
+        expect(popUp.props().active).to.be.true()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: completeLines[index].consensusText,
+          textOptions: completeLines[index].textOptions
+        })
+        expect(popUp.props().bounds.x).to.be.a('number')
+        expect(popUp.props().bounds.y).to.be.a('number')
+        wrapper.instance().close()
+        popUp = wrapper.find(ConsensusPopup)
+        expect(popUp.props().active).to.be.false()
+        expect(popUp.props().line).to.deep.equal({
+          consensusText: '',
+          textOptions: []
+        })
+        expect(popUp.props().bounds).to.be.empty()
+        eventMock.preventDefault.resetHistory()
       })
     })
   })
