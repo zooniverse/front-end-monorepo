@@ -8,17 +8,11 @@ import Team from './Team'
 counterpart.registerTranslations('en', en)
 
 function TeamContainer (props) {
-  const { error, teamData } = props
+  const { teamData } = props
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = createFilters(teamData, activeFilter, setActiveFilter)
   const filteredTeamData = createFilteredTeamData(teamData, activeFilter)
-
-  if (error) {
-    return (
-      <div>{counterpart('Team.error')}</div>
-    )
-  }
 
   return (
     <Team filters={filters} data={filteredTeamData} />
@@ -26,8 +20,7 @@ function TeamContainer (props) {
 }
 
 TeamContainer.propTypes = {
-  error: string,
-  teamData: array,
+  teamData: array
 }
 
 TeamContainer.defaultProps = {
