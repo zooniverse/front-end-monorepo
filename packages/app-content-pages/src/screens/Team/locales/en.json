@@ -1,6 +1,5 @@
 {
   "Team": {
-    "error": "There was an error fetching the Team data. Please refresh and try again.",
     "description": "The people who make the Zooniverse.",
     "showAll": "Show all",
     "title": "Our Team"

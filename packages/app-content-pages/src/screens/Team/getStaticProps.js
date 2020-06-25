@@ -1,18 +1,17 @@
 import TeamAPI  from '../../api/team'
+import { logNodeError } from '../../helpers/logger'
 
 export default async function getStaticProps() {
-  let error = null
-  let teamData = []
   try {
-    teamData = await TeamAPI.createTeamResponse()
-  } catch (err) {
-    error = err.message
-  }
-  return {
-    props: {
-      error,
-      teamData
-    },
-    unstable_revalidate: 60 * 60 * 1
+    const  teamData = await TeamAPI.createTeamResponse()
+    return {
+      props: {
+        teamData
+      },
+      unstable_revalidate: 60 * 60 * 1
+    }
+  } catch (error) {
+    logNodeError(error)
+    throw error
   }
 }

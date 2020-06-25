@@ -8,17 +8,11 @@ import Publications from './Publications'
 counterpart.registerTranslations('en', en)
 
 function PublicationsContainer(props) {
-  const { error, publicationsData } = props
+  const { publicationsData } = props
   const [activeFilter, setActiveFilter] = useState(null)
 
   const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
   const filteredPublicationsData = createFilteredPublicationsData(publicationsData, activeFilter)
-
-  if (error) {
-    return (
-      <div>{counterpart('Publications.error')}</div>
-    )
-  }
 
   return (
     <Publications filters={filters} data={filteredPublicationsData} />
@@ -26,8 +20,7 @@ function PublicationsContainer(props) {
 }
 
 PublicationsContainer.propTypes = {
-  error: string,
-  publicationsData: array,
+  publicationsData: array
 }
 
 PublicationsContainer.defaultProps = {
