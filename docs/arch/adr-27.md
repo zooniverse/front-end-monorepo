@@ -49,5 +49,5 @@ Proposed
 
 ## Consequences
 
-When a workflow selects a subject viewer the related `subject_viewer_config` is defined, if applicable
-Subject viewers that utilize a `subject_viewer_config` define default fallbacks
+- When a workflow selects a subject viewer the related `subject_viewer_config` is defined, if applicable
+- Subject viewers that utilize a `subject_viewer_config` define default fallbacks
