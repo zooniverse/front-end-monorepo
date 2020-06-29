@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/TranscriptionReductions'
 import taskRegistry from '@plugins/tasks'
-import { TranscribedLines } from './TranscribedLines'
+import { TranscribedLines, ConsensusLine } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
@@ -61,10 +61,21 @@ describe.only('Component > TranscribedLines', function () {
   })
 
   describe('completed lines',function () {
-    let lines, completeLines
+    let lines, completeLines, useRefStub, useStateStub
     before(function () {
+      useRefStub = sinon.stub(React, 'useRef').callsFake(() => {
+        return { 
+          current: { getBoundingClientRect: { x: Math.random(), y: Math.random() }}
+        }
+      })
+      // useStateStub = sinon.stub(React, 'useState').callsFake(function (f) { f() })
       lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
       completeLines = consensusLines.filter(line => line.consensusReached)
+    })
+
+    after(function () {
+      useRefStub.restore()
+      // useStateStub.restore()
     })
 
     it('should render', function () {
@@ -101,9 +112,8 @@ describe.only('Component > TranscribedLines', function () {
           textOptions: []
         })
         expect(popUp.props().bounds).to.be.empty()
-        line.simulate('click')
+        wrapper.find({ 'aria-describedby': `complete-${index}`}).simulate('click')
         popUp = wrapper.find(ConsensusPopup)
-        console.log(popUp.debug())
         expect(popUp.props().active).to.be.true()
         expect(popUp.props().line).to.deep.equal({
           consensusText: completeLines[index].consensusText,

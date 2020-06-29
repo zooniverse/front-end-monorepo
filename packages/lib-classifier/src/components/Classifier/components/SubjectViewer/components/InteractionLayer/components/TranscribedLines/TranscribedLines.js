@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { arrayOf, bool, number, object, shape } from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
@@ -19,7 +19,7 @@ export const ConsensusLine = styled('g')`
 `
 
 function TranscribedLines ({ lines, scale, task, theme }) {
-  const ref = useRef(null)
+  const ref = React.useRef(null)
   const [ consensusPopup, setState ] = useState({
     bounds: {},
     line: {
@@ -49,7 +49,7 @@ function TranscribedLines ({ lines, scale, task, theme }) {
 
   function showConsensus (line) {
     setState({
-      bounds: ref.current.getBoundingClientRect(),
+      bounds: ref.current?.getBoundingClientRect(),
       line,
       show: true
     })
