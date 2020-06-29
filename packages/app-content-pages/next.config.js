@@ -16,22 +16,38 @@ function commitID () {
   return execSync('git rev-parse HEAD').toString('utf8').trim()
 }
 
+const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
+const webpackConfig = require('./webpack.config')
+const assetPrefix = process.env.ASSET_PREFIX || ''
+const SENTRY_DSN = process.env.SENTRY_DSN
+const APP_ENV = process.env.APP_ENV || 'production'
+const COMMIT_ID = process.env.COMMIT_ID || commitID()
+
 const nextConfig = {
+  assetPrefix,
+
   env: {
-    COMMIT_ID: process.env.COMMIT_ID || commitID(),
-    PANOPTES_ENV: process.env.PANOPTES_ENV || 'staging'
+    COMMIT_ID,
+    PANOPTES_ENV,
+    SENTRY_DSN,
+    APP_ENV
+  },
+
+  publicRuntimeConfig: {
+    assetPrefix
   },
 
   webpack: (config) => {
-
-    config.plugins = [
-      ...config.plugins,
+    config.plugins.concat([
       new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true
       })
-    ]
+    ])
 
+    const newAliases = webpackConfig.resolve.alias
+    const alias = Object.assign({}, config.resolve.alias, newAliases)
+    config.resolve = Object.assign({}, config.resolve, { alias })
     return config
   }
 }
