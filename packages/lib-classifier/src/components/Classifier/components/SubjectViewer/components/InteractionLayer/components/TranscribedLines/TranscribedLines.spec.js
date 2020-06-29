@@ -61,24 +61,10 @@ describe.only('Component > TranscribedLines', function () {
   })
 
   describe('completed lines',function () {
-    let lines, completeLines, useRefStub, useStateStub
+    let lines, completeLines
     before(function () {
-      useRefStub = sinon.stub(React, 'useRef').callsFake(() => {
-        return { 
-          current: { getBoundingClientRect: { x: Math.random(), y: Math.random() }}
-        }
-      })
-      // useStateStub = sinon.stub(React, 'useState').callsFake((initState) => {
-      //   console.log('initState', initState)
-      //   return [initState, sinon.spy()]
-      // })
       lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
       completeLines = consensusLines.filter(line => line.consensusReached)
-    })
-
-    after(function () {
-      useRefStub.restore()
-      // useStateStub.restore()
     })
 
     it('should render', function () {
@@ -119,10 +105,7 @@ describe.only('Component > TranscribedLines', function () {
         popup = wrapper.find(ConsensusPopup)
         console.log(popup.debug())
         expect(popup.props().active).to.be.true()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: completeLines[index].consensusText,
-          textOptions: completeLines[index].textOptions
-        })
+        expect(popup.props().line).to.deep.equal(completeLines[index])
         expect(popup.props().bounds.x).to.be.a('number')
         expect(popup.props().bounds.y).to.be.a('number')
         wrapper.instance().close()
