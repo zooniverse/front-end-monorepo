@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/TranscriptionReductions'
 import taskRegistry from '@plugins/tasks'
-import { TranscribedLines, ConsensusLine } from './TranscribedLines'
+import { TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
@@ -68,7 +68,10 @@ describe.only('Component > TranscribedLines', function () {
           current: { getBoundingClientRect: { x: Math.random(), y: Math.random() }}
         }
       })
-      // useStateStub = sinon.stub(React, 'useState').callsFake(function (f) { f() })
+      // useStateStub = sinon.stub(React, 'useState').callsFake((initState) => {
+      //   console.log('initState', initState)
+      //   return [initState, sinon.spy()]
+      // })
       lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
       completeLines = consensusLines.filter(line => line.consensusReached)
     })
@@ -105,61 +108,62 @@ describe.only('Component > TranscribedLines', function () {
 
     it.only('should show the ConsensusPopup onClick', function () {
       lines.forEach((line, index) => {
-        let popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.false()
-        expect(popUp.props().line).to.deep.equal({
+        let popup = wrapper.find(ConsensusPopup)
+        expect(popup.props().active).to.be.false()
+        expect(popup.props().line).to.deep.equal({
           consensusText: '',
           textOptions: []
         })
-        expect(popUp.props().bounds).to.be.empty()
+        expect(popup.props().bounds).to.be.empty()
         wrapper.find({ 'aria-describedby': `complete-${index}`}).simulate('click')
-        popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.true()
-        expect(popUp.props().line).to.deep.equal({
+        popup = wrapper.find(ConsensusPopup)
+        console.log(popup.debug())
+        expect(popup.props().active).to.be.true()
+        expect(popup.props().line).to.deep.equal({
           consensusText: completeLines[index].consensusText,
           textOptions: completeLines[index].textOptions
         })
-        expect(popUp.props().bounds.x).to.be.a('number')
-        expect(popUp.props().bounds.y).to.be.a('number')
+        expect(popup.props().bounds.x).to.be.a('number')
+        expect(popup.props().bounds.y).to.be.a('number')
         wrapper.instance().close()
-        popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.false()
-        expect(popUp.props().line).to.deep.equal({
+        popup = wrapper.find(ConsensusPopup)
+        expect(popup.props().active).to.be.false()
+        expect(popup.props().line).to.deep.equal({
           consensusText: '',
           textOptions: []
         })
-        expect(popUp.props().bounds).to.be.empty()
+        expect(popup.props().bounds).to.be.empty()
       })
     })
 
     it('should show the ConsensusPopup onKeyDown with enter', function () {
       const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
       lines.forEach((line, index) => {
-        let popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.false()
-        expect(popUp.props().line).to.deep.equal({
+        let popup = wrapper.find(ConsensusPopup)
+        expect(popup.props().active).to.be.false()
+        expect(popup.props().line).to.deep.equal({
           consensusText: '',
           textOptions: []
         })
-        expect(popUp.props().bounds).to.be.empty()
-        line.simulate('keydown', eventMock)
-        popUp = wrapper.find(ConsensusPopup)
+        expect(popup.props().bounds).to.be.empty()
+        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('keydown', eventMock)
+        popup = wrapper.find(ConsensusPopup)
         expect(eventMock.preventDefault).to.have.been.calledOnce()
-        expect(popUp.props().active).to.be.true()
-        expect(popUp.props().line).to.deep.equal({
+        expect(popup.props().active).to.be.true()
+        expect(popup.props().line).to.deep.equal({
           consensusText: completeLines[index].consensusText,
           textOptions: completeLines[index].textOptions
         })
-        expect(popUp.props().bounds.x).to.be.a('number')
-        expect(popUp.props().bounds.y).to.be.a('number')
+        expect(popup.props().bounds.x).to.be.a('number')
+        expect(popup.props().bounds.y).to.be.a('number')
         wrapper.instance().close()
-        popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.false()
-        expect(popUp.props().line).to.deep.equal({
+        popup = wrapper.find(ConsensusPopup)
+        expect(popup.props().active).to.be.false()
+        expect(popup.props().line).to.deep.equal({
           consensusText: '',
           textOptions: []
         })
-        expect(popUp.props().bounds).to.be.empty()
+        expect(popup.props().bounds).to.be.empty()
         eventMock.preventDefault.resetHistory()
       })
     })
@@ -167,31 +171,31 @@ describe.only('Component > TranscribedLines', function () {
     it('should show the ConsensusPopup onKeyDown with space', function () {
       const eventMock = { key: ' ', preventDefault: sinon.spy() }
       lines.forEach((line, index) => {
-        let popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.false()
-        expect(popUp.props().line).to.deep.equal({
+        let popup = wrapper.find(ConsensusPopup)
+        expect(popup.props().active).to.be.false()
+        expect(popup.props().line).to.deep.equal({
           consensusText: '',
           textOptions: []
         })
-        expect(popUp.props().bounds).to.be.empty()
-        line.simulate('keydown', eventMock)
-        popUp = wrapper.find(ConsensusPopup)
+        expect(popup.props().bounds).to.be.empty()
+        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('keydown', eventMock)
+        popup = wrapper.find(ConsensusPopup)
         expect(eventMock.preventDefault).to.have.been.calledOnce()
-        expect(popUp.props().active).to.be.true()
-        expect(popUp.props().line).to.deep.equal({
+        expect(popup.props().active).to.be.true()
+        expect(popup.props().line).to.deep.equal({
           consensusText: completeLines[index].consensusText,
           textOptions: completeLines[index].textOptions
         })
-        expect(popUp.props().bounds.x).to.be.a('number')
-        expect(popUp.props().bounds.y).to.be.a('number')
+        expect(popup.props().bounds.x).to.be.a('number')
+        expect(popup.props().bounds.y).to.be.a('number')
         wrapper.instance().close()
-        popUp = wrapper.find(ConsensusPopup)
-        expect(popUp.props().active).to.be.false()
-        expect(popUp.props().line).to.deep.equal({
+        popup = wrapper.find(ConsensusPopup)
+        expect(popup.props().active).to.be.false()
+        expect(popup.props().line).to.deep.equal({
           consensusText: '',
           textOptions: []
         })
-        expect(popUp.props().bounds).to.be.empty()
+        expect(popup.props().bounds).to.be.empty()
         eventMock.preventDefault.resetHistory()
       })
     })

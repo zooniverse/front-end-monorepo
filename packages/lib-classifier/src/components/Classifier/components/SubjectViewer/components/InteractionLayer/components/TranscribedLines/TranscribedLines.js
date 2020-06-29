@@ -20,7 +20,7 @@ export const ConsensusLine = styled('g')`
 
 function TranscribedLines ({ lines, scale, task, theme }) {
   const ref = React.useRef(null)
-  const [ consensusPopup, setState ] = useState({
+  const [ consensusPopup, setConsensusPopupState ] = React.useState({
     bounds: {},
     line: {
       consensusText: '',
@@ -48,7 +48,7 @@ function TranscribedLines ({ lines, scale, task, theme }) {
   }
 
   function showConsensus (line) {
-    setState({
+    setConsensusPopupState({
       bounds: ref.current?.getBoundingClientRect(),
       line,
       show: true
