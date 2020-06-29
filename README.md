@@ -141,6 +141,14 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 - `zooniverse/fe-content-pages`: Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn build` and `yarn start` in `packages/app-content-pages` from `zooniverse/front-end-monorepo:latest`.
 - `zooniverse/fe-project`: Built from the Dockerfile in `packages/app-project`. Runs `yarn build` and `yarn start` in `packages/app-project` from `zooniverse/front-end-monorepo:latest`.
 
+### Publishing
+When publishing an individual package to [npm](https://www.npmjs.com/), first cd into the repo you would like to deploy (within the packages folder), then:
+1. Update changelog and commit
+1. `yarn version --major --no-git-tag-version`
+1. `git push origin name-of-branch`
+1. Merge branch
+1. Checkout master, pull for latest
+1. `yarn publish`
 
 ---
 
