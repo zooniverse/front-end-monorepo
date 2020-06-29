@@ -19,7 +19,6 @@ describe('Component > TeamContainer > getStaticProps', function () {
       getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve(DATA))
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
-        error: null,
         teamData: DATA
       })
     })
@@ -28,20 +27,22 @@ describe('Component > TeamContainer > getStaticProps', function () {
       getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve([]))
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
-        error: null,
         teamData: []
       })
     })
 
-    it('should handle API errors', async () => {
-      var errorMsg = 'failed to connect to API'
-      var errorPromise = Promise.reject(new Error(errorMsg))
+    it('should throw on API errors', async () => {
+      const errorMsg = 'failed to connect to API'
+      const mockError = new Error(errorMsg)
+      const errorPromise = Promise.reject(mockError)
       getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(errorPromise)
-      const { props } = await getStaticProps({})
-      expect(props).to.deep.equal({
-        error: errorMsg,
-        teamData: []
-      })
+      let actualError
+      try {
+        const { props } = await getStaticProps({})
+      } catch (error) {
+        actualError = error
+      }
+      expect(actualError).to.equal(mockError)
     })
   })
 })
