@@ -55,6 +55,8 @@ pipeline {
             APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
             ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
             COMMIT_ID = "${GIT_COMMIT}"
+            CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
+            CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
             SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
           }
 
@@ -63,7 +65,7 @@ pipeline {
               script {
                 def dockerRepoName = 'zooniverse/fe-content-pages-${APP_ENV}'
                 def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
+                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg SENTRY_DSN ."
                 def newImage = docker.build(dockerImageName, buildArgs)
                 newImage.push()
                 newImage.push('latest')
