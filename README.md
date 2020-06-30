@@ -144,7 +144,10 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 ### Publishing
 When publishing an individual package to [npm](https://www.npmjs.com/), first cd into the repo you would like to deploy (within the packages folder), then:
 1. Update changelog and commit
-1. `yarn version --major --no-git-tag-version`
+1. `yarn version --major|--minor|--patch --no-git-tag-version` (use the desired semvar here)
+1. Update other packages to reference the newly updated package version
+  - Ex: If updating lib-react-components to 1.0.0 from 0.7.2
+  - lib-classifier should point to the new 1.0.0 version of lib-react-components
 1. `git push origin name-of-branch`
 1. Merge branch
 1. Checkout master, pull for latest
