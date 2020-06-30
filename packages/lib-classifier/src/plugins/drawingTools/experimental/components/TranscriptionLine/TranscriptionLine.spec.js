@@ -204,7 +204,7 @@ describe('Components > Drawing marks > Transcription line', function () {
       expect(mark.y2).to.equal(420)
     })
 
-    it('should close when the end point is clicked', function () {
+    it('should continue to move the end point after the end point pointerdown click', function () {
       const wrapper = mount(
         <svg>
           <TranscriptionLine
@@ -227,8 +227,43 @@ describe('Components > Drawing marks > Transcription line', function () {
         }
       )
       const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
-
+      
       wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
+      expect(mark.x2).to.equal(300)
+      expect(mark.y2).to.equal(400)
+      dragMove({}, { x: 10, y: 20 })
+      expect(mark.x2).to.equal(310)
+      expect(mark.y2).to.equal(420)
+      expect(mark.finished).to.be.false()
+    })
+
+    it('should close on the end point pointerup click', function () {
+      const wrapper = mount(
+        <svg>
+          <TranscriptionLine
+            active
+            mark={mark}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
+      const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
+      
+      wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
+      expect(mark.finished).to.be.false()
+      wrapper.find('circle[cx=300]').at(0).simulate('pointerup')
       expect(mark.finished).to.be.true()
       dragMove({}, { x: 10, y: 20 })
       expect(mark.finished).to.be.true()
