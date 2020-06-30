@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
@@ -15,6 +15,7 @@ function TranscriptionLine (props) {
   let transcriptionTaskColors = {}
   const stores = useContext(MobXProviderContext)
   const theme = useContext(ThemeContext)
+  const [allowFinish, setAllowFinish] = useState(false)
   const usesTranscriptionTask = storeMapper(stores)
   const { active, color, mark, onFinish, scale, state } = props
   if (theme) {
@@ -38,9 +39,17 @@ function TranscriptionLine (props) {
     mark.setCoordinates(coords)
   }
 
+  function handlePointerDown (event) {
+    event.stopPropagation()
+    event.preventDefault()
+    setAllowFinish(true)
+  }
+
   function handleFinishClick (event) {
-    mark.finish()
-    onFinish(event)
+    if (allowFinish) {
+      mark.finish()
+      onFinish(event)
+    }
   }
 
   let offsetX = 0
@@ -98,8 +107,21 @@ function TranscriptionLine (props) {
 
       {active && !finished &&
         <g>
-          <circle r={handleRadius} cx={x1} cy={y1} fill="transparent" onPointerDown={handleFinishClick} />
-          <circle r={handleRadius} cx={x2} cy={y2} onPointerDown={handleFinishClick} />
+          <circle
+            r={handleRadius}
+            cx={x1}
+            cy={y1}
+            fill="transparent"
+            onPointerDown={handlePointerDown}
+            onPointerUp={handleFinishClick}
+          />
+          <circle
+            r={handleRadius}
+            cx={x2}
+            cy={y2}
+            onPointerDown={handlePointerDown}
+            onPointerUp={handleFinishClick}
+          />
         </g>
       }
     </g>
