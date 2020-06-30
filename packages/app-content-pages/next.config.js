@@ -33,10 +33,6 @@ const nextConfig = {
     APP_ENV
   },
 
-  publicRuntimeConfig: {
-    assetPrefix
-  },
-
   webpack: (config) => {
     config.plugins.concat([
       new Dotenv({
