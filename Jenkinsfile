@@ -53,7 +53,7 @@ pipeline {
 
           environment {
             APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
-            ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
+            ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-content-pages.zooniverse.org" : "https://fe-content-pages.preview.zooniverse.org"}"
             COMMIT_ID = "${GIT_COMMIT}"
             CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
             CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
@@ -78,7 +78,7 @@ pipeline {
 
           environment {
             APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
-            ASSET_PREFIX = 'https://fe-project.zooniverse.org'
+            ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-project.zooniverse.org" : "https://fe-project.preview.zooniverse.org"}"
             COMMIT_ID = "${GIT_COMMIT}"
             SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
           }
