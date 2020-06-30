@@ -13,9 +13,7 @@ const BaseMark = types.model('BaseMark', {
     TextTask.AnnotationModel
   )),
   frame: types.optional(types.number, 0),
-  subTaskMarkBounds: types.optional(types.frozen({}), undefined),
-  subTaskPreviousAnnotations: types.map(TextTask.PreviousAnnotationsModel),
-  subTaskVisibility: types.optional(types.boolean, false),
+  subTaskPreviousAnnotationValues: types.map(TextTask.PreviousAnnotationValuesModel),
   toolIndex: types.optional(types.number, 0),
   toolType: types.string
 })
@@ -38,10 +36,16 @@ const BaseMark = types.model('BaseMark', {
     const newSnapshot = Object.assign({}, snapshot)
     // remove mark IDs
     delete newSnapshot.id
+    delete newSnapshot.subTaskPreviousAnnotationValues
     // convert subtask annotations to an array
     newSnapshot.annotations = Object.values(snapshot.annotations)
     return newSnapshot
   })
+  .volatile(self => ({
+    // we may be able to move this to be local component state
+    subTaskMarkBounds: undefined,
+    subTaskVisibility: false
+  }))
   .views(self => ({
     getAngle (x1, y1, x2, y2) {
       const deltaX = x2 - x1
@@ -83,19 +87,17 @@ const BaseMark = types.model('BaseMark', {
     }
   }))
   .actions(self => {
-    function setSubTaskVisibility (visible, drawingMarkNode, previousAnnotations) {
+    function setSubTaskVisibility (visible, drawingMarkNode, previousAnnotationValues) {
       if(self.tasks.length > 0) {
-        console.log(visible, drawingMarkNode, previousAnnotations)
         self.subTaskVisibility = visible
         self.subTaskMarkBounds = (drawingMarkNode)
         ? drawingMarkNode.getBoundingClientRect()
         : undefined
-        if (previousAnnotations?.length > 0) {
-          previousAnnotations.forEach((previousAnnotation) => {
-            self.subTaskPreviousAnnotations.put(previousAnnotation)
+        if (previousAnnotationValues?.length > 0) {
+          previousAnnotationValues.forEach((previousAnnotationValue) => {
+            self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
           })
         }
-        console.log('self', self)
       }
     }
 

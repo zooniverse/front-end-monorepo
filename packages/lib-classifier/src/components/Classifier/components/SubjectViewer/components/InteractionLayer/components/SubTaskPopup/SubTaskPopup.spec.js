@@ -52,7 +52,7 @@ describe('SubTaskPopup', function () {
       })
       const mark = tool.createMark({
         id: cuid(),
-        toolType: tool.type,
+        toolType: tool.type
       })
 
       describe(`with ${tool.type} drawing mark`, function () {

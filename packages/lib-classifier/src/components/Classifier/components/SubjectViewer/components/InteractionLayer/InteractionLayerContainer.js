@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
-import SubTaskPopup from './components/SubTaskPopup'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
@@ -98,21 +97,16 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
     }),
     marks: PropTypes.array,
     setActiveMark: PropTypes.func,
-    setSubTaskVisibility: PropTypes.func,
     shownMarks: PropTypes.string,
     taskKey: PropTypes.string
   }),
-  consensusLines: PropTypes.array,
   disabled: PropTypes.bool,
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
   move: PropTypes.bool,
   scale: PropTypes.number,
-  width: PropTypes.number.isRequired,
-  workflow: PropTypes.shape({
-    usesTranscriptionTask: PropTypes.bool
-  })
+  width: PropTypes.number.isRequired
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
@@ -123,19 +117,14 @@ InteractionLayerContainer.wrappedComponent.defaultProps = {
     },
     marks: [],
     setActiveMark: () => {},
-    setSubTaskVisibility: () => {},
     shownMarks: SHOWN_MARKS.ALL,
     taskKey: ''
   },
-  consensusLines: [],
   disabled: false,
   frame: 0,
   interactionTaskAnnotations: [],
   move: false,
-  scale: 1,
-  workflow: {
-    usesTranscriptionTask: false
-  }
+  scale: 1
 }
 
 export default InteractionLayerContainer

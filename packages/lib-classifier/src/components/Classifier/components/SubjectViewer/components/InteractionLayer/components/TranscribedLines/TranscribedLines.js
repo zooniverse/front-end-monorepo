@@ -7,7 +7,6 @@ import { Tooltip } from '@zooniverse/react-components'
 import ConsensusPopup from './components/ConsensusPopup'
 import TooltipLabel from './components/TooltipLabel'
 import en from './locales/en'
-import SubTaskPopup from '../SubTaskPopup'
 
 counterpart.registerTranslations('en', en)
 
@@ -38,7 +37,7 @@ class TranscribedLines extends React.Component {
   }
 
   createMark (line) {
-    const { activeTool, activeToolIndex, setActiveMark } = task
+    const { activeTool, activeToolIndex, setActiveMark } = this.props.task
     const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
     const markSnapshot = { x1, y1, x2, y2, toolIndex: activeToolIndex }
 
@@ -47,17 +46,17 @@ class TranscribedLines extends React.Component {
       mark.finish()
       setActiveMark(mark)
 
-      let previousAnnotations = []
+      let previousAnnotationValuesForEachMark = []
       activeTool.tasks.forEach((task) => {
-        const previousAnnotation = {
+        const previousAnnotationValuesForThisMark = {
           id: mark.id,
           taskKey: task.taskKey,
           taskType: task.type,
-          value: line.textOptions
+          values: line.textOptions
         }
-        previousAnnotations.push(previousAnnotation)
+        previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
-      mark.setSubTaskVisibility(true, ref.current, previousAnnotations)
+      mark.setSubTaskVisibility(true, ref.current, previousAnnotationsForEachMark)
     }
   }
 

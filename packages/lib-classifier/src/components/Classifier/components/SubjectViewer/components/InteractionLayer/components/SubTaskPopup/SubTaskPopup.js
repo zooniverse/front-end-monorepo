@@ -16,7 +16,7 @@ function SubTaskPopup(props) {
     activeMark,
     subTaskMarkBounds,
     subTaskVisibility,
-    subTaskPreviousAnnotations,
+    subTaskPreviousAnnotationValues,
     setSubTaskVisibility
   } = props
 
@@ -71,7 +71,7 @@ function SubTaskPopup(props) {
                   annotation={annotation}
                   autoFocus={(index === 0)}
                   disabled={!ready}
-                  subTaskPreviousAnnotations={subTaskPreviousAnnotations?.get(activeMark.id)}
+                  subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey).values}
                   task={task}
                 />
               </Box>
@@ -96,7 +96,7 @@ function SubTaskPopup(props) {
 SubTaskPopup.propTypes = {
   activeMark: PropTypes.object,
   subTaskMarkBounds: PropTypes.object,
-  subTaskPreviousAnnotations: MobXPropTypes.observableMap,
+  subTaskPreviousAnnotationValues: MobXPropTypes.observableMap,
   subTaskVisibility: PropTypes.bool,
   suggestions: PropTypes.array,
   setSubTaskVisibility: PropTypes.func
@@ -105,7 +105,7 @@ SubTaskPopup.propTypes = {
 SubTaskPopup.defaultProps = {
   activeMark: undefined,
   subTaskMarkBounds: undefined,
-  subTaskPreviousAnnotations: undefined,
+  subTaskPreviousAnnotationValues: undefined,
   subTaskVisibility: false,
   suggestions: [],
   setSubTaskVisibility: () => { }

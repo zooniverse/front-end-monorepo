@@ -158,7 +158,7 @@ describe('TextTask', function () {
     before(function () {
       wrapper = shallow(
         <TextTask
-          suggestions={suggestions}
+          subTaskPreviousAnnotationValues={suggestions}
           task={task}
         />
       )
@@ -174,7 +174,7 @@ describe('TextTask', function () {
         annotation.update('Hello, this is some test text.')
         wrapper = mount(
           <TextTask
-            suggestions={suggestions}
+            subTaskPreviousAnnotationValues={suggestions}
             task={task}
           />
         )
@@ -214,7 +214,7 @@ describe('TextTask', function () {
         task.setAnnotation(annotation)
         wrapper = mount(
           <TextTask
-            suggestions={suggestions}
+            subTaskPreviousAnnotationValues={suggestions}
             task={task}
           />
         )
@@ -233,7 +233,7 @@ describe('TextTask', function () {
         task.setAnnotation(annotation)
         wrapper = mount(
           <TextTask
-            suggestions={suggestions}
+            subTaskPreviousAnnotationValues={suggestions}
             task={task}
           />
         )
@@ -258,7 +258,7 @@ describe('TextTask', function () {
         task.setAnnotation(annotation)
         wrapper = mount(
           <TextTask
-            suggestions={suggestions}
+            subTaskPreviousAnnotationValues={suggestions}
             task={task}
           />
         )
