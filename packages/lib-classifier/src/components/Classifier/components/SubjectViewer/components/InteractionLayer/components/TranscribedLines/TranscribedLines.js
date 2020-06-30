@@ -32,6 +32,7 @@ class TranscribedLines extends React.Component {
       show: false
     }
 
+    this.close = this.close.bind(this)
     this.showConsensus = this.showConsensus.bind(this)
   }
 
@@ -55,9 +56,9 @@ class TranscribedLines extends React.Component {
   }
 
   showConsensus (line) {
-    console.log('line', line)
+    const bounds = this.ref?.current?.getBoundingClientRect() || {}
     this.setState({
-      bounds: this.ref?.current?.getBoundingClientRect(),
+      bounds,
       line,
       show: true
     })
@@ -75,7 +76,7 @@ class TranscribedLines extends React.Component {
   }
 
   close () {
-    setState({
+    this.setState({
       bounds: {},
       line: {
         consensusText: '',
@@ -116,7 +117,7 @@ class TranscribedLines extends React.Component {
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.showConsensus,  line)}
+                  onClick={() => this.onClick(this.showConsensus, line)}
                   onKeyDown={event => this.onKeyDown(event, this.showConsensus, line)}
                   tabIndex={0}
                 >
@@ -163,7 +164,7 @@ class TranscribedLines extends React.Component {
         }
         <ConsensusPopup
           active={show}
-          closeFn={close}
+          closeFn={this.close}
           line={line}
           bounds={bounds}
         />

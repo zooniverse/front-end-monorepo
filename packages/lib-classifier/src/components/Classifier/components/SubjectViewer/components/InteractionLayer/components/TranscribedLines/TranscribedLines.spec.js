@@ -8,7 +8,7 @@ import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
 
-describe.only('Component > TranscribedLines', function () {
+describe('Component > TranscribedLines', function () {
   let wrapper, task, consensusLines
   before(function () {
     const transcriptionReductions = TranscriptionReductions.create({
@@ -23,6 +23,9 @@ describe.only('Component > TranscribedLines', function () {
       taskKey: 'T1',
       type: 'transcription'
     })
+  })
+
+  beforeEach(function () {
     wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
   })
 
@@ -92,7 +95,7 @@ describe.only('Component > TranscribedLines', function () {
       })
     })
 
-    it.only('should show the ConsensusPopup onClick', function () {
+    it('should show the ConsensusPopup onClick', function () {
       lines.forEach((line, index) => {
         let popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
@@ -100,14 +103,10 @@ describe.only('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        expect(popup.props().bounds).to.be.empty()
         wrapper.find({ 'aria-describedby': `complete-${index}`}).simulate('click')
         popup = wrapper.find(ConsensusPopup)
-        console.log(popup.debug())
         expect(popup.props().active).to.be.true()
         expect(popup.props().line).to.deep.equal(completeLines[index])
-        expect(popup.props().bounds.x).to.be.a('number')
-        expect(popup.props().bounds.y).to.be.a('number')
         wrapper.instance().close()
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
@@ -115,7 +114,6 @@ describe.only('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        expect(popup.props().bounds).to.be.empty()
       })
     })
 
@@ -128,17 +126,11 @@ describe.only('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        expect(popup.props().bounds).to.be.empty()
         wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('keydown', eventMock)
         popup = wrapper.find(ConsensusPopup)
         expect(eventMock.preventDefault).to.have.been.calledOnce()
         expect(popup.props().active).to.be.true()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: completeLines[index].consensusText,
-          textOptions: completeLines[index].textOptions
-        })
-        expect(popup.props().bounds.x).to.be.a('number')
-        expect(popup.props().bounds.y).to.be.a('number')
+        expect(popup.props().line).to.deep.equal(completeLines[index])
         wrapper.instance().close()
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
@@ -146,7 +138,6 @@ describe.only('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        expect(popup.props().bounds).to.be.empty()
         eventMock.preventDefault.resetHistory()
       })
     })
@@ -160,17 +151,11 @@ describe.only('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        expect(popup.props().bounds).to.be.empty()
         wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('keydown', eventMock)
         popup = wrapper.find(ConsensusPopup)
         expect(eventMock.preventDefault).to.have.been.calledOnce()
         expect(popup.props().active).to.be.true()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: completeLines[index].consensusText,
-          textOptions: completeLines[index].textOptions
-        })
-        expect(popup.props().bounds.x).to.be.a('number')
-        expect(popup.props().bounds.y).to.be.a('number')
+        expect(popup.props().line).to.deep.equal(completeLines[index])
         wrapper.instance().close()
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
@@ -178,7 +163,6 @@ describe.only('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        expect(popup.props().bounds).to.be.empty()
         eventMock.preventDefault.resetHistory()
       })
     })
