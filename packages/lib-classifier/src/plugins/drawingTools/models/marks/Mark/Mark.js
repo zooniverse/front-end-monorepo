@@ -97,6 +97,8 @@ const BaseMark = types.model('BaseMark', {
           previousAnnotationValues.forEach((previousAnnotationValue) => {
             self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
           })
+        } else {
+          self.subTaskPreviousAnnotationValues.clear()
         }
       }
     }

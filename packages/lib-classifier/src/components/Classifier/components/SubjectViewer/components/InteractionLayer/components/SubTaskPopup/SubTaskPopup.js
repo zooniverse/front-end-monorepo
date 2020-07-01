@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { observer } from 'mobx-react'
-import { Box, Layer, Paragraph } from 'grommet'
+import { Box, Paragraph } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
@@ -13,23 +13,25 @@ const MIN_POPUP_HEIGHT = 100
 
 function SubTaskPopup(props) {
   const {
-    activeMark,
+    activeMark
+  } = props
+
+  const {
     subTaskMarkBounds,
     subTaskVisibility,
     subTaskPreviousAnnotationValues,
     setSubTaskVisibility
-  } = props
+  } = activeMark
+  if (!subTaskVisibility) return null
 
+  // TODO: split render() into various asyncStates?
+  const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
+  const tasks = (activeMark?.tasks) ? activeMark.tasks : []
+
+  
   function close() {
     setSubTaskVisibility(false)
   }
-
-  // TODO: split render() into various asyncStates?
-
-  if (!activeMark || !subTaskVisibility) return null
-
-  const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
-  const tasks = (activeMark?.tasks) ? activeMark.tasks : []
 
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
@@ -71,7 +73,7 @@ function SubTaskPopup(props) {
                   annotation={annotation}
                   autoFocus={(index === 0)}
                   disabled={!ready}
-                  subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey).values}
+                  subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
                   task={task}
                 />
               </Box>
@@ -94,21 +96,21 @@ function SubTaskPopup(props) {
 }
 
 SubTaskPopup.propTypes = {
-  activeMark: PropTypes.object,
-  subTaskMarkBounds: PropTypes.object,
-  subTaskPreviousAnnotationValues: MobXPropTypes.observableMap,
-  subTaskVisibility: PropTypes.bool,
-  suggestions: PropTypes.array,
-  setSubTaskVisibility: PropTypes.func
+  activeMark: PropTypes.shape({
+    subTaskMarkBounds: PropTypes.object,
+    subTaskPreviousAnnotationValues: MobXPropTypes.observableMap,
+    subTaskVisibility: PropTypes.bool,
+    setSubTaskVisibility: PropTypes.func
+  })
 }
 
 SubTaskPopup.defaultProps = {
-  activeMark: undefined,
-  subTaskMarkBounds: undefined,
-  subTaskPreviousAnnotationValues: undefined,
-  subTaskVisibility: false,
-  suggestions: [],
-  setSubTaskVisibility: () => { }
+  activeMark: {
+    subTaskMarkBounds: undefined,
+    subTaskPreviousAnnotationValues: undefined,
+    subTaskVisibility: false,
+    setSubTaskVisibility: () => { }
+  }
 }
 
 export default SubTaskPopup

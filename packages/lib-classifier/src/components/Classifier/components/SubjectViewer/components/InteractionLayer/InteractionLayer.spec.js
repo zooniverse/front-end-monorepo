@@ -4,6 +4,8 @@ import sinon from 'sinon'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer, { StyledRect } from './InteractionLayer'
+import TranscribedLines from './components/TranscribedLines'
+import SubTaskPopup from './components/SubTaskPopup'
 import DrawingTask from '@plugins/tasks/DrawingTask'
 import { Line, Point } from '@plugins/drawingTools/components'
 
@@ -98,6 +100,14 @@ describe('Component > InteractionLayer', function () {
       const rect = wrapper.find(StyledRect)
       expect(rect.exists()).to.be.true()
       expect(rect.prop('fill')).to.equal('transparent')
+    })
+
+    it('should render TranscribedLines', function () {
+      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
+    })
+
+    it('should render SubTaskPopup', function () {
+      expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
 
     describe('on pointer events', function () {

@@ -175,7 +175,6 @@ describe('Model > TranscriptionTask', function () {
         })
       task.setAnnotation(annotation)
       transcriptionLineTool = task.tools[0]
-      // task.setSubTaskVisibility(true)
       task.reset()
       marks = task.marks
     })
@@ -191,10 +190,6 @@ describe('Model > TranscriptionTask', function () {
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
-    })
-
-    xit('should reset the subtask visibility', function () {
-      expect(task.subTaskVisibility).to.be.false()
     })
   })
 })

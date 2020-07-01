@@ -108,7 +108,6 @@ function InteractionLayer ({
         onPointerDown={onPointerDown}
       />
       <TranscribedLines
-        onFinish={onFinish}
         scale={scale}
       />
       <SubTaskPopup />

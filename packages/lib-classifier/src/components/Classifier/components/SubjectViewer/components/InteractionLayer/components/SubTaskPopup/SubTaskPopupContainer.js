@@ -21,14 +21,11 @@ export default observer(function SubTaskPopupContainer (props) {
     activeMark
   } = useStores()
 
-  console.log('subTaskVisibility', activeMark?.subTaskVisibility)
+  if (!activeMark) return null
+
   return (
     <SubTaskPopup
       activeMark={activeMark}
-      subTaskMarkBounds={activeMark?.subTaskMarkBounds}
-      subTaskVisibility={activeMark?.subTaskVisibility}
-      subTaskPreviousAnnotations={activeMark?.subTaskPreviousAnnotations}
-      setSubTaskVisibility={activeMark?.setSubTaskVisibility}
     />
   )
 })

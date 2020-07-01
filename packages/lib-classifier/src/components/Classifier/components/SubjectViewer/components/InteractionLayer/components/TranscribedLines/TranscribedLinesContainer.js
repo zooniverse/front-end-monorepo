@@ -17,7 +17,7 @@ function useStores () {
   return { activeTranscriptionTask, consensusLines, workflow }
 }
 
-export default function TranscribedLinesContainer ({ onFinish, scale = 1 }) {
+export default function TranscribedLinesContainer ({ scale = 1 }) {
   const { 
     activeTranscriptionTask = {},
     consensusLines = [], 
@@ -30,7 +30,6 @@ export default function TranscribedLinesContainer ({ onFinish, scale = 1 }) {
     return (
       <TranscribedLines
         lines={consensusLines}
-        onFinish={onFinish}
         scale={scale}
         task={activeTranscriptionTask}
       />
