@@ -18,7 +18,7 @@
   "dependencies": {
     "@artsy/fresnel": "~1.0.7",
     "@babel/plugin-proposal-decorators": "~7.8.3",
-    "@sentry/browser": "~5.15.4",
+    "@sentry/browser": "~5.18.1",
     "@sindresorhus/string-hash": "~1.2.0",
     "@vx/vx": "~0.0.191",
     "@zeit/next-source-maps": "0.0.4-canary.1",
@@ -26,7 +26,7 @@
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
     "@zooniverse/panoptes-js": "~0.1.0",
-    "@zooniverse/react-components": "~0.7.1",
+    "@zooniverse/react-components": "~1.0.0",
     "babel-plugin-dynamic-import-node": "~2.3.0",
     "babel-plugin-styled-components": "~1.10.7",
     "cookie": "~0.4.0",
