@@ -19,7 +19,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
   const {
     barJSON,
     focusedSeries,
-    imgSrc,
+    imageSrc,
     invertYAxis,
     periodMultiple,
     phasedJSON,
@@ -100,6 +100,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       {barJSON.map((barChart) => {
         return (
           <BarChartViewer
+            key={`${barChart.chartOptions.yAxisLabel} vs ${barChart.chartOptions.xAxisLabel}`}
             data={barChart.data}
             xAxisLabel={barChart.chartOptions.xAxisLabel}
             yAxisLabel={barChart.chartOptions.yAxisLabel}
@@ -108,20 +109,27 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       })}
       </Box>
       <Box
+        as='figure'
         direction='column'
         height='260px'
         gridArea='HRDiagram'
+        margin='none'
         width='220px'
       >
         <SingleImageViewer
-          height={260}
+          aria-labelledby='imageId'
+          height={230}
           enableInteractionLayer={false}
+          role='image'
           viewBox='0 0 220 260'
           width={220}
         >
-          <image height={260} src={imgSrc} width={220} />
+          <title id='imageId'>{counterpart('VariableStarViewer.imageTitle')}</title>
+          <image height={230} xlinkHref={imageSrc} width={220} />
         </SingleImageViewer>
-        <SpacedText>{counterpart('VariableStarViewer.temperature')}</SpacedText>
+        <figcaption>
+          <SpacedText color='dark-5' weight='bold'>&#8592; {counterpart('VariableStarViewer.temperature')}</SpacedText>
+        </figcaption>
       </Box>
     </Grid>
   )
@@ -138,7 +146,7 @@ VariableStarViewer.defaultProps = {
     }
   ],
   focusedSeries: [],
-  imgSrc: '',
+  imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
   phasedJSON: {
@@ -172,7 +180,7 @@ VariableStarViewer.propTypes = {
     })
   ),
   focusedSeries: PropTypes.arrayOf(PropTypes.object),
-  imgSrc: PropTypes.string,
+  imageSrc: PropTypes.string,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
   phasedJSON: PropTypes.shape({
