@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] 2020-06-29
+- Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
+  - AdminCheckbox
+  - CloseButton
+  - FavouritesButton
+  - GoldButton
+  - Markdownz
+  - Media
+  - MetaToolsButton
+  - Modal
+  - MovableModal
+  - PlainButton
+  - PrimaryButton
+  - SpacedHeading
+  - SpacedText
+  - Tab
+  - Tooltip
+  - ZooFooter
+  - ZooHeader
+  - ZooniverseLogo
+  - ZooniverseLogotype
+
 ## [Unpublished] 2018-09-12
 
 - Start rebuild of library

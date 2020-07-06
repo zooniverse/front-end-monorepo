@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.8.3",
-    "@tippy.js/react": "~3.1.1",
     "@vx/axis": "~0.0.192",
     "@vx/event": "~0.0.192",
     "@vx/glyph": "~0.0.192",
@@ -42,7 +41,7 @@
   "peerDependencies": {
     "@zooniverse/grommet-theme": "~2.2.0",
     "@zooniverse/panoptes-js": "~0.1.0",
-    "@zooniverse/react-components": "~0.7.1",
+    "@zooniverse/react-components": "~1.0.0",
     "grommet": "~2.11.x",
     "grommet-icons": "~4.4.x",
     "react": "~16.13.x",
@@ -71,7 +70,7 @@
     "@vx/mock-data": "~0.0.189",
     "@zooniverse/grommet-theme": "~2.2.0",
     "@zooniverse/panoptes-js": "~0.1.0",
-    "@zooniverse/react-components": "~0.7.1",
+    "@zooniverse/react-components": "~1.0.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.0.6",
     "babel-plugin-webpack-alias": "~2.1.2",

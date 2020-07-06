@@ -42,9 +42,18 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
     }
 
     function deselectMark (event) {
-      onDeselectMark(mark)
-      if (!isInBounds(event.currentTarget)) {
+      if (event?.currentTarget && !isInBounds(event.currentTarget)) {
         deleteMark()
+      } else {
+        onDeselectMark(mark)
+      }
+    }
+
+    function endMoveMark (event) {
+      if (event?.currentTarget && !isInBounds(event.currentTarget)) {
+        deleteMark()
+      } else {
+        onFinishWithRef(event)
       }
     }
 
@@ -59,11 +68,12 @@ function DrawingToolMarks ({ activeMarkId, marks, onDelete, onDeselectMark, onFi
         coords={mark.coords}
         dragStart={selectMark}
         dragMove={moveMark}
-        dragEnd={deselectMark}
+        dragEnd={endMoveMark}
         label={`Mark ${index}`}
         mark={mark}
         onDelete={deleteMark}
-        onDeselect={onDeselectMark}
+        onDeselect={deselectMark}
+        onFinish={onFinishWithRef}
         onSelect={onSelectMarkWithRef}
         ref={ref}
         scale={scale}
@@ -90,6 +100,7 @@ DrawingToolMarks.propTypes = {
   marks: PropTypes.array.isRequired,
   onDelete: PropTypes.func,
   onDeselectMark: PropTypes.func,
+  onFinish: PropTypes.func,
   onMove: PropTypes.func,
   onSelectMark: PropTypes.func,
   scale: PropTypes.number
@@ -99,6 +110,7 @@ DrawingToolMarks.defaultProps = {
   activeMarkId: '',
   onDelete: () => true,
   onDeselectMark: () => true,
+  onFinish: () => true,
   onMove: () => true,
   onSelectMark: () => true,
   scale: 1

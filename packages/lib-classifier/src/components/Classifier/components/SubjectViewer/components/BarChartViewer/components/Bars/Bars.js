@@ -1,33 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { Box } from 'grommet'
 import { Bar } from '@vx/shape'
-import Tippy from '@tippy.js/react'
-import { SpacedText } from '@zooniverse/react-components'
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
-
-const StyledTippy = styled(Tippy)`
-  background-color: black !important;
-  border-radius: 0 !important;
-
-  .tippy-content {
-    padding: 0;
-  }
-
-  &[data-placement^=bottom] {
-    .tippy-arrow {
-      border-bottom-color: black !important;
-    }
-  }
-
-  &[data-placement^='top'] {
-    .tippy-arrow {
-      border-top-color: black !important;
-    }
-  }
-`
+import { Tooltip } from '@zooniverse/react-components'
 
 export const StyledSvg = styled.svg`
   &:focus, &:hover {
@@ -35,24 +10,6 @@ export const StyledSvg = styled.svg`
       outline: solid 4px ${props => props.focusColor};
     }
   }
-`
-
-export function TooltipContent ({ className, label }) {
-  return (
-    <Box
-      background={{ color: 'black', dark: true }}
-      className={className}
-      elevation='medium'
-      pad={{ horizontal: 'medium', vertical: 'xsmall' }}
-      responsive={false}
-    >
-      <SpacedText weight='bold'>{label}</SpacedText>
-    </Box>
-  )
-}
-
-const StyledTooltipContent = styled(TooltipContent)`
-  font-family: ${props => props.fontFamily};
 `
 
 function Bars (props) {
@@ -63,7 +20,7 @@ function Bars (props) {
     yAxisLabel,
     yScale,
     yMax,
-    theme: { global: { colors, font } }
+    theme: { global: { colors } }
   } = props
 
   return data.map((datum, index) => {
@@ -76,13 +33,9 @@ function Bars (props) {
       const y = yMax - barHeight
       const alt = `${xAxisLabel} ${label}: ${yAxisLabel} ${value}`
       return (
-        <StyledTippy
-          arrow={true}
-          animation='scale'
-          content={<StyledTooltipContent fontFamily={font.family} label={value.toString()} />}
+        <Tooltip
+          label={value.toString()}
           key={key}
-          placement='top'
-          trigger='mouseenter focus'
         >
           <StyledSvg
             aria-label={alt}
@@ -103,7 +56,7 @@ function Bars (props) {
               y={y}
             />
           </StyledSvg>
-        </StyledTippy>
+        </Tooltip>
       )
     })
 }
@@ -115,8 +68,7 @@ Bars.defaultProps = {
       colors: {
         brand: '',
         text: {}
-      },
-      font: {}
+      }
     }
   },
   xAxisLabel: 'x-axis',

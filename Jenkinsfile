@@ -53,8 +53,10 @@ pipeline {
 
           environment {
             APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
-            ASSET_PREFIX = 'https://fe-content-pages.zooniverse.org'
+            ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-content-pages.zooniverse.org" : "https://fe-content-pages.preview.zooniverse.org"}"
             COMMIT_ID = "${GIT_COMMIT}"
+            CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
+            CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
             SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
           }
 
@@ -63,7 +65,7 @@ pipeline {
               script {
                 def dockerRepoName = 'zooniverse/fe-content-pages-${APP_ENV}'
                 def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
+                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg SENTRY_DSN ."
                 def newImage = docker.build(dockerImageName, buildArgs)
                 newImage.push()
                 newImage.push('latest')
@@ -76,7 +78,7 @@ pipeline {
 
           environment {
             APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
-            ASSET_PREFIX = 'https://fe-project.zooniverse.org'
+            ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-project.zooniverse.org" : "https://fe-project.preview.zooniverse.org"}"
             COMMIT_ID = "${GIT_COMMIT}"
             SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
           }
@@ -96,6 +98,14 @@ pipeline {
         }
       }
     }
+
+    stage('Dry run deployments') {
+       agent any
+       steps {
+         sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment-staging.tmpl | kubectl --context azure apply --dry-run=client --record -f -"
+         sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment-production.tmpl | kubectl --context azure apply --dry-run=client --record -f -"
+       }
+     }
 
     stage('Deploy production to Kubernetes') {
       when { tag 'production-release' }

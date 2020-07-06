@@ -2,7 +2,8 @@ import { mount, shallow } from 'enzyme'
 import React from 'react'
 import { Bar } from '@vx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Bars, StyledSvg, TooltipContent } from './Bars'
+import { Tooltip } from '@zooniverse/react-components'
+import { Bars, StyledSvg } from './Bars'
 import mockData, { mockDataWithColor, xScale, yScale, yMax } from '../../mockData'
 
 const {
@@ -99,8 +100,8 @@ describe('Bars', function () {
 
     it('should have a tooltip', function () {
       bars.forEach((bar, index) => {
-        const tooltip = wrapper.find(TooltipContent).at(index)
-        expect(tooltip.text()).to.equal(bar.props()['data-value'].toString())
+        const tooltip = wrapper.find(Tooltip).at(index)
+        expect(tooltip.props().label).to.equal(bar.props()['data-value'].toString())
       })
     })
 

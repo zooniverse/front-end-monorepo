@@ -2,8 +2,7 @@ import { withActions } from '@storybook/addon-actions'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Button, Grommet, Text } from 'grommet'
-import { Add } from 'grommet-icons'
+import { Box, Button, Grommet } from 'grommet'
 import React from 'react'
 
 import readme from './README.md'
@@ -18,81 +17,38 @@ const config = {
 storiesOf('Tooltip', module)
   .addDecorator(withKnobs)
   .addDecorator(withActions('click button'))
-  .add('Light theme (default)', () => (
+  .add('default', () => (
     <TooltipStoryExample
-      align={{
-        top: 'bottom'
-      }}
-      backgroundColor='light-1'
-      label={text('Label text', 'Hover over me')}
-      showDropKnob={boolean('Show tooltip')}
+      dark={boolean('Dark theme', false)}
+      height='500px'
       tooltipText={text('Tooltip text', 'A helpful tip')}
     />
   ), config)
-  .add('Dark theme', () => (
+  .add('rotated position when close to viewport edge', () => (
     <TooltipStoryExample
-      align={{
-        top: 'bottom'
-      }}
-      backgroundColor='dark-1'
-      label={text('Label text', 'Hover over me')}
-      showDropKnob={boolean('Show tooltip')}
-      tooltipText={text('Tooltip text', 'A helpful tip')}
-    />
-  ), config)
-  .add('Subject Image Viewer toolbar tooltip', () => (
-    <TooltipStoryExample
-      align={{
-        right: 'left'
-      }}
-      animation={{
-        'type': 'slideLeft',
-        'delay': 20
-      }}
-      backgroundColor='brand'
-      icon={<Add />}
-      pad={{ horizontal: 'small', vertical: 'small' }}
-      showDropKnob={boolean('Show tooltip')}
+      dark={boolean('Dark theme', false)}
       tooltipText={text('Tooltip text', 'A helpful tip')}
     />
   ), config)
 
-class TooltipStoryExample extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      showDrop: false
-    }
-  }
-
-  render () {
-    const { align, animation, backgroundColor, label, icon, pad, showDropKnob, tooltipText } = this.props
-    return (
-      <Grommet theme={zooTheme}>
-        <Box align='center' justify='center' pad='medium'>
-          <Button
-            icon={icon}
-            label={label}
-            onClick={() => {}}
-            onMouseOver={() => this.setState({ showDrop: true })}
-            onMouseOut={() => this.setState({ showDrop: false })}
-            primary
-            ref={ref => { this.button = ref }}
-          />
-          {(this.state.showDrop || showDropKnob) &&
-            <Tooltip
-              align={align}
-              boxAnimation={animation}
-              boxBackgroundColor={backgroundColor}
-              boxPad={pad}
-              target={this.button}
-            >
-              <Text>
-                {tooltipText}
-              </Text>
-            </Tooltip>}
-        </Box>
-      </Grommet>
-    )
-  }
+function TooltipStoryExample (props) {
+  const { dark, height, tooltipText } = props
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={Object.assign({}, zooTheme, { dark })}
+      themeMode={(dark) ? 'dark' : 'light'}
+    >
+      <Box align='center' height={height} justify='center' pad='medium'>
+        <Tooltip
+          label={tooltipText}
+        >
+          <Button label='Focus me' onClick={() => { }} />
+        </Tooltip>
+      </Box>
+    </Grommet>
+  )
 }
