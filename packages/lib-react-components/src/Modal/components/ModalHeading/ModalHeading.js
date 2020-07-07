@@ -2,6 +2,7 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import SpacedHeading from '../../../SpacedHeading'
 import CloseButton from '../../../CloseButton'
 
 const StyledBox = styled(Box)`
@@ -18,12 +19,12 @@ const Heading = styled.h2`
   text-transform: uppercase;
 `
 
-function ModalHeading ({ background, className = '', closeFn, title = '' }) {
+function ModalHeading ({ background = 'brand', color = 'neutral-6', className = '', closeFn, title = '' }) {
   const horizontalPad = (title) ? 'medium' : 'xsmall'
   return (
     <StyledBox
       align='center'
-      background={background || 'brand'}
+      background={background}
       className={className}
       direction='row'
       gap='large'
@@ -31,17 +32,19 @@ function ModalHeading ({ background, className = '', closeFn, title = '' }) {
       pad={{ horizontal: horizontalPad, vertical: 'none' }}
     >
       {title &&
-        <Heading>
+        <SpacedHeading color={color}>
           {title}
-        </Heading>}
+        </SpacedHeading>}
       <CloseButton closeFn={closeFn} />
     </StyledBox>
   )
 }
 
 ModalHeading.propTypes = {
+  background: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   className: PropTypes.string,
   closeFn: PropTypes.func.isRequired,
+  color: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   title: PropTypes.string
 }
 

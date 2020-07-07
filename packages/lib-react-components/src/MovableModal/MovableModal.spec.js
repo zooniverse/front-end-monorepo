@@ -82,7 +82,7 @@ describe('MovableModal', function () {
       const headingBackground = 'transparent'
       const pad = { horizontal: 'small', vertical: 'none' }
       const wrapper = shallow(
-        <MovableModal closeFn={closeFn} headingBackground={headingBackground} pad={pad} title={title}>
+        <MovableModal closeFn={closeFn} headingBackground={headingBackground} pad={pad} title={title} titleColor='accent-2'>
           {content}
         </MovableModal>
       )
@@ -91,6 +91,7 @@ describe('MovableModal', function () {
       expect(modalProps.headingBackground).to.equal(headingBackground)
       expect(modalProps.pad).to.deep.equal(pad)
       expect(modalProps.title).to.equal(title)
+      expect(modalProps.titleColor).to.equal('accent-2')
     })
 
     it('should render children nodes', function () {
