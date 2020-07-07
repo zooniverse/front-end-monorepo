@@ -32,6 +32,7 @@ class TranscribedLines extends React.Component {
       show: false
     }
 
+    this.createMark = this.createMark.bind(this)
     this.close = this.close.bind(this)
     this.showConsensus = this.showConsensus.bind(this)
   }
@@ -56,7 +57,7 @@ class TranscribedLines extends React.Component {
         }
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
-      mark.setSubTaskVisibility(true, ref.current, previousAnnotationsForEachMark)
+      mark.setSubTaskVisibility(true, this.ref.current, previousAnnotationValuesForEachMark)
     }
   }
 
