@@ -39,6 +39,6 @@ stories
   .add('dark theme', () => (
     <ConsensusPopupStory
       dark
-      index={number('Completed lines index', 0, { min: 0, max: 10 })}
+      index={number('Completed lines index', 0, { min: 0, max: 12 })}
     />
   ), config)
