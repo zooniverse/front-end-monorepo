@@ -120,7 +120,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           aria-labelledby='imageId'
           height={230}
           enableInteractionLayer={false}
-          role='image'
+          role='img'
           viewBox='0 0 220 260'
           width={220}
         >
