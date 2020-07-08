@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { MobXProviderContext } from 'mobx-react'
+import { MobXProviderContext, observer } from 'mobx-react'
 import TranscribedLines from './TranscribedLines'
 
 function useStores () {
@@ -17,7 +17,7 @@ function useStores () {
   return { activeTranscriptionTask, consensusLines, workflow }
 }
 
-export default function TranscribedLinesContainer ({ scale = 1 }) {
+function TranscribedLinesContainer ({ scale = 1 }) {
   const { 
     activeTranscriptionTask = {},
     consensusLines = [], 
@@ -42,3 +42,5 @@ export default function TranscribedLinesContainer ({ scale = 1 }) {
 TranscribedLinesContainer.propTypes = {
   scale: PropTypes.number
 }
+
+export default observer(TranscribedLinesContainer)
