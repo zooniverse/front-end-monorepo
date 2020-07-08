@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { arrayOf, bool, number, object, shape } from 'prop-types'
-import React, { createRef, useState } from 'react'
+import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
@@ -95,6 +95,7 @@ class TranscribedLines extends React.Component {
   render () {
     const { lines, scale, task, theme } = this.props
     const { bounds, line, show } = this.state
+    const disabled = Object.keys(task).length === 0
     const completedLines = lines.filter(line => line.consensusReached)
     const transcribedLines = lines.filter(line => !line.consensusReached)
 
@@ -121,6 +122,7 @@ class TranscribedLines extends React.Component {
                 <ConsensusLine
                   role='button'
                   aria-describedby={id}
+                  aria-disabled={disabled}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
                   onClick={() => this.onClick(this.showConsensus, line)}
@@ -150,8 +152,9 @@ class TranscribedLines extends React.Component {
                 label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
               >
                 <ConsensusLine
-                  role='img'
+                  role='button'
                   aria-describedby={id}
+                  aria-disabled={disabled}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
                   onClick={() => this.onClick(this.createMark, line)}
