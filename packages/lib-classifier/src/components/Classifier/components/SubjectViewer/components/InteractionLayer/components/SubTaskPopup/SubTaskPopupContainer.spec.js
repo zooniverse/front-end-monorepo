@@ -31,6 +31,14 @@ describe('Component > SubTaskPopupContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
+  describe('when the task is not drawing or transcription', function () {
+    it('should render nothing', function () {
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('single'))
+      wrapper = shallow(<SubTaskPopupContainer />)
+      expect(wrapper.html()).to.be.null()
+    })
+  })
+
   describe('when the task is drawing', function () {
     it('should render nothing when an active mark isn\'t defined', function () {
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing'))

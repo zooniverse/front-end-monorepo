@@ -9,7 +9,7 @@ function useStores() {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
 
-  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
+  const [activeInteractionTask = {}] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
   const {
     activeMark
   } = activeInteractionTask
