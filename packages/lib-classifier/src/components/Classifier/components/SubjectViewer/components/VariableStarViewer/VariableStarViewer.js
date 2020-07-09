@@ -18,7 +18,6 @@ counterpart.registerTranslations('en', en)
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
     barJSON,
-    focusedSeries,
     imageSrc,
     invertYAxis,
     periodMultiple,
@@ -28,9 +27,10 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       scatterPlot
     },
     setPeriodMultiple,
-    setSeriesFocus,
+    setSeriesVisibility,
     setYAxisInversion,
-    theme
+    theme,
+    visibleSeries
   } = props
 
   const underlays = [
@@ -55,26 +55,26 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     >
       <Controls
         data={scatterPlot.data}
-        focusedSeries={focusedSeries}
         gridArea='controls'
         periodMultiple={periodMultiple}
         setPeriodMultiple={setPeriodMultiple}
-        setSeriesFocus={setSeriesFocus}
+        setSeriesVisibility={setSeriesVisibility}
         setYAxisInversion={setYAxisInversion}
         theme={theme}
+        visibleSeries={visibleSeries}
       />
       <Box
         gridArea='phasedJSON'
       >
         <ScatterPlotViewer
           data={phasedJSON.data}
-          focusedSeries={focusedSeries}
           invertAxes={{ x: false, y: invertYAxis }}
           underlays={underlays}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
           xAxisNumTicks={8}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
           yAxisNumTicks={8}
+          visibleSeries={visibleSeries}
         />
       </Box>
       <Box
@@ -82,12 +82,12 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       >
         <ScatterPlotViewer
           data={scatterPlot.data}
-          focusedSeries={focusedSeries}
           invertAxes={{ x: false, y: invertYAxis }}
           xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
           xAxisNumTicks={4}
           yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
           yAxisNumTicks={6}
+          visibleSeries={visibleSeries}
         />
       </Box>
       <Box
@@ -145,7 +145,6 @@ VariableStarViewer.defaultProps = {
       } 
     }
   ],
-  focusedSeries: [],
   imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
@@ -161,7 +160,7 @@ VariableStarViewer.defaultProps = {
     barCharts: []
   },
   setPeriodMultiple: () => { },
-  setSeriesFocus: () => { },
+  setSeriesVisibility: () => { },
   setYAxisInversion: () => {},
   theme: {
     global: {
@@ -169,6 +168,7 @@ VariableStarViewer.defaultProps = {
       font: {}
     }
   },
+  visibleSeries: [],
   zooming: false
 }
 
@@ -179,7 +179,6 @@ VariableStarViewer.propTypes = {
       options: PropTypes.object
     })
   ),
-  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   imageSrc: PropTypes.string,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
@@ -192,9 +191,10 @@ VariableStarViewer.propTypes = {
     chartOptions: PropTypes.object
   }),
   setPeriodMultiple: PropTypes.func,
-  setSeriesFocus: PropTypes.func,
+  setSeriesVisibility: PropTypes.func,
   setYAxisInversion: PropTypes.func,
   theme: PropTypes.object,
+  visibleSeries: PropTypes.arrayOf(PropTypes.object),
   zooming: PropTypes.bool
 }
 

@@ -22,7 +22,6 @@ class VariableStarViewerContainer extends Component {
           chartOptions: {}
         }
       ],
-      focusedSeries: [],
       imageSrc: '',
       invertYAxis: false,
       loadingState: asyncStates.initialized,
@@ -46,11 +45,12 @@ class VariableStarViewerContainer extends Component {
             chartOptions: {}
           }
         ]
-      }
+      },
+      visibleSeries: []
     }
 
     this.setPeriodMultiple = this.setPeriodMultiple.bind(this)
-    this.setSeriesFocus = this.setSeriesFocus.bind(this)
+    this.setSeriesVisibility = this.setSeriesVisibility.bind(this)
     this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
 
@@ -116,16 +116,16 @@ class VariableStarViewerContainer extends Component {
     const target = this.viewer.current
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
-    const focusedSeries = this.setupSeriesFocus(scatterPlot)
+    const visibleSeries = this.setupSeriesVisibility(scatterPlot)
     const imageLocation = subject.locations.find(location => location['image/png']) || {}
     const imageSrc = imageLocation['image/png'] || ''
 
     this.setState({
       barJSON,
-      focusedSeries,
       imageSrc,
       phasedJSON,
-      rawJSON
+      rawJSON,
+      visibleSeries
     },
       function () {
         onReady({ target })
@@ -189,7 +189,7 @@ class VariableStarViewerContainer extends Component {
     })
   }
 
-  setupSeriesFocus (scatterPlotJSON) {
+  setupSeriesVisibility (scatterPlotJSON) {
     return scatterPlotJSON.data.map((series) => {
       if (series?.seriesData.length > 0) {
         return { [series.seriesOptions.label]: true }
@@ -202,8 +202,9 @@ class VariableStarViewerContainer extends Component {
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
-  setSeriesFocus (event) {
-    const newFocusedSeriesState = this.state.focusedSeries.map((series) => {
+  setSeriesVisibility (event) {
+    console.log('setSeriesVisibility')
+    const newVisibleSeriesState = this.state.visibleSeries.map((series) => {
       const [[label, checked]] = Object.entries(series)
       if (label === event.target.value) {
         return { [event.target.value]: event.target.checked }
@@ -212,7 +213,7 @@ class VariableStarViewerContainer extends Component {
       }
     })
 
-    this.setState({ focusedSeries: newFocusedSeriesState })
+    this.setState({ visibleSeries: newVisibleSeriesState })
   }
 
   setYAxisInversion () {
@@ -228,10 +229,10 @@ class VariableStarViewerContainer extends Component {
       return null
     }
 
+    console.log('state', this.state.visibleSeries)
     return (
       <VariableStarViewer
         barJSON={this.state.barJSON}
-        focusedSeries={this.state.focusedSeries}
         imageSrc={this.state.imageSrc}
         invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
@@ -239,8 +240,9 @@ class VariableStarViewerContainer extends Component {
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
         setPeriodMultiple={this.setPeriodMultiple}
-        setSeriesFocus={this.setSeriesFocus}
+        setSeriesVisibility={this.setSeriesVisibility}
         setYAxisInversion={this.setYAxisInversion}
+        visibleSeries={this.state.visibleSeries}
       />
     )
   }

@@ -11,7 +11,7 @@ import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
-import FocusSeriesCheckBoxes from './components/FocusSeriesCheckBoxes'
+import VisibilitySeriesCheckBoxes from './components/VisibilitySeriesCheckBoxes'
 
 counterpart.registerTranslations('en', en)
 
@@ -50,11 +50,11 @@ export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
 function Controls(props) {
   const {
     data,
-    focusedSeries,
+    visibleSeries,
     gridArea,
     periodMultiple,
     periodMultipleOptions,
-    setSeriesFocus,
+    setSeriesVisibility,
     setPeriodMultiple,
     setYAxisInversion,
     theme
@@ -107,13 +107,13 @@ function Controls(props) {
         />
       </FormField>
       <Box justify='between'>
-        <FocusSeriesCheckBoxes
+        <VisibilitySeriesCheckBoxes
           data={data}
-          focusedSeries={focusedSeries}
-          setSeriesFocus={setSeriesFocus}
+          visibleSeries={visibleSeries}
+          setSeriesVisibility={setSeriesVisibility}
         />
         <SpacedText color='black' size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.focus')}
+          {counterpart('VariableStarViewer.visibility')}
         </SpacedText>
       </Box>
     </Box>
@@ -122,29 +122,29 @@ function Controls(props) {
 
 Controls.defaultProps = {
   data: [],
-  focusedSeries: [],
   gridArea: '',
   periodMultiple: 1,
   periodMultipleOptions: ['0.5', '1', '2', '3'],
-  setSeriesFocus: () => {},
+  setSeriesVisibility: () => {},
   setPeriodMultiple: () => {},
   setYAxisInversion: () => {},
   theme: {
     global: {
       colors: {}
     }
-  }
+  },
+  visibleSeries: []
 }
 
 Controls.propTypes = {
   data: PropTypes.array,
-  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   gridArea: PropTypes.string,
   periodMultiple: PropTypes.number,
-  setSeriesFocus: PropTypes.func,
+  setSeriesVisibility: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setYAxisInversion: PropTypes.func,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  visibleSeries: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default withThemeContext(Controls, theme)

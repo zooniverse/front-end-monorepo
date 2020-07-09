@@ -97,14 +97,14 @@ describe('Helper > getDataSeriesColor', function () {
     })
   })
 
-  describe('when a series can be toggled for focus', function () {
-    it('should set the color to the theme\'s \'light-4\' for unfocused data series', function () {
+  describe('when a series can be toggled for visibility', function () {
+    it('should set the color to the theme\'s \'light-4\' for dimmed data series', function () {
       const colors = []
-      const focusedSeries = [ { foo: true }, { bar: false } ]
+      const visibleSeries = [ { foo: true }, { bar: false } ]
       variableStar.scatterPlot.data.forEach((series, seriesIndex) => {
         colors[seriesIndex] = getDataSeriesColor({
           defaultColors,
-          focusedSeries,
+          visibleSeries,
           seriesIndex,
           seriesOptions: series.seriesOptions,
           themeColors: zooTheme.global.colors
