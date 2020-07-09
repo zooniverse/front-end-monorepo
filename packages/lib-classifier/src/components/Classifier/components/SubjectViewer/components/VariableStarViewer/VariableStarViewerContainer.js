@@ -12,7 +12,7 @@ function storeMapper(stores) {
 }
 
 class VariableStarViewerContainer extends Component {
-  constructor() {
+  constructor () {
     super()
     this.viewer = React.createRef()
     this.state = {
@@ -54,14 +54,14 @@ class VariableStarViewerContainer extends Component {
     this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const { subject } = this.props
     if (subject) {
       await this.handleSubject()
     }
   }
 
-  async componentDidUpdate(prevProps) {
+  async componentDidUpdate (prevProps) {
     const { subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
@@ -71,7 +71,7 @@ class VariableStarViewerContainer extends Component {
     }
   }
 
-  getSubjectUrl() {
+  getSubjectUrl () {
     // Find the first location that has a JSON MIME type.
     const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
     const url = Object.values(jsonLocation)[0]
@@ -82,7 +82,7 @@ class VariableStarViewerContainer extends Component {
     }
   }
 
-  async requestData() {
+  async requestData () {
     const { onError } = this.props
     try {
       const url = this.getSubjectUrl()
@@ -97,7 +97,7 @@ class VariableStarViewerContainer extends Component {
     }
   }
 
-  async handleSubject() {
+  async handleSubject () {
     const { onError } = this.props
     try {
       const rawJSON = await this.requestData()
@@ -107,20 +107,23 @@ class VariableStarViewerContainer extends Component {
     }
   }
 
-  onLoad(rawJSON) {
+  onLoad (rawJSON) {
     const {
       scatterPlot,
       barCharts
     } = rawJSON
-    const { onReady } = this.props
+    const { onReady, subject } = this.props
     const target = this.viewer.current
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
     const focusedSeries = this.setupSeriesFocus(scatterPlot)
+    const imageLocation = subject.locations.find(location => location['image/png']) || {}
+    const imageSrc = imageLocation['image/png'] || ''
 
     this.setState({
       barJSON,
       focusedSeries,
+      imageSrc,
       phasedJSON,
       rawJSON
     },
@@ -199,7 +202,7 @@ class VariableStarViewerContainer extends Component {
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
-  setSeriesFocus(event) {
+  setSeriesFocus (event) {
     const newFocusedSeriesState = this.state.focusedSeries.map((series) => {
       const [[label, checked]] = Object.entries(series)
       if (label === event.target.value) {
@@ -216,7 +219,7 @@ class VariableStarViewerContainer extends Component {
     this.setState((prevState) => { return { invertYAxis: !prevState.invertYAxis } })
   }
 
-  render() {
+  render () {
     const {
       subject,
     } = this.props
