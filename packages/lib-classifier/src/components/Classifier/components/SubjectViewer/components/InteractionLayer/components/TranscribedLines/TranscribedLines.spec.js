@@ -39,13 +39,39 @@ describe('Component > TranscribedLines', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('when there is no transcription task', function () {
-    it('should disable the lines', function () {
+  describe('when on a step without the transcription task', function () {
+    before(function () {
       wrapper = shallow(<TranscribedLines lines={consensusLines} />)
-      const lines = wrapper.find(TranscriptionLine)
-      lines.forEach((line) => {
+    })
+
+    it('should disable the incomplete lines', function () {
+      const transcribedLines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+      transcribedLines.forEach((line) => {
         const consensusLineWrapper = line.parent()
         expect(consensusLineWrapper.props()['aria-disabled']).to.be.true()
+      })
+    })
+
+    it('should not create a mark', function () {
+      const spaceEventMock = { key: ' ', preventDefault: sinon.spy() }
+      const enterEventMock = { key: 'Enter', preventDefault: sinon.spy() }
+      const transcribedLines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+      transcribedLines.forEach((line, index) => {
+        expect(task.activeMark).to.be.undefined()
+        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click')
+        expect(task.activeMark).to.be.undefined()
+        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', spaceEventMock)
+        expect(task.activeMark).to.be.undefined()
+        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', enterEventMock)
+        expect(task.activeMark).to.be.undefined()
+      })
+    })
+
+    it('should not disable the complete lines', function () {
+      const completedLines = wrapper.find(TranscriptionLine).find({ state: 'completed' })
+      completedLines.forEach((line) => {
+        const consensusLineWrapper = line.parent()
+        expect(consensusLineWrapper.props()['aria-disabled']).to.be.undefined()
       })
     })
   })
@@ -141,13 +167,6 @@ describe('Component > TranscribedLines', function () {
       lines.forEach((component, index) => {
         const consensusLineWrapper = component.parent()
         expect(consensusLineWrapper.props()['aria-label']).to.equal(completeLines[index].consensusText)
-      })
-    })
-
-    it('should not be disabled', function () {
-      lines.forEach((component) => {
-        const consensusLineWrapper = component.parent()
-        expect(consensusLineWrapper.props()['aria-disabled']).to.false()
       })
     })
 

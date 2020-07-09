@@ -122,7 +122,6 @@ class TranscribedLines extends React.Component {
                 <ConsensusLine
                   role='button'
                   aria-describedby={id}
-                  aria-disabled={disabled}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
                   onClick={() => this.onClick(this.showConsensus, line)}
@@ -157,8 +156,12 @@ class TranscribedLines extends React.Component {
                   aria-disabled={disabled}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.createMark, line)}
-                  onKeyDown={event => this.onKeyDown(event, this.createMark, line)}
+                  onClick={() => {
+                    if (!disabled) this.onClick(this.createMark, line)
+                  }}
+                  onKeyDown={(event) => {
+                    if (!disabled) this.onKeyDown(event, this.createMark, line)
+                  }}
                   tabIndex={0}
                 >
                   <TranscriptionLine
