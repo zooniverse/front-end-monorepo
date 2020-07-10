@@ -32,12 +32,13 @@ class TranscribedLines extends React.Component {
       show: false
     }
 
+    this.createMark = this.createMark.bind(this)
     this.close = this.close.bind(this)
     this.showConsensus = this.showConsensus.bind(this)
   }
 
   createMark (line) {
-    const { activeTool, activeToolIndex, setActiveMark } = task
+    const { activeTool, activeToolIndex, setActiveMark } = this.props.task
     const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
     const markSnapshot = { x1, y1, x2, y2, toolIndex: activeToolIndex }
 
@@ -45,14 +46,19 @@ class TranscribedLines extends React.Component {
       const mark = activeTool.createMark(markSnapshot)
       mark.finish()
       setActiveMark(mark)
+
+      let previousAnnotationValuesForEachMark = []
+      activeTool.tasks.forEach((task) => {
+        const previousAnnotationValuesForThisMark = {
+          id: mark.id,
+          taskKey: task.taskKey,
+          taskType: task.type,
+          values: line.textOptions
+        }
+        previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
+      })
+      mark.setSubTaskVisibility(true, this.ref.current, previousAnnotationValuesForEachMark)
     }
-    /*
-    TODO: pass the textOptions array to the new mark's subtask
-    so that it can be shown as a list of choices for the text annotation
-    value
-    */
-    const text = line.textOptions.join('\n')
-    alert(text)
   }
 
   showConsensus (line) {
@@ -89,6 +95,7 @@ class TranscribedLines extends React.Component {
   render () {
     const { lines, scale, task, theme } = this.props
     const { bounds, line, show } = this.state
+    const disabled = Object.keys(task).length === 0
     const completedLines = lines.filter(line => line.consensusReached)
     const transcribedLines = lines.filter(line => !line.consensusReached)
 
@@ -144,12 +151,17 @@ class TranscribedLines extends React.Component {
                 label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
               >
                 <ConsensusLine
-                  role='img'
+                  role='button'
                   aria-describedby={id}
+                  aria-disabled={disabled.toString()}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.createMark, line)}
-                  onKeyDown={event => this.onKeyDown(event, this.createMark, line)}
+                  onClick={() => {
+                    if (!disabled) this.onClick(this.createMark, line)
+                  }}
+                  onKeyDown={(event) => {
+                    if (!disabled) this.onKeyDown(event, this.createMark, line)
+                  }}
                   tabIndex={0}
                 >
                   <TranscriptionLine

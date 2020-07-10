@@ -19,8 +19,6 @@ export const Drawing = types.model('Drawing', {
   shownMarks: types.optional(types.enumeration(Object.keys(SHOWN_MARKS)), SHOWN_MARKS.ALL),
   hidingIndex: types.maybeNull(types.number),
   instruction: types.string,
-  subTaskMarkBounds: types.optional(types.frozen({}), undefined),
-  subTaskVisibility: types.optional(types.boolean, false),
   tools: types.array(GenericTool),
   type: types.literal('drawing')
 })
@@ -81,15 +79,6 @@ export const Drawing = types.model('Drawing', {
       self.subTaskVisibility = false
     }
 
-    function setSubTaskVisibility (visible, drawingMarkNode) {
-      if (self.activeTool?.tasks?.length > 0) {
-        self.subTaskVisibility = visible
-        self.subTaskMarkBounds = (drawingMarkNode)
-          ? drawingMarkNode.getBoundingClientRect()
-          : undefined
-      }
-    }
-
     function togglePreviousMarks () {
       self.shownMarks = self.shownMarks === SHOWN_MARKS.ALL ? SHOWN_MARKS.NONE : SHOWN_MARKS.ALL
       self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
@@ -100,7 +89,6 @@ export const Drawing = types.model('Drawing', {
       reset,
       setActiveMark,
       setActiveTool,
-      setSubTaskVisibility,
       togglePreviousMarks
     }
   })

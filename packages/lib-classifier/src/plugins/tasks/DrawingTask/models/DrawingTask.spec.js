@@ -70,20 +70,6 @@ describe('Model > DrawingTask', function () {
     subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
   })
 
-  it('should keep subTaskVisibility false if there is no tool subtask', function () {
-    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-    drawingTask.setActiveTool(1)
-    drawingTask.setSubTaskVisibility(true)
-    expect(drawingTask.subTaskVisibility).to.be.false()
-  })
-
-  it('should set subTaskVisibility to true if there is any tool subtask', function () {
-    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-    drawingTask.setActiveTool(0)
-    drawingTask.setSubTaskVisibility(true)
-    expect(drawingTask.subTaskVisibility).to.be.true()
-  })
-
   describe('drawn marks', function () {
     let marks
     before(function () {
@@ -222,7 +208,7 @@ describe('Model > DrawingTask', function () {
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       const annotation = task.defaultAnnotation
-      const store = types.model('MockStore', {
+      types.model('MockStore', {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
       })
@@ -234,7 +220,6 @@ describe('Model > DrawingTask', function () {
       pointTool = task.tools[0]
       lineTool = task.tools[1]
       task.setActiveTool(0)
-      task.setSubTaskVisibility(true)
       task.reset()
       marks = task.marks
     })
@@ -250,10 +235,6 @@ describe('Model > DrawingTask', function () {
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
-    })
-
-    it('should reset the subtask visibility', function () {
-      expect(task.subTaskVisibility).to.be.false()
     })
   })
 })
