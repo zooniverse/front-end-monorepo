@@ -167,7 +167,7 @@ describe('Component > InteractionLayer', function () {
           }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-        wrapper.find('g').simulate('pointermove', fakeEvent)
+        wrapper.simulate('pointermove', fakeEvent)
         expect(mockMark.initialDrag).to.have.been.calledOnce()
       })
 
@@ -181,7 +181,7 @@ describe('Component > InteractionLayer', function () {
           }
         }
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-        wrapper.find('g').simulate('pointermove', fakeEvent)
+        wrapper.simulate('pointermove', fakeEvent)
         expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
       })
     })
