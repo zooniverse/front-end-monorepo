@@ -78,10 +78,7 @@ describe('Component > InteractionLayer', function () {
           setActiveMark={setActiveMarkStub}
           height={400}
           width={600}
-        />, {
-          wrappingComponent: SVGContext.Provider,
-          wrappingComponentProps: { value: { svg, getScreenCTM }}
-        }
+        />
       )
     })
 

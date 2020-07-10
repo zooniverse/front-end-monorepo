@@ -48,7 +48,7 @@ describe('Component > TranscribedLines', function () {
       const transcribedLines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       transcribedLines.forEach((line) => {
         const consensusLineWrapper = line.parent()
-        expect(consensusLineWrapper.props()['aria-disabled']).to.be.true()
+        expect(consensusLineWrapper.props()['aria-disabled']).to.equal('true')
       })
     })
 
@@ -91,7 +91,7 @@ describe('Component > TranscribedLines', function () {
     it('should not be disabled', function () {
       lines.forEach((component) => {
         const consensusLineWrapper = component.parent()
-        expect(consensusLineWrapper.props()['aria-disabled']).to.false()
+        expect(consensusLineWrapper.props()['aria-disabled']).to.equal('false')
       })
     })
 

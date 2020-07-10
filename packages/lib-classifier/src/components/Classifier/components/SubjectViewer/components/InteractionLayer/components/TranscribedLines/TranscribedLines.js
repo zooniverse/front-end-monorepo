@@ -153,7 +153,7 @@ class TranscribedLines extends React.Component {
                 <ConsensusLine
                   role='button'
                   aria-describedby={id}
-                  aria-disabled={disabled}
+                  aria-disabled={disabled.toString()}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
                   onClick={() => {
