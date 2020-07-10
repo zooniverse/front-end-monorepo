@@ -129,7 +129,8 @@ describe('Component > VariableStarViewerContainer', function () {
     const imageSubject = Factory.build('subject')
     const failSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/failure.json' }
+        { 'application/json': 'http://localhost:8080/failure.json' },
+        { 'image/png': 'http://localhost:8080/image.png' }
       ]
     })
     before(function () {
@@ -189,13 +190,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
 
     const nextSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+        { 'application/json': 'http://localhost:8080/nextSubject.json' },
+        { 'image/png': 'http://localhost:8080/image2.png' }
       ]
     })
     before(function () {
@@ -234,6 +237,19 @@ describe('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
 
+    it('should set the component state with the image location source', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      expect(wrapper.state().imageSrc).to.be.empty()
+      cdmSpy.returnValues[0].then(() => {
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
+      }).then(done, done)
+    })
+
     it('should call the onReady prop', function (done) {
       const onReadySpy = sinon.spy()
       const wrapper = shallow(
@@ -257,11 +273,13 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
       })
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(nextSubjectJSON)
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image2.png')
       }).then(done, done)
     })
   })
@@ -271,7 +289,8 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
     const focusedStateMock = [
@@ -339,13 +358,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
 
     const nextSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+        { 'application/json': 'http://localhost:8080/nextSubject.json' },
+        { 'image/png': 'http://localhost:8080/image2.png' }
       ]
     })
     before(function () {
@@ -432,13 +453,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
 
     const nextSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+        { 'application/json': 'http://localhost:8080/nextSubject.json' },
+        { 'image/png': 'http://localhost:8080/image2.png' }
       ]
     })
     before(function () {
