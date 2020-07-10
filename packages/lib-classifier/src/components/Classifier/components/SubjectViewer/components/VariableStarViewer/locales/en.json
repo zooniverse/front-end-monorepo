@@ -6,6 +6,7 @@
     "imageTitle": "HR Diagram",
     "periodMultiple": "period multiple",
     "phase": "phase",
-    "temperature": "temperature"
+    "temperature": "temperature",
+    "visibility": "visibility"
   }
 }

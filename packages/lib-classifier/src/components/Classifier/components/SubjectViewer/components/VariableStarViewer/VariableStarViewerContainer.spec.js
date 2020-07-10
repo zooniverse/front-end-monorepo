@@ -81,7 +81,6 @@ describe('Component > VariableStarViewerContainer', function () {
         chartOptions: {}
       }
     ],
-    focusedSeries: [],
     imageSrc: '',
     invertYAxis: false,
     loadingState: asyncStates.initialized,
@@ -105,7 +104,8 @@ describe('Component > VariableStarViewerContainer', function () {
           chartOptions: {}
         }
       ]
-    }
+    },
+    visibleSeries: []
   }
 
   it('should render without crashing', function () {
@@ -284,7 +284,7 @@ describe('Component > VariableStarViewerContainer', function () {
     })
   })
 
-  describe('with series focus', function () {
+  describe('with series visibility', function () {
     let cdmSpy
     let nockScope
     const subject = Factory.build('subject', {
@@ -293,7 +293,7 @@ describe('Component > VariableStarViewerContainer', function () {
         { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
-    const focusedStateMock = [
+    const visibleStateMock = [
       { [variableStar.scatterPlot.data[0].seriesOptions.label]: true },
       { [variableStar.scatterPlot.data[1].seriesOptions.label]: true }
     ]
@@ -316,24 +316,24 @@ describe('Component > VariableStarViewerContainer', function () {
       nockScope.persist(false)
     })
 
-    it('should default to focused states of true for each series', function (done) {
+    it('should default to visible states of true for each series', function (done) {
       const wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
         />
       )
 
-      expect(wrapper.state().focusedSeries).to.be.empty()
+      expect(wrapper.state().visibleSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
+        expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
       }).then(done, done)
     })
 
-    it('should be able to toggle the focused state', function () {
+    it('should be able to toggle the visible state', function () {
       const eventMock = {
         target: {
           checked: false,
-          value: Object.keys(focusedStateMock[0])[0]
+          value: Object.keys(visibleStateMock[0])[0]
         }
       }
       const wrapper = shallow(
@@ -342,10 +342,10 @@ describe('Component > VariableStarViewerContainer', function () {
         />
       )
 
-      wrapper.setState({ rawJSON: variableStar, focusedSeries: focusedStateMock })
-      expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
-      wrapper.instance().setSeriesFocus(eventMock)
-      expect(wrapper.state().focusedSeries).to.deep.equal([
+      wrapper.setState({ rawJSON: variableStar, visibleSeries: visibleStateMock })
+      expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
+      wrapper.instance().setSeriesVisibility(eventMock)
+      expect(wrapper.state().visibleSeries).to.deep.equal([
         { [variableStar.scatterPlot.data[0].seriesOptions.label]: false },
         { [variableStar.scatterPlot.data[1].seriesOptions.label]: true }
       ])

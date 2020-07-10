@@ -28,11 +28,11 @@ export const StyledLabel = styled.label`
   }
 `
 
-function FocusSeriesCheckBoxes (props) {
+function VisibilitySeriesCheckBoxes (props) {
   const {
     data,
-    focusedSeries,
-    setSeriesFocus,
+    visibleSeries,
+    setSeriesVisibility,
     theme: {
       global: {
         colors
@@ -42,12 +42,12 @@ function FocusSeriesCheckBoxes (props) {
 
   return (
     <Box direction='row' gap='xsmall' pad='none'>
-      {focusedSeries.map((series, seriesIndex) => {
+      {visibleSeries.map((series, seriesIndex) => {
         const [[label, checked]] = Object.entries(series)
         const seriesOptions = data[seriesIndex]?.seriesOptions
         const color = getDataSeriesColor({
           defaultColors: Object.values(colors.drawingTools),
-          focusedSeries,
+          visibleSeries,
           seriesOptions: seriesOptions,
           seriesIndex,
           themeColors: colors
@@ -63,7 +63,7 @@ function FocusSeriesCheckBoxes (props) {
               checked={checked}
               id={label}
               name='series-focus'
-              onChange={event => { setSeriesFocus(event) }}
+              onChange={event => { setSeriesVisibility(event) }}
               type='checkbox'
               value={label}
             />
@@ -84,8 +84,8 @@ function FocusSeriesCheckBoxes (props) {
   )
 }
 
-FocusSeriesCheckBoxes.defaultProps = {
-  setSeriesFocus: () => {},
+VisibilitySeriesCheckBoxes.defaultProps = {
+  setSeriesVisibility: () => {},
   theme: {
     global: {
       colors: {
@@ -95,15 +95,15 @@ FocusSeriesCheckBoxes.defaultProps = {
   }
 }
 
-FocusSeriesCheckBoxes.propTypes = {
+VisibilitySeriesCheckBoxes.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     seriesData: PropTypes.array,
     seriesOptions: PropTypes.object
   })).isRequired,
-  focusedSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
+  visibleSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
   setSeriesFocus: PropTypes.func,
   theme: PropTypes.object
 }
 
-export default withTheme(FocusSeriesCheckBoxes)
-export { FocusSeriesCheckBoxes }
+export default withTheme(VisibilitySeriesCheckBoxes)
+export { VisibilitySeriesCheckBoxes }

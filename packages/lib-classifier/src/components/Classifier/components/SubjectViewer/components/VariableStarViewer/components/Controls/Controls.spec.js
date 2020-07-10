@@ -4,10 +4,10 @@ import sinon from 'sinon'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import Controls, { FlipButton, StyledRadioButtonGroup } from './Controls'
-import FocusSeriesCheckBoxes from './components/FocusSeriesCheckBoxes'
+import VisibilitySeriesCheckBoxes from './components/VisibilitySeriesCheckBoxes'
 import variableStar from '../../../../helpers/mockLightCurves/variableStar'
 
-const focusedSeriesMock = [
+const visibleSeriesMock = [
   { foo: true },
   { bar: true }
 ]
@@ -31,27 +31,27 @@ describe('VariableStarViewer > Component > Controls', function () {
     })
   })
 
-  describe('focus series checkbox controls', function () {
-    it('should render FocusSeriesCheckBoxes', function () {
+  describe('visible series checkbox controls', function () {
+    it('should render VisibilitySeriesCheckBoxes', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
-          <Controls data={variableStar.data} focusedSeries={focusedSeriesMock} setSeriesFocus={sinon.spy()} />
+          <Controls data={variableStar.data} visibleSeries={visibleSeriesMock} setSeriesVisibility={sinon.spy()} />
         </Grommet>
       )
-      expect(wrapper.find(FocusSeriesCheckBoxes)).to.have.lengthOf(1)
+      expect(wrapper.find(VisibilitySeriesCheckBoxes)).to.have.lengthOf(1)
     })
 
-    it('should pass the data, focusedSeries, and setSeriesFocus props', function () {
+    it('should pass the data, visibleSeries, and setSeriesVisibility props', function () {
       const wrapper = mount(
         <Grommet theme={zooTheme}>
-          <Controls data={variableStar.scatterPlot.data} focusedSeries={focusedSeriesMock} setSeriesFocus={sinon.spy()} />
+          <Controls data={variableStar.scatterPlot.data} visibleSeries={visibleSeriesMock} setSeriesVisibility={sinon.spy()} />
         </Grommet>
       )
       const controls = wrapper.find(Controls)
-      const focusControls = wrapper.find(FocusSeriesCheckBoxes)
-      expect(focusControls.props().data).to.deep.equal(controls.props().data)
-      expect(focusControls.props().focusedSeries).to.deep.equal(controls.props().focusedSeries)
-      expect(focusControls.props().setSeriesFocus).to.deep.equal(controls.props().setSeriesFocus)
+      const visibilityControls = wrapper.find(VisibilitySeriesCheckBoxes)
+      expect(visibilityControls.props().data).to.deep.equal(controls.props().data)
+      expect(visibilityControls.props().visibleSeries).to.deep.equal(controls.props().visibleSeries)
+      expect(visibilityControls.props().setSeriesVisibility).to.deep.equal(controls.props().setSeriesVisibility)
     })
   })
 
