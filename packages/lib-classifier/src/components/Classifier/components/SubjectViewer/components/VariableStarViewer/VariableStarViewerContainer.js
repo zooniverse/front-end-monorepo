@@ -203,7 +203,6 @@ class VariableStarViewerContainer extends Component {
   }
 
   setSeriesVisibility (event) {
-    console.log('setSeriesVisibility')
     const newVisibleSeriesState = this.state.visibleSeries.map((series) => {
       const [[label, checked]] = Object.entries(series)
       if (label === event.target.value) {
@@ -229,7 +228,6 @@ class VariableStarViewerContainer extends Component {
       return null
     }
 
-    console.log('state', this.state.visibleSeries)
     return (
       <VariableStarViewer
         barJSON={this.state.barJSON}
