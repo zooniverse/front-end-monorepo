@@ -12,6 +12,7 @@ import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
 import VisibilitySeriesCheckBoxes from './components/VisibilitySeriesCheckBoxes'
+import PhaseFocusControls from './components/PhaseFocusControls'
 
 counterpart.registerTranslations('en', en)
 
@@ -54,7 +55,9 @@ function Controls(props) {
     gridArea,
     periodMultiple,
     periodMultipleOptions,
+    phaseFocusedSeries,
     setSeriesVisibility,
+    setSeriesPhaseFocus,
     setPeriodMultiple,
     setYAxisInversion,
     theme
@@ -106,6 +109,16 @@ function Controls(props) {
           value={periodMultiple.toString()}
         />
       </FormField>
+      <Box>
+        <PhaseFocusControls
+          data={data}
+          phaseFocusedSeries={phaseFocusedSeries}
+          setSeriesPhaseFocus={setSeriesPhaseFocus}
+        />
+        <SpacedText size='10px' weight='bold'>
+          {counterpart('VariableStarViewer.phaseFocus')}
+        </SpacedText>
+      </Box>
       <Box justify='between'>
         <VisibilitySeriesCheckBoxes
           data={data}

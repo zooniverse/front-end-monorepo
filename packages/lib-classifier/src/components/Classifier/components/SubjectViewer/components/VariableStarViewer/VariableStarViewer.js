@@ -21,12 +21,14 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     imageSrc,
     invertYAxis,
     periodMultiple,
+    phaseFocusedSeries,
     phasedJSON,
     phaseLimit,
     rawJSON: {
       scatterPlot
     },
     setPeriodMultiple,
+    setSeriesPhaseFocus,
     setSeriesVisibility,
     setYAxisInversion,
     theme,
@@ -57,7 +59,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         data={scatterPlot.data}
         gridArea='controls'
         periodMultiple={periodMultiple}
+        phaseFocusedSeries={phaseFocusedSeries}
         setPeriodMultiple={setPeriodMultiple}
+        setSeriesPhaseFocus={setSeriesPhaseFocus}
         setSeriesVisibility={setSeriesVisibility}
         setYAxisInversion={setYAxisInversion}
         theme={theme}
@@ -148,6 +152,7 @@ VariableStarViewer.defaultProps = {
   imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
+  phaseFocusSeries: -1,
   phasedJSON: {
     data: [],
     chartOptions: {}
@@ -160,6 +165,7 @@ VariableStarViewer.defaultProps = {
     barCharts: []
   },
   setPeriodMultiple: () => { },
+  setPhaseFocusedSeries: () => {},
   setSeriesVisibility: () => { },
   setYAxisInversion: () => {},
   theme: {

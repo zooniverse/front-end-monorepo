@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
-import styled, { css, withTheme } from 'styled-components'
+import { withTheme } from 'styled-components'
 import { transparentize } from 'polished'
 import { SpacedText } from '@zooniverse/react-components'
 import StyledLabel from '../StyledLabel'
 import getDataSeriesColor from '../../../../../../helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
-function VisibilitySeriesCheckBoxes (props) {
+function PhaseFocusControls(props) {
   const {
     data,
-    visibleSeries,
-    setSeriesVisibility,
+    phaseFocusedSeries,
+    setSeriesPhaseFocus,
     theme: {
       global: {
         colors
@@ -21,20 +21,20 @@ function VisibilitySeriesCheckBoxes (props) {
   } = props
 
   return (
-    <Box direction='row' gap='xsmall' pad='none'>
-      {visibleSeries.map((series, seriesIndex) => {
-        const [[label, checked]] = Object.entries(series)
-        const seriesOptions = data[seriesIndex]?.seriesOptions
+    <Box direction='column' gap='xsmall' pad='none'>
+      {data.map((series, seriesIndex) => {
+        const checked = phaseFocusedSeries === seriesIndex
+        const label = `Filter ${seriesIndex + 1}`
+        const { seriesOptions } = series
         const color = getDataSeriesColor({
           defaultColors: Object.values(colors.drawingTools),
-          visibleSeries,
-          seriesOptions: seriesOptions,
+          seriesOptions,
           seriesIndex,
           themeColors: colors
         })
         const Glyph = getDataSeriesSymbol(seriesIndex)
         return (
-          <StyledLabel
+          <label
             borderColor={(checked) ? colors['light-6'] : transparentize(0.5, colors['light-6'])}
             htmlFor={label}
             key={`${label}-${seriesIndex}`}
@@ -42,10 +42,10 @@ function VisibilitySeriesCheckBoxes (props) {
             <input
               checked={checked}
               id={label}
-              name='series-focus'
-              onChange={event => { setSeriesVisibility(event) }}
-              type='checkbox'
-              value={label}
+              name='series-phase-focus'
+              onChange={event => { setSeriesPhaseFocus(event) }}
+              type='radio'
+              value={seriesIndex.toString()}
             />
             <svg viewBox='0 0 10 10' width='15px' style={{ paddingRight: '0.5ch' }}>
               <Glyph left={5} fill={color} size={20} top={5} />
@@ -57,15 +57,15 @@ function VisibilitySeriesCheckBoxes (props) {
             >
               {label}
             </SpacedText>
-          </StyledLabel>
+          </label>
         )
       })}
     </Box>
   )
 }
 
-VisibilitySeriesCheckBoxes.defaultProps = {
-  setSeriesVisibility: () => {},
+PhaseFocusControls.defaultProps = {
+  setSeriesPhaseFocus: () => { },
   theme: {
     global: {
       colors: {
@@ -75,15 +75,15 @@ VisibilitySeriesCheckBoxes.defaultProps = {
   }
 }
 
-VisibilitySeriesCheckBoxes.propTypes = {
+PhaseFocusControls.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     seriesData: PropTypes.array,
     seriesOptions: PropTypes.object
   })).isRequired,
-  visibleSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setSeriesFocus: PropTypes.func,
+  phaseFocusedSeries: PropTypes.number.isRequired,
+  setSeriesPhaseFocus: PropTypes.func,
   theme: PropTypes.object
 }
 
-export default withTheme(VisibilitySeriesCheckBoxes)
-export { VisibilitySeriesCheckBoxes }
+export default withTheme(PhaseFocusControls)
+export { PhaseFocusControls }
