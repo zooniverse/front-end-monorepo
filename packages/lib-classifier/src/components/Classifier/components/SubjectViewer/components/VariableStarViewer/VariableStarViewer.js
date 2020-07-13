@@ -44,7 +44,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     <Grid
       forwardedRef={ref}
       fill
-      rows={['60px', '1/4', '1/4', '1/4']}
+      rows={['80px', '1/4', '1/4', '1/4']}
       columns={['2/3', '1/3']}
       gap='xsmall'
       areas={[
