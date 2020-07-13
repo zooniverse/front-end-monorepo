@@ -11,25 +11,16 @@ const theme = {
     hover: {
       border: {
         color: {
-          dark: 'brand',
-          light: 'brand'
+          dark: 'accent-4',
+          light: 'neutral-2'
         }
       }
     },
+    gap: '0px',
     icon: {
       size: '20px'
     },
     size: '14px'
-  },
-  formField: {
-    border: 'none',
-    extend: () => css`
-      flex-direction: column-reverse;
-    `,
-    label: {
-      margin: 'none'
-    },
-    margin: 'none'
   },
   radioButton: {
     border: {
@@ -41,8 +32,8 @@ const theme = {
     hover: {
       border: {
         color: {
-          dark: 'brand',
-          light: 'brand'
+          dark: 'accent-4',
+          light: 'neutral-2'
         }
       }
     },

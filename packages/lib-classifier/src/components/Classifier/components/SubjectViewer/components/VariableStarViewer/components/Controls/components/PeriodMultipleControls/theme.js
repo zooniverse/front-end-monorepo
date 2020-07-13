@@ -40,8 +40,8 @@ const theme = {
     hover: {
       border: {
         color: {
-          dark: 'brand',
-          light: 'brand'
+          dark: 'accent-4',
+          light: 'neutral-2'
         }
       }
     },
