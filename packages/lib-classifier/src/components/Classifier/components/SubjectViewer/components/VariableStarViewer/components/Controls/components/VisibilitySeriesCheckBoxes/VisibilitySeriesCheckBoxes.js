@@ -1,12 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, CheckBox } from 'grommet'
-import styled, { css, withTheme } from 'styled-components'
-import { transparentize } from 'polished'
-import { SpacedText } from '@zooniverse/react-components'
+import { withTheme } from 'styled-components'
 import Label from '../Label'
-import getDataSeriesColor from '../../../../../../helpers/getDataSeriesColor'
-import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
 function VisibilitySeriesCheckBoxes (props) {
   const {
