@@ -17,6 +17,7 @@ export { default as Tooltip } from './Tooltip'
 export { default as ZooFooter } from './ZooFooter'
 export { default as ZooHeader } from './ZooHeader'
 export { default as ZooniverseLogo } from './ZooniverseLogo'
+export { default as ZooniverseLogotype } from './ZooniverseLogotype'
 
 export { default as pxToRem } from './helpers/pxToRem'
 export { default as withCustomFormik } from './helpers/withCustomFormik'
