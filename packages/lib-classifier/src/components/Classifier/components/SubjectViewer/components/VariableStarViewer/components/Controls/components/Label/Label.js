@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 import getDataSeriesColor from '../../../../../../helpers/getDataSeriesColor'
@@ -12,17 +12,19 @@ const StyledLabel = styled.span`
   flex-direction: row;
   padding: 2.5px;
 
+  /* Could use Grommet gap prop instead */
   svg {
     padding: 0px 0.5ch;
   }
 
+  /* Might remove this */
   &:hover, &:focus-within {
     background-color: rgba(216,216,216,0.4);
   }
 `
 
 function Label (props) {
-  const { colors, checked, label, seriesIndex, seriesOptions, visibleSeries } = props
+  const { colors, label, seriesIndex, seriesOptions, visibleSeries } = props
   const Glyph = getDataSeriesSymbol(seriesIndex)
   const color = getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
@@ -38,14 +40,22 @@ function Label (props) {
         <Glyph left={5} fill={color} size={20} top={5} />
       </svg>
       <SpacedText
-        color={(checked) ? 'black' : 'rbga(0,0,0,0.5)'}
-        style={{ fontSize: '0.5em', whiteSpace: 'nowrap' }} // TODO: update theme for smaller size of span text
+        style={{ whiteSpace: 'nowrap' }}
+        size='0.5em' // TODO: update theme for smaller size of span text
         weight='bold'
       >
         {label}
       </SpacedText>
     </StyledLabel>
   )
+}
+
+Label.propTypes = {
+  colors: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  seriesIndex: PropTypes.number.isRequired,
+  seriesOptions: PropTypes.object,
+  visibleSeries: PropTypes.array
 }
 
 export default Label

@@ -116,6 +116,7 @@ Controls.propTypes = {
   data: PropTypes.array,
   gridArea: PropTypes.string,
   periodMultiple: PropTypes.number,
+  periodMultipleOptions: PropTypes.arrayOf(PropTypes.string),
   setSeriesVisibility: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setYAxisInversion: PropTypes.func,
