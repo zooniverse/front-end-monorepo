@@ -10,7 +10,7 @@ import Label from '../Label'
 
 const { data } = variableStar.scatterPlot
 
-describe.only('Controls > Components > PhaseFocusControls', function () {
+describe('Controls > Components > PhaseFocusControls', function () {
   let wrapper, setSeriesPhaseFocusSpy
   before(function () {
     setSeriesPhaseFocusSpy = sinon.spy()
