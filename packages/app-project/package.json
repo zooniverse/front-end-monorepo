@@ -26,7 +26,7 @@
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
     "@zooniverse/panoptes-js": "~0.1.0",
-    "@zooniverse/react-components": "~1.0.0",
+    "@zooniverse/react-components": "~1.0.1",
     "babel-plugin-dynamic-import-node": "~2.3.0",
     "babel-plugin-styled-components": "~1.10.7",
     "cookie": "~0.4.0",
