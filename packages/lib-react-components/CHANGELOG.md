@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.2] 2020-07-15
+- Patch fix previous version with correctly built package
+
 ## [1.0.1] 2020-07-15
 - Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that is often used in a site's footer
 
