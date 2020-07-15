@@ -136,12 +136,10 @@ class VariableStarViewerContainer extends Component {
 
   calculatePhase (scatterPlotJSON, seriesIndexForPeriod = this.state.phaseFocusedSeries) {
     const { periodMultiple, phaseLimit } = this.state
-    // temp for demo purposes
-    // Will use series.seriesOptions.period in future
-    const seriesPeriods = [0.4661477096, 1.025524961]
     let phasedJSON = { data: [], chartOptions: scatterPlotJSON.chartOptions }
     scatterPlotJSON.data.forEach((series, seriesIndex) => {
-      const seriesPeriod = seriesPeriods[seriesIndexForPeriod] * periodMultiple
+      const periodToUse = parseFloat(scatterPlotJSON.data[seriesIndexForPeriod].seriesOptions.period)
+      const seriesPeriod = periodToUse * periodMultiple
       const seriesData = []
       series.seriesData.forEach((datum) => {
         let phasedXPoint
@@ -218,7 +216,6 @@ class VariableStarViewerContainer extends Component {
   }
 
   setSeriesPhaseFocus (event) {
-    console.log('event', event.target.value)
     const seriesIndexForPeriod = parseInt(event.target.value)
     const phasedJSON = this.calculatePhase(this.state.rawJSON.scatterPlot, seriesIndexForPeriod)
     this.setState({ phasedJSON, phaseFocusedSeries: seriesIndexForPeriod })

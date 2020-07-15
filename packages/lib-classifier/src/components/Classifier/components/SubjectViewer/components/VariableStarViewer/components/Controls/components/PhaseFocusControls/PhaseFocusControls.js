@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import { Box, RadioButton } from 'grommet'
 import { withTheme } from 'styled-components'
 import Label from '../Label'
+import counterpart from 'counterpart'
+import en from '../../../../locales/en'
+
+counterpart.registerTranslations('en', en)
 
 function PhaseFocusControls(props) {
   const {
@@ -20,7 +24,7 @@ function PhaseFocusControls(props) {
     <Box direction='column'  pad='none'>
       {data.map((series, seriesIndex) => {
         const checked = phaseFocusedSeries === seriesIndex
-        const label = `Filter ${seriesIndex + 1}`
+        const label = counterpart('VariableStarViewer.label', { id: seriesIndex + 1 })
         const { seriesOptions } = series
 
         return (

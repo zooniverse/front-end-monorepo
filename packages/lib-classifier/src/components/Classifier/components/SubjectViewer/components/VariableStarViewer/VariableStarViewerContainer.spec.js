@@ -25,7 +25,8 @@ const nextSubjectJSON = {
         ],
         "seriesOptions": {
           "color": "accent-2",
-          "label": "Filter 1"
+          "label": "Filter 1",
+          "period": 2.5
         }
       }, {
         "seriesData": [
@@ -41,7 +42,8 @@ const nextSubjectJSON = {
         ],
         "seriesOptions": {
           "color": "#98b6a7",
-          "label": "Filter 2"
+          "label": "Filter 2",
+          "period": 3.5
         }
       }
     ],
@@ -442,6 +444,21 @@ describe('Component > VariableStarViewerContainer', function () {
       cdmSpy.returnValues[0].then(() => {
         const phasedJSONInitialState = wrapper.state().phasedJSON
         wrapper.instance().setPeriodMultiple({ target: { value: '2' }})
+        const phasedJSONNewState = wrapper.state().phasedJSON
+        expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
+      }).then(done, done)
+    })
+
+    it('should calculate a new phased JSON when setSeriesPhaseFocus is called', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        const phasedJSONInitialState = wrapper.state().phasedJSON
+        wrapper.instance().setSeriesPhaseFocus({ target: { value: '1' } })
         const phasedJSONNewState = wrapper.state().phasedJSON
         expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
       }).then(done, done)
