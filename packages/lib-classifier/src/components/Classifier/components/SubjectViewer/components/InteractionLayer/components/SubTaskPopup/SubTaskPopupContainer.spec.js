@@ -42,39 +42,51 @@ describe('Component > SubTaskPopupContainer', function () {
   describe('when the task is drawing', function () {
     it('should render nothing when an active mark isn\'t defined', function () {
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing'))
-      const wrapper = shallow(<SubTaskPopupContainer />)
+      wrapper = shallow(<SubTaskPopupContainer />)
+      expect(wrapper.html()).to.be.null()
+    })
+
+    it('should render nothing when an active mark subTaskVisibility is false', function () {
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing', { id: 'mark1', subTaskVisibility: false }))
+      wrapper = shallow(<SubTaskPopupContainer />)
       expect(wrapper.html()).to.be.null()
     })
 
     it('should render a SubTaskPopup', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing', { id: 'mark1' }))
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing', { id: 'mark1', subTaskVisibility: true }))
       wrapper = shallow(<SubTaskPopupContainer />)
       expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
 
     it('should pass the activeMark to the SubTaskPopup', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing', { id: 'mark1' }))
-      expect(wrapper.find(SubTaskPopup).props().activeMark).to.deep.equal({ id: 'mark1' })
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('drawing', { id: 'mark1', subTaskVisibility: true }))
+      expect(wrapper.find(SubTaskPopup).props().activeMark).to.deep.equal({ id: 'mark1', subTaskVisibility: true })
     })
   })
 
   describe('when the task is transcription', function () {
     it('should render nothing when an active mark isn\'t defined', function () {
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('transcription'))
-      const wrapper = shallow(<SubTaskPopupContainer />)
+      wrapper = shallow(<SubTaskPopupContainer />)
+      expect(wrapper.html()).to.be.null()
+    })
+
+    it('should render nothing when an active mark subTaskVisibility is false', function () {
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('transcription', { id: 'mark2', subTaskVisibility: false }))
+      wrapper = shallow(<SubTaskPopupContainer />)
       expect(wrapper.html()).to.be.null()
     })
 
     it('should render a SubTaskPopup', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('transcription', { id: 'mark2' }))
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('transcription', { id: 'mark2', subTaskVisibility: true }))
       wrapper = shallow(<SubTaskPopupContainer />)
       expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
 
     it('should pass the activeMark to the SubTaskPopup', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('transcription', { id: 'mark2' }))
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => setupStores('transcription', { id: 'mark2', subTaskVisibility: true }))
       wrapper = shallow(<SubTaskPopupContainer />)
-      expect(wrapper.find(SubTaskPopup).props().activeMark).to.deep.equal({ id: 'mark2' })
+      expect(wrapper.find(SubTaskPopup).props().activeMark).to.deep.equal({ id: 'mark2', subTaskVisibility: true })
     })
   })
 })

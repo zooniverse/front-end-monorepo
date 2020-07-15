@@ -21,7 +21,7 @@ export default observer(function SubTaskPopupContainer (props) {
     activeMark
   } = useStores()
 
-  if (!activeMark) return null
+  if (!activeMark || !activeMark.subTaskVisibility) return null
 
   return (
     <SubTaskPopup
