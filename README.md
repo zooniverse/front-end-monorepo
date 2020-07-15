@@ -151,7 +151,8 @@ When publishing an individual package to [npm](https://www.npmjs.com/), first cd
 1. `git push origin name-of-branch`
 1. Merge branch
 1. Checkout master, pull for latest
-1. `yarn publish` from the package dir being published
+1. Build the package with `yarn build` from the package dir
+1. `yarn publish` from the package dir
 
 ---
 
