@@ -5,7 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.1] 2020-07-15
-- Export ZooniverseLogotype, which renders the Zooniverse logo as an SVG
+- Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that
+is often used in a site's footer
 
 ## [1.0.0] 2020-06-29
 - Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
