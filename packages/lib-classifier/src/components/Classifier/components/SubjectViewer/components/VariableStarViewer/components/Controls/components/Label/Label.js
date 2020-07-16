@@ -17,7 +17,6 @@ const StyledLabel = styled.span`
     padding: 0px 0.5ch;
   }
 
-  /* Might remove this */
   &:hover, &:focus-within {
     background-color: rgba(216,216,216,0.4);
   }
