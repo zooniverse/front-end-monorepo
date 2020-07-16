@@ -125,6 +125,7 @@ const SubjectViewer = types
       },
 
       setOnZoom (callback) {
+        console.log('callback', callback)
         self.onZoom = callback
       },
 

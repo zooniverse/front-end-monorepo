@@ -8,7 +8,15 @@ import VariableStarViewer from './VariableStarViewer'
 import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper(stores) {
-  // TODO connect to get other functions
+  const {
+    setOnZoom,
+    setOnPan
+  } = stores.classifierStore.subjectViewer
+
+  return {
+    setOnZoom,
+    setOnPan
+  }
 }
 
 class VariableStarViewerContainer extends Component {
@@ -16,6 +24,7 @@ class VariableStarViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
+      allowPanZoom: 'phasedJSON',
       barJSON: [
         {
           data: [],
@@ -50,6 +59,7 @@ class VariableStarViewerContainer extends Component {
       visibleSeries: []
     }
 
+    this.setAllowPanZoom = this.setAllowPanZoom.bind(this)
     this.setPeriodMultiple = this.setPeriodMultiple.bind(this)
     this.setSeriesPhaseFocus = this.setSeriesPhaseFocus.bind(this)
     this.setSeriesVisibility = this.setSeriesVisibility.bind(this)
@@ -197,6 +207,10 @@ class VariableStarViewerContainer extends Component {
     })
   }
 
+  setAllowPanZoom (area) {
+    this.setState({ allowPanZoom: area })
+  }
+
   setPeriodMultiple (event) {
     const periodMultiple = parseFloat(event.target.value)
     this.setState({ periodMultiple }, () => this.calculateJSON())
@@ -227,6 +241,7 @@ class VariableStarViewerContainer extends Component {
 
   render () {
     const {
+      setOnZoom,
       subject,
     } = this.props
 
@@ -236,6 +251,7 @@ class VariableStarViewerContainer extends Component {
 
     return (
       <VariableStarViewer
+        allowPanZoom={this.state.allowPanZoom}
         barJSON={this.state.barJSON}
         imageSrc={this.state.imageSrc}
         invertYAxis={this.state.invertYAxis}
@@ -244,6 +260,8 @@ class VariableStarViewerContainer extends Component {
         phaseLimit={this.state.phaseLimit}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
+        setOnZoom={setOnZoom}
+        setAllowPanZoom={this.setAllowPanZoom}
         setPeriodMultiple={this.setPeriodMultiple}
         setSeriesPhaseFocus={this.setSeriesPhaseFocus}
         setSeriesVisibility={this.setSeriesVisibility}

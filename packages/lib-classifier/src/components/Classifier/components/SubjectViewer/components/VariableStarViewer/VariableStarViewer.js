@@ -5,6 +5,7 @@ import {
   Box,
   Grid
 } from 'grommet'
+import { ZoomIn } from 'grommet-icons'
 import counterpart from 'counterpart'
 import { SpacedText } from '@zooniverse/react-components'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
@@ -17,6 +18,7 @@ counterpart.registerTranslations('en', en)
 
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
+    allowPanZoom,
     barJSON,
     imageSrc,
     invertYAxis,
@@ -27,6 +29,8 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     rawJSON: {
       scatterPlot
     },
+    setOnZoom,
+    setAllowPanZoom,
     setPeriodMultiple,
     setSeriesPhaseFocus,
     setSeriesVisibility,
@@ -68,31 +72,55 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         visibleSeries={visibleSeries}
       />
       <Box
+        border={allowPanZoom === 'phasedJSON' && { color: 'focus', size: 'small' }}
+        focusable
         gridArea='phasedJSON'
+        onClick={() => { setAllowPanZoom('phasedJSON') }}
+        style={{ position: 'relative' }}
+        tabIndex='0'
       >
         <ScatterPlotViewer
           data={phasedJSON.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          setOnZoom={setOnZoom}
           underlays={underlays}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
           xAxisNumTicks={8}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
           yAxisNumTicks={8}
           visibleSeries={visibleSeries}
+          zooming={allowPanZoom === 'phasedJSON'}
         />
+        {allowPanZoom === 'phasedJSON' &&
+          <Box direction='row' justify='center' style={{ position: 'absolute', bottom: '0' }} width='100%'>
+            <ZoomIn size='small' />
+            <SpacedText margin={{ horizontal: '1ch' }} size='xsmall'>zoom enabled</SpacedText>
+          </Box>}
       </Box>
       <Box
+        border={allowPanZoom === 'rawJSON' && { color: 'focus', size: 'small' }}
+        focusable
         gridArea='rawJSON'
+        onClick={() => { setAllowPanZoom('rawJSON') }}
+        style={{ position: 'relative' }}
+        tabIndex='0'
       >
         <ScatterPlotViewer
           data={scatterPlot.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          setOnZoom={setOnZoom}
           xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
           xAxisNumTicks={4}
           yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
           yAxisNumTicks={6}
           visibleSeries={visibleSeries}
+          zooming={allowPanZoom === 'rawJSON'}
         />
+        {allowPanZoom === 'rawJSON' &&
+          <Box direction='row' justify='center' style={{ position: 'absolute', bottom: '0' }} width='100%'>
+            <ZoomIn size='small' />
+            <SpacedText margin={{ horizontal: '1ch' }} size='xsmall'>zoom enabled</SpacedText>
+          </Box>}
       </Box>
       <Box
         background='#ffffff'
@@ -140,6 +168,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 })
 
 VariableStarViewer.defaultProps = {
+  allowPanZoom: '',
   barJSON: [
     {
       data: [],
@@ -179,6 +208,7 @@ VariableStarViewer.defaultProps = {
 }
 
 VariableStarViewer.propTypes = {
+  allowPanZoom: PropTypes.string,
   barJSON: PropTypes.arrayOf(
     PropTypes.shape({
       data: PropTypes.array,

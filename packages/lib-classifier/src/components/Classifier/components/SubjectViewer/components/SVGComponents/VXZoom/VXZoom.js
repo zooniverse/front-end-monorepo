@@ -10,6 +10,7 @@ class VXZoom extends PureComponent {
     const { setOnZoom } = props
 
     setOnZoom(this.handleToolbarZoom.bind(this))
+    console.log('setOnZoom', setOnZoom)
 
     this.onDoubleClick = this.onDoubleClick.bind(this)
     this.onMouseEnter = this.onMouseEnter.bind(this)

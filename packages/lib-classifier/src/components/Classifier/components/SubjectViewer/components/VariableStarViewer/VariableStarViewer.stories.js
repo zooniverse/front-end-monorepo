@@ -4,10 +4,10 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
-import { VariableStarViewerContainer } from './VariableStarViewerContainer'
-import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
-import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
-import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
+import VariableStarViewer, { VariableStarViewerContainer } from './VariableStarViewerContainer'
+import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
+import ImageToolbar from '../../../ImageToolbar'
 import {
   variableStarAmplitudeMockData,
   variableStarPeriodMockData
@@ -39,6 +39,32 @@ stories.addDecorator(withKnobs)
 // stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 const { colors } = zooTheme.global
+
+
+const mockStore = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
+  },
+  fieldGuide: {},
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  }
+}
+
+
+function ViewerContext (props) {
+  const { children, theme } = props
+  return (
+    <Provider classifierStore={mockStore}>
+      <Grommet theme={theme}>
+        {children}
+      </Grommet>
+    </Provider>
+  )
+}
 
 const subject = Factory.build('subject', {
   locations: [
@@ -85,3 +111,15 @@ stories
       </Grommet>
     )
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
+  .add('pan/zoom', () => {
+    return (
+      <ViewerContext theme={zooTheme}>
+        <Box direction='row' height='500px' width='large'>
+          <VariableStarViewer
+            subject={subject}
+          />
+          <ImageToolbar />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)
