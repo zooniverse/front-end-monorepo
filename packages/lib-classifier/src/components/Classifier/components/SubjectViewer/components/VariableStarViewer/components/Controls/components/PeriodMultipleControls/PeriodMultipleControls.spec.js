@@ -14,27 +14,24 @@ const options = ['0.5', '1', '2', '3'].map((option) => {
 })
 
 describe('Controls > Components > PeriodMultipleControls', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(
+  let wrapper, setPeriodMultipleSpy
+  before(function () {
+    setPeriodMultipleSpy = sinon.spy()
+    wrapper = shallow(
       <PeriodMultipleControls
         options={options}
         periodMultiple={1}
-        setPeriodMultiple={() => {}}
+        setPeriodMultiple={setPeriodMultipleSpy}
       />
     )
+  })
+  it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
 
   describe('FormField', function () {
-    let wrapper, formField
+    let formField
     before(function () {
-      wrapper = shallow(
-        <PeriodMultipleControls
-          options={options}
-          periodMultiple={1}
-          setPeriodMultiple={() => { }}
-        />
-      )
       formField = wrapper.find(FormField)
     })
 
@@ -50,16 +47,8 @@ describe('Controls > Components > PeriodMultipleControls', function () {
   })
 
   describe('RadioButtonGroup', function () {
-    let wrapper, group, setPeriodMultipleSpy
+    let group
     before(function () {
-      setPeriodMultipleSpy = sinon.spy()
-      wrapper = shallow(
-        <PeriodMultipleControls
-          options={options}
-          periodMultiple={1}
-          setPeriodMultiple={setPeriodMultipleSpy}
-        />
-      )
       group = wrapper.find(StyledRadioButtonGroup)
     })
 

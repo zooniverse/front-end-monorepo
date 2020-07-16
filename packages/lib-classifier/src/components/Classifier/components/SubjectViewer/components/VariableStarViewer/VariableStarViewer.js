@@ -152,7 +152,7 @@ VariableStarViewer.defaultProps = {
   imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
-  phaseFocusSeries: -1,
+  phaseFocusedSeries: 0,
   phasedJSON: {
     data: [],
     chartOptions: {}
@@ -165,7 +165,7 @@ VariableStarViewer.defaultProps = {
     barCharts: []
   },
   setPeriodMultiple: () => { },
-  setPhaseFocusedSeries: () => {},
+  setSeriesPhaseFocus: () => {},
   setSeriesVisibility: () => { },
   setYAxisInversion: () => {},
   theme: {
@@ -188,6 +188,7 @@ VariableStarViewer.propTypes = {
   imageSrc: PropTypes.string,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
+  phaseFocusedSeries: PropTypes.number,
   phasedJSON: PropTypes.shape({
     data: PropTypes.array,
     chartOptions: PropTypes.object
@@ -197,6 +198,7 @@ VariableStarViewer.propTypes = {
     chartOptions: PropTypes.object
   }),
   setPeriodMultiple: PropTypes.func,
+  setSeriesPhaseFocus: PropTypes.func,
   setSeriesVisibility: PropTypes.func,
   setYAxisInversion: PropTypes.func,
   theme: PropTypes.object,
