@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
-import getDataSeriesColor from '../../../../../../helpers/getDataSeriesColor'
-import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
+import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
+import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 
 const StyledLabel = styled.span`
   align-items: center;

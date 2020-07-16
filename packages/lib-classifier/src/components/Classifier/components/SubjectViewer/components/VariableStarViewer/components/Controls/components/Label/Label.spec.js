@@ -3,8 +3,8 @@ import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
 import Label from './Label'
-import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
-import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
+import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
+import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 
 const { colors } = zooTheme.global
 const seriesOneOptions = variableStar.scatterPlot.data[0].seriesOptions
