@@ -76,6 +76,21 @@ describe('Component > TranscribedLines', function () {
     })
   })
 
+  describe('with all lines', function () {
+    before(function () {
+      sinon.spy(React, 'createRef')
+      wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
+    })
+
+    after(function () {
+      React.createRef.restore()
+    })
+
+    it('should call React createRef for each line', function () {
+      expect(React.createRef.callCount).to.equal(consensusLines.length)
+    })
+  })
+
   describe('incomplete lines', function () {
     let lines
     before(function () {
