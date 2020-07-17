@@ -1,6 +1,7 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
+import { CheckBox } from  'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
 import { VisibilitySeriesCheckBoxes } from './VisibilitySeriesCheckBoxes'
@@ -41,7 +42,7 @@ describe('Component > VisibilitySeriesCheckBoxes', function () {
         theme={zooTheme}
       />
     )
-    expect(wrapper.find("input[type='checkbox']")).to.have.lengthOf(defaultStateVisibleSeries.length)
+    expect(wrapper.find(CheckBox)).to.have.lengthOf(defaultStateVisibleSeries.length)
   })
 
   it('should render the checked state based on the visible state', function () {
@@ -54,7 +55,7 @@ describe('Component > VisibilitySeriesCheckBoxes', function () {
       />
     )
 
-    inputs = wrapper.find("input[type='checkbox']")
+    inputs = wrapper.find(CheckBox)
     inputs.forEach((input, index) => {
       const [visibleStateValue] = Object.values(defaultStateVisibleSeries[index])
       expect(input.props().checked).to.equal(visibleStateValue)
@@ -62,7 +63,7 @@ describe('Component > VisibilitySeriesCheckBoxes', function () {
 
     wrapper.setProps({ visibleSeries: toggledStateVisibleSeries })
 
-    inputs = wrapper.find("input[type='checkbox']")
+    inputs = wrapper.find(CheckBox)
     inputs.forEach((input, index) => {
       const [visibleStateValue] = Object.values(toggledStateVisibleSeries[index])
       expect(input.props().checked).to.equal(visibleStateValue)
@@ -85,13 +86,14 @@ describe('Component > VisibilitySeriesCheckBoxes', function () {
   })
 
   it('should render different glyphs and colors in each checkbox', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <VisibilitySeriesCheckBoxes
         data={data}
         visibleSeries={defaultStateVisibleSeries}
         theme={zooTheme}
       />
     )
+
     const seriesOneGlyph = getDataSeriesSymbol(0)
     const seriesTwoGlyph = getDataSeriesSymbol(1)
     const firstGlyph = wrapper.find(seriesOneGlyph)
@@ -114,7 +116,7 @@ describe('Component > VisibilitySeriesCheckBoxes', function () {
         theme={zooTheme}
       />
     )
-    const inputs = wrapper.find("input[type='checkbox']")
+    const inputs = wrapper.find(CheckBox)
     inputs.forEach((input) => {
       input.simulate('change', { target: {} })
       expect(setSeriesVisibilitySpy).to.have.been.calledOnceWith({ target: {} })

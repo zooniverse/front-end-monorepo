@@ -21,12 +21,14 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     imageSrc,
     invertYAxis,
     periodMultiple,
+    phaseFocusedSeries,
     phasedJSON,
     phaseLimit,
     rawJSON: {
       scatterPlot
     },
     setPeriodMultiple,
+    setSeriesPhaseFocus,
     setSeriesVisibility,
     setYAxisInversion,
     theme,
@@ -42,7 +44,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     <Grid
       forwardedRef={ref}
       fill
-      rows={['60px', '1/4', '1/4', '1/4']}
+      rows={['80px', '1/4', '1/4', '1/4']}
       columns={['2/3', '1/3']}
       gap='xsmall'
       areas={[
@@ -57,7 +59,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         data={scatterPlot.data}
         gridArea='controls'
         periodMultiple={periodMultiple}
+        phaseFocusedSeries={phaseFocusedSeries}
         setPeriodMultiple={setPeriodMultiple}
+        setSeriesPhaseFocus={setSeriesPhaseFocus}
         setSeriesVisibility={setSeriesVisibility}
         setYAxisInversion={setYAxisInversion}
         theme={theme}
@@ -148,6 +152,7 @@ VariableStarViewer.defaultProps = {
   imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
+  phaseFocusedSeries: 0,
   phasedJSON: {
     data: [],
     chartOptions: {}
@@ -160,6 +165,7 @@ VariableStarViewer.defaultProps = {
     barCharts: []
   },
   setPeriodMultiple: () => { },
+  setSeriesPhaseFocus: () => {},
   setSeriesVisibility: () => { },
   setYAxisInversion: () => {},
   theme: {
@@ -182,6 +188,7 @@ VariableStarViewer.propTypes = {
   imageSrc: PropTypes.string,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
+  phaseFocusedSeries: PropTypes.number,
   phasedJSON: PropTypes.shape({
     data: PropTypes.array,
     chartOptions: PropTypes.object
@@ -191,6 +198,7 @@ VariableStarViewer.propTypes = {
     chartOptions: PropTypes.object
   }),
   setPeriodMultiple: PropTypes.func,
+  setSeriesPhaseFocus: PropTypes.func,
   setSeriesVisibility: PropTypes.func,
   setYAxisInversion: PropTypes.func,
   theme: PropTypes.object,

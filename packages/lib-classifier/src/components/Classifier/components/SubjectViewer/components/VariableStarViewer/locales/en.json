@@ -4,8 +4,10 @@
     "flip": "flip",
     "focus": "focus",
     "imageTitle": "HR Diagram",
+    "label": "Filter %(id)s",
     "periodMultiple": "period multiple",
     "phase": "phase",
+    "phaseFocus": "phase focus",
     "temperature": "temperature",
     "visibility": "visibility"
   }
