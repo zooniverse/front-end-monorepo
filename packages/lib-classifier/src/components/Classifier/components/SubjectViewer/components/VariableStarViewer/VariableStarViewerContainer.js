@@ -26,6 +26,7 @@ class VariableStarViewerContainer extends Component {
       invertYAxis: false,
       loadingState: asyncStates.initialized,
       periodMultiple: 1,
+      phaseFocusedSeries: 0,
       phasedJSON: {
         data: [],
         chartOptions: {}
@@ -50,6 +51,7 @@ class VariableStarViewerContainer extends Component {
     }
 
     this.setPeriodMultiple = this.setPeriodMultiple.bind(this)
+    this.setSeriesPhaseFocus = this.setSeriesPhaseFocus.bind(this)
     this.setSeriesVisibility = this.setSeriesVisibility.bind(this)
     this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
@@ -132,14 +134,12 @@ class VariableStarViewerContainer extends Component {
       })
   }
 
-  calculatePhase (scatterPlotJSON) {
+  calculatePhase (scatterPlotJSON, seriesIndexForPeriod = this.state.phaseFocusedSeries) {
     const { periodMultiple, phaseLimit } = this.state
-    // temp for demo purposes
-    // Will use series.seriesOptions.period in future
-    const seriesPeriods = [0.4661477096, 1.025524961]
     let phasedJSON = { data: [], chartOptions: scatterPlotJSON.chartOptions }
     scatterPlotJSON.data.forEach((series, seriesIndex) => {
-      const seriesPeriod = seriesPeriods[seriesIndex] * periodMultiple
+      const periodToUse = parseFloat(scatterPlotJSON.data[seriesIndexForPeriod].seriesOptions.period)
+      const seriesPeriod = periodToUse * periodMultiple
       const seriesData = []
       series.seriesData.forEach((datum) => {
         let phasedXPoint
@@ -215,6 +215,12 @@ class VariableStarViewerContainer extends Component {
     this.setState({ visibleSeries: newVisibleSeriesState })
   }
 
+  setSeriesPhaseFocus (event) {
+    const seriesIndexForPeriod = parseInt(event.target.value)
+    const phasedJSON = this.calculatePhase(this.state.rawJSON.scatterPlot, seriesIndexForPeriod)
+    this.setState({ phasedJSON, phaseFocusedSeries: seriesIndexForPeriod })
+  }
+
   setYAxisInversion () {
     this.setState((prevState) => { return { invertYAxis: !prevState.invertYAxis } })
   }
@@ -234,10 +240,12 @@ class VariableStarViewerContainer extends Component {
         imageSrc={this.state.imageSrc}
         invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
+        phaseFocusedSeries={this.state.phaseFocusedSeries}
         phaseLimit={this.state.phaseLimit}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
         setPeriodMultiple={this.setPeriodMultiple}
+        setSeriesPhaseFocus={this.setSeriesPhaseFocus}
         setSeriesVisibility={this.setSeriesVisibility}
         setYAxisInversion={this.setYAxisInversion}
         visibleSeries={this.state.visibleSeries}
