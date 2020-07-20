@@ -22,7 +22,6 @@ class TranscribedLines extends React.Component {
   constructor () {
     super()
 
-    this.ref = React.createRef()
     this.state = {
       bounds: {},
       line: {
@@ -37,7 +36,7 @@ class TranscribedLines extends React.Component {
     this.showConsensus = this.showConsensus.bind(this)
   }
 
-  createMark (line) {
+  createMark (line, ref) {
     const { activeTool, activeToolIndex, setActiveMark } = this.props.task
     const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
     const markSnapshot = { x1, y1, x2, y2, toolIndex: activeToolIndex }
@@ -57,12 +56,12 @@ class TranscribedLines extends React.Component {
         }
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
-      mark.setSubTaskVisibility(true, this.ref.current, previousAnnotationValuesForEachMark)
+      mark.setSubTaskVisibility(true, ref?.current, previousAnnotationValuesForEachMark)
     }
   }
 
-  showConsensus (line) {
-    const bounds = this.ref?.current?.getBoundingClientRect() || {}
+  showConsensus (line, ref) {
+    const bounds = ref?.current?.getBoundingClientRect() || {}
     this.setState({
       bounds,
       line,
@@ -70,14 +69,14 @@ class TranscribedLines extends React.Component {
     })
   }
 
-  onClick (callback, line) {
-    callback(line)
+  onClick (callback, line, ref) {
+    callback(line, ref)
   }
 
-  onKeyDown (event, callback, line) {
+  onKeyDown (event, callback, line, ref) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      callback(line)
+      callback(line, ref)
     }
   }
 
@@ -106,13 +105,15 @@ class TranscribedLines extends React.Component {
 
     const focusColor = theme.global.colors[theme.global.colors.focus]
     return (
-      <g ref={this.ref}>
+      <g>
         {completedLines
           .map((line, index) => {
             const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
             const id = `complete-${index}`
+            const ref = React.createRef()
+
             return (
               <Tooltip
                 id={id}
@@ -120,12 +121,13 @@ class TranscribedLines extends React.Component {
                 label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}
               >
                 <ConsensusLine
+                  ref={ref}
                   role='button'
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.showConsensus, line)}
-                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line)}
+                  onClick={() => this.onClick(this.showConsensus, line, ref)}
+                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line, ref)}
                   tabIndex={0}
                 >
                   <TranscriptionLine
@@ -144,6 +146,8 @@ class TranscribedLines extends React.Component {
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
             const id = `transcribed-${index}`
+            const ref = React.createRef()
+
             return (
               <Tooltip
                 id={id}
@@ -151,16 +155,17 @@ class TranscribedLines extends React.Component {
                 label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
               >
                 <ConsensusLine
+                  ref={ref}
                   role='button'
                   aria-describedby={id}
                   aria-disabled={disabled.toString()}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
                   onClick={() => {
-                    if (!disabled) this.onClick(this.createMark, line)
+                    if (!disabled) this.onClick(this.createMark, line, ref)
                   }}
                   onKeyDown={(event) => {
-                    if (!disabled) this.onKeyDown(event, this.createMark, line)
+                    if (!disabled) this.onKeyDown(event, this.createMark, line, ref)
                   }}
                   tabIndex={0}
                 >
