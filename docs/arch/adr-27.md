@@ -43,7 +43,7 @@ Subject viewer configuration is an object stored in `workflow.configuration.subj
 ```
 
 Subject viewers to define the configuration object in the related subject viewer README, if applicable.
-
+The ScatterPlotViewer and BarChartViewer accept a configuration object directly in the JSON structure of the subject data to support variability in the display settings including the plot labels since it's possible this might vary per subject. The `subject_viewer_config` object should only be used for  configuration options that apply to all subjects linked to the workflow. 
 ## Status
 
 Proposed
