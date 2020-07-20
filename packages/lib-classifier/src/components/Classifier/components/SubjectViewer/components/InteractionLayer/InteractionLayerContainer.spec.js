@@ -1,10 +1,8 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import InteractionLayerContainer from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
-import TranscribedLines from './components/TranscribedLines'
-import SubTaskPopup from './components/SubTaskPopup'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > InteractionLayerContainer', function () {
@@ -56,14 +54,6 @@ describe('Component > InteractionLayerContainer', function () {
     it('should render an InteractionLayer', function () {
       expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
     })
-
-    it('should render SubTaskPopup', function () {
-      expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
-    })
-
-    it('should not render TranscribedLines', function () {
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
-    })
   })
 
   describe('with annotations from previous reduced drawing or transcription tasks', function () {
@@ -102,16 +92,11 @@ describe('Component > InteractionLayerContainer', function () {
           height={height}
           width={width}
           activeInteractionTask={transcriptionTask}
-          workflow={{ usesTranscriptionTask: true }}
         />
       )
     })
 
-    it('should render TranscribedLines', function () {
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
-    })
-
-    it('should render TranscribedLines exclusively per frame', function () {
+    it('should render transcription lines exclusively per frame', function () {
       const activeTask = {
         hidePreviousMarks: false,
         hidingIndex: 0,
@@ -156,7 +141,6 @@ describe('Component > InteractionLayerContainer', function () {
           width={width}
           frame={0}
           activeInteractionTask={activeTranscriptionTask}
-          workflow={{ usesTranscriptionTask: true }}
         />
       )
 
@@ -183,7 +167,6 @@ describe('Component > InteractionLayerContainer', function () {
             width={width}
             activeInteractionTask={hidingMarksInteractionTask}
             interactionTaskAnnotations={drawingAnnotations}
-            workflow={{ usesTranscriptionTask: true }}
           />
         )
       })
@@ -209,7 +192,6 @@ describe('Component > InteractionLayerContainer', function () {
             width={width}
             activeInteractionTask={hidingUserMarksInteractionTask}
             interactionTaskAnnotations={drawingAnnotations}
-            workflow={{ usesTranscriptionTask: true }}
           />
         )
 

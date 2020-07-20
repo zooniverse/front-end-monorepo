@@ -3,8 +3,12 @@
     "controls": "controls",
     "flip": "flip",
     "focus": "focus",
+    "imageTitle": "HR Diagram",
+    "label": "Filter %(id)s",
     "periodMultiple": "period multiple",
     "phase": "phase",
-    "temperature": "temperature"
+    "phaseFocus": "phase focus",
+    "temperature": "temperature",
+    "visibility": "visibility"
   }
 }

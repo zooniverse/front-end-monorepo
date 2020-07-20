@@ -5,8 +5,6 @@ import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
 import DrawingToolMarks from './components/DrawingToolMarks'
-import TranscribedLines from './components/TranscribedLines'
-import SubTaskPopup from './components/SubTaskPopup'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
@@ -20,22 +18,16 @@ function storeMapper (stores) {
   const {
     active: classification
   } = stores.classifierStore.classifications
-  const {
-    active: workflow
-  } = stores.classifierStore.workflows
-  const subject = stores.classifierStore.subjects.active
+
   const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
   const annotations = classification ? Array.from(classification.annotations.values()) : []
   const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
-  const { consensusLines } = subject.transcriptionReductions || {}
 
   return {
     activeInteractionTask,
-    consensusLines,
     frame,
     interactionTaskAnnotations,
-    move,
-    workflow
+    move
   }
 }
 
@@ -45,13 +37,11 @@ class InteractionLayerContainer extends Component {
   render () {
     const {
       activeInteractionTask,
-      consensusLines,
       frame,
       height,
       interactionTaskAnnotations,
       move,
       scale,
-      workflow,
       width
     } = this.props
 
@@ -62,10 +52,7 @@ class InteractionLayerContainer extends Component {
       hidingIndex,
       marks,
       setActiveMark,
-      setSubTaskVisibility,
       shownMarks,
-      subTaskMarkBounds,
-      subTaskVisibility,
       taskKey
     } = activeInteractionTask
 
@@ -94,23 +81,8 @@ class InteractionLayerContainer extends Component {
             move={move}
             scale={scale}
             setActiveMark={setActiveMark}
-            setSubTaskVisibility={setSubTaskVisibility}
             width={width}
-          >
-            {shownMarks === SHOWN_MARKS.ALL && workflow?.usesTranscriptionTask &&
-              <TranscribedLines
-                lines={consensusLines}
-                scale={scale}
-                task={activeInteractionTask}
-              />
-            }
-            <SubTaskPopup
-              activeMark={activeMark}
-              subTaskMarkBounds={subTaskMarkBounds}
-              subTaskVisibility={subTaskVisibility}
-              setSubTaskVisibility={setSubTaskVisibility}
-            />
-          </InteractionLayer>
+          />
         }
       </>
     )
@@ -125,21 +97,16 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
     }),
     marks: PropTypes.array,
     setActiveMark: PropTypes.func,
-    setSubTaskVisibility: PropTypes.func,
     shownMarks: PropTypes.string,
     taskKey: PropTypes.string
   }),
-  consensusLines: PropTypes.array,
   disabled: PropTypes.bool,
   frame: PropTypes.number,
   height: PropTypes.number.isRequired,
   interactionTaskAnnotations: PropTypes.array,
   move: PropTypes.bool,
   scale: PropTypes.number,
-  width: PropTypes.number.isRequired,
-  workflow: PropTypes.shape({
-    usesTranscriptionTask: PropTypes.bool
-  })
+  width: PropTypes.number.isRequired
 }
 
 InteractionLayerContainer.wrappedComponent.defaultProps = {
@@ -150,19 +117,14 @@ InteractionLayerContainer.wrappedComponent.defaultProps = {
     },
     marks: [],
     setActiveMark: () => {},
-    setSubTaskVisibility: () => {},
     shownMarks: SHOWN_MARKS.ALL,
     taskKey: ''
   },
-  consensusLines: [],
   disabled: false,
   frame: 0,
   interactionTaskAnnotations: [],
   move: false,
-  scale: 1,
-  workflow: {
-    usesTranscriptionTask: false
-  }
+  scale: 1
 }
 
 export default InteractionLayerContainer

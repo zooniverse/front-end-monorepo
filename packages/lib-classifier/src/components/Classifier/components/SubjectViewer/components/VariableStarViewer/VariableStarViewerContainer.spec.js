@@ -25,7 +25,8 @@ const nextSubjectJSON = {
         ],
         "seriesOptions": {
           "color": "accent-2",
-          "label": "Filter 1"
+          "label": "Filter 1",
+          "period": 2.5
         }
       }, {
         "seriesData": [
@@ -41,7 +42,8 @@ const nextSubjectJSON = {
         ],
         "seriesOptions": {
           "color": "#98b6a7",
-          "label": "Filter 2"
+          "label": "Filter 2",
+          "period": 3.5
         }
       }
     ],
@@ -81,11 +83,11 @@ describe('Component > VariableStarViewerContainer', function () {
         chartOptions: {}
       }
     ],
-    focusedSeries: [],
     imageSrc: '',
     invertYAxis: false,
     loadingState: asyncStates.initialized,
     periodMultiple: 1,
+    phaseFocusedSeries: 0,
     phasedJSON: {
       data: [],
       chartOptions: {}
@@ -105,7 +107,8 @@ describe('Component > VariableStarViewerContainer', function () {
           chartOptions: {}
         }
       ]
-    }
+    },
+    visibleSeries: []
   }
 
   it('should render without crashing', function () {
@@ -129,7 +132,8 @@ describe('Component > VariableStarViewerContainer', function () {
     const imageSubject = Factory.build('subject')
     const failSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/failure.json' }
+        { 'application/json': 'http://localhost:8080/failure.json' },
+        { 'image/png': 'http://localhost:8080/image.png' }
       ]
     })
     before(function () {
@@ -189,13 +193,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
 
     const nextSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+        { 'application/json': 'http://localhost:8080/nextSubject.json' },
+        { 'image/png': 'http://localhost:8080/image2.png' }
       ]
     })
     before(function () {
@@ -234,6 +240,19 @@ describe('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
 
+    it('should set the component state with the image location source', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      expect(wrapper.state().imageSrc).to.be.empty()
+      cdmSpy.returnValues[0].then(() => {
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
+      }).then(done, done)
+    })
+
     it('should call the onReady prop', function (done) {
       const onReadySpy = sinon.spy()
       const wrapper = shallow(
@@ -257,24 +276,27 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
       })
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(nextSubjectJSON)
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image2.png')
       }).then(done, done)
     })
   })
 
-  describe('with series focus', function () {
+  describe('with series visibility', function () {
     let cdmSpy
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
-    const focusedStateMock = [
+    const visibleStateMock = [
       { [variableStar.scatterPlot.data[0].seriesOptions.label]: true },
       { [variableStar.scatterPlot.data[1].seriesOptions.label]: true }
     ]
@@ -297,24 +319,24 @@ describe('Component > VariableStarViewerContainer', function () {
       nockScope.persist(false)
     })
 
-    it('should default to focused states of true for each series', function (done) {
+    it('should default to visible states of true for each series', function (done) {
       const wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
         />
       )
 
-      expect(wrapper.state().focusedSeries).to.be.empty()
+      expect(wrapper.state().visibleSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
+        expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
       }).then(done, done)
     })
 
-    it('should be able to toggle the focused state', function () {
+    it('should be able to toggle the visible state', function () {
       const eventMock = {
         target: {
           checked: false,
-          value: Object.keys(focusedStateMock[0])[0]
+          value: Object.keys(visibleStateMock[0])[0]
         }
       }
       const wrapper = shallow(
@@ -323,10 +345,10 @@ describe('Component > VariableStarViewerContainer', function () {
         />
       )
 
-      wrapper.setState({ rawJSON: variableStar, focusedSeries: focusedStateMock })
-      expect(wrapper.state().focusedSeries).to.deep.equal(focusedStateMock)
-      wrapper.instance().setSeriesFocus(eventMock)
-      expect(wrapper.state().focusedSeries).to.deep.equal([
+      wrapper.setState({ rawJSON: variableStar, visibleSeries: visibleStateMock })
+      expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
+      wrapper.instance().setSeriesVisibility(eventMock)
+      expect(wrapper.state().visibleSeries).to.deep.equal([
         { [variableStar.scatterPlot.data[0].seriesOptions.label]: false },
         { [variableStar.scatterPlot.data[1].seriesOptions.label]: true }
       ])
@@ -339,13 +361,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
 
     const nextSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+        { 'application/json': 'http://localhost:8080/nextSubject.json' },
+        { 'image/png': 'http://localhost:8080/image2.png' }
       ]
     })
     before(function () {
@@ -424,6 +448,21 @@ describe('Component > VariableStarViewerContainer', function () {
         expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
       }).then(done, done)
     })
+
+    it('should calculate a new phased JSON when setSeriesPhaseFocus is called', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        const phasedJSONInitialState = wrapper.state().phasedJSON
+        wrapper.instance().setSeriesPhaseFocus({ target: { value: '1' } })
+        const phasedJSONNewState = wrapper.state().phasedJSON
+        expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
+      }).then(done, done)
+    })
   })
 
   describe('when calculating the phased bar charts JSON', function () {
@@ -432,13 +471,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     const subject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/variableStar.json' }
+        { 'application/json': 'http://localhost:8080/variableStar.json' },
+        { 'image/png': 'http://localhost:8080/image1.png' }
       ]
     })
 
     const nextSubject = Factory.build('subject', {
       locations: [
-        { 'application/json': 'http://localhost:8080/nextSubject.json' }
+        { 'application/json': 'http://localhost:8080/nextSubject.json' },
+        { 'image/png': 'http://localhost:8080/image2.png' }
       ]
     })
     before(function () {

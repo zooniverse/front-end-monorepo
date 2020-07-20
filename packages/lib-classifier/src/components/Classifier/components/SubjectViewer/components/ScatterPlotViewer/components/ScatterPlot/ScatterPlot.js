@@ -24,7 +24,6 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
-    focusedSeries,
     invertAxes,
     margin,
     padding,
@@ -39,6 +38,7 @@ function ScatterPlot (props) {
     },
     transformMatrix,
     underlays,
+    visibleSeries,
     xAxisLabel,
     xAxisNumTicks,
     xScale,
@@ -125,10 +125,10 @@ function ScatterPlot (props) {
         {dataPoints.map((series, seriesIndex) => {
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
-            focusedSeries,
             seriesOptions: series?.seriesOptions,
             seriesIndex,
-            themeColors: colors
+            themeColors: colors,
+            visibleSeries
           })
 
           const errorBarColor = lighten(0.25, glyphColor)
@@ -211,7 +211,6 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 20,
-  focusedSeries: [],
   invertAxes: {
     x: false,
     y: false
@@ -246,6 +245,7 @@ ScatterPlot.defaultProps = {
     translateY: 0
   },
   underlays: [],
+  visibleSeries: [],
   xAxisLabel: 'x-axis',
   xAxisNumTicks: 10,
   xScale: null,
@@ -277,7 +277,6 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
-  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   invertAxes: PropTypes.shape({
     x: PropTypes.bool,
     y: PropTypes.bool
@@ -308,6 +307,7 @@ ScatterPlot.propTypes = {
     translateX: PropTypes.number,
     translateY: PropTypes.number
   }),
+  visibleSeries: PropTypes.arrayOf(PropTypes.object),
   underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
   xAxisNumTicks: PropTypes.number,

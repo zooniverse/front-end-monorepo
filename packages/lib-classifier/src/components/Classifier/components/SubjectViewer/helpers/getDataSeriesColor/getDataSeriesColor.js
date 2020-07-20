@@ -27,13 +27,13 @@ export default function getDataSeriesColor({
     seriesIndex: seriesIndex = 0,
     themeColors: themeColors = {},
     defaultColors: defaultColors = [],
-    focusedSeries: focusedSeries = []
+    visibleSeries: visibleSeries = []
 } = {}) {
   const { color } = seriesOptions
 
-  if (focusedSeries && focusedSeries[seriesIndex]) {
-    const [focused] = Object.values(focusedSeries[seriesIndex]) || []
-    if (focused) {
+  if (visibleSeries && visibleSeries[seriesIndex]) {
+    const [visible] = Object.values(visibleSeries[seriesIndex]) || []
+    if (visible) {
       return whichColor(color, themeColors, defaultColors, seriesIndex)
     } else {
       return (themeColors && themeColors['light-4']) ? validateColor(themeColors['light-4']) : whichColor(color, themeColors, defaultColors, seriesIndex)

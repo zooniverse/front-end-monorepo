@@ -48,12 +48,14 @@ describe('Modal', function () {
     it('should set the ModalHeading props', function () {
       const closeFnSpy = () => true
       const wrapper = shallow(
-        <Modal title={title} closeFn={closeFnSpy}>
+        <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
           {content}
         </Modal>
       )
-      expect(wrapper.find(ModalHeading).props().title).to.equal(title)
-      expect(wrapper.find(ModalHeading).props().closeFn).to.equal(closeFnSpy)
+      const modalHeadingProps = wrapper.find(ModalHeading).props()
+      expect(modalHeadingProps.title).to.equal(title)
+      expect(modalHeadingProps.closeFn).to.equal(closeFnSpy)
+      expect(modalHeadingProps.color).to.equal('accent-2')
     })
 
     it('should render a ModalBody component', function () {
@@ -67,12 +69,15 @@ describe('Modal', function () {
 
     it('should set the ModalBody props', function () {
       const pad = 'medium'
+      const overflow = 'hidden'
       const wrapper = shallow(
-        <Modal pad={pad} title={title} closeFn={() => { }}>
+        <Modal overflow={overflow} pad={pad} title={title} closeFn={() => { }}>
           {content}
         </Modal>
       )
-      expect(wrapper.find(ModalBody).props().pad).to.equal(pad)
+      const modalBodyProps = wrapper.find(ModalBody).props()
+      expect(modalBodyProps.pad).to.equal(pad)
+      expect(modalBodyProps.overflow).to.equal(overflow)
     })
 
     it('should pass along the child content to be the child of ModalBody', function () {

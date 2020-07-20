@@ -31,7 +31,8 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     rotate,
     scale,
     viewBox,
-    width
+    width,
+    ...rest
   } = props
 
   const transformLayer = createRef()
@@ -48,6 +49,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
+          {...rest}
         >
           <g
             ref={transformLayer}

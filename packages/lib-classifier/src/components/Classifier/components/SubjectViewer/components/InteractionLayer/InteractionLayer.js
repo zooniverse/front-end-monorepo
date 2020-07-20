@@ -1,9 +1,11 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
+import TranscribedLines from './components/TranscribedLines'
+import SubTaskPopup from './components/SubTaskPopup'
 
 const StyledRect = styled('rect')`
   ${props => props.disabled ? 
@@ -16,19 +18,17 @@ function InteractionLayer ({
   activeMark,
   activeTool,
   activeToolIndex,
-  children,
   disabled,
   frame,
   height,
   marks,
   move,
   setActiveMark,
-  setSubTaskVisibility,
   scale,
   width
 }) {
-  const [ creating, setCreating ] = useState(false)
-  const { svg, getScreenCTM } = useContext(SVGContext)
+  const [ creating, setCreating ] = React.useState(false)
+  const { svg, getScreenCTM } = React.useContext(SVGContext)
 
   function convertEvent (event) {
     const type = event.type
@@ -66,7 +66,7 @@ function InteractionLayer ({
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
-    setSubTaskVisibility(false)
+    activeMark.setSubTaskVisibility(false)
     return false
   }
 
@@ -86,7 +86,7 @@ function InteractionLayer ({
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
     } else {
-      setSubTaskVisibility(true, node)
+      activeMark.setSubTaskVisibility(true, node)
     }
 
     if (target && pointerId) {
@@ -107,13 +107,15 @@ function InteractionLayer ({
         fill='transparent'
         onPointerDown={onPointerDown}
       />
-      {children}
+      <TranscribedLines
+        scale={scale}
+      />
+      <SubTaskPopup />
       {marks &&
         <DrawingToolMarks
-          activeMarkId={activeMark && activeMark.id}
+          activeMark={activeMark}
           marks={marks}
           onDelete={() => {
-            setSubTaskVisibility(false)
             setActiveMark(undefined)
           }}
           onFinish={onFinish}
@@ -133,7 +135,6 @@ InteractionLayer.propTypes = {
   frame: PropTypes.number,
   marks: PropTypes.array,
   setActiveMark: PropTypes.func,
-  setSubTaskVisibility: PropTypes.func,
   height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
   scale: PropTypes.number,
@@ -146,7 +147,6 @@ InteractionLayer.defaultProps = {
   frame: 0,
   marks: [],
   setActiveMark: () => {},
-  setSubTaskVisibility: () => {},
   disabled: false,
   scale: 1
 }

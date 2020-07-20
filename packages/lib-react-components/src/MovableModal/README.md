@@ -4,9 +4,10 @@ A modal component wrapped by [react-rnd](https://github.com/bokuweb/react-rnd/bl
 
 - `active` (boolean) - Defaults to `false`. Determines whether the modal is visible or not
 - `closeFn` (function) - Called when clicking outside the modal, or when the Esc button is pressed.
--  `headingBackground` (string) -  Defaults to `'brand'`. The background color for the modal header. This can be set to any CSS color value or color string value from the Zooniverse Grommet theme.
+-  `headingBackground` (string or object) -  Defaults to `'brand'`. The background color for the modal header. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
 - `pad` (string or object) - Defaults to `medium`. Determines Grommet `Box` padding of the modal body. 
 - `title` (string) - Defaults to an empty string. Used as the modal title in the header.
+- `titleColor` (object or string) - Defaults to `'neutral-6'` (white). The color of the title text. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
 
 Additional props for the HOC `Layer component (see Notes):
 

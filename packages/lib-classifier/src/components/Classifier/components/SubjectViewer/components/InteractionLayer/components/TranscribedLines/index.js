@@ -1,1 +1,1 @@
-export { default } from './TranscribedLines'
+export { default } from './TranscribedLinesContainer'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Blank } from 'grommet-icons'
 
-export default function FlipIcon(props) {
+export default function FlipIcon (props) {
   return (
     <Blank
       viewBox='0 0 26 26'
