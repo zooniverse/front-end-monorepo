@@ -1,4 +1,5 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/TranscriptionReductions'
@@ -7,6 +8,7 @@ import { TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
+import zooTheme from '@zooniverse/grommet-theme'
 
 describe('Component > TranscribedLines', function () {
   let wrapper, task, consensusLines
@@ -79,7 +81,27 @@ describe('Component > TranscribedLines', function () {
   describe('with all lines', function () {
     before(function () {
       sinon.spy(React, 'createRef')
-      wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
+      wrapper = mount(
+        <svg>
+          <TranscribedLines
+            lines={consensusLines}
+            task={task}
+            theme={zooTheme}
+          />
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: false
+                }
+              }
+            }
+          }
+        }
+      )
     })
 
     after(function () {
@@ -88,6 +110,11 @@ describe('Component > TranscribedLines', function () {
 
     it('should call React createRef for each line', function () {
       expect(React.createRef.callCount).to.equal(consensusLines.length)
+    })
+
+    it('should call createMark with expected ref', function () {
+      const returnRefs = React.createRef.returnValues
+      console.log('returnRefs', returnRefs)
     })
   })
 
