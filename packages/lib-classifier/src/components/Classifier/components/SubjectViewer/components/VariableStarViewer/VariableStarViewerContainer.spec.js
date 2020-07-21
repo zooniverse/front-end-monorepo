@@ -6,7 +6,8 @@ import sinon from 'sinon'
 import { Factory } from 'rosie'
 
 import { VariableStarViewerContainer } from './VariableStarViewerContainer'
-import variableStar from '../../helpers/mockLightCurves/variableStar'
+import VariableStarViewer from './VariableStarViewer'
+import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 
 const nextSubjectJSON = {
   scatterPlot: {
@@ -77,6 +78,7 @@ const nextSubjectJSON = {
 
 describe('Component > VariableStarViewerContainer', function () {
   const mockState = {
+    allowPanZoom: 'phasedJSON',
     barJSON: [
       {
         data: [],
@@ -555,6 +557,37 @@ describe('Component > VariableStarViewerContainer', function () {
         const phasedBarJSONNewState = wrapper.state().barJSON
         expect(phasedBarJSONInitialState).to.not.deep.equal(phasedBarJSONNewState)
       }).then(done, done)
+    })
+  })
+
+  describe('with pan and zoom per scatter plot module', function () {
+    let wrapper
+    before(function () {
+      const subject = Factory.build('subject', {
+        locations: [
+          { 'application/json': 'http://localhost:8080/variableStar.json' },
+          { 'image/png': 'http://localhost:8080/image1.png' }
+        ]
+      })
+      wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+    })
+
+    it('should default to have pan and zoom enabled for the phased JSON scatter plot', function () {
+      expect(wrapper.state().allowPanZoom).to.equal('phasedJSON')
+    })
+
+    it('should set the state for which module is allowed to zoom when setAllowPanZoom is called', function () {
+      expect(wrapper.state().allowPanZoom).to.equal('phasedJSON')
+      wrapper.instance().setAllowPanZoom('rawJSON')
+      expect(wrapper.state().allowPanZoom).to.equal('rawJSON')
+    })
+
+    it('should pass the state property down to VariableStarViewer as a prop', function () {
+      expect(wrapper.find(VariableStarViewer).props().allowPanZoom).to.equal(wrapper.state().allowPanZoom)
     })
   })
 })

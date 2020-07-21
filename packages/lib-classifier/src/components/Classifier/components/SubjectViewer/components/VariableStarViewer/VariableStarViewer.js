@@ -17,6 +17,12 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const StyledButton = styled(Button)`
+    height: 100%;
+    position: absolute;
+    width: 100%
+  `
+
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
     allowPanZoom,
@@ -50,12 +56,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     phasedJSON: allowPanZoom === 'phasedJSON',
     rawJSON: allowPanZoom === 'rawJSON'
   }
-
-  const StyledButton = styled(Button)`
-    height: 100%;
-    position: absolute;
-    width: 100%
-  `
 
   return (
     <Grid
@@ -251,4 +251,4 @@ VariableStarViewer.propTypes = {
 }
 
 export default withTheme(VariableStarViewer)
-export { VariableStarViewer }
+export { StyledButton, VariableStarViewer }

@@ -12,6 +12,7 @@ const StyledRect = styled.rect`
 function ZoomEventLayer (props) {
   const {
     onDoubleClick = () => {},
+    onKeyDown,
     onMouseDown,
     onMouseEnter,
     onMouseMove,
@@ -25,9 +26,11 @@ function ZoomEventLayer (props) {
 
   return (
     <StyledRect
-      height={parentHeight}
       fill='transparent'
+      focusable
+      height={parentHeight}
       onDoubleClick={onDoubleClick}
+      onKeyDown={onKeyDown}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
       onMouseMove={onMouseMove}
@@ -35,6 +38,7 @@ function ZoomEventLayer (props) {
       onMouseLeave={onMouseLeave}
       onWheel={onWheel}
       panning={(panning) ? 'true' : undefined}
+      tabIndex='0'
       width={parentWidth}
     />
   )

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
 import ZoomEventLayer from '../ZoomEventLayer'
+import withKeyZoom from '../../../../withKeyZoom'
 
 class VXZoom extends PureComponent {
   constructor (props) {
@@ -10,9 +11,9 @@ class VXZoom extends PureComponent {
     const { setOnZoom } = props
 
     setOnZoom(this.handleToolbarZoom.bind(this))
-    console.log('setOnZoom', setOnZoom)
 
     this.onDoubleClick = this.onDoubleClick.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
     this.onMouseEnter = this.onMouseEnter.bind(this)
     this.onMouseLeave = this.onMouseLeave.bind(this)
   }
@@ -63,6 +64,53 @@ class VXZoom extends PureComponent {
     }
   }
 
+  onKeyDown (event) {
+    console.log('onKeyDown')
+    const htmlTag = event.target?.tagName.toLowerCase()
+    if (htmlTag === 'rect') {
+      switch (event.key) {
+        case '+':
+        case '=': {
+          this.zoomIn()
+          return true
+        }
+        case '-':
+        case '_': {
+          this.zoomOut()
+          return true
+        }
+        case 'ArrowRight': {
+          event.preventDefault()
+          this.zoom.scale({ translateX: -1 })
+          return true
+        }
+        case 'ArrowLeft': {
+          event.preventDefault()
+          this.zoom.scale({ translateX: 1 })
+          // onPan(1, 0)
+          return true
+        }
+        case 'ArrowUp': {
+          event.preventDefault()
+          this.zoom.scale({ translateY: -1 })
+          // onPan(0, -1)
+          return true
+        }
+        case 'ArrowDown': {
+          event.preventDefault()
+          this.zoom.scale({ translateY: 1 })
+          // onPan(0, 1)
+          return true
+        }
+        default: {
+          return true
+        }
+      }
+    }
+
+    return true
+  }
+
   onMouseEnter () {
     if (this.props.zooming) {
       document.body.style.overflow = 'hidden'
@@ -88,6 +136,7 @@ class VXZoom extends PureComponent {
   render () {
     const {
       constrain,
+      onKeyDown,
       panning,
       parentHeight,
       parentWidth,
@@ -116,13 +165,14 @@ class VXZoom extends PureComponent {
               {...this.props}
             >
               <ZoomEventLayer
-                onWheel={(event) => this.onWheel(event)}
+                onDoubleClick={this.onDoubleClick}
+                onKeyDown={this.onKeyDown}
                 onMouseDown={panning ? zoom.dragStart : () => { }}
                 onMouseEnter={this.onMouseEnter}
                 onMouseMove={panning ? zoom.dragMove : () => { }}
                 onMouseUp={panning ? zoom.dragEnd : () => { }}
                 onMouseLeave={this.onMouseLeave}
-                onDoubleClick={this.onDoubleClick}
+                onWheel={(event) => this.onWheel(event)}
                 panning={panning}
                 parentHeight={parentHeight}
                 parentWidth={parentWidth}
@@ -150,7 +200,7 @@ VXZoom.defaultProps = {
 
 VXZoom.propTypes = {
   constrain: PropTypes.func,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
   panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
