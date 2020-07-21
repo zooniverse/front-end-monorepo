@@ -26,7 +26,7 @@ class VariableStarViewerContainer extends Component {
     super()
     this.viewer = React.createRef()
     this.state = {
-      allowPanZoom: 'phasedJSON',
+      allowPanZoom: '',
       barJSON: [
         {
           data: [],

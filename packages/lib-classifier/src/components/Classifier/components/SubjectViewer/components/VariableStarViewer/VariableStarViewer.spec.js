@@ -5,7 +5,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { StyledButton, VariableStarViewer } from './VariableStarViewer'
 import { VariableStarViewerContainer } from './VariableStarViewerContainer'
-import ZoomEnabledLabel from './components/ZoomEnabledLabel'
+import ZoomEnabledLabel from './components/ZoomEnableButton'
 import { SingleImageViewer } from '../SingleImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
@@ -161,7 +161,7 @@ describe('Component > VariableStarViewer', function () {
       })
 
       it('should have a border defined for its wrapper div', function () {
-        expect(wrapperDiv.props().border).to.deep.equal({ color: 'brand', size: 'small' })
+        expect(wrapperDiv.props().border).to.deep.equal({ color: 'brand', size: 'xsmall' })
       })
     })
   })
@@ -282,7 +282,7 @@ describe('Component > VariableStarViewer', function () {
       })
 
       it('should have a border defined for its wrapper div', function () {
-        expect(wrapperDiv.props().border).to.deep.equal({ color: 'brand', size: 'small' })
+        expect(wrapperDiv.props().border).to.deep.equal({ color: 'brand', size: 'xsmall' })
       })
     })
   })

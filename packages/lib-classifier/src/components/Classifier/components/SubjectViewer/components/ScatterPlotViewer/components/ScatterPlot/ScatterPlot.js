@@ -26,6 +26,7 @@ function ScatterPlot (props) {
     dataPointSize,
     invertAxes,
     margin,
+    onKeyDown,
     padding,
     parentHeight,
     parentWidth,
@@ -98,6 +99,7 @@ function ScatterPlot (props) {
   return (
     <Chart
       height={parentHeight}
+      onKeyDown={onKeyDown}
       width={parentWidth}
     >
       <Background fill={background} />

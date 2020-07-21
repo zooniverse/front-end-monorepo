@@ -7,12 +7,20 @@ const StyledRect = styled.rect`
    css`cursor: move;` :
    css`cursor: inherit;`}
   overscroll-behavior: none;
+
+  &:focus {
+    outline-color: #addde0;
+    border-color: #addde0;
+    box-shadow: 0 0 4px 4px #addde0;
+  }
 `
 
 function ZoomEventLayer (props) {
   const {
+    height,
+    left = 0,
     onDoubleClick = () => {},
-    onKeyDown,
+    onKeyDown = () => {},
     onMouseDown,
     onMouseEnter,
     onMouseMove,
@@ -20,15 +28,15 @@ function ZoomEventLayer (props) {
     onMouseLeave,
     onWheel = () => {},
     panning = false,
-    parentHeight,
-    parentWidth
+    top = 0,
+    width,
+    ...rest
   } = props
 
   return (
     <StyledRect
       fill='transparent'
-      focusable
-      height={parentHeight}
+      height={height}
       onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
       onMouseDown={onMouseDown}
@@ -38,14 +46,18 @@ function ZoomEventLayer (props) {
       onMouseLeave={onMouseLeave}
       onWheel={onWheel}
       panning={(panning) ? 'true' : undefined}
-      tabIndex='0'
-      width={parentWidth}
+      transform={`translate(${left}, ${top})`}
+      width={width}
+      {...rest}
     />
   )
 }
 
 ZoomEventLayer.propTypes = {
+  height: PropTypes.number.isRequired,
+  left: PropTypes.number,
   onDoubleClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
   onMouseDown: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func,
   onMouseMove: PropTypes.func.isRequired,
@@ -53,8 +65,8 @@ ZoomEventLayer.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   onWheel: PropTypes.func,
   panning: PropTypes.bool,
-  parentHeight: PropTypes.number.isRequired,
-  parentWidth: PropTypes.number.isRequired
+  top: PropTypes.number,
+  width: PropTypes.number.isRequired
 }
 
 export default ZoomEventLayer
