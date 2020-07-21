@@ -7,23 +7,29 @@ import ZoomEventLayer from '../ZoomEventLayer'
 class VXZoom extends PureComponent {
   constructor (props) {
     super(props)
-    const { setOnZoom } = props
+    const { setOnPan, setOnZoom } = props
 
+    setOnPan(this.handleToolbarPan.bind(this))
     setOnZoom(this.handleToolbarZoom.bind(this))
 
     this.onDoubleClick = this.onDoubleClick.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
     this.onMouseEnter = this.onMouseEnter.bind(this)
     this.onMouseLeave = this.onMouseLeave.bind(this)
+    this.onPan = this.onPan.bind(this)
   }
 
   static zoom = null
 
+  handleToolbarPan (type) {
+    this.onPan(type)
+  }
+
   handleToolbarZoom (type) {
     const doZoom = {
-      'zoomin': this.zoomIn.bind(this),
-      'zoomout': this.zoomOut.bind(this),
-      'zoomto': this.zoomReset.bind(this)
+      zoomin: this.zoomIn.bind(this),
+      zoomout: this.zoomOut.bind(this),
+      zoomto: this.zoomReset.bind(this)
     }
 
     if (doZoom[type]) {
@@ -63,6 +69,22 @@ class VXZoom extends PureComponent {
     }
   }
 
+  onPan (direction) {
+    const { 
+      transformMatrix: {
+        translateX,
+        translateY
+      }
+    } = this.zoom
+    const newTransformation = { 
+      down: { translateX, translateY: translateY - 2 },
+      left: { translateX: translateX + 2, translateY },
+      right: { translateX: translateX - 2, translateY },
+      up: { translateX, translateY: translateY + 2 }
+    }
+    this.zoom.setTranslate(newTransformation[direction])
+  }
+
   onKeyDown (event) {
     const { panning, zooming } = this.props
     const htmlTag = event.target?.tagName.toLowerCase()
@@ -80,24 +102,24 @@ class VXZoom extends PureComponent {
         }
         case 'ArrowRight': {
           event.preventDefault()
-          if (panning) this.zoom.dragMove()
+          if (panning) this.onPan('right')
           return true
         }
         case 'ArrowLeft': {
           event.preventDefault()
-          if (panning) this.zoom.scale({ translateX: 1 })
+          if (panning) this.onPan('left')
           // onPan(1, 0)
           return true
         }
         case 'ArrowUp': {
           event.preventDefault()
-          if (panning) this.zoom.scale({ translateY: -1 })
+          if (panning) this.onPan('up')
           // onPan(0, -1)
           return true
         }
         case 'ArrowDown': {
           event.preventDefault()
-          if (panning) this.zoom.scale({ translateY: 1 })
+          if (panning) this.onPan('down')
           // onPan(0, 1)
           return true
         }
@@ -192,6 +214,7 @@ class VXZoom extends PureComponent {
 
 VXZoom.defaultProps = {
   panning: false,
+  setOnPan: () => true,
   setOnZoom: () => true,
   zoomConfiguration: {
     direction: 'both',
@@ -208,6 +231,7 @@ VXZoom.propTypes = {
   data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
   height: PropTypes.number.isRequired,
   panning: PropTypes.bool,
+  setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
   width: PropTypes.number.isRequired,
   zoomConfiguration: PropTypes.shape({

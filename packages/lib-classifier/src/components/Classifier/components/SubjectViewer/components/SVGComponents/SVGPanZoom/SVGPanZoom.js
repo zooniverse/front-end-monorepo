@@ -84,7 +84,7 @@ function SVGPanZoom ({
     })
   }
 
-  function onPan (dx, dy) {
+  function onPan (type, { dx, dy }) {
     setViewBox(prevViewBox => {
       const newViewBox = Object.assign({}, prevViewBox)
       newViewBox.x -= dx * 10

@@ -36,8 +36,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     rawJSON: {
       scatterPlot
     },
-    setOnZoom,
     setAllowPanZoom,
+    setOnPan,
+    setOnZoom,
     setPeriodMultiple,
     setSeriesPhaseFocus,
     setSeriesVisibility,
@@ -92,6 +93,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         <ScatterPlotViewer
           data={phasedJSON.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           underlays={underlays}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
@@ -111,6 +113,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         <ScatterPlotViewer
           data={scatterPlot.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
           xAxisNumTicks={4}
@@ -192,6 +195,8 @@ VariableStarViewer.defaultProps = {
     },
     barCharts: []
   },
+  setOnPan: () => true,
+  setOnZoom: () => true,
   setPeriodMultiple: () => { },
   setSeriesPhaseFocus: () => {},
   setSeriesVisibility: () => { },
@@ -226,6 +231,8 @@ VariableStarViewer.propTypes = {
     data: PropTypes.array,
     chartOptions: PropTypes.object
   }),
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setSeriesPhaseFocus: PropTypes.func,
   setSeriesVisibility: PropTypes.func,
