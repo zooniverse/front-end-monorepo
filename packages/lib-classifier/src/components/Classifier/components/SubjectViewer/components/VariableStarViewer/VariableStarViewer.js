@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import {
   Box,
-  Button,
   Grid
 } from 'grommet'
 import counterpart from 'counterpart'
@@ -16,12 +15,6 @@ import ZoomEnableButton from './components/ZoomEnableButton'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-const StyledButton = styled(Button)`
-    height: 100%;
-    position: absolute;
-    width: 100%
-  `
 
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
@@ -243,4 +236,4 @@ VariableStarViewer.propTypes = {
 }
 
 export default withTheme(VariableStarViewer)
-export { StyledButton, VariableStarViewer }
+export { VariableStarViewer }
