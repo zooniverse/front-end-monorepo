@@ -108,19 +108,16 @@ class VXZoom extends PureComponent {
         case 'ArrowLeft': {
           event.preventDefault()
           if (panning) this.onPan('left')
-          // onPan(1, 0)
           return true
         }
         case 'ArrowUp': {
           event.preventDefault()
           if (panning) this.onPan('up')
-          // onPan(0, -1)
           return true
         }
         case 'ArrowDown': {
           event.preventDefault()
           if (panning) this.onPan('down')
-          // onPan(0, 1)
           return true
         }
         default: {
