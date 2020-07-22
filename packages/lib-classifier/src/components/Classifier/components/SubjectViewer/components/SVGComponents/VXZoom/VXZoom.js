@@ -88,36 +88,36 @@ class VXZoom extends PureComponent {
   onKeyDown (event) {
     const { panning, zooming } = this.props
     const htmlTag = event.target?.tagName.toLowerCase()
-    if (htmlTag === 'rect') {
+    if (htmlTag === 'rect' && (zooming || panning)) {
       switch (event.key) {
         case '+':
         case '=': {
-          if (zooming) this.zoomIn()
+          this.zoomIn()
           return true
         }
         case '-':
         case '_': {
-          if (zooming) this.zoomOut()
+          this.zoomOut()
           return true
         }
         case 'ArrowRight': {
           event.preventDefault()
-          if (panning) this.onPan('right')
+          this.onPan('right')
           return true
         }
         case 'ArrowLeft': {
           event.preventDefault()
-          if (panning) this.onPan('left')
+          this.onPan('left')
           return true
         }
         case 'ArrowUp': {
           event.preventDefault()
-          if (panning) this.onPan('up')
+          this.onPan('up')
           return true
         }
         case 'ArrowDown': {
           event.preventDefault()
-          if (panning) this.onPan('down')
+          this.onPan('down')
           return true
         }
         default: {
@@ -157,8 +157,8 @@ class VXZoom extends PureComponent {
       left,
       panning,
       height,
-      width,
       top,
+      width,
       zoomConfiguration,
       zoomingComponent
     } = this.props
@@ -168,6 +168,7 @@ class VXZoom extends PureComponent {
       <Zoom
         constrain={constrain}
         height={height}
+        left={left}
         scaleXMin={zoomConfiguration.minZoom}
         scaleXMax={zoomConfiguration.maxZoom}
         scaleYMin={zoomConfiguration.minZoom}
@@ -210,9 +211,11 @@ class VXZoom extends PureComponent {
 }
 
 VXZoom.defaultProps = {
+  left: 0,
   panning: false,
   setOnPan: () => true,
   setOnZoom: () => true,
+  top: 0,
   zoomConfiguration: {
     direction: 'both',
     minZoom: 1,
@@ -227,9 +230,11 @@ VXZoom.propTypes = {
   constrain: PropTypes.func,
   data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
   height: PropTypes.number.isRequired,
+  left: PropTypes.number,
   panning: PropTypes.bool,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
+  top: PropTypes.number,
   width: PropTypes.number.isRequired,
   zoomConfiguration: PropTypes.shape({
     direction: PropTypes.oneOf(['both', 'x', 'y']),

@@ -24,10 +24,9 @@ function withKeyZoom (WrappedComponent) {
     }
 
     onKeyDown (e) {
-      console.log('onKeyDown', e)
       const { onPan, zoomIn, zoomOut } = this.props
       const htmlTag = e.target?.tagName.toLowerCase()
-      if (htmlTag === 'svg' || htmlTag === 'button' || htmlTag === 'rect') {
+      if (htmlTag === 'svg' || htmlTag === 'button') {
         switch (e.key) {
           case '+':
           case '=': {

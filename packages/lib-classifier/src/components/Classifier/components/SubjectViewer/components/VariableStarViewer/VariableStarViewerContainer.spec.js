@@ -78,7 +78,7 @@ const nextSubjectJSON = {
 
 describe('Component > VariableStarViewerContainer', function () {
   const mockState = {
-    allowPanZoom: 'phasedJSON',
+    allowPanZoom: '',
     barJSON: [
       {
         data: [],
@@ -576,12 +576,11 @@ describe('Component > VariableStarViewerContainer', function () {
       )
     })
 
-    it('should default to have pan and zoom enabled for the phased JSON scatter plot', function () {
-      expect(wrapper.state().allowPanZoom).to.equal('phasedJSON')
+    it('should default to not have pan and zoom enabled for either scatter plot', function () {
+      expect(wrapper.state().allowPanZoom).to.equal('')
     })
 
     it('should set the state for which module is allowed to zoom when setAllowPanZoom is called', function () {
-      expect(wrapper.state().allowPanZoom).to.equal('phasedJSON')
       wrapper.instance().setAllowPanZoom('rawJSON')
       expect(wrapper.state().allowPanZoom).to.equal('rawJSON')
     })

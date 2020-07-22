@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import SingleImageViewer from '../../SingleImageViewer'
 import SVGPanZoom from './SVGPanZoom'
 
 describe('Components > SVGPanZoom', function () {
@@ -52,14 +51,14 @@ describe('Components > SVGPanZoom', function () {
   })
 
   it('should enable horizontal panning', function () {
-    onPan(-1, 0)
+    onPan('', { dx: -1, dy: 0 })
     wrapper.update()
     const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('10 0 400 200')
   })
 
   it('should enable vertical panning', function () {
-    onPan(0, -1)
+    onPan('', { dx: 0, dy: -1 })
     wrapper.update()
     const viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 -10 400 200')
@@ -100,7 +99,7 @@ describe('Components > SVGPanZoom', function () {
   })
 
   it('should reset pan with new src', function () {
-    onPan(-1, 0)
+    onPan('', { dx: -1, dy: 0 })
     wrapper.update()
     let viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('10 0 400 200')

@@ -2,15 +2,11 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import { StyledButton, VariableStarViewer } from './VariableStarViewer'
-import { VariableStarViewerContainer } from './VariableStarViewerContainer'
-import ZoomEnabledLabel from './components/ZoomEnableButton'
+import { VariableStarViewer } from './VariableStarViewer'
+import ZoomEnableButton from './components/ZoomEnableButton'
 import { SingleImageViewer } from '../SingleImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import en from './locales/en'
-import { expect } from 'chai'
 
 describe('Component > VariableStarViewer', function () {
   it('should render without crashing', function () {
@@ -111,12 +107,12 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should not display the ZoomEnabledLabel', function () {
-        expect(wrapperDiv.find(ZoomEnabledLabel).props().show).to.be.false()
+      it('should render the ZoomEnableButton', function () {
+        expect(wrapperDiv.find(ZoomEnableButton)).to.have.lengthOf(1)
       })
 
-      it('should have a button overlayed the scatterplot', function () {
-        expect(wrapperDiv.find(StyledButton)).to.have.lengthOf(1)
+      it('should render the ZoomEnableButton with a false zooming prop', function () {
+        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.false()
       })
 
       it('should have zooming set to false', function () {
@@ -127,8 +123,8 @@ describe('Component > VariableStarViewer', function () {
         expect(wrapperDiv.props().border).to.be.false()
       })
 
-      it('should call setAllowPanZoom with phasedJSON when the overlayed button is clicked', function () {
-        const button = wrapperDiv.find(StyledButton)
+      it('should call setAllowPanZoom with phasedJSON when the ZoomEnableButton is clicked', function () {
+        const button = wrapperDiv.find(ZoomEnableButton)
         button.simulate('click')
         expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('phasedJSON')
       })
@@ -147,14 +143,9 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should display the ZoomEnabledLabel', function () {
-        expect(wrapperDiv.find(ZoomEnabledLabel).props().show).to.be.true()
+      it('should render the ZoomEnableButton with zooming prop as true', function () {
+        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.true()
       })
-
-      it('should not have a button overlayed the scatterplot', function () {
-        expect(wrapperDiv.find(StyledButton)).to.have.lengthOf(0)
-      })
-
 
       it('should set zooming to true', function () {
         expect(phasedScatterPlot.props().zooming).to.be.true()
@@ -232,12 +223,12 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should not display the ZoomEnabledLabel', function () {
-        expect(wrapperDiv.find(ZoomEnabledLabel).props().show).to.be.false()
+      it('should render a ZoomEnableButton', function () {
+        expect(wrapperDiv.find(ZoomEnableButton)).to.have.lengthOf(1)
       })
 
-      it('should have a button overlayed the scatterplot', function () {
-        expect(wrapperDiv.find(StyledButton)).to.have.lengthOf(1)
+      it('should render a ZoomEnableButton with zooming prop as false', function () {
+        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.false()
       })
 
       it('should have zooming set to false', function () {
@@ -249,7 +240,7 @@ describe('Component > VariableStarViewer', function () {
       })
 
       it('should call setAllowPanZoom with rawJSON when the overlayed button is clicked', function () {
-        const button = wrapperDiv.find(StyledButton)
+        const button = wrapperDiv.find(ZoomEnableButton)
         button.simulate('click')
         expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('rawJSON')
       })
@@ -268,14 +259,9 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should display the ZoomEnabledLabel', function () {
-        expect(wrapperDiv.find(ZoomEnabledLabel).props().show).to.be.true()
+      it('should display the ZoomEnableButton zooming prop as true', function () {
+        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.true()
       })
-
-      it('should not have a button overlayed the scatterplot', function () {
-        expect(wrapperDiv.find(StyledButton)).to.have.lengthOf(0)
-      })
-
 
       it('should set zooming to true', function () {
         expect(rawScatterPlot.props().zooming).to.be.true()
