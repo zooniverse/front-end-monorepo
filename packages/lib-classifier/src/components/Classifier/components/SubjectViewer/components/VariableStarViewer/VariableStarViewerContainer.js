@@ -9,13 +9,11 @@ import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper(stores) {
   const {
-    move,
     setOnZoom,
     setOnPan
   } = stores.classifierStore.subjectViewer
 
   return {
-    move,
     setOnZoom,
     setOnPan
   }
@@ -243,7 +241,6 @@ class VariableStarViewerContainer extends Component {
 
   render () {
     const {
-      move,
       setOnPan,
       setOnZoom,
       subject,
@@ -259,7 +256,6 @@ class VariableStarViewerContainer extends Component {
         barJSON={this.state.barJSON}
         imageSrc={this.state.imageSrc}
         invertYAxis={this.state.invertYAxis}
-        move={move}
         periodMultiple={this.state.periodMultiple}
         phaseFocusedSeries={this.state.phaseFocusedSeries}
         phaseLimit={this.state.phaseLimit}
