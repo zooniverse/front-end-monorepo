@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/TranscriptionReductions'
 import taskRegistry from '@plugins/tasks'
-import { TranscribedLines } from './TranscribedLines'
+import { ConsensusLine, TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
@@ -79,8 +79,12 @@ describe('Component > TranscribedLines', function () {
   })
 
   describe('with all lines', function () {
+    let consensusComponents, createMarkSpy, returnRefs, showConsensusStub
+
     before(function () {
       sinon.spy(React, 'createRef')
+      createMarkSpy = sinon.spy(TranscribedLines.prototype, 'createMark')
+      showConsensusStub = sinon.stub(TranscribedLines.prototype, 'showConsensus')
       wrapper = mount(
         <svg>
           <TranscribedLines
@@ -102,19 +106,82 @@ describe('Component > TranscribedLines', function () {
           }
         }
       )
+
+      returnRefs = React.createRef.returnValues
+      consensusComponents = wrapper.find(ConsensusLine)
     })
 
     after(function () {
+      task.setActiveMark(undefined)
       React.createRef.restore()
+      createMarkSpy.restore()
+      showConsensusStub.restore()
     })
 
     it('should call React createRef for each line', function () {
       expect(React.createRef.callCount).to.equal(consensusLines.length)
     })
 
-    it('should call createMark with expected ref', function () {
-      const returnRefs = React.createRef.returnValues
-      console.log('returnRefs', returnRefs)
+    it('should call ConsensusLine callback with expected ref on click', function () {
+      consensusComponents.forEach((consensusComponent, index) => {
+        const lineState = consensusComponent.find(TranscriptionLine).prop('state')
+        if (lineState === 'transcribed') {
+          expect(createMarkSpy.notCalled).to.be.true()
+          consensusComponent.simulate('click')
+          const [createMarkArgs] = createMarkSpy.args
+          expect(createMarkArgs[1]).to.equal(returnRefs[index])
+          createMarkSpy.resetHistory()
+        }
+        if (lineState === 'complete') {
+          expect(showConsensusStub.notCalled).to.be.true()
+          consensusComponent.simulate('click')
+          const [completeArgs] = showConsensusStub.args
+          expect(completeArgs[1]).to.equal(returnRefs[index])
+          showConsensusStub.resetHistory()
+        }
+      })
+    })
+
+    it('should call ConsensusLine callback with expected ref on keydown with enter', function () {
+      const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+      consensusComponents.forEach((consensusComponent, index) => {
+        const lineState = consensusComponent.find(TranscriptionLine).prop('state')
+        if (lineState === 'transcribed') {
+          expect(createMarkSpy.notCalled).to.be.true()
+          consensusComponent.simulate('keydown', eventMock)
+          const [createMarkArgs] = createMarkSpy.args
+          expect(createMarkArgs[1]).to.equal(returnRefs[index])
+          createMarkSpy.resetHistory()
+        }
+        if (lineState === 'complete') {
+          expect(showConsensusStub.notCalled).to.be.true()
+          consensusComponent.simulate('keydown', eventMock)
+          const [completeArgs] = showConsensusStub.args
+          expect(completeArgs[1]).to.equal(returnRefs[index])
+          showConsensusStub.resetHistory()
+        }
+      })
+    })
+
+    it('should call ConsensusLine callback with expected ref on keydown with space', function () {
+      const eventMock = { key: ' ', preventDefault: sinon.spy() }
+      consensusComponents.forEach((consensusComponent, index) => {
+        const lineState = consensusComponent.find(TranscriptionLine).prop('state')
+        if (lineState === 'transcribed') {
+          expect(createMarkSpy.notCalled).to.be.true()
+          consensusComponent.simulate('keydown', eventMock)
+          const [createMarkArgs] = createMarkSpy.args
+          expect(createMarkArgs[1]).to.equal(returnRefs[index])
+          createMarkSpy.resetHistory()
+        }
+        if (lineState === 'complete') {
+          expect(showConsensusStub.notCalled).to.be.true()
+          consensusComponent.simulate('keydown', eventMock)
+          const [completeArgs] = showConsensusStub.args
+          expect(completeArgs[1]).to.equal(returnRefs[index])
+          showConsensusStub.resetHistory()
+        }
+      })
     })
   })
 
