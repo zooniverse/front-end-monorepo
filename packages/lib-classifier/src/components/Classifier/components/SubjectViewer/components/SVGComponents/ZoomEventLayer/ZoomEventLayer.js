@@ -22,22 +22,18 @@ const StyledRect = styled.rect`
 function ZoomEventLayer (props) {
   const {
     height,
-    left = 0,
-    onDoubleClick = () => {},
-    onKeyDown = () => {},
+    left,
+    onDoubleClick,
+    onKeyDown,
     onMouseDown,
     onMouseEnter,
     onMouseMove,
     onMouseUp,
     onMouseLeave,
-    onWheel = () => {},
-    panning = false,
-    theme = {
-      global: {
-        colors: {}
-      }
-    },
-    top = 0,
+    onWheel,
+    panning,
+    theme,
+    top,
     width,
     ...rest
   } = props
@@ -62,6 +58,21 @@ function ZoomEventLayer (props) {
       {...rest}
     />
   )
+}
+
+ZoomEventLayer.defaultProps = {
+  left: 0,
+  onDoubleClick: () => {},
+  onKeyDown: () => {},
+  onMouseEnter: () => {},
+  onWheel: () => {},
+  panning: false,
+  theme: {
+    global: {
+      colors: {}
+    }
+  },
+  top: 0
 }
 
 ZoomEventLayer.propTypes = {

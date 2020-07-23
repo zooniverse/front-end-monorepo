@@ -700,7 +700,7 @@ describe('Component > VXZoom', function () {
         const rightPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(rightPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(rightPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(rightPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX - 2)
+        expect(rightPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX - 20)
         expect(rightPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
         expect(preventDefaultSpy).to.have.been.calledOnce()
         preventDefaultSpy.resetHistory()
@@ -713,7 +713,7 @@ describe('Component > VXZoom', function () {
         expect(downPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(downPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
         expect(downPannedTransformMatrix.translateX).to.equal(rightPannedTransformMatrix.translateX)
-        expect(downPannedTransformMatrix.translateY).to.equal(rightPannedTransformMatrix.translateY - 2)
+        expect(downPannedTransformMatrix.translateY).to.equal(rightPannedTransformMatrix.translateY - 20)
         expect(preventDefaultSpy).to.have.been.calledOnce()
         preventDefaultSpy.resetHistory()
 
@@ -724,7 +724,7 @@ describe('Component > VXZoom', function () {
         const leftPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(leftPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(leftPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(leftPannedTransformMatrix.translateX).to.equal(downPannedTransformMatrix.translateX + 2)
+        expect(leftPannedTransformMatrix.translateX).to.equal(downPannedTransformMatrix.translateX + 20)
         expect(leftPannedTransformMatrix.translateY).to.equal(downPannedTransformMatrix.translateY)
         expect(preventDefaultSpy).to.have.been.calledOnce()
         preventDefaultSpy.resetHistory()
@@ -741,7 +741,7 @@ describe('Component > VXZoom', function () {
         expect(upPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(upPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
         expect(upPannedTransformMatrix.translateX).to.equal(leftPannedTransformMatrix.translateX)
-        expect(upPannedTransformMatrix.translateY).to.equal(leftPannedTransformMatrix.translateY + 4)
+        expect(upPannedTransformMatrix.translateY).to.equal(leftPannedTransformMatrix.translateY + 40)
       })
     })
   })
