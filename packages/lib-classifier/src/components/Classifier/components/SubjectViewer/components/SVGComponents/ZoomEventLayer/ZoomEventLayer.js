@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 
 const StyledRect = styled.rect`
   ${props => props.panning ?
@@ -9,9 +9,13 @@ const StyledRect = styled.rect`
   overscroll-behavior: none;
 
   &:focus {
-    outline-color: #addde0;
-    border-color: #addde0;
-    box-shadow: 0 0 4px 4px #addde0;
+    ${props => 
+      css`
+        outline-color: ${props.focusColor};
+        border: solid thick ${props.focusColor};
+        box-shadow: 0 0 4px 4px ${props.focusColor};
+      `
+    }
   }
 `
 
@@ -28,14 +32,21 @@ function ZoomEventLayer (props) {
     onMouseLeave,
     onWheel = () => {},
     panning = false,
+    theme = {
+      global: {
+        colors: {}
+      }
+    },
     top = 0,
     width,
     ...rest
   } = props
 
+  const focusColor = theme.global.colors[theme.global.colors.focus]
   return (
     <StyledRect
       fill='transparent'
+      focusColor={focusColor}
       height={height}
       onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
@@ -65,8 +76,10 @@ ZoomEventLayer.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   onWheel: PropTypes.func,
   panning: PropTypes.bool,
+  theme: PropTypes.object,
   top: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
-export default ZoomEventLayer
+export default withTheme(ZoomEventLayer)
+export { ZoomEventLayer }

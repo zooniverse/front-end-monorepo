@@ -55,9 +55,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     <Grid
       forwardedRef={ref}
       fill
-      rows={['80px', '1/4', '1/4', '1/4']}
+      rows={['80px', '1/4', '1/4', '150px']}
       columns={['2/3', '1/3']}
-      gap='xsmall'
+      gap='5px'
       areas={[
         { name: 'controls', start: [0, 0], end: [0, 0] },
         { name: 'phasedJSON', start: [0, 1], end: [0, 2] },
@@ -83,9 +83,16 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         gridArea='phasedJSON'
         style={{ position: 'relative' }}
       >
+        <ZoomEnableButton onClick={() => setAllowPanZoom('phasedJSON')} zooming={zoomEnabled.phasedJSON} />
         <ScatterPlotViewer
           data={phasedJSON.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          margin={{
+            bottom: 50,
+            left: 60,
+            right: 10,
+            top: 30
+          }}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           underlays={underlays}
@@ -96,16 +103,22 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           visibleSeries={visibleSeries}
           zooming={zoomEnabled.phasedJSON}
         />
-        <ZoomEnableButton onClick={() => setAllowPanZoom('phasedJSON')} zooming={zoomEnabled.phasedJSON} />
       </Box>
       <Box
         border={zoomEnabled.rawJSON && { color: 'brand', size: 'xsmall' }}
         gridArea='rawJSON'
         style={{ position: 'relative' }}
       >
+        <ZoomEnableButton onClick={() => setAllowPanZoom('rawJSON')} zooming={zoomEnabled.rawJSON} />
         <ScatterPlotViewer
           data={scatterPlot.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          margin={{
+            bottom: 50,
+            left: 60,
+            right: 10,
+            top: 30
+          }}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
           xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
@@ -115,7 +128,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           visibleSeries={visibleSeries}
           zooming={zoomEnabled.rawJSON}
         />
-        <ZoomEnableButton onClick={() => setAllowPanZoom('rawJSON')} zooming={zoomEnabled.rawJSON} />
       </Box>
       <Box
         background='#ffffff'

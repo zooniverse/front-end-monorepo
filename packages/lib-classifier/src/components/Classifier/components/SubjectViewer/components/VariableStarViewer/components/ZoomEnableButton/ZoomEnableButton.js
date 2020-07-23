@@ -10,18 +10,20 @@ counterpart.registerTranslations('en', en)
 
 function ZoomEnableButton (props) {
   const {
-    onClick,
+    onClick = () => {},
     zooming = false
   } = props
 
   const label = (zooming) ? counterpart('VariableStarViewer.zoomEnabled') : counterpart('VariableStarViewer.enableZoom')
 
   return (
-    <Box direction='row' justify='center' style={{ position: 'absolute', bottom: '0' }} width='100%'>
+    <Box direction='row' justify='center' style={{ position: 'absolute', top: 0 }} width='100%'>
       <MetaToolsButton
-        icon={zooming && <ZoomIn size='small' />}
+        aria-checked={zooming}
+        icon={<ZoomIn size='small' />}
         text={label}
         onClick={onClick}
+        role='radio'
       />
     </Box>
 
@@ -29,7 +31,8 @@ function ZoomEnableButton (props) {
 }
 
 ZoomEnableButton.propTypes = {
-  show: PropTypes.bool
+  onClick: PropTypes.func,
+  zooming: PropTypes.bool
 }
 
 export default ZoomEnableButton
