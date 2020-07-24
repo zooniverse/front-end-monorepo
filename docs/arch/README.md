@@ -26,3 +26,4 @@
 - [ADR 24: Drawing Shape Mark Annotation Models](adr-24.md)
 - [ADR 25: Drawing Sub-task](adr-25.md)
 - [ADR 26: Tracking errors with Sentry releases](adr-26.md)
+- [ADR: 28: Data as a subject viewers](adr-28.md)
