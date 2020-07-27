@@ -8,7 +8,15 @@ import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper(stores) {
-  // TODO connect to get other data / function as needed
+  const {
+    setOnZoom,
+    setOnPan
+  } = stores.classifierStore.subjectViewer
+
+  return {
+    setOnZoom,
+    setOnPan
+  }
 }
 
 class ScatterPlotViewerContainer extends Component {
@@ -74,7 +82,7 @@ class ScatterPlotViewerContainer extends Component {
     }
   }
 
-  onLoad(JSONdata) {
+  onLoad (JSONdata) {
     const { onReady } = this.props
     const target = this.viewer.current
     this.setState({
@@ -87,7 +95,8 @@ class ScatterPlotViewerContainer extends Component {
 
   render() {
     const {
-      subject
+      subject,
+      ...rest
     } = this.props
 
     if (!subject.id) {
@@ -97,6 +106,7 @@ class ScatterPlotViewerContainer extends Component {
     return (
       <ScatterPlotViewer
         data={this.state.JSONdata}
+        {...rest}
       />
     )
   }

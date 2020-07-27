@@ -382,8 +382,7 @@ class LightCurveViewer extends Component {
     this.zoom.scaleTo(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), zoomValue)
   }
 
-  pan (type, { dx, dy }) {
-    const xMultiplier = dx
+  pan (xMultiplier) {
     this.zoom.translateBy(this.d3interfaceLayer.transition().duration(ZOOMING_TIME), xMultiplier * PAN_DISTANCE, 0)
   }
 

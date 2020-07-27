@@ -5,15 +5,15 @@ import { Box, Grommet } from 'grommet'
 import { darken } from 'polished'
 import { withKnobs, boolean, text, number, object } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
-import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
-import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
-import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
-
+import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'
+import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
+import ImageToolbar from '../../../ImageToolbar'
 import {
   keplerMockDataWithOptions,
-  lightCurveMockData,
   randomSingleSeriesData
 } from './helpers/mockData'
+import { Factory } from 'rosie'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
@@ -41,6 +41,46 @@ stories.addDecorator(withKnobs)
 stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 const { colors } = zooTheme.global
+
+const mockStore = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
+  },
+  fieldGuide: {},
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  }
+}
+
+
+function ViewerContext(props) {
+  const { children, theme } = props
+  return (
+    <Provider classifierStore={mockStore}>
+      <Grommet theme={theme}>
+        {children}
+      </Grommet>
+    </Provider>
+  )
+}
+
+const keplerSubject = Factory.build('subject', {
+  locations: [
+    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json' }
+  ]
+})
+
+const variableStarSubject = Factory.build('subject', {
+  locations: [
+    {
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
+    },
+    { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
+  ]
+})
 
 stories
   .add('light theme', () => {
@@ -112,7 +152,7 @@ stories
 
     return (
       <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box direction='row' height='medium' width='large'>
           <ScatterPlotViewer
             data={object('data', data)}
             panning={boolean('panning', true)}
@@ -129,11 +169,6 @@ stories
             }}
           />
         </Box>
-        <Box direction='row'>
-          <ZoomInButton onClick={() => onZoom('zoomin')} />
-          <ZoomOutButton onClick={() => onZoom('zoomout')} />
-          <ResetButton onClick={() => onZoom('zoomto')} />
-        </Box>
       </Grommet>
     )
   })
@@ -149,7 +184,6 @@ stories
             margin={keplerMockDataWithOptions.chartOptions.margin}
             padding={keplerMockDataWithOptions.chartOptions.padding}
             panning={boolean('panning', false)}
-            setOnZoom={setZoomCallback}
             tickDirection='inner'
             xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
             yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
@@ -168,14 +202,11 @@ stories
   }, config)
   .add('pan and zoom', () => {
     return (
-      <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
-          <ScatterPlotViewer
-            data={object('data', keplerMockDataWithOptions.data)}
+      <ViewerContext theme={zooTheme}>
+        <Box direction='row' height='medium' width='large'>
+          <ScatterPlotViewerContainer
             panning={boolean('panning', true)}
-            setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
-            yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
+            subject={keplerSubject}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
@@ -185,25 +216,18 @@ stories
               zoomOutValue: number('zoom out scale', 0.8)
             }}
           />
+          <ImageToolbar />
         </Box>
-        <Box direction='row'>
-          <ZoomInButton onClick={() => onZoom('zoomin')} />
-          <ZoomOutButton onClick={() => onZoom('zoomout')} />
-          <ResetButton onClick={() => onZoom('zoomto')} />
-        </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, config)
   .add('variable star light curve data (multiple series) with y (vertical) direction error bars', () => {
     return (
-      <Grommet theme={zooTheme}>
-        <Box height='medium' width='large'>
-          <ScatterPlotViewer
-            data={object('data', lightCurveMockData.variableStar.scatterPlot.data)}
+      <ViewerContext theme={zooTheme}>
+        <Box direction='row' height='medium' width='large'>
+          <ScatterPlotViewerContainer
             panning={boolean('panning', true)}
-            setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', 'phase')}
-            yAxisLabel={text('y axis label', 'brightness')}
+            subject={variableStarSubject}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
@@ -213,12 +237,8 @@ stories
               zoomOutValue: number('zoom out scale', 0.8)
             }}
           />
+          <ImageToolbar />
         </Box>
-        <Box direction='row'>
-          <ZoomInButton onClick={() => onZoom('zoomin')} />
-          <ZoomOutButton onClick={() => onZoom('zoomout')} />
-          <ResetButton onClick={() => onZoom('zoomto')} />
-        </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, config)

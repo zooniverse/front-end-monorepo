@@ -5,7 +5,7 @@ import { Zoom } from '@vx/zoom'
 import {
   lightCurveMockData
 } from '../../ScatterPlotViewer/helpers/mockData'
-import VXZoom from './VXZoom'
+import { VXZoom } from './VXZoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
 function StubComponent ({ children }) {
@@ -436,11 +436,13 @@ describe('Component > VXZoom', function () {
           <VXZoom
             data={mockData}
             height={height}
+            onKeyDown={sinon.stub().callsFake(() => wrapper.instance().zoomIn())}
             width={width}
             zoomingComponent={StubComponent}
             zooming
           />
         )
+
         const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
@@ -460,6 +462,7 @@ describe('Component > VXZoom', function () {
           <VXZoom
             data={mockData}
             height={height}
+            onKeyDown={sinon.stub().callsFake(() => wrapper.instance().zoomIn())}
             width={width}
             zoomingComponent={StubComponent}
             zooming
@@ -491,6 +494,10 @@ describe('Component > VXZoom', function () {
           <VXZoom
             data={mockData}
             height={height}
+            onKeyDown={sinon.stub().callsFake((event) => {
+              if (event.key === '+') wrapper.instance().zoomIn()
+              if (event.key === '-') wrapper.instance().zoomOut()
+            })}
             width={width}
             zoomingComponent={StubComponent}
             zooming
@@ -527,6 +534,10 @@ describe('Component > VXZoom', function () {
           <VXZoom
             data={mockData}
             height={height}
+            onKeyDown={sinon.stub().callsFake((event) => {
+              if (event.key === '+') wrapper.instance().zoomIn()
+              if (event.key === '_') wrapper.instance().zoomOut()
+            })}
             width={width}
             zoomingComponent={StubComponent}
             zooming
@@ -668,12 +679,17 @@ describe('Component > VXZoom', function () {
       })
 
       it('should translate the SVG position using keydown arrows', function () {
-        const preventDefaultSpy = sinon.spy()
         const wrapper = mount(
           <VXZoom
             data={mockData}
             panning
             height={height}
+            onKeyDown={sinon.stub().callsFake((event) => {
+              if (event.key === 'ArrowRight') wrapper.instance().onPan(-1, 0)
+              if (event.key === 'ArrowLeft') wrapper.instance().onPan(1, 0)
+              if (event.key === 'ArrowUp') wrapper.instance().onPan(0, 1)
+              if (event.key === 'ArrowDown') wrapper.instance().onPan(0, -1)
+            })}
             width={width}
             zoomingComponent={StubComponent}
             zooming
@@ -694,48 +710,38 @@ describe('Component > VXZoom', function () {
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
         // Now to simulate the panning
         eventLayer.simulate('keydown', {
-          key: 'ArrowRight',
-          preventDefault: preventDefaultSpy
+          key: 'ArrowRight'
         })
         const rightPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(rightPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(rightPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
         expect(rightPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX - 20)
         expect(rightPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
-        expect(preventDefaultSpy).to.have.been.calledOnce()
-        preventDefaultSpy.resetHistory()
 
         eventLayer.simulate('keydown', {
-          key: 'ArrowDown',
-          preventDefault: preventDefaultSpy
+          key: 'ArrowDown'
         })
         const downPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(downPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(downPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
         expect(downPannedTransformMatrix.translateX).to.equal(rightPannedTransformMatrix.translateX)
         expect(downPannedTransformMatrix.translateY).to.equal(rightPannedTransformMatrix.translateY - 20)
-        expect(preventDefaultSpy).to.have.been.calledOnce()
-        preventDefaultSpy.resetHistory()
 
         eventLayer.simulate('keydown', {
-          key: 'ArrowLeft',
-          preventDefault: preventDefaultSpy
+          key: 'ArrowLeft'
         })
         const leftPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(leftPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(leftPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
         expect(leftPannedTransformMatrix.translateX).to.equal(downPannedTransformMatrix.translateX + 20)
         expect(leftPannedTransformMatrix.translateY).to.equal(downPannedTransformMatrix.translateY)
-        expect(preventDefaultSpy).to.have.been.calledOnce()
-        preventDefaultSpy.resetHistory()
 
         // keydown up twice to not equal the original zoomed transform matrix
         eventLayer.simulate('keydown', {
           key: 'ArrowUp',
         })
         eventLayer.simulate('keydown', {
-          key: 'ArrowUp',
-          preventDefault: preventDefaultSpy
+          key: 'ArrowUp'
         })
         const upPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(upPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)

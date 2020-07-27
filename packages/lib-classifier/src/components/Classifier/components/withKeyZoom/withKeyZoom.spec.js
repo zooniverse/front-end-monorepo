@@ -63,22 +63,22 @@ describe('withKeyZoom', function () {
       {
         key: 'ArrowRight',
         name: 'pan right',
-        handler: onPan.withArgs('right', { dx: -1, dy: 0 })
+        handler: onPan.withArgs(-1, 0)
       },
       {
         key: 'ArrowLeft',
         name: 'pan left',
-        handler: onPan.withArgs('left', {dx: 1, dy: 0 })
+        handler: onPan.withArgs(1, 0)
       },
       {
         key: 'ArrowUp',
         name: 'pan up',
-        handler: onPan.withArgs('up', { dx: 0, dy: -1 })
+        handler: onPan.withArgs(0, 1)
       },
       {
         key: 'ArrowDown',
         name: 'pan down',
-        handler: onPan.withArgs('down', { dx: 0, dy: 1 })
+        handler: onPan.withArgs(0, -1)
       }
     ]
 
