@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Factory } from 'rosie'
+import sinon from 'sinon'
 import SubjectStore from './SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 
@@ -146,6 +147,71 @@ describe('Model > SubjectViewerStore', function () {
       subjectViewerStore.rotate()
       subjectViewerStore.resetView()
       expect(subjectViewerStore.rotation).to.equal(0)
+    })
+  })
+
+  describe('With zoom', function () {
+    let subjectViewerStore
+    let onZoom
+
+    before(function () {
+      onZoom = sinon.stub()
+      subjectViewerStore = SubjectViewerStore.create()
+      subjectViewerStore.setOnZoom(onZoom)
+    })
+
+    afterEach(function () {
+      onZoom.resetHistory()
+    })
+
+    it('should support zooming in', function () {
+      subjectViewerStore.zoomIn()
+      expect(onZoom.withArgs('zoomin', 1)).to.have.been.calledOnce()
+    })
+
+    it('should support zooming out', function () {
+      subjectViewerStore.zoomOut()
+      expect(onZoom.withArgs('zoomout', -1)).to.have.been.calledOnce()
+    })
+
+    it('should reset the zoom level on reset', function () {
+      subjectViewerStore.resetView()
+      expect(onZoom.withArgs('zoomto', 1)).to.have.been.calledOnce()
+    })
+  })
+
+  describe('With panning', function () {
+    let subjectViewerStore
+    let onPan
+
+    before(function () {
+      onPan = sinon.stub()
+      subjectViewerStore = SubjectViewerStore.create()
+      subjectViewerStore.setOnPan(onPan)
+    })
+
+    afterEach(function () {
+      onPan.resetHistory()
+    })
+
+    it('should pan left', function () {
+      subjectViewerStore.panLeft()
+      expect(onPan.withArgs(-1, 0)).to.have.been.calledOnce()
+    })
+
+    it('should pan right', function () {
+      subjectViewerStore.panRight()
+      expect(onPan.withArgs(1, 0)).to.have.been.calledOnce()
+    })
+
+    it('should pan up', function () {
+      subjectViewerStore.panUp()
+      expect(onPan.withArgs(0, -1)).to.have.been.calledOnce()
+    })
+
+    it('should pan down', function () {
+      subjectViewerStore.panDown()
+      expect(onPan.withArgs(0, 1)).to.have.been.calledOnce()
     })
   })
 })
