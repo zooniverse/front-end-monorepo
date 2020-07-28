@@ -82,6 +82,7 @@ const SubjectViewer = types
       },
 
       onSubjectReady (event) {
+        console.log('calling  on ready')
         const { target = {} } = event || {}
         const {
           clientHeight = 0,

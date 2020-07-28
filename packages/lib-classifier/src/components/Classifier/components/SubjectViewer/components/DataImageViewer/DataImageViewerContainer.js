@@ -9,6 +9,8 @@ export default class DataImageViewerContainer extends React.Component {
   constructor() {
     super()
 
+    this.viewer = React.createRef()
+
     this.state = {
       imageSrc: '',
       subjectJSON: {
@@ -39,7 +41,6 @@ export default class DataImageViewerContainer extends React.Component {
     // Find the first location that has a JSON MIME type.
     const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
     const url = Object.values(jsonLocation)[0]
-    console.log('url', url)
     if (url) {
       return url
     } else {
@@ -55,9 +56,13 @@ export default class DataImageViewerContainer extends React.Component {
 
       // Get the JSON data, or (as a failsafe) parse the JSON data if the
       // response is returned as a string
-      const data = response.body || JSON.parse(response.text)
-      console.log('response', data)
-      return { data: [data], chartOptions: {}}
+      if (response.body) {
+        return response.body
+      } else if  (JSON.parse(response.text)) {
+        return { data: JSON.parse(response.text), chartOptions: {} }
+      }
+
+      return null
     } catch (error) {
       onError(error)
       return null
@@ -68,15 +73,13 @@ export default class DataImageViewerContainer extends React.Component {
     const { onError } = this.props
     try {
       const subjectJSON = await this.requestData()
-      console.log(Object.keys(subjectJSON).length > 0)
-      if (Object.keys(subjectJSON).length > 0) this.onLoad(subjectJSON)
+      if (subjectJSON) this.onLoad(subjectJSON)
     } catch (error) {
       onError(error)
     }
   }
 
   onLoad (subjectJSON) {
-    console.log('calling onload', subjectJSON)
     const { onReady, subject } = this.props
     const target = this.viewer.current
     const imageLocation = subject.locations.find(location => location['image/png']) || {}
@@ -86,15 +89,16 @@ export default class DataImageViewerContainer extends React.Component {
       imageSrc,
       subjectJSON
     },
-      function () {
-        console.log('state', this.state)
+      function() {
         onReady({ target })
-      })
+      }
+    )
   }
 
   render () {
     const {
-      subject
+      subject,
+      ...rest
     } = this.props
 
     if (!subject.id) {
@@ -104,7 +108,9 @@ export default class DataImageViewerContainer extends React.Component {
     return (
       <DataImageViewer
         imageSrc={this.state.imageSrc}
+        ref={this.viewer}
         subjectJSON={this.state.subjectJSON}
+        {...rest}
       />
     )
   }

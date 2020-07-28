@@ -15,11 +15,10 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
     theme
   } = props
 
-  console.log('subjectJSON', subjectJSON)
   return (
     <Box
       direction='row'
-      forwardedRef={ref}
+      ref={ref}
     >
       <ScatterPlotViewer
         data={subjectJSON.data}

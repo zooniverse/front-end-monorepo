@@ -1,10 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import DataImageViewerContainer from './DataImageViewerContainer'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
+
   const {
     active: subject
   } = stores.classifierStore.subjects
