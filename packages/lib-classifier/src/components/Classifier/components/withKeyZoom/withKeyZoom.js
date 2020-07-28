@@ -3,19 +3,27 @@ import React, { Component, forwardRef } from 'react'
 
 function storeMapper (stores) {
   const {
-    onPan,
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
     zoomIn,
     zoomOut
   } = stores.classifierStore.subjectViewer
 
   return {
-    onPan,
+    panLeft,
+    panRight,
+    panUp,
+    panDown,
     zoomIn,
     zoomOut
   }
 }
 
 function withKeyZoom (WrappedComponent) {
+  const ALLOWED_TAGS = ['svg', 'button', 'rect']
+
   @inject(storeMapper)
   class KeyZoom extends Component {
     constructor () {
@@ -24,9 +32,16 @@ function withKeyZoom (WrappedComponent) {
     }
 
     onKeyDown (e) {
-      const { onPan, zoomIn, zoomOut } = this.props
+      const {
+        panLeft,
+        panRight,
+        panUp,
+        panDown,
+        zoomIn,
+        zoomOut
+      } = this.props
       const htmlTag = e.target?.tagName.toLowerCase()
-      if (htmlTag === 'svg' || htmlTag === 'button' || htmlTag === 'rect') {
+      if (ALLOWED_TAGS.includes(htmlTag)) {
         switch (e.key) {
           case '+':
           case '=': {
@@ -40,23 +55,23 @@ function withKeyZoom (WrappedComponent) {
           }
           case 'ArrowRight': {
             e.preventDefault()
-            onPan(-1, 0)
-            return true
+            panRight()
+            return false
           }
           case 'ArrowLeft': {
             e.preventDefault()
-            onPan(1, 0)
-            return true
+            panLeft()
+            return false
           }
           case 'ArrowUp': {
             e.preventDefault()
-            onPan(0, 1)
-            return true
+            panUp()
+            return false
           }
           case 'ArrowDown': {
             e.preventDefault()
-            onPan(0, -1)
-            return true
+            panDown()
+            return false
           }
           default: {
             return true
@@ -68,14 +83,32 @@ function withKeyZoom (WrappedComponent) {
     }
 
     render () {
-      const { forwardedRef, onPan, zoomIn, zoomOut, ...props } = this.props
-      return <WrappedComponent ref={forwardedRef} onKeyDown={this.onKeyDown} {...props} />
+      const {
+        forwardedRef,
+        panLeft,
+        panRight,
+        panUp,
+        panDown,
+        zoomIn,
+        zoomOut,
+        ...props
+      } = this.props
+      return (
+        <WrappedComponent
+          ref={forwardedRef}
+          onKeyDown={this.onKeyDown}
+          {...props}
+        />
+      )
     }
   }
 
   KeyZoom.defaultProps = {
     forwardedRef: null,
-    onPan: () => true,
+    panLeft: () => true,
+    panRight: () => true,
+    panUp: () => true,
+    panDown: () => true,
     zoomIn: () => true,
     zoomOut: () => true
   }
