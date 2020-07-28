@@ -577,16 +577,12 @@ describe('Component > VariableStarViewerContainer', function () {
     })
 
     it('should default to not have pan and zoom enabled for either scatter plot', function () {
-      expect(wrapper.state().allowPanZoom).to.equal('')
+      expect(wrapper.find(VariableStarViewer).props().allowPanZoom).to.equal('')
     })
 
     it('should set the state for which module is allowed to zoom when setAllowPanZoom is called', function () {
       wrapper.instance().setAllowPanZoom('rawJSON')
-      expect(wrapper.state().allowPanZoom).to.equal('rawJSON')
-    })
-
-    it('should pass the state property down to VariableStarViewer as a prop', function () {
-      expect(wrapper.find(VariableStarViewer).props().allowPanZoom).to.equal(wrapper.state().allowPanZoom)
+      expect(wrapper.find(VariableStarViewer).props().allowPanZoom).to.equal('rawJSON')
     })
   })
 })
