@@ -56,7 +56,7 @@ describe('Component > InteractionLayerContainer', function () {
     })
   })
 
-  describe('with annotations from previous reduced drawing or transcription tasks', function () {
+  describe('with annotations from previous drawing or transcription tasks', function () {
     it('should render DrawingToolMarks', function () {
       const wrapper = shallow(
         <InteractionLayerContainer.wrappedComponent
