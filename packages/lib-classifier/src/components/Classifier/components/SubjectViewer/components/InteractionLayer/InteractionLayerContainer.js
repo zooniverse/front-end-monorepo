@@ -61,13 +61,16 @@ class InteractionLayerContainer extends Component {
 
     return (
       <>
-        {shownMarks === SHOWN_MARKS.ALL && interactionTaskAnnotations.map(annotation =>
-          <DrawingToolMarks
-            key={annotation.task}
-            marks={annotation.value}
-            scale={scale}
-          />
-        )}
+        {shownMarks === SHOWN_MARKS.ALL && interactionTaskAnnotations.map((annotation) => {
+          const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
+          return (
+            <DrawingToolMarks
+              key={annotation.task}
+              marks={annotationValuesPerFrame}
+              scale={scale}
+            />
+          )
+        })}
         {activeInteractionTask && activeTool &&
           <InteractionLayer
             activeMark={activeMark}
