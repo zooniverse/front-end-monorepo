@@ -11,7 +11,7 @@ import { SingleImageViewer } from '../SingleImageViewer'
 const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
   const {
     imageSrc,
-    subjectJSON,
+    JSONData,
     theme
   } = props
 
@@ -21,9 +21,9 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       ref={ref}
     >
       <ScatterPlotViewer
-        data={subjectJSON.data}
-        xAxisLabel={subjectJSON.chartOptions?.xAxisLabel}
-        yAxisLabel={subjectJSON.chartOptions?.yAxisLabel}
+        data={JSONData.data}
+        xAxisLabel={JSONData.chartOptions?.xAxisLabel}
+        yAxisLabel={JSONData.chartOptions?.yAxisLabel}
       />
       <SingleImageViewer
         enableInteractionLayer={false}
@@ -36,7 +36,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
 
 DataImageViewer.defaultProps = {
   imageSrc: '',
-  subjectJSON: {
+  JSONData: {
     data: [],
     chartOptions: {
       xAxisLabel: '',
@@ -53,8 +53,8 @@ DataImageViewer.defaultProps = {
 
 DataImageViewer.propTypes = {
   imageSrc: PropTypes.string,
-  rawJSON: PropTypes.shape({
-    data: PropTypes.array,
+  JSONData: PropTypes.shape({
+    data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object
   }),
   theme: PropTypes.object

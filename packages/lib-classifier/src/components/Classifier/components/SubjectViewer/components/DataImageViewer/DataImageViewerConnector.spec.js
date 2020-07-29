@@ -10,7 +10,7 @@ const mockStore = {
   }
 }
 
-describe.only('DataImageViewerConnector', function () {
+describe('DataImageViewerConnector', function () {
   let wrapper
   beforeEach(function () {
     wrapper = mount(

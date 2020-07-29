@@ -13,7 +13,7 @@ export default class DataImageViewerContainer extends React.Component {
 
     this.state = {
       imageSrc: '',
-      subjectJSON: {
+      JSONData: {
         data: [],
         chartOptions: {}
       }
@@ -72,14 +72,14 @@ export default class DataImageViewerContainer extends React.Component {
   async handleSubject () {
     const { onError } = this.props
     try {
-      const subjectJSON = await this.requestData()
-      if (subjectJSON) this.onLoad(subjectJSON)
+      const JSONData = await this.requestData()
+      if (JSONData) this.onLoad(JSONData)
     } catch (error) {
       onError(error)
     }
   }
 
-  onLoad (subjectJSON) {
+  onLoad (JSONData) {
     const { onReady, subject } = this.props
     const target = this.viewer.current
     const imageLocation = subject.locations.find(location => location['image/png']) || {}
@@ -87,7 +87,7 @@ export default class DataImageViewerContainer extends React.Component {
 
     this.setState({
       imageSrc,
-      subjectJSON
+      JSONData
     },
       function() {
         onReady({ target })
@@ -109,7 +109,7 @@ export default class DataImageViewerContainer extends React.Component {
       <DataImageViewer
         imageSrc={this.state.imageSrc}
         ref={this.viewer}
-        subjectJSON={this.state.subjectJSON}
+        JSONData={this.state.JSONData}
         {...rest}
       />
     )
