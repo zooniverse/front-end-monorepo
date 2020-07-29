@@ -58,16 +58,22 @@ function InteractionLayer ({
       return true
     }
 
-    const activeMark = activeTool.createMark({
+    const activeMark = activeTool.onPointerDown({
       id: cuid(),
       frame,
       toolIndex: activeToolIndex
-    })
-    activeMark.initialPosition(convertEvent(event))
-    setActiveMark(activeMark)
-    setCreating(true)
-    activeMark.setSubTaskVisibility(false)
-    return false
+    }, convertEvent(event))
+
+    if (activeMark.finished) {
+      return onFinish(event)
+    } else {
+      activeMark.initialPosition(convertEvent(event))
+      setActiveMark(activeMark)
+      setCreating(true)
+      activeMark.setSubTaskVisibility(false)
+      return false
+    }
+
   }
 
   function onPointerMove (event) {
