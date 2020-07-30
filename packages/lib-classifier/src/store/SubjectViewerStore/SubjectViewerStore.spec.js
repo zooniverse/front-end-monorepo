@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
-import SubjectStore from './SubjectStore'
+import SubjectStore from '../SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 
 const subject = Factory.build('subject')
