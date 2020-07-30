@@ -76,12 +76,27 @@ const TranscriptionLineModel = types
       self.y2 = y2
     }
 
+    function setSubTaskVisibility (visible) {
+      self.subTaskVisibility = visible
+      self.subTaskMarkBounds = {
+        x: self.x1,
+        y: self.y1,
+        width: Math.abs(self.y1 - self.y2),
+        height: Math.abs(self.y1 - self.y2),
+        top: Math.min(self.y1, self.y2),
+        right: Math.max(self.x1, self.x2),
+        bottom: Math.max(self.y1, self.y2),
+        left: Math.min(self.x1, self.x2)
+      }
+    }
+
     return {
       finish,
       initialDrag,
       initialPosition,
       move,
-      setCoordinates
+      setCoordinates,
+      setSubTaskVisibility
     }
   })
 

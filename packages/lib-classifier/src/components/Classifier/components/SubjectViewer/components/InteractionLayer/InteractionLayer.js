@@ -66,16 +66,15 @@ function InteractionLayer ({
     }, convertEvent(event))
 
     if (activeMark.finished) {
-      const node = findTranscriptionBounds(activeMark)
-      return onFinish(event)
-    } else {
-      activeMark.initialPosition(convertEvent(event))
-      setActiveMark(activeMark)
-      setCreating(true)
-      activeMark.setSubTaskVisibility(false)
-      return false
+      console.log('it is finished');
+      return onFinish(activeMark)
     }
 
+    activeMark.initialPosition(convertEvent(event))
+    setActiveMark(activeMark)
+    setCreating(true)
+    activeMark.setSubTaskVisibility(false)
+    return false
   }
 
   function onPointerMove (event) {
