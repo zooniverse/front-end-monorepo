@@ -1,4 +1,4 @@
-import { getParentOfType, types } from 'mobx-state-tree'
+import { getParentOfType, getRoot, types } from 'mobx-state-tree'
 import { TranscriptionLine as TranscriptionLineComponent } from '@plugins/drawingTools/components/'
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { TranscriptionLineTool } from '@plugins/drawingTools/models/tools'
@@ -77,6 +77,7 @@ const TranscriptionLineModel = types
     }
 
     function setSubTaskVisibility (visible) {
+      console.log('the root', getRoot(self));
       self.subTaskVisibility = visible
       self.subTaskMarkBounds = {
         x: self.x1,

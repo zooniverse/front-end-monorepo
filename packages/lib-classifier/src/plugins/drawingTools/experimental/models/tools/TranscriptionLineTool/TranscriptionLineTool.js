@@ -7,7 +7,7 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
   type: types.literal('transcriptionLine')
 })
   .actions(self => {
-    function onPointerDown (mark, event) {
+    function onPointerDown (mark) {
       const size = self.marks.size
       if (size) {
         const allMarks = Array.from(self.marks.values())
