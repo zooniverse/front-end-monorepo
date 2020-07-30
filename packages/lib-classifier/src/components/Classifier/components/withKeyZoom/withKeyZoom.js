@@ -1,30 +1,9 @@
-import { inject } from 'mobx-react'
-import React, { Component, forwardRef } from 'react'
-
-function storeMapper (stores) {
-  const {
-    panLeft,
-    panRight,
-    panUp,
-    panDown,
-    zoomIn,
-    zoomOut
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    panLeft,
-    panRight,
-    panUp,
-    panDown,
-    zoomIn,
-    zoomOut
-  }
-}
+import { MobXProviderContext } from 'mobx-react'
+import React, { Component, forwardRef, useContext } from 'react'
 
 function withKeyZoom (WrappedComponent) {
   const ALLOWED_TAGS = ['svg', 'button', 'rect']
 
-  @inject(storeMapper)
   class KeyZoom extends Component {
     constructor () {
       super()
@@ -32,6 +11,7 @@ function withKeyZoom (WrappedComponent) {
     }
 
     onKeyDown (e) {
+      const { classifierStore } = this.context
       const {
         panLeft,
         panRight,
@@ -39,7 +19,7 @@ function withKeyZoom (WrappedComponent) {
         panDown,
         zoomIn,
         zoomOut
-      } = this.props
+      } = classifierStore.subjectViewer
       const htmlTag = e.target?.tagName.toLowerCase()
       if (ALLOWED_TAGS.includes(htmlTag)) {
         switch (e.key) {
@@ -102,6 +82,8 @@ function withKeyZoom (WrappedComponent) {
       )
     }
   }
+
+  KeyZoom.contextType = MobXProviderContext
 
   KeyZoom.defaultProps = {
     forwardedRef: null,
