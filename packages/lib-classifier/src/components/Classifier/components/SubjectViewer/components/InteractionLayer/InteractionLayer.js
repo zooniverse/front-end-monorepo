@@ -6,9 +6,10 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import findTranscriptionBounds from '@helpers/findTranscriptionBounds'
 
 const StyledRect = styled('rect')`
-  ${props => props.disabled ? 
+  ${props => props.disabled ?
     css`cursor: not-allowed;` :
     css`cursor: crosshair;`
   }
@@ -65,6 +66,7 @@ function InteractionLayer ({
     }, convertEvent(event))
 
     if (activeMark.finished) {
+      const node = findTranscriptionBounds(activeMark)
       return onFinish(event)
     } else {
       activeMark.initialPosition(convertEvent(event))
