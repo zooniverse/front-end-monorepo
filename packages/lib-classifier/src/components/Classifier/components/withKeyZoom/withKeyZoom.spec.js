@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
@@ -13,22 +14,16 @@ describe('withKeyZoom', function () {
   }
   const zoomStub = React.createRef()
   const WithZoom = withKeyZoom(StubComponent)
-  const panLeft = sinon.stub()
-  const panRight = sinon.stub()
-  const panUp = sinon.stub()
-  const panDown = sinon.stub()
-  const zoomIn = sinon.stub()
-  const zoomOut = sinon.stub()
+  const subjectViewer = SubjectViewerStore.create({})
   const classifierStore = {
-    subjectViewer: {
-      panLeft,
-      panRight,
-      panUp,
-      panDown,
-      zoomIn,
-      zoomOut
-    }
+    subjectViewer
   }
+  const panLeft = sinon.spy(subjectViewer, 'panLeft')
+  const panRight = sinon.spy(subjectViewer, 'panRight')
+  const panUp = sinon.spy(subjectViewer, 'panUp')
+  const panDown = sinon.spy(subjectViewer, 'panDown')
+  const zoomIn = sinon.spy(subjectViewer, 'zoomIn')
+  const zoomOut = sinon.spy(subjectViewer, 'zoomOut')
   let wrappedComponent
 
   before(function () {
