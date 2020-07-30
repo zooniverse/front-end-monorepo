@@ -4,33 +4,17 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
-import { VariableStarViewerContainer } from './VariableStarViewerContainer'
-import ZoomInButton from '../../../ImageToolbar/components/ZoomInButton/ZoomInButton'
-import ZoomOutButton from '../../../ImageToolbar/components/ZoomOutButton/ZoomOutButton'
-import ResetButton from '../../../ImageToolbar/components/ResetButton/ResetButton'
-import {
-  variableStarAmplitudeMockData,
-  variableStarPeriodMockData
-} from '../BarChartViewer/mockData'
-import variableStar from '../../helpers/mockLightCurves/variableStar'
+import VariableStarViewer from './VariableStarViewerContainer'
+import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
+import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
-import image from './mocks/temperature.png'
 
 const config = {
   notes: {
     markdown: readme
   }
-}
-
-let zoomCallback
-
-function onZoom(type) {
-  zoomCallback(type)
-}
-
-function setZoomCallback(callback) {
-  zoomCallback = callback
 }
 
 const stories = storiesOf('Subject Viewers | VariableStarViewer', module)
@@ -39,6 +23,32 @@ stories.addDecorator(withKnobs)
 // stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 const { colors } = zooTheme.global
+
+
+const mockStore = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
+  },
+  fieldGuide: {},
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  }
+}
+
+
+function ViewerContext (props) {
+  const { children, theme } = props
+  return (
+    <Provider classifierStore={mockStore}>
+      <Grommet theme={theme}>
+        {children}
+      </Grommet>
+    </Provider>
+  )
+}
 
 const subject = Factory.build('subject', {
   locations: [
@@ -52,36 +62,48 @@ const subject = Factory.build('subject', {
 stories
   .add('light theme', () => {
     return (
-      <Grommet theme={zooTheme}>
+      <ViewerContext theme={zooTheme}>
         <Box height='500px' width='700px'>
-          <VariableStarViewerContainer
+          <VariableStarViewer
             subject={subject}
           />
         </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, config)
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <Grommet theme={darkZooTheme}>
+      <ViewerContext theme={darkZooTheme}>
         <Box height='500px' width='large'>
-          <VariableStarViewerContainer
+          <VariableStarViewer
             subject={subject}
           />
         </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, { backgrounds: backgrounds.darkDefault, viewport: { defaultViewport: 'responsive' }, ...config })
   .add('narrow view', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <Grommet theme={darkZooTheme}>
+      <ViewerContext theme={darkZooTheme}>
         <Box height='500px' width='large'>
-          <VariableStarViewerContainer
+          <VariableStarViewer
             subject={subject}
           />
         </Box>
-      </Grommet>
+      </ViewerContext>
     )
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
+  .add('pan/zoom', () => {
+    return (
+      <ViewerContext theme={zooTheme}>
+        <Box direction='row' height='500px' width='large'>
+          <VariableStarViewer
+            subject={subject}
+          />
+          <ImageToolbar />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)

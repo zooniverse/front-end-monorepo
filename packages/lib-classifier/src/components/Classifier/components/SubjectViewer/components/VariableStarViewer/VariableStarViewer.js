@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import {
   Box,
   Grid
@@ -11,12 +11,14 @@ import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewer } from '../SingleImageViewer'
 import { BarChartViewer } from '../BarChartViewer'
 import Controls from './components/Controls'
+import ZoomEnableButton from './components/ZoomEnableButton'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
+    allowPanZoom,
     barJSON,
     imageSrc,
     invertYAxis,
@@ -27,6 +29,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     rawJSON: {
       scatterPlot
     },
+    setAllowPanZoom,
+    setOnPan,
+    setOnZoom,
     setPeriodMultiple,
     setSeriesPhaseFocus,
     setSeriesVisibility,
@@ -40,13 +45,19 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     { fill: theme.global.colors['light-3'], startPosition: 1, xAxisWidth: phaseLimit }
   ]
 
+  const zoomEnabled = {
+    HRDiagram: allowPanZoom === 'HRDiagram',
+    phasedJSON: allowPanZoom === 'phasedJSON',
+    rawJSON: allowPanZoom === 'rawJSON'
+  }
+
   return (
     <Grid
       forwardedRef={ref}
       fill
-      rows={['80px', '1/4', '1/4', '1/4']}
+      rows={['80px', '1/4', '1/4', '150px']}
       columns={['2/3', '1/3']}
-      gap='xsmall'
+      gap='5px'
       areas={[
         { name: 'controls', start: [0, 0], end: [0, 0] },
         { name: 'phasedJSON', start: [0, 1], end: [0, 2] },
@@ -68,30 +79,54 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         visibleSeries={visibleSeries}
       />
       <Box
+        border={zoomEnabled.phasedJSON && { color: 'brand', size: 'xsmall' }}
         gridArea='phasedJSON'
+        style={{ position: 'relative' }}
       >
+        <ZoomEnableButton onClick={() => setAllowPanZoom('phasedJSON')} zooming={zoomEnabled.phasedJSON} />
         <ScatterPlotViewer
           data={phasedJSON.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          margin={{
+            bottom: 50,
+            left: 60,
+            right: 10,
+            top: 30
+          }}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
           underlays={underlays}
           xAxisLabel={counterpart('VariableStarViewer.phase')}
           xAxisNumTicks={8}
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
           yAxisNumTicks={8}
           visibleSeries={visibleSeries}
+          zooming={zoomEnabled.phasedJSON}
         />
       </Box>
       <Box
+        border={zoomEnabled.rawJSON && { color: 'brand', size: 'xsmall' }}
         gridArea='rawJSON'
+        style={{ position: 'relative' }}
       >
+        <ZoomEnableButton onClick={() => setAllowPanZoom('rawJSON')} zooming={zoomEnabled.rawJSON} />
         <ScatterPlotViewer
           data={scatterPlot.data}
           invertAxes={{ x: false, y: invertYAxis }}
+          margin={{
+            bottom: 50,
+            left: 60,
+            right: 10,
+            top: 30
+          }}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
           xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
           xAxisNumTicks={4}
           yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
           yAxisNumTicks={6}
           visibleSeries={visibleSeries}
+          zooming={zoomEnabled.rawJSON}
         />
       </Box>
       <Box
@@ -140,6 +175,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 })
 
 VariableStarViewer.defaultProps = {
+  allowPanZoom: '',
   barJSON: [
     {
       data: [],
@@ -164,6 +200,8 @@ VariableStarViewer.defaultProps = {
     },
     barCharts: []
   },
+  setOnPan: () => true,
+  setOnZoom: () => true,
   setPeriodMultiple: () => { },
   setSeriesPhaseFocus: () => {},
   setSeriesVisibility: () => { },
@@ -179,6 +217,7 @@ VariableStarViewer.defaultProps = {
 }
 
 VariableStarViewer.propTypes = {
+  allowPanZoom: PropTypes.string,
   barJSON: PropTypes.arrayOf(
     PropTypes.shape({
       data: PropTypes.array,
@@ -197,6 +236,8 @@ VariableStarViewer.propTypes = {
     data: PropTypes.array,
     chartOptions: PropTypes.object
   }),
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setSeriesPhaseFocus: PropTypes.func,
   setSeriesVisibility: PropTypes.func,

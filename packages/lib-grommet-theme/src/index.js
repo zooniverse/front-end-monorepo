@@ -9,6 +9,7 @@ const lightBlack = '#272727'
 const darkestGrey = '#333333'
 const darkerGrey = '#404040'
 const darkGrey = '#5C5C5C'
+const lightDarkGrey = '#666666'
 
 // light colors
 const lightestGrey = '#eff2f5'
@@ -69,7 +70,7 @@ const darkColors = [
   darkestGrey, // dark-3
   darkerGrey, // dark-4
   darkGrey, // dark-5
-  darkGrey // dark-6 (same as dark-5, could be updated)
+  lightDarkGrey // dark-6
 ]
 
 const lightColors = [
@@ -116,7 +117,11 @@ const colors = {
   drawingTools,
   focus: 'accent-2',
   highlighterTool,
-  placeholder: 'dark-6',
+  icon: {
+    dark: 'light-6',
+    light: 'dark-6',
+  },
+  placeholder: 'dark-5',
   statusColors,
   text: {
     dark: lightGrey,

@@ -73,12 +73,12 @@ describe('withKeyZoom', function () {
       {
         key: 'ArrowUp',
         name: 'pan up',
-        handler: onPan.withArgs(0, -1)
+        handler: onPan.withArgs(0, 1)
       },
       {
         key: 'ArrowDown',
         name: 'pan down',
-        handler: onPan.withArgs(0, 1)
+        handler: onPan.withArgs(0, -1)
       }
     ]
 

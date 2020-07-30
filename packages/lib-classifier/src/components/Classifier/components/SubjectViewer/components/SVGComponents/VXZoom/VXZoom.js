@@ -3,26 +3,33 @@ import PropTypes from 'prop-types'
 import { localPoint } from '@vx/event'
 import { Zoom } from '@vx/zoom'
 import ZoomEventLayer from '../ZoomEventLayer'
+import withKeyZoom from '../../../../withKeyZoom'
 
 class VXZoom extends PureComponent {
   constructor (props) {
     super(props)
-    const { setOnZoom } = props
+    const { setOnPan, setOnZoom } = props
 
+    setOnPan(this.handleToolbarPan.bind(this))
     setOnZoom(this.handleToolbarZoom.bind(this))
 
     this.onDoubleClick = this.onDoubleClick.bind(this)
     this.onMouseEnter = this.onMouseEnter.bind(this)
     this.onMouseLeave = this.onMouseLeave.bind(this)
+    this.onPan = this.onPan.bind(this)
   }
 
   static zoom = null
 
+  handleToolbarPan (xMultiplier, yMultiplier) {
+    this.onPan(xMultiplier, yMultiplier)
+  }
+
   handleToolbarZoom (type) {
     const doZoom = {
-      'zoomin': this.zoomIn.bind(this),
-      'zoomout': this.zoomOut.bind(this),
-      'zoomto': this.zoomReset.bind(this)
+      zoomin: this.zoomIn.bind(this),
+      zoomout: this.zoomOut.bind(this),
+      zoomto: this.zoomReset.bind(this)
     }
 
     if (doZoom[type]) {
@@ -62,6 +69,21 @@ class VXZoom extends PureComponent {
     }
   }
 
+  onPan (xMultiplier, yMultiplier) {
+    const { 
+      transformMatrix: {
+        translateX,
+        translateY
+      }
+    } = this.zoom
+    const panDistance = 20
+    const newTransformation = {
+      translateX: translateX + xMultiplier * panDistance,
+      translateY: translateY + yMultiplier * panDistance
+    }
+    this.zoom.setTranslate(newTransformation)
+  }
+
   onMouseEnter () {
     if (this.props.zooming) {
       document.body.style.overflow = 'hidden'
@@ -87,9 +109,12 @@ class VXZoom extends PureComponent {
   render () {
     const {
       constrain,
+      left,
       panning,
-      parentHeight,
-      parentWidth,
+      height,
+      onKeyDown,
+      top,
+      width,
       zoomConfiguration,
       zoomingComponent
     } = this.props
@@ -98,13 +123,15 @@ class VXZoom extends PureComponent {
     return (
       <Zoom
         constrain={constrain}
-        height={parentHeight}
+        height={height}
+        left={left}
         scaleXMin={zoomConfiguration.minZoom}
         scaleXMax={zoomConfiguration.maxZoom}
         scaleYMin={zoomConfiguration.minZoom}
         scaleYMax={zoomConfiguration.maxZoom}
         passive
-        width={parentWidth}
+        top={top}
+        width={width}
       >
         {zoom => {
           this.zoom = zoom
@@ -115,16 +142,21 @@ class VXZoom extends PureComponent {
               {...this.props}
             >
               <ZoomEventLayer
-                onWheel={(event) => this.onWheel(event)}
+                focusable
+                height={height}
+                left={left}
+                onDoubleClick={this.onDoubleClick}
+                onKeyDown={onKeyDown}
                 onMouseDown={panning ? zoom.dragStart : () => { }}
                 onMouseEnter={this.onMouseEnter}
                 onMouseMove={panning ? zoom.dragMove : () => { }}
                 onMouseUp={panning ? zoom.dragEnd : () => { }}
                 onMouseLeave={this.onMouseLeave}
-                onDoubleClick={this.onDoubleClick}
+                onWheel={(event) => this.onWheel(event)}
                 panning={panning}
-                parentHeight={parentHeight}
-                parentWidth={parentWidth}
+                tabIndex={0}
+                top={top}
+                width={width}
               />
             </ZoomingComponent>
           )
@@ -135,8 +167,11 @@ class VXZoom extends PureComponent {
 }
 
 VXZoom.defaultProps = {
+  left: 0,
   panning: false,
+  setOnPan: () => true,
   setOnZoom: () => true,
+  top: 0,
   zoomConfiguration: {
     direction: 'both',
     minZoom: 1,
@@ -149,11 +184,14 @@ VXZoom.defaultProps = {
 
 VXZoom.propTypes = {
   constrain: PropTypes.func,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
+  height: PropTypes.number.isRequired,
+  left: PropTypes.number,
   panning: PropTypes.bool,
-  parentHeight: PropTypes.number.isRequired,
-  parentWidth: PropTypes.number.isRequired,
+  setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
+  top: PropTypes.number,
+  width: PropTypes.number.isRequired,
   zoomConfiguration: PropTypes.shape({
     direction: PropTypes.oneOf(['both', 'x', 'y']),
     minZoom: PropTypes.number,
@@ -165,4 +203,5 @@ VXZoom.propTypes = {
   zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 }
 
-export default VXZoom
+export default withKeyZoom(VXZoom)
+export { VXZoom }
