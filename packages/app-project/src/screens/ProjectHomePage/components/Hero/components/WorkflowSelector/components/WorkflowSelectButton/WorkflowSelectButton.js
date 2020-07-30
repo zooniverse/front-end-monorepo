@@ -37,6 +37,15 @@ function WorkflowSelectButton (props) {
     </span>
   )
 
+  function selectSubjectSet(event) {
+    if (workflow.grouped) {
+      event.preventDefault()
+      alert('You must select a subject set first!')
+      return false
+    }
+    return true
+  }
+
   return (
     <Link as={as} href={href} passHref>
       <Button
@@ -45,6 +54,7 @@ function WorkflowSelectButton (props) {
         reverse
         label={label}
         primary
+        onClick={selectSubjectSet}
         {...rest}
       />
     </Link>
