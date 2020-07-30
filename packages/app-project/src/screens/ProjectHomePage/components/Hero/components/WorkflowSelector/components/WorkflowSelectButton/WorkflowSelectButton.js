@@ -5,10 +5,11 @@ import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { bool, number, shape, string } from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
+import SubjectSetPicker from '../SubjectSetPicker'
 
 import en from './locales/en'
 
@@ -18,6 +19,7 @@ function WorkflowSelectButton (props) {
   const { workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
+  const [ showPicker, setShowPicker ] = useState(false)
 
   const url = (workflow.default)
     ? `/projects/${owner}/${project}/classify`
@@ -40,24 +42,33 @@ function WorkflowSelectButton (props) {
   function selectSubjectSet(event) {
     if (workflow.grouped) {
       event.preventDefault()
-      alert('You must select a subject set first!')
+      setShowPicker(true)
       return false
     }
     return true
   }
 
   return (
-    <Link as={as} href={href} passHref>
-      <Button
-        completeness={completeness}
-        icon={<Next />}
-        reverse
-        label={label}
-        primary
-        onClick={selectSubjectSet}
-        {...rest}
-      />
-    </Link>
+    <>
+      <Link as={as} href={href} passHref>
+        <Button
+          completeness={completeness}
+          icon={<Next />}
+          reverse
+          label={label}
+          primary
+          onClick={selectSubjectSet}
+          {...rest}
+        />
+      </Link>
+      {showPicker &&
+        <SubjectSetPicker
+          active={showPicker}
+          closeFn={() => setShowPicker(false)}
+          workflow={workflow}
+        />
+      }
+    </>
   )
 }
 
