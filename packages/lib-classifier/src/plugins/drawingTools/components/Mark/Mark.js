@@ -12,7 +12,7 @@ const StyledGroup = styled('g')`
   }
 
   :hover {
-    ${props => props.dragging ? 
+    ${props => props.dragging ?
       css`cursor: grabbing;` :
       css`cursor: grab;`
     }
@@ -66,6 +66,7 @@ const Mark = forwardRef(function Mark ({
   }
 
   function select () {
+    console.log('SELECT MARK');
     onSelect(mark)
   }
 
