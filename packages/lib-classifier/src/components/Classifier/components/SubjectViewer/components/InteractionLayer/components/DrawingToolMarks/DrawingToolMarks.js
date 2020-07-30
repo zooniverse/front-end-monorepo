@@ -28,6 +28,13 @@ function DrawingToolMarks (props) {
       onFinish(event, ref.current)
     }
 
+<<<<<<< HEAD
+=======
+    function onSelectMarkWithRef (mark) {
+      onSelectMark(mark, ref.current)
+    }
+
+>>>>>>> Get Subtask Working on Touch Events
     function isInBounds (markElement) {
       const object = markElement.getBoundingClientRect()
       const bounds = svg.getBoundingClientRect()

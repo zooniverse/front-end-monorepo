@@ -67,18 +67,19 @@ function InteractionLayer ({
       id: cuid(),
       frame,
       toolIndex: activeToolIndex
-    }, convertEvent(event))
+    })
 
     if (activeMark.finished) {
-      console.log('it is finished');
-      return onFinish(activeMark)
+      onPointerMove(event)
+      onFinish(event)
+      return false
+    } else {
+      activeMark.initialPosition(convertEvent(event))
+      setActiveMark(activeMark)
+      setCreating(true)
+      activeMark.setSubTaskVisibility(false)
+      return false
     }
-
-    activeMark.initialPosition(convertEvent(event))
-    setActiveMark(activeMark)
-    setCreating(true)
-    activeMark.setSubTaskVisibility(false)
-    return false
   }
 
   function onPointerMove (event) {

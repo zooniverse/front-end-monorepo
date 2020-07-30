@@ -66,7 +66,6 @@ const Mark = forwardRef(function Mark ({
   }
 
   function select () {
-    console.log('SELECT MARK');
     onSelect(mark)
   }
 

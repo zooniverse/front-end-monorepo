@@ -11,11 +11,11 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
       const size = self.marks.size
       if (size) {
         const allMarks = Array.from(self.marks.values())
-        console.log('there is a size', allMarks);
         const mostRecent = allMarks[size - 1]
-        mostRecent.initialDrag(event)
-        mostRecent.finish()
-        return mostRecent
+        if (!mostRecent.finished) {
+          mostRecent.finish()
+          return mostRecent
+        }
       }
 
       return createMark(mark)
