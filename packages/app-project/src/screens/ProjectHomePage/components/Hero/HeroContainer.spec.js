@@ -9,7 +9,11 @@ import WideLayout from './components/WideLayout'
 const WORKFLOWS = [
   {
     id: '1',
-    completeness: 0.4
+    completeness: 0.4,
+    grouped: false,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
   }
 ]
 
@@ -127,7 +131,7 @@ describe('Component > HeroContainer', function () {
       expect(componentWrapper.prop('workflows')).to.deep.equal({
         loading: 'success',
         data: [
-          { completeness: 0.4, default: true, id: '1', displayName: 'Foo' }
+          { completeness: 0.4, default: true, grouped: false, id: '1', displayName: 'Foo', subjectSets: ['1', '2', '3'] }
         ]
       })
     })

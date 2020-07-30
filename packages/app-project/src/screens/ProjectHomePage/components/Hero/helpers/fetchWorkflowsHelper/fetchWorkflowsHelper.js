@@ -4,11 +4,10 @@ function fetchWorkflowData (activeWorkflows) {
   return panoptes
     .get('/workflows', {
       complete: false,
-      fields: 'completeness',
+      fields: 'completeness,grouped',
       id: activeWorkflows.join(',')
     })
     .then(response => response.body.workflows)
-    .then(workflows => workflows.map(pickWorkflowFields))
 }
 
 function fetchDisplayNames (language, activeWorkflows) {
@@ -34,17 +33,12 @@ async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWo
     return {
       completeness: workflow.completeness || 0,
       default: isDefault,
+      displayName: displayNames[workflow.id],
+      grouped: workflow.grouped,
       id: workflow.id,
-      displayName: displayNames[workflow.id]
+      subjectSets: workflow.links.subject_sets
     }
   })
-}
-
-function pickWorkflowFields (workflow) {
-  return {
-    completeness: workflow.completeness,
-    id: workflow.id
-  }
 }
 
 function createDisplayNamesMap (translations) {

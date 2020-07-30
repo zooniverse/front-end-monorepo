@@ -5,11 +5,19 @@ import fetchWorkflowsHelper from './fetchWorkflowsHelper'
 const WORKFLOWS = [
   {
     id: '1',
-    completeness: 0.4
+    completeness: 0.4,
+    grouped: false,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
   },
   {
     id: '2',
-    completeness: 0.7
+    completeness: 0.7,
+    grouped: false,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
   }
 ]
 
@@ -44,8 +52,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       })
 
     const result = await fetchWorkflowsHelper('en', ['1'])
+    const expectedWorkflow = Object.assign({}, WORKFLOWS[0], { displayName: 'Foo' })
     expect(result).to.deep.equal([
-      { completeness: 0.4, default: true, id: '1', displayName: 'Foo' }
+      { completeness: 0.4, default: true, grouped: false, id: '1', displayName: 'Foo', subjectSets: ['1', '2', '3'] }
     ])
   })
 
@@ -64,8 +73,8 @@ describe('Helpers > fetchWorkflowsHelper', function () {
 
     const result = await fetchWorkflowsHelper('en', ['1', '2'])
     expect(result).to.deep.equal([
-      { completeness: 0.4, default: false, id: '1', displayName: 'Foo' },
-      { completeness: 0.7, default: false, id: '2', displayName: 'Bar' }
+      { completeness: 0.4, default: false, grouped: false, id: '1', displayName: 'Foo', subjectSets: ['1', '2', '3'] },
+      { completeness: 0.7, default: false, grouped: false, id: '2', displayName: 'Bar', subjectSets: ['1', '2', '3'] }
     ])
   })
 
@@ -85,8 +94,8 @@ describe('Helpers > fetchWorkflowsHelper', function () {
 
       const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
       expect(result).to.deep.equal([
-        { completeness: 0.4, default: false, id: '1', displayName: 'Foo' },
-        { completeness: 0.7, default: true, id: '2', displayName: 'Bar' }
+        { completeness: 0.4, default: false, grouped: false, id: '1', displayName: 'Foo', subjectSets: ['1', '2', '3'] },
+        { completeness: 0.7, default: true, grouped: false, id: '2', displayName: 'Bar', subjectSets: ['1', '2', '3'] }
       ])
     })
   })
