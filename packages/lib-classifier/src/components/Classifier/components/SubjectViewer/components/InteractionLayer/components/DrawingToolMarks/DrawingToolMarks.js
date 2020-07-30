@@ -29,7 +29,6 @@ function DrawingToolMarks (props) {
     }
 
     function onSelectMarkWithRef (mark) {
-      console.log('SELECT WITH REF THERE');
       onSelectMark(mark, ref.current)
     }
 
