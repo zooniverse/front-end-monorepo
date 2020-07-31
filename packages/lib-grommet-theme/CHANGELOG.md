@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added drawing tool colors as `drawing-${variableName}` and to the colors object for utility use
 - Added highlighter tool colors as `highlighter-${variableName}` and to the colors object for utility use
 - Set border color on inputs to `light-5`
+- Set `dark-6` to be `#666666`
+- Set default icon colors to be `dark-6` for light theme and `light-6` for dark theme
 
 ### Changed
 - Lowered font weight for form input text.

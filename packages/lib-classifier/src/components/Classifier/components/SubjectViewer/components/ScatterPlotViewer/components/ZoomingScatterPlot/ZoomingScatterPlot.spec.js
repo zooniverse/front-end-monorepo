@@ -1,6 +1,8 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
+import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import ZoomingScatterPlot from './ZoomingScatterPlot'
 import ScatterPlot from '../ScatterPlot'
 import ZoomEventLayer from '../../../SVGComponents/ZoomEventLayer'
@@ -12,6 +14,19 @@ import {
 } from '../../helpers/mockData'
 
 const mockData = randomSingleSeriesData.data
+
+const mockStore = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
+  },
+  fieldGuide: {},
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  }
+}
 
 const zoomInEventMock = {
   clientX: 50,
@@ -46,7 +61,13 @@ describe('Component > ZoomingScatterPlot', function () {
         parentHeight={height}
         parentWidth={width}
         theme={zooTheme}
-      />
+      />,
+      { 
+        wrappingComponent: Provider,
+        wrappingComponentProps: {
+          classifierStore: mockStore
+        }
+      }
     )
     expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
   })
@@ -73,7 +94,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -96,7 +123,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -125,7 +158,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
         const { initialTransformMatrix } = wrapper.find(ScatterPlot).props()
 
@@ -162,7 +201,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -187,7 +232,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -217,7 +268,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -261,7 +318,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -286,7 +349,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -316,7 +385,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -351,7 +426,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const events = ['mousedown', 'mouseup', 'mousemove', 'mouseleave']
@@ -376,7 +457,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           const eventLayer = wrapper.find(ZoomEventLayer)
@@ -423,7 +510,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentWidth={width}
               theme={zooTheme}
               zoomConfiguration={zoomConfiguration}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           const eventLayer = wrapper.find(ZoomEventLayer)
@@ -470,7 +563,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentWidth={width}
               theme={zooTheme}
               zoomConfiguration={zoomConfiguration}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
           const eventLayer = wrapper.find(ZoomEventLayer)
 
@@ -522,7 +621,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
@@ -553,7 +658,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
@@ -594,7 +705,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentWidth={width}
               panning
               theme={zooTheme}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           eventLayer = wrapper.find(ZoomEventLayer)
@@ -657,7 +774,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           eventLayer = wrapper.find(ZoomEventLayer)
