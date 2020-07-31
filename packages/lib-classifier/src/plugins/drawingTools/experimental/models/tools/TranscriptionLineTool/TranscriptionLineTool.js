@@ -18,7 +18,7 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
         }
       }
 
-      return createMark(mark)
+      return self.createMark(mark)
     }
 
     function createMark (mark) {

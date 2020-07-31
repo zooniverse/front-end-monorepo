@@ -46,6 +46,10 @@ const Tool = types.model('Tool', {
     }
   }))
   .actions(self => {
+    function onPointerDown (mark) {
+      return self.createMark(mark)
+    }
+  
     function createMark (mark) {
       const newMark = Mark.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
@@ -74,6 +78,7 @@ const Tool = types.model('Tool', {
       createMark,
       createTask,
       deleteMark,
+      onPointerDown,
       reset
     }
   })
