@@ -1,24 +1,30 @@
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-import { Provider } from 'mobx-react'
+import sinon from 'sinon'
 import DataImageViewerConnector from './DataImageViewerConnector'
 import DataImageViewerContainer from './DataImageViewerContainer'
 
 const mockStore = {
-  subjects: {
-    active: { id: '1' }
+  classifierStore: {
+    subjects: {
+      active: { id: '1' }
+    }
   }
 }
 
 describe('DataImageViewerConnector', function () {
-  let wrapper
-  beforeEach(function () {
-    wrapper = mount(
-      <Provider classifierStore={mockStore}>
-        <DataImageViewerConnector />
-      </Provider>
+  let wrapper, useContextMock
+  before(function () {
+    useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
+    wrapper = shallow(
+      <DataImageViewerConnector />
     )
   })
+
+  after(function () {
+    useContextMock.restore()
+  })
+
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
