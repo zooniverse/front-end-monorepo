@@ -1,6 +1,7 @@
 {
   "VariableStarViewer": {
     "controls": "controls",
+    "enableZoom": "enable zoom",
     "flip": "flip",
     "focus": "focus",
     "imageTitle": "HR Diagram",
@@ -9,6 +10,7 @@
     "phase": "phase",
     "phaseFocus": "phase focus",
     "temperature": "temperature",
-    "visibility": "visibility"
+    "visibility": "visibility",
+    "zoomEnabled": "zoom enabled"
   }
 }

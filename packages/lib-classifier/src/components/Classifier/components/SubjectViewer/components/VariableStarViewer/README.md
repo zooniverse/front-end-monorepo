@@ -28,15 +28,15 @@ The Workflow of the project should have a configuration specified that the Varia
 ### Subject
 
 Each Subject has three files: 
-- an image file (which works as a "thumbnail" to be seen on Talk)
+- an image file (which works as a "thumbnail" to be seen on Talk, this must be first in the subject location's list)
 - a JSON file containing the data for the scatter plots and bar charts
-- an SVG image of the subject's HR diagram
+- an image of the subject's HR diagram
 
 ``` js
 subject.locations = [
   { "image/png": "subject1234.png" }, // Fallback image for Talk forums
   { "application/json": "subject1234.json" },
-  { "image/svg+xml": "hrDiagram.svg" }
+  { "image/png": "hrDiagram.png" }
 ]
 ```
 
