@@ -22,9 +22,11 @@ function WorkflowSelectButton (props) {
   const url = (workflow.default)
     ? `/projects/${owner}/${project}/classify`
     : `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
+  const href = (workflow.default)
+    ? '/projects/[owner]/[project]/classify'
+    : '/projects/[owner]/[project]/classify/workflow/[workflowID]'
 
   const as = addQueryParams(url, router)
-  const href = '/projects/[owner]/[project]/classify'
   const completeness = parseInt(workflow.completeness * 100, 10)
   const label = (
     <span>

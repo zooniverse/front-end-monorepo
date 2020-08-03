@@ -1,14 +1,15 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import ZoomEventLayer from './ZoomEventLayer'
+import { ZoomEventLayer } from './ZoomEventLayer'
 
-const parentWidth = 768
-const parentHeight = 384
+const width = 768
+const height = 384
 
 describe('Component > ZoomEventLayer', function () {
-  let onMouseDownSpy, onMouseMoveSpy, onMouseUpSpy, onMouseLeaveSpy, onDoubleClickSpy, onWheelSpy, wrapper
+  let onKeyDownSpy, onMouseDownSpy, onMouseMoveSpy, onMouseUpSpy, onMouseLeaveSpy, onDoubleClickSpy, onWheelSpy, wrapper
   before(function () {
+    onKeyDownSpy = sinon.spy()
     onMouseDownSpy = sinon.spy()
     onMouseUpSpy = sinon.spy()
     onMouseMoveSpy = sinon.spy()
@@ -19,18 +20,20 @@ describe('Component > ZoomEventLayer', function () {
     wrapper = shallow(
       <ZoomEventLayer
         onDoubleClick={onDoubleClickSpy}
+        onKeyDown={onKeyDownSpy}
         onMouseDown={onMouseDownSpy}
         onMouseMove={onMouseMoveSpy}
         onMouseUp={onMouseUpSpy}
         onMouseLeave={onMouseLeaveSpy}
         onWheel={onWheelSpy}
-        parentHeight={parentHeight}
-        parentWidth={parentWidth}
+        height={height}
+        width={width}
       />
     )
   })
 
   afterEach(function () {
+    onKeyDownSpy.resetHistory()
     onDoubleClickSpy.resetHistory()
     onMouseDownSpy.resetHistory()
     onMouseUpSpy.resetHistory()
@@ -48,8 +51,13 @@ describe('Component > ZoomEventLayer', function () {
   })
 
   it('should be the size of the parent', function () {
-    expect(wrapper.props().height).to.equal(parentHeight)
-    expect(wrapper.props().width).to.equal(parentWidth)
+    expect(wrapper.props().height).to.equal(height)
+    expect(wrapper.props().width).to.equal(width)
+  })
+
+  it('should call the onKeyDown prop callbak when onKeyDown event fires', function () {
+    wrapper.simulate('keydown')
+    expect(onKeyDownSpy).to.have.been.calledOnce()
   })
 
   it('should call the onMouseDown prop callback when onMouseDown event fires', function () {

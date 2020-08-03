@@ -42,7 +42,7 @@ class MyComponent extends React.Component {
 | `dark-3` | `#333333` | ![](https://via.placeholder.com/80x30.png/333333?text=+) |
 | `dark-4` | `#404040` | ![](https://via.placeholder.com/80x30.png/404040?text=+) |
 | `dark-5` | `#5C5C5C` | ![](https://via.placeholder.com/80x30.png/5C5C5C?text=+) |
-| `dark-6` | `#5C5C5C` | ![](https://via.placeholder.com/80x30.png/5C5C5C?text=+) |
+| `dark-6` | `#666666` | ![](https://via.placeholder.com/80x30.png/666666?text=+) |
 | `drawing-red` | `#FF3C25` | ![](https://via.placeholder.com/80x30.png/FF3C25?text=+) |
 | `drawing-orange` | `#FF9300` | ![](https://via.placeholder.com/80x30.png/FF9300?text=+) |
 | `drawing-yellow` | `#FFFF03` | ![](https://via.placeholder.com/80x30.png/FFFF03?text=+) |
