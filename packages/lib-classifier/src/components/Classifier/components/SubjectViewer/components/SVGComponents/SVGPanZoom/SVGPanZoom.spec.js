@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import SingleImageViewer from '../../SingleImageViewer'
 import SVGPanZoom from './SVGPanZoom'
 
 describe('Components > SVGPanZoom', function () {

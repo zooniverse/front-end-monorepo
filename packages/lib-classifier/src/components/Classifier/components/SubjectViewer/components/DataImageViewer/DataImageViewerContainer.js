@@ -1,42 +1,33 @@
-import asyncStates from '@zooniverse/async-states'
+import React from 'react'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import asyncStates from '@zooniverse/async-states'
 import request from 'superagent'
-import { inject, observer } from 'mobx-react'
-
-import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
+import DataImageViewer from './DataImageViewer'
 
-function storeMapper(stores) {
-  const {
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    setOnZoom,
-    setOnPan
-  }
-}
-
-class ScatterPlotViewerContainer extends Component {
+export default class DataImageViewerContainer extends React.Component {
   constructor() {
     super()
+
     this.viewer = React.createRef()
 
     this.state = {
-      JSONdata: null
+      imageSrc: '',
+      JSONData: {
+        data: [],
+        chartOptions: {}
+      }
     }
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const { subject } = this.props
     if (subject) {
       await this.handleSubject()
     }
   }
 
-  async componentDidUpdate(prevProps) {
+  async componentDidUpdate (prevProps) {
     const { subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
@@ -46,7 +37,7 @@ class ScatterPlotViewerContainer extends Component {
     }
   }
 
-  getSubjectUrl() {
+  getSubjectUrl () {
     // Find the first location that has a JSON MIME type.
     const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
     const url = Object.values(jsonLocation)[0]
@@ -57,7 +48,7 @@ class ScatterPlotViewerContainer extends Component {
     }
   }
 
-  async requestData() {
+  async requestData () {
     const { onError } = this.props
     try {
       const url = this.getSubjectUrl()
@@ -65,35 +56,46 @@ class ScatterPlotViewerContainer extends Component {
 
       // Get the JSON data, or (as a failsafe) parse the JSON data if the
       // response is returned as a string
-      return response.body || JSON.parse(response.text)
+      if (response.body) {
+        return response.body
+      } else if  (JSON.parse(response.text)) {
+        return { data: JSON.parse(response.text), chartOptions: {} }
+      }
+
+      return null
     } catch (error) {
       onError(error)
       return null
     }
   }
 
-  async handleSubject() {
+  async handleSubject () {
     const { onError } = this.props
     try {
-      const rawData = await this.requestData()
-      if (rawData) this.onLoad(rawData)
+      const JSONData = await this.requestData()
+      if (JSONData) this.onLoad(JSONData)
     } catch (error) {
       onError(error)
     }
   }
 
-  onLoad (JSONdata) {
-    const { onReady } = this.props
+  onLoad (JSONData) {
+    const { onReady, subject } = this.props
     const target = this.viewer.current
+    const imageLocation = subject.locations.find(location => location['image/png']) || {}
+    const imageSrc = imageLocation['image/png'] || ''
+
     this.setState({
-      JSONdata
+      imageSrc,
+      JSONData
     },
-      function () {
+      function() {
         onReady({ target })
-      })
+      }
+    )
   }
 
-  render() {
+  render () {
     const {
       subject,
       ...rest
@@ -104,15 +106,17 @@ class ScatterPlotViewerContainer extends Component {
     }
 
     return (
-      <ScatterPlotViewer
-        data={this.state.JSONdata}
+      <DataImageViewer
+        imageSrc={this.state.imageSrc}
+        ref={this.viewer}
+        JSONData={this.state.JSONData}
         {...rest}
       />
     )
   }
 }
 
-ScatterPlotViewerContainer.defaultProps = {
+DataImageViewerContainer.defaultProps = {
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
@@ -122,7 +126,7 @@ ScatterPlotViewerContainer.defaultProps = {
   }
 }
 
-ScatterPlotViewerContainer.propTypes = {
+DataImageViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -132,9 +136,3 @@ ScatterPlotViewerContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedScatterPlotViewerContainer extends ScatterPlotViewerContainer { }
-
-export default DecoratedScatterPlotViewerContainer
-export { ScatterPlotViewerContainer }

@@ -7,6 +7,7 @@ chai.use(dirtyChai)
 chai.use(sinonChai)
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
+  pretendToBeVisual: true, // See: https://github.com/jsdom/jsdom#pretending-to-be-a-visual-browser
   url: 'https://example.org/'
 })
 const { window } = jsdom
