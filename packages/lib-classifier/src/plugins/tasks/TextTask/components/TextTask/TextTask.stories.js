@@ -84,7 +84,7 @@ storiesOf('Tasks | Text', module)
       defaultViewport: 'responsive'
     }
   })
-.add('light theme', function () {
+.add('default', function () {
     const tasks = {
       T0: {
         help: 'Type something into the text box.',
@@ -111,6 +111,38 @@ storiesOf('Tasks | Text', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
+        />
+      </Provider>
+    )
+  })
+  .add('with suggestions', function () {
+    const tasks = {
+      T0: {
+        help: 'Type something into the text box.',
+        instruction: 'Type something here',
+        taskKey: 'T0',
+        text_tags: ['insertion', 'deletion'],
+        type: 'text'
+      }
+    }
+    const step = {
+      stepKey: 'S1',
+      taskKeys: ['T0']
+    }
+    addStepToStore(step, tasks)
+    const dark = boolean('Dark theme', false)
+    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
+    const isThereTaskHelp = boolean('Enable task help', true)
+    return (
+      <Provider classifierStore={store}>
+        <MockTask
+          dark={dark}
+          classification={store.classifications.active}
+          isThereTaskHelp={isThereTaskHelp}
+          loadingState={asyncStates.success}
+          step={store.workflowSteps.active}
+          subjectReadyState={subjectReadyState}
+          subTaskPreviousAnnotationValues={['a', 'b', 'c']}
         />
       </Provider>
     )
