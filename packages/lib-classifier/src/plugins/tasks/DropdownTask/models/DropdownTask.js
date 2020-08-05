@@ -13,8 +13,12 @@ const Dropdown = types.model('Dropdown', {
     next: types.maybe(types.string)
   })),
   help: types.optional(types.string, ''),
-  question: types.string,
-  type: types.literal('single')
+  type: types.literal('dropdown'),
+  selects: types.array(types.frozen({
+    id: types.string,
+    title: types.string,
+    options: types.frozen({}),    
+  }))
 })
   .views(self => ({
     get defaultAnnotation () {
