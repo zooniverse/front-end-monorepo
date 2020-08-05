@@ -61,4 +61,7 @@ Approved
 - There's risk using vx as it hasn't had a major version release yet and risk inherantly of using third party libraries if support for it dries up. It's possible there will be a request in the future for customization that we can't do well in vx and we'll have to look into alternatives.
 - We will we be able to write less code than using d3 directly and be able to continue to support customization as needed.
 - Writing tests is much easier using React components for the visual components and d3 just for utility functions for calculation.
-- We have multiple methods of doing pan and zoom in our code now and we should follow up on consolidating these methods. The vx library uses a transformation matrix which is something we may want to adopt more generally. 
+- We have multiple methods of doing pan and zoom in our code now and we should follow up on consolidating these methods. The vx library uses a transformation matrix which is something we may want to adopt more generally.
+- Each subject should include an image location first in the locations array as a fallback for something to render on Talk.
+- The workflow should be configured to explicitly set which viewer to use, otherwise it may be impossible to guess which plot to render without validating against the specific shape of and types used in the JSON. At some point in the future, we may choose to validate the subject JSON to check for any errors and to support programmatically knowing which subject viewer to render has a fallback if configuration is missing.
+- Each plot type will have a readme describing its expected JSON shape.
