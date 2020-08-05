@@ -6,6 +6,11 @@ import DropdownAnnotation from './DropdownAnnotation'
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
 
+const DropdownOptions = types.model('Dropdown', {
+  label: types.string,
+  value: types.string,
+})
+
 const Dropdown = types.model('Dropdown', {
   annotation: types.safeReference(DropdownAnnotation),
   answers: types.array(types.frozen({
@@ -17,7 +22,7 @@ const Dropdown = types.model('Dropdown', {
   selects: types.array(types.frozen({
     id: types.string,
     title: types.string,
-    options: types.frozen({}),    
+    options: types.map(DropdownOptions),    
   }))
 })
   .views(self => ({
