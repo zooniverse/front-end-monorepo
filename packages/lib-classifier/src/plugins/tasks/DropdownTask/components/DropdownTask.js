@@ -35,7 +35,14 @@ function DropdownTask (props) {
   function onChange (index, event) {
     if (event.target.checked) annotation.update(index)
   }
-
+  
+  const defaultDropdown = task.selects[0] || {
+    title: '',
+    options: {}
+  }
+  
+  const defaultOptions = defaultDropdown.options['*'] || []
+  
   return (
     <StyledBox
       className={className}
@@ -44,11 +51,11 @@ function DropdownTask (props) {
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
-          {task.question}
+          {defaultDropdown.title}
         </Markdownz>
       </StyledText>
 
-      {task.answers.map((answer, index) => {
+      {defaultOptions.map((option, index) => {
         const checked = (value + 1) ? index === value : false
         return (
           <TaskInput
@@ -57,7 +64,7 @@ function DropdownTask (props) {
             disabled={disabled}
             index={index}
             key={`${task.taskKey}_${index}`}
-            label={answer.label}
+            label={option.label}
             name={task.taskKey}
             onChange={onChange.bind(this, index)}
             required={task.required}
@@ -92,7 +99,12 @@ DropdownTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    selects: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      options: PropTypes.object,  // TODO: make this a map
+    }))
   }).isRequired,
   theme: PropTypes.object
 }

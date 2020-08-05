@@ -13,10 +13,6 @@ const DropdownOptions = types.model('Dropdown', {
 
 const Dropdown = types.model('Dropdown', {
   annotation: types.safeReference(DropdownAnnotation),
-  answers: types.array(types.frozen({
-    label: types.string,
-    next: types.maybe(types.string)
-  })),
   help: types.optional(types.string, ''),
   type: types.literal('dropdown'),
   selects: types.array(types.frozen({
