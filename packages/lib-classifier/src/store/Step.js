@@ -26,8 +26,13 @@ export const BaseStep = types
 
 export const NextStepReference = types
   .model('NextStepReference', {
-    next: types.maybe(types.reference(BaseStep)) // We have this optionally to support recursive workflows
+    next: types.maybe(types.string) // We have this optionally to support recursive workflows, temp edit to types.string - not working as expected otherwise, though should work as types.reference
   })
+  .actions(self => ({
+    setNext (nextStepKey) {
+      self.next = nextStepKey
+    }
+  }))
 
 const Step = types.compose('Step', BaseStep, NextStepReference)
 

@@ -7,7 +7,7 @@ const Task = types.model('Task', {
   // override annotation in individual task models with specific annotation types
   annotation: types.safeReference(Annotation),
   taskKey: types.identifier,
-  required: types.maybe(types.boolean),
+  required: types.maybe(types.union(types.boolean, types.literal(''))), // SingleChoiceTask required checked = "true" (not boolean, true), unchecked = "" (not boolean, false)
   type: types.literal('default')
 })
   .views(self => ({
