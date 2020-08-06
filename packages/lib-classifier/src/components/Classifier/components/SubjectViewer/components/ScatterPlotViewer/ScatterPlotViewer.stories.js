@@ -91,7 +91,9 @@ stories
             data={object('data', data)}
             panning={boolean('panning', false)}
             xAxisLabel={text('x axis label', 'x-axis')}
+            xAxisLabelOffset={number('x axis label offset', undefined)}
             yAxisLabel={text('y axis label', 'y-axis')}
+            yAxisLabelOffset={number('y axis label offset', undefined)}
             zooming={boolean('zooming', false)}
           />
         </Box>
@@ -107,7 +109,9 @@ stories
             data={object('data', data)}
             panning={boolean('panning', false)}
             xAxisLabel={text('x axis label', 'x-axis')}
+            xAxisLabelOffset={number('x axis label offset', undefined)}
             yAxisLabel={text('y axis label', 'y-axis')}
+            yAxisLabelOffset={number('y axis label offset', undefined)}
             zooming={boolean('zooming', false)}
           />
         </Box>
@@ -123,7 +127,9 @@ stories
             data={object('data', data)}
             panning={boolean('panning', false)}
             xAxisLabel={text('x axis label', 'x-axis')}
+            xAxisLabelOffset={number('x axis label offset', undefined)}
             yAxisLabel={text('y axis label', 'y-axis')}
+            yAxisLabelOffset={number('y axis label offset', undefined)}
             zooming={boolean('zooming', false)}
           />
         </Box>
@@ -158,6 +164,8 @@ stories
             panning={boolean('panning', true)}
             setOnZoom={setZoomCallback}
             xAxisLabel={text('x axis label', 'x-axis')}
+            xAxisLabelOffset={number('x axis label offset', undefined)}
+            yAxisLabelOffset={number('y axis label offset', undefined)}
             yAxisLabel={text('y axis label', 'y-axis')}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{

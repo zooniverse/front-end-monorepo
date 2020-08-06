@@ -25,18 +25,21 @@ class ScatterPlotViewerContainer extends Component {
     this.viewer = React.createRef()
 
     this.state = {
-      JSONdata: null
+      JSONData: {
+        data: [],
+        chartOptions: {}
+      }
     }
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const { subject } = this.props
     if (subject) {
       await this.handleSubject()
     }
   }
 
-  async componentDidUpdate(prevProps) {
+  async componentDidUpdate (prevProps) {
     const { subject } = this.props
     const prevSubjectId = prevProps.subject && prevProps.subject.id
     const subjectChanged = subject && (subject.id !== prevSubjectId)
@@ -46,7 +49,7 @@ class ScatterPlotViewerContainer extends Component {
     }
   }
 
-  getSubjectUrl() {
+  getSubjectUrl () {
     // Find the first location that has a JSON MIME type.
     const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
     const url = Object.values(jsonLocation)[0]
@@ -57,7 +60,7 @@ class ScatterPlotViewerContainer extends Component {
     }
   }
 
-  async requestData() {
+  async requestData () {
     const { onError } = this.props
     try {
       const url = this.getSubjectUrl()
@@ -65,14 +68,19 @@ class ScatterPlotViewerContainer extends Component {
 
       // Get the JSON data, or (as a failsafe) parse the JSON data if the
       // response is returned as a string
-      return response.body || JSON.parse(response.text)
+      const responseData = response.body || JSON.parse(response.text)
+      if (responseData.data && responseData.chartOptions) {
+        return responseData
+      } else {
+        return { data: responseData }
+      }
     } catch (error) {
       onError(error)
       return null
     }
   }
 
-  async handleSubject() {
+  async handleSubject () {
     const { onError } = this.props
     try {
       const rawData = await this.requestData()
@@ -82,11 +90,11 @@ class ScatterPlotViewerContainer extends Component {
     }
   }
 
-  onLoad (JSONdata) {
+  onLoad (JSONData) {
     const { onReady } = this.props
     const target = this.viewer.current
     this.setState({
-      JSONdata
+      JSONData
     },
       function () {
         onReady({ target })
@@ -99,13 +107,22 @@ class ScatterPlotViewerContainer extends Component {
       ...rest
     } = this.props
 
+    const { chartOptions, data } = this.state.JSONData
+
     if (!subject.id) {
       return null
     }
 
+    console.log('JSONData', data, chartOptions)
     return (
       <ScatterPlotViewer
-        data={this.state.JSONdata}
+        data={data}
+        margin={chartOptions?.margin}
+        padding={chartOptions?.padding}
+        xAxisLabel={chartOptions?.xAxisLabel}
+        xAxisLabelOffset={chartOptions?.xAxisLabelOffset}
+        yAxisLabel={chartOptions?.yAxisLabel}
+        yAxisLabelOffset={chartOptions?.yAxisLabelOffset}
         {...rest}
       />
     )
