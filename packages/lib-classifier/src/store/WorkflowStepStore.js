@@ -1,5 +1,12 @@
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { autorun, toJS } from 'mobx'
+import {
+  addDisposer, 
+  getRoot, 
+  isValidReference, 
+  onAction,
+  tryReference, 
+  types 
+} from 'mobx-state-tree'
 
 import Step from './Step'
 
@@ -58,6 +65,7 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
+      createAnnotationObserver()
     }
 
     function createWorkflowObserver () {
@@ -79,13 +87,47 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
+    function createAnnotationObserver () {
+      const annotationDisposer = autorun(() => {
+        const tasks = self.activeStepTasks
+        const [singleChoiceTask] = tasks.filter(task => task.type === 'single')
+        // TODO check if singleChoiceTask.answers has any answer.next that's different than any other answer.next
+        // ^ if no unique answer.next, then onAction not necessary
+        if (!!singleChoiceTask) {
+          onAction(getRoot(self), (call) => {
+            if (call.path.endsWith(singleChoiceTask.annotation.id) && call.name === 'update') {
+              const singleChoiceTaskAnswers = toJS(singleChoiceTask.answers)
+              const nextTaskKey = singleChoiceTaskAnswers[call.args[0]].next
+              let nextStepKey
+              self.steps.forEach(step => {
+                if (step.taskKeys.includes(nextTaskKey)) {
+                  nextStepKey = step.stepKey
+                }
+              })
+              self.setNextStepKey(nextStepKey)
+            }
+          })
+        }
+        
+      }, { name: 'Annotation Observer autorun' })
+      addDisposer(self, annotationDisposer)
+    }
+
+    function setNextStepKey (nextStepKey) {
+      self.active.setNext(nextStepKey)
+    }
+
     function getNextStepKey () {
       const validStepReference = isValidReference(() => self.active)
       const stepKeys = self.steps.keys()
       if (validStepReference) {
-        const stepKeysArray = Array.from(stepKeys)
-        const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
-        return stepKeysArray[currentStepIndex + 1]
+        if (!!self.active.next) {
+          return self.active.next
+        } else {
+          const stepKeysArray = Array.from(stepKeys)
+          const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
+          return stepKeysArray[currentStepIndex + 1]
+        }
       }
 
       return stepKeys.next().value
@@ -199,6 +241,7 @@ const WorkflowStepStore = types
       reset,
       resetSteps,
       selectStep,
+      setNextStepKey,
       setSteps,
       setStepsAndTasks,
       setTasks
