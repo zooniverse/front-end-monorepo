@@ -32,8 +32,16 @@ function DropdownTask (props) {
     theme
   } = props
   const { value } = annotation
-  function onChange (index, event) {
-    if (event.target.checked) annotation.update(index)
+  
+  function onDropdownChange (value, event) {
+    if (event.target.checked) setAnnotation(value, true)
+  }
+  
+  function setAnnotation (value, isPresetOption = false) {
+    annotation.update([{
+      value: value,
+      option: isPresetOption,
+    }])
   }
   
   const defaultSelect = task.selects[0] || {
@@ -85,7 +93,7 @@ function DropdownTask (props) {
               key={`${task.taskKey}_${index}`}
               label={option.label}
               name={task.taskKey}
-              onChange={onChange.bind(this, index)}
+              onChange={onDropdownChange.bind(this, option.value)}
               required={task.required}
               type='radio'
             />
