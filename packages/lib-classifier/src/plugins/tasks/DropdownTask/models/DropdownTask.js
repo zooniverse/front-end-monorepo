@@ -14,6 +14,7 @@ const DropdownOptions = types.model('Dropdown', {
 const Dropdown = types.model('Dropdown', {
   annotation: types.safeReference(DropdownAnnotation),
   help: types.optional(types.string, ''),
+  instruction: types.optional(types.string, ''),
   selects: types.array(types.frozen({
     allowCreate: types.boolean,
     id: types.string,

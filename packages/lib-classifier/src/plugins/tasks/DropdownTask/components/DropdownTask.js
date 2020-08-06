@@ -45,8 +45,6 @@ function DropdownTask (props) {
   
   const defaultOptions = defaultSelect.options['*'] || []
   
-  console.log('+++ defaultSelect: ', defaultSelect)
-  
   return (
     <StyledBox
       className={className}
@@ -55,33 +53,45 @@ function DropdownTask (props) {
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
-          {defaultSelect.title}
+          {task.instruction}
         </Markdownz>
       </StyledText>
     
-      <StyledText size='small' tag='legend'>
-        allowCreate: {(defaultSelect.allowCreate) ? 'yes' : 'no'}
-        &nbsp;
-        required: {(defaultSelect.required) ? 'yes' : 'no'}
-      </StyledText>
+      <StyledBox
+        border="dashed"
+        pad="small"
+        theme={theme}
+      >
+        <StyledText size='small' tag='legend'>
+          <Markdownz>
+            {defaultSelect.title}
+          </Markdownz>
+        </StyledText>
+    
+        <StyledText size='small' tag='legend'>
+          allowCreate: {(defaultSelect.allowCreate) ? 'yes' : 'no'}
+          &nbsp;
+          required: {(defaultSelect.required) ? 'yes' : 'no'}
+        </StyledText>
 
-      {defaultOptions.map((option, index) => {
-        const checked = (value + 1) ? index === value : false
-        return (
-          <TaskInput
-            autoFocus={checked}
-            checked={checked}
-            disabled={disabled}
-            index={index}
-            key={`${task.taskKey}_${index}`}
-            label={option.label}
-            name={task.taskKey}
-            onChange={onChange.bind(this, index)}
-            required={task.required}
-            type='radio'
-          />
-        )
-      })}
+        {defaultOptions.map((option, index) => {
+          const checked = (value + 1) ? index === value : false
+          return (
+            <TaskInput
+              autoFocus={checked}
+              checked={checked}
+              disabled={disabled}
+              index={index}
+              key={`${task.taskKey}_${index}`}
+              label={option.label}
+              name={task.taskKey}
+              onChange={onChange.bind(this, index)}
+              required={task.required}
+              type='radio'
+            />
+          )
+        })}
+      </StyledBox>
     </StyledBox>
   )
 }
@@ -105,7 +115,7 @@ DropdownTask.propTypes = {
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     help: PropTypes.string,
-    question: PropTypes.string,
+    instruction: PropTypes.string,
     required: PropTypes.bool,
     selects: PropTypes.arrayOf(PropTypes.shape({
       allowCreate: PropTypes.bool,
