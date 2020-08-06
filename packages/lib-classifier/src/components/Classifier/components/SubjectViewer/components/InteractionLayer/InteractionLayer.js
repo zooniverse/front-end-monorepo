@@ -58,27 +58,29 @@ function InteractionLayer ({
       return true
     }
 
+<<<<<<< HEAD
     if (!activeTool.type) {
       return false;
     }
 
     const activeMark = activeTool.onPointerDown({
+=======
+    if (creating) {
+      return activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
+    }
+
+    const activeMark = activeTool.createMark({
+>>>>>>> Create handlePointerDown Event
       id: cuid(),
       frame,
       toolIndex: activeToolIndex
     })
 
-    if (activeMark.finished) {
-      onPointerMove(event)
-      onFinish(event)
-      return false
-    } else {
-      activeMark.initialPosition(convertEvent(event))
-      setActiveMark(activeMark)
-      setCreating(true)
-      activeMark.setSubTaskVisibility(false)
-      return false
-    }
+    activeMark.initialPosition(convertEvent(event))
+    setActiveMark(activeMark)
+    setCreating(true)
+    activeMark.setSubTaskVisibility(false)
+    return false
   }
 
   function onPointerMove (event) {
