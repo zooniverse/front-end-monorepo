@@ -28,8 +28,12 @@ const SubjectViewer = types
     - 'zoomValue' defines amount zoomed in/out, or current zoom value of 'zoomto'.
      */
     onZoom: function (type, zoomValue) {},
-    // callback function for onkeydown handling of panning
-    onPan: function (xMultiplier, yMultiplier) {}
+    /*
+    Callback function for subject viewers with custom pan handlers.
+    - 'xDirection': -1: left, 0: ignored, 1: right
+    - 'yDirection': -1: up, 0: ignored, 1: down
+     */
+    onPan: function (xDirection, yDirection) {}
   }))
 
   .views(self => ({
@@ -93,6 +97,22 @@ const SubjectViewer = types
         self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
         self.rotation = 0
         self.loadingState = asyncStates.success
+      },
+
+      panLeft () {
+        self.onPan && self.onPan(-1, 0)
+      },
+
+      panRight () {
+        self.onPan && self.onPan(1, 0)
+      },
+
+      panUp () {
+        self.onPan && self.onPan(0, -1)
+      },
+
+      panDown () {
+        self.onPan && self.onPan(0, 1)
       },
 
       resetSubject (subject) {
