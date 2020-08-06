@@ -14,12 +14,14 @@ const DropdownOptions = types.model('Dropdown', {
 const Dropdown = types.model('Dropdown', {
   annotation: types.safeReference(DropdownAnnotation),
   help: types.optional(types.string, ''),
-  type: types.literal('dropdown'),
   selects: types.array(types.frozen({
+    allowCreate: types.boolean,
     id: types.string,
+    options: types.map(DropdownOptions),
+    required: types.optional(types.boolean, false),
     title: types.string,
-    options: types.map(DropdownOptions),    
-  }))
+  })),
+  type: types.literal('dropdown'),
 })
   .views(self => ({
     get defaultAnnotation () {

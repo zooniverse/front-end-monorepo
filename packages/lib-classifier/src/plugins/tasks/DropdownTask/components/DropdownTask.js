@@ -36,12 +36,16 @@ function DropdownTask (props) {
     if (event.target.checked) annotation.update(index)
   }
   
-  const defaultDropdown = task.selects[0] || {
+  const defaultSelect = task.selects[0] || {
+    allowCreate: false,
+    options: {},
+    required: false,
     title: '',
-    options: {}
   }
   
-  const defaultOptions = defaultDropdown.options['*'] || []
+  const defaultOptions = defaultSelect.options['*'] || []
+  
+  console.log('+++ defaultSelect: ', defaultSelect)
   
   return (
     <StyledBox
@@ -51,8 +55,14 @@ function DropdownTask (props) {
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
-          {defaultDropdown.title}
+          {defaultSelect.title}
         </Markdownz>
+      </StyledText>
+    
+      <StyledText size='small' tag='legend'>
+        allowCreate: {(defaultSelect.allowCreate) ? 'yes' : 'no'}
+        &nbsp;
+        required: {(defaultSelect.required) ? 'yes' : 'no'}
       </StyledText>
 
       {defaultOptions.map((option, index) => {
@@ -94,16 +104,15 @@ DropdownTask.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string
-    })),
     help: PropTypes.string,
     question: PropTypes.string,
     required: PropTypes.bool,
     selects: PropTypes.arrayOf(PropTypes.shape({
+      allowCreate: PropTypes.bool,
       id: PropTypes.string,
-      title: PropTypes.string,
       options: PropTypes.object,  // TODO: make this a map
+      required: PropTypes.bool,
+      title: PropTypes.string,
     }))
   }).isRequired,
   theme: PropTypes.object
