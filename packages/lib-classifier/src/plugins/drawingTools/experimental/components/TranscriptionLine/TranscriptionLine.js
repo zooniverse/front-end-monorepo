@@ -20,7 +20,7 @@ function TranscriptionLine (props) {
   const { active, color, mark, onFinish, scale, state } = props
   if (theme) {
     transcriptionTaskColors = {
-      active: theme.global.colors.drawingTools.aqua,
+      active: theme.global.colors.drawingTools.green,
       default: theme.global.colors.drawingTools.blue,
       transcribed: theme.global.colors.drawingTools.purple,
       complete: theme.global.colors['light-5']
