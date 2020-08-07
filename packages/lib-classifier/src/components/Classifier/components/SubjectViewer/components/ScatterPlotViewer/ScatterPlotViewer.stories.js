@@ -236,6 +236,8 @@ stories
           <ScatterPlotViewerContainer
             panning={boolean('panning', true)}
             subject={transientObjectSubject}
+            xAxisLabelOffset={number('x axis label offset', undefined)}
+            yAxisLabelOffset={number('y axis label offset', undefined)}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
