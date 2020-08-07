@@ -4,8 +4,8 @@ import nock from 'nock'
 import sinon from 'sinon'
 
 import { ScatterPlotViewerContainer } from './ScatterPlotViewerContainer'
-import kepler from '../../helpers/mockLightCurves/kepler'
-import variableStar from '../../helpers/mockLightCurves/variableStar'
+import ScatterPlotViewer from './ScatterPlotViewer'
+import { dataSeriesWithXErrors, keplerMockDataWithOptions } from './helpers/mockData'
 
 import { Factory } from 'rosie'
 
@@ -21,8 +21,8 @@ const nextSubject = Factory.build('subject', {
   ]
 })
 
-const subjectJSON = kepler
-const nextSubjectJSON = variableStar
+const subjectJSON = keplerMockDataWithOptions
+const nextSubjectJSON = dataSeriesWithXErrors
 
 const imageSubject = Factory.build('subject')
 
@@ -31,6 +31,13 @@ const failSubject = Factory.build('subject', {
     { 'application/json': 'http://localhost:8080/failure.json' }
   ]
 })
+
+const mockState = {
+  JSONData: {
+    chartOptions: {},
+    data: []
+  }
+}
 
 describe('Component > ScatterPlotViewerContainer', function () {
   it('should render without crashing', function () {
@@ -43,9 +50,6 @@ describe('Component > ScatterPlotViewerContainer', function () {
       <ScatterPlotViewerContainer />,
       { disableLifecycleMethods: true }
     )
-    const mockState = {
-      JSONdata: null
-    }
     expect(wrapper.state()).to.eql(mockState)
   })
 
@@ -148,9 +152,9 @@ describe('Component > ScatterPlotViewerContainer', function () {
         />
       )
 
-      expect(wrapper.state().JSONdata).to.be.null()
+      expect(wrapper.state()).to.deep.equal(mockState)
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().JSONdata).to.deep.equal(subjectJSON)
+        expect(wrapper.state().JSONData).to.deep.equal(subjectJSON)
       }).then(done, done)
     })
 
@@ -168,7 +172,7 @@ describe('Component > ScatterPlotViewerContainer', function () {
       }).then(done, done)
     })
 
-    it('should update component state when there is a new valid subject', function (done) {
+    it('should update component state and pass as props when there is a new valid subject', function (done) {
       wrapper = shallow(
         <ScatterPlotViewerContainer
           subject={subject}
@@ -176,12 +180,35 @@ describe('Component > ScatterPlotViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().JSONdata).to.deep.equal(subjectJSON)
+        const scatterPlotViewerProps = wrapper.find(ScatterPlotViewer).props()
+        const { data, chartOptions } = subjectJSON
+        expect(wrapper.state().JSONData).to.deep.equal(subjectJSON)
+        expect(scatterPlotViewerProps.data).to.deep.equal(data)
+        expect(scatterPlotViewerProps.margin).to.equal(chartOptions.margin)
+        expect(scatterPlotViewerProps.padding).to.equal(chartOptions.padding)
+        expect(scatterPlotViewerProps.xAxisLabel).to.equal(chartOptions.xAxisLabel)
+        expect(scatterPlotViewerProps.xAxisLabelOffset).to.equal(chartOptions.xAxisLabelOffset)
+        expect(scatterPlotViewerProps.yAxisLabel).to.equal(chartOptions.yAxisLabel)
+        expect(scatterPlotViewerProps.yAxisLabelOffset).to.equal(chartOptions.yAxisLabelOffset)
+
       })
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
-        expect(wrapper.state().JSONdata).to.deep.equal(nextSubjectJSON)
+        const scatterPlotViewerProps = wrapper.find(ScatterPlotViewer).props()
+        const wrapperState = wrapper.state()
+        // example subject missing chart options. 
+        // We set the state to be structured in the expected way
+        // undefined options are passed and
+        // child component falls back to default props so viewer can still render
+        expect(wrapperState.JSONData).to.deep.equal({ chartOptions: {}, data: nextSubjectJSON })
+        expect(scatterPlotViewerProps.data).to.deep.equal(nextSubjectJSON)
+        expect(scatterPlotViewerProps.margin).to.be.undefined()
+        expect(scatterPlotViewerProps.padding).to.be.undefined()
+        expect(scatterPlotViewerProps.xAxisLabel).to.be.undefined()
+        expect(scatterPlotViewerProps.xAxisLabelOffset).to.be.undefined()
+        expect(scatterPlotViewerProps.yAxisLabel).to.be.undefined()
+        expect(scatterPlotViewerProps.yAxisLabelOffset).to.be.undefined()
       }).then(done, done)
     })
   })

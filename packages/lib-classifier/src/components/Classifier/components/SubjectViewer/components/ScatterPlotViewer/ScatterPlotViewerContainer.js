@@ -72,7 +72,7 @@ class ScatterPlotViewerContainer extends Component {
       if (responseData.data && responseData.chartOptions) {
         return responseData
       } else {
-        return { data: responseData }
+        return { chartOptions: {}, data: responseData }
       }
     } catch (error) {
       onError(error)
@@ -113,7 +113,6 @@ class ScatterPlotViewerContainer extends Component {
       return null
     }
 
-    console.log('JSONData', data, chartOptions)
     return (
       <ScatterPlotViewer
         data={data}
