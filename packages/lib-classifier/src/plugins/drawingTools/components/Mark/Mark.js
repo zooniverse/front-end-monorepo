@@ -40,7 +40,9 @@ const Mark = forwardRef(function Mark ({
   const focusColor = theme.global.colors[theme.global.colors.focus]
 
   React.useEffect(() => {
-    if (mark.finished) onFinish()
+    if (mark.finished && !mark.subTaskVisibility) {
+      onFinish()
+    }
   }, [mark.finished])
 
   function onKeyDown (event) {
