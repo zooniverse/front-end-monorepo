@@ -39,6 +39,10 @@ const Mark = forwardRef(function Mark ({
   }
   const focusColor = theme.global.colors[theme.global.colors.focus]
 
+  React.useEffect(() => {
+    if (mark.finished) onFinish()
+  }, [mark.finished])
+
   function onKeyDown (event) {
     switch (event.key) {
       case 'Backspace': {

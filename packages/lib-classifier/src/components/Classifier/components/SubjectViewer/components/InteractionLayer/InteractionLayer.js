@@ -57,20 +57,19 @@ function InteractionLayer ({
     if (disabled || move) {
       return true
     }
+    let activeMark
 
-<<<<<<< HEAD
     if (!activeTool.type) {
       return false;
     }
 
-    const activeMark = activeTool.onPointerDown({
-=======
     if (creating) {
-      return activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
+      activeMark = activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
+      if (activeMark.finished) setCreating(false)
+      return activeMark
     }
 
-    const activeMark = activeTool.createMark({
->>>>>>> Create handlePointerDown Event
+    activeMark = activeTool.createMark({
       id: cuid(),
       frame,
       toolIndex: activeToolIndex
@@ -91,7 +90,7 @@ function InteractionLayer ({
     }
   }
 
-  function onFinish (event, node) {
+  function onFinish (event = {}, node) {
     const { target, pointerId } = event
 
     setCreating(false)
