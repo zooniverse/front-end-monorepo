@@ -27,3 +27,4 @@
 - [ADR 25: Drawing Sub-task](adr-25.md)
 - [ADR 26: Tracking errors with Sentry releases](adr-26.md)
 - [ADR 27: Subject Viewer Config](adr-27.md)
+- [ADR 28: Data as a subject viewers](adr-28.md)
