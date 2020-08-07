@@ -73,12 +73,11 @@ const keplerSubject = Factory.build('subject', {
   ]
 })
 
-const variableStarSubject = Factory.build('subject', {
+const transientObjectSubject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
-    },
-    { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/978b660f4ef660d5355148c3c22ef0912b96c7c1/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/transients/subject-1/zoo_subject_ZTF20abqdkne.json'
+    }
   ]
 })
 
@@ -136,15 +135,16 @@ stories
       </Grommet>
     )
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
-  .add('data with x (horizontal) error bars', () => {
+  .add('data with error bars', () => {
     function constructData () {
-      return [...Array(10)].map((number, index) => {
+      return [...Array(60)].map((number, index) => {
         const coords = {
           x: Math.floor(Math.random() * 10) + 1,
           y: Math.floor(Math.random() * 10) + 1,
         }
 
         if (index % 2 == 0) coords.x_error = Math.random()
+        if (index % 5 == 0) coords.y_error = Math.random()
         return coords
       })
     }
@@ -229,13 +229,13 @@ stories
       </ViewerContext>
     )
   }, config)
-  .add('variable star light curve data (multiple series) with y (vertical) direction error bars', () => {
+  .add('multiple series data (transient object)', () => {
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='medium' width='large'>
           <ScatterPlotViewerContainer
             panning={boolean('panning', true)}
-            subject={variableStarSubject}
+            subject={transientObjectSubject}
             zooming={boolean('zooming', true)}
             zoomConfiguration={{
               direction: text('zoom direction', 'both'),
