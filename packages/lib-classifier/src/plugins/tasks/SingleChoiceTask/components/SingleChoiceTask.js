@@ -92,7 +92,7 @@ SingleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.bool
+    required: PropTypes.oneOf(PropTypes.bool, PropTypes.string)
   }).isRequired,
   theme: PropTypes.object
 }

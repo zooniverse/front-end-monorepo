@@ -10,6 +10,7 @@ function storeMapper (stores) {
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
+    next,
     selectStep
   } = stores.classifierStore.workflowSteps
   const {
@@ -24,6 +25,7 @@ function storeMapper (stores) {
     getPreviousStepKey,
     isThereANextStep,
     isThereAPreviousStep,
+    next,
     removeAnnotation,
     selectStep,
     step,
@@ -75,15 +77,15 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { disabled, isThereANextStep, isThereAPreviousStep } = this.props
-
+    const { disabled, isThereANextStep, isThereAPreviousStep, next } = this.props
+  
     return (
       <TaskNavButtons
         disabled={disabled}
         goToNextStep={this.goToNextStep.bind(this)}
         goToPreviousStep={this.goToPreviousStep.bind(this)}
         showBackButton={isThereAPreviousStep()}
-        showNextButton={isThereANextStep()}
+        showNextButton={isThereANextStep(next)}
         onSubmit={this.onSubmit.bind(this)}
       />
     )

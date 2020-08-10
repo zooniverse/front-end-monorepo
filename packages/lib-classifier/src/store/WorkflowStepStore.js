@@ -1,11 +1,12 @@
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { autorun, toJS } from 'mobx'
+import { addDisposer, getRoot, isValidReference, onAction, tryReference, types } from 'mobx-state-tree'
 
 import Step from './Step'
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
     active: types.safeReference(Step),
+    next: types.maybe(types.string),
     steps: types.map(Step)
   })
   .views(self => ({
@@ -18,9 +19,9 @@ const WorkflowStepStore = types
       return []
     },
 
-    isThereANextStep () {
-      const nextStep = self.getNextStepKey()
-      return nextStep && nextStep !== 'summary'
+    isThereANextStep (next) {
+      const nextStep = !!next ? next : self.getNextStepKey()
+      return !!nextStep && nextStep !== 'complete' && nextStep !== 'summary'
     },
 
     isThereAPreviousStep () {
@@ -40,7 +41,7 @@ const WorkflowStepStore = types
     },
 
     get shouldWeShowDoneAndTalkButton () {
-      const isThereANextStep = self.isThereANextStep()
+      const isThereANextStep = self.isThereANextStep(self.next)
       const workflow = tryReference(() => getRoot(self).workflows?.active)
       const classification = tryReference(() => getRoot(self).classifications?.active)
 
@@ -58,6 +59,7 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
+      createAnnotationObserver()
     }
 
     function createWorkflowObserver () {
@@ -79,6 +81,36 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
+    function createAnnotationObserver () {
+      const annotationDisposer = autorun(() => {
+        const tasks = self.activeStepTasks
+        const [singleChoiceTask] = tasks.filter(task => task.type === 'single')
+        // TODO check if singleChoiceTask.answers has any answer.next that's different than any other answer.next
+        // ^ if no unique answer.next, then onAction not necessary
+        if (!!singleChoiceTask) {
+          onAction(getRoot(self), (call) => {
+            if (call.path.endsWith(singleChoiceTask.annotation?.id) && call.name === 'update') {
+              const singleChoiceTaskAnswers = toJS(singleChoiceTask.answers)
+              const nextTaskKey = singleChoiceTaskAnswers[call.args[0]].next
+              let nextStepKey = 'complete'
+              self.steps.forEach(step => {
+                if (step.taskKeys.includes(nextTaskKey)) {
+                  nextStepKey = step.stepKey
+                }
+              })
+              self.setNext(nextStepKey)
+            }
+          })
+        }
+
+      }, { name: 'Annotation Observer autorun' })
+      addDisposer(self, annotationDisposer)
+    }
+
+    function setNext (nextStepKey) {
+      self.next = nextStepKey
+    }
+    
     function getNextStepKey () {
       const validStepReference = isValidReference(() => self.active)
       const stepKeys = self.steps.keys()
@@ -103,18 +135,22 @@ const WorkflowStepStore = types
 
     function resetSteps () {
       self.active = undefined
+      self.next = undefined
       self.steps.forEach(step => step.reset())
       self.selectStep()
     }
 
     function reset () {
+      self.next = undefined
       self.steps.clear()
     }
 
-    function selectStep (stepKey = getNextStepKey()) {
+    function selectStep () {
+      const stepKey = !!self.next ? self.next : getNextStepKey()
       const step = self.steps.get(stepKey)
       if (step) {
         self.active = stepKey
+        self.next = undefined
         self.activeStepTasks.forEach(task => task.start())
       }
     }
@@ -199,6 +235,7 @@ const WorkflowStepStore = types
       reset,
       resetSteps,
       selectStep,
+      setNext,
       setSteps,
       setStepsAndTasks,
       setTasks
