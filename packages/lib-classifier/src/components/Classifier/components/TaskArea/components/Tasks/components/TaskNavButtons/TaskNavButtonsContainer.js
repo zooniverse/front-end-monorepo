@@ -75,7 +75,9 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   render () {
-    const { disabled, isThereANextStep, isThereAPreviousStep } = this.props
+    const { disabled, isThereANextStep, isThereAPreviousStep, step } = this.props
+    // console.log('step', step); // doesn't rerender on answer change
+    console.log('step.next', step.next) // does rerender on answer change
 
     return (
       <TaskNavButtons

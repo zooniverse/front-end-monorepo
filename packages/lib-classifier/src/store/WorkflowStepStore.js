@@ -27,7 +27,7 @@ const WorkflowStepStore = types
 
     isThereANextStep () {
       const nextStep = self.getNextStepKey()
-      return nextStep && nextStep !== 'summary'
+      return nextStep && nextStep !== 'summary' && nextStep !== 'complete'
     },
 
     isThereAPreviousStep () {
@@ -95,10 +95,10 @@ const WorkflowStepStore = types
         // ^ if no unique answer.next, then onAction not necessary
         if (!!singleChoiceTask) {
           onAction(getRoot(self), (call) => {
-            if (call.path.endsWith(singleChoiceTask.annotation.id) && call.name === 'update') {
+            if (call.path.endsWith(singleChoiceTask.annotation?.id) && call.name === 'update') {
               const singleChoiceTaskAnswers = toJS(singleChoiceTask.answers)
               const nextTaskKey = singleChoiceTaskAnswers[call.args[0]].next
-              let nextStepKey
+              let nextStepKey = 'complete'
               self.steps.forEach(step => {
                 if (step.taskKeys.includes(nextTaskKey)) {
                   nextStepKey = step.stepKey
