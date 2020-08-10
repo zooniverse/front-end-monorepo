@@ -53,34 +53,42 @@ describe('Components > SVGPanZoom', function () {
   describe('panning', function () {
     describe('left', function () {
       it('should move the viewbox left', function () {
+        let viewBox = wrapper.find('svg').prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         onPan(-1, 0)
         wrapper.update()
-        const viewBox = wrapper.find('svg').prop('viewBox')
+        viewBox = wrapper.find('svg').prop('viewBox')
         expect(viewBox).to.equal('-10 0 400 200')
       })
     })
 
     describe('right', function () {
       it('should move the viewbox right', function () {
+        let viewBox = wrapper.find('svg').prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         onPan(1, 0)
         wrapper.update()
-        const viewBox = wrapper.find('svg').prop('viewBox')
+        viewBox = wrapper.find('svg').prop('viewBox')
         expect(viewBox).to.equal('10 0 400 200')
       })
     })
     describe('up', function () {
       it('should move the viewbox up', function () {
+        let viewBox = wrapper.find('svg').prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         onPan(0, -1)
         wrapper.update()
-        const viewBox = wrapper.find('svg').prop('viewBox')
+        viewBox = wrapper.find('svg').prop('viewBox')
         expect(viewBox).to.equal('0 -10 400 200')
       })
     })
     describe('down', function () {
       it('should move the viewbox down', function () {
+        let viewBox = wrapper.find('svg').prop('viewBox')
+        expect(viewBox).to.equal('0 0 400 200')
         onPan(0, 1)
         wrapper.update()
-        const viewBox = wrapper.find('svg').prop('viewBox')
+        viewBox = wrapper.find('svg').prop('viewBox')
         expect(viewBox).to.equal('0 10 400 200')
       })
     })
