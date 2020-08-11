@@ -91,8 +91,8 @@ The multiple series JSON shape is an object consisting of an object for `scatter
         "yAxisLabel": "Brightness"
       }
     },
-    "barCharts": [
-      { 
+    "barCharts": {
+      "period": { 
         "data": [
           {
             "color": "drawing-red",
@@ -109,7 +109,8 @@ The multiple series JSON shape is an object consisting of an object for `scatter
           "xAxisLabel": "Period",
           "yAxisLabel": ""
         }
-      }, {
+      }, 
+      "amplitude": {
         "data": [
           {
             "color": "drawing-red",
@@ -127,7 +128,7 @@ The multiple series JSON shape is an object consisting of an object for `scatter
           "yAxisLabel": ""
         }
       }
-    ]
+    }
   }
 }
 ```

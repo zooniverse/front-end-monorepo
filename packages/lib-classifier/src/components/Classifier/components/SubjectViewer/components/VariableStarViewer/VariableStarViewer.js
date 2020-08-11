@@ -19,7 +19,10 @@ counterpart.registerTranslations('en', en)
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
     allowPanZoom,
-    barJSON,
+    barJSON: {
+      amplitude,
+      period
+    },
     imageSrc,
     invertYAxis,
     periodMultiple,
@@ -136,16 +139,18 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         gridArea='barCharts'
         pad='small'
       >
-      {barJSON.map((barChart) => {
-        return (
-          <BarChartViewer
-            key={`${barChart.chartOptions.yAxisLabel} vs ${barChart.chartOptions.xAxisLabel}`}
-            data={barChart.data}
-            xAxisLabel={barChart.chartOptions.xAxisLabel}
-            yAxisLabel={barChart.chartOptions.yAxisLabel}
-          />
-        )
-      })}
+        <BarChartViewer
+          key={`${period.chartOptions.yAxisLabel} vs ${period.chartOptions.xAxisLabel}`}
+          data={period.data}
+          xAxisLabel={period.chartOptions.xAxisLabel}
+          yAxisLabel={period.chartOptions.yAxisLabel}
+        />
+        <BarChartViewer
+          key={`${amplitude.chartOptions.yAxisLabel} vs ${amplitude.chartOptions.xAxisLabel}`}
+          data={amplitude.data}
+          xAxisLabel={amplitude.chartOptions.xAxisLabel}
+          yAxisLabel={amplitude.chartOptions.yAxisLabel}
+        />
       </Box>
       <Box
         as='figure'
@@ -176,15 +181,16 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 
 VariableStarViewer.defaultProps = {
   allowPanZoom: '',
-  barJSON: [
-    {
+  barJSON: {
+    amplitude: {
       data: [],
-      chartOptions: {
-        xAxisLabel: '',
-        yAxisLabel: ''
-      } 
+      chartOptions: {}
+    },
+    period: {
+      data: [],
+      chartOptions: {}
     }
-  ],
+  },
   imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
@@ -198,7 +204,7 @@ VariableStarViewer.defaultProps = {
       data: [],
       chartOptions: {}
     },
-    barCharts: []
+    barCharts: {}
   },
   setOnPan: () => true,
   setOnZoom: () => true,
@@ -218,12 +224,16 @@ VariableStarViewer.defaultProps = {
 
 VariableStarViewer.propTypes = {
   allowPanZoom: PropTypes.string,
-  barJSON: PropTypes.arrayOf(
-    PropTypes.shape({
+  barJSON: PropTypes.shape({
+    amplitude: PropTypes.shape({
       data: PropTypes.array,
       options: PropTypes.object
-    })
-  ),
+    }),
+    period: PropTypes.shape({
+      data: PropTypes.array,
+      options: PropTypes.object
+    }),
+  }),
   imageSrc: PropTypes.string,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
