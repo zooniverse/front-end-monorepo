@@ -95,6 +95,7 @@ const WorkflowStepStore = types
         // ^ if no unique answer.next, then onAction not necessary
         if (!!singleChoiceTask) {
           onAction(getRoot(self), (call) => {
+            console.log('call', call)
             if (call.path.endsWith(singleChoiceTask.annotation?.id) && call.name === 'update') {
               const singleChoiceTaskAnswers = toJS(singleChoiceTask.answers)
               const nextTaskKey = singleChoiceTaskAnswers[call.args[0]].next
@@ -193,6 +194,7 @@ const WorkflowStepStore = types
     function convertWorkflowToUseSteps (workflow) {
       const taskKeys = Object.keys(workflow.tasks)
       const { first_task } = workflow
+      const firstTask = workflow.tasks[first_task]
 
       function getStepTasksFromCombo (task) {
         task.tasks.forEach(function (taskKey) {
@@ -201,18 +203,34 @@ const WorkflowStepStore = types
         return task.tasks
       }
 
+      function isThereBranching (task) {
+        if (task.type === 'single') {
+          return task.answers.some((answer, index) => {
+            return answer.next && answer[index + 1]?.next && answer[index + 1].next !== answer.next
+          })
+        }
+
+        return false
+      }
+
       if (first_task) {
         let firstStep = {
           stepKey: 'S0',
           taskKeys: [first_task]
         }
 
-        if (workflow.tasks[first_task].type === 'combo') {
-          const combo = workflow.tasks[first_task]
+        if (firstTask.type === 'combo') {
+          const combo = firstTask
           firstStep.taskKeys = getStepTasksFromCombo(combo)
         }
 
+        // next is set only when an answer is chosen
+        if (!isThereBranching(firstTask)) {
+          firstStep.next = firstTask.next
+        }
+
         taskKeys.splice(taskKeys.indexOf(first_task), 1)
+
         self.steps.put(firstStep)
       }
 
@@ -223,10 +241,19 @@ const WorkflowStepStore = types
           if (task.type === 'combo') {
             stepTasks = getStepTasksFromCombo(task)
           }
-          self.steps.put({
+
+          let stepSnapshot = {
+            previous: `S${index}`,
             stepKey: `S${index + 1}`,
             taskKeys: stepTasks
-          })
+          }
+
+          // next is set only when an answer is chosen
+          if (!isThereBranching(task)) {
+            stepSnapshot.next = `S${index + 2}`
+          }
+
+          self.steps.put(stepSnapshot)
         }
       })
 
