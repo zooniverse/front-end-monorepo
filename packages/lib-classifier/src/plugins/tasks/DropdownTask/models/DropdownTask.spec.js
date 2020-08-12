@@ -2,14 +2,32 @@ import { types } from 'mobx-state-tree'
 import DropdownTask from '@plugins/tasks/DropdownTask'
 
 const dropdownTask = {
-  answers: [
-    { label: 'yes', next: 'S2' },
-    { label: 'no', next: 'S3' }
-  ],
-  question: 'Do you exist?',
+  instruction: 'Choose your favourite things.',
+  selects: [{
+    allowCreate: false,
+    id: 'dropdown-select-1',
+    options: {
+      '*': [
+        {
+          label: 'Red',
+          value: 'hashed-value-R',
+        },
+        {
+          label: 'Green',
+          value: 'hashed-value-G',
+        },
+        {
+          label: 'Blue',
+          value: 'hashed-value-B',
+        },
+      ],
+    },
+    required: false,
+    title: 'Colour',
+  }],
   required: false,
   taskKey: 'T1',
-  type: 'single'
+  type: 'dropdown'
 }
 
 describe('Model > DropdownTask', function () {
@@ -46,13 +64,19 @@ describe('Model > DropdownTask', function () {
       task.setAnnotation(annotation)
     })
 
-    it('should start up with a null value', function () {
-      expect(task.annotation.value).to.be.null()
+    it('should start with 0 annotations', function () {
+      expect(task.annotation.value).to.have.lengthOf(0)
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation(1)
-      expect(task.annotation.value).to.equal(1)
+      task.updateAnnotation([
+        {
+          value: 'hashed-value-R',
+          option: true,
+        }
+      ])
+      const annotationValue = task.annotation.value && task.annotation.value[0]
+      expect(annotationValue.value).to.equal('hashed-value-R')
     })
   })
 
@@ -82,7 +106,12 @@ describe('Model > DropdownTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        task.updateAnnotation(1)
+        task.updateAnnotation([
+          {
+            value: 'hashed-value-R',
+            option: true,
+          }
+        ])
         expect(task.isComplete).to.be.true()
       })
     })
