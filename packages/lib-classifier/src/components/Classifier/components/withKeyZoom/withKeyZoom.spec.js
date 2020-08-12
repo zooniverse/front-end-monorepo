@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
@@ -13,16 +14,16 @@ describe('withKeyZoom', function () {
   }
   const zoomStub = React.createRef()
   const WithZoom = withKeyZoom(StubComponent)
-  const onPan = sinon.stub()
-  const zoomIn = sinon.stub()
-  const zoomOut = sinon.stub()
+  const subjectViewer = SubjectViewerStore.create({})
   const classifierStore = {
-    subjectViewer: {
-      onPan,
-      zoomIn,
-      zoomOut
-    }
+    subjectViewer
   }
+  const panLeft = sinon.spy(subjectViewer, 'panLeft')
+  const panRight = sinon.spy(subjectViewer, 'panRight')
+  const panUp = sinon.spy(subjectViewer, 'panUp')
+  const panDown = sinon.spy(subjectViewer, 'panDown')
+  const zoomIn = sinon.spy(subjectViewer, 'zoomIn')
+  const zoomOut = sinon.spy(subjectViewer, 'zoomOut')
   let wrappedComponent
 
   before(function () {
@@ -63,22 +64,22 @@ describe('withKeyZoom', function () {
       {
         key: 'ArrowRight',
         name: 'pan right',
-        handler: onPan.withArgs(-1, 0)
+        handler: panRight
       },
       {
         key: 'ArrowLeft',
         name: 'pan left',
-        handler: onPan.withArgs(1, 0)
+        handler: panLeft
       },
       {
         key: 'ArrowUp',
         name: 'pan up',
-        handler: onPan.withArgs(0, 1)
+        handler: panUp
       },
       {
         key: 'ArrowDown',
         name: 'pan down',
-        handler: onPan.withArgs(0, -1)
+        handler: panDown
       }
     ]
 
@@ -86,7 +87,10 @@ describe('withKeyZoom', function () {
 
     describe('when the event target is svg', function () {
       afterEach(function () {
-        onPan.resetHistory()
+        panLeft.resetHistory()
+        panRight.resetHistory()
+        panUp.resetHistory()
+        panDown.resetHistory()
         zoomIn.resetHistory()
         zoomOut.resetHistory()
       })
@@ -108,7 +112,10 @@ describe('withKeyZoom', function () {
 
     describe('when the event target is a button', function () {
       afterEach(function () {
-        onPan.resetHistory()
+        panLeft.resetHistory()
+        panRight.resetHistory()
+        panUp.resetHistory()
+        panDown.resetHistory()
         zoomIn.resetHistory()
         zoomOut.resetHistory()
       })
@@ -130,7 +137,10 @@ describe('withKeyZoom', function () {
 
     describe('when the event target is something else', function () {
       afterEach(function () {
-        onPan.resetHistory()
+        panLeft.resetHistory()
+        panRight.resetHistory()
+        panUp.resetHistory()
+        panDown.resetHistory()
         zoomIn.resetHistory()
         zoomOut.resetHistory()
       })
