@@ -1,5 +1,5 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
-import { Box, Text } from 'grommet'
+import { Box, Select, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -51,7 +51,26 @@ function DropdownTask (props) {
     title: '',
   }
   
-  const defaultOptions = defaultSelect.options['*'] || []
+  const defaultOptions = (defaultSelect.options['*'])
+    ? defaultSelect.options['*'].map(option => {
+        return {
+          label: option.label,
+          value: option.value,
+          presetOption: true,
+        }
+      })
+    : []
+  
+  if (defaultSelect.allowCreate) {
+    defaultOptions.push({
+      label: '((other))',
+      value: '*',
+      presetOption: false,
+    })
+  }
+  
+  const defaultValue = undefined  // TODO, use 'value'
+  console.log('+++ YO YO: ', value, value[0])
   
   return (
     <StyledBox
@@ -81,8 +100,18 @@ function DropdownTask (props) {
           &nbsp;
           required: {(defaultSelect.required) ? 'yes' : 'no'}
         </StyledText>
+        
+        <Select
+          options={defaultOptions}
+          placeholder={'Select an option'}
+          onChange={({ option, value }) => {
+            console.log('+++ Selected: ', option, value)
+          }}
+          labelKey={'label'}
+          valueKey={'value'}
+        />
 
-        {defaultOptions.map((option, index) => {
+        {/*defaultOptions.map((option, index) => {
           const checked = (value + 1) ? index === value : false
           return (
             <TaskInput
@@ -98,7 +127,7 @@ function DropdownTask (props) {
               type='radio'
             />
           )
-        })}
+        })*/}
       </StyledBox>
     </StyledBox>
   )
