@@ -12,6 +12,8 @@ import SubjectStore from '@store/SubjectStore'
 import WorkflowStore from '@store/WorkflowStore'
 import WorkflowStepStore from '@store/WorkflowStepStore'
 
+/*
+
 function createStore() {
   const classifications = ClassificationStore.create()
   const mockSubject = {
@@ -115,3 +117,4 @@ storiesOf('Tasks | Dropdown Task', module)
       </Provider>
     )
   })
+*/
