@@ -10,7 +10,7 @@ describe('DropdownTask', function () {
     question: 'Is there a cat?',
     required: true,
     taskKey: 'init',
-    type: 'single'
+    type: 'dropdown'
   })
   const annotation = task.defaultAnnotation
 

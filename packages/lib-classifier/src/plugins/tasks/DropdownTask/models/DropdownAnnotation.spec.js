@@ -1,37 +1,51 @@
-import SingleChoiceAnnotation from './SingleChoiceAnnotation'
+import DropdownAnnotation from './DropdownAnnotation'
 
-describe('Model > SingleChoiceAnnotation', function () {
+describe.only('Model > DropdownAnnotation', function () {
   describe('with a selected answer', function () {
-    let singleChoiceAnnotation
+    let dropdownAnnotation
 
     before(function () {
-      singleChoiceAnnotation = SingleChoiceAnnotation.create({ id: 'single1', task: 'T0', taskType: 'single', value: 0 })
+      dropdownAnnotation = DropdownAnnotation.create({
+        id: 'dropdown1',
+        task: 'T0',
+        taskType: 'dropdown',
+        value: [
+          {
+             "value": 'dropdown-option-A',
+             "option": true
+          }
+        ]
+      })
     })
 
     it('should exist', function () {
-      expect(singleChoiceAnnotation).to.be.ok()
-      expect(singleChoiceAnnotation).to.be.an('object')
+      expect(dropdownAnnotation).to.be.ok()
+      expect(dropdownAnnotation).to.be.an('object')
     })
 
     it('should be complete', function () {
-      expect(singleChoiceAnnotation.isComplete).to.be.true()
+      expect(dropdownAnnotation.isComplete).to.be.true()
     })
   })
 
   describe('without a selected answer', function () {
-    let singleChoiceAnnotation
+    let dropdownAnnotation
 
     before(function () {
-      singleChoiceAnnotation = SingleChoiceAnnotation.create({ id: 'single1', task: 'T0', taskType: 'single' })
+      dropdownAnnotation = DropdownAnnotation.create({
+        id: 'dropdown1',
+        task: 'T0',
+        taskType: 'dropdown'
+      })
     })
 
     it('should exist', function () {
-      expect(singleChoiceAnnotation).to.be.ok()
-      expect(singleChoiceAnnotation).to.be.an('object')
+      expect(dropdownAnnotation).to.be.ok()
+      expect(dropdownAnnotation).to.be.an('object')
     })
 
     it('should be incomplete', function () {
-      expect(singleChoiceAnnotation.isComplete).to.be.false()
+      expect(dropdownAnnotation.isComplete).to.be.false()
     })
   })
 })

@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import DropdownTask from '@plugins/tasks/DropdownTask'
 
-const DropdownTask = {
+const dropdownTask = {
   answers: [
     { label: 'yes', next: 'S2' },
     { label: 'no', next: 'S3' }
@@ -14,9 +14,9 @@ const DropdownTask = {
 
 describe('Model > DropdownTask', function () {
   it('should exist', function () {
-    const DropdownTaskInstance = DropdownTask.TaskModel.create(DropdownTask)
-    expect(DropdownTaskInstance).to.be.ok()
-    expect(DropdownTaskInstance).to.be.an('object')
+    const dropdownTaskInstance = DropdownTask.TaskModel.create(dropdownTask)
+    expect(dropdownTaskInstance).to.be.ok()
+    expect(dropdownTaskInstance).to.be.an('object')
   })
 
   it('should error for invalid tasks', function () {
@@ -33,7 +33,7 @@ describe('Model > DropdownTask', function () {
     let task
 
     before(function () {
-      task = DropdownTask.TaskModel.create(DropdownTask)
+      task = DropdownTask.TaskModel.create(dropdownTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: DropdownTask.AnnotationModel,
@@ -60,7 +60,7 @@ describe('Model > DropdownTask', function () {
     let task
 
     before(function () {
-      const requiredTask = Object.assign({}, DropdownTask, { required: true })
+      const requiredTask = Object.assign({}, dropdownTask, { required: true })
       task = DropdownTask.TaskModel.create(requiredTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
