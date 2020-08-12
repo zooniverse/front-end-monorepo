@@ -9,7 +9,7 @@ const Dropdown = types.model('Dropdown', {
 })
   .views(self => ({
     get isComplete () {
-      return self.value !== null
+      return self.value.length > 0
     }
   }))
 

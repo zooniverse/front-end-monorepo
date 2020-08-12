@@ -1,6 +1,6 @@
 import DropdownAnnotation from './DropdownAnnotation'
 
-describe.only('Model > DropdownAnnotation', function () {
+describe('Model > DropdownAnnotation', function () {
   describe('with a selected answer', function () {
     let dropdownAnnotation
 
