@@ -33,8 +33,10 @@ function DropdownTask (props) {
   } = props
   const { value } = annotation
   
-  function onDropdownChange (value, event) {
-    if (event.target.checked) setAnnotation(value, true)
+  function onDropdownChange ({ option }) {
+    const isPresetOption = option !== otherOption
+    console.log('+++ onDropdownChange: ', option, option.value, isPresetOption)
+    setAnnotation(option.value, isPresetOption)
   }
   
   function setAnnotation (value, isPresetOption = false) {
@@ -52,25 +54,20 @@ function DropdownTask (props) {
   }
   
   const defaultOptions = (defaultSelect.options['*'])
-    ? defaultSelect.options['*'].map(option => {
-        return {
-          label: option.label,
-          value: option.value,
-          presetOption: true,
-        }
-      })
+    ? defaultSelect.options['*'].slice()
     : []
   
-  if (defaultSelect.allowCreate) {
-    defaultOptions.push({
-      label: '((other))',
-      value: '*',
-      presetOption: false,
-    })
+  const otherOption = {
+    label: '((other))',
+    value: '*',
   }
   
-  const defaultValue = undefined  // TODO, use 'value'
-  console.log('+++ YO YO: ', value, value[0])
+  if (defaultSelect.allowCreate) {
+    defaultOptions.push(otherOption)
+  }
+  
+  const defaultValue = value && value[0]
+  console.log('+++ Dropdown component starting value: ', defaultValue)
   
   return (
     <StyledBox
@@ -104,9 +101,7 @@ function DropdownTask (props) {
         <Select
           options={defaultOptions}
           placeholder={'Select an option'}
-          onChange={({ option, value }) => {
-            console.log('+++ Selected: ', option, value)
-          }}
+          onChange={onDropdownChange.bind(this)}
           labelKey={'label'}
           valueKey={'value'}
         />
