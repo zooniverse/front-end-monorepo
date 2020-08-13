@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 import styled, { css, withTheme } from 'styled-components'
 
 const StyledGroup = styled('g')`
@@ -96,5 +97,5 @@ DeleteButton.defaultProps = {
   }
 }
 
-export default withTheme(DeleteButton)
+export default withTheme(observer(DeleteButton))
 export { DeleteButton }
