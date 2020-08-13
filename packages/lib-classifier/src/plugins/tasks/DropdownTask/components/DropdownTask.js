@@ -66,7 +66,14 @@ function DropdownTask (props) {
     defaultOptions.push(otherOption)
   }
   
-  const defaultValue = value && value[0]
+  let defaultValue = undefined
+  const currentAnnotationValue = value && value[0]
+  if (currentAnnotationValue) {
+    defaultValue = (currentAnnotationValue.option)
+      ? defaultOptions.find(o => currentAnnotationValue.value === o.value)
+      : otherOption
+  }
+  
   console.log('+++ Dropdown component starting value: ', defaultValue)
   
   return (
@@ -104,6 +111,7 @@ function DropdownTask (props) {
           onChange={onDropdownChange.bind(this)}
           labelKey={'label'}
           valueKey={'value'}
+          value={defaultValue}
         />
 
         {/*defaultOptions.map((option, index) => {
