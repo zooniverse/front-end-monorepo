@@ -19,10 +19,7 @@ counterpart.registerTranslations('en', en)
 const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
   const {
     allowPanZoom,
-    barJSON: {
-      amplitude,
-      period
-    },
+    barJSON,
     imageSrc,
     invertYAxis,
     periodMultiple,
@@ -53,6 +50,8 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     phasedJSON: allowPanZoom === 'phasedJSON',
     rawJSON: allowPanZoom === 'rawJSON'
   }
+
+  console.log('BarJSON', props.barJSON)
 
   return (
     <Grid
@@ -135,22 +134,19 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       <Box
         background='#ffffff'
         direction='row'
-        gap='small'
+        gap='xsmall'
         gridArea='barCharts'
         pad='small'
-      >
-        <BarChartViewer
-          key={`${period.chartOptions.yAxisLabel} vs ${period.chartOptions.xAxisLabel}`}
-          data={period.data}
-          xAxisLabel={period.chartOptions.xAxisLabel}
-          yAxisLabel={period.chartOptions.yAxisLabel}
-        />
-        <BarChartViewer
-          key={`${amplitude.chartOptions.yAxisLabel} vs ${amplitude.chartOptions.xAxisLabel}`}
-          data={amplitude.data}
-          xAxisLabel={amplitude.chartOptions.xAxisLabel}
-          yAxisLabel={amplitude.chartOptions.yAxisLabel}
-        />
+      >{Object.keys(barJSON).map((barChartKey) => {
+        //Let's keep the rendering of the bar chart flexible in case more plots are added in the future
+        return (
+          <BarChartViewer
+            data={barJSON[barChartKey].data}
+            key={barChartKey}
+            xAxisLabel={barJSON[barChartKey].chartOptions.xAxisLabel}
+            yAxisLabel={barJSON[barChartKey].chartOptions.yAxisLabel}
+          />
+        )})}
       </Box>
       <Box
         as='figure'
