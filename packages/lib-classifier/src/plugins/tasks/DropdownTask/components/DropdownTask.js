@@ -35,7 +35,6 @@ function DropdownTask (props) {
   
   function onDropdownChange ({ option }) {
     const isPresetOption = option !== otherOption
-    console.log('+++ onDropdownChange: ', option, option.value, isPresetOption)
     setAnnotation(option.value, isPresetOption)
   }
   
@@ -66,15 +65,13 @@ function DropdownTask (props) {
     defaultOptions.push(otherOption)
   }
   
-  let defaultValue = undefined
+  let selectedOption = undefined
   const currentAnnotationValue = value && value[0]
   if (currentAnnotationValue) {
-    defaultValue = (currentAnnotationValue.option)
+    selectedOption = (currentAnnotationValue.option)
       ? defaultOptions.find(o => currentAnnotationValue.value === o.value)
       : otherOption
   }
-  
-  console.log('+++ Dropdown component starting value: ', defaultValue)
   
   return (
     <StyledBox
@@ -111,7 +108,7 @@ function DropdownTask (props) {
           onChange={onDropdownChange.bind(this)}
           labelKey={'label'}
           valueKey={'value'}
-          value={defaultValue}
+          value={selectedOption}
         />
 
         {/*defaultOptions.map((option, index) => {
