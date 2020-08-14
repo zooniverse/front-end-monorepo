@@ -69,7 +69,7 @@ function DropdownTask (props) {
       </StyledText>
         
       <DdSelect
-        annotationValue={undefined}
+        annotationValue={value && value[0]}
         index={0}
         options={defaultOptions}
         selectConfig={defaultSelect}
