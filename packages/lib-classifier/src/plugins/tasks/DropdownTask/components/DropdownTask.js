@@ -3,7 +3,7 @@ import { Box, Select, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
-import TaskInput from '../../components/TaskInput'
+import DdSelect from './DdSelect'
 
 const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
@@ -110,25 +110,16 @@ function DropdownTask (props) {
           valueKey={'value'}
           value={selectedOption}
         />
-
-        {/*defaultOptions.map((option, index) => {
-          const checked = (value + 1) ? index === value : false
-          return (
-            <TaskInput
-              autoFocus={checked}
-              checked={checked}
-              disabled={disabled}
-              index={index}
-              key={`${task.taskKey}_${index}`}
-              label={option.label}
-              name={task.taskKey}
-              onChange={onDropdownChange.bind(this, option.value)}
-              required={task.required}
-              type='radio'
-            />
-          )
-        })*/}
       </StyledBox>
+        
+      <DdSelect
+        annotationValue={undefined}
+        index={0}
+        options={defaultOptions}
+        selectConfig={defaultSelect}
+        setAnnotation={() => {}}
+        theme={theme}
+      />
     </StyledBox>
   )
 }
