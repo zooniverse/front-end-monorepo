@@ -36,7 +36,7 @@ function DdSelect (props) {
   
   function onSelectChange ({ option }) {
     const isPresetOption = option !== otherOption
-    setAnnotation(option.value, isPresetOption, index)
+    setAnnotation(option.value, index, isPresetOption)
     setSelectedOption(option)
   }
   
