@@ -51,8 +51,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     rawJSON: allowPanZoom === 'rawJSON'
   }
 
-  console.log('BarJSON', props.barJSON)
-
   return (
     <Grid
       forwardedRef={ref}
