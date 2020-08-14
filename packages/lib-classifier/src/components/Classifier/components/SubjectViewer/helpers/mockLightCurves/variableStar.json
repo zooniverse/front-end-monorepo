@@ -764,8 +764,8 @@
       "yAxisLabel": "Brightness"
     }
   },
-  "barCharts": [
-    { 
+  "barCharts": {
+    "period": { 
       "data": [
         { 
           "color": "drawing-red",
@@ -781,7 +781,8 @@
         "xAxisLabel": "Period",
         "yAxisLabel": ""
       }
-    }, {
+    },
+    "amplitude": {
       "data": [
         {
           "color": "drawing-red",
@@ -798,5 +799,5 @@
         "yAxisLabel": ""
       }
     }
-  ]
+  }
 }
