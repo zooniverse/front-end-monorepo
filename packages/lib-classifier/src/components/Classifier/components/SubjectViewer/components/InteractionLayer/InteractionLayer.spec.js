@@ -70,6 +70,7 @@ describe('Component > InteractionLayer', function () {
       const setActiveMarkStub = sinon.stub().callsFake(() => mockMark)
       activeTool = mockDrawingTask.activeTool
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
+      sinon.stub(activeTool, 'handlePointerDown').callsFake(() => mockMark)
       wrapper = shallow(
         <InteractionLayer
           activeMark={mockMark}
@@ -87,6 +88,7 @@ describe('Component > InteractionLayer', function () {
       mockMark.initialPosition.resetHistory()
       mockMark.setCoordinates.resetHistory()
       activeTool.createMark.restore()
+      activeTool.handlePointerDown.restore()
     })
 
     it('should render without crashing', function () {
@@ -183,6 +185,22 @@ describe('Component > InteractionLayer', function () {
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
         wrapper.simulate('pointermove', fakeEvent)
         expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
+      })
+
+      describe('onPointerDown when creating', function () {
+        it ('should call the handlePointerDown function', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointer',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
+          }
+          wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+          wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+          expect(activeTool.handlePointerDown).to.have.been.calledOnce()
+        })
       })
     })
   })

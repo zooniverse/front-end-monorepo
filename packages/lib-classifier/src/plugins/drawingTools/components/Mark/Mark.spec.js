@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
@@ -192,6 +192,27 @@ describe('Drawing tools > Mark', function () {
       it('should be rotated by mark.angle', function () {
         const transform = wrapper.root().prop('transform')
         expect(transform).to.have.string('rotate(-45)')
+      })
+    })
+  })
+
+  describe('useEffect hook', function () {
+    describe('with finished mark and no subTaskVisibility', function () {
+      it('should call onFinish', function () {
+        const newMark = Object.assign({}, point, { finished: true })
+        wrapper = mount(
+          <Mark
+            label='Point 1'
+            mark={newMark}
+            onDelete={onDelete}
+            onDeselect={onDeselect}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        )
+        expect(onFinish).to.have.been.calledOnce()
       })
     })
   })
