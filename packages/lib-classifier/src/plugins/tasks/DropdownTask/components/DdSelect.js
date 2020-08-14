@@ -1,5 +1,5 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
-import { Box, Select, Text } from 'grommet'
+import { Box, Select, Text, TextInput } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -35,9 +35,24 @@ function DdSelect (props) {
   } = props
   
   function onSelectChange ({ option }) {
-    const isPresetOption = option !== otherOption
-    setAnnotation(option.value, index, isPresetOption)
     setSelectedOption(option)
+    const isPresetOption = option !== otherOption
+    
+    if (isPresetOption) {
+      setAnnotation(option.value, index, true)
+      setCustomInputVisibility(false)
+      setCustomValue('')
+    } else {
+      setAnnotation('', index, false)
+      setCustomInputVisibility(true)
+      setCustomValue('')
+    }
+  }
+  
+  function onTextInputChange () {
+    const ele = customInput && customInput.current || { value: '' }
+    setAnnotation(ele.value, index, false)
+    setCustomValue(ele.value)
   }
   
   const otherOption = {
@@ -50,13 +65,17 @@ function DdSelect (props) {
     optionsToDisplay.push(otherOption)
   }
   
-  let so = undefined
+  let initialOption = undefined
   if (annotationValue) {
-    so = (annotationValue.option)
+    initialOption = (annotationValue.option)
       ? optionsToDisplay.find(o => annotationValue.value === o.value)
       : otherOption
   }
-  const [selectedOption, setSelectedOption] = React.useState(so);
+  
+  const [selectedOption, setSelectedOption] = React.useState(initialOption)
+  const [customValue, setCustomValue] = React.useState(annotationValue && annotationValue.value)
+  const [customInputVisibility, setCustomInputVisibility] = React.useState(selectedOption === otherOption)
+  const customInput = React.useRef()
   
   return (
     <StyledBox
@@ -75,17 +94,29 @@ function DdSelect (props) {
         &nbsp;
         required: {(selectConfig.required) ? 'yes' : 'no'}
         &nbsp;
-        value: ({selectedOption && selectedOption.value})
+        annotationValue: ({annotationValue && annotationValue.value})
+        &nbsp;
+        selectedOptionValue: ({selectedOption && selectedOption.value})
+        &nbsp;
+        customValue: ({customValue})
       </StyledText>
 
       <Select
         options={optionsToDisplay}
         placeholder={'Select an option'}
-        onChange={onSelectChange.bind(this)}
+        onChange={onSelectChange}
         labelKey={'label'}
         valueKey={'value'}
         value={selectedOption}
       />
+      
+      {(customInputVisibility) &&
+        <TextInput
+          ref={customInput}
+          onChange={onTextInputChange}
+          value={customValue}
+        />
+      }
     </StyledBox>
     
 
