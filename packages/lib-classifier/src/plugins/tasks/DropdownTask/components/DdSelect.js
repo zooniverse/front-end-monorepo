@@ -1,15 +1,19 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Select, Text, TextInput } from 'grommet'
+import { Down } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 // TODO: clean up above
 
 const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
   img:only-child, svg:only-child {
-    ${props => props.theme && css`background: ${props.theme.global.colors.brand};`}
     max-width: ${maxWidth};
   }
 `
@@ -56,7 +60,7 @@ function DdSelect (props) {
   }
   
   const otherOption = {
-    label: '((other))',
+    label: counterpart('Dropdown.otherLabel'),
     value: '*',
   }
   
@@ -102,18 +106,19 @@ function DdSelect (props) {
       </StyledText>
 
       <Select
-        options={optionsToDisplay}
-        placeholder={'Select an option'}
-        onChange={onSelectChange}
         labelKey={'label'}
+        onChange={onSelectChange}
+        options={optionsToDisplay}
+        placeholder={counterpart('Dropdown.selectPlaceholder')}
         valueKey={'value'}
         value={selectedOption}
       />
       
       {(customInputVisibility) &&
         <TextInput
-          ref={customInput}
           onChange={onTextInputChange}
+          placeholder={counterpart('Dropdown.customInputPlaceholder')}
+          ref={customInput}
           value={customValue}
         />
       }
