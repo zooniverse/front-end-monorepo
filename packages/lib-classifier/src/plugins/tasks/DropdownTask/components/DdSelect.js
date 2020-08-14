@@ -37,6 +37,7 @@ function DdSelect (props) {
   function onSelectChange ({ option }) {
     const isPresetOption = option !== otherOption
     setAnnotation(option.value, isPresetOption, index)
+    setSelectedOption(option)
   }
   
   const otherOption = {
@@ -73,6 +74,8 @@ function DdSelect (props) {
         allowCreate: {(selectConfig.allowCreate) ? 'yes' : 'no'}
         &nbsp;
         required: {(selectConfig.required) ? 'yes' : 'no'}
+        &nbsp;
+        value: ({selectedOption && selectedOption.value})
       </StyledText>
 
       <Select
@@ -92,7 +95,7 @@ function DdSelect (props) {
 DdSelect.defaultProps = {
   annotationValue: undefined,
   index: 0,
-  options: {},
+  options: [],
   selectConfig: {},
   setAnnotation: () => {},
   theme: {
@@ -105,7 +108,7 @@ DdSelect.defaultProps = {
 DdSelect.propTypes = {
   annotationValue: PropTypes.object,
   index: PropTypes.number,
-  options: PropTypes.object,
+  options: PropTypes.arrayOf(PropTypes.object),
   selectConfig: PropTypes.object,
   setAnnotation: PropTypes.func,
   theme: PropTypes.object,

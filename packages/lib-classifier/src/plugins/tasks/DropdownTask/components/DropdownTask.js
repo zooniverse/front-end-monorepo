@@ -38,7 +38,7 @@ function DropdownTask (props) {
     setAnnotation(option.value, isPresetOption)
   }
   
-  function setAnnotation (value, isPresetOption = false) {
+  function setAnnotation (value, isPresetOption = false, index = 0) {
     annotation.update([{
       value: value,
       option: isPresetOption,
@@ -56,23 +56,6 @@ function DropdownTask (props) {
     ? defaultSelect.options['*'].slice()
     : []
   
-  const otherOption = {
-    label: '((other))',
-    value: '*',
-  }
-  
-  if (defaultSelect.allowCreate) {
-    defaultOptions.push(otherOption)
-  }
-  
-  let selectedOption = undefined
-  const currentAnnotationValue = value && value[0]
-  if (currentAnnotationValue) {
-    selectedOption = (currentAnnotationValue.option)
-      ? defaultOptions.find(o => currentAnnotationValue.value === o.value)
-      : otherOption
-  }
-  
   return (
     <StyledBox
       className={className}
@@ -84,40 +67,13 @@ function DropdownTask (props) {
           {task.instruction}
         </Markdownz>
       </StyledText>
-    
-      <StyledBox
-        border="dashed"
-        pad="small"
-        theme={theme}
-      >
-        <StyledText size='small' tag='legend'>
-          <Markdownz>
-            {defaultSelect.title}
-          </Markdownz>
-        </StyledText>
-    
-        <StyledText size='small' tag='legend'>
-          allowCreate: {(defaultSelect.allowCreate) ? 'yes' : 'no'}
-          &nbsp;
-          required: {(defaultSelect.required) ? 'yes' : 'no'}
-        </StyledText>
-        
-        <Select
-          options={defaultOptions}
-          placeholder={'Select an option'}
-          onChange={onDropdownChange.bind(this)}
-          labelKey={'label'}
-          valueKey={'value'}
-          value={selectedOption}
-        />
-      </StyledBox>
         
       <DdSelect
         annotationValue={undefined}
         index={0}
         options={defaultOptions}
         selectConfig={defaultSelect}
-        setAnnotation={() => {}}
+        setAnnotation={setAnnotation}
         theme={theme}
       />
     </StyledBox>
