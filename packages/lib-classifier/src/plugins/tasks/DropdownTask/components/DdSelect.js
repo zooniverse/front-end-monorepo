@@ -1,6 +1,6 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Select, Text, TextInput } from 'grommet'
-import { Down } from 'grommet-icons'
+import { Down, FormNext } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -83,8 +83,7 @@ function DdSelect (props) {
   
   return (
     <StyledBox
-      border="dashed"
-      pad="small"
+      margin={{ vertical: 'xsmall' }}
       theme={theme}
     >
       <StyledText size='small' tag='legend'>
@@ -93,35 +92,30 @@ function DdSelect (props) {
         </Markdownz>
       </StyledText>
 
-      <StyledText size='small' tag='legend'>
-        allowCreate: {(selectConfig.allowCreate) ? 'yes' : 'no'}
-        &nbsp;
-        required: {(selectConfig.required) ? 'yes' : 'no'}
-        &nbsp;
-        annotationValue: ({annotationValue && annotationValue.value})
-        &nbsp;
-        selectedOptionValue: ({selectedOption && selectedOption.value})
-        &nbsp;
-        customValue: ({customValue})
-      </StyledText>
-
-      <Select
-        labelKey={'label'}
-        onChange={onSelectChange}
-        options={optionsToDisplay}
-        placeholder={counterpart('Dropdown.selectPlaceholder')}
-        valueKey={'value'}
-        value={selectedOption}
-      />
-      
-      {(customInputVisibility) &&
-        <TextInput
-          onChange={onTextInputChange}
-          placeholder={counterpart('Dropdown.customInputPlaceholder')}
-          ref={customInput}
-          value={customValue}
+      <Box
+        gap='xsmall'
+      >
+        <Select
+          icon={<Down size='small' />}
+          labelKey='label'
+          onChange={onSelectChange}
+          options={optionsToDisplay}
+          placeholder={counterpart('Dropdown.selectPlaceholder')}
+          size='small'
+          value={selectedOption}
+          valueKey='value'
         />
-      }
+
+        {(customInputVisibility) &&
+          <TextInput
+            onChange={onTextInputChange}
+            placeholder={counterpart('Dropdown.customInputPlaceholder')}
+            ref={customInput}
+            size='small'
+            value={customValue}
+          />
+        }
+      </Box>
     </StyledBox>
     
 
