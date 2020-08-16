@@ -51,7 +51,10 @@ function Controls(props) {
 
   return (
     <Box
-      background='neutral-6'
+      background={{
+        dark: 'dark-5',
+        light: 'neutral-6'
+      }}
       direction='row'
       justify='between'
       gridArea={gridArea}

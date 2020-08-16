@@ -60,7 +60,14 @@ function ViewerContext(props) {
   const { children, theme } = props
   return (
     <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode='light'
+      >
         {children}
       </Grommet>
     </Provider>
@@ -84,7 +91,14 @@ const transientObjectSubject = Factory.build('subject', {
 stories
   .add('light theme', () => {
     return (
-      <Grommet theme={zooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
         <Box height='medium' width='large'>
           <ScatterPlotViewer
             data={object('data', data)}
@@ -101,8 +115,16 @@ stories
   }, config)
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+    console.log('darkZooTheme', darkZooTheme)
     return (
-      <Grommet theme={darkZooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={darkZooTheme}
+        themeMode='dark'
+      >
         <Box height='medium' width='large'>
           <ScatterPlotViewer
             data={object('data', data)}
@@ -120,7 +142,14 @@ stories
   .add('narrow view', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <Grommet theme={darkZooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
         <Box height='medium' width='large'>
           <ScatterPlotViewer
             data={object('data', data)}
@@ -157,7 +186,14 @@ stories
     }]
 
     return (
-      <Grommet theme={zooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
         <Box direction='row' height='medium' width='large'>
           <ScatterPlotViewer
             data={object('data', data)}
@@ -182,7 +218,14 @@ stories
   })
   .add('kepler light curve data with inner facing axes', () => {
     return (
-      <Grommet theme={zooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
         <Box height='medium' width='large'>
           <ScatterPlotViewer
             axisColor={text('axis color', colors['light-1'])}
