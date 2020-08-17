@@ -1,7 +1,7 @@
 import { linkTo } from '@storybook/addon-links'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import { merge } from 'lodash'
 import React from 'react'
 
@@ -18,36 +18,72 @@ const config = {
 storiesOf('ZooFooter', module)
 
   .add('Light theme (default)', () => (
-    <Grommet theme={mergeThemes({ dark: false })}>
-      <ZooFooter />
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={mergeThemes({ dark: false })}
+      themeMode='light'
+    >
+      <Box fill>
+        <ZooFooter />
+      </Box>
     </Grommet>
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet theme={mergeThemes({ dark: true })}>
-      <ZooFooter />
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={mergeThemes({ dark: true })}
+      themeMode='dark'
+    >
+      <Box fill>
+        <ZooFooter />
+      </Box>
     </Grommet>
   ), config)
 
   .add('Light with admin', () => (
-    <Grommet theme={mergeThemes({ dark: false })}>
-      <ZooFooter
-        adminContainer={(
-          <AdminCheckbox onChange={linkTo('ZooFooter/AdminCheckbox')} />
-        )}
-      />
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={mergeThemes({ dark: false })}
+      themeMode='light'
+    >
+      <Box fill>
+        <ZooFooter
+          adminContainer={(
+            <AdminCheckbox onChange={linkTo('ZooFooter/AdminCheckbox')} />
+          )}
+        />
+      </Box>
     </Grommet>
   ), config)
 
   .add('Dark with admin', () => (
-    <Grommet theme={mergeThemes({ dark: true })}>
-      <ZooFooter
-        adminContainer={(
-          <AdminCheckbox
-            onChange={linkTo('ZooFooter/AdminCheckbox')}
-          />
-        )}
-      />
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={mergeThemes({ dark: true })}
+      themeMode='dark'
+    >
+      <Box fill>
+        <ZooFooter
+          adminContainer={(
+            <AdminCheckbox
+              onChange={linkTo('ZooFooter/AdminCheckbox')}
+            />
+          )}
+        />
+      </Box>
     </Grommet>
   ), config)
 
