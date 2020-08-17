@@ -89,6 +89,10 @@ TaskNavButtonsContainer.wrappedComponent.defaultProps = {
   completeClassification: () => {},
   disabled: false,
   selectStep: () => {},
+  step: {
+    isThereANextStep: false,
+    isThereAPreviousStep: false
+  },
   tasks: []
 }
 
@@ -98,9 +102,11 @@ TaskNavButtonsContainer.wrappedComponent.propTypes = {
   }),
   completeClassification: PropTypes.func,
   disabled: PropTypes.bool,
-  showBackButton: PropTypes.bool,
-  showNextButton: PropTypes.bool,
   selectStep: PropTypes.func,
+  step: PropTypes.shape({
+    isThereANextStep: PropTypes.bool,
+    isThereAPreviousStep: PropTypes.bool
+  }),
   tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
