@@ -25,12 +25,16 @@ class VariableStarViewerContainer extends Component {
     this.viewer = React.createRef()
     this.state = {
       allowPanZoom: '',
-      barJSON: [
-        {
+      barJSON: {
+        amplitude: {
+          data: [],
+          chartOptions: {}
+        },
+        period: {
           data: [],
           chartOptions: {}
         }
-      ],
+      },
       imageSrc: '',
       invertYAxis: false,
       loadingState: asyncStates.initialized,
@@ -46,15 +50,16 @@ class VariableStarViewerContainer extends Component {
           data: [],
           chartOptions: {}
         },
-        barCharts: [
-          {
+        barCharts: {
+          amplitude: {
             data: [],
             chartOptions: {}
-          }, {
+          },
+          period: {
             data: [],
             chartOptions: {}
           }
-        ]
+        }
       },
       visibleSeries: []
     }
@@ -173,13 +178,16 @@ class VariableStarViewerContainer extends Component {
 
   calculateBarJSON (barChartJSON) {
     const { periodMultiple } = this.state
-    let phasedBarChartJSON = []
-    barChartJSON.forEach((series, seriesIndex) => {
-      phasedBarChartJSON.push({ data: [], chartOptions: series.chartOptions })
-      series.data.forEach((datum) => {
-        const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
-        phasedBarChartJSON[seriesIndex].data.push(phasedDatum)
-      })
+    let phasedBarChartJSON = { 
+      amplitude: barChartJSON.amplitude, 
+      period: { 
+        data: [], 
+        chartOptions: barChartJSON.period.chartOptions
+      }
+    }
+    barChartJSON.period.data.forEach((datum) => {
+      const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
+      phasedBarChartJSON.period.data.push(phasedDatum)
     })
     return phasedBarChartJSON
   }
