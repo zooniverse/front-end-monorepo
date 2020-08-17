@@ -2,18 +2,40 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import DropdownTask from './DropdownTask'
+import DdSelect from './DdSelect'
 import { default as Task } from '@plugins/tasks/DropdownTask'
 
-/*
+const dropdownTask = {
+  instruction: 'Choose your favourite things.',
+  selects: [{
+    allowCreate: false,
+    id: 'dropdown-select-1',
+    options: {
+      '*': [
+        {
+          label: 'Red',
+          value: 'hashed-value-R',
+        },
+        {
+          label: 'Green',
+          value: 'hashed-value-G',
+        },
+        {
+          label: 'Blue',
+          value: 'hashed-value-B',
+        },
+      ],
+    },
+    required: false,
+    title: 'Colour',
+  }],
+  required: false,
+  taskKey: 'T1',
+  type: 'dropdown'
+}
 
-describe('DropdownTask', function () {
-  const task = Task.TaskModel.create({
-    answers: [{ label: 'yes' }, { label: 'no' }],
-    question: 'Is there a cat?',
-    required: true,
-    taskKey: 'init',
-    type: 'dropdown'
-  })
+describe.only('DropdownTask', function () {
+  const task = Task.TaskModel.create(dropdownTask)
   const annotation = task.defaultAnnotation
 
   describe('when it renders', function () {
@@ -26,14 +48,12 @@ describe('DropdownTask', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should have a question', function () {
-      expect(wrapper.contains(task.question)).to.be.true()
+    it('should have a question/some instructions', function () {
+      expect(wrapper.contains(task.instruction)).to.be.true()
     })
 
-    it('should render the correct number of answer choices', function () {
-      task.answers.forEach((answer) => {
-        expect(wrapper.find({ label: answer.label })).to.have.lengthOf(1)
-      })
+    it('(for a simple dropdown) should render a single <select> element', function () {
+      expect(wrapper.find(DdSelect)).to.have.lengthOf(1)
     })
   })
 
@@ -41,7 +61,10 @@ describe('DropdownTask', function () {
     let wrapper
 
     before(function () {
-      annotation.update(0)
+      annotation.update([{
+        value: 'hashed-value-R',
+        option: true,
+      }])
       wrapper = shallow(
         <DropdownTask
           annotation={annotation}
@@ -79,5 +102,3 @@ describe('DropdownTask', function () {
     })
   })
 })
-
-*/

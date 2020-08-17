@@ -1,6 +1,6 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Select, Text, TextInput } from 'grommet'
-import { Down, FormNext } from 'grommet-icons'
+import { Down } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -8,8 +8,6 @@ import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-// TODO: clean up above
 
 const maxWidth = pxToRem(60)
 const StyledBox = styled(Box)`
@@ -117,8 +115,6 @@ function DdSelect (props) {
         }
       </Box>
     </StyledBox>
-    
-
   )
 }
 
