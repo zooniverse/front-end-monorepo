@@ -141,7 +141,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           light: 'neutral-6'
         }}
         direction='row'
-        gap='xsmall'
         gridArea='barCharts'
         margin={{ bottom: 'xsmall' }}
         pad='none'

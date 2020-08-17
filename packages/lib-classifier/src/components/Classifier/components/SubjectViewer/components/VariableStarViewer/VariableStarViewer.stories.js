@@ -70,7 +70,7 @@ stories
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='500px' width='700px'>
+        <Box height='500px' width='large'>
           <VariableStarViewer
             subject={subject}
           />
