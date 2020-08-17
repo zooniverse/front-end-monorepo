@@ -65,13 +65,13 @@ describe('Model > Step', function () {
         annotations: types.array(types.union(MultipleChoiceTask.AnnotationModel, SingleChoiceTask.AnnotationModel)),
         step: Step
       })
-      .create({
-        annotations: [
-          multipleChoiceAnnotation,
-          singleChoiceAnnotation
-        ],
-        step
-      })
+        .create({
+          annotations: [
+            multipleChoiceAnnotation,
+            singleChoiceAnnotation
+          ],
+          step
+        })
       tasks[0].setAnnotation(multipleChoiceAnnotation)
       tasks[1].setAnnotation(singleChoiceAnnotation)
     })
@@ -102,6 +102,58 @@ describe('Model > Step', function () {
         expect(tasks[0].isComplete).to.be.true()
         expect(tasks[1].isComplete).to.be.true()
       })
+    })
+  })
+
+  describe('with a next step', function () {
+    it('should have isThereANextStep return true', function () {
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], next: 'S2' })
+      expect(step.isThereANextStep).to.be.true()
+    })
+  })
+
+  describe('with a previous step', function () {
+    it('should have isThereAPreviousStep return true', function () {
+      const step = Step.create({ stepKey: 'S2', taskKeys: ['T1', 'T2'], previous: 'S1' })
+      expect(step.isThereAPreviousStep).to.be.true()
+    })
+  })
+
+  describe('with a single choice branching task', function () {
+    let tasks
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        // SingleChoiceTaskFactory defaults to a branching single choice task (answers with different next values)
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
+      ]
+    })
+
+    it('should have isThereBranching return true', function () {
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      expect(step.isThereBranching).to.be.true()
+    })
+  })
+
+  describe('without a single choice branching task', function () {
+    let tasks
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
+          taskKey: 'T2',
+          required: false,
+          answers: [
+            { label: 'Red', next: 'S2' },
+            { label: 'Blue', next: 'S2' }
+          ]
+        }))
+      ]
+    })
+
+    it('should have isThereBranching return false', function () {
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      expect(step.isThereBranching).to.be.false()
     })
   })
 })
