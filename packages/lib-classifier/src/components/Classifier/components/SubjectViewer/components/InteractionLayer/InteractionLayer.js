@@ -58,6 +58,10 @@ function InteractionLayer ({
       return true
     }
 
+    if (!activeTool.type) {
+      return false;
+    }
+
     const activeMark = activeTool.createMark({
       id: cuid(),
       frame,
