@@ -53,8 +53,8 @@ const nextSubjectJSON = {
       "yAxisLabel": "Brightness"
     }
   }, 
-  barCharts: [
-    { 
+  barCharts: {
+    period: { 
       data: [
         { label: 'A', value: 0.34742 },
         { label: 'B', value: 2.37438 }
@@ -63,7 +63,8 @@ const nextSubjectJSON = {
         xAxisLabel: 'Period',
         yAxisLabel: ''
       }
-    }, {
+    },
+    amplitude: {
       data: [
         { color: 'accent-1', label: 'X', value: 34.3747 },
         { color: 'accent-2', label: 'Y', value: 236.3637 }
@@ -73,18 +74,22 @@ const nextSubjectJSON = {
         yAxisLabel: ''
       }
     }
-  ]
+  }
 }
 
 describe('Component > VariableStarViewerContainer', function () {
   const mockState = {
     allowPanZoom: '',
-    barJSON: [
-      {
+    barJSON: {
+      amplitude: {
+        data: [],
+        chartOptions: {}
+      },
+      period: {
         data: [],
         chartOptions: {}
       }
-    ],
+    },
     imageSrc: '',
     invertYAxis: false,
     loadingState: asyncStates.initialized,
@@ -100,15 +105,16 @@ describe('Component > VariableStarViewerContainer', function () {
         data: [],
         chartOptions: {}
       },
-      barCharts: [
-        {
+      barCharts: {
+        amplitude: {
           data: [],
           chartOptions: {}
-        }, {
+        },
+        period: {
           data: [],
           chartOptions: {}
         }
-      ]
+      }
     },
     visibleSeries: []
   }
@@ -519,10 +525,10 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cdmSpy.returnValues[0].then(() => {
         const phasedBarJSONState = wrapper.state().barJSON
-        expect(phasedBarJSONState[0].data.length).to.be.at.least(variableStar.barCharts[0].data.length)
-        expect(phasedBarJSONState[0].chartOptions).to.deep.equal(variableStar.barCharts[0].chartOptions)
-        expect(phasedBarJSONState[1].data.length).to.be.at.least(variableStar.barCharts[1].data.length)
-        expect(phasedBarJSONState[1].chartOptions).to.deep.equal(variableStar.barCharts[1].chartOptions)
+        expect(phasedBarJSONState.period.data.length).to.be.at.least(variableStar.barCharts.period.data.length)
+        expect(phasedBarJSONState.period.chartOptions).to.deep.equal(variableStar.barCharts.period.chartOptions)
+        expect(phasedBarJSONState.amplitude.data.length).to.deep.equal(variableStar.barCharts.amplitude.data.length)
+        expect(phasedBarJSONState.amplitude.chartOptions).to.deep.equal(variableStar.barCharts.amplitude.chartOptions)
       }).then(done, done)
     })
 
@@ -537,10 +543,10 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cduSpy.returnValues[0].then(() => {
         const phasedBarJSONState = wrapper.state().barJSON
-        expect(phasedBarJSONState[0].data.length).to.be.at.least(nextSubjectJSON.barCharts[0].data.length)
-        expect(phasedBarJSONState[0].chartOptions).to.deep.equal(nextSubjectJSON.barCharts[0].chartOptions)
-        expect(phasedBarJSONState[1].data.length).to.be.at.least(nextSubjectJSON.barCharts[1].data.length)
-        expect(phasedBarJSONState[1].chartOptions).to.deep.equal(nextSubjectJSON.barCharts[1].chartOptions)
+        expect(phasedBarJSONState.period.data.length).to.be.at.least(nextSubjectJSON.barCharts.period.data.length)
+        expect(phasedBarJSONState.period.chartOptions).to.deep.equal(nextSubjectJSON.barCharts.period.chartOptions)
+        expect(phasedBarJSONState.amplitude.data.length).to.be.at.least(nextSubjectJSON.barCharts.amplitude.data.length)
+        expect(phasedBarJSONState.amplitude.chartOptions).to.deep.equal(nextSubjectJSON.barCharts.amplitude.chartOptions)
       }).then(done, done)
     })
 

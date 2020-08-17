@@ -132,20 +132,19 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
       <Box
         background='#ffffff'
         direction='row'
-        gap='small'
+        gap='xsmall'
         gridArea='barCharts'
         pad='small'
-      >
-      {barJSON.map((barChart) => {
+      >{Object.keys(barJSON).map((barChartKey) => {
+        //Let's keep the rendering of the bar chart flexible in case more plots are added in the future
         return (
           <BarChartViewer
-            key={`${barChart.chartOptions.yAxisLabel} vs ${barChart.chartOptions.xAxisLabel}`}
-            data={barChart.data}
-            xAxisLabel={barChart.chartOptions.xAxisLabel}
-            yAxisLabel={barChart.chartOptions.yAxisLabel}
+            data={barJSON[barChartKey].data}
+            key={barChartKey}
+            xAxisLabel={barJSON[barChartKey].chartOptions.xAxisLabel}
+            yAxisLabel={barJSON[barChartKey].chartOptions.yAxisLabel}
           />
-        )
-      })}
+        )})}
       </Box>
       <Box
         as='figure'
@@ -176,15 +175,16 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 
 VariableStarViewer.defaultProps = {
   allowPanZoom: '',
-  barJSON: [
-    {
+  barJSON: {
+    amplitude: {
       data: [],
-      chartOptions: {
-        xAxisLabel: '',
-        yAxisLabel: ''
-      } 
+      chartOptions: {}
+    },
+    period: {
+      data: [],
+      chartOptions: {}
     }
-  ],
+  },
   imageSrc: '',
   invertYAxis: false,
   periodMultiple: 1,
@@ -198,7 +198,7 @@ VariableStarViewer.defaultProps = {
       data: [],
       chartOptions: {}
     },
-    barCharts: []
+    barCharts: {}
   },
   setOnPan: () => true,
   setOnZoom: () => true,
@@ -218,12 +218,16 @@ VariableStarViewer.defaultProps = {
 
 VariableStarViewer.propTypes = {
   allowPanZoom: PropTypes.string,
-  barJSON: PropTypes.arrayOf(
-    PropTypes.shape({
+  barJSON: PropTypes.shape({
+    amplitude: PropTypes.shape({
       data: PropTypes.array,
       options: PropTypes.object
-    })
-  ),
+    }),
+    period: PropTypes.shape({
+      data: PropTypes.array,
+      options: PropTypes.object
+    }),
+  }),
   imageSrc: PropTypes.string,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
