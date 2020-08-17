@@ -25,21 +25,6 @@ const WorkflowStepStore = types
       return []
     },
 
-    isThereANextStep () {
-      const nextStep = self.getNextStepKey()
-      return nextStep && nextStep !== 'summary' && nextStep !== 'complete'
-    },
-
-    isThereAPreviousStep () {
-      const validStepReference = isValidReference(() => self.active)
-      if (validStepReference) {
-        const firstStep = self.steps.keys().next()
-        return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
-      }
-
-      return false
-    },
-
     get isThereTaskHelp () {
       const tasks = self.activeStepTasks
 
@@ -47,13 +32,12 @@ const WorkflowStepStore = types
     },
 
     get shouldWeShowDoneAndTalkButton () {
-      const isThereANextStep = self.isThereANextStep()
       const workflow = tryReference(() => getRoot(self).workflows?.active)
       const classification = tryReference(() => getRoot(self).classifications?.active)
 
       if (workflow && classification) {
         const disableTalk = classification.metadata.subject_flagged
-        return !isThereANextStep &&
+        return !self.active.isThereANextStep &&
         workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
         !disableTalk // &&
         // !completed TODO: implement classification completed validations per task?
@@ -89,33 +73,26 @@ const WorkflowStepStore = types
 
     function createAnnotationObserver () {
       const annotationDisposer = autorun(() => {
-        const tasks = self.activeStepTasks
-        const [singleChoiceTask] = tasks.filter(task => task.type === 'single')
-        // TODO check if singleChoiceTask.answers has any answer.next that's different than any other answer.next
-        // ^ if no unique answer.next, then onAction not necessary
-        if (!!singleChoiceTask) {
+        if (self.active?.isThereBranching) {
+          // presumes one single choice task per step
+          const [singleChoiceTask] = self.activeStepTasks.filter(task => task.type === 'single')
           onAction(getRoot(self), (call) => {
-            console.log('call', call)
             if (call.path.endsWith(singleChoiceTask.annotation?.id) && call.name === 'update') {
+              let nextStepKey
               const singleChoiceTaskAnswers = toJS(singleChoiceTask.answers)
               const nextTaskKey = singleChoiceTaskAnswers[call.args[0]].next
-              let nextStepKey = 'complete'
               self.steps.forEach(step => {
                 if (step.taskKeys.includes(nextTaskKey)) {
                   nextStepKey = step.stepKey
                 }
               })
-              self.setNextStepKey(nextStepKey)
+              self.active.setNext(nextStepKey)
             }
           })
         }
         
       }, { name: 'Annotation Observer autorun' })
       addDisposer(self, annotationDisposer)
-    }
-
-    function setNextStepKey (nextStepKey) {
-      self.active.setNext(nextStepKey)
     }
 
     function getNextStepKey () {
@@ -268,7 +245,6 @@ const WorkflowStepStore = types
       reset,
       resetSteps,
       selectStep,
-      setNextStepKey,
       setSteps,
       setStepsAndTasks,
       setTasks

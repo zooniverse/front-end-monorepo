@@ -20,20 +20,21 @@ const Step = types
       return self.tasks.reduce((isStepComplete, task) => isStepComplete && task.isComplete, true)
     },
 
-    get isThereANextStep() {
+    get isThereANextStep () {
       return self.next && self.next !== 'summary'
     },
 
-    get isThereAPreviousStep() {
+    get isThereAPreviousStep () {
       return self.previous && self.stepKey !== 'summary'
     },
+
     get isThereBranching () {
       // We return the first single choice task
       // It doesn't make sense to have more than one single choice task in a step
       // so we should disallow that in the editor
       const [singleChoiceTask] = self.tasks.filter(task => task.type === 'single')
-      return singleChoiceTask.answers.some((answer, index) => { 
-        return answer.next && answer[index + 1].next && answer[index + 1].next !== answer.next
+      return singleChoiceTask?.answers.some((answer, index) => {
+        return answer?.next && singleChoiceTask.answers[index + 1]?.next && singleChoiceTask.answers[index + 1].next !== answer.next
       })
     }
   }))
