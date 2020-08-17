@@ -7,6 +7,7 @@ import {
   tryReference, 
   types 
 } from 'mobx-state-tree'
+import { difference, isEqual } from 'lodash'
 
 import Step from './Step'
 
@@ -170,67 +171,81 @@ const WorkflowStepStore = types
 
     function convertWorkflowToUseSteps (workflow) {
       const taskKeys = Object.keys(workflow.tasks)
+
+      function getTaskKeysIncludedInComboTasks (tasks) {
+        let taskKeys
+        const comboTasks = Object.values(tasks).filter(task => task?.type === 'combo')
+        taskKeys = comboTasks.map(combo => combo.tasks)
+        return taskKeys.flat()
+      }
+      const taskKeysIncludedInComboTasks = getTaskKeysIncludedInComboTasks(workflow.tasks)
+      const taskKeysToConvertToSteps = difference(taskKeys, taskKeysIncludedInComboTasks)
+
       const { first_task } = workflow
       const firstTask = workflow.tasks[first_task]
 
-      function getStepTasksFromCombo (task) {
-        task.tasks.forEach(function (taskKey) {
-          taskKeys.splice(taskKeys.indexOf(taskKey), 1)
-        })
-        return task.tasks
-      }
-
-      function isThereBranching (task) {
-        if (task.type === 'single') {
-          return task.answers.some((answer, index) => {
-            return answer.next && answer[index + 1]?.next && answer[index + 1].next !== answer.next
-          })
-        }
-
-        return false
-      }
-
       if (first_task) {
         let firstStep = {
+          next: firstTask.next, // temporarily set next to task key, convert to step key once steps created
           stepKey: 'S0',
           taskKeys: [first_task]
         }
 
         if (firstTask.type === 'combo') {
           const combo = firstTask
-          firstStep.taskKeys = getStepTasksFromCombo(combo)
+          firstStep.taskKeys = combo.tasks
         }
 
-        // next is set only when an answer is chosen
-        if (!isThereBranching(firstTask)) {
-          firstStep.next = firstTask.next
-        }
-
-        taskKeys.splice(taskKeys.indexOf(first_task), 1)
+        taskKeysToConvertToSteps.splice(taskKeysToConvertToSteps.indexOf(first_task), 1)
 
         self.steps.put(firstStep)
       }
 
-      taskKeys.forEach((taskKey, index) => {
+      taskKeysToConvertToSteps.forEach((taskKey, index) => {
         const task = workflow.tasks[taskKey]
         if (task.type !== 'shortcut') {
           let stepTasks = [taskKey]
           if (task.type === 'combo') {
-            stepTasks = getStepTasksFromCombo(task)
+            stepTasks = task.tasks
           }
 
           let stepSnapshot = {
+            next: task.next, // temporarily set next to task key, convert to step key once steps created
             previous: `S${index}`,
             stepKey: `S${index + 1}`,
             taskKeys: stepTasks
           }
 
-          // next is set only when an answer is chosen
-          if (!isThereBranching(task)) {
-            stepSnapshot.next = `S${index + 2}`
-          }
-
           self.steps.put(stepSnapshot)
+        }
+      })
+
+      function getStepKeyFromTaskKey(steps, taskKey) {
+        let stepKey
+        steps.forEach(step => {
+          if (step.taskKeys.includes(taskKey)) {
+            stepKey = step.stepKey
+          }
+        })
+        return stepKey
+      }
+
+      // convert step.next from task key to step key
+      self.steps.forEach(step => {
+        if (Object.keys(workflow.tasks).includes(step.next)) {
+          const stepKeyFromTaskKey = getStepKeyFromTaskKey(self.steps, step.next)
+          if (!!stepKeyFromTaskKey) {
+            step.setNext(stepKeyFromTaskKey)
+          } else { // next task is combo task
+            let nextStepKey
+            const comboTask = workflow.tasks[step.next]
+            self.steps.forEach(step => {
+              if (isEqual(step.taskKeys, comboTask.tasks)) {
+                nextStepKey = step.stepKey
+              }
+            })
+            step.setNext(nextStepKey)
+          }
         }
       })
 
