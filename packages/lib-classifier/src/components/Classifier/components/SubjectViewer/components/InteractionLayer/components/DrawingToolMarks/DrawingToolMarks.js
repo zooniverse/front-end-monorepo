@@ -27,10 +27,6 @@ function DrawingToolMarks (props) {
     function onFinishWithRef (event) {
       onFinish(event, ref.current)
     }
-    
-    function onSelectMarkWithRef (mark) {
-      onSelectMark(mark, ref.current)
-    }
 
     function isInBounds (markElement) {
       const object = markElement.getBoundingClientRect()
@@ -69,7 +65,7 @@ function DrawingToolMarks (props) {
     }
 
     function selectMark () {
-      onSelectMarkWithRef(mark)
+      onSelectMark(mark)
     }
 
     return (
@@ -83,9 +79,8 @@ function DrawingToolMarks (props) {
         label={`Mark ${index}`}
         mark={mark}
         onDelete={deleteMark}
-        onDeselect={deselectMark}
         onFinish={onFinishWithRef}
-        onSelect={onSelectMarkWithRef}
+        onSelect={selectMark}
         ref={ref}
         scale={scale}
       >
@@ -100,6 +95,7 @@ function DrawingToolMarks (props) {
           mark={mark}
           scale={scale}
           onDelete={deleteMark}
+          onDeselect={deselectMark}
         />}
       </Mark>
     )

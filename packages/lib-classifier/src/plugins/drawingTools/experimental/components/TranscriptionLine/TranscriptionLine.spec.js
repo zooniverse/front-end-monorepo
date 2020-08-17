@@ -308,7 +308,7 @@ describe('Components > Drawing marks > Transcription line', function () {
 
   describe('when used by the transcription task', function () {
     it('should use the aqua drawing tool color when the state is active', function () {
-      const { aqua } = zooTheme.global.colors.drawingTools
+      const { green } = zooTheme.global.colors.drawingTools
       const wrapper = mount(
         <svg>
           <Grommet 
@@ -335,9 +335,9 @@ describe('Components > Drawing marks > Transcription line', function () {
       )
 
       const outerGroupNode = wrapper.find('g').first()
-      expect(outerGroupNode.props().color).to.equal(aqua)
-      expect(outerGroupNode.props().fill).to.equal(aqua)
-      expect(outerGroupNode.props().stroke).to.equal(aqua)
+      expect(outerGroupNode.props().color).to.equal(green)
+      expect(outerGroupNode.props().fill).to.equal(green)
+      expect(outerGroupNode.props().stroke).to.equal(green)
     })
 
     it('should use the blue drawing tool color when the state is default', function () {
