@@ -3,9 +3,9 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Point } from '@plugins/drawingTools/models/marks'
-import DeleteButton from './DeleteButton'
+import { DeleteButton } from './DeleteButton'
 
-describe('Drawing tools > Delete button', function () {
+describe('Drawing tools > DeleteButton', function () {
   const mark = Point.create({ id: 'point1', x: 50, y: 50, toolType: 'point' })
 
   it('should render without crashing', function () {
@@ -27,6 +27,15 @@ describe('Drawing tools > Delete button', function () {
       const wrapper = shallow(<DeleteButton label='Delete' mark={mark} onDelete={onDelete} />)
       wrapper.simulate('pointerdown', fakeEvent)
       expect(onDelete).to.have.been.calledOnce()
+    })
+  })
+
+  describe('on blur', function () {
+    it('should be deselected', function () {
+      const onDeselect = sinon.spy()
+      const wrapper = shallow(<DeleteButton label='Delete' mark={mark} onDeselect={onDeselect} />)
+      wrapper.simulate('blur')
+      expect(onDeselect).to.have.been.calledOnce()
     })
   })
 

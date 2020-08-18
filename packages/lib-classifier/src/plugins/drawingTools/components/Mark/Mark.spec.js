@@ -6,7 +6,7 @@ import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Mark } from './Mark'
 import Point from '../Point'
 
-describe('Drawing tools > drawing tool root', function () {
+describe('Drawing tools > Mark', function () {
   const pointTool = PointTool.create({
     type: 'point'
   })
@@ -14,7 +14,6 @@ describe('Drawing tools > drawing tool root', function () {
     id: 'point1'
   })
   const onDelete = sinon.stub()
-  const onDeselect = sinon.stub()
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let wrapper
@@ -25,7 +24,6 @@ describe('Drawing tools > drawing tool root', function () {
         label='Point 1'
         mark={point}
         onDelete={onDelete}
-        onDeselect={onDeselect}
         onFinish={onFinish}
         onSelect={onSelect}
       >
@@ -35,7 +33,6 @@ describe('Drawing tools > drawing tool root', function () {
   })
 
   after(function () {
-    onDeselect.resetHistory()
     onFinish.resetHistory()
     onSelect.resetHistory()
   })
@@ -55,16 +52,6 @@ describe('Drawing tools > drawing tool root', function () {
 
     it('should be selected', function () {
       expect(onSelect).to.have.been.calledOnce()
-    })
-  })
-
-  describe('on blur', function () {
-    before(function () {
-      wrapper.simulate('blur')
-    })
-
-    it('should be deselected', function () {
-      expect(onDeselect).to.have.been.calledOnce()
     })
   })
 

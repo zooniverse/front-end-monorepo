@@ -56,7 +56,7 @@ describe('Components > DrawingToolMarks', function () {
 
     it('should render a delete button', function () {
       const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
-      expect(wrapper.find('DeleteButton').prop('mark')).to.equal(point)
+      expect(wrapper.find({ label: 'Delete point' }).prop('mark')).to.equal(point)
     })
   })
 
@@ -108,7 +108,7 @@ describe('Components > DrawingToolMarks', function () {
     })
 
     describe('when the mark overlaps the SVG element', function () {
-      it('should do call onFinish, not onDelete', function () {
+      it('should call onFinish, not onDelete', function () {
         const mockBounds = { left: 1990, top: 20, right: 2090, bottom: 120, width: 100, height: 100 }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds

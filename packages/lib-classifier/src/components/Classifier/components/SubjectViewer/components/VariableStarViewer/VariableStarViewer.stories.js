@@ -53,7 +53,7 @@ function ViewerContext (props) {
 const subject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/only-calculate-period-bar-chart/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
     },
     { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
   ]

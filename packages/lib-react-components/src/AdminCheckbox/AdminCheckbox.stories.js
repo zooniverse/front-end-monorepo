@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import AdminCheckbox from './AdminCheckbox'
@@ -12,8 +12,6 @@ const config = {
     markdown: readme
   }
 }
-
-const darkZooTheme = { ...zooTheme, dark: true }
 
 storiesOf('ZooFooter/AdminCheckbox', module)
   .addDecorator(withActions('change #admin-checkbox'))
@@ -42,12 +40,23 @@ class AdminCheckboxStoryExample extends React.Component {
   }
 
   render () {
+    const mergedThemes = Object.assign({}, zooTheme, { dark: this.props.colorTheme === 'dark' })
+
     return (
-      <Grommet theme={(this.props.colorTheme === 'dark') ? darkZooTheme : zooTheme}>
-        <AdminCheckbox
-          checked={this.state.checked}
-          onChange={this.onChange}
-        />
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={mergedThemes}
+        themeMode={(this.props.colorTheme === 'dark') ? 'dark' : 'light'}
+      >
+        <Box align='center' justify='center' height='medium'>
+          <AdminCheckbox
+            checked={this.state.checked}
+            onChange={this.onChange}
+          />
+        </Box>
       </Grommet>
     )
   }

@@ -1,16 +1,16 @@
-import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { forwardRef } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import draggable from '../draggable'
 
 const STROKE_WIDTH = 2
 const SELECTED_STROKE_WIDTH = 4
 
 const StyledGroup = styled('g')`
-  :focus {
-    outline: none;
+  &:focus {
+    ${props => css`outline: solid 4px ${props.focusColor};`}
   }
+
   :hover {
     ${props => props.dragging ? 
       css`cursor: grabbing;` :
@@ -26,10 +26,10 @@ const Mark = forwardRef(function Mark ({
   label,
   mark,
   onDelete,
-  onDeselect,
   onFinish,
   onSelect,
-  scale
+  scale,
+  theme
 }, ref) {
   const { tool } = mark
   const mainStyle = {
@@ -37,6 +37,7 @@ const Mark = forwardRef(function Mark ({
     fill: 'transparent',
     stroke: tool && tool.color ? tool.color : 'green'
   }
+  const focusColor = theme.global.colors[theme.global.colors.focus]
 
   function onKeyDown (event) {
     switch (event.key) {
@@ -68,10 +69,6 @@ const Mark = forwardRef(function Mark ({
     onSelect(mark)
   }
 
-  function deselect (event) {
-    onDeselect(mark)
-  }
-
   let transform = ''
   transform = (mark.x && mark.y) ? `${transform} translate(${mark.x}, ${mark.y})` : transform
   transform = mark.angle ? `${transform} rotate(${mark.angle})` : transform
@@ -82,13 +79,13 @@ const Mark = forwardRef(function Mark ({
       aria-label={label}
       dragging={dragging}
       focusable
-      onBlur={deselect}
+      focusColor={focusColor}
       onFocus={select}
       onKeyDown={onKeyDown}
       ref={ref}
       role='button'
       strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
-      tabIndex={0}
+      tabIndex='0'
       transform={transform}
     >
       {children}
@@ -105,6 +102,7 @@ Mark.propTypes = {
   onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
   scale: PropTypes.number,
+  theme: PropTypes.object,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
@@ -117,10 +115,15 @@ Mark.defaultProps = {
   onDeselect: () => true,
   onSelect: () => true,
   scale: 1,
+  theme: {
+    global: {
+      colors: {}
+    }
+  },
   tool: {
     color: 'green'
   }
 }
 
-export default draggable(observer(Mark))
+export default draggable(withTheme(Mark))
 export { Mark }
