@@ -18,7 +18,14 @@ const darkZooTheme = { ...zooTheme, dark: true }
 storiesOf('Tabs', module)
 
   .add('Light theme (default)', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
       <Tabs>
         <Tab title='foo'>
           Foo
@@ -31,7 +38,14 @@ storiesOf('Tabs', module)
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet theme={darkZooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={darkZooTheme}
+      themeMode='dark'
+    >
       <Tabs>
         <Tab title='foo'>
           Foo
