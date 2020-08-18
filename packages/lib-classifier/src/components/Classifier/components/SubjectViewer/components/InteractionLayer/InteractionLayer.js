@@ -98,6 +98,10 @@ function InteractionLayer ({
     }
   }
 
+  function inactivateMark () {
+    setActiveMark(undefined)
+  }
+
   return (
     <g
       onPointerMove={onPointerMove}
@@ -119,9 +123,8 @@ function InteractionLayer ({
         <DrawingToolMarks
           activeMark={activeMark}
           marks={marks}
-          onDelete={() => {
-            setActiveMark(undefined)
-          }}
+          onDelete={inactivateMark}
+          onDeselectMark={inactivateMark}
           onFinish={onFinish}
           onSelectMark={mark => setActiveMark(mark)}
           onMove={(mark, difference) => mark.move(difference)}
