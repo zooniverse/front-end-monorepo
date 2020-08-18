@@ -122,12 +122,12 @@ describe('Model > WorkflowStepStore', function () {
         first_task: 'T1',
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
-          T2: {
-            type: 'combo',
-            tasks: ['T3', 'T4']
-          },
+          T2: MultipleChoiceTaskFactory.build(),
           T3: MultipleChoiceTaskFactory.build(),
-          T4: MultipleChoiceTaskFactory.build()
+          T4: {
+            type: 'combo',
+            tasks: ['T2', 'T3']
+          }
         }
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
@@ -169,7 +169,7 @@ describe('Model > WorkflowStepStore', function () {
     it('should generate a step from the combo task', function () {
       const { workflowSteps } = rootStore
       const comboStep = workflowSteps.steps.get('S1')
-      expect(comboStep.taskKeys).to.deep.equal(['T3', 'T4'])
+      expect(comboStep.taskKeys).to.deep.equal(['T2', 'T3'])
     })
   })
 
