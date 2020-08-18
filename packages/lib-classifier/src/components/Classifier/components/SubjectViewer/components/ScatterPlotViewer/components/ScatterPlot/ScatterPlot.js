@@ -40,9 +40,11 @@ function ScatterPlot (props) {
     underlays,
     visibleSeries,
     xAxisLabel,
+    xAxisLabelOffset,
     xAxisNumTicks,
     xScale,
     yAxisLabel,
+    yAxisLabelOffset,
     yAxisNumTicks,
     yScale
   } = props
@@ -70,12 +72,14 @@ function ScatterPlot (props) {
     color: axisColor,
     xAxis: {
       label: xAxisLabel,
+      labelOffset: xAxisLabelOffset,
       numTicks: xAxisNumTicks,
       orientation: 'bottom',
       scale: xScaleTransformed
     },
     yAxis: {
       label: yAxisLabel,
+      labelOffset: yAxisLabelOffset,
       numTicks: yAxisNumTicks,
       orientation: 'left',
       scale: yScaleTransformed
@@ -310,9 +314,11 @@ ScatterPlot.propTypes = {
   visibleSeries: PropTypes.arrayOf(PropTypes.object),
   underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
+  xAxisLabelOffset: PropTypes.number,
   xAxisNumTicks: PropTypes.number,
   xScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   yAxisLabel: PropTypes.string,
+  yAxisLabelOffset: PropTypes.number,
   yAxisNumTicks: PropTypes.number,
   yScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool

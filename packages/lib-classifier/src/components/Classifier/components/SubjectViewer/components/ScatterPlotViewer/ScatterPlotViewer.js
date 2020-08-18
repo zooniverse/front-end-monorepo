@@ -38,9 +38,9 @@ ScatterPlotViewer.defaultProps = {
 }
 
 ScatterPlotViewer.propTypes = {
-  theme: PropTypes.object,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
+  theme: PropTypes.object,
   zooming: PropTypes.bool
 }
 
