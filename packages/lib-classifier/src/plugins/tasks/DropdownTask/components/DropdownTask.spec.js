@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
 import DropdownTask from './DropdownTask'
 import DdSelect from './DdSelect'
@@ -34,7 +34,7 @@ const dropdownTask = {
   type: 'dropdown'
 }
 
-describe.only('DropdownTask', function () {
+describe('DropdownTask', function () {
   const task = Task.TaskModel.create(dropdownTask)
   const annotation = task.defaultAnnotation
 
@@ -73,32 +73,10 @@ describe.only('DropdownTask', function () {
       )
     })
 
-    it('should check the selected answer', function () {
-      const answer = task.answers[0]
-      const input = wrapper.find({ label: answer.label })
-      expect(input.prop('checked')).to.be.true()
-    })
-  })
-
-  describe('onChange event handler', function () {
-    let wrapper
-    beforeEach(function () {
-      annotation.update(null)
-      wrapper = shallow(<DropdownTask annotation={annotation} task={task} />)
-    })
-
-    it('should update the annotation', function () {
-      task.answers.forEach((answer, index) => {
-        const node = wrapper.find({ label: answer.label })
-        node.simulate('change', { target: { checked: true } })
-        expect(annotation.value).to.equal(index)
-      })
-    })
-
-    it('should not update the annotation if the answer is not checked', function () {
-      const node = wrapper.find({ label: task.answers[1].label })
-      node.simulate('change', { target: { checked: false } })
-      expect(annotation.value).to.be.null()
+    it('should pass the selected annotation to the Select sub-element', function () {
+      const ddSelectAnnotationValue = wrapper.find(DdSelect).first().prop('annotationValue') || {}
+      expect(ddSelectAnnotationValue.value).to.equal('hashed-value-R')
+      expect(ddSelectAnnotationValue.option).to.equal(true)
     })
   })
 })
