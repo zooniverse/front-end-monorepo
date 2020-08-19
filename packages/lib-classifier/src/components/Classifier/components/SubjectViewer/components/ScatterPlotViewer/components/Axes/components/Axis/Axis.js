@@ -22,6 +22,7 @@ function Axis (props) {
 
   const {
     label,
+    labelOffset,
     numTicks,
     orientation,
     scale
@@ -52,6 +53,7 @@ function Axis (props) {
         axisClassName={className}
         label={label}
         labelClassName='Axis__label'
+        labelOffset={labelOffset}
         labelProps={{
           dy: '2.5em',
           fill: axisColor,
@@ -88,6 +90,7 @@ function Axis (props) {
         axisClassName={className}
         label={label}
         labelClassName='Axis__label'
+        labelOffset={labelOffset}
         labelProps={{
           dx: -dx,
           fill: axisColor,
@@ -142,6 +145,7 @@ Axis.defaultProps = {
 Axis.propTypes = {
   axis: PropTypes.shape({
     label: PropTypes.string.isRequired,
+    labelOffset: PropTypes.number.isRequired,
     orientation: PropTypes.oneOf(['bottom', 'left']).isRequired,
     scale: PropTypes.func.isRequired // D3 scaleLinear function
   }),
