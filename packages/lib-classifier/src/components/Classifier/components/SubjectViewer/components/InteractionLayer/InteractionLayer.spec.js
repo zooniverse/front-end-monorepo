@@ -188,7 +188,7 @@ describe('Component > InteractionLayer', function () {
       })
 
       describe('onPointerDown when creating', function () {
-        it ('should call the handlePointerDown function', function () {
+        it('should call the handlePointerDown function', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
