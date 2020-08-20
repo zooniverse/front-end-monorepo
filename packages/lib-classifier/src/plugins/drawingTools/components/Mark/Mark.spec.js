@@ -204,7 +204,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={mark}
             onDelete={onDelete}
-            onDeselect={onDeselect}
             onFinish={onFinish}
             onSelect={onSelect}
           >
@@ -222,7 +221,7 @@ describe('Drawing tools > Mark', function () {
         wrapper = mount(markWrapper(newMark))
         expect(onFinish).to.have.been.calledOnce()
       })
-      
+
       describe('when the mark is not finished', function () {
         it('should not call onFinish', function () {
           const newMark = Object.assign({}, point, { finished: false })
@@ -230,7 +229,7 @@ describe('Drawing tools > Mark', function () {
           expect(onFinish).not.to.have.been.called()
         })
       })
-      
+
       describe('when the subtask is visible', function () {
         it('should not call onFinish', function () {
           const newMark = Object.assign({}, point, { subTaskVisibility: true })
