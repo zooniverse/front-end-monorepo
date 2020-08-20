@@ -115,7 +115,7 @@ stories
   }, config)
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    console.log('darkZooTheme', darkZooTheme)
+
     return (
       <Grommet
         background={{
