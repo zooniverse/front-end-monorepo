@@ -26,6 +26,10 @@ const StyledText = styled(Text)`
   }
 `
 
+// The 'other' option, aka 'allow user to create any answer' option, is
+// artificially disabled. Please refer to the README. (@shaunanoordin 20200820)
+const ENABLE_OTHER_OPTION = false
+
 function DdSelect (props) {
   const {
     annotationValue,
@@ -63,7 +67,7 @@ function DdSelect (props) {
   }
   
   const optionsToDisplay = options.slice()
-  if (selectConfig.allowCreate) {
+  if (selectConfig.allowCreate && ENABLE_OTHER_OPTION) {
     optionsToDisplay.push(otherOption)
   }
   

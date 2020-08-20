@@ -3,8 +3,18 @@
 The Dropdown Task for the Classifier is exactly what it says on the tin.
 
 - The simplest form of the Dropdown Task allows users to make annotations by choosing from a range of pre-set options from a dropdown list.
-- Dropdowns can have the option for an "Other" choice, allowing a user to type in any value they want. (i.e. functioning as a Text Task.)
+- ~~Dropdowns can have the option for an "Other" choice, allowing a user to type in any value they want. (i.e. functioning as a Text Task.)~~ See _No "Other" option,_ below.
 - An advanced (if unimplemented as of 2020) feature would allow dropdowns to be "chained" together to create a cascade of choices. e.g. Country > State (filtered by Country) > City (filtered by State)
+
+## Dev Notes
+
+**No "Other" option** - Aug 2020
+
+- As of the Engaging Crowds project (Aug 2020), the "Other" option (aka "let users type in free answers") has been built, but has been _artificially disabled._
+- The reasons: 1. we want to encourage project owners to use Dropdown Tasks in a specific way (i.e. just a plain simple dropdown with no free answers) and 2. the [aggregation code gets funky when there are free answers(??)](https://github.com/zooniverse/caesar/issues/841)
+- Please see [the original PR that added this Dropdown component for Engaging Crowds](https://github.com/zooniverse/front-end-monorepo/pull/1750) and [the associated issue .](https://github.com/zooniverse/front-end-monorepo/issues/1751)
+
+We may consider re-enabling the "Other" option again in the future, if/when we want to migrate all PFE projects to the monorepo while maintaining feature parity. Should this day come, please look at `components/DdSelect.js` and change the line that says `const ENABLE_OTHER_OPTION = false` to `true`.
 
 ## Context/History
 
@@ -92,7 +102,7 @@ Dropdown annotation (classification) data structure, example:
        "task":"T0",
        "value":[
           {
-             "value":"THIS IS A FREE ANSWER",
+             "value":"THIS IS A FREE ANSWER",  // (assuming someone set ENABLE_OTHER_OPTION=true in the DdSelect.js code)
              "option":false
           }
        ]
