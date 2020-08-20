@@ -17,7 +17,16 @@ function Axis (props) {
     tickDirection,
     tickLength
   } = props
-  const axisColor = color || theme.global.colors['dark-5']
+  let axisColor
+
+  if (color) {
+    axisColor = color
+  } else if (theme.dark) {
+    axisColor = theme.global.colors['light-1']
+  } else {
+    axisColor = theme.global.colors['dark-5']
+  }
+
   const fontFamily = theme.global.font.family
 
   const {

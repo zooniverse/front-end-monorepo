@@ -40,10 +40,17 @@ const mockStore = {
 
 
 function ViewerContext (props) {
-  const { children, theme } = props
+  const { children, theme, mode } = props
   return (
     <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode={mode}
+      >
         {children}
       </Grommet>
     </Provider>
@@ -53,7 +60,7 @@ function ViewerContext (props) {
 const subject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/only-calculate-period-bar-chart/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
     },
     { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
   ]
@@ -62,8 +69,8 @@ const subject = Factory.build('subject', {
 stories
   .add('light theme', () => {
     return (
-      <ViewerContext theme={zooTheme}>
-        <Box height='500px' width='700px'>
+      <ViewerContext theme={zooTheme} mode='light'>
+        <Box height='500px' width='large'>
           <VariableStarViewer
             subject={subject}
           />
@@ -74,7 +81,7 @@ stories
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <ViewerContext theme={darkZooTheme}>
+      <ViewerContext theme={darkZooTheme} mode='dark'>
         <Box height='500px' width='large'>
           <VariableStarViewer
             subject={subject}
@@ -84,9 +91,8 @@ stories
     )
   }, { backgrounds: backgrounds.darkDefault, viewport: { defaultViewport: 'responsive' }, ...config })
   .add('narrow view', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <ViewerContext theme={darkZooTheme}>
+      <ViewerContext theme={zooTheme} mode='light'>
         <Box height='500px' width='large'>
           <VariableStarViewer
             subject={subject}
@@ -97,7 +103,7 @@ stories
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
   .add('pan/zoom', () => {
     return (
-      <ViewerContext theme={zooTheme}>
+      <ViewerContext theme={zooTheme} mode='light'>
         <Box direction='row' height='500px' width='large'>
           <VariableStarViewer
             subject={subject}
