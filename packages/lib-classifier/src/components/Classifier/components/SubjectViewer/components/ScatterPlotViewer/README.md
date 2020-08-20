@@ -13,11 +13,7 @@ The Scatter Plot Viewer...
 ## Props
 
 - `data` _(object)_ Required. This should be set by the data property in the location JSON of the subject. See the section on [JSON file](#JSON_file) for more information on the allowed data formats for the data series.
-<<<<<<< HEAD
-- `dataPointSize` _(number)_ Default: `20`. The size of the SVG glyph icon. Not available to configure via the subject location JSON's `chartOptions` property.
-=======
-- `dataPointSize` _(number)_ Default: `25`. The size of the SVG glyph icon. Not available to configure via the subject location JSON's options property.
->>>>>>> Update readme
+- `dataPointSize` _(number)_ Default: `25`. The size of the SVG glyph icon. Not available to configure via the subject location JSON's `chartOptions` property.
 - `invertAxes` _(object)_ Default: `{ x: false, y: false }`. Booleans to set whether or not the x-axis or y-axis is inverted.
 - `margin` _(object)_ Default: `{ bottom: 60, left: 60, right: 10, top: 10 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space outside of the axes lines. This is configurable via the subject location JSON's `chartOptions` property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. Bottom and left margin should be greater since that is where the x-axis and y-axis are positioned for the chart.
 - `padding` _(object)_ Default: `{ bottom: 0, left: 0, right: 0, top: 0 }`. An object of the numerical values for `top`, `bottom`, `left`, `right`. This sets the SVG space inside of the axes lines. This is configurable via the subject location JSON's `chartOptions` property (See the section on [JSON file](#JSON_file)). The amount of space necessary can vary based on the data, what the axes tick labels are, what the axes labels are, etc. This defaults to 0 because the default `tickDirection` of the axes is `'outer'` and no extra space is required for labels inside of the axes. This will need to be defined with values if the `tickDirection` is changed to `'inner'`.
