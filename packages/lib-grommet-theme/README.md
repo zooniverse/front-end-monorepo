@@ -33,9 +33,9 @@ class MyComponent extends React.Component {
 | theme variable | hex | color |
 | - | - | - |
 | `accent-1` | `#B8E986` | ![](https://via.placeholder.com/80x30.png/B8E986?text=+) |
-| `accent-2` | `#f6d885` | ![](https://via.placeholder.com/80x30.png/f6d885?text=+) |
+| `accent-2` | `#addde0` | ![](https://via.placeholder.com/80x30.png/addde0?text=+) |
 | `accent-3` | `#6D91B3` | ![](https://via.placeholder.com/80x30.png/6D91B3?text=+) |
-| `accent-4` | `#addde0` | ![](https://via.placeholder.com/80x30.png/addde0?text=+) |
+| `accent-4` | `#f6d885` | ![](https://via.placeholder.com/80x30.png/f6d885?text=+) |
 | `brand` | `#00979d` | ![](https://via.placeholder.com/80x30.png/00979d?text=+) |
 | `dark-1` | `#2D2D2D` | ![](https://via.placeholder.com/80x30.png/2D2D2D?text=+) |
 | `dark-2` | `#272727` | ![](https://via.placeholder.com/80x30.png/272727?text=+) |
