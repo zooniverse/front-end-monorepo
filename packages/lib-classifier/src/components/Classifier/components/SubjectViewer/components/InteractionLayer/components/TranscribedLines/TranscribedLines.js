@@ -57,6 +57,7 @@ class TranscribedLines extends React.Component {
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
       mark.setSubTaskVisibility(true, ref?.current, previousAnnotationValuesForEachMark)
+      ref?.current?.blur()
     }
   }
 
