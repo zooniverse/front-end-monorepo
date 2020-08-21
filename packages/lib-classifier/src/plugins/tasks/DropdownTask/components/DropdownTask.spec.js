@@ -27,7 +27,7 @@ const dropdownTask = {
       ],
     },
     required: false,
-    title: 'Colour',
+    title: 'Favourite colour',
   }],
   required: false,
   taskKey: 'T1',

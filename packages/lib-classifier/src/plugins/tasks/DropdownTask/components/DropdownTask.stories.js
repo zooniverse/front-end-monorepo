@@ -12,8 +12,6 @@ import SubjectStore from '@store/SubjectStore'
 import WorkflowStore from '@store/WorkflowStore'
 import WorkflowStepStore from '@store/WorkflowStepStore'
 
-/*
-
 function createStore() {
   const classifications = ClassificationStore.create()
   const mockSubject = {
@@ -78,6 +76,36 @@ function MockTask(props) {
     </Grommet>
   )
 }
+
+const dropdownTask = {
+  instruction: 'Choose your favourite things.',
+  selects: [{
+    allowCreate: false,
+    id: 'dropdown-select-1',
+    options: {
+      '*': [
+        {
+          label: 'Red',
+          value: 'hashed-value-R',
+        },
+        {
+          label: 'Green',
+          value: 'hashed-value-G',
+        },
+        {
+          label: 'Blue',
+          value: 'hashed-value-B',
+        },
+      ],
+    },
+    required: false,
+    title: 'Favourite colour',
+  }],
+  required: false,
+  taskKey: 'init',
+  type: 'dropdown',
+}
+
 storiesOf('Tasks | Dropdown Task', module)
   .addDecorator(withKnobs)
   .addParameters({
@@ -87,14 +115,7 @@ storiesOf('Tasks | Dropdown Task', module)
   })
   .add('light theme', function () {
     const tasks = {
-      init: {
-        answers: [{ label: 'yes' }, { label: 'no' }],
-        help: 'Choose an answer from the choices given, then press Done.',
-        question: 'Is there a cat?',
-        required: boolean('Required', false),
-        taskKey: 'init',
-        type: 'single'
-      }
+      init: dropdownTask
     }
     const step = {
       stepKey: 'S1',
@@ -117,4 +138,3 @@ storiesOf('Tasks | Dropdown Task', module)
       </Provider>
     )
   })
-*/
