@@ -41,8 +41,14 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
   } = props
 
   const underlays = [
-    { fill: theme.global.colors['light-3'], startPosition: -phaseLimit, xAxisWidth: phaseLimit },
-    { fill: theme.global.colors['light-3'], startPosition: 1, xAxisWidth: phaseLimit }
+    { fill: (theme.dark) ? theme.global.colors['light-5'] : theme.global.colors['light-3'],
+      startPosition: -phaseLimit,
+      xAxisWidth: phaseLimit
+    },
+    { fill: (theme.dark) ? theme.global.colors['light-5'] : theme.global.colors['light-3'],
+      startPosition: 1,
+      xAxisWidth: phaseLimit
+    }
   ]
 
   const zoomEnabled = {
@@ -130,11 +136,14 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         />
       </Box>
       <Box
-        background='#ffffff'
+        background={{
+          dark: 'dark-1',
+          light: 'neutral-6'
+        }}
         direction='row'
-        gap='xsmall'
         gridArea='barCharts'
-        pad='small'
+        margin={{ bottom: 'xsmall' }}
+        pad='none'
       >{Object.keys(barJSON).map((barChartKey) => {
         //Let's keep the rendering of the bar chart flexible in case more plots are added in the future
         return (
@@ -166,7 +175,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           <image height={230} xlinkHref={imageSrc} width={220} />
         </SingleImageViewer>
         <figcaption>
-          <SpacedText color='dark-5' weight='bold'>&#8592; {counterpart('VariableStarViewer.temperature')}</SpacedText>
+          <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>&#8592; {counterpart('VariableStarViewer.temperature')}</SpacedText>
         </figcaption>
       </Box>
     </Grid>

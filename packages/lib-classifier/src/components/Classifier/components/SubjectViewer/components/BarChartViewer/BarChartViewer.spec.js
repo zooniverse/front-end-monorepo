@@ -5,9 +5,10 @@ import { AxisBottom, AxisLeft } from '@vx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import mockData from './mockData'
-import { BarChartViewer } from './BarChartViewer'
+import { BarChartViewer, StyledGroup } from './BarChartViewer'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
+import en from './locales/en'
 
 const {
   data,
@@ -95,7 +96,7 @@ describe('Component > BarChartViewer', function () {
   })
 
   describe('Group', function () {
-    let wrapper
+    let wrapper, group, styledGroup
     before(function () {
       wrapper = shallow(
         <BarChartViewer
@@ -107,17 +108,33 @@ describe('Component > BarChartViewer', function () {
           yAxisLabel={yAxisLabel}
         />
       )
+      group = wrapper.find(Group)
+      styledGroup = wrapper.find(StyledGroup)
     })
+
     it('should render', function () {
-      expect(wrapper.find(Group)).to.have.lengthOf(2)
+      expect(group).to.have.lengthOf(1)
+      expect(styledGroup).to.have.lengthOf(1)
     })
 
     it('should set its left position with margin props', function () {
-      const groups = wrapper.find(Group)
-      groups.forEach((group) => {
-        expect(group.props().left).to.be.a('number')
-        expect(group.props().left).to.equal(margin.left)
-      })
+      expect(group.props().left).to.equal(margin.left)
+      expect(styledGroup.props().left).to.equal(margin.left)
+    })
+
+    it('should set its top position with margin props', function () {
+      expect(group.props().top).to.equal(margin.top)
+      expect(styledGroup.props().top).to.equal(margin.top)
+    })
+
+    it('should have a focusable group wrapping the Bars component', function () {
+      expect(group.props().focusable).to.be.true()
+      expect(group.props().tabIndex).to.equal('0')
+    })
+
+    it('should have an accessible group wrapping the Bars component', function () {
+      expect(group.props()['aria-label']).to.equal(en.BarChartViewer.chartLabel)
+      expect(group.props().role).to.equal('list')
     })
   })
 

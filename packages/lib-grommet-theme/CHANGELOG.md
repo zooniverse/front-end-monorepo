@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Set `dark-6` to be `#666666`
 - Set default icon colors to be `dark-6` for light theme and `light-6` for dark theme
 
+### Fixed
+- Fixed documentation on `accent-2` and `accent-4` colors
+
 ### Changed
 - Lowered font weight for form input text.
 - Removed border radius on inputs

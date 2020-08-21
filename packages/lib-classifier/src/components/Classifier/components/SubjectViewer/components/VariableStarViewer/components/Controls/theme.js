@@ -5,13 +5,13 @@ const theme = {
     border: {
       color: {
         light: 'light-6',
-        dark: 'light-6' // this will change when dark theme styles is added
+        dark: 'light-3'
       }
     },
     hover: {
       border: {
         color: {
-          dark: 'accent-4',
+          dark: 'accent-2',
           light: 'neutral-2'
         }
       }
@@ -26,13 +26,13 @@ const theme = {
     border: {
       color: {
         light: 'light-6',
-        dark:  'light-6' // this will change when dark theme styles is added
+        dark:  'light-3'
       }
     },
     hover: {
       border: {
         color: {
-          dark: 'accent-4',
+          dark: 'accent-2',
           light: 'neutral-2'
         }
       }

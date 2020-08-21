@@ -20,7 +20,7 @@ function ZoomEnableButton (props) {
     <Box direction='row' justify='center' style={{ position: 'absolute', top: 0 }} width='100%'>
       <MetaToolsButton
         aria-checked={zooming}
-        icon={<ZoomIn size='small' />}
+        icon={<ZoomIn color={{ dark: 'light-3', light: 'light-6' }} size='small' />}
         text={label}
         onClick={onClick}
         role='radio'

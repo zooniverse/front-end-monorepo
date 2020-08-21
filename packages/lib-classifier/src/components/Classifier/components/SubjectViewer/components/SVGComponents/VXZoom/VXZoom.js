@@ -78,8 +78,8 @@ class VXZoom extends PureComponent {
     } = this.zoom
     const panDistance = 20
     const newTransformation = {
-      translateX: translateX + xMultiplier * panDistance,
-      translateY: translateY + yMultiplier * panDistance
+      translateX: translateX - xMultiplier * panDistance,
+      translateY: translateY - yMultiplier * panDistance
     }
     this.zoom.setTranslate(newTransformation)
   }
