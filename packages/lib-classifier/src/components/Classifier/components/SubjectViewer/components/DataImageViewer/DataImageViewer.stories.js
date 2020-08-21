@@ -7,6 +7,7 @@ import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
 
 import DataImageViewerContainer from './DataImageViewerContainer'
+import DataImageViewerConnector from './DataImageViewerConnector'
 import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
@@ -18,6 +19,15 @@ const config = {
   }
 }
 
+const subject = Factory.build('subject', {
+  locations: [
+    {
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
+    },
+    { 'image/png': 'https://panoptes-uploads.zooniverse.org/production/subject_location/6379335f-d893-445d-a25e-c14b83eabf63.png' }
+  ]
+})
+
 const mockStore = {
   classifications: {
     active: {
@@ -25,6 +35,9 @@ const mockStore = {
     }
   },
   fieldGuide: {},
+  subjects: {
+    active: subject
+  },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
     activeStepTasks: []
@@ -57,15 +70,6 @@ stories.addDecorator(withKnobs)
 
 const { colors } = zooTheme.global
 
-const subject = Factory.build('subject', {
-  locations: [
-    {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
-    },
-    { 'image/png': 'https://panoptes-uploads.zooniverse.org/production/subject_location/6379335f-d893-445d-a25e-c14b83eabf63.png' }
-  ]
-})
-
 stories
   .add('light theme', () => {
     return (
@@ -77,7 +81,7 @@ stories
         theme={zooTheme}
         themeMode='light'
       >
-        <Box height='500px' width='700px'>
+        <Box height='500px' width='large'>
           <DataImageViewerContainer
             subject={subject}
           />
@@ -126,9 +130,7 @@ stories
     return (
       <ViewerContext mode='light' theme={zooTheme}>
         <Box direction='row' height='500px' width='large'>
-          <DataImageViewerContainer
-            subject={subject}
-          />
+          <DataImageViewerConnector />
           <ImageToolbar />
         </Box>
       </ViewerContext>
