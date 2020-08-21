@@ -3,7 +3,6 @@ import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { VariableStarViewer } from './VariableStarViewer'
-import ZoomEnableButton from './components/ZoomEnableButton'
 import { SingleImageViewer } from '../SingleImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import en from './locales/en'
@@ -107,14 +106,6 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should render the ZoomEnableButton', function () {
-        expect(wrapperDiv.find(ZoomEnableButton)).to.have.lengthOf(1)
-      })
-
-      it('should render the ZoomEnableButton with a false zooming prop', function () {
-        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.false()
-      })
-
       it('should have zooming set to false', function () {
         expect(phasedScatterPlot.props().zooming).to.be.false()
       })
@@ -123,9 +114,8 @@ describe('Component > VariableStarViewer', function () {
         expect(wrapperDiv.props().border).to.be.false()
       })
 
-      it('should call setAllowPanZoom with phasedJSON when the ZoomEnableButton is clicked', function () {
-        const button = wrapperDiv.find(ZoomEnableButton)
-        button.simulate('click')
+      it('should set the zoomControlFn prop to setAllowPanZoom with phasedJSON as the argument', function () {
+        wrapperDiv.children().props().zoomControlFn()
         expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('phasedJSON')
       })
     })
@@ -143,16 +133,17 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should render the ZoomEnableButton with zooming prop as true', function () {
-        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.true()
-      })
-
       it('should set zooming to true', function () {
         expect(phasedScatterPlot.props().zooming).to.be.true()
       })
 
       it('should have a border defined for its wrapper div', function () {
         expect(wrapperDiv.props().border).to.deep.equal({ color: 'brand', size: 'xsmall' })
+      })
+
+      it('should set the zoomControlFn prop to setAllowPanZoom with an empty string argument', function () {
+        wrapperDiv.children().props().zoomControlFn()
+        expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('')
       })
     })
   })
@@ -223,14 +214,6 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should render a ZoomEnableButton', function () {
-        expect(wrapperDiv.find(ZoomEnableButton)).to.have.lengthOf(1)
-      })
-
-      it('should render a ZoomEnableButton with zooming prop as false', function () {
-        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.false()
-      })
-
       it('should have zooming set to false', function () {
         expect(rawScatterPlot.props().zooming).to.be.false()
       })
@@ -239,9 +222,8 @@ describe('Component > VariableStarViewer', function () {
         expect(wrapperDiv.props().border).to.be.false()
       })
 
-      it('should call setAllowPanZoom with rawJSON when the overlayed button is clicked', function () {
-        const button = wrapperDiv.find(ZoomEnableButton)
-        button.simulate('click')
+      it('should set the zoomControlFn prop to setAllowPanZoom with rawJSON as the argument', function () {
+        wrapperDiv.children().props().zoomControlFn()
         expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('rawJSON')
       })
     })
@@ -259,8 +241,9 @@ describe('Component > VariableStarViewer', function () {
         setAllowPanZoomSpy.resetHistory()
       })
 
-      it('should display the ZoomEnableButton zooming prop as true', function () {
-        expect(wrapperDiv.find(ZoomEnableButton).props().zooming).to.be.true()
+      it('should set the zoomControlFn prop to setAllowPanZoom with an empty string argument', function () {
+        wrapperDiv.children().props().zoomControlFn()
+        expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('')
       })
 
       it('should set zooming to true', function () {
