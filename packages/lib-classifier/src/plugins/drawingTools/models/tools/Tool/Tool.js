@@ -66,10 +66,6 @@ const Tool = types.model('Tool', {
       self.marks.delete(mark.id)
     }
 
-    function handlePointerDown (mark) {
-      return self.createMark(mark)
-    }
-
     function reset () {
       self.marks.clear()
     }
@@ -78,7 +74,6 @@ const Tool = types.model('Tool', {
       createMark,
       createTask,
       deleteMark,
-      handlePointerDown,
       reset
     }
   })
