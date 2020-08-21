@@ -678,76 +678,127 @@ describe('Component > VXZoom', function () {
         expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
       })
 
-      it('should translate the SVG position using keydown arrows', function () {
-        const wrapper = mount(
-          <VXZoom
-            data={mockData}
-            panning
-            height={height}
-            onKeyDown={sinon.stub().callsFake((event) => {
-              if (event.key === 'ArrowRight') wrapper.instance().onPan(-1, 0)
-              if (event.key === 'ArrowLeft') wrapper.instance().onPan(1, 0)
-              if (event.key === 'ArrowUp') wrapper.instance().onPan(0, 1)
-              if (event.key === 'ArrowDown') wrapper.instance().onPan(0, -1)
-            })}
-            width={width}
-            zoomingComponent={StubComponent}
-            zooming
-          />
-        )
-        const eventLayer = wrapper.find(ZoomEventLayer)
+      describe('keydown', function () {
+        let wrapper
+        beforeEach(function () {
+          wrapper = mount(
+            <VXZoom
+              data={mockData}
+              panning
+              height={height}
+              onKeyDown={sinon.stub().callsFake((event) => {
+                if (event.key === 'ArrowRight') wrapper.instance().onPan(1, 0)
+                if (event.key === 'ArrowLeft') wrapper.instance().onPan(-1, 0)
+                if (event.key === 'ArrowUp') wrapper.instance().onPan(0, -1)
+                if (event.key === 'ArrowDown') wrapper.instance().onPan(0, 1)
+              })}
+              width={width}
+              zoomingComponent={StubComponent}
+              zooming
+            />
+          )
+        })
 
-        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        it('should translate the SVG position using ArrowRight', function () {
+          const eventLayer = wrapper.find(ZoomEventLayer)
 
-        // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
-        eventLayer.simulate('dblclick', {
-          clientX: 50,
-          clientY: 50,
-          deltaY: -1,
-          preventDefault: sinon.spy()
-        })
-        const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
-        // Now to simulate the panning
-        eventLayer.simulate('keydown', {
-          key: 'ArrowRight'
-        })
-        const rightPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
-        expect(rightPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-        expect(rightPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(rightPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX - 20)
-        expect(rightPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
-        eventLayer.simulate('keydown', {
-          key: 'ArrowDown'
+          // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
+          eventLayer.simulate('dblclick', {
+            clientX: 50,
+            clientY: 50,
+            deltaY: -1,
+            preventDefault: sinon.spy()
+          })
+          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          // Now to simulate the panning
+          eventLayer.simulate('keydown', {
+            key: 'ArrowRight'
+          })
+          const rightPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          expect(rightPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
+          expect(rightPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(rightPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX - 20)
+          expect(rightPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
         })
-        const downPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
-        expect(downPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-        expect(downPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(downPannedTransformMatrix.translateX).to.equal(rightPannedTransformMatrix.translateX)
-        expect(downPannedTransformMatrix.translateY).to.equal(rightPannedTransformMatrix.translateY - 20)
 
-        eventLayer.simulate('keydown', {
-          key: 'ArrowLeft'
-        })
-        const leftPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
-        expect(leftPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-        expect(leftPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(leftPannedTransformMatrix.translateX).to.equal(downPannedTransformMatrix.translateX + 20)
-        expect(leftPannedTransformMatrix.translateY).to.equal(downPannedTransformMatrix.translateY)
+        it('should translate the SVG position using ArrowDown', function () {
+          const eventLayer = wrapper.find(ZoomEventLayer)
 
-        // keydown up twice to not equal the original zoomed transform matrix
-        eventLayer.simulate('keydown', {
-          key: 'ArrowUp',
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
+          eventLayer.simulate('dblclick', {
+            clientX: 50,
+            clientY: 50,
+            deltaY: -1,
+            preventDefault: sinon.spy()
+          })
+          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+
+          eventLayer.simulate('keydown', {
+            key: 'ArrowDown'
+          })
+          const downPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          expect(downPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
+          expect(downPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(downPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
+          expect(downPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY - 20)
         })
-        eventLayer.simulate('keydown', {
-          key: 'ArrowUp'
+
+        it('should translate the SVG position using ArrowLeft', function () {
+          const eventLayer = wrapper.find(ZoomEventLayer)
+
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
+          eventLayer.simulate('dblclick', {
+            clientX: 50,
+            clientY: 50,
+            deltaY: -1,
+            preventDefault: sinon.spy()
+          })
+          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+
+          eventLayer.simulate('keydown', {
+            key: 'ArrowLeft'
+          })
+          const leftPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          expect(leftPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
+          expect(leftPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(leftPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 20)
+          expect(leftPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
         })
-        const upPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
-        expect(upPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-        expect(upPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(upPannedTransformMatrix.translateX).to.equal(leftPannedTransformMatrix.translateX)
-        expect(upPannedTransformMatrix.translateY).to.equal(leftPannedTransformMatrix.translateY + 40)
+
+        it('should translate the SVG position using ArrowUp', function () {
+          const eventLayer = wrapper.find(ZoomEventLayer)
+
+          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+
+          // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
+          eventLayer.simulate('dblclick', {
+            clientX: 50,
+            clientY: 50,
+            deltaY: -1,
+            preventDefault: sinon.spy()
+          })
+          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+
+          eventLayer.simulate('keydown', {
+            key: 'ArrowUp',
+          })
+
+          const upPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          expect(upPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
+          expect(upPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(upPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
+          expect(upPannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 20)
+        })
       })
     })
   })

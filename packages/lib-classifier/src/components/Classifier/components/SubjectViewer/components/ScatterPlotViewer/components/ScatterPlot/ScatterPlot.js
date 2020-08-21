@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Group } from '@vx/group'
 import cuid from 'cuid'
-import { lighten } from 'polished'
+import { darken, lighten } from 'polished'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
 import Axes from '../Axes'
@@ -32,6 +32,7 @@ function ScatterPlot (props) {
     tickDirection,
     tickLength,
     theme: {
+      dark,
       global: {
         colors
       }
@@ -40,11 +41,14 @@ function ScatterPlot (props) {
     underlays,
     visibleSeries,
     xAxisLabel,
+    xAxisLabelOffset,
     xAxisNumTicks,
     xScale,
     yAxisLabel,
+    yAxisLabelOffset,
     yAxisNumTicks,
-    yScale
+    yScale,
+    zooming
   } = props
 
   const rangeParameters = {
@@ -59,7 +63,15 @@ function ScatterPlot (props) {
   const leftPosition = left(tickDirection, margin)
   const topPosition = top(tickDirection, margin)
 
-  const background = backgroundColor || colors['light-1']
+  let background 
+  if (backgroundColor) {
+    background = backgroundColor
+  } else if (dark) {
+    background = (zooming) ? colors['dark-5'] : colors['dark-1']
+  } else {
+    background = (zooming) ? colors['neutral-6'] : colors['light-1']
+  }
+
   const dataPoints = getDataPoints(data)
 
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
@@ -70,12 +82,14 @@ function ScatterPlot (props) {
     color: axisColor,
     xAxis: {
       label: xAxisLabel,
+      labelOffset: xAxisLabelOffset,
       numTicks: xAxisNumTicks,
       orientation: 'bottom',
       scale: xScaleTransformed
     },
     yAxis: {
       label: yAxisLabel,
+      labelOffset: yAxisLabelOffset,
       numTicks: yAxisNumTicks,
       orientation: 'left',
       scale: yScaleTransformed
@@ -114,8 +128,8 @@ function ScatterPlot (props) {
       >
         {tickDirection === 'outer' &&
           <Background
-            borderColor={colors['dark-5']}
-            fill='#ffffff'
+            borderColor={(dark) ? colors['light-5'] : colors['dark-5']}
+            fill={(dark) ? colors['light-3'] : colors['neutral-6']}
             height={plotHeight}
             left={leftPosition}
             top={topPosition}
@@ -159,7 +173,7 @@ function ScatterPlot (props) {
                 {x_error &&
                   <line
                     stroke={errorBarColor}
-                    strokeWidth={1}
+                    strokeWidth={2}
                     x1={xErrorBarPoints.x1}
                     x2={xErrorBarPoints.x2}
                     y1={cy}
@@ -168,7 +182,7 @@ function ScatterPlot (props) {
                 {y_error &&
                   <line
                     stroke={errorBarColor}
-                    strokeWidth={1}
+                    strokeWidth={2}
                     x1={cx}
                     x2={cx}
                     y1={yErrorBarPoints.y1}
@@ -181,6 +195,7 @@ function ScatterPlot (props) {
                   size={dataPointSize}
                   top={cy}
                   fill={glyphColor}
+                  stroke='black'
                 />
               </g>
             )
@@ -210,7 +225,7 @@ function ScatterPlot (props) {
 ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
-  dataPointSize: 20,
+  dataPointSize: 25,
   invertAxes: {
     x: false,
     y: false
@@ -310,9 +325,11 @@ ScatterPlot.propTypes = {
   visibleSeries: PropTypes.arrayOf(PropTypes.object),
   underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
+  xAxisLabelOffset: PropTypes.number,
   xAxisNumTicks: PropTypes.number,
   xScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   yAxisLabel: PropTypes.string,
+  yAxisLabelOffset: PropTypes.number,
   yAxisNumTicks: PropTypes.number,
   yScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
