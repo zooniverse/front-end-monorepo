@@ -1,13 +1,12 @@
 import cuid from 'cuid'
-import { getRoot, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Annotation from './Annotation'
-
 
 const Task = types.model('Task', {
   // override annotation in individual task models with specific annotation types
   annotation: types.safeReference(Annotation),
   taskKey: types.identifier,
-  required: types.maybe(types.boolean),
+  required: types.maybe(types.union(types.string, types.boolean)), // text task required default = false
   type: types.literal('default')
 })
   .views(self => ({

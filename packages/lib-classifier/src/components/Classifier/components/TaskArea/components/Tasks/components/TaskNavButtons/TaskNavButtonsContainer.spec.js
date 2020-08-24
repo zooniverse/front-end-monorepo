@@ -27,14 +27,14 @@ describe('TaskNavButtonsContainer', function () {
     const singleChoiceTask = SingleChoiceTask.TaskModel.create({
       answers: [{ label: 'yes' }, { label: 'no' }],
       question: 'Is there a cat?',
-      required: false,
+      required: '',
       taskKey: 'init',
       type: 'single'
     })
     const multipleChoiceTask = MultipleChoiceTask.TaskModel.create({
       answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
       question: 'What is/are the cat(s) doing?',
-      required: false,
+      required: '',
       taskKey: 'T1',
       type: 'multiple'
     })
