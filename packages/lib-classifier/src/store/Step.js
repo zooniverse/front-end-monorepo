@@ -34,7 +34,10 @@ const Step = types
       // so we should disallow that in the editor
       const [singleChoiceTask] = self.tasks.filter(task => task.type === 'single')
       return singleChoiceTask?.answers.some((answer, index) => {
-        return answer?.next && singleChoiceTask.answers[index + 1]?.next && singleChoiceTask.answers[index + 1].next !== answer.next
+        if (singleChoiceTask.answers.length > index + 1) {
+          return answer.next !== singleChoiceTask.answers[index + 1].next
+        }
+        return false
       })
     }
   }))
