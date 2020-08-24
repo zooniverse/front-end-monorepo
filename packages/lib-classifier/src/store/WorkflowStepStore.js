@@ -78,15 +78,19 @@ const WorkflowStepStore = types
           // presumes one single choice task per step
           const [singleChoiceTask] = self.activeStepTasks.filter(task => task.type === 'single')
           onAction(getRoot(self), (call) => {
-            if (call.path.endsWith(singleChoiceTask.annotation?.id) && call.name === 'update') {
+            if (call.path.endsWith(singleChoiceTask?.annotation?.id) && call.name === 'update') {
               let nextStepKey
-              const singleChoiceTaskAnswers = toJS(singleChoiceTask.answers)
-              const nextTaskKey = singleChoiceTaskAnswers[call.args[0]].next
-              self.steps.forEach(step => {
-                if (step.taskKeys.includes(nextTaskKey)) {
-                  nextStepKey = step.stepKey
-                }
-              })
+              const nextKey = singleChoiceTask.answers[call.args[0]].next
+              if (nextKey.startsWith('T')) {
+                // Backwards compatibility
+                self.steps.forEach(step => {
+                  if (step.taskKeys.includes(nextKey)) {
+                    nextStepKey = step.stepKey
+                  }
+                })
+              } else {
+                nextStepKey = nextKey
+              }
               self.active.setNext(nextStepKey)
             }
           })
