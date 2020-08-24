@@ -7,6 +7,14 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
   type: types.literal('transcriptionLine')
 })
   .actions(self => {
+    function handlePointerDown (mark) {
+      const allMarks = Array.from(self.marks.values())
+      const mostRecent = allMarks[allMarks.length - 1]
+      mostRecent.initialDrag(mark)
+      mostRecent.finish()
+      return mostRecent
+    }
+
     function createMark (mark) {
       const newMark = TranscriptionLine.create(Object.assign({}, mark, { toolType: self.type }))
       self.marks.put(newMark)
@@ -14,7 +22,8 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
     }
 
     return {
-      createMark
+      createMark,
+      handlePointerDown
     }
   })
 

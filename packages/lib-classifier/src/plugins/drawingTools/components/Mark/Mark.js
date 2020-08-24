@@ -12,7 +12,7 @@ const StyledGroup = styled('g')`
   }
 
   :hover {
-    ${props => props.dragging ? 
+    ${props => props.dragging ?
       css`cursor: grabbing;` :
       css`cursor: grab;`
     }
@@ -38,6 +38,12 @@ const Mark = forwardRef(function Mark ({
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme.global.colors[theme.global.colors.focus]
+
+  React.useEffect(() => {
+    if (mark.finished && !mark.subTaskVisibility) {
+      onFinish()
+    }
+  }, [mark.finished])
 
   function onKeyDown (event) {
     switch (event.key) {

@@ -7,7 +7,7 @@ import InteractionLayer, { StyledRect } from './InteractionLayer'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import DrawingTask from '@plugins/tasks/DrawingTask'
-import { Line, Point } from '@plugins/drawingTools/components'
+import { Line, Point, TranscriptionLine } from '@plugins/drawingTools/components'
 
 describe('Component > InteractionLayer', function () {
   let wrapper
@@ -183,6 +183,50 @@ describe('Component > InteractionLayer', function () {
         wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
         wrapper.simulate('pointermove', fakeEvent)
         expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
+      })
+
+      describe('onPointerDown with a TranscriptionLine mark already in progress', function () {
+        it('should call the handlePointerDown function', function () {
+          const mockDrawingTask = DrawingTask.TaskModel.create({
+            activeToolIndex: 0,
+            instruction: 'draw a mark',
+            taskKey: 'T0',
+            tools: [
+              {
+                marks: {},
+                max: 2,
+                toolComponent: TranscriptionLine,
+                type: 'transcriptionLine'
+              }
+            ],
+            type: 'drawing'
+          })
+          activeTool = mockDrawingTask.activeTool
+          sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
+          sinon.stub(activeTool, 'handlePointerDown').callsFake(() => mockMark)
+
+          wrapper = shallow(
+            <InteractionLayer
+              activeMark={mockMark}
+              activeTool={activeTool}
+              frame={2}
+              height={400}
+              width={600}
+            />
+          )
+
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointer',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
+          }
+          wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+          wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+          expect(activeTool.handlePointerDown).to.have.been.calledOnce()
+        })
       })
     })
   })
