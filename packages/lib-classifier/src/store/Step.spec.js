@@ -112,6 +112,13 @@ describe('Model > Step', function () {
     })
   })
 
+  describe('without a next step', function () {
+    it('should have isThereANextStep return false', function () {
+      const step = Step.create({ stepKey: 'S2', taskKeys: ['T1', 'T2'], previous: 'S1' })
+      expect(step.isThereANextStep).to.be.false()
+    })
+  })
+
   describe('with a previous step', function () {
     it('should have isThereAPreviousStep return true', function () {
       const step = Step.create({ stepKey: 'S2', taskKeys: ['T1', 'T2'], previous: 'S1' })
@@ -119,13 +126,20 @@ describe('Model > Step', function () {
     })
   })
 
+  describe('without a previous step', function () {
+    it('should have isThereAPreviousStep return false', function () {
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], next: 'S2' })
+      expect(step.isThereAPreviousStep).to.be.false()
+    })
+  })
+
   describe('with a single choice branching task', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
         // SingleChoiceTaskFactory defaults to a branching single choice task (answers with different next values)
-        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' }))
       ]
     })
 
@@ -139,10 +153,10 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
         SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
           taskKey: 'T2',
-          required: false,
+          required: '',
           answers: [
             { label: 'Red', next: 'S2' },
             { label: 'Blue', next: 'S2' }

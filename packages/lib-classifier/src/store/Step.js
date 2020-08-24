@@ -21,11 +21,11 @@ const Step = types
     },
 
     get isThereANextStep () {
-      return self.next && self.next !== 'summary'
+      return !!self.next && self.next !== 'summary'
     },
 
     get isThereAPreviousStep () {
-      return self.previous && self.stepKey !== 'summary'
+      return !!self.previous && self.stepKey !== 'summary'
     },
 
     get isThereBranching () {
