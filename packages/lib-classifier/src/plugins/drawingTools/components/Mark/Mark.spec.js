@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
@@ -192,6 +192,50 @@ describe('Drawing tools > Mark', function () {
       it('should be rotated by mark.angle', function () {
         const transform = wrapper.root().prop('transform')
         expect(transform).to.have.string('rotate(-45)')
+      })
+    })
+  })
+
+  describe('useEffect hook', function () {
+    describe('with finished mark and no subTaskVisibility', function () {
+      let markWrapper = (mark) => {
+        return (
+          <Mark
+            label='Point 1'
+            mark={mark}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        )
+      }
+
+      afterEach(function () {
+        onFinish.resetHistory()
+      })
+
+      it('should call onFinish', function () {
+        const newMark = Object.assign({}, point, { finished: true })
+        wrapper = mount(markWrapper(newMark))
+        expect(onFinish).to.have.been.calledOnce()
+      })
+
+      describe('when the mark is not finished', function () {
+        it('should not call onFinish', function () {
+          const newMark = Object.assign({}, point, { finished: false })
+          wrapper = mount(markWrapper(newMark))
+          expect(onFinish).not.to.have.been.called()
+        })
+      })
+
+      describe('when the subtask is visible', function () {
+        it('should not call onFinish', function () {
+          const newMark = Object.assign({}, point, { subTaskVisibility: true })
+          wrapper = mount(markWrapper(newMark))
+          expect(onFinish).not.to.have.been.called()
+        })
       })
     })
   })

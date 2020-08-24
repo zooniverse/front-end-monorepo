@@ -8,7 +8,7 @@ import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 
 const StyledRect = styled('rect')`
-  ${props => props.disabled ? 
+  ${props => props.disabled ?
     css`cursor: not-allowed;` :
     css`cursor: crosshair;`
   }
@@ -57,16 +57,24 @@ function InteractionLayer ({
     if (disabled || move) {
       return true
     }
+    let activeMark
 
     if (!activeTool.type) {
       return false;
     }
 
-    const activeMark = activeTool.createMark({
+    if (creating) {
+      activeMark = activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
+      if (activeMark.finished) setCreating(false)
+      return true
+    }
+
+    activeMark = activeTool.createMark({
       id: cuid(),
       frame,
       toolIndex: activeToolIndex
     })
+
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
@@ -82,7 +90,7 @@ function InteractionLayer ({
     }
   }
 
-  function onFinish (event, node) {
+  function onFinish (event = {}, node) {
     const { target, pointerId } = event
 
     setCreating(false)

@@ -23,7 +23,7 @@ function DrawingToolMarks (props) {
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMark?.id
     const ref = React.createRef()
-    
+
     function onFinishWithRef (event) {
       onFinish(event, ref.current)
     }
