@@ -24,8 +24,8 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
-        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: false }))
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' }))
       ]
     })
 
@@ -39,8 +39,8 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: false })),
-        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: 'true' }))
       ]
     })
 
@@ -55,8 +55,8 @@ describe('Model > Step', function () {
     let tasks
     before(function () {
       tasks = [
-        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: true })),
-        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: true }))
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: 'true' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: 'true' }))
       ]
       step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       const multipleChoiceAnnotation = tasks[0].defaultAnnotation
