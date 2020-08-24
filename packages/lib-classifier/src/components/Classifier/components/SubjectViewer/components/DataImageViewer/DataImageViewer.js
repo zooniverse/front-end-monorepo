@@ -1,12 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import {
   Box,
   Grid
 } from 'grommet'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewer } from '../SingleImageViewer'
+
+const StyledBox = styled(Box)`
+  position: relative;
+`
 
 const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
   const {
@@ -36,7 +40,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       gap='xsmall'
       rows={['full']}
     >
-      <Box css='position: relative;' gridArea='scatterPlot'>
+      <StyledBox gridArea='scatterPlot'>
         <ScatterPlotViewer
           data={JSONData.data}
           margin={{
@@ -52,7 +56,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           zoomControlFn={(zooming.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
           zooming={zooming.scatterPlot}
         />
-      </Box>
+      </StyledBox>
       <Box gridArea='image'>
         <SingleImageViewer
           enableInteractionLayer={false}
