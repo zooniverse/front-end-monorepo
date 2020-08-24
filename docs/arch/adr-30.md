@@ -1,0 +1,63 @@
+# ADR 30: Simple Dropdown Task
+
+## Status
+ 
+Proposed
+
+## Context
+ 
+The Engaging Crowds project (UK collaboration with The National Archives, Royal Museum Greenwich, Royal Botanical Gardens Edinburgh) involves building an indexing tool to examine levels of user engagement and agency. The indexing tool will be built on the new classifier in the front-end monorepo (FEM). This tool will allow volunteers to select a subject-set or a subject to classify on. All 3 Project Builder projects being built to test the use of the indexing tool will require Dropdown tasks. The Dropdown task is not currently in the Front-end monorepo. We have two options to support the requirements  of these projects: using the existing dropdown task available in Panoptes-Front-End (PFE), the legacy single-page front-end app and build the new indexing tool in the classifier in the FEM or build both the dropdown task and the indexing tool in the FEM. Building the dropdown task in the new classifier in the FEM is something we need to do eventually anyway and we have the opportunity to evaluate how the existing dropdown task functions and how we may want to change it. 
+
+Known issues for the dropdown task in PFE include:
+
+- Long selection lists, particularly if there are multiple for cascading select options, can create massive task objects on the workflow resource resulting in slow loading and browser performance and slow exports.
+- The annotations are machine readable unique identifier strings to support cascading dropdowns. Machine readable annotations make analyzing the post-classification extraction and aggregation more complicated, particularly because of workflow versioning and translations. Caesar does not store the workflow task contents and so project owners have to reference the original workflow task by version in an export to get meaningful aggregations for actual study. 
+- The dropdown task also allows for user submitted values which essentially adds in a text task into the dropdown task. The annotation includes a boolean which, if false, lets the aggregation code know that this annotation should no longer aggregate as a dropdown task, but as a text task.
+
+### Sample annotations from PFE dropdown task
+
+A cascading dropdown task for country, state, and county where free text input is allowed:
+
+TODO I’ll add the example when we are editing in markdown
+``` json
+
+```
+
+## Decision
+ 
+We will develop a simplified dropdown task in the new classifier in the FEM. Creating a simple dropdown task contains the following functionality:
+
+- Limited dropdown list options of a minimum (4) and of a maximum (20) number of options (justification: if less than 4, this can be a single choice task using radio buttons)
+- No cascading, dependencies, or affect on other select inputs
+- No free-text entry on the dropdown. It will be recommended to project builders use the new workflow steps feature to have a dropdown task and text task in a single step. TODO: link to ADR about workflow steps.
+
+More complex dropdown tasks will be built in the future as separate task types based on analysis of actual usage in PFE. These will include:
+
+- Cascading dropdowns for
+  - Locations
+  - Custom (TBD)
+- Date picker
+  - Possibly a text input with validation rather than dropdowns
+- Asynchronous loading long lists by text input search
+
+### Suggested annotation JSON structure
+
+TODO: add example when editing in markdown
+``` json
+```
+
+## Consequences
+ 
+
+Theses decisions allow for these improvements:
+
+- Project owners will have the actual values selected from the dropdown task in either the raw classification or aggregation exports.
+- The aggregation code won’t have to dynamically choose what kind of aggregation to perform since the task type will be solely dropdown and not a combination of dropdown and text entry.
+- Min and max options allow us to avoid performance and load issues.
+
+However these decisions have impact on building the task in the lab and may mean dev time in the future:
+
+- If an option isn’t on the dropdown list, then the research team will need to include a separate text task in the workflow step. Note that the team has the possibility to add the word “Other” to the options list if they like, but a blank entry can serve this purpose as well. We can reevaluate this decision with more data on actual usage of the "option" feature in PFE and with feedback from project builders.
+- Dates will need to be set up manually, e.g. free-text for Day, researcher-generated list of months for Month. Note that for Engaging Crowds project #1, each subject set will cover the same year, so that info should already be in the subject metadata. In the future, we will develop some kind of date input task, but it won’t be available for the initial Engaging Crowds effort.
+- Generally project owners using the PFE dropdown task will need to migrate to one of the new options, and thus there will not be backwards compatibility with the PFE version.
+- The updated task type will need an updated editor in the lab.
