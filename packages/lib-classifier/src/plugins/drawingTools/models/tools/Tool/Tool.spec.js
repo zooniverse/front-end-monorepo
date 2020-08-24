@@ -33,7 +33,7 @@ describe('Model > DrawingTools > Tool', function () {
       {
         type: 'text',
         instruction: 'Transcribe something',
-        required: false
+        required: ''
       }
     ]
     const tool = Tool.create(Object.assign({}, toolData, { details }))
@@ -87,7 +87,7 @@ describe('Model > DrawingTools > Tool', function () {
             type: 'text',
             instruction: 'Transcribe something',
             help: '',
-            required: false,
+            required: '',
             text_tags: []
           }
         ]

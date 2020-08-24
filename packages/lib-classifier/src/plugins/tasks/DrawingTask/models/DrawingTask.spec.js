@@ -18,7 +18,7 @@ const details = [
   {
     type: 'text',
     instruction: 'Transcribe something',
-    required: false
+    required: ''
   }
 ]
 
