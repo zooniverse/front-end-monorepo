@@ -23,7 +23,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
     theme
   } = props
 
-  const zooming = {
+  const zoomEnabled = {
     image: allowPanZoom === 'image',
     scatterPlot: allowPanZoom === 'scatterPlot'
   }
@@ -40,7 +40,10 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       gap='xsmall'
       rows={['full']}
     >
-      <StyledBox gridArea='scatterPlot'>
+      <StyledBox
+        border={zoomEnabled.scatterPlot && { color: 'brand', size: 'xsmall' }}
+        gridArea='scatterPlot'
+      >
         <ScatterPlotViewer
           data={JSONData.data}
           margin={{
@@ -53,8 +56,8 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           setOnZoom={setOnZoom}
           xAxisLabel={JSONData.chartOptions?.xAxisLabel}
           yAxisLabel={JSONData.chartOptions?.yAxisLabel}
-          zoomControlFn={(zooming.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
-          zooming={zooming.scatterPlot}
+          zoomControlFn={(zoomEnabled.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
+          zooming={zoomEnabled.scatterPlot}
         />
       </StyledBox>
       <Box gridArea='image'>
@@ -64,8 +67,6 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           <image xlinkHref={imageSrc} />
         </SingleImageViewer>
       </Box>
-
-
     </Grid>
   )
 })
