@@ -192,8 +192,7 @@ const WorkflowStepStore = types
         }
 
         if (firstTask.type === 'combo') {
-          const combo = firstTask
-          firstStep.taskKeys = combo.tasks
+          firstStep.taskKeys = firstTask.tasks
         }
 
         taskKeysToConvertToSteps.splice(taskKeysToConvertToSteps.indexOf(first_task), 1)
