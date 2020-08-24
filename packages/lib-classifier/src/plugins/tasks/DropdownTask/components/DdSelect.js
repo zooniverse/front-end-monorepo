@@ -9,13 +9,6 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const maxWidth = pxToRem(60)
-const StyledBox = styled(Box)`
-  img:only-child, svg:only-child {
-    max-width: ${maxWidth};
-  }
-`
-
 const StyledText = styled(Text)`
   margin: 0;
   padding: 0;
@@ -83,7 +76,7 @@ function DdSelect (props) {
   const customInput = React.useRef()
   
   return (
-    <StyledBox
+    <Box
       margin={{ vertical: 'xsmall' }}
     >
       <StyledText size='small' tag='legend'>
@@ -116,7 +109,7 @@ function DdSelect (props) {
           />
         }
       </Box>
-    </StyledBox>
+    </Box>
   )
 }
 

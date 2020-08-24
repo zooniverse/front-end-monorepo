@@ -5,13 +5,6 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import DdSelect from './DdSelect'
 
-const maxWidth = pxToRem(60)
-const StyledBox = styled(Box)`
-  img:only-child, svg:only-child {
-    max-width: ${maxWidth};
-  }
-`
-
 const StyledText = styled(Text)`
   margin: 0;
   padding: 0;
@@ -28,7 +21,6 @@ function DropdownTask (props) {
     className,
     disabled,
     task,
-    theme
   } = props
   const { value } = annotation
   
@@ -57,10 +49,9 @@ function DropdownTask (props) {
     : []
   
   return (
-    <StyledBox
+    <Box
       className={className}
       disabled={disabled}
-      theme={theme}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
@@ -74,20 +65,14 @@ function DropdownTask (props) {
         options={defaultOptions}
         selectConfig={defaultSelect}
         setAnnotation={setAnnotation}
-        theme={theme}
       />
-    </StyledBox>
+    </Box>
   )
 }
 
 DropdownTask.defaultProps = {
   className: '',
   disabled: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 DropdownTask.propTypes = {
@@ -109,7 +94,6 @@ DropdownTask.propTypes = {
       title: PropTypes.string,
     }))
   }).isRequired,
-  theme: PropTypes.object
 }
 
 export default DropdownTask
