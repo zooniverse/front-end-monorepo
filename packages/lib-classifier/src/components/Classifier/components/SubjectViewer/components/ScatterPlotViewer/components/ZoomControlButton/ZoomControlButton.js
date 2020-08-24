@@ -4,17 +4,17 @@ import { Box } from 'grommet'
 import { ZoomIn } from 'grommet-icons'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import en from '../../locales/en'
+import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function ZoomEnableButton (props) {
+function ZoomControlButton (props) {
   const {
     onClick = () => {},
     zooming = false
   } = props
 
-  const label = (zooming) ? counterpart('VariableStarViewer.zoomEnabled') : counterpart('VariableStarViewer.enableZoom')
+  const label = (zooming) ? counterpart('ZoomControlButton.zoomEnabled') : counterpart('ZoomControlButton.enableZoom')
 
   return (
     <Box direction='row' justify='center' style={{ position: 'absolute', top: 0 }} width='100%'>
@@ -30,9 +30,9 @@ function ZoomEnableButton (props) {
   )
 }
 
-ZoomEnableButton.propTypes = {
+ZoomControlButton.propTypes = {
   onClick: PropTypes.func,
   zooming: PropTypes.bool
 }
 
-export default ZoomEnableButton
+export default ZoomControlButton

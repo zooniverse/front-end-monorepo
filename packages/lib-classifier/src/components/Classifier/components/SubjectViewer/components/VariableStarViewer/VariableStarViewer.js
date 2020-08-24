@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components'
 import {
   Box,
   Grid
@@ -11,7 +11,6 @@ import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewer } from '../SingleImageViewer'
 import { BarChartViewer } from '../BarChartViewer'
 import Controls from './components/Controls'
-import ZoomEnableButton from './components/ZoomEnableButton'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -89,7 +88,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         gridArea='phasedJSON'
         style={{ position: 'relative' }}
       >
-        <ZoomEnableButton onClick={() => setAllowPanZoom('phasedJSON')} zooming={zoomEnabled.phasedJSON} />
         <ScatterPlotViewer
           data={phasedJSON.data}
           invertAxes={{ x: false, y: invertYAxis }}
@@ -107,6 +105,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
           yAxisNumTicks={8}
           visibleSeries={visibleSeries}
+          zoomControlFn={(zoomEnabled.phasedJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('phasedJSON')}
           zooming={zoomEnabled.phasedJSON}
         />
       </Box>
@@ -115,7 +114,6 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
         gridArea='rawJSON'
         style={{ position: 'relative' }}
       >
-        <ZoomEnableButton onClick={() => setAllowPanZoom('rawJSON')} zooming={zoomEnabled.rawJSON} />
         <ScatterPlotViewer
           data={scatterPlot.data}
           invertAxes={{ x: false, y: invertYAxis }}
@@ -132,6 +130,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
           yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
           yAxisNumTicks={6}
           visibleSeries={visibleSeries}
+          zoomControlFn={(zoomEnabled.rawJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('rawJSON')}
           zooming={zoomEnabled.rawJSON}
         />
       </Box>

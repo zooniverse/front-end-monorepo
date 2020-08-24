@@ -4,7 +4,11 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
+import { Provider } from 'mobx-react'
+
 import DataImageViewerContainer from './DataImageViewerContainer'
+import ImageToolbar from '../../../ImageToolbar'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
@@ -14,14 +18,36 @@ const config = {
   }
 }
 
-let zoomCallback
-
-function onZoom(type) {
-  zoomCallback(type)
+const mockStore = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
+  },
+  fieldGuide: {},
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  }
 }
 
-function setZoomCallback(callback) {
-  zoomCallback = callback
+
+function ViewerContext (props) {
+  const { children, theme, mode } = props
+  return (
+    <Provider classifierStore={mockStore}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode={mode}
+      >
+        {children}
+      </Grommet>
+    </Provider>
+  )
 }
 
 const stories = storiesOf('Subject Viewers | DataImageViewer', module)
@@ -43,7 +69,14 @@ const subject = Factory.build('subject', {
 stories
   .add('light theme', () => {
     return (
-      <Grommet theme={zooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
         <Box height='500px' width='700px'>
           <DataImageViewerContainer
             subject={subject}
@@ -55,7 +88,14 @@ stories
   .add('dark theme', () => {
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <Grommet theme={darkZooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={darkZooTheme}
+        themeMode='dark'
+      >
         <Box height='500px' width='large'>
           <DataImageViewerContainer
             subject={subject}
@@ -65,9 +105,15 @@ stories
     )
   }, { backgrounds: backgrounds.darkDefault, viewport: { defaultViewport: 'responsive' }, ...config })
   .add('narrow view', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
-      <Grommet theme={darkZooTheme}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
         <Box height='500px' width='large'>
           <DataImageViewerContainer
             subject={subject}
@@ -76,3 +122,15 @@ stories
       </Grommet>
     )
   }, { viewport: { defaultViewport: 'iphone5' }, ...config })
+  .add('pan / zoom', () => {
+    return (
+      <ViewerContext mode='light' theme={zooTheme}>
+        <Box direction='row' height='500px' width='large'>
+          <DataImageViewerContainer
+            subject={subject}
+          />
+          <ImageToolbar />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)
