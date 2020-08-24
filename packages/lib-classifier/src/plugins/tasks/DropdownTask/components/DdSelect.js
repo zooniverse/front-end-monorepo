@@ -37,7 +37,6 @@ function DdSelect (props) {
     options,
     selectConfig,
     setAnnotation,
-    theme,
   } = props
   
   function onSelectChange ({ option }) {
@@ -86,7 +85,6 @@ function DdSelect (props) {
   return (
     <StyledBox
       margin={{ vertical: 'xsmall' }}
-      theme={theme}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
@@ -128,11 +126,6 @@ DdSelect.defaultProps = {
   options: [],
   selectConfig: {},
   setAnnotation: () => {},
-  theme: {
-    global: {
-      colors: {}
-    }
-  },
 }
 
 DdSelect.propTypes = {
@@ -141,7 +134,6 @@ DdSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
   selectConfig: PropTypes.object,
   setAnnotation: PropTypes.func,
-  theme: PropTypes.object,
 }
 
 export default DdSelect
