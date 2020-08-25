@@ -58,14 +58,31 @@ function DropdownTask (props) {
           {task.instruction}
         </Markdownz>
       </StyledText>
+      
+      {task.selects.map((select, index) => {
+        let options = []
         
-      <DdSelect
-        annotationValue={value && value[0]}
-        index={0}
-        options={defaultOptions}
-        selectConfig={defaultSelect}
-        setAnnotation={setAnnotation}
-      />
+        console.log('+++ annotation value: ', value.toJSON())
+        
+        if (index === 0) {
+          options = select.options['*'].slice()
+        } else {
+          const answerToPreviousSelect = value[index-1]
+          if (answerToPreviousSelect) {
+            options = select.options[answerToPreviousSelect.value]
+          }
+        }
+    
+        return (
+          <DdSelect
+            annotationValue={value && value[index]}
+            index={index}
+            options={options}
+            selectConfig={select}
+            setAnnotation={setAnnotation}
+          />
+        )
+      })}
     </Box>
   )
 }
