@@ -119,9 +119,11 @@ Dropdown annotation (classification) data structure, example:
  ]
 ```
 
-## Data Models (Cascading)
+## Advanced - Cascading Dropdown Task
 
-Addendum - Dropdown task data structure (cascading), example:
+BEWARE, here be dragons.
+
+Dropdown task data structure (cascading), example:
 
 ```
 "T0": {
@@ -205,3 +207,33 @@ Addendum - Dropdown task data structure (cascading), example:
     "instruction": "Where did this character come form?"
 }
 ```
+
+Dropdown annotation (classification) data structure, example:
+
+```
+"annotations":[
+  {
+    task: "T0",
+    value: [
+      {
+        value: "a893ad87b8b8c",  // USA
+        option: true
+      },
+      {
+        value: "78ca14613967c",  // Chicago
+        option: true
+      }
+    ]
+  }
+]
+```
+
+
+Some observations about implementation in PFE:
+
+- When we have a cascading dropdown task like the example above, both a `<select>` for Country and a `<select>` for City appear.
+- If City depends on Country, but the selected Country has no valid Cities to list, (either because 1. no Country was selected, 2. the Country has no Cities associated with it, or 3. the Country allowed free text entry and the user typed in something ridiculous like "The Lost Continent of Atlantis") the the City's `<select>` will be disabled with a "N/A" text.
+- (!!!) Exception: if the Country allows free text entry, the user can ALWAYS type in any answer.
+- If a dropdown had no answer selected for any reason, the annotation value will be `{value: null, option: false}`
+
+The important thing to note here is the exception. If we start to support free text entry, we need to seriously consider the UI what to do when a _dependent dropdown_ allows free text.
