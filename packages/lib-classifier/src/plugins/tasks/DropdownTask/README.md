@@ -118,3 +118,90 @@ Dropdown annotation (classification) data structure, example:
     }
  ]
 ```
+
+## Data Models (Cascading)
+
+Addendum - Dropdown task data structure (cascading), example:
+
+```
+"T0": {
+    "help": "",
+    "type": "dropdown",
+    "selects": [
+        {
+            "id": "e6648d9524038",
+            "title": "Country",
+            "options": {
+                "*": [
+                    {
+                        "label": "UK",
+                        "value": "8d2b49f2ab18a"
+                    },
+                    {
+                        "label": "USA",
+                        "value": "a893ad87b8b8c"
+                    },
+                    {
+                        "label": "Japan",
+                        "value": "cc8773d27f0aa"
+                    }
+                ]
+            },
+            "required": true,
+            "allowCreate": false
+        },
+        {
+            "id": "d6697219c5d3a",
+            "title": "City",
+            "options": {
+                "8d2b49f2ab18a": [
+                    {
+                        "label": "London",
+                        "value": "80623599d84d1"
+                    },
+                    {
+                        "label": "Oxford",
+                        "value": "44784c24e641"
+                    },
+                    {
+                        "label": "Birmingham",
+                        "value": "f7b67c6758cf8"
+                    }
+                ],
+                "a893ad87b8b8c": [
+                    {
+                        "label": "Chicago",
+                        "value": "78ca14613967c"
+                    },
+                    {
+                        "label": "Minneapolis",
+                        "value": "225c8911a4db3"
+                    },
+                    {
+                        "label": "Washington",
+                        "value": "85c4b3bea4071"
+                    }
+                ],
+                "cc8773d27f0aa": [
+                    {
+                        "label": "Tokyo",
+                        "value": "7f2981b163d1e"
+                    },
+                    {
+                        "label": "Osaka",
+                        "value": "3886cd84d705c"
+                    },
+                    {
+                        "label": "Kyoto",
+                        "value": "e50ca74547915"
+                    }
+                ]
+            },
+            "required": false,
+            "condition": "e6648d9524038",
+            "allowCreate": true
+        }
+    ],
+    "instruction": "Where did this character come form?"
+}
+```
