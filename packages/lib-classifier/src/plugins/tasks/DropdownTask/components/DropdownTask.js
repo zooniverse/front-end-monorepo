@@ -25,7 +25,7 @@ function DropdownTask (props) {
   const { value } = annotation
   
   function setAnnotation (optionValue, optionIndex = 0, isPresetOption = false) {
-    const newAnnotationValue = (value && value.slice()) || []
+    const newAnnotationValue = (value && value.slice(0, optionIndex)) || []
     newAnnotationValue[optionIndex] = {
       value: optionValue,
       option: isPresetOption,
@@ -35,18 +35,7 @@ function DropdownTask (props) {
     // TODO: if using cascading dropdowns, we probably need to wipe out all existing answers past optionIndex.
   }
   
-  // Simple Dropdown: only the first <select> matters
-  const defaultSelect = task.selects[0] || {
-    allowCreate: false,
-    options: {},
-    required: false,
-    title: '',
-  }
-  
-  // Simple Dropdown: only the first set of <option>s matters
-  const defaultOptions = (defaultSelect.options['*'])
-    ? defaultSelect.options['*'].slice()
-    : []
+  console.log('+++ annotation value: ', value.toJSON())
   
   return (
     <Box
@@ -61,8 +50,6 @@ function DropdownTask (props) {
       
       {task.selects.map((select, index) => {
         let options = []
-        
-        console.log('+++ annotation value: ', value.toJSON())
         
         if (index === 0) {
           options = select.options['*'].slice()
