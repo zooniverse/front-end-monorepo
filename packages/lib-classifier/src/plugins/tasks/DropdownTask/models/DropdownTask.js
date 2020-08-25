@@ -6,7 +6,7 @@ import DropdownAnnotation from './DropdownAnnotation'
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
 
-const DropdownOptions = types.model('Dropdown', {
+const DropdownOptions = types.model('DropdownOptions', {
   label: types.string,
   value: types.string,
 })
