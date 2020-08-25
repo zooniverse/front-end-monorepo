@@ -1,16 +1,16 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import ZoomEnableButton from './ZoomEnableButton'
+import ZoomControlButton from './ZoomControlButton'
 import { MetaToolsButton } from '@zooniverse/react-components'
-import en from '../../locales/en'
+import en from './locales/en'
 
-describe('Component > ZoomEnableButton', function () {
+describe('Component > ZoomControlButton', function () {
   let wrapper, onClickSpy
   beforeEach(function () {
     onClickSpy = sinon.spy()
     wrapper = shallow(
-      <ZoomEnableButton onClick={onClickSpy} />
+      <ZoomControlButton onClick={onClickSpy} />
     )
   })
   it('should render without crashing', function () {
@@ -18,9 +18,9 @@ describe('Component > ZoomEnableButton', function () {
   })
 
   it('should label text the button according to the zooming prop', function () {
-    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.VariableStarViewer.enableZoom)
+    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.enableZoom)
     wrapper.setProps({ zooming: true })
-    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.VariableStarViewer.zoomEnabled)
+    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.zoomEnabled)
   })
 
   it('should set the aria-checked state according to the zooming prop', function () {
