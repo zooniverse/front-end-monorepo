@@ -25,17 +25,14 @@ function DropdownTask (props) {
   const { value } = annotation
   
   function setAnnotation (optionValue, optionIndex = 0, isPresetOption = false) {
+    // Note: for cascading dropdowns, we wipe out all existing answers past optionIndex.
     const newAnnotationValue = (value && value.slice(0, optionIndex)) || []
     newAnnotationValue[optionIndex] = {
       value: optionValue,
       option: isPresetOption,
     }
     annotation.update(newAnnotationValue)
-    
-    // TODO: if using cascading dropdowns, we probably need to wipe out all existing answers past optionIndex.
   }
-  
-  console.log('+++ annotation value: ', value.toJSON())
   
   return (
     <Box
@@ -51,15 +48,20 @@ function DropdownTask (props) {
       {task.selects.map((select, index) => {
         let options = []
         
-        if (index === 0) {
+        // For cascading dropdowns, find the parent (condition) dropdown.
+        const indexOfParent = task.selects.findIndex(s => s.id === select.condition)
+        
+        if (indexOfParent < 0) {  // Usually means this is the first dropdown in the chain, or the only dropdown 
           options = select.options['*'].slice()
         } else {
-          const answerToPreviousSelect = value[index-1]
-          if (answerToPreviousSelect) {
-            options = select.options[answerToPreviousSelect.value]
-          }
+          const answerKey = (value[indexOfParent])
+            ? value[indexOfParent].value
+            : ''
+          options = (select.options[answerKey])
+            ? select.options[answerKey].slice()
+            : []
         }
-    
+        
         return (
           <DdSelect
             annotationValue={value && value[index]}

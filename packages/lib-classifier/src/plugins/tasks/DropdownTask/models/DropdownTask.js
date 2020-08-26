@@ -17,6 +17,7 @@ const Dropdown = types.model('Dropdown', {
   instruction: types.optional(types.string, ''),
   selects: types.array(types.frozen({
     allowCreate: types.boolean,
+    condition: types.optional(types.string, ''),  // Used by cascading dropdowns, to determine the parent dropdown.
     id: types.string,
     options: types.map(DropdownOptions),
     required: types.optional(types.boolean, false),
