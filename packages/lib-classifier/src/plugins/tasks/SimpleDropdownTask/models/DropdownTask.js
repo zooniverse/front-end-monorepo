@@ -12,16 +12,11 @@ const DropdownOptions = types.model('DropdownOptions', {
 })
 
 const Dropdown = types.model('Dropdown', {
+  allowCreate: types.boolean,
   annotation: types.safeReference(DropdownAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.optional(types.string, ''),
-  selects: types.array(types.frozen({
-    allowCreate: types.boolean,
-    id: types.string,
-    options: types.map(DropdownOptions),
-    required: types.optional(types.boolean, false),
-    title: types.string,
-  })),
+  options: types.array(types.string),
   type: types.literal('dropdown-simple'),
 })
   .views(self => ({

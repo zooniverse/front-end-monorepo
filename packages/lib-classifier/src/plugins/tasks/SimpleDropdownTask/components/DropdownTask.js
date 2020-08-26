@@ -25,28 +25,22 @@ function DropdownTask (props) {
   const { value } = annotation
   
   function setAnnotation (optionValue, optionIndex = 0, isPresetOption = false) {
-    const newAnnotationValue = (value && value.slice()) || []
-    newAnnotationValue[optionIndex] = {
+    annotation.update({
       value: optionValue,
       option: isPresetOption,
-    }
-    annotation.update(newAnnotationValue)
+    })
     
     // TODO: if using cascading dropdowns, we probably need to wipe out all existing answers past optionIndex.
   }
   
   // Simple Dropdown: only the first <select> matters
-  const defaultSelect = task.selects[0] || {
-    allowCreate: false,
-    options: {},
-    required: false,
-    title: '',
-  }
+  const defaultSelect = task
   
   // Simple Dropdown: only the first set of <option>s matters
-  const defaultOptions = (defaultSelect.options['*'])
-    ? defaultSelect.options['*'].slice()
-    : []
+  const defaultOptions = task.options.map(option => ({
+    value: option,
+    label: option,
+  }))
   
   return (
     <Box
@@ -60,7 +54,7 @@ function DropdownTask (props) {
       </StyledText>
         
       <DdSelect
-        annotationValue={value && value[0]}
+        annotationValue={value}
         index={0}
         options={defaultOptions}
         selectConfig={defaultSelect}
