@@ -72,7 +72,7 @@ SimpleDropdownTask.defaultProps = {
 SimpleDropdownTask.propTypes = {
   annotation: PropTypes.shape({
     update: PropTypes.func,
-    value: PropTypes.number
+    value: PropTypes.object
   }).isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
