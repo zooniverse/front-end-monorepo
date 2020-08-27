@@ -77,16 +77,11 @@ SimpleDropdownTask.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
+    allowCreate: PropTypes.bool,
     help: PropTypes.string,
     instruction: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.string),
     required: PropTypes.bool,
-    selects: PropTypes.arrayOf(PropTypes.shape({
-      allowCreate: PropTypes.bool,
-      id: PropTypes.string,
-      options: PropTypes.object,  // TODO: make this a map
-      required: PropTypes.bool,
-      title: PropTypes.string,
-    }))
   }).isRequired,
 }
 
