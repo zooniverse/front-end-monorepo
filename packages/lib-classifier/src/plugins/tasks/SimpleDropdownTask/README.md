@@ -50,3 +50,12 @@ Simple Dropdown annotation (classification) data structure, example:
   }
 }
 ```
+
+NOTE: if a simple dropdown has no value selected (as is the case when initially rendered), the annotation value is null.
+
+```
+{
+  "task":"T0",
+  "value": null,  // No value selected
+}
+```
