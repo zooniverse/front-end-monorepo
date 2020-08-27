@@ -29,18 +29,7 @@ function SimpleDropdownTask (props) {
       value: optionValue,
       option: isPresetOption,
     })
-    
-    // TODO: if using cascading dropdowns, we probably need to wipe out all existing answers past optionIndex.
   }
-  
-  // Simple Dropdown: only the first <select> matters
-  const defaultSelect = task
-  
-  // Simple Dropdown: only the first set of <option>s matters
-  const defaultOptions = task.options.map(option => ({
-    value: option,
-    label: option,
-  }))
   
   return (
     <Box
@@ -54,10 +43,10 @@ function SimpleDropdownTask (props) {
       </StyledText>
         
       <DdSelect
+        allowCreate={task.allowCreate}
         annotationValue={value}
         index={0}
-        options={defaultOptions}
-        selectConfig={defaultSelect}
+        options={task.options}
         setAnnotation={setAnnotation}
       />
     </Box>

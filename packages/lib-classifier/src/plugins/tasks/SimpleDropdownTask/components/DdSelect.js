@@ -58,7 +58,11 @@ function DdSelect (props) {
     value: '*',
   }
   
-  const optionsToDisplay = options.slice()
+  const optionsToDisplay = options.map(opt => ({
+    label: opt,
+    value: opt,
+  }))
+  
   if (selectConfig.allowCreate && ENABLE_OTHER_OPTION) {
     optionsToDisplay.push(otherOption)
   }
@@ -114,7 +118,7 @@ DdSelect.defaultProps = {
 DdSelect.propTypes = {
   annotationValue: PropTypes.object,
   index: PropTypes.number,
-  options: PropTypes.arrayOf(PropTypes.object),
+  options: PropTypes.arrayOf(PropTypes.string),
   selectConfig: PropTypes.object,
   setAnnotation: PropTypes.func,
 }
