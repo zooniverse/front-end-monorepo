@@ -44,6 +44,10 @@ const Step = types
   .actions(self => ({
     reset () {
       self.tasks.forEach(task => task.reset())
+      if (self.isThereBranching) {
+        self.setNext(undefined)
+        self.setPrevious(undefined)
+      }
     },
     setNext (nextStepKey) {
       self.next = nextStepKey
