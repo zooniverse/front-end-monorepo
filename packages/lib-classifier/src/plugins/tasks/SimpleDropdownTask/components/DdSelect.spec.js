@@ -45,11 +45,6 @@ describe('SimpleDropdownTask > DdSelect', function () {
       expect(wrapper).to.be.ok()
     })
     
-    it('should render the title', function () {
-      expect(wrapper.contains(selectConfig.title)).to.be.true()
-      console.log(wrapper.debug())
-    })
-    
     it('should have no initial value', function () {
       const grommetSelect = wrapper.find('Select')
       expect(grommetSelect.props()['value']).to.equal(undefined)

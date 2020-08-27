@@ -48,10 +48,10 @@ describe('SimpleDropdownTask', function () {
     let wrapper
 
     before(function () {
-      annotation.update([{
+      annotation.update({
         value: 'hashed-value-R',
         option: true,
-      }])
+      })
       wrapper = shallow(
         <SimpleDropdownTask
           annotation={annotation}

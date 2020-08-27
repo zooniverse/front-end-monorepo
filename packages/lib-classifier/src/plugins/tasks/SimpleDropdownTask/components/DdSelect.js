@@ -77,38 +77,28 @@ function DdSelect (props) {
   
   return (
     <Box
-      margin={{ vertical: 'xsmall' }}
+      gap='xsmall'
     >
-      <StyledText size='small' tag='legend'>
-        <Markdownz>
-          {selectConfig.title}
-        </Markdownz>
-      </StyledText>
+      <Select
+        icon={<Down size='small' />}
+        labelKey='label'
+        onChange={onSelectChange}
+        options={optionsToDisplay}
+        placeholder={counterpart('Dropdown.selectPlaceholder')}
+        size='small'
+        value={selectedOption}
+        valueKey='value'
+      />
 
-      <Box
-        gap='xsmall'
-      >
-        <Select
-          icon={<Down size='small' />}
-          labelKey='label'
-          onChange={onSelectChange}
-          options={optionsToDisplay}
-          placeholder={counterpart('Dropdown.selectPlaceholder')}
+      {(customInputVisibility) &&
+        <TextInput
+          onChange={onTextInputChange}
+          placeholder={counterpart('Dropdown.customInputPlaceholder')}
+          ref={customInput}
           size='small'
-          value={selectedOption}
-          valueKey='value'
+          value={customValue}
         />
-
-        {(customInputVisibility) &&
-          <TextInput
-            onChange={onTextInputChange}
-            placeholder={counterpart('Dropdown.customInputPlaceholder')}
-            ref={customInput}
-            size='small'
-            value={customValue}
-          />
-        }
-      </Box>
+      }
     </Box>
   )
 }
