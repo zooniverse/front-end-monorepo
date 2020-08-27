@@ -2,29 +2,16 @@ import { types } from 'mobx-state-tree'
 import SimpleDropdownTask from '@plugins/tasks/SimpleDropdownTask'
 
 const simpleDropdownTask = {
-  instruction: 'Choose your favourite things.',
-  selects: [{
-    allowCreate: false,
-    id: 'simple-dropdown-select-1',
-    options: {
-      '*': [
-        {
-          label: 'Red',
-          value: 'hashed-value-R',
-        },
-        {
-          label: 'Green',
-          value: 'hashed-value-G',
-        },
-        {
-          label: 'Blue',
-          value: 'hashed-value-B',
-        },
-      ],
-    },
-    required: false,
-    title: 'Colour',
-  }],
+  instruction: 'Choose your favourite colour',
+  allowCreate: false,
+  options: [
+    'Red',
+    'Blue',
+    'Yellow',
+    'Green',
+    'White',
+    'Black',
+  ],
   required: false,
   taskKey: 'T1',
   type: 'dropdown-simple'

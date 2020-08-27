@@ -31,7 +31,7 @@ describe('Model > SimpleDropdownAnnotation', function () {
 
     before(function () {
       simpleDropdownAnnotation = SimpleDropdownAnnotation.create({
-        id: 'dropdown-simple--1',
+        id: 'dropdown-simple-1',
         task: 'T0',
         taskType: 'dropdown-simple'
       })
