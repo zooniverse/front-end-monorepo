@@ -7,18 +7,9 @@ import DdSelect from './DdSelect'
 describe('SimpleDropdownTask > DdSelect', function () {
   
   const options = [
-    {
-      label: 'Red',
-      value: 'hashed-value-R',
-    },
-    {
-      label: 'Green',
-      value: 'hashed-value-G',
-    },
-    {
-      label: 'Blue',
-      value: 'hashed-value-B',
-    },
+    'Red',
+    'Blue',
+    'Green',
   ]
   
   const selectConfig = {
@@ -60,9 +51,9 @@ describe('SimpleDropdownTask > DdSelect', function () {
       const grommetSelect = wrapper.find('Select')
       const renderedOptions = grommetSelect.props()['options'] || []
       expect(renderedOptions).to.have.length(3)
-      expect(renderedOptions[0]).to.equal(options[0])
-      expect(renderedOptions[1]).to.equal(options[1])
-      expect(renderedOptions[2]).to.equal(options[2])
+      expect(renderedOptions[0].value).to.equal(options[0])
+      expect(renderedOptions[1].value).to.equal(options[1])
+      expect(renderedOptions[2].value).to.equal(options[2])
     })
   })
 
@@ -70,7 +61,7 @@ describe('SimpleDropdownTask > DdSelect', function () {
     let wrapper
     
     const annotationValue = {
-      value: 'hashed-value-B',
+      value: 'Blue',
       option: true,
     }
 
@@ -87,12 +78,8 @@ describe('SimpleDropdownTask > DdSelect', function () {
     })
 
     it('should pass the annotation value to the Grommet Select in the correct form', function () {
-      // Note that the annotation value is DIFFERENT from the value passed to Grommet's <Select>
-      // annotation value       = { value: 'hashed-value-B', option: true }
-      // value passed to Select = { value: 'hashed-value-B', label: 'Blue' }
-      
       const grommetSelect = wrapper.find('Select')
-      expect(grommetSelect.props()['value']).to.equal(options[2])
+      expect(grommetSelect.props().value.value).to.equal('Blue')
     })
   })
 })
