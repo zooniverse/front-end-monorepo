@@ -1,19 +1,19 @@
 import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
-import DropdownAnnotation from './DropdownAnnotation'
+import SimpleDropdownAnnotation from './SimpleDropdownAnnotation'
 
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
 
-const DropdownOptions = types.model('DropdownOptions', {
+const SimpleDropdownOptions = types.model('SimpleDropdownOptions', {
   label: types.string,
   value: types.string,
 })
 
-const Dropdown = types.model('Dropdown', {
+const SimpleDropdown = types.model('SimpleDropdown', {
   allowCreate: types.boolean,
-  annotation: types.safeReference(DropdownAnnotation),
+  annotation: types.safeReference(SimpleDropdownAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.optional(types.string, ''),
   options: types.array(types.string),
@@ -21,7 +21,7 @@ const Dropdown = types.model('Dropdown', {
 })
   .views(self => ({
     get defaultAnnotation () {
-      return DropdownAnnotation.create({
+      return SimpleDropdownAnnotation.create({
         id: cuid(),
         task: self.taskKey,
         taskType: self.type
@@ -29,6 +29,6 @@ const Dropdown = types.model('Dropdown', {
     }
   }))
 
-const DropdownTask = types.compose('DropdownTask', Task, Dropdown)
+const SimpleDropdownTask = types.compose('SimpleDropdownTask', Task, SimpleDropdown)
 
-export default DropdownTask
+export default SimpleDropdownTask

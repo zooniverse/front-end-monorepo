@@ -1,15 +1,15 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
-import DropdownTask from './DropdownTask'
+import SimpleDropdownTask from './SimpleDropdownTask'
 import DdSelect from './DdSelect'
-import { default as Task } from '@plugins/tasks/DropdownTask'
+import { default as Task } from '@plugins/tasks/SimpleDropdownTask'
 
-const dropdownTask = {
+const simpleDropdownTask = {
   instruction: 'Choose your favourite things.',
   selects: [{
     allowCreate: false,
-    id: 'dropdown-select-1',
+    id: 'dropdown-simple-select-1',
     options: {
       '*': [
         {
@@ -31,17 +31,17 @@ const dropdownTask = {
   }],
   required: false,
   taskKey: 'T1',
-  type: 'dropdown'
+  type: 'dropdown-simple'
 }
 
-describe('DropdownTask', function () {
-  const task = Task.TaskModel.create(dropdownTask)
+describe('SimpleDropdownTask', function () {
+  const task = Task.TaskModel.create(simpleDropdownTask)
   const annotation = task.defaultAnnotation
 
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<DropdownTask annotation={annotation} task={task} />)
+      wrapper = shallow(<SimpleDropdownTask annotation={annotation} task={task} />)
     })
 
     it('should render without crashing', function () {
@@ -52,7 +52,7 @@ describe('DropdownTask', function () {
       expect(wrapper.contains(task.instruction)).to.be.true()
     })
 
-    it('(for a simple dropdown) should render a single <select> element', function () {
+    it('should render a single <select> element', function () {
       expect(wrapper.find(DdSelect)).to.have.lengthOf(1)
     })
   })
@@ -66,7 +66,7 @@ describe('DropdownTask', function () {
         option: true,
       }])
       wrapper = shallow(
-        <DropdownTask
+        <SimpleDropdownTask
           annotation={annotation}
           task={task}
         />

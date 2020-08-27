@@ -15,7 +15,7 @@ const StyledText = styled(Text)`
   }
 `
 
-function DropdownTask (props) {
+function SimpleDropdownTask (props) {
   const {
     annotation,
     className,
@@ -64,12 +64,12 @@ function DropdownTask (props) {
   )
 }
 
-DropdownTask.defaultProps = {
+SimpleDropdownTask.defaultProps = {
   className: '',
   disabled: false,
 }
 
-DropdownTask.propTypes = {
+SimpleDropdownTask.propTypes = {
   annotation: PropTypes.shape({
     update: PropTypes.func,
     value: PropTypes.number
@@ -90,4 +90,4 @@ DropdownTask.propTypes = {
   }).isRequired,
 }
 
-export default DropdownTask
+export default SimpleDropdownTask

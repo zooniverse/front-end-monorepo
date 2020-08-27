@@ -1,6 +1,6 @@
-import { default as TaskComponent } from './components/DropdownTask'
-import { default as TaskModel } from './models/DropdownTask'
-import { default as AnnotationModel } from './models/DropdownAnnotation'
+import { default as TaskComponent } from './components/SimpleDropdownTask'
+import { default as TaskModel } from './models/SimpleDropdownTask'
+import { default as AnnotationModel } from './models/SimpleDropdownAnnotation'
 
 export default {
   TaskComponent,

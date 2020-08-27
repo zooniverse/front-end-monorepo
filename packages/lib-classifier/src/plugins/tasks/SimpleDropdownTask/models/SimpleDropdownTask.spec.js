@@ -1,11 +1,11 @@
 import { types } from 'mobx-state-tree'
-import DropdownTask from '@plugins/tasks/DropdownTask'
+import SimpleDropdownTask from '@plugins/tasks/SimpleDropdownTask'
 
-const dropdownTask = {
+const simpleDropdownTask = {
   instruction: 'Choose your favourite things.',
   selects: [{
     allowCreate: false,
-    id: 'dropdown-select-1',
+    id: 'simple-dropdown-select-1',
     options: {
       '*': [
         {
@@ -27,20 +27,20 @@ const dropdownTask = {
   }],
   required: false,
   taskKey: 'T1',
-  type: 'dropdown'
+  type: 'dropdown-simple'
 }
 
-describe('Model > DropdownTask', function () {
+describe('Model > SimpleDropdownTask', function () {
   it('should exist', function () {
-    const dropdownTaskInstance = DropdownTask.TaskModel.create(dropdownTask)
-    expect(dropdownTaskInstance).to.be.ok()
-    expect(dropdownTaskInstance).to.be.an('object')
+    const simpleDropdownTaskInstance = SimpleDropdownTask.TaskModel.create(simpleDropdownTask)
+    expect(simpleDropdownTaskInstance).to.be.ok()
+    expect(simpleDropdownTaskInstance).to.be.an('object')
   })
 
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      DropdownTask.create({})
+      SimpleDropdownTask.create({})
     } catch (e) {
       errorThrown = true
     }
@@ -51,11 +51,11 @@ describe('Model > DropdownTask', function () {
     let task
 
     before(function () {
-      task = DropdownTask.TaskModel.create(dropdownTask)
+      task = SimpleDropdownTask.TaskModel.create(simpleDropdownTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
-        annotation: DropdownTask.AnnotationModel,
-        task: DropdownTask.TaskModel
+        annotation: SimpleDropdownTask.AnnotationModel,
+        task: SimpleDropdownTask.TaskModel
       })
       .create({
         annotation,
@@ -84,12 +84,12 @@ describe('Model > DropdownTask', function () {
     let task
 
     before(function () {
-      const requiredTask = Object.assign({}, dropdownTask, { required: true })
-      task = DropdownTask.TaskModel.create(requiredTask)
+      const requiredTask = Object.assign({}, simpleDropdownTask, { required: true })
+      task = SimpleDropdownTask.TaskModel.create(requiredTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
-        annotation: DropdownTask.AnnotationModel,
-        task: DropdownTask.TaskModel
+        annotation: SimpleDropdownTask.AnnotationModel,
+        task: SimpleDropdownTask.TaskModel
       })
       .create({
         annotation,

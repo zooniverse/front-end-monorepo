@@ -77,36 +77,23 @@ function MockTask(props) {
   )
 }
 
-const dropdownTask = {
-  instruction: 'Choose your favourite things.',
-  selects: [{
-    allowCreate: false,
-    id: 'dropdown-select-1',
-    options: {
-      '*': [
-        {
-          label: 'Red',
-          value: 'hashed-value-R',
-        },
-        {
-          label: 'Green',
-          value: 'hashed-value-G',
-        },
-        {
-          label: 'Blue',
-          value: 'hashed-value-B',
-        },
-      ],
-    },
-    required: false,
-    title: 'Favourite colour',
-  }],
+const simpleDropdownTask = {
+  instruction: 'Choose your favourite colour',
+  allowCreate: false,
+  options: [
+    'Red',
+    'Blue',
+    'Yellow',
+    'Green',
+    'White',
+    'Black',
+  ],
   required: false,
   taskKey: 'init',
-  type: 'dropdown',
+  type: 'dropdown-simple',
 }
 
-storiesOf('Tasks | Dropdown Task', module)
+storiesOf('Tasks | Simple Dropdown Task', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
@@ -115,7 +102,7 @@ storiesOf('Tasks | Dropdown Task', module)
   })
   .add('light theme', function () {
     const tasks = {
-      init: dropdownTask
+      init: simpleDropdownTask
     }
     const step = {
       stepKey: 'S1',

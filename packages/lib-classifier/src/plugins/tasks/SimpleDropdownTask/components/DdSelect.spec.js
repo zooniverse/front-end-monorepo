@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import DdSelect from './DdSelect'
 
-describe('DropdownTask > DdSelect', function () {
+describe('SimpleDropdownTask > DdSelect', function () {
   
   const options = [
     {
