@@ -13,7 +13,7 @@ export const StyledPlainButton = styled(Button)`
 `
 
 function PlainButton (props) {
-  const { className, onClick, labelSize, text } = props
+  const { className, onClick, labelSize, text, textColor } = props
 
   return (
     <StyledPlainButton
@@ -21,10 +21,7 @@ function PlainButton (props) {
       gap='xxsmall'
       label={(
         <SpacedText
-          color={{
-            dark: 'accent-2',
-            light: 'neutral-2'
-          }}
+          color={textColor}
           size={labelSize}
         >
           {text}
@@ -42,6 +39,10 @@ PlainButton.defaultProps = {
   labelSize: 'medium',
   onClick: () => {},
   text: '',
+  textColor: {
+    dark: 'accent-2',
+    light: 'neutral-2'
+  },
   theme: {
     dark: false
   }
@@ -52,6 +53,10 @@ PlainButton.propTypes = {
   labelSize: string,
   onClick: func,
   text: string,
+  textColor: string || shape({
+    dark: string,
+    light: string
+  }),
   theme: shape({
     dark: bool
   })
