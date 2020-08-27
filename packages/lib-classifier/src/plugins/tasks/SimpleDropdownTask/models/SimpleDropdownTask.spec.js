@@ -17,7 +17,7 @@ const simpleDropdownTask = {
   type: 'dropdown-simple'
 }
 
-describe.only('Model > SimpleDropdownTask', function () {
+describe('Model > SimpleDropdownTask', function () {
   it('should exist', function () {
     const simpleDropdownTaskInstance = SimpleDropdownTask.TaskModel.create(simpleDropdownTask)
     expect(simpleDropdownTaskInstance).to.be.ok()

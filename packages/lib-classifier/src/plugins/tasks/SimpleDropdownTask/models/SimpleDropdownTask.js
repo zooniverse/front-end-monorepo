@@ -6,13 +6,8 @@ import SimpleDropdownAnnotation from './SimpleDropdownAnnotation'
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
 
-const SimpleDropdownOptions = types.model('SimpleDropdownOptions', {
-  label: types.string,
-  value: types.string,
-})
-
 const SimpleDropdown = types.model('SimpleDropdown', {
-  allowCreate: types.boolean,
+  allowCreate: types.optional(types.boolean, false),
   annotation: types.safeReference(SimpleDropdownAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.optional(types.string, ''),
