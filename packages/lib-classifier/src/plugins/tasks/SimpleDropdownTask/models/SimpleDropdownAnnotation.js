@@ -9,7 +9,7 @@ const SimpleDropdown = types.model('SimpleDropdown', {
 })
   .views(self => ({
     get isComplete () {
-      return self.value && self.value.value && self.value.length > 0
+      return self.value && self.value.value && self.value.value.length > 0
     }
   }))
 
