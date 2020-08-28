@@ -11,14 +11,23 @@ const WorkflowConfiguration = types.model({
   .views(self => ({
     get viewerType () {
       switch (self.subject_viewer) {
+        case 'dataImage': {
+          return subjectViewers.dataImage
+        }
         case 'lightcurve': {
           return subjectViewers.lightCurve
         }
         case 'multiFrame': {
           return subjectViewers.multiFrame
         }
+        case 'singleImage': {
+          return subjectViewers.singleImage
+        }
         case 'subjectGroup': {
           return subjectViewers.subjectGroup
+        }
+        case 'variableStar': {
+          return subjectViewers.variableStar
         }
         default: {
           return null
