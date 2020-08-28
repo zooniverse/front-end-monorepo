@@ -2,22 +2,9 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
-import { inject, observer } from 'mobx-react'
 
 import VariableStarViewer from './VariableStarViewer'
 import locationValidator from '../../helpers/locationValidator'
-
-function storeMapper(stores) {
-  const {
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    setOnZoom,
-    setOnPan
-  }
-}
 
 class VariableStarViewerContainer extends Component {
   constructor () {
@@ -286,6 +273,8 @@ VariableStarViewerContainer.defaultProps = {
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
+  setOnPan: () => {},
+  setOnZoom: () => {},
   subject: {
     id: '',
     locations: []
@@ -296,15 +285,12 @@ VariableStarViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  setOnPan: PropTypes.func,
+  setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedVariableStarViewerContainer extends VariableStarViewerContainer { }
-
-export default DecoratedVariableStarViewerContainer
-export { VariableStarViewerContainer }
+export default VariableStarViewerContainer
