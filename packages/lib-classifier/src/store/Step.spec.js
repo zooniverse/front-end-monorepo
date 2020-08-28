@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree'
+import sinon from 'sinon'
 import Step from './Step'
 import {
   MultipleChoiceTaskFactory,
@@ -283,6 +284,79 @@ describe('Model > Step', function () {
     it('should have isThereBranching return false', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       expect(step.isThereBranching).to.be.false()
+    })
+  })
+
+  describe('with reset', function () {
+    let tasks
+
+    it('should reset each task', function () {
+      tasks = [
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' }))
+      ]
+      step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      const resetSpies = {}
+      step.tasks.forEach(task => {
+        resetSpies[task.taskKey] = sinon.spy(task, 'reset')
+        expect(resetSpies[task.taskKey]).to.have.not.been.called()
+      })
+      step.reset()
+      step.tasks.forEach(task => {
+        expect(resetSpies[task.taskKey]).to.have.been.calledOnce()
+      })
+    })
+
+    describe('and branching', function () {
+      beforeEach(function () {
+        tasks = [
+          SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
+            taskKey: 'T2'
+          }))
+        ]
+      })
+
+      it('should reset previous to undefined', function () {
+        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, previous: 'S1' })
+        expect(step.previous).to.equal('S1')
+        step.reset()
+        expect(step.previous).to.equal(undefined)
+      })
+
+      it('should reset next to undefined', function () {
+        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, next: 'S3' })
+        expect(step.next).to.equal('S3')
+        step.reset()
+        expect(step.next).to.equal(undefined)
+      })
+    })
+
+    describe('and no branching', function () {
+      beforeEach(function () {
+        tasks = [
+          SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
+            taskKey: 'T2',
+            answers: [
+              { label: 'Red', next: 'S3' },
+              { label: 'Blue', next: 'S3' }
+            ]
+          }))
+        ]
+      })
+
+      it('should not reset previous to undefined', function () {
+        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, previous: 'S1' })
+        expect(step.previous).to.equal('S1')
+        step.reset()
+        expect(step.previous).to.equal('S1')
+      })
+
+      it('should not reset next to undefined', function () {
+        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, next: 'S3' })
+        expect(step.next).to.equal('S3')
+        step.reset()
+        expect(step.next).to.equal('S3')
+      })
     })
   })
 })
