@@ -35,10 +35,10 @@ const WorkflowStepStore = types
     get shouldWeShowDoneAndTalkButton () {
       const workflow = tryReference(() => getRoot(self).workflows?.active)
       const classification = tryReference(() => getRoot(self).classifications?.active)
-const step = tryReference(() => self.active)
+      const step = tryReference(() => self.active)
       if (workflow && step && classification) {
         const disableTalk = classification.metadata.subject_flagged
-        return step.isThereANextStep &&
+        return !step.isThereANextStep &&
         workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
         !disableTalk // &&
         // !completed TODO: implement classification completed validations per task?
