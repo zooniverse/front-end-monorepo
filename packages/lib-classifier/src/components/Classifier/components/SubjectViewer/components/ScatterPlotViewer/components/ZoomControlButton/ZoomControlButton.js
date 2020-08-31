@@ -14,7 +14,7 @@ function ZoomControlButton (props) {
     zooming = false
   } = props
 
-  const label = (zooming) ? counterpart('ZoomControlButton.zoomEnabled') : counterpart('ZoomControlButton.enableZoom')
+  const label = (zooming) ? counterpart('ZoomControlButton.disable') : counterpart('ZoomControlButton.enable')
 
   return (
     <Box direction='row' justify='center' style={{ position: 'absolute', top: 0 }} width='100%'>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
-import DataImageViewerContainer from './DataImageViewerContainer'
+import VariableStarViewerContainer from './VariableStarViewerContainer'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
@@ -21,21 +21,21 @@ function useStores() {
   }
 }
 
-function DataImageViewerConnector (props) {
+function VariableStarViewerConnector(props) {
   const {
-    setOnZoom,
     setOnPan,
+    setOnZoom,
     subject
   } = useStores()
 
   return (
-    <DataImageViewerContainer
-      setOnZoom={setOnZoom}
+    <VariableStarViewerContainer
       setOnPan={setOnPan}
+      setOnZoom={setOnZoom}
       subject={subject}
       {...props}
     />
   )
 }
 
-export default observer(DataImageViewerConnector)
+export default observer(VariableStarViewerConnector)

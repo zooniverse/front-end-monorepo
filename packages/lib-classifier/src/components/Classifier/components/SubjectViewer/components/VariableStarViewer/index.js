@@ -1,2 +1,2 @@
-export { default } from './VariableStarViewerContainer'
+export { default } from './VariableStarViewerConnector'
 export { default as VariableStarViewer } from './VariableStarViewer'

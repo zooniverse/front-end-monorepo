@@ -5,7 +5,7 @@ import nock from 'nock'
 import sinon from 'sinon'
 import { Factory } from 'rosie'
 
-import { VariableStarViewerContainer } from './VariableStarViewerContainer'
+import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 
