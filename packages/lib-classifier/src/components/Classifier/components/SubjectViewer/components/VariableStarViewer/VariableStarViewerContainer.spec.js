@@ -79,7 +79,7 @@ const nextSubjectJSON = {
   }
 }
 
-describe.only('Component > VariableStarViewerContainer', function () {
+describe('Component > VariableStarViewerContainer', function () {
   const mockState = {
     allowPanZoom: '',
     barJSON: {
@@ -199,7 +199,7 @@ describe.only('Component > VariableStarViewerContainer', function () {
     })
   })
 
-  describe.only('with a subject', function () {
+  describe('with a subject', function () {
     let cdmSpy
     let cduSpy
     let nockScope
@@ -273,18 +273,16 @@ describe.only('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
 
-    it.only('should update component state when there is a new valid subject', function (done) {
+    it('should update component state when there is a new valid subject', function (done) {
       cdmSpy.returnValues[0].then(() => {
-        console.log('state after cdm', wrapper.state())
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
         expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
-      }).then(() => wrapper.setProps({ subject: nextSubject }))
-      .then(() => {
-        cduSpy.returnValues[0].then(() => {
-          console.log('state after cdu', wrapper.state())
-          expect(wrapper.state().rawJSON).to.deep.equal(nextSubjectJSON)
-          expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image2.png')
-        })
+      })
+      wrapper.setProps({ subject: nextSubject })
+
+      cduSpy.returnValues[0].then(() => {
+        expect(wrapper.state().rawJSON).to.deep.equal(nextSubjectJSON)
+        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image2.png')
       }).then(done, done)
     })
   })
@@ -431,11 +429,11 @@ describe.only('Component > VariableStarViewerContainer', function () {
 
       cduSpy.returnValues[0].then(() => {
         const phasedJSONState = wrapper.state().phasedJSON
-        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(nextSubjectJSON.scatterPlot.data[0].seriesData.length)
-        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(nextSubjectJSON.scatterPlot.data[0].seriesOptions)
-        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(nextSubjectJSON.scatterPlot.data[1].seriesData.length)
-        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(nextSubjectJSON.scatterPlot.data[1].seriesOptions)
-        expect(phasedJSONState.chartOptions).to.deep.equal(nextSubjectJSON.scatterPlot.chartOptions)
+        expect(phasedJSONState.data[0].seriesData.length).to.be.at.least(nextSubjectJSON.data.scatterPlot.data[0].seriesData.length)
+        expect(phasedJSONState.data[0].seriesOptions).to.deep.equal(nextSubjectJSON.data.scatterPlot.data[0].seriesOptions)
+        expect(phasedJSONState.data[1].seriesData.length).to.be.at.least(nextSubjectJSON.data.scatterPlot.data[1].seriesData.length)
+        expect(phasedJSONState.data[1].seriesOptions).to.deep.equal(nextSubjectJSON.data.scatterPlot.data[1].seriesOptions)
+        expect(phasedJSONState.chartOptions).to.deep.equal(nextSubjectJSON.data.scatterPlot.chartOptions)
       }).then(done, done)
     })
 

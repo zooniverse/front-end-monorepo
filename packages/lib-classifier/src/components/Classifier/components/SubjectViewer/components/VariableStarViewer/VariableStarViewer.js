@@ -16,7 +16,6 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 const VariableStarViewer = React.forwardRef((props, ref) => {
-  console.log('ref', ref)
   const {
     allowPanZoom,
     barJSON,
