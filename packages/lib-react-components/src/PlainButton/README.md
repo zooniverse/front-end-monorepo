@@ -4,20 +4,20 @@ A button component that looks like a plain text link. Has the same API as Gromme
 
 The `Button` label is using the `SpacedText` component. The `text` prop is the string label to be set inside the `SpacedText`. The `SpacedText` size can also be set using the `labelSize` prop, defaults to `medium`.
 
-####Optional prop: textColor
+####Optional prop: color
 The text color can be customized by passing in a string value representing a color.
 
 Example use cases:
 
 ```
 <PlainButton
-  textColor={'teal'}
+  color={'teal'}
 />
 
 or
 
 <PlainButton
-  textColor={'#008080'}
+  color={'#008080'}
 />
 ```
 

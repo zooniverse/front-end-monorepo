@@ -70,7 +70,7 @@ storiesOf('PlainButton', module)
   .add('Custom color', () => (
     <Grommet theme={zooTheme}>
       <PlainButton
-        textColor={text('Color:', '#FF0000')}
+        color={text('Color:', '#FF0000')}
         text={text('Text', 'Click me')}
       />
     </Grommet>
