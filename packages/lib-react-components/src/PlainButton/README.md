@@ -11,7 +11,10 @@ Example use cases:
 
 ```
 <PlainButton
-  color={'teal'}
+  color={
+    dark: "#2d2d2d",
+    light: "#eff2f5"
+  }
 />
 
 or
