@@ -26,11 +26,11 @@ import { ZooFooter } from '@zooniverse/react-components';
 
 ## Run
 
-`npm start` to run locally on (https://localhost:6006).
+`yarn start` to run the storybook locally on (https://localhost:6006).
 
 ## Tests
 
-`npm test` to run mocha tests.
+`yarn test` to run mocha tests.
 
 ## Contributing
 
