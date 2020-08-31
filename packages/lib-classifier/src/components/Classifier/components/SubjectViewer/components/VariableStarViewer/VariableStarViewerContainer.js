@@ -33,18 +33,20 @@ class VariableStarViewerContainer extends Component {
       },
       phaseLimit: 0.2,
       rawJSON: {
-        scatterPlot: {
-          data: [],
-          chartOptions: {}
-        },
-        barCharts: {
-          amplitude: {
+        data: {
+          scatterPlot: {
             data: [],
             chartOptions: {}
           },
-          period: {
-            data: [],
-            chartOptions: {}
+          barCharts: {
+            amplitude: {
+              data: [],
+              chartOptions: {}
+            },
+            period: {
+              data: [],
+              chartOptions: {}
+            }
           }
         }
       },
@@ -115,14 +117,16 @@ class VariableStarViewerContainer extends Component {
     const {
       scatterPlot,
       barCharts
-    } = rawJSON
+    } = rawJSON?.data
+
     const { onReady, subject } = this.props
     const target = this.viewer.current
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
     const visibleSeries = this.setupSeriesVisibility(scatterPlot)
     const imageLocation = subject.locations.find(location => location['image/png']) || {}
-    const imageSrc = imageLocation['image/png'] || ''
+    // think about a better way to do this
+    const imageSrc = subject.locations[2]['image/png'] || ''
 
     this.setState({
       barJSON,
@@ -132,7 +136,8 @@ class VariableStarViewerContainer extends Component {
       visibleSeries
     },
       function () {
-        onReady({ target })
+        // temporarily remove ref param
+        onReady({})
       })
   }
 
@@ -182,8 +187,10 @@ class VariableStarViewerContainer extends Component {
   calculateJSON () {
     const {
       rawJSON: {
-        scatterPlot,
-        barCharts
+        data: {
+          scatterPlot,
+          barCharts
+        }
       }
     } = this.state
     const phasedJSON = this.calculatePhase(scatterPlot)
@@ -226,7 +233,7 @@ class VariableStarViewerContainer extends Component {
 
   setSeriesPhaseFocus (event) {
     const seriesIndexForPeriod = parseInt(event.target.value)
-    const phasedJSON = this.calculatePhase(this.state.rawJSON.scatterPlot, seriesIndexForPeriod)
+    const phasedJSON = this.calculatePhase(this.state.rawJSON.data.scatterPlot, seriesIndexForPeriod)
     this.setState({ phasedJSON, phaseFocusedSeries: seriesIndexForPeriod })
   }
 
@@ -256,6 +263,7 @@ class VariableStarViewerContainer extends Component {
         phaseLimit={this.state.phaseLimit}
         phasedJSON={this.state.phasedJSON}
         rawJSON={this.state.rawJSON}
+        ref={this.viewer}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
         setAllowPanZoom={this.setAllowPanZoom}
