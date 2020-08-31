@@ -107,6 +107,7 @@ class VariableStarViewerContainer extends Component {
     const { onError } = this.props
     try {
       const rawJSON = await this.requestData()
+
       if (rawJSON) this.onLoad(rawJSON)
     } catch (error) {
       onError(error)
@@ -115,18 +116,20 @@ class VariableStarViewerContainer extends Component {
 
   onLoad (rawJSON) {
     const {
-      scatterPlot,
-      barCharts
-    } = rawJSON?.data
+      data: {
+        scatterPlot,
+        barCharts
+      }
+    } = rawJSON
 
     const { onReady, subject } = this.props
     const target = this.viewer.current
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
     const visibleSeries = this.setupSeriesVisibility(scatterPlot)
-    const imageLocation = subject.locations.find(location => location['image/png']) || {}
     // think about a better way to do this
-    const imageSrc = subject.locations[2]['image/png'] || ''
+    const imageLocation = subject.locations[2] || {}
+    const imageSrc = imageLocation['image/png'] || ''
 
     this.setState({
       barJSON,
@@ -137,7 +140,7 @@ class VariableStarViewerContainer extends Component {
     },
       function () {
         // temporarily remove ref param
-        onReady({})
+        onReady({ target: {} })
       })
   }
 
