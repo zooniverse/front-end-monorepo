@@ -1,1 +1,1 @@
-export default from './DataImageViewerConnector'
+export { default } from './DataImageViewerConnector'
