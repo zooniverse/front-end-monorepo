@@ -18,9 +18,9 @@ describe('Component > ZoomControlButton', function () {
   })
 
   it('should label text the button according to the zooming prop', function () {
-    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.enableZoom)
+    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.enable)
     wrapper.setProps({ zooming: true })
-    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.zoomEnabled)
+    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.disable)
   })
 
   it('should set the aria-checked state according to the zooming prop', function () {

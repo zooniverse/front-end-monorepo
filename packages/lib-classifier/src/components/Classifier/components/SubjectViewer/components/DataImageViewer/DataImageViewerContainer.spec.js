@@ -46,6 +46,7 @@ describe('Component > DataImageViewerContainer', function () {
       { disableLifecycleMethods: true }
     )
     const mockState = {
+      allowPanZoom: '',
       imageSrc: '',
       JSONData: {
         data: [],
@@ -218,6 +219,19 @@ describe('Component > DataImageViewerContainer', function () {
         expect(dataImageViewer.props().JSONData).to.deep.equal(nextSubjectJSON)
         expect(dataImageViewer.props().imageSrc).to.equal('http://localhost:8080/image2.png')
       }).then(done, done)
+    })
+  })
+
+  describe('setAllowPanZoom', function () {
+    it('should set the allowPanZoom state when setAllowPanZoom is called', function () {
+      const wrapper = shallow(
+        <DataImageViewerContainer
+          subject={subject}
+        />
+      )
+      expect(wrapper.state().allowPanZoom).to.be.empty()
+      wrapper.instance().setAllowPanZoom('image')
+      expect(wrapper.state().allowPanZoom).to.equal('image')
     })
   })
 })

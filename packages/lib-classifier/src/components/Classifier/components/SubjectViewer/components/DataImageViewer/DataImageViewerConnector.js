@@ -9,14 +9,32 @@ function useStores() {
     active: subject
   } = stores.classifierStore.subjects
 
-  return { subject }
+  const {
+    setOnZoom,
+    setOnPan
+  } = stores.classifierStore.subjectViewer
+
+  return {
+    setOnZoom,
+    setOnPan,
+    subject
+  }
 }
 
 function DataImageViewerConnector (props) {
-  const { subject } = useStores()
+  const {
+    setOnZoom,
+    setOnPan,
+    subject
+  } = useStores()
 
   return (
-    <DataImageViewerContainer subject={subject} {...props} />
+    <DataImageViewerContainer
+      setOnZoom={setOnZoom}
+      setOnPan={setOnPan}
+      subject={subject}
+      {...props}
+    />
   )
 }
 
