@@ -7,8 +7,8 @@ import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 
 const { colors } = zooTheme.global
-const seriesOneOptions = variableStar.scatterPlot.data[0].seriesOptions
-const seriesTwoOptions = variableStar.scatterPlot.data[1].seriesOptions
+const seriesOneOptions = variableStar.data.scatterPlot.data[0].seriesOptions
+const seriesTwoOptions = variableStar.data.scatterPlot.data[1].seriesOptions
 
 describe('Controls > Components > Label', function ()  {
   it('should render without crashing', function () {

@@ -8,7 +8,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import en from '../../../../locales/en'
 import Label from '../Label'
 
-const { data } = variableStar.scatterPlot
+const { data } = variableStar.data.scatterPlot
 
 describe('Controls > Components > PhaseFocusControls', function () {
   let wrapper, setSeriesPhaseFocusSpy
