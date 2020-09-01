@@ -182,6 +182,16 @@ const WorkflowStepStore = types
         taskKeys = comboTasks.map(combo => combo.tasks)
         return taskKeys.flat()
       }
+
+      function isThereBranching (task) {
+        return task?.answers.some((answer, index) => {
+          if (task.answers.length > index + 1) {
+            return answer.next !== task.answers[index + 1].next
+          }
+          return false
+        })
+      }
+
       const taskKeysIncludedInComboTasks = getTaskKeysIncludedInComboTasks(workflow.tasks)
       const taskKeysToConvertToSteps = difference(taskKeys, taskKeysIncludedInComboTasks)
 
@@ -197,6 +207,10 @@ const WorkflowStepStore = types
 
         if (firstTask.type === 'combo') {
           firstStep.taskKeys = firstTask.tasks
+        }
+
+        if (firstTask.type === 'single' && !isThereBranching(firstTask)) {
+          firstStep.next = firstTask.answers[0]?.next
         }
 
         taskKeysToConvertToSteps.splice(taskKeysToConvertToSteps.indexOf(first_task), 1)
@@ -217,6 +231,10 @@ const WorkflowStepStore = types
             previous: `S${index}`,
             stepKey: `S${index + 1}`,
             taskKeys: stepTasks
+          }
+
+          if (task.type === 'single' && !isThereBranching(task)) {
+            stepSnapshot.next = task.answers[0]?.next
           }
 
           self.steps.put(stepSnapshot)
