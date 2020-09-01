@@ -250,7 +250,7 @@ VariableStarViewer.propTypes = {
     chartOptions: PropTypes.object
   }),
   rawJSON: PropTypes.shape({
-    data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
+    data: PropTypes.object,
     chartOptions: PropTypes.object
   }),
   setOnPan: PropTypes.func,
