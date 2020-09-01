@@ -1,5 +1,13 @@
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { autorun, toJS } from 'mobx'
+import {
+  addDisposer, 
+  getRoot, 
+  isValidReference, 
+  onAction,
+  tryReference, 
+  types 
+} from 'mobx-state-tree'
+import { difference, isEqual } from 'lodash'
 
 import Step from './Step'
 
@@ -18,21 +26,6 @@ const WorkflowStepStore = types
       return []
     },
 
-    isThereANextStep () {
-      const nextStep = self.getNextStepKey()
-      return nextStep && nextStep !== 'summary'
-    },
-
-    isThereAPreviousStep () {
-      const validStepReference = isValidReference(() => self.active)
-      if (validStepReference) {
-        const firstStep = self.steps.keys().next()
-        return self.active.stepKey !== 'summary' && self.active.stepKey !== firstStep.value
-      }
-
-      return false
-    },
-
     get isThereTaskHelp () {
       const tasks = self.activeStepTasks
 
@@ -40,13 +33,12 @@ const WorkflowStepStore = types
     },
 
     get shouldWeShowDoneAndTalkButton () {
-      const isThereANextStep = self.isThereANextStep()
       const workflow = tryReference(() => getRoot(self).workflows?.active)
       const classification = tryReference(() => getRoot(self).classifications?.active)
-
-      if (workflow && classification) {
+      const step = tryReference(() => self.active)
+      if (workflow && step && classification) {
         const disableTalk = classification.metadata.subject_flagged
-        return !isThereANextStep &&
+        return !step.isThereANextStep &&
         workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
         !disableTalk // &&
         // !completed TODO: implement classification completed validations per task?
@@ -58,6 +50,7 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
+      createAnnotationObserver()
     }
 
     function createWorkflowObserver () {
@@ -79,13 +72,45 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
+    function createAnnotationObserver () {
+      const annotationDisposer = autorun(() => {
+        if (self.active?.isThereBranching) {
+          // presumes one single choice task per step
+          const [singleChoiceTask] = self.activeStepTasks.filter(task => task.type === 'single')
+          onAction(getRoot(self), (call) => {
+            if (call.path.endsWith(singleChoiceTask?.annotation?.id) && call.name === 'update') {
+              let nextStepKey
+              const nextKey = singleChoiceTask.answers[call.args[0]].next
+              if (nextKey?.startsWith('T')) {
+                // Backwards compatibility
+                self.steps.forEach(step => {
+                  if (step.taskKeys.includes(nextKey)) {
+                    nextStepKey = step.stepKey
+                  }
+                })
+              } else {
+                nextStepKey = nextKey
+              }
+              self.active.setNext(nextStepKey)
+            }
+          })
+        }
+        
+      }, { name: 'Annotation Observer autorun' })
+      addDisposer(self, annotationDisposer)
+    }
+
     function getNextStepKey () {
       const validStepReference = isValidReference(() => self.active)
       const stepKeys = self.steps.keys()
       if (validStepReference) {
-        const stepKeysArray = Array.from(stepKeys)
-        const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
-        return stepKeysArray[currentStepIndex + 1]
+        if (!!self.active.next) {
+          return self.active.next
+        } else {
+          const stepKeysArray = Array.from(stepKeys)
+          const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
+          return stepKeysArray[currentStepIndex + 1]
+        }
       }
 
       return stepKeys.next().value
@@ -150,41 +175,100 @@ const WorkflowStepStore = types
 
     function convertWorkflowToUseSteps (workflow) {
       const taskKeys = Object.keys(workflow.tasks)
-      const { first_task } = workflow
 
-      function getStepTasksFromCombo (task) {
-        task.tasks.forEach(function (taskKey) {
-          taskKeys.splice(taskKeys.indexOf(taskKey), 1)
-        })
-        return task.tasks
+      function getTaskKeysIncludedInComboTasks (tasks) {
+        let taskKeys
+        const comboTasks = Object.values(tasks).filter(task => task?.type === 'combo')
+        taskKeys = comboTasks.map(combo => combo.tasks)
+        return taskKeys.flat()
       }
+
+      function isThereBranching (task) {
+        return task?.answers.some((answer, index) => {
+          if (task.answers.length > index + 1) {
+            return answer.next !== task.answers[index + 1].next
+          }
+          return false
+        })
+      }
+
+      const taskKeysIncludedInComboTasks = getTaskKeysIncludedInComboTasks(workflow.tasks)
+      const taskKeysToConvertToSteps = difference(taskKeys, taskKeysIncludedInComboTasks)
+
+      const { first_task } = workflow
+      const firstTask = workflow.tasks[first_task]
 
       if (first_task) {
         let firstStep = {
+          next: firstTask.next, // temporarily set next to task key, convert to step key once steps created
           stepKey: 'S0',
           taskKeys: [first_task]
         }
 
-        if (workflow.tasks[first_task].type === 'combo') {
-          const combo = workflow.tasks[first_task]
-          firstStep.taskKeys = getStepTasksFromCombo(combo)
+        if (firstTask.type === 'combo') {
+          firstStep.taskKeys = firstTask.tasks
         }
 
-        taskKeys.splice(taskKeys.indexOf(first_task), 1)
+        const isFirstSingleChoiceTaskNotBranching = firstTask.type === 'single' && !isThereBranching(firstTask)
+        if (isFirstSingleChoiceTaskNotBranching) {
+          firstStep.next = firstTask.answers[0]?.next
+        }
+
+        taskKeysToConvertToSteps.splice(taskKeysToConvertToSteps.indexOf(first_task), 1)
+
         self.steps.put(firstStep)
       }
 
-      taskKeys.forEach((taskKey, index) => {
+      taskKeysToConvertToSteps.forEach((taskKey, index) => {
         const task = workflow.tasks[taskKey]
         if (task.type !== 'shortcut') {
           let stepTasks = [taskKey]
           if (task.type === 'combo') {
-            stepTasks = getStepTasksFromCombo(task)
+            stepTasks = task.tasks
           }
-          self.steps.put({
+
+          let stepSnapshot = {
+            next: task.next, // temporarily set next to task key, convert to step key once steps created
+            previous: `S${index}`,
             stepKey: `S${index + 1}`,
             taskKeys: stepTasks
-          })
+          }
+
+          const isSingleChoiceTaskNotBranching = task.type === 'single' && !isThereBranching(task)
+          if (isSingleChoiceTaskNotBranching) {
+            stepSnapshot.next = task.answers[0]?.next
+          }
+
+          self.steps.put(stepSnapshot)
+        }
+      })
+
+      function getStepKeyFromTaskKey(steps, taskKey) {
+        let stepKey
+        steps.forEach(step => {
+          if (step.taskKeys.includes(taskKey)) {
+            stepKey = step.stepKey
+          }
+        })
+        return stepKey
+      }
+
+      // convert step.next from task key to step key
+      self.steps.forEach(step => {
+        if (Object.keys(workflow.tasks).includes(step.next)) {
+          const stepKeyFromTaskKey = getStepKeyFromTaskKey(self.steps, step.next)
+          if (!!stepKeyFromTaskKey) {
+            step.setNext(stepKeyFromTaskKey)
+          } else { // next task is combo task
+            let nextStepKey
+            const comboTask = workflow.tasks[step.next]
+            self.steps.forEach(step => {
+              if (isEqual(step.taskKeys, comboTask.tasks)) {
+                nextStepKey = step.stepKey
+              }
+            })
+            step.setNext(nextStepKey)
+          }
         }
       })
 

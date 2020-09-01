@@ -13,7 +13,7 @@ describe('Models > Drawing Task > Mark', function () {
 
   function mockMark (options) {
     const defaultOptions = {
-      required: false
+      required: ''
     }
     const { required } = options || defaultOptions
     const toolData = {
@@ -148,7 +148,7 @@ describe('Models > Drawing Task > Mark', function () {
       let drawingTool
 
       before(function () {
-        ({ drawingTool, mark } = mockMark({ required: true }))
+        ({ drawingTool, mark } = mockMark({ required: 'true' }))
       })
 
       it('should be incomplete', function () {
@@ -167,7 +167,7 @@ describe('Models > Drawing Task > Mark', function () {
       let singleTask
 
       before(function () {
-        ({ drawingTool, mark, multipleTask, singleTask } = mockMark({ required: true }))
+        ({ drawingTool, mark, multipleTask, singleTask } = mockMark({ required: 'true' }))
       })
 
       it('should be incomplete', function () {
