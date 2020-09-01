@@ -209,7 +209,8 @@ const WorkflowStepStore = types
           firstStep.taskKeys = firstTask.tasks
         }
 
-        if (firstTask.type === 'single' && !isThereBranching(firstTask)) {
+        const isFirstSingleChoiceTaskNotBranching = firstTask.type === 'single' && !isThereBranching(firstTask)
+        if (isFirstSingleChoiceTaskNotBranching) {
           firstStep.next = firstTask.answers[0]?.next
         }
 
@@ -233,7 +234,8 @@ const WorkflowStepStore = types
             taskKeys: stepTasks
           }
 
-          if (task.type === 'single' && !isThereBranching(task)) {
+          const isSingleChoiceTaskNotBranching = task.type === 'single' && !isThereBranching(task)
+          if (isSingleChoiceTaskNotBranching) {
             stepSnapshot.next = task.answers[0]?.next
           }
 
