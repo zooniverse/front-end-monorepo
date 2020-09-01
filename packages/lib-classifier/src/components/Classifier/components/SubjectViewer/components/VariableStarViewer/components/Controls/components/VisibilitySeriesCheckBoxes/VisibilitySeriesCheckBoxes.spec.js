@@ -8,9 +8,9 @@ import { VisibilitySeriesCheckBoxes } from './VisibilitySeriesCheckBoxes'
 import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
 import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
-const seriesOneLabel = variableStar.scatterPlot.data[0].seriesOptions.label
-const seriesTwoLabel = variableStar.scatterPlot.data[1].seriesOptions.label
-const { data } = variableStar.scatterPlot
+const seriesOneLabel = variableStar.data.scatterPlot.data[0].seriesOptions.label
+const seriesTwoLabel = variableStar.data.scatterPlot.data[1].seriesOptions.label
+const { data } = variableStar.data.scatterPlot
 
 const defaultStateVisibleSeries = [
   { [seriesOneLabel]: true },

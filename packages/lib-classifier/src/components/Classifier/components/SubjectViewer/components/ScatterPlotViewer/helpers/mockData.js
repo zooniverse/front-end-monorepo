@@ -132,7 +132,7 @@ const keplerMockDataWithOptions = {
 
 const lightCurveMockData = {
   kepler,
-  variableStar
+  variableStar: variableStar.data
 }
 
 const randomSingleSeriesData = {

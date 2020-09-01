@@ -71,7 +71,7 @@ describe('Helper > getDataSeriesColor', function () {
 
     describe('when there are multiple data series', function () {
       it('should return a color in the same order of the data series', function () {
-        variableStar.scatterPlot.data.forEach((series, seriesIndex) => {
+        variableStar.data.scatterPlot.data.forEach((series, seriesIndex) => {
           const color = getDataSeriesColor({ seriesIndex, defaultColors })
           expect(color).to.equal(defaultColors[seriesIndex])
         })
@@ -101,7 +101,7 @@ describe('Helper > getDataSeriesColor', function () {
     it('should set the color to the theme\'s \'light-4\' for dimmed data series', function () {
       const colors = []
       const visibleSeries = [ { foo: true }, { bar: false } ]
-      variableStar.scatterPlot.data.forEach((series, seriesIndex) => {
+      variableStar.data.scatterPlot.data.forEach((series, seriesIndex) => {
         colors[seriesIndex] = getDataSeriesColor({
           defaultColors,
           visibleSeries,
