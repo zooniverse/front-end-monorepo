@@ -32,30 +32,35 @@ function SimpleDropdownTask (props) {
   } = props
   const { value } = annotation
   
+  // Decide what kind of options to display.
+  // Use an array of objects instead of an array of text.
+  // This solves issues of duplicate text.
   const optionsToDisplay = task.options.map(opt => ({
     text: opt,
   }))
+  
+  // If the Other option is enabled, we allow users to type in any text.
   const otherOption = {
     text: counterpart('Dropdown.otherLabel')
   }
-  if (true) { // (selectConfig.allowCreate && ENABLE_OTHER_OPTION) {
+  if (selectConfig.allowCreate && ENABLE_OTHER_OPTION) {
     optionsToDisplay.push(otherOption)
   }
   
+  // Determine which option is selected.
   const selectedOption = (value?.option)
     ? optionsToDisplay[value?.selection]
     : (value?.option === false)  // distinguishes between value simply not existing
     ? otherOption
     : undefined
 
-  // const [selectedOption, setSelectedOption] = React.useState(initialOption)
+  // The following is only relevant if the Other option is enabled.
   const [customValue, setCustomValue] = React.useState((selectedOption === otherOption) ? value?.selection : '')
-  
-  console.log('+++ customValue: ', customValue)
-  
-  const [customInputVisibility, setCustomInputVisibility] = React.useState(selectedOption === otherOption)
+  const showCustomInput = (selectedOption === otherOption)
   const customInput = React.useRef()
   
+  // 'selection' indicates the index of the selected answer. (number)
+  // If the Other option is enabled, selection can be a string.
   function setAnnotation (selection, isPresetOption = false) {
     annotation.update({
       selection: selection,
@@ -65,15 +70,13 @@ function SimpleDropdownTask (props) {
   
   function onSelectChange ({ option, selected: selectionIndex }) {
     const isPresetOption = option !== otherOption
+    setCustomValue('')
     
     if (isPresetOption) {
       setAnnotation(selectionIndex, true)
     } else {
-      setAnnotation(-1, false)
+      setAnnotation('', false)
     }
-    
-    setCustomInputVisibility(!isPresetOption)
-    setCustomValue('')
   }
   
   function onTextInputChange () {
@@ -106,7 +109,7 @@ function SimpleDropdownTask (props) {
           value={selectedOption}
         />
         
-        {(customInputVisibility) &&
+        {(showCustomInput) &&
           <TextInput
             onChange={onTextInputChange}
             placeholder={counterpart('Dropdown.customInputPlaceholder')}
