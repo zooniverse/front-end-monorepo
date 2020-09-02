@@ -1,4 +1,4 @@
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -89,7 +89,7 @@ storiesOf('Tasks | Single Choice Question', module)
         answers: [{ label: 'yes' }, { label: 'no' }],
         help: 'Choose an answer from the choices given, then press Done.',
         question: 'Is there a cat?',
-        required: boolean('Required', false),
+        required: radios('Required', { true: 'true', false: '' }, ''),
         taskKey: 'init',
         type: 'single'
       }

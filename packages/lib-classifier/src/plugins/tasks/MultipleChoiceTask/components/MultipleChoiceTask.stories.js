@@ -1,4 +1,4 @@
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -90,7 +90,7 @@ storiesOf('Tasks | Multiple Choice Question', module)
         answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
         help: 'Pick as many answers as apply, then press Done.',
         question: 'What is it doing?',
-        required: false,
+        required: radios('Required', { true: 'true', false: '' }, ''),
         taskKey: 'T1',
         type: 'multiple'
       }

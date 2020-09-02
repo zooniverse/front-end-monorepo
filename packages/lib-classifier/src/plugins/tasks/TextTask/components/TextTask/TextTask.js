@@ -90,11 +90,11 @@ TextTask.propTypes = {
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,
-    required: PropTypes.bool,
+    required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
     text_tags: PropTypes.arrayOf(PropTypes.string),
     type: PropTypes.string
-  }).isRequired,
+  }).isRequired
 
 }
 

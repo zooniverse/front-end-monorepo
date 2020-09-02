@@ -1,5 +1,5 @@
 import { Button } from 'grommet'
-import { bool, func, shape, string } from 'prop-types'
+import { bool, func, shape, string, oneOfType } from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
@@ -13,7 +13,7 @@ export const StyledPlainButton = styled(Button)`
 `
 
 function PlainButton (props) {
-  const { className, onClick, labelSize, text } = props
+  const { className, onClick, labelSize, text, color } = props
 
   return (
     <StyledPlainButton
@@ -21,10 +21,7 @@ function PlainButton (props) {
       gap='xxsmall'
       label={(
         <SpacedText
-          color={{
-            dark: 'accent-2',
-            light: 'neutral-2'
-          }}
+          color={color}
           size={labelSize}
         >
           {text}
@@ -42,6 +39,10 @@ PlainButton.defaultProps = {
   labelSize: 'medium',
   onClick: () => {},
   text: '',
+  color: {
+    dark: 'accent-2',
+    light: 'neutral-2'
+  },
   theme: {
     dark: false
   }
@@ -52,6 +53,13 @@ PlainButton.propTypes = {
   labelSize: string,
   onClick: func,
   text: string,
+  color: oneOfType([
+    shape({
+      dark: string,
+      light: string
+    }),
+    string
+  ]),
   theme: shape({
     dark: bool
   })
