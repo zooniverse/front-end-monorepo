@@ -43,7 +43,7 @@ function SimpleDropdownTask (props) {
   const otherOption = {
     text: counterpart('Dropdown.otherLabel')
   }
-  if (selectConfig.allowCreate && ENABLE_OTHER_OPTION) {
+  if (task.allowCreate && ENABLE_OTHER_OPTION) {
     optionsToDisplay.push(otherOption)
   }
   
