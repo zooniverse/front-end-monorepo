@@ -20,7 +20,7 @@ const simpleDropdownTask = {
   type: 'dropdown-simple'
 }
 
-describe.only('SimpleDropdownTask', function () {
+describe('SimpleDropdownTask', function () {
   const task = Task.TaskModel.create(simpleDropdownTask)
   const annotation = task.defaultAnnotation
 
