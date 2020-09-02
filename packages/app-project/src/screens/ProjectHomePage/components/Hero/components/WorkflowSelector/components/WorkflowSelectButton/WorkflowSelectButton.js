@@ -65,6 +65,8 @@ function WorkflowSelectButton (props) {
         <SubjectSetPicker
           active={showPicker}
           closeFn={() => setShowPicker(false)}
+          owner={owner}
+          project={project}
           workflow={workflow}
         />
       }

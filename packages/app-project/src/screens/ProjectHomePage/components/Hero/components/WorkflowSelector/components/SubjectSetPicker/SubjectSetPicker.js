@@ -10,8 +10,18 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+function SubjectSetCard (props) {
+  const { display_name, set_member_subjects_count } = props
+  return (
+    <>
+      <p>{display_name}</p>
+      <p>Subjects: {set_member_subjects_count}</p>
+    </>
+  )
+}
+
 function SubjectSetPicker (props) {
-  const { active, closeFn, workflow } = props
+  const { active, closeFn, owner, project, workflow } = props
 
   return (
     <Modal
@@ -20,18 +30,20 @@ function SubjectSetPicker (props) {
       title="Select a subject set"
     >
       <Grid
-        columns={[`repeat(10, minmax(100px, 1fr))`]}
+        columns={[`repeat(5, minmax(200px, 1fr))`]}
       >
       {workflow.subjectSets.map(subjectSet => {
         return (
-          <p>
+          <div>
             <Link
-              as={`/classify/workflow/${workflow.id}/subject-set/${subjectSet}`}
-              href="/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
+              as={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
+              href="/projects/[owner]/[project]/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
             >
-              {subjectSet}
+              <a>
+                <SubjectSetCard {...subjectSet} />
+              </a>
             </Link>
-          </p>
+          </div>
         )
       })}
       </Grid>
