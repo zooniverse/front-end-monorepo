@@ -3,7 +3,7 @@ import Annotation from '../../models/Annotation'
 
 const SimpleDropdown = types.model('SimpleDropdown', {
   value: types.maybeNull(types.model({
-    selection: types.number,  // Index of the selection chosen by the user
+    selection: types.union(types.number, types.string),  // Index of the selection chosen by the user
     option: types.boolean,  // i.e. is this value in the list of preset options?
   }), null),
 })

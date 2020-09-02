@@ -38,17 +38,23 @@ function SimpleDropdownTask (props) {
   const otherOption = {
     text: counterpart('Dropdown.otherLabel')
   }
+  if (true) { // (selectConfig.allowCreate && ENABLE_OTHER_OPTION) {
+    optionsToDisplay.push(otherOption)
+  }
   
-  const initialOption = (annotation.value?.option)
-    ? optionsToDisplay[annotation.value.selection]
-    : (annotation.value?.option === false)  // distinguishes between value simply not existing
+  const selectedOption = (value?.option)
+    ? optionsToDisplay[value?.selection]
+    : (value?.option === false)  // distinguishes between value simply not existing
     ? otherOption
     : undefined
 
-  const [selectedOption, setSelectedOption] = React.useState(initialOption)
-  // const [customValue, setCustomValue] = React.useState(annotationValue && annotationValue.value)
-  // const [customInputVisibility, setCustomInputVisibility] = React.useState(selectedOption === otherOption)
-  // const customInput = React.useRef()
+  // const [selectedOption, setSelectedOption] = React.useState(initialOption)
+  const [customValue, setCustomValue] = React.useState((selectedOption === otherOption) ? value?.selection : '')
+  
+  console.log('+++ customValue: ', customValue)
+  
+  const [customInputVisibility, setCustomInputVisibility] = React.useState(selectedOption === otherOption)
+  const customInput = React.useRef()
   
   function setAnnotation (selection, isPresetOption = false) {
     annotation.update({
@@ -58,14 +64,22 @@ function SimpleDropdownTask (props) {
   }
   
   function onSelectChange ({ option, selected: selectionIndex }) {
-    setSelectedOption(option)
-    const isPresetOption = true  // option !== otherOption
+    const isPresetOption = option !== otherOption
     
     if (isPresetOption) {
       setAnnotation(selectionIndex, true)
     } else {
       setAnnotation(-1, false)
     }
+    
+    setCustomInputVisibility(!isPresetOption)
+    setCustomValue('')
+  }
+  
+  function onTextInputChange () {
+    const ele = customInput && customInput.current || { value: '' }
+    setAnnotation(ele.value, false)
+    setCustomValue(ele.value)
   }
   
   return (
@@ -91,6 +105,16 @@ function SimpleDropdownTask (props) {
           size='small'
           value={selectedOption}
         />
+        
+        {(customInputVisibility) &&
+          <TextInput
+            onChange={onTextInputChange}
+            placeholder={counterpart('Dropdown.customInputPlaceholder')}
+            ref={customInput}
+            size='small'
+            value={customValue}
+          />
+        }
       </Box>
     </Box>
   )
