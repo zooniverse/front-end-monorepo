@@ -115,7 +115,7 @@ describe('Model > AnnotationsStore', function () {
             type: 'single',
             question: 'how many?',
             answers: ['one', 'two', 'three'],
-            required: false
+            required: ''
           }
         ],
         label: 'Point',

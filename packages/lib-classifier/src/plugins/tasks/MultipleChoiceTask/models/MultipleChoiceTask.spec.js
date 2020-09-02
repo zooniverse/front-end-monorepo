@@ -7,7 +7,7 @@ const multipleChoiceTask = {
     { label: 'flowers', _key: Math.random() }
   ],
   question: 'What do you see?',
-  required: false,
+  required: '',
   taskKey: 'T2',
   type: 'multiple'
 }
@@ -60,7 +60,7 @@ describe('Model > MultipleChoiceTask', function () {
     let task
 
     before(function () {
-      const requiredTask = Object.assign({}, multipleChoiceTask, { required: true })
+      const requiredTask = Object.assign({}, multipleChoiceTask, { required: 'true' })
       task = MultipleChoiceTask.TaskModel.create(requiredTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {

@@ -1,7 +1,6 @@
 import { types } from 'mobx-state-tree'
 import React from 'react'
 import { shallow } from 'enzyme'
-import { observable } from 'mobx'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
@@ -19,22 +18,18 @@ const workflow = WorkflowFactory.build()
 
 describe('TaskNavButtonsContainer', function () {
   function setupMocks () {
-    const steps = observable.map([
-      Step.create({ stepKey: 'S0', taskKeys: ['T0'] }),
-      Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
-    ])
-
+    const activeStep = Step.create({ stepKey: 'S0', taskKeys: ['T0'], next: 'S1' })
     const singleChoiceTask = SingleChoiceTask.TaskModel.create({
       answers: [{ label: 'yes' }, { label: 'no' }],
       question: 'Is there a cat?',
-      required: false,
+      required: '',
       taskKey: 'init',
       type: 'single'
     })
     const multipleChoiceTask = MultipleChoiceTask.TaskModel.create({
       answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
       question: 'What is/are the cat(s) doing?',
-      required: false,
+      required: '',
       taskKey: 'T1',
       type: 'multiple'
     })
@@ -60,9 +55,9 @@ describe('TaskNavButtonsContainer', function () {
     singleChoiceTask.setAnnotation(classification.annotation(singleChoiceTask))
     multipleChoiceTask.setAnnotation(classification.annotation(multipleChoiceTask))
     return {
+      activeStep,
       activeStepTasks,
-      classificationStore,
-      steps
+      classificationStore
     }
   }
 
@@ -70,12 +65,10 @@ describe('TaskNavButtonsContainer', function () {
     let wrapper
 
     before(function () {
-      const { activeStepTasks } = setupMocks()
+      const { activeStep, activeStepTasks } = setupMocks()
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
-          isThereAPreviousStep={() => {}}
-          isThereANextStep={() => {}}
-          shouldWeShowDoneAndTalkButton={() => {}}
+          step={activeStep}
           tasks={activeStepTasks}
         />
       )
@@ -93,11 +86,13 @@ describe('TaskNavButtonsContainer', function () {
   describe('#goToNextStep', function () {
     let wrapper
     let selectStepSpy
+    let activeStep
     let activeStepTasks
     let classificationStore
 
     before(function () {
       ({
+        activeStep,
         activeStepTasks,
         classificationStore
       } = setupMocks())
@@ -105,10 +100,8 @@ describe('TaskNavButtonsContainer', function () {
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
           classification={classificationStore.active}
-          isThereAPreviousStep={() => false}
-          isThereANextStep={() => false}
-          shouldWeShowDoneAndTalkButton={() => {}}
           selectStep={selectStepSpy}
+          step={activeStep}
           tasks={activeStepTasks}
         />
       )
@@ -141,12 +134,12 @@ describe('TaskNavButtonsContainer', function () {
     let removeAnnotationSpy
     let selectStepSpy
     let activeStepTasks
-    let steps
+    let activeStep
 
     before(function () {
       ({
-        activeStepTasks,
-        steps
+        activeStep,
+        activeStepTasks
       } = setupMocks())
       getPreviousStepKeyStub = sinon.stub().callsFake(() => { return 'S0' })
       selectStepSpy = sinon.spy()
@@ -154,12 +147,9 @@ describe('TaskNavButtonsContainer', function () {
 
       wrapper = shallow(
         <TaskNavButtonsContainer.wrappedComponent
-          isThereAPreviousStep={() => false}
-          isThereANextStep={() => false}
-          shouldWeShowDoneAndTalkButton={() => {}}
           removeAnnotation={removeAnnotationSpy}
           selectStep={selectStepSpy}
-          steps={steps}
+          step={activeStep}
           tasks={activeStepTasks}
         />
       )
@@ -171,23 +161,21 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     it('should not call props.selectStep if there is not a previous step', function () {
-      const step = { stepKey: 'S0', taskKeys: ['T0'] }
-      wrapper.setProps({ step })
       wrapper.instance().goToPreviousStep()
       expect(selectStepSpy).to.have.not.been.called()
     })
 
     it('should call props.selectStep when there is a previous step', function () {
-      const step = { stepKey: 'S1', taskKeys: ['T1'] }
-      wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, isThereAPreviousStep: () => { return true }, step })
+      const nextStep = Step.create({ stepKey: 'S1', taskKeys: ['T1'], previous: 'S0' })
+      wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, step: nextStep })
       wrapper.instance().goToPreviousStep()
       expect(selectStepSpy).to.have.been.called()
       expect(selectStepSpy.withArgs('S0')).to.have.been.calledOnce()
     })
 
     it('should call props.removeAnnotation when there is a previous step', function () {
-      const step = { stepKey: 'S1', taskKeys: ['T1'] }
-      wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, isThereAPreviousStep: () => { return true }, step })
+      const nextStep = Step.create({ stepKey: 'S1', taskKeys: ['T1'], previous: 'S0' })
+      wrapper.setProps({ getPreviousStepKey: getPreviousStepKeyStub, step: nextStep })
       wrapper.instance().goToPreviousStep()
       expect(removeAnnotationSpy).to.have.been.called()
       expect(removeAnnotationSpy.withArgs('T1')).to.have.been.calledOnce()
@@ -197,13 +185,14 @@ describe('TaskNavButtonsContainer', function () {
   describe('#onSubmit', function () {
     let wrapper
     let completeClassificationSpy
-    let onSubmitSpy
+    let activeStep
     let activeStepTasks
     let classificationStore
     const preventDefaultSpy = sinon.spy()
 
     before(function () {
       ({
+        activeStep,
         activeStepTasks,
         classificationStore
       } = setupMocks())
@@ -213,8 +202,7 @@ describe('TaskNavButtonsContainer', function () {
         <TaskNavButtonsContainer.wrappedComponent
           classification={classificationStore.active}
           completeClassification={completeClassificationSpy}
-          isThereAPreviousStep={() => { }}
-          isThereANextStep={() => { }}
+          step={activeStep}
           tasks={activeStepTasks}
         />
       )

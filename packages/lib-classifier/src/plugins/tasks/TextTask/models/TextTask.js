@@ -7,7 +7,7 @@ const Text = types.model('Text', {
   annotation: types.safeReference(TextAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
-  required: types.optional(types.boolean, false),
+  required: types.maybe(types.union(types.string, types.boolean)),
   text_tags: types.array(types.string),
   type: types.literal('text')
 })

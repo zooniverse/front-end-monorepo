@@ -8,7 +8,7 @@ describe('MultipleChoiceTask', function () {
   const task = Task.TaskModel.create({
     answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
     question: 'What is/are the cat(s) doing?',
-    required: false,
+    required: '',
     taskKey: 'T1',
     type: 'multiple'
   })
