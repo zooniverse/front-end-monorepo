@@ -66,3 +66,12 @@ storiesOf('PlainButton', module)
       <PlainButton labelSize={text('label size', 'xsmall')} text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
+
+  .add('Custom color', () => (
+    <Grommet theme={zooTheme}>
+      <PlainButton
+        color={text('Color:', '#FF0000')}
+        text={text('Text', 'Click me')}
+      />
+    </Grommet>
+  ), config)
