@@ -39,7 +39,7 @@ describe('VariableStarViewer > Component > Controls', function () {
     let wrapper
     before(function () {
       wrapper = mount(
-        <Controls data={variableStar.scatterPlot.data} periodMultiple={2} setPeriodMultiple={sinon.spy()} />,
+        <Controls data={variableStar.data.scatterPlot.data} periodMultiple={2} setPeriodMultiple={sinon.spy()} />,
         {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -62,7 +62,7 @@ describe('VariableStarViewer > Component > Controls', function () {
     let wrapper
     before(function () {
       wrapper = mount(
-        <Controls data={variableStar.scatterPlot.data} phaseFocusedSeries={1} setSeriesPhaseFocus={sinon.spy()} />,
+        <Controls data={variableStar.data.scatterPlot.data} phaseFocusedSeries={1} setSeriesPhaseFocus={sinon.spy()} />,
         {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -86,7 +86,7 @@ describe('VariableStarViewer > Component > Controls', function () {
     let wrapper
     before(function () {
       wrapper = mount(
-        <Controls data={variableStar.scatterPlot.data} visibleSeries={visibleSeriesMock} setSeriesVisibility={sinon.spy()} />,
+        <Controls data={variableStar.data.scatterPlot.data} visibleSeries={visibleSeriesMock} setSeriesVisibility={sinon.spy()} />,
         {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }

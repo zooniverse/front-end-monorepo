@@ -22,18 +22,18 @@ describe('Model > DrawingTools > Tool', function () {
         type: 'multiple',
         question: 'which fruit?',
         answers: ['apples', 'oranges', 'pears'],
-        required: false
+        required: ''
       },
       {
         type: 'single',
         question: 'how many?',
         answers: ['one', 'two', 'three'],
-        required: false
+        required: ''
       },
       {
         type: 'text',
         instruction: 'Transcribe something',
-        required: false
+        required: ''
       }
     ]
     const tool = Tool.create(Object.assign({}, toolData, { details }))
@@ -72,7 +72,7 @@ describe('Model > DrawingTools > Tool', function () {
             question: 'which fruit?',
             answers: ['apples', 'oranges', 'pears'],
             help: '',
-            required: false
+            required: ''
           },
           {
             taskKey: 'single',
@@ -80,14 +80,14 @@ describe('Model > DrawingTools > Tool', function () {
             question: 'how many?',
             answers: ['one', 'two', 'three'],
             help: '',
-            required: false
+            required: ''
           },
           {
             taskKey: 'text',
             type: 'text',
             instruction: 'Transcribe something',
             help: '',
-            required: false,
+            required: '',
             text_tags: []
           }
         ]
@@ -122,8 +122,7 @@ describe('Model > DrawingTools > Tool', function () {
           taskKey: 'drawing',
           type: 'drawing',
           question: 'which fruit?',
-          tools: [],
-          required: false
+          tools: []
         }
       ]
       const tool = Tool.create(toolData)

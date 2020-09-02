@@ -15,7 +15,7 @@ describe('Model > TextTask', function () {
       { label: 'no', next: 'S3' }
     ],
     question: 'Do you exist?',
-    required: false,
+    required: '',
     taskKey: 'T1',
     type: 'single'
   }

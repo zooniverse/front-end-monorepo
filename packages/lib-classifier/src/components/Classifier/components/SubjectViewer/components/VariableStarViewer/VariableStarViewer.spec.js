@@ -152,18 +152,20 @@ describe('Component > VariableStarViewer', function () {
     let wrapper, rawJSONMock, rawScatterPlot, setAllowPanZoomSpy
     before(function () {
       rawJSONMock = {
-        scatterPlot: {
-          data: [
-            {
-              seriesData: [
-                { x: 2, y: 2 }
-              ],
-              seriesOptions: {}
+        data: {
+          scatterPlot: {
+            data: [
+              {
+                seriesData: [
+                  { x: 2, y: 2 }
+                ],
+                seriesOptions: {}
+              }
+            ],
+            chartOptions: {
+              xAxisLabel: 'x-axis',
+              yAxisLabel: 'y-axis'
             }
-          ],
-          chartOptions: {
-            xAxisLabel: 'x-axis',
-            yAxisLabel: 'y-axis'
           }
         }
       }
@@ -177,7 +179,7 @@ describe('Component > VariableStarViewer', function () {
             theme={zooTheme}
           />
         )
-      rawScatterPlot = wrapper.find(ScatterPlotViewer).find({ data: rawJSONMock.scatterPlot.data })
+      rawScatterPlot = wrapper.find(ScatterPlotViewer).find({ data: rawJSONMock.data.scatterPlot.data })
     })
 
     it('should render a ScatterPlotViewer with the rawJSON scatter plot data', function () {
@@ -185,14 +187,14 @@ describe('Component > VariableStarViewer', function () {
     })
 
     it('should set the x-axis and y-axis labels', function () {
-      expect(rawScatterPlot.props().xAxisLabel).to.equal(rawJSONMock.scatterPlot.chartOptions.xAxisLabel)
-      expect(rawScatterPlot.props().yAxisLabel).to.equal(rawJSONMock.scatterPlot.chartOptions.yAxisLabel)
+      expect(rawScatterPlot.props().xAxisLabel).to.equal(rawJSONMock.data.scatterPlot.chartOptions.xAxisLabel)
+      expect(rawScatterPlot.props().yAxisLabel).to.equal(rawJSONMock.data.scatterPlot.chartOptions.yAxisLabel)
     })
 
     it('should invert the y-axis based on prop', function () {
       expect(rawScatterPlot.props().invertAxes).to.deep.equal({ x: false, y: false })
       wrapper.setProps({ invertYAxis: true })
-      rawScatterPlot = wrapper.find(ScatterPlotViewer).find({ data: rawJSONMock.scatterPlot.data })
+      rawScatterPlot = wrapper.find(ScatterPlotViewer).find({ data: rawJSONMock.data.scatterPlot.data })
       expect(rawScatterPlot.props().invertAxes).to.deep.equal({ x: false, y: true })
     })
 
@@ -233,7 +235,7 @@ describe('Component > VariableStarViewer', function () {
       before(function () {
         wrapper.setProps({ allowPanZoom: 'rawJSON' })
         wrapperDiv = wrapper.find({ gridArea: 'rawJSON' })
-        rawScatterPlot = wrapper.find(ScatterPlotViewer).find({ data: rawJSONMock.scatterPlot.data })
+        rawScatterPlot = wrapper.find(ScatterPlotViewer).find({ data: rawJSONMock.data.scatterPlot.data })
       })
 
       after(function () {
