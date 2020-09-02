@@ -17,7 +17,7 @@ The Simple Dropdown Task for the Classifier is exactly what it says on the tin.
 - The simple dropdown has an "Other" option (aka "let users type in free answers") has been built, but has been _artificially disabled._
 - The reasons: 1. we want to encourage project owners to use Dropdown Tasks in a specific way (i.e. just a plain simple dropdown with no free answers) and 2. the [aggregation code gets funky when there are free answers(??)](https://github.com/zooniverse/caesar/issues/841)
 
-If we need to enable the "Other" option in the future, please look at `components/DdSelect.js` and change the line that says `const ENABLE_OTHER_OPTION = false` to `true`.
+If we need to enable the "Other" option in the future, please look at `components/SimpleDropdownTask.js` and change the line that says `const ENABLE_OTHER_OPTION = false` to `true`.
 
 
 ## Data Models
@@ -51,11 +51,23 @@ Simple Dropdown annotation (classification) data structure, example:
 }
 ```
 
-NOTE: if a simple dropdown has no value selected (as is the case when initially rendered), the annotation value is null.
+NOTE 1: if a simple dropdown has no value selected (as is the case when initially rendered), the annotation value is null.
 
 ```
 {
   "task":"T0",
   "value": null,  // No value selected
+}
+```
+
+NOTE 2: if the 'other' option is enabled, the value can be a string. Please note that this should NOT happen under normal circumstances. See Dev Notes above.
+
+```
+{
+  "task":"T0",
+  "value": {
+    "value": "Hey! Listen!",
+    "option": false
+  }
 }
 ```
