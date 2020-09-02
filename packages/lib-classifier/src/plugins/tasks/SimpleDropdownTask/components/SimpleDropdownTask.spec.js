@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
 import SimpleDropdownTask from './SimpleDropdownTask'
-import DdSelect from './DdSelect'
 import { default as Task } from '@plugins/tasks/SimpleDropdownTask'
 
 const simpleDropdownTask = {
@@ -21,7 +20,7 @@ const simpleDropdownTask = {
   type: 'dropdown-simple'
 }
 
-describe('SimpleDropdownTask', function () {
+describe.only('SimpleDropdownTask', function () {
   const task = Task.TaskModel.create(simpleDropdownTask)
   const annotation = task.defaultAnnotation
 
@@ -39,8 +38,19 @@ describe('SimpleDropdownTask', function () {
       expect(wrapper.contains(task.instruction)).to.be.true()
     })
 
-    it('should render a single <select> element', function () {
-      expect(wrapper.find(DdSelect)).to.have.lengthOf(1)
+    it('should render a single Grommet Select element', function () {
+      expect(wrapper.find('Select')).to.have.lengthOf(1)
+    })
+    
+    it('should have no initial value', function () {
+      const grommetSelect = wrapper.find('Select')
+      expect(grommetSelect.props()['value']).to.equal(undefined)
+    })
+    
+    it('should render the correct number of options', function () {
+      const grommetSelect = wrapper.find('Select')
+      const renderedOptions = grommetSelect.props()['options'] || []
+      expect(renderedOptions).to.have.length(6)
     })
   })
 
@@ -49,7 +59,7 @@ describe('SimpleDropdownTask', function () {
 
     before(function () {
       annotation.update({
-        value: 'hashed-value-R',
+        selection: 2,  // Corresponds to "Yellow"
         option: true,
       })
       wrapper = shallow(
@@ -61,9 +71,8 @@ describe('SimpleDropdownTask', function () {
     })
 
     it('should pass the selected annotation to the Select sub-element', function () {
-      const ddSelectAnnotationValue = wrapper.find(DdSelect).first().prop('annotationValue') || {}
-      expect(ddSelectAnnotationValue.value).to.equal('hashed-value-R')
-      expect(ddSelectAnnotationValue.option).to.equal(true)
+      const grommetSelect = wrapper.find('Select').first()
+      expect(grommetSelect.prop('value')['text']).to.equal('Yellow')
     })
   })
 })
