@@ -10,8 +10,8 @@ describe('Model > SimpleDropdownAnnotation', function () {
         task: 'T0',
         taskType: 'dropdown-simple',
         value: {
-           "value": 'dropdown-option-A',
-           "option": true
+           selection: 2,
+           option: true
         }
       })
     })

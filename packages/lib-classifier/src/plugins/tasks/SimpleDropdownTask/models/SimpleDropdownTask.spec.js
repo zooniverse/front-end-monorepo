@@ -57,11 +57,11 @@ describe('Model > SimpleDropdownTask', function () {
 
     it('should update annotations', function () {
       task.updateAnnotation({
-        value: 'Red',
+        selection: 5,  // Corresponds to "Black"
         option: true,
       })
       const annotationValue = task.annotation.value
-      expect(annotationValue.value).to.equal('Red')
+      expect(annotationValue.selection).to.equal(5)
     })
   })
 
@@ -92,7 +92,7 @@ describe('Model > SimpleDropdownTask', function () {
     describe('with a complete annotation', function () {
       it('should be complete', function () {
         task.updateAnnotation({
-          value: 'Red',
+          selection: 5,
           option: true,
         })
         expect(task.isComplete).to.be.true()
