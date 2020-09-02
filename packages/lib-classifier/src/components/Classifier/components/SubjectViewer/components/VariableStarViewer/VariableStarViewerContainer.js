@@ -2,9 +2,12 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
-
+import counterpart from 'counterpart'
 import VariableStarViewer from './VariableStarViewer'
 import locationValidator from '../../helpers/locationValidator'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 class VariableStarViewerContainer extends Component {
   constructor () {
@@ -205,9 +208,11 @@ class VariableStarViewerContainer extends Component {
   }
 
   setupSeriesVisibility (scatterPlotJSON) {
-    return scatterPlotJSON.data.map((series) => {
+    return scatterPlotJSON.data.map((series, index) => {
       if (series?.seriesData.length > 0) {
-        return { [series.seriesOptions.label]: true }
+        const fallbackLabel = counterpart('VariableStarViewer.label', { id: index + 1 })
+        const label = series.seriesOptions?.label || fallbackLabel
+        return { [label]: true }
       }
     })
   }

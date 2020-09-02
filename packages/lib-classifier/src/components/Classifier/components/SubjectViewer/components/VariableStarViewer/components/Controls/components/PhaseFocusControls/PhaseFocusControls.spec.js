@@ -60,7 +60,44 @@ describe('Controls > Components > PhaseFocusControls', function () {
   it('should have a label for each radio button input', function () {
     data.forEach((series, seriesIndex) => {
       const radioButton = wrapper.find(RadioButton).at(seriesIndex)
+      console.log('series', series.seriesOptions.label)
+      const label = series.seriesOptions.label
+      expect(radioButton.props().label).to.deep.equal(
+        <Label
+          colors={zooTheme.global.colors}
+          seriesIndex={seriesIndex}
+          seriesOptions={series.seriesOptions}
+          label={label}
+        />
+      )
+    })
+  })
+
+  it('should have a label for each radio button input', function () {
+    data.forEach((series, seriesIndex) => {
+      const radioButton = wrapper.find(RadioButton).at(seriesIndex)
+      const label = series.seriesOptions.label
+      expect(radioButton.props().label).to.deep.equal(
+        <Label
+          colors={zooTheme.global.colors}
+          seriesIndex={seriesIndex}
+          seriesOptions={series.seriesOptions}
+          label={label}
+        />
+      )
+    })
+  })
+
+  it('should use the fallback label if series option label is missing', function () {
+    const dataWithoutLabel = data.map((series) => {
+      const seriesWithoutLabel = Object.assign({}, series, { seriesOptions: {}})
+      return seriesWithoutLabel
+    })
+    wrapper.setProps({ data: dataWithoutLabel })
+    dataWithoutLabel.forEach((series, seriesIndex) => {
+      const radioButton = wrapper.find(RadioButton).at(seriesIndex)
       const label = `Filter ${seriesIndex + 1}`
+
       expect(radioButton.props().label).to.deep.equal(
         <Label
           colors={zooTheme.global.colors}

@@ -372,7 +372,7 @@
           ],
           "seriesOptions": {
             "color": "drawing-red",
-            "label": "Filter 1",
+            "label": "c",
             "period": 0.4661477096
           }
         },
@@ -746,7 +746,7 @@
           ],
           "seriesOptions": {
             "color": "drawing-blue",
-            "label": "Filter 2",
+            "label": "o",
             "period": 1.025524961
           }
         }
@@ -773,12 +773,12 @@
         "data": [
           {
             "color": "drawing-red",
-            "label": "Filter 1",
+            "label": "c",
             "value": 0.4661477096
           },
           {
             "color": "drawing-blue",
-            "label": "Filter 2",
+            "label": "o",
             "value": 1.025524961
           }
         ],
@@ -791,12 +791,12 @@
         "data": [
           {
             "color": "drawing-red",
-            "label": "Filter 1",
+            "label": "c",
             "value": 1.045
           },
           {
             "color": "drawing-blue",
-            "label": "Filter 2",
+            "label": "o",
             "value": 1.9989011347
           }
         ],

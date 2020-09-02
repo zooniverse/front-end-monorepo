@@ -27,7 +27,6 @@ const nextSubjectJSON = {
           ],
           "seriesOptions": {
             "color": "accent-2",
-            "label": "Filter 1",
             "period": 2.5
           }
         }, {
@@ -44,7 +43,6 @@ const nextSubjectJSON = {
           ],
           "seriesOptions": {
             "color": "#98b6a7",
-            "label": "Filter 2",
             "period": 3.5
           }
         }
@@ -78,6 +76,22 @@ const nextSubjectJSON = {
     }
   }
 }
+
+const subject = Factory.build('subject', {
+  locations: [
+    { 'image/png': 'http://localhost:8080/talk-backup.png' },
+    { 'application/json': 'http://localhost:8080/variableStar.json' },
+    { 'image/png': 'http://localhost:8080/image1.png' }
+  ]
+})
+
+const nextSubject = Factory.build('subject', {
+  locations: [
+    { 'image/png': 'http://localhost:8080/talk-backup.png' },
+    { 'application/json': 'http://localhost:8080/nextSubject.json' },
+    { 'image/png': 'http://localhost:8080/image2.png' }
+  ]
+})
 
 describe('Component > VariableStarViewerContainer', function () {
   const mockState = {
@@ -205,21 +219,6 @@ describe('Component > VariableStarViewerContainer', function () {
     let nockScope
     let wrapper
     const onReadySpy = sinon.spy()
-    const subject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/variableStar.json' },
-        { 'image/png': 'http://localhost:8080/image1.png' }
-      ]
-    })
-
-    const nextSubject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/nextSubject.json' },
-        { 'image/png': 'http://localhost:8080/image2.png' }
-      ]
-    })
 
     before(function () {
       cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
@@ -290,13 +289,6 @@ describe('Component > VariableStarViewerContainer', function () {
   describe('with series visibility', function () {
     let cdmSpy
     let nockScope
-    const subject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/variableStar.json' },
-        { 'image/png': 'http://localhost:8080/image1.png' }
-      ]
-    })
     const visibleStateMock = [
       { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: true },
       { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
@@ -308,6 +300,8 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
+        .get('/nextSubject.json')
+        .reply(200, nextSubjectJSON)
     })
 
     afterEach(function () {
@@ -329,7 +323,40 @@ describe('Component > VariableStarViewerContainer', function () {
 
       expect(wrapper.state().visibleSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
+        console.log('visibleStateMock', visibleStateMock)
         expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
+      }).then(done, done)
+    })
+
+    it('should use the series option label', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={subject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        const { visibleSeries } = wrapper.state()
+        const firstSeriesLabel = Object.keys(visibleSeries[0])[0]
+        const secondSeriesLabel = Object.keys(visibleSeries[1])[0]
+        expect(firstSeriesLabel).to.equal(variableStar.data.scatterPlot.data[0].seriesOptions.label)
+        expect(secondSeriesLabel).to.equal(variableStar.data.scatterPlot.data[1].seriesOptions.label)
+      }).then(done, done)
+    })
+
+    it('should use a fallback label if series option label is missing', function (done) {
+      const wrapper = shallow(
+        <VariableStarViewerContainer
+          subject={nextSubject}
+        />
+      )
+
+      cdmSpy.returnValues[0].then(() => {
+        const { visibleSeries } = wrapper.state()
+        const firstSeriesLabel = Object.keys(visibleSeries[0])[0]
+        const secondSeriesLabel = Object.keys(visibleSeries[1])[0]
+        expect(firstSeriesLabel).to.equal('Filter 1')
+        expect(secondSeriesLabel).to.equal('Filter 2')
       }).then(done, done)
     })
 
@@ -360,21 +387,7 @@ describe('Component > VariableStarViewerContainer', function () {
     let cdmSpy
     let cduSpy
     let nockScope
-    const subject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/variableStar.json' },
-        { 'image/png': 'http://localhost:8080/image1.png' }
-      ]
-    })
 
-    const nextSubject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/nextSubject.json' },
-        { 'image/png': 'http://localhost:8080/image2.png' }
-      ]
-    })
     before(function () {
       cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
       cduSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidUpdate')
@@ -472,21 +485,7 @@ describe('Component > VariableStarViewerContainer', function () {
     let cdmSpy
     let cduSpy
     let nockScope
-    const subject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/variableStar.json' },
-        { 'image/png': 'http://localhost:8080/image1.png' }
-      ]
-    })
 
-    const nextSubject = Factory.build('subject', {
-      locations: [
-        { 'image/png': 'http://localhost:8080/talk-backup.png' },
-        { 'application/json': 'http://localhost:8080/nextSubject.json' },
-        { 'image/png': 'http://localhost:8080/image2.png' }
-      ]
-    })
     before(function () {
       cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
       cduSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidUpdate')
@@ -566,13 +565,6 @@ describe('Component > VariableStarViewerContainer', function () {
   describe('with pan and zoom per scatter plot module', function () {
     let wrapper
     before(function () {
-      const subject = Factory.build('subject', {
-        locations: [
-          { 'image/png': 'http://localhost:8080/talk-backup.png' },
-          { 'application/json': 'http://localhost:8080/variableStar.json' },
-          { 'image/png': 'http://localhost:8080/image1.png' }
-        ]
-      })
       wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
