@@ -2,14 +2,14 @@ import { types } from 'mobx-state-tree'
 import Annotation from '../../models/Annotation'
 
 const SimpleDropdown = types.model('SimpleDropdown', {
-  value: types.optional(types.frozen({
-    value: types.string,  // Value selected by the user
-    option: types.boolean,  // i.e. is this value in the list of preset options, or is it a custom "other" value from the user?
+  value: types.maybeNull(types.model({
+    selection: types.number,  // Index of the selection chosen by the user
+    option: types.boolean,  // i.e. is this value in the list of preset options?
   }), null),
 })
   .views(self => ({
     get isComplete () {
-      return !!(self.value && self.value.value && self.value.value.length > 0)
+      return self.value?.selection >= 0
     }
   }))
 
