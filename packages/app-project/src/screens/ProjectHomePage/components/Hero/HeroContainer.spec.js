@@ -27,6 +27,14 @@ const TRANSLATIONS = [
   }
 ]
 
+function subjectSet(id) {
+  return {
+    id,
+    display_name: `test set ${id}`,
+    set_member_subjects_count: 10
+  }
+}
+
 describe('Component > HeroContainer', function () {
   describe('general behaviour', function () {
     let scope
@@ -42,7 +50,14 @@ describe('Component > HeroContainer', function () {
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS,
+          linked: { 
+            subject_sets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
         })
       wrapper = shallow(<HeroContainer activeWorkflows={['1']} />)
     })
@@ -80,7 +95,14 @@ describe('Component > HeroContainer', function () {
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS,
+          linked: { 
+            subject_sets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
         })
     })
 
@@ -114,7 +136,14 @@ describe('Component > HeroContainer', function () {
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS,
+          linked: { 
+            subject_sets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
         })
       fetchWorkflowsSpy = sinon.spy(HeroContainer.prototype, 'fetchWorkflows')
     })
@@ -131,7 +160,18 @@ describe('Component > HeroContainer', function () {
       expect(componentWrapper.prop('workflows')).to.deep.equal({
         loading: 'success',
         data: [
-          { completeness: 0.4, default: true, grouped: false, id: '1', displayName: 'Foo', subjectSets: ['1', '2', '3'] }
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: false,
+            id: '1',
+            displayName: 'Foo',
+            subjectSets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
         ]
       })
     })

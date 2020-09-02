@@ -5,9 +5,14 @@ function fetchWorkflowData (activeWorkflows) {
     .get('/workflows', {
       complete: false,
       fields: 'completeness,grouped',
-      id: activeWorkflows.join(',')
+      id: activeWorkflows.join(','),
+      include: 'subject_sets'
     })
-    .then(response => response.body.workflows)
+    .then(response => {
+      const { workflows, linked } = response.body
+      const subjectSets = linked.subject_sets
+      return { subjectSets, workflows }
+    })
 }
 
 function fetchDisplayNames (language, activeWorkflows) {
@@ -23,12 +28,15 @@ function fetchDisplayNames (language, activeWorkflows) {
 }
 
 async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWorkflow) {
-  const workflows = await fetchWorkflowData(activeWorkflows)
+  const { subjectSets, workflows } = await fetchWorkflowData(activeWorkflows)
   const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds)
 
   return workflows.map(workflow => {
     const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
+    const workflowSubjectSets = workflow.links.subject_sets.map(subjectSetID => {
+      return subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
+    })
 
     return {
       completeness: workflow.completeness || 0,
@@ -36,7 +44,7 @@ async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWo
       displayName: displayNames[workflow.id],
       grouped: workflow.grouped,
       id: workflow.id,
-      subjectSets: workflow.links.subject_sets
+      subjectSets: workflowSubjectSets
     }
   })
 }
