@@ -15,7 +15,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, ref) {
+const VariableStarViewer = React.forwardRef((props, ref) => {
   const {
     allowPanZoom,
     barJSON,
@@ -26,7 +26,9 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
     phasedJSON,
     phaseLimit,
     rawJSON: {
-      scatterPlot
+      data: {
+        scatterPlot
+      }
     },
     setAllowPanZoom,
     setOnPan,
@@ -58,7 +60,7 @@ const VariableStarViewer = React.forwardRef(function VariableStarViewer(props, r
 
   return (
     <Grid
-      forwardedRef={ref}
+      ref={ref}
       fill
       rows={['80px', '1/4', '1/4', '150px']}
       columns={['2/3', '1/3']}
@@ -202,11 +204,13 @@ VariableStarViewer.defaultProps = {
     chartOptions: {}
   },
   rawJSON: {
-    scatterPlot: {
-      data: [],
-      chartOptions: {}
-    },
-    barCharts: {}
+    data: {
+      scatterPlot: {
+        data: [],
+        chartOptions: {}
+      },
+      barCharts: {}
+    }
   },
   setOnPan: () => true,
   setOnZoom: () => true,
@@ -215,6 +219,7 @@ VariableStarViewer.defaultProps = {
   setSeriesVisibility: () => { },
   setYAxisInversion: () => {},
   theme: {
+    dark: false,
     global: {
       colors: {},
       font: {}
@@ -245,7 +250,7 @@ VariableStarViewer.propTypes = {
     chartOptions: PropTypes.object
   }),
   rawJSON: PropTypes.shape({
-    data: PropTypes.array,
+    data: PropTypes.object,
     chartOptions: PropTypes.object
   }),
   setOnPan: PropTypes.func,

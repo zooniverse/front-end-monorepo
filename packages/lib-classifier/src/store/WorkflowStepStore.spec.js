@@ -122,12 +122,12 @@ describe('Model > WorkflowStepStore', function () {
         first_task: 'T1',
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
-          T2: {
-            type: 'combo',
-            tasks: ['T3', 'T4']
-          },
+          T2: MultipleChoiceTaskFactory.build(),
           T3: MultipleChoiceTaskFactory.build(),
-          T4: MultipleChoiceTaskFactory.build()
+          T4: {
+            type: 'combo',
+            tasks: ['T2', 'T3']
+          }
         }
       })
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
@@ -169,7 +169,83 @@ describe('Model > WorkflowStepStore', function () {
     it('should generate a step from the combo task', function () {
       const { workflowSteps } = rootStore
       const comboStep = workflowSteps.steps.get('S1')
-      expect(comboStep.taskKeys).to.deep.equal(['T3', 'T4'])
+      expect(comboStep.taskKeys).to.deep.equal(['T2', 'T3'])
+    })
+  })
+
+  describe('when the workflow tasks define next steps as tasks (backwards compatibility)', function () {
+    let rootStore
+    let workflow
+    before(function () {
+      workflow = WorkflowFactory.build({
+        first_task: 'T1',
+        tasks: {
+          T1: SingleChoiceTaskFactory.build({
+            answers: [
+              { label: 'Yes', next: 'T4' },
+              { label: 'No', next: 'T4' }
+            ]
+          }),
+          T2: MultipleChoiceTaskFactory.build(),
+          T3: MultipleChoiceTaskFactory.build(),
+          T4: {
+            type: 'combo',
+            tasks: ['T2', 'T3'],
+            next: 'T5'
+          },
+          T5: MultipleChoiceTaskFactory.build()
+        }
+      })
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      rootStore = setupStores(panoptesClientStub, project)
+    })
+
+    it('should convert the tasks to steps and set the steps', function () {
+      const { workflowSteps } = rootStore
+      expect(workflowSteps.steps).to.have.lengthOf(3)
+    })
+
+    it('should assign each task to a step', function () {
+      const STORE_STEPS = rootStore.workflowSteps.steps
+
+      STORE_STEPS.forEach(step => {
+        step.tasks.forEach(task => {
+          const annotation = undefined
+          const { taskKey } = task
+          const originalTask = Object.assign({}, workflow.tasks[taskKey], { annotation, taskKey })
+          expect(task).to.eql(originalTask)
+        })
+      })
+    })
+
+    it('should set the first step to be active', function () {
+      const { workflowSteps } = rootStore
+      const storedStep = workflowSteps.active
+      expect(storedStep.stepKey).to.equal('S0')
+      storedStep.taskKeys.forEach(taskKey =>
+        expect(taskKey).to.equal(workflow.first_task)
+      )
+    })
+
+    it('should generate a step from the combo task', function () {
+      const { workflowSteps } = rootStore
+      const comboStep = workflowSteps.steps.get('S1')
+      expect(comboStep.taskKeys).to.deep.equal(['T2', 'T3'])
+    })
+
+    it('should define the next step as appropriate', function () {
+      const { workflowSteps } = rootStore
+      const firstStep = workflowSteps.steps.get('S0')
+      expect(firstStep.next).to.equal('S1')
+      const secondStep = workflowSteps.steps.get('S1')
+      expect(secondStep.next).to.equal('S2')
+      const thirdStep = workflowSteps.steps.get('S2')
+      expect(thirdStep.next).to.equal(undefined)
     })
   })
 

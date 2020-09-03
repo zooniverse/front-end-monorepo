@@ -101,7 +101,7 @@ MultipleChoiceTask.propTypes = {
     })),
     help: PropTypes.string,
     question: PropTypes.string,
-    required: PropTypes.bool
+    required: PropTypes.string
   }).isRequired,
   theme: PropTypes.shape({
     global: PropTypes.shape({

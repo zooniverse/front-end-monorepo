@@ -76,7 +76,7 @@ In addition, mark models should extend the base Mark model with any properties s
 // Create a new drawing tool.
 const tool = TranscriptionLine.create({
   color: 'green',
-  label: 'Transcribe a line'
+  label: 'Transcribe a line',
   type: 'transcriptionLine'
 })
 
@@ -86,7 +86,7 @@ const tool = TranscriptionLine.create({
 tool.createTask({
   taskKey: 'T0.0.0',
   instruction: 'Transcribe the marked line.',
-  required: true,
+  required: 'true',
   type: 'text'
 })
 

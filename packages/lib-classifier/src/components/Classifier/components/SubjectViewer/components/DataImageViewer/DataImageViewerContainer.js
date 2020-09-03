@@ -12,12 +12,15 @@ export default class DataImageViewerContainer extends React.Component {
     this.viewer = React.createRef()
 
     this.state = {
+      allowPanZoom: '',
       imageSrc: '',
       JSONData: {
         data: [],
         chartOptions: {}
       }
     }
+
+    this.setAllowPanZoom = this.setAllowPanZoom.bind(this)
   }
 
   async componentDidMount () {
@@ -95,7 +98,17 @@ export default class DataImageViewerContainer extends React.Component {
     )
   }
 
+  setAllowPanZoom (area) {
+    this.setState({ allowPanZoom: area })
+  }
+
   render () {
+    const {
+      allowPanZoom,
+      imageSrc,
+      JSONData
+    } = this.state
+
     const {
       subject,
       ...rest
@@ -107,9 +120,11 @@ export default class DataImageViewerContainer extends React.Component {
 
     return (
       <DataImageViewer
-        imageSrc={this.state.imageSrc}
+        allowPanZoom={allowPanZoom}
+        imageSrc={imageSrc}
         ref={this.viewer}
-        JSONData={this.state.JSONData}
+        JSONData={JSONData}
+        setAllowPanZoom={this.setAllowPanZoom}
         {...rest}
       />
     )

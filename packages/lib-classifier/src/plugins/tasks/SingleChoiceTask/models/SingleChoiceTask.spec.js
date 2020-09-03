@@ -7,7 +7,7 @@ const singleChoiceTask = {
     { label: 'no', next: 'S3' }
   ],
   question: 'Do you exist?',
-  required: false,
+  required: '',
   taskKey: 'T1',
   type: 'single'
 }
@@ -60,7 +60,7 @@ describe('Model > SingleChoiceTask', function () {
     let task
 
     before(function () {
-      const requiredTask = Object.assign({}, singleChoiceTask, { required: true })
+      const requiredTask = Object.assign({}, singleChoiceTask, { required: 'true' })
       task = SingleChoiceTask.TaskModel.create(requiredTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {

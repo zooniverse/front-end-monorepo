@@ -5,6 +5,7 @@ import { Box, Grommet } from 'grommet'
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
 import VariableStarViewer from './VariableStarViewerContainer'
+import VariableStarViewerConnector from './VariableStarViewerConnector'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import ImageToolbar from '../../../ImageToolbar'
@@ -24,6 +25,14 @@ stories.addDecorator(withKnobs)
 
 const { colors } = zooTheme.global
 
+const subject = Factory.build('subject', {
+  locations: [
+    {
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
+    },
+    { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
+  ]
+})
 
 const mockStore = {
   classifications: {
@@ -32,6 +41,9 @@ const mockStore = {
     }
   },
   fieldGuide: {},
+  subjects: {
+    active: subject
+  },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
     activeStepTasks: []
@@ -56,15 +68,6 @@ function ViewerContext (props) {
     </Provider>
   )
 }
-
-const subject = Factory.build('subject', {
-  locations: [
-    {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
-    },
-    { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
-  ]
-})
 
 stories
   .add('light theme', () => {
@@ -105,9 +108,7 @@ stories
     return (
       <ViewerContext theme={zooTheme} mode='light'>
         <Box direction='row' height='500px' width='large'>
-          <VariableStarViewer
-            subject={subject}
-          />
+          <VariableStarViewerConnector />
           <ImageToolbar />
         </Box>
       </ViewerContext>

@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import DataImageViewerConnector from './DataImageViewerConnector'
-import DataImageViewerContainer from './DataImageViewerContainer'
+import VariableStarViewerConnector from './VariableStarViewerConnector'
+import VariableStarViewerContainer from './VariableStarViewerContainer'
 
 const mockStore = {
   classifierStore: {
@@ -16,14 +16,14 @@ const mockStore = {
   }
 }
 
-describe('DataImageViewerConnector', function () {
+describe('VariableStarViewerConnector', function () {
   let wrapper, useContextMock, containerProps
   before(function () {
     useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     wrapper = shallow(
-      <DataImageViewerConnector />
+      <VariableStarViewerConnector />
     )
-    containerProps = wrapper.find(DataImageViewerContainer).props()
+    containerProps = wrapper.find(VariableStarViewerContainer).props()
   })
 
   after(function () {

@@ -7,18 +7,18 @@ const details = [
     type: 'multiple',
     question: 'which fruit?',
     answers: ['apples', 'oranges', 'pears'],
-    required: false
+    required: ''
   },
   {
     type: 'single',
     question: 'how many?',
     answers: ['one', 'two', 'three'],
-    required: false
+    required: ''
   },
   {
     type: 'text',
     instruction: 'Transcribe something',
-    required: false
+    required: ''
   }
 ]
 

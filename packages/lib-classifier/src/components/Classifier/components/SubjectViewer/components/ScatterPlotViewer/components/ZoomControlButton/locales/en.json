@@ -1,6 +1,6 @@
 {
   "ZoomControlButton": {
-    "enableZoom": "enable zoom",
-    "zoomEnabled": "zoom enabled"
+    "enable": "enable zoom",
+    "disable": "disable zoom"
   }
 }
