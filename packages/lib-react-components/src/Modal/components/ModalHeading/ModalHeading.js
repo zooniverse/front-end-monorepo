@@ -9,16 +9,6 @@ const StyledBox = styled(Box)`
   min-height: 30px;
 `
 
-const Heading = styled.h2`
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  letter-spacing: 0.18em;
-  margin: 0;
-  text-shadow: 0 2px 2px rgba(0,0,0,0.22);
-  text-transform: uppercase;
-`
-
 function ModalHeading ({ background = 'brand', color = 'neutral-6', className = '', closeFn, title = '' }) {
   const horizontalPad = (title) ? 'medium' : 'xsmall'
   return (
@@ -32,10 +22,14 @@ function ModalHeading ({ background = 'brand', color = 'neutral-6', className = 
       pad={{ horizontal: horizontalPad, vertical: 'none' }}
     >
       {title &&
-        <SpacedHeading color={color}>
+        <SpacedHeading
+          color={color}
+        >
           {title}
         </SpacedHeading>}
-      <CloseButton closeFn={closeFn} />
+      <CloseButton
+        closeFn={closeFn}
+      />
     </StyledBox>
   )
 }
