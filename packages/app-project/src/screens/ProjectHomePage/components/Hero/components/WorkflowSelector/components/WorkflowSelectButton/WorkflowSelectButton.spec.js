@@ -1,11 +1,10 @@
 import { render, shallow } from 'enzyme'
 import { Button } from 'grommet'
-import Link from 'next/link'
 import * as nextRouter from 'next/router'
 import React from 'react'
 import sinon from 'sinon'
 
-import { WorkflowSelectButton } from './WorkflowSelectButton'
+import WorkflowSelectButton, { WorkflowLink } from './WorkflowSelectButton'
 import SubjectSetPicker from '../SubjectSetPicker'
 
 const WORKFLOW = {
@@ -43,16 +42,14 @@ describe('Component > WorkflowSelectButton', function () {
           ...WORKFLOW,
           default: true
         }} />
-      ).find(Link)
-      expect(wrapper.name()).to.equal('Link')
+      ).find(WorkflowLink)
       expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify`)
     })
   })
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
-      const wrapper = shallow(<WorkflowSelectButton workflow={WORKFLOW} />).find(Link)
-      expect(wrapper.name()).to.equal('Link')
+      const wrapper = shallow(<WorkflowSelectButton workflow={WORKFLOW} />).find(WorkflowLink)
       expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })

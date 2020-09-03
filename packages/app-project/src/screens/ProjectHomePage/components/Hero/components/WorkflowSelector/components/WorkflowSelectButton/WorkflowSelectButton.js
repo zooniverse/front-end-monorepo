@@ -15,6 +15,8 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const WorkflowLink = withThemeContext(Link, theme)
+
 function WorkflowSelectButton (props) {
   const { workflow, ...rest } = props
   const router = useRouter()
@@ -50,7 +52,7 @@ function WorkflowSelectButton (props) {
 
   return (
     <>
-      <Link as={as} href={href} passHref>
+      <WorkflowLink as={as} href={href} passHref>
         <Button
           completeness={completeness}
           icon={<Next />}
@@ -60,7 +62,7 @@ function WorkflowSelectButton (props) {
           onClick={selectSubjectSet}
           {...rest}
         />
-      </Link>
+      </WorkflowLink>
       {showPicker &&
         <SubjectSetPicker
           active={showPicker}
@@ -83,9 +85,5 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-const DecoratedWorkflowSelectButton = withThemeContext(WorkflowSelectButton, theme)
-
-export {
-  DecoratedWorkflowSelectButton as default,
-  WorkflowSelectButton
-}
+export default WorkflowSelectButton
+export { WorkflowLink }
