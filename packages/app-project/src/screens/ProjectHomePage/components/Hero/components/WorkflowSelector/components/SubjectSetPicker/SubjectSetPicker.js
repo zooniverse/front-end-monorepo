@@ -1,24 +1,14 @@
-import { Modal } from '@zooniverse/react-components'
+import { Modal, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Grid } from 'grommet'
 import Link from 'next/link'
 import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
 
-
+import SubjectSetCard from './components/SubjectSetCard'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
-
-function SubjectSetCard (props) {
-  const { display_name, set_member_subjects_count } = props
-  return (
-    <>
-      <p>{display_name}</p>
-      <p>Subjects: {set_member_subjects_count}</p>
-    </>
-  )
-}
 
 function SubjectSetPicker (props) {
   const { active, closeFn, owner, project, workflow } = props
