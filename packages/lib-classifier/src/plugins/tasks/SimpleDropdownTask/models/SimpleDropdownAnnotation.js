@@ -16,7 +16,9 @@ const SimpleDropdown = types.model('SimpleDropdown', {
 })
   .views(self => ({
     get isComplete () {
-      return self.value?.selection >= 0
+      return (self.value?.option)
+        ? self.value?.selection >= 0  // If preset option, any non-negative number is legit
+        : self.value?.selection?.length > 0  // If 'other' option, check that it's a non-empty string. (This also catches instances when value is null)
     }
   }))
 
