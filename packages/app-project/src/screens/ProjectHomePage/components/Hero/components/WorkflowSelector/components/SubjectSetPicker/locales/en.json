@@ -1,5 +1,6 @@
 {
-  "WorkflowSelectButton": {
-    "complete": "%(completeness)s%% complete"
+  "SubjectSetPicker": {
+    "heading": "Choose where to start",
+    "byline": "Choose a subject set to start transcribing."
   }
 }

@@ -1,6 +1,6 @@
 import { Modal, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Grid } from 'grommet'
+import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { bool, number, shape, string } from 'prop-types'
 import React from 'react'
@@ -17,26 +17,47 @@ function SubjectSetPicker (props) {
     <Modal
       active={active}
       closeFn={closeFn}
-      title="Select a subject set"
+      headingBackground='brand'
+      title={workflow.displayName}
+      titleColor='neutral-6'
     >
-      <Grid
-        columns={[`repeat(5, minmax(200px, 1fr))`]}
+      <Heading
+        level={2}
       >
-      {workflow.subjectSets.map(subjectSet => {
-        return (
-          <div>
-            <Link
-              as={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
-              href="/projects/[owner]/[project]/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
-            >
-              <a>
-                <SubjectSetCard {...subjectSet} />
-              </a>
-            </Link>
-          </div>
-        )
-      })}
-      </Grid>
+        {counterpart('SubjectSetPicker.heading')}
+      </Heading>
+      <Paragraph
+        margin={{ top: '0px' }}
+      >
+        {counterpart('SubjectSetPicker.byline')}
+      </Paragraph>
+      <Box
+        background='light-1'
+        border= {{ color: 'light-5', size: 'xsmall'}}
+      >
+        <Grid
+          alignContent='stretch'
+          columns={[`repeat(5, minmax(200px, 1fr))`]}
+          gap='medium'
+          pad='medium'
+        >
+        {workflow.subjectSets.map(subjectSet => {
+          return (
+            <div>
+              <Link
+                as={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
+                href="/projects/[owner]/[project]/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
+                passHref
+              >
+                <Anchor>
+                  <SubjectSetCard {...subjectSet} />
+                </Anchor>
+              </Link>
+            </div>
+          )
+        })}
+        </Grid>
+      </Box>
     </Modal>
   )
 }
