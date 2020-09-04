@@ -47,7 +47,7 @@ storiesOf('MovableModal', module)
       <MovableModal
         active={boolean('Active', true)}
         animate={boolean('Animate layer', false)}
-        headingBackground={text('Heading background color', '')}
+        headingBackground={text('Heading background color', 'brand')}
         closeFn={action('Close modal')}
         pad={text('Modal body padding', 'medium')}
         plain={boolean('Plain layer', false)}
@@ -73,7 +73,7 @@ storiesOf('MovableModal', module)
         active={boolean('Active', true)}
         animate={boolean('Animate layer', false)}
         closeFn={action('Close modal')}
-        headingBackground={text('Heading background color', '')}
+        headingBackground={text('Heading background color', 'brand')}
         pad={text('Modal body padding', 'medium')}
         plain={boolean('Plain layer', false)}
         position={select('Layer position', layerPositions, 'center')}
@@ -104,6 +104,7 @@ storiesOf('MovableModal', module)
         position={select('Layer position', layerPositions, 'top-left')}
         rndProps={object('RND props')}
         title={text('Title', '')}
+        titleColor=''
       >
         <Box gap='xsmall'>
           <label>
