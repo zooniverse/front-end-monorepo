@@ -29,6 +29,7 @@ function ModalHeading ({ background = 'brand', color = 'neutral-6', className = 
         </SpacedHeading>}
       <CloseButton
         closeFn={closeFn}
+        color={color}
       />
     </StyledBox>
   )

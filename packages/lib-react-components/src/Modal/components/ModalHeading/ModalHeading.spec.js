@@ -33,7 +33,7 @@ describe('Modal > ModalHeading', function () {
 
   describe('when there is a title', function () {
     let wrapper
-    before(function () {
+    beforeEach(function () {
       wrapper = shallow(<ModalHeading closeFn={() => { }} title={title} />)
     })
 
@@ -45,10 +45,18 @@ describe('Modal > ModalHeading', function () {
       expect(wrapper.render().children().eq(0).is('h2')).to.be.true()
     })
 
-    it('should set the color by prop', function () {
-      expect(wrapper.find(SpacedHeading).props().color).to.equal('neutral-6')
-      wrapper.setProps({ color: 'accent-2' })
-      expect(wrapper.find(SpacedHeading).props().color).to.equal('accent-2')
+    describe('with a color prop', function () {
+      it('should set the heading text colour', function () {
+        expect(wrapper.find(SpacedHeading).props().color).to.equal('neutral-6')
+        wrapper.setProps({ color: 'accent-2' })
+        expect(wrapper.find(SpacedHeading).props().color).to.equal('accent-2')
+      })
+      
+      it('should set the close button colour', function () {
+        expect(wrapper.find(CloseButton).props().color).to.equal('neutral-6')
+        wrapper.setProps({ color: 'accent-2' })
+        expect(wrapper.find(CloseButton).props().color).to.equal('accent-2')
+      })
     })
 
     it('should justify the wrapper flex box by between', function () {
