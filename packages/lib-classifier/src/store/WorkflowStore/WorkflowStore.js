@@ -22,8 +22,7 @@ const WorkflowStore = types
         const validProjectReference = isValidReference(() => getRoot(self).projects?.active)
         if (validProjectReference) {
           self.reset()
-          const queryParamId = getQueryParamId()
-          selectWorkflow(queryParamId)
+          selectWorkflow()
         }
       }, { name: 'Workflow Store Project Observer autorun' })
       addDisposer(self, projectDisposer)
@@ -39,19 +38,6 @@ const WorkflowStore = types
         }
       }, { name: 'Workflow Store UPP Observer autorun' })
       addDisposer(self, uppDisposer)
-    }
-
-    function getQueryParamId () {
-      if (window.location && window.location.search) {
-        const { workflow } = queryString.parse(window.location.search) // Search the query string for the 'project='
-        if (workflow) {
-          return workflow
-        }
-
-        return undefined
-      }
-
-      return undefined
     }
 
     function getDefaultWorkflowId () {

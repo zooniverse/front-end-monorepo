@@ -40,27 +40,6 @@ describe('Model > WorkflowStore', function () {
   })
 
   describe('workflow selection', function () {
-    xdescribe('when there is a url query param', function () {
-      before(function () {
-        const panoptesClientStub = stubPanoptesJs({
-          projects: projectWithoutDefault,
-          subjects: Factory.buildList('subject', 10),
-          workflows: workflow
-        })
-
-        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
-        // JSDOM doesn't support doing this :(
-        window.location.assign(`https://www.zooniverse.org/projects/${projectWithoutDefault.slug}/classify/?workflow=${workflow.id}`)
-      })
-
-      after(function () {
-        rootStore = null
-        window.location.assign('https://example.org/')
-      })
-
-      xit('should set the active workflow from the query param', function () {
-      })
-    })
 
     describe('when there is a project default', function () {
       let rootStore
