@@ -1,6 +1,6 @@
 import { Factory } from 'rosie'
 
-export default new Factory()
+export default Factory.define('workflow')
   .sequence('id', (id) => { return id.toString() })
   .attr('display_name', ['id'], function (id) {
     return `Workflow #${id}`
