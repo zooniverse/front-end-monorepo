@@ -62,7 +62,7 @@ describe('Model > WorkflowStore', function () {
       })
     })
 
-    describe('when there is not an active project', function () {
+    describe('when there is no default workflow', function () {
       let rootStore
       before(function () {
         const panoptesClientStub = stubPanoptesJs({
@@ -81,6 +81,59 @@ describe('Model > WorkflowStore', function () {
       it('should set the active workflow to a random active workflow', function () {
         expect(projectWithoutDefault.configuration.default_workflow).to.be.undefined()
         expect(projectWithoutDefault.links.active_workflows.includes(rootStore.workflows.active.id)).to.be.true()
+      })
+    })
+  })
+
+  describe('Actions > selectWorkflow', function () {
+    describe('with a valid workflow ID', function () {
+      let rootStore
+      let workflowID
+
+      before(function () {
+        const workflows = Factory.buildList('workflow', 5)
+        workflowID = workflows[2].id
+        const panoptesClientStub = stubPanoptesJs({
+          subjects: Factory.buildList('subject', 10),
+          workflows: workflows[2]
+        })
+
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
+        rootStore.workflows.reset()
+        rootStore.workflows.setResources(workflows)
+        rootStore.workflows.selectWorkflow(workflowID)
+      })
+
+      after(function () {
+        rootStore = null
+      })
+
+      it('should set the active workflow', function () {
+        expect(rootStore.workflows.active.id).to.equal(workflowID)
+      })
+    })
+
+    describe('with an invalid workflow ID', function () {
+      let rootStore
+
+      before(function () {
+        const workflows = Factory.buildList('workflow', 5)
+        const panoptesClientStub = stubPanoptesJs({
+          subjects: Factory.buildList('subject', 10),
+          workflows: []
+        })
+
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
+        rootStore.workflows.reset()
+        rootStore.workflows.selectWorkflow('101')
+      })
+
+      after(function () {
+        rootStore = null
+      })
+
+      it('should throw an error', function () {
+        expect(() => rootStore.workflows.active).to.throw()
       })
     })
   })
