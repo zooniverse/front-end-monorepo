@@ -30,7 +30,7 @@ function setupStores (clientStub, project, workflow) {
   store.projects.setActive(project.id)
   if (workflow) {
     store.workflows.setResources([workflow])
-    store.workflows.setActive(workflow.id)
+    store.workflows.selectWorkflow(workflow.id)
   }
   return store
 }

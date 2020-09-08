@@ -50,6 +50,7 @@ describe('Model > WorkflowStore', function () {
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithDefault)
+        rootStore.workflows.selectWorkflow()
       })
 
       after(function () {
@@ -70,6 +71,7 @@ describe('Model > WorkflowStore', function () {
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
+        rootStore.workflows.selectWorkflow()
       })
 
       after(function () {

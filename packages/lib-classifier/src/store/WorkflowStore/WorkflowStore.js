@@ -22,7 +22,6 @@ const WorkflowStore = types
         const validProjectReference = isValidReference(() => getRoot(self).projects?.active)
         if (validProjectReference) {
           self.reset()
-          selectWorkflow()
         }
       }, { name: 'Workflow Store Project Observer autorun' })
       addDisposer(self, projectDisposer)
@@ -34,7 +33,6 @@ const WorkflowStore = types
         const validWorkflowReference = isValidReference(() => self.active)
         if (validUPPReference && !validWorkflowReference) {
           self.reset()
-          selectWorkflow()
         }
       }, { name: 'Workflow Store UPP Observer autorun' })
       addDisposer(self, uppDisposer)
@@ -66,7 +64,8 @@ const WorkflowStore = types
     }
 
     return {
-      afterAttach
+      afterAttach,
+      selectWorkflow
     }
   })
 
