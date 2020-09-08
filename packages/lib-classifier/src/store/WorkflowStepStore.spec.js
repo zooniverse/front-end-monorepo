@@ -61,7 +61,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = setupStores(panoptesClientStub, project)
+      rootStore = setupStores(panoptesClientStub, project, workflow)
     })
 
     describe('should set the steps', function () {
@@ -136,7 +136,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = setupStores(panoptesClientStub, project)
+      rootStore = setupStores(panoptesClientStub, project, workflow)
     })
 
     it('should convert the tasks to steps and set the steps', function () {
@@ -202,7 +202,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = setupStores(panoptesClientStub, project)
+      rootStore = setupStores(panoptesClientStub, project, workflow)
     })
 
     it('should convert the tasks to steps and set the steps', function () {
@@ -287,7 +287,7 @@ describe('Model > WorkflowStepStore', function () {
     it('should return false if there is not an active workflow', function () {
       const project = ProjectFactory.build({})
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project)
+      const rootStore = setupStores(panoptesClientStub, project, workflow)
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
