@@ -48,11 +48,12 @@ function SimpleDropdownTask (props) {
   }
   
   // Determine which option is selected.
-  const selectedOption = (value?.option)
-    ? optionsToDisplay[value?.selection]
-    : (value?.option === false)  // distinguishes between value simply not existing
-    ? otherOption
-    : undefined
+  let selectedOption = undefined
+  if (value?.option === true) {
+    selectedOption = optionsToDisplay[value?.selection]
+  } else if (value?.option === false) {  // Note: this distinguishes between value = undefined
+    selectedOption = otherOption
+  }
 
   // The following is only relevant if the Other option is enabled.
   const [customValue, setCustomValue] = React.useState((selectedOption === otherOption) ? value?.selection : '')
