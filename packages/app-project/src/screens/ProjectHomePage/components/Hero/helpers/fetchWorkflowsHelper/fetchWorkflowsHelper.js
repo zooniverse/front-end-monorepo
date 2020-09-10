@@ -1,18 +1,17 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
-function fetchWorkflowData (activeWorkflows) {
-  return panoptes
+async function fetchWorkflowData (activeWorkflows) {
+  const response = await panoptes
     .get('/workflows', {
       complete: false,
       fields: 'completeness,grouped',
       id: activeWorkflows.join(','),
       include: 'subject_sets'
     })
-    .then(response => {
-      const { workflows, linked } = response.body
-      const subjectSets = linked.subject_sets
-      return { subjectSets, workflows }
-    })
+  const { workflows, linked } = response.body
+  const subjectSets = linked.subject_sets
+  await Promise.allSettled(subjectSets.map(fetchPreviewImage))
+  return { subjectSets, workflows }
 }
 
 function fetchDisplayNames (language, activeWorkflows) {
@@ -25,6 +24,17 @@ function fetchDisplayNames (language, activeWorkflows) {
     })
     .then(response => response.body.translations)
     .then(createDisplayNamesMap)
+}
+
+async function fetchPreviewImage (subjectSet) {
+  const response = await panoptes
+    .get('/set_member_subjects', {
+      subject_set_id: subjectSet.id,
+      include: 'subject',
+      page_size: 1
+    })
+  const { linked } = response.body
+  subjectSet.subjects = linked.subjects
 }
 
 async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWorkflow) {
