@@ -53,7 +53,7 @@ function SubjectSetCard (props) {
       <Box
         pad='small'
       >
-        <SpacedText>{display_name}</SpacedText>
+        <SpacedText truncate >{display_name}</SpacedText>
         <Paragraph>
           {set_member_subjects_count} subjects
         </Paragraph>

@@ -22,7 +22,7 @@ function SubjectSetPicker (props) {
       titleColor='neutral-6'
     >
       <Heading
-        level={2}
+        level={3}
       >
         {counterpart('SubjectSetPicker.heading')}
       </Heading>
@@ -34,11 +34,12 @@ function SubjectSetPicker (props) {
       <Box
         background='light-1'
         border= {{ color: 'light-5', size: 'xsmall'}}
+        overflow="scroll"
       >
         <Grid
           alignContent='stretch'
           columns={[`repeat(5, minmax(200px, 1fr))`]}
-          gap='medium'
+          gap='small'
           pad='medium'
         >
         {workflow.subjectSets.map(subjectSet => {
