@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import { Media, SpacedText } from '@zooniverse/react-components'
-import { Box, Paragraph } from 'grommet'
+import { Box, Paragraph, Text } from 'grommet'
 import getConfig from 'next/config'
 import { number, string } from 'prop-types'
 import React, { useState } from 'react'
@@ -53,9 +53,18 @@ function SubjectSetCard (props) {
       <Box
         pad='small'
       >
-        <SpacedText truncate >{display_name}</SpacedText>
+        <SpacedText
+          truncate
+          weight="bold"
+        >
+          {display_name}
+        </SpacedText>
         <Paragraph>
-          {set_member_subjects_count} subjects
+          <Text
+            weight="normal"
+          >
+            {set_member_subjects_count} subjects
+          </Text>
         </Paragraph>
       </Box>
     </Box>
