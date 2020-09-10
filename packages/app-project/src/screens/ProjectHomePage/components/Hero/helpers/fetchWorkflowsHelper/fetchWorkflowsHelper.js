@@ -34,9 +34,11 @@ async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWo
 
   return workflows.map(workflow => {
     const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
-    const workflowSubjectSets = workflow.links.subject_sets.map(subjectSetID => {
-      return subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
-    })
+    const workflowSubjectSets = workflow.links.subject_sets
+      .map(subjectSetID => {
+        return subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
+      })
+      .filter(Boolean)
 
     return {
       completeness: workflow.completeness || 0,
