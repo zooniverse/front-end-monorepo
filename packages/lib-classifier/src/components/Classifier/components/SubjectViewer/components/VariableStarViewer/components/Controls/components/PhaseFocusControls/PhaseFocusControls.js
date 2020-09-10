@@ -25,7 +25,7 @@ function PhaseFocusControls(props) {
       {data.map((series, seriesIndex) => {
         const { seriesOptions } = series
         const checked = phaseFocusedSeries === seriesIndex
-        const label = seriesOptions.label || counterpart('VariableStarViewer.label', { id: seriesIndex + 1 })
+        const label = seriesOptions?.label || counterpart('VariableStarViewer.label', { id: seriesIndex + 1 })
 
         return (
           <RadioButton
