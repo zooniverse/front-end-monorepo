@@ -44,17 +44,16 @@ function SubjectSetPicker (props) {
         >
         {workflow.subjectSets.map(subjectSet => {
           return (
-            <div>
-              <Link
-                as={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
-                href="/projects/[owner]/[project]/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
-                passHref
-              >
-                <Anchor>
-                  <SubjectSetCard {...subjectSet} />
-                </Anchor>
-              </Link>
-            </div>
+            <Link
+              key={subjectSet.id}
+              as={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
+              href="/projects/[owner]/[project]/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
+              passHref
+            >
+              <Anchor>
+                <SubjectSetCard {...subjectSet} />
+              </Anchor>
+            </Link>
           )
         })}
         </Grid>
