@@ -69,6 +69,7 @@ function WorkflowSelectButton (props) {
           closeFn={() => setShowPicker(false)}
           owner={owner}
           project={project}
+          title={workflow.displayName || 'Choose a subject set'}
           workflow={workflow}
         />
       }

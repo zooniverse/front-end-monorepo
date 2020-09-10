@@ -2,7 +2,7 @@ import { Modal, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
-import { bool, number, shape, string } from 'prop-types'
+import { array, bool, number, shape, string } from 'prop-types'
 import React from 'react'
 
 import SubjectSetCard from './components/SubjectSetCard'
@@ -11,14 +11,14 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 function SubjectSetPicker (props) {
-  const { active, closeFn, owner, project, workflow } = props
+  const { active, closeFn, owner, project, title, workflow } = props
 
   return (
     <Modal
       active={active}
       closeFn={closeFn}
       headingBackground='brand'
-      title={workflow.displayName}
+      title={title}
       titleColor='neutral-6'
     >
       <Heading
@@ -63,11 +63,13 @@ function SubjectSetPicker (props) {
 }
 
 SubjectSetPicker.propTypes = {
+  title: string.isRequired,
   workflow: shape({
     completeness: number,
     default: bool,
-    displayName: string.isRequired,
-    id: string
+    display_name: string,
+    id: string,
+    subjectSets: array
   }).isRequired
 }
 
