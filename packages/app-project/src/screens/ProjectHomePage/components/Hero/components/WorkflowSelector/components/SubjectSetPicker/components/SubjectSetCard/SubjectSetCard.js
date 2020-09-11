@@ -46,7 +46,7 @@ function SubjectSetCard (props) {
           <Text
             weight="normal"
           >
-            {set_member_subjects_count} subjects
+            {`${set_member_subjects_count} subjects`}
           </Text>
         </Paragraph>
       </Box>
