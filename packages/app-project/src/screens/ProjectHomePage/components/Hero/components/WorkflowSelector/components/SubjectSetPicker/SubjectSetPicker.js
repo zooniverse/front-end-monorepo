@@ -42,7 +42,7 @@ function SubjectSetPicker (props) {
           gap='small'
           pad='medium'
         >
-        {workflow.subjectSets.map(subjectSet => {
+        {workflow?.subjectSets.map(subjectSet => {
           return (
             <Link
               key={subjectSet.id}
@@ -63,6 +63,7 @@ function SubjectSetPicker (props) {
 }
 
 SubjectSetPicker.propTypes = {
+  active: bool,
   title: string.isRequired,
   workflow: shape({
     completeness: number,
@@ -73,4 +74,7 @@ SubjectSetPicker.propTypes = {
   }).isRequired
 }
 
+SubjectSetPicker.defaultProps = {
+  active: false
+}
 export default SubjectSetPicker
