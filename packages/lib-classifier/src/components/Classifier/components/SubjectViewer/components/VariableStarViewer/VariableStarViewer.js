@@ -62,7 +62,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
     <Grid
       ref={ref}
       fill
-      rows={['80px', '1/4', '1/4', '150px']}
+      rows={['80px', '200px', '150px', '180px']}
       columns={['2/3', '1/3']}
       gap='5px'
       areas={[
@@ -159,21 +159,21 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       <Box
         as='figure'
         direction='column'
-        height='260px'
+        height='320px'
         gridArea='HRDiagram'
         margin='none'
-        width='220px'
+        width='250px'
       >
         <SingleImageViewer
           aria-labelledby='imageId'
-          height={230}
+          height={290}
           enableInteractionLayer={false}
           role='img'
-          viewBox='0 0 220 260'
-          width={220}
+          viewBox='0 0 250 320'
+          width={250}
         >
           <title id='imageId'>{counterpart('VariableStarViewer.imageTitle')}</title>
-          <image height={230} xlinkHref={imageSrc} width={220} />
+          <image height={290} xlinkHref={imageSrc} width={250} />
         </SingleImageViewer>
         <figcaption>
           <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>&#8592; {counterpart('VariableStarViewer.temperature')}</SpacedText>
