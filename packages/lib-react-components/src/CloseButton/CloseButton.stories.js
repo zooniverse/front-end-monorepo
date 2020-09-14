@@ -67,7 +67,7 @@ storiesOf('CloseButton', module)
         justify='center'
         width='small'
       >
-        <CloseButton closeFn={() => { }} />
+        <CloseButton color='neutral-6' closeFn={() => { }} />
       </Box>
     </Grommet>
   ), config)

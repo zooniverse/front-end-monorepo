@@ -5,13 +5,29 @@ import sinon from 'sinon'
 import cuid from 'cuid'
 import SubTaskPopup from './SubTaskPopup'
 import SaveButton from './components/SaveButton'
-import { CloseButton } from '@zooniverse/react-components'
+import { CloseButton, MovableModal } from '@zooniverse/react-components'
 import * as Tools from '@plugins/drawingTools/models/tools'
 
 describe('SubTaskPopup', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<SubTaskPopup />)
     expect(wrapper).to.be.ok()
+  })
+
+  describe('title bar', function () {
+    let modal
+    before(function () {
+      const activeMark = { subTaskVisibility: true }
+      modal = shallow(<SubTaskPopup activeMark={activeMark} />).find(MovableModal)
+    })
+
+    it('should have a transparent background', function () {
+      expect(modal.prop('headingBackground')).to.equal('transparent')
+    })
+
+    it('should use the default text colour', function () {
+      expect(modal.prop('titleColor')).to.equal('')
+    })
   })
 
   Object.keys(Tools).forEach((toolKey) => {

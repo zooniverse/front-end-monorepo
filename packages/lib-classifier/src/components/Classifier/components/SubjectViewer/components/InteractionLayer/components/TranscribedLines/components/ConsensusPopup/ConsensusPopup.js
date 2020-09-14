@@ -53,6 +53,7 @@ export default function ConsensusPopup (props) {
         position
       }}
       title={counterpart('ConsensusPopup.title')}
+      titleColor=''
     >
       <Paragraph>
         {counterpart('ConsensusPopup.explanation', { count: line.textOptions.length })}
