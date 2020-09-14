@@ -32,6 +32,8 @@ function SubjectSetPicker (props) {
     bottom: 'medium'
   }
 
+  const columns = Math.floor(window.innerWidth / 240)
+
   return (
     <Modal
       active={active}
@@ -58,7 +60,7 @@ function SubjectSetPicker (props) {
       >
         <Grid
           alignContent='stretch'
-          columns={[`repeat(5, minmax(200px, 1fr))`]}
+          columns={[`repeat(${columns}, minmax(200px, 1fr))`]}
           gap='small'
           pad='medium'
         >

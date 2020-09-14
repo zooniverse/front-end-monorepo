@@ -35,3 +35,12 @@ storiesOf('Project App / Screens / Project Home / Subject Set Picker', module)
       />
     </StoryContext>
   ))
+  .add('tablet', () => (
+    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <SubjectSetPicker
+        active
+        title="Question Workflow (grouped)"
+        workflow={mockWorkflow}
+      />
+    </StoryContext>
+  ), { viewport: { defaultViewport: 'ipad' }})
