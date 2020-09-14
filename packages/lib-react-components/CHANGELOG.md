@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Fixed
 - Arrow position is now correct based on the position set by tippyjs-react for the Tooltip
+- Restore default colours for the Modal and MovableModal components.
+- Update Modal spacing to reflect the Zooniverse design system.
+- Allow the colour of the Modal close button to be changed based on the ModalHeading text colour.
 
 ## [1.0.2] 2020-07-15
 - Patch fix previous version with correctly built package

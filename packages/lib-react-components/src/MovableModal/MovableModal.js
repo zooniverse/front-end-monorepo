@@ -80,7 +80,6 @@ function MovableModal (props) {
 
 MovableModal.defaultProps = {
   closeFn: () => {},
-  headingBackground: '',
   overflow: 'auto',
   rndProps: {
     minHeight: 100,
@@ -90,8 +89,7 @@ MovableModal.defaultProps = {
       y: 0
     }
   },
-  title: '',
-  titleColor: ''
+  title: ''
 }
 
 MovableModal.propTypes = {

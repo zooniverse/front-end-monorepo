@@ -25,11 +25,11 @@ class Modal extends React.Component {
       children,
       className = '',
       closeFn = () => {},
-      headingBackground = '',
+      headingBackground,
       overflow = 'auto',
       pad,
       title = '',
-      titleColor = '',
+      titleColor,
       ...props
     } = this.props
 
