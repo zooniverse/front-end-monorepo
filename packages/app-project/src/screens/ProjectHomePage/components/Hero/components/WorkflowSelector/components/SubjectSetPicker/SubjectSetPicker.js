@@ -4,14 +4,33 @@ import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { array, bool, number, shape, string } from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import SubjectSetCard from './components/SubjectSetCard'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+/*
+  Grommet is opinionated about line-height and links it to font-size.
+  Reset the heading baselines here so that spacing is measured from
+  the tops and bottoms of the letters (without changing the text size.)
+  https://matthiasott.com/notes/the-thing-with-leading-in-css
+*/
+const StyledHeading = styled(Heading)`
+  line-height: 100%;
+`
+
 function SubjectSetPicker (props) {
   const { active, closeFn, owner, project, title, workflow } = props
+  /*
+    Vertical spacing for the picker instructions.
+    The theme's named margins are set in multiples of 10px, so set 15px explicitly.
+  */
+  const textMargin = {
+    top: '15px',
+    bottom: 'medium'
+  }
 
   return (
     <Modal
@@ -21,13 +40,14 @@ function SubjectSetPicker (props) {
       title={title}
       titleColor='neutral-6'
     >
-      <Heading
+      <StyledHeading
         level={3}
+        margin={{ vertical: 'none' }}
       >
         {counterpart('SubjectSetPicker.heading')}
-      </Heading>
+      </StyledHeading>
       <Paragraph
-        margin={{ top: '0px' }}
+        margin={textMargin}
       >
         {counterpart('SubjectSetPicker.byline')}
       </Paragraph>
@@ -78,3 +98,4 @@ SubjectSetPicker.defaultProps = {
   active: false
 }
 export default SubjectSetPicker
+export { StyledHeading }

@@ -1,9 +1,11 @@
 import { Modal } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
+import { Paragraph } from 'grommet'
 import React from 'react'
 
-import SubjectSetPicker from './'
+import SubjectSetPicker, { StyledHeading } from './SubjectSetPicker'
 import SubjectSetCard from './components/SubjectSetCard'
+import en from './locales/en'
 import { mockWorkflow } from './helpers'
 
 describe('Component > SubjectSetPicker', function () {
@@ -35,6 +37,42 @@ describe('Component > SubjectSetPicker', function () {
     it('should be active', function () {
       const modal = wrapper.find(Modal)
       expect(modal.props().active).to.be.true()
+    })
+
+    describe('content heading', function () {
+      let heading
+
+      before(function () {
+        heading = wrapper.find(StyledHeading)
+      })
+
+      it('should contain the heading text', function () {
+        expect(heading.children().first().text()).to.equal(en.SubjectSetPicker.heading)
+      })
+
+      it('should have no vertical margins', function () {
+        expect(heading.props().margin.vertical).to.equal('none')
+      })
+    })
+
+    describe('content byline', function () {
+      let description
+
+      before(function () {
+        description = wrapper.find(Paragraph)
+      })
+
+      it('should contain the byline text', function () {
+        expect(description.children().first().text()).to.equal(en.SubjectSetPicker.byline)
+      })
+
+      it('should have a small top margin', function () {
+        expect(description.props().margin.top).to.equal('15px')
+      })
+
+      it('should have a larger bottom margin', function () {
+        expect(description.props().margin.bottom).to.equal('medium')
+      })
     })
 
     it('should use the workflow name as the modal title', function () {
