@@ -64,19 +64,6 @@ class App extends React.Component {
     }
   }
 
-  workflowId () {
-    if (window.location && window.location.search) {
-      const { workflow } = queryString.parse(window.location.search) // Search the query string for the 'project='
-      if (workflow) {
-        return workflow
-      }
-
-      return undefined
-    }
-
-    return undefined
-  }
-
   login () {
     oauth.signIn('http://localhost:8080/')
   }
@@ -122,7 +109,7 @@ class App extends React.Component {
               onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               project={this.state.project}
-              workflowID={this.workflowId()}
+              workflowID={this.props.workflowID}
             />
           </Box>
         </Box>
