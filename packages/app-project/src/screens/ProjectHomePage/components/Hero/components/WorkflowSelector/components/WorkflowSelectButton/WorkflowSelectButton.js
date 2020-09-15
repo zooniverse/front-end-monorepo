@@ -5,19 +5,23 @@ import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { bool, number, shape, string } from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
+import SubjectSetPicker from '../SubjectSetPicker'
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+const WorkflowLink = withThemeContext(Link, theme)
+
 function WorkflowSelectButton (props) {
   const { workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
+  const [ showPicker, setShowPicker ] = useState(false)
 
   const url = (workflow.default)
     ? `/projects/${owner}/${project}/classify`
@@ -37,17 +41,39 @@ function WorkflowSelectButton (props) {
     </span>
   )
 
+  function selectSubjectSet(event) {
+    if (workflow.grouped) {
+      event.preventDefault()
+      setShowPicker(true)
+      return false
+    }
+    return true
+  }
+
   return (
-    <Link as={as} href={href} passHref>
-      <Button
-        completeness={completeness}
-        icon={<Next />}
-        reverse
-        label={label}
-        primary
-        {...rest}
-      />
-    </Link>
+    <>
+      <WorkflowLink as={as} href={href} passHref>
+        <Button
+          completeness={completeness}
+          icon={<Next />}
+          reverse
+          label={label}
+          primary
+          onClick={selectSubjectSet}
+          {...rest}
+        />
+      </WorkflowLink>
+      {showPicker &&
+        <SubjectSetPicker
+          active={showPicker}
+          closeFn={() => setShowPicker(false)}
+          owner={owner}
+          project={project}
+          title={workflow.displayName || 'Choose a subject set'}
+          workflow={workflow}
+        />
+      }
+    </>
   )
 }
 
@@ -60,9 +86,5 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-const DecoratedWorkflowSelectButton = withThemeContext(WorkflowSelectButton, theme)
-
-export {
-  DecoratedWorkflowSelectButton as default,
-  WorkflowSelectButton
-}
+export default WorkflowSelectButton
+export { WorkflowLink }
