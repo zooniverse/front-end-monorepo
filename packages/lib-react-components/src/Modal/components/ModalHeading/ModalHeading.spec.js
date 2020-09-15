@@ -1,9 +1,8 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import SpacedHeading from '../../../SpacedHeading'
 import CloseButton from '../../../CloseButton'
-import ModalHeading from './ModalHeading'
+import ModalHeading, { StyledHeading } from './ModalHeading'
 
 const title = 'Modal Heading'
 
@@ -33,7 +32,7 @@ describe('Modal > ModalHeading', function () {
 
   describe('when there is a title', function () {
     let wrapper
-    before(function () {
+    beforeEach(function () {
       wrapper = shallow(<ModalHeading closeFn={() => { }} title={title} />)
     })
 
@@ -41,14 +40,26 @@ describe('Modal > ModalHeading', function () {
       expect(wrapper.render().text()).to.equal(title)
     })
 
+    it('should have no margins', function () {
+      expect(wrapper.find(StyledHeading).props().margin).to.equal('none')
+    })
+
     it('should render the title as an h2', function () {
       expect(wrapper.render().children().eq(0).is('h2')).to.be.true()
     })
 
-    it('should set the color by prop', function () {
-      expect(wrapper.find(SpacedHeading).props().color).to.equal('neutral-6')
-      wrapper.setProps({ color: 'accent-2' })
-      expect(wrapper.find(SpacedHeading).props().color).to.equal('accent-2')
+    describe('with a color prop', function () {
+      it('should set the heading text colour', function () {
+        expect(wrapper.find(StyledHeading).props().color).to.equal('neutral-6')
+        wrapper.setProps({ color: 'accent-2' })
+        expect(wrapper.find(StyledHeading).props().color).to.equal('accent-2')
+      })
+      
+      it('should set the close button colour', function () {
+        expect(wrapper.find(CloseButton).props().color).to.equal('neutral-6')
+        wrapper.setProps({ color: 'accent-2' })
+        expect(wrapper.find(CloseButton).props().color).to.equal('accent-2')
+      })
     })
 
     it('should justify the wrapper flex box by between', function () {
@@ -67,7 +78,7 @@ describe('Modal > ModalHeading', function () {
     })
 
     it('should not render an h2', function () {
-      expect(wrapper.find(SpacedHeading)).to.have.lengthOf(0)
+      expect(wrapper.find(StyledHeading)).to.have.lengthOf(0)
     })
 
     it('should justify the wrapper flex box by end', function () {

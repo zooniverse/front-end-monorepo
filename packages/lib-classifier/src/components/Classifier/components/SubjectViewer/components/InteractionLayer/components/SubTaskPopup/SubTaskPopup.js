@@ -49,6 +49,7 @@ function SubTaskPopup(props) {
         minWidth: MIN_POPUP_WIDTH,
         position: defaultPosition
       }}
+      titleColor=''
     >
       <Box gap='small'>
         {tasks.map((task, index) => {

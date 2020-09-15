@@ -28,6 +28,24 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
       expect(wrapper.find(MovableModal)).to.have.lengthOf(1)
     })
 
+    describe('title bar', function () {
+      let modal
+      before(function () {
+        modal = wrapper.find(MovableModal)
+      })
+
+      it('should have a themed background', function () {
+        expect(modal.prop('headingBackground')).to.deep.equal({
+          dark: 'dark-5',
+          light: 'neutral-6'
+        })
+      })
+
+      it('should use the default text colour', function () {
+        expect(modal.prop('titleColor')).to.equal('')
+      })
+    })
+
     it('should render an explanatory text with the number of textOptions from the line data', function () {
       const firstParagraph = wrapper.find(Paragraph).first()
       expect(firstParagraph.contains(`These ${completedLines[0].textOptions.length} transcriptions have been submitted by previous volunteers and cannot be modified.`)).to.be.true()
