@@ -13,7 +13,8 @@ const MIN_POPUP_HEIGHT = 100
 
 function SubTaskPopup(props) {
   const {
-    activeMark
+    activeMark,
+    onDelete
   } = props
 
   const {
@@ -32,9 +33,21 @@ function SubTaskPopup(props) {
   const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
   const tasks = (activeMark?.tasks) ? activeMark.tasks : []
 
-  
-  function close() {
+  function deleteMark() {
+    const { tool } = activeMark
+    onCloseConfirm()
     setSubTaskVisibility(false)
+    tool.deleteMark(activeMark)
+    onDelete()
+  }
+
+  function close() {
+    const incompleteTask = tasks.some(task => !task.isComplete)
+    if (incompleteTask) {
+      onOpenConfirm()
+    } else {
+      setSubTaskVisibility(false)
+    }
   }
 
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
