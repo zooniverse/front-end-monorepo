@@ -77,6 +77,11 @@ function SubTaskPopup(props) {
                   subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
                   task={task}
                 />
+                  {task.required && (
+                    <Paragraph>
+                      <strong>This step is required.</strong>
+                    </Paragraph>
+                  )}
               </Box>
             )
           }
