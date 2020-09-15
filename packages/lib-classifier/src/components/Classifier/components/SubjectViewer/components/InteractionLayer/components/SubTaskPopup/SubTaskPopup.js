@@ -61,10 +61,12 @@ function SubTaskPopup(props) {
           const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
           if (annotation && TaskComponent) {
+              const highlightRequired = !task.isComplete
             return (
               // horizontal pad for the space for the box-shadow focus style
               // is there a better way?
               <Box
+                  border={highlightRequired ? { size: 'small', color: 'tomato' }: false}
                 className='subtaskpopup-element-that-ignores-drag-actions'
                 key={annotation.id}
                 overflow='auto'
@@ -78,7 +80,9 @@ function SubTaskPopup(props) {
                   task={task}
                 />
                   {task.required && (
-                    <Paragraph>
+                    <Paragraph
+                      color={highlightRequired ? 'tomato': false}
+                    >
                       <strong>This step is required.</strong>
                     </Paragraph>
                   )}
