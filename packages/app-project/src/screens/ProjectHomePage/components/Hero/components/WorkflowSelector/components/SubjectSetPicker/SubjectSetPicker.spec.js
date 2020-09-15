@@ -50,8 +50,12 @@ describe('Component > SubjectSetPicker', function () {
         expect(heading.children().first().text()).to.equal(en.SubjectSetPicker.heading)
       })
 
-      it('should have no vertical margins', function () {
-        expect(heading.props().margin.vertical).to.equal('none')
+      it('should have an xsmall top margin', function () {
+        expect(heading.props().margin.top).to.equal('xsmall')
+      })
+
+      it('should have no bottom margin', function () {
+        expect(heading.props().margin.bottom).to.equal('none')
       })
     })
 

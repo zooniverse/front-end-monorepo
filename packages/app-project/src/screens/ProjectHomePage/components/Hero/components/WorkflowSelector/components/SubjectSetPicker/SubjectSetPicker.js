@@ -44,7 +44,7 @@ function SubjectSetPicker (props) {
     >
       <StyledHeading
         level={3}
-        margin={{ vertical: 'none' }}
+        margin={{ top: 'xsmall', bottom: 'none' }}
       >
         {counterpart('SubjectSetPicker.heading')}
       </StyledHeading>
