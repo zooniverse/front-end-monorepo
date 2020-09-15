@@ -33,7 +33,7 @@ function VisibilitySeriesCheckBoxes (props) {
                 label={label}
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
-                visibleSeries={visibleSeries}
+                visible={checked}
               />
             }
             name='series-visibility'

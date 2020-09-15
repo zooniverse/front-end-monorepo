@@ -37,6 +37,7 @@ function PhaseFocusControls(props) {
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
                 label={label}
+                visible={true}
               />
             }
             name='series-phase-focus'

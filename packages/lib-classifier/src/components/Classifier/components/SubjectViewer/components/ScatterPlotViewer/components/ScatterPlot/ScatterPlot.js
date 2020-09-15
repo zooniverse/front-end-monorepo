@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Group } from '@vx/group'
 import cuid from 'cuid'
-import { darken, lighten } from 'polished'
-import Background from '../../../SVGComponents/Background'
-import Chart from '../../../SVGComponents/Chart'
+import { lighten } from 'polished'
+import Background from '@viewers/components/SVGComponents/Background'
+import Chart from '@viewers/components/SVGComponents/Chart'
 import Axes from '../Axes'
-import getDataSeriesColor from '../../../../helpers/getDataSeriesColor'
-import getDataSeriesSymbol from '../../../../helpers/getDataSeriesSymbol'
+import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
+import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
+import isDataSeriesVisible from '@viewers/helpers/isDataSeriesVisible'
 
 import {
   getDataPoints,
@@ -137,12 +138,13 @@ function ScatterPlot (props) {
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
+          const [visible] = Object.values(visibleSeries[seriesIndex]) || []
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
             seriesOptions: series?.seriesOptions,
             seriesIndex,
             themeColors: colors,
-            visibleSeries
+            visible
           })
 
           const errorBarColor = lighten(0.25, glyphColor)
@@ -195,7 +197,7 @@ function ScatterPlot (props) {
                   size={dataPointSize}
                   top={cy}
                   fill={glyphColor}
-                  stroke='black'
+                  stroke={(visible) ? 'black' : colors['light-6']}
                 />
               </g>
             )
