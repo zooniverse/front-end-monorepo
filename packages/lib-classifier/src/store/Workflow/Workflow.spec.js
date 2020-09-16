@@ -26,6 +26,7 @@ describe('Model > Workflow', function () {
       expect(workflow.usesTranscriptionTask).to.be.false()
     })
   })
+
   describe('with transcription task', function () {
     let workflow
 
@@ -53,6 +54,28 @@ describe('Model > Workflow', function () {
 
     it('should use transcription task', function () {
       expect(workflow.usesTranscriptionTask).to.be.true()
+    })
+  })
+
+  describe('Actions > selectSubjectSet', function () {
+    let workflow
+
+    before(function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        display_name: 'A test workflow',
+        version: '0.0',
+        links: {
+          subject_sets: ['1', '2', '3','4']
+        }
+      })
+      workflow = Workflow.create(workflowSnapshot)
+    })
+
+    it('should set the active subject set', function () {
+      expect(workflow.subjectSetId).to.equal('1')
+      workflow.selectSubjectSet('4')
+      expect(workflow.subjectSetId).to.equal('4')
     })
   })
 })
