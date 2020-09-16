@@ -57,10 +57,13 @@ const WorkflowStore = types
 
     function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
       if (id) {
-        yield self.setActive(id)
+        const workflow = yield self.fetchResource(id)
+        self.resources.put(workflow)
         if (subjectSetID) {
-          self.active.selectSubjectSet(subjectSetID)
+          const selectedWorkflow = self.resources.get(id)
+          selectedWorkflow.selectSubjectSet(subjectSetID)
         }
+        self.setActive(id)
       } else {
         throw new ReferenceError('No workflow ID available')
       }
