@@ -43,14 +43,14 @@ describe('Model > WorkflowStore', function () {
 
     describe('when there is a project default', function () {
       let rootStore
-      before(function () {
+      before(async function () {
         const panoptesClientStub = stubPanoptesJs({
           subjects: Factory.buildList('subject', 10),
           workflows: workflow
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithDefault)
-        rootStore.workflows.selectWorkflow()
+        await rootStore.workflows.selectWorkflow()
       })
 
       after(function () {
@@ -64,14 +64,14 @@ describe('Model > WorkflowStore', function () {
 
     describe('when there is no default workflow', function () {
       let rootStore
-      before(function () {
+      before(async function () {
         const panoptesClientStub = stubPanoptesJs({
           subjects: Factory.buildList('subject', 10),
           workflows: workflow
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
-        rootStore.workflows.selectWorkflow()
+        await rootStore.workflows.selectWorkflow()
       })
 
       after(function () {
@@ -90,7 +90,7 @@ describe('Model > WorkflowStore', function () {
       let rootStore
       let workflowID
 
-      before(function () {
+      before(async function () {
         const workflows = Factory.buildList('workflow', 5)
         workflowID = workflows[2].id
         const panoptesClientStub = stubPanoptesJs({
@@ -101,7 +101,7 @@ describe('Model > WorkflowStore', function () {
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
         rootStore.workflows.setResources(workflows)
-        rootStore.workflows.selectWorkflow(workflowID)
+        await rootStore.workflows.selectWorkflow(workflowID)
       })
 
       after(function () {
@@ -118,7 +118,7 @@ describe('Model > WorkflowStore', function () {
       let subjectSetID
       let workflowID
 
-      before(function () {
+      before(async function () {
         const workflows = Factory.buildList('workflow', 5)
         workflowID = workflows[2].id
         subjectSetID = workflows[2].links.subject_sets[3]
@@ -130,7 +130,7 @@ describe('Model > WorkflowStore', function () {
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
         rootStore.workflows.setResources(workflows)
-        rootStore.workflows.selectWorkflow(workflowID, subjectSetID)
+        await rootStore.workflows.selectWorkflow(workflowID, subjectSetID)
       })
 
       after(function () {
@@ -158,15 +158,20 @@ describe('Model > WorkflowStore', function () {
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
-        rootStore.workflows.selectWorkflow('101')
       })
 
       after(function () {
         rootStore = null
       })
 
-      it('should throw an error', function () {
-        expect(() => rootStore.workflows.active).to.throw()
+      it('should throw an error', async function () {
+        let errorThrown = false
+        try {
+          await rootStore.workflows.selectWorkflow('101')
+        } catch (e) {
+          errorThrown = true
+        }
+        expect(errorThrown).to.be.true()
       })
     })
   })

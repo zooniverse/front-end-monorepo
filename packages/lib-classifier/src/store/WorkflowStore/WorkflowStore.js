@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, isValidReference, types } from 'mobx-state-tree'
 import ResourceStore from '../ResourceStore'
 import Workflow from '../Workflow'
 import queryString from 'query-string'
@@ -55,9 +55,9 @@ const WorkflowStore = types
       return id
     }
 
-    function selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
+    function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
       if (id) {
-        self.setActive(id)
+        yield self.setActive(id)
         if (subjectSetID) {
           self.active.selectSubjectSet(subjectSetID)
         }
@@ -68,7 +68,7 @@ const WorkflowStore = types
 
     return {
       afterAttach,
-      selectWorkflow
+      selectWorkflow: flow(selectWorkflow)
     }
   })
 
