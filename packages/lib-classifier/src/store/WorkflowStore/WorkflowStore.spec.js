@@ -113,7 +113,7 @@ describe('Model > WorkflowStore', function () {
       })
     })
 
-    describe.only('with a valid workflow and subject set', function () {
+    describe('with a valid workflow and subject set', function () {
       let rootStore
       let subjectSetID
       let workflowID
