@@ -4,6 +4,7 @@ import styled, { withTheme } from 'styled-components'
 import { Group } from '@vx/group'
 import { AxisBottom, AxisLeft } from '@vx/axis'
 import { scaleBand, scaleLinear } from '@vx/scale'
+import { extent } from 'd3'
 import { withParentSize } from '@vx/responsive'
 import counterpart from 'counterpart'
 import Chart from '../SVGComponents/Chart'
@@ -37,7 +38,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     parentWidth,
     theme: { dark, global: { colors, font } },
     xAxisLabel,
-    yAxisLabel,
+    yAxisDomain,
+    yAxisLabel
   } = props
 
   let backgroundColor = (dark) ? colors['dark-3'] : 'white'
@@ -50,10 +52,12 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     padding
   })
 
+  const yDataExtent = extent(data.map(datum => datum.value))
+  const yDomain = yAxisDomain || yDataExtent
   const yScale = scaleLinear({
-    domain: [0, Math.max(...data.map(datum => datum.value))],
+    domain: yDomain,
     rangeRound: [yMax, 0]
-  })
+  }).nice()
 
   // Axis related
   const xScaleTicks = xScale.domain()
