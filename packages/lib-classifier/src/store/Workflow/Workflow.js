@@ -7,6 +7,7 @@ import WorkflowConfiguration from './WorkflowConfiguration'
 const Workflow = types
   .model('Workflow', {
     active: types.optional(types.boolean, false),
+    activeSubjectSet: types.optional(types.string, ''),
     configuration: WorkflowConfiguration,
     display_name: types.string,
     first_task: types.optional(types.string, ''),
@@ -23,7 +24,7 @@ const Workflow = types
     get subjectSetId () {
       // TODO: enable selection of a subject set from the links array.
       const [ subjectSetId ] = self.links.subject_sets
-      return subjectSetId
+      return self.activeSubjectSet || subjectSetId
     },
 
     get usesTranscriptionTask () {
@@ -32,5 +33,15 @@ const Workflow = types
       })
     }
   }))
+
+  .actions(self => {
+    function selectSubjectSet(id) {
+      self.activeSubjectSet = id
+    }
+
+    return {
+      selectSubjectSet
+    }
+  })
 
 export default types.compose('WorkflowResource', Resource, Workflow)
