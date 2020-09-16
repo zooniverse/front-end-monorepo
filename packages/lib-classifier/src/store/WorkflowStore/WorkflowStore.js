@@ -55,9 +55,12 @@ const WorkflowStore = types
       return id
     }
 
-    function selectWorkflow (id = getDefaultWorkflowId()) {
+    function selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
       if (id) {
         self.setActive(id)
+        if (subjectSetID) {
+          self.active.selectSubjectSet(subjectSetID)
+        }
       } else {
         throw new ReferenceError('No workflow ID available')
       }

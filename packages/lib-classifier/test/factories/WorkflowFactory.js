@@ -9,7 +9,9 @@ export default Factory.define('workflow')
   .attr('configuration', {})
   .attr('first_task', '')
   .attr('grouped', false)
-  .attr('links', {})
+  .attr('links', {
+    subject_sets: ['1', '2', '3', '4', '5']
+  })
   .attr('tasks', {})
   .attr('steps', [])
   .attr('version', '1.0')
