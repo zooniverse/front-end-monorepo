@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
 
-import Resource from './Resource'
+import Resource from '../Resource'
 
 const ResourceStore = types
   .model('ResourceStore', {
