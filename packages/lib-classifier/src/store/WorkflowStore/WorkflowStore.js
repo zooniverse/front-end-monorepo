@@ -57,7 +57,7 @@ const WorkflowStore = types
 
     function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
       if (id) {
-        const workflow = yield self.fetchResource(id)
+        const workflow = yield self.getResource(id)
         self.resources.put(workflow)
         if (subjectSetID) {
           const selectedWorkflow = self.resources.get(id)
