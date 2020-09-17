@@ -43,6 +43,15 @@ const ResourceStore = types
       self.resources.clear()
     },
 
+    getResource: flow(function * getResource(id) {
+      const resource = self.resources.get(id)
+      if (!resource) {
+        const panoptesResource = yield self.fetchResource(id)
+        self.setResources([panoptesResource])
+      }
+      return self.resources.get(id)
+    }),
+
     setResources (resources = []) {
       if (resources && resources.length > 0) {
         try {
