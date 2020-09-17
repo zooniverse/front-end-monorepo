@@ -184,6 +184,25 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     })
   })
 
+  describe('when all active workflows are complete', function () {
+    it('should return an empty array.', async function () {
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS
+        })
+        .get('/workflows')
+        .query(true)
+        .reply(200, {
+          workflows: []
+        })
+
+      const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+      expect(result).to.be.empty()
+    })
+  })
+
   describe(`when there's an error`, function () {
     it('should allow the error to be thrown for the consumer to handle', async function () {
       const error = {

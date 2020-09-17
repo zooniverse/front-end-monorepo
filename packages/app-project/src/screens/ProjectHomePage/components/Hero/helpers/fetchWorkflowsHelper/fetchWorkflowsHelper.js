@@ -9,7 +9,7 @@ async function fetchWorkflowData (activeWorkflows) {
       include: 'subject_sets'
     })
   const { workflows, linked } = response.body
-  const subjectSets = linked.subject_sets
+  const subjectSets = linked ? linked.subject_sets : []
   await Promise.allSettled(subjectSets.map(fetchPreviewImage))
   return { subjectSets, workflows }
 }
