@@ -64,18 +64,17 @@ describe('Model > Workflow', function () {
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
-        version: '0.0',
-        links: {
-          subject_sets: ['1', '2', '3','4']
-        }
+        version: '0.0'
       })
       workflow = Workflow.create(workflowSnapshot)
     })
 
     it('should set the active subject set', function () {
-      expect(workflow.subjectSetId).to.equal('1')
-      workflow.selectSubjectSet('4')
-      expect(workflow.subjectSetId).to.equal('4')
+      const defaultID = workflow.links.subject_sets[0]
+      expect(workflow.subjectSetId).to.equal(defaultID)
+      const subjectSetID = workflow.links.subject_sets[1]
+      workflow.selectSubjectSet(subjectSetID)
+      expect(workflow.subjectSetId).to.equal(subjectSetID)
     })
   })
 })

@@ -121,7 +121,7 @@ describe('Model > WorkflowStore', function () {
       before(async function () {
         const workflows = Factory.buildList('workflow', 5)
         workflowID = workflows[2].id
-        subjectSetID = workflows[2].links.subject_sets[3]
+        subjectSetID = workflows[2].links.subject_sets[1]
         const panoptesClientStub = stubPanoptesJs({
           subjects: Factory.buildList('subject', 10),
           workflows: workflows[2]
