@@ -55,6 +55,7 @@ function Controls(props) {
         dark: 'dark-5',
         light: 'neutral-6'
       }}
+      border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
       direction='row'
       justify='between'
       gridArea={gridArea}
