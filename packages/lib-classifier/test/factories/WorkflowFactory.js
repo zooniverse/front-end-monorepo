@@ -1,4 +1,9 @@
 import { Factory } from 'rosie'
+import SubjectSetFactory from './SubjectSetFactory'
+
+const subjectSets = SubjectSetFactory.buildList('subject_sets', 10)
+const subjectSetMap = {}
+subjectSets.forEach(subjectSet => subjectSetMap[subjectSet.id] = subjectSet)
 
 export default Factory.define('workflow')
   .sequence('id', (id) => { return id.toString() })
@@ -11,25 +16,14 @@ export default Factory.define('workflow')
   .attr('grouped', false)
   .attr('links', ['id'], function (id) {
     return {
-      subject_sets: [`${id}1`, `${id}2`]
+      subject_sets: subjectSets.map(subjectSet => subjectSet.id)
     }
   })
   .attr('tasks', {})
   .attr('steps', [])
   .attr('subjectSets', ['id'], function (id) {
     return {
-      resources: {
-        [`${id}1`]: {
-          id: `${id}1`,
-          display_name: 'A Subject Set',
-          set_member_subjects_count: 6
-        },
-        [`${id}2`]: {
-          id: `${id}2`,
-          display_name: 'Another Subject Set',
-          set_member_subjects_count: 9
-        }
-      }
+      resources: subjectSetMap
     }
   })
   .attr('version', '1.0')

@@ -1,8 +1,9 @@
+import { SubjectSetFactory } from '@test/factories'
 import SubjectSetStore from './SubjectSetStore'
 
 describe('Model > SubjectSetStore', function () {
   let model
-  const subjectSet = {
+  const subjectSet = SubjectSetFactory.build({
     id: '1234',
     display_name: 'Hello there!',
     set_member_subjects_count: 73,
@@ -10,7 +11,7 @@ describe('Model > SubjectSetStore', function () {
       projects: ['12345'],
       workflows: ['12345']
     }
-  }
+  })
 
   before(function () {
     model = SubjectSetStore.create({})
