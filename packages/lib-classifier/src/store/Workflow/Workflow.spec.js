@@ -1,4 +1,5 @@
 import { WorkflowFactory } from '@test/factories'
+import { Factory } from 'rosie'
 import Workflow from './Workflow'
 
 describe('Model > Workflow', function () {
@@ -61,9 +62,20 @@ describe('Model > Workflow', function () {
     let workflow
 
     beforeEach(function () {
+      const subjectSets = Factory.buildList('subject_set', 5)
+      const subjectSetMap = {}
+      subjectSets.forEach(subjectSet => {
+        subjectSetMap[subjectSet.id] = subjectSet
+      })
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
+        links: {
+          subject_sets: Object.keys(subjectSetMap)
+        },
+        subjectSets: {
+          resources: subjectSetMap
+        },
         version: '0.0'
       })
       workflow = Workflow.create(workflowSnapshot)
@@ -96,9 +108,20 @@ describe('Model > Workflow', function () {
     let workflow
 
     beforeEach(function () {
+      const subjectSets = Factory.buildList('subject_set', 5)
+      const subjectSetMap = {}
+      subjectSets.forEach(subjectSet => {
+        subjectSetMap[subjectSet.id] = subjectSet
+      })
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
+        links: {
+          subject_sets: Object.keys(subjectSetMap)
+        },
+        subjectSets: {
+          resources: subjectSetMap
+        },
         version: '0.0'
       })
       workflow = Workflow.create(workflowSnapshot)
