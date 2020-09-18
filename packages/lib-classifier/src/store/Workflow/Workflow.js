@@ -1,4 +1,4 @@
-import { flow, types } from 'mobx-state-tree'
+import { flow, tryReference, types } from 'mobx-state-tree'
 import Resource from '../Resource'
 import SubjectSetStore from './SubjectSetStore'
 import WorkflowConfiguration from './WorkflowConfiguration'
@@ -25,7 +25,8 @@ const Workflow = types
     get subjectSetId () {
       // TODO: enable selection of a subject set from the links array.
       const [ subjectSetId ] = self.links.subject_sets
-      return self.subjectSets.active?.id || subjectSetId
+      const activeSet = tryReference(() => self.subjectSets.active)
+      return activeSet?.id || subjectSetId
     },
 
     get usesTranscriptionTask () {
@@ -38,7 +39,7 @@ const Workflow = types
   .actions(self => {
     function * selectSubjectSet(id) {
       yield self.subjectSets.setActive(id)
-      return self.subjectSets.active
+      return tryReference(() => self.subjectSets.active)
     }
 
     return {
