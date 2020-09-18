@@ -154,7 +154,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       </Box>
       <Box
         background={{
-          dark: 'dark-1',
+          dark: 'dark-3',
           light: 'neutral-6'
         }}
         border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
