@@ -4,14 +4,12 @@ import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 import { Factory } from 'rosie'
-import { extent } from 'd3'
 
 import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import { expect } from 'chai'
 
-const variableStarPeriodBarChartExtent = extent(variableStar.data.barCharts.period.data.map(datum => datum.value))
 const nextSubjectJSON = {
   data: {
     scatterPlot: {
@@ -259,18 +257,6 @@ describe('Component > VariableStarViewerContainer', function () {
     it('should set the component state with the json data', function (done) {
       expect(wrapper.state().rawJSON).to.deep.equal(mockState.rawJSON)
       cdmSpy.returnValues[0].then(() => {
-        // const variableStarWithDomain = Object.assign({}, variableStar, {
-        //   data: {
-        //     barCharts: {
-        //       period: {
-        //         chartOptions: {
-        //           yAxisDomain: [0, Math.ceil(variableStarPeriodBarChartExtent) + 1]
-        //         }
-        //       }
-        //     }
-        //   }
-        // })
-
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
       }).then(done, done)
     })
