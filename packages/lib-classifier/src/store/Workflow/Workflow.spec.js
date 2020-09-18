@@ -60,7 +60,7 @@ describe('Model > Workflow', function () {
   describe('Actions > selectSubjectSet', function () {
     let workflow
 
-    before(function () {
+    beforeEach(function () {
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
@@ -69,12 +69,60 @@ describe('Model > Workflow', function () {
       workflow = Workflow.create(workflowSnapshot)
     })
 
-    it('should set the active subject set', function () {
-      const defaultID = workflow.links.subject_sets[0]
-      expect(workflow.subjectSetId).to.equal(defaultID)
-      const subjectSetID = workflow.links.subject_sets[1]
-      workflow.selectSubjectSet(subjectSetID)
-      expect(workflow.subjectSetId).to.equal(subjectSetID)
+    describe('with a valid subject set', function () {
+
+      it('should set the active subject set', async function () {
+        const defaultID = workflow.links.subject_sets[0]
+        expect(workflow.subjectSetId).to.equal(defaultID)
+        const subjectSetID = workflow.links.subject_sets[1]
+        const subjectSet = await workflow.selectSubjectSet(subjectSetID)
+        expect(subjectSet.id).to.equal(subjectSetID)
+        expect(subjectSet).to.deep.equal(workflow.subjectSets.active)
+      })
+    })
+
+    describe('with an invalid subject set', function () {
+
+      it('should return undefined', async function () {
+        const defaultID = workflow.links.subject_sets[0]
+        expect(workflow.subjectSetId).to.equal(defaultID)
+        const subjectSet = await workflow.selectSubjectSet('abcdefg')
+        expect(subjectSet).to.be.undefined()
+      })
+    })
+  })
+
+  describe('Views > subjectSetId', function () {
+    let workflow
+
+    beforeEach(function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        display_name: 'A test workflow',
+        version: '0.0'
+      })
+      workflow = Workflow.create(workflowSnapshot)
+    })
+
+    describe('with a valid subject set', function () {
+
+      it('should return the active subject set', async function () {
+        const defaultID = workflow.links.subject_sets[0]
+        expect(workflow.subjectSetId).to.equal(defaultID)
+        const subjectSetID = workflow.links.subject_sets[1]
+        await workflow.selectSubjectSet(subjectSetID)
+        expect(workflow.subjectSetId).to.equal(subjectSetID)
+      })
+    })
+
+    describe('with an invalid subject set', function () {
+
+      it('should return the default subject set', async function () {
+        const defaultID = workflow.links.subject_sets[0]
+        expect(workflow.subjectSetId).to.equal(defaultID)
+        await workflow.selectSubjectSet('abcdefg')
+        expect(workflow.subjectSetId).to.equal(defaultID)
+      })
     })
   })
 })
