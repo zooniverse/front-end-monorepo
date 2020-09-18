@@ -1,5 +1,6 @@
 import { WorkflowFactory } from '@test/factories'
 import { Factory } from 'rosie'
+import sinon from 'sinon'
 import Workflow from './Workflow'
 
 describe('Model > Workflow', function () {
@@ -96,10 +97,12 @@ describe('Model > Workflow', function () {
     describe('with an invalid subject set', function () {
 
       it('should return undefined', async function () {
+        sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
         const defaultID = workflow.links.subject_sets[0]
         expect(workflow.subjectSetId).to.equal(defaultID)
         const subjectSet = await workflow.selectSubjectSet('abcdefg')
         expect(subjectSet).to.be.undefined()
+        workflow.subjectSets.fetchResource.restore()
       })
     })
   })
@@ -141,10 +144,12 @@ describe('Model > Workflow', function () {
     describe('with an invalid subject set', function () {
 
       it('should return the default subject set', async function () {
+        sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
         const defaultID = workflow.links.subject_sets[0]
         expect(workflow.subjectSetId).to.equal(defaultID)
         await workflow.selectSubjectSet('abcdefg')
         expect(workflow.subjectSetId).to.equal(defaultID)
+        workflow.subjectSets.fetchResource.restore()
       })
     })
   })
