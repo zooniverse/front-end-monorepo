@@ -8,7 +8,6 @@ import { Factory } from 'rosie'
 import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
-import { expect } from 'chai'
 
 const nextSubjectJSON = {
   data: {
