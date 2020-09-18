@@ -74,7 +74,6 @@ function ScatterPlot (props) {
   }
 
   const dataPoints = getDataPoints(data)
-
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
 
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
@@ -138,7 +137,7 @@ function ScatterPlot (props) {
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
-          const [visible] = Object.values(visibleSeries[seriesIndex]) || []
+          const visible = isDataSeriesVisible(visibleSeries, seriesIndex)
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
             seriesOptions: series?.seriesOptions,
@@ -197,7 +196,7 @@ function ScatterPlot (props) {
                   size={dataPointSize}
                   top={cy}
                   fill={glyphColor}
-                  stroke={(visible) ? 'black' : colors['light-6']}
+                  stroke={(visible) ? 'black' : colors['light-4']}
                 />
               </g>
             )

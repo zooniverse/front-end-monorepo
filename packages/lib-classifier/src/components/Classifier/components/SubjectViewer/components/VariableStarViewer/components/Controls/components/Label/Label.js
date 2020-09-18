@@ -41,7 +41,7 @@ function Label (props) {
           left={5}
           fill={color}
           size={20}
-          stroke={(visible) ? 'black' : colors['light-6']}
+          stroke={(visible) ? 'black' : colors['light-4']}
           top={5}
         />
       </svg>
@@ -61,7 +61,12 @@ Label.propTypes = {
   label: PropTypes.string.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   seriesOptions: PropTypes.object,
-  visibleSeries: PropTypes.array
+  visible: PropTypes.bool
+}
+
+Label.defaultProps = {
+  seriesOptions: {},
+  visible: true
 }
 
 export default Label
