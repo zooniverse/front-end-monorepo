@@ -24,14 +24,17 @@ const RemainingHeightBox = styled(Box)`
   flex-grow: 1;
 `
 
-function ProjectHomePage ({ inBeta }) {
+function ProjectHomePage ({
+  inBeta,
+  workflows
+}) {
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
         <ZooHeaderWrapper />
         <ProjectHeader />
         <Announcements />
-        <Hero />
+        <Hero workflows={workflows} />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
           <ZooniverseTalk />
@@ -48,7 +51,7 @@ function ProjectHomePage ({ inBeta }) {
           <ProjectHeader />
           <Announcements />
           <RemainingHeightBox>
-            <Hero isWide={true} />
+            <Hero workflows={workflows} isWide={true} />
           </RemainingHeightBox>
         </FullHeightBox>
         <Box
