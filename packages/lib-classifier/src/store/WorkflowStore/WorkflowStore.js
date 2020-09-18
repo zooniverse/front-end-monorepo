@@ -61,7 +61,8 @@ const WorkflowStore = types
         self.resources.put(workflow)
         if (subjectSetID) {
           const selectedWorkflow = self.resources.get(id)
-          selectedWorkflow.selectSubjectSet(subjectSetID)
+          // wait for the subject set to load before activating the workflow
+          const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
         }
         self.setActive(id)
       } else {

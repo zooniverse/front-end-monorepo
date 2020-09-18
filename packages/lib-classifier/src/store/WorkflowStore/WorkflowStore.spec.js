@@ -1,5 +1,6 @@
 import { Factory } from 'rosie'
 import RootStore from '../RootStore'
+import Workflow from '../Workflow'
 import WorkflowStore from './WorkflowStore'
 import {
   SingleChoiceTaskFactory,
@@ -119,17 +120,33 @@ describe('Model > WorkflowStore', function () {
       let workflowID
 
       before(async function () {
-        const workflows = Factory.buildList('workflow', 5)
-        workflowID = workflows[2].id
-        subjectSetID = workflows[2].links.subject_sets[3]
+        const subjectSets = Factory.buildList('subject_set', 5)
+        const subjectSetMap = {}
+        subjectSets.forEach(subjectSet => {
+          subjectSetMap[subjectSet.id] = subjectSet
+        })
+        const workflowSnapshot = WorkflowFactory.build({
+          id: 'workflow1',
+          display_name: 'A test workflow',
+          links: {
+            subject_sets: Object.keys(subjectSetMap)
+          },
+          subjectSets: {
+            resources: subjectSetMap
+          },
+          version: '0.0'
+        })
+        const workflow = Workflow.create(workflowSnapshot)
+        workflowID = workflow.id
+        subjectSetID = workflow.links.subject_sets[1]
         const panoptesClientStub = stubPanoptesJs({
           subjects: Factory.buildList('subject', 10),
-          workflows: workflows[2]
+          workflows: workflow
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
-        rootStore.workflows.setResources(workflows)
+        rootStore.workflows.setResources([workflow])
         await rootStore.workflows.selectWorkflow(workflowID, subjectSetID)
       })
 
