@@ -4,11 +4,14 @@ import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 import { Factory } from 'rosie'
+import { extent } from 'd3'
 
 import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
+import { expect } from 'chai'
 
+const variableStarPeriodBarChartExtent = extent(variableStar.data.barCharts.period.data.map(datum => datum.value))
 const nextSubjectJSON = {
   data: {
     scatterPlot: {
@@ -60,7 +63,8 @@ const nextSubjectJSON = {
         ],
         chartOptions: {
           xAxisLabel: 'Period',
-          yAxisLabel: ''
+          yAxisLabel: '',
+          yAxisDomain: [0, 3]
         }
       },
       amplitude: {
@@ -255,6 +259,18 @@ describe('Component > VariableStarViewerContainer', function () {
     it('should set the component state with the json data', function (done) {
       expect(wrapper.state().rawJSON).to.deep.equal(mockState.rawJSON)
       cdmSpy.returnValues[0].then(() => {
+        // const variableStarWithDomain = Object.assign({}, variableStar, {
+        //   data: {
+        //     barCharts: {
+        //       period: {
+        //         chartOptions: {
+        //           yAxisDomain: [0, Math.ceil(variableStarPeriodBarChartExtent) + 1]
+        //         }
+        //       }
+        //     }
+        //   }
+        // })
+
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
       }).then(done, done)
     })
@@ -323,7 +339,6 @@ describe('Component > VariableStarViewerContainer', function () {
 
       expect(wrapper.state().visibleSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
-        console.log('visibleStateMock', visibleStateMock)
         expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
       }).then(done, done)
     })
@@ -522,7 +537,9 @@ describe('Component > VariableStarViewerContainer', function () {
       cdmSpy.returnValues[0].then(() => {
         const phasedBarJSONState = wrapper.state().barJSON
         expect(phasedBarJSONState.period.data.length).to.be.at.least(variableStar.data.barCharts.period.data.length)
-        expect(phasedBarJSONState.period.chartOptions).to.deep.equal(variableStar.data.barCharts.period.chartOptions)
+        expect(phasedBarJSONState.period.chartOptions.xAxisLabel).to.deep.equal(variableStar.data.barCharts.period.chartOptions.xAxisLabel)
+        expect(phasedBarJSONState.period.chartOptions.yAxisLabel).to.deep.equal(variableStar.data.barCharts.period.chartOptions.yAxisLabel)
+        expect(phasedBarJSONState.period.chartOptions.yAxisDomain).to.deep.equal([0, 3])
         expect(phasedBarJSONState.amplitude.data.length).to.deep.equal(variableStar.data.barCharts.amplitude.data.length)
         expect(phasedBarJSONState.amplitude.chartOptions).to.deep.equal(variableStar.data.barCharts.amplitude.chartOptions)
       }).then(done, done)
