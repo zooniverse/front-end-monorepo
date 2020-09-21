@@ -11,8 +11,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import sinon from 'sinon'
 
-import NarrowLayout from './components/NarrowLayout'
-import WideLayout from './components/WideLayout'
+import HeroContainer from './'
 
 const mockStore = {
   project: {
@@ -87,69 +86,42 @@ function MockProjectContext({ children, theme }) {
     </MediaContextProvider>
   )
 }
-const WORKFLOWS = {
-  loading: asyncStates.success,
-  data: [
-    {
-      completeness: 0.65,
-      default: false,
-      displayName: 'The Family and the Fishing Net',
-      id: '12345'
-    },
-    {
-      completeness: 0,
-      default: false,
-      displayName: 'Games Without Frontiers',
-      id: '7890'
-    },
-    {
-      completeness: 0.99,
-      default: false,
-      displayName: 'Shock The Monkey',
-      id: '5678'
-    }
-  ]
-}
-const WORKFLOWS_LOADING = {
-  loading: asyncStates.loading,
-  data: null
-}
-const WORKFLOWS_ERROR = {
-  loading: asyncStates.error,
-  data: null
-}
+const WORKFLOWS = [
+  {
+    completeness: 0.65,
+    default: false,
+    displayName: 'The Family and the Fishing Net',
+    id: '12345'
+  },
+  {
+    completeness: 0,
+    default: false,
+    displayName: 'Games Without Frontiers',
+    id: '7890'
+  },
+  {
+    completeness: 0.99,
+    default: false,
+    displayName: 'Shock The Monkey',
+    id: '5678'
+  }
+]
+
 storiesOf('Project App / Screens / Project Home / Hero', module)
   .addDecorator(withKnobs)
   .addParameters({ viewport: { defaultViewport: 'responsive' }})
   .add('default', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <WideLayout
-        screenSize='default'
+      <HeroContainer
+        isWide
         workflows={WORKFLOWS}
       />
     </MockProjectContext>
   ))
   .add('small screen', () => (
     <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <NarrowLayout
-        screenSize='small'
+      <HeroContainer
         workflows={WORKFLOWS}
       />
     </MockProjectContext>
   ), { viewport: { defaultViewport: 'iphone5' }})
-  .add('loading', () => (
-    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <WideLayout
-        screenSize='default'
-        workflows={WORKFLOWS_LOADING}
-      />
-    </MockProjectContext>
-  ))
-  .add('error', () => (
-    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <WideLayout
-        screenSize='default'
-        workflows={WORKFLOWS_ERROR}
-      />
-    </MockProjectContext>
-  ))
