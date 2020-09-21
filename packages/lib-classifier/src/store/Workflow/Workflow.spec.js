@@ -96,12 +96,18 @@ describe('Model > Workflow', function () {
 
     describe('with an invalid subject set', function () {
 
-      it('should return undefined', async function () {
+      it('should throw an error', async function () {
+        let errorThrown = false
         sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
         const defaultID = workflow.links.subject_sets[0]
         expect(workflow.subjectSetId).to.equal(defaultID)
-        const subjectSet = await workflow.selectSubjectSet('abcdefg')
-        expect(subjectSet).to.be.undefined()
+        try {
+          const subjectSet = await workflow.selectSubjectSet('abcdefg')
+        } catch (e) {
+          errorThrown= true
+          expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
+        }
+        expect(errorThrown).to.be.true()
         workflow.subjectSets.fetchResource.restore()
       })
     })
@@ -130,7 +136,15 @@ describe('Model > Workflow', function () {
       workflow = Workflow.create(workflowSnapshot)
     })
 
-    describe('with a valid subject set', function () {
+    describe('with no selected subject set', function () {
+
+      it('should return the default subject set', async function () {
+        const defaultID = workflow.links.subject_sets[0]
+        expect(workflow.subjectSetId).to.equal(defaultID)
+      })
+    })
+
+    describe('with a selected subject set', function () {
 
       it('should return the active subject set', async function () {
         const defaultID = workflow.links.subject_sets[0]
@@ -143,12 +157,18 @@ describe('Model > Workflow', function () {
 
     describe('with an invalid subject set', function () {
 
-      it('should return the default subject set', async function () {
+      it('should error', async function () {
+        let errorThrown = false
         sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
         const defaultID = workflow.links.subject_sets[0]
         expect(workflow.subjectSetId).to.equal(defaultID)
-        await workflow.selectSubjectSet('abcdefg')
-        expect(workflow.subjectSetId).to.equal(defaultID)
+        try {
+          await workflow.selectSubjectSet('abcdefg')
+        } catch (e) {
+          errorThrown = true
+          expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
+        }
+        expect(errorThrown).to.be.true()
         workflow.subjectSets.fetchResource.restore()
       })
     })

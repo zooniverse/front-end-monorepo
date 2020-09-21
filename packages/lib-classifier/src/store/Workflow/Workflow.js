@@ -38,8 +38,12 @@ const Workflow = types
 
   .actions(self => {
     function * selectSubjectSet(id) {
-      yield self.subjectSets.setActive(id)
-      return tryReference(() => self.subjectSets.active)
+      const validSets = self.links.subject_sets || []
+      if (validSets.indexOf(id) > -1) {
+        yield self.subjectSets.setActive(id)
+        return tryReference(() => self.subjectSets.active)
+      }
+      throw new Error(`No subject set ${id} for workflow ${self.id}`)
     }
 
     return {
