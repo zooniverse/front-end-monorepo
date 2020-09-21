@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, isValidReference, types } from 'mobx-state-tree'
 import ResourceStore from '../ResourceStore'
 import Workflow from '../Workflow'
 import queryString from 'query-string'
@@ -55,8 +55,15 @@ const WorkflowStore = types
       return id
     }
 
-    function selectWorkflow (id = getDefaultWorkflowId()) {
+    function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
       if (id) {
+        const workflow = yield self.getResource(id)
+        self.resources.put(workflow)
+        if (subjectSetID) {
+          const selectedWorkflow = self.resources.get(id)
+          // wait for the subject set to load before activating the workflow
+          const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
+        }
         self.setActive(id)
       } else {
         throw new ReferenceError('No workflow ID available')
@@ -65,7 +72,7 @@ const WorkflowStore = types
 
     return {
       afterAttach,
-      selectWorkflow
+      selectWorkflow: flow(selectWorkflow)
     }
   })
 

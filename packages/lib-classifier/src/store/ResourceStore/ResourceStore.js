@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, getRoot, types } from 'mobx-state-tree'
 
-import Resource from './Resource'
+import Resource from '../Resource'
 
 const ResourceStore = types
   .model('ResourceStore', {
@@ -42,6 +42,15 @@ const ResourceStore = types
       self.active = undefined
       self.resources.clear()
     },
+
+    getResource: flow(function * getResource(id) {
+      const resource = self.resources.get(id)
+      if (!resource) {
+        const panoptesResource = yield self.fetchResource(id)
+        self.setResources([panoptesResource])
+      }
+      return self.resources.get(id)
+    }),
 
     setResources (resources = []) {
       if (resources && resources.length > 0) {

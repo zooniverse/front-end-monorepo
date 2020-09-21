@@ -3,18 +3,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
 
-function getWorkflowID() {
+function getQueryParams() {
   if (window.location && window.location.search) {
-    const { workflow } = queryString.parse(window.location.search) // Search the query string for the 'project='
-    if (workflow) {
-      return workflow
-    }
-
-    return undefined
+    const { subjectSet, workflow } = queryString.parse(window.location.search)
+    return { subjectSet, workflow }
   }
 
-  return undefined
+  return {}
 }
 
-const workflowID = getWorkflowID()
-ReactDOM.render(<App workflowID={workflowID} />, document.getElementById('root'))
+const { subjectSet, workflow } = getQueryParams()
+ReactDOM.render(<App subjectSetID={subjectSet} workflowID={workflow} />, document.getElementById('root'))
