@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { observer } from 'mobx-react'
 import { Box, Paragraph } from 'grommet'
+import styled, { css, withTheme } from 'styled-components'
 import { Modal, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
@@ -10,6 +11,15 @@ import taskRegistry from '@plugins/tasks'
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
+
+const StyledButton = styled(PrimaryButton)`
+  ${props => props.theme && css`
+    background: none;
+    ${(props) => (props.theme.dark) ?
+    css`color: ${props.theme.global.colors.text.dark};` :
+    css`color: ${props.theme.global.colors.text.light};`}
+  `}
+`
 
 function SubTaskPopup(props) {
   const {
@@ -132,9 +142,9 @@ function SubTaskPopup(props) {
             gap='small'
             justify='center'
           >
-            <PrimaryButton
+            <StyledButton
               label="No"
-              color='gold'
+              color='teal'
               onClick={onCloseConfirm}
             />
             <PrimaryButton
@@ -169,4 +179,4 @@ SubTaskPopup.defaultProps = {
   onDelete: () => true,
 }
 
-export default SubTaskPopup
+export default withTheme(SubTaskPopup)
