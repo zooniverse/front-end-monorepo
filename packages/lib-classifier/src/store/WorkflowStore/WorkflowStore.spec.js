@@ -112,6 +112,11 @@ describe('Model > WorkflowStore', function () {
       it('should set the active workflow', function () {
         expect(rootStore.workflows.active.id).to.equal(workflowID)
       })
+
+      it('should not have an active subject set', function () {
+        const workflow = rootStore.workflows.active
+        expect(workflow.subjectSetId).to.be.undefined()
+      })
     })
 
     describe('with a valid workflow and subject set', function () {

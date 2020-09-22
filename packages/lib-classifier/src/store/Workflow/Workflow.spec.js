@@ -85,8 +85,7 @@ describe('Model > Workflow', function () {
     describe('with a valid subject set', function () {
 
       it('should set the active subject set', async function () {
-        const defaultID = workflow.links.subject_sets[0]
-        expect(workflow.subjectSetId).to.equal(defaultID)
+        expect(workflow.subjectSetId).to.be.undefined()
         const subjectSetID = workflow.links.subject_sets[1]
         const subjectSet = await workflow.selectSubjectSet(subjectSetID)
         expect(subjectSet.id).to.equal(subjectSetID)
@@ -99,8 +98,7 @@ describe('Model > Workflow', function () {
       it('should throw an error', async function () {
         let errorThrown = false
         sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
-        const defaultID = workflow.links.subject_sets[0]
-        expect(workflow.subjectSetId).to.equal(defaultID)
+        expect(workflow.subjectSetId).to.be.undefined()
         try {
           const subjectSet = await workflow.selectSubjectSet('abcdefg')
         } catch (e) {
@@ -138,17 +136,15 @@ describe('Model > Workflow', function () {
 
     describe('with no selected subject set', function () {
 
-      it('should return the default subject set', async function () {
-        const defaultID = workflow.links.subject_sets[0]
-        expect(workflow.subjectSetId).to.equal(defaultID)
+      it('should be undefined', async function () {
+        expect(workflow.subjectSetId).to.be.undefined()
       })
     })
 
     describe('with a selected subject set', function () {
 
       it('should return the active subject set', async function () {
-        const defaultID = workflow.links.subject_sets[0]
-        expect(workflow.subjectSetId).to.equal(defaultID)
+        expect(workflow.subjectSetId).to.be.undefined()
         const subjectSetID = workflow.links.subject_sets[1]
         await workflow.selectSubjectSet(subjectSetID)
         expect(workflow.subjectSetId).to.equal(subjectSetID)
@@ -160,8 +156,7 @@ describe('Model > Workflow', function () {
       it('should error', async function () {
         let errorThrown = false
         sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
-        const defaultID = workflow.links.subject_sets[0]
-        expect(workflow.subjectSetId).to.equal(defaultID)
+        expect(workflow.subjectSetId).to.be.undefined()
         try {
           await workflow.selectSubjectSet('abcdefg')
         } catch (e) {

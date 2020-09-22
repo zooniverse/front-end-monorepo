@@ -23,10 +23,8 @@ const Workflow = types
 
   .views(self => ({
     get subjectSetId () {
-      // TODO: enable selection of a subject set from the links array.
-      const [ subjectSetId ] = self.links.subject_sets
       const activeSet = tryReference(() => self.subjectSets.active)
-      return activeSet?.id || subjectSetId
+      return activeSet?.id
     },
 
     get usesTranscriptionTask () {
