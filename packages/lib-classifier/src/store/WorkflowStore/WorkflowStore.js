@@ -12,31 +12,6 @@ const WorkflowStore = types
   })
 
   .actions(self => {
-    function afterAttach () {
-      createProjectObserver()
-      createUPPObserver()
-    }
-
-    function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const validProjectReference = isValidReference(() => getRoot(self).projects?.active)
-        if (validProjectReference) {
-          self.reset()
-        }
-      }, { name: 'Workflow Store Project Observer autorun' })
-      addDisposer(self, projectDisposer)
-    }
-
-    function createUPPObserver () {
-      const uppDisposer = autorun(() => {
-        const validUPPReference = isValidReference(() => getRoot(self).userProjectPreferences?.active)
-        const validWorkflowReference = isValidReference(() => self.active)
-        if (validUPPReference && !validWorkflowReference) {
-          self.reset()
-        }
-      }, { name: 'Workflow Store UPP Observer autorun' })
-      addDisposer(self, uppDisposer)
-    }
 
     function getDefaultWorkflowId () {
       const validProjectReference = isValidReference(() => getRoot(self).projects.active)
@@ -71,7 +46,6 @@ const WorkflowStore = types
     }
 
     return {
-      afterAttach,
       selectWorkflow: flow(selectWorkflow)
     }
   })
