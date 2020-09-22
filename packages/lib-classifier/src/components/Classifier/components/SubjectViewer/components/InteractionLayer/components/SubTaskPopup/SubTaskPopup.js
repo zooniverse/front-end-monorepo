@@ -93,12 +93,12 @@ function SubTaskPopup(props) {
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
             if (annotation && TaskComponent) {
-              const highlightRequired = !task.isComplete && confirm === 'closed'
+              const requiredEmphasis = task.required && !task.isComplete && confirm === 'closed'
               return (
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
                 <Box
-                  border={highlightRequired ? { size: 'small', color: 'tomato' }: false}
+                  border={requiredEmphasis ? { size: 'small', color: 'tomato' }: false}
                   className='subtaskpopup-element-that-ignores-drag-actions'
                   key={annotation.id}
                   overflow='auto'
@@ -111,10 +111,8 @@ function SubTaskPopup(props) {
                     subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
                     task={task}
                   />
-                  {task.required && (
-                    <Paragraph
-                      color={highlightRequired ? 'tomato': false}
-                    >
+                  {requiredEmphasis && (
+                    <Paragraph>
                       <strong>{counterpart('Task.required')}</strong>
                     </Paragraph>
                   )}
@@ -139,7 +137,11 @@ function SubTaskPopup(props) {
           active
           closeFn={onCloseConfirm}
         >
-          <Paragraph>{counterpart('Task.confirm')}</Paragraph>
+          <Paragraph
+            margin={{ bottom: 'medium' }}
+          >
+            {counterpart('Task.confirm')}
+          </Paragraph>
           <Box
             direction='row'
             gap='small'
