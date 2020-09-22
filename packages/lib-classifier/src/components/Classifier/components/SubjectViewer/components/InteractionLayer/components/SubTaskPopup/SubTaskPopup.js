@@ -25,9 +25,9 @@ function SubTaskPopup(props) {
   } = activeMark
   if (!subTaskVisibility) return null
 
-  const [confirm, setConfirm] = React.useState()
-  const onOpenConfirm = () => setConfirm(true);
-  const onCloseConfirm = () => setConfirm(false);
+  const [confirm, setConfirm] = React.useState('pending')
+  const onOpenConfirm = () => setConfirm('confirming');
+  const onCloseConfirm = () => setConfirm('closed');
 
   // TODO: split render() into various asyncStates?
   const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
@@ -80,7 +80,7 @@ function SubTaskPopup(props) {
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
             if (annotation && TaskComponent) {
-              const highlightRequired = !task.isComplete && confirm === false
+              const highlightRequired = !task.isComplete && confirm === 'closed'
               return (
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
@@ -121,7 +121,7 @@ function SubTaskPopup(props) {
           />
         </Box>
       </MovableModal>
-      {confirm && (
+      {confirm === 'confirming' && (
         <Modal
           active
           closeFn={onCloseConfirm}
