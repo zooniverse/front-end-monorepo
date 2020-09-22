@@ -286,8 +286,8 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should return false if there is not an active workflow', async function () {
       const project = ProjectFactory.build({})
-      const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, workflow)
+      const panoptesClientStub = stubPanoptesJs({ workflows: [], subjects })
+      const rootStore = await setupStores(panoptesClientStub, project)
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 

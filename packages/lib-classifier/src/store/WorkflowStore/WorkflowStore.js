@@ -38,14 +38,20 @@ const WorkflowStore = types
 
     function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
       if (id) {
-        const workflow = yield self.getResource(id)
-        self.resources.put(workflow)
-        if (subjectSetID) {
-          const selectedWorkflow = self.resources.get(id)
-          // wait for the subject set to load before activating the workflow
-          const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
+        const activeWorkflows = self.project?.links?.active_workflows || []
+        const projectID = self.project?.id
+        if (activeWorkflows.indexOf(id) > -1) {
+          const workflow = yield self.getResource(id)
+          self.resources.put(workflow)
+          if (subjectSetID) {
+            const selectedWorkflow = self.resources.get(id)
+            // wait for the subject set to load before activating the workflow
+            const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
+          }
+          self.setActive(id)
+        } else {
+          throw new ReferenceError(`unable to load workflow ${id} for project ${projectID}`)
         }
-        self.setActive(id)
       } else {
         throw new ReferenceError('No workflow ID available')
       }

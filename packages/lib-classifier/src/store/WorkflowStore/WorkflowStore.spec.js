@@ -92,16 +92,15 @@ describe('Model > WorkflowStore', function () {
       let workflowID
 
       before(async function () {
-        const workflows = Factory.buildList('workflow', 5)
-        workflowID = workflows[2].id
+        workflowID = workflow.id
         const panoptesClientStub = stubPanoptesJs({
           subjects: Factory.buildList('subject', 10),
-          workflows: workflows[2]
+          workflows: [workflow]
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
-        rootStore.workflows.setResources(workflows)
+        rootStore.workflows.setResources([workflow])
         await rootStore.workflows.selectWorkflow(workflowID)
       })
 
@@ -131,7 +130,7 @@ describe('Model > WorkflowStore', function () {
           subjectSetMap[subjectSet.id] = subjectSet
         })
         const workflowSnapshot = WorkflowFactory.build({
-          id: 'workflow1',
+          id: workflow.id,
           display_name: 'A test workflow',
           links: {
             subject_sets: Object.keys(subjectSetMap)
@@ -141,17 +140,17 @@ describe('Model > WorkflowStore', function () {
           },
           version: '0.0'
         })
-        const workflow = Workflow.create(workflowSnapshot)
-        workflowID = workflow.id
-        subjectSetID = workflow.links.subject_sets[1]
+        const workflowWithSubjectSets = Workflow.create(workflowSnapshot)
+        workflowID = workflowWithSubjectSets.id
+        subjectSetID = workflowWithSubjectSets.links.subject_sets[1]
         const panoptesClientStub = stubPanoptesJs({
           subjects: Factory.buildList('subject', 10),
-          workflows: workflow
+          workflows: [workflowWithSubjectSets]
         })
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
-        rootStore.workflows.setResources([workflow])
+        rootStore.workflows.setResources([workflowWithSubjectSets])
         await rootStore.workflows.selectWorkflow(workflowID, subjectSetID)
       })
 
@@ -191,6 +190,7 @@ describe('Model > WorkflowStore', function () {
         try {
           await rootStore.workflows.selectWorkflow('101')
         } catch (e) {
+          expect(e.message).to.equal(`unable to load workflow 101 for project ${projectWithoutDefault.id}`)
           errorThrown = true
         }
         expect(errorThrown).to.be.true()
