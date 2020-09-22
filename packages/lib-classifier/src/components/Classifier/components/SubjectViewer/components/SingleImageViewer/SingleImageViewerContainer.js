@@ -57,7 +57,9 @@ class SingleImageViewerContainer extends React.Component {
   async preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
+      console.log('subject', subject)
       const imageUrl = Object.values(subject.locations[0])[0]
+      console.log('imageUrl', imageUrl)
       const img = await this.fetchImage(imageUrl)
       this.setState({ img })
       return img
@@ -97,7 +99,8 @@ class SingleImageViewerContainer extends React.Component {
       onKeyDown,
       rotation,
       setOnPan,
-      setOnZoom
+      setOnZoom,
+      title
     } = this.props
     const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
@@ -143,6 +146,7 @@ class SingleImageViewerContainer extends React.Component {
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
             rotate={rotation}
+            title={title}
             width={naturalWidth}
           >
             <g ref={this.subjectImage}>
@@ -169,6 +173,10 @@ SingleImageViewerContainer.propTypes = {
   setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
+  }),
+  title: PropTypes.shape({
+    id: PropTypes.string,
+    text: PropTypes.string
   })
 }
 
@@ -182,7 +190,8 @@ SingleImageViewerContainer.defaultProps = {
   onReady: () => true,
   rotation: 0,
   setOnPan: () => true,
-  setOnZoom: () => true
+  setOnZoom: () => true,
+  title: {}
 }
 
 export default withKeyZoom(SingleImageViewerContainer)

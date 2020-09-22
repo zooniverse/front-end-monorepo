@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { VariableStarViewer } from './VariableStarViewer'
-import { SingleImageViewer } from '../SingleImageViewer'
+import { SingleImageViewerContainer } from '../SingleImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import en from './locales/en'
 
@@ -16,17 +16,16 @@ describe('Component > VariableStarViewer', function () {
   describe('HR diagram', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<VariableStarViewer imageSrc='example.png' />)
+      wrapper = shallow(<VariableStarViewer />)
     })
 
-    it('should render a SingleImageViewer', function () {
-      expect(wrapper.find(SingleImageViewer)).to.have.lengthOf(1)
+    it('should not render a SingleImageViewerContainer if there is no imageLocation', function () {
+      expect(wrapper.find(SingleImageViewerContainer)).to.have.lengthOf(0)
     })
 
-    it('should render a child SVG image', function () {
-      const image = wrapper.find('image')
-      expect(image).to.have.lengthOf(1)
-      expect(image.props().xlinkHref).to.equal('example.png')
+    it('should render a SingleImageViewer if there is an imageLocation', function () {
+      wrapper.setProps({ imageLocation: { 'image/png': 'example.png' } })
+      expect(wrapper.find(SingleImageViewerContainer)).to.have.lengthOf(1)
     })
 
     it('should render an figcaption', function () {
