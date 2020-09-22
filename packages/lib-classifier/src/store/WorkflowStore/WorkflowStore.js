@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, flow, getRoot, tryReference, types } from 'mobx-state-tree'
 import ResourceStore from '../ResourceStore'
 import Workflow from '../Workflow'
 import queryString from 'query-string'
@@ -11,14 +11,20 @@ const WorkflowStore = types
     type: types.optional(types.string, 'workflows')
   })
 
+  .views(self => ({
+    get project () {
+      const activeProject = getRoot(self).projects.active
+      return tryReference(() => activeProject)
+    }
+  }))
+
   .actions(self => {
 
     function getDefaultWorkflowId () {
-      const validProjectReference = isValidReference(() => getRoot(self).projects.active)
+      const { project } = self
       let id = ''
 
-      if (validProjectReference) {
-        const project = getRoot(self).projects.active
+      if (project) {
         if (project.configuration && project.configuration.default_workflow) {
           id = project.configuration.default_workflow
         } else if (project.links && project.links.active_workflows[0]) {
