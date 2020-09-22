@@ -2,12 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { observer } from 'mobx-react'
+import counterpart from 'counterpart'
 import { Box, Paragraph } from 'grommet'
 import styled, { css, withTheme } from 'styled-components'
 import { Modal, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import SaveButton from './components/SaveButton'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import taskRegistry from '@plugins/tasks'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
@@ -112,7 +116,7 @@ function SubTaskPopup(props) {
                     <Paragraph
                       color={highlightRequired ? 'tomato': false}
                     >
-                      <strong>This step is required.</strong>
+                      <strong>{counterpart('Task.required')}</strong>
                     </Paragraph>
                   )}
                 </Box>
@@ -121,7 +125,7 @@ function SubTaskPopup(props) {
 
             return (
               <Box pad='none'>
-                <Paragraph>Task component could not be rendered.</Paragraph>
+                <Paragraph>{counterpart('Task.notRender')}</Paragraph>
               </Box>
             )
           })}
@@ -136,19 +140,19 @@ function SubTaskPopup(props) {
           active
           closeFn={onCloseConfirm}
         >
-          <Paragraph>Are you sure you want to cancel this task? This will delete the mark.</Paragraph>
+          <Paragraph>{counterpart('Task.confirm')}</Paragraph>
           <Box
             direction='row'
             gap='small'
             justify='center'
           >
             <StyledButton
-              label="No"
+              label={counterpart('Task.keepWorking')}
               color='teal'
               onClick={onCloseConfirm}
             />
             <PrimaryButton
-              label="Yes"
+              label={counterpart('Task.close')}
               color='teal'
               onClick={deleteMark}
             />
