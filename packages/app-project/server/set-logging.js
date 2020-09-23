@@ -9,12 +9,12 @@ function setLogging (expressInstance) {
   if (production) {
     expressInstance.use(morgan('combined', {
       skip: (req, res) => res.statusCode < 400,
-      stream: process.stdout
+      stream: process.stderr
     }))
 
     expressInstance.use(morgan('combined', {
       skip: (req, res) => res.statusCode >= 400,
-      stream: process.stderr
+      stream: process.stdout
     }))
   }
 }
