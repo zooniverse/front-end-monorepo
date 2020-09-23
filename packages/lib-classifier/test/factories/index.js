@@ -10,6 +10,7 @@ export { default as UserFactory } from './UserFactory'
 export { default as ClassificationFactory } from './ClassificationFactory'
 export { default as FieldGuideFactory } from './FieldGuideFactory'
 export { default as FeedbackFactory } from './FeedbackFactory'
+export { default as SubjectSetFactory } from './SubjectSetFactory'
 export { FieldGuideMediumFactory, TutorialMediumFactory }
 
 // Workflow Task Factories
