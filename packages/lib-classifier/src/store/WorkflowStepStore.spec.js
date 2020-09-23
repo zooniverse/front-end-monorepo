@@ -10,7 +10,7 @@ import {
 import { Factory } from 'rosie'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-function setupStores (clientStub, project, workflow) {
+async function setupStores (clientStub, project, workflow) {
   const store = RootStore.create({
     classifications: {},
     dataVisAnnotating: {},
@@ -30,7 +30,7 @@ function setupStores (clientStub, project, workflow) {
   store.projects.setActive(project.id)
   if (workflow) {
     store.workflows.setResources([workflow])
-    store.workflows.setActive(workflow.id)
+    await store.workflows.selectWorkflow(workflow.id)
   }
   return store
 }
@@ -43,7 +43,7 @@ describe('Model > WorkflowStepStore', function () {
   describe('when the workflow has defined steps', function () {
     let rootStore
     let workflow
-    before(function () {
+    before(async function () {
       workflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }],
@@ -61,7 +61,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = setupStores(panoptesClientStub, project)
+      rootStore = await setupStores(panoptesClientStub, project, workflow)
     })
 
     describe('should set the steps', function () {
@@ -117,7 +117,7 @@ describe('Model > WorkflowStepStore', function () {
   describe('when the workflow does not have defined steps', function () {
     let rootStore
     let workflow
-    before(function () {
+    before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
         tasks: {
@@ -136,7 +136,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = setupStores(panoptesClientStub, project)
+      rootStore = await setupStores(panoptesClientStub, project, workflow)
     })
 
     it('should convert the tasks to steps and set the steps', function () {
@@ -176,7 +176,7 @@ describe('Model > WorkflowStepStore', function () {
   describe('when the workflow tasks define next steps as tasks (backwards compatibility)', function () {
     let rootStore
     let workflow
-    before(function () {
+    before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
         tasks: {
@@ -202,7 +202,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = setupStores(panoptesClientStub, project)
+      rootStore = await setupStores(panoptesClientStub, project, workflow)
     })
 
     it('should convert the tasks to steps and set the steps', function () {
@@ -284,51 +284,51 @@ describe('Model > WorkflowStepStore', function () {
       subject = subjects[0]
     })
 
-    it('should return false if there is not an active workflow', function () {
+    it('should return false if there is not an active workflow', async function () {
       const project = ProjectFactory.build({})
-      const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project)
+      const panoptesClientStub = stubPanoptesJs({ workflows: [], subjects })
+      const rootStore = await setupStores(panoptesClientStub, project)
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if there is not an active classification', function () {
+    it('should return false if there is not an active classification', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      const rootStore = await setupStores(panoptesClientStub, project, workflow)
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if not on the last step', function () {
+    it('should return false if not on the last step', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      const rootStore = await setupStores(panoptesClientStub, project, workflow)
       rootStore.classifications.createClassification(subject, workflow, project)
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if the workflow is not configured to hide classification summaries', function () {
+    it('should return false if the workflow is not configured to hide classification summaries', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project, workflow)
+      const rootStore = await setupStores(panoptesClientStub, project, workflow)
       rootStore.classifications.createClassification(subject, workflow, project)
       rootStore.workflowSteps.selectStep('S2')
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if the classification subject has been flagged', function () {
+    it('should return false if the classification subject has been flagged', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: hiddenSummaryWorkflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: hiddenSummaryWorkflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
+      const rootStore = await setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
       rootStore.classifications.createClassification(subject, hiddenSummaryWorkflow, project)
       rootStore.classifications.active.metadata.update({ subject_flagged: true })
       rootStore.workflowSteps.selectStep('S2')
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return true if the conditions are met', function () {
+    it('should return true if the conditions are met', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: hiddenSummaryWorkflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: hiddenSummaryWorkflow, subjects })
-      const rootStore = setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
+      const rootStore = await setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)
       rootStore.classifications.createClassification(subject, hiddenSummaryWorkflow, project)
       rootStore.workflowSteps.selectStep('S2')
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()

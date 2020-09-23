@@ -109,6 +109,8 @@ class App extends React.Component {
               onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               project={this.state.project}
+              subjectSetID={this.props.subjectSetID}
+              workflowID={this.props.workflowID}
             />
           </Box>
         </Box>
