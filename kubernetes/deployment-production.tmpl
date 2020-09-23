@@ -33,7 +33,7 @@ spec:
           resources:
             requests:
               memory: "2200Mi"
-              cpu: "10m"
+              cpu: "250m"
             limits:
               memory: "2200Mi"
               cpu: "500m"
@@ -111,7 +111,7 @@ spec:
           resources:
             requests:
               memory: "275Mi"
-              cpu: "10m"
+              cpu: "250m"
             limits:
               memory: "275Mi"
               cpu: "500m"
@@ -161,6 +161,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: zooniverse-org-content-pages-production
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80
