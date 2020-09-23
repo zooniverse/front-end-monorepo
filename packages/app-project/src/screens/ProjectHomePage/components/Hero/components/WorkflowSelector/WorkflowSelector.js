@@ -17,7 +17,7 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { workflows } = props
+  const { loadingState, workflows } = props
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
@@ -30,7 +30,7 @@ function WorkflowSelector (props) {
         {workflowDescription}
       </Markdownz>
 
-      {(workflows.loading === asyncStates.error) && (
+      {(loadingState === asyncStates.error) && (
         <Box
           align='center'
           justify='center'
@@ -40,7 +40,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(workflows.loading === asyncStates.success) && (
+      {(loadingState === asyncStates.success) && (
         <Box
           alignSelf='start'
           fill='horizontal'
@@ -49,11 +49,11 @@ function WorkflowSelector (props) {
           width={{ max: 'medium' }}
         >
 
-          {(workflows.data.length > 0) && workflows.data.map(workflow =>
+          {(workflows.length > 0) && workflows.map(workflow =>
             <WorkflowSelectButton key={workflow.id} workflow={workflow} />
           )}
 
-          {(workflows.data.length === 0) && (
+          {(workflows.length === 0) && (
             <Box background='accent-4' pad='xsmall' width={{ max: 'medium' }}>
               <Text size='small' textAlign='center'>
                 {counterpart('WorkflowSelector.noWorkflows')}
@@ -64,7 +64,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(![asyncStates.success, asyncStates.error].includes(workflows.loading)) && (
+      {(![asyncStates.success, asyncStates.error].includes(loadingState)) && (
         <Box align='center' justify='center' margin={{ top: 'small' }}>
           <Box height='xxsmall' width='xxsmall'>
             <Bars
@@ -81,12 +81,11 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
+  loadingState: string,
   workflowDescription: string,
-  workflows: shape({
-    data: arrayOf(shape({
+  workflows: arrayOf(shape({
       id: string.isRequired
     }).isRequired).isRequired
-  }).isRequired
 }
 
 export default withTheme(WorkflowSelector)

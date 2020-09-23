@@ -26,6 +26,9 @@ const mockStore = {
       2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.  
       3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.  
       4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
+  },
+  user: {
+    loadingState: asyncStates.success
   }
 }
 

@@ -4,21 +4,26 @@ import React, { Component } from 'react'
 
 import WorkflowSelector from './WorkflowSelector'
 
-function storeMapper (stores) {
+function storeMapper(stores) {
+  const { project, user } = stores.store
   return {
-    workflowDescription: stores.store.project.workflow_description
+    loadingState: user.loadingState,
+    workflowDescription: project.workflow_escription
   }
 }
 
 class WorkflowSelectorContainer extends Component {
   render () {
     return (
-      <WorkflowSelector {...this.props} />
+      <WorkflowSelector
+        {...this.props}
+      />
     )
   }
 }
 
 WorkflowSelectorContainer.propTypes = {
+  loadingState: string,
   workflowDescription: string
 }
 

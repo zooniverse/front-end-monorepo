@@ -11,7 +11,12 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorContainer', func
   let componentWrapper
 
   before(function () {
-    wrapper = shallow(<WorkflowSelectorContainer workflowDescription={WORKFLOW_DESCRIPTION} />)
+    wrapper = shallow(
+      <WorkflowSelectorContainer
+        loadingState='success'
+        workflowDescription={WORKFLOW_DESCRIPTION}
+      />
+    )
     componentWrapper = wrapper.find(WorkflowSelector)
   })
 
@@ -25,5 +30,9 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorContainer', func
 
   it('should pass down the `workflowDescription` prop', function () {
     expect(componentWrapper.prop('workflowDescription')).to.equal(WORKFLOW_DESCRIPTION)
+  })
+
+  it('should pass down the user loading state', function () {
+    expect(componentWrapper.prop('loadingState')).to.equal('success')
   })
 })
