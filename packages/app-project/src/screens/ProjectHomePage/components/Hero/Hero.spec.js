@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
-import HeroContainer from './HeroContainer'
+import Hero from './Hero'
 import NarrowLayout from './components/NarrowLayout'
 import WideLayout from './components/WideLayout'
 
@@ -31,12 +31,12 @@ function subjectSet(id) {
   }
 }
 
-describe('Component > HeroContainer', function () {
+describe('Component > Hero', function () {
   describe('general behaviour', function () {
     let wrapper
 
     before(function () {
-      wrapper = shallow(<HeroContainer workflows={WORKFLOWS} />)
+      wrapper = shallow(<Hero workflows={WORKFLOWS} />)
     })
 
     it('should render without crashing', function () {
@@ -58,28 +58,25 @@ describe('Component > HeroContainer', function () {
     let componentWrapper
 
     it('should pass down the workflow data', async function () {
-      wrapper = shallow(<HeroContainer workflows={WORKFLOWS} />)
+      wrapper = shallow(<Hero workflows={WORKFLOWS} />)
       componentWrapper = wrapper.first()
-      expect(componentWrapper.prop('workflows')).to.deep.equal({
-        loading: 'success',
-        data: [
-          {
-            completeness: 0.4,
-            default: true,
-            grouped: false,
-            id: '1',
-            displayName: 'Foo',
-            links: {
-              subject_sets: ['1', '2', '3']
-            },
-            subjectSets: [
-              subjectSet('1'),
-              subjectSet('2'),
-              subjectSet('3')
-            ]
-          }
-        ]
-      })
+      expect(componentWrapper.prop('workflows')).to.deep.equal([
+        {
+          completeness: 0.4,
+          default: true,
+          grouped: false,
+          id: '1',
+          displayName: 'Foo',
+          links: {
+            subject_sets: ['1', '2', '3']
+          },
+          subjectSets: [
+            subjectSet('1'),
+            subjectSet('2'),
+            subjectSet('3')
+          ]
+        }
+      ])
     })
   })
 })
