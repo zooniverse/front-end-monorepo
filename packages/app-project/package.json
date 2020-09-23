@@ -20,7 +20,7 @@
     "@babel/plugin-proposal-decorators": "~7.8.3",
     "@sentry/browser": "~5.18.1",
     "@sindresorhus/string-hash": "~1.2.0",
-    "@vx/vx": "~0.0.191",
+    "@vx/vx": "~0.0.199",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
