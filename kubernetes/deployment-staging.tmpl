@@ -65,6 +65,8 @@ spec:
               value: staging
             - name: SENTRY_DSN
               value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+            - name: ENABLE_CACHE_HEADERS
+              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -155,6 +157,8 @@ spec:
               value: staging
             - name: SENTRY_DSN
               value: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
+            - name: ENABLE_CACHE_HEADERS
+              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
