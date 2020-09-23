@@ -24,6 +24,37 @@ export const StyledPrimaryButton = styled(PrimaryButton)`
   }
 `
 
+export function ConfirmModal({ onClose, onDelete }) {
+  return (
+    <Modal
+      active
+      closeFn={onClose}
+    >
+      <Paragraph
+        margin={{ bottom: 'medium' }}
+      >
+        {counterpart('Task.confirm')}
+      </Paragraph>
+      <Box
+        direction='row'
+        gap='small'
+        justify='center'
+      >
+        <StyledPrimaryButton
+          label={counterpart('Task.keepWorking')}
+          color='teal'
+          onClick={onClose}
+        />
+        <PrimaryButton
+          label={counterpart('Task.close')}
+          color='teal'
+          onClick={onDelete}
+        />
+      </Box>
+    </Modal>
+  )
+}
+
 function SubTaskPopup(props) {
   const {
     activeMark,
@@ -133,32 +164,10 @@ function SubTaskPopup(props) {
         </Box>
       </MovableModal>
       {confirm === 'confirming' && (
-        <Modal
-          active
-          closeFn={onCloseConfirm}
-        >
-          <Paragraph
-            margin={{ bottom: 'medium' }}
-          >
-            {counterpart('Task.confirm')}
-          </Paragraph>
-          <Box
-            direction='row'
-            gap='small'
-            justify='center'
-          >
-            <StyledPrimaryButton
-              label={counterpart('Task.keepWorking')}
-              color='teal'
-              onClick={onCloseConfirm}
-            />
-            <PrimaryButton
-              label={counterpart('Task.close')}
-              color='teal'
-              onClick={deleteMark}
-            />
-          </Box>
-        </Modal>
+        <ConfirmModal
+          onClose={onCloseConfirm}
+          onDelete={deleteMark}
+        />
       )}
     </>
   )
