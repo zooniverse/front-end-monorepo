@@ -71,6 +71,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       gap='5px'
       ref={ref}
       rows={['80px', '80px', '80px', '80px', '80px', '80px', '80px', '50px']}
+      pad={{ horizontal: 'xsmall' }}
     >
       <Controls
         data={scatterPlot.data}
@@ -162,7 +163,6 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
         gridArea='barCharts'
         margin={{ bottom: 'xsmall' }}
         pad='none'
-        width={{ max: '290px' }}
       >{Object.keys(barJSON).map((barChartKey) => {
         //Let's keep the rendering of the bar chart flexible in case more plots are added in the future
         return (
