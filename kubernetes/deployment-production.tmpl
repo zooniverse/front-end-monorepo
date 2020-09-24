@@ -1,4 +1,14 @@
 ---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+   name: zooniverse-org-project-production-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: zooniverse-org-project-production
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -78,6 +88,16 @@ spec:
   minReplicas: 2
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+   name: zooniverse-org-content-pages-production-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: zooniverse-org-content-pages-production
 ---
 apiVersion: v1
 kind: Service
