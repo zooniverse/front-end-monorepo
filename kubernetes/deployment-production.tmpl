@@ -1,4 +1,14 @@
 ---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+   name: zooniverse-org-project-production-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: zooniverse-org-project-production
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,6 +73,8 @@ spec:
               value: production
             - name: SENTRY_DSN
               value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+            - name: ENABLE_CACHE_HEADERS
+              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -76,6 +88,16 @@ spec:
   minReplicas: 2
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+   name: zooniverse-org-content-pages-production-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: zooniverse-org-content-pages-production
 ---
 apiVersion: v1
 kind: Service
@@ -151,6 +173,8 @@ spec:
               value: production
             - name: SENTRY_DSN
               value: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
+            - name: ENABLE_CACHE_HEADERS
+              value: "true"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -161,6 +185,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: zooniverse-org-content-pages-production
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80
