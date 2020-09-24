@@ -125,6 +125,13 @@ pipeline {
   }
 
   post {
+    success {
+      slackSend (
+        color: '#00FF00',
+        message: "SUCCESSFUL: Job '${JOB_NAME} [${BUILD_NUMBER}]' (${BUILD_URL})",
+        channel: "#frontend-rewrite"
+      )
+    }
     unsuccessful {
       slackSend (
         color: '#FF0000',
