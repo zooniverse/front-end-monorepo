@@ -1,7 +1,10 @@
+import getDefaultPageProps from '@helpers/getDefaultPageProps'
+
 export { default } from '@screens/ClassifyPage'
 
-export function getServerSideProps({ params, req, res }) {
+export async function getServerSideProps({ params, query, req, res }) {
   const { workflowID } = params
-  const props = { workflowID }
+  const { props: defaultProps } = await getDefaultPageProps({ params, query, req, res })
+  const props = Object.assign({}, { workflowID }, defaultProps)
   return ({ props })
 }
