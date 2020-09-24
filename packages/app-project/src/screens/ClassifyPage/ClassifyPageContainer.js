@@ -11,7 +11,7 @@ class ClassifyPageContainer extends Component {
   }
 
   addToCollection (subjectId) {
-    this.collectionsModal.current.wrappedInstance.open(subjectId)
+    this.collectionsModal.current.open(subjectId)
   }
 
   render () {
