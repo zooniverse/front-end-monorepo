@@ -8,9 +8,9 @@
   "scripts": {
     "build": "PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "build-storybook": "build-storybook -s public",
-    "dev": "next",
+    "dev": "PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/server.js",
     "lint": "zoo-standard --fix | snazzy",
-    "start": "NODE_ENV=${NODE_ENV:-production} next start",
+    "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook -s public",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
@@ -33,6 +33,7 @@
     "counterpart": "~0.18.6",
     "d3": "~5.9.7",
     "dotenv-webpack": "~1.7.0",
+    "express": "^4.17.1",
     "graphql-request": "~1.8.2",
     "grommet": "~2.11.1",
     "grommet-icons": "~4.4.0",
@@ -42,6 +43,7 @@
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~5.4.4",
     "mobx-state-tree": "~3.15.0",
+    "morgan": "^1.10.0",
     "newrelic": "~5.10.0",
     "next": "~9.4.1",
     "panoptes-client": "~3.2.1",
