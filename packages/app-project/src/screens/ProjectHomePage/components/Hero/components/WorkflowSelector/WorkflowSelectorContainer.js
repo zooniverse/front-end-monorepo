@@ -8,7 +8,7 @@ function storeMapper(stores) {
   const { project, user } = stores.store
   return {
     loadingState: user.loadingState,
-    workflowDescription: project.workflow_escription
+    workflowDescription: project.workflow_description
   }
 }
 
