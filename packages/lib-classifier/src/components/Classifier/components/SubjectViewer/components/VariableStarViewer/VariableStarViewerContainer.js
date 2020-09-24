@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
 import counterpart from 'counterpart'
+import { extent } from 'd3'
 import VariableStarViewer from './VariableStarViewer'
 import locationValidator from '../../helpers/locationValidator'
 import en from './locales/en'
@@ -176,6 +177,7 @@ class VariableStarViewerContainer extends Component {
 
   calculateBarJSON (barChartJSON) {
     const { periodMultiple } = this.state
+
     let phasedBarChartJSON = { 
       amplitude: barChartJSON.amplitude, 
       period: { 
@@ -183,10 +185,19 @@ class VariableStarViewerContainer extends Component {
         chartOptions: barChartJSON.period.chartOptions
       }
     }
+    const { chartOptions } = phasedBarChartJSON.period
+
     barChartJSON.period.data.forEach((datum) => {
       const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
       phasedBarChartJSON.period.data.push(phasedDatum)
     })
+
+    if (!chartOptions.yAxisDomain) {
+      const yDataExtent = extent(phasedBarChartJSON.period.data.map(datum => datum.value))
+      const yAxisDomain = [0, Math.ceil(yDataExtent[1]) + 1]
+      phasedBarChartJSON.period.chartOptions = Object.assign({}, chartOptions, { yAxisDomain })
+    }
+
     return phasedBarChartJSON
   }
 
@@ -199,6 +210,7 @@ class VariableStarViewerContainer extends Component {
         }
       }
     } = this.state
+
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
     this.setState({

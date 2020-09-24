@@ -152,7 +152,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
             data={barJSON[barChartKey].data}
             key={barChartKey}
             xAxisLabel={barJSON[barChartKey].chartOptions.xAxisLabel}
-            yAxisDomain={[0, 10]}
+            yAxisDomain={barJSON[barChartKey].chartOptions.yAxisDomain}
             yAxisLabel={barJSON[barChartKey].chartOptions.yAxisLabel}
           />
         )})}
