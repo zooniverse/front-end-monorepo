@@ -501,7 +501,7 @@ describe('Component > ZoomingScatterPlot', function () {
       })
 
       describe('when only panning the x-axis', function () {
-        xit('should translate the SVG position', function () {
+        it('should translate the SVG position', function () {
           const zoomConfiguration = {
             direction: 'x',
             minZoom: 1,
@@ -560,7 +560,7 @@ describe('Component > ZoomingScatterPlot', function () {
       })
 
       describe('when only panning the y-axis', function () {
-        xit('should translate the SVG position', function () {
+        it('should translate the SVG position', function () {
           const zoomConfiguration = {
             direction: 'y',
             minZoom: 1,
@@ -743,7 +743,7 @@ describe('Component > ZoomingScatterPlot', function () {
           isXAxisOutOfBoundsSpy.restore()
         })
 
-        xit('should not pan beyond the data extent minimum', function () {
+        it('should not pan beyond the data extent minimum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
@@ -763,15 +763,10 @@ describe('Component > ZoomingScatterPlot', function () {
             nativeEvent: new Event('test')
           })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
 
-        xit('should not pan beyond the data extent maximum', function () {
+        it('should not pan beyond the data extent maximum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
@@ -791,11 +786,6 @@ describe('Component > ZoomingScatterPlot', function () {
             nativeEvent: new Event('test')
           })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
       })
@@ -834,7 +824,7 @@ describe('Component > ZoomingScatterPlot', function () {
           isYAxisOutOfBoundsSpy.restore()
         })
 
-        xit('should not pan beyond the data extent minimum', function () {
+        it('should not pan beyond the data extent minimum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
@@ -854,15 +844,10 @@ describe('Component > ZoomingScatterPlot', function () {
             nativeEvent: new Event('test')
           })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
 
-        xit('should not pan beyond the data extent maximum', function () {
+        it('should not pan beyond the data extent maximum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
@@ -882,11 +867,6 @@ describe('Component > ZoomingScatterPlot', function () {
             nativeEvent: new Event('test')
           })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
       })
