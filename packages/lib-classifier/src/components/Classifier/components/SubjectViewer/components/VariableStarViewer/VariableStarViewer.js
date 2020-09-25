@@ -60,18 +60,17 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
 
   return (
     <Grid
-      ref={ref}
-      fill
-      rows={['80px', '1/4', '1/4', '150px']}
-      columns={['2/3', '1/3']}
-      gap='5px'
       areas={[
         { name: 'controls', start: [0, 0], end: [0, 0] },
-        { name: 'phasedJSON', start: [0, 1], end: [0, 2] },
-        { name: 'rawJSON', start: [0, 3], end: [0, 3] },
-        { name: 'barCharts', start: [1, 0], end: [1, 1] },
-        { name: 'HRDiagram', start: [1, 2], end: [1, 3] }
+        { name: 'scatterPlots', start: [0, 1], end: [0, 7] },
+        { name: 'barCharts', start: [1, 0], end: [1, 2] },
+        { name: 'HRDiagram', start: [1, 3], end: [1, 7] }
       ]}
+      columns={['2/3', '1/3']}
+      fill
+      gap='5px'
+      ref={ref}
+      rows={['80px', '80px', '80px', '80px', '80px', '80px', '80px', '50px']}
     >
       <Controls
         data={scatterPlot.data}
@@ -86,61 +85,79 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
         visibleSeries={visibleSeries}
       />
       <Box
-        border={zoomEnabled.phasedJSON && { color: 'brand', size: 'xsmall' }}
-        gridArea='phasedJSON'
-        style={{ position: 'relative' }}
+        border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
+        fill
+        gridArea='scatterPlots'
       >
-        <ScatterPlotViewer
-          data={phasedJSON.data}
-          invertAxes={{ x: false, y: invertYAxis }}
-          margin={{
-            bottom: 50,
-            left: 60,
-            right: 10,
-            top: 30
-          }}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
-          underlays={underlays}
-          xAxisLabel={counterpart('VariableStarViewer.phase')}
-          xAxisNumTicks={8}
-          yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
-          yAxisNumTicks={8}
-          visibleSeries={visibleSeries}
-          zoomControlFn={(zoomEnabled.phasedJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('phasedJSON')}
-          zooming={zoomEnabled.phasedJSON}
-        />
-      </Box>
-      <Box
-        border={zoomEnabled.rawJSON && { color: 'brand', size: 'xsmall' }}
-        gridArea='rawJSON'
-        style={{ position: 'relative' }}
-      >
-        <ScatterPlotViewer
-          data={scatterPlot.data}
-          invertAxes={{ x: false, y: invertYAxis }}
-          margin={{
-            bottom: 50,
-            left: 60,
-            right: 10,
-            top: 30
-          }}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
-          xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
-          xAxisNumTicks={4}
-          yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
-          yAxisNumTicks={6}
-          visibleSeries={visibleSeries}
-          zoomControlFn={(zoomEnabled.rawJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('rawJSON')}
-          zooming={zoomEnabled.rawJSON}
-        />
+        <Grid
+          areas={[
+            { name: 'phasedJSON', start: [0, 0], end: [0, 0] },
+            { name: 'rawJSON', start: [0, 1], end: [0, 1] },
+          ]}
+          columns={['auto']}
+          fill
+          gap='5px'
+          rows={['2/3', '1/3']}
+        >
+          <Box
+            border={zoomEnabled.phasedJSON && { color: 'brand', size: 'xsmall' }}
+            gridArea='phasedJSON'
+            style={{ position: 'relative' }}
+          >
+            <ScatterPlotViewer
+              data={phasedJSON.data}
+              invertAxes={{ x: false, y: invertYAxis }}
+              margin={{
+                bottom: 50,
+                left: 60,
+                right: 10,
+                top: 30
+              }}
+              setOnPan={setOnPan}
+              setOnZoom={setOnZoom}
+              underlays={underlays}
+              xAxisLabel={counterpart('VariableStarViewer.phase')}
+              xAxisNumTicks={8}
+              yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
+              yAxisNumTicks={8}
+              visibleSeries={visibleSeries}
+              zoomControlFn={(zoomEnabled.phasedJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('phasedJSON')}
+              zooming={zoomEnabled.phasedJSON}
+            />
+          </Box>
+          <Box
+            border={zoomEnabled.rawJSON && { color: 'brand', size: 'xsmall' }}
+            gridArea='rawJSON'
+            style={{ position: 'relative' }}
+          >
+            <ScatterPlotViewer
+              data={scatterPlot.data}
+              invertAxes={{ x: false, y: invertYAxis }}
+              margin={{
+                bottom: 50,
+                left: 60,
+                right: 10,
+                top: 30
+              }}
+              setOnPan={setOnPan}
+              setOnZoom={setOnZoom}
+              xAxisLabel={scatterPlot.chartOptions.xAxisLabel}
+              xAxisNumTicks={4}
+              yAxisLabel={scatterPlot.chartOptions.yAxisLabel}
+              yAxisNumTicks={6}
+              visibleSeries={visibleSeries}
+              zoomControlFn={(zoomEnabled.rawJSON) ? () => setAllowPanZoom('') : () => setAllowPanZoom('rawJSON')}
+              zooming={zoomEnabled.rawJSON}
+            />
+          </Box>
+        </Grid>
       </Box>
       <Box
         background={{
-          dark: 'dark-1',
+          dark: 'dark-3',
           light: 'neutral-6'
         }}
+        border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
         direction='row'
         gridArea='barCharts'
         margin={{ bottom: 'xsmall' }}
@@ -159,24 +176,29 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       </Box>
       <Box
         as='figure'
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
+        border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
         direction='column'
-        height='260px'
+        height={{ min: '320px' }}
         gridArea='HRDiagram'
         margin='none'
-        width='220px'
+        width={{ min: '250px' }}
       >
         <SingleImageViewer
           aria-labelledby='imageId'
-          height={230}
+          height={290}
           enableInteractionLayer={false}
           role='img'
-          viewBox='0 0 220 260'
-          width={220}
+          viewBox='0 0 250 320'
+          width={250}
         >
           <title id='imageId'>{counterpart('VariableStarViewer.imageTitle')}</title>
-          <image height={230} xlinkHref={imageSrc} width={220} />
+          <image height={290} xlinkHref={imageSrc} width={250} />
         </SingleImageViewer>
-        <figcaption>
+        <figcaption style={{ margin: '0 1em' }}>
           <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>&#8592; {counterpart('VariableStarViewer.temperature')}</SpacedText>
         </figcaption>
       </Box>
