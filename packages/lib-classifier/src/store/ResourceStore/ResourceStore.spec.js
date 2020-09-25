@@ -2,56 +2,60 @@ import sinon from 'sinon'
 import { getEnv, types } from 'mobx-state-tree'
 import ResourceStore from './ResourceStore'
 
-let resourceStore
+describe('Model > ResourceStore', function () {
+  let resourceStore
 
-const RootStub = types
-  .model('RootStore', {
-    resources: ResourceStore
-  })
-  .views(self => ({
-    get client () {
-      return getEnv(self).client
-    }
-  }))
+  const RootStub = types
+    .model('RootStore', {
+      resources: ResourceStore
+    })
+    .views(self => ({
+      get client () {
+        return getEnv(self).client
+      }
+    }))
 
-const etagStub = 'W/"0b15c86677"'
+  const etagStub = 'W/"0b15c86677"'
 
-const resourcesStub = {
-  type: 'foobar',
-  headers: {
-    etag: etagStub
-  },
-  resources: {
-    '123': { id: '123' },
-    '456': { id: '456' }
-  },
-  active: '123'
-}
+  const resourcesStub = {
+    type: 'foobar',
+    headers: {
+      etag: etagStub
+    },
+    resources: {
+      '123': { id: '123' },
+      '456': { id: '456' }
+    },
+    active: '123'
+  }
 
-const otherResourceStub = {
-  id: '789'
-}
+  const otherResourceStub = {
+    id: '789'
+  }
 
-const clientStub = {
-  panoptes: {
-    get () {
-      return Promise.resolve({
-        body: {
-          foobar: [otherResourceStub]
-        },
-        headers: {
-          etag: etagStub
-        }
-      })
+  const clientStub = {
+    panoptes: {
+      get () {
+        return Promise.resolve({
+          body: {
+            foobar: [otherResourceStub]
+          },
+          headers: {
+            etag: etagStub
+          }
+        })
+      }
     }
   }
-}
-sinon.spy(clientStub.panoptes, 'get')
+  sinon.spy(clientStub.panoptes, 'get')
 
-describe('Model > ResourceStore', function () {
-  before(function () {
+  beforeEach(function () {
     resourceStore = ResourceStore.create(resourcesStub)
     RootStub.create({ resources: resourceStore }, { client: clientStub })
+  })
+
+  afterEach(function () {
+    clientStub.panoptes.get.resetHistory()
   })
 
   it('should have a required `type` property corresponding to the resource type', function () {
@@ -97,5 +101,19 @@ describe('Model > ResourceStore', function () {
     expect(resourceStore.headers.etag).to.be.undefined()
     await resourceStore.setActive('789')
     expect(resourceStore.headers).to.include({ etag: etagStub })
+  })
+
+  describe('Actions > getResource', function () {
+    it('should return any stored resources without calling the API', async function () {
+      const resource = await resourceStore.getResource('456')
+      expect(resource).to.deep.equal(resourcesStub.resources['456'])
+      expect(clientStub.panoptes.get).to.have.not.been.called()
+    })
+
+    it('should fetch any new resources from the API', async function () {
+      const resource = await resourceStore.getResource('789')
+      expect(resource).to.deep.equal(otherResourceStub)
+      expect(clientStub.panoptes.get).to.have.been.called()
+    })
   })
 })

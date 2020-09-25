@@ -98,7 +98,7 @@ function Controls(props) {
           setSeriesVisibility={setSeriesVisibility}
         />
         <SpacedText size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.visibility')}
+          {counterpart('VariableStarViewer.highlight')}
         </SpacedText>
       </Box>
     </Box>

@@ -5,7 +5,6 @@ import { RadioButton } from 'grommet'
 import { PhaseFocusControls } from './PhaseFocusControls'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import zooTheme from '@zooniverse/grommet-theme'
-import en from '../../../../locales/en'
 import Label from '../Label'
 
 const { data } = variableStar.data.scatterPlot
@@ -60,7 +59,6 @@ describe('Controls > Components > PhaseFocusControls', function () {
   it('should have a label for each radio button input', function () {
     data.forEach((series, seriesIndex) => {
       const radioButton = wrapper.find(RadioButton).at(seriesIndex)
-      console.log('series', series.seriesOptions.label)
       const label = series.seriesOptions.label
       expect(radioButton.props().label).to.deep.equal(
         <Label
@@ -68,21 +66,7 @@ describe('Controls > Components > PhaseFocusControls', function () {
           seriesIndex={seriesIndex}
           seriesOptions={series.seriesOptions}
           label={label}
-        />
-      )
-    })
-  })
-
-  it('should have a label for each radio button input', function () {
-    data.forEach((series, seriesIndex) => {
-      const radioButton = wrapper.find(RadioButton).at(seriesIndex)
-      const label = series.seriesOptions.label
-      expect(radioButton.props().label).to.deep.equal(
-        <Label
-          colors={zooTheme.global.colors}
-          seriesIndex={seriesIndex}
-          seriesOptions={series.seriesOptions}
-          label={label}
+          visible
         />
       )
     })
@@ -104,6 +88,7 @@ describe('Controls > Components > PhaseFocusControls', function () {
           seriesIndex={seriesIndex}
           seriesOptions={series.seriesOptions}
           label={label}
+          visible
         />
       )
     })
