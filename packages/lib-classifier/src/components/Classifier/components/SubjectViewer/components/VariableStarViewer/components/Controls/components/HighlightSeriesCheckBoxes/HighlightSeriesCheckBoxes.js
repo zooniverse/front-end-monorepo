@@ -4,11 +4,11 @@ import { Box, CheckBox } from 'grommet'
 import { withTheme } from 'styled-components'
 import Label from '../Label'
 
-function VisibilitySeriesCheckBoxes (props) {
+function HighlightSeriesCheckBoxes (props) {
   const {
     data,
-    visibleSeries,
-    setSeriesVisibility,
+    highlightedSeries,
+    setSeriesHighlight,
     theme: {
       global: {
         colors
@@ -18,7 +18,7 @@ function VisibilitySeriesCheckBoxes (props) {
 
   return (
     <Box direction='column' pad='none'>
-      {visibleSeries.map((series, seriesIndex) => {
+      {highlightedSeries.map((series, seriesIndex) => {
         const [[label, checked]] = Object.entries(series)
         const seriesOptions = data[seriesIndex]?.seriesOptions
 
@@ -33,11 +33,11 @@ function VisibilitySeriesCheckBoxes (props) {
                 label={label}
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
-                visible={checked}
+                highlighted={checked}
               />
             }
-            name='series-visibility'
-            onChange={event => { setSeriesVisibility(event) }}
+            name='series-highlight'
+            onChange={event => { setSeriesHighlight(event) }}
             type='checkbox'
             value={label}
           />
@@ -47,8 +47,8 @@ function VisibilitySeriesCheckBoxes (props) {
   )
 }
 
-VisibilitySeriesCheckBoxes.defaultProps = {
-  setSeriesVisibility: () => {},
+HighlightSeriesCheckBoxes.defaultProps = {
+  setSeriesHighlight: () => {},
   theme: {
     global: {
       colors: {
@@ -58,15 +58,15 @@ VisibilitySeriesCheckBoxes.defaultProps = {
   }
 }
 
-VisibilitySeriesCheckBoxes.propTypes = {
+HighlightSeriesCheckBoxes.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     seriesData: PropTypes.array,
     seriesOptions: PropTypes.object
   })).isRequired,
-  visibleSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setSeriesFocus: PropTypes.func,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setSeriesHighlight: PropTypes.func,
   theme: PropTypes.object
 }
 
-export default withTheme(VisibilitySeriesCheckBoxes)
-export { VisibilitySeriesCheckBoxes }
+export default withTheme(HighlightSeriesCheckBoxes)
+export { HighlightSeriesCheckBoxes }

@@ -57,7 +57,7 @@ describe('Component > VariableStarViewer', function () {
             phasedJSON={phasedJSONMock}
             phaseLimit={0.2}
             setAllowPanZoom={setAllowPanZoomSpy}
-            visibleSeries={[{ ['filter 1']: true }]}
+            highlightedSeries={[{ ['filter 1']: true }]}
             theme={zooTheme}
           />
         )
@@ -85,8 +85,8 @@ describe('Component > VariableStarViewer', function () {
       expect(phasedScatterPlot.props().yAxisNumTicks).to.equal(8)
     })
 
-    it('should set the visibleSeries prop', function () {
-      expect(phasedScatterPlot.props().visibleSeries).to.deep.equal([{ ['filter 1']: true }])
+    it('should set the highlightedSeries prop', function () {
+      expect(phasedScatterPlot.props().highlightedSeries).to.deep.equal([{ ['filter 1']: true }])
     })
 
     it('should set the underlays with the phaseLimit and theme colors', function () {
@@ -174,7 +174,7 @@ describe('Component > VariableStarViewer', function () {
           <VariableStarViewer
             rawJSON={rawJSONMock}
             setAllowPanZoom={setAllowPanZoomSpy}
-            visibleSeries={[{ ['filter 1']: true }]}
+            highlightedSeries={[{ ['filter 1']: true }]}
             theme={zooTheme}
           />
         )
@@ -202,8 +202,8 @@ describe('Component > VariableStarViewer', function () {
       expect(rawScatterPlot.props().yAxisNumTicks).to.equal(6)
     })
 
-    it('should set the visibleSeries prop', function () {
-      expect(rawScatterPlot.props().visibleSeries).to.deep.equal([{ ['filter 1']: true }])
+    it('should set the highlightedSeries prop', function () {
+      expect(rawScatterPlot.props().highlightedSeries).to.deep.equal([{ ['filter 1']: true }])
     })
 
     describe('when zoom is not enabled', function () {

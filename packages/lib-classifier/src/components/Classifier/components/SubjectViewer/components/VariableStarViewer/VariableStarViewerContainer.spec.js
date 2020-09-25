@@ -107,6 +107,7 @@ describe('Component > VariableStarViewerContainer', function () {
         chartOptions: {}
       }
     },
+    highlightedSeries: [],
     imageLocation: null,
     invertYAxis: false,
     loadingState: asyncStates.initialized,
@@ -135,7 +136,6 @@ describe('Component > VariableStarViewerContainer', function () {
         }
       }
     },
-    visibleSeries: []
   }
 
   it('should render without crashing', function () {
@@ -287,10 +287,10 @@ describe('Component > VariableStarViewerContainer', function () {
     })
   })
 
-  describe('with series visibility', function () {
+  describe('with series highlighting', function () {
     let cdmSpy
     let nockScope
-    const visibleStateMock = [
+    const highlightedStateMock = [
       { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: true },
       { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
     ]
@@ -315,16 +315,16 @@ describe('Component > VariableStarViewerContainer', function () {
       nockScope.persist(false)
     })
 
-    it('should default to visible states of true for each series', function (done) {
+    it('should default to highlighted states of true for each series', function (done) {
       const wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
         />
       )
 
-      expect(wrapper.state().visibleSeries).to.be.empty()
+      expect(wrapper.state().highlightedSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
+        expect(wrapper.state().highlightedSeries).to.deep.equal(highlightedStateMock)
       }).then(done, done)
     })
 
@@ -336,9 +336,9 @@ describe('Component > VariableStarViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        const { visibleSeries } = wrapper.state()
-        const firstSeriesLabel = Object.keys(visibleSeries[0])[0]
-        const secondSeriesLabel = Object.keys(visibleSeries[1])[0]
+        const { highlightedSeries } = wrapper.state()
+        const firstSeriesLabel = Object.keys(highlightedSeries[0])[0]
+        const secondSeriesLabel = Object.keys(highlightedSeries[1])[0]
         expect(firstSeriesLabel).to.equal(variableStar.data.scatterPlot.data[0].seriesOptions.label)
         expect(secondSeriesLabel).to.equal(variableStar.data.scatterPlot.data[1].seriesOptions.label)
       }).then(done, done)
@@ -352,19 +352,19 @@ describe('Component > VariableStarViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        const { visibleSeries } = wrapper.state()
-        const firstSeriesLabel = Object.keys(visibleSeries[0])[0]
-        const secondSeriesLabel = Object.keys(visibleSeries[1])[0]
+        const { highlightedSeries } = wrapper.state()
+        const firstSeriesLabel = Object.keys(highlightedSeries[0])[0]
+        const secondSeriesLabel = Object.keys(highlightedSeries[1])[0]
         expect(firstSeriesLabel).to.equal('Filter 1')
         expect(secondSeriesLabel).to.equal('Filter 2')
       }).then(done, done)
     })
 
-    it('should be able to toggle the visible state', function () {
+    it('should be able to toggle the highlighted state', function () {
       const eventMock = {
         target: {
           checked: false,
-          value: Object.keys(visibleStateMock[0])[0]
+          value: Object.keys(highlightedStateMock[0])[0]
         }
       }
       const wrapper = shallow(
@@ -373,10 +373,10 @@ describe('Component > VariableStarViewerContainer', function () {
         />
       )
 
-      wrapper.setState({ rawJSON: variableStar, visibleSeries: visibleStateMock })
-      expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
-      wrapper.instance().setSeriesVisibility(eventMock)
-      expect(wrapper.state().visibleSeries).to.deep.equal([
+      wrapper.setState({ rawJSON: variableStar, highlightedSeries: highlightedStateMock })
+      expect(wrapper.state().highlightedSeries).to.deep.equal(highlightedStateMock)
+      wrapper.instance().setSeriesHighlight(eventMock)
+      expect(wrapper.state().highlightedSeries).to.deep.equal([
         { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: false },
         { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
       ])

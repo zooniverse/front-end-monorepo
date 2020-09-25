@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
-import isDataSeriesVisible from '@viewers/helpers/isDataSeriesVisible'
 
 const StyledLabel = styled.span`
   align-items: center;
@@ -24,11 +23,11 @@ const StyledLabel = styled.span`
 `
 
 function Label (props) {
-  const { colors, label, seriesIndex, seriesOptions, visible } = props
+  const { colors, label, seriesIndex, seriesOptions, highlighted } = props
   const Glyph = getDataSeriesSymbol(seriesIndex)
   const color = getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
-    visible,
+    highlighted,
     seriesOptions,
     seriesIndex,
     themeColors: colors
@@ -41,7 +40,7 @@ function Label (props) {
           left={5}
           fill={color}
           size={20}
-          stroke={(visible) ? 'black' : colors['light-4']}
+          stroke={(highlighted) ? 'black' : colors['light-4']}
           top={5}
         />
       </svg>
@@ -61,12 +60,12 @@ Label.propTypes = {
   label: PropTypes.string.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   seriesOptions: PropTypes.object,
-  visible: PropTypes.bool
+  highlighted: PropTypes.bool
 }
 
 Label.defaultProps = {
   seriesOptions: {},
-  visible: true
+  highlighted: true
 }
 
 export default Label
