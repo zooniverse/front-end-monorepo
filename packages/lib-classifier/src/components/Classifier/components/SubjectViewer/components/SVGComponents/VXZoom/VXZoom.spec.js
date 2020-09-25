@@ -635,7 +635,7 @@ describe('Component > VXZoom', function () {
     })
 
     describe('when panning is enabled', function () {
-      xit('should translate the SVG position using mouse events', function () {
+      it('should translate the SVG position using mouse events', function () {
         const wrapper = mount(
           <VXZoom
             data={mockData}
@@ -660,26 +660,27 @@ describe('Component > VXZoom', function () {
         })
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
         // Now to simulate the panning
+        // visx switched to typescript and are type checking the event
+        // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
         eventLayer.simulate('mousedown', {
           clientX: 55,
-          clientY: 55
+          clientY: 55,
+          nativeEvent: new Event('test')
         })
         eventLayer.simulate('mousemove', {
           clientX: 60,
-          clientY: 60
+          clientY: 60,
+          nativeEvent: new Event('test')
         })
-        eventLayer.simulate('mouseup')
+        eventLayer.simulate('mouseup', {
+          nativeEvent: new Event('test')
+        })
 
         const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-        // visx switched to typescript and are type checking the event
-        // Enzyme's SyntheticEvent fails their type check, so these tests fail
-        // because the handler for the event is never called
-        // So we can't actually test the outcome of panning.
-        // TODO: Add SyntheticEvent to their allowed types?
-        // expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        // expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-        // expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+        expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+        expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+        expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
       })
 
       describe('keydown', function () {

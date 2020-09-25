@@ -476,31 +476,32 @@ describe('Component > ZoomingScatterPlot', function () {
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 55,
-            clientY: 55
+            clientY: 55,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup',{
+            nativeEvent: new Event('test')
+          })
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
-          // expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          // expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-          // expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
         })
       })
 
       describe('when only panning the x-axis', function () {
-        xit('should translate the SVG position', function () {
+        it('should translate the SVG position', function () {
           const zoomConfiguration = {
             direction: 'x',
             minZoom: 1,
@@ -534,31 +535,32 @@ describe('Component > ZoomingScatterPlot', function () {
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 55,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 60,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
-          // expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          // expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-          // expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY)
+          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
         })
       })
 
       describe('when only panning the y-axis', function () {
-        xit('should translate the SVG position', function () {
+        it('should translate the SVG position', function () {
           const zoomConfiguration = {
             direction: 'y',
             minZoom: 1,
@@ -591,26 +593,27 @@ describe('Component > ZoomingScatterPlot', function () {
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 55
+            clientY: 55,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: 60
+            clientY: 60,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
-          // expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          // expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX)
-          // expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
+          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
+          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
         })
       })
     })
@@ -740,47 +743,49 @@ describe('Component > ZoomingScatterPlot', function () {
           isXAxisOutOfBoundsSpy.restore()
         })
 
-        xit('should not pan beyond the data extent minimum', function () {
+        it('should not pan beyond the data extent minimum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: -2000,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
 
-        xit('should not pan beyond the data extent maximum', function () {
+        it('should not pan beyond the data extent maximum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 2000,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
       })
@@ -819,47 +824,49 @@ describe('Component > ZoomingScatterPlot', function () {
           isYAxisOutOfBoundsSpy.restore()
         })
 
-        xit('should not pan beyond the data extent minimum', function () {
+        it('should not pan beyond the data extent minimum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: -2000
+            clientY: -2000,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
 
-        xit('should not pan beyond the data extent maximum', function () {
+        it('should not pan beyond the data extent maximum', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: 2000
+            clientY: 2000,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
-          // visx switched to typescript and are type checking the event
-          // Enzyme's SyntheticEvent fails their type check, so these tests fail
-          // because the handler for the event is never called
-          // So we can't actually test the outcome of panning.
-          // TODO: Add SyntheticEvent to their allowed types?
           expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
       })
