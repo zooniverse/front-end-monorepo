@@ -1,7 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import CollectionsModal from '@shared/components/CollectionsModal'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import CollectionsButton from './CollectionsButton'
 import CollectionsIcon from './CollectionsIcon'
@@ -43,18 +42,13 @@ describe('Component > CollectionsButton', function () {
           subject={subject}
         />
       )
-      collectionsModal = wrapper.find(CollectionsModal).instance().wrappedInstance
+      collectionsModal = wrapper.find('CollectionsModalContainer').instance()
       sinon.stub(collectionsModal, 'open')
-      sinon.stub(console, 'error')
     })
 
     afterEach(function () {
       collectionsModal.open.resetHistory()
       onClick.resetHistory()
-    })
-
-    after(function () {
-      console.error.restore()
     })
 
     it('should open a collections modal', function () {
@@ -81,7 +75,7 @@ describe('Component > CollectionsButton', function () {
           subject={subject}
         />
       )
-      collectionsModal = wrapper.find(CollectionsModal).instance().wrappedInstance
+      collectionsModal = wrapper.find('CollectionsModalContainer').instance()
       sinon.spy(collectionsModal, 'open')
     })
 

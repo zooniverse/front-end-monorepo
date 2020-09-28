@@ -73,7 +73,7 @@ stories
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='500px' width='large'>
+        <Box height='640px' width='900px'>
           <VariableStarViewer
             subject={subject}
           />
@@ -85,7 +85,7 @@ stories
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <ViewerContext theme={darkZooTheme} mode='dark'>
-        <Box height='500px' width='large'>
+        <Box height='640px' width='900px'>
           <VariableStarViewer
             subject={subject}
           />
@@ -96,7 +96,7 @@ stories
   .add('narrow view', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='500px' width='large'>
+        <Box height='640px' width='900px'>
           <VariableStarViewer
             subject={subject}
           />
@@ -107,7 +107,7 @@ stories
   .add('pan/zoom', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box direction='row' height='500px' width='large'>
+        <Box direction='row' height='640px' width='900px'>
           <VariableStarViewerConnector />
           <ImageToolbar />
         </Box>

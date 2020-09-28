@@ -52,9 +52,10 @@ function Controls(props) {
   return (
     <Box
       background={{
-        dark: 'dark-5',
+        dark: 'dark-3',
         light: 'neutral-6'
       }}
+      border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
       direction='row'
       justify='between'
       gridArea={gridArea}
@@ -97,7 +98,7 @@ function Controls(props) {
           setSeriesVisibility={setSeriesVisibility}
         />
         <SpacedText size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.visibility')}
+          {counterpart('VariableStarViewer.highlight')}
         </SpacedText>
       </Box>
     </Box>
