@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { genRandomNormalPoints } from '@vx/mock-data'
+import { genRandomNormalPoints } from '@visx/mock-data'
 import { scaleLinear } from '@vx/scale'
 import { zip } from 'lodash'
 import * as d3 from 'd3'
