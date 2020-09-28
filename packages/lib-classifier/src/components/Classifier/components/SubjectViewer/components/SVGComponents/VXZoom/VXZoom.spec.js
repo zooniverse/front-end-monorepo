@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Zoom } from '@vx/zoom'
+import { Zoom } from '@visx/zoom'
 import {
   lightCurveMockData
 } from '../../ScatterPlotViewer/helpers/mockData'

@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import React from 'react'
-import { Axis } from '@vx/axis'
-import { Line } from '@vx/shape'
+import { Axis } from '@visx/axis'
+import { Line } from '@visx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
 import InnerTickAxis from './InnerTickAxis'
 import {

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { localPoint } from '@vx/event'
-import { Zoom } from '@vx/zoom'
+import { localPoint } from '@visx/event'
+import { Zoom } from '@visx/zoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 import withKeyZoom from '../../../../withKeyZoom'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Group } from '@vx/group'
+import { Group } from '@visx/group'
 import cuid from 'cuid'
 import { lighten } from 'polished'
 import Background from '@viewers/components/SVGComponents/Background'

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Axis } from '@vx/axis'
-import { Line } from '@vx/shape'
-import { Group } from '@vx/group'
+import { Axis } from '@visx/axis'
+import { Line } from '@visx/shape'
+import { Group } from '@visx/group'
 
 function InnerTickAxis (props) {
   const {
