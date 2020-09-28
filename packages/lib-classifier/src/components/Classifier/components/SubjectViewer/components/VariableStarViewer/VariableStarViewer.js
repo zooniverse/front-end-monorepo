@@ -180,9 +180,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
           as='figure'
           direction='column'
           gridArea='HRDiagram'
-          height={{ min: '320px' }}
           margin='none'
-          width={{ min: '250px' }}
         >
           <SingleImageViewerContainer
             aria-labelledby='imageId'
