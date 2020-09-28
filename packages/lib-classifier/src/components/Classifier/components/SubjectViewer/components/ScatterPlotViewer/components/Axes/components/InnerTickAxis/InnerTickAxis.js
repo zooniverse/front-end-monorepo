@@ -31,7 +31,7 @@ function InnerTickAxis (props) {
     left: `translate(${margin.left}, ${margin.right})`
   }
 
-  const vxOrientation = {
+  const visxOrientation = {
     bottom: 'bottom',
     left: 'right' // this seems counter-intuitive, but this is how we can get the ticks to display in the correct direction
   }
@@ -41,7 +41,7 @@ function InnerTickAxis (props) {
       label={label}
       left={0}
       numTicks={numTicks}
-      orientation={vxOrientation[orientation]}
+      orientation={visxOrientation[orientation]}
       tickLength={tickLength}
       top={top[orientation]}
       scale={scale}
@@ -59,7 +59,7 @@ function InnerTickAxis (props) {
                 bottom: 'middle'
               }
               return (
-                <Group key={`vx-tick-${tick.value}-${i}`} className='vx-axis-tick'>
+                <Group key={`visx-tick-${tick.value}-${i}`} className='visx-axis-tick'>
                   <Line from={tick.from} to={tick.to} stroke={color} />
                   <text
                     transform={tickLabelTransform[orientation]}

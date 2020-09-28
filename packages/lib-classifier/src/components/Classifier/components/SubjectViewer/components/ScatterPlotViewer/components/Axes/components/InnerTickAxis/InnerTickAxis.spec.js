@@ -73,12 +73,12 @@ describe('Component > InnerTickAxis', function () {
     })
 
     it('should render ticks', function () {
-      const ticks = axisComponent.find('g.vx-axis-tick')
+      const ticks = axisComponent.find('g.visx-axis-tick')
       expect(ticks.length).to.be.above(0)
     })
 
     it('should have a configurable tick length', function () {
-      const lines = axisComponent.find('g.vx-axis-tick').find(Line)
+      const lines = axisComponent.find('g.visx-axis-tick').find(Line)
       lines.forEach((line) => {
         expect(line.props().to.y - line.props().from.y).to.equal(axisComponentProps.tickLength)
       })
@@ -96,14 +96,14 @@ describe('Component > InnerTickAxis', function () {
           />
         )
       })
-      const longerLines = wrapper.find(Axis).find('g.vx-axis-tick').find(Line)
+      const longerLines = wrapper.find(Axis).find('g.visx-axis-tick').find(Line)
       longerLines.forEach((line) => {
         expect(line.props().to.y - line.props().from.y).to.equal(wrapper.find(Axis).props().tickLength)
       })
     })
 
     it('should have a label for each tick', function () {
-      const tickLabels = axisComponent.find('g.vx-axis-tick').find('text')
+      const tickLabels = axisComponent.find('g.visx-axis-tick').find('text')
       const ticks = xScale.ticks(10) // default numTick is 10
 
       expect(tickLabels).to.have.lengthOf(ticks.length)
@@ -166,7 +166,7 @@ describe('Component > InnerTickAxis', function () {
       })
 
       it('should set the orientation to be right', function () {
-        // this is 'right' because of the way the VX Axis works...
+        // this is 'right' because of the way the visx Axis works...
         expect(axisComponentProps.orientation).to.equal('right')
       })
 

@@ -900,7 +900,7 @@ describe('Component > VXZoom', function () {
         expect(secondZoomedOutTransformMatrix.scaleX).to.be.above(zoomConfiguration.minZoom)
         expect(secondZoomedOutTransformMatrix.scaleY).to.be.above(zoomConfiguration.minZoom)
         expect(secondZoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
-        // The default vx behavior is to return the previous transform matrix
+        // The default visx behavior is to return the previous transform matrix
         expect(secondZoomedOutTransformMatrix).to.deep.equal(firstZoomedOutTransformMatrix)
       })
     })
