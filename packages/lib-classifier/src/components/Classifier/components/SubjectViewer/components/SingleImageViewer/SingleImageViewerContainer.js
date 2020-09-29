@@ -57,9 +57,7 @@ class SingleImageViewerContainer extends React.Component {
   async preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
-      console.log('subject', subject)
       const imageUrl = Object.values(subject.locations[0])[0]
-      console.log('imageUrl', imageUrl)
       const img = await this.fetchImage(imageUrl)
       this.setState({ img })
       return img
