@@ -30,6 +30,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     onKeyDown,
     rotate,
     scale,
+    title,
     viewBox,
     width,
     ...rest
@@ -51,6 +52,8 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
           viewBox={viewBox}
           {...rest}
         >
+          {title?.id && title?.text &&
+            <title id={title.id}>{title.text}</title>}
           <g
             ref={transformLayer}
             transform={transform}
@@ -75,6 +78,10 @@ SingleImageViewer.propTypes = {
   onKeyDown: PropTypes.func,
   rotate: PropTypes.number,
   scale: PropTypes.number,
+  title: PropTypes.shape({
+    id: PropTypes.string,
+    text: PropTypes.string
+  }),
   viewBox: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired
 }
@@ -83,7 +90,8 @@ SingleImageViewer.defaultProps = {
   enableInteractionLayer: true,
   onKeyDown: () => true,
   rotate: 0,
-  scale: 1
+  scale: 1,
+  title: {}
 }
 
 export default SingleImageViewer

@@ -26,7 +26,7 @@ class VariableStarViewerContainer extends Component {
           chartOptions: {}
         }
       },
-      imageSrc: '',
+      imageLocation: null,
       invertYAxis: false,
       loadingState: asyncStates.initialized,
       periodMultiple: 1,
@@ -133,11 +133,10 @@ class VariableStarViewerContainer extends Component {
     const visibleSeries = this.setupSeriesVisibility(scatterPlot)
     // think about a better way to do this
     const imageLocation = subject.locations[2] || {}
-    const imageSrc = imageLocation['image/png'] || ''
 
     this.setState({
       barJSON,
-      imageSrc,
+      imageLocation,
       phasedJSON,
       rawJSON,
       visibleSeries
@@ -276,7 +275,7 @@ class VariableStarViewerContainer extends Component {
       <VariableStarViewer
         allowPanZoom={this.state.allowPanZoom}
         barJSON={this.state.barJSON}
-        imageSrc={this.state.imageSrc}
+        imageLocation={this.state.imageLocation}
         invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
         phaseFocusedSeries={this.state.phaseFocusedSeries}

@@ -8,7 +8,7 @@ import {
 import counterpart from 'counterpart'
 import { SpacedText } from '@zooniverse/react-components'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import { SingleImageViewer } from '../SingleImageViewer'
+import { SingleImageViewerContainer } from '../SingleImageViewer'
 import { BarChartViewer } from '../BarChartViewer'
 import Controls from './components/Controls'
 import en from './locales/en'
@@ -19,7 +19,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
   const {
     allowPanZoom,
     barJSON,
-    imageSrc,
+    imageLocation,
     invertYAxis,
     periodMultiple,
     phaseFocusedSeries,
@@ -71,6 +71,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       gap='5px'
       ref={ref}
       rows={['80px', '80px', '80px', '80px', '80px', '80px', '80px', '50px']}
+      pad={{ horizontal: 'xsmall' }}
     >
       <Controls
         data={scatterPlot.data}
@@ -174,34 +175,32 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
           />
         )})}
       </Box>
-      <Box
-        as='figure'
-        background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
-        }}
-        border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
-        direction='column'
-        height={{ min: '320px' }}
-        gridArea='HRDiagram'
-        margin='none'
-        width={{ min: '250px' }}
-      >
-        <SingleImageViewer
-          aria-labelledby='imageId'
-          height={290}
-          enableInteractionLayer={false}
-          role='img'
-          viewBox='0 0 250 320'
-          width={250}
+      {imageLocation && 
+        <Box
+          as='figure'
+          direction='column'
+          gridArea='HRDiagram'
+          margin='none'
         >
-          <title id='imageId'>{counterpart('VariableStarViewer.imageTitle')}</title>
-          <image height={290} xlinkHref={imageSrc} width={250} />
-        </SingleImageViewer>
-        <figcaption style={{ margin: '0 1em' }}>
-          <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>&#8592; {counterpart('VariableStarViewer.temperature')}</SpacedText>
-        </figcaption>
-      </Box>
+          <SingleImageViewerContainer
+            aria-labelledby='imageId'
+            enableInteractionLayer={false}
+            role='img'
+            subject={{
+              locations: [
+                imageLocation
+              ]
+            }}
+            title={{
+              id: 'imageId',
+              text: counterpart('VariableStarViewer.imageTitle')
+            }}
+          >
+          </SingleImageViewerContainer>
+          <figcaption>
+            <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>{counterpart('VariableStarViewer.figCaption')}</SpacedText>
+          </figcaption>
+        </Box>}
     </Grid>
   )
 })
@@ -218,7 +217,7 @@ VariableStarViewer.defaultProps = {
       chartOptions: {}
     }
   },
-  imageSrc: '',
+  imageLocation: null,
   invertYAxis: false,
   periodMultiple: 1,
   phaseFocusedSeries: 0,
@@ -264,7 +263,7 @@ VariableStarViewer.propTypes = {
       options: PropTypes.object
     }),
   }),
-  imageSrc: PropTypes.string,
+  imageLocation: PropTypes.object,
   invertYAxis: PropTypes.bool,
   periodMultiple: PropTypes.number,
   phaseFocusedSeries: PropTypes.number,
