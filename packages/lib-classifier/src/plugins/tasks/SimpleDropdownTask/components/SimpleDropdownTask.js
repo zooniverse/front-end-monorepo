@@ -89,7 +89,6 @@ function SimpleDropdownTask (props) {
   return (
     <Box
       className={className}
-      disabled={disabled}
     >
       <StyledText size='small' tag='legend'>
         <Markdownz>
@@ -101,6 +100,7 @@ function SimpleDropdownTask (props) {
         gap='xsmall'
       >
         <Select
+          disabled={disabled}
           icon={<Down size='small' />}
           labelKey='text'
           onChange={onSelectChange}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
+import { Select } from 'grommet'
 import SimpleDropdownTask from './SimpleDropdownTask'
 import { default as Task } from '@plugins/tasks/SimpleDropdownTask'
 
@@ -73,6 +74,29 @@ describe('SimpleDropdownTask', function () {
     it('should pass the selected annotation to the Select sub-element', function () {
       const grommetSelect = wrapper.find('Select').first()
       expect(grommetSelect.prop('value')['text']).to.equal('Yellow')
+    })
+  })
+
+  describe('when disabled', function () {
+    let menu
+
+    before(function () {
+      annotation.update({
+        selection: 2,  // Corresponds to "Yellow"
+        option: true,
+      })
+      menu = shallow(
+        <SimpleDropdownTask
+          disabled
+          annotation={annotation}
+          task={task}
+        />
+      )
+      .find(Select)
+    })
+
+    it('should disable the select menu', function () {
+      expect(menu.prop('disabled')).to.be.true()
     })
   })
 })
