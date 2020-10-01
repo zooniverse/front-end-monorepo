@@ -182,13 +182,17 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       >{Object.keys(barJSON).map((barChartKey) => {
         //Let's keep the rendering of the bar chart flexible in case more plots are added in the future
         return (
-          <BarChartViewer
-            data={barJSON[barChartKey].data}
+          <Box
+            basis='1/2'
             key={barChartKey}
-            xAxisLabel={barJSON[barChartKey].chartOptions.xAxisLabel}
-            yAxisDomain={barJSON[barChartKey].chartOptions.yAxisDomain}
-            yAxisLabel={barJSON[barChartKey].chartOptions.yAxisLabel}
-          />
+          >
+            <BarChartViewer
+              data={barJSON[barChartKey].data}
+              xAxisLabel={barJSON[barChartKey].chartOptions.xAxisLabel}
+              yAxisDomain={barJSON[barChartKey].chartOptions.yAxisDomain}
+              yAxisLabel={barJSON[barChartKey].chartOptions.yAxisLabel}
+            />
+          </Box>
         )})}
       </Box>
       {imageLocation && 
