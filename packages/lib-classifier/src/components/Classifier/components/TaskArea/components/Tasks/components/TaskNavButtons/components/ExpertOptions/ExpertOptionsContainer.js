@@ -19,7 +19,6 @@ function ExpertOptionsContainer (props) {
 
   useEffect(() => {
     authClient.checkCurrent().then((user) => {
-      console.log('user', user)
       if (user) {
         setIsAdmin(user.admin)
       } else {
@@ -30,7 +29,6 @@ function ExpertOptionsContainer (props) {
     return setIsAdmin(false)
   }, [])
 
-  console.log('isAdmin', isAdmin)
   if (isAdmin) {
     return (
       <ExpertOptions
