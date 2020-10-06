@@ -120,10 +120,7 @@ const SubjectStore = types
       }
 
       const nextSubject = self.resources.values().next().value
-      if (nextSubject) {
-        self.active = nextSubject.id
-        if (process.browser) console.log(`Next Subject: ${self.active.id}`)
-      }
+      self.active = nextSubject && nextSubject.id
       if (self.resources.size < MINIMUM_QUEUE_SIZE) {
         console.log('Fetching more subjects')
         self.populateQueue()
