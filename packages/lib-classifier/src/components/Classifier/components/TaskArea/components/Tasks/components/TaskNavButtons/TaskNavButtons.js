@@ -6,6 +6,7 @@ import NextButton from './components/NextButton'
 import DoneButton from './components/DoneButton'
 import DoneAndTalkButton from './components/DoneAndTalkButton'
 import BackButton from './components/BackButton'
+import ExpertOptions from './components/ExpertOptions'
 
 export default function TaskNavButtons (props) {
   const goldStandardMode = props.classification ? props.classification.goldStandard : false
@@ -24,6 +25,7 @@ export default function TaskNavButtons (props) {
           onClick={props.goToNextStep}
           disabled={disabled}
         />
+        <ExpertOptions />
       </Box>
     )
   }
@@ -37,6 +39,7 @@ export default function TaskNavButtons (props) {
           disabled={false}
           onClick={props.nextSubject}
         />
+        <ExpertOptions />
       </Box>
     )
   }
@@ -64,6 +67,7 @@ export default function TaskNavButtons (props) {
         onClick={props.onSubmit}
         disabled={disabled}
       />
+      <ExpertOptions />
     </Box>
   )
 }
