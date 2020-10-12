@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { Box, Paragraph } from 'grommet'
+import { Box, Button, Paragraph } from 'grommet'
 import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -66,7 +66,7 @@ function SubTaskPopup(props) {
   } = activeMark
   if (!subTaskVisibility) return null
 
-  const [confirm, setConfirm] = React.useState('pending')
+  const [confirmationState, setConfirm] = React.useState('pending')
   const onOpenConfirm = () => setConfirm('confirming');
   const onCloseConfirm = () => setConfirm('closed');
 
@@ -121,7 +121,7 @@ function SubTaskPopup(props) {
             const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
             if (annotation && TaskComponent) {
-              const requiredEmphasis = task.required && !task.isComplete && confirm === 'closed'
+              const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'
               return (
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
@@ -160,7 +160,7 @@ function SubTaskPopup(props) {
           />
         </Box>
       </MovableModal>
-      {confirm === 'confirming' && (
+      {confirmationState === 'confirming' && (
         <ConfirmModal
           onClose={onCloseConfirm}
           onDelete={deleteMark}
