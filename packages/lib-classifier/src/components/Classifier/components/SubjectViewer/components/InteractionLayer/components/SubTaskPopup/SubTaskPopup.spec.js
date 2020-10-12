@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import { mount, shallow } from 'enzyme'
-import { Box } from 'grommet'
+import { Box, Button } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
@@ -81,14 +81,14 @@ describe('SubTaskPopup', function () {
   it('should call onCloseConfirm on confirm modal "Keep working"', function () {
     const onCloseConfirmSpy = sinon.spy()
     const wrapper = shallow(<ConfirmModal onClose={onCloseConfirmSpy} />)
-    wrapper.find(StyledPrimaryButton).simulate('click')
+    wrapper.find(Button).simulate('click')
     expect(onCloseConfirmSpy).to.have.been.calledOnce()
   })
 
   it('should call deleteMark on confirm modal "Close without saving"', function () {
     const deleteMarkSpy = sinon.spy()
     const wrapper = shallow(<ConfirmModal onDelete={deleteMarkSpy} />)
-    wrapper.find(PrimaryButton).simulate('click')
+    wrapper.find(StyledPrimaryButton).simulate('click')
     expect(deleteMarkSpy).to.have.been.calledOnce()
   })
 
@@ -130,7 +130,7 @@ describe('SubTaskPopup', function () {
         />
       )
       wrapper.find(SaveButton).simulate('click')
-      wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
+      wrapper.find(ConfirmModal).dive().find(StyledPrimaryButton).simulate('click')
     })
 
     it('should call setSubTaskVisibility', function () {

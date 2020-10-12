@@ -17,11 +17,9 @@ const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
 
 export const StyledPrimaryButton = styled(PrimaryButton)`
-  background: none;
-  ${props => props.theme.dark ? 
-    css`color: ${props.theme.global.colors['light-3']};` :
-    css`color: ${props.theme.global.colors['dark-3']};`
-  }
+  ${props => props.theme && css`
+    background: ${props.theme.global.colors.brand};
+  `}
 `
 
 export function ConfirmModal({ onClose, onDelete }) {
@@ -40,12 +38,11 @@ export function ConfirmModal({ onClose, onDelete }) {
         gap='small'
         justify='center'
       >
-        <StyledPrimaryButton
+        <Button
           label={counterpart('Task.keepWorking')}
-          color='teal'
           onClick={onClose}
         />
-        <PrimaryButton
+        <StyledPrimaryButton
           label={counterpart('Task.close')}
           color='teal'
           onClick={onDelete}
