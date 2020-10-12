@@ -26,7 +26,8 @@ class VariableStarViewerContainer extends Component {
           chartOptions: {}
         }
       },
-      imageSrc: '',
+      highlightedSeries: [],
+      imageLocation: null,
       invertYAxis: false,
       loadingState: asyncStates.initialized,
       periodMultiple: 1,
@@ -54,13 +55,12 @@ class VariableStarViewerContainer extends Component {
           }
         }
       },
-      visibleSeries: []
     }
 
     this.setAllowPanZoom = this.setAllowPanZoom.bind(this)
     this.setPeriodMultiple = this.setPeriodMultiple.bind(this)
     this.setSeriesPhaseFocus = this.setSeriesPhaseFocus.bind(this)
-    this.setSeriesVisibility = this.setSeriesVisibility.bind(this)
+    this.setSeriesHighlight = this.setSeriesHighlight.bind(this)
     this.setYAxisInversion = this.setYAxisInversion.bind(this)
   }
 
@@ -130,17 +130,16 @@ class VariableStarViewerContainer extends Component {
     const target = this.viewer.current
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
-    const visibleSeries = this.setupSeriesVisibility(scatterPlot)
+    const highlightedSeries = this.setupSeriesHighlight(scatterPlot)
     // think about a better way to do this
     const imageLocation = subject.locations[2] || {}
-    const imageSrc = imageLocation['image/png'] || ''
 
     this.setState({
       barJSON,
-      imageSrc,
+      imageLocation,
       phasedJSON,
       rawJSON,
-      visibleSeries
+      highlightedSeries
     },
       function () {
         // temporarily remove ref param
@@ -219,7 +218,7 @@ class VariableStarViewerContainer extends Component {
     })
   }
 
-  setupSeriesVisibility (scatterPlotJSON) {
+  setupSeriesHighlight (scatterPlotJSON) {
     return scatterPlotJSON.data.map((series, index) => {
       if (series?.seriesData.length > 0) {
         const fallbackLabel = counterpart('VariableStarViewer.label', { id: index + 1 })
@@ -238,8 +237,8 @@ class VariableStarViewerContainer extends Component {
     this.setState({ periodMultiple }, () => this.calculateJSON())
   }
 
-  setSeriesVisibility (event) {
-    const newVisibleSeriesState = this.state.visibleSeries.map((series) => {
+  setSeriesHighlight (event) {
+    const newHighlightedSeriesState = this.state.highlightedSeries.map((series) => {
       const [[label, checked]] = Object.entries(series)
       if (label === event.target.value) {
         return { [event.target.value]: event.target.checked }
@@ -248,7 +247,7 @@ class VariableStarViewerContainer extends Component {
       }
     })
 
-    this.setState({ visibleSeries: newVisibleSeriesState })
+    this.setState({ highlightedSeries: newHighlightedSeriesState })
   }
 
   setSeriesPhaseFocus (event) {
@@ -276,7 +275,8 @@ class VariableStarViewerContainer extends Component {
       <VariableStarViewer
         allowPanZoom={this.state.allowPanZoom}
         barJSON={this.state.barJSON}
-        imageSrc={this.state.imageSrc}
+        highlightedSeries={this.state.highlightedSeries}
+        imageLocation={this.state.imageLocation}
         invertYAxis={this.state.invertYAxis}
         periodMultiple={this.state.periodMultiple}
         phaseFocusedSeries={this.state.phaseFocusedSeries}
@@ -289,9 +289,8 @@ class VariableStarViewerContainer extends Component {
         setAllowPanZoom={this.setAllowPanZoom}
         setPeriodMultiple={this.setPeriodMultiple}
         setSeriesPhaseFocus={this.setSeriesPhaseFocus}
-        setSeriesVisibility={this.setSeriesVisibility}
+        setSeriesHighlight={this.setSeriesHighlight}
         setYAxisInversion={this.setYAxisInversion}
-        visibleSeries={this.state.visibleSeries}
       />
     )
   }

@@ -20,6 +20,37 @@ const WorkflowStore = types
 
   .actions(self => {
 
+    function afterAttach() {
+      createProjectObserver()
+      createUPPObserver()
+    }
+
+    function createProjectObserver() {
+      const projectDisposer = autorun(() => {
+        const project = self.project
+        const workflow = tryReference(() => self.active)
+        if (project && !workflow) {
+          // TODO request for the workflow if project has changed and there isn't one already
+          // self.reset()
+          // selectWorkflow()
+        }
+      }, { name: 'Workflow Store Project Observer autorun' })
+      addDisposer(self, projectDisposer)
+    }
+
+    function createUPPObserver() {
+      const uppDisposer = autorun(() => {
+        const upp = tryReference(() => getRoot(self).userProjectPreferences?.active)
+        const workflow = tryReference(() => self.active)
+        if (upp && !workflow) {
+          // TODO validate and get workflow id from UPP to select
+          // self.reset()
+          // selectWorkflow()
+        }
+      }, { name: 'Workflow Store UPP Observer autorun' })
+      addDisposer(self, uppDisposer)
+    }
+
     function getDefaultWorkflowId () {
       const { project } = self
       let id = ''
@@ -58,6 +89,7 @@ const WorkflowStore = types
     }
 
     return {
+      afterAttach,
       selectWorkflow: flow(selectWorkflow)
     }
   })

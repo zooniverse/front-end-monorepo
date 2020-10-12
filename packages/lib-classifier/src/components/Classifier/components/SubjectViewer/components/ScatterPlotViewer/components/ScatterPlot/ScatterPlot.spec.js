@@ -22,6 +22,8 @@ import { left, top } from '../../helpers/utils'
 const { variableStar } = lightCurveMockData
 const { data, dataPoints } = randomSingleSeriesData
 
+const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
+
 describe('Component > ScatterPlot', function () {
   describe('render', function () {
     let wrapper, chart
@@ -111,7 +113,7 @@ describe('Component > ScatterPlot', function () {
   })
 
   describe('when there\'s a single data series', function () {
-    let wrapper
+    let wrapper, glyphs
     before(function () {
       wrapper = shallow(
         <ScatterPlot
@@ -122,16 +124,24 @@ describe('Component > ScatterPlot', function () {
           transformMatrix={transformMatrix}
         />
       )
+      glyphs = wrapper.find(glyphComponents[0])
     })
 
     it('should render a number of glyph components equal to the number of data points', function () {
-      const glyphs = wrapper.find(glyphComponents[0])
       expect(glyphs).to.have.lengthOf(dataPoints.length)
+    })
+
+    it('should render the glyph components with a fill color', function () {
+      glyphs.forEach((glyph) => {
+        expect(glyph.props().fill).to.not.be.empty()
+        expect(glyph.props().fill).to.not.equal('transparent')
+        expect(glyph.props().fill).to.equal(defaultColors[0])
+      })
     })
   })
 
   describe('when there\'s multiple data series', function () {
-    let wrapper
+    let wrapper, renderedSeriesGlyphs
     before(function () {
       wrapper = shallow(
         <ScatterPlot
@@ -142,24 +152,30 @@ describe('Component > ScatterPlot', function () {
           transformMatrix={transformMatrix}
         />
       )
-    })
-
-    it('should render different glyph components for each data series', function () {
-      const renderedSeriesGlyphs = glyphComponents.filter((component) => {
+      renderedSeriesGlyphs = glyphComponents.filter((component) => {
         const components = wrapper.find(component)
         return components.length > 0
       })
+    })
 
+    it('should render different glyph components for each data series', function () {
       expect(renderedSeriesGlyphs[0]).to.not.equal(renderedSeriesGlyphs[1])
     })
 
     it('should render a number of glyph components equal to the number of data points for each data series', function () {
-      const renderedSeriesGlyphs = glyphComponents.filter((component) => {
-        const components = wrapper.find(component)
-        return components.length > 0
-      })
       variableStar.scatterPlot.data.forEach((series, index) => {
         expect(wrapper.find(renderedSeriesGlyphs[index])).to.have.lengthOf(series.seriesData.length)
+      })
+    })
+
+    it('should render the glyph components for each series with different fill colors', function () {
+      variableStar.scatterPlot.data.forEach((series, index) => {
+        wrapper.find(renderedSeriesGlyphs[index]).forEach((glyph) => {
+          const { fill } = glyph.props()
+          expect(fill).to.not.be.empty()
+          expect(fill).to.not.equal('transparent')
+          expect(fill).to.equal(zooTheme.global.colors[series.seriesOptions.color])
+        })
       })
     })
   })

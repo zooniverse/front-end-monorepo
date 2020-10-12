@@ -28,6 +28,9 @@ const { colors } = zooTheme.global
 const subject = Factory.build('subject', {
   locations: [
     {
+      'image/png': 'talkfallback.png'
+    },
+    {
       'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/variableStar.json'
     },
     { 'image/png': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/VariableStarViewer/mocks/temperature.png' }
@@ -73,7 +76,7 @@ stories
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='500px' width='large'>
+        <Box height='640px' width={{ max: '900px' }}>
           <VariableStarViewer
             subject={subject}
           />
@@ -85,7 +88,7 @@ stories
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <ViewerContext theme={darkZooTheme} mode='dark'>
-        <Box height='500px' width='large'>
+        <Box height='640px' width={{ max: '900px' }}>
           <VariableStarViewer
             subject={subject}
           />
@@ -96,7 +99,7 @@ stories
   .add('narrow view', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='500px' width='large'>
+        <Box height='640px' width={{ max: '900px' }}>
           <VariableStarViewer
             subject={subject}
           />
@@ -107,7 +110,7 @@ stories
   .add('pan/zoom', () => {
     return (
       <ViewerContext theme={zooTheme} mode='light'>
-        <Box direction='row' height='500px' width='large'>
+        <Box direction='row' height='640px' width={{ max: '900px' }}>
           <VariableStarViewerConnector />
           <ImageToolbar />
         </Box>

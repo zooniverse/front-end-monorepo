@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import { CheckBox } from  'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
-import { VisibilitySeriesCheckBoxes } from './VisibilitySeriesCheckBoxes'
+import { HighlightSeriesCheckBoxes } from './HighlightSeriesCheckBoxes'
 import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
 import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
 
@@ -12,84 +12,84 @@ const seriesOneLabel = variableStar.data.scatterPlot.data[0].seriesOptions.label
 const seriesTwoLabel = variableStar.data.scatterPlot.data[1].seriesOptions.label
 const { data } = variableStar.data.scatterPlot
 
-const defaultStateVisibleSeries = [
+const defaultStateHighlightedSeries = [
   { [seriesOneLabel]: true },
   { [seriesTwoLabel]: true }
 ]
 
-const toggledStateVisibleSeries = [
+const toggledStateHighlightedSeries = [
   { [seriesOneLabel]: true },
   { [seriesTwoLabel]: false }
 ]
 
-describe('Component > VisibilitySeriesCheckBoxes', function () {
+describe('Component > HighlightSeriesCheckBoxes', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
-      <VisibilitySeriesCheckBoxes
+      <HighlightSeriesCheckBoxes
         data={data}
-        visibleSeries={defaultStateVisibleSeries}
+        highlightedSeries={defaultStateHighlightedSeries}
         theme={zooTheme}
       />
     )
     expect(wrapper).to.be.ok()
   })
 
-  it('should render checkbox inputs for the number of objects in the visible series state', function () {
+  it('should render checkbox inputs for the number of objects in the highlighted series state', function () {
     const wrapper = shallow(
-      <VisibilitySeriesCheckBoxes
+      <HighlightSeriesCheckBoxes
         data={data}
-        visibleSeries={defaultStateVisibleSeries}
+        highlightedSeries={defaultStateHighlightedSeries}
         theme={zooTheme}
       />
     )
-    expect(wrapper.find(CheckBox)).to.have.lengthOf(defaultStateVisibleSeries.length)
+    expect(wrapper.find(CheckBox)).to.have.lengthOf(defaultStateHighlightedSeries.length)
   })
 
-  it('should render the checked state based on the visible state', function () {
+  it('should render the checked state based on the highlighted state', function () {
     let inputs
     const wrapper = shallow(
-      <VisibilitySeriesCheckBoxes
+      <HighlightSeriesCheckBoxes
         data={data}
-        visibleSeries={defaultStateVisibleSeries}
+        highlightedSeries={defaultStateHighlightedSeries}
         theme={zooTheme}
       />
     )
 
     inputs = wrapper.find(CheckBox)
     inputs.forEach((input, index) => {
-      const [visibleStateValue] = Object.values(defaultStateVisibleSeries[index])
-      expect(input.props().checked).to.equal(visibleStateValue)
+      const [highlightedStateValue] = Object.values(defaultStateHighlightedSeries[index])
+      expect(input.props().checked).to.equal(highlightedStateValue)
     })
 
-    wrapper.setProps({ visibleSeries: toggledStateVisibleSeries })
+    wrapper.setProps({ highlightedSeries: toggledStateHighlightedSeries })
 
     inputs = wrapper.find(CheckBox)
     inputs.forEach((input, index) => {
-      const [visibleStateValue] = Object.values(toggledStateVisibleSeries[index])
-      expect(input.props().checked).to.equal(visibleStateValue)
+      const [highlightedStateValue] = Object.values(toggledStateHighlightedSeries[index])
+      expect(input.props().checked).to.equal(highlightedStateValue)
     })
   })
 
-  it('should render the labels state based on the visible state', function () {
+  it('should render the labels state based on the highlighted state', function () {
     const wrapper = shallow(
-      <VisibilitySeriesCheckBoxes
+      <HighlightSeriesCheckBoxes
         data={data}
-        visibleSeries={defaultStateVisibleSeries}
+        highlightedSeries={defaultStateHighlightedSeries}
         theme={zooTheme}
       />
     )
     const labels = wrapper.find(SpacedText)
     labels.forEach((label, index) => {
-      const [visibleStateLabel] = Object.keys(defaultStateVisibleSeries[index])
-      expect(label.html()).to.contain(visibleStateLabel)
+      const [highlightedStateLabel] = Object.keys(defaultStateHighlightedSeries[index])
+      expect(label.html()).to.contain(highlightedStateLabel)
     })
   })
 
   it('should render different glyphs and colors in each checkbox', function () {
     const wrapper = mount(
-      <VisibilitySeriesCheckBoxes
+      <HighlightSeriesCheckBoxes
         data={data}
-        visibleSeries={defaultStateVisibleSeries}
+        highlightedSeries={defaultStateHighlightedSeries}
         theme={zooTheme}
       />
     )
@@ -106,21 +106,21 @@ describe('Component > VisibilitySeriesCheckBoxes', function () {
     expect(firstGlyph.props().fill).to.not.equal(secondGlyph.props().fill)
   })
 
-  it('should call setSeriesVisibility for the onChange event', function () {
-    const setSeriesVisibilitySpy = sinon.spy()
+  it('should call setSeriesHighlight for the onChange event', function () {
+    const setSeriesHighlightSpy = sinon.spy()
     const wrapper = shallow(
-      <VisibilitySeriesCheckBoxes
+      <HighlightSeriesCheckBoxes
         data={data}
-        visibleSeries={defaultStateVisibleSeries}
-        setSeriesVisibility={setSeriesVisibilitySpy}
+        highlightedSeries={defaultStateHighlightedSeries}
+        setSeriesHighlight={setSeriesHighlightSpy}
         theme={zooTheme}
       />
     )
     const inputs = wrapper.find(CheckBox)
     inputs.forEach((input) => {
       input.simulate('change', { target: {} })
-      expect(setSeriesVisibilitySpy).to.have.been.calledOnceWith({ target: {} })
-      setSeriesVisibilitySpy.resetHistory()
+      expect(setSeriesHighlightSpy).to.have.been.calledOnceWith({ target: {} })
+      setSeriesHighlightSpy.resetHistory()
     })
   })
 })

@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Group } from '@vx/group'
 import cuid from 'cuid'
-import { darken, lighten } from 'polished'
-import Background from '../../../SVGComponents/Background'
-import Chart from '../../../SVGComponents/Chart'
+import { lighten } from 'polished'
+import Background from '@viewers/components/SVGComponents/Background'
+import Chart from '@viewers/components/SVGComponents/Chart'
 import Axes from '../Axes'
-import getDataSeriesColor from '../../../../helpers/getDataSeriesColor'
-import getDataSeriesSymbol from '../../../../helpers/getDataSeriesSymbol'
+import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
+import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
+import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 import {
   getDataPoints,
@@ -24,6 +25,7 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
+    highlightedSeries,
     invertAxes,
     margin,
     padding,
@@ -39,7 +41,6 @@ function ScatterPlot (props) {
     },
     transformMatrix,
     underlays,
-    visibleSeries,
     xAxisLabel,
     xAxisLabelOffset,
     xAxisNumTicks,
@@ -73,7 +74,6 @@ function ScatterPlot (props) {
   }
 
   const dataPoints = getDataPoints(data)
-
   const xScaleTransformed = xScale || transformXScale(data, transformMatrix, rangeParameters)
 
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
@@ -137,12 +137,13 @@ function ScatterPlot (props) {
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
+          const highlighted = isDataSeriesHighlighted(highlightedSeries, seriesIndex)
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
             seriesOptions: series?.seriesOptions,
             seriesIndex,
             themeColors: colors,
-            visibleSeries
+            highlighted
           })
 
           const errorBarColor = lighten(0.25, glyphColor)
@@ -195,7 +196,7 @@ function ScatterPlot (props) {
                   size={dataPointSize}
                   top={cy}
                   fill={glyphColor}
-                  stroke='black'
+                  stroke={(highlighted) ? 'black' : colors['light-4']}
                 />
               </g>
             )
@@ -226,6 +227,7 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 25,
+  highlightedSeries: [],
   invertAxes: {
     x: false,
     y: false
@@ -260,7 +262,6 @@ ScatterPlot.defaultProps = {
     translateY: 0
   },
   underlays: [],
-  visibleSeries: [],
   xAxisLabel: 'x-axis',
   xAxisNumTicks: 10,
   xScale: null,
@@ -292,6 +293,7 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.object),
   invertAxes: PropTypes.shape({
     x: PropTypes.bool,
     y: PropTypes.bool
@@ -322,7 +324,6 @@ ScatterPlot.propTypes = {
     translateX: PropTypes.number,
     translateY: PropTypes.number
   }),
-  visibleSeries: PropTypes.arrayOf(PropTypes.object),
   underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
   xAxisLabelOffset: PropTypes.number,
