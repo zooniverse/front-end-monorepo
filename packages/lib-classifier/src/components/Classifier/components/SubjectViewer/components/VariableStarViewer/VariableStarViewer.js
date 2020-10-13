@@ -39,7 +39,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
     setOnZoom,
     setPeriodMultiple,
     setSeriesPhaseFocus,
-    setSeriesVisibility,
+    setSeriesHighlight,
     setYAxisInversion,
     theme,
   } = props
@@ -97,7 +97,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
         phaseFocusedSeries={phaseFocusedSeries}
         setPeriodMultiple={setPeriodMultiple}
         setSeriesPhaseFocus={setSeriesPhaseFocus}
-        setSeriesVisibility={setSeriesVisibility}
+        setSeriesHighlight={setSeriesHighlight}
         setYAxisInversion={setYAxisInversion}
         theme={theme}
       />
