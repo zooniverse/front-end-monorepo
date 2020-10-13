@@ -40,7 +40,7 @@ function getHoverStyles (props, active = false) {
 export const StyledTaskLabel = styled(Text)`
   align-items: baseline;
   ${props => props.theme.dark ?
-    css`background: ${props.theme.global.colors['dark-3']};` :
+    css`background: transparent;` :
     css`background: ${props.theme.global.colors['light-1']};`
   }
   ${props => props.theme.dark ? css`border: 2px solid ${props.theme.global.colors['light-1']};` : css`border: 2px solid transparent;`}
