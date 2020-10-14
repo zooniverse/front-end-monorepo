@@ -5,6 +5,7 @@ import request from 'superagent'
 import counterpart from 'counterpart'
 import { extent } from 'd3'
 import VariableStarViewer from './VariableStarViewer'
+import { additiveDictionary } from './helpers/constants'
 import locationValidator from '../../helpers/locationValidator'
 import en from './locales/en'
 
@@ -187,7 +188,7 @@ class VariableStarViewerContainer extends Component {
     const { chartOptions } = phasedBarChartJSON.period
 
     barChartJSON.period.data.forEach((datum) => {
-      const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
+      const phasedDatum = Object.assign({}, datum, { value: datum.value + additiveDictionary[periodMultiple.toString()] })
       phasedBarChartJSON.period.data.push(phasedDatum)
     })
 
