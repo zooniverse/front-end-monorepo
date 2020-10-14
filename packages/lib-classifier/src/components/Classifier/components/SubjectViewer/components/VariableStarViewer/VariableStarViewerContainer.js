@@ -194,10 +194,11 @@ class VariableStarViewerContainer extends Component {
 
     if (!chartOptions.yAxisDomain) {
       const yDataExtent = extent(phasedBarChartJSON.period.data.map(datum => datum.value))
-      const yAxisDomain = [0, Math.ceil(yDataExtent[1]) + 1]
+      const yAxisDomain = [Math.floor(yDataExtent[0]), Math.ceil(yDataExtent[1]) + 1]
       phasedBarChartJSON.period.chartOptions = Object.assign({}, chartOptions, { yAxisDomain })
     }
 
+    console.log('phasedBarChartJSON', phasedBarChartJSON)
     return phasedBarChartJSON
   }
 
