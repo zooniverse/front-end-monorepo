@@ -198,7 +198,6 @@ class VariableStarViewerContainer extends Component {
       phasedBarChartJSON.period.chartOptions = Object.assign({}, chartOptions, { yAxisDomain })
     }
 
-    console.log('phasedBarChartJSON', phasedBarChartJSON)
     return phasedBarChartJSON
   }
 
