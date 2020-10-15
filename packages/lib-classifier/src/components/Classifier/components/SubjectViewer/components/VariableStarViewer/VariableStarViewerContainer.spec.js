@@ -8,6 +8,7 @@ import { Factory } from 'rosie'
 import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
+import { additiveDictionary } from './helpers/constants'
 
 const nextSubjectJSON = {
   data: {
@@ -560,6 +561,9 @@ describe('Component > VariableStarViewerContainer', function () {
         wrapper.instance().setPeriodMultiple({ target: { value: '2' } })
         const phasedBarJSONNewState = wrapper.state().barJSON
         expect(phasedBarJSONInitialState).to.not.deep.equal(phasedBarJSONNewState)
+        phasedBarJSONNewState.period.data.forEach((datum, index) => {
+          expect(datum.value).to.equal(phasedBarJSONInitialState.period.data[index].value + additiveDictionary['2'])
+        })
       }).then(done, done)
     })
   })
