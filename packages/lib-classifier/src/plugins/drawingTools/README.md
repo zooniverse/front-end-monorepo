@@ -120,13 +120,13 @@ let annotation = line1.addAnnotation({ task })
 
 task.setAnnotation(annotation)
 
-task.updateAnnotation('Hello! This is the first line.')
+annotation.update('Hello! This is the first line.')
 
 annotation = line2.addAnnotation({ task })
 
 task.setAnnotation(annotation)
 
-task.updateAnnotation('This is the second line of text.')
+annotation.update('This is the second line of text.')
 
 // check if a line has been completed.
 
