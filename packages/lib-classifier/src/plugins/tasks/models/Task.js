@@ -26,15 +26,10 @@ const Task = types.model('Task', {
     }
   }))
   .actions(self => ({
-    updateAnnotation (value) {
-      const annotation = tryReference(() => self.annotation)
-      annotation?.update(value)
-    },
-
     complete () {
-      // set an annotation for this task if there wasn't one already.
-      const annotation = tryReference(() => self.annotation)
-      self.updateAnnotation(annotation?.value)
+      /*
+      Override this with any actions that should run on task completion.
+      */
     },
 
     createAnnotation () {
