@@ -44,7 +44,7 @@ const Task = types.model('Task', {
     },
 
     setAnnotation (annotation) {
-      self.annotation = annotation
+      self.annotation = annotation.id
     },
 
     start () {
