@@ -27,6 +27,14 @@ describe('Stores > Project', function () {
       expect(projectStore.background).to.be.an('object')
     })
 
+    it('should have a `beta_approved` property', function () {
+      expect(projectStore.beta_approved).to.be.a('boolean')
+    })
+
+    it('should have a `beta_requested` property', function () {
+      expect(projectStore.beta_requested).to.be.a('boolean')
+    })
+
     it('should have a `displayName` property', function () {
       expect(projectStore.displayName).to.be.null()
     })
@@ -51,8 +59,12 @@ describe('Stores > Project', function () {
       expect(projectStore.launch_approved).to.be.a('boolean')
     })
 
+    it('should have an `live` property', function () {
+      expect(projectStore.live).to.be.a('boolean')
+    })
+
     it('should have a `researcher_quote` property', function () {
-      expect(projectStore.researcher_quote).to.equal(null)
+      expect(projectStore.researcher_quote).to.be.a('string')
     })
 
     it('should have a `slug` property', function () {
