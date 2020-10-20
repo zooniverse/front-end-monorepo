@@ -156,7 +156,6 @@ class VariableStarViewerContainer extends Component {
       const seriesPeriod = periodToUse * periodMultiple
       const seriesData = []
       series.seriesData.forEach((datum) => {
-        console.log('datum', datum)
         let phasedXPoint
         const calculatedXPoint = (datum.x % seriesPeriod) / seriesPeriod
         seriesData.push(Object.assign({}, datum, { x: calculatedXPoint, mirrored: false }))
@@ -167,7 +166,6 @@ class VariableStarViewerContainer extends Component {
           phasedXPoint = calculatedXPoint - 1
         }
 
-        console.log('phasedXPoint', phasedXPoint)
         if (phasedXPoint) seriesData.push(Object.assign({}, datum, { x: phasedXPoint, mirrored: true }))
       })
 

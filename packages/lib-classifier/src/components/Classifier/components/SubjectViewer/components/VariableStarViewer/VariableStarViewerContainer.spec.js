@@ -79,7 +79,7 @@ const nextSubjectJSON = {
   }
 }
 
-describe.only('Component > VariableStarViewerContainer', function () {
+describe('Component > VariableStarViewerContainer', function () {
   const subject = Factory.build('subject', {
     locations: [
       { 'image/png': 'http://localhost:8080/talk-backup.png' },
@@ -467,7 +467,7 @@ describe.only('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
 
-    it.only('should calculate a new phased JSON when setSeriesPhaseFocus is called', function (done) {
+    it('should calculate a new phased JSON when setSeriesPhaseFocus is called', function (done) {
       const wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
@@ -478,8 +478,6 @@ describe.only('Component > VariableStarViewerContainer', function () {
         const phasedJSONInitialState = wrapper.state().phasedJSON
         wrapper.instance().setSeriesPhaseFocus({ target: { value: '1' } })
         const phasedJSONNewState = wrapper.state().phasedJSON
-        console.log('phasedJSONInitialState', phasedJSONInitialState)
-        console.log('new state', phasedJSONNewState)
         expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
       }).then(done, done)
     })
