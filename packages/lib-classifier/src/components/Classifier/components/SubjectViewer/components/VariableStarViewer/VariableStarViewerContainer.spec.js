@@ -79,7 +79,7 @@ const nextSubjectJSON = {
   }
 }
 
-describe('Component > VariableStarViewerContainer', function () {
+describe.only('Component > VariableStarViewerContainer', function () {
   const subject = Factory.build('subject', {
     locations: [
       { 'image/png': 'http://localhost:8080/talk-backup.png' },
@@ -88,10 +88,11 @@ describe('Component > VariableStarViewerContainer', function () {
     ]
   })
 
+  // Use text MIME type to test allowed text file fallback
   const nextSubject = Factory.build('subject', {
     locations: [
       { 'image/png': 'http://localhost:8080/talk-backup.png' },
-      { 'application/json': 'http://localhost:8080/nextSubject.json' },
+      { 'text/plain': 'http://localhost:8080/nextSubject.txt' },
       { 'image/png': 'http://localhost:8080/image2.png' }
     ]
   })
@@ -229,7 +230,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -302,7 +303,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -396,7 +397,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -466,7 +467,7 @@ describe('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
 
-    it('should calculate a new phased JSON when setSeriesPhaseFocus is called', function (done) {
+    it.only('should calculate a new phased JSON when setSeriesPhaseFocus is called', function (done) {
       const wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
@@ -477,6 +478,8 @@ describe('Component > VariableStarViewerContainer', function () {
         const phasedJSONInitialState = wrapper.state().phasedJSON
         wrapper.instance().setSeriesPhaseFocus({ target: { value: '1' } })
         const phasedJSONNewState = wrapper.state().phasedJSON
+        console.log('phasedJSONInitialState', phasedJSONInitialState)
+        console.log('new state', phasedJSONNewState)
         expect(phasedJSONInitialState).to.not.deep.equal(phasedJSONNewState)
       }).then(done, done)
     })
@@ -494,7 +497,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 

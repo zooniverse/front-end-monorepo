@@ -83,6 +83,7 @@ const SubjectViewer = types
       },
 
       onError (error) {
+        if (process.browser) console.error(error)
         self.loadingState = asyncStates.error
       },
 

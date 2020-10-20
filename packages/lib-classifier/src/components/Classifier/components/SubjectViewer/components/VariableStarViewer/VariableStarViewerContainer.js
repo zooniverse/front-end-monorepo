@@ -83,8 +83,8 @@ class VariableStarViewerContainer extends Component {
   }
 
   getSubjectUrl () {
-    // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
+    // Find the first location that has a JSON MIME type. Fallback to text MIME type
+    const jsonLocation = this.props.subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -156,6 +156,7 @@ class VariableStarViewerContainer extends Component {
       const seriesPeriod = periodToUse * periodMultiple
       const seriesData = []
       series.seriesData.forEach((datum) => {
+        console.log('datum', datum)
         let phasedXPoint
         const calculatedXPoint = (datum.x % seriesPeriod) / seriesPeriod
         seriesData.push(Object.assign({}, datum, { x: calculatedXPoint, mirrored: false }))
@@ -166,6 +167,7 @@ class VariableStarViewerContainer extends Component {
           phasedXPoint = calculatedXPoint - 1
         }
 
+        console.log('phasedXPoint', phasedXPoint)
         if (phasedXPoint) seriesData.push(Object.assign({}, datum, { x: phasedXPoint, mirrored: true }))
       })
 
