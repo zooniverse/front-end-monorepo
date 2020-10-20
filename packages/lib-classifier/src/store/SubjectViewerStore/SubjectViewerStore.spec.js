@@ -4,9 +4,9 @@ import sinon from 'sinon'
 import SubjectStore from '../SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 
-const subject = Factory.build('subject')
-
 describe('Model > SubjectViewerStore', function () {
+  const subject = Factory.build('subject')
+
   it('should exist', function () {
     expect(SubjectViewerStore).to.be.ok()
     expect(SubjectViewerStore).to.be.an('object')
@@ -212,6 +212,35 @@ describe('Model > SubjectViewerStore', function () {
     it('should pan down', function () {
       subjectViewerStore.panDown()
       expect(onPan.withArgs(0, 1)).to.have.been.calledOnce()
+    })
+  })
+
+  describe('error handling', function () {
+    let subjectViewerStore
+    let errorSpy
+    before(function () {
+      errorSpy = sinon.spy(console, 'error')
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    after(function () {
+      errorSpy.restore()
+    })
+
+    it('should set the loading state to error', function () {
+      try {
+        subjectViewerStore.onError(new Error('load error'))
+      } catch (error) {
+        expect(subjectViewerStore.loadingState).to.equal(asyncStates.error)
+      }
+    })
+
+    it('should log the error', function () {
+      try {
+        subjectViewerStore.onError(new Error('load error'))
+      } catch (error) {
+        expect(errorSpy).to.have.been.calledOnceWith('load error')
+      }
     })
   })
 })
