@@ -120,6 +120,18 @@ describe('Components > Task', function () {
         expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
       })
 
+      it('should pass the active annotation down to the task component', function () {
+        const wrapper = mount(
+          <Task
+            classification={classification}
+            task={activeTask}
+          />
+        )
+        const activeAnnotation = classification.addAnnotation(activeTask)
+        const taskComponent = wrapper.find(TaskComponent.displayName)
+        expect(taskComponent.prop('annotation')).to.deep.equal(activeAnnotation)
+      })
+
       describe('task components', function () {
         let taskWrapper
 
