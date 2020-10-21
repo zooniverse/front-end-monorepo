@@ -2,19 +2,17 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
-import { shallow } from 'enzyme'
-import { Tasks } from './Tasks'
+import { mount } from 'enzyme'
+import Task from './Task'
 import asyncStates from '@zooniverse/async-states'
 import taskRegistry from '@plugins/tasks'
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-import Task from './components/Task'
-
-describe('Tasks', function () {
+describe('Components > Task', function () {
   let classification
-  let step
+  let activeTask
   let TaskComponent
 
   const taskTypes = Object.keys(taskRegistry.register)
@@ -96,46 +94,68 @@ describe('Tasks', function () {
       rootStore.subjects.setResources([subjectSnapshot])
       rootStore.subjects.advance()
       classification = rootStore.classifications.active
-      step = rootStore.workflowSteps.active
+      const step = rootStore.workflowSteps.active
+      activeTask = step.tasks[0]
     })
 
     describe(`Task ${taskType}`, function () {
       it('should render without crashing', function () {
-        const wrapper = shallow(<Tasks />)
+        const wrapper = mount(
+          <Task
+            classification={classification}
+            task={activeTask}
+          />
+        )
         expect(wrapper).to.be.ok()
       })
 
-      it('should render null on initialization', function () {
-        const wrapper = shallow(<Tasks />)
-        expect(wrapper.type()).to.be.null()
-      })
-
-      it('should render a loading UI when the workflow loading', function () {
-        const wrapper = shallow(<Tasks loadingState={asyncStates.loading} />)
-        expect(wrapper.contains('Loading')).to.be.true()
-      })
-
-      it('should render an error message when there is a loading error', function () {
-        const wrapper = shallow(<Tasks loadingState={asyncStates.error} />)
-        expect(wrapper.contains('Something went wrong')).to.be.true()
-      })
-
-      it('should render null if the workflow is load but has no tasks', function () {
-        const wrapper = shallow(<Tasks loadingState={asyncStates.success} ready />)
-        expect(wrapper.type()).to.be.null()
-      })
-
-      it('should render a task component if the workflow is loaded', function () {
-        const wrapper = shallow(
-          <Tasks
-            loadingState={asyncStates.success}
-            ready
+      it('should render the correct task component', function () {
+        const wrapper = mount(
+          <Task
             classification={classification}
-            step={step}
+            task={activeTask}
           />
         )
         // Is there a better way to do this?
-        expect(wrapper.find(Task)).to.have.lengthOf(1)
+        expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
+      })
+
+      describe('task components', function () {
+        let taskWrapper
+
+        describe('while the subject is loading', function () {
+          before(function () {
+            const wrapper = mount(
+              <Task
+                classification={classification}
+                disabled={true}
+                task={activeTask}
+              />
+            )
+            taskWrapper = wrapper.find(TaskComponent.displayName)
+          })
+
+          it('should be disabled', function () {
+            expect(taskWrapper.prop('disabled')).to.be.true()
+          })
+        })
+
+        describe('when the subject viewer is ready', function () {
+          before(function () {
+            const wrapper = mount(
+              <Task
+                classification={classification}
+                disabled={false}
+                task={activeTask}
+              />
+            )
+            taskWrapper = wrapper.find(TaskComponent.displayName)
+          })
+
+          it('should be enabled', function () {
+            expect(taskWrapper.prop('disabled')).to.be.false()
+          })
+        })
       })
     })
   })

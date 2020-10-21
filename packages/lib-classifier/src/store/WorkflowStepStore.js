@@ -184,7 +184,7 @@ const WorkflowStepStore = types
       }
 
       function isThereBranching (task) {
-        return task?.answers.some((answer, index) => {
+        return task?.answers?.some((answer, index) => {
           if (task.answers.length > index + 1) {
             return answer.next !== task.answers[index + 1].next
           }
@@ -235,7 +235,7 @@ const WorkflowStepStore = types
           }
 
           const isSingleChoiceTaskNotBranching = task.type === 'single' && !isThereBranching(task)
-          if (isSingleChoiceTaskNotBranching) {
+          if (task.answers && isSingleChoiceTaskNotBranching) {
             stepSnapshot.next = task.answers[0]?.next
           }
 
