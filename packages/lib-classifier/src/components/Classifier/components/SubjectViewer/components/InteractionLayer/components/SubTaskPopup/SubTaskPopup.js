@@ -37,7 +37,7 @@ export function ConfirmModal({ onClose, onDelete }) {
           label={counterpart('Task.keepWorking')}
           onClick={onClose}
         />
-        <StyledPrimaryButton
+        <PrimaryButton
           label={counterpart('Task.close')}
           color='teal'
           onClick={onDelete}
