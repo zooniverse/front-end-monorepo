@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
 
-import taskRegistry from '@plugins/tasks'
+import Task from './components/Task'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
 import en from './locales/en'
@@ -60,30 +60,22 @@ class Tasks extends React.Component {
       // there has to be a better way
       // but works for now
       return (
-        <Box as='form' gap='small' justify='between' fill>
-          {step.tasks.map((task) => {
-            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-            // or creates a new one if one doesn't exist.
-            // The name is a bit confusing.
-            const annotation = classification.addAnnotation(task)
-            task.setAnnotation(annotation)
-            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
-            if (annotation && TaskComponent) {
-              return (
-                <Box key={annotation.id} basis='auto'>
-                  <TaskComponent
-                    {...this.props}
-                    disabled={!ready}
-                    annotation={annotation}
-                    task={task}
-                    theme={theme}
-                  />
-                </Box>
-              )
-            }
-
-            return (<Paragraph>{counterpart('Tasks.renderFallback')}</Paragraph>)
-          })}
+        <Box
+          key={classification.id}
+          as='form'
+          gap='small'
+          justify='between'
+          fill
+        >
+          {step.tasks.map((task) => (
+            <Task
+              key={task.taskKey}
+              {...this.props}
+              classification={classification}
+              disabled={!ready}
+              task={task}
+            />
+          ))}
           {isThereTaskHelp && <TaskHelp tasks={step.tasks} />}
           <TaskNavButtons disabled={!ready || !step.isComplete} />
           {demoMode &&
