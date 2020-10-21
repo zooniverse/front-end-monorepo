@@ -25,6 +25,27 @@ describe('Model > Task', function () {
     expect(errorThrown).to.be.true()
   })
 
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = Task.create(mockTask)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T0')
+      expect(annotation.taskType).to.equal('default')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
+  })
+
   describe('with an annotation', function () {
     let task
 

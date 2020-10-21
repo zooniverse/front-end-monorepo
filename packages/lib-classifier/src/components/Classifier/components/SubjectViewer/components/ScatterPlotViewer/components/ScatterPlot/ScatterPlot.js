@@ -8,7 +8,7 @@ import Chart from '@viewers/components/SVGComponents/Chart'
 import Axes from '../Axes'
 import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
-import isDataSeriesVisible from '@viewers/helpers/isDataSeriesVisible'
+import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 import {
   getDataPoints,
@@ -25,6 +25,7 @@ function ScatterPlot (props) {
     children,
     data,
     dataPointSize,
+    highlightedSeries,
     invertAxes,
     margin,
     padding,
@@ -40,7 +41,6 @@ function ScatterPlot (props) {
     },
     transformMatrix,
     underlays,
-    visibleSeries,
     xAxisLabel,
     xAxisLabelOffset,
     xAxisNumTicks,
@@ -137,13 +137,13 @@ function ScatterPlot (props) {
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
-          const visible = isDataSeriesVisible(visibleSeries, seriesIndex)
+          const highlighted = isDataSeriesHighlighted(highlightedSeries, seriesIndex)
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
             seriesOptions: series?.seriesOptions,
             seriesIndex,
             themeColors: colors,
-            visible
+            highlighted
           })
 
           const errorBarColor = lighten(0.25, glyphColor)
@@ -196,7 +196,7 @@ function ScatterPlot (props) {
                   size={dataPointSize}
                   top={cy}
                   fill={glyphColor}
-                  stroke={(visible) ? 'black' : colors['light-4']}
+                  stroke={(highlighted) ? 'black' : colors['light-4']}
                 />
               </g>
             )
@@ -227,6 +227,7 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 25,
+  highlightedSeries: [],
   invertAxes: {
     x: false,
     y: false
@@ -261,7 +262,6 @@ ScatterPlot.defaultProps = {
     translateY: 0
   },
   underlays: [],
-  visibleSeries: [],
   xAxisLabel: 'x-axis',
   xAxisNumTicks: 10,
   xScale: null,
@@ -293,6 +293,7 @@ ScatterPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.object),
   invertAxes: PropTypes.shape({
     x: PropTypes.bool,
     y: PropTypes.bool
@@ -323,7 +324,6 @@ ScatterPlot.propTypes = {
     translateX: PropTypes.number,
     translateY: PropTypes.number
   }),
-  visibleSeries: PropTypes.arrayOf(PropTypes.object),
   underlays: PropTypes.arrayOf(PropTypes.object),
   xAxisLabel: PropTypes.string,
   xAxisLabelOffset: PropTypes.number,

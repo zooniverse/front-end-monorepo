@@ -56,6 +56,27 @@ describe('Model > SingleChoiceTask', function () {
     })
   })
 
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = SingleChoiceTask.TaskModel.create(singleChoiceTask)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T1')
+      expect(annotation.taskType).to.equal('single')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
+  })
+
   describe('when required', function () {
     let task
 

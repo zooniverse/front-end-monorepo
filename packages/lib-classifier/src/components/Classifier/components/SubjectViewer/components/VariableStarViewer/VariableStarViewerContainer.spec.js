@@ -8,6 +8,7 @@ import { Factory } from 'rosie'
 import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
+import { additiveDictionary } from './helpers/constants'
 
 const nextSubjectJSON = {
   data: {
@@ -78,23 +79,24 @@ const nextSubjectJSON = {
   }
 }
 
-const subject = Factory.build('subject', {
-  locations: [
-    { 'image/png': 'http://localhost:8080/talk-backup.png' },
-    { 'application/json': 'http://localhost:8080/variableStar.json' },
-    { 'image/png': 'http://localhost:8080/image1.png' }
-  ]
-})
-
-const nextSubject = Factory.build('subject', {
-  locations: [
-    { 'image/png': 'http://localhost:8080/talk-backup.png' },
-    { 'application/json': 'http://localhost:8080/nextSubject.json' },
-    { 'image/png': 'http://localhost:8080/image2.png' }
-  ]
-})
-
 describe('Component > VariableStarViewerContainer', function () {
+  const subject = Factory.build('subject', {
+    locations: [
+      { 'image/png': 'http://localhost:8080/talk-backup.png' },
+      { 'application/json': 'http://localhost:8080/variableStar.json' },
+      { 'image/png': 'http://localhost:8080/image1.png' }
+    ]
+  })
+
+  // Use text MIME type to test allowed text file fallback
+  const nextSubject = Factory.build('subject', {
+    locations: [
+      { 'image/png': 'http://localhost:8080/talk-backup.png' },
+      { 'text/plain': 'http://localhost:8080/nextSubject.txt' },
+      { 'image/png': 'http://localhost:8080/image2.png' }
+    ]
+  })
+
   const mockState = {
     allowPanZoom: '',
     barJSON: {
@@ -107,7 +109,8 @@ describe('Component > VariableStarViewerContainer', function () {
         chartOptions: {}
       }
     },
-    imageSrc: '',
+    highlightedSeries: [],
+    imageLocation: null,
     invertYAxis: false,
     loadingState: asyncStates.initialized,
     periodMultiple: 1,
@@ -135,7 +138,6 @@ describe('Component > VariableStarViewerContainer', function () {
         }
       }
     },
-    visibleSeries: []
   }
 
   it('should render without crashing', function () {
@@ -228,7 +230,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -261,9 +263,9 @@ describe('Component > VariableStarViewerContainer', function () {
     })
 
     it('should set the component state with the image location source', function (done) {
-      expect(wrapper.state().imageSrc).to.be.empty()
+      expect(wrapper.state().imageLocation).to.be.null()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
+        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
       }).then(done, done)
     })
 
@@ -276,21 +278,21 @@ describe('Component > VariableStarViewerContainer', function () {
     it('should update component state when there is a new valid subject', function (done) {
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
-        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
+        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
       })
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(nextSubjectJSON)
-        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image2.png')
+        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
       }).then(done, done)
     })
   })
 
-  describe('with series visibility', function () {
+  describe('with series highlighting', function () {
     let cdmSpy
     let nockScope
-    const visibleStateMock = [
+    const highlightedStateMock = [
       { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: true },
       { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
     ]
@@ -301,7 +303,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -315,16 +317,16 @@ describe('Component > VariableStarViewerContainer', function () {
       nockScope.persist(false)
     })
 
-    it('should default to visible states of true for each series', function (done) {
+    it('should default to highlighted states of true for each series', function (done) {
       const wrapper = shallow(
         <VariableStarViewerContainer
           subject={subject}
         />
       )
 
-      expect(wrapper.state().visibleSeries).to.be.empty()
+      expect(wrapper.state().highlightedSeries).to.be.empty()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
+        expect(wrapper.state().highlightedSeries).to.deep.equal(highlightedStateMock)
       }).then(done, done)
     })
 
@@ -336,9 +338,9 @@ describe('Component > VariableStarViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        const { visibleSeries } = wrapper.state()
-        const firstSeriesLabel = Object.keys(visibleSeries[0])[0]
-        const secondSeriesLabel = Object.keys(visibleSeries[1])[0]
+        const { highlightedSeries } = wrapper.state()
+        const firstSeriesLabel = Object.keys(highlightedSeries[0])[0]
+        const secondSeriesLabel = Object.keys(highlightedSeries[1])[0]
         expect(firstSeriesLabel).to.equal(variableStar.data.scatterPlot.data[0].seriesOptions.label)
         expect(secondSeriesLabel).to.equal(variableStar.data.scatterPlot.data[1].seriesOptions.label)
       }).then(done, done)
@@ -352,19 +354,19 @@ describe('Component > VariableStarViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        const { visibleSeries } = wrapper.state()
-        const firstSeriesLabel = Object.keys(visibleSeries[0])[0]
-        const secondSeriesLabel = Object.keys(visibleSeries[1])[0]
+        const { highlightedSeries } = wrapper.state()
+        const firstSeriesLabel = Object.keys(highlightedSeries[0])[0]
+        const secondSeriesLabel = Object.keys(highlightedSeries[1])[0]
         expect(firstSeriesLabel).to.equal('Filter 1')
         expect(secondSeriesLabel).to.equal('Filter 2')
       }).then(done, done)
     })
 
-    it('should be able to toggle the visible state', function () {
+    it('should be able to toggle the highlighted state', function () {
       const eventMock = {
         target: {
           checked: false,
-          value: Object.keys(visibleStateMock[0])[0]
+          value: Object.keys(highlightedStateMock[0])[0]
         }
       }
       const wrapper = shallow(
@@ -373,10 +375,10 @@ describe('Component > VariableStarViewerContainer', function () {
         />
       )
 
-      wrapper.setState({ rawJSON: variableStar, visibleSeries: visibleStateMock })
-      expect(wrapper.state().visibleSeries).to.deep.equal(visibleStateMock)
-      wrapper.instance().setSeriesVisibility(eventMock)
-      expect(wrapper.state().visibleSeries).to.deep.equal([
+      wrapper.setState({ rawJSON: variableStar, highlightedSeries: highlightedStateMock })
+      expect(wrapper.state().highlightedSeries).to.deep.equal(highlightedStateMock)
+      wrapper.instance().setSeriesHighlight(eventMock)
+      expect(wrapper.state().highlightedSeries).to.deep.equal([
         { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: false },
         { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
       ])
@@ -395,7 +397,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -493,7 +495,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -560,6 +562,9 @@ describe('Component > VariableStarViewerContainer', function () {
         wrapper.instance().setPeriodMultiple({ target: { value: '2' } })
         const phasedBarJSONNewState = wrapper.state().barJSON
         expect(phasedBarJSONInitialState).to.not.deep.equal(phasedBarJSONNewState)
+        phasedBarJSONNewState.period.data.forEach((datum, index) => {
+          expect(datum.value).to.equal(phasedBarJSONInitialState.period.data[index].value + additiveDictionary['2'])
+        })
       }).then(done, done)
     })
   })

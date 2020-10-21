@@ -14,7 +14,7 @@ export default function CollectionsButton (props) {
   const collectionsModal = React.createRef()
 
   function addToCollections () {
-    collectionsModal.current.open(subject.id)
+    collectionsModal.current.wrappedInstance.open(subject.id)
     onClick()
   }
 
