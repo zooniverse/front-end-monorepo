@@ -16,11 +16,6 @@ counterpart.registerTranslations('en', en)
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
 
-export const StyledPrimaryButton = styled(PrimaryButton)`
-  ${props => props.theme && css`
-    background: ${props.theme.global.colors.brand};
-  `}
-`
 
 export function ConfirmModal({ onClose, onDelete }) {
   return (
