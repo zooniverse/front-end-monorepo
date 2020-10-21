@@ -1,12 +1,13 @@
 import counterpart from 'counterpart'
-import { Box, Button, Paragraph } from 'grommet'
+import { Box, Paragraph } from 'grommet'
 import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Modal, MovableModal, PrimaryButton } from '@zooniverse/react-components'
+import { MovableModal } from '@zooniverse/react-components'
 
 import taskRegistry from '@plugins/tasks'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
+import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 import en from './locales/en'
 
@@ -14,37 +15,6 @@ counterpart.registerTranslations('en', en)
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
-
-
-export function ConfirmModal({ onClose, onDelete }) {
-  return (
-    <Modal
-      active
-      closeFn={onClose}
-    >
-      <Paragraph
-        margin={{ bottom: 'medium' }}
-      >
-        {counterpart('Task.confirm')}
-      </Paragraph>
-      <Box
-        direction='row'
-        gap='small'
-        justify='center'
-      >
-        <Button
-          label={counterpart('Task.keepWorking')}
-          onClick={onClose}
-        />
-        <PrimaryButton
-          label={counterpart('Task.close')}
-          color='teal'
-          onClick={onDelete}
-        />
-      </Box>
-    </Modal>
-  )
-}
 
 function SubTaskPopup(props) {
   const {

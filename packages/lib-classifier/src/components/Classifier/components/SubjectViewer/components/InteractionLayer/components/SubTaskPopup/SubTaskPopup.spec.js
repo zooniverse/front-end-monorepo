@@ -1,10 +1,11 @@
 import cuid from 'cuid'
 import { mount, shallow } from 'enzyme'
-import { Box, Button } from 'grommet'
+import { Box } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
-import SubTaskPopup, { ConfirmModal } from './SubTaskPopup'
+import SubTaskPopup from './SubTaskPopup'
+import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 import { CloseButton, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import * as Tools from '@plugins/drawingTools/models/tools'
@@ -76,20 +77,6 @@ describe('SubTaskPopup', function () {
       expect(requiredSubtask.prop('border').color).to.equal('tomato')
       expect(requiredSubtask.find('strong').text()).to.equal('This task is required.')
     })
-  })
-
-  it('should call onCloseConfirm on confirm modal "Keep working"', function () {
-    const onCloseConfirmSpy = sinon.spy()
-    const wrapper = shallow(<ConfirmModal onClose={onCloseConfirmSpy} />)
-    wrapper.find(Button).simulate('click')
-    expect(onCloseConfirmSpy).to.have.been.calledOnce()
-  })
-
-  it('should call deleteMark on confirm modal "Close without saving"', function () {
-    const deleteMarkSpy = sinon.spy()
-    const wrapper = shallow(<ConfirmModal onDelete={deleteMarkSpy} />)
-    wrapper.find(PrimaryButton).simulate('click')
-    expect(deleteMarkSpy).to.have.been.calledOnce()
   })
 
   describe('on deleteMark', function () {
