@@ -3,7 +3,6 @@ import { Box, Button, Paragraph } from 'grommet'
 import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { css } from 'styled-components'
 import { Modal, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 
 import taskRegistry from '@plugins/tasks'

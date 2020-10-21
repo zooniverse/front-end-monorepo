@@ -4,7 +4,7 @@ import { Box, Button } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
-import SubTaskPopup, { ConfirmModal, StyledPrimaryButton } from './SubTaskPopup'
+import SubTaskPopup, { ConfirmModal } from './SubTaskPopup'
 import SaveButton from './components/SaveButton'
 import { CloseButton, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import * as Tools from '@plugins/drawingTools/models/tools'
@@ -68,7 +68,7 @@ describe('SubTaskPopup', function () {
 
     it('should emphasize required subtask after clicking "Keep working" from confirm modal', function () {
       wrapper.find(SaveButton).simulate('click')
-      wrapper.find(ConfirmModal).dive().find(StyledPrimaryButton).simulate('click')
+      wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
 
       expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(2)
       const requiredSubtask = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions').first()
@@ -88,7 +88,7 @@ describe('SubTaskPopup', function () {
   it('should call deleteMark on confirm modal "Close without saving"', function () {
     const deleteMarkSpy = sinon.spy()
     const wrapper = shallow(<ConfirmModal onDelete={deleteMarkSpy} />)
-    wrapper.find(StyledPrimaryButton).simulate('click')
+    wrapper.find(PrimaryButton).simulate('click')
     expect(deleteMarkSpy).to.have.been.calledOnce()
   })
 
@@ -130,7 +130,7 @@ describe('SubTaskPopup', function () {
         />
       )
       wrapper.find(SaveButton).simulate('click')
-      wrapper.find(ConfirmModal).dive().find(StyledPrimaryButton).simulate('click')
+      wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
     })
 
     it('should call setSubTaskVisibility', function () {
