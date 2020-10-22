@@ -1,6 +1,7 @@
 import findLocationsByMediaType from './findLocationsByMediaType'
 import { SubjectFactory } from '@test/factories'
 import sinon from 'sinon'
+import { find } from 'lodash'
 
 describe('Helper > findLocationsByMediaType', function () {
   const subject = SubjectFactory.build({
@@ -22,6 +23,10 @@ describe('Helper > findLocationsByMediaType', function () {
 
   it('should be a function', function () {
     expect(findLocationsByMediaType).to.be.a('function')
+  })
+
+  it('should default to return an empty array if no locations are found', function () {
+    expect(findLocationsByMediaType([], 'images')).to.be.empty()
   })
 
   describe('when given a media type parameter', function () {

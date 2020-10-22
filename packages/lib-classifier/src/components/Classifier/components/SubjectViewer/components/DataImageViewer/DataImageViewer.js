@@ -61,14 +61,15 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
         />
       </StyledBox>
       <Box gridArea='image'>
-        <SingleImageViewer
-          enableInteractionLayer={false}
-          subject={{
-            locations: [
-              imageLocation
-            ]
-          }}
-        />
+        {imageLocation &&
+          <SingleImageViewerContainer
+            enableInteractionLayer={false}
+            subject={{
+              locations: [
+                imageLocation
+              ]
+            }}
+          />}
       </Box>
     </Grid>
   )
