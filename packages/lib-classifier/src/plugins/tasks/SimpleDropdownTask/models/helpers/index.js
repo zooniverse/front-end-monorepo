@@ -1,0 +1,1 @@
+export { panoptesAdapter } from './panoptesAdapter'
