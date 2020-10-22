@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import { types } from 'mobx-state-tree'
-import { panoptesAdapter } from './helpers'
+import { legacyDropdownAdapter } from './helpers'
 import Task from '../../models/Task'
 import SimpleDropdownAnnotation from './SimpleDropdownAnnotation'
 
@@ -16,7 +16,7 @@ const SimpleDropdown = types.model('SimpleDropdown', {
   type: types.literal('dropdown-simple'),
 })
   .preProcessSnapshot(snapshot => {
-    return panoptesAdapter(snapshot)
+    return legacyDropdownAdapter(snapshot)
   })
   .views(self => ({
     get defaultAnnotation () {
