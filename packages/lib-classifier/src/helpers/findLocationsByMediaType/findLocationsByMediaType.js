@@ -1,4 +1,5 @@
 import validateSubjectLocations from '../validateSubjectLocations'
+import { mimeTypeRegexes } from '../constants'
 
 export default function findLocationsByMediaType (locations = [], mediaType) {
   if (!mediaType) {
