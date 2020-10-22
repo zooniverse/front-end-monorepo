@@ -1,4 +1,4 @@
-import { mimeTypeRegexes } from '../constants'
+import { mimeTypesRegexes } from '../constants'
 
 export default function validateMimeType (mimeType) {
   const [type, format] = mimeType.split('/')

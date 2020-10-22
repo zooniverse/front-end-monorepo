@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import request from 'superagent'
 import locationValidator from '../../helpers/locationValidator'
+import { findLocationsByMediaType } from '@helpers'
 import DataImageViewer from './DataImageViewer'
 
 export default class DataImageViewerContainer extends React.Component {
@@ -41,8 +42,14 @@ export default class DataImageViewerContainer extends React.Component {
   }
 
   getSubjectUrl () {
-    // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
+    let jsonLocation = {}
+    const { subject } = this.props
+    // Find locations that have a JSON MIME type.
+    // TODO: do we need to support txt file fallback?
+    const locations = findLocationsByMediaType(subject.locations, 'application') || []
+    if (locations?.length > 0 && locations[0]) {
+      jsonLocation = locations[0]
+    }
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -83,13 +90,19 @@ export default class DataImageViewerContainer extends React.Component {
   }
 
   onLoad (JSONData) {
+    let imageLocation = {}
     const { onReady, subject } = this.props
     const target = this.viewer.current
-    const imageLocation = subject.locations.find(location => location['image/png']) || {}
-    const imageSrc = imageLocation['image/png'] || ''
+    const locations = findLocationsByMediaType(subject.locations, 'image')
+    if (locations?.length > 0) {
+      // Presumably 2 image locations will be found
+      // The first will be the fallback to display something in Talk
+      // Even if there's only one, this is fine
+      imageLocation = locations.reverse()[0]
+    }
 
     this.setState({
-      imageSrc,
+      imageLocation,
       JSONData
     },
       function() {

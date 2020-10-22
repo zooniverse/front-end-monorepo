@@ -2,7 +2,7 @@ import findLocationsByMediaType from './findLocationsByMediaType'
 import { SubjectFactory } from '@test/factories'
 import sinon from 'sinon'
 
-describe.only('Helper > findLocationsByMediaType', function () {
+describe('Helper > findLocationsByMediaType', function () {
   const subject = SubjectFactory.build({
     locations: [
       { 'image/png': 'https://www.example.com/image.png' },
@@ -79,13 +79,20 @@ describe.only('Helper > findLocationsByMediaType', function () {
     })
 
     it('should log an error message', function () {
-      findLocationsByMediaType(undefined, 'images')
-      expect(consoleErrorSpy).to.have.been.calledWith('Cannot find subject locations by media type. No subject locations.')
+      try {
+        findLocationsByMediaType(undefined, 'images')
+      } catch (error) {
+        expect(consoleErrorSpy).to.have.been.calledWith('Cannot find subject locations by media type. No subject locations.')
+      }
     })
 
     it('should return an empty array', function () {
-      const locations = findLocationsByMediaType(undefined, 'images')
-      expect(locations).to.have.lengthOf(0)
+      let locations
+      try {
+        locations = findLocationsByMediaType(undefined, 'images')
+      } catch (error) {
+        expect(locations).to.have.lengthOf(0)
+      }
     })
   })
 
@@ -100,13 +107,20 @@ describe.only('Helper > findLocationsByMediaType', function () {
     })
 
     it('should log an error message', function () {
-      findLocationsByMediaType(subject.locations)
-      expect(consoleErrorSpy).to.have.been.calledWith('Cannot find subject locations by media type. No media type defined.')
+      try {
+        findLocationsByMediaType(subject.locations)
+      } catch (error) {
+        expect(consoleErrorSpy).to.have.been.calledWith('Cannot find subject locations by media type. No media type defined.')
+      }
     })
 
     it('should return an empty array', function () {
-      const locations = findLocationsByMediaType(subject.locations)
-      expect(locations).to.have.lengthOf(0)
+      let locations
+      try {
+        locations = findLocationsByMediaType(subject.locations)
+      } catch (error) {
+        expect(locations).to.have.lengthOf(0)
+      }
     })
   })
 })

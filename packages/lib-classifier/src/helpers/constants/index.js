@@ -1,1 +1,1 @@
-export { mimeTypeRegexes as mimeTypeRegexes } from './constants'
+export * from './constants'
