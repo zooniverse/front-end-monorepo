@@ -1,0 +1,1 @@
+export { mimeTypeRegexes as mimeTypeRegexes } from './constants'
