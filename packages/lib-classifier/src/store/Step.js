@@ -2,7 +2,14 @@ import { types } from 'mobx-state-tree'
 import taskRegistry, { taskModels } from '@plugins/tasks'
 
 function taskDispatcher (snapshot) {
-  return taskRegistry.get(snapshot.type).TaskModel
+  switch (snapshot.type) {
+    case 'dropdown': {
+      return taskRegistry.get('dropdown-simple').TaskModel
+    }
+    default: {
+      return taskRegistry.get(snapshot.type).TaskModel
+    }
+  }
 }
 
 const GenericTask = types.union({ dispatcher: taskDispatcher }, ...taskModels)

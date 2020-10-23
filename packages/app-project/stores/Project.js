@@ -8,6 +8,8 @@ const Project = types
   .model('Project', {
     avatar: types.frozen({}),
     background: types.frozen({}),
+    beta_approved: types.optional(types.boolean, false),
+    beta_requested: types.optional(types.boolean, false),
     classifications_count: types.optional(types.number, 0),
     classifiers_count: types.optional(types.number, 0),
     configuration: types.frozen({}),
@@ -20,8 +22,9 @@ const Project = types
     introduction: types.maybeNull(types.string),
     launch_approved: types.optional(types.boolean, false),
     links: types.maybeNull(types.frozen({})),
+    live: types.optional(types.boolean, false),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
-    researcher_quote: types.maybeNull(types.string),
+    researcher_quote: types.optional(types.string, ''),
     owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
@@ -41,6 +44,10 @@ const Project = types
 
     get isComplete () {
       return self.completeness === 1
+    },
+
+    get inBeta () {
+      return !self.launch_approved && self.beta_approved
     }
   }))
 
@@ -67,6 +74,8 @@ const Project = types
           self.owners = get(linked, 'owners', [])
 
           const properties = [
+            'beta_approved',
+            'beta_requested',
             'classifications_count',
             'classifiers_count',
             'completeness',
@@ -78,6 +87,7 @@ const Project = types
             'introduction',
             'launch_approved',
             'links',
+            'live',
             'researcher_quote',
             'retired_subjects_count',
             'slug',
