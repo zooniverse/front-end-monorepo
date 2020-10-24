@@ -20,12 +20,16 @@ export default observer(function SubTaskPopupContainer (props) {
   const {
     activeMark
   } = useStores()
+  const {
+    onDelete
+  } = props
 
   if (!activeMark || !activeMark.subTaskVisibility) return null
 
   return (
     <SubTaskPopup
       activeMark={activeMark}
+      onDelete={onDelete}
     />
   )
 })
