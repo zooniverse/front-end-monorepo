@@ -16,7 +16,10 @@ describe('Component > InteractionLayerContainer', function () {
   }, {
     task: 'T3',
     value: [
-      { id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200 }
+      { id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200 },
+      { id: 'line2', frame: 0, toolIndex: 0, x1: 200, y1: 300, x2: 250, y2: 300 },
+      { id: 'line3', frame: 1, toolIndex: 0, x1: 150, y1: 250, x2: 100, y2: 250 },
+      { id: 'line4', frame: 1, toolIndex: 0, x1: 250, y1: 350, x2: 200, y2: 350 }
     ]
   }]
   const drawingTask = {
@@ -56,16 +59,31 @@ describe('Component > InteractionLayerContainer', function () {
     })
   })
 
-  describe('with annotations from previous reduced drawing or transcription tasks', function () {
+  describe('with annotations from previous drawing or transcription tasks', function () {
     it('should render DrawingToolMarks', function () {
       const wrapper = shallow(
         <InteractionLayerContainer.wrappedComponent
           interactionTaskAnnotations={drawingAnnotations}
+          frame={0}
           height={height}
           width={width}
         />
       )
       expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
+    })
+
+    it('should render DrawingToolMarks with marks per frame', function () {
+      const wrapper = shallow(
+        <InteractionLayerContainer.wrappedComponent
+          interactionTaskAnnotations={drawingAnnotations}
+          frame={0}
+          height={height}
+          width={width}
+        />
+      )
+
+      expect(wrapper.find(DrawingToolMarks).first().prop('marks')).to.have.lengthOf(1)
+      expect(wrapper.find(DrawingToolMarks).last().prop('marks')).to.have.lengthOf(2)
     })
   })
 

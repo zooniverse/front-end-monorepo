@@ -186,10 +186,25 @@ describe('Component > TranscribedLines', function () {
   })
 
   describe('incomplete lines', function () {
-    let lines
+    const currentMock = {
+      current: {
+        blur: sinon.spy(),
+        getBoundingClientRect: sinon.spy()
+      }
+    }
+    let lines, refStub 
     before(function () {
+      refStub = sinon.stub(React, 'createRef').callsFake(() => { return currentMock })
       wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
       lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+    })
+
+    afterEach(function () {
+      currentMock.current.blur.resetHistory()
+    })
+
+    after(function () {
+      refStub.restore()
     })
 
     it('should render', function () {
@@ -250,6 +265,12 @@ describe('Component > TranscribedLines', function () {
         expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
         task.setActiveMark(undefined)
       })
+    })
+
+    it('should call blur on the transcribed line', function () {
+      const line = wrapper.find({ 'aria-describedby': `transcribed-0` })
+      line.simulate('click')
+      expect(currentMock.current.blur).to.have.been.calledOnce()
     })
 
     it('should have an explanatory tooltip', function () {

@@ -23,11 +23,11 @@ const StyledLabel = styled.span`
 `
 
 function Label (props) {
-  const { colors, label, seriesIndex, seriesOptions, visibleSeries } = props
+  const { colors, label, seriesIndex, seriesOptions, highlighted } = props
   const Glyph = getDataSeriesSymbol(seriesIndex)
   const color = getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
-    visibleSeries,
+    highlighted,
     seriesOptions,
     seriesIndex,
     themeColors: colors
@@ -36,7 +36,13 @@ function Label (props) {
   return (
     <StyledLabel>
       <svg viewBox='0 0 10 10' width='15px'>
-        <Glyph left={5} fill={color} size={20} top={5} />
+        <Glyph
+          left={5}
+          fill={color}
+          size={20}
+          stroke={(highlighted) ? 'black' : colors['light-4']}
+          top={5}
+        />
       </svg>
       <SpacedText
         style={{ whiteSpace: 'nowrap' }}
@@ -54,7 +60,12 @@ Label.propTypes = {
   label: PropTypes.string.isRequired,
   seriesIndex: PropTypes.number.isRequired,
   seriesOptions: PropTypes.object,
-  visibleSeries: PropTypes.array
+  highlighted: PropTypes.bool
+}
+
+Label.defaultProps = {
+  seriesOptions: {},
+  highlighted: true
 }
 
 export default Label

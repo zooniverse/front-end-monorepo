@@ -24,13 +24,17 @@ ES6
 import { ZooFooter } from '@zooniverse/react-components';
 ```
 
+## Run
+
+`yarn start` to run the storybook locally on (https://localhost:6006).
+
 ## Tests
 
-`npm test` to run mocha tests.
+`yarn test` to run mocha tests.
 
 ## Contributing
 
-Components should be added to the `src/components` folder and an export to `src/index.js`. Each component should be tested, documented readme, and have a storybook example added. 
+Components should be added to the `src/components` folder and an export to `src/index.js`. Each component should be tested, documented readme, and have a storybook example added.
 
 ### Technologies and tools we use
 

@@ -1,1 +1,1 @@
-export { default } from './StandardLayout'
+export { default } from './StandardLayoutContainer'

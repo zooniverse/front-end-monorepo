@@ -15,7 +15,7 @@ describe('Model > TextTask', function () {
       { label: 'no', next: 'S3' }
     ],
     question: 'Do you exist?',
-    required: false,
+    required: '',
     taskKey: 'T1',
     type: 'single'
   }
@@ -34,6 +34,27 @@ describe('Model > TextTask', function () {
       errorThrown = true
     }
     expect(errorThrown).to.be.true()
+  })
+
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = TextTask.TaskModel.create(textTask)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T0')
+      expect(annotation.taskType).to.equal('text')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
   })
 
   describe('with a classification', function () {

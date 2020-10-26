@@ -1,13 +1,12 @@
 import React from 'react'
-import sinon from 'sinon'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import { Factory } from 'rosie'
 import SubjectViewerStore from '@store/SubjectViewerStore'
-import SingleImageViewer, { SingleImageViewerContainer } from './SingleImageViewerContainer'
-import { AnnotateButton, MoveButton, ResetButton, RotateButton, ZoomInButton, ZoomOutButton } from '../../../ImageToolbar/components/'
-import withKeyZoom from '../../../withKeyZoom'
+import SingleImageViewer from '@viewers/components/SingleImageViewer'
+import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
@@ -17,17 +16,23 @@ const config = {
   }
 }
 
-const subject = {
+const subject = Factory.build('subject', {
   locations: [
     { 'image/jpeg': 'http://placekitten.com/500/300' }
   ]
-}
+})
 
 const mockStore = {
   classifications: {
     active: {
       annotations: new Map()
     }
+  },
+  fieldGuide: {
+    setModalVisibility: () => {}
+  },
+  subjects: {
+    active: subject
   },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
@@ -54,9 +59,7 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
     return (
       <ViewerContext theme={zooTheme}>
         <Box height='medium' width='large'>
-          <SingleImageViewer
-            subject={subject}
-          />
+          <SingleImageViewer />
         </Box>
       </ViewerContext>
     )
@@ -66,29 +69,17 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
     return (
       <ViewerContext theme={darkZooTheme}>
         <Box height='medium' width='large'>
-          <SingleImageViewer
-            subject={subject}
-          />
+          <SingleImageViewer />
         </Box>
       </ViewerContext>
     )
   }, darkThemeConfig)
   .add('with zoom controls', () => {
-    const Toolbar = withKeyZoom(Box)
     return (
       <ViewerContext theme={zooTheme}>
-        <Toolbar direction='row'>
-          <AnnotateButton />
-          <MoveButton />
-          <ZoomInButton />
-          <ZoomOutButton />
-          <RotateButton />
-          <ResetButton />
-        </Toolbar>
-        <Box height='medium' width='large'>
-          <SingleImageViewer
-            subject={subject}
-          />
+        <Box direction='row' height='500px' width='large'>
+          <SingleImageViewer />
+          <ImageToolbar />
         </Box>
       </ViewerContext>
     )

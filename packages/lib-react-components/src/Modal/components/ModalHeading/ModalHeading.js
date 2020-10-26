@@ -9,18 +9,13 @@ const StyledBox = styled(Box)`
   min-height: 30px;
 `
 
-const Heading = styled.h2`
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  letter-spacing: 0.18em;
-  margin: 0;
-  text-shadow: 0 2px 2px rgba(0,0,0,0.22);
-  text-transform: uppercase;
+const StyledHeading = styled(SpacedHeading)`
+  line-height: 0;
 `
 
 function ModalHeading ({ background = 'brand', color = 'neutral-6', className = '', closeFn, title = '' }) {
   const horizontalPad = (title) ? 'medium' : 'xsmall'
+  const headingMargin = 'none'
   return (
     <StyledBox
       align='center'
@@ -32,10 +27,16 @@ function ModalHeading ({ background = 'brand', color = 'neutral-6', className = 
       pad={{ horizontal: horizontalPad, vertical: 'none' }}
     >
       {title &&
-        <SpacedHeading color={color}>
+        <StyledHeading
+          color={color}
+          margin={headingMargin}
+        >
           {title}
-        </SpacedHeading>}
-      <CloseButton closeFn={closeFn} />
+        </StyledHeading>}
+      <CloseButton
+        closeFn={closeFn}
+        color={color}
+      />
     </StyledBox>
   )
 }
@@ -49,3 +50,4 @@ ModalHeading.propTypes = {
 }
 
 export default ModalHeading
+export { StyledHeading }

@@ -31,7 +31,11 @@ ModalBody.propTypes = {
 ModalBody.defaultProps = {
   className: '',
   overflow: 'auto',
-  pad: 'medium'
+  pad: {
+    bottom: 'medium',
+    horizontal: 'medium',
+    top: 'small'
+  }
 }
 
 export default ModalBody

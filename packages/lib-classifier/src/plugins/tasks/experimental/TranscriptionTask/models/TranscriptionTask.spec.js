@@ -6,7 +6,7 @@ const details = [
   {
     type: 'text',
     instruction: 'Transcribe something',
-    required: true
+    required: 'true'
   }
 ]
 
@@ -49,6 +49,27 @@ describe('Model > TranscriptionTask', function () {
     const transcriptionTask = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
     const [textSubtask] = transcriptionTask.tools[0].tasks
     expect(textSubtask.taskKey).to.equal('T3.0.0')
+  })
+
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T3')
+      expect(annotation.taskType).to.equal('transcription')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
   })
 
   describe('drawn marks', function () {

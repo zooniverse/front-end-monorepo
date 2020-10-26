@@ -7,7 +7,7 @@ import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
-import VisibilitySeriesCheckBoxes from './components/VisibilitySeriesCheckBoxes'
+import HighlightSeriesCheckBoxes from './components/HighlightSeriesCheckBoxes'
 import PhaseFocusControls from './components/PhaseFocusControls'
 import PeriodMultipleControls from './components/PeriodMultipleControls'
 
@@ -32,14 +32,14 @@ function Controls(props) {
   const {
     data,
     gridArea,
+    highlightedSeries,
     periodMultiple,
     periodMultipleOptions,
     phaseFocusedSeries,
-    setSeriesVisibility,
+    setSeriesHighlight,
     setSeriesPhaseFocus,
     setPeriodMultiple,
     setYAxisInversion,
-    visibleSeries
   } = props
 
   const radioButtonOptions = periodMultipleOptions.map((option) => {
@@ -51,7 +51,11 @@ function Controls(props) {
 
   return (
     <Box
-      background='neutral-6'
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
       direction='row'
       justify='between'
       gridArea={gridArea}
@@ -88,13 +92,13 @@ function Controls(props) {
         </SpacedText>
       </Box>
       <Box justify='between'>
-        <VisibilitySeriesCheckBoxes
+        <HighlightSeriesCheckBoxes
           data={data}
-          visibleSeries={visibleSeries}
-          setSeriesVisibility={setSeriesVisibility}
+          highlightedSeries={highlightedSeries}
+          setSeriesHighlight={setSeriesHighlight}
         />
         <SpacedText size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.visibility')}
+          {counterpart('VariableStarViewer.highlight')}
         </SpacedText>
       </Box>
     </Box>
@@ -104,25 +108,25 @@ function Controls(props) {
 Controls.defaultProps = {
   data: [],
   gridArea: '',
+  highlightedSeries: [],
   periodMultiple: 1,
   periodMultipleOptions: ['0.5', '1', '2', '3'],
   phaseFocusedSeries: 0,
-  setSeriesVisibility: () => {},
+  setSeriesHighlight: () => {},
   setPeriodMultiple: () => {},
   setYAxisInversion: () => {},
-  visibleSeries: []
 }
 
 Controls.propTypes = {
   data: PropTypes.array,
   gridArea: PropTypes.string,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.object),
   periodMultiple: PropTypes.number,
   periodMultipleOptions: PropTypes.arrayOf(PropTypes.string),
   phaseFocusedSeries: PropTypes.number,
-  setSeriesVisibility: PropTypes.func,
+  setSeriesHighlight: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setYAxisInversion: PropTypes.func,
-  visibleSeries: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default withThemeContext(Controls, theme)

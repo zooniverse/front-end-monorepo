@@ -27,18 +27,12 @@ export default function getDataSeriesColor({
     seriesIndex: seriesIndex = 0,
     themeColors: themeColors = {},
     defaultColors: defaultColors = [],
-    visibleSeries: visibleSeries = []
+    highlighted: highlighted = false
 } = {}) {
   const { color } = seriesOptions
 
-  if (visibleSeries && visibleSeries[seriesIndex]) {
-    const [visible] = Object.values(visibleSeries[seriesIndex]) || []
-    if (visible) {
-      return whichColor(color, themeColors, defaultColors, seriesIndex)
-    } else {
-      return (themeColors && themeColors['light-4']) ? validateColor(themeColors['light-4']) : whichColor(color, themeColors, defaultColors, seriesIndex)
-    }
+  if (highlighted) {
+    return whichColor(color, themeColors, defaultColors, seriesIndex)
   }
-
-  return whichColor(color, themeColors, defaultColors, seriesIndex)
+  return 'transparent'
 }

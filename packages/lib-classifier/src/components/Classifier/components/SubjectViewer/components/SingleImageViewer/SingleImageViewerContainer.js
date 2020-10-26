@@ -12,24 +12,6 @@ import SingleImageViewer from './SingleImageViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
 
-function storeMapper (stores) {
-  const {
-    enableRotation,
-    move,
-    rotation,
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    enableRotation,
-    move,
-    rotation,
-    setOnZoom,
-    setOnPan
-  }
-}
-
 const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
@@ -115,7 +97,8 @@ class SingleImageViewerContainer extends React.Component {
       onKeyDown,
       rotation,
       setOnPan,
-      setOnZoom
+      setOnZoom,
+      title
     } = this.props
     const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
@@ -161,6 +144,7 @@ class SingleImageViewerContainer extends React.Component {
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
             rotate={rotation}
+            title={title}
             width={naturalWidth}
           >
             <g ref={this.subjectImage}>
@@ -182,10 +166,15 @@ SingleImageViewerContainer.propTypes = {
   move: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  rotation: PropTypes.number,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
+  }),
+  title: PropTypes.shape({
+    id: PropTypes.string,
+    text: PropTypes.string
   })
 }
 
@@ -197,14 +186,11 @@ SingleImageViewerContainer.defaultProps = {
   move: false,
   onError: () => true,
   onReady: () => true,
+  rotation: 0,
   setOnPan: () => true,
-  setOnZoom: () => true
+  setOnZoom: () => true,
+  title: {}
 }
 
-@inject(storeMapper)
-@withKeyZoom
-@observer
-class DecoratedSingleImageViewerContainer extends SingleImageViewerContainer { }
-
-export default DecoratedSingleImageViewerContainer
+export default withKeyZoom(SingleImageViewerContainer)
 export { DraggableImage, SingleImageViewerContainer }

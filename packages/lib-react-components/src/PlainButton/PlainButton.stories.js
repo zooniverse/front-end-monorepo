@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react'
 import { withActions } from '@storybook/addon-actions'
 import { withKnobs, text } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import { Add } from 'grommet-icons'
 import React from 'react'
 
@@ -20,14 +20,32 @@ storiesOf('PlainButton', module)
   .addDecorator(withKnobs)
 
   .add('Light theme (default)', () => (
-    <Grommet theme={zooTheme}>
-      <PlainButton text={text('Text', 'Click me')} />
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box align='center' justify='center' height='small' width='small'>
+        <PlainButton text={text('Text', 'Click me')} />
+      </Box>
     </Grommet>
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet theme={zooTheme}>
-      <PlainButton text={text('Text', 'Click me')} />
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={Object.assign({}, zooTheme, { dark: true })}
+      themeMode='dark'
+    >
+      <Box align='center' justify='center' height='small' width='small'>
+        <PlainButton text={text('Text', 'Click me')} />
+      </Box>
     </Grommet>
   ), config)
 
@@ -45,6 +63,15 @@ storiesOf('PlainButton', module)
 
   .add('Custom label size', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton disabled labelSize='small' text={text('Text', 'Click me')} />
+      <PlainButton labelSize={text('label size', 'xsmall')} text={text('Text', 'Click me')} />
+    </Grommet>
+  ), config)
+
+  .add('Custom color', () => (
+    <Grommet theme={zooTheme}>
+      <PlainButton
+        color={text('Color:', '#FF0000')}
+        text={text('Text', 'Click me')}
+      />
     </Grommet>
   ), config)

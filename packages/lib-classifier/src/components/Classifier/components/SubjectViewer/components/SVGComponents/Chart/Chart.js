@@ -3,7 +3,12 @@ import React from 'react'
 
 const Chart = React.forwardRef(function Chart ({ children, height, width, ...rest }, ref) {
   return (
-    <svg height={height} ref={ref} width={width} {...rest}>
+    <svg
+      height={height}
+      ref={ref}
+      width={width}
+      {...rest}
+    >
       {children}
     </svg>
   )

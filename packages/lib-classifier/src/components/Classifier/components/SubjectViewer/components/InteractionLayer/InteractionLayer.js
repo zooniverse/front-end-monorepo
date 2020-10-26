@@ -8,7 +8,7 @@ import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 
 const StyledRect = styled('rect')`
-  ${props => props.disabled ? 
+  ${props => props.disabled ?
     css`cursor: not-allowed;` :
     css`cursor: crosshair;`
   }
@@ -57,12 +57,24 @@ function InteractionLayer ({
     if (disabled || move) {
       return true
     }
+    let activeMark
 
-    const activeMark = activeTool.createMark({
+    if (!activeTool.type) {
+      return false;
+    }
+
+    if (creating) {
+      activeMark = activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
+      if (activeMark.finished) setCreating(false)
+      return true
+    }
+
+    activeMark = activeTool.createMark({
       id: cuid(),
       frame,
       toolIndex: activeToolIndex
     })
+
     activeMark.initialPosition(convertEvent(event))
     setActiveMark(activeMark)
     setCreating(true)
@@ -78,7 +90,7 @@ function InteractionLayer ({
     }
   }
 
-  function onFinish (event, node) {
+  function onFinish (event = {}, node) {
     const { target, pointerId } = event
 
     setCreating(false)
@@ -92,6 +104,10 @@ function InteractionLayer ({
     if (target && pointerId) {
       target.releasePointerCapture(pointerId)
     }
+  }
+
+  function inactivateMark () {
+    setActiveMark(undefined)
   }
 
   return (
@@ -110,14 +126,15 @@ function InteractionLayer ({
       <TranscribedLines
         scale={scale}
       />
-      <SubTaskPopup />
+      <SubTaskPopup
+        onDelete={inactivateMark}
+      />
       {marks &&
         <DrawingToolMarks
           activeMark={activeMark}
           marks={marks}
-          onDelete={() => {
-            setActiveMark(undefined)
-          }}
+          onDelete={inactivateMark}
+          onDeselectMark={inactivateMark}
           onFinish={onFinish}
           onSelectMark={mark => setActiveMark(mark)}
           onMove={(mark, difference) => mark.move(difference)}

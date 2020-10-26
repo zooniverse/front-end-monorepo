@@ -19,10 +19,16 @@ storiesOf('CloseButton', module)
   .addDecorator(withActions('click button'))
 
   .add('Light theme (default)', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
       <Box
         align='center'
-        background={{ light: 'light-1', dark: 'dark-1' }}
         height='small'
         justify='center'
         width='small'
@@ -33,10 +39,16 @@ storiesOf('CloseButton', module)
   ), config)
 
   .add('Dark theme', () => (
-    <Grommet theme={darkZooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={darkZooTheme}
+      themeMode='dark'
+    >
       <Box
         align='center'
-        background={{ light: 'light-1', dark: 'dark-1' }}
         height='small'
         justify='center'
         width='small'
@@ -55,16 +67,21 @@ storiesOf('CloseButton', module)
         justify='center'
         width='small'
       >
-        <CloseButton closeFn={() => { }} />
+        <CloseButton color='neutral-6' closeFn={() => { }} />
       </Box>
     </Grommet>
   ), config)
 
   .add('Disabled', () => (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+    >
       <Box
         align='center'
-        background={{ light: 'light-1', dark: 'dark-1' }}
         height='small'
         justify='center'
         width='small'

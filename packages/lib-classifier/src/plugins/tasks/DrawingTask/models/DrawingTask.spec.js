@@ -7,18 +7,18 @@ const details = [
     type: 'multiple',
     question: 'which fruit?',
     answers: ['apples', 'oranges', 'pears'],
-    required: false
+    required: ''
   },
   {
     type: 'single',
     question: 'how many?',
     answers: ['one', 'two', 'three'],
-    required: false
+    required: ''
   },
   {
     type: 'text',
     instruction: 'Transcribe something',
-    required: false
+    required: ''
   }
 ]
 
@@ -68,6 +68,27 @@ describe('Model > DrawingTask', function () {
     const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     const subtasks = drawingTask.tools[0].tasks
     subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
+  })
+
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T3')
+      expect(annotation.taskType).to.equal('drawing')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
   })
 
   describe('drawn marks', function () {

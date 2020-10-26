@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import VXZoom from '../../../SVGComponents/VXZoom'
-import { getDataExtent, transformXScale, transformYScale } from '../../helpers/utils'
+import {
+  getDataExtent,
+  left,
+  transformXScale,
+  transformYScale,
+  top
+} from '../../helpers/utils'
 import { PAN_DISTANCE } from '../../helpers/constants'
 import ScatterPlot from '../ScatterPlot'
+
 
 class ZoomingScatterPlot extends Component {
   constructor (props) {
@@ -182,9 +189,24 @@ class ZoomingScatterPlot extends Component {
   }
 
   render () {
+    const {
+      margin,
+      parentHeight,
+      parentWidth,
+      tickDirection
+    } = this.props
+    const height = parentHeight - margin.bottom - margin.top
+    const width = parentWidth - margin.right - margin.left
+    const leftPosition = left(tickDirection, margin)
+    const topPosition = top(tickDirection, margin)
+
     return (
       <VXZoom
         constrain={this.constrain}
+        height={height}
+        left={leftPosition}
+        top={topPosition}
+        width={width}
         zoomingComponent={ScatterPlot}
         {...this.props}
       />

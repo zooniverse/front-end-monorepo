@@ -7,7 +7,7 @@ const multipleChoiceTask = {
     { label: 'flowers', _key: Math.random() }
   ],
   question: 'What do you see?',
-  required: false,
+  required: '',
   taskKey: 'T2',
   type: 'multiple'
 }
@@ -27,6 +27,27 @@ describe('Model > MultipleChoiceTask', function () {
       errorThrown = true
     }
     expect(errorThrown).to.be.true()
+  })
+
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T2')
+      expect(annotation.taskType).to.equal('multiple')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
   })
 
   describe('with an annotation', function () {
@@ -60,7 +81,7 @@ describe('Model > MultipleChoiceTask', function () {
     let task
 
     before(function () {
-      const requiredTask = Object.assign({}, multipleChoiceTask, { required: true })
+      const requiredTask = Object.assign({}, multipleChoiceTask, { required: 'true' })
       task = MultipleChoiceTask.TaskModel.create(requiredTask)
       const annotation = task.defaultAnnotation
       const store = types.model('MockStore', {

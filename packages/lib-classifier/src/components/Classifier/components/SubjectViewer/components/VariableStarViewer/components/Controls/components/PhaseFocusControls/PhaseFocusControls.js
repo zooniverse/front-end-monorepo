@@ -23,9 +23,9 @@ function PhaseFocusControls(props) {
   return (
     <Box direction='column'  pad='none'>
       {data.map((series, seriesIndex) => {
-        const checked = phaseFocusedSeries === seriesIndex
-        const label = counterpart('VariableStarViewer.label', { id: seriesIndex + 1 })
         const { seriesOptions } = series
+        const checked = phaseFocusedSeries === seriesIndex
+        const label = seriesOptions?.label || counterpart('VariableStarViewer.label', { id: seriesIndex + 1 })
 
         return (
           <RadioButton
@@ -37,6 +37,7 @@ function PhaseFocusControls(props) {
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
                 label={label}
+                visible={true}
               />
             }
             name='series-phase-focus'

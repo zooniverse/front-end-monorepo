@@ -8,7 +8,7 @@ describe('SingleChoiceTask', function () {
   const task = Task.TaskModel.create({
     answers: [{ label: 'yes' }, { label: 'no' }],
     question: 'Is there a cat?',
-    required: true,
+    required: 'true',
     taskKey: 'init',
     type: 'single'
   })

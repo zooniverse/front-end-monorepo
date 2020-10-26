@@ -4,12 +4,12 @@ import sinon from 'sinon'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import Controls, { FlipButton } from './Controls'
-import VisibilitySeriesCheckBoxes from './components/VisibilitySeriesCheckBoxes'
+import HighlightSeriesCheckBoxes from './components/HighlightSeriesCheckBoxes'
 import PeriodMultipleControls from './components/PeriodMultipleControls'
 import PhaseFocusControls from './components/PhaseFocusControls'
 import variableStar from '../../../../helpers/mockLightCurves/variableStar'
 
-const visibleSeriesMock = [
+const highlightedSeriesMock = [
   { foo: true },
   { bar: true }
 ]
@@ -39,7 +39,7 @@ describe('VariableStarViewer > Component > Controls', function () {
     let wrapper
     before(function () {
       wrapper = mount(
-        <Controls data={variableStar.scatterPlot.data} periodMultiple={2} setPeriodMultiple={sinon.spy()} />,
+        <Controls data={variableStar.data.scatterPlot.data} periodMultiple={2} setPeriodMultiple={sinon.spy()} />,
         {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -62,7 +62,7 @@ describe('VariableStarViewer > Component > Controls', function () {
     let wrapper
     before(function () {
       wrapper = mount(
-        <Controls data={variableStar.scatterPlot.data} phaseFocusedSeries={1} setSeriesPhaseFocus={sinon.spy()} />,
+        <Controls data={variableStar.data.scatterPlot.data} phaseFocusedSeries={1} setSeriesPhaseFocus={sinon.spy()} />,
         {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -82,26 +82,26 @@ describe('VariableStarViewer > Component > Controls', function () {
     })
   })
 
-  describe('visible series checkbox controls', function () {
+  describe('highlighted series checkbox controls', function () {
     let wrapper
     before(function () {
       wrapper = mount(
-        <Controls data={variableStar.scatterPlot.data} visibleSeries={visibleSeriesMock} setSeriesVisibility={sinon.spy()} />,
+        <Controls data={variableStar.data.scatterPlot.data} highlightedSeries={highlightedSeriesMock} setSeriesHighlight={sinon.spy()} />,
         {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         }
       )
     })
-    it('should render VisibilitySeriesCheckBoxes', function () {
-      expect(wrapper.find(VisibilitySeriesCheckBoxes)).to.have.lengthOf(1)
+    it('should render HighlightSeriesCheckBoxes', function () {
+      expect(wrapper.find(HighlightSeriesCheckBoxes)).to.have.lengthOf(1)
     })
 
-    it('should pass the data, visibleSeries, and setSeriesVisibility props', function () {
-      const visibilityControls = wrapper.find(VisibilitySeriesCheckBoxes)
-      expect(visibilityControls.props().data).to.deep.equal(wrapper.props().data)
-      expect(visibilityControls.props().visibleSeries).to.deep.equal(wrapper.props().visibleSeries)
-      expect(visibilityControls.props().setSeriesVisibility).to.deep.equal(wrapper.props().setSeriesVisibility)
+    it('should pass the data, highlightedSeries, and setSeriesHighlight props', function () {
+      const highlightControls = wrapper.find(HighlightSeriesCheckBoxes)
+      expect(highlightControls.props().data).to.deep.equal(wrapper.props().data)
+      expect(highlightControls.props().highlightedSeries).to.deep.equal(wrapper.props().highlightedSeries)
+      expect(highlightControls.props().setSeriesHighlight).to.deep.equal(wrapper.props().setSeriesHighlight)
     })
   })
 })

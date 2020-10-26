@@ -29,6 +29,27 @@ describe('Model > DataVisAnnotationTask', function () {
     expect(model).to.be.an('object')
   })
 
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = DataVisAnnotationTask.create(dataVisAnnotationTaskSnapshot)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T3')
+      expect(annotation.taskType).to.equal('dataVisAnnotation')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
+  })
+
   describe('the active tool', function () {
     it('should default to the first tool', function () {
       expect(model.activeTool).to.equal(model.tools[0])

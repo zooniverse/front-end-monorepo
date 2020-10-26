@@ -5,11 +5,19 @@ import fetchWorkflowsHelper from './fetchWorkflowsHelper'
 const WORKFLOWS = [
   {
     id: '1',
-    completeness: 0.4
+    completeness: 0.4,
+    grouped: false,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
   },
   {
     id: '2',
-    completeness: 0.7
+    completeness: 0.7,
+    grouped: false,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
   }
 ]
 
@@ -29,6 +37,14 @@ const TRANSLATIONS = [
   }
 ]
 
+function subjectSet(id) {
+  return {
+    id,
+    display_name: `test set ${id}`,
+    set_member_subjects_count: 10
+  }
+}
+
 describe('Helpers > fetchWorkflowsHelper', function () {
   it('should provide the expected result with a single workflow', async function () {
     const scope = nock('https://panoptes-staging.zooniverse.org/api')
@@ -40,12 +56,31 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       .get('/workflows')
       .query(true)
       .reply(200, {
-        workflows: WORKFLOWS.slice(0, 1)
+        workflows: WORKFLOWS.slice(0, 1),
+        linked: { 
+          subject_sets: [
+            subjectSet('1'),
+            subjectSet('2'),
+            subjectSet('3')
+          ]
+        }
       })
 
     const result = await fetchWorkflowsHelper('en', ['1'])
+    const expectedWorkflow = Object.assign({}, WORKFLOWS[0], { displayName: 'Foo' })
     expect(result).to.deep.equal([
-      { completeness: 0.4, default: true, id: '1', displayName: 'Foo' }
+      {
+        completeness: 0.4,
+        default: true,
+        grouped: false,
+        id: '1',
+        displayName: 'Foo',
+        subjectSets: [
+          subjectSet('1'),
+          subjectSet('2'),
+          subjectSet('3')
+        ]
+      }
     ])
   })
 
@@ -59,13 +94,42 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       .get('/workflows')
       .query(true)
       .reply(200, {
-        workflows: WORKFLOWS
+        workflows: WORKFLOWS,
+        linked: { 
+          subject_sets: [
+            subjectSet('1'),
+            subjectSet('2'),
+            subjectSet('3')
+          ]
+        }
       })
 
     const result = await fetchWorkflowsHelper('en', ['1', '2'])
     expect(result).to.deep.equal([
-      { completeness: 0.4, default: false, id: '1', displayName: 'Foo' },
-      { completeness: 0.7, default: false, id: '2', displayName: 'Bar' }
+      {
+        completeness: 0.4,
+        default: false,
+        grouped: false,
+        id: '1',
+        displayName: 'Foo',
+        subjectSets: [
+          subjectSet('1'),
+          subjectSet('2'),
+          subjectSet('3')
+        ]
+      },
+      {
+        completeness: 0.7,
+        default: false,
+        grouped: false,
+        id: '2',
+        displayName: 'Bar',
+        subjectSets: [
+          subjectSet('1'),
+          subjectSet('2'),
+          subjectSet('3')
+        ]
+      }
     ])
   })
 
@@ -80,14 +144,62 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS,
+          linked: { 
+            subject_sets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
         })
 
       const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
       expect(result).to.deep.equal([
-        { completeness: 0.4, default: false, id: '1', displayName: 'Foo' },
-        { completeness: 0.7, default: true, id: '2', displayName: 'Bar' }
+        {
+          completeness: 0.4,
+          default: false,
+          grouped: false,
+          id: '1',
+          displayName: 'Foo',
+          subjectSets: [
+            subjectSet('1'),
+            subjectSet('2'),
+            subjectSet('3')
+          ]
+        },
+        {
+          completeness: 0.7,
+          default: true,
+          grouped: false,
+          id: '2',
+          displayName: 'Bar',
+          subjectSets: [
+            subjectSet('1'),
+            subjectSet('2'),
+            subjectSet('3')
+          ]
+        }
       ])
+    })
+  })
+
+  describe('when all active workflows are complete', function () {
+    it('should return an empty array.', async function () {
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS
+        })
+        .get('/workflows')
+        .query(true)
+        .reply(200, {
+          workflows: []
+        })
+
+      const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+      expect(result).to.be.empty()
     })
   })
 
@@ -103,7 +215,14 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS,
+          linked: { 
+            subject_sets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
         })
 
       try {

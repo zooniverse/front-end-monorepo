@@ -1,22 +1,9 @@
-import { inject } from 'mobx-react'
-import React, { Component, forwardRef } from 'react'
-
-function storeMapper (stores) {
-  const {
-    onPan,
-    zoomIn,
-    zoomOut
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    onPan,
-    zoomIn,
-    zoomOut
-  }
-}
+import { MobXProviderContext } from 'mobx-react'
+import React, { Component, forwardRef, useContext } from 'react'
 
 function withKeyZoom (WrappedComponent) {
-  @inject(storeMapper)
+  const ALLOWED_TAGS = ['svg', 'button', 'rect']
+
   class KeyZoom extends Component {
     constructor () {
       super()
@@ -24,9 +11,17 @@ function withKeyZoom (WrappedComponent) {
     }
 
     onKeyDown (e) {
-      const { onPan, zoomIn, zoomOut } = this.props
+      const { classifierStore } = this.context
+      const {
+        panLeft,
+        panRight,
+        panUp,
+        panDown,
+        zoomIn,
+        zoomOut
+      } = classifierStore.subjectViewer
       const htmlTag = e.target?.tagName.toLowerCase()
-      if (htmlTag === 'svg' || htmlTag === 'button') {
+      if (ALLOWED_TAGS.includes(htmlTag)) {
         switch (e.key) {
           case '+':
           case '=': {
@@ -40,23 +35,23 @@ function withKeyZoom (WrappedComponent) {
           }
           case 'ArrowRight': {
             e.preventDefault()
-            onPan(-1, 0)
-            return true
+            panRight()
+            return false
           }
           case 'ArrowLeft': {
             e.preventDefault()
-            onPan(1, 0)
-            return true
+            panLeft()
+            return false
           }
           case 'ArrowUp': {
             e.preventDefault()
-            onPan(0, -1)
-            return true
+            panUp()
+            return false
           }
           case 'ArrowDown': {
             e.preventDefault()
-            onPan(0, 1)
-            return true
+            panDown()
+            return false
           }
           default: {
             return true
@@ -68,14 +63,34 @@ function withKeyZoom (WrappedComponent) {
     }
 
     render () {
-      const { forwardedRef, onPan, zoomIn, zoomOut, ...props } = this.props
-      return <WrappedComponent ref={forwardedRef} onKeyDown={this.onKeyDown} {...props} />
+      const {
+        forwardedRef,
+        panLeft,
+        panRight,
+        panUp,
+        panDown,
+        zoomIn,
+        zoomOut,
+        ...props
+      } = this.props
+      return (
+        <WrappedComponent
+          ref={forwardedRef}
+          onKeyDown={this.onKeyDown}
+          {...props}
+        />
+      )
     }
   }
 
+  KeyZoom.contextType = MobXProviderContext
+
   KeyZoom.defaultProps = {
     forwardedRef: null,
-    onPan: () => true,
+    panLeft: () => true,
+    panRight: () => true,
+    panUp: () => true,
+    panDown: () => true,
     zoomIn: () => true,
     zoomOut: () => true
   }

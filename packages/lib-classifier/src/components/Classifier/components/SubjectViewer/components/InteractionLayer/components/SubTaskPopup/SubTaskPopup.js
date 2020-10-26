@@ -1,19 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { PropTypes as MobXPropTypes } from 'mobx-react'
-import { observer } from 'mobx-react'
+import counterpart from 'counterpart'
 import { Box, Paragraph } from 'grommet'
+import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { MovableModal } from '@zooniverse/react-components'
-import SaveButton from './components/SaveButton'
-import getDefaultPosition from '../../helpers/getDefaultPosition'
+
 import taskRegistry from '@plugins/tasks'
+import getDefaultPosition from '../../helpers/getDefaultPosition'
+import ConfirmModal from './components/ConfirmModal'
+import SaveButton from './components/SaveButton'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
 
 function SubTaskPopup(props) {
   const {
-    activeMark
+    activeMark,
+    onDelete
   } = props
 
   const {
@@ -24,74 +30,107 @@ function SubTaskPopup(props) {
   } = activeMark
   if (!subTaskVisibility) return null
 
+  const [confirmationState, setConfirm] = React.useState('pending')
+  const onOpenConfirm = () => setConfirm('confirming');
+  const onCloseConfirm = () => setConfirm('closed');
+
   // TODO: split render() into various asyncStates?
   const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
   const tasks = (activeMark?.tasks) ? activeMark.tasks : []
 
-  
-  function close() {
+  function deleteMark() {
+    const { tool } = activeMark
+    onCloseConfirm()
     setSubTaskVisibility(false)
+    tool.deleteMark(activeMark)
+    onDelete()
+  }
+
+  function close() {
+    const incompleteTask = tasks.some(task => !task.isComplete)
+    if (incompleteTask) {
+      onOpenConfirm()
+    } else {
+      setSubTaskVisibility(false)
+    }
   }
 
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
   return (
-    <MovableModal
-      active
-      closeFn={close}
-      headingBackground='transparent'
-      pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
-      plain
-      position='top-left'
-      rndProps={{
-        cancel: '.subtaskpopup-element-that-ignores-drag-actions',
-        minHeight: MIN_POPUP_HEIGHT,
-        minWidth: MIN_POPUP_WIDTH,
-        position: defaultPosition
-      }}
-    >
-      <Box gap='small'>
-        {tasks.map((task, index) => {
-          // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
-          // or creates a new one if one doesn't exist.
-          // The name is a bit confusing.
-          const annotation = activeMark.addAnnotation(task)
-          task.setAnnotation(annotation)
-          const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+    <>
+      <MovableModal
+        active
+        closeFn={close}
+        headingBackground='transparent'
+        pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
+        plain
+        position='top-left'
+        rndProps={{
+          cancel: '.subtaskpopup-element-that-ignores-drag-actions',
+          minHeight: MIN_POPUP_HEIGHT,
+          minWidth: MIN_POPUP_WIDTH,
+          position: defaultPosition
+        }}
+        titleColor=''
+      >
+        <Box gap='small'>
+          {tasks.map((task, index) => {
+            // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
+            // or creates a new one if one doesn't exist.
+            // The name is a bit confusing.
+            const annotation = activeMark.addAnnotation(task)
+            
+            task.setAnnotation(annotation)
+            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
 
-          if (annotation && TaskComponent) {
+            if (annotation && TaskComponent) {
+              const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'
+              return (
+                // horizontal pad for the space for the box-shadow focus style
+                // is there a better way?
+                <Box
+                  border={requiredEmphasis ? { size: 'small', color: 'tomato' }: false}
+                  className='subtaskpopup-element-that-ignores-drag-actions'
+                  key={annotation.id}
+                  overflow='auto'
+                  pad={{ horizontal: '2px' }}
+                >
+                  <TaskComponent
+                    annotation={annotation}
+                    autoFocus={(index === 0)}
+                    disabled={!ready}
+                    subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
+                    task={task}
+                  />
+                  {requiredEmphasis && (
+                    <Paragraph>
+                      <strong>{counterpart('Task.required')}</strong>
+                    </Paragraph>
+                  )}
+                </Box>
+              )
+            }
+
             return (
-              // horizontal pad for the space for the box-shadow focus style
-              // is there a better way?
-              <Box
-                className='subtaskpopup-element-that-ignores-drag-actions'
-                key={annotation.id}
-                overflow='auto'
-                pad={{ horizontal: '2px' }}
-              >
-                <TaskComponent
-                  annotation={annotation}
-                  autoFocus={(index === 0)}
-                  disabled={!ready}
-                  subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
-                  task={task}
-                />
+              <Box pad='none'>
+                <Paragraph>{counterpart('Task.notRender')}</Paragraph>
               </Box>
             )
-          }
+          })}
 
-          return (
-            <Box pad='none'>
-              <Paragraph>Task component could not be rendered.</Paragraph>
-            </Box>
-          )
-        })}
-
-        <SaveButton
-          onClick={close}
+          <SaveButton
+            onClick={close}
+          />
+        </Box>
+      </MovableModal>
+      {confirmationState === 'confirming' && (
+        <ConfirmModal
+          onClose={onCloseConfirm}
+          onDelete={deleteMark}
         />
-      </Box>
-    </MovableModal>
+      )}
+    </>
   )
 }
 
@@ -101,7 +140,8 @@ SubTaskPopup.propTypes = {
     subTaskPreviousAnnotationValues: MobXPropTypes.observableMap,
     subTaskVisibility: PropTypes.bool,
     setSubTaskVisibility: PropTypes.func
-  })
+  }),
+  onDelete: PropTypes.func
 }
 
 SubTaskPopup.defaultProps = {
@@ -110,7 +150,8 @@ SubTaskPopup.defaultProps = {
     subTaskPreviousAnnotationValues: undefined,
     subTaskVisibility: false,
     setSubTaskVisibility: () => { }
-  }
+  },
+  onDelete: () => true,
 }
 
 export default SubTaskPopup
