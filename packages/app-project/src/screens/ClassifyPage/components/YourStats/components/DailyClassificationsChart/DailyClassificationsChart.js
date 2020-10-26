@@ -38,13 +38,15 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
   const PADDING = 20
   const WIDTH = 300
   const xScale = scaleBand({
-    rangeRound: [0, WIDTH],
+    range: [0, WIDTH],
+    round: true,
     domain: stats.map(stat => stat.longLabel),
     padding: 0.1
   })
 
   const yScale = scaleLinear({
-    rangeRound: [HEIGHT - PADDING, 0],
+    range: [HEIGHT - PADDING, 0],
+    round: true,
     domain: [0, Math.max(...stats.map(stat => stat.count), 10)],
     nice: true
   })

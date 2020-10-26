@@ -107,6 +107,7 @@ function Axis (props) {
           fontFamily,
         }}
         left={0}
+        numTicks={numTicks}
         tickLabelProps={() => ({
           dy: '0.25em',
           fill: axisColor,
