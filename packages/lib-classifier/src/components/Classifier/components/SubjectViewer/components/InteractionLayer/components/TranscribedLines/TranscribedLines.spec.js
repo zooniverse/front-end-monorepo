@@ -126,7 +126,7 @@ describe('Component > TranscribedLines', function () {
       consensusComponents.forEach((consensusComponent, index) => {
         const lineState = consensusComponent.find(TranscriptionLine).prop('state')
         if (lineState === 'transcribed') {
-          expect(createMarkSpy.notCalled).to.be.true()
+          expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('click')
           const [createMarkArgs] = createMarkSpy.args
           expect(createMarkArgs[1]).to.equal(returnRefs[index])
@@ -147,14 +147,14 @@ describe('Component > TranscribedLines', function () {
       consensusComponents.forEach((consensusComponent, index) => {
         const lineState = consensusComponent.find(TranscriptionLine).prop('state')
         if (lineState === 'transcribed') {
-          expect(createMarkSpy.notCalled).to.be.true()
+          expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [createMarkArgs] = createMarkSpy.args
           expect(createMarkArgs[1]).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
         }
         if (lineState === 'complete') {
-          expect(showConsensusStub.notCalled).to.be.true()
+          expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [completeArgs] = showConsensusStub.args
           expect(completeArgs[1]).to.equal(returnRefs[index])
@@ -168,14 +168,14 @@ describe('Component > TranscribedLines', function () {
       consensusComponents.forEach((consensusComponent, index) => {
         const lineState = consensusComponent.find(TranscriptionLine).prop('state')
         if (lineState === 'transcribed') {
-          expect(createMarkSpy.notCalled).to.be.true()
+          expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [createMarkArgs] = createMarkSpy.args
           expect(createMarkArgs[1]).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
         }
         if (lineState === 'complete') {
-          expect(showConsensusStub.notCalled).to.be.true()
+          expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [completeArgs] = showConsensusStub.args
           expect(completeArgs[1]).to.equal(returnRefs[index])
