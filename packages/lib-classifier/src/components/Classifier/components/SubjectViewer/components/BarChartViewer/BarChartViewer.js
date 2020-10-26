@@ -48,7 +48,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
-    rangeRound: [0, xMax],
+    range: [0, xMax],
+    round: true,
     padding
   })
 
@@ -56,7 +57,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const yDomain = yAxisDomain || yDataExtent
   const yScale = scaleLinear({
     domain: yDomain,
-    rangeRound: [yMax, 0]
+    range: [yMax, 0],
+    round: true
   }).nice()
 
   // Axis related

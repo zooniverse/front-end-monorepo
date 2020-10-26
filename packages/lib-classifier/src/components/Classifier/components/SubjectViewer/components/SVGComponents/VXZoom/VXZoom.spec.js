@@ -659,23 +659,28 @@ describe('Component > VXZoom', function () {
           preventDefault: sinon.spy()
         })
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
-
         // Now to simulate the panning
+        // visx switched to typescript and are type checking the event
+        // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
         eventLayer.simulate('mousedown', {
           clientX: 55,
-          clientY: 55
+          clientY: 55,
+          nativeEvent: new Event('test')
         })
         eventLayer.simulate('mousemove', {
           clientX: 60,
-          clientY: 60
+          clientY: 60,
+          nativeEvent: new Event('test')
         })
-        eventLayer.simulate('mouseup')
+        eventLayer.simulate('mouseup', {
+          nativeEvent: new Event('test')
+        })
 
         const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-        expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+        expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+        expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
       })
 
       describe('keydown', function () {
