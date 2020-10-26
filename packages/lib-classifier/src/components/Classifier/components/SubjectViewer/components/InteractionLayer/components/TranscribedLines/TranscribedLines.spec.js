@@ -99,7 +99,7 @@ describe('Component > TranscribedLines', function () {
             classifierStore: {
               workflows: {
                 active: {
-                  usesTranscriptionTask: false
+                  usesTranscriptionTask: true
                 }
               }
             }
@@ -129,14 +129,16 @@ describe('Component > TranscribedLines', function () {
           expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('click')
           const [createMarkArgs] = createMarkSpy.args
-          expect(createMarkArgs[1]).to.equal(returnRefs[index])
+          const expectedRefForMark = createMarkArgs[1]
+          expect(expectedRefForMark).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
         }
         if (lineState === 'complete') {
-          expect(showConsensusStub.notCalled).to.be.true()
+          expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('click')
           const [completeArgs] = showConsensusStub.args
-          expect(completeArgs[1]).to.equal(returnRefs[index])
+          const expectedRefForMark = completeArgs[1]
+          expect(expectedRefForMark).to.equal(returnRefs[index])
           showConsensusStub.resetHistory()
         }
       })
@@ -150,14 +152,16 @@ describe('Component > TranscribedLines', function () {
           expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [createMarkArgs] = createMarkSpy.args
-          expect(createMarkArgs[1]).to.equal(returnRefs[index])
+          const expectedRefForMark = createMarkArgs[1]
+          expect(expectedRefForMark).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
         }
         if (lineState === 'complete') {
           expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [completeArgs] = showConsensusStub.args
-          expect(completeArgs[1]).to.equal(returnRefs[index])
+          const expectedRefForMark = completeArgs[1]
+          expect(expectedRefForMark).to.equal(returnRefs[index])
           showConsensusStub.resetHistory()
         }
       })
@@ -171,14 +175,16 @@ describe('Component > TranscribedLines', function () {
           expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [createMarkArgs] = createMarkSpy.args
-          expect(createMarkArgs[1]).to.equal(returnRefs[index])
+          const expectedRefForMark = createMarkArgs[1]
+          expect(expectedRefForMark).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
         }
         if (lineState === 'complete') {
           expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [completeArgs] = showConsensusStub.args
-          expect(completeArgs[1]).to.equal(returnRefs[index])
+          const expectedRefForMark = completeArgs[1]
+          expect(expectedRefForMark).to.equal(returnRefs[index])
           showConsensusStub.resetHistory()
         }
       })
