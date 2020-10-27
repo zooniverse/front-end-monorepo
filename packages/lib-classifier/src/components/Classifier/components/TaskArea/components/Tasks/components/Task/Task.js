@@ -1,5 +1,4 @@
 import { Box, Paragraph } from 'grommet'
-import { inject, observer } from 'mobx-react'
 import { bool, func, shape } from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
@@ -8,6 +7,7 @@ import taskRegistry from '@plugins/tasks'
 export default function Task (props) {
   const { classification, disabled, task } = props
   const [ annotation, setAnnotation ] = useState()
+  const { TaskComponent } = taskRegistry.get(task.type)
 
   useEffect(function onMount() {
     const annotation = classification.addAnnotation(task)
@@ -15,7 +15,6 @@ export default function Task (props) {
     setAnnotation(annotation)
   }, [])
 
-  const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
   if (annotation && TaskComponent) {
     return (
       <Box key={annotation.id} basis='auto'>

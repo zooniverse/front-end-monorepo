@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Paragraph } from 'grommet'
-import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MovableModal } from '@zooniverse/react-components'
@@ -82,7 +82,7 @@ function SubTaskPopup(props) {
             const annotation = activeMark.addAnnotation(task)
             
             task.setAnnotation(annotation)
-            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+            const { TaskComponent } = taskRegistry.get(task.type)
 
             if (annotation && TaskComponent) {
               const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'

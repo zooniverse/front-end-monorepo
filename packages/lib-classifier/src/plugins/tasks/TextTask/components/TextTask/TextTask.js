@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import DefaultTextTask from './components/DefaultTextTask'
@@ -98,4 +99,4 @@ TextTask.propTypes = {
 
 }
 
-export default TextTask
+export default observer(TextTask)
