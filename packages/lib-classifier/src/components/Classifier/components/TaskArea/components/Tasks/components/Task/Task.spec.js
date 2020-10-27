@@ -20,7 +20,7 @@ describe('Components > Task', function () {
   taskTypes.forEach(function (taskType) {
     before(function () {
       const task = taskRegistry.get(taskType)
-      TaskComponent = observer(task.TaskComponent)
+      TaskComponent = task.TaskComponent
       // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
       // SingleChoiceTask, MultipleChoiceTask use question
       // keys that aren't defined on certain task models are ignored
