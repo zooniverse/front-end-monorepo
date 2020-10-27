@@ -6,7 +6,7 @@ import {
   Grid
 } from 'grommet'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import { SingleImageViewer } from '../SingleImageViewer'
+import { SingleImageViewerContainer } from '../SingleImageViewer'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -15,7 +15,7 @@ const StyledBox = styled(Box)`
 const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
   const {
     allowPanZoom,
-    imageSrc,
+    imageLocation,
     JSONData,
     setAllowPanZoom,
     setOnPan,
@@ -61,11 +61,15 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
         />
       </StyledBox>
       <Box gridArea='image'>
-        <SingleImageViewer
-          enableInteractionLayer={false}
-        >
-          <image xlinkHref={imageSrc} />
-        </SingleImageViewer>
+        {imageLocation &&
+          <SingleImageViewerContainer
+            enableInteractionLayer={false}
+            subject={{
+              locations: [
+                imageLocation
+              ]
+            }}
+          />}
       </Box>
     </Grid>
   )
@@ -73,7 +77,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
 
 DataImageViewer.defaultProps = {
   allowPanZoom: '',
-  imageSrc: '',
+  imageLocation: null,
   JSONData: {
     data: [],
     chartOptions: {
@@ -92,7 +96,7 @@ DataImageViewer.defaultProps = {
 
 DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,
-  imageSrc: PropTypes.string,
+  imageLocation: PropTypes.object,
   JSONData: PropTypes.shape({
     data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object
