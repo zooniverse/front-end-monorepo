@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import InteractionLayer from '../InteractionLayer'
+import ZoomControlButton from '../ZoomControlButton'
 
 const Container = styled.div`
   animation: fadein 1s 0s forwards;
@@ -33,6 +34,8 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     title,
     viewBox,
     width,
+    zoomControlFn,
+    zooming,
     ...rest
   } = props
 
@@ -44,6 +47,8 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
       <Container>
+        {zoomControlFn &&
+          <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
         <svg
           ref={ref}
           focusable
@@ -83,7 +88,9 @@ SingleImageViewer.propTypes = {
     text: PropTypes.string
   }),
   viewBox: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  zoomControlFn: PropTypes.oneOfType([ PropTypes.func, PropTypes.object ]),
+  zooming: PropTypes.bool
 }
 
 SingleImageViewer.defaultProps = {
@@ -91,7 +98,9 @@ SingleImageViewer.defaultProps = {
   onKeyDown: () => true,
   rotate: 0,
   scale: 1,
-  title: {}
+  title: {},
+  zoomControlFn: null,
+  zooming: false
 }
 
 export default SingleImageViewer

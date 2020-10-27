@@ -98,7 +98,9 @@ class SingleImageViewerContainer extends React.Component {
       rotation,
       setOnPan,
       setOnZoom,
-      title
+      title,
+      zooming,
+      ...rest
     } = this.props
     const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
@@ -137,6 +139,7 @@ class SingleImageViewerContainer extends React.Component {
           setOnDrag={this.setOnDrag}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
+          zooming={zooming}
         >
           <SingleImageViewer
             enableInteractionLayer={enableDrawing}
@@ -146,6 +149,7 @@ class SingleImageViewerContainer extends React.Component {
             rotate={rotation}
             title={title}
             width={naturalWidth}
+            {...rest}
           >
             <g ref={this.subjectImage}>
               <SubjectImage
@@ -175,7 +179,8 @@ SingleImageViewerContainer.propTypes = {
   title: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string
-  })
+  }),
+  zooming: PropTypes.func
 }
 
 SingleImageViewerContainer.defaultProps = {
@@ -189,7 +194,8 @@ SingleImageViewerContainer.defaultProps = {
   rotation: 0,
   setOnPan: () => true,
   setOnZoom: () => true,
-  title: {}
+  title: {},
+  zooming: true
 }
 
 export default withKeyZoom(SingleImageViewerContainer)

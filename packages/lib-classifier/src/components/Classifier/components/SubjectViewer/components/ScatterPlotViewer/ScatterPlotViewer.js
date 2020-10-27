@@ -4,7 +4,7 @@ import { withParentSize } from '@vx/responsive'
 import { withTheme } from 'styled-components'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
-import ZoomControlButton from './components/ZoomControlButton'
+import ZoomControlButton from '../ZoomControlButton'
 
 const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, ref) {
   const {
