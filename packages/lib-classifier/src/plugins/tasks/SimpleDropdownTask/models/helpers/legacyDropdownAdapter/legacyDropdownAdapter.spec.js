@@ -1,4 +1,4 @@
-import { panoptesAdapter } from './'
+import { legacyDropdownAdapter } from './'
 
 describe('SimpleDropdownTask > panoptesAdapter', function () {
 
@@ -17,7 +17,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
     })
 
     it('should return the task unchanged', function () {
-      expect(panoptesAdapter(originalTask)).to.equal(originalTask)
+      expect(legacyDropdownAdapter(originalTask)).to.equal(originalTask)
     })
   })
 
@@ -46,7 +46,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
     })
 
     it('should return a simple dropdown task', function () {
-      expect(panoptesAdapter(originalTask)).to.deep.equal({
+      expect(legacyDropdownAdapter(originalTask)).to.deep.equal({
         allowCreate: false,
         taskKey: 'T0',
         type: 'dropdown-simple',
@@ -92,7 +92,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
     })
 
     it('should return the original task', function () {
-      expect(panoptesAdapter(originalTask)).to.equal(originalTask)
+      expect(legacyDropdownAdapter(originalTask)).to.equal(originalTask)
     })
   })
 })

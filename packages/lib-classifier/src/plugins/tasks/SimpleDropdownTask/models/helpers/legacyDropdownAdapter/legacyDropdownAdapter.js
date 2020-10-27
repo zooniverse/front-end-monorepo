@@ -1,4 +1,4 @@
-export function panoptesAdapter(snapshot) {
+export function legacyDropdownAdapter(snapshot) {
   const newSnapshot = {}
   const { selects } = snapshot
   if (selects?.length === 1) {
