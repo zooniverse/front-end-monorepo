@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import { DataImageViewer } from './DataImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import { SingleImageViewer } from '../SingleImageViewer'
+import { SingleImageViewerContainer } from '../SingleImageViewer'
 import kepler from '../../helpers/mockLightCurves/kepler'
 
 const JSONData = {
@@ -13,7 +13,7 @@ const JSONData = {
     yAxisLabel: 'brightness'
   }
 }
-const imageSrc = 'http://www.myimagehost.com/subject.png'
+const imageLocation = { 'image/png': 'example.png' }
 
 describe('Component > DataImageViewer', function () {
   let wrapper, setAllowPanZoomSpy
@@ -21,7 +21,7 @@ describe('Component > DataImageViewer', function () {
     setAllowPanZoomSpy = sinon.spy()
     wrapper = shallow(
       <DataImageViewer
-        imageSrc={imageSrc}
+        imageLocation={imageLocation}
         JSONData={JSONData}
         setAllowPanZoom={setAllowPanZoomSpy}
       />
@@ -46,14 +46,18 @@ describe('Component > DataImageViewer', function () {
   })
 
   describe('SingleImageViewer', function () {
-    it('should render a SingleImageViewer', function () {
-      expect(wrapper.find(SingleImageViewer)).to.have.lengthOf(1)
+    let wrapper
+    before(function () {
+      wrapper = shallow(<DataImageViewer />)
     })
 
-    it('should render an svg image with the imageSrc', function () {
-      const image = wrapper.find('image')
-      expect(image).to.have.lengthOf(1)
-      expect(image.props().xlinkHref).to.equal(imageSrc)
+    it('should not render a SingleImageViewerContainer if there is no imageLocation', function () {
+      expect(wrapper.find(SingleImageViewerContainer)).to.have.lengthOf(0)
+    })
+
+    it('should render a SingleImageViewer if there is an imageLocation', function () {
+      wrapper.setProps({ imageLocation: { 'image/png': 'example.png' } })
+      expect(wrapper.find(SingleImageViewerContainer)).to.have.lengthOf(1)
     })
   })
 

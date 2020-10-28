@@ -47,7 +47,7 @@ describe('Component > DataImageViewerContainer', function () {
     )
     const mockState = {
       allowPanZoom: '',
-      imageSrc: '',
+      imageLocation: null,
       JSONData: {
         data: [],
         chartOptions: {}
@@ -174,11 +174,11 @@ describe('Component > DataImageViewerContainer', function () {
         />
       )
 
-      expect(wrapper.state().imageSrc).to.be.empty()
-      expect(wrapper.find(DataImageViewer).props().imageSrc).to.be.empty()
+      expect(wrapper.state().imageLocation).to.be.null()
+      expect(wrapper.find(DataImageViewer).props().imageLocation).to.be.null()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
-        expect(wrapper.find(DataImageViewer).props().imageSrc).to.equal('http://localhost:8080/image1.png')
+        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
+        expect(wrapper.find(DataImageViewer).props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
       }).then(done, done)
     })
 
@@ -206,18 +206,18 @@ describe('Component > DataImageViewerContainer', function () {
       cdmSpy.returnValues[0].then(() => {
         const dataImageViewer = wrapper.find(DataImageViewer)
         expect(wrapper.state().JSONData).to.deep.equal(subjectJSON)
-        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image1.png')
+        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
         expect(dataImageViewer.props().JSONData).to.deep.equal(subjectJSON)
-        expect(dataImageViewer.props().imageSrc).to.equal('http://localhost:8080/image1.png')
+        expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
       })
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
         const dataImageViewer = wrapper.find(DataImageViewer)
         expect(wrapper.state().JSONData).to.deep.equal(nextSubjectJSON)
-        expect(wrapper.state().imageSrc).to.equal('http://localhost:8080/image2.png')
+        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
         expect(dataImageViewer.props().JSONData).to.deep.equal(nextSubjectJSON)
-        expect(dataImageViewer.props().imageSrc).to.equal('http://localhost:8080/image2.png')
+        expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
       }).then(done, done)
     })
   })
