@@ -6,8 +6,4 @@ const mimeTypesRegexes = {
   video: /^[mp4|mpeg|x\-m4v]+$/
 }
 
-<<<<<<< HEAD
 export { mimeTypesRegexes }
-=======
-export { mimeTypesRegexes }
->>>>>>> Finish building out utility function. Update container to use it
