@@ -11,13 +11,23 @@ counterpart.registerTranslations('en', en)
 function ZoomControlButton (props) {
   const {
     onClick = () => {},
+    position,
     zooming = false
   } = props
-
+  let style
   const label = (zooming) ? counterpart('ZoomControlButton.disable') : counterpart('ZoomControlButton.enable')
 
+  if (position) {
+    style = { position, top: 0 }
+  }
   return (
-    <Box direction='row' justify='center' style={{ position: 'absolute', top: 0 }} width='100%'>
+    <Box
+      direction='row'
+      justify='center'
+      margin={{ vertical: 'xsmall' }}
+      style={style}
+      width='100%'
+    >
       <MetaToolsButton
         aria-checked={zooming}
         icon={<ZoomIn color={{ dark: 'light-3', light: 'light-6' }} size='small' />}

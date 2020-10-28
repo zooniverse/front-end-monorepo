@@ -17,7 +17,7 @@ const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, re
   return (
     <>
       {zoomControlFn &&
-        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
+        <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />}
       <Plot
         forwardedRef={ref}
         {...props}
