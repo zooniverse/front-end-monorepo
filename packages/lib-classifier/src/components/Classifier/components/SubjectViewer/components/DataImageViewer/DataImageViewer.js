@@ -69,6 +69,8 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
                 imageLocation
               ]
             }}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
             zoomControlFn={(zoomEnabled.image) ? () => setAllowPanZoom('') : () => setAllowPanZoom('image')}
             zooming={zoomEnabled.image}
           />}

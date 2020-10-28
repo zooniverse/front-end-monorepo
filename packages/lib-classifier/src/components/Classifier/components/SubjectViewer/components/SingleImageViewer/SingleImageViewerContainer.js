@@ -100,7 +100,7 @@ class SingleImageViewerContainer extends React.Component {
       setOnZoom,
       title,
       zooming,
-      ...rest
+      zoomControlFn
     } = this.props
     const { img } = this.state
     const { naturalHeight, naturalWidth, src } = img
@@ -149,7 +149,8 @@ class SingleImageViewerContainer extends React.Component {
             rotate={rotation}
             title={title}
             width={naturalWidth}
-            {...rest}
+            zoomControlFn={zoomControlFn}
+            zooming={zooming}
           >
             <g ref={this.subjectImage}>
               <SubjectImage
@@ -180,7 +181,8 @@ SingleImageViewerContainer.propTypes = {
     id: PropTypes.string,
     text: PropTypes.string
   }),
-  zooming: PropTypes.func
+  zoomControlFn: PropTypes.func,
+  zooming: PropTypes.bool
 }
 
 SingleImageViewerContainer.defaultProps = {

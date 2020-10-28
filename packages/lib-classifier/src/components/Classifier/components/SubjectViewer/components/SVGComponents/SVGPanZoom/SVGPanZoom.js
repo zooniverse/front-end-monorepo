@@ -29,28 +29,46 @@ function SVGPanZoom ({
     e.preventDefault()
   }
 
+  function enableZoom () {
+    setOnDrag(onDrag)
+    setOnPan(onPan)
+    setOnZoom(onZoom)
+    scrollContainer.current.addEventListener('wheel', preventDefault)
+  }
+
+  function disableZoom () {
+    setOnDrag(() => true)
+    setOnPan(() => true)
+    setOnZoom(() => true)
+    scrollContainer.current.removeEventListener('wheel', preventDefault)
+  }
+
   function onMount () {
-    if (zooming) {
-      setOnDrag(onDrag)
-      setOnPan(onPan)
-      setOnZoom(onZoom)
-      scrollContainer.current.addEventListener('wheel', preventDefault)
-    }
+    enableZoom()
   }
 
   function onUnmount () {
-    if (zooming) {
-      setOnDrag(() => true)
-      setOnPan(() => true)
-      setOnZoom(() => true)
-      scrollContainer.current.removeEventListener('wheel', preventDefault)
-    }
+    disableZoom()
   }
 
+  // We want to register the pan zoom event handlers
+  // on mount when zooming is enabled, and it is by default
+  // but also control the registration when zooming is enabled and disabled
+  // so we have two effect hooks now
+  // is there a better way to do this?
   useEffect(() => {
-    onMount()
-    return onUnmount
+    if (zooming) {
+      onMount()
+      return onUnmount
+    }
   }, [])
+
+  useEffect(() => {
+    if (zooming) {
+      enableZoom()
+    }
+    return disableZoom
+  }, [zooming])
 
   useEffect(function onZoomChange () {
     const newViewBox = scaledViewBox(zoom)
@@ -131,10 +149,6 @@ function SVGPanZoom ({
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
 
-  if (!zooming) {
-    return cloneElement(children, { scale, viewBox: `${x} ${y} ${width} ${height}` })
-  }
-
   return (
     <div
       ref={scrollContainer}
@@ -155,7 +169,7 @@ SVGPanZoom.propTypes = {
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
   src: PropTypes.string.isRequired,
-  zooming: PropTypes.func
+  zooming: PropTypes.bool
 }
 
 SVGPanZoom.defaultProps = {

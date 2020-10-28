@@ -35,8 +35,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     viewBox,
     width,
     zoomControlFn,
-    zooming,
-    ...rest
+    zooming
   } = props
 
   const transformLayer = createRef()
@@ -55,7 +54,6 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
-          {...rest}
         >
           {title?.id && title?.text &&
             <title id={title.id}>{title.text}</title>}
