@@ -39,7 +39,7 @@
   "peerDependencies": {
     "@zooniverse/grommet-theme": "2.2.x",
     "grommet": "2.11.x",
-    "grommet-icons": "4.4.x",
+    "grommet-icons": "4.5.x",
     "react": "16.13.x",
     "react-dom": "16.13.x",
     "styled-components": "5.x.x"
@@ -70,7 +70,7 @@
     "enzyme": "~3.11.0",
     "enzyme-adapter-react-16": "~1.15.2",
     "grommet": "~2.11.1",
-    "grommet-icons": "~4.4.0",
+    "grommet-icons": "~4.5.0",
     "jsdom": "~16.2.0",
     "lodash": "~4.17.11",
     "mocha": "~6.1.4",
