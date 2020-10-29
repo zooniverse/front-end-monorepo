@@ -47,6 +47,7 @@ class Tasks extends React.Component {
       // but works for now
       return (
         <Box
+          key={classification.id}
           as='form'
           gap='small'
           justify='between'
