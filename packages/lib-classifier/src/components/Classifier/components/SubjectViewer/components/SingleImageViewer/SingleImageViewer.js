@@ -1,27 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { createRef, forwardRef, useContext } from 'react'
-import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-
+import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
-
-const Container = styled.div`
-  animation: fadein 1s 0s forwards;
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 100%;
-    }
-  }
-`
 
 const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
   const {
@@ -45,9 +27,12 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
 
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
-      <Container>
-        {zoomControlFn &&
-          <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
+      {zoomControlFn &&
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
+      <Box
+        animation='fadeIn'
+        overflow='hidden'
+      >
         <svg
           ref={ref}
           focusable
@@ -70,7 +55,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
               />}
           </g>
         </svg>
-      </Container>
+      </Box>
     </SVGContext.Provider>
   )
 })
