@@ -2,11 +2,9 @@ import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import * as nextRouter from 'next/router'
-import PropTypes from 'prop-types'
 import React from 'react'
 import sinon from 'sinon'
 
@@ -27,20 +25,6 @@ const store = {
       4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
   }
 }
-/*
-Mock NextJS router adapted from
-https://github.com/zeit/next.js/issues/1827#issuecomment-470155709
-*/
-const mockedRouter = {
-  asPath: '/projects/zooniverse/snapshot-serengeti',
-  push: () => {},
-  prefetch: () => {},
-  query: {
-    owner: 'zooniverse',
-    project: 'snapshot-serengeti'
-  }
-}
-sinon.stub(nextRouter, 'useRouter').callsFake(() => mockedRouter)
 
 const WORKFLOWS = {
   loading: asyncStates.success,
@@ -73,32 +57,47 @@ const WORKFLOWS_ERROR = {
   loading: asyncStates.error,
   data: null
 }
+
+function StoryContext (props) {
+  const { children, theme } = props
+
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={theme}
+      themeMode={(theme.dark) ? 'dark' : 'light'}
+    >
+      <Provider store={store}>
+        {children}
+      </Provider>
+    </Grommet>
+  )
+}
+
 storiesOf('Project App / Screens / Project Home / Workflow Selector', module)
   .addDecorator(withKnobs)
-  .add('plain', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Provider store={store}>
-        <WorkflowSelector
-          workflows={WORKFLOWS}
-        />
-      </Provider>
-    </Grommet>
+  .add('default', () => (
+    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <WorkflowSelector
+        workflows={WORKFLOWS}
+      />
+    </StoryContext>
   ))
   .add('loading', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Provider store={store}>
-        <WorkflowSelector
-          workflows={WORKFLOWS_LOADING}
-        />
-      </Provider>
-    </Grommet>
+    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <WorkflowSelector
+        workflows={WORKFLOWS_LOADING}
+      />
+    </StoryContext>
+
   ))
   .add('error', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Provider store={store}>
-        <WorkflowSelector
-          workflows={WORKFLOWS_ERROR}
-        />
-      </Provider>
-    </Grommet>
+    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+      <WorkflowSelector
+        workflows={WORKFLOWS_ERROR}
+      />
+    </StoryContext>
   ))

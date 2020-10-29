@@ -20,6 +20,18 @@ Object.defineProperty(subjectViewers, 'subjectGroup', {
   enumerable: true
 })
 
+Object.defineProperty(subjectViewers, 'dataImage', {
+  value: 'dataImage',
+  enumerable: true
+})
+
+
+Object.defineProperty(subjectViewers, 'variableStar', {
+  value: 'variableStar',
+  enumerable: true
+})
+
+
 // helper for returning subject viewers (e.g. for use in MST enumerable type)
 Object.defineProperty(subjectViewers, 'values', {
   value: Object.values(subjectViewers)

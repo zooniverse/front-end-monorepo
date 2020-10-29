@@ -125,12 +125,41 @@ pipeline {
   }
 
   post {
+    // Notify about valid builds AND deploys
+    success {
+      script {
+        if (env.BRANCH_NAME == 'master' || env.TAG_NAME == 'production-release') {
+          slackSend (
+            color: '#00FF00',
+            message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+            channel: "#ops"
+          )
+        }
+      }
+    }
+    // Notify about failed builds OR deploys
+    failure {
+      script {
+        if (env.BRANCH_NAME == 'master' || env.TAG_NAME == 'production-release') {
+          slackSend (
+            color: '#FF0000',
+            message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+            channel: "#ops"
+          )
+        }
+      }
+    }
+    // Notify about broken builds on non-deploy branches only
     unsuccessful {
-      slackSend (
-        color: '#FF0000',
-        message: "DEPLOY FAILED: Job '${JOB_NAME} [${BUILD_NUMBER}]' (${BUILD_URL})",
-        channel: "#frontend-rewrite"
-      )
+      script {
+        if (env.BRANCH_NAME != 'master' || env.TAG_NAME != 'production-release') {
+          slackSend (
+            color: '#FF0000',
+            message: "BUILD FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+            channel: "#frontend-rewrite"
+          )
+        }
+      }
     }
   }
 }

@@ -1,14 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { observer } from 'mobx-react'
+import styled, { css, withTheme } from 'styled-components'
 
 const StyledGroup = styled('g')`
+  &:focus {
+    ${props => css`outline: solid 4px ${props.focusColor};`}
+  }
+
   &:hover {
     cursor: pointer;
   }
 `
 
-function DeleteButton ({ label, mark, scale, rotate, onDelete }) {
+function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, scale, theme }) {
+  const focusColor = theme.global.colors[theme.global.colors.focus]
   const RADIUS = (screen.width < 900) ? 11 : 8
   const STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
@@ -46,19 +52,21 @@ function DeleteButton ({ label, mark, scale, rotate, onDelete }) {
 
   return (
     <StyledGroup
-      focusable
-      tabIndex={0}
       aria-label={label}
-      role='button'
-      transform={transform}
-      stroke={STROKE_COLOR}
-      strokeWidth={STROKE_WIDTH}
+      focusable
+      focusColor={focusColor}
+      onBlur={onDeselect}
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
+      role='button'
+      stroke={STROKE_COLOR}
+      strokeWidth={STROKE_WIDTH}
+      tabIndex='0'
+      transform={transform}
     >
       <circle
-        r={RADIUS}
         fill={FILL_COLOR}
+        r={RADIUS}
       />
       <path
         d={CROSS_PATH}
@@ -72,13 +80,22 @@ DeleteButton.propTypes = {
   label: PropTypes.string.isRequired,
   mark: PropTypes.object.isRequired,
   onDelete: PropTypes.func,
+  onDeselect: PropTypes.func,
   rotate: PropTypes.number,
-  scale: PropTypes.number
+  scale: PropTypes.number,
+  theme: PropTypes.object
 }
 DeleteButton.defaultProps = {
   onDelete: () => true,
+  onDeselect: () => true,
   rotate: 0,
-  scale: 1
+  scale: 1,
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
 }
 
-export default DeleteButton
+export default withTheme(observer(DeleteButton))
+export { DeleteButton }

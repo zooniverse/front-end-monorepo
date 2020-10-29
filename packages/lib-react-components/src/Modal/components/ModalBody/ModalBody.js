@@ -5,6 +5,7 @@ import React from 'react'
 function ModalBody ({
   children,
   className,
+  overflow,
   pad
 }) {
   return (
@@ -14,6 +15,7 @@ function ModalBody ({
         light: 'neutral-6'
       }}
       className={className}
+      overflow={overflow}
       pad={pad}
     >
       {children}
@@ -28,7 +30,12 @@ ModalBody.propTypes = {
 
 ModalBody.defaultProps = {
   className: '',
-  pad: 'medium'
+  overflow: 'auto',
+  pad: {
+    bottom: 'medium',
+    horizontal: 'medium',
+    top: 'small'
+  }
 }
 
 export default ModalBody

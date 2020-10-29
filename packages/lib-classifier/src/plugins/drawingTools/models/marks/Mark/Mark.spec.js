@@ -13,7 +13,7 @@ describe('Models > Drawing Task > Mark', function () {
 
   function mockMark (options) {
     const defaultOptions = {
-      required: false
+      required: ''
     }
     const { required } = options || defaultOptions
     const toolData = {
@@ -37,15 +37,21 @@ describe('Models > Drawing Task > Mark', function () {
         question: 'how many?',
         answers: ['one', 'two', 'three'],
         required
+      }, {
+        taskKey: 'text',
+        type: 'text',
+        instruction: 'Fill in the text',
       }
     ]
     const drawingTool = Tool.create(toolData)
     const multipleTaskSnapshot = tasks[0]
     const singleTaskSnapshot = tasks[1]
+    const textTaskSnapshot = tasks[2]
     const multipleTask = drawingTool.createTask(multipleTaskSnapshot)
     const singleTask = drawingTool.createTask(singleTaskSnapshot)
+    const textTask = drawingTool.createTask(textTaskSnapshot)
     const mark = drawingTool.createMark({ id: 'mockMark' })
-    return { drawingTool, mark, multipleTask, singleTask }
+    return { drawingTool, mark, multipleTask, singleTask, textTask }
   }
 
   before(function () {
@@ -101,6 +107,24 @@ describe('Models > Drawing Task > Mark', function () {
     })
   })
 
+  describe('when there are no tool subtasks', function () {
+    it('should not show the UI', function () {
+      const pointTool = Tool.create({
+        color: '#ff0000',
+        label: 'Point',
+        max: '10',
+        min: 1,
+        type: 'default'
+      })
+      const mark = pointTool.createMark({ id: 'mark1' })
+      expect(mark.subTaskMarkBounds).to.be.undefined()
+      expect(mark.subTaskVisibility).to.be.false()
+      mark.setSubTaskVisibility(true)
+      expect(mark.subTaskMarkBounds).to.be.undefined()
+      expect(mark.subTaskVisibility).to.be.false()
+    })
+  })
+
   describe('with subtasks', function () {
     let mark
 
@@ -124,7 +148,7 @@ describe('Models > Drawing Task > Mark', function () {
       let drawingTool
 
       before(function () {
-        ({ drawingTool, mark } = mockMark({ required: true }))
+        ({ drawingTool, mark } = mockMark({ required: 'true' }))
       })
 
       it('should be incomplete', function () {
@@ -143,7 +167,7 @@ describe('Models > Drawing Task > Mark', function () {
       let singleTask
 
       before(function () {
-        ({ drawingTool, mark, multipleTask, singleTask } = mockMark({ required: true }))
+        ({ drawingTool, mark, multipleTask, singleTask } = mockMark({ required: 'true' }))
       })
 
       it('should be incomplete', function () {
@@ -174,6 +198,58 @@ describe('Models > Drawing Task > Mark', function () {
         it('should complete the drawing tool', function () {
           expect(drawingTool.isComplete).to.be.true()
         })
+      })
+    })
+
+    describe('visibility', function () {
+      before(function () {
+        ({ mark } = mockMark())
+      })
+
+      it('should toggle the visibility of the UI', function () {
+        expect(mark.subTaskVisibility).to.be.false()
+        mark.setSubTaskVisibility(true)
+        expect(mark.subTaskVisibility).to.be.true()
+        mark.setSubTaskVisibility(false)
+        expect(mark.subTaskVisibility).to.be.false()
+      })
+
+      it('should store the DOM node bounds if a reference is passed as a parameter', function () {
+        const node = document.createElement('g')
+        expect(mark.subTaskMarkBounds).to.be.undefined()
+        mark.setSubTaskVisibility(true, node)
+        expect(mark.subTaskMarkBounds).to.be.an('object')
+        mark.setSubTaskVisibility(false)
+        expect(mark.subTaskMarkBounds).to.be.undefined()
+      })
+
+      it('should store the previous annotation values if passed as a parameter', function () {
+        const node = document.createElement('g')
+        const previousAnnotationValues = [
+          {
+            taskKey: 'T0.0.0',
+            taskType: 'text',
+            values: [
+              'Hello',
+              'Hello'
+            ]
+          },
+          {
+            taskKey: 'T0.0.1',
+            taskType: 'text',
+            values: [
+              'World',
+              'World'
+            ]
+          }
+        ]
+        expect(mark.subTaskPreviousAnnotationValues.size).to.equal(0)
+        mark.setSubTaskVisibility(true, node, previousAnnotationValues)
+        expect(mark.subTaskPreviousAnnotationValues.size).to.equal(previousAnnotationValues.length)
+        expect(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[0].taskKey)).to.deep.equal(previousAnnotationValues[0])
+        expect(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[1].taskKey)).to.deep.equal(previousAnnotationValues[1])
+        mark.setSubTaskVisibility(false)
+        expect(mark.subTaskPreviousAnnotationValues.size).to.equal(0)
       })
     })
   })

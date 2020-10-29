@@ -1,17 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Box,
-  FormField,
-  RadioButtonGroup
-} from 'grommet'
-import styled, { css } from 'styled-components'
+import { Box } from 'grommet'
+import styled from 'styled-components'
 import { PlainButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import FlipIcon from '../FlipIcon'
 import en from '../../locales/en'
 import theme from './theme'
-import FocusSeriesCheckBoxes from './components/FocusSeriesCheckBoxes'
+import HighlightSeriesCheckBoxes from './components/HighlightSeriesCheckBoxes'
+import PhaseFocusControls from './components/PhaseFocusControls'
+import PeriodMultipleControls from './components/PeriodMultipleControls'
 
 counterpart.registerTranslations('en', en)
 
@@ -29,35 +27,19 @@ export const FlipButton = styled(PlainButton)`
   }
 `
 
-export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
-  > div {
-    position: relative;
-  }
-
-  > div:after {
-    ${props => css`border-bottom: 1px solid ${props.color};`}
-    bottom: 0;
-    content: '';
-    height: 5px;
-    left: 1px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 28px;
-  }
-`
 
 function Controls(props) {
   const {
     data,
-    focusedSeries,
     gridArea,
+    highlightedSeries,
     periodMultiple,
     periodMultipleOptions,
-    setSeriesFocus,
+    phaseFocusedSeries,
+    setSeriesHighlight,
+    setSeriesPhaseFocus,
     setPeriodMultiple,
     setYAxisInversion,
-    theme
   } = props
 
   const radioButtonOptions = periodMultipleOptions.map((option) => {
@@ -69,14 +51,18 @@ function Controls(props) {
 
   return (
     <Box
-      background='neutral-6'
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      border={{ color: { light: 'light-3', dark: 'dark-3' }, size: 'xsmall' }}
       direction='row'
-      gap='xsmall'
+      justify='between'
       gridArea={gridArea}
       pad='xsmall'
     >
       <SpacedText
-        style={{ fontSize: '0.5em', transform: 'rotate(180deg)', writingMode: 'vertical-lr' }}
+        style={{ fontSize: '0.5em', textAlign: 'center', transform: 'rotate(180deg)', writingMode: 'vertical-lr' }}
       >
         {counterpart('VariableStarViewer.controls')}
       </SpacedText>
@@ -90,30 +76,29 @@ function Controls(props) {
         onClick={event => setYAxisInversion(event)}
         pad='small'
       />
-      <FormField
-        htmlFor='periodMultiple'
-        label={<SpacedText size='10px' weight='bold'>{counterpart('VariableStarViewer.periodMultiple')}</SpacedText>}
-        style={{ position: 'relative' }}
-      >
-        <StyledRadioButtonGroup
-          color={theme.global.colors['light-6']}
-          direction='row'
-          gap='medium'
-          id='periodMultiple'
-          name='periodMultiple'
-          onChange={event => setPeriodMultiple(event)}
-          options={radioButtonOptions}
-          value={periodMultiple.toString()}
-        />
-      </FormField>
+      <PeriodMultipleControls
+        options={radioButtonOptions}
+        periodMultiple={periodMultiple}
+        setPeriodMultiple={setPeriodMultiple}
+      />
       <Box justify='between'>
-        <FocusSeriesCheckBoxes
+        <PhaseFocusControls
           data={data}
-          focusedSeries={focusedSeries}
-          setSeriesFocus={setSeriesFocus}
+          phaseFocusedSeries={phaseFocusedSeries}
+          setSeriesPhaseFocus={setSeriesPhaseFocus}
         />
-        <SpacedText color='black' size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.focus')}
+        <SpacedText size='10px' weight='bold'>
+          {counterpart('VariableStarViewer.phaseFocus')}
+        </SpacedText>
+      </Box>
+      <Box justify='between'>
+        <HighlightSeriesCheckBoxes
+          data={data}
+          highlightedSeries={highlightedSeries}
+          setSeriesHighlight={setSeriesHighlight}
+        />
+        <SpacedText size='10px' weight='bold'>
+          {counterpart('VariableStarViewer.highlight')}
         </SpacedText>
       </Box>
     </Box>
@@ -122,29 +107,26 @@ function Controls(props) {
 
 Controls.defaultProps = {
   data: [],
-  focusedSeries: [],
   gridArea: '',
+  highlightedSeries: [],
   periodMultiple: 1,
   periodMultipleOptions: ['0.5', '1', '2', '3'],
-  setSeriesFocus: () => {},
+  phaseFocusedSeries: 0,
+  setSeriesHighlight: () => {},
   setPeriodMultiple: () => {},
   setYAxisInversion: () => {},
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 Controls.propTypes = {
   data: PropTypes.array,
-  focusedSeries: PropTypes.arrayOf(PropTypes.object),
   gridArea: PropTypes.string,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.object),
   periodMultiple: PropTypes.number,
-  setSeriesFocus: PropTypes.func,
+  periodMultipleOptions: PropTypes.arrayOf(PropTypes.string),
+  phaseFocusedSeries: PropTypes.number,
+  setSeriesHighlight: PropTypes.func,
   setPeriodMultiple: PropTypes.func,
   setYAxisInversion: PropTypes.func,
-  theme: PropTypes.object
 }
 
 export default withThemeContext(Controls, theme)

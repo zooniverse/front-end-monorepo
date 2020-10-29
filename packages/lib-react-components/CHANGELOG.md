@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Fixed
+- Arrow position is now correct based on the position set by tippyjs-react for the Tooltip
+- Restore default colours for the Modal and MovableModal components.
+- Update Modal spacing to reflect the Zooniverse design system.
+- Allow the colour of the Modal close button to be changed based on the ModalHeading text colour.
+
+## [1.0.2] 2020-07-15
+- Patch fix previous version with correctly built package
+
+## [1.0.1] 2020-07-15
+- Export ZooniverseLogotype, which renders the Zooniverse logotype as an SVG that is often used in a site's footer
+
 ## [1.0.0] 2020-06-29
 - Publish rebuild of library. This allows the following components to be accessible via the `@zooniverse/react-components` package:  
   - AdminCheckbox
@@ -24,7 +37,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - ZooFooter
   - ZooHeader
   - ZooniverseLogo
-  - ZooniverseLogotype
 
 ## [Unpublished] 2018-09-12
 

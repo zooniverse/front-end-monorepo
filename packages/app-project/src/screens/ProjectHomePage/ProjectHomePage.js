@@ -1,6 +1,8 @@
 import { Box, Grid } from 'grommet'
 import React from 'react'
+import { bool } from 'prop-types'
 import styled from 'styled-components'
+import { ZooFooter } from '@zooniverse/react-components'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -22,9 +24,9 @@ const RemainingHeightBox = styled(Box)`
   flex-grow: 1;
 `
 
-function ProjectHomePage (props) {
+function ProjectHomePage ({ inBeta }) {
   return (
-    <>
+    <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
         <ZooHeaderWrapper />
         <ProjectHeader />
@@ -68,8 +70,17 @@ function ProjectHomePage (props) {
           <ThemeModeToggle />
         </Box>
       </Media>
-    </>
+      <ZooFooter />
+    </Box>
   )
+}
+
+ProjectHomePage.defaultProps = {
+  inBeta: false
+}
+
+ProjectHomePage.propTypes = {
+  inBeta: bool
 }
 
 export default ProjectHomePage

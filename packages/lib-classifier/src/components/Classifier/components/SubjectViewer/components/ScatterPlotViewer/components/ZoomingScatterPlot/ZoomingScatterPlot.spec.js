@@ -1,6 +1,8 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
+import { Provider } from 'mobx-react'
+import SubjectViewerStore from '@store/SubjectViewerStore'
 import ZoomingScatterPlot from './ZoomingScatterPlot'
 import ScatterPlot from '../ScatterPlot'
 import ZoomEventLayer from '../../../SVGComponents/ZoomEventLayer'
@@ -12,6 +14,19 @@ import {
 } from '../../helpers/mockData'
 
 const mockData = randomSingleSeriesData.data
+
+const mockStore = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
+  },
+  fieldGuide: {},
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  }
+}
 
 const zoomInEventMock = {
   clientX: 50,
@@ -46,7 +61,13 @@ describe('Component > ZoomingScatterPlot', function () {
         parentHeight={height}
         parentWidth={width}
         theme={zooTheme}
-      />
+      />,
+      { 
+        wrappingComponent: Provider,
+        wrappingComponentProps: {
+          classifierStore: mockStore
+        }
+      }
     )
     expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
   })
@@ -73,7 +94,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -96,7 +123,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -125,7 +158,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
         const { initialTransformMatrix } = wrapper.find(ScatterPlot).props()
 
@@ -162,7 +201,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -187,7 +232,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -217,7 +268,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -261,7 +318,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -286,7 +349,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -316,7 +385,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
@@ -351,7 +426,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentHeight={height}
             parentWidth={width}
             theme={zooTheme}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const events = ['mousedown', 'mouseup', 'mousemove', 'mouseleave']
@@ -376,7 +457,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           const eventLayer = wrapper.find(ZoomEventLayer)
@@ -389,21 +476,27 @@ describe('Component > ZoomingScatterPlot', function () {
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 55,
-            clientY: 55
+            clientY: 55,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup',{
+            nativeEvent: new Event('test')
+          })
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-          expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
         })
       })
 
@@ -423,7 +516,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentWidth={width}
               theme={zooTheme}
               zoomConfiguration={zoomConfiguration}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           const eventLayer = wrapper.find(ZoomEventLayer)
@@ -436,21 +535,27 @@ describe('Component > ZoomingScatterPlot', function () {
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 55,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 60,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-          expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY)
+          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
         })
       })
 
@@ -470,7 +575,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentWidth={width}
               theme={zooTheme}
               zoomConfiguration={zoomConfiguration}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
           const eventLayer = wrapper.find(ZoomEventLayer)
 
@@ -482,21 +593,27 @@ describe('Component > ZoomingScatterPlot', function () {
           const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
           // Now to simulate the panning
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 55
+            clientY: 55,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: 60
+            clientY: 60,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
           expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX)
-          expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
+          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
         })
       })
     })
@@ -522,7 +639,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
@@ -553,7 +676,13 @@ describe('Component > ZoomingScatterPlot', function () {
             parentWidth={width}
             theme={zooTheme}
             zoomConfiguration={zoomConfig}
-          />
+          />,
+          {
+            wrappingComponent: Provider,
+            wrappingComponentProps: {
+              classifierStore: mockStore
+            }
+          }
         )
 
         const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
@@ -594,7 +723,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentWidth={width}
               panning
               theme={zooTheme}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           eventLayer = wrapper.find(ZoomEventLayer)
@@ -612,15 +747,21 @@ describe('Component > ZoomingScatterPlot', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: -2000,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
@@ -629,15 +770,21 @@ describe('Component > ZoomingScatterPlot', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 2000,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
@@ -657,7 +804,13 @@ describe('Component > ZoomingScatterPlot', function () {
               parentHeight={height}
               parentWidth={width}
               theme={zooTheme}
-            />
+            />,
+            {
+              wrappingComponent: Provider,
+              wrappingComponentProps: {
+                classifierStore: mockStore
+              }
+            }
           )
 
           eventLayer = wrapper.find(ZoomEventLayer)
@@ -675,15 +828,21 @@ describe('Component > ZoomingScatterPlot', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: -2000
+            clientY: -2000,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })
@@ -692,15 +851,21 @@ describe('Component > ZoomingScatterPlot', function () {
           const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
+          // visx switched to typescript and are type checking the event
+          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
           eventLayer.simulate('mousedown', {
             clientX: 50,
-            clientY: 50
+            clientY: 50,
+            nativeEvent: new Event('test')
           })
           eventLayer.simulate('mousemove', {
             clientX: 50,
-            clientY: 2000
+            clientY: 2000,
+            nativeEvent: new Event('test')
           })
-          eventLayer.simulate('mouseup')
+          eventLayer.simulate('mouseup', {
+            nativeEvent: new Event('test')
+          })
 
           expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
         })

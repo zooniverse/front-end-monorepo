@@ -28,15 +28,15 @@ The Workflow of the project should have a configuration specified that the Varia
 ### Subject
 
 Each Subject has three files: 
-- an image file (which works as a "thumbnail" to be seen on Talk)
+- an image file (which works as a "thumbnail" to be seen on Talk, this must be first in the subject location's list)
 - a JSON file containing the data for the scatter plots and bar charts
-- an SVG image of the subject's HR diagram
+- an image of the subject's HR diagram
 
 ``` js
 subject.locations = [
   { "image/png": "subject1234.png" }, // Fallback image for Talk forums
   { "application/json": "subject1234.json" },
-  { "image/svg+xml": "hrDiagram.svg" }
+  { "image/png": "hrDiagram.png" }
 ]
 ```
 
@@ -91,8 +91,8 @@ The multiple series JSON shape is an object consisting of an object for `scatter
         "yAxisLabel": "Brightness"
       }
     },
-    "barCharts": [
-      { 
+    "barCharts": {
+      "period": { 
         "data": [
           {
             "color": "drawing-red",
@@ -109,7 +109,8 @@ The multiple series JSON shape is an object consisting of an object for `scatter
           "xAxisLabel": "Period",
           "yAxisLabel": ""
         }
-      }, {
+      }, 
+      "amplitude": {
         "data": [
           {
             "color": "drawing-red",
@@ -127,7 +128,7 @@ The multiple series JSON shape is an object consisting of an object for `scatter
           "yAxisLabel": ""
         }
       }
-    ]
+    }
   }
 }
 ```
@@ -140,4 +141,4 @@ A set of chart options can also be supplied that define the x-axis and y-axis la
 
 #### `barCharts`
 
-For the `barCharts` array, this JSON takes the same same as expected for the generic `BarChartViewer` with properties for `data` and `chartOptions`. The `data` property is an array of objects that at minimum contain a string `label` and number `value`. Optionally, a `color` for each bar can be set. The color can be a variable name from the colors available from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. The `chartOptions` object expects strings for `xAxisLabel`, `yAxisLabel` and optionally can set margins. Margin is defined  as the space outside of the axes lines. The bar charts have a default margin of `{ bottom: 40, left: 40, right: 0, top: 0 }`.
+For the `barCharts` array, this JSON takes the same same as expected for the generic `BarChartViewer` with properties for `data` and `chartOptions`. The `data` property is an array of objects that at minimum contain a string `label` and number `value`. Optionally, a `color` for each bar can be set. The color can be a variable name from the colors available from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. The `chartOptions` object expects strings for `xAxisLabel` and `yAxisLabel`. It  optionally can set margins using a `margin` key expecting an object with for top, bottom, left, and right.  Margin is defined as the space outside of the axes lines. The bar charts have a default margin of `{ bottom: 40, left: 40, right: 0, top: 0 }`. Another option is to set y axis domain (see [d3 domains for linear scales](https://observablehq.com/@d3/d3-scalelinear)) as `yAxisDomain` which expects an array of two numbers. The domain for the bar charts defaults to a dynamically generated domain depending on the extent of the y values.

@@ -8,8 +8,9 @@ import getNavLinks from './helpers/getNavLinks'
 
 function storeMapper (stores) {
   return {
+    inBeta: stores.store.project.inBeta,
     isLoggedIn: stores.store.user.isLoggedIn,
-    projectName: stores.store.project['display_name']
+    projectName: stores.store.project.display_name
   }
 }
 
@@ -20,21 +21,29 @@ class ProjectHeaderContainer extends Component {
   }
 
   render () {
-    const navLinks = getNavLinks(this.props.isLoggedIn, this.getBaseUrl())
+    const { className, inBeta, isLoggedIn, projectName } = this.props
+    const navLinks = getNavLinks(isLoggedIn, this.getBaseUrl())
 
     return (
       <ProjectHeader
-        className={this.props.className}
+        className={className}
+        inBeta={inBeta}
         navLinks={navLinks}
-        title={this.props.projectName}
+        title={projectName}
       />
     )
   }
 }
 
+ProjectHeaderContainer.defaultProps = {
+  inBeta: false,
+  isLoggedIn: false
+}
+
 ProjectHeaderContainer.propTypes = {
+  inBeta: bool,
   isLoggedIn: bool,
-  projectName: string,
+  projectName: string.isRequired,
   router: shape({
     query: shape({
       project: string,

@@ -7,6 +7,7 @@ import {
   dataSeriesWithInvalidCustomColor,
   dataSeriesWithThemeColorVariables
 } from './helpers/mocks'
+import isDataSeriesHighlighted from '../isDataSeriesHighlighted'
 
 const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
 
@@ -15,10 +16,9 @@ describe('Helper > getDataSeriesColor', function () {
     expect(getDataSeriesColor).to.be.a('function')
   })
 
-  it('should default to return an empty string', function () {
+  it('should default to return transparent', function () {
     const color = getDataSeriesColor()
-    expect(color).to.be.a('string')
-    expect(color).to.be.empty()
+    expect(color).to.equal('transparent')
   })
 
   describe('with data series options', function () {
@@ -27,7 +27,8 @@ describe('Helper > getDataSeriesColor', function () {
         const color = getDataSeriesColor({
           seriesOptions: series.seriesOptions,
           seriesIndex,
-          themeColors: zooTheme.global.colors
+          themeColors: zooTheme.global.colors,
+          highlighted: true
         })
         expect(color).to.equal(zooTheme.global.colors[series.seriesOptions.color])
       })
@@ -35,7 +36,7 @@ describe('Helper > getDataSeriesColor', function () {
 
     it('should return the color defined in the subject JSON for each data series\' options object', function () {
       dataSeriesWithCustomColor.data.forEach((series) => {
-        const color = getDataSeriesColor({ seriesOptions: series.seriesOptions })
+        const color = getDataSeriesColor({ seriesOptions: series.seriesOptions,  highlighted: true })
         expect(color).to.equal(series.seriesOptions.color)
       })
     })
@@ -52,7 +53,7 @@ describe('Helper > getDataSeriesColor', function () {
 
       it('should error to the console and return an empty string', function () {
         dataSeriesWithInvalidCustomColor.data.forEach((series) => {
-          const color = getDataSeriesColor({ seriesOptions: series.seriesOptions })
+          const color = getDataSeriesColor({ seriesOptions: series.seriesOptions, highlighted: true })
           expect(logError.withArgs(`Color for data subject viewer is invalid: ${series.seriesOptions.color}`)).to.have.been.calledOnce()
           expect(color).to.be.a('string')
           expect(color).to.be.empty()
@@ -64,15 +65,15 @@ describe('Helper > getDataSeriesColor', function () {
   describe('with default colors', function () {
     describe('when there is a single series', function () {
       it('should default to the first color in the default colors array', function () {
-        const color = getDataSeriesColor({ defaultColors })
+        const color = getDataSeriesColor({ defaultColors, highlighted: true })
         expect(color).to.equal(defaultColors[0])
       })
     })
 
     describe('when there are multiple data series', function () {
       it('should return a color in the same order of the data series', function () {
-        variableStar.scatterPlot.data.forEach((series, seriesIndex) => {
-          const color = getDataSeriesColor({ seriesIndex, defaultColors })
+        variableStar.data.scatterPlot.data.forEach((series, seriesIndex) => {
+          const color = getDataSeriesColor({ seriesIndex, defaultColors, highlighted: true })
           expect(color).to.equal(defaultColors[seriesIndex])
         })
       })
@@ -89,7 +90,7 @@ describe('Helper > getDataSeriesColor', function () {
       })
 
       it('should error to the console and return an empty string', function () {
-        const color = getDataSeriesColor({ defaultColors: [ 'cccccc' ] })
+        const color = getDataSeriesColor({ defaultColors: [ 'cccccc' ], highlighted: true })
         expect(logError.withArgs('Color for data subject viewer is invalid: cccccc')).to.have.been.calledOnce()
         expect(color).to.be.a('string')
         expect(color).to.be.empty()
@@ -97,14 +98,15 @@ describe('Helper > getDataSeriesColor', function () {
     })
   })
 
-  describe('when a series can be toggled for focus', function () {
-    it('should set the color to the theme\'s \'light-4\' for unfocused data series', function () {
+  describe('when a series can be toggled for visibility', function () {
+    it('should set the color to the theme\'s \'light-4\' for dimmed data series', function () {
       const colors = []
-      const focusedSeries = [ { foo: true }, { bar: false } ]
-      variableStar.scatterPlot.data.forEach((series, seriesIndex) => {
+      const highlightedSeries = [ { foo: true }, { bar: false } ]
+      variableStar.data.scatterPlot.data.forEach((series, seriesIndex) => {
+        const highlighted = isDataSeriesHighlighted(highlightedSeries, seriesIndex)
         colors[seriesIndex] = getDataSeriesColor({
           defaultColors,
-          focusedSeries,
+          highlighted,
           seriesIndex,
           seriesOptions: series.seriesOptions,
           themeColors: zooTheme.global.colors
@@ -112,7 +114,7 @@ describe('Helper > getDataSeriesColor', function () {
       })
 
       expect(colors[0]).to.not.equal(zooTheme.global.colors['light-4'])
-      expect(colors[1]).to.equal(zooTheme.global.colors['light-4'])
+      expect(colors[1]).to.equal('transparent')
     })
   })
 })

@@ -34,29 +34,29 @@ describe('Components > DrawingToolMarks', function () {
   })
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
+    const wrapper = shallow(<DrawingToolMarks marks={marks} />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render a line', function () {
-    const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
+    const wrapper = shallow(<DrawingToolMarks marks={marks} />)
     expect(wrapper.find('Line').prop('mark')).to.equal(line)
   })
 
   it('should render a point', function () {
-    const wrapper = shallow(<DrawingToolMarks marks={marks} svg={svg} />)
+    const wrapper = shallow(<DrawingToolMarks marks={marks} />)
     expect(wrapper.find('Point').prop('mark')).to.equal(point)
   })
 
   describe('with an active mark', function () {
     it('should show that mark as active', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMarkId='point1' marks={marks} svg={svg} />)
+      const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
       expect(wrapper.find('Point').prop('active')).to.be.true()
     })
 
     it('should render a delete button', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMarkId='point1' marks={marks} svg={svg} />)
-      expect(wrapper.find('DeleteButton').prop('mark')).to.equal(point)
+      const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
+      expect(wrapper.find({ label: 'Delete point' }).prop('mark')).to.equal(point)
     })
   })
 
@@ -108,7 +108,7 @@ describe('Components > DrawingToolMarks', function () {
     })
 
     describe('when the mark overlaps the SVG element', function () {
-      it('should do call onFinish, not onDelete', function () {
+      it('should call onFinish, not onDelete', function () {
         const mockBounds = { left: 1990, top: 20, right: 2090, bottom: 120, width: 100, height: 100 }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds

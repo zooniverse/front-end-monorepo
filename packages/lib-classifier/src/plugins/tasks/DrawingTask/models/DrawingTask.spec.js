@@ -7,18 +7,18 @@ const details = [
     type: 'multiple',
     question: 'which fruit?',
     answers: ['apples', 'oranges', 'pears'],
-    required: false
+    required: ''
   },
   {
     type: 'single',
     question: 'how many?',
     answers: ['one', 'two', 'three'],
-    required: false
+    required: ''
   },
   {
     type: 'text',
     instruction: 'Transcribe something',
-    required: false
+    required: ''
   }
 ]
 
@@ -70,18 +70,25 @@ describe('Model > DrawingTask', function () {
     subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
   })
 
-  it('should keep subTaskVisibility false if there is no tool subtask', function () {
-    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-    drawingTask.setActiveTool(1)
-    drawingTask.setSubTaskVisibility(true)
-    expect(drawingTask.subTaskVisibility).to.be.false()
-  })
+  describe('Views > defaultAnnotation', function () {
+    let task
 
-  it('should set subTaskVisibility to true if there is any tool subtask', function () {
-    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-    drawingTask.setActiveTool(0)
-    drawingTask.setSubTaskVisibility(true)
-    expect(drawingTask.subTaskVisibility).to.be.true()
+    before(function () {
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T3')
+      expect(annotation.taskType).to.equal('drawing')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
   })
 
   describe('drawn marks', function () {
@@ -222,7 +229,7 @@ describe('Model > DrawingTask', function () {
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       const annotation = task.defaultAnnotation
-      const store = types.model('MockStore', {
+      types.model('MockStore', {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
       })
@@ -234,7 +241,6 @@ describe('Model > DrawingTask', function () {
       pointTool = task.tools[0]
       lineTool = task.tools[1]
       task.setActiveTool(0)
-      task.setSubTaskVisibility(true)
       task.reset()
       marks = task.marks
     })
@@ -250,10 +256,6 @@ describe('Model > DrawingTask', function () {
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
-    })
-
-    it('should reset the subtask visibility', function () {
-      expect(task.subTaskVisibility).to.be.false()
     })
   })
 })

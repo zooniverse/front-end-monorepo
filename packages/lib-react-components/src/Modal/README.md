@@ -6,9 +6,10 @@ A generic modal component. Accepts the following props:
 
 - `active` (boolean) - determines whether the modal is visible or not
 - `closeFn` (function) - function called when clicking outside the modal, or when the Esc button is pressed
--  `headingBackground` (string) - the background color for the modal header. Defaults to `'brand'` but can be set to any CSS color value or color string value from the Zooniverse Grommet theme.
-- `pad` (string or object) - determines Box padding of the modal body. Defaults to `medium`.
+-  `headingBackground` (object or string) - Defaults to `'brand'`. The background color for the modal header. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
+- `pad` (string or object) - Defaults to `medium`. Determines Box padding of the modal body. 
 - `title` (string) - string to use as the modal title
+- `titleColor` (object or string) - Defaults to `'neutral-6'` (white). The color of the title text. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
 
 Additional props for the HOC `Layer component (see Notes):
 

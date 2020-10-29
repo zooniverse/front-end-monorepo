@@ -1,6 +1,9 @@
 import { Factory } from 'rosie'
+import SubjectSetFactory from './SubjectSetFactory'
 
-export default new Factory()
+const subjectSets = Factory.buildList('subject_set', 5)
+
+export default Factory.define('workflow')
   .sequence('id', (id) => { return id.toString() })
   .attr('display_name', ['id'], function (id) {
     return `Workflow #${id}`
@@ -9,7 +12,12 @@ export default new Factory()
   .attr('configuration', {})
   .attr('first_task', '')
   .attr('grouped', false)
-  .attr('links', {})
+  .attr('links', {
+    subject_sets: subjectSets.map(subjectSet => subjectSet.id)
+  })
   .attr('tasks', {})
   .attr('steps', [])
+  .attr('subjectSets', {
+    resources: {}
+  })
   .attr('version', '1.0')

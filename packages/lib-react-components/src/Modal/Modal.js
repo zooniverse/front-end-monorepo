@@ -25,9 +25,12 @@ class Modal extends React.Component {
       children,
       className = '',
       closeFn = () => {},
-      headingBackground = '',
+      headingBackground,
+      overflow = 'auto',
       pad,
-      title = ''
+      title = '',
+      titleColor,
+      ...props
     } = this.props
 
     if (!this.state.client) {
@@ -43,14 +46,20 @@ class Modal extends React.Component {
         elevation='xlarge'
         fill
         pad='none'
+        {...props}
       >
         <ModalHeading
           background={headingBackground}
           className={className}
           closeFn={closeFn}
+          color={titleColor}
           title={title}
         />
-        <ModalBody className={className} pad={pad}>
+        <ModalBody
+          className={className}
+          overflow={overflow}
+          pad={pad}
+        >
           {children}
         </ModalBody>
       </Box>
@@ -63,7 +72,9 @@ Modal.propTypes = {
   className: PropTypes.string,
   closeFn: PropTypes.func,
   headingBackground: PropTypes.string,
-  title: PropTypes.string.isRequired
+  overflow: PropTypes.string,
+  title: PropTypes.string,
+  titleColor: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ])
 }
 
 export default withLayer(Modal)

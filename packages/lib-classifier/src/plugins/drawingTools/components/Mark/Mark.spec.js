@@ -1,12 +1,12 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Mark } from './Mark'
 import Point from '../Point'
 
-describe('Drawing tools > drawing tool root', function () {
+describe('Drawing tools > Mark', function () {
   const pointTool = PointTool.create({
     type: 'point'
   })
@@ -14,7 +14,6 @@ describe('Drawing tools > drawing tool root', function () {
     id: 'point1'
   })
   const onDelete = sinon.stub()
-  const onDeselect = sinon.stub()
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let wrapper
@@ -25,7 +24,6 @@ describe('Drawing tools > drawing tool root', function () {
         label='Point 1'
         mark={point}
         onDelete={onDelete}
-        onDeselect={onDeselect}
         onFinish={onFinish}
         onSelect={onSelect}
       >
@@ -35,7 +33,6 @@ describe('Drawing tools > drawing tool root', function () {
   })
 
   after(function () {
-    onDeselect.resetHistory()
     onFinish.resetHistory()
     onSelect.resetHistory()
   })
@@ -55,16 +52,6 @@ describe('Drawing tools > drawing tool root', function () {
 
     it('should be selected', function () {
       expect(onSelect).to.have.been.calledOnce()
-    })
-  })
-
-  describe('on blur', function () {
-    before(function () {
-      wrapper.simulate('blur')
-    })
-
-    it('should be deselected', function () {
-      expect(onDeselect).to.have.been.calledOnce()
     })
   })
 
@@ -205,6 +192,50 @@ describe('Drawing tools > drawing tool root', function () {
       it('should be rotated by mark.angle', function () {
         const transform = wrapper.root().prop('transform')
         expect(transform).to.have.string('rotate(-45)')
+      })
+    })
+  })
+
+  describe('useEffect hook', function () {
+    describe('with finished mark and no subTaskVisibility', function () {
+      let markWrapper = (mark) => {
+        return (
+          <Mark
+            label='Point 1'
+            mark={mark}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        )
+      }
+
+      afterEach(function () {
+        onFinish.resetHistory()
+      })
+
+      it('should call onFinish', function () {
+        const newMark = Object.assign({}, point, { finished: true })
+        wrapper = mount(markWrapper(newMark))
+        expect(onFinish).to.have.been.calledOnce()
+      })
+
+      describe('when the mark is not finished', function () {
+        it('should not call onFinish', function () {
+          const newMark = Object.assign({}, point, { finished: false })
+          wrapper = mount(markWrapper(newMark))
+          expect(onFinish).not.to.have.been.called()
+        })
+      })
+
+      describe('when the subtask is visible', function () {
+        it('should not call onFinish', function () {
+          const newMark = Object.assign({}, point, { subTaskVisibility: true })
+          wrapper = mount(markWrapper(newMark))
+          expect(onFinish).not.to.have.been.called()
+        })
       })
     })
   })

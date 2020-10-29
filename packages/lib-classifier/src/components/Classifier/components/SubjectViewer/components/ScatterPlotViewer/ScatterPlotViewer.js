@@ -4,26 +4,25 @@ import { withParentSize } from '@vx/responsive'
 import { withTheme } from 'styled-components'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
+import ZoomControlButton from './components/ZoomControlButton'
 
 const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, ref) {
   const {
+    zoomControlFn,
     zooming
   } = props
 
-  if (zooming) {
-    return (
-      <ZoomingScatterPlot
+  const Plot = (zooming) ? ZoomingScatterPlot : ScatterPlot
+
+  return (
+    <>
+      {zoomControlFn &&
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
+      <Plot
         forwardedRef={ref}
         {...props}
       />
-    )
-  }
-
-  return (
-    <ScatterPlot
-      forwardedRef={ref}
-      {...props}
-    />
+    </>
   )
 })
 
@@ -38,9 +37,9 @@ ScatterPlotViewer.defaultProps = {
 }
 
 ScatterPlotViewer.propTypes = {
-  theme: PropTypes.object,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
+  theme: PropTypes.object,
   zooming: PropTypes.bool
 }
 
