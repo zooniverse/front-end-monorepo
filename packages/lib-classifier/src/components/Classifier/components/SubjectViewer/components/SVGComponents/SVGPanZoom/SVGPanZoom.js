@@ -43,31 +43,11 @@ function SVGPanZoom ({
     scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
-  function onMount () {
-    enableZoom()
-  }
-
-  function onUnmount () {
-    disableZoom()
-  }
-
-  // We want to register the pan zoom event handlers
-  // on mount when zooming is enabled, and it is by default
-  // but also control the registration when zooming is enabled and disabled
-  // so we have two effect hooks now
-  // is there a better way to do this?
-  useEffect(() => {
-    if (zooming) {
-      onMount()
-      return onUnmount
-    }
-  }, [])
-
   useEffect(() => {
     if (zooming) {
       enableZoom()
+      return disableZoom
     }
-    return disableZoom
   }, [zooming])
 
   useEffect(function onZoomChange () {
