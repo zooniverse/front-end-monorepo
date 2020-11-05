@@ -24,7 +24,7 @@ const Workflow = types
     first_task: types.optional(types.string, ''),
     grouped: types.optional(types.boolean, false),
     links: types.frozen({}),
-    steps: types.union(types.frozen({}), types.array(WorkflowStep)),
+    steps: types.array(WorkflowStep),
     subjectSets: types.optional(SubjectSetStore, () => SubjectSetStore.create({})),
     tasks: types.maybe(types.frozen()),
     version: types.string
