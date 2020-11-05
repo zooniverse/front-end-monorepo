@@ -1,3 +1,3 @@
-export { default } from './SingleImageViewerConnector'
-export { default as SingleImageViewerContainer } from './SingleImageViewerContainer'
-export { default as SingleImageViewer } from './SingleImageViewer'
+export { default } from './SingleVideoViewerConnector'
+export { default as SingleVideoViewerContainer } from './SingleVideoViewerContainer'
+export { default as SingleVideoViewer } from './SingleVideoViewer'

@@ -8,7 +8,7 @@ import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import locationValidator from '../../helpers/locationValidator'
-import SingleImageViewer from './SingleImageViewer'
+import SingleImageViewer from './SingleVideoViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
 
@@ -58,7 +58,7 @@ class SingleImageViewerContainer extends React.Component {
     const { subject } = this.props
     if (subject && subject.locations) {
       const imageUrl = Object.values(subject.locations[0])[0]
-      const img = await this. (imageUrl)
+      const img = await this.fetchImage(imageUrl)
       this.setState({ img })
       return img
     }

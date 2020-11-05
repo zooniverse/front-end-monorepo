@@ -1,6 +1,6 @@
 import React from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
-import SingleImageViewerContainer from './SingleImageViewerContainer'
+import SingleImageViewerContainer from './SingleVideoViewerContainer'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
