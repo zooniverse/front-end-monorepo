@@ -6,6 +6,7 @@ import { filterByLabel, filters } from '../components/Classifier/components/Meta
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
 import SingleImageSubject from './SingleImageSubject'
+import SingleVideoSubject from './SingleVideoSubject'
 import SubjectGroup from './SubjectGroup'
 
 const MINIMUM_QUEUE_SIZE = 3
@@ -14,7 +15,8 @@ const MINIMUM_QUEUE_SIZE = 3
   see https://github.com/mobxjs/mobx-state-tree/issues/514
   for advice about using references with types.union.
 */
-const SingleSubject = types.union(SingleImageSubject, Subject)
+
+const SingleSubject = types.union(SingleImageSubject, SingleVideoSubject, Subject)
 function subjectDispatcher (snapshot) {
   if (snapshot.subjects) {
     return SubjectGroup
@@ -122,7 +124,7 @@ const SubjectStore = types
       const nextSubject = self.resources.values().next().value
       self.active = nextSubject && nextSubject.id
       if (process.env.NODE_ENV !== 'test') console.log('Loading subject', nextSubject && nextSubject.id)
-      
+
       if (self.resources.size < MINIMUM_QUEUE_SIZE) {
         console.log('Fetching more subjects')
         self.populateQueue()

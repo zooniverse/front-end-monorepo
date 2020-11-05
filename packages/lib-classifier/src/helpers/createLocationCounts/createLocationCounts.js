@@ -13,9 +13,14 @@ function createLocationCounts ({ locations }) {
       .filter(mimeType => mimeType.startsWith('application') && validateMimeType(mimeType))
       .length
 
+    const video = mimeTypes
+      .filter(mimeType => mimeType.startsWith('video') && validateMimeType(mimeType))
+      .length
+
     return {
       images,
       json,
+      video,
       total: locations.length
     }
   } catch (error) {
