@@ -97,6 +97,9 @@ const Subject = types
           if (counts.images) {
             viewer = subjectViewers.singleImage
           }
+          if (counts.video) {
+            viewer = subjectViewers.singleVideo
+          }
         }
 
         if (!viewer && counts.total > 1 && counts.total < 11) {
