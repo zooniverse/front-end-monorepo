@@ -5,6 +5,17 @@ import WorkflowConfiguration from './WorkflowConfiguration'
 
 // The db type for steps is jsonb which is being serialized as an empty object when not defined.
 // Steps will be stored as an array of pairs to preserve order.
+
+const WorkflowStep = types.refinement(
+  'WorkflowStep',
+  types.array(types.union(types.string, types.frozen())),
+  function validateStep([ stepKey, step ]) {
+    const keyIsString = typeof stepKey === 'string'
+    const stepIsObject = typeof step === 'object'
+    return keyIsString && stepIsObject
+  }
+)
+
 const Workflow = types
   .model('Workflow', {
     active: types.optional(types.boolean, false),
@@ -13,9 +24,7 @@ const Workflow = types
     first_task: types.optional(types.string, ''),
     grouped: types.optional(types.boolean, false),
     links: types.frozen({}),
-    steps: types.union(types.frozen({}), types.array(types.array(
-      types.union(types.string, types.frozen())
-    ))),
+    steps: types.union(types.frozen({}), types.array(WorkflowStep)),
     subjectSets: types.optional(SubjectSetStore, () => SubjectSetStore.create({})),
     tasks: types.maybe(types.frozen()),
     version: types.string
