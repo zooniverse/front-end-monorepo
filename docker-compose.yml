@@ -5,11 +5,10 @@ services:
     image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: bootstrap
     entrypoint:
       - "/bin/bash"
   fe-project:
-    image: front-end-monorepo_prod:latest
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
       target: production-apps
@@ -21,7 +20,7 @@ services:
     ports:
       - "3000:3000"
   fe-content:
-    image: front-end-monorepo_prod:latest
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
       target: production-apps
