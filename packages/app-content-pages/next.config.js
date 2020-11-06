@@ -18,8 +18,8 @@ function commitID () {
 
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
-const assetPrefix = process.env.ASSET_PREFIX || ''
-const SENTRY_DSN = process.env.SENTRY_DSN
+const assetPrefix = process.env.CONTENT_ASSET_PREFIX || ''
+const SENTRY_CONTENT_DSN = process.env.SENTRY_CONTENT_DSN
 const APP_ENV = process.env.APP_ENV || 'production'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 
@@ -29,7 +29,7 @@ const nextConfig = {
   env: {
     COMMIT_ID,
     PANOPTES_ENV,
-    SENTRY_DSN,
+    SENTRY_CONTENT_DSN,
     APP_ENV
   },
 
