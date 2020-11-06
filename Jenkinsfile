@@ -28,73 +28,26 @@ pipeline {
     stage('Build base Docker image') {
       when { branch 'master' }
       agent any
+
+      environment {
+        APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
+        COMMIT_ID = "${GIT_COMMIT}"
+        CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
+        CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
+        CONTENT_ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-content-pages.zooniverse.org" : "https://fe-content-pages.preview.zooniverse.org"}"
+        SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+        PROJECT_ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-project.zooniverse.org" : "https://fe-project.preview.zooniverse.org"}"
+        SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
+      }
+
       steps {
         script {
-          def dockerRepoName = 'zooniverse/front-end-monorepo'
-          def dockerImageName = "${dockerRepoName}:${BRANCH_NAME}"
-          def newImage = docker.build(dockerImageName, "--target bootstrap ./")
+          def dockerRepoName = 'zooniverse/front-end-monorepo-${APP_ENV}'
+          def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+          def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
+          def newImage = docker.build(dockerImageName, buildArgs)
           newImage.push()
           newImage.push('latest')
-        }
-      }
-    }
-
-    stage('Build app images') {
-      when {
-        anyOf {
-          branch 'master'
-          tag 'production-release'
-        }
-      }
-
-      parallel {
-        stage('Build @zooniverse/fe-content-pages') {
-          agent any
-
-          environment {
-            APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
-            ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-content-pages.zooniverse.org" : "https://fe-content-pages.preview.zooniverse.org"}"
-            COMMIT_ID = "${GIT_COMMIT}"
-            CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
-            CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
-            SENTRY_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-          }
-
-          steps {
-            dir ('packages/app-content-pages') {
-              script {
-                def dockerRepoName = 'zooniverse/fe-content-pages-${APP_ENV}'
-                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg SENTRY_DSN ."
-                def newImage = docker.build(dockerImageName, buildArgs)
-                newImage.push()
-                newImage.push('latest')
-              }
-            }
-          }
-        }
-        stage('Build @zooniverse/fe-project') {
-          agent any
-
-          environment {
-            APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
-            ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-project.zooniverse.org" : "https://fe-project.preview.zooniverse.org"}"
-            COMMIT_ID = "${GIT_COMMIT}"
-            SENTRY_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
-          }
-
-          steps {
-            dir ('packages/app-project') {
-              script {
-                def dockerRepoName = 'zooniverse/fe-project-${APP_ENV}'
-                def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-                def buildArgs = "--build-arg APP_ENV --build-arg ASSET_PREFIX --build-arg COMMIT_ID --build-arg SENTRY_DSN ."
-                def newImage = docker.build(dockerImageName, buildArgs)
-                newImage.push()
-                newImage.push('latest')
-              }
-            }
-          }
         }
       }
     }
