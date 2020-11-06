@@ -1,4 +1,30 @@
-FROM node:12 AS bootstrap
+FROM node:12
+
+ARG COMMIT_ID
+ENV COMMIT_ID=$COMMIT_ID
+
+ARG CONTENTFUL_ACCESS_TOKEN
+
+ARG CONTENTFUL_SPACE_ID
+
+ARG APP_ENV=production
+ENV APP_ENV=$APP_ENV
+
+ENV NODE_ENV production
+ENV PANOPTES_ENV production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+ARG CONTENT_ASSET_PREFIX
+ENV CONTENT_ASSET_PREFIX=$CONTENT_ASSET_PREFIX
+
+ARG PROJECT_ASSET_PREFIX
+ENV PROJECT_ASSET_PREFIX=$PROJECT_ASSET_PREFIX
+
+ARG SENTRY_CONTENT_DSN
+ENV SENTRY_CONTENT_DSN=$SENTRY_CONTENT_DSN
+
+ARG SENTRY_PROJECT_DSN
+ENV SENTRY_PROJECT_DSN=$SENTRY_PROJECT_DSN
 
 RUN mkdir -p /usr/src
 WORKDIR /usr/src/
@@ -11,14 +37,3 @@ USER node
 RUN yarn install
 
 RUN yarn bootstrap
-
-FROM node:12 AS production-apps
-
-RUN mkdir -p /usr/src
-WORKDIR /usr/src/
-
-COPY --from=bootstrap /usr/src /usr/src
-
-RUN yarn workspace @zooniverse/fe-project build
-
-RUN yarn workspace @zooniverse/fe-content-pages build
