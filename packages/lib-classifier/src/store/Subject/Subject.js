@@ -97,7 +97,7 @@ const Subject = types
           if (counts.images) {
             viewer = subjectViewers.singleImage
           }
-          if (counts.video) {
+          if (counts.videos) {
             viewer = subjectViewers.singleVideo
           }
         }
