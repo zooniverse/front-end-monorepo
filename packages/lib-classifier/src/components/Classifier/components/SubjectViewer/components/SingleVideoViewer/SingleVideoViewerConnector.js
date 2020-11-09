@@ -1,6 +1,6 @@
 import React from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
-import SingleImageViewerContainer from './SingleVideoViewerContainer'
+import SingleVideoViewerContainer from './SingleVideoViewerContainer'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
@@ -27,7 +27,7 @@ function useStores() {
   }
 }
 
-function SingleImageViewerConnector(props) {
+function SingleVideoViewerConnector(props) {
   const {
     enableRotation,
     move,
@@ -38,7 +38,7 @@ function SingleImageViewerConnector(props) {
   } = useStores()
 
   return (
-    <SingleImageViewerContainer
+    <SingleVideoViewerContainer
       enableRotation={enableRotation}
       move={move}
       rotation={rotation}
@@ -50,4 +50,4 @@ function SingleImageViewerConnector(props) {
   )
 }
 
-export default observer(SingleImageViewerConnector)
+export default observer(SingleVideoViewerConnector)

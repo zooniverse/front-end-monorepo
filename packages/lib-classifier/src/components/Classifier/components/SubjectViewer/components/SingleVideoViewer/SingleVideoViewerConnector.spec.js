@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import SingleImageViewerConnector from './SingleImageViewerConnector'
-import SingleImageViewerContainer from './SingleImageViewerContainer'
+import SingleVideoViewerConnector from './SingleVideoViewerConnector'
+import SingleVideoViewerContainer from './SingleVideoViewerContainer'
 
 const mockStore = {
   classifierStore: {
@@ -19,14 +19,14 @@ const mockStore = {
   }
 }
 
-describe('SingleImageViewerConnector', function () {
+describe('SingleVideoViewerConnector', function () {
   let wrapper, useContextMock, containerProps
   before(function () {
     useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     wrapper = shallow(
-      <SingleImageViewerConnector />
+      <SingleVideoViewerConnector />
     )
-    containerProps = wrapper.find(SingleImageViewerContainer).props()
+    containerProps = wrapper.find(SingleVideoViewerContainer).props()
   })
 
   after(function () {

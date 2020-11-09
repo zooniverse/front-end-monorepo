@@ -8,7 +8,7 @@ import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import locationValidator from '../../helpers/locationValidator'
-import SingleImageViewer from './SingleVideoViewer'
+import SingleVideoViewer from './SingleVideoViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
 
@@ -16,7 +16,7 @@ const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
 
-class SingleImageViewerContainer extends React.Component {
+class SingleVideoViewerContainer extends React.Component {
   constructor () {
     super()
     this.dragMove = this.dragMove.bind(this)
@@ -140,7 +140,7 @@ class SingleImageViewerContainer extends React.Component {
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
         >
-          <SingleImageViewer
+          <SingleVideoViewer
             enableInteractionLayer={enableDrawing}
             height={naturalHeight}
             onKeyDown={onKeyDown}
@@ -154,14 +154,14 @@ class SingleImageViewerContainer extends React.Component {
                 {...subjectImageProps}
               />
             </g>
-          </SingleImageViewer>
+          </SingleVideoViewer>
         </SVGPanZoom>
       </SVGContext.Provider>
     )
   }
 }
 
-SingleImageViewerContainer.propTypes = {
+SingleVideoViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
@@ -180,7 +180,7 @@ SingleImageViewerContainer.propTypes = {
   })
 }
 
-SingleImageViewerContainer.defaultProps = {
+SingleVideoViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   enableRotation: () => null,
   ImageObject: window.Image,
@@ -194,5 +194,5 @@ SingleImageViewerContainer.defaultProps = {
   title: {}
 }
 
-export default withKeyZoom(SingleImageViewerContainer)
-export { DraggableImage, SingleImageViewerContainer }
+export default withKeyZoom(SingleVideoViewerContainer)
+export { DraggableImage, SingleVideoViewerContainer }
