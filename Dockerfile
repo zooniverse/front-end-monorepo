@@ -34,6 +34,4 @@ RUN chown -R node:node .
 
 USER node
 
-RUN yarn install
-
 RUN yarn bootstrap
