@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, { cloneElement, useRef, useEffect, useState } from 'react'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function SVGPanZoom ({
   children,
@@ -12,7 +11,8 @@ function SVGPanZoom ({
   setOnDrag,
   setOnPan,
   setOnZoom,
-  src
+  src,
+  zooming
 }) {
   const scrollContainer = useRef()
   const defaultViewBox = {
@@ -29,14 +29,14 @@ function SVGPanZoom ({
     e.preventDefault()
   }
 
-  function onMount () {
+  function enableZoom () {
     setOnDrag(onDrag)
     setOnPan(onPan)
     setOnZoom(onZoom)
     scrollContainer.current.addEventListener('wheel', preventDefault)
   }
 
-  function onUnmount () {
+  function disableZoom () {
     setOnDrag(() => true)
     setOnPan(() => true)
     setOnZoom(() => true)
@@ -44,9 +44,11 @@ function SVGPanZoom ({
   }
 
   useEffect(() => {
-    onMount()
-    return onUnmount
-  }, [])
+    if (zooming) {
+      enableZoom()
+      return disableZoom
+    }
+  }, [zooming])
 
   useEffect(function onZoomChange () {
     const newViewBox = scaledViewBox(zoom)
@@ -126,6 +128,7 @@ function SVGPanZoom ({
 
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
+
   return (
     <div
       ref={scrollContainer}
@@ -145,11 +148,13 @@ SVGPanZoom.propTypes = {
   naturalWidth: PropTypes.number.isRequired,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
-  src: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired,
+  zooming: PropTypes.bool
 }
 
 SVGPanZoom.defaultProps = {
   maxZoom: 2,
-  minZoom: 1
+  minZoom: 1,
+  zooming: true
 }
 export default SVGPanZoom

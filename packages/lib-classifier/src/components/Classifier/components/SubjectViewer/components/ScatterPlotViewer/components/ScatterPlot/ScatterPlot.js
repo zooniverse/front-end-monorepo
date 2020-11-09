@@ -9,6 +9,7 @@ import Axes from '../Axes'
 import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
+import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 
 import {
   getDataPoints,
@@ -67,10 +68,8 @@ function ScatterPlot (props) {
   let background 
   if (backgroundColor) {
     background = backgroundColor
-  } else if (dark) {
-    background = (zooming) ? colors['dark-5'] : colors['dark-1']
   } else {
-    background = (zooming) ? colors['neutral-6'] : colors['light-1']
+    background = getZoomBackgroundColor(dark, zooming, colors)
   }
 
   const dataPoints = getDataPoints(data)
