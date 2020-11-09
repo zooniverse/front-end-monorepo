@@ -6,7 +6,7 @@ import {
   Grid
 } from 'grommet'
 import counterpart from 'counterpart'
-import { withParentSize } from '@vx/responsive'
+import { withParentSize } from '@visx/responsive'
 import { SpacedText } from '@zooniverse/react-components'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'

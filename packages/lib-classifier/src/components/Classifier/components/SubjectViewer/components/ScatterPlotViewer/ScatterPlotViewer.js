@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withParentSize } from '@vx/responsive'
+import { withParentSize } from '@visx/responsive'
 import { withTheme } from 'styled-components'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
