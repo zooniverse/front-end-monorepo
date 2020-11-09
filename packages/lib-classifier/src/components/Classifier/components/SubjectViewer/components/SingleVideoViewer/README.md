@@ -1,9 +1,9 @@
-# Single Image Viewer
+# Single Video Viewer
 
-The Single Image Viewer is a variant of the Subject Viewer that's used to
-display image media.
+The Single Video Viewer is a variant of the Subject Viewer that's used to
+display video media.
 
-// TODO: Update to validate for only allowed image media mime types
+// TODO: Update to validate for only allowed video media mime types
 
 ## Features
 
@@ -13,18 +13,18 @@ The viewer is coupled with pan and zoom functionality and defaults to render an 
 
 **Workflow**
 
-The Workflow of the project can be configured that the Single Image Viewer should be used.
+The Workflow of the project can be configured that the Single Video Viewer should be used.
 
-`workflow.configuration = { subject_viewer: 'singleImage' }`
+`workflow.configuration = { subject_viewer: 'singleVideo' }`
 
-There is a fall back to assume rendering the Single Image Viewer if the subject has a single location with an image media mime type, but specific configuration on the workflow is preferred. 
+There is a fall back to assume rendering the Single Video Viewer if the subject has a single location with an video media mime type, but specific configuration on the workflow is preferred.
 
 **Subject**
 
-Each Subject has a single image media location
+Each Subject has a single video media location
 
 ```js
 subject.locations = [
-  { "image/png": "tess1234.png" }
+  { "video/mp4": "tess1234.mp4" }
 ]
 ```
