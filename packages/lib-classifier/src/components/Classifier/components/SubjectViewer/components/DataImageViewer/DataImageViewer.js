@@ -59,6 +59,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       <StyledBox
         border={zoomEnabled.scatterPlot && { color: 'brand', size: 'xsmall' }}
         gridArea='scatterPlot'
+        height='500px'
       >
         <ScatterPlotViewer
           data={JSONData.data}
