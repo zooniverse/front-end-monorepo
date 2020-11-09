@@ -7,6 +7,7 @@ import {
 } from 'grommet'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
+import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -15,17 +16,31 @@ const StyledBox = styled(Box)`
 const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
   const {
     allowPanZoom,
+    enableRotation,
     imageLocation,
     JSONData,
+    move,
+    resetView,
+    rotation,
     setAllowPanZoom,
     setOnPan,
     setOnZoom,
-    theme
+    theme: {
+      dark,
+      global: {
+        colors
+      }
+    }
   } = props
-
   const zoomEnabled = {
     image: allowPanZoom === 'image',
     scatterPlot: allowPanZoom === 'scatterPlot'
+  }
+  const imageViewerBackground = getZoomBackgroundColor(dark, zoomEnabled.image, colors)
+
+  function disableImageZoom () {
+    resetView()
+    setAllowPanZoom('')
   }
 
   return (
@@ -38,6 +53,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       fill
       forwardedRef={ref}
       gap='xsmall'
+      pad={{ horizontal: 'xsmall' }}
       rows={['full']}
     >
       <StyledBox
@@ -60,15 +76,26 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           zooming={zoomEnabled.scatterPlot}
         />
       </StyledBox>
-      <Box gridArea='image'>
+      <Box
+        background={imageViewerBackground}
+        border={(zoomEnabled.image) && { color: 'brand', size: 'xsmall' }}
+        gridArea='image'
+      >
         {imageLocation &&
           <SingleImageViewerContainer
             enableInteractionLayer={false}
+            enableRotation={enableRotation}
+            move={move}
+            rotation={rotation}
             subject={{
               locations: [
                 imageLocation
               ]
             }}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
+            zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
+            zooming={zoomEnabled.image}
           />}
       </Box>
     </Grid>
@@ -85,6 +112,7 @@ DataImageViewer.defaultProps = {
       yAxisLabel: ''
     }
   },
+  resetView: () => {},
   setAllowPanZoom: () => {},
   theme: {
     global: {
@@ -101,6 +129,7 @@ DataImageViewer.propTypes = {
     data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object
   }),
+  resetView: PropTypes.func,
   setAllowPanZoom: PropTypes.func,
   theme: PropTypes.object
 }
