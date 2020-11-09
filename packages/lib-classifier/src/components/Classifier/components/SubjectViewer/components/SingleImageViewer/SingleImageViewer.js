@@ -1,26 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { createRef, forwardRef, useContext } from 'react'
-import styled from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-
+import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
-
-const Container = styled.div`
-  animation: fadein 1s 0s forwards;
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 100%;
-    }
-  }
-`
+import ZoomControlButton from '../ZoomControlButton'
 
 const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
   const {
@@ -33,7 +16,8 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     title,
     viewBox,
     width,
-    ...rest
+    zoomControlFn,
+    zooming
   } = props
 
   const transformLayer = createRef()
@@ -43,14 +27,18 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
 
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
-      <Container>
+      {zoomControlFn &&
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
+      <Box
+        animation='fadeIn'
+        overflow='hidden'
+      >
         <svg
           ref={ref}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
-          {...rest}
         >
           {title?.id && title?.text &&
             <title id={title.id}>{title.text}</title>}
@@ -67,7 +55,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
               />}
           </g>
         </svg>
-      </Container>
+      </Box>
     </SVGContext.Provider>
   )
 })
@@ -83,7 +71,9 @@ SingleImageViewer.propTypes = {
     text: PropTypes.string
   }),
   viewBox: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  zoomControlFn: PropTypes.oneOfType([ PropTypes.func, PropTypes.object ]),
+  zooming: PropTypes.bool
 }
 
 SingleImageViewer.defaultProps = {
@@ -91,7 +81,9 @@ SingleImageViewer.defaultProps = {
   onKeyDown: () => true,
   rotate: 0,
   scale: 1,
-  title: {}
+  title: {},
+  zoomControlFn: null,
+  zooming: false
 }
 
 export default SingleImageViewer

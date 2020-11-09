@@ -6,7 +6,7 @@ import {
   GlyphStar,
   GlyphTriangle,
   GlyphWye
-} from '@vx/glyph'
+} from '@visx/glyph'
 
 const glyphComponents = [
   GlyphCircle,

@@ -58,7 +58,7 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='500px' width='large'>
           <SingleImageViewer />
         </Box>
       </ViewerContext>
@@ -68,7 +68,7 @@ storiesOf('Subject Viewers | SingleImageViewer', module)
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <ViewerContext theme={darkZooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='500px' width='large'>
           <SingleImageViewer />
         </Box>
       </ViewerContext>
