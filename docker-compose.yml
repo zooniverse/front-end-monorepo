@@ -11,7 +11,6 @@ services:
     image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: production-apps
     entrypoint:
       - "yarn"
       - "workspace"
@@ -23,7 +22,6 @@ services:
     image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: production-apps
     entrypoint:
       - "yarn"
       - "workspace"
