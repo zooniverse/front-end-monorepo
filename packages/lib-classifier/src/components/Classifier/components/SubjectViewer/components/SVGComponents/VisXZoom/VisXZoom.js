@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { localPoint } from '@vx/event'
-import { Zoom } from '@vx/zoom'
+import { localPoint } from '@visx/event'
+import { Zoom } from '@visx/zoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 import withKeyZoom from '../../../../withKeyZoom'
 
-class VXZoom extends PureComponent {
+class VisXZoom extends PureComponent {
   constructor (props) {
     super(props)
     const { setOnPan, setOnZoom } = props
@@ -166,7 +166,7 @@ class VXZoom extends PureComponent {
   }
 }
 
-VXZoom.defaultProps = {
+VisXZoom.defaultProps = {
   left: 0,
   panning: false,
   setOnPan: () => true,
@@ -182,7 +182,7 @@ VXZoom.defaultProps = {
   zooming: false
 }
 
-VXZoom.propTypes = {
+VisXZoom.propTypes = {
   constrain: PropTypes.func,
   data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]).isRequired,
   height: PropTypes.number.isRequired,
@@ -203,5 +203,5 @@ VXZoom.propTypes = {
   zoomingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
 }
 
-export default withKeyZoom(VXZoom)
-export { VXZoom }
+export default withKeyZoom(VisXZoom)
+export { VisXZoom }
