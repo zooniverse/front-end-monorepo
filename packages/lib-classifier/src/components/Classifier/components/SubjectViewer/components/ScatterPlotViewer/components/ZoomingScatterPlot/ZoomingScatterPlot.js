@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import VXZoom from '../../../SVGComponents/VXZoom'
+import VisXZoom from '../../../SVGComponents/VisXZoom'
 import {
   getDataExtent,
   left,
@@ -201,7 +201,7 @@ class ZoomingScatterPlot extends Component {
     const topPosition = top(tickDirection, margin)
 
     return (
-      <VXZoom
+      <VisXZoom
         constrain={this.constrain}
         height={height}
         left={leftPosition}

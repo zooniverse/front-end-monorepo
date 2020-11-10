@@ -1,5 +1,5 @@
-import { letterFrequency } from '@vx/mock-data'
-import { scaleBand, scaleLinear } from '@vx/scale'
+import { letterFrequency } from '@visx/mock-data'
+import { scaleBand, scaleLinear } from '@visx/scale'
 
 const margin = {
   bottom: 40,
