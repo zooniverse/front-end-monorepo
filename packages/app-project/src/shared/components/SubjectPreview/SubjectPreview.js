@@ -38,18 +38,20 @@ function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width
           />
         </Box>
       </Anchor>
-      <TalkLink
-        href={href}
-      />
-      <FavouritesButton
-        checked={subject.favorite}
-        disabled={!isLoggedIn}
-        onClick={subject.toggleFavourite}
-      />
-      <CollectionsButton
-        disabled={!isLoggedIn}
-        subject={subject}
-      />
+      <Box direction='column' gap='xsmall' pad={{ vertical: 'xsmall' }}>
+        <TalkLink
+          href={href}
+        />
+        <FavouritesButton
+          checked={subject.favorite}
+          disabled={!isLoggedIn}
+          onClick={subject.toggleFavourite}
+        />
+        <CollectionsButton
+          disabled={!isLoggedIn}
+          subject={subject}
+        />
+      </Box>
     </Box>
   )
 }
