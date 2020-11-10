@@ -8,16 +8,17 @@ describe('Components > SVGPanZoom', function () {
   let onDrag
   let onPan
   let onZoom
-  
-  beforeEach(function () {
-    const img = {
-      getBoundingClientRect () {
-        return {
-          height: 100,
-          width: 200
-        }
+  const img = {
+    getBoundingClientRect() {
+      return {
+        height: 100,
+        width: 200
       }
     }
+  }
+  const src = 'https://example.com/image.png'
+
+  beforeEach(function () {
     wrapper = mount(
       <SVGPanZoom
         img={img}
@@ -26,6 +27,7 @@ describe('Components > SVGPanZoom', function () {
         setOnDrag={callback => { onDrag = callback }}
         setOnPan={callback => { onPan = callback }}
         setOnZoom={callback => { onZoom = callback }}
+        src={src}
       >
         <svg />
       </SVGPanZoom>
@@ -150,5 +152,48 @@ describe('Components > SVGPanZoom', function () {
     wrapper.update()
     viewBox = wrapper.find('svg').prop('viewBox')
     expect(viewBox).to.equal('0 0 200 400')
+  })
+
+  describe('when zooming function is controlled by prop', function () {
+    let setOnDragSpy, setOnPanSpy, setOnZoomSpy, wrapper
+    before(function () {
+      setOnDragSpy = sinon.spy()
+      setOnPanSpy = sinon.spy()
+      setOnZoomSpy = sinon.spy()
+      wrapper = mount(
+        <SVGPanZoom
+          img={img}
+          naturalHeight={200}
+          naturalWidth={400}
+          setOnDrag={setOnDragSpy}
+          setOnPan={setOnPanSpy}
+          setOnZoom={setOnZoomSpy}
+          src={src}
+          zooming={false}
+        >
+          <svg />
+        </SVGPanZoom>
+      )
+    })
+
+    it('should not register onZoom, onPan, onDrag on mount', function () {
+      expect(setOnDragSpy).to.not.have.been.called()
+      expect(setOnPanSpy).to.not.have.been.called()
+      expect(setOnZoomSpy).to.not.have.been.called()
+    })
+
+    it('should register the handlers when zooming is set to true', function () {
+      wrapper.setProps({ zooming: true })
+      expect(setOnDragSpy).to.have.been.called()
+      expect(setOnPanSpy).to.have.been.called()
+      expect(setOnZoomSpy).to.have.been.called()
+    })
+
+    it('should unregister the handler when zooming is set to false', function () {
+      wrapper.setProps({ zooming: false })
+      expect(setOnDragSpy).to.have.been.calledTwice()
+      expect(setOnPanSpy).to.have.been.calledTwice()
+      expect(setOnZoomSpy).to.have.been.calledTwice()
+    })
   })
 })

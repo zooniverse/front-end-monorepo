@@ -56,7 +56,7 @@ docker-compose build
 
 `docker-compose down` stops the running container.
 
-`docker-compose run --rm yarn` runs the CI tests by default.
+`docker-compose run --rm bash` runs an interactive shell on the Docker image.
 
 Development environments for individual packages can be run from the package directories. For example:
 ```sh
