@@ -106,7 +106,7 @@ export default class DataImageViewerContainer extends React.Component {
       JSONData
     },
       function() {
-        onReady({ target })
+        onReady({ target: {} })
       }
     )
   }

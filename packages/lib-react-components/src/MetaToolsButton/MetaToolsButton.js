@@ -23,7 +23,6 @@ function MetaToolsButton (props) {
       disabled={disabled}
       icon={icon}
       labelSize='small'
-      margin={{ top: 'xsmall' }}
       text={text}
       onClick={onClick}
       {...props}
