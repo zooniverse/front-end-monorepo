@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
+### Added
+- Stories and readme for MetaToolsButton
+
 ### Fixed
 - Arrow position is now correct based on the position set by tippyjs-react for the Tooltip
 - Restore default colours for the Modal and MovableModal components.
