@@ -25,9 +25,7 @@ const theme = {
       }
     },
     extend: () => css`
-      flex-direction: column;
       position: relative;
-      z-index: 100;
 
       input:not(:checked) + div {
         height: 5px;

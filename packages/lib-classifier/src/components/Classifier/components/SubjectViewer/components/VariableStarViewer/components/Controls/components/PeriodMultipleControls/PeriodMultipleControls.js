@@ -10,6 +10,10 @@ import theme from './theme'
 counterpart.registerTranslations('en', en)
 
 export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
+  label {
+    flex-direction: column;
+  }
+
   > div {
     position: relative;
   }
@@ -33,7 +37,6 @@ export function PeriodMultipleControls (props) {
     <FormField
       htmlFor='periodMultiple'
       label={<SpacedText size='10px' weight='bold'>{counterpart('VariableStarViewer.periodMultiple')}</SpacedText>}
-      style={{ position: 'relative' }}
     >
       <StyledRadioButtonGroup
         color={theme.global.colors['light-6']}
