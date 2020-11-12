@@ -23,6 +23,20 @@ function Label () {
   )
 }
 
+export function Tooltip ({ mode, tooltipText }) {
+  return (
+    <Box direction='column' margin='xsmall'>
+      <Triangle />
+      <Box
+        background={mode === 'light' ? 'white' : 'dark-2'}
+        pad='small'
+      >
+        <TooltipText text={tooltipText} />
+      </Box>
+    </Box>
+  )
+}
+
 class Banner extends Component {
   state = {
     tooltipOpen: false
@@ -83,15 +97,10 @@ class Banner extends Component {
             plain
             target={this.ref.current}
           >
-            <Box direction='column' margin='xsmall'>
-              <Triangle />
-              <Box
-                background={mode === 'light' ? 'white' : 'dark-2'}
-                pad='small'
-              >
-                <TooltipText text={tooltipText} />
-              </Box>
-            </Box>
+            <Tooltip
+              mode={mode}
+              tooltipText={tooltipText}
+            />
           </Drop>
         )}
       </Box>
