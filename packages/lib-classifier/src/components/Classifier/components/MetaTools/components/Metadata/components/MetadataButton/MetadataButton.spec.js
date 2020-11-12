@@ -1,7 +1,9 @@
-import React from 'react'
-import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
+import { mount, shallow } from 'enzyme'
+import { Grommet } from 'grommet'
+import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import MetadataButton from './MetadataButton'
 import InfoIcon from './InfoIcon'
@@ -33,7 +35,11 @@ describe('MetadataButton', function () {
         <MetadataButton
           disabled
           onClick={onClickSpy}
-        />
+        />,
+        {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
       wrapper.find('button').simulate('click')
       expect(onClickSpy).to.not.have.been.called()
