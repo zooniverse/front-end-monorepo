@@ -49,7 +49,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       { name: 'image', start: [1, 0], end: [1, 0] }
     ] 
   const columns = (parentWidth <= 500) ? ['full'] : ['1/2', '1/2']
-  const rows = (parentWidth <= 500) ? ['1/2', '1/2'] : ['full']
+  const rows = (parentWidth <= 500) ? ['auto', 'auto'] : ['full']
 
   function disableImageZoom () {
     resetView()
