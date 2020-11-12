@@ -1,11 +1,11 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Zoom } from '@vx/zoom'
+import { Zoom } from '@visx/zoom'
 import {
   lightCurveMockData
 } from '../../ScatterPlotViewer/helpers/mockData'
-import { VXZoom } from './VXZoom'
+import { VisXZoom } from './VisXZoom'
 import ZoomEventLayer from '../ZoomEventLayer'
 
 function StubComponent ({ children }) {
@@ -29,10 +29,10 @@ const zoomInEventMock = {
   preventDefault: sinon.spy()
 }
 
-describe('Component > VXZoom', function () {
+describe('Component > VisXZoom', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
-      <VXZoom
+      <VisXZoom
         data={mockData}
         height={height}
         width={width}
@@ -46,7 +46,7 @@ describe('Component > VXZoom', function () {
     it('should call props.setOnZoom callback', function () {
       const setOnZoomSpy = sinon.spy()
       shallow(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -58,10 +58,10 @@ describe('Component > VXZoom', function () {
     })
   })
 
-  describe('VX Zoom wrapping component', function () {
+  describe('VisX Zoom wrapping component', function () {
     it('should set the zoom static variable with the Zoom component child function return value', function () {
       const wrapper = mount(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -83,7 +83,7 @@ describe('Component > VXZoom', function () {
       }
 
       const wrapper = shallow(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -100,7 +100,7 @@ describe('Component > VXZoom', function () {
 
     it('should set the height and width using props', function () {
       const wrapper = shallow(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -113,7 +113,7 @@ describe('Component > VXZoom', function () {
 
     it('should set the left and top position using props', function () {
       const wrapper = shallow(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -129,7 +129,7 @@ describe('Component > VXZoom', function () {
     it('should pass along the constrain function set in props', function () {
       const constrainSpy = sinon.spy()
       const wrapper = shallow(
-        <VXZoom
+        <VisXZoom
           constrain={constrainSpy}
           data={mockData}
           height={height}
@@ -144,7 +144,7 @@ describe('Component > VXZoom', function () {
   describe('zooming component', function () {
     it('should render the zooming component', function () {
       const wrapper = mount(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -157,7 +157,7 @@ describe('Component > VXZoom', function () {
 
     it('should pass the Zoom child function return value transformMatrix as a prop', function () {
       const wrapper = mount(
-        <VXZoom
+        <VisXZoom
           data={mockData}
           height={height}
           width={width}
@@ -171,7 +171,7 @@ describe('Component > VXZoom', function () {
     describe('ZoomEventLayer', function () {
       it('should render ZoomEventLayer as a child', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -184,7 +184,7 @@ describe('Component > VXZoom', function () {
 
       it('should set the height, width, and left and top positions by props', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             left={20}
             height={height}
@@ -226,7 +226,7 @@ describe('Component > VXZoom', function () {
 
       it('should not scale the transform matrix on mouse wheel', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -239,7 +239,7 @@ describe('Component > VXZoom', function () {
 
       it('should not scale the transform matrix on double click', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -251,7 +251,7 @@ describe('Component > VXZoom', function () {
 
       it('should not scale the transform matrix on key down', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -263,7 +263,7 @@ describe('Component > VXZoom', function () {
 
       it('should not scale the transform matrix when zoom callback is called', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -339,7 +339,7 @@ describe('Component > VXZoom', function () {
 
       it('should define overflow styles on the document body on mouse enter and on mouse leave', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -357,7 +357,7 @@ describe('Component > VXZoom', function () {
 
       it('should scale in the transform matrix on mouse wheel', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -374,7 +374,7 @@ describe('Component > VXZoom', function () {
 
       it('should scale out the transform matrix on mouse wheel', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -409,7 +409,7 @@ describe('Component > VXZoom', function () {
 
       it('should scale in the transform matrix on double click', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -433,7 +433,7 @@ describe('Component > VXZoom', function () {
         }
 
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             onKeyDown={sinon.stub().callsFake(() => wrapper.instance().zoomIn())}
@@ -459,7 +459,7 @@ describe('Component > VXZoom', function () {
         }
 
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             onKeyDown={sinon.stub().callsFake(() => wrapper.instance().zoomIn())}
@@ -491,7 +491,7 @@ describe('Component > VXZoom', function () {
         }
 
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             onKeyDown={sinon.stub().callsFake((event) => {
@@ -531,7 +531,7 @@ describe('Component > VXZoom', function () {
         }
 
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             onKeyDown={sinon.stub().callsFake((event) => {
@@ -557,7 +557,7 @@ describe('Component > VXZoom', function () {
       describe('when zoom callback is called', function () {
         it('should scale transform matrix when zooming in', function () {
           const wrapper = mount(
-            <VXZoom
+            <VisXZoom
               data={mockData}
               height={height}
               width={width}
@@ -572,7 +572,7 @@ describe('Component > VXZoom', function () {
 
         it('should scale transform matrix when zooming out', function () {
           const wrapper = mount(
-            <VXZoom
+            <VisXZoom
               data={mockData}
               height={height}
               width={width}
@@ -590,7 +590,7 @@ describe('Component > VXZoom', function () {
 
         it('should scale transform matrix when resetting zoom', function () {
           const wrapper = mount(
-            <VXZoom
+            <VisXZoom
               data={mockData}
               height={height}
               width={width}
@@ -612,7 +612,7 @@ describe('Component > VXZoom', function () {
     describe('when panning is disabled', function () {
       it('should not translate the SVG position', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             height={height}
             width={width}
@@ -637,7 +637,7 @@ describe('Component > VXZoom', function () {
     describe('when panning is enabled', function () {
       it('should translate the SVG position using mouse events', function () {
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             panning
             height={height}
@@ -659,30 +659,35 @@ describe('Component > VXZoom', function () {
           preventDefault: sinon.spy()
         })
         const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
-
         // Now to simulate the panning
+        // visx switched to typescript and are type checking the event
+        // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
         eventLayer.simulate('mousedown', {
           clientX: 55,
-          clientY: 55
+          clientY: 55,
+          nativeEvent: new Event('test')
         })
         eventLayer.simulate('mousemove', {
           clientX: 60,
-          clientY: 60
+          clientY: 60,
+          nativeEvent: new Event('test')
         })
-        eventLayer.simulate('mouseup')
+        eventLayer.simulate('mouseup', {
+          nativeEvent: new Event('test')
+        })
 
         const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
         expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-        expect(pannedTransformMatrix.translateX).to.equal(initialTransformMatrix.translateX - 5)
-        expect(pannedTransformMatrix.translateY).to.equal(initialTransformMatrix.translateY - 5)
+        expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
+        expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
       })
 
       describe('keydown', function () {
         let wrapper
         beforeEach(function () {
           wrapper = mount(
-            <VXZoom
+            <VisXZoom
               data={mockData}
               panning
               height={height}
@@ -814,7 +819,7 @@ describe('Component > VXZoom', function () {
           zoomOutValue: 0.8
         }
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             panning
             height={height}
@@ -856,7 +861,7 @@ describe('Component > VXZoom', function () {
           zoomOutValue: 0.8
         }
         const wrapper = mount(
-          <VXZoom
+          <VisXZoom
             data={mockData}
             panning
             height={height}
@@ -895,7 +900,7 @@ describe('Component > VXZoom', function () {
         expect(secondZoomedOutTransformMatrix.scaleX).to.be.above(zoomConfiguration.minZoom)
         expect(secondZoomedOutTransformMatrix.scaleY).to.be.above(zoomConfiguration.minZoom)
         expect(secondZoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
-        // The default vx behavior is to return the previous transform matrix
+        // The default visx behavior is to return the previous transform matrix
         expect(secondZoomedOutTransformMatrix).to.deep.equal(firstZoomedOutTransformMatrix)
       })
     })

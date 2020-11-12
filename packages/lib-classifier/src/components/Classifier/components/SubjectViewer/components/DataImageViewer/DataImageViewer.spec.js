@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import { DataImageViewer } from './DataImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import { SingleImageViewer } from '../SingleImageViewer'
+import { SingleImageViewerContainer } from '../SingleImageViewer'
 import kepler from '../../helpers/mockLightCurves/kepler'
 
 const JSONData = {
@@ -13,17 +13,15 @@ const JSONData = {
     yAxisLabel: 'brightness'
   }
 }
-const imageSrc = 'http://www.myimagehost.com/subject.png'
+const imageLocation = { 'image/png': 'example.png' }
 
 describe('Component > DataImageViewer', function () {
-  let wrapper, setAllowPanZoomSpy
+  let wrapper
   before(function () {
-    setAllowPanZoomSpy = sinon.spy()
     wrapper = shallow(
       <DataImageViewer
-        imageSrc={imageSrc}
+        imageLocation={imageLocation}
         JSONData={JSONData}
-        setAllowPanZoom={setAllowPanZoomSpy}
       />
     )
   })
@@ -43,69 +41,146 @@ describe('Component > DataImageViewer', function () {
       expect(props.xAxisLabel).to.equal('time')
       expect(props.yAxisLabel).to.equal('brightness')
     })
+
+    describe('when zoom is not enabled', function () {
+      let scatterPlotWrapper, scatterPlot, setAllowPanZoomSpy
+      before(function () {
+        setAllowPanZoomSpy = sinon.spy()
+        wrapper = shallow(
+          <DataImageViewer
+            imageLocation={imageLocation}
+            JSONData={JSONData}
+            setAllowPanZoom={setAllowPanZoomSpy}
+          />
+        )
+        scatterPlotWrapper = wrapper.find({ gridArea: 'scatterPlot' })
+        scatterPlot = wrapper.find(ScatterPlotViewer)
+      })
+
+      it('should have zooming set to false', function () {
+        expect(scatterPlot.props().zooming).to.be.false()
+      })
+
+      it('should not have a border defined for its wrapper div', function () {
+        expect(scatterPlotWrapper.props().border).to.be.false()
+      })
+
+      it('should set the zoomControlFn prop to setAllowPanZoom with scatterPlot as the argument', function () {
+        scatterPlot.props().zoomControlFn()
+        expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('scatterPlot')
+      })
+    })
+
+    describe('when zoom is enabled', function () {
+      let scatterPlotWrapper, scatterPlot, setAllowPanZoomSpy
+      before(function () {
+        setAllowPanZoomSpy = sinon.spy()
+        wrapper = shallow(
+          <DataImageViewer
+            allowPanZoom='scatterPlot'
+            imageLocation={imageLocation}
+            JSONData={JSONData}
+            setAllowPanZoom={setAllowPanZoomSpy}
+          />
+        )
+
+        scatterPlotWrapper = wrapper.find({ gridArea: 'scatterPlot' })
+        scatterPlot = wrapper.find(ScatterPlotViewer)
+      })
+
+      it('should set zooming to true', function () {
+        expect(scatterPlot.props().zooming).to.be.true()
+      })
+
+      it('should have a border defined for its wrapper div', function () {
+        expect(scatterPlotWrapper.props().border).to.deep.equal({ color: 'brand', size: 'xsmall' })
+      })
+
+      it('should set the zoomControlFn prop to setAllowPanZoom with an empty string argument', function () {
+        scatterPlot.props().zoomControlFn()
+        expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('')
+      })
+    })
   })
 
   describe('SingleImageViewer', function () {
-    it('should render a SingleImageViewer', function () {
-      expect(wrapper.find(SingleImageViewer)).to.have.lengthOf(1)
-    })
-
-    it('should render an svg image with the imageSrc', function () {
-      const image = wrapper.find('image')
-      expect(image).to.have.lengthOf(1)
-      expect(image.props().xlinkHref).to.equal(imageSrc)
-    })
-  })
-
-  describe('when zoom is not enabled', function () {
-    let scatterPlotWrapper, scatterPlot
+    let wrapper
     before(function () {
-      scatterPlotWrapper = wrapper.find({ gridArea: 'scatterPlot' })
-      scatterPlot = wrapper.find(ScatterPlotViewer)
+      wrapper = shallow(<DataImageViewer />)
     })
 
-    after(function () {
-      setAllowPanZoomSpy.resetHistory()
+    it('should not render a SingleImageViewerContainer if there is no imageLocation', function () {
+      expect(wrapper.find(SingleImageViewerContainer)).to.have.lengthOf(0)
     })
 
-    it('should have zooming set to false', function () {
-      expect(scatterPlot.props().zooming).to.be.false()
+    it('should render a SingleImageViewer if there is an imageLocation', function () {
+      wrapper.setProps({ imageLocation })
+      expect(wrapper.find(SingleImageViewerContainer)).to.have.lengthOf(1)
     })
 
-    it('should not have a border defined for its wrapper div', function () {
-      expect(scatterPlotWrapper.props().border).to.be.false()
+    describe('when zoom is not enabled', function () {
+      let imageViewerWrapper, imageViewer, setAllowPanZoomSpy
+      before(function () {
+        setAllowPanZoomSpy = sinon.spy()
+        wrapper = shallow(
+          <DataImageViewer
+            imageLocation={imageLocation}
+            JSONData={JSONData}
+            setAllowPanZoom={setAllowPanZoomSpy}
+          />
+        )
+        imageViewerWrapper = wrapper.find({ gridArea: 'image' })
+        imageViewer = wrapper.find(SingleImageViewerContainer)
+      })
+
+      it('should have zooming set to false', function () {
+        expect(imageViewer.props().zooming).to.be.false()
+      })
+
+      it('should not have a border defined for its wrapper div', function () {
+        expect(imageViewerWrapper.props().border).to.be.false()
+      })
+
+      it('should set the zoomControlFn prop to setAllowPanZoom with image as the argument', function () {
+        imageViewer.props().zoomControlFn()
+        expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('image')
+      })
     })
 
-    it('should set the zoomControlFn prop to setAllowPanZoom with phasedJSON as the argument', function () {
-      scatterPlot.props().zoomControlFn()
-      expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('scatterPlot')
-    })
-  })
+    describe('when zoom is enabled', function () {
+      let imageViewerWrapper, imageViewer, resetViewSpy, setAllowPanZoomSpy
+      before(function () {
+        setAllowPanZoomSpy = sinon.spy()
+        resetViewSpy = sinon.spy()
+        wrapper = shallow(
+          <DataImageViewer
+            allowPanZoom='image'
+            imageLocation={imageLocation}
+            JSONData={JSONData}
+            resetView={resetViewSpy}
+            setAllowPanZoom={setAllowPanZoomSpy}
+          />
+        )
+        imageViewerWrapper = wrapper.find({ gridArea: 'image' })
+        imageViewer = wrapper.find(SingleImageViewerContainer)
+      })
 
-  describe('when zoom is enabled', function () {
-    let scatterPlotWrapper, scatterPlot
-    before(function () {
-      wrapper.setProps({ allowPanZoom: 'scatterPlot' })
-      scatterPlotWrapper = wrapper.find({ gridArea: 'scatterPlot' })
-      scatterPlot = wrapper.find(ScatterPlotViewer)
-    })
+      it('should set zooming to true', function () {
+        expect(imageViewer.props().zooming).to.be.true()
+      })
 
-    after(function () {
-      wrapper.setProps({ allowPanZoom: '' })
-      setAllowPanZoomSpy.resetHistory()
-    })
+      it('should have a border defined for its wrapper div', function () {
+        expect(imageViewerWrapper.props().border).to.deep.equal({ color: 'brand', size: 'xsmall' })
+      })
 
-    it('should set zooming to true', function () {
-      expect(scatterPlot.props().zooming).to.be.true()
-    })
+      it('should set the zoomControlFn prop to setAllowPanZoom with an empty string argument', function () {
+        imageViewer.props().zoomControlFn()
+        expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('')
+      })
 
-    it('should have a border defined for its wrapper div', function () {
-      expect(scatterPlotWrapper.props().border).to.deep.equal({ color: 'brand', size: 'xsmall' })
-    })
-
-    it('should set the zoomControlFn prop to setAllowPanZoom with an empty string argument', function () {
-      scatterPlot.props().zoomControlFn()
-      expect(setAllowPanZoomSpy).to.have.been.calledOnceWith('')
+      it('should call resetView when zoomControlFn is called', function () {
+        expect(resetViewSpy).to.have.been.calledOnce()
+      })
     })
   })
 })

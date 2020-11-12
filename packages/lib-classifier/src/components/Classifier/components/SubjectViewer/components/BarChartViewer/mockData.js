@@ -1,5 +1,5 @@
-import { letterFrequency } from '@vx/mock-data'
-import { scaleBand, scaleLinear } from '@vx/scale'
+import { letterFrequency } from '@visx/mock-data'
+import { scaleBand, scaleLinear } from '@visx/scale'
 
 const margin = {
   bottom: 40,
@@ -39,13 +39,15 @@ const mockDataWithColor = Object.assign({}, { data: dataWithVariableBarColor }, 
 
 const xScale = scaleBand({
   domain: dataInZooFormat.map(datum => datum.label),
-  rangeRound: [0, xMax],
+  range: [0, xMax],
+  round: true,
   padding: 0.25
 })
 
 const yScale = scaleLinear({
   domain: [0, Math.max(...dataInZooFormat.map(datum => datum.value))],
-  rangeRound: [yMax, 0]
+  range: [yMax, 0],
+  round: true
 })
 
 const variableStarPeriodMockData = {

@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { object, oneOf, shape, string } from 'prop-types'
+import { object, oneOf, oneOfType, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
@@ -66,7 +66,7 @@ Triangle.defaultProps = {
 }
 
 Triangle.propTypes = {
-  pad: oneOf([object, string]),
+  pad: oneOfType([object, string]),
   pointDirection: oneOf(['down', 'left', 'right', 'up']),
   justify: oneOf(['start', 'center', 'end']),
   theme: shape({

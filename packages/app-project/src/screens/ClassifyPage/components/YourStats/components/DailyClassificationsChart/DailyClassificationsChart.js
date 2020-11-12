@@ -2,11 +2,11 @@ import counterpart from 'counterpart'
 import { array, object, string } from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
-import { AxisBottom, AxisLeft } from '@vx/axis'
-import { Group } from '@vx/group'
-import { Bar } from '@vx/shape'
-import { Text } from '@vx/text'
-import { scaleBand, scaleLinear } from '@vx/scale'
+import { AxisBottom, AxisLeft } from '@visx/axis'
+import { Group } from '@visx/group'
+import { Bar } from '@visx/shape'
+import { Text } from '@visx/text'
+import { scaleBand, scaleLinear } from '@visx/scale'
 import WidgetHeading from '@shared/components/WidgetHeading'
 
 import en from './locales/en'
@@ -38,13 +38,15 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
   const PADDING = 20
   const WIDTH = 300
   const xScale = scaleBand({
-    rangeRound: [0, WIDTH],
+    range: [0, WIDTH],
+    round: true,
     domain: stats.map(stat => stat.longLabel),
     padding: 0.1
   })
 
   const yScale = scaleLinear({
-    rangeRound: [HEIGHT - PADDING, 0],
+    range: [HEIGHT - PADDING, 0],
+    round: true,
     domain: [0, Math.max(...stats.map(stat => stat.count), 10)],
     nice: true
   })

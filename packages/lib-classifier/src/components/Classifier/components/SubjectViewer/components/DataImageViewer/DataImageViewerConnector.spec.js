@@ -10,6 +10,10 @@ const mockStore = {
       active: { id: '1' }
     },
     subjectViewer: {
+      enableRotation: sinon.spy(),
+      move: false,
+      resetView: sinon.spy(),
+      rotation: 0,
       setOnPan: sinon.spy(),
       setOnZoom: sinon.spy()
     }
@@ -44,5 +48,21 @@ describe('DataImageViewerConnector', function () {
 
   it('should pass the setOnZoom function', function () {
     expect(containerProps.setOnZoom).to.deep.equal(mockStore.classifierStore.subjectViewer.setOnZoom)
+  })
+
+  it('should pass the enableRotation function', function () {
+    expect(containerProps.enableRotation).to.deep.equal(mockStore.classifierStore.subjectViewer.enableRotation)
+  })
+
+  it('should pass the move boolean', function () {
+    expect(containerProps.move).to.deep.equal(mockStore.classifierStore.subjectViewer.move)
+  })
+
+  it('should pass the resetView function', function () {
+    expect(containerProps.resetView).to.deep.equal(mockStore.classifierStore.subjectViewer.resetView)
+  })
+
+  it('should pass the rotation value', function () {
+    expect(containerProps.rotation).to.deep.equal(mockStore.classifierStore.subjectViewer.rotation)
   })
 })

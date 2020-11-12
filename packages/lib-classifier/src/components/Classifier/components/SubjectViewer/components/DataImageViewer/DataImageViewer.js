@@ -6,7 +6,8 @@ import {
   Grid
 } from 'grommet'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import { SingleImageViewer } from '../SingleImageViewer'
+import { SingleImageViewerContainer } from '../SingleImageViewer'
+import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -15,17 +16,31 @@ const StyledBox = styled(Box)`
 const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
   const {
     allowPanZoom,
-    imageSrc,
+    enableRotation,
+    imageLocation,
     JSONData,
+    move,
+    resetView,
+    rotation,
     setAllowPanZoom,
     setOnPan,
     setOnZoom,
-    theme
+    theme: {
+      dark,
+      global: {
+        colors
+      }
+    }
   } = props
-
   const zoomEnabled = {
     image: allowPanZoom === 'image',
     scatterPlot: allowPanZoom === 'scatterPlot'
+  }
+  const imageViewerBackground = getZoomBackgroundColor(dark, zoomEnabled.image, colors)
+
+  function disableImageZoom () {
+    resetView()
+    setAllowPanZoom('')
   }
 
   return (
@@ -38,11 +53,13 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
       fill
       forwardedRef={ref}
       gap='xsmall'
+      pad={{ horizontal: 'xsmall' }}
       rows={['full']}
     >
       <StyledBox
         border={zoomEnabled.scatterPlot && { color: 'brand', size: 'xsmall' }}
         gridArea='scatterPlot'
+        height='500px'
       >
         <ScatterPlotViewer
           data={JSONData.data}
@@ -60,12 +77,27 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           zooming={zoomEnabled.scatterPlot}
         />
       </StyledBox>
-      <Box gridArea='image'>
-        <SingleImageViewer
-          enableInteractionLayer={false}
-        >
-          <image xlinkHref={imageSrc} />
-        </SingleImageViewer>
+      <Box
+        background={imageViewerBackground}
+        border={(zoomEnabled.image) && { color: 'brand', size: 'xsmall' }}
+        gridArea='image'
+      >
+        {imageLocation &&
+          <SingleImageViewerContainer
+            enableInteractionLayer={false}
+            enableRotation={enableRotation}
+            move={move}
+            rotation={rotation}
+            subject={{
+              locations: [
+                imageLocation
+              ]
+            }}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
+            zoomControlFn={(zoomEnabled.image) ? () => disableImageZoom() : () => setAllowPanZoom('image')}
+            zooming={zoomEnabled.image}
+          />}
       </Box>
     </Grid>
   )
@@ -73,7 +105,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
 
 DataImageViewer.defaultProps = {
   allowPanZoom: '',
-  imageSrc: '',
+  imageLocation: null,
   JSONData: {
     data: [],
     chartOptions: {
@@ -81,6 +113,7 @@ DataImageViewer.defaultProps = {
       yAxisLabel: ''
     }
   },
+  resetView: () => {},
   setAllowPanZoom: () => {},
   theme: {
     global: {
@@ -92,11 +125,12 @@ DataImageViewer.defaultProps = {
 
 DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,
-  imageSrc: PropTypes.string,
+  imageLocation: PropTypes.object,
   JSONData: PropTypes.shape({
     data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object
   }),
+  resetView: PropTypes.func,
   setAllowPanZoom: PropTypes.func,
   theme: PropTypes.object
 }

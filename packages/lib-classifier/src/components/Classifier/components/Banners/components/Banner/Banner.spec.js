@@ -1,7 +1,7 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
 
-import { Banner } from './Banner'
+import { Banner, Tooltip } from './Banner'
 
 let wrapper
 
@@ -73,16 +73,12 @@ describe('Component > Banner', function () {
 
   describe('Tooltip', function () {
     before(function () {
-      wrapper = mount(COMPONENT)
-      wrapper.setState({
-        tooltipOpen: true
-      })
-    })
-
-    after(function () {
-      wrapper.setState({
-        tooltipOpen: false
-      })
+      wrapper = shallow(
+        <Tooltip
+          mode='light'
+          tooltipText={TOOLTIP_TEXT}
+        />
+      )
     })
 
     it('should pass the `tooltipText` prop to `<TooltipText />`', function () {

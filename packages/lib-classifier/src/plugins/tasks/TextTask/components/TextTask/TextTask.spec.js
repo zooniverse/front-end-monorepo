@@ -1,8 +1,9 @@
+import { mount, shallow } from 'enzyme'
+import { Grommet, TextArea } from 'grommet'
 import { types } from 'mobx-state-tree'
 import React from 'react'
 import sinon from 'sinon'
-import { mount, shallow } from 'enzyme'
-import { TextArea, TextInput } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import TextTask from './'
 import { default as Task } from '@plugins/tasks/TextTask'
 import DefaultTextTask from './components/DefaultTextTask'
@@ -32,10 +33,15 @@ describe('TextTask', function () {
   describe('default task', function () {
     let wrapper
     before(function () {
+      const shallowOptions = {
+        wrappingComponent: <Grommet />,
+        wrappingComponentProps: { theme: zooTheme }
+      }
       wrapper = shallow(
         <TextTask
           task={task}
-        />
+        />,
+        shallowOptions
       )
     })
 
@@ -50,7 +56,11 @@ describe('TextTask', function () {
         wrapper = mount(
           <TextTask
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         const insertionButton = wrapper.find('button').find({ value: 'insertion' })
         const fakeEvent = {
@@ -88,7 +98,11 @@ describe('TextTask', function () {
         wrapper = mount(
           <TextTask
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
       })
 
@@ -106,7 +120,11 @@ describe('TextTask', function () {
         wrapper = mount(
           <TextTask
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         const textArea = wrapper.find(TextArea).getDOMNode()
         textArea.value = 'This has been edited.'
@@ -130,7 +148,11 @@ describe('TextTask', function () {
         wrapper = mount(
           <TextTask
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         const textArea = wrapper.find(TextArea).getDOMNode()
         textArea.value = 'This has been edited.'
@@ -176,7 +198,11 @@ describe('TextTask', function () {
           <TextTask
             subTaskPreviousAnnotationValues={suggestions}
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         const insertionButton = wrapper.find('button').find({ value: 'insertion' })
         const fakeEvent = {
@@ -216,7 +242,11 @@ describe('TextTask', function () {
           <TextTask
             subTaskPreviousAnnotationValues={suggestions}
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
       })
 
@@ -235,7 +265,11 @@ describe('TextTask', function () {
           <TextTask
             subTaskPreviousAnnotationValues={suggestions}
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         const textInput = wrapper.find('input').getDOMNode()
         textInput.value = 'This has been edited.'
@@ -260,7 +294,11 @@ describe('TextTask', function () {
           <TextTask
             subTaskPreviousAnnotationValues={suggestions}
             task={task}
-          />
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         const textInput= wrapper.find('input').getDOMNode()
         textInput.value = 'This has been edited.'

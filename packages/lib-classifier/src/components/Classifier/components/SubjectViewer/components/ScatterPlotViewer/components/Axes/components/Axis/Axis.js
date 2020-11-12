@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AxisLeft, AxisBottom } from '@vx/axis'
+import { AxisLeft, AxisBottom } from '@visx/axis'
 import { withTheme } from 'styled-components'
 import InnerTickAxis from '../InnerTickAxis'
 
@@ -36,6 +36,7 @@ function Axis (props) {
     orientation,
     scale
   } = axis
+  // TODO: is this still true with visx v1.0?
   // :( this doesn't work because of https://github.com/hshoff/vx/issues/283
   // const fontSize = theme.text.xsmall.size
   const fontSize = 12
@@ -88,6 +89,7 @@ function Axis (props) {
   }
 
   if (orientation === 'bottom') {
+    // TODO: check to see if this is still true with visx v1.0:
     // vx axis components assume center position for label,
     // so the labelProps textAnchor option doesn't do what you might think it does
     // x position on the text starts at the center of the scale range
@@ -107,6 +109,7 @@ function Axis (props) {
           fontFamily,
         }}
         left={0}
+        numTicks={numTicks}
         tickLabelProps={() => ({
           dy: '0.25em',
           fill: axisColor,
