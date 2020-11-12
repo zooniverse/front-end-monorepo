@@ -198,7 +198,7 @@ describe('Component > TranscribedLines', function () {
         getBoundingClientRect: sinon.spy()
       }
     }
-    let lines, refStub 
+    let lines, refStub
     before(function () {
       refStub = sinon.stub(React, 'createRef').callsFake(() => { return currentMock })
       wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
@@ -281,13 +281,13 @@ describe('Component > TranscribedLines', function () {
 
     it('should have an explanatory tooltip', function () {
       lines.forEach((component, index) => {
-        const tooltip = wrapper.find({ id: `transcribed-${index}`})
+        const tooltip = wrapper.find({ id: `transcribed-${index}` })
         expect(tooltip).to.have.lengthOf(1)
       })
     })
   })
 
-  describe('completed lines',function () {
+  describe('completed lines', function () {
     let lines, completeLines
     before(function () {
       wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
@@ -328,7 +328,7 @@ describe('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        wrapper.find({ 'aria-describedby': `complete-${index}`}).simulate('click')
+        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('click')
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.true()
         expect(popup.props().line).to.deep.equal(completeLines[index])
