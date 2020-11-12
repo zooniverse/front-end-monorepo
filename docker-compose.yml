@@ -16,6 +16,13 @@ services:
       - "workspace"
       - "@zooniverse/fe-project"
     command: ["start"]
+    environment:
+      - PORT=3000
+      - ASSET_PREFIX=http://localhost:3000
+      - NODE_ENV=production
+      - PANOPTES_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
     ports:
       - "3000:3000"
   fe-content:
@@ -27,5 +34,12 @@ services:
       - "workspace"
       - "@zooniverse/fe-content-pages"
     command: ["start"]
+    environment:
+      - PORT=3000
+      - ASSET_PREFIX=http://localhost:3001
+      - NODE_ENV=production
+      - PANOPTES_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
     ports:
       - "3001:3000"
