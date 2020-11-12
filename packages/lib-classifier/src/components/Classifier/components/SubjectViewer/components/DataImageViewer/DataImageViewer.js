@@ -65,7 +65,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           data={JSONData.data}
           margin={{
             bottom: 50,
-            left: 60,
+            left: 70,
             right: 10,
             top: 30
           }}
@@ -73,6 +73,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           setOnZoom={setOnZoom}
           xAxisLabel={JSONData.chartOptions?.xAxisLabel}
           yAxisLabel={JSONData.chartOptions?.yAxisLabel}
+          yAxisLabelOffset={50}
           zoomControlFn={(zoomEnabled.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
           zooming={zoomEnabled.scatterPlot}
         />
