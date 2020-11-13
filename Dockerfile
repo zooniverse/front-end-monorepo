@@ -10,16 +10,18 @@ USER node
 
 RUN yarn install
 
-RUN yarn workspace @zooniverse/react-components build
-
-RUN yarn workspace @zooniverse/classifier build
-
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
 
-ENV PANOPTES_ENV production
+ARG PANOPTES_ENV=production
+ENV PANOPTES_ENV=$PANOPTES_ENV
 
-ENV NODE_ENV production
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
+RUN yarn workspace @zooniverse/react-components build
+
+RUN yarn workspace @zooniverse/classifier build
 
 ARG APP_ENV=production
 ENV APP_ENV=$APP_ENV
