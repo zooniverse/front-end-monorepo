@@ -18,7 +18,7 @@ services:
     command: ["start"]
     environment:
       - PORT=3000
-      - ASSET_PREFIX=http://localhost:3000
+      - PROJECT_ASSET_PREFIX=http://localhost:3000
       - NODE_ENV=production
       - PANOPTES_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
@@ -36,7 +36,7 @@ services:
     command: ["start"]
     environment:
       - PORT=3000
-      - ASSET_PREFIX=http://localhost:3001
+      - CONTENT_ASSET_PREFIX=http://localhost:3001
       - NODE_ENV=production
       - PANOPTES_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
