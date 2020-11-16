@@ -1,4 +1,4 @@
-import { scaleLinear } from '@vx/scale'
+import { scaleLinear } from '@visx/scale'
 import * as d3 from 'd3'
 import { flatten, zipWith } from 'lodash'
 

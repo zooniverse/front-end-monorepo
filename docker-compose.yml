@@ -1,14 +1,13 @@
 version: '3.7'
 
 services:
-  yarn:
+  bash:
     image: front-end-monorepo_dev:latest
     build:
       context: ./
       target: bootstrap
     entrypoint:
-      - "yarn"
-    command: ["test:ci"]
+      - "/bin/bash"
   fe-project:
     image: front-end-monorepo_prod:latest
     build:
@@ -33,4 +32,3 @@ services:
     command: ["start"]
     ports:
       - "3001:3000"
-

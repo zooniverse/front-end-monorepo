@@ -10,11 +10,19 @@ function useStores() {
   } = stores.classifierStore.subjects
 
   const {
+    enableRotation,
+    move,
+    resetView,
+    rotation,
     setOnZoom,
     setOnPan
   } = stores.classifierStore.subjectViewer
 
   return {
+    enableRotation,
+    move,
+    resetView,
+    rotation,
     setOnZoom,
     setOnPan,
     subject
@@ -23,6 +31,10 @@ function useStores() {
 
 function DataImageViewerConnector (props) {
   const {
+    enableRotation,
+    move,
+    resetView,
+    rotation,
     setOnZoom,
     setOnPan,
     subject
@@ -30,6 +42,10 @@ function DataImageViewerConnector (props) {
 
   return (
     <DataImageViewerContainer
+      enableRotation={enableRotation}
+      move={move}
+      resetView={resetView}
+      rotation={rotation}
       setOnZoom={setOnZoom}
       setOnPan={setOnPan}
       subject={subject}

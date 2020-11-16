@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withParentSize } from '@vx/responsive'
+import { withParentSize } from '@visx/responsive'
 import { withTheme } from 'styled-components'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
-import ZoomControlButton from './components/ZoomControlButton'
+import ZoomControlButton from '../ZoomControlButton'
 
 const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, ref) {
   const {
@@ -17,7 +17,7 @@ const ScatterPlotViewer = React.forwardRef(function ScatterPlotViewer (props, re
   return (
     <>
       {zoomControlFn &&
-        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
+        <ZoomControlButton onClick={zoomControlFn} position='absolute' zooming={zooming} />}
       <Plot
         forwardedRef={ref}
         {...props}

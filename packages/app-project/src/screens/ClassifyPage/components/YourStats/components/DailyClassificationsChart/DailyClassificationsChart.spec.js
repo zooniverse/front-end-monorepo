@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { AxisBottom, AxisLeft } from '@vx/axis'
-import { Group } from '@vx/group'
-import { Bar } from '@vx/shape'
+import { AxisBottom, AxisLeft } from '@visx/axis'
+import { Group } from '@visx/group'
+import { Bar } from '@visx/shape'
 import WidgetHeading from '@shared/components/WidgetHeading'
 
 import { DailyClassificationsChart } from './DailyClassificationsChart'
