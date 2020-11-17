@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
@@ -11,6 +11,15 @@ const DraggableImage = styled(draggable('image'))`
 
 const DraggableRect = styled(draggable('rect'))`
     cursor: grab;
+  }
+`
+
+const ClickableRect = styled('rect')`
+    cursor: pointer;
+    &:focus {
+      ${props => css`stroke: ${props.cellStyle.stroke};`}
+      ${props => css`stroke-width: ${props.cellStyle.highlightWidth};`}
+    }
   }
 `
 
@@ -70,17 +79,6 @@ function SGVGridCell (props) {
   const imageY = (cellHeight - imageHeight) / 2
 
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
-  
-  const focusBorderSize = cellStyle.highlightWidth * BORDER_MULTIPLIER
-  const ClickableRect = styled('rect')`
-      cursor: pointer;
-      &:focus {
-        stroke: ${cellStyle.stroke};
-        stroke-width: ${focusBorderSize};
-        stroke-dasharray: ${focusBorderSize}, ${focusBorderSize};
-      }
-    }
-  `
   
   function toggleCellAnnotation () {
     if (!annotationMode || !annotation?.value) return
@@ -142,6 +140,7 @@ function SGVGridCell (props) {
             aria-checked={checked}
             aria-label={`Cell at row ${row} column ${col}`}
             fill="transparent"
+            cellStyle={cellStyle}
             width={cellWidth}
             height={cellHeight}
             onClick={(e) => {
