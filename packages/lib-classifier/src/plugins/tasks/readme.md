@@ -61,7 +61,7 @@ The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 
 All tasks should extend the Task model by implementing the following:
 
-- _defaultAnnotation(id) (Annotation)_ return a new default annotation for this task. The `id` parameter is optional.
+- _defaultAnnotation(id) (Annotation)_ return a new default annotation for this task. The `id` parameter is optional and defaults to a generated id using cuid.
 - _type (string)_ the type of task eg. `single`, `text`, `drawing`. Types must be unique to each Task model.
 
 Tasks may implement the following actions to hook into the workflow classification lifecycle
