@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { types } from 'mobx-state-tree'
+import { tryReference, types } from 'mobx-state-tree'
 import Annotation from './Annotation'
 
 const Task = types.model('Task', {
@@ -21,18 +21,15 @@ const Task = types.model('Task', {
     },
 
     get isComplete () {
-      return !self.required || !!self.annotation && self.annotation.isComplete
+      const annotation = tryReference(() => self.annotation)
+      return !self.required || !!annotation?.isComplete
     }
   }))
   .actions(self => ({
-    updateAnnotation (value) {
-      self.annotation && self.annotation.update(value)
-    },
-
     complete () {
-      // set an annotation for this task if there wasn't one already.
-      const { value } = self.annotation
-      self.updateAnnotation(value)
+      /*
+      Override this with any actions that should run on task completion.
+      */
     },
 
     createAnnotation () {
@@ -47,7 +44,7 @@ const Task = types.model('Task', {
     },
 
     setAnnotation (annotation) {
-      self.annotation = annotation
+      self.annotation = annotation.id
     },
 
     start () {
