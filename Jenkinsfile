@@ -12,6 +12,9 @@
 //   5. You should get an editor where you can modify the pipeline and run it
 //      again immediately <3
 
+def dockerRepoName = 'zooniverse/front-end-monorepo-${APP_ENV}'
+def newImage = null
+
 pipeline {
   agent none
 
@@ -26,7 +29,6 @@ pipeline {
     // longer-term, we'll want to deploy feature branches as well.
 
     stage('Build base Docker image') {
-      when { branch 'master' }
       agent any
 
       environment {
@@ -42,10 +44,19 @@ pipeline {
 
       steps {
         script {
-          def dockerRepoName = 'zooniverse/front-end-monorepo-${APP_ENV}'
           def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
           def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
-          def newImage = docker.build(dockerImageName, buildArgs)
+          newImage = docker.build(dockerImageName, buildArgs)
+        }
+      }
+    }
+
+    stage('push built images on master') {
+      when { branch 'master' }
+      agent any
+
+      steps {
+        script {
           newImage.push()
           newImage.push('latest')
         }
