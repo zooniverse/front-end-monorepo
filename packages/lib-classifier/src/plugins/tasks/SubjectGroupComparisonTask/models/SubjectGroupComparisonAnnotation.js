@@ -10,6 +10,6 @@ const SubjectGroup = types.model('SubjectGroup', {
     }
   }))
 
-const SubjectGroupAnnotation = types.compose('SubjectGroupAnnotation', Annotation, SubjectGroup)
+const SubjectGroupComparisonAnnotation = types.compose('SubjectGroupComparisonAnnotation', Annotation, SubjectGroup)
 
-export default SubjectGroupAnnotation
+export default SubjectGroupComparisonAnnotation

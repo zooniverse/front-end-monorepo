@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import SubjectGroupTask from '@plugins/tasks/SubjectGroupTask'
+import SubjectGroupComparisonTask from '@plugins/tasks/SubjectGroupComparisonTask'
 
 const subjectGroupTask = {
   question: 'Which of these cells look weird?',
@@ -8,9 +8,9 @@ const subjectGroupTask = {
   type: 'subjectGroup'
 }
 
-describe('Model > SubjectGroupTask', function () {
+describe('Model > SubjectGroupComparisonTask', function () {
   it('should exist', function () {
-    const subjectGroupTaskInstance = SubjectGroupTask.TaskModel.create(subjectGroupTask)
+    const subjectGroupTaskInstance = SubjectGroupComparisonTask.TaskModel.create(subjectGroupTask)
     expect(subjectGroupTaskInstance).to.be.ok()
     expect(subjectGroupTaskInstance).to.be.an('object')
   })
@@ -18,7 +18,7 @@ describe('Model > SubjectGroupTask', function () {
   it('should error for invalid tasks', function () {
     let errorThrown = false
     try {
-      SubjectGroupTask.TaskModel.create({})
+      SubjectGroupComparisonTask.TaskModel.create({})
     } catch (e) {
       errorThrown = true
     }
@@ -29,11 +29,11 @@ describe('Model > SubjectGroupTask', function () {
     let task, annotation
 
     before(function () {
-      task = SubjectGroupTask.TaskModel.create(subjectGroupTask)
+      task = SubjectGroupComparisonTask.TaskModel.create(subjectGroupTask)
       annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
-        annotation: SubjectGroupTask.AnnotationModel,
-        task: SubjectGroupTask.TaskModel
+        annotation: SubjectGroupComparisonTask.AnnotationModel,
+        task: SubjectGroupComparisonTask.TaskModel
       })
       .create({
         annotation,
@@ -57,11 +57,11 @@ describe('Model > SubjectGroupTask', function () {
 
     before(function () {
       const requiredTask = Object.assign({}, subjectGroupTask, { required: true })
-      task = SubjectGroupTask.TaskModel.create(requiredTask)
+      task = SubjectGroupComparisonTask.TaskModel.create(requiredTask)
       annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
-        annotation: SubjectGroupTask.AnnotationModel,
-        task: SubjectGroupTask.TaskModel
+        annotation: SubjectGroupComparisonTask.AnnotationModel,
+        task: SubjectGroupComparisonTask.TaskModel
       })
       .create({
         annotation,

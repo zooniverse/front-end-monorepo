@@ -23,7 +23,7 @@ const StyledText = styled(Text)`
   }
 `
 
-function SubjectGroupTask (props) {
+function SubjectGroupComparisonTask (props) {
   const {
     annotation,
     className,
@@ -51,7 +51,7 @@ function SubjectGroupTask (props) {
   )
 }
 
-SubjectGroupTask.defaultProps = {
+SubjectGroupComparisonTask.defaultProps = {
   className: '',
   disabled: false,
   theme: {
@@ -61,7 +61,7 @@ SubjectGroupTask.defaultProps = {
   }
 }
 
-SubjectGroupTask.propTypes = {
+SubjectGroupComparisonTask.propTypes = {
   annotation: PropTypes.shape({
     update: PropTypes.func,
     value: PropTypes.array
@@ -79,4 +79,4 @@ SubjectGroupTask.propTypes = {
   theme: PropTypes.object
 }
 
-export default SubjectGroupTask
+export default SubjectGroupComparisonTask

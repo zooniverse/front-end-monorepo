@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import SubjectGroupTask from './SubjectGroupTask'
-import { default as Task } from '@plugins/tasks/SubjectGroupTask'
+import SubjectGroupComparisonTask from './SubjectGroupComparisonTask'
+import { default as Task } from '@plugins/tasks/SubjectGroupComparisonTask'
 
-describe('SubjectGroupTask', function () {
+describe('SubjectGroupComparisonTask', function () {
   const task = Task.TaskModel.create({
     question: 'Please select the cells that look weird.',
     required: true,
@@ -16,7 +16,7 @@ describe('SubjectGroupTask', function () {
   describe('when it renders', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<SubjectGroupTask annotation={annotation} task={task} />)
+      wrapper = shallow(<SubjectGroupComparisonTask annotation={annotation} task={task} />)
     })
 
     it('should render without crashing', function () {

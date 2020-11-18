@@ -58,13 +58,13 @@ function storeMapper (stores) {
   
   const isCurrentTaskValidForAnnotation = currentTask?.type === 'subjectGroup'
 
-  // Note: the Task's Annotations are initialised by the SubjectGroupTask
+  // Note: the Task's Annotations are initialised by the SubjectGroupComparisonTask
   // component. However, do note that it's possible to have a
-  // SubjectGroupViewer without a SubjectGroupTask.
+  // SubjectGroupViewer without a SubjectGroupComparisonTask.
   
   // Currently only supports 1 Subject Group Task in the workflow.
   const allAnnotations = classification ? Array.from(classification.annotations.values()) : []
-  const annotation = allAnnotations.find(item => (getType(item).name === 'SubjectGroupAnnotation'))
+  const annotation = allAnnotations.find(item => (getType(item).name === 'SubjectGroupComparisonAnnotation'))
 
   return {
     cellWidth,

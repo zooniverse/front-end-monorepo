@@ -1,11 +1,11 @@
-import SubjectGroupAnnotation from './SubjectGroupAnnotation'
+import SubjectGroupComparisonAnnotation from './SubjectGroupComparisonAnnotation'
 
-describe('Model > SubjectGroupAnnotation', function () {
+describe('Model > SubjectGroupComparisonAnnotation', function () {
   describe('with a selected answer', function () {
     let subjectGroupAnnotation
 
     before(function () {
-      subjectGroupAnnotation = SubjectGroupAnnotation.create({
+      subjectGroupAnnotation = SubjectGroupComparisonAnnotation.create({
         id: 'subjectGroupAnnotation-0',
         task: 'T0',
         taskType: 'subjectGroup',
@@ -27,7 +27,7 @@ describe('Model > SubjectGroupAnnotation', function () {
     let subjectGroupAnnotation
 
     before(function () {
-      subjectGroupAnnotation = SubjectGroupAnnotation.create({
+      subjectGroupAnnotation = SubjectGroupComparisonAnnotation.create({
         id: 'subjectGroupAnnotation-0',
         task: 'T0',
         taskType: 'subjectGroup'
