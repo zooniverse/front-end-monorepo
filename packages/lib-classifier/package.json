@@ -33,6 +33,7 @@
     "lodash": "~4.17.11",
     "mobx-utils": "~5.0.2",
     "pepjs": "~0.5.2",
+    "react-player": "~2.7.0",
     "react-resize-detector": "~4.2.0",
     "react-rnd": "~10.1.5",
     "seven-ten": "~3.4.0",
