@@ -57,12 +57,13 @@ describe('Model > TextTask', function () {
     })
   })
 
-  describe('with a classification', function () {
+  describe('with an annotation', function () {
+    let annotation
     let task
 
     before(function () {
       task = TextTask.TaskModel.create(textTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: TextTask.AnnotationModel,
         task: TextTask.TaskModel
@@ -79,7 +80,7 @@ describe('Model > TextTask', function () {
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation('Hello there!')
+      annotation.update('Hello there!')
       expect(task.annotation.value).to.equal('Hello there!')
     })
   })

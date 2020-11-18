@@ -1,4 +1,4 @@
-import { scaleLinear } from '@vx/scale'
+import { scaleLinear } from '@visx/scale'
 import * as d3 from 'd3'
 import { flatten, zipWith } from 'lodash'
 
@@ -116,7 +116,7 @@ export function transformXScale (data, transformMatrix, rangeParameters) {
       xScale.invert((xScale(dataExtent.x[1]) - transformMatrix.translateX) / transformMatrix.scaleX)
     ],
     range: xRange
-  }).nice()
+  })
 }
 
 export function transformYScale (data, transformMatrix, rangeParameters) {
@@ -136,5 +136,5 @@ export function transformYScale (data, transformMatrix, rangeParameters) {
       yScale.invert((yScale(dataExtent.y[1]) - transformMatrix.translateY) / transformMatrix.scaleY)
     ],
     range: yRange
-  }).nice()
+  })
 }

@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 import ScatterPlot from './components/ScatterPlot'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
-import ZoomControlButton from './components/ZoomControlButton'
+import ZoomControlButton from '../ZoomControlButton'
 import { ScatterPlotViewer } from './ScatterPlotViewer'
 import { parentHeight, parentWidth, randomSingleSeriesData } from './helpers/mockData'
 

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
-import { Group } from '@vx/group'
-import { AxisBottom, AxisLeft } from '@vx/axis'
-import { scaleBand, scaleLinear } from '@vx/scale'
+import { Group } from '@visx/group'
+import { AxisBottom, AxisLeft } from '@visx/axis'
+import { scaleBand, scaleLinear } from '@visx/scale'
 import { extent } from 'd3'
-import { withParentSize } from '@vx/responsive'
+import { withParentSize } from '@visx/responsive'
 import counterpart from 'counterpart'
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
@@ -48,7 +48,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
 
   const xScale = scaleBand({
     domain: data.map(datum => datum.label),
-    rangeRound: [0, xMax],
+    range: [0, xMax],
+    round: true,
     padding
   })
 
@@ -56,7 +57,8 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const yDomain = yAxisDomain || yDataExtent
   const yScale = scaleLinear({
     domain: yDomain,
-    rangeRound: [yMax, 0]
+    range: [yMax, 0],
+    round: true
   }).nice()
 
   // Axis related

@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
-import { Bar } from '@vx/shape'
+import { Bar } from '@visx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Tooltip } from '@zooniverse/react-components'
 import { Bars, StyledSvg } from './Bars'

@@ -49,6 +49,7 @@ const StyledImageToolbar = styled(ImageToolbar)`
 
 const StyledMetaTools = styled(MetaTools)`
   grid-area: metatools;
+  margin-top: 10px;
 `
 
 function DefaultLayout (props) {

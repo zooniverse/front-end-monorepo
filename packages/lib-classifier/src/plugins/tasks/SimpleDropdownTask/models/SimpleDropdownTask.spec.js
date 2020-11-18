@@ -1,25 +1,27 @@
 import { types } from 'mobx-state-tree'
 import SimpleDropdownTask from '@plugins/tasks/SimpleDropdownTask'
-
-const simpleDropdownTask = {
-  instruction: 'Choose your favourite colour',
-  allowCreate: false,
-  options: [
-    'Red',
-    'Blue',
-    'Yellow',
-    'Green',
-    'White',
-    'Black',
-  ],
-  required: false,
-  taskKey: 'T1',
-  type: 'dropdown-simple'
-}
+import { MIN_OPTIONS, MAX_OPTIONS } from './SimpleDropdownTask'
 
 describe('Model > SimpleDropdownTask', function () {
+  const { TaskModel, AnnotationModel } = SimpleDropdownTask
+  const simpleDropdownTask = {
+    instruction: 'Choose your favourite colour',
+    allowCreate: false,
+    options: [
+      'Red',
+      'Blue',
+      'Yellow',
+      'Green',
+      'White',
+      'Black',
+    ],
+    required: false,
+    taskKey: 'T1',
+    type: 'dropdown-simple'
+  }
+
   it('should exist', function () {
-    const simpleDropdownTaskInstance = SimpleDropdownTask.TaskModel.create(simpleDropdownTask)
+    const simpleDropdownTaskInstance = TaskModel.create(simpleDropdownTask)
     expect(simpleDropdownTaskInstance).to.be.ok()
     expect(simpleDropdownTaskInstance).to.be.an('object')
   })
@@ -35,14 +37,15 @@ describe('Model > SimpleDropdownTask', function () {
   })
 
   describe('with an annotation', function () {
+    let annotation
     let task
 
     before(function () {
-      task = SimpleDropdownTask.TaskModel.create(simpleDropdownTask)
-      const annotation = task.defaultAnnotation
+      task = TaskModel.create(simpleDropdownTask)
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
-        annotation: SimpleDropdownTask.AnnotationModel,
-        task: SimpleDropdownTask.TaskModel
+        annotation: AnnotationModel,
+        task: TaskModel
       })
       .create({
         annotation,
@@ -56,7 +59,7 @@ describe('Model > SimpleDropdownTask', function () {
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation({
+      annotation.update({
         selection: 5,  // Corresponds to "Black"
         option: true,
       })
@@ -66,15 +69,16 @@ describe('Model > SimpleDropdownTask', function () {
   })
 
   describe('when required', function () {
+    let annotation
     let task
 
     before(function () {
       const requiredTask = Object.assign({}, simpleDropdownTask, { required: true })
-      task = SimpleDropdownTask.TaskModel.create(requiredTask)
-      const annotation = task.defaultAnnotation
+      task = TaskModel.create(requiredTask)
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
-        annotation: SimpleDropdownTask.AnnotationModel,
-        task: SimpleDropdownTask.TaskModel
+        annotation: AnnotationModel,
+        task: TaskModel
       })
       .create({
         annotation,
@@ -91,12 +95,70 @@ describe('Model > SimpleDropdownTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        task.updateAnnotation({
+        annotation.update({
           selection: 5,
           option: true,
         })
         expect(task.isComplete).to.be.true()
       })
+    })
+  })
+
+  describe('with too few options', function () {
+    let taskSnapshot
+
+    before(function () {
+      const options = []
+      for (let i = 0; i < MIN_OPTIONS - 1 ; i++) {
+        options.push(i.toString())
+      }
+      taskSnapshot = {
+        instruction: 'Choose your favourite number',
+        allowCreate: false,
+        options,
+        required: false,
+        taskKey: 'T1',
+        type: 'dropdown-simple'
+      }
+    })
+
+    it('should throw an error', function () {
+      let errorThrown = false
+      try {
+        TaskModel.create(taskSnapshot)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+  })
+
+  describe('with too many options', function () {
+    let taskSnapshot
+
+    before(function () {
+      const options = []
+      for (let i = 0; i < MAX_OPTIONS + 1; i++) {
+        options.push(i.toString())
+      }
+      taskSnapshot = {
+        instruction: 'Choose your favourite number',
+        allowCreate: false,
+        options,
+        required: false,
+        taskKey: 'T1',
+        type: 'dropdown-simple'
+      }
+    })
+
+    it('should throw an error', function () {
+      let errorThrown = false
+      try {
+        TaskModel.create(taskSnapshot)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
     })
   })
 })
