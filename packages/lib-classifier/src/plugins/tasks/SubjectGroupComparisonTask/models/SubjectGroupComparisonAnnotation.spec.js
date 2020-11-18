@@ -8,7 +8,7 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
       subjectGroupAnnotation = SubjectGroupComparisonAnnotation.create({
         id: 'subjectGroupAnnotation-0',
         task: 'T0',
-        taskType: 'subjectGroup',
+        taskType: 'subjectGroupComparison',
         value: [0, 3]
       })
     })
@@ -30,7 +30,7 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
       subjectGroupAnnotation = SubjectGroupComparisonAnnotation.create({
         id: 'subjectGroupAnnotation-0',
         task: 'T0',
-        taskType: 'subjectGroup'
+        taskType: 'subjectGroupComparison'
       })
     })
 

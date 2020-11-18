@@ -15,7 +15,7 @@ try {
   taskRegistry.add('multiple', MultipleChoiceTask)
   taskRegistry.add('dropdown-simple', SimpleDropdownTask)
   taskRegistry.add('single', SingleChoiceTask)
-  taskRegistry.add('subjectGroup', SubjectGroupComparisonTask)
+  taskRegistry.add('subjectGroupComparison', SubjectGroupComparisonTask)
   taskRegistry.add('text', TextTask)
   taskRegistry.add('transcription', TranscriptionTask)
 } catch (e) {

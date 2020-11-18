@@ -5,7 +5,7 @@ const subjectGroupTask = {
   question: 'Which of these cells look weird?',
   required: false,
   taskKey: 'T2',
-  type: 'subjectGroup'
+  type: 'subjectGroupComparison'
 }
 
 describe('Model > SubjectGroupComparisonTask', function () {

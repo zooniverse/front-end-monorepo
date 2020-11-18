@@ -6,11 +6,11 @@ import SubjectGroupComparisonAnnotation from './SubjectGroupComparisonAnnotation
 // TODO: should we make question/instruction consistent between task types?
 // What should be it called? I think we should use 'instruction'
 
-const SubjectGroup = types.model('SubjectGroup', {
+const SubjectGroupComparison = types.model('SubjectGroupComparison', {
   annotation: types.safeReference(SubjectGroupComparisonAnnotation),
   help: types.optional(types.string, ''),
   question: types.string,
-  type: types.literal('subjectGroup')
+  type: types.literal('subjectGroupComparison')
 })
   .views(self => ({
     get defaultAnnotation () {
@@ -22,6 +22,6 @@ const SubjectGroup = types.model('SubjectGroup', {
     }
   }))
 
-const SubjectGroupComparisonTask = types.compose('SubjectGroupComparisonTask', Task, SubjectGroup)
+const SubjectGroupComparisonTask = types.compose('SubjectGroupComparisonTask', Task, SubjectGroupComparison)
 
 export default SubjectGroupComparisonTask

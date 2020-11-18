@@ -49,14 +49,14 @@ function storeMapper (stores) {
   const {
     activeStepTasks
   } = stores.classifierStore.workflowSteps
-  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroup')
+  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupComparison')
   
   const {
     addAnnotation,
     active: classification,
   } = stores.classifierStore.classifications
   
-  const isCurrentTaskValidForAnnotation = currentTask?.type === 'subjectGroup'
+  const isCurrentTaskValidForAnnotation = !!currentTask
 
   // Note: the Task's Annotations are initialised by the SubjectGroupComparisonTask
   // component. However, do note that it's possible to have a

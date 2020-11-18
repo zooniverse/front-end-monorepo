@@ -9,7 +9,7 @@ describe('SubjectGroupComparisonTask', function () {
     question: 'Please select the cells that look weird.',
     required: true,
     taskKey: 'init',
-    type: 'subjectGroup'
+    type: 'subjectGroupComparison'
   })
   const annotation = task.defaultAnnotation
 
