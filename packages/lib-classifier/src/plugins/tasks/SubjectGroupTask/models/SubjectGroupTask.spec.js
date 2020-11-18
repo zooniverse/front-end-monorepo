@@ -26,11 +26,11 @@ describe('Model > SubjectGroupTask', function () {
   })
 
   describe('with an annotation', function () {
-    let task
+    let task, annotation
 
     before(function () {
       task = SubjectGroupTask.TaskModel.create(subjectGroupTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SubjectGroupTask.AnnotationModel,
         task: SubjectGroupTask.TaskModel
@@ -47,18 +47,18 @@ describe('Model > SubjectGroupTask', function () {
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation([1])
+      annotation.update([1])
       expect(task.annotation.value).to.deep.equal([1])
     })
   })
 
   describe('when required', function () {
-    let task
+    let task, annotation
 
     before(function () {
       const requiredTask = Object.assign({}, subjectGroupTask, { required: true })
       task = SubjectGroupTask.TaskModel.create(requiredTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SubjectGroupTask.AnnotationModel,
         task: SubjectGroupTask.TaskModel
@@ -78,7 +78,7 @@ describe('Model > SubjectGroupTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        task.updateAnnotation([1])
+        annotation.update([1])
         expect(task.isComplete).to.be.true()
       })
     })
