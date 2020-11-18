@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import counterpart from 'counterpart'
 import styled from 'styled-components'
 import { Box, List, Paragraph, Text } from 'grommet'
@@ -13,7 +12,7 @@ counterpart.registerTranslations('en', en)
 const StyledBox = styled(Box)`
   font-family: "Roboto Mono Regular", monospace;
 
-  ${List} {
+  ul {
     font-size: 0.8em;
   }
 `

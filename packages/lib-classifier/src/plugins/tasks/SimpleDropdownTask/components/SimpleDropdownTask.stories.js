@@ -1,4 +1,4 @@
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -77,22 +77,6 @@ function MockTask(props) {
   )
 }
 
-const simpleDropdownTask = {
-  instruction: 'Choose your favourite colour',
-  allowCreate: false,
-  options: [
-    'Red',
-    'Blue',
-    'Yellow',
-    'Green',
-    'White',
-    'Black',
-  ],
-  required: false,
-  taskKey: 'init',
-  type: 'dropdown-simple',
-}
-
 storiesOf('Tasks | Simple Dropdown Task', module)
   .addDecorator(withKnobs)
   .addParameters({
@@ -101,6 +85,21 @@ storiesOf('Tasks | Simple Dropdown Task', module)
     }
   })
   .add('light theme', function () {
+    const simpleDropdownTask = {
+      instruction: 'Choose your favourite colour',
+      allowCreate: false,
+      options: [
+        'Red',
+        'Blue',
+        'Yellow',
+        'Green',
+        'White',
+        'Black',
+      ],
+      required: radios('Required', { true: 'true', false: '' }, ''),
+      taskKey: 'init',
+      type: 'dropdown-simple',
+    }
     const tasks = {
       init: simpleDropdownTask
     }

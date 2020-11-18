@@ -39,9 +39,10 @@ The registry is a simple map of unique task types (`single`, `multiple`, `text`,
 A React component for a task takes a Task model and renders it as HTML. The basic shape is:
 ```jsx
 const SingleChoiceTask = taskRegistry.get('single').TaskComponent
-<SingleChoiceTask disabled task={task} />
+<SingleChoiceTask disabled annotation={annotation} task={task} />
 ```
 
+ - _annotation_ is an annotation for this task. An individual task may have multiple annotations. It's the responsibility of the Task component's container to pass the correct annotation for the current task eg. the correct line for a text transcription task.
  - _task_ is the task model to render.
  - _disabled_ should be set if the task is disabled eg. while waiting for a subject to load.
 
@@ -56,7 +57,6 @@ The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _annotation (Annotation)_ The classification annotation for this task's task key.
 - _isComplete (boolean = true)_ False if the task's annotation is invalid.
 - _createAnnotation() (Annotation)_ Returns a new, empty annotation for this task. 
-- _updateAnnotation(value)_ Annotate the task's classification annotation with _value_.
 
 
 All tasks should extend the Task model by implementing the following:
@@ -77,6 +77,7 @@ The [base Annotation model](https://github.com/zooniverse/front-end-monorepo/tre
 
 - _task (string)_ An identifier for the task that created this annotation eg. `T0`
 - _taskType (string)_ The task type that creates these annotations. Set by the annotation's task.
+- _update(value)_ Set the annotation's value.
 
 All annotations should extend the Annotation model by implementing the following:
 
