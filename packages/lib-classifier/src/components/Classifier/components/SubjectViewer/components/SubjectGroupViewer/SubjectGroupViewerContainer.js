@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
+import { getType } from 'mobx-state-tree'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Paragraph } from 'grommet'
@@ -54,6 +55,16 @@ function storeMapper (stores) {
     addAnnotation,
     active: classification,
   } = stores.classifierStore.classifications
+  
+  const isCurrentTaskValidForAnnotation = currentTask?.type === 'subjectGroup'
+
+  // Note: the Task's Annotations are initialised by the SubjectGroupTask
+  // component. However, do note that it's possible to have a
+  // SubjectGroupViewer without a SubjectGroupTask.
+  
+  // Currently only supports 1 Subject Group Task in the workflow.
+  const allAnnotations = classification ? Array.from(classification.annotations.values()) : []
+  const annotation = allAnnotations.find(item => (getType(item).name === 'SubjectGroupAnnotation'))
 
   return {
     cellWidth,
@@ -67,8 +78,8 @@ function storeMapper (stores) {
     setOnPan,
     
     addAnnotation,
-    classification,
-    currentTask,
+    annotation,
+    isCurrentTaskValidForAnnotation,
   }
 }
 
@@ -240,8 +251,8 @@ class SubjectGroupViewerContainer extends React.Component {
       setOnZoom,
       
       addAnnotation,
-      classification,
-      currentTask,
+      annotation,
+      isCurrentTaskValidForAnnotation,
       
     } = this.props
     const { images, panX, panY, zoom } = this.state
@@ -265,15 +276,6 @@ class SubjectGroupViewerContainer extends React.Component {
     ) {
       return null
     }
-
-    // Note: the Task's Annotations are initialised by the SubjectGroupTask
-    // component. However, do note that it's possible to have a
-    // SubjectGroupViewer without a SubjectGroupTask.
-    
-    const isCurrentTaskValidForAnnotation = this.props.currentTask?.type === 'subjectGroup'
-    const annotation = (classification && isCurrentTaskValidForAnnotation)
-      ? classification?.annotation(currentTask)
-      : undefined
     
     return (
       <SVGContext.Provider value={{ svg }}>

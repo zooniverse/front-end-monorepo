@@ -6,7 +6,7 @@ import asyncStates from '@zooniverse/async-states'
 import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
-describe.only('Component > SubjectGroupViewerContainer', function () {
+describe('Component > SubjectGroupViewerContainer', function () {
   let wrapper
 
   const cellWidth = 200
