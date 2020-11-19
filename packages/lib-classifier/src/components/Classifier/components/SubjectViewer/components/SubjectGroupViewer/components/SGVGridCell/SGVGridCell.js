@@ -4,6 +4,9 @@ import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
+const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
+const FOCUS_MULTIPLIER = 3
+
 const DraggableImage = styled(draggable('image'))`
     cursor: grab;
   }
@@ -18,12 +21,10 @@ const ClickableRect = styled('rect')`
     cursor: pointer;
     &:focus {
       ${props => css`stroke: ${props.cellStyle.stroke};`}
-      ${props => css`stroke-width: ${props.cellStyle.highlightWidth};`}
+      ${props => css`stroke-width: ${props.cellStyle.highlightWidth * FOCUS_MULTIPLIER};`}
     }
   }
 `
-
-const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
 
 function SGVGridCell (props) {
   const {
@@ -123,8 +124,8 @@ function SGVGridCell (props) {
           transform={`scale(${zoom}) translate(${panX}, ${panY})`}
           transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
         />
-        <rect
-          fill="none"
+        <DraggableRect
+          fill={(checked) ? cellStyle.overlay : 'none'}
           stroke={(checked) ? cellStyle.highlight : cellStyle.stroke}
           strokeWidth={(checked)
             ? cellStyle.highlightWidth * BORDER_MULTIPLIER
