@@ -239,6 +239,7 @@ describe('Model > ClassificationStore', function () {
     describe('with demo mode', function () {
       let classifications
       let rootStore
+      let firstClassification
 
       before(function () {
         rootStore = setupStores({
@@ -252,17 +253,17 @@ describe('Model > ClassificationStore', function () {
           userProjectPreferences: {}
         })
 
-        sinon.stub(rootStore.classifications, 'submitClassification')
+        sinon.spy(rootStore.classifications, 'submitClassification')
         classifications = rootStore.classifications
         const onComplete = sinon.stub()
         classifications.setOnComplete(onComplete)
         classifications.setDemoMode(true)
 
         // annotate a subject then finish the classification
-        const subjectToBeClassified = rootStore.subjects.active
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
+        let firstClassification = classifications.active
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
@@ -270,6 +271,10 @@ describe('Model > ClassificationStore', function () {
 
       it('should not call submitClassification', function () {
         expect(classifications.submitClassification).to.have.not.been.called()
+      })
+
+      it('should reset and create a new classification', function () {
+        expect(classifications.active).to.not.deep.equal(firstClassification)
       })
     })
 
@@ -289,7 +294,7 @@ describe('Model > ClassificationStore', function () {
           userProjectPreferences: {}
         })
 
-        sinon.stub(rootStore.classifications, 'submitClassification')
+        sinon.spy(rootStore.classifications, 'submitClassification')
         classifications = rootStore.classifications
         const onComplete = sinon.stub()
         classifications.setOnComplete(onComplete)
@@ -304,7 +309,7 @@ describe('Model > ClassificationStore', function () {
         })
       })
 
-      it('should not call submitClassification', function () {
+      it('should call submitClassification', function () {
         expect(classifications.submitClassification).to.have.been.calledOnce()
       })
     })
