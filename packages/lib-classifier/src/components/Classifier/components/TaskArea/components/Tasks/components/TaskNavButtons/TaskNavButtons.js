@@ -96,5 +96,6 @@ TaskNavButtons.propTypes = {
   nextSubject: PropTypes.func,
   onSubmit: PropTypes.func,
   showBackButton: PropTypes.bool,
+  showDoneAndTalkLink: PropTypes.bool,
   showNextButton: PropTypes.bool
 }

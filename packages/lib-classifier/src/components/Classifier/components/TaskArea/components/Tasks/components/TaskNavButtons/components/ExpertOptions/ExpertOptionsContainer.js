@@ -1,43 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { MobXProviderContext, observer } from 'mobx-react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import ExpertOptions from './ExpertOptions'
-
-function useStores() {
-  const stores = React.useContext(MobXProviderContext)
-
-  const {
-    authClient
-  } = stores.classifierStore
-  return {
-    authClient
-  }
-}
+import queryString from 'query-string'
 
 function ExpertOptionsContainer (props) {
-  const { authClient } = useStores()
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [ showDemoModeToggle, setShowDemoModeToggle ] = React.useState(false)
 
-  useEffect(() => {
-    authClient.checkCurrent().then((user) => {
-      if (user) {
-        setIsAdmin(user.admin)
-      } else {
-        setIsAdmin(false)
-      }
-    }).catch((error) => { console.error(error) })
+  React.useEffect(() => {
+    const { demo } = (window?.location?.search) ? queryString.parse(window.location.search) : { demo: props.demo }
+    const demoState = (demo === 'true') ? true : false
+    setShowDemoModeToggle(demoState)
+  })
 
-    return setIsAdmin(false)
-  }, [])
-
-  if (isAdmin) {
+  if (showDemoModeToggle) {
     return (
-      <ExpertOptions
-        {...props}
-      />
-    )
+      <ExpertOptions {...props} />
+    );
   }
 
   return null
 }
 
-export default observer(ExpertOptionsContainer)
+ExpertOptionsContainer.propTypes = {
+  demo: PropTypes.bool
+}
+
+ExpertOptionsContainer.defaultProps = {
+  demo: false
+}
+
+export default ExpertOptionsContainer
