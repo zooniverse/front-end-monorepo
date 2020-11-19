@@ -19,9 +19,9 @@ const DEFAULT_CELL_WIDTH = 1200
 const DEFAULT_CELL_HEIGHT = 1000
 const DEFAULT_CELL_STYLE = {
   stroke: '#fff',
-  strokeWidth: '4',
+  strokeWidth: '2',
   highlight: '#4cc',
-  highlightWidth: '40',
+  highlightWidth: '10',
   background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3
