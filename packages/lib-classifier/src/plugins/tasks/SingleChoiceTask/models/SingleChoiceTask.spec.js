@@ -30,11 +30,12 @@ describe('Model > SingleChoiceTask', function () {
   })
 
   describe('with an annotation', function () {
+    let annotation
     let task
 
     before(function () {
       task = SingleChoiceTask.TaskModel.create(singleChoiceTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SingleChoiceTask.AnnotationModel,
         task: SingleChoiceTask.TaskModel
@@ -51,18 +52,40 @@ describe('Model > SingleChoiceTask', function () {
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation(1)
+      annotation.update(1)
       expect(task.annotation.value).to.equal(1)
     })
   })
 
+  describe('Views > defaultAnnotation', function () {
+    let task
+
+    before(function () {
+      task = SingleChoiceTask.TaskModel.create(singleChoiceTask)
+    })
+
+    it('should be a valid annotation', function () {
+      const annotation = task.defaultAnnotation
+      expect(annotation.id).to.be.ok()
+      expect(annotation.task).to.equal('T1')
+      expect(annotation.taskType).to.equal('single')
+    })
+
+    it('should generate unique annotations', function () {
+      const firstAnnotation = task.defaultAnnotation
+      const secondAnnotation = task.defaultAnnotation
+      expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
+  })
+
   describe('when required', function () {
+    let annotation
     let task
 
     before(function () {
       const requiredTask = Object.assign({}, singleChoiceTask, { required: 'true' })
       task = SingleChoiceTask.TaskModel.create(requiredTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SingleChoiceTask.AnnotationModel,
         task: SingleChoiceTask.TaskModel
@@ -82,7 +105,7 @@ describe('Model > SingleChoiceTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        task.updateAnnotation(1)
+        annotation.update(1)
         expect(task.isComplete).to.be.true()
       })
     })

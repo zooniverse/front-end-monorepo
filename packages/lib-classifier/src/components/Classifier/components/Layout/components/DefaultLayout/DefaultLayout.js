@@ -16,7 +16,6 @@ const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 30px;
   grid-template-areas: "viewer task";
-  overflow: hidden;
   position: relative;
 
   @media (min-width: 701px) {
@@ -32,8 +31,13 @@ const ContainerGrid = styled.div`
   }
 `
 
-const StyledTaskArea = styled(TaskArea)`
+const StyledTaskAreaContainer = styled.div`
   grid-area: task;
+`
+
+const StyledTaskArea = styled(TaskArea)`
+  position: sticky;
+  top: 10px;
 `
 
 const ViewerGrid = styled.section`
@@ -43,12 +47,18 @@ const ViewerGrid = styled.section`
   grid-template-areas: "subject toolbar" "metatools ...";
 `
 
-const StyledImageToolbar = styled(ImageToolbar)`
+const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
+`
+
+const StyledImageToolbar = styled(ImageToolbar)`
+  position: sticky;
+  top: 10px;
 `
 
 const StyledMetaTools = styled(MetaTools)`
   grid-area: metatools;
+  margin-top: 10px;
 `
 
 function DefaultLayout (props) {
@@ -59,10 +69,14 @@ function DefaultLayout (props) {
           <Banners />
           <SubjectViewer />
         </Box>
-        <StyledImageToolbar />
+        <StyledImageToolbarContainer>
+          <StyledImageToolbar />
+        </StyledImageToolbarContainer>
         <StyledMetaTools />
       </ViewerGrid>
-      <StyledTaskArea />
+      <StyledTaskAreaContainer>
+        <StyledTaskArea />
+      </StyledTaskAreaContainer>
       <FeedbackModal />
     </ContainerGrid>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { Bar } from '@vx/shape'
+import { Bar } from '@visx/shape'
 import { Tooltip } from '@zooniverse/react-components'
 
 export const StyledSvg = styled.svg`

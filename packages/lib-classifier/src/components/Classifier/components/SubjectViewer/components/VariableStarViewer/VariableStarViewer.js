@@ -6,7 +6,7 @@ import {
   Grid
 } from 'grommet'
 import counterpart from 'counterpart'
-import { withParentSize } from '@vx/responsive'
+import { withParentSize } from '@visx/responsive'
 import { SpacedText } from '@zooniverse/react-components'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
@@ -39,7 +39,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
     setOnZoom,
     setPeriodMultiple,
     setSeriesPhaseFocus,
-    setSeriesVisibility,
+    setSeriesHighlight,
     setYAxisInversion,
     theme,
   } = props
@@ -97,7 +97,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
         phaseFocusedSeries={phaseFocusedSeries}
         setPeriodMultiple={setPeriodMultiple}
         setSeriesPhaseFocus={setSeriesPhaseFocus}
-        setSeriesVisibility={setSeriesVisibility}
+        setSeriesHighlight={setSeriesHighlight}
         setYAxisInversion={setYAxisInversion}
         theme={theme}
       />

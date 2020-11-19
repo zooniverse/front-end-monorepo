@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Group } from '@vx/group'
+import { Group } from '@visx/group'
 import zooTheme from '@zooniverse/grommet-theme'
 import Axes from '../Axes'
 import Background from '../../../SVGComponents/Background'

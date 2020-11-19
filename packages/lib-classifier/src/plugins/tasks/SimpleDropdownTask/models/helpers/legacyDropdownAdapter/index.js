@@ -1,0 +1,1 @@
+export { legacyDropdownAdapter } from './legacyDropdownAdapter'

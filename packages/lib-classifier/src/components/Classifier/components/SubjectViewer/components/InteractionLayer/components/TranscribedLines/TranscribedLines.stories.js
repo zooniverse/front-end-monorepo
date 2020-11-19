@@ -41,6 +41,7 @@ const workflowSnapshot = WorkflowFactory.build({
           details: [
             {
               instruction: 'Transcribe the text',
+              required: 'true',
               taskKey: 'T0.0',
               type: 'text'
             },

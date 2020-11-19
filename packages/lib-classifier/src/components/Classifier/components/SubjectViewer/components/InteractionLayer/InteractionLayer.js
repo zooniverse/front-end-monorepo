@@ -126,7 +126,9 @@ function InteractionLayer ({
       <TranscribedLines
         scale={scale}
       />
-      <SubTaskPopup />
+      <SubTaskPopup
+        onDelete={inactivateMark}
+      />
       {marks &&
         <DrawingToolMarks
           activeMark={activeMark}

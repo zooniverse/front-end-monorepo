@@ -1,4 +1,3 @@
-import { ZooFooter } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
@@ -87,7 +86,6 @@ export default class MyApp extends App {
               <Box>
                 <Component {...pageProps} />
               </Box>
-              <ZooFooter />
               <AuthModal />
             </GrommetWrapper>
           </MediaContextProvider>

@@ -1,7 +1,7 @@
 import { withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -11,6 +11,7 @@ import Background from './components/Background'
 import DropdownNav from './components/DropdownNav'
 import Nav from './components/Nav'
 import ProjectTitle from './components/ProjectTitle'
+import UnderReviewLabel from './components/UnderReviewLabel'
 
 import en from './locales/en'
 
@@ -21,7 +22,7 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { className, navLinks, screenSize, title } = props
+  const { className, inBeta, navLinks, screenSize, title } = props
   return (
     <StyledBox as='header' className={className}>
       <Background />
@@ -42,7 +43,11 @@ function ProjectHeader (props) {
             direction='row'
             gap={screenSize === 'small' ? 'small' : 'medium'}
           >
-            <ProjectTitle title={title} />
+            <Box>
+              <ProjectTitle title={title} />
+              {inBeta && 
+                <UnderReviewLabel />}
+            </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
           </Box>
         </Box>
@@ -53,8 +58,16 @@ function ProjectHeader (props) {
   )
 }
 
+ProjectHeader.defaultProps = {
+  className: '',
+  inBeta: false,
+  href: '',
+  screenSize: ''
+}
+
 ProjectHeader.propTypes = {
   className: string,
+  inBeta: bool,
   href: string,
   navLinks: arrayOf(shape({
     href: string,

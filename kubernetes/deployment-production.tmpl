@@ -4,7 +4,7 @@ kind: PodDisruptionBudget
 metadata:
    name: zooniverse-org-project-production-pdb
 spec:
-  minAvailable: 2
+  minAvailable: 50%
   selector:
     matchLabels:
       app: zooniverse-org-project-production
@@ -94,7 +94,7 @@ kind: PodDisruptionBudget
 metadata:
    name: zooniverse-org-content-pages-production-pdb
 spec:
-  minAvailable: 1
+  minAvailable: 50%
   selector:
     matchLabels:
       app: zooniverse-org-content-pages-production

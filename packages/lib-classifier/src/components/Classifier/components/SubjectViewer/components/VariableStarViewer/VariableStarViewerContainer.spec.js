@@ -8,6 +8,7 @@ import { Factory } from 'rosie'
 import VariableStarViewerContainer from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
+import { additiveDictionary } from './helpers/constants'
 
 const nextSubjectJSON = {
   data: {
@@ -87,10 +88,11 @@ describe('Component > VariableStarViewerContainer', function () {
     ]
   })
 
+  // Use text MIME type to test allowed text file fallback
   const nextSubject = Factory.build('subject', {
     locations: [
       { 'image/png': 'http://localhost:8080/talk-backup.png' },
-      { 'application/json': 'http://localhost:8080/nextSubject.json' },
+      { 'text/plain': 'http://localhost:8080/nextSubject.txt' },
       { 'image/png': 'http://localhost:8080/image2.png' }
     ]
   })
@@ -228,7 +230,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -301,7 +303,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -395,7 +397,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -493,7 +495,7 @@ describe('Component > VariableStarViewerContainer', function () {
         .persist(true)
         .get('/variableStar.json')
         .reply(200, variableStar)
-        .get('/nextSubject.json')
+        .get('/nextSubject.txt')
         .reply(200, nextSubjectJSON)
     })
 
@@ -560,6 +562,9 @@ describe('Component > VariableStarViewerContainer', function () {
         wrapper.instance().setPeriodMultiple({ target: { value: '2' } })
         const phasedBarJSONNewState = wrapper.state().barJSON
         expect(phasedBarJSONInitialState).to.not.deep.equal(phasedBarJSONNewState)
+        phasedBarJSONNewState.period.data.forEach((datum, index) => {
+          expect(datum.value).to.equal(phasedBarJSONInitialState.period.data[index].value + additiveDictionary['2'])
+        })
       }).then(done, done)
     })
   })

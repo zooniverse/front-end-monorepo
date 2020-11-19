@@ -5,6 +5,7 @@ import request from 'superagent'
 import counterpart from 'counterpart'
 import { extent } from 'd3'
 import VariableStarViewer from './VariableStarViewer'
+import { additiveDictionary } from './helpers/constants'
 import locationValidator from '../../helpers/locationValidator'
 import en from './locales/en'
 
@@ -82,8 +83,8 @@ class VariableStarViewerContainer extends Component {
   }
 
   getSubjectUrl () {
-    // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
+    // Find the first location that has a JSON MIME type. Fallback to text MIME type
+    const jsonLocation = this.props.subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -187,13 +188,13 @@ class VariableStarViewerContainer extends Component {
     const { chartOptions } = phasedBarChartJSON.period
 
     barChartJSON.period.data.forEach((datum) => {
-      const phasedDatum = Object.assign({}, datum, { value: Math.abs(datum.value) * periodMultiple })
+      const phasedDatum = Object.assign({}, datum, { value: datum.value + additiveDictionary[periodMultiple.toString()] })
       phasedBarChartJSON.period.data.push(phasedDatum)
     })
 
     if (!chartOptions.yAxisDomain) {
       const yDataExtent = extent(phasedBarChartJSON.period.data.map(datum => datum.value))
-      const yAxisDomain = [0, Math.ceil(yDataExtent[1]) + 1]
+      const yAxisDomain = [Math.floor(yDataExtent[0]), Math.ceil(yDataExtent[1]) + 1]
       phasedBarChartJSON.period.chartOptions = Object.assign({}, chartOptions, { yAxisDomain })
     }
 
