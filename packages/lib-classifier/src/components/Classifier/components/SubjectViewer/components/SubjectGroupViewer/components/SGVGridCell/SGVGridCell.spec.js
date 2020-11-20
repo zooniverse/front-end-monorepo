@@ -28,7 +28,9 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
         cellStyle={{
           stroke: '#fff',
           strokeWidth: '4',
-          fill: '#000',
+          highlight: '#4cc',
+          highlightWidth: '40',
+          background: '#000',
         }}
         gridRows={gridRows}
         gridColumns={gridColumns}
@@ -44,7 +46,7 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
   })
   
   it('should render an image', function () {
-    const image = wrapper.find('draggable(image)')
+    const image = wrapper.find('Styled(draggable(image))')    
     expect(image).to.have.lengthOf(1)
     expect(image.prop('xlinkHref')).to.equal('https://foo.bar/example.png')
   })
@@ -55,7 +57,7 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
     })
 
     it('should be transformed', function () {
-      const transform = wrapper.find('draggable(image)').prop('transform')
+      const transform = wrapper.find('Styled(draggable(image))').prop('transform')
       expect(transform).to.have.string('scale(1.5) translate(10, 50)')
     })
   })

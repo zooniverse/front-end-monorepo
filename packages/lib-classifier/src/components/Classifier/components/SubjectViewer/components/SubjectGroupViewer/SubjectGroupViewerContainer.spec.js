@@ -2,6 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
+import asyncStates from '@zooniverse/async-states'
 import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
@@ -50,7 +51,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
     })
 
     it('should render null', function () {
-      expect(wrapper.type()).to.be.null()
+      expect(wrapper.html()).to.be.null()
     })
   })
 
@@ -80,6 +81,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
         <SubjectGroupViewerContainer
           ImageObject={ValidImage}
           subject={subject}
+          loadingState={asyncStates.success}
           onError={onError}
           onReady={onReady}
           cellWidth={cellWidth}
