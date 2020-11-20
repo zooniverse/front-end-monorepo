@@ -99,7 +99,7 @@ const TranscriptionReductions = types
           }`
           const response = yield caesarClient.request(query.replace(/\s+/g, ' '))
 
-          self.reductions = response && response.workflow && response.workflow.subject_reductions
+          self.reductions = response?.workflow?.subject_reductions
           self.loadingState = asyncStates.success
         } catch (error) {
           console.error(error)
