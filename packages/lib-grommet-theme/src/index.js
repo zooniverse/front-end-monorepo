@@ -291,6 +291,7 @@ const theme = deepFreeze({
         light: 'brand'
       }
     },
+    size: '15px',
     toggle: {
       border: {
         color: {
@@ -301,7 +302,8 @@ const theme = deepFreeze({
       color: {
         dark: 'light-3',
         light: 'dark-5'
-      }
+      },
+      size: '30px'
     }
   },
   heading: { // medium is the default

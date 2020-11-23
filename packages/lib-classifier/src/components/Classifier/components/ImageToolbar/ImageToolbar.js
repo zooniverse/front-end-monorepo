@@ -15,7 +15,7 @@ import withKeyZoom from '../withKeyZoom'
 class ImageToolbar extends Component {
   render () {
     return (
-      <Box {...this.props}>
+      <Box height='min-content' {...this.props}>
         <Box
           background={{
             dark: 'dark-3',
