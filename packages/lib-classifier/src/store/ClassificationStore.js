@@ -16,6 +16,7 @@ import {
 const ClassificationStore = types
   .model('ClassificationStore', {
     active: types.safeReference(Classification),
+    demoMode: types.optional(types.boolean, false),
     resources: types.map(Classification),
     type: types.optional(types.string, 'classifications')
   })
@@ -159,6 +160,14 @@ const ClassificationStore = types
         if (process.browser) {
           console.log('Completed classification', classificationToSubmit)
         }
+
+        if (self.demoMode) {
+          // subject advance is observing for this to know when to advance the queue
+          self.loadingState = asyncStates.posting
+          if (process.browser) console.log('Demo mode enabled. No classification submitted.')
+          return Promise.resolve(true)
+        }
+
         return self.submitClassification(classificationToSubmit)
       } else {
         if (process.browser) {
@@ -187,12 +196,17 @@ const ClassificationStore = types
       self.onComplete = onComplete
     }
 
+    function setDemoMode (boolean) {
+      self.demoMode = boolean
+    }
+
     return {
       addAnnotation,
       completeClassification,
       createClassification,
       onClassificationSaved,
       removeAnnotation,
+      setDemoMode,
       setOnComplete,
       submitClassification: flow(submitClassification)
     }

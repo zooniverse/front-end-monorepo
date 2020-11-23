@@ -1,7 +1,10 @@
 import asyncStates from '@zooniverse/async-states'
+import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
+import { getType } from 'mobx-state-tree'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Paragraph } from 'grommet'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SubjectGroupViewer from './SubjectGroupViewer'
@@ -16,16 +19,20 @@ const DEFAULT_CELL_WIDTH = 1200
 const DEFAULT_CELL_HEIGHT = 1000
 const DEFAULT_CELL_STYLE = {
   stroke: '#fff',
-  strokeWidth: '4',
-  fill: '#000'
+  strokeWidth: '1',
+  overlay: 'rgba(41,103,255,0.3)',
+  highlight: '#2967FF',
+  highlightWidth: '4',
+  background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3
 const DEFAULT_GRID_ROWS = 3
 
 function storeMapper (stores) {
   const {
+    interactionMode,
+    setOnPan,
     setOnZoom,
-    setOnPan
   } = stores.classifierStore.subjectViewer
   
   const {
@@ -39,6 +46,26 @@ function storeMapper (stores) {
   const cellStyle = viewerConfig.cell_style || DEFAULT_CELL_STYLE
   const gridColumns = viewerConfig.grid_columns || DEFAULT_GRID_COLUMNS
   const gridRows = viewerConfig.grid_rows || DEFAULT_GRID_ROWS
+  
+  const {
+    activeStepTasks
+  } = stores.classifierStore.workflowSteps
+  const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupComparison')
+  
+  const {
+    addAnnotation,
+    active: classification,
+  } = stores.classifierStore.classifications
+  
+  const isCurrentTaskValidForAnnotation = !!currentTask
+
+  // Note: the Task's Annotations are initialised by the SubjectGroupComparisonTask
+  // component. However, do note that it's possible to have a
+  // SubjectGroupViewer without a SubjectGroupComparisonTask.
+  
+  // Currently only supports 1 Subject Group Task in the workflow.
+  const allAnnotations = classification ? Array.from(classification.annotations.values()) : []
+  const annotation = allAnnotations.find(item => (getType(item).name === 'SubjectGroupComparisonAnnotation'))
 
   return {
     cellWidth,
@@ -46,8 +73,14 @@ function storeMapper (stores) {
     cellStyle,
     gridColumns,
     gridRows,
+    
+    interactionMode,
     setOnZoom,
-    setOnPan
+    setOnPan,
+    
+    addAnnotation,
+    annotation,
+    isCurrentTaskValidForAnnotation,
   }
 }
 
@@ -201,33 +234,40 @@ class SubjectGroupViewerContainer extends React.Component {
     }
     preventDefault(event)
   }
-
+    
   render () {
     const {
+      subject,
+      loadingState,
+      
       cellHeight,
       cellWidth,
       cellStyle,
       gridColumns,
       gridRows,
-      loadingState,
+      
+      interactionMode,
       onKeyDown,
       setOnPan,
       setOnZoom,
-      subject,
+      
+      addAnnotation,
+      annotation,
+      isCurrentTaskValidForAnnotation,
+      
     } = this.props
     const { images, panX, panY, zoom } = this.state
+    const svg = this.groupViewer.current
     
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
-
+    
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
       )
     }
 
-    const svg = this.groupViewer.current
-    
     if (!subject
         || !(subject.locations && subject.locations.length > 0)
         || !(cellHeight > 0)
@@ -237,7 +277,7 @@ class SubjectGroupViewerContainer extends React.Component {
     ) {
       return null
     }
-
+    
     return (
       <SVGContext.Provider value={{ svg }}>
         <div ref={this.scrollContainer}>
@@ -261,6 +301,10 @@ class SubjectGroupViewerContainer extends React.Component {
             panX={panX}
             panY={panY}
             zoom={zoom}
+    
+            annotation={annotation}
+            interactionMode={interactionMode}
+            isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
           />
         </div>
       </SVGContext.Provider>
@@ -269,21 +313,27 @@ class SubjectGroupViewerContainer extends React.Component {
 }
 
 SubjectGroupViewerContainer.propTypes = {
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+    
+  interactionMode: PropTypes.oneOf(['annotate', 'move']),
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  })
 }
 
 SubjectGroupViewerContainer.defaultProps = {
   ImageObject: window.Image,
+  
+  subject: undefined,
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
+  
+  interactionMode: 'annotate',
   setOnPan: () => true,
   setOnZoom: () => true
 }
