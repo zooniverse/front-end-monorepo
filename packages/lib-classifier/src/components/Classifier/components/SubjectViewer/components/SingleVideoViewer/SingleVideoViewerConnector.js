@@ -12,17 +12,13 @@ function useStores() {
   const {
     enableRotation,
     move,
-    rotation,
-    setOnZoom,
-    setOnPan
+    rotation
   } = stores.classifierStore.subjectViewer
 
   return {
     enableRotation,
     move,
     rotation,
-    setOnZoom,
-    setOnPan,
     subject
   }
 }
@@ -32,8 +28,6 @@ function SingleVideoViewerConnector(props) {
     enableRotation,
     move,
     rotation,
-    setOnPan,
-    setOnZoom,
     subject
   } = useStores()
 
@@ -42,8 +36,6 @@ function SingleVideoViewerConnector(props) {
       enableRotation={enableRotation}
       move={move}
       rotation={rotation}
-      setOnPan={setOnPan}
-      setOnZoom={setOnZoom}
       subject={subject}
       {...props}
     />
