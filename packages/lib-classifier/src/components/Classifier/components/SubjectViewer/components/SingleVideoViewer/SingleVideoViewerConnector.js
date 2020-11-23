@@ -11,12 +11,10 @@ function useStores() {
 
   const {
     move,
-    rotation
   } = stores.classifierStore.subjectViewer
 
   return {
     move,
-    rotation,
     subject
   }
 }
@@ -24,14 +22,12 @@ function useStores() {
 function SingleVideoViewerConnector(props) {
   const {
     move,
-    rotation,
     subject
   } = useStores()
 
   return (
     <SingleVideoViewerContainer
       move={move}
-      rotation={rotation}
       subject={subject}
       {...props}
     />

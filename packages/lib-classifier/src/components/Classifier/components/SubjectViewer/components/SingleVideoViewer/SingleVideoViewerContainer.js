@@ -73,7 +73,6 @@ class SingleVideoViewerContainer extends React.Component {
       loadingState, // subject resource loaded?
       move, // ?
       onKeyDown, // arrow keys to move image
-      rotation, // ?
       title //Hmmm what is this?
     } = this.props
     const { img } = this.state
@@ -115,7 +114,6 @@ class SingleVideoViewerContainer extends React.Component {
             height={naturalHeight}
             onKeyDown={onKeyDown}
             ref={this.imageViewer}
-            rotate={rotation}
             title={title}
             width={naturalWidth}
           >
@@ -136,7 +134,6 @@ SingleVideoViewerContainer.propTypes = {
   move: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
-  rotation: PropTypes.number,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }),
@@ -153,7 +150,6 @@ SingleVideoViewerContainer.defaultProps = {
   move: false,
   onError: () => true,
   onReady: () => true,
-  rotation: 0,
   title: {}
 }
 
