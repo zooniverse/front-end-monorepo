@@ -4,7 +4,6 @@ import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
 
 class SingleVideoViewerContainer extends React.Component {
@@ -101,12 +100,6 @@ class SingleVideoViewerContainer extends React.Component {
     }
 
     return (
-        <SVGPanZoom
-          img={this.subjectImage.current}
-          maxZoom={5}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-        >
           <SingleVideoViewer
             enableInteractionLayer={enableDrawing}
             height={naturalHeight}
@@ -120,7 +113,6 @@ class SingleVideoViewerContainer extends React.Component {
               />
             </g>
           </SingleVideoViewer>
-        </SVGPanZoom>
     )
   }
 }
