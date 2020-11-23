@@ -6,11 +6,11 @@ import queryString from 'query-string'
 function ExpertOptionsContainer (props) {
   const [ showDemoModeToggle, setShowDemoModeToggle ] = React.useState(false)
 
-  React.useEffect(() => {
+  React.useEffect(function checkForDemoModeEnabling () {
     const { demo } = (window?.location?.search) ? queryString.parse(window.location.search) : { demo: props.demo }
     const demoState = (demo === 'true') ? true : false
     setShowDemoModeToggle(demoState)
-  })
+  }, [window?.location?.search, props.demo])
 
   if (showDemoModeToggle) {
     return (

@@ -263,7 +263,7 @@ describe('Model > ClassificationStore', function () {
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
-        let firstClassification = classifications.active
+        firstClassification = classifications.active
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
