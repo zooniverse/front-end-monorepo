@@ -56,7 +56,6 @@ class SingleVideoViewerContainer extends React.Component {
 
   render () {
     const {
-      enableInteractionLayer, // drawing layer
       loadingState, // subject resource loaded?
       title //Hmmm what is this?
     } = this.props
@@ -79,11 +78,8 @@ class SingleVideoViewerContainer extends React.Component {
       return null
     }
 
-    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
-
     return (
           <SingleVideoViewer
-            enableInteractionLayer={enableDrawing}
             height={naturalHeight}
             ref={this.imageViewer}
             title={title}
@@ -95,7 +91,6 @@ class SingleVideoViewerContainer extends React.Component {
 }
 
 SingleVideoViewerContainer.propTypes = {
-  enableInteractionLayer: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -109,7 +104,6 @@ SingleVideoViewerContainer.propTypes = {
 }
 
 SingleVideoViewerContainer.defaultProps = {
-  enableInteractionLayer: true,
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
