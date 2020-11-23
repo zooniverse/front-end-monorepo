@@ -4,7 +4,6 @@ import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
-import withKeyZoom from '../../../withKeyZoom'
 
 class SingleVideoViewerContainer extends React.Component {
   constructor () {
@@ -117,5 +116,4 @@ SingleVideoViewerContainer.defaultProps = {
   title: {}
 }
 
-export default withKeyZoom(SingleVideoViewerContainer)
-export { SingleVideoViewerContainer }
+export default SingleVideoViewerContainer
