@@ -90,7 +90,6 @@ function setupStores ({ activeMark, subtask }) {
   }
 
   mockStores.classifications.createClassification(subject, workflow, project)
-  mockStores.workflowSteps.activeStepTasks[0].updateAnnotation()
   if (activeMark) {
     mockStores.workflowSteps.activeStepTasks[0].setActiveMark(point.id)
   }

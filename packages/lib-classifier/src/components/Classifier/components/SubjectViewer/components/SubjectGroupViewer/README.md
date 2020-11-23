@@ -22,14 +22,24 @@ The Subject Group Viewer's is designed to address two specific needs:
 The Subject Group Viewer...
 
 - displays Subjects in a grid of X by Y cells.
-- lets you pan the view via mouse-drag or keyboard (arrow keys). 
+- lets you pan the view via mouse-drag or keyboard (arrow keys).
 - lets you zoom the view via mouse-wheel, keyboard (+ and - keys), or pressing the zoom in/zoom out buttons on the Image Toolbar component.
 - panning the view in one cell causes all cells to pan.
 - zooming the view in one cell causes all cells to zoom in/out.
 
+Note: mouse zoom/pan actions only register when the subject viewer is in 'move mode'.
+
+When the _current task_ on the Classifier is a Subject Group Task - which usually asks users to mark the images that look different from the others - then the Subject Group Viewer...
+
+- allows users to mark (or unmark) cells by 
+- allows users to tab-navigate between cells
+
 **Classification specifics:**
 
-// TODO
+- Annotations in the form of an _array of selected cell indexes._ (Indices?)
+- For example, in a 3x3 grid where the middle and bottom-middle cells are selected, the annotation submitted will look like: `[4, 7]`.
+- Or maybe `[7, 4]`. The annotation doesn't bother to sort the indices. (Indexes?)
+- NOTE: this is just a placeholder. Long-term, the annotations should be in the form of an _array of subject IDs,_ since a Panoptes "SubjectGroup" resource is meant to contain a group of single image subjects, with each single image subject being displayed in a single grid cell.
 
 ## External Setup
 
@@ -57,6 +67,13 @@ workflow.configuration = {
   }
 }
 ```
+
+Some notes:
+
+- 'stroke' and 'strokeWidth' define the border around each cell, when that cell is idle (not being focused on, and not marked as selected)
+- 'highlight' and 'highlightWidth' define the border around each cell, when that cell is marked/selected.
+- A cell can also be in the "has keyboard focus" state or the "has keyboard focus AND has been marked/selected" state, and those state are visually represented by a combination of 'stroke' colour and 'highlightWidth' size.
+- 'background' indicates the colour to fill the cell with when, e.g. the image doesn't fill the cell's available visible space.
 
 **Subject: Group Subjects**
 
