@@ -70,7 +70,7 @@ export const Drawing = types.model('Drawing', {
     }
 
     function complete () {
-      self.updateAnnotation(self.marks)
+      self.annotation.update(self.marks)
     }
 
     function reset () {

@@ -30,11 +30,12 @@ describe('Model > SingleChoiceTask', function () {
   })
 
   describe('with an annotation', function () {
+    let annotation
     let task
 
     before(function () {
       task = SingleChoiceTask.TaskModel.create(singleChoiceTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SingleChoiceTask.AnnotationModel,
         task: SingleChoiceTask.TaskModel
@@ -51,7 +52,7 @@ describe('Model > SingleChoiceTask', function () {
     })
 
     it('should update annotations', function () {
-      task.updateAnnotation(1)
+      annotation.update(1)
       expect(task.annotation.value).to.equal(1)
     })
   })
@@ -78,12 +79,13 @@ describe('Model > SingleChoiceTask', function () {
   })
 
   describe('when required', function () {
+    let annotation
     let task
 
     before(function () {
       const requiredTask = Object.assign({}, singleChoiceTask, { required: 'true' })
       task = SingleChoiceTask.TaskModel.create(requiredTask)
-      const annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation
       const store = types.model('MockStore', {
         annotation: SingleChoiceTask.AnnotationModel,
         task: SingleChoiceTask.TaskModel
@@ -103,7 +105,7 @@ describe('Model > SingleChoiceTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        task.updateAnnotation(1)
+        annotation.update(1)
         expect(task.isComplete).to.be.true()
       })
     })

@@ -40,11 +40,18 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     panX,
     panY,
     zoom,
+    
+    annotation,
+    interactionMode,
+    isCurrentTaskValidForAnnotation,
   } = props
 
   const transformLayer = useRef()
   const { svg } = useContext(SVGContext)
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
+  const annotatedValues = annotation?.value || []
+    
+  const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
 
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
@@ -77,6 +84,10 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
                 panX={panX}
                 panY={panY}
                 zoom={zoom}
+
+                annotation={annotation}
+                annotationMode={annotationMode}
+                cellAnnotated={annotatedValues.includes(index)}
               />
             ))}
           </g>
@@ -104,6 +115,13 @@ SubjectGroupViewer.propTypes = {
   panX: PropTypes.number,
   panY: PropTypes.number,
   zoom: PropTypes.number,
+
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }),
+  interactionMode: PropTypes.oneOf(['annotate', 'move']),
+  isCurrentTaskValidForAnnotation: PropTypes.bool,
 }
 
 SubjectGroupViewer.defaultProps = {
@@ -121,6 +139,10 @@ SubjectGroupViewer.defaultProps = {
   panX: 0,
   panY: 0,
   zoom: 1,
+
+  annotation: undefined,
+  interactionMode: 'move',
+  isCurrentTaskValidForAnnotation: false,
 }
 
 export default SubjectGroupViewer

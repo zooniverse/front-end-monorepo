@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Set border color on inputs to `light-5`
 - Set `dark-6` to be `#666666`
 - Set default icon colors to be `dark-6` for light theme and `light-6` for dark theme
+- Set size of the `CheckBox` icon and toggle size
 
 ### Fixed
 - Fixed documentation on `accent-2` and `accent-4` colors
