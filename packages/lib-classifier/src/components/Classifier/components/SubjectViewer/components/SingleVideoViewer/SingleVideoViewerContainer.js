@@ -1,20 +1,13 @@
-import asyncStates from '@zooniverse/async-states'
-import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
+import asyncStates from '@zooniverse/async-states'
 
-import { draggable } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
-
-const DraggableImage = styled(draggable('image'))`
-  cursor: move;
-`
 
 class SingleVideoViewerContainer extends React.Component {
   constructor () {
@@ -121,7 +114,7 @@ class SingleVideoViewerContainer extends React.Component {
 
     const svg = this.imageViewer.current
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
-    const SubjectImage = move ? DraggableImage : 'image'
+    const SubjectImage = 'image'
     const subjectImageProps = {
       height: naturalHeight,
       width: naturalWidth,
@@ -195,4 +188,4 @@ SingleVideoViewerContainer.defaultProps = {
 }
 
 export default withKeyZoom(SingleVideoViewerContainer)
-export { DraggableImage, SingleVideoViewerContainer }
+export { SingleVideoViewerContainer }
