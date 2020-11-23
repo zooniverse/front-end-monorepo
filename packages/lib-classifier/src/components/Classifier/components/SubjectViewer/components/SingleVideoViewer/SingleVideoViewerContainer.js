@@ -71,8 +71,6 @@ class SingleVideoViewerContainer extends React.Component {
     const {
       enableInteractionLayer, // drawing layer
       loadingState, // subject resource loaded?
-      move, // ?
-      onKeyDown, // arrow keys to move image
       title //Hmmm what is this?
     } = this.props
     const { img } = this.state
@@ -112,7 +110,6 @@ class SingleVideoViewerContainer extends React.Component {
           <SingleVideoViewer
             enableInteractionLayer={enableDrawing}
             height={naturalHeight}
-            onKeyDown={onKeyDown}
             ref={this.imageViewer}
             title={title}
             width={naturalWidth}
@@ -131,7 +128,6 @@ class SingleVideoViewerContainer extends React.Component {
 SingleVideoViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   loadingState: PropTypes.string,
-  move: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
@@ -147,7 +143,6 @@ SingleVideoViewerContainer.defaultProps = {
   enableInteractionLayer: true,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
-  move: false,
   onError: () => true,
   onReady: () => true,
   title: {}
