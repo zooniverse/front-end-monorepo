@@ -9,25 +9,18 @@ function useStores() {
     active: subject
   } = stores.classifierStore.subjects
 
-  const {
-    move,
-  } = stores.classifierStore.subjectViewer
-
   return {
-    move,
     subject
   }
 }
 
 function SingleVideoViewerConnector(props) {
   const {
-    move,
     subject
   } = useStores()
 
   return (
     <SingleVideoViewerContainer
-      move={move}
       subject={subject}
       {...props}
     />
