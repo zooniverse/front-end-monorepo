@@ -21,26 +21,16 @@ class SingleVideoViewerContainer extends React.Component {
     this.onLoad()
   }
 
-  fetchImage (url) {
-    const { ImageObject } = this.props
-    return new Promise((resolve, reject) => {
-      const img = new ImageObject()
-      img.onload = () => resolve(img)
-      img.onerror = reject
-      img.src = url
-      return img
-    })
-  }
-
-  async preload () {
-    const { subject } = this.props
-    if (subject && subject.locations) {
-      const imageUrl = Object.values(subject.locations[0])[0]
-      const img = await this.fetchImage(imageUrl)
-      this.setState({ img })
-      return img
+  async onLoad () {
+    const { onError, onReady } = this.props
+    try {
+      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      onReady({ target })
+    } catch (error) {
+      console.error(error)
+      onError(error)
     }
-    return {}
   }
 
   async getImageSize () {
@@ -54,16 +44,26 @@ class SingleVideoViewerContainer extends React.Component {
     }
   }
 
-  async onLoad () {
-    const { onError, onReady } = this.props
-    try {
-      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
-    } catch (error) {
-      console.error(error)
-      onError(error)
+  async preload () {
+    const { subject } = this.props
+    if (subject && subject.locations) {
+      const imageUrl = Object.values(subject.locations[0])[0]
+      const img = await this.fetchImage(imageUrl)
+      this.setState({ img })
+      return img
     }
+    return {}
+  }
+
+  fetchImage (url) {
+    const { ImageObject } = this.props
+    return new Promise((resolve, reject) => {
+      const img = new ImageObject()
+      img.onload = () => resolve(img)
+      img.onerror = reject
+      img.src = url
+      return img
+    })
   }
 
   render () {
