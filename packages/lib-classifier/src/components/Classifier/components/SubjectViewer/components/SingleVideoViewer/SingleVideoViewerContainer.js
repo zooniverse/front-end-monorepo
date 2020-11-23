@@ -13,7 +13,7 @@ class SingleVideoViewerContainer extends React.Component {
     this.subjectImage = React.createRef()
 
     this.state = {
-      img: {},
+      vid: {},
     }
   }
 
@@ -24,7 +24,7 @@ class SingleVideoViewerContainer extends React.Component {
   async onLoad () {
     const { onError, onReady } = this.props
     try {
-      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getVideoSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
@@ -33,37 +33,27 @@ class SingleVideoViewerContainer extends React.Component {
     }
   }
 
-  async getImageSize () {
-    const img = await this.preload()
+  async getVideoSize () {
+    const vid = await this.preload()
     const { width: clientWidth, height: clientHeight } = {}
     return {
       clientHeight,
       clientWidth,
-      naturalHeight: img.naturalHeight,
-      naturalWidth: img.naturalWidth
+      naturalHeight: vid.naturalHeight,
+      naturalWidth: vid.naturalWidth
     }
   }
 
   async preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
-      const imageUrl = Object.values(subject.locations[0])[0]
-      const img = await this.fetchImage(imageUrl)
-      this.setState({ img })
-      return img
+      const vid = Object.values(subject.locations[0])[0]
+      console.log("videoUrl: ", vid)
+      this.setState({ vid })
+      console.log("this.state: ", this.state)
+      return vid
     }
     return {}
-  }
-
-  fetchImage (url) {
-    const { ImageObject } = this.props
-    return new Promise((resolve, reject) => {
-      const img = new ImageObject()
-      img.onload = () => resolve(img)
-      img.onerror = reject
-      img.src = url
-      return img
-    })
   }
 
   render () {
@@ -72,8 +62,8 @@ class SingleVideoViewerContainer extends React.Component {
       loadingState, // subject resource loaded?
       title //Hmmm what is this?
     } = this.props
-    const { img } = this.state
-    const { naturalHeight, naturalWidth, src } = img
+    const { vid } = this.state
+    const { naturalHeight, naturalWidth, src } = vid
 
     return <div>Video Placeholder</div>
 
@@ -133,7 +123,6 @@ SingleVideoViewerContainer.propTypes = {
 
 SingleVideoViewerContainer.defaultProps = {
   enableInteractionLayer: true,
-  ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
