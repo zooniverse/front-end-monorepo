@@ -10,7 +10,6 @@ class SingleVideoViewerContainer extends React.Component {
   constructor () {
     super()
     this.imageViewer = React.createRef()
-    this.subjectImage = React.createRef()
 
     this.state = {
       vid: {},
@@ -82,12 +81,6 @@ class SingleVideoViewerContainer extends React.Component {
     }
 
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
-    const SubjectImage = 'image'
-    const subjectImageProps = {
-      height: naturalHeight,
-      width: naturalWidth,
-      xlinkHref: src
-    }
 
     return (
           <SingleVideoViewer
@@ -97,11 +90,6 @@ class SingleVideoViewerContainer extends React.Component {
             title={title}
             width={naturalWidth}
           >
-            <g ref={this.subjectImage}>
-              <SubjectImage
-                {...subjectImageProps}
-              />
-            </g>
           </SingleVideoViewer>
     )
   }
