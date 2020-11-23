@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const DraggableImage = draggable('image')
-const DraggableRect = draggable('rect')
+const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
+const FOCUS_MULTIPLIER = 6
+
+const DraggableImage = styled(draggable('image'))`
+    cursor: grab;
+  }
+`
+
+const DraggableRect = styled(draggable('rect'))`
+    cursor: grab;
+  }
+`
+
+const ClickableRect = styled('rect')`
+    cursor: pointer;
+    &:focus {
+      ${props => css`stroke: ${props.cellStyle.highlight};`}
+      ${props => css`stroke-width: ${props.cellStyle.highlightWidth * FOCUS_MULTIPLIER};`}
+    }
+  }
+`
 
 function SGVGridCell (props) {
   const {
@@ -22,8 +42,14 @@ function SGVGridCell (props) {
     panX,
     panY,
     zoom,
-  } = props
     
+    annotation,
+    annotationMode,
+    cellAnnotated,
+  } = props
+  
+  const [checked, setChecked] = useState(cellAnnotated)
+  
   const row = Math.floor(index / gridColumns)
   const col = index % gridColumns
 
@@ -54,6 +80,25 @@ function SGVGridCell (props) {
   const imageY = (cellHeight - imageHeight) / 2
 
   const clipPathID = `subjectGroupViewer-clipPath-${index}`
+  
+  function toggleCellAnnotation () {
+    if (!annotationMode || !annotation?.value) return
+
+    const toggledValue = !checked
+    setChecked(toggledValue)
+
+    const annotationValue = annotation?.value?.slice() || []
+    const hasCellIndex = annotationValue.includes(index)
+    
+    if (hasCellIndex && !toggledValue) {  // Remove cell index from annotation values
+      const indexInValue = annotationValue.indexOf(index)
+      annotationValue.splice(indexInValue, 1)
+    } else if (!hasCellIndex && toggledValue) {  // Add cell index to annotation values
+      annotationValue.push(index)
+    }
+    
+    if (annotation?.update) annotation.update(annotationValue)
+  }
 
   return (
     <g
@@ -63,7 +108,7 @@ function SGVGridCell (props) {
         <rect width={cellWidth} height={cellHeight} />
       </clipPath>
       <DraggableRect
-        fill={cellStyle.fill}
+        fill={cellStyle.background}
         width={cellWidth}
         height={cellHeight}
         dragMove={dragMove}
@@ -79,14 +124,39 @@ function SGVGridCell (props) {
           transform={`scale(${zoom}) translate(${panX}, ${panY})`}
           transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
         />
+        <DraggableRect
+          fill={(checked) ? cellStyle.overlay : 'none'}
+          stroke={(checked) ? cellStyle.highlight : cellStyle.stroke}
+          strokeWidth={(checked)
+            ? cellStyle.highlightWidth * BORDER_MULTIPLIER
+            : cellStyle.strokeWidth * BORDER_MULTIPLIER
+          }
+          width={cellWidth}
+          height={cellHeight}
+        />
+        {annotationMode && (
+          <ClickableRect
+            tabIndex={0}
+            role='checkbox'
+            aria-checked={checked}
+            aria-label={`Cell at row ${row} column ${col}`}
+            fill="transparent"
+            cellStyle={cellStyle}
+            width={cellWidth}
+            height={cellHeight}
+            onClick={(e) => {
+              toggleCellAnnotation()
+              e.preventDefault()
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                toggleCellAnnotation()
+                e.preventDefault()
+              }
+            }}
+          />
+        )}
       </g>
-      <rect
-        fill="none"
-        stroke={cellStyle.stroke}
-        strokeWidth={cellStyle.strokeWidth}
-        width={cellWidth}
-        height={cellHeight}
-      />
     </g>
   )
 }
@@ -106,6 +176,13 @@ SGVGridCell.propTypes = {
   panX: PropTypes.number,
   panY: PropTypes.number,
   zoom: PropTypes.number,
+
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }),
+  annotationMode: PropTypes.bool,
+  cellAnnotated: PropTypes.bool,
 }
 
 SGVGridCell.defaultProps = {
@@ -123,6 +200,10 @@ SGVGridCell.defaultProps = {
   panX: 0,
   panY: 0,
   zoom: 1,
+
+  annotation: undefined,
+  annotationMode: true,
+  cellAnnotated: false,
 }
 
 export default SGVGridCell

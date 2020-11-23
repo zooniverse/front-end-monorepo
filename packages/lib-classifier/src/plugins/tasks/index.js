@@ -4,6 +4,7 @@ import DrawingTask from './DrawingTask'
 import MultipleChoiceTask from './MultipleChoiceTask'
 import SimpleDropdownTask from './SimpleDropdownTask'
 import SingleChoiceTask from './SingleChoiceTask'
+import SubjectGroupComparisonTask from './SubjectGroupComparisonTask'
 import TextTask from './TextTask'
 import TranscriptionTask from './experimental/TranscriptionTask'
 
@@ -14,6 +15,7 @@ try {
   taskRegistry.add('multiple', MultipleChoiceTask)
   taskRegistry.add('dropdown-simple', SimpleDropdownTask)
   taskRegistry.add('single', SingleChoiceTask)
+  taskRegistry.add('subjectGroupComparison', SubjectGroupComparisonTask)
   taskRegistry.add('text', TextTask)
   taskRegistry.add('transcription', TranscriptionTask)
 } catch (e) {
