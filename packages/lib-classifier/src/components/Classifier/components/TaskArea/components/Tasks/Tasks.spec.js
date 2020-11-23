@@ -15,7 +15,6 @@ describe('Tasks', function () {
   let classification
   let step
   let TaskComponent
-  let rootStore
 
   const taskTypes = Object.keys(taskRegistry.register)
 
@@ -66,7 +65,7 @@ describe('Tasks', function () {
           )
         }
       }
-      rootStore = RootStore.create({
+      const rootStore = RootStore.create({
         projects: {
           active: projectSnapshot.id,
           resources: {
