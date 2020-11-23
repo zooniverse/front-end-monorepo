@@ -12,9 +12,6 @@ import withKeyZoom from '../../../withKeyZoom'
 class SingleVideoViewerContainer extends React.Component {
   constructor () {
     super()
-    this.dragMove = this.dragMove.bind(this)
-    this.setOnDrag = this.setOnDrag.bind(this)
-
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
 
@@ -37,14 +34,6 @@ class SingleVideoViewerContainer extends React.Component {
       img.src = url
       return img
     })
-  }
-
-  dragMove (event, difference) {
-    this.onDrag && this.onDrag(event, difference)
-  }
-
-  setOnDrag (callback) {
-    this.onDrag = callback
   }
 
   async preload () {
@@ -118,8 +107,7 @@ class SingleVideoViewerContainer extends React.Component {
     const subjectImageProps = {
       height: naturalHeight,
       width: naturalWidth,
-      xlinkHref: src,
-      ...(move && { dragMove: this.dragMove })
+      xlinkHref: src
     }
 
     return (
@@ -129,7 +117,6 @@ class SingleVideoViewerContainer extends React.Component {
           maxZoom={5}
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
-          setOnDrag={this.setOnDrag}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
         >
