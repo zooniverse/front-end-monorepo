@@ -19,7 +19,6 @@ class SingleVideoViewerContainer extends React.Component {
   }
 
   componentDidMount () {
-    this.props.enableRotation()
     this.onLoad()
   }
 
@@ -133,7 +132,6 @@ class SingleVideoViewerContainer extends React.Component {
 
 SingleVideoViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
-  enableRotation: PropTypes.func,
   loadingState: PropTypes.string,
   move: PropTypes.bool,
   onError: PropTypes.func,
@@ -150,7 +148,6 @@ SingleVideoViewerContainer.propTypes = {
 
 SingleVideoViewerContainer.defaultProps = {
   enableInteractionLayer: true,
-  enableRotation: () => null,
   ImageObject: window.Image,
   loadingState: asyncStates.initialized,
   move: false,
