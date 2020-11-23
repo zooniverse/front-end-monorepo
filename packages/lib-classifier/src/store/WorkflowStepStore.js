@@ -157,7 +157,7 @@ const WorkflowStepStore = types
       steps.forEach(([ stepKey, step ], index) => {
         let next
         if (steps[index + 1]) {
-          const nextStepKey = steps[index + 1][0]
+          const [nextStepKey] = steps[index + 1]
           next = nextStepKey
         }
 
