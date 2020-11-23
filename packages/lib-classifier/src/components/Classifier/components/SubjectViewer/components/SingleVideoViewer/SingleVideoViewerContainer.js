@@ -75,8 +75,6 @@ class SingleVideoViewerContainer extends React.Component {
       move, // ?
       onKeyDown, // arrow keys to move image
       rotation, // ?
-      setOnPan, // ?
-      setOnZoom, // ?
       title //Hmmm what is this?
     } = this.props
     const { img } = this.state
@@ -112,8 +110,6 @@ class SingleVideoViewerContainer extends React.Component {
           maxZoom={5}
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
         >
           <SingleVideoViewer
             enableInteractionLayer={enableDrawing}
@@ -143,8 +139,6 @@ SingleVideoViewerContainer.propTypes = {
   onError: PropTypes.func,
   onReady: PropTypes.func,
   rotation: PropTypes.number,
-  setOnPan: PropTypes.func,
-  setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }),
@@ -163,8 +157,6 @@ SingleVideoViewerContainer.defaultProps = {
   onError: () => true,
   onReady: () => true,
   rotation: 0,
-  setOnPan: () => true,
-  setOnZoom: () => true,
   title: {}
 }
 
