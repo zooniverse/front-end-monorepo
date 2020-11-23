@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
@@ -49,8 +47,7 @@ class SingleVideoViewerContainer extends React.Component {
 
   async getImageSize () {
     const img = await this.preload()
-    const svg = this.imageViewer.current
-    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
+    const { width: clientWidth, height: clientHeight } = {}
     return {
       clientHeight,
       clientWidth,
@@ -101,7 +98,6 @@ class SingleVideoViewerContainer extends React.Component {
       return null
     }
 
-    const svg = this.imageViewer.current
     const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
     const SubjectImage = 'image'
     const subjectImageProps = {
@@ -111,7 +107,6 @@ class SingleVideoViewerContainer extends React.Component {
     }
 
     return (
-      <SVGContext.Provider value={{ svg }}>
         <SVGPanZoom
           img={this.subjectImage.current}
           maxZoom={5}
@@ -136,7 +131,6 @@ class SingleVideoViewerContainer extends React.Component {
             </g>
           </SingleVideoViewer>
         </SVGPanZoom>
-      </SVGContext.Provider>
     )
   }
 }
