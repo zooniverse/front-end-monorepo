@@ -21,24 +21,21 @@ const Container = styled.div`
 `
 
 const SingleVideoViewer = ({
-  isPlaying,
 	url
 }) =>(
   <Container>
     <ReactPlayer
-      playing={ isPlaying }
+      controls={ true }
       url={ url }
  />
   </Container>
 )
 
 SingleVideoViewer.propTypes = {
-  isPlaying: PropTypes.bool,
 	url: PropTypes.string
 }
 
 SingleVideoViewer.defaultProps = {
-  isPlaying: false,
 	url: ''
 }
 

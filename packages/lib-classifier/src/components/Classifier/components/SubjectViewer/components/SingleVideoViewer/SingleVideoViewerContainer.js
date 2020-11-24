@@ -8,7 +8,6 @@ import SingleVideoViewer from './SingleVideoViewer'
 class SingleVideoViewerContainer extends React.Component {
   constructor () {
     super()
-    this.imageViewer = React.createRef()
 
     this.state = {
       vid: {},
@@ -62,28 +61,25 @@ class SingleVideoViewerContainer extends React.Component {
     const { vid } = this.state
     const { naturalHeight, naturalWidth, src } = vid
 
-    return <div>Video Placeholder</div>
+    // return <div>Video Placeholder</div>
 
-    if (loadingState === asyncStates.error) {
-      return (
-        <div>Something went wrong.</div>
-      )
-    }
+    // if (loadingState === asyncStates.error) {
+    //   return (
+    //     <div>Something went wrong.</div>
+    //   )
+    // }
 
-    if (!src) {
-      return null
-    }
+    // if (!src) {
+    //   return null
+    // }
 
-    if (!naturalWidth) {
-      return null
-    }
+    // if (!naturalWidth) {
+    //   return null
+    // }
 
     return (
           <SingleVideoViewer
-            height={naturalHeight}
-            ref={this.imageViewer}
-            title={title}
-            width={naturalWidth}
+            url={vid}
           >
           </SingleVideoViewer>
     )
