@@ -5,6 +5,7 @@ import { tint } from 'polished'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
+import { Media } from '@zooniverse/react-components'
 
 import locationValidator from '../../helpers/locationValidator'
 import en from './locales/en'
@@ -49,17 +50,20 @@ export function NextLabel () {
   )
 }
 
+// creating StyledMedia allows input state dependent styles as defined in StyledFrame
+export const StyledMedia = styled(Media)``
+
 export const StyledFrame = styled.label`
   ${props => props.theme && css`
-    input:checked + img {
-      border: ${props.theme.global.colors['neutral-4']} solid;
+    input:checked + ${StyledMedia} {
+      border: solid ${props.theme.global.colors['neutral-4']};
     }
     
-    input:focus + img {
+    input:focus + ${StyledMedia} {
       outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
 
-    input:hover + img {
+    input:hover + ${StyledMedia} {
       outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
   `}
@@ -83,13 +87,6 @@ export const StyledFrame = styled.label`
   :hover {
     cursor: pointer;
   }
-`
-
-export const StyledImage = styled.img`
-  height: 40px;
-  object-fit: cover;
-  padding: 0;
-  width: 40px;
 `
 
 export const StyledFrameList = styled.ul`
@@ -171,9 +168,12 @@ class FrameCarousel extends React.Component {
             onChange={() => this.handleFrameChange(index)}
             type='radio'
           />
-          <StyledImage
+          <StyledMedia
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
+            fit='cover'
+            height='40'
             src={url}
+            width='40'
           />
         </StyledFrame>
       )
