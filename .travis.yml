@@ -10,7 +10,9 @@ branches:
 cache: yarn
 
 install:
-  - yarn bootstrap
+  - yarn install
+  - yarn workspace @zooniverse/react-components build
+  - yarn workspace @zooniverse/classifier build
 
 script:
   - npm run test:ci

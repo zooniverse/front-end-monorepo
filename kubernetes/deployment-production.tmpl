@@ -39,7 +39,9 @@ spec:
     spec:
       containers:
         - name: fe-project-production
-          image: zooniverse/fe-project-production:__IMAGE_TAG__
+          image: zooniverse/front-end-monorepo-production:__IMAGE_TAG__
+          command: ["yarn", "workspace", "@zooniverse/fe-project"]
+          args: ["start"]
           resources:
             requests:
               memory: "2200Mi"
@@ -58,7 +60,7 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: ASSET_PREFIX
+            - name: PROJECT_ASSET_PREFIX
               value: https://fe-project.zooniverse.org
             - name: COMMIT_ID
               value: __IMAGE_TAG__
@@ -71,7 +73,7 @@ spec:
               value: production
             - name: PANOPTES_ENV
               value: production
-            - name: SENTRY_DSN
+            - name: SENTRY_PROJECT_DSN
               value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
             - name: ENABLE_CACHE_HEADERS
               value: "true"
@@ -129,7 +131,9 @@ spec:
     spec:
       containers:
         - name: fe-content-pages-production
-          image: zooniverse/fe-content-pages-production:__IMAGE_TAG__
+          image: zooniverse/front-end-monorepo-production:__IMAGE_TAG__
+          command: ["yarn", "workspace", "@zooniverse/fe-content-pages"]
+          args: ["start"]
           resources:
             requests:
               memory: "275Mi"
@@ -148,7 +152,7 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: ASSET_PREFIX
+            - name: CONTENT_ASSET_PREFIX
               value: https://fe-content-pages.zooniverse.org
             - name: COMMIT_ID
               value: __IMAGE_TAG__
@@ -171,7 +175,7 @@ spec:
               value: production
             - name: PANOPTES_ENV
               value: production
-            - name: SENTRY_DSN
+            - name: SENTRY_CONTENT_DSN
               value: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
             - name: ENABLE_CACHE_HEADERS
               value: "true"
