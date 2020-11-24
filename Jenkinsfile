@@ -12,7 +12,6 @@
 //   5. You should get an editor where you can modify the pipeline and run it
 //      again immediately <3
 
-def dockerRepoName = 'zooniverse/front-end-monorepo-${APP_ENV}'
 def newImage = null
 
 pipeline {
@@ -44,6 +43,7 @@ pipeline {
 
       steps {
         script {
+          def dockerRepoName = 'zooniverse/front-end-monorepo-${APP_ENV}'
           def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
           def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
           newImage = docker.build(dockerImageName, buildArgs)
