@@ -9,7 +9,7 @@
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "version": "0.0.1",
   "devDependencies": {
-    "@storybook/storybook-deployer": "~2.8.6",
+    "@storybook/storybook-deployer": "~2.8.7",
     "coveralls": "~3.0.9",
     "lerna": "~3.15.0",
     "nyc": "~15.0.0",
