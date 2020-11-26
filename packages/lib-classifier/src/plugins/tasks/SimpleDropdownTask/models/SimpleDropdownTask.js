@@ -27,9 +27,9 @@ const SimpleDropdown = types.model('SimpleDropdown', {
     return legacyDropdownAdapter(snapshot)
   })
   .views(self => ({
-    get defaultAnnotation () {
+    defaultAnnotation (id = cuid()) {
       return SimpleDropdownAnnotation.create({
-        id: cuid(),
+        id,
         task: self.taskKey,
         taskType: self.type
       })
