@@ -73,7 +73,7 @@ function ViewerContext (props) {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-storiesOf('Subject Viewers | SubjectGroupViewer', module)
+storiesOf('Subject Viewers / SubjectGroupViewer', module)
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme}>

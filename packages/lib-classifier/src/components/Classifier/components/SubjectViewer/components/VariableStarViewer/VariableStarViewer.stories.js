@@ -18,7 +18,7 @@ const config = {
   }
 }
 
-const stories = storiesOf('Subject Viewers | VariableStarViewer', module)
+const stories = storiesOf('Subject Viewers / VariableStarViewer', module)
 
 stories.addDecorator(withKnobs)
 // stories.addParameters({ viewport: { defaultViewport: 'responsive' } })

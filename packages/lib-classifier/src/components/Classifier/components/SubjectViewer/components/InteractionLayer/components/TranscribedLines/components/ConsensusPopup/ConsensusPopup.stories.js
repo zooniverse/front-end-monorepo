@@ -8,7 +8,7 @@ import ConsensusPopup from './ConsensusPopup'
 
 const config = {}
 const completedLines = setupMock()
-const stories = storiesOf('Drawing Tools | TranscribedLines/ConsensusPopup', module)
+const stories = storiesOf('Drawing Tools / TranscribedLines/ConsensusPopup', module)
 stories.addDecorator(withKnobs)
 
 function ConsensusPopupStory (props) {

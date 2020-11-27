@@ -21,7 +21,7 @@ const config = {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-const stories = storiesOf('Subject Viewers | BarChartViewer', module)
+const stories = storiesOf('Subject Viewers / BarChartViewer', module)
 
 stories.addDecorator(withKnobs)
 

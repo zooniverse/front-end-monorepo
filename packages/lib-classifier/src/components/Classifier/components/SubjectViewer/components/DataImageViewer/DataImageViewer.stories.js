@@ -63,7 +63,7 @@ function ViewerContext (props) {
   )
 }
 
-const stories = storiesOf('Subject Viewers | DataImageViewer', module)
+const stories = storiesOf('Subject Viewers / DataImageViewer', module)
 
 stories.addDecorator(withKnobs)
 // stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
