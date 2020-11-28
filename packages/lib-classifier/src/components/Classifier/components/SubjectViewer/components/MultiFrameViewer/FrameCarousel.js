@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
-import { FormUp, FormDown } from 'grommet-icons'
+import { FormUp, FormDown, More } from 'grommet-icons'
 import { tint } from 'polished'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -157,6 +157,7 @@ class FrameCarousel extends React.Component {
       const mimeType = Object.keys(location)[0]
       const url = location[mimeType]
       const activeFrame = frame === index
+
       return (
         <StyledFrame
           key={`${url}-${index}`}
@@ -172,6 +173,7 @@ class FrameCarousel extends React.Component {
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
             fit='cover'
             height='40'
+            placeholder={<More size='medium' />}
             src={url}
             width='40'
           />
