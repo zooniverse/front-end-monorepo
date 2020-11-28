@@ -93,7 +93,7 @@ export const StyledFrameList = styled.ul`
   align-items: center;
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   margin: 0;
   overflow: auto;
   padding: 0;
