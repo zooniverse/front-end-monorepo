@@ -30,7 +30,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
 
     before(function () {
       task = SubjectGroupComparisonTask.TaskModel.create(subjectGroupTask)
-      annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: SubjectGroupComparisonTask.AnnotationModel,
         task: SubjectGroupComparisonTask.TaskModel
@@ -58,7 +58,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
     before(function () {
       const requiredTask = Object.assign({}, subjectGroupTask, { required: true })
       task = SubjectGroupComparisonTask.TaskModel.create(requiredTask)
-      annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: SubjectGroupComparisonTask.AnnotationModel,
         task: SubjectGroupComparisonTask.TaskModel

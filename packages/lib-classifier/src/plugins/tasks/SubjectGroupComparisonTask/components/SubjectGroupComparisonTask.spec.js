@@ -11,7 +11,7 @@ describe('SubjectGroupComparisonTask', function () {
     taskKey: 'init',
     type: 'subjectGroupComparison'
   })
-  const annotation = task.defaultAnnotation
+  const annotation = task.defaultAnnotation()
 
   describe('when it renders', function () {
     let wrapper

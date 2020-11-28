@@ -27,9 +27,9 @@ const Transcription = types.model('Transcription', {
   }
 })
 .views(self => ({
-  get defaultAnnotation() {
+  defaultAnnotation(id = cuid()) {
     return TranscriptionAnnotation.create({
-      id: cuid(),
+      id,
       task: self.taskKey,
       taskType: self.type
     })

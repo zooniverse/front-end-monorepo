@@ -22,9 +22,9 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
       return self.tools[self.activeToolIndex]
     },
 
-    get defaultAnnotation () {
+    defaultAnnotation (id = cuid()) {
       return DataVisAnnotation.create({
-        id: cuid(),
+        id,
         task: self.taskKey,
         taskType: self.type
       })
