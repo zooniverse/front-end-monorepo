@@ -19,11 +19,8 @@ Starts a development server on port 3000 and a Storybook server on port 9001 by 
 
 - `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001.
 - `docker-compose down` to stop the dev containers.
-- `docker-compose run --rm dev test` to run the tests.
-
-##### Preview the production Dockerfile image build
-
-- `docker-compose -f docker-compose-prod.yml up` to run a production Dockerfile image server on http://localhost:3000.
+- `docker-compose run --rm project test` to run the tests.
+- `docker-compose --rm project start` to run a production build on http://localhost:3000.
 
 
 #### Node/yarn

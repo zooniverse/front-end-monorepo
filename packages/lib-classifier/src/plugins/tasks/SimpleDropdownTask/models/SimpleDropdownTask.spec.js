@@ -42,7 +42,7 @@ describe('Model > SimpleDropdownTask', function () {
 
     before(function () {
       task = TaskModel.create(simpleDropdownTask)
-      annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: AnnotationModel,
         task: TaskModel
@@ -75,7 +75,7 @@ describe('Model > SimpleDropdownTask', function () {
     before(function () {
       const requiredTask = Object.assign({}, simpleDropdownTask, { required: true })
       task = TaskModel.create(requiredTask)
-      annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: AnnotationModel,
         task: TaskModel

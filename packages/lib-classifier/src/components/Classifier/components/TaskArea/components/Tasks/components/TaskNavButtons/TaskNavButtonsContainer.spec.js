@@ -116,9 +116,9 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classificationStore.active
 
       activeStepTasks.forEach((task) => {
-        const { defaultAnnotation } = task
-        expect(classification.annotation(task).task).to.equal(defaultAnnotation.task)
-        expect(classification.annotation(task).value).to.deep.equal(defaultAnnotation.value)
+        const { task: taskKey, value } = task.defaultAnnotation()
+        expect(classification.annotation(task).task).to.equal(taskKey)
+        expect(classification.annotation(task).value).to.deep.equal(value)
       })
     })
 
@@ -218,9 +218,9 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classificationStore.active
 
       activeStepTasks.forEach((task) => {
-        const { defaultAnnotation } = task
-        expect(classification.annotation(task).task).to.equal(defaultAnnotation.task)
-        expect(classification.annotation(task).value).to.deep.equal(defaultAnnotation.value)
+        const { task: taskKey, value } = task.defaultAnnotation()
+        expect(classification.annotation(task).task).to.equal(taskKey)
+        expect(classification.annotation(task).value).to.deep.equal(value)
       })
     })
 

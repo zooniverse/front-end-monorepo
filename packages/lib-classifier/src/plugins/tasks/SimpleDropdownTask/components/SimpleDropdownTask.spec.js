@@ -23,7 +23,7 @@ const simpleDropdownTask = {
 
 describe('SimpleDropdownTask', function () {
   const task = Task.TaskModel.create(simpleDropdownTask)
-  const annotation = task.defaultAnnotation
+  const annotation = task.defaultAnnotation()
 
   describe('when it renders', function () {
     let wrapper

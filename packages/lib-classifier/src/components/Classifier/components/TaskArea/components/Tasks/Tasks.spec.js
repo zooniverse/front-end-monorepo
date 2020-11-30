@@ -9,6 +9,7 @@ import taskRegistry from '@plugins/tasks'
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
+import en from './locales/en'
 
 describe('Tasks', function () {
   let classification
@@ -54,6 +55,7 @@ describe('Tasks', function () {
         workflows: [workflowSnapshot]
       })
       const client = {
+        caesar: { request: sinon.stub().callsFake(() => Promise.resolve({})) },
         panoptes,
         tutorials: {
           get: sinon.stub().callsFake(() =>
@@ -110,15 +112,15 @@ describe('Tasks', function () {
 
       it('should render a loading UI when the workflow loading', function () {
         const wrapper = shallow(<Tasks loadingState={asyncStates.loading} />)
-        expect(wrapper.contains('Loading')).to.be.true()
+        expect(wrapper.contains(en.Tasks.loading)).to.be.true()
       })
 
       it('should render an error message when there is a loading error', function () {
         const wrapper = shallow(<Tasks loadingState={asyncStates.error} />)
-        expect(wrapper.contains('Something went wrong')).to.be.true()
+        expect(wrapper.contains(en.Tasks.error)).to.be.true()
       })
 
-      it('should render null if the workflow is load but has no tasks', function () {
+      it('should render null if the workflow is loaded but has no tasks', function () {
         const wrapper = shallow(<Tasks loadingState={asyncStates.success} ready />)
         expect(wrapper.type()).to.be.null()
       })
@@ -134,6 +136,23 @@ describe('Tasks', function () {
         )
         // Is there a better way to do this?
         expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
+      })
+
+      it('should not render the demo mode messaging', function () {
+        const wrapper = shallow(<Tasks />)
+        expect(wrapper.contains(en.Tasks.demoMode)).to.be.false()
+      })
+
+      it('should render the demo mode messaging when enabled', function () {
+        const wrapper = shallow(
+          <Tasks
+            classification={classification}
+            demoMode
+            loadingState={asyncStates.success}
+            subjectReadyState={asyncStates.success}
+            step={step}
+          />)
+        expect(wrapper.contains(en.Tasks.demoMode)).to.be.true()
       })
 
       describe('task components', function () {
