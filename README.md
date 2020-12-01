@@ -123,8 +123,6 @@ Deployments to a production Kubernetes instance are triggered by committing a `p
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
 
-You can test the production image builds using the `docker-compose-prod.yml` files in each pacakge.
-
 ### Environment variables
 
 - `PANOPTES_ENV`: sets which Panoptes API endpoint to use.

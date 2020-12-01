@@ -1,6 +1,7 @@
 # ADR 12: Production Docker setup
 
 Created: March 21, 2019
+Updated: December 1, 2020
 
 ## Context
 
@@ -16,7 +17,7 @@ The [Jenkinsfile](../../Jenkinsfile) builds Docker images in two stages:
 
 ## Status
 
-Proposed
+Accepted
 
 ## Consequences
 
