@@ -44,15 +44,15 @@ describe('Model > TextTask', function () {
     })
 
     it('should be a valid annotation', function () {
-      const annotation = task.defaultAnnotation
+      const annotation = task.defaultAnnotation()
       expect(annotation.id).to.be.ok()
       expect(annotation.task).to.equal('T0')
       expect(annotation.taskType).to.equal('text')
     })
 
     it('should generate unique annotations', function () {
-      const firstAnnotation = task.defaultAnnotation
-      const secondAnnotation = task.defaultAnnotation
+      const firstAnnotation = task.defaultAnnotation()
+      const secondAnnotation = task.defaultAnnotation()
       expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
     })
   })
@@ -63,7 +63,7 @@ describe('Model > TextTask', function () {
 
     before(function () {
       task = TextTask.TaskModel.create(textTask)
-      annotation = task.defaultAnnotation
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: TextTask.AnnotationModel,
         task: TextTask.TaskModel

@@ -16,7 +16,7 @@ describe('TextTask', function () {
     text_tags: ['insertion', 'deletion'],
     type: 'text'
   })
-  const annotation = task.defaultAnnotation
+  const annotation = task.defaultAnnotation()
 
   before(function () {
     types.model('MockStore', {

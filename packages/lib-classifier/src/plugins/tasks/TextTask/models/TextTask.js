@@ -12,9 +12,9 @@ const Text = types.model('Text', {
   type: types.literal('text')
 })
   .views(self => ({
-    get defaultAnnotation () {
+    defaultAnnotation (id = cuid()) {
       return TextAnnotation.create({
-        id: cuid(),
+        id,
         task: self.taskKey,
         taskType: self.type
       })

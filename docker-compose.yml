@@ -5,30 +5,41 @@ services:
     image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: bootstrap
     entrypoint:
       - "/bin/bash"
   fe-project:
-    image: front-end-monorepo_prod:latest
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: production-apps
     entrypoint:
       - "yarn"
       - "workspace"
       - "@zooniverse/fe-project"
     command: ["start"]
+    environment:
+      - PORT=3000
+      - PROJECT_ASSET_PREFIX=http://localhost:3000
+      - NODE_ENV=production
+      - PANOPTES_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
     ports:
       - "3000:3000"
   fe-content:
-    image: front-end-monorepo_prod:latest
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: production-apps
     entrypoint:
       - "yarn"
       - "workspace"
       - "@zooniverse/fe-content-pages"
     command: ["start"]
+    environment:
+      - PORT=3000
+      - CONTENT_ASSET_PREFIX=http://localhost:3001
+      - NODE_ENV=production
+      - PANOPTES_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - APP_ENV=development
     ports:
       - "3001:3000"

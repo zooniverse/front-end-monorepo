@@ -13,9 +13,9 @@ const SubjectGroupComparison = types.model('SubjectGroupComparison', {
   type: types.literal('subjectGroupComparison')
 })
   .views(self => ({
-    get defaultAnnotation () {
+    defaultAnnotation (id = cuid()) {
       return SubjectGroupComparisonAnnotation.create({
-        id: cuid(),
+        id,
         task: self.taskKey,
         taskType: self.type
       })

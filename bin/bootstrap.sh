@@ -24,4 +24,12 @@ printf 'Building `lib-classifier`...\n'
 yarn workspace @zooniverse/classifier build
 printf '\n'
 
+printf 'Building `fe-project`...\n'
+yarn workspace @zooniverse/fe-project build
+printf '\n'
+
+printf 'Building `fe-content-pages`...\n'
+yarn workspace @zooniverse/fe-content-pages build
+printf '\n'
+
 echo 'Done!'
