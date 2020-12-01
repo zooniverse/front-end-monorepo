@@ -36,10 +36,12 @@ const WorkflowStepStore = types
       const workflow = tryReference(() => getRoot(self).workflows?.active)
       const classification = tryReference(() => getRoot(self).classifications?.active)
       const step = tryReference(() => self.active)
+
       if (workflow && step && classification) {
         const disableTalk = classification.metadata.subject_flagged
-        return !step.isThereANextStep &&
-        workflow.configuration.hide_classification_summaries && // TODO: we actually want to reverse this logic
+        const lastStep = !step.isThereANextStep
+        return lastStep &&
+        workflow.configuration.hide_classification_summaries && // Default in model is to hide
         !disableTalk // &&
         // !completed TODO: implement classification completed validations per task?
       }
@@ -151,8 +153,15 @@ const WorkflowStepStore = types
     }
 
     function setSteps (workflow) {
-      workflow.steps.forEach(([ stepKey, step ]) => {
-        self.steps.put(Object.assign({}, step, { stepKey }))
+      const { steps } = workflow
+      steps.forEach(([ stepKey, step ], index) => {
+        let next
+        if (steps[index + 1]) {
+          const [nextStepKey] = steps[index + 1]
+          next = nextStepKey
+        }
+
+        self.steps.put(Object.assign({}, step, { stepKey, next }))
       })
     }
 
