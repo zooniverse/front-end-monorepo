@@ -4,6 +4,7 @@ const validSubjectLocations = [
   { 'image/png': 'https://www.foobar.org/example.png' },
   { 'image/jpeg': 'https://www.foobar.org/example.jpg' },
   { 'image/jpeg': 'https://www.foobar.org/example.jpeg' },
+  { 'image/jpeg': 'https://www.foobar.org/example.JPG' },
   { 'image/gif': 'https://www.foobar.org/example.gif' },
   { 'application/json': 'https://www.foobar.org/example.json' },
   { 'audio/mp3': 'https://www.foobar.org/example.mp3' },
