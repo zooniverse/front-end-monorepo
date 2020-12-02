@@ -21,7 +21,7 @@ export default function validateSubjectLocations (locations) {
     if (isMimeTypeValid) {
       const allowedExtensions = fileExtensions[mimeType]
       return allowedExtensions.some((extension) => {
-        return url.endsWith(extension)
+        return url.toLowerCase().endsWith(extension)
       })
     } else {
       console.error(`${mimeType}, ${url} is invalid`)
