@@ -35,7 +35,7 @@ The production server is started on port 3000 by default.
 
 ### Docker
 
-- `docker-compose --rm project start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+- `docker-compose run --rm project start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
 
 ### Node
 ```sh
