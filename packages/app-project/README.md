@@ -17,7 +17,7 @@ Starts a development server on port 3000 and a Storybook server on port 9001 by 
 
 ### Docker
 
-- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001 using `yarn dev` and `yarn storybook` resepectively. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001 using `yarn dev` and `yarn storybook` respectively. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
 - `docker-compose down` to stop the dev containers.
 - `docker-compose run --rm project test` to run the tests.
 
