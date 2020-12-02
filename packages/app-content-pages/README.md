@@ -47,7 +47,7 @@ Starts a Storybook server on port 9001 by default.
 
 ### Docker
 
-- `docker-compose --rm content-pages start` to run a webpack production build on http://localhost:3000 using `yarn start`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+- `docker-compose run --rm content-pages start` to run a webpack production build on http://localhost:3000 using `yarn start`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
 
 ### Node
 ```sh
