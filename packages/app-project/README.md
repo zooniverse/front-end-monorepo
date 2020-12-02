@@ -17,31 +17,31 @@ Starts a development server on port 3000 and a Storybook server on port 9001 by 
 
 ### Docker
 
-- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001 using `yarn dev` and `yarn storybook` resepectively. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
 - `docker-compose down` to stop the dev containers.
 - `docker-compose run --rm project test` to run the tests.
-- `docker-compose --rm project start` to run a production build on http://localhost:3000.
 
-#### Node
+### Node
 ```sh
 yarn dev
 yarn storybook
 ```
+
 ## Running in production
 
 Next.js [treats the build and serve tasks as separate steps](https://github.com/zeit/next.js/#production-deployment) when running in production.
 
 The production server is started on port 3000 by default.
 
+### Docker
+
+- `docker-compose --rm project start` to run a webpack production build on http://localhost:3000. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+
 ### Node
 ```sh
 yarn build
 yarn start
 ```
-
-### Docker
-
-A production build of all of the apps and libraries can be run from parent monorepo folder.
 
 ### Tests
 
