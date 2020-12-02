@@ -19,16 +19,15 @@ cp env-default .env
 
 To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api/keys (login credentials are in Passbolt), and copy the Space ID and Content Delivery API token from "Testing".
 
-### Running in development
+## Running in development
 
-#### Docker
+### Docker
 
-- `docker-compose up` to run a server on http://localhost:3000.
+- `docker-compose up` to run a dev server on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
 - `docker-compose down` to stop the dev server.
 - `docker-compose run --rm content-pages test` to run the tests.
-- `docker-compose --rm content-pages start` to run a production build on http://localhost:3000.
 
-#### Node/yarn
+### Node
 ```sh
 yarn dev
 ```
@@ -44,8 +43,13 @@ yarn storybook
 
 Starts a Storybook server on port 9001 by default.
 
-### Running in production
+## Running in production
 
+### Docker
+
+- `docker-compose run --rm content-pages start` to run a webpack production build on http://localhost:3000 using `yarn start`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+
+### Node
 ```sh
 yarn build
 yarn start
@@ -54,15 +58,6 @@ yarn start
 Next.js [treats the build and serve tasks as separate steps](https://github.com/zeit/next.js/#production-deployment) when running in production.
 
 The production server is started on port 3000 by default.
-
-#### Docker
-```sh
-# to run a next prod server based on deployed prod image
-docker-compose -f docker-compose-prod.yml up app-content-pages
-
-# to run a next prod server based on local filesystem builds
-docker-compose run --rm --service-ports dev start
-````
 
 ### Tests
 
