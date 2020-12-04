@@ -79,7 +79,7 @@ function InteractionLayer ({
 
     if (creating) {
       activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event), activeMark)
-      if (activeMark.finished) setCreating(false)
+      if (activeMark.finished) onFinish(event)
       return true
     }
 
