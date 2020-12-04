@@ -12,6 +12,10 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
       mark.finish()
     }
 
+    function handlePointerMove (event, mark) {
+      return
+    }
+
     function handlePointerUp (event, mark) {
       return
     }
@@ -25,6 +29,7 @@ const TranscriptionLineTool = types.model('TranscriptionLine', {
     return {
       createMark,
       handlePointerDown,
+      handlePointerMove,
       handlePointerUp
     }
   })

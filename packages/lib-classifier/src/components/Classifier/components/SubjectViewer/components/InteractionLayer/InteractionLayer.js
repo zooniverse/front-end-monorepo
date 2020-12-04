@@ -89,7 +89,7 @@ function InteractionLayer ({
 
   function onPointerMove (event) {
     if (creating) {
-      activeMark.initialDrag(convertEvent(event))
+      activeTool.handlePointerMove && activeTool.handlePointerMove(convertEvent(event), activeMark)
     }
   }
 

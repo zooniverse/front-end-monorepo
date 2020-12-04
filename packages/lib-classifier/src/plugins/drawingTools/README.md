@@ -41,6 +41,7 @@ All tools should extend the Tool model by implementing the following:
 - _type_: a string uniquely identifying this type of tool.
 - _createMark(snapshot)_: an action which creates a new mark from the supplied snapshot, then stores it in `self.marks`.
 - _handlePointerDown(event, mark)_: handle pointer down events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
+- _handlePointerMove(event, mark)_: handle pointer move events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
 - _handlePointerUp(event, mark)_: handle pointer up events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
 
 ## Mark models
