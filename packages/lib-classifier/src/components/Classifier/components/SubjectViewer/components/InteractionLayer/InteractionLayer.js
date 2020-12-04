@@ -7,7 +7,7 @@ import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 
-const StyledRect = styled('rect')`
+const DrawingCanvas = styled('rect')`
   ${props => props.disabled ?
     css`cursor: not-allowed;` :
     css`cursor: crosshair;`
@@ -67,6 +67,8 @@ function InteractionLayer ({
   }
 
   function onPointerDown (event) {
+    const { target, pointerId } = event
+    target.setPointerCapture(pointerId)
     if (disabled || move) {
       return true
     }
@@ -87,8 +89,6 @@ function InteractionLayer ({
 
   function onPointerMove (event) {
     if (creating) {
-      const { target, pointerId } = event
-      target.setPointerCapture(pointerId)
       activeMark.initialDrag(convertEvent(event))
     }
   }
@@ -109,22 +109,28 @@ function InteractionLayer ({
     }
   }
 
+  function onPointerUp(event) {
+    if (creating) {
+      onFinish(event)
+    }
+  }
+
   function inactivateMark () {
     setActiveMark(undefined)
   }
 
   return (
-    <g
-      onPointerMove={onPointerMove}
-      touch-action='none'
-    >
-      <StyledRect
+    <g>
+      <DrawingCanvas
         disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
         height={height}
         fill='transparent'
         onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        touch-action='none'
       />
       <TranscribedLines
         scale={scale}
@@ -172,4 +178,4 @@ InteractionLayer.defaultProps = {
 }
 
 export default InteractionLayer
-export { StyledRect }
+export { DrawingCanvas }
