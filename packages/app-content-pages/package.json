@@ -10,7 +10,7 @@
     "dev": "PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook": "start-storybook -p 9002 -c .storybook",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
