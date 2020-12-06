@@ -1,32 +1,25 @@
 import zooTheme from '@zooniverse/grommet-theme'
 
-const lightDefault = [
-  {
-    default: true,
-    name: 'light',
-    value: zooTheme.global.colors['light-1']
-  },
-  {
-    name: 'dark',
-    value: zooTheme.global.colors['dark-1']
-  }
-]
-
-const darkDefault = [
+const values = [
   {
     name: 'light',
     value: zooTheme.global.colors['light-1']
   },
   {
-    default: true,
     name: 'dark',
     value: zooTheme.global.colors['dark-1']
   }
 ]
 
 const backgrounds = {
-  lightDefault,
-  darkDefault
+  lightDefault: {
+    default: 'light',
+    values
+  },
+  darkDefault: {
+    default: 'dark',
+    values
+  }
 }
 
 export default backgrounds
