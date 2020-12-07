@@ -41,7 +41,7 @@ class SingleVideoViewerContainer extends React.Component {
     }
   }
 
-  async preload () {
+  preload () {
     const { subject } = this.props
     if (subject && subject.locations) {
       const vid = Object.values(subject.locations[0])[0]
@@ -56,18 +56,15 @@ class SingleVideoViewerContainer extends React.Component {
   render () {
     const {
       loadingState, // subject resource loaded?
-      title //Hmmm what is this?
     } = this.props
     const { vid } = this.state
     const { naturalHeight, naturalWidth, src } = vid
 
-    // return <div>Video Placeholder</div>
-
-    // if (loadingState === asyncStates.error) {
-    //   return (
-    //     <div>Something went wrong.</div>
-    //   )
-    // }
+    if (loadingState === asyncStates.error) {
+      return (
+        <div>Something went wrong.</div>
+      )
+    }
 
     // if (!src) {
     //   return null
@@ -92,10 +89,6 @@ SingleVideoViewerContainer.propTypes = {
   onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  }),
-  title: PropTypes.shape({
-    id: PropTypes.string,
-    text: PropTypes.string
   })
 }
 
@@ -103,7 +96,6 @@ SingleVideoViewerContainer.defaultProps = {
   loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
-  title: {}
 }
 
 export default SingleVideoViewerContainer
