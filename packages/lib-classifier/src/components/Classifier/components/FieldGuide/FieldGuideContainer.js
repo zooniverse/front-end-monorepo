@@ -1,13 +1,8 @@
-import { Modal } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import FieldGuideButton from './components/FieldGuideButton'
 import FieldGuide from './components/FieldGuide'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const { setModalVisibility, showModal } = stores.classifierStore.fieldGuide
@@ -33,16 +28,7 @@ class FieldGuideContainer extends React.Component {
     return (
       <>
         <FieldGuideButton />
-        <Modal
-          active={showModal}
-          closeFn={this.onClose.bind(this)}
-          modal={false}
-          pad='medium'
-          position='right'
-          title={counterpart('FieldGuide.title')}
-        >
-          <FieldGuide />
-        </Modal>
+        <FieldGuide onClose={this.onClose.bind(this)} showModal={showModal} />
       </>
     )
   }
