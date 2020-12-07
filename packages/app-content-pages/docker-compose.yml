@@ -12,7 +12,7 @@ services:
     command: ["dev"]
     ports:
       - "3000:3000"
-      - "9001:9001"
+      - "9002:9001"
     volumes:
       - ./pages:/usr/src/packages/app-content-pages/pages
       - ./src:/usr/src/packages/app-content-pages/src

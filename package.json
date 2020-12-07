@@ -23,6 +23,7 @@
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
     "panic-button": "./bin/panic-button.sh",
+    "storybook": "lerna run --parallel storybook",
     "test": "lerna run --parallel test",
     "test:ci": "nyc lerna run --parallel test:ci"
   },

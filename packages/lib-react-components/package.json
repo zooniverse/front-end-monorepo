@@ -10,6 +10,7 @@
     "build:storybook": "build-storybook",
     "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy",
     "start": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6007",
     "test": "mocha",
     "test:ci": "mocha --reporter=min"
   },
