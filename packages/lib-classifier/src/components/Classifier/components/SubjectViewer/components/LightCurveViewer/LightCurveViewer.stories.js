@@ -25,6 +25,7 @@ const dataExtent = {
 }
 
 storiesOf('Subject Viewers / LightCurveViewer', module)
+  .addParameters({ component: LightCurveViewer })
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>

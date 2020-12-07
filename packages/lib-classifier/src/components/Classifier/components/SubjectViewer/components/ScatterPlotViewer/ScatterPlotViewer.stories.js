@@ -36,9 +36,13 @@ function setZoomCallback (callback) {
 }
 
 const stories = storiesOf('Subject Viewers / ScatterPlotViewer', module)
-
-stories.addDecorator(withKnobs)
-stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
+  .addDecorator(withKnobs)
+  .addParameters({
+    component: ScatterPlotViewer,
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  })
 
 const { colors } = zooTheme.global
 

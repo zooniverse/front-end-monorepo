@@ -63,6 +63,7 @@ function ViewerContext (props) {
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
 storiesOf('Subject Viewers / MultiFrameViewer', module)
+  .addParameters({ component: DecoratedMultiFrameViewerContainer })
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme}>
