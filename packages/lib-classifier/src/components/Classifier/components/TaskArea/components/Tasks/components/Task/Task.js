@@ -18,10 +18,11 @@ function useStores(task, stores) {
   const classification = classifications.active
   const disabled = subjectReadyState !== asyncStates.success
 
-  useEffect(function onMount() {
+  function onTaskChange() {
     const taskAnnotation = classification.addAnnotation(task)
     setAnnotation(taskAnnotation)
-  }, [])
+  }
+  useEffect(onTaskChange, [task.taskKey])
   return {
     annotation,
     disabled
