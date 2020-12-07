@@ -20,7 +20,6 @@ function useStores(task, stores) {
 
   useEffect(function onMount() {
     const taskAnnotation = classification.addAnnotation(task)
-    task.setAnnotation(taskAnnotation)
     setAnnotation(taskAnnotation)
   }, [])
   return {

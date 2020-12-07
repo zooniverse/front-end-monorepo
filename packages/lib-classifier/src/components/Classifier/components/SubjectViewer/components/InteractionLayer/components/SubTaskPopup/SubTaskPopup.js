@@ -80,8 +80,6 @@ function SubTaskPopup(props) {
             // or creates a new one if one doesn't exist.
             // The name is a bit confusing.
             const annotation = activeMark.addAnnotation(task)
-            
-            task.setAnnotation(annotation)
             const { TaskComponent } = taskRegistry.get(task.type)
 
             if (annotation && TaskComponent) {
