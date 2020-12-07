@@ -2,12 +2,13 @@ import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { func, shape, string } from 'prop-types'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import taskRegistry from '@plugins/tasks'
 
 function useStores(task, stores) {
   const { classifierStore } = stores || useContext(MobXProviderContext)
+  const [ annotation, setAnnotation ] = useState(null)
 
   const {
     classifications,
@@ -16,8 +17,12 @@ function useStores(task, stores) {
   const { loadingState: subjectReadyState } = subjectViewer
   const classification = classifications.active
   const disabled = subjectReadyState !== asyncStates.success
-  const annotation = classification.addAnnotation(task)
-  task.setAnnotation(annotation)
+
+  useEffect(function onMount() {
+    const taskAnnotation = classification.addAnnotation(task)
+    task.setAnnotation(taskAnnotation)
+    setAnnotation(taskAnnotation)
+  }, [])
   return {
     annotation,
     disabled
