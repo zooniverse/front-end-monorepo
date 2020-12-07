@@ -10,7 +10,7 @@ class SingleVideoViewerContainer extends React.Component {
 		super()
 
 		this.state = {
-			vid: {}
+			vid: ''
 		}
 	}
 
@@ -30,7 +30,6 @@ class SingleVideoViewerContainer extends React.Component {
 			const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
 			onReady({ target })
 		} catch (error) {
-			console.error(error)
 			onError(error)
 		}
 	}
@@ -50,25 +49,23 @@ class SingleVideoViewerContainer extends React.Component {
 		const { subject } = this.props
 		if (subject && subject.locations) {
 			const vid = Object.values(subject.locations[0])[0]
-			console.log('videoUrl: ', vid)
 			this.setState({ vid })
-			console.log('this.state: ', this.state)
 			return vid
 		}
 		return {}
 	}
 
 	render() {
-		const {
-			loadingState // subject resource loaded?
-		} = this.props
+		const { loadingState } = this.props
 		const { vid } = this.state
+		// Erik Todo
 		const { naturalHeight, naturalWidth, src } = vid
 
 		if (loadingState === asyncStates.error) {
 			return <div>Something went wrong.</div>
 		}
 
+		// Erik Todo
 		// if (!src) {
 		//   return null
 		// }
