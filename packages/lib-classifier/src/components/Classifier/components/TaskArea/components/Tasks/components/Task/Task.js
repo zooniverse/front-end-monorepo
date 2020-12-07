@@ -1,19 +1,33 @@
+import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import { bool, func, shape } from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
+import { func, shape, string } from 'prop-types'
+import React, { useContext } from 'react'
 
 import taskRegistry from '@plugins/tasks'
 
-export default function Task (props) {
-  const { classification, disabled, task } = props
-  const [ annotation, setAnnotation ] = useState()
-  const { TaskComponent } = taskRegistry.get(task.type)
+function useStores(task, stores) {
+  const { classifierStore } = stores || useContext(MobXProviderContext)
 
-  useEffect(function onMount() {
-    const annotation = classification.addAnnotation(task)
-    task.setAnnotation(annotation)
-    setAnnotation(annotation)
-  }, [])
+  const {
+    classifications,
+    subjectViewer
+  } = classifierStore
+  const { loadingState: subjectReadyState } = subjectViewer
+  const classification = classifications.active
+  const disabled = subjectReadyState !== asyncStates.success
+  const annotation = classification.addAnnotation(task)
+  task.setAnnotation(annotation)
+  return {
+    annotation,
+    disabled
+  }
+}
+
+function Task (props) {
+  const { store, task } = props
+  const { annotation, disabled } = useStores(task, store)
+  const { TaskComponent } = taskRegistry.get(task.type)
 
   if (annotation && TaskComponent) {
     return (
@@ -32,15 +46,11 @@ export default function Task (props) {
 }
 
 Task.propTypes = {
-  classification: shape({
-    addAnnotation: func.isRequired
-  }).isRequired,
-  disabled: bool,
   task: shape({
-    setAnnotation: func.isRequired
+    setAnnotation: func.isRequired,
+    taskKey: string.isRequired
   }).isRequired
 }
 
-Task.defaultProps = {
-  disabled: false
-}
+export default observer(Task)
+

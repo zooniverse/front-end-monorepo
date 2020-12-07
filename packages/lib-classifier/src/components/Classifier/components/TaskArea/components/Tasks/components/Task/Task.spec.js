@@ -14,6 +14,7 @@ describe('Components > Task', function () {
   let classification
   let activeTask
   let TaskComponent
+  let store
 
   const taskTypes = Object.keys(taskRegistry.register)
 
@@ -96,13 +97,14 @@ describe('Components > Task', function () {
       classification = rootStore.classifications.active
       const step = rootStore.workflowSteps.active
       activeTask = step.tasks[0]
+      store = { classifierStore: rootStore }
     })
 
     describe(`Task ${taskType}`, function () {
       it('should render without crashing', function () {
         const wrapper = mount(
           <Task
-            classification={classification}
+            store={store}
             task={activeTask}
           />
         )
@@ -112,23 +114,23 @@ describe('Components > Task', function () {
       it('should render the correct task component', function () {
         const wrapper = mount(
           <Task
-            classification={classification}
+            store={store}
             task={activeTask}
           />
         )
         // Is there a better way to do this?
-        expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
+        expect(wrapper.find(TaskComponent)).to.have.lengthOf(1)
       })
 
       it('should pass the active annotation down to the task component', function () {
         const wrapper = mount(
           <Task
-            classification={classification}
+            store={store}
             task={activeTask}
           />
         )
         const activeAnnotation = classification.addAnnotation(activeTask)
-        const taskComponent = wrapper.find(TaskComponent.displayName)
+        const taskComponent = wrapper.find(TaskComponent)
         expect(taskComponent.prop('annotation')).to.deep.equal(activeAnnotation)
       })
 
@@ -137,14 +139,14 @@ describe('Components > Task', function () {
 
         describe('while the subject is loading', function () {
           before(function () {
+            store.classifierStore.subjectViewer.resetSubject()
             const wrapper = mount(
               <Task
-                classification={classification}
-                disabled={true}
+                store={store}
                 task={activeTask}
               />
             )
-            taskWrapper = wrapper.find(TaskComponent.displayName)
+            taskWrapper = wrapper.find(TaskComponent)
           })
 
           it('should be disabled', function () {
@@ -154,14 +156,14 @@ describe('Components > Task', function () {
 
         describe('when the subject viewer is ready', function () {
           before(function () {
+            store.classifierStore.subjectViewer.onSubjectReady()
             const wrapper = mount(
               <Task
-                classification={classification}
-                disabled={false}
+                store={store}
                 task={activeTask}
               />
             )
-            taskWrapper = wrapper.find(TaskComponent.displayName)
+            taskWrapper = wrapper.find(TaskComponent)
           })
 
           it('should be enabled', function () {
