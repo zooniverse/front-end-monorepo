@@ -3,11 +3,11 @@
 The Single Video Viewer is a variant of the Subject Viewer that's used to
 display video media.
 
-// TODO: Update to validate for only allowed video media mime types
+The only allowed video media type is mp4.
 
 ## Features
 
-The viewer is coupled with pan and zoom functionality and defaults to render an interaction layer for drawing SVG marks on top of. This interaction layer can be disabled setting the `enableInteractionLayer` prop to false.
+// TODO Will be updated as the new video feature is built.
 
 ## External Setup: Workflows and Subjects
 
@@ -24,7 +24,5 @@ There is a fall back to assume rendering the Single Video Viewer if the subject 
 Each Subject has a single video media location
 
 ```js
-subject.locations = [
-  { "video/mp4": "tess1234.mp4" }
-]
+subject.locations = [{ 'video/mp4': 'tess1234.mp4' }]
 ```
