@@ -20,6 +20,7 @@
     "bootstrap": "./bin/bootstrap.sh",
     "build": "lerna run --parallel build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coverage-lcov": "nyc report --reporter=lcov",
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",
     "panic-button": "./bin/panic-button.sh",
