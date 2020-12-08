@@ -1,0 +1,26 @@
+name: CI Tests
+
+on:
+  push:
+    branches:
+      - github-action-tests
+
+jobs:
+  release:
+   runs-on: ubuntu-latest
+   env:
+     CI: true
+
+   steps:
+    # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: yarn install
+    - run: yarn workspace @zooniverse/react-components build
+    - run: yarn workspace @zooniverse/classifier build
+    - run: npm run test:ci
+    - run: yarn coverage
