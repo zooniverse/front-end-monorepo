@@ -22,5 +22,8 @@ jobs:
     - run: yarn install
     - run: yarn workspace @zooniverse/react-components build
     - run: yarn workspace @zooniverse/classifier build
-    - run: npm run test:ci
-    - run: yarn coverage
+    - run: yarn test:ci
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
