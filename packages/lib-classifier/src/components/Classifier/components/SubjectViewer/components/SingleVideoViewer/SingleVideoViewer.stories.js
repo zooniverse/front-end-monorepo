@@ -11,76 +11,85 @@ import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const config = {
-  notes: {
-    markdown: readme
-  }
+	notes: {
+		markdown: readme
+	}
 }
 
 const subject = Factory.build('subject', {
-  locations: [
-    { 'image/jpeg': 'http://placekitten.com/500/300' }
-  ]
+	locations: [{ 'image/jpeg': 'http://placekitten.com/500/300' }]
 })
 
 const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {
-    setModalVisibility: () => {}
-  },
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflowSteps: {
-    activeStepTasks: []
-  }
+	classifications: {
+		active: {
+			annotations: new Map()
+		}
+	},
+	fieldGuide: {
+		setModalVisibility: () => {}
+	},
+	subjects: {
+		active: subject
+	},
+	subjectViewer: SubjectViewerStore.create({}),
+	workflowSteps: {
+		activeStepTasks: []
+	}
 }
 
-
-function ViewerContext (props) {
-  const { children, theme } = props
-  return (
-    <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>
-        {children}
-      </Grommet>
-    </Provider>
-  )
+function ViewerContext(props) {
+	const { children, theme } = props
+	return (
+		<Provider classifierStore={mockStore}>
+			<Grommet theme={theme}>{children}</Grommet>
+		</Provider>
+	)
 }
 
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
+const darkThemeConfig = Object.assign({}, config, {
+	backgrounds: backgrounds.darkDefault
+})
 
 storiesOf('Subject Viewers | SingleImageViewer', module)
-  .add('light theme', () => {
-    return (
-      <ViewerContext theme={zooTheme}>
-        <Box height='medium' width='large'>
-          <SingleImageViewer />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
-  .add('dark theme', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    return (
-      <ViewerContext theme={darkZooTheme}>
-        <Box height='medium' width='large'>
-          <SingleImageViewer />
-        </Box>
-      </ViewerContext>
-    )
-  }, darkThemeConfig)
-  .add('with zoom controls', () => {
-    return (
-      <ViewerContext theme={zooTheme}>
-        <Box direction='row' height='500px' width='large'>
-          <SingleImageViewer />
-          <ImageToolbar />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
+	.add(
+		'light theme',
+		() => {
+			return (
+				<ViewerContext theme={zooTheme}>
+					<Box height='medium' width='large'>
+						<SingleImageViewer />
+					</Box>
+				</ViewerContext>
+			)
+		},
+		config
+	)
+	.add(
+		'dark theme',
+		() => {
+			const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+			return (
+				<ViewerContext theme={darkZooTheme}>
+					<Box height='medium' width='large'>
+						<SingleImageViewer />
+					</Box>
+				</ViewerContext>
+			)
+		},
+		darkThemeConfig
+	)
+	.add(
+		'with zoom controls',
+		() => {
+			return (
+				<ViewerContext theme={zooTheme}>
+					<Box direction='row' height='500px' width='large'>
+						<SingleImageViewer />
+						<ImageToolbar />
+					</Box>
+				</ViewerContext>
+			)
+		},
+		config
+	)
