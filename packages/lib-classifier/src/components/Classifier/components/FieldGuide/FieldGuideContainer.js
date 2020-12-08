@@ -28,7 +28,7 @@ class FieldGuideContainer extends React.Component {
     return (
       <>
         <FieldGuideButton />
-        <FieldGuide onClose={this.onClose.bind(this)} showModal={showModal} />
+        {showModal && <FieldGuide onClose={this.onClose.bind(this)} />}
       </>
     )
   }
