@@ -24,7 +24,8 @@ const dataExtent = {
   y: d3.extent(mockData.y)
 }
 
-storiesOf('Subject Viewers | LightCurveViewer', module)
+storiesOf('Subject Viewers / LightCurveViewer', module)
+  .addParameters({ component: LightCurveViewer })
   .add('light theme', () => {
     return (
       <Grommet theme={zooTheme}>

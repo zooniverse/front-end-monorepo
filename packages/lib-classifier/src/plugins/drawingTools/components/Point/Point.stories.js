@@ -135,7 +135,7 @@ class DrawingStory extends Component {
     )
   }
 }
-storiesOf('Drawing tools | Point', module)
+storiesOf('Drawing tools / Point', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

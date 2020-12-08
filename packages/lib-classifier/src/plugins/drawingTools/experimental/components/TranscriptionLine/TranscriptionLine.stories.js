@@ -126,7 +126,7 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing Tools | TranscriptionLine', module)
+storiesOf('Drawing Tools / TranscriptionLine', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
