@@ -24,7 +24,6 @@ function MovableModal (props) {
     ...rest
   } = props
 
-  // Change handleComponent prop to resizeHandleComponent when react-rnd gets upgraded
   return (
     <Rnd
       cancel={cancel}
@@ -41,7 +40,7 @@ function MovableModal (props) {
       default={position}
       minHeight={minHeight}
       minWidth={minWidth}
-      handleComponent={{ bottomRight: <ResizeIcon /> }}
+      resizeHandleComponent={{ bottomRight: <ResizeIcon /> }}
       resizeHandleStyles={{
         bottomLeft: {
           bottom: 0,
