@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Update Modal spacing to reflect the Zooniverse design system.
 - Allow the colour of the Modal close button to be changed based on the ModalHeading text colour.
 - Removed hardcoded margin-top from MetaToolsButton. Leave spacing to the consuming library.
+- Removed the hardcoded cancel string for MovableModal applied to Rnd.
 
 ## [1.0.2] 2020-07-15
 - Patch fix previous version with correctly built package
