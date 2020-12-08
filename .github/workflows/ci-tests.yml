@@ -1,9 +1,6 @@
 name: CI Tests
 
-on:
-  push:
-    branches:
-      - github-action-tests
+on: [push]
 
 jobs:
   release:
