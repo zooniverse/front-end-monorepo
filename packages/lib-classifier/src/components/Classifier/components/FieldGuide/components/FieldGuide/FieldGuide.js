@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
-import { MovableModal } from '@zooniverse/react-components'
+import { MovableModal, Modal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import en from '../../locales/en'
 
@@ -25,7 +25,7 @@ function storeMapper (stores) {
 @observer
 class FieldGuide extends React.Component {
   render () {
-    const { activeItemIndex, className, items, onClose, showModal } = this.props
+    const { activeItemIndex, className, items, onClose } = this.props
     return (
       <ResponsiveContext.Consumer>
         {size => {
@@ -33,11 +33,12 @@ class FieldGuide extends React.Component {
           const width = (size === 'small') ? '100%' : '490px'
           return (
             <MovableModal
-              active={showModal}
+              active
               closeFn={onClose}
               modal={false}
               pad='medium'
-              position='right'
+              plain
+              position='center'
               rndProps={{
                 minHeight: height,
                 minWidth: width,
@@ -69,16 +70,14 @@ class FieldGuide extends React.Component {
 FieldGuide.wrappedComponent.defaultProps = {
   activeItemIndex: -1,
   className: '',
-  onClose: () => {},
-  showModal: false
+  onClose: () => {}
 }
 
 FieldGuide.wrappedComponent.propTypes = {
   activeItemIndex: PropTypes.number,
   className: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onClose: PropTypes.func,
-  showModal: PropTypes.bool
+  onClose: PropTypes.func
 }
 
 export default FieldGuide
