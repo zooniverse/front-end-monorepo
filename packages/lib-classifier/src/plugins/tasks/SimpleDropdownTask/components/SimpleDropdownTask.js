@@ -1,6 +1,7 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Select, Text, TextInput } from 'grommet'
 import { Down } from 'grommet-icons'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -145,4 +146,4 @@ SimpleDropdownTask.propTypes = {
   }).isRequired,
 }
 
-export default SimpleDropdownTask
+export default observer(SimpleDropdownTask)

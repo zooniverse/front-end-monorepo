@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Paragraph } from 'grommet'
-import { observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MovableModal } from '@zooniverse/react-components'
@@ -79,10 +79,11 @@ function SubTaskPopup(props) {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
             // The name is a bit confusing.
-            const annotation = activeMark.addAnnotation(task)
-            
-            task.setAnnotation(annotation)
-            const TaskComponent = observer(taskRegistry.get(task.type).TaskComponent)
+            let annotation = activeMark.annotation(task)
+            if (!annotation) {
+              annotation = activeMark.addAnnotation(task)
+            }
+            const { TaskComponent } = taskRegistry.get(task.type)
 
             if (annotation && TaskComponent) {
               const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'
