@@ -79,7 +79,7 @@ function MockTask(props) {
   )
 }
 
-storiesOf('Tasks | Simple Dropdown Task', module)
+storiesOf('Tasks / Simple Dropdown Task', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

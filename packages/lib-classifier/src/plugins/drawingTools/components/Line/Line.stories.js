@@ -136,7 +136,7 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing tools | Line', module)
+storiesOf('Drawing tools / Line', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

@@ -18,7 +18,7 @@ const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.dar
 
 const subject = SubjectFactory.build()
 
-const stories = storiesOf('Banners | RetiredBanner', module)
+const stories = storiesOf('Banners / RetiredBanner', module)
 stories.addDecorator(withKnobs)
 stories.add('light theme', () => {
     return (

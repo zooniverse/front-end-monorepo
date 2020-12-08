@@ -79,7 +79,7 @@ function MockTask(props) {
   )
 }
 
-storiesOf('Tasks | Text', module)
+storiesOf('Tasks / Text', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

@@ -136,7 +136,7 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing tools | Ellipse', module)
+storiesOf('Drawing tools / Ellipse', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

@@ -63,9 +63,9 @@ function ViewerContext (props) {
   )
 }
 
-const stories = storiesOf('Subject Viewers | DataImageViewer', module)
-
-stories.addDecorator(withKnobs)
+const stories = storiesOf('Subject Viewers / DataImageViewer', module)
+  .addDecorator(withKnobs)
+  .addParameters({ component: DataImageViewerContainer })
 // stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 const { colors } = zooTheme.global
