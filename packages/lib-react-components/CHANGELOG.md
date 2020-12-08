@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Stories and readme for MetaToolsButton
 
+### Changed
+- Updated minor version of react-rnd dependency
+
 ### Fixed
 - Arrow position is now correct based on the position set by tippyjs-react for the Tooltip
 - Restore default colours for the Modal and MovableModal components.
