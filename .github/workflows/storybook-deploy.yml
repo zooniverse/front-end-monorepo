@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: zooniverse/depoy-storybooks-action@v1.0.0
+      - uses: zooniverse/deploy-storybooks-action@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm install -g yarn
