@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  release:
+  build:
    runs-on: ubuntu-latest
    env:
      CI: true
