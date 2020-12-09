@@ -138,7 +138,7 @@ export default {
 }
 
 export function Complete() {
-  const stores = setupStores({ activeMark: false, subtask: false})
+  const stores = setupStores({ activeMark: false, finished: true, subtask: false})
   return (
     <DrawingStory stores={stores} />
   )
