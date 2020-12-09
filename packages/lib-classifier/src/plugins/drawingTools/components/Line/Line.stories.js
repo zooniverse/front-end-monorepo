@@ -52,22 +52,28 @@ const subTasksSnapshot = [
   }
 ]
 
+// should think of a better way to do create bounds for the story
+// this is a rough approximation of what the positioning is like now
+const nodeMock = {
+  getBoundingClientRect: () => ({
+    x: 250,
+    y: 250,
+    width: 0,
+    height: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  })
+}
+
 function setupStores({ activeMark, subtask }) {
   if (subtask) {
     drawingTaskSnapshot.tools[0].details = subTasksSnapshot
     drawingTaskSnapshot.subTaskVisibility = true
     // should think of a better way to do this for the story
     // this is a rough approximation of what the positioning is like now
-    drawingTaskSnapshot.subTaskMarkBounds = {
-      x: 250,
-      y: 250,
-      width: 0,
-      height: 0,
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
+    drawingTaskSnapshot.subTaskMarkBounds = nodeMock.getBoundingClientRect()
   }
 
   const drawingTask = DrawingTask.create(drawingTaskSnapshot)
@@ -75,6 +81,10 @@ function setupStores({ activeMark, subtask }) {
   const line = drawingTask.activeTool.createMark()
   line.initialPosition({ x: 100, y: 100 })
   line.initialDrag({ x: 200, y: 200 })
+
+  if (subtask) {
+    line.setSubTaskVisibility(true, nodeMock)
+  }
 
   const mockStores = {
     classifications: ClassificationStore.create(),
