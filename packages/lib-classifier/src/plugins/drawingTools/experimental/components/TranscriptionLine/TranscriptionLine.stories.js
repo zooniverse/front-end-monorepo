@@ -1,5 +1,4 @@
 import { withKnobs } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import React, { Component } from 'react'
 import { Box, Grommet } from 'grommet'
@@ -11,6 +10,7 @@ import ClassificationStore from '@store/ClassificationStore'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
 import { DrawingTaskFactory, ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import TranscriptionLine from './'
 
 const subject = SubjectFactory.build({
   locations: [
@@ -126,29 +126,35 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing Tools / TranscriptionLine', module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  title: 'Drawing tools / Transcription Line',
+  component: TranscriptionLine,
+  decorators: [withKnobs],
+  parameters: {
     viewport: {
       defaultViewport: 'responsive'
     }
-  })
-  .add('in drawing task, drawing complete', function () {
-    const stores = setupStores({ activeMark: false, finished: true, subtask: false })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
-  .add('in drawing task, active', function () {
-    const stores = setupStores({ activeMark: true, subtask: false })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
-  .add('in drawing task, active, with sub-task', function () {
-    const stores = setupStores({ activeMark: true, subtask: true })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
+  }
+}
+
+export function Complete() {
+  const stores = setupStores({ activeMark: false, subtask: false})
+  return (
+    <DrawingStory stores={stores} />
+  )
+}
+
+export function Active() {
+  const stores = setupStores({ activeMark: true, subtask: false })
+  return (
+    <DrawingStory stores={stores} />
+  )
+}
+
+export function Subtask() {
+  const stores = setupStores({ activeMark: true, subtask: true })
+  return (
+    <DrawingStory stores={stores} />
+  )
+}
 
