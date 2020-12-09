@@ -138,7 +138,7 @@ export default {
 }
 
 export function Complete() {
-  const stores = setupStores({ activeMark: false, finished: true, subtask: false})
+  const stores = setupStores({ activeMark: false, subtask: false})
   return (
     <DrawingStory stores={stores} />
   )
@@ -152,7 +152,7 @@ export function Active() {
 }
 
 export function Subtask() {
-  const stores = setupStores({ activeMark: true, subtask: true })
+  const stores = setupStores({ activeMark: true, finished: true, subtask: true })
   return (
     <DrawingStory stores={stores} />
   )
