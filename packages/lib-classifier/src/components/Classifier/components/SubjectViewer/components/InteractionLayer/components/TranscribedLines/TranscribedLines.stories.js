@@ -109,7 +109,7 @@ class TranscribedLinesStory extends React.Component {
   }
 }
 
-const stories = storiesOf('Drawing Tools | TranscribedLines', module)
+const stories = storiesOf('Drawing Tools / TranscribedLines', module)
 
 stories.addDecorator(withKnobs)
 

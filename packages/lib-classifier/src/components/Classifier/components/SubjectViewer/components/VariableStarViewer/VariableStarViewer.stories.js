@@ -18,10 +18,14 @@ const config = {
   }
 }
 
-const stories = storiesOf('Subject Viewers | VariableStarViewer', module)
-
-stories.addDecorator(withKnobs)
-// stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
+const stories = storiesOf('Subject Viewers / VariableStarViewer', module)
+  .addDecorator(withKnobs)
+  .addParameters({
+    component: VariableStarViewer,
+    viewPort: {
+      defaultViewport: 'responsive'
+    }
+  })
 
 const { colors } = zooTheme.global
 

@@ -7,7 +7,7 @@ const AnnotationsStore = types
   })
   .views(self => ({
     annotation (task) {
-      let taskAnnotation = task.createAnnotation()
+      let taskAnnotation
       self.annotations.forEach(annotation => {
         if (annotation.task === task.taskKey) {
           taskAnnotation = annotation
@@ -21,10 +21,18 @@ const AnnotationsStore = types
       self.reset()
     }
 
+    function createAnnotation(task) {
+      const taskAnnotation = task.createAnnotation()
+      self.annotations.put(taskAnnotation)
+      return taskAnnotation
+    }
+
     function addAnnotation (task, value) {
-      const annotation = self.annotation(task)
-      // new annotations must be added to this store before we can modify them
-      self.annotations.put(annotation)
+      let annotation = self.annotation(task)
+      if (!annotation) {
+        annotation = createAnnotation(task)
+      }
+      task.setAnnotation(annotation)
       if (value !== undefined) {
         annotation.update(value)
       }
