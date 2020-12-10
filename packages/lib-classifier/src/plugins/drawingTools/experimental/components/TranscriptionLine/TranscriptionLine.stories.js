@@ -53,18 +53,12 @@ const nodeMock = {
   })
 }
 
-function setupStores({ activeMark, finished, subtask }) {
-  if (subtask) {
-    drawingTaskSnapshot.tools[0].details = subTasksSnapshot
-  }
+function setupStores() {
+  drawingTaskSnapshot.tools[0].details = subTasksSnapshot
 
   const drawingTask = DrawingTask.create(drawingTaskSnapshot)
   drawingTask.setActiveTool(0)
   const transcriptionLine = drawingTask.activeTool.createMark({ x1: 100, y1: 100, x2: 200, y2: 105 })
-  if (subtask) {
-    transcriptionLine.setSubTaskVisibility(true, nodeMock)
-  }
-  if (finished) transcriptionLine.finish()
 
   const mockStores = {
     classifications: ClassificationStore.create(),
@@ -81,11 +75,25 @@ function setupStores({ activeMark, finished, subtask }) {
   }
 
   mockStores.classifications.createClassification(subject, workflow, project)
-  if (activeMark) {
-    mockStores.workflowSteps.activeStepTasks[0].setActiveMark(transcriptionLine.id)
-  }
 
   return mockStores
+}
+
+const stores = setupStores()
+
+function updateStores({ activeMark, finished, subtask }) {
+  const [ drawingTask ] = stores.workflowSteps.activeStepTasks
+  const [ transcriptionLine ] = drawingTask.marks
+  if (finished) {
+    drawingTask.setActiveMark(transcriptionLine.id)
+    transcriptionLine.finish()
+  }
+  transcriptionLine.setSubTaskVisibility(subtask, nodeMock)
+  if (activeMark) {
+    drawingTask.setActiveMark(transcriptionLine.id)
+  } else {
+    drawingTask.setActiveMark(undefined)
+  }
 }
 
 class DrawingStory extends Component {
@@ -129,7 +137,6 @@ class DrawingStory extends Component {
 export default {
   title: 'Drawing tools / Transcription Line',
   component: TranscriptionLine,
-  decorators: [withKnobs],
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -137,24 +144,39 @@ export default {
   }
 }
 
-export function Complete() {
-  const stores = setupStores({ activeMark: false, subtask: false})
+export function Complete(args) {
+  updateStores(args)
   return (
     <DrawingStory stores={stores} />
   )
 }
+Complete.args = {
+  activeMark: false,
+  finished: false,
+  subtask: false
+}
 
-export function Active() {
-  const stores = setupStores({ activeMark: true, subtask: false })
+export function Active(args) {
+  updateStores(args)
   return (
     <DrawingStory stores={stores} />
   )
 }
+Active.args = {
+  activeMark: true,
+  finished: false,
+  subtask: false
+}
 
-export function Subtask() {
-  const stores = setupStores({ activeMark: true, finished: true, subtask: true })
+export function Subtask(args) {
+  updateStores(args)
   return (
     <DrawingStory stores={stores} />
   )
+}
+Subtask.args = {
+  activeMark: true,
+  finished: true,
+  subtask: true
 }
 
